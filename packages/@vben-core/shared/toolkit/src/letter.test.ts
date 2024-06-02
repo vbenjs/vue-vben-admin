@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { capitalizeFirstLetter, toLowerCaseFirstLetter } from './letter';
+import {
+  capitalizeFirstLetter,
+  toCamelCase,
+  toLowerCaseFirstLetter,
+} from './letter';
 
 // 编写测试用例
 describe('capitalizeFirstLetter', () => {
@@ -51,5 +55,24 @@ describe('toLowerCaseFirstLetter', () => {
   it('should handle strings with special characters', () => {
     expect(toLowerCaseFirstLetter('!Special')).toBe('!Special');
     expect(toLowerCaseFirstLetter('123Number')).toBe('123Number');
+  });
+});
+
+describe('toCamelCase', () => {
+  it('should return the key if parentKey is empty', () => {
+    expect(toCamelCase('child', '')).toBe('child');
+  });
+
+  it('should combine parentKey and key in camel case', () => {
+    expect(toCamelCase('child', 'parent')).toBe('parentChild');
+  });
+
+  it('should handle empty key and parentKey', () => {
+    expect(toCamelCase('', '')).toBe('');
+  });
+
+  it('should handle key with capital letters', () => {
+    expect(toCamelCase('Child', 'parent')).toBe('parentChild');
+    expect(toCamelCase('Child', 'Parent')).toBe('ParentChild');
   });
 });

@@ -17,4 +17,16 @@ function toLowerCaseFirstLetter(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 
-export { capitalizeFirstLetter, toLowerCaseFirstLetter };
+/**
+ *  生成驼峰命名法的键名
+ * @param key
+ * @param parentKey
+ */
+function toCamelCase(key: string, parentKey: string): string {
+  if (!parentKey) {
+    return key;
+  }
+  return parentKey + key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+export { capitalizeFirstLetter, toCamelCase, toLowerCaseFirstLetter };

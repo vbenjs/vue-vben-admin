@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/helpers"
+    "directory": "packages/@vben-core/forward/helpers"
   },
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {

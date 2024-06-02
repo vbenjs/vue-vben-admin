@@ -1,21 +1,6 @@
 import type { Flatten } from '@vben-core/typings';
 
-import {
-  capitalizeFirstLetter,
-  toLowerCaseFirstLetter,
-} from '@vben-core/toolkit';
-
-/**
- *  生成驼峰命名法的键名
- * @param key
- * @param parentKey
- */
-function toCamelCase(key: string, parentKey: string): string {
-  if (!parentKey) {
-    return key;
-  }
-  return parentKey + key.charAt(0).toUpperCase() + key.slice(1);
-}
+import { capitalizeFirstLetter } from '@vben-core/toolkit';
 
 /**
  * 将嵌套对象扁平化
@@ -70,74 +55,7 @@ function flattenObject<T extends Record<string, any>>(
   return result as Flatten<T>;
 }
 
-/**
- * 将扁平对象转换为嵌套对象。
- *
- * @template T - 输入对象值的类型
- * @param {Record<string, T>} obj - 要转换的扁平对象
- * @param {number} level - 嵌套的层级
- * @returns {T} 嵌套对象
- *
- * @example
- * 将扁平对象转换为嵌套对象，嵌套层级为 1
- * const flatObject = {
- *   'commonAppName': 1,
- *   'anotherKeyExample': 2,
- *   'someOtherKey': 3
- * };
- * const nestedObject = toNestedObject(flatObject, 1);
- * console.log(nestedObject);
- * 输出:
- * {
- *   commonAppName: 1,
- *   anotherKeyExample: 2,
- *   someOtherKey: 3
- * }
- *
- * @example
- * 将扁平对象转换为嵌套对象，嵌套层级为 2
- * const flatObject = {
- *   'appCommonName': 1,
- *   'appAnotherKeyExample': 2,
- *   'appSomeOtherKey': 3
- * };
- * const nestedObject = toNestedObject(flatObject, 2);
- * console.log(nestedObject);
- * 输出:
- * {
- *   app: {
- *     commonName: 1,
- *     anotherKeyExample: 2,
- *     someOtherKey: 3
- *   }
- * }
- */
-
-function toNestedObject<T>(obj: Record<string, T>, level: number): T {
-  const result: any = {};
-
-  for (const key in obj) {
-    const keys = key.split(/(?=[A-Z])/);
-    // 将驼峰式分割为数组;
-    let current = result;
-
-    for (let i = 0; i < keys.length; i++) {
-      const lowerKey = keys[i].toLowerCase();
-      if (i === level - 1) {
-        const remainingKeys = keys.slice(i).join(''); // 保留后续部分作为键的一部分
-        current[toLowerCaseFirstLetter(remainingKeys)] = obj[key];
-        break;
-      } else {
-        current[lowerKey] = current[lowerKey] || {};
-        current = current[lowerKey];
-      }
-    }
-  }
-
-  return result as T;
-}
-
-export { flattenObject, toCamelCase, toNestedObject };
+export { flattenObject };
 
 // 定义递归类型，用于推断扁平化后的对象类型
 // 限制递归深度的辅助类型

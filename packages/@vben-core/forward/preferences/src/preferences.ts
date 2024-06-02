@@ -5,7 +5,7 @@ import type {
 } from '@vben-core/typings';
 
 import { StorageManager } from '@vben-core/cache';
-import { flattenObject, toNestedObject } from '@vben-core/helpers';
+import { flattenObject, nestedObject } from '@vben-core/helpers';
 import { convertToHslCssVar, merge } from '@vben-core/toolkit';
 
 import {
@@ -190,7 +190,7 @@ class PreferenceManager {
    * @param {FlattenObject<Preferences>} newValue - 新的扁平对象
    */
   private updateState(newValue: Flatten<Preferences>) {
-    const nestObj = toNestedObject(newValue, 2);
+    const nestObj = nestedObject(newValue, 2);
     Object.assign(this.state, merge(nestObj, this.state));
   }
 

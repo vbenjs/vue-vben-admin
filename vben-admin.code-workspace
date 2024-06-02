@@ -41,16 +41,16 @@
       "path": "internal/vite-config",
     },
     {
+      "name": "@vben-core/helpers",
+      "path": "packages/@vben-core/forward/helpers",
+    },
+    {
       "name": "@vben-core/preferences",
       "path": "packages/@vben-core/forward/preferences",
     },
     {
       "name": "@vben-core/stores",
       "path": "packages/@vben-core/forward/stores",
-    },
-    {
-      "name": "@vben-core/helpers",
-      "path": "packages/@vben-core/helpers",
     },
     {
       "name": "@vben-core/cache",
