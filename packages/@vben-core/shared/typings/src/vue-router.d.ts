@@ -42,7 +42,6 @@ interface RouteMeta {
    * @default false
    */
   hideInMenu?: boolean;
-
   /**
    * 当前路由在标签页不展现
    * @default false

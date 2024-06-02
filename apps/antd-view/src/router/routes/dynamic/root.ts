@@ -2,11 +2,12 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { BasicLayout } from '@/layouts';
 
-const rootRoutes: RouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
       hideChildrenInMenu: true,
+      orderNo: -1,
       title: '首页',
     },
     name: 'Home',
@@ -26,4 +27,4 @@ const rootRoutes: RouteRecordRaw[] = [
   },
 ];
 
-export { rootRoutes };
+export default routes;

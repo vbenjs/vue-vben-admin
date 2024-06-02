@@ -10,11 +10,14 @@ import { useTitle } from '@vueuse/core';
 
 import { dynamicRoutes } from '@/router/routes';
 
+// 不需要权限的页面白名单
+const WHITE_ROUTE_NAMES = new Set<string>([]);
+
 /**
  * 通用守卫配置
  * @param router
  */
-function configCommonGuard(router: Router) {
+function setupCommonGuard(router: Router) {
   // 记录已经加载的页面
   const loadedPaths = new Set<string>();
 
@@ -44,28 +47,11 @@ function configCommonGuard(router: Router) {
   });
 }
 
-// 不需要权限的页面白名单
-const WHITE_ROUTE_NAMES = new Set<string>([]);
-
-/**
- * 跳转登录页面
- * @param to
- */
-function loginPageMeta(to: RouteLocationNormalized) {
-  return {
-    path: LOGIN_PATH,
-    // 如不需要，直接删除 query
-    query: { redirect: encodeURIComponent(to.fullPath) },
-    // 携带当前跳转的页面，登录后重新跳转该页面
-    replace: true,
-  };
-}
-
 /**
  * 权限访问守卫配置
  * @param router
  */
-function configAccessGuard(router: Router) {
+function setupAccessGuard(router: Router) {
   router.beforeEach(async (to, from) => {
     const accessStore = useAccessStore();
     const accessToken = accessStore.getAccessToken;
@@ -123,7 +109,19 @@ function configAccessGuard(router: Router) {
   });
 }
 
-export { configAccessGuard };
+/**
+ * 登录页面信息
+ * @param to
+ */
+function loginPageMeta(to: RouteLocationNormalized) {
+  return {
+    path: LOGIN_PATH,
+    // 如不需要，直接删除 query
+    query: { redirect: encodeURIComponent(to.fullPath) },
+    // 携带当前跳转的页面，登录后重新跳转该页面
+    replace: true,
+  };
+}
 
 /**
  * 项目守卫配置
@@ -131,9 +129,9 @@ export { configAccessGuard };
  */
 function createRouterGuard(router: Router) {
   /** 通用 */
-  configCommonGuard(router);
+  setupCommonGuard(router);
   /** 权限访问 */
-  configAccessGuard(router);
+  setupAccessGuard(router);
 }
 
 export { createRouterGuard };

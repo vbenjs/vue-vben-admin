@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { BasicLayout } from '@/layouts';
 
-export const nestedRoutes: RouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
@@ -69,3 +69,5 @@ export const nestedRoutes: RouteRecordRaw[] = [
     ],
   },
 ];
+
+export default routes;

@@ -5,7 +5,7 @@ import { BasicLayout, IFrameView } from '@/layouts';
 import { VBEN_GITHUB_URL } from '@vben/constants';
 import { $t } from '@vben/locales/helper';
 
-export const vbenRoutes: RouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
@@ -49,3 +49,5 @@ export const vbenRoutes: RouteRecordRaw[] = [
     ],
   },
 ];
+
+export default routes;

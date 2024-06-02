@@ -4,7 +4,7 @@ import { traverseTreeValues } from '@vben/utils';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { createRouterGuard } from './guard';
-import { staticRoutes } from './routes';
+import { routes } from './routes';
 
 /**
  *  @zh_CN 创建vue-router实例
@@ -12,16 +12,14 @@ import { staticRoutes } from './routes';
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
   // 应该添加到路由的初始路由列表。
-  routes: staticRoutes,
-  scrollBehavior: (to, from, savedPosition) => {
-    if (to.path !== from.path) {
-      setTimeout(() => {
-        const app = document.querySelector('#app');
-        if (app) {
-          app.scrollTop = 0;
-        }
-      });
-    }
+  routes,
+  scrollBehavior: (_to, _from, savedPosition) => {
+    // if (to.path !== from.path) {
+    //   const app = document.querySelector('#app');
+    //   if (app) {
+    //     app.scrollTop = 0;
+    //   }
+    // }
     return savedPosition || { left: 0, top: 0 };
   },
 });
@@ -34,9 +32,9 @@ function resetRoutes() {
   const staticRouteNames = traverseTreeValues<
     RouteRecordRaw,
     RouteRecordName | undefined
-  >(staticRoutes, (route) => {
+  >(routes, (route) => {
     // 这些路由需要指定 name，防止在路由重置时，不能删除没有指定 name 的路由
-    if (!route.name) {
+    if (import.meta.env.DEV && !route.name) {
       console.warn(
         `The route with the path ${route.path} needs to specify the field name.`,
       );
@@ -45,8 +43,8 @@ function resetRoutes() {
   });
 
   const { getRoutes, hasRoute, removeRoute } = router;
-  const routes = getRoutes();
-  routes.forEach(({ name }) => {
+  const allRoutes = getRoutes();
+  allRoutes.forEach(({ name }) => {
     // 存在于路由表且非白名单才需要删除
     if (name && !staticRouteNames.includes(name) && hasRoute(name)) {
       removeRoute(name);

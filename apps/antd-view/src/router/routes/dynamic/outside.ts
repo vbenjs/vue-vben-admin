@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { BasicLayout, IFrameView } from '@/layouts';
 
-export const outsideRoutes: RouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
@@ -35,3 +35,5 @@ export const outsideRoutes: RouteRecordRaw[] = [
     ],
   },
 ];
+
+export default routes;

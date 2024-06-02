@@ -17,7 +17,7 @@ async function generatorMenus(
     router.getRoutes().map(({ name, path }) => [name, path]),
   );
 
-  const menus = mapTree<ExRouteRecordRaw, MenuRecordRaw>(routes, (route) => {
+  let menus = mapTree<ExRouteRecordRaw, MenuRecordRaw>(routes, (route) => {
     // 路由表的路径写法有多种，这里从router获取到最终的path并赋值
     const path = finalRoutesMap[route.name as string] ?? route.path;
 
@@ -65,6 +65,8 @@ async function generatorMenus(
     };
   });
 
+  // 对菜单进行排序
+  menus = menus.sort((a, b) => (a.orderNo || 999) - (b.orderNo || 999));
   return menus;
 }
 
