@@ -24,6 +24,7 @@
   "dependencies": {
     "@vben-core/helpers": "workspace:*",
     "@vben-core/preferences": "workspace:*",
+    "@vben-core/request": "workspace:*",
     "@vben-core/stores": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -31,7 +32,6 @@
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
     "@vben/locales": "workspace:*",
-    "@vben/request": "workspace:*",
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",

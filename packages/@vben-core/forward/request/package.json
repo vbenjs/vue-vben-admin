@@ -1,5 +1,5 @@
 {
-  "name": "@vben/request",
+  "name": "@vben-core/request",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/request"
+    "directory": "packages/@vben-core/forward/request"
   },
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
@@ -41,6 +41,11 @@
     }
   },
   "dependencies": {
+    "@vben-core/toolkit": "workspace:*",
+    "axios": "^1.7.2",
     "vue-request": "^2.0.4"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.22.0"
   }
 }

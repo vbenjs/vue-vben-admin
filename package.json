@@ -47,7 +47,7 @@
     "@changesets/cli": "^2.27.5",
     "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.13.0",
+    "@types/node": "^20.14.0",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/lint-staged-config": "workspace:*",

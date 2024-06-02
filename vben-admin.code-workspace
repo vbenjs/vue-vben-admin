@@ -49,6 +49,10 @@
       "path": "packages/@vben-core/forward/preferences",
     },
     {
+      "name": "@vben-core/request",
+      "path": "packages/@vben-core/forward/request",
+    },
+    {
       "name": "@vben-core/stores",
       "path": "packages/@vben-core/forward/stores",
     },
@@ -115,10 +119,6 @@
     {
       "name": "@vben/locales",
       "path": "packages/locales",
-    },
-    {
-      "name": "@vben/request",
-      "path": "packages/request",
     },
     {
       "name": "@vben/styles",
