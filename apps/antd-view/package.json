@@ -22,6 +22,7 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
+    "@vben-core/helpers": "workspace:*",
     "@vben-core/preferences": "workspace:*",
     "@vben-core/stores": "workspace:*",
     "@vben/common-ui": "workspace:*",
@@ -30,6 +31,7 @@
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
     "@vben/locales": "workspace:*",
+    "@vben/request": "workspace:*",
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",

@@ -3,7 +3,7 @@ import type { RouteRecordName, RouteRecordRaw } from 'vue-router';
 import { traverseTreeValues } from '@vben/utils';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { createRouteGuard } from './guard';
+import { createRouterGuard } from './guard';
 import { staticRoutes } from './routes';
 
 /**
@@ -54,6 +54,6 @@ function resetRoutes() {
   });
 }
 // 创建路由守卫
-createRouteGuard(router);
+createRouterGuard(router);
 
 export { resetRoutes, router };

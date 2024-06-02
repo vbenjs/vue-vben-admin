@@ -86,14 +86,20 @@ class PreferenceManager {
   }
 
   /**
+   *  从缓存中加载偏好设置。如果缓存中没有找到对应的偏好设置，则返回默认偏好设置。
+   */
+  private loadCachedPreferences() {
+    return this.cache?.getItem(STORAGE_KEY);
+  }
+
+  /**
    * 加载偏好设置
-   * 从缓存中加载偏好设置。如果缓存中没有找到对应的偏好设置，则返回默认偏好设置。
    * @returns {Preferences} 加载的偏好设置
    */
-  private loadPreferences(): Preferences {
-    const savedPreferences = this.cache?.getItem(STORAGE_KEY);
-    return savedPreferences || { ...defaultPreferences };
+  private loadPreferences(): Preferences | null {
+    return this.loadCachedPreferences() || { ...defaultPreferences };
   }
+
   /**
    * 监听状态和系统偏好设置的变化。
    */
@@ -239,7 +245,7 @@ class PreferenceManager {
     this.initialPreferences = merge({}, overrides, defaultPreferences);
 
     // 加载并合并当前存储的偏好设置
-    const mergedPreference = merge({}, this.loadPreferences(), overrides);
+    const mergedPreference = merge({}, this.loadCachedPreferences(), overrides);
 
     // 更新偏好设置
     this.updatePreferences(mergedPreference);
@@ -274,9 +280,10 @@ class PreferenceManager {
    * @param updates - 要更新的偏好设置
    */
   public updatePreferences(updates: DeepPartial<Preferences>) {
-    const mergedState = merge(updates, markRaw(this.state));
+    const mergedState = merge({}, updates, markRaw(this.state));
 
     Object.assign(this.state, mergedState);
+
     Object.assign(this.flattenedState, flattenObject(this.state));
 
     // 根据更新的键值执行相应的操作
@@ -286,4 +293,4 @@ class PreferenceManager {
 }
 
 const preferencesManager = new PreferenceManager();
-export { isDarkTheme, preferencesManager };
+export { PreferenceManager, isDarkTheme, preferencesManager };

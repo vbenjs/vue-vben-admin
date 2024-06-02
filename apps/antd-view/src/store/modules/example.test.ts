@@ -1,24 +1,17 @@
 import { createPinia, setActivePinia } from 'pinia';
-import {
-  //  beforeEach,
-  describe,
-  // expect,
-  it,
-} from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-// import { useAccessStore } from '../modules/access';
+import { useCounterStore } from './example';
 
 describe('useCounterStore', () => {
-  it('app Name with test', () => {
+  beforeEach(() => {
     setActivePinia(createPinia());
-    // let referenceStore = usePreferencesStore();
+  });
 
-    // beforeEach(() => {
-    //   referenceStore = usePreferencesStore();
-    // });
+  it('count test', () => {
+    setActivePinia(createPinia());
+    const counterStore = useCounterStore();
 
-    // expect(referenceStore.appName).toBe('vben-admin');
-    // referenceStore.setAppName('vbenAdmin');
-    // expect(referenceStore.getAppName).toBe('vbenAdmin');
+    expect(counterStore.count).toBe(0);
   });
 });

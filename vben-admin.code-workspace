@@ -117,6 +117,10 @@
       "path": "packages/locales",
     },
     {
+      "name": "@vben/request",
+      "path": "packages/request",
+    },
+    {
       "name": "@vben/styles",
       "path": "packages/styles",
     },

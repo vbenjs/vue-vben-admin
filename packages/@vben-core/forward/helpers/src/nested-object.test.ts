@@ -94,4 +94,22 @@ describe('nestedObject', () => {
 
     expect(nestedObject(flatObject, 1)).toEqual(expectedNestedObject);
   });
+
+  it('should correctly nest an object based on the specified level', () => {
+    const obj = {
+      oneFiveSix: 'Value156',
+      oneTwoFour: 'Value124',
+      oneTwoThree: 'Value123',
+    };
+
+    const nested = nestedObject(obj, 2);
+
+    expect(nested).toEqual({
+      one: {
+        fiveSix: 'Value156',
+        twoFour: 'Value124',
+        twoThree: 'Value123',
+      },
+    });
+  });
 });

@@ -94,6 +94,9 @@ importers:
 
   apps/antd-view:
     dependencies:
+      '@vben-core/helpers':
+        specifier: workspace:*
+        version: link:../../packages/@vben-core/forward/helpers
       '@vben-core/preferences':
         specifier: workspace:*
         version: link:../../packages/@vben-core/forward/preferences
@@ -118,6 +121,9 @@ importers:
       '@vben/locales':
         specifier: workspace:*
         version: link:../../packages/locales
+      '@vben/request':
+        specifier: workspace:*
+        version: link:../../packages/request
       '@vben/styles':
         specifier: workspace:*
         version: link:../../packages/styles
@@ -465,6 +471,9 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../shared/typings
+      vue-router:
+        specifier: ^4.3.2
+        version: 4.3.2(vue@3.4.27(typescript@5.4.5))
 
   packages/@vben-core/forward/preferences:
     dependencies:
@@ -756,9 +765,6 @@ importers:
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
-      vue-hooks-plus:
-        specifier: ^2.1.0
-        version: 2.1.0(vue@3.4.27(typescript@5.4.5))
 
   packages/icons:
     dependencies:
@@ -780,6 +786,12 @@ importers:
       vue-i18n:
         specifier: ^9.13.1
         version: 9.13.1(vue@3.4.27(typescript@5.4.5))
+
+  packages/request:
+    dependencies:
+      vue-request:
+        specifier: ^2.0.4
+        version: 2.0.4(vue@3.4.27(typescript@5.4.5))
 
   packages/styles:
     dependencies:
@@ -2375,9 +2387,6 @@ packages:
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
 
-  '@types/js-cookie@3.0.6':
-    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
-
   '@types/jsdom@21.1.7':
     resolution: {integrity: sha512-yOriVnggzrnQ3a9OKOCxaVuSug3w3/SbOj5i7VwXWZEyUNl3bLF9V3MfxGbZKuwqJOQyRfqXyROBB1CoZLFWzA==}
 
@@ -3432,10 +3441,6 @@ packages:
   decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
 
-  decode-uri-component@0.2.2:
-    resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
-    engines: {node: '>=0.10'}
-
   decompress-response@6.0.0:
     resolution: {integrity: sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==}
     engines: {node: '>=10'}
@@ -3998,10 +4003,6 @@ packages:
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
-
-  filter-obj@1.1.0:
-    resolution: {integrity: sha512-8rXg1ZnX7xzy2NGDVkBVaAy+lSlPNwad13BtgSlLuxfIslyt5Vg64U7tFcCt4WS1R0hvtnQybT/IyCkGZ3DpXQ==}
-    engines: {node: '>=0.10.0'}
 
   finalhandler@1.1.2:
     resolution: {integrity: sha512-aAWcW57uxVNrQZqFXjITpW3sIUQmHGG3qSb9mUah9MgMC4NeWhNOlNjXEYq3HjRAvL6arUviZGGJsBg6z0zsWA==}
@@ -6029,14 +6030,6 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  qs@6.12.1:
-    resolution: {integrity: sha512-zWmv4RSuB9r2mYQw3zxQuHWeU+42aKi1wWig/j4ele4ygELZ7PEO6MM7rim9oAQH2A5MWfsAVf/jPvTPgCbvUQ==}
-    engines: {node: '>=0.6'}
-
-  query-string@7.1.3:
-    resolution: {integrity: sha512-hh2WYhq4fi8+b+/2Kg9CEge4fDPvHS534aOOvOZeQ3+Vf2mCFsaFBYj0i+iXcAq6I9Vzp5fjMFBlONvayDC1qg==}
-    engines: {node: '>=6'}
-
   querystringify@2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
 
@@ -6275,10 +6268,6 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  screenfull@5.2.0:
-    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==}
-    engines: {node: '>=0.10.0'}
-
   scroll-into-view-if-needed@2.2.31:
     resolution: {integrity: sha512-dGCXy99wZQivjmjIqihaBQNjryrz5rueJY7eHfTdyWEiR4ttYpsajb14rn9s5d4DY4EcY6+4+U/maARBXJedkA==}
 
@@ -6456,10 +6445,6 @@ packages:
     resolution: {integrity: sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ==}
     engines: {node: '>=0.10.0'}
 
-  split-on-first@1.1.0:
-    resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
-    engines: {node: '>=6'}
-
   split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
@@ -6492,10 +6477,6 @@ packages:
 
   stream-transform@2.1.3:
     resolution: {integrity: sha512-9GHUiM5hMiCi6Y03jD2ARC1ettBXkQBoQAe7nJsPknnI0ow10aXjTnew8QtYQmLjzn974BnmWEAJgCY6ZP1DeQ==}
-
-  strict-uri-encode@2.0.0:
-    resolution: {integrity: sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==}
-    engines: {node: '>=4'}
 
   string-argv@0.3.2:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
@@ -7189,16 +7170,21 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  vue-hooks-plus@2.1.0:
-    resolution: {integrity: sha512-UkwmyoFX8WlfHgkqgDJ1jTLvVohtspRR8JFIZYCAgG01nqYVxoTiHZbEhOdIMH1Ba0CxP/xL26knT1+a2w5JpQ==}
-    peerDependencies:
-      vue: 3.4.27
-
   vue-i18n@9.13.1:
     resolution: {integrity: sha512-mh0GIxx0wPtPlcB1q4k277y0iKgo25xmDPWioVVYanjPufDBpvu5ySTjP5wOrSvlYQ2m1xI+CFhGdauv/61uQg==}
     engines: {node: '>= 16'}
     peerDependencies:
       vue: 3.4.27
+
+  vue-request@2.0.4:
+    resolution: {integrity: sha512-+Tu5rDy6ItF9UdD21Mmbjiq5Pq6NZSN9juH72hNQTMn1whHh4KZPTKWVLK2YS4nzbuEnPs+82G91AA2Fgd93mg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: 3.4.27
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
 
   vue-router@4.3.2:
     resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
@@ -9102,8 +9088,6 @@ snapshots:
 
   '@types/http-cache-semantics@4.0.4': {}
 
-  '@types/js-cookie@3.0.6': {}
-
   '@types/jsdom@21.1.7':
     dependencies:
       '@types/node': 20.13.0
@@ -10322,8 +10306,6 @@ snapshots:
 
   decimal.js@10.4.3: {}
 
-  decode-uri-component@0.2.2: {}
-
   decompress-response@6.0.0:
     dependencies:
       mimic-response: 3.1.0
@@ -11039,8 +11021,6 @@ snapshots:
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
-
-  filter-obj@1.1.0: {}
 
   finalhandler@1.1.2:
     dependencies:
@@ -13015,17 +12995,6 @@ snapshots:
       pngjs: 5.0.0
       yargs: 15.4.1
 
-  qs@6.12.1:
-    dependencies:
-      side-channel: 1.0.6
-
-  query-string@7.1.3:
-    dependencies:
-      decode-uri-component: 0.2.2
-      filter-obj: 1.1.0
-      split-on-first: 1.1.0
-      strict-uri-encode: 2.0.0
-
   querystringify@2.2.0: {}
 
   queue-microtask@1.2.3: {}
@@ -13278,8 +13247,6 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  screenfull@5.2.0: {}
-
   scroll-into-view-if-needed@2.2.31:
     dependencies:
       compute-scroll-into-view: 1.0.20
@@ -13457,8 +13424,6 @@ snapshots:
 
   speakingurl@14.0.1: {}
 
-  split-on-first@1.1.0: {}
-
   split2@4.2.0: {}
 
   split@0.3.3:
@@ -13486,8 +13451,6 @@ snapshots:
   stream-transform@2.1.3:
     dependencies:
       mixme: 0.5.10
-
-  strict-uri-encode@2.0.0: {}
 
   string-argv@0.3.2: {}
 
@@ -14355,23 +14318,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-hooks-plus@2.1.0(vue@3.4.27(typescript@5.4.5)):
-    dependencies:
-      '@types/js-cookie': 3.0.6
-      '@vue/devtools-api': 6.6.2
-      js-cookie: 3.0.5
-      lodash: 4.17.21
-      qs: 6.12.1
-      query-string: 7.1.3
-      screenfull: 5.2.0
-      vue: 3.4.27(typescript@5.4.5)
-
   vue-i18n@9.13.1(vue@3.4.27(typescript@5.4.5)):
     dependencies:
       '@intlify/core-base': 9.13.1
       '@intlify/shared': 9.13.1
       '@vue/devtools-api': 6.6.2
       vue: 3.4.27(typescript@5.4.5)
+
+  vue-request@2.0.4(vue@3.4.27(typescript@5.4.5)):
+    dependencies:
+      vue: 3.4.27(typescript@5.4.5)
+      vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
 
   vue-router@4.3.2(vue@3.4.27(typescript@5.4.5)):
     dependencies:

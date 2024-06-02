@@ -45,7 +45,6 @@ const defaultPreferences: Preferences = {
     split: true,
     styleType: 'rounded',
   },
-
   shortcutKeys: { enable: true },
   sidebar: {
     collapse: false,
@@ -56,17 +55,14 @@ const defaultPreferences: Preferences = {
     hidden: false,
     width: 240,
   },
-
   tabbar: {
     enable: true,
     keepAlive: true,
     showIcon: true,
   },
-
   theme: {
     colorPrimary: 'hsl(211 91% 39%)',
   },
-
   transition: {
     enable: true,
     name: 'fade-slide',

@@ -9,5 +9,6 @@ export const useCounterStore = defineStore('counter', {
   getters: {
     double: (state) => state.count * 2,
   },
+  persist: [],
   state: () => ({ count: 0 }),
 });

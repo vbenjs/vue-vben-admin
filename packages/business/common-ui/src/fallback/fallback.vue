@@ -6,7 +6,7 @@ import { $t } from '@vben/locales';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import FeedbackIcon from './fallback-icon.vue';
+import FeedbackIcon from './icons/fallback-icon.vue';
 
 interface Props {
   /**

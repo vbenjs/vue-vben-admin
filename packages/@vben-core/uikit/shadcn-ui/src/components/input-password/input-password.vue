@@ -44,7 +44,7 @@ const show = ref(false);
       </template>
     </VbenInput>
     <div
-      class="hover:text-foreground text-foreground/60 absolute inset-y-0 right-0 top-[10px] flex cursor-pointer pr-3 text-lg leading-5"
+      class="hover:text-foreground text-foreground/60 absolute inset-y-0 right-0 top-3 flex cursor-pointer pr-3 text-lg leading-5"
       @click="show = !show"
     >
       <IcOutlineVisibility v-if="show" />

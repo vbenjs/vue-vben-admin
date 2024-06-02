@@ -28,6 +28,9 @@
       "types": "./src/index.ts",
       "development": "./src/index.ts",
       "default": "./dist/index.mjs"
+    },
+    "./vue-router": {
+      "types": "./vue-router.d.ts"
     }
   },
   "publishConfig": {
