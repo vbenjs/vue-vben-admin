@@ -1,9 +1,8 @@
 <template>
   <svg
-    data-name="Layer 1"
-    height="571.14799"
-    viewBox="0 0 860.13137 571.14799"
-    width="860.13137"
+    height="571"
+    viewBox="0 0 860 571"
+    width="860"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >

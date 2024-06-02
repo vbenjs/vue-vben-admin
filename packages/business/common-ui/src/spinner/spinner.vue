@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<Props>(), {
   minLoadingTime: 200,
 });
 const startTime = ref(0);
-const endTime = ref(0);
 const showSpinner = ref(false);
 const timer = ref<TimeoutHandle>();
 
@@ -37,9 +36,7 @@ watch(
     }
     startTime.value = performance.now();
     timer.value = setTimeout(() => {
-      endTime.value = performance.now();
-
-      const loadingTime = endTime.value - startTime.value;
+      const loadingTime = performance.now() - startTime.value;
 
       showSpinner.value = loadingTime > props.minLoadingTime;
     }, props.minLoadingTime);
@@ -55,12 +52,14 @@ watch(
     v-if="showSpinner"
     class="flex-center bg-overlay absolute left-0 top-0 size-full backdrop-blur-sm"
   >
-    <div class="loader relative h-12 w-12"></div>
+    <div
+      class="loader before:bg-primary/50 after:bg-primary relative h-12 w-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:animate-[loader-shadow-ani_0.5s_linear_infinite] before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:animate-[loader-jump-ani_0.5s_linear_infinite] after:rounded after:content-['']"
+    ></div>
   </div>
 </template>
 
-<style scoped>
-@keyframes jump-ani {
+<style>
+@keyframes loader-jump-ani {
   15% {
     border-bottom-right-radius: 3px;
   }
@@ -83,7 +82,7 @@ watch(
   }
 }
 
-@keyframes shadow-ani {
+@keyframes loader-shadow-ani {
   0%,
   100% {
     transform: scale(1, 1);
@@ -91,16 +90,6 @@ watch(
 
   50% {
     transform: scale(1.2, 1);
-  }
-}
-
-.loader {
-  &::before {
-    @apply bg-primary/50 absolute left-0 top-[60px] h-[5px] w-12 animate-[shadow-ani_0.5s_linear_infinite] rounded-[50%] content-[''];
-  }
-
-  &::after {
-    @apply bg-primary absolute left-0 top-0 h-full w-full animate-[jump-ani_0.5s_linear_infinite] rounded content-[''];
   }
 }
 </style>

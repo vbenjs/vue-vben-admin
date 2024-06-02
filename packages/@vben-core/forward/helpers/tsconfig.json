@@ -4,5 +4,6 @@
   "compilerOptions": {
     "types": ["@vben-core/typings/vue-router"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

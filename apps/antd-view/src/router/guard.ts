@@ -10,9 +10,6 @@ import { useTitle } from '@vueuse/core';
 
 import { dynamicRoutes } from '@/router/routes';
 
-// 不需要权限的页面白名单
-const WHITE_ROUTE_NAMES = new Set<string>([]);
-
 /**
  * 通用守卫配置
  * @param router
@@ -67,12 +64,6 @@ function setupAccessGuard(router: Router) {
         return true;
       }
 
-      // 白名单路由列表检查
-      // TODO: 不是很需要，通过 ignoreAccess 也可以做到，考虑删除
-      if (WHITE_ROUTE_NAMES.has(to.name as string)) {
-        return true;
-      }
-
       // 没有访问权限，跳转登录页面
       if (to.fullPath !== LOGIN_PATH) {
         return loginPageMeta(to);
@@ -99,11 +90,10 @@ function setupAccessGuard(router: Router) {
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(menus);
     accessStore.setAccessRoutes(routes);
-    const redirectPath = (from.query.redirect || to.path) as string;
-    const redirect = decodeURIComponent(redirectPath);
+    const redirectPath = (from.query.redirect ?? to.path) as string;
 
     return {
-      path: redirect,
+      path: decodeURIComponent(redirectPath),
       replace: true,
     };
   });

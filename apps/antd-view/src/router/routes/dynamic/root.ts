@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       hideChildrenInMenu: true,
-      orderNo: -1,
+      order: -1,
       title: '首页',
     },
     name: 'Home',

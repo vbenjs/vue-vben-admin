@@ -13,7 +13,7 @@
     "scripts/*/src/**/*.json"
   ],
   "globalEnv": ["NODE_ENV"],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
@@ -26,9 +26,7 @@
       "persistent": true
     },
     "typecheck": {
-      "outputs": [],
-      "outputMode": "errors-only"
-      // "outputMode": "new-only"
+      "outputs": []
     }
   }
 }

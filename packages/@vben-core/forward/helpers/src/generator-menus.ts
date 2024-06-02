@@ -30,7 +30,7 @@ async function generatorMenus(
       badgeVariants,
       hideChildrenInMenu = false,
       icon,
-      orderNo,
+      order,
       target,
       title = '',
     } = meta || {};
@@ -57,7 +57,7 @@ async function generatorMenus(
       badgeVariants,
       icon,
       name,
-      orderNo,
+      order,
       parent: route.parent,
       parents: route.parents,
       path: resultPath as string,
@@ -66,7 +66,7 @@ async function generatorMenus(
   });
 
   // 对菜单进行排序
-  menus = menus.sort((a, b) => (a.orderNo || 999) - (b.orderNo || 999));
+  menus = menus.sort((a, b) => (a.order || 999) - (b.order || 999));
   return menus;
 }
 

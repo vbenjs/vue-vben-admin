@@ -75,7 +75,7 @@ interface RouteMeta {
   /**
    * 用于路由->菜单排序
    */
-  orderNo?: number;
+  order?: number;
   /**
    * 外链-跳转路径
    */

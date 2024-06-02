@@ -48,7 +48,7 @@ interface MenuRecordRaw extends MenuRecordBadgeRaw {
   /**
    * 排序号
    */
-  orderNo?: number;
+  order?: number;
   /**
    * 父级路径
    */

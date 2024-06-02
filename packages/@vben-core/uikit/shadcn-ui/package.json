@@ -30,6 +30,11 @@
       "types": "./src/index.ts",
       "development": "./src/index.ts",
       "default": "./dist/index.mjs"
+    },
+    "./*": {
+      "types": "./src/*.ts",
+      "development": "./src/*.ts",
+      "default": "./dist/*.mjs"
     }
   },
   "publishConfig": {
@@ -48,7 +53,7 @@
     "@vueuse/core": "^10.10.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "2.1.1",
-    "radix-vue": "^1.8.2",
+    "radix-vue": "^1.8.3",
     "tailwind-merge": "^2.3.0",
     "vue": "3.4.27",
     "vue-sonner": "^1.1.2"

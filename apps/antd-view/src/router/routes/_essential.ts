@@ -74,7 +74,7 @@ const essentialRoutes: RouteRecordRaw[] = [
       hideInBreadcrumb: true,
       hideInMenu: true,
       hideInTab: true,
-      ignoreAccess: true,
+      // ignoreAccess: true,
       title: 'Fallback',
     },
     name: 'Fallback',

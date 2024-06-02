@@ -18,33 +18,23 @@ const iframeRoutes = computed(() => {
   if (!enableTabbar.value) {
     return route.meta.iframeSrc ? [route] : [];
   }
-  const tabs = tabsStore.getTabs.filter((tab) => !!tab.meta?.iframeSrc);
-  return tabs;
+  return tabsStore.getTabs.filter((tab) => !!tab.meta?.iframeSrc);
 });
 
-const tabNames = computed(() => {
-  const names = new Set<string>();
-  iframeRoutes.value.forEach((item) => {
-    names.add(item.name as string);
-  });
-  return names;
-});
+const tabNames = computed(
+  () => new Set(iframeRoutes.value.map((item) => item.name as string)),
+);
 
 const showIframe = computed(() => iframeRoutes.value.length > 0);
 
 function routeShow(tabItem: RouteLocationNormalized) {
-  const { name } = tabItem;
-  return name === route.name;
+  return tabItem.name === route.name;
 }
 
 function canRender(tabItem: RouteLocationNormalized) {
   const { meta, name } = tabItem;
 
-  if (!name) {
-    return false;
-  }
-
-  if (!tabsStore.renderRouteView) {
+  if (!name || !tabsStore.renderRouteView) {
     return false;
   }
 
@@ -60,7 +50,7 @@ function canRender(tabItem: RouteLocationNormalized) {
   ) {
     return false;
   }
-  return tabsStore.getTabs.findIndex((tab) => tab.name === name) !== -1;
+  return tabsStore.getTabs.some((tab) => tab.name === name);
 }
 
 function hideLoading() {
