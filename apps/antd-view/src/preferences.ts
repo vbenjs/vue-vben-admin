@@ -1,4 +1,5 @@
-import type { DeepPartial, Preferences } from '@vben/types';
+import type { DeepPartial } from '@vben/types';
+import type { Preferences } from '@vben-core/preferences';
 
 /**
  * @description 项目配置文件

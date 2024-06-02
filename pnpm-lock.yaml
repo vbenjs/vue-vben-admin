@@ -771,9 +771,6 @@ importers:
       '@intlify/core-base':
         specifier: ^9.13.1
         version: 9.13.1
-      '@vben-core/preferences':
-        specifier: workspace:*
-        version: link:../@vben-core/forward/preferences
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../@vben-core/shared/typings
