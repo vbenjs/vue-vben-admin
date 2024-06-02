@@ -1,7 +1,7 @@
 import type { UserApiType } from '@/apis/types';
 import type { UserInfo } from '@vben/types';
 
-import { request } from '@/forward/request';
+import { request } from '@/forward';
 
 /**
  * 登录

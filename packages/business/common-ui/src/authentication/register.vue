@@ -19,14 +19,19 @@ interface Props {
    * @zh_CN 是否处于加载处理状态
    */
   loading?: boolean;
+  /**
+   * @zh_CN 登陆路径
+   */
+  loginPath?: string;
 }
 
 defineOptions({
   name: 'RegisterForm',
 });
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   loading: false,
+  loginPath: '/auth/login',
 });
 
 const emit = defineEmits<{
@@ -72,8 +77,8 @@ function handleSubmit() {
   });
 }
 
-function handleGo(path: string) {
-  router.push(path);
+function goLogin() {
+  router.push(props.loginPath);
 }
 </script>
 
@@ -154,7 +159,7 @@ function handleGo(path: string) {
       {{ $t('authentication.already-account') }}
       <span
         class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
-        @click="handleGo('/auth/login')"
+        @click="goLogin()"
       >
         {{ $t('authentication.go-login') }}
       </span>

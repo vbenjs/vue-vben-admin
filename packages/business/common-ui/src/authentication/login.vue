@@ -17,9 +17,64 @@ import type { LoginEmits } from './typings';
 
 interface Props {
   /**
+   * @zh_CN 验证码登录路径
+   */
+  codeLoginPath?: string;
+
+  /**
+   * @zh_CN 忘记密码路径
+   */
+  forgetPasswordPath?: string;
+
+  /**
    * @zh_CN 是否处于加载处理状态
    */
   loading?: boolean;
+
+  /**
+   * @zh_CN 密码占位符
+   */
+  passwordPlaceholder?: string;
+
+  /**
+   * @zh_CN 二维码登录路径
+   */
+  qrCodeLoginPath?: string;
+
+  /**
+   * @zh_CN 注册路径
+   */
+  registerPath?: string;
+
+  /**
+   * @zh_CN 是否显示验证码登录
+   */
+  showCodeLogin?: boolean;
+
+  /**
+   * @zh_CN 是否显示忘记密码
+   */
+  showForgetPassword?: boolean;
+
+  /**
+   * @zh_CN 是否显示二维码登录
+   */
+  showQrcodeLogin?: boolean;
+
+  /**
+   * @zh_CN 是否显示注册按钮
+   */
+  showRegister?: boolean;
+
+  /**
+   * @zh_CN 是否显示第三方登录
+   */
+  showThirdPartyLogin?: boolean;
+
+  /**
+   * @zh_CN 用户名占位符
+   */
+  usernamePlaceholder?: string;
 }
 
 defineOptions({
@@ -27,7 +82,18 @@ defineOptions({
 });
 
 withDefaults(defineProps<Props>(), {
+  codeLoginPath: '/auth/code-login',
+  forgetPasswordPath: '/auth/forget-password',
   loading: false,
+  passwordPlaceholder: '',
+  qrCodeLoginPath: '/auth/qrcode-login',
+  registerPath: '/auth/register',
+  showCodeLogin: true,
+  showForgetPassword: true,
+  showQrcodeLogin: true,
+  showRegister: true,
+  showThirdPartyLogin: true,
+  usernamePlaceholder: '',
 });
 
 const emit = defineEmits<{
@@ -39,6 +105,7 @@ const router = useRouter();
 const REMEMBER_ME_KEY = 'REMEMBER_ME_USERNAME';
 
 const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
+
 const formState = reactive({
   password: '',
   rememberMe: !!localUsername,
@@ -81,7 +148,7 @@ function handleGo(path: string) {
 </script>
 
 <template>
-  <div @keypress.enter="handleSubmit">
+  <div @keypress.enter.prevent="handleSubmit">
     <Title>
       {{ $t('authentication.welcome-back') }} 👋🏻
       <template #desc>
@@ -97,7 +164,7 @@ function handleGo(path: string) {
       :error-tip="$t('authentication.username-tip')"
       :label="$t('authentication.username')"
       name="username"
-      :placeholder="$t('authentication.username')"
+      :placeholder="usernamePlaceholder || $t('authentication.username')"
       type="text"
       required
       :autofocus="false"
@@ -108,7 +175,7 @@ function handleGo(path: string) {
       :error-tip="$t('authentication.password-tip')"
       :label="$t('authentication.password')"
       name="password"
-      :placeholder="$t('authentication.password')"
+      :placeholder="passwordPlaceholder || $t('authentication.password')"
       required
       type="password"
     />
@@ -121,8 +188,9 @@ function handleGo(path: string) {
       </div>
 
       <span
+        v-if="showForgetPassword"
         class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
-        @click="handleGo('/auth/forget-password')"
+        @click="handleGo(forgetPasswordPath)"
       >
         {{ $t('authentication.forget-password') }}
       </span>
@@ -136,16 +204,18 @@ function handleGo(path: string) {
 
     <div class="mb-2 mt-4 flex items-center justify-between">
       <VbenButton
+        v-if="showCodeLogin"
         variant="outline"
         class="w-1/2"
-        @click="handleGo('/auth/code-login')"
+        @click="handleGo(codeLoginPath)"
       >
         {{ $t('authentication.mobile-login') }}
       </VbenButton>
       <VbenButton
+        v-if="showQrcodeLogin"
         variant="outline"
         class="ml-4 w-1/2"
-        @click="handleGo('/auth/qrcode-login')"
+        @click="handleGo(qrCodeLoginPath)"
       >
         {{ $t('authentication.qrcode-login') }}
       </VbenButton>
@@ -160,13 +230,13 @@ function handleGo(path: string) {
     </div>
 
     <!-- 第三方登录 -->
-    <ThirdPartyLogin />
+    <ThirdPartyLogin v-if="showThirdPartyLogin" />
 
-    <div class="text-center text-sm">
+    <div v-if="showRegister" class="text-center text-sm">
       {{ $t('authentication.account-tip') }}
       <span
         class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
-        @click="handleGo('/auth/register')"
+        @click="handleGo(registerPath)"
       >
         {{ $t('authentication.create-account') }}
       </span>

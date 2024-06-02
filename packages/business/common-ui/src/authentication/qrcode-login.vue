@@ -8,8 +8,24 @@ import { useRouter } from 'vue-router';
 
 import Title from './auth-title.vue';
 
+interface Props {
+  /**
+   * @zh_CN 是否处于加载处理状态
+   */
+  loading?: boolean;
+  /**
+   * @zh_CN 登陆路径
+   */
+  loginPath?: string;
+}
+
 defineOptions({
   name: 'AuthenticationQrCodeLogin',
+});
+
+const props = withDefaults(defineProps<Props>(), {
+  loading: false,
+  loginPath: '/auth/login',
 });
 
 const router = useRouter();
@@ -21,8 +37,8 @@ const qrcode = useQRCode(text, {
   margin: 4,
 });
 
-function handleGo(path: string) {
-  router.push(path);
+function goLogin() {
+  router.push(props.loginPath);
 }
 </script>
 
@@ -44,11 +60,7 @@ function handleGo(path: string) {
       </p>
     </div>
 
-    <VbenButton
-      class="mt-4 w-full"
-      variant="outline"
-      @click="handleGo('/auth/login')"
-    >
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>

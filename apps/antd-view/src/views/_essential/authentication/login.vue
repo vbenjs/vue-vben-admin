@@ -67,5 +67,10 @@ const loginLoading = computed(() => {
 </script>
 
 <template>
-  <AuthenticationLogin :loading="loginLoading" @submit="handleLogin" />
+  <AuthenticationLogin
+    username-placeholder="vben"
+    password-placeholder="123456"
+    :loading="loginLoading"
+    @submit="handleLogin"
+  />
 </template>

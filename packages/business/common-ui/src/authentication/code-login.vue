@@ -14,14 +14,19 @@ interface Props {
    * @zh_CN 是否处于加载处理状态
    */
   loading?: boolean;
+  /**
+   * @zh_CN 登陆路径
+   */
+  loginPath?: string;
 }
 
 defineOptions({
   name: 'AuthenticationCodeLogin',
 });
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   loading: false,
+  loginPath: '/auth/login',
 });
 
 const emit = defineEmits<{
@@ -76,8 +81,8 @@ function handleSubmit() {
   });
 }
 
-function handleGo(path: string) {
-  router.push(path);
+function goLogin() {
+  router.push(props.loginPath);
 }
 
 async function handleSendCode() {
@@ -145,11 +150,7 @@ onBeforeUnmount(() => {
     <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">
       {{ $t('common.login') }}
     </VbenButton>
-    <VbenButton
-      class="mt-4 w-full"
-      variant="outline"
-      @click="handleGo('/auth/login')"
-    >
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>
