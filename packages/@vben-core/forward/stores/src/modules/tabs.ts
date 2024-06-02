@@ -251,7 +251,7 @@ const useTabsStore = defineStore('tabs', {
         this._close(currentRoute.value);
         await this._goToTab(before, router);
       } else {
-        console.error('关闭标签页失败,当前只剩一个标签页。');
+        console.error('Failed to close the tab; only one tab remains open.');
       }
     },
     /**

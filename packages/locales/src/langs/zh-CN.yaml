@@ -47,7 +47,7 @@ authentication:
   username: 账号
   password: 密码
   username-tip: 请输入用户名
-  password-tip: 请输入用户名
+  password-tip: 请输入密码
   remember-me: 记住账号
   create-an-account: 创建一个账号
   create-account: 创建账号

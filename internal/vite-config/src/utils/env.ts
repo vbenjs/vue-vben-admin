@@ -36,7 +36,7 @@ export async function getEnvConfig(
       const env = dotenv.parse(envPath);
       envConfig = { ...envConfig, ...env };
     } catch (error) {
-      console.error(`Error in parsing ${confFile}`, error);
+      console.error(`Error while parsing ${confFile}`, error);
     }
   }
   const reg = new RegExp(`^(${match})`);

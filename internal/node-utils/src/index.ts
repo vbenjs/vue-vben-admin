@@ -9,6 +9,7 @@ export {
   getPackages,
   getPackagesSync,
 } from './monorepo';
+export { toPosixPath } from './path';
 export { prettierFormat } from './prettier';
 export type { Package } from '@manypkg/get-packages';
 export { consola } from 'consola';

@@ -36,7 +36,7 @@ function resetRoutes() {
     // 这些路由需要指定 name，防止在路由重置时，不能删除没有指定 name 的路由
     if (import.meta.env.DEV && !route.name) {
       console.warn(
-        `The route with the path ${route.path} needs to specify the field name.`,
+        `The route with the path ${route.path} needs to have the field name specified.`,
       );
     }
     return route.name;

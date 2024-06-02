@@ -10,6 +10,7 @@ import {
   getPackages,
   gitAdd,
   prettierFormat,
+  toPosixPath,
 } from '@vben/node-utils';
 
 const CODE_WORKSPACE_FILE = join('vben-admin.code-workspace');
@@ -29,7 +30,7 @@ async function createCodeWorkspace({
     const { dir, packageJson } = pkg;
     return {
       name: packageJson.name,
-      path: relative(rootDir, dir),
+      path: toPosixPath(relative(rootDir, dir)),
     };
   });
 
