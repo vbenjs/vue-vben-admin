@@ -146,6 +146,7 @@ export function useDataSource(
     },
     {
       deep: true,
+      immediate: true,
     },
   );
 
