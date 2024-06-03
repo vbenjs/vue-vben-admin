@@ -1,5 +1,5 @@
 import { createLoading } from '@/components/Loading';
-import type { Directive, App } from 'vue';
+import type { App, Directive } from 'vue';
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
@@ -28,7 +28,7 @@ const loadingDirective: Directive = {
     }
   },
   unmounted(el) {
-    el?.instance?.destory();
+    el?.instance?.destroy();
   },
 };
 
