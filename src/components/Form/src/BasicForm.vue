@@ -167,22 +167,15 @@
       }
       // handle upload type
       if (defaultValue && itemIsUploadComponent(schema?.component)) {
-        if (defaultValue) {
-          if (isArray(defaultValue)) {
-            schema.defaultValue = defaultValue;
-          } else if (typeof defaultValue == 'string') {
-            schema.defaultValue = [defaultValue];
-          }
+        if (isArray(defaultValue)) {
+          schema.defaultValue = defaultValue;
+        } else if (typeof defaultValue == 'string') {
+          schema.defaultValue = [defaultValue];
         }
       }
 
       // handle schema.valueFormat
-      if (
-        isHandleDefaultValue &&
-        defaultValue &&
-        component &&
-        isFunction(valueFormat)
-      ) {
+      if (isHandleDefaultValue && defaultValue && component && isFunction(valueFormat)) {
         schema.defaultValue = valueFormat({
           value: defaultValue,
           schema,
