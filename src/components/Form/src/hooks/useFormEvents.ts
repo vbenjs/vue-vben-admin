@@ -4,10 +4,16 @@ import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
 import { isArray, isFunction, isObject, isString, isNil } from '@/utils/is';
 import { deepMerge } from '@/utils';
-import { dateItemType, defaultValueComponents, isIncludeSimpleComponents } from '../helper';
+import {
+  dateItemType,
+  defaultValueComponents,
+  isIncludeSimpleComponents,
+  uploadItemType,
+} from '../helper';
 import { dateUtil } from '@/utils/dateUtil';
 import { cloneDeep, has, uniqBy, get, set } from 'lodash-es';
 import { error } from '@/utils/log';
+import { ComponentProps } from '../types';
 
 interface UseFormActionContext {
   emit: EmitType;
@@ -19,7 +25,12 @@ interface UseFormActionContext {
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
 }
-
+ /**
+  * @description: Is it upload
+ */
+  export function itemIsUploadComponent(key: keyof ComponentProps) {
+    return uploadItemType.includes(key);
+  }
 function tryConstructArray(field: string, values: Recordable = {}): any[] | undefined {
   const pattern = /^\[(.+)\]$/;
   if (pattern.test(field)) {
@@ -123,7 +134,20 @@ export function useFormEvents({
           }
         }
       }
-
+      // Adapt upload component
+      if (itemIsUploadComponent(schema?.component)) {
+        constructValue = get(value, key);
+        const fieldValue = constructValue || value;
+        if (fieldValue) {
+          if (isArray(fieldValue)) {
+            unref(formModel)[key] = fieldValue;
+          } else if (typeof fieldValue == 'string') {
+            unref(formModel)[key] = [fieldValue];
+          }
+        }
+        validKeys.push(key);
+        return 
+      }
       // Adapt common component
       if (hasKey) {
         constructValue = get(value, key);

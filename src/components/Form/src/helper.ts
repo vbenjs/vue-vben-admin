@@ -31,6 +31,15 @@ export function createPlaceholderMessage(component: ComponentType) {
 
 const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
 
+/**
+ * 上传组件
+ */
+export const uploadItemType: ComponentType[] = [
+  'Upload',
+  'ImageUpload'
+];
+
+
 function genType() {
   return [...DATE_TYPE, 'RangePicker',"TimeRangePicker"];
 }
@@ -45,7 +54,7 @@ export function setComponentRuleType(
   }
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
     rule.type = valueFormat ? 'string' : 'object';
-  } else if (['RangePicker', 'Upload', 'CheckboxGroup'].includes(component)) {
+  } else if (['RangePicker', 'CheckboxGroup'].includes(component)) {
     rule.type = 'array';
   } else if (['InputNumber'].includes(component)) {
     rule.type = 'number';

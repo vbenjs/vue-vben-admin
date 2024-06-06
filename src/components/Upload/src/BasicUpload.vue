@@ -85,6 +85,9 @@
     const value = { ...attrs, ...props };
     return omit(value, 'onChange');
   });
+
+  const isFirstRender = ref<boolean>(true)
+
   function getValue(valueKey="url") {
     const list = (fileList.value || []).map((item: any) => {
       return item[valueKey];
@@ -124,9 +127,15 @@
         }) as any;
       }
       emit('update:value', values);
-      emit('change', values);
+      if(!isFirstRender.value){
+        emit('change', values);
+        isFirstRender.value = false
+      }
     },
-    { immediate: true },
+    { 
+      immediate: true, 
+      deep: true,
+    },
   );
 
   // 上传modal保存操作
