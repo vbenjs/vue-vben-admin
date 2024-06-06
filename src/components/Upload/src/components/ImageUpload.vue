@@ -94,6 +94,7 @@
           }
         }) as UploadProps['fileList'];
       }
+      emit('update:value', value);
       if(!isFirstRender.value){
         emit('change', value);
         isFirstRender.value = false
