@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
+import { type HTMLAttributes, computed } from 'vue';
+
 import { Cross2Icon } from '@radix-icons/vue';
 import {
   DialogClose,
@@ -10,7 +11,8 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
-import { type HTMLAttributes, computed } from 'vue';
+
+import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & DialogContentProps

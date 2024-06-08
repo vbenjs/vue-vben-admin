@@ -73,6 +73,10 @@ interface RouteMeta {
    */
   loaded?: boolean;
   /**
+   * 菜单可以看到，但是访问会被重定向到403
+   */
+  menuVisibleWithForbidden?: boolean;
+  /**
    * 用于路由->菜单排序
    */
   order?: number;
@@ -80,6 +84,7 @@ interface RouteMeta {
    * 外链-跳转路径
    */
   target?: string;
+
   /**
    * 标题名称
    */

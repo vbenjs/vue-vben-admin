@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import type { RegisterEmits } from './typings';
+
+import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { $t } from '@vben/locales';
 import {
   VbenButton,
   VbenCheckbox,
@@ -6,13 +12,7 @@ import {
   VbenInputPassword,
 } from '@vben-core/shadcn-ui';
 
-import { $t } from '@vben/locales';
-import { computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-
 import Title from './auth-title.vue';
-
-import type { RegisterEmits } from './typings';
 
 interface Props {
   /**

@@ -1,10 +1,10 @@
-import '@vben/styles';
+import { createApp } from 'vue';
 
+import { setupI18n } from '@vben/locales';
+import '@vben/styles';
 import { preferences } from '@vben-core/preferences';
 
 import { setupStore } from '@/store';
-import { setupI18n } from '@vben/locales';
-import { createApp } from 'vue';
 
 import App from './app.vue';
 import { router } from './router';

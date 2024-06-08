@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { AuthenticationForgetPassword } from '@vben/common-ui';
 import { ref } from 'vue';
+
+import { AuthenticationForgetPassword } from '@vben/common-ui';
 
 defineOptions({ name: 'ForgetPassword' });
 

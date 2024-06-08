@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { computed, useSlots } from 'vue';
+
+import { Cross2Icon } from '@radix-icons/vue';
+
 import { VbenButton, VbenIconButton } from '#/components/button';
 import { ScrollArea } from '#/components/ui/scroll-area';
 import {
@@ -11,8 +15,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '#/components/ui/sheet';
-import { Cross2Icon } from '@radix-icons/vue';
-import { computed, useSlots } from 'vue';
 
 interface Props {
   cancelText?: string;

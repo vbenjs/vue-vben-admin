@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { preferences, updatePreferences } from '@vben-core/preferences';
-import { TabsMore, TabsScreen } from '@vben-core/tabs-ui';
-
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+
+import { preferences, updatePreferences } from '@vben-core/preferences';
+import { TabsMore, TabsScreen } from '@vben-core/tabs-ui';
 
 import { useTabs } from './use-tabs';
 

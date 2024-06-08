@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { SelectListItem } from '@vben/types';
 
+import { useSlots } from 'vue';
+
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
 import {
   Select,
@@ -10,8 +12,6 @@ import {
   SelectValue,
   VbenTooltip,
 } from '@vben-core/shadcn-ui';
-
-import { useSlots } from 'vue';
 
 defineOptions({
   name: 'PreferenceSelectItem',

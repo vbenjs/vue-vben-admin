@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import { computed } from 'vue';
+
 import { MdiLoading } from '@vben-core/iconify';
 
-import type { HTMLAttributes } from 'vue';
+import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 import { type ButtonVariants, buttonVariants } from '#/components/ui/button';
 import { cn } from '#/lib/utils';
-import { Primitive, type PrimitiveProps } from 'radix-vue';
-import { computed } from 'vue';
 
 interface Props extends PrimitiveProps {
   class?: HTMLAttributes['class'];

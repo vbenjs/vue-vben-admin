@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
+import { type HTMLAttributes, computed } from 'vue';
+
 import { CheckIcon } from '@radix-icons/vue';
 import {
   SelectItem,
@@ -8,7 +9,8 @@ import {
   SelectItemText,
   useForwardProps,
 } from 'radix-vue';
-import { type HTMLAttributes, computed } from 'vue';
+
+import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & SelectItemProps

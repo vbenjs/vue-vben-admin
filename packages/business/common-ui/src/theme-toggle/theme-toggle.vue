@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { $t } from '@vben/locales';
 import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
@@ -14,8 +15,6 @@ import {
   ToggleGroupItem,
   VbenTooltip,
 } from '@vben-core/shadcn-ui';
-
-import { $t } from '@vben/locales';
 
 import ThemeButton from './theme-button.vue';
 

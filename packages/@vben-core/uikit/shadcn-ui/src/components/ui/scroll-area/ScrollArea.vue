@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
+import { type HTMLAttributes, computed } from 'vue';
+
 import {
   ScrollAreaCorner,
   ScrollAreaRoot,
   type ScrollAreaRootProps,
   ScrollAreaViewport,
 } from 'radix-vue';
-import { type HTMLAttributes, computed } from 'vue';
+
+import { cn } from '#/lib/utils';
 
 import ScrollBar from './ScrollBar.vue';
 

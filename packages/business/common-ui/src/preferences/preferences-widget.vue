@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import type { SupportedLanguagesType } from '@vben/types';
 
+import { loadLocaleMessages } from '@vben/locales';
 import {
   COLOR_PRIMARY_RESETS,
   flatPreferences,
   updatePreferences,
 } from '@vben-core/preferences';
-
-import { loadLocaleMessages } from '@vben/locales';
 
 import Preferences from './preferences.vue';
 

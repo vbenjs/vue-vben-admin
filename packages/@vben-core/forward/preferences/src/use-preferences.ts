@@ -1,6 +1,6 @@
-import { diff } from '@vben-core/toolkit';
-
 import { computed } from 'vue';
+
+import { diff } from '@vben-core/toolkit';
 
 import { isDarkTheme, preferencesManager } from './preferences';
 

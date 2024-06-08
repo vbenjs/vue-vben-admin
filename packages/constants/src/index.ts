@@ -1,2 +1,2 @@
-export * from './_essential';
+export * from './_essentials';
 export * from './vben';

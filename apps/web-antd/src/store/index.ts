@@ -1,8 +1,8 @@
 import type { InitStoreOptions } from '@vben-core/stores';
 
-import { initStore } from '@vben-core/stores';
-
 import type { App } from 'vue';
+
+import { initStore } from '@vben-core/stores';
 
 /**
  * @zh_CN 初始化pinia

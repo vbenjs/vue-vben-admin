@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import type { CSSProperties } from 'vue';
+import { computed, useSlots } from 'vue';
+
 import { IcRoundMenu } from '@vben-core/iconify';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
-
-import type { CSSProperties } from 'vue';
-
-import { computed, useSlots } from 'vue';
 
 interface Props {
   /**

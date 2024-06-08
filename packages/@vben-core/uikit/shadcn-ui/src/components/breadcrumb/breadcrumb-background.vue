@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { VbenIcon } from '../icon';
-
 import type { IBreadcrumb } from './interface';
+
+import { VbenIcon } from '../icon';
 
 interface Props {
   breadcrumbs: IBreadcrumb[];

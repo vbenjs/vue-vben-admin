@@ -6,9 +6,9 @@ import type {
 } from 'radix-vue';
 
 import type { HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar';
-import { computed } from 'vue';
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;

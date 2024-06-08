@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { VbenButton, VbenInput } from '@vben-core/shadcn-ui';
-
-import { $t } from '@vben/locales';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
+
+import { $t } from '@vben/locales';
+import { VbenButton, VbenInput } from '@vben-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 

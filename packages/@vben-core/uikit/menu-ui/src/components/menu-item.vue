@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { VbenIcon, VbenMenuBadge, VbenTooltip } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
+import type { MenuItemProps, MenuItemRegistered } from '../interface';
 
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
-import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
+import { VbenIcon, VbenMenuBadge, VbenTooltip } from '@vben-core/shadcn-ui';
+import { useNamespace } from '@vben-core/toolkit';
 
-import type { MenuItemProps, MenuItemRegistered } from '../interface';
+import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 
 interface Props extends MenuItemProps {}
 

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { IcRoundArrowUpward } from '@vben-core/iconify';
+import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';
 
+import { IcRoundArrowUpward } from '@vben-core/iconify';
+
 import { VbenButton } from '../button';
 import { useBackTop } from './use-backtop';
-
-import type { BacktopProps } from './backtop';
 
 interface Props extends BacktopProps {}
 

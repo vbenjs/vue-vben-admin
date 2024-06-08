@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { Menu, MenuProps } from '@vben-core/menu-ui';
-
 import { useRoute } from 'vue-router';
+
+import { Menu, MenuProps } from '@vben-core/menu-ui';
 
 import { useNavigation } from './use-navigation';
 

@@ -1,13 +1,13 @@
 import type { UserConfig } from 'vite';
 
+import type { DefineApplicationOptions } from '../typing';
+
 import { resolve } from 'node:path';
 
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { getApplicationConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
-
-import type { DefineApplicationOptions } from '../typing';
 
 function defineApplicationConfig(options: DefineApplicationOptions = {}) {
   return defineConfig(async ({ command, mode }) => {

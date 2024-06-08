@@ -1,12 +1,13 @@
 import type { UserConfig } from 'vite';
 
+import type { DefineLibraryOptions } from '../typing';
+
 import { readPackageJSON } from '@vben/node-utils';
+
 import { defineConfig, mergeConfig } from 'vite';
 
 import { getLibraryConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
-
-import type { DefineLibraryOptions } from '../typing';
 
 function defineLibraryConfig(options: DefineLibraryOptions = {}) {
   return defineConfig(async ({ command, mode }) => {

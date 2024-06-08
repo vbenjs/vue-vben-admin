@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { IcRoundArrowBackIosNew } from '@vben-core/iconify';
-import { VbenButton } from '@vben-core/shadcn-ui';
-
-import { $t } from '@vben/locales';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+
+import { $t } from '@vben/locales';
+import { IcRoundArrowBackIosNew } from '@vben-core/iconify';
+import { VbenButton } from '@vben-core/shadcn-ui';
 
 import FeedbackIcon from './icons/fallback-icon.vue';
 

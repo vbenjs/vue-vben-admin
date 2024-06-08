@@ -6,6 +6,8 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 
+import type { MakeAuthorizationFn, RequestClientOptions } from './types';
+
 import { merge } from '@vben-core/toolkit';
 
 import axios from 'axios';
@@ -14,8 +16,6 @@ import { AxiosCanceler } from './modules/canceler';
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
-
-import type { MakeAuthorizationFn, RequestClientOptions } from './types';
 
 class RequestClient {
   private instance: AxiosInstance;

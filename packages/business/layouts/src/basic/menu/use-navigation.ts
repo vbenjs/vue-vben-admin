@@ -1,6 +1,6 @@
-import { isHttpUrl, openWindow } from '@vben-core/toolkit';
-
 import { useRouter } from 'vue-router';
+
+import { isHttpUrl, openWindow } from '@vben-core/toolkit';
 
 function useNavigation() {
   const router = useRouter();

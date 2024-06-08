@@ -2,6 +2,9 @@
 import type { LayoutHeaderModeType, LayoutType } from '@vben/types';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
+import { computed } from 'vue';
+
+import { $t } from '@vben/locales';
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
 import {
   preferences,
@@ -16,9 +19,7 @@ import {
   toast,
 } from '@vben-core/shadcn-ui';
 
-import { $t } from '@vben/locales';
 import { useClipboard } from '@vueuse/core';
-import { computed } from 'vue';
 
 import {
   Animation,

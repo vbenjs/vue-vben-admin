@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import type { PinInputProps } from './interface';
+
+import { computed, ref, watch } from 'vue';
+
 import { VbenButton } from '#/components/button';
 import {
   PinInput,
   PinInputGroup,
   PinInputInput,
 } from '#/components/ui/pin-input';
-import { computed, ref, watch } from 'vue';
-
-import type { PinInputProps } from './interface';
 
 defineOptions({
   inheritAttrs: false,

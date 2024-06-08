@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { VbenButton, VbenInput, VbenPinInput } from '@vben-core/shadcn-ui';
+import type { LoginCodeEmits } from './typings';
 
-import { $t } from '@vben/locales';
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import Title from './auth-title.vue';
+import { $t } from '@vben/locales';
+import { VbenButton, VbenInput, VbenPinInput } from '@vben-core/shadcn-ui';
 
-import type { LoginCodeEmits } from './typings';
+import Title from './auth-title.vue';
 
 interface Props {
   /**

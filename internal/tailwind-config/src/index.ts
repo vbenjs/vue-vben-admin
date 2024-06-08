@@ -2,10 +2,11 @@ import type { Config } from 'tailwindcss';
 
 import path from 'node:path';
 
+import { fs, getPackagesSync } from '@vben/node-utils';
+
 import { addDynamicIconSelectors } from '@iconify/tailwind';
 import formsPlugin from '@tailwindcss/forms';
 import typographyPlugin from '@tailwindcss/typography';
-import { fs, getPackagesSync } from '@vben/node-utils';
 import animate from 'tailwindcss-animate';
 
 import { enterAnimationPlugin } from './plugins/entry';

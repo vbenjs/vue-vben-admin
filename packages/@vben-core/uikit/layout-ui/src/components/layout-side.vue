@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ScrollArea } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
-
 import type { CSSProperties } from 'vue';
-
 // import { onClickOutside } from '@vueuse/core';
 import { computed, ref, shallowRef, useSlots, watchEffect } from 'vue';
+
+import { ScrollArea } from '@vben-core/shadcn-ui';
+import { useNamespace } from '@vben-core/toolkit';
 
 import { SideCollapseButton, SidePinButton } from './widgets';
 

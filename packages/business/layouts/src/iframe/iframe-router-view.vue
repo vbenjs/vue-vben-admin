@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { preferences } from '@vben-core/preferences';
-import { useTabsStore } from '@vben-core/stores';
-
-import { Spinner } from '@vben/common-ui';
 import { computed, ref } from 'vue';
 import { type RouteLocationNormalized, useRoute } from 'vue-router';
+
+import { Spinner } from '@vben/common-ui';
+import { preferences } from '@vben-core/preferences';
+import { useTabsStore } from '@vben-core/stores';
 
 defineOptions({ name: 'IFrameRouterView' });
 

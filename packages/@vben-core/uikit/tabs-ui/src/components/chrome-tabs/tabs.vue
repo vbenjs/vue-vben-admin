@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { TabItem } from '@vben-core/typings';
 
-import { useNamespace } from '@vben-core/toolkit';
+import type { TabsProps } from '../../interface';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-import Tab from './tab.vue';
+import { useNamespace } from '@vben-core/toolkit';
 
-import type { TabsProps } from '../../interface';
+import Tab from './tab.vue';
 
 interface Props extends TabsProps {}
 

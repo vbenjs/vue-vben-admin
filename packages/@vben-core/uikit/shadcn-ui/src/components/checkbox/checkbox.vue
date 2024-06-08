@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
 
-import { Checkbox } from '#/components/ui/checkbox';
 import { useForwardPropsEmits } from 'radix-vue';
+
+import { Checkbox } from '#/components/ui/checkbox';
 
 const props = defineProps<
   {

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { useNamespace } from '@vben-core/toolkit';
-
 import type { CSSProperties } from 'vue';
-
 import { computed } from 'vue';
+
+import { useNamespace } from '@vben-core/toolkit';
 
 interface Props {
   /**

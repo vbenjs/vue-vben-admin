@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import 'dayjs/locale/zh-cn';
-
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { computed } from 'vue';
 
 import { GlobalProvider } from '@vben/common-ui';
+import { preferences, usePreferences } from '@vben-core/preferences';
+
 import { ConfigProvider, theme } from 'ant-design-vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
-import { computed } from 'vue';
+
+import 'dayjs/locale/zh-cn';
 
 defineOptions({ name: 'App' });
 

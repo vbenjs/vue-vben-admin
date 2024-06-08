@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
-import { TabsContent, type TabsContentProps } from 'radix-vue';
 import { type HTMLAttributes, computed } from 'vue';
+
+import { TabsContent, type TabsContentProps } from 'radix-vue';
+
+import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & TabsContentProps

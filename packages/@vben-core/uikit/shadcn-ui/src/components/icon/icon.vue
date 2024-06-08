@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { type Component, computed } from 'vue';
+
 import { Icon, IconDefault } from '@vben-core/iconify';
 import { isHttpUrl, isObject, isString } from '@vben-core/toolkit';
-
-import { type Component, computed } from 'vue';
 
 const props = defineProps<{
   // 没有是否显示默认图标

@@ -1,8 +1,9 @@
-import { preferences } from '@vben-core/preferences';
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout, IFrameView } from '@/layouts';
 import { VBEN_GITHUB_URL } from '@vben/constants';
+import { preferences } from '@vben-core/preferences';
+
+import { BasicLayout, IFrameView } from '@/layouts';
 import { $t } from '@vben/locales/helper';
 
 const routes: RouteRecordRaw[] = [

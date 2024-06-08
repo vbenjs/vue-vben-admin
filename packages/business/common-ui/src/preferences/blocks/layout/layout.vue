@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { LayoutType } from '@vben/types';
 
-import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
-import { VbenTooltip } from '@vben-core/shadcn-ui';
+import { type Component, computed } from 'vue';
 
 import { $t } from '@vben/locales';
-import { type Component, computed } from 'vue';
+import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
+import { VbenTooltip } from '@vben-core/shadcn-ui';
 
 import {
   FullContent,

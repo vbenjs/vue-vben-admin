@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
+import { type HTMLAttributes, computed } from 'vue';
+
 import {
   HoverCardContent,
   type HoverCardContentProps,
   HoverCardPortal,
   useForwardProps,
 } from 'radix-vue';
-import { type HTMLAttributes, computed } from 'vue';
+
+import { cn } from '#/lib/utils';
 
 const props = withDefaults(
   defineProps<{ class?: HTMLAttributes['class'] } & HoverCardContentProps>(),

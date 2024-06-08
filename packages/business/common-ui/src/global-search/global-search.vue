@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben/types';
 
+import { ref } from 'vue';
+
+import { $t } from '@vben/locales';
 import {
   IcRoundArrowDownward,
   IcRoundArrowUpward,
@@ -19,9 +22,7 @@ import {
 } from '@vben-core/shadcn-ui';
 import { isWindowsOs } from '@vben-core/toolkit';
 
-import { $t } from '@vben/locales';
 import { useMagicKeys, useToggle, whenever } from '@vueuse/core';
-import { ref } from 'vue';
 
 import SearchPanel from './search-panel.vue';
 

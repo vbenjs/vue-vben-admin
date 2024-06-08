@@ -3,6 +3,7 @@ import type { CAC } from 'cac';
 import { extname } from 'node:path';
 
 import { getStagedFiles } from '@vben/node-utils';
+
 import { circularDepsDetect, printCircles } from 'circular-dependency-scanner';
 
 const IGNORE_DIR = [

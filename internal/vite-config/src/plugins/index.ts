@@ -1,9 +1,17 @@
 import type { PluginOption } from 'vite';
 
+import type {
+  ApplicationPluginOptions,
+  CommonPluginOptions,
+  ConditionPlugin,
+  LibraryPluginOptions,
+} from '../typing';
+
 import { join } from 'node:path';
 
-import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import { getPackage } from '@vben/node-utils';
+
+import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
 import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
@@ -18,13 +26,6 @@ import viteVueDevTools from 'vite-plugin-vue-devtools';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
-
-import type {
-  ApplicationPluginOptions,
-  CommonPluginOptions,
-  ConditionPlugin,
-  LibraryPluginOptions,
-} from '../typing';
 
 /**
  * 获取条件成立的 vite 插件

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
+
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { storeToRefs, useTabsStore } from '@vben-core/stores';
-import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { IFrameRouterView } from '../../iframe';
 

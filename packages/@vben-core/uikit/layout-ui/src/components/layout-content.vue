@@ -2,7 +2,6 @@
 import type { ContentCompactType } from '@vben-core/typings';
 
 import type { CSSProperties } from 'vue';
-
 import { computed } from 'vue';
 
 interface Props {

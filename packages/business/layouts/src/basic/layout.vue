@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
+
+import { PreferencesWidget } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import {
   flatPreferences,
@@ -13,10 +17,6 @@ import {
 } from '@vben-core/shadcn-ui';
 import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
-
-import { PreferencesWidget } from '@vben/common-ui';
-import { $t } from '@vben/locales';
-import { computed } from 'vue';
 
 import { LayoutContent } from './content';
 import { LayoutFooter } from './footer';

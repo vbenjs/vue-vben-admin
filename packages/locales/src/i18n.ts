@@ -1,11 +1,10 @@
 import type { SupportedLanguagesType } from '@vben-core/typings';
-
 import type { Locale } from 'vue-i18n';
+
+import type { ImportLocaleFn } from './typing';
 
 import { unref } from 'vue';
 import { createI18n } from 'vue-i18n';
-
-import type { ImportLocaleFn } from './typing';
 
 const loadedLanguages = new Set<string>();
 

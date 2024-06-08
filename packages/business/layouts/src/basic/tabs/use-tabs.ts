@@ -1,6 +1,14 @@
 import type { IContextMenuItem } from '@vben-core/tabs-ui';
 import type { TabItem } from '@vben-core/typings';
+import type {
+  RouteLocationNormalized,
+  RouteRecordNormalized,
+} from 'vue-router';
 
+import { computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+import { $t } from '@vben/locales';
 import {
   IcRoundClose,
   IcRoundMultipleStop,
@@ -13,14 +21,6 @@ import {
 } from '@vben-core/iconify';
 import { storeToRefs, useAccessStore, useTabsStore } from '@vben-core/stores';
 import { filterTree } from '@vben-core/toolkit';
-import type {
-  RouteLocationNormalized,
-  RouteRecordNormalized,
-} from 'vue-router';
-
-import { $t } from '@vben/locales';
-import { computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 
 function useTabs() {
   const router = useRouter();

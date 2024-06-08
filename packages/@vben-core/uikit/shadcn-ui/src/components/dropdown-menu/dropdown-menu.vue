@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import type {
+  DropdownMenuProps,
+  VbenDropdownMenuItem as IDropdownMenuItem,
+} from './interface';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,11 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu';
-
-import type {
-  DropdownMenuProps,
-  VbenDropdownMenuItem as IDropdownMenuItem,
-} from './interface';
 
 interface Props extends DropdownMenuProps {}
 

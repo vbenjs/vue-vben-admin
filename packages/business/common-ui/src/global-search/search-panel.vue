@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben/types';
 
+import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { $t } from '@vben/locales';
 import { IcRoundClose, IcRoundSearchOff } from '@vben-core/iconify';
 import { ScrollArea, VbenIcon } from '@vben-core/shadcn-ui';
 import { mapTree, traverseTreeValues } from '@vben-core/toolkit';
 
-import { $t } from '@vben/locales';
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
-import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
-import { useRouter } from 'vue-router';
 
 defineOptions({
   name: 'SearchPanel',

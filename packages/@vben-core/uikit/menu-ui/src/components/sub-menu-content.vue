@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import type { MenuItemProps } from '../interface';
+
+import { computed } from 'vue';
+
 import {
   IcRoundChevronRight,
   IcRoundKeyboardArrowDown,
@@ -6,11 +10,7 @@ import {
 import { VbenIcon } from '@vben-core/shadcn-ui';
 import { useNamespace } from '@vben-core/toolkit';
 
-import { computed } from 'vue';
-
 import { useMenuContext } from '../hooks';
-
-import type { MenuItemProps } from '../interface';
 
 interface Props extends MenuItemProps {
   isMenuMore: boolean;

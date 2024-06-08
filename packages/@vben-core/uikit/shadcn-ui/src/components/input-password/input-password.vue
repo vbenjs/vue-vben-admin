@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { ref, useSlots } from 'vue';
+
 import {
   IcOutlineVisibility,
   IcOutlineVisibilityOff,
 } from '@vben-core/iconify';
 
-import { type InputProps, VbenInput } from '#/components/input/index';
 import { useForwardProps } from 'radix-vue';
-import { ref, useSlots } from 'vue';
+
+import { type InputProps, VbenInput } from '#/components/input/index';
 
 import PasswordStrength from './password-strength.vue';
 

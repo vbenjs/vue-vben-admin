@@ -1,10 +1,10 @@
+import type { DefineConfig } from '../typing';
+
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { defineApplicationConfig } from './application';
 import { defineLibraryConfig } from './library';
-
-import type { DefineConfig } from '../typing';
 
 export * from './application';
 export * from './library';

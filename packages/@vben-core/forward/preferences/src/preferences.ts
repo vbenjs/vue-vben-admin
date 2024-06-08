@@ -4,6 +4,10 @@ import type {
   FlattenObjectKeys,
 } from '@vben-core/typings';
 
+import type { Preferences } from './types';
+
+import { markRaw, reactive, watch } from 'vue';
+
 import { StorageManager } from '@vben-core/cache';
 import { flattenObject, nestedObject } from '@vben-core/helpers';
 import { convertToHslCssVar, merge } from '@vben-core/toolkit';
@@ -14,11 +18,8 @@ import {
   useCssVar,
   useDebounceFn,
 } from '@vueuse/core';
-import { markRaw, reactive, watch } from 'vue';
 
 import { defaultPreferences } from './config';
-
-import type { Preferences } from './types';
 
 const STORAGE_KEY = 'preferences';
 const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;

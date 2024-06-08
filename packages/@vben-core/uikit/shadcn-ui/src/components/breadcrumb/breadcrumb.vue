@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { IBreadcrumb } from './interface';
+
 import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
 
 import {
@@ -17,8 +19,6 @@ import {
 } from '#/components/ui/dropdown-menu';
 
 import { VbenIcon } from '../';
-
-import type { IBreadcrumb } from './interface';
 
 interface Props {
   breadcrumbs: IBreadcrumb[];

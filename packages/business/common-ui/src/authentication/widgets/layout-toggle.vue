@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
 
+import { computed } from 'vue';
+
+import { $t } from '@vben/locales';
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
-
-import { $t } from '@vben/locales';
-import { computed } from 'vue';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',

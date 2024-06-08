@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { LoginAndRegisterParams } from '@vben/common-ui';
 
-import { AuthenticationRegister } from '@vben/common-ui';
 import { ref } from 'vue';
+
+import { AuthenticationRegister } from '@vben/common-ui';
 
 defineOptions({ name: 'Register' });
 

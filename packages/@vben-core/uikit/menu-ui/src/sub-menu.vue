@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { VbenMenuBadge } from '@vben-core/shadcn-ui';
-
 import { computed } from 'vue';
+
+import { VbenMenuBadge } from '@vben-core/shadcn-ui';
 
 import { MenuItem, SubMenu as SubMenuComp } from './components';
 // eslint-disable-next-line import/no-self-import

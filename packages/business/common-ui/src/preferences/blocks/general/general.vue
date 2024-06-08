@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { SelectListItem } from '@vben/types';
 
-import { SUPPORT_LANGUAGES } from '@vben-core/preferences';
-
 import { $t } from '@vben/locales';
+import { SUPPORT_LANGUAGES } from '@vben-core/preferences';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';

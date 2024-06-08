@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { IcRoundMoreHoriz } from '@vben-core/iconify';
-import { isHttpUrl, useNamespace } from '@vben-core/toolkit';
+import type {
+  MenuItemClicked,
+  MenuItemRegistered,
+  MenuProps,
+  MenuProvider,
+} from '../interface';
 
-import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';
 import {
   type VNodeArrayChildren,
   computed,
@@ -15,6 +18,11 @@ import {
   watchEffect,
 } from 'vue';
 
+import { IcRoundMoreHoriz } from '@vben-core/iconify';
+import { isHttpUrl, useNamespace } from '@vben-core/toolkit';
+
+import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';
+
 import {
   createMenuContext,
   createSubMenuContext,
@@ -22,13 +30,6 @@ import {
 } from '../hooks';
 import { flattedChildren } from '../utils';
 import SubMenu from './sub-menu.vue';
-
-import type {
-  MenuItemClicked,
-  MenuItemRegistered,
-  MenuProps,
-  MenuProvider,
-} from '../interface';
 
 interface Props extends MenuProps {}
 

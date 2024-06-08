@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList } from '#/components/ui/tabs';
-import { TabsTrigger } from 'radix-vue';
+import type { SegmentedItem } from './interface';
+
 import { computed } from 'vue';
 
-import TabsIndicator from './tabs-indicator.vue';
+import { TabsTrigger } from 'radix-vue';
 
-import type { SegmentedItem } from './interface';
+import { Tabs, TabsContent, TabsList } from '#/components/ui/tabs';
+
+import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {
   defaultValue?: string;

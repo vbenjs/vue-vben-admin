@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { AnyFunction } from '@vben/types';
 
+import type { Component } from 'vue';
+import { computed, ref } from 'vue';
+
+import { $t } from '@vben/locales';
 import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
 import { preferences } from '@vben-core/preferences';
 import {
@@ -18,11 +22,7 @@ import {
 } from '@vben-core/shadcn-ui';
 import { isWindowsOs } from '@vben-core/toolkit';
 
-import type { Component } from 'vue';
-
-import { $t } from '@vben/locales';
 import { useMagicKeys, whenever } from '@vueuse/core';
-import { computed, ref } from 'vue';
 
 import { useOpenPreferences } from '../preferences/use-open-preferences';
 

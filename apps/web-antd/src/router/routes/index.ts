@@ -1,7 +1,8 @@
-import { mergeRouteModules } from '@vben-core/helpers';
 import type { RouteRecordRaw } from 'vue-router';
 
-import { essentialRoutes } from './_essential';
+import { mergeRouteModules } from '@vben-core/helpers';
+
+import { essentialsRoutes } from './_essentials';
 
 const dynamicRouteFiles = import.meta.glob('./dynamic/**/*.ts', {
   eager: true,
@@ -23,6 +24,6 @@ const staticRoutes: RouteRecordRaw[] = mergeRouteModules(staticRouteFiles);
 const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles);
 
 /** 路由列表，由基本路由+静态路由组成 */
-const routes: RouteRecordRaw[] = [...essentialRoutes, ...staticRoutes];
+const routes: RouteRecordRaw[] = [...essentialsRoutes, ...staticRoutes];
 
 export { dynamicRoutes, externalRoutes, routes };

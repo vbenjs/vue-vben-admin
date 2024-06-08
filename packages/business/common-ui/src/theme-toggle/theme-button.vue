@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { computed, nextTick } from 'vue';
+
 import { VbenButton } from '@vben-core/shadcn-ui';
 import { useNamespace } from '@vben-core/toolkit';
-
-import { computed, nextTick } from 'vue';
 
 interface Props {
   /**

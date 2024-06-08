@@ -1,9 +1,8 @@
 <script lang="ts" setup>
+import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/common-ui';
 import { preferences } from '@vben-core/preferences';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
 import { useAccessStore } from '@vben-core/stores';
-
-import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/common-ui';
 
 interface Props {
   /**

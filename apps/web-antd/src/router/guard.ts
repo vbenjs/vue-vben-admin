@@ -1,11 +1,12 @@
-import { generatorMenus, generatorRoutes } from '@vben-core/helpers';
-import { preferences } from '@vben-core/preferences';
-import { useAccessStore } from '@vben-core/stores';
 import type { RouteLocationNormalized, Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { startProgress, stopProgress } from '@vben/utils';
+import { generatorMenus, generatorRoutes } from '@vben-core/helpers';
+import { preferences } from '@vben-core/preferences';
+import { useAccessStore } from '@vben-core/stores';
+
 import { useTitle } from '@vueuse/core';
 
 import { dynamicRoutes } from '@/router/routes';
@@ -81,15 +82,16 @@ function setupAccessGuard(router: Router) {
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
     const userRoles = accessStore.getUserRoles;
-    const routes = await generatorRoutes(dynamicRoutes, userRoles);
+    const accessibleRoutes = await generatorRoutes(dynamicRoutes, userRoles);
     // 动态添加到router实例内
-    routes.forEach((route) => router.addRoute(route));
+    accessibleRoutes.forEach((route) => router.addRoute(route));
 
-    const menus = await generatorMenus(routes, router);
+    // 生成菜单
+    const menus = await generatorMenus(accessibleRoutes, router);
 
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(menus);
-    accessStore.setAccessRoutes(routes);
+    accessStore.setAccessRoutes(accessibleRoutes);
     const redirectPath = (from.query.redirect ?? to.path) as string;
 
     return {

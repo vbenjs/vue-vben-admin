@@ -5,7 +5,12 @@ import type {
   ContextMenuRootProps,
 } from 'radix-vue';
 
+import type { IContextMenuItem } from './interface';
+
 import type { HTMLAttributes } from 'vue';
+import { computed } from 'vue';
+
+import { useForwardPropsEmits } from 'radix-vue';
 
 import {
   ContextMenu,
@@ -15,10 +20,6 @@ import {
   ContextMenuShortcut,
   ContextMenuTrigger,
 } from '#/components/ui/context-menu';
-import { useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
-
-import type { IContextMenuItem } from './interface';
 
 const props = defineProps<
   {

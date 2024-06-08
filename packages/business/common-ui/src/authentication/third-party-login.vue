@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { $t } from '@vben/locales';
 import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben-core/iconify';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
-
-import { $t } from '@vben/locales';
 
 defineOptions({
   name: 'ThirdPartyLogin',

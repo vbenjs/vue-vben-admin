@@ -1,8 +1,8 @@
+import type { LocaleSetupOptions } from './typing';
+
 import type { App } from 'vue';
 
 import { i18n, loadLocaleMessages } from './i18n';
-
-import type { LocaleSetupOptions } from './typing';
 
 const $t = i18n.global.t;
 

@@ -1,5 +1,6 @@
-import type { UserApiType } from '@/apis/types';
 import type { UserInfo } from '@vben/types';
+
+import type { UserApiType } from '@/apis/types';
 
 import { request } from '@/forward';
 

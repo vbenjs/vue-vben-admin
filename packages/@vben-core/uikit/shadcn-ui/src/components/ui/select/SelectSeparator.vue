@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { cn } from '#/lib/utils';
-import { SelectSeparator, type SelectSeparatorProps } from 'radix-vue';
 import { type HTMLAttributes, computed } from 'vue';
+
+import { SelectSeparator, type SelectSeparatorProps } from 'radix-vue';
+
+import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & SelectSeparatorProps

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
+
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
 import { Switch, VbenTooltip } from '@vben-core/shadcn-ui';
-
-import { useSlots } from 'vue';
 
 defineOptions({
   name: 'PreferenceSwitchItem',

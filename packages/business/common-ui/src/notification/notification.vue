@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import type { NotificationItem } from './interface';
+
+import { $t } from '@vben/locales';
 import {
   IcRoundMarkEmailRead,
   IcRoundNotificationsNone,
@@ -10,10 +13,7 @@ import {
   VbenPopover,
 } from '@vben-core/shadcn-ui';
 
-import { $t } from '@vben/locales';
 import { useToggle } from '@vueuse/core';
-
-import type { NotificationItem } from './interface';
 
 interface Props {
   /**

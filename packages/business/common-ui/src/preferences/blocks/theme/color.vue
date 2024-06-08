@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import type { CSSProperties } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
+
 import { MdiEditBoxOutline } from '@vben-core/iconify';
 import { TinyColor, convertToHsl } from '@vben-core/toolkit';
-
-import type { CSSProperties } from 'vue';
-
-import { computed, ref, watch, watchEffect } from 'vue';
 
 defineOptions({
   name: 'PreferenceColor',

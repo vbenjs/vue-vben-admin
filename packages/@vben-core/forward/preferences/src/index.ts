@@ -1,8 +1,8 @@
 import type { Flatten } from '@vben-core/typings';
 
-import { preferencesManager } from './preferences';
-
 import type { Preferences } from './types';
+
+import { preferencesManager } from './preferences';
 
 // 偏好设置（带有层级关系）
 const preferences: Preferences = preferencesManager.getPreferences();

@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/common-ui';
 
-import { preferences } from '@vben-core/preferences';
-import { useAccessStore } from '@vben-core/stores';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { Notification, UserDropdown } from '@vben/common-ui';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
 import { openWindow } from '@vben/utils';
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { preferences } from '@vben-core/preferences';
+import { useAccessStore } from '@vben-core/stores';
 
 // https://avatar.vercel.sh/vercel.svg?text=Vaa
 // https://avatar.vercel.sh/1

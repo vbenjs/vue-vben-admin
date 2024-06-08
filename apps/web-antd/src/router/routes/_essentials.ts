@@ -1,13 +1,13 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { AuthPageLayoutType } from '@/layouts';
-import { Fallback } from '@vben/common-ui';
 import { $t } from '@vben/locales';
+
+import { AuthPageLayoutType } from '@/layouts';
 
 import Login from '@/views/_essential/authentication/login.vue';
 
 /** 基本路由，这些路由是必须存在的 */
-const essentialRoutes: RouteRecordRaw[] = [
+const essentialsRoutes: RouteRecordRaw[] = [
   {
     component: AuthPageLayoutType,
     meta: {
@@ -69,7 +69,7 @@ const essentialRoutes: RouteRecordRaw[] = [
   },
   // 错误页
   {
-    component: Fallback,
+    component: () => import('@/views/_essential/fallback/not-found.vue'),
     meta: {
       hideInBreadcrumb: true,
       hideInMenu: true,
@@ -82,4 +82,4 @@ const essentialRoutes: RouteRecordRaw[] = [
   },
 ];
 
-export { essentialRoutes };
+export { essentialsRoutes };

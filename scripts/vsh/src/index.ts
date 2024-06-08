@@ -1,4 +1,5 @@
 import { colors, consola } from '@vben/node-utils';
+
 import { cac } from 'cac';
 
 import { defineCheckCircularCommand } from './check-circular';

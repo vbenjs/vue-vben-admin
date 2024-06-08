@@ -1,15 +1,29 @@
-import { filterTree } from '@vben-core/toolkit';
 import type { RouteRecordRaw } from 'vue-router';
+
+import { filterTree, mapTree } from '@vben-core/toolkit';
 /**
  * 动态生成路由
  */
 async function generatorRoutes(
   routes: RouteRecordRaw[],
   roles: string[],
+  forbiddenPage?: RouteRecordRaw['component'],
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
-  return filterTree(routes, (route) => {
+  const finalRoutes = filterTree(routes, (route) => {
     return hasVisible(route) && hasAuthority(route, roles);
+  });
+
+  if (!forbiddenPage) {
+    return finalRoutes;
+  }
+
+  // 如果有禁止访问的页面，将禁止访问的页面替换为403页面
+  return mapTree(finalRoutes, (route) => {
+    if (menuHasVisibleWithForbidden(route)) {
+      route.component = forbiddenPage;
+    }
+    return route;
   });
 }
 
@@ -24,9 +38,10 @@ function hasAuthority(route: RouteRecordRaw, access: string[]) {
   if (!authority) {
     return true;
   }
-  return access.some((value) => {
-    return authority.includes(value);
-  });
+  return (
+    access.some((value) => authority.includes(value)) ||
+    menuHasVisibleWithForbidden(route)
+  );
 }
 
 /**
@@ -35,6 +50,14 @@ function hasAuthority(route: RouteRecordRaw, access: string[]) {
  */
 function hasVisible(route?: RouteRecordRaw) {
   return !route?.meta?.hideInMenu;
+}
+
+/**
+ * 判断路由是否在菜单中显示，但是访问会被重定向到403
+ * @param route
+ */
+function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
+  return !!route.meta?.menuVisibleWithForbidden;
 }
 
 export { generatorRoutes, hasAuthority, hasVisible };

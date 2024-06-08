@@ -54,12 +54,12 @@
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
-    "cssnano": "^7.0.1",
+    "cssnano": "^7.0.2",
     "postcss": "^8.4.38",
     "postcss-antd-fixes": "^0.2.0",
     "postcss-import": "^16.1.0",
     "postcss-preset-env": "^9.5.14",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

@@ -5,13 +5,15 @@ import type {
   PopoverRootProps,
 } from 'radix-vue';
 
+import { HTMLAttributes, computed } from 'vue';
+
+import { useForwardPropsEmits } from 'radix-vue';
+
 import {
   PopoverContent,
   Popover as PopoverRoot,
   PopoverTrigger,
 } from '#/components/ui/popover';
-import { useForwardPropsEmits } from 'radix-vue';
-import { HTMLAttributes, computed } from 'vue';
 
 const props = withDefaults(
   defineProps<

@@ -1,11 +1,10 @@
 <script setup lang="ts">
+import { $t } from '@vben/locales';
 import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
   MdiMoonAndStars,
 } from '@vben-core/iconify';
-
-import { $t } from '@vben/locales';
 
 import SwitchItem from '../switch-item.vue';
 

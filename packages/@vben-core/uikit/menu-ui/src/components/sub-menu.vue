@@ -1,10 +1,16 @@
 <script lang="ts" setup>
 import type { HoverCardContentProps } from '@vben-core/shadcn-ui';
 
-import { VbenHoverCard } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
+import type {
+  MenuItemRegistered,
+  MenuProvider,
+  SubMenuProps,
+} from '../interface';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+
+import { VbenHoverCard } from '@vben-core/shadcn-ui';
+import { useNamespace } from '@vben-core/toolkit';
 
 import {
   createSubMenuContext,
@@ -15,12 +21,6 @@ import {
 } from '../hooks';
 import CollapseTransition from './collapse-transition.vue';
 import SubMenuContent from './sub-menu-content.vue';
-
-import type {
-  MenuItemRegistered,
-  MenuProvider,
-  SubMenuProps,
-} from '../interface';
 
 interface Props extends SubMenuProps {
   isSubMenuMore?: boolean;
