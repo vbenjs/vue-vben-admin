@@ -5,6 +5,5 @@ export * from './global-search';
 export * from './language-toggle';
 export * from './notification';
 export * from './preferences';
-export * from './spinner';
 export * from './theme-toggle';
 export * from './user-dropdown';

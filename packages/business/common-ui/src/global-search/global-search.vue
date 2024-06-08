@@ -102,7 +102,7 @@ if (props.enableShortcutKey) {
         </DialogHeader>
         <SearchPanel :keyword="keyword" :menus="menus" @close="handleClose" />
         <DialogFooter
-          class="text-muted-foreground hidden flex-row rounded-b-2xl border-t px-4 py-2 text-xs sm:flex sm:justify-start sm:gap-x-4"
+          class="text-muted-foreground border-border hidden flex-row rounded-b-2xl border-t px-4 py-2 text-xs sm:flex sm:justify-start sm:gap-x-4"
         >
           <div class="flex items-center">
             <IcRoundSubdirectoryArrowLeft class="mr-1" />

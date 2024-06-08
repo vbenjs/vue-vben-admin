@@ -101,12 +101,12 @@ page:
     external-link: 外链
   nested:
     page: 嵌套菜单
-    menu1: 菜单1
-    menu2: 菜单2
-    menu3: 菜单3
-    menu31: 菜单31
-    menu32: 菜单32
-    menu321: 菜单321
+    menu1: 菜单 1
+    menu2: 菜单 2
+    menu3: 菜单 3
+    menu31: 菜单 3-1
+    menu32: 菜单 3-2
+    menu321: 菜单 3-2-1
   fallback:
     page: 异常页面
 
