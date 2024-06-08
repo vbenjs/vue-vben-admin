@@ -1,13 +1,35 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { DEFAULT_HOME_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 
 import { AuthPageLayoutType } from '@/layouts';
 
 import Login from '@/views/_essential/authentication/login.vue';
 
+/** 全局404页面 */
+const fallbackNotFoundRoute: RouteRecordRaw = {
+  component: () => import('@/views/_essential/fallback/not-found.vue'),
+  meta: {
+    hideInBreadcrumb: true,
+    hideInMenu: true,
+    hideInTab: true,
+    title: '404',
+  },
+  name: 'Fallback',
+  path: '/:path(.*)*',
+};
+
 /** 基本路由，这些路由是必须存在的 */
 const essentialsRoutes: RouteRecordRaw[] = [
+  {
+    meta: {
+      title: 'Root',
+    },
+    name: 'Root',
+    path: '/',
+    redirect: DEFAULT_HOME_PATH,
+  },
   {
     component: AuthPageLayoutType,
     meta: {
@@ -21,8 +43,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         path: 'login',
         component: Login,
         meta: {
-          ignoreAccess: true,
-          title: $t('page.login'),
+          title: $t('page.essentials.login'),
         },
       },
       {
@@ -31,8 +52,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('@/views/_essential/authentication/code-login.vue'),
         meta: {
-          ignoreAccess: true,
-          title: $t('page.code-login'),
+          title: $t('page.essentials.code-login'),
         },
       },
       {
@@ -41,8 +61,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('@/views/_essential/authentication/qrcode-login.vue'),
         meta: {
-          ignoreAccess: true,
-          title: $t('page.qrcode-login'),
+          title: $t('page.essentials.qrcode-login'),
         },
       },
       {
@@ -51,8 +70,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('@/views/_essential/authentication/forget-password.vue'),
         meta: {
-          ignoreAccess: true,
-          title: $t('page.forget-password'),
+          title: $t('page.essentials.forget-password'),
         },
       },
       {
@@ -61,25 +79,11 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('@/views/_essential/authentication/register.vue'),
         meta: {
-          ignoreAccess: true,
-          title: $t('page.register'),
+          title: $t('page.essentials.register'),
         },
       },
     ],
   },
-  // 错误页
-  {
-    component: () => import('@/views/_essential/fallback/not-found.vue'),
-    meta: {
-      hideInBreadcrumb: true,
-      hideInMenu: true,
-      hideInTab: true,
-      // ignoreAccess: true,
-      title: 'Fallback',
-    },
-    name: 'Fallback',
-    path: '/:path(.*)*',
-  },
 ];
 
-export { essentialsRoutes };
+export { essentialsRoutes, fallbackNotFoundRoute };

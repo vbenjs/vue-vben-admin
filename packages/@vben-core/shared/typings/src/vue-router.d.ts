@@ -69,6 +69,10 @@ interface RouteMeta {
    */
   keepAlive?: boolean;
   /**
+   * 外链-跳转路径
+   */
+  link?: string;
+  /**
    * 路由是否已经加载过
    */
   loaded?: boolean;
@@ -80,10 +84,6 @@ interface RouteMeta {
    * 用于路由->菜单排序
    */
   order?: number;
-  /**
-   * 外链-跳转路径
-   */
-  target?: string;
 
   /**
    * 标题名称

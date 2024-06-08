@@ -14,15 +14,9 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
   // 应该添加到路由的初始路由列表。
   routes,
-  scrollBehavior: (_to, _from, savedPosition) => {
-    // if (to.path !== from.path) {
-    //   const app = document.querySelector('#app');
-    //   if (app) {
-    //     app.scrollTop = 0;
-    //   }
-    // }
-    return savedPosition || { left: 0, top: 0 };
-  },
+  scrollBehavior: () => ({ left: 0, top: 0 }),
+  // 是否应该禁止尾部斜杠。默认为假
+  // strict: true,
 });
 
 /**

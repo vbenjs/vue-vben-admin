@@ -3,5 +3,5 @@ import { Fallback } from '@vben/common-ui';
 </script>
 
 <template>
-  <Fallback />
+  <Fallback status="404" />
 </template>

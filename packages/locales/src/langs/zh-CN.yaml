@@ -14,8 +14,12 @@ layout:
   align-right: 居右
 
 fallback:
-  page-not-found: 未找到页面
-  page-not-found-desc: 抱歉，我们找不到您要找的页面。
+  page-not-found: 哎呀！未找到页面
+  page-not-found-desc: 抱歉，我们无法找到您要找的页面。
+  forbidden: 哎呀！访问被拒绝
+  forbidden-desc: 抱歉，您没有权限访问此页面。
+  internal-error: 哎呀！出错了
+  internal-error-desc: 抱歉，服务器遇到错误。
 
 widgets:
   document: 文档
@@ -82,13 +86,29 @@ authentication:
   third-party-login: 其他登录方式
 
 page:
-  about: 关于
-  document: 文档
-  login: 登陆
-  register: 注册
-  code-login: 验证码登陆
-  qrcode-login: 二维码登陆
-  forget-password: 忘记密码
+  essentials:
+    login: 登陆
+    register: 注册
+    code-login: 验证码登陆
+    qrcode-login: 二维码登陆
+    forget-password: 忘记密码
+  vben:
+    about: 关于
+    document: 文档
+  outside:
+    page: 外部页面
+    embedded: 内嵌
+    external-link: 外链
+  nested:
+    page: 嵌套菜单
+    menu1: 菜单1
+    menu2: 菜单2
+    menu3: 菜单3
+    menu31: 菜单31
+    menu32: 菜单32
+    menu321: 菜单321
+  fallback:
+    page: 异常页面
 
 preference:
   preferences: 偏好设置

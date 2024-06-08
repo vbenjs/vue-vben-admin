@@ -1,7 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { VBEN_GITHUB_URL } from '@vben/constants';
-import { preferences } from '@vben-core/preferences';
+import { VBEN_GITHUB_URL, VBEN_LOGO } from '@vben/constants';
 
 import { BasicLayout, IFrameView } from '@/layouts';
 import { $t } from '@vben/locales/helper';
@@ -10,7 +9,8 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      icon: preferences.logo.source,
+      icon: VBEN_LOGO,
+      order: 9999,
       title: 'Vben',
     },
     name: 'AboutLayout',
@@ -18,32 +18,32 @@ const routes: RouteRecordRaw[] = [
     redirect: '/vben-admin/about',
     children: [
       {
-        name: 'About',
+        name: 'VbenAbout',
         path: 'about',
-        component: () => import('@/views/about/index.vue'),
+        component: () => import('@/views/_essential/vben/about/index.vue'),
         meta: {
           icon: 'mdi:creative-commons',
-          title: $t('page.about'),
+          title: $t('page.vben.about'),
         },
       },
       {
-        name: 'AboutDocument',
+        name: 'VbenDocument',
         path: 'document',
         component: IFrameView,
         meta: {
           icon: 'mdi:flame-circle',
           iframeSrc: 'https://doc.vvbin.cn/',
           keepAlive: true,
-          title: $t('page.document'),
+          title: $t('page.vben.document'),
         },
       },
       {
-        name: 'Github',
+        name: 'VbenGithub',
         path: 'github',
         component: IFrameView,
         meta: {
           icon: 'mdi:github',
-          target: VBEN_GITHUB_URL,
+          link: VBEN_GITHUB_URL,
           title: 'Github',
         },
       },

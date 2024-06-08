@@ -1,4 +1,4 @@
-import type { RouteLocationNormalized, Router } from 'vue-router';
+import type { Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
@@ -9,7 +9,9 @@ import { useAccessStore } from '@vben-core/stores';
 
 import { useTitle } from '@vueuse/core';
 
-import { dynamicRoutes } from '@/router/routes';
+import { dynamicRoutes, essentialsRouteNames } from '@/router/routes';
+
+const forbiddenPage = () => import('@/views/_essential/fallback/forbidden.vue');
 
 /**
  * 通用守卫配置
@@ -56,18 +58,24 @@ function setupAccessGuard(router: Router) {
 
     // accessToken 检查
     if (!accessToken) {
-      if (to.path === '/') {
-        return loginPageMeta(to);
-      }
-
-      // 明确声明忽略权限访问权限，则可以访问
-      if (to.meta.ignoreAccess) {
+      if (
+        // 基本路由，这些路由不需要进入权限拦截
+        essentialsRouteNames.includes(to.name as string) ||
+        // 明确声明忽略权限访问权限，则可以访问
+        to.meta.ignoreAccess
+      ) {
         return true;
       }
 
       // 没有访问权限，跳转登录页面
       if (to.fullPath !== LOGIN_PATH) {
-        return loginPageMeta(to);
+        return {
+          path: LOGIN_PATH,
+          // 如不需要，直接删除 query
+          query: { redirect: encodeURIComponent(to.fullPath) },
+          // 携带当前跳转的页面，登录后重新跳转该页面
+          replace: true,
+        };
       }
       return to;
     }
@@ -82,7 +90,15 @@ function setupAccessGuard(router: Router) {
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
     const userRoles = accessStore.getUserRoles;
-    const accessibleRoutes = await generatorRoutes(dynamicRoutes, userRoles);
+
+    const accessibleRoutes = await generatorRoutes(
+      dynamicRoutes,
+      userRoles,
+      // 如果 route.meta.menuVisibleWithForbidden = true
+      // 则会在菜单中显示，但是访问会被重定向到403
+      // 这里可以指定403页面
+      forbiddenPage,
+    );
     // 动态添加到router实例内
     accessibleRoutes.forEach((route) => router.addRoute(route));
 
@@ -99,20 +115,6 @@ function setupAccessGuard(router: Router) {
       replace: true,
     };
   });
-}
-
-/**
- * 登录页面信息
- * @param to
- */
-function loginPageMeta(to: RouteLocationNormalized) {
-  return {
-    path: LOGIN_PATH,
-    // 如不需要，直接删除 query
-    query: { redirect: encodeURIComponent(to.fullPath) },
-    // 携带当前跳转的页面，登录后重新跳转该页面
-    replace: true,
-  };
 }
 
 /**

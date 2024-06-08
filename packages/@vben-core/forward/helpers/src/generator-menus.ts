@@ -30,8 +30,8 @@ async function generatorMenus(
       badgeVariants,
       hideChildrenInMenu = false,
       icon,
+      link,
       order,
-      target,
       title = '',
     } = meta || {};
 
@@ -50,7 +50,7 @@ async function generatorMenus(
       });
     }
     // 隐藏子菜单
-    const resultPath = hideChildrenInMenu ? redirect || path : target || path;
+    const resultPath = hideChildrenInMenu ? redirect || path : link || path;
     return {
       badge,
       badgeType,

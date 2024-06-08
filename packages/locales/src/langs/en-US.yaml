@@ -15,8 +15,12 @@ layout:
   align-right: Align Right
 
 fallback:
-  page-not-found: Page Not Found
-  page-not-found-desc: Sorry, We couldn't find the page you are looking for.
+  page-not-found: Oops! Page Not Found
+  page-not-found-desc: Sorry, we couldn't find the page you were looking for.
+  forbidden: Oops! Access Denied
+  forbidden-desc: Sorry, but you don't have permission to access this page.
+  internal-error: Oops! Something Went Wrong
+  internal-error-desc: Sorry, but the server encountered an error.
 
 widgets:
   document: Document
@@ -83,13 +87,29 @@ authentication:
   third-party-login: Or continue with
 
 page:
-  about: About
-  document: Document
-  login: Login
-  register: Register
-  code-login: Code Login
-  qrcode-login: Qrcode Login
-  forget-password: Forget Password
+  essentials:
+    login: Login
+    register: Register
+    code-login: Code Login
+    qrcode-login: Qrcode Login
+    forget-password: Forget Password
+  vben:
+    about: About
+    document: Document
+  outside:
+    page: External Page
+    embedded: embedded Page
+    external-link: External Link
+  nested:
+    page: Nested Menu
+    menu1: Menu 1
+    menu2: Menu 2
+    menu3: Menu 3
+    menu31: Menu 3-1
+    menu32: Menu 3-2
+    menu321: Menu 3-2-11
+  fallback:
+    page: Exception Page
 
 preference:
   preferences: Preferences
