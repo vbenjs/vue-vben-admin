@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { type RouteLocationNormalized, useRoute } from 'vue-router';
+import type { RouteLocationNormalized } from 'vue-router';
 
-import { Spinner } from '@vben/common-ui';
+import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
 import { preferences } from '@vben-core/preferences';
+import { Spinner } from '@vben-core/shadcn-ui';
 import { useTabsStore } from '@vben-core/stores';
 
 defineOptions({ name: 'IFrameRouterView' });
 
-const spinning = ref(true);
+const spinningList = ref<boolean[]>([]);
 const tabsStore = useTabsStore();
 const route = useRoute();
 
@@ -53,23 +55,30 @@ function canRender(tabItem: RouteLocationNormalized) {
   return tabsStore.getTabs.some((tab) => tab.name === name);
 }
 
-function hideLoading() {
-  spinning.value = false;
+function hideLoading(index: number) {
+  spinningList.value[index] = false;
+}
+
+function showSpinning(index: number) {
+  const curSpinning = spinningList.value[index];
+  // 首次加载时显示loading
+  return curSpinning === undefined ? true : curSpinning;
 }
 </script>
 <template>
   <template v-if="showIframe">
-    <template v-for="item in iframeRoutes" :key="item.fullPath">
+    {{ iframeRoutes.length }}
+    <template v-for="(item, index) in iframeRoutes" :key="item.fullPath">
       <div
         v-show="routeShow(item)"
         v-if="canRender(item)"
         class="relative size-full"
       >
-        <Spinner :spinning="spinning" />
+        <Spinner :spinning="showSpinning(index)" />
         <iframe
           :src="item.meta.iframeSrc as string"
           class="size-full"
-          @load="hideLoading"
+          @load="hideLoading(index)"
         ></iframe>
       </div>
     </template>

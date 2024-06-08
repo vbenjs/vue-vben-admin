@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { TimeoutHandle } from '@vben/types';
-
 import { ref, watch } from 'vue';
 
 interface Props {
@@ -20,11 +18,12 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  minLoadingTime: 200,
+  minLoadingTime: 50,
 });
 const startTime = ref(0);
 const showSpinner = ref(false);
-const timer = ref<TimeoutHandle>();
+const renderSpinner = ref(true);
+const timer = ref<ReturnType<typeof setTimeout>>();
 
 watch(
   () => props.spinning,
@@ -39,18 +38,29 @@ watch(
       const loadingTime = performance.now() - startTime.value;
 
       showSpinner.value = loadingTime > props.minLoadingTime;
+      if (showSpinner.value) {
+        renderSpinner.value = true;
+      }
     }, props.minLoadingTime);
   },
   {
     immediate: true,
   },
 );
+
+function onTransitionEnd() {
+  renderSpinner.value = false;
+}
 </script>
 
 <template>
   <div
-    v-if="showSpinner"
-    class="flex-center bg-overlay absolute left-0 top-0 size-full backdrop-blur-sm"
+    v-if="renderSpinner"
+    :class="{
+      'invisible opacity-0': !showSpinner,
+    }"
+    class="flex-center bg-overlay absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500"
+    @transitionend="onTransitionEnd"
   >
     <div
       class="loader before:bg-primary/50 after:bg-primary relative h-12 w-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:animate-[loader-shadow-ani_0.5s_linear_infinite] before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:animate-[loader-jump-ani_0.5s_linear_infinite] after:rounded after:content-['']"

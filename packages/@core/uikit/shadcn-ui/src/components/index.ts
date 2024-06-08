@@ -19,6 +19,7 @@ export * from './pin-input';
 export * from './popover';
 export * from './segmented';
 export * from './sheet';
+export * from './spinner';
 export * from './tooltip';
 export * from './ui/alert-dialog';
 export * from './ui/avatar';
