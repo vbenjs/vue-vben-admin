@@ -2,7 +2,7 @@
   "folders": [
     {
       "name": "@vben/antd-view",
-      "path": "apps/antd-view",
+      "path": "apps/web-antd",
     },
     {
       "name": "@vben/commitlint-config",

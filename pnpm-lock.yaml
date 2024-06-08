@@ -92,7 +92,7 @@ importers:
         specifier: ^2.0.19
         version: 2.0.19(typescript@5.4.5)
 
-  apps/antd-view:
+  apps/web-antd:
     dependencies:
       '@vben-core/helpers':
         specifier: workspace:*

@@ -27,7 +27,7 @@ class RequestClient {
 
   /**
    * 构造函数，用于创建Axios实例
-   * @param {AxiosRequestConfig} config - Axios请求配置，可选
+   * @param options - Axios请求配置，可选
    */
   constructor(options: RequestClientOptions = {}) {
     // 合并默认配置和传入的配置
