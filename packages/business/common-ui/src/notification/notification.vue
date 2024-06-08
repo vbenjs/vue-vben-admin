@@ -84,7 +84,7 @@ function handleClick(item: NotificationItem) {
       <div class="flex items-center justify-between border-b p-4 py-3">
         <div class="text-foreground">{{ $t('widgets.notifications') }}</div>
         <VbenIconButton
-          :tooltip="$t('widgets.make-all-notify')"
+          :tooltip="$t('widgets.make-all-as-read')"
           @click="handleMakeAll"
         >
           <IcRoundMarkEmailRead />

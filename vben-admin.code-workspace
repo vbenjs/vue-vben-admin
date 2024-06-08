@@ -42,59 +42,59 @@
     },
     {
       "name": "@vben-core/helpers",
-      "path": "packages/@vben-core/forward/helpers",
+      "path": "packages/@core/forward/helpers",
     },
     {
       "name": "@vben-core/preferences",
-      "path": "packages/@vben-core/forward/preferences",
+      "path": "packages/@core/forward/preferences",
     },
     {
       "name": "@vben-core/request",
-      "path": "packages/@vben-core/forward/request",
+      "path": "packages/@core/forward/request",
     },
     {
       "name": "@vben-core/stores",
-      "path": "packages/@vben-core/forward/stores",
+      "path": "packages/@core/forward/stores",
     },
     {
       "name": "@vben-core/cache",
-      "path": "packages/@vben-core/shared/chche",
+      "path": "packages/@core/shared/chche",
     },
     {
       "name": "@vben-core/design",
-      "path": "packages/@vben-core/shared/design",
+      "path": "packages/@core/shared/design",
     },
     {
       "name": "@vben-core/design-tokens",
-      "path": "packages/@vben-core/shared/design-tokens",
+      "path": "packages/@core/shared/design-tokens",
     },
     {
       "name": "@vben-core/iconify",
-      "path": "packages/@vben-core/shared/iconify",
+      "path": "packages/@core/shared/iconify",
     },
     {
       "name": "@vben-core/toolkit",
-      "path": "packages/@vben-core/shared/toolkit",
+      "path": "packages/@core/shared/toolkit",
     },
     {
       "name": "@vben-core/typings",
-      "path": "packages/@vben-core/shared/typings",
+      "path": "packages/@core/shared/typings",
     },
     {
       "name": "@vben-core/layout-ui",
-      "path": "packages/@vben-core/uikit/layout-ui",
+      "path": "packages/@core/uikit/layout-ui",
     },
     {
       "name": "@vben-core/menu-ui",
-      "path": "packages/@vben-core/uikit/menu-ui",
+      "path": "packages/@core/uikit/menu-ui",
     },
     {
       "name": "@vben-core/shadcn-ui",
-      "path": "packages/@vben-core/uikit/shadcn-ui",
+      "path": "packages/@core/uikit/shadcn-ui",
     },
     {
       "name": "@vben-core/tabs-ui",
-      "path": "packages/@vben-core/uikit/tabs-ui",
+      "path": "packages/@core/uikit/tabs-ui",
     },
     {
       "name": "@vben/common-ui",

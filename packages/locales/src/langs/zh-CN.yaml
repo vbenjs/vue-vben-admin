@@ -28,7 +28,7 @@ widgets:
   logout-tip: 是否退出登录？
   view-all: 查看所有消息
   notifications: 通知
-  make-all-notify: 全部标记为已读
+  make-all-as-read: 全部标记为已读
   clear-notifications: 清空
 
 search:

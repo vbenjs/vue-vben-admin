@@ -29,7 +29,7 @@ widgets:
   logout-tip: Do you want to log out?
   view-all: View all messages
   notifications: Notifications
-  make-all-notify: Make all as read
+  make-all-as-read: Make all as read
   clear-notifications: Clear
 
 search:
