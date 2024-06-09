@@ -1,5 +1,15 @@
 <script setup lang="ts">
-import type { LayoutHeaderModeType, LayoutType } from '@vben/types';
+import type {
+  ContentCompactType,
+  LayoutHeaderModeType,
+  LayoutType,
+  SupportedLanguagesType,
+  ThemeModeType,
+} from '@vben/types';
+import type {
+  BreadcrumbStyleType,
+  NavigationStyleType,
+} from '@vben-core/preferences';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed } from 'vue';
@@ -33,7 +43,7 @@ import {
   Layout,
   Navigation,
   Sidebar,
-  Tabs,
+  Tabbar,
   Theme,
   ThemeColor,
 } from './blocks';
@@ -44,37 +54,53 @@ withDefaults(defineProps<{ colorPrimaryPresets: string[] }>(), {
   colorPrimaryPresets: () => [],
 });
 
-const theme = defineModel<string>('theme');
-const locale = defineModel<string>('locale');
-const dynamicTitle = defineModel<boolean>('dynamicTitle');
-const semiDarkMenu = defineModel<boolean>('semiDarkMenu');
-const breadcrumbVisible = defineModel<boolean>('breadcrumbVisible');
-const breadcrumbIcon = defineModel<boolean>('breadcrumbIcon');
-const breadcrumbHome = defineModel<boolean>('breadcrumbHome');
-const breadcrumbStyle = defineModel<string>('breadcrumbStyle');
+const appThemeMode = defineModel<ThemeModeType>('appThemeMode');
+const appLocale = defineModel<SupportedLanguagesType>('appLocale');
+const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
+const appLayout = defineModel<LayoutType>('appLayout');
+const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
+const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
+const appSemiDarkMenu = defineModel<boolean>('appSemiDarkMenu');
+const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
+
+const transitionProgress = defineModel<boolean>('transitionProgress');
+const transitionName = defineModel<string>('transitionName');
+const transitionEnable = defineModel<boolean>('transitionEnable');
+
+const themeColorPrimary = defineModel<string>('themeColorPrimary');
+
+const sidebarEnable = defineModel<boolean>('sidebarEnable');
+const sidebarCollapse = defineModel<boolean>('sidebarCollapse');
+const sidebarCollapseShowTitle = defineModel<boolean>(
+  'sidebarCollapseShowTitle',
+);
+
+const headerEnable = defineModel<boolean>('headerEnable');
+const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
+
+const breadcrumbEnable = defineModel<boolean>('breadcrumbEnable');
+const breadcrumbShowIcon = defineModel<boolean>('breadcrumbShowIcon');
+const breadcrumbShowHome = defineModel<boolean>('breadcrumbShowHome');
+const breadcrumbStyleType = defineModel<BreadcrumbStyleType>(
+  'breadcrumbStyleType',
+);
 const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
-const sideCollapseShowTitle = defineModel<boolean>('sideCollapseShowTitle');
-const sideCollapse = defineModel<boolean>('sideCollapse');
-const colorWeakMode = defineModel<boolean>('colorWeakMode');
-const colorGrayMode = defineModel<boolean>('colorGrayMode');
-const colorPrimary = defineModel<string>('colorPrimary');
-const navigationStyle = defineModel<string>('navigationStyle');
+
+const tabbarEnable = defineModel<boolean>('tabbarEnable');
+const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
+
+const navigationStyleType = defineModel<NavigationStyleType>(
+  'navigationStyleType',
+);
 const navigationSplit = defineModel<boolean>('navigationSplit');
 const navigationAccordion = defineModel<boolean>('navigationAccordion');
-const pageProgress = defineModel<boolean>('pageProgress');
-const pageTransition = defineModel<string>('pageTransition');
-const pageTransitionEnable = defineModel<boolean>('pageTransitionEnable');
-const layout = defineModel<LayoutType>('layout');
-const contentCompact = defineModel<string>('contentCompact');
-const sideVisible = defineModel<boolean>('sideVisible');
-const shortcutKeys = defineModel<boolean>('shortcutKeys');
-const tabsVisible = defineModel<boolean>('tabsVisible');
-const tabsIcon = defineModel<boolean>('tabsIcon');
+
 // const logoVisible = defineModel<boolean>('logoVisible');
-const headerVisible = defineModel<boolean>('headerVisible');
-const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
-const footerVisible = defineModel<boolean>('footerVisible');
+
+const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
+
+const shortcutKeysEnable = defineModel<boolean>('shortcutKeysEnable');
 
 const {
   diffPreference,
@@ -162,41 +188,44 @@ function handleReset() {
         <VbenSegmented :tabs="tabs" default-value="appearance">
           <template #appearance>
             <Block :title="$t('preference.theme')">
-              <Theme v-model="theme" v-model:semi-dark-menu="semiDarkMenu" />
+              <Theme
+                v-model="appThemeMode"
+                v-model:app-semi-dark-menu="appSemiDarkMenu"
+              />
             </Block>
             <Block :title="$t('preference.theme-color')">
               <ThemeColor
-                v-model="colorPrimary"
+                v-model="themeColorPrimary"
                 :color-primary-presets="colorPrimaryPresets"
               />
             </Block>
             <Block :title="$t('preference.other')">
               <ColorMode
-                v-model:color-gray-mode="colorGrayMode"
-                v-model:color-weak-mode="colorWeakMode"
+                v-model:app-color-gray-mode="appColorGrayMode"
+                v-model:app-color-weak-mode="appColorWeakMode"
               />
             </Block>
           </template>
           <template #layout>
             <Block :title="$t('preference.layout')">
-              <Layout v-model="layout" />
+              <Layout v-model="appLayout" />
             </Block>
             <Block :title="$t('preference.content')">
-              <Content v-model="contentCompact" />
+              <Content v-model="appContentCompact" />
             </Block>
 
             <Block :title="$t('preference.sidebar')">
               <Sidebar
-                v-model:side-visible="sideVisible"
-                v-model:side-collapse="sideCollapse"
-                v-model:side-collapse-show-title="sideCollapseShowTitle"
+                v-model:sidebar-enable="sidebarEnable"
+                v-model:sidebar-collapse="sidebarCollapse"
+                v-model:side-collapse-show-title="sidebarCollapseShowTitle"
                 :disabled="!isSideMode"
               />
             </Block>
 
             <Block :title="$t('preference.header')">
               <Header
-                v-model:header-visible="headerVisible"
+                v-model:headerEnable="headerEnable"
                 v-model:headerMode="headerMode"
                 :disabled="isFullContent"
               />
@@ -204,7 +233,7 @@ function handleReset() {
 
             <Block :title="$t('preference.navigation-menu')">
               <Navigation
-                v-model:navigation-style="navigationStyle"
+                v-model:navigation-style-type="navigationStyleType"
                 v-model:navigation-split="navigationSplit"
                 v-model:navigation-accordion="navigationAccordion"
                 :disabled="isFullContent"
@@ -214,10 +243,10 @@ function handleReset() {
 
             <Block :title="$t('preference.breadcrumb')">
               <Breadcrumb
-                v-model:breadcrumb-visible="breadcrumbVisible"
-                v-model:breadcrumb-icon="breadcrumbIcon"
-                v-model:breadcrumb-style="breadcrumbStyle"
-                v-model:breadcrumb-home="breadcrumbHome"
+                v-model:breadcrumb-enable="breadcrumbEnable"
+                v-model:breadcrumb-show-icon="breadcrumbShowIcon"
+                v-model:breadcrumb-style-type="breadcrumbStyleType"
+                v-model:breadcrumb-show-home="breadcrumbShowHome"
                 v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
                 :disabled="
                   !showBreadcrumbConfig || !(isSideNav || isSideMixedNav)
@@ -226,14 +255,14 @@ function handleReset() {
             </Block>
 
             <Block :title="$t('preference.tabs')">
-              <Tabs
-                v-model:tabs-visible="tabsVisible"
-                v-model:tabs-icon="tabsIcon"
+              <Tabbar
+                v-model:tabbar-enable="tabbarEnable"
+                v-model:tabbar-show-icon="tabbarShowIcon"
               />
             </Block>
             <Block :title="$t('preference.footer')">
               <Footer
-                v-model:footer-visible="footerVisible"
+                v-model:footer-enable="footerEnable"
                 v-model:footer-fixed="footerFixed"
               />
             </Block>
@@ -241,21 +270,21 @@ function handleReset() {
           <template #general>
             <Block :title="$t('preference.general')">
               <General
-                v-model:locale="locale"
-                v-model:dynamic-title="dynamicTitle"
-                v-model:shortcut-keys="shortcutKeys"
+                v-model:app-locale="appLocale"
+                v-model:app-dynamic-title="appDynamicTitle"
+                v-model:shortcut-keys-enable="shortcutKeysEnable"
               />
             </Block>
 
             <Block :title="$t('preference.animation')">
               <Animation
-                v-model:page-progress="pageProgress"
-                v-model:page-transition="pageTransition"
-                v-model:page-transition-enable="pageTransitionEnable"
+                v-model:transition-progress="transitionProgress"
+                v-model:transition-name="transitionName"
+                v-model:transition-enable="transitionEnable"
               />
             </Block>
           </template>
-          <template #shortcutKey>
+          <!-- <template #shortcutKey>
             <Block :title="$t('preference.general')">
               <General
                 v-model:locale="locale"
@@ -268,10 +297,10 @@ function handleReset() {
               <Animation
                 v-model:page-progress="pageProgress"
                 v-model:page-transition="pageTransition"
-                v-model:page-transition-enable="pageTransitionEnable"
+                v-model:transition-enable="transitionEnable"
               />
             </Block>
-          </template>
+          </template> -->
         </VbenSegmented>
       </div>
 

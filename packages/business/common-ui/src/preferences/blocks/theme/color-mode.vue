@@ -7,20 +7,20 @@ defineOptions({
   name: 'PreferenceColorMode',
 });
 
-const colorWeakMode = defineModel<boolean>('colorWeakMode', {
+const appColorWeakMode = defineModel<boolean>('appColorWeakMode', {
   default: false,
 });
 
-const colorGrayMode = defineModel<boolean>('colorGrayMode', {
+const appColorGrayMode = defineModel<boolean>('appColorGrayMode', {
   default: false,
 });
 </script>
 
 <template>
-  <SwitchItem v-model="colorWeakMode">
+  <SwitchItem v-model="appColorWeakMode">
     {{ $t('preference.weak-mode') }}
   </SwitchItem>
-  <SwitchItem v-model="colorGrayMode">
+  <SwitchItem v-model="appColorGrayMode">
     {{ $t('preference.gray-mode') }}
   </SwitchItem>
 </template>

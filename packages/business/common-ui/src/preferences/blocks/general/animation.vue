@@ -6,30 +6,30 @@ import SwitchItem from '../switch-item.vue';
 defineOptions({
   name: 'PreferenceAnimation',
 });
-const pageProgress = defineModel<boolean>('pageProgress', {
+const transitionProgress = defineModel<boolean>('transitionProgress', {
   // 默认值
   default: false,
 });
 
-const pageTransition = defineModel<string>('pageTransition');
-const pageTransitionEnable = defineModel<boolean>('pageTransitionEnable');
+const transitionName = defineModel<string>('transitionName');
+const transitionEnable = defineModel<boolean>('transitionEnable');
 
 const transitionPreset = ['fade', 'fade-slide', 'fade-up', 'fade-down'];
 
 function handleClick(value: string) {
-  pageTransition.value = value;
+  transitionName.value = value;
 }
 </script>
 
 <template>
-  <SwitchItem v-model="pageProgress">
+  <SwitchItem v-model="transitionProgress">
     {{ $t('preference.page-progress') }}
   </SwitchItem>
-  <SwitchItem v-model="pageTransitionEnable">
+  <SwitchItem v-model="transitionEnable">
     {{ $t('preference.page-transition') }}
   </SwitchItem>
   <div
-    v-if="pageTransitionEnable"
+    v-if="transitionEnable"
     class="mb-2 mt-3 flex justify-between gap-3 px-2"
   >
     <div
@@ -37,7 +37,7 @@ function handleClick(value: string) {
       :key="item"
       class="outline-box p-2"
       :class="{
-        'outline-box-active': pageTransition === item,
+        'outline-box-active': transitionName === item,
       }"
       @click="handleClick(item)"
     >

@@ -11,9 +11,9 @@ defineOptions({
   name: 'PreferenceGeneralConfig',
 });
 
-const locale = defineModel<string>('locale');
-const dynamicTitle = defineModel<boolean>('dynamicTitle');
-const shortcutKeys = defineModel<boolean>('shortcutKeys');
+const appLocale = defineModel<string>('appLocale');
+const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
+const shortcutKeysEnable = defineModel<boolean>('shortcutKeysEnable');
 
 const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
   label: item.text,
@@ -22,13 +22,13 @@ const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
 </script>
 
 <template>
-  <SelectItem v-model="locale" :items="localeItems">
+  <SelectItem v-model="appLocale" :items="localeItems">
     {{ $t('preference.language') }}
   </SelectItem>
-  <SwitchItem v-model="dynamicTitle">
+  <SwitchItem v-model="appDynamicTitle">
     {{ $t('preference.dynamic-title') }}
   </SwitchItem>
-  <SwitchItem v-model="shortcutKeys">
+  <SwitchItem v-model="shortcutKeysEnable">
     {{ $t('preference.shortcut-key') }}
   </SwitchItem>
 </template>

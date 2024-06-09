@@ -1,15 +1,10 @@
-import type {
-  DeepPartial,
-  Flatten,
-  FlattenObjectKeys,
-} from '@vben-core/typings';
+import type { DeepPartial } from '@vben-core/typings';
 
 import type { Preferences } from './types';
 
-import { markRaw, reactive, watch } from 'vue';
+import { markRaw, reactive, readonly, watch } from 'vue';
 
 import { StorageManager } from '@vben-core/cache';
-import { flattenObject, nestedObject } from '@vben-core/helpers';
 import { convertToHslCssVar, merge } from '@vben-core/toolkit';
 
 import {
@@ -40,7 +35,7 @@ function isDarkTheme(theme: string) {
 
 class PreferenceManager {
   private cache: StorageManager | null = null;
-  private flattenedState: Flatten<Preferences>;
+  // private flattenedState: Flatten<Preferences>;
   private initialPreferences: Preferences = defaultPreferences;
   private isInitialized: boolean = false;
   private savePreferences: (preference: Preferences) => void;
@@ -49,7 +44,7 @@ class PreferenceManager {
   });
   constructor() {
     this.cache = new StorageManager();
-    this.flattenedState = reactive(flattenObject(this.state));
+    // this.flattenedState = reactive(flattenObject(this.state));
 
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
@@ -113,28 +108,28 @@ class PreferenceManager {
       return;
     }
 
-    const debounceWaterState = useDebounceFn(() => {
-      const newFlattenedState = flattenObject(this.state);
-      for (const k in newFlattenedState) {
-        const key = k as FlattenObjectKeys<Preferences>;
-        this.flattenedState[key] = newFlattenedState[key];
-      }
-      this.savePreferences(this.state);
-    }, 16);
+    // const debounceWaterState = useDebounceFn(() => {
+    //   const newFlattenedState = flattenObject(this.state);
+    //   for (const k in newFlattenedState) {
+    //     const key = k as FlattenObjectKeys<Preferences>;
+    //     this.flattenedState[key] = newFlattenedState[key];
+    //   }
+    //   this.savePreferences(this.state);
+    // }, 16);
 
-    const debounceWaterFlattenedState = useDebounceFn(
-      (val: Flatten<Preferences>) => {
-        this.updateState(val);
-        this.savePreferences(this.state);
-      },
-      16,
-    );
+    // const debounceWaterFlattenedState = useDebounceFn(
+    //   (val: Flatten<Preferences>) => {
+    //     this.updateState(val);
+    //     this.savePreferences(this.state);
+    //   },
+    //   16,
+    // );
 
     // 监听 state 的变化
-    watch(this.state, debounceWaterState, { deep: true });
+    // watch(this.state, debounceWaterState, { deep: true });
 
     // 监听 flattenedState 的变化并触发 set 方法
-    watch(this.flattenedState, debounceWaterFlattenedState, { deep: true });
+    // watch(this.flattenedState, debounceWaterFlattenedState, { deep: true });
 
     // 监听断点，判断是否移动端
     const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -200,10 +195,10 @@ class PreferenceManager {
    * 将新的扁平对象转换为嵌套对象，并与当前状态合并。
    * @param {FlattenObject<Preferences>} newValue - 新的扁平对象
    */
-  private updateState(newValue: Flatten<Preferences>) {
-    const nestObj = nestedObject(newValue, 2);
-    Object.assign(this.state, merge(nestObj, this.state));
-  }
+  // private updateState(newValue: Flatten<Preferences>) {
+  //   const nestObj = nestedObject(newValue, 2);
+  //   Object.assign(this.state, merge(nestObj, this.state));
+  // }
 
   /**
    * 更新主题
@@ -222,16 +217,16 @@ class PreferenceManager {
     }
   }
 
-  public getFlatPreferences() {
-    return this.flattenedState;
-  }
+  // public getFlatPreferences() {
+  //   return this.flattenedState;
+  // }
 
   public getInitialPreferences() {
     return this.initialPreferences;
   }
 
   public getPreferences() {
-    return this.state;
+    return readonly(this.state);
   }
 
   /**
@@ -291,7 +286,7 @@ class PreferenceManager {
 
     Object.assign(this.state, mergedState);
 
-    Object.assign(this.flattenedState, flattenObject(this.state));
+    // Object.assign(this.flattenedState, flattenObject(this.state));
 
     // 根据更新的键值执行相应的操作
     this.handleUpdates(updates);

@@ -12,7 +12,7 @@ defineOptions({
 
 defineProps<{ disabled: boolean }>();
 
-const headerVisible = defineModel<boolean>('headerVisible');
+const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
 
 const localeItems: SelectListItem[] = [
@@ -36,13 +36,13 @@ const localeItems: SelectListItem[] = [
 </script>
 
 <template>
-  <SwitchItem v-model="headerVisible" :disabled="disabled">
+  <SwitchItem v-model="headerEnable" :disabled="disabled">
     {{ $t('preference.header-visible') }}
   </SwitchItem>
   <SelectItem
     v-model="headerMode"
     :items="localeItems"
-    :disabled="!headerVisible"
+    :disabled="!headerEnable"
   >
     {{ $t('preference.mode') }}
   </SelectItem>

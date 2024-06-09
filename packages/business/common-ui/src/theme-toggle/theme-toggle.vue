@@ -6,7 +6,8 @@ import {
   MdiMoonAndStars,
 } from '@vben-core/iconify';
 import {
-  flatPreferences,
+  type ThemeModeType,
+  preferences,
   updatePreferences,
   usePreferences,
 } from '@vben-core/preferences';
@@ -63,10 +64,14 @@ const PRESETS = [
         />
       </template>
       <ToggleGroup
-        v-model="flatPreferences.appThemeMode"
+        :model-value="preferences.app.themeMode"
         type="single"
         variant="outline"
         class="gap-2"
+        @update:model-value="
+          (val) =>
+            updatePreferences({ app: { themeMode: val as ThemeModeType } })
+        "
       >
         <ToggleGroupItem
           v-for="item in PRESETS"

@@ -5,7 +5,6 @@ import { PreferencesWidget } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import {
-  flatPreferences,
   preferences,
   updatePreferences,
   usePreferences,
@@ -59,12 +58,13 @@ const logoCollapse = computed(() => {
     return false;
   }
 
-  const { appIsMobile, sidebarCollapse } = flatPreferences;
+  const { isMobile } = preferences.app;
+  const { collapse } = preferences.sidebar;
 
-  if (!sidebarCollapse && appIsMobile) {
+  if (!collapse && isMobile) {
     return false;
   }
-  return sidebarCollapse || isSideMixedNav.value;
+  return collapse || isSideMixedNav.value;
 });
 
 const showHeaderNav = computed(() => {
@@ -103,9 +103,9 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
 <template>
   <VbenAdminLayout
     v-model:side-extra-visible="extraVisible"
-    v-model:side-collapse="flatPreferences.sidebarCollapse"
-    v-model:side-expand-on-hover="flatPreferences.sidebarExpandOnHover"
-    v-model:side-extra-collapse="flatPreferences.sidebarExtraCollapse"
+    :side-extra-collapse="preferences.sidebar.extraCollapse"
+    :side-expand-on-hover="preferences.sidebar.expandOnHover"
+    :side-collapse="preferences.sidebar.collapse"
     :side-collapse-show-title="preferences.sidebar.collapseShowTitle"
     :content-compact="preferences.app.contentCompact"
     :is-mobile="preferences.app.isMobile"
@@ -121,6 +121,30 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     :header-hidden="preferences.header.hidden"
     :side-width="preferences.sidebar.width"
     :tabs-visible="preferences.tabbar.enable"
+    @update:side-extra-collapse="
+      (value: boolean) =>
+        updatePreferences({
+          sidebar: {
+            extraCollapse: value,
+          },
+        })
+    "
+    @update:side-expand-on-hover="
+      (value: boolean) =>
+        updatePreferences({
+          sidebar: {
+            expandOnHover: value,
+          },
+        })
+    "
+    @update:side-collapse="
+      (value: boolean) =>
+        updatePreferences({
+          sidebar: {
+            collapse: value,
+          },
+        })
+    "
     @side-mouse-leave="handleSideMouseLeave"
     @update:side-visible="
       (value: boolean) =>

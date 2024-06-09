@@ -10,7 +10,7 @@ type BreadcrumbStyleType = 'background' | 'normal';
 
 type NavigationStyleType = 'plain' | 'rounded';
 
-type PageTransitionType = 'fade-slide';
+type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
 
 type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
 
@@ -132,7 +132,7 @@ interface TransitionPreferences {
   /** 页面切换动画是否启用 */
   enable: boolean;
   /** 页面切换动画 */
-  name: PageTransitionType;
+  name: PageTransitionType | string;
   /** 是否开启页面加载进度动画 */
   progress: boolean;
 }
@@ -176,6 +176,7 @@ export type {
   LayoutType,
   LogoPreferences,
   NavigationPreferences,
+  NavigationStyleType,
   PageTransitionType,
   Preferences,
   PreferencesKeys,

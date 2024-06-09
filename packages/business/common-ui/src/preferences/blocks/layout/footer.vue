@@ -7,15 +7,15 @@ defineOptions({
   name: 'PreferenceBreadcrumbConfig',
 });
 
-const footerVisible = defineModel<boolean>('footerVisible');
+const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 </script>
 
 <template>
-  <SwitchItem v-model="footerVisible">
+  <SwitchItem v-model="footerEnable">
     {{ $t('preference.footer-visible') }}
   </SwitchItem>
-  <SwitchItem v-model="footerFixed" :disabled="!footerVisible">
+  <SwitchItem v-model="footerFixed" :disabled="!footerEnable">
     {{ $t('preference.footer-fixed') }}
   </SwitchItem>
 </template>

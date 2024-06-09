@@ -5,7 +5,12 @@ import { computed } from 'vue';
 
 import { $t } from '@vben/locales';
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
-import { preferences, usePreferences } from '@vben-core/preferences';
+import {
+  type AuthPageLayoutType,
+  preferences,
+  updatePreferences,
+  usePreferences,
+} from '@vben-core/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
 
 defineOptions({
@@ -31,12 +36,21 @@ const menus = computed((): VbenDropdownMenuItem[] => [
 ]);
 
 const { authPanelCenter, authPanelLeft, authPanelRight } = usePreferences();
+
+function handleUpdate(value: string) {
+  updatePreferences({
+    app: {
+      authPageLayout: value as AuthPageLayoutType,
+    },
+  });
+}
 </script>
 
 <template>
   <VbenDropdownRadioMenu
-    v-model="preferences.app.authPageLayout"
     :menus="menus"
+    :model-value="preferences.app.authPageLayout"
+    @update:model-value="handleUpdate"
   >
     <VbenIconButton>
       <MdiDockRight v-if="authPanelRight" class="size-5" />

@@ -1,5 +1,3 @@
-import type { Flatten } from '@vben-core/typings';
-
 import type { Preferences } from './types';
 
 import { preferencesManager } from './preferences';
@@ -8,8 +6,8 @@ import { preferencesManager } from './preferences';
 const preferences: Preferences = preferencesManager.getPreferences();
 
 // 扁平化后的偏好设置
-const flatPreferences: Flatten<Preferences> =
-  preferencesManager.getFlatPreferences();
+// const flatPreferences: Flatten<Preferences> =
+//   preferencesManager.getFlatPreferences();
 
 // 更新偏好设置
 const updatePreferences =
@@ -20,7 +18,7 @@ const resetPreferences =
   preferencesManager.resetPreferences.bind(preferencesManager);
 
 export {
-  flatPreferences,
+  // flatPreferences,
   preferences,
   preferencesManager,
   resetPreferences,

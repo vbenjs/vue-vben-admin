@@ -9,15 +9,15 @@ defineOptions({
 
 defineProps<{ disabled?: boolean }>();
 
-const tabsVisible = defineModel<boolean>('tabsVisible');
-const tabsIcon = defineModel<boolean>('tabsIcon');
+const tabbarEnable = defineModel<boolean>('tabbarEnable');
+const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 </script>
 
 <template>
-  <SwitchItem v-model="tabsVisible" :disabled="disabled">
+  <SwitchItem v-model="tabbarEnable" :disabled="disabled">
     {{ $t('preference.tabs-visible') }}
   </SwitchItem>
-  <SwitchItem v-model="tabsIcon" :disabled="!tabsVisible">
+  <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
     {{ $t('preference.tabs-icon') }}
   </SwitchItem>
   <!-- <SwitchItem v-model="sideCollapseShowTitle" :disabled="!tabsVisible">

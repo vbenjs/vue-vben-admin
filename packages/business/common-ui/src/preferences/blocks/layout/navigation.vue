@@ -12,7 +12,7 @@ defineOptions({
 
 defineProps<{ disabled?: boolean; disabledNavigationSplit?: boolean }>();
 
-const navigationStyle = defineModel<string>('navigationStyle');
+const navigationStyleType = defineModel<string>('navigationStyleType');
 const navigationSplit = defineModel<boolean>('navigationSplit');
 const navigationAccordion = defineModel<boolean>('navigationAccordion');
 
@@ -24,7 +24,7 @@ const stylesItems: SelectListItem[] = [
 
 <template>
   <ToggleItem
-    v-model="navigationStyle"
+    v-model="navigationStyleType"
     :items="stylesItems"
     :disabled="disabled"
   >
