@@ -36,12 +36,12 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.10.0",
-    "ant-design-vue": "^4.2.1",
+    "ant-design-vue": "^4.2.3",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "pinia": "2.1.7",
     "vue": "3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "vite-plugin-mock": "^3.0.2"

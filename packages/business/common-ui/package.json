@@ -54,7 +54,7 @@
     "@vueuse/integrations": "^10.10.0",
     "qrcode": "^1.5.3",
     "vue": "3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5",

@@ -41,6 +41,6 @@
   "dependencies": {
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.3"
   }
 }
