@@ -65,8 +65,8 @@ const style = computed((): CSSProperties => {
 <template>
   <footer
     :class="b()"
-    class="bottom-0 w-full transition-all duration-200"
     :style="style"
+    class="bottom-0 w-full transition-all duration-200"
   >
     <slot></slot>
   </footer>

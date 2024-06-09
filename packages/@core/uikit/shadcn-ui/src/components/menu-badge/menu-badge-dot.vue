@@ -14,15 +14,15 @@ withDefaults(defineProps<Props>(), {
 <template>
   <span class="relative mr-1 flex size-1.5">
     <span
-      class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
       :class="dotClass"
       :style="dotStyle"
+      class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
     >
     </span>
     <span
-      class="relative inline-flex size-1.5 rounded-full"
       :class="dotClass"
       :style="dotStyle"
+      class="relative inline-flex size-1.5 rounded-full"
     ></span>
   </span>
 </template>

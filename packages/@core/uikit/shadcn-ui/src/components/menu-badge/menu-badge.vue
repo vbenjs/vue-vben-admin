@@ -43,7 +43,7 @@ const badgeStyle = computed(() => {
 });
 </script>
 <template>
-  <span v-if="isDot || badge" class="absolute right-5" :class="$attrs.class">
+  <span v-if="isDot || badge" :class="$attrs.class" class="absolute right-5">
     <BadgeDot v-if="isDot" :dot-class="badgeClass" :dot-style="badgeStyle" />
     <div
       v-else

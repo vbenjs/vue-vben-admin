@@ -25,8 +25,8 @@ const stylesItems: SelectListItem[] = [
 <template>
   <ToggleItem
     v-model="navigationStyleType"
-    :items="stylesItems"
     :disabled="disabled"
+    :items="stylesItems"
   >
     {{ $t('preference.navigation-style') }}
   </ToggleItem>

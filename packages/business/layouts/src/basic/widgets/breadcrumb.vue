@@ -75,15 +75,15 @@ function handleSelect(path: string) {
   <VbenBreadcrumb
     v-if="type === 'normal'"
     :breadcrumbs="breadcrumbs"
-    class="ml-2"
     :show-icon="showIcon"
+    class="ml-2"
     @select="handleSelect"
   />
   <VbenBackgroundBreadcrumb
     v-if="type === 'background'"
     :breadcrumbs="breadcrumbs"
-    class="ml-2"
     :show-icon="showIcon"
+    class="ml-2"
     @select="handleSelect"
   />
 </template>

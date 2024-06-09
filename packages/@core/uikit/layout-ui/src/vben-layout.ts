@@ -47,6 +47,11 @@ interface VbenLayoutProps {
    */
   footerBackgroundColor?: string;
   /**
+   * footer 是否可见
+   * @default false
+   */
+  footerEnable?: boolean;
+  /**
    * footer 是否固定
    * @default true
    */
@@ -56,11 +61,6 @@ interface VbenLayoutProps {
    * @default 32
    */
   footerHeight?: number;
-  /**
-   * footer 是否可见
-   * @default false
-   */
-  footerVisible?: boolean;
   /**
    * 背景颜色
    * @default #fff

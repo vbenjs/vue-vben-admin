@@ -54,11 +54,11 @@ function checkPasswordStrength(password: string) {
         class="dark:bg-input-background bg-heavy relative mr-1 h-1.5 w-1/5 rounded-sm last:mr-0"
       >
         <span
-          class="absolute left-0 h-full w-0 rounded-sm transition-all duration-500"
           :style="{
             backgroundColor: currentColor,
             width: currentStrength >= index ? '100%' : '',
           }"
+          class="absolute left-0 h-full w-0 rounded-sm transition-all duration-500"
         ></span>
       </div>
     </template>

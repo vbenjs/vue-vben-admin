@@ -37,19 +37,19 @@ const hasChildren = computed(() => {
   <MenuItem
     v-if="!hasChildren"
     :key="menu.path"
-    :path="menu.path"
-    :icon="menu.icon"
     :badge="menu.badge"
     :badge-type="menu.badgeType"
     :badge-variants="menu.badgeVariants"
+    :icon="menu.icon"
+    :path="menu.path"
   >
     <template #title>{{ menu.name }}</template>
   </MenuItem>
   <SubMenuComp
     v-else
     :key="`${menu.path}_sub`"
-    :path="menu.path"
     :icon="menu.icon"
+    :path="menu.path"
   >
     <template #content>
       <VbenMenuBadge

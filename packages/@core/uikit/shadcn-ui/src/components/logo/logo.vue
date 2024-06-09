@@ -51,16 +51,16 @@ const logoClass = computed(() => {
 </script>
 
 <template>
-  <div class="group flex h-full items-center text-lg" :class="logoClass">
+  <div :class="logoClass" class="group flex h-full items-center text-lg">
     <a
+      :class="$attrs.class"
       :href="href"
       class="flex h-full items-center gap-2 overflow-hidden px-3 font-semibold leading-normal transition-all duration-500"
-      :class="$attrs.class"
     >
       <img
         v-if="src"
-        :src="src"
         :alt="alt"
+        :src="src"
         :width="logoSize"
         class="relative rounded-none bg-transparent"
       />

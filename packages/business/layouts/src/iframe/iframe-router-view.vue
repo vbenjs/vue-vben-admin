@@ -70,8 +70,8 @@ function showSpinning(index: number) {
     {{ iframeRoutes.length }}
     <template v-for="(item, index) in iframeRoutes" :key="item.fullPath">
       <div
-        v-show="routeShow(item)"
         v-if="canRender(item)"
+        v-show="routeShow(item)"
         class="relative size-full"
       >
         <Spinner :spinning="showSpinning(index)" />

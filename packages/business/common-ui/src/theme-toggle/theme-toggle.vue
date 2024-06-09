@@ -55,7 +55,7 @@ const PRESETS = [
 </script>
 <template>
   <div>
-    <VbenTooltip side="bottom" :disabled="!shouldOnHover">
+    <VbenTooltip :disabled="!shouldOnHover" side="bottom">
       <template #trigger>
         <ThemeButton
           :model-value="isDark"
@@ -65,9 +65,9 @@ const PRESETS = [
       </template>
       <ToggleGroup
         :model-value="preferences.app.themeMode"
+        class="gap-2"
         type="single"
         variant="outline"
-        class="gap-2"
         @update:model-value="
           (val) =>
             updatePreferences({ app: { themeMode: val as ThemeModeType } })

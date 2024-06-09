@@ -35,13 +35,13 @@ function handleClick(value: string) {
     <div
       v-for="item in transitionPreset"
       :key="item"
-      class="outline-box p-2"
       :class="{
         'outline-box-active': transitionName === item,
       }"
+      class="outline-box p-2"
       @click="handleClick(item)"
     >
-      <div class="bg-accent h-10 w-12 rounded-md" :class="`${item}-slow`"></div>
+      <div :class="`${item}-slow`" class="bg-accent h-10 w-12 rounded-md"></div>
     </div>
   </div>
 </template>

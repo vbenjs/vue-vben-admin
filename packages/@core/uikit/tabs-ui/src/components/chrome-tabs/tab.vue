@@ -39,7 +39,7 @@ function handleUnPushPin() {
 
 <template>
   <div :class="[b()]">
-    <VbenContextMenu :menus="menus" :handler-data="tab" item-class="pr-4">
+    <VbenContextMenu :handler-data="tab" :menus="menus" item-class="pr-4">
       <div class="h-full">
         <TabBackground />
         <div :class="e('content')" :title="title">

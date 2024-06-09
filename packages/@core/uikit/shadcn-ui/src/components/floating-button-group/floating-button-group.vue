@@ -16,18 +16,18 @@ const handleMenuItemClick = (_item) => {
 <template>
   <div class="fixed bottom-5 right-5 flex flex-col-reverse items-center gap-2">
     <button
-      class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 text-xl text-white transition-transform duration-300"
       :class="{ 'rotate-45': isMenuOpen }"
+      class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 text-xl text-white transition-transform duration-300"
       @click="toggleMenu"
     >
       ✖
     </button>
     <div
-      class="absolute bottom-16 right-0 flex flex-col-reverse gap-2 transition-all duration-300"
       :class="{
         'visible translate-y-0 opacity-100': isMenuOpen,
         'invisible translate-y-2 opacity-0': !isMenuOpen,
       }"
+      class="absolute bottom-16 right-0 flex flex-col-reverse gap-2 transition-all duration-300"
     >
       <button
         v-for="(item, index) in menuItems"

@@ -23,10 +23,10 @@ function handleClick() {
 
 <template>
   <div
-    class="hover:bg-accent my-1 flex w-full items-center justify-between rounded-md px-2 py-2"
     :class="{
       'pointer-events-none opacity-50': disabled,
     }"
+    class="hover:bg-accent my-1 flex w-full items-center justify-between rounded-md px-2 py-2"
     @click="handleClick"
   >
     <span class="flex items-center text-sm">

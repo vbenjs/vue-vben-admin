@@ -14,7 +14,7 @@ defineOptions({
     </slot>
 
     <RouterView v-slot="{ Component, route }">
-      <Transition name="slide-right" mode="out-in" appear>
+      <Transition appear mode="out-in" name="slide-right">
         <KeepAlive :include="['Login']">
           <component
             :is="Component"

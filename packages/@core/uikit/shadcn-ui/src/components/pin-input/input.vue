@@ -56,10 +56,10 @@ function handleComplete(e: string[]) {
     <PinInput
       :id="name"
       v-model="inputValue"
+      :class="inputClass"
+      class="flex justify-between"
       otp
       placeholder="○"
-      class="flex justify-between"
-      :class="inputClass"
       type="number"
       @complete="handleComplete"
     >
@@ -71,10 +71,10 @@ function handleComplete(e: string[]) {
         />
       </PinInputGroup>
       <VbenButton
+        :loading="btnLoading"
         class="w-[300px] xl:w-full"
         size="lg"
         variant="outline"
-        :loading="btnLoading"
         @click="handleSendCode"
       >
         {{ btnText }}

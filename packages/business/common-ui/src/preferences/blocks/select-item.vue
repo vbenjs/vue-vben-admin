@@ -37,11 +37,11 @@ const slots = useSlots();
 
 <template>
   <div
-    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-1"
     :class="{
       'hover:bg-accent': !slots.tip,
       'pointer-events-none opacity-50': disabled,
     }"
+    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-1"
   >
     <span class="flex items-center text-sm">
       <slot></slot>

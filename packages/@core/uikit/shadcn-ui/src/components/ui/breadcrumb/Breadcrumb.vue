@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <nav aria-label="breadcrumb" role="navigation" :class="props.class">
+  <nav :class="props.class" aria-label="breadcrumb" role="navigation">
     <slot></slot>
   </nav>
 </template>

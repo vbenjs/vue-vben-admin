@@ -31,9 +31,9 @@ const accessStore = useAccessStore();
   </div>
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <GlobalSearch
-      class="mr-4"
       :enable-shortcut-key="preferences.shortcutKeys.enable"
       :menus="accessStore.getAccessMenus"
+      class="mr-4"
     />
     <ThemeToggle class="mr-2" />
     <LanguageToggle class="mr-2" />

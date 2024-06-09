@@ -41,8 +41,8 @@ const text = computed(() => {
     </Avatar>
     <span
       v-if="dot"
-      class="border-background absolute bottom-0 right-0 size-3 rounded-full border-2"
       :class="dotClass"
+      class="border-background absolute bottom-0 right-0 size-3 rounded-full border-2"
     >
     </span>
   </div>

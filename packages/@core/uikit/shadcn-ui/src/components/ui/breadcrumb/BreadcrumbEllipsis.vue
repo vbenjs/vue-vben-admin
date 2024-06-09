@@ -12,9 +12,9 @@ const props = defineProps<{
 
 <template>
   <span
-    role="presentation"
-    aria-hidden="true"
     :class="cn('flex h-9 w-9 items-center justify-center', props.class)"
+    aria-hidden="true"
+    role="presentation"
   >
     <slot>
       <DotsHorizontalIcon class="h-4 w-4" />

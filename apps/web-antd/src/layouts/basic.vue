@@ -96,16 +96,16 @@ function handleNoticeClear() {
       <UserDropdown
         :avatar="preferences.app.defaultAvatar"
         :menus="menus"
-        text="Vben Admin"
         description="ann.vben@gmail.com"
         tag-text="Pro"
+        text="Vben Admin"
         @logout="handleLogout"
       />
     </template>
     <template #notification>
       <Notification
-        dot
         :notifications="notifications"
+        dot
         @clear="handleNoticeClear"
       />
     </template>

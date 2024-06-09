@@ -172,9 +172,9 @@ function handleReset() {
       </template>
       <template #extra>
         <VbenIconButton
-          class="relative"
           :disabled="!diffPreference"
           :tooltip="$t('preference.reset-tip')"
+          class="relative"
         >
           <span
             v-if="diffPreference"
@@ -216,9 +216,9 @@ function handleReset() {
 
             <Block :title="$t('preference.sidebar')">
               <Sidebar
-                v-model:sidebar-enable="sidebarEnable"
-                v-model:sidebar-collapse="sidebarCollapse"
                 v-model:side-collapse-show-title="sidebarCollapseShowTitle"
+                v-model:sidebar-collapse="sidebarCollapse"
+                v-model:sidebar-enable="sidebarEnable"
                 :disabled="!isSideMode"
               />
             </Block>
@@ -233,9 +233,9 @@ function handleReset() {
 
             <Block :title="$t('preference.navigation-menu')">
               <Navigation
-                v-model:navigation-style-type="navigationStyleType"
-                v-model:navigation-split="navigationSplit"
                 v-model:navigation-accordion="navigationAccordion"
+                v-model:navigation-split="navigationSplit"
+                v-model:navigation-style-type="navigationStyleType"
                 :disabled="isFullContent"
                 :disabled-navigation-split="!isMixedNav"
               />
@@ -244,10 +244,10 @@ function handleReset() {
             <Block :title="$t('preference.breadcrumb')">
               <Breadcrumb
                 v-model:breadcrumb-enable="breadcrumbEnable"
+                v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
+                v-model:breadcrumb-show-home="breadcrumbShowHome"
                 v-model:breadcrumb-show-icon="breadcrumbShowIcon"
                 v-model:breadcrumb-style-type="breadcrumbStyleType"
-                v-model:breadcrumb-show-home="breadcrumbShowHome"
-                v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
                 :disabled="
                   !showBreadcrumbConfig || !(isSideNav || isSideMixedNav)
                 "
@@ -270,17 +270,17 @@ function handleReset() {
           <template #general>
             <Block :title="$t('preference.general')">
               <General
-                v-model:app-locale="appLocale"
                 v-model:app-dynamic-title="appDynamicTitle"
+                v-model:app-locale="appLocale"
                 v-model:shortcut-keys-enable="shortcutKeysEnable"
               />
             </Block>
 
             <Block :title="$t('preference.animation')">
               <Animation
-                v-model:transition-progress="transitionProgress"
-                v-model:transition-name="transitionName"
                 v-model:transition-enable="transitionEnable"
+                v-model:transition-name="transitionName"
+                v-model:transition-progress="transitionProgress"
               />
             </Block>
           </template>
@@ -306,10 +306,10 @@ function handleReset() {
 
       <template #footer>
         <VbenButton
-          class="mx-6 w-full"
-          variant="default"
-          size="sm"
           :disabled="!diffPreference"
+          class="mx-6 w-full"
+          size="sm"
+          variant="default"
           @click="handleCopy"
         >
           <IcRoundFolderCopy class="mr-2 size-3" />

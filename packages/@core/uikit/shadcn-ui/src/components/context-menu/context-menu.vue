@@ -72,10 +72,10 @@ function handleClick(menu: IContextMenuItem) {
     >
       <template v-for="menu in menusView" :key="menu.key">
         <ContextMenuItem
-          :inset="menu.inset || !menu.icon"
-          :disabled="menu.disabled"
-          class="cursor-pointer"
           :class="itemClass"
+          :disabled="menu.disabled"
+          :inset="menu.inset || !menu.icon"
+          class="cursor-pointer"
           @click="handleClick(menu)"
         >
           <component

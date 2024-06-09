@@ -103,56 +103,38 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
 <template>
   <VbenAdminLayout
     v-model:side-extra-visible="extraVisible"
-    :side-extra-collapse="preferences.sidebar.extraCollapse"
-    :side-expand-on-hover="preferences.sidebar.expandOnHover"
-    :side-collapse="preferences.sidebar.collapse"
-    :side-collapse-show-title="preferences.sidebar.collapseShowTitle"
     :content-compact="preferences.app.contentCompact"
+    :footer-enable="preferences.footer.enable"
+    :footer-fixed="preferences.footer.fixed"
+    :header-hidden="preferences.header.hidden"
+    :header-mode="preferences.header.mode"
+    :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
     :layout="layout"
-    :header-mode="preferences.header.mode"
-    :footer-fixed="preferences.footer.fixed"
+    :side-collapse="preferences.sidebar.collapse"
+    :side-collapse-show-title="preferences.sidebar.collapseShowTitle"
+    :side-expand-on-hover="preferences.sidebar.expandOnHover"
+    :side-extra-collapse="preferences.sidebar.extraCollapse"
+    :side-hidden="preferences.sidebar.hidden"
     :side-semi-dark="preferences.app.semiDarkMenu"
     :side-theme="theme"
-    :side-hidden="preferences.sidebar.hidden"
     :side-visible="sideVisible"
-    :footer-visible="preferences.footer.enable"
-    :header-visible="preferences.header.enable"
-    :header-hidden="preferences.header.hidden"
     :side-width="preferences.sidebar.width"
     :tabs-visible="preferences.tabbar.enable"
-    @update:side-extra-collapse="
-      (value: boolean) =>
-        updatePreferences({
-          sidebar: {
-            extraCollapse: value,
-          },
-        })
+    @side-mouse-leave="handleSideMouseLeave"
+    @update:side-collapse="
+      (value: boolean) => updatePreferences({ sidebar: { collapse: value } })
     "
     @update:side-expand-on-hover="
       (value: boolean) =>
-        updatePreferences({
-          sidebar: {
-            expandOnHover: value,
-          },
-        })
+        updatePreferences({ sidebar: { expandOnHover: value } })
     "
-    @update:side-collapse="
+    @update:side-extra-collapse="
       (value: boolean) =>
-        updatePreferences({
-          sidebar: {
-            collapse: value,
-          },
-        })
+        updatePreferences({ sidebar: { extraCollapse: value } })
     "
-    @side-mouse-leave="handleSideMouseLeave"
     @update:side-visible="
-      (value: boolean) =>
-        updatePreferences({
-          sidebar: {
-            enable: value,
-          },
-        })
+      (value: boolean) => updatePreferences({ sidebar: { enable: value } })
     "
   >
     <template v-if="preferences.app.showPreference" #preferences>
@@ -167,12 +149,12 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <!-- logo -->
     <template #logo>
       <VbenLogo
+        :alt="preferences.app.name"
+        :class="logoClass"
         :collapse="logoCollapse"
         :src="preferences.logo.source"
         :text="preferences.app.name"
         :theme="showHeaderNav ? headerMenuTheme : theme"
-        :alt="preferences.app.name"
-        :class="logoClass"
       />
     </template>
     <!-- 头部区域 -->
@@ -184,19 +166,19 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
         >
           <Breadcrumb
             :hide-when-only-one="preferences.breadcrumb.hideOnlyOne"
-            :type="preferences.breadcrumb.styleType"
-            :show-icon="preferences.breadcrumb.showIcon"
             :show-home="preferences.breadcrumb.showHome"
+            :show-icon="preferences.breadcrumb.showIcon"
+            :type="preferences.breadcrumb.styleType"
           />
         </template>
         <template v-if="showHeaderNav" #menu>
           <LayoutMenu
-            class="w-full"
-            :rounded="isMenuRounded"
-            mode="horizontal"
-            :theme="headerMenuTheme"
-            :menus="wrapperMenus(headerMenus)"
             :default-active="headerActive"
+            :menus="wrapperMenus(headerMenus)"
+            :rounded="isMenuRounded"
+            :theme="headerMenuTheme"
+            class="w-full"
+            mode="horizontal"
             @select="handleMenuSelect"
           />
         </template>
@@ -211,44 +193,44 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <!-- 侧边菜单区域 -->
     <template #menu>
       <LayoutMenu
-        mode="vertical"
         :accordion="preferences.navigation.accordion"
-        :rounded="isMenuRounded"
-        :collapse-show-title="preferences.sidebar.collapseShowTitle"
         :collapse="preferences.sidebar.collapse"
-        :theme="theme"
-        :menus="wrapperMenus(sideMenus)"
+        :collapse-show-title="preferences.sidebar.collapseShowTitle"
         :default-active="sideActive"
+        :menus="wrapperMenus(sideMenus)"
+        :rounded="isMenuRounded"
+        :theme="theme"
+        mode="vertical"
         @select="handleMenuSelect"
       />
     </template>
     <template #mixed-menu>
       <LayoutMixedMenu
-        :rounded="isMenuRounded"
-        :collapse="!preferences.sidebar.collapseShowTitle"
         :active-path="extraActiveMenu"
+        :collapse="!preferences.sidebar.collapseShowTitle"
+        :rounded="isMenuRounded"
         :theme="theme"
-        @select="handleMixedMenuSelect"
         @default-select="handleDefaultSelect"
         @enter="handleMenuMouseEnter"
+        @select="handleMixedMenuSelect"
       />
     </template>
     <!-- 侧边额外区域 -->
     <template #side-extra>
       <LayoutExtraMenu
         :accordion="preferences.navigation.accordion"
-        :rounded="isMenuRounded"
-        :menus="wrapperMenus(extraMenus)"
         :collapse="preferences.sidebar.extraCollapse"
+        :menus="wrapperMenus(extraMenus)"
+        :rounded="isMenuRounded"
         :theme="theme"
       />
     </template>
     <template #side-extra-title>
       <VbenLogo
         v-if="preferences.logo.enable"
+        :alt="preferences.app.name"
         :text="preferences.app.name"
         :theme="theme"
-        :alt="preferences.app.name"
       />
     </template>
 

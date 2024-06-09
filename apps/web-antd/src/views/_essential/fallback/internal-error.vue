@@ -3,5 +3,5 @@ import { Fallback } from '@vben/common-ui';
 </script>
 
 <template>
-  <Fallback status="500" :show-back="false" />
+  <Fallback :show-back="false" status="500" />
 </template>

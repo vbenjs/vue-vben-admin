@@ -125,26 +125,26 @@ onBeforeUnmount(() => {
     </Title>
     <VbenInput
       v-model="formState.phoneNumber"
-      :status="phoneNumberStatus"
+      :autofocus="true"
       :error-tip="$t('authentication.mobile-tip')"
       :label="$t('authentication.mobile')"
+      :placeholder="$t('authentication.mobile')"
+      :status="phoneNumberStatus"
       name="phoneNumber"
       type="number"
-      :placeholder="$t('authentication.mobile')"
-      :autofocus="true"
       @keyup.enter="handleSubmit"
     />
     <VbenPinInput
       v-model="formState.code"
-      :handle-send-code="handleSendCode"
-      :status="codeStatus"
+      :btn-loading="btnLoading"
+      :btn-text="btnText"
       :code-length="4"
       :error-tip="$t('authentication.code-tip')"
+      :handle-send-code="handleSendCode"
       :label="$t('authentication.code')"
-      name="password"
       :placeholder="$t('authentication.code')"
-      :btn-text="btnText"
-      :btn-loading="btnLoading"
+      :status="codeStatus"
+      name="password"
       @keyup.enter="handleSubmit"
     />
     <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">

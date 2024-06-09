@@ -90,24 +90,24 @@ function goLogin() {
     </Title>
     <VbenInput
       v-model="formState.username"
-      :status="usernameStatus"
       :error-tip="$t('authentication.username-tip')"
       :label="$t('authentication.username')"
-      name="username"
       :placeholder="$t('authentication.username')"
+      :status="usernameStatus"
+      name="username"
       type="text"
     />
     <!-- Use 8 or more characters with a mix of letters, numbers & symbols. -->
     <VbenInputPassword
       v-model="formState.password"
-      :status="passwordStatus"
       :error-tip="$t('authentication.password-tip')"
       :label="$t('authentication.password')"
-      name="password"
+      :password-strength="true"
       :placeholder="$t('authentication.password')"
+      :status="passwordStatus"
+      name="password"
       required
       type="password"
-      :password-strength="true"
     >
       <template #strengthText>
         {{ $t('authentication.password-strength') }}
@@ -116,11 +116,11 @@ function goLogin() {
 
     <VbenInputPassword
       v-model="formState.comfirmPassword"
-      :status="comfirmPasswordStatus"
       :error-tip="$t('authentication.comfirm-password-tip')"
       :label="$t('authentication.comfirm-password')"
-      name="comfirmPassword"
       :placeholder="$t('authentication.comfirm-password')"
+      :status="comfirmPasswordStatus"
+      name="comfirmPassword"
       required
       type="password"
     />

@@ -42,12 +42,12 @@ onBeforeMount(() => {
 
 <template>
   <NormalMenu
-    :rounded="rounded"
+    :active-path="activePath"
     :collapse="collapse"
     :menus="menus"
-    :active-path="activePath"
+    :rounded="rounded"
     :theme="theme"
-    @select="handleSelect"
     @enter="(menu) => emit('enter', menu)"
+    @select="handleSelect"
   />
 </template>

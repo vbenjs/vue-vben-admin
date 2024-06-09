@@ -160,22 +160,22 @@ function handleGo(path: string) {
 
     <VbenInput
       v-model="formState.username"
-      :status="usernameStatus"
+      :autofocus="false"
       :error-tip="$t('authentication.username-tip')"
       :label="$t('authentication.username')"
-      name="username"
       :placeholder="usernamePlaceholder || $t('authentication.username')"
-      type="text"
+      :status="usernameStatus"
+      name="username"
       required
-      :autofocus="false"
+      type="text"
     />
     <VbenInputPassword
       v-model="formState.password"
-      :status="passwordStatus"
       :error-tip="$t('authentication.password-tip')"
       :label="$t('authentication.password')"
-      name="password"
       :placeholder="passwordPlaceholder || $t('authentication.password')"
+      :status="passwordStatus"
+      name="password"
       required
       type="password"
     />
@@ -205,16 +205,16 @@ function handleGo(path: string) {
     <div class="mb-2 mt-4 flex items-center justify-between">
       <VbenButton
         v-if="showCodeLogin"
-        variant="outline"
         class="w-1/2"
+        variant="outline"
         @click="handleGo(codeLoginPath)"
       >
         {{ $t('authentication.mobile-login') }}
       </VbenButton>
       <VbenButton
         v-if="showQrcodeLogin"
-        variant="outline"
         class="ml-4 w-1/2"
+        variant="outline"
         @click="handleGo(qrCodeLoginPath)"
       >
         {{ $t('authentication.qrcode-login') }}

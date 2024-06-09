@@ -21,12 +21,12 @@ const {
 
 <template>
   <TabsView
+    :active="currentActive"
+    :menus="createContextMenus"
     :show-icon="showIcon"
     :tabs="currentTabs"
-    :menus="createContextMenus"
-    :active="currentActive"
-    @update:active="handleClick"
     @close="handleClose"
     @un-push-pin="handleUnPushPin"
+    @update:active="handleClick"
   />
 </template>

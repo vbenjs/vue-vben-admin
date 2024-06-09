@@ -334,7 +334,7 @@ function removeMenuItem(item: MenuItemRegistered) {
       <template v-for="item in getSlot.slotDefault" :key="item.key">
         <component :is="item" />
       </template>
-      <SubMenu path="sub-menu-more" is-sub-menu-more>
+      <SubMenu is-sub-menu-more path="sub-menu-more">
         <template #title>
           <IcRoundMoreHoriz />
         </template>

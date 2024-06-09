@@ -110,10 +110,10 @@ if (shortcutKeys.value) {
 <template>
   <VbenAlertDialog
     v-model:open="openDialog"
-    :content="$t('widgets.logout-tip')"
-    :title="$t('common.prompt')"
     :cancel-text="$t('common.cancel')"
+    :content="$t('widgets.logout-tip')"
     :submit-text="$t('common.confirm')"
+    :title="$t('common.prompt')"
     @submit="handleSubmitLogout"
   />
 

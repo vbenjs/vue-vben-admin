@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AuthPageLayoutType } from '@vben-core/preferences';
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
 
 import { computed } from 'vue';
@@ -6,7 +7,6 @@ import { computed } from 'vue';
 import { $t } from '@vben/locales';
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
 import {
-  type AuthPageLayoutType,
   preferences,
   updatePreferences,
   usePreferences,

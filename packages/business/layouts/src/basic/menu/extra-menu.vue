@@ -27,11 +27,11 @@ async function handleSelect(key: string) {
 
 <template>
   <Menu
-    :rounded="rounded"
     :accordion="accordion"
     :collapse="collapse"
     :default-active="route.path"
     :menus="menus"
+    :rounded="rounded"
     :theme="theme"
     mode="vertical"
     @select="handleSelect"

@@ -249,20 +249,20 @@ onMounted(() => {
         <li
           v-for="(item, index) in searchResults"
           :key="item.path"
-          :data-index="index"
-          :data-search-item="index"
-          class="bg-accent flex-center group mb-3 w-full cursor-pointer rounded-lg px-4 py-4"
           :class="
             activeIndex === index
               ? 'active bg-primary text-primary-foreground text-muted-foreground'
               : ''
           "
+          :data-index="index"
+          :data-search-item="index"
+          class="bg-accent flex-center group mb-3 w-full cursor-pointer rounded-lg px-4 py-4"
           @mouseenter="handleMouseenter"
         >
           <VbenIcon
-            fallback
             :icon="item.icon"
             class="mr-2 size-5 flex-shrink-0"
+            fallback
           />
 
           <span class="flex-1">{{ item.name }}</span>

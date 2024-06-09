@@ -45,8 +45,8 @@ const disableItem = computed(() => {
   </SwitchItem>
   <ToggleItem
     v-model="breadcrumbStyleType"
-    :items="typeItems"
     :disabled="disableItem"
+    :items="typeItems"
   >
     {{ $t('preference.breadcrumb-style') }}
   </ToggleItem>

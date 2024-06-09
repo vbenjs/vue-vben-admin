@@ -41,8 +41,8 @@ const localeItems: SelectListItem[] = [
   </SwitchItem>
   <SelectItem
     v-model="headerMode"
-    :items="localeItems"
     :disabled="!headerEnable"
+    :items="localeItems"
   >
     {{ $t('preference.mode') }}
   </SelectItem>

@@ -214,11 +214,11 @@ onBeforeUnmount(() => {
         <template #trigger>
           <SubMenuContent
             :class="is('active', active)"
+            :icon="icon"
+            :is-menu-more="isSubMenuMore"
             :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
             :level="currentLevel"
             :path="path"
-            :icon="icon"
-            :is-menu-more="isSubMenuMore"
             @click.stop="handleClick"
           >
             <template #title>
@@ -244,12 +244,12 @@ onBeforeUnmount(() => {
 
     <template v-else>
       <SubMenuContent
+        :class="is('active', active)"
+        :icon="icon"
+        :is-menu-more="isSubMenuMore"
         :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
         :level="currentLevel"
         :path="path"
-        :icon="icon"
-        :is-menu-more="isSubMenuMore"
-        :class="is('active', active)"
         @click.stop="handleClick"
       >
         <slot name="content"></slot>

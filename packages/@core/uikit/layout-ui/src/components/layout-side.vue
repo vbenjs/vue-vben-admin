@@ -267,7 +267,7 @@ function handleScroll(event: Event) {
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <ScrollArea :style="contentStyle" :on-scroll="handleScroll">
+    <ScrollArea :on-scroll="handleScroll" :style="contentStyle">
       <div :class="[e('shadow'), { scrolled }]"></div>
       <slot></slot>
     </ScrollArea>
@@ -282,8 +282,8 @@ function handleScroll(event: Event) {
       v-if="isSideMixed"
       ref="asideRef"
       :class="e('extra')"
-      class="transition-[width] duration-200"
       :style="extraStyle"
+      class="transition-[width] duration-200"
     >
       <SideCollapseButton
         v-if="isSideMixed && expandOnHover"
@@ -300,9 +300,9 @@ function handleScroll(event: Event) {
         <slot name="extra-title"></slot>
       </div>
       <ScrollArea
-        :style="extraContentStyle"
         :class="e('extra-content')"
         :on-scroll="handleScroll"
+        :style="extraContentStyle"
       >
         <div :class="[e('shadow'), { scrolled }]"></div>
         <slot name="extra"></slot>

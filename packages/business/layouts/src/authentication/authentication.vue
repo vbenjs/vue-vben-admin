@@ -28,12 +28,12 @@ const appName = computed(() => preferences.app.name);
 
     <div class="absolute left-0 top-0 z-10 flex flex-1">
       <div
-        class="text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
         :class="
           authPanelLeft || authPanelCenter
             ? 'lg:text-foreground'
             : 'lg:text-white'
         "
+        class="text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
         <img
           :alt="appName"

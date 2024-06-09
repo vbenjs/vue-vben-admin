@@ -31,13 +31,13 @@ function handleUpdate(value: string) {
           @click="handleUpdate(color)"
         >
           <div
-            class="relative h-3.5 w-3.5 rounded-[2px] before:absolute before:left-0.5 before:top-0.5 before:h-2.5 before:w-2.5 before:rounded-[2px] before:border before:border-gray-900 before:opacity-0 before:transition-all before:duration-150 before:content-[''] hover:scale-110"
             :class="[
               preferences.theme.colorPrimary === color
                 ? `before:opacity-100`
                 : '',
             ]"
             :style="{ backgroundColor: color }"
+            class="relative h-3.5 w-3.5 rounded-[2px] before:absolute before:left-0.5 before:top-0.5 before:h-2.5 before:w-2.5 before:rounded-[2px] before:border before:border-gray-900 before:opacity-0 before:transition-all before:duration-150 before:content-[''] hover:scale-110"
           ></div>
         </VbenIconButton>
       </template>

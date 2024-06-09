@@ -26,10 +26,10 @@ const props = withDefaults(defineProps<Props>(), {
   contentPaddingLeft: 0,
   contentPaddingRight: 0,
   contentPaddingTop: 0,
+  footerEnable: false,
   // footerBackgroundColor: '#fff',
   footerFixed: true,
   footerHeight: 32,
-  footerVisible: false,
   // headerBackgroundColor: 'hsl(var(--color-background))',
   headerHeight: 50,
   headerHeightOffset: 10,
@@ -323,7 +323,7 @@ const contentStyle = computed((): CSSProperties => {
       (!isHeaderAuto.value || scrollY.value < headerWrapperHeight.value)
         ? `${headerWrapperHeight.value}px`
         : 0,
-    paddingBottom: `${props.footerVisible ? props.footerHeight : 0}px`,
+    paddingBottom: `${props.footerEnable ? props.footerHeight : 0}px`,
   };
 });
 
@@ -465,19 +465,19 @@ function handleOpenMenu() {
     <LayoutSide
       v-if="sideVisibleState"
       v-model:collapse="sideCollapse"
-      v-model:extra-collapse="sideExtraCollapse"
-      v-model:expand-on-hovering="sideExpandOnHovering"
       v-model:expand-on-hover="sideExpandOnHover"
+      v-model:expand-on-hovering="sideExpandOnHovering"
+      v-model:extra-collapse="sideExtraCollapse"
       v-model:extra-visible="sideExtraVisible"
-      :dom-visible="!isMobile"
-      :fixed-extra="sideExpandOnHover"
-      :mixed-width="sideMixedWidth"
-      :header-height="isMixedNav ? 0 : getHeaderHeight"
       :collapse-width="getSideCollapseWidth"
+      :dom-visible="!isMobile"
+      :extra-width="getExtraWidth"
+      :fixed-extra="sideExpandOnHover"
+      :header-height="isMixedNav ? 0 : getHeaderHeight"
       :is-side-mixed="isSideMixedNav"
+      :mixed-width="sideMixedWidth"
       :padding-top="sidePaddingTop"
       :show="showSide"
-      :extra-width="getExtraWidth"
       :width="getSideWidth"
       :z-index="sideZIndex"
       v-bind="sideFace"
@@ -513,16 +513,16 @@ function handleOpenMenu() {
           v-if="headerVisible"
           :full-width="!isSideMode"
           :height="getHeaderHeight"
-          :show="!fullContent && !headerHidden"
-          :side-hidden="sideHidden"
-          :show-toggle-btn="showHeaderToggleButton"
-          :width="mainStyle.width"
           :is-mixed-nav="isMixedNav"
           :is-mobile="isMobile"
-          :z-index="headerZIndex"
+          :show="!fullContent && !headerHidden"
+          :show-toggle-btn="showHeaderToggleButton"
+          :side-hidden="sideHidden"
           :side-width="sideWidth"
-          @toggle-menu="handleToggleMenu"
+          :width="mainStyle.width"
+          :z-index="headerZIndex"
           @open-menu="handleOpenMenu"
+          @toggle-menu="handleToggleMenu"
         >
           <template v-if="showHeaderLogo" #logo>
             <slot name="logo"></slot>
@@ -540,8 +540,6 @@ function handleOpenMenu() {
 
       <!-- </div> -->
       <LayoutContent
-        class="transition-[margin-top] duration-200"
-        :style="contentStyle"
         :content-compact="contentCompact"
         :content-compact-width="contentCompactWidth"
         :padding="contentPadding"
@@ -549,12 +547,14 @@ function handleOpenMenu() {
         :padding-left="contentPaddingLeft"
         :padding-right="contentPaddingRight"
         :padding-top="contentPaddingTop"
+        :style="contentStyle"
+        class="transition-[margin-top] duration-200"
       >
         <slot name="content"></slot>
       </LayoutContent>
 
       <LayoutFooter
-        v-if="footerVisible"
+        v-if="footerEnable"
         :fixed="footerFixed"
         :height="footerHeight"
         :show="!fullContent"
@@ -566,8 +566,8 @@ function handleOpenMenu() {
     </div>
     <div
       v-if="maskVisible"
-      class="fixed left-0 top-0 h-full w-full bg-[rgb(0_0_0_/_40%)] transition-[background-color] duration-200"
       :style="maskStyle"
+      class="fixed left-0 top-0 h-full w-full bg-[rgb(0_0_0_/_40%)] transition-[background-color] duration-200"
       @click="handleClickMask"
     ></div>
   </div>

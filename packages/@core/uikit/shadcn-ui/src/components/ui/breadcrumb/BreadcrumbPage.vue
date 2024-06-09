@@ -10,10 +10,10 @@ const props = defineProps<{
 
 <template>
   <span
-    role="link"
-    aria-disabled="true"
-    aria-current="page"
     :class="cn('text-foreground font-normal', props.class)"
+    aria-current="page"
+    aria-disabled="true"
+    role="link"
   >
     <slot></slot>
   </span>

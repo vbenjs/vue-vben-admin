@@ -65,11 +65,11 @@ function goLogin() {
     <div class="mb-6">
       <VbenInput
         v-model="formState.email"
-        :status="emailStatus"
         :error-tip="$t('authentication.email-tip')"
         :label="$t('authentication.email')"
-        name="email"
+        :status="emailStatus"
         autofocus
+        name="email"
         placeholder="example@example.com"
         type="text"
       />

@@ -23,14 +23,14 @@ function handleMenuSelect(key: string) {
 
 <template>
   <Menu
-    :rounded="rounded"
-    :collapse-show-title="collapseShowTitle"
-    :collapse="collapse"
     :accordion="accordion"
+    :collapse="collapse"
+    :collapse-show-title="collapseShowTitle"
     :default-active="defaultActive"
     :menus="menus"
-    :theme="theme"
     :mode="mode"
+    :rounded="rounded"
+    :theme="theme"
     @select="handleMenuSelect"
   />
 </template>

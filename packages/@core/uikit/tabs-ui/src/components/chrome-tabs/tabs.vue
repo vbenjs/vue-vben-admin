@@ -89,18 +89,18 @@ function handleUnPushPin(tab: TabItem) {
         <Tab
           v-for="(tab, i) in tabsView"
           :key="tab.key"
-          :menus="menus"
-          :tab="tab"
-          :icon="tab.icon"
-          :title="tab.title"
-          :show-icon="showIcon"
           :affix-tab="tab.affixTab"
-          :only-one="tabsView.length <= 1"
           :class="[e('tab'), is('active', tab.key === active)]"
+          :icon="tab.icon"
+          :menus="menus"
+          :only-one="tabsView.length <= 1"
+          :show-icon="showIcon"
           :style="{
             width: `${tabWidth}px`,
             left: `${(tabWidth - gap * 2) * i}px`,
           }"
+          :tab="tab"
+          :title="tab.title"
           @click="active = tab.key"
           @close="() => handleClose(tab.key)"
           @un-push-pin="() => handleUnPushPin(tab)"

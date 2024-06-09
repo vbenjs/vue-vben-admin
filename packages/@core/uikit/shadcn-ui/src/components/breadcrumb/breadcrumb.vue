@@ -53,8 +53,8 @@ function handleClick(path?: string) {
                 <DropdownMenuTrigger class="flex items-center gap-1">
                   <VbenIcon
                     v-if="item.icon && showIcon"
-                    class="size-5"
                     :icon="item.icon"
+                    class="size-5"
                   />
                   {{ item.title }}
                   <IcRoundKeyboardArrowDown class="size-5" />
@@ -79,9 +79,9 @@ function handleClick(path?: string) {
               <div class="flex-center">
                 <VbenIcon
                   v-if="item.icon && showIcon"
-                  class="mr-1 size-4"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
+                  class="mr-1 size-4"
                 />
                 {{ item.title }}
               </div>
@@ -90,9 +90,9 @@ function handleClick(path?: string) {
               <div class="flex-center">
                 <VbenIcon
                   v-if="item.icon && showIcon"
-                  class="mr-1 size-4"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
+                  class="mr-1 size-4"
                 />
                 {{ item.title }}
               </div>

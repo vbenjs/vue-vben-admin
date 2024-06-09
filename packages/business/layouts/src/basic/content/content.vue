@@ -41,11 +41,11 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
 <template>
   <IFrameRouterView />
   <RouterView v-slot="{ Component, route }">
-    <Transition :name="getTransitionName(route)" mode="out-in" appear>
+    <Transition :name="getTransitionName(route)" appear mode="out-in">
       <KeepAlive
         v-if="keepAlive"
-        :include="getCacheTabs"
         :exclude="getExcludeTabs"
+        :include="getCacheTabs"
       >
         <component
           :is="Component"
