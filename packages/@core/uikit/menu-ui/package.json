@@ -46,7 +46,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^10.10.1",
+    "@vueuse/core": "^10.11.0",
     "vue": "3.4.27"
   }
 }

@@ -21,6 +21,9 @@ fallback:
   forbidden-desc: Sorry, but you don't have permission to access this page.
   internal-error: Oops! Something Went Wrong
   internal-error-desc: Sorry, but the server encountered an error.
+  offline: Offline Page
+  offline-error: Oops! Network Error
+  offline-error-desc: Sorry, can't connect to the internet. Check your connection.
 
 widgets:
   document: Document

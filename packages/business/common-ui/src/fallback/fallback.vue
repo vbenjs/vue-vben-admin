@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import type { FallbackProps } from './fallback';
 
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
 import { IcRoundArrowBackIosNew } from '@vben-core/iconify';
 import { VbenButton } from '@vben-core/shadcn-ui';
-
-import Icon403 from './icons/icon-403.vue';
-import Icon404 from './icons/icon-404.vue';
-import Icon500 from './icons/icon-500.vue';
 
 interface Props extends FallbackProps {}
 
@@ -27,6 +23,13 @@ const props = withDefaults(defineProps<Props>(), {
   title: '',
 });
 
+const Icon403 = defineAsyncComponent(() => import('./icons/icon-403.vue'));
+const Icon404 = defineAsyncComponent(() => import('./icons/icon-404.vue'));
+const Icon500 = defineAsyncComponent(() => import('./icons/icon-500.vue'));
+const IconOffline = defineAsyncComponent(
+  () => import('./icons/icon-offline.vue'),
+);
+
 const titleText = computed(() => {
   if (props.title) {
     return props.title;
@@ -38,6 +41,9 @@ const titleText = computed(() => {
     }
     case '500': {
       return $t('fallback.internal-error');
+    }
+    case 'offline': {
+      return $t('fallback.offline-error');
     }
     default: {
       return $t('fallback.page-not-found');
@@ -56,6 +62,9 @@ const descText = computed(() => {
     case '500': {
       return $t('fallback.internal-error-desc');
     }
+    case 'offline': {
+      return $t('fallback.offline-error-desc');
+    }
     default: {
       return $t('fallback.page-not-found-desc');
     }
@@ -69,6 +78,9 @@ const fallbackIcon = computed(() => {
     }
     case '500': {
       return Icon500;
+    }
+    case 'offline': {
+      return IconOffline;
     }
     default: {
       return Icon404;

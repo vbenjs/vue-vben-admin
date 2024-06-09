@@ -134,8 +134,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/utils
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       ant-design-vue:
         specifier: ^4.2.3
         version: 4.2.3(vue@3.4.27(typescript@5.4.5))
@@ -208,20 +208,20 @@ importers:
         specifier: ^2.29.1
         version: 2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)
       eslint-plugin-jsdoc:
-        specifier: ^48.2.9
-        version: 48.2.9(eslint@8.57.0)
+        specifier: ^48.2.11
+        version: 48.2.11(eslint@8.57.0)
       eslint-plugin-jsonc:
         specifier: ^2.16.0
         version: 2.16.0(eslint@8.57.0)
       eslint-plugin-n:
-        specifier: ^17.8.1
-        version: 17.8.1(eslint@8.57.0)
+        specifier: ^17.9.0
+        version: 17.9.0(eslint@8.57.0)
       eslint-plugin-no-only-tests:
         specifier: ^3.1.0
         version: 3.1.0
       eslint-plugin-perfectionist:
-        specifier: ^2.10.0
-        version: 2.10.0(eslint@8.57.0)(typescript@5.4.5)(vue-eslint-parser@9.4.3(eslint@8.57.0))
+        specifier: ^2.11.0
+        version: 2.11.0(eslint@8.57.0)(typescript@5.4.5)(vue-eslint-parser@9.4.3(eslint@8.57.0))
       eslint-plugin-prettier:
         specifier: ^5.1.3
         version: 5.1.3(@types/eslint@8.56.10)(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.0)
@@ -262,8 +262,8 @@ importers:
         specifier: 3.3.0
         version: 3.3.0
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.3
-        version: 0.6.3(prettier@3.3.0)
+        specifier: ^0.6.4
+        version: 0.6.4(prettier@3.3.0)
 
   internal/lint-configs/stylelint-config:
     dependencies:
@@ -341,8 +341,8 @@ importers:
   internal/tailwind-config:
     dependencies:
       '@iconify/json':
-        specifier: ^2.2.218
-        version: 2.2.218
+        specifier: ^2.2.219
+        version: 2.2.219
       '@iconify/tailwind':
         specifier: ^1.1.1
         version: 1.1.1
@@ -490,8 +490,8 @@ importers:
         specifier: workspace:*
         version: link:../../shared/typings
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -595,8 +595,8 @@ importers:
         specifier: workspace:*
         version: link:../../shared/typings
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -619,8 +619,8 @@ importers:
         specifier: workspace:*
         version: link:../../shared/typings
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -640,8 +640,8 @@ importers:
         specifier: workspace:*
         version: link:../../shared/typings
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -703,11 +703,11 @@ importers:
         specifier: workspace:*
         version: link:../../locales
       '@vueuse/core':
-        specifier: ^10.10.1
-        version: 10.10.1(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/integrations':
-        specifier: ^10.10.1
-        version: 10.10.1(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
+        specifier: ^10.11.0
+        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
@@ -1961,8 +1961,8 @@ packages:
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
 
-  '@iconify/json@2.2.218':
-    resolution: {integrity: sha512-CawiYMzJPULh3muZQCnr8t92rDNoUGRbJTBCYeQQm5E3eZGkMEeHp8DtGO/XkM0lbTL6+sAWROy+XrCl4q6ViQ==}
+  '@iconify/json@2.2.219':
+    resolution: {integrity: sha512-q8asqbM61woVZ9rJGm/gvW46i5vdeHrq4TqZQ/5wF5ypk4pAZU9+4qVa5NQE2MZngYkMPeO68PDGGl7WaEV8jQ==}
 
   '@iconify/tailwind@1.1.1':
     resolution: {integrity: sha512-4mmA//qjZigv7D4KlqcVSYTqfRIJzyts2/lSCAJfCL0rVMIE76+ifJnaE5jxCo1+nYGBF8FsFo0qFOs+sX4EnA==}
@@ -2679,24 +2679,24 @@ packages:
   '@vue/test-utils@2.4.6':
     resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
 
-  '@vueuse/core@10.10.1':
-    resolution: {integrity: sha512-8Vr8wxILdK+qfBjbngav8LVI+6UuM2TQCufRKMPz/GrpLHQ6dbY6kL5PLa9Eobq8JRrMaDyArPX9Jj18fMTPew==}
+  '@vueuse/core@10.11.0':
+    resolution: {integrity: sha512-x3sD4Mkm7PJ+pcq3HX8PLPBadXCAlSDR/waK87dz0gQE+qJnaaFhc/dZVfJz+IUYzTMVGum2QlR7ImiJQN4s6g==}
 
-  '@vueuse/integrations@10.10.1':
-    resolution: {integrity: sha512-b4iPz4NLk2g5u9GNgTpYqNN1pzYWPpIglHTg6eDjJwKB7OfzJP4m5kQlzn2oRH7U0OlEOCVPrdDfqneuS9YNTg==}
+  '@vueuse/integrations@10.11.0':
+    resolution: {integrity: sha512-Pp6MtWEIr+NDOccWd8j59Kpjy5YDXogXI61Kb1JxvSfVBO8NzFQkmrKmSZz47i+ZqHnIzxaT38L358yDHTncZg==}
     peerDependencies:
-      async-validator: '*'
-      axios: '*'
-      change-case: '*'
-      drauu: '*'
-      focus-trap: '*'
-      fuse.js: '*'
-      idb-keyval: '*'
-      jwt-decode: '*'
-      nprogress: '*'
-      qrcode: '*'
-      sortablejs: '*'
-      universal-cookie: '*'
+      async-validator: ^4
+      axios: ^1
+      change-case: ^4
+      drauu: ^0.3
+      focus-trap: ^7
+      fuse.js: ^6
+      idb-keyval: ^6
+      jwt-decode: ^3
+      nprogress: ^0.2
+      qrcode: ^1.5
+      sortablejs: ^1
+      universal-cookie: ^6
     peerDependenciesMeta:
       async-validator:
         optional: true
@@ -2723,14 +2723,14 @@ packages:
       universal-cookie:
         optional: true
 
-  '@vueuse/metadata@10.10.1':
-    resolution: {integrity: sha512-dpEL5afVLUqbchwGiLrV6spkl4/6UOKJ3YgxFE+wWLj/LakyIZUC83bfeFgbHkRcNhsAqTQCGR74jImsLfK8pg==}
+  '@vueuse/metadata@10.11.0':
+    resolution: {integrity: sha512-kQX7l6l8dVWNqlqyN3ePW3KmjCQO3ZMgXuBMddIu83CmucrsBfXlH+JoviYyRBws/yLTQO8g3Pbw+bdIoVm4oQ==}
 
   '@vueuse/shared@10.10.0':
     resolution: {integrity: sha512-2aW33Ac0Uk0U+9yo3Ypg9s5KcR42cuehRWl7vnUHadQyFvCktseyxxEPBi1Eiq4D2yBGACOnqLZpx1eMc7g5Og==}
 
-  '@vueuse/shared@10.10.1':
-    resolution: {integrity: sha512-edqexI+RQpoeqDxTatqBZa+K87ganbrwpoP++Fd9828U3js5jzwcEDeyrYcUgkKZ5LLL8q7M5SOMvSpMrxBPxg==}
+  '@vueuse/shared@10.11.0':
+    resolution: {integrity: sha512-fyNoIXEq3PfX1L3NkNhtVQUSRtqYwJtJg+Bp9rIzculIZWHTkKSysujrOk2J+NrRulLTQH9+3gGSfYLWSEWU1A==}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -3827,8 +3827,8 @@ packages:
     peerDependencies:
       eslint: ^7.2.0 || ^8
 
-  eslint-plugin-jsdoc@48.2.9:
-    resolution: {integrity: sha512-ErpKyr2mEUEkcdZ4nwW/cvDjClvAcvJMEXkGGll0wf8sro8h6qeQ3qlZyp1vM1dRk8Ap6rMdke8FnP94QBIaVQ==}
+  eslint-plugin-jsdoc@48.2.11:
+    resolution: {integrity: sha512-mM4RSR1hBPwdtI+boITfDZTxvEYTANSWr3y/D+YR8OshtU3pMgYXC8LrjudhYf0O0g67A7QwlT1gZzhmNy1S4Q==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -3839,8 +3839,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-plugin-n@17.8.1:
-    resolution: {integrity: sha512-KdG0h0voZms8UhndNu8DeWx1eM4sY+A4iXtsNo6kOfJLYHNeTGPacGalJ9GcvrbmOL3r/7QOMwVZDSw+1SqsrA==}
+  eslint-plugin-n@17.9.0:
+    resolution: {integrity: sha512-CPSaXDXdrT4nsrOrO4mT4VB6FMUkoySRkHWuuJJHVqsIEjIeZgMY1H7AzSwPbDScikBmLN82KeM1u7ixV7PzGg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
@@ -3849,13 +3849,13 @@ packages:
     resolution: {integrity: sha512-Lf4YW/bL6Un1R6A76pRZyE1dl1vr31G/ev8UzIc/geCgFWyrKil8hVjYqWVKGB/UIGmb6Slzs9T0wNezdSVegw==}
     engines: {node: '>=5.0.0'}
 
-  eslint-plugin-perfectionist@2.10.0:
-    resolution: {integrity: sha512-P+tdrkHeMWBc55+DZsoDOAftV1WCsEoHaKm6JC7zajFus/syfT4vUPBFb3atGFSuyaVnGQGHlcKpP9X3Q0gH/w==}
+  eslint-plugin-perfectionist@2.11.0:
+    resolution: {integrity: sha512-XrtBtiu5rbQv88gl+1e2RQud9te9luYNvKIgM9emttQ2zutHPzY/AQUucwxscDKV4qlTkvLTxjOFvxqeDpPorw==}
     peerDependencies:
-      astro-eslint-parser: ^0.16.0
+      astro-eslint-parser: ^1.0.2
       eslint: '>=8.0.0'
       svelte: '>=3.0.0'
-      svelte-eslint-parser: ^0.33.0
+      svelte-eslint-parser: ^0.37.0
       vue-eslint-parser: '>=9.0.0'
     peerDependenciesMeta:
       astro-eslint-parser:
@@ -5955,8 +5955,8 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier-plugin-tailwindcss@0.6.3:
-    resolution: {integrity: sha512-GeJ9bqXN4APAP0V5T2a1J/o6a50MWevEUCPWxijpdXFDQkBCoAfz4pQfv+YMXSqZ5GXLMDYio0mUOfrYL7gf4w==}
+  prettier-plugin-tailwindcss@0.6.4:
+    resolution: {integrity: sha512-3vhbIvlKyAWPaw9bUr2cw6M1BGx2Oy9CCLJyv+nxEiBGCTcL69WcAz2IFMGqx8IXSzQCInGSo2ujAByg9poHLQ==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -8659,7 +8659,7 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@iconify/json@2.2.218':
+  '@iconify/json@2.2.219':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -9545,20 +9545,20 @@ snapshots:
       js-beautify: 1.15.1
       vue-component-type-helpers: 2.0.19
 
-  '@vueuse/core@10.10.1(vue@3.4.27(typescript@5.4.5))':
+  '@vueuse/core@10.11.0(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.10.1
-      '@vueuse/shared': 10.10.1(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/metadata': 10.11.0
+      '@vueuse/shared': 10.11.0(vue@3.4.27(typescript@5.4.5))
       vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.10.1(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))':
+  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))':
     dependencies:
-      '@vueuse/core': 10.10.1(vue@3.4.27(typescript@5.4.5))
-      '@vueuse/shared': 10.10.1(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/core': 10.11.0(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/shared': 10.11.0(vue@3.4.27(typescript@5.4.5))
       vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
     optionalDependencies:
       async-validator: 4.2.5
@@ -9570,7 +9570,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/metadata@10.10.1': {}
+  '@vueuse/metadata@10.11.0': {}
 
   '@vueuse/shared@10.10.0(vue@3.4.27(typescript@5.4.5))':
     dependencies:
@@ -9579,7 +9579,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/shared@10.10.1(vue@3.4.27(typescript@5.4.5))':
+  '@vueuse/shared@10.11.0(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
     transitivePeerDependencies:
@@ -10832,7 +10832,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-jsdoc@48.2.9(eslint@8.57.0):
+  eslint-plugin-jsdoc@48.2.11(eslint@8.57.0):
     dependencies:
       '@es-joy/jsdoccomment': 0.43.1
       are-docs-informative: 0.0.2
@@ -10857,7 +10857,7 @@ snapshots:
       natural-compare: 1.4.0
       synckit: 0.6.2
 
-  eslint-plugin-n@17.8.1(eslint@8.57.0):
+  eslint-plugin-n@17.9.0(eslint@8.57.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       enhanced-resolve: 5.17.0
@@ -10871,9 +10871,9 @@ snapshots:
 
   eslint-plugin-no-only-tests@3.1.0: {}
 
-  eslint-plugin-perfectionist@2.10.0(eslint@8.57.0)(typescript@5.4.5)(vue-eslint-parser@9.4.3(eslint@8.57.0)):
+  eslint-plugin-perfectionist@2.11.0(eslint@8.57.0)(typescript@5.4.5)(vue-eslint-parser@9.4.3(eslint@8.57.0)):
     dependencies:
-      '@typescript-eslint/utils': 7.11.0(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/utils': 7.13.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
       minimatch: 9.0.4
       natural-compare-lite: 1.4.0
@@ -13041,7 +13041,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-tailwindcss@0.6.3(prettier@3.3.0):
+  prettier-plugin-tailwindcss@0.6.4(prettier@3.3.0):
     dependencies:
       prettier: 3.3.0
 
@@ -13115,7 +13115,7 @@ snapshots:
       '@internationalized/date': 3.5.4
       '@internationalized/number': 3.5.3
       '@tanstack/vue-virtual': 3.5.0(vue@3.4.27(typescript@5.4.5))
-      '@vueuse/core': 10.10.1(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/core': 10.11.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/shared': 10.10.0(vue@3.4.27(typescript@5.4.5))
       aria-hidden: 1.2.4
       defu: 6.1.4
@@ -14336,8 +14336,8 @@ snapshots:
       '@vitejs/plugin-vue': 5.0.5(vite@5.2.12(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.0))(vue@3.4.27(typescript@5.4.5))
       '@vue/devtools-api': 7.2.1(vue@3.4.27(typescript@5.4.5))
       '@vue/shared': 3.4.27
-      '@vueuse/core': 10.10.1(vue@3.4.27(typescript@5.4.5))
-      '@vueuse/integrations': 10.10.1(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/core': 10.11.0(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0

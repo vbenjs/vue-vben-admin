@@ -42,6 +42,15 @@ const routes: RouteRecordRaw[] = [
           title: '500',
         },
       },
+      {
+        name: 'FallbackOffline',
+        path: 'offline',
+        component: () => import('@/views/_essential/fallback/offline.vue'),
+        meta: {
+          icon: 'mdi:offline',
+          title: $t('fallback.offline'),
+        },
+      },
     ],
   },
 ];
