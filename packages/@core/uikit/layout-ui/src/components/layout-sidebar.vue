@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
-// import { onClickOutside } from '@vueuse/core';
-import { computed, ref, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { ScrollArea } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
+import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
-import { SideCollapseButton, SidePinButton } from './widgets';
+import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 
 interface Props {
   /**
@@ -50,7 +48,7 @@ interface Props {
    * 是否侧边混合模式
    * @default false
    */
-  isSideMixed?: boolean;
+  isSidebarMixed?: boolean;
   /**
    * 混合菜单宽度
    * @default 80
@@ -88,8 +86,6 @@ interface Props {
   zIndex?: number;
 }
 
-defineOptions({ name: 'LayoutSide' });
-
 const props = withDefaults(defineProps<Props>(), {
   collapseHeight: 42,
   collapseWidth: 48,
@@ -113,11 +109,9 @@ const expandOnHovering = defineModel<boolean>('expandOnHovering');
 const expandOnHover = defineModel<boolean>('expandOnHover');
 const extraVisible = defineModel<boolean>('extraVisible');
 
-const { b, e, is } = useNamespace('side');
 const slots = useSlots();
 
 const asideRef = shallowRef<HTMLDivElement | null>();
-const scrolled = ref(false);
 
 const hiddenSideStyle = computed((): CSSProperties => {
   return calcMenuWidthStyle(true);
@@ -244,54 +238,51 @@ function handleMouseleave() {
   collapse.value = true;
   extraVisible.value = false;
 }
-
-function handleScroll(event: Event) {
-  const target = event.target as HTMLElement;
-  scrolled.value = (target?.scrollTop ?? 0) > 0;
-}
 </script>
 
 <template>
-  <div v-if="domVisible" :class="e('hide')" :style="hiddenSideStyle"></div>
+  <div
+    v-if="domVisible"
+    :style="hiddenSideStyle"
+    class="h-full transition-all duration-200"
+  ></div>
   <aside
-    :class="[b(), is(theme, true)]"
     :style="style"
+    class="fixed left-0 top-0 h-full transition-all duration-200"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
-    <SidePinButton
-      v-if="!collapse && !isSideMixed"
+    <SidebarFixedButton
+      v-if="!collapse && !isSidebarMixed"
       v-model:expand-on-hover="expandOnHover"
       :theme="theme"
     />
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <ScrollArea :on-scroll="handleScroll" :style="contentStyle">
-      <div :class="[e('shadow'), { scrolled }]"></div>
+    <VbenScrollbar :style="contentStyle">
       <slot></slot>
-    </ScrollArea>
+    </VbenScrollbar>
 
     <div :style="collapseStyle"></div>
-    <SideCollapseButton
-      v-if="showCollapseButton && !isSideMixed"
-      v-model:collapse="collapse"
+    <SidebarCollapseButton
+      v-if="showCollapseButton && !isSidebarMixed"
+      v-model:collapsed="collapse"
       :theme="theme"
     />
     <div
-      v-if="isSideMixed"
+      v-if="isSidebarMixed"
       ref="asideRef"
-      :class="e('extra')"
       :style="extraStyle"
-      class="transition-[width] duration-200"
+      class="fixed top-0 h-full overflow-hidden transition-all duration-200"
     >
-      <SideCollapseButton
-        v-if="isSideMixed && expandOnHover"
-        v-model:collapse="extraCollapse"
+      <SidebarCollapseButton
+        v-if="isSidebarMixed && expandOnHover"
+        v-model:collapsed="extraCollapse"
         :theme="theme"
       />
 
-      <SidePinButton
+      <SidebarFixedButton
         v-if="!extraCollapse"
         v-model:expand-on-hover="expandOnHover"
         :theme="theme"
@@ -299,79 +290,49 @@ function handleScroll(event: Event) {
       <div v-if="!extraCollapse" :style="extraTitleStyle">
         <slot name="extra-title"></slot>
       </div>
-      <ScrollArea
-        :class="e('extra-content')"
-        :on-scroll="handleScroll"
-        :style="extraContentStyle"
-      >
-        <div :class="[e('shadow'), { scrolled }]"></div>
+      <VbenScrollbar :style="extraContentStyle" class="py-4">
         <slot name="extra"></slot>
-      </ScrollArea>
+      </VbenScrollbar>
     </div>
   </aside>
 </template>
 
 <style scoped lang="scss">
-@import '@vben-core/design/global';
+// @include b('sidebar') {
+//   --color-surface: var(--color-menu);
 
-@include b('side') {
-  --color-surface: var(--color-menu);
+//   @include is('dark') {
+//     --color-surface: var(--color-menu-dark);
+//   }
 
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  transition: all 0.2s ease 0s;
+//   @include e('shadow') {
+//     position: absolute;
+//     top: 0;
+//     z-index: 1;
+//     inline-size: 100%;
+//     block-size: 40px;
+//     height: 50px;
+//     pointer-events: none;
+//     background: linear-gradient(
+//       to bottom,
+//       hsl(var(--color-surface)),
+//       transparent
+//     );
+//     opacity: 0;
+//     transition: opacity 0.15s ease-in-out;
+//     will-change: opacity;
 
-  @include is('dark') {
-    --color-surface: var(--color-menu-dark);
-  }
+//     &.scrolled {
+//       opacity: 1;
+//     }
+//   }
 
-  @include e('shadow') {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    inline-size: 100%;
-    block-size: 40px;
-    height: 50px;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      hsl(var(--color-surface)),
-      transparent
-    );
-    opacity: 0;
-    transition: opacity 0.15s ease-in-out;
-    will-change: opacity;
-
-    &.scrolled {
-      opacity: 1;
-    }
-  }
-
-  @include is('dark') {
-    .#{$namespace}-side__extra {
-      &-content {
-        border-color: hsl(var(--color-dark-border)) !important;
-      }
-    }
-  }
-
-  @include e('hide') {
-    height: 100%;
-    transition: all 0.2s ease 0s;
-  }
-
-  @include e('extra') {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    overflow: hidden;
-    transition: all 0.2s ease 0s;
-
-    &-content {
-      padding: 4px 0;
-    }
-  }
-}
+//   @include is('dark') {
+//     .#{$namespace}-side__extra {
+//       &-content {
+//         border-color: hsl(var(--color-dark-border)) !important;
+//       }
+//     }
+//   }
+// }
 </style>

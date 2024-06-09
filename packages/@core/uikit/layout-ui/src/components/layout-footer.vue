@@ -2,8 +2,6 @@
 import type { CSSProperties } from 'vue';
 import { computed } from 'vue';
 
-import { useNamespace } from '@vben-core/toolkit';
-
 interface Props {
   /**
    * 背景颜色
@@ -36,8 +34,6 @@ interface Props {
   zIndex?: number;
 }
 
-defineOptions({ name: 'LayoutFooter' });
-
 const props = withDefaults(defineProps<Props>(), {
   backgroundColor: 'hsl(var(--color-background))',
   fixed: true,
@@ -46,8 +42,6 @@ const props = withDefaults(defineProps<Props>(), {
   width: '100%',
   zIndex: 0,
 });
-
-const { b } = useNamespace('footer');
 
 const style = computed((): CSSProperties => {
   const { backgroundColor, fixed, height, show, width, zIndex } = props;
@@ -63,11 +57,7 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <footer
-    :class="b()"
-    :style="style"
-    class="bottom-0 w-full transition-all duration-200"
-  >
+  <footer :style="style" class="bottom-0 w-full transition-all duration-200">
     <slot></slot>
   </footer>
 </template>

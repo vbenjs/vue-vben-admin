@@ -10,21 +10,21 @@ defineOptions({
 defineProps<{ disabled: boolean }>();
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
-const sidebarCollapseShowTitle = defineModel<boolean>(
-  'sidebarCollapseShowTitle',
+const sidebarCollapsedShowTitle = defineModel<boolean>(
+  'sidebarCollapsedShowTitle',
 );
-const sidebarCollapse = defineModel<boolean>('sidebarCollapse');
+const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 </script>
 
 <template>
   <SwitchItem v-model="sidebarEnable" :disabled="disabled">
     {{ $t('preference.side-visible') }}
   </SwitchItem>
-  <SwitchItem v-model="sidebarCollapse" :disabled="!sidebarEnable || disabled">
+  <SwitchItem v-model="sidebarCollapsed" :disabled="!sidebarEnable || disabled">
     {{ $t('preference.collapse') }}
   </SwitchItem>
   <SwitchItem
-    v-model="sidebarCollapseShowTitle"
+    v-model="sidebarCollapsedShowTitle"
     :disabled="!sidebarEnable || disabled"
   >
     {{ $t('preference.collapse-show-title') }}

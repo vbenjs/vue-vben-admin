@@ -14,8 +14,6 @@ interface Props {
   height?: number;
 }
 
-defineOptions({ name: 'LayoutTabs' });
-
 const props = withDefaults(defineProps<Props>(), {
   backgroundColor: 'hsl(var(--color-background))',
   fixed: true,
@@ -34,7 +32,6 @@ const style = computed((): CSSProperties => {
   return {
     ...hiddenStyle.value,
     backgroundColor,
-    display: 'flex',
   };
 });
 </script>

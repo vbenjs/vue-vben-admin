@@ -42,8 +42,6 @@ interface Props {
   paddingTop?: number;
 }
 
-defineOptions({ name: 'LayoutContent' });
-
 const props = withDefaults(defineProps<Props>(), {
   contentCompact: 'wide',
   contentCompactWidth: 1200,
@@ -65,7 +63,9 @@ const style = computed((): CSSProperties => {
   } = props;
 
   const compactStyle: CSSProperties =
-    contentCompact === 'compact' ? { margin: '0 auto', width: `1200px` } : {};
+    contentCompact === 'compact'
+      ? { margin: '0 auto', width: `${props.contentCompactWidth}px` }
+      : {};
   return {
     ...compactStyle,
     flex: 1,

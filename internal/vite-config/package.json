@@ -46,7 +46,7 @@
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.77.4",
+    "sass": "^1.77.5",
     "unplugin-turbo-console": "^1.8.6",
     "vite": "6.0.0-alpha.17",
     "vite-plugin-compression": "^0.5.1",

@@ -94,9 +94,9 @@ interface NavigationPreferences {
 
 interface SidebarPreferences {
   /** 侧边栏是否折叠 */
-  collapse: boolean;
+  collapsed: boolean;
   /** 侧边栏折叠时，是否显示title */
-  collapseShowTitle: boolean;
+  collapsedShowTitle: boolean;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */

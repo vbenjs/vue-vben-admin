@@ -9,11 +9,7 @@ import {
   updatePreferences,
   usePreferences,
 } from '@vben-core/preferences';
-import {
-  VbenBackTop,
-  // VbenFloatingButtonGroup,
-  VbenLogo,
-} from '@vben-core/shadcn-ui';
+import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
 
@@ -27,7 +23,7 @@ import {
   useExtraMenu,
   useMixedMenu,
 } from './menu';
-import { LayoutTabs, LayoutTabsToolbar } from './tabs';
+import { LayoutTabbar, LayoutTabbarTools } from './tabbar';
 import { Breadcrumb } from './widgets';
 
 defineOptions({ name: 'BasicLayout' });
@@ -45,8 +41,8 @@ const theme = computed(() => {
 });
 
 const logoClass = computed(() => {
-  const { collapse, collapseShowTitle } = preferences.sidebar;
-  return collapseShowTitle && collapse && !isMixedNav.value ? 'mx-auto' : '';
+  const { collapsed, collapsedShowTitle } = preferences.sidebar;
+  return collapsedShowTitle && collapsed && !isMixedNav.value ? 'mx-auto' : '';
 });
 
 const isMenuRounded = computed(() => {
@@ -59,12 +55,12 @@ const logoCollapse = computed(() => {
   }
 
   const { isMobile } = preferences.app;
-  const { collapse } = preferences.sidebar;
+  const { collapsed } = preferences.sidebar;
 
-  if (!collapse && isMobile) {
+  if (!collapsed && isMobile) {
     return false;
   }
-  return collapse || isSideMixedNav.value;
+  return collapsed || isSideMixedNav.value;
 });
 
 const showHeaderNav = computed(() => {
@@ -74,11 +70,11 @@ const showHeaderNav = computed(() => {
 const {
   extraActiveMenu,
   extraMenus,
-  extraVisible,
   handleDefaultSelect,
   handleMenuMouseEnter,
   handleMixedMenuSelect,
   handleSideMouseLeave,
+  sidebarExtraVisible,
 } = useExtraMenu();
 
 const {
@@ -92,17 +88,22 @@ const {
 
 function wrapperMenus(menus: MenuRecordRaw[]) {
   return mapTree(menus, (item) => {
-    return {
-      ...item,
-      name: $t(item.name),
-    };
+    return { ...item, name: $t(item.name) };
+  });
+}
+
+function toggleSidebar() {
+  updatePreferences({
+    sidebar: {
+      hidden: !preferences.sidebar.hidden,
+    },
   });
 }
 </script>
 
 <template>
   <VbenAdminLayout
-    v-model:side-extra-visible="extraVisible"
+    v-model:sidebar-extra-visible="sidebarExtraVisible"
     :content-compact="preferences.app.contentCompact"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
@@ -111,37 +112,38 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
     :layout="layout"
-    :side-collapse="preferences.sidebar.collapse"
-    :side-collapse-show-title="preferences.sidebar.collapseShowTitle"
-    :side-expand-on-hover="preferences.sidebar.expandOnHover"
-    :side-extra-collapse="preferences.sidebar.extraCollapse"
-    :side-hidden="preferences.sidebar.hidden"
-    :side-semi-dark="preferences.app.semiDarkMenu"
-    :side-theme="theme"
-    :side-visible="sideVisible"
-    :side-width="preferences.sidebar.width"
-    :tabs-visible="preferences.tabbar.enable"
+    :sidebar-collapse="preferences.sidebar.collapsed"
+    :sidebar-collapse-show-title="preferences.sidebar.collapsedShowTitle"
+    :sidebar-enable="sideVisible"
+    :sidebar-expand-on-hover="preferences.sidebar.expandOnHover"
+    :sidebar-extra-collapse="preferences.sidebar.extraCollapse"
+    :sidebar-hidden="preferences.sidebar.hidden"
+    :sidebar-semi-dark="preferences.app.semiDarkMenu"
+    :sidebar-theme="theme"
+    :sidebar-width="preferences.sidebar.width"
+    :tabbar-enable="preferences.tabbar.enable"
     @side-mouse-leave="handleSideMouseLeave"
-    @update:side-collapse="
-      (value: boolean) => updatePreferences({ sidebar: { collapse: value } })
+    @toggle-sidebar="toggleSidebar"
+    @update:sidebar-collapse="
+      (value: boolean) => updatePreferences({ sidebar: { collapsed: value } })
     "
-    @update:side-expand-on-hover="
+    @update:sidebar-enable="
+      (value: boolean) => updatePreferences({ sidebar: { enable: value } })
+    "
+    @update:sidebar-expand-on-hover="
       (value: boolean) =>
         updatePreferences({ sidebar: { expandOnHover: value } })
     "
-    @update:side-extra-collapse="
+    @update:sidebar-extra-collapse="
       (value: boolean) =>
         updatePreferences({ sidebar: { extraCollapse: value } })
-    "
-    @update:side-visible="
-      (value: boolean) => updatePreferences({ sidebar: { enable: value } })
     "
   >
     <template v-if="preferences.app.showPreference" #preferences>
       <PreferencesWidget />
     </template>
 
-    <template #floating-button-group>
+    <template #floating-groups>
       <VbenBackTop />
       <!-- <VbenFloatingButtonGroup /> -->
     </template>
@@ -194,8 +196,8 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <template #menu>
       <LayoutMenu
         :accordion="preferences.navigation.accordion"
-        :collapse="preferences.sidebar.collapse"
-        :collapse-show-title="preferences.sidebar.collapseShowTitle"
+        :collapse="preferences.sidebar.collapsed"
+        :collapse-show-title="preferences.sidebar.collapsedShowTitle"
         :default-active="sideActive"
         :menus="wrapperMenus(sideMenus)"
         :rounded="isMenuRounded"
@@ -207,7 +209,8 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <template #mixed-menu>
       <LayoutMixedMenu
         :active-path="extraActiveMenu"
-        :collapse="!preferences.sidebar.collapseShowTitle"
+        :collapse="!preferences.sidebar.collapsedShowTitle"
+        :menus="wrapperMenus(headerMenus)"
         :rounded="isMenuRounded"
         :theme="theme"
         @default-select="handleDefaultSelect"
@@ -234,14 +237,14 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
       />
     </template>
 
-    <template #tabs>
-      <LayoutTabs
+    <template #tabbar>
+      <LayoutTabbar
         v-if="preferences.tabbar.enable"
         :show-icon="preferences.tabbar.showIcon"
       />
     </template>
-    <template #tabs-toolbar>
-      <LayoutTabsToolbar v-if="preferences.tabbar.enable" />
+    <template #tabbar-tools>
+      <LayoutTabbarTools v-if="preferences.tabbar.enable" />
     </template>
 
     <!-- 主体内容 -->

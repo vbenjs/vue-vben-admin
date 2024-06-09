@@ -11,8 +11,8 @@ import {
   FullContent,
   HeaderNav,
   MixedNav,
-  SideMixedNav,
-  SideNav,
+  SidebarMixedNav,
+  SidebarNav,
 } from '../../icons';
 
 interface PresetItem {
@@ -25,26 +25,26 @@ defineOptions({
   name: 'PreferenceLayout',
 });
 
-const modelValue = defineModel<LayoutType>({ default: 'side-nav' });
+const modelValue = defineModel<LayoutType>({ default: 'sidebar-nav' });
 
 const components: Record<LayoutType, Component> = {
   'full-content': FullContent,
   'header-nav': HeaderNav,
   'mixed-nav': MixedNav,
-  'side-mixed-nav': SideMixedNav,
-  'side-nav': SideNav,
+  'sidebar-mixed-nav': SidebarMixedNav,
+  'sidebar-nav': SidebarNav,
 };
 
 const PRESET = computed((): PresetItem[] => [
   {
     name: $t('preference.vertical'),
     tip: $t('preference.vertical-tip'),
-    type: 'side-nav',
+    type: 'sidebar-nav',
   },
   {
     name: $t('preference.two-column'),
     tip: $t('preference.two-column-tip'),
-    type: 'side-mixed-nav',
+    type: 'sidebar-mixed-nav',
   },
   {
     name: $t('preference.horizontal'),

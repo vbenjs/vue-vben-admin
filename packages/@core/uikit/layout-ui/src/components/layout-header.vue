@@ -41,15 +41,12 @@ interface Props {
    * @default true
    */
   showToggleBtn?: boolean;
-  /**
-   * 侧边是否显示
-   */
-  sideHidden?: boolean;
+
   /**
    * 侧边菜单宽度
    * @default 0
    */
-  sideWidth?: number;
+  sidebarWidth?: number;
   /**
    * 宽度
    * @default 100%
@@ -62,8 +59,6 @@ interface Props {
   zIndex?: number;
 }
 
-defineOptions({ name: 'LayoutHeader' });
-
 const props = withDefaults(defineProps<Props>(), {
   backgroundColor: 'hsl(var(--color-background))',
   // fixed: true,
@@ -71,12 +66,12 @@ const props = withDefaults(defineProps<Props>(), {
   isMixedNav: false,
   show: true,
   showToggleBtn: false,
-  sideWidth: 0,
+  sidebarWidth: 0,
   width: '100%',
   zIndex: 0,
 });
 
-const emit = defineEmits<{ openMenu: []; toggleMenu: [] }>();
+const emit = defineEmits<{ openMenu: []; toggleSidebar: [] }>();
 
 const slots = useSlots();
 
@@ -95,16 +90,16 @@ const style = computed((): CSSProperties => {
 
 const logoStyle = computed((): CSSProperties => {
   return {
-    minWidth: `${props.isMobile ? 40 : props.sideWidth}px`,
+    minWidth: `${props.isMobile ? 40 : props.sidebarWidth}px`,
   };
 });
 
 function handleToggleMenu() {
-  emit('toggleMenu');
-}
-
-function handleOpenMenu() {
-  emit('openMenu');
+  if (props.isMobile) {
+    emit('openMenu');
+  } else {
+    emit('toggleSidebar');
+  }
 }
 </script>
 
@@ -117,21 +112,12 @@ function handleOpenMenu() {
       <slot name="logo"></slot>
     </div>
     <VbenIconButton
-      v-if="showToggleBtn"
+      v-if="showToggleBtn || isMobile"
       class="my-0 ml-2 mr-1 rounded"
       @click="handleToggleMenu"
     >
       <IcRoundMenu class="size-5" />
     </VbenIconButton>
-
-    <VbenIconButton
-      v-if="isMobile"
-      class="my-0 ml-2 mr-1 rounded"
-      @click="handleOpenMenu"
-    >
-      <IcRoundMenu class="size-5" />
-    </VbenIconButton>
-
     <slot></slot>
   </header>
 </template>

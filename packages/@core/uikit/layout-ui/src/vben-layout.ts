@@ -99,64 +99,64 @@ interface VbenLayoutProps {
   isMobile?: boolean;
   /**
    * 布局方式
-   * side-nav 侧边菜单布局
+   * sidebar-nav 侧边菜单布局
    * header-nav 顶部菜单布局
    * mixed-nav 侧边&顶部菜单布局
-   * side-mixed-nav 侧边混合菜单布局
+   * sidebar-mixed-nav 侧边混合菜单布局
    * full-content 全屏内容布局
-   * @default side-nav
+   * @default sidebar-nav
    */
   layout?: LayoutType;
-  /**
-   * 侧边菜单折叠状态
-   * @default false
-   */
-  sideCollapse?: boolean;
-  /**
-   * 侧边菜单是否折叠时，是否显示title
-   * @default true
-   */
-  sideCollapseShowTitle?: boolean;
   /**
    *  侧边菜单折叠宽度
    * @default 48
    */
   sideCollapseWidth?: number;
   /**
-   * 侧边栏是否隐藏
+   * 侧边菜单折叠状态
    * @default false
    */
-  sideHidden?: boolean;
+  sidebarCollapse?: boolean;
   /**
-   * 混合侧边扩展区域是否可见
-   * @default false
+   * 侧边菜单是否折叠时，是否显示title
+   * @default true
    */
-  sideMixedExtraVisible?: boolean;
-  /**
-   * 混合侧边栏宽度
-   * @default 80
-   */
-  sideMixedWidth?: number;
-  /**
-   * 侧边栏是否半深色
-   * @default false
-   */
-  sideSemiDark?: boolean;
-  /**
-   * 侧边栏
-   * @default dark
-   */
-  sideTheme?: ThemeModeType;
+  sidebarCollapseShowTitle?: boolean;
   /**
    * 侧边栏是否可见
    * @default true
    */
-  sideVisible?: boolean;
+  sidebarEnable?: boolean;
+  /**
+   * 侧边栏是否隐藏
+   * @default false
+   */
+  sidebarHidden?: boolean;
+  /**
+   * 混合侧边栏宽度
+   * @default 80
+   */
+  sidebarMixedWidth?: number;
+  /**
+   * 侧边栏是否半深色
+   * @default false
+   */
+  sidebarSemiDark?: boolean;
+  /**
+   * 侧边栏
+   * @default dark
+   */
+  sidebarTheme?: ThemeModeType;
   /**
    * 侧边栏宽度
    * @default 210
    */
-  sideWidth?: number;
+  sidebarWidth?: number;
+  /**
+   * tab是否可见
+   * @default true
+   */
+  tabbarEnable?: boolean;
   /**
    * footer背景颜色
    * @default #fff
@@ -167,11 +167,6 @@ interface VbenLayoutProps {
    * @default 30
    */
   tabsHeight?: number;
-  /**
-   * tab是否可见
-   * @default true
-   */
-  tabsVisible?: boolean;
   /**
    * zIndex
    * @default 100

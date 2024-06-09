@@ -70,9 +70,9 @@ const transitionEnable = defineModel<boolean>('transitionEnable');
 const themeColorPrimary = defineModel<string>('themeColorPrimary');
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
-const sidebarCollapse = defineModel<boolean>('sidebarCollapse');
-const sidebarCollapseShowTitle = defineModel<boolean>(
-  'sidebarCollapseShowTitle',
+const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
+const sidebarCollapsedShowTitle = defineModel<boolean>(
+  'sidebarCollapsedShowTitle',
 );
 
 const headerEnable = defineModel<boolean>('headerEnable');
@@ -216,8 +216,8 @@ function handleReset() {
 
             <Block :title="$t('preference.sidebar')">
               <Sidebar
-                v-model:side-collapse-show-title="sidebarCollapseShowTitle"
-                v-model:sidebar-collapse="sidebarCollapse"
+                v-model:sidebar-collapsed="sidebarCollapsed"
+                v-model:sidebar-collapsed-show-title="sidebarCollapsedShowTitle"
                 v-model:sidebar-enable="sidebarEnable"
                 :disabled="!isSideMode"
               />

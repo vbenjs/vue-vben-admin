@@ -33,7 +33,7 @@ function usePreferences() {
    * @zh_CN 布局方式
    */
   const layout = computed(() =>
-    appPreferences.value.isMobile ? 'side-nav' : appPreferences.value.layout,
+    appPreferences.value.isMobile ? 'sidebar-nav' : appPreferences.value.layout,
   );
 
   /**
@@ -46,13 +46,15 @@ function usePreferences() {
   /**
    * @zh_CN 是否侧边导航模式
    */
-  const isSideNav = computed(() => appPreferences.value.layout === 'side-nav');
+  const isSideNav = computed(
+    () => appPreferences.value.layout === 'sidebar-nav',
+  );
 
   /**
    * @zh_CN 是否侧边混合模式
    */
   const isSideMixedNav = computed(
-    () => appPreferences.value.layout === 'side-mixed-nav',
+    () => appPreferences.value.layout === 'sidebar-mixed-nav',
   );
 
   /**

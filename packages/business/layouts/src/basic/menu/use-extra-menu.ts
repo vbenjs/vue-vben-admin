@@ -3,10 +3,10 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { findRootMenuByPath } from '@vben-core/helpers';
 import { preferences } from '@vben-core/preferences';
 import { useAccessStore } from '@vben-core/stores';
 
-import { findRootMenuByPath } from './helper';
 import { useNavigation } from './use-navigation';
 
 function useExtraMenu() {
@@ -17,7 +17,7 @@ function useExtraMenu() {
 
   const route = useRoute();
   const extraMenus = ref<MenuRecordRaw[]>([]);
-  const extraVisible = ref<boolean>(false);
+  const sidebarExtraVisible = ref<boolean>(false);
   const extraActiveMenu = ref('');
 
   /**
@@ -29,7 +29,7 @@ function useExtraMenu() {
     extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
     const hasChildren = extraMenus.value.length > 0;
 
-    extraVisible.value = hasChildren;
+    sidebarExtraVisible.value = hasChildren;
     if (!hasChildren) {
       await navigation(menu.path);
     }
@@ -48,7 +48,7 @@ function useExtraMenu() {
     extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
 
     if (preferences.sidebar.expandOnHover) {
-      extraVisible.value = extraMenus.value.length > 0;
+      sidebarExtraVisible.value = extraMenus.value.length > 0;
     }
   };
 
@@ -59,7 +59,7 @@ function useExtraMenu() {
     if (preferences.sidebar.expandOnHover) {
       return;
     }
-    extraVisible.value = false;
+    sidebarExtraVisible.value = false;
 
     const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
       menus.value,
@@ -74,18 +74,18 @@ function useExtraMenu() {
       const { findMenu } = findRootMenuByPath(menus.value, menu.path);
       extraMenus.value = findMenu?.children ?? [];
       extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
-      extraVisible.value = extraMenus.value.length > 0;
+      sidebarExtraVisible.value = extraMenus.value.length > 0;
     }
   };
 
   return {
     extraActiveMenu,
     extraMenus,
-    extraVisible,
     handleDefaultSelect,
     handleMenuMouseEnter,
     handleMixedMenuSelect,
     handleSideMouseLeave,
+    sidebarExtraVisible,
   };
 }
 

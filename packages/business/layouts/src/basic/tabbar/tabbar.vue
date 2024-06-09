@@ -4,7 +4,7 @@ import { TabsView } from '@vben-core/tabs-ui';
 import { useTabs } from './use-tabs';
 
 defineOptions({
-  name: 'LayoutTabs',
+  name: 'LayoutTabbar',
 });
 
 defineProps<{ showIcon?: boolean }>();

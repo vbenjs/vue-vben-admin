@@ -4,7 +4,7 @@ import { computed, useSlots } from 'vue';
 import { Cross2Icon } from '@radix-icons/vue';
 
 import { VbenButton, VbenIconButton } from '#/components/button';
-import { ScrollArea } from '#/components/ui/scroll-area';
+import { VbenScrollbar } from '#/components/scrollbar';
 import {
   Sheet,
   SheetClose,
@@ -89,9 +89,9 @@ function handlerSubmit() {
         </SheetClose>
       </SheetHeader>
       <div class="h-full pb-16">
-        <ScrollArea class="h-full">
+        <VbenScrollbar class="h-full">
           <slot></slot>
-        </ScrollArea>
+        </VbenScrollbar>
       </div>
       <SheetFooter v-if="showFooter || slots.footer" as-child>
         <div

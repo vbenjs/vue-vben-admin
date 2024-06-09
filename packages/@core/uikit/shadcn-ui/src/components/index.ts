@@ -17,6 +17,7 @@ export * from './logo';
 export * from './menu-badge';
 export * from './pin-input';
 export * from './popover';
+export * from './scrollbar';
 export * from './segmented';
 export * from './sheet';
 export * from './spinner';

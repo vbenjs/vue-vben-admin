@@ -7,10 +7,10 @@ import {
   IcRoundNotificationsNone,
 } from '@vben-core/iconify';
 import {
-  ScrollArea,
   VbenButton,
   VbenIconButton,
   VbenPopover,
+  VbenScrollbar,
 } from '@vben-core/shadcn-ui';
 
 import { useToggle } from '@vueuse/core';
@@ -81,7 +81,7 @@ function handleClick(item: NotificationItem) {
     </template>
 
     <div class="relative">
-      <div class="flex items-center justify-between border-b p-4 py-3">
+      <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">{{ $t('widgets.notifications') }}</div>
         <VbenIconButton
           :tooltip="$t('widgets.make-all-as-read')"
@@ -90,11 +90,11 @@ function handleClick(item: NotificationItem) {
           <IcRoundMarkEmailRead />
         </VbenIconButton>
       </div>
-      <ScrollArea v-if="notifications.length > 0">
+      <VbenScrollbar v-if="notifications.length > 0">
         <ul class="!flex max-h-[360px] w-full flex-col">
           <template v-for="item in notifications" :key="item.title">
             <li
-              class="hover:bg-accent relative flex w-full cursor-pointer items-start gap-5 border-t px-3 py-3"
+              class="hover:bg-accent border-border relative flex w-full cursor-pointer items-start gap-5 border-t px-3 py-3"
               @click="handleClick(item)"
             >
               <span
@@ -123,7 +123,7 @@ function handleClick(item: NotificationItem) {
             </li>
           </template>
         </ul>
-      </ScrollArea>
+      </VbenScrollbar>
 
       <template v-else>
         <div class="flex-center text-muted-foreground min-h-[150px] w-full">
@@ -131,7 +131,9 @@ function handleClick(item: NotificationItem) {
         </div>
       </template>
 
-      <div class="flex items-center justify-between border-t px-4 py-3">
+      <div
+        class="border-border flex items-center justify-between border-t px-4 py-3"
+      >
         <VbenButton size="sm" variant="ghost" @click="handleClear">
           {{ $t('widgets.clear-notifications') }}
         </VbenButton>

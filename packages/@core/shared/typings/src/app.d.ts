@@ -4,8 +4,8 @@ type LayoutType =
   | 'full-content'
   | 'header-nav'
   | 'mixed-nav'
-  | 'side-mixed-nav'
-  | 'side-nav';
+  | 'sidebar-mixed-nav'
+  | 'sidebar-nav';
 
 type ThemeModeType = 'auto' | 'dark' | 'light';
 

@@ -8,11 +8,9 @@ function findMenuByPath(
     if (menu.path === path) {
       return menu;
     }
-    if (menu?.children?.length) {
-      const findMenu = findMenuByPath(menu.children, path);
-      if (findMenu) {
-        return findMenu;
-      }
+    const findMenu = menu.children && findMenuByPath(menu.children, path);
+    if (findMenu) {
+      return findMenu;
     }
   }
   return null;

@@ -22,7 +22,7 @@ import Preferences from './preferences.vue';
     :breadcrumb-hide-only-one="preferences.breadcrumb.hideOnlyOne"
     :breadcrumb-home="preferences.breadcrumb.showHome"
     :breadcrumb-icon="preferences.breadcrumb.showIcon"
-    :breadcrumb-style="preferences.breadcrumb.styleType"
+    :breadcrumb-style-type="preferences.breadcrumb.styleType"
     :color-primary-presets="COLOR_PRIMARY_RESETS"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
@@ -32,8 +32,8 @@ import Preferences from './preferences.vue';
     :navigation-split="preferences.navigation.split"
     :navigation-style-type="preferences.navigation.styleType"
     :shortcut-keys-enable="preferences.shortcutKeys.enable"
-    :sidebar-collapse="preferences.sidebar.collapse"
-    :sidebar-collapse-show-title="preferences.sidebar.collapseShowTitle"
+    :sidebar-collapsed="preferences.sidebar.collapsed"
+    :sidebar-collapsed-show-title="preferences.sidebar.collapsedShowTitle"
     :sidebar-enable="preferences.sidebar.enable"
     :tabbar-enable="preferences.tabbar.enable"
     :tabbar-show-icon="preferences.tabbar.showIcon"
@@ -103,11 +103,11 @@ import Preferences from './preferences.vue';
     @update:shortcut-keys-enable="
       (val) => updatePreferences({ shortcutKeys: { enable: val } })
     "
-    @update:sidebar-collapse="
-      (val) => updatePreferences({ sidebar: { collapse: val } })
+    @update:sidebar-collapsed="
+      (val) => updatePreferences({ sidebar: { collapsed: val } })
     "
-    @update:sidebar-collapse-show-title="
-      (val) => updatePreferences({ sidebar: { collapseShowTitle: val } })
+    @update:sidebar-collapsed-show-title="
+      (val) => updatePreferences({ sidebar: { collapsedShowTitle: val } })
     "
     @update:sidebar-enable="
       (val) => updatePreferences({ sidebar: { enable: val } })

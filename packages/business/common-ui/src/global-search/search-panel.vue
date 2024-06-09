@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
 import { IcRoundClose, IcRoundSearchOff } from '@vben-core/iconify';
-import { ScrollArea, VbenIcon } from '@vben-core/shadcn-ui';
+import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
 import { mapTree, traverseTreeValues } from '@vben-core/toolkit';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
@@ -214,7 +214,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ScrollArea>
+  <VbenScrollbar>
     <div class="!flex h-full justify-center px-4 sm:max-h-[450px]">
       <!-- 无搜索结果 -->
       <div
@@ -275,5 +275,5 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-  </ScrollArea>
+  </VbenScrollbar>
 </template>

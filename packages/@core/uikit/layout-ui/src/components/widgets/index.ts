@@ -1,2 +1,2 @@
-export { default as SideCollapseButton } from './side-collapse-button.vue';
-export { default as SidePinButton } from './side-pin-button.vue';
+export { default as SidebarCollapseButton } from './sidebar-collapse-button.vue';
+export { default as SidebarFixedButton } from './sidebar-fixed-button.vue';

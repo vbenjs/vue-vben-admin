@@ -2,17 +2,15 @@
 import type { NormalMenuProps } from '@vben-core/menu-ui';
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { computed, onBeforeMount } from 'vue';
+import { onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { findMenuByPath } from '@vben-core/helpers';
 import { NormalMenu } from '@vben-core/menu-ui';
-import { useAccessStore } from '@vben-core/stores';
-
-import { findMenuByPath } from './helper';
 
 interface Props extends NormalMenuProps {}
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   defaultSelect: [MenuRecordRaw, MenuRecordRaw?];
@@ -20,19 +18,16 @@ const emit = defineEmits<{
   select: [MenuRecordRaw];
 }>();
 
-const accessStore = useAccessStore();
 const route = useRoute();
-
-const menus = computed(() => accessStore.getAccessMenus);
 
 function handleSelect(menu: MenuRecordRaw) {
   emit('select', menu);
 }
 
 onBeforeMount(() => {
-  const menu = findMenuByPath(menus.value, route.path);
+  const menu = findMenuByPath(props.menus || [], route.path);
   if (menu) {
-    const rootMenu = menus.value.find(
+    const rootMenu = (props.menus || []).find(
       (item) => item.path === menu.parents?.[0],
     );
     emit('defaultSelect', menu, rootMenu);

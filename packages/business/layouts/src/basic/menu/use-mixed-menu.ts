@@ -3,10 +3,10 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { findRootMenuByPath } from '@vben-core/helpers';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { useAccessStore } from '@vben-core/stores';
 
-import { findRootMenuByPath } from './helper';
 import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
