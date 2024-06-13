@@ -97,7 +97,6 @@
       return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
     }
     record[uidKey] = record[uidKey] ?? buildUUID();
-    record[valueKey] = record[valueKey];
     fileListRef.value = [...fileListRef.value, record];
     emit('list-change', fileListRef.value, valueKey);
   }
