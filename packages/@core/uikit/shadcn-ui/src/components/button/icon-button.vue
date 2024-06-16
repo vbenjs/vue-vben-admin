@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed, useSlots } from 'vue';
 
-import { type PrimitiveProps } from 'radix-vue';
+import { cn } from '@vben-core/toolkit';
 
-import { VbenTooltip } from '#/components/tooltip';
-import { ButtonVariants } from '#/components/ui/button';
-import { cn } from '#/lib/utils';
+import { VbenTooltip } from '@vben-core/shadcn-ui/components/tooltip';
+import { ButtonVariants } from '@vben-core/shadcn-ui/components/ui/button';
+import { type PrimitiveProps } from 'radix-vue';
 
 import VbenButton from './button.vue';
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import { CaretSortIcon } from '@radix-icons/vue';
 import {
   SelectIcon,
@@ -8,8 +10,6 @@ import {
   type SelectTriggerProps,
   useForwardProps,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & SelectTriggerProps

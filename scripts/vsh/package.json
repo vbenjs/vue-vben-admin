@@ -16,9 +16,6 @@
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "default": "./dist/index.mjs"

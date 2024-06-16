@@ -19,9 +19,6 @@
     "dist",
     "src"
   ],
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "development": "./src/scss/index.scss",

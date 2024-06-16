@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '#/components/ui/dropdown-menu';
+} from '@vben-core/shadcn-ui/components/ui/dropdown-menu';
 
 interface Props extends DropdownMenuProps {}
 

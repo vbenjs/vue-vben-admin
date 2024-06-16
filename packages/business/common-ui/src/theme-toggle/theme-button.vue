@@ -32,13 +32,13 @@ const bindProps = computed(() => {
 
   return type === 'normal'
     ? {
-        variant: 'heavy',
+        variant: 'heavy' as const,
       }
     : {
         class: 'rounded-full',
-        size: 'icon',
+        size: 'icon' as const,
         style: { padding: '6px' },
-        variant: 'icon',
+        variant: 'icon' as const,
       };
 });
 

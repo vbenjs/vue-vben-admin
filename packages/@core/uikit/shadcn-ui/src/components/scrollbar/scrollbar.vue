@@ -2,8 +2,9 @@
 import type { HTMLAttributes } from 'vue';
 import { ref } from 'vue';
 
-import { ScrollArea } from '#/components/ui/scroll-area';
-import { cn } from '#/lib/utils';
+import { cn } from '@vben-core/toolkit';
+
+import { ScrollArea } from '@vben-core/shadcn-ui/components/ui/scroll-area';
 
 interface Props {
   class?: HTMLAttributes['class'];

@@ -10,7 +10,7 @@
   },
   "framework": "vite",
   "aliases": {
-    "components": "#/components",
-    "utils": "#/lib/utils"
+    "components": "@vben-core/shadcn-ui/components",
+    "utils": "@vben-core/toolkit"
   }
 }

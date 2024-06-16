@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { toggleVariants } from '@vben-core/shadcn-ui/components/ui/toggle';
 import type { VariantProps } from 'class-variance-authority';
 
-import type { toggleVariants } from '#/components/ui/toggle';
-
 import { type HTMLAttributes, computed, provide } from 'vue';
+
+import { cn } from '@vben-core/toolkit';
 
 import {
   ToggleGroupRoot,
@@ -11,8 +12,6 @@ import {
   type ToggleGroupRootProps,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 type ToggleGroupVariants = VariantProps<typeof toggleVariants>;
 

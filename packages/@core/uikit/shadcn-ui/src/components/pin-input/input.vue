@@ -3,12 +3,12 @@ import type { PinInputProps } from './interface';
 
 import { computed, ref, watch } from 'vue';
 
-import { VbenButton } from '#/components/button';
+import { VbenButton } from '@vben-core/shadcn-ui/components/button';
 import {
   PinInput,
   PinInputGroup,
   PinInputInput,
-} from '#/components/ui/pin-input';
+} from '@vben-core/shadcn-ui/components/ui/pin-input';
 
 defineOptions({
   inheritAttrs: false,

@@ -3,11 +3,13 @@ import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
 import { MdiLoading } from '@vben-core/iconify';
+import { cn } from '@vben-core/toolkit';
 
+import {
+  type ButtonVariants,
+  buttonVariants,
+} from '@vben-core/shadcn-ui/components/ui/button';
 import { Primitive, type PrimitiveProps } from 'radix-vue';
-
-import { type ButtonVariants, buttonVariants } from '#/components/ui/button';
-import { cn } from '#/lib/utils';
 
 interface Props extends PrimitiveProps {
   class?: HTMLAttributes['class'];

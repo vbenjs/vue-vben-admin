@@ -50,6 +50,6 @@ jobs:
         with:
           version: pnpm run version
           commit: "chore: bump versions"
-          title: "chore: bump versions [skip ci]"
+          title: "chore: bump versions"
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

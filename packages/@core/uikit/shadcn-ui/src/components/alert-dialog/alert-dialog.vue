@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialog as AlertDialogRoot,
   AlertDialogTitle,
-} from '#/components/ui/alert-dialog';
+} from '@vben-core/shadcn-ui/components/ui/alert-dialog';
 
 interface Props {
   cancelText?: string;

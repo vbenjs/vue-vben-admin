@@ -10,13 +10,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '#/components/ui/breadcrumb';
+} from '@vben-core/shadcn-ui/components/ui/breadcrumb';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '#/components/ui/dropdown-menu';
+} from '@vben-core/shadcn-ui/components/ui/dropdown-menu';
 
 import { VbenIcon } from '../';
 

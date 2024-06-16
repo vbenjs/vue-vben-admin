@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 
-import { AvatarRoot } from 'radix-vue';
+import { cn } from '@vben-core/toolkit';
 
-import { cn } from '#/lib/utils';
+import { AvatarRoot } from 'radix-vue';
 
 import { type AvatarVariants, avatarVariant } from './avatar';
 

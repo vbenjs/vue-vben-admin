@@ -2,9 +2,11 @@
 import { computed, useSlots } from 'vue';
 
 import { Cross2Icon } from '@radix-icons/vue';
-
-import { VbenButton, VbenIconButton } from '#/components/button';
-import { VbenScrollbar } from '#/components/scrollbar';
+import {
+  VbenButton,
+  VbenIconButton,
+} from '@vben-core/shadcn-ui/components/button';
+import { VbenScrollbar } from '@vben-core/shadcn-ui/components/scrollbar';
 import {
   Sheet,
   SheetClose,
@@ -14,7 +16,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '#/components/ui/sheet';
+} from '@vben-core/shadcn-ui/components/ui/sheet';
 
 interface Props {
   cancelText?: string;

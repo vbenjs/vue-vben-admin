@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import {
   SelectContent,
   type SelectContentEmits,
@@ -9,8 +11,6 @@ import {
   SelectViewport,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 import { SelectScrollDownButton, SelectScrollUpButton } from '.';
 

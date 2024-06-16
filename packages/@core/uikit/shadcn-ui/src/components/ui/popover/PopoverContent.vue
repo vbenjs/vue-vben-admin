@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import {
   PopoverContent,
   type PopoverContentEmits,
@@ -8,8 +10,6 @@ import {
   PopoverPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 defineOptions({
   inheritAttrs: false,

@@ -3,13 +3,12 @@ import type { HoverCardRootEmits, HoverCardRootProps } from 'radix-vue';
 
 import { HTMLAttributes, computed } from 'vue';
 
-import { HoverCardContentProps, useForwardPropsEmits } from 'radix-vue';
-
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '#/components/ui/hover-card';
+} from '@vben-core/shadcn-ui/components/ui/hover-card';
+import { HoverCardContentProps, useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<
   {

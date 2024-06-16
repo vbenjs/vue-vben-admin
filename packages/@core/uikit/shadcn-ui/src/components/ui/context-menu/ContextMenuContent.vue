@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import {
   ContextMenuContent,
   type ContextMenuContentEmits,
@@ -8,8 +10,6 @@ import {
   ContextMenuPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & ContextMenuContentProps

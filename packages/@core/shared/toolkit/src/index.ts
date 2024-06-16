@@ -1,3 +1,4 @@
+export * from './cn';
 export * from './color';
 export * from './diff';
 export * from './hash';

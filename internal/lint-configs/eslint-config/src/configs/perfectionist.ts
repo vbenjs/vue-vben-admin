@@ -52,7 +52,6 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
               '@/forward/**',
               '@/router/**',
               '@/views/**',
-              '#/**',
             ],
             'newlines-between': 'always',
             order: 'asc',

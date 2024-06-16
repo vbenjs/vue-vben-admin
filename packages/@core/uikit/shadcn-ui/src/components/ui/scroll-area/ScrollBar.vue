@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import {
   ScrollAreaScrollbar,
   type ScrollAreaScrollbarProps,
   ScrollAreaThumb,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = withDefaults(
   defineProps<{ class?: HTMLAttributes['class'] } & ScrollAreaScrollbarProps>(),

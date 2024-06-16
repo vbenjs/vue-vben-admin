@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { TooltipContentProps } from 'radix-vue';
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '#/components/ui/tooltip';
+} from '@vben-core/shadcn-ui/components/ui/tooltip';
+import { TooltipContentProps } from 'radix-vue';
 
 interface Props {
   delayDuration?: number;

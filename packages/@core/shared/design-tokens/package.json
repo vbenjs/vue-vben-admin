@@ -22,9 +22,6 @@
     "**/*.css"
   ],
   "main": "./dist/index.css",
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./src/index.ts",

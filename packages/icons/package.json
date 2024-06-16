@@ -15,9 +15,6 @@
   ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "default": "./src/index.ts"

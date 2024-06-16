@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import { CheckIcon } from '@radix-icons/vue';
 import {
   DropdownMenuCheckboxItem,
@@ -9,8 +11,6 @@ import {
   DropdownMenuItemIndicator,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & DropdownMenuCheckboxItemProps

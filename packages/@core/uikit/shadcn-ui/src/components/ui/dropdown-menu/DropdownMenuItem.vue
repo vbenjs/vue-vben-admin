@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import {
   DropdownMenuItem,
   type DropdownMenuItemProps,
   useForwardProps,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class']; inset?: boolean } & DropdownMenuItemProps

@@ -3,14 +3,14 @@ import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
 
 import { type HTMLAttributes, computed } from 'vue';
 
+import { cn } from '@vben-core/toolkit';
+
 import { CheckIcon } from '@radix-icons/vue';
 import {
   CheckboxIndicator,
   CheckboxRoot,
   useForwardPropsEmits,
 } from 'radix-vue';
-
-import { cn } from '#/lib/utils';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & CheckboxRootProps

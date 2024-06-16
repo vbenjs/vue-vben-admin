@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 const isMenuOpen = ref(false);
@@ -8,7 +8,7 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const handleMenuItemClick = (_item) => {
+const handleMenuItemClick = (_item: any) => {
   // console.log(111, item);
 };
 </script>

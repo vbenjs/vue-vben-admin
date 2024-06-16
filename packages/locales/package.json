@@ -22,9 +22,6 @@
   ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./src/index.ts",

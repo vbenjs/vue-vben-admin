@@ -8,7 +8,11 @@ import type {
 import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@vben-core/shadcn-ui/components/ui/avatar';
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;

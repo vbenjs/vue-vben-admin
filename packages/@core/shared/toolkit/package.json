@@ -20,9 +20,6 @@
   "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -41,9 +38,11 @@
   "dependencies": {
     "@ctrl/tinycolor": "4.1.0",
     "@vue/shared": "^3.4.29",
+    "clsx": "2.1.1",
     "dayjs": "^1.11.11",
     "defu": "^6.1.4",
-    "nprogress": "^0.2.0"
+    "nprogress": "^0.2.0",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/nprogress": "^0.2.3"

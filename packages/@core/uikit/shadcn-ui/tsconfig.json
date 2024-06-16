@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "#/*": ["./src/*"]
+      "@vben-core/shadcn-ui/*": ["./src/*"]
     }
   },
   "include": ["src"],
