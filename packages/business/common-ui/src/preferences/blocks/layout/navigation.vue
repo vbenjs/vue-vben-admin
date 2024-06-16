@@ -17,8 +17,8 @@ const navigationSplit = defineModel<boolean>('navigationSplit');
 const navigationAccordion = defineModel<boolean>('navigationAccordion');
 
 const stylesItems: SelectListItem[] = [
-  { label: $t('preference.rounded'), value: 'rounded' },
-  { label: $t('preference.plain'), value: 'plain' },
+  { label: $t('preferences.rounded'), value: 'rounded' },
+  { label: $t('preferences.plain'), value: 'plain' },
 ];
 </script>
 
@@ -28,18 +28,18 @@ const stylesItems: SelectListItem[] = [
     :disabled="disabled"
     :items="stylesItems"
   >
-    {{ $t('preference.navigation-style') }}
+    {{ $t('preferences.navigation-style') }}
   </ToggleItem>
   <SwitchItem
     v-model="navigationSplit"
     :disabled="disabledNavigationSplit || disabled"
   >
-    {{ $t('preference.navigation-split') }}
+    {{ $t('preferences.navigation-split') }}
     <template #tip>
-      {{ $t('preference.navigation-split-tip') }}
+      {{ $t('preferences.navigation-split-tip') }}
     </template>
   </SwitchItem>
   <SwitchItem v-model="navigationAccordion" :disabled="disabled">
-    {{ $t('preference.navigation-accordion') }}
+    {{ $t('preferences.navigation-accordion') }}
   </SwitchItem>
 </template>

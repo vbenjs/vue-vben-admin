@@ -11,7 +11,7 @@ defineOptions({
 
 <template>
   <VbenButton
-    :title="$t('preference.preferences')"
+    :title="$t('preferences.preferences')"
     class="bg-primary flex-col-center h-9 w-9 cursor-pointer rounded-l-md rounded-r-none border-none"
   >
     <IconSetting class="text-lg" />

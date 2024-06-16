@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/common-ui';
-import { preferences } from '@vben-core/preferences';
+import { usePreferences } from '@vben-core/preferences';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
 import { useAccessStore } from '@vben-core/stores';
 
@@ -20,6 +20,7 @@ withDefaults(defineProps<Props>(), {
 });
 
 const accessStore = useAccessStore();
+const { globalSearchShortcutKey } = usePreferences();
 </script>
 
 <template>
@@ -31,7 +32,7 @@ const accessStore = useAccessStore();
   </div>
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <GlobalSearch
-      :enable-shortcut-key="preferences.shortcutKeys.enable"
+      :enable-shortcut-key="globalSearchShortcutKey"
       :menus="accessStore.getAccessMenus"
       class="mr-4"
     />

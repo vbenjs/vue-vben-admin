@@ -32,6 +32,11 @@ import Preferences from './preferences.vue';
     :navigation-split="preferences.navigation.split"
     :navigation-style-type="preferences.navigation.styleType"
     :shortcut-keys-enable="preferences.shortcutKeys.enable"
+    :shortcut-keys-global-logout="preferences.shortcutKeys.globalLogout"
+    :shortcut-keys-global-preferences="
+      preferences.shortcutKeys.globalPreferences
+    "
+    :shortcut-keys-global-search="preferences.shortcutKeys.globalSearch"
     :sidebar-collapsed="preferences.sidebar.collapsed"
     :sidebar-collapsed-show-title="preferences.sidebar.collapsedShowTitle"
     :sidebar-enable="preferences.sidebar.enable"
@@ -102,6 +107,15 @@ import Preferences from './preferences.vue';
     "
     @update:shortcut-keys-enable="
       (val) => updatePreferences({ shortcutKeys: { enable: val } })
+    "
+    @update:shortcut-keys-global-logout="
+      (val) => updatePreferences({ shortcutKeys: { globalLogout: val } })
+    "
+    @update:shortcut-keys-global-preferences="
+      (val) => updatePreferences({ shortcutKeys: { globalPreferences: val } })
+    "
+    @update:shortcut-keys-global-search="
+      (val) => updatePreferences({ shortcutKeys: { globalSearch: val } })
     "
     @update:sidebar-collapsed="
       (val) => updatePreferences({ sidebar: { collapsed: val } })

@@ -6,7 +6,7 @@ import { computed, ref } from 'vue';
 
 import { $t } from '@vben/locales';
 import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
-import { preferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben-core/preferences';
 import {
   Badge,
   DropdownMenu,
@@ -72,12 +72,22 @@ const emit = defineEmits<{ logout: [] }>();
 const openPopover = ref(false);
 const openDialog = ref(false);
 
+const { globalLogoutShortcutKey, globalPreferencesShortcutKey } =
+  usePreferences();
 const { handleOpenPreference } = useOpenPreferences();
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
 
-const shortcutKeys = computed(() => {
+const enableLogoutShortcutKey = computed(() => {
+  return props.enableShortcutKey && globalLogoutShortcutKey.value;
+});
+
+const enableShortcutKey = computed(() => {
   return props.enableShortcutKey && preferences.shortcutKeys.enable;
+});
+
+const enablePreferencesShortcutKey = computed(() => {
+  return props.enableShortcutKey && globalPreferencesShortcutKey.value;
 });
 
 function handleLogout() {
@@ -91,16 +101,16 @@ function handleSubmitLogout() {
   openDialog.value = false;
 }
 
-if (shortcutKeys.value) {
+if (enableShortcutKey.value) {
   const keys = useMagicKeys();
   whenever(keys['Alt+KeyQ'], () => {
-    if (shortcutKeys.value) {
+    if (enableLogoutShortcutKey.value) {
       handleLogout();
     }
   });
 
   whenever(keys['Alt+Comma'], () => {
-    if (shortcutKeys.value) {
+    if (enablePreferencesShortcutKey.value) {
       handleOpenPreference();
     }
   });
@@ -161,13 +171,12 @@ if (shortcutKeys.value) {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
-        v-if="preferences.shortcutKeys.enable"
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenPreference"
       >
         <IcRoundSettingsSuggest class="mr-2 size-5" />
-        {{ $t('preference.preferences') }}
-        <DropdownMenuShortcut v-if="shortcutKeys">
+        {{ $t('preferences.preferences') }}
+        <DropdownMenuShortcut v-if="enablePreferencesShortcutKey">
           {{ altView }} ,
         </DropdownMenuShortcut>
       </DropdownMenuItem>
@@ -178,7 +187,7 @@ if (shortcutKeys.value) {
       >
         <IcRoundLogout class="mr-2 size-5" />
         {{ $t('common.logout') }}
-        <DropdownMenuShortcut v-if="shortcutKeys">
+        <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
           {{ altView }} Q
         </DropdownMenuShortcut>
       </DropdownMenuItem>

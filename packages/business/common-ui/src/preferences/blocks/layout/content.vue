@@ -18,7 +18,7 @@ const components: Record<string, Component> = {
 
 const PRESET = computed(() => [
   {
-    name: $t('preference.wide'),
+    name: $t('preferences.wide'),
     type: 'wide',
   },
   {

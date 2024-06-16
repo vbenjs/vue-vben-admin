@@ -13,16 +13,10 @@ interface FallbackProps {
    * @default pageNotFoundSvg
    */
   image?: string;
-
-  /**
-   *  @zh_CN 是否显示返回首页按钮
-   *  @default true
-   */
-  showBack?: boolean;
   /**
    *  @zh_CN 内置类型
    */
-  status?: '403' | '404' | '500' | 'offline';
+  status?: '403' | '404' | '500' | 'hello' | 'offline';
   /**
    *  @zh_CN 页面提示语
    */

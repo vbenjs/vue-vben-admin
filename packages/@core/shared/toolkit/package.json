@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "4.1.0",
-    "@vue/shared": "^3.4.27",
+    "@vue/shared": "^3.4.29",
     "dayjs": "^1.11.11",
     "defu": "^6.1.4",
     "nprogress": "^0.2.0"

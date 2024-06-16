@@ -23,10 +23,10 @@ function handleClick(value: string) {
 
 <template>
   <SwitchItem v-model="transitionProgress">
-    {{ $t('preference.page-progress') }}
+    {{ $t('preferences.page-progress') }}
   </SwitchItem>
   <SwitchItem v-model="transitionEnable">
-    {{ $t('preference.page-transition') }}
+    {{ $t('preferences.page-transition') }}
   </SwitchItem>
   <div
     v-if="transitionEnable"

@@ -45,7 +45,12 @@ const defaultPreferences: Preferences = {
     split: true,
     styleType: 'rounded',
   },
-  shortcutKeys: { enable: true },
+  shortcutKeys: {
+    enable: true,
+    globalLogout: true,
+    globalPreferences: true,
+    globalSearch: true,
+  },
   sidebar: {
     collapsed: false,
     collapsedShowTitle: true,

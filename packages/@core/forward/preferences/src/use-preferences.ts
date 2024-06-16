@@ -16,6 +16,8 @@ function usePreferences() {
 
   const appPreferences = computed(() => preferences.app);
 
+  const shortcutKeysPreferences = computed(() => preferences.shortcutKeys);
+
   /**
    * @zh_CN 判断是否为暗黑模式
    * @param  preferences - 当前偏好设置对象，它的主题值将被用来判断是否为暗黑模式。
@@ -107,11 +109,38 @@ function usePreferences() {
     return appPreferences.value.authPageLayout === 'panel-center';
   });
 
+  /**
+   * @zh_CN 是否启用全局搜索快捷键
+   */
+  const globalSearchShortcutKey = computed(() => {
+    const { enable, globalSearch } = shortcutKeysPreferences.value;
+    return enable && globalSearch;
+  });
+
+  /**
+   * @zh_CN 是否启用全局注销快捷键
+   */
+  const globalLogoutShortcutKey = computed(() => {
+    const { enable, globalLogout } = shortcutKeysPreferences.value;
+    return enable && globalLogout;
+  });
+
+  /**
+   * @zh_CN 是否启用全局偏好设置快捷键
+   */
+  const globalPreferencesShortcutKey = computed(() => {
+    const { enable, globalPreferences } = shortcutKeysPreferences.value;
+    return enable && globalPreferences;
+  });
+
   return {
     authPanelCenter,
     authPanelLeft,
     authPanelRight,
     diffPreference,
+    globalLogoutShortcutKey,
+    globalPreferencesShortcutKey,
+    globalSearchShortcutKey,
     isDark,
     isFullContent,
     isHeaderNav,

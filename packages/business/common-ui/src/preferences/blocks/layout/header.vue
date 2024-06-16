@@ -17,19 +17,19 @@ const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
 
 const localeItems: SelectListItem[] = [
   {
-    label: $t('preference.header-mode-static'),
+    label: $t('preferences.header-mode-static'),
     value: 'static',
   },
   {
-    label: $t('preference.header-mode-fixed'),
+    label: $t('preferences.header-mode-fixed'),
     value: 'fixed',
   },
   {
-    label: $t('preference.header-mode-auto'),
+    label: $t('preferences.header-mode-auto'),
     value: 'auto',
   },
   {
-    label: $t('preference.header-mode-auto-scroll'),
+    label: $t('preferences.header-mode-auto-scroll'),
     value: 'auto-scroll',
   },
 ];
@@ -37,13 +37,13 @@ const localeItems: SelectListItem[] = [
 
 <template>
   <SwitchItem v-model="headerEnable" :disabled="disabled">
-    {{ $t('preference.header-visible') }}
+    {{ $t('preferences.header-visible') }}
   </SwitchItem>
   <SelectItem
     v-model="headerMode"
     :disabled="!headerEnable"
     :items="localeItems"
   >
-    {{ $t('preference.mode') }}
+    {{ $t('preferences.mode') }}
   </SelectItem>
 </template>

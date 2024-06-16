@@ -7,6 +7,7 @@ common:
   cancel: 取消
   confirm: 确认
   not-data: 暂无数据
+  refresh: 刷新
 
 layout:
   center: 居中
@@ -113,10 +114,9 @@ page:
   fallback:
     page: 异常页面
 
-preference:
+preferences:
   preferences: 偏好设置
   preferences-subtitle: 自定义偏好设置 & 实时预览
-  shortcut-key: 快捷键
   theme: 主题
   appearance: 外观
   theme-color: 主题色
@@ -186,3 +186,9 @@ preference:
   footer-fixed: 固定在底部
   logo-visible: 显示 Logo
   reset-tip: 数据有变化，点击可进行重置
+  shortcut-keys:
+    title: 快捷键
+    global: 全局
+    search: 全局搜索
+    logout: 退出登录
+    preferences: 偏好设置

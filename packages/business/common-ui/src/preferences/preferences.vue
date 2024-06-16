@@ -39,6 +39,7 @@ import {
   Content,
   Footer,
   General,
+  GlobalShortcutKeys,
   Header,
   Layout,
   Navigation,
@@ -101,6 +102,15 @@ const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 
 const shortcutKeysEnable = defineModel<boolean>('shortcutKeysEnable');
+const shortcutKeysGlobalSearch = defineModel<boolean>(
+  'shortcutKeysGlobalSearch',
+);
+const shortcutKeysGlobalLogout = defineModel<boolean>(
+  'shortcutKeysGlobalLogout',
+);
+const shortcutKeysGlobalPreferences = defineModel<boolean>(
+  'shortcutKeysGlobalPreferences',
+);
 
 const {
   diffPreference,
@@ -116,21 +126,21 @@ const { copy } = useClipboard();
 const tabs = computed((): SegmentedItem[] => {
   return [
     {
-      label: $t('preference.appearance'),
+      label: $t('preferences.appearance'),
       value: 'appearance',
     },
     {
-      label: $t('preference.layout'),
+      label: $t('preferences.layout'),
       value: 'layout',
     },
     {
-      label: $t('preference.general'),
+      label: $t('preferences.general'),
       value: 'general',
     },
-    // {
-    //   label: $t('preference.shortcut-key'),
-    //   value: 'shortcutKey',
-    // },
+    {
+      label: $t('preferences.shortcut-keys.title'),
+      value: 'shortcutKey',
+    },
   ];
 });
 
@@ -148,7 +158,7 @@ const { openPreferences } = useOpenPreferences();
 async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
 
-  toast($t('preference.copy-success'));
+  toast($t('preferences.copy-success'));
 }
 
 function handleReset() {
@@ -156,7 +166,7 @@ function handleReset() {
     return;
   }
   resetPreferences();
-  toast($t('preference.reset-success'));
+  toast($t('preferences.reset-success'));
 }
 </script>
 
@@ -164,8 +174,8 @@ function handleReset() {
   <div class="z-100 fixed right-0 top-1/3">
     <VbenSheet
       v-model:open="openPreferences"
-      :description="$t('preference.preferences-subtitle')"
-      :title="$t('preference.preferences')"
+      :description="$t('preferences.preferences-subtitle')"
+      :title="$t('preferences.preferences')"
     >
       <template #trigger>
         <Trigger />
@@ -173,7 +183,7 @@ function handleReset() {
       <template #extra>
         <VbenIconButton
           :disabled="!diffPreference"
-          :tooltip="$t('preference.reset-tip')"
+          :tooltip="$t('preferences.reset-tip')"
           class="relative"
         >
           <span
@@ -187,19 +197,19 @@ function handleReset() {
       <div class="p-5 pt-4">
         <VbenSegmented :tabs="tabs" default-value="appearance">
           <template #appearance>
-            <Block :title="$t('preference.theme')">
+            <Block :title="$t('preferences.theme')">
               <Theme
                 v-model="appThemeMode"
                 v-model:app-semi-dark-menu="appSemiDarkMenu"
               />
             </Block>
-            <Block :title="$t('preference.theme-color')">
+            <Block :title="$t('preferences.theme-color')">
               <ThemeColor
                 v-model="themeColorPrimary"
                 :color-primary-presets="colorPrimaryPresets"
               />
             </Block>
-            <Block :title="$t('preference.other')">
+            <Block :title="$t('preferences.other')">
               <ColorMode
                 v-model:app-color-gray-mode="appColorGrayMode"
                 v-model:app-color-weak-mode="appColorWeakMode"
@@ -207,14 +217,14 @@ function handleReset() {
             </Block>
           </template>
           <template #layout>
-            <Block :title="$t('preference.layout')">
+            <Block :title="$t('preferences.layout')">
               <Layout v-model="appLayout" />
             </Block>
-            <Block :title="$t('preference.content')">
+            <Block :title="$t('preferences.content')">
               <Content v-model="appContentCompact" />
             </Block>
 
-            <Block :title="$t('preference.sidebar')">
+            <Block :title="$t('preferences.sidebar')">
               <Sidebar
                 v-model:sidebar-collapsed="sidebarCollapsed"
                 v-model:sidebar-collapsed-show-title="sidebarCollapsedShowTitle"
@@ -223,7 +233,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preference.header')">
+            <Block :title="$t('preferences.header')">
               <Header
                 v-model:headerEnable="headerEnable"
                 v-model:headerMode="headerMode"
@@ -231,7 +241,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preference.navigation-menu')">
+            <Block :title="$t('preferences.navigation-menu')">
               <Navigation
                 v-model:navigation-accordion="navigationAccordion"
                 v-model:navigation-split="navigationSplit"
@@ -241,7 +251,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preference.breadcrumb')">
+            <Block :title="$t('preferences.breadcrumb')">
               <Breadcrumb
                 v-model:breadcrumb-enable="breadcrumbEnable"
                 v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
@@ -254,13 +264,13 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preference.tabs')">
+            <Block :title="$t('preferences.tabs')">
               <Tabbar
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-show-icon="tabbarShowIcon"
               />
             </Block>
-            <Block :title="$t('preference.footer')">
+            <Block :title="$t('preferences.footer')">
               <Footer
                 v-model:footer-enable="footerEnable"
                 v-model:footer-fixed="footerFixed"
@@ -268,15 +278,14 @@ function handleReset() {
             </Block>
           </template>
           <template #general>
-            <Block :title="$t('preference.general')">
+            <Block :title="$t('preferences.general')">
               <General
                 v-model:app-dynamic-title="appDynamicTitle"
                 v-model:app-locale="appLocale"
-                v-model:shortcut-keys-enable="shortcutKeysEnable"
               />
             </Block>
 
-            <Block :title="$t('preference.animation')">
+            <Block :title="$t('preferences.animation')">
               <Animation
                 v-model:transition-enable="transitionEnable"
                 v-model:transition-name="transitionName"
@@ -284,23 +293,18 @@ function handleReset() {
               />
             </Block>
           </template>
-          <!-- <template #shortcutKey>
-            <Block :title="$t('preference.general')">
-              <General
-                v-model:locale="locale"
-                v-model:dynamic-title="dynamicTitle"
-                v-model:shortcut-keys="shortcutKeys"
+          <template #shortcutKey>
+            <Block :title="$t('preferences.shortcut-keys.global')">
+              <GlobalShortcutKeys
+                v-model:shortcut-keys-enable="shortcutKeysEnable"
+                v-model:shortcut-keys-global-search="shortcutKeysGlobalSearch"
+                v-model:shortcut-keys-logout="shortcutKeysGlobalLogout"
+                v-model:shortcut-keys-preferences="
+                  shortcutKeysGlobalPreferences
+                "
               />
             </Block>
-
-            <Block :title="$t('preference.animation')">
-              <Animation
-                v-model:page-progress="pageProgress"
-                v-model:page-transition="pageTransition"
-                v-model:transition-enable="transitionEnable"
-              />
-            </Block>
-          </template> -->
+          </template>
         </VbenSegmented>
       </div>
 
@@ -313,7 +317,7 @@ function handleReset() {
           @click="handleCopy"
         >
           <IcRoundFolderCopy class="mr-2 size-3" />
-          {{ $t('preference.copy') }}
+          {{ $t('preferences.copy') }}
         </VbenButton>
       </template>
     </VbenSheet>

@@ -13,9 +13,9 @@ const logoVisible = defineModel<boolean>('logoVisible');
 
 <template>
   <SwitchItem v-model="tabsVisible">
-    {{ $t('preference.tabs-visible') }}
+    {{ $t('preferences.tabs-visible') }}
   </SwitchItem>
   <SwitchItem v-model="logoVisible">
-    {{ $t('preference.logo-visible') }}
+    {{ $t('preferences.logo-visible') }}
   </SwitchItem>
 </template>

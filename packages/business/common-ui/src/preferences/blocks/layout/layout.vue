@@ -37,28 +37,28 @@ const components: Record<LayoutType, Component> = {
 
 const PRESET = computed((): PresetItem[] => [
   {
-    name: $t('preference.vertical'),
-    tip: $t('preference.vertical-tip'),
+    name: $t('preferences.vertical'),
+    tip: $t('preferences.vertical-tip'),
     type: 'sidebar-nav',
   },
   {
-    name: $t('preference.two-column'),
-    tip: $t('preference.two-column-tip'),
+    name: $t('preferences.two-column'),
+    tip: $t('preferences.two-column-tip'),
     type: 'sidebar-mixed-nav',
   },
   {
-    name: $t('preference.horizontal'),
-    tip: $t('preference.vertical-tip'),
+    name: $t('preferences.horizontal'),
+    tip: $t('preferences.vertical-tip'),
     type: 'header-nav',
   },
   {
-    name: $t('preference.mixed-menu'),
-    tip: $t('preference.mixed-menu-tip'),
+    name: $t('preferences.mixed-menu'),
+    tip: $t('preferences.mixed-menu-tip'),
     type: 'mixed-nav',
   },
   {
-    name: $t('preference.full-content'),
-    tip: $t('preference.full-content-tip'),
+    name: $t('preferences.full-content'),
+    tip: $t('preferences.full-content-tip'),
     type: 'full-content',
   },
 ]);
