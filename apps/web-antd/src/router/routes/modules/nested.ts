@@ -29,12 +29,24 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'Menu2',
         path: 'menu2',
-        component: () => import('@/views/nested/menu-2.vue'),
         meta: {
           icon: 'ic:round-menu',
           keepAlive: true,
           title: $t('page.nested.menu2'),
         },
+        redirect: '/nested/menu2/menu2-1',
+        children: [
+          {
+            name: 'Menu21',
+            path: 'menu2-1',
+            component: () => import('@/views/nested/menu-2-1.vue'),
+            meta: {
+              icon: 'ic:round-menu',
+              keepAlive: true,
+              title: $t('page.nested.menu21'),
+            },
+          },
+        ],
       },
       {
         name: 'Menu3',
