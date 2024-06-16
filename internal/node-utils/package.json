@@ -32,6 +32,7 @@
     "@manypkg/get-packages": "^2.2.1",
     "consola": "^3.2.3",
     "find-up": "^7.0.0",
+    "nanoid": "^5.0.7",
     "pkg-types": "^1.1.1",
     "prettier": "^3.3.2",
     "rimraf": "^5.0.7",

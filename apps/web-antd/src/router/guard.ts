@@ -9,9 +9,9 @@ import { useAccessStore } from '@vben-core/stores';
 
 import { useTitle } from '@vueuse/core';
 
-import { dynamicRoutes, essentialsRouteNames } from '@/router/routes';
+import { dynamicRoutes, essentialsRouteNames } from '#/router/routes';
 
-const forbiddenPage = () => import('@/views/_essential/fallback/forbidden.vue');
+const forbiddenPage = () => import('#/views/_essential/fallback/forbidden.vue');
 
 /**
  * 通用守卫配置

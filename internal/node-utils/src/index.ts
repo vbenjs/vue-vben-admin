@@ -1,5 +1,4 @@
 export { UNICODE } from './constants';
-export { findFileByExtension, findUpPackageDir } from './find';
 export * from './git';
 export { add as gitAdd, getStagedFiles } from './git';
 export { generatorContentHash } from './hash';

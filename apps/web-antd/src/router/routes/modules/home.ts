@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '@/layouts';
+import { BasicLayout } from '#/layouts';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'Welcome',
         path: '/welcome',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('#/views/dashboard/index.vue'),
         meta: {
           affixTab: true,
           title: 'Welcome',

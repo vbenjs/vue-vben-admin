@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '@/layouts';
 import { $t } from '@vben/locales/helper';
+
+import { BasicLayout } from '#/layouts';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -19,7 +20,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'Menu1',
         path: 'menu1',
-        component: () => import('@/views/nested/menu-1.vue'),
+        component: () => import('#/views/nested/menu-1.vue'),
         meta: {
           icon: 'ic:round-menu',
           keepAlive: true,
@@ -39,7 +40,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'Menu21',
             path: 'menu2-1',
-            component: () => import('@/views/nested/menu-2-1.vue'),
+            component: () => import('#/views/nested/menu-2-1.vue'),
             meta: {
               icon: 'ic:round-menu',
               keepAlive: true,
@@ -60,7 +61,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'Menu31',
             path: 'menu3-1',
-            component: () => import('@/views/nested/menu-3-1.vue'),
+            component: () => import('#/views/nested/menu-3-1.vue'),
             meta: {
               icon: 'ic:round-menu',
               keepAlive: true,
@@ -79,7 +80,7 @@ const routes: RouteRecordRaw[] = [
               {
                 name: 'Menu321',
                 path: 'menu3-2-1',
-                component: () => import('@/views/nested/menu-3-2-1.vue'),
+                component: () => import('#/views/nested/menu-3-2-1.vue'),
                 meta: {
                   icon: 'ic:round-menu',
                   keepAlive: true,

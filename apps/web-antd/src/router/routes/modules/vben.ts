@@ -2,8 +2,9 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_GITHUB_URL, VBEN_LOGO } from '@vben/constants';
 
-import { BasicLayout, IFrameView } from '@/layouts';
 import { $t } from '@vben/locales/helper';
+
+import { BasicLayout, IFrameView } from '#/layouts';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -20,7 +21,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'VbenAbout',
         path: 'about',
-        component: () => import('@/views/_essential/vben/about/index.vue'),
+        component: () => import('#/views/_essential/vben/about/index.vue'),
         meta: {
           icon: 'mdi:creative-commons',
           title: $t('page.vben.about'),

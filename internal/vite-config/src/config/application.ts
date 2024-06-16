@@ -2,8 +2,6 @@ import type { UserConfig } from 'vite';
 
 import type { DefineApplicationOptions } from '../typing';
 
-import { resolve } from 'node:path';
-
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { getApplicationConditionPlugins } from '../plugins';
@@ -57,31 +55,6 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
         legalComments: 'none',
       },
       plugins,
-      resolve: {
-        alias: [
-          {
-            find: /@\//,
-            replacement: `${resolve(root, '.', 'src')}/`,
-          },
-          /**
-           * 确保大仓内的子包，如果通过源码方式引用，可以直接使用@别名
-           */
-          // {
-          //   find: '@',
-          //   replacement: '@',
-          //   customResolver(source, importer) {
-          //     if (source[0] === '@') {
-          //       const realPath = source.replace(
-          //         /^@/,
-          //         resolve(findUpPackageDir(importer), 'src'),
-          //       );
-          //       return findFileByExtension(realPath);
-          //     }
-          //     return null;
-          //   },
-          // },
-        ],
-      },
       server: {
         host: true,
         warmup: {

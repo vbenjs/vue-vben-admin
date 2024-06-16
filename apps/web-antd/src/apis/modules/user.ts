@@ -2,7 +2,7 @@ import type { UserInfo } from '@vben/types';
 
 import type { UserApiType } from '../types';
 
-import { request } from '@/forward';
+import { request } from '#/forward';
 
 /**
  * 登录

@@ -3,13 +3,12 @@ import type { RouteRecordRaw } from 'vue-router';
 import { DEFAULT_HOME_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 
-import { AuthPageLayoutType } from '@/layouts';
-
-import Login from '@/views/_essential/authentication/login.vue';
+import { AuthPageLayoutType } from '#/layouts';
+import Login from '#/views/_essential/authentication/login.vue';
 
 /** 全局404页面 */
 const fallbackNotFoundRoute: RouteRecordRaw = {
-  component: () => import('@/views/_essential/fallback/not-found.vue'),
+  component: () => import('#/views/_essential/fallback/not-found.vue'),
   meta: {
     hideInBreadcrumb: true,
     hideInMenu: true,
@@ -50,7 +49,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         name: 'CodeLogin',
         path: 'code-login',
         component: () =>
-          import('@/views/_essential/authentication/code-login.vue'),
+          import('#/views/_essential/authentication/code-login.vue'),
         meta: {
           title: $t('page.essentials.code-login'),
         },
@@ -59,7 +58,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         name: 'QrCodeLogin',
         path: 'qrcode-login',
         component: () =>
-          import('@/views/_essential/authentication/qrcode-login.vue'),
+          import('#/views/_essential/authentication/qrcode-login.vue'),
         meta: {
           title: $t('page.essentials.qrcode-login'),
         },
@@ -68,7 +67,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         name: 'ForgetPassword',
         path: 'forget-password',
         component: () =>
-          import('@/views/_essential/authentication/forget-password.vue'),
+          import('#/views/_essential/authentication/forget-password.vue'),
         meta: {
           title: $t('page.essentials.forget-password'),
         },
@@ -77,7 +76,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         name: 'Register',
         path: 'register',
         component: () =>
-          import('@/views/_essential/authentication/register.vue'),
+          import('#/views/_essential/authentication/register.vue'),
         meta: {
           title: $t('page.essentials.register'),
         },

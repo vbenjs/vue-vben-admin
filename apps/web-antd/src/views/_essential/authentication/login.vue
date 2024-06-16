@@ -9,8 +9,9 @@ import { AuthenticationLogin } from '@vben/universal-ui';
 import { useRequest } from '@vben-core/request';
 import { useAccessStore } from '@vben-core/stores';
 
-import { getUserInfo, userLogin } from '@/apis';
 import { notification } from 'ant-design-vue';
+
+import { getUserInfo, userLogin } from '#/apis';
 
 defineOptions({ name: 'Login' });
 
