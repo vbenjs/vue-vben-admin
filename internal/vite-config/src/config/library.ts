@@ -35,7 +35,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
       build: {
         lib: {
           entry: 'src/index.ts',
-          fileName: 'index.mjs',
+          fileName: () => 'index.mjs',
           formats: ['es'],
         },
         rollupOptions: {

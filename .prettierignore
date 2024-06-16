@@ -4,6 +4,7 @@ dist
 node_modules
 .nvmrc
 coverage
+CODEOWNERS
 
 
 **/*.svg

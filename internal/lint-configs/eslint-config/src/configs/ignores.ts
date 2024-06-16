@@ -19,6 +19,7 @@ export async function ignores(): Promise<Linter.FlatConfig[]> {
         '**/tmp',
         '**/.tmp',
         '**/.history',
+        '**/.turbo',
         '**/.nuxt',
         '**/.next',
         '**/.vercel',

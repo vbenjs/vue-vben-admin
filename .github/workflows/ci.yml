@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - "releases/*"
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+
+jobs:
+  test:
+    name: Test
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      # - name: Check Git version
+      #   run: git --version
+
+      # - name: Setup mock Git user
+      #   run: git config --global user.email "you@example.com" && git config --global user.name "Your Name"
+
+      - name: Vitest tests
+        run: pnpm run test
+
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v4
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+
+  lint:
+    name: Lint
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm run lint
+
+    # check:
+    #   name: Typecheck
+    #   runs-on: ubuntu-latest
+    #   timeout-minutes: 20
+    #   steps:
+    #     - uses: actions/checkout@v4
+    #     - uses: ./.github/actions/ci-setup
+
+    #     - name: Typecheck
+    #       run: pnpm check:type
+
+  ci-ok:
+    name: CI OK
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') && always()
+    # needs: [test, check, lint]
+    needs: [test, lint]
+    env:
+      FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') }}
+    steps:
+      - name: Check for failure
+        run: |
+          echo $FAILURE
+          if [ "$FAILURE" = "false" ]; then
+            exit 0
+          else
+            exit 1
+          fi

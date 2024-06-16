@@ -35,7 +35,6 @@
   "publishConfig": {
     "exports": {
       ".": {
-        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       }
     }

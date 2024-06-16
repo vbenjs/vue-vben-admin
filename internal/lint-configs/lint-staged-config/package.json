@@ -31,6 +31,6 @@
     }
   },
   "dependencies": {
-    "lint-staged": "15.2.2"
+    "lint-staged": "^15.2.7"
   }
 }
