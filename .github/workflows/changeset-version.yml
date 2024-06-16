@@ -1,5 +1,5 @@
 # https://github.com/changesets/action
-name: Release
+name: Changeset version
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ env:
 
 jobs:
   version:
-    if: (github.event.pull_request.merged || github.event_name == 'workflow_dispatch') && github.actor != 'dependabot[bot] && !contains(github.event.head_commit.message, '[skip ci]')
+    if: (github.event.pull_request.merged || github.event_name == 'workflow_dispatch') && github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     # if: github.repository == 'vbenjs/vue-vben-admin'
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm run version
-          commit: "chore: update versions"
-          title: "chore: update versions"
+          commit: "chore: bump versions"
+          title: "chore: bump versions [skip ci]"
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

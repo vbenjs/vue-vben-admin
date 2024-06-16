@@ -26,7 +26,7 @@ Please delete options that are not relevant.
 
 > 👉 _Put an `x` in the boxes that apply._
 
-- [ ] If you introduce new functionality, document it. You can run documentation with `pnpm run docs` command.
+- [ ] If you introduce new functionality, document it. You can run documentation with `pnpm run docs:dev` command.
 
 ### Changesets
 

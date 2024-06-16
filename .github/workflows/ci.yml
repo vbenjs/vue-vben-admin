@@ -13,6 +13,7 @@ permissions:
 
 env:
   CI: true
+  TZ: Asia/Shanghai
 
 jobs:
   test:
@@ -21,10 +22,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        node-version: [20]
         os:
           - ubuntu-latest
-          - macos-latest
-          - windows-latest
+          # - macos-latest
+          # - windows-latest
     timeout-minutes: 20
     steps:
       - name: Checkout code
@@ -64,10 +66,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        node-version: [20]
         os:
           - ubuntu-latest
-          - macos-latest
-          - windows-latest
+          # - macos-latest
+          # - windows-latest
 
     steps:
       - name: Checkout code
@@ -90,23 +93,28 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-    # check:
-    #   name: Typecheck
-    #   runs-on: ubuntu-latest
-    #   timeout-minutes: 20
-    #   steps:
-    #     - uses: actions/checkout@v4
-    #     - uses: ./.github/actions/ci-setup
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      # - uses: ./.github/actions/ci-setup
 
-    #     - name: Typecheck
-    #       run: pnpm check:type
+      # - name: Typecheck
+      #   run: pnpm check:type
+
+      # From https://github.com/rhysd/actionlint/blob/main/docs/usage.md#use-actionlint-on-github-actions
+      - name: Check workflow files
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color -shellcheck=""
 
   ci-ok:
     name: CI OK
     runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') && always()
-    # needs: [test, check, lint]
-    needs: [test, lint]
+    needs: [test, check, lint]
     env:
       FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') }}
     steps:

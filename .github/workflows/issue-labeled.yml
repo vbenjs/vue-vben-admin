@@ -10,14 +10,23 @@ jobs:
   reply-labeled:
     runs-on: ubuntu-latest
     steps:
-      # - name: remove pending
-      #   if: github.event.label.name == 'enhancement' || github.event.label.name == 'bug'
-      #   uses: actions-cool/issues-helper@v3
-      #   with:
-      #     actions: "remove-labels"
-      #     token: ${{ secrets.ACCESS_TOKEN }}
-      #     issue-number: ${{ github.event.issue.number }}
-      #     labels: "bug: pending triage"
+      - name: remove enhancement pending
+        if: github.event.label.name == 'enhancement'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "remove-labels"
+          token: ${{ secrets.ACCESS_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "enhancement: pending triage"
+
+      - name: remove bug pending
+        if: github.event.label.name == 'bug'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "remove-labels"
+          token: ${{ secrets.ACCESS_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "bug: pending triage"
 
       - name: needs reproduction
         if: github.event.label.name == 'needs reproduction'
