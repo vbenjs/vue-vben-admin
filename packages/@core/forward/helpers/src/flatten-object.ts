@@ -67,8 +67,8 @@ export { flattenObject };
 //   [K in keyof T as CurrentDepth['length'] extends Depth
 //     ? K
 //     : T[K] extends object
-//       ? `${CurrentDepth['length'] extends 0 ? Uncapitalize<K & string> : Capitalize<K & string>}${keyof FlattenDepth<T[K], Depth, [...CurrentDepth, 1]> extends string ? Capitalize<keyof FlattenDepth<T[K], Depth, [...CurrentDepth, 1]>> : ''}`
-//       : `${CurrentDepth['length'] extends 0 ? Uncapitalize<K & string> : Capitalize<K & string>}`]: CurrentDepth['length'] extends Depth
+//       ? `${CurrentDepth['length'] extends 0 ? UnCapitalize<K & string> : Capitalize<K & string>}${keyof FlattenDepth<T[K], Depth, [...CurrentDepth, 1]> extends string ? Capitalize<keyof FlattenDepth<T[K], Depth, [...CurrentDepth, 1]>> : ''}`
+//       : `${CurrentDepth['length'] extends 0 ? UnCapitalize<K & string> : Capitalize<K & string>}`]: CurrentDepth['length'] extends Depth
 //     ? T[K]
 //     : T[K] extends object
 //       ? FlattenDepth<T[K], Depth, [...CurrentDepth, 1]>[keyof FlattenDepth<

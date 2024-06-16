@@ -27,10 +27,11 @@
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
-    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type",
+    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:spell",
     "check:circular": "vsh check-circular",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
+    "check:spell": "cspell \"**/*.ts\" \"**/README.md\" \".changeset/*.md\" --no-progress",
     "clean": "vsh clean",
     "commit": "czg",
     "docs:dev": "pnpm -F @vben/website run docs:dev",
@@ -49,7 +50,7 @@
     "@changesets/cli": "^2.27.5",
     "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.4",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/lint-staged-config": "workspace:*",
@@ -61,6 +62,7 @@
     "@vben/vsh": "workspace:*",
     "@vue/test-utils": "^2.4.6",
     "cross-env": "^7.0.3",
+    "cspell": "^8.8.4",
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.0",
@@ -70,14 +72,14 @@
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0",
     "vite": "^5.3.1",
-    "vitest": "^2.0.0-beta.3",
+    "vitest": "^2.0.0-beta.10",
     "vue-tsc": "^2.0.21"
   },
   "engines": {
-    "node": ">=18.7.0",
-    "pnpm": ">=8.5.0"
+    "node": ">=20",
+    "pnpm": ">=9"
   },
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.4.0",
   "pnpm": {
     "overrides": {
       "@ctrl/tinycolor": "4.1.0",
@@ -88,6 +90,12 @@
       "canvas",
       "node-gyp",
       "playwright"
-    ]
+    ],
+    "updateConfig": {
+      "ignoreDependencies": [
+        "eslint",
+        "zx"
+      ]
+    }
   }
 }

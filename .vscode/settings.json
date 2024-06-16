@@ -171,20 +171,6 @@
     "packages/@vben-core/shared/design-tokens/src/**/*.css"
   ],
 
-  "cSpell.words": [
-    "vben",
-    "iconify",
-    "pinia",
-    "nprogress",
-    "shadcn",
-    "antd",
-    "qrcode",
-    "vueuse",
-    "brotli"
-  ],
-  "cSpell.allowCompoundWords": true,
-  "cSpell.language": "en,en-US",
-
   "i18n-ally.localesPaths": ["packages/locales/src/langs"],
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
   "i18n-ally.sourceLanguage": "en",
@@ -201,7 +187,7 @@
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
     "Dockerfile": "Dockerfile,.docker*,docker-entrypoint.sh,build-local-docker*",
-    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*",
+    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*,cspell.json",
     "tailwind.config.mjs": "postcss.*"
   },
   "commentTranslate.hover.enabled": true,
