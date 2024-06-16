@@ -10,8 +10,8 @@ import { type PluginOption } from 'vite';
  * 为多app提供loading样式，无需在每个 app -> index.html单独引入
  */
 async function viteInjectAppLoadingPlugin(
-  isBuild: string,
-  env: Record<string, any>,
+  isBuild: boolean,
+  env: Record<string, any> = {},
 ): Promise<PluginOption | undefined> {
   const loadingHtml = await getLoadingRawByHtmlTemplate();
   const envRaw = isBuild ? 'prod' : 'dev';

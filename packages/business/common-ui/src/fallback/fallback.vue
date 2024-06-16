@@ -49,6 +49,9 @@ const titleText = computed(() => {
     case 'offline': {
       return $t('fallback.offline-error');
     }
+    case 'hello': {
+      return $t('fallback.coming-soon');
+    }
     default: {
       return '';
     }

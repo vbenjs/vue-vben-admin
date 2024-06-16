@@ -21,6 +21,7 @@ import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
 import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
 import { viteMockServe as viteMockPlugin } from 'vite-plugin-mock';
+import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
 import { viteExtraAppConfigPlugin } from './extra-app-config';
@@ -100,6 +101,8 @@ async function getApplicationConditionPlugins(
     importmapOptions,
     injectAppLoading,
     mock,
+    pwa,
+    pwaOptions,
     turboConsole,
     ...commonOptions
   } = options;
@@ -125,7 +128,24 @@ async function getApplicationConditionPlugins(
     },
     {
       condition: injectAppLoading,
-      plugins: async () => [await viteInjectAppLoadingPlugin(isBuild, env)],
+      plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env)],
+    },
+    {
+      condition: pwa,
+      plugins: () =>
+        VitePWA({
+          injectRegister: false,
+          workbox: {
+            globPatterns: [],
+          },
+          ...pwaOptions,
+          manifest: {
+            display: 'standalone',
+            start_url: '/',
+            theme_color: '#ffffff',
+            ...pwaOptions?.manifest,
+          },
+        }),
     },
     {
       condition: isBuild && !!compress,

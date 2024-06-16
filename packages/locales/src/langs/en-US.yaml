@@ -25,6 +25,7 @@ fallback:
   offline: Offline Page
   offline-error: Oops! Network Error
   offline-error-desc: Sorry, can't connect to the internet. Check your connection.
+  coming-soon: Coming soon
 
 widgets:
   document: Document

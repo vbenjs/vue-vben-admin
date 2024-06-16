@@ -10,7 +10,8 @@ import { getApplicationConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
 function defineApplicationConfig(options: DefineApplicationOptions = {}) {
-  return defineConfig(async ({ command, mode }) => {
+  return defineConfig(async (config) => {
+    const { command, mode } = config;
     const { application = {}, vite = {} } = options;
     const root = process.cwd();
     const isBuild = command === 'build';
@@ -28,8 +29,11 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       isBuild,
       mock: true,
       mode,
+      pwa: true,
       turboConsole: false,
-      ...application,
+      ...(typeof application === 'function'
+        ? application(config)
+        : application),
     });
 
     const applicationConfig: UserConfig = {
@@ -91,7 +95,10 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       await getCommonConfig(),
       applicationConfig,
     );
-    return mergeConfig(mergedConfig, vite);
+    return mergeConfig(
+      mergedConfig,
+      typeof vite === 'function' ? vite(config) : vite,
+    );
   });
 }
 

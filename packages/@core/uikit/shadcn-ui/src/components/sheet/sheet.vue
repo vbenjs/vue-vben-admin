@@ -68,7 +68,7 @@ function handlerSubmit() {
     <SheetContent :style="contentStyle" class="!w-full pb-12 sm:rounded-l-lg">
       <SheetHeader
         :class="description ? 'h-16' : 'h-12'"
-        class="border-border flex flex-row items-center justify-between border-b pl-5 pr-3"
+        class="border-border flex flex-row items-center justify-between border-b pl-3 pr-3"
       >
         <div class="flex w-full items-center justify-between">
           <div>

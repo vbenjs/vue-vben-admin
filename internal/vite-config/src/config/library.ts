@@ -10,7 +10,8 @@ import { getLibraryConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
 function defineLibraryConfig(options: DefineLibraryOptions = {}) {
-  return defineConfig(async ({ command, mode }) => {
+  return defineConfig(async (config) => {
+    const { command, mode } = config;
     const root = process.cwd();
     const { library = {}, vite = {} } = options;
     const isBuild = command === 'build';
@@ -20,7 +21,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
       injectLibCss: true,
       isBuild,
       mode,
-      ...library,
+      ...(typeof library === 'function' ? library(config) : library),
     });
 
     const { dependencies = {}, peerDependencies = {} } =
@@ -45,7 +46,10 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     };
     const commonConfig = await getCommonConfig();
     const mergedConfig = mergeConfig(commonConfig, packageConfig);
-    return mergeConfig(mergedConfig, vite);
+    return mergeConfig(
+      mergedConfig,
+      typeof vite === 'function' ? vite(config) : vite,
+    );
   });
 }
 

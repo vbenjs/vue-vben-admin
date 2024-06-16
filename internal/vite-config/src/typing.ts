@@ -1,6 +1,7 @@
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
-import type { PluginOption, UserConfig } from 'vite';
+import type { ConfigEnv, PluginOption, UserConfig } from 'vite';
 import type { PluginOptions } from 'vite-plugin-dts';
+import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
 import viteTurboConsolePlugin from 'unplugin-turbo-console/vite';
 
@@ -68,6 +69,10 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   injectAppLoading?: boolean;
   /** mock 插件配置 */
   mock?: boolean;
+  /** 是否开启pwa */
+  pwa?: boolean;
+  /** pwa 插件配置 */
+  pwaOptions?: Partial<PwaPluginOptions>;
   /** turbo-console 插件配置 */
   turboConsole?: Parameters<typeof viteTurboConsolePlugin>[0] | boolean;
 }
@@ -85,13 +90,15 @@ interface ApplicationOptions extends ApplicationPluginOptions {}
 interface LibraryOptions extends LibraryPluginOptions {}
 
 interface DefineApplicationOptions {
-  application?: ApplicationOptions;
-  vite?: UserConfig;
+  application?:
+    | ((config: ConfigEnv) => ApplicationOptions)
+    | ApplicationOptions;
+  vite?: ((config: ConfigEnv) => UserConfig) | UserConfig;
 }
 
 interface DefineLibraryOptions {
-  library?: LibraryOptions;
-  vite?: UserConfig;
+  library?: ((config: ConfigEnv) => LibraryOptions) | LibraryOptions;
+  vite?: ((config: ConfigEnv) => UserConfig) | UserConfig;
 }
 
 type DefineConfig = {

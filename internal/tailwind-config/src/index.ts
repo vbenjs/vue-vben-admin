@@ -57,6 +57,10 @@ export default {
         'collapsible-up': 'collapsible-up 0.2s ease-in-out',
         float: 'float 5s linear 0ms infinite',
       },
+      animationDuration: {
+        '2000': '2000ms',
+        '3000': '3000ms',
+      },
       borderRadius: {
         lg: 'var(--radius-base)',
         md: 'calc(var(--radius-base) - 2px)',

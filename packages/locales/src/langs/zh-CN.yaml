@@ -24,6 +24,7 @@ fallback:
   offline: 离线页面
   offline-error: 哎呀！网络错误
   offline-error-desc: 抱歉，无法连接到互联网，请检查您的网络连接并重试。
+  coming-soon: 即将推出
 
 widgets:
   document: 文档

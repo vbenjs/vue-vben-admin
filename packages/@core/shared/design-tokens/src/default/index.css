@@ -1,13 +1,6 @@
 /* https://gavin-yyc.github.io/colorconvert/ */
 :root {
-  /* 基础背景颜色颜色 */
-
-  /* --color-background: 210deg 25% 96.86%; */
-  // --color-main: 210deg 25% 96.86%;
   --color-background: 0 0 100%;
-  // --color-darken-background: 220deg 13.04% 8%;
-
-  /* --color-background: 220 14% 95%; */
 
   /* 基础文本颜色 */
   --color-foreground: 210 6% 21%;
@@ -85,12 +78,9 @@
   /* menu */
   --color-menu-dark: 225deg 12% 13%;
   --color-menu-dark-darken: 223deg 11% 10%;
-  // --color-menu-darken: var(--color-background);
-  // --color-menu-opened-dark: 225deg 12.12% 11%;
   --color-menu: 0deg 0% 100%;
   --color-menu-darken: 0deg 0% 95%;
 
   accent-color: var(--color-primary);
   color-scheme: light;
-  // --color-menu-opened: 0deg 0% 100%;
 }

@@ -126,6 +126,10 @@ const { copy } = useClipboard();
 const tabs = computed((): SegmentedItem[] => {
   return [
     {
+      label: $t('preferences.general'),
+      value: 'general',
+    },
+    {
       label: $t('preferences.appearance'),
       value: 'appearance',
     },
@@ -133,10 +137,7 @@ const tabs = computed((): SegmentedItem[] => {
       label: $t('preferences.layout'),
       value: 'layout',
     },
-    {
-      label: $t('preferences.general'),
-      value: 'general',
-    },
+
     {
       label: $t('preferences.shortcut-keys.title'),
       value: 'shortcutKey',
@@ -171,7 +172,7 @@ function handleReset() {
 </script>
 
 <template>
-  <div class="z-100 fixed right-0 top-1/3">
+  <div class="z-100 fixed right-0 top-2/3">
     <VbenSheet
       v-model:open="openPreferences"
       :description="$t('preferences.preferences-subtitle')"
@@ -194,8 +195,8 @@ function handleReset() {
         </VbenIconButton>
       </template>
 
-      <div class="p-5 pt-4">
-        <VbenSegmented :tabs="tabs" default-value="appearance">
+      <div class="p-4 pt-4">
+        <VbenSegmented :tabs="tabs" default-value="general">
           <template #appearance>
             <Block :title="$t('preferences.theme')">
               <Theme

@@ -245,7 +245,11 @@ class PreferenceManager {
     this.initialPreferences = merge({}, overrides, defaultPreferences);
 
     // 加载并合并当前存储的偏好设置
-    const mergedPreference = merge({}, this.loadCachedPreferences(), overrides);
+    const mergedPreference = merge(
+      {},
+      this.loadCachedPreferences(),
+      this.initialPreferences,
+    );
 
     // 更新偏好设置
     this.updatePreferences(mergedPreference);

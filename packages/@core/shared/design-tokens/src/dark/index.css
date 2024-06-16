@@ -1,12 +1,7 @@
 :root.dark {
   /* 基础背景颜色颜色 */
 
-  /* --color-background: 240 6% 18%; */
-  // --color-body: 220deg 13.04% 8%;
-  // --color-body: hsl(240deg 11% 4%);
   --color-background: 220deg 13.04% 8%;
-
-  /* --color-background: 219 42% 11%; */
 
   /* 基础文本颜色 */
   --color-foreground: 220 13% 91%;
