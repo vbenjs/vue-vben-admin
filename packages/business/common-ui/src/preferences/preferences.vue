@@ -58,6 +58,7 @@ withDefaults(defineProps<{ colorPrimaryPresets: string[] }>(), {
 const appThemeMode = defineModel<ThemeModeType>('appThemeMode');
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
+const appAiAssistant = defineModel<boolean>('appAiAssistant');
 const appLayout = defineModel<LayoutType>('appLayout');
 const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
@@ -172,7 +173,7 @@ function handleReset() {
 </script>
 
 <template>
-  <div class="z-100 fixed right-0 top-2/3">
+  <div class="z-100 fixed right-0 top-1/2">
     <VbenSheet
       v-model:open="openPreferences"
       :description="$t('preferences.preferences-subtitle')"
@@ -281,6 +282,7 @@ function handleReset() {
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
+                v-model:app-ai-assistant="appAiAssistant"
                 v-model:app-dynamic-title="appDynamicTitle"
                 v-model:app-locale="appLocale"
               />

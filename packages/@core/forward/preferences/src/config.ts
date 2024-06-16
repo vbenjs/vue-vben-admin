@@ -2,6 +2,7 @@ import type { Preferences } from './types';
 
 const defaultPreferences: Preferences = {
   app: {
+    aiAssistant: true,
     authPageLayout: 'panel-right',
     colorGrayMode: false,
     colorWeakMode: false,

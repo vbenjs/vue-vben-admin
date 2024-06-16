@@ -15,6 +15,8 @@ type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
 type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
 
 interface AppPreferences {
+  /** 是否开启vben助手 */
+  aiAssistant: boolean;
   /** 登录注册页面布局 */
   authPageLayout: AuthPageLayoutType;
   /** 是否开启灰色模式 */

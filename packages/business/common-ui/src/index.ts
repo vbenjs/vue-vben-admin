@@ -1,4 +1,5 @@
 export * from './authentication';
+export * from './coze-assistant';
 export * from './fallback';
 export * from './global-provider';
 export * from './global-search';

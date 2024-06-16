@@ -10,6 +10,7 @@ import Preferences from './preferences.vue';
 </script>
 <template>
   <Preferences
+    :app-ai-assistant="preferences.app.aiAssistant"
     :app-color-gray-mode="preferences.app.colorGrayMode"
     :app-color-weak-mode="preferences.app.colorWeakMode"
     :app-content-compact="preferences.app.contentCompact"
@@ -46,6 +47,9 @@ import Preferences from './preferences.vue';
     :transition-enable="preferences.transition.enable"
     :transition-name="preferences.transition.name"
     :transition-progress="preferences.transition.progress"
+    @update:app-ai-assistant="
+      (val) => updatePreferences({ app: { aiAssistant: val } })
+    "
     @update:app-color-gray-mode="
       (val) => updatePreferences({ app: { colorGrayMode: val } })
     "
