@@ -1,12 +1,12 @@
 ## Description
 
-<!-- Please insert your description here and provide especially info about the "what" this PR is solving -->
+<!-- Please describe the change as necessary. If it's a feature or enhancement please be as detailed as possible. If it's a bug fix, please link the issue that it fixes or describe the bug in as much detail.
+
+ -->
 
 <!-- You can also add additional context here -->
 
 ## Type of change
-
-> 👉 _Put an `x` in the boxes that apply._
 
 Please delete options that are not relevant.
 
@@ -16,30 +16,13 @@ Please delete options that are not relevant.
 - [ ] This change requires a documentation update
 - [ ] Please, don't make changes to `pnpm-lock.yaml` unless you introduce a new test example.
 
-### Tests
-
-> 👉 _Put an `x` in the boxes that apply._
-
-- [ ] Run the tests with `pnpm test`.
-
-### Documentation
-
-> 👉 _Put an `x` in the boxes that apply._
-
-- [ ] If you introduce new functionality, document it. You can run documentation with `pnpm run docs:dev` command.
-
-### Changesets
-
-> 👉 _Put an `x` in the boxes that apply._
-
-- [ ] Changes in changelog are generated from PR name. Please, make sure that it explains your changes in an understandable manner. Please, prefix changeset messages with `feat:`, `fix:`, `perf:`, `docs:`, or `chore:`.
-
 ## Checklist
 
 > ℹ️ Check all checkboxes - this will indicate that you have done everything in accordance with the rules in [CONTRIBUTING](contributing.md).
 
-> 👉 _Put an `x` in the boxes that apply._
-
+- [ ] If you introduce new functionality, document it. You can run documentation with `pnpm run docs:dev` command.
+- [ ] Run the tests with `pnpm test`.
+- [ ] Changes in changelog are generated from PR name. Please, make sure that it explains your changes in an understandable manner. Please, prefix changeset messages with `feat:`, `fix:`, `perf:`, `docs:`, or `chore:`.
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
