@@ -1,15 +1,15 @@
 {
   "name": "@vben/universal-ui",
   "version": "5.0.0",
-  "type": "module",
-  "license": "MIT",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/business/universal-ui"
   },
-  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "pnpm vite build",
     "prepublishOnly": "npm run build"

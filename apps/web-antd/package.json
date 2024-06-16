@@ -1,20 +1,20 @@
 {
   "name": "@vben/antd-view",
   "version": "5.0.0",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "apps/vben-admin"
+  },
+  "license": "MIT",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
     "url": "https://github.com/anncwb"
   },
   "type": "module",
-  "license": "MIT",
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "apps/vben-admin"
-  },
-  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm vite build",
     "dev": "pnpm vite",

@@ -2,8 +2,8 @@
   "name": "@vben/vsh",
   "version": "5.0.0",
   "private": true,
-  "type": "module",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "#build": "pnpm unbuild",
     "stub": "pnpm unbuild --stub"

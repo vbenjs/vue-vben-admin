@@ -2,15 +2,15 @@
   "name": "@vben/tsconfig",
   "version": "5.0.0",
   "private": true,
-  "type": "module",
-  "license": "MIT",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/tsconfig"
   },
-  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "license": "MIT",
+  "type": "module",
   "files": [
     "base.json",
     "library.json",
