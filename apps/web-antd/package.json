@@ -26,7 +26,7 @@
     "@vben-core/preferences": "workspace:*",
     "@vben-core/request": "workspace:*",
     "@vben-core/stores": "workspace:*",
-    "@vben/common-ui": "workspace:*",
+    "@vben/universal-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",

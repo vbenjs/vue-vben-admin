@@ -46,7 +46,7 @@
     "@vben-core/stores": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
-    "@vben/common-ui": "workspace:*",
+    "@vben/universal-ui": "workspace:*",
     "@vben/locales": "workspace:*",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"

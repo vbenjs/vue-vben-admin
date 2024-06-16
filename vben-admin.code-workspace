@@ -97,12 +97,12 @@
       "path": "packages/@core/uikit/tabs-ui",
     },
     {
-      "name": "@vben/common-ui",
-      "path": "packages/business/common-ui",
-    },
-    {
       "name": "@vben/layouts",
       "path": "packages/business/layouts",
+    },
+    {
+      "name": "@vben/universal-ui",
+      "path": "packages/business/universal-ui",
     },
     {
       "name": "@vben/constants",

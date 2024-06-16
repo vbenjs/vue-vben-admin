@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import type { NotificationItem } from '@vben/common-ui';
+import type { NotificationItem } from '@vben/universal-ui';
 
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { Notification, UserDropdown } from '@vben/common-ui';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
+import { Notification, UserDropdown } from '@vben/universal-ui';
 import { openWindow } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
 import { useAccessStore } from '@vben-core/stores';

@@ -106,9 +106,6 @@ importers:
       '@vben-core/stores':
         specifier: workspace:*
         version: link:../../packages/@core/forward/stores
-      '@vben/common-ui':
-        specifier: workspace:*
-        version: link:../../packages/business/common-ui
       '@vben/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -130,6 +127,9 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@vben/universal-ui':
+        specifier: workspace:*
+        version: link:../../packages/business/universal-ui
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -397,7 +397,7 @@ importers:
     dependencies:
       '@intlify/unplugin-vue-i18n':
         specifier: ^4.0.0
-        version: 4.0.0(rollup@2.79.1)(vue-i18n@9.13.1(vue@3.4.29(typescript@5.4.5)))
+        version: 4.0.0(rollup@4.18.0)(vue-i18n@9.13.1(vue@3.4.29(typescript@5.4.5)))
       '@jspm/generator':
         specifier: ^2.0.1
         version: 2.0.1
@@ -418,7 +418,7 @@ importers:
         version: 0.20.0(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(workbox-build@7.1.1)(workbox-window@7.1.0)
       vite-plugin-vue-devtools:
         specifier: ^7.3.0
-        version: 7.3.0(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5))
+        version: 7.3.0(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5))
     devDependencies:
       '@types/html-minifier-terser':
         specifier: ^7.0.2
@@ -438,15 +438,18 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
       rollup-plugin-visualizer:
         specifier: ^5.12.0
-        version: 5.12.0(rollup@2.79.1)
+        version: 5.12.0(rollup@4.18.0)
       sass:
         specifier: ^1.77.5
         version: 1.77.5
       unplugin-turbo-console:
         specifier: ^1.8.6
-        version: 1.8.6(esbuild@0.21.5)(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5))
+        version: 1.8.6(esbuild@0.21.5)(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5))
       vite:
         specifier: ^5.3.1
         version: 5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)
@@ -455,7 +458,7 @@ importers:
         version: 0.5.1(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
       vite-plugin-dts:
         specifier: ^3.9.1
-        version: 3.9.1(@types/node@20.14.2)(rollup@2.79.1)(typescript@5.4.5)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
+        version: 3.9.1(@types/node@20.14.2)(rollup@4.18.0)(typescript@5.4.5)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
@@ -679,7 +682,53 @@ importers:
         specifier: ^3.4.29
         version: 3.4.29(typescript@5.4.5)
 
-  packages/business/common-ui:
+  packages/business/layouts:
+    dependencies:
+      '@vben-core/helpers':
+        specifier: workspace:*
+        version: link:../../@core/forward/helpers
+      '@vben-core/iconify':
+        specifier: workspace:*
+        version: link:../../@core/shared/iconify
+      '@vben-core/layout-ui':
+        specifier: workspace:*
+        version: link:../../@core/uikit/layout-ui
+      '@vben-core/menu-ui':
+        specifier: workspace:*
+        version: link:../../@core/uikit/menu-ui
+      '@vben-core/preferences':
+        specifier: workspace:*
+        version: link:../../@core/forward/preferences
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/uikit/shadcn-ui
+      '@vben-core/stores':
+        specifier: workspace:*
+        version: link:../../@core/forward/stores
+      '@vben-core/tabs-ui':
+        specifier: workspace:*
+        version: link:../../@core/uikit/tabs-ui
+      '@vben-core/toolkit':
+        specifier: workspace:*
+        version: link:../../@core/shared/toolkit
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../../locales
+      '@vben/universal-ui':
+        specifier: workspace:*
+        version: link:../universal-ui
+      vue:
+        specifier: ^3.4.29
+        version: 3.4.29(typescript@5.4.5)
+      vue-router:
+        specifier: ^4.3.3
+        version: 4.3.3(vue@3.4.29(typescript@5.4.5))
+    devDependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../@core/shared/typings
+
+  packages/business/universal-ui:
     dependencies:
       '@vben-core/design':
         specifier: workspace:*
@@ -721,52 +770,6 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../types
-
-  packages/business/layouts:
-    dependencies:
-      '@vben-core/helpers':
-        specifier: workspace:*
-        version: link:../../@core/forward/helpers
-      '@vben-core/iconify':
-        specifier: workspace:*
-        version: link:../../@core/shared/iconify
-      '@vben-core/layout-ui':
-        specifier: workspace:*
-        version: link:../../@core/uikit/layout-ui
-      '@vben-core/menu-ui':
-        specifier: workspace:*
-        version: link:../../@core/uikit/menu-ui
-      '@vben-core/preferences':
-        specifier: workspace:*
-        version: link:../../@core/forward/preferences
-      '@vben-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/uikit/shadcn-ui
-      '@vben-core/stores':
-        specifier: workspace:*
-        version: link:../../@core/forward/stores
-      '@vben-core/tabs-ui':
-        specifier: workspace:*
-        version: link:../../@core/uikit/tabs-ui
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../../@core/shared/toolkit
-      '@vben/common-ui':
-        specifier: workspace:*
-        version: link:../common-ui
-      '@vben/locales':
-        specifier: workspace:*
-        version: link:../../locales
-      vue:
-        specifier: ^3.4.29
-        version: 3.4.29(typescript@5.4.5)
-      vue-router:
-        specifier: ^4.3.3
-        version: 4.3.3(vue@3.4.29(typescript@5.4.5))
-    devDependencies:
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../../@core/shared/typings
 
   packages/constants: {}
 
@@ -10175,11 +10178,11 @@ snapshots:
 
   '@intlify/shared@9.13.1': {}
 
-  '@intlify/unplugin-vue-i18n@4.0.0(rollup@2.79.1)(vue-i18n@9.13.1(vue@3.4.29(typescript@5.4.5)))':
+  '@intlify/unplugin-vue-i18n@4.0.0(rollup@4.18.0)(vue-i18n@9.13.1(vue@3.4.29(typescript@5.4.5)))':
     dependencies:
       '@intlify/bundle-utils': 8.0.0(vue-i18n@9.13.1(vue@3.4.29(typescript@5.4.5)))
       '@intlify/shared': 9.13.1
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       '@vue/compiler-sfc': 3.4.27
       debug: 4.3.5
       fast-glob: 3.3.2
@@ -10474,6 +10477,14 @@ snapshots:
       picomatch: 2.3.1
     optionalDependencies:
       rollup: 3.29.4
+
+  '@rollup/pluginutils@5.1.0(rollup@4.18.0)':
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    optionalDependencies:
+      rollup: 4.18.0
 
   '@rollup/rollup-android-arm-eabi@4.18.0':
     optional: true
@@ -14892,14 +14903,14 @@ snapshots:
     optionalDependencies:
       '@babel/code-frame': 7.24.7
 
-  rollup-plugin-visualizer@5.12.0(rollup@2.79.1):
+  rollup-plugin-visualizer@5.12.0(rollup@4.18.0):
     dependencies:
       open: 8.4.2
       picomatch: 2.3.1
       source-map: 0.7.4
       yargs: 17.7.2
     optionalDependencies:
-      rollup: 2.79.1
+      rollup: 4.18.0
 
   rollup@2.79.1:
     optionalDependencies:
@@ -15785,9 +15796,9 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-turbo-console@1.8.6(esbuild@0.21.5)(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5)):
+  unplugin-turbo-console@1.8.6(esbuild@0.21.5)(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5)):
     dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       ast-kit: 0.12.2
       get-port-please: 3.1.2
       h3: 1.11.1
@@ -15797,7 +15808,7 @@ snapshots:
       unplugin: 1.10.1
     optionalDependencies:
       esbuild: 0.21.5
-      rollup: 2.79.1
+      rollup: 4.18.0
       vite: 5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)
       vue: 3.4.29(typescript@5.4.5)
     transitivePeerDependencies:
@@ -15895,10 +15906,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-dts@3.9.1(@types/node@20.14.2)(rollup@2.79.1)(typescript@5.4.5)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)):
+  vite-plugin-dts@3.9.1(@types/node@20.14.2)(rollup@4.18.0)(typescript@5.4.5)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)):
     dependencies:
       '@microsoft/api-extractor': 7.43.0(@types/node@20.14.2)
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       '@vue/language-core': 1.8.27(typescript@5.4.5)
       debug: 4.3.5
       kolorist: 1.8.0
@@ -15928,10 +15939,10 @@ snapshots:
       pathe: 0.2.0
       vite: 5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)
 
-  vite-plugin-inspect@0.8.4(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)):
+  vite-plugin-inspect@0.8.4(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)):
     dependencies:
       '@antfu/utils': 0.7.8
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       debug: 4.3.5
       error-stack-parser-es: 0.1.4
       fs-extra: 11.2.0
@@ -15977,7 +15988,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-vue-devtools@7.3.0(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5)):
+  vite-plugin-vue-devtools@7.3.0(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5)):
     dependencies:
       '@vue/devtools-core': 7.3.0(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))(vue@3.4.29(typescript@5.4.5))
       '@vue/devtools-kit': 7.3.0(vue@3.4.29(typescript@5.4.5))
@@ -15985,7 +15996,7 @@ snapshots:
       execa: 8.0.1
       sirv: 2.0.4
       vite: 5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1)
-      vite-plugin-inspect: 0.8.4(rollup@2.79.1)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
+      vite-plugin-inspect: 0.8.4(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
       vite-plugin-vue-inspector: 5.1.2(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)(terser@5.31.1))
     transitivePeerDependencies:
       - '@nuxt/kit'

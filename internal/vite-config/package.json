@@ -43,6 +43,7 @@
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
+    "rollup": "^4.18.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.5",
     "unplugin-turbo-console": "^1.8.6",

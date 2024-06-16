@@ -1,5 +1,5 @@
 {
-  "name": "@vben/common-ui",
+  "name": "@vben/universal-ui",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/business/common-ui"
+    "directory": "packages/business/universal-ui"
   },
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {

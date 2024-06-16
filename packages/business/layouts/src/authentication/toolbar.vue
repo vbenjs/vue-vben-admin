@@ -4,7 +4,7 @@ import {
   AuthenticationLayoutToggle,
   LanguageToggle,
   ThemeToggle,
-} from '@vben/common-ui';
+} from '@vben/universal-ui';
 
 defineOptions({
   name: 'AuthenticationToolbar',

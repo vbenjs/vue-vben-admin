@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { PreferencesWidget } from '@vben/common-ui';
 import { $t } from '@vben/locales';
+import { PreferencesWidget } from '@vben/universal-ui';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import {
   preferences,
