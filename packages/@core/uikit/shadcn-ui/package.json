@@ -50,6 +50,6 @@
     "class-variance-authority": "^0.7.0",
     "radix-vue": "^1.8.4",
     "vue": "^3.4.29",
-    "vue-sonner": "^1.1.2"
+    "vue-sonner": "^1.1.3"
   }
 }

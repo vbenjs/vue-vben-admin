@@ -34,7 +34,7 @@
     "resolve.exports": "^2.0.2",
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vite-plugin-pwa": "^0.20.0",
-    "vite-plugin-vue-devtools": "^7.3.1"
+    "vite-plugin-vue-devtools": "^7.3.2"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.2",

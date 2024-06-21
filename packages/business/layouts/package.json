@@ -49,7 +49,7 @@
     "@vben/locales": "workspace:*",
     "@vben/universal-ui": "workspace:*",
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@vben-core/typings": "workspace:*"

@@ -1,10 +1,10 @@
-import { defineConfig } from 'vitepress';
+import { defineConfigWithTheme } from 'vitepress';
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
-  description: 'A VitePress Site',
+export default defineConfigWithTheme({
+  description: 'Vben Admin Pro Doc',
+  lang: 'zh-CN',
+  srcDir: 'src',
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { link: '/', text: 'Home' },
       { link: '/markdown-examples', text: 'Examples' },
@@ -24,8 +24,24 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
     ],
   },
-  title: 'My Awesome Project',
+  title: 'Vben Admin Pro',
   vite: {
-    server: { port: 6173 },
+    build: {
+      chunkSizeWarningLimit: Infinity,
+      minify: 'terser',
+    },
+    json: {
+      stringify: true,
+    },
+    server: {
+      fs: {
+        allow: ['../..'],
+      },
+      host: true,
+      port: 6173,
+    },
+    ssr: {
+      external: ['@vue/repl'],
+    },
   },
 });
