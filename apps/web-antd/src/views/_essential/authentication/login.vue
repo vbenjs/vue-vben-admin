@@ -9,7 +9,7 @@ import { AuthenticationLogin } from '@vben/universal-ui';
 import { useRequest } from '@vben-core/request';
 import { useAccessStore } from '@vben-core/stores';
 
-import { notification } from 'ant-design-vue';
+import { App } from 'ant-design-vue';
 
 import { getUserInfo, userLogin } from '#/apis';
 
@@ -17,6 +17,7 @@ defineOptions({ name: 'Login' });
 
 const router = useRouter();
 const accessStore = useAccessStore();
+const { notification } = App.useApp();
 
 const { loading, runAsync: runUserLogin } = useRequest(userLogin, {
   manual: true,

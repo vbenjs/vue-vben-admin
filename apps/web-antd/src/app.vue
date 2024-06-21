@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import { GlobalProvider } from '@vben/universal-ui';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
-import { ConfigProvider, theme } from 'ant-design-vue';
+import { App, ConfigProvider, theme } from 'ant-design-vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 
@@ -17,16 +17,17 @@ dayjs.locale(zhCN.locale);
 const { isDark } = usePreferences();
 
 const tokenTheme = computed(() => {
-  const algorithms = isDark.value
+  const algorithm = isDark.value
     ? [theme.darkAlgorithm]
     : [theme.defaultAlgorithm];
 
   // antd 紧凑模式算法
   if (preferences.app.compact) {
-    algorithms.push(theme.compactAlgorithm);
+    algorithm.push(theme.compactAlgorithm);
   }
+
   return {
-    algorithms,
+    algorithm,
     token: { colorPrimary: preferences.theme.colorPrimary },
   };
 });
@@ -35,7 +36,9 @@ const tokenTheme = computed(() => {
 <template>
   <GlobalProvider>
     <ConfigProvider :locale="zhCN" :theme="tokenTheme">
-      <RouterView />
+      <App>
+        <RouterView />
+      </App>
     </ConfigProvider>
   </GlobalProvider>
 </template>
