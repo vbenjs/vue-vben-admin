@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "chrome", // chrome、edge
+      "name": "vben admin pro dev", // 调试的名称，可以自定义
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/apps/web-antd/src"
+    }
+  ]
+}
