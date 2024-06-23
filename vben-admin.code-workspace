@@ -58,7 +58,7 @@
     },
     {
       "name": "@vben-core/cache",
-      "path": "packages/@core/shared/chche",
+      "path": "packages/@core/shared/cache",
     },
     {
       "name": "@vben-core/design",
