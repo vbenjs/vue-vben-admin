@@ -1,6 +1,5 @@
 import type {
   NormalizedOutputOptions,
-  OutputAsset,
   OutputBundle,
   OutputChunk,
 } from 'rollup';
@@ -45,25 +44,14 @@ async function viteLicensePlugin(
               `.trim();
 
         for (const [, fileContent] of Object.entries(bundle)) {
-          if (
-            fileContent.type === 'asset' ||
-            (fileContent.type === 'chunk' && fileContent.isEntry)
-          ) {
+          if (fileContent.type === 'chunk' && fileContent.isEntry) {
             const chunkContent = fileContent as OutputChunk;
-            const assetContent = fileContent as OutputAsset;
             // 插入版权信息
-            const content =
-              typeof assetContent.source === 'string'
-                ? assetContent.source
-                : chunkContent.code;
+            const content = chunkContent.code;
             const updatedContent = `${copyrightText}${EOL}${content}`;
 
             // 更新bundle
-            if (assetContent.source === undefined) {
-              (fileContent as OutputChunk).code = updatedContent;
-            } else {
-              (fileContent as OutputAsset).source = updatedContent;
-            }
+            (fileContent as OutputChunk).code = updatedContent;
           }
         }
       },

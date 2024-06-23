@@ -5,7 +5,6 @@ import { preferences } from '@vben-core/preferences';
 
 function useContentSpinner() {
   const spinning = ref(false);
-  const isStartTransition = ref(false);
   const startTime = ref(0);
   const router = useRouter();
   const minShowTime = 500;
@@ -29,7 +28,6 @@ function useContentSpinner() {
     if (to.meta.loaded || !enableLoading.value) {
       return true;
     }
-    isStartTransition.value = false;
     startTime.value = performance.now();
     spinning.value = true;
     return true;
@@ -40,17 +38,13 @@ function useContentSpinner() {
       return true;
     }
 
-    // 未进入过渡动画
-    if (!isStartTransition.value) {
-      // 关闭加载动画
-      onEnd();
-    }
+    // 关闭加载动画
+    onEnd();
 
-    isStartTransition.value = false;
     return true;
   });
 
-  return { onTransitionEnd: onEnd, spinning };
+  return { spinning };
 }
 
 export { useContentSpinner };

@@ -12,7 +12,7 @@ defineOptions({ name: 'LayoutContent' });
 
 const { keepAlive } = usePreferences();
 const tabsStore = useTabsStore();
-const { onTransitionEnd, spinning } = useContentSpinner();
+const { spinning } = useContentSpinner();
 
 const { getCacheTabs, getExcludeTabs, renderRouteView } =
   storeToRefs(tabsStore);
@@ -51,12 +51,7 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
     />
     <IFrameRouterView />
     <RouterView v-slot="{ Component, route }">
-      <Transition
-        :name="getTransitionName(route)"
-        appear
-        mode="out-in"
-        @transitionend="onTransitionEnd"
-      >
+      <Transition :name="getTransitionName(route)" appear mode="out-in">
         <KeepAlive
           v-if="keepAlive"
           :exclude="getExcludeTabs"

@@ -181,7 +181,7 @@ preferences:
     name: 动画
     loading: 页面切换 Loading
     transition: 页面切换动画
-    progress: 页面加载进度条
+    progress: 页面切换进度条
   theme:
     name: 主题
     builtin: 内置主题
