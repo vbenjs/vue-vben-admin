@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type { ThemeModeType } from '@vben-core/preferences';
+
+import type { Component } from 'vue';
+
 import { $t } from '@vben/locales';
 import {
   IcRoundMotionPhotosAuto,
@@ -17,7 +21,7 @@ const appSemiDarkMenu = defineModel<boolean>('appSemiDarkMenu', {
   default: true,
 });
 
-const THEME_PRESET = [
+const THEME_PRESET: Array<{ icon: Component; name: ThemeModeType }> = [
   {
     icon: IcRoundWbSunny,
     name: 'light',

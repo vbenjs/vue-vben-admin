@@ -121,7 +121,6 @@ preferences:
   name: Preferences
   subtitle: Customize Preferences & Preview in Real Time
   reset-tip: The data has changed, click to reset
-  theme: Theme
   ai-assistant: Ai Assistant
   appearance: Appearance
   theme-color: Theme Color
@@ -181,6 +180,25 @@ preferences:
   tabs-icon: Display Tabbar Icon
   mode: Mode
   logo-visible: Display Logo
+  theme:
+    name: Theme
+    builtin: Built-in
+    radius: Radius
+    default: Default
+    violet: Violet
+    pink: Pink
+    rose: Rose
+    sky-blue: Sky Blue
+    deep-blue: Deep Blue
+    green: Green
+    deep-green: Deep Green
+    orange: Orange
+    yellow: Yellow
+    zinc: Zinc
+    neutral: Neutral
+    slate: Slate
+    gray: Gray
+    custom: Custom
   header:
     name: Header
     visible: Display Header

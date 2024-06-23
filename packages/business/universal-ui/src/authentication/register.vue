@@ -132,11 +132,11 @@ function goLogin() {
           name="agreePolicy"
         >
           {{ $t('authentication.sign-up-agree') }}
-          <span class="text-primary hover:text-primary/80">{{
+          <span class="text-primary hover:text-primary-hover">{{
             $t('authentication.sign-up-privacy-policy')
           }}</span>
           &
-          <span class="text-primary hover:text-primary/80">
+          <span class="text-primary hover:text-primary-hover">
             {{ $t('authentication.sign-up-terms') }}
           </span>
         </VbenCheckbox>
@@ -158,7 +158,7 @@ function goLogin() {
     <div class="mt-4 text-center text-sm">
       {{ $t('authentication.already-account') }}
       <span
-        class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
+        class="text-primary hover:text-primary-hover cursor-pointer text-sm font-normal"
         @click="goLogin()"
       >
         {{ $t('authentication.go-login') }}

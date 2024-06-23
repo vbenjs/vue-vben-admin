@@ -18,7 +18,6 @@ const defaultPreferences: Preferences = {
     name: 'Vben Admin Pro',
     semiDarkMenu: true,
     showPreference: true,
-    themeMode: 'dark',
   },
   breadcrumb: {
     enable: true,
@@ -67,7 +66,13 @@ const defaultPreferences: Preferences = {
     showIcon: true,
   },
   theme: {
-    colorPrimary: 'hsl(211 91% 39%)',
+    builtinType: 'default',
+    colorDestructive: 'hsl(348 100% 61%)',
+    colorPrimary: 'hsl(245 82% 67%)',
+    colorSuccess: 'hsl(144 57% 58%)',
+    colorWarning: 'hsl(42 84% 61%)',
+    mode: 'dark',
+    radius: '0.5',
   },
   transition: {
     enable: true,

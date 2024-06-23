@@ -17,9 +17,7 @@ const appName = computed(() => preferences.app.name);
 </script>
 
 <template>
-  <div
-    class="bg-background flex min-h-full flex-1 select-none overflow-x-hidden"
-  >
+  <div class="flex min-h-full flex-1 select-none overflow-x-hidden">
     <AuthenticationFromView
       v-if="authPanelLeft"
       class="-enter-x min-h-full w-2/5"
@@ -47,9 +45,7 @@ const appName = computed(() => preferences.app.name);
       </div>
     </div>
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
-      <div
-        class="absolute inset-0 h-full w-full bg-[var(--color-authentication)]"
-      >
+      <div class="bg-authentication absolute inset-0 h-full w-full">
         <div class="flex-col-center -enter-x mr-20 h-full">
           <SloganIcon :alt="appName" class="animate-float h-64 w-2/5" />
           <div class="text-1xl mt-6 font-sans text-white lg:text-2xl">
@@ -61,10 +57,7 @@ const appName = computed(() => preferences.app.name);
         </div>
       </div>
     </div>
-    <div
-      v-if="authPanelCenter"
-      class="flex-center w-full dark:bg-[var(--color-authentication)]"
-    >
+    <div v-if="authPanelCenter" class="flex-center bg-authentication w-full">
       <AuthenticationFromView
         class="enter-y md:bg-background w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-2/5"
       >

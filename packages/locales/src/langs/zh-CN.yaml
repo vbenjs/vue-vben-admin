@@ -120,7 +120,6 @@ preferences:
   name: 偏好设置
   subtitle: 自定义偏好设置 & 实时预览
   reset-tip: 数据有变化，点击可进行重置
-  theme: 主题
   appearance: 外观
   theme-color: 主题色
   layout: 布局
@@ -180,6 +179,25 @@ preferences:
   tabs-icon: 显示标签栏图标
   mode: 模式
   logo-visible: 显示 Logo
+  theme:
+    name: 主题
+    builtin: 内置主题
+    radius: 圆角
+    default: 默认
+    violet: 紫罗兰
+    pink: 樱花粉
+    rose: 玫瑰红
+    sky-blue: 天蓝色
+    deep-blue: 深蓝色
+    green: 浅绿色
+    deep-green: 深绿色
+    orange: 橙黄色
+    yellow: 柠檬黄
+    zinc: 锌色灰
+    neutral: 中性色
+    slate: 石板灰
+    gray: 中灰色
+    custom: 自定义
   header:
     name: 顶栏
     mode-static: 静止

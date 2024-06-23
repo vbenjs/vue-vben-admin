@@ -1,0 +1,137 @@
+<script setup lang="ts">
+import type { BuiltinThemeType } from '@vben/types';
+
+import { computed, ref } from 'vue';
+
+import { $t } from '@vben/locales';
+import { TinyColor, convertToHsl } from '@vben-core/colorful';
+import { MdiEditBoxOutline } from '@vben-core/iconify';
+import {
+  BUILT_IN_THEME_PRESETS,
+  type BuiltinThemePreset,
+} from '@vben-core/preferences';
+
+defineOptions({
+  name: 'PreferenceBuiltinTheme',
+});
+
+const props = defineProps<{ isDark: boolean }>();
+
+const colorInput = ref();
+const modelValue = defineModel<BuiltinThemeType>({ default: 'default' });
+const themeColorPrimary = defineModel<string>('themeColorPrimary');
+
+const inputValue = computed(() => {
+  return new TinyColor(themeColorPrimary.value).toHexString();
+});
+
+function typeView(name: BuiltinThemeType) {
+  switch (name) {
+    case 'default': {
+      return $t('preferences.theme.default');
+    }
+    case 'violet': {
+      return $t('preferences.theme.violet');
+    }
+    case 'pink': {
+      return $t('preferences.theme.pink');
+    }
+    case 'rose': {
+      return $t('preferences.theme.rose');
+    }
+    case 'sky-blue': {
+      return $t('preferences.theme.sky-blue');
+    }
+    case 'deep-blue': {
+      return $t('preferences.theme.deep-blue');
+    }
+
+    case 'green': {
+      return $t('preferences.theme.green');
+    }
+    case 'deep-green': {
+      return $t('preferences.theme.deep-green');
+    }
+    case 'orange': {
+      return $t('preferences.theme.orange');
+    }
+    case 'yellow': {
+      return $t('preferences.theme.yellow');
+    }
+    case 'zinc': {
+      return $t('preferences.theme.zinc');
+    }
+    case 'neutral': {
+      return $t('preferences.theme.neutral');
+    }
+    case 'slate': {
+      return $t('preferences.theme.slate');
+    }
+    case 'gray': {
+      return $t('preferences.theme.gray');
+    }
+    case 'custom': {
+      return $t('preferences.theme.custom');
+    }
+  }
+}
+
+function handleSelect(theme: BuiltinThemePreset) {
+  modelValue.value = theme.type;
+  const primaryColor = props.isDark
+    ? theme.darkPrimaryColor || theme.primaryColor
+    : theme.primaryColor;
+
+  themeColorPrimary.value = primaryColor || theme.color;
+}
+
+function handleInputChange(e: Event) {
+  const target = e.target as HTMLInputElement;
+  themeColorPrimary.value = convertToHsl(target.value);
+}
+
+function selectColor() {
+  colorInput.value?.[0]?.click?.();
+}
+</script>
+
+<template>
+  <div class="flex w-full flex-wrap justify-between">
+    <template v-for="theme in BUILT_IN_THEME_PRESETS" :key="theme.type">
+      <div class="flex cursor-pointer flex-col" @click="handleSelect(theme)">
+        <div
+          :class="{
+            'outline-box-active': theme.type === modelValue,
+          }"
+          class="outline-box flex-center group cursor-pointer"
+        >
+          <template v-if="theme.type !== 'custom'">
+            <div
+              :style="{ backgroundColor: theme.color }"
+              class="mx-10 my-2 size-5 rounded-md"
+            ></div>
+          </template>
+          <template v-else>
+            <div class="size-full px-10 py-2" @click.stop="selectColor">
+              <div class="flex-center relative size-5 rounded-sm">
+                <MdiEditBoxOutline
+                  class="absolute z-10 size-5 opacity-60 group-hover:opacity-100"
+                />
+                <input
+                  ref="colorInput"
+                  :value="inputValue"
+                  class="absolute inset-0 opacity-0"
+                  type="color"
+                  @input="handleInputChange"
+                />
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="text-muted-foreground my-2 text-center text-xs">
+          {{ typeView(theme.type) }}
+        </div>
+      </div>
+    </template>
+  </div>
+</template>

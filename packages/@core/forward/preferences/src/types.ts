@@ -1,4 +1,5 @@
 import type {
+  BuiltinThemeType,
   ContentCompactType,
   LayoutHeaderModeType,
   LayoutType,
@@ -45,8 +46,6 @@ interface AppPreferences {
   semiDarkMenu: boolean;
   /** 是否显示偏好设置 */
   showPreference: boolean;
-  /** 当前主题 */
-  themeMode: ThemeModeType;
 }
 
 interface BreadcrumbPreferences {
@@ -132,8 +131,20 @@ interface TabbarPreferences {
 }
 
 interface ThemePreferences {
+  /** 内置主题名 */
+  builtinType: BuiltinThemeType;
+  /** 错误色 */
+  colorDestructive: string;
   /** 主题色 */
   colorPrimary: string;
+  /** 成功色 */
+  colorSuccess: string;
+  /** 警告色 */
+  colorWarning: string;
+  /** 当前主题 */
+  mode: ThemeModeType;
+  /** 圆角 */
+  radius: string;
 }
 
 interface TransitionPreferences {

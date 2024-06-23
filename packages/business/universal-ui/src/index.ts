@@ -1,5 +1,6 @@
 export * from './authentication';
 export * from './coze-assistant';
+export * from './dashboard';
 export * from './fallback';
 export * from './global-provider';
 export * from './global-search';
@@ -8,4 +9,3 @@ export * from './notification';
 export * from './preferences';
 export * from './theme-toggle';
 export * from './user-dropdown';
-export * from './dashboard';

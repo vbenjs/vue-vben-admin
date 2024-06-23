@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import { loadLocaleMessages } from '@vben/locales';
-import {
-  COLOR_PRIMARY_RESETS,
-  preferences,
-  updatePreferences,
-} from '@vben-core/preferences';
+import { preferences, updatePreferences } from '@vben-core/preferences';
 
 import Preferences from './preferences.vue';
 </script>
@@ -18,13 +14,11 @@ import Preferences from './preferences.vue';
     :app-layout="preferences.app.layout"
     :app-locale="preferences.app.locale"
     :app-semi-dark-menu="preferences.app.semiDarkMenu"
-    :app-theme-mode="preferences.app.themeMode"
     :breadcrumb-enable="preferences.breadcrumb.enable"
     :breadcrumb-hide-only-one="preferences.breadcrumb.hideOnlyOne"
     :breadcrumb-home="preferences.breadcrumb.showHome"
     :breadcrumb-icon="preferences.breadcrumb.showIcon"
     :breadcrumb-style-type="preferences.breadcrumb.styleType"
-    :color-primary-presets="COLOR_PRIMARY_RESETS"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
     :header-enable="preferences.header.enable"
@@ -43,7 +37,10 @@ import Preferences from './preferences.vue';
     :sidebar-enable="preferences.sidebar.enable"
     :tabbar-enable="preferences.tabbar.enable"
     :tabbar-show-icon="preferences.tabbar.showIcon"
+    :theme-builtin-type="preferences.theme.builtinType"
     :theme-color-primary="preferences.theme.colorPrimary"
+    :theme-mode="preferences.theme.mode"
+    :theme-radius="preferences.theme.radius"
     :transition-enable="preferences.transition.enable"
     :transition-name="preferences.transition.name"
     :transition-progress="preferences.transition.progress"
@@ -71,9 +68,6 @@ import Preferences from './preferences.vue';
     "
     @update:app-semi-dark-menu="
       (val) => updatePreferences({ app: { semiDarkMenu: val } })
-    "
-    @update:app-theme-mode="
-      (val) => updatePreferences({ app: { themeMode: val } })
     "
     @update:breadcrumb-enable="
       (val) => updatePreferences({ breadcrumb: { enable: val } })
@@ -136,8 +130,15 @@ import Preferences from './preferences.vue';
     @update:tabbar-show-icon="
       (val) => updatePreferences({ tabbar: { showIcon: val } })
     "
+    @update:theme-builtin-type="
+      (val) => updatePreferences({ theme: { builtinType: val } })
+    "
     @update:theme-color-primary="
       (val) => updatePreferences({ theme: { colorPrimary: val } })
+    "
+    @update:theme-mode="(val) => updatePreferences({ theme: { mode: val } })"
+    @update:theme-radius="
+      (val) => updatePreferences({ theme: { radius: val } })
     "
     @update:transition-enable="
       (val) => updatePreferences({ transition: { enable: val } })

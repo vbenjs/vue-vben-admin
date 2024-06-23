@@ -189,11 +189,12 @@ function handleGo(path: string) {
 
       <span
         v-if="showForgetPassword"
-        class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
+        class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
         @click="handleGo(forgetPasswordPath)"
       >
         {{ $t('authentication.forget-password') }}
       </span>
+
       <!-- <VbenButton variant="ghost" @click="handleGo('/auth/forget-password')">
         忘记密码?
       </VbenButton> -->
@@ -235,7 +236,7 @@ function handleGo(path: string) {
     <div v-if="showRegister" class="text-center text-sm">
       {{ $t('authentication.account-tip') }}
       <span
-        class="text-primary hover:text-primary/80 cursor-pointer text-sm font-normal"
+        class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
         @click="handleGo(registerPath)"
       >
         {{ $t('authentication.create-account') }}

@@ -1,5 +1,4 @@
 export * from './cn';
-export * from './color';
 export * from './diff';
 export * from './hash';
 export * from './inference';
@@ -8,4 +7,5 @@ export * from './merge';
 export * from './namespace';
 export * from './nprogress';
 export * from './tree';
+export * from './update-css-variables';
 export * from './window';

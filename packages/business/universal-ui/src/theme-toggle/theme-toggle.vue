@@ -29,7 +29,7 @@ withDefaults(defineProps<{ shouldOnHover?: boolean }>(), {
 
 function handleChange(isDark: boolean) {
   updatePreferences({
-    app: { themeMode: isDark ? 'dark' : 'light' },
+    theme: { mode: isDark ? 'dark' : 'light' },
   });
 }
 
@@ -64,13 +64,12 @@ const PRESETS = [
         />
       </template>
       <ToggleGroup
-        :model-value="preferences.app.themeMode"
+        :model-value="preferences.theme.mode"
         class="gap-2"
         type="single"
         variant="outline"
         @update:model-value="
-          (val) =>
-            updatePreferences({ app: { themeMode: val as ThemeModeType } })
+          (val) => updatePreferences({ theme: { mode: val as ThemeModeType } })
         "
       >
         <ToggleGroupItem

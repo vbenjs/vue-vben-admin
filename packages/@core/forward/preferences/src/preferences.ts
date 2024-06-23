@@ -5,16 +5,17 @@ import type { Preferences } from './types';
 import { markRaw, reactive, readonly, watch } from 'vue';
 
 import { StorageManager } from '@vben-core/cache';
-import { convertToHslCssVar, merge } from '@vben-core/toolkit';
+import { generatorColorVariables } from '@vben-core/colorful';
+import { merge, updateCSSVariables } from '@vben-core/toolkit';
 
 import {
   breakpointsTailwind,
   useBreakpoints,
-  useCssVar,
   useDebounceFn,
 } from '@vueuse/core';
 
 import { defaultPreferences } from './config';
+import { BUILT_IN_THEME_PRESETS } from './constants';
 
 const STORAGE_KEY = 'preferences';
 const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
@@ -59,7 +60,7 @@ class PreferenceManager {
   private _savePreferences(preference: Preferences) {
     this.cache?.setItem(STORAGE_KEY, preference);
     this.cache?.setItem(STORAGE_KEY_LOCALE, preference.app.locale);
-    this.cache?.setItem(STORAGE_KEY_THEME, preference.app.themeMode);
+    this.cache?.setItem(STORAGE_KEY_THEME, preference.theme.mode);
   }
 
   /**
@@ -72,11 +73,7 @@ class PreferenceManager {
     const themeUpdates = updates.theme || {};
     const appUpdates = updates.app || {};
 
-    if (themeUpdates.colorPrimary) {
-      this.updateCssVar(this.state);
-    }
-
-    if (appUpdates.themeMode) {
+    if (themeUpdates && Object.keys(themeUpdates).length > 0) {
       this.updateTheme(this.state);
     }
 
@@ -149,7 +146,7 @@ class PreferenceManager {
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', ({ matches: isDark }) => {
         this.updatePreferences({
-          app: { themeMode: isDark ? 'dark' : 'light' },
+          theme: { mode: isDark ? 'dark' : 'light' },
         });
         this.updateTheme(this.state);
       });
@@ -178,15 +175,37 @@ class PreferenceManager {
    * 更新 CSS 变量
    * @param  preference - 当前偏好设置对象，它的颜色值将被转换成 HSL 格式并设置为 CSS 变量。
    */
-  private updateCssVar(preference: Preferences) {
-    if (preference.theme) {
-      for (const [key, value] of Object.entries(preference.theme)) {
-        if (['colorPrimary'].includes(key)) {
-          const cssVarValue = useCssVar(`--primary`);
-          cssVarValue.value = convertToHslCssVar(value);
-        }
-      }
+  private updateMainColors(preference: Preferences) {
+    if (!preference.theme) {
+      return;
     }
+    const { colorDestructive, colorPrimary, colorSuccess, colorWarning } =
+      preference.theme;
+
+    const colorVariables = generatorColorVariables([
+      { color: colorPrimary, name: 'primary' },
+      { alias: 'warning', color: colorWarning, name: 'yellow' },
+      { alias: 'success', color: colorSuccess, name: 'green' },
+      { alias: 'destructive', color: colorDestructive, name: 'red' },
+    ]);
+
+    if (colorPrimary) {
+      document.documentElement.style.setProperty(
+        '--primary',
+        colorVariables['--primary-600'],
+      );
+    }
+
+    if (colorVariables['--green-600']) {
+      colorVariables['--success'] = colorVariables['--green-600'];
+    }
+    if (colorVariables['--yellow-600']) {
+      colorVariables['--warning'] = colorVariables['--yellow-600'];
+    }
+    if (colorVariables['--red-600']) {
+      colorVariables['--destructive'] = colorVariables['--red-600'];
+    }
+    updateCSSVariables(colorVariables);
   }
 
   /**
@@ -206,13 +225,60 @@ class PreferenceManager {
   private updateTheme(preferences: Preferences) {
     // 当修改到颜色变量时，更新 css 变量
     const root = document.documentElement;
-    if (root) {
-      const themeMode = preferences?.app?.themeMode;
-      if (!themeMode) {
-        return;
-      }
-      const dark = isDarkTheme(themeMode);
+    if (!root) {
+      return;
+    }
+
+    const {
+      builtinType,
+      colorDestructive,
+      colorPrimary,
+      colorSuccess,
+      colorWarning,
+      mode,
+      radius,
+    } = preferences?.theme ?? {};
+
+    if (mode) {
+      const dark = isDarkTheme(mode);
       root.classList.toggle('dark', dark);
+    }
+
+    if (builtinType) {
+      const rootTheme = root.dataset.theme;
+      if (rootTheme !== builtinType) {
+        root.dataset.theme = builtinType;
+      }
+    }
+
+    const currentBuiltType = BUILT_IN_THEME_PRESETS.find(
+      (item) => item.type === builtinType,
+    );
+
+    let builtinTypeColorPrimary: string | undefined = '';
+
+    if (currentBuiltType) {
+      const isDark = isDarkTheme(this.state.theme.mode);
+
+      const color = isDark
+        ? currentBuiltType.darkPrimaryColor || currentBuiltType.primaryColor
+        : currentBuiltType.primaryColor;
+      builtinTypeColorPrimary = color || currentBuiltType.color;
+    }
+
+    if (
+      builtinTypeColorPrimary ||
+      colorPrimary ||
+      colorDestructive ||
+      colorSuccess ||
+      colorWarning
+    ) {
+      preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
+      this.updateMainColors(preferences);
+    }
+
+    if (radius) {
+      document.documentElement.style.setProperty('--radius', `${radius}rem`);
     }
   }
 

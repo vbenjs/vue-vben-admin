@@ -61,6 +61,10 @@
       "path": "packages/@core/shared/cache",
     },
     {
+      "name": "@vben-core/colorful",
+      "path": "packages/@core/shared/colorful",
+    },
+    {
       "name": "@vben-core/design",
       "path": "packages/@core/shared/design",
     },

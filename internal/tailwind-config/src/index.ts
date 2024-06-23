@@ -24,6 +24,31 @@ packages.forEach((pkg) => {
   }
 });
 
+function createColorsPattern(name: string) {
+  return {
+    100: `hsl(var(--${name}-100))`,
+    200: `hsl(var(--${name}-200))`,
+    300: `hsl(var(--${name}-300))`,
+    400: `hsl(var(--${name}-400))`,
+    500: `hsl(var(--${name}-500))`,
+    600: `hsl(var(--${name}-600))`,
+    700: `hsl(var(--${name}-700))`,
+    800: `hsl(var(--${name}-800))`,
+    900: `hsl(var(--${name}-900))`,
+    1000: `hsl(var(--${name}-1000))`,
+    active: `hsl(var(--${name}-700))`,
+    background: `hsl(var(--${name}-100))`,
+    'background-hover': `hsl(var(--${name}-200))`,
+    border: `hsl(var(--${name}-300))`,
+    'border-hover': `hsl(var(--${name}-400))`,
+    foreground: `hsl(var(--${name}-foreground))`,
+    hover: `hsl(var(--${name}-500))`,
+    text: `hsl(var(--${name}-900))`,
+    'text-active': `hsl(var(--${name}-1000))`,
+    'text-hover': `hsl(var(--${name}-800))`,
+  };
+}
+
 export default {
   content: [
     './index.html',
@@ -73,17 +98,23 @@ export default {
           foreground: 'hsl(var(--accent-foreground))',
           hover: 'hsl(var(--accent-hover))',
         },
+        authentication: 'hsl(var(--authentication))',
         background: 'hsl(var(--background))',
         border: 'hsl(var(--border))',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+
         destructive: {
+          ...createColorsPattern('destructive'),
           DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
         },
-        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground))',
+        green: {
+          ...createColorsPattern('green'),
+          foreground: 'hsl(var(--success-foreground))',
+        },
         heavy: {
           DEFAULT: 'hsl(var(--heavy))',
           foreground: 'hsl(var(--heavy-foreground))',
@@ -102,21 +133,30 @@ export default {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
-          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+          ...createColorsPattern('primary'),
+          DEFAULT: 'hsl(var(--primary))',
+        },
+        red: {
+          ...createColorsPattern('red'),
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         ring: 'hsl(var(--ring))',
         secondary: {
-          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
-          desc: 'hsl(var(--secondary-desc) / <alpha-value>)',
-          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+          DEFAULT: 'hsl(var(--secondary))',
+          desc: 'hsl(var(--secondary-desc))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
+
         success: {
+          ...createColorsPattern('success'),
           DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--success-foreground))',
         },
         warning: {
+          ...createColorsPattern('warning'),
           DEFAULT: 'hsl(var(--warning))',
+        },
+        yellow: {
+          ...createColorsPattern('yellow'),
           foreground: 'hsl(var(--warning-foreground))',
         },
       },

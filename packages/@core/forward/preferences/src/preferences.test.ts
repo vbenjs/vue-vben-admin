@@ -55,7 +55,6 @@ describe('preferences', () => {
     const overrides: any = {
       app: {
         locale: 'en-US',
-        themeMode: 'light',
       },
     };
     await preferenceManager.initPreferences({
@@ -79,10 +78,12 @@ describe('preferences', () => {
 
   it('updates theme mode correctly', () => {
     preferenceManager.updatePreferences({
-      app: { themeMode: 'light' },
+      theme: {
+        mode: 'light',
+      },
     });
 
-    expect(preferenceManager.getPreferences().app.themeMode).toBe('light');
+    expect(preferenceManager.getPreferences().theme.mode).toBe('light');
   });
 
   it('updates color modes correctly', () => {
@@ -97,7 +98,9 @@ describe('preferences', () => {
   it('resets preferences to default', () => {
     // 先更新一些偏好设置
     preferenceManager.updatePreferences({
-      app: { themeMode: 'light' },
+      theme: {
+        mode: 'light',
+      },
     });
 
     // 然后重置偏好设置
@@ -146,10 +149,10 @@ describe('preferences', () => {
   });
   it('updates the sidebar collapse state correctly', () => {
     preferenceManager.updatePreferences({
-      sidebar: { collapse: true },
+      sidebar: { collapsed: true },
     });
 
-    expect(preferenceManager.getPreferences().sidebar.collapse).toBe(true);
+    expect(preferenceManager.getPreferences().sidebar.collapsed).toBe(true);
   });
   it('updates the navigation style type correctly', () => {
     preferenceManager.updatePreferences({
@@ -164,8 +167,11 @@ describe('preferences', () => {
   it('resets preferences to default correctly', () => {
     // 先更新一些偏好设置
     preferenceManager.updatePreferences({
-      app: { locale: 'en-US', themeMode: 'light' },
-      sidebar: { collapse: true, width: 200 },
+      app: { locale: 'en-US' },
+      sidebar: { collapsed: true, width: 200 },
+      theme: {
+        mode: 'light',
+      },
     });
 
     // 然后重置偏好设置
@@ -232,10 +238,10 @@ describe('preferences', () => {
     await preferenceManager.initPreferences(overrides);
 
     preferenceManager.updatePreferences({
-      app: { themeMode: 'light' },
+      theme: { mode: 'light' },
     });
 
-    expect(preferenceManager.getPreferences().app.themeMode).toBe('light');
+    expect(preferenceManager.getPreferences().theme.mode).toBe('light');
   });
 });
 

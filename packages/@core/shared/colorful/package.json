@@ -1,12 +1,12 @@
 {
-  "name": "@vben-core/toolkit",
+  "name": "@vben-core/colorful",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/shared/toolkit"
+    "directory": "packages/@vben-core/shared/colorful"
   },
   "license": "MIT",
   "type": "module",
@@ -36,14 +36,7 @@
     }
   },
   "dependencies": {
-    "@vue/shared": "^3.4.30",
-    "clsx": "2.1.1",
-    "dayjs": "^1.11.11",
-    "defu": "^6.1.4",
-    "nprogress": "^0.2.0",
-    "tailwind-merge": "^2.3.0"
-  },
-  "devDependencies": {
-    "@types/nprogress": "^0.2.3"
+    "@ant-design/colors": "^7.0.2",
+    "@ctrl/tinycolor": "4.1.0"
   }
 }

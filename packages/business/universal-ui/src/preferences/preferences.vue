@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {
+  BuiltinThemeType,
   ContentCompactType,
   LayoutHeaderModeType,
   LayoutType,
@@ -35,6 +36,7 @@ import {
   Animation,
   Block,
   Breadcrumb,
+  BuiltinTheme,
   ColorMode,
   Content,
   Footer,
@@ -43,19 +45,14 @@ import {
   Header,
   Layout,
   Navigation,
+  Radius,
   Sidebar,
   Tabbar,
   Theme,
-  ThemeColor,
 } from './blocks';
 import Trigger from './trigger.vue';
 import { useOpenPreferences } from './use-open-preferences';
 
-withDefaults(defineProps<{ colorPrimaryPresets: string[] }>(), {
-  colorPrimaryPresets: () => [],
-});
-
-const appThemeMode = defineModel<ThemeModeType>('appThemeMode');
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appAiAssistant = defineModel<boolean>('appAiAssistant');
@@ -70,6 +67,9 @@ const transitionName = defineModel<string>('transitionName');
 const transitionEnable = defineModel<boolean>('transitionEnable');
 
 const themeColorPrimary = defineModel<string>('themeColorPrimary');
+const themeBuiltinType = defineModel<BuiltinThemeType>('themeBuiltinType');
+const themeMode = defineModel<ThemeModeType>('themeMode');
+const themeRadius = defineModel<string>('themeRadius');
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
@@ -115,6 +115,7 @@ const shortcutKeysGlobalPreferences = defineModel<boolean>(
 
 const {
   diffPreference,
+  isDark,
   isFullContent,
   isHeaderNav,
   isMixedNav,
@@ -124,14 +125,10 @@ const {
 } = usePreferences();
 const { copy } = useClipboard();
 
-const activeTab = ref('general');
+const activeTab = ref('appearance');
 
 const tabs = computed((): SegmentedItem[] => {
   return [
-    {
-      label: $t('preferences.general'),
-      value: 'general',
-    },
     {
       label: $t('preferences.appearance'),
       value: 'appearance',
@@ -140,10 +137,13 @@ const tabs = computed((): SegmentedItem[] => {
       label: $t('preferences.layout'),
       value: 'layout',
     },
-
     {
       label: $t('preferences.shortcut-keys.title'),
       value: 'shortcutKey',
+    },
+    {
+      label: $t('preferences.general'),
+      value: 'general',
     },
   ];
 });
@@ -200,18 +200,45 @@ function handleReset() {
 
       <div class="p-4 pt-4">
         <VbenSegmented v-model="activeTab" :tabs="tabs">
+          <template #general>
+            <Block :title="$t('preferences.general')">
+              <General
+                v-model:app-ai-assistant="appAiAssistant"
+                v-model:app-dynamic-title="appDynamicTitle"
+                v-model:app-locale="appLocale"
+              />
+            </Block>
+
+            <Block :title="$t('preferences.animation')">
+              <Animation
+                v-model:transition-enable="transitionEnable"
+                v-model:transition-name="transitionName"
+                v-model:transition-progress="transitionProgress"
+              />
+            </Block>
+          </template>
           <template #appearance>
-            <Block :title="$t('preferences.theme')">
+            <Block :title="$t('preferences.theme.name')">
               <Theme
-                v-model="appThemeMode"
+                v-model="themeMode"
                 v-model:app-semi-dark-menu="appSemiDarkMenu"
               />
             </Block>
-            <Block :title="$t('preferences.theme-color')">
+            <!-- <Block :title="$t('preferences.theme-color')">
               <ThemeColor
                 v-model="themeColorPrimary"
                 :color-primary-presets="colorPrimaryPresets"
               />
+            </Block> -->
+            <Block :title="$t('preferences.theme.builtin')">
+              <BuiltinTheme
+                v-model="themeBuiltinType"
+                v-model:theme-color-primary="themeColorPrimary"
+                :is-dark="isDark"
+              />
+            </Block>
+            <Block :title="$t('preferences.theme.radius')">
+              <Radius v-model="themeRadius" />
             </Block>
             <Block :title="$t('preferences.other')">
               <ColorMode
@@ -281,23 +308,7 @@ function handleReset() {
               />
             </Block>
           </template>
-          <template #general>
-            <Block :title="$t('preferences.general')">
-              <General
-                v-model:app-ai-assistant="appAiAssistant"
-                v-model:app-dynamic-title="appDynamicTitle"
-                v-model:app-locale="appLocale"
-              />
-            </Block>
 
-            <Block :title="$t('preferences.animation')">
-              <Animation
-                v-model:transition-enable="transitionEnable"
-                v-model:transition-name="transitionName"
-                v-model:transition-progress="transitionProgress"
-              />
-            </Block>
-          </template>
           <template #shortcutKey>
             <Block :title="$t('preferences.shortcut-keys.global')">
               <GlobalShortcutKeys

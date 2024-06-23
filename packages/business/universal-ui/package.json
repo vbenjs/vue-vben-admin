@@ -40,6 +40,7 @@
     "@vben-core/design": "workspace:*"
   },
   "dependencies": {
+    "@vben-core/colorful": "workspace:*",
     "@vben-core/design": "workspace:*",
     "@vben-core/iconify": "workspace:*",
     "@vben-core/preferences": "workspace:*",
@@ -49,7 +50,6 @@
     "@vben/locales": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "@vueuse/integrations": "^10.11.0",
-    "@vben/chart-ui": "workspace:*",
     "qrcode": "^1.5.3",
     "vue": "^3.4.30",
     "vue-router": "^4.4.0"

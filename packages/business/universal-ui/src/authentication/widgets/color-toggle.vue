@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { BuiltinThemeType } from '@vben/types';
+
 import { IcRoundColorLens } from '@vben-core/iconify';
 import {
-  COLOR_PRIMARY_RESETS,
+  COLOR_PRESETS,
   preferences,
   updatePreferences,
 } from '@vben-core/preferences';
@@ -11,10 +13,10 @@ defineOptions({
   name: 'AuthenticationColorToggle',
 });
 
-function handleUpdate(value: string) {
+function handleUpdate(value: BuiltinThemeType) {
   updatePreferences({
     theme: {
-      colorPrimary: value,
+      builtinType: value,
     },
   });
 }
@@ -23,22 +25,32 @@ function handleUpdate(value: string) {
 <template>
   <div class="group relative flex items-center overflow-hidden">
     <div
-      class="ease-ou flex w-0 overflow-hidden transition-all duration-500 group-hover:w-48"
+      class="ease-ou flex w-0 overflow-hidden transition-all duration-500 group-hover:w-60"
     >
-      <template v-for="color in COLOR_PRIMARY_RESETS" :key="color">
+      <template v-for="preset in COLOR_PRESETS" :key="preset.color">
         <VbenIconButton
           class="flex-center flex-shrink-0"
-          @click="handleUpdate(color)"
+          @click="handleUpdate(preset.type)"
         >
           <div
-            :class="[
-              preferences.theme.colorPrimary === color
-                ? `before:opacity-100`
-                : '',
-            ]"
-            :style="{ backgroundColor: color }"
-            class="relative h-3.5 w-3.5 rounded-[2px] before:absolute before:left-0.5 before:top-0.5 before:h-2.5 before:w-2.5 before:rounded-[2px] before:border before:border-gray-900 before:opacity-0 before:transition-all before:duration-150 before:content-[''] hover:scale-110"
-          ></div>
+            :style="{ backgroundColor: preset.color }"
+            class="flex-center relative size-5 rounded-full hover:scale-110"
+          >
+            <svg
+              v-if="preferences.theme.builtinType === preset.type"
+              class="h-3.5 w-3.5 text-white"
+              height="1em"
+              viewBox="0 0 15 15"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M11.467 3.727c.289.189.37.576.181.865l-4.25 6.5a.625.625 0 0 1-.944.12l-2.75-2.5a.625.625 0 0 1 .841-.925l2.208 2.007l3.849-5.886a.625.625 0 0 1 .865-.181"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
         </VbenIconButton>
       </template>
     </div>
