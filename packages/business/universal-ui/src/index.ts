@@ -8,3 +8,4 @@ export * from './notification';
 export * from './preferences';
 export * from './theme-toggle';
 export * from './user-dropdown';
+export * from './dashboard';
