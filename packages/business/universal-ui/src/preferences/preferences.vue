@@ -64,6 +64,7 @@ const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 
 const transitionProgress = defineModel<boolean>('transitionProgress');
 const transitionName = defineModel<string>('transitionName');
+const transitionLoading = defineModel<boolean>('transitionLoading');
 const transitionEnable = defineModel<boolean>('transitionEnable');
 
 const themeColorPrimary = defineModel<string>('themeColorPrimary');
@@ -209,9 +210,10 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.animation')">
+            <Block :title="$t('preferences.animation.name')">
               <Animation
                 v-model:transition-enable="transitionEnable"
+                v-model:transition-loading="transitionLoading"
                 v-model:transition-name="transitionName"
                 v-model:transition-progress="transitionProgress"
               />

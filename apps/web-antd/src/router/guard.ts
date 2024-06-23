@@ -22,17 +22,21 @@ function setupCommonGuard(router: Router) {
   const loadedPaths = new Set<string>();
 
   router.beforeEach(async (to) => {
+    to.meta.loaded = loadedPaths.has(to.path);
+
     // 页面加载进度条
-    if (preferences.transition.progress) {
+    if (!to.meta.loaded && preferences.transition.progress) {
       startProgress();
     }
-    to.meta.loaded = loadedPaths.has(to.path);
     return true;
   });
 
   router.afterEach((to) => {
     // 记录页面是否加载,如果已经加载，后续的页面切换动画等效果不在重复执行
-    loadedPaths.add(to.path);
+
+    if (preferences.tabbar.enable) {
+      loadedPaths.add(to.path);
+    }
 
     // 关闭页面加载进度条
     if (preferences.transition.progress) {

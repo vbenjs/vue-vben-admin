@@ -2,15 +2,18 @@
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben-core/preferences';
+import { Spinner } from '@vben-core/shadcn-ui';
 import { storeToRefs, useTabsStore } from '@vben-core/stores';
 
 import { IFrameRouterView } from '../../iframe';
+import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
 const { keepAlive } = usePreferences();
-
 const tabsStore = useTabsStore();
+const { onTransitionEnd, spinning } = useContentSpinner();
+
 const { getCacheTabs, getExcludeTabs, renderRouteView } =
   storeToRefs(tabsStore);
 
@@ -29,32 +32,45 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
   }
 
   // 如果页面已经加载过，则不使用动画
-  if (route.meta.loaded) {
-    return;
-  }
+  // if (route.meta.loaded) {
+  //   return;
+  // }
   // 已经打开且已经加载过的页面不使用动画
   const inTabs = getCacheTabs.value.includes(route.name as string);
+
   return inTabs && route.meta.loaded ? undefined : transitionName;
 }
 </script>
 
 <template>
-  <IFrameRouterView />
-  <RouterView v-slot="{ Component, route }">
-    <Transition :name="getTransitionName(route)" appear mode="out-in">
-      <KeepAlive
-        v-if="keepAlive"
-        :exclude="getExcludeTabs"
-        :include="getCacheTabs"
+  <div class="relative h-full">
+    <Spinner
+      v-if="preferences.transition.loading"
+      :spinning="spinning"
+      class="h-[var(--vben-content-client-height)]"
+    />
+    <IFrameRouterView />
+    <RouterView v-slot="{ Component, route }">
+      <Transition
+        :name="getTransitionName(route)"
+        appear
+        mode="out-in"
+        @transitionend="onTransitionEnd"
       >
-        <component
-          :is="Component"
-          v-if="renderRouteView"
-          v-show="!route.meta.iframeSrc"
-          :key="route.fullPath"
-        />
-      </KeepAlive>
-      <component :is="Component" v-else :key="route.fullPath" />
-    </Transition>
-  </RouterView>
+        <KeepAlive
+          v-if="keepAlive"
+          :exclude="getExcludeTabs"
+          :include="getCacheTabs"
+        >
+          <component
+            :is="Component"
+            v-if="renderRouteView"
+            v-show="!route.meta.iframeSrc"
+            :key="route.fullPath"
+          />
+        </KeepAlive>
+        <component :is="Component" v-else :key="route.fullPath" />
+      </Transition>
+    </RouterView>
+  </div>
 </template>

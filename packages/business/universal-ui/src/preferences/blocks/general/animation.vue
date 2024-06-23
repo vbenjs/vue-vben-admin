@@ -6,13 +6,14 @@ import SwitchItem from '../switch-item.vue';
 defineOptions({
   name: 'PreferenceAnimation',
 });
+
 const transitionProgress = defineModel<boolean>('transitionProgress', {
   // 默认值
   default: false,
 });
-
 const transitionName = defineModel<string>('transitionName');
 const transitionEnable = defineModel<boolean>('transitionEnable');
+const transitionLoading = defineModel<boolean>('transitionLoading');
 
 const transitionPreset = ['fade', 'fade-slide', 'fade-up', 'fade-down'];
 
@@ -23,10 +24,13 @@ function handleClick(value: string) {
 
 <template>
   <SwitchItem v-model="transitionProgress">
-    {{ $t('preferences.page-progress') }}
+    {{ $t('preferences.animation.progress') }}
+  </SwitchItem>
+  <SwitchItem v-model="transitionLoading">
+    {{ $t('preferences.animation.loading') }}
   </SwitchItem>
   <SwitchItem v-model="transitionEnable">
-    {{ $t('preferences.page-transition') }}
+    {{ $t('preferences.animation.transition') }}
   </SwitchItem>
   <div
     v-if="transitionEnable"

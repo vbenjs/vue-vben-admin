@@ -341,9 +341,9 @@ class PreferenceManager {
     // 保存重置后的偏好设置
     this.savePreferences(this.state);
     // 从存储中移除偏好设置项
-    this.cache?.removeItem(STORAGE_KEY);
-    this.cache?.removeItem(STORAGE_KEY_THEME);
-    this.cache?.removeItem(STORAGE_KEY_LOCALE);
+    [STORAGE_KEY, STORAGE_KEY_THEME, STORAGE_KEY_LOCALE].forEach((key) => {
+      this.cache?.removeItem(key);
+    });
   }
 
   /**

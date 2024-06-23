@@ -147,7 +147,7 @@ preferences:
   full-content-tip: Display only the main content, no menus
   weak-mode: Color Weak Mode
   gray-mode: Gray Mode
-  animation: Animation
+
   language: Language
   dynamic-title: Dynamic Title
   normal: Normal
@@ -168,8 +168,7 @@ preferences:
   breadcrumb-background: background
   breadcrumb-style: Breadcrumb Type
   breadcrumb-hide-only-one: Hidden when only one left
-  page-progress: Loading progress bar
-  page-transition: Page transition animation
+
   copy: Copy Preferences
   copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
   reset-success: Preferences reset successfully
@@ -180,6 +179,11 @@ preferences:
   tabs-icon: Display Tabbar Icon
   mode: Mode
   logo-visible: Display Logo
+  animation:
+    name: Animation
+    loading: Page transition loading
+    transition: Page transition animation
+    progress: Page transition progress
   theme:
     name: Theme
     builtin: Built-in

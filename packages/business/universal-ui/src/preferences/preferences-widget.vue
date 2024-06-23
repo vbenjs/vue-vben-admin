@@ -42,6 +42,7 @@ import Preferences from './preferences.vue';
     :theme-mode="preferences.theme.mode"
     :theme-radius="preferences.theme.radius"
     :transition-enable="preferences.transition.enable"
+    :transition-loading="preferences.transition.loading"
     :transition-name="preferences.transition.name"
     :transition-progress="preferences.transition.progress"
     @update:app-ai-assistant="
@@ -142,6 +143,9 @@ import Preferences from './preferences.vue';
     "
     @update:transition-enable="
       (val) => updatePreferences({ transition: { enable: val } })
+    "
+    @update:transition-loading="
+      (val) => updatePreferences({ transition: { loading: val } })
     "
     @update:transition-name="
       (val) => updatePreferences({ transition: { name: val } })

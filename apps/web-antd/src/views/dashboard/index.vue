@@ -3,7 +3,7 @@
 
 // import { echartsInstance as echarts } from '@vben/chart-ui';
 
-defineOptions({ name: 'WelCome' });
+defineOptions({ name: 'Welcome' });
 
 // const cardList = ref([
 //   {
@@ -247,5 +247,4 @@ defineOptions({ name: 'WelCome' });
 
 <template>
   <div>dashboard</div>
-  <!-- <Dashboard :card-list="cardList" :chart-tabs="chartTabs" /> -->
 </template>

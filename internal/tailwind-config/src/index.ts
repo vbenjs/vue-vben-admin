@@ -105,11 +105,11 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-
         destructive: {
           ...createColorsPattern('destructive'),
           DEFAULT: 'hsl(var(--destructive))',
         },
+
         foreground: 'hsl(var(--foreground))',
         green: {
           ...createColorsPattern('green'),
@@ -146,7 +146,6 @@ export default {
           desc: 'hsl(var(--secondary-desc))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-
         success: {
           ...createColorsPattern('success'),
           DEFAULT: 'hsl(var(--success))',

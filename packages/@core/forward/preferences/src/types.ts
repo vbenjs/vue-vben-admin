@@ -150,6 +150,8 @@ interface ThemePreferences {
 interface TransitionPreferences {
   /** 页面切换动画是否启用 */
   enable: boolean;
+  // /** 是否开启页面加载loading */
+  loading: boolean;
   /** 页面切换动画 */
   name: PageTransitionType | string;
   /** 是否开启页面加载进度动画 */

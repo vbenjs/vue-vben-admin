@@ -150,7 +150,7 @@ preferences:
   follow-system: 跟随系统
   weak-mode: 色弱模式
   gray-mode: 灰色模式
-  animation: 动画
+
   navigation-menu: 导航菜单
   navigation-style: 导航菜单风格
   navigation-accordion: 侧边导航菜单手风琴模式
@@ -167,8 +167,6 @@ preferences:
   breadcrumb-style: 面包屑风格
   breadcrumb-hide-only-one: 只有一个时隐藏
   breadcrumb-background: 背景
-  page-progress: 加载进度条
-  page-transition: 页面切换动画
   copy: 复制偏好设置
   copy-success: 拷贝成功，请在 app 下的 `src/preferences.ts`内进行覆盖
   reset-success: 重置偏好设置成功
@@ -179,6 +177,11 @@ preferences:
   tabs-icon: 显示标签栏图标
   mode: 模式
   logo-visible: 显示 Logo
+  animation:
+    name: 动画
+    loading: 页面切换 Loading
+    transition: 页面切换动画
+    progress: 页面加载进度条
   theme:
     name: 主题
     builtin: 内置主题

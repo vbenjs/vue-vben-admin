@@ -76,6 +76,7 @@ const defaultPreferences: Preferences = {
   },
   transition: {
     enable: true,
+    loading: true,
     name: 'fade-slide',
     progress: true,
   },

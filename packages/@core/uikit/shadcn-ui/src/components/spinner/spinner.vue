@@ -20,7 +20,7 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   minLoadingTime: 50,
 });
-const startTime = ref(0);
+// const startTime = ref(0);
 const showSpinner = ref(false);
 const renderSpinner = ref(true);
 const timer = ref<ReturnType<typeof setTimeout>>();
@@ -33,11 +33,12 @@ watch(
       clearTimeout(timer.value);
       return;
     }
-    startTime.value = performance.now();
-    timer.value = setTimeout(() => {
-      const loadingTime = performance.now() - startTime.value;
 
-      showSpinner.value = loadingTime > props.minLoadingTime;
+    // startTime.value = performance.now();
+    timer.value = setTimeout(() => {
+      // const loadingTime = performance.now() - startTime.value;
+
+      showSpinner.value = true;
       if (showSpinner.value) {
         renderSpinner.value = true;
       }
@@ -49,13 +50,14 @@ watch(
 );
 
 function onTransitionEnd() {
-  renderSpinner.value = false;
+  if (!showSpinner.value) {
+    renderSpinner.value = false;
+  }
 }
 </script>
 
 <template>
   <div
-    v-if="renderSpinner"
     :class="{
       'invisible opacity-0': !showSpinner,
     }"
