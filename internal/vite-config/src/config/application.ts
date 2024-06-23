@@ -24,6 +24,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       html: true,
       i18n: true,
       injectAppLoading: true,
+      injectMetadata: true,
       isBuild,
       license: true,
       mock: true,

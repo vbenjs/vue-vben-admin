@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { Fallback } from '@vben/universal-ui';
+import { About } from '@vben/universal-ui';
 
-defineOptions({ name: 'Menu1' });
+defineOptions({ name: 'About' });
 </script>
 
 <template>
-  <Fallback status="hello" />
+  <About />
 </template>

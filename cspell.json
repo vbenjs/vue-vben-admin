@@ -22,7 +22,6 @@
     "qrcode",
     "shadcn",
     "sonner",
-    "ui-kit",
     "unplugin",
     "vben",
     "vueuse",
@@ -35,7 +34,9 @@
     "nocheck",
     "prefixs",
     "vitepress",
-    "ependencies"
+    "ependencies",
+    "vite",
+    "echarts"
   ],
   "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/iconify/**"]
 }

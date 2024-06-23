@@ -27,6 +27,7 @@ import viteVueDevTools from 'vite-plugin-vue-devtools';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
+import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
 
 /**
@@ -52,7 +53,7 @@ async function getConditionEstablishedPlugins(
 async function getCommonConditionPlugins(
   options: CommonPluginOptions,
 ): Promise<ConditionPlugin[]> {
-  const { devtools, isBuild, visualizer } = options;
+  const { devtools, injectMetadata, isBuild, visualizer } = options;
   return [
     {
       condition: true,
@@ -66,9 +67,14 @@ async function getCommonConditionPlugins(
         viteVueJsx(),
       ],
     },
+
     {
       condition: !isBuild && devtools,
       plugins: () => [viteVueDevTools()],
+    },
+    {
+      condition: injectMetadata,
+      plugins: async () => [await viteMetadataPlugin()],
     },
     {
       condition: isBuild && !!visualizer,

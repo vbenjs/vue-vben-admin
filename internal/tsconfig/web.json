@@ -8,7 +8,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "useDefineForClassFields": true,
     "moduleResolution": "bundler",
-    "types": ["vite/client"],
+    "types": ["vite/client", "@vben/types/window"],
     "declaration": false
   }
 }

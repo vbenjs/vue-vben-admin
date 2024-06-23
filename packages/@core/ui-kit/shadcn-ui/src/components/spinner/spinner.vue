@@ -61,7 +61,7 @@ function onTransitionEnd() {
     :class="{
       'invisible opacity-0': !showSpinner,
     }"
-    class="flex-center bg-overlay absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500"
+    class="flex-center bg-overlay z-100 absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500"
     @transitionend="onTransitionEnd"
   >
     <div

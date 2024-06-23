@@ -10,7 +10,7 @@ import { EOL } from 'node:os';
 import { dateUtil, readPackageJSON } from '@vben/node-utils';
 
 /**
- * 用于将配置文件抽离出来并注入到项目中
+ * 用于注入版权信息
  * @returns
  */
 
@@ -28,8 +28,7 @@ async function viteLicensePlugin(
     enforce: 'post',
     generateBundle: {
       handler: (_options: NormalizedOutputOptions, bundle: OutputBundle) => {
-        const date = dateUtil.format('YYYY-MM-DD ');
-
+        const date = dateUtil().format('YYYY-MM-DD ');
         const copyrightText = `/*!
   * Vben Admin Pro
   * Version: ${version}

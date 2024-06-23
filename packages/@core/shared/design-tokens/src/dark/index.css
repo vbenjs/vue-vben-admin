@@ -6,7 +6,9 @@
   --foreground: 220 13% 91%;
 
   /* Background color for <Card /> */
-  --card: 222.2 84% 4.9%;
+  --card: 222.86deg 8.43% 16.27%;
+
+  /* --card: 222.2 84% 4.9%; */
   --card-foreground: 210 40% 98%;
 
   /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */

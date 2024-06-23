@@ -5,6 +5,8 @@ import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const dateUtil = dayjs().tz('Asia/Shanghai');
+dayjs.tz.setDefault('Asia/Shanghai');
+
+const dateUtil = dayjs;
 
 export { dateUtil };

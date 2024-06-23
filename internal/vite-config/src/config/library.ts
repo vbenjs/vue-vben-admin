@@ -19,6 +19,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     const plugins = await getLibraryConditionPlugins({
       dts: false,
       injectLibCss: true,
+      injectMetadata: true,
       isBuild,
       mode,
       ...(typeof library === 'function' ? library(config) : library),
