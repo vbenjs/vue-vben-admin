@@ -38,6 +38,7 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/universal-ui": "workspace:*",
+    "@vben/chart-ui": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "ant-design-vue": "^4.2.3",
