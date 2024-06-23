@@ -72,7 +72,7 @@ class RequestClient {
       const authorization = this.makeAuthorization?.(config);
       if (authorization) {
         config.headers[authorization.key || 'Authorization'] =
-          authorization.handle?.();
+          authorization.handler?.();
       }
       return config;
     }, this.errorHandler);

@@ -10,23 +10,31 @@ import { useAccessStore } from '@vben-core/stores';
 import { message } from 'ant-design-vue';
 
 interface HttpResponse<T = any> {
+  /**
+   * 0 表示成功 其他表示失败
+   * 0 means success, others means fail
+   */
   code: number;
   message: string;
   result: T;
 }
 
+/**
+ * 创建请求实例
+ * Create a request instance
+ */
 function createRequestClient() {
   const client = new RequestClient({
     baseURL: import.meta.env.VITE_GLOB_API_URL,
     // 为每个请求携带 Authorization
     makeAuthorization: () => {
       return {
-        handle: () => {
+        handler: () => {
           const accessStore = useAccessStore();
           return accessStore.getAccessToken;
         },
         // 默认
-        // key: 'Authorization',
+        key: 'Authorization',
       };
     },
   });

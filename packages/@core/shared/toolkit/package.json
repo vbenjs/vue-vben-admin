@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "4.1.0",
-    "@vue/shared": "^3.4.29",
+    "@vue/shared": "^3.4.30",
     "clsx": "2.1.1",
     "dayjs": "^1.11.11",
     "defu": "^6.1.4",
