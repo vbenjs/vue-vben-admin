@@ -5,8 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@ctrl/tinycolor': 4.1.0
-  clsx: 2.1.1
+  '@ant-design/colors': ^7.0.2
+  '@ctrl/tinycolor': ^4.1.0
+  clsx: ^2.1.1
   vue: ^3.4.30
 
 importers:
@@ -328,6 +329,9 @@ importers:
       consola:
         specifier: ^3.2.3
         version: 3.2.3
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
       find-up:
         specifier: ^7.0.0
         version: 7.0.0
@@ -556,7 +560,7 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
       '@ctrl/tinycolor':
-        specifier: 4.1.0
+        specifier: ^4.1.0
         version: 4.1.0
 
   packages/@core/shared/design:
@@ -582,7 +586,7 @@ importers:
         specifier: ^3.4.30
         version: 3.4.30
       clsx:
-        specifier: 2.1.1
+        specifier: ^2.1.1
         version: 2.1.1
       dayjs:
         specifier: ^1.11.11
@@ -977,9 +981,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@ant-design/colors@6.0.0':
-    resolution: {integrity: sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ==}
 
   '@ant-design/colors@7.0.2':
     resolution: {integrity: sha512-7KJkhTiPiLHSu+LmMJnehfJ6242OCxSlR3xHVBecYxnMW8MS/878NXct1GqYARyL59fyeFdKRxXTfvR9SnDgJg==}
@@ -8928,10 +8929,6 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@ant-design/colors@6.0.0':
-    dependencies:
-      '@ctrl/tinycolor': 4.1.0
-
   '@ant-design/colors@7.0.2':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
@@ -8940,7 +8937,7 @@ snapshots:
 
   '@ant-design/icons-vue@7.0.1(vue@3.4.30(typescript@5.5.2))':
     dependencies:
-      '@ant-design/colors': 6.0.0
+      '@ant-design/colors': 7.0.2
       '@ant-design/icons-svg': 4.4.2
       vue: 3.4.30(typescript@5.5.2)
 
@@ -12141,7 +12138,7 @@ snapshots:
 
   ant-design-vue@4.2.3(vue@3.4.30(typescript@5.5.2)):
     dependencies:
-      '@ant-design/colors': 6.0.0
+      '@ant-design/colors': 7.0.2
       '@ant-design/icons-vue': 7.0.1(vue@3.4.30(typescript@5.5.2))
       '@babel/runtime': 7.24.7
       '@ctrl/tinycolor': 4.1.0

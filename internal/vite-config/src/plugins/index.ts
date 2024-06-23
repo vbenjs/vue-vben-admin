@@ -27,6 +27,7 @@ import viteVueDevTools from 'vite-plugin-vue-devtools';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
+import { viteLicensePlugin } from './license';
 
 /**
  * 获取条件成立的 vite 插件
@@ -94,12 +95,12 @@ async function getApplicationConditionPlugins(
     compress,
     compressTypes,
     extraAppConfig,
-
     html,
     i18n,
     importmap,
     importmapOptions,
     injectAppLoading,
+    license,
     mock,
     pwa,
     pwaOptions,
@@ -129,6 +130,10 @@ async function getApplicationConditionPlugins(
     {
       condition: injectAppLoading,
       plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env)],
+    },
+    {
+      condition: license,
+      plugins: async () => [await viteLicensePlugin()],
     },
     {
       condition: pwa,

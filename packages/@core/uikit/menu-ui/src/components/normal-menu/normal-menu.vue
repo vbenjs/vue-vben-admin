@@ -43,6 +43,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
       is(theme, true),
       is('rounded', rounded),
     ]"
+    class="relative"
   >
     <template v-for="menu in menus" :key="menu.path">
       <li
@@ -66,9 +67,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
   --menu-item-padding-x: 0px;
   --menu-item-radius: 0px;
   --menu-dark-background: 0deg 0% 100% / 10%;
-  // --menu-light-background: 240deg 5% 96%;
 
-  position: relative;
   height: calc(100% - 4px);
 
   @include is('rounded') {

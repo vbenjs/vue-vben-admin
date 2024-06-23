@@ -1,10 +1,10 @@
+import type { PluginOption } from 'vite';
+
 import {
   colors,
   generatorContentHash,
   readPackageJSON,
 } from '@vben/node-utils';
-
-import { type PluginOption } from 'vite';
 
 import { getEnvConfig } from '../utils/env';
 

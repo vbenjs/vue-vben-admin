@@ -83,8 +83,9 @@
   "packageManager": "pnpm@9.4.0",
   "pnpm": {
     "overrides": {
-      "@ctrl/tinycolor": "4.1.0",
-      "clsx": "2.1.1",
+      "@ant-design/colors": "^7.0.2",
+      "@ctrl/tinycolor": "^4.1.0",
+      "clsx": "^2.1.1",
       "vue": "^3.4.30"
     },
     "neverBuiltDependencies": [

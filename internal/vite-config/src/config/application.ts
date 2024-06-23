@@ -25,6 +25,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       i18n: true,
       injectAppLoading: true,
       isBuild,
+      license: true,
       mock: true,
       mode,
       pwa: true,

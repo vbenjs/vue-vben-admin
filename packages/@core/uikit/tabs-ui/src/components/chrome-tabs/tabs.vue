@@ -83,8 +83,12 @@ function handleUnPushPin(tab: TabItem) {
 </script>
 
 <template>
-  <div :class="b()">
-    <div ref="contentRef" :class="e('content')">
+  <div :class="b()" class="relative size-full pt-1">
+    <div
+      ref="contentRef"
+      :class="e('content')"
+      class="relative h-8 overflow-hidden"
+    >
       <TransitionGroup name="slide-down">
         <Tab
           v-for="(tab, i) in tabsView"

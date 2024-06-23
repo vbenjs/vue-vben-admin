@@ -38,7 +38,10 @@ function handleUnPushPin() {
 </script>
 
 <template>
-  <div :class="[b()]">
+  <div
+    :class="[b()]"
+    class="absolute flex h-full cursor-pointer select-none items-center"
+  >
     <VbenContextMenu :handler-data="tab" :menus="menus" item-class="pr-4">
       <div class="h-full">
         <TabBackground />
