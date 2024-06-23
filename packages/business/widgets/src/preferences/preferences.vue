@@ -180,7 +180,7 @@ function handleReset() {
     <VbenSheet
       v-model:open="openPreferences"
       :description="$t('preferences.subtitle')"
-      :title="$t('preferences.name')"
+      :title="$t('preferences.title')"
     >
       <template #trigger>
         <Trigger />
@@ -210,7 +210,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.animation.name')">
+            <Block :title="$t('preferences.animation.title')">
               <Animation
                 v-model:transition-enable="transitionEnable"
                 v-model:transition-loading="transitionLoading"
@@ -220,7 +220,7 @@ function handleReset() {
             </Block>
           </template>
           <template #appearance>
-            <Block :title="$t('preferences.theme.name')">
+            <Block :title="$t('preferences.theme.title')">
               <Theme
                 v-model="themeMode"
                 v-model:app-semi-dark-menu="appSemiDarkMenu"
@@ -266,7 +266,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.header.name')">
+            <Block :title="$t('preferences.header.title')">
               <Header
                 v-model:headerEnable="headerEnable"
                 v-model:headerMode="headerMode"
@@ -284,7 +284,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.breadcrumb')">
+            <Block :title="$t('preferences.breadcrumb.title')">
               <Breadcrumb
                 v-model:breadcrumb-enable="breadcrumbEnable"
                 v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
@@ -303,7 +303,7 @@ function handleReset() {
                 v-model:tabbar-show-icon="tabbarShowIcon"
               />
             </Block>
-            <Block :title="$t('preferences.footer.name')">
+            <Block :title="$t('preferences.footer.title')">
               <Footer
                 v-model:footer-enable="footerEnable"
                 v-model:footer-fixed="footerFixed"

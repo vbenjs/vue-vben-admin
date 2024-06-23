@@ -22,7 +22,7 @@ const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 
 const typeItems: SelectListItem[] = [
   { label: $t('preferences.normal'), value: 'normal' },
-  { label: $t('preferences.breadcrumb-background'), value: 'background' },
+  { label: $t('preferences.breadcrumb.background'), value: 'background' },
 ];
 
 const disableItem = computed(() => {
@@ -32,22 +32,22 @@ const disableItem = computed(() => {
 
 <template>
   <SwitchItem v-model="breadcrumbEnable" :disabled="disabled">
-    {{ $t('preferences.breadcrumb-enable') }}
+    {{ $t('preferences.breadcrumb.enable') }}
   </SwitchItem>
   <SwitchItem v-model="breadcrumbHideOnlyOne" :disabled="disableItem">
-    {{ $t('preferences.breadcrumb-hide-only-one') }}
+    {{ $t('preferences.breadcrumb.hide-only-one') }}
   </SwitchItem>
   <SwitchItem v-model="breadcrumbShowHome" :disabled="disableItem">
-    {{ $t('preferences.breadcrumb-home') }}
+    {{ $t('preferences.breadcrumb.home') }}
   </SwitchItem>
   <SwitchItem v-model="breadcrumbShowIcon" :disabled="disableItem">
-    {{ $t('preferences.breadcrumb-icon') }}
+    {{ $t('preferences.breadcrumb.icon') }}
   </SwitchItem>
   <ToggleItem
     v-model="breadcrumbStyleType"
     :disabled="disableItem"
     :items="typeItems"
   >
-    {{ $t('preferences.breadcrumb-style') }}
+    {{ $t('preferences.breadcrumb.style') }}
   </ToggleItem>
 </template>

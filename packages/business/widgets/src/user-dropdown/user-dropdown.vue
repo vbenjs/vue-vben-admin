@@ -175,7 +175,7 @@ if (enableShortcutKey.value) {
         @click="handleOpenPreference"
       >
         <IcRoundSettingsSuggest class="mr-2 size-5" />
-        {{ $t('preferences.name') }}
+        {{ $t('preferences.title') }}
         <DropdownMenuShortcut v-if="enablePreferencesShortcutKey">
           {{ altView }} ,
         </DropdownMenuShortcut>

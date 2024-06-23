@@ -64,6 +64,7 @@ const breadcrumbs = computed((): IBreadcrumb[] => {
   if (props.hideWhenOnlyOne && resultBreadcrumb.length === 1) {
     return [];
   }
+
   return resultBreadcrumb;
 });
 

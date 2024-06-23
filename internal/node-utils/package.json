@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@changesets/git": "^3.0.0",
-    "@manypkg/get-packages": "^2.2.1",
+    "@manypkg/get-packages": "^2.2.2",
     "consola": "^3.2.3",
     "dayjs": "^1.11.11",
     "find-up": "^7.0.0",

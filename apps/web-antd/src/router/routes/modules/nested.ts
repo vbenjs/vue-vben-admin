@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
       icon: 'ic:round-menu',
       keepAlive: true,
       order: 1000,
-      title: $t('page.nested.page'),
+      title: $t('page.nested.title'),
     },
     name: 'Nested',
     path: '/nested',

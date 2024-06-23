@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "@vben-core/preferences": "workspace:*",
-    "echarts": "^5.5.0",
-    "vue": "^3.4.30"
+    "@vueuse/core": "^10.11.0",
+    "echarts": "^5.5.1",
+    "vue": "^3.4.31"
   }
 }

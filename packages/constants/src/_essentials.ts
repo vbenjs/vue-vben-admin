@@ -6,6 +6,6 @@ const LOGIN_PATH = '/auth/login';
 /**
  * @zh_CN 默认首页地址
  */
-const DEFAULT_HOME_PATH = '/welcome';
+const DEFAULT_HOME_PATH = '/analytics';
 
 export { DEFAULT_HOME_PATH, LOGIN_PATH };

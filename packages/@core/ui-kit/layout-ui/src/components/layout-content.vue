@@ -4,6 +4,8 @@ import type { ContentCompactType } from '@vben-core/typings';
 import type { CSSProperties } from 'vue';
 import { computed, onMounted, ref, watch } from 'vue';
 
+import { getElementVisibleHeight } from '@vben-core/toolkit';
+
 import { useCssVar, useDebounceFn, useWindowSize } from '@vueuse/core';
 
 interface Props {
@@ -54,12 +56,12 @@ const props = withDefaults(defineProps<Props>(), {
   paddingTop: 16,
 });
 
-const domElement = ref<HTMLDivElement | null>();
+const contentElement = ref<HTMLDivElement | null>();
 
 const { height, width } = useWindowSize();
 const contentClientHeight = useCssVar('--vben-content-client-height');
 const debouncedCalcHeight = useDebounceFn(() => {
-  contentClientHeight.value = `${domElement.value?.clientHeight ?? window.innerHeight}px`;
+  contentClientHeight.value = `${getElementVisibleHeight(contentElement.value)}px`;
 }, 200);
 
 const style = computed((): CSSProperties => {
@@ -97,7 +99,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main ref="domElement" :style="style">
+  <main ref="contentElement" :style="style">
     <slot></slot>
   </main>
 </template>

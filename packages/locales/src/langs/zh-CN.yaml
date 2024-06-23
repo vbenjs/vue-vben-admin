@@ -97,15 +97,19 @@ page:
     code-login: 验证码登陆
     qrcode-login: 二维码登陆
     forget-password: 忘记密码
+  dashboard:
+    title: 概览
+    analytics: 分析页
+    workspace: 工作台
   vben:
     about: 关于
     document: 文档
   outside:
-    page: 外部页面
+    title: 外部页面
     embedded: 内嵌
     external-link: 外链
   nested:
-    page: 嵌套菜单
+    title: 嵌套菜单
     menu1: 菜单 1
     menu2: 菜单 2
     menu21: 菜单 2-1
@@ -114,10 +118,10 @@ page:
     menu32: 菜单 3-2
     menu321: 菜单 3-2-1
   fallback:
-    page: 异常页面
+    title: 异常页面
 
 preferences:
-  name: 偏好设置
+  title: 偏好设置
   subtitle: 自定义偏好设置 & 实时预览
   reset-tip: 数据有变化，点击可进行重置
   appearance: 外观
@@ -150,7 +154,6 @@ preferences:
   follow-system: 跟随系统
   weak-mode: 色弱模式
   gray-mode: 灰色模式
-
   navigation-menu: 导航菜单
   navigation-style: 导航菜单风格
   navigation-accordion: 侧边导航菜单手风琴模式
@@ -160,13 +163,6 @@ preferences:
   normal: 默认
   plain: 朴素
   rounded: 圆润
-  breadcrumb: 面包屑导航
-  breadcrumb-enable: 开启面包屑导航
-  breadcrumb-icon: 显示面包屑图标
-  breadcrumb-home: 显示首页按钮
-  breadcrumb-style: 面包屑风格
-  breadcrumb-hide-only-one: 只有一个时隐藏
-  breadcrumb-background: 背景
   copy: 复制偏好设置
   copy-success: 拷贝成功，请在 app 下的 `src/preferences.ts`内进行覆盖
   reset-success: 重置偏好设置成功
@@ -177,13 +173,21 @@ preferences:
   tabs-icon: 显示标签栏图标
   mode: 模式
   logo-visible: 显示 Logo
+  breadcrumb:
+    title: 面包屑导航
+    enable: 开启面包屑导航
+    icon: 显示面包屑图标
+    home: 显示首页按钮
+    style: 面包屑风格
+    hide-only-one: 只有一个时隐藏
+    background: 背景
   animation:
-    name: 动画
+    title: 动画
     loading: 页面切换 Loading
     transition: 页面切换动画
     progress: 页面切换进度条
   theme:
-    name: 主题
+    title: 主题
     builtin: 内置主题
     radius: 圆角
     default: 默认
@@ -202,14 +206,14 @@ preferences:
     gray: 中灰色
     custom: 自定义
   header:
-    name: 顶栏
+    title: 顶栏
     mode-static: 静止
     mode-fixed: 固定
     mode-auto: 自动隐藏和显示
     mode-auto-scroll: 滚动隐藏和显示
     visible: 显示顶栏
   footer:
-    name: 底栏
+    title: 底栏
     visible: 显示底栏
     fixed: 固定在底部
   shortcut-keys:

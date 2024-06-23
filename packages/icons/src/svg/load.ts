@@ -37,14 +37,15 @@ async function loadSvgIcons() {
 
   await Promise.all(
     Object.entries(svgEagers).map((svg) => {
-      const [key, body] = svg as [string, string];
+      const [key, body] = svg as [string, { default: string } | string];
 
       // ./icons/xxxx.svg => xxxxxx
       const start = key.lastIndexOf('/') + 1;
       const end = key.lastIndexOf('.');
       const iconName = key.slice(start, end);
-      return addIcon(`svg-icon:${iconName}`, {
-        body,
+
+      return addIcon(`svg:${iconName}`, {
+        body: typeof body === 'object' ? body.default : body,
       });
     }),
   );

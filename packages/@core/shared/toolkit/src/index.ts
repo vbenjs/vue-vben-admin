@@ -1,5 +1,6 @@
 export * from './cn';
 export * from './diff';
+export * from './dom';
 export * from './hash';
 export * from './inference';
 export * from './letter';
@@ -7,5 +8,6 @@ export * from './merge';
 export * from './namespace';
 export * from './nprogress';
 export * from './tree';
+export * from './unique';
 export * from './update-css-variables';
 export * from './window';

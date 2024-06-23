@@ -3,4 +3,9 @@ interface SelectListItem {
   value: string;
 }
 
-export type { SelectListItem };
+interface TabsItem {
+  label: string;
+  value: string;
+}
+
+export type { SelectListItem, TabsItem };

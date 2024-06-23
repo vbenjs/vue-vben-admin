@@ -5,7 +5,7 @@ const fakeUserList = [
     accessToken: 'fakeAdminToken',
     avatar: '',
     desc: 'manager',
-    homePath: '/welcome',
+    homePath: '/',
     password: '123456',
     realName: 'Vben Admin',
     roles: [
@@ -21,7 +21,7 @@ const fakeUserList = [
     accessToken: 'fakeTestToken',
     avatar: '',
     desc: 'tester',
-    homePath: '/welcome',
+    homePath: '/',
     password: '123456',
     realName: 'test user',
     roles: [

@@ -98,15 +98,19 @@ page:
     code-login: Code Login
     qrcode-login: Qrcode Login
     forget-password: Forget Password
+  dashboard:
+    title: Dashboard
+    analytics: Analytics
+    workspace: Workspace
   vben:
     about: About
     document: Document
   outside:
-    page: External Page
+    title: External Page
     embedded: embedded Page
     external-link: External Link
   nested:
-    page: Nested Menu
+    title: Nested Menu
     menu1: Menu 1
     menu2: Menu 2
     menu21: Menu 2-1
@@ -115,10 +119,10 @@ page:
     menu32: Menu 3-2
     menu321: Menu 3-2-1
   fallback:
-    page: Exception Page
+    title: Exception Page
 
 preferences:
-  name: Preferences
+  title: Preferences
   subtitle: Customize Preferences & Preview in Real Time
   reset-tip: The data has changed, click to reset
   ai-assistant: Ai Assistant
@@ -147,7 +151,6 @@ preferences:
   full-content-tip: Display only the main content, no menus
   weak-mode: Color Weak Mode
   gray-mode: Gray Mode
-
   language: Language
   dynamic-title: Dynamic Title
   normal: Normal
@@ -161,14 +164,6 @@ preferences:
   navigation-accordion: Sidebar Navigation Menu Accordion mode
   navigation-split-tip: When enabled, the sidebar shows the top bar's submenu
   interface-control: Interface Layout Control
-  breadcrumb: Breadcrumb
-  breadcrumb-home: Display the home button
-  breadcrumb-enable: Enable Breadcrumb
-  breadcrumb-icon: Display breadcrumb icon
-  breadcrumb-background: background
-  breadcrumb-style: Breadcrumb Type
-  breadcrumb-hide-only-one: Hidden when only one left
-
   copy: Copy Preferences
   copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
   reset-success: Preferences reset successfully
@@ -179,13 +174,21 @@ preferences:
   tabs-icon: Display Tabbar Icon
   mode: Mode
   logo-visible: Display Logo
+  breadcrumb:
+    title: Breadcrumb
+    home: Display the home button
+    enable: Enable Breadcrumb
+    icon: Display breadcrumb icon
+    background: background
+    style: Breadcrumb Type
+    hide-only-one: Hidden when only one left
   animation:
-    name: Animation
+    title: Animation
     loading: Page transition loading
     transition: Page transition animation
     progress: Page transition progress
   theme:
-    name: Theme
+    title: Theme
     builtin: Built-in
     radius: Radius
     default: Default
@@ -204,14 +207,14 @@ preferences:
     gray: Gray
     custom: Custom
   header:
-    name: Header
+    title: Header
     visible: Display Header
     mode-static: Static
     mode-fixed: Fixed
     mode-auto: Auto hide/display
     mode-auto-scroll: Scroll hide/display
   footer:
-    name: Footer
+    title: Footer
     visible: Fixed at the bottom
     fixed: Display Footer
   shortcut-keys:

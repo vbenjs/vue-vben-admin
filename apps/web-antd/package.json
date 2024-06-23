@@ -44,7 +44,7 @@
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.11",
     "pinia": "2.1.7",
-    "vue": "^3.4.30",
+    "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {

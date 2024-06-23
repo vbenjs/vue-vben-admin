@@ -97,11 +97,20 @@ function isWindowsOs(): boolean {
   return windowsRegex.test(navigator.userAgent);
 }
 
+/**
+ * 检查传入的值是否为数字
+ * @param value
+ */
+function isNumber(value: any): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
 export {
   isEmpty,
   isFunction,
   isHttpUrl,
   isMacOs,
+  isNumber,
   isObject,
   isString,
   isUndefined,

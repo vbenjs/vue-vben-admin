@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 import { $t } from '@vben/locales';
 import { IcRoundClose, IcRoundSearchOff } from '@vben-core/iconify';
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
-import { mapTree, traverseTreeValues } from '@vben-core/toolkit';
+import { mapTree, traverseTreeValues, uniqueByField } from '@vben-core/toolkit';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 
@@ -247,16 +247,17 @@ onMounted(() => {
           {{ $t('search.recent') }}
         </li>
         <li
-          v-for="(item, index) in searchResults"
+          v-for="(item, index) in uniqueByField(searchResults, 'path')"
           :key="item.path"
           :class="
             activeIndex === index
-              ? 'active bg-primary text-primary-foreground text-muted-foreground'
+              ? 'active bg-primary text-primary-foreground'
               : ''
           "
           :data-index="index"
           :data-search-item="index"
           class="bg-accent flex-center group mb-3 w-full cursor-pointer rounded-lg px-4 py-4"
+          @click="handleEnter"
           @mouseenter="handleMouseenter"
         >
           <VbenIcon

@@ -1,9 +1,9 @@
+import type { TabItem } from '@vben-core/typings';
 import type { RouteRecordNormalized, Router } from 'vue-router';
 
 import { toRaw } from 'vue';
 
 import { startProgress, stopProgress } from '@vben-core/toolkit';
-import { TabItem } from '@vben-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

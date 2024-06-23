@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       icon: 'ic:round-settings-input-composite',
-      title: $t('page.outside.page'),
+      title: $t('page.outside.title'),
     },
     name: 'Outside',
     path: '/outside',

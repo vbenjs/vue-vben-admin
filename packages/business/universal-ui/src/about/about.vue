@@ -13,9 +13,9 @@ defineOptions({
 
 withDefaults(defineProps<Props>(), {
   description:
-    '是一个基于Vue3.0、Vite 、TypeScript 等前沿技术的后台解决方案，目标是为服务中大型项目开发，提供现成的开箱解决方案及丰富的示例。',
+    '是一个现代化开箱即用的中后台解决方案，采用最新的技术栈，包括 Vue 3.0、Vite、TailwindCSS 和 TypeScript 等前沿技术，代码规范严谨，提供丰富的配置选项，旨在为中大型项目的开发提供现成的开箱即用解决方案及丰富的示例，同时，它也是学习和深入前端技术的一个极佳示例。',
   name: 'Vben Admin Pro',
-  title: '关于我们',
+  title: '关于项目',
 });
 
 const {
@@ -29,7 +29,9 @@ const {
   license,
   repositoryUrl,
   version,
-} = window.__VBEN_ADMIN_METADATA__ || {};
+  // vite inject-metadata 插件注入的全局变量
+  // eslint-disable-next-line no-undef
+} = __VBEN_ADMIN_METADATA__ || {};
 
 const vbenDescriptionItems: DescriptionItem[] = [
   {
@@ -105,7 +107,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 
 <template>
   <div class="m-5">
-    <div class="bg-card rounded-md p-5">
+    <div class="bg-card border-border rounded-md border p-5 shadow">
       <div>
         <h3 class="text-foreground text-2xl font-semibold leading-7">
           {{ title }}
@@ -133,7 +135,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
       </div>
     </div>
 
-    <div class="bg-card mt-6 rounded-md p-5">
+    <div class="bg-card border-border mt-6 rounded-md border p-5">
       <div>
         <h5 class="text-foreground text-lg">生产环境依赖</h5>
       </div>
@@ -152,8 +154,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
         </dl>
       </div>
     </div>
-
-    <div class="bg-card mt-6 rounded-md p-5">
+    <div class="bg-card border-border mt-6 rounded-md border p-5">
       <div>
         <h5 class="text-foreground text-lg">开发环境依赖</h5>
       </div>

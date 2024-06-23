@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       icon: 'mdi:lightbulb-error-outline',
-      title: $t('page.fallback.page'),
+      title: $t('page.fallback.title'),
     },
     name: 'FallbackLayout',
     path: '/fallback',

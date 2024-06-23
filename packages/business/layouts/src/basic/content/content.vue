@@ -10,8 +10,8 @@ import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
-const { keepAlive } = usePreferences();
 const tabsStore = useTabsStore();
+const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
 
 const { getCacheTabs, getExcludeTabs, renderRouteView } =

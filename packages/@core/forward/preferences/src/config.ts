@@ -27,7 +27,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   footer: {
-    enable: true,
+    enable: false,
     fixed: true,
   },
   header: {

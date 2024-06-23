@@ -56,9 +56,9 @@ onUnmounted(() => {
 
 <style>
 .coze-assistant {
-  position: absolute;
+  position: fixed;
   right: 30px;
-  bottom: 30px;
+  bottom: 60px;
   z-index: 1000;
 
   img {
