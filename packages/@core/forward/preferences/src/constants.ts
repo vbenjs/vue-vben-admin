@@ -9,9 +9,10 @@ export const COLOR_PRIMARY_RESETS = [
   'hsl(211 91% 39%)',
   'hsl(212 100% 45%)',
   'hsl(181 84% 32%)',
-  'hsl(230 99% 66%)',
+  'hsl(161 90% 43%)',
+  'hsl(231 98% 65%)',
   'hsl(245 82% 67%)',
-  'hsl(340 100% 68%)',
+  'hsl(347 77% 60%)',
 ];
 
 export const SUPPORT_LANGUAGES: Language[] = [

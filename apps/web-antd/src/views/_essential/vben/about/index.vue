@@ -1,16 +1,9 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { Fallback } from '@vben/universal-ui';
 
-defineOptions({ name: 'About' });
-onMounted(() => {
-  // eslint-disable-next-line no-console
-  console.log('About');
-});
+defineOptions({ name: 'Menu1' });
 </script>
 
 <template>
-  <div>
-    about
-    <input class="bg-background border-border" />
-  </div>
+  <Fallback status="hello" />
 </template>

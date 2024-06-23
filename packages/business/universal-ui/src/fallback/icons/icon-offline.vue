@@ -13,7 +13,7 @@
         fill="#3f3d56"
       />
       <polygon
-        fill="hsl(var(--color-primary))"
+        fill="hsl(var(--primary))"
         points="349.16196 249.18644 355.16196 288.18642 443.16196 276.18642 434.66196 230.6195 349.16196 249.18644"
       />
       <rect
@@ -73,7 +73,7 @@
         <circle
           cx="333.2486"
           cy="323.64455"
-          fill="hsl(var(--color-primary))"
+          fill="hsl(var(--primary))"
           r="85"
         />
         <g>

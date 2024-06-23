@@ -80,7 +80,7 @@
     <circle
       cx="281.3585"
       cy="285.71051"
-      fill="hsl(var(--color-primary))"
+      fill="hsl(var(--primary))"
       r="51.12006"
       transform="translate(-26.58509 542.54478) rotate(-85.26884)"
     />

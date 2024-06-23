@@ -48,7 +48,7 @@
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
-    "radix-vue": "^1.8.4",
+    "radix-vue": "^1.8.5",
     "vue": "^3.4.30",
     "vue-sonner": "^1.1.3"
   }

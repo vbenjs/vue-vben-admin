@@ -97,6 +97,10 @@
       "path": "packages/@core/uikit/tabs-ui",
     },
     {
+      "name": "@vben/chart-ui",
+      "path": "packages/business/chart-ui",
+    },
+    {
       "name": "@vben/layouts",
       "path": "packages/business/layouts",
     },

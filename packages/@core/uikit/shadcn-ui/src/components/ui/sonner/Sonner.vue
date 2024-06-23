@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<ToasterProps>(), {
 <!-- <style scoped>
 :deep([data-sonner-toaster][data-theme='dark']),
 :deep([data-sonner-toaster][data-theme='light']) {
-  --normal-bg: hsl(var(--color-background));
+  --normal-bg: hsl(var(--background));
   --normal-border: theme('colors.border');
   --normal-text: theme('colors.popover.foreground');
   --border-radius: theme('borderRadius.md');

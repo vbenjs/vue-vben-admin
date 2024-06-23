@@ -12,7 +12,7 @@ import type {
 } from '@vben-core/preferences';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { $t } from '@vben/locales';
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
@@ -124,6 +124,8 @@ const {
 } = usePreferences();
 const { copy } = useClipboard();
 
+const activeTab = ref('general');
+
 const tabs = computed((): SegmentedItem[] => {
   return [
     {
@@ -176,8 +178,8 @@ function handleReset() {
   <div class="z-100 fixed right-0 top-1/2">
     <VbenSheet
       v-model:open="openPreferences"
-      :description="$t('preferences.preferences-subtitle')"
-      :title="$t('preferences.preferences')"
+      :description="$t('preferences.subtitle')"
+      :title="$t('preferences.name')"
     >
       <template #trigger>
         <Trigger />
@@ -197,7 +199,7 @@ function handleReset() {
       </template>
 
       <div class="p-4 pt-4">
-        <VbenSegmented :tabs="tabs" default-value="general">
+        <VbenSegmented v-model="activeTab" :tabs="tabs">
           <template #appearance>
             <Block :title="$t('preferences.theme')">
               <Theme
@@ -235,7 +237,7 @@ function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.header')">
+            <Block :title="$t('preferences.header.name')">
               <Header
                 v-model:headerEnable="headerEnable"
                 v-model:headerMode="headerMode"
@@ -272,7 +274,7 @@ function handleReset() {
                 v-model:tabbar-show-icon="tabbarShowIcon"
               />
             </Block>
-            <Block :title="$t('preferences.footer')">
+            <Block :title="$t('preferences.footer.name')">
               <Footer
                 v-model:footer-enable="footerEnable"
                 v-model:footer-fixed="footerFixed"

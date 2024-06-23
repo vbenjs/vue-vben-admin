@@ -70,12 +70,12 @@ watchEffect(() => {
       >
         <div
           :style="{ backgroundColor: color }"
-          class="h-6 w-6 rounded-md"
+          class="h-5 w-5 rounded-md"
         ></div>
       </div>
     </template>
     <div :style="inputStyle" class="outline-box p-2" @click="selectColor">
-      <div class="flex-center bg-accent relative h-6 w-6 rounded-md">
+      <div class="flex-center bg-accent relative h-5 w-5 rounded-md">
         <MdiEditBoxOutline class="absolute z-10" />
         <input
           ref="colorInput"

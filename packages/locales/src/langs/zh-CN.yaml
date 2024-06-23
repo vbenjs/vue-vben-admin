@@ -117,8 +117,9 @@ page:
     page: 异常页面
 
 preferences:
-  preferences: 偏好设置
-  preferences-subtitle: 自定义偏好设置 & 实时预览
+  name: 偏好设置
+  subtitle: 自定义偏好设置 & 实时预览
+  reset-tip: 数据有变化，点击可进行重置
   theme: 主题
   appearance: 外观
   theme-color: 主题色
@@ -178,17 +179,18 @@ preferences:
   tabs: 标签栏
   tabs-icon: 显示标签栏图标
   mode: 模式
-  header: 顶栏
-  header-mode-static: 静止
-  header-mode-fixed: 固定
-  header-mode-auto: 自动隐藏和显示
-  header-mode-auto-scroll: 滚动隐藏和显示
-  header-visible: 显示顶栏
-  footer: 底栏
-  footer-visible: 显示底栏
-  footer-fixed: 固定在底部
   logo-visible: 显示 Logo
-  reset-tip: 数据有变化，点击可进行重置
+  header:
+    name: 顶栏
+    mode-static: 静止
+    mode-fixed: 固定
+    mode-auto: 自动隐藏和显示
+    mode-auto-scroll: 滚动隐藏和显示
+    visible: 显示顶栏
+  footer:
+    name: 底栏
+    visible: 显示底栏
+    fixed: 固定在底部
   shortcut-keys:
     title: 快捷键
     global: 全局

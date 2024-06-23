@@ -35,7 +35,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  backgroundColor: 'hsl(var(--color-background))',
+  backgroundColor: 'hsl(var(--background))',
   fixed: true,
   height: 32,
   show: true,

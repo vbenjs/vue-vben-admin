@@ -1,12 +1,12 @@
 @import '@vben-core/design/global';
 
 @include b('chrome-tabs') {
-  --tabs-background: hsl(var(--color-background));
+  --tabs-background: hsl(var(--background));
   --tabs-gap: 7px;
-  --tabs-divider: hsl(var(--color-border));
-  --tabs-hover: hsl(var(--color-heavy));
-  --tabs-active-background: hsl(var(--color-primary) / 100%);
-  --tabs-active: hsl(var(--color-primary-foreground));
+  --tabs-divider: hsl(var(--border));
+  --tabs-hover: hsl(var(--heavy));
+  --tabs-active-background: hsl(var(--primary) / 100%);
+  --tabs-active: hsl(var(--primary-foreground));
 
   position: relative;
   width: 100%;
@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   height: 100%;
-  color: hsl(var(--color-muted-foreground));
+  color: hsl(var(--muted-foreground));
   cursor: pointer;
   user-select: none;
 
@@ -81,7 +81,7 @@
     transform: translateY(-50%);
 
     // &:hover {
-    //   background-color: hsl(var(--color-accent));
+    //   background-color: hsl(var(--accent));
     // }
   }
 
@@ -94,7 +94,7 @@
     transition: all 0.15s ease;
 
     &:hover {
-      color: hsl(var(--color-foreground));
+      color: hsl(var(--foreground));
       transform: scale(1.05);
     }
   }

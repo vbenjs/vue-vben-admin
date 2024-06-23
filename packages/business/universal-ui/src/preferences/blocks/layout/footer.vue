@@ -13,9 +13,9 @@ const footerFixed = defineModel<boolean>('footerFixed');
 
 <template>
   <SwitchItem v-model="footerEnable">
-    {{ $t('preferences.footer-visible') }}
+    {{ $t('preferences.footer.visible') }}
   </SwitchItem>
   <SwitchItem v-model="footerFixed" :disabled="!footerEnable">
-    {{ $t('preferences.footer-fixed') }}
+    {{ $t('preferences.footer.fixed') }}
   </SwitchItem>
 </template>

@@ -45,10 +45,10 @@
     "@vben-core/preferences": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
+    "@vben/chart-ui": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "@vueuse/integrations": "^10.11.0",
-    "@vben/chart-ui": "workspace:*",
     "qrcode": "^1.5.3",
     "vue": "^3.4.30",
     "vue-router": "^4.4.0"

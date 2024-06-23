@@ -22,6 +22,8 @@ const props = withDefaults(defineProps<Props>(), {
   tabs: () => [],
 });
 
+const activeTab = defineModel<string>();
+
 const getDefaultValue = computed(() => {
   return props.defaultValue || props.tabs[0]?.value;
 });
@@ -40,7 +42,7 @@ const tabsIndicatorStyle = computed(() => {
 </script>
 
 <template>
-  <Tabs :default-value="getDefaultValue">
+  <Tabs v-model="activeTab" :default-value="getDefaultValue">
     <TabsList :style="tabsStyle" class="bg-accent relative grid w-full">
       <TabsIndicator :style="tabsIndicatorStyle" />
       <template v-for="tab in tabs" :key="tab.value">

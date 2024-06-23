@@ -75,7 +75,7 @@ if (props.enableShortcutKey) {
           </span>
           <span
             v-if="enableShortcutKey"
-            class="bg-background border-foreground/50 text-muted-foreground group-hover:text-foreground relative hidden rounded-sm rounded-r-xl px-1.5 py-1 text-xs leading-none group-hover:opacity-100 md:block"
+            class="bg-background border-foreground/60 text-muted-foreground group-hover:text-foreground relative hidden rounded-sm rounded-r-xl px-1.5 py-1 text-xs leading-none group-hover:opacity-100 md:block"
           >
             {{ isWindowsOs() ? 'Ctrl' : '⌘' }}
             <kbd>K</kbd>

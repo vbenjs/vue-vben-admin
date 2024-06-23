@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
   // footerBackgroundColor: '#fff',
   footerFixed: true,
   footerHeight: 32,
-  // headerBackgroundColor: 'hsl(var(--color-background))',
+  // headerBackgroundColor: 'hsl(var(--background))',
   headerHeight: 50,
   headerHeightOffset: 10,
   headerHidden: false,
@@ -48,7 +48,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   tabbarEnable: true,
-  // tabsBackgroundColor: 'hsl(var(--color-background))',
+  // tabsBackgroundColor: 'hsl(var(--background))',
   tabsHeight: 36,
   zIndex: 200,
 });
@@ -213,17 +213,15 @@ const sidebarFace = computed(() => {
 
   if (isDark) {
     backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--color-menu-dark-darken))'
-      : 'hsl(var(--color-menu-dark))';
+      ? 'hsl(var(--menu-dark-darken))'
+      : 'hsl(var(--menu-dark))';
   } else {
     backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--color-menu-darken))'
-      : 'hsl(var(--color-menu))';
+      ? 'hsl(var(--menu-darken))'
+      : 'hsl(var(--menu))';
   }
 
-  extraBackgroundColor = isDark
-    ? 'hsl(var(--color-menu-dark))'
-    : 'hsl(var(--color-menu))';
+  extraBackgroundColor = isDark ? 'hsl(var(--menu-dark))' : 'hsl(var(--menu))';
 
   return {
     backgroundColor,

@@ -22,33 +22,33 @@
   --menu-light-background: 192deg 1% 93%;
 
   &.is-dark {
-    --menu-background-color: hsl(var(--color-menu-dark));
-    // --menu-submenu-opened-background-color: hsl(var(--color-menu-opened-dark));
+    --menu-background-color: hsl(var(--menu-dark));
+    // --menu-submenu-opened-background-color: hsl(var(--menu-opened-dark));
     --menu-item-background-color: var(--menu-background-color);
-    --menu-item-color: hsl(var(--color-dark-foreground) / 80%);
-    --menu-item-hover-color: hsl(var(--color-primary-foreground));
+    --menu-item-color: hsl(var(--dark-foreground) / 80%);
+    --menu-item-hover-color: hsl(var(--primary-foreground));
     --menu-item-hover-background-color: hsl(var(--menu-dark-background));
-    --menu-item-active-color: hsl(var(--color-primary-foreground));
-    --menu-item-active-background-color: hsl(var(--color-primary));
-    --menu-submenu-hover-color: hsl(var(--color-dark-foreground));
+    --menu-item-active-color: hsl(var(--primary-foreground));
+    --menu-item-active-background-color: hsl(var(--primary));
+    --menu-submenu-hover-color: hsl(var(--dark-foreground));
     --menu-submenu-hover-background-color: hsl(var(--menu-dark-background));
-    --menu-submenu-active-color: hsl(var(--color-dark-foreground));
+    --menu-submenu-active-color: hsl(var(--dark-foreground));
     --menu-submenu-active-background-color: transparent;
     --menu-submenu-background-color: var(--menu-background-color);
   }
 
   &.is-light {
-    --menu-background-color: hsl(var(--color-menu));
-    // --menu-submenu-opened-background-color: hsl(var(--color-menu-opened));
+    --menu-background-color: hsl(var(--menu));
+    // --menu-submenu-opened-background-color: hsl(var(--menu-opened));
     --menu-item-background-color: var(--menu-background-color);
-    --menu-item-color: hsl(var(--color-foreground));
+    --menu-item-color: hsl(var(--foreground));
     --menu-item-hover-color: var(--menu-item-color);
     --menu-item-hover-background-color: hsl(var(--menu-light-background));
-    --menu-item-active-color: hsl(var(--color-primary-foreground));
-    --menu-item-active-background-color: hsl(var(--color-primary));
-    --menu-submenu-hover-color: hsl(var(--color-primary));
+    --menu-item-active-color: hsl(var(--primary-foreground));
+    --menu-item-active-background-color: hsl(var(--primary));
+    --menu-submenu-hover-color: hsl(var(--primary));
     --menu-submenu-hover-background-color: hsl(var(--menu-light-background));
-    --menu-submenu-active-color: hsl(var(--color-primary));
+    --menu-submenu-active-color: hsl(var(--primary));
     --menu-submenu-active-background-color: transparent;
     --menu-submenu-background-color: var(--menu-background-color);
   }
@@ -79,24 +79,24 @@
     --menu-background-color: transparent;
 
     &.is-dark {
-      --menu-item-hover-color: var(--color-foreground);
+      --menu-item-hover-color: var(--foreground);
       --menu-item-hover-background-color: hsl(var(--menu-dark-background));
-      --menu-item-active-color: hsl(var(--color-foreground));
+      --menu-item-active-color: hsl(var(--foreground));
       --menu-item-active-background-color: hsl(var(--menu-dark-background));
-      --menu-submenu-active-color: hsl(var(--color-foreground));
+      --menu-submenu-active-color: hsl(var(--foreground));
       --menu-submenu-active-background-color: hsl(var(--menu-dark-background));
-      --menu-submenu-hover-color: hsl(var(--color-foreground));
+      --menu-submenu-hover-color: hsl(var(--foreground));
       --menu-submenu-hover-background-color: hsl(var(--menu-dark-background));
     }
 
     &.is-light {
-      --menu-item-active-color: hsl(var(--color-foreground));
+      --menu-item-active-color: hsl(var(--foreground));
       --menu-item-active-background-color: hsl(var(--menu-light-background));
       --menu-item-hover-background-color: hsl(var(--menu-light-background));
-      --menu-item-hover-color: hsl(var(--color-primary));
-      --menu-submenu-hover-color: hsl(var(--color-primary));
+      --menu-item-hover-color: hsl(var(--primary));
+      --menu-submenu-hover-color: hsl(var(--primary));
       --menu-submenu-hover-background-color: hsl(var(--menu-light-background));
-      --menu-submenu-active-color: hsl(var(--color-foreground));
+      --menu-submenu-active-color: hsl(var(--foreground));
       --menu-submenu-active-background-color: hsl(var(--menu-light-background));
     }
   }
@@ -316,7 +316,7 @@
       .#{$namespace}-sub-menu-content,
       .#{$namespace}-menu-item {
         &.is-active {
-          color: hsl(var(--color-primary-foreground)) !important;
+          color: hsl(var(--primary-foreground)) !important;
           background: var(--menu-item-active-background-color) !important;
         }
       }

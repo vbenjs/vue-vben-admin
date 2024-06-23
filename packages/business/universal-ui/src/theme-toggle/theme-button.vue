@@ -96,7 +96,7 @@ function toggleTheme(event: MouseEvent) {
       <mask
         id="theme-toggle-moon"
         :class="e('moon')"
-        fill="hsl(var(--color-foreground)/80%)"
+        fill="hsl(var(--foreground)/80%)"
         stroke="none"
       >
         <rect fill="white" height="100%" width="100%" x="0" y="0" />
@@ -135,18 +135,18 @@ function toggleTheme(event: MouseEvent) {
   }
 
   @include e('sun') {
-    fill: hsl(var(--color-foreground) / 80%);
+    fill: hsl(var(--foreground) / 80%);
     stroke: none;
     transition: transform 1.6s cubic-bezier(0.25, 0, 0.2, 1);
     transform-origin: center center;
 
     &:hover > svg > & {
-      fill: hsl(var(--color-foreground));
+      fill: hsl(var(--foreground));
     }
   }
 
   @include e('sun-beams') {
-    stroke: hsl(var(--color-foreground) / 80%);
+    stroke: hsl(var(--foreground) / 80%);
     stroke-width: 2px;
     transition:
       transform 1.6s cubic-bezier(0.5, 1.5, 0.75, 1.25),
@@ -154,7 +154,7 @@ function toggleTheme(event: MouseEvent) {
     transform-origin: center center;
 
     &:hover > svg > & {
-      stroke: hsl(var(--color-foreground));
+      stroke: hsl(var(--foreground));
     }
   }
 
@@ -188,7 +188,7 @@ function toggleTheme(event: MouseEvent) {
     @include b('theme-toggle') {
       &__moon,
       &__sun {
-        fill: hsl(var(--color-foreground));
+        fill: hsl(var(--foreground));
       }
     }
   }

@@ -78,7 +78,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
 
   @include is('dark') {
     .#{$namespace}-normal-menu__item {
-      color: hsl(var(--color-dark-foreground) / 80%);
+      color: hsl(var(--dark-foreground) / 80%);
     }
   }
 
@@ -92,7 +92,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
     // max-height: 64px;
     padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
     margin: var(--menu-item-margin-y) var(--menu-item-margin-x);
-    color: hsl(var(--color-foreground) / 90%);
+    color: hsl(var(--foreground) / 90%);
     cursor: pointer;
     border-radius: var(--menu-item-radius);
     transition:
@@ -103,20 +103,20 @@ function handleMouseenter(menu: MenuRecordRaw) {
 
     @include is('active') {
       font-weight: 700;
-      color: hsl(var(--color-primary-foreground));
-      background-color: hsl(var(--color-primary));
+      color: hsl(var(--primary-foreground));
+      background-color: hsl(var(--primary));
 
       .#{$namespace}-normal-menu__name {
-        color: hsl(var(--color-primary-foreground));
+        color: hsl(var(--primary-foreground));
       }
 
       .#{$namespace}-normal-menu__icon {
-        color: hsl(var(--color-primary-foreground));
+        color: hsl(var(--primary-foreground));
       }
     }
 
     &:not(.is-active):hover {
-      color: hsl(var(--color-foreground));
+      color: hsl(var(--foreground));
       background-color: hsl(var(--menu-dark-background));
     }
 
@@ -130,7 +130,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
   @include is('dark') {
     .#{$namespace}-normal-menu__item {
       &:not(.is-active):hover {
-        color: hsl(var(--color-primary-foreground));
+        color: hsl(var(--primary-foreground));
         background-color: hsl(var(--menu-dark-background));
       }
     }

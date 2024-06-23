@@ -182,8 +182,7 @@ class PreferenceManager {
     if (preference.theme) {
       for (const [key, value] of Object.entries(preference.theme)) {
         if (['colorPrimary'].includes(key)) {
-          const cssVarKey = key.replaceAll(/([A-Z])/g, '-$1').toLowerCase();
-          const cssVarValue = useCssVar(`--${cssVarKey}`);
+          const cssVarValue = useCssVar(`--primary`);
           cssVarValue.value = convertToHslCssVar(value);
         }
       }

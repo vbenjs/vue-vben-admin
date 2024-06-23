@@ -118,8 +118,9 @@ page:
     page: Exception Page
 
 preferences:
-  preferences: Preferences
-  preferences-subtitle: Customize Preferences & Preview in Real Time
+  name: Preferences
+  subtitle: Customize Preferences & Preview in Real Time
+  reset-tip: The data has changed, click to reset
   theme: Theme
   ai-assistant: Ai Assistant
   appearance: Appearance
@@ -179,17 +180,18 @@ preferences:
   tabs: Tabs
   tabs-icon: Display Tabbar Icon
   mode: Mode
-  header: Header
-  header-visible: Display Header
-  header-mode-static: Static
-  header-mode-fixed: Fixed
-  header-mode-auto: Auto hide/display
-  header-mode-auto-scroll: Scroll hide/display
-  footer: Footer
-  footer-fixed: Fixed at the bottom
-  footer-visible: Display Footer
   logo-visible: Display Logo
-  reset-tip: The data has changed, click to reset
+  header:
+    name: Header
+    visible: Display Header
+    mode-static: Static
+    mode-fixed: Fixed
+    mode-auto: Auto hide/display
+    mode-auto-scroll: Scroll hide/display
+  footer:
+    name: Footer
+    visible: Fixed at the bottom
+    fixed: Display Footer
   shortcut-keys:
     title: Shortcut Keys
     global: Global

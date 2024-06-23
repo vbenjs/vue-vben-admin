@@ -17,19 +17,19 @@ const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
 
 const localeItems: SelectListItem[] = [
   {
-    label: $t('preferences.header-mode-static'),
+    label: $t('preferences.header.mode-static'),
     value: 'static',
   },
   {
-    label: $t('preferences.header-mode-fixed'),
+    label: $t('preferences.header.mode-fixed'),
     value: 'fixed',
   },
   {
-    label: $t('preferences.header-mode-auto'),
+    label: $t('preferences.header.mode-auto'),
     value: 'auto',
   },
   {
-    label: $t('preferences.header-mode-auto-scroll'),
+    label: $t('preferences.header.mode-auto-scroll'),
     value: 'auto-scroll',
   },
 ];
