@@ -14,7 +14,7 @@ const IGNORE_DIR = [
   'scripts',
   'internal',
   // 'packages/@vben-core/shared/shadcn-ui/',
-  'packages/@vben-core/uikit/menu-ui/src/',
+  'packages/@vben-core/ui-kit/menu-ui/src/',
 ].join(',');
 
 const IGNORE = [`**/{${IGNORE_DIR}}/**`];

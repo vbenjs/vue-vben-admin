@@ -46,6 +46,7 @@ function setupCommonGuard(router: Router) {
     // 动态修改标题
     if (preferences.app.dynamicTitle) {
       const { title } = to.meta;
+      // useTitle(`${$t(title)} - ${preferences.app.name}`);
       useTitle(`${$t(title)} - ${preferences.app.name}`);
     }
   });

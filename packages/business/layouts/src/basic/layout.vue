@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 import { $t } from '@vben/locales';
-import { PreferencesWidget } from '@vben/universal-ui';
+import { PreferencesWidget } from '@vben/widgets';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import {
   preferences,

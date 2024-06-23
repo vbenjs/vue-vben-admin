@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@vben-core/shadcn-ui/components/ui/dropdown-menu';
 
-import { VbenIcon } from '../';
+import { VbenIcon } from '../icon';
 
 interface Props {
   breadcrumbs: IBreadcrumb[];

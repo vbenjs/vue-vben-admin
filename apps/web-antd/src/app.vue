@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { GlobalProvider } from '@vben/universal-ui';
+import { GlobalProvider } from '@vben/widgets';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';

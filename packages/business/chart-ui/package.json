@@ -43,8 +43,5 @@
     "@vben-core/preferences": "workspace:*",
     "echarts": "^5.5.0",
     "vue": "^3.4.30"
-  },
-  "devDependencies": {
-    "@vben/types": "workspace:*"
   }
 }

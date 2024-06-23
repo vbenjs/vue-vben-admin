@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NotificationItem } from '@vben/universal-ui';
+import type { NotificationItem } from '@vben/widgets';
 
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -7,8 +7,8 @@ import { useRouter } from 'vue-router';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
-import { Notification, UserDropdown } from '@vben/universal-ui';
 import { openWindow } from '@vben/utils';
+import { Notification, UserDropdown } from '@vben/widgets';
 import { preferences } from '@vben-core/preferences';
 import { useAccessStore } from '@vben-core/stores';
 

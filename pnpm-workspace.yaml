@@ -3,7 +3,7 @@ packages:
   - "internal/lint-configs/*"
   - "packages/*"
   - "packages/@core/shared/*"
-  - "packages/@core/uikit/*"
+  - "packages/@core/ui-kit/*"
   - "packages/@core/forward/*"
   - "packages/@core/helpers"
   - "packages/business/*"

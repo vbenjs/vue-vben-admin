@@ -86,19 +86,19 @@
     },
     {
       "name": "@vben-core/layout-ui",
-      "path": "packages/@core/uikit/layout-ui",
+      "path": "packages/@core/ui-kit/layout-ui",
     },
     {
       "name": "@vben-core/menu-ui",
-      "path": "packages/@core/uikit/menu-ui",
+      "path": "packages/@core/ui-kit/menu-ui",
     },
     {
       "name": "@vben-core/shadcn-ui",
-      "path": "packages/@core/uikit/shadcn-ui",
+      "path": "packages/@core/ui-kit/shadcn-ui",
     },
     {
       "name": "@vben-core/tabs-ui",
-      "path": "packages/@core/uikit/tabs-ui",
+      "path": "packages/@core/ui-kit/tabs-ui",
     },
     {
       "name": "@vben/chart-ui",
@@ -111,6 +111,10 @@
     {
       "name": "@vben/universal-ui",
       "path": "packages/business/universal-ui",
+    },
+    {
+      "name": "@vben/widgets",
+      "path": "packages/business/widgets",
     },
     {
       "name": "@vben/constants",

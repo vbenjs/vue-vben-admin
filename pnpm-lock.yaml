@@ -143,6 +143,9 @@ importers:
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@vben/widgets':
+        specifier: workspace:*
+        version: link:../../packages/business/widgets
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.30(typescript@5.5.2))
@@ -588,9 +591,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      dayjs:
-        specifier: ^1.11.11
-        version: 1.11.11
       defu:
         specifier: ^6.1.4
         version: 6.1.4
@@ -614,7 +614,7 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.30(typescript@5.5.2))
 
-  packages/@core/uikit/layout-ui:
+  packages/@core/ui-kit/layout-ui:
     dependencies:
       '@vben-core/iconify':
         specifier: workspace:*
@@ -632,7 +632,7 @@ importers:
         specifier: ^3.4.30
         version: 3.4.30(typescript@5.5.2)
 
-  packages/@core/uikit/menu-ui:
+  packages/@core/ui-kit/menu-ui:
     dependencies:
       '@vben-core/design':
         specifier: workspace:*
@@ -656,7 +656,7 @@ importers:
         specifier: ^3.4.30
         version: 3.4.30(typescript@5.5.2)
 
-  packages/@core/uikit/shadcn-ui:
+  packages/@core/ui-kit/shadcn-ui:
     dependencies:
       '@radix-icons/vue':
         specifier: ^1.0.0
@@ -689,7 +689,7 @@ importers:
         specifier: ^1.1.3
         version: 1.1.3
 
-  packages/@core/uikit/tabs-ui:
+  packages/@core/ui-kit/tabs-ui:
     dependencies:
       '@vben-core/design':
         specifier: workspace:*
@@ -724,10 +724,6 @@ importers:
       vue:
         specifier: ^3.4.30
         version: 3.4.30(typescript@5.5.2)
-    devDependencies:
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../types
 
   packages/business/layouts:
     dependencies:
@@ -739,31 +735,31 @@ importers:
         version: link:../../@core/shared/iconify
       '@vben-core/layout-ui':
         specifier: workspace:*
-        version: link:../../@core/uikit/layout-ui
+        version: link:../../@core/ui-kit/layout-ui
       '@vben-core/menu-ui':
         specifier: workspace:*
-        version: link:../../@core/uikit/menu-ui
+        version: link:../../@core/ui-kit/menu-ui
       '@vben-core/preferences':
         specifier: workspace:*
         version: link:../../@core/forward/preferences
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../../@core/uikit/shadcn-ui
+        version: link:../../@core/ui-kit/shadcn-ui
       '@vben-core/stores':
         specifier: workspace:*
         version: link:../../@core/forward/stores
       '@vben-core/tabs-ui':
         specifier: workspace:*
-        version: link:../../@core/uikit/tabs-ui
+        version: link:../../@core/ui-kit/tabs-ui
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@core/shared/toolkit
       '@vben/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@vben/universal-ui':
+      '@vben/widgets':
         specifier: workspace:*
-        version: link:../universal-ui
+        version: link:../widgets
       vue:
         specifier: ^3.4.30
         version: 3.4.30(typescript@5.5.2)
@@ -774,8 +770,51 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../@core/shared/typings
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../types
 
   packages/business/universal-ui:
+    dependencies:
+      '@vben-core/design':
+        specifier: workspace:*
+        version: link:../../@core/shared/design
+      '@vben-core/iconify':
+        specifier: workspace:*
+        version: link:../../@core/shared/iconify
+      '@vben-core/preferences':
+        specifier: workspace:*
+        version: link:../../@core/forward/preferences
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@vben/chart-ui':
+        specifier: workspace:*
+        version: link:../chart-ui
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../../locales
+      '@vueuse/integrations':
+        specifier: ^10.11.0
+        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.30(typescript@5.5.2))
+      qrcode:
+        specifier: ^1.5.3
+        version: 1.5.3
+      vue:
+        specifier: ^3.4.30
+        version: 3.4.30(typescript@5.5.2)
+      vue-router:
+        specifier: ^4.4.0
+        version: 4.4.0(vue@3.4.30(typescript@5.5.2))
+    devDependencies:
+      '@types/qrcode':
+        specifier: ^1.5.5
+        version: 1.5.5
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../types
+
+  packages/business/widgets:
     dependencies:
       '@vben-core/colorful':
         specifier: workspace:*
@@ -791,7 +830,7 @@ importers:
         version: link:../../@core/forward/preferences
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../../@core/uikit/shadcn-ui
+        version: link:../../@core/ui-kit/shadcn-ui
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@core/shared/toolkit

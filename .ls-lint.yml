@@ -7,7 +7,7 @@ ls:
   .css: kebab-case | pointcase
   .d.ts: kebab-case | pointcase
   # shadcn 自动生成文件为 PascalCase 格式
-  packages/@vben-core/uikit/shadcn-ui/src/components/ui:
+  packages/@vben-core/ui-kit/shadcn-ui/src/components/ui:
     .vue: PascalCase
 
 ignore:

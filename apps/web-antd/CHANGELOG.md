@@ -12,7 +12,7 @@
   - @vben-core/request@5.0.1
   - @vben-core/stores@5.0.1
   - @vben/layouts@5.0.1
-  - @vben/universal-ui@5.0.1
+  - @vben/widgets@5.0.1
   - @vben/constants@5.0.1
   - @vben/hooks@5.0.1
   - @vben/icons@5.0.1
