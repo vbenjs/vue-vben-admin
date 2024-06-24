@@ -107,8 +107,8 @@
     "vue-router": "^4.3.2",
     "vue-types": "^5.1.1",
     "vuedraggable": "^4.1.0",
-    "vxe-table": "^4.6.3",
-    "vxe-table-plugin-export-xlsx": "^4.0.1",
+    "vxe-table": "^4.7.31",
+    "vxe-table-plugin-export-xlsx": "^4.0.2",
     "xe-utils": "^3.5.25",
     "xlsx": "^0.18.5"
   },
