@@ -25,7 +25,7 @@ function useContentSpinner() {
   };
 
   router.beforeEach((to) => {
-    if (to.meta.loaded || !enableLoading.value) {
+    if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
     }
     startTime.value = performance.now();
@@ -34,7 +34,7 @@ function useContentSpinner() {
   });
 
   router.afterEach((to) => {
-    if (to.meta.loaded || !enableLoading.value) {
+    if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
     }
 

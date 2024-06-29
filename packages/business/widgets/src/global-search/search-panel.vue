@@ -223,7 +223,7 @@ onMounted(() => {
       >
         <IcRoundSearchOff class="size-12" />
         <p class="my-10 text-xs">
-          {{ $t('search.no-results') }}
+          {{ $t('widgets.search.no-results') }}
           <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"
           </span>
@@ -235,7 +235,7 @@ onMounted(() => {
         class="text-muted-foreground text-center"
       >
         <p class="my-10 text-xs">
-          {{ $t('search.no-recent') }}
+          {{ $t('widgets.search.no-recent') }}
         </p>
       </div>
 
@@ -244,7 +244,7 @@ onMounted(() => {
           v-if="searchHistory.length > 0 && !keyword"
           class="text-muted-foreground mb-2 text-xs"
         >
-          {{ $t('search.recent') }}
+          {{ $t('widgets.search.recent') }}
         </li>
         <li
           v-for="(item, index) in uniqueByField(searchResults, 'path')"

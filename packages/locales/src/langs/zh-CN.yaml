@@ -1,3 +1,35 @@
+page:
+  demos:
+    title: 演示
+    nested:
+      title: 嵌套菜单
+      menu1: 菜单 1
+      menu2: 菜单 2
+      menu21: 菜单 2-1
+      menu3: 菜单 3
+      menu31: 菜单 3-1
+      menu32: 菜单 3-2
+      menu321: 菜单 3-2-1
+    outside:
+      title: 外部页面
+      embedded: 内嵌
+      external-link: 外链
+    fallback:
+      title: 异常页面
+  essentials:
+    login: 登陆
+    register: 注册
+    code-login: 验证码登陆
+    qrcode-login: 二维码登陆
+    forget-password: 忘记密码
+  dashboard:
+    title: 概览
+    analytics: 分析页
+    workspace: 工作台
+  vben:
+    about: 关于
+    document: 文档
+
 common:
   back: 返回
   back-to-home: 返回首页
@@ -8,11 +40,6 @@ common:
   confirm: 确认
   not-data: 暂无数据
   refresh: 刷新
-
-layout:
-  center: 居中
-  align-left: 居左
-  align-right: 居右
 
 fallback:
   page-not-found: 哎呀！未找到页面
@@ -35,23 +62,22 @@ widgets:
   notifications: 通知
   make-all-as-read: 全部标记为已读
   clear-notifications: 清空
-
-search:
-  search: 搜索
-  search-navigate: 搜索导航菜单
-  select: 选择
-  navigate: 导航
-  close: 关闭
-  no-results: 未找到搜索结果
-  no-recent: 没有搜索历史
-  recent: 搜索历史
+  search:
+    title: 搜索
+    search-navigate: 搜索导航菜单
+    select: 选择
+    navigate: 导航
+    close: 关闭
+    no-results: 未找到搜索结果
+    no-recent: 没有搜索历史
+    recent: 搜索历史
 
 authentication:
-  layout-title: 开箱即用的大型中后台管理系统
-  layout-desc: 工程化、高性能、跨组件库的前端模版
+  welcome-back: 欢迎回来
+  page-title: 开箱即用的大型中后台管理系统
+  page-desc: 工程化、高性能、跨组件库的前端模版
   login-success: 登录成功
   login-success-desc: 欢迎回来
-  welcome-back: 欢迎回来
   login-subtitle: 请输入您的帐户信息以开始管理您的项目
   username: 账号
   password: 密码
@@ -89,57 +115,26 @@ authentication:
   send-code: 获取验证码
   send-text: "{0}秒后重新获取"
   third-party-login: 其他登录方式
-
-page:
-  essentials:
-    login: 登陆
-    register: 注册
-    code-login: 验证码登陆
-    qrcode-login: 二维码登陆
-    forget-password: 忘记密码
-  dashboard:
-    title: 概览
-    analytics: 分析页
-    workspace: 工作台
-  vben:
-    about: 关于
-    document: 文档
-  outside:
-    title: 外部页面
-    embedded: 内嵌
-    external-link: 外链
-  nested:
-    title: 嵌套菜单
-    menu1: 菜单 1
-    menu2: 菜单 2
-    menu21: 菜单 2-1
-    menu3: 菜单 3
-    menu31: 菜单 3-1
-    menu32: 菜单 3-2
-    menu321: 菜单 3-2-1
-  fallback:
-    title: 异常页面
+  layout:
+    center: 居中
+    align-left: 居左
+    align-right: 居右
 
 preferences:
   title: 偏好设置
   subtitle: 自定义偏好设置 & 实时预览
   reset-tip: 数据有变化，点击可进行重置
+  # appearance
   appearance: 外观
-  theme-color: 主题色
+  # layout
   layout: 布局
-  general: 通用
   content: 内容
   other: 其它
-  light: 浅色
-  dark: 深色
-  dark-menu: 深色菜单
-  language: 语言
-  dynamic-title: 动态标题
-  ai-assistant: Ai 助手
-  collapse: 折叠菜单
-  collapse-show-title: 显示菜单名
   wide: 流式
   compact: 定宽
+  follow-system: 跟随系统
+  collapse: 折叠菜单
+  collapse-show-title: 显示菜单名
   vertical: 垂直
   vertical-tip: 侧边垂直菜单模式
   horizontal: 水平
@@ -151,14 +146,6 @@ preferences:
   split-menu: 切割菜单
   full-content: 内容全屏
   full-content-tip: 不显示任何菜单，只显示内容主体
-  follow-system: 跟随系统
-  weak-mode: 色弱模式
-  gray-mode: 灰色模式
-  navigation-menu: 导航菜单
-  navigation-style: 导航菜单风格
-  navigation-accordion: 侧边导航菜单手风琴模式
-  navigation-split: 导航菜单分离
-  navigation-split-tip: 开启时，侧边栏显示顶栏对应菜单的子菜单
   interface-control: 界面布局控制
   normal: 默认
   plain: 朴素
@@ -168,11 +155,24 @@ preferences:
   reset-success: 重置偏好设置成功
   sidebar: 侧边栏
   side-visible: 显示侧边栏
-  tabs-visible: 显示标签栏
-  tabs: 标签栏
-  tabs-icon: 显示标签栏图标
   mode: 模式
   logo-visible: 显示 Logo
+  # general
+  general: 通用
+  language: 语言
+  dynamic-title: 动态标题
+  ai-assistant: Ai 助手
+
+  tabbar:
+    title: 标签栏
+    enable: 启用标签栏
+    icon: 显示标签栏图标
+  navigation-menu:
+    title: 导航菜单
+    style: 导航菜单风格
+    accordion: 侧边导航菜单手风琴模式
+    split: 导航菜单分离
+    split-tip: 开启时，侧边栏显示顶栏对应菜单的子菜单
   breadcrumb:
     title: 面包屑导航
     enable: 开启面包屑导航
@@ -188,23 +188,29 @@ preferences:
     progress: 页面切换进度条
   theme:
     title: 主题
-    builtin: 内置主题
     radius: 圆角
-    default: 默认
-    violet: 紫罗兰
-    pink: 樱花粉
-    rose: 玫瑰红
-    sky-blue: 天蓝色
-    deep-blue: 深蓝色
-    green: 浅绿色
-    deep-green: 深绿色
-    orange: 橙黄色
-    yellow: 柠檬黄
-    zinc: 锌色灰
-    neutral: 中性色
-    slate: 石板灰
-    gray: 中灰色
-    custom: 自定义
+    light: 浅色
+    dark: 深色
+    dark-menu: 深色菜单
+    weak-mode: 色弱模式
+    gray-mode: 灰色模式
+    builtin:
+      title: 内置主题
+      default: 默认
+      violet: 紫罗兰
+      pink: 樱花粉
+      rose: 玫瑰红
+      sky-blue: 天蓝色
+      deep-blue: 深蓝色
+      green: 浅绿色
+      deep-green: 深绿色
+      orange: 橙黄色
+      yellow: 柠檬黄
+      zinc: 锌色灰
+      neutral: 中性色
+      slate: 石板灰
+      gray: 中灰色
+      custom: 自定义
   header:
     title: 顶栏
     mode-static: 静止

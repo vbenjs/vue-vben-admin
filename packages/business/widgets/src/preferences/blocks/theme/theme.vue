@@ -43,10 +43,10 @@ function activeClass(theme: string): string[] {
 function nameView(name: string) {
   switch (name) {
     case 'light': {
-      return $t('preferences.light');
+      return $t('preferences.theme.light');
     }
     case 'dark': {
-      return $t('preferences.dark');
+      return $t('preferences.theme.dark');
     }
     case 'auto': {
       return $t('preferences.follow-system');
@@ -79,7 +79,7 @@ function nameView(name: string) {
       :disabled="modelValue !== 'light'"
       class="mt-6"
     >
-      {{ $t('preferences.dark-menu') }}
+      {{ $t('preferences.theme.dark-menu') }}
     </SwitchItem>
   </div>
 </template>

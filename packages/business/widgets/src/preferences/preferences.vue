@@ -233,7 +233,7 @@ async function handleReset() {
                 :color-primary-presets="colorPrimaryPresets"
               />
             </Block> -->
-            <Block :title="$t('preferences.theme.builtin')">
+            <Block :title="$t('preferences.theme.builtin.title')">
               <BuiltinTheme
                 v-model="themeBuiltinType"
                 v-model:theme-color-primary="themeColorPrimary"
@@ -275,7 +275,7 @@ async function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.navigation-menu')">
+            <Block :title="$t('preferences.navigation-menu.title')">
               <Navigation
                 v-model:navigation-accordion="navigationAccordion"
                 v-model:navigation-split="navigationSplit"
@@ -298,7 +298,7 @@ async function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.tabs')">
+            <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-show-icon="tabbarShowIcon"

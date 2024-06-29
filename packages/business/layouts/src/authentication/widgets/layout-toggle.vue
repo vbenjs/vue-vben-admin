@@ -21,17 +21,17 @@ const menus = computed((): VbenDropdownMenuItem[] => [
   {
     icon: MdiDockLeft,
     key: 'panel-left',
-    text: $t('layout.align-left'),
+    text: $t('authentication.layout.align-left'),
   },
   {
     icon: MdiDockBottom,
     key: 'panel-center',
-    text: $t('layout.center'),
+    text: $t('authentication.layout.center'),
   },
   {
     icon: MdiDockRight,
     key: 'panel-right',
-    text: $t('layout.align-right'),
+    text: $t('authentication.layout.align-right'),
   },
 ]);
 

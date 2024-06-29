@@ -39,12 +39,12 @@ const PRESETS = [
   {
     icon: IcRoundWbSunny,
     name: 'light',
-    title: $t('preferences.light'),
+    title: $t('preferences.theme.light'),
   },
   {
     icon: MdiMoonAndStars,
     name: 'dark',
-    title: $t('preferences.dark'),
+    title: $t('preferences.theme.dark'),
   },
   {
     icon: IcRoundMotionPhotosAuto,

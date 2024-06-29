@@ -3,8 +3,8 @@ import { defineConfig } from '@vben/vite-config';
 export default defineConfig({
   application: ({ mode }) => {
     return {
-      compress: true,
-      compressTypes: ['brotli', 'gzip'],
+      compress: false,
+      compressTypes: ['brotli', 'gzip'] as const,
       importmap: false,
       importmapOptions: {
         // 通过 Importmap CDN 方式引入,

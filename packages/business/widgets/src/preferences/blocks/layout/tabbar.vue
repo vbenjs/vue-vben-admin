@@ -15,10 +15,10 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 
 <template>
   <SwitchItem v-model="tabbarEnable" :disabled="disabled">
-    {{ $t('preferences.tabs-visible') }}
+    {{ $t('preferences.tabbar.enable') }}
   </SwitchItem>
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
-    {{ $t('preferences.tabs-icon') }}
+    {{ $t('preferences.tabbar.icon') }}
   </SwitchItem>
   <!-- <SwitchItem v-model="sideCollapseShowTitle" :disabled="!tabsVisible">
     {{ $t('preferences.collapse-show-title') }}

@@ -28,50 +28,50 @@ const inputValue = computed(() => {
 function typeView(name: BuiltinThemeType) {
   switch (name) {
     case 'default': {
-      return $t('preferences.theme.default');
+      return $t('preferences.theme.builtin.default');
     }
     case 'violet': {
-      return $t('preferences.theme.violet');
+      return $t('preferences.theme.builtin.violet');
     }
     case 'pink': {
-      return $t('preferences.theme.pink');
+      return $t('preferences.theme.builtin.pink');
     }
     case 'rose': {
-      return $t('preferences.theme.rose');
+      return $t('preferences.theme.builtin.rose');
     }
     case 'sky-blue': {
-      return $t('preferences.theme.sky-blue');
+      return $t('preferences.theme.builtin.sky-blue');
     }
     case 'deep-blue': {
-      return $t('preferences.theme.deep-blue');
+      return $t('preferences.theme.builtin.deep-blue');
     }
 
     case 'green': {
-      return $t('preferences.theme.green');
+      return $t('preferences.theme.builtin.green');
     }
     case 'deep-green': {
-      return $t('preferences.theme.deep-green');
+      return $t('preferences.theme.builtin.deep-green');
     }
     case 'orange': {
-      return $t('preferences.theme.orange');
+      return $t('preferences.theme.builtin.orange');
     }
     case 'yellow': {
-      return $t('preferences.theme.yellow');
+      return $t('preferences.theme.builtin.yellow');
     }
     case 'zinc': {
-      return $t('preferences.theme.zinc');
+      return $t('preferences.theme.builtin.zinc');
     }
     case 'neutral': {
-      return $t('preferences.theme.neutral');
+      return $t('preferences.theme.builtin.neutral');
     }
     case 'slate': {
-      return $t('preferences.theme.slate');
+      return $t('preferences.theme.builtin.slate');
     }
     case 'gray': {
-      return $t('preferences.theme.gray');
+      return $t('preferences.theme.builtin.gray');
     }
     case 'custom': {
-      return $t('preferences.theme.custom');
+      return $t('preferences.theme.builtin.custom');
     }
   }
 }

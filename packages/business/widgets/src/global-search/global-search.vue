@@ -71,7 +71,7 @@ if (props.enableShortcutKey) {
           <span
             class="text-muted-foreground group-hover:text-foreground hidden text-sm duration-300 md:block"
           >
-            {{ $t('search.search') }}
+            {{ $t('widgets.search.title') }}
           </span>
           <span
             v-if="enableShortcutKey"
@@ -94,7 +94,7 @@ if (props.enableShortcutKey) {
             <IcRoundSearch class="mt-1 size-4" />
             <input
               v-model="keyword"
-              :placeholder="$t('search.search-navigate')"
+              :placeholder="$t('widgets.search.search-navigate')"
               class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 text-sm outline-none ring-0 ring-offset-transparent focus-visible:ring-transparent"
             />
           </DialogTitle>
@@ -106,16 +106,16 @@ if (props.enableShortcutKey) {
         >
           <div class="flex items-center">
             <IcRoundSubdirectoryArrowLeft class="mr-1" />
-            {{ $t('search.select') }}
+            {{ $t('widgets.search.select') }}
           </div>
           <div class="flex items-center">
             <IcRoundArrowUpward class="mr-2" />
             <IcRoundArrowDownward class="mr-2" />
-            {{ $t('search.navigate') }}
+            {{ $t('widgets.search.navigate') }}
           </div>
           <div class="flex items-center">
             <MdiKeyboardEsc class="mr-1" />
-            {{ $t('search.close') }}
+            {{ $t('widgets.search.close') }}
           </div>
         </DialogFooter>
       </DialogContent>

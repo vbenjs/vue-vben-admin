@@ -1,3 +1,35 @@
+page:
+  demos:
+    title: Demos
+    nested:
+      title: Nested Menu
+      menu1: Menu 1
+      menu2: Menu 2
+      menu21: Menu 2-1
+      menu3: Menu 3
+      menu31: Menu 3-1
+      menu32: Menu 3-2
+      menu321: Menu 3-2-1
+    outside:
+      title: External Page
+      embedded: embedded Page
+      external-link: External Link
+    fallback:
+      title: Exception Page
+  essentials:
+    login: Login
+    register: Register
+    code-login: Code Login
+    qrcode-login: Qrcode Login
+    forget-password: Forget Password
+  dashboard:
+    title: Dashboard
+    analytics: Analytics
+    workspace: Workspace
+  vben:
+    about: About
+    document: Document
+
 common:
   back: Back
   back-to-home: Back To Home
@@ -6,14 +38,8 @@ common:
   prompt: Prompt
   cancel: Cancel
   confirm: Comfirm
-  search: Search
   not-data: No data
   refresh: Refresh
-
-layout:
-  center: Align Center
-  align-left: Align Left
-  align-right: Align Right
 
 fallback:
   page-not-found: Oops! Page Not Found
@@ -36,33 +62,32 @@ widgets:
   notifications: Notifications
   make-all-as-read: Make all as read
   clear-notifications: Clear
-
-search:
-  search: Search
-  search-navigate: Search Navigate
-  select: To select
-  navigate: To navigate
-  close: To close
-  no-results: No results for
-  no-recent: No recent searches
-  recent: Recent
+  search:
+    title: Search
+    search-navigate: Search Navigate
+    select: To select
+    navigate: To navigate
+    close: To close
+    no-results: No results for
+    no-recent: No recent searches
+    recent: Recent
 
 authentication:
-  layout-title: Plug-and-play backend system
-  layout-desc: Efficient, versatile frontend template
+  welcome-back: Welcome Back
+  page-title: Plug-and-play backend system
+  page-desc: Efficient, versatile frontend template
   login-success: Login successful
   login-success-desc: Welcome back
-  welcome-back: Welcome Back
   login-subtitle: Enter your account details to manage your projects
   username: Username
   password: Password
   username-tip: Username is required
   password-tip: Password is required
-  account-tip: Don't have an account yet?
+  remember-me: Remember Me
   create-an-account: Create an account
   create-account: Create account
   already-account: Already have an account?
-  remember-me: Remember Me
+  account-tip: Don't have an account yet?
   sign-up: Sign Up
   sign-up-subtitle: Make managing your applications simple and fun
   comfirm-password: Comfirm Password
@@ -90,51 +115,21 @@ authentication:
   send-code: Get Security code
   send-text: "Reacquire in {0}s"
   third-party-login: Or continue with
-
-page:
-  essentials:
-    login: Login
-    register: Register
-    code-login: Code Login
-    qrcode-login: Qrcode Login
-    forget-password: Forget Password
-  dashboard:
-    title: Dashboard
-    analytics: Analytics
-    workspace: Workspace
-  vben:
-    about: About
-    document: Document
-  outside:
-    title: External Page
-    embedded: embedded Page
-    external-link: External Link
-  nested:
-    title: Nested Menu
-    menu1: Menu 1
-    menu2: Menu 2
-    menu21: Menu 2-1
-    menu3: Menu 3
-    menu31: Menu 3-1
-    menu32: Menu 3-2
-    menu321: Menu 3-2-1
-  fallback:
-    title: Exception Page
+  layout:
+    center: Align Center
+    align-left: Align Left
+    align-right: Align Right
 
 preferences:
   title: Preferences
   subtitle: Customize Preferences & Preview in Real Time
   reset-tip: The data has changed, click to reset
-  ai-assistant: Ai Assistant
+  # appearance
   appearance: Appearance
-  theme-color: Theme Color
+  # layout
   layout: Layout
-  general: General
   content: Content
   other: Other
-  light: Light
-  dark: Dark
-  dark-menu: Semi Dark Menu
   wide: Fluid
   compact: Fixed Width
   follow-system: Follow System
@@ -151,29 +146,34 @@ preferences:
   full-content-tip: Display only the main content, no menus
   weak-mode: Color Weak Mode
   gray-mode: Gray Mode
-  language: Language
-  dynamic-title: Dynamic Title
   normal: Normal
   plain: Plain
   rounded: Rounded
   collapse: Collpase Menu
   collapse-show-title: Display menu name
-  navigation-menu: Navigation Menu
-  navigation-style: Navigation menu style
-  navigation-split: Navigation Menu Separation
-  navigation-accordion: Sidebar Navigation Menu Accordion mode
-  navigation-split-tip: When enabled, the sidebar shows the top bar's submenu
   interface-control: Interface Layout Control
   copy: Copy Preferences
   copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
   reset-success: Preferences reset successfully
   sidebar: Sidebar
   side-visible: Display Sidebar
-  tabs-visible: Display Tab Bar
-  tabs: Tabs
-  tabs-icon: Display Tabbar Icon
   mode: Mode
   logo-visible: Display Logo
+  # general
+  general: General
+  language: Language
+  dynamic-title: Dynamic Title
+  ai-assistant: Ai Assistant
+  tabbar:
+    title: Tabbar
+    enable: Enable Tab Bar
+    icon: Display Tabbar Icon
+  navigation-menu:
+    title: Navigation Menu
+    style: Navigation menu style
+    split: Navigation Menu Separation
+    accordion: Sidebar Navigation Menu Accordion mode
+    split-tip: When enabled, the sidebar shows the top bar's submenu
   breadcrumb:
     title: Breadcrumb
     home: Display the home button
@@ -189,23 +189,29 @@ preferences:
     progress: Page transition progress
   theme:
     title: Theme
-    builtin: Built-in
     radius: Radius
-    default: Default
-    violet: Violet
-    pink: Pink
-    rose: Rose
-    sky-blue: Sky Blue
-    deep-blue: Deep Blue
-    green: Green
-    deep-green: Deep Green
-    orange: Orange
-    yellow: Yellow
-    zinc: Zinc
-    neutral: Neutral
-    slate: Slate
-    gray: Gray
-    custom: Custom
+    light: Light
+    dark: Dark
+    dark-menu: Semi Dark Menu
+    weak-mode: Color Weak Mode
+    gray-mode: Gray Mode
+    builtin:
+      title: Built-in
+      default: Default
+      violet: Violet
+      pink: Pink
+      rose: Rose
+      sky-blue: Sky Blue
+      deep-blue: Deep Blue
+      green: Green
+      deep-green: Deep Green
+      orange: Orange
+      yellow: Yellow
+      zinc: Zinc
+      neutral: Neutral
+      slate: Slate
+      gray: Gray
+      custom: Custom
   header:
     title: Header
     visible: Display Header

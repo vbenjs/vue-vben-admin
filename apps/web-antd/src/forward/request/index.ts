@@ -81,9 +81,9 @@ function setupRequestInterceptors(client: RequestClient) {
   );
 }
 
-const { request } = createRequestClient();
+const { get, post, request } = createRequestClient();
 
 // 其他配置的请求方法
 // const { request: xxxRequest } = createRequest();
 
-export { request };
+export { get, post, request };
