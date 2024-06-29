@@ -36,9 +36,13 @@ withDefaults(defineProps<Props>(), {
             'pb-4': index > 2,
             'border-b-0': index < 3,
           }"
-          class="flex-col-center border-border w-1/3 border-b border-r border-t py-5 transition-all hover:shadow-xl"
+          class="flex-col-center border-border group w-1/3 cursor-pointer border-b border-r border-t py-8 hover:shadow-xl"
         >
-          <VbenIcon :color="item.color" :icon="item.icon" class="size-5" />
+          <VbenIcon
+            :color="item.color"
+            :icon="item.icon"
+            class="size-7 transition-all duration-300 group-hover:scale-125"
+          />
           <span class="text-md mt-2 truncate">{{ item.title }}</span>
         </div>
       </template>

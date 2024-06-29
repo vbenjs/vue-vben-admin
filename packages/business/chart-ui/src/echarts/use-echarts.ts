@@ -14,7 +14,7 @@ import {
   useWindowSize,
 } from '@vueuse/core';
 
-import { echarts } from './echarts';
+import echarts from './echarts';
 
 type EchartsUIType = typeof EchartsUI | undefined;
 

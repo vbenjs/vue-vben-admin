@@ -77,7 +77,10 @@ class PreferenceManager {
       this.updateTheme(this.state);
     }
 
-    if (appUpdates.colorGrayMode || appUpdates.colorWeakMode) {
+    if (
+      Reflect.has(appUpdates, 'colorGrayMode') ||
+      Reflect.has(appUpdates, 'colorWeakMode')
+    ) {
       this.updateColorMode(this.state);
     }
   }
@@ -229,22 +232,16 @@ class PreferenceManager {
       return;
     }
 
-    const {
-      builtinType,
-      colorDestructive,
-      colorPrimary,
-      colorSuccess,
-      colorWarning,
-      mode,
-      radius,
-    } = preferences?.theme ?? {};
+    const theme = preferences?.theme ?? {};
 
-    if (mode) {
+    const { builtinType, colorPrimary, mode, radius } = theme;
+
+    if (Reflect.has(theme, 'mode')) {
       const dark = isDarkTheme(mode);
       root.classList.toggle('dark', dark);
     }
 
-    if (builtinType) {
+    if (Reflect.has(theme, 'builtinType')) {
       const rootTheme = root.dataset.theme;
       if (rootTheme !== builtinType) {
         root.dataset.theme = builtinType;
@@ -268,16 +265,16 @@ class PreferenceManager {
 
     if (
       builtinTypeColorPrimary ||
-      colorPrimary ||
-      colorDestructive ||
-      colorSuccess ||
-      colorWarning
+      Reflect.has(theme, 'colorPrimary') ||
+      Reflect.has(theme, 'colorDestructive') ||
+      Reflect.has(theme, 'colorSuccess') ||
+      Reflect.has(theme, 'colorWarning')
     ) {
       preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
       this.updateMainColors(preferences);
     }
 
-    if (radius) {
+    if (Reflect.has(theme, 'radius')) {
       document.documentElement.style.setProperty('--radius', `${radius}rem`);
     }
   }

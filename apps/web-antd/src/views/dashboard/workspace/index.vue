@@ -2,16 +2,25 @@
 import type {
   WorkbenchProjectItem,
   WorkbenchQuickNavItem,
+  WorkbenchTodoItem,
+  WorkbenchTrendItem,
 } from '@vben/universal-ui';
 
+import { ref } from 'vue';
+
 import {
+  AnalysisChartCard,
   WorkbenchHeader,
   WorkbenchProject,
   WorkbenchQuickNav,
+  WorkbenchTodo,
+  WorkbenchTrends,
 } from '@vben/universal-ui';
 import { preferences } from '@vben-core/preferences';
 
 import { useAccessStore } from '#/store';
+
+import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 defineOptions({ name: 'Workspace' });
 
@@ -100,6 +109,95 @@ const quickNavItems: WorkbenchQuickNavItem[] = [
     title: '图表',
   },
 ];
+
+const todoItems = ref<WorkbenchTodoItem[]>([
+  {
+    completed: false,
+    content: `审查最近提交到Git仓库的前端代码，确保代码质量和规范。`,
+    date: '2024-07-30 11:00:00',
+    title: '审查前端代码提交',
+  },
+  {
+    completed: true,
+    content: `检查并优化系统性能，降低CPU使用率。`,
+    date: '2024-07-30 11:00:00',
+    title: '系统性能优化',
+  },
+  {
+    completed: false,
+    content: `进行系统安全检查，确保没有安全漏洞或未授权的访问。 `,
+    date: '2024-07-30 11:00:00',
+    title: '安全检查',
+  },
+  {
+    completed: false,
+    content: `更新项目中的所有npm依赖包，确保使用最新版本。`,
+    date: '2024-07-30 11:00:00',
+    title: '更新项目依赖',
+  },
+  {
+    completed: false,
+    content: `修复用户报告的页面UI显示问题，确保在不同浏览器中显示一致。 `,
+    date: '2024-07-30 11:00:00',
+    title: '修复UI显示问题',
+  },
+]);
+const trendItems: WorkbenchTrendItem[] = [
+  {
+    avatar: 'svg:avatar-1',
+    content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
+    date: '刚刚',
+    title: '威廉',
+  },
+  {
+    avatar: 'svg:avatar-2',
+    content: `关注了 <a>威廉</a> `,
+    date: '1个小时前',
+    title: '艾文',
+  },
+  {
+    avatar: 'svg:avatar-3',
+    content: `发布了 <a>个人动态</a> `,
+    date: '1天前',
+    title: '克里斯',
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: `发表文章 <a>如何编写一个Vite插件</a> `,
+    date: '2天前',
+    title: 'Vben',
+  },
+  {
+    avatar: 'svg:avatar-1',
+    content: `回复了 <a>杰克</a> 的问题 <a>如何进行项目优化？</a>`,
+    date: '3天前',
+    title: '皮特',
+  },
+  {
+    avatar: 'svg:avatar-2',
+    content: `关闭了问题 <a>如何运行项目</a> `,
+    date: '1周前',
+    title: '杰克',
+  },
+  {
+    avatar: 'svg:avatar-3',
+    content: `发布了 <a>个人动态</a> `,
+    date: '1周前',
+    title: '威廉',
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: `推送了代码到 <a>Github</a>`,
+    date: '2021-04-01 20:00',
+    title: '威廉',
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: `发表文章 <a>如何编写使用 Admin Vben</a> `,
+    date: '2021-03-01 20:00',
+    title: 'Vben',
+  },
+];
 </script>
 
 <template>
@@ -114,11 +212,16 @@ const quickNavItems: WorkbenchQuickNavItem[] = [
     </WorkbenchHeader>
 
     <div class="mt-5 flex">
-      <div class="mr-4 w-full md:w-2/3">
+      <div class="mr-4 w-full md:w-3/5">
         <WorkbenchProject :items="projectItems" title="项目" />
+        <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
       </div>
-      <div class="w-full md:w-1/3">
+      <div class="w-full md:w-2/5">
         <WorkbenchQuickNav :items="quickNavItems" title="快捷导航" />
+        <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
+        <AnalysisChartCard class="mt-5" title="访问来源">
+          <AnalyticsVisitsSource />
+        </AnalysisChartCard>
       </div>
     </div>
   </div>

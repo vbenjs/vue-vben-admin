@@ -33,7 +33,7 @@
     "stylelint-scss": "^6.3.2"
   },
   "devDependencies": {
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "postcss-html": "^1.7.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.3.2",

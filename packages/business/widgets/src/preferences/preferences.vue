@@ -15,7 +15,7 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { $t } from '@vben/locales';
+import { $t, loadLocaleMessages } from '@vben/locales';
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
 import {
   preferences,
@@ -166,11 +166,12 @@ async function handleCopy() {
   toast($t('preferences.copy-success'));
 }
 
-function handleReset() {
+async function handleReset() {
   if (!diffPreference.value) {
     return;
   }
   resetPreferences();
+  await loadLocaleMessages(preferences.app.locale);
   toast($t('preferences.reset-success'));
 }
 </script>

@@ -56,4 +56,4 @@ echarts.use([
   ToolboxComponent,
 ]);
 
-export { echarts };
+export default echarts;

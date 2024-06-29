@@ -36,10 +36,14 @@ withDefaults(defineProps<Props>(), {
             'border-b-0': index < 3,
             'pb-4': index > 2,
           }"
-          class="border-border w-1/3 border-b border-r border-t p-4 transition-all hover:shadow-xl"
+          class="border-border group w-1/3 cursor-pointer border-b border-r border-t p-4 transition-all hover:shadow-xl"
         >
           <div class="flex items-center">
-            <VbenIcon :color="item.color" :icon="item.icon" class="size-8" />
+            <VbenIcon
+              :color="item.color"
+              :icon="item.icon"
+              class="size-8 transition-all duration-300 group-hover:scale-110"
+            />
             <span class="ml-4 text-lg font-medium">{{ item.title }}</span>
           </div>
           <div class="text-foreground/80 mt-4 flex h-10">

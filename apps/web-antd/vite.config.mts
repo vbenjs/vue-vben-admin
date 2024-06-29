@@ -3,7 +3,7 @@ import { defineConfig } from '@vben/vite-config';
 export default defineConfig({
   application: ({ mode }) => {
     return {
-      compress: false,
+      compress: true,
       compressTypes: ['brotli', 'gzip'],
       importmap: false,
       importmapOptions: {

@@ -28,10 +28,11 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     const { dependencies = {}, peerDependencies = {} } =
       await readPackageJSON(root);
 
-    const external = [
+    const externalPackages = [
       ...Object.keys(dependencies),
       ...Object.keys(peerDependencies),
     ];
+
     const packageConfig: UserConfig = {
       build: {
         lib: {
@@ -40,7 +41,11 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
           formats: ['es'],
         },
         rollupOptions: {
-          external,
+          external: (id) => {
+            return externalPackages.some(
+              (pkg) => id === pkg || id.startsWith(`${pkg}/`),
+            );
+          },
         },
       },
       plugins,
