@@ -105,6 +105,10 @@
       "path": "packages/@core/ui-kit/tabs-ui",
     },
     {
+      "name": "@vben/access",
+      "path": "packages/business/access",
+    },
+    {
       "name": "@vben/chart-ui",
       "path": "packages/business/chart-ui",
     },
@@ -123,10 +127,6 @@
     {
       "name": "@vben/constants",
       "path": "packages/constants",
-    },
-    {
-      "name": "@vben/hooks",
-      "path": "packages/hooks",
     },
     {
       "name": "@vben/icons",

@@ -5,7 +5,7 @@ import type EchartsUI from './echarts-ui.vue';
 import type { Ref } from 'vue';
 import { computed, nextTick, watch } from 'vue';
 
-import { usePreferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben-core/preferences';
 
 import {
   tryOnUnmounted,
@@ -91,8 +91,23 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
       chartInstance.dispose();
       initCharts();
       renderEcharts(cacheOptions);
+      resize();
     }
   });
+
+  watch(
+    [
+      () => preferences.sidebar.collapsed,
+      () => preferences.sidebar.extraCollapse,
+      () => preferences.sidebar.hidden,
+    ],
+    () => {
+      // 折叠动画200ms
+      setTimeout(() => {
+        resize();
+      }, 200);
+    },
+  );
 
   tryOnUnmounted(() => {
     // 销毁实例，释放资源

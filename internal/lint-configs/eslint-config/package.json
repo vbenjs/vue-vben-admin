@@ -48,8 +48,8 @@
     "eslint-plugin-unicorn": "^54.0.0",
     "eslint-plugin-unused-imports": "^4.0.0",
     "eslint-plugin-vitest": "^0.5.4",
-    "eslint-plugin-vue": "^9.26.0",
-    "globals": "^15.7.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "globals": "^15.8.0",
     "jsonc-eslint-parser": "^2.4.0",
     "vue-eslint-parser": "^9.4.3"
   }

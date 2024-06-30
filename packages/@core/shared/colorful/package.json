@@ -36,7 +36,7 @@
     }
   },
   "dependencies": {
-    "@ant-design/colors": "^7.0.2",
+    "@ant-design/colors": "^7.1.0",
     "@ctrl/tinycolor": "4.1.0"
   }
 }

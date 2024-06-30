@@ -2,7 +2,11 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { describe, expect, it } from 'vitest';
 
-import { generatorRoutes, hasAuthority, hasVisible } from './generator-routes';
+import {
+  generateRoutesByFrontend,
+  hasAuthority,
+  hasVisible,
+} from './generate-routes-frontend';
 
 // Mock 路由数据
 const mockRoutes = [
@@ -58,9 +62,11 @@ describe('hasVisible', () => {
   });
 });
 
-describe('generatorRoutes', () => {
+describe('generateRoutesByFrontend', () => {
   it('should filter routes based on authority and visibility', async () => {
-    const generatedRoutes = await generatorRoutes(mockRoutes, ['user']);
+    const generatedRoutes = await generateRoutesByFrontend(mockRoutes, [
+      'user',
+    ]);
     // The user should have access to /dashboard/stats, but it should be filtered out because it's not visible
     expect(generatedRoutes).toEqual([
       {
@@ -77,7 +83,9 @@ describe('generatorRoutes', () => {
   });
 
   it('should handle routes without children', async () => {
-    const generatedRoutes = await generatorRoutes(mockRoutes, ['user']);
+    const generatedRoutes = await generateRoutesByFrontend(mockRoutes, [
+      'user',
+    ]);
     expect(generatedRoutes).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -88,7 +96,7 @@ describe('generatorRoutes', () => {
   });
 
   it('should handle empty roles array', async () => {
-    const generatedRoutes = await generatorRoutes(mockRoutes, []);
+    const generatedRoutes = await generateRoutesByFrontend(mockRoutes, []);
     expect(generatedRoutes).toEqual(
       expect.arrayContaining([
         // Only routes without authority should be included
@@ -115,7 +123,7 @@ describe('generatorRoutes', () => {
       { meta: {}, path: '/path2' }, // Empty meta
       { meta: { authority: ['admin'] }, path: '/path3' }, // Only authority
     ];
-    const generatedRoutes = await generatorRoutes(
+    const generatedRoutes = await generateRoutesByFrontend(
       routesWithMissingMeta as RouteRecordRaw[],
       ['admin'],
     );

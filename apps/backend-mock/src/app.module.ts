@@ -7,6 +7,7 @@ import Joi from 'joi';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { HealthModule } from './modules/health/health.module';
+import { MenuModule } from './modules/menu/menu.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
@@ -34,6 +35,7 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     UsersModule,
     DatabaseModule,
+    MenuModule,
   ],
 })
 export class AppModule {}

@@ -2,26 +2,26 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { filterTree, mapTree } from '@vben-core/toolkit';
 /**
- * 动态生成路由
+ * 动态生成路由 - 前端方式
  */
-async function generatorRoutes(
+async function generateRoutesByFrontend(
   routes: RouteRecordRaw[],
   roles: string[],
-  forbiddenPage?: RouteRecordRaw['component'],
+  forbiddenComponent?: RouteRecordRaw['component'],
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
   const finalRoutes = filterTree(routes, (route) => {
     return hasVisible(route) && hasAuthority(route, roles);
   });
 
-  if (!forbiddenPage) {
+  if (!forbiddenComponent) {
     return finalRoutes;
   }
 
   // 如果有禁止访问的页面，将禁止访问的页面替换为403页面
   return mapTree(finalRoutes, (route) => {
     if (menuHasVisibleWithForbidden(route)) {
-      route.component = forbiddenPage;
+      route.component = forbiddenComponent;
     }
     return route;
   });
@@ -60,4 +60,4 @@ function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
   return !!route.meta?.menuVisibleWithForbidden;
 }
 
-export { generatorRoutes, hasAuthority, hasVisible };
+export { generateRoutesByFrontend, hasAuthority, hasVisible };

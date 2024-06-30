@@ -19,5 +19,3 @@ async function getUserInfo() {
 }
 
 export { getUserInfo, userLogin };
-
-export * from './user';

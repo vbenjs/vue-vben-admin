@@ -62,7 +62,7 @@ interface TabsState {
 /**
  * @zh_CN 访问权限相关
  */
-const useTabsStore = defineStore('tabs', {
+const useTabbarStore = defineStore('tabbar', {
   actions: {
     /**
      * Close tabs in bulk
@@ -395,7 +395,7 @@ const useTabsStore = defineStore('tabs', {
 // 解决热更新问题
 const hot = import.meta.hot;
 if (hot) {
-  hot.accept(acceptHMRUpdate(useTabsStore, hot));
+  hot.accept(acceptHMRUpdate(useTabbarStore, hot));
 }
 
-export { useTabsStore };
+export { useTabbarStore };

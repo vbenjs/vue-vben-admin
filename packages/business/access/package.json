@@ -1,18 +1,18 @@
 {
-  "name": "@vben/hooks",
+  "name": "@vben/access",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/hooks"
+    "directory": "packages/business/permissions"
   },
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "stub": "pnpm unbuild --stub"
+    "build": "pnpm vite build",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -32,12 +32,19 @@
   "publishConfig": {
     "exports": {
       ".": {
-        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       }
     }
   },
   "dependencies": {
-    "vue": "^3.4.31"
+    "@vben-core/preferences": "workspace:*",
+    "@vben-core/stores": "workspace:*",
+    "@vben-core/toolkit": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vben/types": "workspace:*"
   }
 }

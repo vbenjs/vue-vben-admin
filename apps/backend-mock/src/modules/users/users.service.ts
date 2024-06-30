@@ -1,3 +1,4 @@
+import type { CreateUserDto } from '@/models/dto/user.dto';
 import type { Repository } from 'typeorm';
 
 import { UserEntity } from '@/models/entity/user.entity';
@@ -12,7 +13,7 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async create(user: UserEntity): Promise<UserEntity> {
+  async create(user: CreateUserDto): Promise<UserEntity> {
     user.password = await bcrypt.hash(user.password, 10); // 密码哈希
     return this.usersRepository.save(user);
   }

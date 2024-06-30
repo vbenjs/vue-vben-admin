@@ -15,7 +15,7 @@ const fallbackNotFoundRoute: RouteRecordRaw = {
     hideInTab: true,
     title: '404',
   },
-  name: 'Fallback',
+  name: 'FallbackNotFound',
   path: '/:path(.*)*',
 };
 

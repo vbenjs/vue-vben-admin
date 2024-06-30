@@ -3,14 +3,14 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { Spinner } from '@vben-core/shadcn-ui';
-import { storeToRefs, useTabsStore } from '@vben-core/stores';
+import { storeToRefs, useTabbarStore } from '@vben-core/stores';
 
 import { IFrameRouterView } from '../../iframe';
 import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
-const tabsStore = useTabsStore();
+const tabsStore = useTabbarStore();
 const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
 

@@ -34,7 +34,7 @@
     "check:type": "turbo run typecheck",
     "clean": "vsh clean",
     "commit": "czg",
-    "dev": "turbo run dev --parallel",
+    "dev": "cross-env TURBO_UI=1 turbo run dev --parallel",
     "docs:dev": "pnpm -F @vben/website run docs:dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
@@ -63,12 +63,12 @@
     "@vben/vsh": "workspace:*",
     "@vue/test-utils": "^2.4.6",
     "cross-env": "^7.0.3",
-    "cspell": "^8.9.1",
+    "cspell": "^8.10.0",
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.0",
     "rimraf": "^5.0.7",
-    "taze": "^0.14.0",
+    "taze": "^0.14.1",
     "turbo": "^2.0.6",
     "typescript": "^5.5.3",
     "unbuild": "^2.0.0",
@@ -83,7 +83,7 @@
   "packageManager": "pnpm@9.4.0",
   "pnpm": {
     "overrides": {
-      "@ant-design/colors": "^7.0.2",
+      "@ant-design/colors": "^7.1.0",
       "@ctrl/tinycolor": "^4.1.0",
       "clsx": "^2.1.1",
       "vue": "^3.4.31"

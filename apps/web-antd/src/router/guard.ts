@@ -3,15 +3,13 @@ import type { Router } from 'vue-router';
 import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { startProgress, stopProgress } from '@vben/utils';
-import { generatorMenus, generatorRoutes } from '@vben-core/helpers';
 import { preferences } from '@vben-core/preferences';
 import { useAccessStore } from '@vben-core/stores';
 
 import { useTitle } from '@vueuse/core';
 
+import { generateAccess } from '#/forward/access';
 import { dynamicRoutes, essentialsRouteNames } from '#/router/routes';
-
-const forbiddenPage = () => import('#/views/_essential/fallback/forbidden.vue');
 
 /**
  * 通用守卫配置
@@ -96,22 +94,16 @@ function setupAccessGuard(router: Router) {
     // 当前登录用户拥有的角色标识列表
     const userRoles = accessStore.getUserRoles;
 
-    const accessibleRoutes = await generatorRoutes(
-      dynamicRoutes,
-      userRoles,
-      // 如果 route.meta.menuVisibleWithForbidden = true
+    // 生成菜单和路由
+    const { accessibleMenus, accessibleRoutes } = await generateAccess({
+      roles: userRoles,
+      router,
       // 则会在菜单中显示，但是访问会被重定向到403
-      // 这里可以指定403页面
-      forbiddenPage,
-    );
-    // 动态添加到router实例内
-    accessibleRoutes.forEach((route) => router.addRoute(route));
-
-    // 生成菜单
-    const menus = await generatorMenus(accessibleRoutes, router);
+      routes: dynamicRoutes,
+    });
 
     // 保存菜单信息和路由信息
-    accessStore.setAccessMenus(menus);
+    accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
     const redirectPath = (from.query.redirect ?? to.path) as string;
 

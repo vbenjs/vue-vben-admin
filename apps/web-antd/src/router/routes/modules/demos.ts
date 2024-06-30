@@ -15,14 +15,108 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Demos',
     path: '/demos',
-    redirect: '/demos/fallback/403',
+    redirect: '/demos/access/frontend',
     children: [
+      {
+        meta: {
+          icon: 'mdi:shield-key-outline',
+          title: $t('page.demos.access.title'),
+        },
+        name: 'Access',
+        path: '/access',
+        redirect: '/access/frontend',
+        children: [
+          {
+            name: 'AccessFrontend',
+            path: 'frontend',
+            meta: {
+              icon: 'mdi:table-key',
+              title: $t('page.demos.access.frontend-control'),
+            },
+            children: [
+              {
+                name: 'AccessFrontendPageControl',
+                path: 'page-control',
+                component: () =>
+                  import('#/views/demos/access/frontend/index.vue'),
+                meta: {
+                  icon: 'mdi:page-previous-outline',
+                  title: $t('page.demos.access.page'),
+                },
+              },
+              {
+                name: 'AccessFrontendButtonControl',
+                path: 'button-control',
+                component: () =>
+                  import('#/views/demos/access/frontend/button-control.vue'),
+                meta: {
+                  icon: 'mdi:button-cursor',
+                  title: $t('page.demos.access.button'),
+                },
+              },
+              {
+                name: 'AccessFrontendTest1',
+                path: 'access-test-1',
+                component: () =>
+                  import('#/views/demos/access/frontend/access-test-1.vue'),
+                meta: {
+                  authority: ['admin'],
+                  icon: 'mdi:button-cursor',
+                  title: $t('page.demos.access.access-test-1'),
+                },
+              },
+              {
+                name: 'AccessFrontendTest2',
+                path: 'access-test-2',
+                component: () =>
+                  import('#/views/demos/access/frontend/access-test-2.vue'),
+                meta: {
+                  authority: ['user'],
+                  icon: 'mdi:button-cursor',
+                  title: $t('page.demos.access.access-test-2'),
+                },
+              },
+            ],
+          },
+          {
+            name: 'AccessBackend',
+            path: 'backend',
+            component: () => import('#/views/demos/access/backend/index.vue'),
+            meta: {
+              icon: 'mdi:cloud-key-outline',
+              title: $t('page.demos.access.backend-control'),
+            },
+            children: [
+              {
+                name: 'AccessBackendPageControl',
+                path: 'page-control',
+                component: () =>
+                  import('#/views/demos/access/frontend/index.vue'),
+                meta: {
+                  icon: 'mdi:page-previous-outline',
+                  title: $t('page.demos.access.page'),
+                },
+              },
+              {
+                name: 'AccessBackendButtonControl',
+                path: 'button-control',
+                component: () =>
+                  import('#/views/demos/access/frontend/button-control.vue'),
+                meta: {
+                  icon: 'mdi:button-cursor',
+                  title: $t('page.demos.access.button'),
+                },
+              },
+            ],
+          },
+        ],
+      },
       {
         meta: {
           icon: 'mdi:lightbulb-error-outline',
           title: $t('page.demos.fallback.title'),
         },
-        name: 'FallbackLayout',
+        name: 'Fallback',
         path: '/fallback',
         redirect: '/fallback/403',
         children: [

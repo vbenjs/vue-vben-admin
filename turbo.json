@@ -21,7 +21,12 @@
     "stub": {},
     "dev": {
       "dependsOn": ["^build"],
-      "outputs": [""],
+      "outputs": [],
+      "cache": false,
+      "persistent": true
+    },
+    "@vben/backend#dev": {
+      "outputs": [],
       "cache": false,
       "persistent": true
     },

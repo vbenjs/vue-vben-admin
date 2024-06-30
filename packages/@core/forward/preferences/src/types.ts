@@ -9,6 +9,8 @@ import type {
 
 type BreadcrumbStyleType = 'background' | 'normal';
 
+type accessModeType = 'allow-all' | 'backend' | 'frontend';
+
 type NavigationStyleType = 'plain' | 'rounded';
 
 type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
@@ -16,6 +18,8 @@ type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
 type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
 
 interface AppPreferences {
+  /** 权限模式 */
+  accessMode: accessModeType;
   /** 是否开启vben助手 */
   aiAssistant: boolean;
   /** 登录注册页面布局 */
@@ -208,4 +212,5 @@ export type {
   ThemeModeType,
   ThemePreferences,
   TransitionPreferences,
+  accessModeType,
 };

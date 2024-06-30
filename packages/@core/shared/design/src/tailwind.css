@@ -36,4 +36,8 @@
   .outline-box:not(.outline-box-active):hover::after {
     @apply outline-primary left-0 top-0 h-full w-full p-1 opacity-100;
   }
+
+  .card-box {
+    @apply bg-card text-card-foreground border-border rounded-xl border shadow;
+  }
 }

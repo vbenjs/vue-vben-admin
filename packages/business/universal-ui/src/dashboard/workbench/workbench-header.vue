@@ -14,7 +14,7 @@ withDefaults(defineProps<Props>(), {
 });
 </script>
 <template>
-  <div class="bg-card border-border rounded-xl p-4 py-6 shadow lg:flex">
+  <div class="card-box p-4 py-6 lg:flex">
     <VbenAvatar :src="avatar" class="size-20" />
     <div
       v-if="$slots.title || $slots.description"

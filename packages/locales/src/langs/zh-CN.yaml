@@ -1,6 +1,16 @@
 page:
   demos:
     title: 演示
+    access:
+      title: 访问控制
+      frontend-control: 前端控制
+      # menuVisibleWithForbidden: 菜单可见
+      backend-control: 后端控制
+      page: 页面访问
+      button: 按钮控制
+      access-test-1: 权限测试页1
+      access-test-2: 权限测试页2
+
     nested:
       title: 嵌套菜单
       menu1: 菜单 1
@@ -40,6 +50,7 @@ common:
   confirm: 确认
   not-data: 暂无数据
   refresh: 刷新
+  loading-menu: 加载菜单中
 
 fallback:
   page-not-found: 哎呀！未找到页面

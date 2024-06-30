@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { generatorMenus } from './generator-menus'; // 替换为您的实际路径
+import { generateMenus } from './generate-menus'; // 替换为您的实际路径
 import {
   type RouteRecordRaw,
   type Router,
@@ -10,7 +10,7 @@ import {
 
 // Nested route setup to test child inclusion and hideChildrenInMenu functionality
 
-describe('generatorMenus', () => {
+describe('generateMenus', () => {
   // 模拟路由数据
   const mockRoutes = [
     {
@@ -69,7 +69,7 @@ describe('generatorMenus', () => {
       },
     ];
 
-    const menus = await generatorMenus(mockRoutes, mockRouter as any);
+    const menus = await generateMenus(mockRoutes, mockRouter as any);
     expect(menus).toEqual(expectedMenus);
   });
 
@@ -82,7 +82,7 @@ describe('generatorMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generatorMenus(mockRoutesWithMeta, mockRouter as any);
+    const menus = await generateMenus(mockRoutesWithMeta, mockRouter as any);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -108,7 +108,7 @@ describe('generatorMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generatorMenus(mockRoutesWithParams, mockRouter as any);
+    const menus = await generateMenus(mockRoutesWithParams, mockRouter as any);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -139,12 +139,12 @@ describe('generatorMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generatorMenus(
+    const menus = await generateMenus(
       mockRoutesWithRedirect,
       mockRouter as any,
     );
     expect(menus).toEqual([
-      // Assuming your generatorMenus function excludes redirect routes from the menu
+      // Assuming your generateMenus function excludes redirect routes from the menu
       {
         badge: undefined,
         badgeType: undefined,
@@ -191,7 +191,7 @@ describe('generatorMenus', () => {
   });
 
   it('should generate menu list with correct order', async () => {
-    const menus = await generatorMenus(routes, router);
+    const menus = await generateMenus(routes, router);
     const expectedMenus = [
       {
         badge: undefined,
@@ -224,7 +224,7 @@ describe('generatorMenus', () => {
 
   it('should handle empty routes', async () => {
     const emptyRoutes: any[] = [];
-    const menus = await generatorMenus(emptyRoutes, router);
+    const menus = await generateMenus(emptyRoutes, router);
     expect(menus).toEqual([]);
   });
 });

@@ -1,7 +1,6 @@
 export * from './cn';
 export * from './diff';
 export * from './dom';
-export * from './hash';
 export * from './inference';
 export * from './letter';
 export * from './merge';

@@ -19,14 +19,14 @@ import {
   MdiPin,
   MdiPinOff,
 } from '@vben-core/iconify';
-import { storeToRefs, useAccessStore, useTabsStore } from '@vben-core/stores';
+import { storeToRefs, useAccessStore, useTabbarStore } from '@vben-core/stores';
 import { filterTree } from '@vben-core/toolkit';
 
 function useTabs() {
   const router = useRouter();
   const route = useRoute();
   const accessStore = useAccessStore();
-  const tabsStore = useTabsStore();
+  const tabsStore = useTabbarStore();
   const { accessMenus } = storeToRefs(accessStore);
 
   const currentActive = computed(() => {

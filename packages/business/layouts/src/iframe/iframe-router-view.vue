@@ -6,12 +6,12 @@ import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben-core/preferences';
 import { Spinner } from '@vben-core/shadcn-ui';
-import { useTabsStore } from '@vben-core/stores';
+import { useTabbarStore } from '@vben-core/stores';
 
 defineOptions({ name: 'IFrameRouterView' });
 
 const spinningList = ref<boolean[]>([]);
-const tabsStore = useTabsStore();
+const tabsStore = useTabbarStore();
 const route = useRoute();
 
 const enableTabbar = computed(() => preferences.tabbar.enable);

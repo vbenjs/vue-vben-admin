@@ -1,4 +1,4 @@
-import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben-core/typings';
+import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben/types';
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { mapTree } from '@vben-core/toolkit';
@@ -7,7 +7,7 @@ import { mapTree } from '@vben-core/toolkit';
  * 根据 routes 生成菜单列表
  * @param routes
  */
-async function generatorMenus(
+async function generateMenus(
   routes: RouteRecordRaw[],
   router: Router,
 ): Promise<MenuRecordRaw[]> {
@@ -70,4 +70,4 @@ async function generatorMenus(
   return menus;
 }
 
-export { generatorMenus };
+export { generateMenus };

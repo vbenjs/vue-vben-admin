@@ -10,7 +10,10 @@ import { $t } from '@vben/locales';
 import { openWindow } from '@vben/utils';
 import { Notification, UserDropdown } from '@vben/widgets';
 import { preferences } from '@vben-core/preferences';
+import { useRequest } from '@vben-core/request';
 import { useAccessStore } from '@vben-core/stores';
+
+import { getUserInfo } from '#/apis';
 
 // https://avatar.vercel.sh/vercel.svg?text=Vaa
 // https://avatar.vercel.sh/1
@@ -79,6 +82,14 @@ const menus = computed(() => [
 
 const accessStore = useAccessStore();
 const router = useRouter();
+
+const { runAsync: runGetUserInfo } = useRequest(getUserInfo, {
+  manual: true,
+});
+
+runGetUserInfo().then((userInfo) => {
+  accessStore.setUserInfo(userInfo);
+});
 
 function handleLogout() {
   accessStore.$reset();

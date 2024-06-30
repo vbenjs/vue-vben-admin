@@ -1,6 +1,16 @@
 page:
   demos:
     title: Demos
+    access:
+      title: Access Control
+      frontend-control: Front-end Control
+      # menuVisibleWithForbidden: Menu is visible
+      backend-control: Backend Control
+      page: Page visit
+      button: Button control
+      loading-menu: In the loading menu
+      access-test-1: Access test page 1
+      access-test-2: Access test page 2
     nested:
       title: Nested Menu
       menu1: Menu 1
