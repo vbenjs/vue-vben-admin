@@ -1,23 +1,16 @@
 import configuration from '@/config/index';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import Joi from 'joi';
 
 import { AuthModule } from './modules/auth/auth.module';
-import { DatabaseModule } from './modules/database/database.module';
 import { HealthModule } from './modules/health/health.module';
 import { MenuModule } from './modules/menu/menu.module';
+import { MockModule } from './modules/mock/mock.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      autoLoadEntities: true,
-      database: 'data/db.sqlite',
-      synchronize: true,
-      type: 'sqlite',
-    }),
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
@@ -34,8 +27,8 @@ import { UsersModule } from './modules/users/users.module';
     HealthModule,
     AuthModule,
     UsersModule,
-    DatabaseModule,
     MenuModule,
+    MockModule,
   ],
 })
 export class AppModule {}

@@ -12,6 +12,7 @@ const customConfig: Linter.FlatConfig[] = [
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
       'no-console': 'off',
+      'unicorn/prefer-module': 'off',
     },
   },
 ];

@@ -115,6 +115,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   });
   return {
     renderEcharts,
+    resize,
   };
 }
 

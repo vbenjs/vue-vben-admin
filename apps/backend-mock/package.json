@@ -19,7 +19,6 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.3.10",
-    "@nestjs/typeorm": "^10.0.2",
     "@types/js-yaml": "^4.0.9",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
@@ -31,9 +30,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.0",
