@@ -171,7 +171,10 @@
     "packages/@vben-core/shared/design-tokens/src/**/*.css"
   ],
 
-  "i18n-ally.localesPaths": ["packages/locales/src/langs"],
+  "i18n-ally.localesPaths": [
+    "packages/locales/src/langs",
+    "packages/@core/shared/i18n/src/langs"
+  ],
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "zh-CN",

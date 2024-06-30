@@ -495,11 +495,12 @@
     padding-right: 12px !important;
   }
 
-  &:not(.is-active):hover {
+  // &:not(.is-active):hover {
+  &:hover {
     color: var(--menu-submenu-hover-color);
     text-decoration: none;
     cursor: pointer;
-    background: var(--menu-submenu-hover-background-color);
+    background: var(--menu-submenu-hover-background-color) !important;
 
     svg {
       fill: var(--menu-submenu-hover-color);

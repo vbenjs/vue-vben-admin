@@ -43,7 +43,7 @@ function setI18nLanguage(locale: Locale) {
  * Load locale messages
  * @param lang
  */
-async function loadLocaleMessages(lang: SupportedLanguagesType) {
+async function loadI18nMessages(lang: SupportedLanguagesType) {
   if (unref(i18n.global.locale) === lang) {
     return setI18nLanguage(lang);
   }
@@ -59,4 +59,4 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
   return setI18nLanguage(lang);
 }
 
-export { i18n, loadLocaleMessages, setI18nLanguage };
+export { i18n, loadI18nMessages, setI18nLanguage };

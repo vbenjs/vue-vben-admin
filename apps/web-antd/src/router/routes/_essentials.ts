@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { DEFAULT_HOME_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 
-import { AuthPageLayoutType } from '#/layouts';
+import { AuthPageLayout } from '#/layouts';
 import Login from '#/views/_essential/authentication/login.vue';
 
 /** 全局404页面 */
@@ -30,7 +30,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
     redirect: DEFAULT_HOME_PATH,
   },
   {
-    component: AuthPageLayoutType,
+    component: AuthPageLayout,
     meta: {
       title: 'Authentication',
     },

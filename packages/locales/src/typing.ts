@@ -8,6 +8,12 @@ interface LocaleSetupOptions {
    * @default zh-CN
    */
   defaultLocale?: SupportedLanguagesType;
+  /**
+   * Load third-party library messages
+   * @param lang
+   * @returns
+   */
+  loadThirdPartyMessage?: (lang: SupportedLanguagesType) => Promise<void>;
 }
 
 export type { ImportLocaleFn, LocaleSetupOptions, SupportedLanguagesType };

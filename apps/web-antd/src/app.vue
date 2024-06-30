@@ -5,14 +5,10 @@ import { GlobalProvider } from '@vben/widgets';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import dayjs from 'dayjs';
 
-import 'dayjs/locale/zh-cn';
+import { antdLocale } from '#/forward';
 
 defineOptions({ name: 'App' });
-
-dayjs.locale(zhCN.locale);
 
 const { isDark } = usePreferences();
 
@@ -35,7 +31,7 @@ const tokenTheme = computed(() => {
 
 <template>
   <GlobalProvider>
-    <ConfigProvider :locale="zhCN" :theme="tokenTheme">
+    <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
       <App>
         <RouterView />
       </App>
