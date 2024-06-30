@@ -11,7 +11,7 @@
   "license": "MIT",
   "author": {
     "name": "vben",
-    "email": "anncwb@126.com",
+    "email": "ann.vben@gmail.com",
     "url": "https://github.com/anncwb"
   },
   "type": "module",
@@ -29,12 +29,12 @@
     "@vben-core/preferences": "workspace:*",
     "@vben-core/request": "workspace:*",
     "@vben-core/stores": "workspace:*",
+    "@vben/access": "workspace:*",
     "@vben/chart-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
     "@vben/locales": "workspace:*",
-    "@vben/access": "workspace:*",
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/universal-ui": "workspace:*",

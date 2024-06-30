@@ -161,14 +161,15 @@ class PreferenceManager {
   private updateColorMode(preference: Preferences) {
     if (preference.app) {
       const { colorGrayMode, colorWeakMode } = preference.app;
+      const dom = document.documentElement;
       const COLOR_WEAK = 'invert-mode';
       const COLOR_GRAY = 'grayscale-mode';
       colorWeakMode
-        ? document.documentElement.classList.add(COLOR_WEAK)
-        : document.documentElement.classList.remove(COLOR_WEAK);
+        ? dom.classList.add(COLOR_WEAK)
+        : dom.classList.remove(COLOR_WEAK);
       colorGrayMode
-        ? document.documentElement.classList.add(COLOR_GRAY)
-        : document.documentElement.classList.remove(COLOR_GRAY);
+        ? dom.classList.add(COLOR_GRAY)
+        : dom.classList.remove(COLOR_GRAY);
     }
   }
 
@@ -346,7 +347,7 @@ class PreferenceManager {
    * 更新偏好设置
    * @param updates - 要更新的偏好设置
    */
-  public async updatePreferences(updates: DeepPartial<Preferences>) {
+  public updatePreferences(updates: DeepPartial<Preferences>) {
     const mergedState = merge({}, updates, markRaw(this.state));
 
     Object.assign(this.state, mergedState);
