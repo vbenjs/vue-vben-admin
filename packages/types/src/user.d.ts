@@ -1,10 +1,3 @@
-interface RoleInfo {
-  /** 角色名 */
-  roleName: string;
-  /** 角色值 */
-  value: string;
-}
-
 /** 用户信息 */
 interface UserInfo {
   /**
@@ -26,7 +19,7 @@ interface UserInfo {
   /**
    * 用户角色信息
    */
-  roles: RoleInfo[];
+  roles: string[];
   /**
    * accessToken
    */
@@ -41,4 +34,4 @@ interface UserInfo {
   username: string;
 }
 
-export type { RoleInfo, UserInfo };
+export type { UserInfo };

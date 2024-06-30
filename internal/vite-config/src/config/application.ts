@@ -27,7 +27,6 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       injectMetadata: true,
       isBuild,
       license: true,
-      mock: true,
       mode,
       pwa: true,
       turboConsole: false,

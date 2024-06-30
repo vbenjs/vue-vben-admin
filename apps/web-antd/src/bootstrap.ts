@@ -22,13 +22,6 @@ async function bootstrap(namespace: string) {
   app.use(router);
 
   app.mount('#app');
-
-  // production mock server
-  if (import.meta.env.PROD) {
-    import('./mock-prod-server').then(({ setupProdMockServer }) => {
-      setupProdMockServer();
-    });
-  }
 }
 
 export { bootstrap };

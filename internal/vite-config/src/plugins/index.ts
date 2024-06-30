@@ -20,7 +20,6 @@ import viteCompressPlugin from 'vite-plugin-compression';
 import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
 import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
-import { viteMockServe as viteMockPlugin } from 'vite-plugin-mock';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
@@ -107,7 +106,6 @@ async function getApplicationConditionPlugins(
     importmapOptions,
     injectAppLoading,
     license,
-    mock,
     pwa,
     pwaOptions,
     turboConsole,
@@ -200,16 +198,6 @@ async function getApplicationConditionPlugins(
       condition: !isBuild && !!turboConsole,
       plugins: () => [viteTurboConsolePlugin()],
     },
-    {
-      condition: !!mock,
-      plugins: () => [
-        viteMockPlugin({
-          enable: true,
-          ignore: /^_/,
-          mockPath: 'mock',
-        }),
-      ],
-    },
   ]);
 }
 
@@ -242,7 +230,6 @@ export {
   viteCompressPlugin,
   viteDtsPlugin,
   viteHtmlPlugin,
-  viteMockPlugin,
   viteTurboConsolePlugin,
   viteVisualizerPlugin,
 };

@@ -50,7 +50,6 @@
     "vite": "^5.3.2",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-html": "^3.2.2",
-    "vite-plugin-mock": "^3.0.2"
+    "vite-plugin-html": "^3.2.2"
   }
 }

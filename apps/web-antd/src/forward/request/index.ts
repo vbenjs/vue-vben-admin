@@ -15,8 +15,8 @@ interface HttpResponse<T = any> {
    * 0 means success, others means fail
    */
   code: number;
+  data: T;
   message: string;
-  result: T;
 }
 
 /**
@@ -31,7 +31,10 @@ function createRequestClient() {
       return {
         handler: () => {
           const accessStore = useAccessStore();
-          return accessStore.getAccessToken;
+          return {
+            refreshToken: `Bearer ${accessStore.getRefreshToken}`,
+            token: `Bearer ${accessStore.getAccessToken}`,
+          };
         },
         // 默认
         key: 'Authorization',
@@ -39,23 +42,18 @@ function createRequestClient() {
     },
   });
   setupRequestInterceptors(client);
-  const request = client.request.bind(client);
-  const get = client.get.bind(client);
-  const post = client.post.bind(client);
-  return {
-    get,
-    post,
-    request,
-  };
+  return client;
 }
 
 function setupRequestInterceptors(client: RequestClient) {
   client.addResponseInterceptor(
     (response: AxiosResponse<HttpResponse>) => {
       const { data: responseData, status } = response;
-      const { code, message: msg, result } = responseData;
-      if (status === 200 && code === 0) {
-        return result;
+
+      const { code, data, message: msg } = responseData;
+
+      if (status >= 200 && status < 400 && code === 0) {
+        return data;
       } else {
         message.error(msg);
         throw new Error(msg);
@@ -73,17 +71,19 @@ function setupRequestInterceptors(client: RequestClient) {
       } else if (error?.message?.includes?.('timeout')) {
         errMsg = '请求超时。';
       } else {
-        errMsg = error?.response?.data?.error?.message ?? '';
+        const data = error?.response?.data;
+        errMsg = (data?.message || data?.error?.message) ?? '';
       }
+
       message.error(errMsg);
       return Promise.reject(error);
     },
   );
 }
 
-const { get, post, request } = createRequestClient();
+const requestClient = createRequestClient();
 
 // 其他配置的请求方法
 // const { request: xxxRequest } = createRequest();
 
-export { get, post, request };
+export { requestClient };

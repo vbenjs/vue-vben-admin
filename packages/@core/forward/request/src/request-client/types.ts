@@ -7,7 +7,7 @@ type RequestContentType =
   | 'multipart/form-data;charset=utf-8';
 
 interface MakeAuthorization {
-  handler: () => null | string;
+  handler: () => { refreshToken: string; token: string } | null;
   key?: string;
 }
 

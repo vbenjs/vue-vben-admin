@@ -46,10 +46,11 @@ export default defineConfig({
   vite: {
     server: {
       proxy: {
-        '/vben-api': {
+        '/api': {
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/vben-api/, ''),
-          target: 'http://localhost:3000',
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          // 代理目标地址 - backend-mock 项目
+          target: 'http://localhost:5320/api',
           ws: true,
         },
       },

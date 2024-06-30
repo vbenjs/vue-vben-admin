@@ -6,7 +6,6 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 type AccessToken = null | string;
 
 interface BasicUserInfo {
-  [key: string]: any;
   /**
    * 头像
    */
@@ -15,12 +14,14 @@ interface BasicUserInfo {
    * 用户昵称
    */
   realName: string;
-
+  /**
+   * 用户角色
+   */
+  roles?: string[];
   /**
    * 用户id
    */
   userId: string;
-
   /**
    * 用户名
    */
@@ -40,6 +41,10 @@ interface AccessState {
    * 登录 accessToken
    */
   accessToken: AccessToken;
+  /**
+   * 登录 accessToken
+   */
+  refreshToken: AccessToken;
   /**
    * 用户信息
    */
@@ -64,16 +69,15 @@ const useAccessStore = defineStore('access', {
     setAccessToken(token: AccessToken) {
       this.accessToken = token;
     },
+    setRefreshToken(token: AccessToken) {
+      this.refreshToken = token;
+    },
     setUserInfo(userInfo: BasicUserInfo) {
       // 设置用户信息
       this.userInfo = userInfo;
       // 设置角色信息
       const roles = userInfo?.roles ?? [];
-      const roleValues =
-        typeof roles[0] === 'string'
-          ? roles
-          : roles.map((item: Record<string, any>) => item.value);
-      this.setUserRoles(roleValues);
+      this.setUserRoles(roles);
     },
     setUserRoles(roles: string[]) {
       this.userRoles = roles;
@@ -89,6 +93,9 @@ const useAccessStore = defineStore('access', {
     getAccessToken(): AccessToken {
       return this.accessToken;
     },
+    getRefreshToken(): AccessToken {
+      return this.refreshToken;
+    },
     getUserInfo(): BasicUserInfo | null {
       return this.userInfo;
     },
@@ -98,13 +105,13 @@ const useAccessStore = defineStore('access', {
   },
   persist: {
     // 持久化
-    // TODO: accessToken 过期时间
-    paths: ['accessToken', 'userRoles', 'userInfo'],
+    paths: ['accessToken', 'refreshToken', 'userRoles', 'userInfo'],
   },
   state: (): AccessState => ({
     accessMenus: [],
     accessRoutes: [],
     accessToken: null,
+    refreshToken: null,
     userInfo: null,
     userRoles: [],
   }),

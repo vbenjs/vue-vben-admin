@@ -71,8 +71,6 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   injectAppLoading?: boolean;
   /** 是否注入版权信息 */
   license?: boolean;
-  /** mock 插件配置 */
-  mock?: boolean;
   /** 是否开启pwa */
   pwa?: boolean;
   /** pwa 插件配置 */

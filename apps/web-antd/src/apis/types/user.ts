@@ -10,6 +10,7 @@ namespace UserApiType {
     accessToken: string;
     desc: string;
     realName: string;
+    refreshToken: string;
     userId: string;
     username: string;
   }

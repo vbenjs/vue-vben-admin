@@ -30,6 +30,7 @@ class RequestClient {
    * @param options - Axios请求配置，可选
    */
   constructor(options: RequestClientOptions = {}) {
+    this.bindMethods();
     // 合并默认配置和传入的配置
     const defaultConfig: CreateAxiosDefaults = {
       headers: {
@@ -63,6 +64,21 @@ class RequestClient {
     this.setupInterceptors();
   }
 
+  private bindMethods() {
+    const propertyNames = Object.getOwnPropertyNames(
+      Object.getPrototypeOf(this),
+    );
+    propertyNames.forEach((propertyName) => {
+      const propertyValue = (this as any)[propertyName];
+      if (
+        typeof propertyValue === 'function' &&
+        propertyName !== 'constructor'
+      ) {
+        (this as any)[propertyName] = propertyValue.bind(this);
+      }
+    });
+  }
+
   private errorHandler(error: any) {
     return Promise.reject(error);
   }
@@ -71,8 +87,8 @@ class RequestClient {
     this.addRequestInterceptor((config: InternalAxiosRequestConfig) => {
       const authorization = this.makeAuthorization?.(config);
       if (authorization) {
-        config.headers[authorization.key || 'Authorization'] =
-          authorization.handler?.();
+        const { token } = authorization.handler?.() ?? {};
+        config.headers[authorization.key || 'Authorization'] = token;
       }
       return config;
     }, this.errorHandler);
