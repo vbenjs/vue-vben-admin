@@ -41,8 +41,15 @@ const theme = computed(() => {
 });
 
 const logoClass = computed(() => {
+  let cls = '';
   const { collapsed, collapsedShowTitle } = preferences.sidebar;
-  return collapsedShowTitle && collapsed && !isMixedNav.value ? 'mx-auto' : '';
+  if (collapsedShowTitle && collapsed && !isMixedNav.value) {
+    cls += ' mx-auto';
+  }
+  if (isSideMixedNav.value) {
+    cls += ' flex-center';
+  }
+  return cls;
 });
 
 const isMenuRounded = computed(() => {

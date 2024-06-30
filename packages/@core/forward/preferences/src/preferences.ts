@@ -72,7 +72,6 @@ class PreferenceManager {
   private handleUpdates(updates: DeepPartial<Preferences>) {
     const themeUpdates = updates.theme || {};
     const appUpdates = updates.app || {};
-
     if (themeUpdates && Object.keys(themeUpdates).length > 0) {
       this.updateTheme(this.state);
     }
@@ -162,15 +161,14 @@ class PreferenceManager {
   private updateColorMode(preference: Preferences) {
     if (preference.app) {
       const { colorGrayMode, colorWeakMode } = preference.app;
-      const body = document.body;
       const COLOR_WEAK = 'invert-mode';
       const COLOR_GRAY = 'grayscale-mode';
       colorWeakMode
-        ? body.classList.add(COLOR_WEAK)
-        : body.classList.remove(COLOR_WEAK);
+        ? document.documentElement.classList.add(COLOR_WEAK)
+        : document.documentElement.classList.remove(COLOR_WEAK);
       colorGrayMode
-        ? body.classList.add(COLOR_GRAY)
-        : body.classList.remove(COLOR_GRAY);
+        ? document.documentElement.classList.add(COLOR_GRAY)
+        : document.documentElement.classList.remove(COLOR_GRAY);
     }
   }
 
@@ -341,13 +339,14 @@ class PreferenceManager {
     [STORAGE_KEY, STORAGE_KEY_THEME, STORAGE_KEY_LOCALE].forEach((key) => {
       this.cache?.removeItem(key);
     });
+    this.updatePreferences(this.state);
   }
 
   /**
    * 更新偏好设置
    * @param updates - 要更新的偏好设置
    */
-  public updatePreferences(updates: DeepPartial<Preferences>) {
+  public async updatePreferences(updates: DeepPartial<Preferences>) {
     const mergedState = merge({}, updates, markRaw(this.state));
 
     Object.assign(this.state, mergedState);

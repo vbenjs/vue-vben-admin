@@ -92,7 +92,7 @@ const props = withDefaults(defineProps<Props>(), {
   domVisible: true,
   extraWidth: 180,
   fixedExtra: false,
-  isSideMixed: false,
+  isSidebarMixed: false,
   mixedWidth: 80,
   paddingTop: 60,
   show: true,
@@ -118,13 +118,13 @@ const hiddenSideStyle = computed((): CSSProperties => {
 });
 
 const style = computed((): CSSProperties => {
-  const { isSideMixed, paddingTop, zIndex } = props;
+  const { isSidebarMixed, paddingTop, zIndex } = props;
 
   return {
     ...calcMenuWidthStyle(false),
     paddingTop: `${paddingTop}px`,
     zIndex,
-    ...(isSideMixed && extraVisible.value ? { transition: 'none' } : {}),
+    ...(isSidebarMixed && extraVisible.value ? { transition: 'none' } : {}),
   };
 });
 
@@ -147,8 +147,8 @@ const extraTitleStyle = computed((): CSSProperties => {
 });
 
 const contentWidthStyle = computed((): CSSProperties => {
-  const { collapseWidth, fixedExtra, isSideMixed, mixedWidth } = props;
-  if (isSideMixed && fixedExtra) {
+  const { collapseWidth, fixedExtra, isSidebarMixed, mixedWidth } = props;
+  if (isSidebarMixed && fixedExtra) {
     return { width: `${collapse.value ? collapseWidth : mixedWidth}px` };
   }
   return {};
@@ -165,10 +165,10 @@ const contentStyle = computed((): CSSProperties => {
 });
 
 const headerStyle = computed((): CSSProperties => {
-  const { headerHeight, isSideMixed } = props;
+  const { headerHeight, isSidebarMixed } = props;
 
   return {
-    ...(isSideMixed ? { display: 'flex', justifyContent: 'center' } : {}),
+    ...(isSidebarMixed ? { display: 'flex', justifyContent: 'center' } : {}),
     height: `${headerHeight}px`,
     ...contentWidthStyle.value,
   };
@@ -195,10 +195,16 @@ watchEffect(() => {
 });
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
-  const { backgroundColor, extraWidth, fixedExtra, isSideMixed, show, width } =
-    props;
+  const {
+    backgroundColor,
+    extraWidth,
+    fixedExtra,
+    isSidebarMixed,
+    show,
+    width,
+  } = props;
 
-  let widthValue = `${width + (isSideMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
+  let widthValue = `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
 
   const { collapseWidth } = props;
 

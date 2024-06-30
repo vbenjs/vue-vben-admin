@@ -52,7 +52,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
         @mouseenter="handleMouseenter(menu)"
       >
         <VbenIcon :class="e('icon')" :icon="menu.icon" fallback />
-        <span :class="e('name')"> {{ menu.name }}</span>
+        <span :class="e('name')" class="truncate"> {{ menu.name }}</span>
       </li>
     </template>
   </ul>

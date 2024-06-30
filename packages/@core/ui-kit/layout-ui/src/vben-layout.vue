@@ -27,10 +27,8 @@ const props = withDefaults(defineProps<Props>(), {
   contentPaddingRight: 0,
   contentPaddingTop: 0,
   footerEnable: false,
-  // footerBackgroundColor: '#fff',
   footerFixed: true,
   footerHeight: 32,
-  // headerBackgroundColor: 'hsl(var(--background))',
   headerHeight: 50,
   headerHeightOffset: 10,
   headerHidden: false,
@@ -39,7 +37,6 @@ const props = withDefaults(defineProps<Props>(), {
   headerVisible: true,
   isMobile: false,
   layout: 'sidebar-nav',
-  // sideCollapse: false,
   sideCollapseWidth: 60,
   sidebarCollapseShowTitle: false,
   sidebarHidden: false,
@@ -48,7 +45,6 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   tabbarEnable: true,
-  // tabsBackgroundColor: 'hsl(var(--background))',
   tabsHeight: 36,
   zIndex: 200,
 });
@@ -134,6 +130,7 @@ const headerWrapperHeight = computed(() => {
 const getSideCollapseWidth = computed(() => {
   const { sideCollapseWidth, sidebarCollapseShowTitle, sidebarMixedWidth } =
     props;
+
   return sidebarCollapseShowTitle || isSidebarMixedNav.value
     ? sidebarMixedWidth
     : sideCollapseWidth;
@@ -187,6 +184,7 @@ const getSidebarWidth = computed(() => {
  */
 const getExtraWidth = computed(() => {
   const { sidebarWidth } = props;
+
   return sidebarExtraCollapse.value ? getSideCollapseWidth.value : sidebarWidth;
 });
 

@@ -21,11 +21,11 @@ html {
   border-width: 0;
 }
 
-body.invert-mode {
+html.invert-mode {
   @apply invert;
 }
 
-body.grayscale-mode {
+html.grayscale-mode {
   @apply grayscale;
 }
 
