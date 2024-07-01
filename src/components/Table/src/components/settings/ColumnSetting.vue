@@ -347,7 +347,7 @@
 
     // 按 columnOptions 的排序 调整 table.getColumns() 的顺序和值
     for (const opt of columnOptions.value) {
-      const colIdx = columns.findIndex((o) => o.dataIndex === opt.value);
+      const colIdx = columns.findIndex((o) => o.key === opt.value);
       //
       if (colIdx > -1) {
         const target = columns[colIdx];
@@ -543,12 +543,7 @@
               : col.customTitle === 'string'
                 ? col.customTitle
                 : '',
-          value:
-            typeof col.dataIndex === 'string'
-              ? col.dataIndex
-              : col.title === 'string'
-                ? col.title
-                : '',
+          value: (col.key as string) || '',
           column: {
             defaultHidden: col.defaultHidden,
           },
