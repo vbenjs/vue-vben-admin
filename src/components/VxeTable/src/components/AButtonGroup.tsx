@@ -1,20 +1,20 @@
 import {
   FormItemContentRenderParams,
-  FormItemRenderOptions,
+  VxeFormItemPropTypes,
   VxeGlobalRendererHandles,
 } from 'vxe-table';
 import { createDefaultRender, createEditRender, createFormItemRender } from './AButton';
 
 function createEditButtonRender() {
   return function (
-    renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableEditOptions,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) {
     const buttonEditRender = createEditRender();
     const { children } = renderOpts;
     if (children) {
       return children.map(
-        (childRenderOpts: VxeGlobalRendererHandles.RenderEditOptions) =>
+        (childRenderOpts: VxeGlobalRendererHandles.RenderTableEditOptions) =>
           buttonEditRender(childRenderOpts, params)[0],
       );
     }
@@ -25,7 +25,7 @@ function createEditButtonRender() {
 function createDefaultButtonRender() {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
+    params: VxeGlobalRendererHandles.RenderTableDefaultParams,
   ) {
     const buttonDefaultRender = createDefaultRender();
     const { children } = renderOpts;
@@ -40,12 +40,16 @@ function createDefaultButtonRender() {
 }
 
 function createButtonItemRender() {
-  return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
+  return function (
+    renderOpts: VxeFormItemPropTypes.ItemRender,
+    params: FormItemContentRenderParams,
+  ) {
     const buttonItemRender = createFormItemRender();
     const { children } = renderOpts;
     if (children) {
       return children.map(
-        (childRenderOpts: FormItemRenderOptions) => buttonItemRender(childRenderOpts, params)[0],
+        (childRenderOpts: VxeFormItemPropTypes.ItemRender) =>
+          buttonItemRender(childRenderOpts, params)[0],
       );
     }
     return [];

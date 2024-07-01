@@ -1,7 +1,7 @@
 import { ComponentOptions, h } from 'vue';
 import {
   FormItemContentRenderParams,
-  FormItemRenderOptions,
+  VxeFormItemPropTypes,
   VxeGlobalRendererHandles,
 } from 'vxe-table';
 import XEUtils from 'xe-utils';
@@ -301,11 +301,14 @@ export function createDefaultFilterRender() {
 export function createFormItemRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
-    renderOpts: FormItemRenderOptions,
+    renderOpts: VxeFormItemPropTypes.ItemRender,
     params: FormItemContentRenderParams,
   ) => Record<string, any>,
 ) {
-  return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
+  return function (
+    renderOpts: VxeFormItemPropTypes.ItemRender,
+    params: FormItemContentRenderParams,
+  ) {
     const args = (callBack && callBack(renderOpts, params)) ?? {};
     const { data, property, $form } = params;
     const { name } = renderOpts;
