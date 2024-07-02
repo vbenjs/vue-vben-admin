@@ -1,8 +1,9 @@
 import { h } from 'vue';
 import {
   FormItemContentRenderParams,
-  FormItemRenderOptions,
+  VxeFormItemPropTypes,
   VxeGlobalRendererHandles,
+  VxeGlobalRendererOptions,
 } from 'vxe-table';
 import XEUtils from 'xe-utils';
 import { cellText, createEvents, createProps, getComponent } from './common';
@@ -11,8 +12,8 @@ const COMPONENT_NAME = 'AButton';
 
 export function createEditRender() {
   return function (
-    renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableEditOptions,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) {
     const { attrs } = renderOpts;
     const Component = getComponent(COMPONENT_NAME);
@@ -29,8 +30,8 @@ export function createEditRender() {
 
 export function createDefaultRender() {
   return function (
-    renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableEditOptions,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) {
     const { attrs } = renderOpts;
     const Component = getComponent(COMPONENT_NAME);
@@ -50,7 +51,10 @@ export function createDefaultRender() {
 }
 
 export function createFormItemRender() {
-  return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
+  return function (
+    renderOpts: VxeFormItemPropTypes.ItemRender,
+    params: FormItemContentRenderParams,
+  ) {
     const { attrs, content } = renderOpts;
     const { property, $form, data } = params;
     const props = createProps(renderOpts, null);
@@ -113,8 +117,8 @@ function createToolbarButtonRender() {
 }
 
 export default {
-  renderEdit: createEditRender(),
-  renderDefault: createDefaultRender(),
-  renderItemContent: createFormItemRender(),
+  renderTableEdit: createEditRender(),
+  renderTableDefault: createDefaultRender(),
+  renderFormItemContent: createFormItemRender(),
   renderToolbarButton: createToolbarButtonRender(),
-};
+} as VxeGlobalRendererOptions;

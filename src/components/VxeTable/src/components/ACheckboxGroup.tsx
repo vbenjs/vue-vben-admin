@@ -1,5 +1,6 @@
+import { VxeGlobalRendererOptions } from 'vxe-table';
 import { createFormItemRender } from './common';
 
 export default {
-  renderItemContent: createFormItemRender(),
-};
+  renderFormItemContent: createFormItemRender(),
+} as VxeGlobalRendererOptions;

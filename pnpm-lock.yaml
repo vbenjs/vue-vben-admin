@@ -122,15 +122,18 @@ importers:
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.4.25(typescript@5.4.5))
+      vxe-pc-ui:
+        specifier: ^4.0.44
+        version: 4.0.44
       vxe-table:
-        specifier: ^4.6.3
-        version: 4.6.3(vue@3.4.25(typescript@5.4.5))
+        specifier: ^4.7.40
+        version: 4.7.40
       vxe-table-plugin-export-xlsx:
-        specifier: ^4.0.1
-        version: 4.0.1(vxe-table@4.6.3(vue@3.4.25(typescript@5.4.5)))
+        specifier: ^4.0.4
+        version: 4.0.4(vxe-table@4.7.40)
       xe-utils:
-        specifier: ^3.5.25
-        version: 3.5.25
+        specifier: ^3.5.28
+        version: 3.5.28
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -2005,6 +2008,9 @@ packages:
   '@vueuse/shared@10.9.0':
     resolution: {integrity: sha512-Uud2IWncmAfJvRaFYzv5OHDli+FbOzxiVEQdLCKQKLyhz94PIyFC3CHcH7EDMwIn8NPtD06+PNbC/PiO0LGLtw==}
 
+  '@vxe-ui/core@1.0.12':
+    resolution: {integrity: sha512-s79mQw6uYSbTVGBWbxrisHwJV1b770vZMT9XpY3khcFQhXNo25+PS3FLrNCSsBBJR0ZkBLOXDER/ft9DIqgFTw==}
+
   '@zxcvbn-ts/core@3.0.4':
     resolution: {integrity: sha512-aQeiT0F09FuJaAqNrxynlAwZ2mW/1MdXakKWNmGM1Qp/VaY6CnB/GfnMS2T8gB2231Esp1/maCWd8vTG4OuShw==}
 
@@ -3096,8 +3102,8 @@ packages:
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
 
-  dom-zindex@1.0.2:
-    resolution: {integrity: sha512-QceDZxPlvzhpg6e8szxNiKPUt5Y9SfFTe3nZy8og3JoPQPlAlzBzHa/lhDkhgeG3cjbKyQcuoic+wymF0o0d1Q==}
+  dom-zindex@1.0.4:
+    resolution: {integrity: sha512-PNk7u71TJ1C9Lwjjp5nNuQcVWuECFMmr9kZAwi2UbgWUM7jXdTCe4O4x5bhLUa07jpcZUVA5Du3ho7/FXzS9Ng==}
 
   domelementtype@1.3.1:
     resolution: {integrity: sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==}
@@ -7060,15 +7066,16 @@ packages:
     peerDependencies:
       vue: ^3.0.1
 
-  vxe-table-plugin-export-xlsx@4.0.1:
-    resolution: {integrity: sha512-puUOUfptu5ciEiFqTlVni3twLICSbkl87uXOsjZzrEyXJHJS9dYu7ZTD7/DRMqyuWyU3Idg7AekfcdcslP4Y/A==}
+  vxe-pc-ui@4.0.44:
+    resolution: {integrity: sha512-wiauFMmSvEkVKa/AsKGb5CMi91Ojts+Ydcn+iespgl3xMBD01BR/CGzeCI478P3XAFBsiN4gWlgxHmGP5TR8UA==}
+
+  vxe-table-plugin-export-xlsx@4.0.4:
+    resolution: {integrity: sha512-Og2ZcIWTV7msT1ddPT/spxJaP1T8wxs3Uuu1LO/3HL5Ugt9tShEY3FJ7YGic3j1Nk6ZZT+VsU+afgT5EzpcUJw==}
     peerDependencies:
       vxe-table: ^4.5.0
 
-  vxe-table@4.6.3:
-    resolution: {integrity: sha512-71FOi0lFQbvs1dUIZPTDCLaSJkRjLHlBuNzWIR9RofBe4EvhX4OowrhaCCsCXXKCCGSlJRp6+/O2c71lEZY9PQ==}
-    peerDependencies:
-      vue: ^3.2.28
+  vxe-table@4.7.40:
+    resolution: {integrity: sha512-y9VC3oLJgusxFj3xZ28G4gU+YClBuDIV8oM75Dx3doYJ7vanXZnSf70XJ+W5xEKflamUmjGre66XZ2b4XuqtMw==}
 
   w3c-hr-time@1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}
@@ -7206,8 +7213,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  xe-utils@3.5.25:
-    resolution: {integrity: sha512-d/ty5eo4hXtho/3195XAvqereIoSYJ+XfC52f3ZEPxTaCeyLFivDZTyX6gTdsR65ISH1Irvn85H0bSL60dUhSQ==}
+  xe-utils@3.5.28:
+    resolution: {integrity: sha512-oeLLJ0b54QdOSSgYQ9TiKW/xAGrc9r0weCA/5UfyGdm3n3js4cNOuuf9Tml7UwgBQpl4uWMbMwUZKLh2yqPF3A==}
 
   xlsx@0.18.5:
     resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
@@ -9228,6 +9235,11 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@vxe-ui/core@1.0.12':
+    dependencies:
+      dom-zindex: 1.0.4
+      xe-utils: 3.5.28
+
   '@zxcvbn-ts/core@3.0.4':
     dependencies:
       fastest-levenshtein: 1.0.16
@@ -10389,7 +10401,7 @@ snapshots:
       domhandler: 5.0.3
       entities: 4.5.0
 
-  dom-zindex@1.0.2: {}
+  dom-zindex@1.0.4: {}
 
   domelementtype@1.3.1: {}
 
@@ -15005,15 +15017,17 @@ snapshots:
       sortablejs: 1.14.0
       vue: 3.4.25(typescript@5.4.5)
 
-  vxe-table-plugin-export-xlsx@4.0.1(vxe-table@4.6.3(vue@3.4.25(typescript@5.4.5))):
+  vxe-pc-ui@4.0.44:
     dependencies:
-      vxe-table: 4.6.3(vue@3.4.25(typescript@5.4.5))
+      '@vxe-ui/core': 1.0.12
 
-  vxe-table@4.6.3(vue@3.4.25(typescript@5.4.5)):
+  vxe-table-plugin-export-xlsx@4.0.4(vxe-table@4.7.40):
     dependencies:
-      dom-zindex: 1.0.2
-      vue: 3.4.25(typescript@5.4.5)
-      xe-utils: 3.5.25
+      vxe-table: 4.7.40
+
+  vxe-table@4.7.40:
+    dependencies:
+      vxe-pc-ui: 4.0.44
 
   w3c-hr-time@1.0.2:
     dependencies:
@@ -15138,7 +15152,7 @@ snapshots:
 
   ws@8.16.0: {}
 
-  xe-utils@3.5.25: {}
+  xe-utils@3.5.28: {}
 
   xlsx@0.18.5:
     dependencies:

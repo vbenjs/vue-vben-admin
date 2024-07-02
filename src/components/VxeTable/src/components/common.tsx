@@ -1,7 +1,7 @@
 import { ComponentOptions, h } from 'vue';
 import {
   FormItemContentRenderParams,
-  FormItemRenderOptions,
+  VxeFormItemPropTypes,
   VxeGlobalRendererHandles,
 } from 'vxe-table';
 import XEUtils from 'xe-utils';
@@ -160,12 +160,12 @@ export function createDefaultRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
+    params: VxeGlobalRendererHandles.RenderTableDefaultParams,
   ) => Record<string, any>,
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
+    params: VxeGlobalRendererHandles.RenderTableDefaultParams,
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -195,13 +195,13 @@ export function createDefaultRender(
 export function createEditRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
-    renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableEditOptions,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) => Record<string, any>,
 ) {
   return function (
-    renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableEditOptions,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -232,12 +232,12 @@ export function createFilterRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderTableFilterParams,
   ) => Record<string, any>,
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderTableFilterParams,
   ) {
     const { column } = params;
     const { name, attrs } = renderOpts;
@@ -287,7 +287,7 @@ export function createFilterRender(
  */
 
 export function createDefaultFilterRender() {
-  return function (params: VxeGlobalRendererHandles.FilterMethodParams) {
+  return function (params: VxeGlobalRendererHandles.TableFilterMethodParams) {
     const { option, row, column } = params;
     const { data } = option;
     const cellValue = XEUtils.get(row, column.field as string);
@@ -301,11 +301,14 @@ export function createDefaultFilterRender() {
 export function createFormItemRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
-    renderOpts: FormItemRenderOptions,
+    renderOpts: VxeFormItemPropTypes.ItemRender,
     params: FormItemContentRenderParams,
   ) => Record<string, any>,
 ) {
-  return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
+  return function (
+    renderOpts: VxeFormItemPropTypes.ItemRender,
+    params: FormItemContentRenderParams,
+  ) {
     const args = (callBack && callBack(renderOpts, params)) ?? {};
     const { data, property, $form } = params;
     const { name } = renderOpts;
@@ -344,13 +347,13 @@ export function createFormItemRender(
 export function createCellRender(
   getSelectCellValue: Function,
   callBack?: (
-    renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableCellOptions,
+    params: VxeGlobalRendererHandles.RenderTableCellParams,
   ) => Array<any>,
 ) {
   return function (
-    renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
+    renderOpts: VxeGlobalRendererHandles.RenderTableCellOptions,
+    params: VxeGlobalRendererHandles.RenderTableCellParams,
   ) {
     const args = (callBack && callBack(renderOpts, params)) ?? [];
     const cellLabel = getSelectCellValue && getSelectCellValue(renderOpts, params, ...args);

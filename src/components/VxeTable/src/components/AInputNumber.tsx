@@ -1,3 +1,4 @@
+import { VxeGlobalRendererOptions } from 'vxe-table';
 import {
   createEditRender,
   createFilterRender,
@@ -7,10 +8,10 @@ import {
 } from './common';
 
 export default {
-  autofocus: 'input.ant-input-number-input',
-  renderDefault: createDefaultRender(),
-  renderEdit: createEditRender(),
-  renderFilter: createFilterRender(),
-  defaultFilterMethod: createDefaultFilterRender(),
-  renderItemContent: createFormItemRender(),
-};
+  tableAutoFocus: 'input.ant-input-number-input',
+  renderTableDefault: createDefaultRender(),
+  renderTableEdit: createEditRender(),
+  renderTableFilter: createFilterRender(),
+  tableFilterDefaultMethod: createDefaultFilterRender(),
+  renderFormItemContent: createFormItemRender(),
+} as VxeGlobalRendererOptions;

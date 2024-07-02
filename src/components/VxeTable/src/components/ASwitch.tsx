@@ -9,11 +9,12 @@ import {
   createFormItemRender,
   getComponent,
 } from './common';
+import { VxeGlobalRendererOptions } from 'vxe-table';
 
 export default {
-  renderDefault: createDefaultRender(),
-  renderEdit: createEditRender(),
-  renderFilter(renderOpts, params) {
+  renderTableDefault: createDefaultRender(),
+  renderTableEdit: createEditRender(),
+  renderTableFilter(renderOpts, params) {
     const { column } = params;
     const { name, attrs } = renderOpts;
     const Component = getComponent(name);
@@ -48,6 +49,6 @@ export default {
       ),
     ];
   },
-  defaultFilterMethod: createDefaultFilterRender(),
-  renderItemContent: createFormItemRender(),
-};
+  tableFilterDefaultMethod: createDefaultFilterRender(),
+  renderFormItemContent: createFormItemRender(),
+} as VxeGlobalRendererOptions;
