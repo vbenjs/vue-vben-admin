@@ -1,20 +1,21 @@
 import XEUtils from 'xe-utils';
 import { createDefaultRender, createEditRender, createFormItemRender } from './common';
+import { VxeGlobalRendererOptions } from 'vxe-table';
 
 export default {
-  renderDefault: createDefaultRender({}, (_, params) => {
+  renderTableDefault: createDefaultRender({}, (_, params) => {
     return {
       params: XEUtils.get(params, 'row'),
     };
   }),
-  renderEdit: createEditRender({}, (_, params) => {
+  renderTableEdit: createEditRender({}, (_, params) => {
     return {
       params: XEUtils.get(params, 'row'),
     };
   }),
-  renderItemContent: createFormItemRender({}, (_, params) => {
+  renderFormItemContent: createFormItemRender({}, (_, params) => {
     return {
       params: XEUtils.get(params, 'row'),
     };
   }),
-};
+} as VxeGlobalRendererOptions;
