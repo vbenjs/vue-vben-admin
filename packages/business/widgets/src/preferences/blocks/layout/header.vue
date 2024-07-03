@@ -37,7 +37,7 @@ const localeItems: SelectListItem[] = [
 
 <template>
   <SwitchItem v-model="headerEnable" :disabled="disabled">
-    {{ $t('preferences.header-visible') }}
+    {{ $t('preferences.header.visible') }}
   </SwitchItem>
   <SelectItem
     v-model="headerMode"
