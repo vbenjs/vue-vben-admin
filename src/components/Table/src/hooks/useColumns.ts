@@ -14,10 +14,10 @@ import { ColumnType } from 'ant-design-vue/es/table';
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
   item.align = item.align || DEFAULT_ALIGN;
+  if (!key) {
+    item.key = typeof dataIndex == 'object' ? dataIndex.join('-') : dataIndex;
+  }
   if (ellipsis) {
-    if (!key) {
-      item.key = typeof dataIndex == 'object' ? dataIndex.join('-') : dataIndex;
-    }
     if (!isBoolean(item.ellipsis)) {
       Object.assign(item, {
         ellipsis,
