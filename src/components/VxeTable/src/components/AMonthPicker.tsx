@@ -1,3 +1,4 @@
+import { VxeGlobalRendererOptions } from 'vxe-table';
 import { getDatePickerCellValue } from './ADatePicker';
 import {
   createCellRender,
@@ -7,12 +8,12 @@ import {
 } from './common';
 
 export default {
-  renderEdit: createEditRender(),
-  renderCell: createCellRender(getDatePickerCellValue, () => {
+  renderTableEdit: createEditRender(),
+  renderTableCell: createCellRender(getDatePickerCellValue, () => {
     return ['YYYY-MM'];
   }),
-  renderItemContent: createFormItemRender(),
-  exportMethod: createExportMethod(getDatePickerCellValue, () => {
+  renderFormItemContent: createFormItemRender(),
+  tableExportMethod: createExportMethod(getDatePickerCellValue, () => {
     return ['YYYY-MM'];
   }),
-};
+} as VxeGlobalRendererOptions;
