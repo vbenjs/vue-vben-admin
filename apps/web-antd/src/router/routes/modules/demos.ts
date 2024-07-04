@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Demos',
     path: '/demos',
-    redirect: '/demos/access/frontend',
+    redirect: '/demos/access',
     children: [
       {
         meta: {
@@ -23,12 +23,13 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.access.title'),
         },
         name: 'Access',
-        path: '/access',
-        redirect: '/access/frontend',
+        path: 'access',
+        redirect: '/demos/access/frontend',
         children: [
           {
             name: 'AccessFrontend',
             path: 'frontend',
+            redirect: '/demos/access/frontend/page-control',
             meta: {
               icon: 'mdi:table-key',
               title: $t('page.demos.access.frontend-control'),
