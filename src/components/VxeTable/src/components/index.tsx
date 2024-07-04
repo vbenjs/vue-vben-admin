@@ -76,7 +76,7 @@ export const VXETablePluginAntd = {
   install(vxetablecore: VxeUIExport) {
     const { interceptor, renderer } = vxetablecore;
 
-    renderer.mixin({
+    const customRenderComponents = {
       AAutoComplete,
       AInput,
       AInputNumber,
@@ -99,6 +99,11 @@ export const VXETablePluginAntd = {
       AEmpty,
       AInputSearch,
       AYearPicker,
+    };
+
+    Object.keys(customRenderComponents).forEach((name) => {
+      if (renderer.get(name)) return;
+      renderer.add(name, customRenderComponents[name]);
     });
 
     interceptor.add('event.clearFilter', handleClearEvent);
