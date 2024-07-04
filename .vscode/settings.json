@@ -15,8 +15,6 @@
   "editor.detectIndentation": false,
   "editor.cursorBlinking": "expand",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "Input Mono, FiraCode-Retina, monospace",
-  "editor.fontLigatures": true,
   "editor.largeFileOptimizations": false,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
