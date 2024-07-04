@@ -190,7 +190,7 @@ preferences:
     icon: 显示面包屑图标
     home: 显示首页按钮
     style: 面包屑风格
-    hide-only-one: 只有一个时隐藏
+    hide-only-one: 仅有一个时隐藏
     background: 背景
   animation:
     title: 动画

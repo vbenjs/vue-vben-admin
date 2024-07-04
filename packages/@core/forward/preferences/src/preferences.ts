@@ -107,29 +107,6 @@ class PreferenceManager {
       return;
     }
 
-    // const debounceWaterState = useDebounceFn(() => {
-    //   const newFlattenedState = flattenObject(this.state);
-    //   for (const k in newFlattenedState) {
-    //     const key = k as FlattenObjectKeys<Preferences>;
-    //     this.flattenedState[key] = newFlattenedState[key];
-    //   }
-    //   this.savePreferences(this.state);
-    // }, 16);
-
-    // const debounceWaterFlattenedState = useDebounceFn(
-    //   (val: Flatten<Preferences>) => {
-    //     this.updateState(val);
-    //     this.savePreferences(this.state);
-    //   },
-    //   16,
-    // );
-
-    // 监听 state 的变化
-    // watch(this.state, debounceWaterState, { deep: true });
-
-    // 监听 flattenedState 的变化并触发 set 方法
-    // watch(this.flattenedState, debounceWaterFlattenedState, { deep: true });
-
     // 监听断点，判断是否移动端
     const breakpoints = useBreakpoints(breakpointsTailwind);
     const isMobile = breakpoints.smaller('md');
@@ -211,16 +188,6 @@ class PreferenceManager {
   }
 
   /**
-   *  更新状态
-   * 将新的扁平对象转换为嵌套对象，并与当前状态合并。
-   * @param {FlattenObject<Preferences>} newValue - 新的扁平对象
-   */
-  // private updateState(newValue: Flatten<Preferences>) {
-  //   const nestObj = nestedObject(newValue, 2);
-  //   Object.assign(this.state, merge(nestObj, this.state));
-  // }
-
-  /**
    * 更新主题
    * @param preferences - 当前偏好设置对象，它的主题值将被用来设置文档的主题。
    */
@@ -278,9 +245,11 @@ class PreferenceManager {
     }
   }
 
-  // public getFlatPreferences() {
-  //   return this.flattenedState;
-  // }
+  clearCache() {
+    [STORAGE_KEY, STORAGE_KEY_LOCALE, STORAGE_KEY_THEME].forEach((key) => {
+      this.cache?.removeItem(key);
+    });
+  }
 
   public getInitialPreferences() {
     return this.initialPreferences;
@@ -308,8 +277,8 @@ class PreferenceManager {
     // 加载并合并当前存储的偏好设置
     const mergedPreference = merge(
       {},
-      this.loadCachedPreferences(),
-      this.initialPreferences,
+      overrides,
+      this.loadCachedPreferences() || defaultPreferences,
     );
 
     // 更新偏好设置
@@ -351,8 +320,6 @@ class PreferenceManager {
     const mergedState = merge({}, updates, markRaw(this.state));
 
     Object.assign(this.state, mergedState);
-
-    // Object.assign(this.flattenedState, flattenObject(this.state));
 
     // 根据更新的键值执行相应的操作
     this.handleUpdates(updates);
