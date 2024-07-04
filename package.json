@@ -74,7 +74,7 @@
     "unbuild": "^2.0.0",
     "vite": "^5.3.3",
     "vitest": "^2.0.0-beta.12",
-    "vue-tsc": "^2.0.24"
+    "vue-tsc": "^2.0.26"
   },
   "engines": {
     "node": ">=20",

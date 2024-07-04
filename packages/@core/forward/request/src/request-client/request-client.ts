@@ -12,7 +12,6 @@ import { merge } from '@vben-core/toolkit';
 
 import axios from 'axios';
 
-import { AxiosCanceler } from './modules/canceler';
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
@@ -97,8 +96,6 @@ class RequestClient {
   private setupInterceptors() {
     // 默认拦截器
     this.setupAuthorizationInterceptor();
-    // 设置取消请求的拦截器
-    this.setupCancelerInterceptor();
   }
 
   /**
@@ -167,28 +164,6 @@ class RequestClient {
     } catch (error: any) {
       throw error.response ? error.response.data : error;
     }
-  }
-
-  public setupCancelerInterceptor() {
-    const axiosCanceler = new AxiosCanceler();
-    // 注册取消重复请求的请求拦截器
-    this.addRequestInterceptor((config: InternalAxiosRequestConfig) => {
-      return axiosCanceler.addRequest(config);
-    }, this.errorHandler);
-
-    // 注册移除请求的响应拦截器
-    this.addResponseInterceptor(
-      (response: AxiosResponse) => {
-        axiosCanceler.removeRequest(response);
-        return response;
-      },
-      (error) => {
-        if (error.config) {
-          axiosCanceler.removeRequest(error.config);
-        }
-        return Promise.reject(error);
-      },
-    );
   }
 }
 

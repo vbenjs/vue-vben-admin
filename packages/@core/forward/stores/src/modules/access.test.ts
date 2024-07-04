@@ -22,7 +22,7 @@ describe('useAccessStore', () => {
     expect(store.userInfo).toBeNull();
     expect(store.userRoles).toEqual([]);
 
-    const userInfo: any = { name: 'John Doe', roles: [{ value: 'admin' }] };
+    const userInfo: any = { name: 'John Doe', roles: ['admin'] };
     store.setUserInfo(userInfo);
 
     expect(store.userInfo).toEqual(userInfo);
