@@ -1,9 +1,9 @@
 import { h } from 'vue';
-import { VxeGlobalRendererHandles } from 'vxe-table';
+import { VxeGlobalRendererHandles, VxeGlobalRendererOptions } from 'vxe-table';
 import { getComponent } from './common';
 
 function createEmptyRender() {
-  return function (renderOpts: VxeGlobalRendererHandles.RenderEmptyOptions) {
+  return function (renderOpts: VxeGlobalRendererHandles.RenderTableEmptyOptions) {
     const { name, attrs, props } = renderOpts;
 
     const Component = getComponent(name);
@@ -23,5 +23,5 @@ function createEmptyRender() {
 }
 
 export default {
-  renderEmpty: createEmptyRender(),
-};
+  renderTableEmptyView: createEmptyRender(),
+} as VxeGlobalRendererOptions;

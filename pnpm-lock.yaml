@@ -122,15 +122,18 @@ importers:
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.4.25(typescript@5.4.5))
+      vxe-pc-ui:
+        specifier: ^4.0.44
+        version: 4.0.44
       vxe-table:
-        specifier: ^4.7.31
+        specifier: ^4.7.40
         version: 4.7.40
       vxe-table-plugin-export-xlsx:
-        specifier: ^4.0.2
+        specifier: ^4.0.4
         version: 4.0.4(vxe-table@4.7.40)
       xe-utils:
-        specifier: ^3.5.25
-        version: 3.5.25
+        specifier: ^3.5.28
+        version: 3.5.28
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -7070,8 +7073,8 @@ packages:
     peerDependencies:
       vue: ^3.0.1
 
-  vxe-pc-ui@4.0.43:
-    resolution: {integrity: sha512-bfX/6ocvicw6+f4yDLu8LVDt3FZO+T1thoawOdkkFGY/Sakos83EGsFUrI2rXD3TlpG55XCoxcqbS4yQKrcNzg==}
+  vxe-pc-ui@4.0.44:
+    resolution: {integrity: sha512-wiauFMmSvEkVKa/AsKGb5CMi91Ojts+Ydcn+iespgl3xMBD01BR/CGzeCI478P3XAFBsiN4gWlgxHmGP5TR8UA==}
 
   vxe-table-plugin-export-xlsx@4.0.4:
     resolution: {integrity: sha512-Og2ZcIWTV7msT1ddPT/spxJaP1T8wxs3Uuu1LO/3HL5Ugt9tShEY3FJ7YGic3j1Nk6ZZT+VsU+afgT5EzpcUJw==}
@@ -7217,8 +7220,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  xe-utils@3.5.25:
-    resolution: {integrity: sha512-d/ty5eo4hXtho/3195XAvqereIoSYJ+XfC52f3ZEPxTaCeyLFivDZTyX6gTdsR65ISH1Irvn85H0bSL60dUhSQ==}
+  xe-utils@3.5.28:
+    resolution: {integrity: sha512-oeLLJ0b54QdOSSgYQ9TiKW/xAGrc9r0weCA/5UfyGdm3n3js4cNOuuf9Tml7UwgBQpl4uWMbMwUZKLh2yqPF3A==}
 
   xe-utils@3.5.28:
     resolution: {integrity: sha512-oeLLJ0b54QdOSSgYQ9TiKW/xAGrc9r0weCA/5UfyGdm3n3js4cNOuuf9Tml7UwgBQpl4uWMbMwUZKLh2yqPF3A==}
@@ -15024,7 +15027,7 @@ snapshots:
       sortablejs: 1.14.0
       vue: 3.4.25(typescript@5.4.5)
 
-  vxe-pc-ui@4.0.43:
+  vxe-pc-ui@4.0.44:
     dependencies:
       '@vxe-ui/core': 1.0.12
 
@@ -15034,7 +15037,7 @@ snapshots:
 
   vxe-table@4.7.40:
     dependencies:
-      vxe-pc-ui: 4.0.43
+      vxe-pc-ui: 4.0.44
 
   w3c-hr-time@1.0.2:
     dependencies:
@@ -15159,7 +15162,7 @@ snapshots:
 
   ws@8.16.0: {}
 
-  xe-utils@3.5.25: {}
+  xe-utils@3.5.28: {}
 
   xe-utils@3.5.28: {}
 

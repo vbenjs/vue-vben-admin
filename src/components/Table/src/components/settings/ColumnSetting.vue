@@ -540,7 +540,7 @@
           label:
             typeof col.title === 'string'
               ? col.title
-              : col.customTitle === 'string'
+              : typeof col.customTitle === 'string'
                 ? col.customTitle
                 : '',
           value: (col.key as string) || '',
