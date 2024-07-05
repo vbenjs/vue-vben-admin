@@ -6,24 +6,24 @@ import { useAccess } from './use-access';
 
 interface Props {
   /**
-   * Specified role is visible
+   * Specified codes is visible
    * @default []
    */
-  roles?: string[];
+  codes?: string[];
 }
 
 defineOptions({
-  name: 'RoleAuthority',
+  name: 'CodeAuthority',
 });
 
 withDefaults(defineProps<Props>(), {
-  roles: undefined,
+  codes: () => [],
 });
 
 const { hasAuthByRole } = useAccess();
 </script>
 
 <template>
-  <slot v-if="!roles"></slot>
-  <slot v-else-if="hasAuthByRole(roles)"></slot>
+  <slot v-if="!codes"></slot>
+  <slot v-else-if="hasAuthByRole(codes)"></slot>
 </template>

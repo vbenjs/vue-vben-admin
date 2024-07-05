@@ -49,7 +49,7 @@ async function changeAccount(role: string) {
 <template>
   <div class="p-5">
     <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">前端页面访问演示</h1>
+      <h1 class="text-xl font-semibold">前端页面访问权限演示</h1>
       <div class="text-foreground/80 mt-2">
         切换不同的账号，观察左侧菜单变化。
       </div>
@@ -57,14 +57,14 @@ async function changeAccount(role: string) {
 
     <template v-if="accessMode === 'frontend'">
       <div class="card-box mt-5 p-5 font-semibold">
-        当前权限模式:
+        <span class="text-lg">当前权限模式:</span>
         <span class="text-primary mx-4">{{ accessMode }}</span>
         <Button type="primary">切换权限模式</Button>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">
         <div class="mb-3">
-          当前账号:
+          <span class="text-lg">当前账号:</span>
           <span class="text-primary mx-4">
             {{ accessStore.userRoles }}
           </span>
