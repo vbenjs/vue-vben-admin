@@ -12,7 +12,8 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-import { SelectScrollDownButton, SelectScrollUpButton } from '.';
+import SelectScrollDownButton from './SelectScrollDownButton.vue';
+import SelectScrollUpButton from './SelectScrollUpButton.vue';
 
 defineOptions({
   inheritAttrs: false,

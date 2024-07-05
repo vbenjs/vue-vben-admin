@@ -37,11 +37,14 @@ const disableItem = computed(() => {
   <SwitchItem v-model="breadcrumbHideOnlyOne" :disabled="disableItem">
     {{ $t('preferences.breadcrumb.hide-only-one') }}
   </SwitchItem>
-  <SwitchItem v-model="breadcrumbShowHome" :disabled="disableItem">
-    {{ $t('preferences.breadcrumb.home') }}
-  </SwitchItem>
   <SwitchItem v-model="breadcrumbShowIcon" :disabled="disableItem">
     {{ $t('preferences.breadcrumb.icon') }}
+  </SwitchItem>
+  <SwitchItem
+    v-model="breadcrumbShowHome"
+    :disabled="disableItem || !breadcrumbShowIcon"
+  >
+    {{ $t('preferences.breadcrumb.home') }}
   </SwitchItem>
   <ToggleItem
     v-model="breadcrumbStyleType"

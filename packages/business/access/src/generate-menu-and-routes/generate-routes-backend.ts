@@ -15,7 +15,7 @@ import { mapTree } from '@vben-core/toolkit';
 async function generateRoutesByBackend(
   options: GeneratorMenuAndRoutesOptions,
 ): Promise<RouteRecordRaw[]> {
-  const { fetchMenuListAsync, layoutMap, pageMap } = options;
+  const { fetchMenuListAsync, layoutMap = {}, pageMap = {} } = options;
 
   try {
     const menuRoutes = await fetchMenuListAsync?.();
