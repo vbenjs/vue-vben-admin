@@ -178,6 +178,15 @@ preferences:
     title: Tabbar
     enable: Enable Tab Bar
     icon: Display Tabbar Icon
+    context-menu:
+      reload: Reload
+      close: Close
+      pin: Pin
+      unpin: Unpin
+      close-left: Close Left
+      close-right: Close Right
+      close-other: Close Other
+      close-all: Close All
   navigation-menu:
     title: Navigation Menu
     style: Navigation menu style
