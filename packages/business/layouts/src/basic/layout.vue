@@ -152,7 +152,6 @@ function toggleSidebar() {
 
     <template #floating-groups>
       <VbenBackTop />
-      <!-- <VbenFloatingButtonGroup /> -->
     </template>
 
     <!-- logo -->

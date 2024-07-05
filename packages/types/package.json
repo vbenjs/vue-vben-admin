@@ -28,9 +28,6 @@
     },
     "./global": {
       "types": "./global.d.ts"
-    },
-    "./window": {
-      "types": "./window.d.ts"
     }
   },
   "publishConfig": {

@@ -16,13 +16,10 @@ categories:
       - "enhancement"
   - title: "🐞 Bug Fixes"
     labels:
-      - "fix"
-      - "bugfix"
       - "bug"
   - title: 📝 Documentation updates
     labels:
       - "documentation"
-      - "docs"
   - title: 👻 Maintenance
     labels:
       - "chore"
@@ -30,7 +27,6 @@ categories:
     collapse-after: 5
   - title: 🚦 Tests
     labels:
-      - "test"
       - "tests"
   - title: "Breaking"
     label: "breaking"

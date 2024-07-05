@@ -42,9 +42,7 @@
   "dependencies": {
     "@vben-core/design": "workspace:*",
     "@vben-core/iconify": "workspace:*",
-    "@vben-core/preferences": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
-    "@vben/chart-ui": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
     "@vueuse/integrations": "^10.11.0",

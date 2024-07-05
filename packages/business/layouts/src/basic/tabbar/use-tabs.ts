@@ -2,7 +2,7 @@ import type { IContextMenuItem } from '@vben-core/tabs-ui';
 import type { TabItem } from '@vben-core/typings';
 import type {
   RouteLocationNormalized,
-  RouteRecordNormalized,
+  RouteLocationNormalizedGeneric,
 } from 'vue-router';
 
 import { computed, ref, watch } from 'vue';
@@ -34,8 +34,7 @@ function useTabs() {
   });
 
   const { locale } = useI18n();
-  const currentTabs =
-    ref<(RouteLocationNormalized | RouteRecordNormalized)[]>();
+  const currentTabs = ref<RouteLocationNormalizedGeneric[]>();
   watch([() => tabsStore.getTabs, () => locale.value], ([tabs, _]) => {
     currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
   });
@@ -60,9 +59,7 @@ function useTabs() {
     await tabsStore.closeTabByKey(key, router);
   };
 
-  function wrapperTabLocale(
-    tab: RouteLocationNormalized | RouteRecordNormalized,
-  ) {
+  function wrapperTabLocale(tab: RouteLocationNormalizedGeneric) {
     return {
       ...tab,
       meta: {

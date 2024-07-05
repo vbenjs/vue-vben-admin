@@ -8,7 +8,6 @@ export * from './checkbox';
 export * from './context-menu';
 export * from './count-to-animator';
 export * from './dropdown-menu';
-export * from './floating-button-group';
 export * from './full-screen';
 export * from './hover-card';
 export * from './icon';
