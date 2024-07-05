@@ -51,15 +51,24 @@ export class MockService implements OnModuleInit {
 
     // 密码哈希
     const hashPassword = await bcrypt.hash('123456', 10);
+
     await this.addItem('users', {
       id: 0,
       password: hashPassword,
       realName: 'Vben',
-      roles: ['admin'],
+      roles: ['super'],
       username: 'vben',
     });
+
     await this.addItem('users', {
       id: 1,
+      password: hashPassword,
+      realName: 'Admin',
+      roles: ['admin'],
+      username: 'admin',
+    });
+    await this.addItem('users', {
+      id: 2,
       password: hashPassword,
       realName: 'Jack',
       roles: ['user'],

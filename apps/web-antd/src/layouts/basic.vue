@@ -4,16 +4,16 @@ import type { NotificationItem } from '@vben/widgets';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
 import { openWindow } from '@vben/utils';
 import { Notification, UserDropdown } from '@vben/widgets';
 import { preferences } from '@vben-core/preferences';
-import { useRequest } from '@vben-core/request';
-import { useAccessStore } from '@vben-core/stores';
 
-import { getUserInfo } from '#/apis';
+import { resetRoutes } from '#/router';
+import { useAppStore } from '#/store';
 
 // https://avatar.vercel.sh/vercel.svg?text=Vaa
 // https://avatar.vercel.sh/1
@@ -80,20 +80,22 @@ const menus = computed(() => [
   },
 ]);
 
-const accessStore = useAccessStore();
+const appStore = useAppStore();
 const router = useRouter();
+// // 每次刷新页面都会进行用户信息获取
+// // 如果不需要，可以删除
+// const { runAsync: runGetUserInfo } = useRequest(getUserInfo, {
+//   manual: true,
+// });
 
-const { runAsync: runGetUserInfo } = useRequest(getUserInfo, {
-  manual: true,
-});
+// runGetUserInfo().then((userInfo) => {
+//   accessStore.setUserInfo(userInfo);
+// });
 
-runGetUserInfo().then((userInfo) => {
-  accessStore.setUserInfo(userInfo);
-});
-
-function handleLogout() {
-  accessStore.$reset();
-  router.replace('/auth/login');
+async function handleLogout() {
+  await appStore.resetAppState();
+  resetRoutes();
+  router.replace(LOGIN_PATH);
 }
 
 function handleNoticeClear() {

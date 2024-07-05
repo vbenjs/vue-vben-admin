@@ -77,6 +77,17 @@ const routes: RouteRecordRaw[] = [
                   title: $t('page.demos.access.access-test-2'),
                 },
               },
+              {
+                name: 'AccessFrontendTest3',
+                path: 'access-test-3',
+                component: () =>
+                  import('#/views/demos/access/frontend/access-test-3.vue'),
+                meta: {
+                  authority: ['super'],
+                  icon: 'mdi:button-cursor',
+                  title: $t('page.demos.access.access-test-3'),
+                },
+              },
             ],
           },
           {

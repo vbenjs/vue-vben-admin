@@ -1,16 +1,48 @@
 <script lang="ts" setup>
+import type { LoginAndRegisterParams } from '@vben/universal-ui';
+
+import { useRouter } from 'vue-router';
+
 import { useAccess } from '@vben/access';
-import { useAccessStore } from '@vben-core/stores';
 
 import { Button } from 'ant-design-vue';
 
+import { useAccessStore, useAppStore } from '#/store';
+
 defineOptions({ name: 'AccessBackend' });
 
-const { currentAccessMode } = useAccess();
+const { accessMode } = useAccess();
 const accessStore = useAccessStore();
+const appStore = useAppStore();
+const router = useRouter();
 
 function roleButtonType(role: string) {
-  return accessStore.getUserRoles.includes(role) ? 'primary' : 'default';
+  return accessStore.userRoles.includes(role) ? 'primary' : 'default';
+}
+
+async function changeAccount(role: string) {
+  if (accessStore.userRoles.includes(role)) {
+    return;
+  }
+  const accounts: Record<string, LoginAndRegisterParams> = {
+    admin: {
+      password: '123456',
+      username: 'admin',
+    },
+    super: {
+      password: '123456',
+      username: 'vben',
+    },
+    user: {
+      password: '123456',
+      username: 'jack',
+    },
+  };
+  const account = accounts[role];
+  await appStore.resetAppState();
+  await accessStore.authLogin(account, async () => {
+    router.go(0);
+  });
 }
 </script>
 
@@ -19,26 +51,39 @@ function roleButtonType(role: string) {
     <div class="card-box p-5">
       <h1 class="text-xl font-semibold">前端页面访问演示</h1>
       <div class="text-foreground/80 mt-2">
-        由于刷新的时候会请求用户信息接口，会根据接口重置角色信息，所以刷新后界面会恢复原样。如果不需要，可以注释对应的代码。
+        切换不同的账号，观察左侧菜单变化。
       </div>
     </div>
 
-    <template v-if="currentAccessMode === 'frontend'">
+    <template v-if="accessMode === 'frontend'">
       <div class="card-box mt-5 p-5 font-semibold">
         当前权限模式:
-        <span class="text-primary mx-4">{{ currentAccessMode }}</span>
+        <span class="text-primary mx-4">{{ accessMode }}</span>
         <Button type="primary">切换权限模式</Button>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">
-        当前用户角色:
-        <span class="text-primary mx-4">{{ accessStore.getUserRoles }}</span>
-        <Button :type="roleButtonType('admin')"> 切换为 Admin 角色 </Button>
-        <Button :type="roleButtonType('user')" class="mx-4">
-          切换为 User 角色
+        <div class="mb-3">
+          当前账号:
+          <span class="text-primary mx-4">
+            {{ accessStore.userRoles }}
+          </span>
+        </div>
+
+        <Button :type="roleButtonType('super')" @click="changeAccount('super')">
+          切换为 Super 账号
         </Button>
 
-        <div class="text-foreground/80 mt-2">角色后请查看左侧菜单变化</div>
+        <Button
+          :type="roleButtonType('admin')"
+          class="mx-4"
+          @click="changeAccount('admin')"
+        >
+          切换为 Admin 账号
+        </Button>
+        <Button :type="roleButtonType('user')" @click="changeAccount('user')">
+          切换为 User 账号
+        </Button>
       </div>
     </template>
   </div>

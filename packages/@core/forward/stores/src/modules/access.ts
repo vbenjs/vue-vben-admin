@@ -58,7 +58,7 @@ interface AccessState {
 /**
  * @zh_CN 访问权限相关
  */
-const useAccessStore = defineStore('access', {
+const useCoreAccessStore = defineStore('core-access', {
   actions: {
     setAccessMenus(menus: MenuRecordRaw[]) {
       this.accessMenus = menus;
@@ -72,7 +72,7 @@ const useAccessStore = defineStore('access', {
     setRefreshToken(token: AccessToken) {
       this.refreshToken = token;
     },
-    setUserInfo(userInfo: BasicUserInfo) {
+    setUserInfo(userInfo: BasicUserInfo | null) {
       // 设置用户信息
       this.userInfo = userInfo;
       // 设置角色信息
@@ -105,7 +105,7 @@ const useAccessStore = defineStore('access', {
   },
   persist: {
     // 持久化
-    paths: ['accessToken', 'refreshToken', 'userRoles', 'userInfo'],
+    paths: ['accessToken', 'refreshToken'],
   },
   state: (): AccessState => ({
     accessMenus: [],
@@ -120,7 +120,7 @@ const useAccessStore = defineStore('access', {
 // 解决热更新问题
 const hot = import.meta.hot;
 if (hot) {
-  hot.accept(acceptHMRUpdate(useAccessStore, hot));
+  hot.accept(acceptHMRUpdate(useCoreAccessStore, hot));
 }
 
-export { useAccessStore };
+export { useCoreAccessStore };

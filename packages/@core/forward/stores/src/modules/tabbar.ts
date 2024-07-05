@@ -62,7 +62,7 @@ interface TabsState {
 /**
  * @zh_CN 访问权限相关
  */
-const useTabbarStore = defineStore('tabbar', {
+const useCoreTabbarStore = defineStore('core-tabbar', {
   actions: {
     /**
      * Close tabs in bulk
@@ -290,7 +290,7 @@ const useTabbarStore = defineStore('tabbar', {
     /**
      * 刷新标签页
      */
-    async refreshTab(router: Router) {
+    async refresh(router: Router) {
       const { currentRoute } = router;
       const { name } = currentRoute.value;
 
@@ -395,7 +395,7 @@ const useTabbarStore = defineStore('tabbar', {
 // 解决热更新问题
 const hot = import.meta.hot;
 if (hot) {
-  hot.accept(acceptHMRUpdate(useTabbarStore, hot));
+  hot.accept(acceptHMRUpdate(useCoreTabbarStore, hot));
 }
 
-export { useTabbarStore };
+export { useCoreTabbarStore };

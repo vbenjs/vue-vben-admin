@@ -4,12 +4,12 @@ import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { startProgress, stopProgress } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
-import { useAccessStore } from '@vben-core/stores';
 
 import { useTitle } from '@vueuse/core';
 
 import { generateAccess } from '#/forward/access';
 import { dynamicRoutes, essentialsRouteNames } from '#/router/routes';
+import { useAccessStore } from '#/store';
 
 /**
  * 通用守卫配置
@@ -57,7 +57,7 @@ function setupCommonGuard(router: Router) {
 function setupAccessGuard(router: Router) {
   router.beforeEach(async (to, from) => {
     const accessStore = useAccessStore();
-    const accessToken = accessStore.getAccessToken;
+    const accessToken = accessStore.accessToken;
 
     // accessToken 检查
     if (!accessToken) {
@@ -83,7 +83,7 @@ function setupAccessGuard(router: Router) {
       return to;
     }
 
-    const accessRoutes = accessStore.getAccessRoutes;
+    const accessRoutes = accessStore.accessRoutes;
 
     // 是否已经生成过动态路由
     if (accessRoutes && accessRoutes.length > 0) {
@@ -92,7 +92,10 @@ function setupAccessGuard(router: Router) {
 
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
-    const userRoles = accessStore.getUserRoles;
+    const userInfo =
+      accessStore.userInfo || (await accessStore.fetchUserInfo());
+
+    const userRoles = userInfo.roles ?? [];
 
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({

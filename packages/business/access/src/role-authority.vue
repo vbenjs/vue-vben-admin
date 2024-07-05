@@ -9,15 +9,15 @@ interface Props {
    * - When the permission mode is 'backend', the value can be a code permission value.
    * @default ''
    */
-  value?: string[];
+  roles?: string[];
 }
 
 defineOptions({
-  name: 'Authority',
+  name: 'FrontendAuthority',
 });
 
 withDefaults(defineProps<Props>(), {
-  value: undefined,
+  roles: undefined,
 });
 </script>
 

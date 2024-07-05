@@ -39,10 +39,12 @@
     "@vue/shared": "^3.4.31",
     "clsx": "2.1.1",
     "defu": "^6.1.4",
+    "lodash.clonedeep": "^4.5.0",
     "nprogress": "^0.2.0",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
+    "@types/lodash.clonedeep": "^4.5.9",
     "@types/nprogress": "^0.2.3"
   }
 }

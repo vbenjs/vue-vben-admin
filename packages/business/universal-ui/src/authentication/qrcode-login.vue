@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
@@ -26,7 +27,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
-  loginPath: '/auth/login',
+  loginPath: LOGIN_PATH,
 });
 
 const router = useRouter();

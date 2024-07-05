@@ -2,7 +2,7 @@ import type { InitStoreOptions } from '@vben-core/stores';
 
 import type { App } from 'vue';
 
-import { initStore, useAccessStore, useTabbarStore } from '@vben-core/stores';
+import { initStore } from '@vben-core/stores';
 
 /**
  * @zh_CN 初始化pinia
@@ -13,4 +13,7 @@ async function setupStore(app: App, options: InitStoreOptions) {
   app.use(pinia);
 }
 
-export { setupStore, useAccessStore, useTabbarStore };
+export { setupStore };
+
+export { useAccessStore } from './modules/access';
+export { useAppStore } from './modules/app';

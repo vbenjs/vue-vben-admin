@@ -3,14 +3,14 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { Spinner } from '@vben-core/shadcn-ui';
-import { storeToRefs, useTabbarStore } from '@vben-core/stores';
+import { storeToRefs, useCoreTabbarStore } from '@vben-core/stores';
 
 import { IFrameRouterView } from '../../iframe';
 import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
-const tabsStore = useTabbarStore();
+const tabsStore = useCoreTabbarStore();
 const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
 
@@ -64,7 +64,11 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
             :key="route.fullPath"
           />
         </KeepAlive>
-        <component :is="Component" v-else :key="route.fullPath" />
+        <component
+          :is="Component"
+          v-else-if="renderRouteView"
+          :key="route.fullPath"
+        />
       </Transition>
     </RouterView>
   </div>

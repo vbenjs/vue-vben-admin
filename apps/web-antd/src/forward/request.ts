@@ -5,7 +5,7 @@
 import type { AxiosResponse } from '@vben-core/request';
 
 import { RequestClient, isCancelError } from '@vben-core/request';
-import { useAccessStore } from '@vben-core/stores';
+import { useCoreAccessStore } from '@vben-core/stores';
 
 import { message } from 'ant-design-vue';
 
@@ -30,7 +30,8 @@ function createRequestClient() {
     makeAuthorization: () => {
       return {
         handler: () => {
-          const accessStore = useAccessStore();
+          // 这里不能用 useAccessStore，因为 useAccessStore 会导致循环引用
+          const accessStore = useCoreAccessStore();
           return {
             refreshToken: `Bearer ${accessStore.getRefreshToken}`,
             token: `Bearer ${accessStore.getAccessToken}`,

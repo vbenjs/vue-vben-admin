@@ -24,7 +24,7 @@ import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 defineOptions({ name: 'Workspace' });
 
-const { userInfo } = useAccessStore();
+const accessStore = useAccessStore();
 
 const projectItems: WorkbenchProjectItem[] = [
   {
@@ -203,10 +203,10 @@ const trendItems: WorkbenchTrendItem[] = [
 <template>
   <div class="p-5">
     <WorkbenchHeader
-      :avatar="userInfo?.avatar || preferences.app.defaultAvatar"
+      :avatar="accessStore.userInfo?.avatar || preferences.app.defaultAvatar"
     >
       <template #title>
-        早安, {{ userInfo?.realName }}, 开始您一天的工作吧！
+        早安, {{ accessStore.userInfo?.realName }}, 开始您一天的工作吧！
       </template>
       <template #description> 今日晴，20℃ - 32℃！ </template>
     </WorkbenchHeader>

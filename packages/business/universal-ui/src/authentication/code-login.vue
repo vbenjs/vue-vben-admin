@@ -4,6 +4,7 @@ import type { LoginCodeEmits } from './typings';
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { LOGIN_PATH } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { VbenButton, VbenInput, VbenPinInput } from '@vben-core/shadcn-ui';
 
@@ -26,7 +27,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
-  loginPath: '/auth/login',
+  loginPath: LOGIN_PATH,
 });
 
 const emit = defineEmits<{

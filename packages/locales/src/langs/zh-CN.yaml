@@ -8,8 +8,9 @@ page:
       backend-control: 后端控制
       page: 页面访问
       button: 按钮控制
-      access-test-1: 权限测试页1
-      access-test-2: 权限测试页2
+      access-test-1: Admin 角色可见
+      access-test-2: User 角色可见
+      access-test-3: Super 角色可见
 
     nested:
       title: 嵌套菜单

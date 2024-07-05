@@ -2,7 +2,7 @@
 import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/widgets';
 import { usePreferences } from '@vben-core/preferences';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
-import { useAccessStore } from '@vben-core/stores';
+import { useCoreAccessStore } from '@vben-core/stores';
 
 interface Props {
   /**
@@ -19,7 +19,7 @@ withDefaults(defineProps<Props>(), {
   theme: 'light',
 });
 
-const accessStore = useAccessStore();
+const accessStore = useCoreAccessStore();
 const { globalSearchShortcutKey } = usePreferences();
 </script>
 

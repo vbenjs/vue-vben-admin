@@ -3,6 +3,8 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import type { GeneratorMenuAndRoutesOptions } from '../types';
 
+import { cloneDepp } from '@vben-core/toolkit';
+
 import { generateMenus } from './generate-menus';
 import { generateRoutesByBackend } from './generate-routes-backend';
 import { generateRoutesByFrontend } from './generate-routes-frontend';
@@ -12,6 +14,8 @@ async function generateMenusAndRoutes(
   options: GeneratorMenuAndRoutesOptions,
 ) {
   const { router } = options;
+
+  options.routes = cloneDepp(options.routes);
   // 生成路由
   const accessibleRoutes = await generateRoutes(mode, options);
 
