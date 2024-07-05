@@ -51,7 +51,7 @@
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
-    "cssnano": "^7.0.3",
+    "cssnano": "^7.0.4",
     "postcss": "^8.4.39",
     "postcss-antd-fixes": "^0.2.0",
     "postcss-import": "^16.1.0",

@@ -82,15 +82,6 @@ const menus = computed(() => [
 
 const appStore = useAppStore();
 const router = useRouter();
-// // 每次刷新页面都会进行用户信息获取
-// // 如果不需要，可以删除
-// const { runAsync: runGetUserInfo } = useRequest(getUserInfo, {
-//   manual: true,
-// });
-
-// runGetUserInfo().then((userInfo) => {
-//   accessStore.setUserInfo(userInfo);
-// });
 
 async function handleLogout() {
   await appStore.resetAppState();

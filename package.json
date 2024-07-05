@@ -63,7 +63,7 @@
     "@vben/vsh": "workspace:*",
     "@vue/test-utils": "^2.4.6",
     "cross-env": "^7.0.3",
-    "cspell": "^8.10.0",
+    "cspell": "^8.10.2",
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.0",
