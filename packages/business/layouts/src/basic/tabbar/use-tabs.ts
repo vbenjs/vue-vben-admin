@@ -5,10 +5,10 @@ import type {
   RouteRecordNormalized,
 } from 'vue-router';
 
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { $t } from '@vben/locales';
+import { $t, useI18n } from '@vben/locales';
 import {
   IcRoundClose,
   IcRoundMultipleStop,
@@ -33,8 +33,11 @@ function useTabs() {
     return route.path;
   });
 
-  const currentTabs = computed(() => {
-    return tabsStore.getTabs;
+  const { locale } = useI18n();
+  const currentTabs =
+    ref<(RouteLocationNormalized | RouteRecordNormalized)[]>();
+  watch([() => tabsStore.getTabs, () => locale.value], ([tabs, _]) => {
+    currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
   });
 
   /**
@@ -43,9 +46,6 @@ function useTabs() {
   const initAffixTabs = () => {
     const affixTabs = filterTree(router.getRoutes(), (route) => {
       return !!route.meta?.affixTab;
-    });
-    affixTabs.forEach((tab) => {
-      Object.assign(tab, wrapperTabLocale(tab));
     });
     tabsStore.setAffixTabs(affixTabs);
   };
@@ -83,7 +83,7 @@ function useTabs() {
   watch(
     () => route.path,
     () => {
-      tabsStore.addTab(wrapperTabLocale(route) as RouteLocationNormalized);
+      tabsStore.addTab(route as RouteLocationNormalized);
     },
     { immediate: true },
   );
