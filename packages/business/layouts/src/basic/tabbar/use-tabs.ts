@@ -116,7 +116,7 @@ function useTabs() {
         },
         icon: IcRoundRefresh,
         key: 'reload',
-        text: '重新加载',
+        text: $t('preferences.tabbar.context-menu.reload'),
       },
       {
         disabled: !!affixTab || disabled,
@@ -125,7 +125,7 @@ function useTabs() {
         },
         icon: IcRoundClose,
         key: 'close',
-        text: '关闭标签页',
+        text: $t('preferences.tabbar.context-menu.close'),
       },
       {
         handler: async () => {
@@ -136,7 +136,9 @@ function useTabs() {
         icon: affixTab ? MdiPinOff : MdiPin,
         key: 'affix',
         separator: true,
-        text: affixTab ? '取消固定标签页' : '固定标签页',
+        text: affixTab
+          ? $t('preferences.tabbar.context-menu.unpin')
+          : $t('preferences.tabbar.context-menu.pin'),
       },
       {
         disabled: closeLeftDisabled,
@@ -145,7 +147,7 @@ function useTabs() {
         },
         icon: MdiFormatHorizontalAlignLeft,
         key: 'close-left',
-        text: '关闭左侧标签页',
+        text: $t('preferences.tabbar.context-menu.close-left'),
       },
       {
         disabled: closeRightDisabled,
@@ -155,7 +157,7 @@ function useTabs() {
         icon: MdiFormatHorizontalAlignRight,
         key: 'close-right',
         separator: true,
-        text: '关闭右侧标签页',
+        text: $t('preferences.tabbar.context-menu.close-right'),
       },
       {
         disabled: closeOtherDisabled,
@@ -164,7 +166,7 @@ function useTabs() {
         },
         icon: MdiArrowExpandHorizontal,
         key: 'close-other',
-        text: '关闭其他标签页',
+        text: $t('preferences.tabbar.context-menu.close-other'),
       },
       {
         disabled,
@@ -173,7 +175,7 @@ function useTabs() {
         },
         icon: IcRoundMultipleStop,
         key: 'close-all',
-        text: '关闭全部标签页',
+        text: $t('preferences.tabbar.context-menu.close-all'),
       },
       // {
       //   icon: 'icon-[material-symbols--back-to-tab-sharp]',

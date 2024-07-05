@@ -178,6 +178,15 @@ preferences:
     title: 标签栏
     enable: 启用标签栏
     icon: 显示标签栏图标
+    context-menu:
+      reload: 重新加载
+      close: 关闭标签页
+      pin: 固定标签页
+      unpin: 取消固定标签页
+      close-left: 关闭左侧标签页
+      close-right: 关闭右侧标签页
+      close-other: 关闭其它标签页
+      close-all: 关闭全部标签页
   navigation-menu:
     title: 导航菜单
     style: 导航菜单风格
