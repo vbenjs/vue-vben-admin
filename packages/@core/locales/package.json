@@ -40,9 +40,6 @@
       }
     }
   },
-  "peerDependencies": {
-    "vite": "latest"
-  },
   "dependencies": {
     "@intlify/core-base": "^9.13.1",
     "@vben-core/typings": "workspace:*",

@@ -8,18 +8,18 @@ import { createI18n } from 'vue-i18n';
 
 const loadedLanguages = new Set<string>();
 
-// TODO：import.meta.env 和 import.meta.glob 是源码依赖，会导致该包依赖外部项目必须是vite才可以
+// TODO：import.meta.env，会导致该包依赖外部项目必须是vite才可以
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
   locale: '',
   messages: {},
-  missingWarn: import.meta.env.PROD,
-  silentFallbackWarn: !import.meta.env.PROD,
-  silentTranslationWarn: !import.meta.env.PROD, // true - warning off
 });
 
-const modules = import.meta.glob('./langs/*.y(a)?ml');
+const modules = {
+  './langs/en-US.json': async () => import('./langs/en-US.json'),
+  './langs/zh-CN.json': async () => import('./langs/zh-CN.json'),
+};
 
 const localesMap = loadLocalesMap(modules);
 
@@ -31,11 +31,12 @@ function loadLocalesMap(modules: Record<string, () => Promise<unknown>>) {
   const localesMap: Record<Locale, ImportLocaleFn> = {};
 
   for (const [path, loadLocale] of Object.entries(modules)) {
-    const key = path.match(/([\w-]*)\.y(a)?ml/)?.[1];
+    const key = path.match(/([\w-]*)\.(yaml|yml|json)/)?.[1];
     if (key) {
       localesMap[key] = loadLocale as ImportLocaleFn;
     }
   }
+
   return localesMap;
 }
 

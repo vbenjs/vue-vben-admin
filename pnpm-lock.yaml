@@ -635,9 +635,6 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../shared/typings
-      vite:
-        specifier: latest
-        version: 5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)
       vue:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)

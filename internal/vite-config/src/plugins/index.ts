@@ -9,7 +9,7 @@ import type {
 
 import { join } from 'node:path';
 
-import { getPackage, getPackages } from '@vben/node-utils';
+import { getPackages } from '@vben/node-utils';
 
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
@@ -118,11 +118,8 @@ async function loadApplicationPlugins(
       condition: i18n,
       plugins: async () => {
         const { packages } = await getPackages();
-        const pkg = await getPackage('@vben-core/locales');
 
-        const include: string[] = [
-          `${join(pkg?.dir ?? '', isBuild ? 'dist' : 'src', 'langs')}/*.yaml`,
-        ];
+        const include: string[] = [];
 
         // 加载所有应用的国际化文件
         for (const { dir, relativeDir } of packages) {

@@ -18,6 +18,10 @@ interface LocaleSetupOptions {
    * @returns
    */
   loadMessages?: LoadMessageFn;
+  /**
+   * Whether to warn when the key is not found
+   */
+  missingWarn?: boolean;
 }
 
 export type {

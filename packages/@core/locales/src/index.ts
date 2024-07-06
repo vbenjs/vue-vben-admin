@@ -25,9 +25,17 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   loadMessages = options.loadMessages || (async () => ({}));
   app.use(i18n);
   await loadLocaleMessages(defaultLocale);
+
+  // 在控制台打印警告
+  i18n.global.setMissingHandler((locale, key) => {
+    options.missingWarn &&
+      console.warn(
+        `[intlify] Not found '${key}' key in '${locale}' locale messages.`,
+      );
+  });
 }
 
-export { $t, loadLocaleMessages, loadLocalesMap, setupI18n };
+export { $t, i18n, loadLocaleMessages, loadLocalesMap, setupI18n };
 export { useI18n } from 'vue-i18n';
 export type { Locale } from 'vue-i18n';
 export type { ImportLocaleFn };
