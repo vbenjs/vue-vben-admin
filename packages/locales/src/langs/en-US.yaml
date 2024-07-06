@@ -9,9 +9,9 @@ page:
       page: Page visit
       button: Button control
       loading-menu: In the loading menu
-      access-test-1: Admin visit
-      access-test-2: User visit
-      access-test-3: Super visit
+      access-test-1: Super visit
+      access-test-2: Admin visit
+      access-test-3: User visit
     nested:
       title: Nested Menu
       menu1: Menu 1

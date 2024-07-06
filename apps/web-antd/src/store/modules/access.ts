@@ -10,7 +10,7 @@ import { useCoreAccessStore } from '@vben-core/stores';
 
 import { defineStore } from 'pinia';
 
-import { getUserInfo, userLogin } from '#/apis';
+import { getAccessCodes, getUserInfo, userLogin } from '#/apis';
 
 export const useAccessStore = defineStore('access', () => {
   const coreStoreAccess = useCoreAccessStore();
@@ -55,9 +55,15 @@ export const useAccessStore = defineStore('access', () => {
 
         // 获取用户信息并存储到 accessStore 中
         // Get user information and store it in accessStore
-        userInfo = await fetchUserInfo();
+        const [fetchUserInfoResult, accessCodes] = await Promise.all([
+          fetchUserInfo(),
+          getAccessCodes(),
+        ]);
+
+        userInfo = fetchUserInfoResult;
 
         coreStoreAccess.setUserInfo(userInfo);
+        coreStoreAccess.setAccessCodes(accessCodes);
 
         onSuccess
           ? await onSuccess?.()

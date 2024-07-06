@@ -3,7 +3,7 @@ import type { LoginAndRegisterParams } from '@vben/universal-ui';
 
 import { useRouter } from 'vue-router';
 
-import { RoleAuthority, useAccess } from '@vben/access';
+import { CodeAuthority, RoleAuthority, useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
@@ -11,7 +11,7 @@ import { useAccessStore, useAppStore } from '#/store';
 
 defineOptions({ name: 'AccessFrontendButtonControl' });
 
-const { accessMode, hasAuthByRole } = useAccess();
+const { accessMode, hasAuthByCodes, hasAuthByRoles } = useAccess();
 const accessStore = useAccessStore();
 const appStore = useAppStore();
 const router = useRouter();
@@ -80,34 +80,68 @@ async function changeAccount(role: string) {
         </Button>
       </div>
       <div class="card-box mt-5 p-5 font-semibold">
-        <div class="mb-3 text-lg">组件形式控制</div>
-        <RoleAuthority :roles="['super']">
+        <div class="mb-3 text-lg">角色 - 组件形式控制</div>
+        <RoleAuthority :value="['super']">
           <Button class="mr-4"> Super 角色可见 </Button>
         </RoleAuthority>
-        <RoleAuthority :roles="['admin']">
+        <RoleAuthority :value="['admin']">
           <Button class="mr-4"> Admin 角色可见 </Button>
         </RoleAuthority>
-        <RoleAuthority :roles="['user']">
+        <RoleAuthority :value="['user']">
           <Button class="mr-4"> User 角色可见 </Button>
         </RoleAuthority>
-        <RoleAuthority :roles="['super', 'admin']">
-          <Button class="mr-4"> Super 和 Admin 角色都可见 </Button>
+        <RoleAuthority :value="['super', 'admin']">
+          <Button class="mr-4"> Super & Admin 角色都可见 </Button>
         </RoleAuthority>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">
-        <div class="mb-3 text-lg">函数形式控制</div>
-        <Button v-if="hasAuthByRole(['super'])" class="mr-4">
+        <div class="mb-3 text-lg">角色 - 函数形式控制</div>
+        <Button v-if="hasAuthByRoles(['super'])" class="mr-4">
           Super 角色可见
         </Button>
-        <Button v-if="hasAuthByRole(['admin'])" class="mr-4">
+        <Button v-if="hasAuthByRoles(['admin'])" class="mr-4">
           Admin 角色可见
         </Button>
-        <Button v-if="hasAuthByRole(['user'])" class="mr-4">
+        <Button v-if="hasAuthByRoles(['user'])" class="mr-4">
           User 角色可见
         </Button>
-        <Button v-if="hasAuthByRole(['super', 'admin'])" class="mr-4">
-          Super 和 Admin 角色都可见
+        <Button v-if="hasAuthByRoles(['super', 'admin'])" class="mr-4">
+          Super & Admin 角色都可见
+        </Button>
+      </div>
+
+      <div class="card-box mt-5 p-5 font-semibold">
+        <div class="mb-3 text-lg">权限码 - 组件形式控制</div>
+        <CodeAuthority :value="['AC_100100']">
+          <Button class="mr-4"> Super 账号可见 ["AC_1000001"] </Button>
+        </CodeAuthority>
+        <CodeAuthority :value="['AC_100030']">
+          <Button class="mr-4"> Admin 账号可见 ["AC_100010"] </Button>
+        </CodeAuthority>
+        <CodeAuthority :value="['AC_1000001']">
+          <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
+        </CodeAuthority>
+        <CodeAuthority :value="['AC_100100', 'AC_100010']">
+          <Button class="mr-4">
+            Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+          </Button>
+        </CodeAuthority>
+      </div>
+
+      <div class="card-box mt-5 p-5 font-semibold">
+        <div class="mb-3 text-lg">权限码 - 函数形式控制</div>
+        <Button v-if="hasAuthByCodes(['AC_100100'])" class="mr-4">
+          Super 账号可见 ["AC_1000001"]
+        </Button>
+        <Button v-if="hasAuthByCodes(['AC_100030'])" class="mr-4">
+          Admin 账号可见 ["AC_100010"]
+        </Button>
+        <Button v-if="hasAuthByCodes(['AC_1000001'])" class="mr-4">
+          User 账号可见 ["AC_1000001"]
+        </Button>
+        <Button v-if="hasAuthByCodes(['AC_100100', 'AC_1000001'])" class="mr-4">
+          Super & Admin 账号可见 ["AC_100100","AC_1000001"]
         </Button>
       </div>
     </template>

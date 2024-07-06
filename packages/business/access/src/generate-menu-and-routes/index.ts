@@ -1,4 +1,4 @@
-import type { accessModeType } from '@vben-core/preferences';
+import type { AccessModeType } from '@vben-core/preferences';
 import type { RouteRecordRaw } from 'vue-router';
 
 import type { GeneratorMenuAndRoutesOptions } from '../types';
@@ -10,7 +10,7 @@ import { generateRoutesByBackend } from './generate-routes-backend';
 import { generateRoutesByFrontend } from './generate-routes-frontend';
 
 async function generateMenusAndRoutes(
-  mode: accessModeType,
+  mode: AccessModeType,
   options: GeneratorMenuAndRoutesOptions,
 ) {
   const { router } = options;
@@ -20,7 +20,9 @@ async function generateMenusAndRoutes(
   const accessibleRoutes = await generateRoutes(mode, options);
 
   // 动态添加到router实例内
-  accessibleRoutes.forEach((route) => router.addRoute(route));
+  accessibleRoutes.forEach((route) => {
+    router.addRoute(route);
+  });
 
   // 生成菜单
   const accessibleMenus = await generateMenus1(mode, accessibleRoutes, options);
@@ -33,7 +35,7 @@ async function generateMenusAndRoutes(
  * @param mode
  */
 async function generateRoutes(
-  mode: accessModeType,
+  mode: AccessModeType,
   options: GeneratorMenuAndRoutesOptions,
 ) {
   const { forbiddenComponent, roles, routes } = options;
@@ -60,7 +62,7 @@ async function generateRoutes(
 }
 
 async function generateMenus1(
-  mode: accessModeType,
+  mode: AccessModeType,
   routes: RouteRecordRaw[],
   options: GeneratorMenuAndRoutesOptions,
 ) {

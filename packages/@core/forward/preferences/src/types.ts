@@ -9,7 +9,7 @@ import type {
 
 type BreadcrumbStyleType = 'background' | 'normal';
 
-type accessModeType = 'allow-all' | 'backend' | 'frontend';
+type AccessModeType = 'allow-all' | 'backend' | 'frontend';
 
 type NavigationStyleType = 'plain' | 'rounded';
 
@@ -19,7 +19,7 @@ type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
 
 interface AppPreferences {
   /** 权限模式 */
-  accessMode: accessModeType;
+  accessMode: AccessModeType;
   /** 是否开启vben助手 */
   aiAssistant: boolean;
   /** 登录注册页面布局 */
@@ -190,6 +190,7 @@ interface Preferences {
 type PreferencesKeys = keyof Preferences;
 
 export type {
+  AccessModeType,
   AppPreferences,
   AuthPageLayoutType,
   BreadcrumbPreferences,
@@ -212,5 +213,4 @@ export type {
   ThemeModeType,
   ThemePreferences,
   TransitionPreferences,
-  accessModeType,
 };

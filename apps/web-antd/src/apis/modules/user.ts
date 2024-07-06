@@ -18,4 +18,11 @@ async function getUserInfo() {
   return requestClient.get<UserInfo>('/auth/getUserInfo');
 }
 
-export { getUserInfo, userLogin };
+/**
+ * 获取用户权限码
+ */
+async function getAccessCodes() {
+  return requestClient.get<string[]>('/auth/getAccessCodes');
+}
+
+export { getAccessCodes, getUserInfo, userLogin };

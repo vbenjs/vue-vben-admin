@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { preferences } from '@vben-core/preferences';
+import { preferences, updatePreferences } from '@vben-core/preferences';
 import { useCoreAccessStore } from '@vben-core/stores';
 
 function useAccess() {
@@ -14,13 +14,39 @@ function useAccess() {
    * @description: Determine whether there is permission，The role is judged by the user's role
    * @param roles
    */
-  function hasAuthByRole(roles: string[]) {
+  function hasAuthByRoles(roles: string[]) {
     const userRoleSet = new Set(coreAccessStore.getUserRoles);
     const intersection = roles.filter((item) => userRoleSet.has(item));
     return intersection.length > 0;
   }
 
-  return { accessMode, hasAuthByRole };
+  /**
+   * 基于权限码判断是否有权限
+   * @description: Determine whether there is permission，The permission code is judged by the user's permission code
+   * @param codes
+   */
+  function hasAuthByCodes(codes: string[]) {
+    const userCodesSet = new Set(coreAccessStore.getAccessCodes);
+
+    const intersection = codes.filter((item) => userCodesSet.has(item));
+    return intersection.length > 0;
+  }
+
+  async function toggleAccessMode() {
+    updatePreferences({
+      app: {
+        accessMode:
+          preferences.app.accessMode === 'frontend' ? 'backend' : 'frontend',
+      },
+    });
+  }
+
+  return {
+    accessMode,
+    hasAuthByCodes,
+    hasAuthByRoles,
+    toggleAccessMode,
+  };
 }
 
 export { useAccess };

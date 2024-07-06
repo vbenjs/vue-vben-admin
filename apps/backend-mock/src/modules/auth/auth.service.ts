@@ -19,6 +19,30 @@ export class AuthService {
    * get user info
    * @param username
    */
+  async getAccessCodes(username: string): Promise<string[]> {
+    const user = await this.usersService.findOne(username);
+
+    const mockCodes = [
+      // super
+      {
+        codes: ['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010'],
+        userId: 0,
+      },
+      {
+        // admin
+        codes: ['AC_100010', 'AC_100020', 'AC_100030'],
+        userId: 1,
+      },
+      {
+        // user
+        codes: ['AC_1000001', 'AC_1000002'],
+        userId: 2,
+      },
+    ];
+
+    return mockCodes.find((item) => item.userId === user.id)?.codes ?? [];
+  }
+
   async getUserInfo(username: string): Promise<Omit<UserEntity, 'password'>> {
     const user = await this.usersService.findOne(username);
     const { password: _pass, ...userInfo } = user;

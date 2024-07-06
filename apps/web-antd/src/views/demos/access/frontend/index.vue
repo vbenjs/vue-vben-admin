@@ -57,12 +57,6 @@ async function changeAccount(role: string) {
 
     <template v-if="accessMode === 'frontend'">
       <div class="card-box mt-5 p-5 font-semibold">
-        <span class="text-lg">当前权限模式:</span>
-        <span class="text-primary mx-4">{{ accessMode }}</span>
-        <Button type="primary">切换权限模式</Button>
-      </div>
-
-      <div class="card-box mt-5 p-5 font-semibold">
         <div class="mb-3">
           <span class="text-lg">当前账号:</span>
           <span class="text-primary mx-4">

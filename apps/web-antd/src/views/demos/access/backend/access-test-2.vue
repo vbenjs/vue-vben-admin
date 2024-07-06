@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { Fallback } from '@vben/universal-ui';
 
-defineOptions({ name: 'AccessFrontendAccessTest1' });
+defineOptions({ name: 'AccessFrontendAccessTest2' });
 </script>
 
 <template>
   <Fallback
-    description="当前页面仅 User 角色可见"
+    description="当前页面仅 Admin 账号可见"
     status="comming-soon"
     title="页面访问测试"
   />

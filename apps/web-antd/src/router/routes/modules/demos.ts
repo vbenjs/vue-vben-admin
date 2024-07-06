@@ -61,7 +61,7 @@ const routes: RouteRecordRaw[] = [
                 component: () =>
                   import('#/views/demos/access/frontend/access-test-1.vue'),
                 meta: {
-                  authority: ['admin'],
+                  authority: ['super'],
                   icon: 'mdi:button-cursor',
                   title: $t('page.demos.access.access-test-1'),
                 },
@@ -72,7 +72,7 @@ const routes: RouteRecordRaw[] = [
                 component: () =>
                   import('#/views/demos/access/frontend/access-test-2.vue'),
                 meta: {
-                  authority: ['user'],
+                  authority: ['admin'],
                   icon: 'mdi:button-cursor',
                   title: $t('page.demos.access.access-test-2'),
                 },
@@ -83,7 +83,7 @@ const routes: RouteRecordRaw[] = [
                 component: () =>
                   import('#/views/demos/access/frontend/access-test-3.vue'),
                 meta: {
-                  authority: ['super'],
+                  authority: ['user'],
                   icon: 'mdi:button-cursor',
                   title: $t('page.demos.access.access-test-3'),
                 },
@@ -107,16 +107,6 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   icon: 'mdi:page-previous-outline',
                   title: $t('page.demos.access.page'),
-                },
-              },
-              {
-                name: 'AccessBackendButtonControl',
-                path: 'button-control',
-                component: () =>
-                  import('#/views/demos/access/frontend/button-control.vue'),
-                meta: {
-                  icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.button'),
                 },
               },
             ],

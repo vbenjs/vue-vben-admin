@@ -9,7 +9,7 @@ interface Props {
    * Specified codes is visible
    * @default []
    */
-  codes?: string[];
+  value?: string[];
 }
 
 defineOptions({
@@ -17,13 +17,13 @@ defineOptions({
 });
 
 withDefaults(defineProps<Props>(), {
-  codes: () => [],
+  value: () => [],
 });
 
-const { hasAuthByRole } = useAccess();
+const { hasAuthByCodes } = useAccess();
 </script>
 
 <template>
-  <slot v-if="!codes"></slot>
-  <slot v-else-if="hasAuthByRole(codes)"></slot>
+  <slot v-if="!value"></slot>
+  <slot v-else-if="hasAuthByCodes(value)"></slot>
 </template>

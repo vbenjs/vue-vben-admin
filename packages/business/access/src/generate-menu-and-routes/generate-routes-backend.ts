@@ -30,6 +30,7 @@ async function generateRoutesByBackend(
     }
 
     const routes = convertRoutes(menuRoutes, layoutMap, normalizePageMap);
+
     return routes;
   } catch (error) {
     console.error(error);

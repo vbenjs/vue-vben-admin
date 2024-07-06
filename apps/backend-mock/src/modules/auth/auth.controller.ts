@@ -20,6 +20,16 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   /**
+   * 获取用户权限码
+   * @param req
+   */
+  @Get('getAccessCodes')
+  @HttpCode(HttpStatus.OK)
+  async getAccessCodes(@Request() req: Request) {
+    return await this.authService.getAccessCodes(req.user.username);
+  }
+
+  /**
    * 获取用户信息
    * @param req
    */

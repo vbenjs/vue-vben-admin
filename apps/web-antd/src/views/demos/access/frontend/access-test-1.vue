@@ -6,7 +6,7 @@ defineOptions({ name: 'AccessFrontendAccessTest1' });
 
 <template>
   <Fallback
-    description="当前页面仅 Admin 角色可见"
+    description="当前页面仅 Super 角色可见"
     status="comming-soon"
     title="页面访问测试"
   />

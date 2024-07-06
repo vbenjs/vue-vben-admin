@@ -30,6 +30,10 @@ interface BasicUserInfo {
 
 interface AccessState {
   /**
+   * 权限码
+   */
+  accessCodes: string[];
+  /**
    * 可访问的菜单列表
    */
   accessMenus: MenuRecordRaw[];
@@ -60,6 +64,9 @@ interface AccessState {
  */
 const useCoreAccessStore = defineStore('core-access', {
   actions: {
+    setAccessCodes(codes: string[]) {
+      this.accessCodes = codes;
+    },
     setAccessMenus(menus: MenuRecordRaw[]) {
       this.accessMenus = menus;
     },
@@ -84,6 +91,9 @@ const useCoreAccessStore = defineStore('core-access', {
     },
   },
   getters: {
+    getAccessCodes(): string[] {
+      return this.accessCodes;
+    },
     getAccessMenus(): MenuRecordRaw[] {
       return this.accessMenus;
     },
@@ -102,12 +112,16 @@ const useCoreAccessStore = defineStore('core-access', {
     getUserRoles(): string[] {
       return this.userRoles;
     },
+    string(): string[] {
+      return this.accessCodes;
+    },
   },
   persist: {
     // 持久化
-    paths: ['accessToken', 'refreshToken'],
+    paths: ['accessToken', 'refreshToken', 'accessCodes'],
   },
   state: (): AccessState => ({
+    accessCodes: [],
     accessMenus: [],
     accessRoutes: [],
     accessToken: null,
