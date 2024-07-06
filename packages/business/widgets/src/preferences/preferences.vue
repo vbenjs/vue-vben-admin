@@ -77,6 +77,7 @@ const themeMode = defineModel<ThemeModeType>('themeMode');
 const themeRadius = defineModel<string>('themeRadius');
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
+const sidebarWidth = defineModel<number>('sidebarWidth');
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarCollapsedShowTitle = defineModel<boolean>(
   'sidebarCollapsedShowTitle',
@@ -108,6 +109,13 @@ const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 
 const copyrightEnable = defineModel<boolean>('copyrightEnable');
+const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
+const copyrightCompanySiteLink = defineModel<string>(
+  'copyrightCompanySiteLink',
+);
+const copyrightDate = defineModel<string>('copyrightDate');
+const copyrightIcp = defineModel<string>('copyrightIcp');
+const copyrightIcpLink = defineModel<string>('copyrightIcpLink');
 
 const shortcutKeysEnable = defineModel<boolean>('shortcutKeysEnable');
 const shortcutKeysGlobalSearch = defineModel<boolean>(
@@ -272,11 +280,12 @@ async function handleReset() {
               <Content v-model="appContentCompact" />
             </Block>
 
-            <Block :title="$t('preferences.sidebar')">
+            <Block :title="$t('preferences.sidebar.title')">
               <Sidebar
                 v-model:sidebar-collapsed="sidebarCollapsed"
                 v-model:sidebar-collapsed-show-title="sidebarCollapsedShowTitle"
                 v-model:sidebar-enable="sidebarEnable"
+                v-model:sidebar-width="sidebarWidth"
                 :disabled="!isSideMode"
               />
             </Block>
@@ -325,7 +334,14 @@ async function handleReset() {
               />
             </Block>
             <Block :title="$t('preferences.copyright.title')">
-              <Copyright v-model:copyright-enable="copyrightEnable" />
+              <Copyright
+                v-model:copyright-company-name="copyrightCompanyName"
+                v-model:copyright-company-site-link="copyrightCompanySiteLink"
+                v-model:copyright-date="copyrightDate"
+                v-model:copyright-enable="copyrightEnable"
+                v-model:copyright-icp="copyrightIcp"
+                v-model:copyright-icp-link="copyrightIcpLink"
+              />
             </Block>
           </template>
 

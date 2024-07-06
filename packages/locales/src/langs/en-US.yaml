@@ -160,15 +160,11 @@ preferences:
   normal: Normal
   plain: Plain
   rounded: Rounded
-  collapse: Collpase Menu
-  collapse-show-title: Display menu name
   interface-control: Interface Layout Control
   copy: Copy Preferences
   copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
   clear-and-logout: Clear Cache & Logout
   reset-success: Preferences reset successfully
-  sidebar: Sidebar
-  side-visible: Display Sidebar
   mode: Mode
   logo-visible: Display Logo
   # general
@@ -176,6 +172,12 @@ preferences:
   language: Language
   dynamic-title: Dynamic Title
   ai-assistant: Ai Assistant
+  sidebar:
+    title: Sidebar
+    width: Width
+    visible: Display Sidebar
+    collapsed: Collpase Menu
+    collapsed-show-title: Display menu name
   tabbar:
     title: Tabbar
     enable: Enable Tab Bar
@@ -246,7 +248,12 @@ preferences:
     fixed: Display Footer
   copyright:
     title: Copyright
-    enable: Enable CopyRight
+    enable: Enable copyright
+    company-name: Company name
+    company-site-link: Company homepage
+    date: Date
+    icp: ICP number
+    icp-link: ICP Site Link
   shortcut-keys:
     title: Shortcut Keys
     global: Global

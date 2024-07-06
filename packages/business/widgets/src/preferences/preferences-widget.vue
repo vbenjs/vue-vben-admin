@@ -19,7 +19,12 @@ import Preferences from './preferences.vue';
     :breadcrumb-show-home="preferences.breadcrumb.showHome"
     :breadcrumb-show-icon="preferences.breadcrumb.showIcon"
     :breadcrumb-style-type="preferences.breadcrumb.styleType"
+    :copyright-company-name="preferences.copyright.companyName"
+    :copyright-company-site-link="preferences.copyright.companySiteLink"
+    :copyright-date="preferences.copyright.date"
     :copyright-enable="preferences.copyright.enable"
+    :copyright-icp="preferences.copyright.icp"
+    :copyright-icp-link="preferences.copyright.icpLink"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
     :header-enable="preferences.header.enable"
@@ -36,6 +41,7 @@ import Preferences from './preferences.vue';
     :sidebar-collapsed="preferences.sidebar.collapsed"
     :sidebar-collapsed-show-title="preferences.sidebar.collapsedShowTitle"
     :sidebar-enable="preferences.sidebar.enable"
+    :sidebar-width="preferences.sidebar.width"
     :tabbar-enable="preferences.tabbar.enable"
     :tabbar-show-icon="preferences.tabbar.showIcon"
     :theme-builtin-type="preferences.theme.builtinType"
@@ -86,8 +92,23 @@ import Preferences from './preferences.vue';
     @update:breadcrumb-style-type="
       (val) => updatePreferences({ breadcrumb: { styleType: val } })
     "
+    @update:copyright-company-name="
+      (val) => updatePreferences({ copyright: { companyName: val } })
+    "
+    @update:copyright-company-site-link="
+      (val) => updatePreferences({ copyright: { companySiteLink: val } })
+    "
+    @update:copyright-date="
+      (val) => updatePreferences({ copyright: { date: val } })
+    "
     @update:copyright-enable="
       (val) => updatePreferences({ copyright: { enable: val } })
+    "
+    @update:copyright-icp="
+      (val) => updatePreferences({ copyright: { icp: val } })
+    "
+    @update:copyright-icp-link="
+      (val) => updatePreferences({ copyright: { icpLink: val } })
     "
     @update:footer-enable="
       (val) => updatePreferences({ footer: { enable: val } })
@@ -128,6 +149,9 @@ import Preferences from './preferences.vue';
     "
     @update:sidebar-enable="
       (val) => updatePreferences({ sidebar: { enable: val } })
+    "
+    @update:sidebar-width="
+      (val) => updatePreferences({ sidebar: { width: val } })
     "
     @update:tabbar-enable="
       (val) => updatePreferences({ tabbar: { enable: val } })

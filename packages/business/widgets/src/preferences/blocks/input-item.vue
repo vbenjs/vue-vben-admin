@@ -4,14 +4,7 @@ import type { SelectListItem } from '@vben/types';
 import { useSlots } from 'vue';
 
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  VbenTooltip,
-} from '@vben-core/shadcn-ui';
+import { Input, VbenTooltip } from '@vben-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',
@@ -30,7 +23,7 @@ withDefaults(
   },
 );
 
-const selectValue = defineModel<string>();
+const inputValue = defineModel<string>();
 
 const slots = useSlots();
 </script>
@@ -53,15 +46,6 @@ const slots = useSlots();
         <slot name="tip"></slot>
       </VbenTooltip>
     </span>
-    <Select v-model="selectValue">
-      <SelectTrigger class="h-8 w-[160px]">
-        <SelectValue :placeholder="placeholder" />
-      </SelectTrigger>
-      <SelectContent>
-        <template v-for="item in items" :key="item.value">
-          <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
-        </template>
-      </SelectContent>
-    </Select>
+    <Input v-model="inputValue" class="h-8 w-[160px]" />
   </div>
 </template>

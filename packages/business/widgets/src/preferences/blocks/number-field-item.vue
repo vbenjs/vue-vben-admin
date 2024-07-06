@@ -5,11 +5,11 @@ import { useSlots } from 'vue';
 
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  NumberField,
+  NumberFieldContent,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
+  NumberFieldInput,
   VbenTooltip,
 } from '@vben-core/shadcn-ui';
 
@@ -30,7 +30,7 @@ withDefaults(
   },
 );
 
-const selectValue = defineModel<string>();
+const inputValue = defineModel<number>();
 
 const slots = useSlots();
 </script>
@@ -53,15 +53,13 @@ const slots = useSlots();
         <slot name="tip"></slot>
       </VbenTooltip>
     </span>
-    <Select v-model="selectValue">
-      <SelectTrigger class="h-8 w-[160px]">
-        <SelectValue :placeholder="placeholder" />
-      </SelectTrigger>
-      <SelectContent>
-        <template v-for="item in items" :key="item.value">
-          <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
-        </template>
-      </SelectContent>
-    </Select>
+
+    <NumberField v-model="inputValue" v-bind="$attrs" class="w-[160px]">
+      <NumberFieldContent>
+        <NumberFieldDecrement />
+        <NumberFieldInput />
+        <NumberFieldIncrement />
+      </NumberFieldContent>
+    </NumberField>
   </div>
 </template>
