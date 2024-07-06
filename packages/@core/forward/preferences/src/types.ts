@@ -38,6 +38,8 @@ interface AppPreferences {
   defaultAvatar: string;
   // /** 开启动态标题 */
   dynamicTitle: boolean;
+  /** 是否显示偏好设置 */
+  enablePreferences: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */
@@ -48,8 +50,6 @@ interface AppPreferences {
   name: string;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
   semiDarkMenu: boolean;
-  /** 是否显示偏好设置 */
-  showPreference: boolean;
 }
 
 interface BreadcrumbPreferences {

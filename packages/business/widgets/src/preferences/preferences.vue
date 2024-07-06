@@ -340,6 +340,7 @@ async function handleReset() {
 
       <template #footer>
         <VbenButton
+          :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
           variant="outline"

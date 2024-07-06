@@ -307,6 +307,7 @@ const tabbarStyle = computed((): CSSProperties => {
 const contentStyle = computed((): CSSProperties => {
   const fixed = headerFixed.value;
 
+  const { footerEnable, footerFixed, footerHeight } = props;
   return {
     marginTop:
       fixed &&
@@ -315,7 +316,7 @@ const contentStyle = computed((): CSSProperties => {
       (!isHeaderAuto.value || scrollY.value < headerWrapperHeight.value)
         ? `${headerWrapperHeight.value}px`
         : 0,
-    paddingBottom: `${props.footerEnable ? props.footerHeight : 0}px`,
+    paddingBottom: `${footerEnable && footerFixed ? footerHeight : 0}px`,
   };
 });
 

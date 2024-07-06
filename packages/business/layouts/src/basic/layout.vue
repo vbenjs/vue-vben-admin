@@ -152,7 +152,7 @@ function clearPreferencesAndLogout() {
         updatePreferences({ sidebar: { extraCollapse: value } })
     "
   >
-    <template v-if="preferences.app.showPreference" #preferences>
+    <template v-if="preferences.app.enablePreferences" #preferences>
       <PreferencesWidget
         @clear-preferences-and-logout="clearPreferencesAndLogout"
       />

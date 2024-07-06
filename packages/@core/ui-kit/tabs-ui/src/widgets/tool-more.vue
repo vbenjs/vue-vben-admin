@@ -8,7 +8,7 @@ defineProps<DropdownMenuProps>();
 </script>
 
 <template>
-  <VbenDropdownMenu :menus="menus">
+  <VbenDropdownMenu :menus="menus" :modal="false">
     <div
       class="flex-center hover:bg-accent hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-2 text-lg font-semibold"
     >

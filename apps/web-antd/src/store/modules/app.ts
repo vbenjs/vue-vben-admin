@@ -7,7 +7,7 @@ export const useAppStore = defineStore('app', () => {
   const coreTabbarStore = useCoreTabbarStore();
 
   /**
-   * 重置所有 状态
+   * 重置所有状态
    */
   async function resetAppState() {
     coreStoreAccess.$reset();

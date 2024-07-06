@@ -9,16 +9,16 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
-    copyright: 'Copyright © 2024 Vben Admin PRO',
+    copyright: 'Copyright © 2024 Vben Admin Pro',
     defaultAvatar:
       'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.0/source/avatar-v1.webp',
     dynamicTitle: true,
+    enablePreferences: true,
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
     name: 'Vben Admin Pro',
     semiDarkMenu: true,
-    showPreference: true,
   },
   breadcrumb: {
     enable: true,
@@ -28,8 +28,8 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   footer: {
-    enable: false,
-    fixed: true,
+    enable: true,
+    fixed: false,
   },
   header: {
     enable: true,
