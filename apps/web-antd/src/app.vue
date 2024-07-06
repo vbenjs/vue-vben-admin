@@ -6,7 +6,7 @@ import { preferences, usePreferences } from '@vben-core/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';
 
-import { antdLocale } from '#/forward';
+import { antdLocale } from '#/locales';
 
 defineOptions({ name: 'App' });
 

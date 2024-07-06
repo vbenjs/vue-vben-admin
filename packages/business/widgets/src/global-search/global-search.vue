@@ -3,7 +3,6 @@ import type { MenuRecordRaw } from '@vben/types';
 
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { $t } from '@vben/locales';
 import {
   IcRoundArrowDownward,
   IcRoundArrowUpward,
@@ -11,6 +10,7 @@ import {
   IcRoundSubdirectoryArrowLeft,
   MdiKeyboardEsc,
 } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import {
   Dialog,
   DialogContent,

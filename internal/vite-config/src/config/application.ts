@@ -4,7 +4,7 @@ import type { DefineApplicationOptions } from '../typing';
 
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
-import { getApplicationConditionPlugins } from '../plugins';
+import { loadApplicationPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
 function defineApplicationConfig(options: DefineApplicationOptions = {}) {
@@ -15,7 +15,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
     const isBuild = command === 'build';
     const env = loadEnv(mode, root);
 
-    const plugins = await getApplicationConditionPlugins({
+    const plugins = await loadApplicationPlugins({
       compress: false,
       compressTypes: ['brotli', 'gzip'],
       devtools: true,

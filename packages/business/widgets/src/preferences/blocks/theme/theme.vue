@@ -3,12 +3,12 @@ import type { ThemeModeType } from '@vben-core/preferences';
 
 import type { Component } from 'vue';
 
-import { $t } from '@vben/locales';
 import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
   MdiMoonAndStars,
 } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 
 import SwitchItem from '../switch-item.vue';
 

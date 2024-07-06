@@ -4,8 +4,8 @@ import type { FallbackProps } from './fallback';
 import { computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@vben/locales';
 import { IcRoundArrowBackIosNew, IcRoundRefresh } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
 interface Props extends FallbackProps {}

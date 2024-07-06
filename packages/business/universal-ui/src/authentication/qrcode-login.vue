@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';

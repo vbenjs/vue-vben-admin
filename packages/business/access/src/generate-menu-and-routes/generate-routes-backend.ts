@@ -6,7 +6,7 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import type { GeneratorMenuAndRoutesOptions } from '../types';
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import { mapTree } from '@vben-core/toolkit';
 
 /**

@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@vben-core/helpers": "workspace:*",
+    "@vben-core/locales": "workspace:*",
     "@vben-core/preferences": "workspace:*",
     "@vben-core/request": "workspace:*",
     "@vben-core/stores": "workspace:*",
@@ -34,7 +35,6 @@
     "@vben/constants": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
-    "@vben/locales": "workspace:*",
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/universal-ui": "workspace:*",

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { $t } from '@vben/locales';
 import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
   MdiMoonAndStars,
 } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import {
   type ThemeModeType,
   preferences,

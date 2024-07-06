@@ -1,10 +1,9 @@
 import { createApp } from 'vue';
 
-import { setupI18n } from '@vben/locales';
 import '@vben/styles';
 import { preferences } from '@vben-core/preferences';
 
-import { loadThirdPartyMessage } from '#/forward';
+import { loadMessages, setupI18n } from '#/locales';
 import { setupStore } from '#/store';
 
 import App from './app.vue';
@@ -16,7 +15,7 @@ async function bootstrap(namespace: string) {
   // 国际化 i18n 配置
   await setupI18n(app, {
     defaultLocale: preferences.app.locale,
-    loadThirdPartyMessage,
+    loadMessages,
   });
 
   // 配置 pinia-store

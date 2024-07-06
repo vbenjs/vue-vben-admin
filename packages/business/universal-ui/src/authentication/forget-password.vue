@@ -3,7 +3,7 @@ import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import { VbenButton, VbenInput } from '@vben-core/shadcn-ui';
 
 import Title from './auth-title.vue';

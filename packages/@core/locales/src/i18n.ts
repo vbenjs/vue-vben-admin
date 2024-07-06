@@ -8,6 +8,7 @@ import { createI18n } from 'vue-i18n';
 
 const loadedLanguages = new Set<string>();
 
+// TODO：import.meta.env 和 import.meta.glob 是源码依赖，会导致该包依赖外部项目必须是vite才可以
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
@@ -20,13 +21,22 @@ const i18n = createI18n({
 
 const modules = import.meta.glob('./langs/*.y(a)?ml');
 
-const localesMap: Record<Locale, ImportLocaleFn> = {};
+const localesMap = loadLocalesMap(modules);
 
-for (const [path, loadLocale] of Object.entries(modules)) {
-  const key = path.match(/([\w-]*)\.y(a)?ml/)?.[1];
-  if (key) {
-    localesMap[key] = loadLocale as ImportLocaleFn;
+/**
+ * Load locale modules
+ * @param modules
+ */
+function loadLocalesMap(modules: Record<string, () => Promise<unknown>>) {
+  const localesMap: Record<Locale, ImportLocaleFn> = {};
+
+  for (const [path, loadLocale] of Object.entries(modules)) {
+    const key = path.match(/([\w-]*)\.y(a)?ml/)?.[1];
+    if (key) {
+      localesMap[key] = loadLocale as ImportLocaleFn;
+    }
   }
+  return localesMap;
 }
 
 /**
@@ -52,11 +62,11 @@ async function loadI18nMessages(lang: SupportedLanguagesType) {
     return setI18nLanguage(lang);
   }
 
-  const messages = await localesMap[lang]();
+  const message = await localesMap[lang]();
 
-  i18n.global.setLocaleMessage(lang, messages.default);
+  i18n.global.setLocaleMessage(lang, message.default);
   loadedLanguages.add(lang);
   return setI18nLanguage(lang);
 }
 
-export { i18n, loadI18nMessages, setI18nLanguage };
+export { i18n, loadI18nMessages, loadLocalesMap, setI18nLanguage };

@@ -9,7 +9,7 @@ import type {
 
 import { join } from 'node:path';
 
-import { getPackage } from '@vben/node-utils';
+import { getPackage, getPackages } from '@vben/node-utils';
 
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
@@ -33,9 +33,7 @@ import { viteLicensePlugin } from './license';
  * 获取条件成立的 vite 插件
  * @param conditionPlugins
  */
-async function getConditionEstablishedPlugins(
-  conditionPlugins: ConditionPlugin[],
-) {
+async function loadConditionPlugins(conditionPlugins: ConditionPlugin[]) {
   const plugins: PluginOption[] = [];
   for (const conditionPlugin of conditionPlugins) {
     if (conditionPlugin.condition) {
@@ -49,7 +47,7 @@ async function getConditionEstablishedPlugins(
 /**
  * 根据条件获取通用的vite插件
  */
-async function getCommonConditionPlugins(
+async function loadCommonPlugins(
   options: CommonPluginOptions,
 ): Promise<ConditionPlugin[]> {
   const { devtools, injectMetadata, isBuild, visualizer } = options;
@@ -89,7 +87,7 @@ async function getCommonConditionPlugins(
 /**
  * 根据条件获取应用类型的vite插件
  */
-async function getApplicationConditionPlugins(
+async function loadApplicationPlugins(
   options: ApplicationPluginOptions,
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
@@ -112,15 +110,33 @@ async function getApplicationConditionPlugins(
     ...commonOptions
   } = options;
 
-  const commonPlugins = await getCommonConditionPlugins(commonOptions);
+  const commonPlugins = await loadCommonPlugins(commonOptions);
 
-  return await getConditionEstablishedPlugins([
+  return await loadConditionPlugins([
     ...commonPlugins,
     {
       condition: i18n,
       plugins: async () => {
-        const pkg = await getPackage('@vben/locales');
-        const include = `${join(pkg?.dir ?? '', isBuild ? 'dist' : 'src', 'langs')}/*.yaml`;
+        const { packages } = await getPackages();
+        const pkg = await getPackage('@vben-core/locales');
+
+        const include: string[] = [
+          `${join(pkg?.dir ?? '', isBuild ? 'dist' : 'src', 'langs')}/*.yaml`,
+        ];
+
+        // 加载所有应用的国际化文件
+        for (const { dir, relativeDir } of packages) {
+          if (
+            // 排除非应用目录
+            !relativeDir.startsWith('apps') ||
+            // 排除mock目录
+            relativeDir.includes('backend-mock')
+          ) {
+            continue;
+          }
+          include.push(`${join(dir, 'src', 'locales', 'langs')}/*.yaml`);
+        }
+
         return [
           viteVueI18nPlugin({
             compositionOnly: true,
@@ -204,14 +220,14 @@ async function getApplicationConditionPlugins(
 /**
  * 根据条件获取库类型的vite插件
  */
-async function getLibraryConditionPlugins(
+async function loadLibraryPlugins(
   options: LibraryPluginOptions,
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
   const { dts, injectLibCss, ...commonOptions } = options;
-  const commonPlugins = await getCommonConditionPlugins(commonOptions);
-  return await getConditionEstablishedPlugins([
+  const commonPlugins = await loadCommonPlugins(commonOptions);
+  return await loadConditionPlugins([
     ...commonPlugins,
     {
       condition: isBuild && !!dts,
@@ -225,8 +241,8 @@ async function getLibraryConditionPlugins(
 }
 
 export {
-  getApplicationConditionPlugins,
-  getLibraryConditionPlugins,
+  loadApplicationPlugins,
+  loadLibraryPlugins,
   viteCompressPlugin,
   viteDtsPlugin,
   viteHtmlPlugin,

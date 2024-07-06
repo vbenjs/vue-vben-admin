@@ -3,9 +3,9 @@ import type { BuiltinThemeType } from '@vben/types';
 
 import { computed, ref } from 'vue';
 
-import { $t } from '@vben/locales';
 import { TinyColor, convertToHsl } from '@vben-core/colorful';
 import { MdiEditBoxOutline } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,

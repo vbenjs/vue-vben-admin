@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LayoutHeaderModeType, SelectListItem } from '@vben/types';
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';

@@ -1,8 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { $t } from '@vben/locales/helper';
-
 import { BasicLayout } from '#/layouts';
+import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {

@@ -1,12 +1,12 @@
 {
-  "name": "@vben/locales",
+  "name": "@vben-core/locales",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/locales"
+    "directory": "packages/@vben-core/forward/locales"
   },
   "license": "MIT",
   "type": "module",
@@ -30,11 +30,6 @@
     },
     "./langs/*": {
       "default": "./dist/langs/*"
-    },
-    "./helper": {
-      "types": "./src/helper.ts",
-      "development": "./src/helper.ts",
-      "default": "./dist/helper.mjs"
     }
   },
   "publishConfig": {
@@ -44,6 +39,9 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "peerDependencies": {
+    "vite": "latest"
   },
   "dependencies": {
     "@intlify/core-base": "^9.13.1",

@@ -3,8 +3,8 @@ import type { LayoutType } from '@vben/types';
 
 import { type Component, computed } from 'vue';
 
-import { $t } from '@vben/locales';
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
 import {

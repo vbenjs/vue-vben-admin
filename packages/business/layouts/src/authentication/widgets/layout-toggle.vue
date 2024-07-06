@@ -4,8 +4,8 @@ import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
 
 import { computed } from 'vue';
 
-import { $t } from '@vben/locales';
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import {
   preferences,
   updatePreferences,

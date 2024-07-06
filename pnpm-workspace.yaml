@@ -6,6 +6,7 @@ packages:
   - "packages/@core/ui-kit/*"
   - "packages/@core/forward/*"
   - "packages/@core/helpers"
+  - "packages/@core/locales"
   - "packages/business/*"
   - "apps/*"
   - "scripts/*"

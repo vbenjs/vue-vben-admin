@@ -2,9 +2,8 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_GITHUB_URL, VBEN_LOGO } from '@vben/constants';
 
-import { $t } from '@vben/locales/helper';
-
 import { BasicLayout, IFrameView } from '#/layouts';
+import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {

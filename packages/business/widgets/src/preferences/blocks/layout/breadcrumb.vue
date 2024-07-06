@@ -3,7 +3,7 @@ import type { SelectListItem } from '@vben/types';
 
 import { computed } from 'vue';
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 
 import SwitchItem from '../switch-item.vue';
 import ToggleItem from '../toggle-item.vue';

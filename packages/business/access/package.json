@@ -37,10 +37,10 @@
     }
   },
   "dependencies": {
+    "@vben-core/locales": "workspace:*",
     "@vben-core/preferences": "workspace:*",
     "@vben-core/stores": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
-    "@vben/locales": "workspace:*",
     "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },

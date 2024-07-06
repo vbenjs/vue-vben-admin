@@ -2,6 +2,10 @@ import type { SupportedLanguagesType } from '@vben-core/typings';
 
 type ImportLocaleFn = () => Promise<{ default: Record<string, string> }>;
 
+type LoadMessageFn = (
+  lang: SupportedLanguagesType,
+) => Promise<Record<string, string>>;
+
 interface LocaleSetupOptions {
   /**
    * Default language
@@ -9,11 +13,16 @@ interface LocaleSetupOptions {
    */
   defaultLocale?: SupportedLanguagesType;
   /**
-   * Load third-party library messages
+   * Load message function
    * @param lang
    * @returns
    */
-  loadThirdPartyMessage?: (lang: SupportedLanguagesType) => Promise<void>;
+  loadMessages?: LoadMessageFn;
 }
 
-export type { ImportLocaleFn, LocaleSetupOptions, SupportedLanguagesType };
+export type {
+  ImportLocaleFn,
+  LoadMessageFn,
+  LocaleSetupOptions,
+  SupportedLanguagesType,
+};

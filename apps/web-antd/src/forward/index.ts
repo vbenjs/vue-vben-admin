@@ -1,2 +1,2 @@
-export * from './locale';
+export * from './access';
 export * from './request';

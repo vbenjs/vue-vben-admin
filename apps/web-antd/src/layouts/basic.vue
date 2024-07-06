@@ -7,11 +7,11 @@ import { useRouter } from 'vue-router';
 import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
-import { $t } from '@vben/locales';
 import { openWindow } from '@vben/utils';
 import { Notification, UserDropdown } from '@vben/widgets';
 import { preferences } from '@vben-core/preferences';
 
+import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
 import { useAppStore } from '#/store';
 

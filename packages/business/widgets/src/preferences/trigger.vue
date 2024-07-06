@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
 import IconSetting from './icons/setting.vue';

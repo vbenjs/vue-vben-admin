@@ -6,7 +6,7 @@ import { readPackageJSON } from '@vben/node-utils';
 
 import { defineConfig, mergeConfig } from 'vite';
 
-import { getLibraryConditionPlugins } from '../plugins';
+import { loadLibraryPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
 function defineLibraryConfig(options: DefineLibraryOptions = {}) {
@@ -16,7 +16,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     const { library = {}, vite = {} } = options;
     const isBuild = command === 'build';
 
-    const plugins = await getLibraryConditionPlugins({
+    const plugins = await loadLibraryPlugins({
       dts: false,
       injectLibCss: true,
       injectMetadata: true,

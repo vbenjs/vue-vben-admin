@@ -1,9 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
 
 import { DEFAULT_HOME_PATH } from '@vben/constants';
-import { $t } from '@vben/locales';
 
 import { AuthPageLayout } from '#/layouts';
+import { $t } from '#/locales';
 import Login from '#/views/_essential/authentication/login.vue';
 
 /** 全局404页面 */

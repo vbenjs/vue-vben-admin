@@ -61,6 +61,10 @@
       "path": "packages/@core/forward/stores",
     },
     {
+      "name": "@vben-core/locales",
+      "path": "packages/@core/locales",
+    },
+    {
       "name": "@vben-core/cache",
       "path": "packages/@core/shared/cache",
     },
@@ -131,10 +135,6 @@
     {
       "name": "@vben/icons",
       "path": "packages/icons",
-    },
-    {
-      "name": "@vben/locales",
-      "path": "packages/locales",
     },
     {
       "name": "@vben/styles",

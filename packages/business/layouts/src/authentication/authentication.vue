@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
 import AuthenticationFromView from './from-view.vue';

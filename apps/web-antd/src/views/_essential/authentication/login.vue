@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { LoginAndRegisterParams } from '@vben/universal-ui';
 
-import { $t } from '@vben/locales';
 import { AuthenticationLogin } from '@vben/universal-ui';
 
 import { App } from 'ant-design-vue';
 
+import { $t } from '#/locales';
 import { useAccessStore } from '#/store';
 
 defineOptions({ name: 'Login' });

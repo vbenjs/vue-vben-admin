@@ -51,19 +51,19 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div ref="wrapperEl" class="coze-assistant"></div>
+  <div ref="wrapperEl" class="coze-vben-admin-assistant"></div>
 </template>
 
 <style>
-.coze-assistant {
+.coze-vben-admin-assistant {
   position: fixed;
   right: 30px;
   bottom: 60px;
   z-index: 1000;
 
   img {
-    width: 42px !important;
-    height: 42px !important;
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 50%;
   }
 }

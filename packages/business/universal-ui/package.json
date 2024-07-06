@@ -42,9 +42,9 @@
   "dependencies": {
     "@vben-core/design": "workspace:*",
     "@vben-core/iconify": "workspace:*",
+    "@vben-core/locales": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/constants": "workspace:*",
-    "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
     "@vueuse/integrations": "^10.11.0",
     "qrcode": "^1.5.3",

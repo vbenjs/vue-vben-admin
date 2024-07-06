@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { loadLocaleMessages } from '@vben/locales';
+import { loadLocaleMessages } from '@vben-core/locales';
 import { preferences, updatePreferences } from '@vben-core/preferences';
 
 import Preferences from './preferences.vue';

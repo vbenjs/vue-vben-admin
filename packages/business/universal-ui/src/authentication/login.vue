@@ -4,7 +4,7 @@ import type { LoginEmits } from './typings';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben-core/locales';
 import {
   VbenButton,
   VbenCheckbox,

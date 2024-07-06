@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { NotificationItem } from './interface';
 
-import { $t } from '@vben/locales';
 import {
   IcRoundMarkEmailRead,
   IcRoundNotificationsNone,
 } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import {
   VbenButton,
   VbenIconButton,

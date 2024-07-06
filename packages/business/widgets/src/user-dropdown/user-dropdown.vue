@@ -4,8 +4,8 @@ import type { AnyFunction } from '@vben/types';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { $t } from '@vben/locales';
 import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
+import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import {
   Badge,

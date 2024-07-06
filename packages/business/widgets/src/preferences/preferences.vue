@@ -15,8 +15,8 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { $t, loadLocaleMessages } from '@vben/locales';
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
+import { $t, loadLocaleMessages } from '@vben-core/locales';
 import {
   clearPreferencesCache,
   preferences,

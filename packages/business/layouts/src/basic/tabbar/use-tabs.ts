@@ -8,7 +8,6 @@ import type {
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { $t, useI18n } from '@vben/locales';
 import {
   IcRoundClose,
   IcRoundMultipleStop,
@@ -19,6 +18,7 @@ import {
   MdiPin,
   MdiPinOff,
 } from '@vben-core/iconify';
+import { $t, useI18n } from '@vben-core/locales';
 import {
   storeToRefs,
   useCoreAccessStore,

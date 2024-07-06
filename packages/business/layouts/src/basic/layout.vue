@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { $t } from '@vben/locales';
 import { PreferencesWidget } from '@vben/widgets';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
+import { $t } from '@vben-core/locales';
 import {
   preferences,
   updatePreferences,

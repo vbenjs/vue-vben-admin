@@ -1,13 +1,13 @@
 import type { Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
-import { $t } from '@vben/locales';
 import { startProgress, stopProgress } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
 
 import { useTitle } from '@vueuse/core';
 
-import { generateAccess } from '#/forward/access';
+import { generateAccess } from '#/forward';
+import { $t } from '#/locales';
 import { dynamicRoutes, essentialsRouteNames } from '#/router/routes';
 import { useAccessStore } from '#/store';
 

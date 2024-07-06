@@ -16,7 +16,7 @@
   - @vben/constants@5.0.1
   - @vben/hooks@5.0.1
   - @vben/icons@5.0.1
-  - @vben/locales@5.0.1
+  - #/locales@5.0.1
   - @vben/styles@5.0.1
   - @vben/types@5.0.1
   - @vben/utils@5.0.1
