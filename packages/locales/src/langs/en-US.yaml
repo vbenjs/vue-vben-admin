@@ -244,8 +244,8 @@ preferences:
     mode-auto-scroll: Scroll hide/display
   footer:
     title: Footer
-    visible: Fixed at the bottom
-    fixed: Display Footer
+    visible: Display Footer
+    fixed: Fixed at the bottom
   copyright:
     title: Copyright
     enable: Enable copyright
