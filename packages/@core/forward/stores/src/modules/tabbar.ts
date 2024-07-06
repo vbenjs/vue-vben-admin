@@ -143,6 +143,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         currentTab.params = params || currentTab.params;
         currentTab.query = query || currentTab.query;
         currentTab.fullPath = fullPath || currentTab.fullPath;
+        currentTab.meta = meta || currentTab.meta;
         this.tabs.splice(tabIndex, 1, currentTab);
       }
       this.updateCacheTab();
@@ -285,7 +286,13 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         this.tabs[index].meta.affixTab = true;
       }
       // TODO: 这里应该把tab从tbs中移除
-      this.affixTabs.push(tab as unknown as RouteRecordNormalized);
+      const affixIndex = this.affixTabs.findIndex(
+        (item) => this.getTabPath(item) === this.getTabPath(tab),
+      );
+      if (affixIndex === -1) {
+        tab.meta.affixTab = true;
+        this.affixTabs.push(tab as unknown as RouteRecordNormalized);
+      }
     },
     /**
      * 刷新标签页
@@ -324,6 +331,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       );
 
       if (index !== -1) {
+        tab.meta.affixTab = false;
         this.affixTabs[index].meta.affixTab = false;
         this.affixTabs.splice(index, 1);
         this.addTab(tab);
