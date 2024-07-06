@@ -244,6 +244,9 @@ preferences:
     title: Footer
     visible: Fixed at the bottom
     fixed: Display Footer
+  copyright:
+    title: Copyright
+    enable: Enable CopyRight
   shortcut-keys:
     title: Shortcut Keys
     global: Global

@@ -175,7 +175,6 @@ preferences:
   language: 语言
   dynamic-title: 动态标题
   ai-assistant: Ai 助手
-
   tabbar:
     title: 标签栏
     enable: 启用标签栏
@@ -244,6 +243,9 @@ preferences:
     title: 底栏
     visible: 显示底栏
     fixed: 固定在底部
+  copyright:
+    title: 版权
+    enable: 启用版权
   shortcut-keys:
     title: 快捷键
     global: 全局

@@ -40,6 +40,7 @@ import {
   BuiltinTheme,
   ColorMode,
   Content,
+  Copyright,
   Footer,
   General,
   GlobalShortcutKeys,
@@ -105,6 +106,8 @@ const navigationAccordion = defineModel<boolean>('navigationAccordion');
 
 const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
+
+const copyrightEnable = defineModel<boolean>('copyrightEnable');
 
 const shortcutKeysEnable = defineModel<boolean>('shortcutKeysEnable');
 const shortcutKeysGlobalSearch = defineModel<boolean>(
@@ -320,6 +323,9 @@ async function handleReset() {
                 v-model:footer-enable="footerEnable"
                 v-model:footer-fixed="footerFixed"
               />
+            </Block>
+            <Block :title="$t('preferences.copyright.title')">
+              <Copyright v-model:copyright-enable="copyrightEnable" />
             </Block>
           </template>
 

@@ -14,6 +14,7 @@ import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
 
 import { LayoutContent } from './content';
+import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
 import { LayoutHeader } from './header';
 import {
@@ -267,8 +268,11 @@ function clearPreferencesAndLogout() {
     </template>
     <!-- 页脚 -->
     <template v-if="preferences.footer.enable" #footer>
-      <LayoutFooter v-if="preferences.app.copyright">
-        {{ preferences.app.copyright }}
+      <LayoutFooter>
+        <Copyright
+          v-if="preferences.copyright.enable"
+          v-bind="preferences.copyright"
+        />
       </LayoutFooter>
     </template>
   </VbenAdminLayout>

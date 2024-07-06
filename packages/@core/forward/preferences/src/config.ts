@@ -9,7 +9,6 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
-    copyright: 'Copyright © 2024 Vben Admin Pro',
     defaultAvatar:
       'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.0/source/avatar-v1.webp',
     dynamicTitle: true,
@@ -26,6 +25,14 @@ const defaultPreferences: Preferences = {
     showHome: false,
     showIcon: true,
     styleType: 'normal',
+  },
+  copyright: {
+    companyName: 'Vben Admin Pro',
+    companySiteLink: 'https://www.vben.pro',
+    date: '2024',
+    enable: true,
+    icp: '',
+    icpLink: '',
   },
   footer: {
     enable: true,

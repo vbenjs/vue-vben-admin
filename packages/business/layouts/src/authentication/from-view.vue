@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { preferences } from '@vben-core/preferences';
 
+import { Copyright } from '../basic/copyright';
 import Toolbar from './toolbar.vue';
 
 defineOptions({
@@ -28,7 +29,10 @@ defineOptions({
     <div
       class="text-muted-foreground absolute bottom-3 flex text-center text-xs"
     >
-      {{ preferences.app.copyright }}
+      <Copyright
+        v-if="preferences.copyright.enable"
+        v-bind="preferences.copyright"
+      />
     </div>
   </div>
 </template>

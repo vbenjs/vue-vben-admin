@@ -32,8 +32,6 @@ interface AppPreferences {
   compact: boolean;
   /** 是否开启内容紧凑模式 */
   contentCompact: ContentCompactType;
-  /** 页脚Copyright */
-  copyright: string;
   // /** 应用默认头像 */
   defaultAvatar: string;
   // /** 开启动态标题 */
@@ -63,6 +61,21 @@ interface BreadcrumbPreferences {
   showIcon: boolean;
   /** 面包屑风格 */
   styleType: BreadcrumbStyleType;
+}
+
+interface CopyrightPreferences {
+  /** 版权公司名 */
+  companyName: string;
+  /** 版权公司名链接 */
+  companySiteLink: string;
+  /** 版权日期 */
+  date: string;
+  /** 版权是否可见 */
+  enable: boolean;
+  /** 备案号 */
+  icp: string;
+  /** 备案号链接 */
+  icpLink: string;
 }
 
 interface FooterPreferences {
@@ -167,6 +180,8 @@ interface Preferences {
   app: AppPreferences;
   /** 顶栏配置 */
   breadcrumb: BreadcrumbPreferences;
+  /** 版权配置 */
+  copyright: CopyrightPreferences;
   /** 底栏配置 */
   footer: FooterPreferences;
   /** 面包屑配置 */

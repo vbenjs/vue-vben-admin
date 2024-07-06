@@ -19,6 +19,7 @@ import Preferences from './preferences.vue';
     :breadcrumb-show-home="preferences.breadcrumb.showHome"
     :breadcrumb-show-icon="preferences.breadcrumb.showIcon"
     :breadcrumb-style-type="preferences.breadcrumb.styleType"
+    :copyright-enable="preferences.copyright.enable"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
     :header-enable="preferences.header.enable"
@@ -84,6 +85,9 @@ import Preferences from './preferences.vue';
     "
     @update:breadcrumb-style-type="
       (val) => updatePreferences({ breadcrumb: { styleType: val } })
+    "
+    @update:copyright-enable="
+      (val) => updatePreferences({ copyright: { enable: val } })
     "
     @update:footer-enable="
       (val) => updatePreferences({ footer: { enable: val } })
