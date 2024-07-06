@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben/types';
 
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { $t } from '@vben/locales';
 import {
@@ -46,15 +46,37 @@ function handleClose() {
   keyword.value = '';
 }
 
-if (props.enableShortcutKey) {
-  const keys = useMagicKeys();
-  const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
-  whenever(cmd, () => {
-    if (props.enableShortcutKey) {
-      open.value = true;
-    }
+const keys = useMagicKeys();
+const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
+whenever(cmd, () => {
+  if (props.enableShortcutKey) {
+    open.value = true;
+  }
+});
+
+const preventDefaultBrowserSearchHotKey = (event: KeyboardEvent) => {
+  if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {
+    event.preventDefault();
+  }
+};
+
+const toggleKeydownListener = () => {
+  if (props.enableShortcutKey) {
+    window.addEventListener('keydown', preventDefaultBrowserSearchHotKey);
+  } else {
+    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey);
+  }
+};
+
+watch(() => props.enableShortcutKey, toggleKeydownListener);
+
+onMounted(() => {
+  toggleKeydownListener();
+
+  onUnmounted(() => {
+    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey);
   });
-}
+});
 </script>
 
 <template>
