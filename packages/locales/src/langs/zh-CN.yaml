@@ -145,8 +145,6 @@ preferences:
   wide: 流式
   compact: 定宽
   follow-system: 跟随系统
-  collapse: 折叠菜单
-  collapse-show-title: 显示菜单名
   vertical: 垂直
   vertical-tip: 侧边垂直菜单模式
   horizontal: 水平
@@ -166,8 +164,6 @@ preferences:
   copy-success: 拷贝成功，请在 app 下的 `src/preferences.ts`内进行覆盖
   clear-and-logout: 清空缓存 & 退出登录
   reset-success: 重置偏好设置成功
-  sidebar: 侧边栏
-  side-visible: 显示侧边栏
   mode: 模式
   logo-visible: 显示 Logo
   # general
@@ -175,6 +171,12 @@ preferences:
   language: 语言
   dynamic-title: 动态标题
   ai-assistant: Ai 助手
+  sidebar:
+    title: 侧边栏
+    width: 宽度
+    visible: 显示侧边栏
+    collapsed: 折叠菜单
+    collapsed-show-title: 显示菜单名
   tabbar:
     title: 标签栏
     enable: 启用标签栏
@@ -246,6 +248,11 @@ preferences:
   copyright:
     title: 版权
     enable: 启用版权
+    company-name: 公司名
+    company-site-link: 公司主页
+    date: 日期
+    icp: ICP 备案号
+    icp-link: ICP 网站链接
   shortcut-keys:
     title: 快捷键
     global: 全局
