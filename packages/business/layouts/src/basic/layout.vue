@@ -28,6 +28,8 @@ import { Breadcrumb } from './widgets';
 
 defineOptions({ name: 'BasicLayout' });
 
+const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
+
 const { isDark, isHeaderNav, isMixedNav, isSideMixedNav, layout } =
   usePreferences();
 
@@ -106,6 +108,10 @@ function toggleSidebar() {
     },
   });
 }
+
+function clearPreferencesAndLogout() {
+  emit('clearPreferencesAndLogout');
+}
 </script>
 
 <template>
@@ -147,7 +153,9 @@ function toggleSidebar() {
     "
   >
     <template v-if="preferences.app.showPreference" #preferences>
-      <PreferencesWidget />
+      <PreferencesWidget
+        @clear-preferences-and-logout="clearPreferencesAndLogout"
+      />
     </template>
 
     <template #floating-groups>

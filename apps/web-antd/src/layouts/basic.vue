@@ -95,7 +95,7 @@ function handleNoticeClear() {
 </script>
 
 <template>
-  <BasicLayout>
+  <BasicLayout @clear-preferences-and-logout="handleLogout">
     <template #user-dropdown>
       <UserDropdown
         :avatar="preferences.app.defaultAvatar"

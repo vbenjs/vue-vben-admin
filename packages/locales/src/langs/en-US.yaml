@@ -165,6 +165,7 @@ preferences:
   interface-control: Interface Layout Control
   copy: Copy Preferences
   copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
+  clear-and-logout: Clear Cache & Logout
   reset-success: Preferences reset successfully
   sidebar: Sidebar
   side-visible: Display Sidebar

@@ -18,6 +18,7 @@ import { computed, ref } from 'vue';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
 import {
+  clearPreferencesCache,
   preferences,
   resetPreferences,
   usePreferences,
@@ -52,6 +53,8 @@ import {
 } from './blocks';
 import Trigger from './trigger.vue';
 import { useOpenPreferences } from './use-open-preferences';
+
+const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
@@ -166,6 +169,12 @@ async function handleCopy() {
   toast($t('preferences.copy-success'));
 }
 
+async function handleClearCache() {
+  resetPreferences();
+  clearPreferencesCache();
+  emit('clearPreferencesAndLogout');
+}
+
 async function handleReset() {
   if (!diffPreference.value) {
     return;
@@ -187,17 +196,19 @@ async function handleReset() {
         <Trigger />
       </template>
       <template #extra>
-        <VbenIconButton
-          :disabled="!diffPreference"
-          :tooltip="$t('preferences.reset-tip')"
-          class="relative"
-        >
-          <span
-            v-if="diffPreference"
-            class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
-          ></span>
-          <IcRoundRestartAlt class="size-5" @click="handleReset" />
-        </VbenIconButton>
+        <div class="flex items-center">
+          <VbenIconButton
+            :disabled="!diffPreference"
+            :tooltip="$t('preferences.reset-tip')"
+            class="relative"
+          >
+            <span
+              v-if="diffPreference"
+              class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
+            ></span>
+            <IcRoundRestartAlt class="size-5" @click="handleReset" />
+          </VbenIconButton>
+        </div>
       </template>
 
       <div class="p-4 pt-4">
@@ -329,8 +340,17 @@ async function handleReset() {
 
       <template #footer>
         <VbenButton
+          class="mx-4 w-full"
+          size="sm"
+          variant="outline"
+          @click="handleClearCache"
+        >
+          <IcRoundRestartAlt class="mr-2 size-4" />
+          {{ $t('preferences.clear-and-logout') }}
+        </VbenButton>
+        <VbenButton
           :disabled="!diffPreference"
-          class="mx-6 w-full"
+          class="mr-4 w-full"
           size="sm"
           variant="default"
           @click="handleCopy"

@@ -17,7 +17,11 @@ const updatePreferences =
 const resetPreferences =
   preferencesManager.resetPreferences.bind(preferencesManager);
 
+const clearPreferencesCache =
+  preferencesManager.clearCache.bind(preferencesManager);
+
 export {
+  clearPreferencesCache,
   // flatPreferences,
   preferences,
   preferencesManager,
