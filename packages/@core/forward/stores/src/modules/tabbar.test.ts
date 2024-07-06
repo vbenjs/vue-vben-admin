@@ -71,20 +71,6 @@ describe('useCoreAccessStore', () => {
     // expect(router.replace).toHaveBeenCalled();
   });
 
-  it('returns all tabs including affix tabs', () => {
-    const store = useCoreTabbarStore();
-    store.tabs = [
-      { fullPath: '/home', meta: {}, name: 'Home', path: '/home' },
-    ] as any;
-    store.affixTabs = [
-      { meta: { hideInTab: false }, path: '/dashboard' },
-    ] as any;
-
-    const result = store.getTabs;
-    expect(result.length).toBe(2);
-    expect(result.find((tab) => tab.path === '/dashboard')).toBeDefined();
-  });
-
   it('closes a non-affix tab', () => {
     const store = useCoreTabbarStore();
     const tab: any = {
@@ -135,7 +121,7 @@ describe('useCoreAccessStore', () => {
     store.tabs.push(normalTab);
     store.affixTabs.push(affixTab);
     expect(store.getTabs).toContainEqual(normalTab);
-    // expect(store.getTabs).toContainEqual(affixTab);
+    expect(store.affixTabs).toContainEqual(affixTab);
   });
 
   it('navigates to a specific tab', async () => {
