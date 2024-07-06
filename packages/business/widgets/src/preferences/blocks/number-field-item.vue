@@ -54,7 +54,7 @@ const slots = useSlots();
       </VbenTooltip>
     </span>
 
-    <NumberField v-model="inputValue" v-bind="$attrs" class="w-[160px]">
+    <NumberField v-model="inputValue" v-bind="$attrs" class="w-[165px]">
       <NumberFieldContent>
         <NumberFieldDecrement />
         <NumberFieldInput />

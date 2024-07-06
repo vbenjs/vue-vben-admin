@@ -46,6 +46,6 @@ const slots = useSlots();
         <slot name="tip"></slot>
       </VbenTooltip>
     </span>
-    <Input v-model="inputValue" class="h-8 w-[160px]" />
+    <Input v-model="inputValue" class="h-8 w-[165px]" />
   </div>
 </template>

@@ -26,7 +26,7 @@ page:
       embedded: embedded Page
       external-link: External Link
     fallback:
-      title: Exception Page
+      title: Fallback Page
   essentials:
     login: Login
     register: Register
@@ -152,7 +152,7 @@ preferences:
   two-column-tip: Vertical Two Column Menu Mode
   mixed-menu: Mixed Menu
   split-menu: Split Menu
-  mixed-menu-tip: Vertical Menu Co-exists
+  mixed-menu-tip: Vertical & Horizontal Menu Co-exists
   full-content: Full Content
   full-content-tip: Display only the main content, no menus
   weak-mode: Color Weak Mode

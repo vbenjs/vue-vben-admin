@@ -54,7 +54,7 @@ const slots = useSlots();
       </VbenTooltip>
     </span>
     <Select v-model="selectValue">
-      <SelectTrigger class="h-8 w-[160px]">
+      <SelectTrigger class="h-8 w-[165px]">
         <SelectValue :placeholder="placeholder" />
       </SelectTrigger>
       <SelectContent>

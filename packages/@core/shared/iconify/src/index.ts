@@ -1,4 +1,4 @@
-export * from './factory';
+export * from './create-icon';
 export * from './material';
 export * from './mdi';
 

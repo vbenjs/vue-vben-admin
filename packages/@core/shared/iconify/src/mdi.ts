@@ -1,4 +1,4 @@
-import { createIcon } from './factory';
+import { createIcon } from './create-icon';
 
 export const MdiKeyboardEsc = createIcon('mdi:keyboard-esc');
 

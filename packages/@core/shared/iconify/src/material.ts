@@ -1,4 +1,4 @@
-import { createIcon } from './factory';
+import { createIcon } from './create-icon';
 
 export const IconDefault = createIcon('ic:round-auto-awesome');
 

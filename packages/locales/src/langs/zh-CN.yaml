@@ -26,7 +26,7 @@ page:
       embedded: 内嵌
       external-link: 外链
     fallback:
-      title: 异常页面
+      title: 缺省页
   essentials:
     login: 登陆
     register: 注册
@@ -152,7 +152,7 @@ preferences:
   two-column: 双列菜单
   two-column-tip: 垂直双列菜单模式
   mixed-menu: 混合菜单
-  mixed-menu-tip: 垂直菜单共存
+  mixed-menu-tip: 垂直水平菜单共存
   split-menu: 切割菜单
   full-content: 内容全屏
   full-content-tip: 不显示任何菜单，只显示内容主体
