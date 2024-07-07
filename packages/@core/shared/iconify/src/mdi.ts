@@ -1,49 +1,49 @@
-import { createIcon } from './create-icon';
+import { createIconifyIcon } from './create-icon';
 
-export const MdiKeyboardEsc = createIcon('mdi:keyboard-esc');
+export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc');
 
-export const MdiLoading = createIcon('mdi:loading');
+export const MdiLoading = createIconifyIcon('mdi:loading');
 
-export const MdiWechat = createIcon('mdi:wechat');
+export const MdiWechat = createIconifyIcon('mdi:wechat');
 
-export const MdiGithub = createIcon('mdi:github');
+export const MdiGithub = createIconifyIcon('mdi:github');
 
-export const MdiGoogle = createIcon('mdi:google');
+export const MdiGoogle = createIconifyIcon('mdi:google');
 
-export const MdiQqchat = createIcon('mdi:qqchat');
+export const MdiQqchat = createIconifyIcon('mdi:qqchat');
 
-export const MdiPin = createIcon('mdi:pin');
+export const MdiPin = createIconifyIcon('mdi:pin');
 
-export const MdiPinOff = createIcon('mdi:pin-off');
+export const MdiPinOff = createIconifyIcon('mdi:pin-off');
 
-export const MdiFormatHorizontalAlignLeft = createIcon(
+export const MdiFormatHorizontalAlignLeft = createIconifyIcon(
   'mdi:format-horizontal-align-left',
 );
 
-export const MdiFormatHorizontalAlignRight = createIcon(
+export const MdiFormatHorizontalAlignRight = createIconifyIcon(
   'mdi:format-horizontal-align-right',
 );
 
-export const MdiArrowExpandHorizontal = createIcon(
+export const MdiArrowExpandHorizontal = createIconifyIcon(
   'mdi:arrow-expand-horizontal',
 );
 
-export const MdiMenuClose = createIcon('mdi:menu-close');
+export const MdiMenuClose = createIconifyIcon('mdi:menu-close');
 
-export const MdiMenuOpen = createIcon('mdi:menu-open');
+export const MdiMenuOpen = createIconifyIcon('mdi:menu-open');
 
-export const MdiDockLeft = createIcon('mdi:dock-left');
+export const MdiDockLeft = createIconifyIcon('mdi:dock-left');
 
-export const MdiDockRight = createIcon('mdi:dock-right');
+export const MdiDockRight = createIconifyIcon('mdi:dock-right');
 
-export const MdiDockBottom = createIcon('mdi:dock-bottom');
+export const MdiDockBottom = createIconifyIcon('mdi:dock-bottom');
 
-export const MdiDriveDocument = createIcon('mdi:drive-document');
+export const MdiDriveDocument = createIconifyIcon('mdi:drive-document');
 
-export const MdiMoonAndStars = createIcon('mdi:moon-and-stars');
+export const MdiMoonAndStars = createIconifyIcon('mdi:moon-and-stars');
 
-export const MdiEditBoxOutline = createIcon('mdi:edit-box-outline');
+export const MdiEditBoxOutline = createIconifyIcon('mdi:edit-box-outline');
 
-export const MdiQuestionMarkCircleOutline = createIcon(
+export const MdiQuestionMarkCircleOutline = createIconifyIcon(
   'mdi:question-mark-circle-outline',
 );

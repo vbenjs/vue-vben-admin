@@ -28,7 +28,7 @@ import {
   VbenIconButton,
   VbenSegmented,
   VbenSheet,
-  toast,
+  useToast,
 } from '@vben-core/shadcn-ui';
 
 import { useClipboard } from '@vueuse/core';
@@ -56,7 +56,7 @@ import Trigger from './trigger.vue';
 import { useOpenPreferences } from './use-open-preferences';
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
-
+const { toast } = useToast();
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appAiAssistant = defineModel<boolean>('appAiAssistant');
@@ -177,7 +177,10 @@ const { openPreferences } = useOpenPreferences();
 async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
 
-  toast($t('preferences.copy-success'));
+  toast({
+    description: $t('preferences.copy'),
+    title: $t('preferences.copy-success'),
+  });
 }
 
 async function handleClearCache() {
@@ -192,7 +195,14 @@ async function handleReset() {
   }
   resetPreferences();
   await loadLocaleMessages(preferences.app.locale);
-  toast($t('preferences.reset-success'));
+  toast({
+    description: $t('preferences.reset-title'),
+    title: $t('preferences.reset-success'),
+  });
+  toast({
+    description: $t('preferences.reset-title'),
+    title: $t('preferences.reset-success'),
+  });
 }
 </script>
 
