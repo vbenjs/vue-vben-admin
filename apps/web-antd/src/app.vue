@@ -30,7 +30,10 @@ const tokenTheme = computed(() => {
 </script>
 
 <template>
-  <GlobalProvider>
+  <GlobalProvider
+    :enable-ai-assistant="preferences.app.aiAssistant"
+    :is-mobile="preferences.app.isMobile"
+  >
     <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
       <App>
         <RouterView />

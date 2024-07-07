@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { preferences } from '@vben-core/preferences';
 import { Toaster } from '@vben-core/shadcn-ui';
 
 import { CozeAssistant } from '../coze-assistant';
 
+interface Props {
+  enableAiAssistant?: boolean;
+  isMobile?: boolean;
+}
+
 defineOptions({ name: 'GlobalProvider' });
+
+withDefaults(defineProps<Props>(), {
+  enableAiAssistant: false,
+  isMobile: false,
+});
 </script>
 <template>
   <Toaster />
-  <CozeAssistant
-    v-if="preferences.app.aiAssistant"
-    :is-mobile="preferences.app.isMobile"
-  />
+  <CozeAssistant v-if="enableAiAssistant" :is-mobile="isMobile" />
   <slot></slot>
 </template>

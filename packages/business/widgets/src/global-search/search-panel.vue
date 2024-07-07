@@ -26,7 +26,7 @@ const emit = defineEmits<{ close: [] }>();
 
 const router = useRouter();
 const searchHistory = useLocalStorage<MenuRecordRaw[]>(
-  `__search-history-${import.meta.env.PROD ? 'prod' : 'dev'}__`,
+  `__search-history-${location.hostname}__`,
   [],
 );
 const activeIndex = ref(-1);

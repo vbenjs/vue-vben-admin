@@ -8,7 +8,6 @@ import { createI18n } from 'vue-i18n';
 
 const loadedLanguages = new Set<string>();
 
-// TODO：import.meta.env，会导致该包依赖外部项目必须是vite才可以
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,

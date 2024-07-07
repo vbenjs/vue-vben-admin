@@ -1,7 +1,6 @@
 /**
  * 获取元素可见高度
  * @param element
- * @returns
  */
 function getElementVisibleHeight(
   element?: HTMLElement | null | undefined,
