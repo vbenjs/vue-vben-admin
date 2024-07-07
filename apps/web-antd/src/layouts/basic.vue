@@ -15,10 +15,6 @@ import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
 import { useAppStore } from '#/store';
 
-// https://avatar.vercel.sh/vercel.svg?text=Vaa
-// https://avatar.vercel.sh/1
-// https://avatar.vercel.sh/nextjs
-// https://avatar.vercel.sh/satori
 const notifications = ref<NotificationItem[]>([
   {
     avatar: 'https://avatar.vercel.sh/vercel.svg?text=VB',
@@ -49,6 +45,10 @@ const notifications = ref<NotificationItem[]>([
     title: '代办提醒',
   },
 ]);
+
+const showDot = computed(() =>
+  notifications.value.some((item) => !item.isRead),
+);
 
 const menus = computed(() => [
   {
@@ -92,6 +92,10 @@ async function handleLogout() {
 function handleNoticeClear() {
   notifications.value = [];
 }
+
+function handleMakeAll() {
+  notifications.value.forEach((item) => (item.isRead = true));
+}
 </script>
 
 <template>
@@ -108,9 +112,10 @@ function handleNoticeClear() {
     </template>
     <template #notification>
       <Notification
+        :dot="showDot"
         :notifications="notifications"
-        dot
         @clear="handleNoticeClear"
+        @make-all="handleMakeAll"
       />
     </template>
   </BasicLayout>
