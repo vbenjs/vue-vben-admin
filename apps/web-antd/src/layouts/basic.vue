@@ -13,7 +13,7 @@ import { preferences } from '@vben-core/preferences';
 
 import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
-import { useAppStore } from '#/store';
+import { useAccessStore, useAppStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -81,6 +81,7 @@ const menus = computed(() => [
 ]);
 
 const appStore = useAppStore();
+const { userInfo } = useAccessStore();
 const router = useRouter();
 
 async function handleLogout() {
@@ -102,11 +103,11 @@ function handleMakeAll() {
   <BasicLayout @clear-preferences-and-logout="handleLogout">
     <template #user-dropdown>
       <UserDropdown
-        :avatar="preferences.app.defaultAvatar"
+        :avatar="userInfo?.avatar ?? preferences.app.defaultAvatar"
         :menus="menus"
+        :text="userInfo?.realName"
         description="ann.vben@gmail.com"
         tag-text="Pro"
-        text="Vben Admin"
         @logout="handleLogout"
       />
     </template>

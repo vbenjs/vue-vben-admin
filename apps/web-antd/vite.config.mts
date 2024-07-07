@@ -27,12 +27,12 @@ export default defineConfig({
           icons: [
             {
               sizes: '192x192',
-              src: 'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.1/source/pwa-icon-192.png',
+              src: 'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/pwa-icon-192.png',
               type: 'image/png',
             },
             {
               sizes: '512x512',
-              src: 'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.1/source/pwa-icon-512.png',
+              src: 'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/pwa-icon-512.png',
               type: 'image/png',
             },
           ],

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { $t } from '@vben-core/locales';
 
 import InputItem from '../input-item.vue';
@@ -8,6 +10,8 @@ defineOptions({
   name: 'PreferenceBreadcrumbConfig',
 });
 
+const props = defineProps<{ disabled: boolean }>();
+
 const copyrightEnable = defineModel<boolean>('copyrightEnable');
 const copyrightDate = defineModel<string>('copyrightDate');
 const copyrightIcp = defineModel<string>('copyrightIcp');
@@ -16,27 +20,29 @@ const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
 const copyrightCompanySiteLink = defineModel<string>(
   'copyrightCompanySiteLink',
 );
+
+const itemDisabled = computed(() => props.disabled || !copyrightEnable.value);
 </script>
 
 <template>
-  <SwitchItem v-model="copyrightEnable">
+  <SwitchItem v-model="copyrightEnable" :disabled="disabled">
     {{ $t('preferences.copyright.enable') }}
   </SwitchItem>
 
-  <InputItem v-model="copyrightCompanyName" :disabled="!copyrightEnable">
+  <InputItem v-model="copyrightCompanyName" :disabled="itemDisabled">
     {{ $t('preferences.copyright.company-name') }}
   </InputItem>
-  <InputItem v-model="copyrightCompanySiteLink" :disabled="!copyrightEnable">
+  <InputItem v-model="copyrightCompanySiteLink" :disabled="itemDisabled">
     {{ $t('preferences.copyright.company-site-link') }}
   </InputItem>
-  <InputItem v-model="copyrightDate" :disabled="!copyrightEnable">
+  <InputItem v-model="copyrightDate" :disabled="itemDisabled">
     {{ $t('preferences.copyright.date') }}
   </InputItem>
 
-  <InputItem v-model="copyrightIcp" :disabled="!copyrightEnable">
+  <InputItem v-model="copyrightIcp" :disabled="itemDisabled">
     {{ $t('preferences.copyright.icp') }}
   </InputItem>
-  <InputItem v-model="copyrightIcpLink" :disabled="!copyrightEnable">
+  <InputItem v-model="copyrightIcpLink" :disabled="itemDisabled">
     {{ $t('preferences.copyright.icp-link') }}
   </InputItem>
 </template>

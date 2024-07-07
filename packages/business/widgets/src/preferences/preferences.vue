@@ -351,6 +351,7 @@ async function handleReset() {
                 v-model:copyright-enable="copyrightEnable"
                 v-model:copyright-icp="copyrightIcp"
                 v-model:copyright-icp-link="copyrightIcpLink"
+                :disabled="!footerEnable"
               />
             </Block>
           </template>

@@ -7,7 +7,7 @@ const restrictedImportIgnores = [
 ];
 
 const customConfig: Linter.FlatConfig[] = [
-  // shadcn-ui 内部组件是自动生成的，这里忽略
+  // shadcn-ui 内部组件是自动生成的，不做太多限制
   {
     files: ['packages/@core/ui-kit/shadcn-ui/**/**'],
     rules: {
@@ -61,7 +61,6 @@ const customConfig: Linter.FlatConfig[] = [
       'no-restricted-imports': [
         'error',
         {
-          // 如果需要，可以指定禁止特定的子路径
           patterns: [
             {
               group: ['@vben/*'],
@@ -81,7 +80,6 @@ const customConfig: Linter.FlatConfig[] = [
       'no-restricted-imports': [
         'error',
         {
-          // 如果需要，可以指定禁止特定的子路径
           patterns: [
             {
               group: ['@vben/*', '@vben-core/*'],
@@ -107,7 +105,6 @@ const customConfig: Linter.FlatConfig[] = [
       'no-restricted-imports': [
         'error',
         {
-          // 如果需要，可以指定禁止特定的子路径
           patterns: [
             {
               group: ['@vben/*'],

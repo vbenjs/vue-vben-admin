@@ -10,7 +10,7 @@ const defaultPreferences: Preferences = {
     compact: false,
     contentCompact: 'wide',
     defaultAvatar:
-      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.0/source/avatar-v1.webp',
+      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/avatar-v1.webp',
     dynamicTitle: true,
     enablePreferences: true,
     isMobile: false,
@@ -46,7 +46,7 @@ const defaultPreferences: Preferences = {
   logo: {
     enable: true,
     source:
-      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.0/source/logo-v1.webp',
+      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/logo-v1.webp',
   },
   navigation: {
     accordion: true,
