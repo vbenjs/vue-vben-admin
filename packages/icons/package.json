@@ -10,17 +10,32 @@
   },
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "build": "pnpm unbuild",
+    "stub": "pnpm unbuild --stub"
+  },
   "files": [
     "dist"
   ],
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
     }
   },
   "dependencies": {
-    "@vben-core/iconify": "workspace:*"
+    "@vben-core/iconify": "workspace:*",
+    "vue": "^3.4.31"
   }
 }

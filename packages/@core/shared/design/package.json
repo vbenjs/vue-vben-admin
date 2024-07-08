@@ -11,25 +11,31 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "prepublishOnly": "npm run build",
-    "stub": "pnpm unbuild --stub"
+    "build": "pnpm vite build",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist",
     "src"
   ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "exports": {
+    "./bem": {
+      "development": "./src/scss-bem/bem.scss",
+      "default": "./dist/bem.scss"
+    },
     ".": {
-      "development": "./src/scss/index.scss",
-      "default": "./dist/index.css"
-    },
-    "./tailwind": {
-      "development": "./src/tailwind.css",
-      "default": "./dist/tailwind.css"
-    },
-    "./global": {
-      "default": "./src/scss/global.scss"
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "default": "./dist/index.mjs"
+      }
     }
   },
   "dependencies": {

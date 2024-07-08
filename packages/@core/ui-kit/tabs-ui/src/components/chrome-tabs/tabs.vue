@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabItem } from '@vben-core/typings';
 
-import type { TabsProps } from '../../interface';
+import type { TabsProps } from '../../types';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
@@ -84,11 +84,7 @@ function handleUnPushPin(tab: TabItem) {
 
 <template>
   <div :class="b()" class="relative size-full pt-1">
-    <div
-      ref="contentRef"
-      :class="e('content')"
-      class="relative h-8 overflow-hidden"
-    >
+    <div ref="contentRef" class="relative h-8 overflow-hidden">
       <TransitionGroup name="slide-down">
         <Tab
           v-for="(tab, i) in tabsView"

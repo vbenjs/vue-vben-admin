@@ -5,6 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@vben-core/shadcn-ui/components/ui/tooltip';
+
 import { TooltipContentProps } from 'radix-vue';
 
 interface Props {

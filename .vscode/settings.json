@@ -60,7 +60,6 @@
   },
 
   "files.exclude": {
-    "**/.editorconfig": true,
     "**/.eslintcache": true,
     "**/bower_components": true,
     "**/.turbo": true,

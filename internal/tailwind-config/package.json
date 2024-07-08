@@ -37,6 +37,8 @@
     },
     "./postcss": {
       "types": "./src/postcss.config.ts",
+      "import": "./dist/postcss.config.mjs",
+      "require": "./dist/postcss.config.cjs",
       "default": "./dist/postcss.config.mjs"
     },
     "./*": "./*"

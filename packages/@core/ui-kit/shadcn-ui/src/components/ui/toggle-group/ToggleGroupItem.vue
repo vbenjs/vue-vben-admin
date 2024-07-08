@@ -3,9 +3,9 @@ import type { VariantProps } from 'class-variance-authority';
 
 import { type HTMLAttributes, computed, inject } from 'vue';
 
+import { toggleVariants } from '@vben-core/shadcn-ui/components/ui/toggle';
 import { cn } from '@vben-core/toolkit';
 
-import { toggleVariants } from '@vben-core/shadcn-ui/components/ui/toggle';
 import {
   ToggleGroupItem,
   type ToggleGroupItemProps,

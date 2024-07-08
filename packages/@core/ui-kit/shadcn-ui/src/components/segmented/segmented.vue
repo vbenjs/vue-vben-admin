@@ -8,6 +8,7 @@ import {
   TabsContent,
   TabsList,
 } from '@vben-core/shadcn-ui/components/ui/tabs';
+
 import { TabsTrigger } from 'radix-vue';
 
 import TabsIndicator from './tabs-indicator.vue';

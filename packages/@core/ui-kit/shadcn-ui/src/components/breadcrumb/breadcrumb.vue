@@ -2,7 +2,6 @@
 import type { IBreadcrumb } from './interface';
 
 import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
-
 import {
   Breadcrumb,
   BreadcrumbItem,

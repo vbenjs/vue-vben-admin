@@ -1,10 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "version": "0.2.0",
   "configurations": [
     {
       "type": "chrome", // chrome、edge
       "name": "vben admin pro dev", // 调试的名称，可以自定义
       "request": "launch",
       "url": "http://localhost:5173",
+      "env": { "NODE_ENV": "development" },
+      "sourceMaps": true,
       "webRoot": "${workspaceFolder}/apps/web-antd/src"
     }
   ]

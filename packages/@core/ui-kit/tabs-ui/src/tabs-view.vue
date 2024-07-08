@@ -4,7 +4,7 @@ import type { TabItem } from '@vben-core/typings';
 import { useForwardPropsEmits } from '@vben-core/shadcn-ui';
 
 import { ChromeTabs } from './components';
-import { TabsProps } from './interface';
+import { TabsProps } from './types';
 
 interface Props extends TabsProps {}
 

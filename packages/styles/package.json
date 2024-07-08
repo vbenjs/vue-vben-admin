@@ -24,6 +24,15 @@
       "types": "./src/index.ts",
       "development": "./src/index.ts",
       "default": "./dist/index.mjs"
+    },
+    "./antd": {
+      "types": "./src/antd/index.ts",
+      "development": "./src/antd/index.ts",
+      "default": "./dist/antd.mjs"
+    },
+    "./bem": {
+      "development": "./src/bem/bem.scss",
+      "default": "./dist/bem.scss"
     }
   },
   "publishConfig": {

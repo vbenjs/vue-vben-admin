@@ -36,12 +36,8 @@
       }
     }
   },
-  "peerDependencies": {
-    "@vben-core/design": "workspace:*"
-  },
   "dependencies": {
     "@vben-core/colorful": "workspace:*",
-    "@vben-core/design": "workspace:*",
     "@vben-core/iconify": "workspace:*",
     "@vben-core/locales": "workspace:*",
     "@vben-core/preferences": "workspace:*",

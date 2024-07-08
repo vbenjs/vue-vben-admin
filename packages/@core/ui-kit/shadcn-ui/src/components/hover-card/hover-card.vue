@@ -8,6 +8,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@vben-core/shadcn-ui/components/ui/hover-card';
+
 import { HoverCardContentProps, useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<

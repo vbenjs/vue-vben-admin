@@ -26,7 +26,7 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
                 vue: 'vue',
               },
               value: {
-                vben: ['@vben*', '@vben/*', '@vben-core/*'],
+                vben: ['@vben*', '@vben/**/**', '@vben-core/**/**'],
                 vue: ['vue', 'vue-*', '@vue*'],
               },
             },

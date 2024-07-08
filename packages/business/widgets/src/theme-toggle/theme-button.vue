@@ -86,9 +86,9 @@ function toggleTheme(event: MouseEvent) {
 <template>
   <VbenButton
     :aria-label="theme"
-    :class="[b(), is(theme)]"
+    :class="[b(), is(theme), `is-${theme}`]"
     aria-live="polite"
-    class="cursor-pointer border-none bg-none"
+    class="theme-toggle cursor-pointer border-none bg-none"
     v-bind="bindProps"
     @click.stop="toggleTheme"
   >
@@ -96,6 +96,7 @@ function toggleTheme(event: MouseEvent) {
       <mask
         id="theme-toggle-moon"
         :class="e('moon')"
+        class="theme-toggle__moon"
         fill="hsl(var(--foreground)/80%)"
         stroke="none"
       >
@@ -105,12 +106,13 @@ function toggleTheme(event: MouseEvent) {
       <circle
         id="sun"
         :class="e('sun')"
+        class="theme-toggle__sun"
         cx="12"
         cy="12"
         mask="url(#theme-toggle-moon)"
         r="11"
       />
-      <g :class="e('sun-beams')">
+      <g :class="e('sun-beams')" class="theme-toggle__sun-beams">
         <line x1="12" x2="12" y1="1" y2="3" />
         <line x1="12" x2="12" y1="21" y2="23" />
         <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />
@@ -125,16 +127,14 @@ function toggleTheme(event: MouseEvent) {
 </template>
 
 <style lang="scss" scoped>
-@import '@vben-core/design/global';
-
-@include b('theme-toggle') {
-  @include e('moon') {
+.theme-toggle {
+  &__moon {
     & > circle {
       transition: transform 0.5s cubic-bezier(0, 0, 0.3, 1);
     }
   }
 
-  @include e('sun') {
+  &__sun {
     fill: hsl(var(--foreground) / 80%);
     stroke: none;
     transition: transform 1.6s cubic-bezier(0.25, 0, 0.2, 1);
@@ -145,7 +145,7 @@ function toggleTheme(event: MouseEvent) {
     }
   }
 
-  @include e('sun-beams') {
+  &__sun-beams {
     stroke: hsl(var(--foreground) / 80%);
     stroke-width: 2px;
     transition:
@@ -158,38 +158,32 @@ function toggleTheme(event: MouseEvent) {
     }
   }
 
-  @include is('light') {
-    @include b('theme-toggle') {
-      @include e('sun') {
-        transform: scale(0.5);
-      }
+  &.is-light {
+    .theme-toggle__sun {
+      transform: scale(0.5);
+    }
 
-      @include e('sun-beams') {
-        transform: rotateZ(0.25turn);
-      }
+    .theme-toggle__sun-beams {
+      transform: rotateZ(0.25turn);
     }
   }
 
-  @include is('dark') {
-    @include b('theme-toggle') {
-      @include e('moon') {
-        & > circle {
-          transform: translateX(-20px);
-        }
+  &.is-dark {
+    .theme-toggle__moon {
+      & > circle {
+        transform: translateX(-20px);
       }
+    }
 
-      @include e('sun-beams') {
-        opacity: 0;
-      }
+    .theme-toggle__sun-beams {
+      opacity: 0;
     }
   }
 
   &:hover > svg {
-    @include b('theme-toggle') {
-      &__moon,
-      &__sun {
-        fill: hsl(var(--foreground));
-      }
+    .theme-toggle__sun,
+    .theme-toggle__moon {
+      fill: hsl(var(--foreground));
     }
   }
 }

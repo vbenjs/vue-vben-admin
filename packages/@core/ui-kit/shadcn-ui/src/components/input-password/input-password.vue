@@ -5,11 +5,11 @@ import {
   IcOutlineVisibility,
   IcOutlineVisibilityOff,
 } from '@vben-core/iconify';
-
 import {
   type InputProps,
   VbenInput,
 } from '@vben-core/shadcn-ui/components/input';
+
 import { useForwardProps } from 'radix-vue';
 
 import PasswordStrength from './password-strength.vue';

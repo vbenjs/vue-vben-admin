@@ -58,7 +58,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
   </ul>
 </template>
 <style lang="scss" scoped>
-@import '@vben-core/design/global';
+@import '@vben-core/design/bem';
 
 @include b('normal-menu') {
   --menu-item-margin-y: 4px;

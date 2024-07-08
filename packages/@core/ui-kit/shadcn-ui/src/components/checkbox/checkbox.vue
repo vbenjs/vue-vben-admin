@@ -2,6 +2,7 @@
 import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
 
 import { Checkbox } from '@vben-core/shadcn-ui/components/ui/checkbox';
+
 import { useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<

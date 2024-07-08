@@ -1,4 +1,4 @@
-@import '@vben-core/design/global';
+@import '@vben-core/design/bem';
 
 @include b('chrome-tabs') {
   --tabs-background: hsl(var(--background));

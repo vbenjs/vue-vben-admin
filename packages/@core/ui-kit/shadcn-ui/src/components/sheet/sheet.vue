@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 
-import { Cross2Icon } from '@radix-icons/vue';
 import {
   VbenButton,
   VbenIconButton,
@@ -17,6 +16,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@vben-core/shadcn-ui/components/ui/sheet';
+
+import { Cross2Icon } from '@radix-icons/vue';
 
 interface Props {
   cancelText?: string;

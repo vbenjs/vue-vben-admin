@@ -49,7 +49,7 @@
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
-    "lucide-vue-next": "^0.401.0",
+    "lucide-vue-next": "^0.402.0",
     "radix-vue": "^1.9.0",
     "vue": "^3.4.31"
   }

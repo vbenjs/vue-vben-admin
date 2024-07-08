@@ -36,9 +36,6 @@
       }
     }
   },
-  "peerDependencies": {
-    "@vben-core/design": "workspace:*"
-  },
   "dependencies": {
     "@vben-core/preferences": "workspace:*",
     "@vueuse/core": "^10.11.0",

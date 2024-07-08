@@ -1,4 +1,4 @@
-@forward './common/constants.scss';
+@forward './constants.scss';
 
 @mixin b($block) {
   $B: $namespace + '-' + $block !global;
