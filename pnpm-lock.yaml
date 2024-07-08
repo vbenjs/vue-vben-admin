@@ -255,6 +255,9 @@ importers:
       '@vben/node-utils':
         specifier: workspace:*
         version: link:../../node-utils
+      commitlint-plugin-function-rules:
+        specifier: ^4.0.0
+        version: 4.0.0(@commitlint/lint@19.2.2)
       cz-git:
         specifier: ^1.9.3
         version: 1.9.3
@@ -3221,6 +3224,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4681,6 +4685,12 @@ packages:
   comment-parser@1.4.1:
     resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
     engines: {node: '>= 12.0.0'}
+
+  commitlint-plugin-function-rules@4.0.0:
+    resolution: {integrity: sha512-ddZAgEm4MtgwHiPCb/mFpPeN2mW/doN7l14Lt9g2nFV3NpZVL0RJ6hFU/JJuEqRTVBlji/qmGzMeNR8qZ9BXfw==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@commitlint/lint': '>=19 <20'
 
   common-tags@1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
@@ -13688,6 +13698,10 @@ snapshots:
       repeat-string: 1.6.1
 
   comment-parser@1.4.1: {}
+
+  commitlint-plugin-function-rules@4.0.0(@commitlint/lint@19.2.2):
+    dependencies:
+      '@commitlint/lint': 19.2.2
 
   common-tags@1.8.2: {}
 

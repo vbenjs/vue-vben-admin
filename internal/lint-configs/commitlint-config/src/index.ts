@@ -6,12 +6,8 @@ import { getPackagesSync } from '@vben/node-utils';
 
 const { packages } = getPackagesSync();
 
-const pkgs = packages.map((pkg) => {
-  return pkg.packageJson.name?.replace('@vben-core/', '');
-});
-
-const scopes = [
-  ...pkgs,
+const allowedScopes = [
+  ...packages.map((pkg) => pkg.packageJson.name),
   'project',
   'style',
   'lint',
@@ -33,6 +29,7 @@ const scopeComplete = execSync('git status --porcelain || true')
 
 const userConfig: UserConfig = {
   extends: ['@commitlint/config-conventional'],
+  plugins: ['commitlint-plugin-function-rules'],
   prompt: {
     /** @use `pnpm commit :f` */
     alias: {
@@ -103,15 +100,27 @@ const userConfig: UserConfig = {
      */
     'footer-leading-blank': [1, 'always'],
     /**
+     * type[scope]: [function] description
+     *      ^^^^^
+     */
+    'function-rules/scope-enum': [
+      2, // level: error
+      'always',
+      (parsed: { scope: string }) => {
+        if (!parsed.scope || allowedScopes.includes(parsed.scope)) {
+          return [true];
+        }
+
+        return [false, `scope must be one of ${allowedScopes.join(', ')}`];
+      },
+    ],
+    /**
      * type[scope]: [function] description [No more than 108 characters]
      *      ^^^^^
      */
     'header-max-length': [2, 'always', 108],
-    /**
-     * type[scope]: [function] description
-     *      ^^^^^
-     */
-    'scope-enum': [2, 'always', scopes],
+
+    'scope-enum': [0],
     'subject-case': [0],
     'subject-empty': [2, 'never'],
     'type-empty': [2, 'never'],
