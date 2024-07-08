@@ -19,7 +19,6 @@ export async function importPluginConfig(): Promise<Linter.FlatConfig[]> {
         'import/no-named-default': 'error',
         'import/no-self-import': 'error',
         'import/no-unresolved': 'off',
-
         'import/no-webpack-loader-syntax': 'error',
       },
     },

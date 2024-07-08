@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@jspm/generator": "^2.0.1",
+    "@jspm/generator": "^2.1.1",
     "cheerio": "1.0.0-rc.12",
     "html-minifier-terser": "^7.2.0",
     "resolve.exports": "^2.0.2",
