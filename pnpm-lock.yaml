@@ -222,9 +222,6 @@ importers:
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@vben/widgets':
-        specifier: workspace:*
-        version: link:../../packages/business/widgets
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.5.3))
@@ -545,8 +542,8 @@ importers:
         specifier: ^1.77.6
         version: 1.77.6
       unplugin-turbo-console:
-        specifier: ^1.8.9
-        version: 1.8.9(esbuild@0.23.0)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.23.0))
+        specifier: ^1.9.0
+        version: 1.9.0(esbuild@0.23.0)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.23.0))
       vite:
         specifier: ^5.3.3
         version: 5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1)
@@ -779,8 +776,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       lucide-vue-next:
-        specifier: ^0.403.0
-        version: 0.403.0(vue@3.4.31(typescript@5.5.3))
+        specifier: ^0.406.0
+        version: 0.406.0(vue@3.4.31(typescript@5.5.3))
       radix-vue:
         specifier: ^1.9.0
         version: 1.9.0(vue@3.4.31(typescript@5.5.3))
@@ -851,6 +848,9 @@ importers:
 
   packages/business/layouts:
     dependencies:
+      '@vben-core/colorful':
+        specifier: workspace:*
+        version: link:../../@core/shared/colorful
       '@vben-core/helpers':
         specifier: workspace:*
         version: link:../../@core/forward/helpers
@@ -881,9 +881,9 @@ importers:
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@core/shared/toolkit
-      '@vben/widgets':
-        specifier: workspace:*
-        version: link:../widgets
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.31(typescript@5.5.3))
       vue:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
@@ -931,43 +931,6 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.5
         version: 1.5.5
-
-  packages/business/widgets:
-    dependencies:
-      '@vben-core/colorful':
-        specifier: workspace:*
-        version: link:../../@core/shared/colorful
-      '@vben-core/iconify':
-        specifier: workspace:*
-        version: link:../../@core/shared/iconify
-      '@vben-core/locales':
-        specifier: workspace:*
-        version: link:../../@core/locales
-      '@vben-core/preferences':
-        specifier: workspace:*
-        version: link:../../@core/forward/preferences
-      '@vben-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../../@core/shared/toolkit
-      '@vueuse/core':
-        specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.31(typescript@5.5.3))
-      vue:
-        specifier: ^3.4.31
-        version: 3.4.31(typescript@5.5.3)
-      vue-router:
-        specifier: ^4.4.0
-        version: 4.4.0(vue@3.4.31(typescript@5.5.3))
-    devDependencies:
-      '@types/qrcode':
-        specifier: ^1.5.5
-        version: 1.5.5
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../types
 
   packages/constants: {}
 
@@ -4398,8 +4361,8 @@ packages:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
     engines: {node: '>=12'}
 
-  ast-kit@0.12.2:
-    resolution: {integrity: sha512-es1zHFsnZ4Y4efz412nnrU3KvVAhgqy90a7Yt9Wpi5vQ3l4aYMOX0Qx4FD0elKr5ITEhiUGCSFcgGYf4YTuACg==}
+  ast-kit@1.0.0:
+    resolution: {integrity: sha512-Jv5Zs4DhU4QEYPvfVrEmdMuxCRMxsIVNfj4uqsBWyNM5wOaNMIfOwu55jH2DWnmr05iyCxPjbYGND1PNU40CuQ==}
     engines: {node: '>=16.14.0'}
 
   astral-regex@2.0.0:
@@ -6841,8 +6804,8 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
-  lucide-vue-next@0.403.0:
-    resolution: {integrity: sha512-jmCABan/1sRnNEivFSyy+O47M5MSu7s2KSMsxxw9XlCtIyPiTNRAjj9gu7imUWTeNxkJ1LOKj+/xqjCkEMEL4g==}
+  lucide-vue-next@0.406.0:
+    resolution: {integrity: sha512-j7lqt1gpfSdKOSTOWNbUTh88IPf41cRAe3KdiR9yulFcnNfpnY8E8NHfYKXprJ7QddPr/4lSfPXbhioQWQxfzA==}
     peerDependencies:
       vue: ^3.4.31
 
@@ -9194,8 +9157,8 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
-  unplugin-turbo-console@1.8.9:
-    resolution: {integrity: sha512-SeE8Nm7wBDeBXssVNvz4qxs0LFJ3pIjCs+g6uwr4UwjuiZuMKdUAk9HMyuOOMcG4w+kMnjWHAEMycXD8hSzAhg==}
+  unplugin-turbo-console@1.9.0:
+    resolution: {integrity: sha512-e6ubay6CyK0q3m4hmByhPte4IpoIaZAdr+Zy4IoCQxG/zpMxQzXOSZQROIk4GKlUbfvNngxOXCbMVQCX4O/5kg==}
     peerDependencies:
       '@nuxt/kit': '>=3'
       '@nuxt/schema': '>=3'
@@ -13462,7 +13425,7 @@ snapshots:
 
   assertion-error@2.0.1: {}
 
-  ast-kit@0.12.2:
+  ast-kit@1.0.0:
     dependencies:
       '@babel/parser': 7.24.7
       pathe: 1.1.2
@@ -16281,7 +16244,7 @@ snapshots:
     dependencies:
       yallist: 4.0.0
 
-  lucide-vue-next@0.403.0(vue@3.4.31(typescript@5.5.3)):
+  lucide-vue-next@0.406.0(vue@3.4.31(typescript@5.5.3)):
     dependencies:
       vue: 3.4.31(typescript@5.5.3)
 
@@ -18700,10 +18663,10 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-turbo-console@1.8.9(esbuild@0.23.0)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.23.0)):
+  unplugin-turbo-console@1.9.0(esbuild@0.23.0)(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(sass@1.77.6)(terser@5.31.1))(vue@3.4.31(typescript@5.5.3))(webpack@5.92.1(esbuild@0.23.0)):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.18.1)
-      ast-kit: 0.12.2
+      ast-kit: 1.0.0
       get-port-please: 3.1.2
       h3: 1.12.0
       launch-editor: 2.8.0

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { PreferencesWidget } from '@vben/widgets';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { $t } from '@vben-core/locales';
 import {
@@ -13,6 +12,7 @@ import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
 
+import { Breadcrumb, CozeAssistant, PreferencesWidget } from '../widgets';
 import { LayoutContent } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -25,7 +25,6 @@ import {
   useMixedMenu,
 } from './menu';
 import { LayoutTabbar, LayoutTabbarTools } from './tabbar';
-import { Breadcrumb } from './widgets';
 
 defineOptions({ name: 'BasicLayout' });
 
@@ -160,6 +159,10 @@ function clearPreferencesAndLogout() {
     </template>
 
     <template #floating-groups>
+      <CozeAssistant
+        v-if="preferences.app.aiAssistant"
+        :is-mobile="preferences.app.isMobile"
+      />
       <VbenBackTop />
     </template>
 

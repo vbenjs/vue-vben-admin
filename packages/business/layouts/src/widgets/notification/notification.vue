@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NotificationItem } from './interface';
+import type { NotificationItem } from './types';
 
 import {
   IcRoundMarkEmailRead,

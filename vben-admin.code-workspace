@@ -125,10 +125,6 @@
       "path": "packages/business/universal-ui",
     },
     {
-      "name": "@vben/widgets",
-      "path": "packages/business/widgets",
-    },
-    {
       "name": "@vben/constants",
       "path": "packages/constants",
     },

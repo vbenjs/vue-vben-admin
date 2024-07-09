@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { LanguageToggle, ThemeToggle } from '@vben/widgets';
-
 import {
   AuthenticationColorToggle,
   AuthenticationLayoutToggle,
-} from './widgets';
+  LanguageToggle,
+  ThemeToggle,
+} from '../widgets';
 
 defineOptions({
   name: 'AuthenticationToolbar',

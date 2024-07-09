@@ -37,6 +37,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/colorful": "workspace:*",
     "@vben-core/helpers": "workspace:*",
     "@vben-core/iconify": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
@@ -47,7 +48,7 @@
     "@vben-core/stores": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
-    "@vben/widgets": "workspace:*",
+    "@vueuse/core": "^10.11.0",
     "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },

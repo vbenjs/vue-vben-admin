@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { GlobalProvider } from '@vben/widgets';
+import { GlobalProvider } from '@vben/universal-ui';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';
@@ -30,10 +30,7 @@ const tokenTheme = computed(() => {
 </script>
 
 <template>
-  <GlobalProvider
-    :enable-ai-assistant="preferences.app.aiAssistant"
-    :is-mobile="preferences.app.isMobile"
-  >
+  <GlobalProvider>
     <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
       <App>
         <RouterView />
