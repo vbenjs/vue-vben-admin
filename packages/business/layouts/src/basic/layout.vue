@@ -12,7 +12,7 @@ import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
 
-import { Breadcrumb, CozeAssistant, PreferencesWidget } from '../widgets';
+import { Breadcrumb, CozeAssistant, Preferences } from '../widgets';
 import { LayoutContent } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -153,9 +153,7 @@ function clearPreferencesAndLogout() {
     "
   >
     <template v-if="preferences.app.enablePreferences" #preferences>
-      <PreferencesWidget
-        @clear-preferences-and-logout="clearPreferencesAndLogout"
-      />
+      <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout" />
     </template>
 
     <template #floating-groups>

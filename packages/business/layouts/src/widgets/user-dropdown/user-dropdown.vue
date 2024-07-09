@@ -24,7 +24,7 @@ import { isWindowsOs } from '@vben-core/toolkit';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 
-import { useOpenPreferences } from '../preferences/use-open-preferences';
+import { useOpenPreferences } from '../preferences';
 
 interface Props {
   /**
