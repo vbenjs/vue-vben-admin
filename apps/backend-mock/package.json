@@ -10,7 +10,7 @@
     "dev": "pnpm run start:dev",
     "start:dev": "cross-env NODE_ENV=development DEBUG=true nest start --watch",
     "start": "cross-env NODE_ENV=development node dist/main",
-    "start:prod": "cross-env NODE_ENV=production node dist/main"
+    "start:prod": "nest build && cross-env NODE_ENV=production node dist/main"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.10",
