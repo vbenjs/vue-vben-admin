@@ -25,15 +25,15 @@ defineOptions({
 withDefaults(defineProps<Props>(), {
   icon: '',
 });
-const emit = defineEmits<{ close: []; unPushPin: [] }>();
+const emit = defineEmits<{ close: []; unpinTab: [] }>();
 
 const { b, e, is } = useNamespace('chrome-tab');
 
 function handleClose() {
   emit('close');
 }
-function handleUnPushPin() {
-  emit('unPushPin');
+function handleUnpinTab() {
+  emit('unpinTab');
 }
 </script>
 
@@ -66,7 +66,7 @@ function handleUnPushPin() {
         <div
           v-show="affixTab && !onlyOne"
           :class="[e('extra'), is('pin', true)]"
-          @click.stop="handleUnPushPin"
+          @click.stop="handleUnpinTab"
         >
           <MdiPin :class="e('extra-icon')" />
         </div>

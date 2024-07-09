@@ -30,7 +30,7 @@ function useTabs() {
   const router = useRouter();
   const route = useRoute();
   const accessStore = useCoreAccessStore();
-  const tabbarStore = useCoreTabbarStore();
+  const coreTabbarStore = useCoreTabbarStore();
   const { accessMenus } = storeToRefs(accessStore);
 
   const currentActive = computed(() => {
@@ -39,7 +39,7 @@ function useTabs() {
 
   const { locale } = useI18n();
   const currentTabs = ref<RouteLocationNormalizedGeneric[]>();
-  watch([() => tabbarStore.getTabs, () => locale.value], ([tabs, _]) => {
+  watch([() => coreTabbarStore.getTabs, () => locale.value], ([tabs, _]) => {
     currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
   });
 
@@ -50,7 +50,7 @@ function useTabs() {
     const affixTabs = filterTree(router.getRoutes(), (route) => {
       return !!route.meta?.affixTab;
     });
-    tabbarStore.setAffixTabs(affixTabs);
+    coreTabbarStore.setAffixTabs(affixTabs);
   };
 
   // 点击tab,跳转路由
@@ -60,7 +60,7 @@ function useTabs() {
 
   // 关闭tab
   const handleClose = async (key: string) => {
-    await tabbarStore.closeTabByKey(key, router);
+    await coreTabbarStore.closeTabByKey(key, router);
   };
 
   function wrapperTabLocale(tab: RouteLocationNormalizedGeneric) {
@@ -84,14 +84,14 @@ function useTabs() {
   watch(
     () => route.path,
     () => {
-      tabbarStore.addTab(route as RouteLocationNormalized);
+      coreTabbarStore.addTab(route as RouteLocationNormalized);
     },
     { immediate: true },
   );
 
   const createContextMenus = (tab: TabItem) => {
-    const tabs = tabbarStore.getTabs;
-    const affixTabs = tabbarStore.affixTabs;
+    const tabs = coreTabbarStore.getTabs;
+    const affixTabs = coreTabbarStore.affixTabs;
     const index = tabs.findIndex((item) => item.path === tab.path);
 
     const disabled = tabs.length <= 1;
@@ -113,7 +113,7 @@ function useTabs() {
       {
         disabled: !isCurrentTab,
         handler: async () => {
-          await tabbarStore.refresh(router);
+          await coreTabbarStore.refresh(router);
         },
         icon: IcRoundRefresh,
         key: 'reload',
@@ -122,7 +122,7 @@ function useTabs() {
       {
         disabled: !!affixTab || disabled,
         handler: async () => {
-          await tabbarStore.closeTab(tab, router);
+          await coreTabbarStore.closeTab(tab, router);
         },
         icon: IcRoundClose,
         key: 'close',
@@ -131,8 +131,8 @@ function useTabs() {
       {
         handler: async () => {
           await (affixTab
-            ? tabbarStore.unPushPinTab(tab)
-            : tabbarStore.pushPinTab(tab));
+            ? coreTabbarStore.unpinTab(tab)
+            : coreTabbarStore.pinTab(tab));
         },
         icon: affixTab ? MdiPinOff : MdiPin,
         key: 'affix',
@@ -144,7 +144,7 @@ function useTabs() {
       {
         disabled: closeLeftDisabled,
         handler: async () => {
-          await tabbarStore.closeLeftTabs(tab);
+          await coreTabbarStore.closeLeftTabs(tab);
         },
         icon: MdiFormatHorizontalAlignLeft,
         key: 'close-left',
@@ -153,7 +153,7 @@ function useTabs() {
       {
         disabled: closeRightDisabled,
         handler: async () => {
-          await tabbarStore.closeRightTabs(tab);
+          await coreTabbarStore.closeRightTabs(tab);
         },
         icon: MdiFormatHorizontalAlignRight,
         key: 'close-right',
@@ -163,7 +163,7 @@ function useTabs() {
       {
         disabled: closeOtherDisabled,
         handler: async () => {
-          await tabbarStore.closeOtherTabs(tab);
+          await coreTabbarStore.closeOtherTabs(tab);
         },
         icon: MdiArrowExpandHorizontal,
         key: 'close-other',
@@ -172,7 +172,7 @@ function useTabs() {
       {
         disabled,
         handler: async () => {
-          await tabbarStore.closeAllTabs(router);
+          await coreTabbarStore.closeAllTabs(router);
         },
         icon: IcRoundMultipleStop,
         key: 'close-all',
@@ -190,8 +190,8 @@ function useTabs() {
   /**
    * 取消固定标签页
    */
-  const handleUnPushPin = async (tab: TabItem) => {
-    await tabbarStore.unPushPinTab(tab);
+  const handleUnpinTab = async (tab: TabItem) => {
+    await coreTabbarStore.unpinTab(tab);
   };
 
   return {
@@ -200,7 +200,7 @@ function useTabs() {
     currentTabs,
     handleClick,
     handleClose,
-    handleUnPushPin,
+    handleUnpinTab,
   };
 }
 

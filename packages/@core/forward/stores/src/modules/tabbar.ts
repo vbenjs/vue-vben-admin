@@ -7,60 +7,15 @@ import { startProgress, stopProgress } from '@vben-core/toolkit';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-/**
- * @zh_CN 克隆路由,防止路由被修改
- * @param route
- */
-function cloneTab(route: TabItem): TabItem {
-  if (!route) {
-    return route;
-  }
-  const { matched, ...opt } = route;
-  return {
-    ...opt,
-    matched: (matched
-      ? matched.map((item) => ({
-          meta: item.meta,
-          name: item.name,
-          path: item.path,
-        }))
-      : undefined) as RouteRecordNormalized[],
-  };
-}
-
-/**
- * @zh_CN 是否是固定标签页
- * @param tab
- */
-function isAffixTab(tab: TabItem) {
-  return tab.meta?.affixTab ?? false;
-}
-
-/**
- * @zh_CN 是否显示标签
- * @param tab
- */
-function isTabShow(tab: TabItem) {
-  return !tab.meta.hideInTab;
-}
-
-function routeToTab(route: RouteRecordNormalized) {
-  return {
-    meta: route.meta,
-    name: route.name,
-    path: route.path,
-  } as unknown as TabItem;
-}
-
 interface TabsState {
   /**
    * @zh_CN 当前打开的标签页列表缓存
    */
-  cacheTabs: Set<string>;
+  cachedTabs: Set<string>;
   /**
    * @zh_CN 需要排除缓存的标签页
    */
-  excludeCacheTabs: Set<string>;
+  excludeCachedTabs: Set<string>;
   /**
    * @zh_CN 是否刷新
    */
@@ -81,7 +36,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      */
     async _bulkCloseByPaths(paths: string[]) {
       this.tabs = this.tabs.filter((item) => {
-        return !paths.includes(this.getTabPath(item));
+        return !paths.includes(getTabPath(item));
       });
 
       this.updateCacheTab();
@@ -128,12 +83,12 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      */
     addTab(routeTab: TabItem) {
       const tab = cloneTab(routeTab);
-      if (!isTabShow(tab)) {
+      if (!isTabShown(tab)) {
         return;
       }
 
       const tabIndex = this.tabs.findIndex((tab) => {
-        return this.getTabPath(tab) === this.getTabPath(routeTab);
+        return getTabPath(tab) === getTabPath(routeTab);
       });
 
       if (tabIndex === -1) {
@@ -159,19 +114,22 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      */
     async closeLeftTabs(tab: TabItem) {
       const index = this.tabs.findIndex(
-        (item) => this.getTabPath(item) === this.getTabPath(tab),
+        (item) => getTabPath(item) === getTabPath(tab),
       );
 
-      if (index > 0) {
-        const leftTabs = this.tabs.slice(0, index);
-        const paths: string[] = [];
-        for (const item of leftTabs) {
-          if (!isAffixTab(tab)) {
-            paths.push(this.getTabPath(item));
-          }
-        }
-        await this._bulkCloseByPaths(paths);
+      if (index < 1) {
+        return;
       }
+
+      const leftTabs = this.tabs.slice(0, index);
+      const paths: string[] = [];
+
+      for (const item of leftTabs) {
+        if (!isAffixTab(item)) {
+          paths.push(getTabPath(item));
+        }
+      }
+      await this._bulkCloseByPaths(paths);
     },
 
     /**
@@ -179,20 +137,18 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async closeOtherTabs(tab: TabItem) {
-      const closePaths = this.tabs.map((item) => this.getTabPath(item));
+      const closePaths = this.tabs.map((item) => getTabPath(item));
 
       const paths: string[] = [];
 
       for (const path of closePaths) {
         if (path !== tab.fullPath) {
-          const closeTab = this.tabs.find(
-            (item) => this.getTabPath(item) === path,
-          );
+          const closeTab = this.tabs.find((item) => getTabPath(item) === path);
           if (!closeTab) {
             continue;
           }
-          if (!isAffixTab(tab)) {
-            paths.push(this.getTabPath(closeTab));
+          if (!isAffixTab(closeTab)) {
+            paths.push(getTabPath(closeTab));
           }
         }
       }
@@ -205,7 +161,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      */
     async closeRightTabs(tab: TabItem) {
       const index = this.tabs.findIndex(
-        (item) => this.getTabPath(item) === this.getTabPath(tab),
+        (item) => getTabPath(item) === getTabPath(tab),
       );
 
       if (index >= 0 && index < this.tabs.length - 1) {
@@ -213,8 +169,8 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
 
         const paths: string[] = [];
         for (const item of rightTabs) {
-          if (!isAffixTab(tab)) {
-            paths.push(this.getTabPath(item));
+          if (!isAffixTab(item)) {
+            paths.push(getTabPath(item));
           }
         }
         await this._bulkCloseByPaths(paths);
@@ -230,13 +186,13 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       const { currentRoute } = router;
 
       // 关闭不是激活选项卡
-      if (this.getTabPath(currentRoute.value) !== this.getTabPath(tab)) {
+      if (getTabPath(currentRoute.value) !== getTabPath(tab)) {
         this._close(tab);
         this.updateCacheTab();
         return;
       }
       const index = this.getTabs.findIndex(
-        (item) => this.getTabPath(item) === this.getTabPath(currentRoute.value),
+        (item) => getTabPath(item) === getTabPath(currentRoute.value),
       );
 
       const before = this.getTabs[index - 1];
@@ -259,25 +215,21 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @param key
      */
     async closeTabByKey(key: string, router: Router) {
-      const index = this.tabs.findIndex(
-        (item) => this.getTabPath(item) === key,
-      );
+      const index = this.tabs.findIndex((item) => getTabPath(item) === key);
       if (index === -1) {
         return;
       }
 
       await this.closeTab(this.tabs[index], router);
     },
-    getTabPath(tab: RouteRecordNormalized | TabItem) {
-      return decodeURIComponent((tab as TabItem).fullPath || tab.path);
-    },
+
     /**
      * @zh_CN 固定标签页
      * @param tab
      */
-    async pushPinTab(tab: TabItem) {
+    async pinTab(tab: TabItem) {
       const index = this.tabs.findIndex(
-        (item) => this.getTabPath(item) === this.getTabPath(tab),
+        (item) => getTabPath(item) === getTabPath(tab),
       );
       if (index !== -1) {
         tab.meta.affixTab = true;
@@ -291,13 +243,13 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       const { currentRoute } = router;
       const { name } = currentRoute.value;
 
-      this.excludeCacheTabs.add(name as string);
+      this.excludeCachedTabs.add(name as string);
       this.renderRouteView = false;
       startProgress();
 
       await new Promise((resolve) => setTimeout(resolve, 200));
 
-      this.excludeCacheTabs.delete(name as string);
+      this.excludeCachedTabs.delete(name as string);
       this.renderRouteView = true;
       stopProgress();
     },
@@ -315,9 +267,9 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 取消固定标签页
      * @param tab
      */
-    async unPushPinTab(tab: TabItem) {
+    async unpinTab(tab: TabItem) {
       const index = this.tabs.findIndex(
-        (item) => this.getTabPath(item) === this.getTabPath(tab),
+        (item) => getTabPath(item) === getTabPath(tab),
       );
 
       if (index !== -1) {
@@ -347,33 +299,32 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         const name = tab.name as string;
         cacheMap.add(name);
       }
-      this.cacheTabs = cacheMap;
+      this.cachedTabs = cacheMap;
     },
   },
   getters: {
     affixTabs(): TabItem[] {
       return this.tabs.filter((tab) => isAffixTab(tab));
     },
-    getCacheTabs(): string[] {
-      return [...this.cacheTabs];
+    getCachedTabs(): string[] {
+      return [...this.cachedTabs];
     },
-    getExcludeTabs(): string[] {
-      return [...this.excludeCacheTabs];
+    getExcludeCachedTabs(): string[] {
+      return [...this.excludeCachedTabs];
     },
     getTabs(): TabItem[] {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       const normalTabs = this.tabs.filter((tab) => !isAffixTab(tab));
-
       return [...affixTabs, ...normalTabs];
     },
   },
   persist: {
     // 持久化
-    paths: [],
+    paths: ['tabs'],
   },
   state: (): TabsState => ({
-    cacheTabs: new Set(),
-    excludeCacheTabs: new Set(),
+    cachedTabs: new Set(),
+    excludeCachedTabs: new Set(),
     renderRouteView: true,
     tabs: [],
   }),
@@ -383,6 +334,59 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useCoreTabbarStore, hot));
+}
+
+/**
+ * @zh_CN 克隆路由,防止路由被修改
+ * @param route
+ */
+function cloneTab(route: TabItem): TabItem {
+  if (!route) {
+    return route;
+  }
+  const { matched, ...opt } = route;
+  return {
+    ...opt,
+    matched: (matched
+      ? matched.map((item) => ({
+          meta: item.meta,
+          name: item.name,
+          path: item.path,
+        }))
+      : undefined) as RouteRecordNormalized[],
+  };
+}
+
+/**
+ * @zh_CN 是否是固定标签页
+ * @param tab
+ */
+function isAffixTab(tab: TabItem) {
+  return tab.meta?.affixTab ?? false;
+}
+
+/**
+ * @zh_CN 是否显示标签
+ * @param tab
+ */
+function isTabShown(tab: TabItem) {
+  return !tab.meta.hideInTab;
+}
+
+/**
+ * @zh_CN 获取标签页路径
+ * @param tab
+ */
+function getTabPath(tab: RouteRecordNormalized | TabItem) {
+  return decodeURIComponent((tab as TabItem).fullPath || tab.path);
+}
+
+function routeToTab(route: RouteRecordNormalized) {
+  return {
+    meta: route.meta,
+    name: route.name,
+    path: route.path,
+  } as TabItem;
 }
 
 export { useCoreTabbarStore };

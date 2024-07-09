@@ -17,10 +17,10 @@ export const useAccessStore = defineStore('access', () => {
   const router = useRouter();
   const loading = ref(false);
 
-  const accessToken = computed(() => coreStoreAccess.getAccessToken);
-  const userRoles = computed(() => coreStoreAccess.getUserRoles);
-  const userInfo = computed(() => coreStoreAccess.getUserInfo);
-  const accessRoutes = computed(() => coreStoreAccess.getAccessRoutes);
+  const accessToken = computed(() => coreStoreAccess.accessToken);
+  const userRoles = computed(() => coreStoreAccess.userRoles);
+  const userInfo = computed(() => coreStoreAccess.userInfo);
+  const accessRoutes = computed(() => coreStoreAccess.accessRoutes);
 
   function setAccessMenus(menus: MenuRecordRaw[]) {
     coreStoreAccess.setAccessMenus(menus);

@@ -96,6 +96,7 @@ const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
+const tabbarPersist = defineModel<boolean>('tabbarPersist');
 
 const navigationStyleType = defineModel<NavigationStyleType>(
   'navigationStyleType',
@@ -341,6 +342,7 @@ async function handleReset() {
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
                 v-model:tabbar-enable="tabbarEnable"
+                v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
               />
             </Block>

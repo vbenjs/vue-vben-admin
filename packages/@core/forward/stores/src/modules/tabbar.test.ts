@@ -99,9 +99,9 @@ describe('useCoreAccessStore', () => {
 
   it('returns all cache tabs', () => {
     const store = useCoreTabbarStore();
-    store.cacheTabs.add('Home');
-    store.cacheTabs.add('About');
-    expect(store.getCacheTabs).toEqual(['Home', 'About']);
+    store.cachedTabs.add('Home');
+    store.cachedTabs.add('About');
+    expect(store.cachedTabs).toEqual(['Home', 'About']);
   });
 
   it('returns all tabs, including affix tabs', () => {
@@ -290,7 +290,7 @@ describe('useCoreAccessStore', () => {
 
     await store.refresh(router);
 
-    expect(store.excludeCacheTabs.has('Dashboard')).toBe(false);
+    expect(store.excludeCachedTabs.has('Dashboard')).toBe(false);
     expect(store.renderRouteView).toBe(true);
   });
 });

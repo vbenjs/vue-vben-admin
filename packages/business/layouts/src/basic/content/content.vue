@@ -10,12 +10,12 @@ import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
-const tabsStore = useCoreTabbarStore();
+const tabbarStore = useCoreTabbarStore();
 const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
 
-const { getCacheTabs, getExcludeTabs, renderRouteView } =
-  storeToRefs(tabsStore);
+const { getCachedTabs, getExcludeCachedTabs, renderRouteView } =
+  storeToRefs(tabbarStore);
 
 // 页面切换动画
 function getTransitionName(route: RouteLocationNormalizedLoaded) {
@@ -36,7 +36,7 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
   //   return;
   // }
   // 已经打开且已经加载过的页面不使用动画
-  const inTabs = getCacheTabs.value.includes(route.name as string);
+  const inTabs = getCachedTabs.value.includes(route.name as string);
 
   return inTabs && route.meta.loaded ? undefined : transitionName;
 }
@@ -54,8 +54,8 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
       <Transition :name="getTransitionName(route)" appear mode="out-in">
         <KeepAlive
           v-if="keepAlive"
-          :exclude="getExcludeTabs"
-          :include="getCacheTabs"
+          :exclude="getExcludeCachedTabs"
+          :include="getCachedTabs"
         >
           <component
             :is="Component"

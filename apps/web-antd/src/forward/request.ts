@@ -33,8 +33,8 @@ function createRequestClient() {
           // 这里不能用 useAccessStore，因为 useAccessStore 会导致循环引用
           const accessStore = useCoreAccessStore();
           return {
-            refreshToken: `Bearer ${accessStore.getRefreshToken}`,
-            token: `Bearer ${accessStore.getAccessToken}`,
+            refreshToken: `Bearer ${accessStore.refreshToken}`,
+            token: `Bearer ${accessStore.accessToken}`,
           };
         },
         // 默认

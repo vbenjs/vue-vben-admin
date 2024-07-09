@@ -13,7 +13,7 @@ function useExtraMenu() {
   const accessStore = useCoreAccessStore();
   const { navigation } = useNavigation();
 
-  const menus = computed(() => accessStore.getAccessMenus);
+  const menus = computed(() => accessStore.accessMenus);
 
   const route = useRoute();
   const extraMenus = ref<MenuRecordRaw[]>([]);

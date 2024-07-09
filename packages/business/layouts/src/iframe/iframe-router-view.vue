@@ -11,7 +11,7 @@ import { useCoreTabbarStore } from '@vben-core/stores';
 defineOptions({ name: 'IFrameRouterView' });
 
 const spinningList = ref<boolean[]>([]);
-const tabsStore = useCoreTabbarStore();
+const coreTabbarStore = useCoreTabbarStore();
 const route = useRoute();
 
 const enableTabbar = computed(() => preferences.tabbar.enable);
@@ -20,7 +20,7 @@ const iframeRoutes = computed(() => {
   if (!enableTabbar.value) {
     return route.meta.iframeSrc ? [route] : [];
   }
-  return tabsStore.getTabs.filter((tab) => !!tab.meta?.iframeSrc);
+  return coreTabbarStore.getTabs.filter((tab) => !!tab.meta?.iframeSrc);
 });
 
 const tabNames = computed(
@@ -36,7 +36,7 @@ function routeShow(tabItem: RouteLocationNormalized) {
 function canRender(tabItem: RouteLocationNormalized) {
   const { meta, name } = tabItem;
 
-  if (!name || !tabsStore.renderRouteView) {
+  if (!name || !coreTabbarStore.renderRouteView) {
     return false;
   }
 
@@ -52,7 +52,7 @@ function canRender(tabItem: RouteLocationNormalized) {
   ) {
     return false;
   }
-  return tabsStore.getTabs.some((tab) => tab.name === name);
+  return coreTabbarStore.getTabs.some((tab) => tab.name === name);
 }
 
 function hideLoading(index: number) {

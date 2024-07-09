@@ -158,6 +158,7 @@
       "title": "标签栏",
       "enable": "启用标签栏",
       "icon": "显示标签栏图标",
+      "persist": "持久化标签页",
       "context-menu": {
         "reload": "重新加载",
         "close": "关闭标签页",

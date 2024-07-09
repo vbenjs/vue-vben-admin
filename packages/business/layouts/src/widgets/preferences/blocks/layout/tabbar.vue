@@ -11,6 +11,7 @@ defineProps<{ disabled?: boolean }>();
 
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
+const tabbarPersist = defineModel<boolean>('tabbarPersist');
 </script>
 
 <template>
@@ -19,5 +20,8 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
   </SwitchItem>
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.icon') }}
+  </SwitchItem>
+  <SwitchItem v-model="tabbarPersist" :disabled="!tabbarEnable">
+    {{ $t('preferences.tabbar.persist') }}
   </SwitchItem>
 </template>

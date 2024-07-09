@@ -71,6 +71,7 @@ const defaultPreferences: Preferences = {
   tabbar: {
     enable: true,
     keepAlive: true,
+    persist: true,
     showIcon: true,
   },
   theme: {

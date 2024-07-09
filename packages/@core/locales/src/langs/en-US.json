@@ -159,6 +159,7 @@
       "title": "Tabbar",
       "enable": "Enable Tab Bar",
       "icon": "Display Tabbar Icon",
+      "persist": "Persistent tabs",
       "context-menu": {
         "reload": "Reload",
         "close": "Close",

@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   tabs: () => [],
 });
 
-const emit = defineEmits<{ close: [string]; unPushPin: [TabItem] }>();
+const emit = defineEmits<{ close: [string]; unpinTab: [TabItem] }>();
 
 const gap = 7;
 
@@ -77,8 +77,8 @@ onMounted(() => {
 function handleClose(key: string) {
   emit('close', key);
 }
-function handleUnPushPin(tab: TabItem) {
-  emit('unPushPin', tab);
+function handleUnpinTab(tab: TabItem) {
+  emit('unpinTab', tab);
 }
 </script>
 
@@ -103,7 +103,7 @@ function handleUnPushPin(tab: TabItem) {
           :title="tab.title"
           @click="active = tab.key"
           @close="() => handleClose(tab.key)"
-          @un-push-pin="() => handleUnPushPin(tab)"
+          @unpin-tab="() => handleUnpinTab(tab)"
         />
       </TransitionGroup>
     </div>

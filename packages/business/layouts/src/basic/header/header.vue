@@ -34,7 +34,7 @@ const { globalSearchShortcutKey } = usePreferences();
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <GlobalSearch
       :enable-shortcut-key="globalSearchShortcutKey"
-      :menus="accessStore.getAccessMenus"
+      :menus="accessStore.accessMenus"
       class="mr-4"
     />
     <ThemeToggle class="mr-2" />

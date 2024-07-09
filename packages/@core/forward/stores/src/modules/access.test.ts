@@ -33,7 +33,7 @@ describe('useCoreAccessStore', () => {
     const store = useCoreAccessStore();
     const userInfo: any = { name: 'Jane Doe', roles: [{ value: 'user' }] };
     store.setUserInfo(userInfo);
-    expect(store.getUserInfo).toEqual(userInfo);
+    expect(store.userInfo).toEqual(userInfo);
   });
 
   it('updates accessToken state correctly', () => {
@@ -60,13 +60,13 @@ describe('useCoreAccessStore', () => {
   it('returns the correct accessToken', () => {
     const store = useCoreAccessStore();
     store.setAccessToken('xyz789');
-    expect(store.getAccessToken).toBe('xyz789');
+    expect(store.accessToken).toBe('xyz789');
   });
 
   // 测试在没有用户角色时返回空数组
   it('returns an empty array for userRoles if not set', () => {
     const store = useCoreAccessStore();
-    expect(store.getUserRoles).toEqual([]);
+    expect(store.userRoles).toEqual([]);
   });
 
   // 测试设置空的访问菜单列表

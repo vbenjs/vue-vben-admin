@@ -90,32 +90,6 @@ const useCoreAccessStore = defineStore('core-access', {
       this.userRoles = roles;
     },
   },
-  getters: {
-    getAccessCodes(): string[] {
-      return this.accessCodes;
-    },
-    getAccessMenus(): MenuRecordRaw[] {
-      return this.accessMenus;
-    },
-    getAccessRoutes(): RouteRecordRaw[] {
-      return this.accessRoutes;
-    },
-    getAccessToken(): AccessToken {
-      return this.accessToken;
-    },
-    getRefreshToken(): AccessToken {
-      return this.refreshToken;
-    },
-    getUserInfo(): BasicUserInfo | null {
-      return this.userInfo;
-    },
-    getUserRoles(): string[] {
-      return this.userRoles;
-    },
-    string(): string[] {
-      return this.accessCodes;
-    },
-  },
   persist: {
     // 持久化
     paths: ['accessToken', 'refreshToken', 'accessCodes'],
