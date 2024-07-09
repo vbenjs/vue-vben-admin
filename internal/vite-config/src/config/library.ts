@@ -22,7 +22,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
       injectMetadata: true,
       isBuild,
       mode,
-      ...(typeof library === 'function' ? library(config) : library),
+      ...(typeof library === 'function' ? await library(config) : library),
     });
 
     const { dependencies = {}, peerDependencies = {} } =
@@ -54,7 +54,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     const mergedConfig = mergeConfig(commonConfig, packageConfig);
     return mergeConfig(
       mergedConfig,
-      typeof vite === 'function' ? vite(config) : vite,
+      typeof vite === 'function' ? await vite(config) : vite,
     );
   });
 }

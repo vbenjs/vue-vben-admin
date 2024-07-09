@@ -6,7 +6,7 @@ import {
   readPackageJSON,
 } from '@vben/node-utils';
 
-import { getEnvConfig } from '../utils/env';
+import { loadEnv } from '../utils/env';
 
 interface PluginOptions {
   isBuild: boolean;
@@ -73,7 +73,7 @@ async function viteExtraAppConfigPlugin({
 }
 
 async function getConfigSource() {
-  const config = await getEnvConfig();
+  const config = await loadEnv();
   const windowVariable = `window.${VBEN_ADMIN_PRO_APP_CONF}`;
   // 确保变量不会被修改
   let source = `${windowVariable}=${JSON.stringify(config)};`;

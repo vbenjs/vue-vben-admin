@@ -17,6 +17,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm vite build",
+    "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"

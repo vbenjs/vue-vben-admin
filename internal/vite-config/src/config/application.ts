@@ -31,7 +31,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       pwa: true,
       turboConsole: false,
       ...(typeof application === 'function'
-        ? application(config)
+        ? await application(config)
         : application),
     });
 
@@ -71,7 +71,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
     );
     return mergeConfig(
       mergedConfig,
-      typeof vite === 'function' ? vite(config) : vite,
+      typeof vite === 'function' ? await vite(config) : vite,
     );
   });
 }

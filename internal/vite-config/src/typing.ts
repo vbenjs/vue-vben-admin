@@ -42,7 +42,7 @@ interface CommonPluginOptions {
   devtools?: boolean;
   /** 环境变量 */
   env?: Record<string, any>;
-  /** 是否开启注入metadata */
+  /** 是否注入metadata */
   injectMetadata?: boolean;
   /** 是否构建模式 */
   isBuild?: boolean;
@@ -93,14 +93,14 @@ interface LibraryOptions extends LibraryPluginOptions {}
 
 interface DefineApplicationOptions {
   application?:
-    | ((config: ConfigEnv) => ApplicationOptions)
+    | ((config: ConfigEnv) => Promise<ApplicationOptions>)
     | ApplicationOptions;
-  vite?: ((config: ConfigEnv) => UserConfig) | UserConfig;
+  vite?: ((config: ConfigEnv) => Promise<UserConfig>) | UserConfig;
 }
 
 interface DefineLibraryOptions {
-  library?: ((config: ConfigEnv) => LibraryOptions) | LibraryOptions;
-  vite?: ((config: ConfigEnv) => UserConfig) | UserConfig;
+  library?: ((config: ConfigEnv) => Promise<LibraryOptions>) | LibraryOptions;
+  vite?: ((config: ConfigEnv) => Promise<UserConfig>) | UserConfig;
 }
 
 type DefineConfig = {

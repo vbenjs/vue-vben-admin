@@ -1,3 +1,5 @@
+import type { ApplicationPluginOptions } from '../typing';
+
 import { join } from 'node:path';
 
 import { fs } from '@vben/node-utils';
@@ -23,7 +25,7 @@ function getConfFiles() {
  * @param match prefix
  * @param confFiles ext
  */
-export async function getEnvConfig(
+async function loadEnv<T = Record<string, string>>(
   match = 'VITE_GLOB_',
   confFiles = getConfFiles(),
 ) {
@@ -46,5 +48,26 @@ export async function getEnvConfig(
       Reflect.deleteProperty(envConfig, key);
     }
   });
-  return envConfig;
+  return envConfig as T;
 }
+
+async function loadAndConvertEnv(
+  match = 'VITE_',
+  confFiles = getConfFiles(),
+): Promise<Partial<ApplicationPluginOptions>> {
+  const envConfig = await loadEnv(match, confFiles);
+  const visualizer = envConfig.visualizer || '';
+  const pwa = envConfig.pwa || '';
+  const compress = envConfig.VITE_COMPRESS || '';
+  const compressTypes = compress
+    .split(',')
+    .filter((item) => ['brotli', 'gzip'].includes(item));
+  return {
+    compress: !!compress,
+    compressTypes: compressTypes as ('brotli' | 'gzip')[],
+    pwa: !!pwa,
+    visualizer: !!visualizer,
+  };
+}
+
+export { loadAndConvertEnv, loadEnv };

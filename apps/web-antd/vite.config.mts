@@ -1,10 +1,11 @@
-import { defineConfig } from '@vben/vite-config';
+import { defineConfig, loadAndConvertEnv } from '@vben/vite-config';
 
 export default defineConfig({
-  application: ({ mode }) => {
+  application: async ({ mode }) => {
+    const envConfig = await loadAndConvertEnv();
+
     return {
-      compress: false,
-      compressTypes: ['brotli', 'gzip'] as const,
+      ...envConfig,
       importmap: false,
       importmapOptions: {
         // 通过 Importmap CDN 方式引入,
@@ -40,7 +41,6 @@ export default defineConfig({
           short_name: `Vben Admin Pro ${mode}`,
         },
       },
-      visualizer: false,
     };
   },
   vite: {
