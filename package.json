@@ -30,7 +30,7 @@
     "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:spell",
     "check:circular": "vsh check-circular",
     "check:dep": "vsh check-dep",
-    "check:spell": "cspell \"**/*.ts\" \"**/README.md\" \".changeset/*.md\" --no-progress",
+    "check:cspell": "cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress",
     "check:type": "turbo run typecheck",
     "clean": "vsh clean",
     "commit": "czg",

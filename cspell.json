@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "language": "en,en-US",
   "allowCompoundWords": true,
@@ -40,5 +41,12 @@
     "vite",
     "echarts"
   ],
-  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/iconify/**"]
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/*-dist/**",
+    "**/iconify/**",
+    "pnpm-lock.yaml",
+    "**/*.log"
+  ]
 }
