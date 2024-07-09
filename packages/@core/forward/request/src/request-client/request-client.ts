@@ -37,7 +37,6 @@ class RequestClient {
       },
       // 默认超时时间
       timeout: 10_000,
-      withCredentials: true,
     };
     const { makeAuthorization, ...axiosConfig } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
