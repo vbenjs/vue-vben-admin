@@ -3,12 +3,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { StorageManager } from './storage-manager';
 
 describe('storageManager', () => {
-  let storageManager: StorageManager<{ age: number; name: string }>;
+  let storageManager: StorageManager;
 
   beforeEach(() => {
     vi.useFakeTimers();
     localStorage.clear();
-    storageManager = new StorageManager<{ age: number; name: string }>({
+    storageManager = new StorageManager({
       prefix: 'test_',
     });
   });

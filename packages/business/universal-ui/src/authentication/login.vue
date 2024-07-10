@@ -102,7 +102,7 @@ const emit = defineEmits<{
 
 const router = useRouter();
 
-const REMEMBER_ME_KEY = 'REMEMBER_ME_USERNAME';
+const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`;
 
 const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
 

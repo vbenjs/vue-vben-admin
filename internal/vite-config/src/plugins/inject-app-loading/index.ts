@@ -12,8 +12,9 @@ import { type PluginOption } from 'vite';
 async function viteInjectAppLoadingPlugin(
   isBuild: boolean,
   env: Record<string, any> = {},
+  loadingTemplate = 'loading.html',
 ): Promise<PluginOption | undefined> {
-  const loadingHtml = await getLoadingRawByHtmlTemplate();
+  const loadingHtml = await getLoadingRawByHtmlTemplate(loadingTemplate);
   const envRaw = isBuild ? 'prod' : 'dev';
   const cacheName = `'${env.VITE_APP_NAMESPACE}-${envRaw}-preferences-theme'`;
 
@@ -47,10 +48,15 @@ async function viteInjectAppLoadingPlugin(
 /**
  * 用于获取loading的html模板
  */
-async function getLoadingRawByHtmlTemplate() {
+async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
   const __dirname = fileURLToPath(new URL('.', import.meta.url));
-  const loadingPath = join(__dirname, './loading.html');
-  if (!fs.existsSync(loadingPath)) {
+  const defaultLoadingPath = join(__dirname, './default-loading.html');
+  // 支持在app内自定义loading模板，模版参考default-loading.html即可
+  const appLoadingPath = join(process.cwd(), loadingTemplate);
+  let loadingPath = defaultLoadingPath;
+
+  if (fs.existsSync(appLoadingPath)) {
+    loadingPath = appLoadingPath;
     return;
   }
 
