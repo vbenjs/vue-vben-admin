@@ -10,6 +10,7 @@ async function runDepcheck() {
     packages.map(async (pkg) => {
       if (
         [
+          '@vben/backend-mock',
           '@vben/commitlint-config',
           '@vben/eslint-config',
           '@vben/lint-staged-config',
@@ -38,6 +39,17 @@ async function runDepcheck() {
           '@vben-core/design',
         ],
         ignorePatterns: ['dist', 'node_modules', 'public'],
+      });
+
+      // 删除file:前缀的依赖提示，该依赖是本地依赖
+      Reflect.deleteProperty(unused.missing, 'file:');
+      Object.keys(unused.missing).forEach((key) => {
+        unused.missing[key] = unused.missing[key].filter(
+          (item: string) => !item.startsWith('/'),
+        );
+        if (unused.missing[key].length === 0) {
+          Reflect.deleteProperty(unused.missing, key);
+        }
       });
 
       if (

@@ -27,7 +27,7 @@
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
-    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:spell",
+    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:cspell",
     "check:circular": "vsh check-circular",
     "check:dep": "vsh check-dep",
     "check:cspell": "cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress",

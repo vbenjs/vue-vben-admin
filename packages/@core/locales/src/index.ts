@@ -36,6 +36,7 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
 }
 
 export { $t, i18n, loadLocaleMessages, loadLocalesMap, setupI18n };
+export type { CompileError } from '@intlify/core-base';
 export { useI18n } from 'vue-i18n';
-export type { Locale } from 'vue-i18n';
 export type { ImportLocaleFn };
+export type { Locale } from 'vue-i18n';

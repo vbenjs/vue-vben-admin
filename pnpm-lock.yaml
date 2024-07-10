@@ -559,9 +559,6 @@ importers:
 
   packages/@core/forward/helpers:
     dependencies:
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../../shared/toolkit
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../shared/typings
@@ -939,9 +936,6 @@ importers:
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../@core/shared/iconify
-      vue:
-        specifier: ^3.4.31
-        version: 3.4.31(typescript@5.5.3)
 
   packages/styles:
     dependencies:

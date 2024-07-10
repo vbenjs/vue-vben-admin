@@ -35,7 +35,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/iconify": "workspace:*",
-    "vue": "^3.4.31"
+    "@vben-core/iconify": "workspace:*"
   }
 }

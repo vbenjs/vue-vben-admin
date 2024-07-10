@@ -1,4 +1,4 @@
-import type { ToastProps } from '.';
+import type { ToastProps } from './toast';
 
 import { computed, ref } from 'vue';
 import type { Component, VNode } from 'vue';
