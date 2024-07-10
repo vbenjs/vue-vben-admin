@@ -162,7 +162,7 @@ const tabs = computed((): SegmentedItem[] => {
       value: 'layout',
     },
     {
-      label: $t('preferences.shortcut-keys.title'),
+      label: $t('preferences.shortcutKeys.title'),
       value: 'shortcutKey',
     },
     {
@@ -187,8 +187,8 @@ async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
 
   toast({
-    description: $t('preferences.copy'),
-    title: $t('preferences.copy-success'),
+    description: $t('preferences.copyPreferences'),
+    title: $t('preferences.copyPreferencesSuccess'),
   });
 }
 
@@ -205,12 +205,8 @@ async function handleReset() {
   resetPreferences();
   await loadLocaleMessages(preferences.app.locale);
   toast({
-    description: $t('preferences.reset-title'),
-    title: $t('preferences.reset-success'),
-  });
-  toast({
-    description: $t('preferences.reset-title'),
-    title: $t('preferences.reset-success'),
+    description: $t('preferences.resetTitle'),
+    title: $t('preferences.resetSuccess'),
   });
 }
 </script>
@@ -236,7 +232,7 @@ async function handleReset() {
         <div class="flex items-center">
           <VbenIconButton
             :disabled="!diffPreference"
-            :tooltip="$t('preferences.reset-tip')"
+            :tooltip="$t('preferences.resetTip')"
             class="relative"
           >
             <span
@@ -323,7 +319,7 @@ async function handleReset() {
               />
             </Block>
 
-            <Block :title="$t('preferences.navigation-menu.title')">
+            <Block :title="$t('preferences.navigationMenu.title')">
               <Navigation
                 v-model:navigation-accordion="navigationAccordion"
                 v-model:navigation-split="navigationSplit"
@@ -384,7 +380,7 @@ async function handleReset() {
           </template>
 
           <template #shortcutKey>
-            <Block :title="$t('preferences.shortcut-keys.global')">
+            <Block :title="$t('preferences.shortcutKeys.global')">
               <GlobalShortcutKeys
                 v-model:shortcut-keys-enable="shortcutKeysEnable"
                 v-model:shortcut-keys-global-search="shortcutKeysGlobalSearch"
@@ -407,7 +403,7 @@ async function handleReset() {
           @click="handleClearCache"
         >
           <IcRoundRestartAlt class="mr-2 size-4" />
-          {{ $t('preferences.clear-and-logout') }}
+          {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
         <VbenButton
           :disabled="!diffPreference"
@@ -417,7 +413,7 @@ async function handleReset() {
           @click="handleCopy"
         >
           <IcRoundFolderCopy class="mr-2 size-3" />
-          {{ $t('preferences.copy') }}
+          {{ $t('preferences.copyPreferences') }}
         </VbenButton>
       </template>
     </VbenSheet>

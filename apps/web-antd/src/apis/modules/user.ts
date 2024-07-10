@@ -1,14 +1,14 @@
 import type { UserInfo } from '@vben/types';
 
-import type { UserApiType } from '../types';
+import type { UserApi } from '../types';
 
 import { requestClient } from '#/forward';
 
 /**
  * 登录
  */
-async function userLogin(data: UserApiType.LoginParams) {
-  return requestClient.post<UserApiType.LoginResult>('/auth/login', data);
+async function userLogin(data: UserApi.LoginParams) {
+  return requestClient.post<UserApi.LoginResult>('/auth/login', data);
 }
 
 /**

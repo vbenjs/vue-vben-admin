@@ -86,12 +86,12 @@ function goLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.create-an-account') }} 🚀
-      <template #desc> {{ $t('authentication.sign-up-subtitle') }} </template>
+      {{ $t('authentication.createAnAccount') }} 🚀
+      <template #desc> {{ $t('authentication.signUpSubtitle') }} </template>
     </Title>
     <VbenInput
       v-model="formState.username"
-      :error-tip="$t('authentication.username-tip')"
+      :error-tip="$t('authentication.usernameTip')"
       :label="$t('authentication.username')"
       :placeholder="$t('authentication.username')"
       :status="usernameStatus"
@@ -101,7 +101,7 @@ function goLogin() {
     <!-- Use 8 or more characters with a mix of letters, numbers & symbols. -->
     <VbenInputPassword
       v-model="formState.password"
-      :error-tip="$t('authentication.password-tip')"
+      :error-tip="$t('authentication.passwordTip')"
       :label="$t('authentication.password')"
       :password-strength="true"
       :placeholder="$t('authentication.password')"
@@ -111,15 +111,15 @@ function goLogin() {
       type="password"
     >
       <template #strengthText>
-        {{ $t('authentication.password-strength') }}
+        {{ $t('authentication.passwordStrength') }}
       </template>
     </VbenInputPassword>
 
     <VbenInputPassword
       v-model="formState.comfirmPassword"
-      :error-tip="$t('authentication.comfirm-password-tip')"
-      :label="$t('authentication.comfirm-password')"
-      :placeholder="$t('authentication.comfirm-password')"
+      :error-tip="$t('authentication.confirmPasswordTip')"
+      :label="$t('authentication.confirmPassword')"
+      :placeholder="$t('authentication.confirmPassword')"
       :status="comfirmPasswordStatus"
       name="comfirmPassword"
       required
@@ -132,13 +132,13 @@ function goLogin() {
           v-model:checked="formState.agreePolicy"
           name="agreePolicy"
         >
-          {{ $t('authentication.sign-up-agree') }}
+          {{ $t('authentication.agree') }}
           <span class="text-primary hover:text-primary-hover">{{
-            $t('authentication.sign-up-privacy-policy')
+            $t('authentication.agreeprivacyPolicy')
           }}</span>
           &
           <span class="text-primary hover:text-primary-hover">
-            {{ $t('authentication.sign-up-terms') }}
+            {{ $t('authentication.terms') }}
           </span>
         </VbenCheckbox>
       </div>
@@ -147,22 +147,22 @@ function goLogin() {
           v-show="formState.submitted && !formState.agreePolicy"
           class="text-destructive absolute bottom-1 left-0 text-xs"
         >
-          {{ $t('authentication.sign-up-agree-tip') }}
+          {{ $t('authentication.agreeTip') }}
         </p>
       </Transition>
     </div>
     <div>
       <VbenButton :loading="loading" class="w-full" @click="handleSubmit">
-        {{ $t('authentication.sign-up') }}
+        {{ $t('authentication.signUp') }}
       </VbenButton>
     </div>
     <div class="mt-4 text-center text-sm">
-      {{ $t('authentication.already-account') }}
+      {{ $t('authentication.alreadyHaveAccount') }}
       <span
         class="text-primary hover:text-primary-hover cursor-pointer text-sm font-normal"
         @click="goLogin()"
       >
-        {{ $t('authentication.go-login') }}
+        {{ $t('authentication.goToLogin') }}
       </span>
     </div>
   </div>

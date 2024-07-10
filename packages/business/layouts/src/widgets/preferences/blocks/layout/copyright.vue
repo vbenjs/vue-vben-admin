@@ -30,10 +30,10 @@ const itemDisabled = computed(() => props.disabled || !copyrightEnable.value);
   </SwitchItem>
 
   <InputItem v-model="copyrightCompanyName" :disabled="itemDisabled">
-    {{ $t('preferences.copyright.company-name') }}
+    {{ $t('preferences.copyright.companyName') }}
   </InputItem>
   <InputItem v-model="copyrightCompanySiteLink" :disabled="itemDisabled">
-    {{ $t('preferences.copyright.company-site-link') }}
+    {{ $t('preferences.copyright.companySiteLink') }}
   </InputItem>
   <InputItem v-model="copyrightDate" :disabled="itemDisabled">
     {{ $t('preferences.copyright.date') }}
@@ -43,6 +43,6 @@ const itemDisabled = computed(() => props.disabled || !copyrightEnable.value);
     {{ $t('preferences.copyright.icp') }}
   </InputItem>
   <InputItem v-model="copyrightIcpLink" :disabled="itemDisabled">
-    {{ $t('preferences.copyright.icp-link') }}
+    {{ $t('preferences.copyright.icpLink') }}
   </InputItem>
 </template>

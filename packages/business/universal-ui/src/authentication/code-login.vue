@@ -52,8 +52,8 @@ const isValidPhoneNumber = computed(() => {
 
 const btnText = computed(() => {
   return countdown.value > 0
-    ? $t('authentication.send-text', [countdown.value])
-    : $t('authentication.send-code');
+    ? $t('authentication.sendText', [countdown.value])
+    : $t('authentication.sendCode');
 });
 const btnLoading = computed(() => {
   return countdown.value > 0;
@@ -117,10 +117,10 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.welcome-back') }} 📲
+      {{ $t('authentication.welcomeBack') }} 📲
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.code-subtitle') }}
+          {{ $t('authentication.codeSubtitle') }}
         </span>
       </template>
     </Title>
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
       :btn-loading="btnLoading"
       :btn-text="btnText"
       :code-length="4"
-      :error-tip="$t('authentication.code-tip')"
+      :error-tip="$t('authentication.codeTip')"
       :handle-send-code="handleSendCode"
       :label="$t('authentication.code')"
       :placeholder="$t('authentication.code')"

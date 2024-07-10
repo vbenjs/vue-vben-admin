@@ -40,17 +40,17 @@ function typeView(name: BuiltinThemeType) {
       return $t('preferences.theme.builtin.rose');
     }
     case 'sky-blue': {
-      return $t('preferences.theme.builtin.sky-blue');
+      return $t('preferences.theme.builtin.skyBlue');
     }
     case 'deep-blue': {
-      return $t('preferences.theme.builtin.deep-blue');
+      return $t('preferences.theme.builtin.deepBlue');
     }
 
     case 'green': {
       return $t('preferences.theme.builtin.green');
     }
     case 'deep-green': {
-      return $t('preferences.theme.builtin.deep-green');
+      return $t('preferences.theme.builtin.deepGreen');
     }
     case 'orange': {
       return $t('preferences.theme.builtin.orange');

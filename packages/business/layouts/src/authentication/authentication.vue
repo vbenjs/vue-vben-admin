@@ -49,10 +49,10 @@ const appName = computed(() => preferences.app.name);
         <div class="flex-col-center -enter-x mr-20 h-full">
           <SloganIcon :alt="appName" class="animate-float h-64 w-2/5" />
           <div class="text-1xl mt-6 font-sans text-white lg:text-2xl">
-            {{ $t('authentication.page-title') }}
+            {{ $t('authentication.pageTitle') }}
           </div>
           <div class="dark:text-muted-foreground mt-2 text-white/60">
-            {{ $t('authentication.page-desc') }}
+            {{ $t('authentication.pageDesc') }}
           </div>
         </div>
       </div>

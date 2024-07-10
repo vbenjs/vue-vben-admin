@@ -84,7 +84,7 @@ function handleClick(item: NotificationItem) {
       <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">{{ $t('widgets.notifications') }}</div>
         <VbenIconButton
-          :tooltip="$t('widgets.make-all-as-read')"
+          :tooltip="$t('widgets.markAllAsRead')"
           @click="handleMakeAll"
         >
           <IcRoundMarkEmailRead />
@@ -127,7 +127,7 @@ function handleClick(item: NotificationItem) {
 
       <template v-else>
         <div class="flex-center text-muted-foreground min-h-[150px] w-full">
-          {{ $t('common.not-data') }}
+          {{ $t('common.noData') }}
         </div>
       </template>
 
@@ -135,10 +135,10 @@ function handleClick(item: NotificationItem) {
         class="border-border flex items-center justify-between border-t px-4 py-3"
       >
         <VbenButton size="sm" variant="ghost" @click="handleClear">
-          {{ $t('widgets.clear-notifications') }}
+          {{ $t('widgets.clearNotifications') }}
         </VbenButton>
         <VbenButton size="sm" @click="handleViewAll">
-          {{ $t('widgets.view-all') }}
+          {{ $t('widgets.viewAll') }}
         </VbenButton>
       </div>
     </div>

@@ -101,7 +101,7 @@ describe('useCoreAccessStore', () => {
     const store = useCoreTabbarStore();
     store.cachedTabs.add('Home');
     store.cachedTabs.add('About');
-    expect(store.cachedTabs).toEqual(['Home', 'About']);
+    expect(store.getCachedTabs).toEqual(['Home', 'About']);
   });
 
   it('returns all tabs, including affix tabs', () => {

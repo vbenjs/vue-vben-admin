@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
             redirect: '/demos/access/frontend/page-control',
             meta: {
               icon: 'mdi:table-key',
-              title: $t('page.demos.access.frontend-control'),
+              title: $t('page.demos.access.frontendControl'),
             },
             children: [
               {
@@ -41,7 +41,7 @@ const routes: RouteRecordRaw[] = [
                   import('#/views/demos/access/frontend/index.vue'),
                 meta: {
                   icon: 'mdi:page-previous-outline',
-                  title: $t('page.demos.access.page'),
+                  title: $t('page.demos.access.pageAccess'),
                 },
               },
               {
@@ -51,40 +51,40 @@ const routes: RouteRecordRaw[] = [
                   import('#/views/demos/access/frontend/button-control.vue'),
                 meta: {
                   icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.button'),
+                  title: $t('page.demos.access.buttonControl'),
                 },
               },
               {
-                name: 'AccessFrontendTest1',
-                path: 'access-test-1',
+                name: 'AccessFrontendSuperVisible',
+                path: 'super-visible',
                 component: () =>
-                  import('#/views/demos/access/frontend/access-test-1.vue'),
+                  import('#/views/demos/access/frontend/super-visible.vue'),
                 meta: {
                   authority: ['super'],
                   icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.access-test-1'),
+                  title: $t('page.demos.access.superVisible'),
                 },
               },
               {
-                name: 'AccessFrontendTest2',
-                path: 'access-test-2',
+                name: 'AccessFrontendAdminVisible',
+                path: 'admin-visible',
                 component: () =>
-                  import('#/views/demos/access/frontend/access-test-2.vue'),
+                  import('#/views/demos/access/frontend/admin-visible.vue'),
                 meta: {
                   authority: ['admin'],
                   icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.access-test-2'),
+                  title: $t('page.demos.access.adminVisible'),
                 },
               },
               {
-                name: 'AccessFrontendTest3',
-                path: 'access-test-3',
+                name: 'AccessFrontendUserVisible',
+                path: 'user-visible',
                 component: () =>
-                  import('#/views/demos/access/frontend/access-test-3.vue'),
+                  import('#/views/demos/access/frontend/user-visible.vue'),
                 meta: {
                   authority: ['user'],
                   icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.access-test-3'),
+                  title: $t('page.demos.access.userVisible'),
                 },
               },
             ],
@@ -95,7 +95,7 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/demos/access/backend/index.vue'),
             meta: {
               icon: 'mdi:cloud-key-outline',
-              title: $t('page.demos.access.backend-control'),
+              title: $t('page.demos.access.backendControl'),
             },
             children: [
               {
@@ -105,7 +105,7 @@ const routes: RouteRecordRaw[] = [
                   import('#/views/demos/access/frontend/index.vue'),
                 meta: {
                   icon: 'mdi:page-previous-outline',
-                  title: $t('page.demos.access.page'),
+                  title: $t('page.demos.access.pageAccess'),
                 },
               },
             ],
@@ -209,7 +209,7 @@ const routes: RouteRecordRaw[] = [
             path: 'external-link',
             meta: {
               icon: 'mdi:newspaper-variant-multiple-outline',
-              title: $t('page.demos.outside.external-link'),
+              title: $t('page.demos.outside.externalLink'),
             },
             redirect: '/outside/external-link/vite',
             children: [
@@ -273,7 +273,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   icon: 'ic:round-menu',
                   keepAlive: true,
-                  title: $t('page.demos.nested.menu21'),
+                  title: $t('page.demos.nested.menu2_1'),
                 },
               },
             ],
@@ -294,7 +294,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   icon: 'ic:round-menu',
                   keepAlive: true,
-                  title: $t('page.demos.nested.menu31'),
+                  title: $t('page.demos.nested.menu3_1'),
                 },
               },
               {
@@ -302,7 +302,7 @@ const routes: RouteRecordRaw[] = [
                 path: 'menu3-2',
                 meta: {
                   icon: 'ic:round-menu',
-                  title: $t('page.demos.nested.menu32'),
+                  title: $t('page.demos.nested.menu3_2'),
                 },
                 redirect: '/nested/menu3/menu3-2/menu3-2-1',
                 children: [
@@ -314,7 +314,7 @@ const routes: RouteRecordRaw[] = [
                     meta: {
                       icon: 'ic:round-menu',
                       keepAlive: true,
-                      title: $t('page.demos.nested.menu321'),
+                      title: $t('page.demos.nested.menu3_2_1'),
                     },
                   },
                 ],

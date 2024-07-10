@@ -4,29 +4,28 @@
       "title": "Demos",
       "access": {
         "title": "Access Control",
-        "frontend-control": "Front-end Control",
-        "backend-control": "Backend Control",
-        "page": "Page visit",
-        "button": "Button control",
-        "loading-menu": "In the loading menu",
-        "access-test-1": "Super visit",
-        "access-test-2": "Admin visit",
-        "access-test-3": "User visit"
+        "frontendControl": "Frontend Control",
+        "backendControl": "Backend Control",
+        "pageAccess": "Page Access",
+        "buttonControl": "Button Control",
+        "superVisible": "Visible to Super",
+        "adminVisible": "Visible to Admin",
+        "userVisible": "Visible to User"
       },
       "nested": {
         "title": "Nested Menu",
         "menu1": "Menu 1",
         "menu2": "Menu 2",
-        "menu21": "Menu 2-1",
+        "menu2_1": "Menu 2-1",
         "menu3": "Menu 3",
-        "menu31": "Menu 3-1",
-        "menu32": "Menu 3-2",
-        "menu321": "Menu 3-2-1"
+        "menu3_1": "Menu 3-1",
+        "menu3_2": "Menu 3-2",
+        "menu3_2_1": "Menu 3-2-1"
       },
       "outside": {
-        "title": "External Page",
-        "embedded": "embedded Page",
-        "external-link": "External Link"
+        "title": "External Pages",
+        "embedded": "Embedded",
+        "externalLink": "External Link"
       },
       "fallback": { "title": "Fallback Page" }
     }

@@ -223,7 +223,7 @@ onMounted(() => {
       >
         <IcRoundSearchOff class="size-12" />
         <p class="my-10 text-xs">
-          {{ $t('widgets.search.no-results') }}
+          {{ $t('widgets.search.noResults') }}
           <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"
           </span>
@@ -235,7 +235,7 @@ onMounted(() => {
         class="text-muted-foreground text-center"
       >
         <p class="my-10 text-xs">
-          {{ $t('widgets.search.no-recent') }}
+          {{ $t('widgets.search.noRecent') }}
         </p>
       </div>
 

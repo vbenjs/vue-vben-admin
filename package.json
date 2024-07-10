@@ -44,7 +44,8 @@
     "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
     "test": "vitest",
-    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
+    "update:deps": " pnpm update --latest --recursive"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
@@ -68,7 +69,6 @@
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.0",
     "rimraf": "^6.0.0",
-    "taze": "^0.14.2",
     "turbo": "^2.0.6",
     "typescript": "^5.5.3",
     "unbuild": "^2.0.0",
@@ -88,6 +88,12 @@
       "clsx": "^2.1.1",
       "vue": "^3.4.31"
     },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "eslint": "*",
+        " @typescript-eslint/eslint-plugin": "*"
+      }
+    },
     "neverBuiltDependencies": [
       "canvas",
       "node-gyp",
@@ -95,8 +101,7 @@
     ],
     "updateConfig": {
       "ignoreDependencies": [
-        "eslint",
-        "zx"
+        "eslint"
       ]
     }
   }

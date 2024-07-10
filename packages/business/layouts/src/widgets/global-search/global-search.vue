@@ -116,7 +116,7 @@ onMounted(() => {
             <IcRoundSearch class="mt-1 size-4" />
             <input
               v-model="keyword"
-              :placeholder="$t('widgets.search.search-navigate')"
+              :placeholder="$t('widgets.search.searchNavigate')"
               class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 text-sm outline-none ring-0 ring-offset-transparent focus-visible:ring-transparent"
             />
           </DialogTitle>

@@ -117,7 +117,7 @@ function useTabs() {
         },
         icon: IcRoundRefresh,
         key: 'reload',
-        text: $t('preferences.tabbar.context-menu.reload'),
+        text: $t('preferences.tabbar.contextMenu.reload'),
       },
       {
         disabled: !!affixTab || disabled,
@@ -126,7 +126,7 @@ function useTabs() {
         },
         icon: IcRoundClose,
         key: 'close',
-        text: $t('preferences.tabbar.context-menu.close'),
+        text: $t('preferences.tabbar.contextMenu.close'),
       },
       {
         handler: async () => {
@@ -138,8 +138,8 @@ function useTabs() {
         key: 'affix',
         separator: true,
         text: affixTab
-          ? $t('preferences.tabbar.context-menu.unpin')
-          : $t('preferences.tabbar.context-menu.pin'),
+          ? $t('preferences.tabbar.contextMenu.unpin')
+          : $t('preferences.tabbar.contextMenu.pin'),
       },
       {
         disabled: closeLeftDisabled,
@@ -148,7 +148,7 @@ function useTabs() {
         },
         icon: MdiFormatHorizontalAlignLeft,
         key: 'close-left',
-        text: $t('preferences.tabbar.context-menu.close-left'),
+        text: $t('preferences.tabbar.contextMenu.closeLeft'),
       },
       {
         disabled: closeRightDisabled,
@@ -158,7 +158,7 @@ function useTabs() {
         icon: MdiFormatHorizontalAlignRight,
         key: 'close-right',
         separator: true,
-        text: $t('preferences.tabbar.context-menu.close-right'),
+        text: $t('preferences.tabbar.contextMenu.closeRight'),
       },
       {
         disabled: closeOtherDisabled,
@@ -167,7 +167,7 @@ function useTabs() {
         },
         icon: MdiArrowExpandHorizontal,
         key: 'close-other',
-        text: $t('preferences.tabbar.context-menu.close-other'),
+        text: $t('preferences.tabbar.contextMenu.closeOther'),
       },
       {
         disabled,
@@ -176,7 +176,7 @@ function useTabs() {
         },
         icon: IcRoundMultipleStop,
         key: 'close-all',
-        text: $t('preferences.tabbar.context-menu.close-all'),
+        text: $t('preferences.tabbar.contextMenu.closeAll'),
       },
       // {
       //   icon: 'icon-[material-symbols--back-to-tab-sharp]',

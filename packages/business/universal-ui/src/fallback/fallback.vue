@@ -43,13 +43,13 @@ const titleText = computed(() => {
       return $t('fallback.forbidden');
     }
     case '404': {
-      return $t('fallback.page-not-found');
+      return $t('fallback.pageNotFound');
     }
     case '500': {
-      return $t('fallback.internal-error');
+      return $t('fallback.internalError');
     }
     case 'offline': {
-      return $t('fallback.offline-error');
+      return $t('fallback.offlineError');
     }
     case 'comming-soon': {
       return $t('fallback.coming-soon');
@@ -66,16 +66,16 @@ const descText = computed(() => {
   }
   switch (props.status) {
     case '403': {
-      return $t('fallback.forbidden-desc');
+      return $t('fallback.forbiddenDesc');
     }
     case '404': {
-      return $t('fallback.page-not-found-desc');
+      return $t('fallback.pageNotFoundDesc');
     }
     case '500': {
-      return $t('fallback.internal-error-desc');
+      return $t('fallback.internalErrorDesc');
     }
     case 'offline': {
-      return $t('fallback.offline-error-desc');
+      return $t('fallback.offlineErrorDesc');
     }
     default: {
       return '';
@@ -152,7 +152,7 @@ function refresh() {
       <slot v-if="$slots.action" name="action"></slot>
       <VbenButton v-else-if="showBack" size="lg" @click="back">
         <IcRoundArrowBackIosNew class="mr-2" />
-        {{ $t('common.back-to-home') }}
+        {{ $t('common.backToHome') }}
       </VbenButton>
       <VbenButton v-else-if="showRefresh" size="lg" @click="refresh">
         <IcRoundRefresh class="mr-2" />

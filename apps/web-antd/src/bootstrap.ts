@@ -17,7 +17,7 @@ async function bootstrap(namespace: string) {
   await setupI18n(app, {
     defaultLocale: preferences.app.locale,
     loadMessages,
-    missingWarn: import.meta.env.PROD,
+    missingWarn: !import.meta.env.PROD,
   });
 
   // 配置 pinia-store

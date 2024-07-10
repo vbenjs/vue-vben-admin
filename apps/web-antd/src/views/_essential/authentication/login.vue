@@ -20,9 +20,9 @@ async function handleLogin(params: LoginAndRegisterParams) {
   const { userInfo } = await accessStore.authLogin(params);
   if (userInfo?.realName) {
     notification.success({
-      description: `${$t('authentication.login-success-desc')}:${userInfo?.realName}`,
+      description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
       duration: 3,
-      message: $t('authentication.login-success'),
+      message: $t('authentication.loginSuccess'),
     });
   }
 }

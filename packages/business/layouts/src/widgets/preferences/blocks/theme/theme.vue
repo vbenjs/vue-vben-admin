@@ -49,7 +49,7 @@ function nameView(name: string) {
       return $t('preferences.theme.dark');
     }
     case 'auto': {
-      return $t('preferences.follow-system');
+      return $t('preferences.followSystem');
     }
   }
 }
@@ -79,7 +79,7 @@ function nameView(name: string) {
       :disabled="modelValue !== 'light'"
       class="mt-6"
     >
-      {{ $t('preferences.theme.dark-menu') }}
+      {{ $t('preferences.theme.darkMenu') }}
     </SwitchItem>
   </div>
 </template>

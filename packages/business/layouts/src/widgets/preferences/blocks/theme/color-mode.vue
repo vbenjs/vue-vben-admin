@@ -18,9 +18,9 @@ const appColorGrayMode = defineModel<boolean>('appColorGrayMode', {
 
 <template>
   <SwitchItem v-model="appColorWeakMode">
-    {{ $t('preferences.theme.weak-mode') }}
+    {{ $t('preferences.theme.weakMode') }}
   </SwitchItem>
   <SwitchItem v-model="appColorGrayMode">
-    {{ $t('preferences.theme.gray-mode') }}
+    {{ $t('preferences.theme.grayMode') }}
   </SwitchItem>
 </template>

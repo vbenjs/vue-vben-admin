@@ -18,13 +18,13 @@ const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 
 <template>
   <SwitchItem v-model="widgetGlobalSearch">
-    {{ $t('preferences.widget.global-search') }}
+    {{ $t('preferences.widget.globalSearch') }}
   </SwitchItem>
   <SwitchItem v-model="widgetThemeToggle">
-    {{ $t('preferences.widget.theme-toggle') }}
+    {{ $t('preferences.widget.themeToggle') }}
   </SwitchItem>
   <SwitchItem v-model="widgetLanguageToggle">
-    {{ $t('preferences.widget.language-toggle') }}
+    {{ $t('preferences.widget.languageToggle') }}
   </SwitchItem>
   <SwitchItem v-model="widgetFullscreen">
     {{ $t('preferences.widget.fullscreen') }}
@@ -33,9 +33,9 @@ const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
     {{ $t('preferences.widget.notification') }}
   </SwitchItem>
   <SwitchItem v-model="widgetAiAssistant">
-    {{ $t('preferences.widget.ai-assistant') }}
+    {{ $t('preferences.widget.aiAssistant') }}
   </SwitchItem>
   <SwitchItem v-model="widgetSidebarToggle">
-    {{ $t('preferences.widget.sidebar-toggle') }}
+    {{ $t('preferences.widget.sidebarToggle') }}
   </SwitchItem>
 </template>

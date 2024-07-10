@@ -50,31 +50,31 @@ export class MenuController {
     const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
       const roleWithMenus = {
         admin: {
-          component: '/demos/access/backend/access-test-2',
+          component: '/demos/access/backend/admin-visible',
           meta: {
             icon: 'mdi:button-cursor',
-            title: 'page.demos.access.access-test-2',
+            title: 'page.demos.access.adminVisible',
           },
-          name: 'AccessBackendTest2',
-          path: 'access-test-2',
+          name: 'AccessBackendAdminVisible',
+          path: 'admin-visible',
         },
         super: {
-          component: '/demos/access/backend/access-test-1',
+          component: '/demos/access/backend/super-visible',
           meta: {
             icon: 'mdi:button-cursor',
-            title: 'page.demos.access.access-test-1',
+            title: 'page.demos.access.superVisible',
           },
-          name: 'AccessBackendTest1',
-          path: 'access-test-1',
+          name: 'AccessBackendSuperVisible',
+          path: 'super-visible',
         },
         user: {
-          component: '/demos/access/backend/access-test-3',
+          component: '/demos/access/backend/user-visible',
           meta: {
             icon: 'mdi:button-cursor',
-            title: 'page.demos.access.access-test-3',
+            title: 'page.demos.access.userVisible',
           },
-          name: 'AccessBackendTest3',
-          path: 'access-test-3',
+          name: 'AccessBackendUserVisible',
+          path: 'user-visible',
         },
       };
 
@@ -105,7 +105,7 @@ export class MenuController {
                   path: 'backend',
                   meta: {
                     icon: 'mdi:cloud-key-outline',
-                    title: 'page.demos.access.backend-control',
+                    title: 'page.demos.access.backendControl',
                   },
                   redirect: '/demos/access/backend/page-control',
                   children: [
@@ -115,7 +115,7 @@ export class MenuController {
                       component: '/demos/access/backend/index',
                       meta: {
                         icon: 'mdi:page-previous-outline',
-                        title: 'page.demos.access.page',
+                        title: 'page.demos.access.pageAccess',
                       },
                     },
                     {
@@ -124,7 +124,7 @@ export class MenuController {
                       component: '/demos/access/backend/button-control',
                       meta: {
                         icon: 'mdi:button-cursor',
-                        title: 'page.demos.access.button',
+                        title: 'page.demos.access.buttonControl',
                       },
                     },
                     roleWithMenus[role],

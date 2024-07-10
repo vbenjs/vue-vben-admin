@@ -28,18 +28,18 @@ const stylesItems: SelectListItem[] = [
     :disabled="disabled"
     :items="stylesItems"
   >
-    {{ $t('preferences.navigation-menu.style') }}
+    {{ $t('preferences.navigationMenu.style') }}
   </ToggleItem>
   <SwitchItem
     v-model="navigationSplit"
     :disabled="disabledNavigationSplit || disabled"
   >
-    {{ $t('preferences.navigation-menu.split') }}
+    {{ $t('preferences.navigationMenu.split') }}
     <template #tip>
-      {{ $t('preferences.navigation-menu.split-tip') }}
+      {{ $t('preferences.navigationMenu.splitTip') }}
     </template>
   </SwitchItem>
   <SwitchItem v-model="navigationAccordion" :disabled="disabled">
-    {{ $t('preferences.navigation-menu.accordion') }}
+    {{ $t('preferences.navigationMenu.accordion') }}
   </SwitchItem>
 </template>

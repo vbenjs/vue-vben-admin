@@ -22,21 +22,21 @@ const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
 
 <template>
   <SwitchItem v-model="shortcutKeysEnable">
-    {{ $t('preferences.shortcut-keys.title') }}
+    {{ $t('preferences.shortcutKeys.title') }}
   </SwitchItem>
   <SwitchItem v-if="shortcutKeysEnable" v-model="shortcutKeysGlobalSearch">
-    {{ $t('preferences.shortcut-keys.search') }}
+    {{ $t('preferences.shortcutKeys.search') }}
     <template #shortcut>
       {{ isWindowsOs() ? 'Ctrl' : '⌘' }}
       <kbd> K </kbd>
     </template>
   </SwitchItem>
   <SwitchItem v-if="shortcutKeysEnable" v-model="shortcutKeysLogout">
-    {{ $t('preferences.shortcut-keys.logout') }}
+    {{ $t('preferences.shortcutKeys.logout') }}
     <template #shortcut> {{ altView }} Q </template>
   </SwitchItem>
   <SwitchItem v-if="shortcutKeysEnable" v-model="shortcutKeysPreferences">
-    {{ $t('preferences.shortcut-keys.preferences') }}
+    {{ $t('preferences.shortcutKeys.preferences') }}
     <template #shortcut> {{ altView }} , </template>
   </SwitchItem>
 </template>

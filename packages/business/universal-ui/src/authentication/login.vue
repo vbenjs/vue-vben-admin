@@ -150,10 +150,10 @@ function handleGo(path: string) {
 <template>
   <div @keypress.enter.prevent="handleSubmit">
     <Title>
-      {{ $t('authentication.welcome-back') }} 👋🏻
+      {{ $t('authentication.welcomeBack') }} 👋🏻
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.login-subtitle') }}
+          {{ $t('authentication.loginSubtitle') }}
         </span>
       </template>
     </Title>
@@ -161,7 +161,7 @@ function handleGo(path: string) {
     <VbenInput
       v-model="formState.username"
       :autofocus="false"
-      :error-tip="$t('authentication.username-tip')"
+      :error-tip="$t('authentication.usernameTip')"
       :label="$t('authentication.username')"
       :placeholder="usernamePlaceholder || $t('authentication.username')"
       :status="usernameStatus"
@@ -171,7 +171,7 @@ function handleGo(path: string) {
     />
     <VbenInputPassword
       v-model="formState.password"
-      :error-tip="$t('authentication.password-tip')"
+      :error-tip="$t('authentication.passwordTip')"
       :label="$t('authentication.password')"
       :placeholder="passwordPlaceholder || $t('authentication.password')"
       :status="passwordStatus"
@@ -183,7 +183,7 @@ function handleGo(path: string) {
     <div class="mb-6 mt-4 flex justify-between">
       <div class="flex-center flex">
         <VbenCheckbox v-model:checked="formState.rememberMe" name="rememberMe">
-          {{ $t('authentication.remember-me') }}
+          {{ $t('authentication.rememberMe') }}
         </VbenCheckbox>
       </div>
 
@@ -192,7 +192,7 @@ function handleGo(path: string) {
         class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
         @click="handleGo(forgetPasswordPath)"
       >
-        {{ $t('authentication.forget-password') }}
+        {{ $t('authentication.forgetPassword') }}
       </span>
 
       <!-- <VbenButton variant="ghost" @click="handleGo('/auth/forget-password')">
@@ -210,7 +210,7 @@ function handleGo(path: string) {
         variant="outline"
         @click="handleGo(codeLoginPath)"
       >
-        {{ $t('authentication.mobile-login') }}
+        {{ $t('authentication.mobileLogin') }}
       </VbenButton>
       <VbenButton
         v-if="showQrcodeLogin"
@@ -218,7 +218,7 @@ function handleGo(path: string) {
         variant="outline"
         @click="handleGo(qrCodeLoginPath)"
       >
-        {{ $t('authentication.qrcode-login') }}
+        {{ $t('authentication.qrcodeLogin') }}
       </VbenButton>
       <!-- <VbenButton
         :loading="loading"
@@ -234,12 +234,12 @@ function handleGo(path: string) {
     <ThirdPartyLogin v-if="showThirdPartyLogin" />
 
     <div v-if="showRegister" class="text-center text-sm">
-      {{ $t('authentication.account-tip') }}
+      {{ $t('authentication.accountTip') }}
       <span
         class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
         @click="handleGo(registerPath)"
       >
-        {{ $t('authentication.create-account') }}
+        {{ $t('authentication.createAccount') }}
       </span>
     </div>
   </div>

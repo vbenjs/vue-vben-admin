@@ -49,7 +49,7 @@ const PRESETS = [
   {
     icon: IcRoundMotionPhotosAuto,
     name: 'auto',
-    title: $t('preferences.follow-system'),
+    title: $t('preferences.followSystem'),
   },
 ];
 </script>

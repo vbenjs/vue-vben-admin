@@ -29,7 +29,7 @@ const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
     v-model="sidebarCollapsedShowTitle"
     :disabled="!sidebarEnable || disabled"
   >
-    {{ $t('preferences.sidebar.collapsed-show-title') }}
+    {{ $t('preferences.sidebar.collapsedShowTitle') }}
   </SwitchItem>
   <NumberFieldItem
     v-model="sidebarWidth"

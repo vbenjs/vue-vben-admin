@@ -47,10 +47,10 @@ function goLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.welcome-back') }} 📱
+      {{ $t('authentication.welcomeBack') }} 📱
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.qrcode-subtitle') }}
+          {{ $t('authentication.qrcodeSubtitle') }}
         </span>
       </template>
     </Title>
@@ -58,7 +58,7 @@ function goLogin() {
     <div class="flex-col-center mt-6">
       <img :src="qrcode" alt="qrcode" class="w-1/2" />
       <p class="text-muted-foreground mt-4 text-sm">
-        {{ $t('authentication.qrcode-prompt') }}
+        {{ $t('authentication.qrcodePrompt') }}
       </p>
     </div>
 

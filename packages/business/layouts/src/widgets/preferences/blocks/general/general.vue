@@ -25,6 +25,6 @@ const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
     {{ $t('preferences.language') }}
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">
-    {{ $t('preferences.dynamic-title') }}
+    {{ $t('preferences.dynamicTitle') }}
   </SwitchItem>
 </template>

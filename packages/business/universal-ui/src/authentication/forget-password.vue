@@ -58,15 +58,15 @@ function goLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.forget-password') }} 🤦🏻‍♂️
+      {{ $t('authentication.forgetPassword') }} 🤦🏻‍♂️
       <template #desc>
-        {{ $t('authentication.forget-password-subtitle') }}
+        {{ $t('authentication.forgetPasswordSubtitle') }}
       </template>
     </Title>
     <div class="mb-6">
       <VbenInput
         v-model="formState.email"
-        :error-tip="$t('authentication.email-tip')"
+        :error-tip="$t('authentication.emailTip')"
         :label="$t('authentication.email')"
         :status="emailStatus"
         autofocus
@@ -77,7 +77,7 @@ function goLogin() {
     </div>
     <div>
       <VbenButton class="mt-2 w-full" @click="handleSubmut">
-        {{ $t('authentication.send-reset-link') }}
+        {{ $t('authentication.sendResetLink') }}
       </VbenButton>
       <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
         {{ $t('common.back') }}

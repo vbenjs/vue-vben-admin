@@ -121,7 +121,7 @@ if (enableShortcutKey.value) {
   <VbenAlertDialog
     v-model:open="openDialog"
     :cancel-text="$t('common.cancel')"
-    :content="$t('widgets.logout-tip')"
+    :content="$t('widgets.logoutTip')"
     :submit-text="$t('common.confirm')"
     :title="$t('common.prompt')"
     @submit="handleSubmitLogout"

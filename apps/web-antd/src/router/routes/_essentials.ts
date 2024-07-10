@@ -60,7 +60,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('#/views/_essential/authentication/qrcode-login.vue'),
         meta: {
-          title: $t('page.essentials.qrcode-login'),
+          title: $t('page.essentials.qrcodeLogin'),
         },
       },
       {
@@ -69,7 +69,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('#/views/_essential/authentication/forget-password.vue'),
         meta: {
-          title: $t('page.essentials.forget-password'),
+          title: $t('page.essentials.forgetPassword'),
         },
       },
       {
