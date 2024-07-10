@@ -261,6 +261,9 @@ importers:
 
   internal/lint-configs/eslint-config:
     dependencies:
+      eslint-config-turbo:
+        specifier: ^2.0.6
+        version: 2.0.6(eslint@8.57.0)
       eslint-plugin-command:
         specifier: ^0.2.3
         version: 0.2.3(eslint@8.57.0)
@@ -423,8 +426,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0
       zx:
-        specifier: ^8.1.4
-        version: 8.1.4
+        specifier: ^7.2.3
+        version: 7.2.3
 
   internal/tailwind-config:
     dependencies:
@@ -3019,7 +3022,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4987,6 +4989,10 @@ packages:
     resolution: {integrity: sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==}
     engines: {node: '>=12'}
 
+  dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
@@ -5152,6 +5158,11 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-config-turbo@2.0.6:
+    resolution: {integrity: sha512-PkRjFnZUZWPcrYT4Xoi5OWOUtnn6xVGh88I6TsayiH4AQZuLs/MDmzfJRK+PiWIrI7Q7sbsVEQP+nUyyRE3uAw==}
+    peerDependencies:
+      eslint: '>6.6.0'
+
   eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
 
@@ -5258,6 +5269,11 @@ packages:
     engines: {node: ^18 || >=20}
     peerDependencies:
       eslint: '>=8.44.0'
+
+  eslint-plugin-turbo@2.0.6:
+    resolution: {integrity: sha512-yGnpMvyBxI09ZrF5bGpaniBz57MiExTCsRnNxP+JnbMFD+xU3jG3ukRzehVol8LYNdC/G7E4HoH+x7OEpoSGAQ==}
+    peerDependencies:
+      eslint: '>6.6.0'
 
   eslint-plugin-unicorn@54.0.0:
     resolution: {integrity: sha512-XxYLRiYtAWiAjPv6z4JREby1TAE2byBC7wlh0V4vWDCpccOSU1KovWV//jqPXF6bq3WKxqX9rdjoRQ1EhdmNdQ==}
@@ -9425,11 +9441,6 @@ packages:
   zx@7.2.3:
     resolution: {integrity: sha512-QODu38nLlYXg/B/Gw7ZKiZrvPkEsjPN3LQ5JFXM7h0JvwhEdPNNl+4Ao1y4+o3CLNiDUNcwzQYZ4/Ko7kKzCMA==}
     engines: {node: '>= 16.0.0'}
-    hasBin: true
-
-  zx@8.1.4:
-    resolution: {integrity: sha512-QFDYYpnzdpRiJ3dL2102Cw26FpXpWshW4QLTGxiYfIcwdAqg084jRCkK/kuP/NOSkxOjydRwNFG81qzA5r1a6w==}
-    engines: {node: '>= 12.17.0'}
     hasBin: true
 
 snapshots:
@@ -13960,6 +13971,8 @@ snapshots:
 
   dotenv-expand@8.0.3: {}
 
+  dotenv@16.0.3: {}
+
   dotenv@16.4.5: {}
 
   dotenv@8.6.0: {}
@@ -14213,6 +14226,11 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
+  eslint-config-turbo@2.0.6(eslint@8.57.0):
+    dependencies:
+      eslint: 8.57.0
+      eslint-plugin-turbo: 2.0.6(eslint@8.57.0)
+
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
@@ -14339,6 +14357,11 @@ snapshots:
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
+
+  eslint-plugin-turbo@2.0.6(eslint@8.57.0):
+    dependencies:
+      dotenv: 16.0.3
+      eslint: 8.57.0
 
   eslint-plugin-unicorn@54.0.0(eslint@8.57.0):
     dependencies:
@@ -18897,8 +18920,3 @@ snapshots:
       webpod: 0.0.2
       which: 3.0.1
       yaml: 2.4.5
-
-  zx@8.1.4:
-    optionalDependencies:
-      '@types/fs-extra': 11.0.4
-      '@types/node': 20.14.10

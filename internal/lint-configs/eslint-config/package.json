@@ -27,6 +27,7 @@
     }
   },
   "dependencies": {
+    "eslint-config-turbo": "^2.0.6",
     "eslint-plugin-command": "^0.2.3"
   },
   "devDependencies": {

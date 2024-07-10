@@ -101,7 +101,8 @@
     ],
     "updateConfig": {
       "ignoreDependencies": [
-        "eslint"
+        "eslint",
+        "zx"
       ]
     }
   }

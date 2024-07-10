@@ -14,7 +14,7 @@ async function runLint({ format }: LintCommandOptions) {
   if (format) {
     await $`stylelint "**/*.{vue,css,less.scss}" --cache --fix`;
     await $`eslint . --cache --fix`;
-    await $`prettier . --write --cache`;
+    await $`prettier . --write --cache --log-level warn`;
     return;
   }
 
