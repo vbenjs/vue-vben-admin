@@ -8,6 +8,7 @@
         "backendControl": "后端控制",
         "pageAccess": "页面访问",
         "buttonControl": "按钮控制",
+        "menuVisible403": "菜单可见(403)",
         "superVisible": "Super 可见",
         "adminVisible": "Admin 可见",
         "userVisible": "User 可见"

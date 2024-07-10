@@ -55,6 +55,19 @@ const routes: RouteRecordRaw[] = [
                 },
               },
               {
+                name: 'AccessFrontendMenuVisible403',
+                path: 'menu-visible-403',
+                component: () =>
+                  import('#/views/demos/access/frontend/menu-visible-403.vue'),
+                meta: {
+                  authority: ['no-body'],
+                  icon: 'mdi:button-cursor',
+                  menuVisibleWithForbidden: true,
+                  title: $t('page.demos.access.menuVisible403'),
+                },
+              },
+
+              {
                 name: 'AccessFrontendSuperVisible',
                 path: 'super-visible',
                 component: () =>

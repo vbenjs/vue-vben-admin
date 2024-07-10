@@ -34,14 +34,12 @@ async function generateRoutesByFrontend(
  */
 function hasAuthority(route: RouteRecordRaw, access: string[]) {
   const authority = route.meta?.authority;
-
   if (!authority) {
     return true;
   }
-  return (
-    access.some((value) => authority.includes(value)) ||
-    menuHasVisibleWithForbidden(route)
-  );
+  const canAccess = access.some((value) => authority.includes(value));
+
+  return canAccess || (!canAccess && menuHasVisibleWithForbidden(route));
 }
 
 /**
@@ -57,7 +55,11 @@ function hasVisible(route?: RouteRecordRaw) {
  * @param route
  */
 function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
-  return !!route.meta?.menuVisibleWithForbidden;
+  return (
+    !!route.meta?.authority &&
+    Reflect.has(route.meta || {}, 'menuVisibleWithForbidden') &&
+    !!route.meta?.menuVisibleWithForbidden
+  );
 }
 
 export { generateRoutesByFrontend, hasAuthority, hasVisible };

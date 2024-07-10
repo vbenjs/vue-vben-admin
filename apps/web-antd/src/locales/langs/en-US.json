@@ -8,6 +8,7 @@
         "backendControl": "Backend Control",
         "pageAccess": "Page Access",
         "buttonControl": "Button Control",
+        "menuVisible403": "Menu Visible(403)",
         "superVisible": "Visible to Super",
         "adminVisible": "Visible to Admin",
         "userVisible": "Visible to User"
