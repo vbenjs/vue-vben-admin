@@ -147,7 +147,6 @@
     "general": "General",
     "language": "Language",
     "dynamic-title": "Dynamic Title",
-    "ai-assistant": "Ai Assistant",
     "sidebar": {
       "title": "Sidebar",
       "width": "Width",
@@ -248,6 +247,16 @@
       "search": "Global Search",
       "logout": "Logout",
       "preferences": "Preferences"
+    },
+    "widget": {
+      "title": "Widget",
+      "global-search": "Enable Global Search",
+      "fullscreen": "Enable Fullscreen",
+      "theme-toggle": "Enable Theme Toggle",
+      "language-toggle": "Enable Language Toggle",
+      "notification": "Enable Notification",
+      "sidebar-toggle": "Enable Sidebar Toggle",
+      "ai-assistant": "Enable AI Assistant"
     }
   }
 }

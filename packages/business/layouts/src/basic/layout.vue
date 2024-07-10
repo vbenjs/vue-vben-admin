@@ -38,7 +38,7 @@ const headerMenuTheme = computed(() => {
 });
 
 const theme = computed(() => {
-  const dark = isDark.value || preferences.app.semiDarkMenu;
+  const dark = isDark.value || preferences.theme.semiDarkMenu;
   return dark ? 'dark' : 'light';
 });
 
@@ -122,6 +122,7 @@ function clearPreferencesAndLogout() {
     :footer-fixed="preferences.footer.fixed"
     :header-hidden="preferences.header.hidden"
     :header-mode="preferences.header.mode"
+    :header-toggle-sidebar-button="preferences.widget.sidebarToggle"
     :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
     :layout="layout"
@@ -131,7 +132,7 @@ function clearPreferencesAndLogout() {
     :sidebar-expand-on-hover="preferences.sidebar.expandOnHover"
     :sidebar-extra-collapse="preferences.sidebar.extraCollapse"
     :sidebar-hidden="preferences.sidebar.hidden"
-    :sidebar-semi-dark="preferences.app.semiDarkMenu"
+    :sidebar-semi-dark="preferences.theme.semiDarkMenu"
     :sidebar-theme="theme"
     :sidebar-width="preferences.sidebar.width"
     :tabbar-enable="preferences.tabbar.enable"
@@ -158,7 +159,7 @@ function clearPreferencesAndLogout() {
 
     <template #floating-groups>
       <CozeAssistant
-        v-if="preferences.app.aiAssistant"
+        v-if="preferences.widget.aiAssistant"
         :is-mobile="preferences.app.isMobile"
       />
       <VbenBackTop />

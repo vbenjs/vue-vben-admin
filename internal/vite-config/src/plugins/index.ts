@@ -7,10 +7,6 @@ import type {
   LibraryPluginOptions,
 } from '../typing';
 
-import { join } from 'node:path';
-
-import { getPackages } from '@vben/node-utils';
-
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
@@ -117,28 +113,10 @@ async function loadApplicationPlugins(
     {
       condition: i18n,
       plugins: async () => {
-        const { packages } = await getPackages();
-
-        const include: string[] = [];
-
-        // 加载所有应用的国际化文件
-        for (const { dir, relativeDir } of packages) {
-          if (
-            // 排除非应用目录
-            !relativeDir.startsWith('apps') ||
-            // 排除mock目录
-            relativeDir.includes('backend-mock')
-          ) {
-            continue;
-          }
-          include.push(`${join(dir, 'src', 'locales', 'langs')}/*.yaml`);
-        }
-
         return [
           viteVueI18nPlugin({
             compositionOnly: true,
             fullInstall: true,
-            include,
             runtimeOnly: true,
           }),
         ];

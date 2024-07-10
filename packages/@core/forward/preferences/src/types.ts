@@ -46,8 +46,6 @@ interface AppPreferences {
   locale: SupportedLanguagesType;
   /** 应用名 */
   name: string;
-  /** 是否开启半深色菜单（只在theme='light'时生效） */
-  semiDarkMenu: boolean;
 }
 
 interface BreadcrumbPreferences {
@@ -164,6 +162,8 @@ interface ThemePreferences {
   mode: ThemeModeType;
   /** 圆角 */
   radius: string;
+  /** 是否开启半深色菜单（只在theme='light'时生效） */
+  semiDarkMenu: boolean;
 }
 
 interface TransitionPreferences {
@@ -175,6 +175,23 @@ interface TransitionPreferences {
   name: PageTransitionType | string;
   /** 是否开启页面加载进度动画 */
   progress: boolean;
+}
+
+interface WidgetPreferences {
+  /** 是否开启vben助手部件 */
+  aiAssistant: boolean;
+  /** 是否启用全屏部件 */
+  fullscreen: boolean;
+  /** 是否启用全局搜索部件 */
+  globalSearch: boolean;
+  /** 是否启用语言切换部件 */
+  languageToggle: boolean;
+  /** 是否显示通知部件 */
+  notification: boolean;
+  /** 是否显示侧边栏显示/隐藏部件 */
+  sidebarToggle: boolean;
+  /** 是否显示主题切换部件 */
+  themeToggle: boolean;
 }
 
 interface Preferences {
@@ -202,6 +219,8 @@ interface Preferences {
   theme: ThemePreferences;
   /** 动画配置 */
   transition: TransitionPreferences;
+  /** 功能配置 */
+  widget: WidgetPreferences;
 }
 
 type PreferencesKeys = keyof Preferences;
@@ -230,4 +249,5 @@ export type {
   ThemeModeType,
   ThemePreferences,
   TransitionPreferences,
+  WidgetPreferences,
 };

@@ -32,8 +32,8 @@ const props = withDefaults(defineProps<Props>(), {
   headerHeight: 50,
   headerHeightOffset: 10,
   headerHidden: false,
-
   headerMode: 'fixed',
+  headerToggleSidebarButton: true,
   headerVisible: true,
   isMobile: false,
   layout: 'sidebar-nav',
@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   tabbarEnable: true,
-  tabsHeight: 36,
+  tabbarHeight: 36,
   zIndex: 200,
 });
 
@@ -122,7 +122,7 @@ const headerWrapperHeight = computed(() => {
     height += getHeaderHeight.value;
   }
   if (props.tabbarEnable) {
-    height += props.tabsHeight;
+    height += props.tabbarHeight;
   }
   return height;
 });
@@ -364,6 +364,7 @@ const maskStyle = computed((): CSSProperties => {
 
 const showHeaderToggleButton = computed(() => {
   return (
+    props.headerToggleSidebarButton &&
     isSideMode.value &&
     !isSidebarMixedNav.value &&
     !isMixedNav.value &&
@@ -528,7 +529,7 @@ function handleOpenMenu() {
 
         <LayoutTabbar
           v-if="tabbarEnable"
-          :height="tabsHeight"
+          :height="tabbarHeight"
           :style="tabbarStyle"
         >
           <slot name="tabbar"></slot>

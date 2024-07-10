@@ -146,7 +146,6 @@
     "general": "通用",
     "language": "语言",
     "dynamic-title": "动态标题",
-    "ai-assistant": "Ai 助手",
     "sidebar": {
       "title": "侧边栏",
       "width": "宽度",
@@ -247,6 +246,16 @@
       "search": "全局搜索",
       "logout": "退出登录",
       "preferences": "偏好设置"
+    },
+    "widget": {
+      "title": "小部件",
+      "global-search": "启用全局搜索",
+      "fullscreen": "启用全屏",
+      "theme-toggle": "启用主题切换",
+      "language-toggle": "启用语言切换",
+      "notification": "启用通知",
+      "sidebar-toggle": "启用侧边栏切换",
+      "ai-assistant": "启用 AI 助手"
     }
   }
 }

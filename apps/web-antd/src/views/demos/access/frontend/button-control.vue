@@ -3,7 +3,7 @@ import type { LoginAndRegisterParams } from '@vben/universal-ui';
 
 import { useRouter } from 'vue-router';
 
-import { CodeAuthority, RoleAuthority, useAccess } from '@vben/access';
+import { CodeAccess, RoleAccess, useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
@@ -81,18 +81,18 @@ async function changeAccount(role: string) {
       </div>
       <div class="card-box mt-5 p-5 font-semibold">
         <div class="mb-3 text-lg">角色 - 组件形式控制</div>
-        <RoleAuthority :value="['super']">
+        <RoleAccess :value="['super']">
           <Button class="mr-4"> Super 角色可见 </Button>
-        </RoleAuthority>
-        <RoleAuthority :value="['admin']">
+        </RoleAccess>
+        <RoleAccess :value="['admin']">
           <Button class="mr-4"> Admin 角色可见 </Button>
-        </RoleAuthority>
-        <RoleAuthority :value="['user']">
+        </RoleAccess>
+        <RoleAccess :value="['user']">
           <Button class="mr-4"> User 角色可见 </Button>
-        </RoleAuthority>
-        <RoleAuthority :value="['super', 'admin']">
+        </RoleAccess>
+        <RoleAccess :value="['super', 'admin']">
           <Button class="mr-4"> Super & Admin 角色都可见 </Button>
-        </RoleAuthority>
+        </RoleAccess>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">
@@ -113,20 +113,20 @@ async function changeAccount(role: string) {
 
       <div class="card-box mt-5 p-5 font-semibold">
         <div class="mb-3 text-lg">权限码 - 组件形式控制</div>
-        <CodeAuthority :value="['AC_100100']">
+        <CodeAccess :value="['AC_100100']">
           <Button class="mr-4"> Super 账号可见 ["AC_1000001"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_100030']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_100030']">
           <Button class="mr-4"> Admin 账号可见 ["AC_100010"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_1000001']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_1000001']">
           <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_100100', 'AC_100010']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_100100', 'AC_100010']">
           <Button class="mr-4">
             Super & Admin 账号可见 ["AC_100100","AC_1000001"]
           </Button>
-        </CodeAuthority>
+        </CodeAccess>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">

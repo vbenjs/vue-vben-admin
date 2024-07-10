@@ -17,7 +17,6 @@ const defaultPreferences: Preferences = {
     layout: 'sidebar-nav',
     locale: 'zh-CN',
     name: 'Vben Admin Pro',
-    semiDarkMenu: true,
   },
   breadcrumb: {
     enable: true,
@@ -82,12 +81,22 @@ const defaultPreferences: Preferences = {
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',
     radius: '0.5',
+    semiDarkMenu: true,
   },
   transition: {
     enable: true,
     loading: true,
     name: 'fade-slide',
     progress: true,
+  },
+  widget: {
+    aiAssistant: true,
+    fullscreen: true,
+    globalSearch: true,
+    languageToggle: true,
+    notification: true,
+    sidebarToggle: true,
+    themeToggle: true,
   },
 };
 

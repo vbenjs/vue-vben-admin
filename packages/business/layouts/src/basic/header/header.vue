@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { usePreferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben-core/preferences';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
 import { useCoreAccessStore } from '@vben-core/stores';
 
@@ -33,14 +33,15 @@ const { globalSearchShortcutKey } = usePreferences();
   </div>
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <GlobalSearch
+      v-if="preferences.widget.globalSearch"
       :enable-shortcut-key="globalSearchShortcutKey"
       :menus="accessStore.accessMenus"
       class="mr-4"
     />
-    <ThemeToggle class="mr-2" />
-    <LanguageToggle class="mr-2" />
-    <VbenFullScreen class="mr-2" />
-    <slot name="notification"></slot>
+    <ThemeToggle v-if="preferences.widget.themeToggle" class="mr-2" />
+    <LanguageToggle v-if="preferences.widget.languageToggle" class="mr-2" />
+    <VbenFullScreen v-if="preferences.widget.fullscreen" class="mr-2" />
+    <slot v-if="preferences.widget.notification" name="notification"></slot>
     <slot name="user-dropdown"></slot>
   </div>
 </template>

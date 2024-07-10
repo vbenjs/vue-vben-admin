@@ -3,7 +3,7 @@ import type { LoginAndRegisterParams } from '@vben/universal-ui';
 
 import { useRouter } from 'vue-router';
 
-import { CodeAuthority, useAccess } from '@vben/access';
+import { CodeAccess, useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
@@ -82,20 +82,20 @@ async function changeAccount(role: string) {
 
       <div class="card-box mt-5 p-5 font-semibold">
         <div class="mb-3 text-lg">组件形式控制</div>
-        <CodeAuthority :value="['AC_100100']">
+        <CodeAccess :value="['AC_100100']">
           <Button class="mr-4"> Super 账号可见 ["AC_1000001"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_100030']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_100030']">
           <Button class="mr-4"> Admin 账号可见 ["AC_100010"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_1000001']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_1000001']">
           <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
-        </CodeAuthority>
-        <CodeAuthority :value="['AC_100100', 'AC_100010']">
+        </CodeAccess>
+        <CodeAccess :value="['AC_100100', 'AC_100010']">
           <Button class="mr-4">
             Super & Admin 账号可见 ["AC_100100","AC_1000001"]
           </Button>
-        </CodeAuthority>
+        </CodeAccess>
       </div>
 
       <div class="card-box mt-5 p-5 font-semibold">

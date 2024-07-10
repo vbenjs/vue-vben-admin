@@ -51,6 +51,7 @@ import {
   Sidebar,
   Tabbar,
   Theme,
+  Widget,
 } from './blocks';
 import IconSetting from './icons/setting.vue';
 import { useOpenPreferences } from './use-open-preferences';
@@ -59,7 +60,6 @@ const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 const { toast } = useToast();
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
-const appAiAssistant = defineModel<boolean>('appAiAssistant');
 const appLayout = defineModel<LayoutType>('appLayout');
 const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
@@ -128,6 +128,14 @@ const shortcutKeysGlobalLogout = defineModel<boolean>(
 const shortcutKeysGlobalPreferences = defineModel<boolean>(
   'shortcutKeysGlobalPreferences',
 );
+
+const widgetGlobalSearch = defineModel<boolean>('widgetGlobalSearch');
+const widgetFullscreen = defineModel<boolean>('widgetFullscreen');
+const widgetLanguageToggle = defineModel<boolean>('widgetLanguageToggle');
+const widgetNotification = defineModel<boolean>('widgetNotification');
+const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
+const widgetAiAssistant = defineModel<boolean>('widgetAiAssistant');
+const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 
 const {
   diffPreference,
@@ -245,7 +253,6 @@ async function handleReset() {
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
-                v-model:app-ai-assistant="appAiAssistant"
                 v-model:app-dynamic-title="appDynamicTitle"
                 v-model:app-locale="appLocale"
               />
@@ -344,6 +351,17 @@ async function handleReset() {
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
+              />
+            </Block>
+            <Block :title="$t('preferences.widget.title')">
+              <Widget
+                v-model:widget-ai-assistant="widgetAiAssistant"
+                v-model:widget-fullscreen="widgetFullscreen"
+                v-model:widget-global-search="widgetGlobalSearch"
+                v-model:widget-language-toggle="widgetLanguageToggle"
+                v-model:widget-notification="widgetNotification"
+                v-model:widget-sidebar-toggle="widgetSidebarToggle"
+                v-model:widget-theme-toggle="widgetThemeToggle"
               />
             </Block>
             <Block :title="$t('preferences.footer.title')">

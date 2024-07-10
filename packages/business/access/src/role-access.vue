@@ -13,7 +13,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'RoleAuthority',
+  name: 'RoleAccess',
 });
 
 withDefaults(defineProps<Props>(), {

@@ -13,7 +13,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'CodeAuthority',
+  name: 'CodeAccess',
 });
 
 withDefaults(defineProps<Props>(), {

@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 
 const antdLocale = ref<Locale>(defaultLocale);
 
-const modules = import.meta.glob('./langs/*.y(a)?ml');
+const modules = import.meta.glob('./langs/*.json');
 
 const localesMap = loadLocalesMap(modules);
 

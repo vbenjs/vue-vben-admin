@@ -88,6 +88,11 @@ interface VbenLayoutProps {
    */
   headerMode?: LayoutHeaderModeType;
   /**
+   * 是否显示header切换侧边栏按钮
+   * @default
+   */
+  headerToggleSidebarButton?: boolean;
+  /**
    * header是否显示
    * @default true
    */
@@ -153,20 +158,20 @@ interface VbenLayoutProps {
    */
   sidebarWidth?: number;
   /**
+   * footer背景颜色
+   * @default #fff
+   */
+  tabbarBackgroundColor?: string;
+  /**
    * tab是否可见
    * @default true
    */
   tabbarEnable?: boolean;
   /**
-   * footer背景颜色
-   * @default #fff
-   */
-  tabsBackgroundColor?: string;
-  /**
    * tab高度
    * @default 30
    */
-  tabsHeight?: number;
+  tabbarHeight?: number;
   /**
    * zIndex
    * @default 100

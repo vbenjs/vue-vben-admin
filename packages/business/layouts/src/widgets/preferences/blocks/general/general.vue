@@ -13,7 +13,6 @@ defineOptions({
 
 const appLocale = defineModel<string>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
-const appAiAssistant = defineModel<boolean>('appAiAssistant');
 
 const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
   label: item.text,
@@ -27,8 +26,5 @@ const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">
     {{ $t('preferences.dynamic-title') }}
-  </SwitchItem>
-  <SwitchItem v-model="appAiAssistant">
-    {{ $t('preferences.ai-assistant') }}
   </SwitchItem>
 </template>
