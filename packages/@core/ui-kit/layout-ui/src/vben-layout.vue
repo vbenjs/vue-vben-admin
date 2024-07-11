@@ -565,6 +565,7 @@ function handleOpenMenu() {
         <slot name="footer"></slot>
       </LayoutFooter>
     </div>
+    <slot name="extra"></slot>
     <div
       v-if="maskVisible"
       :style="maskStyle"

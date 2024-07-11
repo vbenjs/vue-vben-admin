@@ -92,10 +92,25 @@ function setupAccessGuard(router: Router) {
 
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
-    const userInfo =
-      accessStore.userInfo || (await accessStore.fetchUserInfo());
-
-    const userRoles = userInfo.roles ?? [];
+    let userRoles: string[] = [];
+    try {
+      const userInfo =
+        accessStore.userInfo || (await accessStore.fetchUserInfo());
+      userRoles = userInfo.roles ?? [];
+    } catch (error: any) {
+      if (error.status === 409) {
+        accessStore.setShowLoginDialog(true);
+      } else if (error.status === 401) {
+        accessStore.reset();
+        return {
+          path: LOGIN_PATH,
+          // 如不需要，直接删除 query
+          query: { redirect: encodeURIComponent(to.fullPath) },
+          // 携带当前跳转的页面，登录后重新跳转该页面
+          replace: true,
+        };
+      }
+    }
 
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({

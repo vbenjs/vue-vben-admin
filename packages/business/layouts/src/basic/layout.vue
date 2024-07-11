@@ -277,5 +277,9 @@ function clearPreferencesAndLogout() {
         />
       </LayoutFooter>
     </template>
+
+    <template #extra>
+      <slot name="dialog"></slot>
+    </template>
   </VbenAdminLayout>
 </template>

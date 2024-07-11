@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import type { NotificationItem } from '@vben/layouts';
-
-import { computed, ref } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
-import { BasicLayout, Notification, UserDropdown } from '@vben/layouts';
+import {
+  BasicLayout,
+  LoginDialog,
+  Notification,
+  NotificationItem,
+  UserDropdown,
+} from '@vben/layouts';
 import { openWindow } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
 
@@ -80,7 +84,8 @@ const menus = computed(() => [
 ]);
 
 const appStore = useAppStore();
-const { userInfo } = useAccessStore();
+const accessStore = useAccessStore();
+const { showLoginDialog, userInfo } = toRefs(accessStore);
 const router = useRouter();
 
 async function handleLogout() {
@@ -116,6 +121,14 @@ function handleMakeAll() {
         :notifications="notifications"
         @clear="handleNoticeClear"
         @make-all="handleMakeAll"
+      />
+    </template>
+    <template #dialog>
+      <LoginDialog
+        :open="showLoginDialog"
+        password-placeholder="123456"
+        username-placeholder="vben"
+        @login="accessStore.authLogin"
       />
     </template>
   </BasicLayout>

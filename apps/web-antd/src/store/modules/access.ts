@@ -17,6 +17,11 @@ export const useAccessStore = defineStore('access', () => {
   const router = useRouter();
   const loading = ref(false);
 
+  const showLoginDialog = ref(false);
+  function setShowLoginDialog(value: boolean) {
+    showLoginDialog.value = value;
+  }
+
   const accessToken = computed(() => coreStoreAccess.accessToken);
   const userRoles = computed(() => coreStoreAccess.userRoles);
   const userInfo = computed(() => coreStoreAccess.userInfo);
@@ -65,6 +70,7 @@ export const useAccessStore = defineStore('access', () => {
         coreStoreAccess.setUserInfo(userInfo);
         coreStoreAccess.setAccessCodes(accessCodes);
 
+        showLoginDialog.value = false;
         onSuccess
           ? await onSuccess?.()
           : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
@@ -99,6 +105,8 @@ export const useAccessStore = defineStore('access', () => {
     reset,
     setAccessMenus,
     setAccessRoutes,
+    setShowLoginDialog,
+    showLoginDialog,
     userInfo,
     userRoles,
   };
