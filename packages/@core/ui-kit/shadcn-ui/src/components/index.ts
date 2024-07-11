@@ -1,4 +1,3 @@
-// 修改过的button
 export * from './alert-dialog';
 export * from './avatar';
 export * from './back-top';
