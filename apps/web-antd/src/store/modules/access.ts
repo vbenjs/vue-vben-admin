@@ -5,7 +5,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { DEFAULT_HOME_PATH } from '@vben/constants';
+import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
 import { useCoreAccessStore } from '@vben-core/stores';
 
 import { defineStore } from 'pinia';
@@ -17,18 +17,20 @@ export const useAccessStore = defineStore('access', () => {
   const router = useRouter();
   const loading = ref(false);
 
-  const showLoginDialog = ref(false);
-  function setShowLoginDialog(value: boolean) {
-    showLoginDialog.value = value;
-  }
+  const openLoginExpiredModal = ref(false);
 
   const accessToken = computed(() => coreStoreAccess.accessToken);
+  const refreshToken = computed(() => coreStoreAccess.refreshToken);
   const userRoles = computed(() => coreStoreAccess.userRoles);
   const userInfo = computed(() => coreStoreAccess.userInfo);
   const accessRoutes = computed(() => coreStoreAccess.accessRoutes);
 
   function setAccessMenus(menus: MenuRecordRaw[]) {
     coreStoreAccess.setAccessMenus(menus);
+  }
+
+  function setAccessToken(token: null | string) {
+    coreStoreAccess.setAccessToken(token);
   }
 
   function setAccessRoutes(routes: RouteRecordRaw[]) {
@@ -70,7 +72,7 @@ export const useAccessStore = defineStore('access', () => {
         coreStoreAccess.setUserInfo(userInfo);
         coreStoreAccess.setAccessCodes(accessCodes);
 
-        showLoginDialog.value = false;
+        openLoginExpiredModal.value = false;
         onSuccess
           ? await onSuccess?.()
           : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
@@ -83,6 +85,19 @@ export const useAccessStore = defineStore('access', () => {
       accessToken,
       userInfo,
     };
+  }
+
+  async function logout() {
+    coreStoreAccess.$reset();
+    openLoginExpiredModal.value = false;
+
+    // 回登陆页带上当前路由地址
+    await router.replace({
+      path: LOGIN_PATH,
+      query: {
+        redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+      },
+    });
   }
 
   async function fetchUserInfo() {
@@ -102,11 +117,13 @@ export const useAccessStore = defineStore('access', () => {
     authLogin,
     fetchUserInfo,
     loading,
+    logout,
+    openLoginExpiredModal,
+    refreshToken,
     reset,
     setAccessMenus,
     setAccessRoutes,
-    setShowLoginDialog,
-    showLoginDialog,
+    setAccessToken,
     userInfo,
     userRoles,
   };

@@ -127,6 +127,48 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
+          icon: 'mdi:feature-highlight',
+          title: $t('page.demos.features.title'),
+        },
+        name: 'Features',
+        path: '/features',
+        redirect: '/features/hide-menu-children',
+        children: [
+          {
+            name: 'HideChildrenInMenuParent',
+            path: 'hide-children-in-menu',
+            component: () =>
+              import('#/views/demos/features/hide-menu-children/parent.vue'),
+            meta: {
+              hideChildrenInMenu: true,
+              icon: 'ic:round-menu',
+              title: 'page.demos.features.hideChildrenInMenu',
+            },
+            children: [
+              {
+                name: 'HideChildrenInMenuChildren',
+                path: 'hide-children-in-menu',
+                component: () =>
+                  import(
+                    '#/views/demos/features/hide-menu-children/children.vue'
+                  ),
+              },
+            ],
+          },
+          {
+            name: 'LoginExpired',
+            path: 'login-expired',
+            component: () =>
+              import('#/views/demos/features/login-expired/index.vue'),
+            meta: {
+              icon: 'mdi:encryption-expiration',
+              title: $t('page.demos.features.loginExpired'),
+            },
+          },
+        ],
+      },
+      {
+        meta: {
           icon: 'mdi:lightbulb-error-outline',
           title: $t('page.demos.fallback.title'),
         },

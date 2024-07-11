@@ -4,7 +4,6 @@ export { default as CozeAssistant } from './coze-assistant.vue';
 export * from './global-search';
 export { default as LanguageToggle } from './language-toggle.vue';
 export { default as AuthenticationLayoutToggle } from './layout-toggle.vue';
-export * from './login-dialog';
 export * from './notification';
 export * from './preferences';
 export * from './theme-toggle';

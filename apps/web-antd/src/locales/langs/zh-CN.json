@@ -30,6 +30,11 @@
       },
       "fallback": {
         "title": "缺省页"
+      },
+      "features": {
+        "title": "功能",
+        "hideChildrenInMenu": "隐藏菜单子项",
+        "loginExpired": "登录过期"
       }
     }
   }

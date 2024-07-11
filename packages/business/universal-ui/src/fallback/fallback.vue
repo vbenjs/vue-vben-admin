@@ -52,7 +52,7 @@ const titleText = computed(() => {
       return $t('fallback.offlineError');
     }
     case 'comming-soon': {
-      return $t('fallback.coming-soon');
+      return $t('fallback.comingSoon');
     }
     default: {
       return '';

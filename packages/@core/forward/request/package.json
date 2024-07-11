@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/locales": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "axios": "^1.7.2",
     "vue-request": "^2.0.4"

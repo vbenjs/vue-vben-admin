@@ -17,16 +17,22 @@ class InterceptorManager {
     ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>,
     rejected?: (error: any) => any,
   ) {
-    this.axiosInstance.interceptors.request.use(fulfilled, rejected);
+    this.axiosInstance.interceptors.request.use(
+      fulfilled,
+      rejected || ((res) => res),
+    );
   }
 
-  addResponseInterceptor(
+  addResponseInterceptor<T = any>(
     fulfilled: (
-      response: AxiosResponse,
+      response: AxiosResponse<T>,
     ) => AxiosResponse | Promise<AxiosResponse>,
     rejected?: (error: any) => any,
   ) {
-    this.axiosInstance.interceptors.response.use(fulfilled, rejected);
+    this.axiosInstance.interceptors.response.use(
+      fulfilled,
+      rejected || ((res) => res),
+    );
   }
 }
 

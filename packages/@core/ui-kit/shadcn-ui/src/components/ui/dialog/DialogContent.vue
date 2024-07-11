@@ -14,13 +14,19 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & DialogContentProps
->();
+const props = withDefaults(
+  defineProps<
+    {
+      class?: HTMLAttributes['class'];
+      showClose?: boolean;
+    } & DialogContentProps
+  >(),
+  { showClose: true },
+);
 const emits = defineEmits<{ close: [] } & DialogContentEmits>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, showClose: __, ...delegated } = props;
 
   return delegated;
 });
@@ -46,6 +52,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       <slot></slot>
 
       <DialogClose
+        v-if="showClose"
         class="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-3 top-3 h-6 w-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
         @click="() => emits('close')"
       >

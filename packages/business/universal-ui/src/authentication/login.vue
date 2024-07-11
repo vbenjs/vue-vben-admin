@@ -31,7 +31,10 @@ withDefaults(defineProps<Props>(), {
   showForgetPassword: true,
   showQrcodeLogin: true,
   showRegister: true,
+  showRememberMe: true,
   showThirdPartyLogin: true,
+  subTitle: '',
+  title: '',
   usernamePlaceholder: '',
 });
 
@@ -89,10 +92,10 @@ function handleGo(path: string) {
 <template>
   <div @keypress.enter.prevent="handleSubmit">
     <Title>
-      {{ $t('authentication.welcomeBack') }} 👋🏻
+      {{ title || `${$t('authentication.welcomeBack')} 👋🏻` }}
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.loginSubtitle') }}
+          {{ subTitle || $t('authentication.loginSubtitle') }}
         </span>
       </template>
     </Title>
@@ -120,7 +123,7 @@ function handleGo(path: string) {
     />
 
     <div class="mb-6 mt-4 flex justify-between">
-      <div class="flex-center flex">
+      <div v-if="showRememberMe" class="flex-center">
         <VbenCheckbox v-model:checked="formState.rememberMe" name="rememberMe">
           {{ $t('authentication.rememberMe') }}
         </VbenCheckbox>
@@ -133,10 +136,6 @@ function handleGo(path: string) {
       >
         {{ $t('authentication.forgetPassword') }}
       </span>
-
-      <!-- <VbenButton variant="ghost" @click="handleGo('/auth/forget-password')">
-        忘记密码?
-      </VbenButton> -->
     </div>
     <VbenButton :loading="loading" class="w-full" @click="handleSubmit">
       {{ $t('common.login') }}
@@ -159,14 +158,6 @@ function handleGo(path: string) {
       >
         {{ $t('authentication.qrcodeLogin') }}
       </VbenButton>
-      <!-- <VbenButton
-        :loading="loading"
-        variant="outline"
-        class="w-1/3"
-        @click="handleGo('/auth/register')"
-      >
-        创建账号
-      </VbenButton> -->
     </div>
 
     <!-- 第三方登录 -->

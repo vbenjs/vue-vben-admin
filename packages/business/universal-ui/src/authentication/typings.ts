@@ -3,7 +3,6 @@ interface AuthenticationProps {
    * @zh_CN 验证码登录路径
    */
   codeLoginPath?: string;
-
   /**
    * @zh_CN 忘记密码路径
    */
@@ -33,7 +32,6 @@ interface AuthenticationProps {
    * @zh_CN 是否显示验证码登录
    */
   showCodeLogin?: boolean;
-
   /**
    * @zh_CN 是否显示忘记密码
    */
@@ -50,9 +48,24 @@ interface AuthenticationProps {
   showRegister?: boolean;
 
   /**
+   * @zh_CN 是否显示记住账号
+   */
+  showRememberMe?: boolean;
+
+  /**
    * @zh_CN 是否显示第三方登录
    */
   showThirdPartyLogin?: boolean;
+
+  /**
+   * @zh_CN 登录框子标题
+   */
+  subTitle?: string;
+
+  /**
+   * @zh_CN 登录框标题
+   */
+  title?: string;
 
   /**
    * @zh_CN 用户名占位符

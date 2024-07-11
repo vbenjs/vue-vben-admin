@@ -6,11 +6,11 @@ import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
-  LoginDialog,
   Notification,
   NotificationItem,
   UserDropdown,
 } from '@vben/layouts';
+import { AuthenticationLoginExpiredModal } from '@vben/universal-ui';
 import { openWindow } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
 
@@ -85,7 +85,7 @@ const menus = computed(() => [
 
 const appStore = useAppStore();
 const accessStore = useAccessStore();
-const { showLoginDialog, userInfo } = toRefs(accessStore);
+const { openLoginExpiredModal, userInfo } = toRefs(accessStore);
 const router = useRouter();
 
 async function handleLogout() {
@@ -124,11 +124,11 @@ function handleMakeAll() {
       />
     </template>
     <template #dialog>
-      <LoginDialog
-        :open="showLoginDialog"
+      <AuthenticationLoginExpiredModal
+        v-model:open="openLoginExpiredModal"
         password-placeholder="123456"
         username-placeholder="vben"
-        @login="accessStore.authLogin"
+        @submit="accessStore.authLogin"
       />
     </template>
   </BasicLayout>

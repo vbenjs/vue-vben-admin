@@ -16,6 +16,7 @@ const defaultPreferences: Preferences = {
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
+    loginExpiredMode: 'page',
     name: 'Vben Admin Pro',
   },
   breadcrumb: {

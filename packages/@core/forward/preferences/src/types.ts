@@ -7,6 +7,12 @@ import type {
   ThemeModeType,
 } from '@vben-core/typings';
 
+/**
+ * 登录过期模式
+ * 'modal' 弹窗模式 | 'page' 页面模式
+ */
+type LoginExpiredModeType = 'modal' | 'page';
+
 type BreadcrumbStyleType = 'background' | 'normal';
 
 type AccessModeType = 'allow-all' | 'backend' | 'frontend';
@@ -44,6 +50,8 @@ interface AppPreferences {
   layout: LayoutType;
   /** 支持的语言 */
   locale: SupportedLanguagesType;
+  /** 登录过期模式 */
+  loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */
   name: string;
 }
@@ -236,6 +244,7 @@ export type {
   HeaderPreferences,
   LayoutHeaderModeType,
   LayoutType,
+  LoginExpiredModeType,
   LogoPreferences,
   NavigationPreferences,
   NavigationStyleType,

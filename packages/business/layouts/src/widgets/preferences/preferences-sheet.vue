@@ -399,21 +399,21 @@ async function handleReset() {
           :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
-          variant="outline"
-          @click="handleClearCache"
-        >
-          <IcRoundRestartAlt class="mr-2 size-4" />
-          {{ $t('preferences.clearAndLogout') }}
-        </VbenButton>
-        <VbenButton
-          :disabled="!diffPreference"
-          class="mr-4 w-full"
-          size="sm"
           variant="default"
           @click="handleCopy"
         >
           <IcRoundFolderCopy class="mr-2 size-3" />
           {{ $t('preferences.copyPreferences') }}
+        </VbenButton>
+        <VbenButton
+          :disabled="!diffPreference"
+          class="mr-4 w-full"
+          size="sm"
+          variant="ghost"
+          @click="handleClearCache"
+        >
+          <IcRoundRestartAlt class="mr-2 size-4" />
+          {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
       </template>
     </VbenSheet>

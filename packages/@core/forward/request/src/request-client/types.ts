@@ -7,18 +7,41 @@ type RequestContentType =
   | 'multipart/form-data;charset=utf-8';
 
 interface MakeAuthorization {
-  handler: () => { refreshToken: string; token: string } | null;
   key?: string;
+  tokenHandler: () => { refreshToken: string; token: string } | null;
+  unAuthorizedHandler?: () => Promise<void>;
 }
 
 type MakeAuthorizationFn = (
   config?: InternalAxiosRequestConfig,
 ) => MakeAuthorization;
 
+type ErrorMessageFn = (message: string) => void;
+
 interface RequestClientOptions extends CreateAxiosDefaults {
   /**
    * 用于生成Authorization
    */
   makeAuthorization?: MakeAuthorizationFn;
+  /**
+   * 用于生成错误消息
+   */
+  makeErrorMessage?: ErrorMessageFn;
 }
-export type { MakeAuthorizationFn, RequestClientOptions, RequestContentType };
+
+interface HttpResponse<T = any> {
+  /**
+   * 0 表示成功 其他表示失败
+   * 0 means success, others means fail
+   */
+  code: number;
+  data: T;
+  message: string;
+}
+
+export type {
+  HttpResponse,
+  MakeAuthorizationFn,
+  RequestClientOptions,
+  RequestContentType,
+};

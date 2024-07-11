@@ -28,7 +28,12 @@
         "embedded": "Embedded",
         "externalLink": "External Link"
       },
-      "fallback": { "title": "Fallback Page" }
+      "fallback": { "title": "Fallback Page" },
+      "features": {
+        "title": "Features",
+        "hideChildrenInMenu": "Hide Menu Children",
+        "loginExpired": "Login Expired"
+      }
     }
   }
 }

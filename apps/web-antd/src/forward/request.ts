@@ -1,23 +1,14 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
+import type { HttpResponse } from '@vben-core/request';
 
-import type { AxiosResponse } from '@vben-core/request';
-
-import { RequestClient, isCancelError } from '@vben-core/request';
-import { useCoreAccessStore } from '@vben-core/stores';
+import { preferences } from '@vben-core/preferences';
+import { RequestClient } from '@vben-core/request';
 
 import { message } from 'ant-design-vue';
 
-interface HttpResponse<T = any> {
-  /**
-   * 0 表示成功 其他表示失败
-   * 0 means success, others means fail
-   */
-  code: number;
-  data: T;
-  message: string;
-}
+import { useAccessStore } from '#/store';
 
 /**
  * 创建请求实例
@@ -29,57 +20,40 @@ function createRequestClient() {
     // 为每个请求携带 Authorization
     makeAuthorization: () => {
       return {
-        handler: () => {
-          // 这里不能用 useAccessStore，因为 useAccessStore 会导致循环引用
-          const accessStore = useCoreAccessStore();
+        // 默认
+        key: 'Authorization',
+        tokenHandler: () => {
+          const accessStore = useAccessStore();
           return {
             refreshToken: `Bearer ${accessStore.refreshToken}`,
             token: `Bearer ${accessStore.accessToken}`,
           };
         },
-        // 默认
-        key: 'Authorization',
+        unAuthorizedHandler: async () => {
+          const accessStore = useAccessStore();
+          accessStore.setAccessToken(null);
+
+          if (preferences.app.loginExpiredMode === 'modal') {
+            accessStore.openLoginExpiredModal = true;
+          } else {
+            // 退出登录
+            await accessStore.logout();
+          }
+        },
       };
     },
+    makeErrorMessage: (msg) => message.error(msg),
   });
-  setupRequestInterceptors(client);
+  client.addResponseInterceptor<HttpResponse>((response) => {
+    const { data: responseData, status } = response;
+
+    const { code, data, message: msg } = responseData;
+    if (status >= 200 && status < 400 && code === 0) {
+      return data;
+    }
+    throw new Error(msg);
+  });
   return client;
-}
-
-function setupRequestInterceptors(client: RequestClient) {
-  client.addResponseInterceptor(
-    (response: AxiosResponse<HttpResponse>) => {
-      const { data: responseData, status } = response;
-
-      const { code, data, message: msg } = responseData;
-
-      if (status >= 200 && status < 400 && code === 0) {
-        return data;
-      } else {
-        message.error(msg);
-        throw new Error(msg);
-      }
-    },
-    (error: any) => {
-      if (isCancelError(error)) {
-        return Promise.reject(error);
-      }
-
-      const err: string = error?.toString?.() ?? '';
-      let errMsg = '';
-      if (err?.includes('Network Error')) {
-        errMsg = '网络错误。';
-      } else if (error?.message?.includes?.('timeout')) {
-        errMsg = '请求超时。';
-      } else {
-        const data = error?.response?.data;
-        errMsg = (data?.message || data?.error?.message) ?? '';
-      }
-
-      message.error(errMsg);
-      return Promise.reject(error);
-    },
-  );
 }
 
 const requestClient = createRequestClient();

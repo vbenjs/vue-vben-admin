@@ -1,16 +1,18 @@
-import { useCoreAccessStore, useCoreTabbarStore } from '@vben-core/stores';
+import { useCoreTabbarStore } from '@vben-core/stores';
 
 import { defineStore } from 'pinia';
 
+import { useAccessStore } from './access';
+
 export const useAppStore = defineStore('app', () => {
-  const coreStoreAccess = useCoreAccessStore();
+  const accessStore = useAccessStore();
   const coreTabbarStore = useCoreTabbarStore();
 
   /**
    * 重置所有状态
    */
   async function resetAppState() {
-    coreStoreAccess.$reset();
+    accessStore.$reset();
     coreTabbarStore.$reset();
   }
 

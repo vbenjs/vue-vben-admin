@@ -8,6 +8,7 @@ import type {
 
 import type { MakeAuthorizationFn, RequestClientOptions } from './types';
 
+import { $t } from '@vben-core/locales';
 import { merge } from '@vben-core/toolkit';
 
 import axios from 'axios';
@@ -19,6 +20,7 @@ import { FileUploader } from './modules/uploader';
 class RequestClient {
   private instance: AxiosInstance;
   private makeAuthorization: MakeAuthorizationFn | undefined;
+  private options: RequestClientOptions;
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
   public download: FileDownloader['download'];
@@ -39,6 +41,7 @@ class RequestClient {
       timeout: 10_000,
     };
     const { makeAuthorization, ...axiosConfig } = options;
+    this.options = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
 
     this.instance = axios.create(requestConfig);
@@ -77,24 +80,86 @@ class RequestClient {
     });
   }
 
-  private errorHandler(error: any) {
-    return Promise.reject(error);
+  private setupAuthorizationInterceptor() {
+    this.addRequestInterceptor(
+      (config: InternalAxiosRequestConfig) => {
+        const authorization = this.makeAuthorization?.(config);
+        if (authorization) {
+          const { token } = authorization.tokenHandler?.() ?? {};
+          config.headers[authorization.key || 'Authorization'] = token;
+        }
+        return config;
+      },
+      (error: any) => Promise.reject(error),
+    );
   }
 
-  private setupAuthorizationInterceptor() {
-    this.addRequestInterceptor((config: InternalAxiosRequestConfig) => {
-      const authorization = this.makeAuthorization?.(config);
-      if (authorization) {
-        const { token } = authorization.handler?.() ?? {};
-        config.headers[authorization.key || 'Authorization'] = token;
-      }
-      return config;
-    }, this.errorHandler);
+  private setupDefaultResponseInterceptor() {
+    this.addResponseInterceptor(
+      (response: AxiosResponse) => {
+        return response;
+      },
+      (error: any) => {
+        if (axios.isCancel(error)) {
+          return Promise.reject(error);
+        }
+
+        const err: string = error?.toString?.() ?? '';
+        let errMsg = '';
+        if (err?.includes('Network Error')) {
+          errMsg = $t('fallback.http.networkError');
+        } else if (error?.message?.includes?.('timeout')) {
+          errMsg = $t('fallback.http.requestTimeout');
+        }
+        const { makeAuthorization, makeErrorMessage } = this.options;
+        if (errMsg) {
+          makeErrorMessage?.(errMsg);
+          return Promise.reject(error);
+        }
+
+        let errorMessage = error?.response?.data?.error?.message ?? '';
+        const status = error?.response?.status;
+
+        switch (status) {
+          case 400: {
+            errorMessage = $t('fallback.http.badRequest');
+            break;
+          }
+
+          case 401: {
+            errorMessage = $t('fallback.http.unauthorized');
+            makeAuthorization?.().unAuthorizedHandler?.();
+            break;
+          }
+          case 403: {
+            errorMessage = $t('fallback.http.forbidden');
+            break;
+          }
+          // 404请求不存在
+          case 404: {
+            errorMessage = $t('fallback.http.notFound');
+            break;
+          }
+          case 408: {
+            errorMessage = $t('fallback.http.requestTimeout');
+
+            break;
+          }
+          default: {
+            errorMessage = $t('fallback.http.internalServerError');
+          }
+        }
+
+        makeErrorMessage?.(errorMessage);
+        return Promise.reject(error);
+      },
+    );
   }
 
   private setupInterceptors() {
     // 默认拦截器
     this.setupAuthorizationInterceptor();
+    this.setupDefaultResponseInterceptor();
   }
 
   /**
