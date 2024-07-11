@@ -8,13 +8,16 @@ import { useRouter } from 'vue-router';
 import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
 import { useCoreAccessStore } from '@vben-core/stores';
 
+import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 
 import { getAccessCodes, getUserInfo, userLogin } from '#/apis';
+import { $t } from '#/locales';
 
 export const useAccessStore = defineStore('access', () => {
   const coreStoreAccess = useCoreAccessStore();
   const router = useRouter();
+
   const loading = ref(false);
 
   const openLoginExpiredModal = ref(false);
@@ -44,7 +47,7 @@ export const useAccessStore = defineStore('access', () => {
    */
   async function authLogin(
     params: LoginAndRegisterParams,
-    onSuccess?: () => Promise<void>,
+    onSuccess?: () => Promise<void> | void,
   ) {
     // 异步处理用户登录操作并获取 accessToken
     let userInfo: UserInfo | null = null;
@@ -72,10 +75,21 @@ export const useAccessStore = defineStore('access', () => {
         coreStoreAccess.setUserInfo(userInfo);
         coreStoreAccess.setAccessCodes(accessCodes);
 
-        openLoginExpiredModal.value = false;
-        onSuccess
-          ? await onSuccess?.()
-          : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
+        if (openLoginExpiredModal.value) {
+          openLoginExpiredModal.value = false;
+        } else {
+          onSuccess
+            ? await onSuccess?.()
+            : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
+        }
+
+        if (userInfo?.realName) {
+          notification.success({
+            description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
+            duration: 3,
+            message: $t('authentication.loginSuccess'),
+          });
+        }
       }
     } finally {
       loading.value = false;

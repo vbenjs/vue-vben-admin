@@ -85,7 +85,11 @@ const menus = computed(() => [
 
 const appStore = useAppStore();
 const accessStore = useAccessStore();
-const { openLoginExpiredModal, userInfo } = toRefs(accessStore);
+const {
+  loading: loginLoading,
+  openLoginExpiredModal,
+  userInfo,
+} = toRefs(accessStore);
 const router = useRouter();
 
 async function handleLogout() {
@@ -126,6 +130,7 @@ function handleMakeAll() {
     <template #dialog>
       <AuthenticationLoginExpiredModal
         v-model:open="openLoginExpiredModal"
+        :loading="loginLoading"
         password-placeholder="123456"
         username-placeholder="vben"
         @submit="accessStore.authLogin"
