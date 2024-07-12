@@ -6,7 +6,11 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-import type { MakeAuthorizationFn, RequestClientOptions } from './types';
+import type {
+  MakeAuthorizationFn,
+  MakeErrorMessageFn,
+  RequestClientOptions,
+} from './types';
 
 import { $t } from '@vben-core/locales';
 import { merge } from '@vben-core/toolkit';
@@ -20,7 +24,8 @@ import { FileUploader } from './modules/uploader';
 class RequestClient {
   private instance: AxiosInstance;
   private makeAuthorization: MakeAuthorizationFn | undefined;
-  private options: RequestClientOptions;
+  private makeErrorMessage: MakeErrorMessageFn | undefined;
+
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
   public download: FileDownloader['download'];
@@ -40,12 +45,12 @@ class RequestClient {
       // 默认超时时间
       timeout: 10_000,
     };
-    const { makeAuthorization, ...axiosConfig } = options;
-    this.options = options;
+    const { makeAuthorization, makeErrorMessage, ...axiosConfig } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
 
     this.instance = axios.create(requestConfig);
     this.makeAuthorization = makeAuthorization;
+    this.makeErrorMessage = makeErrorMessage;
 
     // 实例化拦截器管理器
     const interceptorManager = new InterceptorManager(this.instance);
@@ -111,9 +116,8 @@ class RequestClient {
         } else if (error?.message?.includes?.('timeout')) {
           errMsg = $t('fallback.http.requestTimeout');
         }
-        const { makeAuthorization, makeErrorMessage } = this.options;
         if (errMsg) {
-          makeErrorMessage?.(errMsg);
+          this.makeErrorMessage?.(errMsg);
           return Promise.reject(error);
         }
 
@@ -128,7 +132,7 @@ class RequestClient {
 
           case 401: {
             errorMessage = $t('fallback.http.unauthorized');
-            makeAuthorization?.().unAuthorizedHandler?.();
+            this.makeAuthorization?.().unAuthorizedHandler?.();
             break;
           }
           case 403: {
@@ -150,7 +154,7 @@ class RequestClient {
           }
         }
 
-        makeErrorMessage?.(errorMessage);
+        this.makeErrorMessage?.(errorMessage);
         return Promise.reject(error);
       },
     );

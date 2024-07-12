@@ -16,7 +16,7 @@ type MakeAuthorizationFn = (
   config?: InternalAxiosRequestConfig,
 ) => MakeAuthorization;
 
-type ErrorMessageFn = (message: string) => void;
+type MakeErrorMessageFn = (message: string) => void;
 
 interface RequestClientOptions extends CreateAxiosDefaults {
   /**
@@ -26,7 +26,7 @@ interface RequestClientOptions extends CreateAxiosDefaults {
   /**
    * 用于生成错误消息
    */
-  makeErrorMessage?: ErrorMessageFn;
+  makeErrorMessage?: MakeErrorMessageFn;
 }
 
 interface HttpResponse<T = any> {
@@ -42,6 +42,7 @@ interface HttpResponse<T = any> {
 export type {
   HttpResponse,
   MakeAuthorizationFn,
+  MakeErrorMessageFn,
   RequestClientOptions,
   RequestContentType,
 };
