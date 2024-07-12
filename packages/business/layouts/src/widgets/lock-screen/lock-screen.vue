@@ -2,7 +2,7 @@
 import { computed, reactive, ref, watchEffect } from 'vue';
 
 import { IcRoundLock } from '@vben-core/iconify';
-import { $t } from '@vben-core/locales';
+import { $t, useI18n } from '@vben-core/locales';
 import {
   VbenAvatar,
   VbenButton,
@@ -27,14 +27,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ toLogin: []; unlock: [string] }>();
 
+const { locale } = useI18n();
+
 const now = useNow();
-const year = useDateFormat(now, 'YYYY');
-const month = useDateFormat(now, 'MM');
-const day = useDateFormat(now, 'DD');
-const week = useDateFormat(now, 'dddd');
-const hour = useDateFormat(now, 'HH');
 const meridiem = useDateFormat(now, 'A');
+const hour = useDateFormat(now, 'HH');
 const minute = useDateFormat(now, 'mm');
+const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 
 const showUnlockForm = ref(false);
 const validPass = ref(true);
@@ -102,9 +101,9 @@ function toggleUnlockForm() {
           <div
             class="bg-accent flex-center relative mb-14 mr-20 h-4/5 w-2/5 flex-auto rounded-3xl text-center text-[260px]"
           >
-            <span class="absolute left-4 top-4 text-xl font-semibold">{{
-              meridiem
-            }}</span>
+            <span class="absolute left-4 top-4 text-xl font-semibold">
+              {{ meridiem }}
+            </span>
             {{ hour }}
           </div>
           <div
@@ -124,7 +123,7 @@ function toggleUnlockForm() {
       >
         <div class="flex-col-center mb-10 w-[300px]">
           <VbenAvatar :src="avatar" class="enter-x mb-6 size-20" />
-          <div class="items-cente enter-x mb-2 w-full">
+          <div class="enter-x mb-2 w-full items-center">
             <VbenInputPassword
               v-model="formState.password"
               :autofocus="true"
@@ -164,7 +163,7 @@ function toggleUnlockForm() {
       <div v-if="showUnlockForm" class="enter-x mb-2 text-3xl">
         {{ hour }}:{{ minute }} <span class="text-lg">{{ meridiem }}</span>
       </div>
-      <div class="text-3xl">{{ year }}/{{ month }}/{{ day }} {{ week }}</div>
+      <div class="text-3xl">{{ date }}</div>
     </div>
   </div>
 </template>

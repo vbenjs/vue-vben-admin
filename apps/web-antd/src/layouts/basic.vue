@@ -101,9 +101,10 @@ const avatar = computed(() => {
 const router = useRouter();
 
 async function handleLogout() {
-  await appStore.resetAppState();
+  appStore.resetAppState();
+  appStore.unlockScreen();
   resetRoutes();
-  router.replace(LOGIN_PATH);
+  await router.replace(LOGIN_PATH);
 }
 
 function handleNoticeClear() {

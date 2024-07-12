@@ -170,7 +170,6 @@ if (enableShortcutKey.value) {
       <div class="hover:bg-accent ml-1 mr-2 cursor-pointer rounded-full p-1.5">
         <div class="hover:text-accent-foreground flex-center">
           <VbenAvatar :alt="text" :src="avatar" class="size-8" dot />
-          <!-- <div v-if="text" class="ml-2 text-sm">{{ text }}</div> -->
         </div>
       </div>
     </DropdownMenuTrigger>
@@ -201,7 +200,7 @@ if (enableShortcutKey.value) {
       <DropdownMenuItem
         v-for="menu in menus"
         :key="menu.text"
-        class="lineh mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+        class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="menu.handler"
       >
         <VbenIcon :icon="menu.icon" class="mr-2 size-5" />
