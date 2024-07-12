@@ -184,7 +184,10 @@
         "closeLeft": "关闭左侧标签页",
         "closeRight": "关闭右侧标签页",
         "closeOther": "关闭其它标签页",
-        "closeAll": "关闭全部标签页"
+        "closeAll": "关闭全部标签页",
+        "openInNewWindow": "在新窗口打开",
+        "maximize": "最大化",
+        "restoreMaximize": "还原"
       }
     },
     "navigationMenu": {

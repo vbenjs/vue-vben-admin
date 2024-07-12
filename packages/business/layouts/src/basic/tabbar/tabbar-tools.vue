@@ -2,10 +2,10 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences, updatePreferences } from '@vben-core/preferences';
+import { preferences } from '@vben-core/preferences';
 import { TabsToolMore, TabsToolScreen } from '@vben-core/tabs-ui';
 
-import { useTabs } from './use-tabs';
+import { updateContentScreen, useTabs } from './use-tabs';
 
 const route = useRoute();
 
@@ -14,17 +14,6 @@ const { createContextMenus } = useTabs();
 const menus = computed(() => {
   return createContextMenus(route);
 });
-
-function handleScreenChange(screen: boolean) {
-  updatePreferences({
-    header: {
-      hidden: !!screen,
-    },
-    sidebar: {
-      hidden: !!screen,
-    },
-  });
-}
 </script>
 
 <template>
@@ -32,8 +21,8 @@ function handleScreenChange(screen: boolean) {
     <TabsToolMore :menus="menus" />
     <TabsToolScreen
       :screen="preferences.sidebar.hidden"
-      @change="handleScreenChange"
-      @update:screen="handleScreenChange"
+      @change="updateContentScreen"
+      @update:screen="updateContentScreen"
     />
   </div>
 </template>

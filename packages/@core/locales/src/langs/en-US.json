@@ -184,7 +184,10 @@
         "closeLeft": "Close Left Tabs",
         "closeRight": "Close Right Tabs",
         "closeOther": "Close Other Tabs",
-        "closeAll": "Close All Tabs"
+        "closeAll": "Close All Tabs",
+        "openInNewWindow": "Open in New Window",
+        "maximize": "Maximize",
+        "restoreMaximize": "Restore"
       }
     },
     "navigationMenu": {

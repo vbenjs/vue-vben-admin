@@ -10,8 +10,11 @@ import { useRoute, useRouter } from 'vue-router';
 
 import {
   IcRoundClose,
+  IcRoundFitScreen,
   IcRoundMultipleStop,
   IcRoundRefresh,
+  IcRoundTableView,
+  IcTwotoneFitScreen,
   MdiArrowExpandHorizontal,
   MdiFormatHorizontalAlignLeft,
   MdiFormatHorizontalAlignRight,
@@ -19,17 +22,30 @@ import {
   MdiPinOff,
 } from '@vben-core/iconify';
 import { $t, useI18n } from '@vben-core/locales';
+import { updatePreferences, usePreferences } from '@vben-core/preferences';
 import {
   storeToRefs,
   useCoreAccessStore,
   useCoreTabbarStore,
 } from '@vben-core/stores';
-import { filterTree } from '@vben-core/toolkit';
+import { filterTree, openWindow } from '@vben-core/toolkit';
+
+function updateContentScreen(screen: boolean) {
+  updatePreferences({
+    header: {
+      hidden: !!screen,
+    },
+    sidebar: {
+      hidden: !!screen,
+    },
+  });
+}
 
 function useTabs() {
   const router = useRouter();
   const route = useRoute();
   const accessStore = useCoreAccessStore();
+  const { contentIsMaximize } = usePreferences();
   const coreTabbarStore = useCoreTabbarStore();
   const { accessMenus } = storeToRefs(accessStore);
 
@@ -136,10 +152,35 @@ function useTabs() {
         },
         icon: affixTab ? MdiPinOff : MdiPin,
         key: 'affix',
-        separator: true,
         text: affixTab
           ? $t('preferences.tabbar.contextMenu.unpin')
           : $t('preferences.tabbar.contextMenu.pin'),
+      },
+      {
+        handler: async () => {
+          const { hash, origin } = location;
+          const path = tab.fullPath;
+          const fullPath = path.startsWith('/') ? path : `/${path}`;
+          const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
+          openWindow(url, { target: '_blank' });
+        },
+        icon: IcRoundTableView,
+        key: 'open-in-new-window',
+        text: $t('preferences.tabbar.contextMenu.openInNewWindow'),
+      },
+      {
+        handler: async () => {
+          if (!contentIsMaximize.value) {
+            await router.push(tab.fullPath);
+          }
+          updateContentScreen(!contentIsMaximize.value);
+        },
+        icon: contentIsMaximize.value ? IcRoundFitScreen : IcTwotoneFitScreen,
+        key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
+        separator: true,
+        text: contentIsMaximize.value
+          ? $t('preferences.tabbar.contextMenu.restoreMaximize')
+          : $t('preferences.tabbar.contextMenu.maximize'),
       },
       {
         disabled: closeLeftDisabled,
@@ -178,11 +219,6 @@ function useTabs() {
         key: 'close-all',
         text: $t('preferences.tabbar.contextMenu.closeAll'),
       },
-      // {
-      //   icon: 'icon-[material-symbols--back-to-tab-sharp]',
-      //   key: 'close-all',
-      //   text: '新窗口打开',
-      // },
     ];
     return menus;
   };
@@ -204,4 +240,4 @@ function useTabs() {
   };
 }
 
-export { useTabs };
+export { updateContentScreen, useTabs };

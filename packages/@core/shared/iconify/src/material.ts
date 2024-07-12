@@ -79,6 +79,8 @@ export const IcRoundArrowBackIosNew = createIconifyIcon(
 
 export const IcRoundMultipleStop = createIconifyIcon('ic:round-multiple-stop');
 
+export const IcRoundTableView = createIconifyIcon('ic:round-table-view');
+
 export const IcRoundRefresh = createIconifyIcon('ic:round-refresh');
 
 export const IcRoundCreditScore = createIconifyIcon('ic:round-credit-score');

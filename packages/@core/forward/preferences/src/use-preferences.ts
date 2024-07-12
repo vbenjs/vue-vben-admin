@@ -138,10 +138,22 @@ function usePreferences() {
     return enable && globalPreferences;
   });
 
+  /**
+   * @zh_CN 内容是否已经最大化
+   * 排除 full-content模式
+   */
+  const contentIsMaximize = computed(() => {
+    const headerIsHidden = preferences.header.hidden;
+    const sidebarIsHidden = preferences.sidebar.hidden;
+
+    return headerIsHidden && sidebarIsHidden && !isFullContent.value;
+  });
+
   return {
     authPanelCenter,
     authPanelLeft,
     authPanelRight,
+    contentIsMaximize,
     diffPreference,
     globalLockScreenShortcutKey,
     globalLogoutShortcutKey,
