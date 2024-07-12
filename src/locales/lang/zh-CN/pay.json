@@ -1,0 +1,36 @@
+{
+  "order": {
+    "name": "订单",
+    "column": {
+      "payId": "支付ID",
+      "orderNo": "订单号",
+      "thirdOrderNo": "第三方流水号",
+      "money": "订单金额",
+      "realityMoney": "实际金额",
+      "params": "额外参数",
+      "type": "支付类型",
+      "notifyUrl": "通知URL",
+      "returnUrl": "返回Url",
+      "closeDate": "关闭时间",
+      "orderStatus": "订单状态"
+    }
+  },
+  "payPlatform": {
+    "name": "支付平台",
+    "column": {
+      "name": "支付名字",
+      "appId": "支付ID"
+    }
+  },
+  "payTenant": {
+    "name": "租户",
+    "column": {
+      "name": "租户",
+      "apiToken": "Token",
+      "secret": "秘钥",
+      "startTime": "开始时间",
+      "endTime": "结束时间",
+      "isVip": "VIP"
+    }
+  }
+}

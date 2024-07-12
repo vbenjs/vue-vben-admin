@@ -1,0 +1,36 @@
+{
+  "order": {
+    "name": "Order",
+    "column": {
+      "payId": "PayId",
+      "orderNo": "Order no",
+      "thirdOrderNo": "Third Order No",
+      "money": "Amount",
+      "realityMoney": "Real Amount",
+      "params": "Params",
+      "type": "Pay Method",
+      "notifyUrl": "Notify Url",
+      "returnUrl": "Return Url",
+      "closeDate": "Order Close Time",
+      "orderStatus": "Order Status"
+    }
+  },
+  "payPlatform": {
+    "name": "Pay method Platform",
+    "column": {
+      "name": "Name",
+      "appId": "APP_ID"
+    }
+  },
+  "payTenant": {
+    "name": "Tenant",
+    "column": {
+      "name": "Name",
+      "apiToken": "Token",
+      "secret": "Secret",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "isVip": "VIP"
+    }
+  }
+}
