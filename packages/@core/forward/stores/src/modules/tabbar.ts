@@ -318,10 +318,13 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       return [...affixTabs, ...normalTabs];
     },
   },
-  persist: {
-    // 持久化
-    paths: ['tabs'],
-  },
+  persist: [
+    // tabs不需要保存在localStorage
+    {
+      paths: ['tabs'],
+      storage: sessionStorage,
+    },
+  ],
   state: (): TabsState => ({
     cachedTabs: new Set(),
     excludeCachedTabs: new Set(),

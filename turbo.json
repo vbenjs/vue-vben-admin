@@ -20,7 +20,7 @@
     },
     "stub": {},
     "dev": {
-      "dependsOn": ["^build"],
+      "dependsOn": [],
       "outputs": [],
       "cache": false,
       "persistent": true

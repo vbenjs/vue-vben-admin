@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
+    "build": "pnpm unbuild",
     "prepublishOnly": "npm run build"
   },
   "files": [

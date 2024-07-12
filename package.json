@@ -29,12 +29,12 @@
     "changeset": "pnpm exec changeset",
     "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:cspell",
     "check:circular": "vsh check-circular",
-    "check:dep": "vsh check-dep",
     "check:cspell": "cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress",
+    "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
     "clean": "vsh clean",
     "commit": "czg",
-    "dev": "cross-env TURBO_UI=1 turbo run dev --parallel",
+    "dev": "cross-env TURBO_UI=1 turbo run dev",
     "docs:dev": "pnpm -F @vben/website run docs:dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
@@ -44,8 +44,8 @@
     "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
     "test": "vitest",
-    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
-    "update:deps": " pnpm update --latest --recursive"
+    "update:deps": " pnpm update --latest --recursive",
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
