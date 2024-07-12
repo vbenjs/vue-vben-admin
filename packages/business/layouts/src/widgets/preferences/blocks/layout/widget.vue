@@ -14,6 +14,7 @@ const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
 const widgetAiAssistant = defineModel<boolean>('widgetAiAssistant');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
+const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
 </script>
 
 <template>
@@ -34,6 +35,9 @@ const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
   </SwitchItem>
   <SwitchItem v-model="widgetAiAssistant">
     {{ $t('preferences.widget.aiAssistant') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetLockScreen">
+    {{ $t('preferences.widget.lockScreen') }}
   </SwitchItem>
   <SwitchItem v-model="widgetSidebarToggle">
     {{ $t('preferences.widget.sidebarToggle') }}

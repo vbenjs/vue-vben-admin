@@ -51,7 +51,7 @@ const essentialsRoutes: RouteRecordRaw[] = [
         component: () =>
           import('#/views/_essential/authentication/code-login.vue'),
         meta: {
-          title: $t('page.essentials.code-login'),
+          title: $t('page.essentials.codeLogin'),
         },
       },
       {

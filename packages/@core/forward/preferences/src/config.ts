@@ -3,7 +3,6 @@ import type { Preferences } from './types';
 const defaultPreferences: Preferences = {
   app: {
     accessMode: 'frontend',
-    aiAssistant: true,
     authPageLayout: 'panel-right',
     colorGrayMode: false,
     colorWeakMode: false,
@@ -55,6 +54,7 @@ const defaultPreferences: Preferences = {
   },
   shortcutKeys: {
     enable: true,
+    globalLockScreen: true,
     globalLogout: true,
     globalPreferences: true,
     globalSearch: true,
@@ -95,6 +95,7 @@ const defaultPreferences: Preferences = {
     fullscreen: true,
     globalSearch: true,
     languageToggle: true,
+    lockScreen: true,
     notification: true,
     sidebarToggle: true,
     themeToggle: true,

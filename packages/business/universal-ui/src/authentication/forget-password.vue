@@ -50,7 +50,7 @@ function handleSubmut() {
   emit('submit', formState.email);
 }
 
-function goLogin() {
+function goToLogin() {
   router.push(props.loginPath);
 }
 </script>
@@ -79,7 +79,7 @@ function goLogin() {
       <VbenButton class="mt-2 w-full" @click="handleSubmut">
         {{ $t('authentication.sendResetLink') }}
       </VbenButton>
-      <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
+      <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}
       </VbenButton>
     </div>

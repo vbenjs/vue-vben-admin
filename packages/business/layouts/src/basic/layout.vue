@@ -279,7 +279,10 @@ function clearPreferencesAndLogout() {
     </template>
 
     <template #extra>
-      <slot name="dialog"></slot>
+      <slot name="extra"></slot>
+      <Transition v-if="preferences.widget.lockScreen" name="slide-up">
+        <slot name="lock-screen"></slot>
+      </Transition>
     </template>
   </VbenAdminLayout>
 </template>

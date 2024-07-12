@@ -82,3 +82,5 @@ export const IcRoundMultipleStop = createIconifyIcon('ic:round-multiple-stop');
 export const IcRoundRefresh = createIconifyIcon('ic:round-refresh');
 
 export const IcRoundCreditScore = createIconifyIcon('ic:round-credit-score');
+
+export const IcRoundLock = createIconifyIcon('ic:round-lock');

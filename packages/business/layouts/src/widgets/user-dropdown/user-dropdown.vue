@@ -4,7 +4,11 @@ import type { AnyFunction } from '@vben/types';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
+import {
+  IcRoundLock,
+  IcRoundLogout,
+  IcRoundSettingsSuggest,
+} from '@vben-core/iconify';
 import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import {
@@ -24,6 +28,7 @@ import { isWindowsOs } from '@vben-core/toolkit';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 
+import { LockScreenModal } from '../lock-screen';
 import { useOpenPreferences } from '../preferences';
 
 interface Props {
@@ -68,18 +73,26 @@ const props = withDefaults(defineProps<Props>(), {
   text: '',
 });
 
-const emit = defineEmits<{ logout: [] }>();
+const emit = defineEmits<{ lockScreen: [string]; logout: [] }>();
 const openPopover = ref(false);
 const openDialog = ref(false);
+const openLock = ref(false);
 
-const { globalLogoutShortcutKey, globalPreferencesShortcutKey } =
-  usePreferences();
+const {
+  globalLockScreenShortcutKey,
+  globalLogoutShortcutKey,
+  globalPreferencesShortcutKey,
+} = usePreferences();
 const { handleOpenPreference } = useOpenPreferences();
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
 
 const enableLogoutShortcutKey = computed(() => {
   return props.enableShortcutKey && globalLogoutShortcutKey.value;
+});
+
+const enableLockScreenShortcutKey = computed(() => {
+  return props.enableShortcutKey && globalLockScreenShortcutKey.value;
 });
 
 const enableShortcutKey = computed(() => {
@@ -90,6 +103,18 @@ const enablePreferencesShortcutKey = computed(() => {
   return props.enableShortcutKey && globalPreferencesShortcutKey.value;
 });
 
+function handleOpenLock() {
+  openLock.value = true;
+}
+
+function handleSubmitLock({
+  lockScreenPassword,
+}: {
+  lockScreenPassword: string;
+}) {
+  openLock.value = false;
+  emit('lockScreen', lockScreenPassword);
+}
 function handleLogout() {
   // emit
   openDialog.value = true;
@@ -114,10 +139,23 @@ if (enableShortcutKey.value) {
       handleOpenPreference();
     }
   });
+
+  whenever(keys['Alt+KeyL'], () => {
+    if (enableLockScreenShortcutKey.value) {
+      handleOpenLock();
+    }
+  });
 }
 </script>
 
 <template>
+  <LockScreenModal
+    v-if="preferences.widget.lockScreen"
+    v-model:open="openLock"
+    :avatar="avatar"
+    :text="text"
+    @submit="handleSubmitLock"
+  />
   <VbenAlertDialog
     v-model:open="openDialog"
     :cancel-text="$t('common.cancel')"
@@ -178,6 +216,17 @@ if (enableShortcutKey.value) {
         {{ $t('preferences.title') }}
         <DropdownMenuShortcut v-if="enablePreferencesShortcutKey">
           {{ altView }} ,
+        </DropdownMenuShortcut>
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        v-if="preferences.widget.lockScreen"
+        class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+        @click="handleOpenLock"
+      >
+        <IcRoundLock class="mr-2 size-5" />
+        {{ $t('widgets.lockScreen.title') }}
+        <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
+          {{ altView }} L
         </DropdownMenuShortcut>
       </DropdownMenuItem>
       <DropdownMenuSeparator />

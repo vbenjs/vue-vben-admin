@@ -78,7 +78,7 @@ function handleSubmit() {
   });
 }
 
-function goLogin() {
+function goToLogin() {
   router.push(props.loginPath);
 }
 </script>
@@ -160,7 +160,7 @@ function goLogin() {
       {{ $t('authentication.alreadyHaveAccount') }}
       <span
         class="text-primary hover:text-primary-hover cursor-pointer text-sm font-normal"
-        @click="goLogin()"
+        @click="goToLogin()"
       >
         {{ $t('authentication.goToLogin') }}
       </span>

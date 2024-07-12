@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
+  LockScreen,
   Notification,
   NotificationItem,
   UserDropdown,
@@ -16,7 +17,7 @@ import { preferences } from '@vben-core/preferences';
 
 import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
-import { useAccessStore, useAppStore } from '#/store';
+import { storeToRefs, useAccessStore, useAppStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -85,11 +86,18 @@ const menus = computed(() => [
 
 const appStore = useAppStore();
 const accessStore = useAccessStore();
+
+const { isLockScreen, lockScreenPassword } = storeToRefs(appStore);
 const {
   loading: loginLoading,
   openLoginExpiredModal,
   userInfo,
-} = toRefs(accessStore);
+} = storeToRefs(accessStore);
+
+const avatar = computed(() => {
+  return userInfo.value?.avatar ?? preferences.app.defaultAvatar;
+});
+
 const router = useRouter();
 
 async function handleLogout() {
@@ -105,17 +113,22 @@ function handleNoticeClear() {
 function handleMakeAll() {
   notifications.value.forEach((item) => (item.isRead = true));
 }
+
+function handleLockScreen(password: string) {
+  appStore.lockScreen(password);
+}
 </script>
 
 <template>
   <BasicLayout @clear-preferences-and-logout="handleLogout">
     <template #user-dropdown>
       <UserDropdown
-        :avatar="userInfo?.avatar ?? preferences.app.defaultAvatar"
-        :menus="menus"
+        :avatar
+        :menus
         :text="userInfo?.realName"
         description="ann.vben@gmail.com"
         tag-text="Pro"
+        @lock-screen="handleLockScreen"
         @logout="handleLogout"
       />
     </template>
@@ -127,13 +140,22 @@ function handleMakeAll() {
         @make-all="handleMakeAll"
       />
     </template>
-    <template #dialog>
+    <template #extra>
       <AuthenticationLoginExpiredModal
         v-model:open="openLoginExpiredModal"
         :loading="loginLoading"
         password-placeholder="123456"
         username-placeholder="vben"
         @submit="accessStore.authLogin"
+      />
+    </template>
+    <template #lock-screen>
+      <LockScreen
+        v-if="isLockScreen"
+        :avatar
+        :cached-password="lockScreenPassword"
+        @to-login="handleLogout"
+        @unlock="appStore.unlockScreen"
       />
     </template>
   </BasicLayout>

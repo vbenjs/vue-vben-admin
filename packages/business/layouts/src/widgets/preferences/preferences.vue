@@ -8,7 +8,7 @@ import Preferences from './preferences-sheet.vue';
 
 /**
  * preferences 转成 vue props
- * preferences.app.aiAssistant=>appAiAssistant
+ * preferences.widget.aiAssistant=>widgetAiAssistant
  */
 const attrs = computed(() => {
   const result: Record<string, any> = {};
@@ -22,7 +22,7 @@ const attrs = computed(() => {
 
 /**
  * preferences 转成 vue listener
- * preferences.app.aiAssistant=>@update:appAiAssistant
+ * preferences.widget.aiAssistant=>@update:widgetAiAssistant
  */
 const listen = computed(() => {
   const result: Record<string, any> = {};

@@ -125,6 +125,11 @@ function usePreferences() {
     return enable && globalLogout;
   });
 
+  const globalLockScreenShortcutKey = computed(() => {
+    const { enable, globalLockScreen } = shortcutKeysPreferences.value;
+    return enable && globalLockScreen;
+  });
+
   /**
    * @zh_CN 是否启用全局偏好设置快捷键
    */
@@ -138,6 +143,7 @@ function usePreferences() {
     authPanelLeft,
     authPanelRight,
     diffPreference,
+    globalLockScreenShortcutKey,
     globalLogoutShortcutKey,
     globalPreferencesShortcutKey,
     globalSearchShortcutKey,

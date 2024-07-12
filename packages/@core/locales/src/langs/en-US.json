@@ -68,6 +68,16 @@
       "noResults": "No Search Results Found",
       "noRecent": "No Search History",
       "recent": "Search History"
+    },
+    "lockScreen": {
+      "title": "Lock Screen",
+      "screenButton": "Locking",
+      "password": "Password",
+      "placeholder": "Please enter password",
+      "unlock": "Click to unlock",
+      "errorPasswordTip": "Password error, please re-enter",
+      "backToLogin": "Back to login",
+      "entry": "Enter the system"
     }
   },
   "authentication": {
@@ -263,7 +273,8 @@
       "languageToggle": "Enable Language Toggle",
       "notification": "Enable Notification",
       "sidebarToggle": "Enable Sidebar Toggle",
-      "aiAssistant": "Enable AI Assistant"
+      "aiAssistant": "Enable AI Assistant",
+      "lockScreen": "Enable Lock Screen"
     }
   }
 }

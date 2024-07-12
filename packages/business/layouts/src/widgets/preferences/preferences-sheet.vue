@@ -128,6 +128,9 @@ const shortcutKeysGlobalLogout = defineModel<boolean>(
 const shortcutKeysGlobalPreferences = defineModel<boolean>(
   'shortcutKeysGlobalPreferences',
 );
+const shortcutKeysGlobalLockScreen = defineModel<boolean>(
+  'shortcutKeysGlobalLockScreen',
+);
 
 const widgetGlobalSearch = defineModel<boolean>('widgetGlobalSearch');
 const widgetFullscreen = defineModel<boolean>('widgetFullscreen');
@@ -136,6 +139,7 @@ const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
 const widgetAiAssistant = defineModel<boolean>('widgetAiAssistant');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
+const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
 
 const {
   diffPreference,
@@ -355,6 +359,7 @@ async function handleReset() {
                 v-model:widget-fullscreen="widgetFullscreen"
                 v-model:widget-global-search="widgetGlobalSearch"
                 v-model:widget-language-toggle="widgetLanguageToggle"
+                v-model:widget-lock-screen="widgetLockScreen"
                 v-model:widget-notification="widgetNotification"
                 v-model:widget-sidebar-toggle="widgetSidebarToggle"
                 v-model:widget-theme-toggle="widgetThemeToggle"
@@ -384,6 +389,7 @@ async function handleReset() {
               <GlobalShortcutKeys
                 v-model:shortcut-keys-enable="shortcutKeysEnable"
                 v-model:shortcut-keys-global-search="shortcutKeysGlobalSearch"
+                v-model:shortcut-keys-lock-screen="shortcutKeysGlobalLockScreen"
                 v-model:shortcut-keys-logout="shortcutKeysGlobalLogout"
                 v-model:shortcut-keys-preferences="
                   shortcutKeysGlobalPreferences

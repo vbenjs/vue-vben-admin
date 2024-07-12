@@ -82,7 +82,7 @@ function handleSubmit() {
   });
 }
 
-function goLogin() {
+function goToLogin() {
   router.push(props.loginPath);
 }
 
@@ -151,7 +151,7 @@ onBeforeUnmount(() => {
     <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">
       {{ $t('common.login') }}
     </VbenButton>
-    <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>

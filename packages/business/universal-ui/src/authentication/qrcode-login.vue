@@ -39,7 +39,7 @@ const qrcode = useQRCode(text, {
   margin: 4,
 });
 
-function goLogin() {
+function goToLogin() {
   router.push(props.loginPath);
 }
 </script>
@@ -62,7 +62,7 @@ function goLogin() {
       </p>
     </div>
 
-    <VbenButton class="mt-4 w-full" variant="outline" @click="goLogin()">
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>

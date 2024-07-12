@@ -1,9 +1,14 @@
-import { h } from 'vue';
+import { defineComponent, h } from 'vue';
 
 import { Icon } from '@iconify/vue';
 
 function createIconifyIcon(icon: string) {
-  return h(Icon, { icon });
+  return defineComponent({
+    name: `SvgIcon-${icon}`,
+    setup(props, { attrs }) {
+      return () => h(Icon, { icon, ...props, ...attrs });
+    },
+  });
 }
 
 export { createIconifyIcon };
