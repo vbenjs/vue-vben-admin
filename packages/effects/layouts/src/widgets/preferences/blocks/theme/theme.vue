@@ -17,7 +17,7 @@ defineOptions({
 });
 
 const modelValue = defineModel<string>({ default: 'auto' });
-const appSemiDarkMenu = defineModel<boolean>('appSemiDarkMenu', {
+const themeSemiDarkMenu = defineModel<boolean>('themeSemiDarkMenu', {
   default: true,
 });
 
@@ -75,7 +75,7 @@ function nameView(name: string) {
     </template>
 
     <SwitchItem
-      v-model="appSemiDarkMenu"
+      v-model="themeSemiDarkMenu"
       :disabled="modelValue !== 'light'"
       class="mt-6"
     >

@@ -61,7 +61,6 @@ const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appLayout = defineModel<LayoutType>('appLayout');
 const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
-const appSemiDarkMenu = defineModel<boolean>('appSemiDarkMenu');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 
 const transitionProgress = defineModel<boolean>('transitionProgress');
@@ -73,6 +72,7 @@ const themeColorPrimary = defineModel<string>('themeColorPrimary');
 const themeBuiltinType = defineModel<BuiltinThemeType>('themeBuiltinType');
 const themeMode = defineModel<ThemeModeType>('themeMode');
 const themeRadius = defineModel<string>('themeRadius');
+const themeSemiDarkMenu = defineModel<boolean>('themeSemiDarkMenu');
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
 const sidebarWidth = defineModel<number>('sidebarWidth');
@@ -269,7 +269,7 @@ async function handleReset() {
             <Block :title="$t('preferences.theme.title')">
               <Theme
                 v-model="themeMode"
-                v-model:app-semi-dark-menu="appSemiDarkMenu"
+                v-model:theme-semi-dark-menu="themeSemiDarkMenu"
               />
             </Block>
             <!-- <Block :title="$t('preferences.theme-color')">

@@ -28,18 +28,40 @@ function handleScroll(event: Event) {
 
 <template>
   <ScrollArea
-    :class="[
-      cn(props.class),
-      {
-        // 'shadow-none': isAtTop && isAtBottom,
-        // shadow: !isAtTop || !isAtBottom,
-        // 'dark:shadow-white/20': !isAtTop || !isAtBottom,
-        // 'shadow-inner': !isAtBottom,
-        // 'dark:shadow-inner-white/20': !isAtBottom,
-      },
-    ]"
+    :class="[cn(props.class)]"
     :on-scroll="handleScroll"
+    class="relative"
   >
+    <div
+      :class="{
+        'opacity-100': !isAtTop,
+      }"
+      class="scrollbar-top-shadow pointer-events-none absolute top-0 z-10 h-16 w-full opacity-0 transition-opacity duration-1000 ease-in-out will-change-[opacity]"
+    ></div>
     <slot></slot>
+    <div
+      :class="{
+        'opacity-100': !isAtTop && !isAtBottom,
+      }"
+      class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-16 w-full opacity-0 transition-opacity duration-1000 ease-in-out will-change-[opacity]"
+    ></div>
   </ScrollArea>
 </template>
+
+<style scoped>
+.scrollbar-top-shadow {
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--scroll-shadow, var(--background))),
+    transparent
+  );
+}
+
+.scrollbar-bottom-shadow {
+  background: linear-gradient(
+    to top,
+    hsl(var(--scroll-shadow, var(--background))),
+    transparent
+  );
+}
+</style>

@@ -118,9 +118,10 @@ const hiddenSideStyle = computed((): CSSProperties => {
 });
 
 const style = computed((): CSSProperties => {
-  const { isSidebarMixed, paddingTop, zIndex } = props;
+  const { isSidebarMixed, paddingTop, theme, zIndex } = props;
 
   return {
+    '--scroll-shadow': theme === 'dark' ? 'var(--menu-dark)' : 'var(--menu)',
     ...calcMenuWidthStyle(false),
     paddingTop: `${paddingTop}px`,
     zIndex,
