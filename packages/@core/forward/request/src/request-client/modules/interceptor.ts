@@ -19,7 +19,7 @@ class InterceptorManager {
   ) {
     this.axiosInstance.interceptors.request.use(
       fulfilled,
-      rejected || ((res) => res),
+      rejected || ((res) => Promise.reject(res)),
     );
   }
 
@@ -31,7 +31,7 @@ class InterceptorManager {
   ) {
     this.axiosInstance.interceptors.response.use(
       fulfilled,
-      rejected || ((res) => res),
+      rejected || ((res) => Promise.reject(res)),
     );
   }
 }

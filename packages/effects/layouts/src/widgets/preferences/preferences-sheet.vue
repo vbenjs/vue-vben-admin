@@ -416,7 +416,7 @@ async function handleReset() {
           variant="ghost"
           @click="handleClearCache"
         >
-          <IcRoundRestartAlt class="mr-2 size-4" />
+          <!-- <IcRoundRestartAlt class="mr-2 size-4" /> -->
           {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
       </template>
