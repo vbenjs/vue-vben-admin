@@ -5,7 +5,7 @@
     'Segoe UI Symbol';
 
   /* Default background color of <body />...etc */
-  --background: 0 0 100%;
+  --background: 0 0% 100%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -23,22 +23,22 @@
   /* 主题颜色 */
 
   --primary: 211 91% 39%;
-  --primary-foreground: 0 0 98%;
+  --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
 
   --destructive: 0 78% 68%;
-  --destructive-foreground: 0 0 98%;
+  --destructive-foreground: 0 0% 98%;
 
   /* Used for success actions such as <message> */
 
   --success: 144 57% 58%;
-  --success-foreground: 0 0 98%;
+  --success-foreground: 0 0% 98%;
 
   /* Used for warning actions such as <message> */
 
   --warning: 42 84% 61%;
-  --warning-foreground: 0 0 98%;
+  --warning-foreground: 0 0% 98%;
 
   /* Secondary colors for <Button /> */
 
@@ -60,7 +60,7 @@
   /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
   --input: 240deg 5.88% 90%;
   --input-placeholder: 217 10.6% 65%;
-  --input-background: 0 0 100%;
+  --input-background: 0 0% 100%;
 
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
