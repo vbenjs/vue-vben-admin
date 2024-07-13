@@ -118,6 +118,17 @@ export class MenuController {
                     title: 'page.demos.access.buttonControl',
                   },
                 },
+                {
+                  name: 'AccessMenuVisible403',
+                  path: 'menu-visible-403',
+                  component: '/demos/access/menu-visible-403',
+                  meta: {
+                    authority: ['no-body'],
+                    icon: 'mdi:button-cursor',
+                    menuVisibleWithForbidden: true,
+                    title: 'page.demos.access.menuVisible403',
+                  },
+                },
                 roleWithMenus[role],
               ],
             },

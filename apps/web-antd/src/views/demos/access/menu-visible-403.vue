@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Fallback } from '@vben/universal-ui';
 
-defineOptions({ name: 'AccessFrontendAccessTest2' });
+defineOptions({ name: 'AccessMenuVisible403' });
 </script>
 
 <template>
