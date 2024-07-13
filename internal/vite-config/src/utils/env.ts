@@ -54,7 +54,9 @@ async function loadEnv<T = Record<string, string>>(
 async function loadAndConvertEnv(
   match = 'VITE_',
   confFiles = getConfFiles(),
-): Promise<Partial<ApplicationPluginOptions>> {
+): Promise<
+  { appTitle: string; port: number } & Partial<ApplicationPluginOptions>
+> {
   const envConfig = await loadEnv(match, confFiles);
   const visualizer = envConfig.visualizer || '';
   const pwa = envConfig.pwa || '';
@@ -63,8 +65,10 @@ async function loadAndConvertEnv(
     .split(',')
     .filter((item) => ['brotli', 'gzip'].includes(item));
   return {
+    appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin Pro',
     compress: !!compress,
     compressTypes: compressTypes as ('brotli' | 'gzip')[],
+    port: Number(envConfig.VITE_PORT) || 5173,
     pwa: !!pwa,
     visualizer: !!visualizer,
   };

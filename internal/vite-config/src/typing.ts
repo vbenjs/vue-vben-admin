@@ -91,22 +91,17 @@ interface ApplicationOptions extends ApplicationPluginOptions {}
 
 interface LibraryOptions extends LibraryPluginOptions {}
 
-interface DefineApplicationOptions {
-  application?:
-    | ((config: ConfigEnv) => Promise<ApplicationOptions>)
-    | ApplicationOptions;
-  vite?: ((config: ConfigEnv) => Promise<UserConfig>) | UserConfig;
-}
+type DefineApplicationOptions = (config?: ConfigEnv) => Promise<{
+  application?: ApplicationOptions;
+  vite?: UserConfig;
+}>;
 
-interface DefineLibraryOptions {
-  library?: ((config: ConfigEnv) => Promise<LibraryOptions>) | LibraryOptions;
-  vite?: ((config: ConfigEnv) => Promise<UserConfig>) | UserConfig;
-}
+type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
+  library?: LibraryOptions;
+  vite?: UserConfig;
+}>;
 
-type DefineConfig = {
-  type?: 'application' | 'auto' | 'library';
-} & DefineApplicationOptions &
-  DefineLibraryOptions;
+type DefineConfig = DefineApplicationOptions | DefineLibraryOptions;
 
 export type {
   ApplicationPluginOptions,

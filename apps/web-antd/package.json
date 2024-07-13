@@ -1,12 +1,12 @@
 {
   "name": "@vben/web-antd",
   "version": "5.0.0",
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "apps/vben-admin"
+    "directory": "apps/web-antd"
   },
   "license": "MIT",
   "author": {

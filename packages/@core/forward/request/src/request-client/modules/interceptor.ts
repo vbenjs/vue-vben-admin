@@ -4,6 +4,8 @@ import {
   type InternalAxiosRequestConfig,
 } from 'axios';
 
+const errorHandler = (res: Error) => Promise.reject(res);
+
 class InterceptorManager {
   private axiosInstance: AxiosInstance;
 
@@ -19,7 +21,7 @@ class InterceptorManager {
   ) {
     this.axiosInstance.interceptors.request.use(
       fulfilled,
-      rejected || ((res) => Promise.reject(res)),
+      rejected || errorHandler,
     );
   }
 
@@ -31,7 +33,7 @@ class InterceptorManager {
   ) {
     this.axiosInstance.interceptors.response.use(
       fulfilled,
-      rejected || ((res) => Promise.reject(res)),
+      rejected || errorHandler,
     );
   }
 }

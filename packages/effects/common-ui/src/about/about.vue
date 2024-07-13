@@ -3,6 +3,11 @@ import type { AboutProps, DescriptionItem } from './about';
 
 import { h } from 'vue';
 
+import {
+  VBEN_DOC_URL,
+  VBEN_GITHUB_URL,
+  VBEN_PREVIEW_URL,
+} from '@vben/constants';
 import { VbenLink, VbenRenderContent } from '@vben-core/shadcn-ui';
 
 interface Props extends AboutProps {}
@@ -27,7 +32,6 @@ const {
   devDependencies = {},
   homepage,
   license,
-  repositoryUrl,
   version,
   // vite inject-metadata 插件注入的全局变量
   // eslint-disable-next-line no-undef
@@ -47,24 +51,17 @@ const vbenDescriptionItems: DescriptionItem[] = [
     title: '最后构建时间',
   },
   {
-    // TODO:
     content: h(VbenLink, { href: homepage }, { default: () => '点击查看' }),
     title: '主页',
   },
   {
-    // TODO:
-    content: h(
-      VbenLink,
-      { href: repositoryUrl },
-      { default: () => '点击查看' },
-    ),
+    content: h(VbenLink, { href: VBEN_DOC_URL }, { default: () => '点击查看' }),
     title: '文档地址',
   },
   {
-    // TODO:
     content: h(
       VbenLink,
-      { href: repositoryUrl },
+      { href: VBEN_PREVIEW_URL },
       { default: () => '点击查看' },
     ),
     title: '预览地址',
@@ -72,7 +69,7 @@ const vbenDescriptionItems: DescriptionItem[] = [
   {
     content: h(
       VbenLink,
-      { href: repositoryUrl },
+      { href: VBEN_GITHUB_URL },
       { default: () => '点击查看' },
     ),
     title: 'Github',
@@ -113,7 +110,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
           {{ title }}
         </h3>
         <p class="text-foreground/80 mt-3 text-sm leading-6">
-          <VbenLink :href="repositoryUrl">
+          <VbenLink :href="VBEN_GITHUB_URL">
             {{ name }}
           </VbenLink>
           {{ description }}

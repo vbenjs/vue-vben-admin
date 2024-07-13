@@ -44,7 +44,7 @@ async function resolveMonorepoDependencies() {
 async function viteMetadataPlugin(
   root = process.cwd(),
 ): Promise<PluginOption | undefined> {
-  const { author, description, homepage, license, repository, version } =
+  const { author, description, homepage, license, version } =
     await readPackageJSON(root);
 
   const buildTime = dateUtil().format('YYYY-MM-DD HH:mm:ss');
@@ -53,8 +53,6 @@ async function viteMetadataPlugin(
     async config() {
       const { dependencies, devDependencies } =
         await resolveMonorepoDependencies();
-      const repositoryUrl =
-        typeof repository === 'object' ? repository.url : repository;
 
       const isAuthorObject = typeof author === 'object';
       const authorName = isAuthorObject ? author.name : author;
@@ -73,7 +71,6 @@ async function viteMetadataPlugin(
             devDependencies,
             homepage,
             license,
-            repositoryUrl,
             version,
           }),
         },

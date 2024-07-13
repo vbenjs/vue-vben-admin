@@ -1,4 +1,4 @@
-import type { UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
 
 import type { DefineLibraryOptions } from '../typing';
 
@@ -9,11 +9,12 @@ import { defineConfig, mergeConfig } from 'vite';
 import { loadLibraryPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
-function defineLibraryConfig(options: DefineLibraryOptions = {}) {
-  return defineConfig(async (config) => {
+function defineLibraryConfig(userConfigPromise: DefineLibraryOptions) {
+  return defineConfig(async (config: ConfigEnv) => {
+    const options = await userConfigPromise?.(config);
     const { command, mode } = config;
     const root = process.cwd();
-    const { library = {}, vite = {} } = options;
+    const { library = {}, vite = {} } = options || {};
     const isBuild = command === 'build';
 
     const plugins = await loadLibraryPlugins({
@@ -22,7 +23,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
       injectMetadata: true,
       isBuild,
       mode,
-      ...(typeof library === 'function' ? await library(config) : library),
+      ...library,
     });
 
     const { dependencies = {}, peerDependencies = {} } =
@@ -52,10 +53,7 @@ function defineLibraryConfig(options: DefineLibraryOptions = {}) {
     };
     const commonConfig = await getCommonConfig();
     const mergedConfig = mergeConfig(commonConfig, packageConfig);
-    return mergeConfig(
-      mergedConfig,
-      typeof vite === 'function' ? await vite(config) : vite,
-    );
+    return mergeConfig(mergedConfig, vite);
   });
 }
 

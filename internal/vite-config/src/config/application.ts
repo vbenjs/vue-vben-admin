@@ -7,10 +7,11 @@ import { defineConfig, loadEnv, mergeConfig } from 'vite';
 import { loadApplicationPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
-function defineApplicationConfig(options: DefineApplicationOptions = {}) {
+function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
   return defineConfig(async (config) => {
+    const options = await userConfigPromise?.(config);
     const { command, mode } = config;
-    const { application = {}, vite = {} } = options;
+    const { application = {}, vite = {} } = options || {};
     const root = process.cwd();
     const isBuild = command === 'build';
     const env = loadEnv(mode, root);
@@ -30,9 +31,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       mode,
       pwa: true,
       turboConsole: false,
-      ...(typeof application === 'function'
-        ? await application(config)
-        : application),
+      ...application,
     });
 
     const applicationConfig: UserConfig = {
@@ -69,10 +68,7 @@ function defineApplicationConfig(options: DefineApplicationOptions = {}) {
       await getCommonConfig(),
       applicationConfig,
     );
-    return mergeConfig(
-      mergedConfig,
-      typeof vite === 'function' ? await vite(config) : vite,
-    );
+    return mergeConfig(mergedConfig, vite);
   });
 }
 

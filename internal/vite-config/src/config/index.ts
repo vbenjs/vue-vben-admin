@@ -9,9 +9,10 @@ import { defineLibraryConfig } from './library';
 export * from './application';
 export * from './library';
 
-function defineConfig(options: DefineConfig = {}) {
-  const { type = 'auto', ...defineOptions } = options;
-
+function defineConfig(
+  userConfigPromise?: DefineConfig,
+  type: 'application' | 'auto' | 'library' = 'auto',
+) {
   let projectType = type;
 
   // 根据包是否存在 index.html,自动判断类型
@@ -22,10 +23,10 @@ function defineConfig(options: DefineConfig = {}) {
 
   switch (projectType) {
     case 'application': {
-      return defineApplicationConfig(defineOptions);
+      return defineApplicationConfig(userConfigPromise);
     }
     case 'library': {
-      return defineLibraryConfig(defineOptions);
+      return defineLibraryConfig(userConfigPromise);
     }
     default: {
       throw new Error(`Unsupported project type: ${projectType}`);
