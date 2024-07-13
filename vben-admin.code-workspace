@@ -65,20 +65,8 @@
       "path": "packages/@core/locales",
     },
     {
-      "name": "@vben-core/cache",
-      "path": "packages/@core/shared/cache",
-    },
-    {
-      "name": "@vben-core/colorful",
-      "path": "packages/@core/shared/colorful",
-    },
-    {
       "name": "@vben-core/design",
       "path": "packages/@core/shared/design",
-    },
-    {
-      "name": "@vben-core/design-tokens",
-      "path": "packages/@core/shared/design-tokens",
     },
     {
       "name": "@vben-core/iconify",

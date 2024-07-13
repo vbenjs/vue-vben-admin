@@ -1,5 +1,3 @@
-export { default as CodeAccess } from './code-access.vue';
-export * from './generate-menu-and-routes';
-export { default as RoleAccess } from './role-access.vue';
-export type * from './types';
+export { default as AccessControl } from './access-control.vue';
+export * from './generate-accessible';
 export * from './use-access';

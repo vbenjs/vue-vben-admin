@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@vben/types';
+import type { BuiltinThemeType } from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { TinyColor, convertToHsl } from '@vben-core/colorful';
 import { MdiEditBoxOutline } from '@vben-core/iconify';
 import { $t } from '@vben-core/locales';
 import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,
 } from '@vben-core/preferences';
+import { TinyColor, convertToHsl } from '@vben-core/toolkit';
 
 defineOptions({
   name: 'PreferenceBuiltinTheme',

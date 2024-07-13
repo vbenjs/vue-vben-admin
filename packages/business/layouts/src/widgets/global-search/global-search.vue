@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben/types';
+import type { MenuRecordRaw } from '@vben-core/typings';
 
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 

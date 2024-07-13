@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { TabsItem } from '@vben/types';
+import type { TabsOption } from '@vben/types';
 
 import { computed } from 'vue';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@vben-core/shadcn-ui';
 
 interface Props {
-  tabs: TabsItem[];
+  tabs: TabsOption[];
 }
 
 defineOptions({

@@ -96,7 +96,7 @@ export class MenuController {
               path: 'access',
               meta: {
                 icon: 'mdi:cloud-key-outline',
-                title: 'page.demos.access.backendControl',
+                title: 'page.demos.access.backendPermissions',
               },
               redirect: '/demos/access/page-control',
               children: [

@@ -36,6 +36,8 @@
     }
   },
   "dependencies": {
+    "@ant-design/colors": "^7.1.0",
+    "@ctrl/tinycolor": "^4.1.0",
     "@vue/shared": "^3.4.31",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@vben/types';
+import type { SupportedLanguagesType } from '@vben-core/typings';
 
 import { IcBaselineLanguage } from '@vben-core/iconify';
 import { loadLocaleMessages } from '@vben-core/locales';

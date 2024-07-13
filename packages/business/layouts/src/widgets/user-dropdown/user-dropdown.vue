@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AnyFunction } from '@vben/types';
+import type { AnyFunction } from '@vben-core/typings';
 
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';

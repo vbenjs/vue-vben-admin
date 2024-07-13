@@ -29,8 +29,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/cache": "workspace:*",
-    "@vben-core/colorful": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",

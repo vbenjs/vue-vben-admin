@@ -3,8 +3,8 @@
     "demos": {
       "title": "演示",
       "access": {
-        "frontendControl": "前端控制",
-        "backendControl": "后端控制",
+        "frontendPermissions": "前端权限",
+        "backendPermissions": "后端权限",
         "pageAccess": "页面访问",
         "buttonControl": "按钮控制",
         "menuVisible403": "菜单可见(403)",

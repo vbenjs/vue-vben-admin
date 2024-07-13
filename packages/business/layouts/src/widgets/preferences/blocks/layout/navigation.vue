@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben/types';
+import type { SelectOption } from '@vben-core/typings';
 
 import { $t } from '@vben-core/locales';
 
@@ -16,7 +16,7 @@ const navigationStyleType = defineModel<string>('navigationStyleType');
 const navigationSplit = defineModel<boolean>('navigationSplit');
 const navigationAccordion = defineModel<boolean>('navigationAccordion');
 
-const stylesItems: SelectListItem[] = [
+const stylesItems: SelectOption[] = [
   { label: $t('preferences.rounded'), value: 'rounded' },
   { label: $t('preferences.plain'), value: 'plain' },
 ];

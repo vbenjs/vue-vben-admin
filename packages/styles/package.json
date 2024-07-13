@@ -42,12 +42,7 @@
       }
     }
   },
-  "peerDependencies": {
-    "@vben-core/design": "workspace:*",
-    "@vben-core/design-tokens": "workspace:*"
-  },
   "dependencies": {
-    "@vben-core/design": "workspace:*",
-    "@vben-core/design-tokens": "workspace:*"
+    "@vben-core/design": "workspace:*"
   }
 }

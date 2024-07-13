@@ -1,7 +1,9 @@
-import type { GeneratorMenuAndRoutesOptions } from '@vben/access';
-import type { ComponentRecordType } from '@vben/types';
+import type {
+  ComponentRecordType,
+  GenerateMenuAndRoutesOptions,
+} from '@vben/types';
 
-import { generateMenusAndRoutes } from '@vben/access';
+import { generateAccessible } from '@vben/access';
 import { preferences } from '@vben-core/preferences';
 
 import { message } from 'ant-design-vue';
@@ -13,7 +15,7 @@ import { $t } from '#/locales';
 const forbiddenComponent = () =>
   import('#/views/_essential/fallback/forbidden.vue');
 
-async function generateAccess(options: GeneratorMenuAndRoutesOptions) {
+async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   const pageMap: ComponentRecordType = import.meta.glob('../views/**/*.vue');
 
   const layoutMap: ComponentRecordType = {
@@ -21,7 +23,7 @@ async function generateAccess(options: GeneratorMenuAndRoutesOptions) {
     IFrameView,
   };
 
-  return await generateMenusAndRoutes(preferences.app.accessMode, {
+  return await generateAccessible(preferences.app.accessMode, {
     ...options,
     fetchMenuListAsync: async () => {
       message.loading({

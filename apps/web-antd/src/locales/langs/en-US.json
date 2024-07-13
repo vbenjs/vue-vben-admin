@@ -3,8 +3,8 @@
     "demos": {
       "title": "Demos",
       "access": {
-        "frontendControl": "Frontend Control",
-        "backendControl": "Backend Control",
+        "frontendPermissions": "Frontend Permissions",
+        "backendPermissions": "Backend Permissions",
         "pageAccess": "Page Access",
         "buttonControl": "Button Control",
         "menuVisible403": "Menu Visible(403)",

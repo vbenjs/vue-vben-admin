@@ -69,7 +69,9 @@ async function handleToggleAccessMode() {
 
     <div class="card-box mt-5 p-5 font-semibold">
       <span class="text-lg">当前权限模式:</span>
-      <span class="text-primary mx-4">{{ accessMode }}</span>
+      <span class="text-primary mx-4">{{
+        accessMode === 'frontend' ? '前端权限控制' : '后端权限控制'
+      }}</span>
       <Button type="primary" @click="handleToggleAccessMode">
         切换为{{ accessMode === 'frontend' ? '后端' : '前端' }}权限模式
       </Button>
@@ -77,8 +79,8 @@ async function handleToggleAccessMode() {
     <div class="card-box mt-5 p-5 font-semibold">
       <div class="mb-3">
         <span class="text-lg">当前账号:</span>
-        <span class="text-primary mx-4">
-          {{ accessStore.userRoles }}
+        <span class="text-primary mx-4 text-lg">
+          {{ accessStore.userRoles?.[0] }}
         </span>
       </div>
 

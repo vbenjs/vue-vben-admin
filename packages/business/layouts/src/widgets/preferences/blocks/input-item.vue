@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben/types';
+import type { SelectOption } from '@vben-core/typings';
 
 import { useSlots } from 'vue';
 
@@ -13,7 +13,7 @@ defineOptions({
 withDefaults(
   defineProps<{
     disabled?: boolean;
-    items?: SelectListItem[];
+    items?: SelectOption[];
     placeholder?: string;
   }>(),
   {

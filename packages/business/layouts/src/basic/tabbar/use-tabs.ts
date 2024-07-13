@@ -127,6 +127,19 @@ function useTabs() {
 
     const menus: IContextMenuItem[] = [
       {
+        handler: async () => {
+          if (!contentIsMaximize.value) {
+            await router.push(tab.fullPath);
+          }
+          updateContentScreen(!contentIsMaximize.value);
+        },
+        icon: contentIsMaximize.value ? IcRoundFitScreen : IcTwotoneFitScreen,
+        key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
+        text: contentIsMaximize.value
+          ? $t('preferences.tabbar.contextMenu.restoreMaximize')
+          : $t('preferences.tabbar.contextMenu.maximize'),
+      },
+      {
         disabled: !isCurrentTab,
         handler: async () => {
           await coreTabbarStore.refresh(router);
@@ -166,22 +179,10 @@ function useTabs() {
         },
         icon: IcRoundTableView,
         key: 'open-in-new-window',
+        separator: true,
         text: $t('preferences.tabbar.contextMenu.openInNewWindow'),
       },
-      {
-        handler: async () => {
-          if (!contentIsMaximize.value) {
-            await router.push(tab.fullPath);
-          }
-          updateContentScreen(!contentIsMaximize.value);
-        },
-        icon: contentIsMaximize.value ? IcRoundFitScreen : IcTwotoneFitScreen,
-        key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
-        separator: true,
-        text: contentIsMaximize.value
-          ? $t('preferences.tabbar.contextMenu.restoreMaximize')
-          : $t('preferences.tabbar.contextMenu.maximize'),
-      },
+
       {
         disabled: closeLeftDisabled,
         handler: async () => {

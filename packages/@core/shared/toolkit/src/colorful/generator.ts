@@ -1,6 +1,6 @@
 import { generate } from '@ant-design/colors';
 
-import { convertToHslCssVar } from './utils';
+import { convertToHslCssVar } from './convert';
 
 export * from '@ant-design/colors';
 

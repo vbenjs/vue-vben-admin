@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TabsItem } from '@vben/types';
+import type { TabsOption } from '@vben/types';
 import type { AnalysisOverviewItem } from '@vben/universal-ui';
 
 import {
@@ -53,7 +53,7 @@ const overviewItems: AnalysisOverviewItem[] = [
   },
 ];
 
-const chartTabs: TabsItem[] = [
+const chartTabs: TabsOption[] = [
   {
     label: '流量趋势',
     value: 'trends',

@@ -1,17 +1,15 @@
 <script setup lang="ts">
+import type { SegmentedItem } from '@vben-core/shadcn-ui';
 import type {
+  BreadcrumbStyleType,
   BuiltinThemeType,
   ContentCompactType,
   LayoutHeaderModeType,
   LayoutType,
+  NavigationStyleType,
   SupportedLanguagesType,
   ThemeModeType,
-} from '@vben/types';
-import type {
-  BreadcrumbStyleType,
-  NavigationStyleType,
-} from '@vben-core/preferences';
-import type { SegmentedItem } from '@vben-core/shadcn-ui';
+} from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 

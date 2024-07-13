@@ -37,14 +37,11 @@
     }
   },
   "dependencies": {
-    "@vben-core/locales": "workspace:*",
+    "@vben-core/helpers": "workspace:*",
     "@vben-core/preferences": "workspace:*",
     "@vben-core/stores": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
-    "vue": "^3.4.31",
-    "vue-router": "^4.4.0"
-  },
-  "devDependencies": {
-    "@vben/types": "workspace:*"
+    "@vben-core/typings": "workspace:*",
+    "vue": "^3.4.31"
   }
 }

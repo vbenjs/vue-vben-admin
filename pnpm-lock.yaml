@@ -559,6 +559,9 @@ importers:
 
   packages/@core/forward/helpers:
     dependencies:
+      '@vben-core/toolkit':
+        specifier: workspace:*
+        version: link:../../shared/toolkit
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../shared/typings
@@ -568,12 +571,6 @@ importers:
 
   packages/@core/forward/preferences:
     dependencies:
-      '@vben-core/cache':
-        specifier: workspace:*
-        version: link:../../shared/cache
-      '@vben-core/colorful':
-        specifier: workspace:*
-        version: link:../../shared/colorful
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../shared/toolkit
@@ -642,24 +639,11 @@ importers:
         specifier: ^9.13.1
         version: 9.13.1(vue@3.4.31(typescript@5.5.3))
 
-  packages/@core/shared/cache: {}
-
-  packages/@core/shared/colorful:
-    dependencies:
-      '@ant-design/colors':
-        specifier: ^7.1.0
-        version: 7.1.0
-      '@ctrl/tinycolor':
-        specifier: ^4.1.0
-        version: 4.1.0
-
   packages/@core/shared/design:
     dependencies:
       modern-normalize:
         specifier: ^2.0.0
         version: 2.0.0
-
-  packages/@core/shared/design-tokens: {}
 
   packages/@core/shared/iconify:
     dependencies:
@@ -672,6 +656,12 @@ importers:
 
   packages/@core/shared/toolkit:
     dependencies:
+      '@ant-design/colors':
+        specifier: ^7.1.0
+        version: 7.1.0
+      '@ctrl/tinycolor':
+        specifier: ^4.1.0
+        version: 4.1.0
       '@vue/shared':
         specifier: ^3.4.31
         version: 3.4.31
@@ -757,9 +747,6 @@ importers:
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.31(typescript@5.5.3))
-      '@vben-core/colorful':
-        specifier: workspace:*
-        version: link:../../shared/colorful
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../../shared/iconify
@@ -808,9 +795,9 @@ importers:
 
   packages/business/access:
     dependencies:
-      '@vben-core/locales':
+      '@vben-core/helpers':
         specifier: workspace:*
-        version: link:../../@core/locales
+        version: link:../../@core/forward/helpers
       '@vben-core/preferences':
         specifier: workspace:*
         version: link:../../@core/forward/preferences
@@ -820,16 +807,12 @@ importers:
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@core/shared/toolkit
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../@core/shared/typings
       vue:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
-      vue-router:
-        specifier: ^4.4.0
-        version: 4.4.0(vue@3.4.31(typescript@5.5.3))
-    devDependencies:
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../types
 
   packages/business/chart-ui:
     dependencies:
@@ -848,9 +831,6 @@ importers:
 
   packages/business/layouts:
     dependencies:
-      '@vben-core/colorful':
-        specifier: workspace:*
-        version: link:../../@core/shared/colorful
       '@vben-core/helpers':
         specifier: workspace:*
         version: link:../../@core/forward/helpers
@@ -881,6 +861,9 @@ importers:
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@core/shared/toolkit
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../@core/shared/typings
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.5.3))
@@ -890,13 +873,6 @@ importers:
       vue-router:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.31(typescript@5.5.3))
-    devDependencies:
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../../@core/shared/typings
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../types
 
   packages/business/universal-ui:
     dependencies:
@@ -945,9 +921,6 @@ importers:
       '@vben-core/design':
         specifier: workspace:*
         version: link:../@core/shared/design
-      '@vben-core/design-tokens':
-        specifier: workspace:*
-        version: link:../@core/shared/design-tokens
 
   packages/types:
     dependencies:

@@ -1,6 +1,7 @@
-import type { BuiltinThemeType } from '@vben-core/typings';
-
-import type { SupportedLanguagesType } from './types';
+import type {
+  BuiltinThemeType,
+  SupportedLanguagesType,
+} from '@vben-core/typings';
 
 interface Language {
   key: SupportedLanguagesType;

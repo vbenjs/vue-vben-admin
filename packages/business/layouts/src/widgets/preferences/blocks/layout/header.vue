@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LayoutHeaderModeType, SelectListItem } from '@vben/types';
+import type { LayoutHeaderModeType, SelectOption } from '@vben-core/typings';
 
 import { $t } from '@vben-core/locales';
 
@@ -15,7 +15,7 @@ defineProps<{ disabled: boolean }>();
 const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
 
-const localeItems: SelectListItem[] = [
+const localeItems: SelectOption[] = [
   {
     label: $t('preferences.header.modeStatic'),
     value: 'static',

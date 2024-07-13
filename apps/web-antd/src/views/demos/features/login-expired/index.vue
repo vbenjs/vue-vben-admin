@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LoginExpiredModeType } from '@vben-core/preferences';
+import type { LoginExpiredModeType } from '@vben/types';
 
 import { preferences, updatePreferences } from '@vben-core/preferences';
 

@@ -5,17 +5,6 @@ import { PreferenceManager, isDarkTheme } from './preferences';
 
 describe('preferences', () => {
   let preferenceManager: PreferenceManager;
-  vi.mock('@vben-core/cache', () => {
-    return {
-      StorageManager: vi.fn().mockImplementation(() => {
-        return {
-          getItem: vi.fn(),
-          removeItem: vi.fn(),
-          setItem: vi.fn(),
-        };
-      }),
-    };
-  });
 
   // 模拟 window.matchMedia 方法
   vi.stubGlobal(

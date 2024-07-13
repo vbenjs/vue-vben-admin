@@ -4,9 +4,12 @@ import type { Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import { StorageManager } from '@vben-core/cache';
-import { generatorColorVariables } from '@vben-core/colorful';
-import { merge, updateCSSVariables } from '@vben-core/toolkit';
+import {
+  StorageManager,
+  generatorColorVariables,
+  merge,
+  updateCSSVariables,
+} from '@vben-core/toolkit';
 
 import {
   breakpointsTailwind,

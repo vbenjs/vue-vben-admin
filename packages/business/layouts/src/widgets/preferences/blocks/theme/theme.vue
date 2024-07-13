@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ThemeModeType } from '@vben-core/preferences';
+import type { ThemeModeType } from '@vben-core/typings';
 
 import type { Component } from 'vue';
 

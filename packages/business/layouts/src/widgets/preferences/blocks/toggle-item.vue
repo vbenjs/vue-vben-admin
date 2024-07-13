@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben/types';
+import type { SelectOption } from '@vben-core/typings';
 
 import { ToggleGroup, ToggleGroupItem } from '@vben-core/shadcn-ui';
 
@@ -7,7 +7,7 @@ defineOptions({
   name: 'PreferenceToggleItem',
 });
 
-withDefaults(defineProps<{ disabled?: boolean; items: SelectListItem[] }>(), {
+withDefaults(defineProps<{ disabled?: boolean; items: SelectOption[] }>(), {
   disabled: false,
   items: () => [],
 });

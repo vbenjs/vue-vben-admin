@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LayoutType } from '@vben/types';
+import type { LayoutType } from '@vben-core/typings';
 
 import { type Component, computed } from 'vue';
 

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { ThemeModeType } from '@vben-core/typings';
+
 import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
@@ -6,7 +8,6 @@ import {
 } from '@vben-core/iconify';
 import { $t } from '@vben-core/locales';
 import {
-  type ThemeModeType,
   preferences,
   updatePreferences,
   usePreferences,

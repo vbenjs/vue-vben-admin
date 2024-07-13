@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben/types';
+import type { SelectOption } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
@@ -20,7 +20,7 @@ const breadcrumbStyleType = defineModel<string>('breadcrumbStyleType');
 const breadcrumbShowHome = defineModel<boolean>('breadcrumbShowHome');
 const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 
-const typeItems: SelectListItem[] = [
+const typeItems: SelectOption[] = [
   { label: $t('preferences.normal'), value: 'normal' },
   { label: $t('preferences.breadcrumb.background'), value: 'background' },
 ];

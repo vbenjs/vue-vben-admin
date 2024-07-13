@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
       {
         meta: {
           icon: 'mdi:shield-key-outline',
-          title: $t('page.demos.access.frontendControl'),
+          title: $t('page.demos.access.frontendPermissions'),
         },
         name: 'Access',
         path: 'access',

@@ -3,7 +3,7 @@ import type { LoginAndRegisterParams } from '@vben/universal-ui';
 
 import { useRouter } from 'vue-router';
 
-import { CodeAccess, useAccess } from '@vben/access';
+import { AccessControl, useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
@@ -59,9 +59,9 @@ async function changeAccount(role: string) {
 
     <div class="card-box mt-5 p-5 font-semibold">
       <div class="mb-3">
-        <span class="text-lg">当前账号:</span>
-        <span class="text-primary mx-4">
-          {{ accessStore.userRoles }}
+        <span class="text-lg">当前角色:</span>
+        <span class="text-primary mx-4 text-lg">
+          {{ accessStore.userRoles?.[0] }}
         </span>
       </div>
 
@@ -82,21 +82,40 @@ async function changeAccount(role: string) {
     </div>
 
     <div class="card-box mt-5 p-5 font-semibold">
-      <div class="mb-3 text-lg">组件形式控制</div>
-      <CodeAccess :value="['AC_100100']">
+      <div class="mb-3 text-lg">组件形式控制 - 权限码方式</div>
+      <AccessControl :value="['AC_100100']" type="code">
         <Button class="mr-4"> Super 账号可见 ["AC_1000001"] </Button>
-      </CodeAccess>
-      <CodeAccess :value="['AC_100030']">
+      </AccessControl>
+      <AccessControl :value="['AC_100030']" type="code">
         <Button class="mr-4"> Admin 账号可见 ["AC_100010"] </Button>
-      </CodeAccess>
-      <CodeAccess :value="['AC_1000001']">
+      </AccessControl>
+      <AccessControl :value="['AC_1000001']" type="code">
         <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
-      </CodeAccess>
-      <CodeAccess :value="['AC_100100', 'AC_100010']">
+      </AccessControl>
+      <AccessControl :value="['AC_100100', 'AC_100010']" type="code">
         <Button class="mr-4">
           Super & Admin 账号可见 ["AC_100100","AC_1000001"]
         </Button>
-      </CodeAccess>
+      </AccessControl>
+    </div>
+
+    <div
+      v-if="accessMode === 'frontend'"
+      class="card-box mt-5 p-5 font-semibold"
+    >
+      <div class="mb-3 text-lg">组件形式控制 - 用户角色方式</div>
+      <AccessControl :value="['super']">
+        <Button class="mr-4"> Super 角色可见 </Button>
+      </AccessControl>
+      <AccessControl :value="['admin']">
+        <Button class="mr-4"> Admin 角色可见 </Button>
+      </AccessControl>
+      <AccessControl :value="['user']">
+        <Button class="mr-4"> User 角色可见 </Button>
+      </AccessControl>
+      <AccessControl :value="['super', 'admin']">
+        <Button class="mr-4"> Super & Admin 角色可见 </Button>
+      </AccessControl>
     </div>
 
     <div class="card-box mt-5 p-5 font-semibold">

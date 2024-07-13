@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben/types';
+import type { SelectOption } from '@vben-core/typings';
 
 import { $t } from '@vben-core/locales';
 import { SUPPORT_LANGUAGES } from '@vben-core/preferences';
@@ -14,7 +14,7 @@ defineOptions({
 const appLocale = defineModel<string>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 
-const localeItems: SelectListItem[] = SUPPORT_LANGUAGES.map((item) => ({
+const localeItems: SelectOption[] = SUPPORT_LANGUAGES.map((item) => ({
   label: item.text,
   value: item.key,
 }));

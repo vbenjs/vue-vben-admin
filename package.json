@@ -88,12 +88,6 @@
       "clsx": "^2.1.1",
       "vue": "^3.4.31"
     },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "eslint": "*",
-        " @typescript-eslint/eslint-plugin": "*"
-      }
-    },
     "neverBuiltDependencies": [
       "canvas",
       "node-gyp",

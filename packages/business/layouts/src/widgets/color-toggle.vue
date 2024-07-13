@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@vben/types';
+import type { BuiltinThemeType } from '@vben-core/typings';
 
 import { IcRoundColorLens } from '@vben-core/iconify';
 import {

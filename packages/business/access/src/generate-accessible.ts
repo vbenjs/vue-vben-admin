@@ -1,17 +1,18 @@
-import type { AccessModeType } from '@vben-core/preferences';
-import type { RouteRecordRaw } from 'vue-router';
+import type {
+  AccessModeType,
+  GenerateMenuAndRoutesOptions,
+} from '@vben-core/typings';
 
-import type { GeneratorMenuAndRoutesOptions } from '../types';
-
+import {
+  generateMenus,
+  generateRoutesByBackend,
+  generateRoutesByFrontend,
+} from '@vben-core/helpers';
 import { cloneDepp } from '@vben-core/toolkit';
 
-import { generateMenus } from './generate-menus';
-import { generateRoutesByBackend } from './generate-routes-backend';
-import { generateRoutesByFrontend } from './generate-routes-frontend';
-
-async function generateMenusAndRoutes(
+async function generateAccessible(
   mode: AccessModeType,
-  options: GeneratorMenuAndRoutesOptions,
+  options: GenerateMenuAndRoutesOptions,
 ) {
   const { router } = options;
 
@@ -25,7 +26,7 @@ async function generateMenusAndRoutes(
   });
 
   // 生成菜单
-  const accessibleMenus = await generateMenus1(mode, accessibleRoutes, options);
+  const accessibleMenus = await generateMenus(accessibleRoutes, options.router);
 
   return { accessibleMenus, accessibleRoutes };
 }
@@ -36,7 +37,7 @@ async function generateMenusAndRoutes(
  */
 async function generateRoutes(
   mode: AccessModeType,
-  options: GeneratorMenuAndRoutesOptions,
+  options: GenerateMenuAndRoutesOptions,
 ) {
   const { forbiddenComponent, roles, routes } = options;
 
@@ -61,22 +62,4 @@ async function generateRoutes(
   }
 }
 
-async function generateMenus1(
-  mode: AccessModeType,
-  routes: RouteRecordRaw[],
-  options: GeneratorMenuAndRoutesOptions,
-) {
-  const { router } = options;
-  switch (mode) {
-    case 'allow-all':
-    case 'frontend':
-    case 'backend': {
-      return await generateMenus(routes, router);
-    }
-    default: {
-      return [];
-    }
-  }
-}
-
-export { generateMenusAndRoutes };
+export { generateAccessible };

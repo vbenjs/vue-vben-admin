@@ -1,19 +1,17 @@
-import type {
-  ComponentRecordType,
-  RouteRecordStringComponent,
-} from '@vben/types';
 import type { RouteRecordRaw } from 'vue-router';
 
-import type { GeneratorMenuAndRoutesOptions } from '../types';
-
-import { $t } from '@vben-core/locales';
 import { mapTree } from '@vben-core/toolkit';
+import {
+  ComponentRecordType,
+  GenerateMenuAndRoutesOptions,
+  RouteRecordStringComponent,
+} from '@vben-core/typings';
 
 /**
  * 动态生成路由 - 后端方式
  */
 async function generateRoutesByBackend(
-  options: GeneratorMenuAndRoutesOptions,
+  options: GenerateMenuAndRoutesOptions,
 ): Promise<RouteRecordRaw[]> {
   const { fetchMenuListAsync, layoutMap = {}, pageMap = {} } = options;
 
@@ -65,11 +63,6 @@ function convertRoutes(
         ];
     }
 
-    // 国际化转化
-    if (route.meta?.title) {
-      route.meta.title = $t(route.meta.title);
-    }
-
     return route;
   });
 }
@@ -83,6 +76,7 @@ function normalizeViewPath(path: string): string {
     ? normalizedPath
     : `/${normalizedPath}`;
 
+  // TODO: 这里耦合了vben-admin的目录结构
   return viewPath.replace(/^\/views/, '');
 }
 export { generateRoutesByBackend };

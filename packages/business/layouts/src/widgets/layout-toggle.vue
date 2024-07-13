@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { AuthPageLayoutType } from '@vben-core/preferences';
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
+import type { AuthPageLayoutType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 

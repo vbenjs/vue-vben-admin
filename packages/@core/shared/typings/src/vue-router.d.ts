@@ -1,3 +1,7 @@
+import type { RouteRecordRaw, Router } from 'vue-router';
+
+import type { Component } from 'vue';
+
 interface RouteMeta {
   /**
    * 是否固定标签页
@@ -91,4 +95,27 @@ interface RouteMeta {
   title: string;
 }
 
-export type { RouteMeta };
+// 定义递归类型以将 RouteRecordRaw 的 component 属性更改为 string
+type RouteRecordStringComponent<T = string> = {
+  children?: RouteRecordStringComponent<T>[];
+  component: T;
+} & Omit<RouteRecordRaw, 'children' | 'component'>;
+
+type ComponentRecordType = Record<string, () => Promise<Component>>;
+
+interface GenerateMenuAndRoutesOptions {
+  fetchMenuListAsync?: () => Promise<RouteRecordStringComponent[]>;
+  forbiddenComponent?: RouteRecordRaw['component'];
+  layoutMap?: ComponentRecordType;
+  pageMap?: ComponentRecordType;
+  roles?: string[];
+  router: Router;
+  routes: RouteRecordRaw[];
+}
+
+export type {
+  ComponentRecordType,
+  GenerateMenuAndRoutesOptions,
+  RouteMeta,
+  RouteRecordStringComponent,
+};
