@@ -639,6 +639,8 @@ importers:
         specifier: ^9.13.1
         version: 9.13.1(vue@3.4.31(typescript@5.5.3))
 
+  packages/@core/shared/constants: {}
+
   packages/@core/shared/design:
     dependencies:
       modern-normalize:
@@ -908,7 +910,13 @@ importers:
         specifier: ^1.5.5
         version: 1.5.5
 
-  packages/constants: {}
+  packages/constants:
+    dependencies:
+      '@vben-core/constants':
+        specifier: workspace:*
+        version: link:../@core/shared/constants
+
+  packages/hooks: {}
 
   packages/icons:
     dependencies:

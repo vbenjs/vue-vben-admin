@@ -1,12 +1,12 @@
 {
-  "name": "@vben/constants",
+  "name": "@vben/hooks",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/constants"
+    "directory": "packages/hooks"
   },
   "license": "MIT",
   "type": "module",
@@ -36,8 +36,5 @@
         "default": "./dist/index.mjs"
       }
     }
-  },
-  "dependencies": {
-    "@vben-core/constants": "workspace:*"
   }
 }

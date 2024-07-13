@@ -1,2 +1,2 @@
-export * from './_essentials';
-export * from './vben';
+export * from './core';
+export * from '@vben-core/constants';

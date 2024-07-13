@@ -141,8 +141,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'Fallback403',
             path: '403',
-            component: () =>
-              import('#/views/_essential/fallback/forbidden.vue'),
+            component: () => import('#/views/_core/fallback/forbidden.vue'),
             meta: {
               icon: 'mdi:do-not-disturb-alt',
               title: '403',
@@ -151,8 +150,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'Fallback404',
             path: '404',
-            component: () =>
-              import('#/views/_essential/fallback/not-found.vue'),
+            component: () => import('#/views/_core/fallback/not-found.vue'),
             meta: {
               icon: 'mdi:table-off',
               title: '404',
@@ -162,7 +160,7 @@ const routes: RouteRecordRaw[] = [
             name: 'Fallback500',
             path: '500',
             component: () =>
-              import('#/views/_essential/fallback/internal-error.vue'),
+              import('#/views/_core/fallback/internal-error.vue'),
             meta: {
               icon: 'mdi:server-network-off',
               title: '500',
@@ -171,7 +169,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'FallbackOffline',
             path: 'offline',
-            component: () => import('#/views/_essential/fallback/offline.vue'),
+            component: () => import('#/views/_core/fallback/offline.vue'),
             meta: {
               icon: 'mdi:offline',
               title: $t('fallback.offline'),

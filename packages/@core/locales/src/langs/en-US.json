@@ -1,6 +1,6 @@
 {
   "page": {
-    "essentials": {
+    "core": {
       "login": "Login",
       "register": "Register",
       "codeLogin": "Code Login",

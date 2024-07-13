@@ -1,12 +1,12 @@
 {
-  "name": "@vben/constants",
+  "name": "@vben-core/constants",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/constants"
+    "directory": "packages/@vben-core/shared/constants"
   },
   "license": "MIT",
   "type": "module",
@@ -17,9 +17,7 @@
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -36,8 +34,5 @@
         "default": "./dist/index.mjs"
       }
     }
-  },
-  "dependencies": {
-    "@vben-core/constants": "workspace:*"
   }
 }

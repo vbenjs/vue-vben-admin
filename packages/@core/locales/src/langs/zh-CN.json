@@ -1,6 +1,6 @@
 {
   "page": {
-    "essentials": {
+    "core": {
       "login": "登陆",
       "register": "注册",
       "codeLogin": "验证码登陆",

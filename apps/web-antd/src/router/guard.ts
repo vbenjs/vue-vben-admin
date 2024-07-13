@@ -8,7 +8,7 @@ import { useTitle } from '@vueuse/core';
 
 import { generateAccess } from '#/forward';
 import { $t } from '#/locales';
-import { dynamicRoutes, essentialsRouteNames } from '#/router/routes';
+import { coreRouteNames, dynamicRoutes } from '#/router/routes';
 import { useAccessStore } from '#/store';
 
 /**
@@ -63,7 +63,7 @@ function setupAccessGuard(router: Router) {
     if (!accessToken) {
       if (
         // 基本路由，这些路由不需要进入权限拦截
-        essentialsRouteNames.includes(to.name as string) ||
+        coreRouteNames.includes(to.name as string) ||
         // 明确声明忽略权限访问权限，则可以访问
         to.meta.ignoreAccess
       ) {

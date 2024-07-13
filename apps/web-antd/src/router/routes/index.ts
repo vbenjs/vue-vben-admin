@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { traverseTreeValues } from '@vben/utils';
 import { mergeRouteModules } from '@vben-core/helpers';
 
-import { essentialsRoutes, fallbackNotFoundRoute } from './_essentials';
+import { coreRoutes, fallbackNotFoundRoute } from './core';
 
 const dynamicRouteFiles = import.meta.glob('./modules/**/*.ts', {
   eager: true,
@@ -21,15 +21,12 @@ const staticRoutes: RouteRecordRaw[] = [];
 
 /** 路由列表，由基本路由+静态路由组成 */
 const routes: RouteRecordRaw[] = [
-  ...essentialsRoutes,
+  ...coreRoutes,
   ...staticRoutes,
   fallbackNotFoundRoute,
 ];
 
 /** 基本路由列表，这些路由不需要进入权限拦截 */
-const essentialsRouteNames = traverseTreeValues(
-  essentialsRoutes,
-  (route) => route.name,
-);
+const coreRouteNames = traverseTreeValues(coreRoutes, (route) => route.name);
 
-export { dynamicRoutes, essentialsRouteNames, routes };
+export { coreRouteNames, dynamicRoutes, routes };

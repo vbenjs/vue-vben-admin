@@ -12,8 +12,7 @@ import { getAllMenus } from '#/apis';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
 
-const forbiddenComponent = () =>
-  import('#/views/_essential/fallback/forbidden.vue');
+const forbiddenComponent = () => import('#/views/_core/fallback/forbidden.vue');
 
 async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   const pageMap: ComponentRecordType = import.meta.glob('../views/**/*.vue');

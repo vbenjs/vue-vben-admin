@@ -4,11 +4,11 @@ import { DEFAULT_HOME_PATH } from '@vben/constants';
 
 import { AuthPageLayout } from '#/layouts';
 import { $t } from '#/locales';
-import Login from '#/views/_essential/authentication/login.vue';
+import Login from '#/views/_core/authentication/login.vue';
 
 /** 全局404页面 */
 const fallbackNotFoundRoute: RouteRecordRaw = {
-  component: () => import('#/views/_essential/fallback/not-found.vue'),
+  component: () => import('#/views/_core/fallback/not-found.vue'),
   meta: {
     hideInBreadcrumb: true,
     hideInMenu: true,
@@ -20,7 +20,7 @@ const fallbackNotFoundRoute: RouteRecordRaw = {
 };
 
 /** 基本路由，这些路由是必须存在的 */
-const essentialsRoutes: RouteRecordRaw[] = [
+const coreRoutes: RouteRecordRaw[] = [
   {
     meta: {
       title: 'Root',
@@ -42,47 +42,45 @@ const essentialsRoutes: RouteRecordRaw[] = [
         path: 'login',
         component: Login,
         meta: {
-          title: $t('page.essentials.login'),
+          title: $t('page.core.login'),
         },
       },
       {
         name: 'CodeLogin',
         path: 'code-login',
-        component: () =>
-          import('#/views/_essential/authentication/code-login.vue'),
+        component: () => import('#/views/_core/authentication/code-login.vue'),
         meta: {
-          title: $t('page.essentials.codeLogin'),
+          title: $t('page.core.codeLogin'),
         },
       },
       {
         name: 'QrCodeLogin',
         path: 'qrcode-login',
         component: () =>
-          import('#/views/_essential/authentication/qrcode-login.vue'),
+          import('#/views/_core/authentication/qrcode-login.vue'),
         meta: {
-          title: $t('page.essentials.qrcodeLogin'),
+          title: $t('page.core.qrcodeLogin'),
         },
       },
       {
         name: 'ForgetPassword',
         path: 'forget-password',
         component: () =>
-          import('#/views/_essential/authentication/forget-password.vue'),
+          import('#/views/_core/authentication/forget-password.vue'),
         meta: {
-          title: $t('page.essentials.forgetPassword'),
+          title: $t('page.core.forgetPassword'),
         },
       },
       {
         name: 'Register',
         path: 'register',
-        component: () =>
-          import('#/views/_essential/authentication/register.vue'),
+        component: () => import('#/views/_core/authentication/register.vue'),
         meta: {
-          title: $t('page.essentials.register'),
+          title: $t('page.core.register'),
         },
       },
     ],
   },
 ];
 
-export { essentialsRoutes, fallbackNotFoundRoute };
+export { coreRoutes, fallbackNotFoundRoute };

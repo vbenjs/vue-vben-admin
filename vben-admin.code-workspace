@@ -65,6 +65,10 @@
       "path": "packages/@core/locales",
     },
     {
+      "name": "@vben-core/constants",
+      "path": "packages/@core/shared/constants",
+    },
+    {
       "name": "@vben-core/design",
       "path": "packages/@core/shared/design",
     },
@@ -115,6 +119,10 @@
     {
       "name": "@vben/constants",
       "path": "packages/constants",
+    },
+    {
+      "name": "@vben/hooks",
+      "path": "packages/hooks",
     },
     {
       "name": "@vben/icons",

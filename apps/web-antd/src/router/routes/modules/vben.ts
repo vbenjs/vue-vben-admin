@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { VBEN_GITHUB_URL, VBEN_LOGO } from '@vben/constants';
+import { VBEN_GITHUB_URL, VBEN_LOGO_URL } from '@vben/constants';
 
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       badgeType: 'dot',
-      icon: VBEN_LOGO,
+      icon: VBEN_LOGO_URL,
       order: 9999,
       title: 'Vben Admin',
     },
@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'VbenAbout',
         path: 'about',
-        component: () => import('#/views/_essential/vben/about/index.vue'),
+        component: () => import('#/views/_core/vben/about/index.vue'),
         meta: {
           badgeType: 'dot',
           icon: 'mdi:creative-commons',
