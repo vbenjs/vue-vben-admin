@@ -3,7 +3,6 @@
     "demos": {
       "title": "演示",
       "access": {
-        "title": "访问控制",
         "frontendControl": "前端控制",
         "backendControl": "后端控制",
         "pageAccess": "页面访问",

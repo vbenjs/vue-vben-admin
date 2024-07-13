@@ -3,7 +3,6 @@
     "demos": {
       "title": "Demos",
       "access": {
-        "title": "Access Control",
         "frontendControl": "Frontend Control",
         "backendControl": "Backend Control",
         "pageAccess": "Page Access",

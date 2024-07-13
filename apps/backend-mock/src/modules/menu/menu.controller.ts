@@ -50,30 +50,30 @@ export class MenuController {
     const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
       const roleWithMenus = {
         admin: {
-          component: '/demos/access/backend/admin-visible',
+          component: '/demos/access/admin-visible',
           meta: {
             icon: 'mdi:button-cursor',
             title: 'page.demos.access.adminVisible',
           },
-          name: 'AccessBackendAdminVisible',
+          name: 'AccessAdminVisible',
           path: 'admin-visible',
         },
         super: {
-          component: '/demos/access/backend/super-visible',
+          component: '/demos/access/super-visible',
           meta: {
             icon: 'mdi:button-cursor',
             title: 'page.demos.access.superVisible',
           },
-          name: 'AccessBackendSuperVisible',
+          name: 'AccessSuperVisible',
           path: 'super-visible',
         },
         user: {
-          component: '/demos/access/backend/user-visible',
+          component: '/demos/access/user-visible',
           meta: {
             icon: 'mdi:button-cursor',
             title: 'page.demos.access.userVisible',
           },
-          name: 'AccessBackendUserVisible',
+          name: 'AccessUserVisible',
           path: 'user-visible',
         },
       };
@@ -92,44 +92,33 @@ export class MenuController {
           redirect: '/demos/access',
           children: [
             {
-              meta: {
-                icon: 'mdi:shield-key-outline',
-                title: 'page.demos.access.title',
-              },
               name: 'Access',
               path: 'access',
-              redirect: '/demos/access/backend',
+              meta: {
+                icon: 'mdi:cloud-key-outline',
+                title: 'page.demos.access.backendControl',
+              },
+              redirect: '/demos/access/page-control',
               children: [
                 {
-                  name: 'AccessBackend',
-                  path: 'backend',
+                  name: 'AccessPageControl',
+                  path: 'page-control',
+                  component: '/demos/access/index',
                   meta: {
-                    icon: 'mdi:cloud-key-outline',
-                    title: 'page.demos.access.backendControl',
+                    icon: 'mdi:page-previous-outline',
+                    title: 'page.demos.access.pageAccess',
                   },
-                  redirect: '/demos/access/backend/page-control',
-                  children: [
-                    {
-                      name: 'AccessBackendPageControl',
-                      path: 'page-control',
-                      component: '/demos/access/backend/index',
-                      meta: {
-                        icon: 'mdi:page-previous-outline',
-                        title: 'page.demos.access.pageAccess',
-                      },
-                    },
-                    {
-                      name: 'AccessBackendButtonControl',
-                      path: 'button-control',
-                      component: '/demos/access/backend/button-control',
-                      meta: {
-                        icon: 'mdi:button-cursor',
-                        title: 'page.demos.access.buttonControl',
-                      },
-                    },
-                    roleWithMenus[role],
-                  ],
                 },
+                {
+                  name: 'AccessButtonControl',
+                  path: 'button-control',
+                  component: '/demos/access/button-control',
+                  meta: {
+                    icon: 'mdi:button-cursor',
+                    title: 'page.demos.access.buttonControl',
+                  },
+                },
+                roleWithMenus[role],
               ],
             },
           ],

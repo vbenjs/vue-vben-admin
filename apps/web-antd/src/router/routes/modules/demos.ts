@@ -19,109 +19,71 @@ const routes: RouteRecordRaw[] = [
       {
         meta: {
           icon: 'mdi:shield-key-outline',
-          title: $t('page.demos.access.title'),
+          title: $t('page.demos.access.frontendControl'),
         },
         name: 'Access',
         path: 'access',
-        redirect: '/demos/access/frontend',
+        redirect: '/demos/access',
         children: [
           {
-            name: 'AccessFrontend',
-            path: 'frontend',
-            redirect: '/demos/access/frontend/page-control',
+            name: 'AccessPageControl',
+            path: 'page-control',
+            component: () => import('#/views/demos/access/index.vue'),
             meta: {
-              icon: 'mdi:table-key',
-              title: $t('page.demos.access.frontendControl'),
+              icon: 'mdi:page-previous-outline',
+              title: $t('page.demos.access.pageAccess'),
             },
-            children: [
-              {
-                name: 'AccessFrontendPageControl',
-                path: 'page-control',
-                component: () =>
-                  import('#/views/demos/access/frontend/index.vue'),
-                meta: {
-                  icon: 'mdi:page-previous-outline',
-                  title: $t('page.demos.access.pageAccess'),
-                },
-              },
-              {
-                name: 'AccessFrontendButtonControl',
-                path: 'button-control',
-                component: () =>
-                  import('#/views/demos/access/frontend/button-control.vue'),
-                meta: {
-                  icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.buttonControl'),
-                },
-              },
-              {
-                name: 'AccessFrontendMenuVisible403',
-                path: 'menu-visible-403',
-                component: () =>
-                  import('#/views/demos/access/frontend/menu-visible-403.vue'),
-                meta: {
-                  authority: ['no-body'],
-                  icon: 'mdi:button-cursor',
-                  menuVisibleWithForbidden: true,
-                  title: $t('page.demos.access.menuVisible403'),
-                },
-              },
-
-              {
-                name: 'AccessFrontendSuperVisible',
-                path: 'super-visible',
-                component: () =>
-                  import('#/views/demos/access/frontend/super-visible.vue'),
-                meta: {
-                  authority: ['super'],
-                  icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.superVisible'),
-                },
-              },
-              {
-                name: 'AccessFrontendAdminVisible',
-                path: 'admin-visible',
-                component: () =>
-                  import('#/views/demos/access/frontend/admin-visible.vue'),
-                meta: {
-                  authority: ['admin'],
-                  icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.adminVisible'),
-                },
-              },
-              {
-                name: 'AccessFrontendUserVisible',
-                path: 'user-visible',
-                component: () =>
-                  import('#/views/demos/access/frontend/user-visible.vue'),
-                meta: {
-                  authority: ['user'],
-                  icon: 'mdi:button-cursor',
-                  title: $t('page.demos.access.userVisible'),
-                },
-              },
-            ],
           },
           {
-            name: 'AccessBackend',
-            path: 'backend',
-            component: () => import('#/views/demos/access/backend/index.vue'),
+            name: 'AccessButtonControl',
+            path: 'button-control',
+            component: () => import('#/views/demos/access/button-control.vue'),
             meta: {
-              icon: 'mdi:cloud-key-outline',
-              title: $t('page.demos.access.backendControl'),
+              icon: 'mdi:button-cursor',
+              title: $t('page.demos.access.buttonControl'),
             },
-            children: [
-              {
-                name: 'AccessBackendPageControl',
-                path: 'page-control',
-                component: () =>
-                  import('#/views/demos/access/frontend/index.vue'),
-                meta: {
-                  icon: 'mdi:page-previous-outline',
-                  title: $t('page.demos.access.pageAccess'),
-                },
-              },
-            ],
+          },
+          {
+            name: 'AccessMenuVisible403',
+            path: 'menu-visible-403',
+            component: () =>
+              import('#/views/demos/access/menu-visible-403.vue'),
+            meta: {
+              authority: ['no-body'],
+              icon: 'mdi:button-cursor',
+              menuVisibleWithForbidden: true,
+              title: $t('page.demos.access.menuVisible403'),
+            },
+          },
+          {
+            name: 'AccessSuperVisible',
+            path: 'super-visible',
+            component: () => import('#/views/demos/access/super-visible.vue'),
+            meta: {
+              authority: ['super'],
+              icon: 'mdi:button-cursor',
+              title: $t('page.demos.access.superVisible'),
+            },
+          },
+          {
+            name: 'AccessAdminVisible',
+            path: 'admin-visible',
+            component: () => import('#/views/demos/access/admin-visible.vue'),
+            meta: {
+              authority: ['admin'],
+              icon: 'mdi:button-cursor',
+              title: $t('page.demos.access.adminVisible'),
+            },
+          },
+          {
+            name: 'AccessUserVisible',
+            path: 'user-visible',
+            component: () => import('#/views/demos/access/user-visible.vue'),
+            meta: {
+              authority: ['user'],
+              icon: 'mdi:button-cursor',
+              title: $t('page.demos.access.userVisible'),
+            },
           },
         ],
       },
