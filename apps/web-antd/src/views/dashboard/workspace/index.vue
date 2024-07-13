@@ -4,7 +4,7 @@ import type {
   WorkbenchQuickNavItem,
   WorkbenchTodoItem,
   WorkbenchTrendItem,
-} from '@vben/universal-ui';
+} from '@vben/common-ui';
 
 import { ref } from 'vue';
 
@@ -15,7 +15,7 @@ import {
   WorkbenchQuickNav,
   WorkbenchTodo,
   WorkbenchTrends,
-} from '@vben/universal-ui';
+} from '@vben/common-ui';
 import { preferences } from '@vben-core/preferences';
 
 import { useAccessStore } from '#/store';

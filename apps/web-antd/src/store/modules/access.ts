@@ -1,5 +1,5 @@
+import type { LoginAndRegisterParams } from '@vben/common-ui';
 import type { MenuRecordRaw, UserInfo } from '@vben/types';
-import type { LoginAndRegisterParams } from '@vben/universal-ui';
 import type { RouteRecordRaw } from 'vue-router';
 
 import { computed, ref } from 'vue';

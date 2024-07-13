@@ -1,12 +1,12 @@
 {
-  "name": "@vben/chart-ui",
+  "name": "@vben/layouts",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/business/chart-ui"
+    "directory": "packages/effects/layouts"
   },
   "license": "MIT",
   "type": "module",
@@ -37,9 +37,19 @@
     }
   },
   "dependencies": {
+    "@vben-core/helpers": "workspace:*",
+    "@vben-core/iconify": "workspace:*",
+    "@vben-core/layout-ui": "workspace:*",
+    "@vben-core/locales": "workspace:*",
+    "@vben-core/menu-ui": "workspace:*",
     "@vben-core/preferences": "workspace:*",
+    "@vben-core/shadcn-ui": "workspace:*",
+    "@vben-core/stores": "workspace:*",
+    "@vben-core/tabs-ui": "workspace:*",
+    "@vben-core/toolkit": "workspace:*",
+    "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",
-    "echarts": "^5.5.1",
-    "vue": "^3.4.31"
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
   }
 }

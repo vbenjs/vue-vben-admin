@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { LOGIN_PATH } from '@vben/constants';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import {
@@ -11,7 +12,6 @@ import {
   NotificationItem,
   UserDropdown,
 } from '@vben/layouts';
-import { AuthenticationLoginExpiredModal } from '@vben/universal-ui';
 import { openWindow } from '@vben/utils';
 import { preferences } from '@vben-core/preferences';
 

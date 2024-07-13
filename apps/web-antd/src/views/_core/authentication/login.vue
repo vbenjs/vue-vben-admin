@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AuthenticationLogin } from '@vben/universal-ui';
+import { AuthenticationLogin } from '@vben/common-ui';
 
 import { useAccessStore } from '#/store';
 

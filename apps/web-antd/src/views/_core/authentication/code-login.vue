@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { LoginCodeParams } from '@vben/universal-ui';
+import type { LoginCodeParams } from '@vben/common-ui';
 
 import { ref } from 'vue';
 
-import { AuthenticationCodeLogin } from '@vben/universal-ui';
+import { AuthenticationCodeLogin } from '@vben/common-ui';
 
 defineOptions({ name: 'CodeLogin' });
 

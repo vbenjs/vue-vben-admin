@@ -7,7 +7,6 @@ declare module 'vue-router' {
 }
 
 declare global {
-  // interface Window {
   const __VBEN_ADMIN_METADATA__: {
     authorEmail: string;
     authorName: string;
@@ -21,5 +20,4 @@ declare global {
     repositoryUrl: string;
     version: string;
   };
-  // }
 }

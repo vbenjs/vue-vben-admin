@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Fallback } from '@vben/universal-ui';
+import { Fallback } from '@vben/common-ui';
 
 defineOptions({ name: 'Menu31' });
 </script>

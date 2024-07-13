@@ -1,12 +1,12 @@
 {
-  "name": "@vben/universal-ui",
+  "name": "@vben/chart-ui",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/business/universal-ui"
+    "directory": "packages/effects/chart-ui"
   },
   "license": "MIT",
   "type": "module",
@@ -37,17 +37,9 @@
     }
   },
   "dependencies": {
-    "@vben-core/iconify": "workspace:*",
-    "@vben-core/locales": "workspace:*",
-    "@vben-core/shadcn-ui": "workspace:*",
-    "@vben/constants": "workspace:*",
-    "@vben/types": "workspace:*",
-    "@vueuse/integrations": "^10.11.0",
-    "qrcode": "^1.5.3",
-    "vue": "^3.4.31",
-    "vue-router": "^4.4.0"
-  },
-  "devDependencies": {
-    "@types/qrcode": "^1.5.5"
+    "@vben-core/preferences": "workspace:*",
+    "@vueuse/core": "^10.11.0",
+    "echarts": "^5.5.1",
+    "vue": "^3.4.31"
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LoginAndRegisterParams } from '@vben/universal-ui';
+import type { LoginAndRegisterParams } from '@vben/common-ui';
 
 import { useRouter } from 'vue-router';
 

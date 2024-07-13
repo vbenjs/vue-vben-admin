@@ -7,7 +7,7 @@ packages:
   - "packages/@core/forward/*"
   - "packages/@core/helpers"
   - "packages/@core/locales"
-  - "packages/business/*"
+  - "packages/effects/*"
   - "apps/*"
   - "scripts/*"
   - "website"

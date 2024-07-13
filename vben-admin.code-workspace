@@ -101,24 +101,24 @@
       "path": "packages/@core/ui-kit/tabs-ui",
     },
     {
+      "name": "@vben/constants",
+      "path": "packages/constants",
+    },
+    {
       "name": "@vben/access",
-      "path": "packages/business/access",
+      "path": "packages/effects/access",
     },
     {
       "name": "@vben/chart-ui",
-      "path": "packages/business/chart-ui",
+      "path": "packages/effects/chart-ui",
+    },
+    {
+      "name": "@vben/common-ui",
+      "path": "packages/effects/common-ui",
     },
     {
       "name": "@vben/layouts",
-      "path": "packages/business/layouts",
-    },
-    {
-      "name": "@vben/universal-ui",
-      "path": "packages/business/universal-ui",
-    },
-    {
-      "name": "@vben/constants",
-      "path": "packages/constants",
+      "path": "packages/effects/layouts",
     },
     {
       "name": "@vben/hooks",

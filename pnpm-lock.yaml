@@ -194,10 +194,13 @@ importers:
         version: link:../../packages/@core/forward/stores
       '@vben/access':
         specifier: workspace:*
-        version: link:../../packages/business/access
+        version: link:../../packages/effects/access
       '@vben/chart-ui':
         specifier: workspace:*
-        version: link:../../packages/business/chart-ui
+        version: link:../../packages/effects/chart-ui
+      '@vben/common-ui':
+        specifier: workspace:*
+        version: link:../../packages/effects/common-ui
       '@vben/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -206,16 +209,13 @@ importers:
         version: link:../../packages/icons
       '@vben/layouts':
         specifier: workspace:*
-        version: link:../../packages/business/layouts
+        version: link:../../packages/effects/layouts
       '@vben/styles':
         specifier: workspace:*
         version: link:../../packages/styles
       '@vben/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@vben/universal-ui':
-        specifier: workspace:*
-        version: link:../../packages/business/universal-ui
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -795,7 +795,13 @@ importers:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
 
-  packages/business/access:
+  packages/constants:
+    dependencies:
+      '@vben-core/constants':
+        specifier: workspace:*
+        version: link:../@core/shared/constants
+
+  packages/effects/access:
     dependencies:
       '@vben-core/helpers':
         specifier: workspace:*
@@ -816,7 +822,7 @@ importers:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
 
-  packages/business/chart-ui:
+  packages/effects/chart-ui:
     dependencies:
       '@vben-core/preferences':
         specifier: workspace:*
@@ -831,7 +837,41 @@ importers:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
 
-  packages/business/layouts:
+  packages/effects/common-ui:
+    dependencies:
+      '@vben-core/iconify':
+        specifier: workspace:*
+        version: link:../../@core/shared/iconify
+      '@vben-core/locales':
+        specifier: workspace:*
+        version: link:../../@core/locales
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:../../constants
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@vueuse/integrations':
+        specifier: ^10.11.0
+        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.31(typescript@5.5.3))
+      qrcode:
+        specifier: ^1.5.3
+        version: 1.5.3
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.31(typescript@5.5.3)
+      vue-router:
+        specifier: ^4.4.0
+        version: 4.4.0(vue@3.4.31(typescript@5.5.3))
+    devDependencies:
+      '@types/qrcode':
+        specifier: ^1.5.5
+        version: 1.5.5
+
+  packages/effects/layouts:
     dependencies:
       '@vben-core/helpers':
         specifier: workspace:*
@@ -875,46 +915,6 @@ importers:
       vue-router:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.31(typescript@5.5.3))
-
-  packages/business/universal-ui:
-    dependencies:
-      '@vben-core/iconify':
-        specifier: workspace:*
-        version: link:../../@core/shared/iconify
-      '@vben-core/locales':
-        specifier: workspace:*
-        version: link:../../@core/locales
-      '@vben-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
-      '@vben/constants':
-        specifier: workspace:*
-        version: link:../../constants
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../types
-      '@vueuse/integrations':
-        specifier: ^10.11.0
-        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.31(typescript@5.5.3))
-      qrcode:
-        specifier: ^1.5.3
-        version: 1.5.3
-      vue:
-        specifier: ^3.4.31
-        version: 3.4.31(typescript@5.5.3)
-      vue-router:
-        specifier: ^4.4.0
-        version: 4.4.0(vue@3.4.31(typescript@5.5.3))
-    devDependencies:
-      '@types/qrcode':
-        specifier: ^1.5.5
-        version: 1.5.5
-
-  packages/constants:
-    dependencies:
-      '@vben-core/constants':
-        specifier: workspace:*
-        version: link:../@core/shared/constants
 
   packages/hooks: {}
 

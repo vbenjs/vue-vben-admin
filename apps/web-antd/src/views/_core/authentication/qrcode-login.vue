@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AuthenticationQrCodeLogin } from '@vben/universal-ui';
+import { AuthenticationQrCodeLogin } from '@vben/common-ui';
 
 defineOptions({ name: 'QrCodeLogin' });
 </script>
