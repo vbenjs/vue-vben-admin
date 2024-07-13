@@ -34,11 +34,19 @@ async function checkCircular({ staged, verbose }: CommandOptions) {
   if (staged) {
     let files = await getStagedFiles();
 
-    files = files.filter((file) =>
-      ['.cjs', '.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue'].includes(
-        extname(file),
-      ),
-    );
+    const allowedExtensions = new Set([
+      '.cjs',
+      '.js',
+      '.jsx',
+      '.mjs',
+      '.ts',
+      '.tsx',
+      '.vue',
+    ]);
+
+    // 过滤文件列表
+    files = files.filter((file) => allowedExtensions.has(extname(file)));
+
     const circularFiles: string[][] = [];
 
     for (const file of files) {

@@ -32,7 +32,7 @@
       },
       "features": {
         "title": "功能",
-        "hideChildrenInMenu": "隐藏菜单子项",
+        "hideChildrenInMenu": "隐藏子菜单",
         "loginExpired": "登录过期"
       }
     }
