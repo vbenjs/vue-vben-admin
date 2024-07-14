@@ -210,6 +210,9 @@ importers:
       '@vben/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@vben/icons':
         specifier: workspace:*
         version: link:../../packages/icons
@@ -655,12 +658,12 @@ importers:
 
   packages/@core/shared/hooks:
     dependencies:
+      radix-vue:
+        specifier: ^1.9.1
+        version: 1.9.1(vue@3.4.31(typescript@5.5.3))
       sortablejs:
         specifier: ^1.15.2
         version: 1.15.2
-      vue:
-        specifier: ^3.4.31
-        version: 3.4.31(typescript@5.5.3)
     devDependencies:
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -741,9 +744,9 @@ importers:
 
   packages/@core/ui-kit/menu-ui:
     dependencies:
-      '@vben-core/design':
+      '@vben-core/hooks':
         specifier: workspace:*
-        version: link:../../shared/design
+        version: link:../../shared/hooks
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../../shared/iconify
@@ -795,9 +798,6 @@ importers:
 
   packages/@core/ui-kit/tabs-ui:
     dependencies:
-      '@vben-core/design':
-        specifier: workspace:*
-        version: link:../../shared/design
       '@vben-core/hooks':
         specifier: workspace:*
         version: link:../../shared/hooks
@@ -858,6 +858,9 @@ importers:
 
   packages/effects/common-ui:
     dependencies:
+      '@vben-core/hooks':
+        specifier: workspace:*
+        version: link:../../@core/shared/hooks
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../../@core/shared/iconify
@@ -935,7 +938,11 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.31(typescript@5.5.3))
 
-  packages/hooks: {}
+  packages/hooks:
+    dependencies:
+      '@vben-core/hooks':
+        specifier: workspace:*
+        version: link:../@core/shared/hooks
 
   packages/icons:
     dependencies:

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { TabItem } from '@vben-core/typings';
+import type { TabDefinition } from '@vben-core/typings';
 
-import type { TabsProps } from '../../types';
+import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   tabs: () => [],
 });
 
-const emit = defineEmits<{ close: [string]; unpin: [TabItem] }>();
+const emit = defineEmits<{ close: [string]; unpin: [TabDefinition] }>();
 const active = defineModel<string>('active');
 
 const contentRef = ref();
@@ -56,12 +56,14 @@ const layout = () => {
   tabWidth.value = width;
 };
 
-const tabsView = computed(() => {
+const tabsView = computed((): TabConfig[] => {
   return props.tabs.map((tab) => {
     return {
       ...tab,
       affixTab: !!tab.meta?.affixTab,
-      closable: tab.meta?.tabClosable ?? true,
+      closable: Reflect.has(tab.meta, 'tabClosable')
+        ? !!tab.meta.tabClosable
+        : true,
       icon: tab.meta.icon as string,
       key: tab.fullPath || tab.path,
       title: (tab.meta?.title || tab.name) as string,
@@ -85,7 +87,8 @@ onMounted(() => {
 function handleClose(key: string) {
   emit('close', key);
 }
-function handleUnpinTab(tab: TabItem) {
+
+function handleUnpinTab(tab: TabConfig) {
   emit('unpin', tab);
 }
 </script>

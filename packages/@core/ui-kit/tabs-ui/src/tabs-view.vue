@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { TabItem } from '@vben-core/typings';
+import type { TabDefinition } from '@vben-core/typings';
 
 import { nextTick, onMounted } from 'vue';
 
-import { useSortable } from '@vben-core/hooks';
-import { useForwardPropsEmits } from '@vben-core/shadcn-ui';
+import { useForwardPropsEmits, useSortable } from '@vben-core/hooks';
 
 import { TabsChrome } from './components';
 import { TabsProps } from './types';
@@ -23,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   close: [string];
   sortTabs: [number, number];
-  unpin: [TabItem];
+  unpin: [TabDefinition];
 }>();
 
 const forward = useForwardPropsEmits(props, emit);

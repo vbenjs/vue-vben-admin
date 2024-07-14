@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
+    "build": "pnpm unbuild",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -37,7 +37,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/design": "workspace:*",
+    "@vben-core/hooks": "workspace:*",
     "@vben-core/iconify": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",

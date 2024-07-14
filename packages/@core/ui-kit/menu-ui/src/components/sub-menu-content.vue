@@ -3,12 +3,12 @@ import type { MenuItemProps } from '../interface';
 
 import { computed } from 'vue';
 
+import { useNamespace } from '@vben-core/hooks';
 import {
   IcRoundChevronRight,
   IcRoundKeyboardArrowDown,
 } from '@vben-core/iconify';
 import { VbenIcon } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
 
 import { useMenuContext } from '../hooks';
 

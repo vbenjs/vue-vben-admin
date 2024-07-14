@@ -1,5 +1,5 @@
 import type { IContextMenuItem } from '@vben-core/shadcn-ui';
-import type { TabItem } from '@vben-core/typings';
+import type { TabDefinition } from '@vben-core/typings';
 
 interface TabsProps {
   /**
@@ -41,7 +41,15 @@ interface TabsProps {
   /**
    * @zh_CN 选项卡数据
    */
-  tabs?: TabItem[];
+  tabs?: TabDefinition[];
 }
 
-export type { TabsProps };
+interface TabConfig extends TabDefinition {
+  affixTab: boolean;
+  closable: boolean;
+  icon: string;
+  key: string;
+  title: string;
+}
+
+export type { TabConfig, TabsProps };

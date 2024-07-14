@@ -2,7 +2,6 @@
 import { computed, nextTick } from 'vue';
 
 import { VbenButton } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
 
 interface Props {
   /**
@@ -20,8 +19,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const isDark = defineModel<boolean>();
-
-const { b, e, is } = useNamespace('theme-toggle');
 
 const theme = computed(() => {
   return isDark.value ? 'light' : 'dark';
@@ -86,7 +83,7 @@ function toggleTheme(event: MouseEvent) {
 <template>
   <VbenButton
     :aria-label="theme"
-    :class="[b(), is(theme), `is-${theme}`]"
+    :class="[`is-${theme}`]"
     aria-live="polite"
     class="theme-toggle cursor-pointer border-none bg-none"
     v-bind="bindProps"
@@ -95,7 +92,6 @@ function toggleTheme(event: MouseEvent) {
     <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24">
       <mask
         id="theme-toggle-moon"
-        :class="e('moon')"
         class="theme-toggle__moon"
         fill="hsl(var(--foreground)/80%)"
         stroke="none"
@@ -105,14 +101,13 @@ function toggleTheme(event: MouseEvent) {
       </mask>
       <circle
         id="sun"
-        :class="e('sun')"
         class="theme-toggle__sun"
         cx="12"
         cy="12"
         mask="url(#theme-toggle-moon)"
         r="11"
       />
-      <g :class="e('sun-beams')" class="theme-toggle__sun-beams">
+      <g class="theme-toggle__sun-beams">
         <line x1="12" x2="12" y1="1" y2="3" />
         <line x1="12" x2="12" y1="21" y2="23" />
         <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />

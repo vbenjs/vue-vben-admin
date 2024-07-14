@@ -1,4 +1,4 @@
-import type { TabItem } from '@vben-core/typings';
+import type { TabDefinition } from '@vben-core/typings';
 import type { RouteRecordNormalized, Router } from 'vue-router';
 
 import { toRaw } from 'vue';
@@ -27,7 +27,7 @@ interface TabsState {
   /**
    * @zh_CN 当前打开的标签页列表
    */
-  tabs: TabItem[];
+  tabs: TabDefinition[];
 }
 
 /**
@@ -49,7 +49,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭标签页
      * @param tab
      */
-    _close(tab: TabItem) {
+    _close(tab: TabDefinition) {
       const { fullPath } = tab;
       if (isAffixTab(tab)) {
         return;
@@ -72,7 +72,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 跳转到标签页
      * @param tab
      */
-    async _goToTab(tab: TabItem, router: Router) {
+    async _goToTab(tab: TabDefinition, router: Router) {
       const { params, path, query } = tab;
       const toParams = {
         params: params || {},
@@ -85,7 +85,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 添加标签页
      * @param routeTab
      */
-    addTab(routeTab: TabItem) {
+    addTab(routeTab: TabDefinition) {
       const tab = cloneTab(routeTab);
       if (!isTabShown(tab)) {
         return;
@@ -116,7 +116,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭左侧标签页
      * @param tab
      */
-    async closeLeftTabs(tab: TabItem) {
+    async closeLeftTabs(tab: TabDefinition) {
       const index = this.tabs.findIndex(
         (item) => getTabPath(item) === getTabPath(tab),
       );
@@ -139,7 +139,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭其他标签页
      * @param tab
      */
-    async closeOtherTabs(tab: TabItem) {
+    async closeOtherTabs(tab: TabDefinition) {
       const closePaths = this.tabs.map((item) => getTabPath(item));
 
       const paths: string[] = [];
@@ -162,7 +162,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭右侧标签页
      * @param tab
      */
-    async closeRightTabs(tab: TabItem) {
+    async closeRightTabs(tab: TabDefinition) {
       const index = this.tabs.findIndex(
         (item) => getTabPath(item) === getTabPath(tab),
       );
@@ -185,7 +185,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @param tab
      * @param router
      */
-    async closeTab(tab: TabItem, router: Router) {
+    async closeTab(tab: TabDefinition, router: Router) {
       const { currentRoute } = router;
 
       // 关闭不是激活选项卡
@@ -230,7 +230,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 固定标签页
      * @param tab
      */
-    async pinTab(tab: TabItem) {
+    async pinTab(tab: TabDefinition) {
       const index = this.tabs.findIndex(
         (item) => getTabPath(item) === getTabPath(tab),
       );
@@ -282,7 +282,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 取消固定标签页
      * @param tab
      */
-    async unpinTab(tab: TabItem) {
+    async unpinTab(tab: TabDefinition) {
       const index = this.tabs.findIndex(
         (item) => getTabPath(item) === getTabPath(tab),
       );
@@ -318,7 +318,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
     },
   },
   getters: {
-    affixTabs(): TabItem[] {
+    affixTabs(): TabDefinition[] {
       return this.tabs.filter((tab) => isAffixTab(tab));
     },
     getCachedTabs(): string[] {
@@ -327,7 +327,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
     getExcludeCachedTabs(): string[] {
       return [...this.excludeCachedTabs];
     },
-    getTabs(): TabItem[] {
+    getTabs(): TabDefinition[] {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       const normalTabs = this.tabs.filter((tab) => !isAffixTab(tab));
       return [...affixTabs, ...normalTabs].filter(Boolean);
@@ -359,7 +359,7 @@ if (hot) {
  * @zh_CN 克隆路由,防止路由被修改
  * @param route
  */
-function cloneTab(route: TabItem): TabItem {
+function cloneTab(route: TabDefinition): TabDefinition {
   if (!route) {
     return route;
   }
@@ -380,7 +380,7 @@ function cloneTab(route: TabItem): TabItem {
  * @zh_CN 是否是固定标签页
  * @param tab
  */
-function isAffixTab(tab: TabItem) {
+function isAffixTab(tab: TabDefinition) {
   return tab?.meta?.affixTab ?? false;
 }
 
@@ -388,7 +388,7 @@ function isAffixTab(tab: TabItem) {
  * @zh_CN 是否显示标签
  * @param tab
  */
-function isTabShown(tab: TabItem) {
+function isTabShown(tab: TabDefinition) {
   return !tab.meta.hideInTab;
 }
 
@@ -396,8 +396,8 @@ function isTabShown(tab: TabItem) {
  * @zh_CN 获取标签页路径
  * @param tab
  */
-function getTabPath(tab: RouteRecordNormalized | TabItem) {
-  return decodeURIComponent((tab as TabItem).fullPath || tab.path);
+function getTabPath(tab: RouteRecordNormalized | TabDefinition) {
+  return decodeURIComponent((tab as TabDefinition).fullPath || tab.path);
 }
 
 function routeToTab(route: RouteRecordNormalized) {
@@ -405,7 +405,7 @@ function routeToTab(route: RouteRecordNormalized) {
     meta: route.meta,
     name: route.name,
     path: route.path,
-  } as TabItem;
+  } as TabDefinition;
 }
 
 export { useCoreTabbarStore };

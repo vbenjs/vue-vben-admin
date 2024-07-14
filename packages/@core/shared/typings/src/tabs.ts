@@ -1,3 +1,3 @@
 import type { RouteLocationNormalized } from 'vue-router';
 
-export type TabItem = RouteLocationNormalized;
+export type TabDefinition = RouteLocationNormalized;

@@ -1,5 +1,5 @@
 import type { IContextMenuItem } from '@vben-core/tabs-ui';
-import type { TabItem } from '@vben-core/typings';
+import type { TabDefinition } from '@vben-core/typings';
 import type {
   RouteLocationNormalized,
   RouteLocationNormalizedGeneric,
@@ -105,7 +105,7 @@ function useTabs() {
     { immediate: true },
   );
 
-  const createContextMenus = (tab: TabItem) => {
+  const createContextMenus = (tab: TabDefinition) => {
     const tabs = coreTabbarStore.getTabs;
     const affixTabs = coreTabbarStore.affixTabs;
     const index = tabs.findIndex((item) => item.path === tab.path);
@@ -228,7 +228,7 @@ function useTabs() {
   /**
    * 取消固定标签页
    */
-  const handleUnpinTab = async (tab: TabItem) => {
+  const handleUnpinTab = async (tab: TabDefinition) => {
     await coreTabbarStore.unpinTab(tab);
   };
 

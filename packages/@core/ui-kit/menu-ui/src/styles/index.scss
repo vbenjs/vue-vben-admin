@@ -1,4 +1,4 @@
-@import '@vben-core/design/bem';
+$namespace: vben;
 
 .#{$namespace}-menu__popup-container,
 .#{$namespace}-menu {
@@ -133,7 +133,7 @@
     padding 0.15s ease,
     border-color 0.15s ease;
 
-  @include is(disabled) {
+  &.is-disabled {
     cursor: not-allowed;
     background: none !important;
     opacity: 0.25;
@@ -167,7 +167,7 @@
   opacity: 1;
 }
 
-@include b('menu') {
+.#{$namespace}-menu {
   position: relative;
   box-sizing: border-box;
   padding-left: 0;
@@ -176,50 +176,47 @@
   background: hsl(var(--menu-background-color));
 
   // 垂直菜单
-  @include is('vertical') {
-    & {
-      &:not(.#{$namespace}-menu.is-collapse) {
-        & .#{$namespace}-menu-item,
-        & .#{$namespace}-sub-menu-content,
-        & .#{$namespace}-menu-item-group__title {
-          padding-left: calc(
-            var(--menu-item-indent) + var(--menu-level) *
-              var(--menu-item-indent)
-          );
-          white-space: nowrap;
-        }
+  &.is-vertical {
+    &:not(.#{$namespace}-menu.is-collapse) {
+      & .#{$namespace}-menu-item,
+      & .#{$namespace}-sub-menu-content,
+      & .#{$namespace}-menu-item-group__title {
+        padding-left: calc(
+          var(--menu-item-indent) + var(--menu-level) * var(--menu-item-indent)
+        );
+        white-space: nowrap;
+      }
 
-        & > .#{$namespace}-sub-menu {
-          // .#{$namespace}-menu {
-          //   background: var(--menu-submenu-opened-background-color);
+      & > .#{$namespace}-sub-menu {
+        // .#{$namespace}-menu {
+        //   background: var(--menu-submenu-opened-background-color);
 
-          //   .#{$namespace}-sub-menu,
-          //   .#{$namespace}-menu-item:not(.is-active),
-          //   .#{$namespace}-sub-menu-content:not(.is-active) {
-          //     background: var(--menu-submenu-opened-background-color);
-          //   }
-          // }
-          & > .#{$namespace}-menu {
-            & > .#{$namespace}-menu-item {
-              padding-left: calc(
-                0px + var(--menu-item-indent) + var(--menu-level) *
-                  var(--menu-item-indent)
-              );
-            }
-          }
-
-          & > .#{$namespace}-sub-menu-content {
-            padding-left: calc(var(--menu-item-indent) - 8px);
+        //   .#{$namespace}-sub-menu,
+        //   .#{$namespace}-menu-item:not(.is-active),
+        //   .#{$namespace}-sub-menu-content:not(.is-active) {
+        //     background: var(--menu-submenu-opened-background-color);
+        //   }
+        // }
+        & > .#{$namespace}-menu {
+          & > .#{$namespace}-menu-item {
+            padding-left: calc(
+              0px + var(--menu-item-indent) + var(--menu-level) *
+                var(--menu-item-indent)
+            );
           }
         }
-        & > .#{$namespace}-menu-item {
+
+        & > .#{$namespace}-sub-menu-content {
           padding-left: calc(var(--menu-item-indent) - 8px);
         }
+      }
+      & > .#{$namespace}-menu-item {
+        padding-left: calc(var(--menu-item-indent) - 8px);
       }
     }
   }
 
-  @include is('horizontal') {
+  &.is-horizontal {
     display: flex;
     flex-wrap: nowrap;
     max-width: 100%;
@@ -287,7 +284,7 @@
   }
   // 折叠菜单
 
-  @include is('collapse') {
+  &.is-collapse {
     .#{$namespace}-menu__icon {
       margin-right: 0;
     }
@@ -333,14 +330,14 @@
     }
   }
 
-  @include e('popup-container') {
+  &__popup-container {
     max-width: 240px;
     height: unset;
     padding: 0;
     background: var(--menu-background-color);
   }
 
-  @include e('popup') {
+  &__popup {
     padding: 4px 0;
     border-radius: var(--menu-item-radius);
 
@@ -350,7 +347,7 @@
     }
   }
 
-  @include e('icon') {
+  &__icon {
     flex-shrink: 0;
     // width: var(--menu-item-icon-width);
     max-height: var(--menu-item-icon-width);
@@ -361,27 +358,27 @@
   }
 }
 
-@include b('menu-item') {
+.#{$namespace}-menu-item {
   fill: var(--menu-item-color);
   stroke: var(--menu-item-color);
 
   @include menu-item;
 
-  @include is(active) {
+  &.is-active {
     fill: var(--menu-item-active-color);
     stroke: var(--menu-item-active-color);
 
     @include menu-item-active;
   }
 
-  @include e('content') {
+  &__content {
     display: inline-flex;
     align-items: center;
     width: 100%;
     height: var(--menu-item-height);
   }
 
-  @include is('collapse-show-title') {
+  &.is-collapse-show-title {
     padding: 32px 0 !important;
     // margin: 4px 8px !important;
     .#{$namespace}-menu-tooltip__trigger {
@@ -427,7 +424,7 @@
   }
 }
 
-@include b('sub-menu') {
+.#{$namespace}-sub-menu {
   padding-left: 0;
   margin: 0;
   list-style: none;
@@ -435,7 +432,7 @@
   fill: var(--menu-item-color);
   stroke: var(--menu-item-color);
 
-  @include is('active') {
+  &.is-active {
     div[data-state='open'] > .#{$namespace}-sub-menu-content,
     > .#{$namespace}-sub-menu-content {
       color: var(--menu-submenu-active-color);
@@ -448,12 +445,12 @@
   }
 }
 
-@include b('sub-menu-content') {
+.#{$namespace}-sub-menu-content {
   height: var(--menu-item-height);
 
   @include menu-item;
 
-  @include e('icon-arrow') {
+  &__icon-arrow {
     position: absolute;
     top: 50%;
     right: 6px;
@@ -466,11 +463,11 @@
     transition: transform 0.25s ease;
   }
 
-  @include e('title') {
+  &__title {
     @include menu-title;
   }
 
-  @include is('collapse-show-title') {
+  &.is-collapse-show-title {
     flex-direction: column;
     padding: 32px 0 !important;
     // margin: 4px 8px !important;

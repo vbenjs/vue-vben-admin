@@ -3,8 +3,8 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 
 import type { NormalMenuProps } from './normal-menu';
 
+import { useNamespace } from '@vben-core/hooks';
 import { VbenIcon } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
 
 interface Props extends NormalMenuProps {}
 
@@ -58,9 +58,9 @@ function handleMouseenter(menu: MenuRecordRaw) {
   </ul>
 </template>
 <style lang="scss" scoped>
-@import '@vben-core/design/bem';
+$namespace: vben;
 
-@include b('normal-menu') {
+.#{$namespace}-normal-menu {
   --menu-item-margin-y: 4px;
   --menu-item-margin-x: 0px;
   --menu-item-padding-y: 11px;
@@ -70,18 +70,37 @@ function handleMouseenter(menu: MenuRecordRaw) {
 
   height: calc(100% - 4px);
 
-  @include is('rounded') {
+  &.is-rounded {
     --menu-item-radius: 6px;
     --menu-item-margin-x: 8px;
   }
 
-  @include is('dark') {
+  &.is-dark {
     .#{$namespace}-normal-menu__item {
       color: hsl(var(--dark-foreground) / 80%);
+
+      &:not(.is-active):hover {
+        color: hsl(var(--primary-foreground));
+        background-color: hsl(var(--menu-dark-background));
+      }
     }
   }
 
-  @include e('item') {
+  &.is-collapse {
+    .#{$namespace}-normal-menu__name {
+      width: 0;
+      height: 0;
+      margin-top: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .#{$namespace}-normal-menu__icon {
+      font-size: 20px;
+    }
+  }
+
+  &__item {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -100,7 +119,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
       padding 0.15s ease,
       border-color 0.15s ease;
 
-    @include is('active') {
+    &.is-active {
       font-weight: 700;
       color: hsl(var(--primary-foreground));
       background-color: hsl(var(--primary));
@@ -126,36 +145,13 @@ function handleMouseenter(menu: MenuRecordRaw) {
     }
   }
 
-  @include is('dark') {
-    .#{$namespace}-normal-menu__item {
-      &:not(.is-active):hover {
-        color: hsl(var(--primary-foreground));
-        background-color: hsl(var(--menu-dark-background));
-      }
-    }
-  }
-
-  @include is('collapse') {
-    .#{$namespace}-normal-menu__name {
-      width: 0;
-      height: 0;
-      margin-top: 0;
-      overflow: hidden;
-      opacity: 0;
-    }
-
-    .#{$namespace}-normal-menu__icon {
-      font-size: 20px;
-    }
-  }
-
-  @include e('icon') {
+  &__icon {
     max-height: 20px;
     font-size: 20px;
     transition: all 0.25s ease;
   }
 
-  @include e('name') {
+  &__name {
     margin-top: 8px;
     margin-bottom: 0;
     font-size: 12px;

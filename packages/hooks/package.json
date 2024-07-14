@@ -36,5 +36,8 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "dependencies": {
+    "@vben-core/hooks": "workspace:*"
   }
 }

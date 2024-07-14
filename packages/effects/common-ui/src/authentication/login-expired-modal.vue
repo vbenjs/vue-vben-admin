@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { useForwardPropsEmits } from '@vben-core/hooks';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
   VisuallyHidden,
-  useForwardPropsEmits,
 } from '@vben-core/shadcn-ui';
 
 import AuthenticationLogin from './login.vue';

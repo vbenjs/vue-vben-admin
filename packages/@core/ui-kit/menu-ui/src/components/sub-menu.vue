@@ -9,8 +9,8 @@ import type {
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
+import { useNamespace } from '@vben-core/hooks';
 import { VbenHoverCard } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
 
 import {
   createSubMenuContext,

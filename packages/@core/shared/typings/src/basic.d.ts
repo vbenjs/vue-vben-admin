@@ -5,7 +5,7 @@ interface BasicOption {
 
 interface SelectOption extends BasicOption {}
 
-interface TabsOption extends BasicOption {}
+interface TabOption extends BasicOption {}
 
 interface BasicUserInfo {
   /**
@@ -30,4 +30,4 @@ interface BasicUserInfo {
   username: string;
 }
 
-export type { BasicOption, BasicUserInfo, SelectOption, TabsOption };
+export type { BasicOption, BasicUserInfo, SelectOption, TabOption };

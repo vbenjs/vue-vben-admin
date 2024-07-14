@@ -6,7 +6,7 @@ import { useSortable } from './use-sortable';
 
 describe('useSortable', () => {
   beforeEach(() => {
-    vi.mock('sortablejs', () => ({
+    vi.mock('sortablejs/modular/sortable.complete.esm.js', () => ({
       default: {
         create: vi.fn(),
       },
@@ -29,7 +29,10 @@ describe('useSortable', () => {
     await initializeSortable();
 
     // Import sortablejs to access the mocked create function
-    const Sortable = await import('sortablejs');
+    const Sortable = await import(
+      // @ts-expect-error - This is a dynamic import
+      'sortablejs/modular/sortable.complete.esm.js'
+    );
 
     // Verify that Sortable.create was called with the correct parameters
     expect(Sortable.default.create).toHaveBeenCalledTimes(1);
