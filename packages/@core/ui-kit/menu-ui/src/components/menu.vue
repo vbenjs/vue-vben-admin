@@ -175,10 +175,10 @@ function calcSliceIndex() {
 }
 
 function debounce(fn: () => void, wait = 33.34) {
-  let timmer: ReturnType<typeof setTimeout> | null;
+  let timer: ReturnType<typeof setTimeout> | null;
   return () => {
-    timmer && clearTimeout(timmer);
-    timmer = setTimeout(() => {
+    timer && clearTimeout(timer);
+    timer = setTimeout(() => {
       fn();
     }, wait);
   };

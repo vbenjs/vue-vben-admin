@@ -8,7 +8,7 @@ import { Menu, MenuProps } from '@vben-core/menu-ui';
 import { useNavigation } from './use-navigation';
 
 interface Props extends MenuProps {
-  collspae?: boolean;
+  collapse?: boolean;
   menus: MenuRecordRaw[];
 }
 

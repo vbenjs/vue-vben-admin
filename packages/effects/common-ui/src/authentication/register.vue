@@ -43,7 +43,7 @@ const router = useRouter();
 
 const formState = reactive({
   agreePolicy: false,
-  comfirmPassword: '',
+  confirmPassword: '',
   password: '',
   submitted: false,
   username: '',
@@ -57,8 +57,8 @@ const passwordStatus = computed(() => {
   return formState.submitted && !formState.password ? 'error' : 'default';
 });
 
-const comfirmPasswordStatus = computed(() => {
-  return formState.submitted && formState.password !== formState.comfirmPassword
+const confirmPasswordStatus = computed(() => {
+  return formState.submitted && formState.password !== formState.confirmPassword
     ? 'error'
     : 'default';
 });
@@ -116,12 +116,12 @@ function goToLogin() {
     </VbenInputPassword>
 
     <VbenInputPassword
-      v-model="formState.comfirmPassword"
+      v-model="formState.confirmPassword"
       :error-tip="$t('authentication.confirmPasswordTip')"
       :label="$t('authentication.confirmPassword')"
       :placeholder="$t('authentication.confirmPassword')"
-      :status="comfirmPasswordStatus"
-      name="comfirmPassword"
+      :status="confirmPasswordStatus"
+      name="confirmPassword"
       required
       type="password"
     />

@@ -42,7 +42,7 @@ const emailStatus = computed(() => {
   return formState.submitted && !formState.email ? 'error' : 'default';
 });
 
-function handleSubmut() {
+function handleSubmit() {
   formState.submitted = true;
   if (emailStatus.value !== 'default') {
     return;
@@ -76,7 +76,7 @@ function goToLogin() {
       />
     </div>
     <div>
-      <VbenButton class="mt-2 w-full" @click="handleSubmut">
+      <VbenButton class="mt-2 w-full" @click="handleSubmit">
         {{ $t('authentication.sendResetLink') }}
       </VbenButton>
       <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">

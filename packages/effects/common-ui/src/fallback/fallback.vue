@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   homePath: '/',
   image: '',
   showBack: true,
-  status: 'comming-soon',
+  status: 'coming-soon',
   title: '',
 });
 
@@ -27,7 +27,7 @@ const Icon403 = defineAsyncComponent(() => import('./icons/icon-403.vue'));
 const Icon404 = defineAsyncComponent(() => import('./icons/icon-404.vue'));
 const Icon500 = defineAsyncComponent(() => import('./icons/icon-500.vue'));
 const IconHello = defineAsyncComponent(
-  () => import('./icons/icon-comming-soon.vue'),
+  () => import('./icons/icon-coming-soon.vue'),
 );
 const IconOffline = defineAsyncComponent(
   () => import('./icons/icon-offline.vue'),
@@ -51,7 +51,7 @@ const titleText = computed(() => {
     case 'offline': {
       return $t('fallback.offlineError');
     }
-    case 'comming-soon': {
+    case 'coming-soon': {
       return $t('fallback.comingSoon');
     }
     default: {
@@ -97,7 +97,7 @@ const fallbackIcon = computed(() => {
     case 'offline': {
       return IconOffline;
     }
-    case 'comming-soon': {
+    case 'coming-soon': {
       return IconHello;
     }
     default: {
