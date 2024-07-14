@@ -7,7 +7,7 @@ defineOptions({ name: 'HideMenuChildren' });
 <template>
   <Fallback
     description="当前菜单的子菜单不可见"
-    status="comming-soon"
+    status="coming-soon"
     title="隐藏子菜单"
   />
 </template>

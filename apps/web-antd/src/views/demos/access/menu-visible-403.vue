@@ -7,7 +7,7 @@ defineOptions({ name: 'AccessMenuVisible403' });
 <template>
   <Fallback
     description="当前页面用户不可见，会被重定向到403页面"
-    status="comming-soon"
+    status="coming-soon"
     title="页面访问测试"
   />
 </template>

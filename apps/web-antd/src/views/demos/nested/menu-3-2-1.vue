@@ -5,5 +5,5 @@ defineOptions({ name: 'Menu321' });
 </script>
 
 <template>
-  <Fallback status="comming-soon" />
+  <Fallback status="coming-soon" />
 </template>

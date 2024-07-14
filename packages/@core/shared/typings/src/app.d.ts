@@ -14,7 +14,6 @@ type BuiltinThemeType =
   | 'deep-blue'
   | 'deep-green'
   | 'default'
-  | 'default'
   | 'gray'
   | 'green'
   | 'neutral'

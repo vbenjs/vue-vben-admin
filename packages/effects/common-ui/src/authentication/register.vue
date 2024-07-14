@@ -134,7 +134,7 @@ function goToLogin() {
         >
           {{ $t('authentication.agree') }}
           <span class="text-primary hover:text-primary-hover">{{
-            $t('authentication.agreeprivacyPolicy')
+            $t('authentication.privacyPolicy')
           }}</span>
           &
           <span class="text-primary hover:text-primary-hover">

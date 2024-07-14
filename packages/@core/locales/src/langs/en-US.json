@@ -101,7 +101,7 @@
     "confirmPassword": "Comfirm Password",
     "confirmPasswordTip": "The passwords do not match",
     "agree": "I agree to",
-    "agreeprivacyPolicy": "Privacy-policy",
+    "privacyPolicy": "Privacy-policy",
     "terms": "Terms",
     "agreeTip": "Please agree to the Privacy Policy and Terms",
     "goToLogin": "Login instead",

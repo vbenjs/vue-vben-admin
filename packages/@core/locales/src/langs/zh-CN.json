@@ -101,7 +101,7 @@
     "confirmPassword": "确认密码",
     "confirmPasswordTip": "两次输入的密码不一致",
     "agree": "我同意",
-    "agreeprivacyPolicy": "隐私政策",
+    "privacyPolicy": "隐私政策",
     "terms": "条款",
     "agreeTip": "请同意隐私政策和条款",
     "goToLogin": "去登录",
