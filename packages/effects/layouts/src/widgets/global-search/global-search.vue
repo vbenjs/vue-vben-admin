@@ -9,7 +9,7 @@ import {
   IcRoundSearch,
   IcRoundSubdirectoryArrowLeft,
   MdiKeyboardEsc,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   Dialog,

@@ -3,7 +3,7 @@ import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';
 
-import { IcRoundArrowUpward } from '@vben-core/iconify';
+import { IcRoundArrowUpward } from '@vben-core/icons';
 
 import { VbenButton } from '../button';
 import { useBackTop } from './use-backtop';

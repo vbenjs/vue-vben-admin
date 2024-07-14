@@ -4,7 +4,7 @@ import type { NotificationItem } from './types';
 import {
   IcRoundMarkEmailRead,
   IcRoundNotificationsNone,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   VbenButton,

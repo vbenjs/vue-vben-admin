@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IcRoundFitScreen, IcTwotoneFitScreen } from '@vben-core/iconify';
+import { IcRoundFitScreen, IcTwotoneFitScreen } from '@vben-core/icons';
 
 const screen = defineModel<boolean>('screen');
 

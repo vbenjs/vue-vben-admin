@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MdiMenuClose, MdiMenuOpen } from '@vben-core/iconify';
+import { MdiMenuClose, MdiMenuOpen } from '@vben-core/icons';
 
 interface Props {
   theme: string;

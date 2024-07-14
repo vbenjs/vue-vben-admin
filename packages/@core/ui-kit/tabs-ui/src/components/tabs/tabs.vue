@@ -3,7 +3,7 @@ import type { TabConfig, TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
-import { IcRoundClose, MdiPin } from '@vben-core/iconify';
+import { IcRoundClose, MdiPin } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
 import { TabDefinition } from '@vben-core/typings';
 
@@ -113,7 +113,7 @@ function handleUnpinTab(tab: TabConfig) {
 
                 <!-- tab-item-main -->
                 <div
-                  class="mx-3 mr-3 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
+                  class="group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground text-accent-foreground mx-3 mr-3 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
                 >
                   <!-- <div
                   class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"
@@ -125,9 +125,7 @@ function handleUnpinTab(tab: TabConfig) {
                     fallback
                   />
 
-                  <span
-                    class="text-accent-foreground flex-1 overflow-hidden whitespace-nowrap"
-                  >
+                  <span class="flex-1 overflow-hidden whitespace-nowrap">
                     {{ tab.title }}
                   </span>
                 </div>

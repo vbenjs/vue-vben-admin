@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MdiPin, MdiPinOff } from '@vben-core/iconify';
+import { MdiPin, MdiPinOff } from '@vben-core/icons';
 
 interface Props {
   theme: string;

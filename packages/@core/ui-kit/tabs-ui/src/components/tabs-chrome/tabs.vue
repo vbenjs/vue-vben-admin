@@ -5,7 +5,7 @@ import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-import { IcRoundClose, MdiPin } from '@vben-core/iconify';
+import { IcRoundClose, MdiPin } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon } from '@vben-core/shadcn-ui';
 
 interface Props extends TabsProps {}
@@ -174,7 +174,7 @@ function handleUnpinTab(tab: TabConfig) {
 
               <!-- tab-item-main -->
               <div
-                class="tabs-chrome__item-main absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] duration-150 group-hover:pr-3"
+                class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground dark:group-[.is-active]:text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] duration-150 group-hover:pr-3"
               >
                 <VbenIcon
                   v-if="showIcon"
@@ -184,7 +184,7 @@ function handleUnpinTab(tab: TabConfig) {
                 />
 
                 <span
-                  class="tabs-chrome__label text-accent-foreground ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap"
+                  class="tabs-chrome__label ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap"
                 >
                   {{ tab.title }}
                 </span>

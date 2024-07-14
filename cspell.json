@@ -48,7 +48,7 @@
     "**/node_modules/**",
     "**/dist/**",
     "**/*-dist/**",
-    "**/iconify/**",
+    "**/icons/**",
     "pnpm-lock.yaml",
     "**/*.log"
   ]

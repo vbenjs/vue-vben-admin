@@ -77,8 +77,8 @@
       "path": "packages/@core/shared/hooks",
     },
     {
-      "name": "@vben-core/iconify",
-      "path": "packages/@core/shared/iconify",
+      "name": "@vben-core/icons",
+      "path": "packages/@core/shared/icons",
     },
     {
       "name": "@vben-core/toolkit",

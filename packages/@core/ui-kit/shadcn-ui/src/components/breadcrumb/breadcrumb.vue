@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IBreadcrumb } from './interface';
 
-import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
+import { IcRoundKeyboardArrowDown } from '@vben-core/icons';
 import {
   Breadcrumb,
   BreadcrumbItem,

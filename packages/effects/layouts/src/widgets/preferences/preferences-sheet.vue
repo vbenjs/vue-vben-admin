@@ -13,7 +13,7 @@ import type {
 
 import { computed, ref } from 'vue';
 
-import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
+import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/icons';
 import { $t, loadLocaleMessages } from '@vben-core/locales';
 import {
   clearPreferencesCache,

@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
-    "@vben-core/iconify": "workspace:*",
+    "@vben-core/icons": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",

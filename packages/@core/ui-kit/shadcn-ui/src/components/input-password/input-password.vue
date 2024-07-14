@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
 
-import {
-  IcOutlineVisibility,
-  IcOutlineVisibilityOff,
-} from '@vben-core/iconify';
+import { IcOutlineVisibility, IcOutlineVisibilityOff } from '@vben-core/icons';
 import {
   type InputProps,
   VbenInput,

@@ -4,7 +4,7 @@ import type { AuthPageLayoutType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
+import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   preferences,

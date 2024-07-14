@@ -20,7 +20,7 @@ import {
   MdiFormatHorizontalAlignRight,
   MdiPin,
   MdiPinOff,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { $t, useI18n } from '@vben-core/locales';
 import { updatePreferences, usePreferences } from '@vben-core/preferences';
 import {

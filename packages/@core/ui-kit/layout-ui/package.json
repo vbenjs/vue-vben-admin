@@ -37,7 +37,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/iconify": "workspace:*",
+    "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",

@@ -1,1 +1,1 @@
-export * from '@vben-core/iconify';
+export * from '@vben-core/icons';

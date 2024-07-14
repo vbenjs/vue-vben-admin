@@ -8,7 +8,7 @@ import {
   IcRoundLock,
   IcRoundLogout,
   IcRoundSettingsSuggest,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import {

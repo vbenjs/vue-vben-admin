@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Component, computed } from 'vue';
 
-import { Icon, IconDefault } from '@vben-core/iconify';
+import { Icon, IconDefault } from '@vben-core/icons';
 import { isHttpUrl, isObject, isString } from '@vben-core/toolkit';
 
 const props = defineProps<{

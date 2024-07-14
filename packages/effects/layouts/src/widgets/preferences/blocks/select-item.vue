@@ -3,7 +3,7 @@ import type { SelectOption } from '@vben-core/typings';
 
 import { useSlots } from 'vue';
 
-import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
+import { MdiQuestionMarkCircleOutline } from '@vben-core/icons';
 import {
   Select,
   SelectContent,

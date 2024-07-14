@@ -1,4 +1,4 @@
-import { createIconifyIcon } from '@vben-core/iconify';
+import { createIconifyIcon } from '@vben-core/icons';
 
 import { loadSvgIcons } from './load';
 

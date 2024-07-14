@@ -1,7 +1,7 @@
 import {
   addIcon,
   // addCollection
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 
 // addCollection({
 //   prefix: 'mdi',

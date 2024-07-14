@@ -1,12 +1,12 @@
 {
-  "name": "@vben-core/iconify",
+  "name": "@vben-core/icons",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/shared/iconify"
+    "directory": "packages/@vben-core/shared/icons"
   },
   "license": "MIT",
   "type": "module",

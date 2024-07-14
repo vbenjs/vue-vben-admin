@@ -35,6 +35,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/iconify": "workspace:*"
+    "@vben-core/icons": "workspace:*"
   }
 }

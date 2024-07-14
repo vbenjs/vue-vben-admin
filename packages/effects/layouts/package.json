@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@vben-core/helpers": "workspace:*",
-    "@vben-core/iconify": "workspace:*",
+    "@vben-core/icons": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/locales": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",

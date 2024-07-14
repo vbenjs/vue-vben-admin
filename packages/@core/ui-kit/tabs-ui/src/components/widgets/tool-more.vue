@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DropdownMenuProps } from '@vben-core/shadcn-ui';
 
-import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
+import { IcRoundKeyboardArrowDown } from '@vben-core/icons';
 import { VbenDropdownMenu } from '@vben-core/shadcn-ui';
 
 defineProps<DropdownMenuProps>();

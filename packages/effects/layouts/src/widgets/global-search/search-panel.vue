@@ -4,7 +4,7 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { IcRoundClose, IcRoundSearchOff } from '@vben-core/iconify';
+import { IcRoundClose, IcRoundSearchOff } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
 import { mapTree, traverseTreeValues, uniqueByField } from '@vben-core/toolkit';

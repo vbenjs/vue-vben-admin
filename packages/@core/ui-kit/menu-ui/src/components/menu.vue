@@ -19,7 +19,7 @@ import {
 } from 'vue';
 
 import { useNamespace } from '@vben-core/hooks';
-import { IcRoundMoreHoriz } from '@vben-core/iconify';
+import { IcRoundMoreHoriz } from '@vben-core/icons';
 import { isHttpUrl } from '@vben-core/toolkit';
 
 import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';

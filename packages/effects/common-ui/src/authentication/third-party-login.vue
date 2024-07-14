@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben-core/iconify';
+import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 

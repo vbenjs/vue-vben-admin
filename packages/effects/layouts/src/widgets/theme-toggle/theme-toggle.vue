@@ -5,7 +5,7 @@ import {
   IcRoundMotionPhotosAuto,
   IcRoundWbSunny,
   MdiMoonAndStars,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   preferences,

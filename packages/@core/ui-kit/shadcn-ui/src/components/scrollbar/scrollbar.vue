@@ -44,7 +44,7 @@ function handleScroll(event: Event) {
       :class="{
         'opacity-100': !isAtTop,
       }"
-      class="scrollbar-top-shadow pointer-events-none absolute top-0 z-10 h-16 w-full opacity-0 transition-opacity duration-1000 ease-in-out will-change-[opacity]"
+      class="scrollbar-top-shadow pointer-events-none absolute top-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
     <slot></slot>
     <div
@@ -52,7 +52,7 @@ function handleScroll(event: Event) {
       :class="{
         'opacity-100': !isAtTop && !isAtBottom,
       }"
-      class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-16 w-full opacity-0 transition-opacity duration-1000 ease-in-out will-change-[opacity]"
+      class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
     <ScrollBar v-if="horizontal" orientation="horizontal" />
   </ScrollArea>

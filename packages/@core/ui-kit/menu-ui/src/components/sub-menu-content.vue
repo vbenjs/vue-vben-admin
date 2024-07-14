@@ -7,7 +7,7 @@ import { useNamespace } from '@vben-core/hooks';
 import {
   IcRoundChevronRight,
   IcRoundKeyboardArrowDown,
-} from '@vben-core/iconify';
+} from '@vben-core/icons';
 import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';

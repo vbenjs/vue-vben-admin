@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watchEffect } from 'vue';
 
-import { IcRoundLock } from '@vben-core/iconify';
+import { IcRoundLock } from '@vben-core/icons';
 import { $t, useI18n } from '@vben-core/locales';
 import {
   VbenAvatar,

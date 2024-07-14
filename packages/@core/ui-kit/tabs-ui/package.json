@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@vben-core/hooks": "workspace:*",
-    "@vben-core/iconify": "workspace:*",
+    "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "vue": "^3.4.31"

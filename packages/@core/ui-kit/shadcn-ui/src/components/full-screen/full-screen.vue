@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IcRoundFullscreen, IcRoundFullscreenExit } from '@vben-core/iconify';
+import { IcRoundFullscreen, IcRoundFullscreenExit } from '@vben-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 

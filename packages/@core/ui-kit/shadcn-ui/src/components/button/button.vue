@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
-import { MdiLoading } from '@vben-core/iconify';
+import { MdiLoading } from '@vben-core/icons';
 import {
   type ButtonVariants,
   buttonVariants,

@@ -3,7 +3,7 @@ import type { BuiltinThemeType } from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { MdiEditBoxOutline } from '@vben-core/iconify';
+import { MdiEditBoxOutline } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   BUILT_IN_THEME_PRESETS,

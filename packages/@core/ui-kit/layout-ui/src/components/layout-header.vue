@@ -2,7 +2,7 @@
 import type { CSSProperties } from 'vue';
 import { computed, useSlots } from 'vue';
 
-import { IcRoundMenu } from '@vben-core/iconify';
+import { IcRoundMenu } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
 interface Props {
