@@ -87,7 +87,7 @@ async function runPublint(files: string[], { check }: PubLintCommandOptions) {
 
         const publintResult: Result =
           cache?.[file]?.hash === hash
-            ? cache?.[file]?.result ?? []
+            ? (cache?.[file]?.result ?? [])
             : await publint({
                 level: 'suggestion',
                 pkgDir: dirname(file),

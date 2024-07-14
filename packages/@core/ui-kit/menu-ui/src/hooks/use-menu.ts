@@ -38,7 +38,7 @@ function useMenu() {
 function useMenuStyle(menu?: SubMenuProvider) {
   const subMenuStyle = computed(() => {
     return {
-      '--menu-level': menu ? menu?.level ?? 0 + 1 : 0,
+      '--menu-level': menu ? (menu?.level ?? 0 + 1) : 0,
     };
   });
   return subMenuStyle;

@@ -87,7 +87,9 @@
       "@ant-design/colors": "^7.1.0",
       "@ctrl/tinycolor": "^4.1.0",
       "clsx": "^2.1.1",
-      "vue": "^3.4.31"
+      "eslint": "^8.57.0",
+      "vue": "^3.4.31",
+      "zx": "^7.2.3"
     },
     "neverBuiltDependencies": [
       "canvas",
