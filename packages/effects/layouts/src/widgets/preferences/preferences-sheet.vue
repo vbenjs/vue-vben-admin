@@ -95,6 +95,8 @@ const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
+const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarStyleType = defineModel<string>('tabbarStyleType');
 
 const navigationStyleType = defineModel<NavigationStyleType>(
   'navigationStyleType',
@@ -346,9 +348,11 @@ async function handleReset() {
 
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
+                v-model:tabbar-dragable="tabbarDragable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
+                v-model:tabbar-style-type="tabbarStyleType"
               />
             </Block>
             <Block :title="$t('preferences.widget.title')">

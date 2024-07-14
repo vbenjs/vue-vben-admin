@@ -44,6 +44,8 @@ type AccessModeType = 'allow-all' | 'backend' | 'frontend';
 
 type NavigationStyleType = 'plain' | 'rounded';
 
+type TabsStyleType = 'brisk' | 'card' | 'chrome' | 'plain';
+
 type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
 
 type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
@@ -60,5 +62,6 @@ export type {
   NavigationStyleType,
   PageTransitionType,
   SupportedLanguagesType,
+  TabsStyleType,
   ThemeModeType,
 };

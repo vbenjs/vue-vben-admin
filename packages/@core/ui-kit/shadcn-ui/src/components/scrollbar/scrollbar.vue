@@ -2,15 +2,22 @@
 import type { HTMLAttributes } from 'vue';
 import { ref } from 'vue';
 
-import { ScrollArea } from '@vben-core/shadcn-ui/components/ui/scroll-area';
+import {
+  ScrollArea,
+  ScrollBar,
+} from '@vben-core/shadcn-ui/components/ui/scroll-area';
 import { cn } from '@vben-core/toolkit';
 
 interface Props {
   class?: HTMLAttributes['class'];
+  horizontal?: boolean;
+  shadow?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
+  horizontal: false,
+  shadow: false,
 });
 
 const isAtTop = ref(true);
@@ -33,6 +40,7 @@ function handleScroll(event: Event) {
     class="relative"
   >
     <div
+      v-if="shadow"
       :class="{
         'opacity-100': !isAtTop,
       }"
@@ -40,11 +48,13 @@ function handleScroll(event: Event) {
     ></div>
     <slot></slot>
     <div
+      v-if="shadow"
       :class="{
         'opacity-100': !isAtTop && !isAtBottom,
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-16 w-full opacity-0 transition-opacity duration-1000 ease-in-out will-change-[opacity]"
     ></div>
+    <ScrollBar v-if="horizontal" orientation="horizontal" />
   </ScrollArea>
 </template>
 

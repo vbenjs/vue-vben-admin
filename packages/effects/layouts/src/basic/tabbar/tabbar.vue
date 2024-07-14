@@ -41,7 +41,9 @@ if (!preferences.tabbar.persist) {
   <TabsView
     :active="currentActive"
     :context-menus="createContextMenus"
+    :dragable="preferences.tabbar.dragable"
     :show-icon="showIcon"
+    :style-type="preferences.tabbar.styleType"
     :tabs="currentTabs"
     @close="handleClose"
     @sort-tabs="coreTabbarStore.sortTabs"

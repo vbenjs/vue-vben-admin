@@ -39,8 +39,5 @@ const style = computed((): CSSProperties => {
 <template>
   <section :style="style" class="border-border flex w-full">
     <slot></slot>
-    <div class="flex items-center">
-      <slot name="toolbar"></slot>
-    </div>
   </section>
 </template>

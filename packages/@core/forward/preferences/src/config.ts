@@ -69,10 +69,12 @@ const defaultPreferences: Preferences = {
     width: 240,
   },
   tabbar: {
+    dragable: true,
     enable: true,
     keepAlive: true,
     persist: true,
     showIcon: true,
+    styleType: 'chrome',
   },
   theme: {
     builtinType: 'default',

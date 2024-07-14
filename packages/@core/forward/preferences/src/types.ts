@@ -10,6 +10,7 @@ import type {
   NavigationStyleType,
   PageTransitionType,
   SupportedLanguagesType,
+  TabsStyleType,
   ThemeModeType,
 } from '@vben-core/typings';
 
@@ -135,6 +136,8 @@ interface ShortcutKeyPreferences {
 }
 
 interface TabbarPreferences {
+  /** 是否开启多标签页拖拽 */
+  dragable: boolean;
   /** 是否开启多标签页 */
   enable: boolean;
   /** 开启标签页缓存功能 */
@@ -143,6 +146,8 @@ interface TabbarPreferences {
   persist: boolean;
   /** 是否开启多标签页图标 */
   showIcon: boolean;
+  /** 标签页风格 */
+  styleType: TabsStyleType;
 }
 
 interface ThemePreferences {

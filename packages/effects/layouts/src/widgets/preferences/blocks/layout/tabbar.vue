@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { $t } from '@vben-core/locales';
+import { computed } from 'vue';
 
+import { $t } from '@vben-core/locales';
+import { SelectOption } from '@vben-core/typings';
+
+import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
@@ -12,6 +16,28 @@ defineProps<{ disabled?: boolean }>();
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
+const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarStyleType = defineModel<string>('tabbarStyleType');
+
+const styleItems = computed((): SelectOption[] => [
+  {
+    label: $t('preferences.tabbar.styleType.chrome'),
+    value: 'chrome',
+  },
+  {
+    label: $t('preferences.tabbar.styleType.plain'),
+    value: 'plain',
+  },
+  {
+    label: $t('preferences.tabbar.styleType.card'),
+    value: 'card',
+  },
+
+  {
+    label: $t('preferences.tabbar.styleType.brisk'),
+    value: 'brisk',
+  },
+]);
 </script>
 
 <template>
@@ -24,4 +50,10 @@ const tabbarPersist = defineModel<boolean>('tabbarPersist');
   <SwitchItem v-model="tabbarPersist" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.persist') }}
   </SwitchItem>
+  <SwitchItem v-model="tabbarDragable" :disabled="!tabbarEnable">
+    {{ $t('preferences.tabbar.dragable') }}
+  </SwitchItem>
+  <SelectItem v-model="tabbarStyleType" :items="styleItems">
+    {{ $t('preferences.tabbar.styleType.title') }}
+  </SelectItem>
 </template>

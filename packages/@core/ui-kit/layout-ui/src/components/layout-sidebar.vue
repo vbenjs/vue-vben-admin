@@ -267,7 +267,7 @@ function handleMouseleave() {
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <VbenScrollbar :style="contentStyle">
+    <VbenScrollbar :style="contentStyle" shadow>
       <slot></slot>
     </VbenScrollbar>
 
@@ -297,7 +297,7 @@ function handleMouseleave() {
       <div v-if="!extraCollapse" :style="extraTitleStyle">
         <slot name="extra-title"></slot>
       </div>
-      <VbenScrollbar :style="extraContentStyle" class="py-4">
+      <VbenScrollbar :style="extraContentStyle" class="py-4" shadow>
         <slot name="extra"></slot>
       </VbenScrollbar>
     </div>

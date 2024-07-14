@@ -1,4 +1,5 @@
 import type { SortableOptions } from 'sortablejs';
+import type Sortable from 'sortablejs';
 
 function useSortable<T extends HTMLElement>(
   sortableContainer: T,
@@ -22,7 +23,7 @@ function useSortable<T extends HTMLElement>(
       delayOnTouchOnly: true,
       ...options,
     });
-    return sortable;
+    return sortable as Sortable;
   };
 
   return {
@@ -31,3 +32,5 @@ function useSortable<T extends HTMLElement>(
 }
 
 export { useSortable };
+
+export type { Sortable };

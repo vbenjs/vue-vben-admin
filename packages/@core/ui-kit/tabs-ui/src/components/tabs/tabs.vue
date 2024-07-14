@@ -1,11 +1,141 @@
 <script lang="ts" setup>
-import { VbenScrollbar } from '@vben-core/shadcn-ui';
+import type { TabConfig, TabsProps } from '../../types';
+
+import { computed } from 'vue';
+
+import { IcRoundClose, MdiPin } from '@vben-core/iconify';
+import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
+import { TabDefinition } from '@vben-core/typings';
+
+interface Props extends TabsProps {}
+
+defineOptions({
+  name: 'VbenTabs',
+  // eslint-disable-next-line perfectionist/sort-objects
+  inheritAttrs: false,
+});
+const props = withDefaults(defineProps<Props>(), {
+  contentClass: 'vben-tabs-content',
+  contextMenus: () => [],
+  tabs: () => [],
+});
+
+const emit = defineEmits<{ close: [string]; unpin: [TabDefinition] }>();
+const active = defineModel<string>('active');
+
+const typeWithClass = computed(() => {
+  const typeClasses: Record<string, { content: string }> = {
+    brisk: {
+      content: `h-full  after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100`,
+    },
+    card: {
+      content: 'h-[90%] rounded-md mr-1',
+    },
+    plain: {
+      content: 'h-full',
+    },
+  };
+
+  return typeClasses[props.styleType || 'plain'];
+});
+
+const tabsView = computed((): TabConfig[] => {
+  return props.tabs.map((tab) => {
+    return {
+      ...tab,
+      affixTab: !!tab.meta?.affixTab,
+      closable: Reflect.has(tab.meta, 'tabClosable')
+        ? !!tab.meta.tabClosable
+        : true,
+      icon: tab.meta.icon as string,
+      key: tab.fullPath || tab.path,
+      title: (tab.meta?.title || tab.name) as string,
+    };
+  });
+});
+
+function handleClose(key: string) {
+  emit('close', key);
+}
+
+function handleUnpinTab(tab: TabConfig) {
+  emit('unpin', tab);
+}
 </script>
 
 <template>
-  <div class="bg-accent size-full">
-    <VbenScrollbar>
-      <slot></slot>
+  <div class="bg-accent h-full flex-1 overflow-hidden">
+    <VbenScrollbar class="h-full" horizontal>
+      <div
+        :class="contentClass"
+        class="relative !flex h-full w-max items-center"
+      >
+        <TransitionGroup name="slide-down">
+          <div
+            v-for="(tab, i) in tabsView"
+            :key="tab.key"
+            :class="[
+              {
+                'is-active bg-background': tab.key === active,
+                dragable: !tab.affixTab,
+              },
+              typeWithClass.content,
+            ]"
+            :data-index="i"
+            class="[&:not(.is-active)]:hover:bg-accent group relative flex cursor-pointer select-none transition-all duration-300"
+            @click="active = tab.key"
+          >
+            <VbenContextMenu
+              :handler-data="tab"
+              :menus="contextMenus"
+              :modal="false"
+              item-class="pr-6"
+            >
+              <div class="relative flex size-full items-center">
+                <!-- extra -->
+                <div
+                  class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden opacity-0 transition-opacity group-hover:opacity-100 group-[.is-active]:opacity-100"
+                >
+                  <!-- close-icon -->
+                  <IcRoundClose
+                    v-show="
+                      !tab.affixTab && tabsView.length > 1 && tab.closable
+                    "
+                    class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground size-3 cursor-pointer rounded-full transition-all"
+                    @click.stop="handleClose(tab.key)"
+                  />
+                  <MdiPin
+                    v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
+                    class="hover:bg-accent hover:stroke-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
+                    @click.stop="handleUnpinTab(tab)"
+                  />
+                </div>
+
+                <!-- tab-item-main -->
+                <div
+                  class="mx-3 mr-3 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
+                >
+                  <!-- <div
+                  class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"
+                > -->
+                  <VbenIcon
+                    v-if="showIcon"
+                    :icon="tab.icon"
+                    class="mr-2 flex size-4 items-center overflow-hidden"
+                    fallback
+                  />
+
+                  <span
+                    class="text-accent-foreground flex-1 overflow-hidden whitespace-nowrap"
+                  >
+                    {{ tab.title }}
+                  </span>
+                </div>
+              </div>
+            </VbenContextMenu>
+          </div>
+        </TransitionGroup>
+      </div>
     </VbenScrollbar>
   </div>
 </template>

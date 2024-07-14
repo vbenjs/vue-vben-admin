@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { Sortable } from '@vben-core/hooks';
 import type { TabDefinition } from '@vben-core/typings';
 
-import { nextTick, onMounted } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 import { useForwardPropsEmits, useSortable } from '@vben-core/hooks';
 
-import { TabsChrome } from './components';
+import { Tabs, TabsChrome } from './components';
 import { TabsProps } from './types';
 
 interface Props extends TabsProps {}
@@ -17,6 +18,7 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   contentClass: 'vben-tabs-content',
   dragable: true,
+  styleType: 'chrome',
 });
 
 const emit = defineEmits<{
@@ -27,13 +29,15 @@ const emit = defineEmits<{
 
 const forward = useForwardPropsEmits(props, emit);
 
+const sortableInstance = ref<Sortable | null>(null);
+
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
-const findParentElement = (element: HTMLElement) => {
+function findParentElement(element: HTMLElement) {
   const parentCls = 'group';
   return element.classList.contains(parentCls)
     ? element
     : element.closest(`.${parentCls}`);
-};
+}
 
 async function initTabsSortable() {
   await nextTick();
@@ -80,7 +84,7 @@ async function initTabsSortable() {
     },
     onMove(evt) {
       const parent = findParentElement(evt.related);
-      return parent?.classList.contains('dragable');
+      return parent?.classList.contains('dragable') && props.dragable;
     },
     onStart: () => {
       el.style.cursor = 'grabbing';
@@ -88,12 +92,17 @@ async function initTabsSortable() {
     },
   });
 
-  await initializeSortable();
+  sortableInstance.value = await initializeSortable();
 }
 
 onMounted(initTabsSortable);
+
+onUnmounted(() => {
+  sortableInstance.value?.destroy();
+});
 </script>
 
 <template>
-  <TabsChrome v-bind="forward" />
+  <TabsChrome v-if="styleType === 'chrome'" v-bind="forward" />
+  <Tabs v-else v-bind="forward" />
 </template>

@@ -5,13 +5,13 @@ import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-import { MdiPin } from '@vben-core/iconify';
+import { IcRoundClose, MdiPin } from '@vben-core/iconify';
 import { VbenContextMenu, VbenIcon } from '@vben-core/shadcn-ui';
 
 interface Props extends TabsProps {}
 
 defineOptions({
-  name: 'TabsChrome',
+  name: 'VbenTabsChrome',
   // eslint-disable-next-line perfectionist/sort-objects
   inheritAttrs: false,
 });
@@ -94,7 +94,10 @@ function handleUnpinTab(tab: TabConfig) {
 </script>
 
 <template>
-  <div :style="style" class="tabs-chrome bg-accent size-full pt-1">
+  <div
+    :style="style"
+    class="tabs-chrome bg-accent size-full flex-1 overflow-hidden pt-1"
+  >
     <!-- footer -> 4px -->
     <div
       ref="contentRef"
@@ -157,16 +160,11 @@ function handleUnpinTab(tab: TabConfig) {
                 class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%] opacity-0 transition-opacity group-hover:opacity-100"
               >
                 <!-- close-icon -->
-                <svg
+                <IcRoundClose
                   v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"
-                  class="hover:bg-accent hover:stroke-accent-foreground size-full cursor-pointer rounded-full transition-all"
-                  height="12"
-                  stroke="#595959"
-                  width="12"
+                  class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground mt-[2px] size-3 cursor-pointer rounded-full transition-all"
                   @click.stop="handleClose(tab.key)"
-                >
-                  <path d="M 4 4 L 12 12 M 12 4 L 4 12" />
-                </svg>
+                />
                 <MdiPin
                   v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
                   class="hover:bg-accent hover:stroke-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
@@ -186,7 +184,7 @@ function handleUnpinTab(tab: TabConfig) {
                 />
 
                 <span
-                  class="tabs-chrome__label ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap"
+                  class="tabs-chrome__label text-accent-foreground ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap"
                 >
                   {{ tab.title }}
                 </span>

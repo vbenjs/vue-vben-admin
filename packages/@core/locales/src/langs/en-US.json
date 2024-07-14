@@ -176,6 +176,14 @@
       "enable": "Enable Tab Bar",
       "icon": "Show Tabbar Icon",
       "persist": "Persist Tabs",
+      "dragable": "Enable Dragable Sort",
+      "styleType": {
+        "title": "Tabs Style",
+        "chrome": "Chrome",
+        "card": "Card",
+        "plain": "Plain",
+        "brisk": "Brisk"
+      },
       "contextMenu": {
         "reload": "Reload",
         "close": "Close",
