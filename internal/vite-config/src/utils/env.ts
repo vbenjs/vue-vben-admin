@@ -65,7 +65,7 @@ async function loadAndConvertEnv(
     .split(',')
     .filter((item) => ['brotli', 'gzip'].includes(item));
   return {
-    appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin Pro',
+    appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin',
     compress: !!compress,
     compressTypes: compressTypes as ('brotli' | 'gzip')[],
     port: Number(envConfig.VITE_PORT) || 5173,

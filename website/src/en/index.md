@@ -4,12 +4,12 @@ layout: home
 sidebar: false
 
 hero:
-  name: 'Vben Admin Pro'
+  name: 'Vben Admin'
   text: '企业级管理系统框架 - EN'
   tagline: 开箱即用，简单高效
   image:
     src: https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/logo-v1.webp
-    alt: Vben Admin Pro
+    alt: Vue Vben Admin
   actions:
     - theme: brand
       text: 开始

@@ -76,7 +76,7 @@ function handleUnpinTab(tab: TabConfig) {
             :key="tab.key"
             :class="[
               {
-                'is-active bg-background': tab.key === active,
+                'tabs-item is-active bg-background': tab.key === active,
                 dragable: !tab.affixTab,
               },
               typeWithClass.content,
@@ -113,7 +113,7 @@ function handleUnpinTab(tab: TabConfig) {
 
                 <!-- tab-item-main -->
                 <div
-                  class="group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground text-accent-foreground mx-3 mr-3 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
+                  class="tabs-item__main group-[.is-active]:text-primary text-accent-foreground mx-3 mr-3 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
                 >
                   <!-- <div
                   class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"
@@ -137,3 +137,15 @@ function handleUnpinTab(tab: TabConfig) {
     </VbenScrollbar>
   </div>
 </template>
+
+<style scoped>
+html.dark {
+  .tabs-item {
+    &.is-active {
+      .tabs-item__main {
+        @apply text-accent-foreground;
+      }
+    }
+  }
+}
+</style>

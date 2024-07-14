@@ -16,7 +16,7 @@ const defaultPreferences: Preferences = {
     layout: 'sidebar-nav',
     locale: 'zh-CN',
     loginExpiredMode: 'page',
-    name: 'Vben Admin Pro',
+    name: 'Vben Admin',
   },
   breadcrumb: {
     enable: true,
@@ -26,7 +26,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'Vben Admin Pro',
+    companyName: 'Vben Admin',
     companySiteLink: 'https://www.vben.pro',
     date: '2024',
     enable: true,

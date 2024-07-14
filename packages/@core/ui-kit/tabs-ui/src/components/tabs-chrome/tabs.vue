@@ -174,7 +174,7 @@ function handleUnpinTab(tab: TabConfig) {
 
               <!-- tab-item-main -->
               <div
-                class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground dark:group-[.is-active]:text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] duration-150 group-hover:pr-3"
+                class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] duration-150 group-hover:pr-3"
               >
                 <VbenIcon
                   v-if="showIcon"
@@ -200,6 +200,16 @@ function handleUnpinTab(tab: TabConfig) {
 </template>
 
 <style scoped>
+html.dark {
+  .tabs-chrome {
+    .is-active {
+      .tabs-chrome__item-main {
+        @apply text-accent-foreground;
+      }
+    }
+  }
+}
+
 .tabs-chrome {
   .dragging {
     .tabs-chrome__item-main {

@@ -2,14 +2,14 @@
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
-<h1>Vue Vben Admin Pro</h1>
+<h1>Vue Vben Admin</h1>
 </div>
 
 **中文** | [English](./README.md)
 
 ## 简介
 
-Vue Vben Admin Pro 是 Vue Vben Admin 的升级版本。作为一个免费开源的中后台模板，它采用了最新的 Vue 3、Vite、TypeScript 等主流技术开发，开箱即用，可用于中后台前端开发，也适合学习参考。
+Vue Vben Admin 是 Vue Vben Admin 的升级版本。作为一个免费开源的中后台模板，它采用了最新的 Vue 3、Vite、TypeScript 等主流技术开发，开箱即用，可用于中后台前端开发，也适合学习参考。
 
 ## 特性
 

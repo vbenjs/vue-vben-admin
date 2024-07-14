@@ -1,7 +1,7 @@
 import { defineConfigWithTheme } from 'vitepress';
 
 export default defineConfigWithTheme({
-  description: 'Vben Admin Pro & 企业级管理系统框架',
+  description: 'Vue Vben Admin & 企业级管理系统框架',
   lang: 'zh-CN',
 
   locales: {
@@ -22,7 +22,7 @@ export default defineConfigWithTheme({
       text: 'Edit this page on GitHub',
     },
     footer: {
-      copyright: 'Copyright © 2024-present Vben Admin Pro',
+      copyright: 'Copyright © 2024-present Vben Admin',
     },
     i18nRouting: true,
     logo: 'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/logo-v1.webp',
@@ -39,7 +39,7 @@ export default defineConfigWithTheme({
         ],
       },
     ],
-    siteTitle: 'Vben Admin Pro',
+    siteTitle: 'Vben Admin',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vbenjs/vue-vben-admin' },
     ],
