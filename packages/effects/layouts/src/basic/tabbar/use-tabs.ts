@@ -83,8 +83,8 @@ function useTabs() {
     return {
       ...tab,
       meta: {
-        ...tab.meta,
-        title: $t(tab.meta.title as string),
+        ...tab?.meta,
+        title: $t(tab?.meta?.title as string),
       },
     };
   }
@@ -127,6 +127,27 @@ function useTabs() {
 
     const menus: IContextMenuItem[] = [
       {
+        disabled: !!affixTab || disabled,
+        handler: async () => {
+          await coreTabbarStore.closeTab(tab, router);
+        },
+        icon: IcRoundClose,
+        key: 'close',
+        text: $t('preferences.tabbar.contextMenu.close'),
+      },
+      {
+        handler: async () => {
+          await (affixTab
+            ? coreTabbarStore.unpinTab(tab)
+            : coreTabbarStore.pinTab(tab));
+        },
+        icon: affixTab ? MdiPinOff : MdiPin,
+        key: 'affix',
+        text: affixTab
+          ? $t('preferences.tabbar.contextMenu.unpin')
+          : $t('preferences.tabbar.contextMenu.pin'),
+      },
+      {
         handler: async () => {
           if (!contentIsMaximize.value) {
             await router.push(tab.fullPath);
@@ -148,27 +169,7 @@ function useTabs() {
         key: 'reload',
         text: $t('preferences.tabbar.contextMenu.reload'),
       },
-      {
-        disabled: !!affixTab || disabled,
-        handler: async () => {
-          await coreTabbarStore.closeTab(tab, router);
-        },
-        icon: IcRoundClose,
-        key: 'close',
-        text: $t('preferences.tabbar.contextMenu.close'),
-      },
-      {
-        handler: async () => {
-          await (affixTab
-            ? coreTabbarStore.unpinTab(tab)
-            : coreTabbarStore.pinTab(tab));
-        },
-        icon: affixTab ? MdiPinOff : MdiPin,
-        key: 'affix',
-        text: affixTab
-          ? $t('preferences.tabbar.contextMenu.unpin')
-          : $t('preferences.tabbar.contextMenu.pin'),
-      },
+
       {
         handler: async () => {
           const { hash, origin } = location;

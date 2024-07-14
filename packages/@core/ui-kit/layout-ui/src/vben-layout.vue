@@ -533,9 +533,6 @@ function handleOpenMenu() {
           :style="tabbarStyle"
         >
           <slot name="tabbar"></slot>
-          <template #toolbar>
-            <slot name="tabbar-tools"></slot>
-          </template>
         </LayoutTabbar>
       </div>
 

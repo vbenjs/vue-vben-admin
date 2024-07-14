@@ -178,9 +178,9 @@
       "persist": "Persist Tabs",
       "contextMenu": {
         "reload": "Reload",
-        "close": "Close Tab",
-        "pin": "Pin Tab",
-        "unpin": "Unpin Tab",
+        "close": "Close",
+        "pin": "Pin",
+        "unpin": "Unpin",
         "closeLeft": "Close Left Tabs",
         "closeRight": "Close Right Tabs",
         "closeOther": "Close Other Tabs",

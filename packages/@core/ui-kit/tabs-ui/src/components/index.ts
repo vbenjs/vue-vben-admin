@@ -1,1 +1,1 @@
-export { default as ChromeTabs } from './chrome-tabs/tabs.vue';
+export { default as TabsChrome } from './tabs-chrome/tabs.vue';

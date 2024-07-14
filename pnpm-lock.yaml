@@ -653,6 +653,19 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
 
+  packages/@core/shared/hooks:
+    dependencies:
+      sortablejs:
+        specifier: ^1.15.2
+        version: 1.15.2
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.31(typescript@5.5.3)
+    devDependencies:
+      '@types/sortablejs':
+        specifier: ^1.15.8
+        version: 1.15.8
+
   packages/@core/shared/iconify:
     dependencies:
       '@iconify/vue':
@@ -785,15 +798,15 @@ importers:
       '@vben-core/design':
         specifier: workspace:*
         version: link:../../shared/design
+      '@vben-core/hooks':
+        specifier: workspace:*
+        version: link:../../shared/hooks
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../../shared/iconify
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../../shared/toolkit
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../shared/typings
@@ -862,7 +875,7 @@ importers:
         version: link:../../types
       '@vueuse/integrations':
         specifier: ^10.11.0
-        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.31(typescript@5.5.3))
+        version: 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(sortablejs@1.15.2)(vue@3.4.31(typescript@5.5.3))
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
@@ -976,7 +989,7 @@ importers:
     devDependencies:
       vitepress:
         specifier: ^1.3.0
-        version: 1.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.10)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.39)(qrcode@1.5.3)(sass@1.77.8)(search-insights@2.15.0)(terser@5.31.2)(typescript@5.5.3)
+        version: 1.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.10)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.39)(qrcode@1.5.3)(sass@1.77.8)(search-insights@2.15.0)(sortablejs@1.15.2)(terser@5.31.2)(typescript@5.5.3)
       vue:
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
@@ -3008,7 +3021,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3584,6 +3596,9 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
+
+  '@types/sortablejs@1.15.8':
+    resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -8188,6 +8203,9 @@ packages:
     resolution: {integrity: sha512-l5x7VUUWbjVFbafGLxPWkYsHIhEvmF85tbIeFZWc8ZPtoMyybuEhL7Jye/ooC4/d48FgOjSJXgsF/AJPYCW8Zw==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
+  sortablejs@1.15.2:
+    resolution: {integrity: sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==}
+
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
@@ -12315,6 +12333,8 @@ snapshots:
       '@types/node': 20.14.10
       '@types/send': 0.17.4
 
+  '@types/sortablejs@1.15.8': {}
+
   '@types/tough-cookie@4.0.5': {}
 
   '@types/trusted-types@2.0.7': {}
@@ -12640,7 +12660,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.31(typescript@5.5.3))':
+  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(sortablejs@1.15.2)(vue@3.4.31(typescript@5.5.3))':
     dependencies:
       '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.5.3))
       '@vueuse/shared': 10.11.0(vue@3.4.31(typescript@5.5.3))
@@ -12651,6 +12671,7 @@ snapshots:
       focus-trap: 7.5.4
       nprogress: 0.2.0
       qrcode: 1.5.3
+      sortablejs: 1.15.2
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -17378,6 +17399,8 @@ snapshots:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
 
+  sortablejs@1.15.2: {}
+
   source-map-js@1.2.0: {}
 
   source-map-support@0.5.21:
@@ -18323,7 +18346,7 @@ snapshots:
       sass: 1.77.8
       terser: 5.31.2
 
-  vitepress@1.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.10)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.39)(qrcode@1.5.3)(sass@1.77.8)(search-insights@2.15.0)(terser@5.31.2)(typescript@5.5.3):
+  vitepress@1.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.10)(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(postcss@8.4.39)(qrcode@1.5.3)(sass@1.77.8)(search-insights@2.15.0)(sortablejs@1.15.2)(terser@5.31.2)(typescript@5.5.3):
     dependencies:
       '@docsearch/css': 3.6.0
       '@docsearch/js': 3.6.0(@algolia/client-search@4.24.0)(search-insights@2.15.0)
@@ -18334,7 +18357,7 @@ snapshots:
       '@vue/devtools-api': 7.3.5
       '@vue/shared': 3.4.31
       '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.5.3))
-      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.31(typescript@5.5.3))
+      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.2)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.3)(sortablejs@1.15.2)(vue@3.4.31(typescript@5.5.3))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0

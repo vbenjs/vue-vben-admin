@@ -13,6 +13,10 @@ interface TabsState {
    */
   cachedTabs: Set<string>;
   /**
+   * @zh_CN 拖拽结束的索引
+   */
+  dragEndIndex: number;
+  /**
    * @zh_CN 需要排除缓存的标签页
    */
   excludeCachedTabs: Set<string>;
@@ -131,7 +135,6 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       }
       await this._bulkCloseByPaths(paths);
     },
-
     /**
      * @zh_CN 关闭其他标签页
      * @param tab
@@ -210,6 +213,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         console.error('Failed to close the tab; only one tab remains open.');
       }
     },
+
     /**
      * @zh_CN 通过key关闭标签页
      * @param key
@@ -222,7 +226,6 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
 
       await this.closeTab(this.tabs[index], router);
     },
-
     /**
      * @zh_CN 固定标签页
      * @param tab
@@ -236,6 +239,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         this.addTab(tab);
       }
     },
+
     /**
      * 刷新标签页
      */
@@ -262,6 +266,17 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
         tab.meta.affixTab = true;
         this.addTab(routeToTab(tab));
       }
+    },
+    /**
+     * @zh_CN 设置标签页顺序
+     * @param oldIndex
+     * @param newIndex
+     */
+    async sortTabs(oldIndex: number, newIndex: number) {
+      const currentTab = this.tabs[oldIndex];
+      this.tabs.splice(oldIndex, 1);
+      this.tabs.splice(newIndex, 0, currentTab);
+      this.dragEndIndex = this.dragEndIndex + 1;
     },
     /**
      * @zh_CN 取消固定标签页
@@ -315,7 +330,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
     getTabs(): TabItem[] {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       const normalTabs = this.tabs.filter((tab) => !isAffixTab(tab));
-      return [...affixTabs, ...normalTabs];
+      return [...affixTabs, ...normalTabs].filter(Boolean);
     },
   },
   persist: [
@@ -327,6 +342,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
   ],
   state: (): TabsState => ({
     cachedTabs: new Set(),
+    dragEndIndex: 0,
     excludeCachedTabs: new Set(),
     renderRouteView: true,
     tabs: [],
@@ -365,7 +381,7 @@ function cloneTab(route: TabItem): TabItem {
  * @param tab
  */
 function isAffixTab(tab: TabItem) {
-  return tab.meta?.affixTab ?? false;
+  return tab?.meta?.affixTab ?? false;
 }
 
 /**

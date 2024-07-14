@@ -73,6 +73,10 @@
       "path": "packages/@core/shared/design",
     },
     {
+      "name": "@vben-core/hooks",
+      "path": "packages/@core/shared/hooks",
+    },
+    {
       "name": "@vben-core/iconify",
       "path": "packages/@core/shared/iconify",
     },

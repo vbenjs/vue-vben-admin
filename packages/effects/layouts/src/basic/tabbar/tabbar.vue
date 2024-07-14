@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben-core/preferences';
 import { useCoreTabbarStore } from '@vben-core/stores';
-import { TabsView } from '@vben-core/tabs-ui';
+import { TabsToolMore, TabsToolScreen, TabsView } from '@vben-core/tabs-ui';
 
-import { useTabs } from './use-tabs';
+import { updateContentScreen, useTabs } from './use-tabs';
 
 defineOptions({
   name: 'LayoutTabbar',
@@ -13,9 +14,9 @@ defineOptions({
 
 defineProps<{ showIcon?: boolean }>();
 
-const route = useRoute();
-
 const coreTabbarStore = useCoreTabbarStore();
+
+const route = useRoute();
 
 const {
   createContextMenus,
@@ -26,6 +27,10 @@ const {
   handleUnpinTab,
 } = useTabs();
 
+const menus = computed(() => {
+  return createContextMenus(route);
+});
+
 // 刷新后如果不保持tab状态，关闭其他tab
 if (!preferences.tabbar.persist) {
   coreTabbarStore.closeOtherTabs(route);
@@ -35,11 +40,20 @@ if (!preferences.tabbar.persist) {
 <template>
   <TabsView
     :active="currentActive"
-    :menus="createContextMenus"
+    :context-menus="createContextMenus"
     :show-icon="showIcon"
     :tabs="currentTabs"
     @close="handleClose"
-    @unpin-tab="handleUnpinTab"
+    @sort-tabs="coreTabbarStore.sortTabs"
+    @unpin="handleUnpinTab"
     @update:active="handleClick"
   />
+  <div class="flex-center h-full">
+    <TabsToolMore :menus="menus" />
+    <TabsToolScreen
+      :screen="preferences.sidebar.hidden"
+      @change="updateContentScreen"
+      @update:screen="updateContentScreen"
+    />
+  </div>
 </template>

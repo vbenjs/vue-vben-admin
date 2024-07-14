@@ -2,6 +2,12 @@ node_modules
 .DS_Store
 dist
 dist-ssr
+dist.zip
+dist.tar
+dist.war
+*-dist.zip
+*-dist.tar
+*-dist.war
 coverage
 *.local
 **/.vitepress/cache

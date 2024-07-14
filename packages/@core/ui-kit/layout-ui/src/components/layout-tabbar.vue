@@ -37,7 +37,7 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <section :style="style" class="border-border flex w-full border-b">
+  <section :style="style" class="border-border flex w-full">
     <slot></slot>
     <div class="flex items-center">
       <slot name="toolbar"></slot>

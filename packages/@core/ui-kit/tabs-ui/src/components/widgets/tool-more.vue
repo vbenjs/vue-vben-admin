@@ -10,7 +10,7 @@ defineProps<DropdownMenuProps>();
 <template>
   <VbenDropdownMenu :menus="menus" :modal="false">
     <div
-      class="flex-center hover:bg-accent hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-1.5 text-lg font-semibold"
+      class="flex-center hover:bg-muted bg-accent hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-1.5 text-lg font-semibold"
     >
       <IcRoundKeyboardArrowDown class="size-5" />
     </div>

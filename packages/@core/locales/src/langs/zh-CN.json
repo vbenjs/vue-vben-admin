@@ -178,9 +178,9 @@
       "persist": "持久化标签页",
       "contextMenu": {
         "reload": "重新加载",
-        "close": "关闭标签页",
-        "pin": "固定标签页",
-        "unpin": "取消固定标签页",
+        "close": "关闭",
+        "pin": "固定",
+        "unpin": "取消固定",
         "closeLeft": "关闭左侧标签页",
         "closeRight": "关闭右侧标签页",
         "closeOther": "关闭其它标签页",

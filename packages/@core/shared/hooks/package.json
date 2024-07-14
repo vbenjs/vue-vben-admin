@@ -1,25 +1,23 @@
 {
-  "name": "@vben-core/tabs-ui",
+  "name": "@vben-core/hooks",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/uikit/tabs-ui"
+    "directory": "packages/@vben-core/shared/hooks"
   },
   "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "pnpm unbuild",
-    "prepublishOnly": "npm run build"
+    "stub": "pnpm unbuild --stub"
   },
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -32,16 +30,16 @@
   "publishConfig": {
     "exports": {
       ".": {
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       }
     }
   },
   "dependencies": {
-    "@vben-core/design": "workspace:*",
-    "@vben-core/hooks": "workspace:*",
-    "@vben-core/iconify": "workspace:*",
-    "@vben-core/shadcn-ui": "workspace:*",
-    "@vben-core/typings": "workspace:*",
+    "sortablejs": "^1.15.2",
     "vue": "^3.4.31"
+  },
+  "devDependencies": {
+    "@types/sortablejs": "^1.15.8"
   }
 }

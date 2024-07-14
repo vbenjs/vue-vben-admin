@@ -6,6 +6,7 @@
   "words": [
     "clsx",
     "esno",
+    "demi",
     "unref",
     "taze",
     "acmr",
@@ -40,7 +41,8 @@
     "vitepress",
     "ependencies",
     "vite",
-    "echarts"
+    "echarts",
+    "sortablejs"
   ],
   "ignorePaths": [
     "**/node_modules/**",

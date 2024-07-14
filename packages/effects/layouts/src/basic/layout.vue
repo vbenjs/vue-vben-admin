@@ -24,7 +24,7 @@ import {
   useExtraMenu,
   useMixedMenu,
 } from './menu';
-import { LayoutTabbar, LayoutTabbarTools } from './tabbar';
+import { LayoutTabbar } from './tabbar';
 
 defineOptions({ name: 'BasicLayout' });
 
@@ -259,9 +259,6 @@ function clearPreferencesAndLogout() {
         v-if="preferences.tabbar.enable"
         :show-icon="preferences.tabbar.showIcon"
       />
-    </template>
-    <template #tabbar-tools>
-      <LayoutTabbarTools v-if="preferences.tabbar.enable" />
     </template>
 
     <!-- 主体内容 -->
