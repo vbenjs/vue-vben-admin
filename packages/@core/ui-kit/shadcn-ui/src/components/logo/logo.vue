@@ -66,10 +66,9 @@ const logoClass = computed(() => {
       />
       <span
         v-if="!collapse"
-        class="text-primary truncate text-nowrap group-[.dark]:text-[hsl(var(--dark-foreground))]"
+        class="text-primary group-[.dark]:text-foreground-dark truncate text-nowrap"
       >
         {{ text }}
-        <!-- <span class="text-primary ml-1 align-super text-[smaller]">Pro</span> -->
       </span>
     </a>
   </div>

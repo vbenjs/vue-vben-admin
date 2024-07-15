@@ -205,25 +205,7 @@ const showSidebar = computed(() => {
 const sidebarFace = computed(() => {
   const { sidebarSemiDark, sidebarTheme } = props;
   const isDark = sidebarTheme === 'dark' || sidebarSemiDark;
-
-  let backgroundColor = '';
-  let extraBackgroundColor = '';
-
-  if (isDark) {
-    backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--menu-dark-deep))'
-      : 'hsl(var(--menu-dark))';
-  } else {
-    backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--menu-deep))'
-      : 'hsl(var(--menu))';
-  }
-
-  extraBackgroundColor = isDark ? 'hsl(var(--menu-dark))' : 'hsl(var(--menu))';
-
   return {
-    backgroundColor,
-    extraBackgroundColor,
     theme: isDark ? 'dark' : 'light',
   };
 });
@@ -476,9 +458,9 @@ function handleOpenMenu() {
       :mixed-width="sidebarMixedWidth"
       :padding-top="sidePaddingTop"
       :show="showSidebar"
+      :theme="sidebarFace.theme"
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
-      v-bind="sidebarFace"
       @leave="() => emit('sideMouseLeave')"
     >
       <template v-if="isSideMode && !isMixedNav" #logo>

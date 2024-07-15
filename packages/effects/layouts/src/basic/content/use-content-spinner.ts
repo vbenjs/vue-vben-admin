@@ -7,9 +7,10 @@ function useContentSpinner() {
   const spinning = ref(false);
   const startTime = ref(0);
   const router = useRouter();
-  const minShowTime = 500;
+  const minShowTime = 500; // 最小显示时间
   const enableLoading = computed(() => preferences.transition.loading);
 
+  // 结束加载动画
   const onEnd = () => {
     if (!enableLoading.value) {
       return;
@@ -24,6 +25,7 @@ function useContentSpinner() {
     }
   };
 
+  // 路由前置守卫
   router.beforeEach((to) => {
     if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
@@ -33,14 +35,12 @@ function useContentSpinner() {
     return true;
   });
 
+  // 路由后置守卫
   router.afterEach((to) => {
     if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
     }
-
-    // 关闭加载动画
     onEnd();
-
     return true;
   });
 

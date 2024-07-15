@@ -2,11 +2,9 @@
 import type { ContentCompactType } from '@vben-core/typings';
 
 import type { CSSProperties } from 'vue';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed } from 'vue';
 
-import { getElementVisibleHeight } from '@vben-core/toolkit';
-
-import { useCssVar, useDebounceFn, useWindowSize } from '@vueuse/core';
+import { useContentHeightListener } from '@vben-core/hooks';
 
 interface Props {
   /**
@@ -56,13 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
   paddingTop: 16,
 });
 
-const contentElement = ref<HTMLDivElement | null>();
-
-const { height, width } = useWindowSize();
-const contentClientHeight = useCssVar('--vben-content-client-height');
-const debouncedCalcHeight = useDebounceFn(() => {
-  contentClientHeight.value = `${getElementVisibleHeight(contentElement.value)}px`;
-}, 200);
+const { contentElement } = useContentHeightListener();
 
 const style = computed((): CSSProperties => {
   const {
@@ -87,14 +79,6 @@ const style = computed((): CSSProperties => {
     paddingRight: `${paddingRight}px`,
     paddingTop: `${paddingTop}px`,
   };
-});
-
-watch([height, width], () => {
-  debouncedCalcHeight();
-});
-
-onMounted(() => {
-  debouncedCalcHeight();
 });
 </script>
 

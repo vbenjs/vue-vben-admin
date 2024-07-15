@@ -42,11 +42,6 @@ interface VbenLayoutProps {
    */
   contentPaddingTop?: number;
   /**
-   * footer背景颜色
-   * @default #fff
-   */
-  footerBackgroundColor?: string;
-  /**
    * footer 是否可见
    * @default false
    */
@@ -61,11 +56,7 @@ interface VbenLayoutProps {
    * @default 32
    */
   footerHeight?: number;
-  /**
-   * 背景颜色
-   * @default #fff
-   */
-  headerBackgroundColor?: string;
+
   /**
    * header高度
    * @default 48
@@ -157,11 +148,6 @@ interface VbenLayoutProps {
    * @default 210
    */
   sidebarWidth?: number;
-  /**
-   * footer背景颜色
-   * @default #fff
-   */
-  tabbarBackgroundColor?: string;
   /**
    * tab是否可见
    * @default true

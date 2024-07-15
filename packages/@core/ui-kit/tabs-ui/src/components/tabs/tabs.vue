@@ -26,14 +26,14 @@ const active = defineModel<string>('active');
 const typeWithClass = computed(() => {
   const typeClasses: Record<string, { content: string }> = {
     brisk: {
-      content: `h-full  after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100`,
+      content: `h-full  after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100 border-l border-border`,
     },
     card: {
       content:
-        'h-[calc(100%-6px)] rounded-md mr-2 border-border [&.is-active]:border-primary border transition-all',
+        'h-[calc(100%-6px)] rounded-md ml-2 border border-border  transition-all',
     },
     plain: {
-      content: 'h-full',
+      content: 'h-full border-l border-border',
     },
   };
 
@@ -77,7 +77,7 @@ function handleUnpinTab(tab: TabConfig) {
             :key="tab.key"
             :class="[
               {
-                'tabs-item is-active bg-background-content': tab.key === active,
+                'is-active bg-primary/15': tab.key === active,
                 dragable: !tab.affixTab,
               },
               typeWithClass.content,
@@ -110,14 +110,14 @@ function handleUnpinTab(tab: TabConfig) {
                   />
                   <MdiPin
                     v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                    class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
+                    class="hover:bg-heavy hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
                     @click.stop="handleUnpinTab(tab)"
                   />
                 </div>
 
                 <!-- tab-item-main -->
                 <div
-                  class="tabs-item__main group-[.is-active]:text-primary text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
+                  class="group-[.is-active]:text-primary text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
                 >
                   <!-- <div
                   class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"
@@ -141,15 +141,3 @@ function handleUnpinTab(tab: TabConfig) {
     </VbenScrollbar>
   </div>
 </template>
-
-<style scoped>
-/* html.dark {
-  .tabs-item {
-    &.is-active {
-      .tabs-item__main {
-        @apply text-accent-foreground;
-      }
-    }
-  }
-} */
-</style>

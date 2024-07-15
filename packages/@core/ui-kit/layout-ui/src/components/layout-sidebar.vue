@@ -8,10 +8,6 @@ import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 
 interface Props {
   /**
-   * 背景颜色
-   */
-  backgroundColor: string;
-  /**
    * 折叠区域高度
    * @default 32
    */
@@ -26,10 +22,6 @@ interface Props {
    * @default true
    */
   domVisible?: boolean;
-  /**
-   * 扩展区域背景颜色
-   */
-  extraBackgroundColor: string;
   /**
    * 扩展区域宽度
    * @default 180
@@ -113,15 +105,15 @@ const slots = useSlots();
 
 const asideRef = shallowRef<HTMLDivElement | null>();
 
-const hiddenSideStyle = computed((): CSSProperties => {
-  return calcMenuWidthStyle(true);
-});
+const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
+
+const isDark = computed(() => props.theme === 'dark');
 
 const style = computed((): CSSProperties => {
-  const { isSidebarMixed, paddingTop, theme, zIndex } = props;
+  const { isSidebarMixed, paddingTop, zIndex } = props;
 
   return {
-    '--scroll-shadow': theme === 'dark' ? 'var(--menu-dark)' : 'var(--menu)',
+    '--scroll-shadow': isDark.value ? 'var(--menu-dark)' : 'var(--menu)',
     ...calcMenuWidthStyle(false),
     paddingTop: `${paddingTop}px`,
     zIndex,
@@ -130,9 +122,14 @@ const style = computed((): CSSProperties => {
 });
 
 const extraStyle = computed((): CSSProperties => {
-  const { extraBackgroundColor, extraWidth, show, width, zIndex } = props;
+  const { extraWidth, show, width, zIndex } = props;
+
+  const backgroundColor = isDark.value
+    ? 'hsl(var(--menu-dark))'
+    : 'hsl(var(--menu))';
+
   return {
-    backgroundColor: extraBackgroundColor,
+    backgroundColor,
     left: `${width}px`,
     width: extraVisible.value && show ? `${extraWidth}px` : 0,
     zIndex,
@@ -196,14 +193,7 @@ watchEffect(() => {
 });
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
-  const {
-    backgroundColor,
-    extraWidth,
-    fixedExtra,
-    isSidebarMixed,
-    show,
-    width,
-  } = props;
+  const { extraWidth, fixedExtra, isSidebarMixed, show, width } = props;
 
   let widthValue = `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
 
@@ -211,6 +201,18 @@ function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
 
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
     widthValue = `${collapseWidth}px`;
+  }
+
+  let backgroundColor = '';
+
+  if (isDark.value) {
+    backgroundColor = isSidebarMixed
+      ? 'hsl(var(--menu-dark-deep))'
+      : 'hsl(var(--menu-dark))';
+  } else {
+    backgroundColor = isSidebarMixed
+      ? 'hsl(var(--menu-deep))'
+      : 'hsl(var(--menu))';
   }
 
   return {
@@ -254,8 +256,9 @@ function handleMouseleave() {
     class="h-full transition-all duration-200"
   ></div>
   <aside
+    :data-theme="theme"
     :style="style"
-    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
+    class="data-[theme=dark]:border-border-dark border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -280,8 +283,9 @@ function handleMouseleave() {
     <div
       v-if="isSidebarMixed"
       ref="asideRef"
+      :data-theme="theme"
       :style="extraStyle"
-      class="fixed top-0 h-full overflow-hidden transition-all duration-200"
+      class="data-[theme=dark]:border-border-dark border-border fixed top-0 h-full overflow-hidden border-x transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"
@@ -294,10 +298,15 @@ function handleMouseleave() {
         v-model:expand-on-hover="expandOnHover"
         :theme="theme"
       />
-      <div v-if="!extraCollapse" :style="extraTitleStyle">
+      <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
         <slot name="extra-title"></slot>
       </div>
-      <VbenScrollbar :style="extraContentStyle" class="py-4" shadow>
+      <VbenScrollbar
+        :data-theme="theme"
+        :style="extraContentStyle"
+        class="data-[theme=dark]:border-border-dark border-border border-t py-2"
+        shadow
+      >
         <slot name="extra"></slot>
       </VbenScrollbar>
     </div>

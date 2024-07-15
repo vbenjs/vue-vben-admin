@@ -63,7 +63,7 @@ $namespace: vben;
 .#{$namespace}-normal-menu {
   --menu-item-margin-y: 4px;
   --menu-item-margin-x: 0px;
-  --menu-item-padding-y: 11px;
+  --menu-item-padding-y: 8px;
   --menu-item-padding-x: 0px;
   --menu-item-radius: 0px;
   --menu-dark-background: 0deg 0% 100% / 10%;
@@ -77,11 +77,20 @@ $namespace: vben;
 
   &.is-dark {
     .#{$namespace}-normal-menu__item {
-      color: hsl(var(--dark-foreground) / 80%);
+      color: hsl(var(--foreground-dark) / 80%);
 
       &:not(.is-active):hover {
         color: hsl(var(--primary-foreground));
         background-color: hsl(var(--menu-dark-background));
+      }
+
+      &.is-active {
+        background-color: hsl(var(--menu-dark-background));
+
+        .#{$namespace}-normal-menu__name,
+        .#{$namespace}-normal-menu__icon {
+          color: hsl(var(--primary-foreground));
+        }
       }
     }
   }
@@ -115,26 +124,21 @@ $namespace: vben;
     border-radius: var(--menu-item-radius);
     transition:
       background 0.15s ease,
-      // color 0.15s ease,
       padding 0.15s ease,
       border-color 0.15s ease;
 
     &.is-active {
-      font-weight: 700;
-      color: hsl(var(--primary-foreground));
-      background-color: hsl(var(--primary));
+      @apply text-primary bg-primary/20;
 
-      .#{$namespace}-normal-menu__name {
-        color: hsl(var(--primary-foreground));
-      }
-
+      .#{$namespace}-normal-menu__name,
       .#{$namespace}-normal-menu__icon {
-        color: hsl(var(--primary-foreground));
+        @apply text-primary font-semibold;
       }
     }
 
     &:not(.is-active):hover {
-      color: hsl(var(--foreground));
+      @apply text-foreground;
+
       background-color: hsl(var(--menu-dark-background));
     }
 

@@ -5,7 +5,7 @@ interface Props {
   theme: string;
 }
 
-withDefaults(defineProps<Props>(), {});
+defineProps<Props>();
 
 const expandOnHover = defineModel<boolean>('expandOnHover');
 
@@ -17,7 +17,7 @@ function toggleFixed() {
 <template>
   <div
     :data-theme="theme"
-    class="flex-center hover:text-foreground text-foreground/60 hover:bg-accent-hover bg-accent absolute bottom-2 right-3 z-10 cursor-pointer rounded-sm p-1 transition-all duration-300 data-[theme=dark]:bg-[hsl(var(--dark-accent))] data-[theme=dark]:text-[hsl(var(--dark-foreground)/60%)] data-[theme=dark]:hover:bg-[hsl(var(--dark-accent-hover))] data-[theme=dark]:hover:text-[hsl(var(--dark-foreground))]"
+    class="flex-center hover:text-foreground text-foreground/60 hover:bg-accent-hover bg-accent data-[theme=dark]:hover:bg-accent-dark-hover data-[theme=dark]:bg-accent-dark data-[theme=dark]:text-foreground-dark/60 data-[theme=dark]:hover:text-foreground-dark absolute bottom-2 right-3 z-10 cursor-pointer rounded-sm p-1 transition-all duration-300"
     @click="toggleFixed"
   >
     <MdiPinOff v-if="!expandOnHover" />

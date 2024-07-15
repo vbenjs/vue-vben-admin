@@ -61,6 +61,10 @@
       "path": "packages/@core/forward/stores",
     },
     {
+      "name": "@vben-core/hooks",
+      "path": "packages/@core/hooks",
+    },
+    {
       "name": "@vben-core/locales",
       "path": "packages/@core/locales",
     },
@@ -71,10 +75,6 @@
     {
       "name": "@vben-core/design",
       "path": "packages/@core/shared/design",
-    },
-    {
-      "name": "@vben-core/hooks",
-      "path": "packages/@core/shared/hooks",
     },
     {
       "name": "@vben-core/icons",

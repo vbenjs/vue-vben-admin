@@ -86,20 +86,20 @@
   --authentication: 231deg 61% 44%;
 
   /* 用于浅色主题下一些暗色主题的颜色 */
-  --dark-foreground: 220 13% 91%;
-  --dark-border: 0deg 0% 100% / 10%;
-  --dark-accent: 0deg 0% 100% / 8%;
-  --dark-accent-hover: 0deg 0% 100% / 12%;
+  --accent-dark-hover: 0deg 0% 100% / 12%;
+  --foreground-dark: 220 13% 91%;
+  --accent-dark: 0deg 0% 100% / 8%;
+  --border-dark: 240 3.7% 15.9%;
 
   /* =============component & UI============= */
 
   /* menu */
   --menu: 0deg 0% 100%;
-  --menu-deep: 0deg 0% 95%;
+  --menu-deep: 210 11.11% 96.47%;
 
   /* menu-dark */
   --menu-dark: 222.34deg 10.43% 12.27%;
-  --menu-dark-deep: 223deg 11% 10%;
+  --menu-dark-deep: 220deg 13.06% 9%;
 
   accent-color: var(--primary);
   color-scheme: light;
@@ -124,6 +124,12 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 262.1 83.3% 57.8%;
+
+  /* menu-dark */
+  --menu-dark: 224 71.4% 4.1%;
+  --menu-dark-deep: 224 71.4% 4.1%;
+  --border-dark: 215 27.9% 16.9%;
+  --foreground-dark: 210 20% 98%;
 }
 
 :root[data-theme='pink'] {
@@ -145,6 +151,12 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
+
+  /* menu-dark */
+  --menu-dark: 20 14.3% 4.1%;
+  --menu-dark-deep: 20 14.3% 4.1%;
+  --border-dark: 240 3.7% 15.9%;
+  --foreground-dark: 0 0% 95%;
 }
 
 :root[data-theme='rose'] {
@@ -166,6 +178,12 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
+
+  /* menu-dark */
+  --menu-dark: 0 0% 3.9%;
+  --menu-dark-deep: 0 0% 3.9%;
+  --border-dark: 0 0% 14.9%;
+  --foreground-dark: 0 0% 98%;
 }
 
 :root[data-theme='sky-blue'] {
@@ -187,6 +205,12 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
+
+  /* menu-dark */
+  --menu-dark: 222.2 84% 4.9%;
+  --menu-dark-deep: 222.2 84% 4.9%;
+  --border-dark: 217.2 32.6% 17.5%;
+  --foreground-dark: 210 40% 98%;
 }
 
 :root[data-theme='deep-blue'] {
@@ -208,6 +232,12 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
+
+  /* menu-dark */
+  --menu-dark: 222.2 84% 4.9%;
+  --menu-dark-deep: 222.2 84% 4.9%;
+  --border-dark: 217.2 32.6% 17.5%;
+  --foreground-dark: 210 40% 98%;
 }
 
 :root[data-theme='green'] {
@@ -229,6 +259,12 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
+
+  /* menu-dark */
+  --menu-dark: 20 14.3% 4.1%;
+  --menu-dark-deep: 20 14.3% 4.1%;
+  --border-dark: 240 3.7% 15.9%;
+  --foreground-dark: 0 0% 95%;
 }
 
 :root[data-theme='deep-green'] {
@@ -250,6 +286,12 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
+
+  /* menu-dark */
+  --menu-dark: 20 14.3% 4.1%;
+  --menu-dark-deep: 20 14.3% 4.1%;
+  --border-dark: 240 3.7% 15.9%;
+  --foreground-dark: 0 0% 95%;
 }
 
 :root[data-theme='orange'] {
@@ -271,6 +313,12 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 24.6 95% 53.1%;
+
+  /* menu-dark */
+  --menu-dark: 20 14.3% 4.1%;
+  --menu-dark-deep: 20 14.3% 4.1%;
+  --border-dark: 12 6.5% 15.1%;
+  --foreground-dark: 60 9.1% 97.8%;
 }
 
 :root[data-theme='yellow'] {
@@ -292,6 +340,12 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 20 14.3% 4.1%;
+
+  /* menu-dark */
+  --menu-dark: 20 14.3% 4.1%;
+  --menu-dark-deep: 20 14.3% 4.1%;
+  --border-dark: 12 6.5% 15.1%;
+  --foreground-dark: 60 9.1% 97.8%;
 }
 
 :root[data-theme='zinc'] {
@@ -313,6 +367,12 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 240 5.9% 10%;
+
+  /* menu-dark */
+  --menu-dark: 240 10% 3.9%;
+  --menu-dark-deep: 240 10% 3.9%;
+  --border-dark: 240 3.7% 15.9%;
+  --foreground-dark: 0 0% 98%;
 }
 
 :root[data-theme='neutral'] {
@@ -334,6 +394,12 @@
   --border: 0 0% 89.8%;
   --input: 0 0% 89.8%;
   --ring: 0 0% 3.9%;
+
+  /* menu-dark */
+  --menu-dark: 0 0% 3.9%;
+  --menu-dark-deep: 0 0% 3.9%;
+  --border-dark: 0 0% 14.9%;
+  --foreground-dark: 0 0% 98%;
 }
 
 :root[data-theme='slate'] {
@@ -355,6 +421,12 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 222.2 84% 4.9%;
+
+  /* menu-dark */
+  --menu-dark: 222.2 84% 4.9%;
+  --menu-dark-deep: 222.2 84% 4.9%;
+  --border-dark: 217.2 32.6% 17.5%;
+  --foreground-dark: 210 40% 98%;
 }
 
 :root[data-theme='gray'] {
@@ -376,4 +448,10 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 224 71.4% 4.1%;
+
+  /* menu-dark */
+  --menu-dark: 224 71.4% 4.1%;
+  --menu-dark-deep: 224 71.4% 4.1%;
+  --border-dark: 215 27.9% 16.9%;
+  --foreground-dark: 210 20% 98%;
 }

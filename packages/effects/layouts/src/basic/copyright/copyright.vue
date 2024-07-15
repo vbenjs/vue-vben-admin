@@ -22,19 +22,23 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="text-md flex-center">
+    <!-- ICP Link -->
     <a
       v-if="icp"
-      :href="icpLink || 'javascript:void 0'"
+      :href="icpLink || 'javascript:void(0)'"
       class="hover:text-primary-hover"
       target="_blank"
     >
       {{ icp }}
     </a>
 
+    <!-- Copyright Text -->
     Copyright © {{ date }}
+
+    <!-- Company Link -->
     <a
       v-if="companyName"
-      :href="companySiteLink || 'javascript:void 0'"
+      :href="companySiteLink || 'javascript:void(0)'"
       class="hover:text-primary-hover mx-1"
       target="_blank"
     >

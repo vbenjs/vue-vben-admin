@@ -12,7 +12,7 @@ const routes: RouteRecordRaw[] = [
       badgeType: 'dot',
       icon: VBEN_LOGO_URL,
       order: 9999,
-      title: 'Vben Admin',
+      title: 'Vben',
     },
     name: 'AboutLayout',
     path: '/vben-admin',

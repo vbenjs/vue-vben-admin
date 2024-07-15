@@ -634,6 +634,31 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.31(typescript@5.5.3))
 
+  packages/@core/hooks:
+    dependencies:
+      '@vben-core/constants':
+        specifier: workspace:*
+        version: link:../shared/constants
+      '@vben-core/toolkit':
+        specifier: workspace:*
+        version: link:../shared/toolkit
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.31(typescript@5.5.3))
+      radix-vue:
+        specifier: ^1.9.1
+        version: 1.9.1(vue@3.4.31(typescript@5.5.3))
+      sortablejs:
+        specifier: ^1.15.2
+        version: 1.15.2
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.31(typescript@5.5.3)
+    devDependencies:
+      '@types/sortablejs':
+        specifier: ^1.15.8
+        version: 1.15.8
+
   packages/@core/locales:
     dependencies:
       '@intlify/core-base':
@@ -656,19 +681,6 @@ importers:
       modern-normalize:
         specifier: ^2.0.0
         version: 2.0.0
-
-  packages/@core/shared/hooks:
-    dependencies:
-      radix-vue:
-        specifier: ^1.9.1
-        version: 1.9.1(vue@3.4.31(typescript@5.5.3))
-      sortablejs:
-        specifier: ^1.15.2
-        version: 1.15.2
-    devDependencies:
-      '@types/sortablejs':
-        specifier: ^1.15.8
-        version: 1.15.8
 
   packages/@core/shared/icons:
     dependencies:
@@ -724,6 +736,9 @@ importers:
 
   packages/@core/ui-kit/layout-ui:
     dependencies:
+      '@vben-core/hooks':
+        specifier: workspace:*
+        version: link:../../hooks
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../../shared/icons
@@ -747,7 +762,7 @@ importers:
     dependencies:
       '@vben-core/hooks':
         specifier: workspace:*
-        version: link:../../shared/hooks
+        version: link:../../hooks
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../../shared/icons
@@ -801,7 +816,7 @@ importers:
     dependencies:
       '@vben-core/hooks':
         specifier: workspace:*
-        version: link:../../shared/hooks
+        version: link:../../hooks
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../../shared/icons
@@ -861,7 +876,7 @@ importers:
     dependencies:
       '@vben-core/hooks':
         specifier: workspace:*
-        version: link:../../@core/shared/hooks
+        version: link:../../@core/hooks
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../../@core/shared/icons
@@ -899,6 +914,9 @@ importers:
       '@vben-core/helpers':
         specifier: workspace:*
         version: link:../../@core/forward/helpers
+      '@vben-core/hooks':
+        specifier: workspace:*
+        version: link:../../@core/hooks
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../../@core/shared/icons
@@ -943,7 +961,7 @@ importers:
     dependencies:
       '@vben-core/hooks':
         specifier: workspace:*
-        version: link:../@core/shared/hooks
+        version: link:../@core/hooks
 
   packages/icons:
     dependencies:

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
+import { useContentHeight } from '@vben-core/hooks';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import { Spinner } from '@vben-core/shadcn-ui';
 import { storeToRefs, useCoreTabbarStore } from '@vben-core/stores';
@@ -13,6 +14,7 @@ defineOptions({ name: 'LayoutContent' });
 const tabbarStore = useCoreTabbarStore();
 const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
+const { contentStyles } = useContentHeight();
 
 const { getCachedTabs, getExcludeCachedTabs, renderRouteView } =
   storeToRefs(tabbarStore);
@@ -47,7 +49,7 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
     <Spinner
       v-if="preferences.transition.loading"
       :spinning="spinning"
-      class="h-[var(--vben-content-client-height)]"
+      :style="contentStyles"
     />
     <IFrameRouterView />
     <RouterView v-slot="{ Component, route }">

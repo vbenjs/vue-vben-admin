@@ -174,18 +174,18 @@ class PreferenceManager {
     if (colorPrimary) {
       document.documentElement.style.setProperty(
         '--primary',
-        colorVariables['--primary-600'],
+        colorVariables['--primary-500'],
       );
     }
 
-    if (colorVariables['--green-600']) {
-      colorVariables['--success'] = colorVariables['--green-600'];
+    if (colorVariables['--green-500']) {
+      colorVariables['--success'] = colorVariables['--green-500'];
     }
-    if (colorVariables['--yellow-600']) {
-      colorVariables['--warning'] = colorVariables['--yellow-600'];
+    if (colorVariables['--yellow-500']) {
+      colorVariables['--warning'] = colorVariables['--yellow-500'];
     }
-    if (colorVariables['--red-600']) {
-      colorVariables['--destructive'] = colorVariables['--red-600'];
+    if (colorVariables['--red-500']) {
+      colorVariables['--destructive'] = colorVariables['--red-500'];
     }
     updateCSSVariables(colorVariables);
   }
