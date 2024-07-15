@@ -89,16 +89,16 @@ export class MenuController {
           },
           name: 'Demos',
           path: '/demos',
-          redirect: '/demos/access',
+          redirect: '/access',
           children: [
             {
               name: 'Access',
-              path: 'access',
+              path: '/access',
               meta: {
                 icon: 'mdi:cloud-key-outline',
                 title: 'page.demos.access.backendPermissions',
               },
-              redirect: '/demos/access/page-control',
+              redirect: '/access/page-control',
               children: [
                 {
                   name: 'AccessPageControl',

@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Demos',
     path: '/demos',
-    redirect: '/demos/access',
+    redirect: '/access',
     children: [
       {
         meta: {
@@ -22,8 +22,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.access.frontendPermissions'),
         },
         name: 'Access',
-        path: 'access',
-        redirect: '/demos/access',
+        path: '/access',
+        redirect: '/access/page-control',
         children: [
           {
             name: 'AccessPageControl',
@@ -258,8 +258,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.nested.title'),
         },
         name: 'Nested',
-        path: 'nested',
-        redirect: '/demos/nested/menu1',
+        path: '/nested',
+        redirect: '/nested/menu1',
         children: [
           {
             name: 'Menu1',
