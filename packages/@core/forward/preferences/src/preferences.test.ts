@@ -25,7 +25,7 @@ describe('preferences', () => {
   });
 
   it('initPreferences should initialize preferences with overrides and namespace', async () => {
-    const overrides = { theme: { colorPrimary: 'hsl(245 82% 67%)' } };
+    const overrides = { theme: { colorPrimary: 'hsl(231 98% 65%)' } };
     const namespace = 'testNamespace';
 
     await preferenceManager.initPreferences({ namespace, overrides });

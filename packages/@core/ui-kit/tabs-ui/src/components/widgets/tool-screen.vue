@@ -10,7 +10,7 @@ function toggleScreen() {
 
 <template>
   <div
-    class="flex-center hover:bg-muted bg-accent hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-2 text-lg font-semibold"
+    class="flex-center hover:bg-muted hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-2 text-lg font-semibold"
     @click="toggleScreen"
   >
     <IcTwotoneFitScreen v-if="screen" />

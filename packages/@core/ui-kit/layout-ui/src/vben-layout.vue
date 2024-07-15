@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   tabbarEnable: true,
-  tabbarHeight: 36,
+  tabbarHeight: 38,
   zIndex: 200,
 });
 
@@ -211,11 +211,11 @@ const sidebarFace = computed(() => {
 
   if (isDark) {
     backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--menu-dark-darken))'
+      ? 'hsl(var(--menu-dark-deep))'
       : 'hsl(var(--menu-dark))';
   } else {
     backgroundColor = isSidebarMixedNav.value
-      ? 'hsl(var(--menu-darken))'
+      ? 'hsl(var(--menu-deep))'
       : 'hsl(var(--menu))';
   }
 

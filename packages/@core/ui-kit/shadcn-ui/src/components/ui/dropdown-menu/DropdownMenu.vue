@@ -6,7 +6,9 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<DropdownMenuRootProps>();
+const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
+  modal: false,
+});
 const emits = defineEmits<DropdownMenuRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);

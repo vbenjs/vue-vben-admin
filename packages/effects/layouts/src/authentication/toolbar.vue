@@ -12,7 +12,7 @@ defineOptions({
 </script>
 <template>
   <div
-    class="flex-center bg-accent absolute right-2 top-4 rounded-3xl px-3 py-1"
+    class="flex-center bg-background dark:bg-accent absolute right-2 top-4 rounded-3xl px-3 py-1"
   >
     <div class="hidden md:flex">
       <AuthenticationColorToggle />

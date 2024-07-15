@@ -3,7 +3,9 @@ import type { ContextMenuRootEmits, ContextMenuRootProps } from 'radix-vue';
 
 import { ContextMenuRoot, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<ContextMenuRootProps>();
+const props = withDefaults(defineProps<ContextMenuRootProps>(), {
+  modal: false,
+});
 const emits = defineEmits<ContextMenuRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);

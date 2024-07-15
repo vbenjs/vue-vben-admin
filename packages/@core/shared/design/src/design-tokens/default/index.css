@@ -5,7 +5,10 @@
     'Segoe UI Symbol';
 
   /* Default background color of <body />...etc */
-  --background: 0 0% 100%;
+  --background: 0 0 100%;
+
+  /* 主体区域背景色 */
+  --background-content: 210 11.11% 96.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -55,7 +58,7 @@
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */
-  --border: 240 6% 90%;
+  --border: 240 5.9% 90%;
 
   /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
   --input: 240deg 5.88% 90%;
@@ -65,14 +68,22 @@
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
+  /* Border radius for card, input and buttons */
+  --radius: 0.5rem;
+
+  /* ============= custom ============= */
+
   /* 遮罩颜色 */
   --overlay: 0deg 0% 0% / 40%;
 
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* Border radius for card, input and buttons */
-  --radius: 0.5rem;
+  /* 主体内容背景色 */
+  --content: 240 11% 96%;
+
+  /* 登录背景色 */
+  --authentication: 231deg 61% 44%;
 
   /* 用于浅色主题下一些暗色主题的颜色 */
   --dark-foreground: 220 13% 91%;
@@ -82,23 +93,20 @@
 
   /* =============component & UI============= */
 
-  /* authentication */
-  --authentication: 231deg 61% 44%;
-
   /* menu */
   --menu: 0deg 0% 100%;
-  --menu-darken: 0deg 0% 95%;
+  --menu-deep: 0deg 0% 95%;
 
   /* menu-dark */
-  --menu-dark: 225deg 12% 13%;
-  --menu-dark-darken: 223deg 11% 10%;
+  --menu-dark: 222.34deg 10.43% 12.27%;
+  --menu-dark-deep: 223deg 11% 10%;
 
   accent-color: var(--primary);
   color-scheme: light;
 }
 
 :root[data-theme='violet'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;
@@ -119,7 +127,7 @@
 }
 
 :root[data-theme='pink'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -140,7 +148,7 @@
 }
 
 :root[data-theme='rose'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -161,7 +169,7 @@
 }
 
 :root[data-theme='sky-blue'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -182,7 +190,7 @@
 }
 
 :root[data-theme='deep-blue'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -203,7 +211,7 @@
 }
 
 :root[data-theme='green'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -224,7 +232,7 @@
 }
 
 :root[data-theme='deep-green'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -245,7 +253,7 @@
 }
 
 :root[data-theme='orange'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
@@ -266,7 +274,7 @@
 }
 
 :root[data-theme='yellow'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
@@ -287,7 +295,7 @@
 }
 
 :root[data-theme='zinc'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -308,7 +316,7 @@
 }
 
 :root[data-theme='neutral'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 3.9%;
@@ -329,7 +337,7 @@
 }
 
 :root[data-theme='slate'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -350,7 +358,7 @@
 }
 
 :root[data-theme='gray'] {
-  --background: 0 0% 100%;
+  /* --background: 0 0% 100%; */
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;

@@ -79,7 +79,7 @@ const defaultPreferences: Preferences = {
   theme: {
     builtinType: 'default',
     colorDestructive: 'hsl(348 100% 61%)',
-    colorPrimary: 'hsl(245 82% 67%)',
+    colorPrimary: 'hsl(231 98% 65%)',
     colorSuccess: 'hsl(144 57% 58%)',
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',

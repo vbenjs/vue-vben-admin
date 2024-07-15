@@ -94,10 +94,7 @@ function handleUnpinTab(tab: TabConfig) {
 </script>
 
 <template>
-  <div
-    :style="style"
-    class="tabs-chrome bg-accent size-full flex-1 overflow-hidden pt-1"
-  >
+  <div :style="style" class="tabs-chrome size-full flex-1 overflow-hidden pt-1">
     <!-- footer -> 4px -->
     <div
       ref="contentRef"
@@ -130,7 +127,7 @@ function handleUnpinTab(tab: TabConfig) {
               <!-- divider -->
               <div
                 v-if="i !== 0"
-                class="tabs-chrome__divider bg-accent absolute left-[var(--gap)] top-1/2 z-0 h-5 w-[1px] translate-y-[-50%]"
+                class="tabs-chrome__divider bg-foreground/80 absolute left-[var(--gap)] top-1/2 z-0 h-4 w-[1px] translate-y-[-50%] transition-all"
               ></div>
               <!-- background -->
               <div
@@ -157,24 +154,27 @@ function handleUnpinTab(tab: TabConfig) {
 
               <!-- extra -->
               <div
-                class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%] opacity-0 transition-opacity group-hover:opacity-100"
+                class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%]"
               >
+                <!-- <div
+                class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%] opacity-0 transition-opacity group-hover:opacity-100"
+              > -->
                 <!-- close-icon -->
                 <IcRoundClose
                   v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"
-                  class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground mt-[2px] size-3 cursor-pointer rounded-full transition-all"
+                  class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3 cursor-pointer rounded-full transition-all"
                   @click.stop="handleClose(tab.key)"
                 />
                 <MdiPin
                   v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                  class="hover:bg-accent hover:stroke-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
+                  class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
                   @click.stop="handleUnpinTab(tab)"
                 />
               </div>
 
               <!-- tab-item-main -->
               <div
-                class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] duration-150 group-hover:pr-3"
+                class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-4 duration-150 group-hover:pr-3 group-[.is-active]:font-semibold"
               >
                 <VbenIcon
                   v-if="showIcon"
@@ -200,7 +200,7 @@ function handleUnpinTab(tab: TabConfig) {
 </template>
 
 <style scoped>
-html.dark {
+/* html.dark {
   .tabs-chrome {
     .is-active {
       .tabs-chrome__item-main {
@@ -208,7 +208,7 @@ html.dark {
       }
     }
   }
-}
+} */
 
 .tabs-chrome {
   .dragging {
@@ -235,12 +235,12 @@ html.dark {
 
       .tabs-chrome__background {
         &-content {
-          @apply bg-accent;
+          @apply bg-heavy;
         }
 
         &-before,
         &-after {
-          @apply fill-accent;
+          @apply fill-heavy;
         }
       }
     }
@@ -252,12 +252,12 @@ html.dark {
         @apply opacity-100;
 
         &-content {
-          @apply bg-background;
+          @apply bg-background-content;
         }
 
         &-before,
         &-after {
-          @apply fill-background;
+          @apply fill-background-content;
         }
       }
     }

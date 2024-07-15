@@ -5,7 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@ant-design/colors': ^7.1.0
   '@ctrl/tinycolor': ^4.1.0
   clsx: ^2.1.1
   eslint: ^8.57.0
@@ -682,9 +681,6 @@ importers:
 
   packages/@core/shared/toolkit:
     dependencies:
-      '@ant-design/colors':
-        specifier: ^7.1.0
-        version: 7.1.0
       '@ctrl/tinycolor':
         specifier: ^4.1.0
         version: 4.1.0
@@ -706,6 +702,9 @@ importers:
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
+      theme-colors:
+        specifier: ^0.1.0
+        version: 0.1.0
     devDependencies:
       '@types/lodash.clonedeep':
         specifier: ^4.5.9
@@ -1096,8 +1095,8 @@ packages:
     resolution: {integrity: sha512-QRVEYpIfgkprNHc916JlPuNbLzOgrm9DZalHasnLUz4P6g7pR21olb8YCyM2OTJjombNhya9ZpckcADU5Qyvlg==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
 
-  '@ant-design/colors@7.1.0':
-    resolution: {integrity: sha512-MMoDGWn1y9LdQJQSHiCC20x3uZ3CwQnv9QMz6pCmJOrqdgM9YxsoVVY0wtrdXbmfSgnV0KNk6zi09NAhMR2jvg==}
+  '@ant-design/colors@6.0.0':
+    resolution: {integrity: sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ==}
 
   '@ant-design/icons-svg@4.4.2':
     resolution: {integrity: sha512-vHbT+zJEVzllwP+CM+ul7reTEfBR0vgxFe7+lREAsAA7YGsYpboiq2sQNeQeRvh09GfQgs/GyFEvZpJ9cLXpXA==}
@@ -8576,6 +8575,9 @@ packages:
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
+  theme-colors@0.1.0:
+    resolution: {integrity: sha512-6gTEHQqWlQNiOEGHCSSQmU//E5SnXHJ4H7oHQOD8x77CvNYNQAmt73dqR71mzw5ULV87zaHLxK5pIBnsToFuZw==}
+
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
     engines: {node: '>=0.8'}
@@ -9610,7 +9612,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@ant-design/colors@7.1.0':
+  '@ant-design/colors@6.0.0':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
 
@@ -9618,7 +9620,7 @@ snapshots:
 
   '@ant-design/icons-vue@7.0.1(vue@3.4.31(typescript@5.5.3))':
     dependencies:
-      '@ant-design/colors': 7.1.0
+      '@ant-design/colors': 6.0.0
       '@ant-design/icons-svg': 4.4.2
       vue: 3.4.31(typescript@5.5.3)
 
@@ -12916,7 +12918,7 @@ snapshots:
 
   ant-design-vue@4.2.3(vue@3.4.31(typescript@5.5.3)):
     dependencies:
-      '@ant-design/colors': 7.1.0
+      '@ant-design/colors': 6.0.0
       '@ant-design/icons-vue': 7.0.1(vue@3.4.31(typescript@5.5.3))
       '@babel/runtime': 7.24.8
       '@ctrl/tinycolor': 4.1.0
@@ -17864,6 +17866,8 @@ snapshots:
   text-extensions@2.4.0: {}
 
   text-table@0.2.0: {}
+
+  theme-colors@0.1.0: {}
 
   thenify-all@1.6.0:
     dependencies:

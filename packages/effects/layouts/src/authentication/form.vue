@@ -9,7 +9,9 @@ defineOptions({
 });
 </script>
 <template>
-  <div class="flex-col-center relative px-6 py-10 lg:flex-initial lg:px-8">
+  <div
+    class="flex-col-center bg-background-content relative px-6 py-10 lg:flex-initial lg:px-8"
+  >
     <slot name="toolbar">
       <Toolbar />
     </slot>
@@ -20,7 +22,7 @@ defineOptions({
           <component
             :is="Component"
             :key="route.fullPath"
-            class="mt-6 w-full sm:mx-auto md:max-w-md"
+            class="enter-x mt-6 w-full sm:mx-auto md:max-w-md"
           />
         </KeepAlive>
       </Transition>

@@ -255,7 +255,7 @@ function handleMouseleave() {
   ></div>
   <aside
     :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-200"
+    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >

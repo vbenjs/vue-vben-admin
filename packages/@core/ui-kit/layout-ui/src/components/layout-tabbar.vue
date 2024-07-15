@@ -4,10 +4,6 @@ import { computed } from 'vue';
 
 interface Props {
   /**
-   * 背景颜色
-   */
-  backgroundColor?: string;
-  /**
    * 高度
    * @default 30
    */
@@ -15,29 +11,23 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  backgroundColor: 'hsl(var(--background))',
   fixed: true,
   height: 30,
 });
 
-const hiddenStyle = computed((): CSSProperties => {
+const style = computed((): CSSProperties => {
   const { height } = props;
   return {
     height: `${height}px`,
   };
 });
-
-const style = computed((): CSSProperties => {
-  const { backgroundColor } = props;
-  return {
-    ...hiddenStyle.value,
-    backgroundColor,
-  };
-});
 </script>
 
 <template>
-  <section :style="style" class="border-border flex w-full">
+  <section
+    :style="style"
+    class="border-border bg-background flex w-full border-b"
+  >
     <slot></slot>
   </section>
 </template>

@@ -2,17 +2,20 @@
 :root.dark[data-theme='custom'],
 :root.dark[data-theme='default'] {
   /* Default background color of <body />...etc */
-  --background: 220deg 13.04% 8%;
+  --background: 222.34deg 10.43% 12.27%;
+
+  /* 主体区域背景色 */
+  --background-content: 220deg 13.06% 9%;
   --foreground: 220 13% 91%;
 
   /* Background color for <Card /> */
-  --card: 222.86deg 8.43% 16.27%;
+  --card: 222.34deg 10.43% 12.27%;
 
   /* --card: 222.2 84% 4.9%; */
   --card-foreground: 210 40% 98%;
 
   /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
-  --popover: 222.86deg 8.43% 16.27%;
+  --popover: 222.82deg 8.43% 16.27%;
   --popover-foreground: 210 40% 98%;
 
   /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
@@ -53,7 +56,7 @@
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */
-  --border: 0deg 0% 100% / 10%;
+  --border: 215 27.9% 16.9%;
 
   /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
   --input: 0deg 0% 100% / 10%;
@@ -63,19 +66,24 @@
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
+  /* 基本圆角大小 */
+  --radius: 0.5rem;
+
+  /* ============= Custom ============= */
+
   /* 遮罩颜色 */
   --overlay: 0deg 0% 0% / 40%;
 
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 基本圆角大小 */
-  --radius: 0.5rem;
+  /* 主体内容背景色 */
+  --content: 240 11% 96%;
+
+  /* 登录背景色 */
+  --authentication: 220deg 13.06% 3.04%;
 
   /* =============component & UI============= */
-
-  /* authentication */
-  --authentication: 240deg 11% 2%;
 
   color-scheme: dark;
 }

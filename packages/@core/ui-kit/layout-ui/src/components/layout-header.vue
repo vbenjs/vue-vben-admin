@@ -7,11 +7,6 @@ import { VbenIconButton } from '@vben-core/shadcn-ui';
 
 interface Props {
   /**
-   * 背景颜色
-   */
-  backgroundColor?: string;
-
-  /**
    * 横屏
    * @default false
    */
@@ -60,8 +55,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  backgroundColor: 'hsl(var(--background))',
-  // fixed: true,
   height: 60,
   isMixedNav: false,
   show: true,
@@ -76,12 +69,11 @@ const emit = defineEmits<{ openMenu: []; toggleSidebar: [] }>();
 const slots = useSlots();
 
 const style = computed((): CSSProperties => {
-  const { backgroundColor, fullWidth, height, show } = props;
+  const { fullWidth, height, show } = props;
   const right = !show || !fullWidth ? undefined : 0;
 
   return {
     // ...(props.isMixedNav ? { left: 0, position: `fixed` } : {}),
-    backgroundColor,
     height: `${height}px`,
     marginTop: show ? 0 : `-${height}px`,
     right,
@@ -106,7 +98,7 @@ function handleToggleMenu() {
 <template>
   <header
     :style="style"
-    class="border-border top-0 flex w-full flex-[0_0_auto] items-center border-b transition-[margin-top] duration-200"
+    class="border-border bg-background top-0 flex w-full flex-[0_0_auto] items-center border-b transition-[margin-top] duration-200"
   >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>

@@ -84,7 +84,6 @@
   "packageManager": "pnpm@9.5.0",
   "pnpm": {
     "overrides": {
-      "@ant-design/colors": "^7.1.0",
       "@ctrl/tinycolor": "^4.1.0",
       "clsx": "^2.1.1",
       "eslint": "^8.57.0",

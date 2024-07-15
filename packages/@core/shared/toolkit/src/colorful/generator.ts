@@ -1,13 +1,7 @@
-import { generate } from '@ant-design/colors';
+import { TinyColor } from '@ctrl/tinycolor';
+import { getColors } from 'theme-colors';
 
 import { convertToHslCssVar } from './convert';
-
-export * from '@ant-design/colors';
-
-interface Opts {
-  backgroundColor?: string;
-  theme?: 'dark' | 'default';
-}
 
 interface ColorItem {
   alias?: string;
@@ -15,21 +9,26 @@ interface ColorItem {
   name: string;
 }
 
-function generatorColorVariables(colorItems: ColorItem[], opts?: Opts) {
+function generatorColorVariables(colorItems: ColorItem[]) {
   const colorVariables: Record<string, string> = {};
 
   colorItems.forEach(({ alias, color, name }) => {
     if (color) {
-      const colors = generate(color, opts);
-      let mainColor = colors[5];
-      colors.forEach((colorValue, colorIndex) => {
+      const colorsMap = getColors(new TinyColor(color).toHexString());
+      let mainColor = colorsMap['500'];
+
+      const colorKeys = Object.keys(colorsMap);
+
+      colorKeys.forEach((key) => {
+        const colorValue = colorsMap[key];
+
         const hslColor = convertToHslCssVar(colorValue);
-        colorVariables[`--${name}-${colorIndex + 1}00`] = hslColor;
+        colorVariables[`--${name}-${key}`] = hslColor;
         if (alias) {
-          colorVariables[`--${alias}-${colorIndex + 1}00`] = hslColor;
+          colorVariables[`--${alias}-${key}`] = hslColor;
         }
 
-        if (colorIndex === 5) {
+        if (key === '500') {
           mainColor = hslColor;
         }
       });
@@ -38,7 +37,6 @@ function generatorColorVariables(colorItems: ColorItem[], opts?: Opts) {
       }
     }
   });
-
   return colorVariables;
 }
 

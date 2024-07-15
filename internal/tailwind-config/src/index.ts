@@ -24,30 +24,86 @@ packages.forEach((pkg) => {
   }
 });
 
-function createColorsPattern(name: string) {
-  return {
-    100: `hsl(var(--${name}-100))`,
-    200: `hsl(var(--${name}-200))`,
-    300: `hsl(var(--${name}-300))`,
-    400: `hsl(var(--${name}-400))`,
-    500: `hsl(var(--${name}-500))`,
-    600: `hsl(var(--${name}-600))`,
-    700: `hsl(var(--${name}-700))`,
-    800: `hsl(var(--${name}-800))`,
-    900: `hsl(var(--${name}-900))`,
-    1000: `hsl(var(--${name}-1000))`,
-    active: `hsl(var(--${name}-700))`,
-    background: `hsl(var(--${name}-100))`,
-    'background-hover': `hsl(var(--${name}-200))`,
-    border: `hsl(var(--${name}-300))`,
-    'border-hover': `hsl(var(--${name}-400))`,
-    foreground: `hsl(var(--${name}-foreground))`,
-    hover: `hsl(var(--${name}-500))`,
-    text: `hsl(var(--${name}-900))`,
-    'text-active': `hsl(var(--${name}-1000))`,
-    'text-hover': `hsl(var(--${name}-800))`,
-  };
-}
+const shadcnUiColors = {
+  accent: {
+    DEFAULT: 'hsl(var(--accent))',
+    foreground: 'hsl(var(--accent-foreground))',
+    hover: 'hsl(var(--accent-hover))',
+  },
+  background: {
+    DEFAULT: 'hsl(var(--background))',
+    content: 'hsl(var(--background-content))',
+  },
+  border: 'hsl(var(--border))',
+  card: {
+    DEFAULT: 'hsl(var(--card))',
+    foreground: 'hsl(var(--card-foreground))',
+  },
+  destructive: {
+    ...createColorsPattern('destructive'),
+    DEFAULT: 'hsl(var(--destructive))',
+  },
+
+  foreground: 'hsl(var(--foreground))',
+
+  input: {
+    DEFAULT: 'hsl(var(--input))',
+    background: 'hsl(var(--input-background))',
+  },
+  muted: {
+    DEFAULT: 'hsl(var(--muted))',
+    foreground: 'hsl(var(--muted-foreground))',
+  },
+  popover: {
+    DEFAULT: 'hsl(var(--popover))',
+    foreground: 'hsl(var(--popover-foreground))',
+  },
+  primary: {
+    ...createColorsPattern('primary'),
+    DEFAULT: 'hsl(var(--primary))',
+  },
+
+  ring: 'hsl(var(--ring))',
+  secondary: {
+    DEFAULT: 'hsl(var(--secondary))',
+    desc: 'hsl(var(--secondary-desc))',
+    foreground: 'hsl(var(--secondary-foreground))',
+  },
+};
+
+const customColors = {
+  authentication: {
+    DEFAULT: 'hsl(var(--authentication))',
+  },
+  green: {
+    ...createColorsPattern('green'),
+    foreground: 'hsl(var(--success-foreground))',
+  },
+  heavy: {
+    DEFAULT: 'hsl(var(--heavy))',
+    foreground: 'hsl(var(--heavy-foreground))',
+  },
+  main: {
+    DEFAULT: 'hsl(var(--main))',
+  },
+  overlay: 'hsl(var(--overlay))',
+  red: {
+    ...createColorsPattern('red'),
+    foreground: 'hsl(var(--destructive-foreground))',
+  },
+  success: {
+    ...createColorsPattern('success'),
+    DEFAULT: 'hsl(var(--success))',
+  },
+  warning: {
+    ...createColorsPattern('warning'),
+    DEFAULT: 'hsl(var(--warning))',
+  },
+  yellow: {
+    ...createColorsPattern('yellow'),
+    foreground: 'hsl(var(--warning-foreground))',
+  },
+};
 
 export default {
   content: [
@@ -93,71 +149,8 @@ export default {
         xl: 'calc(var(--radius) + 4px)',
       },
       colors: {
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-          hover: 'hsl(var(--accent-hover))',
-        },
-        authentication: 'hsl(var(--authentication))',
-        background: 'hsl(var(--background))',
-        border: 'hsl(var(--border))',
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        destructive: {
-          ...createColorsPattern('destructive'),
-          DEFAULT: 'hsl(var(--destructive))',
-        },
-
-        foreground: 'hsl(var(--foreground))',
-        green: {
-          ...createColorsPattern('green'),
-          foreground: 'hsl(var(--success-foreground))',
-        },
-        heavy: {
-          DEFAULT: 'hsl(var(--heavy))',
-          foreground: 'hsl(var(--heavy-foreground))',
-        },
-        input: {
-          DEFAULT: 'hsl(var(--input))',
-          background: 'hsl(var(--input-background))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        overlay: 'hsl(var(--overlay))',
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        primary: {
-          ...createColorsPattern('primary'),
-          DEFAULT: 'hsl(var(--primary))',
-        },
-        red: {
-          ...createColorsPattern('red'),
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        ring: 'hsl(var(--ring))',
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          desc: 'hsl(var(--secondary-desc))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        success: {
-          ...createColorsPattern('success'),
-          DEFAULT: 'hsl(var(--success))',
-        },
-        warning: {
-          ...createColorsPattern('warning'),
-          DEFAULT: 'hsl(var(--warning))',
-        },
-        yellow: {
-          ...createColorsPattern('yellow'),
-          foreground: 'hsl(var(--warning-foreground))',
-        },
+        ...customColors,
+        ...shadcnUiColors,
       },
       fontFamily: {
         sans: [
@@ -195,3 +188,29 @@ export default {
     },
   },
 } as Config;
+
+function createColorsPattern(name: string) {
+  return {
+    50: `hsl(var(--${name}-50))`,
+    100: `hsl(var(--${name}-100))`,
+    200: `hsl(var(--${name}-200))`,
+    300: `hsl(var(--${name}-300))`,
+    400: `hsl(var(--${name}-400))`,
+    500: `hsl(var(--${name}-500))`,
+    600: `hsl(var(--${name}-600))`,
+    700: `hsl(var(--${name}-700))`,
+    800: `hsl(var(--${name}-800))`,
+    900: `hsl(var(--${name}-900))`,
+    950: `hsl(var(--${name}-950))`,
+    active: `hsl(var(--${name}-600))`,
+    background: `hsl(var(--${name}-50))`,
+    'background-hover': `hsl(var(--${name}-100))`,
+    border: `hsl(var(--${name}-200))`,
+    'border-hover': `hsl(var(--${name}-300))`,
+    foreground: `hsl(var(--${name}-foreground))`,
+    hover: `hsl(var(--${name}-400))`,
+    text: `hsl(var(--${name}-800))`,
+    'text-active': `hsl(var(--${name}-900))`,
+    'text-hover': `hsl(var(--${name}-700))`,
+  };
+}

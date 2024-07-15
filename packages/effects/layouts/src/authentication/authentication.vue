@@ -4,46 +4,40 @@ import { computed } from 'vue';
 import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 
-import AuthenticationFromView from './from-view.vue';
+import AuthenticationFormView from './form.vue';
 import SloganIcon from './icons/slogan.vue';
 import Toolbar from './toolbar.vue';
 
-defineOptions({
-  name: 'Authentication',
-});
+defineOptions({ name: 'Authentication' });
 
 const { authPanelCenter, authPanelLeft, authPanelRight } = usePreferences();
 const appName = computed(() => preferences.app.name);
+const logoSource = computed(() => preferences.logo.source);
 </script>
 
 <template>
   <div class="flex min-h-full flex-1 select-none overflow-x-hidden">
-    <AuthenticationFromView
+    <!-- 左侧认证面板 -->
+    <AuthenticationFormView
       v-if="authPanelLeft"
-      class="-enter-x min-h-full w-2/5"
+      class="min-h-full w-2/5"
       transition-name="slide-left"
     />
 
+    <!-- 头部 Logo 和应用名称 -->
     <div class="absolute left-0 top-0 z-10 flex flex-1">
       <div
-        :class="
-          authPanelLeft || authPanelCenter
-            ? 'lg:text-foreground'
-            : 'lg:text-white'
-        "
+        :class="authPanelLeft ? 'lg:text-foreground' : 'lg:text-white'"
         class="text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
-        <img
-          :alt="appName"
-          :src="preferences.logo.source"
-          :width="42"
-          class="mr-2"
-        />
+        <img :alt="appName" :src="logoSource" class="mr-2" width="42" />
         <p class="text-xl font-medium">
           {{ appName }}
         </p>
       </div>
     </div>
+
+    <!-- 中间内容 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div class="bg-authentication absolute inset-0 h-full w-full">
         <div class="flex-col-center -enter-x mr-20 h-full">
@@ -57,18 +51,22 @@ const appName = computed(() => preferences.app.name);
         </div>
       </div>
     </div>
+
+    <!-- 中心认证面板 -->
     <div v-if="authPanelCenter" class="flex-center bg-authentication w-full">
-      <AuthenticationFromView
-        class="enter-y md:bg-background w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-2/5"
+      <AuthenticationFormView
+        class="md:bg-background w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-2/5"
       >
         <template #toolbar>
-          <Toolbar class="bg-muted" />
+          <Toolbar />
         </template>
-      </AuthenticationFromView>
+      </AuthenticationFormView>
     </div>
-    <AuthenticationFromView
+
+    <!-- 右侧认证面板 -->
+    <AuthenticationFormView
       v-if="authPanelRight"
-      class="enter-x min-h-full w-2/5 flex-1"
+      class="min-h-full w-2/5 flex-1"
     />
   </div>
 </template>

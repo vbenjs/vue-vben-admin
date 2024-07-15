@@ -91,7 +91,7 @@ onMounted(() => {
             class="text-muted-foreground group-hover:text-foreground size-4 group-hover:opacity-100"
           />
           <span
-            class="text-muted-foreground group-hover:text-foreground hidden text-sm duration-300 md:block"
+            class="text-muted-foreground group-hover:text-foreground hidden text-xs duration-300 md:block"
           >
             {{ $t('widgets.search.title') }}
           </span>

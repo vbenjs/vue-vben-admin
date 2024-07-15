@@ -31,11 +31,11 @@ const SUPPORT_LANGUAGES: Language[] = [
 
 const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
   {
-    color: 'hsl(245 82% 67%)',
+    color: 'hsl(231 98% 65%)',
     type: 'default',
   },
   {
-    color: 'hsl(231 98% 65%)',
+    color: 'hsl(245 82% 67%)',
     type: 'violet',
   },
   {

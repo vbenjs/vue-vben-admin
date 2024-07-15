@@ -99,7 +99,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main ref="contentElement" :style="style">
+  <main ref="contentElement" :style="style" class="bg-background-content">
     <slot></slot>
   </main>
 </template>
