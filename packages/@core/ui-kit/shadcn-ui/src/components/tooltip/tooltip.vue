@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+
 import {
   Tooltip,
   TooltipContent,
@@ -9,6 +11,7 @@ import {
 import { TooltipContentProps } from 'radix-vue';
 
 interface Props {
+  contentClass?: HTMLAttributes['class'];
   delayDuration?: number;
   side: TooltipContentProps['side'];
 }
@@ -26,6 +29,7 @@ withDefaults(defineProps<Props>(), {
         <slot name="trigger"></slot>
       </TooltipTrigger>
       <TooltipContent
+        :class="contentClass"
         :side="side"
         class="side-content text-popover-foreground bg-popover"
       >

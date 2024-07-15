@@ -3,8 +3,6 @@ import type { ConfigEnv, PluginOption, UserConfig } from 'vite';
 import type { PluginOptions } from 'vite-plugin-dts';
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
-import viteTurboConsolePlugin from 'unplugin-turbo-console/vite';
-
 interface IImportMap {
   imports?: Record<string, string>;
   scopes?: {
@@ -75,8 +73,6 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   pwa?: boolean;
   /** pwa 插件配置 */
   pwaOptions?: Partial<PwaPluginOptions>;
-  /** turbo-console 插件配置 */
-  turboConsole?: Parameters<typeof viteTurboConsolePlugin>[0] | boolean;
 }
 
 interface LibraryPluginOptions extends CommonPluginOptions {

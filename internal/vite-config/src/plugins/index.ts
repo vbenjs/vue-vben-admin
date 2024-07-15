@@ -11,7 +11,6 @@ import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
 import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
-import viteTurboConsolePlugin from 'unplugin-turbo-console/vite';
 import viteCompressPlugin from 'vite-plugin-compression';
 import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
@@ -102,7 +101,6 @@ async function loadApplicationPlugins(
     license,
     pwa,
     pwaOptions,
-    turboConsole,
     ...commonOptions
   } = options;
 
@@ -185,10 +183,6 @@ async function loadApplicationPlugins(
         await viteExtraAppConfigPlugin({ isBuild: true, root: process.cwd() }),
       ],
     },
-    {
-      condition: !isBuild && !!turboConsole,
-      plugins: () => [viteTurboConsolePlugin()],
-    },
   ]);
 }
 
@@ -221,6 +215,5 @@ export {
   viteCompressPlugin,
   viteDtsPlugin,
   viteHtmlPlugin,
-  viteTurboConsolePlugin,
   viteVisualizerPlugin,
 };

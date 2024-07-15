@@ -1,5 +1,5 @@
 import './scss/index.scss';
-import './css/tailwind.css';
+import './css/global.css';
 import './css/nprogress.css';
 import './design-tokens';
 

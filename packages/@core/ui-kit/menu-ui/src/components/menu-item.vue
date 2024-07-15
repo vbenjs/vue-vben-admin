@@ -30,7 +30,7 @@ const isTopLevelMenuItem = computed(
   () => parentMenu.value?.type.name === 'Menu',
 );
 
-const getCollapseShowTitle = computed(
+const collapseShowTitle = computed(
   () =>
     rootMenu.props?.collapseShowTitle &&
     isTopLevelMenuItem.value &&
@@ -78,20 +78,25 @@ onBeforeUnmount(() => {
 <template>
   <li
     :class="[
+      rootMenu.theme,
       b(),
       is('active', active),
       is('disabled', disabled),
-      is('collapse-show-title', getCollapseShowTitle),
+      is('collapse-show-title', collapseShowTitle),
     ]"
     role="menuitem"
     @click.stop="handleClick"
   >
-    <VbenTooltip v-if="showTooltip" side="right">
+    <VbenTooltip
+      v-if="showTooltip"
+      :content-class="[rootMenu.theme]"
+      side="right"
+    >
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
           <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />
           <slot></slot>
-          <span v-if="getCollapseShowTitle" :class="nsMenu.e('name')">
+          <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
             <slot name="title"></slot>
           </span>
         </div>
@@ -99,9 +104,11 @@ onBeforeUnmount(() => {
       <slot name="title"></slot>
     </VbenTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
-      <VbenMenuBadge v-bind="props" />
+      <VbenMenuBadge
+        v-if="rootMenu.props.mode !== 'horizontal'"
+        v-bind="props"
+      />
       <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />
-
       <slot></slot>
       <slot name="title"></slot>
     </div>

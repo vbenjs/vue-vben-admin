@@ -87,6 +87,7 @@
 
   --sidebar: 222.34deg 10.43% 12.27%;
   --sidebar-deep: 220deg 13.06% 9%;
+  --menu: var(--sidebar);
 
   color-scheme: dark;
 }

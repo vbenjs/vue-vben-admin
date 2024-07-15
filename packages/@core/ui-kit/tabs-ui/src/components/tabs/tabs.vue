@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TabConfig, TabsProps } from '../../types';
 
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
 import { IcRoundClose, MdiPin } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
@@ -55,12 +55,26 @@ const tabsView = computed((): TabConfig[] => {
   });
 });
 
+watch(active, () => {
+  scrollIntoView();
+});
+
 function handleClose(key: string) {
   emit('close', key);
 }
 
 function handleUnpinTab(tab: TabConfig) {
   emit('unpin', tab);
+}
+
+function scrollIntoView() {
+  setTimeout(() => {
+    const element = document.querySelector(`.tabs-chrome__item.is-active`);
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
 }
 </script>
 
@@ -83,7 +97,7 @@ function handleUnpinTab(tab: TabConfig) {
               typeWithClass.content,
             ]"
             :data-index="i"
-            class="[&:not(.is-active)]:hover:bg-accent group relative flex cursor-pointer select-none transition-all duration-300"
+            class="tabs-chrome__item [&:not(.is-active)]:hover:bg-accent group relative flex cursor-pointer select-none transition-all duration-300"
             @click="active = tab.key"
           >
             <VbenContextMenu

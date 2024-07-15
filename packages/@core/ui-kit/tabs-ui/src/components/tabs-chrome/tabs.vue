@@ -3,7 +3,7 @@ import type { TabDefinition } from '@vben-core/typings';
 
 import type { TabConfig, TabsProps } from '../../types';
 
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { IcRoundClose, MdiPin } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
@@ -30,7 +30,7 @@ const active = defineModel<string>('active');
 
 const contentRef = ref();
 const tabRef = ref();
-const tabWidth = ref<number>(0);
+const tabWidth = ref<number>(props.maxWidth);
 
 const style = computed(() => {
   const { gap } = props;
@@ -39,22 +39,22 @@ const style = computed(() => {
   };
 });
 
-const layout = () => {
-  const { maxWidth, minWidth } = props;
-  if (!contentRef.value) {
-    return Math.max(maxWidth, minWidth);
-  }
-  // const contentWidth = contentRef.value.clientWidth - gap * 3;
-  // let width = contentWidth / tabs.length;
-  // width += gap * 2;
-  // if (width > maxWidth) {
-  //   width = maxWidth;
-  // }
-  // if (width < minWidth) {
-  //   width = minWidth;
-  // }
-  tabWidth.value = maxWidth;
-};
+// const layout = () => {
+//   const { maxWidth, minWidth } = props;
+//   if (!contentRef.value) {
+//     return Math.max(maxWidth, minWidth);
+//   }
+//   // const contentWidth = contentRef.value.clientWidth - gap * 3;
+//   // let width = contentWidth / tabs.length;
+//   // width += gap * 2;
+//   // if (width > maxWidth) {
+//   //   width = maxWidth;
+//   // }
+//   // if (width < minWidth) {
+//   //   width = minWidth;
+//   // }
+//   tabWidth.value = maxWidth;
+// };
 
 const tabsView = computed((): TabConfig[] => {
   return props.tabs.map((tab) => {
@@ -71,18 +71,22 @@ const tabsView = computed((): TabConfig[] => {
   });
 });
 
-watch(
-  () => props.tabs,
-  () => {
-    nextTick(() => {
-      layout();
-    });
-  },
-);
+// watch(
+//   () => props.tabs,
+//   () => {
+//     nextTick(() => {
+//       layout();
+//     });
+//   },
+// );
 
-onMounted(() => {
-  layout();
+watch(active, () => {
+  scrollIntoView();
 });
+
+// onMounted(() => {
+//   layout();
+// });
 
 function handleClose(key: string) {
   emit('close', key);
@@ -90,6 +94,16 @@ function handleClose(key: string) {
 
 function handleUnpinTab(tab: TabConfig) {
   emit('unpin', tab);
+}
+
+function scrollIntoView() {
+  setTimeout(() => {
+    const element = document.querySelector(`.tabs-chrome__item.is-active`);
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
 }
 </script>
 
@@ -100,7 +114,7 @@ function handleUnpinTab(tab: TabConfig) {
       <div
         ref="contentRef"
         :class="contentClass"
-        class="relative !flex h-full w-max"
+        class="relative !flex h-[calc(100%-1px)] w-max"
       >
         <TransitionGroup name="slide-down">
           <div
@@ -110,6 +124,7 @@ function handleUnpinTab(tab: TabConfig) {
             :class="[
               { 'is-active': tab.key === active, dragable: !tab.affixTab },
             ]"
+            :data-active-tab="active"
             :data-index="i"
             :style="{
               width: `${tabWidth}px`,
@@ -138,14 +153,14 @@ function handleUnpinTab(tab: TabConfig) {
                     class="tabs-chrome__background-content h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
                   ></div>
                   <svg
-                    class="tabs-chrome__background-before absolute bottom-[-1px] left-[-1px] fill-transparent transition-all duration-150"
+                    class="tabs-chrome__background-before absolute bottom-0 left-[-1px] fill-transparent transition-all duration-150"
                     height="7"
                     width="7"
                   >
                     <path d="M 0 7 A 7 7 0 0 0 7 0 L 7 7 Z" />
                   </svg>
                   <svg
-                    class="tabs-chrome__background-after absolute bottom-[-1px] right-[-1px] fill-transparent transition-all duration-150"
+                    class="tabs-chrome__background-after absolute bottom-0 right-[-1px] fill-transparent transition-all duration-150"
                     height="7"
                     width="7"
                   >
@@ -198,7 +213,7 @@ function handleUnpinTab(tab: TabConfig) {
         </TransitionGroup>
       </div>
       <!-- footer -->
-      <div class="bg-background h-1"></div>
+      <!-- <div class="bg-background h-1"></div> -->
     </VbenScrollbar>
   </div>
 </template>

@@ -30,7 +30,6 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
       license: true,
       mode,
       pwa: true,
-      turboConsole: false,
       ...application,
     });
 

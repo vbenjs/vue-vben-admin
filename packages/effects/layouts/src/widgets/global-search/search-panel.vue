@@ -76,7 +76,7 @@ function search(searchKey: string) {
 // the scroll bar needs to scroll automatically
 function scrollIntoView() {
   const element = document.querySelector(
-    `[data-search-item="${activeIndex.value}"`,
+    `[data-search-item="${activeIndex.value}"]`,
   );
 
   if (element) {

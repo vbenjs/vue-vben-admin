@@ -203,6 +203,7 @@ onBeforeUnmount(() => {
     <template v-if="rootMenu.isMenuPopup">
       <VbenHoverCard
         :content-class="[
+          rootMenu.theme,
           nsMenu.e('popup-container'),
           is(rootMenu.theme, true),
           opened ? '' : 'hidden',

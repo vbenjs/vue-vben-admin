@@ -272,9 +272,17 @@ const tabbarStyle = computed((): CSSProperties => {
   if (!isMixedNav.value) {
     width = '100%';
   } else if (sidebarEnable.value) {
+    const hoverWidth =
+      sidebarExpandOnHovering.value && !sidebarExpandOnHover.value
+        ? props.sidebarWidth
+        : getSideCollapseWidth.value;
+
+    const runtimeWidth = isMixedNav.value ? hoverWidth : props.sidebarWidth;
+
     marginLeft = sidebarCollapse.value
       ? getSideCollapseWidth.value
-      : props.sidebarWidth;
+      : runtimeWidth;
+
     width = `calc(100% - ${getSidebarWidth.value}px)`;
   } else {
     width = '100%';

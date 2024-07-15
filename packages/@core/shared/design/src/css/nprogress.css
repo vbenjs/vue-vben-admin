@@ -1,26 +1,16 @@
 /* Make clicks pass-through */
 #nprogress {
-  pointer-events: none;
+  @apply pointer-events-none;
 }
 
 #nprogress .bar {
-  @apply bg-primary;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1031;
-  width: 100%;
-  height: 2px;
+  @apply bg-primary fixed left-0 top-0 z-[1031] h-[2px] w-full;
 }
 
 /* Fancy blur effect */
 #nprogress .peg {
-  position: absolute;
-  right: 0;
-  display: block;
-  width: 100px;
-  height: 100%;
+  @apply absolute right-0 block h-full w-[100px];
+
   box-shadow:
     0 0 10px hsl(var(--primary)),
     0 0 5px hsl(var(--primary));
@@ -30,32 +20,22 @@
 
 /* Remove these to get rid of the spinner */
 #nprogress .spinner {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 1031;
-  display: block;
+  @apply fixed right-4 top-4 z-[1031] block;
 }
 
 #nprogress .spinner-icon {
-  box-sizing: border-box;
-  width: 18px;
-  height: 18px;
-  border: solid 2px transparent;
-  border-top-color: hsl(var(--primary));
-  border-left-color: hsl(var(--primary));
-  border-radius: 50%;
+  @apply border-t-primary border-l-primary size-4 rounded-full border-[2px] border-solid border-transparent;
+
   animation: nprogress-spinner 400ms linear infinite;
 }
 
 .nprogress-custom-parent {
-  position: relative;
-  overflow: hidden;
+  @apply relative overflow-hidden;
 }
 
 .nprogress-custom-parent #nprogress .spinner,
 .nprogress-custom-parent #nprogress .bar {
-  position: absolute;
+  @apply absolute;
 }
 
 @keyframes nprogress-spinner {
