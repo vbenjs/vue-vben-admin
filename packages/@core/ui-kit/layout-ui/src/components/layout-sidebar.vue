@@ -107,13 +107,11 @@ const asideRef = shallowRef<HTMLDivElement | null>();
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
-const isDark = computed(() => props.theme === 'dark');
-
 const style = computed((): CSSProperties => {
   const { isSidebarMixed, paddingTop, zIndex } = props;
 
   return {
-    '--scroll-shadow': isDark.value ? 'var(--menu-dark)' : 'var(--menu)',
+    '--scroll-shadow': 'var(--sidebar)',
     ...calcMenuWidthStyle(false),
     paddingTop: `${paddingTop}px`,
     zIndex,
@@ -124,12 +122,7 @@ const style = computed((): CSSProperties => {
 const extraStyle = computed((): CSSProperties => {
   const { extraWidth, show, width, zIndex } = props;
 
-  const backgroundColor = isDark.value
-    ? 'hsl(var(--menu-dark))'
-    : 'hsl(var(--menu))';
-
   return {
-    backgroundColor,
     left: `${width}px`,
     width: extraVisible.value && show ? `${extraWidth}px` : 0,
     zIndex,
@@ -175,7 +168,6 @@ const headerStyle = computed((): CSSProperties => {
 const extraContentStyle = computed((): CSSProperties => {
   const { collapseHeight, headerHeight } = props;
   return {
-    color: 'red',
     height: `calc(100% - ${headerHeight + collapseHeight}px)`,
   };
 });
@@ -203,21 +195,8 @@ function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
     widthValue = `${collapseWidth}px`;
   }
 
-  let backgroundColor = '';
-
-  if (isDark.value) {
-    backgroundColor = isSidebarMixed
-      ? 'hsl(var(--menu-dark-deep))'
-      : 'hsl(var(--menu-dark))';
-  } else {
-    backgroundColor = isSidebarMixed
-      ? 'hsl(var(--menu-deep))'
-      : 'hsl(var(--menu))';
-  }
-
   return {
     ...(widthValue === '0px' ? { overflow: 'hidden' } : {}),
-    backgroundColor,
     flex: `0 0 ${widthValue}`,
     marginLeft: show ? 0 : `-${widthValue}`,
     maxWidth: widthValue,
@@ -252,20 +231,26 @@ function handleMouseleave() {
 <template>
   <div
     v-if="domVisible"
+    :class="theme"
     :style="hiddenSideStyle"
     class="h-full transition-all duration-200"
   ></div>
   <aside
-    :data-theme="theme"
+    :class="[
+      theme,
+      {
+        'bg-sidebar-deep': isSidebarMixed,
+        'bg-sidebar': !isSidebarMixed,
+      },
+    ]"
     :style="style"
-    class="data-[theme=dark]:border-border-dark border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
+    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
     <SidebarFixedButton
       v-if="!collapse && !isSidebarMixed"
       v-model:expand-on-hover="expandOnHover"
-      :theme="theme"
     />
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
@@ -278,33 +263,28 @@ function handleMouseleave() {
     <SidebarCollapseButton
       v-if="showCollapseButton && !isSidebarMixed"
       v-model:collapsed="collapse"
-      :theme="theme"
     />
     <div
       v-if="isSidebarMixed"
       ref="asideRef"
-      :data-theme="theme"
       :style="extraStyle"
-      class="data-[theme=dark]:border-border-dark border-border fixed top-0 h-full overflow-hidden border-x transition-all duration-200"
+      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-x transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"
         v-model:collapsed="extraCollapse"
-        :theme="theme"
       />
 
       <SidebarFixedButton
         v-if="!extraCollapse"
         v-model:expand-on-hover="expandOnHover"
-        :theme="theme"
       />
       <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
         <slot name="extra-title"></slot>
       </div>
       <VbenScrollbar
-        :data-theme="theme"
         :style="extraContentStyle"
-        class="data-[theme=dark]:border-border-dark border-border border-t py-2"
+        class="border-border border-t py-2"
         shadow
       >
         <slot name="extra"></slot>

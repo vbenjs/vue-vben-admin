@@ -322,6 +322,7 @@ function removeMenuItem(item: MenuItemRegistered) {
   <ul
     ref="menu"
     :class="[
+      theme,
       b(),
       is(mode, true),
       is(theme, true),
@@ -427,7 +428,7 @@ $namespace: vben;
   --menu-item-padding-x: 12px;
   --menu-item-popup-padding-y: 20px;
   --menu-item-popup-padding-x: 12px;
-  --menu-item-margin-y: 4px;
+  --menu-item-margin-y: 3px;
   --menu-item-margin-x: 0px;
   --menu-item-collapse-padding-y: 25px;
   --menu-item-collapse-padding-x: 0px;
@@ -443,14 +444,14 @@ $namespace: vben;
     --menu-background-color: hsl(var(--menu-dark));
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened-dark));
     --menu-item-background-color: var(--menu-background-color);
-    --menu-item-color: hsl(var(--foreground-dark) / 80%);
+    --menu-item-color: hsl(var(--foreground) / 80%);
     --menu-item-hover-color: hsl(var(--primary-foreground));
     --menu-item-hover-background-color: hsl(var(--menu-dark-background));
-    --menu-item-active-color: hsl(var(--foreground-dark));
+    --menu-item-active-color: hsl(var(--foreground));
     --menu-item-active-background-color: hsl(var(--menu-dark-background));
-    --menu-submenu-hover-color: hsl(var(--foreground-dark));
+    --menu-submenu-hover-color: hsl(var(--foreground));
     --menu-submenu-hover-background-color: hsl(var(--menu-dark-background));
-    --menu-submenu-active-color: hsl(var(--foreground-dark));
+    --menu-submenu-active-color: hsl(var(--foreground));
     --menu-submenu-active-background-color: transparent;
     --menu-submenu-background-color: var(--menu-background-color);
   }

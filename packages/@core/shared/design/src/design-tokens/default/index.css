@@ -1,8 +1,8 @@
-/* https://gavin-yyc.github.io/colorconvert/ */
 :root {
-  --font-geist-sans: 'geist-sans', -apple-system, blinkmacsystemfont, 'Segoe UI',
-    roboto, helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
+  --font-geist-sans: 'pingfang sc', -apple-system, blinkmacsystemfont,
+    'segoe ui', helvetica, 'helvetica neue', 'microsoft yahei ui',
+    'microsoft yahei', arial, 'hiragino sans', 'apple color emoji',
+    'segoe ui emoji', 'segoe ui symbol', simsun, sans-serif;
 
   /* Default background color of <body />...etc */
   --background: 0 0 100%;
@@ -85,27 +85,17 @@
   /* 登录背景色 */
   --authentication: 231deg 61% 44%;
 
-  /* 用于浅色主题下一些暗色主题的颜色 */
-  --accent-dark-hover: 0deg 0% 100% / 12%;
-  --foreground-dark: 220 13% 91%;
-  --accent-dark: 0deg 0% 100% / 8%;
-  --border-dark: 240 3.7% 15.9%;
-
   /* =============component & UI============= */
 
   /* menu */
-  --menu: 0deg 0% 100%;
-  --menu-deep: 210 11.11% 96.47%;
-
-  /* menu-dark */
-  --menu-dark: 222.34deg 10.43% 12.27%;
-  --menu-dark-deep: 220deg 13.06% 9%;
+  --sidebar: 0 0% 100%;
+  --sidebar-deep: 210 11.11% 96.47%;
 
   accent-color: var(--primary);
   color-scheme: light;
 }
 
-:root[data-theme='violet'] {
+[data-theme='violet'] {
   /* --background: 0 0% 100%; */
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
@@ -124,15 +114,9 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 262.1 83.3% 57.8%;
-
-  /* menu-dark */
-  --menu-dark: 224 71.4% 4.1%;
-  --menu-dark-deep: 224 71.4% 4.1%;
-  --border-dark: 215 27.9% 16.9%;
-  --foreground-dark: 210 20% 98%;
 }
 
-:root[data-theme='pink'] {
+[data-theme='pink'] {
   /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -151,15 +135,9 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
-
-  /* menu-dark */
-  --menu-dark: 20 14.3% 4.1%;
-  --menu-dark-deep: 20 14.3% 4.1%;
-  --border-dark: 240 3.7% 15.9%;
-  --foreground-dark: 0 0% 95%;
 }
 
-:root[data-theme='rose'] {
+[data-theme='rose'] {
   /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -178,15 +156,9 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
-
-  /* menu-dark */
-  --menu-dark: 0 0% 3.9%;
-  --menu-dark-deep: 0 0% 3.9%;
-  --border-dark: 0 0% 14.9%;
-  --foreground-dark: 0 0% 98%;
 }
 
-:root[data-theme='sky-blue'] {
+[data-theme='sky-blue'] {
   /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
@@ -205,15 +177,9 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
-
-  /* menu-dark */
-  --menu-dark: 222.2 84% 4.9%;
-  --menu-dark-deep: 222.2 84% 4.9%;
-  --border-dark: 217.2 32.6% 17.5%;
-  --foreground-dark: 210 40% 98%;
 }
 
-:root[data-theme='deep-blue'] {
+[data-theme='deep-blue'] {
   /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
@@ -232,15 +198,9 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
-
-  /* menu-dark */
-  --menu-dark: 222.2 84% 4.9%;
-  --menu-dark-deep: 222.2 84% 4.9%;
-  --border-dark: 217.2 32.6% 17.5%;
-  --foreground-dark: 210 40% 98%;
 }
 
-:root[data-theme='green'] {
+[data-theme='green'] {
   /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -259,15 +219,9 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
-
-  /* menu-dark */
-  --menu-dark: 20 14.3% 4.1%;
-  --menu-dark-deep: 20 14.3% 4.1%;
-  --border-dark: 240 3.7% 15.9%;
-  --foreground-dark: 0 0% 95%;
 }
 
-:root[data-theme='deep-green'] {
+[data-theme='deep-green'] {
   /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -286,15 +240,9 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
-
-  /* menu-dark */
-  --menu-dark: 20 14.3% 4.1%;
-  --menu-dark-deep: 20 14.3% 4.1%;
-  --border-dark: 240 3.7% 15.9%;
-  --foreground-dark: 0 0% 95%;
 }
 
-:root[data-theme='orange'] {
+[data-theme='orange'] {
   /* --background: 0 0% 100%; */
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
@@ -313,15 +261,9 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 24.6 95% 53.1%;
-
-  /* menu-dark */
-  --menu-dark: 20 14.3% 4.1%;
-  --menu-dark-deep: 20 14.3% 4.1%;
-  --border-dark: 12 6.5% 15.1%;
-  --foreground-dark: 60 9.1% 97.8%;
 }
 
-:root[data-theme='yellow'] {
+[data-theme='yellow'] {
   /* --background: 0 0% 100%; */
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
@@ -340,15 +282,9 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 20 14.3% 4.1%;
-
-  /* menu-dark */
-  --menu-dark: 20 14.3% 4.1%;
-  --menu-dark-deep: 20 14.3% 4.1%;
-  --border-dark: 12 6.5% 15.1%;
-  --foreground-dark: 60 9.1% 97.8%;
 }
 
-:root[data-theme='zinc'] {
+[data-theme='zinc'] {
   /* --background: 0 0% 100%; */
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -367,15 +303,9 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 240 5.9% 10%;
-
-  /* menu-dark */
-  --menu-dark: 240 10% 3.9%;
-  --menu-dark-deep: 240 10% 3.9%;
-  --border-dark: 240 3.7% 15.9%;
-  --foreground-dark: 0 0% 98%;
 }
 
-:root[data-theme='neutral'] {
+[data-theme='neutral'] {
   /* --background: 0 0% 100%; */
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
@@ -394,15 +324,9 @@
   --border: 0 0% 89.8%;
   --input: 0 0% 89.8%;
   --ring: 0 0% 3.9%;
-
-  /* menu-dark */
-  --menu-dark: 0 0% 3.9%;
-  --menu-dark-deep: 0 0% 3.9%;
-  --border-dark: 0 0% 14.9%;
-  --foreground-dark: 0 0% 98%;
 }
 
-:root[data-theme='slate'] {
+[data-theme='slate'] {
   /* --background: 0 0% 100%; */
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
@@ -421,15 +345,9 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 222.2 84% 4.9%;
-
-  /* menu-dark */
-  --menu-dark: 222.2 84% 4.9%;
-  --menu-dark-deep: 222.2 84% 4.9%;
-  --border-dark: 217.2 32.6% 17.5%;
-  --foreground-dark: 210 40% 98%;
 }
 
-:root[data-theme='gray'] {
+[data-theme='gray'] {
   /* --background: 0 0% 100%; */
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
@@ -448,10 +366,4 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 224 71.4% 4.1%;
-
-  /* menu-dark */
-  --menu-dark: 224 71.4% 4.1%;
-  --menu-dark-deep: 224 71.4% 4.1%;
-  --border-dark: 215 27.9% 16.9%;
-  --foreground-dark: 210 20% 98%;
 }

@@ -1,6 +1,6 @@
-:root.dark,
-:root.dark[data-theme='custom'],
-:root.dark[data-theme='default'] {
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
   /* Default background color of <body />...etc */
   --background: 222.34deg 10.43% 12.27%;
 
@@ -85,10 +85,14 @@
 
   /* =============component & UI============= */
 
+  --sidebar: 222.34deg 10.43% 12.27%;
+  --sidebar-deep: 220deg 13.06% 9%;
+
   color-scheme: dark;
 }
 
-:root.dark[data-theme='violet'] {
+.dark[data-theme='violet'],
+[data-theme='violet'] .dark {
   --background: 224 71.4% 4.1%;
   --background-content: var(--background);
   --foreground: 210 20% 98%;
@@ -108,9 +112,12 @@
   --border: 215 27.9% 16.9%;
   --input: 215 27.9% 16.9%;
   --ring: 263.4 70% 50.4%;
+  --sidebar: 224 71.4% 4.1%;
+  --sidebar-deep: 224 71.4% 4.1%;
 }
 
-:root.dark[data-theme='pink'] {
+.dark[data-theme='pink'],
+[data-theme='pink'] .dark {
   --background: 20 14.3% 4.1%;
   --background-content: var(--background);
   --foreground: 0 0% 95%;
@@ -130,9 +137,12 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 346.8 77.2% 49.8%;
+  --sidebar: 20 14.3% 4.1%;
+  --sidebar-deep: 20 14.3% 4.1%;
 }
 
-:root.dark[data-theme='rose'] {
+.dark[data-theme='rose'],
+[data-theme='rose'] .dark {
   --background: 0 0% 3.9%;
   --background-content: var(--background);
   --foreground: 0 0% 98%;
@@ -152,9 +162,12 @@
   --border: 0 0% 14.9%;
   --input: 0 0% 14.9%;
   --ring: 0 72.2% 50.6%;
+  --sidebar: 0 0% 3.9%;
+  --sidebar-deep: 0 0% 3.9%;
 }
 
-:root.dark[data-theme='sky-blue'] {
+.dark[data-theme='sky-blue'],
+[data-theme='sky-blue'] .dark {
   --background: 222.2 84% 4.9%;
   --background-content: var(--background);
   --foreground: 210 40% 98%;
@@ -174,9 +187,12 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 224.3 76.3% 48%;
+  --sidebar: 222.2 84% 4.9%;
+  --sidebar-deep: 222.2 84% 4.9%;
 }
 
-:root.dark[data-theme='deep-blue'] {
+.dark[data-theme='deep-blue'],
+[data-theme='deep-blue'] .dark {
   --background: 222.2 84% 4.9%;
   --background-content: var(--background);
   --foreground: 210 40% 98%;
@@ -196,9 +212,12 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 224.3 76.3% 48%;
+  --sidebar: 222.2 84% 4.9%;
+  --sidebar-deep: 222.2 84% 4.9%;
 }
 
-:root.dark[data-theme='green'] {
+.dark[data-theme='green'],
+[data-theme='green'] .dark {
   --background: 20 14.3% 4.1%;
   --background-content: var(--background);
   --foreground: 0 0% 95%;
@@ -218,9 +237,12 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 142.4 71.8% 29.2%;
+  --sidebar: 20 14.3% 4.1%;
+  --sidebar-deep: 20 14.3% 4.1%;
 }
 
-:root.dark[data-theme='deep-green'] {
+.dark[data-theme='deep-green'],
+[data-theme='deep-green'] .dark {
   --background: 20 14.3% 4.1%;
   --background-content: var(--background);
   --foreground: 0 0% 95%;
@@ -240,9 +262,12 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 142.4 71.8% 29.2%;
+  --sidebar: 20 14.3% 4.1%;
+  --sidebar-deep: 20 14.3% 4.1%;
 }
 
-:root.dark[data-theme='orange'] {
+.dark[data-theme='orange'],
+[data-theme='orange'] .dark {
   --background: 20 14.3% 4.1%;
   --background-content: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -262,9 +287,12 @@
   --border: 12 6.5% 15.1%;
   --input: 12 6.5% 15.1%;
   --ring: 20.5 90.2% 48.2%;
+  --sidebar: 20 14.3% 4.1%;
+  --sidebar-deep: 20 14.3% 4.1%;
 }
 
-:root.dark[data-theme='yellow'] {
+.dark[data-theme='yellow'],
+[data-theme='yellow'] .dark {
   --background: 20 14.3% 4.1%;
   --background-content: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -284,9 +312,12 @@
   --border: 12 6.5% 15.1%;
   --input: 12 6.5% 15.1%;
   --ring: 35.5 91.7% 32.9%;
+  --sidebar: 20 14.3% 4.1%;
+  --sidebar-deep: 20 14.3% 4.1%;
 }
 
-:root.dark[data-theme='zinc'] {
+.dark[data-theme='zinc'],
+[data-theme='zinc'] .dark {
   --background: 240 10% 3.9%;
   --background-content: var(--background);
   --foreground: 0 0% 98%;
@@ -306,9 +337,12 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
+  --sidebar: 240 10% 3.9%;
+  --sidebar-deep: 240 10% 3.9%;
 }
 
-:root.dark[data-theme='neutral'] {
+.dark[data-theme='neutral'],
+[data-theme='neutral'] .dark {
   --background: 0 0% 3.9%;
   --background-content: var(--background);
   --foreground: 0 0% 98%;
@@ -328,9 +362,12 @@
   --border: 0 0% 14.9%;
   --input: 0 0% 14.9%;
   --ring: 0 0% 83.1%;
+  --sidebar: 0 0% 3.9%;
+  --sidebar-deep: 0 0% 3.9%;
 }
 
-:root.dark[data-theme='slate'] {
+.dark[data-theme='slate'],
+[data-theme='slate'] .dark {
   --background: 222.2 84% 4.9%;
   --background-content: var(--background);
   --foreground: 210 40% 98%;
@@ -350,9 +387,12 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9;
+  --sidebar: 222.2 84% 4.9%;
+  --sidebar-deep: 222.2 84% 4.9%;
 }
 
-:root.dark[data-theme='gray'] {
+.dark[data-theme='gray'],
+[data-theme='gray'] .dark {
   --background: 224 71.4% 4.1%;
   --background-content: var(--background);
   --foreground: 210 20% 98%;
@@ -372,4 +412,6 @@
   --border: 215 27.9% 16.9%;
   --input: 215 27.9% 16.9%;
   --ring: 216 12.2% 83.9%;
+  --sidebar: 224 71.4% 4.1%;
+  --sidebar-deep: 224 71.4% 4.1%;
 }

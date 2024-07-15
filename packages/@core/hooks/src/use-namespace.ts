@@ -1,8 +1,9 @@
+import { DEFAULT_NAMESPACE } from '@vben-core/constants';
+
 /**
  * @see copy https://github.com/element-plus/element-plus/blob/dev/packages/hooks/use-namespace/index.ts
  */
 
-export const defaultNamespace = 'vben';
 const statePrefix = 'is-';
 
 const _bem = (
@@ -35,7 +36,7 @@ const is: {
 };
 
 const useNamespace = (block: string) => {
-  const namespace = defaultNamespace;
+  const namespace = DEFAULT_NAMESPACE;
   const b = (blockSuffix = '') => _bem(namespace, block, blockSuffix, '', '');
   const e = (element?: string) =>
     element ? _bem(namespace, block, '', element, '') : '';

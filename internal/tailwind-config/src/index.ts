@@ -27,8 +27,6 @@ packages.forEach((pkg) => {
 const shadcnUiColors = {
   accent: {
     DEFAULT: 'hsl(var(--accent))',
-    dark: 'hsl(var(--accent-dark))',
-    'dark-hover': 'hsl(var(--accent-dark-hover))',
     foreground: 'hsl(var(--accent-foreground))',
     hover: 'hsl(var(--accent-hover))',
   },
@@ -38,7 +36,6 @@ const shadcnUiColors = {
   },
   border: {
     DEFAULT: 'hsl(var(--border))',
-    dark: 'hsl(var(--border-dark))',
   },
   card: {
     DEFAULT: 'hsl(var(--card))',
@@ -51,7 +48,6 @@ const shadcnUiColors = {
 
   foreground: {
     DEFAULT: 'hsl(var(--foreground))',
-    dark: 'hsl(var(--foreground-dark))',
   },
 
   input: {
@@ -99,6 +95,10 @@ const customColors = {
     ...createColorsPalette('red'),
     foreground: 'hsl(var(--destructive-foreground))',
   },
+  sidebar: {
+    DEFAULT: 'hsl(var(--sidebar))',
+    deep: 'hsl(var(--sidebar-deep))',
+  },
   success: {
     ...createColorsPalette('success'),
     DEFAULT: 'hsl(var(--success))',
@@ -120,7 +120,7 @@ export default {
       path.join(item, 'src/**/*.{vue,js,ts,jsx,tsx,svelte,astro,html}'),
     ),
   ],
-  darkMode: 'class',
+  darkMode: 'selector',
   plugins: [
     animate,
     formsPlugin,

@@ -27,8 +27,9 @@ html.grayscale-mode {
 html {
   @apply text-foreground bg-background;
 
-  // font-size: 62.5%;
+  font-size: 100%;
   font-variation-settings: normal;
+  line-height: 1.15;
   text-size-adjust: 100%;
   font-synthesis-weight: none;
   scroll-behavior: smooth;
@@ -36,12 +37,16 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+body {
+  min-height: 100vh;
+}
+
 a,
 a:active,
 a:hover,
 a:link,
 a:visited {
-  // color: inherit;
+  /* color: inherit; */
   text-decoration: none;
 }
 
@@ -69,7 +74,7 @@ html.dark::view-transition-new(root) {
 
 input::placeholder,
 textarea::placeholder {
-  // color: hsl(var(--color-input-placeholder)) !important;
+  /* color: hsl(var(--color-input-placeholder)) !important; */
   opacity: 1;
 }
 

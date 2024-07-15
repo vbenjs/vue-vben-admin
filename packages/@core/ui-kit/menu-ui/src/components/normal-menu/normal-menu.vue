@@ -38,6 +38,7 @@ function handleMouseenter(menu: MenuRecordRaw) {
 <template>
   <ul
     :class="[
+      theme,
       b(),
       is('collapse', collapse),
       is(theme, true),
@@ -77,7 +78,7 @@ $namespace: vben;
 
   &.is-dark {
     .#{$namespace}-normal-menu__item {
-      color: hsl(var(--foreground-dark) / 80%);
+      color: hsl(var(--foreground) / 80%);
 
       &:not(.is-active):hover {
         color: hsl(var(--primary-foreground));

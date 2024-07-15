@@ -51,7 +51,7 @@ const logoClass = computed(() => {
 </script>
 
 <template>
-  <div :class="logoClass" class="group flex h-full items-center text-lg">
+  <div :class="logoClass" class="flex h-full items-center text-lg">
     <a
       :class="$attrs.class"
       :href="href"
@@ -66,7 +66,7 @@ const logoClass = computed(() => {
       />
       <span
         v-if="!collapse"
-        class="text-primary group-[.dark]:text-foreground-dark truncate text-nowrap"
+        class="text-primary dark:text-foreground truncate text-nowrap"
       >
         {{ text }}
       </span>
