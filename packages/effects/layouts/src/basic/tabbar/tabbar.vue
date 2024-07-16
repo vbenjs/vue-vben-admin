@@ -12,7 +12,7 @@ defineOptions({
   name: 'LayoutTabbar',
 });
 
-defineProps<{ showIcon?: boolean }>();
+defineProps<{ showIcon?: boolean; theme?: string }>();
 
 const coreTabbarStore = useCoreTabbarStore();
 
@@ -40,6 +40,7 @@ if (!preferences.tabbar.persist) {
 <template>
   <TabsView
     :active="currentActive"
+    :class="theme"
     :context-menus="createContextMenus"
     :dragable="preferences.tabbar.dragable"
     :show-icon="showIcon"

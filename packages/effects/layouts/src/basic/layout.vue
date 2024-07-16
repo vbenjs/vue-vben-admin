@@ -258,6 +258,7 @@ function clearPreferencesAndLogout() {
       <LayoutTabbar
         v-if="preferences.tabbar.enable"
         :show-icon="preferences.tabbar.showIcon"
+        :theme="theme"
       />
     </template>
 

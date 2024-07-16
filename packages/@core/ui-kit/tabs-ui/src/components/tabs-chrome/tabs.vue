@@ -84,9 +84,9 @@ function scrollIntoView() {
       <div
         ref="contentRef"
         :class="contentClass"
-        class="relative !flex h-[calc(100%-2px)] w-max"
+        class="relative !flex h-full w-max"
       >
-        <TransitionGroup name="slide-up">
+        <TransitionGroup name="slide-left">
           <div
             v-for="(tab, i) in tabsView"
             :key="tab.key"
@@ -120,17 +120,17 @@ function scrollIntoView() {
                   class="tabs-chrome__background absolute z-[1] size-full px-[calc(var(--gap)-1px)] py-0 transition-opacity duration-150"
                 >
                   <div
-                    class="tabs-chrome__background-content h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
+                    class="tabs-chrome__background-content group-[.is-active]:bg-primary/15 dark:group-[.is-active]:bg-accent h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
                   ></div>
                   <svg
-                    class="tabs-chrome__background-before absolute bottom-0 left-[-1px] fill-transparent transition-all duration-150"
+                    class="tabs-chrome__background-before group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent absolute bottom-0 left-[-1px] fill-transparent transition-all duration-150"
                     height="7"
                     width="7"
                   >
                     <path d="M 0 7 A 7 7 0 0 0 7 0 L 7 7 Z" />
                   </svg>
                   <svg
-                    class="tabs-chrome__background-after absolute bottom-0 right-[-1px] fill-transparent transition-all duration-150"
+                    class="tabs-chrome__background-after group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent absolute bottom-0 right-[-1px] fill-transparent transition-all duration-150"
                     height="7"
                     width="7"
                   >
@@ -150,19 +150,19 @@ function scrollIntoView() {
                     v-show="
                       !tab.affixTab && tabsView.length > 1 && tab.closable
                     "
-                    class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3 cursor-pointer rounded-full transition-all"
+                    class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground dark:group-[.is-active]:text-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3 cursor-pointer rounded-full transition-all"
                     @click.stop="handleClose(tab.key)"
                   />
                   <MdiPin
                     v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                    class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
+                    class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
                     @click.stop="handleUnpinTab(tab)"
                   />
                 </div>
 
                 <!-- tab-item-main -->
                 <div
-                  class="tabs-chrome__item-main group-[.is-active]:text-primary text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-4 duration-150 group-hover:pr-3"
+                  class="tabs-chrome__item-main group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground text-accent-foreground absolute left-0 right-0 z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-4 duration-150 group-hover:pr-3"
                 >
                   <VbenIcon
                     v-if="showIcon"
@@ -214,7 +214,7 @@ function scrollIntoView() {
 
       .tabs-chrome__background {
         &-content {
-          @apply bg-primary/10 mx-1 rounded-md pb-2;
+          @apply bg-accent mx-1 rounded-md pb-2;
         }
 
         &-before,
@@ -236,14 +236,14 @@ function scrollIntoView() {
       .tabs-chrome__background {
         @apply opacity-100;
 
-        &-content {
-          @apply bg-primary/15;
+        /* &-content {
+          @apply bg-accent;
         }
 
         &-before,
         &-after {
-          @apply fill-primary/15;
-        }
+          @apply fill-heavy;
+        } */
       }
     }
   }

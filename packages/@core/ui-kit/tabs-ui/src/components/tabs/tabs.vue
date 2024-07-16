@@ -85,13 +85,13 @@ function scrollIntoView() {
         :class="contentClass"
         class="relative !flex h-full w-max items-center"
       >
-        <TransitionGroup name="slide-up">
+        <TransitionGroup name="slide-left">
           <div
             v-for="(tab, i) in tabsView"
             :key="tab.key"
             :class="[
               {
-                'is-active bg-primary/15': tab.key === active,
+                'is-active dark:bg-accent bg-primary/15': tab.key === active,
                 dragable: !tab.affixTab,
               },
               typeWithClass.content,
@@ -119,19 +119,19 @@ function scrollIntoView() {
                     v-show="
                       !tab.affixTab && tabsView.length > 1 && tab.closable
                     "
-                    class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground group-[.is-active]:text-primary size-3 cursor-pointer rounded-full transition-all"
+                    class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground dark:group-[.is-active]:text-accent-foreground group-[.is-active]:text-primary size-3 cursor-pointer rounded-full transition-all"
                     @click.stop="handleClose(tab.key)"
                   />
                   <MdiPin
                     v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                    class="hover:bg-heavy hover:stroke-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
+                    class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
                     @click.stop="handleUnpinTab(tab)"
                   />
                 </div>
 
                 <!-- tab-item-main -->
                 <div
-                  class="group-[.is-active]:text-primary text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
+                  class="text-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
                 >
                   <!-- <div
                   class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"

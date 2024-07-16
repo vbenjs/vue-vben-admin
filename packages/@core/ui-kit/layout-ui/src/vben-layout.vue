@@ -553,7 +553,7 @@ function handleOpenMenu() {
     <div
       v-if="maskVisible"
       :style="maskStyle"
-      class="fixed left-0 top-0 h-full w-full bg-[rgb(0_0_0_/_40%)] transition-[background-color] duration-200"
+      class="bg-overlay fixed left-0 top-0 h-full w-full transition-[background-color] duration-200"
       @click="handleClickMask"
     ></div>
   </div>
