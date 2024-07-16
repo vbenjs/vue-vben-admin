@@ -85,7 +85,7 @@ function scrollIntoView() {
         :class="contentClass"
         class="relative !flex h-full w-max items-center"
       >
-        <TransitionGroup name="slide-down">
+        <TransitionGroup name="slide-up">
           <div
             v-for="(tab, i) in tabsView"
             :key="tab.key"

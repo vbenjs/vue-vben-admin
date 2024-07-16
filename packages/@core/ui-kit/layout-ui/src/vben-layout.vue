@@ -219,9 +219,12 @@ const maskVisible = computed(() => !sidebarCollapse.value && props.isMobile);
  * header fixed值
  */
 const headerFixed = computed(() => {
+  const { headerMode } = props;
   return (
     isMixedNav.value ||
-    ['auto', 'auto-scroll', 'fixed'].includes(props.headerMode)
+    headerMode === 'fixed' ||
+    headerMode === 'auto-scroll' ||
+    headerMode === 'auto'
   );
 });
 
@@ -230,7 +233,8 @@ const mainStyle = computed(() => {
   let sidebarAndExtraWidth = 'unset';
   if (
     headerFixed.value &&
-    !['header-nav', 'mixed-nav'].includes(realLayout.value) &&
+    realLayout.value !== 'header-nav' &&
+    realLayout.value !== 'mixed-nav' &&
     showSidebar.value &&
     !props.isMobile
   ) {
@@ -272,16 +276,9 @@ const tabbarStyle = computed((): CSSProperties => {
   if (!isMixedNav.value) {
     width = '100%';
   } else if (sidebarEnable.value) {
-    const hoverWidth =
-      sidebarExpandOnHovering.value && !sidebarExpandOnHover.value
-        ? props.sidebarWidth
-        : getSideCollapseWidth.value;
-
-    const runtimeWidth = isMixedNav.value ? hoverWidth : props.sidebarWidth;
-
     marginLeft = sidebarCollapse.value
       ? getSideCollapseWidth.value
-      : runtimeWidth;
+      : props.sidebarWidth;
 
     width = `calc(100% - ${getSidebarWidth.value}px)`;
   } else {

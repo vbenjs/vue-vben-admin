@@ -1,2 +1,2 @@
-export * from './global';
+export * from './globals';
 export * from './vben';

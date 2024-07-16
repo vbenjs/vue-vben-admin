@@ -63,7 +63,7 @@ async function loadAndConvertEnv(
   const compress = envConfig.VITE_COMPRESS || '';
   const compressTypes = compress
     .split(',')
-    .filter((item) => ['brotli', 'gzip'].includes(item));
+    .filter((item) => item === 'brotli' || item === 'gzip');
   return {
     appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin',
     compress: !!compress,

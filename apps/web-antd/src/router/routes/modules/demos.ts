@@ -22,8 +22,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.access.frontendPermissions'),
         },
         name: 'Access',
-        path: '/access',
-        redirect: '/access/page-control',
+        path: 'access',
+        redirect: '/demos/access/page-control',
         children: [
           {
             name: 'AccessPageControl',
@@ -93,8 +93,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.features.title'),
         },
         name: 'Features',
-        path: '/features',
-        redirect: '/features/hide-menu-children',
+        path: 'features',
+        redirect: '/demos/features/hide-menu-children',
         children: [
           {
             name: 'HideChildrenInMenuParent',
@@ -135,8 +135,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.fallback.title'),
         },
         name: 'Fallback',
-        path: '/fallback',
-        redirect: '/fallback/403',
+        path: 'fallback',
+        redirect: '/demos/fallback/403',
         children: [
           {
             name: 'Fallback403',
@@ -183,8 +183,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.outside.title'),
         },
         name: 'Outside',
-        path: '/outside',
-        redirect: '/outside/iframe',
+        path: 'outside',
+        redirect: '/demos/outside/iframe',
         children: [
           {
             name: 'iframe',
@@ -193,7 +193,7 @@ const routes: RouteRecordRaw[] = [
               icon: 'mdi:newspaper-variant-outline',
               title: $t('page.demos.outside.embedded'),
             },
-            redirect: '/outside/iframe/vue-document',
+            redirect: '/demos/outside/iframe/vue-document',
             children: [
               {
                 name: 'VueDocument',
@@ -226,7 +226,7 @@ const routes: RouteRecordRaw[] = [
               icon: 'mdi:newspaper-variant-multiple-outline',
               title: $t('page.demos.outside.externalLink'),
             },
-            redirect: '/outside/external-link/vite',
+            redirect: '/demos/outside/external-link/vite',
             children: [
               {
                 name: 'Vite',
@@ -258,8 +258,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.demos.nested.title'),
         },
         name: 'Nested',
-        path: '/nested',
-        redirect: '/nested/menu1',
+        path: 'nested',
+        redirect: '/demos/nested/menu1',
         children: [
           {
             name: 'Menu1',
@@ -279,7 +279,7 @@ const routes: RouteRecordRaw[] = [
               keepAlive: true,
               title: $t('page.demos.nested.menu2'),
             },
-            redirect: '/nested/menu2/menu2-1',
+            redirect: '/demos/nested/menu2/menu2-1',
             children: [
               {
                 name: 'Menu21',
@@ -300,7 +300,7 @@ const routes: RouteRecordRaw[] = [
               icon: 'ic:round-menu',
               title: $t('page.demos.nested.menu3'),
             },
-            redirect: '/nested/menu3/menu3-1',
+            redirect: '/demos/nested/menu3/menu3-1',
             children: [
               {
                 name: 'Menu31',
@@ -319,7 +319,7 @@ const routes: RouteRecordRaw[] = [
                   icon: 'ic:round-menu',
                   title: $t('page.demos.nested.menu3_2'),
                 },
-                redirect: '/nested/menu3/menu3-2/menu3-2-1',
+                redirect: '/demos/nested/menu3/menu3-2/menu3-2-1',
                 children: [
                   {
                     name: 'Menu321',

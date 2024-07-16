@@ -107,11 +107,11 @@ const fallbackIcon = computed(() => {
 });
 
 const showBack = computed(() => {
-  return ['403', '404'].includes(props.status);
+  return props.status === '403' || props.status === '404';
 });
 
 const showRefresh = computed(() => {
-  return ['500', 'offline'].includes(props.status);
+  return props.status === '500' || props.status === 'offline';
 });
 
 const { push } = useRouter();

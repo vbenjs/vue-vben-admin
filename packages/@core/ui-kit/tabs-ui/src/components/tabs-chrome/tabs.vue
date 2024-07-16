@@ -39,23 +39,6 @@ const style = computed(() => {
   };
 });
 
-// const layout = () => {
-//   const { maxWidth, minWidth } = props;
-//   if (!contentRef.value) {
-//     return Math.max(maxWidth, minWidth);
-//   }
-//   // const contentWidth = contentRef.value.clientWidth - gap * 3;
-//   // let width = contentWidth / tabs.length;
-//   // width += gap * 2;
-//   // if (width > maxWidth) {
-//   //   width = maxWidth;
-//   // }
-//   // if (width < minWidth) {
-//   //   width = minWidth;
-//   // }
-//   tabWidth.value = maxWidth;
-// };
-
 const tabsView = computed((): TabConfig[] => {
   return props.tabs.map((tab) => {
     return {
@@ -71,22 +54,9 @@ const tabsView = computed((): TabConfig[] => {
   });
 });
 
-// watch(
-//   () => props.tabs,
-//   () => {
-//     nextTick(() => {
-//       layout();
-//     });
-//   },
-// );
-
 watch(active, () => {
   scrollIntoView();
 });
-
-// onMounted(() => {
-//   layout();
-// });
 
 function handleClose(key: string) {
   emit('close', key);
@@ -114,9 +84,9 @@ function scrollIntoView() {
       <div
         ref="contentRef"
         :class="contentClass"
-        class="relative !flex h-[calc(100%-1px)] w-max"
+        class="relative !flex h-[calc(100%-2px)] w-max"
       >
-        <TransitionGroup name="slide-down">
+        <TransitionGroup name="slide-up">
           <div
             v-for="(tab, i) in tabsView"
             :key="tab.key"
