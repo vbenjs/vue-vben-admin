@@ -41,7 +41,7 @@
     "@vueuse/core": "^10.11.0",
     "radix-vue": "^1.9.1",
     "sortablejs": "^1.15.2",
-    "vue": "^3.4.31"
+    "vue": "^3.4.32"
   },
   "devDependencies": {
     "@types/sortablejs": "^1.15.8"

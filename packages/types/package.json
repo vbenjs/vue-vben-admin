@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@vben-core/typings": "workspace:*",
-    "vue": "^3.4.31",
+    "vue": "^3.4.32",
     "vue-router": "^4.4.0"
   }
 }

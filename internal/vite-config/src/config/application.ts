@@ -2,6 +2,10 @@ import type { UserConfig } from 'vite';
 
 import type { DefineApplicationOptions } from '../typing';
 
+import { relative } from 'node:path';
+
+import { findMonorepoRoot } from '@vben/node-utils';
+
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { loadApplicationPlugins } from '../plugins';
@@ -33,6 +37,8 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
       ...application,
     });
 
+    const { injectGlobalScss = true } = application;
+
     const applicationConfig: UserConfig = {
       build: {
         rollupOptions: {
@@ -44,6 +50,7 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
         },
         target: 'es2015',
       },
+      css: createCssOptions(injectGlobalScss),
       esbuild: {
         drop: isBuild
           ? [
@@ -69,6 +76,26 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
     );
     return mergeConfig(mergedConfig, vite);
   });
+}
+
+function createCssOptions(injectGlobalScss = true) {
+  const root = findMonorepoRoot();
+  return {
+    preprocessorOptions: injectGlobalScss
+      ? {
+          scss: {
+            additionalData: (content: string, filepath: string) => {
+              const relativePath = relative(root, filepath);
+              // apps下的包注入全局样式
+              if (relativePath.startsWith('apps/')) {
+                return `@import "@vben/styles/global";\n${content}`;
+              }
+              return content;
+            },
+          },
+        }
+      : {},
+  };
 }
 
 export { defineApplicationConfig };

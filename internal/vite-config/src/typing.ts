@@ -67,6 +67,8 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   importmapOptions?: ImportmapPluginOptions;
   /** 是否注入app loading */
   injectAppLoading?: boolean;
+  /** 是否注入全局scss */
+  injectGlobalScss?: boolean;
   /** 是否注入版权信息 */
   license?: boolean;
   /** 是否开启pwa */

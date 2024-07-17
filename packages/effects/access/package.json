@@ -42,6 +42,6 @@
     "@vben-core/stores": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "vue": "^3.4.31"
+    "vue": "^3.4.32"
   }
 }

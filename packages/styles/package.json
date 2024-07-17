@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
+    "build": "pnpm unbuild",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -26,13 +26,12 @@
       "default": "./dist/index.mjs"
     },
     "./antd": {
-      "types": "./src/antd/index.ts",
-      "development": "./src/antd/index.ts",
-      "default": "./dist/antd.mjs"
+      "development": "./src/antd/index.css",
+      "default": "./dist/antd/index.css"
     },
-    "./bem": {
-      "development": "./src/bem/bem.scss",
-      "default": "./dist/bem.scss"
+    "./global": {
+      "development": "./src/global/index.scss",
+      "default": "./dist/global/index.scss"
     }
   },
   "publishConfig": {

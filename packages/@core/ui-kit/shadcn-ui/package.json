@@ -50,6 +50,6 @@
     "class-variance-authority": "^0.7.0",
     "lucide-vue-next": "^0.408.0",
     "radix-vue": "^1.9.1",
-    "vue": "^3.4.31"
+    "vue": "^3.4.32"
   }
 }

@@ -37,8 +37,5 @@
         "default": "./dist/index.mjs"
       }
     }
-  },
-  "dependencies": {
-    "modern-normalize": "^2.0.0"
   }
 }
