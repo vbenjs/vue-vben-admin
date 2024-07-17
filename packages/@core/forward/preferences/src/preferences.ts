@@ -4,12 +4,7 @@ import type { Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import {
-  StorageManager,
-  generatorColorVariables,
-  merge,
-  updateCSSVariables,
-} from '@vben-core/toolkit';
+import { StorageManager, merge } from '@vben-core/toolkit';
 
 import {
   breakpointsTailwind,
@@ -18,7 +13,7 @@ import {
 } from '@vueuse/core';
 
 import { defaultPreferences } from './config';
-import { BUILT_IN_THEME_PRESETS } from './constants';
+import { updateCSSVariables } from './update-css-variables';
 
 const STORAGE_KEY = 'preferences';
 const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
@@ -48,11 +43,10 @@ class PreferenceManager {
   });
   constructor() {
     this.cache = new StorageManager();
-    // this.flattenedState = reactive(flattenObject(this.state));
 
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
-      100,
+      200,
     );
   }
 
@@ -76,7 +70,7 @@ class PreferenceManager {
     const themeUpdates = updates.theme || {};
     const appUpdates = updates.app || {};
     if (themeUpdates && Object.keys(themeUpdates).length > 0) {
-      this.updateTheme(this.state);
+      updateCSSVariables(this.state);
     }
 
     if (
@@ -130,7 +124,7 @@ class PreferenceManager {
         this.updatePreferences({
           theme: { mode: isDark ? 'dark' : 'light' },
         });
-        this.updateTheme(this.state);
+        updateCSSVariables(this.state);
       });
   }
 
@@ -150,101 +144,6 @@ class PreferenceManager {
       colorGrayMode
         ? dom.classList.add(COLOR_GRAY)
         : dom.classList.remove(COLOR_GRAY);
-    }
-  }
-
-  /**
-   * 更新 CSS 变量
-   * @param  preference - 当前偏好设置对象，它的颜色值将被转换成 HSL 格式并设置为 CSS 变量。
-   */
-  private updateMainColors(preference: Preferences) {
-    if (!preference.theme) {
-      return;
-    }
-    const { colorDestructive, colorPrimary, colorSuccess, colorWarning } =
-      preference.theme;
-
-    const colorVariables = generatorColorVariables([
-      { color: colorPrimary, name: 'primary' },
-      { alias: 'warning', color: colorWarning, name: 'yellow' },
-      { alias: 'success', color: colorSuccess, name: 'green' },
-      { alias: 'destructive', color: colorDestructive, name: 'red' },
-    ]);
-
-    if (colorPrimary) {
-      document.documentElement.style.setProperty(
-        '--primary',
-        colorVariables['--primary-500'],
-      );
-    }
-
-    if (colorVariables['--green-500']) {
-      colorVariables['--success'] = colorVariables['--green-500'];
-    }
-    if (colorVariables['--yellow-500']) {
-      colorVariables['--warning'] = colorVariables['--yellow-500'];
-    }
-    if (colorVariables['--red-500']) {
-      colorVariables['--destructive'] = colorVariables['--red-500'];
-    }
-    updateCSSVariables(colorVariables);
-  }
-
-  /**
-   * 更新主题
-   * @param preferences - 当前偏好设置对象，它的主题值将被用来设置文档的主题。
-   */
-  private updateTheme(preferences: Preferences) {
-    // 当修改到颜色变量时，更新 css 变量
-    const root = document.documentElement;
-    if (!root) {
-      return;
-    }
-
-    const theme = preferences?.theme ?? {};
-
-    const { builtinType, colorPrimary, mode, radius } = theme;
-
-    if (Reflect.has(theme, 'mode')) {
-      const dark = isDarkTheme(mode);
-      root.classList.toggle('dark', dark);
-    }
-
-    if (Reflect.has(theme, 'builtinType')) {
-      const rootTheme = root.dataset.theme;
-      if (rootTheme !== builtinType) {
-        root.dataset.theme = builtinType;
-      }
-    }
-
-    const currentBuiltType = BUILT_IN_THEME_PRESETS.find(
-      (item) => item.type === builtinType,
-    );
-
-    let builtinTypeColorPrimary: string | undefined = '';
-
-    if (currentBuiltType) {
-      const isDark = isDarkTheme(this.state.theme.mode);
-
-      const color = isDark
-        ? currentBuiltType.darkPrimaryColor || currentBuiltType.primaryColor
-        : currentBuiltType.primaryColor;
-      builtinTypeColorPrimary = color || currentBuiltType.color;
-    }
-
-    if (
-      builtinTypeColorPrimary ||
-      Reflect.has(theme, 'colorPrimary') ||
-      Reflect.has(theme, 'colorDestructive') ||
-      Reflect.has(theme, 'colorSuccess') ||
-      Reflect.has(theme, 'colorWarning')
-    ) {
-      preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
-      this.updateMainColors(preferences);
-    }
-
-    if (Reflect.has(theme, 'radius')) {
-      document.documentElement.style.setProperty('--radius', `${radius}rem`);
     }
   }
 

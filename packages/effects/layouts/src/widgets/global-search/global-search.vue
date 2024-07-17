@@ -4,11 +4,11 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 import {
-  IcRoundArrowDownward,
-  IcRoundArrowUpward,
-  IcRoundSearch,
-  IcRoundSubdirectoryArrowLeft,
+  ArrowDown,
+  ArrowUp,
+  CornerDownLeft,
   MdiKeyboardEsc,
+  Search,
 } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
@@ -87,8 +87,8 @@ onMounted(() => {
           class="md:bg-accent group flex h-8 cursor-pointer items-center gap-3 rounded-2xl border-none bg-none px-2 py-0.5 outline-none"
           @click="toggleOpen()"
         >
-          <IcRoundSearch
-            class="text-muted-foreground group-hover:text-foreground size-4 group-hover:opacity-100"
+          <Search
+            class="text-muted-foreground group-hover:text-foreground size-3 group-hover:opacity-100"
           />
           <span
             class="text-muted-foreground group-hover:text-foreground hidden text-xs duration-300 md:block"
@@ -111,13 +111,13 @@ onMounted(() => {
       >
         <DialogHeader>
           <DialogTitle
-            class="border-border flex h-12 items-center gap-5 border-b px-5 font-normal"
+            class="border-border flex h-12 items-center gap-3 border-b px-5 font-normal"
           >
-            <IcRoundSearch class="mt-1 size-4" />
+            <Search class="text-muted-foreground size-4" />
             <input
               v-model="keyword"
               :placeholder="$t('widgets.search.searchNavigate')"
-              class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 text-sm outline-none ring-0 ring-offset-transparent focus-visible:ring-transparent"
+              class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm outline-none ring-0 ring-offset-transparent focus-visible:ring-transparent"
             />
           </DialogTitle>
           <DialogDescription />
@@ -127,16 +127,16 @@ onMounted(() => {
           class="text-muted-foreground border-border hidden flex-row rounded-b-2xl border-t px-4 py-2 text-xs sm:flex sm:justify-start sm:gap-x-4"
         >
           <div class="flex items-center">
-            <IcRoundSubdirectoryArrowLeft class="mr-1" />
+            <CornerDownLeft class="mr-1 size-3" />
             {{ $t('widgets.search.select') }}
           </div>
           <div class="flex items-center">
-            <IcRoundArrowUpward class="mr-2" />
-            <IcRoundArrowDownward class="mr-2" />
+            <ArrowUp class="mr-2 size-3" />
+            <ArrowDown class="mr-2 size-3" />
             {{ $t('widgets.search.navigate') }}
           </div>
           <div class="flex items-center">
-            <MdiKeyboardEsc class="mr-1" />
+            <MdiKeyboardEsc class="mr-1 size-3" />
             {{ $t('widgets.search.close') }}
           </div>
         </DialogFooter>

@@ -12,7 +12,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   fixed: true,
-  height: 30,
+  height: 38,
 });
 
 const style = computed((): CSSProperties => {

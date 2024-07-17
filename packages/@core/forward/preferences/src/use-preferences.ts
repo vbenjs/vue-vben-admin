@@ -27,6 +27,10 @@ function usePreferences() {
     return isDarkTheme(preferences.theme.mode);
   });
 
+  const isMobile = computed(() => {
+    return appPreferences.value.isMobile;
+  });
+
   const theme = computed(() => {
     return isDark.value ? 'dark' : 'light';
   });
@@ -35,7 +39,7 @@ function usePreferences() {
    * @zh_CN 布局方式
    */
   const layout = computed(() =>
-    appPreferences.value.isMobile ? 'sidebar-nav' : appPreferences.value.layout,
+    isMobile.value ? 'sidebar-nav' : appPreferences.value.layout,
   );
 
   /**
@@ -110,6 +114,16 @@ function usePreferences() {
   });
 
   /**
+   * @zh_CN 内容是否已经最大化
+   * 排除 full-content模式
+   */
+  const contentIsMaximize = computed(() => {
+    const headerIsHidden = preferences.header.hidden;
+    const sidebarIsHidden = preferences.sidebar.hidden;
+    return headerIsHidden && sidebarIsHidden && !isFullContent.value;
+  });
+
+  /**
    * @zh_CN 是否启用全局搜索快捷键
    */
   const globalSearchShortcutKey = computed(() => {
@@ -138,17 +152,6 @@ function usePreferences() {
     return enable && globalPreferences;
   });
 
-  /**
-   * @zh_CN 内容是否已经最大化
-   * 排除 full-content模式
-   */
-  const contentIsMaximize = computed(() => {
-    const headerIsHidden = preferences.header.hidden;
-    const sidebarIsHidden = preferences.sidebar.hidden;
-
-    return headerIsHidden && sidebarIsHidden && !isFullContent.value;
-  });
-
   return {
     authPanelCenter,
     authPanelLeft,
@@ -163,6 +166,7 @@ function usePreferences() {
     isFullContent,
     isHeaderNav,
     isMixedNav,
+    isMobile,
     isSideMixedNav,
     isSideMode,
     isSideNav,

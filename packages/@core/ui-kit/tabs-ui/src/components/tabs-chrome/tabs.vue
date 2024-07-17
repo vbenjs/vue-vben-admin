@@ -5,7 +5,7 @@ import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, ref, watch } from 'vue';
 
-import { IcRoundClose, MdiPin } from '@vben-core/icons';
+import { MdiPin, X } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
 
 interface Props extends TabsProps {}
@@ -146,7 +146,7 @@ function scrollIntoView() {
                 class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%] opacity-0 transition-opacity group-hover:opacity-100"
               > -->
                   <!-- close-icon -->
-                  <IcRoundClose
+                  <X
                     v-show="
                       !tab.affixTab && tabsView.length > 1 && tab.closable
                     "

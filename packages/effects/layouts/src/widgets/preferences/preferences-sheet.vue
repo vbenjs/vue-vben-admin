@@ -13,7 +13,7 @@ import type {
 
 import { computed, ref } from 'vue';
 
-import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/icons';
+import { Copy, RotateCw, SwatchBook } from '@vben-core/icons';
 import { $t, loadLocaleMessages } from '@vben-core/locales';
 import {
   clearPreferencesCache,
@@ -51,7 +51,6 @@ import {
   Theme,
   Widget,
 } from './blocks';
-import IconSetting from './icons/setting.vue';
 import { useOpenPreferences } from './use-open-preferences';
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
@@ -225,9 +224,9 @@ async function handleReset() {
       <template #trigger>
         <VbenButton
           :title="$t('preferences.title')"
-          class="bg-primary flex-col-center h-12 w-12 cursor-pointer rounded-l-lg rounded-r-none border-none"
+          class="bg-primary flex-col-center h-10 w-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
         >
-          <IconSetting class="duration-3000 fill-primary-foreground text-2xl" />
+          <SwatchBook class="size-5" />
         </VbenButton>
       </template>
       <template #extra>
@@ -241,7 +240,7 @@ async function handleReset() {
               v-if="diffPreference"
               class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
             ></span>
-            <IcRoundRestartAlt class="size-5" @click="handleReset" />
+            <RotateCw class="size-4" @click="handleReset" />
           </VbenIconButton>
         </div>
       </template>
@@ -408,7 +407,7 @@ async function handleReset() {
           variant="default"
           @click="handleCopy"
         >
-          <IcRoundFolderCopy class="mr-2 size-3" />
+          <Copy class="mr-2 size-3" />
           {{ $t('preferences.copyPreferences') }}
         </VbenButton>
         <VbenButton
@@ -418,7 +417,7 @@ async function handleReset() {
           variant="ghost"
           @click="handleClearCache"
         >
-          <!-- <IcRoundRestartAlt class="mr-2 size-4" /> -->
+          <!-- <RotateCw class="mr-2 size-4" /> -->
           {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
       </template>

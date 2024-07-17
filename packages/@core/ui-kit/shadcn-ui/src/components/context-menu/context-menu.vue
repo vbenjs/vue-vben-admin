@@ -81,7 +81,7 @@ function handleClick(menu: IContextMenuItem) {
           <component
             :is="menu.icon"
             v-if="menu.icon"
-            class="mr-1 w-6 text-lg"
+            class="mr-2 size-4 text-lg"
           />
 
           {{ menu.text }}

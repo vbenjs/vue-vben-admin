@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IcRoundFullscreen, IcRoundFullscreenExit } from '@vben-core/icons';
+import { Maximize, Minimize } from '@vben-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 
@@ -22,7 +22,7 @@ isFullscreen.value = !!(
 </script>
 <template>
   <VbenIconButton @click="toggle">
-    <IcRoundFullscreenExit v-if="isFullscreen" class="size-6" />
-    <IcRoundFullscreen v-else class="size-6" />
+    <Minimize v-if="isFullscreen" class="size-4" />
+    <Maximize v-else class="size-4" />
   </VbenIconButton>
 </template>

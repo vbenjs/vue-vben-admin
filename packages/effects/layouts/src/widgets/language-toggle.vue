@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SupportedLanguagesType } from '@vben-core/typings';
 
-import { IcBaselineLanguage } from '@vben-core/icons';
+import { Languages } from '@vben-core/icons';
 import { loadLocaleMessages } from '@vben-core/locales';
 import {
   SUPPORT_LANGUAGES,
@@ -36,7 +36,7 @@ async function handleUpdate(value: string) {
       @update:model-value="handleUpdate"
     >
       <VbenIconButton>
-        <IcBaselineLanguage class="size-5" />
+        <Languages class="size-4" />
       </VbenIconButton>
     </VbenDropdownRadioMenu>
   </div>

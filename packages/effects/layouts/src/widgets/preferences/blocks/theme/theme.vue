@@ -3,11 +3,7 @@ import type { ThemeModeType } from '@vben-core/typings';
 
 import type { Component } from 'vue';
 
-import {
-  IcRoundMotionPhotosAuto,
-  IcRoundWbSunny,
-  MdiMoonAndStars,
-} from '@vben-core/icons';
+import { MoonStar, Sun, SunMoon } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 
 import SwitchItem from '../switch-item.vue';
@@ -23,15 +19,15 @@ const themeSemiDarkMenu = defineModel<boolean>('themeSemiDarkMenu', {
 
 const THEME_PRESET: Array<{ icon: Component; name: ThemeModeType }> = [
   {
-    icon: IcRoundWbSunny,
+    icon: Sun,
     name: 'light',
   },
   {
-    icon: MdiMoonAndStars,
+    icon: MoonStar,
     name: 'dark',
   },
   {
-    icon: IcRoundMotionPhotosAuto,
+    icon: SunMoon,
     name: 'auto',
   },
 ];

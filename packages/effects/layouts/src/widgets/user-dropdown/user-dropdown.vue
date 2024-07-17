@@ -4,11 +4,7 @@ import type { AnyFunction } from '@vben-core/typings';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import {
-  IcRoundLock,
-  IcRoundLogout,
-  IcRoundSettingsSuggest,
-} from '@vben-core/icons';
+import { LockKeyhole, LogOut, SwatchBook } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { preferences, usePreferences } from '@vben-core/preferences';
 import {
@@ -203,7 +199,7 @@ if (enableShortcutKey.value) {
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="menu.handler"
       >
-        <VbenIcon :icon="menu.icon" class="mr-2 size-5" />
+        <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
         {{ menu.text }}
       </DropdownMenuItem>
       <DropdownMenuSeparator />
@@ -211,7 +207,7 @@ if (enableShortcutKey.value) {
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenPreference"
       >
-        <IcRoundSettingsSuggest class="mr-2 size-5" />
+        <SwatchBook class="mr-2 size-4" />
         {{ $t('preferences.title') }}
         <DropdownMenuShortcut v-if="enablePreferencesShortcutKey">
           {{ altView }} ,
@@ -222,7 +218,7 @@ if (enableShortcutKey.value) {
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenLock"
       >
-        <IcRoundLock class="mr-2 size-5" />
+        <LockKeyhole class="mr-2 size-4" />
         {{ $t('widgets.lockScreen.title') }}
         <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
           {{ altView }} L
@@ -233,7 +229,7 @@ if (enableShortcutKey.value) {
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleLogout"
       >
-        <IcRoundLogout class="mr-2 size-5" />
+        <LogOut class="mr-2 size-4" />
         {{ $t('common.logout') }}
         <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
           {{ altView }} Q

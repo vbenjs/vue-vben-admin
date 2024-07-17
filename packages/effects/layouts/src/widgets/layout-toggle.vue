@@ -4,7 +4,7 @@ import type { AuthPageLayoutType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/icons';
+import { InspectionPanel, PanelLeft, PanelRight } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   preferences,
@@ -19,17 +19,17 @@ defineOptions({
 
 const menus = computed((): VbenDropdownMenuItem[] => [
   {
-    icon: MdiDockLeft,
+    icon: PanelLeft,
     key: 'panel-left',
     text: $t('authentication.layout.alignLeft'),
   },
   {
-    icon: MdiDockBottom,
+    icon: InspectionPanel,
     key: 'panel-center',
     text: $t('authentication.layout.center'),
   },
   {
-    icon: MdiDockRight,
+    icon: PanelRight,
     key: 'panel-right',
     text: $t('authentication.layout.alignRight'),
   },
@@ -53,9 +53,9 @@ function handleUpdate(value: string) {
     @update:model-value="handleUpdate"
   >
     <VbenIconButton>
-      <MdiDockRight v-if="authPanelRight" class="size-5" />
-      <MdiDockLeft v-if="authPanelLeft" class="size-5" />
-      <MdiDockBottom v-if="authPanelCenter" class="size-5" />
+      <PanelRight v-if="authPanelRight" class="size-4" />
+      <PanelLeft v-if="authPanelLeft" class="size-4" />
+      <InspectionPanel v-if="authPanelCenter" class="size-4" />
     </VbenIconButton>
   </VbenDropdownRadioMenu>
 </template>

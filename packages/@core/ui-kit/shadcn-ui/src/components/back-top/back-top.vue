@@ -3,7 +3,7 @@ import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';
 
-import { IcRoundArrowUpward } from '@vben-core/icons';
+import { ArrowUpToLine } from '@vben-core/icons';
 
 import { VbenButton } from '../button';
 import { useBackTop } from './use-backtop';
@@ -37,7 +37,7 @@ const { handleClick, visible } = useBackTop(props);
       variant="icon"
       @click="handleClick"
     >
-      <IcRoundArrowUpward />
+      <ArrowUpToLine class="size-4" />
     </VbenButton>
   </transition>
 </template>

@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
-import {
-  IcRoundMarkEmailRead,
-  IcRoundNotificationsNone,
-} from '@vben-core/icons';
+import { Bell, MailCheck } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   VbenButton,
@@ -75,7 +72,7 @@ function handleClick(item: NotificationItem) {
             v-if="dot"
             class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
           ></span>
-          <IcRoundNotificationsNone class="size-5" />
+          <Bell class="size-4" />
         </VbenIconButton>
       </div>
     </template>
@@ -87,7 +84,7 @@ function handleClick(item: NotificationItem) {
           :tooltip="$t('widgets.markAllAsRead')"
           @click="handleMakeAll"
         >
-          <IcRoundMarkEmailRead />
+          <MailCheck class="size-4" />
         </VbenIconButton>
       </div>
       <VbenScrollbar v-if="notifications.length > 0">

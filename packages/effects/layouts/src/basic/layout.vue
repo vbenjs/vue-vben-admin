@@ -30,7 +30,7 @@ defineOptions({ name: 'BasicLayout' });
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
-const { isDark, isHeaderNav, isMixedNav, isSideMixedNav, layout } =
+const { isDark, isHeaderNav, isMixedNav, isMobile, isSideMixedNav, layout } =
   usePreferences();
 
 const headerMenuTheme = computed(() => {
@@ -63,7 +63,6 @@ const logoCollapse = computed(() => {
     return false;
   }
 
-  const { isMobile } = preferences.app;
   const { collapsed } = preferences.sidebar;
 
   if (!collapsed && isMobile) {

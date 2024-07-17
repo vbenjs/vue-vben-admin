@@ -17,7 +17,7 @@ import {
   SheetTrigger,
 } from '@vben-core/shadcn-ui/components/ui/sheet';
 
-import { Cross2Icon } from '@radix-icons/vue';
+import { X } from 'lucide-vue-next';
 
 interface Props {
   cancelText?: string;
@@ -87,12 +87,12 @@ function handlerSubmit() {
           class="data-[state=open]:bg-secondary cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
         >
           <VbenIconButton>
-            <Cross2Icon class="size-4" />
+            <X class="size-4" />
           </VbenIconButton>
         </SheetClose>
       </SheetHeader>
       <div class="h-full pb-16">
-        <VbenScrollbar class="h-full">
+        <VbenScrollbar class="h-full" shadow>
           <slot></slot>
         </VbenScrollbar>
       </div>

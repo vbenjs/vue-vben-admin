@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/_core/vben/about/index.vue'),
         meta: {
           badgeType: 'dot',
-          icon: 'mdi:creative-commons',
+          icon: 'lucide:copyright',
           title: $t('page.vben.about'),
         },
       },
@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
         path: 'document',
         component: IFrameView,
         meta: {
-          icon: 'mdi:flame-circle',
+          icon: 'lucide:book-open-text',
           iframeSrc: 'https://doc.vvbin.cn/',
           keepAlive: true,
           title: $t('page.vben.document'),

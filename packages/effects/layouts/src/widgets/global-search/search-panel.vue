@@ -4,7 +4,7 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { IcRoundClose, IcRoundSearchOff } from '@vben-core/icons';
+import { SearchX, X } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
 import { mapTree, traverseTreeValues, uniqueByField } from '@vben-core/toolkit';
@@ -221,7 +221,7 @@ onMounted(() => {
         v-if="keyword && searchResults.length === 0"
         class="text-muted-foreground text-center"
       >
-        <IcRoundSearchOff class="size-12" />
+        <SearchX class="mx-auto size-12" />
         <p class="my-10 text-xs">
           {{ $t('widgets.search.noResults') }}
           <span class="text-foreground text-sm font-medium">
@@ -271,7 +271,7 @@ onMounted(() => {
             class="flex-center dark:hover:bg-accent hover:text-primary-foreground rounded-full p-1 hover:scale-110"
             @click.stop="removeItem(index)"
           >
-            <IcRoundClose />
+            <X class="size-4" />
           </div>
         </li>
       </ul>

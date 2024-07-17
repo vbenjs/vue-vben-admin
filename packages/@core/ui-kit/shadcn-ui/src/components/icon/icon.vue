@@ -2,12 +2,12 @@
 import { type Component, computed } from 'vue';
 
 import { Icon, IconDefault } from '@vben-core/icons';
-import { isHttpUrl, isObject, isString } from '@vben-core/toolkit';
+import { isFunction, isHttpUrl, isObject, isString } from '@vben-core/toolkit';
 
 const props = defineProps<{
   // 没有是否显示默认图标
   fallback?: boolean;
-  icon?: Component | string;
+  icon?: Component | Function | string;
 }>();
 
 const isRemoteIcon = computed(() => {
@@ -15,7 +15,8 @@ const isRemoteIcon = computed(() => {
 });
 
 const isComponent = computed(() => {
-  return !isString(props.icon) && isObject(props.icon);
+  const { icon } = props;
+  return !isString(icon) && (isObject(icon) || isFunction(icon));
 });
 </script>
 

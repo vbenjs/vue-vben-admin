@@ -9,17 +9,17 @@ import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import {
-  IcRoundClose,
-  IcRoundFitScreen,
-  IcRoundMultipleStop,
-  IcRoundRefresh,
-  IcRoundTableView,
-  IcTwotoneFitScreen,
-  MdiArrowExpandHorizontal,
-  MdiFormatHorizontalAlignLeft,
-  MdiFormatHorizontalAlignRight,
+  ArrowLeftToLine,
+  ArrowRightLeft,
+  ArrowRightToLine,
+  ExternalLink,
+  FoldHorizontal,
+  Fullscreen,
   MdiPin,
   MdiPinOff,
+  Minimize2,
+  RotateCw,
+  X,
 } from '@vben-core/icons';
 import { $t, useI18n } from '@vben-core/locales';
 import { updatePreferences, usePreferences } from '@vben-core/preferences';
@@ -131,7 +131,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.closeTab(tab, router);
         },
-        icon: IcRoundClose,
+        icon: X,
         key: 'close',
         text: $t('preferences.tabbar.contextMenu.close'),
       },
@@ -154,7 +154,7 @@ function useTabs() {
           }
           updateContentScreen(!contentIsMaximize.value);
         },
-        icon: contentIsMaximize.value ? IcRoundFitScreen : IcTwotoneFitScreen,
+        icon: contentIsMaximize.value ? Minimize2 : Fullscreen,
         key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
         text: contentIsMaximize.value
           ? $t('preferences.tabbar.contextMenu.restoreMaximize')
@@ -165,7 +165,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.refresh(router);
         },
-        icon: IcRoundRefresh,
+        icon: RotateCw,
         key: 'reload',
         text: $t('preferences.tabbar.contextMenu.reload'),
       },
@@ -178,7 +178,7 @@ function useTabs() {
           const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
           openWindow(url, { target: '_blank' });
         },
-        icon: IcRoundTableView,
+        icon: ExternalLink,
         key: 'open-in-new-window',
         separator: true,
         text: $t('preferences.tabbar.contextMenu.openInNewWindow'),
@@ -189,7 +189,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.closeLeftTabs(tab);
         },
-        icon: MdiFormatHorizontalAlignLeft,
+        icon: ArrowLeftToLine,
         key: 'close-left',
         text: $t('preferences.tabbar.contextMenu.closeLeft'),
       },
@@ -198,7 +198,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.closeRightTabs(tab);
         },
-        icon: MdiFormatHorizontalAlignRight,
+        icon: ArrowRightToLine,
         key: 'close-right',
         separator: true,
         text: $t('preferences.tabbar.contextMenu.closeRight'),
@@ -208,7 +208,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.closeOtherTabs(tab);
         },
-        icon: MdiArrowExpandHorizontal,
+        icon: FoldHorizontal,
         key: 'close-other',
         text: $t('preferences.tabbar.contextMenu.closeOther'),
       },
@@ -217,7 +217,7 @@ function useTabs() {
         handler: async () => {
           await coreTabbarStore.closeAllTabs(router);
         },
-        icon: IcRoundMultipleStop,
+        icon: ArrowRightLeft,
         key: 'close-all',
         text: $t('preferences.tabbar.contextMenu.closeAll'),
       },

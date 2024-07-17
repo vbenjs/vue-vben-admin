@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
-import { MdiLoading } from '@vben-core/icons';
+import { LoaderCircle } from '@vben-core/icons';
 import {
   type ButtonVariants,
   buttonVariants,
@@ -40,9 +40,9 @@ const isDisabled = computed(() => {
     :class="cn(buttonVariants({ variant, size }), props.class)"
     :disabled="isDisabled"
   >
-    <MdiLoading
+    <LoaderCircle
       v-if="loading"
-      class="text-md mr-2 flex-shrink-0 animate-spin"
+      class="text-md mr-2 size-4 flex-shrink-0 animate-spin"
     />
     <slot></slot>
   </Primitive>

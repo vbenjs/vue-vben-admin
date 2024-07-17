@@ -2,7 +2,7 @@
 import type { CSSProperties } from 'vue';
 import { computed, useSlots } from 'vue';
 
-import { IcRoundMenu } from '@vben-core/icons';
+import { Menu } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
 interface Props {
@@ -108,7 +108,7 @@ function handleToggleMenu() {
       class="my-0 ml-2 mr-1 rounded"
       @click="handleToggleMenu"
     >
-      <IcRoundMenu class="size-5" />
+      <Menu class="size-4" />
     </VbenIconButton>
     <slot></slot>
   </header>

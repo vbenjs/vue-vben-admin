@@ -3,7 +3,7 @@ import type { SelectOption } from '@vben-core/typings';
 
 import { useSlots } from 'vue';
 
-import { MdiQuestionMarkCircleOutline } from '@vben-core/icons';
+import { CircleHelp } from '@vben-core/icons';
 import {
   Select,
   SelectContent,
@@ -48,7 +48,7 @@ const slots = useSlots();
 
       <VbenTooltip v-if="slots.tip" side="bottom">
         <template #trigger>
-          <MdiQuestionMarkCircleOutline class="ml-1 cursor-help" />
+          <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
         <slot name="tip"></slot>
       </VbenTooltip>

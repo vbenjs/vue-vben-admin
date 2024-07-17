@@ -7,6 +7,7 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
+      icon: 'lucide:layout-dashboard',
       order: -1,
       title: $t('page.dashboard.title'),
     },
@@ -20,6 +21,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/dashboard/analytics/index.vue'),
         meta: {
           affixTab: true,
+          icon: 'lucide:area-chart',
           title: $t('page.dashboard.analytics'),
         },
       },

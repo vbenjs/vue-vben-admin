@@ -3,7 +3,7 @@ import type { BuiltinThemeType } from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { MdiEditBoxOutline } from '@vben-core/icons';
+import { UserRoundPen } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   BUILT_IN_THEME_PRESETS,
@@ -114,7 +114,7 @@ function selectColor() {
           <template v-else>
             <div class="size-full px-10 py-2" @click.stop="selectColor">
               <div class="flex-center relative size-5 rounded-sm">
-                <MdiEditBoxOutline
+                <UserRoundPen
                   class="absolute z-10 size-5 opacity-60 group-hover:opacity-100"
                 />
                 <input

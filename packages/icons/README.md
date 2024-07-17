@@ -15,5 +15,5 @@ pnpm add @vben/icons --workspace
 ### 使用
 
 ```ts
-import { IcRoundClose } from '@vben/icons';
+import { X } from '@vben/icons';
 ```

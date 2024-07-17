@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import type { ThemeModeType } from '@vben-core/typings';
 
-import {
-  IcRoundMotionPhotosAuto,
-  IcRoundWbSunny,
-  MdiMoonAndStars,
-} from '@vben-core/icons';
+import { MoonStar, Sun, SunMoon } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import {
   preferences,
@@ -38,17 +34,17 @@ const { isDark } = usePreferences();
 
 const PRESETS = [
   {
-    icon: IcRoundWbSunny,
+    icon: Sun,
     name: 'light',
     title: $t('preferences.theme.light'),
   },
   {
-    icon: MdiMoonAndStars,
+    icon: MoonStar,
     name: 'dark',
     title: $t('preferences.theme.dark'),
   },
   {
-    icon: IcRoundMotionPhotosAuto,
+    icon: SunMoon,
     name: 'auto',
     title: $t('preferences.followSystem'),
   },

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DropdownMenuProps } from '@vben-core/shadcn-ui';
 
-import { IcRoundKeyboardArrowDown } from '@vben-core/icons';
+import { ChevronDown } from '@vben-core/icons';
 import { VbenDropdownMenu } from '@vben-core/shadcn-ui';
 
 defineProps<DropdownMenuProps>();
@@ -10,9 +10,9 @@ defineProps<DropdownMenuProps>();
 <template>
   <VbenDropdownMenu :menus="menus" :modal="false">
     <div
-      class="flex-center hover:bg-muted hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-1.5 text-lg font-semibold"
+      class="flex-center hover:bg-muted hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-2 text-lg font-semibold"
     >
-      <IcRoundKeyboardArrowDown class="size-5" />
+      <ChevronDown class="size-4" />
     </div>
   </VbenDropdownMenu>
 </template>

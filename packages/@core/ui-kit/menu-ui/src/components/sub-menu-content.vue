@@ -4,10 +4,7 @@ import type { MenuItemProps } from '../interface';
 import { computed } from 'vue';
 
 import { useNamespace } from '@vben-core/hooks';
-import {
-  IcRoundChevronRight,
-  IcRoundKeyboardArrowDown,
-} from '@vben-core/icons';
+import { ChevronDown, ChevronRight } from '@vben-core/icons';
 import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';
@@ -67,8 +64,8 @@ const hiddenTitle = computed(() => {
 const iconComp = computed(() => {
   return (mode.value === 'horizontal' && !isFirstLevel.value) ||
     (mode.value === 'vertical' && collapse.value)
-    ? IcRoundChevronRight
-    : IcRoundKeyboardArrowDown;
+    ? ChevronRight
+    : ChevronDown;
 });
 
 const iconArrowStyle = computed(() => {
@@ -102,6 +99,7 @@ const iconArrowStyle = computed(() => {
       v-show="showArrowIcon"
       :class="[e('icon-arrow')]"
       :style="iconArrowStyle"
+      class="size-4"
     />
   </div>
 </template>

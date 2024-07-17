@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { LOGIN_PATH } from '@vben/constants';
-import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
+import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
   LockScreen,
@@ -61,7 +61,7 @@ const menus = computed(() => [
         target: '_blank',
       });
     },
-    icon: MdiDriveDocument,
+    icon: BookOpenText,
     text: $t('widgets.document'),
   },
   {
@@ -79,7 +79,7 @@ const menus = computed(() => [
         target: '_blank',
       });
     },
-    icon: IcRoundCreditScore,
+    icon: CircleHelp,
     text: $t('widgets.qa'),
   },
 ]);

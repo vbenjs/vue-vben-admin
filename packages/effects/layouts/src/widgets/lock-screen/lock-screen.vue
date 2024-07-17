@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watchEffect } from 'vue';
 
-import { IcRoundLock } from '@vben-core/icons';
+import { LockKeyhole } from '@vben-core/icons';
 import { $t, useI18n } from '@vben-core/locales';
 import {
   VbenAvatar,
@@ -92,7 +92,7 @@ function toggleUnlockForm() {
           class="flex-col-center text-foreground/80 hover:text-foreground group my-4 cursor-pointer text-xl font-semibold"
           @click="toggleUnlockForm"
         >
-          <IcRoundLock
+          <LockKeyhole
             class="size-5 transition-all duration-300 group-hover:scale-125"
           />
           <span>{{ $t('widgets.lockScreen.unlock') }}</span>

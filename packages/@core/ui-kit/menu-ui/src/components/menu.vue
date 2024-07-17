@@ -19,7 +19,7 @@ import {
 } from 'vue';
 
 import { useNamespace } from '@vben-core/hooks';
-import { IcRoundMoreHoriz } from '@vben-core/icons';
+import { Ellipsis } from '@vben-core/icons';
 import { isHttpUrl } from '@vben-core/toolkit';
 
 import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';
@@ -338,7 +338,7 @@ function removeMenuItem(item: MenuItemRegistered) {
       </template>
       <SubMenu is-sub-menu-more path="sub-menu-more">
         <template #title>
-          <IcRoundMoreHoriz />
+          <Ellipsis class="size-4" />
         </template>
         <template v-for="item in getSlot.slotMore" :key="item.key">
           <component :is="item" />
@@ -852,9 +852,9 @@ $namespace: vben;
     cursor: pointer;
     background: var(--menu-submenu-hover-background-color) !important;
 
-    svg {
-      fill: var(--menu-submenu-hover-color);
-    }
+    // svg {
+    //   fill: var(--menu-submenu-hover-color);
+    // }
   }
 }
 </style>

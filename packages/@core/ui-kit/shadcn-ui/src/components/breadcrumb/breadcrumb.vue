@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IBreadcrumb } from './interface';
 
-import { IcRoundKeyboardArrowDown } from '@vben-core/icons';
+import { ChevronDown } from '@vben-core/icons';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -56,7 +56,7 @@ function handleClick(path?: string) {
                     class="size-5"
                   />
                   {{ item.title }}
-                  <IcRoundKeyboardArrowDown class="size-5" />
+                  <ChevronDown class="size-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <template

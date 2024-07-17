@@ -3,7 +3,7 @@ import type { LayoutType } from '@vben-core/typings';
 
 import { type Component, computed } from 'vue';
 
-import { MdiQuestionMarkCircleOutline } from '@vben-core/icons';
+import { CircleHelp } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
@@ -84,7 +84,7 @@ function activeClass(theme: string): string[] {
           {{ theme.name }}
           <VbenTooltip v-if="theme.tip" side="bottom">
             <template #trigger>
-              <MdiQuestionMarkCircleOutline class="ml-1 cursor-help" />
+              <CircleHelp class="ml-1 size-3 cursor-help" />
             </template>
             {{ theme.tip }}
           </VbenTooltip>

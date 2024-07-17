@@ -4,7 +4,7 @@ import type { FallbackProps } from './fallback';
 import { computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { IcRoundArrowBackIosNew, IcRoundRefresh } from '@vben-core/icons';
+import { ArrowLeft, RotateCw } from '@vben-core/icons';
 import { $t } from '@vben-core/locales';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
@@ -151,11 +151,11 @@ function refresh() {
       </p>
       <slot v-if="$slots.action" name="action"></slot>
       <VbenButton v-else-if="showBack" size="lg" @click="back">
-        <IcRoundArrowBackIosNew class="mr-2" />
+        <ArrowLeft class="mr-2 size-4" />
         {{ $t('common.backToHome') }}
       </VbenButton>
       <VbenButton v-else-if="showRefresh" size="lg" @click="refresh">
-        <IcRoundRefresh class="mr-2" />
+        <RotateCw class="mr-2 size-4" />
         {{ $t('common.refresh') }}
       </VbenButton>
     </div>

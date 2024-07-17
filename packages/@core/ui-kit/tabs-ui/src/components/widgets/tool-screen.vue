@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IcRoundFitScreen, IcTwotoneFitScreen } from '@vben-core/icons';
+import { Fullscreen, Minimize2 } from '@vben-core/icons';
 
 const screen = defineModel<boolean>('screen');
 
@@ -13,7 +13,7 @@ function toggleScreen() {
     class="flex-center hover:bg-muted hover:text-foreground text-muted-foreground border-border h-full cursor-pointer border-l px-2 text-lg font-semibold"
     @click="toggleScreen"
   >
-    <IcTwotoneFitScreen v-if="screen" />
-    <IcRoundFitScreen v-else />
+    <Minimize2 v-if="screen" class="size-4" />
+    <Fullscreen v-else class="size-4" />
   </div>
 </template>

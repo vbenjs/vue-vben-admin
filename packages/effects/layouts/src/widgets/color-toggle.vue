@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BuiltinThemeType } from '@vben-core/typings';
 
-import { IcRoundColorLens } from '@vben-core/icons';
+import { Palette } from '@vben-core/icons';
 import {
   COLOR_PRESETS,
   preferences,
@@ -56,7 +56,7 @@ function handleUpdate(value: BuiltinThemeType) {
     </div>
 
     <VbenIconButton>
-      <IcRoundColorLens class="text-primary size-5" />
+      <Palette class="text-primary size-4" />
     </VbenIconButton>
   </div>
 </template>
