@@ -17,11 +17,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref, computed, unref, getCurrentInstance, watch, useSlots } from 'vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { propTypes } from '@/utils/propTypes';
-  import { useMenuItem } from './useMenu';
   import { Tooltip } from 'ant-design-vue';
+  import { computed, getCurrentInstance, PropType, ref, unref, useSlots, watch } from 'vue';
+  import { useMenuItem } from './useMenu';
   import { useSimpleRootMenuContext } from './useSimpleMenuContext';
 
   defineOptions({ name: 'MenuItem' });
@@ -76,7 +76,7 @@
     const { uidList } = getParentList();
 
     rootMenuEmitter.emit('on-update-opened', {
-      opend: false,
+      opened: false,
       parent: instance?.parent,
       uidList: uidList,
     });

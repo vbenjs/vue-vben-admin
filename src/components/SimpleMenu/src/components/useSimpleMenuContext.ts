@@ -1,12 +1,12 @@
-import type { InjectionKey, Ref, ComponentInternalInstance } from 'vue';
-import type { Emitter } from '@/utils/mitt';
 import { createContext, useContext } from '@/hooks/core/useContext';
+import type { Emitter } from '@/utils/mitt';
+import type { ComponentInternalInstance, InjectionKey, Ref } from 'vue';
 
 export type MenuEmitterEvents = {
   'on-update-opened':
     | (string | number)[]
     | {
-        opend: boolean;
+        opened: boolean;
         parent?: ComponentInternalInstance | null;
         uidList: number[];
       };

@@ -57,27 +57,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { type TimeoutHandle, type Recordable } from '@vben/types';
-  import type { CSSProperties, PropType } from 'vue';
-  import type { SubMenuProvider } from './types';
-  import {
-    computed,
-    unref,
-    getCurrentInstance,
-    reactive,
-    provide,
-    onBeforeMount,
-    inject,
-  } from 'vue';
-  import { useDesign } from '@/hooks/web/useDesign';
-  import { propTypes } from '@/utils/propTypes';
-  import { useMenuItem } from './useMenu';
-  import { useSimpleRootMenuContext } from './useSimpleMenuContext';
-  import { CollapseTransition } from '@/components/Transition';
   import Icon from '@/components/Icon/Icon.vue';
-  import { Popover } from 'ant-design-vue';
+  import { CollapseTransition } from '@/components/Transition';
+  import { useDesign } from '@/hooks/web/useDesign';
   import { isBoolean, isObject } from '@/utils/is';
   import { mitt } from '@/utils/mitt';
+  import { propTypes } from '@/utils/propTypes';
+  import { type Recordable, type TimeoutHandle } from '@vben/types';
+  import { Popover } from 'ant-design-vue';
+  import type { CSSProperties, PropType } from 'vue';
+  import {
+    computed,
+    getCurrentInstance,
+    inject,
+    onBeforeMount,
+    provide,
+    reactive,
+    unref,
+  } from 'vue';
+  import type { SubMenuProvider } from './types';
+  import { useMenuItem } from './useMenu';
+  import { useSimpleRootMenuContext } from './useSimpleMenuContext';
 
   defineOptions({ name: 'SubMenu' });
 
@@ -184,7 +184,7 @@
     if (unref(getAccordion)) {
       const { uidList } = getParentList();
       rootMenuEmitter.emit('on-update-opened', {
-        opend: false,
+        opened: false,
         parent: instance?.parent,
         uidList: uidList,
       });
@@ -267,9 +267,9 @@
           return;
         }
         if (isObject(data) && rootProps.accordion) {
-          const { opend, parent, uidList } = data as Recordable<any>;
+          const { opened, parent, uidList } = data as Recordable<any>;
           if (parent === instance?.parent) {
-            state.opened = opend;
+            state.opened = opened;
           } else if (!uidList.includes(instance?.uid)) {
             state.opened = false;
           }
