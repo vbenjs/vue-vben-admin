@@ -5,19 +5,24 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
+  VbenAvatar,
   VisuallyHidden,
 } from '@vben-core/shadcn-ui';
 
 import AuthenticationLogin from './login.vue';
 import { AuthenticationProps, LoginAndRegisterParams } from './typings';
 
-interface Props extends AuthenticationProps {}
+interface Props extends AuthenticationProps {
+  avatar?: string;
+}
 
 defineOptions({
   name: 'LoginExpiredModal',
 });
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {
+  avatar: '',
+});
 
 const emit = defineEmits<{
   submit: [LoginAndRegisterParams];
@@ -37,8 +42,10 @@ const forwarded = useForwardPropsEmits(props, emit);
         @escape-key-down="(e) => e.preventDefault()"
         @interact-outside="(e) => e.preventDefault()"
       >
+        <DialogTitle>
+          <VbenAvatar :src="avatar" class="mx-auto size-20" />
+        </DialogTitle>
         <VisuallyHidden>
-          <DialogTitle />
           <DialogDescription />
         </VisuallyHidden>
         <AuthenticationLogin

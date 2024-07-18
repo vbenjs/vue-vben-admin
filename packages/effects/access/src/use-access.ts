@@ -14,7 +14,7 @@ function useAccess() {
    * @description: Determine whether there is permission，The role is judged by the user's role
    * @param roles
    */
-  function hasAuthByRoles(roles: string[]) {
+  function hasAccessByRoles(roles: string[]) {
     const userRoleSet = new Set(coreAccessStore.userRoles);
     const intersection = roles.filter((item) => userRoleSet.has(item));
     return intersection.length > 0;
@@ -25,7 +25,7 @@ function useAccess() {
    * @description: Determine whether there is permission，The permission code is judged by the user's permission code
    * @param codes
    */
-  function hasAuthByCodes(codes: string[]) {
+  function hasAccessByCodes(codes: string[]) {
     const userCodesSet = new Set(coreAccessStore.accessCodes);
 
     const intersection = codes.filter((item) => userCodesSet.has(item));
@@ -43,8 +43,8 @@ function useAccess() {
 
   return {
     accessMode,
-    hasAuthByCodes,
-    hasAuthByRoles,
+    hasAccessByCodes,
+    hasAccessByRoles,
     toggleAccessMode,
   };
 }

@@ -135,6 +135,7 @@ function clearPreferencesAndLogout() {
     :sidebar-theme="theme"
     :sidebar-width="preferences.sidebar.width"
     :tabbar-enable="preferences.tabbar.enable"
+    :tabbar-height="preferences.tabbar.height"
     @side-mouse-leave="handleSideMouseLeave"
     @toggle-sidebar="toggleSidebar"
     @update:sidebar-collapse="

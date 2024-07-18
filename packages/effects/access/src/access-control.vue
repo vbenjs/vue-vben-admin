@@ -8,16 +8,16 @@ import { useAccess } from './use-access';
 
 interface Props {
   /**
+   * Specified codes is visible
+   * @default []
+   */
+  permissions?: string[];
+
+  /**
    * 通过什么方式来控制组件，如果是 role，则传入角色，如果是 code，则传入权限码
    * @default 'role'
    */
   type?: 'code' | 'role';
-
-  /**
-   * Specified codes is visible
-   * @default []
-   */
-  value?: string[];
 }
 
 defineOptions({
@@ -25,19 +25,21 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
+  permissions: () => [],
   type: 'role',
-  value: () => [],
 });
 
-const { hasAuthByCodes, hasAuthByRoles } = useAccess();
+const { hasAccessByCodes, hasAccessByRoles } = useAccess();
 
 const hasAuth = computed(() => {
-  const { type, value } = props;
-  return type === 'role' ? hasAuthByRoles(value) : hasAuthByCodes(value);
+  const { permissions, type } = props;
+  return type === 'role'
+    ? hasAccessByRoles(permissions)
+    : hasAccessByCodes(permissions);
 });
 </script>
 
 <template>
-  <slot v-if="!value"></slot>
+  <slot v-if="!permissions"></slot>
   <slot v-else-if="hasAuth"></slot>
 </template>

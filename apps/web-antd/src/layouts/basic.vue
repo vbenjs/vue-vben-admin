@@ -144,6 +144,7 @@ function handleLockScreen(password: string) {
     <template #extra>
       <AuthenticationLoginExpiredModal
         v-model:open="openLoginExpiredModal"
+        :avatar
         :loading="loginLoading"
         password-placeholder="123456"
         username-placeholder="vben"

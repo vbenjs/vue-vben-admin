@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   tabbarEnable: true,
-  tabbarHeight: 38,
+  tabbarHeight: 36,
   zIndex: 200,
 });
 

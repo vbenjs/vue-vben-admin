@@ -140,6 +140,8 @@ interface TabbarPreferences {
   dragable: boolean;
   /** 是否开启多标签页 */
   enable: boolean;
+  /** 标签页高度 */
+  height: number;
   /** 开启标签页缓存功能 */
   keepAlive: boolean;
   /** 是否持久化标签 */

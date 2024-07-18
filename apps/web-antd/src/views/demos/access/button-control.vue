@@ -26,7 +26,7 @@ const accounts: Record<string, LoginAndRegisterParams> = {
   },
 };
 
-const { accessMode, hasAuthByCodes } = useAccess();
+const { accessMode, hasAccessByCodes } = useAccess();
 const accessStore = useAccessStore();
 const appStore = useAppStore();
 const router = useRouter();
@@ -83,16 +83,16 @@ async function changeAccount(role: string) {
 
     <div class="card-box mt-5 p-5 font-semibold">
       <div class="mb-3 text-lg">组件形式控制 - 权限码方式</div>
-      <AccessControl :value="['AC_100100']" type="code">
+      <AccessControl :permissions="['AC_100100']" type="code">
         <Button class="mr-4"> Super 账号可见 ["AC_1000001"] </Button>
       </AccessControl>
-      <AccessControl :value="['AC_100030']" type="code">
+      <AccessControl :permissions="['AC_100030']" type="code">
         <Button class="mr-4"> Admin 账号可见 ["AC_100010"] </Button>
       </AccessControl>
-      <AccessControl :value="['AC_1000001']" type="code">
+      <AccessControl :permissions="['AC_1000001']" type="code">
         <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
       </AccessControl>
-      <AccessControl :value="['AC_100100', 'AC_100010']" type="code">
+      <AccessControl :permissions="['AC_100100', 'AC_100010']" type="code">
         <Button class="mr-4">
           Super & Admin 账号可见 ["AC_100100","AC_1000001"]
         </Button>
@@ -104,32 +104,32 @@ async function changeAccount(role: string) {
       class="card-box mt-5 p-5 font-semibold"
     >
       <div class="mb-3 text-lg">组件形式控制 - 用户角色方式</div>
-      <AccessControl :value="['super']">
+      <AccessControl :permissions="['super']">
         <Button class="mr-4"> Super 角色可见 </Button>
       </AccessControl>
-      <AccessControl :value="['admin']">
+      <AccessControl :permissions="['admin']">
         <Button class="mr-4"> Admin 角色可见 </Button>
       </AccessControl>
-      <AccessControl :value="['user']">
+      <AccessControl :permissions="['user']">
         <Button class="mr-4"> User 角色可见 </Button>
       </AccessControl>
-      <AccessControl :value="['super', 'admin']">
+      <AccessControl :permissions="['super', 'admin']">
         <Button class="mr-4"> Super & Admin 角色可见 </Button>
       </AccessControl>
     </div>
 
     <div class="card-box mt-5 p-5 font-semibold">
       <div class="mb-3 text-lg">函数形式控制</div>
-      <Button v-if="hasAuthByCodes(['AC_100100'])" class="mr-4">
+      <Button v-if="hasAccessByCodes(['AC_100100'])" class="mr-4">
         Super 账号可见 ["AC_1000001"]
       </Button>
-      <Button v-if="hasAuthByCodes(['AC_100030'])" class="mr-4">
+      <Button v-if="hasAccessByCodes(['AC_100030'])" class="mr-4">
         Admin 账号可见 ["AC_100010"]
       </Button>
-      <Button v-if="hasAuthByCodes(['AC_1000001'])" class="mr-4">
+      <Button v-if="hasAccessByCodes(['AC_1000001'])" class="mr-4">
         User 账号可见 ["AC_1000001"]
       </Button>
-      <Button v-if="hasAuthByCodes(['AC_100100', 'AC_1000001'])" class="mr-4">
+      <Button v-if="hasAccessByCodes(['AC_100100', 'AC_1000001'])" class="mr-4">
         Super & Admin 账号可见 ["AC_100100","AC_1000001"]
       </Button>
     </div>
