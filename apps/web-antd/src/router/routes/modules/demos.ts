@@ -127,6 +127,60 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.demos.features.loginExpired'),
             },
           },
+          {
+            name: 'BreadcrumbDemos',
+            path: 'breadcrumb',
+            meta: {
+              icon: 'lucide:navigation',
+              title: $t('page.demos.features.breadcrumbNavigation'),
+            },
+            children: [
+              {
+                name: 'BreadcrumbLateral',
+                path: 'lateral',
+                component: () =>
+                  import('#/views/demos/features/breadcrumb/lateral.vue'),
+                meta: {
+                  icon: 'lucide:navigation',
+                  title: $t('page.demos.features.breadcrumbLateral'),
+                },
+              },
+              {
+                name: 'BreadcrumbLateralDetail',
+                path: 'lateral-detail',
+                component: () =>
+                  import(
+                    '#/views/demos/features/breadcrumb/lateral-detail.vue'
+                  ),
+                meta: {
+                  activePath: '/demos/features/breadcrumb/lateral',
+                  hideInMenu: true,
+                  title: $t('page.demos.features.breadcrumbLateralDetail'),
+                },
+              },
+              {
+                name: 'BreadcrumbLevel',
+                path: 'level',
+                meta: {
+                  icon: 'lucide:navigation',
+                  title: $t('page.demos.features.breadcrumbLevel'),
+                },
+                children: [
+                  {
+                    name: 'BreadcrumbLevelDetail',
+                    path: 'detail',
+                    component: () =>
+                      import(
+                        '#/views/demos/features/breadcrumb/level-detail.vue'
+                      ),
+                    meta: {
+                      title: $t('page.demos.features.breadcrumbLevelDetail'),
+                    },
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
       {
@@ -179,6 +233,8 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
+          badgeType: 'dot',
+          badgeVariants: 'destructive',
           icon: 'lucide:circle-dot',
           title: $t('page.demos.badge.title'),
         },
@@ -201,7 +257,7 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/demos/badge/index.vue'),
             path: 'text',
             meta: {
-              badge: 'New',
+              badge: '10',
               icon: 'lucide:square-dot',
               title: $t('page.demos.badge.text'),
             },

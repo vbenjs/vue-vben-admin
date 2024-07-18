@@ -37,7 +37,12 @@
       "features": {
         "title": "Features",
         "hideChildrenInMenu": "Hide Menu Children",
-        "loginExpired": "Login Expired"
+        "loginExpired": "Login Expired",
+        "breadcrumbNavigation": "Breadcrumb Navigation",
+        "breadcrumbLateral": "Lateral Mode",
+        "breadcrumbLateralDetail": "Lateral Mode Detail",
+        "breadcrumbLevel": "Level Mode",
+        "breadcrumbLevelDetail": "Level Mode Detail"
       }
     }
   }

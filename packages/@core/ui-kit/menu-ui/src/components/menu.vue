@@ -507,12 +507,12 @@ $namespace: vben;
     }
 
     &.is-light {
-      --menu-item-active-color: hsl(var(--primary));
-      --menu-item-active-background-color: hsl(var(--primary) / 15%);
+      --menu-item-active-color: hsl(var(--primary-foreground));
+      --menu-item-active-background-color: hsl(var(--primary));
       --menu-item-hover-background-color: hsl(var(--accent));
       --menu-item-hover-color: hsl(var(--primary));
-      --menu-submenu-active-color: hsl(var(--primary));
-      --menu-submenu-active-background-color: hsl(var(--primary) / 15%);
+      --menu-submenu-active-color: hsl(var(--primary-foreground));
+      --menu-submenu-active-background-color: hsl(var(--primary));
       --menu-submenu-hover-color: hsl(var(--primary));
       --menu-submenu-hover-background-color: hsl(var(--accent));
     }

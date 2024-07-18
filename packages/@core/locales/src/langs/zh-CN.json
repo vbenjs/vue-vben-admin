@@ -169,7 +169,7 @@
       "width": "宽度",
       "visible": "显示侧边栏",
       "collapsed": "折叠菜单",
-      "collapsedShowTitle": "显示菜单名"
+      "collapsedShowTitle": "折叠显示菜单名"
     },
     "tabbar": {
       "title": "标签栏",

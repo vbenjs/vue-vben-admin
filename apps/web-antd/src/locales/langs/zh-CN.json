@@ -39,7 +39,12 @@
       "features": {
         "title": "功能",
         "hideChildrenInMenu": "隐藏子菜单",
-        "loginExpired": "登录过期"
+        "loginExpired": "登录过期",
+        "breadcrumbNavigation": "面包屑导航",
+        "breadcrumbLateral": "平级模式",
+        "breadcrumbLevel": "层级模式",
+        "breadcrumbLevelDetail": "层级模式详情",
+        "breadcrumbLateralDetail": "平级模式详情"
       }
     }
   }

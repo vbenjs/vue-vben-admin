@@ -741,9 +741,6 @@ importers:
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../../shared/toolkit
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../shared/typings

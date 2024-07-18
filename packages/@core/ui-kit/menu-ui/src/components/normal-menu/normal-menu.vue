@@ -69,16 +69,17 @@ $namespace: vben;
 
   &.is-dark {
     .#{$namespace}-normal-menu__item {
-      color: hsl(var(--foreground) / 80%);
+      @apply text-foreground/80;
+      // color: hsl(var(--foreground) / 80%);
 
       &:not(.is-active):hover {
-        color: hsl(var(--primary-foreground));
+        @apply text-foreground;
       }
 
       &.is-active {
         .#{$namespace}-normal-menu__name,
         .#{$namespace}-normal-menu__icon {
-          color: hsl(var(--primary-foreground));
+          @apply text-foreground;
         }
       }
     }
@@ -117,11 +118,11 @@ $namespace: vben;
       border-color 0.15s ease;
 
     &.is-active {
-      @apply text-primary bg-primary/15 dark:bg-accent;
+      @apply text-primary bg-primary dark:bg-accent;
 
       .#{$namespace}-normal-menu__name,
       .#{$namespace}-normal-menu__icon {
-        @apply text-primary font-semibold;
+        @apply text-primary-foreground font-semibold;
       }
     }
 

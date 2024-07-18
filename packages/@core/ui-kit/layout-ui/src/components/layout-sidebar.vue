@@ -253,7 +253,7 @@ function handleMouseleave() {
       },
     ]"
     :style="style"
-    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-150"
+    class="fixed left-0 top-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -277,10 +277,10 @@ function handleMouseleave() {
       v-if="isSidebarMixed"
       ref="asideRef"
       :class="{
-        'border-r': extraVisible,
+        'border-l': extraVisible,
       }"
       :style="extraStyle"
-      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden transition-all duration-200"
+      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"

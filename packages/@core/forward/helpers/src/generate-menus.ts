@@ -1,7 +1,7 @@
 import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben-core/typings';
 import type { RouteRecordRaw, Router } from 'vue-router';
 
-import { mapTree } from '@vben-core/toolkit';
+import { filterTree, mapTree } from '@vben-core/toolkit';
 
 /**
  * 根据 routes 生成菜单列表
@@ -61,13 +61,18 @@ async function generateMenus(
       parent: route.parent,
       parents: route.parents,
       path: resultPath as string,
+      show: !route?.meta?.hideInMenu,
       children: resultChildren || [],
     };
   });
 
   // 对菜单进行排序
   menus = menus.sort((a, b) => (a.order || 999) - (b.order || 999));
-  return menus;
+
+  const finalMenus = filterTree(menus, (menu) => {
+    return !!menu.show;
+  });
+  return finalMenus;
 }
 
 export { generateMenus };

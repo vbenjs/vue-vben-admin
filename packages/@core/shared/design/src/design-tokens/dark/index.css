@@ -122,7 +122,7 @@
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
-  --card: 24 9.8% 10%;
+  --card: 0 0% 9%;
   --card-foreground: 0 0% 95%;
   --popover: 0 0% 9%;
   --popover-foreground: 0 0% 95%;
@@ -222,7 +222,7 @@
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
-  --card: 24 9.8% 10%;
+  --card: 24 9.8% 6%;
   --card-foreground: 0 0% 95%;
   --popover: 0 0% 9%;
   --popover-foreground: 0 0% 95%;
@@ -247,7 +247,7 @@
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
-  --card: 24 9.8% 10%;
+  --card: 24 9.8% 6%;
   --card-foreground: 0 0% 95%;
   --popover: 0 0% 9%;
   --popover-foreground: 0 0% 95%;

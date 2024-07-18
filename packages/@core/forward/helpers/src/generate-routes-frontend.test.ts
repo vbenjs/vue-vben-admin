@@ -5,7 +5,6 @@ import { describe, expect, it } from 'vitest';
 import {
   generateRoutesByFrontend,
   hasAuthority,
-  hasVisible,
 } from './generate-routes-frontend';
 
 // Mock 路由数据
@@ -51,37 +50,7 @@ describe('hasAuthority', () => {
   });
 });
 
-describe('hasVisible', () => {
-  it('should return true if hideInMenu is not set or false', () => {
-    expect(hasVisible(mockRoutes[0])).toBe(true);
-    expect(hasVisible(mockRoutes[2])).toBe(true);
-  });
-
-  it('should return false if hideInMenu is true', () => {
-    expect(hasVisible(mockRoutes[0].children?.[1])).toBe(false);
-  });
-});
-
 describe('generateRoutesByFrontend', () => {
-  it('should filter routes based on authority and visibility', async () => {
-    const generatedRoutes = await generateRoutesByFrontend(mockRoutes, [
-      'user',
-    ]);
-    // The user should have access to /dashboard/stats, but it should be filtered out because it's not visible
-    expect(generatedRoutes).toEqual([
-      {
-        meta: { authority: ['admin', 'user'], hideInMenu: false },
-        path: '/dashboard',
-        children: [],
-      },
-      // Note: We expect /settings to be filtered out because the user does not have 'admin' authority
-      {
-        meta: { hideInMenu: false },
-        path: '/profile',
-      },
-    ]);
-  });
-
   it('should handle routes without children', async () => {
     const generatedRoutes = await generateRoutesByFrontend(mockRoutes, [
       'user',

@@ -4,6 +4,11 @@ import type { Component } from 'vue';
 
 interface RouteMeta {
   /**
+   * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
+   * @default false
+   */
+  activePath?: string;
+  /**
    * 是否固定标签页
    * @default false
    */
@@ -88,7 +93,6 @@ interface RouteMeta {
    * 用于路由->菜单排序
    */
   order?: number;
-
   /**
    * 标题名称
    */

@@ -106,6 +106,7 @@ onBeforeUnmount(() => {
     <div v-show="!showTooltip" :class="[e('content')]">
       <VbenMenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
+        class="right-2"
         v-bind="props"
       />
       <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />

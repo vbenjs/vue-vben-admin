@@ -12,7 +12,7 @@ async function generateRoutesByFrontend(
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
   const finalRoutes = filterTree(routes, (route) => {
-    return hasVisible(route) && hasAuthority(route, roles);
+    return hasAuthority(route, roles);
   });
 
   if (!forbiddenComponent) {
@@ -44,14 +44,6 @@ function hasAuthority(route: RouteRecordRaw, access: string[]) {
 }
 
 /**
- * 判断路由是否需要在菜单中显示
- * @param route
- */
-function hasVisible(route?: RouteRecordRaw) {
-  return !route?.meta?.hideInMenu;
-}
-
-/**
  * 判断路由是否在菜单中显示，但是访问会被重定向到403
  * @param route
  */
@@ -63,4 +55,4 @@ function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
   );
 }
 
-export { generateRoutesByFrontend, hasAuthority, hasVisible };
+export { generateRoutesByFrontend, hasAuthority };

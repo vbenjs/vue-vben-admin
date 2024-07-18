@@ -80,14 +80,19 @@ function useExtraMenu() {
 
   watch(
     () => route.path,
-    () => {
+    (path) => {
+      const currentPath = path;
+      // if (preferences.sidebar.expandOnHover) {
+      //   return;
+      // }
       const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
         menus.value,
-        route.path,
+        currentPath,
       );
       extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
       extraMenus.value = rootMenu?.children ?? [];
     },
+    { immediate: true },
   );
 
   return {

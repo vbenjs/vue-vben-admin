@@ -53,6 +53,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/home',
+        show: true,
         children: [],
       },
       {
@@ -65,6 +66,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/about',
+        show: true,
         children: [],
       },
     ];
@@ -94,6 +96,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/profile',
+        show: true,
         children: [],
       },
     ]);
@@ -120,6 +123,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/users/:userId',
+        show: true,
         children: [],
       },
     ]);
@@ -155,6 +159,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/old-path',
+        show: true,
         children: [],
       },
       {
@@ -167,6 +172,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/new-path',
+        show: true,
         children: [],
       },
     ]);
@@ -203,6 +209,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/about',
+        show: true,
         children: [],
       },
       {
@@ -215,6 +222,7 @@ describe('generateMenus', () => {
         parent: undefined,
         parents: undefined,
         path: '/',
+        show: true,
         children: [],
       },
     ];
