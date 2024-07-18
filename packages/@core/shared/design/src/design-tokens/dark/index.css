@@ -5,7 +5,7 @@
   --background: 222.34deg 10.43% 12.27%;
 
   /* 主体区域背景色 */
-  --background-content: 220deg 13.06% 9%;
+  --background-deep: 220deg 13.06% 9%;
   --foreground: 220 13% 91%;
 
   /* Background color for <Card /> */
@@ -95,7 +95,7 @@
 .dark[data-theme='violet'],
 [data-theme='violet'] .dark {
   --background: 224 71.4% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 210 20% 98%;
   --card: 224 71.4% 4.1%;
   --card-foreground: 210 20% 98%;
@@ -120,7 +120,7 @@
 .dark[data-theme='pink'],
 [data-theme='pink'] .dark {
   --background: 20 14.3% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 95%;
   --card: 24 9.8% 10%;
   --card-foreground: 0 0% 95%;
@@ -145,7 +145,7 @@
 .dark[data-theme='rose'],
 [data-theme='rose'] .dark {
   --background: 0 0% 3.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 98%;
   --card: 0 0% 3.9%;
   --card-foreground: 0 0% 98%;
@@ -170,7 +170,7 @@
 .dark[data-theme='sky-blue'],
 [data-theme='sky-blue'] .dark {
   --background: 222.2 84% 4.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
@@ -195,7 +195,7 @@
 .dark[data-theme='deep-blue'],
 [data-theme='deep-blue'] .dark {
   --background: 222.2 84% 4.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
@@ -220,7 +220,7 @@
 .dark[data-theme='green'],
 [data-theme='green'] .dark {
   --background: 20 14.3% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 95%;
   --card: 24 9.8% 10%;
   --card-foreground: 0 0% 95%;
@@ -245,7 +245,7 @@
 .dark[data-theme='deep-green'],
 [data-theme='deep-green'] .dark {
   --background: 20 14.3% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 95%;
   --card: 24 9.8% 10%;
   --card-foreground: 0 0% 95%;
@@ -270,7 +270,7 @@
 .dark[data-theme='orange'],
 [data-theme='orange'] .dark {
   --background: 20 14.3% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
   --card: 20 14.3% 4.1%;
   --card-foreground: 60 9.1% 97.8%;
@@ -295,7 +295,7 @@
 .dark[data-theme='yellow'],
 [data-theme='yellow'] .dark {
   --background: 20 14.3% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
   --card: 20 14.3% 4.1%;
   --card-foreground: 60 9.1% 97.8%;
@@ -320,7 +320,7 @@
 .dark[data-theme='zinc'],
 [data-theme='zinc'] .dark {
   --background: 240 10% 3.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 98%;
   --card: 240 10% 3.9%;
   --card-foreground: 0 0% 98%;
@@ -345,7 +345,7 @@
 .dark[data-theme='neutral'],
 [data-theme='neutral'] .dark {
   --background: 0 0% 3.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 0 0% 98%;
   --card: 0 0% 3.9%;
   --card-foreground: 0 0% 98%;
@@ -370,7 +370,7 @@
 .dark[data-theme='slate'],
 [data-theme='slate'] .dark {
   --background: 222.2 84% 4.9%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
@@ -395,7 +395,7 @@
 .dark[data-theme='gray'],
 [data-theme='gray'] .dark {
   --background: 224 71.4% 4.1%;
-  --background-content: var(--background);
+  --background-deep: var(--background);
   --foreground: 210 20% 98%;
   --card: 224 71.4% 4.1%;
   --card-foreground: 210 20% 98%;

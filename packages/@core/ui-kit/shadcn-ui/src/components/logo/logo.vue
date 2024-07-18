@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
 interface Props {
-  /**
-   * Logo 图标 alt
-   */
-  alt?: string;
   /**
    * 是否收起文本
    */
-  collapse?: boolean;
+  collapsed?: boolean;
   /**
    * Logo 跳转地址
    */
@@ -25,7 +19,7 @@ interface Props {
   /**
    * Logo 文本
    */
-  text?: string;
+  text: string;
   /**
    * Logo 主题
    */
@@ -33,39 +27,34 @@ interface Props {
 }
 
 defineOptions({
-  name: 'Logo',
+  name: 'VbenLogo',
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  alt: 'Vben',
-  collapse: false,
+withDefaults(defineProps<Props>(), {
+  collapsed: false,
   href: 'javascript:void 0',
-  logoSize: 36,
+  logoSize: 32,
   src: '',
-  text: '',
   theme: 'light',
-});
-const logoClass = computed(() => {
-  return [props.theme, props.collapse ? 'collapsed' : ''];
 });
 </script>
 
 <template>
-  <div :class="logoClass" class="flex h-full items-center text-lg">
+  <div :class="theme" class="flex h-full items-center text-lg">
     <a
       :class="$attrs.class"
       :href="href"
-      class="flex h-full items-center gap-2 overflow-hidden px-3 font-semibold leading-normal transition-all duration-500"
+      class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg font-semibold leading-normal transition-all duration-500"
     >
       <img
         v-if="src"
-        :alt="alt"
+        :alt="text"
         :src="src"
         :width="logoSize"
         class="relative rounded-none bg-transparent"
       />
       <span
-        v-if="!collapse"
+        v-if="!collapsed"
         class="text-primary dark:text-foreground truncate text-nowrap"
       >
         {{ text }}

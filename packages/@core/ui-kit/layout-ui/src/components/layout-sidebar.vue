@@ -9,7 +9,7 @@ import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 interface Props {
   /**
    * 折叠区域高度
-   * @default 32
+   * @default 42
    */
   collapseHeight?: number;
   /**
@@ -41,6 +41,11 @@ interface Props {
    * @default false
    */
   isSidebarMixed?: boolean;
+  /**
+   * 顶部margin
+   * @default 60
+   */
+  marginTop?: number;
   /**
    * 混合菜单宽度
    * @default 80
@@ -85,8 +90,9 @@ const props = withDefaults(defineProps<Props>(), {
   extraWidth: 180,
   fixedExtra: false,
   isSidebarMixed: false,
-  mixedWidth: 80,
-  paddingTop: 60,
+  marginTop: 0,
+  mixedWidth: 70,
+  paddingTop: 0,
   show: true,
   showCollapseButton: true,
   theme: 'dark',
@@ -108,11 +114,13 @@ const asideRef = shallowRef<HTMLDivElement | null>();
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
 const style = computed((): CSSProperties => {
-  const { isSidebarMixed, paddingTop, zIndex } = props;
+  const { isSidebarMixed, marginTop, paddingTop, zIndex } = props;
 
   return {
     '--scroll-shadow': 'var(--sidebar)',
     ...calcMenuWidthStyle(false),
+    height: `calc(100% - ${marginTop}px)`,
+    marginTop: `${marginTop}px`,
     paddingTop: `${paddingTop}px`,
     zIndex,
     ...(isSidebarMixed && extraVisible.value ? { transition: 'none' } : {}),
@@ -222,6 +230,7 @@ function handleMouseleave() {
   if (expandOnHover.value) {
     return;
   }
+
   expandOnHovering.value = false;
   collapse.value = true;
   extraVisible.value = false;
@@ -233,7 +242,7 @@ function handleMouseleave() {
     v-if="domVisible"
     :class="theme"
     :style="hiddenSideStyle"
-    class="h-full transition-all duration-200"
+    class="h-full transition-all duration-150"
   ></div>
   <aside
     :class="[
@@ -244,7 +253,7 @@ function handleMouseleave() {
       },
     ]"
     :style="style"
-    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-200"
+    class="border-border fixed left-0 top-0 h-full border-r transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -255,7 +264,7 @@ function handleMouseleave() {
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <VbenScrollbar :style="contentStyle" shadow>
+    <VbenScrollbar :style="contentStyle" shadow shadow-border>
       <slot></slot>
     </VbenScrollbar>
 
@@ -267,8 +276,11 @@ function handleMouseleave() {
     <div
       v-if="isSidebarMixed"
       ref="asideRef"
+      :class="{
+        'border-r': extraVisible,
+      }"
       :style="extraStyle"
-      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-x transition-all duration-200"
+      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"
@@ -286,6 +298,7 @@ function handleMouseleave() {
         :style="extraContentStyle"
         class="border-border border-t py-2"
         shadow
+        shadow-border
       >
         <slot name="extra"></slot>
       </VbenScrollbar>

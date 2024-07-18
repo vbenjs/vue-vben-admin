@@ -35,7 +35,7 @@ function handleClick(path?: string) {
               <VbenIcon
                 v-if="item.icon && showIcon"
                 :icon="item.icon"
-                class="mr-1 size-5 flex-shrink-0"
+                class="mr-1 size-4 flex-shrink-0"
               />
               <span
                 :class="{

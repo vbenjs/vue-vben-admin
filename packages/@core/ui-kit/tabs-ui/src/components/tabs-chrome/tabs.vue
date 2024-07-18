@@ -58,14 +58,6 @@ watch(active, () => {
   scrollIntoView();
 });
 
-function handleClose(key: string) {
-  emit('close', key);
-}
-
-function handleUnpinTab(tab: TabConfig) {
-  emit('unpin', tab);
-}
-
 function scrollIntoView() {
   setTimeout(() => {
     const element = document.querySelector(`.tabs-chrome__item.is-active`);
@@ -142,21 +134,18 @@ function scrollIntoView() {
                 <div
                   class="tabs-chrome__extra absolute right-[calc(var(--gap)*1.5)] top-1/2 z-[3] size-4 translate-y-[-50%]"
                 >
-                  <!-- <div
-                class="tabs-chrome__extra absolute right-[calc(var(--gap)*2)] top-1/2 z-[3] size-4 translate-y-[-50%] opacity-0 transition-opacity group-hover:opacity-100"
-              > -->
                   <!-- close-icon -->
                   <X
                     v-show="
                       !tab.affixTab && tabsView.length > 1 && tab.closable
                     "
                     class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground dark:group-[.is-active]:text-accent-foreground group-[.is-active]:text-primary mt-[2px] size-3 cursor-pointer rounded-full transition-all"
-                    @click.stop="handleClose(tab.key)"
+                    @click.stop="() => emit('close', tab.key)"
                   />
                   <MdiPin
                     v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
                     class="hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
-                    @click.stop="handleUnpinTab(tab)"
+                    @click.stop="() => emit('unpin', tab)"
                   />
                 </div>
 

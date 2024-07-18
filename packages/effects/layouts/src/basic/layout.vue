@@ -30,8 +30,15 @@ defineOptions({ name: 'BasicLayout' });
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
-const { isDark, isHeaderNav, isMixedNav, isMobile, isSideMixedNav, layout } =
-  usePreferences();
+const {
+  isDark,
+  isHeaderNav,
+  isMixedNav,
+  isMobile,
+  isSideMixedNav,
+  layout,
+  sidebarCollapsed,
+} = usePreferences();
 
 const headerMenuTheme = computed(() => {
   return isDark.value ? 'dark' : 'light';
@@ -43,38 +50,45 @@ const theme = computed(() => {
 });
 
 const logoClass = computed(() => {
-  let cls = '';
-  const { collapsed, collapsedShowTitle } = preferences.sidebar;
-  if (collapsedShowTitle && collapsed && !isMixedNav.value) {
-    cls += ' mx-auto';
+  const { collapsedShowTitle } = preferences.sidebar;
+  const classes: string[] = [];
+
+  if (collapsedShowTitle && sidebarCollapsed.value && !isMixedNav.value) {
+    classes.push('mx-auto');
   }
+
   if (isSideMixedNav.value) {
-    cls += ' flex-center';
+    classes.push('flex-center');
   }
-  return cls;
+
+  return classes.join(' ');
 });
 
 const isMenuRounded = computed(() => {
   return preferences.navigation.styleType === 'rounded';
 });
 
-const logoCollapse = computed(() => {
-  if (isHeaderNav.value || isMixedNav.value) {
+const logoCollapsed = computed(() => {
+  const shouldCollapse = isHeaderNav.value || isMixedNav.value;
+
+  if (shouldCollapse) {
     return false;
   }
 
-  const { collapsed } = preferences.sidebar;
+  const shouldExpandOnMobile = !sidebarCollapsed.value && isMobile.value;
 
-  if (!collapsed && isMobile) {
+  if (shouldExpandOnMobile) {
     return false;
   }
-  return collapsed || isSideMixedNav.value;
+
+  return sidebarCollapsed.value || isSideMixedNav.value;
 });
 
 const showHeaderNav = computed(() => {
   return isHeaderNav.value || isMixedNav.value;
 });
 
+// 侧边多列菜单
 const {
   extraActiveMenu,
   extraMenus,
@@ -89,9 +103,9 @@ const {
   handleMenuSelect,
   headerActive,
   headerMenus,
-  sideActive,
-  sideMenus,
-  sideVisible,
+  sidebarActive,
+  sidebarMenus,
+  sidebarVisible,
 } = useMixedMenu();
 
 function wrapperMenus(menus: MenuRecordRaw[]) {
@@ -127,7 +141,7 @@ function clearPreferencesAndLogout() {
     :layout="layout"
     :sidebar-collapse="preferences.sidebar.collapsed"
     :sidebar-collapse-show-title="preferences.sidebar.collapsedShowTitle"
-    :sidebar-enable="sideVisible"
+    :sidebar-enable="sidebarVisible"
     :sidebar-expand-on-hover="preferences.sidebar.expandOnHover"
     :sidebar-extra-collapse="preferences.sidebar.extraCollapse"
     :sidebar-hidden="preferences.sidebar.hidden"
@@ -168,9 +182,9 @@ function clearPreferencesAndLogout() {
     <!-- logo -->
     <template #logo>
       <VbenLogo
-        :alt="preferences.app.name"
+        v-if="preferences.logo.enable"
         :class="logoClass"
-        :collapse="logoCollapse"
+        :collapsed="logoCollapsed"
         :src="preferences.logo.source"
         :text="preferences.app.name"
         :theme="showHeaderNav ? headerMenuTheme : theme"
@@ -215,8 +229,8 @@ function clearPreferencesAndLogout() {
         :accordion="preferences.navigation.accordion"
         :collapse="preferences.sidebar.collapsed"
         :collapse-show-title="preferences.sidebar.collapsedShowTitle"
-        :default-active="sideActive"
-        :menus="wrapperMenus(sideMenus)"
+        :default-active="sidebarActive"
+        :menus="wrapperMenus(sidebarMenus)"
         :rounded="isMenuRounded"
         :theme="theme"
         mode="vertical"
@@ -224,9 +238,9 @@ function clearPreferencesAndLogout() {
       />
     </template>
     <template #mixed-menu>
+      <!-- :collapse="!preferences.sidebar.collapsedShowTitle" -->
       <LayoutMixedMenu
         :active-path="extraActiveMenu"
-        :collapse="!preferences.sidebar.collapsedShowTitle"
         :menus="wrapperMenus(headerMenus)"
         :rounded="isMenuRounded"
         :theme="theme"
@@ -248,7 +262,6 @@ function clearPreferencesAndLogout() {
     <template #side-extra-title>
       <VbenLogo
         v-if="preferences.logo.enable"
-        :alt="preferences.app.name"
         :text="preferences.app.name"
         :theme="theme"
       />
@@ -266,6 +279,7 @@ function clearPreferencesAndLogout() {
     <template #content>
       <LayoutContent />
     </template>
+
     <!-- 页脚 -->
     <template v-if="preferences.footer.enable" #footer>
       <LayoutFooter>

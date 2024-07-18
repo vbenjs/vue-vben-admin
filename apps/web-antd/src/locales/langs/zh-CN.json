@@ -27,6 +27,12 @@
         "embedded": "内嵌",
         "externalLink": "外链"
       },
+      "badge": {
+        "title": "菜单徽标",
+        "dot": "点徽标",
+        "text": "文本徽标",
+        "color": "徽标颜色"
+      },
       "fallback": {
         "title": "缺省页"
       },

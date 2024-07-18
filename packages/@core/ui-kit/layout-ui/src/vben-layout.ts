@@ -124,6 +124,11 @@ interface VbenLayoutProps {
    */
   sidebarEnable?: boolean;
   /**
+   * 侧边菜单折叠额外宽度
+   * @default 48
+   */
+  sidebarExtraCollapsedWidth?: number;
+  /**
    * 侧边栏是否隐藏
    * @default false
    */

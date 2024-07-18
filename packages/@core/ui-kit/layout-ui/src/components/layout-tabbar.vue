@@ -5,15 +5,11 @@ import { computed } from 'vue';
 interface Props {
   /**
    * 高度
-   * @default 30
    */
-  height?: number;
+  height: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  fixed: true,
-  height: 38,
-});
+const props = withDefaults(defineProps<Props>(), {});
 
 const style = computed((): CSSProperties => {
   const { height } = props;

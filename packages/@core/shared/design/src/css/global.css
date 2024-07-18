@@ -23,14 +23,14 @@
     scroll-behavior: smooth;
     text-rendering: optimizelegibility;
     -webkit-tap-highlight-color: transparent;
-  }
 
-  html.invert-mode {
-    @apply invert;
-  }
+    &.invert-mode {
+      @apply invert;
+    }
 
-  html.grayscale-mode {
-    @apply grayscale;
+    &.grayscale-mode {
+      @apply grayscale;
+    }
   }
 
   #app,
@@ -41,7 +41,8 @@
 
   body {
     min-height: 100vh;
-    overflow: overlay;
+
+    /* overflow: overlay; */
     -webkit-font-smoothing: antialiased;
   }
 

@@ -4,38 +4,21 @@ import { computed } from 'vue';
 
 interface Props {
   /**
-   * 是否固定在顶部
-   * @default true
+   * 是否固定在底部
    */
   fixed?: boolean;
-  /**
-   * 高度
-   * @default 32
-   */
-  height?: number;
+  height: number;
   /**
    * 是否显示
    * @default true
    */
   show?: boolean;
-  /**
-   * 高度
-   * @default 100%
-   */
-  width?: string;
-  /**
-   * zIndex
-   * @default 0
-   */
-  zIndex?: number;
+  width: string;
+  zIndex: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  fixed: true,
-  height: 32,
   show: true,
-  width: '100%',
-  zIndex: 0,
 });
 
 const style = computed((): CSSProperties => {
@@ -53,7 +36,7 @@ const style = computed((): CSSProperties => {
 <template>
   <footer
     :style="style"
-    class="bg-background-content bottom-0 w-full transition-all duration-200"
+    class="bg-background-deep bottom-0 w-full transition-all duration-200"
   >
     <slot></slot>
   </footer>

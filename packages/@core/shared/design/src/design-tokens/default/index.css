@@ -8,7 +8,7 @@
   --background: 0 0 100%;
 
   /* 主体区域背景色 */
-  --background-content: 210 11.11% 96.47%;
+  --background-deep: 210 11.11% 96.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -74,7 +74,7 @@
   /* ============= custom ============= */
 
   /* 遮罩颜色 */
-  --overlay: 0deg 0% 0% / 40%;
+  --overlay: 0deg 0% 0% / 30%;
 
   /* 基本文字大小 */
   --font-size-base: 16px;

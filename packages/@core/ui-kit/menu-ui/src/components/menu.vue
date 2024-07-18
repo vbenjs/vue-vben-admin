@@ -397,7 +397,7 @@ $namespace: vben;
 
   &:hover {
     .#{$namespace}-menu__icon {
-      transform: scale(1.3);
+      transform: scale(1.2);
     }
   }
 
@@ -422,7 +422,7 @@ $namespace: vben;
 .#{$namespace}-menu__popup-container,
 .#{$namespace}-menu {
   --menu-title-width: 140px;
-  --menu-item-icon-width: 20px;
+  --menu-item-icon-size: 16px;
   --menu-item-height: 38px;
   --menu-item-padding-y: 22px;
   --menu-item-padding-x: 12px;
@@ -430,7 +430,7 @@ $namespace: vben;
   --menu-item-popup-padding-x: 12px;
   --menu-item-margin-y: 3px;
   --menu-item-margin-x: 0px;
-  --menu-item-collapse-padding-y: 25px;
+  --menu-item-collapse-padding-y: 23.5px;
   --menu-item-collapse-padding-x: 0px;
   --menu-item-collapse-margin-y: 4px;
   --menu-item-collapse-margin-x: 0px;
@@ -701,10 +701,9 @@ $namespace: vben;
 
   &__icon {
     flex-shrink: 0;
-    // width: var(--menu-item-icon-width);
-    max-height: var(--menu-item-icon-width);
-    margin-right: 12px;
-    font-size: 20px;
+    width: var(--menu-item-icon-size);
+    height: var(--menu-item-icon-size);
+    margin-right: 8px;
     text-align: center;
     vertical-align: middle;
   }
@@ -810,7 +809,7 @@ $namespace: vben;
     width: inherit;
     margin-top: -8px;
     margin-right: 0;
-    font-size: 16px;
+    // font-size: 16px;
     font-weight: normal;
     opacity: 1;
     transition: transform 0.25s ease;

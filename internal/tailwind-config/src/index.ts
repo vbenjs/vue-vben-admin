@@ -32,7 +32,7 @@ const shadcnUiColors = {
   },
   background: {
     DEFAULT: 'hsl(var(--background))',
-    content: 'hsl(var(--background-content))',
+    deep: 'hsl(var(--background-deep))',
   },
   border: {
     DEFAULT: 'hsl(var(--border))',

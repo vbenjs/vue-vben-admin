@@ -1,6 +1,6 @@
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { findRootMenuByPath } from '@vben-core/helpers';
@@ -10,8 +10,8 @@ import { useCoreAccessStore } from '@vben-core/stores';
 import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
-  const accessStore = useCoreAccessStore();
   const { navigation } = useNavigation();
+  const accessStore = useCoreAccessStore();
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');
@@ -22,7 +22,7 @@ function useMixedMenu() {
     () => preferences.navigation.split && isMixedNav.value,
   );
 
-  const sideVisible = computed(() => {
+  const sidebarVisible = computed(() => {
     const enableSidebar = preferences.sidebar.enable;
     if (needSplit.value) {
       return enableSidebar && splitSideMenus.value.length > 0;
@@ -49,14 +49,14 @@ function useMixedMenu() {
   /**
    * 侧边菜单
    */
-  const sideMenus = computed(() => {
+  const sidebarMenus = computed(() => {
     return needSplit.value ? splitSideMenus.value : menus.value;
   });
 
   /**
    * 侧边菜单激活路径
    */
-  const sideActive = computed(() => {
+  const sidebarActive = computed(() => {
     return route.path;
   });
 
@@ -102,6 +102,13 @@ function useMixedMenu() {
     splitSideMenus.value = rootMenu?.children ?? [];
   }
 
+  watch(
+    () => route.path,
+    (path: string) => {
+      calcSideMenus(path);
+    },
+  );
+
   // 初始化计算侧边菜单
   onBeforeMount(() => {
     calcSideMenus();
@@ -111,9 +118,9 @@ function useMixedMenu() {
     handleMenuSelect,
     headerActive,
     headerMenus,
-    sideActive,
-    sideMenus,
-    sideVisible,
+    sidebarActive,
+    sidebarMenus,
+    sidebarVisible,
   };
 }
 

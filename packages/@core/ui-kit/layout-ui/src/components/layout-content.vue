@@ -9,50 +9,20 @@ import { useContentHeightListener } from '@vben-core/hooks';
 interface Props {
   /**
    * 内容区域定宽
-   * @default 'wide'
    */
-  contentCompact?: ContentCompactType;
+  contentCompact: ContentCompactType;
   /**
    * 定宽布局宽度
-   * @default 1200
    */
-  contentCompactWidth?: number;
-  /**
-   * padding
-   * @default 16
-   */
-  padding?: number;
-  /**
-   * paddingBottom
-   * @default 16
-   */
-  paddingBottom?: number;
-  /**
-   * paddingLeft
-   * @default 16
-   */
-  paddingLeft?: number;
-  /**
-   * paddingRight
-   * @default 16
-   */
-  paddingRight?: number;
-  /**
-   * paddingTop
-   * @default 16
-   */
-  paddingTop?: number;
+  contentCompactWidth: number;
+  padding: number;
+  paddingBottom: number;
+  paddingLeft: number;
+  paddingRight: number;
+  paddingTop: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  contentCompact: 'wide',
-  contentCompactWidth: 1200,
-  padding: 16,
-  paddingBottom: 16,
-  paddingLeft: 16,
-  paddingRight: 16,
-  paddingTop: 16,
-});
+const props = withDefaults(defineProps<Props>(), {});
 
 const { contentElement } = useContentHeightListener();
 
@@ -83,7 +53,7 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <main ref="contentElement" :style="style" class="bg-background-content">
+  <main ref="contentElement" :style="style" class="bg-background-deep">
     <slot></slot>
   </main>
 </template>

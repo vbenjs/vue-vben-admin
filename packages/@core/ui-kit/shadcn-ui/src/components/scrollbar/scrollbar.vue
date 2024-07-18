@@ -12,12 +12,14 @@ interface Props {
   class?: HTMLAttributes['class'];
   horizontal?: boolean;
   shadow?: boolean;
+  shadowBorder?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
   horizontal: false,
   shadow: false,
+  shadowBorder: false,
 });
 
 const isAtTop = ref(true);
@@ -42,7 +44,8 @@ function handleScroll(event: Event) {
     <div
       v-if="shadow"
       :class="{
-        'border-border border-t opacity-100': !isAtTop,
+        'opacity-100': !isAtTop,
+        'border-border border-t': shadowBorder && !isAtTop,
       }"
       class="scrollbar-top-shadow pointer-events-none absolute top-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
@@ -50,7 +53,8 @@ function handleScroll(event: Event) {
     <div
       v-if="shadow"
       :class="{
-        'border-border border-b opacity-100': !isAtTop && !isAtBottom,
+        'opacity-100': !isAtTop && !isAtBottom,
+        'border-border border-t': shadowBorder && !isAtTop && !isAtBottom,
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>

@@ -8,61 +8,45 @@ import { VbenIconButton } from '@vben-core/shadcn-ui';
 interface Props {
   /**
    * 横屏
-   * @default false
    */
-  fullWidth?: boolean;
+  fullWidth: boolean;
   /**
    * 高度
-   * @default 60
    */
-  height?: number;
+  height: number;
   /**
    * 是否混合导航
    * @default false
    */
-  isMixedNav?: boolean;
+  isMixedNav: boolean;
   /**
    * 是否移动端
-   * @default false
    */
-  isMobile?: boolean;
+  isMobile: boolean;
   /**
    * 是否显示
-   * @default true
    */
-  show?: boolean;
+  show: boolean;
   /**
    * 是否显示关闭菜单按钮
-   * @default true
    */
-  showToggleBtn?: boolean;
+  showToggleBtn: boolean;
 
   /**
    * 侧边菜单宽度
-   * @default 0
    */
-  sidebarWidth?: number;
+  sidebarWidth: number;
   /**
    * 宽度
-   * @default 100%
    */
-  width?: string;
+  width: string;
   /**
    * zIndex
-   * @default 0
    */
-  zIndex?: number;
+  zIndex: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  height: 60,
-  isMixedNav: false,
-  show: true,
-  showToggleBtn: false,
-  sidebarWidth: 0,
-  width: '100%',
-  zIndex: 0,
-});
+const props = withDefaults(defineProps<Props>(), {});
 
 const emit = defineEmits<{ openMenu: []; toggleSidebar: [] }>();
 
@@ -73,7 +57,6 @@ const style = computed((): CSSProperties => {
   const right = !show || !fullWidth ? undefined : 0;
 
   return {
-    // ...(props.isMixedNav ? { left: 0, position: `fixed` } : {}),
     height: `${height}px`,
     marginTop: show ? 0 : `-${height}px`,
     right,
@@ -87,11 +70,7 @@ const logoStyle = computed((): CSSProperties => {
 });
 
 function handleToggleMenu() {
-  if (props.isMobile) {
-    emit('openMenu');
-  } else {
-    emit('toggleSidebar');
-  }
+  props.isMobile ? emit('openMenu') : emit('toggleSidebar');
 }
 </script>
 

@@ -27,6 +27,12 @@
         "embedded": "Embedded",
         "externalLink": "External Link"
       },
+      "badge": {
+        "title": "Menu Badge",
+        "dot": "Dot Badge",
+        "text": "Text Badge",
+        "color": "Badge Color"
+      },
       "fallback": { "title": "Fallback Page" },
       "features": {
         "title": "Features",

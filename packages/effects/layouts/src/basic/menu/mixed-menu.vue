@@ -20,10 +20,6 @@ const emit = defineEmits<{
 
 const route = useRoute();
 
-function handleSelect(menu: MenuRecordRaw) {
-  emit('select', menu);
-}
-
 onBeforeMount(() => {
   const menu = findMenuByPath(props.menus || [], route.path);
   if (menu) {
@@ -43,6 +39,6 @@ onBeforeMount(() => {
     :rounded="rounded"
     :theme="theme"
     @enter="(menu) => emit('enter', menu)"
-    @select="handleSelect"
+    @select="(menu) => emit('select', menu)"
   />
 </template>

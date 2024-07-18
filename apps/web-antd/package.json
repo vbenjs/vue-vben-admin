@@ -43,7 +43,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "ant-design-vue": "^4.2.3",
-    "dayjs": "^1.11.11",
+    "dayjs": "^1.11.12",
     "pinia": "2.1.7",
     "vue": "^3.4.32",
     "vue-router": "^4.4.0"

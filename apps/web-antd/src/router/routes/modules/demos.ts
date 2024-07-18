@@ -179,6 +179,48 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
+          icon: 'lucide:circle-dot',
+          title: $t('page.demos.badge.title'),
+        },
+        name: 'BadgeDemo',
+        path: 'badge',
+        redirect: '/demos/badge/dot',
+        children: [
+          {
+            name: 'BadgeDotDemo',
+            component: () => import('#/views/demos/badge/index.vue'),
+            path: 'dot',
+            meta: {
+              badgeType: 'dot',
+              icon: 'lucide:square-dot',
+              title: $t('page.demos.badge.dot'),
+            },
+          },
+          {
+            name: 'BadgeTextDemo',
+            component: () => import('#/views/demos/badge/index.vue'),
+            path: 'text',
+            meta: {
+              badge: 'New',
+              icon: 'lucide:square-dot',
+              title: $t('page.demos.badge.text'),
+            },
+          },
+          {
+            name: 'BadgeColorDemo',
+            component: () => import('#/views/demos/badge/index.vue'),
+            path: 'color',
+            meta: {
+              badge: 'Hot',
+              badgeVariants: 'destructive',
+              icon: 'lucide:square-dot',
+              title: $t('page.demos.badge.color'),
+            },
+          },
+        ],
+      },
+      {
+        meta: {
           icon: 'ic:round-settings-input-composite',
           title: $t('page.demos.outside.title'),
         },

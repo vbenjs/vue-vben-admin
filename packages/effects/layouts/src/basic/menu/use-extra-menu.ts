@@ -1,6 +1,6 @@
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { findRootMenuByPath } from '@vben-core/helpers';
@@ -77,6 +77,18 @@ function useExtraMenu() {
       sidebarExtraVisible.value = extraMenus.value.length > 0;
     }
   };
+
+  watch(
+    () => route.path,
+    () => {
+      const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
+        menus.value,
+        route.path,
+      );
+      extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
+      extraMenus.value = rootMenu?.children ?? [];
+    },
+  );
 
   return {
     extraActiveMenu,

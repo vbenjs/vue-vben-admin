@@ -31,7 +31,7 @@
     "@changesets/git": "^3.0.0",
     "@manypkg/get-packages": "^2.2.2",
     "consola": "^3.2.3",
-    "dayjs": "^1.11.11",
+    "dayjs": "^1.11.12",
     "find-up": "^7.0.0",
     "nanoid": "^5.0.7",
     "pkg-types": "^1.1.3",

@@ -84,6 +84,10 @@ function usePreferences() {
     return isMixedNav.value || isSideMixedNav.value || isSideNav.value;
   });
 
+  const sidebarCollapsed = computed(() => {
+    return preferences.sidebar.collapsed;
+  });
+
   /**
    * @zh_CN 是否开启keep-alive
    * 在tabs可见以及开启keep-alive的情况下才开启
@@ -172,6 +176,7 @@ function usePreferences() {
     isSideNav,
     keepAlive,
     layout,
+    sidebarCollapsed,
     theme,
   };
 }

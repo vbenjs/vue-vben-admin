@@ -11,7 +11,7 @@ defineOptions({
 
 <template>
   <div
-    class="flex-col-center bg-background-content relative px-6 py-10 lg:flex-initial lg:px-8"
+    class="flex-col-center bg-background-deep relative px-6 py-10 lg:flex-initial lg:px-8"
   >
     <!-- Toolbar Slot -->
     <slot name="toolbar">
