@@ -23,14 +23,6 @@
     scroll-behavior: smooth;
     text-rendering: optimizelegibility;
     -webkit-tap-highlight-color: transparent;
-
-    &.invert-mode {
-      @apply invert;
-    }
-
-    &.grayscale-mode {
-      @apply grayscale;
-    }
   }
 
   #app,
@@ -138,4 +130,12 @@
   .card-box {
     @apply bg-card text-card-foreground border-border rounded-xl border shadow;
   }
+}
+
+html.invert-mode {
+  @apply invert;
+}
+
+html.grayscale-mode {
+  @apply grayscale;
 }
