@@ -26,7 +26,7 @@ withDefaults(defineProps<Props>(), {
     <a
       v-if="icp"
       :href="icpLink || 'javascript:void(0)'"
-      class="hover:text-primary-hover"
+      class="hover:text-primary-hover mx-1"
       target="_blank"
     >
       {{ icp }}
