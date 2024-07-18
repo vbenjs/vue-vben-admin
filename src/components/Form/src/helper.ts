@@ -34,14 +34,10 @@ const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
 /**
  * 上传组件
  */
-export const uploadItemType: ComponentType[] = [
-  'Upload',
-  'ImageUpload'
-];
-
+export const uploadItemType: ComponentType[] = ['Upload', 'ImageUpload'];
 
 function genType() {
-  return [...DATE_TYPE, 'RangePicker',"TimeRangePicker"];
+  return [...DATE_TYPE, 'RangePicker', 'TimeRangePicker'];
 }
 
 export function setComponentRuleType(

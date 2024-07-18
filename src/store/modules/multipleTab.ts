@@ -134,7 +134,9 @@ export const useMultipleTabStore = defineStore({
       // Existing pages, do not add tabs repeatedly
       const tabHasExits = this.tabList.some((tab, index) => {
         updateIndex = index;
-        return decodeURIComponent(tab.fullPath || tab.path) === decodeURIComponent(fullPath || path);
+        return (
+          decodeURIComponent(tab.fullPath || tab.path) === decodeURIComponent(fullPath || path)
+        );
       });
 
       // If the tab already exists, perform the update operation
