@@ -98,7 +98,7 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             name: 'HideChildrenInMenuParent',
-            path: 'hide-children-in-menu',
+            path: 'hide-menu-children',
             component: () =>
               import('#/views/demos/features/hide-menu-children/parent.vue'),
             meta: {
@@ -130,6 +130,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'BreadcrumbDemos',
             path: 'breadcrumb',
+            redirect: '/demos/features/breadcrumb/lateral',
             meta: {
               icon: 'lucide:navigation',
               title: $t('page.demos.features.breadcrumbNavigation'),
@@ -161,6 +162,7 @@ const routes: RouteRecordRaw[] = [
               {
                 name: 'BreadcrumbLevel',
                 path: 'level',
+                redirect: '/demos/features/breadcrumb/level/detail',
                 meta: {
                   icon: 'lucide:navigation',
                   title: $t('page.demos.features.breadcrumbLevel'),
