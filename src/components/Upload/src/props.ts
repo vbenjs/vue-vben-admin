@@ -14,7 +14,7 @@ type SortableOptions = Merge<
     // ...可扩展
   }
 >;
-export type handleFnKey = "record" | "valueKey" | "uidKey"
+export type handleFnKey = 'record' | 'valueKey' | 'uidKey';
 export type previewColumnsFnType = {
   handleRemove: (record: Record<handleFnKey, any>) => any;
   handleAdd: (record: Record<handleFnKey, any>) => any;

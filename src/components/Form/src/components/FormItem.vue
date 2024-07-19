@@ -287,11 +287,11 @@
         const on = {
           [eventKey]: (...args: Nullable<Recordable<any>>[]) => {
             const [e] = args;
-            
+
             const target = e ? e.target : null;
             let value = target ? (isCheck ? target.checked : target.value) : e;
-            if(isFunction(valueFormat)){
-              value = valueFormat({...unref(getValues),value});
+            if (isFunction(valueFormat)) {
+              value = valueFormat({ ...unref(getValues), value });
             }
             props.setFormModel(field, value, props.schema);
 

@@ -25,12 +25,12 @@ interface UseFormActionContext {
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
 }
- /**
-  * @description: Is it upload
+/**
+ * @description: Is it upload
  */
-  export function itemIsUploadComponent(key: keyof ComponentProps) {
-    return uploadItemType.includes(key);
-  }
+export function itemIsUploadComponent(key: keyof ComponentProps) {
+  return uploadItemType.includes(key);
+}
 function tryConstructArray(field: string, values: Recordable = {}): any[] | undefined {
   const pattern = /^\[(.+)\]$/;
   if (pattern.test(field)) {
@@ -146,7 +146,7 @@ export function useFormEvents({
           }
         }
         validKeys.push(key);
-        return 
+        return;
       }
       // Adapt common component
       if (hasKey) {

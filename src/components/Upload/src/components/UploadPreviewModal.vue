@@ -23,6 +23,7 @@
   import { BasicColumn } from '@/components/Table';
   import { useMessage } from '@/hooks/web/useMessage';
   import { buildUUID } from '@/utils/uuid';
+
   const { createMessage } = useMessage();
 
   const props = defineProps(previewProps);
