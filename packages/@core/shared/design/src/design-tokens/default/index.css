@@ -5,7 +5,7 @@
     'segoe ui emoji', 'segoe ui symbol', simsun, sans-serif;
 
   /* Default background color of <body />...etc */
-  --background: 0 0 100%;
+  --background: 0 0% 100%;
 
   /* 主体区域背景色 */
   --background-deep: 210 11.11% 96.47%;
