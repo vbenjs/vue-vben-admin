@@ -1,0 +1,216 @@
+import type { IContextMenuItem } from '@vben-core/tabs-ui';
+import type { TabDefinition } from '@vben-core/typings';
+import type {
+  RouteLocationNormalized,
+  RouteLocationNormalizedGeneric,
+} from 'vue-router';
+
+import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+import { useContentMaximize, useTabs } from '@vben-core/hooks';
+import {
+  ArrowLeftToLine,
+  ArrowRightLeft,
+  ArrowRightToLine,
+  ExternalLink,
+  FoldHorizontal,
+  Fullscreen,
+  MdiPin,
+  MdiPinOff,
+  Minimize2,
+  RotateCw,
+  X,
+} from '@vben-core/icons';
+import { $t, useI18n } from '@vben-core/locales';
+import {
+  storeToRefs,
+  useCoreAccessStore,
+  useCoreTabbarStore,
+} from '@vben-core/stores';
+import { filterTree } from '@vben-core/toolkit';
+
+export function useTabbar() {
+  const router = useRouter();
+  const route = useRoute();
+  const accessStore = useCoreAccessStore();
+  const coreTabbarStore = useCoreTabbarStore();
+  const { accessMenus } = storeToRefs(accessStore);
+  const { contentIsMaximize, toggleMaximize } = useContentMaximize();
+  const {
+    closeAllTabs,
+    closeCurrentTab,
+    closeLeftTabs,
+    closeOtherTabs,
+    closeRightTabs,
+    closeTabByKey,
+    getTabDisableState,
+    openTabInNewWindow,
+    refreshTab,
+    toggleTabPin,
+  } = useTabs();
+  const currentActive = computed(() => {
+    return route.path;
+  });
+
+  const { locale } = useI18n();
+  const currentTabs = ref<RouteLocationNormalizedGeneric[]>();
+  watch([() => coreTabbarStore.getTabs, () => locale.value], ([tabs, _]) => {
+    currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
+  });
+
+  /**
+   * 初始化固定标签页
+   */
+  const initAffixTabs = () => {
+    const affixTabs = filterTree(router.getRoutes(), (route) => {
+      return !!route.meta?.affixTab;
+    });
+    coreTabbarStore.setAffixTabs(affixTabs);
+  };
+
+  // 点击tab,跳转路由
+  const handleClick = (key: string) => {
+    router.push(key);
+  };
+
+  // 关闭tab
+  const handleClose = async (key: string) => {
+    await closeTabByKey(key);
+  };
+
+  function wrapperTabLocale(tab: RouteLocationNormalizedGeneric) {
+    return {
+      ...tab,
+      meta: {
+        ...tab?.meta,
+        title: $t(tab?.meta?.title as string),
+      },
+    };
+  }
+
+  watch(
+    () => accessMenus.value,
+    () => {
+      initAffixTabs();
+    },
+    { immediate: true },
+  );
+
+  watch(
+    () => route.path,
+    () => {
+      coreTabbarStore.addTab(route as RouteLocationNormalized);
+    },
+    { immediate: true },
+  );
+
+  const createContextMenus = (tab: TabDefinition) => {
+    const {
+      disabledCloseAll,
+      disabledCloseCurrent,
+      disabledCloseLeft,
+      disabledCloseOther,
+      disabledCloseRight,
+      disabledRefresh,
+    } = getTabDisableState(tab);
+
+    const affixTab = tab?.meta?.affixTab ?? false;
+
+    const menus: IContextMenuItem[] = [
+      {
+        disabled: disabledCloseCurrent,
+        handler: async () => {
+          await closeCurrentTab(tab);
+        },
+        icon: X,
+        key: 'close',
+        text: $t('preferences.tabbar.contextMenu.close'),
+      },
+      {
+        handler: async () => {
+          await toggleTabPin(tab);
+        },
+        icon: affixTab ? MdiPinOff : MdiPin,
+        key: 'affix',
+        text: affixTab
+          ? $t('preferences.tabbar.contextMenu.unpin')
+          : $t('preferences.tabbar.contextMenu.pin'),
+      },
+      {
+        handler: async () => {
+          if (!contentIsMaximize.value) {
+            await router.push(tab.fullPath);
+          }
+          toggleMaximize();
+        },
+        icon: contentIsMaximize.value ? Minimize2 : Fullscreen,
+        key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
+        text: contentIsMaximize.value
+          ? $t('preferences.tabbar.contextMenu.restoreMaximize')
+          : $t('preferences.tabbar.contextMenu.maximize'),
+      },
+      {
+        disabled: disabledRefresh,
+        handler: refreshTab,
+        icon: RotateCw,
+        key: 'reload',
+        text: $t('preferences.tabbar.contextMenu.reload'),
+      },
+      {
+        handler: async () => {
+          await openTabInNewWindow(tab);
+        },
+        icon: ExternalLink,
+        key: 'open-in-new-window',
+        separator: true,
+        text: $t('preferences.tabbar.contextMenu.openInNewWindow'),
+      },
+
+      {
+        disabled: disabledCloseLeft,
+        handler: async () => {
+          await closeLeftTabs(tab);
+        },
+        icon: ArrowLeftToLine,
+        key: 'close-left',
+        text: $t('preferences.tabbar.contextMenu.closeLeft'),
+      },
+      {
+        disabled: disabledCloseRight,
+        handler: async () => {
+          await closeRightTabs(tab);
+        },
+        icon: ArrowRightToLine,
+        key: 'close-right',
+        separator: true,
+        text: $t('preferences.tabbar.contextMenu.closeRight'),
+      },
+      {
+        disabled: disabledCloseOther,
+        handler: async () => {
+          await closeOtherTabs(tab);
+        },
+        icon: FoldHorizontal,
+        key: 'close-other',
+        text: $t('preferences.tabbar.contextMenu.closeOther'),
+      },
+      {
+        disabled: disabledCloseAll,
+        handler: closeAllTabs,
+        icon: ArrowRightLeft,
+        key: 'close-all',
+        text: $t('preferences.tabbar.contextMenu.closeAll'),
+      },
+    ];
+    return menus;
+  };
+
+  return {
+    createContextMenus,
+    currentActive,
+    currentTabs,
+    handleClick,
+    handleClose,
+  };
+}

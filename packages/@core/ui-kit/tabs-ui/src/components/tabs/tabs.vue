@@ -72,7 +72,7 @@ function scrollIntoView() {
 
 <template>
   <div class="h-full flex-1 overflow-hidden">
-    <VbenScrollbar class="h-full" horizontal>
+    <VbenScrollbar class="tabs-scrollbar h-full" horizontal>
       <div
         :class="contentClass"
         class="relative !flex h-full w-max items-center"
@@ -147,3 +147,14 @@ function scrollIntoView() {
     </VbenScrollbar>
   </div>
 </template>
+
+<style scoped>
+.tabs-scrollbar {
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(100% - 16px),
+    transparent
+  );
+}
+</style>

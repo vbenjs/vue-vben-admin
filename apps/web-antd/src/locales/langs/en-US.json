@@ -38,11 +38,14 @@
         "title": "Features",
         "hideChildrenInMenu": "Hide Menu Children",
         "loginExpired": "Login Expired",
-        "breadcrumbNavigation": "Breadcrumb Navigation",
-        "breadcrumbLateral": "Lateral Mode",
-        "breadcrumbLateralDetail": "Lateral Mode Detail",
-        "breadcrumbLevel": "Level Mode",
-        "breadcrumbLevelDetail": "Level Mode Detail"
+        "tabs": "Tabs"
+      },
+      "breadcrumb": {
+        "navigation": "Breadcrumb Navigation",
+        "lateral": "Lateral Mode",
+        "lateralDetail": "Lateral Mode Detail",
+        "level": "Level Mode",
+        "levelDetail": "Level Mode Detail"
       }
     }
   }

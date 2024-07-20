@@ -32,7 +32,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@vben/node-utils": "workspace:*",
     "commitlint-plugin-function-rules": "^4.0.0",
-    "cz-git": "^1.9.3",
-    "czg": "^1.9.3"
+    "cz-git": "^1.9.4",
+    "czg": "^1.9.4"
   }
 }

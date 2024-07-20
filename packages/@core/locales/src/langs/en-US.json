@@ -13,6 +13,7 @@
       "workspace": "Workspace"
     },
     "vben": {
+      "title": "Project",
       "about": "About",
       "document": "Document"
     }

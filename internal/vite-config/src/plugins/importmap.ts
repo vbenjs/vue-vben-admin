@@ -70,7 +70,6 @@ async function viteImportMapPlugin(
   if (options?.debug) {
     (async () => {
       for await (const { message, type } of generator.logStream()) {
-        // eslint-disable-next-line no-console
         console.log(`${type}: ${message}`);
       }
     })();

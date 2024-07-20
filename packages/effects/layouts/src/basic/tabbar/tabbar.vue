@@ -2,11 +2,12 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { useContentMaximize, useTabs } from '@vben-core/hooks';
 import { preferences } from '@vben-core/preferences';
 import { useCoreTabbarStore } from '@vben-core/stores';
 import { TabsToolMore, TabsToolScreen, TabsView } from '@vben-core/tabs-ui';
 
-import { updateContentScreen, useTabs } from './use-tabs';
+import { useTabbar } from './use-tabbar';
 
 defineOptions({
   name: 'LayoutTabbar',
@@ -14,9 +15,10 @@ defineOptions({
 
 defineProps<{ showIcon?: boolean; theme?: string }>();
 
-const coreTabbarStore = useCoreTabbarStore();
-
 const route = useRoute();
+const coreTabbarStore = useCoreTabbarStore();
+const { toggleMaximize } = useContentMaximize();
+const { unpinTab } = useTabs();
 
 const {
   createContextMenus,
@@ -24,8 +26,7 @@ const {
   currentTabs,
   handleClick,
   handleClose,
-  handleUnpinTab,
-} = useTabs();
+} = useTabbar();
 
 const menus = computed(() => {
   return createContextMenus(route);
@@ -48,15 +49,15 @@ if (!preferences.tabbar.persist) {
     :tabs="currentTabs"
     @close="handleClose"
     @sort-tabs="coreTabbarStore.sortTabs"
-    @unpin="handleUnpinTab"
+    @unpin="unpinTab"
     @update:active="handleClick"
   />
   <div class="flex-center h-full">
     <TabsToolMore :menus="menus" />
     <TabsToolScreen
       :screen="preferences.sidebar.hidden"
-      @change="updateContentScreen"
-      @update:screen="updateContentScreen"
+      @change="toggleMaximize"
+      @update:screen="toggleMaximize"
     />
   </div>
 </template>

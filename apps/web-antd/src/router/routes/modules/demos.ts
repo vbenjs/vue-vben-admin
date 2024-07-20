@@ -16,6 +16,7 @@ const routes: RouteRecordRaw[] = [
     path: '/demos',
     redirect: '/demos/access',
     children: [
+      // 权限控制
       {
         meta: {
           icon: 'mdi:shield-key-outline',
@@ -87,6 +88,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 功能
       {
         meta: {
           icon: 'mdi:feature-highlight',
@@ -94,8 +96,17 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'Features',
         path: 'features',
-        redirect: '/demos/features/hide-menu-children',
+        redirect: '/demos/features/tabs',
         children: [
+          {
+            name: 'FeatureTabsDemo',
+            path: 'tabs',
+            component: () => import('#/views/demos/features/tabs/index.vue'),
+            meta: {
+              icon: 'lucide:app-window',
+              title: $t('page.demos.features.tabs'),
+            },
+          },
           {
             name: 'HideChildrenInMenuParent',
             path: 'hide-children-in-menu',
@@ -127,62 +138,61 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.demos.features.loginExpired'),
             },
           },
+        ],
+      },
+      // 面包屑导航
+      {
+        name: 'BreadcrumbDemos',
+        path: 'breadcrumb',
+        meta: {
+          icon: 'lucide:navigation',
+          title: $t('page.demos.breadcrumb.navigation'),
+        },
+        redirect: '/demos/breadcrumb/lateral',
+        children: [
           {
-            name: 'BreadcrumbDemos',
-            path: 'breadcrumb',
+            name: 'BreadcrumbLateral',
+            path: 'lateral',
+            component: () => import('#/views/demos/breadcrumb/lateral.vue'),
             meta: {
               icon: 'lucide:navigation',
-              title: $t('page.demos.features.breadcrumbNavigation'),
+              title: $t('page.demos.breadcrumb.lateral'),
             },
+          },
+          {
+            name: 'BreadcrumbLateralDetail',
+            path: 'lateral-detail',
+            component: () =>
+              import('#/views/demos/breadcrumb/lateral-detail.vue'),
+            meta: {
+              activePath: '/demos/breadcrumb/lateral',
+              hideInMenu: true,
+              title: $t('page.demos.breadcrumb.lateralDetail'),
+            },
+          },
+          {
+            name: 'BreadcrumbLevel',
+            path: 'level',
+            meta: {
+              icon: 'lucide:navigation',
+              title: $t('page.demos.breadcrumb.level'),
+            },
+            redirect: '/demos/breadcrumb/level/detail',
             children: [
               {
-                name: 'BreadcrumbLateral',
-                path: 'lateral',
+                name: 'BreadcrumbLevelDetail',
+                path: 'detail',
                 component: () =>
-                  import('#/views/demos/features/breadcrumb/lateral.vue'),
+                  import('#/views/demos/breadcrumb/level-detail.vue'),
                 meta: {
-                  icon: 'lucide:navigation',
-                  title: $t('page.demos.features.breadcrumbLateral'),
+                  title: $t('page.demos.breadcrumb.levelDetail'),
                 },
-              },
-              {
-                name: 'BreadcrumbLateralDetail',
-                path: 'lateral-detail',
-                component: () =>
-                  import(
-                    '#/views/demos/features/breadcrumb/lateral-detail.vue'
-                  ),
-                meta: {
-                  activePath: '/demos/features/breadcrumb/lateral',
-                  hideInMenu: true,
-                  title: $t('page.demos.features.breadcrumbLateralDetail'),
-                },
-              },
-              {
-                name: 'BreadcrumbLevel',
-                path: 'level',
-                meta: {
-                  icon: 'lucide:navigation',
-                  title: $t('page.demos.features.breadcrumbLevel'),
-                },
-                children: [
-                  {
-                    name: 'BreadcrumbLevelDetail',
-                    path: 'detail',
-                    component: () =>
-                      import(
-                        '#/views/demos/features/breadcrumb/level-detail.vue'
-                      ),
-                    meta: {
-                      title: $t('page.demos.features.breadcrumbLevelDetail'),
-                    },
-                  },
-                ],
               },
             ],
           },
         ],
       },
+      // 缺省页
       {
         meta: {
           icon: 'mdi:lightbulb-error-outline',
@@ -231,6 +241,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 菜单徽标
       {
         meta: {
           badgeType: 'dot',
@@ -275,6 +286,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 外部链接
       {
         meta: {
           icon: 'ic:round-settings-input-composite',
@@ -350,6 +362,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 嵌套菜单
       {
         meta: {
           icon: 'ic:round-menu',

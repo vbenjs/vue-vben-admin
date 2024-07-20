@@ -3,7 +3,7 @@ import type { RouteRecordNormalized, Router } from 'vue-router';
 
 import { toRaw } from 'vue';
 
-import { startProgress, stopProgress } from '@vben-core/toolkit';
+import { openWindow, startProgress, stopProgress } from '@vben-core/toolkit';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
@@ -227,6 +227,18 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       await this.closeTab(this.tabs[index], router);
     },
     /**
+     * @zh_CN 新窗口打开标签页
+     * @param tab
+     */
+    async openTabInNewWindow(tab: TabDefinition) {
+      const { hash, origin } = location;
+      const path = tab.fullPath;
+      const fullPath = path.startsWith('/') ? path : `/${path}`;
+      const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
+      openWindow(url, { target: '_blank' });
+    },
+
+    /**
      * @zh_CN 固定标签页
      * @param tab
      */
@@ -257,6 +269,23 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       this.renderRouteView = true;
       stopProgress();
     },
+
+    /**
+     * @zh_CN 重置标签页标题
+     */
+    async resetTabTitle(tab: TabDefinition) {
+      if (!tab?.meta?.newTabTitle) {
+        return;
+      }
+      const findTab = this.tabs.find(
+        (item) => getTabPath(item) === getTabPath(tab),
+      );
+      if (findTab) {
+        findTab.meta.newTabTitle = undefined;
+        await this.updateCacheTab();
+      }
+    },
+
     /**
      * 设置固定标签页
      * @param tabs
@@ -265,6 +294,21 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       for (const tab of tabs) {
         tab.meta.affixTab = true;
         this.addTab(routeToTab(tab));
+      }
+    },
+
+    /**
+     * @zh_CN 设置标签页标题
+     * @param tab
+     * @param title
+     */
+    async setTabTitle(tab: TabDefinition, title: string) {
+      const findTab = this.tabs.find(
+        (item) => getTabPath(item) === getTabPath(tab),
+      );
+      if (findTab) {
+        findTab.meta.newTabTitle = title;
+        await this.updateCacheTab();
       }
     },
     /**
@@ -278,6 +322,15 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       this.tabs.splice(newIndex, 0, currentTab);
       this.dragEndIndex = this.dragEndIndex + 1;
     },
+    /**
+     * @zh_CN 切换固定标签页
+     * @param tab
+     */
+    async toggleTabPin(tab: TabDefinition) {
+      const affixTab = tab?.meta?.affixTab ?? false;
+      await (affixTab ? this.unpinTab(tab) : this.pinTab(tab));
+    },
+
     /**
      * @zh_CN 取消固定标签页
      * @param tab

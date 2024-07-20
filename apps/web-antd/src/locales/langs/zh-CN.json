@@ -40,11 +40,14 @@
         "title": "功能",
         "hideChildrenInMenu": "隐藏子菜单",
         "loginExpired": "登录过期",
-        "breadcrumbNavigation": "面包屑导航",
-        "breadcrumbLateral": "平级模式",
-        "breadcrumbLevel": "层级模式",
-        "breadcrumbLevelDetail": "层级模式详情",
-        "breadcrumbLateralDetail": "平级模式详情"
+        "tabs": "标签页"
+      },
+      "breadcrumb": {
+        "navigation": "面包屑导航",
+        "lateral": "平级模式",
+        "level": "层级模式",
+        "levelDetail": "层级模式详情",
+        "lateralDetail": "平级模式详情"
       }
     }
   }

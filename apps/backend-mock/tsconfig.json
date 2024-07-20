@@ -1,25 +1,3 @@
 {
-  "compilerOptions": {
-    "incremental": true,
-    "target": "ES2021",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "baseUrl": "./",
-    "module": "commonjs",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "strictBindCallApply": false,
-    "strictNullChecks": false,
-    "noFallthroughCasesInSwitch": false,
-    "noImplicitAny": false,
-    "declaration": true,
-    "outDir": "./dist",
-    "removeComments": true,
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": false,
-    "skipLibCheck": true
-  }
+  "extends": "./.nitro/types/tsconfig.json"
 }

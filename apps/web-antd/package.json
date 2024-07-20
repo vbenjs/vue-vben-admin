@@ -16,9 +16,9 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
+    "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
-    "dev": "pnpm vite",
+    "dev": "pnpm vite --mode development",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },

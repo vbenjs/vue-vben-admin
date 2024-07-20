@@ -13,6 +13,7 @@ function getConfFiles() {
   const script = process.env.npm_lifecycle_script as string;
   const reg = /--mode ([\d_a-z]+)/;
   const result = reg.exec(script);
+
   if (result) {
     const mode = result[1];
     return ['.env', `.env.${mode}`];
@@ -64,10 +65,12 @@ async function loadAndConvertEnv(
   const compressTypes = compress
     .split(',')
     .filter((item) => item === 'brotli' || item === 'gzip');
+
   return {
     appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin',
     compress: !!compress,
     compressTypes: compressTypes as ('brotli' | 'gzip')[],
+    nitroMock: !!envConfig.VITE_NITRO_MOCK,
     port: Number(envConfig.VITE_PORT) || 5173,
     pwa: !!pwa,
     visualizer: !!visualizer,

@@ -54,7 +54,7 @@ function handleScroll(event: Event) {
       v-if="shadow"
       :class="{
         'opacity-100': !isAtTop && !isAtBottom,
-        'border-border border-t': shadowBorder && !isAtTop && !isAtBottom,
+        'border-border border-b': shadowBorder && !isAtTop && !isAtBottom,
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>

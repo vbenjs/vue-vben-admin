@@ -83,19 +83,20 @@
     @apply m-0 appearance-none;
   }
 
-  /* 考虑只在mac下打开 */
+  /* 只有非mac下才进行调整，mac下使用默认滚动条 */
+  html:not([data-platform='macOs']) {
+    *::-webkit-scrollbar {
+      @apply h-[1px] w-[10px];
+    }
 
-  /* *::-webkit-scrollbar {
-    @apply h-[1px] w-[10px];
+    *::-webkit-scrollbar-thumb {
+      @apply bg-border rounded-sm border-none;
+    }
+
+    *::-webkit-scrollbar-track {
+      @apply rounded-sm border-none bg-transparent shadow-none;
+    }
   }
-
-  *::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-sm border-none;
-  }
-
-  *::-webkit-scrollbar-track {
-    @apply rounded-sm border-none bg-transparent shadow-none;
-  } */
 }
 
 @layer components {

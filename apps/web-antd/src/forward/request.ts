@@ -25,8 +25,8 @@ function createRequestClient() {
         tokenHandler: () => {
           const accessStore = useAccessStore();
           return {
-            refreshToken: `Bearer ${accessStore.refreshToken}`,
-            token: `Bearer ${accessStore.accessToken}`,
+            refreshToken: `${accessStore.refreshToken}`,
+            token: `${accessStore.accessToken}`,
           };
         },
         unAuthorizedHandler: async () => {

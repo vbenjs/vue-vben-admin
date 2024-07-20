@@ -4,7 +4,7 @@ import type { Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import { StorageManager, merge } from '@vben-core/toolkit';
+import { StorageManager, isMacOs, merge } from '@vben-core/toolkit';
 
 import {
   breakpointsTailwind,
@@ -46,7 +46,7 @@ class PreferenceManager {
 
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
-      200,
+      100,
     );
   }
 
@@ -79,6 +79,11 @@ class PreferenceManager {
     ) {
       this.updateColorMode(this.state);
     }
+  }
+
+  private initPlatform() {
+    const dom = document.documentElement;
+    dom.dataset.platform = isMacOs() ? 'macOs' : 'window';
   }
 
   /**
@@ -187,6 +192,8 @@ class PreferenceManager {
     this.updatePreferences(mergedPreference);
 
     this.setupWatcher();
+
+    this.initPlatform();
     // 标记为已初始化
     this.isInitialized = true;
   }

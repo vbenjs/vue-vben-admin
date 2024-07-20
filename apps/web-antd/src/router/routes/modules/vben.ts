@@ -10,11 +10,12 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       badgeType: 'dot',
+      badgeVariants: 'destructive',
       icon: VBEN_LOGO_URL,
       order: 9999,
-      title: 'Vben',
+      title: $t('page.vben.title'),
     },
-    name: 'AboutLayout',
+    name: 'VbenProject',
     path: '/vben-admin',
     redirect: '/vben-admin/about',
     children: [
@@ -24,6 +25,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/_core/vben/about/index.vue'),
         meta: {
           badgeType: 'dot',
+          badgeVariants: 'destructive',
           icon: 'lucide:copyright',
           title: $t('page.vben.about'),
         },

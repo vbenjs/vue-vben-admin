@@ -47,10 +47,8 @@ async function viteExtraAppConfigPlugin({
           type: 'asset',
         });
 
-        // eslint-disable-next-line no-console
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(
           colors.red(
             `configuration file configuration file failed to package:\n${error}`,

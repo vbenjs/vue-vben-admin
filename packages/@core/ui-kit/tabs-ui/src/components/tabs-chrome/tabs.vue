@@ -71,7 +71,7 @@ function scrollIntoView() {
 
 <template>
   <div :style="style" class="tabs-chrome size-full flex-1 overflow-hidden pt-1">
-    <VbenScrollbar class="h-full" horizontal>
+    <VbenScrollbar class="tabs-chrome__scrollbar h-full" horizontal>
       <!-- footer -> 4px -->
       <div
         ref="contentRef"
@@ -237,6 +237,7 @@ function scrollIntoView() {
     }
   }
 
+  &__scrollbar,
   &__label {
     mask-image: linear-gradient(
       90deg,

@@ -23,6 +23,8 @@ import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
+import { viteNitroMockPlugin } from './nitor-mock';
+import { vitePrintPlugin } from './print';
 
 /**
  * 获取条件成立的 vite 插件
@@ -99,6 +101,10 @@ async function loadApplicationPlugins(
     importmapOptions,
     injectAppLoading,
     license,
+    nitroMock,
+    nitroMockOptions,
+    print,
+    printInfoMap,
     pwa,
     pwaOptions,
     ...commonOptions
@@ -118,6 +124,18 @@ async function loadApplicationPlugins(
             runtimeOnly: true,
           }),
         ];
+      },
+    },
+    {
+      condition: print,
+      plugins: async () => {
+        return [await vitePrintPlugin({ infoMap: printInfoMap })];
+      },
+    },
+    {
+      condition: nitroMock,
+      plugins: async () => {
+        return [await viteNitroMockPlugin(nitroMockOptions)];
       },
     },
     {

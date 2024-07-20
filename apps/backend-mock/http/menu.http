@@ -1,6 +1,0 @@
-@port = 5320
-@type = application/json
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwicm9sZXMiOlsiYWRtaW4iXSwidXNlcm5hbWUiOiJ2YmVuIiwiaWF0IjoxNzE5ODkwMTEwLCJleHAiOjE3MTk5NzY1MTB9.eyAFsQ2Jk_mAQGvrEL1jF9O6YmLZ_PSYj5aokL6fCuU
-GET http://localhost:{{port}}/api/menu/getAll HTTP/1.1
-content-type: {{ type }}
-Authorization: {{ token }}

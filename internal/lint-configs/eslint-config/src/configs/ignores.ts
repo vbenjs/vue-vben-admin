@@ -9,6 +9,8 @@ export async function ignores(): Promise<Linter.FlatConfig[]> {
         '**/dist-*',
         '**/*-dist',
         '**/.husky',
+        '**/.nitro',
+        '**/.output',
         '**/Dockerfile',
         '**/package-lock.json',
         '**/yarn.lock',

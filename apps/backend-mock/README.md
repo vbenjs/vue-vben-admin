@@ -10,9 +10,6 @@ Vben Admin 数据 mock 服务，没有对接任何的数据库，所有数据都
 # development
 $ pnpm run start
 
-# watch mode
-$ pnpm run start:dev
-
 # production mode
-$ pnpm run start:prod
+$ pnpm run build
 ```

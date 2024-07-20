@@ -6,41 +6,10 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "build": "nest build",
-    "dev": "pnpm run start:dev",
-    "start": "cross-env NODE_ENV=development node dist/main",
-    "start:dev": "cross-env NODE_ENV=development DEBUG=true nest start --watch",
-    "start:prod": "nest build && cross-env NODE_ENV=production node dist/main"
+    "start": "nitro dev",
+    "build": "nitro build"
   },
   "dependencies": {
-    "@nestjs/common": "^10.3.10",
-    "@nestjs/config": "^3.2.3",
-    "@nestjs/core": "^10.3.10",
-    "@nestjs/jwt": "^10.2.0",
-    "@nestjs/passport": "^10.0.3",
-    "@nestjs/platform-express": "^10.3.10",
-    "@types/js-yaml": "^4.0.9",
-    "bcryptjs": "^2.4.3",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "cross-env": "^7.0.3",
-    "joi": "^17.13.3",
-    "js-yaml": "^4.1.0",
-    "mockjs": "^1.1.0",
-    "passport": "^0.7.0",
-    "passport-jwt": "^4.0.1",
-    "passport-local": "^1.0.0",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
-  },
-  "devDependencies": {
-    "@nestjs/cli": "^10.4.2",
-    "@nestjs/schematics": "^10.1.2",
-    "@types/express": "^4.17.21",
-    "@types/mockjs": "^1.0.10",
-    "@types/node": "^20.14.11",
-    "nodemon": "^3.1.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "nitropack": "latest"
   }
 }

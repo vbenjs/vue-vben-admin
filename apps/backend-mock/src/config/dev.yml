@@ -1,8 +1,0 @@
-NODE_ENV: development
-port: 5320
-apiPrefix: /api
-jwt:
-  secret: plonmGN4aSuMVnucrHuhnUoo49Wy
-  expiresIn: 1d
-  refreshSecret: 1lonmGN4aSuMVnucrHuhnUoo49Wy
-  refreshexpiresIn: 7d

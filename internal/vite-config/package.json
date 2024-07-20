@@ -31,6 +31,7 @@
     "@jspm/generator": "^2.1.2",
     "cheerio": "1.0.0-rc.12",
     "html-minifier-terser": "^7.2.0",
+    "nitropack": "^2.9.7",
     "resolve.exports": "^2.0.2",
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vite-plugin-pwa": "^0.20.0",

@@ -121,8 +121,15 @@ const customConfig: Linter.FlatConfig[] = [
     files: ['apps/backend-mock/**/**'],
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
+      'n/prefer-global/buffer': 'off',
       'no-console': 'off',
       'unicorn/prefer-module': 'off',
+    },
+  },
+  {
+    files: ['internal/**/**'],
+    rules: {
+      'no-console': 'off',
     },
   },
 ];

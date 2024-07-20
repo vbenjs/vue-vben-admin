@@ -11,7 +11,7 @@ import { useCoreAccessStore } from '@vben-core/stores';
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 
-import { getAccessCodes, getUserInfo, userLogin } from '#/apis';
+import { getAccessCodes, getUserInfo, login } from '#/apis';
 import { $t } from '#/locales';
 
 export const useAccessStore = defineStore('access', () => {
@@ -53,7 +53,7 @@ export const useAccessStore = defineStore('access', () => {
     let userInfo: UserInfo | null = null;
     try {
       loading.value = true;
-      const { accessToken, refreshToken } = await userLogin(params);
+      const { accessToken, refreshToken } = await login(params);
 
       // 如果成功获取到 accessToken
       // If accessToken is successfully obtained
