@@ -109,7 +109,7 @@ const routes: RouteRecordRaw[] = [
           },
           {
             name: 'HideChildrenInMenuParent',
-            path: 'hide-children-in-menu',
+            path: 'hide-menu-children',
             component: () =>
               import('#/views/demos/features/hide-menu-children/parent.vue'),
             meta: {
