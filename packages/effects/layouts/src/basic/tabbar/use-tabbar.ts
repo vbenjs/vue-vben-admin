@@ -55,9 +55,16 @@ export function useTabbar() {
 
   const { locale } = useI18n();
   const currentTabs = ref<RouteLocationNormalizedGeneric[]>();
-  watch([() => coreTabbarStore.getTabs, () => locale.value], ([tabs, _]) => {
-    currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
-  });
+  watch(
+    [
+      () => coreTabbarStore.getTabs,
+      () => coreTabbarStore.updateTime,
+      () => locale.value,
+    ],
+    ([tabs]) => {
+      currentTabs.value = tabs.map((item) => wrapperTabLocale(item));
+    },
+  );
 
   /**
    * 初始化固定标签页

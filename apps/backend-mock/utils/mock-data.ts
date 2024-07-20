@@ -114,7 +114,7 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
       },
       name: 'Demos',
       path: '/demos',
-      redirect: '/access',
+      redirect: '/demos/access',
       children: [
         {
           name: 'Access',
@@ -173,6 +173,6 @@ export const MOCK_MENUS = [
   },
   {
     menus: [...dashboardMenus, ...createDemosMenus('user')],
-    username: 'user',
+    username: 'jack',
   },
 ];

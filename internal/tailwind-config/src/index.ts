@@ -5,7 +5,6 @@ import path from 'node:path';
 import { fs, getPackagesSync } from '@vben/node-utils';
 
 import { addDynamicIconSelectors } from '@iconify/tailwind';
-import formsPlugin from '@tailwindcss/forms';
 import typographyPlugin from '@tailwindcss/typography';
 import animate from 'tailwindcss-animate';
 
@@ -123,7 +122,6 @@ export default {
   darkMode: 'selector',
   plugins: [
     animate,
-    formsPlugin,
     typographyPlugin,
     addDynamicIconSelectors(),
     enterAnimationPlugin,

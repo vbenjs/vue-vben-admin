@@ -50,7 +50,7 @@ const tabsView = computed((): TabConfig[] => {
         : true,
       icon: tab.meta.icon as string,
       key: tab.fullPath || tab.path,
-      title: (tab.meta?.title || tab.name) as string,
+      title: (tab.meta?.newTabTitle || tab.meta?.title || tab.name) as string,
     };
   });
 });

@@ -1,14 +1,16 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useTabs } from '@vben/hooks';
 
-import { Button } from 'ant-design-vue';
+import { Input as AInput, Button } from 'ant-design-vue';
 
 defineOptions({ name: 'FeatureTabsDemo' });
 
 const router = useRouter();
-// const newTabTitle = ref('');
+const newTabTitle = ref('');
+
 const {
   closeAllTabs,
   closeCurrentTab,
@@ -17,11 +19,18 @@ const {
   closeRightTabs,
   closeTabByKey,
   refreshTab,
+  resetTabTitle,
+  setTabTitle,
 } = useTabs();
 
 function openTab() {
   // 这里就是路由跳转，也可以用path
   router.push({ name: 'VbenAbout' });
+}
+
+function reset() {
+  newTabTitle.value = '';
+  resetTabTitle();
 }
 </script>
 
@@ -58,7 +67,7 @@ function openTab() {
         <Button type="primary" @click="closeRightTabs()">
           关闭右侧标签页
         </Button>
-        <Button type="primary" @click="closeAllTabs()"> 打开所有标签页 </Button>
+        <Button type="primary" @click="closeAllTabs()"> 关闭所有标签页 </Button>
         <Button type="primary" @click="closeOtherTabs()">
           关闭其他标签页
         </Button>
@@ -71,16 +80,17 @@ function openTab() {
       <div class="text-foreground/80 my-3">
         该操作不会影响页面标题，仅修改Tab标题
       </div>
-      <!-- <div class="flex flex-wrap items-center gap-3">
-        <Input
-          v-model="newTabTitle"
-          class="w-30"
-          placeholder="请输入新的标题"
+      <div class="flex flex-wrap items-center gap-3">
+        <AInput
+          v-model:value="newTabTitle"
+          class="w-40"
+          placeholder="请输入新标题"
         />
-        <Button type="primary" @click="closeCurrentTab()">
-          关闭当前标签页 {{ newTabTitle }}
+        <Button type="primary" @click="() => setTabTitle(newTabTitle)">
+          修改
         </Button>
-      </div> -->
+        <Button @click="reset"> 重置 </Button>
+      </div>
     </div>
   </div>
 </template>

@@ -52,10 +52,12 @@ export function useTabs() {
   }
 
   async function setTabTitle(title: string) {
+    coreTabbarStore.setUpdateTime();
     await coreTabbarStore.setTabTitle(route, title);
   }
 
   async function resetTabTitle() {
+    coreTabbarStore.setUpdateTime();
     await coreTabbarStore.resetTabTitle(route);
   }
 

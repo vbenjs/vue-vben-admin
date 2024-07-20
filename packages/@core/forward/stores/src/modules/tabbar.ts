@@ -28,6 +28,10 @@ interface TabsState {
    * @zh_CN 当前打开的标签页列表
    */
   tabs: TabDefinition[];
+  /**
+   * @zh_CN 更新时间，用于一些更新场景，使用watch深度监听的话，会损耗性能
+   */
+  updateTime?: number;
 }
 
 /**
@@ -306,10 +310,16 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       const findTab = this.tabs.find(
         (item) => getTabPath(item) === getTabPath(tab),
       );
+
       if (findTab) {
         findTab.meta.newTabTitle = title;
+
         await this.updateCacheTab();
       }
+    },
+
+    async setUpdateTime() {
+      this.updateTime = Date.now();
     },
     /**
      * @zh_CN 设置标签页顺序
@@ -399,6 +409,7 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
     excludeCachedTabs: new Set(),
     renderRouteView: true,
     tabs: [],
+    updateTime: Date.now(),
   }),
 });
 

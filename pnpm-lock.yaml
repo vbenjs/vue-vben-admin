@@ -368,9 +368,6 @@ importers:
       '@iconify/tailwind':
         specifier: ^1.1.1
         version: 1.1.1
-      '@tailwindcss/forms':
-        specifier: ^0.5.7
-        version: 0.5.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3)))
       '@tailwindcss/nesting':
         specifier: 0.0.0-insiders.565cd3e
         version: 0.0.0-insiders.565cd3e(postcss@8.4.39)
@@ -3498,11 +3495,6 @@ packages:
   '@swc/helpers@0.5.12':
     resolution: {integrity: sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==}
 
-  '@tailwindcss/forms@0.5.7':
-    resolution: {integrity: sha512-QE7X69iQI+ZXwldE+rzasvbJiyV/ju1FGHH0Qn2W3FKbuYtqp8LKcy6iSw79fVUT5/Vvf+0XgLCeYVG+UV6hOw==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
-
   '@tailwindcss/nesting@0.0.0-insiders.565cd3e':
     resolution: {integrity: sha512-WhHoFBx19TnH/c+xLwT/sxei6+4RpdfiyG3MYXfmLaMsADmVqBkF7B6lDalgZD9YdM459MF7DtxVbWkOrV7IaQ==}
     peerDependencies:
@@ -6510,10 +6502,6 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
-
-  mini-svg-data-uri@1.4.4:
-    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
-    hasBin: true
 
   minimatch@10.0.1:
     resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
@@ -11971,11 +11959,6 @@ snapshots:
     dependencies:
       tslib: 2.6.3
 
-  '@tailwindcss/forms@0.5.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3)))':
-    dependencies:
-      mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3))
-
   '@tailwindcss/nesting@0.0.0-insiders.565cd3e(postcss@8.4.39)':
     dependencies:
       postcss: 8.4.39
@@ -15416,8 +15399,6 @@ snapshots:
   mimic-fn@4.0.0: {}
 
   min-indent@1.0.1: {}
-
-  mini-svg-data-uri@1.4.4: {}
 
   minimatch@10.0.1:
     dependencies:
