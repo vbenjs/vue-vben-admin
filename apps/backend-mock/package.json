@@ -10,6 +10,6 @@
     "build": "nitro build"
   },
   "dependencies": {
-    "nitropack": "latest"
+    "nitropack": "^2.9.7"
   }
 }
