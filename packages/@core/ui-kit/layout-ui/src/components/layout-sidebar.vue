@@ -249,7 +249,7 @@ function handleMouseleave() {
       theme,
       {
         'bg-sidebar-deep': isSidebarMixed,
-        'bg-sidebar': !isSidebarMixed,
+        'bg-sidebar border-border border-r': !isSidebarMixed,
       },
     ]"
     :style="style"

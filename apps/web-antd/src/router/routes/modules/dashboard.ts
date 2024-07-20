@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         name: 'Analytics',
-        path: '/analytics',
+        path: 'analytics',
         component: () => import('#/views/dashboard/analytics/index.vue'),
         meta: {
           affixTab: true,
@@ -27,7 +27,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         name: 'Workspace',
-        path: '/workspace',
+        path: 'workspace',
         component: () => import('#/views/dashboard/workspace/index.vue'),
         meta: {
           title: $t('page.dashboard.workspace'),

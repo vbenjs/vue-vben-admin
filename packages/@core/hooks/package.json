@@ -41,7 +41,7 @@
     "@vben-core/stores": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vueuse/core": "^10.11.0",
-    "radix-vue": "^1.9.1",
+    "radix-vue": "^1.9.2",
     "sortablejs": "^1.15.2",
     "vue": "^3.4.33",
     "vue-router": "^4.4.0"

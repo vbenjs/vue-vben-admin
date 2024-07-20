@@ -424,7 +424,7 @@ $namespace: vben;
   --menu-title-width: 140px;
   --menu-item-icon-size: 16px;
   --menu-item-height: 38px;
-  --menu-item-padding-y: 22px;
+  --menu-item-padding-y: 21px;
   --menu-item-padding-x: 12px;
   --menu-item-popup-padding-y: 20px;
   --menu-item-popup-padding-x: 12px;
@@ -473,7 +473,7 @@ $namespace: vben;
   &.is-rounded {
     --menu-item-margin-x: 8px;
     --menu-item-collapse-margin-x: 6px;
-    --menu-item-radius: 6px;
+    --menu-item-radius: 10px;
   }
 
   &.is-horizontal:not(.is-rounded) {

@@ -5,10 +5,11 @@ import { ref } from 'vue';
 
 import { $t, loadLocalesMap, setupI18n } from '@vben-core/locales';
 
-import defaultLocale from 'ant-design-vue/es/locale/zh_CN';
+import antdEnLocale from 'ant-design-vue/es/locale/en_US';
+import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 
-const antdLocale = ref<Locale>(defaultLocale);
+const antdLocale = ref<Locale>(antdDefaultLocale);
 
 const modules = import.meta.glob('./langs/*.json');
 
@@ -65,13 +66,11 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
 async function loadAntdLocale(lang: SupportedLanguagesType) {
   switch (lang) {
     case 'zh-CN': {
-      antdLocale.value = defaultLocale;
+      antdLocale.value = antdDefaultLocale;
       break;
     }
     case 'en-US': {
-      antdLocale.value = (await import(
-        'ant-design-vue/es/locale/en_US'
-      )) as unknown as Locale;
+      antdLocale.value = antdEnLocale;
       break;
     }
   }

@@ -66,7 +66,7 @@ const defaultPreferences: Preferences = {
     expandOnHover: true,
     extraCollapse: true,
     hidden: false,
-    width: 220,
+    width: 230,
   },
   tabbar: {
     dragable: true,
