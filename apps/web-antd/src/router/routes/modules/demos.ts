@@ -108,6 +108,18 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'FeatureTabDetailDemo',
+            path: 'tabs/detail/:id',
+            component: () =>
+              import('#/views/demos/features/tabs/tab-detail.vue'),
+            meta: {
+              activePath: '/demos/features/tabs',
+              hideInMenu: true,
+              maxNumOfOpenTab: 3,
+              title: $t('page.demos.features.tabDetail'),
+            },
+          },
+          {
             name: 'HideChildrenInMenuParent',
             path: 'hide-menu-children',
             component: () =>

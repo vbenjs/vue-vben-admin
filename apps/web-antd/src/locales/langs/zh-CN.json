@@ -40,7 +40,8 @@
         "title": "功能",
         "hideChildrenInMenu": "隐藏子菜单",
         "loginExpired": "登录过期",
-        "tabs": "标签页"
+        "tabs": "标签页",
+        "tabDetail": "标签详情页"
       },
       "breadcrumb": {
         "navigation": "面包屑导航",

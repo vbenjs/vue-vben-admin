@@ -38,7 +38,8 @@
         "title": "Features",
         "hideChildrenInMenu": "Hide Menu Children",
         "loginExpired": "Login Expired",
-        "tabs": "Tabs"
+        "tabs": "Tabs",
+        "tabDetail": "Tab Detail Page"
       },
       "breadcrumb": {
         "navigation": "Breadcrumb Navigation",

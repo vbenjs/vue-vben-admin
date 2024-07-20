@@ -50,7 +50,7 @@ export function useTabbar() {
     toggleTabPin,
   } = useTabs();
   const currentActive = computed(() => {
-    return route.path;
+    return route.fullPath;
   });
 
   const { locale } = useI18n();

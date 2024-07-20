@@ -28,6 +28,11 @@ function openTab() {
   router.push({ name: 'VbenAbout' });
 }
 
+function openTabWithParams(id: number) {
+  // 这里就是路由跳转，也可以用path
+  router.push({ name: 'FeatureTabDetailDemo', params: { id } });
+}
+
 function reset() {
   newTabTitle.value = '';
   resetTabTitle();
@@ -90,6 +95,20 @@ function reset() {
           修改
         </Button>
         <Button @click="reset"> 重置 </Button>
+      </div>
+    </div>
+
+    <div class="card-box mt-5 p-5">
+      <div class="text-lg font-semibold">最大打开数量</div>
+      <div class="text-foreground/80 my-3">
+        限制带参数的tab打开的最大数量，由 `route.meta.maxNumOfOpenTab` 控制
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <template v-for="item in 5" :key="item">
+          <Button type="primary" @click="openTabWithParams(item)">
+            打开{{ item }}详情页
+          </Button>
+        </template>
       </div>
     </div>
   </div>

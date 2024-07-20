@@ -86,6 +86,11 @@ interface RouteMeta {
    */
   loaded?: boolean;
   /**
+   * 标签页最大打开数量
+   * @default false
+   */
+  maxNumOfOpenTab?: number;
+  /**
    * 菜单可以看到，但是访问会被重定向到403
    */
   menuVisibleWithForbidden?: boolean;

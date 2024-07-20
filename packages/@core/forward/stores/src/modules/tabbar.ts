@@ -100,6 +100,23 @@ const useCoreTabbarStore = defineStore('core-tabbar', {
       });
 
       if (tabIndex === -1) {
+        // 获取动态路由打开数，超过 0 即代表需要控制打开数
+        const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ??
+          -1) as number;
+        // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
+        // 获取到已经打开的动态路由数, 判断是否大于某一个值
+        if (
+          maxNumOfOpenTab > 0 &&
+          this.tabs.filter((tab) => tab.name === routeTab.name).length >=
+            maxNumOfOpenTab
+        ) {
+          // 关闭第一个
+          const index = this.tabs.findIndex(
+            (item) => item.name === routeTab.name,
+          );
+          index !== -1 && this.tabs.splice(index, 1);
+        }
+
         this.tabs.push(tab);
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
