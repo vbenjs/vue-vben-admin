@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@vben-core/locales';
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { $t } from '@vben/locales';
+import { preferences, usePreferences } from '@vben/preferences';
 
 import AuthenticationFormView from './form.vue';
 import SloganIcon from './icons/slogan.vue';

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@vben-core/typings';
+import type { BuiltinThemeType } from '@vben/types';
 
 import { computed, ref } from 'vue';
 
-import { UserRoundPen } from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
+import { UserRoundPen } from '@vben/icons';
+import { $t } from '@vben/locales';
 import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,
-} from '@vben-core/preferences';
-import { TinyColor, convertToHsl } from '@vben-core/toolkit';
+} from '@vben/preferences';
+import { convertToHsl, TinyColor } from '@vben/utils';
 
 defineOptions({
   name: 'PreferenceBuiltinTheme',

@@ -3,7 +3,7 @@ import type { Locale } from 'ant-design-vue/es/locale';
 
 import { ref } from 'vue';
 
-import { $t, loadLocalesMap, setupI18n } from '@vben-core/locales';
+import { $t, loadLocalesMap, setupI18n } from '@vben/locales';
 
 import antdEnLocale from 'ant-design-vue/es/locale/en_US';
 import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';

@@ -2,7 +2,7 @@
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@vben-core/locales';
+import { $t } from '@vben/locales';
 import {
   VbenButton,
   VbenCheckbox,

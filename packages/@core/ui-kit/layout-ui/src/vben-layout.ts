@@ -104,11 +104,6 @@ interface VbenLayoutProps {
    */
   layout?: LayoutType;
   /**
-   *  侧边菜单折叠宽度
-   * @default 48
-   */
-  sideCollapseWidth?: number;
-  /**
    * 侧边菜单折叠状态
    * @default false
    */
@@ -153,6 +148,11 @@ interface VbenLayoutProps {
    * @default 210
    */
   sidebarWidth?: number;
+  /**
+   *  侧边菜单折叠宽度
+   * @default 48
+   */
+  sideCollapseWidth?: number;
   /**
    * tab是否可见
    * @default true

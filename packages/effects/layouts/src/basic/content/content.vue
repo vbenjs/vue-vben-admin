@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
-import { useContentHeight } from '@vben-core/hooks';
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { useContentHeight } from '@vben/hooks';
+import { preferences, usePreferences } from '@vben/preferences';
+import { storeToRefs, useCoreTabbarStore } from '@vben/stores';
 import { Spinner } from '@vben-core/shadcn-ui';
-import { storeToRefs, useCoreTabbarStore } from '@vben-core/stores';
 
 import { IFrameRouterView } from '../../iframe';
 import { useContentSpinner } from './use-content-spinner';

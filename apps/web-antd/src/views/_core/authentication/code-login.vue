@@ -4,6 +4,7 @@ import type { LoginCodeParams } from '@vben/common-ui';
 import { ref } from 'vue';
 
 import { AuthenticationCodeLogin } from '@vben/common-ui';
+import { LOGIN_PATH } from '@vben/constants';
 
 defineOptions({ name: 'CodeLogin' });
 
@@ -21,5 +22,9 @@ async function handleLogin(values: LoginCodeParams) {
 </script>
 
 <template>
-  <AuthenticationCodeLogin :loading="loading" @submit="handleLogin" />
+  <AuthenticationCodeLogin
+    :loading="loading"
+    :login-path="LOGIN_PATH"
+    @submit="handleLogin"
+  />
 </template>

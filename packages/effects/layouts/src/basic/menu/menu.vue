@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben/types';
 
 import { Menu, MenuProps } from '@vben-core/menu-ui';
 

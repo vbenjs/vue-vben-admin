@@ -1,4 +1,4 @@
-import { requestClient } from '#/forward';
+import { requestClient } from '#/apis/request';
 
 /**
  * 模拟任意状态码

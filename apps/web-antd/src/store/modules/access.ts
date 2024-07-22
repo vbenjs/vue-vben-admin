@@ -6,7 +6,7 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
-import { useCoreAccessStore } from '@vben-core/stores';
+import { resetAllStores, useCoreAccessStore } from '@vben/stores';
 
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
@@ -50,7 +50,7 @@ export const useAccessStore = defineStore('access', () => {
     onSuccess?: () => Promise<void> | void,
   ) {
     // 异步处理用户登录操作并获取 accessToken
-    let userInfo: UserInfo | null = null;
+    let userInfo: null | UserInfo = null;
     try {
       loading.value = true;
       const { accessToken, refreshToken } = await login(params);
@@ -102,7 +102,7 @@ export const useAccessStore = defineStore('access', () => {
   }
 
   async function logout() {
-    coreStoreAccess.$reset();
+    resetAllStores();
     openLoginExpiredModal.value = false;
 
     // 回登陆页带上当前路由地址
@@ -115,17 +115,19 @@ export const useAccessStore = defineStore('access', () => {
   }
 
   async function fetchUserInfo() {
-    let userInfo: UserInfo | null = null;
+    let userInfo: null | UserInfo = null;
     userInfo = await getUserInfo();
     coreStoreAccess.setUserInfo(userInfo);
     return userInfo;
   }
 
-  function reset() {
-    coreStoreAccess.$reset();
+  function $reset() {
+    loading.value = false;
+    openLoginExpiredModal.value = false;
   }
 
   return {
+    $reset,
     accessRoutes,
     accessToken,
     authLogin,
@@ -134,7 +136,6 @@ export const useAccessStore = defineStore('access', () => {
     logout,
     openLoginExpiredModal,
     refreshToken,
-    reset,
     setAccessMenus,
     setAccessRoutes,
     setAccessToken,

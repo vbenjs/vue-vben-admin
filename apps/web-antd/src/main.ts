@@ -1,4 +1,4 @@
-import { preferencesManager } from '@vben-core/preferences';
+import { initPreferences } from '@vben/preferences';
 
 import { overridesPreferences } from './preferences';
 
@@ -12,7 +12,7 @@ async function initApplication() {
   const namespace = `${import.meta.env.VITE_APP_NAMESPACE}-${env}`;
 
   // app偏好设置初始化
-  await preferencesManager.initPreferences({
+  await initPreferences({
     namespace,
     overrides: overridesPreferences,
   });

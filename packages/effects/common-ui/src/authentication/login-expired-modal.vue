@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useForwardPropsEmits } from '@vben-core/hooks';
+import { useForwardPropsEmits } from '@vben/hooks';
 import {
   Dialog,
   DialogContent,

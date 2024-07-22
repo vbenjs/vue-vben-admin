@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@vben-core/typings';
+import type { BuiltinThemeType } from '@vben/types';
 
-import { Palette } from '@vben-core/icons';
+import { Palette } from '@vben/icons';
 import {
   COLOR_PRESETS,
   preferences,
   updatePreferences,
-} from '@vben-core/preferences';
+} from '@vben/preferences';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
 defineOptions({

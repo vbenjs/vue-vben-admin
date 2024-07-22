@@ -4,6 +4,7 @@ import type { LoginAndRegisterParams } from '@vben/common-ui';
 import { ref } from 'vue';
 
 import { AuthenticationRegister } from '@vben/common-ui';
+import { LOGIN_PATH } from '@vben/constants';
 
 defineOptions({ name: 'Register' });
 
@@ -16,5 +17,9 @@ function handleSubmit(value: LoginAndRegisterParams) {
 </script>
 
 <template>
-  <AuthenticationRegister :loading="loading" @submit="handleSubmit" />
+  <AuthenticationRegister
+    :loading="loading"
+    :login-path="LOGIN_PATH"
+    @submit="handleSubmit"
+  />
 </template>

@@ -44,7 +44,7 @@ const mouseInChild = ref(false);
 
 const items = ref<MenuProvider['items']>({});
 const subMenus = ref<MenuProvider['subMenus']>({});
-const timer = ref<ReturnType<typeof setTimeout> | null>(null);
+const timer = ref<null | ReturnType<typeof setTimeout>>(null);
 
 createSubMenuContext({
   addSubMenu,

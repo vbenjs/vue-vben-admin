@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import type { AnyFunction } from '@vben-core/typings';
+import type { AnyFunction } from '@vben/types';
 
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { LockKeyhole, LogOut, SwatchBook } from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { LockKeyhole, LogOut, SwatchBook } from '@vben/icons';
+import { $t } from '@vben/locales';
+import { preferences, usePreferences } from '@vben/preferences';
+import { useCoreLockStore } from '@vben/stores';
+import { isWindowsOs } from '@vben/utils';
 import {
   Badge,
   DropdownMenu,
@@ -20,7 +22,6 @@ import {
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
-import { isWindowsOs } from '@vben-core/toolkit';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 
@@ -69,7 +70,7 @@ const props = withDefaults(defineProps<Props>(), {
   text: '',
 });
 
-const emit = defineEmits<{ lockScreen: [string]; logout: [] }>();
+const emit = defineEmits<{ logout: [] }>();
 const openPopover = ref(false);
 const openDialog = ref(false);
 const openLock = ref(false);
@@ -79,6 +80,7 @@ const {
   globalLogoutShortcutKey,
   globalPreferencesShortcutKey,
 } = usePreferences();
+const coreLockStore = useCoreLockStore();
 const { handleOpenPreference } = useOpenPreferences();
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
@@ -109,7 +111,7 @@ function handleSubmitLock({
   lockScreenPassword: string;
 }) {
   openLock.value = false;
-  emit('lockScreen', lockScreenPassword);
+  coreLockStore.lockScreen(lockScreenPassword);
 }
 function handleLogout() {
   // emit

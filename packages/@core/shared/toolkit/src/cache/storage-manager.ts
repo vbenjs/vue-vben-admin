@@ -67,7 +67,7 @@ class StorageManager {
    * @param defaultValue 当项不存在或已过期时返回的默认值
    * @returns 值，如果项已过期或解析错误则返回默认值
    */
-  getItem<T>(key: string, defaultValue: T | null = null): T | null {
+  getItem<T>(key: string, defaultValue: null | T = null): null | T {
     const fullKey = this.getFullKey(key);
     const itemStr = this.storage.getItem(fullKey);
     if (!itemStr) {

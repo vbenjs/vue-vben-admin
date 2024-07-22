@@ -11,8 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "stub": "pnpm unbuild --stub"
+    "#build": "pnpm unbuild"
   },
   "files": [
     "dist"
@@ -26,7 +25,8 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
+      "#default": "./dist/index.mjs",
+      "default": "./src/index.ts"
     }
   },
   "publishConfig": {

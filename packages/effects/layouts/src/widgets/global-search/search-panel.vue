@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben/types';
 
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { SearchX, X } from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
+import { SearchX, X } from '@vben/icons';
+import { $t } from '@vben/locales';
+import { mapTree, traverseTreeValues, uniqueByField } from '@vben/utils';
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
-import { mapTree, traverseTreeValues, uniqueByField } from '@vben-core/toolkit';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 

@@ -1,6 +1,6 @@
 import type { RouteRecordStringComponent } from '@vben/types';
 
-import { requestClient } from '#/forward';
+import { requestClient } from '#/apis/request';
 
 /**
  * 获取用户所有菜单

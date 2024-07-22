@@ -1,14 +1,11 @@
-import type {
-  AccessModeType,
-  GenerateMenuAndRoutesOptions,
-} from '@vben-core/typings';
+import type { AccessModeType, GenerateMenuAndRoutesOptions } from '@vben/types';
 
 import {
+  cloneDepp,
   generateMenus,
   generateRoutesByBackend,
   generateRoutesByFrontend,
-} from '@vben-core/helpers';
-import { cloneDepp } from '@vben-core/toolkit';
+} from '@vben/utils';
 
 async function generateAccessible(
   mode: AccessModeType,

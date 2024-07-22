@@ -4,9 +4,9 @@ import type { RouteLocationNormalized } from 'vue-router';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences } from '@vben-core/preferences';
+import { preferences } from '@vben/preferences';
+import { useCoreTabbarStore } from '@vben/stores';
 import { Spinner } from '@vben-core/shadcn-ui';
-import { useCoreTabbarStore } from '@vben-core/stores';
 
 defineOptions({ name: 'IFrameRouterView' });
 

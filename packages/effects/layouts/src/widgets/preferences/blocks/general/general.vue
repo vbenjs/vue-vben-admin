@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben-core/typings';
+import type { SelectOption } from '@vben/types';
 
-import { $t } from '@vben-core/locales';
-import { SUPPORT_LANGUAGES } from '@vben-core/preferences';
+import { $t } from '@vben/locales';
+import { SUPPORT_LANGUAGES } from '@vben/preferences';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';

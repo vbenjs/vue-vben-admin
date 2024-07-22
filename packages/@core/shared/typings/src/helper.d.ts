@@ -39,7 +39,7 @@ type AnyFunction<T extends any[] = any[], R = void> =
 /**
  *  T | null 包装
  */
-type Nullable<T> = T | null;
+type Nullable<T> = null | T;
 
 /**
  * T | Not null 包装

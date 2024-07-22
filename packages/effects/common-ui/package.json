@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
+    "#build": "pnpm unbuild",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -26,7 +26,8 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
+      "#default": "./dist/index.mjs",
+      "default": "./src/index.ts"
     }
   },
   "publishConfig": {
@@ -37,11 +38,11 @@
     }
   },
   "dependencies": {
-    "@vben-core/hooks": "workspace:*",
-    "@vben-core/icons": "workspace:*",
-    "@vben-core/locales": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/constants": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
     "@vueuse/integrations": "^10.11.0",
     "qrcode": "^1.5.3",

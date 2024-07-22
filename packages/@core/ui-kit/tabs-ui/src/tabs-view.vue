@@ -29,7 +29,7 @@ const emit = defineEmits<{
 
 const forward = useForwardPropsEmits(props, emit);
 
-const sortableInstance = ref<Sortable | null>(null);
+const sortableInstance = ref<null | Sortable>(null);
 
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
 function findParentElement(element: HTMLElement) {

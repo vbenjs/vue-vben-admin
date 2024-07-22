@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 import { AuthenticationForgetPassword } from '@vben/common-ui';
+import { LOGIN_PATH } from '@vben/constants';
 
 defineOptions({ name: 'ForgetPassword' });
 
@@ -14,5 +15,9 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <AuthenticationForgetPassword :loading="loading" @submit="handleSubmit" />
+  <AuthenticationForgetPassword
+    :loading="loading"
+    :login-path="LOGIN_PATH"
+    @submit="handleSubmit"
+  />
 </template>

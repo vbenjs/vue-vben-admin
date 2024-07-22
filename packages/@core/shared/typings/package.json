@@ -11,8 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "stub": "pnpm build --stub"
+    "build": "pnpm unbuild"
   },
   "files": [
     "dist"

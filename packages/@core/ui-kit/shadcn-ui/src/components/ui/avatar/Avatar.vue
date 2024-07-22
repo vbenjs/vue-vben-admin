@@ -5,7 +5,7 @@ import { cn } from '@vben-core/toolkit';
 
 import { AvatarRoot } from 'radix-vue';
 
-import { type AvatarVariants, avatarVariant } from './avatar';
+import { avatarVariant, type AvatarVariants } from './avatar';
 
 const props = withDefaults(
   defineProps<{

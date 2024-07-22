@@ -4,8 +4,7 @@ import type { RegisterEmits } from './typings';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { LOGIN_PATH } from '@vben/constants';
-import { $t } from '@vben-core/locales';
+import { $t } from '@vben/locales';
 import {
   VbenButton,
   VbenCheckbox,
@@ -32,7 +31,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
-  loginPath: LOGIN_PATH,
+  loginPath: '/auth/login',
 });
 
 const emit = defineEmits<{

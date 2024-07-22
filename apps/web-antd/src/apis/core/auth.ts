@@ -1,6 +1,6 @@
 import type { UserApi } from '../types';
 
-import { requestClient } from '#/forward';
+import { requestClient } from '#/apis/request';
 
 /**
  * 登录

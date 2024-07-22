@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Component, computed } from 'vue';
 
-import { $t } from '@vben-core/locales';
+import { $t } from '@vben/locales';
 
 import { ContentCompact, ContentWide } from '../../icons';
 

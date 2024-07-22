@@ -1,16 +1,16 @@
 <script setup lang="ts">
+import type { AuthPageLayoutType } from '@vben/types';
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
-import type { AuthPageLayoutType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { InspectionPanel, PanelLeft, PanelRight } from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
+import { InspectionPanel, PanelLeft, PanelRight } from '@vben/icons';
+import { $t } from '@vben/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@vben-core/preferences';
+} from '@vben/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
 
 defineOptions({

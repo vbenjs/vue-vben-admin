@@ -1,11 +1,11 @@
 <script lang="ts" setup>
+import type { BreadcrumbStyleType } from '@vben/types';
 import type { IBreadcrumb } from '@vben-core/shadcn-ui';
-import type { BreadcrumbStyleType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { $t } from '@vben-core/locales';
+import { $t } from '@vben/locales';
 import { VbenBackgroundBreadcrumb, VbenBreadcrumb } from '@vben-core/shadcn-ui';
 
 interface Props {

@@ -1,4 +1,4 @@
-import type { RouteRecordRaw, Router } from 'vue-router';
+import type { Router, RouteRecordRaw } from 'vue-router';
 
 import type { Component } from 'vue';
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben-core/typings';
+import type { SelectOption } from '@vben/types';
 
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@vben-core/icons';
+import { CircleHelp } from '@vben/icons';
 import { Input, VbenTooltip } from '@vben-core/shadcn-ui';
 
 defineOptions({

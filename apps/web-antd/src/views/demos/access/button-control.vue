@@ -7,7 +7,7 @@ import { AccessControl, useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
-import { useAccessStore, useAppStore } from '#/store';
+import { resetAllStores, useAccessStore } from '#/store';
 
 defineOptions({ name: 'AccessButtonControl' });
 
@@ -28,7 +28,6 @@ const accounts: Record<string, LoginAndRegisterParams> = {
 
 const { accessMode, hasAccessByCodes } = useAccess();
 const accessStore = useAccessStore();
-const appStore = useAppStore();
 const router = useRouter();
 
 function roleButtonType(role: string) {
@@ -41,7 +40,7 @@ async function changeAccount(role: string) {
   }
 
   const account = accounts[role];
-  appStore.resetAppState();
+  resetAllStores();
   await accessStore.authLogin(account, async () => {
     router.go(0);
   });

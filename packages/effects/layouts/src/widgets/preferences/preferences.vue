@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { loadLocaleMessages } from '@vben-core/locales';
-import { preferences, updatePreferences } from '@vben-core/preferences';
-import { capitalizeFirstLetter } from '@vben-core/toolkit';
+import { loadLocaleMessages } from '@vben/locales';
+import { preferences, updatePreferences } from '@vben/preferences';
+import { capitalizeFirstLetter } from '@vben/utils';
 
 import Preferences from './preferences-sheet.vue';
 

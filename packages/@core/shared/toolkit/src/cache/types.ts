@@ -7,7 +7,7 @@ interface StorageValue<T> {
 
 interface IStorageCache {
   clear(): void;
-  getItem<T>(key: string): T | null;
+  getItem<T>(key: string): null | T;
   key(index: number): null | string;
   length(): number;
   removeItem(key: string): void;

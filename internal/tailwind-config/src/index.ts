@@ -30,8 +30,8 @@ const shadcnUiColors = {
     hover: 'hsl(var(--accent-hover))',
   },
   background: {
-    DEFAULT: 'hsl(var(--background))',
     deep: 'hsl(var(--background-deep))',
+    DEFAULT: 'hsl(var(--background))',
   },
   border: {
     DEFAULT: 'hsl(var(--border))',
@@ -50,8 +50,8 @@ const shadcnUiColors = {
   },
 
   input: {
-    DEFAULT: 'hsl(var(--input))',
     background: 'hsl(var(--input-background))',
+    DEFAULT: 'hsl(var(--input))',
   },
   muted: {
     DEFAULT: 'hsl(var(--muted))',
@@ -95,8 +95,8 @@ const customColors = {
     foreground: 'hsl(var(--destructive-foreground))',
   },
   sidebar: {
-    DEFAULT: 'hsl(var(--sidebar))',
     deep: 'hsl(var(--sidebar-deep))',
+    DEFAULT: 'hsl(var(--sidebar))',
   },
   success: {
     ...createColorsPalette('success'),

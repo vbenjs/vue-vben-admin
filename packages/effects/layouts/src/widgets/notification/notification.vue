@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
-import { Bell, MailCheck } from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
+import { Bell, MailCheck } from '@vben/icons';
+import { $t } from '@vben/locales';
 import {
   VbenButton,
   VbenIconButton,

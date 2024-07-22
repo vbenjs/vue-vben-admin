@@ -41,4 +41,4 @@ function isValidColor(color?: string) {
   return new TinyColor(color).isValid;
 }
 
-export { TinyColor, convertToHsl, convertToHslCssVar, isValidColor };
+export { convertToHsl, convertToHslCssVar, isValidColor, TinyColor };

@@ -6,7 +6,7 @@ import type { Component, VNode } from 'vue';
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1_000_000;
 
-export type StringOrVNode = (() => VNode) | VNode | string;
+export type StringOrVNode = (() => VNode) | string | VNode;
 
 type ToasterToast = {
   action?: Component;

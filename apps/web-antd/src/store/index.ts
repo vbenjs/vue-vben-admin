@@ -1,8 +1,8 @@
-import type { InitStoreOptions } from '@vben-core/stores';
+import type { InitStoreOptions } from '@vben/stores';
 
 import type { App } from 'vue';
 
-import { initStore, storeToRefs } from '@vben-core/stores';
+import { initStore, resetAllStores, storeToRefs } from '@vben/stores';
 
 /**
  * @zh_CN 初始化pinia
@@ -13,7 +13,6 @@ async function setupStore(app: App, options: InitStoreOptions) {
   app.use(pinia);
 }
 
-export { setupStore, storeToRefs };
+export { resetAllStores, setupStore, storeToRefs };
 
 export { useAccessStore } from './modules/access';
-export { useAppStore } from './modules/app';

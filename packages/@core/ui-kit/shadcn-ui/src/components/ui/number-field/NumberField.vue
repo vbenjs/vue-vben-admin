@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue';
 
-import { type HTMLAttributes, computed } from 'vue';
+import { computed, type HTMLAttributes } from 'vue';
 
 import { cn } from '@vben-core/toolkit';
 

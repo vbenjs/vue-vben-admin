@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { LoginExpiredModeType } from '@vben/types';
 
-import { preferences, updatePreferences } from '@vben-core/preferences';
+import { preferences, updatePreferences } from '@vben/preferences';
 
 import { Button } from 'ant-design-vue';
 

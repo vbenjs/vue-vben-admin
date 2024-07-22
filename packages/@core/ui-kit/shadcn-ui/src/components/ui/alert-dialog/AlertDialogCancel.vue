@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue';
+import { computed, type HTMLAttributes } from 'vue';
 
 import { buttonVariants } from '@vben-core/shadcn-ui/components/ui/button';
 import { cn } from '@vben-core/toolkit';

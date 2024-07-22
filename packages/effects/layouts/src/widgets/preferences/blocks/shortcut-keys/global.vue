@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@vben-core/locales';
-import { isWindowsOs } from '@vben-core/toolkit';
+import { $t } from '@vben/locales';
+import { isWindowsOs } from '@vben/utils';
 
 import SwitchItem from '../switch-item.vue';
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { SegmentedItem } from '@vben-core/shadcn-ui';
 import type {
   BreadcrumbStyleType,
   BuiltinThemeType,
@@ -9,24 +8,25 @@ import type {
   NavigationStyleType,
   SupportedLanguagesType,
   ThemeModeType,
-} from '@vben-core/typings';
+} from '@vben/types';
+import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw, SwatchBook } from '@vben-core/icons';
-import { $t, loadLocaleMessages } from '@vben-core/locales';
+import { Copy, RotateCw, SwatchBook } from '@vben/icons';
+import { $t, loadLocaleMessages } from '@vben/locales';
 import {
   clearPreferencesCache,
   preferences,
   resetPreferences,
   usePreferences,
-} from '@vben-core/preferences';
+} from '@vben/preferences';
 import {
+  useToast,
   VbenButton,
   VbenIconButton,
   VbenSegmented,
   VbenSheet,
-  useToast,
 } from '@vben-core/shadcn-ui';
 
 import { useClipboard } from '@vueuse/core';

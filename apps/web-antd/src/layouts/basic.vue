@@ -12,12 +12,12 @@ import {
   NotificationItem,
   UserDropdown,
 } from '@vben/layouts';
+import { preferences } from '@vben/preferences';
 import { openWindow } from '@vben/utils';
-import { preferences } from '@vben-core/preferences';
 
 import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
-import { storeToRefs, useAccessStore, useAppStore } from '#/store';
+import { resetAllStores, storeToRefs, useAccessStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -84,10 +84,8 @@ const menus = computed(() => [
   },
 ]);
 
-const appStore = useAppStore();
 const accessStore = useAccessStore();
 
-const { isLockScreen, lockScreenPassword } = storeToRefs(appStore);
 const {
   loading: loginLoading,
   openLoginExpiredModal,
@@ -101,8 +99,7 @@ const avatar = computed(() => {
 const router = useRouter();
 
 async function handleLogout() {
-  appStore.resetAppState();
-  appStore.unlockScreen();
+  resetAllStores();
   resetRoutes();
   await router.replace(LOGIN_PATH);
 }
@@ -113,10 +110,6 @@ function handleNoticeClear() {
 
 function handleMakeAll() {
   notifications.value.forEach((item) => (item.isRead = true));
-}
-
-function handleLockScreen(password: string) {
-  appStore.lockScreen(password);
 }
 </script>
 
@@ -129,7 +122,6 @@ function handleLockScreen(password: string) {
         :text="userInfo?.realName"
         description="ann.vben@gmail.com"
         tag-text="Pro"
-        @lock-screen="handleLockScreen"
         @logout="handleLogout"
       />
     </template>
@@ -152,13 +144,7 @@ function handleLockScreen(password: string) {
       />
     </template>
     <template #lock-screen>
-      <LockScreen
-        v-if="isLockScreen"
-        :avatar
-        :cached-password="lockScreenPassword"
-        @to-login="handleLogout"
-        @unlock="appStore.unlockScreen"
-      />
+      <LockScreen :avatar @to-login="handleLogout" />
     </template>
   </BasicLayout>
 </template>

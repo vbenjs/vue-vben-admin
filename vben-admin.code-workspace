@@ -45,28 +45,12 @@
       "path": "internal/vite-config",
     },
     {
-      "name": "@vben-core/helpers",
-      "path": "packages/@core/forward/helpers",
-    },
-    {
-      "name": "@vben-core/preferences",
-      "path": "packages/@core/forward/preferences",
-    },
-    {
-      "name": "@vben-core/request",
-      "path": "packages/@core/forward/request",
-    },
-    {
-      "name": "@vben-core/stores",
-      "path": "packages/@core/forward/stores",
-    },
-    {
       "name": "@vben-core/hooks",
       "path": "packages/@core/hooks",
     },
     {
-      "name": "@vben-core/locales",
-      "path": "packages/@core/locales",
+      "name": "@vben-core/preferences",
+      "path": "packages/@core/preferences",
     },
     {
       "name": "@vben-core/constants",
@@ -121,16 +105,32 @@
       "path": "packages/effects/common-ui",
     },
     {
+      "name": "@vben/hooks",
+      "path": "packages/effects/hooks",
+    },
+    {
       "name": "@vben/layouts",
       "path": "packages/effects/layouts",
     },
     {
-      "name": "@vben/hooks",
-      "path": "packages/hooks",
+      "name": "@vben/request",
+      "path": "packages/effects/request",
     },
     {
       "name": "@vben/icons",
       "path": "packages/icons",
+    },
+    {
+      "name": "@vben/locales",
+      "path": "packages/locales",
+    },
+    {
+      "name": "@vben/preferences",
+      "path": "packages/preferences",
+    },
+    {
+      "name": "@vben/stores",
+      "path": "packages/stores",
     },
     {
       "name": "@vben/styles",

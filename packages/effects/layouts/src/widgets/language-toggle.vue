@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@vben-core/typings';
+import type { SupportedLanguagesType } from '@vben/types';
 
-import { Languages } from '@vben-core/icons';
-import { loadLocaleMessages } from '@vben-core/locales';
+import { Languages } from '@vben/icons';
+import { loadLocaleMessages } from '@vben/locales';
 import {
-  SUPPORT_LANGUAGES,
   preferences,
+  SUPPORT_LANGUAGES,
   updatePreferences,
-} from '@vben-core/preferences';
+} from '@vben/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
 
 defineOptions({

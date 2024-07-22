@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
+    "#build": "pnpm unbuild",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -26,7 +26,8 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
+      "#default": "./dist/index.mjs",
+      "default": "./src/index.ts"
     }
   },
   "publishConfig": {
@@ -37,11 +38,10 @@
     }
   },
   "dependencies": {
-    "@vben-core/helpers": "workspace:*",
-    "@vben-core/preferences": "workspace:*",
-    "@vben-core/stores": "workspace:*",
-    "@vben-core/toolkit": "workspace:*",
-    "@vben-core/typings": "workspace:*",
+    "@vben/preferences": "workspace:*",
+    "@vben/stores": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*",
     "vue": "^3.4.33"
   }
 }

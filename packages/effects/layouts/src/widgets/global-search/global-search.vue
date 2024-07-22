@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben/types';
 
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
@@ -9,8 +9,9 @@ import {
   CornerDownLeft,
   MdiKeyboardEsc,
   Search,
-} from '@vben-core/icons';
-import { $t } from '@vben-core/locales';
+} from '@vben/icons';
+import { $t } from '@vben/locales';
+import { isWindowsOs } from '@vben/utils';
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@vben-core/shadcn-ui';
-import { isWindowsOs } from '@vben-core/toolkit';
 
 import { useMagicKeys, useToggle, whenever } from '@vueuse/core';
 

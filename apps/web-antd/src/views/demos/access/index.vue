@@ -7,7 +7,7 @@ import { useAccess } from '@vben/access';
 
 import { Button } from 'ant-design-vue';
 
-import { useAccessStore, useAppStore } from '#/store';
+import { resetAllStores, useAccessStore } from '#/store';
 
 defineOptions({ name: 'Access' });
 
@@ -28,7 +28,6 @@ const accounts: Record<string, LoginAndRegisterParams> = {
 
 const { accessMode, toggleAccessMode } = useAccess();
 const accessStore = useAccessStore();
-const appStore = useAppStore();
 const router = useRouter();
 
 function roleButtonType(role: string) {
@@ -41,7 +40,7 @@ async function changeAccount(role: string) {
   }
 
   const account = accounts[role];
-  appStore.resetAppState();
+  resetAllStores();
   await accessStore.authLogin(account, async () => {
     router.go(0);
   });
@@ -49,7 +48,8 @@ async function changeAccount(role: string) {
 
 async function handleToggleAccessMode() {
   await toggleAccessMode();
-  appStore.resetAppState();
+  resetAllStores();
+
   await accessStore.authLogin(accounts.super, async () => {
     router.go(0);
   });

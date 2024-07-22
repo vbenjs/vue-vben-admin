@@ -1,15 +1,16 @@
 import type { Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
+import { preferences } from '@vben/preferences';
 import { startProgress, stopProgress } from '@vben/utils';
-import { preferences } from '@vben-core/preferences';
 
 import { useTitle } from '@vueuse/core';
 
-import { generateAccess } from '#/forward';
 import { $t } from '#/locales';
 import { coreRouteNames, dynamicRoutes } from '#/router/routes';
 import { useAccessStore } from '#/store';
+
+import { generateAccess } from './access';
 
 /**
  * 通用守卫配置

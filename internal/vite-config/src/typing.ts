@@ -70,7 +70,7 @@ interface CommonPluginOptions {
   /** 构建模式 */
   mode?: string;
   /** 开启依赖分析 */
-  visualizer?: PluginVisualizerOptions | boolean;
+  visualizer?: boolean | PluginVisualizerOptions;
 }
 
 interface ApplicationPluginOptions extends CommonPluginOptions {
@@ -110,7 +110,7 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
 
 interface LibraryPluginOptions extends CommonPluginOptions {
   /** 开启 dts 输出 */
-  dts?: PluginOptions | boolean;
+  dts?: boolean | PluginOptions;
 
   /** 是否注入lib css */
   injectLibCss?: boolean;

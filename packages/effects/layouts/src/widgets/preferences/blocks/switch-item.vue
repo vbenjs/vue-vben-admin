@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@vben-core/icons';
+import { CircleHelp } from '@vben/icons';
 import { Switch, VbenTooltip } from '@vben-core/shadcn-ui';
 
 defineOptions({

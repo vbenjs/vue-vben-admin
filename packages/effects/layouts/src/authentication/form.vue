@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { preferences } from '@vben-core/preferences';
+import { preferences } from '@vben/preferences';
 
 import { Copyright } from '../basic/copyright';
 import Toolbar from './toolbar.vue';

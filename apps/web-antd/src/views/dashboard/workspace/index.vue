@@ -16,7 +16,7 @@ import {
   WorkbenchTodo,
   WorkbenchTrends,
 } from '@vben/common-ui';
-import { preferences } from '@vben-core/preferences';
+import { preferences } from '@vben/preferences';
 
 import { useAccessStore } from '#/store';
 

@@ -1,5 +1,5 @@
+import type { TabDefinition } from '@vben/types';
 import type { IContextMenuItem } from '@vben-core/tabs-ui';
-import type { TabDefinition } from '@vben-core/typings';
 import type {
   RouteLocationNormalized,
   RouteLocationNormalizedGeneric,
@@ -8,7 +8,7 @@ import type {
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { useContentMaximize, useTabs } from '@vben-core/hooks';
+import { useContentMaximize, useTabs } from '@vben/hooks';
 import {
   ArrowLeftToLine,
   ArrowRightLeft,
@@ -21,14 +21,14 @@ import {
   Minimize2,
   RotateCw,
   X,
-} from '@vben-core/icons';
-import { $t, useI18n } from '@vben-core/locales';
+} from '@vben/icons';
+import { $t, useI18n } from '@vben/locales';
 import {
   storeToRefs,
   useCoreAccessStore,
   useCoreTabbarStore,
-} from '@vben-core/stores';
-import { filterTree } from '@vben-core/toolkit';
+} from '@vben/stores';
+import { filterTree } from '@vben/utils';
 
 export function useTabbar() {
   const router = useRouter();

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watchEffect } from 'vue';
 
-import { LockKeyhole } from '@vben-core/icons';
-import { $t, useI18n } from '@vben-core/locales';
+import { LockKeyhole } from '@vben/icons';
+import { $t, useI18n } from '@vben/locales';
+import { storeToRefs, useCoreLockStore } from '@vben/stores';
 import {
   VbenAvatar,
   VbenButton,
@@ -13,21 +14,20 @@ import { useDateFormat, useNow } from '@vueuse/core';
 
 interface Props {
   avatar?: string;
-  cachedPassword?: string;
 }
 
 defineOptions({
   name: 'LockScreen',
 });
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   avatar: '',
-  cachedPassword: undefined,
 });
 
-const emit = defineEmits<{ toLogin: []; unlock: [string] }>();
+defineEmits<{ toLogin: [] }>();
 
 const { locale } = useI18n();
+const coreLockStore = useCoreLockStore();
 
 const now = useNow();
 const meridiem = useDateFormat(now, 'A');
@@ -37,6 +37,7 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 
 const showUnlockForm = ref(false);
 const validPass = ref(true);
+const { lockScreenPassword } = storeToRefs(coreLockStore);
 
 const formState = reactive({
   password: '',
@@ -56,7 +57,7 @@ const passwordStatus = computed(() => {
 });
 
 const errorTip = computed(() => {
-  return props.cachedPassword === undefined || !formState.password
+  return lockScreenPassword?.value === undefined || !formState.password
     ? $t('widgets.lockScreen.placeholder')
     : $t('widgets.lockScreen.errorPasswordTip');
 });
@@ -72,11 +73,11 @@ function handleSubmit() {
   if (passwordStatus.value !== 'default') {
     return;
   }
-  if (props.cachedPassword !== formState.password) {
+  if (lockScreenPassword?.value !== formState.password) {
     validPass.value = false;
     return;
   }
-  emit('unlock', formState.password);
+  coreLockStore.unlockScreen();
 }
 
 function toggleUnlockForm() {

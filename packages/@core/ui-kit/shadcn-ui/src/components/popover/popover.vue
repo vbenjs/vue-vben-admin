@@ -5,7 +5,7 @@ import type {
   PopoverRootProps,
 } from 'radix-vue';
 
-import { HTMLAttributes, computed } from 'vue';
+import { computed, HTMLAttributes } from 'vue';
 
 import {
   PopoverContent,

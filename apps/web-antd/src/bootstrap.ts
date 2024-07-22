@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 
+import { preferences } from '@vben/preferences';
 import '@vben/styles';
 import '@vben/styles/antd';
-import { preferences } from '@vben-core/preferences';
 
 import { loadMessages, setupI18n } from '#/locales';
 import { setupStore } from '#/store';

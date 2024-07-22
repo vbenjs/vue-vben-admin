@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { VbenAdminLayout } from '@vben-core/layout-ui';
-import { $t } from '@vben-core/locales';
+import { $t } from '@vben/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@vben-core/preferences';
+} from '@vben/preferences';
+import { useCoreLockStore } from '@vben/stores';
+import { MenuRecordRaw } from '@vben/types';
+import { mapTree } from '@vben/utils';
+import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
-import { mapTree } from '@vben-core/toolkit';
-import { MenuRecordRaw } from '@vben-core/typings';
 
 import { Breadcrumb, CozeAssistant, Preferences } from '../widgets';
 import { LayoutContent } from './content';
@@ -39,6 +40,7 @@ const {
   layout,
   sidebarCollapsed,
 } = usePreferences();
+const coreLockStore = useCoreLockStore();
 
 const headerMenuTheme = computed(() => {
   return isDark.value ? 'dark' : 'light';
@@ -293,7 +295,7 @@ function clearPreferencesAndLogout() {
     <template #extra>
       <slot name="extra"></slot>
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">
-        <slot name="lock-screen"></slot>
+        <slot v-if="coreLockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
     </template>
   </VbenAdminLayout>

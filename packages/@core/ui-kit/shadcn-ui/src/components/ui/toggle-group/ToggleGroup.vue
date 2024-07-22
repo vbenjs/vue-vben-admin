@@ -2,7 +2,7 @@
 import type { toggleVariants } from '@vben-core/shadcn-ui/components/ui/toggle';
 import type { VariantProps } from 'class-variance-authority';
 
-import { type HTMLAttributes, computed, provide } from 'vue';
+import { computed, type HTMLAttributes, provide } from 'vue';
 
 import { cn } from '@vben-core/toolkit';
 

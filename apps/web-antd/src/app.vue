@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 import { GlobalProvider } from '@vben/common-ui';
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';
 

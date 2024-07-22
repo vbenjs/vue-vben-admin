@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben-core/typings';
+import type { SelectOption } from '@vben/types';
 
 import { ToggleGroup, ToggleGroupItem } from '@vben-core/shadcn-ui';
 

@@ -1,13 +1,10 @@
 import type { Linter } from 'eslint';
 
-export async function perfectionist(): Promise<Linter.FlatConfig[]> {
-  const [perfectionistNatural] = await Promise.all([
-    // @ts-expect-error - no types
-    import('eslint-plugin-perfectionist/configs/recommended-natural'),
-  ] as const);
+import perfectionistPlugin from 'eslint-plugin-perfectionist';
 
+export async function perfectionist(): Promise<Linter.FlatConfig[]> {
   return [
-    perfectionistNatural,
+    perfectionistPlugin.configs['recommended-natural'],
     {
       rules: {
         'perfectionist/sort-exports': [
@@ -20,7 +17,7 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
         'perfectionist/sort-imports': [
           'error',
           {
-            'custom-groups': {
+            customGroups: {
               type: {
                 vben: 'vben',
                 vue: 'vue',
@@ -46,8 +43,8 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
               'object',
               'unknown',
             ],
-            'internal-pattern': ['#*', '#*/**'],
-            'newlines-between': 'always',
+            internalPattern: ['#*', '#*/**'],
+            newlinesBetween: 'always',
             order: 'asc',
             type: 'natural',
           },
@@ -62,15 +59,15 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
         'perfectionist/sort-objects': [
           'error',
           {
-            'custom-groups': {
+            customGroups: {
               items: 'items',
               list: 'list',
               children: 'children',
             },
             groups: ['unknown', 'items', 'list', 'children'],
-            'ignore-pattern': ['children'],
+            ignorePattern: ['children'],
             order: 'asc',
-            'partition-by-comment': 'Part:**',
+            partitionByComment: 'Part:**',
             type: 'natural',
           },
         ],
@@ -78,7 +75,7 @@ export async function perfectionist(): Promise<Linter.FlatConfig[]> {
           'error',
           {
             // Based on: https://vuejs.org/style-guide/rules-recommended.html#element-attribute-order
-            'custom-groups': {
+            customGroups: {
               /* eslint-disable perfectionist/sort-objects */
               DEFINITION: '*(is|:is|v-is)',
               LIST_RENDERING: 'v-for',

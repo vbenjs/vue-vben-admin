@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HoverCardRootEmits, HoverCardRootProps } from 'radix-vue';
 
-import { HTMLAttributes, computed } from 'vue';
+import { computed, HTMLAttributes } from 'vue';
 
 import {
   HoverCard,

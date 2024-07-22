@@ -165,11 +165,11 @@
   },
 
   "cssVariables.lookupFiles": [
-    "packages/@vben-core/shared/design-tokens/src/**/*.css"
+    "packages/@vben-core/shared/design/src/**/*.css"
   ],
 
   "i18n-ally.localesPaths": [
-    "packages/@core/locales/src/langs",
+    "packages/locales/src/langs",
     "apps/*/src/locales/langs"
   ],
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],

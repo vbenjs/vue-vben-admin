@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
+import { useCoreAccessStore } from '@vben/stores';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
-import { useCoreAccessStore } from '@vben-core/stores';
 
 import { GlobalSearch, LanguageToggle, ThemeToggle } from '../../widgets';
 

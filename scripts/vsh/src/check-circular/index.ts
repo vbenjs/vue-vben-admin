@@ -13,7 +13,7 @@ const IGNORE_DIR = [
   '.cache',
   'scripts',
   'internal',
-  'packages/@core/forward/request/src/',
+  'packages/effects/request/src/',
   'packages/@core/ui-kit/menu-ui/src/',
 ].join(',');
 

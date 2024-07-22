@@ -105,8 +105,8 @@ interface MenuProvider {
   isMenuPopup: boolean;
   items: Record<string, MenuItemRegistered>;
 
-  openMenu: (path: string, parentLinks: string[]) => void;
   openedMenus: string[];
+  openMenu: (path: string, parentLinks: string[]) => void;
   props: MenuProps;
   removeMenuItem: (item: MenuItemRegistered) => void;
 

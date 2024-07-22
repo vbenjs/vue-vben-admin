@@ -5,7 +5,7 @@ import type EchartsUI from './echarts-ui.vue';
 import type { Ref } from 'vue';
 import { computed, nextTick, watch } from 'vue';
 
-import { preferences, usePreferences } from '@vben-core/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
 
 import {
   tryOnUnmounted,

@@ -1,6 +1,6 @@
 # @vben/utils
 
-用于多个 `app` 公用的工具包，继承了 `@vben-core/toolkit` 的所有能力。业务上有通用的工具函数可以放在这里。
+用于多个 `app` 公用的工具包，继承了 `@vben-core/toolkit`、`@vben-core/helper`、`@vben-core/request` 的所有能力。业务上有通用的工具函数可以放在这里。
 
 ## 用法
 

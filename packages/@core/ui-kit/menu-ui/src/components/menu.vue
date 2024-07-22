@@ -7,13 +7,13 @@ import type {
 } from '../interface';
 
 import {
-  type VNodeArrayChildren,
   computed,
   nextTick,
   reactive,
   ref,
   toRef,
   useSlots,
+  type VNodeArrayChildren,
   watch,
   watchEffect,
 } from 'vue';
@@ -22,7 +22,7 @@ import { useNamespace } from '@vben-core/hooks';
 import { Ellipsis } from '@vben-core/icons';
 import { isHttpUrl } from '@vben-core/toolkit';
 
-import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';
+import { useResizeObserver, UseResizeObserverReturn } from '@vueuse/core';
 
 import {
   createMenuContext,
@@ -121,8 +121,8 @@ createMenuContext(
     handleMenuItemClick,
     handleSubMenuClick,
     isMenuPopup,
-    openMenu,
     openedMenus,
+    openMenu,
     props,
     removeMenuItem,
     removeSubMenu,
@@ -176,7 +176,7 @@ function calcSliceIndex() {
 }
 
 function debounce(fn: () => void, wait = 33.34) {
-  let timer: ReturnType<typeof setTimeout> | null;
+  let timer: null | ReturnType<typeof setTimeout>;
   return () => {
     timer && clearTimeout(timer);
     timer = setTimeout(() => {
