@@ -24,7 +24,7 @@ import { Persistent } from '@/utils/cache/persistent';
 export function initAppConfigStore() {
   const localeStore = useLocaleStore();
   const appStore = useAppStore();
-  let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
+  let projCfg = Persistent.getLocal<ProjectConfig>(PROJ_CFG_KEY);
   projCfg = deepMerge(projectSetting, projCfg || {});
   const darkMode = appStore.getDarkMode;
   const {
