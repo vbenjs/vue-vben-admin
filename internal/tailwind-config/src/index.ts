@@ -160,7 +160,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          'var(--font-geist-sans)',
+          'var(--font-family)',
           //  ...defaultTheme.fontFamily.sans
         ],
       },

@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import { GlobalProvider } from '@vben/common-ui';
+import { useDesignTokens } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 
 import { App, ConfigProvider, theme } from 'ant-design-vue';
@@ -11,6 +12,7 @@ import { antdLocale } from '#/locales';
 defineOptions({ name: 'App' });
 
 const { isDark } = usePreferences();
+const { antDesignTokens } = useDesignTokens();
 
 const tokenTheme = computed(() => {
   const algorithm = isDark.value
@@ -24,7 +26,7 @@ const tokenTheme = computed(() => {
 
   return {
     algorithm,
-    token: { colorPrimary: preferences.theme.colorPrimary },
+    token: antDesignTokens.value,
   };
 });
 </script>

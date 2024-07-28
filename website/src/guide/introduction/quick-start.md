@@ -81,4 +81,4 @@ pnpm dev
 
 ```
 
-现在，你可以在浏览器访问 [http://localhost:5555](http://localhost:5555) 查看项目。
+现在，你可以在浏览器访问 `http://localhost:5555` 查看项目。

@@ -28,10 +28,9 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 ```css
 :root {
-  --font-geist-sans: 'pingfang sc', -apple-system, blinkmacsystemfont,
-    'segoe ui', helvetica, 'helvetica neue', 'microsoft yahei ui',
-    'microsoft yahei', arial, 'hiragino sans', 'apple color emoji',
-    'segoe ui emoji', 'segoe ui symbol', simsun, sans-serif;
+  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
@@ -331,10 +330,9 @@ type BuiltinThemeType =
 
 ```css
 :root {
-  --font-geist-sans: 'pingfang sc', -apple-system, blinkmacsystemfont,
-    'segoe ui', helvetica, 'helvetica neue', 'microsoft yahei ui',
-    'microsoft yahei', arial, 'hiragino sans', 'apple color emoji',
-    'segoe ui emoji', 'segoe ui symbol', simsun, sans-serif;
+  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;

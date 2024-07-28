@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "private": true,
   "scripts": {
-    "docs:build": "vitepress build",
+    "build": "vitepress build",
     "docs:dev": "vitepress dev",
     "docs:preview": "vitepress preview"
   },

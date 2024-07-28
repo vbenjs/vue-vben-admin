@@ -711,12 +711,6 @@ importers:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
 
-  packages/effects/common-logic:
-    dependencies:
-      vue:
-        specifier: ^3.4.34
-        version: 3.4.34(typescript@5.5.4)
-
   packages/effects/common-ui:
     dependencies:
       '@vben-core/shadcn-ui':
@@ -768,6 +762,9 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../types
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       vue:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
@@ -3089,6 +3086,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3725,7 +3723,7 @@ packages:
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^7.0.0
-      eslint: ^8.56.0
+      eslint: ^8.57.0
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -3772,7 +3770,7 @@ packages:
     resolution: {integrity: sha512-r+JFlm5NdB+JXc7aWWZ3fKSm1gn0pkswEwIYsrGPdsT2GjsRATAKXiNtp3vgAAO1xZhX8alIOEQnNMl3kbTgJw==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
-      eslint: ^8.56.0
+      eslint: ^9.7.0
 
   '@typescript-eslint/visitor-keys@7.17.0':
     resolution: {integrity: sha512-RVGC9UhPOCsfCdI9pU++K4nD7to+jTcMIbXTSOcrLqUEW6gF2pU1UUbYJKc9cvcRSK1UDeMJ7pdMxf4bhMpV/A==}
@@ -5248,7 +5246,7 @@ packages:
     resolution: {integrity: sha512-/UbPA+bYY7nIxcjL3kpcDY3UNdoLHFhyBFzHox2M0ypcUoueTn6woZUUmzzi5et/dXChksasYYFeKE2wshOrhg==}
     engines: {node: '>=16'}
     peerDependencies:
-      eslint: ^8.56.0 || ^9.0.0-0
+      eslint: ^9.7.0
 
   eslint-plugin-jsdoc@48.8.3:
     resolution: {integrity: sha512-AtIvwwW9D17MRkM0Z0y3/xZYaa9mdAvJrkY6fU/HNUwGbmMtHVvK4qRM9CDixGVtfNrQitb8c6zQtdh6cTOvLg==}
@@ -5320,7 +5318,7 @@ packages:
     resolution: {integrity: sha512-n3AKiVpY2/uDcGrS3+QsYDkjPfaOrNrsfQxU9nt5nitd9KuvVXrfAvgCO9DYPSfap+Gqjw9EOrXIsBp5tlHZjA==}
     engines: {node: '>=18.18'}
     peerDependencies:
-      eslint: '>=8.56.0'
+      eslint: ^8.57.0
 
   eslint-plugin-unused-imports@4.0.1:
     resolution: {integrity: sha512-rax76s05z64uQgG9YXsWFmXrgjkaK79AvfeAWiSxhPP6RVGxeRaj4+2u+wxxu/mDy2pmJoOy1QTOEALMia2xGQ==}

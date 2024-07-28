@@ -3,8 +3,5 @@ import { Fallback } from '@vben/common-ui';
 </script>
 
 <template>
-  <div>
-    <Fallback status="coming-soon" />
-    <input />
-  </div>
+  <Fallback status="coming-soon" />
 </template>

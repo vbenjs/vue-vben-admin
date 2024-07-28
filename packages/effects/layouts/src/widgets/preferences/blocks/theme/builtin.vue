@@ -8,7 +8,6 @@ import { $t } from '@vben/locales';
 import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,
-  preferences,
 } from '@vben/preferences';
 import { convertToHsl, TinyColor } from '@vben/utils';
 
@@ -29,9 +28,13 @@ const inputValue = computed(() => {
 const builtinThemePresets = computed(() => {
   return [
     {
-      color: preferences.theme.colorPrimary,
+      color: 'hsl(231 98% 65%)',
       type: 'default',
     },
+    // {
+    //   color: 'hsl(231 98% 65%)',
+    //   type: 'default',
+    // },
     ...BUILT_IN_THEME_PRESETS,
   ];
 });
