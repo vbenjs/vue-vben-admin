@@ -175,7 +175,7 @@ function nav(): DefaultTheme.NavItem[] {
       text: version,
       items: [
         {
-          link: 'https://github.com/vbenjs/vue-vben-admin/blob/main/CHANGELOG.md',
+          link: 'https://github.com/vbenjs/vue-vben-admin/releases',
           text: '更新日志',
         },
         {
@@ -214,8 +214,11 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           text: '为什么选择我们?',
         },
         { link: 'introduction/quick-start', text: '快速开始' },
-        { link: 'introduction/changelog', text: '更新日志' },
-        { link: 'introduction/roadmap', text: '路线图' },
+        {
+          link: 'https://github.com/vbenjs/vue-vben-admin/releases',
+          text: '更新日志',
+        },
+        { link: 'https://github.com/orgs/vbenjs/projects/5', text: '路线图' },
       ],
     },
     {
