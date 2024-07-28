@@ -1,4 +1,4 @@
-<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="200" height="200" src="https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.0/vben-admin/logo.png"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="200" height="200" src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp"> </a> <br> <br>
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
@@ -11,6 +11,10 @@
 
 Vue Vben Admin 是 Vue Vben Admin 的升级版本。作为一个免费开源的中后台模板，它采用了最新的 Vue 3、Vite、TypeScript 等主流技术开发，开箱即用，可用于中后台前端开发，也适合学习参考。
 
+## 升级提示
+
+该版本为最新版本`5.0`, 与其他版本不兼容，如果你是新项目，建议使用最新版本。如果你想查看旧版本，请使用 [v2 分支](https://github.com/vbenjs/vue-vben-admin/tree/v2)
+
 ## 特性
 
 - **最新技术栈**：使用 Vue3/vite 等前端前沿技术开发
@@ -21,10 +25,7 @@ Vue Vben Admin 是 Vue Vben Admin 的升级版本。作为一个免费开源的�
 
 ## 预览
 
-- [vue-vben-admin](https://vben.vvbin.cn/) - 完整版中文站点
-- [vue-vben-admin-gh-pages](https://anncwb.github.io/vue-vben-admin/) - 完整版 github 站点
-- [vben-admin-thin-next](https://vben.vvbin.cn/thin/next/) - 简化版中文站点
-- [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) - 简化版 github 站点
+- [Vben Admin](https://vben.pro/) - 完整版中文站点
 
 测试账号: vben/123456
 
@@ -42,18 +43,7 @@ Vue Vben Admin 是 Vue Vben Admin 的升级版本。作为一个免费开源的�
 
 ## 文档
 
-[文档地址](https://doc.vvbin.cn/)
-
-## 准备
-
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+[文档地址](https://doc.vben.pro/)
 
 ## 安装使用
 
@@ -67,6 +57,8 @@ git clone https://github.com/anncwb/vue-vben-admin.git
 
 ```bash
 cd vue-vben-admin
+
+corepack enable
 
 pnpm install
 
@@ -109,7 +101,6 @@ pnpm build
   - `test` 测试相关
   - `docs` 文档/注释
   - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
   - `ci` 持续集成
   - `types` 类型定义文件更改
   - `wip` 开发中
@@ -132,15 +123,13 @@ pnpm build
 
 如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
 
-![donate](https://anncwb.github.io/anncwb/images/sponsor.png)
+![donate](https://unpkg.com/@vbenjs/static-source@0.1.5/source/sponsor.png)
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
-## 交流
+## Discord
 
-`Vue-vben-Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
-
-- QQ 群 `569291866`
+- [Github Discussions](https://github.com/anncwb/vue-vben-admin/discussions)
 
 ## License
 

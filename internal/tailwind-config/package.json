@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@iconify/json": "^2.2.231",
-    "@iconify/tailwind": "^1.1.1",
+    "@iconify/tailwind": "^1.1.2",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
