@@ -31,14 +31,13 @@
     "build:analyze": "turbo build:analyze",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
-    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:cspell",
+    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type",
     "check:circular": "vsh check-circular",
-    "check:cspell": "cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
     "clean": "vsh clean",
     "commit": "czg",
-    "dev": "cross-env TURBO_UI=1 turbo run dev",
+    "dev": "cross-env turbo run dev",
     "dev:docs": "pnpm -F @vben/website run docs:dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
@@ -56,7 +55,7 @@
     "@changesets/cli": "^2.27.7",
     "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.0.0",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/lint-staged-config": "workspace:*",
@@ -95,11 +94,6 @@
       "canvas",
       "node-gyp",
       "playwright"
-    ],
-    "updateConfig": {
-      "ignoreDependencies": [
-        "zx"
-      ]
-    }
+    ]
   }
 }

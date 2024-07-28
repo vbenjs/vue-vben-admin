@@ -22,7 +22,7 @@ VITE_INJECT_APP_LOADING=false
 
 ::: tip
 
-- 你可以使用跟`index.html`一样的语法，比如`VITE_GLOB_APP_TITLE`变量，来获取应用的标题。
+- 你可以使用跟`index.html`一样的语法，比如`VITE_APP_TITLE`变量，来获取应用的标题。
 - 必须保证有一个`id="__app-loading__"`的元素。
 - 必须保证有一个`style[data-app-loading="inject-css"]`的元素。
 
@@ -32,6 +32,6 @@ VITE_INJECT_APP_LOADING=false
 </style>
 <div id="__app-loading__">
   <!-- ... -->
-  <div class="title"><%= VITE_GLOB_APP_TITLE %></div>
+  <div class="title"><%= VITE_APP_TITLE %></div>
 </div>
 ```

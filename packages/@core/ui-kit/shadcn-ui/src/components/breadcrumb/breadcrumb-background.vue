@@ -31,7 +31,7 @@ function handleClick(path?: string) {
       >
         <li>
           <a href="javascript:void 0" @click.stop="handleClick(item.path)">
-            <span class="flex-center h-full">
+            <span class="flex-center z-10 h-full">
               <VbenIcon
                 v-if="item.icon && showIcon"
                 :icon="item.icon"

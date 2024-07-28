@@ -121,7 +121,10 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
         const currentTab = toRaw(this.tabs)[tabIndex];
-        this.tabs.splice(tabIndex, 1, { ...currentTab, ...tab });
+        if (!currentTab.meta.affixTab) {
+          const mergedTab = { ...currentTab, ...tab };
+          this.tabs.splice(tabIndex, 1, mergedTab);
+        }
       }
       this.updateCacheTab();
     },
@@ -269,7 +272,8 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       );
       if (index !== -1) {
         tab.meta.affixTab = true;
-        this.addTab(tab);
+        // this.addTab(tab);
+        this.tabs.splice(index, 1, tab);
       }
     },
 
@@ -369,7 +373,8 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
 
       if (index !== -1) {
         tab.meta.affixTab = false;
-        this.addTab(tab);
+        // this.addTab(tab);
+        this.tabs.splice(index, 1, tab);
       }
     },
 

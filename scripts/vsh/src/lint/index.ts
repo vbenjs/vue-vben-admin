@@ -20,6 +20,7 @@ async function runLint({ format }: LintCommandOptions) {
   }
   $.verbose = true;
   await Promise.all([
+    $`cspell lint "**/*.ts"  "**/README.md" ".changeset/*.md" --no-progress`,
     $`eslint . --cache`,
     // $`ls-lint`,
     $`prettier . --ignore-unknown --check --cache`,

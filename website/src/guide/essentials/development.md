@@ -55,11 +55,9 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     // changeset 版本管理
     "changeset": "pnpm exec changeset",
     // 检查项目各种问题
-    "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type && pnpm run check:cspell",
+    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type",,
     // 检查循环引用
     "check:circular": "vsh check-circular",
-    // 检查拼写
-    "check:cspell": "cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress",
     // 检查依赖
     "check:dep": "vsh check-dep",
     // 检查类型

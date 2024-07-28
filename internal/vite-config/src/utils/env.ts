@@ -64,10 +64,10 @@ async function loadAndConvertEnv(
 > {
   const envConfig = await loadEnv(match, confFiles);
   const {
+    VITE_APP_TITLE,
     VITE_BASE,
     VITE_COMPRESS,
     VITE_DEVTOOLS,
-    VITE_GLOB_APP_TITLE,
     VITE_INJECT_APP_LOADING,
     VITE_NITRO_MOCK,
     VITE_PORT,
@@ -80,7 +80,7 @@ async function loadAndConvertEnv(
     .filter((item) => item === 'brotli' || item === 'gzip');
 
   return {
-    appTitle: VITE_GLOB_APP_TITLE ?? 'Vben Admin',
+    appTitle: VITE_APP_TITLE ?? 'Vben Admin',
     base: VITE_BASE || '/',
     compress: !!compress,
     compressTypes: compressTypes as ('brotli' | 'gzip')[],

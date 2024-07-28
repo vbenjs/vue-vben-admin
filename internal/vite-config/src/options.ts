@@ -28,7 +28,7 @@ const getDefaultPwaOptions = (name: string): Partial<PwaPluginOptions> => ({
 const defaultImportmapOptions: ImportmapPluginOptions = {
   // 通过 Importmap CDN 方式引入,
   // 目前只有esm.sh源兼容性好一点，jspm.io对于 esm 入口要求高
-  defaultProvider: 'esm.sh',
+  defaultProvider: 'jspm.io',
   importmap: [
     { name: 'vue' },
     { name: 'pinia' },

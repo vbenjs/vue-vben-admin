@@ -31,7 +31,7 @@
 
 ```bash [.env]
 # 应用标题
-VITE_GLOB_APP_TITLE=Vben Admin
+VITE_APP_TITLE=Vben Admin
 
 # 应用命名空间，用于缓存、store等功能的前缀，确保隔离
 VITE_APP_NAMESPACE=vben-web-antd
@@ -88,7 +88,6 @@ VITE_INJECT_APP_LOADING=true
 ```ts
 window._VBEN_ADMIN_PRO_APP_CONF_ = {
   VITE_GLOB_API_URL: 'https://mock-napi.vben.pro/api',
-  VITE_GLOB_APP_TITLE: 'Vben Admin',
 };
 Object.freeze(window._VBEN_ADMIN_PRO_APP_CONF_);
 Object.defineProperty(window, '_VBEN_ADMIN_PRO_APP_CONF_', {
@@ -124,13 +123,11 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
   ```ts
   export interface VbenAdminProAppConfigRaw {
     VITE_GLOB_API_URL: string;
-    VITE_GLOB_APP_TITLE: string;
     VITE_GLOB_OTHER_API_URL: string; // [!code ++]
   }
 
   export interface ApplicationConfig {
     apiURL: string;
-    appTitle: string;
     otherApiURL: string; // [!code ++]
   }
   ```
@@ -159,17 +156,12 @@ const { otherApiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 import { useAppConfig } from '@vben/hooks';
 import { defineOverridesPreferences } from '@vben/preferences';
 
-const { appTitle } = useAppConfig(import.meta.env, import.meta.env.PROD);
-
 /**
  * @description 项目配置文件
  * 只需要覆盖项目中的一部分配置，不需要的配置不用覆盖，会自动使用默认配置
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
-  app: {
-    name: appTitle,
-  },
 });
 ```
 

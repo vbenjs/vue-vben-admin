@@ -8,7 +8,7 @@ on:
 jobs:
   deploy-push-ftp:
     name: Deploy Push Ftp
-    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') && contains(github.event.head_commit.message, '[deploy]')
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -45,6 +45,11 @@ async function initTabsSortable() {
 
   const el = document.querySelectorAll(`.${contentClass}`)?.[0] as HTMLElement;
 
+  const resetElState = () => {
+    el.style.cursor = 'default';
+    el.classList.remove('dragging');
+  };
+
   const { initializeSortable } = useSortable(el, {
     filter: (_evt, target: HTMLElement) => {
       const parent = findParentElement(target);
@@ -57,16 +62,20 @@ async function initTabsSortable() {
       const { srcElement } = (evt as any).originalEvent;
 
       if (!srcElement) {
+        resetElState();
         return;
       }
 
       const srcParent = findParentElement(srcElement);
 
       if (!srcParent) {
+        resetElState();
         return;
       }
 
       if (!srcParent.classList.contains('dragable')) {
+        resetElState();
+
         return;
       }
 
@@ -79,8 +88,7 @@ async function initTabsSortable() {
       ) {
         emit('sortTabs', oldIndex, newIndex);
       }
-      el.classList.remove('dragging');
-      el.style.cursor = 'default';
+      resetElState();
     },
     onMove(evt) {
       const parent = findParentElement(evt.related);

@@ -1,24 +1,10 @@
-import {
-  defaultImportmapOptions,
-  defineConfig,
-  getDefaultPwaOptions,
-  loadAndConvertEnv,
-} from '@vben/vite-config';
+import { defineConfig } from '@vben/vite-config';
 
 export default defineConfig(async () => {
-  const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
   return {
-    application: {
-      ...envConfig,
-      importmap: false,
-      importmapOptions: defaultImportmapOptions,
-      pwa: false,
-      pwaOptions: getDefaultPwaOptions(appTitle),
-    },
+    application: {},
     vite: {
-      base,
       server: {
-        port,
         proxy: {
           '/api': {
             changeOrigin: true,

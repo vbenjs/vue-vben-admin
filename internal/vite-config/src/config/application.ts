@@ -8,11 +8,14 @@ import { findMonorepoRoot } from '@vben/node-utils';
 
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
+import { getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
+import { loadAndConvertEnv } from '../utils/env';
 import { getCommonConfig } from './common';
 
 function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
   return defineConfig(async (config) => {
+    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
     const options = await userConfigPromise?.(config);
     const { command, mode } = config;
     const { application = {}, vite = {} } = options || {};
@@ -40,12 +43,15 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
         'Vben Admin Docs': 'https://docs.vben.pro',
       },
       pwa: true,
+      pwaOptions: getDefaultPwaOptions(appTitle),
+      ...envConfig,
       ...application,
     });
 
     const { injectGlobalScss = true } = application;
 
     const applicationConfig: UserConfig = {
+      base,
       build: {
         rollupOptions: {
           output: {
@@ -69,6 +75,7 @@ function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
       plugins,
       server: {
         host: true,
+        port,
         warmup: {
           // 预热文件
           clientFiles: ['./index.html', './src/{views,layouts}/*'],

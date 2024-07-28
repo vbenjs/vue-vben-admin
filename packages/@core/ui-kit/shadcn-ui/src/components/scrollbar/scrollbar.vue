@@ -11,6 +11,7 @@ import { cn } from '@vben-core/toolkit';
 interface Props {
   class?: HTMLAttributes['class'];
   horizontal?: boolean;
+  scrollBarClass?: HTMLAttributes['class'];
   shadow?: boolean;
   shadowBorder?: boolean;
 }
@@ -58,7 +59,11 @@ function handleScroll(event: Event) {
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
-    <ScrollBar v-if="horizontal" orientation="horizontal" />
+    <ScrollBar
+      v-if="horizontal"
+      :class="scrollBarClass"
+      orientation="horizontal"
+    />
   </ScrollArea>
 </template>
 
