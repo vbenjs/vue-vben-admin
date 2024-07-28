@@ -11,7 +11,7 @@
   },
   "privatePackages": { "version": true, "tag": true },
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": []

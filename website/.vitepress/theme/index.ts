@@ -1,21 +1,19 @@
 // https://vitepress.dev/guide/custom-theme
 import type { Theme } from 'vitepress';
 
-import { h } from 'vue';
-
 import DefaultTheme from 'vitepress/theme';
 
-import './style.css';
+import SiteLayout from './components/site-layout.vue';
+import VbenContributors from './components/vben-contributors.vue';
+
+import './styles';
 
 export default {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   enhanceApp({ app, router, siteData }) {
     // ...
+    app.component('VbenContributors', VbenContributors);
   },
   extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    });
-  },
+  Layout: SiteLayout,
 } satisfies Theme;

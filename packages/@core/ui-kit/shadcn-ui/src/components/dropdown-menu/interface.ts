@@ -12,17 +12,17 @@ interface VbenDropdownMenuItem {
    */
   icon?: Component;
   /**
-   * @zh_CN 唯一标识
+   * @zh_CN 标题
    */
-  key: string;
+  label: string;
   /**
    * @zh_CN 是否是分割线
    */
   separator?: boolean;
   /**
-   * @zh_CN 标题
+   * @zh_CN 唯一标识
    */
-  text: string;
+  value: string;
 }
 
 interface DropdownMenuProps {

@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
+import { useWatermark } from '@vben/hooks';
 import { $t } from '@vben/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
 } from '@vben/preferences';
-import { useCoreLockStore } from '@vben/stores';
+import { useCoreAccessStore, useCoreLockStore } from '@vben/stores';
 import { MenuRecordRaw } from '@vben/types';
 import { mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 
-import { Breadcrumb, CozeAssistant, Preferences } from '../widgets';
+import { Breadcrumb, Preferences } from '../widgets';
 import { LayoutContent } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -40,6 +41,8 @@ const {
   layout,
   sidebarCollapsed,
 } = usePreferences();
+const coreAccessStore = useCoreAccessStore();
+const { updateWatermark } = useWatermark();
 const coreLockStore = useCoreLockStore();
 
 const headerMenuTheme = computed(() => {
@@ -127,6 +130,23 @@ function toggleSidebar() {
 function clearPreferencesAndLogout() {
   emit('clearPreferencesAndLogout');
 }
+
+watch(
+  () => preferences.app.watermark,
+  async (val) => {
+    if (val) {
+      // await nextTick();
+
+      updateWatermark({
+        content: `${preferences.app.name} 用户名: ${coreAccessStore.userInfo?.username}`,
+        // parent: contentRef.value,
+      });
+    }
+  },
+  {
+    immediate: true,
+  },
+);
 </script>
 
 <template>
@@ -174,10 +194,6 @@ function clearPreferencesAndLogout() {
     </template>
 
     <template #floating-groups>
-      <CozeAssistant
-        v-if="preferences.widget.aiAssistant"
-        :is-mobile="preferences.app.isMobile"
-      />
       <VbenBackTop />
     </template>
 

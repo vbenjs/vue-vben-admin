@@ -20,8 +20,6 @@ import AnalyticsVisitsData from './analytics-visits-data.vue';
 import AnalyticsVisitsSales from './analytics-visits-sales.vue';
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 
-defineOptions({ name: 'Analytics' });
-
 const overviewItems: AnalysisOverviewItem[] = [
   {
     icon: SvgCardIcon,

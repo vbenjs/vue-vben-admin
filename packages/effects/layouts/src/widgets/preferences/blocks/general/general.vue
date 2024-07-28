@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben/types';
-
+import { SUPPORT_LANGUAGES } from '@vben/constants';
 import { $t } from '@vben/locales';
-import { SUPPORT_LANGUAGES } from '@vben/preferences';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
@@ -13,18 +11,17 @@ defineOptions({
 
 const appLocale = defineModel<string>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
-
-const localeItems: SelectOption[] = SUPPORT_LANGUAGES.map((item) => ({
-  label: item.text,
-  value: item.key,
-}));
+const appWatermark = defineModel<boolean>('appWatermark');
 </script>
 
 <template>
-  <SelectItem v-model="appLocale" :items="localeItems">
+  <SelectItem v-model="appLocale" :items="SUPPORT_LANGUAGES">
     {{ $t('preferences.language') }}
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">
     {{ $t('preferences.dynamicTitle') }}
+  </SwitchItem>
+  <SwitchItem v-model="appWatermark">
+    {{ $t('preferences.watermark') }}
   </SwitchItem>
 </template>

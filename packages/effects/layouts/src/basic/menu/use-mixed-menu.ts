@@ -57,7 +57,7 @@ function useMixedMenu() {
    * 侧边菜单激活路径
    */
   const sidebarActive = computed(() => {
-    return route?.meta?.activePath ?? route.path;
+    return (route?.meta?.activePath as string) ?? route.path;
   });
 
   /**

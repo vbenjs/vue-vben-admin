@@ -11,7 +11,7 @@ import { resetAllStores, useCoreAccessStore } from '@vben/stores';
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 
-import { getAccessCodes, getUserInfo, login } from '#/apis';
+import { getAccessCodes, getUserInfo, login } from '#/api';
 import { $t } from '#/locales';
 
 export const useAccessStore = defineStore('access', () => {

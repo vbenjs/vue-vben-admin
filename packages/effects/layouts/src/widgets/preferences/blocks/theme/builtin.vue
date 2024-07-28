@@ -8,6 +8,7 @@ import { $t } from '@vben/locales';
 import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,
+  preferences,
 } from '@vben/preferences';
 import { convertToHsl, TinyColor } from '@vben/utils';
 
@@ -23,6 +24,16 @@ const themeColorPrimary = defineModel<string>('themeColorPrimary');
 
 const inputValue = computed(() => {
   return new TinyColor(themeColorPrimary.value).toHexString();
+});
+
+const builtinThemePresets = computed(() => {
+  return [
+    {
+      color: preferences.theme.colorPrimary,
+      type: 'default',
+    },
+    ...BUILT_IN_THEME_PRESETS,
+  ];
 });
 
 function typeView(name: BuiltinThemeType) {
@@ -97,7 +108,7 @@ function selectColor() {
 
 <template>
   <div class="flex w-full flex-wrap justify-between">
-    <template v-for="theme in BUILT_IN_THEME_PRESETS" :key="theme.type">
+    <template v-for="theme in builtinThemePresets" :key="theme.type">
       <div class="flex cursor-pointer flex-col" @click="handleSelect(theme)">
         <div
           :class="{

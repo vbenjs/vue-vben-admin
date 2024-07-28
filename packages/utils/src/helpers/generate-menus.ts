@@ -25,6 +25,7 @@ async function generateMenus(
     // const path = matchRoute?.path ?? route.path;
     const { meta, name: routeName, redirect, children } = route;
     const {
+      activeIcon,
       badge,
       badgeType,
       badgeVariants,
@@ -52,6 +53,7 @@ async function generateMenus(
     // 隐藏子菜单
     const resultPath = hideChildrenInMenu ? redirect || path : link || path;
     return {
+      activeIcon,
       badge,
       badgeType,
       badgeVariants,

@@ -10,10 +10,11 @@ import type {
   LoginExpiredModeType,
   NavigationStyleType,
   PageTransitionType,
-  SupportedLanguagesType,
   TabsStyleType,
   ThemeModeType,
 } from '@vben-core/typings';
+
+type SupportedLanguagesType = 'en-US' | 'zh-CN';
 
 interface AppPreferences {
   /** 权限模式 */
@@ -44,6 +45,10 @@ interface AppPreferences {
   loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */
   name: string;
+  /**
+   * @zh_CN 是否开启水印
+   */
+  watermark: boolean;
 }
 
 interface BreadcrumbPreferences {
@@ -149,6 +154,12 @@ interface TabbarPreferences {
   persist: boolean;
   /** 是否开启多标签页图标 */
   showIcon: boolean;
+  /** 显示最大化按钮 */
+  showMaximize: boolean;
+  /** 显示更多按钮 */
+  showMore: boolean;
+  /** 显示刷新按钮 */
+  showRefresh: boolean;
   /** 标签页风格 */
   styleType: TabsStyleType;
 }
@@ -184,8 +195,6 @@ interface TransitionPreferences {
 }
 
 interface WidgetPreferences {
-  /** 是否开启vben助手部件 */
-  aiAssistant: boolean;
   /** 是否启用全屏部件 */
   fullscreen: boolean;
   /** 是否启用全局搜索部件 */
@@ -249,6 +258,7 @@ export type {
   PreferencesKeys,
   ShortcutKeyPreferences,
   SidebarPreferences,
+  SupportedLanguagesType,
   TabbarPreferences,
   ThemePreferences,
   TransitionPreferences,

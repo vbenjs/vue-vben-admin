@@ -42,6 +42,6 @@
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "vue": "^3.4.33"
+    "vue": "^3.4.34"
   }
 }

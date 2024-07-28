@@ -29,6 +29,10 @@ interface MenuRecordBadgeRaw {
  */
 interface MenuRecordRaw extends MenuRecordBadgeRaw {
   /**
+   * 激活时的图标名
+   */
+  activeIcon?: string;
+  /**
    * 子菜单
    */
   children?: MenuRecordRaw[];

@@ -22,8 +22,6 @@ import { useAccessStore } from '#/store';
 
 import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
-defineOptions({ name: 'Workspace' });
-
 const accessStore = useAccessStore();
 
 const projectItems: WorkbenchProjectItem[] = [

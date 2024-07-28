@@ -5,12 +5,10 @@ import { Fallback } from '@vben/common-ui';
 
 import { Button } from 'ant-design-vue';
 
-defineOptions({ name: 'BreadcrumbLateral' });
-
 const router = useRouter();
 
 function details() {
-  router.push({ name: 'BreadcrumbLateralDetail' });
+  router.push({ name: 'BreadcrumbLateralDetailDemo' });
 }
 </script>
 

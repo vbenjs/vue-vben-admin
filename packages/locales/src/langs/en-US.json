@@ -165,6 +165,7 @@
     "general": "General",
     "language": "Language",
     "dynamicTitle": "Dynamic Title",
+    "watermark": "Watermark",
     "sidebar": {
       "title": "Sidebar",
       "width": "Width",
@@ -176,6 +177,9 @@
       "title": "Tabbar",
       "enable": "Enable Tab Bar",
       "icon": "Show Tabbar Icon",
+      "showMore": "Show More Button",
+      "showRefresh": "Show Refresh Button",
+      "showMaximize": "Show Maximize Button",
       "persist": "Persist Tabs",
       "dragable": "Enable Dragable Sort",
       "styleType": {
@@ -285,7 +289,6 @@
       "languageToggle": "Enable Language Toggle",
       "notification": "Enable Notification",
       "sidebarToggle": "Enable Sidebar Toggle",
-      "aiAssistant": "Enable AI Assistant",
       "lockScreen": "Enable Lock Screen"
     }
   }

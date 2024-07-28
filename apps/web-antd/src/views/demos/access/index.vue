@@ -9,8 +9,6 @@ import { Button } from 'ant-design-vue';
 
 import { resetAllStores, useAccessStore } from '#/store';
 
-defineOptions({ name: 'Access' });
-
 const accounts: Record<string, LoginAndRegisterParams> = {
   admin: {
     password: '123456',
@@ -51,7 +49,9 @@ async function handleToggleAccessMode() {
   resetAllStores();
 
   await accessStore.authLogin(accounts.super, async () => {
-    router.go(0);
+    setTimeout(() => {
+      router.go(0);
+    }, 150);
   });
 }
 </script>

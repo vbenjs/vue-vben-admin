@@ -3,8 +3,6 @@ import { onMounted, ref } from 'vue';
 
 import { EchartsUI, type EchartsUIType, useEcharts } from '@vben/chart-ui';
 
-defineOptions({ name: 'AnalyticsVisitsSource' });
-
 const chartRef = ref<EchartsUIType>();
 const { renderEcharts } = useEcharts(chartRef);
 

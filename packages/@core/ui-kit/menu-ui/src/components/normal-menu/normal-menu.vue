@@ -12,7 +12,7 @@ defineOptions({
   name: 'NormalMenu',
 });
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   activePath: '',
   collapse: false,
   menus: () => [],
@@ -25,6 +25,12 @@ const emit = defineEmits<{
 }>();
 
 const { b, e, is } = useNamespace('normal-menu');
+
+function menuIcon(menu: MenuRecordRaw) {
+  return props.activePath === menu.path
+    ? menu.activeIcon || menu.icon
+    : menu.icon;
+}
 </script>
 
 <template>
@@ -44,7 +50,8 @@ const { b, e, is } = useNamespace('normal-menu');
         @click="() => emit('select', menu)"
         @mouseenter="() => emit('enter', menu)"
       >
-        <VbenIcon :class="e('icon')" :icon="menu.icon" fallback />
+        <VbenIcon :class="e('icon')" :icon="menuIcon(menu)" fallback />
+
         <span :class="e('name')" class="truncate"> {{ menu.name }}</span>
       </li>
     </template>

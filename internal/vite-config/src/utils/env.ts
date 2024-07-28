@@ -56,24 +56,40 @@ async function loadAndConvertEnv(
   match = 'VITE_',
   confFiles = getConfFiles(),
 ): Promise<
-  { appTitle: string; port: number } & Partial<ApplicationPluginOptions>
+  {
+    appTitle: string;
+    base: string;
+    port: number;
+  } & Partial<ApplicationPluginOptions>
 > {
   const envConfig = await loadEnv(match, confFiles);
-  const visualizer = envConfig.visualizer || '';
-  const pwa = envConfig.pwa || '';
-  const compress = envConfig.VITE_COMPRESS || '';
+  const {
+    VITE_BASE,
+    VITE_COMPRESS,
+    VITE_DEVTOOLS,
+    VITE_GLOB_APP_TITLE,
+    VITE_INJECT_APP_LOADING,
+    VITE_NITRO_MOCK,
+    VITE_PORT,
+    VITE_PWA,
+    VITE_VISUALIZER,
+  } = envConfig;
+  const compress = VITE_COMPRESS || '';
   const compressTypes = compress
     .split(',')
     .filter((item) => item === 'brotli' || item === 'gzip');
 
   return {
-    appTitle: envConfig?.VITE_GLOB_APP_TITLE ?? 'Vben Admin',
+    appTitle: VITE_GLOB_APP_TITLE ?? 'Vben Admin',
+    base: VITE_BASE || '/',
     compress: !!compress,
     compressTypes: compressTypes as ('brotli' | 'gzip')[],
-    nitroMock: !!envConfig.VITE_NITRO_MOCK,
-    port: Number(envConfig.VITE_PORT) || 5173,
-    pwa: !!pwa,
-    visualizer: !!visualizer,
+    devtools: VITE_DEVTOOLS === 'true',
+    injectAppLoading: VITE_INJECT_APP_LOADING === 'true',
+    nitroMock: VITE_NITRO_MOCK === 'true',
+    port: Number(VITE_PORT) || 5173,
+    pwa: VITE_PWA === 'true',
+    visualizer: VITE_VISUALIZER === 'true',
   };
 }
 

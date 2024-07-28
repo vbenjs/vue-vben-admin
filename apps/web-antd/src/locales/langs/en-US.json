@@ -33,11 +33,17 @@
         "text": "Text Badge",
         "color": "Badge Color"
       },
+      "activeIcon": {
+        "title": "Active Menu Icon",
+        "children": "Children Active Icon"
+      },
       "fallback": { "title": "Fallback Page" },
       "features": {
         "title": "Features",
         "hideChildrenInMenu": "Hide Menu Children",
         "loginExpired": "Login Expired",
+        "icons": "Icons",
+        "watermark": "Watermark",
         "tabs": "Tabs",
         "tabDetail": "Tab Detail Page"
       },

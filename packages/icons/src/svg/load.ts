@@ -3,6 +3,12 @@ import {
   // addCollection
 } from '@vben-core/icons';
 
+let loaded = false;
+if (!loaded) {
+  loadSvgIcons();
+  loaded = true;
+}
+
 // addCollection({
 //   prefix: 'mdi',
 //   icons: {
@@ -50,5 +56,3 @@ async function loadSvgIcons() {
     }),
   );
 }
-
-export { loadSvgIcons };

@@ -1,14 +1,12 @@
 import type { Linter } from 'eslint';
 
-export async function importPluginConfig(): Promise<Linter.FlatConfig[]> {
-  const [pluginImport] = await Promise.all([
-    // @ts-expect-error - no types
-    import('eslint-plugin-i'),
-  ] as const);
+import * as pluginImport from 'eslint-plugin-import-x';
 
+export async function importPluginConfig(): Promise<Linter.Config[]> {
   return [
     {
       plugins: {
+        // @ts-expect-error - This is a dynamic import
         import: pluginImport,
       },
       rules: {

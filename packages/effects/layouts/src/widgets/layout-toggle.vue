@@ -20,18 +20,18 @@ defineOptions({
 const menus = computed((): VbenDropdownMenuItem[] => [
   {
     icon: PanelLeft,
-    key: 'panel-left',
-    text: $t('authentication.layout.alignLeft'),
+    label: $t('authentication.layout.alignLeft'),
+    value: 'panel-left',
   },
   {
     icon: InspectionPanel,
-    key: 'panel-center',
-    text: $t('authentication.layout.center'),
+    label: $t('authentication.layout.center'),
+    value: 'panel-center',
   },
   {
     icon: PanelRight,
-    key: 'panel-right',
-    text: $t('authentication.layout.alignRight'),
+    label: $t('authentication.layout.alignRight'),
+    value: 'panel-right',
   },
 ]);
 

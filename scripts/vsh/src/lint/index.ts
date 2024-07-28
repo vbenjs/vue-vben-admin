@@ -11,13 +11,14 @@ interface LintCommandOptions {
 
 async function runLint({ format }: LintCommandOptions) {
   process.env.FORCE_COLOR = '3';
+
   if (format) {
     await $`stylelint "**/*.{vue,css,less.scss}" --cache --fix`;
     await $`eslint . --cache --fix`;
     await $`prettier . --write --cache --log-level warn`;
     return;
   }
-
+  $.verbose = true;
   await Promise.all([
     $`eslint . --cache`,
     // $`ls-lint`,

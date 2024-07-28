@@ -12,7 +12,7 @@ const VBEN_DOC_URL = 'https://doc.vben.pro';
  * @zh_CN Vben Logo
  */
 const VBEN_LOGO_URL =
-  'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/logo-v1.webp';
+  'https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp';
 
 /**
  * @zh_CN Vben Admin 首页地址

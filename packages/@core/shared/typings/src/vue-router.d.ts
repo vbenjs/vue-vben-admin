@@ -4,6 +4,10 @@ import type { Component } from 'vue';
 
 interface RouteMeta {
   /**
+   * 激活图标（菜单/tab）
+   */
+  activeIcon?: string;
+  /**
    * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
    * @default false
    */
@@ -13,6 +17,11 @@ interface RouteMeta {
    * @default false
    */
   affixTab?: boolean;
+  /**
+   * 固定标签页的顺序
+   * @default 0
+   */
+  affixTabOrder?: number;
   /**
    * 需要特定的角色标识才可以访问
    * @default []
@@ -57,10 +66,6 @@ interface RouteMeta {
    */
   hideInTab?: boolean;
   /**
-   * 路由跳转地址
-   */
-  href?: string;
-  /**
    * 图标（菜单/tab）
    */
   icon?: string;
@@ -87,7 +92,7 @@ interface RouteMeta {
   loaded?: boolean;
   /**
    * 标签页最大打开数量
-   * @default false
+   * @default -1
    */
   maxNumOfOpenTab?: number;
   /**
@@ -126,5 +131,6 @@ export type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
   RouteMeta,
+  RouteRecordRaw,
   RouteRecordStringComponent,
 };

@@ -1,6 +1,5 @@
 export { default as Breadcrumb } from './breadcrumb.vue';
 export { default as AuthenticationColorToggle } from './color-toggle.vue';
-export { default as CozeAssistant } from './coze-assistant.vue';
 export * from './global-search';
 export { default as LanguageToggle } from './language-toggle.vue';
 export { default as AuthenticationLayoutToggle } from './layout-toggle.vue';

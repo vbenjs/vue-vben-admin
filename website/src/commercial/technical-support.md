@@ -1,0 +1,29 @@
+# 技术支持
+
+## 问题反馈
+
+在使用项目的过程中，如果遇到问题，你可以先详细阅读本文档，未找到解决方案时，可以通过以下方式获取技术支持：
+
+- 通过 [GitHub Issues](https://github.com/vbenjs/vue-vben-admin/issues)
+- 通过 [GitHub Discussions](https://github.com/vbenjs/vue-vben-admin/discussions)
+
+## 社区交流群
+
+社区交流群主要是为了方便大家交流，提问，解答问题，分享经验等。偏自助方式，如果你有问题，可以通过以下方式加入社区交流群：
+
+- [QQ频道](https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=1Zp3KrdpaiB&jumpsource=shorturl#/pc)：主要提供问题解答，分享经验等。
+- [Discord](https://discord.com/invite/VU62jTecad): 主要提供问题解答，分享经验等。
+
+## 微信群
+
+::: tip
+
+因为微信群人数有限制，加微信群前，你可以通过[赞助](../sponsor/personal.md)任意金额，并备注 `加入微信群`，作者会将你拉入微信群。也可以主动发送截图给作者。
+
+:::
+
+作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群：
+
+通过微信联系作者，注明加群来意：
+
+ <img src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/wechat.jpg" style="width: 300px;"/>

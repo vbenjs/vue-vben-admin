@@ -1,12 +1,4 @@
-import type {
-  BuiltinThemeType,
-  SupportedLanguagesType,
-} from '@vben-core/typings';
-
-interface Language {
-  key: SupportedLanguagesType;
-  text: string;
-}
+import type { BuiltinThemeType } from '@vben-core/typings';
 
 interface BuiltinThemePreset {
   color: string;
@@ -15,25 +7,11 @@ interface BuiltinThemePreset {
   type: BuiltinThemeType;
 }
 
-/**
- * Supported languages
- */
-const SUPPORT_LANGUAGES: Language[] = [
-  {
-    key: 'zh-CN',
-    text: '简体中文',
-  },
-  {
-    key: 'en-US',
-    text: 'English',
-  },
-];
-
 const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
-  {
-    color: 'hsl(231 98% 65%)',
-    type: 'default',
-  },
+  // {
+  //   color: 'hsl(231 98% 65%)',
+  //   type: 'default',
+  // },
   {
     color: 'hsl(245 82% 67%)',
     type: 'violet',
@@ -102,6 +80,6 @@ const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
 
 export const COLOR_PRESETS = [...BUILT_IN_THEME_PRESETS].slice(0, 7);
 
-export { BUILT_IN_THEME_PRESETS, SUPPORT_LANGUAGES };
+export { BUILT_IN_THEME_PRESETS };
 
 export type { BuiltinThemePreset };

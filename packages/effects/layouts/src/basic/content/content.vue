@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import type { RouteLocationNormalizedLoaded } from 'vue-router';
+import type {
+  RouteLocationNormalizedLoaded,
+  RouteLocationNormalizedLoadedGeneric,
+} from 'vue-router';
+
+import { type VNode } from 'vue';
+import { RouterView } from 'vue-router';
 
 import { useContentHeight } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
@@ -43,6 +49,39 @@ function getTransitionName(_route: RouteLocationNormalizedLoaded) {
   // return inTabs && route.meta.loaded ? undefined : transitionName;
   return transitionName;
 }
+
+/**
+ * 转换组件，自动添加 name
+ * @param component
+ */
+function transformComponent(
+  component: VNode,
+  route: RouteLocationNormalizedLoadedGeneric,
+) {
+  const routeName = route.name as string;
+  // 如果组件没有 name，则直接返回
+  if (!routeName) {
+    return component;
+  }
+
+  const componentName = (component.type as any).name;
+
+  // 已经设置过 name，则直接返回
+  if (componentName) {
+    return component;
+  }
+
+  // componentName 与 routeName 一致，则直接返回
+  if (componentName === routeName) {
+    return component;
+  }
+
+  // 设置 name
+  component.type ||= {};
+  (component.type as any).name = routeName;
+
+  return component;
+}
 </script>
 
 <template>
@@ -61,7 +100,7 @@ function getTransitionName(_route: RouteLocationNormalizedLoaded) {
           :include="getCachedTabs"
         >
           <component
-            :is="Component"
+            :is="transformComponent(Component, route)"
             v-if="renderRouteView"
             v-show="!route.meta.iframeSrc"
             :key="route.fullPath"

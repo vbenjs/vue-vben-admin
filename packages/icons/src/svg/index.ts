@@ -1,12 +1,6 @@
 import { createIconifyIcon } from '@vben-core/icons';
 
-import { loadSvgIcons } from './load';
-
-let loaded = false;
-if (!loaded) {
-  loadSvgIcons();
-  loaded = true;
-}
+import './load';
 
 const SvgAvatar1Icon = createIconifyIcon('svg:avatar-1');
 const SvgAvatar2Icon = createIconifyIcon('svg:avatar-2');

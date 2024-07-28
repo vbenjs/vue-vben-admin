@@ -80,8 +80,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
         icon: 'mdi:button-cursor',
         title: 'page.demos.access.adminVisible',
       },
-      name: 'AccessAdminVisible',
-      path: 'admin-visible',
+      name: 'AccessAdminVisibleDemo',
+      path: '/demos/access/admin-visible',
     },
     super: {
       component: '/demos/access/super-visible',
@@ -89,8 +89,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
         icon: 'mdi:button-cursor',
         title: 'page.demos.access.superVisible',
       },
-      name: 'AccessSuperVisible',
-      path: 'super-visible',
+      name: 'AccessSuperVisibleDemo',
+      path: '/demos/access/super-visible',
     },
     user: {
       component: '/demos/access/user-visible',
@@ -98,8 +98,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
         icon: 'mdi:button-cursor',
         title: 'page.demos.access.userVisible',
       },
-      name: 'AccessUserVisible',
-      path: 'user-visible',
+      name: 'AccessUserVisibleDemo',
+      path: '/demos/access/user-visible',
     },
   };
 
@@ -117,8 +117,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
       redirect: '/demos/access',
       children: [
         {
-          name: 'Access',
-          path: 'access',
+          name: 'AccessDemos',
+          path: '/demosaccess',
           meta: {
             icon: 'mdi:cloud-key-outline',
             title: 'page.demos.access.backendPermissions',
@@ -126,8 +126,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
           redirect: '/demos/access/page-control',
           children: [
             {
-              name: 'AccessPageControl',
-              path: 'page-control',
+              name: 'AccessPageControlDemo',
+              path: '/demos/access/page-control',
               component: '/demos/access/index',
               meta: {
                 icon: 'mdi:page-previous-outline',
@@ -135,8 +135,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
               },
             },
             {
-              name: 'AccessButtonControl',
-              path: 'button-control',
+              name: 'AccessButtonControlDemo',
+              path: '/demos/access/button-control',
               component: '/demos/access/button-control',
               meta: {
                 icon: 'mdi:button-cursor',
@@ -144,8 +144,8 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
               },
             },
             {
-              name: 'AccessMenuVisible403',
-              path: 'menu-visible-403',
+              name: 'AccessMenuVisible403Demo',
+              path: '/demos/access/menu-visible-403',
               component: '/demos/access/menu-visible-403',
               meta: {
                 authority: ['no-body'],

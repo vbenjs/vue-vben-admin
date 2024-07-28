@@ -18,6 +18,14 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "preview": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:analyze": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "@vben/backend-mock#build": {
       "dependsOn": ["^build"],
       "outputs": [".nitro/**", ".output/**"]

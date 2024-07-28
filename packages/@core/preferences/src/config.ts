@@ -9,14 +9,15 @@ const defaultPreferences: Preferences = {
     compact: false,
     contentCompact: 'wide',
     defaultAvatar:
-      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/avatar-v1.webp',
+      'https://unpkg.com/@vbenjs/static-source@0.1.5/source/avatar-v1.webp',
     dynamicTitle: true,
     enablePreferences: true,
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
-    loginExpiredMode: 'page',
+    loginExpiredMode: 'modal',
     name: 'Vben Admin',
+    watermark: false,
   },
   breadcrumb: {
     enable: true,
@@ -44,8 +45,7 @@ const defaultPreferences: Preferences = {
   },
   logo: {
     enable: true,
-    source:
-      'https://cdn.jsdelivr.net/npm/@vbenjs/static-source@0.1.3/source/logo-v1.webp',
+    source: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp',
   },
   navigation: {
     accordion: true,
@@ -75,6 +75,9 @@ const defaultPreferences: Preferences = {
     keepAlive: true,
     persist: true,
     showIcon: true,
+    showMaximize: true,
+    showMore: true,
+    showRefresh: true,
     styleType: 'chrome',
   },
   theme: {
@@ -94,7 +97,6 @@ const defaultPreferences: Preferences = {
     progress: true,
   },
   widget: {
-    aiAssistant: true,
     fullscreen: true,
     globalSearch: true,
     languageToggle: true,

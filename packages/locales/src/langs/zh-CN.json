@@ -165,6 +165,7 @@
     "general": "通用",
     "language": "语言",
     "dynamicTitle": "动态标题",
+    "watermark": "水印",
     "sidebar": {
       "title": "侧边栏",
       "width": "宽度",
@@ -176,6 +177,9 @@
       "title": "标签栏",
       "enable": "启用标签栏",
       "icon": "显示标签栏图标",
+      "showMore": "显示更多按钮",
+      "showRefresh": "显示刷新按钮",
+      "showMaximize": "显示最大化按钮",
       "persist": "持久化标签页",
       "dragable": "启动拖拽排序",
       "styleType": {
@@ -285,7 +289,6 @@
       "languageToggle": "启用语言切换",
       "notification": "启用通知",
       "sidebarToggle": "启用侧边栏切换",
-      "aiAssistant": "启用 AI 助手",
       "lockScreen": "启用锁屏"
     }
   }

@@ -1,6 +1,10 @@
 import type { RouteRecordName, RouteRecordRaw } from 'vue-router';
 
-import { createRouter, createWebHashHistory } from 'vue-router';
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from 'vue-router';
 
 import { traverseTreeValues } from '@vben/utils';
 
@@ -11,11 +15,14 @@ import { routes } from './routes';
  *  @zh_CN 创建vue-router实例
  */
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
+  history:
+    import.meta.env.VITE_ROUTER_HISTORY === 'hash'
+      ? createWebHashHistory(import.meta.env.VITE_BASE)
+      : createWebHistory(import.meta.env.VITE_BASE),
   // 应该添加到路由的初始路由列表。
   routes,
   scrollBehavior: () => ({ left: 0, top: 0 }),
-  // 是否应该禁止尾部斜杠。默认为假
+  // 是否应该禁止尾部斜杠。
   // strict: true,
 });
 

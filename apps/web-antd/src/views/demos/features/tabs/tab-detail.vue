@@ -4,8 +4,6 @@ import { useRoute } from 'vue-router';
 
 import { useTabs } from '@vben/hooks';
 
-defineOptions({ name: 'FeatureTabDetailDemo' });
-
 const route = useRoute();
 
 const { setTabTitle } = useTabs();

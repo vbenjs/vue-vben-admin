@@ -7,8 +7,11 @@
     "docs:dev": "vitepress dev",
     "docs:preview": "vitepress preview"
   },
+  "dependencies": {
+    "medium-zoom": "^1.1.0"
+  },
   "devDependencies": {
     "vitepress": "^1.3.1",
-    "vue": "^3.4.33"
+    "vue": "^3.4.34"
   }
 }

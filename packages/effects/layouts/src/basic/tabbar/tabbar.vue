@@ -5,7 +5,12 @@ import { useRoute } from 'vue-router';
 import { useContentMaximize, useTabs } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import { useCoreTabbarStore } from '@vben/stores';
-import { TabsToolMore, TabsToolScreen, TabsView } from '@vben-core/tabs-ui';
+import {
+  TabsToolMore,
+  TabsToolRefresh,
+  TabsToolScreen,
+  TabsView,
+} from '@vben-core/tabs-ui';
 
 import { useTabbar } from './use-tabbar';
 
@@ -18,7 +23,7 @@ defineProps<{ showIcon?: boolean; theme?: string }>();
 const route = useRoute();
 const coreTabbarStore = useCoreTabbarStore();
 const { toggleMaximize } = useContentMaximize();
-const { unpinTab } = useTabs();
+const { refreshTab, unpinTab } = useTabs();
 
 const {
   createContextMenus,
@@ -29,7 +34,14 @@ const {
 } = useTabbar();
 
 const menus = computed(() => {
-  return createContextMenus(route);
+  const menus = createContextMenus(route);
+  return menus.map((item) => {
+    return {
+      ...item,
+      label: item.text,
+      value: item.key,
+    };
+  });
 });
 
 // 刷新后如果不保持tab状态，关闭其他tab
@@ -53,8 +65,13 @@ if (!preferences.tabbar.persist) {
     @update:active="handleClick"
   />
   <div class="flex-center h-full">
-    <TabsToolMore :menus="menus" />
+    <TabsToolRefresh
+      v-if="preferences.tabbar.showRefresh"
+      @refresh="refreshTab"
+    />
+    <TabsToolMore v-if="preferences.tabbar.showMore" :menus="menus" />
     <TabsToolScreen
+      v-if="preferences.tabbar.showMaximize"
       :screen="preferences.sidebar.hidden"
       @change="toggleMaximize"
       @update:screen="toggleMaximize"

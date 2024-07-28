@@ -30,18 +30,20 @@ function handleItemClick(value: string) {
         <template v-for="menu in menus" :key="menu.key">
           <DropdownMenuItem
             :class="
-              menu.key === modelValue ? 'bg-accent text-accent-foreground' : ''
+              menu.value === modelValue
+                ? 'bg-accent text-accent-foreground'
+                : ''
             "
             class="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground text-foreground/80 mb-1 cursor-pointer"
-            @click="handleItemClick(menu.key)"
+            @click="handleItemClick(menu.value)"
           >
             <component :is="menu.icon" v-if="menu.icon" class="mr-2 size-4" />
             <span
               v-if="!menu.icon"
-              :class="menu.key === modelValue ? 'bg-foreground' : ''"
+              :class="menu.value === modelValue ? 'bg-foreground' : ''"
               class="mr-2 size-1.5 rounded-full"
             ></span>
-            {{ menu.text }}
+            {{ menu.label }}
           </DropdownMenuItem>
         </template>
       </DropdownMenuGroup>

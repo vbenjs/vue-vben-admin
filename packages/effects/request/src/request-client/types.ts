@@ -12,9 +12,17 @@ interface MakeAuthorization {
   unAuthorizedHandler?: () => Promise<void>;
 }
 
+interface MakeRequestHeaders {
+  'Accept-Language'?: string;
+}
+
 type MakeAuthorizationFn = (
   config?: InternalAxiosRequestConfig,
 ) => MakeAuthorization;
+
+type MakeRequestHeadersFn = (
+  config?: InternalAxiosRequestConfig,
+) => MakeRequestHeaders;
 
 type MakeErrorMessageFn = (message: string) => void;
 
@@ -27,6 +35,11 @@ interface RequestClientOptions extends CreateAxiosDefaults {
    * 用于生成错误消息
    */
   makeErrorMessage?: MakeErrorMessageFn;
+
+  /**
+   * 用于生成请求头
+   */
+  makeRequestHeaders?: MakeRequestHeadersFn;
 }
 
 interface HttpResponse<T = any> {
@@ -43,6 +56,7 @@ export type {
   HttpResponse,
   MakeAuthorizationFn,
   MakeErrorMessageFn,
+  MakeRequestHeadersFn,
   RequestClientOptions,
   RequestContentType,
 };

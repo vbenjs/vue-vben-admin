@@ -26,6 +26,10 @@ const subMenu = useSubMenuContext();
 const { parentMenu, parentPaths } = useMenu();
 
 const active = computed(() => props.path === rootMenu?.activePath);
+const menuIcon = computed(() =>
+  active.value ? props.activeIcon || props.icon : props.icon,
+);
+
 const isTopLevelMenuItem = computed(
   () => parentMenu.value?.type.name === 'Menu',
 );
@@ -94,7 +98,7 @@ onBeforeUnmount(() => {
     >
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
-          <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />
+          <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
           <slot></slot>
           <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
             <slot name="title"></slot>
@@ -109,7 +113,7 @@ onBeforeUnmount(() => {
         class="right-2"
         v-bind="props"
       />
-      <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />
+      <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
       <slot></slot>
       <slot name="title"></slot>
     </div>

@@ -1,12 +1,12 @@
-import type { SupportedLanguagesType } from '@vben-core/typings';
+export type SupportedLanguagesType = 'en-US' | 'zh-CN';
 
-type ImportLocaleFn = () => Promise<{ default: Record<string, string> }>;
+export type ImportLocaleFn = () => Promise<{ default: Record<string, string> }>;
 
-type LoadMessageFn = (
+export type LoadMessageFn = (
   lang: SupportedLanguagesType,
 ) => Promise<Record<string, string>>;
 
-interface LocaleSetupOptions {
+export interface LocaleSetupOptions {
   /**
    * Default language
    * @default zh-CN
@@ -23,10 +23,3 @@ interface LocaleSetupOptions {
    */
   missingWarn?: boolean;
 }
-
-export type {
-  ImportLocaleFn,
-  LoadMessageFn,
-  LocaleSetupOptions,
-  SupportedLanguagesType,
-};

@@ -9,7 +9,7 @@ import Preferences from './preferences-sheet.vue';
 
 /**
  * preferences 转成 vue props
- * preferences.widget.aiAssistant=>widgetAiAssistant
+ * preferences.widget.fullscreen=>widgetFullscreen
  */
 const attrs = computed(() => {
   const result: Record<string, any> = {};
@@ -23,7 +23,7 @@ const attrs = computed(() => {
 
 /**
  * preferences 转成 vue listener
- * preferences.widget.aiAssistant=>@update:widgetAiAssistant
+ * preferences.widget.fullscreen=>@update:widgetFullscreen
  */
 const listen = computed(() => {
   const result: Record<string, any> = {};

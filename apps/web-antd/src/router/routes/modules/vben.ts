@@ -17,11 +17,10 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'VbenProject',
     path: '/vben-admin',
-    redirect: '/vben-admin/about',
     children: [
       {
         name: 'VbenAbout',
-        path: 'about',
+        path: '/vben-admin/about',
         component: () => import('#/views/_core/vben/about/index.vue'),
         meta: {
           badgeType: 'dot',
@@ -32,7 +31,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         name: 'VbenDocument',
-        path: 'document',
+        path: '/vben-admin/document',
         component: IFrameView,
         meta: {
           icon: 'lucide:book-open-text',
@@ -43,7 +42,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         name: 'VbenGithub',
-        path: 'github',
+        path: '/vben-admin/github',
         component: IFrameView,
         meta: {
           icon: 'mdi:github',

@@ -6,8 +6,6 @@ import { useTabs } from '@vben/hooks';
 
 import { Input as AInput, Button } from 'ant-design-vue';
 
-defineOptions({ name: 'FeatureTabsDemo' });
-
 const router = useRouter();
 const newTabTitle = ref('');
 

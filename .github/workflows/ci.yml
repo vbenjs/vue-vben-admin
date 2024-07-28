@@ -68,7 +68,7 @@ jobs:
       #   run: git config --global user.email "you@example.com" && git config --global user.name "Your Name"
 
       - name: Vitest tests
-        run: pnpm run test
+        run: pnpm run test:unit
 
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v4

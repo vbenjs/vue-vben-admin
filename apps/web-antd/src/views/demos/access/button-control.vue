@@ -9,8 +9,6 @@ import { Button } from 'ant-design-vue';
 
 import { resetAllStores, useAccessStore } from '#/store';
 
-defineOptions({ name: 'AccessButtonControl' });
-
 const accounts: Record<string, LoginAndRegisterParams> = {
   admin: {
     password: '123456',

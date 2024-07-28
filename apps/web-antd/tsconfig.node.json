@@ -3,6 +3,7 @@
   "extends": "@vben/tsconfig/node.json",
   "compilerOptions": {
     "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "noEmit": false
   },
   "include": ["vite.config.mts"]

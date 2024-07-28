@@ -31,12 +31,19 @@ const hasChildren = computed(() => {
     Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0
   );
 });
+
+// function menuIcon(menu: MenuRecordRaw) {
+//   return props.activePath === menu.path
+//     ? menu.activeIcon || menu.icon
+//     : menu.icon;
+// }
 </script>
 
 <template>
   <MenuItem
     v-if="!hasChildren"
     :key="menu.path"
+    :active-icon="menu.activeIcon"
     :badge="menu.badge"
     :badge-type="menu.badgeType"
     :badge-variants="menu.badgeVariants"
@@ -48,6 +55,7 @@ const hasChildren = computed(() => {
   <SubMenuComp
     v-else
     :key="`${menu.path}_sub`"
+    :active-icon="menu.activeIcon"
     :icon="menu.icon"
     :path="menu.path"
   >

@@ -31,6 +31,6 @@
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.0",
-    "vue": "^3.4.33"
+    "vue": "^3.4.34"
   }
 }

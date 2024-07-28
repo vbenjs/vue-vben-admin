@@ -71,7 +71,8 @@
     "**/CVS": true,
     "**/.stylelintcache": true,
     "**/.DS_Store": true,
-    "**/vite.config.mts.*": true
+    "**/vite.config.mts.*": true,
+    "**/tea.yaml": true
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -190,7 +191,7 @@
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*,cspell.json",
     "tailwind.config.mjs": "postcss.*"
   },
-  "commentTranslate.hover.enabled": true,
+  "commentTranslate.hover.enabled": false,
   "i18n-ally.keystyle": "nested",
   "commentTranslate.multiLineMerge": true
 }

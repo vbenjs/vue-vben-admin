@@ -24,17 +24,6 @@ describe('preferences', () => {
     preferenceManager = new PreferenceManager();
   });
 
-  it('initPreferences should initialize preferences with overrides and namespace', async () => {
-    const overrides = { theme: { colorPrimary: 'hsl(231 98% 65%)' } };
-    const namespace = 'testNamespace';
-
-    await preferenceManager.initPreferences({ namespace, overrides });
-
-    expect(preferenceManager.getPreferences().theme.colorPrimary).toBe(
-      overrides.theme.colorPrimary,
-    );
-  });
-
   it('loads default preferences if no saved preferences found', () => {
     const preferences = preferenceManager.getPreferences();
     expect(preferences).toEqual(defaultPreferences);

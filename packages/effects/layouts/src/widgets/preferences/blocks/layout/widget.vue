@@ -12,7 +12,6 @@ const widgetFullscreen = defineModel<boolean>('widgetFullscreen');
 const widgetLanguageToggle = defineModel<boolean>('widgetLanguageToggle');
 const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
-const widgetAiAssistant = defineModel<boolean>('widgetAiAssistant');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
 </script>
@@ -32,9 +31,6 @@ const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
   </SwitchItem>
   <SwitchItem v-model="widgetNotification">
     {{ $t('preferences.widget.notification') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetAiAssistant">
-    {{ $t('preferences.widget.aiAssistant') }}
   </SwitchItem>
   <SwitchItem v-model="widgetLockScreen">
     {{ $t('preferences.widget.lockScreen') }}

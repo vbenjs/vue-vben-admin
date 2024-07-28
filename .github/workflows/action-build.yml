@@ -45,5 +45,5 @@ jobs:
 
       - name: Test and Build
         run: |
-          pnpm run test
+          pnpm run test:unit
           pnpm run build

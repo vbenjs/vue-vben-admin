@@ -1,9 +1,11 @@
-import type { SupportedLanguagesType } from '@vben/types';
+import type { LocaleSetupOptions, SupportedLanguagesType } from '@vben/locales';
 import type { Locale } from 'ant-design-vue/es/locale';
 
+import type { App } from 'vue';
 import { ref } from 'vue';
 
-import { $t, loadLocalesMap, setupI18n } from '@vben/locales';
+import { $t, setupI18n as coreSetup, loadLocalesMap } from '@vben/locales';
+import { preferences } from '@vben/preferences';
 
 import antdEnLocale from 'ant-design-vue/es/locale/en_US';
 import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
@@ -74,6 +76,15 @@ async function loadAntdLocale(lang: SupportedLanguagesType) {
       break;
     }
   }
+}
+
+async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
+  await coreSetup(app, {
+    defaultLocale: preferences.app.locale,
+    loadMessages,
+    missingWarn: !import.meta.env.PROD,
+    ...options,
+  });
 }
 
 export { $t, antdLocale, loadMessages, setupI18n };

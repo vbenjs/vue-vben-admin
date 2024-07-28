@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { Fallback } from '@vben/common-ui';
-
-defineOptions({ name: 'AccessMenuVisible403' });
 </script>
 
 <template>

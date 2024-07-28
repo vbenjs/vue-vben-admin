@@ -6,7 +6,7 @@ import {
 } from '@vben/vite-config';
 
 export default defineConfig(async () => {
-  const { appTitle, port, ...envConfig } = await loadAndConvertEnv();
+  const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
   return {
     application: {
       ...envConfig,
@@ -16,13 +16,14 @@ export default defineConfig(async () => {
       pwaOptions: getDefaultPwaOptions(appTitle),
     },
     vite: {
+      base,
       server: {
         port,
         proxy: {
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
-            // 代理目标地址 - backend-mock 项目
+            // mock代理目标地址
             target: 'http://localhost:5320/api',
             ws: true,
           },

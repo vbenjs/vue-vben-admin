@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SupportedLanguagesType } from '@vben/locales';
 import type {
   BreadcrumbStyleType,
   BuiltinThemeType,
@@ -6,7 +7,6 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   NavigationStyleType,
-  SupportedLanguagesType,
   ThemeModeType,
 } from '@vben/types';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
@@ -61,6 +61,7 @@ const appLayout = defineModel<LayoutType>('appLayout');
 const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
+const appWatermark = defineModel<boolean>('appWatermark');
 
 const transitionProgress = defineModel<boolean>('transitionProgress');
 const transitionName = defineModel<string>('transitionName');
@@ -93,6 +94,9 @@ const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
+const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
+const tabbarShowRefresh = defineModel<boolean>('tabbarShowRefresh');
+const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
 const tabbarDragable = defineModel<boolean>('tabbarDragable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
@@ -136,7 +140,6 @@ const widgetFullscreen = defineModel<boolean>('widgetFullscreen');
 const widgetLanguageToggle = defineModel<boolean>('widgetLanguageToggle');
 const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
-const widgetAiAssistant = defineModel<boolean>('widgetAiAssistant');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
 
@@ -252,6 +255,7 @@ async function handleReset() {
               <General
                 v-model:app-dynamic-title="appDynamicTitle"
                 v-model:app-locale="appLocale"
+                v-model:app-watermark="appWatermark"
               />
             </Block>
 
@@ -342,19 +346,20 @@ async function handleReset() {
                 "
               />
             </Block>
-
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
                 v-model:tabbar-dragable="tabbarDragable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
+                v-model:tabbar-show-maximize="tabbarShowMaximize"
+                v-model:tabbar-show-more="tabbarShowMore"
+                v-model:tabbar-show-refresh="tabbarShowRefresh"
                 v-model:tabbar-style-type="tabbarStyleType"
               />
             </Block>
             <Block :title="$t('preferences.widget.title')">
               <Widget
-                v-model:widget-ai-assistant="widgetAiAssistant"
                 v-model:widget-fullscreen="widgetFullscreen"
                 v-model:widget-global-search="widgetGlobalSearch"
                 v-model:widget-language-toggle="widgetLanguageToggle"

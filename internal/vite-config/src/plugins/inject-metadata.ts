@@ -74,6 +74,7 @@ async function viteMetadataPlugin(
             license,
             version,
           }),
+          'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
         },
       };
     },

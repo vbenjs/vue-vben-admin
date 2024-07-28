@@ -42,6 +42,7 @@
     "@vben-core/menu-ui": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
+    "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",
@@ -50,7 +51,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.11.0",
-    "vue": "^3.4.33",
+    "vue": "^3.4.34",
     "vue-router": "^4.4.0"
   }
 }

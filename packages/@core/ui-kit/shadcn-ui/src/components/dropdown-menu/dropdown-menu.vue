@@ -32,14 +32,14 @@ function handleItemClick(menu: IDropdownMenuItem) {
     </DropdownMenuTrigger>
     <DropdownMenuContent align="start">
       <DropdownMenuGroup>
-        <template v-for="menu in menus" :key="menu.key">
+        <template v-for="menu in menus" :key="menu.value">
           <DropdownMenuItem
             :disabled="menu.disabled"
             class="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground text-foreground/80 mb-1 cursor-pointer"
             @click="handleItemClick(menu)"
           >
             <component :is="menu.icon" v-if="menu.icon" class="mr-2 size-4" />
-            {{ menu.text }}
+            {{ menu.label }}
           </DropdownMenuItem>
           <DropdownMenuSeparator v-if="menu.separator" class="bg-border" />
         </template>

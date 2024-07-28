@@ -9,6 +9,7 @@ import type {
 import type {
   MakeAuthorizationFn,
   MakeErrorMessageFn,
+  MakeRequestHeadersFn,
   RequestClientOptions,
 } from './types';
 
@@ -25,6 +26,7 @@ class RequestClient {
   private instance: AxiosInstance;
   private makeAuthorization: MakeAuthorizationFn | undefined;
   private makeErrorMessage: MakeErrorMessageFn | undefined;
+  private makeRequestHeaders: MakeRequestHeadersFn | undefined;
 
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
@@ -45,11 +47,17 @@ class RequestClient {
       // 默认超时时间
       timeout: 10_000,
     };
-    const { makeAuthorization, makeErrorMessage, ...axiosConfig } = options;
+    const {
+      makeAuthorization,
+      makeErrorMessage,
+      makeRequestHeaders,
+      ...axiosConfig
+    } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
 
     this.instance = axios.create(requestConfig);
     this.makeAuthorization = makeAuthorization;
+    this.makeRequestHeaders = makeRequestHeaders;
     this.makeErrorMessage = makeErrorMessage;
 
     // 实例化拦截器管理器
@@ -85,7 +93,7 @@ class RequestClient {
     });
   }
 
-  private setupAuthorizationInterceptor() {
+  private setupDefaultResponseInterceptor() {
     this.addRequestInterceptor(
       (config: InternalAxiosRequestConfig) => {
         const authorization = this.makeAuthorization?.(config);
@@ -93,13 +101,19 @@ class RequestClient {
           const { token } = authorization.tokenHandler?.() ?? {};
           config.headers[authorization.key || 'Authorization'] = token;
         }
+
+        const requestHeader = this.makeRequestHeaders?.(config);
+
+        if (requestHeader) {
+          for (const [key, value] of Object.entries(requestHeader)) {
+            config.headers[key] = value;
+          }
+        }
+
         return config;
       },
       (error: any) => Promise.reject(error),
     );
-  }
-
-  private setupDefaultResponseInterceptor() {
     this.addResponseInterceptor(
       (response: AxiosResponse) => {
         return response;
@@ -162,15 +176,11 @@ class RequestClient {
 
   private setupInterceptors() {
     // 默认拦截器
-    this.setupAuthorizationInterceptor();
     this.setupDefaultResponseInterceptor();
   }
 
   /**
    * DELETE请求方法
-   * @param {string} url - 请求的URL
-   * @param {AxiosRequestConfig} config - 请求配置（可选）
-   * @returns 返回Promise
    */
   public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.request<T>(url, { ...config, method: 'DELETE' });
@@ -178,9 +188,6 @@ class RequestClient {
 
   /**
    * GET请求方法
-   * @param {string} url - 请求URL
-   * @param {AxiosRequestConfig} config - 请求配置，可选
-   * @returns {Promise<AxiosResponse<T>>} 返回Axios响应Promise
    */
   public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.request<T>(url, { ...config, method: 'GET' });
@@ -188,10 +195,6 @@ class RequestClient {
 
   /**
    * POST请求方法
-   * @param {string} url - 请求URL
-   * @param {any} data - 请求体数据
-   * @param {AxiosRequestConfig} config - 请求配置，可选
-   * @returns {Promise<AxiosResponse<T>>} 返回Axios响应Promise
    */
   public post<T = any>(
     url: string,
@@ -203,10 +206,6 @@ class RequestClient {
 
   /**
    * PUT请求方法
-   * @param {string} url - 请求的URL
-   * @param {any} data - 请求体数据
-   * @param {AxiosRequestConfig} config - 请求配置（可选）
-   * @returns 返回Promise
    */
   public put<T = any>(
     url: string,
@@ -218,9 +217,6 @@ class RequestClient {
 
   /**
    * 通用的请求方法
-   * @param {string} url - 请求的URL
-   * @param {AxiosRequestConfig} config - 请求配置对象
-   * @returns {Promise<AxiosResponse<T>>} 返回Axios响应Promise
    */
   public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
     try {

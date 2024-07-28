@@ -1,7 +1,6 @@
-import type { SupportedLanguagesType } from '@vben-core/typings';
 import type { Locale } from 'vue-i18n';
 
-import type { ImportLocaleFn } from './typing';
+import type { ImportLocaleFn, SupportedLanguagesType } from './typing';
 
 import { unref } from 'vue';
 import { createI18n } from 'vue-i18n';
@@ -15,10 +14,7 @@ const i18n = createI18n({
   messages: {},
 });
 
-const modules = {
-  './langs/en-US.json': async () => import('./langs/en-US.json'),
-  './langs/zh-CN.json': async () => import('./langs/zh-CN.json'),
-};
+const modules = import.meta.glob('./langs/*.json');
 
 const localesMap = loadLocalesMap(modules);
 

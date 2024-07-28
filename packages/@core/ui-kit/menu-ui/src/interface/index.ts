@@ -51,6 +51,10 @@ interface MenuProps {
 
 interface SubMenuProps extends MenuRecordBadgeRaw {
   /**
+   * @zh_CN 激活图标
+   */
+  activeIcon?: string;
+  /**
    * @zh_CN 是否禁用
    */
   disabled?: boolean;
@@ -65,6 +69,10 @@ interface SubMenuProps extends MenuRecordBadgeRaw {
 }
 
 interface MenuItemProps extends MenuRecordBadgeRaw {
+  /**
+   * @zh_CN 图标
+   */
+  activeIcon?: string;
   /**
    * @zh_CN 是否禁用
    */

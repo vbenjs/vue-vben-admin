@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { fs } from '@vben/node-utils';
+import { fs, readPackageJSON } from '@vben/node-utils';
 
 import { type PluginOption } from 'vite';
 
@@ -15,8 +15,9 @@ async function viteInjectAppLoadingPlugin(
   loadingTemplate = 'loading.html',
 ): Promise<PluginOption | undefined> {
   const loadingHtml = await getLoadingRawByHtmlTemplate(loadingTemplate);
+  const { version } = await readPackageJSON(process.cwd());
   const envRaw = isBuild ? 'prod' : 'dev';
-  const cacheName = `'${env.VITE_APP_NAMESPACE}-${envRaw}-preferences-theme'`;
+  const cacheName = `'${env.VITE_APP_NAMESPACE}-${version}-${envRaw}-preferences-theme'`;
 
   // 获取缓存的主题
   // 保证黑暗主题下，刷新页面时，loading也是黑暗主题

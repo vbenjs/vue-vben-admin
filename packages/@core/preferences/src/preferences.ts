@@ -41,7 +41,7 @@ class PreferenceManager {
 
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
-      100,
+      150,
     );
   }
 

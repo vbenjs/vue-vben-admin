@@ -42,9 +42,9 @@ const breadcrumbs = computed((): IBreadcrumb[] => {
     }
 
     resultBreadcrumb.push({
-      icon: icon as string,
+      icon,
       path: path || route.path,
-      title: $t((title || name) as string),
+      title: title ? $t((title || name) as string) : '',
       // items: children.map((child) => {
       //   return {
       //     icon: child?.meta?.icon as string,

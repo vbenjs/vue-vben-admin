@@ -1,0 +1,7 @@
+html.dark {
+  color-scheme: dark;
+}
+
+.dark .VPContent {
+  /* background-color: #14161a; */
+}

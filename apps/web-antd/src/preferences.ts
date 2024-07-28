@@ -1,4 +1,7 @@
+import { useAppConfig } from '@vben/hooks';
 import { defineOverridesPreferences } from '@vben/preferences';
+
+const { appTitle } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
 /**
  * @description 项目配置文件
@@ -6,4 +9,7 @@ import { defineOverridesPreferences } from '@vben/preferences';
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
+  app: {
+    name: appTitle,
+  },
 });

@@ -189,7 +189,7 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       );
 
       if (index >= 0 && index < this.tabs.length - 1) {
-        const rightTabs = this.tabs.slice(index + 1, this.tabs.length);
+        const rightTabs = this.tabs.slice(index + 1);
 
         const paths: string[] = [];
         for (const item of rightTabs) {
@@ -399,7 +399,13 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
   },
   getters: {
     affixTabs(): TabDefinition[] {
-      return this.tabs.filter((tab) => isAffixTab(tab));
+      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
+
+      return affixTabs.sort((a, b) => {
+        const orderA = (a.meta?.affixTabOrder ?? 0) as number;
+        const orderB = (b.meta?.affixTabOrder ?? 0) as number;
+        return orderA - orderB;
+      });
     },
     getCachedTabs(): string[] {
       return [...this.cachedTabs];
@@ -408,9 +414,8 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       return [...this.excludeCachedTabs];
     },
     getTabs(): TabDefinition[] {
-      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       const normalTabs = this.tabs.filter((tab) => !isAffixTab(tab));
-      return [...affixTabs, ...normalTabs].filter(Boolean);
+      return [...this.affixTabs, ...normalTabs].filter(Boolean);
     },
   },
   persist: [
