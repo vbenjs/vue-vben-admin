@@ -7,8 +7,8 @@ import { version } from '../../package.json';
 export default defineConfigWithTheme({
   description: 'Vben Admin& 企业级管理系统框架',
   head: head(),
-
   lang: 'zh',
+  srcDir: 'src',
   // locales: {
   //   en: {
   //     label: 'English',
@@ -19,8 +19,6 @@ export default defineConfigWithTheme({
   //     label: '简体中文',
   //     lang: 'zh-CN',
   //   },
-  // },
-  srcDir: 'src',
   themeConfig: {
     darkModeSwitchLabel: '主题',
     darkModeSwitchTitle: '切换到深色模式',
@@ -85,6 +83,7 @@ export default defineConfigWithTheme({
       { icon: 'github', link: 'https://github.com/vbenjs/vue-vben-admin' },
     ],
   },
+  title: 'Vben Admin',
   vite: {
     build: {
       chunkSizeWarningLimit: Infinity,
