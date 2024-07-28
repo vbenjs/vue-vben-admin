@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  deploy-web-antd-ftp:
-    name: Deploy Web Antd
+  deploy-push-ftp:
+    name: Deploy Push Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     strategy:
@@ -41,11 +41,18 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Sync files
+      - name: Sync Web Antd files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.PRO_FTP_HOST }}
           username: ${{ secrets.WEB_ANTD_FTP_ACCOUNT }}
           password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
           local-dir: ./apps/web-antd/dist/
-          dangerous-clean-slate: true
+
+      - name: Sync Website files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEBSITE_FTP_ACCOUNT }}
+          password: ${{ secrets.WEBSITE_FTP_PASSWORD }}
+          local-dir: ./website/.vitepress/dist/
