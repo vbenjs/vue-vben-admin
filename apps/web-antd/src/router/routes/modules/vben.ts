@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { VBEN_GITHUB_URL, VBEN_LOGO_URL } from '@vben/constants';
+import { VBEN_DOC_URL, VBEN_GITHUB_URL, VBEN_LOGO_URL } from '@vben/constants';
 
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -35,7 +35,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           icon: 'lucide:book-open-text',
-          iframeSrc: 'https://doc.vvbin.cn/',
+          iframeSrc: VBEN_DOC_URL,
           keepAlive: true,
           title: $t('page.vben.document'),
         },

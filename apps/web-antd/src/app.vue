@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { GlobalProvider } from '@vben/common-ui';
 import { useDesignTokens } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 
@@ -26,17 +25,15 @@ const tokenTheme = computed(() => {
 
   return {
     algorithm,
-    token: antDesignTokens.value,
+    token: antDesignTokens,
   };
 });
 </script>
 
 <template>
-  <GlobalProvider>
-    <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
-      <App>
-        <RouterView />
-      </App>
-    </ConfigProvider>
-  </GlobalProvider>
+  <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
+    <App>
+      <RouterView />
+    </App>
+  </ConfigProvider>
 </template>

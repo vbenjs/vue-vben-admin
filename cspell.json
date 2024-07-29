@@ -42,7 +42,8 @@
     "ependencies",
     "vite",
     "echarts",
-    "sortablejs"
+    "sortablejs",
+    "etag"
   ],
   "ignorePaths": [
     "**/node_modules/**",

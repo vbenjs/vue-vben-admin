@@ -62,6 +62,7 @@ const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
+const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 
 const transitionProgress = defineModel<boolean>('transitionProgress');
 const transitionName = defineModel<string>('transitionName');
@@ -254,6 +255,7 @@ async function handleReset() {
             <Block :title="$t('preferences.general')">
               <General
                 v-model:app-dynamic-title="appDynamicTitle"
+                v-model:app-enable-check-updates="appEnableCheckUpdates"
                 v-model:app-locale="appLocale"
                 v-model:app-watermark="appWatermark"
               />

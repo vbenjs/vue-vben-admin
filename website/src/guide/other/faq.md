@@ -16,7 +16,7 @@
 4. 在下面列表找不到问题可以到 issue 提问 [issues](https://github.com/vbenjs/vue-vben-admin/issues)
 5. 如果不是问题类型的，需要讨论的，请到 [discussions](https://github.com/vbenjs/vue-vben-admin/discussions) 讨论
 
-## 依赖安装问题
+## 依赖问题
 
 在 `Monorepo` 项目下，需要养成每次 `git pull`代码都要执行`pnpm install`的习惯，因为经常会有新的依赖包加入，项目在`.husky/git-merge`已经配置了自动执行`pnpm install`，但是有时候会出现问题，如果没有自动执行，建议手动执行一次。
 
@@ -134,4 +134,22 @@ TypeError: str.matchAll is not a function
 at Object.extractor (vue-vben-admin-main\node_modules@purge-icons\core\dist\index.js:146:27)
 at Extract (vue-vben-admin-main\node_modules@purge-icons\core\dist\index.js:173:54)
 
+```
+
+## nginx 部署
+
+部署到 `nginx`后，可能会出现以下错误：
+
+```bash
+Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "application/octet-stream". Strict MIME type checking is enforced for module scripts per HTML spec.
+```
+
+解决方式：
+
+```bash
+http {
+    types {
+      application/javascript js mjs;
+    }
+}
 ```

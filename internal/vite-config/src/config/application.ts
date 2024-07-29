@@ -13,7 +13,7 @@ import { loadApplicationPlugins } from '../plugins';
 import { loadAndConvertEnv } from '../utils/env';
 import { getCommonConfig } from './common';
 
-function defineApplicationConfig(userConfigPromise: DefineApplicationOptions) {
+function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
   return defineConfig(async (config) => {
     const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
     const options = await userConfigPromise?.(config);

@@ -12,9 +12,9 @@ import { useCoreAccessStore, useCoreLockStore } from '@vben/stores';
 import { MenuRecordRaw } from '@vben/types';
 import { mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
-import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+import { Toaster, VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 
-import { Breadcrumb, Preferences } from '../widgets';
+import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -310,6 +310,12 @@ watch(
 
     <template #extra>
       <slot name="extra"></slot>
+      <Toaster />
+      <CheckUpdates
+        v-if="preferences.app.enableCheckUpdates"
+        :polling-time="preferences.app.checkUpdatesPollingTime"
+      />
+
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">
         <slot v-if="coreLockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>

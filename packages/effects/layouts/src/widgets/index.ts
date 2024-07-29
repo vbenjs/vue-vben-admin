@@ -1,4 +1,5 @@
 export { default as Breadcrumb } from './breadcrumb.vue';
+export * from './check-updates';
 export { default as AuthenticationColorToggle } from './color-toggle.vue';
 export * from './global-search';
 export { default as LanguageToggle } from './language-toggle.vue';

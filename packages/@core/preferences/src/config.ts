@@ -4,6 +4,7 @@ const defaultPreferences: Preferences = {
   app: {
     accessMode: 'frontend',
     authPageLayout: 'panel-right',
+    checkUpdatesPollingTime: 1,
     colorGrayMode: false,
     colorWeakMode: false,
     compact: false,
@@ -11,6 +12,7 @@ const defaultPreferences: Preferences = {
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.5/source/avatar-v1.webp',
     dynamicTitle: true,
+    enableCheckUpdates: true,
     enablePreferences: true,
     isMobile: false,
     layout: 'sidebar-nav',
@@ -27,7 +29,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'Vben Admin',
+    companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
     date: '2024',
     enable: true,

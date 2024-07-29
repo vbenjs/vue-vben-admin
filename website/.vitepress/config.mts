@@ -1,109 +1,116 @@
 import type { DefaultTheme, HeadConfig } from 'vitepress';
 
+import { resolve } from 'node:path';
+
+import { type PwaOptions, withPwa } from '@vite-pwa/vitepress';
 import { defineConfigWithTheme } from 'vitepress';
 
 import { version } from '../../package.json';
 
-export default defineConfigWithTheme({
-  description: 'Vben Admin& 企业级管理系统框架',
-  head: head(),
-  lang: 'zh',
-  srcDir: 'src',
-  // locales: {
-  //   en: {
-  //     label: 'English',
-  //     lang: 'en',
-  //     link: '/en/',
-  //   },
-  //   root: {
-  //     label: '简体中文',
-  //     lang: 'zh-CN',
-  //   },
-  themeConfig: {
-    darkModeSwitchLabel: '主题',
-    darkModeSwitchTitle: '切换到深色模式',
-    docFooter: {
-      next: '下一页',
-      prev: '上一页',
-    },
-    editLink: {
-      pattern: 'https://github.com/vbenjs/vue-vben-admin/edit/main/docs/:path',
-      text: '在 GitHub 上编辑此页面',
-    },
-    footer: {
-      copyright: `Copyright © 2020-${new Date().getFullYear()} Vben`,
-      message: '基于 MIT 许可发布.',
-    },
-    i18nRouting: true,
-    langMenuLabel: '多语言',
-    lastUpdated: {
-      formatOptions: {
-        dateStyle: 'short',
-        timeStyle: 'medium',
+export default withPwa(
+  defineConfigWithTheme({
+    description: 'Vben Admin& 企业级管理系统框架',
+    head: head(),
+    lang: 'zh',
+    pwa: pwa(),
+    // locales: {
+    //   en: {
+    //     label: 'English',
+    //     lang: 'en',
+    //     link: '/en/',
+    //   },
+    //   root: {
+    //     label: '简体中文',
+    //     lang: 'zh-CN',
+    srcDir: 'src',
+    //   },
+    themeConfig: {
+      darkModeSwitchLabel: '主题',
+      darkModeSwitchTitle: '切换到深色模式',
+      docFooter: {
+        next: '下一页',
+        prev: '上一页',
       },
-      text: '最后更新于',
-    },
-    lightModeSwitchTitle: '切换到浅色模式',
-    logo: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp',
-    nav: nav(),
-    outline: {
-      label: '页面导航',
-    },
-    returnToTopLabel: '回到顶部',
-    search: {
-      options: {
-        locales: {
-          zh: {
-            translations: {
-              button: {
-                buttonAriaLabel: '搜索文档',
-                buttonText: '搜索文档',
-              },
-              modal: {
-                footer: {
-                  navigateText: '切换',
-                  selectText: '选择',
+      editLink: {
+        pattern:
+          'https://github.com/vbenjs/vue-vben-admin/edit/main/docs/:path',
+        text: '在 GitHub 上编辑此页面',
+      },
+      footer: {
+        copyright: `Copyright © 2020-${new Date().getFullYear()} Vben`,
+        message: '基于 MIT 许可发布.',
+      },
+      i18nRouting: true,
+      langMenuLabel: '多语言',
+      lastUpdated: {
+        formatOptions: {
+          dateStyle: 'short',
+          timeStyle: 'medium',
+        },
+        text: '最后更新于',
+      },
+      lightModeSwitchTitle: '切换到浅色模式',
+      logo: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp',
+      nav: nav(),
+      outline: {
+        label: '页面导航',
+      },
+      returnToTopLabel: '回到顶部',
+      search: {
+        options: {
+          locales: {
+            zh: {
+              translations: {
+                button: {
+                  buttonAriaLabel: '搜索文档',
+                  buttonText: '搜索文档',
                 },
-                noResultsText: '无法找到相关结果',
-                resetButtonTitle: '清除查询条件',
+                modal: {
+                  footer: {
+                    navigateText: '切换',
+                    selectText: '选择',
+                  },
+                  noResultsText: '无法找到相关结果',
+                  resetButtonTitle: '清除查询条件',
+                },
               },
             },
           },
         },
+        provider: 'local',
       },
-      provider: 'local',
-    },
-    sidebar: {
-      '/commercial/': { base: '/commercial/', items: sidebarCommercial() },
-      '/guide/': { base: '/guide/', items: sidebarGuide() },
-    },
-    sidebarMenuLabel: '菜单',
-    siteTitle: 'Vben Admin',
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vbenjs/vue-vben-admin' },
-    ],
-  },
-  title: 'Vben Admin',
-  vite: {
-    build: {
-      chunkSizeWarningLimit: Infinity,
-      minify: 'terser',
-    },
-    json: {
-      stringify: true,
-    },
-    server: {
-      fs: {
-        allow: ['../..'],
+      sidebar: {
+        '/commercial/': { base: '/commercial/', items: sidebarCommercial() },
+        '/guide/': { base: '/guide/', items: sidebarGuide() },
       },
-      host: true,
-      port: 6173,
+      sidebarMenuLabel: '菜单',
+      siteTitle: 'Vben Admin',
+      socialLinks: [
+        { icon: 'github', link: 'https://github.com/vbenjs/vue-vben-admin' },
+      ],
     },
-    ssr: {
-      external: ['@vue/repl'],
+    title: 'Vben Admin',
+    vite: {
+      build: {
+        chunkSizeWarningLimit: Infinity,
+        minify: 'terser',
+      },
+      json: {
+        stringify: true,
+      },
+      server: {
+        fs: {
+          allow: ['../..'],
+        },
+        host: true,
+        port: 6173,
+      },
+      ssr: {
+        external: ['@vue/repl'],
+      },
     },
-  },
-});
+  }),
+);
 
 function nav(): DefaultTheme.NavItem[] {
   return [
@@ -306,18 +313,36 @@ function head(): HeadConfig[] {
     //     src: 'https://cdn.tailwindcss.com',
     //   },
     // ],
-    [
-      'script',
-      {},
-      `
-       var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?2e443a834727c065877c01d89921545e";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-      `,
-    ],
   ];
+}
+
+function pwa(): PwaOptions {
+  return {
+    includeManifestIcons: false,
+    manifest: {
+      description:
+        'Vben Admin is a modern admin dashboard template based on Vue 3. ',
+      icons: [
+        {
+          sizes: '192x192',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/pwa-icon-192.png',
+          type: 'image/png',
+        },
+        {
+          sizes: '512x512',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/pwa-icon-512.png',
+          type: 'image/png',
+        },
+      ],
+      id: '/',
+      name: 'Vben Admin Doc',
+      short_name: 'vben_admin_doc',
+      theme_color: '#ffffff',
+    },
+    outDir: resolve(process.cwd(), '.vitepress/dist'),
+    registerType: 'autoUpdate',
+    workbox: {
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+    },
+  };
 }

@@ -43,11 +43,6 @@ const customConfig: Linter.FlatConfig[] = [
               message:
                 'The #/stores package cannot be imported, please use the @core package itself',
             },
-            {
-              group: ['#/forward/*'],
-              message:
-                'The #/forward package cannot be imported, please use the @core package itself',
-            },
           ],
         },
       ],
@@ -99,6 +94,9 @@ const customConfig: Linter.FlatConfig[] = [
       'packages/icons/**/**',
       'packages/constants/**/**',
       'packages/styles/**/**',
+      'packages/stores/**/**',
+      'packages/preferences/**/**',
+      'packages/locales/**/**',
     ],
     ignores: restrictedImportIgnores,
     rules: {
@@ -118,11 +116,12 @@ const customConfig: Linter.FlatConfig[] = [
   },
   // 后端模拟代码，不需要太多规则
   {
-    files: ['apps/backend-mock/**/**'],
+    files: ['apps/backend-mock/**/**', 'website/**/**'],
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
       'n/no-extraneous-import': 'off',
       'n/prefer-global/buffer': 'off',
+      'n/prefer-global/process': 'off',
       'no-console': 'off',
       'unicorn/prefer-module': 'off',
     },

@@ -15,6 +15,7 @@ coverage
 **/.vitepress/cache
 .cache
 .turbo
+.temp
 dev-dist
 .stylelintcache
 yarn.lock

@@ -150,10 +150,6 @@ async function loadApplicationPlugins(
       condition: pwa,
       plugins: () =>
         VitePWA({
-          devOptions: {
-            enabled: true,
-            type: 'module',
-          },
           injectRegister: false,
           workbox: {
             globPatterns: [],

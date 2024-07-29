@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@vben/tsconfig/web.json",
+  "include": [".vitepress/*.mts", ".vitepress/**/*.ts", ".vitepress/**/*.vue"],
+  "exclude": ["node_modules"]
+}

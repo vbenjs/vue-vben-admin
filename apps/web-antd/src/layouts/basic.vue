@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
-import { LOGIN_PATH } from '@vben/constants';
+import { LOGIN_PATH, VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
 import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
@@ -57,7 +57,7 @@ const showDot = computed(() =>
 const menus = computed(() => [
   {
     handler: () => {
-      openWindow('https://github.com/vbenjs/vue-vben-admin', {
+      openWindow(VBEN_DOC_URL, {
         target: '_blank',
       });
     },
@@ -66,7 +66,7 @@ const menus = computed(() => [
   },
   {
     handler: () => {
-      openWindow('https://github.com/vbenjs/vue-vben-admin', {
+      openWindow(VBEN_GITHUB_URL, {
         target: '_blank',
       });
     },
@@ -75,7 +75,7 @@ const menus = computed(() => [
   },
   {
     handler: () => {
-      openWindow('https://github.com/vbenjs/vue-vben-admin/issues', {
+      openWindow(`${VBEN_GITHUB_URL}/issues`, {
         target: '_blank',
       });
     },

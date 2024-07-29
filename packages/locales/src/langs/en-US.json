@@ -60,6 +60,8 @@
     "notifications": "Notifications",
     "markAllAsRead": "Make All as Read",
     "clearNotifications": "Clear",
+    "checkUpdatesTitle": "New Version Available",
+    "checkUpdatesDescription": "Click to refresh and get the latest version",
     "search": {
       "title": "Search",
       "searchNavigate": "Search Navigation",
@@ -166,6 +168,7 @@
     "language": "Language",
     "dynamicTitle": "Dynamic Title",
     "watermark": "Watermark",
+    "checkUpdates": "Periodic update check",
     "sidebar": {
       "title": "Sidebar",
       "width": "Width",

@@ -9,7 +9,7 @@ import { defineConfig, mergeConfig } from 'vite';
 import { loadLibraryPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
-function defineLibraryConfig(userConfigPromise: DefineLibraryOptions) {
+function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
   return defineConfig(async (config: ConfigEnv) => {
     const options = await userConfigPromise?.(config);
     const { command, mode } = config;

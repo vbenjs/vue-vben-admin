@@ -174,6 +174,7 @@ const defaultPreferences: Preferences = {
   app: {
     accessMode: 'frontend',
     authPageLayout: 'panel-right',
+    checkUpdatesPollingTime: 1,
     colorGrayMode: false,
     colorWeakMode: false,
     compact: false,
@@ -181,11 +182,12 @@ const defaultPreferences: Preferences = {
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.5/source/avatar-v1.webp',
     dynamicTitle: true,
+    enableCheckUpdates: true,
     enablePreferences: true,
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
-    loginExpiredMode: 'page',
+    loginExpiredMode: 'modal',
     name: 'Vben Admin',
     watermark: false,
   },
@@ -288,6 +290,8 @@ interface AppPreferences {
   accessMode: AccessModeType;
   /** 登录注册页面布局 */
   authPageLayout: AuthPageLayoutType;
+  /** 检查更新轮询时间 */
+  checkUpdatesPollingTime: number;
   /** 是否开启灰色模式 */
   colorGrayMode: boolean;
   /** 是否开启色弱模式 */
@@ -300,6 +304,8 @@ interface AppPreferences {
   defaultAvatar: string;
   // /** 开启动态标题 */
   dynamicTitle: boolean;
+  /** 是否开启检查更新 */
+  enableCheckUpdates: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
   /** 是否移动端 */
