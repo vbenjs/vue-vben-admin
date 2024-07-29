@@ -49,6 +49,7 @@ export function useTabbar() {
     refreshTab,
     toggleTabPin,
   } = useTabs();
+
   const currentActive = computed(() => {
     return route.fullPath;
   });
