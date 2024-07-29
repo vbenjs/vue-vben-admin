@@ -28,7 +28,7 @@
     }
   },
   "dependencies": {
-    "@stylistic/stylelint-plugin": "^2.1.2",
+    "@stylistic/stylelint-plugin": "^2.1.3",
     "stylelint-config-recess-order": "^5.0.1",
     "stylelint-scss": "^6.4.1"
   },

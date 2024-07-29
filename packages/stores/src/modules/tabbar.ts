@@ -182,7 +182,6 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       }
       await this._bulkCloseByPaths(paths);
     },
-
     /**
      * @zh_CN 关闭右侧标签页
      * @param tab
@@ -250,6 +249,17 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       }
 
       await this.closeTab(this.tabs[index], router);
+    },
+
+    /**
+     * 根据路径获取标签页
+     * @param path
+     * @returns
+     */
+    getTabByPath(path: string) {
+      return this.getTabs.find(
+        (item) => getTabPath(item) === path,
+      ) as TabDefinition;
     },
     /**
      * @zh_CN 新窗口打开标签页

@@ -34,7 +34,8 @@ const {
 } = useTabbar();
 
 const menus = computed(() => {
-  const menus = createContextMenus(route);
+  const tab = coreTabbarStore.getTabByPath(currentActive.value);
+  const menus = createContextMenus(tab);
   return menus.map((item) => {
     return {
       ...item,
