@@ -3,6 +3,7 @@
     @dropdown-visible-change="handleFetch"
     v-bind="$attrs"
     @change="handleChange"
+    @search="debounceSearchFn"
     :options="getOptions"
     v-model:value="state"
   >
@@ -20,18 +21,29 @@
     </template>
   </Select>
 </template>
+
 <script lang="ts" setup>
-  import { PropType, ref, computed, unref, watch } from 'vue';
+  import { computed, PropType, ref, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
   import type { SelectValue } from 'ant-design-vue/es/select';
-  import { isFunction } from '@/utils/is';
+  import { isEmpty, isFunction } from '@/utils/is';
   import { useRuleFormItem } from '@/hooks/component/useFormItem';
-  import { get, omit, isEqual } from 'lodash-es';
+  import { assignIn, get, isEqual, omit } from 'lodash-es';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '@/hooks/web/useI18n';
   import { propTypes } from '@/utils/propTypes';
+  import { useDebounceFn } from '@vueuse/core';
 
   type OptionsItem = { label?: string; value?: string; disabled?: boolean; [name: string]: any };
+
+  type ApiSearchOption = {
+    // 待搜索字段名
+    searchName?: string;
+    // 搜索前置方法
+    beforeFetch?: (value?: string) => Promise<string>;
+    // 拦截方法
+    interceptFetch?: (value?: string) => Promise<boolean>;
+  };
 
   defineOptions({ name: 'ApiSelect', inheritAttrs: false });
 
@@ -39,7 +51,7 @@
     value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
     numberToString: propTypes.bool,
     api: {
-      type: Function as PropType<(arg?: any) => Promise<OptionsItem[] | Recordable<any>>>,
+      type: Function as PropType<(arg?: any) => Promise<OptionsItem[] | Recordable>>,
       default: null,
     },
     // api params
@@ -53,6 +65,10 @@
     options: {
       type: Array<OptionsItem>,
       default: [],
+    },
+    apiSearch: {
+      type: Object as PropType<ApiSearchOption>,
+      default: () => null,
     },
     beforeFetch: {
       type: Function as PropType<Fn>,
@@ -72,6 +88,7 @@
   // 首次是否加载过了
   const isFirstLoaded = ref(false);
   const emitData = ref<OptionsItem[]>([]);
+  const searchParams = ref<any>({});
   const { t } = useI18n();
 
   // Embedded in the form, just use the hook binding to perform form verification
@@ -110,16 +127,29 @@
     { deep: true, immediate: props.immediate },
   );
 
+  watch(
+    () => searchParams.value,
+    (value, oldValue) => {
+      if (isEmpty(value) || isEqual(value, oldValue)) return;
+      (async () => {
+        await fetch();
+        searchParams.value = {};
+      })();
+    },
+    { deep: true, immediate: props.immediate },
+  );
+
   async function fetch() {
     let { api, beforeFetch, afterFetch, params, resultField } = props;
     if (!api || !isFunction(api) || loading.value) return;
     optionsRef.value = [];
     try {
       loading.value = true;
+      let apiParams = assignIn({}, params, searchParams.value);
       if (beforeFetch && isFunction(beforeFetch)) {
-        params = (await beforeFetch(params)) || params;
+        apiParams = (await beforeFetch(apiParams)) || apiParams;
       }
-      let res = await api(params);
+      let res = await api(apiParams);
       if (afterFetch && isFunction(afterFetch)) {
         res = (await afterFetch(res)) || res;
       }
@@ -150,6 +180,32 @@
         await fetch();
       }
     }
+  }
+
+  let debounceSearchFn = useDebounceFn(handleSearch, 500);
+
+  async function handleSearch(value: any) {
+    if (!props.apiSearch) {
+      return;
+    }
+    const { searchName, beforeFetch, interceptFetch } = props.apiSearch;
+    if (!searchName) {
+      return;
+    }
+
+    value = value || undefined;
+    if (beforeFetch && isFunction(beforeFetch)) {
+      value = (await beforeFetch(value)) || value;
+    }
+
+    if (interceptFetch && isFunction(interceptFetch)) {
+      if (!(await interceptFetch(value))) {
+        return;
+      }
+    }
+    searchParams.value = {
+      [searchName]: value,
+    };
   }
 
   function emitChange() {
