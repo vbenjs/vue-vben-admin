@@ -1,8 +1,8 @@
 import type { EChartsOption } from 'echarts';
 import type { Ref } from 'vue';
+import { computed, nextTick, ref, unref, watch } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';
 import { tryOnUnmounted, useDebounceFn } from '@vueuse/core';
-import { unref, nextTick, watch, computed, ref } from 'vue';
 import { useEventListener } from '@/hooks/event/useEventListener';
 import { useBreakpoint } from '@/hooks/event/useBreakpoint';
 import echarts from '@/utils/lib/echarts';
@@ -49,6 +49,10 @@ export function useECharts(
       listener: resizeFn,
     });
     removeResizeFn = removeEvent;
+
+    const resizeObserver = new ResizeObserver(resizeFn);
+    resizeObserver.observe(el);
+
     const { widthRef, screenEnum } = useBreakpoint();
     if (unref(widthRef) <= screenEnum.MD || el.offsetHeight === 0) {
       useTimeoutFn(() => {
@@ -64,7 +68,7 @@ export function useECharts(
         useTimeoutFn(() => {
           setOptions(unref(getOptions));
           resolve(null);
-        }, 30);
+        }, 50);
       }
       nextTick(() => {
         useTimeoutFn(() => {
