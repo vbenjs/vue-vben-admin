@@ -63,8 +63,8 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         cssTarget: 'chrome80',
         rollupOptions: {
           output: {
-            // 入口文件名（不能变，否则所有打包的 js hash 值全变了）
-            entryFileNames: 'index.js',
+            // 入口文件名
+            entryFileNames: 'assets/entry/[name]-[hash].js',
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
               antd: ['ant-design-vue', '@ant-design/icons-vue'],

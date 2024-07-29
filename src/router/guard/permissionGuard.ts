@@ -61,10 +61,10 @@ export function createPermissionGuard(router: Router) {
         path: LOGIN_PATH,
         replace: true,
       };
-      if (to.path) {
+      if (to.fullPath) {
         redirectData.query = {
           ...redirectData.query,
-          redirect: to.path,
+          redirect: to.fullPath,
         };
       }
       next(redirectData);

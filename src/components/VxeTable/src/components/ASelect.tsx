@@ -1,5 +1,5 @@
 import { ComponentOptions, h, resolveComponent } from 'vue';
-import { VxeColumnPropTypes, VxeGlobalRendererHandles } from 'vxe-table';
+import { VxeColumnPropTypes, VxeGlobalRendererHandles, VxeGlobalRendererOptions } from 'vxe-table';
 import XEUtils from 'xe-utils';
 import {
   cellText,
@@ -32,7 +32,7 @@ function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.Ren
 function createEditRender() {
   return function (
     renderOpts: VxeColumnPropTypes.EditRender,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    params: VxeGlobalRendererHandles.RenderTableEditParams,
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
     const { row, column, $table } = params;
@@ -100,8 +100,8 @@ function createEditRender() {
 }
 
 function getSelectCellValue(
-  renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams,
+  renderOpts: VxeGlobalRendererHandles.RenderTableCellOptions,
+  params: VxeGlobalRendererHandles.RenderTableCellParams,
 ) {
   const {
     options = [],
@@ -144,7 +144,7 @@ function getSelectCellValue(
 function createFilterRender() {
   return function (
     renderOpts: VxeColumnPropTypes.FilterRender,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderTableFilterParams,
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
     const groupOptions = optionGroupProps.options || 'options';
@@ -249,10 +249,10 @@ function createFilterRender() {
 }
 
 export default {
-  renderEdit: createEditRender(),
-  renderCell: createCellRender(getSelectCellValue),
-  renderFilter: createFilterRender(),
-  defaultFilterMethod(params) {
+  renderTableEdit: createEditRender(),
+  renderTableCell: createCellRender(getSelectCellValue),
+  renderTableFilter: createFilterRender(),
+  tableFilterDefaultMethod(params) {
     const { option, row, column } = params;
     const { data } = option;
     const { field, filterRender: renderOpts } = column;
@@ -266,6 +266,6 @@ export default {
     }
     return cellValue == data;
   },
-  renderItemContent: createFormItemRender(),
-  exportMethod: createExportMethod(getSelectCellValue),
-};
+  renderFormItemContent: createFormItemRender(),
+  tableExportMethod: createExportMethod(getSelectCellValue),
+} as VxeGlobalRendererOptions;

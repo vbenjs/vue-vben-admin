@@ -1,4 +1,4 @@
-import { VXETableCore, VxeGlobalInterceptorHandles } from 'vxe-table';
+import { VxeUIExport, VxeGlobalInterceptorHandles } from 'vxe-table';
 import AAutoComplete from './AAutoComplete';
 import AInput from './AInput';
 import AInputNumber from './AInputNumber';
@@ -50,7 +50,7 @@ function getEventTargetNode(evnt: any, container: HTMLElement, className: string
 function handleClearEvent(
   params:
     | VxeGlobalInterceptorHandles.InterceptorClearFilterParams
-    | VxeGlobalInterceptorHandles.InterceptorClearActivedParams
+    | VxeGlobalInterceptorHandles.InterceptorClearEditParams
     | VxeGlobalInterceptorHandles.InterceptorClearAreasParams,
 ) {
   const { $event } = params;
@@ -73,10 +73,10 @@ function handleClearEvent(
  * 基于 vxe-table 表格的适配插件，用于兼容 ant-design-vue 组件库
  */
 export const VXETablePluginAntd = {
-  install(vxetablecore: VXETableCore) {
+  install(vxetablecore: VxeUIExport) {
     const { interceptor, renderer } = vxetablecore;
 
-    renderer.mixin({
+    const customRenderComponents = {
       AAutoComplete,
       AInput,
       AInputNumber,
@@ -99,16 +99,21 @@ export const VXETablePluginAntd = {
       AEmpty,
       AInputSearch,
       AYearPicker,
+    };
+
+    Object.keys(customRenderComponents).forEach((name) => {
+      if (renderer.get(name)) return;
+      renderer.add(name, customRenderComponents[name]);
     });
 
     interceptor.add('event.clearFilter', handleClearEvent);
-    interceptor.add('event.clearActived', handleClearEvent);
+    interceptor.add('event.clearEdit', handleClearEvent);
     interceptor.add('event.clearAreas', handleClearEvent);
   },
 };
 
-if (typeof window !== 'undefined' && window.VXETable && window.VXETable.use) {
-  window.VXETable.use(VXETablePluginAntd);
+if (typeof window !== 'undefined' && window.VxeUI && window.VxeUI.use) {
+  window.VxeUI.use(VXETablePluginAntd);
 }
 
 export default VXETablePluginAntd;

@@ -1,4 +1,4 @@
-import { VxeColumnPropTypes, VxeGlobalRendererHandles } from 'vxe-table';
+import { VxeColumnPropTypes, VxeGlobalRendererHandles, VxeGlobalRendererOptions } from 'vxe-table';
 import XEUtils from 'xe-utils';
 import {
   createCellRender,
@@ -9,7 +9,9 @@ import {
 
 function getRangePickerCellValue(
   renderOpts: VxeColumnPropTypes.EditRender,
-  params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams,
+  params:
+    | VxeGlobalRendererHandles.RenderTableCellParams
+    | VxeGlobalRendererHandles.ExportMethodParams,
 ) {
   const { props = {} } = renderOpts;
   const { row, column } = params;
@@ -23,8 +25,8 @@ function getRangePickerCellValue(
 }
 
 export default {
-  renderEdit: createEditRender(),
-  renderCell: createCellRender(getRangePickerCellValue),
-  renderItemContent: createFormItemRender(),
-  exportMethod: createExportMethod(getRangePickerCellValue),
-};
+  renderTableEdit: createEditRender(),
+  renderTableCell: createCellRender(getRangePickerCellValue),
+  renderFormItemContent: createFormItemRender(),
+  tableExportMethod: createExportMethod(getRangePickerCellValue),
+} as VxeGlobalRendererOptions;

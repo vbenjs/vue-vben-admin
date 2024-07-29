@@ -540,13 +540,13 @@
           label:
             typeof col.title === 'string'
               ? col.title
-              : col.customTitle === 'string'
+              : typeof col.customTitle === 'string'
                 ? col.customTitle
                 : '',
           value:
             typeof col.dataIndex === 'string'
               ? col.dataIndex
-              : col.title === 'string'
+              : typeof col.title === 'string'
                 ? col.title
                 : '',
           column: {

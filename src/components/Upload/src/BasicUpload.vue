@@ -59,6 +59,7 @@
   import UploadPreviewModal from './components/UploadPreviewModal.vue';
   import { BaseFileItem } from './types/typing';
   import { buildUUID } from '@/utils/uuid';
+
   defineOptions({ name: 'BasicUpload' });
 
   const props = defineProps(uploadContainerProps);
@@ -85,7 +86,10 @@
     const value = { ...attrs, ...props };
     return omit(value, 'onChange');
   });
-  function getValue(valueKey="url") {
+
+  const isFirstRender = ref<boolean>(true);
+
+  function getValue(valueKey = 'url') {
     const list = (fileList.value || []).map((item: any) => {
       return item[valueKey];
     });
@@ -110,7 +114,7 @@
         } else if (typeof v == 'string') {
           values.push(v);
         }
-        fileList.value = values.map((item,i) => {
+        fileList.value = values.map((item) => {
           if (item && isString(item)) {
             return {
               uid: buildUUID(),
@@ -124,13 +128,19 @@
         }) as any;
       }
       emit('update:value', values);
-      emit('change', values);
+      if (!isFirstRender.value) {
+        emit('change', values);
+        isFirstRender.value = false;
+      }
     },
-    { immediate: true },
+    {
+      immediate: true,
+      deep: true,
+    },
   );
 
   // 上传modal保存操作
-  function handleChange(urls: string[],valueKey:string) {
+  function handleChange(urls: string[], valueKey: string) {
     fileList.value = [...unref(fileList), ...(genFileListByUrls(urls) || [])];
     const values = getValue(valueKey);
     emit('update:value', values);
@@ -138,7 +148,7 @@
   }
 
   // 预览modal保存操作
-  function handlePreviewChange(fileItems: string[],valueKey:string) {
+  function handlePreviewChange(fileItems: string[], valueKey: string) {
     fileList.value = [...(fileItems || [])];
     const values = getValue(valueKey);
     emit('update:value', values);
