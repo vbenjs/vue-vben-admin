@@ -313,7 +313,7 @@ watch(
       <Toaster />
       <CheckUpdates
         v-if="preferences.app.enableCheckUpdates"
-        :polling-time="preferences.app.checkUpdatesPollingTime"
+        :check-updates-interval="preferences.app.checkUpdatesInterval"
       />
 
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">

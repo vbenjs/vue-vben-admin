@@ -174,7 +174,7 @@ const defaultPreferences: Preferences = {
   app: {
     accessMode: 'frontend',
     authPageLayout: 'panel-right',
-    checkUpdatesPollingTime: 1,
+    checkUpdatesInterval: 1,
     colorGrayMode: false,
     colorWeakMode: false,
     compact: false,
@@ -291,7 +291,7 @@ interface AppPreferences {
   /** 登录注册页面布局 */
   authPageLayout: AuthPageLayoutType;
   /** 检查更新轮询时间 */
-  checkUpdatesPollingTime: number;
+  checkUpdatesInterval: number;
   /** 是否开启灰色模式 */
   colorGrayMode: boolean;
   /** 是否开启色弱模式 */

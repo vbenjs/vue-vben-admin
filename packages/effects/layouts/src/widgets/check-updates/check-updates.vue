@@ -6,13 +6,13 @@ import { ToastAction, useToast } from '@vben-core/shadcn-ui';
 
 interface Props {
   // 轮训时间，分钟
-  pollingTime?: number;
+  checkUpdatesInterval?: number;
 }
 
 defineOptions({ name: 'CheckUpdates' });
 
 const props = withDefaults(defineProps<Props>(), {
-  pollingTime: 1,
+  checkUpdatesInterval: 1,
 });
 
 const lastVersionTag = ref('');
@@ -38,7 +38,6 @@ async function getVersionTag() {
 
 async function checkForUpdates() {
   const versionTag = await getVersionTag();
-
   if (!versionTag) {
     return;
   }
@@ -50,12 +49,11 @@ async function checkForUpdates() {
   }
 
   if (lastVersionTag.value !== versionTag) {
-    lastVersionTag.value = versionTag;
     clearInterval(timer.value);
-    handleNotice();
+    handleNotice(versionTag);
   }
 }
-function handleNotice() {
+function handleNotice(versionTag: string) {
   const { dismiss } = toast({
     action: h('div', [
       h(
@@ -74,6 +72,7 @@ function handleNotice() {
           altText: $t('common.refresh'),
           class: 'bg-primary hover:bg-primary-hover mx-1',
           onClick: () => {
+            lastVersionTag.value = versionTag;
             window.location.reload();
           },
         },
@@ -90,7 +89,10 @@ function handleNotice() {
 
 function start() {
   // 每5分钟检查一次
-  timer.value = setInterval(checkForUpdates, props.pollingTime * 60 * 1000);
+  timer.value = setInterval(
+    checkForUpdates,
+    props.checkUpdatesInterval * 60 * 1000,
+  );
 }
 
 function handleVisibilitychange() {
