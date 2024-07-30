@@ -9,6 +9,10 @@
       "path": "apps/web-antd",
     },
     {
+      "name": "@vben/web-naive",
+      "path": "apps/web-naive",
+    },
+    {
       "name": "@vben/commitlint-config",
       "path": "internal/lint-configs/commitlint-config",
     },

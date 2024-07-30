@@ -2,7 +2,7 @@
 import type { Sortable } from '@vben-core/composables';
 import type { TabDefinition } from '@vben-core/typings';
 
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useForwardPropsEmits, useSortable } from '@vben-core/composables';
 
@@ -104,6 +104,14 @@ async function initTabsSortable() {
 }
 
 onMounted(initTabsSortable);
+
+watch(
+  () => props.styleType,
+  () => {
+    sortableInstance.value?.destroy();
+    initTabsSortable();
+  },
+);
 
 onUnmounted(() => {
   sortableInstance.value?.destroy();
