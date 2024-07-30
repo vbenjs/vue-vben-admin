@@ -5,7 +5,7 @@ import {
   generatorColorVariables,
 } from '@vben-core/shared';
 
-import { BUILT_IN_THEME_PRESETS, type BuiltinThemePreset } from './constants';
+import { BUILT_IN_THEME_PRESETS } from './constants';
 
 /**
  * 更新主题的 CSS 变量以及其他 CSS 变量
@@ -37,13 +37,9 @@ function updateCSSVariables(preferences: Preferences) {
   }
 
   // 获取当前的内置主题
-  const currentBuiltType = [
-    {
-      color: preferences.theme.colorPrimary,
-      type: 'default',
-    } as BuiltinThemePreset,
-    ...BUILT_IN_THEME_PRESETS,
-  ].find((item) => item.type === builtinType);
+  const currentBuiltType = [...BUILT_IN_THEME_PRESETS].find(
+    (item) => item.type === builtinType,
+  );
 
   let builtinTypeColorPrimary: string | undefined = '';
 

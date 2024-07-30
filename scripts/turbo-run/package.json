@@ -1,5 +1,5 @@
 {
-  "name": "@vben/vsh",
+  "name": "@vben/turbo-run",
   "version": "5.0.0",
   "private": true,
   "license": "MIT",
@@ -11,7 +11,7 @@
     "dist"
   ],
   "bin": {
-    "vsh": "./bin/vsh.mjs"
+    "turbo-run": "./bin/turbo-run.mjs"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
@@ -22,10 +22,8 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "@vben/node-utils": "workspace:*",
-    "cac": "^6.7.14",
-    "circular-dependency-scanner": "^2.2.2",
-    "depcheck": "^1.4.7",
-    "publint": "^0.2.9"
+    "cac": "^6.7.14"
   }
 }

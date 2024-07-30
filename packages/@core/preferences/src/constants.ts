@@ -8,10 +8,10 @@ interface BuiltinThemePreset {
 }
 
 const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
-  // {
-  //   color: 'hsl(231 98% 65%)',
-  //   type: 'default',
-  // },
+  {
+    color: 'hsl(231 98% 65%)',
+    type: 'default',
+  },
   {
     color: 'hsl(245 82% 67%)',
     type: 'violet',

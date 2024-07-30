@@ -18,7 +18,7 @@ const defaultPreferences: Preferences = {
     layout: 'sidebar-nav',
     locale: 'zh-CN',
     loginExpiredMode: 'modal',
-    name: 'Vben Admin Naive',
+    name: 'Vben Admin',
     watermark: false,
   },
   breadcrumb: {

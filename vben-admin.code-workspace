@@ -145,6 +145,10 @@
       "path": "packages/utils",
     },
     {
+      "name": "@vben/turbo-run",
+      "path": "scripts/turbo-run",
+    },
+    {
       "name": "@vben/vsh",
       "path": "scripts/vsh",
     },
