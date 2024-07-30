@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/toolkit": "workspace:*",
+    "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "pinia": "2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",

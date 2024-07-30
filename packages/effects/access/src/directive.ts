@@ -16,7 +16,9 @@ function isAccessible(el: Element, binding: any) {
     return;
   }
   const authMethod =
-    accessMode.value === 'frontend' ? hasAccessByRoles : hasAccessByCodes;
+    accessMode.value === 'frontend' && binding.arg === 'role'
+      ? hasAccessByRoles
+      : hasAccessByCodes;
 
   if (!authMethod(value)) {
     el?.remove();
@@ -31,8 +33,6 @@ const authDirective: Directive = {
   mounted,
 };
 
-export function installAccessDirective(app: App) {
+export function useAccessDirective(app: App) {
   app.directive('access', authDirective);
 }
-
-export default authDirective;

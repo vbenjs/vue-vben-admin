@@ -37,7 +37,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/hooks": "workspace:*",
+    "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/typings": "workspace:*",

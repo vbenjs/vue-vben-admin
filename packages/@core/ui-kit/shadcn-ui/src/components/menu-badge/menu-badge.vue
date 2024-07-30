@@ -3,7 +3,7 @@ import type { MenuRecordBadgeRaw } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { isValidColor } from '@vben-core/toolkit';
+import { isValidColor } from '@vben-core/shared';
 
 import BadgeDot from './menu-badge-dot.vue';
 

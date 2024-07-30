@@ -20,6 +20,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/constants": "workspace:*"
+    "@vben-core/shared": "workspace:*"
   }
 }

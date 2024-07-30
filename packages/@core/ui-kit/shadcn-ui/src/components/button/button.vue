@@ -7,7 +7,7 @@ import {
   type ButtonVariants,
   buttonVariants,
 } from '@vben-core/shadcn-ui/components/ui/button';
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { Primitive, type PrimitiveProps } from 'radix-vue';
 

@@ -3,7 +3,7 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 
 import type { NormalMenuProps } from './normal-menu';
 
-import { useNamespace } from '@vben-core/hooks';
+import { useNamespace } from '@vben-core/composables';
 import { VbenIcon } from '@vben-core/shadcn-ui';
 
 interface Props extends NormalMenuProps {}

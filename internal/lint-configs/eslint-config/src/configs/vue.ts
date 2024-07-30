@@ -44,7 +44,7 @@ export async function vue(): Promise<Linter.FlatConfig[]> {
             ignore: [],
           },
         ],
-        'vue/attributes-order': 'error',
+        'vue/attributes-order': 'off',
         'vue/block-order': [
           'error',
           {

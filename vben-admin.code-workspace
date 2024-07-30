@@ -45,32 +45,28 @@
       "path": "internal/vite-config",
     },
     {
-      "name": "@vben-core/hooks",
-      "path": "packages/@core/hooks",
+      "name": "@vben-core/design",
+      "path": "packages/@core/base/design",
+    },
+    {
+      "name": "@vben-core/icons",
+      "path": "packages/@core/base/icons",
+    },
+    {
+      "name": "@vben-core/shared",
+      "path": "packages/@core/base/shared",
+    },
+    {
+      "name": "@vben-core/typings",
+      "path": "packages/@core/base/typings",
+    },
+    {
+      "name": "@vben-core/composables",
+      "path": "packages/@core/composables",
     },
     {
       "name": "@vben-core/preferences",
       "path": "packages/@core/preferences",
-    },
-    {
-      "name": "@vben-core/constants",
-      "path": "packages/@core/shared/constants",
-    },
-    {
-      "name": "@vben-core/design",
-      "path": "packages/@core/shared/design",
-    },
-    {
-      "name": "@vben-core/icons",
-      "path": "packages/@core/shared/icons",
-    },
-    {
-      "name": "@vben-core/toolkit",
-      "path": "packages/@core/shared/toolkit",
-    },
-    {
-      "name": "@vben-core/typings",
-      "path": "packages/@core/shared/typings",
     },
     {
       "name": "@vben-core/layout-ui",

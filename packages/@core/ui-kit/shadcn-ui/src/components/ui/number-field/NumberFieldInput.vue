@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { NumberFieldInput } from 'radix-vue';
 </script>

@@ -1,12 +1,12 @@
 {
-  "name": "@vben-core/toolkit",
+  "name": "@vben-core/icons",
   "version": "5.0.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/shared/toolkit"
+    "directory": "packages/@vben-core/base/icons"
   },
   "license": "MIT",
   "type": "module",
@@ -16,7 +16,6 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -35,17 +34,8 @@
     }
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
-    "@vue/shared": "^3.4.34",
-    "clsx": "^2.1.1",
-    "defu": "^6.1.4",
-    "lodash.clonedeep": "^4.5.0",
-    "nprogress": "^0.2.0",
-    "tailwind-merge": "^2.4.0",
-    "theme-colors": "^0.1.0"
-  },
-  "devDependencies": {
-    "@types/lodash.clonedeep": "^4.5.9",
-    "@types/nprogress": "^0.2.3"
+    "@iconify/vue": "^4.1.2",
+    "lucide-vue-next": "^0.417.0",
+    "vue": "^3.4.34"
   }
 }

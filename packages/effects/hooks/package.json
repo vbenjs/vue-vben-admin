@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/hooks": "workspace:*",
+    "@vben-core/composables": "workspace:*",
     "@vben/preferences": "workspace:*",
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",

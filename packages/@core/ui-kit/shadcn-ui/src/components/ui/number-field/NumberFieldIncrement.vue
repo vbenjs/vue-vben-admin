@@ -3,7 +3,7 @@ import type { NumberFieldIncrementProps } from 'radix-vue';
 
 import { computed, type HTMLAttributes } from 'vue';
 
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { Plus } from 'lucide-vue-next';
 import { NumberFieldIncrement, useForwardProps } from 'radix-vue';

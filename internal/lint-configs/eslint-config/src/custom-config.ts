@@ -69,7 +69,7 @@ const customConfig: Linter.FlatConfig[] = [
   },
   {
     // @core/shared内部组件，不能引入@vben/* 或者 @vben-core/* 里面的包
-    files: ['packages/@core/shared/**/**'],
+    files: ['packages/@core/base/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
       'no-restricted-imports': [

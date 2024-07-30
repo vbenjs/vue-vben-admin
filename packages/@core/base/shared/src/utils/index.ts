@@ -1,6 +1,4 @@
-export * from './cache';
 export * from './cn';
-export * from './colorful';
 export * from './diff';
 export * from './dom';
 export * from './inference';

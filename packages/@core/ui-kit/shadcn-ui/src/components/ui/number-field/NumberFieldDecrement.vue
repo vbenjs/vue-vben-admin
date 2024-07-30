@@ -3,7 +3,7 @@ import type { NumberFieldDecrementProps } from 'radix-vue';
 
 import { computed, type HTMLAttributes } from 'vue';
 
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { Minus } from 'lucide-vue-next';
 import { NumberFieldDecrement, useForwardProps } from 'radix-vue';

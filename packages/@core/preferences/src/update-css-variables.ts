@@ -3,7 +3,7 @@ import type { Preferences } from './types';
 import {
   updateCSSVariables as executeUpdateCSSVariables,
   generatorColorVariables,
-} from '@vben-core/toolkit';
+} from '@vben-core/shared';
 
 import { BUILT_IN_THEME_PRESETS, type BuiltinThemePreset } from './constants';
 

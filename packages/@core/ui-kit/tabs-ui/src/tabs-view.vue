@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Sortable } from '@vben-core/hooks';
+import type { Sortable } from '@vben-core/composables';
 import type { TabDefinition } from '@vben-core/typings';
 
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 
-import { useForwardPropsEmits, useSortable } from '@vben-core/hooks';
+import { useForwardPropsEmits, useSortable } from '@vben-core/composables';
 
 import { Tabs, TabsChrome } from './components';
 import { TabsProps } from './types';

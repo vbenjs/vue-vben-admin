@@ -480,51 +480,9 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.3.5(@types/node@22.0.0)(sass@1.77.8)(terser@5.31.3))
 
-  packages/@core/hooks:
-    dependencies:
-      '@vben-core/constants':
-        specifier: workspace:*
-        version: link:../shared/constants
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../shared/toolkit
-      '@vueuse/core':
-        specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
-      radix-vue:
-        specifier: ^1.9.2
-        version: 1.9.2(vue@3.4.34(typescript@5.5.4))
-      sortablejs:
-        specifier: ^1.15.2
-        version: 1.15.2
-      vue:
-        specifier: ^3.4.34
-        version: 3.4.34(typescript@5.5.4)
-    devDependencies:
-      '@types/sortablejs':
-        specifier: ^1.15.8
-        version: 1.15.8
+  packages/@core/base/design: {}
 
-  packages/@core/preferences:
-    dependencies:
-      '@vben-core/toolkit':
-        specifier: workspace:*
-        version: link:../shared/toolkit
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../shared/typings
-      '@vueuse/core':
-        specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
-      vue:
-        specifier: ^3.4.34
-        version: 3.4.34(typescript@5.5.4)
-
-  packages/@core/shared/constants: {}
-
-  packages/@core/shared/design: {}
-
-  packages/@core/shared/icons:
+  packages/@core/base/icons:
     dependencies:
       '@iconify/vue':
         specifier: ^4.1.2
@@ -536,7 +494,7 @@ importers:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
 
-  packages/@core/shared/toolkit:
+  packages/@core/base/shared:
     dependencies:
       '@ctrl/tinycolor':
         specifier: ^4.1.0
@@ -570,7 +528,7 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3
 
-  packages/@core/shared/typings:
+  packages/@core/base/typings:
     dependencies:
       vue:
         specifier: ^3.4.34
@@ -579,20 +537,57 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.34(typescript@5.5.4))
 
+  packages/@core/composables:
+    dependencies:
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../base/shared
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
+      radix-vue:
+        specifier: ^1.9.2
+        version: 1.9.2(vue@3.4.34(typescript@5.5.4))
+      sortablejs:
+        specifier: ^1.15.2
+        version: 1.15.2
+      vue:
+        specifier: ^3.4.34
+        version: 3.4.34(typescript@5.5.4)
+    devDependencies:
+      '@types/sortablejs':
+        specifier: ^1.15.8
+        version: 1.15.8
+
+  packages/@core/preferences:
+    dependencies:
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../base/shared
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../base/typings
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
+      vue:
+        specifier: ^3.4.34
+        version: 3.4.34(typescript@5.5.4)
+
   packages/@core/ui-kit/layout-ui:
     dependencies:
-      '@vben-core/hooks':
+      '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../hooks
+        version: link:../../composables
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../../shared/icons
+        version: link:../../base/icons
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../../shared/typings
+        version: link:../../base/typings
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.34(typescript@5.5.4))
@@ -602,21 +597,21 @@ importers:
 
   packages/@core/ui-kit/menu-ui:
     dependencies:
-      '@vben-core/hooks':
+      '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../hooks
+        version: link:../../composables
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../../shared/icons
+        version: link:../../base/icons
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@vben-core/toolkit':
+      '@vben-core/shared':
         specifier: workspace:*
-        version: link:../../shared/toolkit
+        version: link:../../base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../../shared/typings
+        version: link:../../base/typings
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.34(typescript@5.5.4))
@@ -631,13 +626,13 @@ importers:
         version: 1.0.0(vue@3.4.34(typescript@5.5.4))
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../../shared/icons
-      '@vben-core/toolkit':
+        version: link:../../base/icons
+      '@vben-core/shared':
         specifier: workspace:*
-        version: link:../../shared/toolkit
+        version: link:../../base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../../shared/typings
+        version: link:../../base/typings
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.34(typescript@5.5.4))
@@ -656,27 +651,27 @@ importers:
 
   packages/@core/ui-kit/tabs-ui:
     dependencies:
-      '@vben-core/hooks':
+      '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../hooks
+        version: link:../../composables
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../../shared/icons
+        version: link:../../base/icons
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../../shared/typings
+        version: link:../../base/typings
       vue:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
 
   packages/constants:
     dependencies:
-      '@vben-core/constants':
+      '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/shared/constants
+        version: link:../@core/base/shared
 
   packages/effects/access:
     dependencies:
@@ -750,9 +745,9 @@ importers:
 
   packages/effects/hooks:
     dependencies:
-      '@vben-core/hooks':
+      '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../@core/hooks
+        version: link:../../@core/composables
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../preferences
@@ -843,7 +838,7 @@ importers:
     dependencies:
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../@core/shared/icons
+        version: link:../@core/base/icons
 
   packages/locales:
     dependencies:
@@ -864,16 +859,16 @@ importers:
         version: link:../@core/preferences
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/shared/typings
+        version: link:../@core/base/typings
 
   packages/stores:
     dependencies:
-      '@vben-core/toolkit':
+      '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/shared/toolkit
+        version: link:../@core/base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/shared/typings
+        version: link:../@core/base/typings
       pinia:
         specifier: 2.1.7
         version: 2.1.7(typescript@5.5.4)(vue@3.4.34(typescript@5.5.4))
@@ -891,13 +886,13 @@ importers:
     dependencies:
       '@vben-core/design':
         specifier: workspace:*
-        version: link:../@core/shared/design
+        version: link:../@core/base/design
 
   packages/types:
     dependencies:
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/shared/typings
+        version: link:../@core/base/typings
       vue:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
@@ -907,12 +902,12 @@ importers:
 
   packages/utils:
     dependencies:
-      '@vben-core/toolkit':
+      '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/shared/toolkit
+        version: link:../@core/base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/shared/typings
+        version: link:../@core/base/typings
       vue-router:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.34(typescript@5.5.4))

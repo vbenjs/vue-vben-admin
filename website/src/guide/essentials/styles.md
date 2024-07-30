@@ -61,7 +61,7 @@ $font-size: 30px;
 
 ```vue
 <script lang="ts" setup>
-import { useNamespace } from '@vben-core/hooks';
+import { useNamespace } from '@vben/hooks';
 
 const { b, e, is } = useNamespace('menu');
 </script>

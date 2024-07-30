@@ -3,7 +3,7 @@ import type { MenuItemProps } from '../interface';
 
 import { computed } from 'vue';
 
-import { useNamespace } from '@vben-core/hooks';
+import { useNamespace } from '@vben-core/composables';
 import { ChevronDown, ChevronRight } from '@vben-core/icons';
 import { VbenIcon } from '@vben-core/shadcn-ui';
 

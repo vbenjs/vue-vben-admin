@@ -6,7 +6,7 @@ import {
   ScrollArea,
   ScrollBar,
 } from '@vben-core/shadcn-ui/components/ui/scroll-area';
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 interface Props {
   class?: HTMLAttributes['class'];

@@ -3,7 +3,7 @@ import type { Router, RouteRecordNormalized } from 'vue-router';
 
 import { toRaw } from 'vue';
 
-import { openWindow, startProgress, stopProgress } from '@vben-core/toolkit';
+import { openWindow, startProgress, stopProgress } from '@vben-core/shared';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
@@ -254,7 +254,6 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
     /**
      * 根据路径获取标签页
      * @param path
-     * @returns
      */
     getTabByPath(path: string) {
       return this.getTabs.find(

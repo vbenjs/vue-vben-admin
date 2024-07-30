@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "@vben-core/toolkit": "workspace:*",
+    "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "vue-router": "^4.4.0"
   }

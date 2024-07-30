@@ -4,7 +4,7 @@ import type { ContentCompactType } from '@vben-core/typings';
 import type { CSSProperties } from 'vue';
 import { computed } from 'vue';
 
-import { useContentHeightListener } from '@vben-core/hooks';
+import { useContentHeightListener } from '@vben-core/composables';
 
 interface Props {
   /**

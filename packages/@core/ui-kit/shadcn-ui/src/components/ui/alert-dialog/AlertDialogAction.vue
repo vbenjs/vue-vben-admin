@@ -2,7 +2,7 @@
 import { computed, type HTMLAttributes } from 'vue';
 
 import { buttonVariants } from '@vben-core/shadcn-ui/components/ui/button';
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { AlertDialogAction, type AlertDialogActionProps } from 'radix-vue';
 

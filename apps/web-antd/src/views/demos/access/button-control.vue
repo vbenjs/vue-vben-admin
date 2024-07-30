@@ -98,16 +98,16 @@ async function changeAccount(role: string) {
 
     <div v-if="accessMode === 'frontend'" class="card-box mt-5 p-5">
       <div class="mb-3 text-lg font-semibold">组件形式控制 - 用户角色方式</div>
-      <AccessControl :codes="['super']">
+      <AccessControl :codes="['super']" type="role">
         <Button class="mr-4"> Super 角色可见 </Button>
       </AccessControl>
-      <AccessControl :codes="['admin']">
+      <AccessControl :codes="['admin']" type="role">
         <Button class="mr-4"> Admin 角色可见 </Button>
       </AccessControl>
-      <AccessControl :codes="['user']">
+      <AccessControl :codes="['user']" type="role">
         <Button class="mr-4"> User 角色可见 </Button>
       </AccessControl>
-      <AccessControl :codes="['super', 'admin']">
+      <AccessControl :codes="['super', 'admin']" type="role">
         <Button class="mr-4"> Super & Admin 角色可见 </Button>
       </AccessControl>
     </div>
@@ -125,6 +125,32 @@ async function changeAccount(role: string) {
       </Button>
       <Button v-if="hasAccessByCodes(['AC_100100', 'AC_1000001'])" class="mr-4">
         Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+      </Button>
+    </div>
+
+    <div class="card-box mt-5 p-5">
+      <div class="mb-3 text-lg font-semibold">指令方式 - 权限码</div>
+      <Button class="mr-4" v-access:code="['AC_100100']">
+        Super 账号可见 ["AC_1000001"]
+      </Button>
+      <Button class="mr-4" v-access:code="['AC_100030']">
+        Admin 账号可见 ["AC_100010"]
+      </Button>
+      <Button class="mr-4" v-access:code="['AC_1000001']">
+        User 账号可见 ["AC_1000001"]
+      </Button>
+      <Button class="mr-4" v-access:code="['AC_100100', 'AC_1000001']">
+        Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+      </Button>
+    </div>
+
+    <div v-if="accessMode === 'frontend'" class="card-box mt-5 p-5">
+      <div class="mb-3 text-lg font-semibold">指令方式 - 角色</div>
+      <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
+      <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
+      <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>
+      <Button class="mr-4" v-access:role="['super', 'admin']">
+        Super & Admin 角色可见
       </Button>
     </div>
   </div>

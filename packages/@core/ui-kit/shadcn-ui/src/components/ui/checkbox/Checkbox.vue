@@ -3,7 +3,7 @@ import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
 
 import { computed, type HTMLAttributes } from 'vue';
 
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import { CheckIcon } from '@radix-icons/vue';
 import {

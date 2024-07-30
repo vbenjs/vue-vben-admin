@@ -4,7 +4,7 @@ import type { VariantProps } from 'class-variance-authority';
 
 import { computed, type HTMLAttributes, provide } from 'vue';
 
-import { cn } from '@vben-core/toolkit';
+import { cn } from '@vben-core/shared';
 
 import {
   ToggleGroupRoot,

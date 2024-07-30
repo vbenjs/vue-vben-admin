@@ -1,7 +1,9 @@
 import { computed, onMounted, ref, watch } from 'vue';
 
-import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@vben-core/constants';
-import { getElementVisibleHeight } from '@vben-core/toolkit';
+import {
+  CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
+  getElementVisibleHeight,
+} from '@vben-core/shared';
 
 import { useCssVar, useDebounceFn, useWindowSize } from '@vueuse/core';
 /**

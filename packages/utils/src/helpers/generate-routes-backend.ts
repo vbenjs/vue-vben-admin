@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { mapTree } from '@vben-core/toolkit';
+import { mapTree } from '@vben-core/shared';
 import {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,

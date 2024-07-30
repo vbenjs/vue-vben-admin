@@ -26,8 +26,6 @@
 
 解决方式是每次更新代码的时候修改 `package.json` 内的 `version` 版本号. 因为 localStorage 的 key 是根据版本号来的。所以更新后版本不同前面的配置会失效。重新登录即可
 
-`VUE_VBEN_ADMIN__DEVELOPMENT__2.0.3__COMMON__LOCAL__KEY__` key 的组成是 [项目名]+[开发环境]+[版本号]+[key]
-
 ## 关于修改配置文件的问题
 
 当修改 `.env` 等环境文件以及 `vite.config.ts` 文件时，vite 会自动重启服务。
