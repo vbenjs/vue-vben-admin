@@ -9,7 +9,7 @@ import { RouterView } from 'vue-router';
 
 import { useContentHeight } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
-import { storeToRefs, useCoreTabbarStore } from '@vben/stores';
+import { storeToRefs, useTabbarStore } from '@vben/stores';
 import { Spinner } from '@vben-core/shadcn-ui';
 
 import { IFrameRouterView } from '../../iframe';
@@ -17,7 +17,7 @@ import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
-const tabbarStore = useCoreTabbarStore();
+const tabbarStore = useTabbarStore();
 const { keepAlive } = usePreferences();
 const { spinning } = useContentSpinner();
 const { contentStyles } = useContentHeight();

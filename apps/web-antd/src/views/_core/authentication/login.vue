@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 import { AuthenticationLogin } from '@vben/common-ui';
 
-import { useAccessStore } from '#/store';
+import { useAuthStore } from '#/store';
 
 defineOptions({ name: 'Login' });
 
-const accessStore = useAccessStore();
+const authStore = useAuthStore();
 </script>
 
 <template>
   <AuthenticationLogin
-    :loading="accessStore.loading"
+    :loading="authStore.loginLoading"
     password-placeholder="123456"
     username-placeholder="vben"
-    @submit="accessStore.authLogin"
+    @submit="authStore.authLogin"
   />
 </template>

@@ -3,9 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useCoreTabbarStore } from './tabbar';
+import { useTabbarStore } from './tabbar';
 
-describe('useCoreAccessStore', () => {
+describe('useAccessStore', () => {
   const router = createRouter({
     history: createWebHistory(),
     routes: [],
@@ -18,7 +18,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('adds a new tab', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const tab: any = {
       fullPath: '/home',
       meta: {},
@@ -31,7 +31,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('adds a new tab if it does not exist', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const newTab: any = {
       fullPath: '/new',
       meta: {},
@@ -43,7 +43,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('updates an existing tab instead of adding a new one', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const initialTab: any = {
       fullPath: '/existing',
       meta: {},
@@ -59,7 +59,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes all tabs', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     store.tabs = [
       { fullPath: '/home', meta: {}, name: 'Home', path: '/home' },
     ] as any;
@@ -72,7 +72,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes a non-affix tab', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const tab: any = {
       fullPath: '/closable',
       meta: {},
@@ -85,7 +85,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('does not close an affix tab', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const affixTab: any = {
       fullPath: '/affix',
       meta: { affixTab: true },
@@ -98,14 +98,14 @@ describe('useCoreAccessStore', () => {
   });
 
   it('returns all cache tabs', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     store.cachedTabs.add('Home');
     store.cachedTabs.add('About');
     expect(store.getCachedTabs).toEqual(['Home', 'About']);
   });
 
   it('returns all tabs, including affix tabs', () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const normalTab: any = {
       fullPath: '/normal',
       meta: {},
@@ -125,7 +125,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('navigates to a specific tab', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const tab: any = { meta: {}, name: 'Dashboard', path: '/dashboard' };
 
     await store._goToTab(tab, router);
@@ -138,7 +138,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes multiple tabs by paths', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     store.addTab({
       fullPath: '/home',
       meta: {},
@@ -165,7 +165,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes all tabs to the left of the specified tab', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     store.addTab({
       fullPath: '/home',
       meta: {},
@@ -193,7 +193,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes all tabs except the specified tab', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     store.addTab({
       fullPath: '/home',
       meta: {},
@@ -221,7 +221,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes all tabs to the right of the specified tab', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const targetTab: any = {
       fullPath: '/home',
       meta: {},
@@ -249,7 +249,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('closes the tab with the specified key', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const keyToClose = '/about';
     store.addTab({
       fullPath: '/home',
@@ -279,7 +279,7 @@ describe('useCoreAccessStore', () => {
   });
 
   it('refreshes the current tab', async () => {
-    const store = useCoreTabbarStore();
+    const store = useTabbarStore();
     const currentTab: any = {
       fullPath: '/dashboard',
       meta: { name: 'Dashboard' },

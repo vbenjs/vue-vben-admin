@@ -3,7 +3,7 @@ import { computed, reactive, ref, watchEffect } from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
-import { storeToRefs, useCoreLockStore } from '@vben/stores';
+import { storeToRefs, useLockStore } from '@vben/stores';
 import {
   VbenAvatar,
   VbenButton,
@@ -27,7 +27,7 @@ withDefaults(defineProps<Props>(), {
 defineEmits<{ toLogin: [] }>();
 
 const { locale } = useI18n();
-const coreLockStore = useCoreLockStore();
+const lockStore = useLockStore();
 
 const now = useNow();
 const meridiem = useDateFormat(now, 'A');
@@ -37,7 +37,7 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 
 const showUnlockForm = ref(false);
 const validPass = ref(true);
-const { lockScreenPassword } = storeToRefs(coreLockStore);
+const { lockScreenPassword } = storeToRefs(lockStore);
 
 const formState = reactive({
   password: '',
@@ -77,7 +77,7 @@ function handleSubmit() {
     validPass.value = false;
     return;
   }
-  coreLockStore.unlockScreen();
+  lockStore.unlockScreen();
 }
 
 function toggleUnlockForm() {

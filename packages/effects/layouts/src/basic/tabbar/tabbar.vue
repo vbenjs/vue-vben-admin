@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 
 import { useContentMaximize, useTabs } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
-import { useCoreTabbarStore } from '@vben/stores';
+import { useTabbarStore } from '@vben/stores';
 import {
   TabsToolMore,
   TabsToolRefresh,
@@ -21,7 +21,7 @@ defineOptions({
 defineProps<{ showIcon?: boolean; theme?: string }>();
 
 const route = useRoute();
-const coreTabbarStore = useCoreTabbarStore();
+const tabbarStore = useTabbarStore();
 const { toggleMaximize } = useContentMaximize();
 const { refreshTab, unpinTab } = useTabs();
 
@@ -34,7 +34,7 @@ const {
 } = useTabbar();
 
 const menus = computed(() => {
-  const tab = coreTabbarStore.getTabByPath(currentActive.value);
+  const tab = tabbarStore.getTabByPath(currentActive.value);
   const menus = createContextMenus(tab);
   return menus.map((item) => {
     return {
@@ -47,7 +47,7 @@ const menus = computed(() => {
 
 // 刷新后如果不保持tab状态，关闭其他tab
 if (!preferences.tabbar.persist) {
-  coreTabbarStore.closeOtherTabs(route);
+  tabbarStore.closeOtherTabs(route);
 }
 </script>
 
@@ -61,7 +61,7 @@ if (!preferences.tabbar.persist) {
     :style-type="preferences.tabbar.styleType"
     :tabs="currentTabs"
     @close="handleClose"
-    @sort-tabs="coreTabbarStore.sortTabs"
+    @sort-tabs="tabbarStore.sortTabs"
     @unpin="unpinTab"
     @update:active="handleClick"
   />

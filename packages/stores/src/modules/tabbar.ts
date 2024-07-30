@@ -7,7 +7,7 @@ import { openWindow, startProgress, stopProgress } from '@vben-core/shared';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-interface TabsState {
+interface TabbarState {
   /**
    * @zh_CN 当前打开的标签页列表缓存
    */
@@ -37,7 +37,7 @@ interface TabsState {
 /**
  * @zh_CN 访问权限相关
  */
-export const useCoreTabbarStore = defineStore('core-tabbar', {
+export const useTabbarStore = defineStore('core-tabbar', {
   actions: {
     /**
      * Close tabs in bulk
@@ -441,7 +441,7 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
       storage: sessionStorage,
     },
   ],
-  state: (): TabsState => ({
+  state: (): TabbarState => ({
     cachedTabs: new Set(),
     dragEndIndex: 0,
     excludeCachedTabs: new Set(),
@@ -454,7 +454,7 @@ export const useCoreTabbarStore = defineStore('core-tabbar', {
 // 解决热更新问题
 const hot = import.meta.hot;
 if (hot) {
-  hot.accept(acceptHMRUpdate(useCoreTabbarStore, hot));
+  hot.accept(acceptHMRUpdate(useTabbarStore, hot));
 }
 
 /**

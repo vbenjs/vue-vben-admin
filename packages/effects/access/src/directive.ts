@@ -33,6 +33,6 @@ const authDirective: Directive = {
   mounted,
 };
 
-export function useAccessDirective(app: App) {
+export function registerAccessDirective(app: App) {
   app.directive('access', authDirective);
 }

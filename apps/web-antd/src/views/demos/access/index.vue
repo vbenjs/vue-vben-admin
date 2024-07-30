@@ -4,10 +4,11 @@ import type { LoginAndRegisterParams } from '@vben/common-ui';
 import { useRouter } from 'vue-router';
 
 import { useAccess } from '@vben/access';
+import { resetAllStores, useUserStore } from '@vben/stores';
 
 import { Button } from 'ant-design-vue';
 
-import { resetAllStores, useAccessStore } from '#/store';
+import { useAuthStore } from '#/store';
 
 const accounts: Record<string, LoginAndRegisterParams> = {
   admin: {
@@ -25,15 +26,16 @@ const accounts: Record<string, LoginAndRegisterParams> = {
 };
 
 const { accessMode, toggleAccessMode } = useAccess();
-const accessStore = useAccessStore();
+const userStore = useUserStore();
+const accessStore = useAuthStore();
 const router = useRouter();
 
 function roleButtonType(role: string) {
-  return accessStore.userRoles.includes(role) ? 'primary' : 'default';
+  return userStore.userRoles.includes(role) ? 'primary' : 'default';
 }
 
 async function changeAccount(role: string) {
-  if (accessStore.userRoles.includes(role)) {
+  if (userStore.userRoles.includes(role)) {
     return;
   }
 
@@ -80,7 +82,7 @@ async function handleToggleAccessMode() {
       <div class="mb-3">
         <span class="text-lg font-semibold">当前账号:</span>
         <span class="text-primary mx-4 text-lg">
-          {{ accessStore.userRoles?.[0] }}
+          {{ userStore.userRoles?.[0] }}
         </span>
       </div>
 

@@ -1,64 +1,64 @@
 import { type RouteLocationNormalized, useRoute, useRouter } from 'vue-router';
 
-import { useCoreTabbarStore } from '@vben/stores';
+import { useTabbarStore } from '@vben/stores';
 
 export function useTabs() {
   const router = useRouter();
   const route = useRoute();
-  const coreTabbarStore = useCoreTabbarStore();
+  const tabbarStore = useTabbarStore();
 
   async function closeLeftTabs(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.closeLeftTabs(tab || route);
+    await tabbarStore.closeLeftTabs(tab || route);
   }
 
   async function closeAllTabs() {
-    await coreTabbarStore.closeAllTabs(router);
+    await tabbarStore.closeAllTabs(router);
   }
 
   async function closeRightTabs(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.closeRightTabs(tab || route);
+    await tabbarStore.closeRightTabs(tab || route);
   }
 
   async function closeOtherTabs(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.closeOtherTabs(tab || route);
+    await tabbarStore.closeOtherTabs(tab || route);
   }
 
   async function closeCurrentTab(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.closeTab(tab || route, router);
+    await tabbarStore.closeTab(tab || route, router);
   }
 
   async function pinTab(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.pinTab(tab || route);
+    await tabbarStore.pinTab(tab || route);
   }
 
   async function unpinTab(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.unpinTab(tab || route);
+    await tabbarStore.unpinTab(tab || route);
   }
 
   async function toggleTabPin(tab?: RouteLocationNormalized) {
-    await coreTabbarStore.toggleTabPin(tab || route);
+    await tabbarStore.toggleTabPin(tab || route);
   }
 
   async function refreshTab() {
-    await coreTabbarStore.refresh(router);
+    await tabbarStore.refresh(router);
   }
 
   async function openTabInNewWindow(tab?: RouteLocationNormalized) {
-    coreTabbarStore.openTabInNewWindow(tab || route);
+    tabbarStore.openTabInNewWindow(tab || route);
   }
 
   async function closeTabByKey(key: string) {
-    await coreTabbarStore.closeTabByKey(key, router);
+    await tabbarStore.closeTabByKey(key, router);
   }
 
   async function setTabTitle(title: string) {
-    coreTabbarStore.setUpdateTime();
-    await coreTabbarStore.setTabTitle(route, title);
+    tabbarStore.setUpdateTime();
+    await tabbarStore.setTabTitle(route, title);
   }
 
   async function resetTabTitle() {
-    coreTabbarStore.setUpdateTime();
-    await coreTabbarStore.resetTabTitle(route);
+    tabbarStore.setUpdateTime();
+    await tabbarStore.resetTabTitle(route);
   }
 
   /**
@@ -66,8 +66,8 @@ export function useTabs() {
    * @param tab
    */
   function getTabDisableState(tab: RouteLocationNormalized = route) {
-    const tabs = coreTabbarStore.getTabs;
-    const affixTabs = coreTabbarStore.affixTabs;
+    const tabs = tabbarStore.getTabs;
+    const affixTabs = tabbarStore.affixTabs;
     const index = tabs.findIndex((item) => item.path === tab.path);
 
     const disabled = tabs.length <= 1;

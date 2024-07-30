@@ -8,7 +8,7 @@ import {
   updatePreferences,
   usePreferences,
 } from '@vben/preferences';
-import { useCoreAccessStore, useCoreLockStore } from '@vben/stores';
+import { useLockStore, useUserStore } from '@vben/stores';
 import { MenuRecordRaw } from '@vben/types';
 import { mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
@@ -41,9 +41,9 @@ const {
   layout,
   sidebarCollapsed,
 } = usePreferences();
-const coreAccessStore = useCoreAccessStore();
+const userStore = useUserStore();
 const { updateWatermark } = useWatermark();
-const coreLockStore = useCoreLockStore();
+const lockStore = useLockStore();
 
 const headerMenuTheme = computed(() => {
   return isDark.value ? 'dark' : 'light';
@@ -138,7 +138,7 @@ watch(
       // await nextTick();
 
       updateWatermark({
-        content: `${preferences.app.name} 用户名: ${coreAccessStore.userInfo?.username}`,
+        content: `${preferences.app.name} 用户名: ${userStore.userInfo?.username}`,
         // parent: contentRef.value,
       });
     }
@@ -317,7 +317,7 @@ watch(
       />
 
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">
-        <slot v-if="coreLockStore.isLockScreen" name="lock-screen"></slot>
+        <slot v-if="lockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
     </template>
   </VbenAdminLayout>

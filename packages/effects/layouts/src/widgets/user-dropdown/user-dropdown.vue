@@ -7,7 +7,7 @@ import { computed, ref } from 'vue';
 import { LockKeyhole, LogOut, SwatchBook } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { preferences, usePreferences } from '@vben/preferences';
-import { useCoreLockStore } from '@vben/stores';
+import { useLockStore } from '@vben/stores';
 import { isWindowsOs } from '@vben/utils';
 import {
   Badge,
@@ -80,7 +80,7 @@ const {
   globalLogoutShortcutKey,
   globalPreferencesShortcutKey,
 } = usePreferences();
-const coreLockStore = useCoreLockStore();
+const lockStore = useLockStore();
 const { handleOpenPreference } = useOpenPreferences();
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
@@ -111,7 +111,7 @@ function handleSubmitLock({
   lockScreenPassword: string;
 }) {
   openLock.value = false;
-  coreLockStore.lockScreen(lockScreenPassword);
+  lockStore.lockScreen(lockScreenPassword);
 }
 function handleLogout() {
   // emit

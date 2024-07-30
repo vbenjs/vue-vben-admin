@@ -13,11 +13,17 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
+import {
+  resetAllStores,
+  storeToRefs,
+  useAccessStore,
+  useUserStore,
+} from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
-import { resetAllStores, storeToRefs, useAccessStore } from '#/store';
+import { useAuthStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -50,6 +56,9 @@ const notifications = ref<NotificationItem[]>([
   },
 ]);
 
+const userStore = useUserStore();
+const authStore = useAuthStore();
+const accessStore = useAccessStore();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
@@ -84,16 +93,10 @@ const menus = computed(() => [
   },
 ]);
 
-const accessStore = useAccessStore();
-
-const {
-  loading: loginLoading,
-  openLoginExpiredModal,
-  userInfo,
-} = storeToRefs(accessStore);
+const { loginLoading } = storeToRefs(authStore);
 
 const avatar = computed(() => {
-  return userInfo.value?.avatar ?? preferences.app.defaultAvatar;
+  return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
 });
 
 const router = useRouter();
@@ -119,7 +122,7 @@ function handleMakeAll() {
       <UserDropdown
         :avatar
         :menus
-        :text="userInfo?.realName"
+        :text="userStore.userInfo?.realName"
         description="ann.vben@gmail.com"
         tag-text="Pro"
         @logout="handleLogout"
@@ -135,12 +138,12 @@ function handleMakeAll() {
     </template>
     <template #extra>
       <AuthenticationLoginExpiredModal
-        v-model:open="openLoginExpiredModal"
+        v-model:open="accessStore.loginExpired"
         :avatar
         :loading="loginLoading"
         password-placeholder="123456"
         username-placeholder="vben"
-        @submit="accessStore.authLogin"
+        @submit="authStore.authLogin"
       />
     </template>
     <template #lock-screen>

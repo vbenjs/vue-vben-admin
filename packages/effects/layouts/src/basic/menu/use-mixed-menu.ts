@@ -4,14 +4,14 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben/preferences';
-import { useCoreAccessStore } from '@vben/stores';
+import { useAccessStore } from '@vben/stores';
 import { findRootMenuByPath } from '@vben/utils';
 
 import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
   const { navigation } = useNavigation();
-  const accessStore = useCoreAccessStore();
+  const accessStore = useAccessStore();
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');

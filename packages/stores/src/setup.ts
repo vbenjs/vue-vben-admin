@@ -1,5 +1,7 @@
 import type { Pinia } from 'pinia';
 
+import type { App } from 'vue';
+
 import { createPinia } from 'pinia';
 
 let pinia: Pinia;
@@ -14,7 +16,7 @@ export interface InitStoreOptions {
 /**
  * @zh_CN 初始化pinia
  */
-export async function initStore(options: InitStoreOptions) {
+export async function initStores(app: App, options: InitStoreOptions) {
   const { createPersistedState } = await import('pinia-plugin-persistedstate');
   pinia = createPinia();
   const { namespace } = options;
@@ -25,6 +27,7 @@ export async function initStore(options: InitStoreOptions) {
       storage: localStorage,
     }),
   );
+  app.use(pinia);
   return pinia;
 }
 

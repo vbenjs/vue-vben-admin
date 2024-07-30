@@ -23,19 +23,14 @@ import {
   X,
 } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
-import {
-  storeToRefs,
-  useCoreAccessStore,
-  useCoreTabbarStore,
-} from '@vben/stores';
+import { useAccessStore, useTabbarStore } from '@vben/stores';
 import { filterTree } from '@vben/utils';
 
 export function useTabbar() {
   const router = useRouter();
   const route = useRoute();
-  const accessStore = useCoreAccessStore();
-  const coreTabbarStore = useCoreTabbarStore();
-  const { accessMenus } = storeToRefs(accessStore);
+  const accessStore = useAccessStore();
+  const tabbarStore = useTabbarStore();
   const { contentIsMaximize, toggleMaximize } = useContentMaximize();
   const {
     closeAllTabs,
@@ -58,8 +53,8 @@ export function useTabbar() {
   const currentTabs = ref<RouteLocationNormalizedGeneric[]>();
   watch(
     [
-      () => coreTabbarStore.getTabs,
-      () => coreTabbarStore.updateTime,
+      () => tabbarStore.getTabs,
+      () => tabbarStore.updateTime,
       () => locale.value,
     ],
     ([tabs]) => {
@@ -74,7 +69,7 @@ export function useTabbar() {
     const affixTabs = filterTree(router.getRoutes(), (route) => {
       return !!route.meta?.affixTab;
     });
-    coreTabbarStore.setAffixTabs(affixTabs);
+    tabbarStore.setAffixTabs(affixTabs);
   };
 
   // 点击tab,跳转路由
@@ -98,7 +93,7 @@ export function useTabbar() {
   }
 
   watch(
-    () => accessMenus.value,
+    () => accessStore.accessMenus,
     () => {
       initAffixTabs();
     },
@@ -108,7 +103,7 @@ export function useTabbar() {
   watch(
     () => route.path,
     () => {
-      coreTabbarStore.addTab(route as RouteLocationNormalized);
+      tabbarStore.addTab(route as RouteLocationNormalized);
     },
     { immediate: true },
   );

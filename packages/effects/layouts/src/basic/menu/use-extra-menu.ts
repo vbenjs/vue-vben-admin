@@ -4,13 +4,13 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
-import { useCoreAccessStore } from '@vben/stores';
+import { useAccessStore } from '@vben/stores';
 import { findRootMenuByPath } from '@vben/utils';
 
 import { useNavigation } from './use-navigation';
 
 function useExtraMenu() {
-  const accessStore = useCoreAccessStore();
+  const accessStore = useAccessStore();
   const { navigation } = useNavigation();
 
   const menus = computed(() => accessStore.accessMenus);

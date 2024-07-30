@@ -168,10 +168,11 @@ import type { HttpResponse } from '@vben/request';
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import { RequestClient } from '@vben/request';
+import { useAccessStore } from '@vben/stores';
 
 import { message } from 'ant-design-vue';
 
-import { useAccessStore } from '#/store';
+import { useAuthStore } from '#/store';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
@@ -192,13 +193,14 @@ function createRequestClient(baseURL: string) {
         },
         unAuthorizedHandler: async () => {
           const accessStore = useAccessStore();
+          const authStore = useAuthStore();
           accessStore.setAccessToken(null);
 
           if (preferences.app.loginExpiredMode === 'modal') {
-            accessStore.openLoginExpiredModal = true;
+            accessStore.setLoginExpired(true);
           } else {
             // 退出登录
-            await accessStore.logout();
+            await authStore.logout();
           }
         },
       };

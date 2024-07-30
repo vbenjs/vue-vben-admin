@@ -11,7 +11,7 @@ interface AppState {
   lockScreenPassword?: string;
 }
 
-export const useCoreLockStore = defineStore('core-lock', {
+export const useLockStore = defineStore('core-lock', {
   actions: {
     lockScreen(password: string) {
       this.isLockScreen = true;

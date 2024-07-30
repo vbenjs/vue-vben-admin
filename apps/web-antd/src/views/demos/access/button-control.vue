@@ -4,10 +4,11 @@ import type { LoginAndRegisterParams } from '@vben/common-ui';
 import { useRouter } from 'vue-router';
 
 import { AccessControl, useAccess } from '@vben/access';
+import { resetAllStores, useUserStore } from '@vben/stores';
 
 import { Button } from 'ant-design-vue';
 
-import { resetAllStores, useAccessStore } from '#/store';
+import { useAuthStore } from '#/store';
 
 const accounts: Record<string, LoginAndRegisterParams> = {
   admin: {
@@ -25,21 +26,22 @@ const accounts: Record<string, LoginAndRegisterParams> = {
 };
 
 const { accessMode, hasAccessByCodes } = useAccess();
-const accessStore = useAccessStore();
+const authStore = useAuthStore();
+const userStore = useUserStore();
 const router = useRouter();
 
 function roleButtonType(role: string) {
-  return accessStore.userRoles.includes(role) ? 'primary' : 'default';
+  return userStore.userRoles.includes(role) ? 'primary' : 'default';
 }
 
 async function changeAccount(role: string) {
-  if (accessStore.userRoles.includes(role)) {
+  if (userStore.userRoles.includes(role)) {
     return;
   }
 
   const account = accounts[role];
   resetAllStores();
-  await accessStore.authLogin(account, async () => {
+  await authStore.authLogin(account, async () => {
     router.go(0);
   });
 }
@@ -58,7 +60,7 @@ async function changeAccount(role: string) {
       <div class="mb-3">
         <span class="text-lg font-semibold">当前角色:</span>
         <span class="text-primary mx-4 text-lg">
-          {{ accessStore.userRoles?.[0] }}
+          {{ userStore.userRoles?.[0] }}
         </span>
       </div>
 

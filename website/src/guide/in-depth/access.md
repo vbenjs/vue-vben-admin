@@ -47,12 +47,12 @@ export const overridesPreferences = defineOverridesPreferences({
 
 - 确保接口返回的角色和路由表的权限匹配
 
-可查看应用下的 `src/store/modules/access`,找到下面代码，
+可查看应用下的 `src/store/auth`,找到下面代码，
 
 ```ts
 // 设置登录用户信息，需要确保 userInfo.roles 是一个数组，且包含路由表中的权限
 // 例如：userInfo.roles=['super', 'admin']
-coreStoreAccess.setUserInfo(userInfo);
+authStore.setUserInfo(userInfo);
 ```
 
 到这里，就已经配置完成，你需要确保登录后，接口返回的角色和路由表的权限匹配，否则无法访问。
@@ -157,19 +157,17 @@ const dashboardMenus = [
 
 ### 权限码
 
-权限码为接口返回的权限码，通过权限码来判断按钮是否显示，逻辑在`src/store/modules/access`下：
+权限码为接口返回的权限码，通过权限码来判断按钮是否显示，逻辑在`src/store/auth`下：
 
 ```ts
-// 获取用户信息并存储到 accessStore 中
-// Get user information and store it in accessStore
 const [fetchUserInfoResult, accessCodes] = await Promise.all([
   fetchUserInfo(),
   getAccessCodes(),
 ]);
 
 userInfo = fetchUserInfoResult;
-coreStoreAccess.setUserInfo(userInfo);
-coreStoreAccess.setAccessCodes(accessCodes);
+authStore.setUserInfo(userInfo);
+accessStore.setAccessCodes(accessCodes);
 ```
 
 找到 `getAccessCodes` 对应的接口，可根据业务逻辑进行调整。
