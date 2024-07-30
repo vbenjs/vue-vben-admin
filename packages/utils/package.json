@@ -10,12 +10,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "#build": "pnpm unbuild"
-  },
-  "files": [
-    "dist"
-  ],
   "sideEffects": [
     "**/*.css"
   ],
@@ -24,17 +18,7 @@
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "development": "./src/index.ts",
-      "#default": "./dist/index.mjs",
       "default": "./src/index.ts"
-    }
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
-      }
     }
   },
   "dependencies": {

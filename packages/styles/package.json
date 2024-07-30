@@ -10,35 +10,16 @@
   },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "build": "pnpm unbuild",
-    "prepublishOnly": "npm run build"
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "development": "./src/index.ts",
       "default": "./src/index.ts"
     },
     "./antd": {
-      "development": "./src/antd/index.css",
-      "default": "./dist/antd/index.css"
+      "default": "./src/antd/index.css"
     },
     "./global": {
-      "development": "./src/global/index.scss",
-      "default": "./dist/global/index.scss"
-    }
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "default": "./dist/index.mjs"
-      }
+      "default": "./src/global/index.scss"
     }
   },
   "dependencies": {

@@ -10,32 +10,13 @@
   },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "#build": "pnpm unbuild"
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "development": "./src/index.ts",
-      "#default": "./dist/index.mjs",
       "default": "./src/index.ts"
     },
     "./global": {
       "types": "./global.d.ts"
-    }
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
-      }
     }
   },
   "dependencies": {
