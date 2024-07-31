@@ -154,3 +154,48 @@ export function useNaiveDesignTokens() {
     commonTokens,
   };
 }
+
+export function useElementPlusDesignTokens() {
+  const rootStyles = getComputedStyle(document.documentElement);
+
+  const getCssVariableValue = (variable: string, isColor: boolean = true) => {
+    const value = rootStyles.getPropertyValue(variable);
+    return isColor ? `hsl(${value})` : value;
+  };
+  const el = document.documentElement;
+  watch(
+    () => preferences.theme,
+    () => {
+      el.style.setProperty(
+        '--el-color-primary',
+        getCssVariableValue('--primary'),
+      );
+
+      el.style.setProperty(
+        '--el-color-success',
+        getCssVariableValue('--success'),
+      );
+
+      el.style.setProperty(
+        '--el-color-warning',
+        getCssVariableValue('--warning'),
+      );
+
+      el.style.setProperty(
+        '--el-color-danger',
+        getCssVariableValue('--destructive'),
+      );
+
+      el.style.setProperty(
+        '--el-fill-color-blank',
+        getCssVariableValue('--background'),
+      );
+
+      el.style.setProperty(
+        '--el-text-color-primary',
+        getCssVariableValue('--foreground'),
+      );
+    },
+    { immediate: true },
+  );
+}

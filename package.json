@@ -39,6 +39,7 @@
     "commit": "czg",
     "dev": "turbo-run dev",
     "dev:antd": "pnpm -F @vben/web-antd",
+    "dev:ele": "pnpm -F @vben/web-ele",
     "dev:naive": "pnpm -F @vben/web-naive",
     "dev:docs": "pnpm -F @vben/website run docs:dev",
     "format": "vsh lint --format",
