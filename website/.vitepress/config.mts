@@ -211,21 +211,22 @@ function nav(): DefaultTheme.NavItem[] {
       text: '✨ 赞助',
     },
     {
+      link: '/commercial/community',
       text: '👨‍👦‍👦 社区',
-      items: [
-        {
-          link: 'https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=22ySzj7pKiw&businessType=9&from=246610&biz=ka&mainSourceId=share&subSourceId=others&jumpsource=shorturl#/pc',
-          text: 'QQ频道',
-        },
-        {
-          link: 'https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=mjZmlhgVzzUxvdxllB6C1vHpX8O8QRL0&authKey=DBdFbBwERmfaKY95JvRWqLCJIRGJAmKyZbrpzZ41EKDMZ5SR6MfbjOBaaNRN73fr&noverify=0&group_code=4286109',
-          text: 'QQ群',
-        },
-        {
-          link: 'https://discord.gg/VU62jTecad',
-          text: 'Discord',
-        },
-      ],
+      // items: [
+      //   {
+      //     link: 'https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=22ySzj7pKiw&businessType=9&from=246610&biz=ka&mainSourceId=share&subSourceId=others&jumpsource=shorturl#/pc',
+      //     text: 'QQ频道',
+      //   },
+      //   {
+      //     link: 'https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=mjZmlhgVzzUxvdxllB6C1vHpX8O8QRL0&authKey=DBdFbBwERmfaKY95JvRWqLCJIRGJAmKyZbrpzZ41EKDMZ5SR6MfbjOBaaNRN73fr&noverify=0&group_code=4286109',
+      //     text: 'QQ群',
+      //   },
+      //   {
+      //     link: 'https://discord.gg/VU62jTecad',
+      //     text: 'Discord',
+      //   },
+      // ],
     },
     {
       link: '/friend-links/',
