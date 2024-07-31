@@ -37,7 +37,7 @@ function notify(type: NotificationType) {
 <template>
   <div class="p-5">
     <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">naive组件使用演示</h1>
+      <h1 class="text-xl font-semibold">Element Plus组件使用演示</h1>
       <div class="text-foreground/80 mt-2">支持多语言，主题功能集成切换等</div>
     </div>
 
