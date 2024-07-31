@@ -302,6 +302,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 function sidebarCommercial(): DefaultTheme.SidebarItem[] {
   return [
     {
+      link: 'community',
+      text: '社区交流',
+    },
+    {
       link: 'technical-support',
       text: '技术支持',
     },
