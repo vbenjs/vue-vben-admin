@@ -1,10 +1,6 @@
-import type { Package } from '@vben/node-utils';
+import { execaCommand, getPackages } from '@vben/node-utils';
 
-import { join } from 'node:path';
-
-import { $, fs, getPackages } from '@vben/node-utils';
-
-import { cancel, isCancel, multiselect } from '@clack/prompts';
+import { cancel, isCancel, select } from '@clack/prompts';
 
 interface RunOptions {
   command?: string;
@@ -12,35 +8,45 @@ interface RunOptions {
 
 export async function run(options: RunOptions) {
   const { command } = options;
+  if (!command) {
+    console.error('Please enter the command to run');
+    process.exit(1);
+  }
   const { packages } = await getPackages();
-  const appPkgs = await findApps(process.cwd(), packages);
+  // const appPkgs = await findApps(process.cwd(), packages);
+  // const websitePkg = packages.find(
+  //   (item) => item.packageJson.name === '@vben/website',
+  // );
 
-  const selectApps = await multiselect<any, string>({
-    message: `Select the app you need to run [${command}]:`,
-    options: appPkgs.map((item) => ({ label: item, value: item })),
-    required: true,
+  // 只显示有对应命令的包
+  const selectPkgs = packages.filter((pkg) => {
+    return (pkg?.packageJson as Record<string, any>).scripts?.[command];
   });
 
-  if (isCancel(selectApps)) {
+  const selectPkg = await select<any, string>({
+    message: `Select the app you need to run [${command}]:`,
+    options: selectPkgs.map((item) => ({
+      label: item?.packageJson.name,
+      value: item?.packageJson.name,
+    })),
+  });
+
+  if (isCancel(selectPkg) || !selectPkg) {
     cancel('👋 Has cancelled');
     process.exit(0);
   }
 
-  if (selectApps.length === 1) {
-    $.verbose = true;
-    // 让控制台显示颜色
-    process.env.FORCE_COLOR = '1';
-    await $`pnpm --filter=${selectApps[0]} run ${command} `;
-    return;
-  }
-  const filters = [];
-  for (const app of selectApps) {
-    filters.push(`--filter=${app}`);
-  }
-  $.verbose = true;
-  // 让控制台显示颜色
-  process.env.FORCE_COLOR = '1';
-  await $`turbo run ${command} ${filters}`;
+  execaCommand(`pnpm --filter=${selectPkg} run ${command}`, {
+    stdio: 'inherit',
+  });
+  // const filters = [];
+  // for (const app of selectApps) {
+  //   filters.push(`--filter=${app}`);
+  // }
+  // $.verbose = true;
+  // execaCommand(`turbo run ${command} ${filters}`, {
+  //   stdio: 'inherit',
+  // });
 }
 
 /**
@@ -48,16 +54,12 @@ export async function run(options: RunOptions) {
  * @param root
  * @param packages
  */
-async function findApps(root: string, packages: Package[]) {
-  // apps内的
-  const appPackages = packages
-    .filter((pkg) => {
-      const viteConfigExists = fs.existsSync(join(pkg.dir, 'vite.config.mts'));
-      return pkg.dir.startsWith(join(root, 'apps')) && viteConfigExists;
-    })
-    .map((pkg) => {
-      return pkg.packageJson.name;
-    });
+// async function findApps(root: string, packages: Package[]) {
+//   // apps内的
+//   const appPackages = packages.filter((pkg) => {
+//     const viteConfigExists = fs.existsSync(join(pkg.dir, 'vite.config.mts'));
+//     return pkg.dir.startsWith(join(root, 'apps')) && viteConfigExists;
+//   });
 
-  return appPackages;
-}
+//   return appPackages;
+// }

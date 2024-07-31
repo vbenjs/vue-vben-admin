@@ -5,7 +5,6 @@ import type { NitroMockPluginOptions } from '../typing';
 import { colors, consola, getPackage } from '@vben/node-utils';
 
 import { build, createDevServer, createNitro, prepare } from 'nitropack';
-import portfinder from 'portfinder';
 
 const hmrKeyRe = /^runtimeConfig\.|routeRules\./;
 
@@ -78,11 +77,6 @@ async function runNitroServer(rootDir: string, port: number, verbose: boolean) {
     nitro.hooks.hookOnce('restart', reload);
 
     const server = createDevServer(nitro);
-    // 端口已经存在
-    const availablePort = await portfinder.getPortPromise({ port });
-    if (availablePort !== port) {
-      return;
-    }
     await server.listen(port, { showURL: false });
     await prepare(nitro);
     await build(nitro);
@@ -92,5 +86,5 @@ async function runNitroServer(rootDir: string, port: number, verbose: boolean) {
       consola.success(colors.bold(colors.green('Nitro Mock Server started.')));
     }
   };
-  await reload();
+  return await reload();
 }

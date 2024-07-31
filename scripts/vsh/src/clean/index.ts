@@ -2,13 +2,7 @@ import type { CAC } from 'cac';
 
 import { join } from 'node:path';
 
-import {
-  colors,
-  consola,
-  getPackages,
-  rimraf,
-  spinner,
-} from '@vben/node-utils';
+import { colors, getPackages, rimraf, spinner } from '@vben/node-utils';
 
 const CLEAN_DIRS = ['dist', 'node_modules', '.turbo'];
 
@@ -38,10 +32,15 @@ async function runClean({
 
   const cleanDirsText = JSON.stringify(cleanDirs);
 
-  spinner(`${colors.dim(cleanDirsText)} cleaning in progress...`, async () => {
-    await clean({ delLock, dirs: cleanDirs, recursive });
-    consola.success(colors.green(`clean up all \`${cleanDirsText}\` success.`));
-  });
+  spinner(
+    {
+      successText: colors.green(`clean up all \`${cleanDirsText}\` success.`),
+      title: `${colors.dim(cleanDirsText)} cleaning in progress...`,
+    },
+    async () => {
+      await clean({ delLock, dirs: cleanDirs, recursive });
+    },
+  );
 }
 
 async function clean({ delLock, dirs = [], recursive }: CleanCommandOptions) {

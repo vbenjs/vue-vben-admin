@@ -6,12 +6,12 @@
     "monorepo",
     "turbo",
     "vben",
-    "vue vben admin",
-    "vue vben admin pro",
     "vben admin",
     "vben pro",
     "vue",
     "vue admin",
+    "vue vben admin",
+    "vue vben admin pro",
     "vue3"
   ],
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
@@ -27,30 +27,30 @@
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
-    "preview": "turbo preview",
     "build:analyze": "turbo build:analyze",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
-    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type",
+    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
     "check:circular": "vsh check-circular",
+    "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
     "clean": "vsh clean",
     "commit": "czg",
     "dev": "turbo-run dev",
-    "dev:antd": "pnpm -F @vben/web-antd",
-    "dev:ele": "pnpm -F @vben/web-ele",
-    "dev:naive": "pnpm -F @vben/web-naive",
-    "dev:docs": "pnpm -F @vben/website run docs:dev",
+    "dev:antd": "pnpm -F @vben/web-antd run dev",
+    "dev:docs": "pnpm -F @vben/website run dev",
+    "dev:ele": "pnpm -F @vben/web-ele run dev",
+    "dev:naive": "pnpm -F @vben/web-naive run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
     "postinstall": "turbo run stub",
     "preinstall": "npx only-allow pnpm",
     "prepare": "is-ci || husky",
+    "preview": "turbo-run preview",
     "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
     "test:unit": "vitest",
-    "turbo-run": "turbo-run",
     "update:deps": " pnpm update --latest --recursive",
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   },
@@ -78,11 +78,11 @@
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.1",
     "rimraf": "^6.0.1",
-    "turbo": "^2.0.9",
+    "turbo": "^2.0.10",
     "typescript": "^5.5.4",
     "unbuild": "^2.0.0",
     "vite": "^5.3.5",
-    "vitest": "^2.0.4",
+    "vitest": "^2.0.5",
     "vue-tsc": "^2.0.29"
   },
   "engines": {
@@ -91,10 +91,16 @@
   },
   "packageManager": "pnpm@9.6.0",
   "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "eslint": "*",
+        "@typescript-eslint/eslint-plugin": "*"
+      }
+    },
     "overrides": {
       "@ctrl/tinycolor": "^4.1.0",
       "clsx": "^2.1.1",
-      "vue": "^3.4.34"
+      "vue": "^3.4.35"
     },
     "neverBuiltDependencies": [
       "canvas",

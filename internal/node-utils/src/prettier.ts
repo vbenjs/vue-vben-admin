@@ -1,5 +1,5 @@
+import fs from 'fs-extra';
 import { format, getFileInfo, resolveConfig } from 'prettier';
-import { fs } from 'zx';
 
 async function prettierFormat(filepath: string) {
   const prettierOptions = await resolveConfig(filepath, {});

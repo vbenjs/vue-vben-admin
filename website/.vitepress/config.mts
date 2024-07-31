@@ -162,7 +162,15 @@ function nav(): DefaultTheme.NavItem[] {
           items: [
             {
               link: 'https://www.vben.pro',
-              text: '完整版(Ant Design Vue)',
+              text: 'Ant Design Vue 版本(默认)',
+            },
+            {
+              link: 'https://naive.vben.pro',
+              text: 'Naive 版本',
+            },
+            {
+              link: 'https://ele.vben.pro',
+              text: 'Element Plus版本',
             },
           ],
         },
@@ -183,6 +191,10 @@ function nav(): DefaultTheme.NavItem[] {
         {
           link: 'https://github.com/vbenjs/vue-vben-admin/releases',
           text: '更新日志',
+        },
+        {
+          link: 'https://github.com/orgs/vbenjs/projects/5',
+          text: '路线图',
         },
         {
           link: 'https://github.com/vbenjs/vue-vben-admin/blob/main/.github/contributing.md',
@@ -220,11 +232,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           text: '为什么选择我们?',
         },
         { link: 'introduction/quick-start', text: '快速开始' },
-        {
-          link: 'https://github.com/vbenjs/vue-vben-admin/releases',
-          text: '更新日志',
-        },
-        { link: 'https://github.com/orgs/vbenjs/projects/5', text: '路线图' },
       ],
     },
     {
@@ -251,6 +258,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { link: 'in-depth/features', text: '常用功能' },
         { link: 'in-depth/check-updates', text: '检查更新' },
         { link: 'in-depth/loading', text: '全局loading' },
+        { link: 'in-depth/ui-framework', text: '组件库切换' },
       ],
     },
     {

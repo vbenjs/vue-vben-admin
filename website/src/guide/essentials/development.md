@@ -50,14 +50,18 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     "bootstrap": "pnpm install",
     // 构建项目
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    // 构建项目并分析
+    "build:analyze": "turbo build:analyze",
     // 构建docker镜像
     "build:docker": "./build-local-docker-image.sh",
     // changeset 版本管理
     "changeset": "pnpm exec changeset",
     // 检查项目各种问题
-    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type",,
+    "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
     // 检查循环引用
     "check:circular": "vsh check-circular",
+    // 检查拼写
+    "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress"
     // 检查依赖
     "check:dep": "vsh check-dep",
     // 检查类型
@@ -67,9 +71,15 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     // 提交代码
     "commit": "czg",
     // 启动项目（默认会运行整个仓库所有包的dev脚本）
-    "dev": "cross-env TURBO_UI=1 turbo run dev",
+    "dev": "turbo-run dev",
+    // 启动web-antd应用
+    "dev:antd": "pnpm -F @vben/web-antd run dev",
     // 启动文档
-    "dev:docs": "pnpm -F @vben/website run docs:dev",
+    "dev:docs": "pnpm -F @vben/website run dev",
+    // 启动 element plus应用
+    "dev:ele": "pnpm -F @vben/web-ele run dev",
+    // 启动web-naive应用
+    "dev:naive": "pnpm -F @vben/web-naive run dev",
     // 格式化代码
     "format": "vsh lint --format",
     // lint 代码
@@ -80,6 +90,8 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     "preinstall": "npx only-allow pnpm",
     // husky的安装
     "prepare": "is-ci || husky",
+    // 预览应用
+    "preview": "turbo-run preview",
     // 包规范检查
     "publint": "vsh publint",
     // 删除所有的node_modules、yarn.lock、package.lock.json，重新安装依赖
@@ -96,10 +108,31 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
 
 ## 本地运行项目
 
-如需本地运行文档，并进行调整，可以执行以下命令：
+如需本地运行文档，并进行调整，可以执行以下命令，执行该命令，你可以选择需要的应用进行开发：
 
 ```bash
 pnpm dev
+```
+
+如果你想直接运行某个应用，可以执行以下命令：
+
+运行 `web-antd` 应用：
+
+```bash
+pnpm dev:antd
+
+```
+
+运行 `web-naive` 应用：
+
+```bash
+pnpm dev:naive
+```
+
+运行 `website` 应用：
+
+```bash
+pnpm dev:docs
 ```
 
 ## DevTools

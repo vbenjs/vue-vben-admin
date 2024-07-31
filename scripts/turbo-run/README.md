@@ -1,3 +1,3 @@
-# @vben/vsh
+# @vben/turbo-run
 
-shell 脚本工具集合
+turbo-run is a command line tool that allows you to run multiple commands in parallel.

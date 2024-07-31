@@ -1,6 +1,6 @@
 import type { CAC } from 'cac';
 
-import { $ } from '@vben/node-utils';
+import { execaCommand } from '@vben/node-utils';
 
 interface LintCommandOptions {
   /**
@@ -10,21 +10,31 @@ interface LintCommandOptions {
 }
 
 async function runLint({ format }: LintCommandOptions) {
-  process.env.FORCE_COLOR = '3';
+  // process.env.FORCE_COLOR = '3';
 
   if (format) {
-    await $`stylelint "**/*.{vue,css,less.scss}" --cache --fix`;
-    await $`eslint . --cache --fix`;
-    await $`prettier . --write --cache --log-level warn`;
+    await execaCommand(`stylelint "**/*.{vue,css,less.scss}" --cache --fix`, {
+      stdio: 'inherit',
+    });
+    await execaCommand(`eslint . --cache --fix`, {
+      stdio: 'inherit',
+    });
+    await execaCommand(`prettier . --write --cache --log-level warn`, {
+      stdio: 'inherit',
+    });
     return;
   }
-  $.verbose = true;
   await Promise.all([
-    $`cspell lint "**/*.ts"  "**/README.md" ".changeset/*.md" --no-progress`,
-    $`eslint . --cache`,
+    execaCommand(`eslint . --cache`, {
+      stdio: 'inherit',
+    }),
     // $`ls-lint`,
-    $`prettier . --ignore-unknown --check --cache`,
-    $`stylelint "**/*.{vue,css,less.scss}" --cache`,
+    execaCommand(`prettier . --ignore-unknown --check --cache`, {
+      stdio: 'inherit',
+    }),
+    execaCommand(`stylelint "**/*.{vue,css,less.scss}" --cache`, {
+      stdio: 'inherit',
+    }),
   ]);
 }
 

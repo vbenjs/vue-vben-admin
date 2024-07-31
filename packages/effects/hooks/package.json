@@ -24,7 +24,7 @@
     "@vben/preferences": "workspace:*",
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",
-    "vue": "^3.4.34",
+    "vue": "^3.4.35",
     "vue-router": "^4.4.0",
     "watermark-js-plus": "^1.5.2"
   }
