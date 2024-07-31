@@ -116,9 +116,9 @@ interface LibraryPluginOptions extends CommonPluginOptions {
   injectLibCss?: boolean;
 }
 
-interface ApplicationOptions extends ApplicationPluginOptions {}
+type ApplicationOptions = ApplicationPluginOptions;
 
-interface LibraryOptions extends LibraryPluginOptions {}
+type LibraryOptions = LibraryPluginOptions;
 
 type DefineApplicationOptions = (config?: ConfigEnv) => Promise<{
   application?: ApplicationOptions;

@@ -29,7 +29,7 @@
     "@vueuse/integrations": "^10.11.0",
     "qrcode": "^1.5.3",
     "vue": "^3.4.35",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.1"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5"

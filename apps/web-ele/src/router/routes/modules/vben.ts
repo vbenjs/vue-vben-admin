@@ -65,7 +65,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         name: 'VbenAntd',
-        path: '/vben-admin/aned',
+        path: '/vben-admin/antd',
         component: IFrameView,
         meta: {
           badgeType: 'dot',

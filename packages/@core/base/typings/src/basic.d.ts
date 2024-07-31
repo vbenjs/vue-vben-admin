@@ -3,9 +3,9 @@ interface BasicOption {
   value: string;
 }
 
-interface SelectOption extends BasicOption {}
+type SelectOption = BasicOption;
 
-interface TabOption extends BasicOption {}
+type TabOption = BasicOption;
 
 interface BasicUserInfo {
   /**

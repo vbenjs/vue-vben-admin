@@ -59,7 +59,7 @@
     "@changesets/cli": "^2.27.7",
     "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.0.2",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/lint-staged-config": "workspace:*",
@@ -78,7 +78,7 @@
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.1",
     "rimraf": "^6.0.1",
-    "turbo": "^2.0.10",
+    "turbo": "^2.0.11",
     "typescript": "^5.5.4",
     "unbuild": "^2.0.0",
     "vite": "^5.3.5",
@@ -93,8 +93,7 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "eslint": "*",
-        "@typescript-eslint/eslint-plugin": "*"
+        "eslint": "*"
       }
     },
     "overrides": {

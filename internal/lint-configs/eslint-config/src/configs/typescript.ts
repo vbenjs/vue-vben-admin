@@ -40,22 +40,10 @@ export async function typescript(): Promise<Linter.FlatConfig[]> {
           },
         ],
 
-        '@typescript-eslint/ban-types': 'error',
         '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
-        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-function-rkeyword-spacingeturn-type':
+          'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/keyword-spacing': [
-          'error',
-          {
-            after: true,
-            before: true,
-            overrides: {
-              case: { after: true },
-              return: { after: true },
-              throw: { after: true },
-            },
-          },
-        ],
         '@typescript-eslint/no-empty-function': [
           'error',
           {
@@ -65,6 +53,7 @@ export async function typescript(): Promise<Linter.FlatConfig[]> {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-namespace': 'off',
         '@typescript-eslint/no-non-null-assertion': 'error',
+        '@typescript-eslint/no-unused-expressions': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
