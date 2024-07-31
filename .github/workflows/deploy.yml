@@ -57,6 +57,14 @@ jobs:
           password: ${{ secrets.WEB_NAIVE_FTP_PASSWORD }}
           local-dir: ./apps/web-naive/dist/
 
+      - name: Sync Web Ele files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEB_ELE_FTP_ACCOUNT }}
+          password: ${{ secrets.WEB_ELE_FTP_PASSWORD }}
+          local-dir: ./apps/web-ele/dist/
+
       - name: Sync Website files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
