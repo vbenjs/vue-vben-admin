@@ -2,13 +2,14 @@
   import { h } from 'vue';
   import { Modal } from 'ant-design-vue';
 
-  Modal.info({
+  Modal.confirm({
     title: '新版本发布',
     content: h('div', {}, [h('p', 'Vben Admin v5.0.0 预览版本已发布')]),
     onOk() {
       handleClick();
     },
     okText: '前往体验新版',
+    cancelText: '关闭',
   });
 
   function handleClick() {
