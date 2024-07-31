@@ -570,6 +570,9 @@ importers:
       cheerio:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
+      get-port:
+        specifier: ^7.1.0
+        version: 7.1.0
       html-minifier-terser:
         specifier: ^7.2.0
         version: 7.2.0
@@ -906,6 +909,9 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../types
+      '@vben/utils':
+        specifier: workspace:*
+        version: link:../../utils
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -5850,6 +5856,10 @@ packages:
 
   get-port-please@3.1.2:
     resolution: {integrity: sha512-Gxc29eLs1fbn6LQ4jSU4vXjlwyZhF5HsGuMAa7gqBP4Rw4yxxltyDUuF5MBclFzDTXO+ACchGQoeela4DSfzdQ==}
+
+  get-port@7.1.0:
+    resolution: {integrity: sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==}
+    engines: {node: '>=16'}
 
   get-stdin@9.0.0:
     resolution: {integrity: sha512-dVKBjfWisLAicarI2Sf+JuBE/DghV4UzNAVe9yhEJuzeREd3JhOTE9cUaJTeSa77fsbQUK3pcOpJfM59+VKZaA==}
@@ -14919,6 +14929,8 @@ snapshots:
   get-own-enumerable-property-symbols@3.0.2: {}
 
   get-port-please@3.1.2: {}
+
+  get-port@7.1.0: {}
 
   get-stdin@9.0.0: {}
 

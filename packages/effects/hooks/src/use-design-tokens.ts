@@ -1,6 +1,7 @@
 import { reactive, watch } from 'vue';
 
 import { preferences } from '@vben/preferences';
+import { updateCSSVariables } from '@vben/utils';
 
 /**
  * 用于适配各个框架的设计系统
@@ -162,39 +163,53 @@ export function useElementPlusDesignTokens() {
     const value = rootStyles.getPropertyValue(variable);
     return isColor ? `hsl(${value})` : value;
   };
-  const el = document.documentElement;
   watch(
     () => preferences.theme,
     () => {
-      el.style.setProperty(
-        '--el-color-primary',
-        getCssVariableValue('--primary'),
-      );
+      const background = getCssVariableValue('--background');
+      const border = getCssVariableValue('--border');
+      const variables: Record<string, string> = {
+        '--el-bg-color': background,
+        '--el-bg-color-overlay': getCssVariableValue('--popover'),
+        '--el-bg-color-page': getCssVariableValue('--background-deep'),
+        '--el-border-color': border,
+        '--el-border-color-dark': border,
+        '--el-border-color-light': border,
+        '--el-border-color-lighter': border,
+        '--el-border-radius-base': getCssVariableValue('--radius', false),
+        '--el-color-danger': getCssVariableValue('--destructive'),
+        '--el-color-danger-light-3': getCssVariableValue('--destructive-600'),
+        '--el-color-danger-light-5': getCssVariableValue('--destructive-700'),
+        '--el-color-danger-light-7': getCssVariableValue('--destructive-800'),
+        '--el-color-error-light-8': border,
+        '--el-color-error-light-9': background,
 
-      el.style.setProperty(
-        '--el-color-success',
-        getCssVariableValue('--success'),
-      );
+        '--el-color-primary': getCssVariableValue('--primary'),
+        '--el-color-primary-light-3': getCssVariableValue('--primary-600'),
 
-      el.style.setProperty(
-        '--el-color-warning',
-        getCssVariableValue('--warning'),
-      );
+        '--el-color-primary-light-5': getCssVariableValue('--primary-700'),
+        '--el-color-primary-light-7': getCssVariableValue('--primary-800'),
+        '--el-color-success': getCssVariableValue('--success'),
+        '--el-color-success-light-3': getCssVariableValue('--success-600'),
 
-      el.style.setProperty(
-        '--el-color-danger',
-        getCssVariableValue('--destructive'),
-      );
+        '--el-color-success-light-5': getCssVariableValue('--success-700'),
+        '--el-color-success-light-7': getCssVariableValue('--success-800'),
 
-      el.style.setProperty(
-        '--el-fill-color-blank',
-        getCssVariableValue('--background'),
-      );
+        '--el-color-success-light-8': border,
+        '--el-color-success-light-9': background,
+        '--el-color-warning': getCssVariableValue('--warning'),
+        '--el-color-warning-light-3': getCssVariableValue('--warning-600'),
 
-      el.style.setProperty(
-        '--el-text-color-primary',
-        getCssVariableValue('--foreground'),
-      );
+        '--el-color-warning-light-5': getCssVariableValue('--warning-700'),
+        '--el-color-warning-light-7': getCssVariableValue('--warning-800'),
+        '--el-color-warning-light-8': border,
+        '--el-color-warning-light-9': background,
+
+        '--el-fill-color-blank': background,
+        '--el-text-color-primary': getCssVariableValue('--foreground'),
+        '--el-text-color-regular': getCssVariableValue('--foreground'),
+      };
+      updateCSSVariables(variables, `__vben_ele_styles__`);
     },
     { immediate: true },
   );

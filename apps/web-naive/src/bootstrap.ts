@@ -3,7 +3,6 @@ import { createApp } from 'vue';
 import { registerAccessDirective } from '@vben/access';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
-import '@vben/styles/antd';
 
 import { setupI18n } from '#/locales';
 

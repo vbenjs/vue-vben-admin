@@ -4,6 +4,7 @@ import type { NitroMockPluginOptions } from '../typing';
 
 import { colors, consola, getPackage } from '@vben/node-utils';
 
+import getPort from 'get-port';
 import { build, createDevServer, createNitro, prepare } from 'nitropack';
 
 const hmrKeyRe = /^runtimeConfig\.|routeRules\./;
@@ -15,6 +16,11 @@ export const viteNitroMockPlugin = ({
 }: NitroMockPluginOptions = {}): PluginOption => {
   return {
     async configureServer(server) {
+      const availablePort = await getPort({ port });
+      if (availablePort !== port) {
+        return;
+      }
+
       const pkg = await getPackage(mockServerPackage);
       if (!pkg) {
         consola.error(`Package ${mockServerPackage} not found.`);

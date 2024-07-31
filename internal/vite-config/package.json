@@ -30,6 +30,7 @@
     "@intlify/unplugin-vue-i18n": "^4.0.0",
     "@jspm/generator": "^2.1.2",
     "cheerio": "1.0.0-rc.12",
+    "get-port": "^7.1.0",
     "html-minifier-terser": "^7.2.0",
     "nitropack": "^2.9.7",
     "resolve.exports": "^2.0.2",

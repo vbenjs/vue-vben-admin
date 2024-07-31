@@ -139,7 +139,9 @@ function scrollIntoView() {
                     fallback
                   />
 
-                  <span class="flex-1 overflow-hidden whitespace-nowrap">
+                  <span
+                    class="flex-1 overflow-hidden whitespace-nowrap text-sm"
+                  >
                     {{ tab.title }}
                   </span>
                 </div>

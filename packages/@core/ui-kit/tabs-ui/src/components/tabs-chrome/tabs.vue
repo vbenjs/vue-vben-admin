@@ -165,7 +165,7 @@ function scrollIntoView() {
                   />
 
                   <span
-                    class="tabs-chrome__label ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap"
+                    class="tabs-chrome__label ml-[var(--gap)] flex-1 overflow-hidden whitespace-nowrap text-sm"
                   >
                     {{ tab.title }}
                   </span>

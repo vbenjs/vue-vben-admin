@@ -8,6 +8,7 @@ import { preferences } from '@vben/preferences';
 
 import dayjs from 'dayjs';
 import { Language } from 'element-plus/es/locale';
+import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
 const elementLocale = ref<Language>(defaultLocale);
@@ -71,9 +72,7 @@ async function loadElementLocale(lang: SupportedLanguagesType) {
       break;
     }
     case 'en-US': {
-      elementLocale.value = (await import(
-        'element-plus/es/locale/lang/en'
-      )) as unknown as Language;
+      elementLocale.value = enLocale;
       break;
     }
   }

@@ -10,7 +10,10 @@ import {
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
 
 function error() {
-  ElMessage.error('Once upon a time you dressed so fine');
+  ElMessage.error({
+    duration: 2500,
+    message: 'Once upon a time you dressed so fine',
+  });
 }
 
 function warning() {
