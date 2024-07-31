@@ -5,8 +5,6 @@ import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
-import naive from 'naive-ui';
-
 import { setupI18n } from '#/locales';
 
 import App from './app.vue';
@@ -26,8 +24,6 @@ async function bootstrap(namespace: string) {
 
   // 配置路由及路由守卫
   app.use(router);
-
-  app.use(naive);
 
   app.mount('#app');
 }

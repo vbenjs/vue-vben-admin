@@ -129,6 +129,12 @@ pnpm dev:antd
 pnpm dev:naive
 ```
 
+运行 `web-ele` 应用：
+
+```bash
+pnpm dev:ele
+```
+
 运行 `website` 应用：
 
 ```bash

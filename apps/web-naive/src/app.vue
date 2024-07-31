@@ -11,6 +11,9 @@ import {
   enUS,
   GlobalThemeOverrides,
   lightTheme,
+  NConfigProvider,
+  NMessageProvider,
+  NNotificationProvider,
   zhCN,
 } from 'naive-ui';
 

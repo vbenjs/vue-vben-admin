@@ -15,14 +15,13 @@ const routes: RouteRecordRaw[] = [
     name: 'Demos',
     path: '/demos',
     children: [
-      // 权限控制
       {
         meta: {
           icon: 'mdi:shield-key-outline',
           title: $t('page.demos.naive'),
         },
         name: 'NaiveDemos',
-        path: '/demos/access',
+        path: '/demos/naive',
         component: () => import('#/views/demos/naive/index.vue'),
       },
     ],
