@@ -26,7 +26,7 @@
   "type": "module",
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "build": "cross-env TURBO_UI=1 NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
@@ -78,6 +78,7 @@
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.1",
     "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.7",
     "turbo": "^2.0.11",
     "typescript": "^5.5.4",
     "unbuild": "^2.0.0",
