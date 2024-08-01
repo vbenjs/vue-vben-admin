@@ -39,7 +39,7 @@ Test Account: vben/123456
 
 Open the project in Gitpod (free online dev environment for GitHub) and start coding immediately.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/anncwb/vue-vben-admin)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vbenjs/vue-vben-admin)
 
 ## Documentation
 
@@ -50,7 +50,7 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 - Get the project code
 
 ```bash
-git clone https://github.com/anncwb/vue-vben-admin.git
+git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
 - Installation dependencies
