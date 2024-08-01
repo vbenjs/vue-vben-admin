@@ -54,7 +54,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: rgb(240 242 245 / 40%);
+    background-color: #f0f2f566;
 
     &.absolute {
       position: absolute;

@@ -153,11 +153,11 @@
       height: 0;
       transition: 0.3s background-color;
       border-radius: inherit;
-      background-color: rgb(144 147 153 / 30%);
+      background-color: #9093994d;
       cursor: pointer;
 
       &:hover {
-        background-color: rgb(144 147 153 / 50%);
+        background-color: #90939980;
       }
     }
 
