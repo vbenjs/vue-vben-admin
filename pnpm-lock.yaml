@@ -164,8 +164,8 @@ importers:
         specifier: ^1.11.12
         version: 1.11.12
       pinia:
-        specifier: 2.1.7
-        version: 2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
+        specifier: 2.2.0
+        version: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -227,8 +227,8 @@ importers:
         specifier: ^2.7.8
         version: 2.7.8(vue@3.4.35(typescript@5.5.4))
       pinia:
-        specifier: 2.1.7
-        version: 2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
+        specifier: 2.2.0
+        version: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -291,8 +291,8 @@ importers:
         specifier: ^2.39.0
         version: 2.39.0(vue@3.4.35(typescript@5.5.4))
       pinia:
-        specifier: 2.1.7
-        version: 2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
+        specifier: 2.2.0
+        version: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -659,8 +659,8 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.35(typescript@5.5.4))
       lucide-vue-next:
-        specifier: ^0.418.0
-        version: 0.418.0(vue@3.4.35(typescript@5.5.4))
+        specifier: ^0.419.0
+        version: 0.419.0(vue@3.4.35(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -811,8 +811,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       lucide-vue-next:
-        specifier: ^0.418.0
-        version: 0.418.0(vue@3.4.35(typescript@5.5.4))
+        specifier: ^0.419.0
+        version: 0.419.0(vue@3.4.35(typescript@5.5.4))
       radix-vue:
         specifier: ^1.9.2
         version: 1.9.2(vue@3.4.35(typescript@5.5.4))
@@ -1041,11 +1041,11 @@ importers:
         specifier: workspace:*
         version: link:../@core/base/typings
       pinia:
-        specifier: 2.1.7
-        version: 2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
+        specifier: 2.2.0
+        version: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
       pinia-plugin-persistedstate:
         specifier: ^3.2.1
-        version: 3.2.1(pinia@2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)))
+        version: 3.2.1(pinia@2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)))
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
@@ -6719,8 +6719,8 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
-  lucide-vue-next@0.418.0:
-    resolution: {integrity: sha512-G7PFtw1+GtkUpGCSe7LTbbduPw5AAp1Yd76LmSOxjAXrKEn7wGQ1Lw5NMgSrknElfJJ81DN21prUwifnQEdHjQ==}
+  lucide-vue-next@0.419.0:
+    resolution: {integrity: sha512-KJ8SUZ/03RBDHMMrSyEWQ/I05IbNzGOXeoS9jqAMorCrTB+xXarjuof17gq3nFWK7SVTT7MVXjsGkGx8vPVj+Q==}
     peerDependencies:
       vue: ^3.4.35
 
@@ -7320,8 +7320,8 @@ packages:
     peerDependencies:
       pinia: ^2.0.0
 
-  pinia@2.1.7:
-    resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
+  pinia@2.2.0:
+    resolution: {integrity: sha512-iPrIh26GMqfpUlMOGyxuDowGmYousTecbTHFwT0xZ1zJvh23oQ+Cj99ZoPQA1TnUPhU6AuRPv6/drkTCJ0VHQA==}
     peerDependencies:
       '@vue/composition-api': ^1.4.0
       typescript: '>=4.4.4'
@@ -15806,7 +15806,7 @@ snapshots:
     dependencies:
       yallist: 4.0.0
 
-  lucide-vue-next@0.418.0(vue@3.4.35(typescript@5.5.4)):
+  lucide-vue-next@0.419.0(vue@3.4.35(typescript@5.5.4)):
     dependencies:
       vue: 3.4.35(typescript@5.5.4)
 
@@ -16468,11 +16468,11 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@3.2.1(pinia@2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))):
+  pinia-plugin-persistedstate@3.2.1(pinia@2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))):
     dependencies:
-      pinia: 2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
+      pinia: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
 
-  pinia@2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)):
+  pinia@2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)):
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.35(typescript@5.5.4)
