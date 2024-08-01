@@ -227,6 +227,25 @@ const { hasAccessByCodes } = useAccess();
 </template>
 ```
 
+#### 指令方式
+
+```vue
+<template>
+  <Button class="mr-4" v-access:code="['AC_100100']">
+    Super 账号可见 ["AC_1000001"]
+  </Button>
+  <Button class="mr-4" v-access:code="['AC_100030']">
+    Admin 账号可见 ["AC_100010"]
+  </Button>
+  <Button class="mr-4" v-access:code="['AC_1000001']">
+    User 账号可见 ["AC_1000001"]
+  </Button>
+  <Button class="mr-4" v-access:code="['AC_100100', 'AC_1000001']">
+    Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+  </Button>
+</template>
+```
+
 ### 角色
 
 角色判断方式不需要接口返回的权限码，直接通过角色来判断按钮是否显示。
@@ -269,6 +288,19 @@ const { hasAccessByRoles } = useAccess();
   <Button v-if="hasAccessByRoles(['user'])"> User 账号可见 </Button>
   <Button v-if="hasAccessByRoles(['super', 'admin'])">
     Super & Admin 账号可见
+  </Button>
+</template>
+```
+
+#### 指令方式
+
+```vue
+<template>
+  <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
+  <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
+  <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>
+  <Button class="mr-4" v-access:role="['super', 'admin']">
+    Super & Admin 角色可见
   </Button>
 </template>
 ```
