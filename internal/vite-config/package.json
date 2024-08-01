@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.2",
     "@vben/node-utils": "workspace:*",
-    "@vitejs/plugin-vue": "^5.1.1",
+    "@vitejs/plugin-vue": "^5.1.2",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "dayjs": "^1.11.12",
     "dotenv": "^16.4.5",
