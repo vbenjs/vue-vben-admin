@@ -100,6 +100,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
       () => preferences.sidebar.collapsed,
       () => preferences.sidebar.extraCollapse,
       () => preferences.sidebar.hidden,
+      () => preferences.app.contentCompact,
     ],
     () => {
       // 折叠动画200ms
