@@ -9,6 +9,10 @@ import {
 
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
 
+function info() {
+  ElMessage.info('How many roads must a man walk down');
+}
+
 function error() {
   ElMessage.error({
     duration: 2500,
@@ -70,6 +74,7 @@ function notify(type: NotificationType) {
         <span class="text-lg font-semibold">信息 Message </span>
       </div>
       <div class="flex gap-3">
+        <ElButton type="info" @click="info"> 信息 </ElButton>
         <ElButton type="danger" @click="error"> 错误 </ElButton>
         <ElButton type="warning" @click="warning"> 警告 </ElButton>
         <ElButton type="success" @click="success"> 成功 </ElButton>
@@ -81,10 +86,10 @@ function notify(type: NotificationType) {
         <span class="text-lg font-semibold">通知 Notification </span>
       </div>
       <div class="flex gap-3">
+        <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
         <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
         <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
         <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
-        <ElButton type="primary" @click="notify('info')"> 加载中 </ElButton>
       </div>
     </div>
   </div>

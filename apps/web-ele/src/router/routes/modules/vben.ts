@@ -60,7 +60,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           badgeType: 'dot',
           link: VBEN_NAIVE_PREVIEW_URL,
-          title: 'Naive UI 版本',
+          title: $t('page.vben.naive-ui'),
         },
       },
       {
@@ -70,7 +70,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           badgeType: 'dot',
           link: VBEN_PREVIEW_URL,
-          title: 'Ant Design 版本',
+          title: $t('page.vben.antdv'),
         },
       },
     ],
