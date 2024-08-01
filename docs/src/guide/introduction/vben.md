@@ -1,9 +1,9 @@
 # 关于 Vben Admin
 
-::: info 你正在阅读的是 [Vben Admin](https://github.com/vbenjs/vue-vben-admin) 的文档！
+::: info 你正在阅读的是 [Vben Admin](https://github.com/vbenjs/vue-vben-admin) `5.0`版本的文档！
 
 - Vben Admin 2.x 目前已经存档，只修复一些严重的问题。
-- 新版本与旧版本不兼容，如果你使用的是旧版本，请查看 [Vue Vben Admin 2.x 文档](https://doc.vvbin.cn)
+- 新版本与旧版本不兼容，如果你使用的是旧版本（v2、v3），请查看 [Vue Vben Admin 2.x 文档](https://doc.vvbin.cn)
 - 如发现文档有误，欢迎提提交 Issue 帮助我们改进。
 - 如果你只是想体验一下，你可以查看 [快速开始](./quick-start.md)。
 

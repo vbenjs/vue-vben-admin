@@ -75,7 +75,7 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     // 启动web-antd应用
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     // 启动文档
-    "dev:docs": "pnpm -F @vben/website run dev",
+    "dev:docs": "pnpm -F @vben/docs run dev",
     // 启动 element plus应用
     "dev:ele": "pnpm -F @vben/web-ele run dev",
     // 启动web-naive应用
@@ -135,7 +135,7 @@ pnpm dev:naive
 pnpm dev:ele
 ```
 
-运行 `website` 应用：
+运行 `docs` 应用：
 
 ```bash
 pnpm dev:docs

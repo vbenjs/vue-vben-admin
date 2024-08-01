@@ -41,8 +41,7 @@ export async function typescript(): Promise<Linter.FlatConfig[]> {
         ],
 
         '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
-        '@typescript-eslint/explicit-function-rkeyword-spacingeturn-type':
-          'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-empty-function': [
           'error',

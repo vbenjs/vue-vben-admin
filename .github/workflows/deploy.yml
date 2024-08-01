@@ -65,10 +65,10 @@ jobs:
           password: ${{ secrets.WEB_ELE_FTP_PASSWORD }}
           local-dir: ./apps/web-ele/dist/
 
-      - name: Sync Website files
+      - name: Sync Docs files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.PRO_FTP_HOST }}
           username: ${{ secrets.WEBSITE_FTP_ACCOUNT }}
           password: ${{ secrets.WEBSITE_FTP_PASSWORD }}
-          local-dir: ./website/.vitepress/dist/
+          local-dir: ./docs/.vitepress/dist/

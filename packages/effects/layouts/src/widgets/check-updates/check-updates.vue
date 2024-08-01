@@ -22,6 +22,12 @@ const { toast } = useToast();
 
 async function getVersionTag() {
   try {
+    if (
+      location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1'
+    ) {
+      return null;
+    }
     const response = await fetch('/', {
       cache: 'no-cache',
       method: 'HEAD',
@@ -48,7 +54,7 @@ async function checkForUpdates() {
     return;
   }
 
-  if (lastVersionTag.value !== versionTag) {
+  if (lastVersionTag.value !== versionTag && versionTag) {
     clearInterval(timer.value);
     handleNotice(versionTag);
   }
