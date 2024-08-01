@@ -22,7 +22,7 @@ const PRESET = computed(() => [
     type: 'wide',
   },
   {
-    name: '定宽',
+    name: $t('preferences.compact'),
     type: 'compact',
   },
 ]);
