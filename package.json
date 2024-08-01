@@ -26,7 +26,7 @@
   "type": "module",
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "cross-env TURBO_UI=1 NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
     "build:docker": "./build-local-docker-image.sh",
     "changeset": "pnpm exec changeset",
