@@ -1,16 +1,24 @@
 <script setup lang="ts">
   import { h } from 'vue';
   import { Modal } from 'ant-design-vue';
+  import { useI18n } from '@/hooks/web/useI18n';
 
-  Modal.confirm({
-    title: '新版本发布',
-    content: h('div', {}, [h('p', 'Vben Admin v5.0.0 预览版本已发布')]),
-    onOk() {
-      handleClick();
-    },
-    okText: '前往体验新版',
-    cancelText: '关闭',
-  });
+  const { t } = useI18n();
+
+  const localKey = 'vben-v5.0.0-upgrade-prompt';
+
+  if (!localStorage.getItem(localKey)) {
+    Modal.confirm({
+      title: t('layout.header.upgrade-prompt.title'),
+      content: h('div', {}, [h('p', t('layout.header.upgrade-prompt.content'))]),
+      onOk() {
+        handleClick();
+      },
+      okText: t('layout.header.upgrade-prompt.ok-text'),
+      cancelText: t('common.closeText'),
+    });
+  }
+  localStorage.setItem(localKey, String(Date.now()));
 
   function handleClick() {
     window.open('https://www.vben.pro', '_blank');
@@ -18,6 +26,8 @@
 </script>
 <template>
   <div>
-    <a-button type="primary" @click="handleClick">前往体验新版</a-button>
+    <a-button type="primary" @click="handleClick">{{
+      t('layout.header.upgrade-prompt.ok-text')
+    }}</a-button>
   </div>
 </template>
