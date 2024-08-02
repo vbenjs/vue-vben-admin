@@ -11,7 +11,6 @@ async function runDepcheck() {
       if (
         [
           '@vben/backend-mock',
-          '@vben/backend-mock',
           '@vben/commitlint-config',
           '@vben/eslint-config',
           '@vben/lint-staged-config',

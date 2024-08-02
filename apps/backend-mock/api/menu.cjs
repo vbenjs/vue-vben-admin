@@ -17,13 +17,7 @@ module.exports = util => {
   return {
     api: {
       '/api/menu/all'(req, res){
-        const token = req.get(`Authorization`)
-        if (!token) {
-          return res.status(401).json(useResponseError('UnauthorizedException', 'Unauthorized Exception'))
-        }
-        const username = Buffer.from(token, 'base64').toString('utf8');
-
-        const menus =  MOCK_MENUS.find((item) => item.username === username)?.menus ?? [];
+        const menus =  MOCK_MENUS.find((item) => item.username === req.username)?.menus ?? [];
         res.json(useResponseSuccess(menus))
 
       },
