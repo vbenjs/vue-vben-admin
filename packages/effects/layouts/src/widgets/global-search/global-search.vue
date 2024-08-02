@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben/types';
 
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import {
   ArrowDown,
@@ -40,6 +40,7 @@ const props = withDefaults(
 
 const [open, toggleOpen] = useToggle();
 const keyword = ref('');
+const searchInputRef = ref<HTMLInputElement>();
 
 function handleClose() {
   open.value = false;
@@ -52,6 +53,12 @@ whenever(cmd, () => {
   if (props.enableShortcutKey) {
     open.value = true;
   }
+});
+
+whenever(open, () => {
+  nextTick(() => {
+    searchInputRef.value?.focus();
+  });
 });
 
 const preventDefaultBrowserSearchHotKey = (event: KeyboardEvent) => {
@@ -115,6 +122,7 @@ onMounted(() => {
           >
             <Search class="text-muted-foreground size-4" />
             <input
+              ref="searchInputRef"
               v-model="keyword"
               :placeholder="$t('widgets.search.searchNavigate')"
               class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm outline-none ring-0 ring-offset-transparent focus-visible:ring-transparent"
