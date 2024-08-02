@@ -1,5 +1,6 @@
-import plugin from 'tailwindcss/plugin.js';
+import * as plugin from 'tailwindcss/plugin.js';
 
+// @ts-expect-error Parameter 'addUtilities' implicitly has an 'any' type.
 const enterAnimationPlugin = plugin(({ addUtilities }) => {
   const maxChild = 5;
   const utilities: Record<string, any> = {};

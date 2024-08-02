@@ -11,7 +11,9 @@ export type { Package } from '@manypkg/get-packages';
 export { default as colors } from 'chalk';
 export { consola } from 'consola';
 export * from 'execa';
-export { default as fs } from 'fs-extra';
+
+export * as fs from 'fs-extra';
 export { nanoid } from 'nanoid';
 export { type PackageJson, readPackageJSON } from 'pkg-types';
+
 export { rimraf } from 'rimraf';

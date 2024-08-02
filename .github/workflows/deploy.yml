@@ -24,6 +24,7 @@ jobs:
         shell: bash
         run: |
           sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./apps/web-antd/.env.production
+          sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./apps/web-antd/.env.production
           cat ./apps/web-antd/.env.production
 
       - name: Install pnpm

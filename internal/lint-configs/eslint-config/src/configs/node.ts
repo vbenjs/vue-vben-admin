@@ -1,7 +1,9 @@
 import type { Linter } from 'eslint';
 
-export async function node(): Promise<Linter.FlatConfig[]> {
-  const [pluginNode] = await Promise.all([import('eslint-plugin-n')] as const);
+import { interopDefault } from '../util';
+
+export async function node(): Promise<Linter.Config[]> {
+  const pluginNode = await interopDefault(import('eslint-plugin-n'));
 
   return [
     {

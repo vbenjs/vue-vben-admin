@@ -6,7 +6,7 @@ import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 
-export async function javascript(): Promise<Linter.FlatConfig[]> {
+export async function javascript(): Promise<Linter.Config[]> {
   return [
     {
       languageOptions: {

@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 import { fs } from '@vben/node-utils';
 
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 /**
  * 获取当前环境下生效的配置文件名

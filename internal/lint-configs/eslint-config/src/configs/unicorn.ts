@@ -1,9 +1,10 @@
 import type { Linter } from 'eslint';
 
-export async function unicorn(): Promise<Linter.FlatConfig[]> {
+import { interopDefault } from '../util';
+
+export async function unicorn(): Promise<Linter.Config[]> {
   const [pluginUnicorn] = await Promise.all([
-    // @ts-expect-error - missing types
-    import('eslint-plugin-unicorn'),
+    interopDefault(import('eslint-plugin-unicorn')),
   ] as const);
 
   return [
