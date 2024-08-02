@@ -14,6 +14,7 @@ async function runDepcheck() {
           '@vben/commitlint-config',
           '@vben/eslint-config',
           '@vben/lint-staged-config',
+          '@vben/mockm-mock',
           '@vben/node-utils',
           '@vben/prettier-config',
           '@vben/stylelint-config',

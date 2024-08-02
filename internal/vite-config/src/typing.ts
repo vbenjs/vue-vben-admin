@@ -33,6 +33,23 @@ interface NitroMockPluginOptions {
   verbose?: boolean;
 }
 
+interface MockmMockPluginOptions {
+  /**
+   * mock server 包名
+   */
+  mockServerPackage?: string;
+
+  /**
+   * mock 服务端口
+   */
+  port?: number;
+
+  /**
+   * mock 日志是否打印
+   */
+  verbose?: boolean;
+}
+
 /**
  * importmap 插件配置
  */
@@ -94,6 +111,10 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   injectGlobalScss?: boolean;
   /** 是否注入版权信息 */
   license?: boolean;
+  /** 是否开启mockm mock */
+  mockmMock?: boolean;
+  /** nitro mock 插件配置 */
+  mockmMockOptions?: NitroMockPluginOptions;
   /** 是否开启nitro mock */
   nitroMock?: boolean;
   /** nitro mock 插件配置 */
@@ -142,6 +163,7 @@ export type {
   IImportMap,
   ImportmapPluginOptions,
   LibraryPluginOptions,
+  MockmMockPluginOptions,
   NitroMockPluginOptions,
   PrintPluginOptions,
 };

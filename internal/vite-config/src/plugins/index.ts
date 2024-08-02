@@ -23,6 +23,7 @@ import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
+import { viteMockmPlugin } from './mockm-mock';
 import { viteNitroMockPlugin } from './nitor-mock';
 import { vitePrintPlugin } from './print';
 
@@ -101,6 +102,8 @@ async function loadApplicationPlugins(
     importmapOptions,
     injectAppLoading,
     license,
+    mockmMock,
+    mockmMockOptions,
     nitroMock,
     nitroMockOptions,
     print,
@@ -136,6 +139,12 @@ async function loadApplicationPlugins(
       condition: nitroMock,
       plugins: async () => {
         return [await viteNitroMockPlugin(nitroMockOptions)];
+      },
+    },
+    {
+      condition: mockmMock,
+      plugins: async () => {
+        return [await viteMockmPlugin(mockmMockOptions)];
       },
     },
     {

@@ -1,0 +1,6 @@
+openApiHistory/
+request/
+db.json
+httpHistory.json
+log.err.txt
+store.json
