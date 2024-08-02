@@ -57,8 +57,8 @@
 </template>
 <script lang="ts" setup>
   import { type Recordable } from '@vben/types';
-  import { computed, unref, ref } from 'vue';
-  import { BasicForm, ApiSelect, FormSchema } from '@/components/Form';
+  import { computed, ref, unref } from 'vue';
+  import { ApiSelect, BasicForm, FormSchema } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
@@ -472,11 +472,40 @@
       },
     },
     {
-      field: 'field32',
+      field: 'field32-1',
       label: '下拉远程搜索',
       helpMessage: ['ApiSelect组件', '将关键词发送到接口进行远程搜索'],
       required: true,
       slot: 'remoteSearch',
+      colProps: {
+        span: 8,
+      },
+      defaultValue: '0',
+    },
+    {
+      field: 'field32-2',
+      label: '下拉远程搜索',
+      component: 'ApiSelect',
+      helpMessage: ['ApiSelect组件', '将关键词发送到接口进行远程搜索'],
+      componentProps: {
+        api: optionsListApi,
+        showSearch: true,
+        apiSearch: {
+          show: true,
+          searchName: 'name',
+        },
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+        immediate: true,
+        onChange: (e, v) => {
+          console.log('ApiSelect====>:', e, v);
+        },
+        onOptionsChange: (options) => {
+          console.log('get options', options.length, options);
+        },
+      },
+      required: true,
       colProps: {
         span: 8,
       },
