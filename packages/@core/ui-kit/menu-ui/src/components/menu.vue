@@ -446,7 +446,7 @@ $namespace: vben;
     --menu-item-hover-color: hsl(var(--accent-foreground));
     --menu-item-hover-background-color: hsl(var(--accent));
     --menu-item-active-color: hsl(var(--primary-foreground));
-    --menu-item-active-background-color: hsl(var(--primary));
+    --menu-item-active-background-color: hsl(var(--foreground));
     --menu-submenu-hover-color: hsl(var(--foreground));
     --menu-submenu-hover-background-color: hsl(var(--accent));
     --menu-submenu-active-color: hsl(var(--foreground));
