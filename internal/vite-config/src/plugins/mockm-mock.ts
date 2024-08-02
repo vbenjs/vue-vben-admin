@@ -8,8 +8,8 @@ import { colors, consola, getPackage } from '@vben/node-utils';
 import getPort from 'get-port';
 
 export const viteMockmPlugin = ({
-  mockServerPackage = '@vben/mockm-mock',
-  port = 5420,
+  mockServerPackage = '@vben/backend-mock',
+  port = 5320,
   verbose = true,
 } = {}): PluginOption => {
   return {

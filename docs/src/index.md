@@ -51,10 +51,10 @@ features:
     icon:
       src: /logos/turborepo.svg
     details: 规范且标准的大仓架构，使用 pnpm + monorepo + turbo 工程管理模式，提供企业级开发规范。
-  - title: Nitro Mock Server
+  - title: Mockm Mock Server
     icon:
       src: /logos/nitro.svg
-    details: 内置 Nitro Mock 服务，让你的 mock 服务更加强大。
+    details: 内置 Mockm Mock 服务，让你的 mock 服务更加强大。
 ---
 
 <!-- <script setup>
