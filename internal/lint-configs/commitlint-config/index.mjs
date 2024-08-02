@@ -1,5 +1,3 @@
-import type { UserConfig } from 'cz-git';
-
 import { execSync } from 'node:child_process';
 
 import { getPackagesSync } from '@vben/node-utils';
@@ -27,7 +25,10 @@ const scopeComplete = execSync('git status --porcelain || true')
   ?.match(/src%%((\w|-)*)/)?.[1]
   ?.replace(/s$/, '');
 
-const userConfig: UserConfig = {
+/**
+ * @type {import('cz-git').UserConfig}
+ */
+const userConfig = {
   extends: ['@commitlint/config-conventional'],
   plugins: ['commitlint-plugin-function-rules'],
   prompt: {
@@ -106,7 +107,7 @@ const userConfig: UserConfig = {
     'function-rules/scope-enum': [
       2, // level: error
       'always',
-      (parsed: { scope: string }) => {
+      (parsed) => {
         if (!parsed.scope || allowedScopes.includes(parsed.scope)) {
           return [true];
         }

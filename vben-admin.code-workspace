@@ -29,10 +29,6 @@
       "path": "internal/lint-configs/eslint-config",
     },
     {
-      "name": "@vben/lint-staged-config",
-      "path": "internal/lint-configs/lint-staged-config",
-    },
-    {
       "name": "@vben/prettier-config",
       "path": "internal/lint-configs/prettier-config",
     },

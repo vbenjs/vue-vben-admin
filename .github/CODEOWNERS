@@ -1,7 +1,13 @@
 # default onwer
-* anncwb@126.com
+* anncwb vince292007
 
 # vben core onwer
-/packages/@core/ anncwb@126.com
-/internal/ anncwb@126.com
-/scripts/ anncwb@126.com
+/.github/ anncwb vince292007
+/.vscode/ anncwb vince292007
+/packages/@core/ anncwb vince292007
+/internal/ anncwb vince292007
+/scripts/ anncwb vince292007
+
+# vben team onwer
+apps/ vbenjs/team-v5
+docs/ vbenjs/team-v5
