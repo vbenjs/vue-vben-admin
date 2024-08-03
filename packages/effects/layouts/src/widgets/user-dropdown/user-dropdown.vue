@@ -206,6 +206,7 @@ if (enableShortcutKey.value) {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
+        v-if="preferences.app.enablePreferences"
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenPreference"
       >
