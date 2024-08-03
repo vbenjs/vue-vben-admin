@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -62,7 +63,7 @@ async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
     return;
   }
 
-  const htmlRaw = fs.readFileSync(loadingPath, 'utf8');
+  const htmlRaw = await fsp.readFile(loadingPath, 'utf8');
   return htmlRaw;
 }
 

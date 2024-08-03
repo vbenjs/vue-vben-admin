@@ -16,9 +16,9 @@ async function runLint({ format }: LintCommandOptions) {
     await execaCommand(`stylelint "**/*.{vue,css,less.scss}" --cache --fix`, {
       stdio: 'inherit',
     });
-    // await execaCommand(`eslint . --cache --fix`, {
-    //   stdio: 'inherit',
-    // });
+    await execaCommand(`eslint . --cache --fix`, {
+      stdio: 'inherit',
+    });
     await execaCommand(`prettier . --write --cache --log-level warn`, {
       stdio: 'inherit',
     });

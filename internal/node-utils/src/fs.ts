@@ -11,7 +11,6 @@ export async function outputJSON(
     await fs.mkdir(dir, { recursive: true });
     const jsonData = JSON.stringify(data, null, spaces);
     await fs.writeFile(filePath, jsonData, 'utf8');
-    console.log(`JSON data written to ${filePath}`);
   } catch (error) {
     console.error('Error writing JSON file:', error);
     throw error;
@@ -22,8 +21,7 @@ export async function ensureFile(filePath: string) {
   try {
     const dir = dirname(filePath);
     await fs.mkdir(dir, { recursive: true });
-    await fs.writeFile(filePath, '', { flag: 'a' }); // 'a' flag to append if file exists, otherwise create
-    console.log(`File ensured: ${filePath}`);
+    await fs.writeFile(filePath, '', { flag: 'a' });
   } catch (error) {
     console.error('Error ensuring file:', error);
     throw error;
