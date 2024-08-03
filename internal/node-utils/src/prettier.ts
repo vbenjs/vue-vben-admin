@@ -1,4 +1,5 @@
-import fs from 'fs-extra';
+import fs from 'node:fs/promises';
+
 import { format, getFileInfo, resolveConfig } from 'prettier';
 
 async function prettierFormat(filepath: string) {
@@ -12,7 +13,7 @@ async function prettierFormat(filepath: string) {
     parser: fileInfo.inferredParser as any,
   });
   if (output !== input) {
-    fs.writeFileSync(filepath, output, 'utf8');
+    await fs.writeFile(filepath, output, 'utf8');
   }
   return output;
 }

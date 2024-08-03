@@ -6,10 +6,12 @@ import { basename, dirname, join } from 'node:path';
 import {
   colors,
   consola,
+  ensureFile,
   findMonorepoRoot,
-  fs,
   generatorContentHash,
   getPackages,
+  outputJSON,
+  readJSON,
   UNICODE,
 } from '@vben/node-utils';
 
@@ -56,8 +58,8 @@ function getCacheFile() {
 
 async function readCache(cacheFile: string) {
   try {
-    await fs.ensureFile(cacheFile);
-    return await fs.readJSON(cacheFile, { encoding: 'utf8' });
+    await ensureFile(cacheFile);
+    return await readJSON(cacheFile);
   } catch {
     return {};
   }
@@ -73,7 +75,7 @@ async function runPublint(files: string[], { check }: PubLintCommandOptions) {
   const results = await Promise.all(
     lintFiles.map(async (file) => {
       try {
-        const pkgJson = await fs.readJSON(file);
+        const pkgJson = await readJSON(file);
 
         if (pkgJson.private) {
           return null;
@@ -106,7 +108,7 @@ async function runPublint(files: string[], { check }: PubLintCommandOptions) {
     }),
   );
 
-  await fs.outputJSON(cacheFile, cache);
+  await outputJSON(cacheFile, cache);
   printResult(results, check);
 }
 
