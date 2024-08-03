@@ -167,6 +167,16 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 组件
+      {
+        meta: {
+          icon: 'ion:layers-outline',
+          title: $t('page.demos.comp.title'),
+        },
+        name: 'CompDemos',
+        path: '/demos/comp',
+        children: [],
+      },
       // 面包屑导航
       {
         name: 'BreadcrumbDemos',
