@@ -35,6 +35,8 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       injectMetadata: true,
       isBuild,
       license: true,
+      mockmMock: !isBuild,
+      mockmMockOptions: {},
       mode,
       print: !isBuild,
       printInfoMap: {
