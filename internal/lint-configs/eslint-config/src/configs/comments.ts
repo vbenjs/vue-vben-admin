@@ -1,9 +1,11 @@
 import type { Linter } from 'eslint';
 
-export async function comments(): Promise<Linter.FlatConfig[]> {
+import { interopDefault } from '../util';
+
+export async function comments(): Promise<Linter.Config[]> {
   const [pluginComments] = await Promise.all([
     // @ts-expect-error - no types
-    import('eslint-plugin-eslint-comments'),
+    interopDefault(import('eslint-plugin-eslint-comments')),
   ] as const);
 
   return [

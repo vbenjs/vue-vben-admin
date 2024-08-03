@@ -6,9 +6,9 @@ import {
   colors,
   consola,
   findMonorepoRoot,
-  fs,
   getPackages,
   gitAdd,
+  outputJSON,
   prettierFormat,
   toPosixPath,
 } from '@vben/node-utils';
@@ -38,7 +38,7 @@ async function createCodeWorkspace({
 
   const monorepoRoot = findMonorepoRoot();
   const outputPath = join(monorepoRoot, CODE_WORKSPACE_FILE);
-  await fs.outputJSON(outputPath, { folders }, { encoding: 'utf8', spaces });
+  await outputJSON(outputPath, { folders }, spaces);
 
   await prettierFormat(outputPath);
   if (autoCommit) {

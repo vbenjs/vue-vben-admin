@@ -2,7 +2,7 @@ import type { Linter } from 'eslint';
 
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 
-export async function perfectionist(): Promise<Linter.FlatConfig[]> {
+export async function perfectionist(): Promise<Linter.Config[]> {
   return [
     perfectionistPlugin.configs['recommended-natural'],
     {

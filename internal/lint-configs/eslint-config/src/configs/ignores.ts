@@ -1,6 +1,6 @@
 import type { Linter } from 'eslint';
 
-export async function ignores(): Promise<Linter.FlatConfig[]> {
+export async function ignores(): Promise<Linter.Config[]> {
   return [
     {
       ignores: [

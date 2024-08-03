@@ -11,20 +11,15 @@
   },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "stub": "pnpm unbuild --stub"
-  },
   "files": [
     "dist"
   ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./index.mjs",
+  "module": "./index.mjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
+      "import": "./index.mjs",
+      "default": "./index.mjs"
     }
   },
   "dependencies": {

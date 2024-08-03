@@ -1,8 +1,9 @@
 import type { Config } from 'tailwindcss';
 
+import fs from 'node:fs';
 import path from 'node:path';
 
-import { fs, getPackagesSync } from '@vben/node-utils';
+import { getPackagesSync } from '@vben/node-utils';
 
 import { addDynamicIconSelectors } from '@iconify/tailwind';
 import typographyPlugin from '@tailwindcss/typography';

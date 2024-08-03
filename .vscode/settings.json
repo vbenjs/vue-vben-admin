@@ -139,8 +139,6 @@
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "typescript.preferences.includePackageJsonAutoImports": "on",
 
-  // Enable the ESlint flat config support
-  "eslint.experimental.useFlatConfig": true,
   "eslint.validate": [
     "javascript",
     "typescript",

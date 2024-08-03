@@ -1,12 +1,14 @@
 import type { Linter } from 'eslint';
 
-export async function vue(): Promise<Linter.FlatConfig[]> {
+import { interopDefault } from '../util';
+
+export async function vue(): Promise<Linter.Config[]> {
   const [pluginVue, parserVue, parserTs] = await Promise.all([
     // @ts-expect-error missing types
-    import('eslint-plugin-vue'),
-    import('vue-eslint-parser'),
+    interopDefault(import('eslint-plugin-vue')),
+    interopDefault(import('vue-eslint-parser')),
     // @ts-expect-error missing types
-    import('@typescript-eslint/parser'),
+    interopDefault(import('@typescript-eslint/parser')),
   ] as const);
 
   return [

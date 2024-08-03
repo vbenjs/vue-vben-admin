@@ -33,11 +33,6 @@
       "cache": false,
       "persistent": true
     },
-    "@vben/backend#dev": {
-      "outputs": [],
-      "cache": false,
-      "persistent": true
-    },
     "typecheck": {
       "outputs": []
     }

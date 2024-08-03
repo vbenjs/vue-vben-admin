@@ -25,7 +25,7 @@ function warning() {
 }
 function success() {
   ElMessage.success(
-    "'Cause you walked hand in hand With another man in my place",
+    'Cause you walked hand in hand With another man in my place',
   );
 }
 
