@@ -7,7 +7,7 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "mm": "npx mockm"
+    "mm": "npx mockm port=5320 --config=mm.config.cjs"
   },
   "devDependencies": {
     "mockm": "1.1.27-alpha.2"
