@@ -491,9 +491,6 @@ importers:
       find-up:
         specifier: ^7.0.0
         version: 7.0.0
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.2.0
       nanoid:
         specifier: ^5.0.7
         version: 5.0.7
@@ -513,9 +510,6 @@ importers:
       '@types/chalk':
         specifier: ^2.2.0
         version: 2.2.0
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
 
   internal/tailwind-config:
     dependencies:
@@ -3126,7 +3120,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 

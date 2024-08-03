@@ -1,7 +1,8 @@
+import fs from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { fs, readPackageJSON } from '@vben/node-utils';
+import { readPackageJSON } from '@vben/node-utils';
 
 import { type PluginOption } from 'vite';
 
@@ -61,7 +62,7 @@ async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
     return;
   }
 
-  const htmlRaw = await fs.readFile(loadingPath, 'utf8');
+  const htmlRaw = fs.readFileSync(loadingPath, 'utf8');
   return htmlRaw;
 }
 
