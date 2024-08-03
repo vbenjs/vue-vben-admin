@@ -52,19 +52,15 @@ async function viteInjectAppLoadingPlugin(
  * 用于获取loading的html模板
  */
 async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
-  const __dirname = fileURLToPath(new URL('.', import.meta.url));
-  const defaultLoadingPath = join(__dirname, './default-loading.html');
   // 支持在app内自定义loading模板，模版参考default-loading.html即可
-  const appLoadingPath = join(process.cwd(), loadingTemplate);
-  let loadingPath = defaultLoadingPath;
+  let appLoadingPath = join(process.cwd(), loadingTemplate);
 
-  if (fs.existsSync(appLoadingPath)) {
-    loadingPath = appLoadingPath;
-    return;
+  if (!fs.existsSync(appLoadingPath)) {
+    const __dirname = fileURLToPath(new URL('.', import.meta.url));
+    appLoadingPath = join(__dirname, './default-loading.html');
   }
 
-  const htmlRaw = await fsp.readFile(loadingPath, 'utf8');
-  return htmlRaw;
+  return await fsp.readFile(appLoadingPath, 'utf8');
 }
 
 export { viteInjectAppLoadingPlugin };

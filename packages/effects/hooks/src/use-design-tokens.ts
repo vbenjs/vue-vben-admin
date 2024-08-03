@@ -209,7 +209,7 @@ export function useElementPlusDesignTokens() {
         '--el-text-color-primary': getCssVariableValue('--foreground'),
         '--el-text-color-regular': getCssVariableValue('--foreground'),
       };
-      updateCSSVariables(variables, `__vben_ele_styles__`);
+      updateCSSVariables(variables, `__vben_design_styles__`);
     },
     { immediate: true },
   );

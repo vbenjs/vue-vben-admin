@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - master
       - "releases/*"
 
 permissions:
@@ -25,8 +24,8 @@ jobs:
         node-version: [20]
         os:
           - ubuntu-latest
-          # - macos-latest
-          # - windows-latest
+          - macos-latest
+          - windows-latest
     timeout-minutes: 20
     steps:
       - name: Checkout code
