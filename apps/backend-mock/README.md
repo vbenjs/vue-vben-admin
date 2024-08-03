@@ -18,8 +18,8 @@ Vben Admin 数据 mock 服务，没有对接任何的数据库，所有数据都
 ## Running the app
 
 ```bash
-$ pnpm i mockm
-$ npx mm
+pnpm i mockm
+npx mm
 ```
 
 ## 参考

@@ -3,7 +3,6 @@ const {
   useResponseSuccess,
   useResponseError,
 } = require(`./util.cjs`)
-const getUser = require(`./get-user.cjs`)
 
 /**
  * 配置说明请参考文档: 
@@ -13,7 +12,7 @@ const getUser = require(`./get-user.cjs`)
 module.exports = util => {
   return {
     watch: [`./api/`],
-    plugin: [getUser],
+    plugin: [],
     proxy: {
       '/': `http://www.httpbin.org/`, // 后端接口主域
     },
@@ -33,7 +32,10 @@ module.exports = util => {
           next()
         } else {
           const token = req.get(`Authorization`)
-          if (!token) {
+          if (token) {
+            const username = Buffer.from(token, 'base64').toString('utf8');
+            req.username = username;
+          } else {
             return res.status(401).json(useResponseError('UnauthorizedException', 'Unauthorized Exception'))
           }
           next()
