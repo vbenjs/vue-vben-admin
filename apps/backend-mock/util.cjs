@@ -1,4 +1,37 @@
-export const MOCK_USERS = [
+/**
+ * 包裹 api 的返回值
+ * @param {*} param0
+ * @param {object} param0.data - 原始数据
+ * @param {number|string} [param0.code] - http状态码
+ * @returns
+ */
+function wrapApiData({ code = 200, data }) {
+  code = String(code);
+  const res = code.startsWith('2')
+    ? useResponseSuccess(data)
+    : useResponseError(`Error`, code);
+  return res;
+}
+
+function useResponseSuccess(data) {
+  return {
+    code: 0,
+    data,
+    error: null,
+    message: 'ok',
+  };
+}
+
+function useResponseError(message, error) {
+  return {
+    code: -1,
+    data: null,
+    error,
+    message,
+  };
+}
+
+const MOCK_USERS = [
   {
     id: 0,
     password: '123456',
@@ -22,7 +55,7 @@ export const MOCK_USERS = [
   },
 ];
 
-export const MOCK_CODES = [
+const MOCK_CODES = [
   // super
   {
     codes: ['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010'],
@@ -72,7 +105,7 @@ const dashboardMenus = [
   },
 ];
 
-const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
+const createDemosMenus = (role) => {
   const roleWithMenus = {
     admin: {
       component: '/demos/access/admin-visible',
@@ -162,7 +195,7 @@ const createDemosMenus = (role: 'admin' | 'super' | 'user') => {
   ];
 };
 
-export const MOCK_MENUS = [
+const MOCK_MENUS = [
   {
     menus: [...dashboardMenus, ...createDemosMenus('super')],
     username: 'vben',
@@ -176,3 +209,12 @@ export const MOCK_MENUS = [
     username: 'jack',
   },
 ];
+
+module.exports = {
+  MOCK_CODES,
+  MOCK_MENUS,
+  MOCK_USERS,
+  useResponseError,
+  useResponseSuccess,
+  wrapApiData,
+};

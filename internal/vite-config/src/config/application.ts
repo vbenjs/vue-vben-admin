@@ -35,9 +35,9 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       injectMetadata: true,
       isBuild,
       license: true,
+      mockmMock: !isBuild,
+      mockmMockOptions: {},
       mode,
-      nitroMock: !isBuild,
-      nitroMockOptions: {},
       print: !isBuild,
       printInfoMap: {
         'Vben Admin Docs': 'https://doc.vben.pro',

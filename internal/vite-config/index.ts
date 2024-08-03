@@ -18,12 +18,12 @@ import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
+import { viteMockmPlugin } from './backend-mock';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
-import { viteMockmPlugin } from './mockm-mock';
 import { vitePrintPlugin } from './print';
 
 /**
