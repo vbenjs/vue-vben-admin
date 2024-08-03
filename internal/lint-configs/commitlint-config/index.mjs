@@ -47,7 +47,6 @@ const userConfig = {
     defaultScope: scopeComplete,
     // English
     typesAppend: [
-      { name: 'wip:      work in process', value: 'wip' },
       { name: 'workflow: workflow improvements', value: 'workflow' },
       { name: 'types:    type definition file changes', value: 'types' },
     ],
@@ -122,7 +121,7 @@ const userConfig = {
     'header-max-length': [2, 'always', 108],
 
     'scope-enum': [0],
-    'subject-case': [0],
+    'subject-case': [2, 'always', 'lower-case'],
     'subject-empty': [2, 'never'],
     'type-empty': [2, 'never'],
     /**

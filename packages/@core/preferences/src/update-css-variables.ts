@@ -115,4 +115,4 @@ function isDarkTheme(theme: string) {
   return dark;
 }
 
-export { updateCSSVariables };
+export { isDarkTheme, updateCSSVariables };
