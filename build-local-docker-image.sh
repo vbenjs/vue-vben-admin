@@ -3,7 +3,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 LOG_FILE=${SCRIPT_DIR}/build-local-docker-image.log
 ERROR=""
-IMAGE_NAME="vben-admin-pro-local"
+IMAGE_NAME="vben-admin-local"
 
 function stop_and_remove_container() {
     # Stop and remove the existing container
