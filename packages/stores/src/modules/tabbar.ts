@@ -349,7 +349,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       }
     },
 
-    async setUpdateTime() {
+    setUpdateTime() {
       this.updateTime = Date.now();
     },
     /**
