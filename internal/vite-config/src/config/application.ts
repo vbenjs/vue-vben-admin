@@ -8,7 +8,7 @@ import { findMonorepoRoot } from '@vben/node-utils';
 
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
-import { getDefaultPwaOptions } from '../options';
+import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
 import { loadAndConvertEnv } from '../utils/env';
 import { getCommonConfig } from './common';
@@ -31,6 +31,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       extraAppConfig: true,
       html: true,
       i18n: true,
+      importmapOptions: defaultImportmapOptions,
       injectAppLoading: true,
       injectMetadata: true,
       isBuild,
