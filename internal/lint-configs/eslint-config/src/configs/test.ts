@@ -22,7 +22,6 @@ export async function test(): Promise<Linter.Config[]> {
         test: {
           ...pluginTest,
           rules: {
-            // @ts-expect-error - no types
             ...pluginTest.rules,
             ...pluginNoOnlyTests.rules,
           },

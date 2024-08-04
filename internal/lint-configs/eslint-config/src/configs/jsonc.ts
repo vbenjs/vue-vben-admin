@@ -51,7 +51,7 @@ export async function jsonc(): Promise<Linter.Config[]> {
   ];
 }
 
-function sortPackageJson(): Linter.FlatConfig {
+function sortPackageJson(): Linter.Config {
   return {
     files: ['**/package.json'],
     rules: {
@@ -130,7 +130,7 @@ function sortPackageJson(): Linter.FlatConfig {
   };
 }
 
-function sortTsconfig(): Linter.FlatConfig {
+function sortTsconfig(): Linter.Config {
   return {
     files: [
       '**/tsconfig.json',
