@@ -21,7 +21,7 @@ import {
 } from './configs';
 import { customConfig } from './custom-config';
 
-type FlatConfig = Linter.FlatConfig;
+type FlatConfig = Linter.Config;
 
 type FlatConfigPromise =
   | FlatConfig
