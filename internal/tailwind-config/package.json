@@ -46,11 +46,11 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
-    "@iconify/json": "^2.2.233",
+    "@iconify/json": "^2.2.234",
     "@iconify/tailwind": "^1.1.2",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.13",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.4",
     "postcss": "^8.4.40",
     "postcss-antd-fixes": "^0.2.0",
