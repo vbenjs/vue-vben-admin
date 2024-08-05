@@ -24,10 +24,10 @@ const localesMap = loadLocalesMap(modules);
  */
 async function loadMessages(lang: SupportedLanguagesType) {
   const [appLocaleMessages] = await Promise.all([
-    localesMap[lang](),
+    localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return appLocaleMessages.default;
+  return appLocaleMessages?.default;
 }
 
 /**

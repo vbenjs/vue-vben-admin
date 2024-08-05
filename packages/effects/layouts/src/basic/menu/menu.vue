@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { MenuRecordRaw } from '@vben/types';
+import type { MenuProps } from '@vben-core/menu-ui';
 
-import { Menu, MenuProps } from '@vben-core/menu-ui';
+import { Menu } from '@vben-core/menu-ui';
 
 interface Props extends MenuProps {
   menus?: MenuRecordRaw[];

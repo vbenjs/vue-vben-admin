@@ -15,8 +15,8 @@ const localesMap = loadLocalesMap(modules);
  * @param lang
  */
 async function loadMessages(lang: SupportedLanguagesType) {
-  const appLocaleMessages = await localesMap[lang]();
-  return appLocaleMessages.default;
+  const appLocaleMessages = await localesMap[lang]?.();
+  return appLocaleMessages?.default;
 }
 
 async function setupI18n(app: App, options: LocaleSetupOptions = {}) {

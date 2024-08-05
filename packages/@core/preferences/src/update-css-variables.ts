@@ -89,10 +89,9 @@ function updateMainColorVariables(preference: Preferences) {
   ]);
 
   if (colorPrimary) {
-    document.documentElement.style.setProperty(
-      '--primary',
-      colorVariables['--primary-500'],
-    );
+    const mainColor = colorVariables['--primary-500'];
+    mainColor &&
+      document.documentElement.style.setProperty('--primary', mainColor);
   }
 
   if (colorVariables['--green-500']) {

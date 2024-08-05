@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { VbenLayoutProps } from './vben-layout';
+
 import type { CSSProperties } from 'vue';
 import { computed, ref, watch } from 'vue';
 
@@ -11,7 +13,6 @@ import {
   LayoutSidebar,
   LayoutTabbar,
 } from './components';
-import { VbenLayoutProps } from './vben-layout';
 
 interface Props extends VbenLayoutProps {}
 
