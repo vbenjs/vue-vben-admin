@@ -52,4 +52,4 @@ jobs:
           commit: "chore: bump versions"
           title: "chore: bump versions"
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

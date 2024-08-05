@@ -23,4 +23,4 @@ jobs:
             doesn't start with an uppercase character.
           requireScope: false
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
