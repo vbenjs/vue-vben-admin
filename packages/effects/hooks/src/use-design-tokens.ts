@@ -3,6 +3,8 @@ import { reactive, watch } from 'vue';
 import { preferences } from '@vben/preferences';
 import { updateCSSVariables } from '@vben/utils';
 
+import { hlsStringToRGB } from './convert';
+
 /**
  * 用于适配各个框架的设计系统
  */
@@ -102,7 +104,10 @@ export function useNaiveDesignTokens() {
 
   const getCssVariableValue = (variable: string, isColor: boolean = true) => {
     const value = rootStyles.getPropertyValue(variable);
-    return isColor ? `hsl(${value})` : value;
+    const rgbColor = hlsStringToRGB(`hsl(${value})`);
+    const { a, b = 0, g = 0, r = 0 } = { a: 1, ...rgbColor };
+
+    return isColor ? `rgba(${r}, ${g}, ${b}, ${a})` : value;
   };
 
   watch(
@@ -150,7 +155,6 @@ export function useNaiveDesignTokens() {
     },
     { immediate: true },
   );
-
   return {
     commonTokens,
   };
