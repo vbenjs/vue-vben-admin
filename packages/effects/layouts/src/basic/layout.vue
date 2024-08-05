@@ -135,11 +135,8 @@ watch(
   () => preferences.app.watermark,
   async (val) => {
     if (val) {
-      // await nextTick();
-
-      updateWatermark({
+      await updateWatermark({
         content: `${preferences.app.name} 用户名: ${userStore.userInfo?.username}`,
-        // parent: contentRef.value,
       });
     }
   },
@@ -147,15 +144,10 @@ watch(
     immediate: true,
   },
 );
+
 const slots = useSlots();
 const headerSlots = computed(() => {
-  const array: string[] = [];
-  Object.keys(slots).forEach((key: string) => {
-    if (key.startsWith('header-')) {
-      array.push(key);
-    }
-  });
-  return array;
+  return Object.keys(slots).filter((key) => key.startsWith('header-'));
 });
 </script>
 
