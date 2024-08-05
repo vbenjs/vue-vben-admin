@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { MenuRecordRaw } from '@vben/types';
+
 import { computed, useSlots, watch } from 'vue';
 
 import { useWatermark } from '@vben/hooks';
@@ -9,7 +11,6 @@ import {
   usePreferences,
 } from '@vben/preferences';
 import { useLockStore, useUserStore } from '@vben/stores';
-import { MenuRecordRaw } from '@vben/types';
 import { mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { Toaster, VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';

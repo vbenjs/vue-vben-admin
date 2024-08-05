@@ -22,17 +22,19 @@ function generatorColorVariables(colorItems: ColorItem[]) {
       colorKeys.forEach((key) => {
         const colorValue = colorsMap[key];
 
-        const hslColor = convertToHslCssVar(colorValue);
-        colorVariables[`--${name}-${key}`] = hslColor;
-        if (alias) {
-          colorVariables[`--${alias}-${key}`] = hslColor;
-        }
+        if (colorValue) {
+          const hslColor = convertToHslCssVar(colorValue);
+          colorVariables[`--${name}-${key}`] = hslColor;
+          if (alias) {
+            colorVariables[`--${alias}-${key}`] = hslColor;
+          }
 
-        if (key === '500') {
-          mainColor = hslColor;
+          if (key === '500') {
+            mainColor = hslColor;
+          }
         }
       });
-      if (alias) {
+      if (alias && mainColor) {
         colorVariables[`--${alias}`] = mainColor;
       }
     }

@@ -95,10 +95,12 @@ async function handleEnter() {
     return;
   }
   const to = result[index];
-  searchHistory.value.push(to);
-  handleClose();
-  await nextTick();
-  router.push(to.path);
+  if (to) {
+    searchHistory.value.push(to);
+    handleClose();
+    await nextTick();
+    router.push(to.path);
+  }
 }
 
 // Arrow key up

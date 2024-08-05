@@ -71,7 +71,7 @@ async function generateRoutes(
     const firstChild = route.children[0];
 
     // 如果子路由不是以/开头，则直接返回,这种情况需要计算全部父级的path才能得出正确的path，这里不做处理
-    if (!firstChild.path || !firstChild.path.startsWith('/')) {
+    if (!firstChild?.path || !firstChild.path.startsWith('/')) {
       return route;
     }
 
