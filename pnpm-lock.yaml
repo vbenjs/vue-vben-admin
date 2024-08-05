@@ -990,8 +990,8 @@ importers:
         version: 1.7.3
     devDependencies:
       axios-mock-adapter:
-        specifier: ^1.22.0
-        version: 1.22.0(axios@1.7.3)
+        specifier: ^2.0.0
+        version: 2.0.0(axios@1.7.3)
 
   packages/icons:
     dependencies:
@@ -3258,6 +3258,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4333,8 +4334,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axios-mock-adapter@1.22.0:
-    resolution: {integrity: sha512-dmI0KbkyAhntUR05YY96qg2H6gg0XMl2+qTW0xmYg6Up+BFBAJYRLROMXRdDEL06/Wqwa0TJThAYvFtSFdRCZw==}
+  axios-mock-adapter@2.0.0:
+    resolution: {integrity: sha512-D/K0J5Zm6KvaMTnsWrBQZWLzKN9GxUFZEa0mx2qeEHXDeTugCoplWehy8y36dj5vuSjhe1u/Dol8cZ8lzzmDew==}
     peerDependencies:
       axios: '>= 0.17.0'
 
@@ -13083,7 +13084,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  axios-mock-adapter@1.22.0(axios@1.7.3):
+  axios-mock-adapter@2.0.0(axios@1.7.3):
     dependencies:
       axios: 1.7.3
       fast-deep-equal: 3.1.3
