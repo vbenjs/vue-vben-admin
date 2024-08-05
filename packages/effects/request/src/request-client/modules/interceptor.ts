@@ -1,7 +1,7 @@
-import {
+import type {
   AxiosInstance,
   AxiosResponse,
-  type InternalAxiosRequestConfig,
+  InternalAxiosRequestConfig,
 } from 'axios';
 
 const errorHandler = (res: Error) => Promise.reject(res);

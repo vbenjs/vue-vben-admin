@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import type { TabDefinition } from '@vben-core/typings';
+
 import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, watch } from 'vue';
 
 import { MdiPin, X } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
-import { TabDefinition } from '@vben-core/typings';
 
 interface Props extends TabsProps {}
 
@@ -37,7 +38,7 @@ const typeWithClass = computed(() => {
     },
   };
 
-  return typeClasses[props.styleType || 'plain'];
+  return typeClasses[props.styleType || 'plain'] || { content: '' };
 });
 
 const tabsView = computed((): TabConfig[] => {

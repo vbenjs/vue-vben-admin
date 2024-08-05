@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AuthenticationProps, LoginAndRegisterParams } from './typings';
+
 import { useForwardPropsEmits } from '@vben/hooks';
 import {
   Dialog,
@@ -10,7 +12,6 @@ import {
 } from '@vben-core/shadcn-ui';
 
 import AuthenticationLogin from './login.vue';
-import { AuthenticationProps, LoginAndRegisterParams } from './typings';
 
 interface Props extends AuthenticationProps {
   avatar?: string;

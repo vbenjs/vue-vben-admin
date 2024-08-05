@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { UseResizeObserverReturn } from '@vueuse/core';
+
 import type {
   MenuItemClicked,
   MenuItemRegistered,
@@ -22,7 +24,7 @@ import { useNamespace } from '@vben-core/composables';
 import { Ellipsis } from '@vben-core/icons';
 import { isHttpUrl } from '@vben-core/shared';
 
-import { useResizeObserver, UseResizeObserverReturn } from '@vueuse/core';
+import { useResizeObserver } from '@vueuse/core';
 
 import {
   createMenuContext,
@@ -273,7 +275,7 @@ function close(path: string) {
  */
 function closeMenu(path: string, parentPaths: string[]) {
   if (props.accordion) {
-    openedMenus.value = subMenus.value[path]?.parentPaths;
+    openedMenus.value = subMenus.value[path]?.parentPaths ?? [];
   }
 
   close(path);
