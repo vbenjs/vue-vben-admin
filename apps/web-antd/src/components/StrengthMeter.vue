@@ -70,8 +70,81 @@ watch(
       </template>
     </Input.Password>
     <div :class="e('bar')">
-      <div :class="e('bar--fill')" :data-score="getPasswordStrength"></div>
+      <div :class="e('bar__fill')" :data-score="getPasswordStrength"></div>
     </div>
   </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/*
+ todo: 这里的颜色最好也提取到 @vben-core/design 下中
+  */
+@import '@vben/styles/global';
+
+@include b('strength-meter') {
+  @include e('bar') {
+    position: relative;
+    height: 6px;
+    margin: 10px auto 6px;
+    background-color: rgb(0 0 0 / 25%);
+    border-radius: 6px;
+
+    @include e('fill') {
+      position: absolute;
+      width: 0;
+      height: inherit;
+      background-color: transparent;
+      border-radius: inherit;
+      transition:
+        width 0.5s ease-in-out,
+        background 0.25s;
+
+      &[data-score='0'] {
+        width: 20%;
+        background-color: #e74242;
+      }
+
+      &[data-score='1'] {
+        width: 40%;
+        background-color: #ed6f6f;
+      }
+
+      &[data-score='2'] {
+        width: 60%;
+        background-color: #efbd47;
+      }
+
+      &[data-score='3'] {
+        width: 80%;
+        background-color: rgb(85 209 135 / 50%);
+      }
+
+      &[data-score='4'] {
+        width: 100%;
+        background-color: #55d187;
+      }
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      z-index: 10;
+      display: block;
+      width: 20%;
+      height: inherit;
+      content: '';
+      background-color: transparent;
+      border-color: white;
+      border-style: solid;
+      border-width: 0 5px;
+    }
+
+    &::before {
+      left: 20%;
+    }
+
+    &::after {
+      right: 20%;
+    }
+  }
+}
+</style>

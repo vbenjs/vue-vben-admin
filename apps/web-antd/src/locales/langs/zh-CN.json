@@ -58,7 +58,10 @@
       }
     },
     "examples": {
-      "title": "示例"
+      "title": "示例",
+      "strengthMeter": {
+        "title": "密码强度组件"
+      }
     }
   }
 }

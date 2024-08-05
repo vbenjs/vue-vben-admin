@@ -58,7 +58,10 @@
       }
     },
     "examples": {
-      "title": "Examples"
+      "title": "Examples",
+      "strengthMeter": {
+        "title": "Password Strength Meter"
+      }
     }
   }
 }

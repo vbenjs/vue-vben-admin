@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      icon: 'ic:baseline-view-in-ar',
+      icon: 'ion:layers-outline',
       keepAlive: true,
       order: 1000,
       title: $t('page.examples.title'),
@@ -20,8 +20,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/strength-meter',
         component: () => import('#/views/examples/strength-meter/index.vue'),
         meta: {
-          icon: 'lucide:navigation',
-          title: '密码强度组件',
+          title: $t('page.examples.strengthMeter.title'),
         },
       },
     ],
