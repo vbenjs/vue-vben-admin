@@ -118,6 +118,7 @@ function handleMakeAll() {
 
 <template>
   <BasicLayout @clear-preferences-and-logout="handleLogout">
+    <!--    <template #header-1>插槽1</template>-->
     <template #user-dropdown>
       <UserDropdown
         :avatar

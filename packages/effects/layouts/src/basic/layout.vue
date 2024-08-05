@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import { computed, useSlots, watch } from 'vue';
 
 import { useWatermark } from '@vben/hooks';
 import { $t } from '@vben/locales';
@@ -147,6 +147,16 @@ watch(
     immediate: true,
   },
 );
+const slots = useSlots();
+const headerSlots = computed(() => {
+  const array: string[] = [];
+  Object.keys(slots).forEach((key: string) => {
+    if (key.startsWith('header-')) {
+      array.push(key);
+    }
+  });
+  return array;
+});
 </script>
 
 <template>
@@ -238,6 +248,9 @@ watch(
         </template>
         <template #notification>
           <slot name="notification"></slot>
+        </template>
+        <template v-for="item in headerSlots" #[item]>
+          <slot :name="item"></slot>
         </template>
       </LayoutHeader>
     </template>
