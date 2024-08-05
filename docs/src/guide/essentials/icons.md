@@ -75,6 +75,6 @@ import { SvgTestIcon } from '@vben/icons';
 
 ```vue
 
-<span class="<span class="icon-[mdi--ab-testing]"></span>"></span>
+<span class="icon-[mdi--ab-testing]"></span>
 
 ```
