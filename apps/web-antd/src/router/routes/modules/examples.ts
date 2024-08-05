@@ -10,10 +10,10 @@ const routes: RouteRecordRaw[] = [
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
       order: 1000,
-      title: $t('page.comp.title'),
+      title: $t('page.examples.title'),
     },
-    name: 'Comp',
-    path: '/comp',
+    name: 'Examples',
+    path: '/examples',
     children: [],
   },
 ];
