@@ -14,7 +14,17 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Examples',
     path: '/examples',
-    children: [],
+    children: [
+      {
+        name: 'BreadcrumbLateralDemo',
+        path: '/examples/strength-meter',
+        component: () => import('#/views/examples/strength-meter/index.vue'),
+        meta: {
+          icon: 'lucide:navigation',
+          title: '密码强度组件',
+        },
+      },
+    ],
   },
 ];
 
