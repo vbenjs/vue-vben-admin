@@ -55,10 +55,10 @@
         "lateralDetail": "Lateral Mode Detail",
         "level": "Level Mode",
         "levelDetail": "Level Mode Detail"
-      },
-      "comp": {
-        "title": "Component"
       }
+    },
+    "comp": {
+      "title": "Component"
     }
   }
 }

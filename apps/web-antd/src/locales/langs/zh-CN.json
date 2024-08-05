@@ -55,10 +55,10 @@
         "level": "层级模式",
         "levelDetail": "层级模式详情",
         "lateralDetail": "平级模式详情"
-      },
-      "comp": {
-        "title": "组件"
       }
+    },
+    "comp": {
+      "title": "组件"
     }
   }
 }
