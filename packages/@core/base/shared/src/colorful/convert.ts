@@ -61,15 +61,10 @@ interface HSLAObjectStringColor extends HSLObjectStringColor {
 }
 
 const MATCHER =
-  /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e\d+)?[dgrt])\s*,\s*(\+?-?\d+(?:\.\d+)?%)\s*,\s*(\+?-?\d+(?:\.\d+)?%)(?:\s*,\s*(\+?-?\d+(?:\.\d+)?(?:e-\d+)?%?))?\s*\)/i;
-// const MATCHER =
-//   /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*(?:deg|rad|grad|turn)?)\s*,\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*,\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(?:(,\s*\+?-?\s*(?:\d*(?:\.\d*)?(?:e-\d*)?%?)?)\s*)?\)/i;
-// const MATCHER_SPACE =
-//   /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*(?:deg|rad|grad|turn)?)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(?:(\/\s*\+?-?\s*(?:\d*(?:\.\d*)?(?:e-\d*)?%?)?)\s*)?\)/i;
+  /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e\d+)?(?:deg|grad|rad|turn)?)\s*,\s*(\+?-?\d+(?:\.\d+)?%)\s*,\s*(\+?-?\d+(?:\.\d+)?%)(?:\s*,\s*(\+?-?\d+(?:\.\d+)?(?:e-\d+)?%?))?\s*\)/i;
 const MATCHER_SPACE =
   // eslint-disable-next-line regexp/no-super-linear-backtracking
-  /hsla?\(\s*(\+?-?\d{1,5}(?:\.\d{1,5})?(?:e[+-]?\d+)?(?:deg|rad|grad|turn)?)\s*(?:(\+?-?\d{1,5}(?:\.\d{1,5})?(?:e[+-]?\d+)?%?)\s*)?(\+?-?\d{1,5}(?:\.\d{1,5})?(?:e[+-]?\d+)?%?)?\s*(?:\/\s*(\+?-?\d{1,5}(?:\.\d{1,5})?(?:e[+-]?\d+)?%?)\s*)?\)/i;
-
+  /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e[+-]?\d+)?(?:deg|rad|grad|turn)?)\s*(?:(\+?-?\d+(?:\.\d+)?%)\s*)?(\+?-?\d+(?:\.\d+)?%?)?\s*(?:\/\s*(\+?-?\d+(?:\.\d+)?%)\s*)?\)/i;
 const aStr = (a?: string) => (a ? a.replace(/^([,/])\s*/, '').trim() : a);
 export default function hslMatcher(
   hsl: string = '',
@@ -93,54 +88,28 @@ function hlsStringToRGB(hls: string): RGBAColor | RGBColor | undefined {
   let h = 0;
   let l = 0;
   let s = 0;
-
-  if (/\s*\d*turn\s*$/.test(hueStr)) {
-    h = Number(hueStr.replace(/turn\s*$/i, '')) * 360;
-  } else if (/\s*\d*grad\s*$/.test(hueStr)) {
-    h = gradsToDegrees(hueStr.replace(/grad\s*$/i, ''));
-  } else if (/\s*\d*rad\s*$/.test(hueStr)) {
-    h = radiansToDegrees(Number(hueStr.replace(/rad\s*$/i, '')));
-  }
-
-  if (/^[+-]?\d*(?:\.\d*)?(?:e[+-]?\d+)?$/i.test(hueStr.replace(/deg$/i, ''))) {
-    h = Number(hueStr.replace(/deg$/i, ''));
-  }
-  if (h > 360) h = 360;
-  if (h < 0) h = 0;
-  if (/^[+-]?\d*(?:\.\d*)?(?:e[+-]?\d+)?%$/i.test(sStr)) {
-    s = Number(sStr.replace(/%$/, ''));
-  }
-  if (s > 100) s = 100;
-  if (s < 0) s = 0;
-  if (
-    /^(?:[+-]?\d*|[+-]?(?:[^\d\n\r\u2028\u2029]\d*|\d+(?:[^\d\n\r\u2028\u2029]\d*)?)(?:e\+\d*)?)%$/.test(
-      lStr,
-    )
-  ) {
-    l = Number(lStr.replace(/%$/, ''));
-  }
-  if (l > 100) l = 100;
-  if (l < 0) l = 0;
-
+  const parseAngle = (
+    str: string,
+    unit: RegExp,
+    toDegrees: (val: number) => number,
+  ) => {
+    return unit.test(str) ? toDegrees(Number(str.replace(unit, ''))) : 0;
+  };
+  h =
+    parseAngle(hueStr, /\s*\d*turn\s*$/, (val) => val * 360) ||
+    parseAngle(hueStr, /\s*\d*grad\s*$/, gradsToDegrees) ||
+    parseAngle(hueStr, /\s*\d*rad\s*$/, radiansToDegrees) ||
+    Number(hueStr.replace(/deg$/i, ''));
+  h = Math.min(Math.max(h, 0), 360);
+  s = Math.min(Math.max(Number(sStr.replace(/%$/, '')), 0), 100);
+  l = Math.min(Math.max(Number(lStr.replace(/%$/, '')), 0), 100);
   s /= 100;
   l /= 100;
   const k = (n: number) => (n + h / 30) % 12;
   const a = s * Math.min(l, 1 - l);
   const f = (n: number) =>
     l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-
-  // rounding
   const toFixed = (n: number) => Number(n.toFixed(0));
-
-  /**
-   * https://drafts.csswg.org/css-color/#typedef-alpha-value
-   * Opacity in CSS is typically represented using the <alpha-value> syntax,
-   * for example in the opacity property or as the alpha component in a color function.
-   * Represented as a <number>, the useful range of the value is 0 (representing full transparency) to 1 (representing full opacity).
-   * It can also be written as a <percentage>, which computes to the equivalent <number> (0% to 0, 100% to 1).
-   * Unless otherwise specified, an <alpha-value> component defaults to 100% when omitted.
-   * Values outside the range [0,1] are not invalid, but are clamped to that range when computed.
-   */
   if (alphaStr && /^\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+|%)?$/i.test(alphaStr)) {
     const alpha = /%/.test(alphaStr)
       ? Number(alphaStr.replaceAll('%', '')) / 100
@@ -176,7 +145,7 @@ function radiansToDegrees(radians: number) {
   return Number((radians * (180 / Math.PI)).toFixed(0));
 }
 
-function hlsStringToRGBSting(color: string): string {
+function hlsStringToRGBString(color: string): string {
   return new TinyColor(hlsStringToRGB(`hsl(${color})`)).toRgbString();
 }
 
@@ -184,7 +153,7 @@ export {
   convertToHsl,
   convertToHslCssVar,
   hlsStringToRGB,
-  hlsStringToRGBSting,
+  hlsStringToRGBString,
   isValidColor,
   TinyColor,
 };
