@@ -2,7 +2,7 @@
 import { computed, nextTick, ref, watchEffect } from 'vue';
 import type { CSSProperties } from 'vue';
 
-import Tooltip from './Tooltip.vue';
+import Tooltip from './tooltip.vue';
 
 interface Props {
   expand?: boolean; // 是否启用点击文本展开全部
