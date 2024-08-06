@@ -62,7 +62,6 @@ corepack enable
 
 # 安装依赖
 pnpm install
-
 ```
 
 ::: tip 注意
@@ -78,7 +77,6 @@ pnpm install
 ```bash
 # 启动项目
 pnpm dev
-
 ```
 
 现在，你可以在浏览器访问 `http://localhost:5555` 查看项目。

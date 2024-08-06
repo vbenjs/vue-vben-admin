@@ -269,5 +269,4 @@ mock的本质是一个真实的后端服务，如果不需要 mock 服务，可�
 ```bash
 # .env.development
 VITE_NITRO_MOCK=false
-
 ```

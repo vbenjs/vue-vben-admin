@@ -61,7 +61,6 @@ cd vue-vben-admin
 corepack enable
 
 pnpm install
-
 ```
 
 - run
