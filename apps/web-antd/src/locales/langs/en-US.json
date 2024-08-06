@@ -59,8 +59,8 @@
     },
     "examples": {
       "title": "Examples",
-      "strengthMeter": {
-        "title": "Password Strength Meter"
+      "ellipsis": {
+        "title": "EllipsisText"
       }
     }
   }

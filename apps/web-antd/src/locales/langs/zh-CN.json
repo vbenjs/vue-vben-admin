@@ -59,8 +59,8 @@
     },
     "examples": {
       "title": "示例",
-      "strengthMeter": {
-        "title": "密码强度组件"
+      "ellipsis": {
+        "title": "文本省略"
       }
     }
   }

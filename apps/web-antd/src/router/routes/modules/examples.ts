@@ -16,11 +16,11 @@ const routes: RouteRecordRaw[] = [
     path: '/examples',
     children: [
       {
-        name: 'BreadcrumbLateralDemo',
-        path: '/examples/strength-meter',
-        component: () => import('#/views/examples/strength-meter/index.vue'),
+        name: 'EllipsisDemo',
+        path: '/examples/ellipsis',
+        component: () => import('#/views/examples/ellipsis/index.vue'),
         meta: {
-          title: $t('page.examples.strengthMeter.title'),
+          title: $t('page.examples.ellipsis.title'),
         },
       },
     ],

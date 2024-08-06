@@ -41,7 +41,6 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.11.0",
-    "@zxcvbn-ts/core": "^3.0.4",
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.12",
     "pinia": "2.2.0",
