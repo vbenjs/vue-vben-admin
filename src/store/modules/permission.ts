@@ -7,13 +7,14 @@ import { useUserStore } from './user';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
 import { transformObjToRoute, flatMultiLevelRoutes } from '@/router/helper/routeHelper';
-import { transformRouteToMenu } from '@/router/helper/menuHelper';
+import { transformRouteToMenu, transformMenuModules } from '@/router/helper/menuHelper';
 
 import projectSetting from '@/settings/projectSetting';
 
 import { PermissionModeEnum } from '@/enums/appEnum';
 
 import { asyncRoutes } from '@/router/routes';
+import { menuModules } from '@/router/menus';
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 
 import { filter } from '@/utils/helper/treeHelper';
@@ -39,6 +40,7 @@ interface PermissionState {
   backMenuList: Menu[];
   // 菜单列表
   frontMenuList: Menu[];
+  staticMenuList: Menu[];
 }
 
 export const usePermissionStore = defineStore({
@@ -58,6 +60,7 @@ export const usePermissionStore = defineStore({
     // menu List
     // 菜单列表
     frontMenuList: [],
+    staticMenuList: [],
   }),
   getters: {
     getPermCodeList(state): string[] | number[] {
@@ -68,6 +71,9 @@ export const usePermissionStore = defineStore({
     },
     getFrontMenuList(state): Menu[] {
       return state.frontMenuList;
+    },
+    getStaticMenuList(state): Menu[] {
+      return state.staticMenuList;
     },
     getLastBuildMenuTime(state): number {
       return state.lastBuildMenuTime;
@@ -88,6 +94,10 @@ export const usePermissionStore = defineStore({
 
     setFrontMenuList(list: Menu[]) {
       this.frontMenuList = list;
+    },
+
+    setStaticMenuList(list: Menu[]) {
+      this.staticMenuList = list;
     },
 
     setLastBuildMenuTime() {
@@ -171,6 +181,12 @@ export const usePermissionStore = defineStore({
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:
+          const staticMenuList = transformMenuModules(menuModules);
+          staticMenuList.sort((a, b) => {
+            return (a.orderNo || 0) - (b.orderNo || 0);
+          });
+          // 设置菜单列表
+          this.setStaticMenuList(staticMenuList);
           // 对非一级路由进行过滤
           routes = filter(asyncRoutes, routeFilter);
           // 对一级路由根据角色权限过滤

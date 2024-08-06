@@ -3,7 +3,7 @@ import type { RouteRecordNormalized } from 'vue-router';
 
 import { useAppStoreWithOut } from '@/store/modules/app';
 import { usePermissionStore } from '@/store/modules/permission';
-import { transformMenuModule, getAllParentPath } from '@/router/helper/menuHelper';
+import { getAllParentPath } from '@/router/helper/menuHelper';
 import { filter } from '@/utils/helper/treeHelper';
 import { isHttpUrl } from '@/utils/is';
 import { router } from '@/router';
@@ -12,7 +12,7 @@ import { pathToRegexp } from 'path-to-regexp';
 
 const modules = import.meta.glob('../routes/modules/**/*.ts', { eager: true });
 
-const menuModules: MenuModule[] = [];
+export const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
   const mod = (modules as Recordable)[key].default || {};
@@ -40,17 +40,6 @@ const isRoleMode = () => {
   return getPermissionMode() === PermissionModeEnum.ROLE;
 };
 
-const staticMenus: Menu[] = [];
-(() => {
-  menuModules.sort((a, b) => {
-    return (a.orderNo || 0) - (b.orderNo || 0);
-  });
-
-  for (const menu of menuModules) {
-    staticMenus.push(transformMenuModule(menu));
-  }
-})();
-
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore();
   //递归过滤所有隐藏的菜单
@@ -69,7 +58,7 @@ async function getAsyncMenus() {
   if (isRouteMappingMode()) {
     return menuFilter(permissionStore.getFrontMenuList);
   }
-  return staticMenus;
+  return permissionStore.getStaticMenuList;
 }
 
 export const getMenus = async (): Promise<Menu[]> => {
