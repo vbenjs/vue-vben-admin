@@ -51,7 +51,7 @@
     "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
     "test:unit": "vitest",
-    "update:deps": " pnpm update --latest --recursive",
+    "update:deps": "pnpm update --latest --recursive",
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
