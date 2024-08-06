@@ -13,13 +13,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   post-update:
     # if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -35,17 +36,8 @@ jobs:
         run: |
           gh pr checkout ${{ github.event.pull_request.number }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
 
       - name: Build
         run: |

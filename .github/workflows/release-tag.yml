@@ -8,6 +8,10 @@ on:
 env:
   HUSKY: "0"
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   build:
     name: Create Release
