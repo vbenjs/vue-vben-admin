@@ -25,7 +25,7 @@ withDefaults(defineProps<Props>(), {
 const accessStore = useAccessStore();
 const { globalSearchShortcutKey } = usePreferences();
 const slots = useSlots();
-const headerSlots = computed(() => {
+const rightSlots = computed(() => {
   const list = [{ index: 30, name: 'user-dropdown' }];
   if (preferences.widget.globalSearch) {
     list.push({
@@ -60,8 +60,19 @@ const headerSlots = computed(() => {
 
   Object.keys(slots).forEach((key) => {
     const name = key.split('-');
-    if (key.startsWith('header-')) {
-      list.push({ index: Number(name[1]), name: key });
+    if (key.startsWith('header-right')) {
+      list.push({ index: Number(name[2]), name: key });
+    }
+  });
+  return list.sort((a, b) => a.index - b.index);
+});
+const leftSlots = computed(() => {
+  const list: any[] = [];
+
+  Object.keys(slots).forEach((key) => {
+    const name = key.split('-');
+    if (key.startsWith('header-left')) {
+      list.push({ index: Number(name[2]), name: key });
     }
   });
   return list.sort((a, b) => a.index - b.index);
@@ -69,14 +80,26 @@ const headerSlots = computed(() => {
 </script>
 
 <template>
+  <template
+    v-for="slot in leftSlots.filter((item) => item.index < 5)"
+    :key="slot.name"
+  >
+    <slot :name="slot.name"></slot>
+  </template>
   <div class="flex-center hidden lg:block">
     <slot name="breadcrumb"></slot>
   </div>
+  <template
+    v-for="slot in leftSlots.filter((item) => item.index > 5)"
+    :key="slot.name"
+  >
+    <slot :name="slot.name"></slot>
+  </template>
   <div class="flex h-full min-w-0 flex-1 items-center">
     <slot name="menu"></slot>
   </div>
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
-    <template v-for="slot in headerSlots" :key="slot.name">
+    <template v-for="slot in rightSlots" :key="slot.name">
       <slot :name="slot.name">
         <template v-if="slot.name === 'global-search'">
           <GlobalSearch
