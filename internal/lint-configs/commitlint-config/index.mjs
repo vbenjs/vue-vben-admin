@@ -145,7 +145,6 @@ const userConfig = {
         'revert',
         'types',
         'release',
-        'improvement',
       ],
     ],
   },

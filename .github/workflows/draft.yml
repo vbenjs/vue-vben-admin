@@ -14,4 +14,4 @@ jobs:
     steps:
       - uses: release-drafter/release-drafter@v6
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
