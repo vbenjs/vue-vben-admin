@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 
-import { LOGIN_PATH } from '@vben/constants';
+import { LOGIN_PATH, DEFAULT_HOME_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
@@ -65,7 +65,9 @@ function setupAccessGuard(router: Router) {
     // 基本路由，这些路由不需要进入权限拦截
     if (coreRouteNames.includes(to.name as string)) {
       if (to.path === LOGIN_PATH && accessStore.accessToken) {
-        return decodeURIComponent((to.query?.redirect as string) || '/');
+        return decodeURIComponent(
+          (to.query?.redirect as string) || DEFAULT_HOME_PATH,
+        );
       }
       return true;
     }
