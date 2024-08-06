@@ -131,7 +131,6 @@ registry = https://registry.npmmirror.com/
 TypeError: str.matchAll is not a function
 at Object.extractor (vue-vben-admin-main\node_modules@purge-icons\core\dist\index.js:146:27)
 at Extract (vue-vben-admin-main\node_modules@purge-icons\core\dist\index.js:173:54)
-
 ```
 
 ## nginx 部署

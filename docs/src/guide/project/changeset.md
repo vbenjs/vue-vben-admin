@@ -11,15 +11,11 @@ changeset 命令在项目中已经内置：
 ### 交互式填写变更集
 
 ```bash
-
 pnpm run changeset
-
 ```
 
 ### 统一提升版本号
 
 ```bash
-
 pnpm run version
-
 ```
