@@ -82,7 +82,7 @@
   --content: 240 11% 96%;
 
   /* 登录背景色 */
-  --authentication: 231deg 61% 44%;
+  --authentication: var(--primary);
 
   /* =============component & UI============= */
 

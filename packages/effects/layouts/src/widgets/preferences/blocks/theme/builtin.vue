@@ -26,13 +26,7 @@ const inputValue = computed(() => {
 });
 
 const builtinThemePresets = computed(() => {
-  return [
-    // {
-    //   color: 'hsl(231 98% 65%)',
-    //   type: 'default',
-    // },
-    ...BUILT_IN_THEME_PRESETS,
-  ];
+  return [...BUILT_IN_THEME_PRESETS];
 });
 
 function typeView(name: BuiltinThemeType) {
