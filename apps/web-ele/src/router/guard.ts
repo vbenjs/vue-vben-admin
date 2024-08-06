@@ -62,14 +62,18 @@ function setupAccessGuard(router: Router) {
     const userStore = useUserStore();
     const authStore = useAuthStore();
 
+    // 基本路由，这些路由不需要进入权限拦截
+    if (coreRouteNames.includes(to.name as string)) {
+      if (to.path === LOGIN_PATH && accessStore.accessToken) {
+        return decodeURIComponent((to.query?.redirect as string) || '/');
+      }
+      return true;
+    }
+
     // accessToken 检查
     if (!accessStore.accessToken) {
-      if (
-        // 基本路由，这些路由不需要进入权限拦截
-        coreRouteNames.includes(to.name as string) ||
-        // 明确声明忽略权限访问权限，则可以访问
-        to.meta.ignoreAccess
-      ) {
+      // 明确声明忽略权限访问权限，则可以访问
+      if (to.meta.ignoreAccess) {
         return true;
       }
 
