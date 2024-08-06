@@ -64,17 +64,20 @@ const MATCHER =
   /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e\d+)?[dgrt])\s*,\s*(\+?-?\d+(?:\.\d+)?%)\s*,\s*(\+?-?\d+(?:\.\d+)?%)(?:\s*,\s*(\+?-?\d+(?:\.\d+)?(?:e-\d+)?%?))?\s*\)/i;
 // const MATCHER =
 //   /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*(?:deg|rad|grad|turn)?)\s*,\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*,\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(?:(,\s*\+?-?\s*(?:\d*(?:\.\d*)?(?:e-\d*)?%?)?)\s*)?\)/i;
+// const MATCHER_SPACE =
+//   /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*(?:deg|rad|grad|turn)?)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(?:(\/\s*\+?-?\s*(?:\d*(?:\.\d*)?(?:e-\d*)?%?)?)\s*)?\)/i;
 const MATCHER_SPACE =
-  /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*(?:deg|rad|grad|turn)?)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(\+?-?\d*(?:\.\d*)?(?:e\+)?\d*%)\s*(?:(\/\s*\+?-?\s*(?:\d*(?:\.\d*)?(?:e-\d*)?%?)?)\s*)?\)/i;
+  // eslint-disable-next-line regexp/no-super-linear-backtracking
+  /hsla?\(\s*(\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+)?(?:deg|rad|grad|turn)?)\s*(?:(\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+)?%)\s*)?(\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+)?%)?\s*(?:\/\s*(\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+)?%?)\s*)?\)/i;
 
-const aStr = (a?: string) => (a ? a.replace(/^(,|\/)\s*/, '').trim() : a);
+const aStr = (a?: string) => (a ? a.replace(/^([,/])\s*/, '').trim() : a);
 export default function hslMatcher(
   hsl: string = '',
 ): HSLAObjectStringColor | undefined {
   const match = MATCHER.exec(hsl) || MATCHER_SPACE.exec(hsl);
   if (match) {
     const [_, h, s, l, a] = match;
-    if (a && /^(:?(\/|,)\s*-?\+?)$/.test(a.trim())) return;
+    if (a && /^:?[,/]\s*-?\+?$/.test(a.trim())) return;
     return {
       a: aStr(a),
       h,
@@ -99,21 +102,21 @@ function hlsStringToRGB(hls: string): RGBAColor | RGBColor | undefined {
     h = radiansToDegrees(Number(hueStr.replace(/rad\s*$/i, '')));
   }
 
-  if (
-    /^(([+-])?\d*|([+-])?\d*?.\d*(?:(e\+)\d*)?)$/.test(
-      hueStr.replace(/deg$/i, ''),
-    )
-  ) {
+  if (/^[+-]?\d*(?:\.\d*)?(?:e[+-]?\d+)?$/i.test(hueStr.replace(/deg$/i, ''))) {
     h = Number(hueStr.replace(/deg$/i, ''));
   }
   if (h > 360) h = 360;
   if (h < 0) h = 0;
-  if (/^(([+-])?\d*|([+-])?\d*?.\d*(?:(e\+)\d*)?)%$/.test(sStr)) {
+  if (/^[+-]?\d*(?:\.\d*)?(?:e[+-]?\d+)?%$/i.test(sStr)) {
     s = Number(sStr.replace(/%$/, ''));
   }
   if (s > 100) s = 100;
   if (s < 0) s = 0;
-  if (/^(([+-])?\d*|([+-])?\d*?.\d*(?:(e\+)\d*)?)%$/.test(lStr)) {
+  if (
+    /^(?:[+-]?\d*|[+-]?(?:[^\d\n\r\u2028\u2029]\d*|\d+(?:[^\d\n\r\u2028\u2029]\d*)?)(?:e\+\d*)?)%$/.test(
+      lStr,
+    )
+  ) {
     l = Number(lStr.replace(/%$/, ''));
   }
   if (l > 100) l = 100;
@@ -138,7 +141,7 @@ function hlsStringToRGB(hls: string): RGBAColor | RGBColor | undefined {
    * Unless otherwise specified, an <alpha-value> component defaults to 100% when omitted.
    * Values outside the range [0,1] are not invalid, but are clamped to that range when computed.
    */
-  if (alphaStr && /^\+?-?\d*(E-\d*|.\d*%?)?$/.test(alphaStr)) {
+  if (alphaStr && /^\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+|%)?$/i.test(alphaStr)) {
     const alpha = /%/.test(alphaStr)
       ? Number(alphaStr.replaceAll('%', '')) / 100
       : Number(alphaStr);
