@@ -24,6 +24,6 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "vue-router": "^4.4.2"
+    "vue-router": "^4.4.3"
   }
 }

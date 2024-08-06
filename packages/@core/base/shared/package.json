@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.1.0",
-    "@vue/shared": "^3.4.35",
+    "@vue/shared": "^3.4.36",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",
     "lodash.clonedeep": "^4.5.0",

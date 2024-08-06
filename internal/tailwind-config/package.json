@@ -52,7 +52,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.4",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "postcss-antd-fixes": "^0.2.0",
     "postcss-import": "^16.1.0",
     "postcss-preset-env": "^10.0.0",

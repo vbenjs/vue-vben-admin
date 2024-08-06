@@ -49,7 +49,7 @@
     "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
     "lucide-vue-next": "^0.424.0",
-    "radix-vue": "^1.9.2",
-    "vue": "^3.4.35"
+    "radix-vue": "^1.9.3",
+    "vue": "^3.4.36"
   }
 }
