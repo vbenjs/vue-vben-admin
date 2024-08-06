@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 
-import { LOGIN_PATH, DEFAULT_HOME_PATH } from '@vben/constants';
+import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
