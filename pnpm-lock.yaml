@@ -633,8 +633,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
       vite-plugin-dts:
-        specifier: 4.0.0-beta.2
-        version: 4.0.0-beta.2(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
+        specifier: 4.0.0
+        version: 4.0.0(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
@@ -9168,8 +9168,8 @@ packages:
     peerDependencies:
       vite: '>=2.0.0'
 
-  vite-plugin-dts@4.0.0-beta.2:
-    resolution: {integrity: sha512-7PYDxeKvFjRpeqvWTRT8YqX2J1uOrxgvHtXkRYAMfjonIHMSz/ZXjxPiRefBbXOTydqWk7jSZK3vwEt4Gvzbfw==}
+  vite-plugin-dts@4.0.0:
+    resolution: {integrity: sha512-MOGyecSNqXGxExPfDYtsH3cFted5UA04BP3JdI05i2BQRJmgjKeeUn6ymAWnEpZ6UY88Xd1n1NDmkO9q7YB5vA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -18501,7 +18501,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-dts@4.0.0-beta.2(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)):
+  vite-plugin-dts@4.0.0(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)):
     dependencies:
       '@microsoft/api-extractor': 7.47.4(@types/node@22.1.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
