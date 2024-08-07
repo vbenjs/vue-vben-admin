@@ -36,6 +36,6 @@
   "dependencies": {
     "@iconify/vue": "^4.1.2",
     "lucide-vue-next": "^0.424.0",
-    "vue": "^3.4.35"
+    "vue": "^3.4.36"
   }
 }
