@@ -44,17 +44,17 @@ function isValidColor(color?: string) {
  * 将HLS字符串转换为RGB颜色字符串
  *
  * 本函数接收一个表示HLS值的字符串，移除其中的度量单位，
- * 并将其转换为TinyColor对象，以便进行颜色处理如果转换后的颜色无效，
- * 则直接返回原始字符串；否则，返回转换后的RGB颜色字符串
+ * 并将其转换为TinyColor对象，以便进行颜色处理。
+ * 如果转换后的颜色无效，则直接返回原始字符串；
+ * 否则，返回转换后的RGB颜色字符串
  *
  * @param str 表示HLS颜色值的字符串，可能包含度量单位如'deg'、'grad'、'rad'或'turn'
  * @returns 如果颜色值有效，则返回对应的RGB颜色字符串；如果无效，则返回原始字符串
  */
 function hlsStringToRGBString(str: string): string {
-  // 创建TinyColor对象，用于处理颜色转换
   // 移除HLS字符串中的度量单位，以便正确解析
   const color = new TinyColor(
-    `hsl(${str.replaceAll(/deg|grad|rad|turn/g, '')})`,
+    `hsl(${str.replace(/deg|grad|rad|turn/g, '')})`,
   );
   // 检查颜色是否有效，如果无效则直接返回原始字符串
   if (!color.isValid) {
