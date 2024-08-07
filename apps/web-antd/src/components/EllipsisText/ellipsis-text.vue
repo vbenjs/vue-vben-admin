@@ -50,23 +50,17 @@ watchEffect(
   { flush: 'post' },
 );
 function onExpand() {
-  if (ellipsis.value.style['-webkit-line-clamp']) {
-    if (props.tooltip) {
-      showTooltip.value = false;
-      nextTick(() => {
-        ellipsis.value.style['-webkit-line-clamp'] = '';
-      });
-    } else {
-      ellipsis.value.style['-webkit-line-clamp'] = '';
-    }
-    emit('expandChange', true);
-  } else {
-    if (props.tooltip) {
-      showTooltip.value = true;
-    }
-    ellipsis.value.style['-webkit-line-clamp'] = props.line;
-    emit('expandChange', false);
+  const { style } = ellipsis.value;
+  const isExpanded = !style['-webkit-line-clamp'];
+  if (props.tooltip) {
+    showTooltip.value = !isExpanded;
   }
+
+  nextTick(() => {
+    style['-webkit-line-clamp'] = isExpanded ? props.line : '';
+  });
+
+  emit('expandChange', !isExpanded);
 }
 </script>
 <template>
