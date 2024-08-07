@@ -2,6 +2,8 @@
 import { computed, nextTick, ref, watchEffect } from 'vue';
 import type { CSSProperties } from 'vue';
 
+import { useNamespace } from '@vben/hooks';
+
 import Tooltip from './tooltip.vue';
 
 interface Props {
@@ -28,6 +30,9 @@ const props = withDefaults(defineProps<Props>(), {
   tooltipOverlayStyle: () => ({ padding: '8px 12px', textAlign: 'justify' }),
 });
 const emit = defineEmits(['expandChange']);
+
+const { b, e } = useNamespace('m-ellipsis');
+
 const textMaxWidth = computed(() => {
   if (typeof props.maxWidth === 'number') {
     return `${props.maxWidth}px`;
@@ -80,11 +85,11 @@ function onExpand() {
     <div
       ref="ellipsis"
       :class="[
-        line ? 'ellipsis-line' : 'not-ellipsis-line',
+        b(),
+        line ? e('line') : e('not-line'),
         { 'cursor-pointer': expand },
       ]"
       :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
-      class="m-ellipsis"
       @click="expand ? onExpand() : () => false"
       v-bind="$attrs"
     >
@@ -95,11 +100,11 @@ function onExpand() {
     v-else
     ref="ellipsis"
     :class="[
-      line ? 'ellipsis-line' : 'not-ellipsis-line',
+      b(),
+      line ? e('line') : e('not-line'),
       { 'cursor-pointer': expand },
     ]"
     :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
-    class="m-ellipsis"
     @click="expand ? onExpand() : () => false"
     v-bind="$attrs"
   >
@@ -107,22 +112,24 @@ function onExpand() {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.m-ellipsis {
+<style lang="scss">
+@import '@vben/styles/global';
+
+@include b('m-ellipsis') {
   overflow: hidden;
   cursor: text;
-}
 
-.ellipsis-line {
-  display: -webkit-inline-box;
-  -webkit-box-orient: vertical;
-}
+  @include e('line') {
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;
+  }
 
-.not-ellipsis-line {
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: bottom;
+  @include e('not-line') {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
 }
 
 .cursor-pointer {
