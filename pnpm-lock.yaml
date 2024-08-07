@@ -655,9 +655,9 @@ importers:
 
   packages/@core/base/shared:
     dependencies:
-      '@ctrl/tinycolor':
-        specifier: ^4.1.0
-        version: 4.1.0
+      '@ant-design/fast-color':
+        specifier: ^2.0.5
+        version: 2.0.6
       '@vue/shared':
         specifier: ^3.4.35
         version: 3.4.35
@@ -1178,6 +1178,10 @@ packages:
 
   '@ant-design/colors@6.0.0':
     resolution: {integrity: sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ==}
+
+  '@ant-design/fast-color@2.0.6':
+    resolution: {integrity: sha512-y2217gk4NqL35giHl72o6Zzqji9O7vHh9YmhUVkPtAOpoTCH4uWxo/pr4VE8t0+ChEPs0qo4eJRC5Q1eXWo3vA==}
+    engines: {node: '>=8.x'}
 
   '@ant-design/icons-svg@4.4.2':
     resolution: {integrity: sha512-vHbT+zJEVzllwP+CM+ul7reTEfBR0vgxFe7+lREAsAA7YGsYpboiq2sQNeQeRvh09GfQgs/GyFEvZpJ9cLXpXA==}
@@ -3281,7 +3285,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -9746,6 +9749,10 @@ snapshots:
   '@ant-design/colors@6.0.0':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
+
+  '@ant-design/fast-color@2.0.6':
+    dependencies:
+      '@babel/runtime': 7.25.0
 
   '@ant-design/icons-svg@4.4.2': {}
 

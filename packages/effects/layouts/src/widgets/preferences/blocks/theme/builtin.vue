@@ -9,7 +9,7 @@ import {
   BUILT_IN_THEME_PRESETS,
   type BuiltinThemePreset,
 } from '@vben/preferences';
-import { convertToHsl, TinyColor } from '@vben/utils';
+import { Color, convertToHsl } from '@vben/utils';
 
 defineOptions({
   name: 'PreferenceBuiltinTheme',
@@ -22,17 +22,11 @@ const modelValue = defineModel<BuiltinThemeType>({ default: 'default' });
 const themeColorPrimary = defineModel<string>('themeColorPrimary');
 
 const inputValue = computed(() => {
-  return new TinyColor(themeColorPrimary.value).toHexString();
+  return new Color(themeColorPrimary.value || '').toHexString();
 });
 
 const builtinThemePresets = computed(() => {
-  return [
-    // {
-    //   color: 'hsl(231 98% 65%)',
-    //   type: 'default',
-    // },
-    ...BUILT_IN_THEME_PRESETS,
-  ];
+  return [...BUILT_IN_THEME_PRESETS];
 });
 
 function typeView(name: BuiltinThemeType) {
