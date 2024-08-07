@@ -1,7 +1,6 @@
-import { TinyColor } from '@ctrl/tinycolor';
 import { getColors } from 'theme-colors';
 
-import { convertToHslCssVar } from './convert';
+import { Color, convertToHslCssVar } from './convert';
 
 interface ColorItem {
   alias?: string;
@@ -14,7 +13,7 @@ function generatorColorVariables(colorItems: ColorItem[]) {
 
   colorItems.forEach(({ alias, color, name }) => {
     if (color) {
-      const colorsMap = getColors(new TinyColor(color).toHexString());
+      const colorsMap = getColors(new Color(color).toHexString());
       let mainColor = colorsMap['500'];
 
       const colorKeys = Object.keys(colorsMap);

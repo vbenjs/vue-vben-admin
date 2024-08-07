@@ -35,10 +35,10 @@
       "development": "./src/utils/index.ts",
       "default": "./dist/utils/index.mjs"
     },
-    "./colorful": {
-      "types": "./src/colorful/index.ts",
-      "development": "./src/colorful/index.ts",
-      "default": "./dist/colorful/index.mjs"
+    "./color": {
+      "types": "./src/color/index.ts",
+      "development": "./src/color/index.ts",
+      "default": "./dist/color/index.mjs"
     },
     "./cache": {
       "types": "./src/cache/index.ts",
@@ -55,7 +55,7 @@
     }
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
+    "@ant-design/fast-color": "^2.0.5",
     "@vue/shared": "^3.4.35",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",
