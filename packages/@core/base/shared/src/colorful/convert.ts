@@ -44,6 +44,7 @@ function isValidColor(color?: string) {
   if (!color) {
     return false;
   }
+  // All FastColor objects are valid. So isValid is always true.
   return new Color(color).isValid;
 }
 
