@@ -8,11 +8,11 @@ interface Props {
   expand?: boolean; // 是否启用点击文本展开全部
   line?: number; // 最大行数
   maxWidth?: number | string; // 文本最大宽度
+  placement: 'bottom' | 'left' | 'right' | 'top'; // 提示框位置
   tooltip?: boolean; // 是否启用文本提示框
   tooltipBackgroundColor?: string; // 提示框背景颜色，优先级高于 overlayStyle
   tooltipColor?: string; // 提示文本字体颜色，优先级高于 overlayStyle
   tooltipFontSize?: number; // 提示文本字体大小，单位px，优先级高于 overlayStyle
-  // 以下均为 tooltip 组件属性
   tooltipMaxWidth?: number; // 提示框内容最大宽度，单位px，默认不设置时，提示文本内容自动与展示文本宽度保持一致
   tooltipOverlayStyle?: CSSProperties; // 提示框内容区域样式
 }
@@ -20,12 +20,13 @@ const props = withDefaults(defineProps<Props>(), {
   expand: false,
   line: undefined,
   maxWidth: '100%',
+  placement: 'top',
   tooltip: true,
-  tooltipBackgroundColor: 'rgba(0, 0, 0, .85)',
-  tooltipColor: '#FFF',
+  tooltipBackgroundColor: 'red',
+  tooltipColor: '',
   tooltipFontSize: 14,
   tooltipMaxWidth: undefined,
-  tooltipOverlayStyle: () => ({ padding: '8px 12px', textAlign: 'justify' }),
+  tooltipOverlayStyle: () => ({ textAlign: 'justify' }),
 });
 const emit = defineEmits(['expandChange']);
 
@@ -35,7 +36,7 @@ const textMaxWidth = computed(() => {
   }
   return props.maxWidth;
 });
-const showTooltip = ref();
+const showTooltip = ref(false);
 const ellipsis = ref();
 const defaultTooltipMaxWidth = ref();
 watchEffect(() => {
@@ -66,17 +67,19 @@ function onExpand() {
 </script>
 <template>
   <VbenTooltip
-    v-if="showTooltip"
-    :background-color="tooltipBackgroundColor"
-    :color="tooltipColor"
-    :font-size="tooltipFontSize"
+    :content-style="{
+      maxWidth: `${defaultTooltipMaxWidth}px`,
+      fontSize: `${tooltipFontSize}px`,
+      color: tooltipColor,
+      ...tooltipOverlayStyle,
+    }"
+    :disabled="!showTooltip"
     :overlay-style="tooltipOverlayStyle"
+    :side="placement"
   >
-    <div :style="{ maxWidth: defaultTooltipMaxWidth, background: 'red' }">
-      <slot name="tooltip">
-        <slot></slot>
-      </slot>
-    </div>
+    <slot name="tooltip">
+      <slot></slot>
+    </slot>
 
     <template #trigger>
       <div
@@ -94,20 +97,6 @@ function onExpand() {
       </div>
     </template>
   </VbenTooltip>
-  <div
-    v-else
-    ref="ellipsis"
-    :class="[
-      line ? 'ellipsis-line' : 'not-ellipsis-line',
-      { 'cursor-pointer': expand },
-    ]"
-    :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
-    class="cursor-text overflow-hidden"
-    @click="expand ? onExpand() : () => false"
-    v-bind="$attrs"
-  >
-    <slot></slot>
-  </div>
 </template>
 
 <style lang="scss">
