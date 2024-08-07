@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  convertToHsl,
-  convertToHslCssVar,
-  convertToRgb,
-  isValidColor,
-} from './convert';
+import { convertToHsl, convertToHslCssVar, convertToRgb } from './convert';
 
 describe('color conversion functions', () => {
   it('should correctly convert color to HSL format', () => {
@@ -42,17 +37,5 @@ describe('color conversion functions', () => {
     const color = 'hsla(284, 100%, 50%, 0.92)';
     const expectedRgba = 'rgba(187,0,255,0.92)';
     expect(convertToRgb(color)).toEqual(expectedRgba);
-  });
-});
-
-describe('isValidColor', () => {
-  it('isValidColor function', () => {
-    // 测试有效颜色
-    expect(isValidColor('blue')).toBe(true);
-    expect(isValidColor('#000000')).toBe(true);
-
-    // 测试无效颜色
-    expect(isValidColor('invalid color')).toBe(true);
-    expect(isValidColor()).toBe(false);
   });
 });

@@ -35,17 +35,4 @@ function convertToRgb(color: string): string {
   return new Color(color).toRgbString();
 }
 
-/**
- * 检查颜色是否有效
- * @param {string} color - 待检查的颜色
- * 如果颜色有效返回true，否则返回false
- */
-function isValidColor(color?: string) {
-  if (!color) {
-    return false;
-  }
-  // All FastColor objects are valid. So isValid is always true.
-  return new Color(color).isValid;
-}
-
-export { Color, convertToHsl, convertToHslCssVar, convertToRgb, isValidColor };
+export { Color, convertToHsl, convertToHslCssVar, convertToRgb };

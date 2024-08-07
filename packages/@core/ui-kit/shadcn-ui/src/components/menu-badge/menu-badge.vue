@@ -3,7 +3,7 @@ import type { MenuRecordBadgeRaw } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { isValidColor } from '@vben-core/shared';
+import { convertToRgb } from '@vben-core/shared';
 
 import BadgeDot from './menu-badge-dot.vue';
 
@@ -34,9 +34,9 @@ const badgeClass = computed(() => {
 });
 
 const badgeStyle = computed(() => {
-  if (badgeClass.value && isValidColor(badgeClass.value)) {
+  if (badgeClass.value) {
     return {
-      backgroundColor: badgeClass.value,
+      backgroundColor: convertToRgb(badgeClass.value),
     };
   }
   return {};
