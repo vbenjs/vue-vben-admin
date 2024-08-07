@@ -1,4 +1,4 @@
-<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="200" src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" height="200" src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp"> </a> <br> <br>
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
