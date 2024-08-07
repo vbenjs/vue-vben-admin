@@ -30,9 +30,10 @@ const left = ref(0); // 提示框left定位
 const contentRef = ref(); // 声明一个同名的模板引用
 const tooltipRef = ref(); // 声明一个同名的模板引用
 function getPosition() {
-  const contentWidth = contentRef.value && contentRef.value.offsetWidth; // 展示文本宽度
-  const tooltipWidth = tooltipRef.value && tooltipRef.value.offsetWidth; // 提示文本宽度
-  const tooltipHeight = tooltipRef.value && tooltipRef.value.offsetHeight; // 提示文本高度
+  const contentWidth = contentRef.value?.offsetWidth || 0; // 展示文本宽度
+  const tooltipWidth = tooltipRef.value?.offsetWidth || 0; // 提示文本宽度
+  const tooltipHeight = tooltipRef.value?.offsetHeight || 0; // 提示文本高度
+
   top.value = tooltipHeight + 4;
   left.value = (tooltipWidth - contentWidth) / 2;
 }
