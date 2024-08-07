@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@core/composables"
+    "directory": "packages/core/composables"
   },
   "license": "MIT",
   "type": "module",

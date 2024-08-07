@@ -14,7 +14,7 @@ const IGNORE_DIR = [
   'scripts',
   'internal',
   'packages/effects/request/src/',
-  'packages/@core/ui-kit/menu-ui/src/',
+  'packages/core/ui-kit/menu-ui/src/',
 ].join(',');
 
 const IGNORE = [`**/{${IGNORE_DIR}}/**`];

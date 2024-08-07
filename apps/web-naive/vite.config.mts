@@ -1,9 +1,12 @@
 import { defineConfig } from '@vben/vite-config';
 
+import Inspector from 'vite-plugin-vue-inspector';
+
 export default defineConfig(async () => {
   return {
     application: {},
     vite: {
+      plugins: [Inspector()],
       server: {
         proxy: {
           '/api': {

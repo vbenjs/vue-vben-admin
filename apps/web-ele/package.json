@@ -48,6 +48,7 @@
     "vue-router": "^4.4.2"
   },
   "devDependencies": {
-    "unplugin-element-plus": "^0.8.0"
+    "unplugin-element-plus": "^0.8.0",
+    "vite-plugin-vue-inspector": "^4.0.2"
   }
 }

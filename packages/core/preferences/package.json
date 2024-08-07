@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@core/preferences"
+    "directory": "packages/core/preferences"
   },
   "license": "MIT",
   "type": "module",

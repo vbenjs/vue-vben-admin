@@ -1,12 +1,14 @@
 import { defineConfig } from '@vben/vite-config';
 
 import ElementPlus from 'unplugin-element-plus/vite';
+import Inspector from 'vite-plugin-vue-inspector';
 
 export default defineConfig(async () => {
   return {
     application: {},
     vite: {
       plugins: [
+        Inspector(),
         ElementPlus({
           format: 'esm',
         }),
