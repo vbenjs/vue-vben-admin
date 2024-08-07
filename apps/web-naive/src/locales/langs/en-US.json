@@ -2,7 +2,8 @@
   "page": {
     "demos": {
       "title": "Demos",
-      "naive": "Naive UI"
+      "naive": "Naive UI",
+      "table": "Table"
     }
   }
 }
