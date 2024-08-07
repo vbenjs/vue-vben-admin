@@ -189,5 +189,7 @@
   },
   "commentTranslate.hover.enabled": false,
   "i18n-ally.keystyle": "nested",
-  "commentTranslate.multiLineMerge": true
+  "commentTranslate.multiLineMerge": true,
+  "vue.server.hybridMode": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
