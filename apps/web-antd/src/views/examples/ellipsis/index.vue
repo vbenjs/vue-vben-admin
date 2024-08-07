@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { Collapse, CollapsePanel } from 'ant-design-vue';
+import { EllipsisText } from '@vben/common-ui';
 
-import { EllipsisText } from '#/components/EllipsisText';
+import { Collapse, CollapsePanel } from 'ant-design-vue';
 
 import { longText } from './data';
 

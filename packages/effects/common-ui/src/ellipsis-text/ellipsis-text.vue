@@ -2,7 +2,6 @@
 import { computed, nextTick, ref, watchEffect } from 'vue';
 import type { CSSProperties } from 'vue';
 
-import { useNamespace } from '@vben/hooks';
 import { VbenTooltip } from '@vben-core/shadcn-ui/components/tooltip';
 
 interface Props {
@@ -30,8 +29,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const emit = defineEmits(['expandChange']);
 
-const { b, e } = useNamespace('m-ellipsis');
-
 const textMaxWidth = computed(() => {
   if (typeof props.maxWidth === 'number') {
     return `${props.maxWidth}px`;
@@ -46,7 +43,7 @@ watchEffect(() => {
 });
 watchEffect(
   () => {
-    if (props.tooltip) {
+    if (props.tooltip && ellipsis.value) {
       defaultTooltipMaxWidth.value =
         props.tooltipMaxWidth ?? ellipsis.value.offsetWidth + 24;
     }
@@ -73,31 +70,35 @@ function onExpand() {
     :background-color="tooltipBackgroundColor"
     :color="tooltipColor"
     :font-size="tooltipFontSize"
-    :max-width="defaultTooltipMaxWidth"
     :overlay-style="tooltipOverlayStyle"
   >
-    <template #tooltip>
+    <div :style="{ maxWidth: defaultTooltipMaxWidth, background: 'red' }">
       <slot name="tooltip">
         <slot></slot>
       </slot>
-    </template>
-    <div
-      ref="ellipsis"
-      :class="[line ? e('line') : e('not-line'), { 'cursor-pointer': expand }]"
-      :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
-      class="cursor-text overflow-hidden"
-      @click="expand ? onExpand() : () => false"
-      v-bind="$attrs"
-    >
-      <slot></slot>
     </div>
+
+    <template #trigger>
+      <div
+        ref="ellipsis"
+        :class="[
+          line ? 'ellipsis-line' : 'not-ellipsis-line',
+          { 'cursor-pointer': expand },
+        ]"
+        :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
+        class="cursor-text overflow-hidden"
+        @click="expand ? onExpand() : () => false"
+        v-bind="$attrs"
+      >
+        <slot></slot>
+      </div>
+    </template>
   </VbenTooltip>
   <div
     v-else
     ref="ellipsis"
     :class="[
-      b(),
-      line ? e('line') : e('not-line'),
+      line ? 'ellipsis-line' : 'not-ellipsis-line',
       { 'cursor-pointer': expand },
     ]"
     :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
@@ -110,6 +111,18 @@ function onExpand() {
 </template>
 
 <style lang="scss">
+.ellipsis-line {
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+}
+
+.not-ellipsis-line {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
