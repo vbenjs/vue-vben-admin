@@ -2,8 +2,6 @@
   "recommendations": [
     // Vue 3 的语言支持
     "Vue.volar",
-    // 用于 TypeScript 服务器的 Vue 插件
-    "Vue.vscode-typescript-vue-plugin",
     // 将 ESLint JavaScript 集成到 VS Code 中。
     "dbaeumer.vscode-eslint",
     // Visual Studio Code 的官方 Stylelint 扩展
