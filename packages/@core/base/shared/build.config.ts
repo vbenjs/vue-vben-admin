@@ -7,7 +7,7 @@ export default defineBuildConfig({
     'src/index',
     'src/constants/index',
     'src/utils/index',
-    'src/colorful/index',
+    'src/color/index',
     'src/cache/index',
   ],
 });
