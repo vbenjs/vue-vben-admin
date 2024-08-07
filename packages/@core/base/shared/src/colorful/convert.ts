@@ -54,7 +54,7 @@ function isValidColor(color?: string) {
 function hlsStringToRGBString(str: string): string {
   // 移除HLS字符串中的度量单位，以便正确解析
   const color = new TinyColor(
-    `hsl(${str.replace(/deg|grad|rad|turn/g, '')})`,
+    `hsl(${str.replaceAll(/deg|grad|rad|turn/g, '')})`,
   );
   // 检查颜色是否有效，如果无效则直接返回原始字符串
   if (!color.isValid) {
