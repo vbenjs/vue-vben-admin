@@ -25,7 +25,9 @@
     // i18n 插件
     "Lokalise.i18n-ally",
     // CSS 变量提示
-    "vunguyentuan.vscode-css-variables"
+    "vunguyentuan.vscode-css-variables",
+    // 权限指令颜色高亮
+    "warmthsea.vscode-custom-code-color"
   ],
   "unwantedRecommendations": [
     // 和 volar 冲突

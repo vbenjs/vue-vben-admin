@@ -189,5 +189,14 @@
   },
   "commentTranslate.hover.enabled": false,
   "i18n-ally.keystyle": "nested",
-  "commentTranslate.multiLineMerge": true
+  "commentTranslate.multiLineMerge": true,
+  // 颜色高亮指令配置
+  "vscodeCustomCodeColor.fileLanguageIdList": ["vue", "typescript", "markdown"],
+  "vscodeCustomCodeColor.highlightValue": [
+    "v-access:code",
+    "v-access:role",
+    "hasAccessByCodes",
+    "AccessControl"
+  ],
+  "vscodeCustomCodeColor.highlightValueColor": "#6366f1"
 }
