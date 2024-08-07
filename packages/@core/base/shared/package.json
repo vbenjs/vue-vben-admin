@@ -35,10 +35,10 @@
       "development": "./src/utils/index.ts",
       "default": "./dist/utils/index.mjs"
     },
-    "./colorful": {
-      "types": "./src/colorful/index.ts",
-      "development": "./src/colorful/index.ts",
-      "default": "./dist/colorful/index.mjs"
+    "./color": {
+      "types": "./src/color/index.ts",
+      "development": "./src/color/index.ts",
+      "default": "./dist/color/index.mjs"
     },
     "./cache": {
       "types": "./src/cache/index.ts",
