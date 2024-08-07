@@ -25,7 +25,7 @@
   "dependencies": {
     "@stylistic/stylelint-plugin": "^3.0.0",
     "stylelint-config-recess-order": "^5.0.1",
-    "stylelint-scss": "^6.4.1"
+    "stylelint-scss": "^6.5.0"
   },
   "devDependencies": {
     "postcss": "^8.4.40",

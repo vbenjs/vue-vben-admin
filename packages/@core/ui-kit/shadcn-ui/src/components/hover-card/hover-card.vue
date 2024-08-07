@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import type { HoverCardRootEmits, HoverCardRootProps } from 'radix-vue';
+import type {
+  HoverCardContentProps,
+  HoverCardRootEmits,
+  HoverCardRootProps,
+} from 'radix-vue';
 
-import { computed, HTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 import {
   HoverCard,
@@ -9,7 +14,7 @@ import {
   HoverCardTrigger,
 } from '@vben-core/shadcn-ui/components/ui/hover-card';
 
-import { HoverCardContentProps, useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<
   {

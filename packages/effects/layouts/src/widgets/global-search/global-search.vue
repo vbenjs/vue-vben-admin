@@ -49,7 +49,7 @@ function handleClose() {
 
 const keys = useMagicKeys();
 const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
-whenever(cmd, () => {
+whenever(cmd!, () => {
   if (props.enableShortcutKey) {
     open.value = true;
   }

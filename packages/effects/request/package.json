@@ -25,6 +25,6 @@
     "axios": "^1.7.3"
   },
   "devDependencies": {
-    "axios-mock-adapter": "^1.22.0"
+    "axios-mock-adapter": "^2.0.0"
   }
 }

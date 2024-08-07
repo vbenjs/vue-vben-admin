@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { NotificationItem } from '@vben/layouts';
+
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -9,7 +11,6 @@ import {
   BasicLayout,
   LockScreen,
   Notification,
-  NotificationItem,
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';

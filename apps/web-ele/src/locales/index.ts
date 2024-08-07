@@ -1,4 +1,5 @@
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@vben/locales';
+import type { Language } from 'element-plus/es/locale';
 
 import type { App } from 'vue';
 import { ref } from 'vue';
@@ -7,7 +8,6 @@ import { $t, setupI18n as coreSetup, loadLocalesMap } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
 import dayjs from 'dayjs';
-import { Language } from 'element-plus/es/locale';
 import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
@@ -24,10 +24,10 @@ const localesMap = loadLocalesMap(modules);
  */
 async function loadMessages(lang: SupportedLanguagesType) {
   const [appLocaleMessages] = await Promise.all([
-    localesMap[lang](),
+    localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return appLocaleMessages.default;
+  return appLocaleMessages?.default;
 }
 
 /**

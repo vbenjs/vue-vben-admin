@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { TooltipContentProps } from 'radix-vue';
+
 import type { HTMLAttributes } from 'vue';
 
 import {
@@ -7,8 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@vben-core/shadcn-ui/components/ui/tooltip';
-
-import { TooltipContentProps } from 'radix-vue';
 
 interface Props {
   contentClass?: HTMLAttributes['class'];
