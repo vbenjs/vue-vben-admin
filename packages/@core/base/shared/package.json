@@ -55,7 +55,7 @@
     }
   },
   "dependencies": {
-    "@ant-design/fast-color": "^2.0.6",
+    "@ctrl/tinycolor": "^4.1.0",
     "@vue/shared": "^3.4.36",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",

@@ -277,12 +277,6 @@ async function handleReset() {
                 v-model:theme-semi-dark-menu="themeSemiDarkMenu"
               />
             </Block>
-            <!-- <Block :title="$t('preferences.theme-color')">
-              <ThemeColor
-                v-model="themeColorPrimary"
-                :color-primary-presets="colorPrimaryPresets"
-              />
-            </Block> -->
             <Block :title="$t('preferences.theme.builtin.title')">
               <BuiltinTheme
                 v-model="themeBuiltinType"

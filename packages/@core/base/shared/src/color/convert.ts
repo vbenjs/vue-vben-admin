@@ -1,6 +1,4 @@
-import { FastColor } from '@ant-design/fast-color';
-
-const Color = FastColor;
+import { TinyColor } from '@ctrl/tinycolor';
 
 /**
  * 将颜色转换为HSL格式。
@@ -11,7 +9,7 @@ const Color = FastColor;
  * @returns {string} HSL格式的颜色字符串。
  */
 function convertToHsl(color: string): string {
-  const { a, h, l, s } = new Color(color).toHsl();
+  const { a, h, l, s } = new TinyColor(color).toHsl();
   const hsl = `hsl(${Math.round(h)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%)`;
   return a < 1 ? `${hsl} ${a}` : hsl;
 }
@@ -26,13 +24,21 @@ function convertToHsl(color: string): string {
  * @returns {string} 可以作为CSS变量使用的HSL格式的颜色字符串。
  */
 function convertToHslCssVar(color: string): string {
-  const { a, h, l, s } = new Color(color).toHsl();
+  const { a, h, l, s } = new TinyColor(color).toHsl();
   const hsl = `${Math.round(h)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
   return a < 1 ? `${hsl} / ${a}` : hsl;
 }
 
-function convertToRgb(color: string): string {
-  return new Color(color).toRgbString();
+/**
+ * 将颜色转换为RGB颜色字符串
+ * TinyColor无法处理hsl内包含'deg'、'grad'、'rad'或'turn'的字符串
+ * 比如 hsl(231deg 98% 65%)将被解析为rgb(0, 0, 0)
+ * 这里在转换之前先将这些单位去掉
+ * @param str 表示HLS颜色值的字符串
+ * @returns 如果颜色值有效，则返回对应的RGB颜色字符串；如果无效，则返回rgb(0, 0, 0)
+ */
+function convertToRgb(str: string): string {
+  return new TinyColor(str.replaceAll(/deg|grad|rad|turn/g, '')).toRgbString();
 }
 
-export { Color, convertToHsl, convertToHslCssVar, convertToRgb };
+export { convertToHsl, convertToHslCssVar, convertToRgb, TinyColor };
