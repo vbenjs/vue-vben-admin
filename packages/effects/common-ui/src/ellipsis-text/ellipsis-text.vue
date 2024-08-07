@@ -18,7 +18,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   expand: false,
-  line: undefined,
+  line: 1,
   maxWidth: '100%',
   placement: 'top',
   tooltip: true,
@@ -84,14 +84,16 @@ function onExpand() {
     <template #trigger>
       <div
         ref="ellipsis"
-        :class="[
-          line ? 'ellipsis-line' : 'not-ellipsis-line',
-          { 'cursor-pointer': expand },
-        ]"
+        :class="{
+          pointer: expand,
+          [$style.ellipsisOneLine]: line === 1,
+          [$style.ellipsisMultiLine]: line > 1,
+        }"
         :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
         class="cursor-text overflow-hidden"
         @click="expand ? onExpand() : () => false"
         v-bind="$attrs"
+        :data-line="line"
       >
         <slot></slot>
       </div>
@@ -99,20 +101,19 @@ function onExpand() {
   </VbenTooltip>
 </template>
 
-<style lang="scss">
-.ellipsis-line {
-  display: -webkit-inline-box;
+<style>
+.pointer {
+  @apply cursor-pointer;
+}
+</style>
+
+<style module>
+.ellipsisOneLine {
+  @apply inline-block truncate;
+}
+
+.ellipsisMultiLine {
+  display: -webkit-box;
   -webkit-box-orient: vertical;
-}
-
-.not-ellipsis-line {
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: bottom;
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 </style>
