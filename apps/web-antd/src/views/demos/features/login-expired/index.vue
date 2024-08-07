@@ -5,13 +5,13 @@ import { preferences, updatePreferences } from '@vben/preferences';
 
 import { Button } from 'ant-design-vue';
 
-import { getMockStatus } from '#/api';
+import { getMockStatusApi } from '#/api';
 
 async function handleClick(type: LoginExpiredModeType) {
   const loginExpiredMode = preferences.app.loginExpiredMode;
 
   updatePreferences({ app: { loginExpiredMode: type } });
-  await getMockStatus('401');
+  await getMockStatusApi('401');
   updatePreferences({ app: { loginExpiredMode } });
 }
 </script>
