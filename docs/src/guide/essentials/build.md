@@ -10,7 +10,7 @@
 
 项目开发完成之后，执行以下命令进行构建：
 
-**注意：** 请在项目跟目录下执行以下命令
+**注意：** 请在项目根目录下执行以下命令
 
 ```bash
 pnpm build
@@ -24,7 +24,7 @@ pnpm build
 
 - 使用项目自定的命令进行预览(推荐)
 
-**注意：** 请在项目跟目录下执行以下命令
+**注意：** 请在项目根目录下执行以下命令
 
 ```bash
 pnpm preview
@@ -38,19 +38,16 @@ pnpm preview
 
 ```bash
 npm i -g live-server
-
 ```
 
 然后在 `dist` 目录下执行 `live-server` 命令，即可在本地查看效果。
 
 ```bash
-
 cd apps/web-antd/dist
 # 本地预览，默认端口8080
 live-server
 # 指定端口
 live-server --port 9000
-
 ```
 
 ## 压缩
@@ -61,7 +58,6 @@ live-server --port 9000
 
 ```bash
 VITE_COMPRESS=gzip
-
 ```
 
 ### 开启 `brotli` 压缩
@@ -70,7 +66,6 @@ VITE_COMPRESS=gzip
 
 ```bash
 VITE_COMPRESS=brotli
-
 ```
 
 ### 同时开启 `gzip` 和 `brotli` 压缩
@@ -79,7 +74,6 @@ VITE_COMPRESS=brotli
 
 ```bash
 VITE_COMPRESS=gzip,brotli
-
 ```
 
 ::: tip 提示
@@ -173,7 +167,6 @@ VITE_BASE=/xxx/
 
 ```bash
 VITE_ROUTER_HISTORY=hash
-
 ```
 
 ### history 路由模式下服务端配置
@@ -215,7 +208,6 @@ server {
       try_files $uri $uri/ /sub/index.html;
     }
 }
-
 ```
 
 ## 跨域处理

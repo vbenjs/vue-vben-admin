@@ -5,6 +5,7 @@
     "composite": false,
     "target": "ESNext",
 
+    "moduleDetection": "force",
     "experimentalDecorators": true,
 
     "baseUrl": ".",
@@ -12,6 +13,7 @@
 
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
 
     "strict": true,
     "strictNullChecks": true,
@@ -19,6 +21,7 @@
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
@@ -30,6 +33,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "preserveWatchOutput": true
   },

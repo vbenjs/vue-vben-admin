@@ -13,8 +13,8 @@ body:
       label: Version
       description: What version of our software are you running?
       options:
-        - Vben Admin Pro
-        - Vben Admin
+        - Vben Admin V5
+        - Vben Admin V2
       default: 0
     validations:
       required: true

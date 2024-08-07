@@ -44,7 +44,7 @@ export function useTabs() {
   }
 
   async function openTabInNewWindow(tab?: RouteLocationNormalized) {
-    tabbarStore.openTabInNewWindow(tab || route);
+    await tabbarStore.openTabInNewWindow(tab || route);
   }
 
   async function closeTabByKey(key: string) {

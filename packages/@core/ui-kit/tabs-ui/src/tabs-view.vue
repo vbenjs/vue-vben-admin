@@ -2,12 +2,13 @@
 import type { Sortable } from '@vben-core/composables';
 import type { TabDefinition } from '@vben-core/typings';
 
+import type { TabsProps } from './types';
+
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useForwardPropsEmits, useSortable } from '@vben-core/composables';
 
 import { Tabs, TabsChrome } from './components';
-import { TabsProps } from './types';
 
 interface Props extends TabsProps {}
 

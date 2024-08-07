@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const defaultValue = computed(() => {
-  return props.tabs?.[0].value;
+  return props.tabs?.[0]?.value;
 });
 </script>
 

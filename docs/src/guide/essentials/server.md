@@ -117,7 +117,7 @@ VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```ts
 import { requestClient } from '#/api/request';
 
-export async function getUserInfo() {
+export async function getUserInfoApi() {
   return requestClient.get<UserInfo>('/user/info');
 }
 ```
@@ -127,15 +127,15 @@ export async function getUserInfo() {
 ```ts
 import { requestClient } from '#/api/request';
 
-export async function saveUser(user: UserInfo) {
+export async function saveUserApi(user: UserInfo) {
   return requestClient.post<UserInfo>('/user', user);
 }
 
-export async function saveUser(user: UserInfo) {
+export async function saveUserApi(user: UserInfo) {
   return requestClient.put<UserInfo>('/user', user);
 }
 
-export async function saveUser(user: UserInfo) {
+export async function saveUserApi(user: UserInfo) {
   const url = user.id ? `/user/${user.id}` : '/user/';
   return requestClient.request<UserInfo>(url, {
     data: user,
@@ -150,7 +150,7 @@ export async function saveUser(user: UserInfo) {
 ```ts
 import { requestClient } from '#/api/request';
 
-export async function deleteUser(user: UserInfo) {
+export async function deleteUserApi(user: UserInfo) {
   return requestClient.delete<boolean>(`/user/${user.id}`, user);
 }
 ```
@@ -269,5 +269,4 @@ mock的本质是一个真实的后端服务，如果不需要 mock 服务，可�
 ```bash
 # .env.development
 VITE_NITRO_MOCK=false
-
 ```

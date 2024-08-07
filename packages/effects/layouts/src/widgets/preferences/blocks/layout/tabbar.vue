@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { SelectOption } from '@vben/types';
+
 import { computed } from 'vue';
 
 import { $t } from '@vben/locales';
-import { SelectOption } from '@vben/types';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
@@ -59,10 +60,10 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.icon') }}
   </SwitchItem>
-  <SwitchItem v-model="tabbarShowRefresh" :disabled="!tabbarEnable">
+  <SwitchItem v-model="tabbarShowMore" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.showMore') }}
   </SwitchItem>
-  <SwitchItem v-model="tabbarShowMore" :disabled="!tabbarEnable">
+  <SwitchItem v-model="tabbarShowRefresh" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.showRefresh') }}
   </SwitchItem>
   <SwitchItem v-model="tabbarShowMaximize" :disabled="!tabbarEnable">

@@ -6,7 +6,10 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<{ content: Component | string; props?: Record<string, any> }>(),
+  defineProps<{
+    content: Component | string | undefined;
+    props?: Record<string, any>;
+  }>(),
   {
     props: () => ({}),
   },

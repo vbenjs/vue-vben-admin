@@ -74,13 +74,13 @@ interface CommonPluginOptions {
 }
 
 interface ApplicationPluginOptions extends CommonPluginOptions {
-  /** 开启 gzip 压缩 */
+  /** 开启 gzip|brotli 压缩 */
   compress?: boolean;
   /** 压缩类型 */
   compressTypes?: ('brotli' | 'gzip')[];
   /** 在构建的时候抽离配置文件 */
   extraAppConfig?: boolean;
-  /** html 插件配置 */
+  /** 是否开启html插件  */
   html?: boolean;
   /** 是否开启i18n */
   i18n?: boolean;
@@ -98,7 +98,7 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   nitroMock?: boolean;
   /** nitro mock 插件配置 */
   nitroMockOptions?: NitroMockPluginOptions;
-  /** dev是否开启mock服务 */
+  /** 开启控制台自定义打印 */
   print?: boolean;
   /** 打印插件配置 */
   printInfoMap?: PrintPluginOptions['infoMap'];

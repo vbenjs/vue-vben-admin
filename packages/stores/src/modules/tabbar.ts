@@ -70,7 +70,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
         return;
       }
       const firstTab = this.getTabs[0];
-      await this._goToTab(firstTab, router);
+      if (firstTab) {
+        await this._goToTab(firstTab, router);
+      }
     },
     /**
      * @zh_CN 跳转到标签页
@@ -122,7 +124,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
         const currentTab = toRaw(this.tabs)[tabIndex];
         const mergedTab = { ...currentTab, ...tab };
-        if (Reflect.has(currentTab.meta, 'affixTab')) {
+        if (currentTab && Reflect.has(currentTab.meta, 'affixTab')) {
           mergedTab.meta.affixTab = currentTab.meta.affixTab;
         }
         this.tabs.splice(tabIndex, 1, mergedTab);
@@ -248,7 +250,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
         return;
       }
 
-      await this.closeTab(this.tabs[index], router);
+      const tab = this.tabs[index];
+      if (tab) {
+        await this.closeTab(tab, router);
+      }
     },
 
     /**
@@ -349,7 +354,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       }
     },
 
-    async setUpdateTime() {
+    setUpdateTime() {
       this.updateTime = Date.now();
     },
     /**
@@ -359,6 +364,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async sortTabs(oldIndex: number, newIndex: number) {
       const currentTab = this.tabs[oldIndex];
+      if (!currentTab) {
+        return;
+      }
       this.tabs.splice(oldIndex, 1);
       this.tabs.splice(newIndex, 0, currentTab);
       this.dragEndIndex = this.dragEndIndex + 1;

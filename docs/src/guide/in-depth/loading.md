@@ -6,7 +6,7 @@
 
 ## 原理
 
-由 `vite-plugin-inject-app-loading` 插件实现，插件会在每个页面的注入一个全局的 loading html。
+由 `vite-plugin-inject-app-loading` 插件实现，插件会在每个应用的注入一个全局的 `loading html`。
 
 ## 关闭
 
@@ -24,10 +24,17 @@ VITE_INJECT_APP_LOADING=false
 
 - 你可以使用跟`index.html`一样的语法，比如`VITE_APP_TITLE`变量，来获取应用的标题。
 - 必须保证有一个`id="__app-loading__"`的元素。
+- 给`id="__app-loading__"`的元素，加一个 `hidden` class。
 - 必须保证有一个`style[data-app-loading="inject-css"]`的元素。
 
 ```html{1,4}
 <style data-app-loading="inject-css">
+  #__app-loading__.hidden {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s ease-out;
+  }
   /* ... */
 </style>
 <div id="__app-loading__">

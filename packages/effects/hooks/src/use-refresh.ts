@@ -6,8 +6,8 @@ export function useRefresh() {
   const router = useRouter();
   const tabbarStore = useTabbarStore();
 
-  function refresh() {
-    tabbarStore.refresh(router);
+  async function refresh() {
+    await tabbarStore.refresh(router);
   }
 
   return {

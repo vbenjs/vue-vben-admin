@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import type { MenuRecordRaw } from '@vben/types';
+
+import { computed, useSlots, watch } from 'vue';
 
 import { useWatermark } from '@vben/hooks';
 import { $t } from '@vben/locales';
@@ -9,7 +11,6 @@ import {
   usePreferences,
 } from '@vben/preferences';
 import { useLockStore, useUserStore } from '@vben/stores';
-import { MenuRecordRaw } from '@vben/types';
 import { mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { Toaster, VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
@@ -135,11 +136,8 @@ watch(
   () => preferences.app.watermark,
   async (val) => {
     if (val) {
-      // await nextTick();
-
-      updateWatermark({
+      await updateWatermark({
         content: `${preferences.app.name} 用户名: ${userStore.userInfo?.username}`,
-        // parent: contentRef.value,
       });
     }
   },
@@ -147,6 +145,11 @@ watch(
     immediate: true,
   },
 );
+
+const slots = useSlots();
+const headerSlots = computed(() => {
+  return Object.keys(slots).filter((key) => key.startsWith('header-'));
+});
 </script>
 
 <template>
@@ -238,6 +241,9 @@ watch(
         </template>
         <template #notification>
           <slot name="notification"></slot>
+        </template>
+        <template v-for="item in headerSlots" #[item]>
+          <slot :name="item"></slot>
         </template>
       </LayoutHeader>
     </template>

@@ -6,7 +6,7 @@ const restrictedImportIgnores = [
   '**/postcss.config.mjs',
 ];
 
-const customConfig: Linter.FlatConfig[] = [
+const customConfig: Linter.Config[] = [
   // shadcn-ui 内部组件是自动生成的，不做太多限制
   {
     files: ['packages/@core/ui-kit/shadcn-ui/**/**'],

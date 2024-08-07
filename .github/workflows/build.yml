@@ -13,13 +13,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   post-update:
     # if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,22 +29,13 @@ jobs:
 
       - name: Checkout out pull request
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr checkout ${{ github.event.pull_request.number }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Test and Build
+      - name: Build
         run: |
           pnpm run build

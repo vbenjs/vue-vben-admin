@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   close-issues:
     runs-on: ubuntu-latest
@@ -16,6 +20,6 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: "close-issues" # 执行动作：关闭 Issues
-          token: ${{ secrets.ACCESS_TOKEN }} # GitHub Token，用于认证
+          token: ${{ secrets.GITHUB_TOKEN }} # GitHub Token，用于认证
           labels: "need reproduction" # 目标标签
           inactive-day: 3 # 未活动天数阈值

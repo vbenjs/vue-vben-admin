@@ -13,8 +13,8 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
   return defineConfig(async (config: ConfigEnv) => {
     const options = await userConfigPromise?.(config);
     const { command, mode } = config;
-    const root = process.cwd();
     const { library = {}, vite = {} } = options || {};
+    const root = process.cwd();
     const isBuild = command === 'build';
 
     const plugins = await loadLibraryPlugins({
@@ -52,8 +52,8 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
       plugins,
     };
     const commonConfig = await getCommonConfig();
-    const mergedConfig = mergeConfig(commonConfig, packageConfig);
-    return mergeConfig(mergedConfig, vite);
+    const mergedConmonConfig = mergeConfig(commonConfig, packageConfig);
+    return mergeConfig(mergedConmonConfig, vite);
   });
 }
 

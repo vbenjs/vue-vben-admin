@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { GlobalThemeOverrides } from 'naive-ui';
+
 import { computed } from 'vue';
 
 import { useNaiveDesignTokens } from '@vben/hooks';
@@ -9,7 +11,6 @@ import {
   dateEnUS,
   dateZhCN,
   enUS,
-  GlobalThemeOverrides,
   lightTheme,
   NConfigProvider,
   NMessageProvider,

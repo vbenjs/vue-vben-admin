@@ -41,12 +41,17 @@ async function changeAccount(role: string) {
 
   const account = accounts[role];
   resetAllStores();
-  await accessStore.authLogin(account, async () => {
-    router.go(0);
-  });
+  if (account) {
+    await accessStore.authLogin(account, async () => {
+      router.go(0);
+    });
+  }
 }
 
 async function handleToggleAccessMode() {
+  if (!accounts.super) {
+    return;
+  }
   await toggleAccessMode();
   resetAllStores();
 

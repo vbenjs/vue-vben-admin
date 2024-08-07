@@ -44,8 +44,8 @@
     "dayjs": "^1.11.12",
     "element-plus": "^2.7.8",
     "pinia": "2.2.0",
-    "vue": "^3.4.35",
-    "vue-router": "^4.4.2"
+    "vue": "^3.4.36",
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
     "unplugin-element-plus": "^0.8.0"

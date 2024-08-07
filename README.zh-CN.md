@@ -1,11 +1,11 @@
-<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="200" height="200" src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp"> </a> <br> <br>
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
 <h1>Vue Vben Admin</h1>
 </div>
 
-**中文** | [English](./README.md)
+**中文** | [English](./README.md) | [日本語](./README.ja-JP.md)
 
 ## 简介
 
@@ -61,7 +61,6 @@ cd vue-vben-admin
 corepack enable
 
 pnpm install
-
 ```
 
 - 运行

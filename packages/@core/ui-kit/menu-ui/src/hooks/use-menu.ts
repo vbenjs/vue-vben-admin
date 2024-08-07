@@ -1,6 +1,7 @@
+import type { SubMenuProvider } from '../interface';
+
 import { computed, getCurrentInstance } from 'vue';
 
-import { SubMenuProvider } from '../interface';
 import { findComponentUpward } from '../utils';
 
 function useMenu() {

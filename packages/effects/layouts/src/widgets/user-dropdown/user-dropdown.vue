@@ -126,19 +126,19 @@ function handleSubmitLogout() {
 
 if (enableShortcutKey.value) {
   const keys = useMagicKeys();
-  whenever(keys['Alt+KeyQ'], () => {
+  whenever(keys['Alt+KeyQ']!, () => {
     if (enableLogoutShortcutKey.value) {
       handleLogout();
     }
   });
 
-  whenever(keys['Alt+Comma'], () => {
+  whenever(keys['Alt+Comma']!, () => {
     if (enablePreferencesShortcutKey.value) {
       handleOpenPreference();
     }
   });
 
-  whenever(keys['Alt+KeyL'], () => {
+  whenever(keys['Alt+KeyL']!, () => {
     if (enableLockScreenShortcutKey.value) {
       handleOpenLock();
     }
@@ -206,6 +206,7 @@ if (enableShortcutKey.value) {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
+        v-if="preferences.app.enablePreferences"
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenPreference"
       >

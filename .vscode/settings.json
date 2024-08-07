@@ -163,9 +163,7 @@
     "yaml": false
   },
 
-  "cssVariables.lookupFiles": [
-    "packages/@vben-core/shared/design/src/**/*.css"
-  ],
+  "cssVariables.lookupFiles": ["packages/core/base/design/src/**/*.css"],
 
   "i18n-ally.localesPaths": [
     "packages/locales/src/langs",
@@ -191,5 +189,7 @@
   },
   "commentTranslate.hover.enabled": false,
   "i18n-ally.keystyle": "nested",
-  "commentTranslate.multiLineMerge": true
+  "commentTranslate.multiLineMerge": true,
+  "vue.server.hybridMode": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
