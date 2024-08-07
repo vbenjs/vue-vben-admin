@@ -40,119 +40,33 @@ function isValidColor(color?: string) {
   }
   return new TinyColor(color).isValid;
 }
-
-interface RGBColor {
-  b: number;
-  g: number;
-  r: number;
-}
-
-interface RGBAColor extends RGBColor {
-  a: number;
-}
-
-interface HSLObjectStringColor {
-  h: string;
-  l: string;
-  s: string;
-}
-interface HSLAObjectStringColor extends HSLObjectStringColor {
-  a?: string;
-}
-
-const MATCHER =
-  /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e\d+)?(?:deg|grad|rad|turn)?)\s*,\s*(\+?-?\d+(?:\.\d+)?%)\s*,\s*(\+?-?\d+(?:\.\d+)?%)(?:\s*,\s*(\+?-?\d+(?:\.\d+)?(?:e-\d+)?%?))?\s*\)/i;
-const MATCHER_SPACE =
-  // eslint-disable-next-line regexp/no-super-linear-backtracking
-  /hsla?\(\s*(\+?-?\d+(?:\.\d+)?(?:e[+-]?\d+)?(?:deg|rad|grad|turn)?)\s*(?:(\+?-?\d+(?:\.\d+)?%)\s*)?(\+?-?\d+(?:\.\d+)?%?)?\s*(?:\/\s*(\+?-?\d+(?:\.\d+)?%)\s*)?\)/i;
-const aStr = (a?: string) => (a ? a.replace(/^([,/])\s*/, '').trim() : a);
-export default function hslMatcher(
-  hsl: string = '',
-): HSLAObjectStringColor | undefined {
-  const match = MATCHER.exec(hsl) || MATCHER_SPACE.exec(hsl);
-  if (match) {
-    const [_, h, s, l, a] = match;
-    if (a && /^:?[,/]\s*-?\+?$/.test(a.trim())) return;
-    return {
-      a: aStr(a),
-      h,
-      l,
-      s,
-    };
+/**
+ * 将HLS字符串转换为RGB颜色字符串
+ *
+ * 本函数接收一个表示HLS值的字符串，移除其中的度量单位，
+ * 并将其转换为TinyColor对象，以便进行颜色处理如果转换后的颜色无效，
+ * 则直接返回原始字符串；否则，返回转换后的RGB颜色字符串
+ *
+ * @param str 表示HLS颜色值的字符串，可能包含度量单位如'deg'、'grad'、'rad'或'turn'
+ * @returns 如果颜色值有效，则返回对应的RGB颜色字符串；如果无效，则返回原始字符串
+ */
+function hlsStringToRGBString(str: string): string {
+  // 创建TinyColor对象，用于处理颜色转换
+  // 移除HLS字符串中的度量单位，以便正确解析
+  const color = new TinyColor(
+    `hsl(${str.replaceAll(/deg|grad|rad|turn/g, '')})`,
+  );
+  // 检查颜色是否有效，如果无效则直接返回原始字符串
+  if (!color.isValid) {
+    return str;
   }
-}
-function hlsStringToRGB(hls: string): RGBAColor | RGBColor | undefined {
-  const obj = hslMatcher(hls);
-  if (!obj) return;
-  const { a: alphaStr, h: hueStr, l: lStr, s: sStr } = obj;
-  let h = 0;
-  let l = 0;
-  let s = 0;
-  const parseAngle = (
-    str: string,
-    unit: RegExp,
-    toDegrees: (val: number) => number,
-  ) => {
-    return unit.test(str) ? toDegrees(Number(str.replace(unit, ''))) : 0;
-  };
-  h =
-    parseAngle(hueStr, /\s*\d*turn\s*$/, (val) => val * 360) ||
-    parseAngle(hueStr, /\s*\d*grad\s*$/, gradsToDegrees) ||
-    parseAngle(hueStr, /\s*\d*rad\s*$/, radiansToDegrees) ||
-    Number(hueStr.replace(/deg$/i, ''));
-  h = Math.min(Math.max(h, 0), 360);
-  s = Math.min(Math.max(Number(sStr.replace(/%$/, '')), 0), 100);
-  l = Math.min(Math.max(Number(lStr.replace(/%$/, '')), 0), 100);
-  s /= 100;
-  l /= 100;
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n: number) =>
-    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  const toFixed = (n: number) => Number(n.toFixed(0));
-  if (alphaStr && /^\+?-?\d*(?:\.\d*)?(?:e[+-]?\d+|%)?$/i.test(alphaStr)) {
-    const alpha = /%/.test(alphaStr)
-      ? Number(alphaStr.replaceAll('%', '')) / 100
-      : Number(alphaStr);
-    return {
-      a: alpha,
-      b: toFixed(255 * f(4)),
-      g: toFixed(255 * f(8)),
-      r: toFixed(255 * f(0)),
-    };
-  }
-  return {
-    b: toFixed(255 * f(4)),
-    g: toFixed(255 * f(8)),
-    r: toFixed(255 * f(0)),
-  };
-}
-/** Convert `grad` to `deg` */
-function gradsToDegrees(input: number | string) {
-  let grads = Number(input);
-
-  grads = grads % 400;
-  if (grads < 0) {
-    grads += 400;
-  }
-  // or grads = grads < 0 ? 400 + grads : grads;
-  const degrees = (grads / 400) * 360; // or let degrees = grads*0.9
-  return degrees;
-}
-
-/** Convert `rad` to `deg` */
-function radiansToDegrees(radians: number) {
-  return Number((radians * (180 / Math.PI)).toFixed(0));
-}
-
-function hlsStringToRGBString(color: string): string {
-  return new TinyColor(hlsStringToRGB(`hsl(${color})`)).toRgbString();
+  // 返回转换后的RGB颜色字符串
+  return color.toRgbString();
 }
 
 export {
   convertToHsl,
   convertToHslCssVar,
-  hlsStringToRGB,
   hlsStringToRGBString,
   isValidColor,
   TinyColor,
