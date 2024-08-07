@@ -164,8 +164,8 @@ importers:
         specifier: ^1.11.12
         version: 1.11.12
       pinia:
-        specifier: 2.2.0
-        version: 2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
+        specifier: 2.2.1
+        version: 2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.36(typescript@5.5.4)
@@ -227,8 +227,8 @@ importers:
         specifier: ^2.7.8
         version: 2.7.8(vue@3.4.36(typescript@5.5.4))
       pinia:
-        specifier: 2.2.0
-        version: 2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
+        specifier: 2.2.1
+        version: 2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.36(typescript@5.5.4)
@@ -291,8 +291,8 @@ importers:
         specifier: ^2.39.0
         version: 2.39.0(vue@3.4.36(typescript@5.5.4))
       pinia:
-        specifier: 2.2.0
-        version: 2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
+        specifier: 2.2.1
+        version: 2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
       vue:
         specifier: ^3.4.35
         version: 3.4.36(typescript@5.5.4)
@@ -633,8 +633,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
       vite-plugin-dts:
-        specifier: 4.0.0
-        version: 4.0.0(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
+        specifier: 4.0.1
+        version: 4.0.1(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3))
@@ -1029,11 +1029,11 @@ importers:
         specifier: workspace:*
         version: link:../@core/base/typings
       pinia:
-        specifier: 2.2.0
-        version: 2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
+        specifier: 2.2.1
+        version: 2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
       pinia-plugin-persistedstate:
         specifier: ^3.2.1
-        version: 3.2.1(pinia@2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4)))
+        version: 3.2.1(pinia@2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4)))
       vue:
         specifier: ^3.4.35
         version: 3.4.36(typescript@5.5.4)
@@ -7323,8 +7323,8 @@ packages:
     peerDependencies:
       pinia: ^2.0.0
 
-  pinia@2.2.0:
-    resolution: {integrity: sha512-iPrIh26GMqfpUlMOGyxuDowGmYousTecbTHFwT0xZ1zJvh23oQ+Cj99ZoPQA1TnUPhU6AuRPv6/drkTCJ0VHQA==}
+  pinia@2.2.1:
+    resolution: {integrity: sha512-ltEU3xwiz5ojVMizdP93AHi84Rtfz0+yKd8ud75hr9LVyWX2alxp7vLbY1kFm7MXFmHHr/9B08Xf8Jj6IHTEiQ==}
     peerDependencies:
       '@vue/composition-api': ^1.4.0
       typescript: '>=4.4.4'
@@ -9089,8 +9089,8 @@ packages:
     peerDependencies:
       vite: '>=2.0.0'
 
-  vite-plugin-dts@4.0.0:
-    resolution: {integrity: sha512-MOGyecSNqXGxExPfDYtsH3cFted5UA04BP3JdI05i2BQRJmgjKeeUn6ymAWnEpZ6UY88Xd1n1NDmkO9q7YB5vA==}
+  vite-plugin-dts@4.0.1:
+    resolution: {integrity: sha512-JFbAKMjJdJbeXJVwQNoi8M26lP+5Ene4/ryv9w0Z7Ca5N0DdxYEak9V3C0tqwHO7WZ9JLbwMsuUZOqYIyBRwSQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -16453,11 +16453,11 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@3.2.1(pinia@2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))):
+  pinia-plugin-persistedstate@3.2.1(pinia@2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))):
     dependencies:
-      pinia: 2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
+      pinia: 2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4))
 
-  pinia@2.2.0(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4)):
+  pinia@2.2.1(typescript@5.5.4)(vue@3.4.36(typescript@5.5.4)):
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.36(typescript@5.5.4)
@@ -18336,7 +18336,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-dts@4.0.0(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)):
+  vite-plugin-dts@4.0.1(@types/node@22.1.0)(rollup@4.20.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)):
     dependencies:
       '@microsoft/api-extractor': 7.47.4(@types/node@22.1.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
