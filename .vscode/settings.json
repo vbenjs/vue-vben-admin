@@ -196,7 +196,8 @@
     "v-access:code",
     "v-access:role",
     "hasAccessByCodes",
+    "hasAccessByRoles",
     "AccessControl"
   ],
-  "vscodeCustomCodeColor.highlightValueColor": "#6366f1"
+  "vscodeCustomCodeColor.highlightValueColor": "#3b82f6"
 }
