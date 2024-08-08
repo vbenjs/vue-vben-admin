@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { Page } from '@vben/common-ui';
+
 import { NDataTable } from 'naive-ui';
 
 const columns = ref([
@@ -25,7 +27,9 @@ const data = [
 </script>
 
 <template>
-  <NDataTable :columns="columns" :data="data" />
+  <Page>
+    <NDataTable :columns="columns" :data="data" />
+  </Page>
 </template>
 
 <style scoped></style>
