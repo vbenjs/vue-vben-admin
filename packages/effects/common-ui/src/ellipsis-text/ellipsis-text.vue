@@ -121,8 +121,8 @@ function onExpand() {
       <div
         ref="ellipsis"
         :class="{
-          pointer: expand,
-          [$style.ellipsisOneLine]: line === 1,
+          '!cursor-pointer': expand,
+          ['inline-block truncate']: line === 1,
           [$style.ellipsisMultiLine]: line > 1,
         }"
         :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
@@ -137,17 +137,7 @@ function onExpand() {
   </VbenTooltip>
 </template>
 
-<style>
-.pointer {
-  @apply cursor-pointer;
-}
-</style>
-
 <style module>
-.ellipsisOneLine {
-  @apply inline-block truncate;
-}
-
 .ellipsisMultiLine {
   display: -webkit-box;
   -webkit-box-orient: vertical;
