@@ -129,7 +129,6 @@ function onExpand() {
         class="cursor-text overflow-hidden"
         @click="expand ? onExpand() : () => false"
         v-bind="$attrs"
-        :data-line="line"
       >
         <slot></slot>
       </div>
