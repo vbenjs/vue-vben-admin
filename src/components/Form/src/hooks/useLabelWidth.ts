@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { computed, unref } from 'vue';
 import type { FormProps, FormSchemaInner as FormSchema } from '../types/form';
-import { isNumber } from '@/utils/is';
+import { isDef, isNumber } from '@/utils/is';
 
 export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<FormProps>) {
   return computed(() => {
@@ -23,11 +23,11 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
       };
       return { labelCol, wrapperCol };
     }
-    let width = labelWidth || globalLabelWidth;
+    let width = labelWidth ?? globalLabelWidth;
     const col = { ...globalLabelCol, ...labelCol };
     const wrapCol = { ...globWrapperCol, ...wrapperCol };
 
-    if (width) {
+    if (isDef(width)) {
       width = isNumber(width) ? `${width}px` : width;
     }
 
