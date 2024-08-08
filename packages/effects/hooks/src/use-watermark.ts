@@ -48,18 +48,18 @@ export function useWatermark() {
     };
     watermark.value = new Watermark(cachedOptions.value);
 
-    watermark.value?.create();
+    await watermark.value?.create();
   }
 
   async function updateWatermark(options: Partial<WatermarkOptions>) {
-    if (!watermark.value || !watermark.value?.check()) {
-      await initWatermark(options);
-    } else {
+    if (watermark.value) {
       await nextTick();
-      watermark.value?.changeOptions({
+      await watermark.value?.changeOptions({
         ...cachedOptions.value,
         ...options,
       });
+    } else {
+      await initWatermark(options);
     }
   }
 

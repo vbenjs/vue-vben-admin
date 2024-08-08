@@ -72,7 +72,7 @@ function nameView(name: string) {
 
     <SwitchItem
       v-model="themeSemiDarkMenu"
-      :disabled="modelValue !== 'light'"
+      :disabled="modelValue === 'dark'"
       class="mt-6"
     >
       {{ $t('preferences.theme.darkMenu') }}

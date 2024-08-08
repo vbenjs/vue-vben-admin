@@ -94,7 +94,7 @@ function formatNumber(num: number | string) {
   const x2 = x.length > 1 ? decimal + x[1] : '';
 
   const rgx = /(\d+)(\d{3})/;
-  if (separator && !isNumber(separator)) {
+  if (separator && !isNumber(separator) && x1) {
     while (rgx.test(x1)) {
       x1 = x1.replace(rgx, `$1${separator}$2`);
     }

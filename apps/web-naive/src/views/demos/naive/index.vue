@@ -14,9 +14,7 @@ function warning() {
   message.warning('How many roads must a man walk down');
 }
 function success() {
-  message.success(
-    "'Cause you walked hand in hand With another man in my place",
-  );
+  message.success('Cause you walked hand in hand With another man in my place');
 }
 function loading() {
   message.loading(

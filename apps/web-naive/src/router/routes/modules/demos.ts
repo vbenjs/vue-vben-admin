@@ -24,6 +24,15 @@ const routes: RouteRecordRaw[] = [
         path: '/demos/naive',
         component: () => import('#/views/demos/naive/index.vue'),
       },
+      {
+        meta: {
+          icon: 'mdi:shield-key-outline',
+          title: $t('page.demos.table'),
+        },
+        name: 'Table',
+        path: '/demos/table',
+        component: () => import('#/views/demos/table/index.vue'),
+      },
     ],
   },
 ];

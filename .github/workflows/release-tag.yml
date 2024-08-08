@@ -8,6 +8,10 @@ on:
 env:
   HUSKY: "0"
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   build:
     name: Create Release
@@ -53,12 +57,12 @@ jobs:
           echo "version=${version}" >> $GITHUB_OUTPUT
           echo "major=${major}" >> $GITHUB_OUTPUT
 
-      - uses: release-drafter/release-drafter@master
+      - uses: release-drafter/release-drafter@v6
         with:
           version: ${{ steps.version.outputs.version }}
           publish: true
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: force update major tag
       #   run: |
@@ -69,7 +73,7 @@ jobs:
       #   id: release_tag
       #   uses: ncipollo/release-action@v1
       #   with:
-      #     token: ${{ secrets.ACCESS_TOKEN }}
+      #     token: ${{ secrets.GITHUB_TOKEN }}
       #     generateReleaseNotes: "true"
       #     body: |
       #       > Please refer to [CHANGELOG.md](https://github.com/vbenjs/vue-vben-admin/blob/main/CHANGELOG.md) for details.

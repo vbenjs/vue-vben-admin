@@ -8,15 +8,15 @@ import { findMonorepoRoot } from '@vben/node-utils';
 
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
-import { getDefaultPwaOptions } from '../options';
+import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
 import { loadAndConvertEnv } from '../utils/env';
 import { getCommonConfig } from './common';
 
 function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
   return defineConfig(async (config) => {
-    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
     const options = await userConfigPromise?.(config);
+    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
     const { command, mode } = config;
     const { application = {}, vite = {} } = options || {};
     const root = process.cwd();
@@ -31,6 +31,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       extraAppConfig: true,
       html: true,
       i18n: true,
+      importmapOptions: defaultImportmapOptions,
       injectAppLoading: true,
       injectMetadata: true,
       isBuild,
@@ -78,16 +79,16 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
         port,
         warmup: {
           // 预热文件
-          clientFiles: ['./index.html', './src/{views,layouts}/*'],
+          clientFiles: ['./index.html', './src/{views,layouts,router,store}/*'],
         },
       },
     };
 
-    const mergedConfig = mergeConfig(
+    const mergedCommonConfig = mergeConfig(
       await getCommonConfig(),
       applicationConfig,
     );
-    return mergeConfig(mergedConfig, vite);
+    return mergeConfig(mergedCommonConfig, vite);
   });
 }
 

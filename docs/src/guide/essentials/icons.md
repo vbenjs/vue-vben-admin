@@ -74,7 +74,5 @@ import { SvgTestIcon } from '@vben/icons';
 直接添加 Tailwind CSS 的图标类名即可使用，图标类名可查看 [iconify](https://github.com/iconify/iconify) ：
 
 ```vue
-
-<span class="<span class="icon-[mdi--ab-testing]"></span>"></span>
-
+<span class="icon-[mdi--ab-testing]"></span>
 ```

@@ -47,7 +47,6 @@ const userConfig = {
     defaultScope: scopeComplete,
     // English
     typesAppend: [
-      { name: 'wip:      work in process', value: 'wip' },
       { name: 'workflow: workflow improvements', value: 'workflow' },
       { name: 'types:    type definition file changes', value: 'types' },
     ],
@@ -146,7 +145,6 @@ const userConfig = {
         'revert',
         'types',
         'release',
-        'improvement',
       ],
     ],
   },

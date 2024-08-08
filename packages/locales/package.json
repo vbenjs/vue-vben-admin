@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@intlify/core-base": "^9.13.1",
-    "vue": "^3.4.35",
+    "vue": "^3.4.36",
     "vue-i18n": "^9.13.1"
   }
 }

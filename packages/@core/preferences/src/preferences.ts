@@ -19,14 +19,6 @@ const STORAGE_KEY = 'preferences';
 const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
 const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`;
 
-function isDarkTheme(theme: string) {
-  let dark = theme === 'dark';
-  if (theme === 'auto') {
-    dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-  return dark;
-}
-
 class PreferenceManager {
   private cache: null | StorageManager = null;
   // private flattenedState: Flatten<Preferences>;
@@ -39,6 +31,7 @@ class PreferenceManager {
   constructor() {
     this.cache = new StorageManager();
 
+    // 避免频繁的操作缓存
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
       150,
@@ -58,7 +51,6 @@ class PreferenceManager {
   /**
    * 处理更新的键值
    * 根据更新的键值执行相应的操作。
-   *
    * @param {DeepPartial<Preferences>} updates - 部分更新的偏好设置
    */
   private handleUpdates(updates: DeepPartial<Preferences>) {
@@ -124,7 +116,7 @@ class PreferenceManager {
         this.updatePreferences({
           theme: { mode: isDark ? 'dark' : 'light' },
         });
-        updateCSSVariables(this.state);
+        // updateCSSVariables(this.state);
       });
   }
 
@@ -232,4 +224,4 @@ class PreferenceManager {
 }
 
 const preferencesManager = new PreferenceManager();
-export { isDarkTheme, PreferenceManager, preferencesManager };
+export { PreferenceManager, preferencesManager };

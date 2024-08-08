@@ -34,21 +34,6 @@
   transform: translateX(30px) skewX(-30deg);
 }
 
-/*
-.breadcrumb-transition-move,
-.breadcrumb-transition-enter-active {
-  transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.breadcrumb-transition-leave-active {
-  display: none;
-}
-
-.breadcrumb-transition-enter-from {
-  opacity: 0;
-  transform: translateX(-5px);
-} */
-
 @keyframes slide-down {
   from {
     opacity: 0;

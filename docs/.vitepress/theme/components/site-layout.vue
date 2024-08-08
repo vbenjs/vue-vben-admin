@@ -28,11 +28,8 @@ onMounted(() => {
 </template>
 
 <style>
-.medium-zoom-overlay {
-  z-index: 2147483646;
-}
-
-.medium-zoom-image {
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
   z-index: 2147483647;
 }
 </style>

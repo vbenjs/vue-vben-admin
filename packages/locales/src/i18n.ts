@@ -58,9 +58,11 @@ async function loadI18nMessages(lang: SupportedLanguagesType) {
     return setI18nLanguage(lang);
   }
 
-  const message = await localesMap[lang]();
+  const message = await localesMap[lang]?.();
 
-  i18n.global.setLocaleMessage(lang, message.default);
+  if (message?.default) {
+    i18n.global.setLocaleMessage(lang, message.default);
+  }
   loadedLanguages.add(lang);
   return setI18nLanguage(lang);
 }
