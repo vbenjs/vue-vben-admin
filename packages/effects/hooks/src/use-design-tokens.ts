@@ -181,6 +181,9 @@ export function useElementPlusDesignTokens() {
         '--el-color-error-light-8': border,
         '--el-color-error-light-9': background,
 
+        '--el-color-info-light-8': border,
+        '--el-color-info-light-9': background,
+
         '--el-color-primary': getCssVariableValue('--primary'),
         '--el-color-primary-light-3': getCssVariableValue('--primary-600'),
 
