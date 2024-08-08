@@ -29,13 +29,13 @@ describe('color conversion functions', () => {
 
   it('should correctly convert color to RGB CSS variable format', () => {
     const color = 'hsl(284, 100%, 50%)';
-    const expectedRgb = 'rgb(187,0,255)';
+    const expectedRgb = 'rgb(187, 0, 255)';
     expect(convertToRgb(color)).toEqual(expectedRgb);
   });
 
   it('should correctly convert color with alpha to RGBA CSS variable format', () => {
     const color = 'hsla(284, 100%, 50%, 0.92)';
-    const expectedRgba = 'rgba(187,0,255,0.92)';
+    const expectedRgba = 'rgba(187, 0, 255, 0.92)';
     expect(convertToRgb(color)).toEqual(expectedRgba);
   });
 });
