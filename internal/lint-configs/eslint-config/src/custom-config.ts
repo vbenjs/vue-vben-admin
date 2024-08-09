@@ -15,6 +15,13 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
+    files: ['packages/effects/**/**', 'packages/types/**/**'],
+    ignores: restrictedImportIgnores,
+    rules: {
+      'perfectionist/sort-interfaces': 'off',
+    },
+  },
+  {
     // apps内部的一些基础规则
     files: ['apps/**/**'],
     ignores: restrictedImportIgnores,
@@ -46,6 +53,7 @@ const customConfig: Linter.Config[] = [
           ],
         },
       ],
+      'perfectionist/sort-interfaces': 'off',
     },
   },
   {

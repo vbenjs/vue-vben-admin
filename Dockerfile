@@ -23,7 +23,7 @@ FROM nginx:stable-alpine as production
 RUN echo "types { application/javascript js mjs; }" > /etc/nginx/conf.d/mjs.conf
 COPY --from=builder /app/apps/web-antd/dist /usr/share/nginx/html
 
-COPY ./deploy/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 8080
 
