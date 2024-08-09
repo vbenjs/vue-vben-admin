@@ -36,6 +36,8 @@ export function useAntdDesignTokens() {
     () => {
       tokens.colorPrimary = getCssVariableValue('--primary');
 
+      tokens.colorInfo = getCssVariableValue('--primary');
+
       tokens.colorError = getCssVariableValue('--destructive');
 
       tokens.colorWarning = getCssVariableValue('--warning');
