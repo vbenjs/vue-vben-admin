@@ -5,7 +5,7 @@ import type {
 } from '@vben/types';
 
 import {
-  cloneDepp,
+  cloneDeep,
   generateMenus,
   generateRoutesByBackend,
   generateRoutesByFrontend,
@@ -18,7 +18,7 @@ async function generateAccessible(
 ) {
   const { router } = options;
 
-  options.routes = cloneDepp(options.routes);
+  options.routes = cloneDeep(options.routes);
   // 生成路由
   const accessibleRoutes = await generateRoutes(mode, options);
 
