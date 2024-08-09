@@ -56,7 +56,9 @@ export function useAntdDesignTokens() {
 
       tokens.colorBgBase = getCssVariableValue('--background');
 
-      tokens.borderRadius = getCssVariableValue('--radius', false);
+      const radius = Number.parseFloat(getCssVariableValue('--radius', false));
+      // 1rem = 16px
+      tokens.borderRadius = radius * 16;
 
       tokens.colorBgLayout = getCssVariableValue('--background-deep');
       tokens.colorBgMask = getCssVariableValue('--overlay');
