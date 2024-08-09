@@ -9,4 +9,4 @@ export * from './tree';
 export * from './unique';
 export * from './update-css-variables';
 export * from './window';
-export { default as cloneDepp } from 'lodash.clonedeep';
+export { default as cloneDeep } from 'lodash.clonedeep';
