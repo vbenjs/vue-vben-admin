@@ -100,7 +100,7 @@
     "overrides": {
       "@ctrl/tinycolor": "^4.1.0",
       "clsx": "^2.1.1",
-      "vue": "^3.4.36"
+      "vue": "^3.4.37"
     },
     "neverBuiltDependencies": [
       "canvas",
