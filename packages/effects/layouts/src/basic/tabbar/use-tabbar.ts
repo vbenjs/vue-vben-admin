@@ -104,9 +104,10 @@ export function useTabbar() {
       const routes = router.getRoutes();
       const currentRoute = routes.find((item) => item.path === route.path);
       if (currentRoute) {
-        tabbarStore.addTab(
-          currentRoute as unknown as RouteLocationNormalizedGeneric,
-        );
+        tabbarStore.addTab({
+          ...route,
+          meta: currentRoute.meta,
+        } as unknown as RouteLocationNormalizedGeneric);
       }
     },
     { immediate: true },
