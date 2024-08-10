@@ -113,7 +113,7 @@ function useMixedMenu() {
 
   // 初始化计算侧边菜单
   onBeforeMount(() => {
-    calcSideMenus();
+    calcSideMenus(route.meta?.activePath || route.path);
   });
 
   return {

@@ -30,7 +30,7 @@ async function handleSelect(key: string) {
   <Menu
     :accordion="accordion"
     :collapse="collapse"
-    :default-active="route.path"
+    :default-active="route.meta?.activePath || route.path"
     :menus="menus"
     :rounded="rounded"
     :theme="theme"
