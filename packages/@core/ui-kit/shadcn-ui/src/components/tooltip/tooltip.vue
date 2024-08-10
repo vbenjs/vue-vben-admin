@@ -12,6 +12,7 @@ import {
 
 interface Props {
   contentClass?: HTMLAttributes['class'];
+  contentStyle?: HTMLAttributes['style'];
   delayDuration?: number;
   side: TooltipContentProps['side'];
 }
@@ -31,6 +32,7 @@ withDefaults(defineProps<Props>(), {
       <TooltipContent
         :class="contentClass"
         :side="side"
+        :style="contentStyle"
         class="side-content text-popover-foreground bg-popover"
       >
         <slot></slot>

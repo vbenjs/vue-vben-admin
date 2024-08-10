@@ -2,7 +2,7 @@ import type { UserConfig } from 'vite';
 
 import type { DefineApplicationOptions } from '../typing';
 
-import { relative } from 'node:path';
+import path, { relative } from 'node:path';
 
 import { findMonorepoRoot } from '@vben/node-utils';
 
@@ -101,7 +101,7 @@ function createCssOptions(injectGlobalScss = true) {
             additionalData: (content: string, filepath: string) => {
               const relativePath = relative(root, filepath);
               // apps下的包注入全局样式
-              if (relativePath.startsWith('apps/')) {
+              if (relativePath.startsWith(`apps${path.sep}`)) {
                 return `@import "@vben/styles/global";\n${content}`;
               }
               return content;

@@ -37,7 +37,9 @@
         "title": "Active Menu Icon",
         "children": "Children Active Icon"
       },
-      "fallback": { "title": "Fallback Page" },
+      "fallback": {
+        "title": "Fallback Page"
+      },
       "features": {
         "title": "Features",
         "hideChildrenInMenu": "Hide Menu Children",
@@ -53,6 +55,12 @@
         "lateralDetail": "Lateral Mode Detail",
         "level": "Level Mode",
         "levelDetail": "Level Mode Detail"
+      }
+    },
+    "examples": {
+      "title": "Examples",
+      "ellipsis": {
+        "title": "EllipsisText"
       }
     }
   }

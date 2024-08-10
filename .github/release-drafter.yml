@@ -17,11 +17,12 @@ categories:
   - title: "🐞 Bug Fixes"
     labels:
       - "bug"
-  - title: 📝 Documentation updates
+  - title: 📝 Documentation
     labels:
       - "documentation"
   - title: 👻 Maintenance
     labels:
+      - "perf"
       - "chore"
       - "dependencies"
     collapse-after: 5
@@ -34,12 +35,16 @@ categories:
 version-resolver:
   major:
     labels:
+      - "major"
       - "breaking"
   minor:
     labels:
-      - "feature"
+      - "minor"
+      # - "feature"
   patch:
     labels:
+      - "patch"
+      - "feature"
       - "bug"
       - "maintenance"
       - "docs"

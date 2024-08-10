@@ -271,7 +271,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async openTabInNewWindow(tab: TabDefinition) {
       const { hash, origin } = location;
-      const path = tab.fullPath;
+      const path = tab.fullPath || tab.path;
       const fullPath = path.startsWith('/') ? path : `/${path}`;
       const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
       openWindow(url, { target: '_blank' });

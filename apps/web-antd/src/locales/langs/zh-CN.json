@@ -56,6 +56,12 @@
         "levelDetail": "层级模式详情",
         "lateralDetail": "平级模式详情"
       }
+    },
+    "examples": {
+      "title": "示例",
+      "ellipsis": {
+        "title": "文本省略"
+      }
     }
   }
 }
