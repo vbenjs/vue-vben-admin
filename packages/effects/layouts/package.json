@@ -1,6 +1,6 @@
 {
   "name": "@vben/layouts",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -32,8 +32,8 @@
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^10.11.0",
-    "vue": "^3.4.36",
+    "@vueuse/core": "^10.11.1",
+    "vue": "^3.4.37",
     "vue-router": "^4.4.3"
   }
 }
