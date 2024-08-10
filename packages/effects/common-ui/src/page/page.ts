@@ -1,5 +1,11 @@
-interface Props {
-  title: string;
+interface PageHeaderProps {
+  title?: string;
 }
 
-export type { Props };
+interface Props extends PageHeaderProps {
+  headerSticky?: boolean;
+  showFooter?: boolean;
+  showHeader?: boolean;
+}
+
+export type { PageHeaderProps, Props };
