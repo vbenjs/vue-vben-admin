@@ -1,9 +1,6 @@
 import type { TabDefinition } from '@vben/types';
 import type { IContextMenuItem } from '@vben-core/tabs-ui';
-import type {
-  RouteLocationNormalized,
-  RouteLocationNormalizedGeneric,
-} from 'vue-router';
+import type { RouteLocationNormalizedGeneric } from 'vue-router';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -103,7 +100,14 @@ export function useTabbar() {
   watch(
     () => route.path,
     () => {
-      tabbarStore.addTab(route as RouteLocationNormalized);
+      // 这里不能用route，用route时，vue-router会自动将父级meta进行合并
+      const routes = router.getRoutes();
+      const currentRoute = routes.find((item) => item.path === route.path);
+      if (currentRoute) {
+        tabbarStore.addTab(
+          currentRoute as unknown as RouteLocationNormalizedGeneric,
+        );
+      }
     },
     { immediate: true },
   );
