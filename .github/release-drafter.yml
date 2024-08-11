@@ -25,7 +25,7 @@ categories:
       - "perf"
       - "chore"
       - "dependencies"
-    collapse-after: 5
+    # collapse-after: 12
   - title: 🚦 Tests
     labels:
       - "tests"
@@ -40,11 +40,10 @@ version-resolver:
   minor:
     labels:
       - "minor"
-      # - "feature"
+      - "feature"
   patch:
     labels:
       - "patch"
-      - "feature"
       - "bug"
       - "maintenance"
       - "docs"

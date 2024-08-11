@@ -41,6 +41,7 @@
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     "dev:docs": "pnpm -F @vben/docs run dev",
     "dev:ele": "pnpm -F @vben/web-ele run dev",
+    "dev:play": "pnpm -F @vben/playground run dev",
     "dev:naive": "pnpm -F @vben/web-naive run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",

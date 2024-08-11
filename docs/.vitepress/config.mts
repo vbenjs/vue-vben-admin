@@ -162,7 +162,11 @@ function nav(): DefaultTheme.NavItem[] {
           items: [
             {
               link: 'https://www.vben.pro',
-              text: 'Ant Design Vue 版本(默认)',
+              text: '演示版本',
+            },
+            {
+              link: 'https://ant.vben.pro',
+              text: 'Ant Design Vue 版本',
             },
             {
               link: 'https://naive.vben.pro',
@@ -250,6 +254,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           text: '为什么选择我们?',
         },
         { link: 'introduction/quick-start', text: '快速开始' },
+        { link: 'introduction/thin', text: '精简版本' },
       ],
     },
     {
@@ -284,6 +289,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         { link: 'project/standard', text: '规范' },
         { link: 'project/cli', text: 'CLI' },
+        { link: 'project/dir', text: '目录说明' },
         { link: 'project/test', text: '单元测试' },
         { link: 'project/tailwindcss', text: 'Tailwind CSS' },
         { link: 'project/changeset', text: 'Changeset' },

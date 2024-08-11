@@ -35,7 +35,9 @@
     min-height: 100vh;
 
     /* overflow: overlay; */
+
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   a,

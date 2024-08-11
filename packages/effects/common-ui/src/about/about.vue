@@ -125,7 +125,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
         <h3 class="text-foreground text-2xl font-semibold leading-7">
           {{ title }}
         </h3>
-        <p class="text-foreground/80 mt-3 text-sm leading-6">
+        <p class="text-foreground mt-3 text-sm leading-6">
           <VbenLink :href="VBEN_GITHUB_URL">
             {{ name }}
           </VbenLink>
@@ -139,7 +139,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
               <dt class="text-foreground text-sm font-medium leading-6">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground/80 mt-1 text-sm leading-6 sm:mt-2">
+              <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>
@@ -159,7 +159,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
               <dt class="text-foreground text-sm">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground/60 mt-1 text-sm sm:mt-2">
+              <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>
@@ -178,7 +178,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
               <dt class="text-foreground text-sm">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground/60 mt-1 text-sm sm:mt-2">
+              <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>

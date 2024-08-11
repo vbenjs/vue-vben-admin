@@ -167,6 +167,7 @@
 
   "i18n-ally.localesPaths": [
     "packages/locales/src/langs",
+    "playground/src/langs",
     "apps/*/src/locales/langs"
   ],
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
