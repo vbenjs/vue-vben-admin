@@ -115,11 +115,10 @@ function setupAccessGuard(router: Router) {
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
-    const redirectPath = (from.query.redirect ?? to.path) as string;
-
+    const redirectPath = (from.query.redirect ?? to.fullPath) as string;
     return {
-      path: decodeURIComponent(redirectPath),
       replace: true,
+      ...router.resolve(decodeURIComponent(redirectPath)),
     };
   });
 }
