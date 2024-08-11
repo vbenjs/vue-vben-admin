@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Page } from '@vben/common-ui';
+
 import {
   ElButton,
   ElCard,
@@ -39,13 +41,9 @@ function notify(type: NotificationType) {
 </script>
 
 <template>
-  <div class="p-5">
+  <Page title="Element Plus组件使用演示">
+    <template #headerContent> 支持多语言，主题功能集成切换等 </template>
     <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">Element Plus组件使用演示</h1>
-      <div class="text-foreground/80 mt-2">支持多语言，主题功能集成切换等</div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
       <div class="mb-3">
         <span class="text-lg font-semibold">按钮</span>
       </div>
@@ -92,5 +90,5 @@ function notify(type: NotificationType) {
         <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
       </div>
     </div>
-  </div>
+  </Page>
 </template>

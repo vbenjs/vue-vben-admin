@@ -34,9 +34,9 @@ function notify(type: NotificationType) {
 </script>
 
 <template>
-  <Page :header-sticky="true" title="naive组件使用演示">
+  <Page title="naive组件使用演示">
     <template #headerContent> 支持多语言，主题功能集成切换等 </template>
-    <div class="card-box mt-5 p-5">
+    <div class="card-box p-5">
       <div class="mb-3">
         <span class="text-lg font-semibold">按钮</span>
       </div>
