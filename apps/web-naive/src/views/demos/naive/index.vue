@@ -35,7 +35,7 @@ function notify(type: NotificationType) {
 
 <template>
   <Page title="naive组件使用演示">
-    <template #headerContent> 支持多语言，主题功能集成切换等 </template>
+    <template #header> 支持多语言，主题功能集成切换等 </template>
     <div class="card-box p-5">
       <div class="mb-3">
         <span class="text-lg font-semibold">按钮</span>

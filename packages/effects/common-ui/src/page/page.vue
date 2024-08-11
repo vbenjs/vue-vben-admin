@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   <div class="relative h-full">
     <PageHeader v-if="props.showHeader" :title="props.title">
       <template #default>
-        <slot name="headerContent"></slot>
+        <slot name="header"></slot>
       </template>
     </PageHeader>
     <div class="m-4 overflow-hidden">
@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
     </div>
     <PageFooter v-if="props.showFooter">
       <template #default>
-        <slot name="footerContent"></slot>
+        <slot name="footer"></slot>
       </template>
     </PageFooter>
   </div>
