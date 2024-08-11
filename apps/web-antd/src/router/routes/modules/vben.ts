@@ -38,8 +38,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           icon: 'lucide:book-open-text',
-          iframeSrc: VBEN_DOC_URL,
-          keepAlive: true,
+          link: VBEN_DOC_URL,
           title: $t('page.vben.document'),
         },
       },

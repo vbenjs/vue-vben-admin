@@ -11,3 +11,4 @@ packages:
   - "apps/*"
   - "scripts/*"
   - "docs"
+  - "playground"

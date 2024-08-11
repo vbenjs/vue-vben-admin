@@ -162,7 +162,11 @@ function nav(): DefaultTheme.NavItem[] {
           items: [
             {
               link: 'https://www.vben.pro',
-              text: 'Ant Design Vue 版本(默认)',
+              text: '演示版本',
+            },
+            {
+              link: 'https://ant.vben.pro',
+              text: 'Ant Design Vue 版本',
             },
             {
               link: 'https://naive.vben.pro',

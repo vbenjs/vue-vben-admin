@@ -10,10 +10,6 @@
     "esbenp.prettier-vscode",
     // 支持 dotenv 文件语法
     "mikestead.dotenv",
-    // 获取每个 CSS 属性的初始值。
-    "dzhavat.css-initial-value",
-    // 使 VSCode 中的 TypeScript 错误更漂亮、更易于理解
-    "yoavbls.pretty-ts-errors",
     // 源代码的拼写检查器
     "streetsidesoftware.code-spell-checker",
     // Tailwind CSS 的官方 VS Code 插件

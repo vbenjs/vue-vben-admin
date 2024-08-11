@@ -22,3 +22,5 @@ export const VBEN_PREVIEW_URL = 'https://www.vben.pro';
 export const VBEN_ELE_PREVIEW_URL = 'https://ele.vben.pro';
 
 export const VBEN_NAIVE_PREVIEW_URL = 'https://naive.vben.pro';
+
+export const VBEN_ANT_PREVIEW_URL = 'https://ant.vben.pro';
