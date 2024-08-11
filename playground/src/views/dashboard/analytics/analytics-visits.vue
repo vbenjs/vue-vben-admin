@@ -13,7 +13,7 @@ onMounted(() => {
       containLabel: true,
       left: '1%',
       right: '1%',
-      top: '2  %',
+      top: '2 %',
     },
     series: [
       {

@@ -198,7 +198,11 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/en');
     }
   }
-  dayjs.locale(locale);
+  if (locale) {
+    dayjs.locale(locale);
+  } else {
+    console.error(`Failed to load dayjs locale for ${lang}`);
+  }
 }
 ```
 
