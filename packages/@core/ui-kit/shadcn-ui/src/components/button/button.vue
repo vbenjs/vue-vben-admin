@@ -2,13 +2,11 @@
 import { computed } from 'vue';
 
 import { LoaderCircle } from '@vben-core/icons';
-import {
-  type ButtonVariants,
-  buttonVariants,
-} from '@vben-core/shadcn-ui/components/ui/button';
 import { cn } from '@vben-core/shared';
 
 import { Primitive, type PrimitiveProps } from 'radix-vue';
+
+import { type ButtonVariants, buttonVariants } from '../ui/button';
 
 interface Props extends PrimitiveProps {
   class?: any;

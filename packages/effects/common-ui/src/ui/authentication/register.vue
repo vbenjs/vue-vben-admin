@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RegisterEmits } from './typings';
+import type { RegisterEmits } from './types';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';

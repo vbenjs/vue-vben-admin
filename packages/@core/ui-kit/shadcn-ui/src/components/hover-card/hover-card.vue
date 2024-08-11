@@ -7,13 +7,13 @@ import type {
 
 import { computed } from 'vue';
 
+import { useForwardPropsEmits } from 'radix-vue';
+
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@vben-core/shadcn-ui/components/ui/hover-card';
-
-import { useForwardPropsEmits } from 'radix-vue';
+} from '../ui/hover-card';
 
 interface Props extends HoverCardRootProps {
   class?: any;

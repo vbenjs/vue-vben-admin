@@ -51,6 +51,7 @@ interface Props {
    */
   tooltipOverlayStyle?: CSSProperties;
 }
+
 const props = withDefaults(defineProps<Props>(), {
   expand: false,
   line: 1,

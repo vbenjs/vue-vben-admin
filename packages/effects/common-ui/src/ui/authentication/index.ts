@@ -8,4 +8,4 @@ export type {
   AuthenticationProps,
   LoginAndRegisterParams,
   LoginCodeParams,
-} from './typings';
+} from './types';

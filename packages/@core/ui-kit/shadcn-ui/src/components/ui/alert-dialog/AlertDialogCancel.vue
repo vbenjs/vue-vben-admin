@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes } from 'vue';
 
-import { buttonVariants } from '@vben-core/shadcn-ui/components/ui/button';
 import { cn } from '@vben-core/shared';
 
 import { AlertDialogCancel, type AlertDialogCancelProps } from 'radix-vue';
+
+import { buttonVariants } from '../button';
 
 const props = defineProps<
   { class?: HTMLAttributes['class'] } & AlertDialogCancelProps

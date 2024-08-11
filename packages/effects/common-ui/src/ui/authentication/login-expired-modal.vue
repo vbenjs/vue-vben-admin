@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AuthenticationProps, LoginAndRegisterParams } from './typings';
+import type { AuthenticationProps, LoginAndRegisterParams } from './types';
 
 import { useForwardPropsEmits } from '@vben/hooks';
 import {

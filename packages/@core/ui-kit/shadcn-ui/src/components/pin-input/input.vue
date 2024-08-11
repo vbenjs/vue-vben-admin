@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import type { PinInputProps } from './interface';
+import type { PinInputProps } from './types';
 
 import { computed, ref, watch } from 'vue';
 
-import { VbenButton } from '@vben-core/shadcn-ui/components/button';
-import {
-  PinInput,
-  PinInputGroup,
-  PinInputInput,
-} from '@vben-core/shadcn-ui/components/ui/pin-input';
+import { VbenButton } from '../button';
+import { PinInput, PinInputGroup, PinInputInput } from '../ui/pin-input';
 
 defineOptions({
   inheritAttrs: false,

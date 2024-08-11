@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LoginCodeEmits } from './typings';
+import type { LoginCodeEmits } from './types';
 
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';

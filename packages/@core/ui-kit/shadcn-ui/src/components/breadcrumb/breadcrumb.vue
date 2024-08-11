@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './interface';
+import type { IBreadcrumb } from './types';
 
 import { ChevronDown } from '@vben-core/icons';
+
+import { VbenIcon } from '../icon';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,15 +11,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@vben-core/shadcn-ui/components/ui/breadcrumb';
+} from '../ui/breadcrumb';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@vben-core/shadcn-ui/components/ui/dropdown-menu';
-
-import { VbenIcon } from '../icon';
+} from '../ui/dropdown-menu';
 
 interface Props {
   breadcrumbs: IBreadcrumb[];

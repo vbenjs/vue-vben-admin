@@ -7,13 +7,13 @@ import type {
 
 import { computed } from 'vue';
 
+import { useForwardPropsEmits } from 'radix-vue';
+
 import {
   PopoverContent,
   Popover as PopoverRoot,
   PopoverTrigger,
-} from '@vben-core/shadcn-ui/components/ui/popover';
-
-import { useForwardPropsEmits } from 'radix-vue';
+} from '../ui/popover';
 
 interface Props extends PopoverRootProps {
   class?: any;
