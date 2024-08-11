@@ -1,7 +1,5 @@
-import type { HTMLAttributes } from 'vue';
-
 interface InputProps {
-  class?: HTMLAttributes['class'];
+  class?: any;
   /**
    * 错误提示信息
    */

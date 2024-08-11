@@ -1,11 +1,11 @@
 interface PageHeaderProps {
   title?: string;
+  description?: string;
 }
 
 interface Props extends PageHeaderProps {
-  headerSticky?: boolean;
+  contentClass?: string;
   showFooter?: boolean;
-  showHeader?: boolean;
 }
 
 export type { PageHeaderProps, Props };

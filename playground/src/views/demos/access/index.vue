@@ -4,9 +4,10 @@ import type { LoginAndRegisterParams } from '@vben/common-ui';
 import { useRouter } from 'vue-router';
 
 import { useAccess } from '@vben/access';
+import { Page } from '@vben/common-ui';
 import { resetAllStores, useUserStore } from '@vben/stores';
 
-import { Button } from 'ant-design-vue';
+import { Button, Card } from 'ant-design-vue';
 
 import { useAuthStore } from '#/store';
 
@@ -64,33 +65,20 @@ async function handleToggleAccessMode() {
 </script>
 
 <template>
-  <div class="p-5">
-    <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">
-        {{ accessMode === 'frontend' ? '前端' : '后端' }}页面访问权限演示
-      </h1>
-      <div class="text-foreground/80 mt-2">
-        切换不同的账号，观察左侧菜单变化。
-      </div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <span class="text-lg font-semibold">当前权限模式:</span>
+  <Page
+    :title="`${accessMode === 'frontend' ? '前端' : '后端'}页面访问权限演示`"
+    description="切换不同的账号，观察左侧菜单变化。"
+  >
+    <Card class="mb-5" title="权限模式">
+      <span class="font-semibold">当前权限模式:</span>
       <span class="text-primary mx-4">{{
         accessMode === 'frontend' ? '前端权限控制' : '后端权限控制'
       }}</span>
       <Button type="primary" @click="handleToggleAccessMode">
         切换为{{ accessMode === 'frontend' ? '后端' : '前端' }}权限模式
       </Button>
-    </div>
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">当前账号:</span>
-        <span class="text-primary mx-4 text-lg">
-          {{ userStore.userRoles?.[0] }}
-        </span>
-      </div>
-
+    </Card>
+    <Card title="账号切换">
       <Button :type="roleButtonType('super')" @click="changeAccount('super')">
         切换为 Super 账号
       </Button>
@@ -105,6 +93,6 @@ async function handleToggleAccessMode() {
       <Button :type="roleButtonType('user')" @click="changeAccount('user')">
         切换为 User 账号
       </Button>
-    </div>
-  </div>
+    </Card>
+  </Page>
 </template>

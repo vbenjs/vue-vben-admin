@@ -10,11 +10,9 @@ const props = defineProps<PageHeaderProps>();
 
 <template>
   <div class="bg-card px-6 py-4">
-    <div class="flex justify-between text-lg font-bold">
+    <div class="mb-2 flex justify-between text-xl font-bold leading-10">
       {{ props.title }}
     </div>
-    <div class="pt-3">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>

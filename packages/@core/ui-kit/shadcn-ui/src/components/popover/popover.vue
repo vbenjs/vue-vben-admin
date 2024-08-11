@@ -5,7 +5,6 @@ import type {
   PopoverRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
 import {
@@ -16,16 +15,13 @@ import {
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-const props = withDefaults(
-  defineProps<
-    {
-      class?: HTMLAttributes['class'];
-      contentClass?: HTMLAttributes['class'];
-      contentProps?: PopoverContentProps;
-    } & PopoverRootProps
-  >(),
-  {},
-);
+interface Props extends PopoverRootProps {
+  class?: any;
+  contentClass?: any;
+  contentProps?: PopoverContentProps;
+}
+
+const props = withDefaults(defineProps<Props>(), {});
 
 const emits = defineEmits<PopoverRootEmits>();
 

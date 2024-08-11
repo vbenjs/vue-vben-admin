@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import { ref } from 'vue';
 
 import {
@@ -9,9 +8,9 @@ import {
 import { cn } from '@vben-core/shared';
 
 interface Props {
-  class?: HTMLAttributes['class'];
+  class?: any;
   horizontal?: boolean;
-  scrollBarClass?: HTMLAttributes['class'];
+  scrollBarClass?: any;
   shadow?: boolean;
   shadowBorder?: boolean;
 }

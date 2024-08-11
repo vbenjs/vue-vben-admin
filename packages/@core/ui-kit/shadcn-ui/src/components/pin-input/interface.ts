@@ -1,5 +1,3 @@
-import type { HTMLAttributes } from 'vue';
-
 interface PinInputProps {
   /**
    * 发送验证码按钮loading
@@ -9,7 +7,7 @@ interface PinInputProps {
    * 发送验证码按钮文本
    */
   btnText?: string;
-  class?: HTMLAttributes['class'];
+  class?: any;
   /**
    * 验证码长度
    */

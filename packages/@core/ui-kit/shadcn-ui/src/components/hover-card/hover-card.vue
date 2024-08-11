@@ -5,7 +5,6 @@ import type {
   HoverCardRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
 import {
@@ -16,13 +15,13 @@ import {
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<
-  {
-    class?: HTMLAttributes['class'];
-    contentClass?: HTMLAttributes['class'];
-    contentProps?: HoverCardContentProps;
-  } & HoverCardRootProps
->();
+interface Props extends HoverCardRootProps {
+  class?: any;
+  contentClass?: any;
+  contentProps?: HoverCardContentProps;
+}
+
+const props = defineProps<Props>();
 
 const emits = defineEmits<HoverCardRootEmits>();
 
