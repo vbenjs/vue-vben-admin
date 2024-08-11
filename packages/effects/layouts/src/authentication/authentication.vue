@@ -6,7 +6,6 @@ import { preferences, usePreferences } from '@vben/preferences';
 
 import AuthenticationFormView from './form.vue';
 import SloganIcon from './icons/slogan.vue';
-import Toolbar from './toolbar.vue';
 
 defineOptions({ name: 'Authentication' });
 
@@ -56,11 +55,7 @@ const logoSource = computed(() => preferences.logo.source);
     <div v-if="authPanelCenter" class="flex-center bg-authentication w-full">
       <AuthenticationFormView
         class="md:bg-background w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-2/5"
-      >
-        <template #toolbar>
-          <Toolbar />
-        </template>
-      </AuthenticationFormView>
+      />
     </div>
 
     <!-- 右侧认证面板 -->

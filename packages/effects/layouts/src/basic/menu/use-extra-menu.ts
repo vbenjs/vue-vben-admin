@@ -81,7 +81,7 @@ function useExtraMenu() {
   watch(
     () => route.path,
     (path) => {
-      const currentPath = path;
+      const currentPath = route.meta?.activePath || path;
       // if (preferences.sidebar.expandOnHover) {
       //   return;
       // }
