@@ -134,7 +134,8 @@ pnpm build
 ## 貢献者
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
+ <img alt="Contributors"
+        src="https://opencollective.com/vbenjs/contributors.svg?button=false" />
 </a>
 
 ## Discord

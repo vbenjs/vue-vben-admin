@@ -133,7 +133,8 @@ If you think this project is helpful to you, you can help the author buy a cup o
 ## Contributor
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
+  <img alt="Contributors"
+        src="https://opencollective.com/vbenjs/contributors.svg?button=false" />
 </a>
 
 ## Discord

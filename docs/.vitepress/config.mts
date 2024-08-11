@@ -288,6 +288,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         { link: 'project/standard', text: '规范' },
         { link: 'project/cli', text: 'CLI' },
+        { link: 'project/dir', text: '目录说明' },
         { link: 'project/test', text: '单元测试' },
         { link: 'project/tailwindcss', text: 'Tailwind CSS' },
         { link: 'project/changeset', text: 'Changeset' },
