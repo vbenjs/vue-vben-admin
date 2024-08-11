@@ -100,15 +100,11 @@ export function useTabbar() {
   watch(
     () => route.path,
     () => {
-      // 这里不能用route，用route时，vue-router会自动将父级meta进行合并
-      const routes = router.getRoutes();
-      const currentRoute = routes.find((item) => item.path === route.path);
-      if (currentRoute) {
-        tabbarStore.addTab({
-          ...route,
-          meta: currentRoute.meta,
-        } as unknown as RouteLocationNormalizedGeneric);
-      }
+      const meta = route.matched?.[route.matched.length - 1]?.meta;
+      tabbarStore.addTab({
+        ...route,
+        meta: meta || route.meta,
+      });
     },
     { immediate: true },
   );
