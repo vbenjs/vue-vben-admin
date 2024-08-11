@@ -254,6 +254,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           text: '为什么选择我们?',
         },
         { link: 'introduction/quick-start', text: '快速开始' },
+        { link: 'introduction/thin', text: '精简版本' },
       ],
     },
     {
