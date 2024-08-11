@@ -10,6 +10,8 @@ import {
 } from '@vben/constants';
 import { VbenLink, VbenRenderContent } from '@vben-core/shadcn-ui';
 
+import { Page } from '../../components';
+
 interface Props extends AboutProps {}
 
 defineOptions({
@@ -119,18 +121,18 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 </script>
 
 <template>
-  <div class="m-5">
+  <Page :title="title">
+    <template #description>
+      <p class="text-foreground mt-3 text-sm leading-6">
+        <VbenLink :href="VBEN_GITHUB_URL">
+          {{ name }}
+        </VbenLink>
+        {{ description }}
+      </p>
+    </template>
     <div class="card-box p-5">
       <div>
-        <h3 class="text-foreground text-2xl font-semibold leading-7">
-          {{ title }}
-        </h3>
-        <p class="text-foreground mt-3 text-sm leading-6">
-          <VbenLink :href="VBEN_GITHUB_URL">
-            {{ name }}
-          </VbenLink>
-          {{ description }}
-        </p>
+        <h5 class="text-foreground text-lg">基本信息</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -186,5 +188,5 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
         </dl>
       </div>
     </div>
-  </div>
+  </Page>
 </template>

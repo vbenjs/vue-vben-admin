@@ -17,12 +17,14 @@ categories:
   - title: "🐞 Bug Fixes"
     labels:
       - "bug"
+  - title: "📈 Performance"
+    labels:
+      - "perf"
   - title: 📝 Documentation
     labels:
       - "documentation"
   - title: 👻 Maintenance
     labels:
-      - "perf"
       - "chore"
       - "dependencies"
     # collapse-after: 12

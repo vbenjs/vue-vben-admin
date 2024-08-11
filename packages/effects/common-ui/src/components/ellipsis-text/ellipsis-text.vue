@@ -23,7 +23,7 @@ interface Props {
    * 提示框位置
    * @default 'top'
    */
-  placement: 'bottom' | 'left' | 'right' | 'top';
+  placement?: 'bottom' | 'left' | 'right' | 'top';
   /**
    * 是否启用文本提示框
    * @default true
@@ -49,7 +49,7 @@ interface Props {
    * 提示框内容区域样式
    * @default { textAlign: 'justify' }
    */
-  tooltipOverlayStyle?: CSSProperties; // 提示框内容区域样式
+  tooltipOverlayStyle?: CSSProperties;
 }
 const props = withDefaults(defineProps<Props>(), {
   expand: false,
@@ -99,6 +99,14 @@ function onExpand() {
 
   emit('expandChange', !isExpanded);
 }
+
+function handleExpand() {
+  if (props.expand) {
+    onExpand();
+  } else {
+    return false;
+  }
+}
 </script>
 <template>
   <VbenTooltip
@@ -110,7 +118,6 @@ function onExpand() {
       backgroundColor: tooltipBackgroundColor,
     }"
     :disabled="!showTooltip"
-    :overlay-style="tooltipOverlayStyle"
     :side="placement"
   >
     <slot name="tooltip">
@@ -127,7 +134,7 @@ function onExpand() {
         }"
         :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
         class="cursor-text overflow-hidden"
-        @click="expand ? onExpand() : () => false"
+        @click="handleExpand"
         v-bind="$attrs"
       >
         <slot></slot>

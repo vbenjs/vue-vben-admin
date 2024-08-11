@@ -7,7 +7,6 @@ import type {
 
 import type { IContextMenuItem } from './interface';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
 import {
@@ -23,11 +22,11 @@ import { useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<
   {
-    class?: HTMLAttributes['class'];
-    contentClass?: HTMLAttributes['class'];
+    class?: any;
+    contentClass?: any;
     contentProps?: ContextMenuContentProps;
     handlerData?: Record<string, any>;
-    itemClass?: HTMLAttributes['class'];
+    itemClass?: any;
     menus: (data: any) => IContextMenuItem[];
   } & ContextMenuRootProps
 >();

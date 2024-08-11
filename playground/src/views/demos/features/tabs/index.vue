@@ -2,9 +2,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { Page } from '@vben/common-ui';
 import { useTabs } from '@vben/hooks';
 
-import { Input as AInput, Button } from 'ant-design-vue';
+import { Button, Card, Input } from 'ant-design-vue';
 
 const router = useRouter();
 const newTabTitle = ref('');
@@ -38,14 +39,8 @@ function reset() {
 </script>
 
 <template>
-  <div class="p-5">
-    <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">标签页</h1>
-      <div class="text-foreground/80 mt-2">用于需要操作标签页的场景</div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <div class="text-lg font-semibold">打开/关闭标签页</div>
+  <Page description="用于需要操作标签页的场景" title="标签页">
+    <Card class="mb-5" title="打开/关闭标签页">
       <div class="text-foreground/80 my-3">
         如果标签页存在，直接跳转切换。如果标签页不存在，则打开新的标签页。
       </div>
@@ -55,10 +50,9 @@ function reset() {
           关闭 "关于" 标签页
         </Button>
       </div>
-    </div>
+    </Card>
 
-    <div class="card-box mt-5 p-5">
-      <div class="text-lg font-semibold">标签页操作</div>
+    <Card class="mb-5" title="标签页操作">
       <div class="text-foreground/80 my-3">用于动态控制标签页的各种操作</div>
       <div class="flex flex-wrap gap-3">
         <Button type="primary" @click="closeCurrentTab()">
@@ -76,15 +70,15 @@ function reset() {
         </Button>
         <Button type="primary" @click="refreshTab()"> 刷新当前标签页 </Button>
       </div>
-    </div>
+    </Card>
 
-    <div class="card-box mt-5 p-5">
+    <Card class="mb-5" title="动态标题">
       <div class="text-lg font-semibold">动态标题</div>
       <div class="text-foreground/80 my-3">
         该操作不会影响页面标题，仅修改Tab标题
       </div>
       <div class="flex flex-wrap items-center gap-3">
-        <AInput
+        <Input
           v-model:value="newTabTitle"
           class="w-40"
           placeholder="请输入新标题"
@@ -94,9 +88,9 @@ function reset() {
         </Button>
         <Button @click="reset"> 重置 </Button>
       </div>
-    </div>
+    </Card>
 
-    <div class="card-box mt-5 p-5">
+    <Card class="mb-5" title="最大打开数量">
       <div class="text-lg font-semibold">最大打开数量</div>
       <div class="text-foreground/80 my-3">
         限制带参数的tab打开的最大数量，由 `route.meta.maxNumOfOpenTab` 控制
@@ -108,6 +102,6 @@ function reset() {
           </Button>
         </template>
       </div>
-    </div>
-  </div>
+    </Card>
+  </Page>
 </template>

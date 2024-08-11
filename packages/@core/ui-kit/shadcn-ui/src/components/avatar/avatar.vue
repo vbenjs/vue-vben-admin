@@ -5,7 +5,6 @@ import type {
   AvatarRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
 import {
@@ -16,9 +15,9 @@ import {
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;
-  class?: HTMLAttributes['class'];
+  class?: any;
   dot?: boolean;
-  dotClass?: HTMLAttributes['class'];
+  dotClass?: any;
 }
 
 defineOptions({

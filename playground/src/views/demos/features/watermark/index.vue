@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { Page } from '@vben/common-ui';
 import { useWatermark } from '@vben/hooks';
 
-import { Button } from 'ant-design-vue';
+import { Button, Card } from 'ant-design-vue';
 
 const { destroyWatermark, updateWatermark } = useWatermark();
 
@@ -40,9 +41,8 @@ async function createWaterMark() {
 </script>
 
 <template>
-  <div class="p-5">
-    <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">水印</h1>
+  <Page title="水印">
+    <template #description>
       <div class="text-foreground/80 mt-2">
         水印使用了
         <a
@@ -54,13 +54,13 @@ async function createWaterMark() {
         </a>
         开源插件，详细配置可见插件配置。
       </div>
-    </div>
+    </template>
 
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3 flex gap-3 text-lg font-semibold">
-        <Button type="primary" @click="createWaterMark()">创建水印</Button>
-        <Button danger @click="destroyWatermark">移除水印</Button>
-      </div>
-    </div>
-  </div>
+    <Card title="使用">
+      <Button class="mr-2" type="primary" @click="createWaterMark()">
+        创建水印
+      </Button>
+      <Button danger @click="destroyWatermark">移除水印</Button>
+    </Card>
+  </Page>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Props } from './page.ts';
+import type { Props } from './page';
 
 import PageFooter from './page-footer.vue';
 import PageHeader from './page-header.vue';
@@ -9,20 +9,24 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
+  description: '',
   showFooter: false,
-  showHeader: true,
   title: '',
 });
 </script>
 
 <template>
   <div class="relative h-full">
-    <PageHeader v-if="props.showHeader" :title="props.title">
+    <PageHeader
+      v-if="description || $slots.description || title"
+      :title="props.title"
+    >
       <template #default>
-        <slot name="header"></slot>
+        <template v-if="description">{{ description }}</template>
+        <slot v-else name="description"></slot>
       </template>
     </PageHeader>
-    <div class="m-4 overflow-hidden">
+    <div :class="contentClass" class="m-4">
       <slot></slot>
     </div>
     <PageFooter v-if="props.showFooter">
