@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AuthenticationProps, LoginEmits } from './typings';
+import type { AuthenticationProps, LoginEmits } from './types';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';

@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy-push-playground-ftp:
-    name: Deploy Push Ftp
+    name: Deploy Push Playground Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +46,7 @@ jobs:
           local-dir: ./docs/.vitepress/dist/
 
   deploy-push-antd-ftp:
-    name: Deploy Push Ftp
+    name: Deploy Push Antd Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:
@@ -77,7 +77,7 @@ jobs:
           local-dir: ./apps/web-antd/dist/
 
   deploy-push-ele-ftp:
-    name: Deploy Push Ftp
+    name: Deploy Push Element Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:
@@ -108,7 +108,7 @@ jobs:
           local-dir: ./apps/web-ele/dist/
 
   deploy-push-naive-ftp:
-    name: Deploy Push Ftp
+    name: Deploy Push Naive Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:

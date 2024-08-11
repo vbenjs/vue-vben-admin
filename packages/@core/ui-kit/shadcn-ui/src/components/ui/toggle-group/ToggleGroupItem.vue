@@ -3,7 +3,6 @@ import type { VariantProps } from 'class-variance-authority';
 
 import { computed, type HTMLAttributes, inject } from 'vue';
 
-import { toggleVariants } from '@vben-core/shadcn-ui/components/ui/toggle';
 import { cn } from '@vben-core/shared';
 
 import {
@@ -11,6 +10,8 @@ import {
   type ToggleGroupItemProps,
   useForwardProps,
 } from 'radix-vue';
+
+import { toggleVariants } from '../toggle';
 
 type ToggleGroupVariants = VariantProps<typeof toggleVariants>;
 

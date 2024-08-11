@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './interface';
+import type { IBreadcrumb } from './types';
 
 import { VbenIcon } from '../icon';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { InputProps } from './interface';
+import type { InputProps } from './types';
 
 import { computed } from 'vue';
 

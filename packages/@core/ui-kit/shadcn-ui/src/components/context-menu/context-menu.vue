@@ -9,6 +9,8 @@ import type { IContextMenuItem } from './interface';
 
 import { computed } from 'vue';
 
+import { useForwardPropsEmits } from 'radix-vue';
+
 import {
   ContextMenu,
   ContextMenuContent,
@@ -16,9 +18,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from '@vben-core/shadcn-ui/components/ui/context-menu';
-
-import { useForwardPropsEmits } from 'radix-vue';
+} from '../ui/context-menu';
 
 const props = defineProps<
   {

@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@vben-core/shadcn-ui/components/ui/tooltip';
+} from '../ui/tooltip';
 
 interface Props {
   contentClass?: any;

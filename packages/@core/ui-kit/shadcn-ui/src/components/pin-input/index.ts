@@ -1,3 +1,3 @@
 export { default as VbenPinInput } from './input.vue';
 
-export type * from './interface';
+export type * from './types';

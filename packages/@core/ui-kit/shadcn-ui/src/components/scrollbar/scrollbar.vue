@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import {
-  ScrollArea,
-  ScrollBar,
-} from '@vben-core/shadcn-ui/components/ui/scroll-area';
 import { cn } from '@vben-core/shared';
+
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 
 interface Props {
   class?: any;
