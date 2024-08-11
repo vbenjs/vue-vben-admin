@@ -13,7 +13,6 @@
 
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
 
     "strict": true,
     "strictNullChecks": true,

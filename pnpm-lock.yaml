@@ -1071,6 +1071,69 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3(vue@3.4.37(typescript@5.5.4))
 
+  playground:
+    dependencies:
+      '@vben/access':
+        specifier: workspace:*
+        version: link:../packages/effects/access
+      '@vben/chart-ui':
+        specifier: workspace:*
+        version: link:../packages/effects/chart-ui
+      '@vben/common-ui':
+        specifier: workspace:*
+        version: link:../packages/effects/common-ui
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:../packages/constants
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../packages/effects/hooks
+      '@vben/icons':
+        specifier: workspace:*
+        version: link:../packages/icons
+      '@vben/layouts':
+        specifier: workspace:*
+        version: link:../packages/effects/layouts
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../packages/locales
+      '@vben/preferences':
+        specifier: workspace:*
+        version: link:../packages/preferences
+      '@vben/request':
+        specifier: workspace:*
+        version: link:../packages/effects/request
+      '@vben/stores':
+        specifier: workspace:*
+        version: link:../packages/stores
+      '@vben/styles':
+        specifier: workspace:*
+        version: link:../packages/styles
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../packages/types
+      '@vben/utils':
+        specifier: workspace:*
+        version: link:../packages/utils
+      '@vueuse/core':
+        specifier: ^10.11.1
+        version: 10.11.1(vue@3.4.37(typescript@5.5.4))
+      ant-design-vue:
+        specifier: ^4.2.3
+        version: 4.2.3(vue@3.4.37(typescript@5.5.4))
+      dayjs:
+        specifier: ^1.11.12
+        version: 1.11.12
+      pinia:
+        specifier: 2.2.1
+        version: 2.2.1(typescript@5.5.4)(vue@3.4.37(typescript@5.5.4))
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.37(typescript@5.5.4)
+      vue-router:
+        specifier: ^4.4.3
+        version: 4.4.3(vue@3.4.37(typescript@5.5.4))
+
   scripts/turbo-run:
     dependencies:
       '@clack/prompts':
@@ -3281,7 +3344,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 

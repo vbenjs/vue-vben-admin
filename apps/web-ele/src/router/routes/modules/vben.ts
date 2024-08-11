@@ -1,11 +1,11 @@
 import type { RouteRecordRaw } from 'vue-router';
 
 import {
+  VBEN_ANT_PREVIEW_URL,
   VBEN_DOC_URL,
   VBEN_GITHUB_URL,
   VBEN_LOGO_URL,
   VBEN_NAIVE_PREVIEW_URL,
-  VBEN_PREVIEW_URL,
 } from '@vben/constants';
 
 import { BasicLayout, IFrameView } from '#/layouts';
@@ -38,8 +38,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           icon: 'lucide:book-open-text',
-          iframeSrc: VBEN_DOC_URL,
-          keepAlive: true,
+          link: VBEN_DOC_URL,
           title: $t('page.vben.document'),
         },
       },
@@ -69,7 +68,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
-          link: VBEN_PREVIEW_URL,
+          link: VBEN_ANT_PREVIEW_URL,
           title: $t('page.vben.antdv'),
         },
       },

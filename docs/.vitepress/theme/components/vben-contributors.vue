@@ -4,7 +4,10 @@
   <div class="vp-doc vben-contributors">
     <p>Contributors</p>
     <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
+      <img
+        alt="Contributors"
+        src="https://opencollective.com/vbenjs/contributors.svg?button=false"
+      />
     </a>
   </div>
 </template>
