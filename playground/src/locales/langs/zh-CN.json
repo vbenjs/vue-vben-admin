@@ -61,6 +61,9 @@
       "title": "示例",
       "ellipsis": {
         "title": "文本省略"
+      },
+      "fullScreen": {
+        "title": "全屏"
       }
     }
   }
