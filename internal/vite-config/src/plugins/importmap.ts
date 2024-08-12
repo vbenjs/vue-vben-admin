@@ -80,7 +80,7 @@ async function viteImportMapPlugin(
   const firstLayerKeys = Object.keys(scopes);
   const inputMapScopes: string[] = [];
   firstLayerKeys.forEach((key) => {
-    inputMapScopes.push(...Object.keys(scopes[key]));
+    inputMapScopes.push(...Object.keys(scopes[key] || {}));
   });
   const inputMapImports = Object.keys(imports);
 
@@ -160,7 +160,10 @@ async function viteImportMapPlugin(
             options.defaultProvider || DEFAULT_PROVIDER,
           );
 
-          const resultHtml = await injectShimsToHtml(html, esModuleShimsSrc);
+          const resultHtml = await injectShimsToHtml(
+            html,
+            esModuleShimsSrc || '',
+          );
           html = await minify(resultHtml || html, {
             collapseWhitespace: true,
             minifyCSS: true,
