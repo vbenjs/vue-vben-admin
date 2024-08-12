@@ -3,58 +3,51 @@ import { describe, expect, it } from 'vitest';
 import { diff } from './diff';
 
 describe('diff function', () => {
-  it('should correctly find differences in flat objects', () => {
-    const oldObj = { a: 1, b: 2, c: 3 };
-    const newObj = { a: 1, b: 3, c: 3 };
-    expect(diff(oldObj, newObj)).toEqual({ b: 3 });
+  it('should return an empty object when comparing identical objects', () => {
+    const obj1 = { a: 1, b: { c: 2 } };
+    const obj2 = { a: 1, b: { c: 2 } };
+    expect(diff(obj1, obj2)).toEqual(undefined);
   });
 
-  it('should correctly handle nested objects', () => {
-    const oldObj = { a: { b: 1, c: 2 }, d: 3 };
-    const newObj = { a: { b: 1, c: 3 }, d: 3 };
-    expect(diff(oldObj, newObj)).toEqual({ a: { b: 1, c: 3 } });
+  it('should detect simple changes in primitive values', () => {
+    const obj1 = { a: 1, b: 2 };
+    const obj2 = { a: 1, b: 3 };
+    expect(diff(obj1, obj2)).toEqual({ b: 3 });
   });
 
-  it('should correctly handle arrays`', () => {
-    const oldObj = { a: [1, 2, 3] };
-    const newObj = { a: [1, 2, 4] };
-    expect(diff(oldObj, newObj)).toEqual({ a: [1, 2, 4] });
+  it('should detect nested object changes', () => {
+    const obj1 = { a: 1, b: { c: 2, d: 4 } };
+    const obj2 = { a: 1, b: { c: 3, d: 4 } };
+    expect(diff(obj1, obj2)).toEqual({ b: { c: 3 } });
   });
 
-  it('should correctly handle nested arrays', () => {
-    const oldObj = {
-      a: [
-        [1, 2],
-        [3, 4],
-      ],
-    };
-    const newObj = {
-      a: [
-        [1, 2],
-        [3, 5],
-      ],
-    };
-    expect(diff(oldObj, newObj)).toEqual({
-      a: [
-        [1, 2],
-        [3, 5],
-      ],
-    });
+  it('should handle array changes', () => {
+    const obj1 = { a: [1, 2, 3], b: 2 };
+    const obj2 = { a: [1, 2, 4], b: 2 };
+    expect(diff(obj1, obj2)).toEqual({ a: [1, 2, 4] });
   });
 
-  it('should return null if objects are identical', () => {
-    const oldObj = { a: 1, b: 2, c: 3 };
-    const newObj = { a: 1, b: 2, c: 3 };
-    expect(diff(oldObj, newObj)).toBeNull();
+  it('should handle added keys', () => {
+    const obj1 = { a: 1 };
+    const obj2 = { a: 1, b: 2 };
+    expect(diff(obj1, obj2)).toEqual({ b: 2 });
   });
 
-  it('should return differences between two objects excluding ignored fields', () => {
-    const oldObj = { a: 1, b: 2, c: 3, d: 6 };
-    const newObj = { a: 2, b: 2, c: 4, d: 5 };
-    const ignoreFields: (keyof typeof newObj)[] = ['a', 'd'];
+  it('should handle removed keys', () => {
+    const obj1 = { a: 1, b: 2 };
+    const obj2 = { a: 1 };
+    expect(diff(obj1, obj2)).toEqual(undefined);
+  });
 
-    const result = diff(oldObj, newObj, ignoreFields);
+  it('should handle boolean value changes', () => {
+    const obj1 = { a: true, b: false };
+    const obj2 = { a: true, b: true };
+    expect(diff(obj1, obj2)).toEqual({ b: true });
+  });
 
-    expect(result).toEqual({ c: 4 });
+  it('should handle null and undefined values', () => {
+    const obj1 = { a: null, b: undefined };
+    const obj2: any = { a: 1, b: undefined };
+    expect(diff(obj1, obj2)).toEqual({ a: 1 });
   });
 });

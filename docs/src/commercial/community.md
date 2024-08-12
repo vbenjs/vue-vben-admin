@@ -14,8 +14,8 @@
 
 :::
 
-作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群：
+作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群。
 
 通过微信联系作者，注明加群来意：
 
- <img src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/wechat.jpg" style="width: 300px;"/>
+<img src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/wechat.jpg" style="width: 300px;"/>
