@@ -47,7 +47,8 @@
         "icons": "Icons",
         "watermark": "Watermark",
         "tabs": "Tabs",
-        "tabDetail": "Tab Detail Page"
+        "tabDetail": "Tab Detail Page",
+        "clipboard": "Clipboard"
       },
       "breadcrumb": {
         "navigation": "Breadcrumb Navigation",
