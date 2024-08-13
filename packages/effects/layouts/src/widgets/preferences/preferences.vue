@@ -5,7 +5,7 @@ import { loadLocaleMessages } from '@vben/locales';
 import { preferences, updatePreferences } from '@vben/preferences';
 import { capitalizeFirstLetter } from '@vben/utils';
 
-import Preferences from './preferences-sheet.vue';
+import PreferencesSheet from './preferences-sheet.vue';
 
 /**
  * preferences 转成 vue props
@@ -47,5 +47,5 @@ const listen = computed(() => {
 });
 </script>
 <template>
-  <Preferences v-bind="attrs" v-on="listen" />
+  <PreferencesSheet v-bind="attrs" v-on="listen" />
 </template>
