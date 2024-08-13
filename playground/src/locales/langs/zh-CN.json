@@ -47,7 +47,8 @@
         "icons": "图标",
         "watermark": "水印",
         "tabs": "标签页",
-        "tabDetail": "标签详情页"
+        "tabDetail": "标签详情页",
+        "clipboard": "剪贴板"
       },
       "breadcrumb": {
         "navigation": "面包屑导航",

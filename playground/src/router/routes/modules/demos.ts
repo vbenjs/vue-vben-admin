@@ -165,6 +165,15 @@ const routes: RouteRecordRaw[] = [
               },
             ],
           },
+          {
+            name: 'ClipboardDemo',
+            path: 'clipboard',
+            component: () =>
+              import('#/views/demos/features/clipboard/index.vue'),
+            meta: {
+              title: $t('page.demos.features.clipboard'),
+            },
+          },
         ],
       },
       // 面包屑导航
