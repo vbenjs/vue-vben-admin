@@ -24,11 +24,20 @@ const props = withDefaults(defineProps<Props>(), {
       v-if="description || $slots.description || title"
       class="bg-card px-6 py-4"
     >
-      <div class="mb-2 flex justify-between text-xl font-bold leading-10">
-        {{ title }}
-      </div>
-      <template v-if="description">{{ description }}</template>
-      <slot v-else name="description"></slot>
+      <slot name="title">
+        <div
+          v-if="title"
+          class="mb-2 flex justify-between text-lg font-semibold"
+        >
+          {{ title }}
+        </div>
+      </slot>
+
+      <slot name="description">
+        <p v-if="description" class="text-muted-foreground">
+          {{ description }}
+        </p>
+      </slot>
     </div>
 
     <div :class="contentClass" class="m-4">

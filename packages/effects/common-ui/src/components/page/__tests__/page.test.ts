@@ -58,6 +58,20 @@ describe('page.vue', () => {
     expect(contentDiv.classes()).toContain('custom-class');
   });
 
+  it('does not render title slot if title prop is provided', () => {
+    const wrapper = mount(Page, {
+      props: {
+        title: 'Test Title',
+      },
+      slots: {
+        title: '<p>Title Slot Content</p>',
+      },
+    });
+
+    expect(wrapper.text()).toContain('Title Slot Content');
+    expect(wrapper.html()).not.toContain('Test Title');
+  });
+
   it('does not render description slot if description prop is provided', () => {
     const wrapper = mount(Page, {
       props: {
@@ -68,7 +82,7 @@ describe('page.vue', () => {
       },
     });
 
-    expect(wrapper.text()).toContain('Test Description');
-    expect(wrapper.html()).not.toContain('Description Slot Content');
+    expect(wrapper.text()).toContain('Description Slot Content');
+    expect(wrapper.html()).not.toContain('Test Description');
   });
 });

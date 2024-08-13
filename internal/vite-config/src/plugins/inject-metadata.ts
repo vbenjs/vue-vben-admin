@@ -16,8 +16,8 @@ function resolvePackageVersion(
 async function resolveMonorepoDependencies() {
   const { packages } = await getPackages();
 
-  const resultDevDependencies: Record<string, string> = {};
-  const resultDependencies: Record<string, string> = {};
+  const resultDevDependencies: Record<string, string | undefined> = {};
+  const resultDependencies: Record<string, string | undefined> = {};
   const pkgsMeta: Record<string, string> = {};
 
   for (const { packageJson } of packages) {
