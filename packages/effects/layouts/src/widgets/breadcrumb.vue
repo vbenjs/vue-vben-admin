@@ -30,11 +30,7 @@ const breadcrumbs = computed((): IBreadcrumb[] => {
   const resultBreadcrumb: IBreadcrumb[] = [];
 
   for (const match of matched) {
-    const {
-      meta,
-      path,
-      //  children = []
-    } = match;
+    const { meta, path } = match;
     const { hideChildrenInMenu, hideInBreadcrumb, icon, name, title } =
       meta || {};
     if (hideInBreadcrumb || hideChildrenInMenu || !path) {
@@ -45,13 +41,6 @@ const breadcrumbs = computed((): IBreadcrumb[] => {
       icon,
       path: path || route.path,
       title: title ? $t((title || name) as string) : '',
-      // items: children.map((child) => {
-      //   return {
-      //     icon: child?.meta?.icon as string,
-      //     path: child.path,
-      //     title: child?.meta?.title as string,
-      //   };
-      // }),
     });
   }
   if (props.showHome) {

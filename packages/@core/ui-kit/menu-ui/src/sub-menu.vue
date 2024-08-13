@@ -31,12 +31,6 @@ const hasChildren = computed(() => {
     Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0
   );
 });
-
-// function menuIcon(menu: MenuRecordRaw) {
-//   return props.activePath === menu.path
-//     ? menu.activeIcon || menu.icon
-//     : menu.icon;
-// }
 </script>
 
 <template>
