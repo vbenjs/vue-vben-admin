@@ -1,5 +1,3 @@
-export * from './about';
-export * from './authentication';
-export * from './dashboard';
-export * from './fallback';
+export * from './components';
+export * from './ui';
 export { useToast } from '@vben-core/shadcn-ui';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared';
 
@@ -9,9 +9,7 @@ import {
   useForwardProps,
 } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & TabsIndicatorProps
->();
+const props = defineProps<{ class?: any } & TabsIndicatorProps>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

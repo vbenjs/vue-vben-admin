@@ -3,7 +3,7 @@ import type { MenuRecordBadgeRaw } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { convertToRgb } from '@vben-core/shared';
+import { isValidColor } from '@vben-core/shared';
 
 import BadgeDot from './menu-badge-dot.vue';
 
@@ -15,10 +15,10 @@ const props = withDefaults(defineProps<Props>(), {});
 
 const variantsMap: Record<string, string> = {
   default: 'bg-green-500',
-  destructive: ' bg-destructive',
+  destructive: 'bg-destructive',
   primary: 'bg-primary',
-  success: ' bg-green-500',
-  warning: ' bg-yellow-500',
+  success: 'bg-green-500',
+  warning: 'bg-yellow-500',
 };
 
 const isDot = computed(() => props.badgeType === 'dot');
@@ -34,9 +34,9 @@ const badgeClass = computed(() => {
 });
 
 const badgeStyle = computed(() => {
-  if (badgeClass.value) {
+  if (badgeClass.value && isValidColor(badgeClass.value)) {
     return {
-      backgroundColor: convertToRgb(badgeClass.value),
+      backgroundColor: badgeClass.value,
     };
   }
   return {};

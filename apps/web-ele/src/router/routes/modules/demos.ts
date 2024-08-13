@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         meta: {
-          icon: 'mdi:shield-key-outline',
           title: $t('page.demos.element-plus'),
         },
         name: 'NaiveDemos',

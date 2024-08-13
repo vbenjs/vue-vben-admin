@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { Page } from '@vben/common-ui';
+
 import { NDataTable } from 'naive-ui';
 
 const columns = ref([
@@ -25,7 +27,12 @@ const data = [
 </script>
 
 <template>
-  <NDataTable :columns="columns" :data="data" />
+  <Page
+    description="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
+    title="NDataTable"
+  >
+    <NDataTable :columns="columns" :data="data" />
+  </Page>
 </template>
 
 <style scoped></style>

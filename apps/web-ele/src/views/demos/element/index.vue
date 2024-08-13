@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Page } from '@vben/common-ui';
+
 import {
   ElButton,
   ElCard,
@@ -39,58 +41,38 @@ function notify(type: NotificationType) {
 </script>
 
 <template>
-  <div class="p-5">
-    <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">Element Plus组件使用演示</h1>
-      <div class="text-foreground/80 mt-2">支持多语言，主题功能集成切换等</div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">按钮</span>
-      </div>
-      <div>
-        <ElSpace>
-          <ElButton>Default</ElButton>
-          <ElButton type="primary"> Primary </ElButton>
-          <ElButton type="info"> Info </ElButton>
-          <ElButton type="success"> Success </ElButton>
-          <ElButton type="warning"> Warning </ElButton>
-          <ElButton type="danger"> Error </ElButton>
-        </ElSpace>
-      </div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">卡片</span>
-      </div>
-      <div>
-        <ElCard title="卡片"> 卡片内容 </ElCard>
-      </div>
-    </div>
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">信息 Message </span>
-      </div>
-      <div class="flex gap-3">
+  <Page
+    description="支持多语言，主题功能集成切换等"
+    title="Element Plus组件使用演示"
+  >
+    <ElCard class="mb-5">
+      <template #header> 按钮 </template>
+      <ElSpace>
+        <ElButton>Default</ElButton>
+        <ElButton type="primary"> Primary </ElButton>
+        <ElButton type="info"> Info </ElButton>
+        <ElButton type="success"> Success </ElButton>
+        <ElButton type="warning"> Warning </ElButton>
+        <ElButton type="danger"> Error </ElButton>
+      </ElSpace>
+    </ElCard>
+    <ElCard class="mb-5">
+      <template #header> Message </template>
+      <ElSpace>
         <ElButton type="info" @click="info"> 信息 </ElButton>
         <ElButton type="danger" @click="error"> 错误 </ElButton>
         <ElButton type="warning" @click="warning"> 警告 </ElButton>
         <ElButton type="success" @click="success"> 成功 </ElButton>
-      </div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">通知 Notification </span>
-      </div>
-      <div class="flex gap-3">
+      </ElSpace>
+    </ElCard>
+    <ElCard class="mb-5">
+      <template #header> Notification </template>
+      <ElSpace>
         <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
         <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
         <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
         <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
-      </div>
-    </div>
-  </div>
+      </ElSpace>
+    </ElCard>
+  </Page>
 </template>

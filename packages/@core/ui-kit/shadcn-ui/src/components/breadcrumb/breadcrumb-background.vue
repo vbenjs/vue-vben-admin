@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './interface';
+import type { IBreadcrumb } from './types';
 
 import { VbenIcon } from '../icon';
 
@@ -33,7 +33,8 @@ function handleClick(path?: string) {
           <a href="javascript:void 0" @click.stop="handleClick(item.path)">
             <span class="flex-center z-10 h-full">
               <VbenIcon
-                v-if="item.icon && showIcon"
+                v-if="showIcon"
+                :fallback="showIcon"
                 :icon="item.icon"
                 class="mr-1 size-4 flex-shrink-0"
               />

@@ -77,6 +77,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     /**
      * @zh_CN 跳转到标签页
      * @param tab
+     * @param router
      */
     async _goToTab(tab: TabDefinition, router: Router) {
       const { params, path, query } = tab;
@@ -243,9 +244,13 @@ export const useTabbarStore = defineStore('core-tabbar', {
     /**
      * @zh_CN 通过key关闭标签页
      * @param key
+     * @param router
      */
     async closeTabByKey(key: string, router: Router) {
-      const index = this.tabs.findIndex((item) => getTabPath(item) === key);
+      const originKey = decodeURIComponent(key);
+      const index = this.tabs.findIndex(
+        (item) => getTabPath(item) === originKey,
+      );
       if (index === -1) {
         return;
       }
@@ -271,7 +276,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async openTabInNewWindow(tab: TabDefinition) {
       const { hash, origin } = location;
-      const path = tab.fullPath;
+      const path = tab.fullPath || tab.path;
       const fullPath = path.startsWith('/') ? path : `/${path}`;
       const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
       openWindow(url, { target: '_blank' });

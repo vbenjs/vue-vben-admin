@@ -5,27 +5,23 @@ import type {
   PopoverRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
+
+import { useForwardPropsEmits } from 'radix-vue';
 
 import {
   PopoverContent,
   Popover as PopoverRoot,
   PopoverTrigger,
-} from '@vben-core/shadcn-ui/components/ui/popover';
+} from '../ui/popover';
 
-import { useForwardPropsEmits } from 'radix-vue';
+interface Props extends PopoverRootProps {
+  class?: any;
+  contentClass?: any;
+  contentProps?: PopoverContentProps;
+}
 
-const props = withDefaults(
-  defineProps<
-    {
-      class?: HTMLAttributes['class'];
-      contentClass?: HTMLAttributes['class'];
-      contentProps?: PopoverContentProps;
-    } & PopoverRootProps
-  >(),
-  {},
-);
+const props = withDefaults(defineProps<Props>(), {});
 
 const emits = defineEmits<PopoverRootEmits>();
 

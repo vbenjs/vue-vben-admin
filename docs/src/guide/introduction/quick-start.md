@@ -72,11 +72,24 @@ pnpm install
 
 ### 运行项目
 
-执行以下命令即可运行项目:
+执行以下命运行项目:
 
 ```bash
 # 启动项目
 pnpm dev
+```
+
+此时，你会看到类似如下的输出，选择你需要运行的项目：
+
+```bash
+│
+◆  Select the app you need to run [dev]:
+│  ● @vben/web-antd
+│  ○ @vben/web-ele
+│  ○ @vben/web-naive
+│  ○ @vben/docs
+│  ○ @vben/playground
+└
 ```
 
 现在，你可以在浏览器访问 `http://localhost:5555` 查看项目。

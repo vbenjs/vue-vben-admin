@@ -167,6 +167,7 @@
 
   "i18n-ally.localesPaths": [
     "packages/locales/src/langs",
+    "playground/src/langs",
     "apps/*/src/locales/langs"
   ],
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
@@ -183,7 +184,7 @@
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
-    "Dockerfile": "Dockerfile,.docker*,docker-entrypoint.sh,build-local-docker*",
+    "Dockerfile": "Dockerfile,.docker*,docker-entrypoint.sh,build-local-docker*,nginx.conf",
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*,cspell.json",
     "tailwind.config.mjs": "postcss.*"
   },
@@ -191,5 +192,6 @@
   "i18n-ally.keystyle": "nested",
   "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vitest.disableWorkspaceWarning": true
 }

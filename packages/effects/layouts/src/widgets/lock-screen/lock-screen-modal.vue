@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { RegisterEmits } from './typings';
-
 import { computed, reactive } from 'vue';
 
 import {
@@ -17,6 +15,14 @@ import {
 interface Props {
   avatar?: string;
   text?: string;
+}
+
+interface LockAndRegisterParams {
+  lockScreenPassword: string;
+}
+
+interface RegisterEmits {
+  submit: [LockAndRegisterParams];
 }
 
 defineOptions({

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type { NotificationType } from 'naive-ui';
+import { Page } from '@vben/common-ui';
 
+import { type NotificationType } from 'naive-ui';
 import { NButton, NCard, NSpace, useMessage, useNotification } from 'naive-ui';
 
 const notification = useNotification();
@@ -33,59 +34,35 @@ function notify(type: NotificationType) {
 </script>
 
 <template>
-  <div class="p-5">
-    <div class="card-box p-5">
-      <h1 class="text-xl font-semibold">naive组件使用演示</h1>
-      <div class="text-foreground/80 mt-2">支持多语言，主题功能集成切换等</div>
-    </div>
+  <Page description="支持多语言，主题功能集成切换等" title="naive组件使用演示">
+    <NCard class="mb-5" title="按钮">
+      <NSpace>
+        <NButton>Default</NButton>
+        <NButton type="tertiary"> Tertiary </NButton>
+        <NButton type="primary"> Primary </NButton>
+        <NButton type="info"> Info </NButton>
+        <NButton type="success"> Success </NButton>
+        <NButton type="warning"> Warning </NButton>
+        <NButton type="error"> Error </NButton>
+      </NSpace>
+    </NCard>
 
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">按钮</span>
-      </div>
-      <div>
-        <NSpace>
-          <NButton>Default</NButton>
-          <NButton type="tertiary"> Tertiary </NButton>
-          <NButton type="primary"> Primary </NButton>
-          <NButton type="info"> Info </NButton>
-          <NButton type="success"> Success </NButton>
-          <NButton type="warning"> Warning </NButton>
-          <NButton type="error"> Error </NButton>
-        </NSpace>
-      </div>
-    </div>
-
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">卡片</span>
-      </div>
-      <div>
-        <NCard title="卡片"> 卡片内容 </NCard>
-      </div>
-    </div>
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">信息 Message </span>
-      </div>
-      <div class="flex gap-3">
+    <NCard class="mb-5" title="Message">
+      <NSpace>
         <NButton type="error" @click="error"> 错误 </NButton>
         <NButton type="warning" @click="warning"> 警告 </NButton>
         <NButton type="success" @click="success"> 成功 </NButton>
         <NButton type="primary" @click="loading"> 加载中 </NButton>
-      </div>
-    </div>
+      </NSpace>
+    </NCard>
 
-    <div class="card-box mt-5 p-5">
-      <div class="mb-3">
-        <span class="text-lg font-semibold">通知 Notification </span>
-      </div>
-      <div class="flex gap-3">
+    <NCard class="mb-5" title="Notification">
+      <NSpace>
         <NButton type="error" @click="notify('error')"> 错误 </NButton>
         <NButton type="warning" @click="notify('warning')"> 警告 </NButton>
         <NButton type="success" @click="notify('success')"> 成功 </NButton>
         <NButton type="primary" @click="notify('info')"> 加载中 </NButton>
-      </div>
-    </div>
-  </div>
+      </NSpace>
+    </NCard>
+  </Page>
 </template>

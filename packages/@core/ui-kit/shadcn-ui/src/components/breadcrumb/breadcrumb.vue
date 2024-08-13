@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './interface';
+import type { IBreadcrumb } from './types';
 
 import { ChevronDown } from '@vben-core/icons';
+
+import { VbenIcon } from '../icon';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,15 +11,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@vben-core/shadcn-ui/components/ui/breadcrumb';
+} from '../ui/breadcrumb';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@vben-core/shadcn-ui/components/ui/dropdown-menu';
-
-import { VbenIcon } from '../icon';
+} from '../ui/dropdown-menu';
 
 interface Props {
   breadcrumbs: IBreadcrumb[];
@@ -51,7 +51,8 @@ function handleClick(path?: string) {
               <DropdownMenu>
                 <DropdownMenuTrigger class="flex items-center gap-1">
                   <VbenIcon
-                    v-if="item.icon && showIcon"
+                    v-if="showIcon"
+                    :fallback="showIcon"
                     :icon="item.icon"
                     class="size-5"
                   />
@@ -77,8 +78,9 @@ function handleClick(path?: string) {
             >
               <div class="flex-center">
                 <VbenIcon
-                  v-if="item.icon && showIcon"
+                  v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
+                  :fallback="showIcon"
                   :icon="item.icon"
                   class="mr-1 size-4"
                 />
@@ -88,8 +90,9 @@ function handleClick(path?: string) {
             <BreadcrumbPage v-else>
               <div class="flex-center">
                 <VbenIcon
-                  v-if="item.icon && showIcon"
+                  v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
+                  :fallback="showIcon"
                   :icon="item.icon"
                   class="mr-1 size-4"
                 />

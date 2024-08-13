@@ -5,24 +5,23 @@ import type {
   HoverCardRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
+
+import { useForwardPropsEmits } from 'radix-vue';
 
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@vben-core/shadcn-ui/components/ui/hover-card';
+} from '../ui/hover-card';
 
-import { useForwardPropsEmits } from 'radix-vue';
+interface Props extends HoverCardRootProps {
+  class?: any;
+  contentClass?: any;
+  contentProps?: HoverCardContentProps;
+}
 
-const props = defineProps<
-  {
-    class?: HTMLAttributes['class'];
-    contentClass?: HTMLAttributes['class'];
-    contentProps?: HoverCardContentProps;
-  } & HoverCardRootProps
->();
+const props = defineProps<Props>();
 
 const emits = defineEmits<HoverCardRootEmits>();
 

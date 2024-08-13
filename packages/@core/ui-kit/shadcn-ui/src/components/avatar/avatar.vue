@@ -5,20 +5,15 @@ import type {
   AvatarRootProps,
 } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
 import { computed } from 'vue';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@vben-core/shadcn-ui/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;
-  class?: HTMLAttributes['class'];
+  class?: any;
   dot?: boolean;
-  dotClass?: HTMLAttributes['class'];
+  dotClass?: any;
 }
 
 defineOptions({

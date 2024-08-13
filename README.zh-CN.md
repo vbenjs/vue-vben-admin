@@ -126,6 +126,13 @@ pnpm build
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
+## Contributor
+
+<a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
+  <img alt="Contributors"
+        src="https://opencollective.com/vbenjs/contributors.svg?button=false" />
+</a>
+
 ## Discord
 
 - [Github Discussions](https://github.com/anncwb/vue-vben-admin/discussions)

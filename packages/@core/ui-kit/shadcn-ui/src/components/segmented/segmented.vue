@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import type { SegmentedItem } from './interface';
+import type { SegmentedItem } from './types';
 
 import { computed } from 'vue';
 
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-} from '@vben-core/shadcn-ui/components/ui/tabs';
-
 import { TabsTrigger } from 'radix-vue';
 
+import { Tabs, TabsContent, TabsList } from '../ui/tabs';
 import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {

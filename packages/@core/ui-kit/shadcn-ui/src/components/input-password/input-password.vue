@@ -2,13 +2,10 @@
 import { ref, useSlots } from 'vue';
 
 import { Eye, EyeOff } from '@vben-core/icons';
-import {
-  type InputProps,
-  VbenInput,
-} from '@vben-core/shadcn-ui/components/input';
 
 import { useForwardProps } from 'radix-vue';
 
+import { type InputProps, VbenInput } from '../input';
 import PasswordStrength from './password-strength.vue';
 
 interface Props extends InputProps {}

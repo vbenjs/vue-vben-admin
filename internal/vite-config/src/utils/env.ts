@@ -6,6 +6,14 @@ import { fs } from '@vben/node-utils';
 
 import dotenv from 'dotenv';
 
+const getBoolean = (value: string | undefined) => value === 'true';
+
+const getString = (value: string | undefined, fallback: string) =>
+  value ?? fallback;
+
+const getNumber = (value: string | undefined, fallback: number) =>
+  Number(value) || fallback;
+
 /**
  * 获取当前环境下生效的配置文件名
  */
@@ -63,6 +71,7 @@ async function loadAndConvertEnv(
   } & Partial<ApplicationPluginOptions>
 > {
   const envConfig = await loadEnv(match, confFiles);
+
   const {
     VITE_APP_TITLE,
     VITE_BASE,
@@ -74,22 +83,22 @@ async function loadAndConvertEnv(
     VITE_PWA,
     VITE_VISUALIZER,
   } = envConfig;
-  const compress = VITE_COMPRESS || '';
-  const compressTypes = compress
+
+  const compressTypes = (VITE_COMPRESS ?? '')
     .split(',')
     .filter((item) => item === 'brotli' || item === 'gzip');
 
   return {
-    appTitle: VITE_APP_TITLE ?? 'Vben Admin',
-    base: VITE_BASE || '/',
-    compress: !!compress,
-    compressTypes: compressTypes as ('brotli' | 'gzip')[],
-    devtools: VITE_DEVTOOLS === 'true',
-    injectAppLoading: VITE_INJECT_APP_LOADING === 'true',
-    nitroMock: VITE_NITRO_MOCK === 'true',
-    port: Number(VITE_PORT) || 5173,
-    pwa: VITE_PWA === 'true',
-    visualizer: VITE_VISUALIZER === 'true',
+    appTitle: getString(VITE_APP_TITLE, 'Vben Admin'),
+    base: getString(VITE_BASE, '/'),
+    compress: compressTypes.length > 0,
+    compressTypes,
+    devtools: getBoolean(VITE_DEVTOOLS),
+    injectAppLoading: getBoolean(VITE_INJECT_APP_LOADING),
+    nitroMock: getBoolean(VITE_NITRO_MOCK),
+    port: getNumber(VITE_PORT, 5173),
+    pwa: getBoolean(VITE_PWA),
+    visualizer: getBoolean(VITE_VISUALIZER),
   };
 }
 

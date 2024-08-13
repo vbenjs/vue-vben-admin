@@ -1,6 +1,6 @@
 {
   "name": "@vben/web-ele",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -40,11 +40,11 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^10.11.0",
+    "@vueuse/core": "^10.11.1",
     "dayjs": "^1.11.12",
-    "element-plus": "^2.7.8",
-    "pinia": "2.2.0",
-    "vue": "^3.4.36",
+    "element-plus": "^2.8.0",
+    "pinia": "2.2.1",
+    "vue": "^3.4.37",
     "vue-router": "^4.4.3"
   },
   "devDependencies": {

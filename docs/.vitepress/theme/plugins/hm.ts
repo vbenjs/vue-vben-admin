@@ -23,6 +23,6 @@ function registerAnalytics() {
 
 export function initHmPlugin() {
   if (inBrowser && import.meta.env.PROD) {
-    registerAnalytics(SITE_ID);
+    registerAnalytics();
   }
 }

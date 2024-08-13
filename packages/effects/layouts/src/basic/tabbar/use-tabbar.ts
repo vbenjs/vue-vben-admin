@@ -1,9 +1,6 @@
 import type { TabDefinition } from '@vben/types';
 import type { IContextMenuItem } from '@vben-core/tabs-ui';
-import type {
-  RouteLocationNormalized,
-  RouteLocationNormalizedGeneric,
-} from 'vue-router';
+import type { RouteLocationNormalizedGeneric } from 'vue-router';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -103,7 +100,11 @@ export function useTabbar() {
   watch(
     () => route.path,
     () => {
-      tabbarStore.addTab(route as RouteLocationNormalized);
+      const meta = route.matched?.[route.matched.length - 1]?.meta;
+      tabbarStore.addTab({
+        ...route,
+        meta: meta || route.meta,
+      });
     },
     { immediate: true },
   );

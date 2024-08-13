@@ -6,8 +6,47 @@ on:
       - main
 
 jobs:
-  deploy-push-ftp:
-    name: Deploy Push Ftp
+  deploy-push-playground-ftp:
+    name: Deploy Push Playground Ftp
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sed Config Base
+        shell: bash
+        run: |
+          sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./playground/.env.production
+          sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./playground/.env.production
+          cat ./playground/.env.production
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Sync Playground files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEB_PLAYGROUND_FTP_ACCOUNT }}
+          password: ${{ secrets.WEB_PLAYGROUND_FTP_PWSSWORD }}
+          local-dir: ./playground/dist/
+
+      - name: Sync Docs files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEBSITE_FTP_ACCOUNT }}
+          password: ${{ secrets.WEBSITE_FTP_PASSWORD }}
+          local-dir: ./docs/.vitepress/dist/
+
+  deploy-push-antd-ftp:
+    name: Deploy Push Antd Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:
@@ -22,9 +61,65 @@ jobs:
           sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./apps/web-antd/.env.production
           sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./apps/web-antd/.env.production
           cat ./apps/web-antd/.env.production
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEB_ANTD_FTP_ACCOUNT }}
+          password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
+          local-dir: ./apps/web-antd/dist/
+
+  deploy-push-ele-ftp:
+    name: Deploy Push Element Ftp
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sed Config Base
+        shell: bash
+        run: |
           sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./apps/web-ele/.env.production
           sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./apps/web-ele/.env.production
           cat ./apps/web-ele/.env.production
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEB_ELE_FTP_ACCOUNT }}
+          password: ${{ secrets.WEB_ELE_FTP_PASSWORD }}
+          local-dir: ./apps/web-ele/dist/
+
+  deploy-push-naive-ftp:
+    name: Deploy Push Naive Ftp
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sed Config Base
+        shell: bash
+        run: |
           sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./apps/web-naive/.env.production
           sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./apps/web-naive/.env.production
           cat ./apps/web-naive/.env.production
@@ -35,34 +130,10 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Sync Web Antd files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.PRO_FTP_HOST }}
-          username: ${{ secrets.WEB_ANTD_FTP_ACCOUNT }}
-          password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
-          local-dir: ./apps/web-antd/dist/
-
-      - name: Sync Web Naive files
+      - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.PRO_FTP_HOST }}
           username: ${{ secrets.WEB_NAIVE_FTP_ACCOUNT }}
           password: ${{ secrets.WEB_NAIVE_FTP_PASSWORD }}
           local-dir: ./apps/web-naive/dist/
-
-      - name: Sync Web Ele files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.PRO_FTP_HOST }}
-          username: ${{ secrets.WEB_ELE_FTP_ACCOUNT }}
-          password: ${{ secrets.WEB_ELE_FTP_PASSWORD }}
-          local-dir: ./apps/web-ele/dist/
-
-      - name: Sync Docs files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.PRO_FTP_HOST }}
-          username: ${{ secrets.WEBSITE_FTP_ACCOUNT }}
-          password: ${{ secrets.WEBSITE_FTP_PASSWORD }}
-          local-dir: ./docs/.vitepress/dist/

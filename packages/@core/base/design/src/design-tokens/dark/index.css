@@ -19,8 +19,13 @@
   --popover-foreground: 210 40% 98%;
 
   /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
-  --muted: 220deg 6.82% 17.25%;
-  --muted-foreground: 215 20.2% 65.1%;
+
+  /* --muted: 220deg 6.82% 17.25%; */
+
+  /* --muted-foreground: 215 20.2% 65.1%; */
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
 
   /* 主题颜色 */
 
