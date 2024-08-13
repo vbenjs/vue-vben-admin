@@ -23,14 +23,6 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
-      {
-        name: 'FullScreenDemo',
-        path: 'full-screen',
-        component: () => import('#/views/examples/full-screen/index.vue'),
-        meta: {
-          title: $t('page.examples.fullScreen.title'),
-        },
-      },
     ],
   },
 ];

@@ -47,7 +47,10 @@
         "icons": "图标",
         "watermark": "水印",
         "tabs": "标签页",
-        "tabDetail": "标签详情页"
+        "tabDetail": "标签详情页",
+        "fullScreen": {
+          "title": "全屏"
+        }
       },
       "breadcrumb": {
         "navigation": "面包屑导航",
@@ -61,9 +64,6 @@
       "title": "示例",
       "ellipsis": {
         "title": "文本省略"
-      },
-      "fullScreen": {
-        "title": "全屏"
       }
     }
   }

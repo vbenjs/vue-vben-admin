@@ -165,6 +165,15 @@ const routes: RouteRecordRaw[] = [
               },
             ],
           },
+          {
+            name: 'FullScreenDemo',
+            path: 'full-screen',
+            component: () =>
+              import('#/views/demos/features/full-screen/index.vue'),
+            meta: {
+              title: $t('page.demos.features.fullScreen.title'),
+            },
+          },
         ],
       },
       // 面包屑导航

@@ -47,7 +47,10 @@
         "icons": "Icons",
         "watermark": "Watermark",
         "tabs": "Tabs",
-        "tabDetail": "Tab Detail Page"
+        "tabDetail": "Tab Detail Page",
+        "fullScreen": {
+          "title": "FullScreen"
+        }
       },
       "breadcrumb": {
         "navigation": "Breadcrumb Navigation",
@@ -61,9 +64,6 @@
       "title": "Examples",
       "ellipsis": {
         "title": "EllipsisText"
-      },
-      "fullScreen": {
-        "title": "FullScreen"
       }
     }
   }
