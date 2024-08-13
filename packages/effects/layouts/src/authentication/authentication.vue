@@ -26,6 +26,7 @@ const logoSource = computed(() => preferences.logo.source);
     <!-- 头部 Logo 和应用名称 -->
     <div class="absolute left-0 top-0 z-10 flex flex-1">
       <div
+        :class="authPanelRight ? 'lg:text-white' : 'lg:text-foreground'"
         class="text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
         <img :alt="appName" :src="logoSource" class="mr-2" width="42" />
@@ -71,9 +72,9 @@ const logoSource = computed(() => preferences.logo.source);
 .login-background {
   background: linear-gradient(
     154deg,
-    hsl(var(--background) / 15%) 30%,
+    #07070915 30%,
     hsl(var(--primary) / 15%) 48%,
-    hsl(var(--background) / 8%) 64%
+    #07070915 64%
   );
   filter: blur(100px);
 }
