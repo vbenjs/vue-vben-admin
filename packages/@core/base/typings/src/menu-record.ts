@@ -1,5 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import type { Component } from 'vue';
+
 /**
  * 扩展路由原始对象
  */
@@ -44,7 +46,7 @@ interface MenuRecordRaw extends MenuRecordBadgeRaw {
   /**
    * 图标名
    */
-  icon?: string;
+  icon?: Component | string;
   /**
    * 菜单名
    */

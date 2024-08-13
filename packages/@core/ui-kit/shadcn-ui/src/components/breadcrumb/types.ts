@@ -1,5 +1,7 @@
+import type { Component } from 'vue';
+
 interface IBreadcrumb {
-  icon?: string;
+  icon?: Component | string;
   isHome?: boolean;
   items?: IBreadcrumb[];
   path?: string;
