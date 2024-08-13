@@ -86,10 +86,11 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
 
   if (message?.default) {
     i18n.global.setLocaleMessage(lang, message.default);
-
-    const mergeMessage = await loadMessages(lang);
-    i18n.global.mergeLocaleMessage(lang, mergeMessage);
   }
+
+  const mergeMessage = await loadMessages(lang);
+  i18n.global.mergeLocaleMessage(lang, mergeMessage);
+
   loadedLanguages.add(lang);
   return setI18nLanguage(lang);
 }
