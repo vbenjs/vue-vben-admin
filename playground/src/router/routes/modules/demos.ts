@@ -166,6 +166,15 @@ const routes: RouteRecordRaw[] = [
             ],
           },
           {
+            name: 'FullScreenDemo',
+            path: '/demos/features/full-screen',
+            component: () =>
+              import('#/views/demos/features/full-screen/index.vue'),
+            meta: {
+              title: $t('page.demos.features.fullScreen.title'),
+            },
+          },
+          {
             name: 'ClipboardDemo',
             path: '/demos/features/clipboard',
             component: () =>

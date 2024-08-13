@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         name: 'EllipsisDemo',
-        path: '/examples/ellipsis',
+        path: 'ellipsis',
         component: () => import('#/views/examples/ellipsis/index.vue'),
         meta: {
           title: $t('page.examples.ellipsis.title'),

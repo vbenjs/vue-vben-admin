@@ -48,6 +48,9 @@
         "watermark": "Watermark",
         "tabs": "Tabs",
         "tabDetail": "Tab Detail Page",
+        "fullScreen": {
+          "title": "FullScreen"
+        },
         "clipboard": "Clipboard"
       },
       "breadcrumb": {
