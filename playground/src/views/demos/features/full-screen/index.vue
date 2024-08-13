@@ -17,21 +17,18 @@ const { isFullscreen: isDomFullscreen, toggle: toggleDom } =
 <template>
   <Page title="全屏示例">
     <Card title="Window Full Screen">
-      <Button
-        :disabled="isFullscreen"
-        class="mr-2"
-        type="primary"
-        @click="enter"
-      >
-        Enter Window Full Screen
-      </Button>
-      <Button class="mr-2" @click="toggle"> Toggle Window Full Screen </Button>
+      <div class="flex flex-wrap items-center gap-4">
+        <Button :disabled="isFullscreen" type="primary" @click="enter">
+          Enter Window Full Screen
+        </Button>
+        <Button @click="toggle"> Toggle Window Full Screen </Button>
 
-      <Button class="mr-2" danger @click="exit">
-        Exit Window Full Screen
-      </Button>
+        <Button :disabled="!isFullscreen" danger @click="exit">
+          Exit Window Full Screen
+        </Button>
 
-      Current State: {{ isFullscreen }}
+        <span class="text-nowrap"> Current State: {{ isFullscreen }} </span>
+      </div>
     </Card>
 
     <Card title="Dom Full Screen">
