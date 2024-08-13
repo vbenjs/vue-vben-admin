@@ -16,15 +16,15 @@ outline: deep
 
 ```ts
 // 有需要可以自行打开注释，并创建文件夹
-// const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code --]
+// const externalRouteFiles = import.meta.glob('./external/**/*.ts', { eager: true }); // [!code --]
 const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code ++]
 /** 动态路由 */
 const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
 
-/** 静态路由列表，访问这些页面可以不需要权限 */
-// const staticRoutes: RouteRecordRaw[] = mergeRouteModules(staticRouteFiles); // [!code --]
-const staticRoutes: RouteRecordRaw[] = []; // [!code --]
-const staticRoutes: RouteRecordRaw[] = mergeRouteModules(staticRouteFiles); // [!code ++]
+/** 外部路由列表，访问这些页面可以不需要Layout，可能用于内嵌在别的系统 */
+// const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code --]
+const externalRoutes: RouteRecordRaw[] = []; // [!code --]
+const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); // [!code ++]
 ```
 
 ### 动态路由
