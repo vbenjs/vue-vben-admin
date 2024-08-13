@@ -50,7 +50,7 @@ export default withPwa(
         text: '最后更新于',
       },
       lightModeSwitchTitle: '切换到浅色模式',
-      logo: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/logo-v1.webp',
+      logo: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/logo-v1.webp',
       nav: nav(),
       outline: {
         label: '页面导航',
@@ -362,12 +362,12 @@ function pwa(): PwaOptions {
       icons: [
         {
           sizes: '192x192',
-          src: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/pwa-icon-192.png',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/pwa-icon-192.png',
           type: 'image/png',
         },
         {
           sizes: '512x512',
-          src: 'https://unpkg.com/@vbenjs/static-source@0.1.5/source/pwa-icon-512.png',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/pwa-icon-512.png',
           type: 'image/png',
         },
       ],
