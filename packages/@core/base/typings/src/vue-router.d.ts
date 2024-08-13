@@ -68,7 +68,7 @@ interface RouteMeta {
   /**
    * 图标（菜单/tab）
    */
-  icon?: string;
+  icon?: Component | string;
   /**
    * iframe 地址
    */
