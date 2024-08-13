@@ -31,10 +31,8 @@ const { isFullscreen: isDomFullscreen, toggle: toggleDom } =
       </div>
     </Card>
 
-    <Card title="Dom Full Screen">
-      <Button class="mr-2" type="primary" @click="toggleDom">
-        Enter Dom Full Screen
-      </Button>
+    <Card class="mt-3" title="Dom Full Screen">
+      <Button type="primary" @click="toggleDom"> Enter Dom Full Screen </Button>
     </Card>
 
     <div
