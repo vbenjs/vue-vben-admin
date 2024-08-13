@@ -50,7 +50,8 @@
         "tabDetail": "Tab Detail Page",
         "fullScreen": {
           "title": "FullScreen"
-        }
+        },
+        "clipboard": "Clipboard"
       },
       "breadcrumb": {
         "navigation": "Breadcrumb Navigation",
