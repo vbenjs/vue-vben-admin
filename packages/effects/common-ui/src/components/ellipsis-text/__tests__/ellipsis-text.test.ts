@@ -31,9 +31,16 @@ describe('ellipsis-text.vue', () => {
         default: 'This is a very long text that should be truncated.',
       },
     });
-
     const ellipsis = wrapper.find('.truncate');
+
+    // 点击 ellipsis，应该触发 expandChange，参数为 false
     await ellipsis.trigger('click');
     expect(wrapper.emitted('expandChange')).toBeTruthy();
+    expect(wrapper.emitted('expandChange')?.[0]).toEqual([true]);
+
+    // 再次点击，应该触发 expandChange，参数为 false
+    await ellipsis.trigger('click');
+    expect(wrapper.emitted('expandChange')?.length).toBe(2);
+    expect(wrapper.emitted('expandChange')?.[1]).toEqual([false]);
   });
 });

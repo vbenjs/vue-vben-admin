@@ -21,32 +21,16 @@ const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
     type: 'pink',
   },
   {
-    color: 'hsl(0 75% 42%)',
-    type: 'rose',
+    color: 'hsl(42 84% 61%)',
+    type: 'yellow',
   },
   {
     color: 'hsl(212 100% 45%)',
     type: 'sky-blue',
   },
   {
-    color: 'hsl(211 91% 39%)',
-    type: 'deep-blue',
-  },
-  {
     color: 'hsl(161 90% 43%)',
     type: 'green',
-  },
-  {
-    color: 'hsl(181 84% 32%)',
-    type: 'deep-green',
-  },
-  {
-    color: 'hsl(18 89% 40%)',
-    type: 'orange',
-  },
-  {
-    color: 'hsl(42 84% 61%)',
-    type: 'yellow',
   },
   {
     color: 'hsl(240 5% 26%)',
@@ -54,6 +38,25 @@ const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
     primaryColor: 'hsl(240 5.9% 10%)',
     type: 'zinc',
   },
+
+  {
+    color: 'hsl(181 84% 32%)',
+    type: 'deep-green',
+  },
+
+  {
+    color: 'hsl(211 91% 39%)',
+    type: 'deep-blue',
+  },
+  {
+    color: 'hsl(18 89% 40%)',
+    type: 'orange',
+  },
+  {
+    color: 'hsl(0 75% 42%)',
+    type: 'rose',
+  },
+
   {
     color: 'hsl(0 0% 25%)',
     darkPrimaryColor: 'hsl(0 0% 98%)',

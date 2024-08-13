@@ -13,7 +13,7 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw, SwatchBook } from '@vben/icons';
+import { Copy, RotateCw, Settings2 } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import {
   clearPreferencesCache,
@@ -230,7 +230,7 @@ async function handleReset() {
           :title="$t('preferences.title')"
           class="bg-primary flex-col-center h-10 w-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
         >
-          <SwatchBook class="size-5" />
+          <Settings2 class="size-5" />
         </VbenButton>
       </template>
       <template #extra>
