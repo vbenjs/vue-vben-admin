@@ -38,6 +38,7 @@ export {
   RotateCw,
   Search,
   SearchX,
+  Settings2,
   Sun,
   SunMoon,
   SwatchBook,
