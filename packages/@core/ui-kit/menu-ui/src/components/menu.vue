@@ -542,15 +542,6 @@ $namespace: vben;
       }
 
       & > .#{$namespace}-sub-menu {
-        // .#{$namespace}-menu {
-        //   background: var(--menu-submenu-opened-background-color);
-
-        //   .#{$namespace}-sub-menu,
-        //   .#{$namespace}-menu-item:not(.is-active),
-        //   .#{$namespace}-sub-menu-content:not(.is-active) {
-        //     background: var(--menu-submenu-opened-background-color);
-        //   }
-        // }
         & > .#{$namespace}-menu {
           & > .#{$namespace}-menu-item {
             padding-left: calc(
@@ -713,13 +704,11 @@ $namespace: vben;
 
 .#{$namespace}-menu-item {
   fill: var(--menu-item-color);
-  stroke: var(--menu-item-color);
 
   @include menu-item;
 
   &.is-active {
     fill: var(--menu-item-active-color);
-    stroke: var(--menu-item-active-color);
 
     @include menu-item-active;
   }
@@ -783,7 +772,6 @@ $namespace: vben;
   list-style: none;
   background: var(--menu-submenu-background-color);
   fill: var(--menu-item-color);
-  stroke: var(--menu-item-color);
 
   &.is-active {
     div[data-state='open'] > .#{$namespace}-sub-menu-content,
@@ -794,7 +782,6 @@ $namespace: vben;
       cursor: pointer;
       background: var(--menu-submenu-active-background-color);
       fill: var(--menu-submenu-active-color);
-      stroke: var(--menu-submenu-active-color);
     }
   }
 }
