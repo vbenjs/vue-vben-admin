@@ -108,9 +108,6 @@ function scrollIntoView() {
                 <div
                   class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden"
                 >
-                  <!-- <div
-                  class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden opacity-0 transition-opacity group-hover:opacity-100 group-[.is-active]:opacity-100"
-                > -->
                   <!-- close-icon -->
                   <X
                     v-show="
@@ -130,9 +127,6 @@ function scrollIntoView() {
                 <div
                   class="text-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
                 >
-                  <!-- <div
-                  class="mx-3 ml-3 mr-2 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] transition-all duration-300 group-hover:mr-2 group-hover:pr-4 group-[.is-active]:pr-4"
-                > -->
                   <VbenIcon
                     v-if="showIcon"
                     :icon="tab.icon"
