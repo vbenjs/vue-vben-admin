@@ -75,7 +75,7 @@
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
-    "cspell": "^8.13.2",
+    "cspell": "^8.13.3",
     "husky": "^9.1.4",
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.1",
