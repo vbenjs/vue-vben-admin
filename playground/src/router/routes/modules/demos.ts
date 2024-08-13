@@ -167,7 +167,7 @@ const routes: RouteRecordRaw[] = [
           },
           {
             name: 'FullScreenDemo',
-            path: 'full-screen',
+            path: '/demos/features/full-screen',
             component: () =>
               import('#/views/demos/features/full-screen/index.vue'),
             meta: {
