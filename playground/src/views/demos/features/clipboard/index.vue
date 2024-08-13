@@ -15,11 +15,9 @@ const { copy, text } = useClipboard({ source });
     <p class="mb-3">
       Current copied: <code>{{ text || 'none' }}</code>
     </p>
-    <div class="flex justify-center">
+    <Input.Group class="flex">
       <Input v-model:value="source" placeholder="请输入" />
       <Button type="primary" @click="copy(source)"> Copy </Button>
-    </div>
+    </Input.Group>
   </Page>
 </template>
-
-<style scoped></style>

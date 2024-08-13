@@ -167,7 +167,7 @@ const routes: RouteRecordRaw[] = [
           },
           {
             name: 'ClipboardDemo',
-            path: 'clipboard',
+            path: '/demos/features/clipboard',
             component: () =>
               import('#/views/demos/features/clipboard/index.vue'),
             meta: {
