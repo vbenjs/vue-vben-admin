@@ -59,6 +59,11 @@ const sidebarExtraCollapse = defineModel<boolean>('sidebarExtraCollapse');
 const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 const sidebarEnable = defineModel<boolean>('sidebarEnable', { default: true });
 
+// side是否处于hover状态展开菜单中
+const sidebarExpandOnHovering = ref(false);
+const headerIsHidden = ref(false);
+const contentRef = ref();
+
 const {
   arrivedState,
   directions,
@@ -66,11 +71,7 @@ const {
   y: scrollY,
 } = useScroll(document);
 
-const { y: mouseY } = useMouse({ type: 'client' });
-
-// side是否处于hover状态展开菜单中
-const sidebarExpandOnHovering = ref(false);
-const headerIsHidden = ref(false);
+const { y: mouseY } = useMouse({ target: contentRef, type: 'client' });
 
 const realLayout = computed(() =>
   props.isMobile ? 'sidebar-nav' : props.layout,
@@ -507,6 +508,7 @@ function handleOpenMenu() {
     </LayoutSidebar>
 
     <div
+      ref="contentRef"
       class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
     >
       <div
