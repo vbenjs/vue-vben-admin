@@ -39,7 +39,7 @@ interface Props {
   /**
    * 主题
    */
-  theme: string;
+  theme: string | undefined;
   /**
    * 宽度
    */
