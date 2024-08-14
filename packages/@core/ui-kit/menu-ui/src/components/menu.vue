@@ -776,7 +776,7 @@ $namespace: vben;
   &.is-active {
     div[data-state='open'] > .#{$namespace}-sub-menu-content,
     > .#{$namespace}-sub-menu-content {
-      font-weight: 500;
+      // font-weight: 500;
       color: var(--menu-submenu-active-color);
       text-decoration: none;
       cursor: pointer;

@@ -47,12 +47,13 @@ const userStore = useUserStore();
 const { updateWatermark } = useWatermark();
 const lockStore = useLockStore();
 
-const headerMenuTheme = computed(() => {
-  return isDark.value ? 'dark' : 'light';
-});
-
 const sidebarTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkMenu;
+  return dark ? 'dark' : 'light';
+});
+
+const headerTheme = computed(() => {
+  const dark = isDark.value || preferences.theme.semiDarkHeader;
   return dark ? 'dark' : 'light';
 });
 
@@ -161,6 +162,7 @@ const headerSlots = computed(() => {
     :footer-fixed="preferences.footer.fixed"
     :header-hidden="preferences.header.hidden"
     :header-mode="preferences.header.mode"
+    :header-theme="headerTheme"
     :header-toggle-sidebar-button="preferences.widget.sidebarToggle"
     :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
@@ -200,7 +202,7 @@ const headerSlots = computed(() => {
         :collapsed="logoCollapsed"
         :src="preferences.logo.source"
         :text="preferences.app.name"
-        :theme="showHeaderNav ? headerMenuTheme : theme"
+        :theme="showHeaderNav ? headerTheme : theme"
       />
     </template>
     <!-- 头部区域 -->
@@ -222,7 +224,7 @@ const headerSlots = computed(() => {
             :default-active="headerActive"
             :menus="wrapperMenus(headerMenus)"
             :rounded="isMenuRounded"
-            :theme="headerMenuTheme"
+            :theme="headerTheme"
             class="w-full"
             mode="horizontal"
             @select="handleMenuSelect"
