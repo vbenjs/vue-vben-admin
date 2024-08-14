@@ -6,7 +6,7 @@ import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
 import { useTabbarStore } from '@vben/stores';
-import { Spinner } from '@vben-core/shadcn-ui';
+import { VbenSpinner } from '@vben-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 
@@ -73,7 +73,7 @@ function showSpinning(index: number) {
         v-show="routeShow(item)"
         class="relative size-full"
       >
-        <Spinner :spinning="showSpinning(index)" />
+        <VbenSpinner :spinning="showSpinning(index)" />
         <iframe
           :src="item.meta.iframeSrc as string"
           class="size-full"

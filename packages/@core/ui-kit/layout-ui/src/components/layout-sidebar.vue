@@ -24,9 +24,8 @@ interface Props {
   domVisible?: boolean;
   /**
    * 扩展区域宽度
-   * @default 180
    */
-  extraWidth?: number;
+  extraWidth: number;
   /**
    * 固定扩展区域
    * @default false
@@ -69,13 +68,12 @@ interface Props {
   /**
    * 主题
    */
-  theme?: string;
+  theme: string;
 
   /**
    * 宽度
-   * @default 180
    */
-  width?: number;
+  width: number;
   /**
    * zIndex
    * @default 0
@@ -87,7 +85,6 @@ const props = withDefaults(defineProps<Props>(), {
   collapseHeight: 42,
   collapseWidth: 48,
   domVisible: true,
-  extraWidth: 180,
   fixedExtra: false,
   isSidebarMixed: false,
   marginTop: 0,
@@ -95,8 +92,6 @@ const props = withDefaults(defineProps<Props>(), {
   paddingTop: 0,
   show: true,
   showCollapseButton: true,
-  theme: 'dark',
-  width: 180,
   zIndex: 0,
 });
 
@@ -181,10 +176,8 @@ const extraContentStyle = computed((): CSSProperties => {
 });
 
 const collapseStyle = computed((): CSSProperties => {
-  const { collapseHeight } = props;
-
   return {
-    height: `${collapseHeight}px`,
+    height: `${props.collapseHeight}px`,
   };
 });
 

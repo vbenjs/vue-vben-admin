@@ -10,7 +10,7 @@ import { RouterView } from 'vue-router';
 import { useContentHeight } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 import { storeToRefs, useTabbarStore } from '@vben/stores';
-import { Spinner } from '@vben-core/shadcn-ui';
+import { VbenSpinner } from '@vben-core/shadcn-ui';
 
 import { IFrameRouterView } from '../../iframe';
 import { useContentSpinner } from './use-content-spinner';
@@ -86,7 +86,7 @@ function transformComponent(
 
 <template>
   <div class="relative h-full">
-    <Spinner
+    <VbenSpinner
       v-if="preferences.transition.loading"
       :spinning="spinning"
       :style="contentStyles"

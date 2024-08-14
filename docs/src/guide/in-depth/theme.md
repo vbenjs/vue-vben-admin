@@ -239,9 +239,11 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 ```css
 /*  */
-:root {
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
   /* Background color for <Card /> */
-  --card: 0 0% 30%;
+  --card: 222.34deg 10.43% 12.27%;
 }
 ```
 

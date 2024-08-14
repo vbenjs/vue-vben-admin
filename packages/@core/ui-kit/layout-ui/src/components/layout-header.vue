@@ -84,7 +84,7 @@ function handleToggleMenu() {
     </div>
     <VbenIconButton
       v-if="showToggleBtn || isMobile"
-      class="my-0 ml-2 mr-1 rounded"
+      class="my-0 ml-2 mr-1 rounded-md"
       @click="handleToggleMenu"
     >
       <Menu class="size-4" />

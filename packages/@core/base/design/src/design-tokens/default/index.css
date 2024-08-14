@@ -89,7 +89,7 @@
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 0 0% 100%;
   --menu: var(--sidebar);
 
   accent-color: var(--primary);

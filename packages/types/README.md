@@ -9,7 +9,7 @@
 ```bash
 # 进入目标应用目录，例如 apps/xxxx-app
 # cd apps/xxxx-app
-pnpm add @vben/types --workspace
+pnpm add @vben/types
 ```
 
 ### 使用

@@ -22,6 +22,7 @@ export * from './scrollbar';
 export * from './segmented';
 export * from './sheet';
 export * from './spinner';
+export * from './swap';
 export * from './tooltip';
 export * from './ui/alert-dialog';
 export * from './ui/avatar';

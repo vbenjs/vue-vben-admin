@@ -1,4 +1,4 @@
-import ora, { Ora } from 'ora';
+import ora, { type Ora } from 'ora';
 
 interface SpinnerOptions {
   failedText?: string;
