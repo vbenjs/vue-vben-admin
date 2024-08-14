@@ -237,6 +237,7 @@
       "light": "浅色",
       "dark": "深色",
       "darkMenu": "深色菜单",
+      "darkHeader": "深色顶栏",
       "weakMode": "色弱模式",
       "grayMode": "灰色模式",
       "builtin": {

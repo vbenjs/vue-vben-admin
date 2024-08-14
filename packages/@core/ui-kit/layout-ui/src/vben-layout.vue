@@ -485,6 +485,7 @@ function handleOpenMenu() {
           :show="!isFullContent && !headerHidden"
           :show-toggle-btn="showHeaderToggleButton"
           :sidebar-width="sidebarWidth"
+          :theme="headerTheme"
           :width="mainStyle.width"
           :z-index="headerZIndex"
           @open-menu="handleOpenMenu"

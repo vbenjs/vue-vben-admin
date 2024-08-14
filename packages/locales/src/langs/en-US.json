@@ -237,6 +237,7 @@
       "light": "Light",
       "dark": "Dark",
       "darkMenu": "Semi Dark Menu",
+      "darkHeader": "Semi Dark Header",
       "weakMode": "Weak Mode",
       "grayMode": "Gray Mode",
       "builtin": {

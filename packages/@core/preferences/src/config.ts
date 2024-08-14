@@ -90,6 +90,7 @@ const defaultPreferences: Preferences = {
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',
     radius: '0.5',
+    semiDarkHeader: false,
     semiDarkMenu: true,
   },
   transition: {
