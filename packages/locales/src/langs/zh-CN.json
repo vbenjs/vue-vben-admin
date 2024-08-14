@@ -236,7 +236,7 @@
       "radius": "圆角",
       "light": "浅色",
       "dark": "深色",
-      "darkMenu": "深色菜单",
+      "darkSidebar": "深色侧边栏",
       "darkHeader": "深色顶栏",
       "weakMode": "色弱模式",
       "grayMode": "灰色模式",

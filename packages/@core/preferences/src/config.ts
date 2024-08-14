@@ -91,7 +91,7 @@ const defaultPreferences: Preferences = {
     mode: 'dark',
     radius: '0.5',
     semiDarkHeader: false,
-    semiDarkMenu: true,
+    semiDarkSidebar: true,
   },
   transition: {
     enable: true,
