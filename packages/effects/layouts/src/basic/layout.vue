@@ -48,7 +48,7 @@ const { updateWatermark } = useWatermark();
 const lockStore = useLockStore();
 
 const sidebarTheme = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkMenu;
+  const dark = isDark.value || preferences.theme.semiDarkSidebar;
   return dark ? 'dark' : 'light';
 });
 

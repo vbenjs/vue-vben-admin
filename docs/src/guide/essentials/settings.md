@@ -261,7 +261,7 @@ const defaultPreferences: Preferences = {
     mode: 'dark',
     radius: '0.5',
     semiDarkHeader: false,
-    semiDarkMenu: true,
+    semiDarkSidebar: true,
   },
   transition: {
     enable: true,
@@ -456,7 +456,7 @@ interface ThemePreferences {
   /** 是否开启半深色header（只在theme='light'时生效） */
   semiDarkHeader: boolean;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
-  semiDarkMenu: boolean;
+  semiDarkSidebar: boolean;
 }
 
 interface TransitionPreferences {

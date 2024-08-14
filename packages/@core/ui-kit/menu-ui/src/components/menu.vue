@@ -498,13 +498,13 @@ $namespace: vben;
     --menu-background-color: transparent;
 
     &.is-dark {
-      --menu-item-hover-color: var(--foreground);
+      --menu-item-hover-color: hsl(var(--accent-foreground));
       --menu-item-hover-background-color: hsl(var(--accent));
-      --menu-item-active-color: hsl(var(--foreground));
+      --menu-item-active-color: hsl(var(--accent-foreground));
       --menu-item-active-background-color: hsl(var(--accent));
       --menu-submenu-active-color: hsl(var(--foreground));
       --menu-submenu-active-background-color: hsl(var(--accent));
-      --menu-submenu-hover-color: hsl(var(--foreground));
+      --menu-submenu-hover-color: hsl(var(--accent-foreground));
       --menu-submenu-hover-background-color: hsl(var(--accent));
     }
 
