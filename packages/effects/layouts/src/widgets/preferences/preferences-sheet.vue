@@ -7,13 +7,14 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   NavigationStyleType,
+  PreferencesButtonPositionType,
   ThemeModeType,
 } from '@vben/types';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw, Settings2 } from '@vben/icons';
+import { Copy, RotateCw, Settings } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import {
   clearPreferencesCache,
@@ -63,6 +64,9 @@ const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
+const appPreferencesButtonPosition = defineModel<PreferencesButtonPositionType>(
+  'appPreferencesButtonPosition',
+);
 
 const transitionProgress = defineModel<boolean>('transitionProgress');
 const transitionName = defineModel<string>('transitionName');
@@ -220,19 +224,21 @@ async function handleReset() {
 </script>
 
 <template>
-  <div class="z-100 fixed right-0 top-1/2">
+  <div>
     <VbenSheet
       v-model:open="openPreferences"
       :description="$t('preferences.subtitle')"
       :title="$t('preferences.title')"
     >
       <template #trigger>
-        <VbenButton
-          :title="$t('preferences.title')"
-          class="bg-primary flex-col-center h-10 w-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
-        >
-          <Settings2 class="size-5" />
-        </VbenButton>
+        <slot name="trigger">
+          <VbenButton
+            :title="$t('preferences.title')"
+            class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
+          >
+            <Settings class="size-5" />
+          </VbenButton>
+        </slot>
       </template>
       <template #extra>
         <div class="flex items-center">
@@ -358,6 +364,9 @@ async function handleReset() {
             </Block>
             <Block :title="$t('preferences.widget.title')">
               <Widget
+                v-model:app-preferences-button-position="
+                  appPreferencesButtonPosition
+                "
                 v-model:widget-fullscreen="widgetFullscreen"
                 v-model:widget-global-search="widgetGlobalSearch"
                 v-model:widget-language-toggle="widgetLanguageToggle"

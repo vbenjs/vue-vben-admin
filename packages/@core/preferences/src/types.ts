@@ -10,6 +10,7 @@ import type {
   LoginExpiredModeType,
   NavigationStyleType,
   PageTransitionType,
+  PreferencesButtonPositionType,
   TabsStyleType,
   ThemeModeType,
 } from '@vben-core/typings';
@@ -49,6 +50,8 @@ interface AppPreferences {
   loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */
   name: string;
+  /** 偏好设置按钮位置 */
+  preferencesButtonPosition: PreferencesButtonPositionType;
   /**
    * @zh_CN 是否开启水印
    */

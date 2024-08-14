@@ -54,9 +54,6 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarDragable" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.dragable') }}
   </SwitchItem>
-  <SelectItem v-model="tabbarStyleType" :items="styleItems">
-    {{ $t('preferences.tabbar.styleType.title') }}
-  </SelectItem>
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.icon') }}
   </SwitchItem>
@@ -69,4 +66,7 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarShowMaximize" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.showMaximize') }}
   </SwitchItem>
+  <SelectItem v-model="tabbarStyleType" :items="styleItems">
+    {{ $t('preferences.tabbar.styleType.title') }}
+  </SelectItem>
 </template>

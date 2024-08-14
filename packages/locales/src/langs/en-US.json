@@ -172,6 +172,11 @@
     "dynamicTitle": "Dynamic Title",
     "watermark": "Watermark",
     "checkUpdates": "Periodic update check",
+    "position": {
+      "title": "Preferences Postion",
+      "header": "Header",
+      "fixed": "Fixed"
+    },
     "sidebar": {
       "title": "Sidebar",
       "width": "Width",

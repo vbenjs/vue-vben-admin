@@ -5,7 +5,12 @@ import { preferences, usePreferences } from '@vben/preferences';
 import { useAccessStore } from '@vben/stores';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
 
-import { GlobalSearch, LanguageToggle, ThemeToggle } from '../../widgets';
+import {
+  GlobalSearch,
+  LanguageToggle,
+  PreferencesButton,
+  ThemeToggle,
+} from '../../widgets';
 
 interface Props {
   /**
@@ -26,34 +31,44 @@ const accessStore = useAccessStore();
 const { globalSearchShortcutKey } = usePreferences();
 const slots = useSlots();
 const rightSlots = computed(() => {
-  const list = [{ index: 30, name: 'user-dropdown' }];
+  const list = [{ index: 100, name: 'user-dropdown' }];
   if (preferences.widget.globalSearch) {
     list.push({
       index: 5,
       name: 'global-search',
     });
   }
-  if (preferences.widget.themeToggle) {
+
+  if (
+    preferences.app.enablePreferences &&
+    preferences.app.preferencesButtonPosition === 'header'
+  ) {
     list.push({
       index: 10,
+      name: 'preferences',
+    });
+  }
+  if (preferences.widget.themeToggle) {
+    list.push({
+      index: 15,
       name: 'theme-toggle',
     });
   }
   if (preferences.widget.languageToggle) {
     list.push({
-      index: 15,
+      index: 20,
       name: 'language-toggle',
     });
   }
   if (preferences.widget.fullscreen) {
     list.push({
-      index: 20,
+      index: 25,
       name: 'fullscreen',
     });
   }
   if (preferences.widget.notification) {
     list.push({
-      index: 25,
+      index: 30,
       name: 'notification',
     });
   }
@@ -66,6 +81,7 @@ const rightSlots = computed(() => {
   });
   return list.sort((a, b) => a.index - b.index);
 });
+
 const leftSlots = computed(() => {
   const list: any[] = [];
 
@@ -108,8 +124,12 @@ const leftSlots = computed(() => {
             class="mr-4"
           />
         </template>
+
+        <template v-else-if="slot.name === 'preferences'">
+          <PreferencesButton class="mr-2" />
+        </template>
         <template v-else-if="slot.name === 'theme-toggle'">
-          <ThemeToggle class="mr-2" />
+          <ThemeToggle class="mr-2 mt-[2px]" />
         </template>
         <template v-else-if="slot.name === 'language-toggle'">
           <LanguageToggle class="mr-2" />

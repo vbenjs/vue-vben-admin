@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import type { SelectOption } from '@vben/types';
+
+import { computed } from 'vue';
+
 import { $t } from '@vben/locales';
 
+import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
@@ -14,6 +19,20 @@ const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
+const appPreferencesButtonPosition = defineModel<string>(
+  'appPreferencesButtonPosition',
+);
+
+const positionItems = computed((): SelectOption[] => [
+  {
+    label: $t('preferences.position.header'),
+    value: 'header',
+  },
+  {
+    label: $t('preferences.position.fixed'),
+    value: 'fixed',
+  },
+]);
 </script>
 
 <template>
@@ -38,4 +57,7 @@ const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
   <SwitchItem v-model="widgetSidebarToggle">
     {{ $t('preferences.widget.sidebarToggle') }}
   </SwitchItem>
+  <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
+    {{ $t('preferences.position.title') }}
+  </SelectItem>
 </template>
