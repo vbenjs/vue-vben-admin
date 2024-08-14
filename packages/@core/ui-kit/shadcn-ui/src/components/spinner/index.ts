@@ -1,1 +1,1 @@
-export { default as Spinner } from './spinner.vue';
+export { default as VbenSpinner } from './spinner.vue';

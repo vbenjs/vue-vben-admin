@@ -52,12 +52,12 @@
   --secondary-foreground: 0 0% 98%;
 
   /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
-  --accent: 240 3.7% 15.9%;
-  --accent-hover: 240 3.7% 20.9%;
+  --accent: 216 5% 19%;
+  --accent-hover: 216 5% 24%;
   --accent-foreground: 0 0% 98%;
 
   /* Darker color */
-  --heavy: 240 3.7% 20.9%;
+  --heavy: 216 5% 24%;
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */

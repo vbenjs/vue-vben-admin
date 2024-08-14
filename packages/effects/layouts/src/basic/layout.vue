@@ -41,6 +41,7 @@ const {
   isSideMixedNav,
   layout,
   sidebarCollapsed,
+  theme,
 } = usePreferences();
 const userStore = useUserStore();
 const { updateWatermark } = useWatermark();
@@ -50,7 +51,7 @@ const headerMenuTheme = computed(() => {
   return isDark.value ? 'dark' : 'light';
 });
 
-const theme = computed(() => {
+const sidebarTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkMenu;
   return dark ? 'dark' : 'light';
 });
@@ -170,8 +171,7 @@ const headerSlots = computed(() => {
     :sidebar-expand-on-hover="preferences.sidebar.expandOnHover"
     :sidebar-extra-collapse="preferences.sidebar.extraCollapse"
     :sidebar-hidden="preferences.sidebar.hidden"
-    :sidebar-semi-dark="preferences.theme.semiDarkMenu"
-    :sidebar-theme="theme"
+    :sidebar-theme="sidebarTheme"
     :sidebar-width="preferences.sidebar.width"
     :tabbar-enable="preferences.tabbar.enable"
     :tabbar-height="preferences.tabbar.height"
@@ -192,14 +192,6 @@ const headerSlots = computed(() => {
         updatePreferences({ sidebar: { extraCollapse: value } })
     "
   >
-    <template v-if="preferences.app.enablePreferences" #preferences>
-      <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout" />
-    </template>
-
-    <template #floating-groups>
-      <VbenBackTop />
-    </template>
-
     <!-- logo -->
     <template #logo>
       <VbenLogo
@@ -256,7 +248,7 @@ const headerSlots = computed(() => {
         :default-active="sidebarActive"
         :menus="wrapperMenus(sidebarMenus)"
         :rounded="isMenuRounded"
-        :theme="theme"
+        :theme="sidebarTheme"
         mode="vertical"
         @select="handleMenuSelect"
       />
@@ -267,7 +259,7 @@ const headerSlots = computed(() => {
         :active-path="extraActiveMenu"
         :menus="wrapperMenus(headerMenus)"
         :rounded="isMenuRounded"
-        :theme="theme"
+        :theme="sidebarTheme"
         @default-select="handleDefaultSelect"
         @enter="handleMenuMouseEnter"
         @select="handleMixedMenuSelect"
@@ -280,7 +272,7 @@ const headerSlots = computed(() => {
         :collapse="preferences.sidebar.extraCollapse"
         :menus="wrapperMenus(extraMenus)"
         :rounded="isMenuRounded"
-        :theme="theme"
+        :theme="sidebarTheme"
       />
     </template>
     <template #side-extra-title>
@@ -325,6 +317,13 @@ const headerSlots = computed(() => {
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">
         <slot v-if="lockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
+
+      <template v-if="preferences.app.enablePreferences">
+        <Preferences
+          @clear-preferences-and-logout="clearPreferencesAndLogout"
+        />
+      </template>
+      <VbenBackTop />
     </template>
   </VbenAdminLayout>
 </template>

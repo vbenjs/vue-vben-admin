@@ -479,8 +479,8 @@ $namespace: vben;
   }
 
   &.is-horizontal:not(.is-rounded) {
-    --menu-item-height: 60px;
-    --menu-item-radius: 0px;
+    --menu-item-height: 40px;
+    --menu-item-radius: 6px;
   }
 
   &.is-horizontal.is-rounded {
@@ -514,7 +514,7 @@ $namespace: vben;
       --menu-item-hover-background-color: hsl(var(--accent));
       --menu-item-hover-color: hsl(var(--primary));
       --menu-submenu-active-color: hsl(var(--primary));
-      --menu-submenu-active-background-color: hsl(var(--primary) / 30%);
+      --menu-submenu-active-background-color: hsl(var(--primary) / 15%);
       --menu-submenu-hover-color: hsl(var(--primary));
       --menu-submenu-hover-background-color: hsl(var(--accent));
     }
