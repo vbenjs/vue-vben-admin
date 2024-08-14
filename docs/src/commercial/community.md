@@ -18,4 +18,4 @@
 
 通过微信联系作者，注明加群来意：
 
-<img src="https://unpkg.com/@vbenjs/static-source@0.1.5/source/wechat.jpg" style="width: 300px;"/>
+<img src="https://unpkg.com/@vbenjs/static-source@0.1.6/source/wechat.jpg" style="width: 300px;"/>

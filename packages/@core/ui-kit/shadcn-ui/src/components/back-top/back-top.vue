@@ -13,9 +13,9 @@ interface Props extends BacktopProps {}
 defineOptions({ name: 'BackTop' });
 
 const props = withDefaults(defineProps<Props>(), {
-  bottom: 24,
+  bottom: 20,
   isGroup: false,
-  right: 40,
+  right: 24,
   target: '',
   visibilityHeight: 200,
 });
@@ -32,7 +32,7 @@ const { handleClick, visible } = useBackTop(props);
     <VbenButton
       v-if="visible"
       :style="backTopStyle"
-      class="bg-accent hover:bg-heavy data fixed bottom-10 right-5 z-[1000] h-10 w-10 rounded-full"
+      class="dark:bg-accent dark:hover:bg-heavy bg-background hover:bg-heavy data shadow-float fixed bottom-10 z-[1000] h-10 w-10 rounded-full duration-500"
       size="icon"
       variant="icon"
       @click="handleClick"

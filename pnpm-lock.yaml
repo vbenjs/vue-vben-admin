@@ -83,8 +83,8 @@ importers:
         specifier: ^24.1.1
         version: 24.1.1
       lint-staged:
-        specifier: ^15.2.8
-        version: 15.2.8
+        specifier: ^15.2.9
+        version: 15.2.9
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -320,7 +320,7 @@ importers:
         version: 0.5.0(vite-plugin-pwa@0.20.1(vite@5.4.0(@types/node@22.2.0)(sass@1.77.8)(terser@5.31.3))(workbox-build@7.1.1)(workbox-window@7.1.0))
       vitepress:
         specifier: ^1.3.2
-        version: 1.3.2(@algolia/client-search@4.24.0)(@types/node@22.2.0)(async-validator@4.2.5)(axios@1.7.3)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.0)(sortablejs@1.15.2)(terser@5.31.3)(typescript@5.5.4)
+        version: 1.3.2(@algolia/client-search@4.24.0)(@types/node@22.2.0)(async-validator@4.2.5)(axios@1.7.4)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.0)(sortablejs@1.15.2)(terser@5.31.3)(typescript@5.5.4)
       vue:
         specifier: ^3.4.37
         version: 3.4.37(typescript@5.5.4)
@@ -380,8 +380,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(eslint@9.9.0(jiti@1.21.6))
       eslint-plugin-jsdoc:
-        specifier: ^50.0.1
-        version: 50.0.1(eslint@9.9.0(jiti@1.21.6))
+        specifier: ^50.2.0
+        version: 50.2.0(eslint@9.9.0(jiti@1.21.6))
       eslint-plugin-jsonc:
         specifier: ^2.16.0
         version: 2.16.0(eslint@9.9.0(jiti@1.21.6))
@@ -523,8 +523,8 @@ importers:
   internal/tailwind-config:
     dependencies:
       '@iconify/json':
-        specifier: ^2.2.236
-        version: 2.2.236
+        specifier: ^2.2.237
+        version: 2.2.237
       '@iconify/tailwind':
         specifier: ^1.1.2
         version: 1.1.2
@@ -714,8 +714,8 @@ importers:
         specifier: ^10.11.1
         version: 10.11.1(vue@3.4.37(typescript@5.5.4))
       radix-vue:
-        specifier: ^1.9.3
-        version: 1.9.3(vue@3.4.37(typescript@5.5.4))
+        specifier: ^1.9.4
+        version: 1.9.4(vue@3.4.37(typescript@5.5.4))
       sortablejs:
         specifier: ^1.15.2
         version: 1.15.2
@@ -811,8 +811,8 @@ importers:
         specifier: ^0.427.0
         version: 0.427.0(vue@3.4.37(typescript@5.5.4))
       radix-vue:
-        specifier: ^1.9.3
-        version: 1.9.3(vue@3.4.37(typescript@5.5.4))
+        specifier: ^1.9.4
+        version: 1.9.4(vue@3.4.37(typescript@5.5.4))
       vue:
         specifier: ^3.4.37
         version: 3.4.37(typescript@5.5.4)
@@ -896,7 +896,7 @@ importers:
         version: link:../../types
       '@vueuse/integrations':
         specifier: ^10.11.1
-        version: 10.11.1(async-validator@4.2.5)(axios@1.7.3)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))
+        version: 10.11.1(async-validator@4.2.5)(axios@1.7.4)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -995,12 +995,12 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       axios:
-        specifier: ^1.7.3
-        version: 1.7.3
+        specifier: ^1.7.4
+        version: 1.7.4
     devDependencies:
       axios-mock-adapter:
         specifier: ^2.0.0
-        version: 2.0.0(axios@1.7.3)
+        version: 2.0.0(axios@1.7.4)
 
   packages/icons:
     dependencies:
@@ -2640,8 +2640,8 @@ packages:
     resolution: {integrity: sha512-I238eDtOolvCuvtxrnqtlBaw0BwdQuYqK7eA6XIonicMdOOOb75mqdIzkGDUbS04+1Di007rgm9snFRNeVrOog==}
     engines: {node: '>=16'}
 
-  '@es-joy/jsdoccomment@0.46.0':
-    resolution: {integrity: sha512-C3Axuq1xd/9VqFZpW4YAzOx5O9q/LP46uIQy/iNDpHG3fmPa6TBtvfglMCs3RBiBxAIi0Go97r8+jvTt55XMyQ==}
+  '@es-joy/jsdoccomment@0.48.0':
+    resolution: {integrity: sha512-G6QUWIcC+KvSwXNsJyDTHvqUdNoAVJPPgkc3+Uk4WBKqZvoXhlvazOgm9aL0HwihJLQf0l+tOE2UFzXBqCqgDw==}
     engines: {node: '>=16'}
 
   '@esbuild/aix-ppc64@0.19.12':
@@ -3255,8 +3255,8 @@ packages:
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
 
-  '@iconify/json@2.2.236':
-    resolution: {integrity: sha512-eiIOW9RfIMlrJl77+VfM4FM+bF46zQNxanNe8MADgXxNCeFR8LW70bC2u6El5Cqf/gx/n0EmqA5kXQ8J+BHjsg==}
+  '@iconify/json@2.2.237':
+    resolution: {integrity: sha512-lMK5I9JX90L2LR18Lz6C5XrivxxAGejdJvFQI7TQkj03WcaxRJlciPbQb6z4nX+DS1T6k591ZQ2/hyRVbjqrgA==}
 
   '@iconify/tailwind@1.1.2':
     resolution: {integrity: sha512-ZgToKxxd7zF5T9NXPnY9APRF06ZjFF21H/bINzcbKTdeJzLrNLIoVaoePIUbWVQ2HAac5cAYEHPZO8ILSUe3bQ==}
@@ -4529,8 +4529,8 @@ packages:
     peerDependencies:
       axios: '>= 0.17.0'
 
-  axios@1.7.3:
-    resolution: {integrity: sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==}
+  axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
   b4a@1.6.6:
     resolution: {integrity: sha512-5Tk1HLk6b6ctmjIkAcU/Ujv/1WqiDl0F0JdRCR80VsOcUlHcu7pWeWRlOqQLHfDEsVx9YH/aif5AG4ehoCtTmg==}
@@ -5591,8 +5591,8 @@ packages:
     peerDependencies:
       eslint: ^8.56.0 || ^9.0.0-0
 
-  eslint-plugin-jsdoc@50.0.1:
-    resolution: {integrity: sha512-UayhAysIk1Du8InV27WMbV4AMSJSu60+bekmeuGK2OUy4QJSFPr1srYT6AInykGkmMdRuHfDX6Q0tJEr8BtDtg==}
+  eslint-plugin-jsdoc@50.2.0:
+    resolution: {integrity: sha512-HAmTcHgPFmiM0kfI3Z5Gt39DNjTsdrfFJKk6tmWscnDk8iAuA+72uHz8v2OToYVNiWN8ihX5uWQKDezU7nnNoQ==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -6763,8 +6763,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@15.2.8:
-    resolution: {integrity: sha512-PUWFf2zQzsd9EFU+kM1d7UP+AZDbKFKuj+9JNVTBkhUFhbg4MAt6WfyMMwBfM4lYqd4D2Jwac5iuTu9rVj4zCQ==}
+  lint-staged@15.2.9:
+    resolution: {integrity: sha512-BZAt8Lk3sEnxw7tfxM7jeZlPRuT4M68O0/CwZhhaw6eeWu0Lz5eERE3m386InivXB64fp/mDID452h48tvKlRQ==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -8102,8 +8102,8 @@ packages:
   queue-tick@1.0.1:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
 
-  radix-vue@1.9.3:
-    resolution: {integrity: sha512-9pewcgzghM+B+FO1h9mMsZa/csVH6hElpN1sqmG4/qoeieiDG0i4nhMjS7p2UOz11EEdVm7eLandHSPyx7hYhg==}
+  radix-vue@1.9.4:
+    resolution: {integrity: sha512-d950wxB+MVVU6L9h39OsNzAdk2BiGDDfhXJiHsksPAIK5pCR8W4U0RB0WLQEdjmmL9p1aXOYm4FBDq0oIo2G/w==}
     peerDependencies:
       vue: ^3.4.37
 
@@ -11540,11 +11540,11 @@ snapshots:
       esquery: 1.6.0
       jsdoc-type-pratt-parser: 4.0.0
 
-  '@es-joy/jsdoccomment@0.46.0':
+  '@es-joy/jsdoccomment@0.48.0':
     dependencies:
       comment-parser: 1.4.1
       esquery: 1.6.0
-      jsdoc-type-pratt-parser: 4.0.0
+      jsdoc-type-pratt-parser: 4.1.0
 
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
@@ -11886,7 +11886,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.3.0': {}
 
-  '@iconify/json@2.2.236':
+  '@iconify/json@2.2.237':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -13111,14 +13111,14 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.3)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))':
+  '@vueuse/integrations@10.11.0(async-validator@4.2.5)(axios@1.7.4)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))':
     dependencies:
       '@vueuse/core': 10.11.0(vue@3.4.37(typescript@5.5.4))
       '@vueuse/shared': 10.11.0(vue@3.4.37(typescript@5.5.4))
       vue-demi: 0.14.10(vue@3.4.37(typescript@5.5.4))
     optionalDependencies:
       async-validator: 4.2.5
-      axios: 1.7.3
+      axios: 1.7.4
       focus-trap: 7.5.4
       nprogress: 0.2.0
       qrcode: 1.5.4
@@ -13127,14 +13127,14 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.1(async-validator@4.2.5)(axios@1.7.3)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))':
+  '@vueuse/integrations@10.11.1(async-validator@4.2.5)(axios@1.7.4)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))':
     dependencies:
       '@vueuse/core': 10.11.1(vue@3.4.37(typescript@5.5.4))
       '@vueuse/shared': 10.11.1(vue@3.4.37(typescript@5.5.4))
       vue-demi: 0.14.10(vue@3.4.37(typescript@5.5.4))
     optionalDependencies:
       async-validator: 4.2.5
-      axios: 1.7.3
+      axios: 1.7.4
       focus-trap: 7.5.4
       nprogress: 0.2.0
       qrcode: 1.5.4
@@ -13427,13 +13427,13 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  axios-mock-adapter@2.0.0(axios@1.7.3):
+  axios-mock-adapter@2.0.0(axios@1.7.4):
     dependencies:
-      axios: 1.7.3
+      axios: 1.7.4
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
-  axios@1.7.3:
+  axios@1.7.4:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -14718,9 +14718,9 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-jsdoc@50.0.1(eslint@9.9.0(jiti@1.21.6)):
+  eslint-plugin-jsdoc@50.2.0(eslint@9.9.0(jiti@1.21.6)):
     dependencies:
-      '@es-joy/jsdoccomment': 0.46.0
+      '@es-joy/jsdoccomment': 0.48.0
       are-docs-informative: 0.0.2
       comment-parser: 1.4.1
       debug: 4.3.6
@@ -15951,7 +15951,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@15.2.8:
+  lint-staged@15.2.9:
     dependencies:
       chalk: 5.3.0
       commander: 12.1.0
@@ -17330,7 +17330,7 @@ snapshots:
 
   queue-tick@1.0.1: {}
 
-  radix-vue@1.9.3(vue@3.4.37(typescript@5.5.4)):
+  radix-vue@1.9.4(vue@3.4.37(typescript@5.5.4)):
     dependencies:
       '@floating-ui/dom': 1.6.10
       '@floating-ui/vue': 1.1.4(vue@3.4.37(typescript@5.5.4))
@@ -17338,7 +17338,7 @@ snapshots:
       '@internationalized/number': 3.5.3
       '@tanstack/vue-virtual': 3.8.5(vue@3.4.37(typescript@5.5.4))
       '@vueuse/core': 10.11.1(vue@3.4.37(typescript@5.5.4))
-      '@vueuse/shared': 10.11.0(vue@3.4.37(typescript@5.5.4))
+      '@vueuse/shared': 10.11.1(vue@3.4.37(typescript@5.5.4))
       aria-hidden: 1.2.4
       defu: 6.1.4
       fast-deep-equal: 3.1.3
@@ -18772,7 +18772,7 @@ snapshots:
       sass: 1.77.8
       terser: 5.31.3
 
-  vitepress@1.3.2(@algolia/client-search@4.24.0)(@types/node@22.2.0)(async-validator@4.2.5)(axios@1.7.3)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.0)(sortablejs@1.15.2)(terser@5.31.3)(typescript@5.5.4):
+  vitepress@1.3.2(@algolia/client-search@4.24.0)(@types/node@22.2.0)(async-validator@4.2.5)(axios@1.7.4)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.0)(sortablejs@1.15.2)(terser@5.31.3)(typescript@5.5.4):
     dependencies:
       '@docsearch/css': 3.6.1
       '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(search-insights@2.16.0)
@@ -18783,7 +18783,7 @@ snapshots:
       '@vue/devtools-api': 7.3.7
       '@vue/shared': 3.4.37
       '@vueuse/core': 10.11.1(vue@3.4.37(typescript@5.5.4))
-      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.3)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))
+      '@vueuse/integrations': 10.11.0(async-validator@4.2.5)(axios@1.7.4)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.2)(vue@3.4.37(typescript@5.5.4))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 7.1.0

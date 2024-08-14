@@ -76,9 +76,6 @@ const shadcnUiColors = {
 };
 
 const customColors = {
-  authentication: {
-    DEFAULT: 'hsl(var(--authentication))',
-  },
   green: {
     ...createColorsPalette('green'),
     foreground: 'hsl(var(--success-foreground))',
@@ -145,6 +142,7 @@ export default {
         'collapsible-up': 'collapsible-up 0.2s ease-in-out',
         float: 'float 5s linear 0ms infinite',
       },
+
       animationDuration: {
         '2000': '2000ms',
         '3000': '3000ms',
@@ -154,6 +152,11 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
         xl: 'calc(var(--radius) + 4px)',
+      },
+      boxShadow: {
+        float: `0 6px 16px 0 rgb(0 0 0 / 8%),
+          0 3px 6px -4px rgb(0 0 0 / 12%),
+          0 9px 28px 8px rgb(0 0 0 / 5%)`,
       },
       colors: {
         ...customColors,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type CSSProperties, nextTick, ref, watchEffect } from 'vue';
+import { computed, type CSSProperties, ref, watchEffect } from 'vue';
 
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
@@ -72,12 +72,10 @@ const textMaxWidth = computed(() => {
   }
   return props.maxWidth;
 });
-const showTooltip = ref(false);
 const ellipsis = ref();
+const isExpand = ref(false);
 const defaultTooltipMaxWidth = ref();
-watchEffect(() => {
-  showTooltip.value = props.tooltip;
-});
+
 watchEffect(
   () => {
     if (props.tooltip && ellipsis.value) {
@@ -88,25 +86,12 @@ watchEffect(
   { flush: 'post' },
 );
 function onExpand() {
-  const { style } = ellipsis.value;
-  const isExpanded = !style['-webkit-line-clamp'];
-  if (props.tooltip) {
-    showTooltip.value = !isExpanded;
-  }
-
-  nextTick(() => {
-    style['-webkit-line-clamp'] = isExpanded ? props.line : '';
-  });
-
-  emit('expandChange', !isExpanded);
+  isExpand.value = !isExpand.value;
+  emit('expandChange', isExpand.value);
 }
 
 function handleExpand() {
-  if (props.expand) {
-    onExpand();
-  } else {
-    return false;
-  }
+  props.expand && onExpand();
 }
 </script>
 <template>
@@ -118,7 +103,7 @@ function handleExpand() {
       color: tooltipColor,
       backgroundColor: tooltipBackgroundColor,
     }"
-    :disabled="!showTooltip"
+    :disabled="!props.tooltip || isExpand"
     :side="placement"
   >
     <slot name="tooltip">
@@ -133,7 +118,10 @@ function handleExpand() {
           ['inline-block truncate']: line === 1,
           [$style.ellipsisMultiLine]: line > 1,
         }"
-        :style="`-webkit-line-clamp: ${line}; max-width: ${textMaxWidth};`"
+        :style="{
+          '-webkit-line-clamp': isExpand ? '' : line,
+          'max-width': textMaxWidth,
+        }"
         class="cursor-text overflow-hidden"
         @click="handleExpand"
         v-bind="$attrs"

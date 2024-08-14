@@ -26,7 +26,7 @@ const logoSource = computed(() => preferences.logo.source);
     <!-- 头部 Logo 和应用名称 -->
     <div class="absolute left-0 top-0 z-10 flex flex-1">
       <div
-        :class="authPanelLeft ? 'lg:text-foreground' : 'lg:text-white'"
+        :class="authPanelRight ? 'lg:text-white' : 'lg:text-foreground'"
         class="text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
         <img :alt="appName" :src="logoSource" class="mr-2" width="42" />
@@ -38,7 +38,8 @@ const logoSource = computed(() => preferences.logo.source);
 
     <!-- 中间内容 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
-      <div class="bg-authentication absolute inset-0 h-full w-full">
+      <div class="absolute inset-0 h-full w-full bg-[#070709]">
+        <div class="login-background absolute left-0 top-0 size-full"></div>
         <div class="flex-col-center -enter-x mr-20 h-full">
           <SloganIcon :alt="appName" class="animate-float h-64 w-2/5" />
           <div class="text-1xl mt-6 font-sans text-white lg:text-2xl">
@@ -52,9 +53,10 @@ const logoSource = computed(() => preferences.logo.source);
     </div>
 
     <!-- 中心认证面板 -->
-    <div v-if="authPanelCenter" class="flex-center bg-authentication w-full">
+    <div v-if="authPanelCenter" class="flex-center relative w-full">
+      <div class="login-background absolute left-0 top-0 size-full"></div>
       <AuthenticationFormView
-        class="md:bg-background w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-2/5"
+        class="md:bg-background shadow-primary/10 w-full rounded-3xl pb-20 shadow-2xl md:w-2/3 lg:w-1/2 xl:w-[36%]"
       />
     </div>
 
@@ -65,3 +67,15 @@ const logoSource = computed(() => preferences.logo.source);
     />
   </div>
 </template>
+
+<style scoped>
+.login-background {
+  background: linear-gradient(
+    154deg,
+    #07070915 30%,
+    hsl(var(--primary) / 15%) 48%,
+    #07070915 64%
+  );
+  filter: blur(100px);
+}
+</style>
