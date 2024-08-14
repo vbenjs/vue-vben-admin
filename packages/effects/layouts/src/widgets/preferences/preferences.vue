@@ -47,5 +47,9 @@ const listen = computed(() => {
 });
 </script>
 <template>
-  <PreferencesSheet v-bind="attrs" v-on="listen" />
+  <PreferencesSheet v-bind="attrs" v-on="listen">
+    <template #trigger>
+      <slot></slot>
+    </template>
+  </PreferencesSheet>
 </template>

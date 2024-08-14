@@ -189,6 +189,7 @@ const defaultPreferences: Preferences = {
     locale: 'zh-CN',
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
+    preferencesButtonPosition: 'fixed',
     watermark: false,
   },
   breadcrumb: {
@@ -319,6 +320,8 @@ interface AppPreferences {
   loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */
   name: string;
+  /** 偏好设置按钮位置 */
+  preferencesButtonPosition: PreferencesButtonPositionType;
   /**
    * @zh_CN 是否开启水印
    */

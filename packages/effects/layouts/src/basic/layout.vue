@@ -320,8 +320,14 @@ const headerSlots = computed(() => {
         <slot v-if="lockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
 
-      <template v-if="preferences.app.enablePreferences">
+      <template
+        v-if="
+          preferences.app.enablePreferences &&
+          preferences.app.preferencesButtonPosition === 'fixed'
+        "
+      >
         <Preferences
+          class="z-100 fixed bottom-20 right-0"
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>
