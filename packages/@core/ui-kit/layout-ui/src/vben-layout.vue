@@ -519,6 +519,10 @@ function handleOpenMenu() {
         class="transition-[margin-top] duration-200"
       >
         <slot name="content"></slot>
+
+        <template #overlay="{ overlayStyle }">
+          <slot :overlay-style="overlayStyle" name="content-overlay"></slot>
+        </template>
       </LayoutContent>
 
       <LayoutFooter
