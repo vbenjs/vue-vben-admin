@@ -1,3 +1,5 @@
+import { verifyAccessToken } from '~/utils/jwt_utils';
+
 export default eventHandler((event) => {
   const token = getHeader(event, 'Authorization');
 
@@ -6,7 +8,7 @@ export default eventHandler((event) => {
     return useResponseError('UnauthorizedException', 'Unauthorized Exception');
   }
 
-  const username = Buffer.from(token, 'base64').toString('utf8');
+  const { username } = verifyAccessToken(token);
 
   const menus =
     MOCK_MENUS.find((item) => item.username === username)?.menus ?? [];

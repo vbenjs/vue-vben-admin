@@ -115,6 +115,9 @@ importers:
 
   apps/backend-mock:
     dependencies:
+      h3:
+        specifier: ^1.12.0
+        version: 1.12.0
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
