@@ -74,6 +74,7 @@ function scrollIntoView() {
 <template>
   <div class="h-full flex-1 overflow-hidden">
     <VbenScrollbar
+      id="tabs-scrollbar"
       class="tabs-scrollbar h-full"
       horizontal
       scroll-bar-class="z-10"
