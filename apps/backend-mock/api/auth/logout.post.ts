@@ -1,7 +1,10 @@
-import { clearRefreshTokenCookie } from '~/utils/jwt_utils';
+import {
+  clearRefreshTokenCookie,
+  getRefreshTokenFromCookie,
+} from '~/utils/cookie_utils';
 
 export default defineEventHandler(async (event) => {
-  const refreshToken = getCookie(event, 'jwt');
+  const refreshToken = getRefreshTokenFromCookie(event);
   if (!refreshToken) {
     return setResponseStatus(event, 204);
   }

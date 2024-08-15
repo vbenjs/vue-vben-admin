@@ -20,8 +20,15 @@ export function generateRefreshToken(user: UserInfo) {
 }
 
 export function verifyAccessToken(
-  token: string,
+  event: H3Event<EventHandlerRequest>,
 ): null | Omit<UserInfo, 'password'> {
+  const authHeader =
+    getHeader(event, 'Authorization') || getHeader(event, 'authorization');
+  if (!authHeader.startsWith('Bearer')) {
+    return null;
+  }
+
+  const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(
       token,
@@ -53,24 +60,4 @@ export function verifyRefreshToken(
   } catch {
     return null;
   }
-}
-
-export function clearRefreshTokenCookie(event: H3Event<EventHandlerRequest>) {
-  deleteCookie(event, 'jwt', {
-    httpOnly: true,
-    sameSite: 'none',
-    secure: true,
-  });
-}
-
-export function setRefreshTokenCookie(
-  event: H3Event<EventHandlerRequest>,
-  refreshToken: string,
-) {
-  setCookie(event, 'jwt', refreshToken, {
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,
-    sameSite: 'none',
-    secure: true,
-  });
 }

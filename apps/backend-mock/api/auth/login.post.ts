@@ -1,9 +1,8 @@
 import {
   clearRefreshTokenCookie,
-  generateAccessToken,
-  generateRefreshToken,
   setRefreshTokenCookie,
-} from '~/utils/jwt_utils';
+} from '~/utils/cookie_utils';
+import { generateAccessToken, generateRefreshToken } from '~/utils/jwt_utils';
 
 export default defineEventHandler(async (event) => {
   const { password, username } = await readBody(event);

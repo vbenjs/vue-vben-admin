@@ -1,11 +1,12 @@
 import {
   clearRefreshTokenCookie,
+  getRefreshTokenFromCookie,
   setRefreshTokenCookie,
-  verifyRefreshToken,
-} from '~/utils/jwt_utils';
+} from '~/utils/cookie_utils';
+import { verifyRefreshToken } from '~/utils/jwt_utils';
 
 export default defineEventHandler(async (event) => {
-  const refreshToken = getCookie(event, 'jwt');
+  const refreshToken = getRefreshTokenFromCookie(event);
   if (!refreshToken) {
     setResponseStatus(event, 401);
     return useResponseError('UnauthorizedException', 'Unauthorized Exception');
