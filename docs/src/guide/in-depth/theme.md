@@ -223,7 +223,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 你只需要在你的项目中覆盖你想要修改的 CSS 变量即可。例如，要更改默认卡片背景色，你可以在你的 CSS 文件中添加以下内容进行覆盖：
 
-### 默认主题下：
+### 默认主题下
 
 ```css
 :root {
@@ -1222,7 +1222,7 @@ export const overridesPreferences = defineOverridesPreferences({
 
 侧边栏颜色通过`--sidebar`变量来配置
 
-### 默认主题下：
+### 默认主题下
 
 ```css
 :root {
@@ -1244,7 +1244,7 @@ export const overridesPreferences = defineOverridesPreferences({
 
 侧边栏颜色通过`--header`变量来配置
 
-### 默认主题下：
+### 默认主题下
 
 ```css
 :root {
