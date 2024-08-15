@@ -72,6 +72,7 @@ function scrollIntoView() {
 <template>
   <div :style="style" class="tabs-chrome size-full flex-1 overflow-hidden pt-1">
     <VbenScrollbar
+      id="tabs-scrollbar"
       class="tabs-chrome__scrollbar h-full"
       horizontal
       scroll-bar-class="z-10"
