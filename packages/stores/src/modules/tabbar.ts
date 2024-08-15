@@ -5,7 +5,6 @@ import { toRaw } from 'vue';
 
 import { openWindow, startProgress, stopProgress } from '@vben-core/shared';
 
-import { cloneDeep } from 'es-toolkit';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
 interface TabbarState {
@@ -479,7 +478,17 @@ function cloneTab(route: TabDefinition): TabDefinition {
   if (!route) {
     return route;
   }
-  return cloneDeep(route);
+  const { matched, ...opt } = route;
+  return {
+    ...opt,
+    matched: (matched
+      ? matched.map((item) => ({
+          meta: item.meta,
+          name: item.name,
+          path: item.path,
+        }))
+      : undefined) as RouteRecordNormalized[],
+  };
 }
 
 /**

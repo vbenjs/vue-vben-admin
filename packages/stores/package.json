@@ -22,7 +22,6 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "es-toolkit": "^1.15.1",
     "pinia": "2.2.1",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.37",
