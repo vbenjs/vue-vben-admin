@@ -1,6 +1,5 @@
 import { jwt } from 'jsonwebtoken';
 
-const refreshTokens: string[] = [];
 export default defineEventHandler(async (event) => {
   const { password, username } = await readBody(event);
 
@@ -17,7 +16,7 @@ export default defineEventHandler(async (event) => {
     expiresIn: '15s',
   });
   const refreshToken = jwt.sign(findUser, process.env.REFRESH_TOKEN_SECRET);
-  refreshTokens.push(refreshToken);
+  await useStorage().setItem(`refreshToken-${findUser.id}`, refreshToken);
 
   return useResponseSuccess({
     accessToken,
