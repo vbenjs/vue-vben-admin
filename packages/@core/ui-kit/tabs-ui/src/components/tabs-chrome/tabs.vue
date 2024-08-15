@@ -75,7 +75,7 @@ function scrollIntoView() {
       id="tabs-scrollbar"
       class="tabs-chrome__scrollbar h-full"
       horizontal
-      scroll-bar-class="z-10"
+      scroll-bar-class="z-10 hidden"
     >
       <!-- footer -> 4px -->
       <div
