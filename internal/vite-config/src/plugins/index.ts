@@ -23,7 +23,7 @@ import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
-import { viteNitroMockPlugin } from './nitor-mock';
+import { viteNitroMockPlugin } from './nitro-mock';
 import { vitePrintPlugin } from './print';
 
 /**
