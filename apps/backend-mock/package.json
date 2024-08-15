@@ -12,5 +12,8 @@
   "dependencies": {
     "jsonwebtoken": "^9.0.2",
     "nitropack": "^2.9.7"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }

@@ -1,4 +1,4 @@
-import { jwt } from 'jsonwebtoken';
+import { generateAccessToken, generateRefreshToken } from '~/utils/jwt_utils';
 
 export default defineEventHandler(async (event) => {
   const { password, username } = await readBody(event);
@@ -12,10 +12,8 @@ export default defineEventHandler(async (event) => {
     return useResponseError('UnauthorizedException', '用户名或密码错误');
   }
 
-  const accessToken = jwt.sign(findUser, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '15s',
-  });
-  const refreshToken = jwt.sign(findUser, process.env.REFRESH_TOKEN_SECRET);
+  const accessToken = generateAccessToken(findUser);
+  const refreshToken = generateRefreshToken(findUser);
   await useStorage().setItem(`refreshToken-${findUser.id}`, refreshToken);
 
   return useResponseSuccess({

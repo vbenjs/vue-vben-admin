@@ -1,3 +1,5 @@
+import { verifyAccessToken } from '~/utils/jwt_utils';
+
 export default eventHandler((event) => {
   const token = getHeader(event, 'Authorization');
   if (!token) {
@@ -5,10 +7,11 @@ export default eventHandler((event) => {
     return useResponseError('UnauthorizedException', 'Unauthorized Exception');
   }
 
-  const username = Buffer.from(token, 'base64').toString('utf8');
+  const userinfo = verifyAccessToken(token);
+  if (!userinfo) {
+    setResponseStatus(event, 401);
+    return useResponseError('UnauthorizedException', 'Unauthorized Exception');
+  }
 
-  const user = MOCK_USERS.find((item) => item.username === username);
-
-  const { password: _pwd, ...userInfo } = user;
-  return useResponseSuccess(userInfo);
+  return useResponseSuccess(userinfo);
 });

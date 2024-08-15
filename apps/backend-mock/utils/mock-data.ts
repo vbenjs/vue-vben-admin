@@ -1,4 +1,12 @@
-export const MOCK_USERS = [
+export interface UserInfo {
+  id: number;
+  password: string;
+  realName: string;
+  roles: string[];
+  username: string;
+}
+
+export const MOCK_USERS: UserInfo[] = [
   {
     id: 0,
     password: '123456',

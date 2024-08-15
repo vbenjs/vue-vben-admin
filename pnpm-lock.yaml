@@ -121,6 +121,10 @@ importers:
       nitropack:
         specifier: ^2.9.7
         version: 2.9.7(encoding@0.1.13)
+    devDependencies:
+      '@types/jsonwebtoken':
+        specifier: ^9.0.6
+        version: 9.0.6
 
   apps/web-antd:
     dependencies:
@@ -3845,6 +3849,9 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/jsonwebtoken@9.0.6':
+    resolution: {integrity: sha512-/5hndP5dCjloafCXns6SZyESp3Ldq7YjH3zwzwczYnjxIT0Fqzk5ROSYVGfFyczIue7IUEj8hkvLbPoLQ18vQw==}
 
   '@types/katex@0.16.7':
     resolution: {integrity: sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==}
@@ -12593,7 +12600,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 18.19.44
+      '@types/node': 22.2.0
 
   '@types/hast@3.0.4':
     dependencies:
@@ -12615,7 +12622,11 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 18.19.44
+      '@types/node': 22.2.0
+
+  '@types/jsonwebtoken@9.0.6':
+    dependencies:
+      '@types/node': 22.2.0
 
   '@types/katex@0.16.7': {}
 
