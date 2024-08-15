@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useContentMaximize, useTabs } from '@vben/hooks';
@@ -12,9 +12,6 @@ import {
   TabsView,
 } from '@vben-core/tabs-ui';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-icons/vue';
-
-import { useTabViewScroll } from './use-tab-view-scroll';
 import { useTabbar } from './use-tabbar';
 
 defineOptions({
@@ -52,26 +49,9 @@ const menus = computed(() => {
 if (!preferences.tabbar.persist) {
   tabbarStore.closeOtherTabs(route);
 }
-
-const { scrollDirection, setScrollBarEl, setScrollViewEl } = useTabViewScroll();
-
-onMounted(() => {
-  const scrollBarEl: HTMLElement | null =
-    document.querySelector('#tabs-scrollbar');
-
-  const scrollViewportEl: HTMLElement | null | undefined =
-    scrollBarEl?.querySelector('div[data-radix-scroll-area-viewport]');
-
-  setScrollBarEl(scrollBarEl);
-  setScrollViewEl(scrollViewportEl);
-});
 </script>
 
 <template>
-  <ChevronLeftIcon
-    class="mx-2 h-full cursor-pointer"
-    @click="scrollDirection('left')"
-  />
   <TabsView
     :active="currentActive"
     :class="theme"
@@ -86,10 +66,6 @@ onMounted(() => {
     @update:active="handleClick"
   />
   <div class="flex-center h-full">
-    <ChevronRightIcon
-      class="mx-2 h-full cursor-pointer"
-      @click="scrollDirection('right')"
-    />
     <TabsToolRefresh
       v-if="preferences.tabbar.showRefresh"
       @refresh="refreshTab"
