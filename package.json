@@ -102,9 +102,10 @@
       }
     },
     "overrides": {
-      "@ctrl/tinycolor": "^4.1.0",
-      "clsx": "^2.1.1",
-      "vue": "^3.4.37"
+      "@ctrl/tinycolor": "4.1.0",
+      "clsx": "2.1.1",
+      "pinia": "2.2.2",
+      "vue": "3.4.38"
     },
     "neverBuiltDependencies": [
       "canvas",
