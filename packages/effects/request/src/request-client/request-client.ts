@@ -3,6 +3,7 @@ import type {
   AxiosRequestConfig,
   AxiosResponse,
   CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
 } from 'axios';
 
 import { $t } from '@vben/locales';
@@ -18,7 +19,6 @@ import {
   type MakeErrorMessageFn,
   type MakeRequestHeadersFn,
   type RequestClientOptions,
-  type RequestConfigType,
 } from './types';
 
 class BaseRequestClient {
@@ -152,7 +152,7 @@ class RequestClient extends BaseRequestClient {
 
   private setupDefaultResponseInterceptor() {
     this.addRequestInterceptor(
-      (config: RequestConfigType) => {
+      (config: InternalAxiosRequestConfig) => {
         const authorization = this.makeAuthorization?.(config);
         if (authorization) {
           const { token } = authorization.tokenHandler?.() ?? {};
