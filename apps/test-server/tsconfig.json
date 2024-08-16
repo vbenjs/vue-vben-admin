@@ -2,6 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@vben/ts-config/node-server.json",
   "compilerOptions": {
-    "noImplicitAny": false
+    "noImplicitAny": false,
   }
 }

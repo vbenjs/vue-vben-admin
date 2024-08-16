@@ -10,7 +10,7 @@ const dashboardRoute = {
   redirect: '/dashboard/analysis',
   meta: {
     title: 'routes.dashboard.dashboard',
-    hideChildrenInMenu: true,
+    HideChildrenInMenu: true,
     icon: 'bx:bx-home',
   },
   children: [

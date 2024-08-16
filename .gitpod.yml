@@ -1,5 +1,5 @@
 ports:
-  - port: 3344
+  - port: 1177
     onOpen: open-preview
 tasks:
   - init: pnpm install
