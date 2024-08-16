@@ -351,7 +351,7 @@
   --ring: 240 4.9% 83.9%;
   --sidebar: 240 10% 3.9%;
   --sidebar-deep: 240 10% 3.9%;
-  --header: 240 4.9% 83.9%;
+  --header: 240 10% 3.9%;
 }
 
 .dark[data-theme='neutral'],
