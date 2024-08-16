@@ -136,7 +136,8 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭所有标签页
      */
     async closeAllTabs(router: Router) {
-      this.tabs = this.tabs.filter((tab) => isAffixTab(tab));
+      const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
       await this._goToDefaultTab(router);
       this.updateCacheTab();
     },
