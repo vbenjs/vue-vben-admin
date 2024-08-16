@@ -7,10 +7,7 @@ import { BaseRequestClient, type HttpResponse } from '@vben/request';
 import { RequestClient } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
-import { message } from 'ant-design-vue';
-
 import { refreshTokenApi } from '#/api/core';
-import { useAuthStore } from '#/store';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
@@ -28,20 +25,20 @@ function createRequestClient(baseURL: string) {
           };
         },
         unAuthorizedHandler: async () => {
-          const accessStore = useAccessStore();
-          const authStore = useAuthStore();
-          accessStore.setAccessToken(null);
-
-          if (preferences.app.loginExpiredMode === 'modal') {
-            accessStore.setLoginExpired(true);
-          } else {
-            // 退出登录
-            await authStore.logout();
-          }
+          // const accessStore = useAccessStore();
+          // const authStore = useAuthStore();
+          // accessStore.setAccessToken(null);
+          //
+          // if (preferences.app.loginExpiredMode === 'modal') {
+          //   accessStore.setLoginExpired(true);
+          // } else {
+          //   // 退出登录
+          //   await authStore.logout();
+          // }
         },
       };
     },
-    makeErrorMessage: (msg) => message.error(msg),
+    // makeErrorMessage: (msg) => message.error(msg),
 
     makeRequestHeaders: () => {
       return {
@@ -50,22 +47,6 @@ function createRequestClient(baseURL: string) {
       };
     },
   });
-
-  client.addResponseInterceptor(
-    (response) => response,
-    async (error) => {
-      const prevRequest = error.config;
-      const accessStore = useAccessStore();
-      if (error.response.status === 403 && !prevRequest?.sent) {
-        prevRequest.sent = true;
-        const { accessToken } = await refreshTokenApi();
-
-        accessStore.setAccessToken(accessToken);
-        return client.request(prevRequest.url, { ...prevRequest });
-      }
-      throw error;
-    },
-  );
 
   client.addResponseInterceptor<HttpResponse>((response) => {
     const { data: responseData, status } = response;
@@ -76,21 +57,26 @@ function createRequestClient(baseURL: string) {
     }
     throw new Error(`Error ${status}: ${msg}`);
   });
+
+  client.addResponseInterceptor(
+    (response) => response,
+    async (error) => {
+      const prevRequest = error.config;
+      const accessStore = useAccessStore();
+      if (error.response.status === 401 && !prevRequest?.sent) {
+        prevRequest.sent = true;
+        const resp = await refreshTokenApi();
+
+        accessStore.setAccessToken(resp.data);
+        return client.request(prevRequest.url, { ...prevRequest });
+      }
+      throw error;
+    },
+  );
+
   return client;
 }
 
 export const requestClient = createRequestClient(apiURL);
 
-const baseRequestClient = new BaseRequestClient({ baseURL: apiURL });
-
-baseRequestClient.addResponseInterceptor<HttpResponse>((response) => {
-  const { data: responseData, status } = response;
-
-  const { code, data, message: msg } = responseData;
-  if (status >= 200 && status < 400 && code === 0) {
-    return data;
-  }
-  throw new Error(`Error ${status}: ${msg}`);
-});
-
-export { baseRequestClient };
+export const baseRequestClient = new BaseRequestClient({ baseURL: apiURL });

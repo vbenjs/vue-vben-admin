@@ -12737,7 +12737,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 22.2.0
+      '@types/node': 22.3.0
 
   '@types/hast@3.0.4':
     dependencies:
@@ -12759,11 +12759,11 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 22.2.0
+      '@types/node': 22.3.0
 
   '@types/jsonwebtoken@9.0.6':
     dependencies:
-      '@types/node': 22.2.0
+      '@types/node': 22.3.0
 
   '@types/katex@0.16.7': {}
 

@@ -3,6 +3,7 @@ import {
   setRefreshTokenCookie,
 } from '~/utils/cookie_utils';
 import { generateAccessToken, generateRefreshToken } from '~/utils/jwt_utils';
+import { forbiddenResponse } from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const { password, username } = await readBody(event);
@@ -20,17 +21,11 @@ export default defineEventHandler(async (event) => {
 
   if (!findUser) {
     clearRefreshTokenCookie(event);
-
-    setResponseStatus(event, 403);
-    return useResponseError(
-      'UnauthorizedException',
-      'Username or password is incorrect',
-    );
+    return forbiddenResponse(event);
   }
 
   const accessToken = generateAccessToken(findUser);
   const refreshToken = generateRefreshToken(findUser);
-  await useStorage().setItem(refreshToken, findUser.username);
 
   setRefreshTokenCookie(event, refreshToken);
 

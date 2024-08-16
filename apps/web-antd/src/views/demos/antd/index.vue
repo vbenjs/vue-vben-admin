@@ -3,10 +3,13 @@ import { Page } from '@vben/common-ui';
 
 import { Button, Card, message, notification, Space } from 'ant-design-vue';
 
+import { getUserInfoApi } from '#/api';
+
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
 
 function info() {
   message.info('How many roads must a man walk down');
+  getUserInfoApi();
 }
 
 function error() {

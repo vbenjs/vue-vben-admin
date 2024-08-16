@@ -4,38 +4,30 @@ import {
   setRefreshTokenCookie,
 } from '~/utils/cookie_utils';
 import { verifyRefreshToken } from '~/utils/jwt_utils';
+import { forbiddenResponse } from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const refreshToken = getRefreshTokenFromCookie(event);
   if (!refreshToken) {
-    setResponseStatus(event, 401);
-    return useResponseError('UnauthorizedException', 'Unauthorized Exception');
+    return forbiddenResponse(event);
   }
 
   clearRefreshTokenCookie(event);
 
-  const storeValue = await useStorage().getItem(refreshToken);
-  if (!storeValue) {
-    return setResponseStatus(event, 403);
-  }
-
   const userinfo = verifyRefreshToken(refreshToken);
   if (!userinfo) {
-    return setResponseStatus(event, 403);
+    return forbiddenResponse(event);
   }
 
   const findUser = MOCK_USERS.find(
     (item) => item.username === userinfo.username,
   );
   if (!findUser) {
-    return setResponseStatus(event, 403);
+    return forbiddenResponse(event);
   }
   const accessToken = generateAccessToken(findUser);
 
   setRefreshTokenCookie(event, refreshToken);
 
-  return useResponseSuccess({
-    ...findUser,
-    accessToken,
-  });
+  return accessToken;
 });
