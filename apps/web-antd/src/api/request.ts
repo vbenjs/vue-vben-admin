@@ -7,6 +7,8 @@ import { BaseRequestClient, type HttpResponse } from '@vben/request';
 import { RequestClient } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
+import { message } from 'ant-design-vue';
+
 import { refreshTokenApi } from '#/api/core';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
@@ -24,21 +26,9 @@ function createRequestClient(baseURL: string) {
             token: `${accessStore.accessToken}`,
           };
         },
-        unAuthorizedHandler: async () => {
-          // const accessStore = useAccessStore();
-          // const authStore = useAuthStore();
-          // accessStore.setAccessToken(null);
-          //
-          // if (preferences.app.loginExpiredMode === 'modal') {
-          //   accessStore.setLoginExpired(true);
-          // } else {
-          //   // 退出登录
-          //   await authStore.logout();
-          // }
-        },
       };
     },
-    // makeErrorMessage: (msg) => message.error(msg),
+    makeErrorMessage: (msg) => message.error(msg),
 
     makeRequestHeaders: () => {
       return {

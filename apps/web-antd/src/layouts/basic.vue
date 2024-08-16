@@ -4,7 +4,6 @@ import type { NotificationItem } from '@vben/layouts';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { LOGIN_PATH, VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
 import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
 import {
@@ -14,17 +13,12 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import {
-  resetAllStores,
-  storeToRefs,
-  useAccessStore,
-  useUserStore,
-} from '@vben/stores';
+import { resetAllStores, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
+import { logoutApi } from '#/api';
 import { $t } from '#/locales';
 import { resetRoutes } from '#/router';
-import { useAuthStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -58,8 +52,6 @@ const notifications = ref<NotificationItem[]>([
 ]);
 
 const userStore = useUserStore();
-const authStore = useAuthStore();
-const accessStore = useAccessStore();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
@@ -94,8 +86,6 @@ const menus = computed(() => [
   },
 ]);
 
-const { loginLoading } = storeToRefs(authStore);
-
 const avatar = computed(() => {
   return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
 });
@@ -103,6 +93,8 @@ const avatar = computed(() => {
 const router = useRouter();
 
 async function handleLogout() {
+  await logoutApi();
+
   resetAllStores();
   resetRoutes();
   await router.replace(LOGIN_PATH);
@@ -135,16 +127,6 @@ function handleMakeAll() {
         :notifications="notifications"
         @clear="handleNoticeClear"
         @make-all="handleMakeAll"
-      />
-    </template>
-    <template #extra>
-      <AuthenticationLoginExpiredModal
-        v-model:open="accessStore.loginExpired"
-        :avatar
-        :loading="loginLoading"
-        password-placeholder="123456"
-        username-placeholder="vben"
-        @submit="authStore.authLogin"
       />
     </template>
     <template #lock-screen>

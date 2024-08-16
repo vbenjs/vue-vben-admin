@@ -3,15 +3,7 @@ import type {
   AxiosRequestConfig,
   AxiosResponse,
   CreateAxiosDefaults,
-  InternalAxiosRequestConfig,
 } from 'axios';
-
-import type {
-  MakeAuthorizationFn,
-  MakeErrorMessageFn,
-  MakeRequestHeadersFn,
-  RequestClientOptions,
-} from './types';
 
 import { $t } from '@vben/locales';
 import { merge } from '@vben/utils';
@@ -21,6 +13,13 @@ import axios from 'axios';
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
+import {
+  type MakeAuthorizationFn,
+  type MakeErrorMessageFn,
+  type MakeRequestHeadersFn,
+  type RequestClientOptions,
+  type RequestConfigType,
+} from './types';
 
 class BaseRequestClient {
   protected instance: AxiosInstance;
@@ -153,7 +152,7 @@ class RequestClient extends BaseRequestClient {
 
   private setupDefaultResponseInterceptor() {
     this.addRequestInterceptor(
-      (config: InternalAxiosRequestConfig) => {
+      (config: RequestConfigType) => {
         const authorization = this.makeAuthorization?.(config);
         if (authorization) {
           const { token } = authorization.tokenHandler?.() ?? {};
@@ -194,7 +193,7 @@ class RequestClient extends BaseRequestClient {
           return Promise.reject(error);
         }
 
-        let errorMessage = error?.response?.data?.error?.message ?? '';
+        let errorMessage = '';
         const status = error?.response?.status;
 
         switch (status) {
@@ -202,24 +201,22 @@ class RequestClient extends BaseRequestClient {
             errorMessage = $t('fallback.http.badRequest');
             break;
           }
-
           case 401: {
-            errorMessage = $t('fallback.http.unauthorized');
-            this.makeAuthorization?.().unAuthorizedHandler?.();
+            // TODO if not use refreshToken
+            // errorMessage = $t('fallback.http.unauthorized');
+            // this.makeAuthorization?.().unAuthorizedHandler?.();
             break;
           }
           case 403: {
             errorMessage = $t('fallback.http.forbidden');
             break;
           }
-          // 404请求不存在
           case 404: {
             errorMessage = $t('fallback.http.notFound');
             break;
           }
           case 408: {
             errorMessage = $t('fallback.http.requestTimeout');
-
             break;
           }
           default: {
@@ -227,7 +224,7 @@ class RequestClient extends BaseRequestClient {
           }
         }
 
-        this.makeErrorMessage?.(errorMessage);
+        errorMessage && this.makeErrorMessage?.(errorMessage);
         return Promise.reject(error);
       },
     );
