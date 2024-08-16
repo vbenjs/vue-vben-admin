@@ -24,7 +24,9 @@ export default defineEventHandler(async (event) => {
     return setResponseStatus(event, 403);
   }
 
-  const findUser = MOCK_USERS.find((item) => item.id === userinfo.id);
+  const findUser = MOCK_USERS.find(
+    (item) => item.username === userinfo.username,
+  );
   if (!findUser) {
     return setResponseStatus(event, 403);
   }

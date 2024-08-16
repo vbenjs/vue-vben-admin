@@ -10,7 +10,7 @@ export interface UserPayload extends UserInfo {
 }
 
 export function generateAccessToken(user: UserInfo) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10s' });
 }
 
 export function generateRefreshToken(user: UserInfo) {
@@ -22,8 +22,7 @@ export function generateRefreshToken(user: UserInfo) {
 export function verifyAccessToken(
   event: H3Event<EventHandlerRequest>,
 ): null | Omit<UserInfo, 'password'> {
-  const authHeader =
-    getHeader(event, 'Authorization') || getHeader(event, 'authorization');
+  const authHeader = getHeader(event, 'Authorization');
   if (!authHeader.startsWith('Bearer')) {
     return null;
   }
@@ -35,8 +34,8 @@ export function verifyAccessToken(
       process.env.ACCESS_TOKEN_SECRET,
     ) as UserPayload;
 
-    const userId = decoded.id;
-    const user = MOCK_USERS.find((item) => item.id === userId);
+    const username = decoded.username;
+    const user = MOCK_USERS.find((item) => item.username === username);
     const { password: _pwd, ...userinfo } = user;
     return userinfo;
   } catch {
@@ -52,9 +51,8 @@ export function verifyRefreshToken(
       token,
       process.env.REFRESH_TOKEN_SECRET,
     ) as UserPayload;
-
-    const userId = decoded.id;
-    const user = MOCK_USERS.find((item) => item.id === userId);
+    const username = decoded.username;
+    const user = MOCK_USERS.find((item) => item.username === username);
     const { password: _pwd, ...userinfo } = user;
     return userinfo;
   } catch {

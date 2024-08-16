@@ -22,14 +22,79 @@ import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
 
-class RequestClient {
-  private instance: AxiosInstance;
-  private makeAuthorization: MakeAuthorizationFn | undefined;
-  private makeErrorMessage: MakeErrorMessageFn | undefined;
-  private makeRequestHeaders: MakeRequestHeadersFn | undefined;
+class BaseRequestClient {
+  protected instance: AxiosInstance;
 
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
+
+  constructor(options: RequestClientOptions = {}) {
+    this.instance = axios.create(options);
+
+    // 实例化拦截器管理器
+    const interceptorManager = new InterceptorManager(this.instance);
+    this.addRequestInterceptor =
+      interceptorManager.addRequestInterceptor.bind(interceptorManager);
+    this.addResponseInterceptor =
+      interceptorManager.addResponseInterceptor.bind(interceptorManager);
+  }
+  /**
+   * DELETE请求方法
+   */
+  public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>(url, { ...config, method: 'DELETE' });
+  }
+
+  /**
+   * GET请求方法
+   */
+  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>(url, { ...config, method: 'GET' });
+  }
+
+  /**
+   * POST请求方法
+   */
+  public post<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this.request<T>(url, { ...config, data, method: 'POST' });
+  }
+
+  /**
+   * PUT请求方法
+   */
+  public put<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this.request<T>(url, { ...config, data, method: 'PUT' });
+  }
+
+  /**
+   * 通用的请求方法
+   */
+  public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
+    try {
+      const response: AxiosResponse<T> = await this.instance({
+        url,
+        ...config,
+      });
+      return response as T;
+    } catch (error: any) {
+      throw error.response ? error.response.data : error;
+    }
+  }
+}
+
+class RequestClient extends BaseRequestClient {
+  private readonly makeAuthorization: MakeAuthorizationFn | undefined;
+  private readonly makeErrorMessage: MakeErrorMessageFn | undefined;
+  private readonly makeRequestHeaders: MakeRequestHeadersFn | undefined;
+
   public download: FileDownloader['download'];
   public upload: FileUploader['upload'];
 
@@ -38,7 +103,6 @@ class RequestClient {
    * @param options - Axios请求配置，可选
    */
   constructor(options: RequestClientOptions = {}) {
-    this.bindMethods();
     // 合并默认配置和传入的配置
     const defaultConfig: CreateAxiosDefaults = {
       headers: {
@@ -54,18 +118,12 @@ class RequestClient {
       ...axiosConfig
     } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
+    super(requestConfig);
 
-    this.instance = axios.create(requestConfig);
+    this.bindMethods();
     this.makeAuthorization = makeAuthorization;
     this.makeRequestHeaders = makeRequestHeaders;
     this.makeErrorMessage = makeErrorMessage;
-
-    // 实例化拦截器管理器
-    const interceptorManager = new InterceptorManager(this.instance);
-    this.addRequestInterceptor =
-      interceptorManager.addRequestInterceptor.bind(interceptorManager);
-    this.addResponseInterceptor =
-      interceptorManager.addResponseInterceptor.bind(interceptorManager);
 
     // 实例化文件上传器
     const fileUploader = new FileUploader(this);
@@ -179,57 +237,6 @@ class RequestClient {
     // 默认拦截器
     this.setupDefaultResponseInterceptor();
   }
-
-  /**
-   * DELETE请求方法
-   */
-  public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'DELETE' });
-  }
-
-  /**
-   * GET请求方法
-   */
-  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'GET' });
-  }
-
-  /**
-   * POST请求方法
-   */
-  public post<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'POST' });
-  }
-
-  /**
-   * PUT请求方法
-   */
-  public put<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'PUT' });
-  }
-
-  /**
-   * 通用的请求方法
-   */
-  public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
-    try {
-      const response: AxiosResponse<T> = await this.instance({
-        url,
-        ...config,
-      });
-      return response as T;
-    } catch (error: any) {
-      throw error.response ? error.response.data : error;
-    }
-  }
 }
 
-export { RequestClient };
+export { BaseRequestClient, RequestClient };

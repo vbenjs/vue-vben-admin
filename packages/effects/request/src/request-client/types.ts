@@ -8,7 +8,7 @@ type RequestContentType =
 
 interface MakeAuthorization {
   key?: string;
-  tokenHandler: () => { refreshToken: string; token: string } | null;
+  tokenHandler: () => { token: string } | null;
   unAuthorizedHandler?: () => Promise<void>;
 }
 
@@ -54,6 +54,7 @@ interface HttpResponse<T = any> {
 
 export type {
   HttpResponse,
+  InternalAxiosRequestConfig as RequestConfigType,
   MakeAuthorizationFn,
   MakeErrorMessageFn,
   MakeRequestHeadersFn,

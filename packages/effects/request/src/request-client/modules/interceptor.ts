@@ -16,7 +16,9 @@ class InterceptorManager {
   addRequestInterceptor(
     fulfilled: (
       config: InternalAxiosRequestConfig,
-    ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>,
+    ) =>
+      | InternalAxiosRequestConfig<any>
+      | Promise<InternalAxiosRequestConfig<any>>,
     rejected?: (error: any) => any,
   ) {
     this.axiosInstance.interceptors.request.use(

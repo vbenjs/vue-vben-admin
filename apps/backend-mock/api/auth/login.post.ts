@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
 
   const accessToken = generateAccessToken(findUser);
   const refreshToken = generateRefreshToken(findUser);
-  await useStorage().setItem(refreshToken, findUser.id);
+  await useStorage().setItem(refreshToken, findUser.username);
 
   setRefreshTokenCookie(event, refreshToken);
 
