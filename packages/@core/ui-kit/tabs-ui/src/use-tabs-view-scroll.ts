@@ -9,8 +9,8 @@ import { useDebounceFn } from '@vueuse/core';
 type DomElement = Element | null | undefined;
 
 export function useTabsViewScroll(props: TabsProps) {
-  let resizeObserver: ResizeObserver;
-  let mutationObserver: MutationObserver;
+  let resizeObserver: null | ResizeObserver = null;
+  let mutationObserver: MutationObserver | null = null;
   let tabItemCount = 0;
   const scrollbarRef = ref<InstanceType<typeof VbenScrollbar> | null>(null);
   const scrollViewportEl = ref<DomElement>(null);
@@ -177,6 +177,8 @@ export function useTabsViewScroll(props: TabsProps) {
   onUnmounted(() => {
     resizeObserver?.disconnect();
     mutationObserver?.disconnect();
+    resizeObserver = null;
+    mutationObserver = null;
   });
 
   return {

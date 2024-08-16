@@ -42,6 +42,16 @@ const showShadowBottom = computed(() => props.shadow && props.shadowBottom);
 const showShadowLeft = computed(() => props.shadow && props.shadowLeft);
 const showShadowRight = computed(() => props.shadow && props.shadowRight);
 
+const computedShadowClasses = computed(() => ({
+  'shadow-both':
+    !isAtLeft.value &&
+    !isAtRight.value &&
+    showShadowLeft.value &&
+    showShadowRight.value,
+  'shadow-left': !isAtLeft.value && showShadowLeft.value,
+  'shadow-right': !isAtRight.value && showShadowRight.value,
+}));
+
 function handleScroll(event: Event) {
   const target = event.target as HTMLElement;
   const scrollTop = target?.scrollTop ?? 0;
@@ -66,15 +76,7 @@ function handleScroll(event: Event) {
 
 <template>
   <ScrollArea
-    :class="[
-      cn(props.class),
-      {
-        'shadow-left': !isAtLeft && showShadowLeft,
-        'shadow-right': !isAtRight && showShadowRight,
-        'shadow-both':
-          !isAtLeft && !isAtRight && showShadowLeft && showShadowRight,
-      },
-    ]"
+    :class="[cn(props.class), computedShadowClasses]"
     :on-scroll="handleScroll"
     class="vben-scrollbar relative"
   >

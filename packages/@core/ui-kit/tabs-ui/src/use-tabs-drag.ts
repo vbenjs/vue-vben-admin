@@ -24,6 +24,11 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
       `.${props.contentClass}`,
     )?.[0] as HTMLElement;
 
+    if (!el) {
+      console.warn('Element not found for sortable initialization');
+      return;
+    }
+
     const resetElState = async () => {
       el.style.cursor = 'default';
       el.classList.remove('dragging');

@@ -14,7 +14,7 @@ import { useCssVar, useDebounceFn } from '@vueuse/core';
  * @zh_CN content style
  */
 function useContentStyle() {
-  let resizeObserver: ResizeObserver;
+  let resizeObserver: null | ResizeObserver = null;
   const contentElement = ref<HTMLDivElement | null>(null);
   const visibleDomRect = ref<null | VisibleDomRect>(null);
   const contentHeight = useCssVar(CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT);
@@ -42,7 +42,7 @@ function useContentStyle() {
   );
 
   onMounted(() => {
-    if (contentElement.value) {
+    if (contentElement.value && !resizeObserver) {
       resizeObserver = new ResizeObserver(debouncedCalcHeight);
       resizeObserver.observe(contentElement.value);
     }
@@ -50,6 +50,7 @@ function useContentStyle() {
 
   onUnmounted(() => {
     resizeObserver?.disconnect();
+    resizeObserver = null;
   });
 
   return { contentElement, overlayStyle, visibleDomRect };
