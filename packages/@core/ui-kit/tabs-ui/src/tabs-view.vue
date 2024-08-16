@@ -7,8 +7,10 @@ import type { TabsProps } from './types';
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useForwardPropsEmits, useSortable } from '@vben-core/composables';
+import { ChevronLeft, ChevronRight } from '@vben-core/icons';
 
 import { Tabs, TabsChrome } from './components';
+import { useTabsViewScroll } from './use-tabs-view-scroll';
 
 interface Props extends TabsProps {}
 
@@ -29,6 +31,8 @@ const emit = defineEmits<{
 }>();
 
 const forward = useForwardPropsEmits(props, emit);
+
+const { initScrollbar, scrollDirection } = useTabsViewScroll();
 
 const sortableInstance = ref<null | Sortable>(null);
 
@@ -104,13 +108,21 @@ async function initTabsSortable() {
   sortableInstance.value = await initializeSortable();
 }
 
-onMounted(initTabsSortable);
+async function init() {
+  await nextTick();
+  initTabsSortable();
+  initScrollbar();
+}
+
+onMounted(() => {
+  init();
+});
 
 watch(
   () => props.styleType,
   () => {
     sortableInstance.value?.destroy();
-    initTabsSortable();
+    init();
   },
 );
 
@@ -120,6 +132,32 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <TabsChrome v-if="styleType === 'chrome'" v-bind="forward" />
-  <Tabs v-else v-bind="forward" />
+  <div
+    :class="{
+      'overflow-hidden': styleType !== 'chrome',
+    }"
+    class="flex h-full flex-1"
+  >
+    <!-- 左侧滚动按钮 -->
+    <span
+      class="hover:bg-muted text-muted-foreground cursor-pointer border-r px-2"
+      @click="scrollDirection('left')"
+    >
+      <ChevronLeft class="size-4 h-full" />
+    </span>
+
+    <TabsChrome
+      v-if="styleType === 'chrome'"
+      v-bind="{ ...forward, ...$attrs, ...$props }"
+    />
+    <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
+
+    <!-- 左侧滚动按钮 -->
+    <span
+      class="hover:bg-muted text-muted-foreground cursor-pointer border-l px-2"
+      @click="scrollDirection('right')"
+    >
+      <ChevronRight class="size-4 h-full" />
+    </span>
+  </div>
 </template>

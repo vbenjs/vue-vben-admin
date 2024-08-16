@@ -28,7 +28,7 @@
     "@vben/types": "workspace:*",
     "@vueuse/integrations": "^10.11.1",
     "qrcode": "^1.5.4",
-    "vue": "^3.4.37",
+    "vue": "^3.4.38",
     "vue-router": "^4.4.3"
   },
   "devDependencies": {

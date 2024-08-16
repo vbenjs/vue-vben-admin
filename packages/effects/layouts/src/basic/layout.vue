@@ -16,7 +16,7 @@ import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { Toaster, VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
-import { LayoutContent } from './content';
+import { LayoutContent, LayoutContentSpinner } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
 import { LayoutHeader } from './header';
@@ -296,6 +296,12 @@ const headerSlots = computed(() => {
     <!-- 主体内容 -->
     <template #content>
       <LayoutContent />
+    </template>
+    <template
+      v-if="preferences.transition.loading"
+      #content-overlay="{ overlayStyle }"
+    >
+      <LayoutContentSpinner :overlay-style="overlayStyle" />
     </template>
 
     <!-- 页脚 -->

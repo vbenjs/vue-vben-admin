@@ -2,6 +2,10 @@ import type { DefaultTheme, HeadConfig } from 'vitepress';
 
 import { resolve } from 'node:path';
 
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite';
 import { type PwaOptions, withPwa } from '@vite-pwa/vitepress';
 import { defineConfigWithTheme } from 'vitepress';
 
@@ -98,6 +102,12 @@ export default withPwa(
       json: {
         stringify: true,
       },
+      plugins: [
+        GitChangelog({
+          repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
+        }),
+        GitChangelogMarkdownSection(),
+      ],
       server: {
         fs: {
           allow: ['../..'],

@@ -478,7 +478,7 @@ function cloneTab(route: TabDefinition): TabDefinition {
   if (!route) {
     return route;
   }
-  const { matched, ...opt } = route;
+  const { matched, meta, ...opt } = route;
   return {
     ...opt,
     matched: (matched
@@ -488,6 +488,10 @@ function cloneTab(route: TabDefinition): TabDefinition {
           path: item.path,
         }))
       : undefined) as RouteRecordNormalized[],
+    meta: {
+      ...meta,
+      newTabTitle: meta.newTabTitle,
+    },
   };
 }
 

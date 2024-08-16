@@ -42,9 +42,9 @@ version-resolver:
   minor:
     labels:
       - "minor"
-      - "feature"
   patch:
     labels:
+      - "feature"
       - "patch"
       - "bug"
       - "maintenance"

@@ -32,6 +32,6 @@
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "^10.11.1",
-    "vue": "^3.4.37"
+    "vue": "^3.4.38"
   }
 }
