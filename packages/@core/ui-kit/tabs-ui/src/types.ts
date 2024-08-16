@@ -1,11 +1,11 @@
 import type { IContextMenuItem } from '@vben-core/shadcn-ui';
 import type { TabDefinition, TabsStyleType } from '@vben-core/typings';
 
-export interface TabsEmits {
+export type TabsEmits = {
   close: [string];
   sortTabs: [number, number];
   unpin: [TabDefinition];
-}
+};
 
 export interface TabsProps {
   active?: string;
