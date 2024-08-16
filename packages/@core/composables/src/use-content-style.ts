@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'vue';
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import {
   CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
@@ -14,6 +14,7 @@ import { useCssVar, useDebounceFn } from '@vueuse/core';
  * @zh_CN content style
  */
 function useContentStyle() {
+  let resizeObserver: ResizeObserver;
   const contentElement = ref<HTMLDivElement | null>(null);
   const visibleDomRect = ref<null | VisibleDomRect>(null);
   const contentHeight = useCssVar(CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT);
@@ -41,12 +42,14 @@ function useContentStyle() {
   );
 
   onMounted(() => {
-    nextTick(() => {
-      if (contentElement.value) {
-        const observer = new ResizeObserver(debouncedCalcHeight);
-        observer.observe(contentElement.value);
-      }
-    });
+    if (contentElement.value) {
+      resizeObserver = new ResizeObserver(debouncedCalcHeight);
+      resizeObserver.observe(contentElement.value);
+    }
+  });
+
+  onUnmounted(() => {
+    resizeObserver?.disconnect();
   });
 
   return { contentElement, overlayStyle, visibleDomRect };

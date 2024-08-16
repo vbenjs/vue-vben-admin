@@ -124,10 +124,21 @@ export const useTabbarStore = defineStore('core-tabbar', {
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
         const currentTab = toRaw(this.tabs)[tabIndex];
-        const mergedTab = { ...currentTab, ...tab };
-        if (currentTab && Reflect.has(currentTab.meta, 'affixTab')) {
-          mergedTab.meta.affixTab = currentTab.meta.affixTab;
+        const mergedTab = {
+          ...currentTab,
+          ...tab,
+          meta: { ...currentTab?.meta, ...tab.meta },
+        };
+        if (currentTab) {
+          const curMeta = currentTab.meta;
+          if (Reflect.has(curMeta, 'affixTab')) {
+            mergedTab.meta.affixTab = curMeta.affixTab;
+          }
+          if (Reflect.has(curMeta, 'newTabTitle')) {
+            mergedTab.meta.newTabTitle = curMeta.newTabTitle;
+          }
         }
+
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTab();

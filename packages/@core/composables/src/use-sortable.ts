@@ -18,7 +18,7 @@ function useSortable<T extends HTMLElement>(
     // Sortable?.default?.mount?.(AutoScroll);
 
     const sortable = Sortable?.default?.create?.(sortableContainer, {
-      animation: 100,
+      animation: 300,
       delay: 400,
       delayOnTouchOnly: true,
       ...options,
