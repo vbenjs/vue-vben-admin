@@ -1,7 +1,14 @@
 import type { IContextMenuItem } from '@vben-core/shadcn-ui';
 import type { TabDefinition, TabsStyleType } from '@vben-core/typings';
 
-interface TabsProps {
+export type TabsEmits = {
+  close: [string];
+  sortTabs: [number, number];
+  unpin: [TabDefinition];
+};
+
+export interface TabsProps {
+  active?: string;
   /**
    * @zh_CN content class
    * @default tabs-chrome
@@ -48,12 +55,10 @@ interface TabsProps {
   tabs?: TabDefinition[];
 }
 
-interface TabConfig extends TabDefinition {
+export interface TabConfig extends TabDefinition {
   affixTab: boolean;
   closable: boolean;
   icon: string;
   key: string;
   title: string;
 }
-
-export type { TabConfig, TabsProps };

@@ -42,7 +42,8 @@ export async function typescript(): Promise<Linter.Config[]> {
           },
         ],
 
-        '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+        // '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+        '@typescript-eslint/consistent-type-definitions': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-empty-function': [
