@@ -18,7 +18,7 @@ export {
   CircleHelp,
   Copy,
   CornerDownLeft,
-  Disc3 as IconDefault,
+  Disc as IconDefault,
   Ellipsis,
   ExternalLink,
   Eye,
