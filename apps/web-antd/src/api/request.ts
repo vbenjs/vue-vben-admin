@@ -48,6 +48,10 @@ function createRequestClient(baseURL: string) {
     throw new Error(`Error ${status}: ${msg}`);
   });
 
+  // todo 这个拦截器需要在request-client内默认response interceptor之前注册
+  // response interceptor按注册的顺序执行
+  // request interceptor 逆序执行
+  // 所以可以提供预设的interceptors，apps内按需要调整
   client.addResponseInterceptor(
     (response) => response,
     async (error) => {

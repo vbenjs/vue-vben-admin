@@ -202,9 +202,7 @@ class RequestClient extends BaseRequestClient {
             break;
           }
           case 401: {
-            // TODO if not use refreshToken
-            // errorMessage = $t('fallback.http.unauthorized');
-            // this.makeAuthorization?.().unAuthorizedHandler?.();
+            errorMessage = $t('fallback.http.unauthorized');
             break;
           }
           case 403: {
