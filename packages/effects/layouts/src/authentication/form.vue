@@ -2,7 +2,6 @@
 import { preferences } from '@vben/preferences';
 
 import { Copyright } from '../basic/copyright';
-import Toolbar from './toolbar.vue';
 
 defineOptions({
   name: 'AuthenticationFormView',
@@ -14,9 +13,7 @@ defineOptions({
     class="flex-col-center bg-background-deep relative px-6 py-10 lg:flex-initial lg:px-8"
   >
     <!-- Toolbar Slot -->
-    <slot name="toolbar">
-      <Toolbar />
-    </slot>
+    <slot name="toolbar"> </slot>
 
     <!-- Router View with Transition and KeepAlive -->
     <RouterView v-slot="{ Component, route }">
