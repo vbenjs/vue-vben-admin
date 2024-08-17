@@ -671,6 +671,9 @@ importers:
       '@ctrl/tinycolor':
         specifier: 4.1.0
         version: 4.1.0
+      '@tanstack/vue-store':
+        specifier: ^0.5.5
+        version: 0.5.5(vue@3.4.37(typescript@5.5.4))
       '@vue/shared':
         specifier: ^3.4.37
         version: 3.4.38
@@ -3375,6 +3378,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3823,8 +3827,20 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
+  '@tanstack/store@0.5.5':
+    resolution: {integrity: sha512-EOSrgdDAJExbvRZEQ/Xhh9iZchXpMN+ga1Bnk8Nmygzs8TfiE6hbzThF+Pr2G19uHL6+DTDTHhJ8VQiOd7l4tA==}
+
   '@tanstack/virtual-core@3.9.0':
     resolution: {integrity: sha512-Saga7/QRGej/IDCVP5BgJ1oDqlDT2d9rQyoflS3fgMS8ntJ8JGw/LBqK2GorHa06+VrNFc0tGz65XQHJQJetFQ==}
+
+  '@tanstack/vue-store@0.5.5':
+    resolution: {integrity: sha512-j+CDrxVhtQQNOjWzLmCqJeDwmmTAQGvEaNbLr1uPJ9rxJITodJtFNdBFj7l+Nd5o34v2ayEv64Ugh6+1BtuGNg==}
+    peerDependencies:
+      '@vue/composition-api': ^1.2.1
+      vue: 3.4.37
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
 
   '@tanstack/vue-virtual@3.9.0':
     resolution: {integrity: sha512-MVJhQh57OR3wg2pWL/25IN1/nITFNnpFaz4gOvRCqnxhsH0WRePBBKvixOaFTgiyYfmrjFbb4d0nRMTvsjZZdQ==}
@@ -12638,7 +12654,15 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.10
 
+  '@tanstack/store@0.5.5': {}
+
   '@tanstack/virtual-core@3.9.0': {}
+
+  '@tanstack/vue-store@0.5.5(vue@3.4.37(typescript@5.5.4))':
+    dependencies:
+      '@tanstack/store': 0.5.5
+      vue: 3.4.37(typescript@5.5.4)
+      vue-demi: 0.14.10(vue@3.4.37(typescript@5.5.4))
 
   '@tanstack/vue-virtual@3.9.0(vue@3.4.37(typescript@5.5.4))':
     dependencies:

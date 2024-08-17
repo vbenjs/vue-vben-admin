@@ -139,7 +139,7 @@ watch(
   async (val) => {
     if (val) {
       await updateWatermark({
-        content: `${preferences.app.name} 用户名: ${userStore.userInfo?.username}`,
+        content: `${userStore.userInfo?.username}`,
       });
     }
   },
