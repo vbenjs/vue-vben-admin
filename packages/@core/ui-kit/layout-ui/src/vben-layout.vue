@@ -474,7 +474,7 @@ function handleOpenMenu() {
     >
       <div
         :style="headerWrapperStyle"
-        class="overflow-hidden transition-all duration-200"
+        class="overflow-hidden shadow-[0_16px_24px_hsl(var(--background))] transition-all duration-200"
       >
         <LayoutHeader
           v-if="headerVisible"

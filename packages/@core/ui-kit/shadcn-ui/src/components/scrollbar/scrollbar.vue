@@ -42,15 +42,17 @@ const showShadowBottom = computed(() => props.shadow && props.shadowBottom);
 const showShadowLeft = computed(() => props.shadow && props.shadowLeft);
 const showShadowRight = computed(() => props.shadow && props.shadowRight);
 
-const computedShadowClasses = computed(() => ({
-  'shadow-both':
-    !isAtLeft.value &&
-    !isAtRight.value &&
-    showShadowLeft.value &&
-    showShadowRight.value,
-  'shadow-left': !isAtLeft.value && showShadowLeft.value,
-  'shadow-right': !isAtRight.value && showShadowRight.value,
-}));
+const computedShadowClasses = computed(() => {
+  return {
+    'both-shadow':
+      !isAtLeft.value &&
+      !isAtRight.value &&
+      showShadowLeft.value &&
+      showShadowRight.value,
+    'left-shadow': !isAtLeft.value && showShadowLeft.value,
+    'right-shadow': !isAtRight.value && showShadowRight.value,
+  };
+});
 
 function handleScroll(event: Event) {
   const target = event.target as HTMLElement;
@@ -107,11 +109,11 @@ function handleScroll(event: Event) {
 
 <style scoped>
 .vben-scrollbar {
-  &:not(.shadow-both).shadow-left {
+  &:not(.both-shadow).left-shadow {
     mask-image: linear-gradient(90deg, transparent, #000 16px);
   }
 
-  &:not(.shadow-both).shadow-right {
+  &:not(.both-shadow).right-shadow {
     mask-image: linear-gradient(
       90deg,
       #000 0%,
@@ -120,7 +122,7 @@ function handleScroll(event: Event) {
     );
   }
 
-  &.shadow-both {
+  &.both-shadow {
     mask-image: linear-gradient(
       90deg,
       transparent,

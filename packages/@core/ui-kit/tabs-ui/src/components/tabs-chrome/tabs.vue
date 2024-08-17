@@ -5,7 +5,7 @@ import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, ref } from 'vue';
 
-import { MdiPin, X } from '@vben-core/icons';
+import { Pin, X } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon } from '@vben-core/shadcn-ui';
 
 interface Props extends TabsProps {}
@@ -62,7 +62,7 @@ const tabsView = computed((): TabConfig[] => {
     :style="style"
     class="tabs-chrome !flex h-full w-max pr-6"
   >
-    <TransitionGroup name="slide-left">
+    <TransitionGroup name="slide-right">
       <div
         v-for="(tab, i) in tabsView"
         :key="tab.key"
@@ -70,7 +70,7 @@ const tabsView = computed((): TabConfig[] => {
         :class="[{ 'is-active': tab.key === active, dragable: !tab.affixTab }]"
         :data-active-tab="active"
         :data-index="i"
-        class="tabs-chrome__item draggable group relative -mr-3 flex h-full select-none items-center"
+        class="tabs-chrome__item draggable translate-all group relative -mr-3 flex h-full select-none items-center"
         data-tab-item="true"
         @click="active = tab.key"
       >
@@ -119,7 +119,7 @@ const tabsView = computed((): TabConfig[] => {
                 class="hover:bg-accent stroke-accent-foreground/80 hover:stroke-accent-foreground text-accent-foreground/80 group-[.is-active]:text-accent-foreground mt-[2px] size-3 cursor-pointer rounded-full transition-all"
                 @click.stop="() => emit('close', tab.key)"
               />
-              <MdiPin
+              <Pin
                 v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
                 class="hover:text-accent-foreground text-accent-foreground/80 group-[.is-active]:text-accent-foreground mt-[2px] size-3.5 cursor-pointer rounded-full transition-all"
                 @click.stop="() => emit('unpin', tab)"
