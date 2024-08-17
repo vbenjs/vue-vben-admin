@@ -54,7 +54,6 @@ const style = computed((): CSSProperties => {
 
 <template>
   <main ref="contentElement" :style="style" class="bg-background-deep relative">
-    <!-- <BlurShadow :style="shadowStyle" /> -->
     <slot :overlay-style="overlayStyle" name="overlay"></slot>
     <slot></slot>
   </main>

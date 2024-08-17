@@ -60,9 +60,11 @@ useTabsDrag(props, emit);
     >
       <VbenScrollbar
         ref="scrollbarRef"
+        :shadow-bottom="false"
+        :shadow-top="false"
         class="h-full"
         horizontal
-        scroll-bar-class="z-10 hidden"
+        scroll-bar-class="z-10 hidden "
         shadow
         shadow-left
         shadow-right

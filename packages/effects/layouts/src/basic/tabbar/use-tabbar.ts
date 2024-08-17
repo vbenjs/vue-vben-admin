@@ -13,9 +13,9 @@ import {
   ExternalLink,
   FoldHorizontal,
   Fullscreen,
-  MdiPin,
-  MdiPinOff,
   Minimize2,
+  Pin,
+  PinOff,
   RotateCw,
   X,
 } from '@vben/icons';
@@ -135,7 +135,7 @@ export function useTabbar() {
         handler: async () => {
           await toggleTabPin(tab);
         },
-        icon: affixTab ? MdiPinOff : MdiPin,
+        icon: affixTab ? PinOff : Pin,
         key: 'affix',
         text: affixTab
           ? $t('preferences.tabbar.contextMenu.unpin')
