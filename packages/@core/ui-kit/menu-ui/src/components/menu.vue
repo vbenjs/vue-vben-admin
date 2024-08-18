@@ -683,7 +683,7 @@ $namespace: vben;
   }
 
   &__popup {
-    padding: 4px 0;
+    padding: 10px 0;
     border-radius: var(--menu-item-radius);
 
     .#{$namespace}-sub-menu-content,
