@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm run build
+        run: pnpm build:play && pnpm build:docs
 
       - name: Sync Playground files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -66,7 +66,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build:antd
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -97,7 +97,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build:ele
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -128,7 +128,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build:naive
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
