@@ -3,8 +3,7 @@
  */
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
-import { BaseRequestClient, type HttpResponse } from '@vben/request';
-import { RequestClient } from '@vben/request';
+import { errorMessageResponseInterceptor, RequestClient } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
 import { message } from 'ant-design-vue';
@@ -16,45 +15,47 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 function createRequestClient(baseURL: string) {
   const client = new RequestClient({
     baseURL,
-    // 为每个请求携带 Authorization
-    makeAuthorization: () => {
-      return {
-        key: 'Authorization',
-        tokenHandler: () => {
-          const accessStore = useAccessStore();
-          return {
-            token: `${accessStore.accessToken}`,
-          };
-        },
-      };
-    },
-    makeErrorMessage: (msg) => message.error(msg),
+  });
 
-    makeRequestHeaders: () => {
-      return {
-        // 为每个请求携带 Accept-Language
-        'Accept-Language': preferences.app.locale,
-      };
+  client.addRequestInterceptor({
+    fulfilled: (config) => {
+      const accessStore = useAccessStore();
+
+      config.headers.Authorization = `Bearer ${accessStore.accessToken}`;
+      config.headers['Accept-Language'] = preferences.app.locale;
+
+      return config;
     },
   });
 
-  client.addResponseInterceptor<HttpResponse>((response) => {
-    const { data: responseData, status } = response;
+  client.addResponseInterceptor({
+    fulfilled: (response) => {
+      const { data: responseData, status } = response;
 
-    const { code, data, message: msg } = responseData;
-    if (status >= 200 && status < 400 && code === 0) {
-      return data;
-    }
-    throw new Error(`Error ${status}: ${msg}`);
+      const { code, data, message: msg } = responseData;
+      if (status >= 200 && status < 400 && code === 0) {
+        return data;
+      }
+      throw new Error(`Error ${status}: ${msg}`);
+    },
   });
 
-  // todo 这个拦截器需要在request-client内默认response interceptor之前注册
-  // response interceptor按注册的顺序执行
-  // request interceptor 逆序执行
-  // 所以可以提供预设的interceptors，apps内按需要调整
-  client.addResponseInterceptor(
-    (response) => response,
-    async (error) => {
+  client.addResponseInterceptor({
+    rejected: async (error) => {
+      // 非refreshToken的处理方式
+      // if (error.response.status === 401) {
+      //    const accessStore = useAccessStore();
+      //    const authStore = useAuthStore();
+      //    accessStore.setAccessToken(null);
+      //
+      //    if (preferences.app.loginExpiredMode === 'modal') {
+      //      accessStore.setLoginExpired(true);
+      //    } else {
+      //      await authStore.logout();
+      //    }
+      //  }
+
+      // refreshToken的处理方式
       const prevRequest = error.config;
       const accessStore = useAccessStore();
       if (error.response.status === 401 && !prevRequest?.sent) {
@@ -66,11 +67,16 @@ function createRequestClient(baseURL: string) {
       }
       throw error;
     },
-  );
+  });
+
+  client.addResponseInterceptor({
+    rejected: () =>
+      errorMessageResponseInterceptor((msg: any) => message.error(msg)),
+  });
 
   return client;
 }
 
 export const requestClient = createRequestClient(apiURL);
 
-export const baseRequestClient = new BaseRequestClient({ baseURL: apiURL });
+export const baseRequestClient = new RequestClient({ baseURL: apiURL });
