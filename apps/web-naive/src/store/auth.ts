@@ -9,7 +9,7 @@ import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
 import { defineStore } from 'pinia';
 
-import { getAccessCodesApi, getUserInfoApi, loginApi } from '#/api';
+import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
 import { notification } from '#/naive';
 
@@ -77,6 +77,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout() {
+    await logoutApi();
     resetAllStores();
     accessStore.setLoginExpired(false);
 
