@@ -78,7 +78,7 @@ pnpm build
 
 ## 変更ログ
 
-[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases/latest)
+[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
 
 ## 貢献方法
 

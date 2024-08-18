@@ -16,7 +16,7 @@ const text = ref(longText);
     title="文本省略示例"
   >
     <Card class="mb-4" title="基本使用">
-      <EllipsisText :max-width="240">{{ text }}</EllipsisText>
+      <EllipsisText :max-width="500">{{ text }}</EllipsisText>
     </Card>
 
     <Card class="mb-4" title="多行省略">

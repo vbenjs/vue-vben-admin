@@ -116,7 +116,6 @@ class PreferenceManager {
         this.updatePreferences({
           theme: { mode: isDark ? 'dark' : 'light' },
         });
-        // updateCSSVariables(this.state);
       });
   }
 

@@ -128,7 +128,7 @@ pnpm build
 
 ## 更新日志
 
-[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases/latest)
+[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
 
 ## Contributor
 

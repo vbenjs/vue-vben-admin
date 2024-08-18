@@ -5,6 +5,7 @@ export default defineBuildConfig({
   declaration: true,
   entries: [
     'src/index',
+    'src/store',
     'src/constants/index',
     'src/utils/index',
     'src/color/index',
