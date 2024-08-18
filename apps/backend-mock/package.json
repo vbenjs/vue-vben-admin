@@ -6,8 +6,8 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "start": "nitro dev",
-    "build": "nitro build"
+    "build": "nitro build",
+    "start": "nitro dev"
   },
   "dependencies": {
     "nitropack": "^2.9.7"
