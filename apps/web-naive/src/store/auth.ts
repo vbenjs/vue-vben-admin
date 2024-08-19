@@ -9,7 +9,7 @@ import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
 import { defineStore } from 'pinia';
 
-import { getAccessCodesApi, getUserInfoApi, loginApi } from '#/api';
+import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
 import { notification } from '#/naive';
 
@@ -33,13 +33,12 @@ export const useAuthStore = defineStore('auth', () => {
     let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
-      const { accessToken, refreshToken } = await loginApi(params);
+      const { accessToken } = await loginApi(params);
 
       // 如果成功获取到 accessToken
       if (accessToken) {
         // 将 accessToken 存储到 accessStore 中
         accessStore.setAccessToken(accessToken);
-        accessStore.setRefreshToken(refreshToken);
 
         // 获取用户信息并存储到 accessStore 中
         const [fetchUserInfoResult, accessCodes] = await Promise.all([
@@ -77,16 +76,19 @@ export const useAuthStore = defineStore('auth', () => {
     };
   }
 
-  async function logout() {
+  async function logout(redirect: boolean = true) {
+    await logoutApi();
     resetAllStores();
     accessStore.setLoginExpired(false);
 
     // 回登陆页带上当前路由地址
     await router.replace({
       path: LOGIN_PATH,
-      query: {
-        redirect: encodeURIComponent(router.currentRoute.value.fullPath),
-      },
+      query: redirect
+        ? {
+            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+          }
+        : {},
     });
   }
 

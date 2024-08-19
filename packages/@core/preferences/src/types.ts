@@ -40,6 +40,10 @@ interface AppPreferences {
   enableCheckUpdates: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
+  /**
+   * @zh_CN 是否开启refreshToken
+   */
+  enableRefreshToken: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */

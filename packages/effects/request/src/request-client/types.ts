@@ -1,4 +1,8 @@
-import type { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import type {
+  AxiosResponse,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
 type RequestContentType =
   | 'application/json;charset=utf-8'
@@ -6,41 +10,25 @@ type RequestContentType =
   | 'application/x-www-form-urlencoded;charset=utf-8'
   | 'multipart/form-data;charset=utf-8';
 
-interface MakeAuthorization {
-  key?: string;
-  tokenHandler: () => { refreshToken: string; token: string } | null;
-  unAuthorizedHandler?: () => Promise<void>;
+type RequestClientOptions = CreateAxiosDefaults;
+
+interface RequestInterceptorConfig {
+  fulfilled?: (
+    config: InternalAxiosRequestConfig,
+  ) =>
+    | InternalAxiosRequestConfig<any>
+    | Promise<InternalAxiosRequestConfig<any>>;
+  rejected?: (error: any) => any;
 }
 
-interface MakeRequestHeaders {
-  'Accept-Language'?: string;
+interface ResponseInterceptorConfig<T = any> {
+  fulfilled?: (
+    response: AxiosResponse<T>,
+  ) => AxiosResponse | Promise<AxiosResponse>;
+  rejected?: (error: any) => any;
 }
-
-type MakeAuthorizationFn = (
-  config?: InternalAxiosRequestConfig,
-) => MakeAuthorization;
-
-type MakeRequestHeadersFn = (
-  config?: InternalAxiosRequestConfig,
-) => MakeRequestHeaders;
 
 type MakeErrorMessageFn = (message: string) => void;
-
-interface RequestClientOptions extends CreateAxiosDefaults {
-  /**
-   * 用于生成Authorization
-   */
-  makeAuthorization?: MakeAuthorizationFn;
-  /**
-   * 用于生成错误消息
-   */
-  makeErrorMessage?: MakeErrorMessageFn;
-
-  /**
-   * 用于生成请求头
-   */
-  makeRequestHeaders?: MakeRequestHeadersFn;
-}
 
 interface HttpResponse<T = any> {
   /**
@@ -54,9 +42,9 @@ interface HttpResponse<T = any> {
 
 export type {
   HttpResponse,
-  MakeAuthorizationFn,
   MakeErrorMessageFn,
-  MakeRequestHeadersFn,
   RequestClientOptions,
   RequestContentType,
+  RequestInterceptorConfig,
+  ResponseInterceptorConfig,
 };
