@@ -31,7 +31,7 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "^11.0.1",
     "vue": "^3.4.38"
   }
 }

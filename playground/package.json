@@ -40,7 +40,7 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "^11.0.1",
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.12",
     "pinia": "2.2.2",

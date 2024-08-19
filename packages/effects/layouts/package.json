@@ -32,7 +32,7 @@
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "^11.0.1",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3"
   }
