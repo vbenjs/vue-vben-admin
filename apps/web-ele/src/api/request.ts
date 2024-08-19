@@ -3,7 +3,13 @@
  */
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
-import { errorMessageResponseInterceptor, RequestClient } from '@vben/request';
+import {
+  authenticateResponseInterceptor,
+  dataDestructuringResponseInterceptor,
+  errorMessageResponseInterceptor,
+  headersRequestInterceptor,
+  RequestClient,
+} from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
 import { ElMessage } from 'element-plus';
@@ -18,78 +24,49 @@ function createRequestClient(baseURL: string) {
     baseURL,
   });
 
-  client.addRequestInterceptor({
-    fulfilled: (config) => {
-      const accessStore = useAccessStore();
-
-      config.headers.Authorization = `Bearer ${accessStore.accessToken}`;
-      config.headers['Accept-Language'] = preferences.app.locale;
-
-      return config;
-    },
-  });
-
-  client.addResponseInterceptor({
-    fulfilled: (response) => {
-      const { data: responseData, status } = response;
-
-      const { code, data, message: msg } = responseData;
-      if (status >= 200 && status < 400 && code === 0) {
-        return data;
-      }
-      throw new Error(`Error ${status}: ${msg}`);
-    },
-  });
-
-  if (preferences.app.refreshToken) {
-    client.addResponseInterceptor({
-      rejected: async (error) => {
-        // refreshToken无效的处理方式
-        if (error.response.status === 403) {
-          const accessStore = useAccessStore();
-          const authStore = useAuthStore();
-          accessStore.setAccessToken(null);
-
-          if (preferences.app.loginExpiredMode === 'modal') {
-            accessStore.setLoginExpired(true);
-          } else {
-            await authStore.logout();
-          }
-        }
-
-        // refreshToken的处理方式
-        if (error.response.status === 401) {
-          const prevRequest = error.config;
-          const accessStore = useAccessStore();
-          if (!prevRequest?.sent) {
-            prevRequest.sent = true;
-            const resp = await refreshTokenApi();
-
-            accessStore.setAccessToken(resp.data);
-            return client.request(prevRequest.url, { ...prevRequest });
-          }
-        }
-        throw error;
-      },
-    });
-  } else {
-    client.addResponseInterceptor({
-      rejected: async (error) => {
-        if (error.response.status === 401) {
-          const accessStore = useAccessStore();
-          const authStore = useAuthStore();
-          accessStore.setAccessToken(null);
-
-          if (preferences.app.loginExpiredMode === 'modal') {
-            accessStore.setLoginExpired(true);
-          } else {
-            await authStore.logout();
-          }
-        }
-        throw error;
-      },
-    });
+  async function toReAuthenticate() {
+    console.warn('Access token or refresh token is invalid or expired. ');
+    const accessStore = useAccessStore();
+    const authStore = useAuthStore();
+    accessStore.setAccessToken(null);
+    if (preferences.app.loginExpiredMode === 'modal') {
+      accessStore.setLoginExpired(true);
+    } else {
+      await authStore.logout();
+    }
   }
+
+  async function toRefreshToken() {
+    const accessStore = useAccessStore();
+    const resp = await refreshTokenApi();
+    const newToken = resp.data;
+    accessStore.setAccessToken(newToken);
+    return newToken;
+  }
+
+  function generateHeaders(): Record<string, string> {
+    const accessStore = useAccessStore();
+    return {
+      'Accept-Language': preferences.app.locale,
+      Authorization: `Bearer ${accessStore.accessToken}`,
+    };
+  }
+
+  // 请求头处理
+  client.addRequestInterceptor(headersRequestInterceptor(generateHeaders));
+
+  // response数据解构
+  client.addResponseInterceptor(dataDestructuringResponseInterceptor());
+
+  // token过期的处理
+  client.addResponseInterceptor(
+    authenticateResponseInterceptor(
+      client,
+      preferences.app.refreshToken,
+      toReAuthenticate,
+      toRefreshToken,
+    ),
+  );
 
   client.addResponseInterceptor({
     rejected: () =>
