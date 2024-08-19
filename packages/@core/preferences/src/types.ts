@@ -53,6 +53,10 @@ interface AppPreferences {
   /** 偏好设置按钮位置 */
   preferencesButtonPosition: PreferencesButtonPositionType;
   /**
+   * @zh_CN 是否采用refreshToken
+   */
+  refreshToken: boolean;
+  /**
    * @zh_CN 是否开启水印
    */
   watermark: boolean;

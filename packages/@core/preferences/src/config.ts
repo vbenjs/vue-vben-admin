@@ -20,6 +20,7 @@ const defaultPreferences: Preferences = {
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
     preferencesButtonPosition: 'fixed',
+    refreshToken: true,
     watermark: false,
   },
   breadcrumb: {

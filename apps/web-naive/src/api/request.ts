@@ -40,36 +40,55 @@ function createRequestClient(baseURL: string) {
     },
   });
 
-  client.addResponseInterceptor({
-    rejected: async (error) => {
-      // refreshToken无效的处理方式
-      if (error.response.status === 403) {
-        const accessStore = useAccessStore();
-        const authStore = useAuthStore();
-        accessStore.setAccessToken(null);
+  if (preferences.app.refreshToken) {
+    client.addResponseInterceptor({
+      rejected: async (error) => {
+        // refreshToken无效的处理方式
+        if (error.response.status === 403) {
+          const accessStore = useAccessStore();
+          const authStore = useAuthStore();
+          accessStore.setAccessToken(null);
 
-        if (preferences.app.loginExpiredMode === 'modal') {
-          accessStore.setLoginExpired(true);
-        } else {
-          await authStore.logout();
+          if (preferences.app.loginExpiredMode === 'modal') {
+            accessStore.setLoginExpired(true);
+          } else {
+            await authStore.logout();
+          }
         }
-      }
 
-      // refreshToken的处理方式
-      if (error.response.status === 401) {
-        const prevRequest = error.config;
-        const accessStore = useAccessStore();
-        if (!prevRequest?.sent) {
-          prevRequest.sent = true;
-          const resp = await refreshTokenApi();
+        // refreshToken的处理方式
+        if (error.response.status === 401) {
+          const prevRequest = error.config;
+          const accessStore = useAccessStore();
+          if (!prevRequest?.sent) {
+            prevRequest.sent = true;
+            const resp = await refreshTokenApi();
 
-          accessStore.setAccessToken(resp.data);
-          return client.request(prevRequest.url, { ...prevRequest });
+            accessStore.setAccessToken(resp.data);
+            return client.request(prevRequest.url, { ...prevRequest });
+          }
         }
-      }
-      throw error;
-    },
-  });
+        throw error;
+      },
+    });
+  } else {
+    client.addResponseInterceptor({
+      rejected: async (error) => {
+        if (error.response.status === 401) {
+          const accessStore = useAccessStore();
+          const authStore = useAuthStore();
+          accessStore.setAccessToken(null);
+
+          if (preferences.app.loginExpiredMode === 'modal') {
+            accessStore.setLoginExpired(true);
+          } else {
+            await authStore.logout();
+          }
+        }
+        throw error;
+      },
+    });
+  }
 
   client.addResponseInterceptor({
     rejected: () =>

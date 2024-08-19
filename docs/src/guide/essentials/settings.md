@@ -190,6 +190,7 @@ const defaultPreferences: Preferences = {
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
     preferencesButtonPosition: 'fixed',
+    refreshToken: true,
     watermark: false,
   },
   breadcrumb: {
@@ -200,7 +201,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'Vben Admin',
+    companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
     date: '2024',
     enable: true,
@@ -322,6 +323,10 @@ interface AppPreferences {
   name: string;
   /** 偏好设置按钮位置 */
   preferencesButtonPosition: PreferencesButtonPositionType;
+  /**
+   * @zh_CN 是否采用refreshToken
+   */
+  refreshToken: boolean;
   /**
    * @zh_CN 是否开启水印
    */
