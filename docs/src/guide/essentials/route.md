@@ -64,7 +64,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'VbenAbout',
         path: '/vben-admin/about',
-        component: () => import('#/views/_core/vben/about/index.vue'),
+        component: () => import('#/views/_core/about/index.vue'),
         meta: {
           badgeType: 'dot',
           badgeVariants: 'destructive',

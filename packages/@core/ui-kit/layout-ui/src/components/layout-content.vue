@@ -4,7 +4,7 @@ import type { ContentCompactType } from '@vben-core/typings';
 import type { CSSProperties } from 'vue';
 import { computed } from 'vue';
 
-import { useContentHeightListener } from '@vben-core/composables';
+import { useContentStyle } from '@vben-core/composables';
 
 interface Props {
   /**
@@ -24,7 +24,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const { contentElement } = useContentHeightListener();
+const { contentElement, overlayStyle } = useContentStyle();
 
 const style = computed((): CSSProperties => {
   const {
@@ -53,7 +53,8 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <main ref="contentElement" :style="style" class="bg-background-deep">
+  <main ref="contentElement" :style="style" class="bg-background-deep relative">
+    <slot :overlay-style="overlayStyle" name="overlay"></slot>
     <slot></slot>
   </main>
 </template>

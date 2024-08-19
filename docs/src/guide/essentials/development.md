@@ -52,8 +52,18 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     // 构建项目并分析
     "build:analyze": "turbo build:analyze",
-    // 构建docker镜像
+    // 构建本地 docker 镜像
     "build:docker": "./build-local-docker-image.sh",
+    // 单独构建 web-antd 应用
+    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    // 单独构建文档
+    "build:docs": "pnpm run build --filter=@vben/docs",
+    // 单独构建 web-ele 应用
+    "build:ele": "pnpm run build --filter=@vben/web-ele",
+    // 单独构建 web-naive 应用
+    "build:naive": "pnpm run build --filter=@vben/naive",
+    // 单独构建 playground 应用
+    "build:play": "pnpm run build --filter=@vben/playground",
     // changeset 版本管理
     "changeset": "pnpm exec changeset",
     // 检查项目各种问题
@@ -78,10 +88,10 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     "dev:docs": "pnpm -F @vben/docs run dev",
     // 启动web-ele应用
     "dev:ele": "pnpm -F @vben/web-ele run dev",
-    // 启动演示应用
-    "dev:play": "pnpm -F @vben/playground run dev",
     // 启动web-naive应用
     "dev:naive": "pnpm -F @vben/web-naive run dev",
+    // 启动演示应用
+    "dev:play": "pnpm -F @vben/playground run dev",
     // 格式化代码
     "format": "vsh lint --format",
     // lint 代码

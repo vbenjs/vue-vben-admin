@@ -19,6 +19,7 @@ const defaultPreferences: Preferences = {
     locale: 'zh-CN',
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
+    preferencesButtonPosition: 'fixed',
     watermark: false,
   },
   breadcrumb: {
@@ -90,7 +91,8 @@ const defaultPreferences: Preferences = {
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',
     radius: '0.5',
-    semiDarkMenu: true,
+    semiDarkHeader: false,
+    semiDarkSidebar: true,
   },
   transition: {
     enable: true,

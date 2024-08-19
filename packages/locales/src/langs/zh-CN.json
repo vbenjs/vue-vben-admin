@@ -172,6 +172,11 @@
     "dynamicTitle": "动态标题",
     "watermark": "水印",
     "checkUpdates": "定时检查更新",
+    "position": {
+      "title": "偏好设置位置",
+      "header": "顶栏",
+      "fixed": "固定"
+    },
     "sidebar": {
       "title": "侧边栏",
       "width": "宽度",
@@ -236,7 +241,8 @@
       "radius": "圆角",
       "light": "浅色",
       "dark": "深色",
-      "darkMenu": "深色菜单",
+      "darkSidebar": "深色侧边栏",
+      "darkHeader": "深色顶栏",
       "weakMode": "色弱模式",
       "grayMode": "灰色模式",
       "builtin": {

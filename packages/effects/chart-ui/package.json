@@ -1,6 +1,6 @@
 {
   "name": "@vben/chart-ui",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@vben/preferences": "workspace:*",
-    "@vueuse/core": "^10.11.1",
+    "@vueuse/core": "^11.0.0",
     "echarts": "^5.5.1",
-    "vue": "^3.4.37"
+    "vue": "^3.4.38"
   }
 }

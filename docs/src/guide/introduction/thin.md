@@ -28,12 +28,7 @@ apps/web-native
 
 ## Mock 服务精简
 
-如果你不需要`Mock`服务，你可以直接删除`apps/backend-mock`文件夹。同时在你的应用下`.env.development`文件中删除`VITE_NITRO_MOCK`变量。
-
-```bash
-# 是否开启 Nitro Mock服务，true 为开启，false 为关闭
-VITE_NITRO_MOCK=false
-```
+如果你不需要`Mock`服务，你可以直接删除`apps/backend-mock`文件夹即可。
 
 ## 安装依赖
 

@@ -37,6 +37,10 @@ interface Props {
    */
   sidebarWidth: number;
   /**
+   * 主题
+   */
+  theme: string | undefined;
+  /**
    * 宽度
    */
   width: string;
@@ -76,15 +80,16 @@ function handleToggleMenu() {
 
 <template>
   <header
+    :class="theme"
     :style="style"
-    class="border-border bg-background top-0 flex w-full flex-[0_0_auto] items-center border-b transition-[margin-top] duration-200"
+    class="border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b transition-[margin-top] duration-200"
   >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>
     </div>
     <VbenIconButton
       v-if="showToggleBtn || isMobile"
-      class="my-0 ml-2 mr-1 rounded"
+      class="my-0 ml-2 mr-1 rounded-md"
       @click="handleToggleMenu"
     >
       <Menu class="size-4" />

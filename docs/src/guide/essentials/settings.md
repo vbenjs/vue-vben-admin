@@ -189,6 +189,7 @@ const defaultPreferences: Preferences = {
     locale: 'zh-CN',
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
+    preferencesButtonPosition: 'fixed',
     watermark: false,
   },
   breadcrumb: {
@@ -260,7 +261,8 @@ const defaultPreferences: Preferences = {
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',
     radius: '0.5',
-    semiDarkMenu: true,
+    semiDarkHeader: false,
+    semiDarkSidebar: true,
   },
   transition: {
     enable: true,
@@ -318,6 +320,8 @@ interface AppPreferences {
   loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */
   name: string;
+  /** 偏好设置按钮位置 */
+  preferencesButtonPosition: PreferencesButtonPositionType;
   /**
    * @zh_CN 是否开启水印
    */
@@ -452,8 +456,10 @@ interface ThemePreferences {
   mode: ThemeModeType;
   /** 圆角 */
   radius: string;
+  /** 是否开启半深色header（只在theme='light'时生效） */
+  semiDarkHeader: boolean;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
-  semiDarkMenu: boolean;
+  semiDarkSidebar: boolean;
 }
 
 interface TransitionPreferences {

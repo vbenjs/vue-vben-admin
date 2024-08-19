@@ -7,20 +7,15 @@ import type {
 import { type VNode } from 'vue';
 import { RouterView } from 'vue-router';
 
-import { useContentHeight } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 import { storeToRefs, useTabbarStore } from '@vben/stores';
-import { Spinner } from '@vben-core/shadcn-ui';
 
 import { IFrameRouterView } from '../../iframe';
-import { useContentSpinner } from './use-content-spinner';
 
 defineOptions({ name: 'LayoutContent' });
 
 const tabbarStore = useTabbarStore();
 const { keepAlive } = usePreferences();
-const { spinning } = useContentSpinner();
-const { contentStyles } = useContentHeight();
 
 const { getCachedTabs, getExcludeCachedTabs, renderRouteView } =
   storeToRefs(tabbarStore);
@@ -86,11 +81,6 @@ function transformComponent(
 
 <template>
   <div class="relative h-full">
-    <Spinner
-      v-if="preferences.transition.loading"
-      :spinning="spinning"
-      :style="contentStyles"
-    />
     <IFrameRouterView />
     <RouterView v-slot="{ Component, route }">
       <Transition :name="getTransitionName(route)" appear mode="out-in">

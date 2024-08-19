@@ -124,10 +124,21 @@ export const useTabbarStore = defineStore('core-tabbar', {
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
         const currentTab = toRaw(this.tabs)[tabIndex];
-        const mergedTab = { ...currentTab, ...tab };
-        if (currentTab && Reflect.has(currentTab.meta, 'affixTab')) {
-          mergedTab.meta.affixTab = currentTab.meta.affixTab;
+        const mergedTab = {
+          ...currentTab,
+          ...tab,
+          meta: { ...currentTab?.meta, ...tab.meta },
+        };
+        if (currentTab) {
+          const curMeta = currentTab.meta;
+          if (Reflect.has(curMeta, 'affixTab')) {
+            mergedTab.meta.affixTab = curMeta.affixTab;
+          }
+          if (Reflect.has(curMeta, 'newTabTitle')) {
+            mergedTab.meta.newTabTitle = curMeta.newTabTitle;
+          }
         }
+
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTab();
@@ -136,7 +147,8 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭所有标签页
      */
     async closeAllTabs(router: Router) {
-      this.tabs = this.tabs.filter((tab) => isAffixTab(tab));
+      const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
       await this._goToDefaultTab(router);
       this.updateCacheTab();
     },
@@ -478,7 +490,7 @@ function cloneTab(route: TabDefinition): TabDefinition {
   if (!route) {
     return route;
   }
-  const { matched, ...opt } = route;
+  const { matched, meta, ...opt } = route;
   return {
     ...opt,
     matched: (matched
@@ -488,6 +500,10 @@ function cloneTab(route: TabDefinition): TabDefinition {
           path: item.path,
         }))
       : undefined) as RouteRecordNormalized[],
+    meta: {
+      ...meta,
+      newTabTitle: meta.newTabTitle,
+    },
   };
 }
 

@@ -172,6 +172,11 @@
     "dynamicTitle": "Dynamic Title",
     "watermark": "Watermark",
     "checkUpdates": "Periodic update check",
+    "position": {
+      "title": "Preferences Postion",
+      "header": "Header",
+      "fixed": "Fixed"
+    },
     "sidebar": {
       "title": "Sidebar",
       "width": "Width",
@@ -236,7 +241,8 @@
       "radius": "Radius",
       "light": "Light",
       "dark": "Dark",
-      "darkMenu": "Semi Dark Menu",
+      "darkSidebar": "Semi Dark Sidebar",
+      "darkHeader": "Semi Dark Header",
       "weakMode": "Weak Mode",
       "grayMode": "Gray Mode",
       "builtin": {

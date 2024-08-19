@@ -13,6 +13,7 @@ import {
   LayoutSidebar,
   LayoutTabbar,
 } from './components';
+import { useLayout } from './hooks/use-layout';
 
 interface Props extends VbenLayoutProps {}
 
@@ -32,7 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
   footerFixed: true,
   footerHeight: 32,
   headerHeight: 50,
-  headerHeightOffset: 10,
   headerHidden: false,
   headerMode: 'fixed',
   headerToggleSidebarButton: true,
@@ -43,7 +43,6 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarExtraCollapsedWidth: 60,
   sidebarHidden: false,
   sidebarMixedWidth: 80,
-  sidebarSemiDark: true,
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   sideCollapseWidth: 60,
@@ -73,57 +72,23 @@ const {
 
 const { y: mouseY } = useMouse({ target: contentRef, type: 'client' });
 
-const realLayout = computed(() =>
-  props.isMobile ? 'sidebar-nav' : props.layout,
-);
-
-/**
- * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
- */
-const fullContent = computed(() => realLayout.value === 'full-content');
-
-/**
- * 是否侧边混合模式
- */
-const isSidebarMixedNav = computed(
-  () => realLayout.value === 'sidebar-mixed-nav',
-);
-
-/**
- * 是否为头部导航模式
- */
-const isHeaderNav = computed(() => realLayout.value === 'header-nav');
-
-/**
- * 是否为混合导航模式
- */
-const isMixedNav = computed(() => realLayout.value === 'mixed-nav');
+const {
+  currentLayout,
+  isFullContent,
+  isHeaderNav,
+  isMixedNav,
+  isSidebarMixedNav,
+} = useLayout(props);
 
 /**
  * 顶栏是否自动隐藏
  */
 const isHeaderAutoMode = computed(() => props.headerMode === 'auto');
 
-/**
- * header区域高度
- */
-const getHeaderHeight = computed(() => {
-  const { headerHeight, headerHeightOffset } = props;
-
-  // if (!headerVisible) {
-  //   return 0;
-  // }
-
-  // 顶部存在导航时，增加10
-  const offset = isMixedNav.value || isHeaderNav.value ? headerHeightOffset : 0;
-
-  return headerHeight + offset;
-});
-
 const headerWrapperHeight = computed(() => {
   let height = 0;
   if (props.headerVisible && !props.headerHidden) {
-    height += getHeaderHeight.value;
+    height += props.headerHeight;
   }
   if (props.tabbarEnable) {
     height += props.tabbarHeight;
@@ -151,8 +116,8 @@ const sidebarEnableState = computed(() => {
  * 侧边区域离顶部高度
  */
 const sidebarMarginTop = computed(() => {
-  const { isMobile } = props;
-  return isMixedNav.value && !isMobile ? getHeaderHeight.value : 0;
+  const { headerHeight, isMobile } = props;
+  return isMixedNav.value && !isMobile ? headerHeight : 0;
 });
 
 /**
@@ -195,29 +160,12 @@ const sidebarExtraWidth = computed(() => {
 /**
  * 是否侧边栏模式，包含混合侧边
  */
-const isSideMode = computed(() =>
-  ['mixed-nav', 'sidebar-mixed-nav', 'sidebar-nav'].includes(realLayout.value),
+const isSideMode = computed(
+  () =>
+    currentLayout.value === 'mixed-nav' ||
+    currentLayout.value === 'sidebar-mixed-nav' ||
+    currentLayout.value === 'sidebar-nav',
 );
-
-const showSidebar = computed(() => {
-  // if (isMixedNav.value && !props.sideHidden) {
-  //   return false;
-  // }
-  return isSideMode.value && sidebarEnable.value;
-});
-
-const sidebarFace = computed(() => {
-  const { sidebarSemiDark, sidebarTheme } = props;
-  const isDark = sidebarTheme === 'dark' || sidebarSemiDark;
-  return {
-    theme: isDark ? 'dark' : 'light',
-  };
-});
-
-/**
- * 遮罩可见性
- */
-const maskVisible = computed(() => !sidebarCollapse.value && props.isMobile);
 
 /**
  * header fixed值
@@ -232,13 +180,25 @@ const headerFixed = computed(() => {
   );
 });
 
+const showSidebar = computed(() => {
+  // if (isMixedNav.value && !props.sideHidden) {
+  //   return false;
+  // }
+  return isSideMode.value && sidebarEnable.value;
+});
+
+/**
+ * 遮罩可见性
+ */
+const maskVisible = computed(() => !sidebarCollapse.value && props.isMobile);
+
 const mainStyle = computed(() => {
   let width = '100%';
   let sidebarAndExtraWidth = 'unset';
   if (
     headerFixed.value &&
-    realLayout.value !== 'header-nav' &&
-    realLayout.value !== 'mixed-nav' &&
+    currentLayout.value !== 'header-nav' &&
+    currentLayout.value !== 'mixed-nav' &&
     showSidebar.value &&
     !props.isMobile
   ) {
@@ -253,7 +213,7 @@ const mainStyle = computed(() => {
         ? getSideCollapseWidth.value
         : props.sidebarMixedWidth;
       const sideWidth = sidebarExtraCollapse.value
-        ? getSideCollapseWidth.value
+        ? props.sidebarExtraCollapsedWidth
         : props.sidebarWidth;
 
       // 100% - 侧边菜单混合宽度 - 菜单宽度
@@ -312,7 +272,7 @@ const contentStyle = computed((): CSSProperties => {
   return {
     marginTop:
       fixed &&
-      !fullContent.value &&
+      !isFullContent.value &&
       !headerIsHidden.value &&
       (!isHeaderAutoMode.value || scrollY.value < headerWrapperHeight.value)
         ? `${headerWrapperHeight.value}px`
@@ -330,11 +290,11 @@ const headerZIndex = computed(() => {
 const headerWrapperStyle = computed((): CSSProperties => {
   const fixed = headerFixed.value;
   return {
-    height: fullContent.value ? '0' : `${headerWrapperHeight.value}px`,
+    height: isFullContent.value ? '0' : `${headerWrapperHeight.value}px`,
     left: isMixedNav.value ? 0 : mainStyle.value.sidebarAndExtraWidth,
     position: fixed ? 'fixed' : 'static',
     top:
-      headerIsHidden.value || fullContent.value
+      headerIsHidden.value || isFullContent.value
         ? `-${headerWrapperHeight.value}px`
         : 0,
     width: mainStyle.value.width,
@@ -403,7 +363,10 @@ watch(
   watch(
     [() => props.headerMode, () => mouseY.value],
     () => {
-      if (!isHeaderAutoMode.value || isMixedNav.value || fullContent.value) {
+      if (!isHeaderAutoMode.value || isMixedNav.value || isFullContent.value) {
+        if (props.headerMode !== 'auto-scroll') {
+          headerIsHidden.value = false;
+        }
         return;
       }
       headerIsHidden.value = true;
@@ -439,7 +402,7 @@ watch(
       if (
         props.headerMode !== 'auto-scroll' ||
         isMixedNav.value ||
-        fullContent.value
+        isFullContent.value
       ) {
         return;
       }
@@ -465,8 +428,6 @@ function handleOpenMenu() {
 
 <template>
   <div class="relative flex min-h-full w-full">
-    <slot name="preferences"></slot>
-    <slot name="floating-groups"></slot>
     <LayoutSidebar
       v-if="sidebarEnableState"
       v-model:collapse="sidebarCollapse"
@@ -478,12 +439,12 @@ function handleOpenMenu() {
       :dom-visible="!isMobile"
       :extra-width="sidebarExtraWidth"
       :fixed-extra="sidebarExpandOnHover"
-      :header-height="isMixedNav ? 0 : getHeaderHeight"
+      :header-height="isMixedNav ? 0 : headerHeight"
       :is-sidebar-mixed="isSidebarMixedNav"
       :margin-top="sidebarMarginTop"
       :mixed-width="sidebarMixedWidth"
       :show="showSidebar"
-      :theme="sidebarFace.theme"
+      :theme="sidebarTheme"
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
@@ -513,17 +474,18 @@ function handleOpenMenu() {
     >
       <div
         :style="headerWrapperStyle"
-        class="overflow-hidden transition-all duration-200"
+        class="overflow-hidden shadow-[0_16px_24px_hsl(var(--background))] transition-all duration-200"
       >
         <LayoutHeader
           v-if="headerVisible"
           :full-width="!isSideMode"
-          :height="getHeaderHeight"
+          :height="headerHeight"
           :is-mixed-nav="isMixedNav"
           :is-mobile="isMobile"
-          :show="!fullContent && !headerHidden"
+          :show="!isFullContent && !headerHidden"
           :show-toggle-btn="showHeaderToggleButton"
           :sidebar-width="sidebarWidth"
+          :theme="headerTheme"
           :width="mainStyle.width"
           :z-index="headerZIndex"
           @open-menu="handleOpenMenu"
@@ -557,13 +519,17 @@ function handleOpenMenu() {
         class="transition-[margin-top] duration-200"
       >
         <slot name="content"></slot>
+
+        <template #overlay="{ overlayStyle }">
+          <slot :overlay-style="overlayStyle" name="content-overlay"></slot>
+        </template>
       </LayoutContent>
 
       <LayoutFooter
         v-if="footerEnable"
         :fixed="footerFixed"
         :height="footerHeight"
-        :show="!fullContent"
+        :show="!isFullContent"
         :width="footerWidth"
         :z-index="zIndex"
       >

@@ -63,12 +63,6 @@ interface VbenLayoutProps {
    */
   headerHeight?: number;
   /**
-   * header高度增加高度
-   * 在顶部存在导航时，额外加高header高度
-   * @default 10
-   */
-  headerHeightOffset?: number;
-  /**
    * 顶栏是否隐藏
    * @default false
    */
@@ -78,6 +72,10 @@ interface VbenLayoutProps {
    * @default 'fixed'
    */
   headerMode?: LayoutHeaderModeType;
+  /**
+   * header 顶栏主题
+   */
+  headerTheme?: ThemeModeType;
   /**
    * 是否显示header切换侧边栏按钮
    * @default
@@ -133,11 +131,6 @@ interface VbenLayoutProps {
    * @default 80
    */
   sidebarMixedWidth?: number;
-  /**
-   * 侧边栏是否半深色
-   * @default false
-   */
-  sidebarSemiDark?: boolean;
   /**
    * 侧边栏
    * @default dark

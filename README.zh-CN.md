@@ -126,6 +126,10 @@ pnpm build
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
+## 更新日志
+
+[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
+
 ## Contributor
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">

@@ -1,6 +1,6 @@
 {
   "name": "@vben/tailwind-config",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -46,7 +46,7 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
-    "@iconify/json": "^2.2.237",
+    "@iconify/json": "^2.2.238",
     "@iconify/tailwind": "^1.1.2",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.14",
@@ -55,8 +55,8 @@
     "postcss": "^8.4.41",
     "postcss-antd-fixes": "^0.2.0",
     "postcss-import": "^16.1.0",
-    "postcss-preset-env": "^10.0.0",
-    "tailwindcss": "^3.4.9",
+    "postcss-preset-env": "^10.0.1",
+    "tailwindcss": "^3.4.10",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

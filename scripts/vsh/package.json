@@ -1,6 +1,6 @@
 {
   "name": "@vben/vsh",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -26,6 +26,6 @@
     "cac": "^6.7.14",
     "circular-dependency-scanner": "^2.2.2",
     "depcheck": "^1.4.7",
-    "publint": "^0.2.9"
+    "publint": "^0.2.10"
   }
 }

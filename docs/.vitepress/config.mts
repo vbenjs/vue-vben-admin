@@ -2,6 +2,10 @@ import type { DefaultTheme, HeadConfig } from 'vitepress';
 
 import { resolve } from 'node:path';
 
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite';
 import { type PwaOptions, withPwa } from '@vite-pwa/vitepress';
 import { defineConfigWithTheme } from 'vitepress';
 
@@ -9,7 +13,7 @@ import { version } from '../../package.json';
 
 export default withPwa(
   defineConfigWithTheme({
-    description: 'Vben Admin& 企业级管理系统框架',
+    description: 'Vben Admin & 企业级管理系统框架',
     head: head(),
     lang: 'zh',
     pwa: pwa(),
@@ -98,6 +102,12 @@ export default withPwa(
       json: {
         stringify: true,
       },
+      plugins: [
+        GitChangelog({
+          repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
+        }),
+        GitChangelogMarkdownSection(),
+      ],
       server: {
         fs: {
           allow: ['../..'],
@@ -274,6 +284,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: '深入',
       items: [
+        { link: 'in-depth/login', text: '登录' },
         // { link: 'in-depth/layout', text: '布局' },
         { link: 'in-depth/theme', text: '主题' },
         { link: 'in-depth/access', text: '权限' },

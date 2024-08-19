@@ -13,9 +13,8 @@ defineOptions({
 });
 
 const modelValue = defineModel<string>({ default: 'auto' });
-const themeSemiDarkMenu = defineModel<boolean>('themeSemiDarkMenu', {
-  default: true,
-});
+const themeSemiDarkSidebar = defineModel<boolean>('themeSemiDarkSidebar');
+const themeSemiDarkHeader = defineModel<boolean>('themeSemiDarkHeader');
 
 const THEME_PRESET: Array<{ icon: Component; name: ThemeModeType }> = [
   {
@@ -71,11 +70,14 @@ function nameView(name: string) {
     </template>
 
     <SwitchItem
-      v-model="themeSemiDarkMenu"
+      v-model="themeSemiDarkSidebar"
       :disabled="modelValue === 'dark'"
       class="mt-6"
     >
-      {{ $t('preferences.theme.darkMenu') }}
+      {{ $t('preferences.theme.darkSidebar') }}
+    </SwitchItem>
+    <SwitchItem v-model="themeSemiDarkHeader" :disabled="modelValue === 'dark'">
+      {{ $t('preferences.theme.darkHeader') }}
     </SwitchItem>
   </div>
 </template>

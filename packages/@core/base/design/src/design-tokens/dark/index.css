@@ -52,12 +52,12 @@
   --secondary-foreground: 0 0% 98%;
 
   /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
-  --accent: 240 3.7% 15.9%;
-  --accent-hover: 240 3.7% 20.9%;
+  --accent: 216 5% 19%;
+  --accent-hover: 216 5% 24%;
   --accent-foreground: 0 0% 98%;
 
   /* Darker color */
-  --heavy: 240 3.7% 20.9%;
+  --heavy: 216 5% 24%;
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */
@@ -82,14 +82,14 @@
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   --sidebar: 222.34deg 10.43% 12.27%;
   --sidebar-deep: 220deg 13.06% 9%;
   --menu: var(--sidebar);
+
+  /* header */
+  --header: 222.34deg 10.43% 12.27%;
 
   color-scheme: dark;
 }
@@ -117,6 +117,7 @@
   --ring: 263.4 70% 50.4%;
   --sidebar: 224 71.4% 4.1%;
   --sidebar-deep: 224 71.4% 4.1%;
+  --header: 224 71.4% 4.1%;
 }
 
 .dark[data-theme='pink'],
@@ -142,6 +143,7 @@
   --ring: 346.8 77.2% 49.8%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='rose'],
@@ -167,6 +169,7 @@
   --ring: 0 72.2% 50.6%;
   --sidebar: 0 0% 3.9%;
   --sidebar-deep: 0 0% 3.9%;
+  --header: 0 0% 3.9%;
 }
 
 .dark[data-theme='sky-blue'],
@@ -192,6 +195,7 @@
   --ring: 224.3 76.3% 48%;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='deep-blue'],
@@ -217,6 +221,7 @@
   --ring: 224.3 76.3% 48%;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='green'],
@@ -242,6 +247,7 @@
   --ring: 142.4 71.8% 29.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='deep-green'],
@@ -267,6 +273,7 @@
   --ring: 142.4 71.8% 29.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='orange'],
@@ -292,6 +299,7 @@
   --ring: 20.5 90.2% 48.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='yellow'],
@@ -317,6 +325,7 @@
   --ring: 35.5 91.7% 32.9%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='zinc'],
@@ -342,6 +351,7 @@
   --ring: 240 4.9% 83.9%;
   --sidebar: 240 10% 3.9%;
   --sidebar-deep: 240 10% 3.9%;
+  --header: 240 10% 3.9%;
 }
 
 .dark[data-theme='neutral'],
@@ -367,6 +377,7 @@
   --ring: 0 0% 83.1%;
   --sidebar: 0 0% 3.9%;
   --sidebar-deep: 0 0% 3.9%;
+  --header: 0 0% 3.9%;
 }
 
 .dark[data-theme='slate'],
@@ -392,6 +403,7 @@
   --ring: 212.7 26.8% 83.9;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='gray'],
@@ -417,4 +429,5 @@
   --ring: 216 12.2% 83.9%;
   --sidebar: 224 71.4% 4.1%;
   --sidebar-deep: 224 71.4% 4.1%;
+  --header: 224 71.4% 4.1%;
 }

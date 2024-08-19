@@ -107,15 +107,15 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   /* menu */
   --sidebar: 0 0% 100%;
   --sidebar-deep: 210 11.11% 96.47%;
   --menu: var(--sidebar);
+
+  /* header */
+  --header: 0 0% 100%;
 
   accent-color: var(--primary);
   color-scheme: light;
@@ -206,14 +206,12 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   --sidebar: 222.34deg 10.43% 12.27%;
   --sidebar-deep: 220deg 13.06% 9%;
   --menu: var(--sidebar);
+  --header: 222.34deg 10.43% 12.27%;
 
   color-scheme: dark;
 }
@@ -225,10 +223,9 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 你只需要在你的项目中覆盖你想要修改的 CSS 变量即可。例如，要更改默认卡片背景色，你可以在你的 CSS 文件中添加以下内容进行覆盖：
 
-### 默认主题下：
+### 默认主题下
 
 ```css
-/*  */
 :root {
   /* Background color for <Card /> */
   --card: 0 0% 30%;
@@ -238,10 +235,11 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 ### 黑暗模式下
 
 ```css
-/*  */
-:root {
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
   /* Background color for <Card /> */
-  --card: 0 0% 30%;
+  --card: 222.34deg 10.43% 12.27%;
 }
 ```
 
@@ -333,7 +331,7 @@ type BuiltinThemeType =
 
   /* 主体区域背景色 */
   --background-deep: 210 11.11% 96.47%;
-  --foreground: 210 6% 21%;
+  --foreground: 222 84% 5%;
 
   /* Background color for <Card /> */
   --card: 0 0% 100%;
@@ -344,8 +342,12 @@ type BuiltinThemeType =
   --popover-foreground: 222.2 84% 4.9%;
 
   /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+
+  /* --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%; */
+
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
 
   /* 主题颜色 */
 
@@ -403,15 +405,15 @@ type BuiltinThemeType =
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 0 0% 100%;
   --menu: var(--sidebar);
+
+  /* header */
+  --header: 0 0% 100%;
 
   accent-color: var(--primary);
   color-scheme: light;
@@ -717,8 +719,13 @@ type BuiltinThemeType =
   --popover-foreground: 210 40% 98%;
 
   /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
-  --muted: 220deg 6.82% 17.25%;
-  --muted-foreground: 215 20.2% 65.1%;
+
+  /* --muted: 220deg 6.82% 17.25%; */
+
+  /* --muted-foreground: 215 20.2% 65.1%; */
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
 
   /* 主题颜色 */
 
@@ -745,16 +752,16 @@ type BuiltinThemeType =
   --secondary-foreground: 0 0% 98%;
 
   /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
-  --accent: 0deg 0% 100% / 8%;
-  --accent-hover: 0deg 0% 100% / 12%;
+  --accent: 216 5% 19%;
+  --accent-hover: 216 5% 24%;
   --accent-foreground: 0 0% 98%;
 
   /* Darker color */
-  --heavy: 0deg 0% 100% / 12%;
+  --heavy: 216 5% 24%;
   --heavy-foreground: var(--accent-foreground);
 
   /* Default border color */
-  --border: 240 3.7% 15.9%;
+  --border: 240 3.7% 22%;
 
   /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
   --input: 0deg 0% 100% / 10%;
@@ -775,14 +782,14 @@ type BuiltinThemeType =
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   --sidebar: 222.34deg 10.43% 12.27%;
   --sidebar-deep: 220deg 13.06% 9%;
   --menu: var(--sidebar);
+
+  /* header */
+  --header: 222.34deg 10.43% 12.27%;
 
   color-scheme: dark;
 }
@@ -810,6 +817,7 @@ type BuiltinThemeType =
   --ring: 263.4 70% 50.4%;
   --sidebar: 224 71.4% 4.1%;
   --sidebar-deep: 224 71.4% 4.1%;
+  --header: 224 71.4% 4.1%;
 }
 
 .dark[data-theme='pink'],
@@ -835,6 +843,7 @@ type BuiltinThemeType =
   --ring: 346.8 77.2% 49.8%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='rose'],
@@ -860,6 +869,7 @@ type BuiltinThemeType =
   --ring: 0 72.2% 50.6%;
   --sidebar: 0 0% 3.9%;
   --sidebar-deep: 0 0% 3.9%;
+  --header: 0 0% 3.9%;
 }
 
 .dark[data-theme='sky-blue'],
@@ -885,6 +895,7 @@ type BuiltinThemeType =
   --ring: 224.3 76.3% 48%;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='deep-blue'],
@@ -910,6 +921,7 @@ type BuiltinThemeType =
   --ring: 224.3 76.3% 48%;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='green'],
@@ -935,6 +947,7 @@ type BuiltinThemeType =
   --ring: 142.4 71.8% 29.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='deep-green'],
@@ -960,6 +973,7 @@ type BuiltinThemeType =
   --ring: 142.4 71.8% 29.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='orange'],
@@ -985,6 +999,7 @@ type BuiltinThemeType =
   --ring: 20.5 90.2% 48.2%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='yellow'],
@@ -1010,6 +1025,7 @@ type BuiltinThemeType =
   --ring: 35.5 91.7% 32.9%;
   --sidebar: 20 14.3% 4.1%;
   --sidebar-deep: 20 14.3% 4.1%;
+  --header: 20 14.3% 4.1%;
 }
 
 .dark[data-theme='zinc'],
@@ -1035,6 +1051,7 @@ type BuiltinThemeType =
   --ring: 240 4.9% 83.9%;
   --sidebar: 240 10% 3.9%;
   --sidebar-deep: 240 10% 3.9%;
+  --header: 240 4.9% 83.9%;
 }
 
 .dark[data-theme='neutral'],
@@ -1060,6 +1077,7 @@ type BuiltinThemeType =
   --ring: 0 0% 83.1%;
   --sidebar: 0 0% 3.9%;
   --sidebar-deep: 0 0% 3.9%;
+  --header: 0 0% 3.9%;
 }
 
 .dark[data-theme='slate'],
@@ -1085,6 +1103,7 @@ type BuiltinThemeType =
   --ring: 212.7 26.8% 83.9;
   --sidebar: 222.2 84% 4.9%;
   --sidebar-deep: 222.2 84% 4.9%;
+  --header: 222.2 84% 4.9%;
 }
 
 .dark[data-theme='gray'],
@@ -1110,6 +1129,7 @@ type BuiltinThemeType =
   --ring: 216 12.2% 83.9%;
   --sidebar: 224 71.4% 4.1%;
   --sidebar-deep: 224 71.4% 4.1%;
+  --header: 224 71.4% 4.1%;
 }
 ```
 
@@ -1196,6 +1216,50 @@ export const overridesPreferences = defineOverridesPreferences({
     mode: 'dark',
   },
 });
+```
+
+## 自定义侧边栏颜色
+
+侧边栏颜色通过`--sidebar`变量来配置
+
+### 默认主题下
+
+```css
+:root {
+  --sidebar: 0 0% 100%;
+}
+```
+
+### 黑暗模式下
+
+```css
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
+  --sidebar: 222.34deg 10.43% 12.27%;
+}
+```
+
+## 自定义顶栏颜色
+
+侧边栏颜色通过`--header`变量来配置
+
+### 默认主题下
+
+```css
+:root {
+  --header: 0 0% 100%;
+}
+```
+
+### 黑暗模式下
+
+```css
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
+  --header: 222.34deg 10.43% 12.27%;
+}
 ```
 
 ## 色弱模式

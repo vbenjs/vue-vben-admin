@@ -1,6 +1,6 @@
 {
   "name": "@vben/tsconfig",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -20,6 +20,6 @@
   ],
   "dependencies": {
     "@vben/types": "workspace:*",
-    "vite": "^5.4.0"
+    "vite": "^5.4.1"
   }
 }

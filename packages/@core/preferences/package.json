@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/preferences",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^10.11.1",
-    "vue": "^3.4.37"
+    "@vueuse/core": "^11.0.0",
+    "vue": "^3.4.38"
   }
 }

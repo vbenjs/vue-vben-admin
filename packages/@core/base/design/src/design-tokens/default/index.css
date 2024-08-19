@@ -8,7 +8,7 @@
 
   /* 主体区域背景色 */
   --background-deep: 210 11.11% 96.47%;
-  --foreground: 222 84% 5%;
+  --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
   --card: 0 0% 100%;
@@ -82,15 +82,15 @@
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* 主体内容背景色 */
-  --content: 240 11% 96%;
-
   /* =============component & UI============= */
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 0 0% 100%;
   --menu: var(--sidebar);
+
+  /* header */
+  --header: 0 0% 100%;
 
   accent-color: var(--primary);
   color-scheme: light;
