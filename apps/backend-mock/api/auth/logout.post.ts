@@ -1,7 +1,7 @@
 import {
   clearRefreshTokenCookie,
   getRefreshTokenFromCookie,
-} from '~/utils/cookie_utils';
+} from '~/utils/cookie-utils';
 
 export default defineEventHandler(async (event) => {
   const refreshToken = getRefreshTokenFromCookie(event);
