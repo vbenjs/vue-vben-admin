@@ -23,7 +23,7 @@ export function verifyAccessToken(
   event: H3Event<EventHandlerRequest>,
 ): null | Omit<UserInfo, 'password'> {
   const authHeader = getHeader(event, 'Authorization');
-  if (!(authHeader && authHeader.startsWith('Bearer'))) {
+  if (!authHeader?.startsWith('Bearer')) {
     return null;
   }
 
