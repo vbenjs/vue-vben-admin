@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import type { MenuProps } from './interface';
+import type { MenuProps } from './types';
 
 import { useForwardProps } from '@vben-core/composables';
 

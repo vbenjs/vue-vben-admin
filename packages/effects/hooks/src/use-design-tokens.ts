@@ -18,6 +18,7 @@ export function useAntdDesignTokens() {
     colorBgLayout: '',
     colorBgMask: '',
     colorBorder: '',
+    colorBorderSecondary: '',
     colorError: '',
     colorInfo: '',
     colorPrimary: '',
@@ -48,7 +49,8 @@ export function useAntdDesignTokens() {
 
       getCssVariableValue('--primary-foreground');
 
-      tokens.colorBorder = getCssVariableValue('--border');
+      tokens.colorBorderSecondary = tokens.colorBorder =
+        getCssVariableValue('--border');
 
       tokens.colorBgElevated = getCssVariableValue('--popover');
 

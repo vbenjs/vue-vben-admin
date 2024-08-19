@@ -2,9 +2,6 @@
 import type { CSSProperties } from 'vue';
 import { computed, useSlots } from 'vue';
 
-import { Menu } from '@vben-core/icons';
-import { VbenIconButton } from '@vben-core/shadcn-ui';
-
 interface Props {
   /**
    * 横屏
@@ -15,11 +12,6 @@ interface Props {
    */
   height: number;
   /**
-   * 是否混合导航
-   * @default false
-   */
-  isMixedNav: boolean;
-  /**
    * 是否移动端
    */
   isMobile: boolean;
@@ -27,11 +19,6 @@ interface Props {
    * 是否显示
    */
   show: boolean;
-  /**
-   * 是否显示关闭菜单按钮
-   */
-  showToggleBtn: boolean;
-
   /**
    * 侧边菜单宽度
    */
@@ -52,8 +39,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const emit = defineEmits<{ openMenu: []; toggleSidebar: [] }>();
-
 const slots = useSlots();
 
 const style = computed((): CSSProperties => {
@@ -72,10 +57,6 @@ const logoStyle = computed((): CSSProperties => {
     minWidth: `${props.isMobile ? 40 : props.sidebarWidth}px`,
   };
 });
-
-function handleToggleMenu() {
-  props.isMobile ? emit('openMenu') : emit('toggleSidebar');
-}
 </script>
 
 <template>
@@ -87,13 +68,9 @@ function handleToggleMenu() {
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>
     </div>
-    <VbenIconButton
-      v-if="showToggleBtn || isMobile"
-      class="my-0 ml-2 mr-1 rounded-md"
-      @click="handleToggleMenu"
-    >
-      <Menu class="size-4" />
-    </VbenIconButton>
+
+    <slot name="toggle-button"> </slot>
+
     <slot></slot>
   </header>
 </template>

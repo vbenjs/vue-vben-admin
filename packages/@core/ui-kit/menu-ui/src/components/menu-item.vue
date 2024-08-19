@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MenuItemProps, MenuItemRegistered } from '../interface';
+import type { MenuItemProps, MenuItemRegistered } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
