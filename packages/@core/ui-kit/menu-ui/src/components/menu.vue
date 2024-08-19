@@ -6,7 +6,7 @@ import type {
   MenuItemRegistered,
   MenuProps,
   MenuProvider,
-} from '../interface';
+} from '../types';
 
 import {
   computed,
