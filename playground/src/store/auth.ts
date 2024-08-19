@@ -75,17 +75,20 @@ export const useAuthStore = defineStore('auth', () => {
     };
   }
 
-  async function logout() {
+  async function logout(redirect: boolean = true) {
     await logoutApi();
+
     resetAllStores();
     accessStore.setLoginExpired(false);
 
     // 回登陆页带上当前路由地址
     await router.replace({
       path: LOGIN_PATH,
-      query: {
-        redirect: encodeURIComponent(router.currentRoute.value.fullPath),
-      },
+      query: redirect
+        ? {
+            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+          }
+        : {},
     });
   }
 

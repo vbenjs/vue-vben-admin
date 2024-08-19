@@ -1,50 +1,23 @@
 import type { RequestClient } from './request-client';
-import type {
-  MakeErrorMessageFn,
-  RequestInterceptorConfig,
-  ResponseInterceptorConfig,
-} from './types';
+import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
 import { $t } from '@vben/locales';
 
 import axios from 'axios';
 
-export const headersRequestInterceptor = (
-  generatorHeadersFunc: () => Record<string, string>,
-): RequestInterceptorConfig => {
-  return {
-    fulfilled: (config) => {
-      const headers = generatorHeadersFunc();
-      Object.entries(headers).forEach(([key, value]) => {
-        config.headers[key] = value;
-      });
-
-      return config;
-    },
-  };
-};
-
-export const dataDestructuringResponseInterceptor =
-  (): ResponseInterceptorConfig => {
-    return {
-      fulfilled: (response) => {
-        const { data: responseData, status } = response;
-
-        const { code, data, message: msg } = responseData;
-        if (status >= 200 && status < 400 && code === 0) {
-          return data;
-        }
-        throw new Error(`Error ${status}: ${msg}`);
-      },
-    };
-  };
-
-export const authenticateResponseInterceptor = (
-  client: RequestClient,
-  refreshToken: boolean = true,
-  reAuthenticateFunc: () => Promise<void>,
-  refreshTokenFunc: () => Promise<string>,
-): ResponseInterceptorConfig => {
+export const authenticateResponseInterceptor = ({
+  client,
+  doReAuthenticate,
+  doRefreshToken,
+  enableRefreshToken,
+  formatToken,
+}: {
+  client: RequestClient;
+  doReAuthenticate: () => Promise<void>;
+  doRefreshToken: () => Promise<string>;
+  enableRefreshToken: boolean;
+  formatToken: (token: string) => null | string;
+}): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
       const { config, response } = error;
@@ -54,15 +27,15 @@ export const authenticateResponseInterceptor = (
       }
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
-      if (!refreshToken || config.__isRetryRequest) {
-        await reAuthenticateFunc();
+      if (!enableRefreshToken || config.__isRetryRequest) {
+        await doReAuthenticate();
         throw error;
       }
       // 如果正在刷新 token，则将请求加入队列，等待刷新完成
       if (client.isRefreshing) {
         return new Promise((resolve) => {
           client.refreshTokenQueue.push((newToken: string) => {
-            config.headers.Authorization = `Bearer ${newToken}`;
+            config.headers.Authorization = formatToken(newToken);
             resolve(client.request(config.url, { ...config }));
           });
         });
@@ -74,7 +47,7 @@ export const authenticateResponseInterceptor = (
       config.__isRetryRequest = true;
 
       try {
-        const newToken = await refreshTokenFunc();
+        const newToken = await doRefreshToken();
 
         // 处理队列中的请求
         client.refreshTokenQueue.forEach((callback) => callback(newToken));

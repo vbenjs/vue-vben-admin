@@ -2,8 +2,8 @@ import {
   clearRefreshTokenCookie,
   getRefreshTokenFromCookie,
   setRefreshTokenCookie,
-} from '~/utils/cookie-utils';
-import { verifyRefreshToken } from '~/utils/jwt-utils';
+} from '~/utils/cookie_utils';
+import { verifyRefreshToken } from '~/utils/jwt_utils';
 import { forbiddenResponse } from '~/utils/response';
 
 export default defineEventHandler(async (event) => {

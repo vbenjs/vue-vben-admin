@@ -40,6 +40,10 @@ interface AppPreferences {
   enableCheckUpdates: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
+  /**
+   * @zh_CN 是否开启refreshToken
+   */
+  enableRefreshToken: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */
@@ -52,10 +56,6 @@ interface AppPreferences {
   name: string;
   /** 偏好设置按钮位置 */
   preferencesButtonPosition: PreferencesButtonPositionType;
-  /**
-   * @zh_CN 是否采用refreshToken
-   */
-  refreshToken: boolean;
   /**
    * @zh_CN 是否开启水印
    */

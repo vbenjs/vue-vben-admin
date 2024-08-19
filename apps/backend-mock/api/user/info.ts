@@ -1,4 +1,4 @@
-import { verifyAccessToken } from '~/utils/jwt-utils';
+import { verifyAccessToken } from '~/utils/jwt_utils';
 import { unAuthorizedResponse } from '~/utils/response';
 
 export default eventHandler((event) => {
