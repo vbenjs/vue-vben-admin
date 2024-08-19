@@ -97,7 +97,7 @@ const leftSlots = computed(() => {
 
 <template>
   <template
-    v-for="slot in leftSlots.filter((item) => item.index <= 5)"
+    v-for="slot in leftSlots.filter((item) => item.index < 5)"
     :key="slot.name"
   >
     <slot :name="slot.name"></slot>
