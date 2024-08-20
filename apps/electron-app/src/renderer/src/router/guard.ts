@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 
-import { LOGIN_PATH } from '@vben/constants';
+import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
@@ -62,14 +62,20 @@ function setupAccessGuard(router: Router) {
     const userStore = useUserStore();
     const authStore = useAuthStore();
 
+    // 基本路由，这些路由不需要进入权限拦截
+    if (coreRouteNames.includes(to.name as string)) {
+      if (to.path === LOGIN_PATH && accessStore.accessToken) {
+        return decodeURIComponent(
+          (to.query?.redirect as string) || DEFAULT_HOME_PATH,
+        );
+      }
+      return true;
+    }
+
     // accessToken 检查
     if (!accessStore.accessToken) {
-      if (
-        // 基本路由，这些路由不需要进入权限拦截
-        coreRouteNames.includes(to.name as string) ||
-        // 明确声明忽略权限访问权限，则可以访问
-        to.meta.ignoreAccess
-      ) {
+      // 明确声明忽略权限访问权限，则可以访问
+      if (to.meta.ignoreAccess) {
         return true;
       }
 
@@ -109,10 +115,10 @@ function setupAccessGuard(router: Router) {
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
-    const redirectPath = (from.query.redirect ?? to.path) as string;
+    const redirectPath = (from.query.redirect ?? to.fullPath) as string;
 
     return {
-      path: decodeURIComponent(redirectPath),
+      ...router.resolve(decodeURIComponent(redirectPath)),
       replace: true,
     };
   });

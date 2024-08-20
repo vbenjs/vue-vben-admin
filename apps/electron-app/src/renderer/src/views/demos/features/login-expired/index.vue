@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { LoginExpiredModeType } from '@vben/types';
+import type { LoginExpiredModeType } from '@vben/types'
 
-import { preferences, updatePreferences } from '@vben/preferences';
+import { preferences, updatePreferences } from '@vben/preferences'
 
-import { Button } from 'ant-design-vue';
+import { Button } from 'ant-design-vue'
 
-import { getMockStatus } from '#/api';
+import { getMockStatus } from '#/api'
 
 async function handleClick(type: LoginExpiredModeType) {
-  const loginExpiredMode = preferences.app.loginExpiredMode;
+  const loginExpiredMode = preferences.app.loginExpiredMode
 
-  updatePreferences({ app: { loginExpiredMode: type } });
-  await getMockStatus('401');
-  updatePreferences({ app: { loginExpiredMode } });
+  updatePreferences({ app: { loginExpiredMode: type } })
+  await getMockStatus('401')
+  updatePreferences({ app: { loginExpiredMode } })
 }
 </script>
 
@@ -23,9 +23,7 @@ async function handleClick(type: LoginExpiredModeType) {
       <div class="text-foreground/80 mt-2">
         接口请求遇到401状态码时，需要重新登录。有两种方式：
         <div>1.转到登录页，登录成功后跳转回原页面</div>
-        <div>
-          2.弹出重新登录弹窗，登录后关闭弹窗，不进行任何页面跳转（刷新后调整登录页面）
-        </div>
+        <div>2.弹出重新登录弹窗，登录后关闭弹窗，不进行任何页面跳转（刷新后调整登录页面）</div>
       </div>
     </div>
 

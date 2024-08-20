@@ -1,28 +1,22 @@
 <script lang="ts" setup>
+import type { NotificationItem } from '@vben/layouts';
+
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
-import { LOGIN_PATH, VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
+import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
 import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
   LockScreen,
   Notification,
-  NotificationItem,
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import {
-  resetAllStores,
-  storeToRefs,
-  useAccessStore,
-  useUserStore,
-} from '@vben/stores';
+import { storeToRefs, useAccessStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
-import { resetRoutes } from '#/router';
 import { useAuthStore } from '#/store';
 
 const notifications = ref<NotificationItem[]>([
@@ -99,12 +93,8 @@ const avatar = computed(() => {
   return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
 });
 
-const router = useRouter();
-
 async function handleLogout() {
-  resetAllStores();
-  resetRoutes();
-  await router.replace(LOGIN_PATH);
+  await authStore.logout(false);
 }
 
 function handleNoticeClear() {

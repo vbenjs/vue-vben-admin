@@ -1,10 +1,10 @@
-import { requestClient } from '#/api/request';
+import { requestClient } from '#/api/request'
 
 /**
  * 模拟任意状态码
  */
 async function getMockStatus(status: string) {
-  return requestClient.get('/status', { params: { status } });
+  return requestClient.get('/status', { params: { status } })
 }
 
-export { getMockStatus };
+export { getMockStatus }
