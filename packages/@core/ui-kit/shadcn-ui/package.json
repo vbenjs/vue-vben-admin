@@ -46,7 +46,7 @@
     "@vben-core/icons": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "^11.0.1",
     "class-variance-authority": "^0.7.0",
     "lucide-vue-next": "^0.428.0",
     "radix-vue": "^1.9.4",

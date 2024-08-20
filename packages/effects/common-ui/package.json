@@ -26,7 +26,7 @@
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
-    "@vueuse/integrations": "^11.0.0",
+    "@vueuse/integrations": "^11.0.1",
     "qrcode": "^1.5.4",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3"
