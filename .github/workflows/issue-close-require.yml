@@ -21,5 +21,5 @@ jobs:
         with:
           actions: "close-issues" # 执行动作：关闭 Issues
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub Token，用于认证
-          labels: "need reproduction" # 目标标签
+          labels: "needs reproduction" # 目标标签
           inactive-day: 3 # 未活动天数阈值
