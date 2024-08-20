@@ -23,6 +23,14 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
+      {
+        name: 'FastCrudDemo',
+        path: 'fast-crud',
+        component: () => import('#/views/examples/fast-crud/index.vue'),
+        meta: {
+          title: 'fast-crud',
+        },
+      },
     ],
   },
 ];

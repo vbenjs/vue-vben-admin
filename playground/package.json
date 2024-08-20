@@ -26,6 +26,10 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@fast-crud/fast-crud": "^1.21.2",
+    "@fast-crud/fast-extends": "^1.21.2",
+    "@fast-crud/ui-antdv4": "^1.21.2",
+    "@fast-crud/ui-interface": "^1.21.2",
     "@vben/access": "workspace:*",
     "@vben/chart-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
@@ -43,8 +47,12 @@
     "@vueuse/core": "^11.0.0",
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.12",
+    "lodash-es": "^4.17.21",
     "pinia": "2.2.2",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12"
   }
 }

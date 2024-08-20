@@ -9,6 +9,7 @@ import { setupI18n } from '#/locales';
 
 import App from './app.vue';
 import { router } from './router';
+import { registerFastCrud } from './views/examples/fast-crud/register';
 
 async function bootstrap(namespace: string) {
   const app = createApp(App);
@@ -24,6 +25,9 @@ async function bootstrap(namespace: string) {
 
   // 配置路由及路由守卫
   app.use(router);
+
+  // 引入 fast-crud 相关组件
+  registerFastCrud(app);
 
   app.mount('#app');
 }
