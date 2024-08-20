@@ -13,7 +13,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started ->
-      link: /guide/introduction/vben
+      link: /en/guide/introduction/vben
     - theme: alt
       text: Live Preview
       link: https://www.vben.pro
