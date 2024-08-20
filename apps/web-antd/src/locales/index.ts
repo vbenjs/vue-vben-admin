@@ -91,4 +91,4 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   });
 }
 
-export { $t, antdLocale, loadMessages, setupI18n };
+export { $t, antdLocale, setupI18n };
