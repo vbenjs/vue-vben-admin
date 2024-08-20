@@ -16,18 +16,19 @@ export default withPwa(
     description: 'Vben Admin & 企业级管理系统框架',
     head: head(),
     lang: 'zh',
+    locales: {
+      en: {
+        label: 'English',
+        lang: 'en',
+        link: '/en/',
+      },
+      root: {
+        label: '简体中文',
+        lang: 'zh-CN',
+      },
+    },
     pwa: pwa(),
-    // locales: {
-    //   en: {
-    //     label: 'English',
-    //     lang: 'en',
-    //     link: '/en/',
-    //   },
-    //   root: {
-    //     label: '简体中文',
-    //     lang: 'zh-CN',
     srcDir: 'src',
-    //   },
     themeConfig: {
       darkModeSwitchLabel: '主题',
       darkModeSwitchTitle: '切换到深色模式',
