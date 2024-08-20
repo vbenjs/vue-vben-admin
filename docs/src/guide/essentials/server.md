@@ -193,7 +193,10 @@ function createRequestClient(baseURL: string) {
     const accessStore = useAccessStore();
     const authStore = useAuthStore();
     accessStore.setAccessToken(null);
-    if (preferences.app.loginExpiredMode === 'modal') {
+    if (
+      preferences.app.loginExpiredMode === 'modal' &&
+      accessStore.isAccessChecked
+    ) {
       accessStore.setLoginExpired(true);
     } else {
       await authStore.logout();
