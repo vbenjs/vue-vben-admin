@@ -6,3 +6,8 @@
   overscroll-behavior: none;
   color: inherit;
 }
+
+.ant-message-notice-content,
+.ant-notification-notice {
+  @apply dark:border-border/60 dark:border;
+}

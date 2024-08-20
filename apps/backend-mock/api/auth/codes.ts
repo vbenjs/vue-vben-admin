@@ -1,15 +1,14 @@
-export default eventHandler((event) => {
-  const token = getHeader(event, 'Authorization');
+import { verifyAccessToken } from '~/utils/jwt-utils';
+import { unAuthorizedResponse } from '~/utils/response';
 
-  if (!token) {
-    setResponseStatus(event, 401);
-    return useResponseError('UnauthorizedException', 'Unauthorized Exception');
+export default eventHandler((event) => {
+  const userinfo = verifyAccessToken(event);
+  if (!userinfo) {
+    return unAuthorizedResponse(event);
   }
 
-  const username = Buffer.from(token, 'base64').toString('utf8');
-
   const codes =
-    MOCK_CODES.find((item) => item.username === username)?.codes ?? [];
+    MOCK_CODES.find((item) => item.username === userinfo.username)?.codes ?? [];
 
   return useResponseSuccess(codes);
 });

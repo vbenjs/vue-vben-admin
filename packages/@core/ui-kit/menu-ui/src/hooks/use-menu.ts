@@ -1,4 +1,4 @@
-import type { SubMenuProvider } from '../interface';
+import type { SubMenuProvider } from '../types';
 
 import { computed, getCurrentInstance } from 'vue';
 

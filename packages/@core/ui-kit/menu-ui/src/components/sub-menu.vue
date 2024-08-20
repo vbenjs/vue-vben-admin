@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import type { HoverCardContentProps } from '@vben-core/shadcn-ui';
 
-import type {
-  MenuItemRegistered,
-  MenuProvider,
-  SubMenuProps,
-} from '../interface';
+import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
@@ -74,7 +70,6 @@ const contentProps = computed((): HoverCardContentProps => {
     collisionPadding: { top: 20 },
     side,
     sideOffset: isHorizontal ? 5 : 10,
-    // sideOffset: 10,
   };
 });
 
@@ -216,7 +211,7 @@ onBeforeUnmount(() => {
         ]"
         :content-props="contentProps"
         :open="true"
-        :open-delay="30"
+        :open-delay="0"
       >
         <template #trigger>
           <SubMenuContent
