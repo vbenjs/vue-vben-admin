@@ -172,7 +172,7 @@ accessStore.setAccessCodes(accessCodes);
 
 找到 `getAccessCodes` 对应的接口，可根据业务逻辑进行调整。
 
-权限吗返回的数据结构为字符串数组，例如：`['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
+权限码返回的数据结构为字符串数组，例如：`['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
 
 有了权限码，就可以使用 `@vben/access` 提供的`AccessControl`组件及API来进行按钮的显示与隐藏。
 

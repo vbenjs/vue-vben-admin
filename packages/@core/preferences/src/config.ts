@@ -14,6 +14,7 @@ const defaultPreferences: Preferences = {
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
+    enableRefreshToken: false,
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',

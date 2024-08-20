@@ -4,6 +4,9 @@ import type { VbenLayoutProps } from './vben-layout';
 import type { CSSProperties } from 'vue';
 import { computed, ref, watch } from 'vue';
 
+import { Menu } from '@vben-core/icons';
+import { VbenIconButton } from '@vben-core/shadcn-ui';
+
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 
 import {
@@ -330,11 +333,12 @@ const maskStyle = computed((): CSSProperties => {
 
 const showHeaderToggleButton = computed(() => {
   return (
-    props.headerToggleSidebarButton &&
-    isSideMode.value &&
-    !isSidebarMixedNav.value &&
-    !isMixedNav.value &&
-    !props.isMobile
+    props.isMobile ||
+    (props.headerToggleSidebarButton &&
+      isSideMode.value &&
+      !isSidebarMixedNav.value &&
+      !isMixedNav.value &&
+      !props.isMobile)
   );
 });
 
@@ -421,8 +425,12 @@ function handleClickMask() {
   sidebarCollapse.value = true;
 }
 
-function handleOpenMenu() {
-  sidebarCollapse.value = false;
+function handleHeaderToggle() {
+  if (props.isMobile) {
+    sidebarCollapse.value = false;
+  } else {
+    emit('toggleSidebar');
+  }
 }
 </script>
 
@@ -473,26 +481,35 @@ function handleOpenMenu() {
       class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
     >
       <div
+        :class="{
+          'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
+        }"
         :style="headerWrapperStyle"
-        class="overflow-hidden shadow-[0_16px_24px_hsl(var(--background))] transition-all duration-200"
+        class="overflow-hidden transition-all duration-200"
       >
         <LayoutHeader
           v-if="headerVisible"
           :full-width="!isSideMode"
           :height="headerHeight"
-          :is-mixed-nav="isMixedNav"
           :is-mobile="isMobile"
           :show="!isFullContent && !headerHidden"
-          :show-toggle-btn="showHeaderToggleButton"
           :sidebar-width="sidebarWidth"
           :theme="headerTheme"
           :width="mainStyle.width"
           :z-index="headerZIndex"
-          @open-menu="handleOpenMenu"
-          @toggle-sidebar="() => emit('toggleSidebar')"
         >
           <template v-if="showHeaderLogo" #logo>
             <slot name="logo"></slot>
+          </template>
+
+          <template #toggle-button>
+            <VbenIconButton
+              v-if="showHeaderToggleButton"
+              class="my-0 ml-2 mr-1 rounded-md"
+              @click="handleHeaderToggle"
+            >
+              <Menu class="size-4" />
+            </VbenIconButton>
           </template>
           <slot name="header"></slot>
         </LayoutHeader>

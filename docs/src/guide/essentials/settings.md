@@ -184,6 +184,7 @@ const defaultPreferences: Preferences = {
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
+    enableRefreshToken: false,
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
@@ -200,7 +201,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'Vben Admin',
+    companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
     date: '2024',
     enable: true,
@@ -310,6 +311,10 @@ interface AppPreferences {
   enableCheckUpdates: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
+  /**
+   * @zh_CN 是否开启refreshToken
+   */
+  enableRefreshToken: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */

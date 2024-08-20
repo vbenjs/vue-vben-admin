@@ -1,4 +1,4 @@
-import type { MenuProvider, SubMenuProvider } from '../interface';
+import type { MenuProvider, SubMenuProvider } from '../types';
 
 import { getCurrentInstance, inject, provide } from 'vue';
 

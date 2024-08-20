@@ -34,7 +34,7 @@
 
   /* Used for destructive actions such as <Button variant="destructive"> */
 
-  --destructive: 0 78% 68%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 0% 98%;
 
   /* Used for success actions such as <message> */
@@ -110,7 +110,7 @@
   --muted-foreground: 217.9 10.6% 64.9%;
   --accent: 215 27.9% 16.9%;
   --accent-foreground: 210 20% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 210 20% 98%;
   --border: 215 27.9% 16.9%;
   --input: 215 27.9% 16.9%;
@@ -136,7 +136,7 @@
   --muted-foreground: 240 5% 64.9%;
   --accent: 12 6.5% 15.1%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 85.7% 97.3%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
@@ -162,7 +162,7 @@
   --muted-foreground: 0 0% 63.9%;
   --accent: 0 0% 14.9%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 14.9%;
   --input: 0 0% 14.9%;
@@ -188,7 +188,7 @@
   --muted-foreground: 215 20.2% 65.1%;
   --accent: 217.2 32.6% 17.5%;
   --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 210 40% 98%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
@@ -214,7 +214,7 @@
   --muted-foreground: 215 20.2% 65.1%;
   --accent: 217.2 32.6% 17.5%;
   --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 210 40% 98%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
@@ -240,7 +240,7 @@
   --muted-foreground: 240 5% 64.9%;
   --accent: 12 6.5% 15.1%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 85.7% 97.3%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
@@ -266,7 +266,7 @@
   --muted-foreground: 240 5% 64.9%;
   --accent: 12 6.5% 15.1%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 85.7% 97.3%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
@@ -318,7 +318,7 @@
   --muted-foreground: 24 5.4% 63.9%;
   --accent: 12 6.5% 15.1%;
   --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 60 9.1% 97.8%;
   --border: 12 6.5% 15.1%;
   --input: 12 6.5% 15.1%;
@@ -344,7 +344,7 @@
   --muted-foreground: 240 5% 64.9%;
   --accent: 240 3.7% 15.9%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 0% 98%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
@@ -370,7 +370,7 @@
   --muted-foreground: 0 0% 63.9%;
   --accent: 0 0% 14.9%;
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 14.9%;
   --input: 0 0% 14.9%;
@@ -396,7 +396,7 @@
   --muted-foreground: 215 20.2% 65.1%;
   --accent: 217.2 32.6% 17.5%;
   --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 210 40% 98%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
@@ -422,7 +422,7 @@
   --muted-foreground: 217.9 10.6% 64.9%;
   --accent: 215 27.9% 16.9%;
   --accent-foreground: 210 20% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 359.21 68.47% 56.47%;
   --destructive-foreground: 210 20% 98%;
   --border: 215 27.9% 16.9%;
   --input: 215 27.9% 16.9%;

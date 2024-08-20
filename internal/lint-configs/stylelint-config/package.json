@@ -1,6 +1,6 @@
 {
   "name": "@vben/stylelint-config",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@stylistic/stylelint-plugin": "^3.0.0",
+    "@stylistic/stylelint-plugin": "^3.0.1",
     "stylelint-config-recess-order": "^5.0.1",
     "stylelint-scss": "^6.5.0"
   },
