@@ -10,8 +10,6 @@ import type {
 import { type App, unref } from 'vue';
 import { createI18n } from 'vue-i18n';
 
-const loadedLanguages = new Set<string>();
-
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
@@ -78,10 +76,6 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
     return setI18nLanguage(lang);
   }
 
-  if (loadedLanguages.has(lang)) {
-    return setI18nLanguage(lang);
-  }
-
   const message = await localesMap[lang]?.();
 
   if (message?.default) {
@@ -91,7 +85,6 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
   const mergeMessage = await loadMessages(lang);
   i18n.global.mergeLocaleMessage(lang, mergeMessage);
 
-  loadedLanguages.add(lang);
   return setI18nLanguage(lang);
 }
 
