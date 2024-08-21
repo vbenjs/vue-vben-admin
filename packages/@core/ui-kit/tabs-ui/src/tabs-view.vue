@@ -79,7 +79,7 @@ useTabsDrag(props, emit);
       </VbenScrollbar>
     </div>
 
-    <!-- 左侧滚动按钮 -->
+    <!-- 右侧滚动按钮 -->
     <span
       v-show="showScrollButton"
       :class="{
