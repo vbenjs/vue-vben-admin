@@ -135,7 +135,7 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'Doc',
       items: [
         {
-          link: '/guide/introduction/vben',
+          link: '/en/guide/introduction/vben',
           text: 'Guide',
         },
         {

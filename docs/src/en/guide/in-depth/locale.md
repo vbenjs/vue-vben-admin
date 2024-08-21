@@ -173,8 +173,6 @@ async function loadMessages(lang: SupportedLanguagesType) {
 }
 ```
 
-## 第三方语言包
-
 ## Third-Party Language Packs
 
 Different applications may use third-party component libraries or plugins with varying internationalization methods, so they need to be handled differently. If you need to introduce a third-party language pack, you can find the `src/locales/index.ts` file in the corresponding application and modify the `loadThirdPartyMessage` method accordingly:
