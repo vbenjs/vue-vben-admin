@@ -1,8 +1,8 @@
-# 检查更新
+# Check Updates
 
-## 介绍
+## Introduction
 
-当网站有更新时，您可能需要检查更新。框架提供了这一功能，通过定时检查更新，您可以在应用的 preferences.ts 文件中配置 `checkUpdatesInterval`和 `enableCheckUpdates` 字段，以开启和设置检查更新的时间间隔（单位：分钟）。
+When there are updates to the website, you might need to check for updates. The framework provides this functionality. By periodically checking for updates, you can configure the `checkUpdatesInterval` and `enableCheckUpdates` fields in your application's preferences.ts file to enable and set the interval for checking updates (in minutes).
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -10,26 +10,26 @@ import { defineOverridesPreferences } from '@vben/preferences';
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
-    // 是否开启检查更新
+    // Whether to enable check for updates
     enableCheckUpdates: true,
-    // 检查更新的时间间隔，单位为分钟
+    // The interval for checking updates, in minutes
     checkUpdatesInterval: 1,
   },
 });
 ```
 
-## 效果
+## Effect
 
-检测到更新时，会弹出提示框，询问用户是否刷新页面：
+When an update is detected, a prompt will pop up asking the user whether to refresh the page:
 
 ![check-updates](/guide/update-notice.png)
 
-## 替换为其他检查更新方式
+## Replacing with Other Update Checking Methods
 
-如果需要通过其他方式检查更新，例如通过接口来更灵活地控制更新逻辑（如强制刷新、显示更新内容等），你可以通过修改 `@vben/layouts` 下面的 `src/widgets/check-updates/check-updates.vue`文件来实现。
+If you need to check for updates in other ways, such as through an API to more flexibly control the update logic (such as force refresh, display update content, etc.), you can do so by modifying the `src/widgets/check-updates/check-updates.vue` file under `@vben/layouts`.
 
 ```ts
-// 这里可以替换为你的检查更新逻辑
+// Replace this with your update checking logic
 async function getVersionTag() {
   try {
     const response = await fetch('/', {

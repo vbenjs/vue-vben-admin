@@ -1,16 +1,16 @@
-# 国际化
+# Internationalization
 
-项目已经集成了 [Vue i18n](https://kazupon.github.io/vue-i18n/)，并且已经配置好了中文和英文的语言包。
+The project has integrated [Vue i18n](https://kazupon.github.io/vue-i18n/), and Chinese and English language packs have been configured.
 
-## IDE 插件
+## IDE Plugin
 
-如果你使用的 vscode 开发工具，则推荐安装 [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) 这个插件。它可以帮助你更方便的管理国际化的文案，安装了该插件后，你的代码内可以实时看到对应的语言内容：
+If you are using vscode as your development tool, it is recommended to install the [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) plugin. It can help you manage internationalization copy more conveniently. After installing this plugin, you can see the corresponding language content in your code in real-time:
 
 ![](/public/guide/locale.png)
 
-## 配置默认语言
+## Configure Default Language
 
-只需要覆盖默认的偏好设置即可，在对应的应用内，找到 `src/preferences.ts` 文件，修改 `locale` 的值即可：
+You just need to override the default preferences. In the corresponding application, find the `src/preferences.ts` file and modify the value of `locale`:
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -20,12 +20,12 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 动态切换语言
+## Dynamic Language Switching
 
-切换语言有两部分组成:
+Switching languages consists of two parts:
 
-- 更新偏好设置
-- 加载对应的语言包
+- Updating preferences
+- Loading the corresponding language pack
 
 ```ts
 import type { SupportedLanguagesType } from '@vben/locales';
@@ -33,30 +33,30 @@ import { loadLocaleMessages } from '@vben/locales';
 import { updatePreferences } from '@vben/preferences';
 
 async function updateLocale(value: string) {
-  // 1. 更新偏好设置
+  // 1. Update preferences
   const locale = value as SupportedLanguagesType;
   updatePreferences({
     app: {
       locale,
     },
   });
-  // 2. 加载对应的语言包
+  // 2. Load the corresponding language pack
   await loadLocaleMessages(locale);
 }
 
 updateLocale('en-US');
 ```
 
-## 新增翻译文本
+## Adding Translation Texts
 
-::: warning 注意
+::: warning Attention
 
-- 请不要将业务翻译文本放到 `@vben/locales` 内，这样可以更好的管理业务和通用的翻译文本。
-- 有多个语言包的情况下，新增翻译文本时，需要在所有语言包内新增对应的文本。
+- Do not place business translation texts inside `@vben/locales` to better manage business and general translation texts.
+- When adding new translation texts and multiple language packs are available, ensure to add the corresponding texts in all language packs.
 
 :::
 
-新增翻译文本，只需要在对应的应用内，找到 `src/locales/langs/`，新增对应的文本即可，例:
+To add new translation texts, simply find `src/locales/langs/` in the corresponding application and add the texts accordingly, for example:
 
 **src/locales/langs/zh-CN.ts**
 
@@ -80,11 +80,11 @@ updateLocale('en-US');
 }
 ````
 
-## 使用翻译文本
+## Using Translation Texts
 
-通过 `@vben/locales`，你可以很方便的使用翻译文本：
+With `@vben/locales`, you can easily use translation texts:
 
-### 在代码中使用
+### In Code
 
 ```vue
 <script setup lang="ts">
@@ -101,13 +101,13 @@ const items = computed(() => [{ title: $t('about.desc') }]);
 </template>
 ```
 
-## 新增语言包
+## Adding a New Language Pack
 
-如果你需要新增语言包，需要按照以下步骤进行：
+If you need to add a new language pack, follow these steps:
 
-- 在 `packages/locales/langs` 目录下新增对应的语言包文件，例：`zh-TW.json`，并翻译对应的文本。
-- 在对应的应用内，找到 `src/locales/langs` 文件，新增对应的语言包 `zh-TW.json`
-- 在 `packages/constants/src/core.ts`内，新增对应的语言：
+- Add the corresponding language pack file in the `packages/locales/langs` directory, for example, `zh-TW.json`, and translate the respective texts.
+- In the corresponding application, locate the `src/locales/langs` file and add the new language pack `zh-TW.json`.
+- Add the corresponding language in `packages/constants/src/core.ts`:
 
   ```ts
   export interface LanguageOption {
@@ -131,18 +131,18 @@ const items = computed(() => [{ title: $t('about.desc') }]);
   ];
   ```
 
-- 在 `packages/locales/typing.ts`内，新增 Typescript 类型：
+- In `packages/locales/typing.ts`, add a new TypeScript type:
 
   ```ts
   export type SupportedLanguagesType = 'en-US' | 'zh-CN'; // [!code --]
   export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
   ```
 
-到这里，你就可以在项目内使用新增的语言包了。
+At this point, you can use the newly added language pack in the project.
 
-## 界面切换语言功能
+## Interface Language Switching Function
 
-如果你想关闭界面上的语言切换显示按钮，在对应的应用内，找到 `src/preferences.ts` 文件，修改 `locale` 的值即可：
+If you want to disable the language switching display button on the interface, in the corresponding application, find the `src/preferences.ts` file and modify the value of `locale` accordingly:
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -152,20 +152,20 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 远程加载语言包
+## Remote Loading of Language Packs
 
-::: tip 提示
+::: tip Tip
 
-通过项目自带的`request`工具进行接口请求时，默认请求头里会带上 [Accept-Language](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Accept-Language) ，服务端可根据请求头进行动态数据国际化处理。
+When making interface requests through the project's built-in `request` tool, the default request header will include [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language), allowing the server to dynamically internationalize data based on the request header.
 
 :::
 
-每个应用都有一个独立的语言包，它可以覆盖通用的语言配置，你可以通过远程加载的方式来获取对应的语言包，只需要在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadMessages` 方法即可：
+Each application has an independent language pack that can override the general language configuration. You can remotely load the corresponding language pack by finding the `src/locales/index.ts` file in the corresponding application and modifying the `loadMessages` method accordingly:
 
 ```ts {3-4}
 async function loadMessages(lang: SupportedLanguagesType) {
   const [appLocaleMessages] = await Promise.all([
-    // 这里修改为远程接口加载数据即可
+    // Modify here to load data via a remote interface
     localesMap[lang](),
     loadThirdPartyMessage(lang),
   ]);
@@ -175,11 +175,13 @@ async function loadMessages(lang: SupportedLanguagesType) {
 
 ## 第三方语言包
 
-不同应用内使用的第三方组件库或者插件国际化方式可能不一致，所以需要差别处理。 如果你需要引入第三方的语言包，你可以在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadThirdPartyMessage` 方法即可：
+## Third-Party Language Packs
+
+Different applications may use third-party component libraries or plugins with varying internationalization methods, so they need to be handled differently. If you need to introduce a third-party language pack, you can find the `src/locales/index.ts` file in the corresponding application and modify the `loadThirdPartyMessage` method accordingly:
 
 ```ts
 /**
- * 加载dayjs的语言包
+ * Load the dayjs language pack
  * @param lang
  */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
@@ -193,7 +195,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/en');
       break;
     }
-    // 默认使用英语
+    // Default to using English
     default: {
       locale = await import('dayjs/locale/en');
     }
@@ -206,13 +208,13 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
 }
 ```
 
-## 移除国际化
+## Removing Internationalization
 
-首先，不是很建议移除国际化，因为国际化是一个很好的开发习惯，但是如果你真的需要移除国际化，你可以直接使用中文文案，然后保留项目自带的语言包即可，整体开发体验不会影响。移除国际化的步骤如下：
+Firstly, it is not recommended to remove internationalization, as it is a good development practice. However, if you really need to remove it, you can directly use Chinese copy and then retain the project's built-in language pack, which will not affect the overall development experience. The steps to remove internationalization are as follows:
 
-- 隐藏界面上的语言切换按钮，见：[界面切换语言功能](#界面切换语言功能)
-- 修改默认语言，见：[配置默认语言](#配置默认语言)
-- 关闭 `vue-i18n`的警告提示，在`src/locales/index.ts`文件内，修改`missingWarn`为`false`即可：
+- Hide the language switching button on the interface, see: [Interface Language Switching Function](#interface-language-switching-function)
+- Modify the default language, see: [Configure Default Language](#configure-default-language)
+- Disable `vue-i18n` warning prompts, in the `src/locales/index.ts` file, modify `missingWarn` to `false`:
 
   ```ts
   async function setupI18n(app: App, options: LocaleSetupOptions = {}) {

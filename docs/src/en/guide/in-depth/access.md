@@ -2,24 +2,24 @@
 outline: deep
 ---
 
-# 权限
+# Access Control
 
-框架内置了两种权限控制方式：
+The framework has built-in two types of access control methods:
 
-- 通过用户角色来判断菜单或者按钮是否可以访问
-- 通过接口来判断菜单或者按钮是否可以访问
+- Determining whether a menu or button can be accessed based on user roles
+- Determining whether a menu or button can be accessed through an API
 
-## 前端访问控制
+## Frontend Access Control
 
-**实现原理**: 在前端固定写死路由的权限，指定路由有哪些权限可以查看。只初始化通用的路由，需要权限才能访问的路由没有被加入路由表内。在登陆后或者其他方式获取用户角色后，通过角色去遍历路由表，获取该角色可以访问的路由表，生成路由表，再通过 `router.addRoutes` 添加到路由实例，实现权限的过滤。
+**Implementation Principle**: The permissions for routes are hardcoded on the frontend, specifying which permissions are required to view certain routes. Only general routes are initialized, and routes that require permissions are not added to the route table. After logging in or obtaining user roles through other means, the roles are used to traverse the route table to generate a route table that the role can access. This table is then added to the router instance using `router.addRoutes`, achieving permission filtering.
 
-**缺点**: 权限相对不自由，如果后台改动角色，前台也需要跟着改动。适合角色较固定的系统
+**Disadvantage**: The permissions are relatively inflexible; if the backend changes roles, the frontend needs to be adjusted accordingly. This is suitable for systems with relatively fixed roles.
 
-### 步骤
+### Steps
 
-- 确保当前模式为前端访问控制模式
+- Ensure the current mode is set to frontend access control
 
-调整对应应用目录下的`preferences.ts`，确保`accessMode='frontend'`。
+Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='frontend'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -27,15 +27,15 @@ import { defineOverridesPreferences } from '@vben/preferences';
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
-    // 默认值，可不填
+    // Default value, optional
     accessMode: 'frontend',
   },
 });
 ```
 
-- 配置路由权限
+- Configure route permissions
 
-**如果不配置，默认可见**
+**If not configured, it is visible by default**
 
 ```ts {3}
  {
@@ -45,21 +45,21 @@ export const overridesPreferences = defineOverridesPreferences({
 },
 ```
 
-- 确保接口返回的角色和路由表的权限匹配
+- Ensure the roles returned by the interface match the permissions in the route table
 
-可查看应用下的 `src/store/auth`,找到下面代码，
+You can look under `src/store/auth` in the application to find the following code:
 
 ```ts
-// 设置登录用户信息，需要确保 userInfo.roles 是一个数组，且包含路由表中的权限
-// 例如：userInfo.roles=['super', 'admin']
+// Set the login user information, ensuring that userInfo.roles is an array and contains permissions from the route table
+// For example: userInfo.roles=['super', 'admin']
 authStore.setUserInfo(userInfo);
 ```
 
-到这里，就已经配置完成，你需要确保登录后，接口返回的角色和路由表的权限匹配，否则无法访问。
+At this point, the configuration is complete. You need to ensure that the roles returned by the interface after login match the permissions in the route table; otherwise, access will not be possible.
 
-### 菜单可见，但禁止访问
+### Menu Visible but Access Forbidden
 
-有时候，我们需要菜单可见，但是禁止访问，可以通过下面的方式实现，设置 `menuVisibleWithForbidden` 为 `true`，此时菜单可见，但是禁止访问，会跳转403页面。
+Sometimes, we need the menu to be visible but access to it forbidden. This can be achieved by setting `menuVisibleWithForbidden` to `true`. In this case, the menu will be visible, but access will be forbidden, redirecting to a 403 page.
 
 ```ts
 {
@@ -69,17 +69,17 @@ authStore.setUserInfo(userInfo);
 },
 ```
 
-## 后端访问控制
+## Backend Access Control
 
-**实现原理**: 是通过接口动态生成路由表，且遵循一定的数据结构返回。前端根据需要处理该数据为可识别的结构，再通过 router.addRoutes 添加到路由实例，实现权限的动态生成。
+**Implementation Principle**: It is achieved by dynamically generating a routing table through an API, which returns data following a certain structure. The frontend processes this data into a recognizable structure, then adds it to the routing instance using `router.addRoutes`, realizing the dynamic generation of permissions.
 
-**缺点**: 后端需要提供符合规范的数据结构，前端需要处理数据结构，适合权限较为复杂的系统。
+**Disadvantage**: The backend needs to provide a data structure that meets the standards, and the frontend needs to process this structure. This is suitable for systems with more complex permissions.
 
-### 步骤
+### Steps
 
-- 确保当前模式为后端访问控制模式
+- Ensure the current mode is set to backend access control
 
-调整对应应用目录下的`preferences.ts`，确保`accessMode='backend'`。
+Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='backend'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -92,29 +92,29 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-- 确保接口返回的菜单数据结构正确
+- Ensure the structure of the menu data returned by the interface is correct
 
-可查看应用下的 `src/router/access.ts`,找到下面代码，
+You can look under `src/router/access.ts` in the application to find the following code:
 
-```ts {5}
+```ts
 async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     fetchMenuListAsync: async () => {
-      // 这个接口为后端返回的菜单数据
+      // This interface is for the menu data returned by the backend
       return await getAllMenus();
     },
   });
 }
 ```
 
-- 接口返回菜单数据，可看注释说明
+- Interface returns menu data, see comments for explanation
 
-::: details 接口返回菜单数据示例
+::: details Example of Interface Returning Menu Data
 
 ```ts
 const dashboardMenus = [
   {
-    // 这里固定写死 BasicLayout，不可更改
+    // Here, 'BasicLayout' is hardcoded and cannot be changed
     component: 'BasicLayout',
     meta: {
       order: -1,
@@ -127,7 +127,7 @@ const dashboardMenus = [
       {
         name: 'Analytics',
         path: '/analytics',
-        // 这里为页面的路径，需要去掉 views/ 和 .vue
+        // Here is the path of the page, need to remove 'views/' and '.vue'
         component: '/dashboard/analytics/index',
         meta: {
           affixTab: true,
@@ -149,15 +149,15 @@ const dashboardMenus = [
 
 :::
 
-到这里，就已经配置完成，你需要确保登录后，接口返回的菜单格式正确，否则无法访问。
+At this point, the configuration is complete. You need to ensure that after logging in, the format of the menu returned by the interface is correct; otherwise, access will not be possible.
 
-## 按钮细粒度控制
+## Fine-grained Control of Buttons
 
-在某些情况下，我们需要对按钮进行细粒度的控制，我们可以借助接口或者角色来控制按钮的显示。
+In some cases, we need to control the display of buttons with fine granularity. We can control the display of buttons through interfaces or roles.
 
-### 权限码
+### Permission Code
 
-权限码为接口返回的权限码，通过权限码来判断按钮是否显示，逻辑在`src/store/auth`下：
+The permission code is the code returned by the interface. The logic to determine whether a button is displayed is located under `src/store/auth`:
 
 ```ts
 const [fetchUserInfoResult, accessCodes] = await Promise.all([
@@ -170,13 +170,13 @@ authStore.setUserInfo(userInfo);
 accessStore.setAccessCodes(accessCodes);
 ```
 
-找到 `getAccessCodes` 对应的接口，可根据业务逻辑进行调整。
+Locate the `getAccessCodes` corresponding interface, which can be adjusted according to business logic.
 
-权限码返回的数据结构为字符串数组，例如：`['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
+The data structure returned by the permission code is an array of strings, for example: `['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
 
-有了权限码，就可以使用 `@vben/access` 提供的`AccessControl`组件及API来进行按钮的显示与隐藏。
+With the permission codes, you can use the `AccessControl` component and API provided by `@vben/access` to show and hide buttons.
 
-#### 组件方式
+#### Component Method
 
 ```vue
 <script lang="ts" setup>
@@ -186,23 +186,25 @@ const { accessMode, hasAccessByCodes } = useAccess();
 </script>
 
 <template>
-  <!-- 需要指明 type="code" -->
+  <!-- You need to specify type="code" -->
   <AccessControl :codes="['AC_100100']" type="code">
-    <Button> Super 账号可见 ["AC_1000001"] </Button>
+    <Button> Visible to Super account ["AC_1000001"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_100030']" type="code">
-    <Button> Admin 账号可见 ["AC_100010"] </Button>
+    <Button> Visible to Admin account ["AC_100010"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_1000001']" type="code">
-    <Button> User 账号可见 ["AC_1000001"] </Button>
+    <Button> Visible to User account ["AC_1000001"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_100100', 'AC_100010']" type="code">
-    <Button> Super & Admin 账号可见 ["AC_100100","AC_1000001"] </Button>
+    <Button>
+      Visible to Super & Admin account ["AC_100100","AC_1000001"]
+    </Button>
   </AccessControl>
 </template>
 ```
 
-#### API方式
+#### API Method
 
 ```vue
 <script lang="ts" setup>
@@ -213,44 +215,44 @@ const { hasAccessByCodes } = useAccess();
 
 <template>
   <Button v-if="hasAccessByCodes(['AC_100100'])">
-    Super 账号可见 ["AC_1000001"]
+    Visible to Super account ["AC_1000001"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_100030'])">
-    Admin 账号可见 ["AC_100010"]
+    Visible to Admin account ["AC_100010"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_1000001'])">
-    User 账号可见 ["AC_1000001"]
+    Visible to User account ["AC_1000001"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_100100', 'AC_1000001'])">
-    Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+    Visible to Super & Admin account ["AC_100100","AC_1000001"]
   </Button>
 </template>
 ```
 
-#### 指令方式
+#### Directive Method
 
 ```vue
 <template>
   <Button class="mr-4" v-access:code="['AC_100100']">
-    Super 账号可见 ["AC_1000001"]
+    Visible to Super account ["AC_1000001"]
   </Button>
   <Button class="mr-4" v-access:code="['AC_100030']">
-    Admin 账号可见 ["AC_100010"]
+    Visible to Admin account ["AC_100010"]
   </Button>
   <Button class="mr-4" v-access:code="['AC_1000001']">
-    User 账号可见 ["AC_1000001"]
+    Visible to User account ["AC_1000001"]
   </Button>
   <Button class="mr-4" v-access:code="['AC_100100', 'AC_1000001']">
-    Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+    Visible to Super & Admin account ["AC_100100","AC_1000001"]
   </Button>
 </template>
 ```
 
-### 角色
+### Roles
 
-角色判断方式不需要接口返回的权限码，直接通过角色来判断按钮是否显示。
+The method of determining roles does not require permission codes returned by the interface; it directly determines whether buttons are displayed based on roles.
 
-#### 组件方式
+#### Component Method
 
 ```vue
 <script lang="ts" setup>
@@ -259,21 +261,21 @@ import { AccessControl } from '@vben/access';
 
 <template>
   <AccessControl :codes="['super']">
-    <Button> Super 角色可见 </Button>
+    <Button> Visible to Super account </Button>
   </AccessControl>
   <AccessControl :codes="['admin']">
-    <Button> Admin 角色可见 </Button>
+    <Button> Visible to Admin account </Button>
   </AccessControl>
   <AccessControl :codes="['user']">
-    <Button> User 角色可见 </Button>
+    <Button> Visible to User account </Button>
   </AccessControl>
   <AccessControl :codes="['super', 'admin']">
-    <Button> Super & Admin 角色可见 </Button>
+    <Button> Super & Visible to Admin account </Button>
   </AccessControl>
 </template>
 ```
 
-#### API方式
+#### API Method
 
 ```vue
 <script lang="ts" setup>
@@ -283,24 +285,30 @@ const { hasAccessByRoles } = useAccess();
 </script>
 
 <template>
-  <Button v-if="hasAccessByRoles(['super'])"> Super 账号可见 </Button>
-  <Button v-if="hasAccessByRoles(['admin'])"> Admin 账号可见 </Button>
-  <Button v-if="hasAccessByRoles(['user'])"> User 账号可见 </Button>
+  <Button v-if="hasAccessByRoles(['super'])"> Visible to Super account </Button>
+  <Button v-if="hasAccessByRoles(['admin'])"> Visible to Admin account </Button>
+  <Button v-if="hasAccessByRoles(['user'])"> Visible to User account </Button>
   <Button v-if="hasAccessByRoles(['super', 'admin'])">
-    Super & Admin 账号可见
+    Super & Visible to Admin account
   </Button>
 </template>
 ```
 
-#### 指令方式
+#### Directive Method
 
 ```vue
 <template>
-  <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
-  <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
-  <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>
+  <Button class="mr-4" v-access:role="['super']">
+    Visible to Super account
+  </Button>
+  <Button class="mr-4" v-access:role="['admin']">
+    Visible to Admin account
+  </Button>
+  <Button class="mr-4" v-access:role="['user']">
+    Visible to User account
+  </Button>
   <Button class="mr-4" v-access:role="['super', 'admin']">
-    Super & Admin 角色可见
+    Super & Visible to Admin account
   </Button>
 </template>
 ```

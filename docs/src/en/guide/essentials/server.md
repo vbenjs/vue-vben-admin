@@ -1,37 +1,37 @@
-# 服务端交互与数据Mock
+# Server Interaction and Data Mocking
 
-::: tip 说明
+::: tip Note
 
-本文档介绍如何在开发环境下使用 Mock 数据和与服务端进行交互，涉及到的技术有：
+This document explains how to use Mock data and interact with the server in a development environment, involving technologies such as:
 
-- [Nitro](https://nitro.unjs.io/) 轻量级后端服务器，可部署在任何地方，项目用作于 Mock 服务器。
-- [axios](https://axios-http.com/docs/intro) 用于发送 HTTP 请求与服务端进行交互。
-
-:::
-
-## 开发环境交互
-
-如果前端应用和后端接口服务器没有运行在同一个主机上，你需要在开发环境下将接口请求代理到接口服务器。如果是同一个主机，可以直接请求具体的接口地址。
-
-### 本地开发跨域配置
-
-::: tip 提示
-
-本地开发跨域配置项目已经配置好了，如有其他需求，可以自行增加或者调整配置。
+- [Nitro](https://nitro.unjs.io/) A lightweight backend server that can be deployed anywhere, used as a Mock server in the project.
+- [axios](https://axios-http.com/docs/intro) Used to send HTTP requests to interact with the server.
 
 :::
 
-#### 配置本地开发接口地址
+## Interaction in Development Environment
 
-在项目根目录下的 `.env.development` 文件中配置接口地址，这里配置为 `/api`：
+If the frontend application and the backend API server are not running on the same host, you need to proxy the API requests to the API server in the development environment. If they are on the same host, you can directly request the specific API endpoint.
+
+### Local Development CORS Configuration
+
+::: tip Hint
+
+The CORS configuration for local development has already been set up. If you have other requirements, you can add or adjust the configuration as needed.
+
+:::
+
+#### Configuring Local Development API Endpoint
+
+Configure the API endpoint in the `.env.development` file at the project root directory, here it is set to `/api`:
 
 ```bash
 VITE_GLOB_API_URL=/api
 ```
 
-#### 配置开发服务器代理
+#### Configuring Development Server Proxy
 
-开发环境时候，如果需要处理跨域，接口地址在对应的应用目录下的 `vite.config.mts` 文件中配置：
+In the development environment, if you need to handle CORS, configure the API endpoint in the `vite.config.mts` file under the corresponding application directory:
 
 ```ts{8-16}
 // apps/web-antd/vite.config.mts
@@ -45,7 +45,7 @@ export default defineConfig(async () => {
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
-            // mock代理目标地址
+            // mock proxy
             target: 'http://localhost:5320/api',
             ws: true,
           },
@@ -56,9 +56,9 @@ export default defineConfig(async () => {
 });
 ```
 
-#### 接口请求
+#### API Requests
 
-根据上面的配置，我们可以在前端项目中使用 `/api` 作为接口请求的前缀，例如：
+Based on the above configuration, we can use `/api` as the prefix for API requests in our frontend project, for example:
 
 ```ts
 import axios from 'axios';
@@ -68,29 +68,29 @@ axios.get('/api/user').then((res) => {
 });
 ```
 
-此时，请求会被代理到 `http://localhost:5320/api/user`。
+At this point, the request will be proxied to `http://localhost:5320/api/user`.
 
-::: warning 注意
+::: warning Note
 
-从浏览器控制台的 Network 看，请求是 `http://localhost:5555/api/user`, 这是因为 proxy 配置不会改变本地请求的 url。
+From the browser's console Network tab, the request appears as `http://localhost:5555/api/user`. This is because the proxy configuration does not change the local request's URL.
 
 :::
 
-### 没有跨域时的配置
+### Configuration Without CORS
 
-如果没有跨域问题，可以直接忽略 [配置开发服务器代理](./server.md#配置开发服务器代理) 配置，直接将接口地址设置在 `VITE_GLOB_API_URL`
+If there is no CORS issue, you can directly ignore the [Configure Development Server Proxy](./server.md#configure-development-server-proxy) settings and set the API endpoint directly in `VITE_GLOB_API_URL`.
 
-在项目根目录下的 `.env.development` 文件中配置接口地址：
+Configure the API endpoint in the `.env.development` file at the project root directory:
 
 ```bash
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```
 
-## 生产环境交互
+## Production Environment Interaction
 
-### 接口地址配置
+### API Endpoint Configuration
 
-在项目根目录下的 `.env.production` 文件中配置接口地址：
+Configure the API endpoint in the `.env.production` file at the project root directory:
 
 ```bash
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
@@ -102,17 +102,17 @@ VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 
 :::
 
-### 跨域处理
+### Cross-Origin Resource Sharing (CORS) Handling
 
-生产环境如果出现跨域问题，可以使用 `nginx` 代理接口地址 或者后台开启 `cors` 进行处理即可（可参考mock服务）。
+In the production environment, if CORS issues arise, you can use `nginx` to proxy the API address or enable `cors` on the backend to handle it (refer to the mock service for examples).
 
-## 接口请求配置
+## API Request Configuration
 
-项目中默认自带了基于 `axios` 封装的基础的请求配置，核心由 `@vben/request` 包提供。项目没有过多的封装，只是简单的封装了一些常用的配置，如有其他需求，可以自行增加或者调整配置。针对不同的app，可能是用到了不同的组件库以及`store`,所以在应用目录下的`src/api/request.ts`文件夹下，有对应的请求配置文件,如`web-antd`项目下的`src/api/request.ts`文件,可以根据自己的需求进行配置。
+The project comes with a default basic request configuration based on `axios`, provided by the `@vben/request` package. The project does not overly complicate things but simply wraps some common configurations. If there are other requirements, you can add or adjust the configurations as needed. Depending on the app, different component libraries and `store` might be used, so under the `src/api/request.ts` folder in the application directory, there are corresponding request configuration files. For example, in the `web-antd` project, there's a `src/api/request.ts` file where you can configure according to your needs.
 
-### 请求示例
+### Request Examples
 
-#### GET 请求
+#### GET Request
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -122,7 +122,7 @@ export async function getUserInfoApi() {
 }
 ```
 
-#### POST/PUT 请求
+#### POST/PUT Request
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -139,13 +139,13 @@ export async function saveUserApi(user: UserInfo) {
   const url = user.id ? `/user/${user.id}` : '/user/';
   return requestClient.request<UserInfo>(url, {
     data: user,
-    // 或者 PUT
+    // OR PUT
     method: user.id ? 'PUT' : 'POST',
   });
 }
 ```
 
-#### DELETE 请求
+#### DELETE Request
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -155,13 +155,13 @@ export async function deleteUserApi(user: UserInfo) {
 }
 ```
 
-### 请求配置
+### Request Configuration
 
-应用内的`src/api/request.ts`可以根据自己应用的情况的需求进行配置：
+The `src/api/request.ts` within the application can be configured according to the needs of your application:
 
 ```ts
 /**
- * 该文件可自行根据业务逻辑进行调整
+ * This file can be adjusted according to business logic
  */
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -186,7 +186,7 @@ function createRequestClient(baseURL: string) {
   });
 
   /**
-   * 重新认证逻辑
+   * Re-authentication Logic
    */
   async function doReAuthenticate() {
     console.warn('Access token or refresh token is invalid or expired. ');
@@ -201,7 +201,7 @@ function createRequestClient(baseURL: string) {
   }
 
   /**
-   * 刷新token逻辑
+   * Refresh token Logic
    */
   async function doRefreshToken() {
     const accessStore = useAccessStore();
@@ -215,7 +215,7 @@ function createRequestClient(baseURL: string) {
     return token ? `Bearer ${token}` : null;
   }
 
-  // 请求头处理
+  // Request Header Processing
   client.addRequestInterceptor({
     fulfilled: async (config) => {
       const accessStore = useAccessStore();
@@ -226,7 +226,7 @@ function createRequestClient(baseURL: string) {
     },
   });
 
-  // response数据解构
+  // Deal Response Data
   client.addResponseInterceptor({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
@@ -240,7 +240,7 @@ function createRequestClient(baseURL: string) {
     },
   });
 
-  // token过期的处理
+  // Handling Token Expiration
   client.addResponseInterceptor(
     authenticateResponseInterceptor({
       client,
@@ -251,7 +251,7 @@ function createRequestClient(baseURL: string) {
     }),
   );
 
-  // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+  // Generic error handling; if none of the above error handling logic is triggered, it will fall back to this.
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string) => message.error(msg)),
   );
@@ -264,9 +264,9 @@ export const requestClient = createRequestClient(apiURL);
 export const baseRequestClient = new RequestClient({ baseURL: apiURL });
 ```
 
-### 多个接口地址
+### Multiple API Endpoints
 
-只需要创建多个 `requestClient` 即可，如：
+To handle multiple API endpoints, simply create multiple `requestClient` instances, as follows:
 
 ```ts
 const { apiURL, otherApiURL } = useAppConfig(
@@ -279,13 +279,13 @@ export const requestClient = createRequestClient(apiURL);
 export const otherRequestClient = createRequestClient(otherApiURL);
 ```
 
-## 刷新Token
+## Refresh Token
 
-项目中默认提供了刷新 Token 的逻辑，只需要按照下面的配置即可开启：
+The project provides a default logic for refreshing tokens. To enable it, follow the configuration below:
 
-- 确保当前启用了刷新 Token 的配置
+- Ensure the refresh token feature is enabled
 
-调整对应应用目录下的`preferences.ts`，确保`enableRefreshToken='true'`。
+Adjust the `preferences.ts` in the corresponding application directory to ensure `enableRefreshToken='true'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -298,20 +298,20 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-在 `src/api/request.ts` 中配置 `doRefreshToken` 方法即可:
+Configure the `doRefreshToken` method in `src/api/request.ts` as follows:
 
 ```ts
-// 这里调整为你的token格式
+// Adjust this to your token format
 function formatToken(token: null | string) {
   return token ? `Bearer ${token}` : null;
 }
 
 /**
- * 刷新token逻辑
+ * Refresh token logic
  */
 async function doRefreshToken() {
   const accessStore = useAccessStore();
-  // 这里调整为你的刷新token接口
+  // Adjust this to your refresh token API
   const resp = await refreshTokenApi();
   const newToken = resp.data;
   accessStore.setAccessToken(newToken);
@@ -319,27 +319,27 @@ async function doRefreshToken() {
 }
 ```
 
-## 数据 Mock
+## Data Mocking
 
-::: tip 生产环境 Mock
+::: tip Production Environment Mock
 
-新版本不再支持生产环境 mock，请使用真实接口。
+The new version no longer supports mock in the production environment. Please use real interfaces.
 
 :::
 
-Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发进程所阻塞。
+Mock data is an indispensable part of frontend development, serving as a key link in separating frontend and backend development. By agreeing on interfaces with the server side in advance and simulating request data and even logic, frontend development can proceed independently, without being blocked by the backend development process.
 
-项目使用 [Nitro](https://nitro.unjs.io/) 来进行本地 mock 数据处理。其原理是本地额外启动一个后端服务，是一个真实的后端服务，可以处理请求，返回数据。
+The project uses [Nitro](https://nitro.unjs.io/) for local mock data processing. The principle is to start an additional backend service locally, which is a real backend service that can handle requests and return data.
 
-### Nitro 使用
+### Using Nitro
 
-Mock 服务代码位于`apps/backend-mock`目录下，无需手动启动，已经集成在项目中，只需要在项目根目录下运行`pnpm dev`即可，运行成功之后，控制台会打印 `http://localhost:5320/api`, 访问该地址即可查看 mock 服务。
+The mock service code is located in the `apps/backend-mock` directory. It does not need to be started manually and is already integrated into the project. You only need to run `pnpm dev` in the project root directory. After running successfully, the console will print `http://localhost:5320/api`, and you can access this address to view the mock service.
 
-[Nitro](https://nitro.unjs.io/) 语法简单，可以根据自己的需求进行配置及开发，具体配置可以查看 [Nitro 文档](https://nitro.unjs.io/)。
+[Nitro](https://nitro.unjs.io/) syntax is simple, and you can configure and develop according to your needs. For specific configurations, you can refer to the [Nitro documentation](https://nitro.unjs.io/).
 
-## 关闭 Mock 服务
+## Disabling Mock Service
 
-mock的本质是一个真实的后端服务，如果不需要 mock 服务，可以在项目根目录下的 `.env.development` 文件中配置 `VITE_NITRO_MOCK=false` 即可关闭 mock 服务。
+Since mock is essentially a real backend service, if you do not need the mock service, you can configure `VITE_NITRO_MOCK=false` in the `.env.development` file in the project root directory to disable the mock service.
 
 ```bash
 # .env.development

@@ -1,17 +1,17 @@
-# 组件库切换
+# UI Framework Switching
 
-`Vue Admin` 支持你自由选择组件库，目前演示站点的默认组件库是 `Ant Design Vue`，与旧版本保持一致。同时框架还内置了 `Element Plus` 版本和 `Naive UI` 版本，你可以根据自己的喜好选择。
+`Vue Admin` supports your freedom to choose the UI framework. The default UI framework for the demo site is `Ant Design Vue`, consistent with the older version. The framework also has built-in versions for `Element Plus` and `Naive UI`, allowing you to choose according to your preference.
 
-## 新增组件库应用
+## Adding a New UI Framework
 
-如果你想用其他别的组件库，你只需要按一下步骤进行操作：
+If you want to use a different UI framework, you only need to follow these steps:
 
-1. 在`apps`内创建一个新的文件夹，例如`apps/web-xxx`。
-2. 更改`apps/web-xxx/package.json`的`name`字段为`web-xxx`。
-3. 移除其他组件库依赖及代码，并用你的组件库进行替换相应逻辑，需要改动的地方不多。
-4. 调整`locales`内的语言文件。
-5. 调整 `app.vue` 内的组件。
-6. 自行适配组件库的主题，与 `Vben Admin` 契合。
-7. 调整 `.env` 内的应用名
-8. 在大仓根目录增加 `dev:xxx` 脚本
-9. 执行 `pnpm install` 安装依赖
+1. Create a new folder inside `apps`, for example, `apps/web-xxx`.
+2. Change the `name` field in `apps/web-xxx/package.json` to `web-xxx`.
+3. Remove dependencies and code from other UI frameworks and replace them with your chosen UI framework's logic, which requires minimal changes.
+4. Adjust the language files within `locales`.
+5. Adjust the components in `app.vue`.
+6. Adapt the theme of the UI framework to match `Vben Admin`.
+7. Adjust the application name in `.env`.
+8. Add a `dev:xxx` script in the root directory of the repository.
+9. Run `pnpm install` to install dependencies.

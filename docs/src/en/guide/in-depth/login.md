@@ -1,14 +1,14 @@
-# 登录
+# Login
 
-本文介绍如何去改造自己的应用程序登录页。
+This document explains how to customize the login page of your application.
 
-## 登录页面调整
+## Login Page Adjustment
 
-如果你想调整登录页面的标题、描述和图标以及工具栏，你可以通过配置 `AuthPageLayout` 组件的 `props` 参数来实现。
+If you want to adjust the title, description, icon, and toolbar of the login page, you can do so by configuring the `props` parameter of the `AuthPageLayout` component.
 
 ![login](/guide/login.png)
 
-只需要在应用下的 `src/router/routes/core.ts` 内，配置`AuthPageLayout`的 `props`参数即可：
+You just need to configure the `props` parameter of `AuthPageLayout` in `src/router/routes/core.ts` within your application:
 
 ```ts {4-8}
  {
@@ -26,13 +26,13 @@
 
 ::: tip
 
-如果这些配置不能满足你的需求，你可以自行实现登录页面。直接实现自己的 `AuthPageLayout`即可。
+If these configurations do not meet your needs, you can implement your own login page. Simply implement your own `AuthPageLayout`.
 
 :::
 
-## 登录表单调整
+## Login Form Adjustment
 
-如果你想调整登录表单的相关内容，你可以在应用下的 `src/views/_core/authentication/login.vue` 内，配置`AuthenticationLogin` 组件参数即可：
+If you want to adjust the content of the login form, you can configure the `AuthenticationLogin` component parameters in `src/views/_core/authentication/login.vue` within your application:
 
 ```vue
 <AuthenticationLogin
@@ -43,80 +43,80 @@
 />
 ```
 
-::: details AuthenticationLogin 组件参数
+::: details AuthenticationLogin Component Props
 
 ```ts
 {
   /**
-   * @zh_CN 验证码登录路径
+   * @en Verification code login path
    */
   codeLoginPath?: string;
   /**
-   * @zh_CN 忘记密码路径
+   * @en Forget password path
    */
   forgetPasswordPath?: string;
 
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @en Whether it is in loading state
    */
   loading?: boolean;
 
   /**
-   * @zh_CN 密码占位符
+   * @en Password placeholder
    */
   passwordPlaceholder?: string;
 
   /**
-   * @zh_CN 二维码登录路径
+   * @en QR code login path
    */
   qrCodeLoginPath?: string;
 
   /**
-   * @zh_CN 注册路径
+   * @en Registration path
    */
   registerPath?: string;
 
   /**
-   * @zh_CN 是否显示验证码登录
+   * @en Whether to show verification code login
    */
   showCodeLogin?: boolean;
   /**
-   * @zh_CN 是否显示忘记密码
+   * @en Whether to show forget password
    */
   showForgetPassword?: boolean;
 
   /**
-   * @zh_CN 是否显示二维码登录
+   * @en Whether to show QR code login
    */
   showQrcodeLogin?: boolean;
 
   /**
-   * @zh_CN 是否显示注册按钮
+   * @en Whether to show registration button
    */
   showRegister?: boolean;
 
   /**
-   * @zh_CN 是否显示记住账号
+   * @en Whether to show remember account
    */
   showRememberMe?: boolean;
 
   /**
-   * @zh_CN 是否显示第三方登录
+   * @en Whether to show third-party login
    */
   showThirdPartyLogin?: boolean;
 
   /**
-   * @zh_CN 登录框子标题
+   * @en Login box subtitle
    */
   subTitle?: string;
 
   /**
-   * @zh_CN 登录框标题
+   * @en Login box title
    */
   title?: string;
 
   /**
-   * @zh_CN 用户名占位符
+   * @en Username placeholder
    */
   usernamePlaceholder?: string;
 }
@@ -126,6 +126,6 @@
 
 ::: tip
 
-如果这些配置不能满足你的需求，你可以自行实现登录表单及相关登录逻辑。
+If these configurations do not meet your needs, you can implement your own login form and related login logic.
 
 :::

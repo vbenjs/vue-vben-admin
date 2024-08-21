@@ -1,14 +1,14 @@
-# 常用功能
+# Common Features
 
-一些常用的功能合集。
+A collection of some commonly used features.
 
-## 登录认证过期
+## Login Authentication Expiry
 
-当接口返回`401`状态码时，框架会认为登录认证过期，登录超时会跳转到登录页或者打开登录弹窗。在应用目录下的`preferences.ts`可以配置：
+When the interface returns a `401` status code, the framework will consider the login authentication to have expired. Upon login timeout, it will redirect to the login page or open a login popup. This can be configured in `preferences.ts` in the application directory:
 
-### 跳转登录页面
+### Redirect to Login Page
 
-登录超时会跳转到登录页
+Upon login timeout, it will redirect to the login page.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -21,13 +21,13 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-### 打开登录弹窗
+### Open Login Popup
 
-登录超时会打开登录弹窗
+When login times out, a login popup will open.
 
-![](/guide/login-expired.png)
+![login-expired](/guide/login-expired.png)
 
-配置：
+Configuration:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -40,11 +40,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 动态标题
+## Dynamic Title
 
-- 默认值：`true`
+- Default value: `true`
 
-开启后网页标题随着路由的`title`而变化。在应用目录下的`preferences.ts`，开启或者关闭即可。
+When enabled, the webpage title changes according to the route's `title`. You can enable or disable this in the `preferences.ts` file in your application directory.
 
 ```ts
 export const overridesPreferences = defineOverridesPreferences({
@@ -55,11 +55,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 页面水印
+## Page Watermark
 
-- 默认值：`false`
+- Default value: `false`
 
-开启后网页会显示水印，在应用目录下的`preferences.ts`，开启或者关闭即可。
+When enabled, the webpage will display a watermark. You can enable or disable this in the `preferences.ts` file in your application directory.
 
 ```ts
 export const overridesPreferences = defineOverridesPreferences({
@@ -70,7 +70,7 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-如果你想更新水印的内容，可以这么做，参数可以参考 [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/)：
+If you want to update the content of the watermark, you can do so. The parameters can be referred to [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/):
 
 ```ts
 import { useWatermark } from '@vben/hooks';
@@ -78,7 +78,7 @@ import { useWatermark } from '@vben/hooks';
 const { destroyWatermark, updateWatermark } = useWatermark();
 
 await updateWatermark({
-  // 水印内容
+  // watermark content
   content: 'hello my watermark',
 });
 ```
