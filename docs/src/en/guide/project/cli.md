@@ -61,7 +61,7 @@ pnpm vsh clean
 
 ### vsh lint
 
-Lint check the project to see if the code in the project conforms to standards.
+Lint checks the project to see if the code in the project conforms to standards.
 
 #### Usage
 

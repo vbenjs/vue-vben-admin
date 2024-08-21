@@ -96,9 +96,9 @@ Configure the API endpoint in the `.env.production` file at the project root dir
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```
 
-::: tip 打包如何动态修改接口地址
+::: tip How to Dynamically Modify API Endpoint in Production
 
-`.env` 文件内的 `VITE_GLOB_*` 开头的变量会在打包的时候注入 `_app.config.js` 文件内。在 `dist/_app.config.js` 修改相应的接口地址后刷新页面即可，不需要在根据不同环境打包多次，一次打包可以用于多个不同接口环境的部署。
+Variables starting with `VITE_GLOB_*` in the `.env` file are injected into the `_app.config.js` file during packaging. After packaging, you can modify the corresponding API addresses in `dist/_app.config.js` and refresh the page to apply the changes. This eliminates the need to package multiple times for different environments, allowing a single package to be deployed across multiple API environments.
 
 :::
 

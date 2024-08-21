@@ -10,7 +10,7 @@ The project is managed using a `Monorepo` approach and has abstracted some of th
 
 ::: tip Recommendation
 
-It is recommended to follow the repository updates actively and merge them; do not accumulate over a long time, otherwise, it will lead to too many merge conflicts and increase the difficulty of merging.
+It is recommended to follow the repository updates actively and merge them; do not accumulate over a long time, Otherwise, it will lead to too many merge conflicts and increase the difficulty of merging.
 
 :::
 

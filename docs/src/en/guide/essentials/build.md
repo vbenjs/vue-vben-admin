@@ -125,7 +125,7 @@ pnpm run build:analyze
 
 After running, you can see the specific distribution of sizes on the automatically opened page to analyze which dependencies are problematic.
 
-![](/guide/report.png)
+![Build analysis report](/guide/report.png)
 
 ## Deployment
 

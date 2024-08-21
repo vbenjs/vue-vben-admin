@@ -2,7 +2,7 @@
 
 Global loading refers to the loading effect that appears when the page is refreshed, usually a spinning icon:
 
-![](/guide/loading.png)
+![Global loading spinner](/guide/loading.png)
 
 ## Principle
 

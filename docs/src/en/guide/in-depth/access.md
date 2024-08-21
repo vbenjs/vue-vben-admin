@@ -35,7 +35,7 @@ export const overridesPreferences = defineOverridesPreferences({
 
 - Configure route permissions
 
-**If not configured, it is visible by default**
+#### If not configured, it is visible by default
 
 ```ts {3}
  {
