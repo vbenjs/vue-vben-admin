@@ -48,3 +48,4 @@ vite.config.ts.*
 *.njsproj
 *.sln
 *.sw?
+.history
