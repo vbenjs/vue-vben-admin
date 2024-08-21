@@ -1,6 +1,6 @@
 # PROJECT UPDATE
 
-## Why Can't It Be Updated Like an npm Plugin
+## Why Can't It Be Updated Like a npm Plugin
 
 Because the project is a complete project template, not a plugin or a package, it cannot be updated like a plugin. After you use the code, you will develop it further based on business needs, and you need to manually merge and upgrade.
 
