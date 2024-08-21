@@ -195,7 +195,7 @@ server {
 VITE_BASE = /sub/
 ```
 
-- 然后在 nginx 配置文件中配置
+- Then configure in the nginx configuration file
 
 ```bash {8}
 server {
