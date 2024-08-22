@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/menu-ui",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -42,7 +42,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "^11.0.1",
     "vue": "^3.4.38"
   }
 }

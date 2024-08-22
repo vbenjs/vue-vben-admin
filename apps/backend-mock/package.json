@@ -10,6 +10,11 @@
     "start": "nitro dev"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "nitropack": "^2.9.7"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "h3": "^1.12.0"
   }
 }

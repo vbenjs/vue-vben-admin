@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MenuItemProps } from '../interface';
+import type { MenuItemProps } from '../types';
 
 import { computed } from 'vue';
 
