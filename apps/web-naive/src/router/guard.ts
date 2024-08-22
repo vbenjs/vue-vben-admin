@@ -92,13 +92,10 @@ function setupAccessGuard(router: Router) {
       return to;
     }
 
-    const accessRoutes = accessStore.accessRoutes;
-
     // 是否已经生成过动态路由
-    if (accessRoutes && accessRoutes.length > 0) {
+    if (accessStore.isAccessChecked) {
       return true;
     }
-
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
     const userInfo = userStore.userInfo || (await authStore.fetchUserInfo());
@@ -115,6 +112,7 @@ function setupAccessGuard(router: Router) {
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
+    accessStore.setIsAccessChecked(true);
     const redirectPath = (from.query.redirect ?? to.fullPath) as string;
 
     return {

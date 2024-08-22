@@ -61,7 +61,6 @@ function setupAccessGuard(router: Router) {
     const accessStore = useAccessStore();
     const userStore = useUserStore();
     const authStore = useAuthStore();
-
     // 基本路由，这些路由不需要进入权限拦截
     if (coreRouteNames.includes(to.name as string)) {
       if (to.path === LOGIN_PATH && accessStore.accessToken) {
@@ -92,10 +91,8 @@ function setupAccessGuard(router: Router) {
       return to;
     }
 
-    const accessRoutes = accessStore.accessRoutes;
-
     // 是否已经生成过动态路由
-    if (accessRoutes && accessRoutes.length > 0) {
+    if (accessStore.isAccessChecked) {
       return true;
     }
 
@@ -115,6 +112,7 @@ function setupAccessGuard(router: Router) {
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
+    accessStore.setIsAccessChecked(true);
     const redirectPath = (from.query.redirect ?? to.fullPath) as string;
 
     return {
