@@ -25,27 +25,27 @@ features:
   - icon: 🚀
     title: Latest Technology Stack
     details: Based on the latest technology stack, including Vue3, Pinia, Vue Router, TypeScript, etc.
-    link: /guide/introduction/quick-start
+    link: /en/guide/introduction/quick-start
     linkText: Get Started
   - icon: 🦄
     title: Rich Configurations
     details: An enterprise-level frontend solution for middle and back-end systems, offering a wealth of components, templates, and various preference settings.
-    link: /guide/essentials/settings
+    link: /en/guide/essentials/settings
     linkText: Configuration Documentation
   - icon: 🎨
     title: Theme Customization
     details: Easily switch between various themes through simple configurations, catering to personalized needs.
-    link: /guide/in-depth/theme
+    link: /en/guide/in-depth/theme
     linkText: Theme Documentation
   - icon: 🌐
     title: Internationalization
     details: Built-in internationalization support with multiple languages to meet global needs.
-    link: /guide/in-depth/locale
+    link: /en/guide/in-depth/locale
     linkText: Internationalization Documentation
   - icon: 🔐
     title: Access Control
     details: Built-in access control solutions supporting various permission management methods to meet different access requirements.
-    link: /guide/in-depth/access
+    link: /en/guide/in-depth/access
     linkText: Access Documentation
   - title: Vite
     icon:
