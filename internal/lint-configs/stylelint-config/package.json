@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@stylistic/stylelint-plugin": "^3.0.1",
-    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-recess-order": "^5.1.0",
     "stylelint-scss": "^6.5.0"
   },
   "devDependencies": {
