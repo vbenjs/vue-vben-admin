@@ -4,7 +4,7 @@
 
 ## 编写测试用例
 
-在项目中，我们约定将测试文件名以 `.test.ts` 结尾，或者存放到`__tests__`目录内。例如，创建一个 `utils.ts` 文件，然后同级目录`utils.spec.ts` 文件，
+在项目中，我们约定将测试文件名以 `.test.ts` 结尾，或者存放到`__tests__`目录内。例如，创建一个 `utils.ts` 文件，然后同级目录`utils.test.ts` 文件，
 
 ```ts
 // utils.test.ts
