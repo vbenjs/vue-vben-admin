@@ -56,7 +56,8 @@
     "*.ejs": "html",
     "*.art": "html",
     "**/tsconfig.json": "jsonc",
-    "*.json": "jsonc"
+    "*.json": "jsonc",
+    "package.json": "json"
   },
 
   "files.exclude": {

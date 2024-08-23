@@ -36,6 +36,7 @@ async function generateAccessible(
 /**
  * Generate routes
  * @param mode
+ * @param options
  */
 async function generateRoutes(
   mode: AccessModeType,

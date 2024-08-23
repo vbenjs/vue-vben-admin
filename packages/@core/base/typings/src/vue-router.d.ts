@@ -9,7 +9,6 @@ interface RouteMeta {
   activeIcon?: string;
   /**
    * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
-   * @default false
    */
   activePath?: string;
   /**
