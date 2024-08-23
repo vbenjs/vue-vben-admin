@@ -1,11 +1,12 @@
 import {
   addIcon,
+  type IconifyIcon,
   // addCollection
 } from '@vben-core/icons';
 
 let loaded = false;
 if (!loaded) {
-  loadSvgIcons();
+  await loadSvgIcons();
   loaded = true;
 }
 
@@ -29,12 +30,33 @@ if (!loaded) {
 //   height: 24,
 // });
 
+function parseSvg(svgData: string): IconifyIcon {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(svgData, 'image/svg+xml');
+  const svgElement = xmlDoc.documentElement;
+
+  const svgContent = [...svgElement.childNodes]
+    .filter((node) => node.nodeType === Node.ELEMENT_NODE)
+    .map((node) => new XMLSerializer().serializeToString(node))
+    .join('');
+
+  const viewBoxValue = svgElement.getAttribute('viewBox') || '';
+  const [left, top, width, height] = viewBoxValue.split(' ').map(Number);
+
+  return {
+    body: svgContent,
+    height,
+    left,
+    top,
+    width,
+  };
+}
+
 /**
  * 自定义的svg图片转化为组件
  * @example ./svg/avatar.svg
  * <Icon icon="svg:avatar"></Icon>
  */
-
 async function loadSvgIcons() {
   const svgEagers = import.meta.glob('./icons/**', {
     eager: true,
@@ -51,7 +73,7 @@ async function loadSvgIcons() {
       const iconName = key.slice(start, end);
 
       return addIcon(`svg:${iconName}`, {
-        body: typeof body === 'object' ? body.default : body,
+        ...parseSvg(typeof body === 'object' ? body.default : body),
       });
     }),
   );
