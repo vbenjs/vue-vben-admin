@@ -25,13 +25,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="md:flex">
-    <template v-for="(item, index) in items" :key="item.title">
-      <Card
-        :class="{ 'md:mr-4': index + 1 < 4 }"
-        :title="item.title"
-        class="mt-5 w-full md:mt-0 md:w-1/4"
-      >
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <template v-for="item in items" :key="item.title">
+      <Card :title="item.title" class="w-full">
         <CardHeader>
           <CardTitle class="text-xl">{{ item.title }}</CardTitle>
         </CardHeader>
