@@ -125,7 +125,7 @@ pnpm run build:analyze
 
 运行之后，在自动打开的页面可以看到具体的体积分布，以分析哪些依赖有问题。
 
-![](/guide/report.png)
+![Build analysis report](/guide/report.png)
 
 ## 部署
 

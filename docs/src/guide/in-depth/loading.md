@@ -2,7 +2,7 @@
 
 全局 loading 指的是页面刷新时出现的加载效果，通常是一个旋转的图标：
 
-![](/guide/loading.png)
+![Global loading spinner](/guide/loading.png)
 
 ## 原理
 
