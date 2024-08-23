@@ -17,7 +17,10 @@ function parseSvg(svgData: string): IconifyIcon {
     .join('');
 
   const viewBoxValue = svgElement.getAttribute('viewBox') || '';
-  const [left, top, width, height] = viewBoxValue.split(' ').map(Number);
+  const [left, top, width, height] = viewBoxValue.split(' ').map((val) => {
+    const num = Number(val);
+    return Number.isNaN(num) ? undefined : num;
+  });
 
   return {
     body: svgContent,
