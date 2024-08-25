@@ -34,13 +34,6 @@
     transition: all 0.6s ease-out;
   }
 
-  .loading .dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 98px;
-  }
-
   .loading .title {
     margin-top: 36px;
     font-size: 30px;
@@ -109,6 +102,6 @@
   }
 </style>
 <div class="loading" id="__app-loading__">
-  <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+  <span class="dot"><i></i><i></i><i></i><i></i></span>
   <div class="title"><%= VITE_APP_TITLE %></div>
 </div>

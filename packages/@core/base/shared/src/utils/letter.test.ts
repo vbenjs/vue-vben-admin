@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   capitalizeFirstLetter,
+  kebabToCamelCase,
   toCamelCase,
   toLowerCaseFirstLetter,
 } from './letter';
@@ -74,5 +75,43 @@ describe('toCamelCase', () => {
   it('should handle key with capital letters', () => {
     expect(toCamelCase('Child', 'parent')).toBe('parentChild');
     expect(toCamelCase('Child', 'Parent')).toBe('ParentChild');
+  });
+});
+
+describe('kebabToCamelCase', () => {
+  it('should convert kebab-case to camelCase correctly', () => {
+    expect(kebabToCamelCase('my-component-name')).toBe('myComponentName');
+  });
+
+  it('should handle multiple consecutive hyphens', () => {
+    expect(kebabToCamelCase('my--component--name')).toBe('myComponentName');
+  });
+
+  it('should trim leading and trailing hyphens', () => {
+    expect(kebabToCamelCase('-my-component-name-')).toBe('myComponentName');
+  });
+
+  it('should preserve the case of the first word', () => {
+    expect(kebabToCamelCase('My-component-name')).toBe('MyComponentName');
+  });
+
+  it('should convert a single word correctly', () => {
+    expect(kebabToCamelCase('component')).toBe('component');
+  });
+
+  it('should return an empty string if input is empty', () => {
+    expect(kebabToCamelCase('')).toBe('');
+  });
+
+  it('should handle strings with no hyphens', () => {
+    expect(kebabToCamelCase('mycomponentname')).toBe('mycomponentname');
+  });
+
+  it('should handle strings with only hyphens', () => {
+    expect(kebabToCamelCase('---')).toBe('');
+  });
+
+  it('should handle mixed case inputs', () => {
+    expect(kebabToCamelCase('my-Component-Name')).toBe('myComponentName');
   });
 });

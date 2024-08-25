@@ -10,18 +10,24 @@ interface Props {
    * @en_US Minimum loading time
    */
   minLoadingTime?: number;
+
   /**
    * @zh_CN loading状态开启
    */
   spinning?: boolean;
+  /**
+   * @zh_CN 文字
+   */
+  text?: string;
 }
 
 defineOptions({
-  name: 'VbenSpinner',
+  name: 'VbenLoading',
 });
 
 const props = withDefaults(defineProps<Props>(), {
   minLoadingTime: 50,
+  text: '',
 });
 // const startTime = ref(0);
 const showSpinner = ref(false);
@@ -63,7 +69,7 @@ function onTransitionEnd() {
   <div
     :class="
       cn(
-        'flex-center bg-overlay z-100 absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500',
+        'bg-overlay z-100 pointer-events-none absolute left-0 top-0 flex size-full flex-col items-center justify-center backdrop-blur-sm transition-all duration-500',
         {
           'invisible opacity-0': !showSpinner,
         },
@@ -72,54 +78,60 @@ function onTransitionEnd() {
     "
     @transitionend="onTransitionEnd"
   >
-    <div
-      class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded after:content-['']"
-    ></div>
+    <span class="dot relative inline-block size-9 text-3xl">
+      <i
+        v-for="index in 4"
+        :key="index"
+        class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"
+      ></i>
+    </span>
+
+    <div v-if="text" class="mt-4 text-xs">{{ text }}</div>
   </div>
 </template>
 
 <style scoped>
-.loader {
-  &::before {
-    animation: loader-shadow-ani 0.5s linear infinite;
-  }
+.dot {
+  transform: rotate(45deg);
+  animation: rotate-ani 1.2s infinite linear;
+}
 
-  &::after {
-    animation: loader-jump-ani 0.5s linear infinite;
+.dot i {
+  animation: spin-move-ani 1s infinite linear alternate;
+}
+
+.dot i:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.dot i:nth-child(2) {
+  top: 0;
+  right: 0;
+  animation-delay: 0.4s;
+}
+
+.dot i:nth-child(3) {
+  right: 0;
+  bottom: 0;
+  animation-delay: 0.8s;
+}
+
+.dot i:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  animation-delay: 1.2s;
+}
+
+@keyframes rotate-ani {
+  to {
+    transform: rotate(405deg);
   }
 }
 
-@keyframes loader-jump-ani {
-  15% {
-    border-bottom-right-radius: 3px;
-  }
-
-  25% {
-    transform: translateY(9px) rotate(22.5deg);
-  }
-
-  50% {
-    border-bottom-right-radius: 40px;
-    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
-  }
-
-  75% {
-    transform: translateY(9px) rotate(67.5deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(90deg);
-  }
-}
-
-@keyframes loader-shadow-ani {
-  0%,
-  100% {
-    transform: scale(1, 1);
-  }
-
-  50% {
-    transform: scale(1.2, 1);
+@keyframes spin-move-ani {
+  to {
+    opacity: 1;
   }
 }
 </style>

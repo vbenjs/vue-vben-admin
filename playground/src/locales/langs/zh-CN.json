@@ -65,6 +65,9 @@
       "title": "示例",
       "ellipsis": {
         "title": "文本省略"
+      },
+      "modal": {
+        "title": "弹窗组件"
       }
     }
   }

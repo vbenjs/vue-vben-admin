@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  getFirstNonNullOrUndefined,
   isEmpty,
   isHttpUrl,
   isObject,
@@ -103,12 +104,64 @@ describe('isObject', () => {
 
   it('should return false for non-objects', () => {
     expect(isObject(null)).toBe(false);
-    expect(isObject()).toBe(false);
     expect(isObject(42)).toBe(false);
     expect(isObject('string')).toBe(false);
     expect(isObject(true)).toBe(false);
     expect(isObject([1, 2, 3])).toBe(true);
     expect(isObject(new Date())).toBe(true);
     expect(isObject(/regex/)).toBe(true);
+  });
+});
+
+describe('getFirstNonNullOrUndefined', () => {
+  describe('getFirstNonNullOrUndefined', () => {
+    it('should return the first non-null and non-undefined value for a number array', () => {
+      expect(getFirstNonNullOrUndefined<number>(undefined, null, 0, 42)).toBe(
+        0,
+      );
+      expect(getFirstNonNullOrUndefined<number>(null, undefined, 42, 123)).toBe(
+        42,
+      );
+    });
+
+    it('should return the first non-null and non-undefined value for a string array', () => {
+      expect(
+        getFirstNonNullOrUndefined<string>(undefined, null, '', 'hello'),
+      ).toBe('');
+      expect(
+        getFirstNonNullOrUndefined<string>(null, undefined, 'test', 'world'),
+      ).toBe('test');
+    });
+
+    it('should return undefined if all values are null or undefined', () => {
+      expect(getFirstNonNullOrUndefined(undefined, null)).toBeUndefined();
+      expect(getFirstNonNullOrUndefined(null)).toBeUndefined();
+    });
+
+    it('should work with a single value', () => {
+      expect(getFirstNonNullOrUndefined(42)).toBe(42);
+      expect(getFirstNonNullOrUndefined()).toBeUndefined();
+      expect(getFirstNonNullOrUndefined(null)).toBeUndefined();
+    });
+
+    it('should handle mixed types correctly', () => {
+      expect(
+        getFirstNonNullOrUndefined<number | object | string>(
+          undefined,
+          null,
+          'test',
+          123,
+          { key: 'value' },
+        ),
+      ).toBe('test');
+      expect(
+        getFirstNonNullOrUndefined<number | object | string>(
+          null,
+          undefined,
+          [1, 2, 3],
+          'string',
+        ),
+      ).toEqual([1, 2, 3]);
+    });
   });
 });

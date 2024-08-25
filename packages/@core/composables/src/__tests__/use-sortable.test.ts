@@ -2,7 +2,7 @@ import type { SortableOptions } from 'sortablejs';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useSortable } from './use-sortable';
+import { useSortable } from '../use-sortable';
 
 describe('useSortable', () => {
   beforeEach(() => {
@@ -30,7 +30,6 @@ describe('useSortable', () => {
 
     // Import sortablejs to access the mocked create function
     const Sortable = await import(
-      // @ts-expect-error - This is a dynamic import
       'sortablejs/modular/sortable.complete.esm.js'
     );
 

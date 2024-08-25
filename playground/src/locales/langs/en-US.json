@@ -65,6 +65,9 @@
       "title": "Examples",
       "ellipsis": {
         "title": "EllipsisText"
+      },
+      "modal": {
+        "title": "Modal Component"
       }
     }
   }
