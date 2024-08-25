@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { getElementVisibleRect } from './dom'; // 假设函数位于 utils.ts 中
+import { getElementVisibleRect } from '../dom'; // 假设函数位于 utils.ts 中
 
 describe('getElementVisibleRect', () => {
   // 设置浏览器视口尺寸的 mock

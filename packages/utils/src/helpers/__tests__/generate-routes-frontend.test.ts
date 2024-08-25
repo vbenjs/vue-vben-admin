@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import {
   generateRoutesByFrontend,
   hasAuthority,
-} from './generate-routes-frontend';
+} from '../generate-routes-frontend';
 
 // Mock 路由数据
 const mockRoutes = [

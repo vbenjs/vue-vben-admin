@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { diff } from './diff';
+import { diff } from '../diff';
 
 describe('diff function', () => {
   it('should return an empty object when comparing identical objects', () => {

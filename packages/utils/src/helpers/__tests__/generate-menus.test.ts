@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { generateMenus } from './generate-menus'; // 替换为您的实际路径
+import { generateMenus } from '../generate-menus'; // 替换为您的实际路径
 import {
   createRouter,
   createWebHistory,

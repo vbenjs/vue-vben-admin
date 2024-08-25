@@ -2,7 +2,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { toPosixPath } from './path';
+import { toPosixPath } from '../path';
 
 describe('toPosixPath', () => {
   // 测试 Windows 风格路径到 POSIX 风格路径的转换

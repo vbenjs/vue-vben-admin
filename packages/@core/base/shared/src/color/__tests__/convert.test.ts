@@ -5,7 +5,7 @@ import {
   convertToHslCssVar,
   convertToRgb,
   isValidColor,
-} from './convert';
+} from '../convert';
 
 describe('color conversion functions', () => {
   it('should correctly convert color to HSL format', () => {

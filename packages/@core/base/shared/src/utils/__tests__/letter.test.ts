@@ -5,7 +5,7 @@ import {
   kebabToCamelCase,
   toCamelCase,
   toLowerCaseFirstLetter,
-} from './letter';
+} from '../letter';
 
 // 编写测试用例
 describe('capitalizeFirstLetter', () => {

@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 
-import { updateCSSVariables } from './update-css-variables';
+import { updateCSSVariables } from '../update-css-variables';
 
 it('updateCSSVariables should update CSS variables in :root selector', () => {
   // 模拟初始的内联样式表内容

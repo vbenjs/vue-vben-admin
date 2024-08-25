@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { filterTree, mapTree, traverseTreeValues } from './tree';
+import { filterTree, mapTree, traverseTreeValues } from '../tree';
 
 describe('traverseTreeValues', () => {
   interface Node {

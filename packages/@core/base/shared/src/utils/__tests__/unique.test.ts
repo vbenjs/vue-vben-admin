@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { uniqueByField } from './unique';
+import { uniqueByField } from '../unique';
 
 describe('uniqueByField', () => {
   it('should return an array with unique items based on id field', () => {

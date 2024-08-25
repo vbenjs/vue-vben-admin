@@ -7,7 +7,7 @@ import {
   isObject,
   isUndefined,
   isWindow,
-} from './inference';
+} from '../inference';
 
 describe('isHttpUrl', () => {
   it("should return true when given 'http://example.com'", () => {

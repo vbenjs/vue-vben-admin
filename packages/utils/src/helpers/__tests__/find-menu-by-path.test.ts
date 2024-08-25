@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { findMenuByPath, findRootMenuByPath } from './find-menu-by-path';
+import { findMenuByPath, findRootMenuByPath } from '../find-menu-by-path';
 
 // 示例菜单数据
 const menus: any[] = [
