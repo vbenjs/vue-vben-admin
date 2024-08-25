@@ -50,9 +50,6 @@ const confirmText = usePriorityValue('confirmText', props, state);
     :open="state?.isOpen"
     @update:open="() => drawerApi?.close()"
   >
-    <template #trigger>
-      <slot name="trigger"> </slot>
-    </template>
     <SheetContent :class="cn('flex w-[520px] flex-col', props.class, {})">
       <SheetHeader
         :class="
@@ -61,35 +58,37 @@ const confirmText = usePriorityValue('confirmText', props, state);
           })
         "
       >
-        <SheetTitle v-if="title">
-          <slot name="title">
-            {{ title }}
+        <div>
+          <SheetTitle v-if="title">
+            <slot name="title">
+              {{ title }}
 
-            <VbenTooltip v-if="titleTooltip" side="right">
-              <template #trigger>
-                <Info class="inline-flex size-5 cursor-pointer pb-1" />
-              </template>
-              {{ titleTooltip }}
-            </VbenTooltip>
-          </slot>
-        </SheetTitle>
-        <SheetDescription v-if="description">
-          <slot name="description">
-            {{ description }}
-          </slot>
-        </SheetDescription>
+              <VbenTooltip v-if="titleTooltip" side="right">
+                <template #trigger>
+                  <Info class="inline-flex size-5 cursor-pointer pb-1" />
+                </template>
+                {{ titleTooltip }}
+              </VbenTooltip>
+            </slot>
+          </SheetTitle>
+          <SheetDescription v-if="description" class="mt-1 text-xs">
+            <slot name="description">
+              {{ description }}
+            </slot>
+          </SheetDescription>
+        </div>
 
         <VisuallyHidden v-if="!title || !description">
           <SheetTitle v-if="!title" />
           <SheetDescription v-if="!description" />
         </VisuallyHidden>
 
-        <div class="flex-center gap-x-2">
+        <div class="flex-center">
           <slot name="extra"></slot>
           <SheetClose
             v-if="closable"
             as-child
-            class="data-[state=open]:bg-secondary cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+            class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <VbenIconButton>
               <X class="size-4" />
@@ -106,6 +105,7 @@ const confirmText = usePriorityValue('confirmText', props, state);
         "
       >
         <VbenLoading v-if="showLoading" class="size-full" spinning />
+
         <slot></slot>
       </div>
 

@@ -22,6 +22,7 @@
   "dependencies": {
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",
+    "@vben-core/popup-ui": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
     "@vben/constants": "workspace:*",

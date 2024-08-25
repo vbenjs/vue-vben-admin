@@ -12,6 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   VbenButton,
   VbenIconButton,
   VbenLoading,
@@ -27,12 +28,16 @@ import { useModalDraggable } from './use-modal-draggable';
 interface Props extends ModalProps {
   class?: string;
   contentClass?: string;
+  footerClass?: string;
+  headerClass?: string;
   modalApi?: ExtendedModalApi;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
   contentClass: '',
+  footerClass: '',
+  headerClass: '',
   modalApi: undefined,
 });
 
@@ -59,7 +64,8 @@ const cancelText = usePriorityValue('cancelText', props, state);
 const confirmText = usePriorityValue('confirmText', props, state);
 const draggable = usePriorityValue('draggable', props, state);
 const fullscreenButton = usePriorityValue('fullscreenButton', props, state);
-
+const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
+const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
 const shouldDraggable = computed(() => draggable.value && !fullscreen.value);
 
 const { dragging } = useModalDraggable(dialogRef, headerRef, shouldDraggable);
@@ -98,6 +104,16 @@ function handleFullscreen() {
     return { ...prev, fullscreen: !fullscreen.value };
   });
 }
+function interactOutside(e: Event) {
+  if (!closeOnClickModal.value) {
+    e.preventDefault();
+  }
+}
+function escapeKeyDown(e: KeyboardEvent) {
+  if (!closeOnPressEscape.value) {
+    e.preventDefault();
+  }
+}
 </script>
 <template>
   <Dialog
@@ -105,9 +121,9 @@ function handleFullscreen() {
     :open="state?.isOpen"
     @update:open="() => modalApi?.close()"
   >
-    <template #trigger>
+    <DialogTrigger v-if="$slots.trigger" as-child>
       <slot name="trigger"> </slot>
-    </template>
+    </DialogTrigger>
 
     <DialogContent
       ref="contentRef"
@@ -125,13 +141,20 @@ function handleFullscreen() {
       "
       :show-close="closable"
       close-class="top-4"
+      @escape-key-down="escapeKeyDown"
+      @interact-outside="interactOutside"
     >
       <DialogHeader
         ref="headerRef"
-        :class="{
-          'cursor-move select-none': shouldDraggable,
-        }"
-        class="border-b px-6 py-5"
+        :class="
+          cn(
+            'border-b px-6 py-5',
+            {
+              'cursor-move select-none': shouldDraggable,
+            },
+            props.headerClass,
+          )
+        "
       >
         <DialogTitle v-if="title">
           <slot name="title">
@@ -157,7 +180,7 @@ function handleFullscreen() {
       </DialogHeader>
       <div
         :class="
-          cn('relative min-h-40 flex-1 p-3', contentClass, {
+          cn('relative min-h-10 flex-1 p-3', contentClass, {
             'overflow-y-auto': !showLoading,
           })
         "
@@ -178,7 +201,7 @@ function handleFullscreen() {
       <DialogFooter
         v-if="showFooter"
         ref="footerRef"
-        class="items-center border-t p-2"
+        :class="cn('items-center border-t p-2', props.footerClass)"
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">

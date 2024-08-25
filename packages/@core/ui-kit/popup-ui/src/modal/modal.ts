@@ -18,6 +18,16 @@ export interface ModalProps {
    */
   closable?: boolean;
   /**
+   * 点击弹窗遮罩是否关闭弹窗
+   * @default true
+   */
+  closeOnClickModal?: boolean;
+  /**
+   * 按下 ESC 键是否关闭弹窗
+   * @default true
+   */
+  closeOnPressEscape?: boolean;
+  /**
    * 确定按钮 loading
    * @default false
    */
@@ -55,12 +65,12 @@ export interface ModalProps {
    * @default false
    */
   loading?: boolean;
+
   /**
    * 是否显示遮罩
    * @default true
    */
   modal?: boolean;
-
   /**
    * 弹窗标题
    */

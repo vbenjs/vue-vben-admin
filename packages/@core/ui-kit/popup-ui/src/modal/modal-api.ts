@@ -30,6 +30,8 @@ export class ModalApi {
     const defaultState: ModalState = {
       cancelText: '取消',
       centered: false,
+      closeOnClickModal: true,
+      closeOnPressEscape: true,
       confirmLoading: false,
       confirmText: '确定',
       draggable: false,
@@ -95,7 +97,11 @@ export class ModalApi {
    * 取消操作
    */
   onCancel() {
-    this.api.onCancel?.();
+    if (this.api.onCancel) {
+      this.api.onCancel?.();
+    } else {
+      this.close();
+    }
   }
 
   /**

@@ -14,7 +14,7 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw, Settings } from '@vben/icons';
+import { Copy, RotateCw } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import {
   clearPreferencesCache,
@@ -22,12 +22,12 @@ import {
   resetPreferences,
   usePreferences,
 } from '@vben/preferences';
+import { useVbenDrawer } from '@vben-core/popup-ui';
 import {
   useToast,
   VbenButton,
   VbenIconButton,
   VbenSegmented,
-  VbenSheet,
 } from '@vben-core/shadcn-ui';
 
 import { useClipboard } from '@vueuse/core';
@@ -52,7 +52,6 @@ import {
   Theme,
   Widget,
 } from './blocks';
-import { useOpenPreferences } from './use-open-preferences';
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 const { toast } = useToast();
@@ -134,9 +133,7 @@ const shortcutKeysGlobalSearch = defineModel<boolean>(
 const shortcutKeysGlobalLogout = defineModel<boolean>(
   'shortcutKeysGlobalLogout',
 );
-const shortcutKeysGlobalPreferences = defineModel<boolean>(
-  'shortcutKeysGlobalPreferences',
-);
+
 const shortcutKeysGlobalLockScreen = defineModel<boolean>(
   'shortcutKeysGlobalLockScreen',
 );
@@ -160,6 +157,8 @@ const {
   isSideNav,
 } = usePreferences();
 const { copy } = useClipboard();
+
+const [Drawer] = useVbenDrawer();
 
 const activeTab = ref('appearance');
 
@@ -193,8 +192,6 @@ const showBreadcrumbConfig = computed(() => {
   );
 });
 
-const { openPreferences } = useOpenPreferences();
-
 async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
 
@@ -225,21 +222,11 @@ async function handleReset() {
 
 <template>
   <div>
-    <VbenSheet
-      v-model:open="openPreferences"
+    <Drawer
       :description="$t('preferences.subtitle')"
       :title="$t('preferences.title')"
+      class="sm:max-w-sm"
     >
-      <template #trigger>
-        <slot name="trigger">
-          <VbenButton
-            :title="$t('preferences.title')"
-            class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
-          >
-            <Settings class="size-5" />
-          </VbenButton>
-        </slot>
-      </template>
       <template #extra>
         <div class="flex items-center">
           <VbenIconButton
@@ -256,7 +243,7 @@ async function handleReset() {
         </div>
       </template>
 
-      <div class="p-4 pt-4">
+      <div class="p-1">
         <VbenSegmented v-model="activeTab" :tabs="tabs">
           <template #general>
             <Block :title="$t('preferences.general')">
@@ -402,9 +389,6 @@ async function handleReset() {
                 v-model:shortcut-keys-global-search="shortcutKeysGlobalSearch"
                 v-model:shortcut-keys-lock-screen="shortcutKeysGlobalLockScreen"
                 v-model:shortcut-keys-logout="shortcutKeysGlobalLogout"
-                v-model:shortcut-keys-preferences="
-                  shortcutKeysGlobalPreferences
-                "
               />
             </Block>
           </template>
@@ -433,6 +417,6 @@ async function handleReset() {
           {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
       </template>
-    </VbenSheet>
+    </Drawer>
   </div>
 </template>

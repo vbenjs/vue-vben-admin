@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import type { AuthenticationProps, LoginAndRegisterParams } from './types';
 
+import { watch } from 'vue';
+
 import { useForwardPropsEmits } from '@vben/hooks';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  VbenAvatar,
-  VisuallyHidden,
-} from '@vben-core/shadcn-ui';
+import { useVbenModal } from '@vben-core/popup-ui';
+import { VbenAvatar } from '@vben-core/shadcn-ui';
 
 import AuthenticationLogin from './login.vue';
 
@@ -32,32 +28,37 @@ const emit = defineEmits<{
 const open = defineModel<boolean>('open');
 
 const forwarded = useForwardPropsEmits(props, emit);
+
+const [Modal, modalApi] = useVbenModal();
+
+watch(
+  () => open.value,
+  (val) => {
+    modalApi.setState({ isOpen: val });
+  },
+);
 </script>
 
 <template>
   <div>
-    <Dialog v-model:open="open">
-      <DialogContent
-        :show-close="false"
-        class="top-1/2 h-full w-full translate-y-[-50%] border-none p-4 py-12 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset] md:px-14 md:pt-12"
-        @escape-key-down="(e) => e.preventDefault()"
-        @interact-outside="(e) => e.preventDefault()"
-      >
-        <DialogTitle>
-          <VbenAvatar :src="avatar" class="mx-auto size-20" />
-        </DialogTitle>
-        <VisuallyHidden>
-          <DialogDescription />
-        </VisuallyHidden>
-        <AuthenticationLogin
-          v-bind="forwarded"
-          :show-forget-password="false"
-          :show-register="false"
-          :show-remember-me="false"
-          :sub-title="$t('authentication.loginAgainSubTitle')"
-          :title="$t('authentication.loginAgainTitle')"
-        />
-      </DialogContent>
-    </Dialog>
+    <Modal
+      :closable="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :footer="false"
+      :fullscreen-button="false"
+      class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
+      header-class="hidden"
+    >
+      <VbenAvatar :src="avatar" class="mx-auto mb-6 size-20" />
+      <AuthenticationLogin
+        v-bind="forwarded"
+        :show-forget-password="false"
+        :show-register="false"
+        :show-remember-me="false"
+        :sub-title="$t('authentication.loginAgainSubTitle')"
+        :title="$t('authentication.loginAgainTitle')"
+      />
+    </Modal>
   </div>
 </template>

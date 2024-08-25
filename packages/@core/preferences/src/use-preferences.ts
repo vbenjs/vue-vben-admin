@@ -149,14 +149,6 @@ function usePreferences() {
     return enable && globalLockScreen;
   });
 
-  /**
-   * @zh_CN 是否启用全局偏好设置快捷键
-   */
-  const globalPreferencesShortcutKey = computed(() => {
-    const { enable, globalPreferences } = shortcutKeysPreferences.value;
-    return enable && globalPreferences;
-  });
-
   return {
     authPanelCenter,
     authPanelLeft,
@@ -165,7 +157,6 @@ function usePreferences() {
     diffPreference,
     globalLockScreenShortcutKey,
     globalLogoutShortcutKey,
-    globalPreferencesShortcutKey,
     globalSearchShortcutKey,
     isDark,
     isFullContent,

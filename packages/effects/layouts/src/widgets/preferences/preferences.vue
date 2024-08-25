@@ -1,11 +1,18 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { loadLocaleMessages } from '@vben/locales';
+import { Settings } from '@vben/icons';
+import { $t, loadLocaleMessages } from '@vben/locales';
 import { preferences, updatePreferences } from '@vben/preferences';
 import { capitalizeFirstLetter } from '@vben/utils';
+import { useVbenDrawer } from '@vben-core/popup-ui';
+import { VbenButton } from '@vben-core/shadcn-ui';
 
-import PreferencesSheet from './preferences-sheet.vue';
+import PreferencesDrawer from './preferences-drawer.vue';
+
+const [Drawer, drawerApi] = useVbenDrawer({
+  connectedComponent: PreferencesDrawer,
+});
 
 /**
  * preferences 转成 vue props
@@ -47,9 +54,18 @@ const listen = computed(() => {
 });
 </script>
 <template>
-  <PreferencesSheet v-bind="attrs" v-on="listen">
-    <template #trigger>
-      <slot></slot>
-    </template>
-  </PreferencesSheet>
+  <div>
+    <Drawer v-bind="attrs" v-on="listen" />
+
+    <div @click="() => drawerApi.open()">
+      <slot>
+        <VbenButton
+          :title="$t('preferences.title')"
+          class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
+        >
+          <Settings class="size-5" />
+        </VbenButton>
+      </slot>
+    </div>
+  </div>
 </template>

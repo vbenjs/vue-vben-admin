@@ -818,9 +818,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: ^11.0.1
         version: 11.0.1(vue@3.4.38(typescript@5.5.4))
@@ -993,6 +990,9 @@ importers:
       '@vben-core/menu-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/menu-ui
+      '@vben-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui

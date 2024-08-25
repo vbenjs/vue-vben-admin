@@ -15,7 +15,7 @@ const shortcutKeysGlobalSearch = defineModel<boolean>(
   'shortcutKeysGlobalSearch',
 );
 const shortcutKeysLogout = defineModel<boolean>('shortcutKeysLogout');
-const shortcutKeysPreferences = defineModel<boolean>('shortcutKeysPreferences');
+// const shortcutKeysPreferences = defineModel<boolean>('shortcutKeysPreferences');
 const shortcutKeysLockScreen = defineModel<boolean>('shortcutKeysLockScreen');
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
@@ -39,10 +39,10 @@ const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
     {{ $t('preferences.shortcutKeys.logout') }}
     <template #shortcut> {{ altView }} Q </template>
   </SwitchItem>
-  <SwitchItem v-model="shortcutKeysPreferences" :disabled="!shortcutKeysEnable">
+  <!-- <SwitchItem v-model="shortcutKeysPreferences" :disabled="!shortcutKeysEnable">
     {{ $t('preferences.shortcutKeys.preferences') }}
     <template #shortcut> {{ altView }} , </template>
-  </SwitchItem>
+  </SwitchItem> -->
   <SwitchItem v-model="shortcutKeysLockScreen" :disabled="!shortcutKeysEnable">
     {{ $t('widgets.lockScreen.title') }}
     <template #shortcut> {{ altView }} L </template>
