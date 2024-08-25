@@ -1,6 +1,6 @@
 {
   "name": "@vben/request",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -22,7 +22,7 @@
   "dependencies": {
     "@vben/locales": "workspace:*",
     "@vben/utils": "workspace:*",
-    "axios": "^1.7.4"
+    "axios": "^1.7.5"
   },
   "devDependencies": {
     "axios-mock-adapter": "^2.0.0"

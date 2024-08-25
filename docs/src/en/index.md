@@ -5,85 +5,72 @@ sidebar: false
 
 hero:
   name: Vben Admin
-  text: 企业级管理系统框架
-  tagline: 全新升级，开箱即用，简单高效
+  text: Enterprise-Level Management System Framework
+  tagline: Fully Upgraded, Ready to Use, Simple and Efficient
   image:
     src: https://unpkg.com/@vbenjs/static-source@0.1.6/source/logo-v1.webp
     alt: Vben Admin
   actions:
     - theme: brand
-      text: 开始
-      link: /guide/
+      text: Get Started ->
+      link: /en/guide/introduction/vben
     - theme: alt
-      text: 在 GitHub 查看
+      text: Live Preview
+      link: https://www.vben.pro
+    - theme: alt
+      text: View on GitHub
       link: https://github.com/vbenjs/vue-vben-admin
 
 features:
   - icon: 🚀
-    title: 最新技术栈
-    details: 基于 Vue3、Pinia、Vue Router、TypeScript、等最新技术栈。
+    title: Latest Technology Stack
+    details: Based on the latest technology stack, including Vue3, Pinia, Vue Router, TypeScript, etc.
+    link: /en/guide/introduction/quick-start
+    linkText: Get Started
   - icon: 🦄
-    title: 丰富的配置
-    details: 企业级中后台前端解决方案，提供丰富的组件和模板以及 N 种偏好设置组合方案。
-    # link: /
-    # linkText: x
+    title: Rich Configurations
+    details: An enterprise-level frontend solution for middle and back-end systems, offering a wealth of components, templates, and various preference settings.
+    link: /en/guide/essentials/settings
+    linkText: Configuration Documentation
   - icon: 🎨
-    title: 主题定制
-    details: 通过简单的配置，即可实现各种主题切换，满足个性化需求。
+    title: Theme Customization
+    details: Easily switch between various themes through simple configurations, catering to personalized needs.
+    link: /en/guide/in-depth/theme
+    linkText: Theme Documentation
   - icon: 🌐
-    title: 国际化
-    details: 内置国际化方案，支持多语言切换，满足国际化需求。
-  - icon: 🚀
-    title: 权限管理
-    details: 内置权限管理方案，支持多种权限控制方式，满足各种权限需求。
+    title: Internationalization
+    details: Built-in internationalization support with multiple languages to meet global needs.
+    link: /en/guide/in-depth/locale
+    linkText: Internationalization Documentation
+  - icon: 🔐
+    title: Access Control
+    details: Built-in access control solutions supporting various permission management methods to meet different access requirements.
+    link: /en/guide/in-depth/access
+    linkText: Access Documentation
   - title: Vite
     icon:
       src: /logos/vite.svg
-    details: 现代化的前端构建工具，快速冷启动，瞬间热更新。
+    details: Modern frontend build tool with fast cold start and instant hot updates.
+    link: https://vitejs.dev/
+    linkText: Official Site
   - title: Shadcn UI
     icon:
       src: /logos/shadcn-ui.svg
-    details: 核心基于 Shadcn UI + Tailwindcss，业务可支持任意的 UI 框架。
+    details: Core built on Shadcn UI + Tailwindcss, with business support for any UI framework.
+    link: https://www.shadcn-vue.com/
+    linkText: Official Site
   - title: Turbo Repo
     icon:
       src: /logos/turborepo.svg
-    details: 规范且标准的大仓架构，使用 pnpm + monorepo + turbo 工程管理模式，提供企业级开发规范。
+    details: Standardized monorepo architecture using pnpm + monorepo + turbo for enterprise-level development standards.
+    link: https://turbo.build/
+    linkText: Official Site
   - title: Nitro Mock Server
     icon:
       src: /logos/nitro.svg
-    details: 内置 Nitro Mock 服务，让你的 mock 服务更加强大。
+    details: Built-in Nitro Mock service makes your mock service more powerful.
+    link: https://nitro.unjs.io/
+    linkText: Official Site
 ---
-
-<!-- <script setup>
-import {
-  VPTeamPage,
-  VPTeamPageTitle,
-  VPTeamMembers,
-  VPTeamPageSection
-} from 'vitepress/theme';
-
-const members = [
-  {
-    avatar: 'https://avatars.githubusercontent.com/u/28132598?v=4',
-    name: 'Vben',
-    title: '创建者',
-    desc: 'Vben Admin以及相关生态的作者，负责项目的整体开发。',
-    links: [
-      { icon: 'github', link: 'https://github.com/anncwb' },
-    ]
-  },
-]
-</script>
-
-<VPTeamPage>
-  <VPTeamPageTitle>
-    <template #title>
-      核心成员介绍
-    </template>
-  </VPTeamPageTitle>
-  <VPTeamMembers
-    :members="members"
-  />
-</VPTeamPage> -->
 
 <VbenContributors />
