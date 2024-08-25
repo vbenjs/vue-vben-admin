@@ -30,7 +30,7 @@ const [SharedDataModal, sharedModalApi] = useVbenModal({
   connectedComponent: SharedDataDemo,
 });
 
-function openModal1() {
+function openBaseModal() {
   baseModalApi.open();
 }
 
@@ -62,7 +62,7 @@ function handleUpdateTitle() {
 
 <template>
   <Page
-    description="弹窗是一个常用的组件，常用于在不离开当前页面的情况下，显示额外的信息、表单或操作提示。"
+    description="弹窗组件常用于在不离开当前页面的情况下，显示额外的信息、表单或操作提示。"
     title="弹窗组件示例"
   >
     <BaseModal />
@@ -73,7 +73,7 @@ function handleUpdateTitle() {
 
     <Card class="mb-4" title="基本使用">
       <p class="mb-3">一个基础的弹窗示例</p>
-      <Button type="primary" @click="openModal1">打开弹窗</Button>
+      <Button type="primary" @click="openBaseModal">打开弹窗</Button>
     </Card>
 
     <Card class="mb-4" title="内容高度自适应">

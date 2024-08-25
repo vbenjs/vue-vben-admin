@@ -105,93 +105,104 @@ function handleFullscreen() {
     :open="state?.isOpen"
     @update:open="() => modalApi?.close()"
   >
-    <div>
-      <DialogContent
-        ref="contentRef"
-        :class="
-          cn(
-            'left-0 right-0 top-[10vh] mx-auto flex max-h-[80%] w-[520px] flex-col p-0',
-            props.class,
-            {
-              'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
-                fullscreen,
-              'top-1/2 -translate-y-1/2': centered && !fullscreen,
-              'duration-300': !dragging,
-            },
-          )
-        "
-        :show-close="closable"
-        close-class="top-4"
+    <template #trigger>
+      <slot name="trigger"> </slot>
+    </template>
+
+    <DialogContent
+      ref="contentRef"
+      :class="
+        cn(
+          'left-0 right-0 top-[10vh] mx-auto flex max-h-[80%] w-[520px] flex-col p-0',
+          props.class,
+          {
+            'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
+              fullscreen,
+            'top-1/2 -translate-y-1/2': centered && !fullscreen,
+            'duration-300': !dragging,
+          },
+        )
+      "
+      :show-close="closable"
+      close-class="top-4"
+    >
+      <DialogHeader
+        ref="headerRef"
+        :class="{
+          'cursor-move select-none': shouldDraggable,
+        }"
+        class="border-b px-6 py-5"
       >
-        <DialogHeader
-          ref="headerRef"
-          :class="{
-            'cursor-move select-none': shouldDraggable,
-          }"
-          class="border-b px-6 py-5"
-        >
-          <DialogTitle v-if="title">
-            <slot name="title">
-              {{ title }}
+        <DialogTitle v-if="title">
+          <slot name="title">
+            {{ title }}
 
-              <VbenTooltip v-if="titleTooltip" side="right">
-                <template #trigger>
-                  <Info class="inline-flex size-5 cursor-pointer pb-1" />
-                </template>
-                {{ titleTooltip }}
-              </VbenTooltip>
-            </slot>
-          </DialogTitle>
-          <DialogDescription v-if="description">
-            <slot name="description">
-              {{ description }}
-            </slot>
-          </DialogDescription>
-          <VisuallyHidden v-if="!title || !description">
-            <DialogTitle v-if="!title" />
-            <DialogDescription v-if="!description" />
-          </VisuallyHidden>
-        </DialogHeader>
-        <div
-          :class="
-            cn('relative min-h-40 flex-1 p-3', contentClass, {
-              'overflow-y-auto': !showLoading,
-            })
-          "
-        >
-          <VbenLoading v-if="showLoading" class="size-full" spinning />
-          <slot></slot>
-        </div>
-
-        <VbenIconButton
-          v-if="fullscreenButton"
-          class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
-          @click="handleFullscreen"
-        >
-          <Shrink v-if="fullscreen" class="size-3.5" />
-          <Expand v-else class="size-3.5" />
-        </VbenIconButton>
-
-        <DialogFooter v-if="showFooter" ref="footerRef" class="border-t p-2">
-          <slot name="prepend-footer"></slot>
-          <slot name="footer">
-            <VbenButton variant="ghost" @click="() => modalApi?.onCancel()">
-              <slot name="cancelText">
-                {{ cancelText }}
-              </slot>
-            </VbenButton>
-            <VbenButton
-              :loading="confirmLoading"
-              @click="() => modalApi?.onConfirm()"
-            >
-              <slot name="confirmText">
-                {{ confirmText }}
-              </slot>
-            </VbenButton>
+            <VbenTooltip v-if="titleTooltip" side="right">
+              <template #trigger>
+                <Info class="inline-flex size-5 cursor-pointer pb-1" />
+              </template>
+              {{ titleTooltip }}
+            </VbenTooltip>
           </slot>
-          <slot name="append-footer"></slot>
-        </DialogFooter>
-      </DialogContent>
-    </div>
+        </DialogTitle>
+        <DialogDescription v-if="description">
+          <slot name="description">
+            {{ description }}
+          </slot>
+        </DialogDescription>
+        <VisuallyHidden v-if="!title || !description">
+          <DialogTitle v-if="!title" />
+          <DialogDescription v-if="!description" />
+        </VisuallyHidden>
+      </DialogHeader>
+      <div
+        :class="
+          cn('relative min-h-40 flex-1 p-3', contentClass, {
+            'overflow-y-auto': !showLoading,
+          })
+        "
+      >
+        <VbenLoading v-if="showLoading" class="size-full" spinning />
+        <slot></slot>
+      </div>
+
+      <VbenIconButton
+        v-if="fullscreenButton"
+        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+        @click="handleFullscreen"
+      >
+        <Shrink v-if="fullscreen" class="size-3.5" />
+        <Expand v-else class="size-3.5" />
+      </VbenIconButton>
+
+      <DialogFooter
+        v-if="showFooter"
+        ref="footerRef"
+        class="items-center border-t p-2"
+      >
+        <slot name="prepend-footer"></slot>
+        <slot name="footer">
+          <VbenButton
+            size="sm"
+            variant="ghost"
+            @click="() => modalApi?.onCancel()"
+          >
+            <slot name="cancelText">
+              {{ cancelText }}
+            </slot>
+          </VbenButton>
+          <VbenButton
+            :loading="confirmLoading"
+            size="sm"
+            @click="() => modalApi?.onConfirm()"
+          >
+            <slot name="confirmText">
+              {{ confirmText }}
+            </slot>
+          </VbenButton>
+        </slot>
+        <slot name="append-footer"></slot>
+      </DialogFooter>
+    </DialogContent>
   </Dialog>
 </template>

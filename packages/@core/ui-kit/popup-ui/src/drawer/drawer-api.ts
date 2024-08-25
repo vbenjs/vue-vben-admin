@@ -1,23 +1,23 @@
-import type { ModalApiOptions, ModalState } from './modal';
+import type { DrawerApiOptions, DrawerState } from './drawer';
 
 import { isFunction, Store } from '@vben-core/shared';
 
-export class ModalApi {
+export class DrawerApi {
   private api: Pick<
-    ModalApiOptions,
+    DrawerApiOptions,
     'onBeforeClose' | 'onCancel' | 'onConfirm' | 'onOpenChange'
   >;
-  // private prevState!: ModalState;
-  private state!: ModalState;
+  // private prevState!: DrawerState;
+  private state!: DrawerState;
 
   // 共享数据
   public sharedData: Record<'payload', any> = {
     payload: {},
   };
 
-  public store: Store<ModalState>;
+  public store: Store<DrawerState>;
 
-  constructor(options: ModalApiOptions = {}) {
+  constructor(options: DrawerApiOptions = {}) {
     const {
       connectedComponent: _,
       onBeforeClose,
@@ -27,15 +27,12 @@ export class ModalApi {
       ...storeState
     } = options;
 
-    const defaultState: ModalState = {
+    const defaultState: DrawerState = {
       cancelText: '取消',
-      centered: false,
+      closable: true,
       confirmLoading: false,
       confirmText: '确定',
-      draggable: false,
       footer: true,
-      fullscreen: false,
-      fullscreenButton: true,
       isOpen: false,
       loading: false,
       modal: true,
@@ -43,7 +40,7 @@ export class ModalApi {
       title: '',
     };
 
-    this.store = new Store<ModalState>(
+    this.store = new Store<DrawerState>(
       {
         ...defaultState,
         ...storeState,
@@ -51,7 +48,6 @@ export class ModalApi {
       {
         onUpdate: () => {
           const state = this.store.state;
-
           if (state?.isOpen === this.state?.isOpen) {
             this.state = state;
           } else {
@@ -115,8 +111,8 @@ export class ModalApi {
 
   setState(
     stateOrFn:
-      | ((prev: ModalState) => Partial<ModalState>)
-      | Partial<ModalState>,
+      | ((prev: DrawerState) => Partial<DrawerState>)
+      | Partial<DrawerState>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState(stateOrFn);

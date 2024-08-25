@@ -167,9 +167,10 @@
 
   "i18n-ally.localesPaths": [
     "packages/locales/src/langs",
-    "playground/src/langs",
+    "playground/src/locales/langs",
     "apps/*/src/locales/langs"
   ],
+  "i18n-ally.pathMatcher": "{locale}.json",
   "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "zh-CN",
