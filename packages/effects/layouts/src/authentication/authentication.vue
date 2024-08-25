@@ -57,7 +57,7 @@ const logoSource = computed(() => preferences.logo.source);
       </div>
     </div>
 
-    <!-- 中间内容 -->
+    <!-- 系统介绍 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div class="absolute inset-0 h-full w-full bg-[#070709]">
         <div class="login-background absolute left-0 top-0 size-full"></div>
