@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
+import { cn } from '@vben-core/shared';
+
 interface Props {
+  class?: string;
   /**
    * @zh_CN 最小加载时间
    * @en_US Minimum loading time
@@ -14,7 +17,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'Spinner',
+  name: 'VbenSpinner',
 });
 
 const props = withDefaults(defineProps<Props>(), {
@@ -58,19 +61,34 @@ function onTransitionEnd() {
 
 <template>
   <div
-    :class="{
-      'invisible opacity-0': !showSpinner,
-    }"
-    class="flex-center bg-overlay z-100 absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500"
+    :class="
+      cn(
+        'flex-center bg-overlay z-100 absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500',
+        {
+          'invisible opacity-0': !showSpinner,
+        },
+        props.class,
+      )
+    "
     @transitionend="onTransitionEnd"
   >
     <div
-      class="loader before:bg-primary/50 after:bg-primary relative h-12 w-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:animate-[loader-shadow-ani_0.5s_linear_infinite] before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:animate-[loader-jump-ani_0.5s_linear_infinite] after:rounded after:content-['']"
+      class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded after:content-['']"
     ></div>
   </div>
 </template>
 
-<style>
+<style scoped>
+.loader {
+  &::before {
+    animation: loader-shadow-ani 0.5s linear infinite;
+  }
+
+  &::after {
+    animation: loader-jump-ani 0.5s linear infinite;
+  }
+}
+
 @keyframes loader-jump-ani {
   15% {
     border-bottom-right-radius: 3px;

@@ -63,6 +63,12 @@
     },
     "examples": {
       "title": "示例",
+      "modal": {
+        "title": "弹窗"
+      },
+      "drawer": {
+        "title": "抽屉"
+      },
       "ellipsis": {
         "title": "文本省略"
       }

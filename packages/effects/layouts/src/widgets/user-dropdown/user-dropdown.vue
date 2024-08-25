@@ -4,11 +4,12 @@ import type { AnyFunction } from '@vben/types';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { LockKeyhole, LogOut, SwatchBook } from '@vben/icons';
+import { LockKeyhole, LogOut } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { preferences, usePreferences } from '@vben/preferences';
 import { useLockStore } from '@vben/stores';
 import { isWindowsOs } from '@vben/utils';
+import { useVbenModal } from '@vben-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -18,7 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-  VbenAlertDialog,
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
@@ -26,7 +26,6 @@ import {
 import { useMagicKeys, whenever } from '@vueuse/core';
 
 import { LockScreenModal } from '../lock-screen';
-import { useOpenPreferences } from '../preferences';
 
 interface Props {
   /**
@@ -72,16 +71,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ logout: [] }>();
 const openPopover = ref(false);
-const openDialog = ref(false);
-const openLock = ref(false);
 
-const {
-  globalLockScreenShortcutKey,
-  globalLogoutShortcutKey,
-  globalPreferencesShortcutKey,
-} = usePreferences();
+const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
+  usePreferences();
 const lockStore = useLockStore();
-const { handleOpenPreference } = useOpenPreferences();
+const [LockModal, lockModalApi] = useVbenModal({
+  connectedComponent: LockScreenModal,
+});
+const [LogoutModal, logoutModalApi] = useVbenModal({
+  onConfirm() {
+    handleSubmitLogout();
+  },
+});
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
 
@@ -97,12 +98,8 @@ const enableShortcutKey = computed(() => {
   return props.enableShortcutKey && preferences.shortcutKeys.enable;
 });
 
-const enablePreferencesShortcutKey = computed(() => {
-  return props.enableShortcutKey && globalPreferencesShortcutKey.value;
-});
-
 function handleOpenLock() {
-  openLock.value = true;
+  lockModalApi.open();
 }
 
 function handleSubmitLock({
@@ -110,18 +107,19 @@ function handleSubmitLock({
 }: {
   lockScreenPassword: string;
 }) {
-  openLock.value = false;
+  lockModalApi.close();
   lockStore.lockScreen(lockScreenPassword);
 }
+
 function handleLogout() {
   // emit
-  openDialog.value = true;
+  logoutModalApi.open();
   openPopover.value = false;
 }
 
 function handleSubmitLogout() {
   emit('logout');
-  openDialog.value = false;
+  logoutModalApi.close();
 }
 
 if (enableShortcutKey.value) {
@@ -129,12 +127,6 @@ if (enableShortcutKey.value) {
   whenever(keys['Alt+KeyQ']!, () => {
     if (enableLogoutShortcutKey.value) {
       handleLogout();
-    }
-  });
-
-  whenever(keys['Alt+Comma']!, () => {
-    if (enablePreferencesShortcutKey.value) {
-      handleOpenPreference();
     }
   });
 
@@ -147,21 +139,25 @@ if (enableShortcutKey.value) {
 </script>
 
 <template>
-  <LockScreenModal
+  <LockModal
     v-if="preferences.widget.lockScreen"
-    v-model:open="openLock"
     :avatar="avatar"
     :text="text"
     @submit="handleSubmitLock"
   />
-  <VbenAlertDialog
-    v-model:open="openDialog"
+
+  <LogoutModal
     :cancel-text="$t('common.cancel')"
-    :content="$t('widgets.logoutTip')"
-    :submit-text="$t('common.confirm')"
+    :confirm-text="$t('common.confirm')"
+    :fullscreen-button="false"
     :title="$t('common.prompt')"
-    @submit="handleSubmitLogout"
-  />
+    centered
+    content-class="px-8 min-h-10"
+    footer-class="border-none mb-4 mr-4"
+    header-class="border-none"
+  >
+    {{ $t('widgets.logoutTip') }}
+  </LogoutModal>
 
   <DropdownMenu>
     <DropdownMenuTrigger>
@@ -205,17 +201,6 @@ if (enableShortcutKey.value) {
         {{ menu.text }}
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem
-        v-if="preferences.app.enablePreferences"
-        class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-        @click="handleOpenPreference"
-      >
-        <SwatchBook class="mr-2 size-4" />
-        {{ $t('preferences.title') }}
-        <DropdownMenuShortcut v-if="enablePreferencesShortcutKey">
-          {{ altView }} ,
-        </DropdownMenuShortcut>
-      </DropdownMenuItem>
       <DropdownMenuItem
         v-if="preferences.widget.lockScreen"
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"

@@ -63,6 +63,12 @@
     },
     "examples": {
       "title": "Examples",
+      "modal": {
+        "title": "Modal"
+      },
+      "drawer": {
+        "title": "Drawer"
+      },
       "ellipsis": {
         "title": "EllipsisText"
       }

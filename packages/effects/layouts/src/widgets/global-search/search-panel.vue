@@ -217,14 +217,14 @@ onMounted(() => {
 
 <template>
   <VbenScrollbar>
-    <div class="!flex h-full justify-center px-4 sm:max-h-[450px]">
+    <div class="!flex h-full justify-center px-2 sm:max-h-[450px]">
       <!-- 无搜索结果 -->
       <div
         v-if="keyword && searchResults.length === 0"
         class="text-muted-foreground text-center"
       >
-        <SearchX class="mx-auto size-12" />
-        <p class="my-10 text-xs">
+        <SearchX class="mx-auto mt-4 size-12" />
+        <p class="mb-10 mt-6 text-xs">
           {{ $t('widgets.search.noResults') }}
           <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"

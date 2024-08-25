@@ -1,4 +1,3 @@
-export * from './alert-dialog';
 export * from './avatar';
 export * from './back-top';
 export * from './breadcrumb';
@@ -20,11 +19,9 @@ export * from './popover';
 export * from './render-content';
 export * from './scrollbar';
 export * from './segmented';
-export * from './sheet';
 export * from './spinner';
 export * from './swap';
 export * from './tooltip';
-export * from './ui/alert-dialog';
 export * from './ui/avatar';
 export * from './ui/badge';
 export * from './ui/breadcrumb';

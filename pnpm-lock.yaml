@@ -804,6 +804,27 @@ importers:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)
 
+  packages/@core/ui-kit/popup-ui:
+    dependencies:
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@vben-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@vueuse/core':
+        specifier: ^11.0.1
+        version: 11.0.1(vue@3.4.38(typescript@5.5.4))
+      vue:
+        specifier: 3.4.38
+        version: 3.4.38(typescript@5.5.4)
+
   packages/@core/ui-kit/shadcn-ui:
     dependencies:
       '@radix-icons/vue':
@@ -896,6 +917,9 @@ importers:
 
   packages/effects/common-ui:
     dependencies:
+      '@vben-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
@@ -966,6 +990,9 @@ importers:
       '@vben-core/menu-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/menu-ui
+      '@vben-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
@@ -3411,7 +3438,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 

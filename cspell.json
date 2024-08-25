@@ -37,6 +37,7 @@
     "astro",
     "ui-kit",
     "styl",
+    "vnode",
     "nocheck",
     "prefixs",
     "vitepress",
@@ -53,6 +54,9 @@
     "**/*-dist/**",
     "**/icons/**",
     "pnpm-lock.yaml",
-    "**/*.log"
+    "**/*.log",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/__tests__/**"
   ]
 }
