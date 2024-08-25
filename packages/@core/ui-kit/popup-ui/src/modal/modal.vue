@@ -180,7 +180,7 @@ function escapeKeyDown(e: KeyboardEvent) {
       </DialogHeader>
       <div
         :class="
-          cn('relative min-h-10 flex-1 p-3', contentClass, {
+          cn('relative min-h-40 flex-1 p-3', contentClass, {
             'overflow-y-auto': !showLoading,
           })
         "

@@ -54,6 +54,7 @@ export class ModalApi {
         onUpdate: () => {
           const state = this.store.state;
 
+          // 每次更新状态时，都会调用 onOpenChange 回调函数
           if (state?.isOpen === this.state?.isOpen) {
             this.state = state;
           } else {
@@ -73,7 +74,7 @@ export class ModalApi {
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法
-  batchUpdateState(cb: () => void) {
+  batchStore(cb: () => void) {
     this.store.batch(cb);
   }
 

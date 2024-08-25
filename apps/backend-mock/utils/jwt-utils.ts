@@ -14,7 +14,7 @@ export interface UserPayload extends UserInfo {
 }
 
 export function generateAccessToken(user: UserInfo) {
-  return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+  return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 }
 
 export function generateRefreshToken(user: UserInfo) {

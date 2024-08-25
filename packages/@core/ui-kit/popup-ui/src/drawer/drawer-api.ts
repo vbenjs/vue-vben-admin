@@ -67,7 +67,7 @@ export class DrawerApi {
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法
-  batchUpdateState(cb: () => void) {
+  batchStore(cb: () => void) {
     this.store.batch(cb);
   }
 

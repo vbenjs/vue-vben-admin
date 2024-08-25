@@ -67,9 +67,27 @@ export type ExtendedDrawerApi = {
 } & DrawerApi;
 
 export interface DrawerApiOptions extends DrawerState {
+  /**
+   * 独立的弹窗组件
+   */
   connectedComponent?: Component;
+  /**
+   * 关闭前的回调，返回 false 可以阻止关闭
+   * @returns
+   */
   onBeforeClose?: () => void;
+  /**
+   * 点击取消按钮的回调
+   */
   onCancel?: () => void;
+  /**
+   * 点击确定按钮的回调
+   */
   onConfirm?: () => void;
+  /**
+   * 弹窗状态变化回调
+   * @param isOpen
+   * @returns
+   */
   onOpenChange?: (isOpen: boolean) => void;
 }
