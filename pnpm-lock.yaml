@@ -135,9 +135,6 @@ importers:
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
-      '@vben/chart-ui':
-        specifier: workspace:*
-        version: link:../../packages/effects/chart-ui
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../../packages/effects/common-ui
@@ -156,6 +153,9 @@ importers:
       '@vben/locales':
         specifier: workspace:*
         version: link:../../packages/locales
+      '@vben/plugins':
+        specifier: workspace:*
+        version: link:../../packages/effects/plugins
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../packages/preferences
@@ -198,9 +198,6 @@ importers:
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
-      '@vben/chart-ui':
-        specifier: workspace:*
-        version: link:../../packages/effects/chart-ui
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../../packages/effects/common-ui
@@ -219,6 +216,9 @@ importers:
       '@vben/locales':
         specifier: workspace:*
         version: link:../../packages/locales
+      '@vben/plugins':
+        specifier: workspace:*
+        version: link:../../packages/effects/plugins
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../packages/preferences
@@ -265,9 +265,6 @@ importers:
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
-      '@vben/chart-ui':
-        specifier: workspace:*
-        version: link:../../packages/effects/chart-ui
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../../packages/effects/common-ui
@@ -286,6 +283,9 @@ importers:
       '@vben/locales':
         specifier: workspace:*
         version: link:../../packages/locales
+      '@vben/plugins':
+        specifier: workspace:*
+        version: link:../../packages/effects/plugins
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../packages/preferences
@@ -900,21 +900,6 @@ importers:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)
 
-  packages/effects/chart-ui:
-    dependencies:
-      '@vben/preferences':
-        specifier: workspace:*
-        version: link:../../preferences
-      '@vueuse/core':
-        specifier: ^11.0.1
-        version: 11.0.1(vue@3.4.38(typescript@5.5.4))
-      echarts:
-        specifier: ^5.5.1
-        version: 5.5.1
-      vue:
-        specifier: 3.4.38
-        version: 3.4.38(typescript@5.5.4)
-
   packages/effects/common-ui:
     dependencies:
       '@vben-core/popup-ui':
@@ -1033,6 +1018,21 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3(vue@3.4.38(typescript@5.5.4))
 
+  packages/effects/plugins:
+    dependencies:
+      '@vben/preferences':
+        specifier: workspace:*
+        version: link:../../preferences
+      '@vueuse/core':
+        specifier: ^11.0.1
+        version: 11.0.1(vue@3.4.38(typescript@5.5.4))
+      echarts:
+        specifier: ^5.5.1
+        version: 5.5.1
+      vue:
+        specifier: 3.4.38
+        version: 3.4.38(typescript@5.5.4)
+
   packages/effects/request:
     dependencies:
       '@vben/locales':
@@ -1132,9 +1132,6 @@ importers:
       '@vben/access':
         specifier: workspace:*
         version: link:../packages/effects/access
-      '@vben/chart-ui':
-        specifier: workspace:*
-        version: link:../packages/effects/chart-ui
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../packages/effects/common-ui
@@ -1153,6 +1150,9 @@ importers:
       '@vben/locales':
         specifier: workspace:*
         version: link:../packages/locales
+      '@vben/plugins':
+        specifier: workspace:*
+        version: link:../packages/effects/plugins
       '@vben/preferences':
         specifier: workspace:*
         version: link:../packages/preferences

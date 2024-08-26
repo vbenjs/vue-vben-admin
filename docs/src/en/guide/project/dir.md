@@ -43,7 +43,7 @@ The directory uses Monorepo management, and the project structure is as follows:
 │   ├── constants # Constants
 │   ├── effects # Effects related packages
 │   │   ├── access # Access control
-│   │   ├── chart-ui # Chart UI
+│   │   ├── plugins # Plugins
 │   │   ├── common-ui # Common UI
 │   │   ├── hooks # Composable APIs
 │   │   ├── layouts # Layouts

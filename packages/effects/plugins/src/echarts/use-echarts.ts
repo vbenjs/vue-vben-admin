@@ -5,11 +5,12 @@ import type EchartsUI from './echarts-ui.vue';
 import type { Ref } from 'vue';
 import { computed, nextTick, watch } from 'vue';
 
-import { preferences, usePreferences } from '@vben/preferences';
+import { usePreferences } from '@vben/preferences';
 
 import {
   tryOnUnmounted,
   useDebounceFn,
+  useResizeObserver,
   useTimeoutFn,
   useWindowSize,
 } from '@vueuse/core';
@@ -86,6 +87,8 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     resizeHandler?.();
   });
 
+  useResizeObserver(chartRef as never, resizeHandler);
+
   watch(isDark, () => {
     if (chartInstance) {
       chartInstance.dispose();
@@ -94,21 +97,6 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
       resize();
     }
   });
-
-  watch(
-    [
-      () => preferences.sidebar.collapsed,
-      () => preferences.sidebar.extraCollapse,
-      () => preferences.sidebar.hidden,
-      () => preferences.app.contentCompact,
-    ],
-    () => {
-      // 折叠动画200ms
-      setTimeout(() => {
-        resize();
-      }, 200);
-    },
-  );
 
   tryOnUnmounted(() => {
     // 销毁实例，释放资源
