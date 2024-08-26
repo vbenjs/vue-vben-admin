@@ -242,7 +242,7 @@ const tabbarStyle = computed((): CSSProperties => {
   let marginLeft = 0;
 
   // 如果不是混合导航，tabbar 的宽度为 100%
-  if (!isMixedNav.value) {
+  if (!isMixedNav.value || props.sidebarHidden) {
     width = '100%';
   } else if (sidebarEnable.value) {
     // 鼠标在侧边栏上时，且侧边栏展开时的宽度

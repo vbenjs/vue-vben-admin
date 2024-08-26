@@ -11,7 +11,7 @@ The framework has built-in two types of access control methods:
 
 ## Frontend Access Control
 
-**Implementation Principle**: The permissions for routes are hardcoded on the frontend, specifying which permissions are required to view certain routes. Only general routes are initialized, and routes that require permissions are not added to the route table. After logging in or obtaining user roles through other means, the roles are used to traverse the route table to generate a route table that the role can access. This table is then added to the router instance using `router.addRoutes`, achieving permission filtering.
+**Implementation Principle**: The permissions for routes are hardcoded on the frontend, specifying which permissions are required to view certain routes. Only general routes are initialized, and routes that require permissions are not added to the route table. After logging in or obtaining user roles through other means, the roles are used to traverse the route table to generate a route table that the role can access. This table is then added to the router instance using `router.addRoute`, achieving permission filtering.
 
 **Disadvantage**: The permissions are relatively inflexible; if the backend changes roles, the frontend needs to be adjusted accordingly. This is suitable for systems with relatively fixed roles.
 
@@ -71,7 +71,7 @@ Sometimes, we need the menu to be visible but access to it forbidden. This can b
 
 ## Backend Access Control
 
-**Implementation Principle**: It is achieved by dynamically generating a routing table through an API, which returns data following a certain structure. The frontend processes this data into a recognizable structure, then adds it to the routing instance using `router.addRoutes`, realizing the dynamic generation of permissions.
+**Implementation Principle**: It is achieved by dynamically generating a routing table through an API, which returns data following a certain structure. The frontend processes this data into a recognizable structure, then adds it to the routing instance using `router.addRoute`, realizing the dynamic generation of permissions.
 
 **Disadvantage**: The backend needs to provide a data structure that meets the standards, and the frontend needs to process this structure. This is suitable for systems with more complex permissions.
 
