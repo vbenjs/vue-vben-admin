@@ -26,13 +26,13 @@ export function usePriorityValue<
     // 通过判断原始props是否有值来判断是否传入
     const rawProps = (instance?.vnode?.props || {}) as T;
 
-    const standardRwaProps = {} as T;
+    const standardRawProps = {} as T;
 
     for (const [key, value] of Object.entries(rawProps)) {
-      standardRwaProps[kebabToCamelCase(key) as K] = value;
+      standardRawProps[kebabToCamelCase(key) as K] = value;
     }
     const propsKey =
-      standardRwaProps?.[key] === undefined ? undefined : props[key];
+      standardRawProps?.[key] === undefined ? undefined : props[key];
 
     // slot可以关闭
     return getFirstNonNullOrUndefined(
