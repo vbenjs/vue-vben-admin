@@ -25,7 +25,7 @@ function handleUpdate(value: BuiltinThemeType) {
 <template>
   <div class="group relative flex items-center overflow-hidden">
     <div
-      class="ease-ou flex w-0 overflow-hidden transition-all duration-500 group-hover:w-60"
+      class="flex w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-60"
     >
       <template v-for="preset in COLOR_PRESETS" :key="preset.color">
         <VbenIconButton
