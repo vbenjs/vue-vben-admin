@@ -25,6 +25,10 @@ const appPreferencesButtonPosition = defineModel<string>(
 
 const positionItems = computed((): SelectOption[] => [
   {
+    label: $t('preferences.position.auto'),
+    value: 'auto',
+  },
+  {
     label: $t('preferences.position.header'),
     value: 'header',
   },

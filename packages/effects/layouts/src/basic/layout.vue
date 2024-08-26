@@ -40,6 +40,7 @@ const {
   isMobile,
   isSideMixedNav,
   layout,
+  preferencesButtonPosition,
   sidebarCollapsed,
   theme,
 } = usePreferences();
@@ -326,12 +327,7 @@ const headerSlots = computed(() => {
         <slot v-if="lockStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
 
-      <template
-        v-if="
-          preferences.app.enablePreferences &&
-          preferences.app.preferencesButtonPosition === 'fixed'
-        "
-      >
+      <template v-if="preferencesButtonPosition.fixed">
         <Preferences
           class="z-100 fixed bottom-20 right-0"
           @clear-preferences-and-logout="clearPreferencesAndLogout"

@@ -175,6 +175,7 @@
     "position": {
       "title": "偏好设置位置",
       "header": "顶栏",
+      "auto": "自动",
       "fixed": "固定"
     },
     "sidebar": {

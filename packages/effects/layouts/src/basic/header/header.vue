@@ -28,7 +28,7 @@ withDefaults(defineProps<Props>(), {
 });
 
 const accessStore = useAccessStore();
-const { globalSearchShortcutKey } = usePreferences();
+const { globalSearchShortcutKey, preferencesButtonPosition } = usePreferences();
 const slots = useSlots();
 const rightSlots = computed(() => {
   const list = [{ index: 100, name: 'user-dropdown' }];
@@ -39,10 +39,7 @@ const rightSlots = computed(() => {
     });
   }
 
-  if (
-    preferences.app.enablePreferences &&
-    preferences.app.preferencesButtonPosition === 'header'
-  ) {
+  if (preferencesButtonPosition.value.header) {
     list.push({
       index: 10,
       name: 'preferences',
@@ -121,7 +118,7 @@ const leftSlots = computed(() => {
           <GlobalSearch
             :enable-shortcut-key="globalSearchShortcutKey"
             :menus="accessStore.accessMenus"
-            class="mr-4"
+            class="mr-1 sm:mr-4"
           />
         </template>
 
