@@ -14,7 +14,6 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.cursorBlinking": "expand",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.largeFileOptimizations": false,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
@@ -37,7 +36,34 @@
     "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"
   },
-
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   // extensions
   "extensions.ignoreRecommendations": true,
 
