@@ -1,0 +1,52 @@
+{
+  "name": "@vben/vxe-table",
+  "version": "5.0.0",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/business/chart-ui"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@vben-core/design": "workspace:*"
+  },
+  "dependencies": {
+    "@vben-core/preferences": "workspace:*",
+    "@vben-core/shared": "workspace:*",
+    "vue": "^3.4.38",
+    "vxe-pc-ui": "^4.0.96",
+    "vxe-table": "^4.7.51"
+  },
+  "devDependencies": {
+    "@vben/types": "workspace:*"
+  }
+}
