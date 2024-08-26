@@ -7,7 +7,6 @@ import {
   toLowerCaseFirstLetter,
 } from '../letter';
 
-// 编写测试用例
 describe('capitalizeFirstLetter', () => {
   it('should capitalize the first letter of a string', () => {
     expect(capitalizeFirstLetter('hello')).toBe('Hello');

@@ -3,7 +3,7 @@ import type { ExtendedModalApi, ModalProps } from './modal';
 
 import { computed, nextTick, ref, watch } from 'vue';
 
-import { usePriorityValue } from '@vben-core/composables';
+import { useIsMobile, usePriorityValue } from '@vben-core/composables';
 import { Expand, Info, Shrink } from '@vben-core/icons';
 import {
   Dialog,
@@ -46,6 +46,7 @@ const dialogRef = ref();
 const headerRef = ref();
 const footerRef = ref();
 
+const { isMobile } = useIsMobile();
 // const { height: headerHeight } = useElementSize(headerRef);
 // const { height: footerHeight } = useElementSize(footerRef);
 const state = props.modalApi?.useStore?.();
@@ -66,7 +67,11 @@ const draggable = usePriorityValue('draggable', props, state);
 const fullscreenButton = usePriorityValue('fullscreenButton', props, state);
 const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
 const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
-const shouldDraggable = computed(() => draggable.value && !fullscreen.value);
+
+const shouldFullscreen = computed(() => fullscreen.value || isMobile.value);
+const shouldDraggable = computed(
+  () => draggable.value && !shouldFullscreen.value,
+);
 
 const { dragging } = useModalDraggable(dialogRef, headerRef, shouldDraggable);
 
@@ -114,6 +119,14 @@ function escapeKeyDown(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
+// pointer-down-outside
+function pointerDownOutside(e: Event) {
+  const target = e.target as HTMLElement;
+  const isDismissableModal = !!target?.dataset.dismissableModal;
+  if (!closeOnClickModal.value || !isDismissableModal) {
+    e.preventDefault();
+  }
+}
 </script>
 <template>
   <Dialog
@@ -133,8 +146,8 @@ function escapeKeyDown(e: KeyboardEvent) {
           props.class,
           {
             'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
-              fullscreen,
-            'top-1/2 -translate-y-1/2': centered && !fullscreen,
+              shouldFullscreen,
+            'top-1/2 -translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
           },
         )
@@ -143,6 +156,7 @@ function escapeKeyDown(e: KeyboardEvent) {
       close-class="top-4"
       @escape-key-down="escapeKeyDown"
       @interact-outside="interactOutside"
+      @pointer-down-outside="pointerDownOutside"
     >
       <DialogHeader
         ref="headerRef"
@@ -156,7 +170,7 @@ function escapeKeyDown(e: KeyboardEvent) {
           )
         "
       >
-        <DialogTitle v-if="title">
+        <DialogTitle v-if="title" class="text-left">
           <slot name="title">
             {{ title }}
 
@@ -191,7 +205,7 @@ function escapeKeyDown(e: KeyboardEvent) {
 
       <VbenIconButton
         v-if="fullscreenButton"
-        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
@@ -201,22 +215,22 @@ function escapeKeyDown(e: KeyboardEvent) {
       <DialogFooter
         v-if="showFooter"
         ref="footerRef"
-        :class="cn('items-center border-t p-2', props.footerClass)"
+        :class="
+          cn(
+            'flex-row items-center justify-end border-t p-2',
+            props.footerClass,
+          )
+        "
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">
-          <VbenButton
-            size="sm"
-            variant="ghost"
-            @click="() => modalApi?.onCancel()"
-          >
+          <VbenButton variant="ghost" @click="() => modalApi?.onCancel()">
             <slot name="cancelText">
               {{ cancelText }}
             </slot>
           </VbenButton>
           <VbenButton
             :loading="confirmLoading"
-            size="sm"
             @click="() => modalApi?.onConfirm()"
           >
             <slot name="confirmText">

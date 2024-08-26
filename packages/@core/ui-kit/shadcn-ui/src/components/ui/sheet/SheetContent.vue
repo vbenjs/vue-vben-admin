@@ -40,6 +40,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   <DialogPortal>
     <DialogOverlay
       class="bg-overlay data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[1000]"
+      data-dismissable-modal="true"
     />
     <DialogContent
       :class="cn(sheetVariants({ side }), 'z-[1000]', props.class)"
