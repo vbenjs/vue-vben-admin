@@ -190,7 +190,7 @@ const defaultPreferences: Preferences = {
     locale: 'zh-CN',
     loginExpiredMode: 'modal',
     name: 'Vben Admin',
-    preferencesButtonPosition: 'fixed',
+    preferencesButtonPosition: 'auto',
     watermark: false,
   },
   breadcrumb: {

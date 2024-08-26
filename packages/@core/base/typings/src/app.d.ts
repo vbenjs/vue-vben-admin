@@ -11,8 +11,9 @@ type ThemeModeType = 'auto' | 'dark' | 'light';
  * 偏好设置按钮位置
  * fixed 固定在右侧
  * header 顶栏
+ * auto 自动
  */
-type PreferencesButtonPositionType = 'fixed' | 'header';
+type PreferencesButtonPositionType = 'auto' | 'fixed' | 'header';
 
 type BuiltinThemeType =
   | 'custom'

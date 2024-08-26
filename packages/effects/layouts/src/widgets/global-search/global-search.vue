@@ -127,7 +127,7 @@ onMounted(() => {
       @click="toggleOpen()"
     >
       <Search
-        class="text-muted-foreground group-hover:text-foreground size-3 group-hover:opacity-100"
+        class="text-muted-foreground group-hover:text-foreground size-4 group-hover:opacity-100"
       />
       <span
         class="text-muted-foreground group-hover:text-foreground hidden text-xs duration-300 md:block"
