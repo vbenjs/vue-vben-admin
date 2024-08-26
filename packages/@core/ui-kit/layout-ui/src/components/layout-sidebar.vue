@@ -4,6 +4,8 @@ import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
+import { useScrollLock } from '@vueuse/core';
+
 import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 
 interface Props {
@@ -102,6 +104,7 @@ const expandOnHovering = defineModel<boolean>('expandOnHovering');
 const expandOnHover = defineModel<boolean>('expandOnHover');
 const extraVisible = defineModel<boolean>('extraVisible');
 
+const isLocked = useScrollLock(document.body);
 const slots = useSlots();
 
 const asideRef = shallowRef<HTMLDivElement | null>();
@@ -214,6 +217,7 @@ function handleMouseenter() {
   if (!expandOnHovering.value) {
     collapse.value = false;
   }
+  isLocked.value = true;
   expandOnHovering.value = true;
 }
 
@@ -224,6 +228,7 @@ function handleMouseleave() {
     return;
   }
 
+  isLocked.value = false;
   expandOnHovering.value = false;
   collapse.value = true;
   extraVisible.value = false;
