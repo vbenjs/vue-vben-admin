@@ -73,6 +73,7 @@ export function useTabsViewScroll(props: TabsProps) {
     resizeObserver = new ResizeObserver(
       useDebounceFn((_entries: ResizeObserverEntry[]) => {
         calcShowScrollbarButton();
+        scrollToActiveIntoView();
       }, 100),
     );
     resizeObserver.observe(viewportEl);
