@@ -43,7 +43,7 @@
 │   ├── constants # 常量
 │   ├── effects # 副作用相关包
 │   │   ├── access # 访问控制
-│   │   ├── chart-ui # 图表 UI
+│   │   ├── plugins # 第三方大型依赖插件
 │   │   ├── common-ui # 通用 UI
 │   │   ├── hooks # 组合式 API
 │   │   ├── layouts # 布局

@@ -1,12 +1,12 @@
 {
-  "name": "@vben/chart-ui",
+  "name": "@vben/plugins",
   "version": "5.1.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/effects/chart-ui"
+    "directory": "packages/effects/plugins"
   },
   "license": "MIT",
   "type": "module",
@@ -14,9 +14,9 @@
     "**/*.css"
   ],
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+    "./echarts": {
+      "types": "./src/echarts/index.ts",
+      "default": "./src/echarts/index.ts"
     }
   },
   "dependencies": {
