@@ -60,6 +60,8 @@ export const authenticateResponseInterceptor = ({
         client.refreshTokenQueue.forEach((callback) => callback(''));
         client.refreshTokenQueue = [];
         console.error('Refresh token failed, please login again.');
+        await doReAuthenticate();
+
         throw refreshError;
       } finally {
         client.isRefreshing = false;
