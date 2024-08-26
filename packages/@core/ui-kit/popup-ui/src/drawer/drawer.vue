@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
-import { usePriorityValue } from '@vben-core/composables';
+import { useIsMobile, usePriorityValue } from '@vben-core/composables';
 import { Info, X } from '@vben-core/icons';
 import {
   Sheet,
@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
   drawerApi: undefined,
 });
 
+const { isMobile } = useIsMobile();
 const state = props.drawerApi?.useStore?.();
 
 const title = usePriorityValue('title', props, state);
@@ -43,6 +44,27 @@ const modal = usePriorityValue('modal', props, state);
 const confirmLoading = usePriorityValue('confirmLoading', props, state);
 const cancelText = usePriorityValue('cancelText', props, state);
 const confirmText = usePriorityValue('confirmText', props, state);
+const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
+const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
+
+function interactOutside(e: Event) {
+  if (!closeOnClickModal.value) {
+    e.preventDefault();
+  }
+}
+function escapeKeyDown(e: KeyboardEvent) {
+  if (!closeOnPressEscape.value) {
+    e.preventDefault();
+  }
+}
+// pointer-down-outside
+function pointerDownOutside(e: Event) {
+  const target = e.target as HTMLElement;
+  const isDismissableModal = !!target?.dataset.dismissableModal;
+  if (!closeOnClickModal.value || !isDismissableModal) {
+    e.preventDefault();
+  }
+}
 </script>
 <template>
   <Sheet
@@ -50,7 +72,16 @@ const confirmText = usePriorityValue('confirmText', props, state);
     :open="state?.isOpen"
     @update:open="() => drawerApi?.close()"
   >
-    <SheetContent :class="cn('flex w-[520px] flex-col', props.class, {})">
+    <SheetContent
+      :class="
+        cn('flex w-[520px] flex-col', props.class, {
+          '!w-full': isMobile,
+        })
+      "
+      @escape-key-down="escapeKeyDown"
+      @interact-outside="interactOutside"
+      @pointer-down-outside="pointerDownOutside"
+    >
       <SheetHeader
         :class="
           cn('!flex flex-row items-center justify-between border-b px-6 py-5', {
@@ -59,7 +90,7 @@ const confirmText = usePriorityValue('confirmText', props, state);
         "
       >
         <div>
-          <SheetTitle v-if="title">
+          <SheetTitle v-if="title" class="text-left">
             <slot name="title">
               {{ title }}
 
@@ -111,22 +142,17 @@ const confirmText = usePriorityValue('confirmText', props, state);
 
       <SheetFooter
         v-if="showFooter"
-        class="w-full items-center border-t p-2 px-3"
+        class="w-full flex-row items-center justify-end border-t p-2 px-3"
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">
-          <VbenButton
-            size="sm"
-            variant="ghost"
-            @click="() => drawerApi?.onCancel()"
-          >
+          <VbenButton variant="ghost" @click="() => drawerApi?.onCancel()">
             <slot name="cancelText">
               {{ cancelText }}
             </slot>
           </VbenButton>
           <VbenButton
             :loading="confirmLoading"
-            size="sm"
             @click="() => drawerApi?.onConfirm()"
           >
             <slot name="confirmText">

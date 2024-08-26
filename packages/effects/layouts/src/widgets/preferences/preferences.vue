@@ -55,7 +55,7 @@ const listen = computed(() => {
 </script>
 <template>
   <div>
-    <Drawer v-bind="attrs" v-on="listen" />
+    <Drawer v-bind="{ ...$attrs, ...attrs }" v-on="listen" />
 
     <div @click="() => drawerApi.open()">
       <slot>

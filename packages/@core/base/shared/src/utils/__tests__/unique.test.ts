@@ -13,8 +13,7 @@ describe('uniqueByField', () => {
 
     const uniqueItems = uniqueByField(items, 'id');
 
-    // Assert expected results
-    expect(uniqueItems).toHaveLength(3); // After deduplication, there should be three objects left
+    expect(uniqueItems).toHaveLength(3);
     expect(uniqueItems).toEqual([
       { id: 1, name: 'Item 1' },
       { id: 2, name: 'Item 2' },

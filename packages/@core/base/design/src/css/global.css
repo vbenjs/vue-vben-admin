@@ -28,7 +28,7 @@
   #app,
   body,
   html {
-    @apply size-full overscroll-none;
+    @apply !pointer-events-auto size-full overscroll-none;
   }
 
   body {
