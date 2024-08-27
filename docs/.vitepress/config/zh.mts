@@ -38,6 +38,7 @@ export const zh = defineConfig({
 
     sidebar: {
       '/commercial/': { base: '/commercial/', items: sidebarCommercial() },
+      '/components/': { base: '/components/', items: sidebarComponents() },
       '/guide/': { base: '/guide/', items: sidebarGuide() },
     },
     sidebarMenuLabel: '菜单',
@@ -60,6 +61,11 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         },
         { link: 'introduction/quick-start', text: '快速开始' },
         { link: 'introduction/thin', text: '精简版本' },
+        {
+          base: '/',
+          link: 'components/introduction',
+          text: '组件文档',
+        },
       ],
     },
     {
@@ -117,7 +123,7 @@ function sidebarCommercial(): DefaultTheme.SidebarItem[] {
   return [
     {
       link: 'community',
-      text: '社区交流',
+      text: '社区',
     },
     {
       link: 'technical-support',
@@ -130,6 +136,30 @@ function sidebarCommercial(): DefaultTheme.SidebarItem[] {
   ];
 }
 
+function sidebarComponents(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '组件',
+      items: [
+        {
+          link: 'introduction',
+          text: '介绍',
+        },
+      ],
+    },
+    {
+      collapsed: false,
+      text: '通用组件',
+      items: [
+        {
+          link: 'common-ui/vben-modal',
+          text: 'Modal 弹窗',
+        },
+      ],
+    },
+  ];
+}
+
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
@@ -138,28 +168,10 @@ function nav(): DefaultTheme.NavItem[] {
         {
           link: '/guide/introduction/vben',
           text: '指南',
-          // items: [
-          //   {
-          //     link: '/guide/introduction/vben',
-          //     text: '简介',
-          //   },
-          //   {
-          //     link: '/guide/essentials/concept',
-          //     text: '基础',
-          //   },
-          //   {
-          //     link: '/guide/in-depth/layout',
-          //     text: '深入',
-          //   },
-          //   {
-          //     link: '/guide/project/standard',
-          //     text: '工程',
-          //   },
-          //   {
-          //     link: '/guide/other/project-update',
-          //     text: '其他',
-          //   },
-          // ],
+        },
+        {
+          link: '/components/introduction',
+          text: '组件',
         },
         {
           text: '历史版本',
@@ -234,7 +246,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       link: '/commercial/community',
-      text: '👨‍👦‍👦 社区交流',
+      text: '👨‍👦‍👦 社区',
       // items: [
       //   {
       //     link: 'https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=22ySzj7pKiw&businessType=9&from=246610&biz=ka&mainSourceId=share&subSourceId=others&jumpsource=shorturl#/pc',

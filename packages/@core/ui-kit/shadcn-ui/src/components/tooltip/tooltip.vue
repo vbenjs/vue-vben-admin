@@ -14,7 +14,7 @@ interface Props {
   contentClass?: any;
   contentStyle?: StyleValue;
   delayDuration?: number;
-  side: TooltipContentProps['side'];
+  side?: TooltipContentProps['side'];
 }
 
 withDefaults(defineProps<Props>(), {
@@ -33,7 +33,7 @@ withDefaults(defineProps<Props>(), {
         :class="contentClass"
         :side="side"
         :style="contentStyle"
-        class="side-content text-popover-foreground bg-popover"
+        class="side-content text-popover-foreground bg-accent rounded-md"
       >
         <slot></slot>
       </TooltipContent>

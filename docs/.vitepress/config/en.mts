@@ -203,7 +203,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       link: '/commercial/technical-support',
-      text: '🦄 Technical Support',
+      text: '🦄 Tech Support',
     },
     {
       link: '/sponsor/personal',
