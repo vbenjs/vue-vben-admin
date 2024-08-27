@@ -78,23 +78,17 @@ const isMenuRounded = computed(() => {
 });
 
 const logoCollapsed = computed(() => {
-  const shouldCollapse = isHeaderNav.value || isMixedNav.value;
-
-  if (shouldCollapse) {
+  if (isMobile.value) {
+    return true;
+  }
+  if (isHeaderNav.value || isMixedNav.value) {
     return false;
   }
-
-  const shouldExpandOnMobile = !sidebarCollapsed.value && isMobile.value;
-
-  if (shouldExpandOnMobile) {
-    return false;
-  }
-
   return sidebarCollapsed.value || isSideMixedNav.value;
 });
 
 const showHeaderNav = computed(() => {
-  return isHeaderNav.value || isMixedNav.value;
+  return !isMobile.value && (isHeaderNav.value || isMixedNav.value);
 });
 
 // 侧边多列菜单
