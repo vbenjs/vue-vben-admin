@@ -29,7 +29,7 @@
   "dependencies": {
     "eslint-config-turbo": "^2.0.14",
     "eslint-plugin-command": "^0.2.3",
-    "eslint-plugin-import-x": "^3.1.0"
+    "eslint-plugin-import-x": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
