@@ -1,4 +1,5 @@
 import type { PwaOptions } from '@vite-pwa/vitepress';
+import type { HeadConfig } from 'vitepress';
 
 import { resolve } from 'node:path';
 
@@ -6,12 +7,20 @@ import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from '@nolebase/vitepress-plugin-git-changelog/vite';
-import { defineConfig, type HeadConfig } from 'vitepress';
+import tailwind from 'tailwindcss';
+import { defineConfig, postcssIsolateStyles } from 'vitepress';
 
+import { demoPreviewPlugin } from './plugins/demo-preview';
 import { search as zhSearch } from './zh.mts';
 
-export const shard = defineConfig({
+export const shared = defineConfig({
+  appearance: 'dark',
   head: head(),
+  markdown: {
+    preConfig(md) {
+      md.use(demoPreviewPlugin);
+    },
+  },
   pwa: pwa(),
   srcDir: 'src',
   themeConfig: {
@@ -36,11 +45,34 @@ export const shard = defineConfig({
       chunkSizeWarningLimit: Infinity,
       minify: 'terser',
     },
+    css: {
+      postcss: {
+        plugins: [
+          tailwind(),
+          postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
+        ],
+      },
+    },
     json: {
       stringify: true,
     },
     plugins: [
       GitChangelog({
+        mapAuthors: [
+          {
+            mapByNameAliases: ['Vben'],
+            name: 'vben',
+            username: 'anncwb',
+          },
+          {
+            name: 'vince',
+            username: 'vince292007',
+          },
+          {
+            name: 'Li Kui',
+            username: 'likui628',
+          },
+        ],
         repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
       }),
       GitChangelogMarkdownSection(),

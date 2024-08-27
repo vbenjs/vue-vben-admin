@@ -42,3 +42,5 @@ VITE_INJECT_APP_LOADING=false
   <div class="title"><%= VITE_APP_TITLE %></div>
 </div>
 ```
+
+:::

@@ -2,12 +2,12 @@ import { withPwa } from '@vite-pwa/vitepress';
 import { defineConfigWithTheme } from 'vitepress';
 
 import { en } from './en.mts';
-import { shard } from './shard.mts';
+import { shared } from './shared.mts';
 import { zh } from './zh.mts';
 
 export default withPwa(
   defineConfigWithTheme({
-    ...shard,
+    ...shared,
     locales: {
       en: {
         label: 'English',
