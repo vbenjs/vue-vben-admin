@@ -1,26 +1,30 @@
 /**
  * Global authority directive
  * Used for fine-grained control of component permissions
- * @Example v-auth="RoleEnum.TEST"
+ * @Example v-access:role="[ROLE_NAME]" or v-access:role="ROLE_NAME"
+ * @Example v-access:code="[ROLE_CODE]" or v-access:code="ROLE_CODE"
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { useAccess } from './use-access';
 
-function isAccessible(el: Element, binding: any) {
+function isAccessible(
+  el: Element,
+  binding: DirectiveBinding<string | string[]>,
+) {
   const { accessMode, hasAccessByCodes, hasAccessByRoles } = useAccess();
 
   const value = binding.value;
 
-  if (!value) {
-    return;
-  }
+  if (!value) return;
   const authMethod =
     accessMode.value === 'frontend' && binding.arg === 'role'
       ? hasAccessByRoles
       : hasAccessByCodes;
 
-  if (!authMethod(value)) {
+  const values = Array.isArray(value) ? value : [value];
+
+  if (!authMethod(values)) {
     el?.remove();
   }
 }

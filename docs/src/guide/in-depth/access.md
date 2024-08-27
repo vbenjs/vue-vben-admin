@@ -229,10 +229,12 @@ const { hasAccessByCodes } = useAccess();
 
 #### 指令方式
 
+> 指令支持绑定单个或多个权限码。单个时可以直接传入字符串或数组中包含一个权限码，多个权限码则传入数组。
+
 ```vue
 <template>
-  <Button class="mr-4" v-access:code="['AC_100100']">
-    Super 账号可见 ["AC_1000001"]
+  <Button class="mr-4" v-access:code="'AC_100100'">
+    Super 账号可见 'AC_100100'
   </Button>
   <Button class="mr-4" v-access:code="['AC_100030']">
     Admin 账号可见 ["AC_100010"]
@@ -294,8 +296,11 @@ const { hasAccessByRoles } = useAccess();
 
 #### 指令方式
 
+> 指令支持绑定单个或多个权限码。单个时可以直接传入字符串或数组中包含一个权限码，多个权限码则传入数组。
+
 ```vue
 <template>
+  <Button class="mr-4" v-access:role="'super'"> Super 角色可见 </Button>
   <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
   <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
   <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>

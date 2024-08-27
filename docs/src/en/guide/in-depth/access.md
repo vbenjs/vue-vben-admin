@@ -231,10 +231,12 @@ const { hasAccessByCodes } = useAccess();
 
 #### Directive Method
 
+> The directive supports binding single or multiple permission codes. For a single one, you can pass a string or an array containing one permission code, and for multiple permission codes, you can pass an array.
+
 ```vue
 <template>
-  <Button class="mr-4" v-access:code="['AC_100100']">
-    Visible to Super account ["AC_1000001"]
+  <Button class="mr-4" v-access:code="'AC_100100'">
+    Visible to Super account 'AC_100100'
   </Button>
   <Button class="mr-4" v-access:code="['AC_100030']">
     Visible to Admin account ["AC_100010"]
@@ -296,9 +298,11 @@ const { hasAccessByRoles } = useAccess();
 
 #### Directive Method
 
+> The directive supports binding single or multiple permission codes. For a single one, you can pass a string or an array containing one permission code, and for multiple permission codes, you can pass an array.
+
 ```vue
 <template>
-  <Button class="mr-4" v-access:role="['super']">
+  <Button class="mr-4" v-access:role="'super'">
     Visible to Super account
   </Button>
   <Button class="mr-4" v-access:role="['admin']">
