@@ -81,8 +81,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       jsdom:
-        specifier: ^24.1.1
-        version: 24.1.1
+        specifier: ^25.0.0
+        version: 25.0.0
       lint-staged:
         specifier: ^15.2.9
         version: 15.2.9
@@ -106,7 +106,7 @@ importers:
         version: 5.4.2(@types/node@22.5.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)
       vitest:
         specifier: ^2.0.5
-        version: 2.0.5(@types/node@22.5.0)(jsdom@24.1.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)
+        version: 2.0.5(@types/node@22.5.0)(jsdom@25.0.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)
       vue:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)
@@ -422,7 +422,7 @@ importers:
         version: 4.1.3(@typescript-eslint/eslint-plugin@8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-vitest:
         specifier: ^0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@22.5.0)(jsdom@24.1.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@22.5.0)(jsdom@25.0.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6))
       eslint-plugin-vue:
         specifier: ^9.27.0
         version: 9.27.0(eslint@9.9.1(jiti@1.21.6))
@@ -6828,8 +6828,8 @@ packages:
     resolution: {integrity: sha512-Hicd6JK5Njt2QB6XYFS7ok9e37O8AYk3jTcppG4YVQnYjOemymvTcmc7OWsmq/Qqj5TdRFO5/x/tIPmBeRtGHg==}
     engines: {node: '>=12.0.0'}
 
-  jsdom@24.1.1:
-    resolution: {integrity: sha512-5O1wWV99Jhq4DV7rCLIoZ/UIhyQeDR7wHVyZAHAshbrvZsLs+Xzz7gtwnlJTJDjleiTKh54F4dXrX70vJQTyJQ==}
+  jsdom@25.0.0:
+    resolution: {integrity: sha512-OhoFVT59T7aEq75TVw9xxEfkXgacpqAhQaYgP9y/fDqWQCMB/b1H66RfmPm/MaeaAIU9nDwMOVTlPN51+ao6CQ==}
     engines: {node: '>=18'}
     peerDependencies:
       canvas: ^2.11.2
@@ -15214,13 +15214,13 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@22.5.0)(jsdom@24.1.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@22.5.0)(jsdom@25.0.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
       eslint: 9.9.1(jiti@1.21.6)
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.3.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
-      vitest: 2.0.5(@types/node@22.5.0)(jsdom@24.1.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@22.5.0)(jsdom@25.0.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -16247,7 +16247,7 @@ snapshots:
 
   jsdoc-type-pratt-parser@4.1.0: {}
 
-  jsdom@24.1.1:
+  jsdom@25.0.0:
     dependencies:
       cssstyle: 4.0.1
       data-urls: 5.0.0
@@ -19326,7 +19326,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest@2.0.5(@types/node@22.5.0)(jsdom@24.1.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6):
+  vitest@2.0.5(@types/node@22.5.0)(jsdom@25.0.0)(less@4.2.0)(sass@1.77.8)(terser@5.31.6):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -19349,7 +19349,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.5.0
-      jsdom: 24.1.1
+      jsdom: 25.0.0
     transitivePeerDependencies:
       - less
       - lightningcss
