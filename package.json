@@ -83,7 +83,7 @@
     "cspell": "^8.14.2",
     "husky": "^9.1.5",
     "is-ci": "^3.0.1",
-    "jsdom": "^24.1.1",
+    "jsdom": "^25.0.0",
     "lint-staged": "^15.2.9",
     "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.10",
