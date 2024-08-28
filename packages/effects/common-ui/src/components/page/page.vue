@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<Props>(), {
           class="mb-2 flex justify-between text-lg font-semibold"
         >
           {{ title }}
+
+          <slot name="extra"></slot>
         </div>
       </slot>
 

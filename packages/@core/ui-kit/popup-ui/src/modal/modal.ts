@@ -61,11 +61,15 @@ export interface ModalProps {
    */
   fullscreenButton?: boolean;
   /**
+   * 是否显示顶栏
+   * @default true
+   */
+  header?: boolean;
+  /**
    * 弹窗是否显示
    * @default false
    */
   loading?: boolean;
-
   /**
    * 是否显示遮罩
    * @default true

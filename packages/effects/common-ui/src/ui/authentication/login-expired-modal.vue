@@ -47,8 +47,8 @@ watch(
       :close-on-press-escape="false"
       :footer="false"
       :fullscreen-button="false"
+      :header="false"
       class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
-      header-class="hidden"
     >
       <VbenAvatar :src="avatar" class="mx-auto mb-6 size-20" />
       <AuthenticationLogin

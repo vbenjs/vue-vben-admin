@@ -11,11 +11,20 @@ const [Modal, modalApi] = useVbenModal({
 function openModal() {
   modalApi.open();
 }
+
+function handleUpdateTitle() {
+  modalApi.setState({ title: '外部动态标题' });
+  modalApi.open();
+}
 </script>
 
 <template>
   <div>
     <Modal />
+
     <VbenButton @click="openModal">Open</VbenButton>
+    <VbenButton class="ml-2" type="primary" @click="handleUpdateTitle">
+      从外部修改标题并打开
+    </VbenButton>
   </div>
 </template>

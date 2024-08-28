@@ -4,5 +4,5 @@ import { useVbenModal } from '@vben/common-ui';
 const [Modal] = useVbenModal();
 </script>
 <template>
-  <Modal title="基础示例"> extra modal content </Modal>
+  <Modal title="组件抽离示例"> extra modal content </Modal>
 </template>

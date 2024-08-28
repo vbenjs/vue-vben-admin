@@ -11,14 +11,6 @@ const [Drawer, drawerApi] = useVbenDrawer({
     message.info('onConfirm');
     // drawerApi.close();
   },
-  onOpenChange(isOpen) {
-    if (isOpen) {
-      drawerApi.setState({ loading: true });
-      setTimeout(() => {
-        drawerApi.setState({ loading: false });
-      }, 2000);
-    }
-  },
 });
 </script>
 <template>

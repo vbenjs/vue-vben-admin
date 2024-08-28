@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
+import { ref, watch } from 'vue';
+
 import { useIsMobile, usePriorityValue } from '@vben-core/composables';
 import { Info, X } from '@vben-core/icons';
 import {
@@ -31,6 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
   drawerApi: undefined,
 });
 
+const wrapperRef = ref<HTMLElement>();
+
 const { isMobile } = useIsMobile();
 const state = props.drawerApi?.useStore?.();
 
@@ -46,6 +50,18 @@ const cancelText = usePriorityValue('cancelText', props, state);
 const confirmText = usePriorityValue('confirmText', props, state);
 const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
 const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
+
+watch(
+  () => showLoading.value,
+  (v) => {
+    if (v && wrapperRef.value) {
+      wrapperRef.value.scrollTo({
+        // behavior: 'smooth',
+        top: 0,
+      });
+    }
+  },
+);
 
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value) {
@@ -129,9 +145,10 @@ function pointerDownOutside(e: Event) {
       </SheetHeader>
 
       <div
+        ref="wrapperRef"
         :class="
-          cn('relative flex-1 p-3', contentClass, {
-            'overflow-y-auto': !showLoading,
+          cn('relative flex-1 overflow-y-auto p-3', contentClass, {
+            'overflow-hidden': showLoading,
           })
         "
       >

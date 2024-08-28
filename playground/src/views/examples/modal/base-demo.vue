@@ -11,14 +11,6 @@ const [Modal, modalApi] = useVbenModal({
     message.info('onConfirm');
     // modalApi.close();
   },
-  onOpenChange(isOpen) {
-    if (isOpen) {
-      modalApi.setState({ loading: true });
-      setTimeout(() => {
-        modalApi.setState({ loading: false });
-      }, 2000);
-    }
-  },
 });
 </script>
 <template>
