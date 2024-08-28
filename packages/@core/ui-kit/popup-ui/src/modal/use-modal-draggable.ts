@@ -3,7 +3,7 @@
  * 调整部分细节
  */
 
-import { onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
+import { onBeforeUnmount, onMounted, reactive, ref, watchEffect } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 
 import { unrefElement } from '@vueuse/core';
@@ -13,10 +13,10 @@ export function useModalDraggable(
   dragRef: Ref<HTMLElement | undefined>,
   draggable: ComputedRef<boolean>,
 ) {
-  let transform = {
+  const transform = reactive({
     offsetX: 0,
     offsetY: 0,
-  };
+  });
 
   const dragging = ref(false);
 
@@ -63,10 +63,8 @@ export function useModalDraggable(
       moveY = Math.min(Math.max(moveY, minTop), maxTop);
       //  + y;
 
-      transform = {
-        offsetX: moveX,
-        offsetY: moveY,
-      };
+      transform.offsetX = moveX;
+      transform.offsetY = moveY;
 
       if (targetRef.value) {
         targetRef.value.style.transform = `translate(${moveX}px, ${moveY}px)`;
@@ -100,10 +98,9 @@ export function useModalDraggable(
   };
 
   const resetPosition = () => {
-    transform = {
-      offsetX: 0,
-      offsetY: 0,
-    };
+    transform.offsetX = 0;
+    transform.offsetY = 0;
+
     const target = unrefElement(targetRef);
     if (target) {
       target.style.transform = 'none';
@@ -127,6 +124,7 @@ export function useModalDraggable(
   return {
     dragging,
     resetPosition,
+    transform,
   };
 }
 

@@ -73,7 +73,11 @@ const shouldDraggable = computed(
   () => draggable.value && !shouldFullscreen.value,
 );
 
-const { dragging } = useModalDraggable(dialogRef, headerRef, shouldDraggable);
+const { dragging, transform } = useModalDraggable(
+  dialogRef,
+  headerRef,
+  shouldDraggable,
+);
 
 // const loadingStyle = computed(() => {
 //   // py-5 4px*5*2
@@ -96,6 +100,10 @@ watch(
       if (contentRef.value) {
         const innerContentRef = contentRef.value.getContentRef();
         dialogRef.value = innerContentRef.$el;
+
+        // reopen modal reassign value
+        const { offsetX, offsetY } = transform;
+        dialogRef.value.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       }
     }
   },
