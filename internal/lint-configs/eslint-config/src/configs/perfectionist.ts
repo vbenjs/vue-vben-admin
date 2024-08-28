@@ -68,7 +68,7 @@ export async function perfectionist(): Promise<Linter.Config[]> {
             ignorePattern: ['children'],
             order: 'asc',
             partitionByComment: 'Part:**',
-            type: 'natural',
+            type: 'alphabetical',
           },
         ],
         'perfectionist/sort-vue-attributes': [
