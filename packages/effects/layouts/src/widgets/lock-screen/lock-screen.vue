@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watchEffect } from 'vue';
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  watchEffect,
+} from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
@@ -24,7 +31,7 @@ withDefaults(defineProps<Props>(), {
   avatar: '',
 });
 
-defineEmits<{ toLogin: [] }>();
+const emit = defineEmits<{ toLogin: [] }>();
 
 const { locale } = useI18n();
 const lockStore = useLockStore();
@@ -83,10 +90,47 @@ function handleSubmit() {
 function toggleUnlockForm() {
   showUnlockForm.value = !showUnlockForm.value;
 }
+
+const lockScreenElement = ref<HTMLElement | null>(null);
+
+function handleUnauthorizedAccess() {
+  console.warn('检测到违规操作，系统将自动退出登录');
+  emit('toLogin');
+}
+
+function checkDOMManipulation() {
+  if (
+    lockScreenElement.value &&
+    !document.body.contains(lockScreenElement.value)
+  ) {
+    handleUnauthorizedAccess();
+  }
+}
+
+onMounted(() => {
+  const observer = new MutationObserver(checkDOMManipulation);
+
+  if (lockScreenElement.value) {
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // 使用 requestAnimationFrame 代替 setInterval 来优化性能
+    let rafId: number;
+    function checkLoop() {
+      checkDOMManipulation();
+      rafId = requestAnimationFrame(checkLoop);
+    }
+    checkLoop();
+
+    onUnmounted(() => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    });
+  }
+});
 </script>
 
 <template>
-  <div class="bg-background fixed z-[2000] size-full">
+  <div ref="lockScreenElement" class="bg-background fixed z-[2000] size-full">
     <transition name="slide-left">
       <div v-show="!showUnlockForm" class="size-full">
         <div
