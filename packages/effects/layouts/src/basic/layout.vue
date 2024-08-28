@@ -202,7 +202,10 @@ const headerSlots = computed(() => {
     </template>
     <!-- 头部区域 -->
     <template #header>
-      <LayoutHeader :theme="theme">
+      <LayoutHeader
+        :theme="theme"
+        @clear-preferences-and-logout="clearPreferencesAndLogout"
+      >
         <template
           v-if="!showHeaderNav && preferences.breadcrumb.enable"
           #breadcrumb
