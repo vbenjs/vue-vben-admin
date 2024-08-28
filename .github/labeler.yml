@@ -8,6 +8,9 @@ bug:
 chore:
   - head-branch: ["^chore", "chore"]
 
+perf:
+  - head-branch: ["^perf", "perf"]
+
 documentation:
   - changed-files:
       - any-glob-to-any-file: ["**/*.md", "docs/**"]
