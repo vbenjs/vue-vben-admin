@@ -413,7 +413,6 @@ async function handleReset() {
           variant="ghost"
           @click="handleClearCache"
         >
-          <!-- <RotateCw class="mr-2 size-4" /> -->
           {{ $t('preferences.clearAndLogout') }}
         </VbenButton>
       </template>
