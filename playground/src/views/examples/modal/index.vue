@@ -38,7 +38,7 @@ function openAutoHeightModal() {
   autoHeightModalApi.open();
 }
 
-function openDargModal() {
+function openDragModal() {
   dragModalApi.open();
 }
 
@@ -83,7 +83,7 @@ function handleUpdateTitle() {
 
     <Card class="mb-4" title="可拖拽示例">
       <p class="mb-3">配置 draggable 可开启拖拽功能</p>
-      <Button type="primary" @click="openDargModal">打开弹窗</Button>
+      <Button type="primary" @click="openDragModal">打开弹窗</Button>
     </Card>
 
     <Card class="mb-4" title="动态配置示例">
