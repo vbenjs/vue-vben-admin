@@ -15,10 +15,6 @@ export async function vue(): Promise<Linter.Config[]> {
     {
       files: ['**/*.vue'],
       languageOptions: {
-        globals: {
-          // TODO: 等待插件正式支持后删除
-          defineModel: true,
-        },
         parser: parserVue,
         parserOptions: {
           ecmaFeatures: {

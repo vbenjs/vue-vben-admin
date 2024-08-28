@@ -3,18 +3,18 @@ import { Page, useVbenDrawer } from '@vben/common-ui';
 
 import { Button, Card } from 'ant-design-vue';
 
+import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
 import BaseDemo from './base-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
 const [BaseDrawer, baseDrawerApi] = useVbenDrawer({
-  // 链接抽离的组件
+  // 连接抽离的组件
   connectedComponent: BaseDemo,
 });
 
 const [AutoHeightDrawer, autoHeightDrawerApi] = useVbenDrawer({
-  // 链接抽离的组件
   connectedComponent: AutoHeightDemo,
 });
 
@@ -57,6 +57,9 @@ function openSharedDrawer() {
     description="抽屉组件通常用于在当前页面上显示一个覆盖层，用以展示重要信息或提供用户交互界面。"
     title="抽屉组件示例"
   >
+    <template #extra>
+      <DocButton path="/components/common-ui/vben-drawer" />
+    </template>
     <BaseDrawer />
     <AutoHeightDrawer />
     <DynamicDrawer />

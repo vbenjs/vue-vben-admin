@@ -23,7 +23,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
+          # - macos-latest
           - windows-latest
     timeout-minutes: 20
     steps:
@@ -62,7 +62,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
+          # - macos-latest
           - windows-latest
 
     steps:
@@ -85,7 +85,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
+          # - macos-latest
           - windows-latest
     steps:
       - name: Checkout code

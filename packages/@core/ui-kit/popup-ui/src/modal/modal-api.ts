@@ -38,10 +38,10 @@ export class ModalApi {
       footer: true,
       fullscreen: false,
       fullscreenButton: true,
+      header: true,
       isOpen: false,
       loading: false,
       modal: true,
-      sharedData: {},
       title: '',
     };
 

@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useVbenDrawer } from '@vben/common-ui';
-
-import { Button, message } from 'ant-design-vue';
+import { useVbenDrawer, VbenButton } from '@vben/common-ui';
 
 const list = ref<number[]>([]);
 
@@ -12,8 +10,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     drawerApi.close();
   },
   onConfirm() {
-    message.info('onConfirm');
-    // drawerApi.close();
+    console.log('onConfirm');
   },
   onOpenChange(isOpen) {
     if (isOpen) {
@@ -39,9 +36,10 @@ function handleUpdate(len: number) {
     >
       {{ item }}
     </div>
-
     <template #prepend-footer>
-      <Button type="link" @click="handleUpdate(6)">点击更新数据</Button>
+      <VbenButton type="link" @click="handleUpdate(6)">
+        点击更新数据
+      </VbenButton>
     </template>
   </Drawer>
 </template>

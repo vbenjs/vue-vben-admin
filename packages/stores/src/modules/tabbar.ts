@@ -66,7 +66,6 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async _goToDefaultTab(router: Router) {
       if (this.getTabs.length <= 0) {
-        // TODO: 跳转首页
         return;
       }
       const firstTab = this.getTabs[0];

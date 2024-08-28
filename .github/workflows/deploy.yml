@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy-push-playground-ftp:
+  deploy-playground-ftp:
     name: Deploy Push Playground Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm build:play && pnpm build:docs
+        run: pnpm build:play
 
       - name: Sync Playground files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -37,6 +37,22 @@ jobs:
           password: ${{ secrets.WEB_PLAYGROUND_FTP_PWSSWORD }}
           local-dir: ./playground/dist/
 
+  deploy-docs-ftp:
+    name: Deploy Push Docs Ftp
+    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm build:docs
+
       - name: Sync Docs files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -45,7 +61,7 @@ jobs:
           password: ${{ secrets.WEBSITE_FTP_PASSWORD }}
           local-dir: ./docs/.vitepress/dist/
 
-  deploy-push-antd-ftp:
+  deploy-antd-ftp:
     name: Deploy Push Antd Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
@@ -76,7 +92,7 @@ jobs:
           password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
           local-dir: ./apps/web-antd/dist/
 
-  deploy-push-ele-ftp:
+  deploy-ele-ftp:
     name: Deploy Push Element Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
@@ -107,7 +123,7 @@ jobs:
           password: ${{ secrets.WEB_ELE_FTP_PASSWORD }}
           local-dir: ./apps/web-ele/dist/
 
-  deploy-push-naive-ftp:
+  deploy-naive-ftp:
     name: Deploy Push Naive Ftp
     if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest

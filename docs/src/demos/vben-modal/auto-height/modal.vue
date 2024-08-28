@@ -1,19 +1,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useVbenDrawer } from '@vben/common-ui';
-
-import { Button, message } from 'ant-design-vue';
+import { useVbenModal, VbenButton } from '@vben/common-ui';
 
 const list = ref<number[]>([]);
 
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Modal, modalApi] = useVbenModal({
   onCancel() {
-    drawerApi.close();
+    modalApi.close();
   },
   onConfirm() {
-    message.info('onConfirm');
-    // drawerApi.close();
+    console.log('onConfirm');
   },
   onOpenChange(isOpen) {
     if (isOpen) {
@@ -23,15 +20,15 @@ const [Drawer, drawerApi] = useVbenDrawer({
 });
 
 function handleUpdate(len: number) {
-  drawerApi.setState({ loading: true });
+  modalApi.setState({ loading: true });
   setTimeout(() => {
     list.value = Array.from({ length: len }, (_v, k) => k + 1);
-    drawerApi.setState({ loading: false });
+    modalApi.setState({ loading: false });
   }, 2000);
 }
 </script>
 <template>
-  <Drawer title="自动计算高度">
+  <Modal title="自动计算高度">
     <div
       v-for="item in list"
       :key="item"
@@ -39,9 +36,10 @@ function handleUpdate(len: number) {
     >
       {{ item }}
     </div>
-
     <template #prepend-footer>
-      <Button type="link" @click="handleUpdate(6)">点击更新数据</Button>
+      <VbenButton type="link" @click="handleUpdate(6)">
+        点击更新数据
+      </VbenButton>
     </template>
-  </Drawer>
+  </Modal>
 </template>

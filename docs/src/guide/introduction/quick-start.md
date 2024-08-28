@@ -72,6 +72,8 @@ pnpm install
 
 ### 运行项目
 
+#### 选择项目
+
 执行以下命运行项目:
 
 ```bash
@@ -84,12 +86,24 @@ pnpm dev
 ```bash
 │
 ◆  Select the app you need to run [dev]:
-│  ● @vben/web-antd
+│  ○ @vben/web-antd
 │  ○ @vben/web-ele
 │  ○ @vben/web-naive
 │  ○ @vben/docs
-│  ○ @vben/playground
+│  ● @vben/playground
 └
 ```
 
 现在，你可以在浏览器访问 `http://localhost:5555` 查看项目。
+
+#### 运行指定项目
+
+如果你不想选择项目，可以直接运行以下命令运行你需要的应用：
+
+```bash
+pnpm run dev:antd
+pnpm run dev:ele
+pnpm run dev:naive
+pnpm run dev:docs
+pnpm run dev:play
+```

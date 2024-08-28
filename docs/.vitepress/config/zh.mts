@@ -154,7 +154,11 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
       items: [
         {
           link: 'common-ui/vben-modal',
-          text: 'Modal 弹窗',
+          text: 'Vben Modal 模态框',
+        },
+        {
+          link: 'common-ui/vben-drawer',
+          text: 'Vben Drawer 抽屉',
         },
       ],
     },
