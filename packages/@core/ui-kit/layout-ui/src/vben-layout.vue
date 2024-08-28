@@ -184,9 +184,6 @@ const headerFixed = computed(() => {
 });
 
 const showSidebar = computed(() => {
-  // if (isMixedNav.value && !props.sideHidden) {
-  //   return false;
-  // }
   return isSideMode.value && sidebarEnable.value;
 });
 
