@@ -79,7 +79,7 @@ const toggleOpen = () => {
           <VbenTooltip side="top">
             <template #trigger>
               <Code
-                class="hover:bg-accent size-6.5 cursor-pointer rounded-full p-1.5"
+                class="hover:bg-accent size-7 cursor-pointer rounded-full p-1.5"
                 @click="toggleOpen"
               />
             </template>
