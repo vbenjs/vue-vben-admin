@@ -353,6 +353,9 @@ importers:
       '@types/markdown-it':
         specifier: ^14.1.2
         version: 14.1.2
+      '@vben/vite-config':
+        specifier: workspace:*
+        version: link:../internal/vite-config
       '@vite-pwa/vitepress':
         specifier: ^0.5.0
         version: 0.5.0(vite-plugin-pwa@0.20.1(vite@5.4.2(@types/node@22.5.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6))(workbox-build@7.1.1)(workbox-window@7.1.0))
@@ -621,6 +624,9 @@ importers:
       '@jspm/generator':
         specifier: ^2.1.3
         version: 2.1.3
+      archiver:
+        specifier: ^7.0.1
+        version: 7.0.1
       cheerio:
         specifier: 1.0.0
         version: 1.0.0
@@ -646,6 +652,9 @@ importers:
         specifier: ^7.3.9
         version: 7.3.9(rollup@4.21.1)(vite@5.4.2(@types/node@22.5.1)(less@4.2.0)(sass@1.77.8)(terser@5.31.6))(vue@3.4.38(typescript@5.5.4))
     devDependencies:
+      '@types/archiver':
+        specifier: ^6.0.2
+        version: 6.0.2
       '@types/html-minifier-terser':
         specifier: ^7.0.2
         version: 7.0.2
@@ -4010,6 +4019,9 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
+  '@types/archiver@6.0.2':
+    resolution: {integrity: sha512-KmROQqbQzKGuaAbmK+ZcytkJ51+YqDa7NmbXjmtC5YBLSyQYo21YaUnQ3HbaPFKL1ooo6RQ6OPYPIDyxfpDDXw==}
+
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
 
@@ -4112,6 +4124,9 @@ packages:
 
   '@types/qrcode@1.5.5':
     resolution: {integrity: sha512-CdfBi/e3Qk+3Z/fXYShipBT13OJ2fDO2Q2w5CIP5anLTLIndQG9z6P1cnm+8zCWSpm5dnxMFd/uREtb0EXuQzg==}
+
+  '@types/readdir-glob@1.1.5':
+    resolution: {integrity: sha512-raiuEPUYqXu+nvtY2Pe8s8FEmZ3x5yAH4VkLdihcPdalvsHltomrRC9BzuStrJ9yk06470hS0Crw0f1pXqD+Hg==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -12942,6 +12957,10 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
+  '@types/archiver@6.0.2':
+    dependencies:
+      '@types/readdir-glob': 1.1.5
+
   '@types/argparse@1.0.38': {}
 
   '@types/bintrees@1.0.6': {}
@@ -13047,6 +13066,10 @@ snapshots:
   '@types/ps-tree@1.1.6': {}
 
   '@types/qrcode@1.5.5':
+    dependencies:
+      '@types/node': 22.5.1
+
+  '@types/readdir-glob@1.1.5':
     dependencies:
       '@types/node': 22.5.1
 

@@ -33,6 +33,19 @@ interface NitroMockPluginOptions {
   verbose?: boolean;
 }
 
+interface ArchiverPluginOptions {
+  /**
+   * 输出文件名
+   * @default dist
+   */
+  name?: string;
+  /**
+   * 输出目录
+   * @default .
+   */
+  outputDir?: string;
+}
+
 /**
  * importmap 插件配置
  */
@@ -74,6 +87,10 @@ interface CommonPluginOptions {
 }
 
 interface ApplicationPluginOptions extends CommonPluginOptions {
+  /** 开启后，会在打包dist同级生成dist.zip */
+  archiver?: boolean;
+  /** 压缩归档插件配置 */
+  archiverPluginOptions?: ArchiverPluginOptions;
   /** 开启 gzip|brotli 压缩 */
   compress?: boolean;
   /** 压缩类型 */
@@ -134,6 +151,7 @@ type DefineConfig = DefineApplicationOptions | DefineLibraryOptions;
 
 export type {
   ApplicationPluginOptions,
+  ArchiverPluginOptions,
   CommonPluginOptions,
   ConditionPlugin,
   DefineApplicationOptions,

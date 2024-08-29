@@ -55,6 +55,7 @@ VITE_DEVTOOLS=true
 
 # 是否注入全局loading
 VITE_INJECT_APP_LOADING=true
+
 ```
 
 ```bash [.env.production]
@@ -75,6 +76,10 @@ VITE_ROUTER_HISTORY=hash
 
 # 是否注入全局loading
 VITE_INJECT_APP_LOADING=true
+
+# 打包后是否生成dist.zip
+VITE_ARCHIVER=true
+
 ```
 
 :::
