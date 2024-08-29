@@ -28,12 +28,12 @@ export class DrawerApi {
     } = options;
 
     const defaultState: DrawerState = {
-      cancelText: '取消',
+      cancelText: '',
       closable: true,
       closeOnClickModal: true,
       closeOnPressEscape: true,
       confirmLoading: false,
-      confirmText: '确定',
+      confirmText: '',
       footer: true,
       isOpen: false,
       loading: false,

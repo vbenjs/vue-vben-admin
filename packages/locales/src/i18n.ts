@@ -10,6 +10,8 @@ import type {
 import { type App, unref } from 'vue';
 import { createI18n } from 'vue-i18n';
 
+import { useSimpleLocale } from '@vben-core/composables';
+
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
@@ -18,6 +20,8 @@ const i18n = createI18n({
 });
 
 const modules = import.meta.glob('./langs/*.json');
+
+const { setSimpleLocale } = useSimpleLocale();
 
 const localesMap = loadLocalesMap(modules);
 
@@ -75,6 +79,7 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
   if (unref(i18n.global.locale) === lang) {
     return setI18nLanguage(lang);
   }
+  setSimpleLocale(lang);
 
   const message = await localesMap[lang]?.();
 

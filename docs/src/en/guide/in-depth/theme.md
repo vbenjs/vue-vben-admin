@@ -53,7 +53,7 @@ You can check the list below to understand all the available variables.
 
   /* Theme Colors */
 
-  --primary: 211 91% 39%;
+  --primary: 231 98% 65%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -351,7 +351,7 @@ type BuiltinThemeType =
 
   /* Theme Colors */
 
-  --primary: 211 91% 39%;
+  --primary: 231 98% 65%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

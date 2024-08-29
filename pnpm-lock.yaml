@@ -1093,6 +1093,9 @@ importers:
       '@intlify/core-base':
         specifier: ^9.14.0
         version: 9.14.0
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../@core/composables
       vue:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)
