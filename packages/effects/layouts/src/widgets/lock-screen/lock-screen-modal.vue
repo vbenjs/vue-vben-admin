@@ -34,15 +34,22 @@ const emit = defineEmits<{
   submit: RegisterEmits['submit'];
 }>();
 
+const formState = reactive({
+  lockScreenPassword: '',
+  submitted: false,
+});
+
 const [Modal] = useVbenModal({
   onConfirm() {
     handleSubmit();
   },
-});
-
-const formState = reactive({
-  lockScreenPassword: '',
-  submitted: false,
+  onOpenChange(isOpen) {
+    if (isOpen) {
+      // reset value reopen
+      formState.submitted = false;
+      formState.lockScreenPassword = '';
+    }
+  },
 });
 
 const passwordStatus = computed(() => {
