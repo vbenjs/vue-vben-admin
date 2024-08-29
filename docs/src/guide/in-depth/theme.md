@@ -53,7 +53,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* 主题颜色 */
 
-  --primary: 211 91% 39%;
+  --primary: 231 98% 65%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -351,7 +351,7 @@ type BuiltinThemeType =
 
   /* 主题颜色 */
 
-  --primary: 211 91% 39%;
+  --primary: 231 98% 65%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

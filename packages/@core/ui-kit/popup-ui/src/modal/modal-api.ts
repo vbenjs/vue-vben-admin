@@ -28,12 +28,10 @@ export class ModalApi {
     } = options;
 
     const defaultState: ModalState = {
-      cancelText: '取消',
       centered: false,
       closeOnClickModal: true,
       closeOnPressEscape: true,
       confirmLoading: false,
-      confirmText: '确定',
       draggable: false,
       footer: true,
       fullscreen: false,

@@ -331,9 +331,6 @@ importers:
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
-      '@vueuse/core':
-        specifier: ^11.0.3
-        version: 11.0.3(vue@3.4.38(typescript@5.5.4))
       lucide-vue-next:
         specifier: ^0.436.0
         version: 0.436.0(vue@3.4.38(typescript@5.5.4))
@@ -350,9 +347,6 @@ importers:
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: ^2.4.0
         version: 2.4.0(@algolia/client-search@4.24.0)(@types/node@22.5.1)(async-validator@4.2.5)(axios@1.7.5)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.3)(sortablejs@1.15.2)(terser@5.31.6)(typescript@5.5.4)
-      '@types/markdown-it':
-        specifier: ^14.1.2
-        version: 14.1.2
       '@vben/vite-config':
         specifier: workspace:*
         version: link:../internal/vite-config
@@ -1093,6 +1087,9 @@ importers:
       '@intlify/core-base':
         specifier: ^9.14.0
         version: 9.14.0
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../@core/composables
       vue:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)

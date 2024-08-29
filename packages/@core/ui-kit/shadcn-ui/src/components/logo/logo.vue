@@ -53,10 +53,7 @@ withDefaults(defineProps<Props>(), {
         :width="logoSize"
         class="relative rounded-none bg-transparent"
       />
-      <span
-        v-if="!collapsed"
-        class="text-primary dark:text-foreground truncate text-nowrap"
-      >
+      <span v-if="!collapsed" class="text-foreground truncate text-nowrap">
         {{ text }}
       </span>
     </a>
