@@ -1,6 +1,6 @@
 {
   "name": "@vben/docs",
-  "version": "5.1.2",
+  "version": "5.2.0",
   "private": true,
   "scripts": {
     "build": "vitepress build",
@@ -12,7 +12,6 @@
     "@vben/common-ui": "workspace:*",
     "@vben/styles": "workspace:*",
     "lucide-vue-next": "^0.436.0",
-    "markdown-it": "^14.1.0",
     "medium-zoom": "^1.1.0",
     "radix-vue": "^1.9.5"
   },
