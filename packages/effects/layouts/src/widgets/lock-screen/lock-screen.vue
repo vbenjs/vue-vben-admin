@@ -120,7 +120,7 @@ function toggleUnlockForm() {
       <div
         v-if="showUnlockForm"
         class="flex-center size-full"
-        @keypress.enter.prevent="handleSubmit"
+        @keydown.enter.prevent="handleSubmit"
       >
         <div class="flex-col-center mb-10 w-[300px]">
           <VbenAvatar :src="avatar" class="enter-x mb-6 size-20" />
