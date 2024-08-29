@@ -44,8 +44,8 @@ describe('drawerApi', () => {
 
   it('should initialize with default state', () => {
     expect(drawerState.isOpen).toBe(false);
-    expect(drawerState.cancelText).toBe('取消');
-    expect(drawerState.confirmText).toBe('确定');
+    expect(drawerState.cancelText).toBe('');
+    expect(drawerState.confirmText).toBe('');
   });
 
   it('should open the drawer', () => {

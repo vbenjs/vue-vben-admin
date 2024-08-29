@@ -44,8 +44,8 @@ describe('modalApi', () => {
 
   it('should initialize with default state', () => {
     expect(modalState.isOpen).toBe(false);
-    expect(modalState.cancelText).toBe('取消');
-    expect(modalState.confirmText).toBe('确定');
+    expect(modalState.cancelText).toBe('');
+    expect(modalState.confirmText).toBe('');
   });
 
   it('should open the modal', () => {
