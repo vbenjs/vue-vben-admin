@@ -44,6 +44,13 @@ function usePreferences() {
   );
 
   /**
+   * @zh_CN 是否显示顶栏
+   */
+  const isShowHeaderNav = computed(() => {
+    return preferences.header.enable;
+  });
+
+  /**
    * @zh_CN 是否全屏显示content，不需要侧边、底部、顶部、tab区域
    */
   const isFullContent = computed(
@@ -180,7 +187,11 @@ function usePreferences() {
     }
 
     // 如果是全屏模式或者没有固定在顶部，
-    const fixed = contentIsMaximize || isFullContent.value || isMobile.value;
+    const fixed =
+      contentIsMaximize ||
+      isFullContent.value ||
+      isMobile.value ||
+      !isShowHeaderNav.value;
 
     return {
       fixed,
