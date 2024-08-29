@@ -64,26 +64,30 @@ const [Modal, modalApi] = useVbenModal({
 
 所有属性都可以传入 `useVbenModal` 的第一个参数中。
 
-| 属性名             | 描述                | 类型            | 默认值  |
-| ------------------ | ------------------- | --------------- | ------- |
-| title              | 标题                | `string\|slot`  | -       |
-| titleTooltip       | 标题提示信息        | `string\|slot`  | -       |
-| description        | 描述信息            | `string\|slot`  | -       |
-| isOpen             | 弹窗打开状态        | `boolean`       | `false` |
-| loading            | 弹窗加载状态        | `boolean`       | `false` |
-| fullscreen         | 全屏显示            | `boolean`       | `false` |
-| fullscreenButton   | 显示全屏按钮        | `boolean`       | `true`  |
-| draggable          | 可拖拽              | `boolean`       | `false` |
-| closable           | 显示关闭按钮        | `boolean`       | `true`  |
-| centered           | 居中显示            | `boolean`       | `false` |
-| modal              | 显示遮罩            | `boolean`       | `true`  |
-| header             | 显示header          | `boolean`       | `true`  |
-| footer             | 显示footer          | `boolean\|slot` | `true`  |
-| confirmLoading     | 确认按钮loading状态 | `boolean`       | `false` |
-| closeOnClickModal  | 点击遮罩关闭弹窗    | `boolean`       | `true`  |
-| closeOnPressEscape | esc 关闭弹窗        | `boolean`       | `true`  |
-| confirmText        | 确认按钮文本        | `boolean\|slot` | `确认`  |
-| cancelText         | 取消按钮文本        | `boolean\|slot` | `取消`  |
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 标题 | `string\|slot` | - |
+| titleTooltip | 标题提示信息 | `string\|slot` | - |
+| description | 描述信息 | `string\|slot` | - |
+| isOpen | 弹窗打开状态 | `boolean` | `false` |
+| loading | 弹窗加载状态 | `boolean` | `false` |
+| fullscreen | 全屏显示 | `boolean` | `false` |
+| fullscreenButton | 显示全屏按钮 | `boolean` | `true` |
+| draggable | 可拖拽 | `boolean` | `false` |
+| closable | 显示关闭按钮 | `boolean` | `true` |
+| centered | 居中显示 | `boolean` | `false` |
+| modal | 显示遮罩 | `boolean` | `true` |
+| header | 显示header | `boolean` | `true` |
+| footer | 显示footer | `boolean\|slot` | `true` |
+| confirmLoading | 确认按钮loading状态 | `boolean` | `false` |
+| closeOnClickModal | 点击遮罩关闭弹窗 | `boolean` | `true` |
+| closeOnPressEscape | esc 关闭弹窗 | `boolean` | `true` |
+| confirmText | 确认按钮文本 | `string\|slot` | `确认` |
+| cancelText | 取消按钮文本 | `string\|slot` | `取消` |
+| class | modal的class，宽度通过这个配置 | `string` | - |
+| contentClass | modal内容区域的class | `string` | - |
+| footerClass | modal底部区域的class | `string` | - |
+| headerClass | modal顶部区域的class | `string` | - |
 
 ### Event
 

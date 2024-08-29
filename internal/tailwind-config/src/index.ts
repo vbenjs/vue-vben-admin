@@ -190,8 +190,8 @@ export default {
         },
         float: {
           '0%': { transform: 'translateY(0)' },
-          '100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
+          '100%': { transform: 'translateY(0)' },
         },
       },
       zIndex: {
@@ -228,11 +228,11 @@ function createColorsPalette(name: string) {
   // •	backgroundDarkest (#172554): 适用于最深的背景，可能用于非常深色的区域或极端对比色。
 
   return {
+    50: `hsl(var(--${name}-50))`,
     100: `hsl(var(--${name}-100))`,
     200: `hsl(var(--${name}-200))`,
     300: `hsl(var(--${name}-300))`,
     400: `hsl(var(--${name}-400))`,
-    50: `hsl(var(--${name}-50))`,
     500: `hsl(var(--${name}-500))`,
     600: `hsl(var(--${name}-600))`,
     700: `hsl(var(--${name}-700))`,

@@ -18,6 +18,7 @@ import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
+import { viteArchiverPlugin } from './archiver';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
@@ -92,6 +93,8 @@ async function loadApplicationPlugins(
   const env = options.env;
 
   const {
+    archiver,
+    archiverPluginOptions,
     compress,
     compressTypes,
     extraAppConfig,
@@ -138,6 +141,7 @@ async function loadApplicationPlugins(
         return [await viteNitroMockPlugin(nitroMockOptions)];
       },
     },
+
     {
       condition: injectAppLoading,
       plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env)],
@@ -184,7 +188,6 @@ async function loadApplicationPlugins(
       condition: !!html,
       plugins: () => [viteHtmlPlugin({ minify: true })],
     },
-
     {
       condition: isBuild && importmap,
       plugins: () => {
@@ -196,6 +199,12 @@ async function loadApplicationPlugins(
       plugins: async () => [
         await viteExtraAppConfigPlugin({ isBuild: true, root: process.cwd() }),
       ],
+    },
+    {
+      condition: archiver,
+      plugins: async () => {
+        return [await viteArchiverPlugin(archiverPluginOptions)];
+      },
     },
   ]);
 }
@@ -226,6 +235,7 @@ async function loadLibraryPlugins(
 export {
   loadApplicationPlugins,
   loadLibraryPlugins,
+  viteArchiverPlugin,
   viteCompressPlugin,
   viteDtsPlugin,
   viteHtmlPlugin,

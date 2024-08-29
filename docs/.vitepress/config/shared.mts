@@ -3,6 +3,8 @@ import type { HeadConfig } from 'vitepress';
 
 import { resolve } from 'node:path';
 
+import { viteArchiverPlugin } from '@vben/vite-config';
+
 import {
   GitChangelog,
   GitChangelogMarkdownSection,
@@ -76,6 +78,7 @@ export const shared = defineConfig({
         repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
       }),
       GitChangelogMarkdownSection(),
+      viteArchiverPlugin({ outputDir: '.vitepress' }),
     ],
     server: {
       fs: {

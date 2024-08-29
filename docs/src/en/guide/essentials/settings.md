@@ -55,6 +55,9 @@ VITE_DEVTOOLS=true
 
 # Whether to inject global loading
 VITE_INJECT_APP_LOADING=true
+
+# Whether to generate after packaging dist.zip
+VITE_ARCHIVER=true
 ```
 
 :::
