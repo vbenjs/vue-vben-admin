@@ -91,7 +91,7 @@ const tabsView = computed((): TabConfig[] => {
               class="tabs-chrome__background absolute z-[-1] size-full px-[calc(var(--gap)-1px)] py-0 transition-opacity duration-150"
             >
               <div
-                class="tabs-chrome__background-content group-[.is-active]:bg-heavy dark:group-[.is-active]:bg-accent h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
+                class="tabs-chrome__background-content group-[.is-active]:bg-primary/15 dark:group-[.is-active]:bg-accent h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
               ></div>
               <svg
                 class="tabs-chrome__background-before group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent absolute bottom-0 left-[-1px] fill-transparent transition-all duration-150"
@@ -128,7 +128,7 @@ const tabsView = computed((): TabConfig[] => {
 
             <!-- tab-item-main -->
             <div
-              class="tabs-chrome__item-main group-[.is-active]:text-accent-foreground dark:group-[.is-active]:text-accent-foreground text-accent-foreground z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pl-2 pr-4 duration-150"
+              class="tabs-chrome__item-main group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground text-accent-foreground z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pl-2 pr-4 duration-150"
             >
               <VbenIcon
                 v-if="showIcon"
@@ -168,7 +168,7 @@ const tabsView = computed((): TabConfig[] => {
         @apply pb-[2px];
 
         &-content {
-          @apply bg-accent-hover mx-[2px] rounded-md;
+          @apply bg-accent mx-[2px] rounded-md;
         }
       }
     }

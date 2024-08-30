@@ -28,7 +28,7 @@ interface ResponseInterceptorConfig<T = any> {
   rejected?: (error: any) => any;
 }
 
-type MakeErrorMessageFn = (message: string) => void;
+type MakeErrorMessageFn = (message: string, error: any) => void;
 
 interface HttpResponse<T = any> {
   /**

@@ -76,7 +76,8 @@ function handleNotice(versionTag: string) {
         ToastAction,
         {
           altText: $t('common.refresh'),
-          class: 'bg-primary hover:bg-primary-hover mx-1',
+          class:
+            'bg-primary text-primary-foreground hover:bg-primary-hover mx-1',
           onClick: () => {
             lastVersionTag.value = versionTag;
             window.location.reload();

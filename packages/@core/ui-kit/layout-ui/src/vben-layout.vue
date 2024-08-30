@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarWidth: 180,
   sideCollapseWidth: 60,
   tabbarEnable: true,
-  tabbarHeight: 36,
+  tabbarHeight: 40,
   zIndex: 200,
 });
 

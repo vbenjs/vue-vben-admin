@@ -75,7 +75,7 @@ const defaultPreferences: Preferences = {
   tabbar: {
     dragable: true,
     enable: true,
-    height: 36,
+    height: 38,
     keepAlive: true,
     persist: true,
     showIcon: true,
