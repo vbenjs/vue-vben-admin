@@ -36,7 +36,7 @@ const logoSource = computed(() => preferences.logo.source);
     <!-- 左侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelLeft"
-      class="min-h-full w-2/5"
+      class="min-h-full w-2/5 flex-1"
       transition-name="slide-left"
     >
       <template v-if="toolbar" #toolbar>
