@@ -75,7 +75,7 @@
     "@vben/turbo-run": "workspace:*",
     "@vben/vite-config": "workspace:*",
     "@vben/vsh": "workspace:*",
-    "@vitejs/plugin-vue": "^5.1.2",
+    "@vitejs/plugin-vue": "^5.1.3",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",

@@ -27,6 +27,6 @@
     "@vben/utils": "workspace:*",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3",
-    "watermark-js-plus": "^1.5.3"
+    "watermark-js-plus": "^1.5.4"
   }
 }
