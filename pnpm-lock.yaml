@@ -331,15 +331,9 @@ importers:
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
-      '@vueuse/core':
-        specifier: ^11.0.3
-        version: 11.0.3(vue@3.4.38(typescript@5.5.4))
       lucide-vue-next:
         specifier: ^0.436.0
         version: 0.436.0(vue@3.4.38(typescript@5.5.4))
-      markdown-it:
-        specifier: ^14.1.0
-        version: 14.1.0
       medium-zoom:
         specifier: ^1.1.0
         version: 1.1.0
@@ -350,9 +344,6 @@ importers:
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: ^2.4.0
         version: 2.4.0(@algolia/client-search@4.24.0)(@types/node@22.5.1)(async-validator@4.2.5)(axios@1.7.5)(nprogress@0.2.0)(postcss@8.4.41)(qrcode@1.5.4)(sass@1.77.8)(search-insights@2.16.3)(sortablejs@1.15.2)(terser@5.31.6)(typescript@5.5.4)
-      '@types/markdown-it':
-        specifier: ^14.1.2
-        version: 14.1.2
       '@vben/vite-config':
         specifier: workspace:*
         version: link:../internal/vite-config
@@ -1093,6 +1084,9 @@ importers:
       '@intlify/core-base':
         specifier: ^9.14.0
         version: 9.14.0
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../@core/composables
       vue:
         specifier: 3.4.38
         version: 3.4.38(typescript@5.5.4)
@@ -6952,9 +6946,6 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  linkify-it@5.0.0:
-    resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
-
   lint-staged@15.2.9:
     resolution: {integrity: sha512-BZAt8Lk3sEnxw7tfxM7jeZlPRuT4M68O0/CwZhhaw6eeWu0Lz5eERE3m386InivXB64fp/mDID452h48tvKlRQ==}
     engines: {node: '>=18.12.0'}
@@ -7134,10 +7125,6 @@ packages:
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
 
-  markdown-it@14.1.0:
-    resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
-    hasBin: true
-
   mathml-tag-names@2.1.3:
     resolution: {integrity: sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==}
 
@@ -7146,9 +7133,6 @@ packages:
 
   mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
-
-  mdurl@2.0.0:
-    resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}
 
   medium-zoom@1.1.0:
     resolution: {integrity: sha512-ewyDsp7k4InCUp3jRmwHBRFGyjBimKps/AJLjRSox+2q/2H4p/PNpQf+pwONWlJiOudkBXtbdmVbFjqyybfTmQ==}
@@ -8312,10 +8296,6 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  punycode.js@2.3.1:
-    resolution: {integrity: sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA==}
-    engines: {node: '>=6'}
-
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -9321,9 +9301,6 @@ packages:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
     engines: {node: '>=14.17'}
     hasBin: true
-
-  uc.micro@2.1.0:
-    resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
@@ -16366,10 +16343,6 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  linkify-it@5.0.0:
-    dependencies:
-      uc.micro: 2.1.0
-
   lint-staged@15.2.9:
     dependencies:
       chalk: 5.3.0
@@ -16586,22 +16559,11 @@ snapshots:
 
   mark.js@8.11.1: {}
 
-  markdown-it@14.1.0:
-    dependencies:
-      argparse: 2.0.1
-      entities: 4.5.0
-      linkify-it: 5.0.0
-      mdurl: 2.0.0
-      punycode.js: 2.3.1
-      uc.micro: 2.1.0
-
   mathml-tag-names@2.1.3: {}
 
   mdn-data@2.0.28: {}
 
   mdn-data@2.0.30: {}
-
-  mdurl@2.0.0: {}
 
   medium-zoom@1.1.0: {}
 
@@ -17776,8 +17738,6 @@ snapshots:
       picocolors: 1.0.1
       sade: 1.8.1
 
-  punycode.js@2.3.1: {}
-
   punycode@2.3.1: {}
 
   pupa@3.1.0:
@@ -18904,8 +18864,6 @@ snapshots:
   typescript@5.4.2: {}
 
   typescript@5.5.4: {}
-
-  uc.micro@2.1.0: {}
 
   ufo@1.5.4: {}
 

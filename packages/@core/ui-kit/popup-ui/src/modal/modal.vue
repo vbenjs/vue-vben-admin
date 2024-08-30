@@ -3,7 +3,11 @@ import type { ExtendedModalApi, ModalProps } from './modal';
 
 import { computed, nextTick, ref, watch } from 'vue';
 
-import { useIsMobile, usePriorityValue } from '@vben-core/composables';
+import {
+  useIsMobile,
+  usePriorityValue,
+  useSimpleLocale,
+} from '@vben-core/composables';
 import { Expand, Info, Shrink } from '@vben-core/icons';
 import {
   Dialog,
@@ -44,6 +48,7 @@ const dialogRef = ref();
 const headerRef = ref();
 const footerRef = ref();
 
+const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 const state = props.modalApi?.useStore?.();
 
@@ -235,7 +240,7 @@ function pointerDownOutside(e: Event) {
         <slot name="footer">
           <VbenButton variant="ghost" @click="() => modalApi?.onCancel()">
             <slot name="cancelText">
-              {{ cancelText }}
+              {{ cancelText || $t('cancel') }}
             </slot>
           </VbenButton>
           <VbenButton
@@ -243,7 +248,7 @@ function pointerDownOutside(e: Event) {
             @click="() => modalApi?.onConfirm()"
           >
             <slot name="confirmText">
-              {{ confirmText }}
+              {{ confirmText || $t('confirm') }}
             </slot>
           </VbenButton>
         </slot>

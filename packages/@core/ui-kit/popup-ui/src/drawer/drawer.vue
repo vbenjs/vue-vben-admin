@@ -3,7 +3,11 @@ import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
 import { ref, watch } from 'vue';
 
-import { useIsMobile, usePriorityValue } from '@vben-core/composables';
+import {
+  useIsMobile,
+  usePriorityValue,
+  useSimpleLocale,
+} from '@vben-core/composables';
 import { Info, X } from '@vben-core/icons';
 import {
   Sheet,
@@ -34,7 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const wrapperRef = ref<HTMLElement>();
-
+const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 const state = props.drawerApi?.useStore?.();
 
@@ -165,7 +169,7 @@ function pointerDownOutside(e: Event) {
         <slot name="footer">
           <VbenButton variant="ghost" @click="() => drawerApi?.onCancel()">
             <slot name="cancelText">
-              {{ cancelText }}
+              {{ cancelText || $t('cancel') }}
             </slot>
           </VbenButton>
           <VbenButton
@@ -173,7 +177,7 @@ function pointerDownOutside(e: Event) {
             @click="() => drawerApi?.onConfirm()"
           >
             <slot name="confirmText">
-              {{ confirmText }}
+              {{ confirmText || $t('confirm') }}
             </slot>
           </VbenButton>
         </slot>
