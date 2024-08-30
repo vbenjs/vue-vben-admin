@@ -87,7 +87,7 @@ export const errorMessageResponseInterceptor = (
         errMsg = $t('fallback.http.requestTimeout');
       }
       if (errMsg) {
-        makeErrorMessage?.(errMsg);
+        makeErrorMessage?.(errMsg, error);
         return Promise.reject(error);
       }
 
@@ -119,7 +119,7 @@ export const errorMessageResponseInterceptor = (
           errorMessage = $t('fallback.http.internalServerError');
         }
       }
-      makeErrorMessage?.(errorMessage);
+      makeErrorMessage?.(errorMessage, error);
       return Promise.reject(error);
     },
   };
