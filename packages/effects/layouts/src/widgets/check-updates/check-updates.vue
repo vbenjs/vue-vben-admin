@@ -61,7 +61,7 @@ async function checkForUpdates() {
 }
 function handleNotice(versionTag: string) {
   const { dismiss } = toast({
-    action: h('div', [
+    action: h('div', { class: 'inline-flex items-center' }, [
       h(
         ToastAction,
         {
@@ -94,7 +94,7 @@ function handleNotice(versionTag: string) {
 }
 
 function start() {
-  // 每5分钟检查一次
+  // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
   timer.value = setInterval(
     checkForUpdates,
     props.checkUpdatesInterval * 60 * 1000,
