@@ -1,6 +1,6 @@
 {
   "name": "@vben/docs",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "private": true,
   "scripts": {
     "build": "vitepress build",
