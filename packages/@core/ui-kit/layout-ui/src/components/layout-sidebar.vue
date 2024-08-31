@@ -221,7 +221,7 @@ function handleMouseenter() {
   expandOnHovering.value = true;
 }
 
-function handleMouseleave() {
+function handleMouseleave(param?: boolean) {
   emit('leave');
 
   if (expandOnHover.value) {
@@ -230,8 +230,8 @@ function handleMouseleave() {
 
   isLocked.value = false;
   expandOnHovering.value = false;
-  collapse.value = true;
-  extraVisible.value = false;
+  collapse.value = !param;
+  extraVisible.value = param;
 }
 </script>
 
@@ -253,11 +253,12 @@ function handleMouseleave() {
     :style="style"
     class="fixed left-0 top-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
-    @mouseleave="handleMouseleave"
+    @mouseleave="handleMouseleave(false)"
   >
     <SidebarFixedButton
       v-if="!collapse && !isSidebarMixed"
       v-model:expand-on-hover="expandOnHover"
+      @click="handleMouseleave(true)"
     />
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
@@ -288,6 +289,7 @@ function handleMouseleave() {
       <SidebarFixedButton
         v-if="!extraCollapse"
         v-model:expand-on-hover="expandOnHover"
+        @click="handleMouseleave(true)"
       />
       <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
         <slot name="extra-title"></slot>
