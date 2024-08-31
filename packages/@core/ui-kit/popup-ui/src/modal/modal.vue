@@ -159,7 +159,7 @@ function pointerDownOutside(e: Event) {
         )
       "
       :show-close="closable"
-      close-class="top-4"
+      close-class="top-3"
       @escape-key-down="escapeKeyDown"
       @interact-outside="interactOutside"
       @pointer-down-outside="pointerDownOutside"
@@ -219,7 +219,7 @@ function pointerDownOutside(e: Event) {
 
       <VbenIconButton
         v-if="fullscreenButton"
-        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
+        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-3 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />

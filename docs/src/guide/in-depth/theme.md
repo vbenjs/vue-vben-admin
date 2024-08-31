@@ -53,7 +53,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* 主题颜色 */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -264,7 +264,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // 错误色
     colorDestructive: 'hsl(348 100% 61%)',
     // 主题色
-    colorPrimary: 'hsl(231 98% 65%)',
+    colorPrimary: 'hsl(212 100% 45%)',
     // 成功色
     colorSuccess: 'hsl(144 57% 58%)',
     // 警告色
@@ -351,7 +351,7 @@ type BuiltinThemeType =
 
   /* 主题颜色 */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

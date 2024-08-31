@@ -95,6 +95,10 @@ function handleNotice(versionTag: string) {
 }
 
 function start() {
+  if (props.checkUpdatesInterval <= 0) {
+    return;
+  }
+
   // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
   timer.value = setInterval(
     checkForUpdates,
