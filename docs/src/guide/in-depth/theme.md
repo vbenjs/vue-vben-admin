@@ -36,7 +36,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   --background: 0 0% 100%;
 
   /* 主体区域背景色 */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -111,7 +111,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 216 20.11% 95.47%;
   --menu: var(--sidebar);
 
   /* header */
@@ -330,7 +330,7 @@ type BuiltinThemeType =
   --background: 0 0% 100%;
 
   /* 主体区域背景色 */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 222 84% 5%;
 
   /* Background color for <Card /> */

@@ -60,9 +60,9 @@ const tabsView = computed((): TabConfig[] => {
     ref="contentRef"
     :class="contentClass"
     :style="style"
-    class="tabs-chrome !flex h-full w-max pr-6"
+    class="tabs-chrome !flex h-full w-max overflow-y-hidden pr-6"
   >
-    <TransitionGroup name="slide-right">
+    <TransitionGroup name="slide-down">
       <div
         v-for="(tab, i) in tabsView"
         :key="tab.key"
@@ -84,7 +84,7 @@ const tabsView = computed((): TabConfig[] => {
             <!-- divider -->
             <div
               v-if="i !== 0 && tab.key !== active"
-              class="tabs-chrome__divider bg-foreground/50 absolute left-[var(--gap)] top-1/2 z-0 h-4 w-[1px] translate-y-[-50%] transition-all"
+              class="tabs-chrome__divider bg-border absolute left-[var(--gap)] top-1/2 z-0 h-4 w-[1px] translate-y-[-50%] transition-all"
             ></div>
             <!-- background -->
             <div

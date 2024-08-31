@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './types';
+import type { BreadcrumbProps } from './types';
 
 import { ChevronDown } from '@vben-core/icons';
 
@@ -19,10 +19,7 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
-interface Props {
-  breadcrumbs: IBreadcrumb[];
-  showIcon?: boolean;
-}
+interface Props extends BreadcrumbProps {}
 
 defineOptions({ name: 'Breadcrumb' });
 withDefaults(defineProps<Props>(), {

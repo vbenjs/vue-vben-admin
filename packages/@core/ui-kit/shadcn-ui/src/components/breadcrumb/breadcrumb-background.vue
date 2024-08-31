@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import type { IBreadcrumb } from './types';
+import type { BreadcrumbProps } from './types';
 
 import { VbenIcon } from '../icon';
 
-interface Props {
-  breadcrumbs: IBreadcrumb[];
-  showIcon?: boolean;
-}
+interface Props extends BreadcrumbProps {}
 
 defineOptions({ name: 'Breadcrumb' });
 withDefaults(defineProps<Props>(), {

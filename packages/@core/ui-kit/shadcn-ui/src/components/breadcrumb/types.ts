@@ -1,6 +1,8 @@
+import type { BreadcrumbStyleType } from '@vben-core/typings';
+
 import type { Component } from 'vue';
 
-interface IBreadcrumb {
+export interface IBreadcrumb {
   icon?: Component | string;
   isHome?: boolean;
   items?: IBreadcrumb[];
@@ -8,4 +10,8 @@ interface IBreadcrumb {
   title?: string;
 }
 
-export type { IBreadcrumb };
+export interface BreadcrumbProps {
+  breadcrumbs: IBreadcrumb[];
+  showIcon?: boolean;
+  styleType?: BreadcrumbStyleType;
+}

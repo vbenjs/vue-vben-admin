@@ -36,7 +36,7 @@ You can check the list below to understand all the available variables.
   --background: 0 0% 100%;
 
   /* Main area background color */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -111,7 +111,7 @@ You can check the list below to understand all the available variables.
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 216 20.11% 95.47%;
   --menu: var(--sidebar);
 
   /* header */
@@ -330,7 +330,7 @@ type BuiltinThemeType =
   --background: 0 0% 100%;
 
   /* Main area background color */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 222 84% 5%;
 
   /* Background color for <Card /> */
