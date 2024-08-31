@@ -53,7 +53,7 @@ You can check the list below to understand all the available variables.
 
   /* Theme Colors */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -264,7 +264,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // Error color
     colorDestructive: 'hsl(348 100% 61%)',
     // Primary color
-    colorPrimary: 'hsl(231 98% 65%)',
+    colorPrimary: 'hsl(212 100% 45%)',
     // Success color
     colorSuccess: 'hsl(144 57% 58%)',
     // Warning color
@@ -351,7 +351,7 @@ type BuiltinThemeType =
 
   /* Theme Colors */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

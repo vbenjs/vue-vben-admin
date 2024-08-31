@@ -92,14 +92,16 @@ function handleGo(path: string) {
 
 <template>
   <div @keydown.enter.prevent="handleSubmit">
-    <Title>
-      {{ title || `${$t('authentication.welcomeBack')} 👋🏻` }}
-      <template #desc>
-        <span class="text-muted-foreground">
-          {{ subTitle || $t('authentication.loginSubtitle') }}
-        </span>
-      </template>
-    </Title>
+    <slot name="title">
+      <Title>
+        {{ title || `${$t('authentication.welcomeBack')} 👋🏻` }}
+        <template #desc>
+          <span class="text-muted-foreground">
+            {{ subTitle || $t('authentication.loginSubtitle') }}
+          </span>
+        </template>
+      </Title>
+    </slot>
 
     <VbenInput
       v-model="formState.username"
@@ -123,7 +125,10 @@ function handleGo(path: string) {
       type="password"
     />
 
-    <div class="mb-6 mt-4 flex justify-between">
+    <div
+      v-if="showRememberMe || showForgetPassword"
+      class="mb-6 mt-4 flex justify-between"
+    >
       <div v-if="showRememberMe" class="flex-center">
         <VbenCheckbox v-model:checked="formState.rememberMe" name="rememberMe">
           {{ $t('authentication.rememberMe') }}
@@ -142,7 +147,10 @@ function handleGo(path: string) {
       {{ $t('common.login') }}
     </VbenButton>
 
-    <div class="mb-2 mt-4 flex items-center justify-between">
+    <div
+      v-if="showCodeLogin || showQrcodeLogin"
+      class="mb-2 mt-4 flex items-center justify-between"
+    >
       <VbenButton
         v-if="showCodeLogin"
         class="w-1/2"
@@ -162,16 +170,20 @@ function handleGo(path: string) {
     </div>
 
     <!-- 第三方登录 -->
-    <ThirdPartyLogin v-if="showThirdPartyLogin" />
+    <slot name="third-party-login">
+      <ThirdPartyLogin v-if="showThirdPartyLogin" />
+    </slot>
 
-    <div v-if="showRegister" class="text-center text-sm">
-      {{ $t('authentication.accountTip') }}
-      <span
-        class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
-        @click="handleGo(registerPath)"
-      >
-        {{ $t('authentication.createAccount') }}
-      </span>
-    </div>
+    <slot name="to-register">
+      <div v-if="showRegister" class="mt-3 text-center text-sm">
+        {{ $t('authentication.accountTip') }}
+        <span
+          class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
+          @click="handleGo(registerPath)"
+        >
+          {{ $t('authentication.createAccount') }}
+        </span>
+      </div>
+    </slot>
   </div>
 </template>

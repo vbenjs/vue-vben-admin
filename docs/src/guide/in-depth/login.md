@@ -8,27 +8,20 @@
 
 ![login](/guide/login.png)
 
-只需要在应用下的 `src/router/routes/core.ts` 内，配置`AuthPageLayout`的 `props`参数即可：
+只需要在应用下的 `src/layouts/auth.vue` 内，配置`AuthPageLayout`的 `props`参数即可：
 
-```ts {4-8}
- {
-    component: AuthPageLayout,
-    props: {
-      sloganImage: "xxx/xxx.png",
-      pageTitle: "开箱即用的大型中后台管理系统",
-      pageDescription: "工程化、高性能、跨组件库的前端模版",
-      toolbar: true,
-      toolbarList: () => ['color', 'language', 'layout', 'theme'],
-    }
-    // ...
-  },
+```vue {2-7}
+<AuthPageLayout
+  :copyright="true"
+  :toolbar="true"
+  :toolbarList="['color', 'language', 'layout', 'theme']"
+  :app-name="appName"
+  :logo="logo"
+  :page-description="$t('authentication.pageDesc')"
+  :page-title="$t('authentication.pageTitle')"
+>
+</AuthPageLayout>
 ```
-
-::: tip
-
-如果这些配置不能满足你的需求，你可以自行实现登录页面。直接实现自己的 `AuthPageLayout`即可。
-
-:::
 
 ## 登录表单调整
 
