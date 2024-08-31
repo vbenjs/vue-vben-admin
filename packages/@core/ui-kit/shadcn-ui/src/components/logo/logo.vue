@@ -1,27 +1,29 @@
 <script setup lang="ts">
+import { VbenAvatar } from '../avatar';
+
 interface Props {
   /**
-   * 是否收起文本
+   * @zh_CN 是否收起文本
    */
   collapsed?: boolean;
   /**
-   * Logo 跳转地址
+   * @zh_CN Logo 跳转地址
    */
   href?: string;
   /**
-   * Logo 图片大小
+   * @zh_CN Logo 图片大小
    */
   logoSize?: number;
   /**
-   * Logo 图标
+   * @zh_CN Logo 图标
    */
   src?: string;
   /**
-   * Logo 文本
+   * @zh_CN Logo 文本
    */
   text: string;
   /**
-   * Logo 主题
+   * @zh_CN Logo 主题
    */
   theme?: string;
 }
@@ -44,16 +46,18 @@ withDefaults(defineProps<Props>(), {
     <a
       :class="$attrs.class"
       :href="href"
-      class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg font-semibold leading-normal transition-all duration-500"
+      class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg leading-normal transition-all duration-500"
     >
-      <img
+      <VbenAvatar
         v-if="src"
         :alt="text"
         :src="src"
-        :width="logoSize"
-        class="relative rounded-none bg-transparent"
+        class="relative w-8 rounded-none bg-transparent"
       />
-      <span v-if="!collapsed" class="text-foreground truncate text-nowrap">
+      <span
+        v-if="!collapsed"
+        class="text-foreground truncate text-nowrap font-semibold"
+      >
         {{ text }}
       </span>
     </a>

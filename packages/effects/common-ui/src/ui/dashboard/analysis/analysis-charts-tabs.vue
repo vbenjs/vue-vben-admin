@@ -23,7 +23,7 @@ const defaultValue = computed(() => {
 </script>
 
 <template>
-  <div class="card-box w-full px-4 pb-5 pt-3 shadow">
+  <div class="card-box w-full px-4 pb-5 pt-3">
     <Tabs :default-value="defaultValue">
       <TabsList>
         <template v-for="tab in tabs" :key="tab.label">

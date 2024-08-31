@@ -6,7 +6,7 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import { VbenBackgroundBreadcrumb, VbenBreadcrumb } from '@vben-core/shadcn-ui';
+import { VbenBreadcrumbView } from '@vben-core/shadcn-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;
@@ -62,17 +62,10 @@ function handleSelect(path: string) {
 }
 </script>
 <template>
-  <VbenBreadcrumb
-    v-if="type === 'normal'"
+  <VbenBreadcrumbView
     :breadcrumbs="breadcrumbs"
     :show-icon="showIcon"
-    class="ml-2"
-    @select="handleSelect"
-  />
-  <VbenBackgroundBreadcrumb
-    v-if="type === 'background'"
-    :breadcrumbs="breadcrumbs"
-    :show-icon="showIcon"
+    :style-type="type"
     class="ml-2"
     @select="handleSelect"
   />

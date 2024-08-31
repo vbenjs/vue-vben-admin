@@ -153,7 +153,7 @@ function pointerDownOutside(e: Event) {
           {
             'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
               shouldFullscreen,
-            'top-1/2 -translate-y-1/2': centered && !shouldFullscreen,
+            'top-1/2 !-translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
           },
         )

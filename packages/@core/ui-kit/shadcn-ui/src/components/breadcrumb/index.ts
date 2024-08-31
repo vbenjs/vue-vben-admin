@@ -1,4 +1,3 @@
-export { default as VbenBreadcrumb } from './breadcrumb.vue';
-export { default as VbenBackgroundBreadcrumb } from './breadcrumb-background.vue';
+export { default as VbenBreadcrumbView } from './breadcrumb-view.vue';
 
 export type * from './types';
