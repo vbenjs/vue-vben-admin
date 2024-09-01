@@ -223,12 +223,11 @@ function handleMouseenter() {
 
 function handleMouseleave() {
   emit('leave');
-
+  isLocked.value = false;
   if (expandOnHover.value) {
     return;
   }
 
-  isLocked.value = false;
   expandOnHovering.value = false;
   collapse.value = true;
   extraVisible.value = false;
