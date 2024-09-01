@@ -36,6 +36,8 @@ export class DrawerApi {
       isOpen: false,
       loading: false,
       modal: true,
+      showCancelButton: true,
+      showConfirmButton: true,
       title: '',
     };
 

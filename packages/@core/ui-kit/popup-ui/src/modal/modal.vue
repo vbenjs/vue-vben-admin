@@ -69,6 +69,8 @@ const draggable = usePriorityValue('draggable', props, state);
 const fullscreenButton = usePriorityValue('fullscreenButton', props, state);
 const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
 const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
+const showCancelButton = usePriorityValue('showCancelButton', props, state);
+const showConfirmButton = usePriorityValue('showConfirmButton', props, state);
 
 const shouldFullscreen = computed(
   () => (fullscreen.value && header.value) || isMobile.value,
@@ -238,12 +240,17 @@ function pointerDownOutside(e: Event) {
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">
-          <VbenButton variant="ghost" @click="() => modalApi?.onCancel()">
+          <VbenButton
+            v-if="showCancelButton"
+            variant="ghost"
+            @click="() => modalApi?.onCancel()"
+          >
             <slot name="cancelText">
               {{ cancelText || $t('cancel') }}
             </slot>
           </VbenButton>
           <VbenButton
+            v-if="showConfirmButton"
             :loading="confirmLoading"
             @click="() => modalApi?.onConfirm()"
           >

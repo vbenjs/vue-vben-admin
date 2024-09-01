@@ -1,2 +1,2 @@
 export * from './components';
-export { VisuallyHidden } from 'radix-vue';
+export { Slot, VisuallyHidden } from 'radix-vue';
