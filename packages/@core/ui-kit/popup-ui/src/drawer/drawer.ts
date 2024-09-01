@@ -51,6 +51,16 @@ export interface DrawerProps {
    */
   modal?: boolean;
   /**
+   * 是否显示取消按钮
+   * @default true
+   */
+  showCancelButton?: boolean;
+  /**
+   * 是否显示确认按钮
+   * @default true
+   */
+  showConfirmButton?: boolean;
+  /**
    * 弹窗标题
    */
   title?: string;

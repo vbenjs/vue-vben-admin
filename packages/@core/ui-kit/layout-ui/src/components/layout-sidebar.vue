@@ -217,13 +217,17 @@ function handleMouseenter() {
   if (!expandOnHovering.value) {
     collapse.value = false;
   }
-  isLocked.value = true;
+  if (props.isSidebarMixed) {
+    isLocked.value = true;
+  }
   expandOnHovering.value = true;
 }
 
 function handleMouseleave() {
   emit('leave');
-  isLocked.value = false;
+  if (props.isSidebarMixed) {
+    isLocked.value = false;
+  }
   if (expandOnHover.value) {
     return;
   }
