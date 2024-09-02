@@ -30,14 +30,15 @@ const active = defineModel<string>('active');
 const typeWithClass = computed(() => {
   const typeClasses: Record<string, { content: string }> = {
     brisk: {
-      content: `h-full  after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100 border-l border-border`,
+      content: `h-full after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100 [&:not(:first-child)]:border-l last:border-r last:border-r border-border`,
     },
     card: {
       content:
         'h-[calc(100%-6px)] rounded-md ml-2 border border-border  transition-all',
     },
     plain: {
-      content: 'h-full border-l border-border',
+      content:
+        'h-full [&:not(:first-child)]:border-l last:border-r border-border',
     },
   };
 
@@ -63,9 +64,9 @@ const tabsView = computed((): TabConfig[] => {
 <template>
   <div
     :class="contentClass"
-    class="relative !flex h-full w-max items-center pr-6"
+    class="relative !flex h-full w-max items-center overflow-y-hidden pr-6"
   >
-    <TransitionGroup name="slide-right">
+    <TransitionGroup name="slide-down">
       <div
         v-for="(tab, i) in tabsView"
         :key="tab.key"

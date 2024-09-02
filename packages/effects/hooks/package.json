@@ -1,6 +1,6 @@
 {
   "name": "@vben/hooks",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -27,6 +27,6 @@
     "@vben/utils": "workspace:*",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3",
-    "watermark-js-plus": "^1.5.3"
+    "watermark-js-plus": "^1.5.4"
   }
 }

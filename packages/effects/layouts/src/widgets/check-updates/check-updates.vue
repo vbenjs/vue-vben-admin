@@ -61,7 +61,7 @@ async function checkForUpdates() {
 }
 function handleNotice(versionTag: string) {
   const { dismiss } = toast({
-    action: h('div', [
+    action: h('div', { class: 'inline-flex items-center' }, [
       h(
         ToastAction,
         {
@@ -76,7 +76,8 @@ function handleNotice(versionTag: string) {
         ToastAction,
         {
           altText: $t('common.refresh'),
-          class: 'bg-primary hover:bg-primary-hover mx-1',
+          class:
+            'bg-primary text-primary-foreground hover:bg-primary-hover mx-1',
           onClick: () => {
             lastVersionTag.value = versionTag;
             window.location.reload();
@@ -94,7 +95,11 @@ function handleNotice(versionTag: string) {
 }
 
 function start() {
-  // 每5分钟检查一次
+  if (props.checkUpdatesInterval <= 0) {
+    return;
+  }
+
+  // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
   timer.value = setInterval(
     checkForUpdates,
     props.checkUpdatesInterval * 60 * 1000,

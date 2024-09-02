@@ -214,7 +214,11 @@ const trendItems: WorkbenchTrendItem[] = [
         <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
       </div>
       <div class="w-full lg:w-2/5">
-        <WorkbenchQuickNav :items="quickNavItems" title="快捷导航" />
+        <WorkbenchQuickNav
+          :items="quickNavItems"
+          class="mt-5 lg:mt-0"
+          title="快捷导航"
+        />
         <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
         <AnalysisChartCard class="mt-5" title="访问来源">
           <AnalyticsVisitsSource />

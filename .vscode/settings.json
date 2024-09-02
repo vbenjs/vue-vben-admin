@@ -213,7 +213,7 @@
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
     "Dockerfile": "Dockerfile,.docker*,docker-entrypoint.sh,build-local-docker*,nginx.conf",
-    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*,cspell.json",
+    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json",
     "tailwind.config.mjs": "postcss.*"
   },
   "commentTranslate.hover.enabled": false,

@@ -7,7 +7,7 @@
   --background: 0 0% 100%;
 
   /* 主体区域背景色 */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -28,7 +28,7 @@
 
   /* 主题颜色 */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -77,7 +77,8 @@
   /* ============= custom ============= */
 
   /* 遮罩颜色 */
-  --overlay: 0 0% 0% / 30%;
+  --overlay: 0 0% 0% / 45%;
+  --overlay-light: 0 0% 95% / 45%;
 
   /* 基本文字大小 */
   --font-size-base: 16px;

@@ -70,12 +70,12 @@ const defaultPreferences: Preferences = {
     expandOnHover: true,
     extraCollapse: true,
     hidden: false,
-    width: 230,
+    width: 224,
   },
   tabbar: {
     dragable: true,
     enable: true,
-    height: 36,
+    height: 38,
     keepAlive: true,
     persist: true,
     showIcon: true,
@@ -87,7 +87,7 @@ const defaultPreferences: Preferences = {
   theme: {
     builtinType: 'default',
     colorDestructive: 'hsl(348 100% 61%)',
-    colorPrimary: 'hsl(231 98% 65%)',
+    colorPrimary: 'hsl(212 100% 45%)',
     colorSuccess: 'hsl(144 57% 58%)',
     colorWarning: 'hsl(42 84% 61%)',
     mode: 'dark',

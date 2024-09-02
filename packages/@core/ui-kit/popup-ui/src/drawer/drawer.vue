@@ -54,6 +54,8 @@ const cancelText = usePriorityValue('cancelText', props, state);
 const confirmText = usePriorityValue('confirmText', props, state);
 const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
 const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
+const showCancelButton = usePriorityValue('showCancelButton', props, state);
+const showConfirmButton = usePriorityValue('showConfirmButton', props, state);
 
 watch(
   () => showLoading.value,
@@ -167,12 +169,17 @@ function pointerDownOutside(e: Event) {
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">
-          <VbenButton variant="ghost" @click="() => drawerApi?.onCancel()">
+          <VbenButton
+            v-if="showCancelButton"
+            variant="ghost"
+            @click="() => drawerApi?.onCancel()"
+          >
             <slot name="cancelText">
               {{ cancelText || $t('cancel') }}
             </slot>
           </VbenButton>
           <VbenButton
+            v-if="showConfirmButton"
             :loading="confirmLoading"
             @click="() => drawerApi?.onConfirm()"
           >

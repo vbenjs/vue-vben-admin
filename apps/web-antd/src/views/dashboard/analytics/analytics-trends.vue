@@ -55,12 +55,27 @@ onMounted(() => {
       },
       trigger: 'axis',
     },
+    // xAxis: {
+    //   axisTick: {
+    //     show: false,
+    //   },
+    //   boundaryGap: false,
+    //   data: Array.from({ length: 18 }).map((_item, index) => `${index + 6}:00`),
+    //   type: 'category',
+    // },
     xAxis: {
       axisTick: {
         show: false,
       },
       boundaryGap: false,
       data: Array.from({ length: 18 }).map((_item, index) => `${index + 6}:00`),
+      splitLine: {
+        lineStyle: {
+          type: 'solid',
+          width: 1,
+        },
+        show: true,
+      },
       type: 'category',
     },
     yAxis: [
@@ -69,7 +84,10 @@ onMounted(() => {
           show: false,
         },
         max: 80_000,
-
+        splitArea: {
+          show: true,
+        },
+        splitNumber: 4,
         type: 'value',
       },
     ],

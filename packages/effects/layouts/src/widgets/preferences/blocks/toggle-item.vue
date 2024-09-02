@@ -23,7 +23,9 @@ const modelValue = defineModel<string>();
     class="hover:bg-accent flex w-full items-center justify-between rounded-md px-2 py-2"
     disabled
   >
-    <span class="text-sm"><slot></slot></span>
+    <span class="text-sm">
+      <slot></slot>
+    </span>
     <ToggleGroup
       v-model="modelValue"
       class="gap-2"

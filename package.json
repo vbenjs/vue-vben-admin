@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-pro",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "private": true,
   "keywords": [
     "monorepo",
@@ -63,7 +63,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.7",
-    "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.5.1",
     "@vben/commitlint-config": "workspace:*",
@@ -75,7 +74,7 @@
     "@vben/turbo-run": "workspace:*",
     "@vben/vite-config": "workspace:*",
     "@vben/vsh": "workspace:*",
-    "@vitejs/plugin-vue": "^5.1.2",
+    "@vitejs/plugin-vue": "^5.1.3",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
@@ -93,7 +92,7 @@
     "vite": "^5.4.2",
     "vitest": "^2.0.5",
     "vue": "^3.4.38",
-    "vue-tsc": "^2.0.29"
+    "vue-tsc": "^2.1.2"
   },
   "engines": {
     "node": ">=20",

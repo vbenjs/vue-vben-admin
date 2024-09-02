@@ -36,7 +36,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   --background: 0 0% 100%;
 
   /* 主体区域背景色 */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
   /* Background color for <Card /> */
@@ -53,7 +53,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* 主题颜色 */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -111,7 +111,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* menu */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 210 11.11% 96.47%;
+  --sidebar-deep: 216 20.11% 95.47%;
   --menu: var(--sidebar);
 
   /* header */
@@ -264,7 +264,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // 错误色
     colorDestructive: 'hsl(348 100% 61%)',
     // 主题色
-    colorPrimary: 'hsl(231 98% 65%)',
+    colorPrimary: 'hsl(212 100% 45%)',
     // 成功色
     colorSuccess: 'hsl(144 57% 58%)',
     // 警告色
@@ -330,7 +330,7 @@ type BuiltinThemeType =
   --background: 0 0% 100%;
 
   /* 主体区域背景色 */
-  --background-deep: 210 11.11% 96.47%;
+  --background-deep: 216 20.11% 95.47%;
   --foreground: 222 84% 5%;
 
   /* Background color for <Card /> */
@@ -351,7 +351,7 @@ type BuiltinThemeType =
 
   /* 主题颜色 */
 
-  --primary: 231 98% 65%;
+  --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

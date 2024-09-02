@@ -25,7 +25,7 @@ const show = ref(false);
 </script>
 
 <template>
-  <form class="relative">
+  <div class="relative">
     <VbenInput
       v-model="modelValue"
       v-bind="{ ...forward, ...$attrs }"
@@ -48,5 +48,5 @@ const show = ref(false);
       <Eye v-if="show" class="size-4" />
       <EyeOff v-else class="size-4" />
     </div>
-  </form>
+  </div>
 </template>

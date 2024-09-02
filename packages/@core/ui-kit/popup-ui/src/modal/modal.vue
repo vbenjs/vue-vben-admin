@@ -69,6 +69,8 @@ const draggable = usePriorityValue('draggable', props, state);
 const fullscreenButton = usePriorityValue('fullscreenButton', props, state);
 const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
 const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
+const showCancelButton = usePriorityValue('showCancelButton', props, state);
+const showConfirmButton = usePriorityValue('showConfirmButton', props, state);
 
 const shouldFullscreen = computed(
   () => (fullscreen.value && header.value) || isMobile.value,
@@ -153,13 +155,13 @@ function pointerDownOutside(e: Event) {
           {
             'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
               shouldFullscreen,
-            'top-1/2 -translate-y-1/2': centered && !shouldFullscreen,
+            'top-1/2 !-translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
           },
         )
       "
       :show-close="closable"
-      close-class="top-4"
+      close-class="top-3"
       @escape-key-down="escapeKeyDown"
       @interact-outside="interactOutside"
       @pointer-down-outside="pointerDownOutside"
@@ -219,7 +221,7 @@ function pointerDownOutside(e: Event) {
 
       <VbenIconButton
         v-if="fullscreenButton"
-        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-4 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
+        class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-3 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
@@ -238,12 +240,17 @@ function pointerDownOutside(e: Event) {
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">
-          <VbenButton variant="ghost" @click="() => modalApi?.onCancel()">
+          <VbenButton
+            v-if="showCancelButton"
+            variant="ghost"
+            @click="() => modalApi?.onCancel()"
+          >
             <slot name="cancelText">
               {{ cancelText || $t('cancel') }}
             </slot>
           </VbenButton>
           <VbenButton
+            v-if="showConfirmButton"
             :loading="confirmLoading"
             @click="() => modalApi?.onConfirm()"
           >

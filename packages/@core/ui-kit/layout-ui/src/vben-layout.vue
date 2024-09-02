@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarWidth: 180,
   sideCollapseWidth: 60,
   tabbarEnable: true,
-  tabbarHeight: 36,
+  tabbarHeight: 40,
   zIndex: 200,
 });
 
@@ -534,8 +534,8 @@ function handleHeaderToggle() {
       >
         <slot name="content"></slot>
 
-        <template #overlay="{ overlayStyle }">
-          <slot :overlay-style="overlayStyle" name="content-overlay"></slot>
+        <template #overlay>
+          <slot name="content-overlay"></slot>
         </template>
       </LayoutContent>
 

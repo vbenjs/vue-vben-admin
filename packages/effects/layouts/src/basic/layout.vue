@@ -295,11 +295,8 @@ const headerSlots = computed(() => {
     <template #content>
       <LayoutContent />
     </template>
-    <template
-      v-if="preferences.transition.loading"
-      #content-overlay="{ overlayStyle }"
-    >
-      <LayoutContentSpinner :overlay-style="overlayStyle" />
+    <template v-if="preferences.transition.loading" #content-overlay>
+      <LayoutContentSpinner />
     </template>
 
     <!-- 页脚 -->

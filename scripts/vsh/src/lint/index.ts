@@ -28,7 +28,6 @@ async function runLint({ format }: LintCommandOptions) {
     execaCommand(`eslint . --cache`, {
       stdio: 'inherit',
     }),
-    // $`ls-lint`,
     execaCommand(`prettier . --ignore-unknown --check --cache`, {
       stdio: 'inherit',
     }),

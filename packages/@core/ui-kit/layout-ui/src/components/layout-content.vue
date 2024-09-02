@@ -5,6 +5,7 @@ import type { CSSProperties } from 'vue';
 import { computed } from 'vue';
 
 import { useContentStyle } from '@vben-core/composables';
+import { Slot } from '@vben-core/shadcn-ui';
 
 interface Props {
   /**
@@ -54,7 +55,9 @@ const style = computed((): CSSProperties => {
 
 <template>
   <main ref="contentElement" :style="style" class="bg-background-deep relative">
-    <slot :overlay-style="overlayStyle" name="overlay"></slot>
+    <Slot :style="overlayStyle">
+      <slot name="overlay"></slot>
+    </Slot>
     <slot></slot>
   </main>
 </template>

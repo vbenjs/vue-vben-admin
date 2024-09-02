@@ -28,12 +28,12 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const text = computed(() => {
-  return props.alt.slice(0, 2).toUpperCase();
+  return props.alt.slice(-2).toUpperCase();
 });
 </script>
 
 <template>
-  <div :class="props.class" class="relative flex-shrink-0">
+  <div :class="props.class" class="relative flex flex-shrink-0 items-center">
     <Avatar :class="props.class" class="size-full">
       <AvatarImage :alt="alt" :src="src" />
       <AvatarFallback>{{ text }}</AvatarFallback>
