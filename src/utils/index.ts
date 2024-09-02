@@ -20,14 +20,19 @@ export function getPopupContainer(node?: HTMLElement): HTMLElement {
  * @param obj
  * @returns {string}
  * eg:
- *  let obj = {a: '3', b: '4'}
+ *  let obj = {a: '3', b: '4', c: ['1','2']}
  *  setObjToUrlParams('www.baidu.com', obj)
- *  ==>www.baidu.com?a=3&b=4
+ *  ==>www.baidu.com?a=3&b=4&c=1,2
  */
 export function setObjToUrlParams(baseUrl: string, obj: any): string {
   let parameters = '';
   for (const key in obj) {
-    parameters += key + '=' + encodeURIComponent(obj[key]) + '&';
+    const value = obj[key];
+    if (Array.isArray(value)) {
+      parameters += `${key}=${encodeURIComponent(value.join(','))}&`;
+    } else {
+      parameters += `${key}=${encodeURIComponent(value)}&`;
+    }
   }
   parameters = parameters.replace(/&$/, '');
   return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
