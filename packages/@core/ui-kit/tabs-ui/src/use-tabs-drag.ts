@@ -4,7 +4,11 @@ import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { type Sortable, useSortable } from '@vben-core/composables';
+import {
+  type Sortable,
+  useIsMobile,
+  useSortable,
+} from '@vben-core/composables';
 
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
 function findParentElement(element: HTMLElement) {
@@ -90,6 +94,12 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
   }
 
   async function init() {
+    const { isMobile } = useIsMobile();
+
+    // 移动端下tab不需要拖拽
+    if (isMobile.value) {
+      return;
+    }
     await nextTick();
     initTabsSortable();
   }
