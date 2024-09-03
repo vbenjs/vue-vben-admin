@@ -4,9 +4,10 @@ import { type Ref, ref } from 'vue';
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { Button } from 'ant-design-vue';
 
+const LIMIT = 10;
 const fetcher = (page: Ref<number>) =>
   fetch(
-    `https://jsonplaceholder.typicode.com/posts?_page=${page.value}&_limit=10`,
+    `https://dummyjson.com/products?limit=${LIMIT}&skip=${page.value * LIMIT}`,
   ).then((response) => response.json());
 
 const page = ref(1);
@@ -26,16 +27,21 @@ const nextPage = () => {
 </script>
 
 <template>
-  <p>Current Page: {{ page }} | Previous data: {{ isPlaceholderData }}</p>
-  <Button @click="prevPage">Prev Page</Button>
-  <Button @click="nextPage">Next Page</Button>
-  <div v-if="isPending">Loading...</div>
-  <div v-else-if="isError">An error has occurred: {{ error }}</div>
-  <div v-else-if="data">
-    <ul>
-      <li v-for="item in data" :key="item.id">
-        {{ item.title }}
-      </li>
-    </ul>
+  <div class="flex gap-4">
+    <p>Current Page: {{ page }}</p>
+    <p>Previous data: {{ isPlaceholderData }}</p>
+  </div>
+  <Button size="small" @click="prevPage">Prev Page</Button>
+  <Button size="small" @click="nextPage">Next Page</Button>
+  <div class="p-4">
+    <div v-if="isPending">Loading...</div>
+    <div v-else-if="isError">An error has occurred: {{ error }}</div>
+    <div v-else-if="data">
+      <ul>
+        <li v-for="item in data.products" :key="item.id">
+          {{ item.title }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
