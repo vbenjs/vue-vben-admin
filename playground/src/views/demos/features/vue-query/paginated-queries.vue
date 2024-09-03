@@ -1,20 +1,24 @@
 <script setup lang="ts">
+import type { IProducts } from './typing';
+
 import { type Ref, ref } from 'vue';
 
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { Button } from 'ant-design-vue';
 
 const LIMIT = 10;
-const fetcher = (page: Ref<number>) =>
-  fetch(
+const fetcher = async (page: Ref<number>): Promise<IProducts> => {
+  const res = await fetch(
     `https://dummyjson.com/products?limit=${LIMIT}&skip=${page.value * LIMIT}`,
-  ).then((response) => response.json());
+  );
+  return res.json();
+};
 
 const page = ref(1);
 const { data, error, isError, isPending, isPlaceholderData } = useQuery({
   placeholderData: keepPreviousData,
   queryFn: () => fetcher(page),
-  queryKey: ['projects', page],
+  queryKey: ['products', page],
 });
 const prevPage = () => {
   page.value = Math.max(page.value - 1, 1);
@@ -28,11 +32,10 @@ const nextPage = () => {
 
 <template>
   <div class="flex gap-4">
+    <Button size="small" @click="prevPage">Prev Page</Button>
     <p>Current Page: {{ page }}</p>
-    <p>Previous data: {{ isPlaceholderData }}</p>
+    <Button size="small" @click="nextPage">Next Page</Button>
   </div>
-  <Button size="small" @click="prevPage">Prev Page</Button>
-  <Button size="small" @click="nextPage">Next Page</Button>
   <div class="p-4">
     <div v-if="isPending">Loading...</div>
     <div v-else-if="isError">An error has occurred: {{ error }}</div>

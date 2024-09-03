@@ -1,9 +1,12 @@
-<script setup>
+<script setup lang="ts">
+import type { IProducts } from './typing';
+
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+
 import { useInfiniteQuery } from '@tanstack/vue-query';
-import { Button } from 'ant-design-vue';
 
 const LIMIT = 10;
-const fetchProjects = async ({ pageParam = 0 }) => {
+const fetchProducts = async ({ pageParam = 0 }): Promise<IProducts> => {
   const res = await fetch(
     `https://dummyjson.com/products?limit=${LIMIT}&skip=${pageParam * LIMIT}`,
   );
@@ -26,15 +29,63 @@ const {
     if (lastPage === current.total) return;
     return nextPage;
   },
-  queryFn: fetchProjects,
-  queryKey: ['projects'],
+  initialPageParam: 0,
+  queryFn: fetchProducts,
+  queryKey: ['products'],
+});
+
+const container = ref<HTMLDivElement | null>(null);
+const loader = ref<HTMLDivElement | null>(null);
+
+let observer: IntersectionObserver;
+
+const checkAndLoad = () => {
+  if (container.value && loader.value) {
+    const containerHeight = container.value.clientHeight;
+    const viewportHeight = window.innerHeight;
+    if (
+      containerHeight < viewportHeight &&
+      hasNextPage.value &&
+      !isFetchingNextPage.value
+    ) {
+      fetchNextPage();
+    }
+  }
+};
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        fetchNextPage();
+      }
+    },
+    { threshold: 1 },
+  );
+
+  if (loader.value) {
+    observer.observe(loader.value);
+  }
+
+  nextTick(() => {
+    checkAndLoad();
+  });
+
+  window.addEventListener('resize', checkAndLoad);
+});
+
+onUnmounted(() => {
+  if (observer && loader.value) {
+    observer.unobserve(loader.value);
+  }
+  window.removeEventListener('resize', checkAndLoad);
 });
 </script>
 
 <template>
-  <div>
+  <div ref="container">
     <span v-if="isPending">Loading...</span>
-    <span v-else-if="isError">Error: {{ error.message }}</span>
+    <span v-else-if="isError">Error: {{ error?.message }}</span>
     <div v-else-if="data">
       <span v-if="isFetching && !isFetchingNextPage">Fetching...</span>
       <ul v-for="(group, index) in data.pages" :key="index">
@@ -42,14 +93,11 @@ const {
           {{ product.title }}
         </li>
       </ul>
-      <Button
-        :disabled="!hasNextPage || isFetchingNextPage"
-        @click="() => fetchNextPage()"
-      >
+      <div ref="loader" class="w-full text-center">
         <span v-if="isFetchingNextPage">Loading more...</span>
         <span v-else-if="hasNextPage">Load More</span>
         <span v-else>Nothing more to load</span>
-      </Button>
+      </div>
     </div>
   </div>
 </template>
