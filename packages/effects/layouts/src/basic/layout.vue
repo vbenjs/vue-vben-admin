@@ -78,7 +78,7 @@ const isMenuRounded = computed(() => {
 });
 
 const logoCollapsed = computed(() => {
-  if (isMobile.value) {
+  if (isMobile.value && sidebarCollapsed.value) {
     return true;
   }
   if (isHeaderNav.value || isMixedNav.value) {
