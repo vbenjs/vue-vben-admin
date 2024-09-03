@@ -151,7 +151,7 @@
       fileReader.onerror = () => {
         emit('cropendError');
       };
-    }, 'image/png');
+    }, 'image/jpeg');
   }
 
   // Get a circular picture canvas
