@@ -99,7 +99,11 @@ async function handleEnter() {
     searchHistory.value.push(to);
     handleClose();
     await nextTick();
-    router.push(to.path);
+    if (to.path.startsWith('http://') || to.path.startsWith('https://')) {
+      window.location.href = to.path;
+    } else {
+      router.push({ path: to.path, replace: true });
+    }
   }
 }
 
