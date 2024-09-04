@@ -63,7 +63,7 @@ const errorTip = computed(() => {
 });
 
 watchEffect(() => {
-  if (!formState.password) {
+  if (!formState.password || formState.password === lockScreenPassword?.value) {
     validPass.value = true;
   }
 });
