@@ -35,7 +35,7 @@ import { defineOverridesPreferences } from '@vben/preferences';
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
-    loginExpiredMode: 'model',
+    loginExpiredMode: 'modal',
   },
 });
 ```
