@@ -9,7 +9,7 @@ import { Button } from 'ant-design-vue';
 const LIMIT = 10;
 const fetcher = async (page: Ref<number>): Promise<IProducts> => {
   const res = await fetch(
-    `https://dummyjson.com/products?limit=${LIMIT}&skip=${page.value * LIMIT}`,
+    `https://dummyjson.com/products?limit=${LIMIT}&skip=${(page.value - 1) * LIMIT}`,
   );
   return res.json();
 };

@@ -26,6 +26,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.53.1",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -45,7 +46,6 @@
     "dayjs": "^1.11.13",
     "pinia": "2.2.2",
     "vue": "^3.4.38",
-    "vue-router": "^4.4.3",
-    "@tanstack/vue-query": "^5.53.1"
+    "vue-router": "^4.4.3"
   }
 }
