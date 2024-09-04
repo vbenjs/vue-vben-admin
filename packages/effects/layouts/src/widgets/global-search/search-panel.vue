@@ -8,6 +8,7 @@ import { SearchX, X } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@vben/utils';
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
+import { isHttpUrl } from '@vben-core/shared';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 
@@ -99,8 +100,8 @@ async function handleEnter() {
     searchHistory.value.push(to);
     handleClose();
     await nextTick();
-    if (to.path.startsWith('http://') || to.path.startsWith('https://')) {
-      window.location.href = to.path;
+    if (isHttpUrl(to.path)) {
+      window.open(to.path, '_blank');
     } else {
       router.push({ path: to.path, replace: true });
     }
