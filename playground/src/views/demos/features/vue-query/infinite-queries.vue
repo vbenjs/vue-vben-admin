@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { IProducts } from './typing';
 
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
-
 import { useInfiniteQuery } from '@tanstack/vue-query';
+import { Button } from 'ant-design-vue';
 
 const LIMIT = 10;
 const fetchProducts = async ({ pageParam = 0 }): Promise<IProducts> => {
@@ -33,57 +32,10 @@ const {
   queryFn: fetchProducts,
   queryKey: ['products'],
 });
-
-const container = ref<HTMLDivElement | null>(null);
-const loader = ref<HTMLDivElement | null>(null);
-
-let observer: IntersectionObserver;
-
-const checkAndLoad = () => {
-  if (container.value && loader.value) {
-    const containerHeight = container.value.clientHeight;
-    const viewportHeight = window.innerHeight;
-    if (
-      containerHeight < viewportHeight &&
-      hasNextPage.value &&
-      !isFetchingNextPage.value
-    ) {
-      fetchNextPage();
-    }
-  }
-};
-
-onMounted(() => {
-  observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry?.isIntersecting) {
-        fetchNextPage();
-      }
-    },
-    { threshold: 1 },
-  );
-
-  if (loader.value) {
-    observer.observe(loader.value);
-  }
-
-  nextTick(() => {
-    checkAndLoad();
-  });
-
-  window.addEventListener('resize', checkAndLoad);
-});
-
-onUnmounted(() => {
-  if (observer && loader.value) {
-    observer.unobserve(loader.value);
-  }
-  window.removeEventListener('resize', checkAndLoad);
-});
 </script>
 
 <template>
-  <div ref="container">
+  <div>
     <span v-if="isPending">Loading...</span>
     <span v-else-if="isError">Error: {{ error?.message }}</span>
     <div v-else-if="data">
@@ -93,11 +45,14 @@ onUnmounted(() => {
           {{ product.title }}
         </li>
       </ul>
-      <div ref="loader" class="w-full text-center">
-        <span v-if="isFetchingNextPage">Loading more...</span>
-        <span v-else-if="hasNextPage">Load More</span>
-        <span v-else>Nothing more to load</span>
-      </div>
+      <Button
+        :disabled="!hasNextPage || isFetchingNextPage"
+        @click="() => fetchNextPage()"
+      >
+        <span v-if="isFetchingNextPage">加载中...</span>
+        <span v-else-if="hasNextPage">加载更多</span>
+        <span v-else>没有更多了</span>
+      </Button>
     </div>
   </div>
 </template>
