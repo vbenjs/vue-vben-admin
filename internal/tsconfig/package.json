@@ -20,6 +20,6 @@
   ],
   "dependencies": {
     "@vben/types": "workspace:*",
-    "vite": "^5.4.2"
+    "vite": "^5.4.3"
   }
 }

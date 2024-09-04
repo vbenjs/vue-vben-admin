@@ -34,7 +34,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^11.0.3",
-    "vue": "^3.4.38",
+    "vue": "^3.5.1",
     "vue-router": "^4.4.3"
   }
 }

@@ -22,7 +22,7 @@
   "dependencies": {
     "@vben/locales": "workspace:*",
     "@vben/utils": "workspace:*",
-    "axios": "^1.7.5"
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "axios-mock-adapter": "^2.0.0"

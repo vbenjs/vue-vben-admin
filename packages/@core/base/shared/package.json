@@ -62,7 +62,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "^4.1.0",
     "@tanstack/vue-store": "^0.5.5",
-    "@vue/shared": "^3.4.38",
+    "@vue/shared": "^3.5.1",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",
     "lodash.clonedeep": "^4.5.0",
