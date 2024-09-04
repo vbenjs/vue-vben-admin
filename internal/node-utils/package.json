@@ -28,7 +28,7 @@
     }
   },
   "dependencies": {
-    "@changesets/git": "^3.0.0",
+    "@changesets/git": "^3.0.1",
     "@manypkg/get-packages": "^2.2.2",
     "chalk": "^5.3.0",
     "consola": "^3.2.3",
