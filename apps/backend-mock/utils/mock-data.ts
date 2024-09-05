@@ -30,6 +30,54 @@ export const MOCK_USERS: UserInfo[] = [
   },
 ];
 
+export interface OrderInfo {
+  id: number;
+  rid: string;
+  openOrder: number;
+  destroyOrder: number;
+  sort: string;
+  time: number;
+}
+
+export const MOCK_ORDERS: OrderInfo[] = [
+  { id: 1, rid: 'UX-23492349244', openOrder: 0, destroyOrder: 1, sort: 'A', time: 320800 },
+  { id: 2, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 0, sort: 'B', time: 320800 },
+  { id: 3, rid: 'CU-3492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 4, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'A', time: 320800 },
+  { id: 5, rid: 'AX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 6, rid: 'BU-23492349244', openOrder: 0, destroyOrder: 1, sort: 'B', time: 320800 },
+  { id: 7, rid: 'UX-23492349244', openOrder: 0, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 8, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'D', time: 320800 },
+  { id: 9, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 10, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 11, rid: 'UX-5592349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 12, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 13, rid: 'UX-235492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 14, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 15, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 16, rid: 'UX-5164921649244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 17, rid: 'UX-2317923417244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 18, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 19, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 20, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 21, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 22, rid: 'UX-23492349244', openOrder: 0, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 23, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 24, rid: 'UX-43492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 25, rid: 'UX-23492349244', openOrder: 0, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 26, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 27, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 28, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 29, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 30, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 31, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 32, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 33, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 0, sort: 'C', time: 320800 },
+  { id: 34, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  { id: 35, rid: 'UX-23492349244', openOrder: 1, destroyOrder: 1, sort: 'C', time: 320800 },
+  // Add more rows as needed
+];
+
 export const MOCK_CODES = [
   // super
   {

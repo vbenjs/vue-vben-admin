@@ -15,6 +15,16 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     children: [
       {
+        name: 'Test CSV Table',
+        path: '/test',
+        component: () => import('#/views/test/index.vue'),
+        meta: {
+          affixTab: true,
+          icon: 'lucide:table',
+          title: 'Test Table CSV',
+        },
+      },
+      {
         name: 'Analytics',
         path: '/analytics',
         component: () => import('#/views/dashboard/analytics/index.vue'),
