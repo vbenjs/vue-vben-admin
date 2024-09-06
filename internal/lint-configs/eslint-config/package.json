@@ -43,7 +43,7 @@
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-no-only-tests": "^3.3.0",
-    "eslint-plugin-perfectionist": "^3.3.0",
+    "eslint-plugin-perfectionist": "^3.4.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-unicorn": "^55.0.0",
