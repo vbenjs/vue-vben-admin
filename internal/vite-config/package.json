@@ -36,8 +36,8 @@
     "nitropack": "^2.9.7",
     "resolve.exports": "^2.0.2",
     "vite-plugin-lib-inject-css": "^2.1.1",
-    "vite-plugin-pwa": "^0.20.4",
-    "vite-plugin-vue-devtools": "^7.4.0"
+    "vite-plugin-pwa": "^0.20.5",
+    "vite-plugin-vue-devtools": "^7.4.4"
   },
   "devDependencies": {
     "@types/archiver": "^6.0.2",
