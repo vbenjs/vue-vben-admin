@@ -192,15 +192,15 @@ function handleConfirm() {
 }
 </script>
 <template>
-  <Card :style="rootStyles">
+  <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
     <CardHeader class="p-0">
-      <CardTitle class="flex items-center justify-between">
+      <CardTitle id="captcha-title" class="flex items-center justify-between">
         <span>{{ title }}</span>
         <img
           v-show="hintImage"
           :src="hintImage"
           :style="hintStyles"
-          alt="hint"
+          alt="提示图片"
         />
       </CardTitle>
     </CardHeader>
@@ -209,7 +209,7 @@ function handleConfirm() {
         v-show="captchaImage"
         :src="captchaImage"
         :style="captchaStyles"
-        alt="captcha"
+        alt="验证码图片"
         class="relative z-10"
         @click="handleClick"
       />
@@ -221,17 +221,21 @@ function handleConfirm() {
             top: `${point.y - POINT_OFFSET}px`,
             left: `${point.x - POINT_OFFSET}px`,
           }"
+          aria-label="点击点 {{ index + 1 }}"
           class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
+          role="button"
         >
           {{ index + 1 }}
         </div>
       </div>
     </CardContent>
     <CardFooter class="mt-2 flex justify-between p-0">
-      <VbenIconButton @click="handleRefresh">
+      <VbenIconButton aria-label="刷新验证码" @click="handleRefresh">
         <SvgRefreshIcon class="size-6" />
       </VbenIconButton>
-      <VbenButton @click="handleConfirm"> 确认 </VbenButton>
+      <VbenButton aria-label="确认选择" @click="handleConfirm">
+        确认
+      </VbenButton>
     </CardFooter>
   </Card>
 </template>
