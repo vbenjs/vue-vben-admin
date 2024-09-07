@@ -130,18 +130,18 @@ function toggleTheme(event: MouseEvent) {
   }
 
   &__sun {
-    @apply fill-foreground/70 stroke-none;
+    @apply fill-foreground/90 stroke-none;
 
     transition: transform 1.6s cubic-bezier(0.25, 0, 0.2, 1);
     transform-origin: center center;
 
     &:hover > svg > & {
-      @apply fill-foreground/70;
+      @apply fill-foreground/90;
     }
   }
 
   &__sun-beams {
-    @apply stroke-foreground/70 stroke-[2px];
+    @apply stroke-foreground/90 stroke-[2px];
 
     transition:
       transform 1.6s cubic-bezier(0.5, 1.5, 0.75, 1.25),

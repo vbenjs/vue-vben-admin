@@ -10,7 +10,6 @@ export * from './expandable-arrow';
 export * from './full-screen';
 export * from './hover-card';
 export * from './icon';
-export * from './input';
 export * from './input-password';
 export * from './link';
 export * from './logo';
