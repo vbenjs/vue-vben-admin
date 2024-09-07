@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { VariantProps } from 'class-variance-authority';
 
-import { computed, type HTMLAttributes, inject } from 'vue';
+import { computed, inject } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   ToggleGroupItem,
@@ -17,7 +17,7 @@ type ToggleGroupVariants = VariantProps<typeof toggleVariants>;
 
 const props = defineProps<
   {
-    class?: HTMLAttributes['class'];
+    class?: any;
     size?: ToggleGroupVariants['size'];
     variant?: ToggleGroupVariants['variant'];
   } & ToggleGroupItemProps

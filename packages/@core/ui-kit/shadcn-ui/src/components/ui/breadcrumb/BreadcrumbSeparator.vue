@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import type { HTMLAttributes } from 'vue';
-
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { ChevronRightIcon } from '@radix-icons/vue';
 
 const props = defineProps<{
-  class?: HTMLAttributes['class'];
+  class?: any;
 }>();
 </script>
 

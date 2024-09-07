@@ -71,6 +71,9 @@
       },
       "ellipsis": {
         "title": "文本省略"
+      },
+      "form": {
+        "title": "表单"
       }
     }
   }

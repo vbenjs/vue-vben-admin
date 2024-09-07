@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 
+import { $t } from '@vben/locales';
+import { useVbenForm, z } from '@vben-core/form-ui';
 import { useVbenModal } from '@vben-core/popup-ui';
-import {
-  VbenAvatar,
-  VbenButton,
-  VbenInputPassword,
-} from '@vben-core/shadcn-ui';
+import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui';
 
 interface Props {
   avatar?: string;
@@ -34,10 +32,28 @@ const emit = defineEmits<{
   submit: RegisterEmits['submit'];
 }>();
 
-const formState = reactive({
-  lockScreenPassword: '',
-  submitted: false,
-});
+const [Form, formApi] = useVbenForm(
+  reactive({
+    commonConfig: {
+      hideLabel: true,
+      hideRequiredMark: true,
+    },
+    schema: computed(() => [
+      {
+        component: 'VbenInputPassword' as const,
+        componentProps: {
+          placeholder: $t('widgets.lockScreen.placeholder'),
+        },
+        fieldName: 'lockScreenPassword',
+        formFieldProps: { validateOnBlur: false },
+        label: $t('authentication.password'),
+        rules: z
+          .string()
+          .min(1, { message: $t('widgets.lockScreen.placeholder') }),
+      },
+    ]),
+  }),
+);
 
 const [Modal] = useVbenModal({
   onConfirm() {
@@ -45,27 +61,16 @@ const [Modal] = useVbenModal({
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      // reset value reopen
-      formState.submitted = false;
-      formState.lockScreenPassword = '';
+      formApi.form?.resetForm();
     }
   },
 });
 
-const passwordStatus = computed(() => {
-  return formState.submitted && !formState.lockScreenPassword
-    ? 'error'
-    : 'default';
-});
-
-function handleSubmit() {
-  formState.submitted = true;
-  if (passwordStatus.value !== 'default') {
-    return;
+async function handleSubmit() {
+  const { valid, values } = await formApi.validate();
+  if (valid) {
+    emit('submit', values?.lockScreenPassword);
   }
-  emit('submit', {
-    lockScreenPassword: formState.lockScreenPassword,
-  });
 }
 </script>
 
@@ -90,17 +95,8 @@ function handleSubmit() {
             {{ text }}
           </div>
         </div>
-        <VbenInputPassword
-          v-model="formState.lockScreenPassword"
-          :error-tip="$t('widgets.lockScreen.placeholder')"
-          :label="$t('widgets.lockScreen.password')"
-          :placeholder="$t('widgets.lockScreen.placeholder')"
-          :status="passwordStatus"
-          name="password"
-          required
-          type="password"
-        />
-        <VbenButton class="w-full" @click="handleSubmit">
+        <Form />
+        <VbenButton class="mt-4 w-full" @click="handleSubmit">
           {{ $t('widgets.lockScreen.screenButton') }}
         </VbenButton>
       </div>

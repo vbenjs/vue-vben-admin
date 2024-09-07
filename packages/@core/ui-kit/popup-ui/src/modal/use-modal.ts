@@ -2,7 +2,7 @@ import type { ExtendedModalApi, ModalApiOptions, ModalProps } from './modal';
 
 import { defineComponent, h, inject, nextTick, provide, reactive } from 'vue';
 
-import { useStore } from '@vben-core/shared';
+import { useStore } from '@vben-core/shared/store';
 
 import VbenModal from './modal.vue';
 import { ModalApi } from './modal-api';
@@ -33,7 +33,15 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
           ...attrs,
           ...slots,
         });
-        return () => h(connectedComponent, { ...props, ...attrs }, slots);
+        return () =>
+          h(
+            connectedComponent,
+            {
+              ...props,
+              ...attrs,
+            },
+            slots,
+          );
       },
       {
         inheritAttrs: false,
@@ -65,7 +73,15 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   const Modal = defineComponent(
     (props: ModalProps, { attrs, slots }) => {
       return () =>
-        h(VbenModal, { ...props, ...attrs, modalApi: extendedApi }, slots);
+        h(
+          VbenModal,
+          {
+            ...props,
+            ...attrs,
+            modalApi: extendedApi,
+          },
+          slots,
+        );
     },
     {
       inheritAttrs: false,

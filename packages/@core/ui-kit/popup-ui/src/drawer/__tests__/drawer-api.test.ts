@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DrawerApi } from '../drawer-api';
 
 // 模拟 Store 类
-vi.mock('@vben-core/shared', () => {
+vi.mock('@vben-core/shared/store', () => {
   return {
     isFunction: (fn: any) => typeof fn === 'function',
     Store: class {

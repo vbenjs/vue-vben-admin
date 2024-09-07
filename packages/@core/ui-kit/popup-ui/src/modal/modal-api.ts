@@ -1,6 +1,7 @@
 import type { ModalApiOptions, ModalState } from './modal';
 
-import { isFunction, Store } from '@vben-core/shared';
+import { Store } from '@vben-core/shared/store';
+import { isFunction } from '@vben-core/shared/utils';
 
 export class ModalApi {
   private api: Pick<

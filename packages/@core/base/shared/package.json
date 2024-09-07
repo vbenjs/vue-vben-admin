@@ -17,14 +17,7 @@
     "dist"
   ],
   "sideEffects": false,
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
-    },
     "./constants": {
       "types": "./src/constants/index.ts",
       "development": "./src/constants/index.ts",
@@ -53,16 +46,32 @@
   },
   "publishConfig": {
     "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+      "./constants": {
+        "types": "./dist/constants/index.d.ts",
+        "default": "./dist/constants/index.mjs"
+      },
+      "./utils": {
+        "types": "./dist/utils/index.d.ts",
+        "default": "./dist/utils/index.mjs"
+      },
+      "./color": {
+        "types": "./dist/color/index.d.ts",
+        "default": "./dist/color/index.mjs"
+      },
+      "./cache": {
+        "types": "./dist/cache/index.d.ts",
+        "default": "./dist/cache/index.mjs"
+      },
+      "./store": {
+        "types": "./dist/store/index.d.ts",
+        "default": "./dist/store.mjs"
       }
     }
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.1.0",
     "@tanstack/vue-store": "^0.5.5",
-    "@vue/shared": "^3.5.2",
+    "@vue/shared": "^3.5.3",
     "clsx": "^2.1.1",
     "defu": "^6.1.4",
     "lodash.clonedeep": "^4.5.0",

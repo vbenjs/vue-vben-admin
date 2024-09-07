@@ -71,6 +71,9 @@
       },
       "ellipsis": {
         "title": "EllipsisText"
+      },
+      "form": {
+        "title": "Form"
       }
     }
   }

@@ -5,10 +5,10 @@ import { ref, watch } from 'vue';
 
 import {
   useIsMobile,
-  usePriorityValue,
+  usePriorityValues,
   useSimpleLocale,
 } from '@vben-core/composables';
-import { Info, X } from '@vben-core/icons';
+import { X } from '@vben-core/icons';
 import {
   Sheet,
   SheetClose,
@@ -18,12 +18,12 @@ import {
   SheetHeader,
   SheetTitle,
   VbenButton,
+  VbenHelpTooltip,
   VbenIconButton,
   VbenLoading,
-  VbenTooltip,
   VisuallyHidden,
 } from '@vben-core/shadcn-ui';
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 interface Props extends DrawerProps {
   class?: string;
@@ -42,20 +42,22 @@ const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 const state = props.drawerApi?.useStore?.();
 
-const title = usePriorityValue('title', props, state);
-const description = usePriorityValue('description', props, state);
-const titleTooltip = usePriorityValue('titleTooltip', props, state);
-const showFooter = usePriorityValue('footer', props, state);
-const showLoading = usePriorityValue('loading', props, state);
-const closable = usePriorityValue('closable', props, state);
-const modal = usePriorityValue('modal', props, state);
-const confirmLoading = usePriorityValue('confirmLoading', props, state);
-const cancelText = usePriorityValue('cancelText', props, state);
-const confirmText = usePriorityValue('confirmText', props, state);
-const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
-const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
-const showCancelButton = usePriorityValue('showCancelButton', props, state);
-const showConfirmButton = usePriorityValue('showConfirmButton', props, state);
+const {
+  cancelText,
+  closable,
+  closeOnClickModal,
+  closeOnPressEscape,
+  confirmLoading,
+  confirmText,
+  description,
+  footer: showFooter,
+  loading: showLoading,
+  modal,
+  showCancelButton,
+  showConfirmButton,
+  title,
+  titleTooltip,
+} = usePriorityValues(props, state);
 
 watch(
   () => showLoading.value,
@@ -116,12 +118,9 @@ function pointerDownOutside(e: Event) {
             <slot name="title">
               {{ title }}
 
-              <VbenTooltip v-if="titleTooltip" side="right">
-                <template #trigger>
-                  <Info class="inline-flex size-5 cursor-pointer pb-1" />
-                </template>
+              <VbenHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
                 {{ titleTooltip }}
-              </VbenTooltip>
+              </VbenHelpTooltip>
             </slot>
           </SheetTitle>
           <SheetDescription v-if="description" class="mt-1 text-xs">

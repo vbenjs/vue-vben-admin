@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   DialogContent,
@@ -15,7 +15,7 @@ import {
 import { type SheetVariants, sheetVariants } from './sheet';
 
 interface SheetContentProps extends DialogContentProps {
-  class?: HTMLAttributes['class'];
+  class?: any;
   side?: SheetVariants['side'];
 }
 

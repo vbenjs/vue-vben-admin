@@ -15,6 +15,7 @@ export async function unicorn(): Promise<Linter.Config[]> {
       rules: {
         ...pluginUnicorn.configs.recommended.rules,
 
+        'unicorn/better-regex': 'off',
         'unicorn/consistent-destructuring': 'off',
         'unicorn/consistent-function-scoping': 'off',
         'unicorn/filename-case': 'off',

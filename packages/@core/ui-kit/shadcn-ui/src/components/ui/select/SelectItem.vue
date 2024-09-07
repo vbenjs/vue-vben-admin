@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { CheckIcon } from '@radix-icons/vue';
 import {
@@ -12,9 +12,7 @@ import {
   useForwardProps,
 } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & SelectItemProps
->();
+const props = defineProps<{ class?: any } & SelectItemProps>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

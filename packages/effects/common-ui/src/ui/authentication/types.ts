@@ -14,11 +14,6 @@ interface AuthenticationProps {
   loading?: boolean;
 
   /**
-   * @zh_CN 密码占位符
-   */
-  passwordPlaceholder?: string;
-
-  /**
    * @zh_CN 二维码登录路径
    */
   qrCodeLoginPath?: string;
@@ -66,11 +61,6 @@ interface AuthenticationProps {
    * @zh_CN 登录框标题
    */
   title?: string;
-
-  /**
-   * @zh_CN 用户名占位符
-   */
-  usernamePlaceholder?: string;
 }
 
 interface LoginAndRegisterParams {

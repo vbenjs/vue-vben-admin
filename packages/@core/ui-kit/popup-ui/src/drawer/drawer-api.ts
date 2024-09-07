@@ -1,6 +1,7 @@
 import type { DrawerApiOptions, DrawerState } from './drawer';
 
-import { isFunction, Store } from '@vben-core/shared';
+import { Store } from '@vben-core/shared/store';
+import { isFunction } from '@vben-core/shared/utils';
 
 export class DrawerApi {
   private api: Pick<
