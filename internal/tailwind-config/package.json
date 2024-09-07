@@ -46,7 +46,7 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
-    "@iconify/json": "^2.2.244",
+    "@iconify/json": "^2.2.245",
     "@iconify/tailwind": "^1.1.3",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.15",
