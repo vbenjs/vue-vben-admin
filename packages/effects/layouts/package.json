@@ -24,6 +24,7 @@
     "@vben-core/menu-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
+    "@vben-core/shared": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
@@ -34,7 +35,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^11.0.3",
-    "vue": "^3.5.1",
+    "vue": "^3.5.2",
     "vue-router": "^4.4.3"
   }
 }

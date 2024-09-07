@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watchEffect } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
@@ -36,7 +36,6 @@ const minute = useDateFormat(now, 'mm');
 const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 
 const showUnlockForm = ref(false);
-const validPass = ref(true);
 const { lockScreenPassword } = storeToRefs(lockStore);
 
 const formState = reactive({
@@ -44,15 +43,14 @@ const formState = reactive({
   submitted: false,
 });
 
-const passwordStatus = computed(() => {
-  if (formState.submitted && !formState.password) {
-    return 'error';
-  }
+const validPass = computed(
+  () => lockScreenPassword?.value === formState.password,
+);
 
+const passwordStatus = computed(() => {
   if (formState.submitted && !validPass.value) {
     return 'error';
   }
-
   return 'default';
 });
 
@@ -62,21 +60,13 @@ const errorTip = computed(() => {
     : $t('widgets.lockScreen.errorPasswordTip');
 });
 
-watchEffect(() => {
-  if (!formState.password) {
-    validPass.value = true;
-  }
-});
-
 function handleSubmit() {
   formState.submitted = true;
-  if (passwordStatus.value !== 'default') {
+
+  if (!validPass.value) {
     return;
   }
-  if (lockScreenPassword?.value !== formState.password) {
-    validPass.value = false;
-    return;
-  }
+
   lockStore.unlockScreen();
 }
 
