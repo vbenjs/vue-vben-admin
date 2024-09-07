@@ -133,38 +133,62 @@ const points = ref<Point[]>([]);
 const POINT_OFFSET = 11;
 
 function handleClick(e: any | Event) {
-  const dom = e.currentTarget as HTMLElement;
-  const { x: domX, y: domY } = getElementPosition(dom);
+  try {
+    const dom = e.currentTarget as HTMLElement;
+    if (!dom) throw new Error('Element not found');
 
-  const mouseX = e.pageX || e.clientX;
-  const mouseY = e.pageY || e.clientY;
+    const { x: domX, y: domY } = getElementPosition(dom);
 
-  const xPos = mouseX - domX;
-  const yPos = mouseY - domY;
+    const mouseX = e.pageX || e.clientX;
+    const mouseY = e.pageY || e.clientY;
 
-  const x = Math.ceil(xPos);
-  const y = Math.ceil(yPos);
+    if (mouseX === undefined || mouseY === undefined)
+      throw new Error('Mouse coordinates not found');
 
-  points.value.push({
-    i: points.value.length,
-    t: Date.now(),
-    x,
-    y,
-  });
+    const xPos = mouseX - domX;
+    const yPos = mouseY - domY;
 
-  emit('click', x, y);
-  e.cancelBubble = true;
-  e.preventDefault();
+    const x = Math.ceil(xPos);
+    const y = Math.ceil(yPos);
+
+    points.value.push({
+      i: points.value.length,
+      t: Date.now(),
+      x,
+      y,
+    });
+
+    emit('click', x, y);
+    e.cancelBubble = true;
+    e.preventDefault();
+  } catch (error) {
+    console.error('Error in handleClick:', error);
+  }
 }
+
 function clear() {
-  points.value = [];
+  try {
+    points.value = [];
+  } catch (error) {
+    console.error('Error in clear:', error);
+  }
 }
+
 function handleRefresh() {
-  clear();
-  emit('refresh');
+  try {
+    clear();
+    emit('refresh');
+  } catch (error) {
+    console.error('Error in handleRefresh:', error);
+  }
 }
+
 function handleConfirm() {
-  emit('confirm', points.value, clear);
+  try {
+    emit('confirm', points.value, clear);
+  } catch (error) {
+    console.error('Error in handleConfirm:', error);
+  }
 }
 </script>
 <template>
