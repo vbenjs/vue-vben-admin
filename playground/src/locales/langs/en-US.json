@@ -74,6 +74,9 @@
       },
       "form": {
         "title": "Form"
+      },
+      "captcha": {
+        "title": "Captcha"
       }
     }
   }

@@ -74,6 +74,9 @@
       },
       "form": {
         "title": "表单"
+      },
+      "captcha": {
+        "title": "验证码"
       }
     }
   }

@@ -47,6 +47,14 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.form.title'),
         },
       },
+      {
+        name: 'CaptchaExample',
+        path: '/examples/captcha',
+        component: () => import('#/views/examples/captcha/index.vue'),
+        meta: {
+          title: $t('page.examples.captcha.title'),
+        },
+      },
     ],
   },
 ];
