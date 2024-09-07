@@ -1158,7 +1158,7 @@ importers:
     dependencies:
       '@tanstack/vue-query':
         specifier: ^5.53.1
-        version: 5.54.1(vue@3.5.1(typescript@5.5.4))
+        version: 5.54.1(vue@3.5.2(typescript@5.5.4))
       '@vben/access':
         specifier: workspace:*
         version: link:../packages/effects/access
@@ -3996,7 +3996,7 @@ packages:
     resolution: {integrity: sha512-Uo5vJ/2x9sOW5bGecO5YV3vp1Pw21s7/2GcNvPz9qS48o3I4c3QPSCM9XrOYNmKrA4iWWT547sGWCMYc10auAA==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
-      vue: 3.5.1
+      vue: 3.5.2
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
@@ -12941,13 +12941,13 @@ snapshots:
 
   '@tanstack/virtual-core@3.9.0': {}
 
-  '@tanstack/vue-query@5.54.1(vue@3.5.1(typescript@5.5.4))':
+  '@tanstack/vue-query@5.54.1(vue@3.5.2(typescript@5.5.4))':
     dependencies:
       '@tanstack/match-sorter-utils': 8.19.4
       '@tanstack/query-core': 5.54.1
       '@vue/devtools-api': 6.6.3
-      vue: 3.5.1(typescript@5.5.4)
-      vue-demi: 0.14.10(vue@3.5.1(typescript@5.5.4))
+      vue: 3.5.2(typescript@5.5.4)
+      vue-demi: 0.14.10(vue@3.5.2(typescript@5.5.4))
 
   '@tanstack/vue-store@0.5.5(vue@3.5.2(typescript@5.5.4))':
     dependencies:
