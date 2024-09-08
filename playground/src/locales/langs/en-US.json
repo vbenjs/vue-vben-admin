@@ -73,7 +73,8 @@
         "title": "EllipsisText"
       },
       "form": {
-        "title": "Form"
+        "title": "Form",
+        "basic": "Basic Form"
       },
       "captcha": {
         "title": "Captcha"

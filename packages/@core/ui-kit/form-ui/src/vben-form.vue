@@ -6,7 +6,7 @@ import { ref } from 'vue';
 import { useForwardPropsEmits } from '@vben-core/composables';
 
 import FormActions from './components/form-actions.vue';
-import { COMPONENT_BIND_EVENT_MAP, COMPONENT_MAP } from './constants';
+import { COMPONENT_BIND_EVENT_MAP, COMPONENT_MAP } from './config';
 import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
 

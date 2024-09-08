@@ -52,6 +52,7 @@ const [Form, formApi] = useVbenForm(
           .min(1, { message: $t('widgets.lockScreen.placeholder') }),
       },
     ]),
+    showDefaultActions: false,
   }),
 );
 
@@ -96,7 +97,7 @@ async function handleSubmit() {
           </div>
         </div>
         <Form />
-        <VbenButton class="mt-4 w-full" @click="handleSubmit">
+        <VbenButton class="mt-1 w-full" @click="handleSubmit">
           {{ $t('widgets.lockScreen.screenButton') }}
         </VbenButton>
       </div>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import { VbenButton } from '@vben/common-ui';
 import { RotateCw } from '@vben/icons';
 import {
   Card,
@@ -9,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  VbenButton,
   VbenIconButton,
 } from '@vben-core/shadcn-ui';
 

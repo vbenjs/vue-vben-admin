@@ -40,20 +40,29 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
-        name: 'FormExample',
-        path: '/examples/form',
-        component: () => import('#/views/examples/form/index.vue'),
-        meta: {
-          title: $t('page.examples.form.title'),
-        },
-      },
-      {
         name: 'CaptchaExample',
         path: '/examples/captcha',
         component: () => import('#/views/examples/captcha/index.vue'),
         meta: {
           title: $t('page.examples.captcha.title'),
         },
+      },
+      {
+        name: 'FormExample',
+        path: '/examples/form',
+        meta: {
+          title: $t('page.examples.form.title'),
+        },
+        children: [
+          {
+            name: 'FormBasicExample',
+            path: '/examples/form/basic',
+            component: () => import('#/views/examples/form/index.vue'),
+            meta: {
+              title: $t('page.examples.form.basic'),
+            },
+          },
+        ],
       },
     ],
   },

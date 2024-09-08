@@ -8,12 +8,13 @@ import type { Component, Ref } from 'vue';
 
 export type FormLayout = 'horizontal' | 'vertical';
 
-export type BaseComponentType =
+export type BaseFormComponentType =
   | 'VbenCheckbox'
   | 'VbenInput'
   | 'VbenInputPassword'
   | 'VbenPinInput'
-  | 'VbenSelect';
+  | 'VbenSelect'
+  | (Record<never, never> & string);
 
 type Breakpoints = '' | '2xl:' | '3xl:' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 
@@ -160,8 +161,9 @@ export type HandleResetFn = (
   values: Record<string, any>,
 ) => Promise<void> | void;
 
-export interface FormSchema<T extends BaseComponentType = BaseComponentType>
-  extends FormCommonConfig {
+export interface FormSchema<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> extends FormCommonConfig {
   /** 组件 */
   component: Component | T;
   /** 组件参数 */
@@ -188,7 +190,9 @@ export interface FormFieldProps extends FormSchema {
   required?: boolean;
 }
 
-export interface FormRenderProps {
+export interface FormRenderProps<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> {
   /**
    * 折叠时保持行数
    * @default 1
@@ -201,11 +205,11 @@ export interface FormRenderProps {
   /**
    * 组件v-model事件绑定
    */
-  componentBindEventMap?: Partial<Record<BaseComponentType, string>>;
+  componentBindEventMap?: Partial<Record<BaseFormComponentType, string>>;
   /**
    * 组件集合
    */
-  componentMap: Record<BaseComponentType, Component>;
+  componentMap: Record<BaseFormComponentType, Component>;
   /**
    * 是否可以展开/折叠
    */
@@ -230,7 +234,7 @@ export interface FormRenderProps {
   /**
    * 表单定义
    */
-  schema?: FormSchema[];
+  schema?: FormSchema<T>[];
 }
 
 export interface ActionButtonOptions extends VbenButtonProps {
@@ -238,9 +242,10 @@ export interface ActionButtonOptions extends VbenButtonProps {
   text?: string;
 }
 
-export interface VbenFormProps
-  extends Omit<
-    FormRenderProps,
+export interface VbenFormProps<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> extends Omit<
+    FormRenderProps<T>,
     'componentBindEventMap' | 'componentMap' | 'form'
   > {
   /**
@@ -277,3 +282,12 @@ export type ExtendedFormApi = {
     selector?: (state: NoInfer<VbenFormProps>) => T,
   ) => Readonly<Ref<T>>;
 } & FormApi;
+
+export interface VbenFormAdapterOptions<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> {
+  components: Partial<Record<T, Component>>;
+  config?: {
+    modelPropName?: string;
+  };
+}

@@ -52,6 +52,7 @@ const [Form, formApi] = useVbenForm(
         rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
       },
     ]),
+    showDefaultActions: false,
   }),
 );
 

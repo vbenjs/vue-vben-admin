@@ -26,7 +26,7 @@ export class FormApi {
       layout: 'vertical',
       resetButtonOptions: {},
       schema: [],
-      showDefaultActions: false,
+      showDefaultActions: true,
       submitButtonOptions: {},
     };
 

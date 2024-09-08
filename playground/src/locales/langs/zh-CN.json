@@ -73,7 +73,8 @@
         "title": "文本省略"
       },
       "form": {
-        "title": "表单"
+        "title": "表单",
+        "basic": "基础表单"
       },
       "captcha": {
         "title": "验证码"

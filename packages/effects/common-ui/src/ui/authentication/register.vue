@@ -45,6 +45,7 @@ const [Form, formApi] = useVbenForm(
       hideRequiredMark: true,
     },
     schema: computed(() => props.formSchema),
+    showDefaultActions: false,
   }),
 );
 
