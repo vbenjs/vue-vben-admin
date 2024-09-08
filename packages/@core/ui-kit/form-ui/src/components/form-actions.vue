@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, unref } from 'vue';
+import { computed, toRaw, unref } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { VbenButton, VbenExpandableArrow } from '@vben-core/shadcn-ui';
@@ -31,11 +31,11 @@ const submitButtonOptions = computed(() => {
 
 async function handleSubmit(e: Event) {
   e?.preventDefault();
-  const { valid, values = {} } = await form.validate();
+  const { valid } = await form.validate();
   if (!valid) {
     return;
   }
-  await unref(rootProps).handleSubmit?.(values);
+  await unref(rootProps).handleSubmit?.(toRaw(form.values));
 }
 
 async function handleReset(e: Event) {

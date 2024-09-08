@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import { Card } from 'ant-design-vue';
+import { Card, message } from 'ant-design-vue';
 
-import { useVbenForm, z } from '#/adapter';
+import { useVbenForm } from '#/adapter';
 
-const [Form] = useVbenForm({
+const [BaseForm] = useVbenForm({
   // 使用 tailwindcss grid布局
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  gridClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  gridClass: 'grid-cols-1 md:grid-cols-2 ',
   // 提交函数
   handleSubmit: onSubmit,
   // 水平布局，label和input在同一行
@@ -16,103 +16,146 @@ const [Form] = useVbenForm({
   layout: 'horizontal',
   schema: [
     {
+      // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'Input',
+      // 对应组件的参数
       componentProps: {
         placeholder: '请输入用户名',
       },
-      dependencies: {
-        required: (values) => {
-          return values.password === '123';
-        },
-        // rules: (values) => {
-        //   if (values.password === '123') {
-        //     return z.string().min(1);
-        //   }
-        //   return z.string().min(1).optional();
-        // },
-        triggerFields: ['password', 'username1'],
-      },
+      // 字段名
       fieldName: 'username',
-      label: 'Username',
-      // layout: 'horizontal',
-      rules: z.string().min(1).optional(),
+      // 界面显示的label
+      label: '字符串',
     },
     {
       component: 'InputPassword',
+      componentProps: {
+        placeholder: '请输入密码',
+      },
       fieldName: 'password',
-      help: '123',
-      // layout: 'vertical',
-      label: 'Password',
-      // layout: 'horizontal',
-      rules: z.string().min(1),
+      label: '密码',
+    },
+    {
+      component: 'InputNumber',
+      componentProps: {
+        class: 'w-full',
+        placeholder: '请输入',
+      },
+      fieldName: 'number',
+      label: '数字',
+      // 预处理函数，将空字符串或null转换为undefined
+      // rules: z.preprocess(
+      //   (val) => (val === '' || val === null ? undefined : Number(val)),
+      //   z.number(),
+      // ),
     },
     {
       component: 'Select',
-      componentProps: (values) => {
-        if (values.password === '123') {
-          return {
-            options: [
-              {
-                label: '选项1',
-                value: '1',
-              },
-              {
-                label: '选项2',
-                value: '2',
-              },
-            ],
-            placeholder: '请选择',
-          };
-        }
+      componentProps: {
+        allowClear: true,
+        class: 'w-full',
+        filterOption: true,
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+        placeholder: '请选择',
+        showSearch: true,
+      },
+      fieldName: 'options',
+      label: '下拉选',
+    },
+    {
+      component: 'RadioGroup',
+      componentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      fieldName: 'radioGroup',
+      label: '单选组',
+    },
+    {
+      component: 'Radio',
+      fieldName: 'radio',
+      label: '',
+      renderComponentContent: () => {
         return {
-          options: [
-            {
-              label: '选项1',
-              value: '1',
-            },
-          ],
-          placeholder: '请选择',
+          default: () => ['Radio'],
         };
       },
-      dependencies: {
-        // componentProps: (values) => {
-        //   if (values.password === '123') {
-        //     return {
-        //       options: [
-        //         {
-        //           label: '选项1',
-        //           value: '1',
-        //         },
-        //         {
-        //           label: '选项2',
-        //           value: '2',
-        //         },
-        //       ],
-        //     };
-        //   }
-        //   return {
-        //     options: [
-        //       {
-        //         label: '选项1',
-        //         value: '1',
-        //       },
-        //     ],
-        //   };
-        // },
-        triggerFields: ['password'],
+    },
+    {
+      component: 'CheckboxGroup',
+      componentProps: {
+        name: 'cname',
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
       },
-      fieldName: 'options1',
-      // layout: 'vertical',
-      label: 'options1',
-      // layout: 'horizontal',
-      rules: z.string().min(1).default('1').optional(),
+      fieldName: 'checkboxGroup',
+      label: '多选组',
+    },
+    {
+      component: 'Checkbox',
+      fieldName: 'checkbox',
+      label: '',
+      renderComponentContent: () => {
+        return {
+          default: () => ['我已阅读并同意'],
+        };
+      },
+    },
+    {
+      component: 'Mentions',
+      componentProps: {
+        options: [
+          {
+            label: 'afc163',
+            value: 'afc163',
+          },
+          {
+            label: 'zombieJ',
+            value: 'zombieJ',
+          },
+        ],
+        placeholder: '请输入',
+      },
+      fieldName: 'mentions',
+      label: '提及',
+    },
+    {
+      component: 'Rate',
+      fieldName: 'rate',
+      label: '评分',
     },
   ],
 });
 
 function onSubmit(values: Record<string, any>) {
-  // eslint-disable-next-line no-console
-  console.log(111, values);
+  message.success({
+    content: `form values: ${JSON.stringify(values)}`,
+  });
 }
 </script>
 
@@ -121,8 +164,8 @@ function onSubmit(values: Record<string, any>) {
     description="表单组件基础示例及基础表单校验，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
     title="表单组件"
   >
-    <Card title="基础示例">
-      <Form />
+    <Card title="基础表单示例">
+      <BaseForm />
     </Card>
   </Page>
 </template>

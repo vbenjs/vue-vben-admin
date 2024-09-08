@@ -17,9 +17,9 @@ export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
 ) {
   const slots = useSlots();
+  const initialValues = getDefaultsForSchema(composeZodObjectSchema());
   const form = useForm({
-    // 设置默认值
-    initialValues: getDefaultsForSchema(composeZodObjectSchema()),
+    ...(Object.keys(initialValues)?.length ? { initialValues } : {}),
   });
 
   const delegatedSlots = computed(() => {

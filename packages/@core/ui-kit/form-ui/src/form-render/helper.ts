@@ -7,6 +7,8 @@ import type {
   ZodTypeAny,
 } from 'zod';
 
+import { isObject } from '@vben-core/shared/utils';
+
 /**
  * Get the lowest level Zod type.
  * This will unpack optionals, refinements, etc.
@@ -48,4 +50,11 @@ export function getDefaultValueInZodStack(schema: ZodTypeAny): any {
   }
 
   return undefined;
+}
+
+export function isEventObjectLike(obj: any) {
+  if (!obj || !isObject(obj)) {
+    return false;
+  }
+  return Reflect.has(obj, 'target') && Reflect.has(obj, 'stopPropagation');
 }

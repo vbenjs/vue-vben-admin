@@ -4,7 +4,7 @@ import type { ZodTypeAny } from 'zod';
 
 import type { FormApi } from './form-api';
 
-import type { Component, Ref } from 'vue';
+import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
 export type FormLayout = 'horizontal' | 'vertical';
 
@@ -79,11 +79,14 @@ export type MaybeComponentPropKey =
   | 'options'
   | 'placeholder'
   | 'title'
+  | keyof HtmlHTMLAttributes
   | (Record<never, never> & string);
 
 export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: any };
 
 export type FormActions = FormContext<GenericObject>;
+
+export type CustomRenderType = (() => Component | string) | string;
 
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   value: Partial<Record<string, any>>,
@@ -183,7 +186,7 @@ export interface FormSchema<
   /** 字段规则 */
   rules?: ZodTypeAny;
   /** 后缀 */
-  suffix?: () => Component | string;
+  suffix?: CustomRenderType;
 }
 
 export interface FormFieldProps extends FormSchema {
@@ -289,5 +292,6 @@ export interface VbenFormAdapterOptions<
   components: Partial<Record<T, Component>>;
   config?: {
     modelPropName?: string;
+    modelPropNameMap?: Partial<Record<T, string>>;
   };
 }

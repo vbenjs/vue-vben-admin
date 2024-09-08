@@ -59,7 +59,7 @@ export class DrawerApi {
         },
       },
     );
-
+    this.state = this.store.state;
     this.api = {
       onBeforeClose,
       onCancel,

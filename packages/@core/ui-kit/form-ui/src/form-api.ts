@@ -1,7 +1,26 @@
 import type { FormActions, FormSchema, VbenFormProps } from './types';
 
+import { toRaw } from 'vue';
+
 import { Store } from '@vben-core/shared/store';
 import { isFunction } from '@vben-core/shared/utils';
+
+function getDefaultState(): VbenFormProps {
+  return {
+    actionWrapperClass: '',
+    collapsedRows: 1,
+    commonConfig: {},
+    expandable: false,
+    gridClass: 'grid-cols-1',
+    handleReset: undefined,
+    handleSubmit: undefined,
+    layout: 'vertical',
+    resetButtonOptions: {},
+    schema: [],
+    showDefaultActions: true,
+    submitButtonOptions: {},
+  };
+}
 
 export class FormApi {
   // private prevState!: ModalState;
@@ -15,20 +34,7 @@ export class FormApi {
   constructor(options: VbenFormProps = {}) {
     const { ...storeState } = options;
 
-    const defaultState: VbenFormProps = {
-      actionWrapperClass: '',
-      collapsedRows: 1,
-      commonConfig: {},
-      expandable: false,
-      gridClass: 'grid-cols-1',
-      handleReset: undefined,
-      handleSubmit: undefined,
-      layout: 'vertical',
-      resetButtonOptions: {},
-      schema: [],
-      showDefaultActions: true,
-      submitButtonOptions: {},
-    };
+    const defaultState = getDefaultState();
 
     this.store = new Store<VbenFormProps>(
       {
@@ -41,6 +47,8 @@ export class FormApi {
         },
       },
     );
+
+    this.state = this.store.state;
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法
@@ -151,7 +159,10 @@ export class FormApi {
 
   async submitForm(e?: Event) {
     e?.preventDefault();
-    return await (this.form as FormActions).validate();
+    await (this.form as FormActions).submitForm();
+    const rawValues = toRaw(this.form?.values || {});
+    await this.state?.handleSubmit?.(rawValues);
+    return rawValues;
   }
 
   async validate() {

@@ -13,7 +13,7 @@ import {
   FormMessage,
   VbenRenderContent,
 } from '@vben-core/shadcn-ui';
-import { cn, isFunction, isString } from '@vben-core/shared/utils';
+import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFormValues } from 'vee-validate';
@@ -21,6 +21,7 @@ import { useFormValues } from 'vee-validate';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
+import { isEventObjectLike } from './helper';
 
 interface Props extends FormSchema {}
 
@@ -54,20 +55,6 @@ const fieldComponent = computed(() => {
   return finalComponent;
 });
 
-function fieldBindEvent(modelValue: any, handler: any) {
-  const bindEventField = isString(component)
-    ? componentBindEventMap.value?.[component]
-    : null;
-
-  if (bindEventField) {
-    return {
-      [`onUpdate:${bindEventField}`]: handler,
-      [bindEventField]: modelValue,
-    };
-  }
-  return {};
-}
-
 const {
   dynamicComponentProps,
   dynamicRules,
@@ -94,6 +81,10 @@ const currentRules = computed(() => {
 });
 
 const shouldRequired = computed(() => {
+  if (!currentRules.value) {
+    return false;
+  }
+
   // !schema._def.shape()[field]?.isOptional();
   return isRequired.value || !currentRules?.value?.isOptional?.();
 });
@@ -101,7 +92,7 @@ const shouldRequired = computed(() => {
 const fieldRules = computed(() => {
   let rules = currentRules.value;
   if (!rules) {
-    return;
+    return null;
   }
 
   const isOptional = !shouldRequired.value;
@@ -136,17 +127,69 @@ const customContentRender = computed(() => {
 const renderContentKey = computed(() => {
   return Object.keys(customContentRender.value);
 });
+
+const fieldProps = computed(() => {
+  const rules = fieldRules.value;
+  return {
+    keepValue: true,
+    ...(rules ? { rules } : {}),
+    ...formFieldProps,
+  };
+});
+
+function fieldBindEvent(slotProps: Record<string, any>) {
+  const modelValue = slotProps.componentField.modelValue;
+  const handler = slotProps.componentField['onUpdate:modelValue'];
+
+  const bindEventField = isString(component)
+    ? componentBindEventMap.value?.[component]
+    : null;
+
+  let value = modelValue;
+  // antd design 的一些组件会传递一个 event 对象
+  if (modelValue && isObject(modelValue) && bindEventField) {
+    value = isEventObjectLike(modelValue)
+      ? modelValue?.target?.[bindEventField]
+      : modelValue;
+  }
+  if (bindEventField) {
+    return {
+      [`onUpdate:${bindEventField}`]: handler,
+      [bindEventField]: value,
+      onChange: (e: Record<string, any>) => {
+        const shouldUnwrap = isEventObjectLike(e);
+        const onChange = slotProps?.componentField?.onChange;
+        if (!shouldUnwrap) {
+          return onChange?.(e);
+        }
+
+        return onChange?.(e?.target?.[bindEventField] || e);
+      },
+      onInput: () => {},
+    };
+  }
+  return {};
+}
+
+function createComponentProps(slotProps: Record<string, any>) {
+  const bindEvents = fieldBindEvent(slotProps);
+
+  const binds = {
+    ...slotProps.componentField,
+    ...computedProps.value,
+    ...bindEvents,
+  };
+
+  return binds;
+}
 </script>
 
 <template>
   <FormField
     v-if="isIf"
-    v-bind="formFieldProps"
+    v-bind="fieldProps"
     v-slot="slotProps"
-    :keep-values="true"
     :name="fieldName"
-    :rules="fieldRules"
-    keep-value
   >
     <FormItem
       v-show="isShow"
@@ -180,14 +223,7 @@ const renderContentKey = computed(() => {
           <slot v-bind="slotProps">
             <component
               :is="fieldComponent"
-              v-bind="{
-                ...slotProps.componentField,
-                ...computedProps,
-                ...fieldBindEvent(
-                  slotProps.componentField.modelValue,
-                  slotProps.componentField['onUpdate:modelValue'],
-                ),
-              }"
+              v-bind="createComponentProps(slotProps)"
               :disabled="shouldDisabled"
             >
               <template v-for="name in renderContentKey" :key="name" #[name]>

@@ -66,6 +66,8 @@ export class ModalApi {
       },
     );
 
+    this.state = this.store.state;
+
     this.api = {
       onBeforeClose,
       onCancel,

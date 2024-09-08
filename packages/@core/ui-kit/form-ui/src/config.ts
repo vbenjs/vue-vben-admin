@@ -32,6 +32,9 @@ export function setupVbenForm<
   const { components, config } = options;
 
   const modelPropName = config?.modelPropName ?? DEFAULT_MODEL_PROP_NAME;
+  const modelPropNameMap = config?.modelPropNameMap as
+    | Record<BaseFormComponentType, string>
+    | undefined;
 
   for (const component of Object.keys(components)) {
     const key = component as BaseFormComponentType;
@@ -44,6 +47,15 @@ export function setupVbenForm<
       !COMPONENT_BIND_EVENT_MAP[key]
     ) {
       COMPONENT_BIND_EVENT_MAP[key] = modelPropName;
+    }
+
+    // 覆盖特殊组件的modelPropName
+    if (
+      modelPropNameMap &&
+      modelPropNameMap[key] &&
+      !!COMPONENT_BIND_EVENT_MAP[key]
+    ) {
+      COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
     }
   }
 }
