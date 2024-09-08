@@ -49,6 +49,7 @@ const [BaseForm] = useVbenForm({
       //   z.number(),
       // ),
     },
+
     {
       component: 'Select',
       componentProps: {
@@ -148,6 +149,73 @@ const [BaseForm] = useVbenForm({
       component: 'Rate',
       fieldName: 'rate',
       label: '评分',
+    },
+    {
+      component: 'Switch',
+      fieldName: 'switch',
+      label: '开关',
+    },
+    {
+      component: 'DatePicker',
+      fieldName: 'datePicker',
+      label: '日期选择框',
+    },
+    {
+      component: 'RangePicker',
+      fieldName: 'rangePicker',
+      label: '范围选择器',
+    },
+    {
+      component: 'TimePicker',
+      fieldName: 'timePicker',
+      label: '时间选择框',
+    },
+    {
+      component: 'TreeSelect',
+      componentProps: {
+        allowClear: true,
+        class: 'w-full',
+        showSearch: true,
+        treeData: [
+          {
+            label: 'root 1',
+            value: 'root 1',
+            children: [
+              {
+                label: 'parent 1',
+                value: 'parent 1',
+                children: [
+                  {
+                    label: 'parent 1-0',
+                    value: 'parent 1-0',
+                    children: [
+                      {
+                        label: 'my leaf',
+                        value: 'leaf1',
+                      },
+                      {
+                        label: 'your leaf',
+                        value: 'leaf2',
+                      },
+                    ],
+                  },
+                  {
+                    label: 'parent 1-1',
+                    value: 'parent 1-1',
+                  },
+                ],
+              },
+              {
+                label: 'parent 2',
+                value: 'parent 2',
+              },
+            ],
+          },
+        ],
+        treeNodeFilterProp: 'label',
+      },
+      fieldName: 'treeSelect',
+      label: '树选择',
     },
   ],
 });
