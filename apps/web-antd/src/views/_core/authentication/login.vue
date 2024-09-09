@@ -15,15 +15,15 @@ const authStore = useAuthStore();
 
 const MOCK_USER_OPTIONS: BasicOption[] = [
   {
-    label: 'vben',
+    label: '超级管理员',
     value: 'vben',
   },
   {
-    label: 'admin',
+    label: '管理员',
     value: 'admin',
   },
   {
-    label: 'jack',
+    label: '用户',
     value: 'jack',
   },
 ];
@@ -32,23 +32,6 @@ const formSchema = computed((): VbenFormSchema[] => {
   return [
     {
       component: 'VbenSelect',
-      // componentProps(_values, form) {
-      //   return {
-      //     'onUpdate:modelValue': (value: string) => {
-      //       const findItem = MOCK_USER_OPTIONS.find(
-      //         (item) => item.value === value,
-      //       );
-      //       if (findItem) {
-      //         form.setValues({
-      //           password: '123456',
-      //           username: findItem.label,
-      //         });
-      //       }
-      //     },
-      //     options: MOCK_USER_OPTIONS,
-      //     placeholder: $t('authentication.selectAccount'),
-      //   };
-      // },
       componentProps: {
         options: MOCK_USER_OPTIONS,
         placeholder: $t('authentication.selectAccount'),
@@ -75,7 +58,7 @@ const formSchema = computed((): VbenFormSchema[] => {
             if (findUser) {
               form.setValues({
                 password: '123456',
-                username: findUser.label,
+                username: findUser.value,
               });
             }
           }

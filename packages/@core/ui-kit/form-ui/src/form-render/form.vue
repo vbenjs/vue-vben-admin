@@ -7,7 +7,7 @@ import type { FormRenderProps, FormSchema, FormShape } from '../types';
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn } from '@vben-core/shared/utils';
+import { cn, merge } from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -19,8 +19,8 @@ interface Props extends FormRenderProps {}
 const props = withDefaults(defineProps<Props>(), {
   collapsedRows: 1,
   commonConfig: () => ({}),
-  expandable: false,
-  gridClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
+  showCollapseButton: false,
+  wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
 });
 
 const emits = defineEmits<{
@@ -29,7 +29,7 @@ const emits = defineEmits<{
 
 provideFormRenderProps(props);
 
-const { keepFormItemIndex, wrapperRef } = useExpandable(props);
+const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
 
 const shapes = computed(() => {
   const resultShapes: FormShape[] = [];
@@ -65,12 +65,17 @@ const formComponentProps = computed(() => {
       };
 });
 
+const formCollapsed = computed(() => {
+  return props.collapsed && isCalculated.value;
+});
+
 const computedSchema = computed((): FormSchema[] => {
   const {
+    componentProps = {},
     controlClass = '',
     disabled,
     formFieldProps = {},
-    gridItemClass = '',
+    formItemClass = '',
     hideLabel = false,
     hideRequiredMark = false,
     labelClass = '',
@@ -81,28 +86,29 @@ const computedSchema = computed((): FormSchema[] => {
     const keepIndex = keepFormItemIndex.value;
 
     const hidden =
-      !props.isExpand && props.expandable && keepIndex
+      // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
+      props.showCollapseButton && !!formCollapsed.value && keepIndex
         ? keepIndex <= index
         : false;
 
     return {
       disabled,
-
       hideLabel,
       hideRequiredMark,
       labelWidth,
       wrapperClass,
       ...schema,
+      componentProps: merge({}, schema.componentProps, componentProps),
       controlClass: cn(controlClass, schema.controlClass),
       formFieldProps: {
         ...formFieldProps,
         ...schema.formFieldProps,
       },
-      gridItemClass: cn(
+      formItemClass: cn(
         'flex-shrink-0',
         { hidden },
-        gridItemClass,
-        schema.gridItemClass,
+        formItemClass,
+        schema.formItemClass,
       ),
       labelClass: cn(labelClass, schema.labelClass),
     };
@@ -112,15 +118,15 @@ const computedSchema = computed((): FormSchema[] => {
 
 <template>
   <component :is="formComponent" v-bind="formComponentProps">
-    <div ref="wrapperRef" :class="gridClass" class="grid">
+    <div ref="wrapperRef" :class="wrapperClass" class="grid">
       <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
-        <div v-if="$slots[cSchema.fieldName]" :class="cSchema.gridItemClass">
+        <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
           <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>
         </div>
         <FormField
           v-else
           v-bind="cSchema"
-          :class="cSchema.gridItemClass"
+          :class="cSchema.formItemClass"
           :rules="cSchema.rules"
         />
       </template>

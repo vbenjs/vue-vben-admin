@@ -17,7 +17,8 @@ export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
 ) {
   const slots = useSlots();
-  const initialValues = getDefaultsForSchema(composeZodObjectSchema());
+  const initialValues = generateInitialValues();
+
   const form = useForm({
     ...(Object.keys(initialValues)?.length ? { initialValues } : {}),
   });
@@ -33,17 +34,21 @@ export function useFormInitial(
     return resultSlots;
   });
 
-  /**
-   * 将表单的 schema 转换为 zod object schema
-   */
-  function composeZodObjectSchema() {
+  function generateInitialValues() {
+    const initialValues: Record<string, any> = {};
+
     const zodObject: ZodRawShape = {};
     (unref(props).schema || []).forEach((item) => {
-      if (item.rules) {
+      if (Reflect.has(item, 'defaultValue')) {
+        initialValues[item.fieldName] = item.defaultValue;
+      } else if (item.rules) {
         zodObject[item.fieldName] = item.rules;
       }
     });
-    return object(zodObject);
+
+    const schemaInitialValues = getDefaultsForSchema(object(zodObject));
+
+    return { ...initialValues, ...schemaInitialValues };
   }
 
   return {

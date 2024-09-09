@@ -1,6 +1,6 @@
 import type { FormRenderProps } from '../types';
 
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue';
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
@@ -10,18 +10,24 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 export function useExpandable(props: FormRenderProps) {
   const wrapperRef = useTemplateRef<HTMLElement>('wrapperRef');
   const rowMapping = ref<Record<number, number>>({});
+  // 是否已经计算过一次
+  const isCalculated = ref(false);
 
   const breakpoints = useBreakpoints(breakpointsTailwind);
 
   const keepFormItemIndex = computed(() => {
     const rows = props.collapsedRows ?? 1;
     const mapping = rowMapping.value;
-    return (mapping?.[rows] ?? 1) - 1;
+    let maxItem = 0;
+    for (let index = 1; index <= rows; index++) {
+      maxItem += mapping?.[index] ?? 0;
+    }
+    return maxItem - 1;
   });
 
   watch(
     [
-      () => props.expandable,
+      () => props.showCollapseButton,
       () => breakpoints.active().value,
       () => props.schema?.length,
     ],
@@ -29,14 +35,13 @@ export function useExpandable(props: FormRenderProps) {
       if (val) {
         await nextTick();
         rowMapping.value = {};
-        calculateRowMapping();
+        await calculateRowMapping();
       }
     },
-    { immediate: true },
   );
 
   async function calculateRowMapping() {
-    if (!props.expandable) {
+    if (!props.showCollapseButton) {
       return;
     }
 
@@ -52,6 +57,7 @@ export function useExpandable(props: FormRenderProps) {
     }
 
     const formItems = [...wrapperRef.value.children];
+
     const container = wrapperRef.value;
     const containerStyles = window.getComputedStyle(container);
     const rowHeights = containerStyles
@@ -79,8 +85,13 @@ export function useExpandable(props: FormRenderProps) {
         return;
       }
       rowMapping.value[rowStart] = (rowMapping.value[rowStart] ?? 0) + 1;
+      isCalculated.value = true;
     });
   }
 
-  return { keepFormItemIndex, wrapperRef };
+  onMounted(() => {
+    calculateRowMapping();
+  });
+
+  return { isCalculated, keepFormItemIndex, wrapperRef };
 }

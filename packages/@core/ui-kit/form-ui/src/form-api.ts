@@ -3,31 +3,35 @@ import type { FormActions, FormSchema, VbenFormProps } from './types';
 import { toRaw } from 'vue';
 
 import { Store } from '@vben-core/shared/store';
-import { isFunction } from '@vben-core/shared/utils';
+import { bindMethods, isFunction, StateHandler } from '@vben-core/shared/utils';
 
 function getDefaultState(): VbenFormProps {
   return {
     actionWrapperClass: '',
+    collapsed: false,
     collapsedRows: 1,
     commonConfig: {},
-    expandable: false,
-    gridClass: 'grid-cols-1',
     handleReset: undefined,
     handleSubmit: undefined,
     layout: 'vertical',
     resetButtonOptions: {},
     schema: [],
+    showCollapseButton: false,
     showDefaultActions: true,
     submitButtonOptions: {},
+    wrapperClass: 'grid-cols-1',
   };
 }
 
 export class FormApi {
   // private prevState!: ModalState;
   private state: null | VbenFormProps = null;
-
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
-  public form: FormActions | null = null;
+  public form = {} as FormActions;
+
+  isMounted = false;
+
+  stateHandler: StateHandler;
 
   public store: Store<VbenFormProps>;
 
@@ -49,6 +53,19 @@ export class FormApi {
     );
 
     this.state = this.store.state;
+    this.stateHandler = new StateHandler();
+    bindMethods(this);
+  }
+
+  private async getForm() {
+    if (!this.isMounted) {
+      // 等待form挂载
+      await this.stateHandler.waitForCondition();
+    }
+    if (!this.form?.meta) {
+      throw new Error('<VbenForm /> is not mounted');
+    }
+    return this.form;
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法
@@ -57,8 +74,10 @@ export class FormApi {
   }
 
   async getValues() {
-    return this.form?.values;
+    const form = await this.getForm();
+    return form.values;
   }
+
   /**
    * 满足条件的位置，插入表单项，如果没有满足条件的，插入到末尾
    * @param value
@@ -92,7 +111,9 @@ export class FormApi {
   }
 
   mount(formActions: FormActions) {
-    this.form = formActions;
+    Object.assign(this.form, formActions);
+    this.stateHandler.setConditionTrue();
+    this.isMounted = true;
   }
 
   /**
@@ -137,8 +158,24 @@ export class FormApi {
   /**
    * 重置表单
    */
-  async resetForm() {
-    return this.form?.resetForm();
+  async resetForm(e: Event) {
+    e?.preventDefault();
+    const form = await this.getForm();
+
+    return form.resetForm();
+  }
+
+  async resetValidate() {
+    const form = await this.getForm();
+    const fields = Object.keys(form.errors.value);
+    fields.forEach((field) => {
+      form.setFieldError(field, undefined);
+    });
+  }
+
+  async setFieldValue(field: string, value: any, shouldValidate?: boolean) {
+    const form = await this.getForm();
+    form.setFieldValue(field, value, shouldValidate);
   }
 
   setState(
@@ -154,18 +191,27 @@ export class FormApi {
   }
 
   async setValues(fields: Record<string, any>, shouldValidate?: boolean) {
-    this.form?.setValues(fields, shouldValidate);
+    const form = await this.getForm();
+    form.setValues(fields, shouldValidate);
   }
 
   async submitForm(e?: Event) {
     e?.preventDefault();
-    await (this.form as FormActions).submitForm();
-    const rawValues = toRaw(this.form?.values || {});
+    const form = await this.getForm();
+    await form.submitForm();
+    const rawValues = toRaw(form.values || {});
     await this.state?.handleSubmit?.(rawValues);
     return rawValues;
   }
 
+  unmounted() {
+    this.state = null;
+    this.isMounted = false;
+    this.stateHandler.reset();
+  }
+
   async validate() {
-    return await (this.form as FormActions).validate();
+    const form = await this.getForm();
+    return await form.validate();
   }
 }

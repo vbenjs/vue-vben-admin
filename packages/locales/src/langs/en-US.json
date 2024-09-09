@@ -97,6 +97,7 @@
     "username": "Username",
     "password": "Password",
     "usernameTip": "Please enter username",
+    "passwordErrorTip": "Password is incorrect",
     "passwordTip": "Please enter password",
     "rememberMe": "Remember Me",
     "createAnAccount": "Create an Account",

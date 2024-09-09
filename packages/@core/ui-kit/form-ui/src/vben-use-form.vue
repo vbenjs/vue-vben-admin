@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { ExtendedFormApi, VbenFormProps } from './types';
 
-import { ref } from 'vue';
-
 import { useForwardPriorityValues } from '@vben-core/composables';
 
 import FormActions from './components/form-actions.vue';
@@ -21,13 +19,15 @@ const state = props.formApi?.useStore?.();
 
 const forward = useForwardPriorityValues(props, state);
 
-const isExpand = ref(false);
-
 const { delegatedSlots, form } = useFormInitial(forward);
 
 provideFormProps([forward, form]);
 
 props.formApi?.mount?.(form);
+
+const handleUpdateCollapsed = (value: boolean) => {
+  props.formApi?.setState({ collapsed: !!value });
+};
 </script>
 
 <template>
@@ -36,7 +36,6 @@ props.formApi?.mount?.(form);
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"
-    :is-expand="isExpand"
   >
     <template
       v-for="slotName in delegatedSlots"
@@ -47,7 +46,11 @@ props.formApi?.mount?.(form);
     </template>
     <template #default="slotProps">
       <slot v-bind="slotProps">
-        <FormActions v-if="forward.showDefaultActions" v-model="isExpand" />
+        <FormActions
+          v-if="forward.showDefaultActions"
+          :model-value="state.collapsed"
+          @update:model-value="handleUpdateCollapsed"
+        />
       </slot>
     </template>
   </Form>

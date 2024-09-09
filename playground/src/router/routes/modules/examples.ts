@@ -57,9 +57,25 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'FormBasicExample',
             path: '/examples/form/basic',
-            component: () => import('#/views/examples/form/index.vue'),
+            component: () => import('#/views/examples/form/basic.vue'),
             meta: {
               title: $t('page.examples.form.basic'),
+            },
+          },
+          {
+            name: 'FormQueryExample',
+            path: '/examples/form/query',
+            component: () => import('#/views/examples/form/query.vue'),
+            meta: {
+              title: $t('page.examples.form.query'),
+            },
+          },
+          {
+            name: 'FormRulesExample',
+            path: '/examples/form/rules',
+            component: () => import('#/views/examples/form/rules.vue'),
+            meta: {
+              title: $t('page.examples.form.rules'),
             },
           },
         ],

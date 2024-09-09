@@ -11,7 +11,7 @@ const { $t } = useSimpleLocale();
 
 const [rootProps, form] = injectFormProps();
 
-const isExpanded = defineModel({ default: false });
+const collapsed = defineModel({ default: false });
 
 const resetButtonOptions = computed(() => {
   return {
@@ -29,8 +29,24 @@ const submitButtonOptions = computed(() => {
   };
 });
 
+const isQueryForm = computed(() => {
+  return !!unref(rootProps).showCollapseButton;
+});
+
+const queryFormStyle = computed(() => {
+  if (isQueryForm.value) {
+    return {
+      'grid-column': `-2 / -1`,
+      marginLeft: 'auto',
+    };
+  }
+
+  return {};
+});
+
 async function handleSubmit(e: Event) {
   e?.preventDefault();
+  e?.stopPropagation();
   const { valid } = await form.validate();
   if (!valid) {
     return;
@@ -40,6 +56,7 @@ async function handleSubmit(e: Event) {
 
 async function handleReset(e: Event) {
   e?.preventDefault();
+  e?.stopPropagation();
   const props = unref(rootProps);
   if (isFunction(props.handleReset)) {
     await props.handleReset?.(form.values);
@@ -50,15 +67,14 @@ async function handleReset(e: Event) {
 </script>
 <template>
   <div
-    :class="cn('ml-auto', rootProps.actionWrapperClass)"
-    :style="{
-      'grid-column': `-2 / -1`,
-    }"
+    :class="cn('col-span-full w-full text-right', rootProps.actionWrapperClass)"
+    :style="queryFormStyle"
   >
     <VbenButton
       v-if="resetButtonOptions.show"
       class="mr-3"
       size="sm"
+      type="button"
       variant="outline"
       @click="handleReset"
       v-bind="resetButtonOptions"
@@ -68,6 +84,7 @@ async function handleReset(e: Event) {
 
     <VbenButton
       size="sm"
+      type="button"
       variant="default"
       v-bind="submitButtonOptions"
       v-if="submitButtonOptions.show"
@@ -77,11 +94,11 @@ async function handleReset(e: Event) {
     </VbenButton>
 
     <VbenExpandableArrow
-      v-if="rootProps.expandable"
-      v-model:model-value="isExpanded"
+      v-if="rootProps.showCollapseButton"
+      v-model:model-value="collapsed"
       class="ml-2"
     >
-      <span>{{ isExpanded ? $t('collapse') : $t('expand') }}</span>
+      <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
   </div>
 </template>

@@ -85,8 +85,22 @@ const shouldRequired = computed(() => {
     return false;
   }
 
-  // !schema._def.shape()[field]?.isOptional();
-  return isRequired.value || !currentRules?.value?.isOptional?.();
+  if (isRequired.value) {
+    return true;
+  }
+
+  let isOptional = currentRules?.value?.isOptional?.();
+
+  // 如果有设置默认值，则不是必填，需要特殊处理
+  const typeName = currentRules?.value?._def?.typeName;
+  if (typeName === 'ZodDefault') {
+    const innerType = currentRules?.value?._def.innerType;
+    if (innerType) {
+      isOptional = innerType.isOptional?.();
+    }
+  }
+
+  return !isOptional;
 });
 
 const fieldRules = computed(() => {
@@ -96,7 +110,6 @@ const fieldRules = computed(() => {
   }
 
   const isOptional = !shouldRequired.value;
-
   if (!isOptional) {
     const unwrappedRules = (rules as any)?.unwrap?.();
     if (unwrappedRules) {
@@ -163,7 +176,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
           return onChange?.(e);
         }
 
-        return onChange?.(e?.target?.[bindEventField] || e);
+        return onChange?.(e?.target?.[bindEventField] ?? e);
       },
       onInput: () => {},
     };

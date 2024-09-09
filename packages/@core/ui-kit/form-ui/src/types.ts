@@ -18,52 +18,9 @@ export type BaseFormComponentType =
 
 type Breakpoints = '' | '2xl:' | '3xl:' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 
-export type GridClassType =
+export type WrapperClassType =
   | `${Breakpoints}grid-cols-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
   | (Record<never, never> & string);
-
-export interface FormCommonConfig {
-  // 所有表单项的控件样式,可以控制表单项大小
-  controlClass?: string;
-  /**
-   * 所有表单项的禁用状态
-   * @default false
-   */
-  disabled?: boolean;
-  /**
-   * 所有表单项的控件样式,可以控制表单项大小
-   * @default "h-8"
-   */
-  formFieldProps?: Partial<typeof Field>;
-  /**
-   * 所有表单项的栅格布局
-   * @default ""
-   */
-  gridItemClass?: string;
-  /**
-   * 隐藏所有表单项label
-   * @default false
-   */
-  hideLabel?: boolean;
-  /**
-   * 是否隐藏必填标记
-   * @default false
-   */
-  hideRequiredMark?: boolean;
-  /**
-   * 所有表单项的label样式
-   * @default "w-[100px]"
-   */
-  labelClass?: string;
-  /**
-   * 所有表单项的label宽度
-   */
-  labelWidth?: number;
-  /**
-   * 所有表单项的wrapper样式
-   */
-  wrapperClass?: string;
-}
 
 export interface FormShape {
   /** 默认值 */
@@ -151,6 +108,55 @@ type ComponentProps =
     ) => MaybeComponentProps)
   | MaybeComponentProps;
 
+export interface FormCommonConfig {
+  /**
+   * 所有表单项的props
+   */
+  componentProps?: ComponentProps;
+  /**
+   * 所有表单项的控件样式
+   */
+  controlClass?: string;
+  /**
+   * 所有表单项的禁用状态
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * 所有表单项的控件样式
+   * @default ""
+   */
+  formFieldProps?: Partial<typeof Field>;
+  /**
+   * 所有表单项的栅格布局
+   * @default ""
+   */
+  formItemClass?: string;
+  /**
+   * 隐藏所有表单项label
+   * @default false
+   */
+  hideLabel?: boolean;
+  /**
+   * 是否隐藏必填标记
+   * @default false
+   */
+  hideRequiredMark?: boolean;
+  /**
+   * 所有表单项的label样式
+   * @default "w-[100px]"
+   */
+  labelClass?: string;
+  /**
+   * 所有表单项的label宽度
+   */
+  labelWidth?: number;
+  /**
+   * 所有表单项的wrapper样式
+   */
+  wrapperClass?: string;
+}
+
 type RenderComponentContentType = (
   value: Partial<Record<string, any>>,
   api: FormActions,
@@ -171,6 +177,8 @@ export interface FormSchema<
   component: Component | T;
   /** 组件参数 */
   componentProps?: ComponentProps;
+  /** 默认值 */
+  defaultValue?: any;
   /** 依赖 */
   dependencies?: FormItemDependencies;
   /** 描述 */
@@ -197,6 +205,10 @@ export interface FormRenderProps<
   T extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**
+   * 是否展开，在showCollapseButton=true下生效
+   */
+  collapsed?: boolean;
+  /**
    * 折叠时保持行数
    * @default 1
    */
@@ -214,22 +226,9 @@ export interface FormRenderProps<
    */
   componentMap: Record<BaseFormComponentType, Component>;
   /**
-   * 是否可以展开/折叠
-   */
-  expandable?: boolean;
-  /**
    * 表单实例
    */
   form?: FormContext<GenericObject>;
-  /**
-   * 表单栅格布局
-   * @default "grid-cols-1"
-   */
-  gridClass?: GridClassType;
-  /**
-   * 是否展开，在expandable=true下生效
-   */
-  isExpand?: boolean;
   /**
    * 表单项布局
    */
@@ -238,6 +237,15 @@ export interface FormRenderProps<
    * 表单定义
    */
   schema?: FormSchema<T>[];
+  /**
+   * 是否显示展开/折叠
+   */
+  showCollapseButton?: boolean;
+  /**
+   * 表单栅格布局
+   * @default "grid-cols-1"
+   */
+  wrapperClass?: WrapperClassType;
 }
 
 export interface ActionButtonOptions extends VbenButtonProps {
@@ -263,7 +271,6 @@ export interface VbenFormProps<
    * 表单提交回调
    */
   handleSubmit?: HandleSubmitFn;
-
   /**
    * 重置按钮参数
    */
@@ -291,7 +298,7 @@ export interface VbenFormAdapterOptions<
 > {
   components: Partial<Record<T, Component>>;
   config?: {
-    modelPropName?: string;
+    baseModelPropName?: string;
     modelPropNameMap?: Partial<Record<T, string>>;
   };
 }

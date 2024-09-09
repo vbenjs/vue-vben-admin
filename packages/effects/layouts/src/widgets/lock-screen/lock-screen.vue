@@ -35,7 +35,7 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 const showUnlockForm = ref(false);
 const { lockScreenPassword } = storeToRefs(lockStore);
 
-const [Form, formApi] = useVbenForm(
+const [Form, { form, validate }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -57,13 +57,17 @@ const [Form, formApi] = useVbenForm(
 );
 
 const validPass = computed(
-  () => lockScreenPassword?.value === formApi.form?.values?.password,
+  () => lockScreenPassword?.value === form?.values?.password,
 );
 
 async function handleSubmit() {
-  const { valid } = await formApi.validate();
-  if (valid && validPass.value) {
-    lockStore.unlockScreen();
+  const { valid } = await validate();
+  if (valid) {
+    if (validPass.value) {
+      lockStore.unlockScreen();
+    } else {
+      form.setFieldError('password', $t('authentication.passwordErrorTip'));
+    }
   }
 }
 

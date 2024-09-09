@@ -31,7 +31,8 @@ export function setupVbenForm<
 >(options: VbenFormAdapterOptions<T>) {
   const { components, config } = options;
 
-  const modelPropName = config?.modelPropName ?? DEFAULT_MODEL_PROP_NAME;
+  const baseModelPropName =
+    config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;
   const modelPropNameMap = config?.modelPropNameMap as
     | Record<BaseFormComponentType, string>
     | undefined;
@@ -43,10 +44,10 @@ export function setupVbenForm<
     }
 
     if (
-      modelPropName !== DEFAULT_MODEL_PROP_NAME &&
+      baseModelPropName !== DEFAULT_MODEL_PROP_NAME &&
       !COMPONENT_BIND_EVENT_MAP[key]
     ) {
-      COMPONENT_BIND_EVENT_MAP[key] = modelPropName;
+      COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
     }
 
     // 覆盖特殊组件的modelPropName

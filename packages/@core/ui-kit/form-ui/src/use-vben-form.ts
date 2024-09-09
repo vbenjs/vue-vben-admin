@@ -4,7 +4,7 @@ import type {
   VbenFormProps,
 } from './types';
 
-import { defineComponent, h, isReactive, watch } from 'vue';
+import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
 import { useStore } from '@vben-core/shared/store';
 
@@ -41,6 +41,10 @@ export function useVbenForm<
       { immediate: true },
     );
   }
+
+  onBeforeUnmount(() => {
+    api.unmounted();
+  });
 
   return [Form, extendedApi] as const;
 }

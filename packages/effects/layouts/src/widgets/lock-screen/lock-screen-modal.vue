@@ -32,7 +32,7 @@ const emit = defineEmits<{
   submit: RegisterEmits['submit'];
 }>();
 
-const [Form, formApi] = useVbenForm(
+const [Form, { resetForm, validate }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -62,13 +62,13 @@ const [Modal] = useVbenModal({
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      formApi.form?.resetForm();
+      resetForm();
     }
   },
 });
 
 async function handleSubmit() {
-  const { valid, values } = await formApi.validate();
+  const { valid, values } = await validate();
   if (valid) {
     emit('submit', values?.lockScreenPassword);
   }

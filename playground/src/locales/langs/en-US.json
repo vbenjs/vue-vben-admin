@@ -74,7 +74,9 @@
       },
       "form": {
         "title": "Form",
-        "basic": "Basic Form"
+        "basic": "Basic Form",
+        "query": "Query Form",
+        "rules": "Form Rules"
       },
       "captcha": {
         "title": "Captcha"

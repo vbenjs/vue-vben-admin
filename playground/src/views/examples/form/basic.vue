@@ -1,19 +1,25 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import { Card, message } from 'ant-design-vue';
+import { Button, Card, message } from 'ant-design-vue';
+import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter';
 
-const [BaseForm] = useVbenForm({
+const [BaseForm, { setFieldValue, setValues }] = useVbenForm({
+  // 所有表单项共用，可单独在表单内覆盖
+  commonConfig: {
+    // 所有表单项
+    componentProps: {
+      class: 'w-full',
+    },
+  },
   // 使用 tailwindcss grid布局
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  gridClass: 'grid-cols-1 md:grid-cols-2 ',
   // 提交函数
   handleSubmit: onSubmit,
-  // 水平布局，label和input在同一行
   // 垂直布局，label和input在不同行，值为vertical
   layout: 'horizontal',
+  // 水平布局，label和input在同一行
   schema: [
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
@@ -38,23 +44,16 @@ const [BaseForm] = useVbenForm({
     {
       component: 'InputNumber',
       componentProps: {
-        class: 'w-full',
         placeholder: '请输入',
       },
       fieldName: 'number',
-      label: '数字',
-      // 预处理函数，将空字符串或null转换为undefined
-      // rules: z.preprocess(
-      //   (val) => (val === '' || val === null ? undefined : Number(val)),
-      //   z.number(),
-      // ),
+      label: '数字(带后缀)',
+      suffix: () => '¥',
     },
-
     {
       component: 'Select',
       componentProps: {
         allowClear: true,
-        class: 'w-full',
         filterOption: true,
         options: [
           {
@@ -152,6 +151,9 @@ const [BaseForm] = useVbenForm({
     },
     {
       component: 'Switch',
+      componentProps: {
+        class: 'w-auto',
+      },
       fieldName: 'switch',
       label: '开关',
     },
@@ -174,7 +176,7 @@ const [BaseForm] = useVbenForm({
       component: 'TreeSelect',
       componentProps: {
         allowClear: true,
-        class: 'w-full',
+        placeholder: '请选择',
         showSearch: true,
         treeData: [
           {
@@ -218,6 +220,8 @@ const [BaseForm] = useVbenForm({
       label: '树选择',
     },
   ],
+  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
 function onSubmit(values: Record<string, any>) {
@@ -225,14 +229,41 @@ function onSubmit(values: Record<string, any>) {
     content: `form values: ${JSON.stringify(values)}`,
   });
 }
+
+function handleSetFormValue() {
+  /**
+   * 设置表单值(多个)
+   */
+  setValues({
+    checkboxGroup: ['1'],
+    datePicker: dayjs('2022-01-01'),
+    mentions: '@afc163',
+    number: 3,
+    options: '1',
+    password: '2',
+    radioGroup: '1',
+    rangePicker: [dayjs('2022-01-01'), dayjs('2022-01-02')],
+    rate: 3,
+    switch: true,
+    timePicker: dayjs('2022-01-01 12:00:00'),
+    treeSelect: 'leaf1',
+    username: '1',
+  });
+
+  // 设置单个表单值
+  setFieldValue('checkbox', true);
+}
 </script>
 
 <template>
   <Page
-    description="表单组件基础示例及基础表单校验，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
+    description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
     title="表单组件"
   >
-    <Card title="基础表单示例">
+    <Card title="基础示例">
+      <template #extra>
+        <Button type="primary" @click="handleSetFormValue">设置表单值</Button>
+      </template>
       <BaseForm />
     </Card>
   </Page>

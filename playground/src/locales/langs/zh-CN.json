@@ -74,7 +74,9 @@
       },
       "form": {
         "title": "表单",
-        "basic": "基础表单"
+        "basic": "基础表单",
+        "query": "查询表单",
+        "rules": "表单校验"
       },
       "captcha": {
         "title": "验证码"

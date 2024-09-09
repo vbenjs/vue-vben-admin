@@ -1,7 +1,7 @@
 import type { ModalApiOptions, ModalState } from './modal';
 
 import { Store } from '@vben-core/shared/store';
-import { isFunction } from '@vben-core/shared/utils';
+import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class ModalApi {
   private api: Pick<
@@ -74,6 +74,7 @@ export class ModalApi {
       onConfirm,
       onOpenChange,
     };
+    bindMethods(this);
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法

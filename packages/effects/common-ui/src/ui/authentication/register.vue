@@ -38,7 +38,7 @@ const emit = defineEmits<{
   submit: RegisterEmits['submit'];
 }>();
 
-const [Form, formApi] = useVbenForm(
+const [Form, { validate }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -52,7 +52,7 @@ const [Form, formApi] = useVbenForm(
 const router = useRouter();
 
 async function handleSubmit() {
-  const { valid, values } = await formApi.validate();
+  const { valid, values } = await validate();
   if (valid) {
     emit('submit', values as { password: string; username: string });
   }

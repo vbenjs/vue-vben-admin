@@ -67,7 +67,7 @@ setupVbenForm<FormComponentType>({
     TreeSelect,
   },
   config: {
-    modelPropName: 'value',
+    baseModelPropName: 'value',
     modelPropNameMap: {
       Checkbox: 'checked',
       Radio: 'checked',

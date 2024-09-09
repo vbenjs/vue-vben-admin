@@ -15,15 +15,15 @@ const authStore = useAuthStore();
 
 const MOCK_USER_OPTIONS: BasicOption[] = [
   {
-    label: 'vben',
+    label: '超级管理员',
     value: 'vben',
   },
   {
-    label: 'admin',
+    label: '管理员',
     value: 'admin',
   },
   {
-    label: 'jack',
+    label: '用户',
     value: 'jack',
   },
 ];
@@ -75,7 +75,7 @@ const formSchema = computed((): VbenFormSchema[] => {
             if (findUser) {
               form.setValues({
                 password: '123456',
-                username: findUser.label,
+                username: findUser.value,
               });
             }
           }
