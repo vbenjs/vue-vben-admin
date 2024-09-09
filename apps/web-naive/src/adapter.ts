@@ -33,9 +33,11 @@ export type FormComponentType =
 // 初始化表单组件，并注册到form组件内部
 setupVbenForm<FormComponentType>({
   components: {
+    // 自定义默认的重置按钮
     DefaultResetActionButton: (props, { attrs, slots }) => {
       return h(NButton, { ...props, attrs, text: false, type: 'info' }, slots);
     },
+    // 自定义默认的提交按钮
     DefaultSubmitActionButton: (props, { attrs, slots }) => {
       return h(
         NButton,

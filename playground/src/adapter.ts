@@ -56,9 +56,11 @@ setupVbenForm<FormComponentType>({
     Checkbox,
     CheckboxGroup,
     DatePicker,
+    // 自定义默认的重置按钮
     DefaultResetActionButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
+    // 自定义默认的提交按钮
     DefaultSubmitActionButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },

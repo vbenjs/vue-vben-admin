@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter';
 
-const [BaseForm, { setFieldValue, setValues }] = useVbenForm({
+const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -234,7 +234,7 @@ function handleSetFormValue() {
   /**
    * 设置表单值(多个)
    */
-  setValues({
+  baseFormApi.setValues({
     checkboxGroup: ['1'],
     datePicker: dayjs('2022-01-01'),
     mentions: '@afc163',
@@ -251,7 +251,7 @@ function handleSetFormValue() {
   });
 
   // 设置单个表单值
-  setFieldValue('checkbox', true);
+  baseFormApi.setFieldValue('checkbox', true);
 }
 </script>
 

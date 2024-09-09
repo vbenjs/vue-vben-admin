@@ -5,7 +5,7 @@ import { Button, Card, message } from 'ant-design-vue';
 
 import { useVbenForm, z } from '#/adapter';
 
-const [Form, { resetValidate, validate }] = useVbenForm({
+const [Form, formApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -172,8 +172,10 @@ function onSubmit(values: Record<string, any>) {
   <Page description="表单校验示例" title="表单组件">
     <Card title="基础组件校验示例">
       <template #extra>
-        <Button @click="validate">校验表单</Button>
-        <Button class="mx-2" @click="resetValidate">清空校验信息</Button>
+        <Button @click="() => formApi.validate()">校验表单</Button>
+        <Button class="mx-2" @click="() => formApi.resetValidate()">
+          清空校验信息
+        </Button>
       </template>
       <Form />
     </Card>
