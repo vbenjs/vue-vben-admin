@@ -5,6 +5,8 @@ import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
+import { VueQueryPlugin } from '@tanstack/vue-query';
+
 import { setupI18n } from '#/locales';
 
 import App from './app.vue';
@@ -24,6 +26,9 @@ async function bootstrap(namespace: string) {
 
   // 配置路由及路由守卫
   app.use(router);
+
+  // 配置@tanstack/vue-query
+  app.use(VueQueryPlugin);
 
   app.mount('#app');
 }

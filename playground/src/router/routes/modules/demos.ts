@@ -183,6 +183,15 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.demos.features.clipboard'),
             },
           },
+          {
+            name: 'VueQueryDemo',
+            path: '/demos/features/vue-query',
+            component: () =>
+              import('#/views/demos/features/vue-query/index.vue'),
+            meta: {
+              title: 'Tanstack Query',
+            },
+          },
         ],
       },
       // 面包屑导航
