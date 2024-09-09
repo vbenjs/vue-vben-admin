@@ -1,6 +1,0 @@
-ports:
-  - port: 5555
-    onOpen: open-preview
-tasks:
-  - init: corepack enable && pnpm install
-    command: pnpm run dev

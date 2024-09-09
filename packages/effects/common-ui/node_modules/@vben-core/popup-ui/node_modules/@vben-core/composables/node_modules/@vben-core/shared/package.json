@@ -1,0 +1,77 @@
+{
+  "name": "@vben-core/shared",
+  "version": "5.2.2",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/@vben-core/base/shared"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm unbuild"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./constants": {
+      "types": "./src/constants/index.ts",
+      "development": "./src/constants/index.ts",
+      "default": "./dist/constants/index.mjs"
+    },
+    "./utils": {
+      "types": "./src/utils/index.ts",
+      "development": "./src/utils/index.ts",
+      "default": "./dist/utils/index.mjs"
+    },
+    "./color": {
+      "types": "./src/color/index.ts",
+      "development": "./src/color/index.ts",
+      "default": "./dist/color/index.mjs"
+    },
+    "./cache": {
+      "types": "./src/cache/index.ts",
+      "development": "./src/cache/index.ts",
+      "default": "./dist/cache/index.mjs"
+    },
+    "./store": {
+      "types": "./src/store.ts",
+      "development": "./src/store.ts",
+      "default": "./dist/store.mjs"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
+    "@tanstack/vue-store": "^0.5.5",
+    "@vue/shared": "^3.5.1",
+    "clsx": "^2.1.1",
+    "defu": "^6.1.4",
+    "lodash.clonedeep": "^4.5.0",
+    "nprogress": "^0.2.0",
+    "tailwind-merge": "^2.5.2",
+    "theme-colors": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/lodash.clonedeep": "^4.5.9",
+    "@types/nprogress": "^0.2.3"
+  }
+}
