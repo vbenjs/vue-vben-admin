@@ -33,6 +33,7 @@ const {
   disabled,
   fieldName,
   formFieldProps,
+  label,
   labelClass,
   labelWidth,
   renderComponentContent,
@@ -72,21 +73,21 @@ const labelStyle = computed(() => {
       };
 });
 
-const shouldDisabled = computed(() => {
-  return isDisabled.value || disabled;
-});
-
 const currentRules = computed(() => {
   return dynamicRules.value || rules;
 });
 
 const shouldRequired = computed(() => {
   if (!currentRules.value) {
-    return false;
+    return isRequired.value;
   }
 
   if (isRequired.value) {
     return true;
+  }
+
+  if (isString(currentRules.value)) {
+    return currentRules.value === 'required';
   }
 
   let isOptional = currentRules?.value?.isOptional?.();
@@ -106,7 +107,11 @@ const shouldRequired = computed(() => {
 const fieldRules = computed(() => {
   let rules = currentRules.value;
   if (!rules) {
-    return null;
+    return isRequired.value ? 'required' : null;
+  }
+
+  if (isString(rules)) {
+    return rules;
   }
 
   const isOptional = !shouldRequired.value;
@@ -130,6 +135,10 @@ const computedProps = computed(() => {
   };
 });
 
+const shouldDisabled = computed(() => {
+  return isDisabled.value || disabled || computedProps.value?.disabled;
+});
+
 const customContentRender = computed(() => {
   if (!isFunction(renderComponentContent)) {
     return {};
@@ -145,6 +154,7 @@ const fieldProps = computed(() => {
   const rules = fieldRules.value;
   return {
     keepValue: true,
+    label,
     ...(rules ? { rules } : {}),
     ...formFieldProps,
   };
@@ -233,7 +243,13 @@ function createComponentProps(slotProps: Record<string, any>) {
       </FormLabel>
       <div :class="cn('relative flex w-full items-center', wrapperClass)">
         <FormControl :class="cn(controlClass)">
-          <slot v-bind="slotProps">
+          <slot
+            v-bind="{
+              ...slotProps,
+              ...createComponentProps(slotProps),
+              disabled: shouldDisabled,
+            }"
+          >
             <component
               :is="fieldComponent"
               v-bind="createComponentProps(slotProps)"

@@ -47,6 +47,12 @@ export type FormActions = FormContext<GenericObject>;
 
 export type CustomRenderType = (() => Component | string) | string;
 
+export type FormSchemaRuleType =
+  | 'required'
+  | null
+  | (Record<never, never> & string)
+  | ZodTypeAny;
+
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
@@ -55,7 +61,7 @@ type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
 type FormItemDependenciesConditionWithRules = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
-) => PromiseLike<ZodTypeAny> | ZodTypeAny;
+) => FormSchemaRuleType | PromiseLike<FormSchemaRuleType>;
 
 type FormItemDependenciesConditionWithProps = (
   value: Partial<Record<string, any>>,
@@ -83,7 +89,6 @@ export interface FormItemDependencies {
    * @returns 是否必填
    */
   required?: FormItemDependenciesCondition;
-
   /**
    * 字段规则
    */
@@ -194,7 +199,7 @@ export interface FormSchema<
   // 自定义组件内部渲染
   renderComponentContent?: RenderComponentContentType;
   /** 字段规则 */
-  rules?: ZodTypeAny;
+  rules?: FormSchemaRuleType;
   /** 后缀 */
   suffix?: CustomRenderType;
 }
@@ -302,5 +307,12 @@ export interface VbenFormAdapterOptions<
   config?: {
     baseModelPropName?: string;
     modelPropNameMap?: Partial<Record<T, string>>;
+  };
+  defineRules?: {
+    required?: (
+      value: any,
+      params: any,
+      ctx: Record<string, any>,
+    ) => boolean | string;
   };
 }

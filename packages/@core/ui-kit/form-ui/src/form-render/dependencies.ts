@@ -1,6 +1,8 @@
-import type { ZodTypeAny } from 'zod';
-
-import type { FormItemDependencies, MaybeComponentProps } from '../types';
+import type {
+  FormItemDependencies,
+  FormSchemaRuleType,
+  MaybeComponentProps,
+} from '../types';
 
 import { computed, ref, watch } from 'vue';
 
@@ -29,7 +31,7 @@ export default function useDependencies(
   const isShow = ref(true);
   const isRequired = ref(false);
   const dynamicComponentProps = ref<MaybeComponentProps>({});
-  const dynamicRules = ref<undefined | ZodTypeAny>();
+  const dynamicRules = ref<FormSchemaRuleType>();
 
   const triggerFieldValues = computed(() => {
     // 该字段可能会被多个字段触发

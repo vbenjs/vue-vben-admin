@@ -78,6 +78,22 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.examples.form.rules'),
             },
           },
+          {
+            name: 'FormDynamicExample',
+            path: '/examples/form/dynamic',
+            component: () => import('#/views/examples/form/dynamic.vue'),
+            meta: {
+              title: $t('page.examples.form.dynamic'),
+            },
+          },
+          {
+            name: 'FormCustomExample',
+            path: '/examples/form/custom',
+            component: () => import('#/views/examples/form/custom.vue'),
+            meta: {
+              title: $t('page.examples.form.custom'),
+            },
+          },
         ],
       },
     ],

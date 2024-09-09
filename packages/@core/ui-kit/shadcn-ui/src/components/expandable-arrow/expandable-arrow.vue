@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 // 控制箭头展开/收起状态
-const isExpanded = defineModel({ default: false });
+const collapsed = defineModel({ default: false });
 </script>
 
 <template>
@@ -18,14 +18,14 @@ const isExpanded = defineModel({ default: false });
         props.class,
       )
     "
-    @click="isExpanded = !isExpanded"
+    @click="collapsed = !collapsed"
   >
-    <slot :is-expanded="isExpanded">
-      {{ isExpanded }}
+    <slot :is-expanded="collapsed">
+      {{ collapsed }}
       <!-- <span>{{ isExpanded ? '收起' : '展开' }}</span> -->
     </slot>
     <div
-      :class="{ 'rotate-180': isExpanded }"
+      :class="{ 'rotate-180': !collapsed }"
       class="transition-transform duration-300"
     >
       <slot name="icon">

@@ -31,16 +31,17 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'field1',
       // 界面显示的label
       label: '字段1',
-      rules: z.string().min(1, '请输入'),
+      rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
         placeholder: '请输入',
       },
+      defaultValue: '默认值',
       fieldName: 'field2',
       label: '默认值(必填)',
-      rules: z.string().min(1, { message: '请输入' }).default('默认值'),
+      rules: 'required',
     },
     {
       component: 'Input',
@@ -50,6 +51,15 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'field3',
       label: '默认值(非必填)',
       rules: z.string().default('默认值').optional(),
+    },
+    {
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'field31',
+      label: '自定义信息',
+      rules: z.string().min(1, { message: '最少输入1个字符' }),
     },
     {
       component: 'Input',
@@ -71,10 +81,7 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'number',
       label: '数字',
       // 预处理函数，将空字符串或null转换为undefined
-      rules: z.preprocess(
-        (val) => (val === '' || val === null ? undefined : Number(val)),
-        z.number({ required_error: '请输入数字' }),
-      ),
+      rules: 'required',
     },
     {
       component: 'Select',
@@ -97,9 +104,7 @@ const [Form, formApi] = useVbenForm({
       defaultValue: undefined,
       fieldName: 'options',
       label: '下拉选',
-      rules: z
-        .string({ required_error: '请选择' })
-        .min(1, { message: '请选择' }),
+      rules: 'required',
     },
     {
       component: 'RadioGroup',
@@ -117,7 +122,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'radioGroup',
       label: '单选组',
-      rules: z.string().min(1, { message: '请选择' }),
+      rules: 'required',
     },
     {
       component: 'CheckboxGroup',
@@ -136,7 +141,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'checkboxGroup',
       label: '多选组',
-      rules: z.array(z.string()).min(1, { message: '请选择' }),
+      rules: 'required',
     },
     {
       component: 'Checkbox',
@@ -147,14 +152,14 @@ const [Form, formApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: z.boolean().refine((val) => val === true, { message: '请勾选' }),
+      rules: 'required',
     },
     {
       component: 'DatePicker',
       defaultValue: undefined,
       fieldName: 'datePicker',
       label: '日期选择框',
-      rules: z.record(z.any(), { required_error: '请选择日期' }),
+      rules: 'required',
     },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个

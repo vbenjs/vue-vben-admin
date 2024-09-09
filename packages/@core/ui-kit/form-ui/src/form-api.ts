@@ -1,4 +1,11 @@
-import type { FormActions, FormSchema, VbenFormProps } from './types';
+import type {
+  FormState,
+  GenericObject,
+  ResetFormOpts,
+  ValidationOptions,
+} from 'vee-validate';
+
+import type { FormActions, VbenFormProps } from './types';
 
 import { toRaw } from 'vue';
 
@@ -78,68 +85,12 @@ export class FormApi {
     return form.values;
   }
 
-  /**
-   * 满足条件的位置，插入表单项，如果没有满足条件的，插入到末尾
-   * @param value
-   * @param condition
-   */
-  insertAtCondition(
-    value: FormSchema,
-    condition: (
-      element: FormSchema,
-      index: number,
-      array: FormSchema[],
-    ) => boolean,
-  ): FormSchema[] {
-    const schema = this.state?.schema ?? [];
-    // 找到满足条件的索引
-    const index = schema?.findIndex((element, i, array) =>
-      condition(element, i, array),
-    );
-
-    if (index === -1) {
-      // 如果没有符合条件的，插入到末尾
-      schema.push(value);
-    } else {
-      // 在找到的位置插入
-      schema.splice(index, 0, value);
-    }
-    this.setState({
-      schema,
-    });
-    return schema;
-  }
-
   mount(formActions: FormActions) {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
       this.isMounted = true;
     }
-  }
-
-  /**
-   * 删除数组中满足条件的元素
-   * @param condition - 回调函数，定义删除条件
-   */
-  removeAtCondition(
-    condition: (
-      element: FormSchema,
-      index: number,
-      array: FormSchema[],
-    ) => boolean,
-  ): FormSchema[] {
-    const schema = this.state?.schema ?? [];
-
-    // 删除第一个符合条件的元素
-    const filterSchema = schema.filter(
-      (element, index, array) => !condition(element, index, array),
-    );
-
-    this.setState({
-      schema: filterSchema,
-    });
-    return schema;
   }
 
   /**
@@ -160,11 +111,12 @@ export class FormApi {
   /**
    * 重置表单
    */
-  async resetForm(e?: Event) {
-    e?.preventDefault();
+  async resetForm(
+    state?: Partial<FormState<GenericObject>> | undefined,
+    opts?: Partial<ResetFormOpts>,
+  ) {
     const form = await this.getForm();
-
-    return form.resetForm();
+    return form.resetForm(state, opts);
   }
 
   async resetValidate() {
@@ -199,6 +151,7 @@ export class FormApi {
 
   async submitForm(e?: Event) {
     e?.preventDefault();
+    e?.stopPropagation();
     const form = await this.getForm();
     await form.submitForm();
     const rawValues = toRaw(form.values || {});
@@ -212,8 +165,8 @@ export class FormApi {
     this.stateHandler.reset();
   }
 
-  async validate() {
+  async validate(opts?: Partial<ValidationOptions>) {
     const form = await this.getForm();
-    return await form.validate();
+    return await form.validate(opts);
   }
 }

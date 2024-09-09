@@ -76,11 +76,16 @@
         "title": "Form",
         "basic": "Basic Form",
         "query": "Query Form",
-        "rules": "Form Rules"
+        "rules": "Form Rules",
+        "dynamic": "Dynamic Form",
+        "custom": "Custom Component"
       },
       "captcha": {
         "title": "Captcha"
       }
     }
+  },
+  "formRules": {
+    "required": "Please enter {0}"
   }
 }

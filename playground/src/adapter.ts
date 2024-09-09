@@ -7,6 +7,7 @@ import type {
 import { h } from 'vue';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 
 import {
   AutoComplete,
@@ -83,6 +84,14 @@ setupVbenForm<FormComponentType>({
       Checkbox: 'checked',
       Radio: 'checked',
       Switch: 'checked',
+    },
+  },
+  defineRules: {
+    required: (value, _params, ctx) => {
+      if ((!value && value !== 0) || value.length === 0) {
+        return $t('formRules.required', [ctx.label]);
+      }
+      return true;
     },
   },
 });

@@ -12,6 +12,8 @@ import {
   VbenSelect,
 } from '@vben-core/shadcn-ui';
 
+import { defineRule } from 'vee-validate';
+
 const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
 export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
@@ -33,7 +35,13 @@ export const COMPONENT_BIND_EVENT_MAP: Partial<
 export function setupVbenForm<
   T extends BaseFormComponentType = BaseFormComponentType,
 >(options: VbenFormAdapterOptions<T>) {
-  const { components, config } = options;
+  const { components, config, defineRules } = options;
+
+  if (defineRules) {
+    for (const key of Object.keys(defineRules)) {
+      defineRule(key, defineRules[key as never]);
+    }
+  }
 
   const baseModelPropName =
     config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;

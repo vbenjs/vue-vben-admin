@@ -3,6 +3,7 @@ import type { FormActions, VbenFormProps } from './types';
 import { computed, type ComputedRef, unref, useSlots } from 'vue';
 
 import { createContext } from '@vben-core/shadcn-ui';
+import { isString } from '@vben-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object, type ZodRawShape } from 'zod';
@@ -41,7 +42,7 @@ export function useFormInitial(
     (unref(props).schema || []).forEach((item) => {
       if (Reflect.has(item, 'defaultValue')) {
         initialValues[item.fieldName] = item.defaultValue;
-      } else if (item.rules) {
+      } else if (item.rules && !isString(item.rules)) {
         zodObject[item.fieldName] = item.rules;
       }
     });

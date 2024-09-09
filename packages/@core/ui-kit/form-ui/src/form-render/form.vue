@@ -7,7 +7,7 @@ import type { FormRenderProps, FormSchema, FormShape } from '../types';
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, merge } from '@vben-core/shared/utils';
+import { cn, isString, merge } from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -36,8 +36,9 @@ const shapes = computed(() => {
   props.schema?.forEach((schema) => {
     const { fieldName } = schema;
     const rules = schema.rules as ZodTypeAny;
+
     let typeName = '';
-    if (rules) {
+    if (rules && !isString(rules)) {
       typeName = rules._def.typeName;
     }
 
@@ -120,15 +121,18 @@ const computedSchema = computed((): FormSchema[] => {
   <component :is="formComponent" v-bind="formComponentProps">
     <div ref="wrapperRef" :class="wrapperClass" class="grid">
       <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
-        <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
+        <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
           <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>
-        </div>
+        </div> -->
         <FormField
-          v-else
           v-bind="cSchema"
           :class="cSchema.formItemClass"
           :rules="cSchema.rules"
-        />
+        >
+          <template #default="slotProps">
+            <slot v-bind="slotProps" :name="cSchema.fieldName"> </slot>
+          </template>
+        </FormField>
       </template>
       <slot :shapes="shapes"></slot>
     </div>
