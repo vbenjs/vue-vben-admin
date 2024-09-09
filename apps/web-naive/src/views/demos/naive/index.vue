@@ -4,6 +4,8 @@ import { Page } from '@vben/common-ui';
 import { type NotificationType } from 'naive-ui';
 import { NButton, NCard, NSpace, useMessage, useNotification } from 'naive-ui';
 
+import { useVbenForm, z } from '#/adapter';
+
 const notification = useNotification();
 
 const message = useMessage();
@@ -31,10 +33,28 @@ function notify(type: NotificationType) {
     meta: '想不出来',
   });
 }
+const [Form] = useVbenForm({
+  layout: 'horizontal',
+  schema: [
+    {
+      component: 'NInput',
+      componentProps: {
+        clearable: true,
+        placeholder: '请输入电话',
+      },
+      fieldName: 'phone',
+      label: '电话',
+      rules: z.string().min(1, { message: '请输入' }),
+    },
+  ],
+});
 </script>
 
 <template>
   <Page description="支持多语言，主题功能集成切换等" title="naive组件使用演示">
+    <NCard class="mb-5" title="按钮">
+      <Form />
+    </NCard>
     <NCard class="mb-5" title="按钮">
       <NSpace>
         <NButton>Default</NButton>

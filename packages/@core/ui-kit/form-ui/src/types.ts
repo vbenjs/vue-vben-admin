@@ -9,6 +9,8 @@ import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 export type FormLayout = 'horizontal' | 'vertical';
 
 export type BaseFormComponentType =
+  | 'DefaultResetActionButton'
+  | 'DefaultSubmitActionButton'
   | 'VbenCheckbox'
   | 'VbenInput'
   | 'VbenInputPassword'

@@ -111,9 +111,11 @@ export class FormApi {
   }
 
   mount(formActions: FormActions) {
-    Object.assign(this.form, formActions);
-    this.stateHandler.setConditionTrue();
-    this.isMounted = true;
+    if (!this.isMounted) {
+      Object.assign(this.form, formActions);
+      this.stateHandler.setConditionTrue();
+      this.isMounted = true;
+    }
   }
 
   /**
@@ -158,7 +160,7 @@ export class FormApi {
   /**
    * 重置表单
    */
-  async resetForm(e: Event) {
+  async resetForm(e?: Event) {
     e?.preventDefault();
     const form = await this.getForm();
 

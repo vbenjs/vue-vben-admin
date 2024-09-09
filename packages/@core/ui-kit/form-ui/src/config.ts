@@ -1,8 +1,10 @@
 import type { BaseFormComponentType, VbenFormAdapterOptions } from './types';
 
 import type { Component } from 'vue';
+import { h } from 'vue';
 
 import {
+  VbenButton,
   VbenCheckbox,
   Input as VbenInput,
   VbenInputPassword,
@@ -13,6 +15,8 @@ import {
 const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
 export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
+  DefaultResetActionButton: h(VbenButton, { size: 'sm', variant: 'outline' }),
+  DefaultSubmitActionButton: h(VbenButton, { size: 'sm', variant: 'default' }),
   VbenCheckbox,
   VbenInput,
   VbenInputPassword,
@@ -39,23 +43,14 @@ export function setupVbenForm<
 
   for (const component of Object.keys(components)) {
     const key = component as BaseFormComponentType;
-    if (!COMPONENT_MAP[key]) {
-      COMPONENT_MAP[key] = components[component as never];
-    }
+    COMPONENT_MAP[key] = components[component as never];
 
-    if (
-      baseModelPropName !== DEFAULT_MODEL_PROP_NAME &&
-      !COMPONENT_BIND_EVENT_MAP[key]
-    ) {
+    if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
       COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
     }
 
     // 覆盖特殊组件的modelPropName
-    if (
-      modelPropNameMap &&
-      modelPropNameMap[key] &&
-      !!COMPONENT_BIND_EVENT_MAP[key]
-    ) {
+    if (modelPropNameMap && modelPropNameMap[key]) {
       COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
     }
   }

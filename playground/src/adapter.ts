@@ -4,10 +4,13 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
+import { h } from 'vue';
+
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 
 import {
   AutoComplete,
+  Button,
   Checkbox,
   CheckboxGroup,
   DatePicker,
@@ -53,6 +56,12 @@ setupVbenForm<FormComponentType>({
     Checkbox,
     CheckboxGroup,
     DatePicker,
+    DefaultResetActionButton: (props, { attrs, slots }) => {
+      return h(Button, { ...props, attrs, type: 'default' }, slots);
+    },
+    DefaultSubmitActionButton: (props, { attrs, slots }) => {
+      return h(Button, { ...props, attrs, type: 'primary' }, slots);
+    },
     Input,
     InputNumber,
     InputPassword,

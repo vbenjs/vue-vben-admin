@@ -142,7 +142,7 @@ function onSubmit(values: Record<string, any>) {
     <Card class="mb-5" title="查询表单，默认展开">
       <QueryForm />
     </Card>
-    <Card title="查询表单,默认折叠，折叠时保留2行">
+    <Card title="查询表单，默认折叠，折叠时保留2行">
       <QueryForm1 />
     </Card>
   </Page>

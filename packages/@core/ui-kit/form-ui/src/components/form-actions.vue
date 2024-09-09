@@ -2,9 +2,10 @@
 import { computed, toRaw, unref } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
-import { VbenButton, VbenExpandableArrow } from '@vben-core/shadcn-ui';
+import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
 import { cn, isFunction } from '@vben-core/shared/utils';
 
+import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';
 
 const { $t } = useSimpleLocale();
@@ -70,28 +71,26 @@ async function handleReset(e: Event) {
     :class="cn('col-span-full w-full text-right', rootProps.actionWrapperClass)"
     :style="queryFormStyle"
   >
-    <VbenButton
+    <component
+      :is="COMPONENT_MAP.DefaultResetActionButton"
       v-if="resetButtonOptions.show"
       class="mr-3"
-      size="sm"
       type="button"
-      variant="outline"
       @click="handleReset"
       v-bind="resetButtonOptions"
     >
       {{ resetButtonOptions.text }}
-    </VbenButton>
+    </component>
 
-    <VbenButton
-      size="sm"
-      type="button"
-      variant="default"
-      v-bind="submitButtonOptions"
+    <component
+      :is="COMPONENT_MAP.DefaultSubmitActionButton"
       v-if="submitButtonOptions.show"
+      type="button"
       @click="handleSubmit"
+      v-bind="submitButtonOptions"
     >
       {{ submitButtonOptions.text }}
-    </VbenButton>
+    </component>
 
     <VbenExpandableArrow
       v-if="rootProps.showCollapseButton"
