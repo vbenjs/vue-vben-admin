@@ -1,6 +1,7 @@
 import type { DrawerApiOptions, DrawerState } from './drawer';
 
-import { isFunction, Store } from '@vben-core/shared';
+import { Store } from '@vben-core/shared/store';
+import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class DrawerApi {
   private api: Pick<
@@ -58,13 +59,14 @@ export class DrawerApi {
         },
       },
     );
-
+    this.state = this.store.state;
     this.api = {
       onBeforeClose,
       onCancel,
       onConfirm,
       onOpenChange,
     };
+    bindMethods(this);
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法

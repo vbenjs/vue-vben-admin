@@ -1,7 +1,5 @@
 import type { ToastRootProps } from 'radix-vue';
 
-import type { HTMLAttributes } from 'vue';
-
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const toastVariants = cva(
@@ -23,7 +21,7 @@ export const toastVariants = cva(
 type ToastVariants = VariantProps<typeof toastVariants>;
 
 export interface ToastProps extends ToastRootProps {
-  class?: HTMLAttributes['class'];
+  class?: any;
   onOpenChange?: ((value: boolean) => void) | undefined;
   variant?: ToastVariants['variant'];
 }

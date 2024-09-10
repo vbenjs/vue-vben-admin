@@ -30,7 +30,7 @@ async function handleUpdate(value: string) {
       @update:model-value="handleUpdate"
     >
       <VbenIconButton>
-        <Languages class="size-4" />
+        <Languages class="text-foreground size-4" />
       </VbenIconButton>
     </VbenDropdownRadioMenu>
   </div>

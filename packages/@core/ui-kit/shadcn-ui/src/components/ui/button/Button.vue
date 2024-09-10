@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
+import type { ButtonVariants, ButtonVariantSize } from './types';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { Primitive, type PrimitiveProps } from 'radix-vue';
 
-import { type ButtonVariants, buttonVariants } from './button';
+import { buttonVariants } from './button';
 
 interface Props extends PrimitiveProps {
-  class?: HTMLAttributes['class'];
-  size?: ButtonVariants['size'];
-  variant?: 'heavy' & ButtonVariants['variant'];
+  class?: any;
+  size?: ButtonVariantSize;
+  variant?: 'heavy' & ButtonVariants;
 }
 
 const props = withDefaults(defineProps<Props>(), {

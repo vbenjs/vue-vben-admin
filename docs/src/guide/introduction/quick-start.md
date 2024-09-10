@@ -10,7 +10,7 @@ outline: deep
 
 在启动项目前，你需要确保你的环境满足以下要求：
 
-- [Node.js](https://nodejs.org/en) 20 及以上版本，推荐使用 [fnm](https://github.com/Schniz/fnm) 或者 [nvm](https://github.com/nvm-sh/nvm) 进行版本管理。
+- [Node.js](https://nodejs.org/en) 20.15.0 及以上版本，推荐使用 [fnm](https://github.com/Schniz/fnm) 或者 [nvm](https://github.com/nvm-sh/nvm) 进行版本管理。
 - [Git](https://git-scm.com/) 任意版本。
 
 验证你的环境是否满足以上要求，你可以通过以下命令查看版本：

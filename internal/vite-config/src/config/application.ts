@@ -81,7 +81,11 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
         port,
         warmup: {
           // 预热文件
-          clientFiles: ['./index.html', './src/{views,layouts,router,store}/*'],
+          clientFiles: [
+            './index.html',
+            './bootstrap.ts',
+            './src/{views,layouts,router,store,api}/*',
+          ],
         },
       },
     };

@@ -5,10 +5,10 @@ import { computed, nextTick, ref, watch } from 'vue';
 
 import {
   useIsMobile,
-  usePriorityValue,
+  usePriorityValues,
   useSimpleLocale,
 } from '@vben-core/composables';
-import { Expand, Info, Shrink } from '@vben-core/icons';
+import { Expand, Shrink } from '@vben-core/icons';
 import {
   Dialog,
   DialogContent,
@@ -17,12 +17,12 @@ import {
   DialogHeader,
   DialogTitle,
   VbenButton,
+  VbenHelpTooltip,
   VbenIconButton,
   VbenLoading,
-  VbenTooltip,
   VisuallyHidden,
 } from '@vben-core/shadcn-ui';
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { useModalDraggable } from './use-modal-draggable';
 
@@ -52,25 +52,27 @@ const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 const state = props.modalApi?.useStore?.();
 
-const header = usePriorityValue('header', props, state);
-const title = usePriorityValue('title', props, state);
-const fullscreen = usePriorityValue('fullscreen', props, state);
-const description = usePriorityValue('description', props, state);
-const titleTooltip = usePriorityValue('titleTooltip', props, state);
-const showFooter = usePriorityValue('footer', props, state);
-const showLoading = usePriorityValue('loading', props, state);
-const closable = usePriorityValue('closable', props, state);
-const modal = usePriorityValue('modal', props, state);
-const centered = usePriorityValue('centered', props, state);
-const confirmLoading = usePriorityValue('confirmLoading', props, state);
-const cancelText = usePriorityValue('cancelText', props, state);
-const confirmText = usePriorityValue('confirmText', props, state);
-const draggable = usePriorityValue('draggable', props, state);
-const fullscreenButton = usePriorityValue('fullscreenButton', props, state);
-const closeOnClickModal = usePriorityValue('closeOnClickModal', props, state);
-const closeOnPressEscape = usePriorityValue('closeOnPressEscape', props, state);
-const showCancelButton = usePriorityValue('showCancelButton', props, state);
-const showConfirmButton = usePriorityValue('showConfirmButton', props, state);
+const {
+  cancelText,
+  centered,
+  closable,
+  closeOnClickModal,
+  closeOnPressEscape,
+  confirmLoading,
+  confirmText,
+  description,
+  draggable,
+  footer: showFooter,
+  fullscreen,
+  fullscreenButton,
+  header,
+  loading: showLoading,
+  modal,
+  showCancelButton,
+  showConfirmButton,
+  title,
+  titleTooltip,
+} = usePriorityValues(props, state);
 
 const shouldFullscreen = computed(
   () => (fullscreen.value && header.value) || isMobile.value,
@@ -184,12 +186,9 @@ function pointerDownOutside(e: Event) {
             {{ title }}
 
             <slot v-if="titleTooltip" name="titleTooltip">
-              <VbenTooltip side="right">
-                <template #trigger>
-                  <Info class="inline-flex size-5 cursor-pointer pb-1" />
-                </template>
+              <VbenHelpTooltip trigger-class="pb-1">
                 {{ titleTooltip }}
-              </VbenTooltip>
+              </VbenHelpTooltip>
             </slot>
           </slot>
         </DialogTitle>

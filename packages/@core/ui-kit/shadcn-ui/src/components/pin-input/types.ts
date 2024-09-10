@@ -1,38 +1,26 @@
 interface PinInputProps {
-  /**
-   * 发送验证码按钮loading
-   */
-  btnLoading?: boolean;
-  /**
-   * 发送验证码按钮文本
-   */
-  btnText?: string;
   class?: any;
   /**
    * 验证码长度
    */
   codeLength?: number;
   /**
-   * 错误提示信息
+   * 发送验证码按钮文本
    */
-  errorTip?: string;
+  createText?: (countdown: number) => string;
   /**
    * 自定义验证码发送逻辑
    * @returns
    */
   handleSendCode?: () => Promise<void>;
   /**
-   * 输入框的 label
+   * 发送验证码按钮loading
    */
-  label: string;
+  loading?: boolean;
   /**
-   * 输入框的 name
+   * 最大重试时间
    */
-  name: string;
-  /**
-   * 输入框的校验状态
-   */
-  status?: 'default' | 'error';
+  maxTime?: number;
 }
 
 export type { PinInputProps };

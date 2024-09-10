@@ -72,6 +72,14 @@
       "ellipsis": {
         "title": "文本省略"
       },
+      "form": {
+        "title": "表单",
+        "basic": "基础表单",
+        "query": "查询表单",
+        "rules": "表单校验",
+        "dynamic": "动态表单",
+        "custom": "自定义组件"
+      },
       "captcha": {
         "title": "验证码"
       }

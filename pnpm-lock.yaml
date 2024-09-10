@@ -780,6 +780,36 @@ importers:
         specifier: 3.5.3
         version: 3.5.3(typescript@5.6.2)
 
+  packages/@core/ui-kit/form-ui:
+    dependencies:
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@vee-validate/zod':
+        specifier: ^4.13.2
+        version: 4.13.2(vue@3.5.3(typescript@5.5.4))
+      '@vueuse/core':
+        specifier: ^11.0.3
+        version: 11.0.3(vue@3.5.3(typescript@5.5.4))
+      vee-validate:
+        specifier: ^4.13.2
+        version: 4.13.2(vue@3.5.3(typescript@5.5.4))
+      vue:
+        specifier: 3.5.3
+        version: 3.5.3(typescript@5.5.4)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+      zod-defaults:
+        specifier: ^0.1.3
+        version: 0.1.3(zod@3.23.8)
+
   packages/@core/ui-kit/layout-ui:
     dependencies:
       '@vben-core/composables':
@@ -871,7 +901,14 @@ importers:
         version: 0.439.0(vue@3.5.3(typescript@5.6.2))
       radix-vue:
         specifier: ^1.9.5
+<<<<<<< HEAD
         version: 1.9.5(vue@3.5.3(typescript@5.6.2))
+=======
+        version: 1.9.5(vue@3.5.3(typescript@5.5.4))
+      vee-validate:
+        specifier: ^4.13.2
+        version: 4.13.2(vue@3.5.3(typescript@5.5.4))
+>>>>>>> main
       vue:
         specifier: 3.5.3
         version: 3.5.3(typescript@5.6.2)
@@ -923,6 +960,9 @@ importers:
 
   packages/effects/common-ui:
     dependencies:
+      '@vben-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
       '@vben-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
@@ -932,9 +972,6 @@ importers:
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@vben/hooks':
-        specifier: workspace:*
-        version: link:../hooks
       '@vben/icons':
         specifier: workspace:*
         version: link:../../icons
@@ -990,6 +1027,9 @@ importers:
 
   packages/effects/layouts:
     dependencies:
+      '@vben-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
       '@vben-core/layout-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/layout-ui
@@ -4264,9 +4304,14 @@ packages:
     resolution: {integrity: sha512-zTQD6WLNTre1hj5wp09nBIDiOc2U5r/qmzo7wxPn4ZgAjHql09EofqhF9WF+fZHzL5aCyaIpPcT2hyxl73kr9A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+<<<<<<< HEAD
   '@typescript-eslint/visitor-keys@8.5.0':
     resolution: {integrity: sha512-yTPqMnbAZJNy2Xq2XU8AdtOW9tJIr+UQb64aXB9f3B1498Zx9JorVgFJcZpEc9UBuCCrdzKID2RGAMkYcDtZOw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+=======
+  '@vee-validate/zod@4.13.2':
+    resolution: {integrity: sha512-y1aqelutD6btX2ayZk3w8udClAykptphlGLwu0vlCqY2r9mrJqMn1EKqtcwXAvEom+ceTcHJOwGr2FUA7i+ZEg==}
+>>>>>>> main
 
   '@vercel/nft@0.26.5':
     resolution: {integrity: sha512-NHxohEqad6Ra/r4lGknO52uc/GrWILXAMs1BB4401GTqww0fw1bAqzpG1XHuDO+dprg4GvsD9ZLLSsdo78p9hQ==}
@@ -9486,6 +9531,11 @@ packages:
     peerDependencies:
       vue: 3.5.3
 
+  vee-validate@4.13.2:
+    resolution: {integrity: sha512-HlpR/6MJ92TW9f135umMZKUqdd/tFQTxLNSf2ImbU4Y/MlLVAUpF1l64VdjTOhbClAqPjCb5p/SqHDxLpUHXrw==}
+    peerDependencies:
+      vue: 3.5.3
+
   vite-hot-client@0.2.3:
     resolution: {integrity: sha512-rOGAV7rUlUHX89fP2p2v0A2WWvV3QMX2UYq0fRqsWSvFvev4atHWqjwGoKaZT1VTKyLGk533ecu3eyd0o59CAg==}
     peerDependencies:
@@ -9940,6 +9990,14 @@ packages:
   zip-stream@6.0.1:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
+
+  zod-defaults@0.1.3:
+    resolution: {integrity: sha512-Cp4UjuVfXqwaOx8A5LlM0IRBZs8B7AXgF+XOZWF8CjMDhsY/Jki+y7VS4adVtQj9NNSsAPwylUlJp9INuxPEnA==}
+    peerDependencies:
+      zod: ^3.23.8
+
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
   zrender@5.6.0:
     resolution: {integrity: sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==}
@@ -13192,10 +13250,20 @@ snapshots:
       '@typescript-eslint/types': 8.4.0
       eslint-visitor-keys: 3.4.3
 
+<<<<<<< HEAD
   '@typescript-eslint/visitor-keys@8.5.0':
     dependencies:
       '@typescript-eslint/types': 8.5.0
       eslint-visitor-keys: 3.4.3
+=======
+  '@vee-validate/zod@4.13.2(vue@3.5.3(typescript@5.5.4))':
+    dependencies:
+      type-fest: 4.25.0
+      vee-validate: 4.13.2(vue@3.5.3(typescript@5.5.4))
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - vue
+>>>>>>> main
 
   '@vercel/nft@0.26.5(encoding@0.1.13)':
     dependencies:
@@ -19072,6 +19140,12 @@ snapshots:
       evtd: 0.2.4
       vue: 3.5.3(typescript@5.6.2)
 
+  vee-validate@4.13.2(vue@3.5.3(typescript@5.5.4)):
+    dependencies:
+      '@vue/devtools-api': 6.6.3
+      type-fest: 4.25.0
+      vue: 3.5.3(typescript@5.5.4)
+
   vite-hot-client@0.2.3(vite@5.4.3(@types/node@22.5.4)(less@4.2.0)(sass@1.78.0)(terser@5.31.6)):
     dependencies:
       vite: 5.4.3(@types/node@22.5.4)(less@4.2.0)(sass@1.78.0)(terser@5.31.6)
@@ -19683,6 +19757,12 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.5.2
+
+  zod-defaults@0.1.3(zod@3.23.8):
+    dependencies:
+      zod: 3.23.8
+
+  zod@3.23.8: {}
 
   zrender@5.6.0:
     dependencies:

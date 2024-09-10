@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import type { ButtonVariants } from '../ui/button';
+import type { VbenButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';
 
-import { cn } from '@vben-core/shared';
-
-import { type PrimitiveProps } from 'radix-vue';
+import { cn } from '@vben-core/shared/utils';
 
 import { VbenTooltip } from '../tooltip';
 import VbenButton from './button.vue';
 
-interface Props extends PrimitiveProps {
+interface Props extends VbenButtonProps {
   class?: any;
   disabled?: boolean;
   onClick?: () => void;
   tooltip?: string;
   tooltipSide?: 'bottom' | 'left' | 'right' | 'top';
-  variant?: ButtonVariants['variant'];
+  variant?: ButtonVariants;
 }
 
 const props = withDefaults(defineProps<Props>(), {

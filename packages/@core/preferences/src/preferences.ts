@@ -4,7 +4,8 @@ import type { InitialOptions, Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import { isMacOs, merge, StorageManager } from '@vben-core/shared';
+import { StorageManager } from '@vben-core/shared/cache';
+import { isMacOs, merge } from '@vben-core/shared/utils';
 
 import {
   breakpointsTailwind,

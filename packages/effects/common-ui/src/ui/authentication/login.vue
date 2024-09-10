@@ -1,31 +1,31 @@
 <script setup lang="ts">
+import type { VbenFormSchema } from '@vben-core/form-ui';
+
 import type { AuthenticationProps, LoginEmits } from './types';
 
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import {
-  VbenButton,
-  VbenCheckbox,
-  VbenInput,
-  VbenInputPassword,
-} from '@vben-core/shadcn-ui';
+import { useVbenForm } from '@vben-core/form-ui';
+import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';
 
-interface Props extends AuthenticationProps {}
+interface Props extends AuthenticationProps {
+  formSchema: VbenFormSchema[];
+}
 
 defineOptions({
   name: 'AuthenticationLogin',
 });
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   codeLoginPath: '/auth/code-login',
   forgetPasswordPath: '/auth/forget-password',
+  formSchema: () => [],
   loading: false,
-  passwordPlaceholder: '',
   qrCodeLoginPath: '/auth/qrcode-login',
   registerPath: '/auth/register',
   showCodeLogin: true,
@@ -36,58 +36,50 @@ withDefaults(defineProps<Props>(), {
   showThirdPartyLogin: true,
   subTitle: '',
   title: '',
-  usernamePlaceholder: '',
 });
 
 const emit = defineEmits<{
   submit: LoginEmits['submit'];
 }>();
 
+const [Form, { setFieldValue, validate }] = useVbenForm(
+  reactive({
+    commonConfig: {
+      hideLabel: true,
+      hideRequiredMark: true,
+    },
+    schema: computed(() => props.formSchema),
+    showDefaultActions: false,
+  }),
+);
 const router = useRouter();
 
 const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`;
 
 const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
 
-const formState = reactive({
-  password: '',
-  rememberMe: !!localUsername,
-  submitted: false,
-  username: localUsername,
-});
+const rememberMe = ref(!!localUsername);
 
-const usernameStatus = computed(() => {
-  return formState.submitted && !formState.username ? 'error' : 'default';
-});
-
-const passwordStatus = computed(() => {
-  return formState.submitted && !formState.password ? 'error' : 'default';
-});
-
-function handleSubmit() {
-  formState.submitted = true;
-
-  if (
-    usernameStatus.value !== 'default' ||
-    passwordStatus.value !== 'default'
-  ) {
-    return;
+async function handleSubmit() {
+  const { valid, values } = await validate();
+  if (valid) {
+    localStorage.setItem(
+      REMEMBER_ME_KEY,
+      rememberMe.value ? values?.username : '',
+    );
+    emit('submit', values as { password: string; username: string });
   }
-
-  localStorage.setItem(
-    REMEMBER_ME_KEY,
-    formState.rememberMe ? formState.username : '',
-  );
-
-  emit('submit', {
-    password: formState.password,
-    username: formState.username,
-  });
 }
 
 function handleGo(path: string) {
   router.push(path);
 }
+
+onMounted(() => {
+  if (localUsername) {
+    setFieldValue('username', localUsername);
+  }
+});
 </script>
 
 <template>
@@ -103,34 +95,14 @@ function handleGo(path: string) {
       </Title>
     </slot>
 
-    <VbenInput
-      v-model="formState.username"
-      :autofocus="false"
-      :error-tip="$t('authentication.usernameTip')"
-      :label="$t('authentication.username')"
-      :placeholder="usernamePlaceholder || $t('authentication.username')"
-      :status="usernameStatus"
-      name="username"
-      required
-      type="text"
-    />
-    <VbenInputPassword
-      v-model="formState.password"
-      :error-tip="$t('authentication.passwordTip')"
-      :label="$t('authentication.password')"
-      :placeholder="passwordPlaceholder || $t('authentication.password')"
-      :status="passwordStatus"
-      name="password"
-      required
-      type="password"
-    />
+    <Form />
 
     <div
       v-if="showRememberMe || showForgetPassword"
-      class="mb-6 mt-4 flex justify-between"
+      class="mb-6 flex justify-between"
     >
       <div v-if="showRememberMe" class="flex-center">
-        <VbenCheckbox v-model:checked="formState.rememberMe" name="rememberMe">
+        <VbenCheckbox v-model:checked="rememberMe" name="rememberMe">
           {{ $t('authentication.rememberMe') }}
         </VbenCheckbox>
       </div>

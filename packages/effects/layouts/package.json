@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/form-ui": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
