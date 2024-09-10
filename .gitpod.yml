@@ -1,0 +1,6 @@
+ports:
+  - port: 3344
+    onOpen: open-preview
+tasks:
+  - init: pnpm install
+    command: pnpm run dev
