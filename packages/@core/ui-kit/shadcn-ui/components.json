@@ -11,6 +11,6 @@
   "framework": "vite",
   "aliases": {
     "components": "@vben-core/shadcn-ui/components",
-    "utils": "@vben-core/shared"
+    "utils": "@vben-core/shared/utils"
   }
 }

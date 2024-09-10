@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue';
 
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { NumberFieldRoot, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & NumberFieldRootProps
->();
+const props = defineProps<{ class?: any } & NumberFieldRootProps>();
 const emits = defineEmits<NumberFieldRootEmits>();
 
 const delegatedProps = computed(() => {

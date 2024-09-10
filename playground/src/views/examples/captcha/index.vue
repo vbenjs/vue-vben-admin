@@ -1,14 +1,16 @@
 <script lang="ts" setup>
+import type { CaptchaPoint } from '@vben/common-ui';
+
 import { ref } from 'vue';
 
-import { Page, type Point, PointSelectionCaptcha } from '@vben/common-ui';
+import { Page, PointSelectionCaptcha } from '@vben/common-ui';
 
 import { Card } from 'ant-design-vue';
 
 import { captchaImage, hintImage } from './base64';
 
-const selectedPoints = ref<Point[]>([]);
-const handleConfirm = (points: Point[], clear: () => void) => {
+const selectedPoints = ref<CaptchaPoint[]>([]);
+const handleConfirm = (points: CaptchaPoint[], clear: () => void) => {
   selectedPoints.value = points;
   clear();
 };

@@ -23,12 +23,15 @@
     scroll-behavior: smooth;
     text-rendering: optimizelegibility;
     -webkit-tap-highlight-color: transparent;
+
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
   }
 
   #app,
   body,
   html {
-    @apply !pointer-events-auto size-full overscroll-none;
+    @apply size-full overscroll-none;
   }
 
   body {

@@ -1,10 +1,10 @@
-import type { Ref } from 'vue';
-import { computed, getCurrentInstance, useAttrs, useSlots } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
+import { computed, getCurrentInstance, unref, useAttrs, useSlots } from 'vue';
 
 import {
   getFirstNonNullOrUndefined,
   kebabToCamelCase,
-} from '@vben-core/shared';
+} from '@vben-core/shared/utils';
 
 /**
  * 依次从插槽、attrs、props、state 中获取值
@@ -44,4 +44,50 @@ export function usePriorityValue<
   });
 
   return value;
+}
+
+/**
+ * 批量获取state中的值（每个值都是ref）
+ * @param props
+ * @param state
+ */
+export function usePriorityValues<
+  T extends Record<string, any>,
+  S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
+>(props: T, state: S | undefined) {
+  const result: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
+
+  (Object.keys(props) as (keyof T)[]).forEach((key) => {
+    result[key] = usePriorityValue(key as keyof typeof props, props, state);
+  });
+
+  return result;
+}
+
+/**
+ * 批量获取state中的值（集中在一个computed，用于透传）
+ * @param props
+ * @param state
+ */
+export function useForwardPriorityValues<
+  T extends Record<string, any>,
+  S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
+>(props: T, state: S | undefined) {
+  const computedResult: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
+
+  (Object.keys(props) as (keyof T)[]).forEach((key) => {
+    computedResult[key] = usePriorityValue(
+      key as keyof typeof props,
+      props,
+      state,
+    );
+  });
+
+  return computed(() => {
+    const unwrapResult: Record<string, any> = {};
+    Object.keys(props).forEach((key) => {
+      unwrapResult[key] = unref(computedResult[key]);
+    });
+    return unwrapResult as { [K in keyof T]: T[K] };
+  });
 }

@@ -8,6 +8,7 @@ import AutoHeightDemo from './auto-height-demo.vue';
 import BaseDemo from './base-demo.vue';
 import DragDemo from './drag-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
+import FormModalDemo from './form-model-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
 const [BaseModal, baseModalApi] = useVbenModal({
@@ -29,6 +30,10 @@ const [DynamicModal, dynamicModalApi] = useVbenModal({
 
 const [SharedDataModal, sharedModalApi] = useVbenModal({
   connectedComponent: SharedDataDemo,
+});
+
+const [FormModal, formModalApi] = useVbenModal({
+  connectedComponent: FormModalDemo,
 });
 
 function openBaseModal() {
@@ -59,6 +64,14 @@ function handleUpdateTitle() {
   dynamicModalApi.setState({ title: '外部动态标题' });
   dynamicModalApi.open();
 }
+
+function openFormModal() {
+  formModalApi.setData({
+    // 表单值
+    values: { field1: 'abc' },
+  });
+  formModalApi.open();
+}
 </script>
 
 <template>
@@ -74,7 +87,7 @@ function handleUpdateTitle() {
     <DragModal />
     <DynamicModal />
     <SharedDataModal />
-
+    <FormModal />
     <Card class="mb-4" title="基本使用">
       <p class="mb-3">一个基础的弹窗示例</p>
       <Button type="primary" @click="openBaseModal">打开弹窗</Button>
@@ -103,6 +116,11 @@ function handleUpdateTitle() {
       <Button type="primary" @click="openSharedModal">
         打开弹窗并传递数据
       </Button>
+    </Card>
+
+    <Card class="mb-4" title="表单弹窗示例">
+      <p class="mb-3">弹窗与表单结合</p>
+      <Button type="primary" @click="openFormModal"> 打开弹窗 </Button>
     </Card>
   </Page>
 </template>

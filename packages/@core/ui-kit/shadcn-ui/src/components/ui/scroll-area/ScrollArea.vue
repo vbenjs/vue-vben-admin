@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   ScrollAreaCorner,
@@ -15,7 +15,7 @@ import ScrollBar from './ScrollBar.vue';
 const props = withDefaults(
   defineProps<
     {
-      class?: HTMLAttributes['class'];
+      class?: any;
       onScroll?: (event: Event) => void;
       viewportProps?: { onScroll: (event: Event) => void };
     } & ScrollAreaRootProps

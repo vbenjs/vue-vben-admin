@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, unref, watch, watchEffect } from 'vue';
 
-import { isNumber } from '@vben-core/shared';
+import { isNumber } from '@vben-core/shared/utils';
 
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

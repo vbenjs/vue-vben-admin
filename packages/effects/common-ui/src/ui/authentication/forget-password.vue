@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import type { VbenFormSchema } from '@vben-core/form-ui';
+
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import { VbenButton, VbenInput } from '@vben-core/shadcn-ui';
+import { useVbenForm } from '@vben-core/form-ui';
+import { VbenButton } from '@vben-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
@@ -16,10 +19,12 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
+
+  formSchema: VbenFormSchema[];
 }
 
 defineOptions({
-  name: 'AuthenticationForgetPassword',
+  name: 'ForgetPassword',
 });
 
 const props = withDefaults(defineProps<Props>(), {
@@ -31,22 +36,25 @@ const emit = defineEmits<{
   submit: [string];
 }>();
 
+const [Form, { validate }] = useVbenForm(
+  reactive({
+    commonConfig: {
+      hideLabel: true,
+      hideRequiredMark: true,
+    },
+    schema: computed(() => props.formSchema),
+    showDefaultActions: false,
+  }),
+);
+
 const router = useRouter();
-const formState = reactive({
-  email: '',
-  submitted: false,
-});
 
-const emailStatus = computed(() => {
-  return formState.submitted && !formState.email ? 'error' : 'default';
-});
+async function handleSubmit() {
+  const { valid, values } = await validate();
 
-function handleSubmit() {
-  formState.submitted = true;
-  if (emailStatus.value !== 'default') {
-    return;
+  if (valid) {
+    emit('submit', values?.email);
   }
-  emit('submit', formState.email);
 }
 
 function goToLogin() {
@@ -62,18 +70,8 @@ function goToLogin() {
         {{ $t('authentication.forgetPasswordSubtitle') }}
       </template>
     </Title>
-    <div class="mb-6">
-      <VbenInput
-        v-model="formState.email"
-        :error-tip="$t('authentication.emailTip')"
-        :label="$t('authentication.email')"
-        :status="emailStatus"
-        autofocus
-        name="email"
-        placeholder="example@example.com"
-        type="text"
-      />
-    </div>
+    <Form />
+
     <div>
       <VbenButton class="mt-2 w-full" @click="handleSubmit">
         {{ $t('authentication.sendResetLink') }}

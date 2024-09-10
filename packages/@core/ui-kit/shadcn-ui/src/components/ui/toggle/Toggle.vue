@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   Toggle,
@@ -15,7 +15,7 @@ import { type ToggleVariants, toggleVariants } from './toggle';
 const props = withDefaults(
   defineProps<
     {
-      class?: HTMLAttributes['class'];
+      class?: any;
       size?: ToggleVariants['size'];
       variant?: ToggleVariants['variant'];
     } & ToggleProps

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   DialogClose,
@@ -13,9 +13,7 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & DialogContentProps
->();
+const props = defineProps<{ class?: any } & DialogContentProps>();
 const emits = defineEmits<DialogContentEmits>();
 
 const delegatedProps = computed(() => {

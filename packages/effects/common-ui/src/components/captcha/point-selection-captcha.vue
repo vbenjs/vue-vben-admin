@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { CaptchaPoint } from './types';
+
 import { computed, ref } from 'vue';
 
-import { SvgRefreshIcon } from '@vben/icons';
+import { RotateCw } from '@vben/icons';
 import {
   Card,
   CardContent,
@@ -11,8 +13,6 @@ import {
   VbenButton,
   VbenIconButton,
 } from '@vben-core/shadcn-ui';
-
-import { type Point } from '.';
 
 interface Props {
   /**
@@ -74,7 +74,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   click: [number, number];
-  confirm: [Array<Point>, clear: () => void];
+  confirm: [Array<CaptchaPoint>, clear: () => void];
   refresh: [];
 }>();
 
@@ -129,10 +129,10 @@ function getElementPosition(element: HTMLElement) {
     y: posY,
   };
 }
-const points = ref<Point[]>([]);
+const points = ref<CaptchaPoint[]>([]);
 const POINT_OFFSET = 11;
 
-function handleClick(e: any | Event) {
+function handleClick(e: MouseEvent) {
   try {
     const dom = e.currentTarget as HTMLElement;
     if (!dom) throw new Error('Element not found');
@@ -231,7 +231,7 @@ function handleConfirm() {
     </CardContent>
     <CardFooter class="mt-2 flex justify-between p-0">
       <VbenIconButton aria-label="刷新验证码" @click="handleRefresh">
-        <SvgRefreshIcon class="size-6" />
+        <RotateCw class="size-5" />
       </VbenIconButton>
       <VbenButton aria-label="确认选择" @click="handleConfirm">
         确认

@@ -3,6 +3,7 @@ import type { PluginOption } from 'vite';
 import type { ArchiverPluginOptions } from '../typing';
 
 import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import { join } from 'node:path';
 
 import archiver from 'archiver';
@@ -18,7 +19,14 @@ export const viteArchiverPlugin = (
 
         setTimeout(async () => {
           const folderToZip = 'dist';
-          const zipOutputPath = join(process.cwd(), outputDir, `${name}.zip`);
+
+          const zipOutputDir = join(process.cwd(), outputDir);
+          const zipOutputPath = join(zipOutputDir, `${name}.zip`);
+          try {
+            await fsp.mkdir(zipOutputDir, { recursive: true });
+          } catch {
+            // ignore
+          }
 
           try {
             await zipFolder(folderToZip, zipOutputPath);

@@ -47,6 +47,55 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.captcha.title'),
         },
       },
+      {
+        name: 'FormExample',
+        path: '/examples/form',
+        meta: {
+          title: $t('page.examples.form.title'),
+        },
+        children: [
+          {
+            name: 'FormBasicExample',
+            path: '/examples/form/basic',
+            component: () => import('#/views/examples/form/basic.vue'),
+            meta: {
+              title: $t('page.examples.form.basic'),
+            },
+          },
+          {
+            name: 'FormQueryExample',
+            path: '/examples/form/query',
+            component: () => import('#/views/examples/form/query.vue'),
+            meta: {
+              title: $t('page.examples.form.query'),
+            },
+          },
+          {
+            name: 'FormRulesExample',
+            path: '/examples/form/rules',
+            component: () => import('#/views/examples/form/rules.vue'),
+            meta: {
+              title: $t('page.examples.form.rules'),
+            },
+          },
+          {
+            name: 'FormDynamicExample',
+            path: '/examples/form/dynamic',
+            component: () => import('#/views/examples/form/dynamic.vue'),
+            meta: {
+              title: $t('page.examples.form.dynamic'),
+            },
+          },
+          {
+            name: 'FormCustomExample',
+            path: '/examples/form/custom',
+            component: () => import('#/views/examples/form/custom.vue'),
+            meta: {
+              title: $t('page.examples.form.custom'),
+            },
+          },
+        ],
+      },
     ],
   },
 ];

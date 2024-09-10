@@ -77,6 +77,10 @@
       "path": "packages/@core/preferences",
     },
     {
+      "name": "@vben-core/form-ui",
+      "path": "packages/@core/ui-kit/form-ui",
+    },
+    {
       "name": "@vben-core/layout-ui",
       "path": "packages/@core/ui-kit/layout-ui",
     },
