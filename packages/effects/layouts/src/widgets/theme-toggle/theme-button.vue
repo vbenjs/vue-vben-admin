@@ -54,7 +54,7 @@ function toggleTheme(event: MouseEvent) {
     Math.max(x, innerWidth - x),
     Math.max(y, innerHeight - y),
   );
-  // @ts-expect-error: Transition API
+  // @ts-ignore startViewTransition
   const transition = document.startViewTransition(async () => {
     isDark.value = !isDark.value;
     await nextTick();
