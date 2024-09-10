@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, Card } from 'ant-design-vue';
+import { Button, Card, message } from 'ant-design-vue';
 
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
 import BaseDemo from './base-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
+import FormDrawerDemo from './form-drawer-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
 const [BaseDrawer, baseDrawerApi] = useVbenDrawer({
@@ -24,6 +25,10 @@ const [DynamicDrawer, dynamicDrawerApi] = useVbenDrawer({
 
 const [SharedDataDrawer, sharedDrawerApi] = useVbenDrawer({
   connectedComponent: SharedDataDemo,
+});
+
+const [FormDrawer, formDrawerApi] = useVbenDrawer({
+  connectedComponent: FormDrawerDemo,
 });
 
 function openBaseDrawer() {
@@ -50,6 +55,36 @@ function openSharedDrawer() {
   });
   sharedDrawerApi.open();
 }
+
+function openFormDrawer() {
+  formDrawerApi.setData({
+    // 外部传入表单处理函数，
+    onSubmit: (values: Record<string, any>) => {
+      message.success({
+        content: `form values: ${JSON.stringify(values)}`,
+      });
+    },
+    // 外部传入表单项
+    schema: [
+      {
+        // 组件需要在 #/adapter.ts内注册，并加上类型
+        component: 'Input',
+        // 对应组件的参数
+        componentProps: {
+          placeholder: '请输入用户名',
+        },
+        // 字段名
+        fieldName: 'username',
+        // 界面显示的label
+        label: '字符串',
+        rules: 'required',
+      },
+    ],
+    // 表单值
+    values: { username: 'abc' },
+  });
+  formDrawerApi.open();
+}
 </script>
 
 <template>
@@ -64,6 +99,7 @@ function openSharedDrawer() {
     <AutoHeightDrawer />
     <DynamicDrawer />
     <SharedDataDrawer />
+    <FormDrawer />
 
     <Card class="mb-4" title="基本使用">
       <p class="mb-3">一个基础的抽屉示例</p>
@@ -87,6 +123,13 @@ function openSharedDrawer() {
       <p class="mb-3">通过共享 sharedData 来进行数据交互</p>
       <Button type="primary" @click="openSharedDrawer">
         打开抽屉并传递数据
+      </Button>
+    </Card>
+
+    <Card class="mb-4" title="表单抽屉示例">
+      <p class="mb-3">打开抽屉并设置表单schema以及数据</p>
+      <Button type="primary" @click="openFormDrawer">
+        打开抽屉并设置表单schema以及数据
       </Button>
     </Card>
   </Page>
