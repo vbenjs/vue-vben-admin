@@ -84,8 +84,5 @@
         "title": "Captcha"
       }
     }
-  },
-  "formRules": {
-    "required": "Please enter {0}"
   }
 }

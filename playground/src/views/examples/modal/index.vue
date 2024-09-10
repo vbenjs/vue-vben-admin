@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Page, useVbenModal } from '@vben/common-ui';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card } from 'ant-design-vue';
 
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
@@ -31,6 +31,7 @@ const [DynamicModal, dynamicModalApi] = useVbenModal({
 const [SharedDataModal, sharedModalApi] = useVbenModal({
   connectedComponent: SharedDataDemo,
 });
+
 const [FormModal, formModalApi] = useVbenModal({
   connectedComponent: FormModalDemo,
 });
@@ -66,30 +67,8 @@ function handleUpdateTitle() {
 
 function openFormModal() {
   formModalApi.setData({
-    // 外部传入表单处理函数，
-    onSubmit: (values: Record<string, any>) => {
-      message.success({
-        content: `form values: ${JSON.stringify(values)}`,
-      });
-    },
-    // 外部传入表单项
-    schema: [
-      {
-        // 组件需要在 #/adapter.ts内注册，并加上类型
-        component: 'Input',
-        // 对应组件的参数
-        componentProps: {
-          placeholder: '请输入用户名',
-        },
-        // 字段名
-        fieldName: 'username',
-        // 界面显示的label
-        label: '字符串',
-        rules: 'required',
-      },
-    ],
     // 表单值
-    values: { username: 'abc' },
+    values: { field1: 'abc' },
   });
   formModalApi.open();
 }
@@ -140,10 +119,8 @@ function openFormModal() {
     </Card>
 
     <Card class="mb-4" title="表单弹窗示例">
-      <p class="mb-3">打开弹窗并设置表单schema以及数据</p>
-      <Button type="primary" @click="openFormModal">
-        打开弹窗并设置表单schema以及数据
-      </Button>
+      <p class="mb-3">弹窗与表单结合</p>
+      <Button type="primary" @click="openFormModal"> 打开弹窗 </Button>
     </Card>
   </Page>
 </template>

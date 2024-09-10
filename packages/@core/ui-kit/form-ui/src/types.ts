@@ -20,9 +20,18 @@ export type BaseFormComponentType =
 
 type Breakpoints = '' | '2xl:' | '3xl:' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 
+type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
+
 export type WrapperClassType =
-  | `${Breakpoints}grid-cols-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
+  | `${Breakpoints}grid-cols-${GridCols}`
   | (Record<never, never> & string);
+
+export type FormItemClassType =
+  | `${Breakpoints}cols-end-${'auto' | GridCols}`
+  | `${Breakpoints}cols-span-${'auto' | 'full' | GridCols}`
+  | `${Breakpoints}cols-start-${'auto' | GridCols}`
+  | (Record<never, never> & string)
+  | WrapperClassType;
 
 export interface FormShape {
   /** 默认值 */

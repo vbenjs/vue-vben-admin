@@ -84,8 +84,5 @@
         "title": "验证码"
       }
     }
-  },
-  "formRules": {
-    "required": "请输入{0}"
   }
 }

@@ -144,7 +144,10 @@ export class FormApi {
     }
   }
 
-  async setValues(fields: Record<string, any>, shouldValidate?: boolean) {
+  async setValues(
+    fields: Record<string, any>,
+    shouldValidate: boolean = false,
+  ) {
     const form = await this.getForm();
     form.setValues(fields, shouldValidate);
   }

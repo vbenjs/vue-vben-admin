@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card } from 'ant-design-vue';
 
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
@@ -58,30 +58,8 @@ function openSharedDrawer() {
 
 function openFormDrawer() {
   formDrawerApi.setData({
-    // 外部传入表单处理函数，
-    onSubmit: (values: Record<string, any>) => {
-      message.success({
-        content: `form values: ${JSON.stringify(values)}`,
-      });
-    },
-    // 外部传入表单项
-    schema: [
-      {
-        // 组件需要在 #/adapter.ts内注册，并加上类型
-        component: 'Input',
-        // 对应组件的参数
-        componentProps: {
-          placeholder: '请输入用户名',
-        },
-        // 字段名
-        fieldName: 'username',
-        // 界面显示的label
-        label: '字符串',
-        rules: 'required',
-      },
-    ],
     // 表单值
-    values: { username: 'abc' },
+    values: { field1: 'abc', field2: '123' },
   });
   formDrawerApi.open();
 }

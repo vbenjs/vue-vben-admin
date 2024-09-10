@@ -8,8 +8,29 @@ defineOptions({
 });
 
 const [Form, formApi] = useVbenForm({
+  schema: [
+    {
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'field1',
+      label: '字段1',
+      rules: 'required',
+    },
+    {
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'field2',
+      label: '字段2',
+      rules: 'required',
+    },
+  ],
   showDefaultActions: false,
 });
+
 const [Modal, modalApi] = useVbenModal({
   fullscreenButton: false,
   onCancel() {
@@ -21,31 +42,13 @@ const [Modal, modalApi] = useVbenModal({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      const { onSubmit, schema, values } =
-        modalApi.getData<Record<string, any>>();
-      if (schema) {
-        formApi.setState((prev) => {
-          return {
-            ...prev,
-            schema,
-          };
-        });
-      }
-      if (onSubmit) {
-        formApi.setState((prev) => {
-          return {
-            ...prev,
-            handleSubmit: async (values) => {
-              await onSubmit?.(values);
-            },
-          };
-        });
-      }
+      const { values } = modalApi.getData<Record<string, any>>();
       if (values) {
         formApi.setValues(values);
       }
     }
   },
+  title: '内嵌表单示例',
 });
 </script>
 <template>

@@ -23,6 +23,9 @@ export function useVbenForm<
 
   const Form = defineComponent(
     (props: VbenFormProps, { attrs, slots }) => {
+      onBeforeUnmount(() => {
+        api.unmounted();
+      });
       return () =>
         h(VbenUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
@@ -41,10 +44,6 @@ export function useVbenForm<
       { immediate: true },
     );
   }
-
-  onBeforeUnmount(() => {
-    api.unmounted();
-  });
 
   return [Form, extendedApi] as const;
 }

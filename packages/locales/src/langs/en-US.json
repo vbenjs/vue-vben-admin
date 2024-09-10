@@ -54,6 +54,9 @@
       "internalServerError": "Internal Server Error. Something went wrong on our end. Please try again later."
     }
   },
+  "formRules": {
+    "required": "Please enter {0}"
+  },
   "widgets": {
     "document": "Document",
     "qa": "Q&A",

@@ -4,10 +4,30 @@ import { useVbenDrawer } from '@vben/common-ui';
 import { useVbenForm } from '#/adapter';
 
 defineOptions({
-  name: 'FormModelDemo',
+  name: 'FormDrawerDemo',
 });
 
 const [Form, formApi] = useVbenForm({
+  schema: [
+    {
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'field1',
+      label: '字段1',
+      rules: 'required',
+    },
+    {
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'field2',
+      label: '字段2',
+      rules: 'required',
+    },
+  ],
   showDefaultActions: false,
 });
 const [Drawer, drawerApi] = useVbenDrawer({
@@ -20,31 +40,13 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      const { onSubmit, schema, values } =
-        drawerApi.getData<Record<string, any>>();
-      if (schema) {
-        formApi.setState((prev) => {
-          return {
-            ...prev,
-            schema,
-          };
-        });
-      }
-      if (onSubmit) {
-        formApi.setState((prev) => {
-          return {
-            ...prev,
-            handleSubmit: async (values) => {
-              await onSubmit?.(values);
-            },
-          };
-        });
-      }
+      const { values } = drawerApi.getData<Record<string, any>>();
       if (values) {
         formApi.setValues(values);
       }
     }
   },
+  title: '内嵌表单示例',
 });
 </script>
 <template>

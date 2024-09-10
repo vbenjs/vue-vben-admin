@@ -15,6 +15,7 @@ import {
   Checkbox,
   CheckboxGroup,
   DatePicker,
+  Divider,
   Input,
   InputNumber,
   InputPassword,
@@ -24,9 +25,11 @@ import {
   RangePicker,
   Rate,
   Select,
+  Space,
   Switch,
   TimePicker,
   TreeSelect,
+  Upload,
 } from 'ant-design-vue';
 
 // 业务表单组件适配
@@ -36,6 +39,7 @@ export type FormComponentType =
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
+  | 'Divider'
   | 'Input'
   | 'InputNumber'
   | 'InputPassword'
@@ -45,9 +49,11 @@ export type FormComponentType =
   | 'RangePicker'
   | 'Rate'
   | 'Select'
+  | 'Space'
   | 'Switch'
   | 'TimePicker'
   | 'TreeSelect'
+  | 'Upload'
   | BaseFormComponentType;
 
 // 初始化表单组件，并注册到form组件内部
@@ -65,6 +71,7 @@ setupVbenForm<FormComponentType>({
     DefaultSubmitActionButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
+    Divider,
     Input,
     InputNumber,
     InputPassword,
@@ -74,9 +81,11 @@ setupVbenForm<FormComponentType>({
     RangePicker,
     Rate,
     Select,
+    Space,
     Switch,
     TimePicker,
     TreeSelect,
+    Upload,
   },
   config: {
     baseModelPropName: 'value',
@@ -84,6 +93,7 @@ setupVbenForm<FormComponentType>({
       Checkbox: 'checked',
       Radio: 'checked',
       Switch: 'checked',
+      Upload: 'fileList',
     },
   },
   defineRules: {
