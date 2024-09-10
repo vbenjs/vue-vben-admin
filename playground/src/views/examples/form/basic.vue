@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card, message, Space } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter';
@@ -14,6 +14,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
+
   // 使用 tailwindcss grid布局
   // 提交函数
   handleSubmit: onSubmit,
@@ -253,6 +254,87 @@ function handleSetFormValue() {
   // 设置单个表单值
   baseFormApi.setFieldValue('checkbox', true);
 }
+function changeLabelWidth() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+
+      schema: prev.schema?.map((item) => {
+        return {
+          ...item,
+          labelWidth: item.labelWidth === 80 ? 150 : 80,
+        };
+      }),
+    };
+  });
+}
+function changeSize() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      schema: prev.schema?.map((item) => {
+        return {
+          ...item,
+          componentProps: {
+            ...item.componentProps,
+            size: item.componentProps?.size === 'small' ? 'default' : 'small',
+          },
+        };
+      }),
+    };
+  });
+}
+function changeDisable() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      commonConfig: {
+        ...prev.commonConfig,
+        disabled: !prev.commonConfig?.disabled,
+      },
+    };
+  });
+}
+function changeSubmit() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      submitButtonOptions: {
+        show: !prev.submitButtonOptions?.show,
+      },
+    };
+  });
+}
+function changeSubmitText() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      submitButtonOptions: {
+        text: prev.submitButtonOptions?.text === '查询' ? '提交' : '查询',
+      },
+    };
+  });
+}
+function changeReset() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      resetButtonOptions: {
+        show: !prev.resetButtonOptions?.show,
+      },
+    };
+  });
+}
+function changeResetText() {
+  baseFormApi.setState((prev) => {
+    return {
+      ...prev,
+      resetButtonOptions: {
+        text: prev.resetButtonOptions?.text === '取消' ? '重置' : '取消',
+      },
+    };
+  });
+}
 </script>
 
 <template>
@@ -260,6 +342,15 @@ function handleSetFormValue() {
     description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
     title="表单组件"
   >
+    <Space>
+      <Button type="primary" @click="changeLabelWidth">修改labelWidth</Button>
+      <Button type="primary" @click="changeSize">修改size</Button>
+      <Button type="primary" @click="changeDisable">禁用表单</Button>
+      <Button type="primary" @click="changeSubmit">操作按钮</Button>
+      <Button type="primary" @click="changeSubmitText">操作按钮文本</Button>
+      <Button type="primary" @click="changeReset">重置按钮</Button>
+      <Button type="primary" @click="changeResetText">重置按钮文本</Button>
+    </Space>
     <Card title="基础示例">
       <template #extra>
         <Button type="primary" @click="handleSetFormValue">设置表单值</Button>
