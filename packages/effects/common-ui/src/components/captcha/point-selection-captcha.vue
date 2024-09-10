@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { CaptchaPoint } from './types';
+
 import { computed, ref } from 'vue';
 
 import { RotateCw } from '@vben/icons';
@@ -11,8 +13,6 @@ import {
   VbenButton,
   VbenIconButton,
 } from '@vben-core/shadcn-ui';
-
-import { type Point } from '.';
 
 interface Props {
   /**
@@ -74,7 +74,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   click: [number, number];
-  confirm: [Array<Point>, clear: () => void];
+  confirm: [Array<CaptchaPoint>, clear: () => void];
   refresh: [];
 }>();
 
@@ -129,7 +129,7 @@ function getElementPosition(element: HTMLElement) {
     y: posY,
   };
 }
-const points = ref<Point[]>([]);
+const points = ref<CaptchaPoint[]>([]);
 const POINT_OFFSET = 11;
 
 function handleClick(e: MouseEvent) {
