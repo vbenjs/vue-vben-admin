@@ -134,7 +134,6 @@ const tabsView = computed((): TabConfig[] => {
                 v-if="showIcon"
                 :icon="tab.icon"
                 class="mr-1 flex size-4 items-center overflow-hidden"
-                fallback
               />
 
               <span class="flex-1 overflow-hidden whitespace-nowrap text-sm">
