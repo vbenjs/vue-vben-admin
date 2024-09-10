@@ -3,7 +3,7 @@ import type { CaptchaPoint } from './types';
 
 import { computed, ref } from 'vue';
 
-import { RotateCw } from '@vben/icons';
+import { SvgRefreshIcon } from '@vben/icons';
 import {
   Card,
   CardContent,
@@ -231,7 +231,7 @@ function handleConfirm() {
     </CardContent>
     <CardFooter class="mt-2 flex justify-between p-0">
       <VbenIconButton aria-label="刷新验证码" @click="handleRefresh">
-        <RotateCw class="size-5" />
+        <SvgRefreshIcon class="size-5" />
       </VbenIconButton>
       <VbenButton aria-label="确认选择" @click="handleConfirm">
         确认
