@@ -1,8 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Discord Chat
-    url: https://discord.gg/8GuAdwDhj6
-    about: Ask questions and discuss with other Vben users in real time.
-  - name: Questions & Discussions
-    url: https://github.com/anncwb/vue-vben-admin/discussions
-    about: Use GitHub discussions for message-board style questions and discussions.
