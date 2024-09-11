@@ -7,6 +7,7 @@ import {
   VBEN_GITHUB_URL,
   VBEN_LOGO_URL,
 } from '@vben/constants';
+import { SvgAntdvLogoIcon } from '@vben/icons';
 
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -58,6 +59,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
+          icon: SvgAntdvLogoIcon,
           link: VBEN_ANT_PREVIEW_URL,
           title: $t('page.vben.antdv'),
         },
@@ -68,6 +70,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
+          icon: 'logos:element',
           link: VBEN_ELE_PREVIEW_URL,
           title: $t('page.vben.element-plus'),
         },

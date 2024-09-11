@@ -20,6 +20,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/modal',
         component: () => import('#/views/examples/modal/index.vue'),
         meta: {
+          icon: 'system-uicons:window-content',
           title: $t('page.examples.modal.title'),
         },
       },
@@ -28,6 +29,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/drawer',
         component: () => import('#/views/examples/drawer/index.vue'),
         meta: {
+          icon: 'iconoir:drawer',
           title: $t('page.examples.drawer.title'),
         },
       },
@@ -36,6 +38,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/ellipsis',
         component: () => import('#/views/examples/ellipsis/index.vue'),
         meta: {
+          icon: 'ion:ellipsis-horizontal',
           title: $t('page.examples.ellipsis.title'),
         },
       },
@@ -44,6 +47,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/captcha',
         component: () => import('#/views/examples/captcha/index.vue'),
         meta: {
+          icon: 'logos:recaptcha',
           title: $t('page.examples.captcha.title'),
         },
       },
@@ -51,6 +55,7 @@ const routes: RouteRecordRaw[] = [
         name: 'FormExample',
         path: '/examples/form',
         meta: {
+          icon: 'mdi:form-select',
           title: $t('page.examples.form.title'),
         },
         children: [

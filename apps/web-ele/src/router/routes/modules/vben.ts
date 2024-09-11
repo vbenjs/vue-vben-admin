@@ -7,6 +7,7 @@ import {
   VBEN_LOGO_URL,
   VBEN_NAIVE_PREVIEW_URL,
 } from '@vben/constants';
+import { SvgAntdvLogoIcon } from '@vben/icons';
 
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -58,6 +59,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
+          icon: 'logos:naiveui',
           link: VBEN_NAIVE_PREVIEW_URL,
           title: $t('page.vben.naive-ui'),
         },
@@ -68,6 +70,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
+          icon: SvgAntdvLogoIcon,
           link: VBEN_ANT_PREVIEW_URL,
           title: $t('page.vben.antdv'),
         },
