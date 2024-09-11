@@ -11,6 +11,7 @@ import { VbenButton } from '@vben-core/shadcn-ui';
 import Title from './auth-title.vue';
 
 interface Props {
+  formSchema: VbenFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */
@@ -19,8 +20,18 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
-
-  formSchema: VbenFormSchema[];
+  /**
+   * @zh_CN 标题
+   */
+  title?: string;
+  /**
+   * @zh_CN 描述
+   */
+  subTitle?: string;
+  /**
+   * @zh_CN 按钮文本
+   */
+  submitButtonText?: string;
 }
 
 defineOptions({
@@ -30,6 +41,9 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
   loginPath: '/auth/login',
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
 });
 
 const emit = defineEmits<{
@@ -65,16 +79,22 @@ function goToLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.forgetPassword') }} 🤦🏻‍♂️
+      <slot name="title">
+        {{ title || $t('authentication.forgetPassword') }} 🤦🏻‍♂️
+      </slot>
       <template #desc>
-        {{ $t('authentication.forgetPasswordSubtitle') }}
+        <slot name="subTitle">
+          {{ subTitle || $t('authentication.forgetPasswordSubtitle') }}
+        </slot>
       </template>
     </Title>
     <Form />
 
     <div>
       <VbenButton class="mt-2 w-full" @click="handleSubmit">
-        {{ $t('authentication.sendResetLink') }}
+        <slot name="submitButtonText">
+          {{ submitButtonText || $t('authentication.sendResetLink') }}
+        </slot>
       </VbenButton>
       <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}

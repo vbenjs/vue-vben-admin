@@ -22,6 +22,18 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
+  /**
+   * @zh_CN 标题
+   */
+  title?: string;
+  /**
+   * @zh_CN 描述
+   */
+  subTitle?: string;
+  /**
+   * @zh_CN 按钮文本
+   */
+  submitButtonText?: string;
 }
 
 defineOptions({
@@ -31,6 +43,9 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
   loginPath: '/auth/login',
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
 });
 
 const emit = defineEmits<{
@@ -69,16 +84,22 @@ function goToLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.welcomeBack') }} 📲
+      <slot name="title">
+        {{ title || $t('authentication.welcomeBack') }} 📲
+      </slot>
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.codeSubtitle') }}
+          <slot name="subTitle">
+            {{ subTitle || $t('authentication.codeSubtitle') }}
+          </slot>
         </span>
       </template>
     </Title>
     <Form />
     <VbenButton :loading="loading" class="w-full" @click="handleSubmit">
-      {{ $t('common.login') }}
+      <slot name="submitButtonText">
+        {{ submitButtonText || $t('common.login') }}
+      </slot>
     </VbenButton>
     <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}

@@ -22,6 +22,18 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
+  /**
+   * @zh_CN 标题
+   */
+  title?: string;
+  /**
+   * @zh_CN 描述
+   */
+  subTitle?: string;
+  /**
+   * @zh_CN 按钮文本
+   */
+  submitButtonText?: string;
 }
 
 defineOptions({
@@ -32,6 +44,9 @@ const props = withDefaults(defineProps<Props>(), {
   formSchema: () => [],
   loading: false,
   loginPath: '/auth/login',
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
 });
 
 const emit = defineEmits<{
@@ -66,13 +81,21 @@ function goToLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.createAnAccount') }} 🚀
-      <template #desc> {{ $t('authentication.signUpSubtitle') }} </template>
+      <slot name="title">
+        {{ title || $t('authentication.createAnAccount') }} 🚀
+      </slot>
+      <template #desc>
+        <slot name="subTitle">
+          {{ subTitle || $t('authentication.signUpSubtitle') }}
+        </slot>
+      </template>
     </Title>
     <Form />
 
     <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">
-      {{ $t('authentication.signUp') }}
+      <slot name="submitButtonText">
+        {{ submitButtonText || $t('authentication.signUp') }}
+      </slot>
     </VbenButton>
     <div class="mt-4 text-center text-sm">
       {{ $t('authentication.alreadyHaveAccount') }}
