@@ -41,6 +41,7 @@ export class ModalApi {
       isOpen: false,
       loading: false,
       modal: true,
+      openAutoFocus: false,
       showCancelButton: true,
       showConfirmButton: true,
       title: '',

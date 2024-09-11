@@ -68,6 +68,7 @@ const {
   header,
   loading: showLoading,
   modal,
+  openAutoFocus,
   showCancelButton,
   showConfirmButton,
   title,
@@ -133,6 +134,13 @@ function escapeKeyDown(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
+
+function handerOpenAutoFocus(e: Event) {
+  if (!openAutoFocus.value) {
+    e?.preventDefault();
+  }
+}
+
 // pointer-down-outside
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
@@ -166,6 +174,7 @@ function pointerDownOutside(e: Event) {
       close-class="top-3"
       @escape-key-down="escapeKeyDown"
       @interact-outside="interactOutside"
+      @open-auto-focus="handerOpenAutoFocus"
       @pointer-down-outside="pointerDownOutside"
     >
       <DialogHeader

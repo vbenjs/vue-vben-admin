@@ -61,6 +61,10 @@ interface AuthenticationProps {
    * @zh_CN 登录框标题
    */
   title?: string;
+  /**
+   * @zh_CN 提交按钮文本
+   */
+  submitButtonText?: string;
 }
 
 interface LoginAndRegisterParams {

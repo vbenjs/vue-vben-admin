@@ -18,6 +18,22 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
+  /**
+   * @zh_CN 标题
+   */
+  title?: string;
+  /**
+   * @zh_CN 描述
+   */
+  subTitle?: string;
+  /**
+   * @zh_CN 按钮文本
+   */
+  submitButtonText?: string;
+  /**
+   * @zh_CN 描述
+   */
+  description?: string;
 }
 
 defineOptions({
@@ -25,8 +41,12 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
+  description: '',
   loading: false,
   loginPath: '/auth/login',
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
 });
 
 const router = useRouter();
@@ -46,10 +66,14 @@ function goToLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.welcomeBack') }} 📱
+      <slot name="title">
+        {{ title || $t('authentication.welcomeBack') }} 📱
+      </slot>
       <template #desc>
         <span class="text-muted-foreground">
-          {{ $t('authentication.qrcodeSubtitle') }}
+          <slot name="subTitle">
+            {{ subTitle || $t('authentication.qrcodeSubtitle') }}
+          </slot>
         </span>
       </template>
     </Title>
@@ -57,7 +81,9 @@ function goToLogin() {
     <div class="flex-col-center mt-6">
       <img :src="qrcode" alt="qrcode" class="w-1/2" />
       <p class="text-muted-foreground mt-4 text-sm">
-        {{ $t('authentication.qrcodePrompt') }}
+        <slot name="description">
+          {{ description || $t('authentication.qrcodePrompt') }}
+        </slot>
       </p>
     </div>
 

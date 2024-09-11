@@ -27,6 +27,19 @@ const [Form, formApi] = useVbenForm({
       label: '字段2',
       rules: 'required',
     },
+    {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '选项1', value: '1' },
+          { label: '选项2', value: '2' },
+        ],
+        placeholder: '请输入',
+      },
+      fieldName: 'field3',
+      label: '字段3',
+      rules: 'required',
+    },
   ],
   showDefaultActions: false,
 });
