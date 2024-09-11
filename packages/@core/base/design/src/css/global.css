@@ -31,13 +31,13 @@
   #app,
   body,
   html {
-    @apply !pointer-events-auto size-full overscroll-none;
+    @apply size-full overscroll-none;
 
     /* scrollbar-gutter: stable; */
   }
 
   body {
-    @apply size-full overscroll-none;
+    @apply !pointer-events-auto;
 
     min-height: 100vh;
 
