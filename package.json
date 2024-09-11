@@ -85,7 +85,7 @@
     "jsdom": "^25.0.0",
     "lint-staged": "^15.2.10",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^3.4.10",
+    "tailwindcss": "^3.4.11",
     "turbo": "^2.1.1",
     "typescript": "^5.6.2",
     "unbuild": "^2.0.0",
