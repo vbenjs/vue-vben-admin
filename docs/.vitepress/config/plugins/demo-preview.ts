@@ -47,7 +47,10 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
     const regex = /<DemoPreview[^>]*\sdir="([^"]*)"/g;
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replaceAll(regex, (_match, dir) => {
-      const componentDir = join(process.cwd(), 'src', dir);
+      const componentDir = join(process.cwd(), 'src', dir).replaceAll(
+        '\\',
+        '/',
+      );
 
       let childFiles: string[] = [];
       let dirExists = true;
