@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Base",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "declaration": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "useUnknownInCatchVariables": false,
+    "composite": false,
+    "declarationMap": false,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "removeComments": true
+  },
+  "exclude": ["**/node_modules/**", "**/dist/**"]
+}

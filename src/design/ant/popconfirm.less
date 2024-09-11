@@ -1,0 +1,7 @@
+// 修复气泡确认框内的按钮在内容宽度不够换行的情况
+// 初始问题发现在 2.10.1 版本 固定列页面 http://ip:port/#/comp/table/fixedColumn
+.ant-popconfirm {
+  &-buttons {
+    white-space: nowrap;
+  }
+}

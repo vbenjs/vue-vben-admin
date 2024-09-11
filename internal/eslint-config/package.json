@@ -1,0 +1,50 @@
+{
+  "name": "@vben/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "internal/eslint-config"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./strict": {
+      "types": "./dist/strict.d.ts",
+      "import": "./dist/strict.mjs",
+      "require": "./dist/strict.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
+    "eslint-plugin-vue": "^9.21.1",
+    "vue-eslint-parser": "^9.4.2"
+  }
+}

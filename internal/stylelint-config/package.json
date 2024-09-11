@@ -1,0 +1,49 @@
+{
+  "name": "@vben/stylelint-config",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "internal/stylelint-config"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "postcss-html": "^1.6.0",
+    "postcss-less": "^6.0.0",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.4.0",
+    "stylelint-config-property-sort-order-smacss": "^10.0.0",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.0"
+  }
+}

@@ -1,0 +1,60 @@
+@tree-prefix-cls: ~'@{namespace}-tree';
+
+.@{tree-prefix-cls} {
+  background-color: @component-background;
+
+  .ant-tree {
+    .ant-tree-checkbox {
+      margin-block-start: 0;
+      margin-inline: 4px 4px;
+
+      & + span {
+        padding-left: 4px;
+      }
+    }
+  }
+
+  .ant-tree-node-content-wrapper {
+    position: relative;
+
+    .ant-tree-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__title {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    padding-right: 10px;
+
+    &:hover {
+      .@{tree-prefix-cls}__action {
+        visibility: visible;
+      }
+    }
+  }
+
+  &__content {
+    overflow: hidden;
+  }
+
+  &__actions {
+    display: flex;
+    position: absolute;
+    //top: 2px;
+    right: 3px;
+  }
+
+  &__action {
+    visibility: hidden;
+    margin-left: 4px;
+  }
+
+  &-header {
+    border-bottom: 1px solid @border-color-base;
+  }
+}

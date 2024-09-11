@@ -1,0 +1,59 @@
+{
+  "name": "@vben/vite-config",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "internal/vite-config"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^7.0.2",
+    "vite": "^5.2.10"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "ant-design-vue": "^4.2.1",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "less": "^4.2.0",
+    "picocolors": "^1.0.0",
+    "pkg-types": "^1.1.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "sass": "^1.75.0",
+    "unocss": "0.59.4",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-dts": "^3.9.0",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-purge-icons": "^0.10.0",
+    "vite-plugin-svg-icons": "^2.0.1"
+  }
+}

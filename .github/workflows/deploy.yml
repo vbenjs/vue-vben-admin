@@ -1,0 +1,126 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # push-to-ftp:
+  #   if: "contains(github.event.head_commit.message, '[deploy]')"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+
+  #     - name: Sed Config Base
+  #       shell: bash
+  #       run: |
+  #         sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /next/#g' ./.env.production
+  #         sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+  #         cat ./.env.production
+
+  #     - name: use Node.js 14
+  #       uses: actions/setup-node@v2.1.2
+  #       with:
+  #         node-version: '14.x'
+
+  #     - name: Get yarn cache
+  #       id: yarn-cache
+  #       run: echo "::set-output name=dir::$(yarn cache dir)"
+
+  #     - name: Cache dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ${{ steps.yarn-cache.outputs.dir }}
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
+
+  #     - name: Build
+  #       run: |
+  #         yarn install
+  #         yarn run build
+
+  #     - name: Deploy
+  #       uses: SamKirkland/FTP-Deploy-Action@2.0.0
+  #       env:
+  #         FTP_SERVER: ${{ secrets.FTP_SERVER }}
+  #         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+  #         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+  #         METHOD: sftp
+  #         PORT: ${{ secrets.FTP_PORT }}
+  #         LOCAL_DIR: dist
+  #         REMOTE_DIR: /srv/www/vben-admin
+  #         ARGS: --delete --verbose --parallel=80
+
+  push-to-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      #      - uses: NullVoxPopuli/action-setup-pnpm@v2
+
+      - name: Sed Config Base
+        shell: bash
+        run: |
+          sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+          sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
+          cat ./.env.production
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+          run_install: false
+
+      - name: use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      #      - name: Get yarn cache directory path
+      #        id: yarn-cache-dir-path
+      #        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      #
+      #      - name: Cache dependencies
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-yarn-
+
+      - name: Set SSH Environment
+        env:
+          DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com > ~/.ssh/known_hosts
+          chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+          git config --global user.email "vbenadmin@163.com"
+          git config --global user.name "vbenAdmin"
+
+      - name: Build
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm build
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
+
+      - name: Delete gh-pages branch
+        run: |
+          git push origin --delete gh-pages
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.9.0
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./dist
+          CNAME: vben.vvbin.cn

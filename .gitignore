@@ -1,0 +1,34 @@
+node_modules
+.DS_Store
+dist
+.cache
+.turbo
+
+tests/server/static
+tests/server/static/upload
+
+.local
+# local env files
+.env.local
+.env.*.local
+.eslintcache
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+# .vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+package-lock.json
+pnpm-lock.yaml
+
+.history
