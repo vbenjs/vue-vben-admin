@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import type { VbenFormSchema } from '@vben-core/form-ui';
+
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import { VbenButton, VbenInput } from '@vben-core/shadcn-ui';
+import { useVbenForm } from '@vben-core/form-ui';
+import { VbenButton } from '@vben-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
 interface Props {
+  formSchema: VbenFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */
@@ -16,37 +20,55 @@ interface Props {
    * @zh_CN 登陆路径
    */
   loginPath?: string;
+  /**
+   * @zh_CN 标题
+   */
+  title?: string;
+  /**
+   * @zh_CN 描述
+   */
+  subTitle?: string;
+  /**
+   * @zh_CN 按钮文本
+   */
+  submitButtonText?: string;
 }
 
 defineOptions({
-  name: 'AuthenticationForgetPassword',
+  name: 'ForgetPassword',
 });
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
   loginPath: '/auth/login',
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
 });
 
 const emit = defineEmits<{
   submit: [string];
 }>();
 
+const [Form, { validate }] = useVbenForm(
+  reactive({
+    commonConfig: {
+      hideLabel: true,
+      hideRequiredMark: true,
+    },
+    schema: computed(() => props.formSchema),
+    showDefaultActions: false,
+  }),
+);
+
 const router = useRouter();
-const formState = reactive({
-  email: '',
-  submitted: false,
-});
 
-const emailStatus = computed(() => {
-  return formState.submitted && !formState.email ? 'error' : 'default';
-});
+async function handleSubmit() {
+  const { valid, values } = await validate();
 
-function handleSubmit() {
-  formState.submitted = true;
-  if (emailStatus.value !== 'default') {
-    return;
+  if (valid) {
+    emit('submit', values?.email);
   }
-  emit('submit', formState.email);
 }
 
 function goToLogin() {
@@ -57,26 +79,22 @@ function goToLogin() {
 <template>
   <div>
     <Title>
-      {{ $t('authentication.forgetPassword') }} 🤦🏻‍♂️
+      <slot name="title">
+        {{ title || $t('authentication.forgetPassword') }} 🤦🏻‍♂️
+      </slot>
       <template #desc>
-        {{ $t('authentication.forgetPasswordSubtitle') }}
+        <slot name="subTitle">
+          {{ subTitle || $t('authentication.forgetPasswordSubtitle') }}
+        </slot>
       </template>
     </Title>
-    <div class="mb-6">
-      <VbenInput
-        v-model="formState.email"
-        :error-tip="$t('authentication.emailTip')"
-        :label="$t('authentication.email')"
-        :status="emailStatus"
-        autofocus
-        name="email"
-        placeholder="example@example.com"
-        type="text"
-      />
-    </div>
+    <Form />
+
     <div>
       <VbenButton class="mt-2 w-full" @click="handleSubmit">
-        {{ $t('authentication.sendResetLink') }}
+        <slot name="submitButtonText">
+          {{ submitButtonText || $t('authentication.sendResetLink') }}
+        </slot>
       </VbenButton>
       <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}

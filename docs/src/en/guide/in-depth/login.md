@@ -62,11 +62,6 @@ If you want to adjust the content of the login form, you can configure the `Auth
   loading?: boolean;
 
   /**
-   * @en Password placeholder
-   */
-  passwordPlaceholder?: string;
-
-  /**
    * @en QR code login path
    */
   qrCodeLoginPath?: string;
@@ -114,11 +109,6 @@ If you want to adjust the content of the login form, you can configure the `Auth
    * @en Login box title
    */
   title?: string;
-
-  /**
-   * @en Username placeholder
-   */
-  usernamePlaceholder?: string;
 }
 ```
 

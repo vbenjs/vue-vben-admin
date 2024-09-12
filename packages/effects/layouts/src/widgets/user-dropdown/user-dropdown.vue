@@ -102,11 +102,7 @@ function handleOpenLock() {
   lockModalApi.open();
 }
 
-function handleSubmitLock({
-  lockScreenPassword,
-}: {
-  lockScreenPassword: string;
-}) {
+function handleSubmitLock(lockScreenPassword: string) {
   lockModalApi.close();
   lockStore.lockScreen(lockScreenPassword);
 }

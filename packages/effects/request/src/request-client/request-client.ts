@@ -5,7 +5,7 @@ import type {
   CreateAxiosDefaults,
 } from 'axios';
 
-import { merge } from '@vben/utils';
+import { bindMethods, merge } from '@vben/utils';
 
 import axios from 'axios';
 
@@ -44,7 +44,7 @@ class RequestClient {
     const requestConfig = merge(axiosConfig, defaultConfig);
     this.instance = axios.create(requestConfig);
 
-    this.bindMethods();
+    bindMethods(this);
 
     // 实例化拦截器管理器
     const interceptorManager = new InterceptorManager(this.instance);
@@ -59,21 +59,6 @@ class RequestClient {
     // 实例化文件下载器
     const fileDownloader = new FileDownloader(this);
     this.download = fileDownloader.download.bind(fileDownloader);
-  }
-
-  private bindMethods() {
-    const propertyNames = Object.getOwnPropertyNames(
-      Object.getPrototypeOf(this),
-    );
-    propertyNames.forEach((propertyName) => {
-      const propertyValue = (this as any)[propertyName];
-      if (
-        typeof propertyValue === 'function' &&
-        propertyName !== 'constructor'
-      ) {
-        (this as any)[propertyName] = propertyValue.bind(this);
-      }
-    });
   }
 
   /**

@@ -20,6 +20,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/modal',
         component: () => import('#/views/examples/modal/index.vue'),
         meta: {
+          icon: 'system-uicons:window-content',
           title: $t('page.examples.modal.title'),
         },
       },
@@ -28,6 +29,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/drawer',
         component: () => import('#/views/examples/drawer/index.vue'),
         meta: {
+          icon: 'iconoir:drawer',
           title: $t('page.examples.drawer.title'),
         },
       },
@@ -36,6 +38,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/ellipsis',
         component: () => import('#/views/examples/ellipsis/index.vue'),
         meta: {
+          icon: 'ion:ellipsis-horizontal',
           title: $t('page.examples.ellipsis.title'),
         },
       },
@@ -44,8 +47,59 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/captcha',
         component: () => import('#/views/examples/captcha/index.vue'),
         meta: {
+          icon: 'logos:recaptcha',
           title: $t('page.examples.captcha.title'),
         },
+      },
+      {
+        name: 'FormExample',
+        path: '/examples/form',
+        meta: {
+          icon: 'mdi:form-select',
+          title: $t('page.examples.form.title'),
+        },
+        children: [
+          {
+            name: 'FormBasicExample',
+            path: '/examples/form/basic',
+            component: () => import('#/views/examples/form/basic.vue'),
+            meta: {
+              title: $t('page.examples.form.basic'),
+            },
+          },
+          {
+            name: 'FormQueryExample',
+            path: '/examples/form/query',
+            component: () => import('#/views/examples/form/query.vue'),
+            meta: {
+              title: $t('page.examples.form.query'),
+            },
+          },
+          {
+            name: 'FormRulesExample',
+            path: '/examples/form/rules',
+            component: () => import('#/views/examples/form/rules.vue'),
+            meta: {
+              title: $t('page.examples.form.rules'),
+            },
+          },
+          {
+            name: 'FormDynamicExample',
+            path: '/examples/form/dynamic',
+            component: () => import('#/views/examples/form/dynamic.vue'),
+            meta: {
+              title: $t('page.examples.form.dynamic'),
+            },
+          },
+          {
+            name: 'FormCustomExample',
+            path: '/examples/form/custom',
+            component: () => import('#/views/examples/form/custom.vue'),
+            meta: {
+              title: $t('page.examples.form.custom'),
+            },
+          },
+        ],
       },
     ],
   },

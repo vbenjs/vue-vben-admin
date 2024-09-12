@@ -22,7 +22,7 @@ import {
 
 import { useNamespace } from '@vben-core/composables';
 import { Ellipsis } from '@vben-core/icons';
-import { isHttpUrl } from '@vben-core/shared';
+import { isHttpUrl } from '@vben-core/shared/utils';
 
 import { useResizeObserver } from '@vueuse/core';
 
@@ -430,7 +430,7 @@ $namespace: vben;
   --menu-item-padding-x: 12px;
   --menu-item-popup-padding-y: 20px;
   --menu-item-popup-padding-x: 12px;
-  --menu-item-margin-y: 3px;
+  --menu-item-margin-y: 2px;
   --menu-item-margin-x: 0px;
   --menu-item-collapse-padding-y: 23.5px;
   --menu-item-collapse-padding-x: 0px;
@@ -475,7 +475,7 @@ $namespace: vben;
   &.is-rounded {
     --menu-item-margin-x: 8px;
     --menu-item-collapse-margin-x: 6px;
-    --menu-item-radius: 10px;
+    --menu-item-radius: 8px;
   }
 
   &.is-horizontal:not(.is-rounded) {

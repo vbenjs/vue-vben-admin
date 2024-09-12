@@ -13,11 +13,12 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import { storeToRefs, useAccessStore, useUserStore } from '@vben/stores';
+import { useAccessStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
+import LoginForm from '#/views/_core/authentication/login.vue';
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -87,8 +88,6 @@ const menus = computed(() => [
   },
 ]);
 
-const { loginLoading } = storeToRefs(authStore);
-
 const avatar = computed(() => {
   return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
 });
@@ -130,11 +129,9 @@ function handleMakeAll() {
       <AuthenticationLoginExpiredModal
         v-model:open="accessStore.loginExpired"
         :avatar
-        :loading="loginLoading"
-        password-placeholder="123456"
-        username-placeholder="vben"
-        @submit="authStore.authLogin"
-      />
+      >
+        <LoginForm />
+      </AuthenticationLoginExpiredModal>
     </template>
     <template #lock-screen>
       <LockScreen :avatar @to-login="handleLogout" />

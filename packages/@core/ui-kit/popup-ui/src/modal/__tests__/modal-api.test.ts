@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ModalApi } from '../modal-api'; // 假设 ModalApi 位于同一目录
 import type { ModalState } from '../modal';
 
-vi.mock('@vben-core/shared', () => {
+vi.mock('@vben-core/shared/store', () => {
   return {
     isFunction: (fn: any) => typeof fn === 'function',
     Store: class {

@@ -22,7 +22,7 @@ isFullscreen.value = !!(
 </script>
 <template>
   <VbenIconButton @click="toggle">
-    <Minimize v-if="isFullscreen" class="size-4" />
-    <Maximize v-else class="size-4" />
+    <Minimize v-if="isFullscreen" class="text-foreground size-4" />
+    <Maximize v-else class="text-foreground size-4" />
   </VbenIconButton>
 </template>

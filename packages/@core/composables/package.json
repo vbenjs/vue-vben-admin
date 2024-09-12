@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/composables",
-  "version": "5.2.2",
+  "version": "5.3.0-beta.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -39,7 +39,7 @@
     "@vueuse/core": "^11.0.3",
     "radix-vue": "^1.9.5",
     "sortablejs": "^1.15.3",
-    "vue": "^3.5.3"
+    "vue": "^3.5.4"
   },
   "devDependencies": {
     "@types/sortablejs": "^1.15.8"

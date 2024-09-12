@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
 } from 'radix-vue';
 
 const props = withDefaults(
-  defineProps<{ class?: HTMLAttributes['class'] } & DropdownMenuContentProps>(),
+  defineProps<{ class?: any } & DropdownMenuContentProps>(),
   {
     sideOffset: 4,
   },

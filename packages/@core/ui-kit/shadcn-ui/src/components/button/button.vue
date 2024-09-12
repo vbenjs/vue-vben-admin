@@ -1,20 +1,16 @@
 <script setup lang="ts">
+import type { VbenButtonProps } from './button';
+
 import { computed } from 'vue';
 
 import { LoaderCircle } from '@vben-core/icons';
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
-import { Primitive, type PrimitiveProps } from 'radix-vue';
+import { Primitive } from 'radix-vue';
 
-import { type ButtonVariants, buttonVariants } from '../ui/button';
+import { buttonVariants } from '../ui/button';
 
-interface Props extends PrimitiveProps {
-  class?: any;
-  disabled?: boolean;
-  loading?: boolean;
-  size?: ButtonVariants['size'];
-  variant?: ButtonVariants['variant'];
-}
+interface Props extends VbenButtonProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',

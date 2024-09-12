@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shadcn-ui",
-  "version": "5.2.2",
+  "version": "5.3.0-beta.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -11,8 +11,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "prepublishOnly": "npm run build"
+    "#build": "pnpm unbuild",
+    "#prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -20,24 +20,22 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "#main": "./dist/index.mjs",
+  "main": "./src/index.ts",
+  "#module": "./dist/index.mjs",
+  "module": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
-    },
-    "./*": {
-      "types": "./src/*/index.ts",
-      "development": "./src/*/index.ts",
-      "default": "./dist/*/index.mjs"
+      "//default": "./dist/index.mjs",
+      "default": "./src/index.ts"
     }
   },
   "publishConfig": {
     "exports": {
       ".": {
-        "default": "./dist/index.mjs"
+        "default": "./src/index.ts"
       }
     }
   },
@@ -50,6 +48,7 @@
     "class-variance-authority": "^0.7.0",
     "lucide-vue-next": "^0.439.0",
     "radix-vue": "^1.9.5",
-    "vue": "^3.5.3"
+    "vee-validate": "^4.13.2",
+    "vue": "^3.5.4"
   }
 }

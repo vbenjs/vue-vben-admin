@@ -72,6 +72,14 @@
       "ellipsis": {
         "title": "EllipsisText"
       },
+      "form": {
+        "title": "Form",
+        "basic": "Basic Form",
+        "query": "Query Form",
+        "rules": "Form Rules",
+        "dynamic": "Dynamic Form",
+        "custom": "Custom Component"
+      },
       "captcha": {
         "title": "Captcha"
       }

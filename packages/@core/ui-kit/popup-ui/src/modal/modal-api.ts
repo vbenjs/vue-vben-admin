@@ -1,6 +1,7 @@
 import type { ModalApiOptions, ModalState } from './modal';
 
-import { isFunction, Store } from '@vben-core/shared';
+import { Store } from '@vben-core/shared/store';
+import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class ModalApi {
   private api: Pick<
@@ -40,6 +41,7 @@ export class ModalApi {
       isOpen: false,
       loading: false,
       modal: true,
+      openAutoFocus: false,
       showCancelButton: true,
       showConfirmButton: true,
       title: '',
@@ -65,12 +67,15 @@ export class ModalApi {
       },
     );
 
+    this.state = this.store.state;
+
     this.api = {
       onBeforeClose,
       onCancel,
       onConfirm,
       onOpenChange,
     };
+    bindMethods(this);
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法

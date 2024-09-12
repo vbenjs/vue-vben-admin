@@ -156,7 +156,7 @@ const {
   isSideMode,
   isSideNav,
 } = usePreferences();
-const { copy } = useClipboard();
+const { copy } = useClipboard({ legacy: true });
 
 const [Drawer] = useVbenDrawer();
 

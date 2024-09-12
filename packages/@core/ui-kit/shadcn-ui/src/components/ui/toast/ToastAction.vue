@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { ToastAction, type ToastActionProps } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & ToastActionProps
->();
+const props = defineProps<{ class?: any } & ToastActionProps>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

@@ -1,6 +1,6 @@
 {
   "name": "@vben/layouts",
-  "version": "5.2.2",
+  "version": "5.3.0-beta.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/form-ui": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
@@ -35,7 +36,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^11.0.3",
-    "vue": "^3.5.3",
-    "vue-router": "^4.4.3"
+    "vue": "^3.5.4",
+    "vue-router": "^4.4.4"
   }
 }
