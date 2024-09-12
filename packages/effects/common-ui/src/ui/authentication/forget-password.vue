@@ -91,7 +91,13 @@ function goToLogin() {
     <Form />
 
     <div>
-      <VbenButton class="mt-2 w-full" @click="handleSubmit">
+      <VbenButton
+        :class="{
+          'cursor-wait': loading,
+        }"
+        class="mt-2 w-full"
+        @click="handleSubmit"
+      >
         <slot name="submitButtonText">
           {{ submitButtonText || $t('authentication.sendResetLink') }}
         </slot>

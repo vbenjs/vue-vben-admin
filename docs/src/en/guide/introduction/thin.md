@@ -52,11 +52,11 @@ After slimming down, you may need to adjust commands according to your project. 
 ```json
 {
   "scripts": {
-    "build:antd": "pnpm run build --filter=@vben/web-antd",
-    "build:docs": "pnpm run build --filter=@vben/docs",
-    "build:ele": "pnpm run build --filter=@vben/web-ele",
-    "build:naive": "pnpm run build --filter=@vben/web-naive",
-    "build:play": "pnpm run build --filter=@vben/playground",
+    "build:antd": "pnpm -F @vben/web-antd run build",
+    "build:docs": "pnpm -F @vben/docs run build",
+    "build:ele": "pnpm -F @vben/web-ele run build",
+    "build:naive": "pnpm -F @vben/web-naive run build",
+    "build:play": "pnpm -F @vben/playground run build",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     "dev:docs": "pnpm -F @vben/docs run dev",
     "dev:ele": "pnpm -F @vben/web-ele run dev",

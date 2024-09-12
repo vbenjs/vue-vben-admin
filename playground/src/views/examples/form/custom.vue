@@ -14,7 +14,7 @@ const [BaseForm] = useVbenForm({
     componentProps: {
       class: 'w-full',
     },
-    labelWidth: 200,
+    labelClass: 'w-2/6',
   },
   // 使用 tailwindcss grid布局
   // 提交函数

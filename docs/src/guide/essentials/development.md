@@ -55,15 +55,15 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     // 构建本地 docker 镜像
     "build:docker": "./build-local-docker-image.sh",
     // 单独构建 web-antd 应用
-    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    "build:antd": "pnpm -F @vben/web-antd run build",
     // 单独构建文档
-    "build:docs": "pnpm run build --filter=@vben/docs",
+    "build:docs": "pnpm -F @vben/docs run build",
     // 单独构建 web-ele 应用
-    "build:ele": "pnpm run build --filter=@vben/web-ele",
+    "build:ele": "pnpm -F @vben/web-ele run build",
     // 单独构建 web-naive 应用
-    "build:naive": "pnpm run build --filter=@vben/naive",
+    "build:naive": "pnpm -F @vben/web-naive run build",
     // 单独构建 playground 应用
-    "build:play": "pnpm run build --filter=@vben/playground",
+    "build:play": "pnpm -F @vben/playground run build",
     // changeset 版本管理
     "changeset": "pnpm exec changeset",
     // 检查项目各种问题
