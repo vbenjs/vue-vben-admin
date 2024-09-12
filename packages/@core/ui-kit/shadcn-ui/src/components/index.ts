@@ -20,6 +20,7 @@ export * from './render-content';
 export * from './scrollbar';
 export * from './segmented';
 export * from './select';
+export * from './spine-text';
 export * from './spinner';
 export * from './swap';
 export * from './tooltip';

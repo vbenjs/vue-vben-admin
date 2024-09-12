@@ -12,6 +12,7 @@ export interface ModalProps {
    * @default false
    */
   centered?: boolean;
+  class?: string;
   /**
    * 是否显示右上角的关闭按钮
    * @default true
@@ -36,6 +37,7 @@ export interface ModalProps {
    * 确定按钮文字
    */
   confirmText?: string;
+  contentClass?: string;
   /**
    * 弹窗描述
    */
@@ -50,6 +52,7 @@ export interface ModalProps {
    * @default true
    */
   footer?: boolean;
+  footerClass?: string;
   /**
    * 是否全屏
    * @default false
@@ -65,6 +68,7 @@ export interface ModalProps {
    * @default true
    */
   header?: boolean;
+  headerClass?: string;
   /**
    * 弹窗是否显示
    * @default false

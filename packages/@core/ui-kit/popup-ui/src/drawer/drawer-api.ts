@@ -29,10 +29,12 @@ export class DrawerApi {
     } = options;
 
     const defaultState: DrawerState = {
+      class: '',
       closable: true,
       closeOnClickModal: true,
       closeOnPressEscape: true,
       confirmLoading: false,
+      contentClass: '',
       footer: true,
       isOpen: false,
       loading: false,

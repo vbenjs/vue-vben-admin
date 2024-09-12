@@ -7,6 +7,7 @@ export interface DrawerProps {
    * 取消按钮文字
    */
   cancelText?: string;
+  class?: string;
   /**
    * 是否显示右上角的关闭按钮
    * @default true
@@ -31,6 +32,7 @@ export interface DrawerProps {
    * 确定按钮文字
    */
   confirmText?: string;
+  contentClass?: string;
   /**
    * 弹窗描述
    */

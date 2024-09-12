@@ -55,15 +55,15 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Build a local Docker image
     "build:docker": "./build-local-docker-image.sh",
     // Build the web-antd application separately
-    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    "build:antd": "pnpm -F @vben/web-antd run build",
     // Build the documentation separately
-    "build:docs": "pnpm run build --filter=@vben/docs",
+    "build:docs": "pnpm -F @vben/docs run build",
     // Build the web-ele application separately
-    "build:ele": "pnpm run build --filter=@vben/web-ele",
+    "build:ele": "pnpm -F @vben/web-ele run build",
     // Build the web-naive application separately
-    "build:naive": "pnpm run build --filter=@vben/naive",
+    "build:naive": "pnpm -F @vben/web-naive run build",
     // Build the playground application separately
-    "build:play": "pnpm run build --filter=@vben/playground",
+    "build:play": "pnpm -F @vben/playground run build",
     // Changeset version management
     "changeset": "pnpm exec changeset",
     // Check for various issues in the project

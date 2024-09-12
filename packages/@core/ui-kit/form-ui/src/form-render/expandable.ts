@@ -22,7 +22,7 @@ export function useExpandable(props: FormRenderProps) {
     for (let index = 1; index <= rows; index++) {
       maxItem += mapping?.[index] ?? 0;
     }
-    return maxItem - 1;
+    return maxItem - 1 || 1;
   });
 
   watch(
@@ -50,11 +50,11 @@ export function useExpandable(props: FormRenderProps) {
       return;
     }
     // 小屏幕不计算
-    if (breakpoints.smaller('sm').value) {
-      // 保持一行
-      rowMapping.value = { 1: 2 };
-      return;
-    }
+    // if (breakpoints.smaller('sm').value) {
+    //   // 保持一行
+    //   rowMapping.value = { 1: 2 };
+    //   return;
+    // }
 
     const formItems = [...wrapperRef.value.children];
 
