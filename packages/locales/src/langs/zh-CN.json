@@ -48,7 +48,7 @@
       "requestTimeout": "请求超时，请稍后再试。",
       "networkError": "网络异常，请检查您的网络连接后重试。",
       "badRequest": "请求错误。请检查您的输入并重试。",
-      "unauthorized": "登录认证过期。请重新登录后继续。",
+      "unauthorized": "登录认证过期，请重新登录后继续。",
       "forbidden": "禁止访问, 您没有权限访问此资源。",
       "notFound": "未找到, 请求的资源不存在。",
       "internalServerError": "内部服务器错误，请稍后再试。"
