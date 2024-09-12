@@ -210,7 +210,6 @@ function onSubmit(values: Record<string, any>) {
 function handleDelete() {
   formApi.setState((prev) => {
     return {
-      ...prev,
       schema: prev.schema?.filter((item) => item.fieldName !== 'field7'),
     };
   });
@@ -219,7 +218,6 @@ function handleDelete() {
 function handleAdd() {
   formApi.setState((prev) => {
     return {
-      ...prev,
       schema: [
         ...(prev?.schema ?? []),
         {
@@ -235,7 +233,6 @@ function handleAdd() {
 function handleUpdate() {
   formApi.setState((prev) => {
     return {
-      ...prev,
       schema: prev.schema?.map((item) => {
         if (item.fieldName === 'field3') {
           return {

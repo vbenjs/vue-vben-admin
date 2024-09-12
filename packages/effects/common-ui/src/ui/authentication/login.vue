@@ -124,7 +124,14 @@ onMounted(() => {
         {{ $t('authentication.forgetPassword') }}
       </span>
     </div>
-    <VbenButton :loading="loading" class="w-full" @click="handleSubmit">
+    <VbenButton
+      :class="{
+        'cursor-wait': loading,
+      }"
+      :loading="loading"
+      class="w-full"
+      @click="handleSubmit"
+    >
       {{ submitButtonText || $t('common.login') }}
     </VbenButton>
 

@@ -26,14 +26,10 @@ import {
 import { cn } from '@vben-core/shared/utils';
 
 interface Props extends DrawerProps {
-  class?: string;
-  contentClass?: string;
   drawerApi?: ExtendedDrawerApi;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: '',
-  contentClass: '',
   drawerApi: undefined,
 });
 
@@ -44,11 +40,13 @@ const state = props.drawerApi?.useStore?.();
 
 const {
   cancelText,
+  class: drawerClass,
   closable,
   closeOnClickModal,
   closeOnPressEscape,
   confirmLoading,
   confirmText,
+  contentClass,
   description,
   footer: showFooter,
   loading: showLoading,
@@ -98,7 +96,7 @@ function pointerDownOutside(e: Event) {
   >
     <SheetContent
       :class="
-        cn('flex w-[520px] flex-col', props.class, {
+        cn('flex w-[520px] flex-col', drawerClass, {
           '!w-full': isMobile,
         })
       "

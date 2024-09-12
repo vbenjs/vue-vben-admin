@@ -27,18 +27,10 @@ import { cn } from '@vben-core/shared/utils';
 import { useModalDraggable } from './use-modal-draggable';
 
 interface Props extends ModalProps {
-  class?: string;
-  contentClass?: string;
-  footerClass?: string;
-  headerClass?: string;
   modalApi?: ExtendedModalApi;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: '',
-  contentClass: '',
-  footerClass: '',
-  headerClass: '',
   modalApi: undefined,
 });
 
@@ -55,17 +47,21 @@ const state = props.modalApi?.useStore?.();
 const {
   cancelText,
   centered,
+  class: modalClass,
   closable,
   closeOnClickModal,
   closeOnPressEscape,
   confirmLoading,
   confirmText,
+  contentClass,
   description,
   draggable,
   footer: showFooter,
+  footerClass,
   fullscreen,
   fullscreenButton,
   header,
+  headerClass,
   loading: showLoading,
   modal,
   openAutoFocus,
@@ -161,7 +157,7 @@ function pointerDownOutside(e: Event) {
       :class="
         cn(
           'border-border left-0 right-0 top-[10vh] mx-auto flex max-h-[80%] w-[520px] flex-col border p-0',
-          props.class,
+          modalClass,
           {
             'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
               shouldFullscreen,
@@ -186,7 +182,7 @@ function pointerDownOutside(e: Event) {
               hidden: !header,
               'cursor-move select-none': shouldDraggable,
             },
-            props.headerClass,
+            headerClass,
           )
         "
       >
@@ -240,10 +236,7 @@ function pointerDownOutside(e: Event) {
         v-if="showFooter"
         ref="footerRef"
         :class="
-          cn(
-            'flex-row items-center justify-end border-t p-2',
-            props.footerClass,
-          )
+          cn('flex-row items-center justify-end border-t p-2', footerClass)
         "
       >
         <slot name="prepend-footer"></slot>
