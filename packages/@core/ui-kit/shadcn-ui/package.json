@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
+    "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
