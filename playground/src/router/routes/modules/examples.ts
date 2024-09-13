@@ -101,6 +101,25 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      {
+        name: 'VerifyExample',
+        path: '/examples/verify',
+        meta: {
+          icon: 'logos:recaptcha',
+          title: '验证组件',
+        },
+        children: [
+          {
+            name: 'DragVerifyExample',
+            path: '/examples/verify/drag-verify',
+            component: () =>
+              import('#/views/examples/verify/drag-verify/index.vue'),
+            meta: {
+              title: '拖拽校验',
+            },
+          },
+        ],
+      },
     ],
   },
 ];
