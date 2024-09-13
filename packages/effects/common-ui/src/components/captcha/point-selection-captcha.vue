@@ -4,6 +4,7 @@ import type { CaptchaPoint, PointSelectionCaptchaProps } from './types';
 import { ref } from 'vue';
 
 import { RotateCw } from '@vben/icons';
+import { $t } from '@vben/locales';
 import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import { CaptchaCard } from '.';
@@ -15,7 +16,7 @@ const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   paddingX: '12px',
   paddingY: '16px',
   showConfirm: false,
-  title: '请完成安全验证',
+  title: '',
   width: '300px',
 });
 
@@ -26,7 +27,7 @@ const emit = defineEmits<{
 }>();
 
 if (!props.hintImage && !props.hintText) {
-  throw new Error('必须提供提示图片或提示文本中的至少一个');
+  throw new Error('At least one of hint image or hint text must be provided');
 }
 
 const points = ref<CaptchaPoint[]>([]);
@@ -130,9 +131,13 @@ function handleConfirm() {
     :width="width"
     @click="handleClick"
   >
+    <template #title>
+      <slot name="title">{{ $t('captcha.title') }}</slot>
+    </template>
+
     <template #extra>
       <VbenIconButton
-        aria-label="刷新验证码"
+        :aria-label="$t('captcha.refreshAriaLabel')"
         class="ml-1"
         @click="handleRefresh"
       >
@@ -140,23 +145,23 @@ function handleConfirm() {
       </VbenIconButton>
       <VbenButton
         v-if="showConfirm"
-        aria-label="确认选择"
+        :aria-label="$t('captcha.confirmAriaLabel')"
         class="ml-2"
         size="sm"
         @click="handleConfirm"
       >
-        确认
+        {{ $t('captcha.confirm') }}
       </VbenButton>
     </template>
 
     <div
       v-for="(point, index) in points"
       :key="index"
+      :aria-label="$t('captcha.pointAriaLabel') + (index + 1)"
       :style="{
         top: `${point.y - POINT_OFFSET}px`,
         left: `${point.x - POINT_OFFSET}px`,
       }"
-      aria-label="点击点 {{ index + 1 }}"
       class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
       role="button"
     >
@@ -165,15 +170,15 @@ function handleConfirm() {
     <template #footer>
       <img
         v-if="hintImage"
+        :alt="$t('captcha.alt')"
         :src="hintImage"
-        alt="提示图片（支持img标签src属性值）"
         class="h-10 w-full rounded border border-solid border-slate-200"
       />
       <div
         v-else-if="hintText"
         class="flex h-10 w-full items-center justify-center rounded border border-solid border-slate-200"
       >
-        {{ `请依次点击` + `【${hintText}】` }}
+        {{ `${$t('captcha.clickInOrder')}` + `【${hintText}】` }}
       </div>
     </template>
   </CaptchaCard>

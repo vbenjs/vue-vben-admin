@@ -3,6 +3,7 @@ import type { CaptchaCardProps } from './types';
 
 import { computed } from 'vue';
 
+import { $t } from '@vben/locales';
 import {
   Card,
   CardContent,
@@ -45,7 +46,12 @@ function handleClick(e: MouseEvent) {
   <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
     <CardHeader class="p-0">
       <CardTitle id="captcha-title" class="flex items-center justify-between">
-        <span>{{ title }}</span>
+        <template v-if="$slots.title">
+          <slot name="title">{{ $t('captcha.title') }}</slot>
+        </template>
+        <template v-else>
+          <span>{{ title }}</span>
+        </template>
         <div class="flex items-center justify-end">
           <slot name="extra"></slot>
         </div>
@@ -54,9 +60,9 @@ function handleClick(e: MouseEvent) {
     <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
       <img
         v-show="captchaImage"
+        :alt="$t('captcha.alt')"
         :src="captchaImage"
         :style="captchaStyles"
-        alt="验证码图片（支持img标签src属性值）"
         class="relative z-10"
         @click="handleClick"
       />
