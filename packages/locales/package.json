@@ -22,7 +22,7 @@
   "dependencies": {
     "@intlify/core-base": "^10.0.1",
     "@vben-core/composables": "workspace:*",
-    "vue": "^3.5.4",
+    "vue": "^3.5.5",
     "vue-i18n": "^10.0.1"
   }
 }
