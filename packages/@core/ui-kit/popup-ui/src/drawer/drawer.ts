@@ -53,6 +53,10 @@ export interface DrawerProps {
    */
   modal?: boolean;
   /**
+   * 是否自动聚焦
+   */
+  openAutoFocus?: boolean;
+  /**
    * 是否显示取消按钮
    * @default true
    */

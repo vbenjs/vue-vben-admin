@@ -23,30 +23,32 @@ export async function run(options: RunOptions) {
     return (pkg?.packageJson as Record<string, any>)?.scripts?.[command];
   });
 
-  const selectPkg = await select<any, string>({
-    message: `Select the app you need to run [${command}]:`,
-    options: selectPkgs.map((item) => ({
-      label: item?.packageJson.name,
-      value: item?.packageJson.name,
-    })),
-  });
+  let selectPkg: string | symbol;
+  if (selectPkgs.length > 1) {
+    selectPkg = await select<any, string>({
+      message: `Select the app you need to run [${command}]:`,
+      options: selectPkgs.map((item) => ({
+        label: item?.packageJson.name,
+        value: item?.packageJson.name,
+      })),
+    });
 
-  if (isCancel(selectPkg) || !selectPkg) {
-    cancel('👋 Has cancelled');
-    process.exit(0);
+    if (isCancel(selectPkg) || !selectPkg) {
+      cancel('👋 Has cancelled');
+      process.exit(0);
+    }
+  } else {
+    selectPkg = selectPkgs[0]?.packageJson?.name ?? '';
+  }
+
+  if (!selectPkg) {
+    console.error('No app found');
+    process.exit(1);
   }
 
   execaCommand(`pnpm --filter=${selectPkg} run ${command}`, {
     stdio: 'inherit',
   });
-  // const filters = [];
-  // for (const app of selectApps) {
-  //   filters.push(`--filter=${app}`);
-  // }
-  // $.verbose = true;
-  // execaCommand(`turbo run ${command} ${filters}`, {
-  //   stdio: 'inherit',
-  // });
 }
 
 /**
