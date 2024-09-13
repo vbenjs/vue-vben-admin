@@ -27,7 +27,7 @@
     }
   },
   "dependencies": {
-    "@intlify/unplugin-vue-i18n": "^4.0.0",
+    "@intlify/unplugin-vue-i18n": "^5.0.0",
     "@jspm/generator": "^2.3.0",
     "archiver": "^7.0.1",
     "cheerio": "1.0.0",
