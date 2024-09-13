@@ -47,7 +47,7 @@
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
-    "rollup": "^4.21.2",
+    "rollup": "^4.21.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.78.0",
     "vite": "^5.4.3",
