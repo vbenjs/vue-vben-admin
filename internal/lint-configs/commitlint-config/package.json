@@ -23,8 +23,8 @@
     }
   },
   "dependencies": {
-    "@commitlint/cli": "^19.4.1",
-    "@commitlint/config-conventional": "^19.4.1",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@vben/node-utils": "workspace:*",
     "commitlint-plugin-function-rules": "^4.0.0",
     "cz-git": "^1.9.4",

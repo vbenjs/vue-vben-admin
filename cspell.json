@@ -46,7 +46,10 @@
     "vite",
     "echarts",
     "sortablejs",
-    "etag"
+    "etag",
+    "naiveui",
+    "uicons",
+    "iconoir"
   ],
   "ignorePaths": [
     "**/node_modules/**",
