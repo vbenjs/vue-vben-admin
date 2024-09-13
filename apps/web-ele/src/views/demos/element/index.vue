@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-
-import { Page, useVbenModal } from '@vben/common-ui';
+import { Page } from '@vben/common-ui';
 
 import {
   ElButton,
   ElCard,
-  ElDatePicker,
   ElMessage,
   ElNotification,
   ElSpace,
@@ -41,9 +38,6 @@ function notify(type: NotificationType) {
     type,
   });
 }
-
-const [Modal, modalApi] = useVbenModal({});
-const value1 = ref('');
 </script>
 
 <template>
@@ -51,10 +45,6 @@ const value1 = ref('');
     description="支持多语言，主题功能集成切换等"
     title="Element Plus组件使用演示"
   >
-    <Modal>
-      <ElDatePicker v-model="value1" type="datetime" />
-    </Modal>
-    <button @click="() => modalApi.open()">开</button>
     <ElCard class="mb-5">
       <template #header> 按钮 </template>
       <ElSpace>
