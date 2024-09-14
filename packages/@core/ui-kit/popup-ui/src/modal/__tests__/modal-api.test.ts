@@ -1,7 +1,8 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { ModalApi } from '../modal-api'; // 假设 ModalApi 位于同一目录
 import type { ModalState } from '../modal';
+
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+// 假设 ModalApi 位于同一目录
+import { ModalApi } from '../modal-api';
 
 vi.mock('@vben-core/shared/store', () => {
   return {
