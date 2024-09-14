@@ -1,13 +1,20 @@
 <script lang="ts" setup>
 import { useVbenModal } from '@vben/common-ui';
 
+import { message } from 'ant-design-vue';
+
 import { useVbenForm } from '#/adapter';
 
 defineOptions({
   name: 'FormModelDemo',
 });
 
+function onSubmit(values: Record<string, any>) {
+  message.info(JSON.stringify(values)); // 只会执行一次
+}
+
 const [Form, formApi] = useVbenForm({
+  handleSubmit: onSubmit,
   schema: [
     {
       component: 'Input',

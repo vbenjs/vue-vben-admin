@@ -177,7 +177,7 @@ export class FormApi {
   }
 
   unmounted() {
-    this.state = null;
+    // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();
   }
