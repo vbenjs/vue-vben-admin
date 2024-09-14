@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, type CSSProperties, ref } from 'vue';
 
+import { Check, ChevronsRight } from '@vben/icons';
+
 const props = defineProps<{
   actionStyle: CSSProperties;
   height: number | string;
@@ -41,7 +43,8 @@ defineExpose({
     :style="style"
     class="absolute left-0 top-0 flex cursor-move items-center justify-center rounded-md bg-white"
   >
-    {{ left }}
+    <ChevronsRight v-if="!isPassing" />
+    <Check v-else />
   </div>
 </template>
 
