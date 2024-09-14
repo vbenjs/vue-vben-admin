@@ -37,9 +37,9 @@
   }
 
   body {
-    @apply !pointer-events-auto;
-
     min-height: 100vh;
+
+    /* pointer-events: auto !important; */
 
     /* overflow: overlay; */
 

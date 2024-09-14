@@ -92,7 +92,14 @@ function goToLogin() {
     </Title>
     <Form />
 
-    <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">
+    <VbenButton
+      :class="{
+        'cursor-wait': loading,
+      }"
+      :loading="loading"
+      class="mt-2 w-full"
+      @click="handleSubmit"
+    >
       <slot name="submitButtonText">
         {{ submitButtonText || $t('authentication.signUp') }}
       </slot>

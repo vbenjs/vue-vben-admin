@@ -26,14 +26,10 @@ import {
 import { cn } from '@vben-core/shared/utils';
 
 interface Props extends DrawerProps {
-  class?: string;
-  contentClass?: string;
   drawerApi?: ExtendedDrawerApi;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: '',
-  contentClass: '',
   drawerApi: undefined,
 });
 
@@ -44,15 +40,18 @@ const state = props.drawerApi?.useStore?.();
 
 const {
   cancelText,
+  class: drawerClass,
   closable,
   closeOnClickModal,
   closeOnPressEscape,
   confirmLoading,
   confirmText,
+  contentClass,
   description,
   footer: showFooter,
   loading: showLoading,
   modal,
+  openAutoFocus,
   showCancelButton,
   showConfirmButton,
   title,
@@ -89,21 +88,37 @@ function pointerDownOutside(e: Event) {
     e.preventDefault();
   }
 }
+
+function handerOpenAutoFocus(e: Event) {
+  if (!openAutoFocus.value) {
+    e?.preventDefault();
+  }
+}
+
+function handleFocusOutside(e: Event) {
+  e.preventDefault();
+  e.stopPropagation();
+}
 </script>
 <template>
   <Sheet
-    :modal="modal"
+    :modal="false"
     :open="state?.isOpen"
     @update:open="() => drawerApi?.close()"
   >
     <SheetContent
       :class="
-        cn('flex w-[520px] flex-col', props.class, {
+        cn('flex w-[520px] flex-col', drawerClass, {
           '!w-full': isMobile,
         })
       "
+      :modal="modal"
+      :open="state?.isOpen"
+      @close-auto-focus="handleFocusOutside"
       @escape-key-down="escapeKeyDown"
+      @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
+      @open-auto-focus="handerOpenAutoFocus"
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader

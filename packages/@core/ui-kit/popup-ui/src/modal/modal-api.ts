@@ -30,14 +30,18 @@ export class ModalApi {
 
     const defaultState: ModalState = {
       centered: false,
+      class: '',
       closeOnClickModal: true,
       closeOnPressEscape: true,
       confirmLoading: false,
+      contentClass: '',
       draggable: false,
       footer: true,
+      footerClass: '',
       fullscreen: false,
       fullscreenButton: true,
       header: true,
+      headerClass: '',
       isOpen: false,
       loading: false,
       modal: true,

@@ -10,7 +10,19 @@ import type { FormActions, VbenFormProps } from './types';
 import { toRaw } from 'vue';
 
 import { Store } from '@vben-core/shared/store';
-import { bindMethods, isFunction, StateHandler } from '@vben-core/shared/utils';
+import {
+  bindMethods,
+  createMerge,
+  isFunction,
+  StateHandler,
+} from '@vben-core/shared/utils';
+
+const merge = createMerge((originObj, key, updates) => {
+  if (Array.isArray(originObj[key]) && Array.isArray(updates)) {
+    originObj[key] = updates;
+    return true;
+  }
+});
 
 function getDefaultState(): VbenFormProps {
   return {
@@ -138,9 +150,11 @@ export class FormApi {
       | Partial<VbenFormProps>,
   ) {
     if (isFunction(stateOrFn)) {
-      this.store.setState(stateOrFn as (prev: VbenFormProps) => VbenFormProps);
+      this.store.setState((prev) => {
+        return merge(stateOrFn(prev), prev);
+      });
     } else {
-      this.store.setState((prev) => ({ ...prev, ...stateOrFn }));
+      this.store.setState((prev) => merge(stateOrFn, prev));
     }
   }
 

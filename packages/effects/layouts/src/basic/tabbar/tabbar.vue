@@ -22,7 +22,7 @@ defineProps<{ showIcon?: boolean; theme?: string }>();
 
 const route = useRoute();
 const tabbarStore = useTabbarStore();
-const { toggleMaximize } = useContentMaximize();
+const { contentIsMaximize, toggleMaximize } = useContentMaximize();
 const { refreshTab, unpinTab } = useTabs();
 
 const {
@@ -73,7 +73,7 @@ if (!preferences.tabbar.persist) {
     <TabsToolMore v-if="preferences.tabbar.showMore" :menus="menus" />
     <TabsToolScreen
       v-if="preferences.tabbar.showMaximize"
-      :screen="preferences.sidebar.hidden"
+      :screen="contentIsMaximize"
       @change="toggleMaximize"
       @update:screen="toggleMaximize"
     />

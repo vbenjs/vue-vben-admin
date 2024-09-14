@@ -11,7 +11,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/styles": "workspace:*",
-    "lucide-vue-next": "^0.439.0",
+    "lucide-vue-next": "^0.441.0",
     "medium-zoom": "^1.1.0",
     "radix-vue": "^1.9.5"
   },
@@ -20,6 +20,6 @@
     "@vben/vite-config": "workspace:*",
     "@vite-pwa/vitepress": "^0.5.3",
     "vitepress": "^1.3.4",
-    "vue": "^3.5.4"
+    "vue": "^3.5.5"
   }
 }

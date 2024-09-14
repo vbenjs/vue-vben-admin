@@ -50,3 +50,22 @@ export function getElementVisibleRect(
     width: Math.max(0, right - left),
   };
 }
+
+export function getScrollbarWidth() {
+  const scrollDiv = document.createElement('div');
+
+  scrollDiv.style.visibility = 'hidden';
+  scrollDiv.style.overflow = 'scroll';
+  scrollDiv.style.position = 'absolute';
+  scrollDiv.style.top = '-9999px';
+
+  document.body.append(scrollDiv);
+
+  const innerDiv = document.createElement('div');
+  scrollDiv.append(innerDiv);
+
+  const scrollbarWidth = scrollDiv.offsetWidth - innerDiv.offsetWidth;
+
+  scrollDiv.remove();
+  return scrollbarWidth;
+}
