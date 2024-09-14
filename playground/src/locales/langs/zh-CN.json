@@ -102,6 +102,12 @@
         "timestamp": "时间戳：",
         "x": "x：",
         "y": "y："
+      },
+      "verify": {
+        "title": "验证组件",
+        "drag-verify": {
+          "title": "拖动验证"
+        }
       }
     }
   }

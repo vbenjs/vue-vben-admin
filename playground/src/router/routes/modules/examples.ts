@@ -105,8 +105,8 @@ const routes: RouteRecordRaw[] = [
         name: 'VerifyExample',
         path: '/examples/verify',
         meta: {
-          icon: 'logos:recaptcha',
-          title: '验证组件',
+          icon: 'arcticons:okta-verify',
+          title: $t('page.examples.verify.title'),
         },
         children: [
           {
@@ -115,7 +115,7 @@ const routes: RouteRecordRaw[] = [
             component: () =>
               import('#/views/examples/verify/drag-verify/index.vue'),
             meta: {
-              title: '拖拽校验',
+              title: $t('page.examples.verify.drag-verify.title'),
             },
           },
         ],
