@@ -311,5 +311,14 @@
       "sidebarToggle": "启用侧边栏切换",
       "lockScreen": "启用锁屏"
     }
+  },
+  "captcha": {
+    "alt": "支持img标签src属性值",
+    "title": "请完成安全验证",
+    "refreshAriaLabel": "刷新验证码",
+    "confirmAriaLabel": "确认选择",
+    "confirm": "确认",
+    "pointAriaLabel": "点击点",
+    "clickInOrder": "请依次点击"
   }
 }

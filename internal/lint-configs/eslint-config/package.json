@@ -27,8 +27,8 @@
     }
   },
   "dependencies": {
-    "eslint-config-turbo": "^2.1.1",
-    "eslint-plugin-command": "^0.2.4",
+    "eslint-config-turbo": "^2.1.2",
+    "eslint-plugin-command": "^0.2.5",
     "eslint-plugin-import-x": "^4.2.1"
   },
   "devDependencies": {
@@ -39,15 +39,15 @@
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-jsdoc": "^50.2.2",
+    "eslint-plugin-jsdoc": "^50.2.3",
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-no-only-tests": "^3.3.0",
-    "eslint-plugin-perfectionist": "^3.5.0",
+    "eslint-plugin-perfectionist": "^3.6.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-unicorn": "^55.0.0",
-    "eslint-plugin-unused-imports": "^4.1.3",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "eslint-plugin-vitest": "^0.5.4",
     "eslint-plugin-vue": "^9.28.0",
     "globals": "^15.9.0",

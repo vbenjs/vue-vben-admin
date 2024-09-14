@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
+    "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
@@ -49,6 +50,6 @@
     "lucide-vue-next": "^0.441.0",
     "radix-vue": "^1.9.5",
     "vee-validate": "^4.13.2",
-    "vue": "^3.5.4"
+    "vue": "^3.5.5"
   }
 }

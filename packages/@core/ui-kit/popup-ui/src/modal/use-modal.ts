@@ -107,7 +107,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
   const stateKeys = new Set(Object.keys(state));
 
   for (const attr of Object.keys(attrs)) {
-    if (stateKeys.has(attr)) {
+    if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
       console.warn(
         `[Vben Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useVbenModal or api.`,

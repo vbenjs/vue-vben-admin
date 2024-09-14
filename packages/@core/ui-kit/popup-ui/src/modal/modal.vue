@@ -123,6 +123,7 @@ function handleFullscreen() {
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value) {
     e.preventDefault();
+    e.stopPropagation();
   }
 }
 function escapeKeyDown(e: KeyboardEvent) {
@@ -143,12 +144,18 @@ function pointerDownOutside(e: Event) {
   const isDismissableModal = !!target?.dataset.dismissableModal;
   if (!closeOnClickModal.value || !isDismissableModal) {
     e.preventDefault();
+    e.stopPropagation();
   }
+}
+
+function handleFocusOutside(e: Event) {
+  e.preventDefault();
+  e.stopPropagation();
 }
 </script>
 <template>
   <Dialog
-    :modal="modal"
+    :modal="false"
     :open="state?.isOpen"
     @update:open="() => modalApi?.close()"
   >
@@ -166,9 +173,13 @@ function pointerDownOutside(e: Event) {
           },
         )
       "
+      :modal="modal"
+      :open="state?.isOpen"
       :show-close="closable"
       close-class="top-3"
+      @close-auto-focus="handleFocusOutside"
       @escape-key-down="escapeKeyDown"
+      @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
       @open-auto-focus="handerOpenAutoFocus"
       @pointer-down-outside="pointerDownOutside"

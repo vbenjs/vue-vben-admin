@@ -95,7 +95,7 @@ async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
   const stateKeys = new Set(Object.keys(state));
 
   for (const attr of Object.keys(attrs)) {
-    if (stateKeys.has(attr)) {
+    if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useVbenDrawer 或者api
       console.warn(
         `[Vben Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useVbenDrawer or api.`,

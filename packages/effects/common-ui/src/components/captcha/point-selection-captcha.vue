@@ -1,107 +1,37 @@
 <script setup lang="ts">
-import type { CaptchaPoint } from './types';
+import type { CaptchaPoint, PointSelectionCaptchaProps } from './types';
 
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 import { RotateCw } from '@vben/icons';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  VbenButton,
-  VbenIconButton,
-} from '@vben-core/shadcn-ui';
+import { $t } from '@vben/locales';
+import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
-interface Props {
-  /**
-   * 点选的图片
-   * @default '12px'
-   */
-  captchaImage: string;
-  /**
-   * 验证码图片高度
-   * @default '220px'
-   */
-  height?: number | string;
-  /**
-   * 提示图片高度
-   * @default '40px'
-   */
-  hintHeight?: number | string;
-  /**
-   * 提示图片宽度
-   * @default '150px'
-   */
-  hintWidth?: number | string;
-  /**
-   * 提示图片
-   * @default '12px'
-   */
-  hintImage: string;
-  /**
-   * 水平内边距
-   * @default '12px'
-   */
-  paddingX?: number | string;
-  /**
-   * 垂直内边距
-   * @default '16px'
-   */
-  paddingY?: number | string;
-  /**
-   * 标题
-   * @default '请按图依次点击'
-   */
-  title?: string;
-  /**
-   * 验证码图片宽度
-   * @default '300px'
-   */
-  width?: number | string;
-}
+import { CaptchaCard } from '.';
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   height: '220px',
-  hintHeight: '40px',
-  hintWidth: '150px',
+  hintImage: '',
+  hintText: '',
   paddingX: '12px',
   paddingY: '16px',
-  title: '请按图依次点击',
+  showConfirm: false,
+  title: '',
   width: '300px',
 });
 
 const emit = defineEmits<{
-  click: [number, number];
+  click: [CaptchaPoint];
   confirm: [Array<CaptchaPoint>, clear: () => void];
   refresh: [];
 }>();
 
-const parseValue = (value: number | string) => {
-  if (typeof value === 'number') {
-    return value;
-  }
-  const parsed = Number.parseFloat(value);
-  return Number.isNaN(parsed) ? 0 : parsed;
-};
+if (!props.hintImage && !props.hintText) {
+  throw new Error('At least one of hint image or hint text must be provided');
+}
 
-const rootStyles = computed(() => ({
-  padding: `${parseValue(props.paddingY)}px ${parseValue(props.paddingX)}px`,
-  width: `${parseValue(props.width) - parseValue(props.paddingX) * 2}px`,
-}));
-
-const hintStyles = computed(() => ({
-  height: `${parseValue(props.hintHeight)}px`,
-  width: `${parseValue(props.hintWidth)}px`,
-}));
-
-const captchaStyles = computed(() => {
-  return {
-    height: `${parseValue(props.height)}px`,
-    width: `${parseValue(props.width)}px`,
-  };
-});
+const points = ref<CaptchaPoint[]>([]);
+const POINT_OFFSET = 11;
 
 function getElementPosition(element: HTMLElement) {
   let posX = 0;
@@ -129,8 +59,6 @@ function getElementPosition(element: HTMLElement) {
     y: posY,
   };
 }
-const points = ref<CaptchaPoint[]>([]);
-const POINT_OFFSET = 11;
 
 function handleClick(e: MouseEvent) {
   try {
@@ -151,15 +79,16 @@ function handleClick(e: MouseEvent) {
     const x = Math.ceil(xPos);
     const y = Math.ceil(yPos);
 
-    points.value.push({
+    const point = {
       i: points.value.length,
       t: Date.now(),
       x,
       y,
-    });
+    };
+    points.value.push(point);
 
-    emit('click', x, y);
-    e.cancelBubble = true;
+    emit('click', point);
+    e.stopPropagation();
     e.preventDefault();
   } catch (error) {
     console.error('Error in handleClick:', error);
@@ -184,6 +113,7 @@ function handleRefresh() {
 }
 
 function handleConfirm() {
+  if (!props.showConfirm) return;
   try {
     emit('confirm', points.value, clear);
   } catch (error) {
@@ -192,50 +122,64 @@ function handleConfirm() {
 }
 </script>
 <template>
-  <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
-    <CardHeader class="p-0">
-      <CardTitle id="captcha-title" class="flex items-center justify-between">
-        <span>{{ title }}</span>
-        <img
-          v-show="hintImage"
-          :src="hintImage"
-          :style="hintStyles"
-          alt="提示图片"
-        />
-      </CardTitle>
-    </CardHeader>
-    <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
-      <img
-        v-show="captchaImage"
-        :src="captchaImage"
-        :style="captchaStyles"
-        alt="验证码图片"
-        class="relative z-10"
-        @click="handleClick"
-      />
-      <div class="absolute inset-0">
-        <div
-          v-for="(point, index) in points"
-          :key="index"
-          :style="{
-            top: `${point.y - POINT_OFFSET}px`,
-            left: `${point.x - POINT_OFFSET}px`,
-          }"
-          aria-label="点击点 {{ index + 1 }}"
-          class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
-          role="button"
-        >
-          {{ index + 1 }}
-        </div>
-      </div>
-    </CardContent>
-    <CardFooter class="mt-2 flex justify-between p-0">
-      <VbenIconButton aria-label="刷新验证码" @click="handleRefresh">
+  <CaptchaCard
+    :captcha-image="captchaImage"
+    :height="height"
+    :padding-x="paddingX"
+    :padding-y="paddingY"
+    :title="title"
+    :width="width"
+    @click="handleClick"
+  >
+    <template #title>
+      <slot name="title">{{ $t('captcha.title') }}</slot>
+    </template>
+
+    <template #extra>
+      <VbenIconButton
+        :aria-label="$t('captcha.refreshAriaLabel')"
+        class="ml-1"
+        @click="handleRefresh"
+      >
         <RotateCw class="size-5" />
       </VbenIconButton>
-      <VbenButton aria-label="确认选择" @click="handleConfirm">
-        确认
+      <VbenButton
+        v-if="showConfirm"
+        :aria-label="$t('captcha.confirmAriaLabel')"
+        class="ml-2"
+        size="sm"
+        @click="handleConfirm"
+      >
+        {{ $t('captcha.confirm') }}
       </VbenButton>
-    </CardFooter>
-  </Card>
+    </template>
+
+    <div
+      v-for="(point, index) in points"
+      :key="index"
+      :aria-label="$t('captcha.pointAriaLabel') + (index + 1)"
+      :style="{
+        top: `${point.y - POINT_OFFSET}px`,
+        left: `${point.x - POINT_OFFSET}px`,
+      }"
+      class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
+      role="button"
+    >
+      {{ index + 1 }}
+    </div>
+    <template #footer>
+      <img
+        v-if="hintImage"
+        :alt="$t('captcha.alt')"
+        :src="hintImage"
+        class="h-10 w-full rounded border border-solid border-slate-200"
+      />
+      <div
+        v-else-if="hintText"
+        class="flex h-10 w-full items-center justify-center rounded border border-solid border-slate-200"
+      >
+        {{ `${$t('captcha.clickInOrder')}` + `【${hintText}】` }}
+      </div>
+    </template>
+  </CaptchaCard>
 </template>

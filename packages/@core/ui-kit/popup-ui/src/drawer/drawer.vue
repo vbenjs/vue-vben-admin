@@ -51,6 +51,7 @@ const {
   footer: showFooter,
   loading: showLoading,
   modal,
+  openAutoFocus,
   showCancelButton,
   showConfirmButton,
   title,
@@ -87,10 +88,21 @@ function pointerDownOutside(e: Event) {
     e.preventDefault();
   }
 }
+
+function handerOpenAutoFocus(e: Event) {
+  if (!openAutoFocus.value) {
+    e?.preventDefault();
+  }
+}
+
+function handleFocusOutside(e: Event) {
+  e.preventDefault();
+  e.stopPropagation();
+}
 </script>
 <template>
   <Sheet
-    :modal="modal"
+    :modal="false"
     :open="state?.isOpen"
     @update:open="() => drawerApi?.close()"
   >
@@ -100,8 +112,13 @@ function pointerDownOutside(e: Event) {
           '!w-full': isMobile,
         })
       "
+      :modal="modal"
+      :open="state?.isOpen"
+      @close-auto-focus="handleFocusOutside"
       @escape-key-down="escapeKeyDown"
+      @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
+      @open-auto-focus="handerOpenAutoFocus"
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader
