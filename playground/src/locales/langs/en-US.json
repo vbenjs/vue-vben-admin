@@ -81,7 +81,27 @@
         "custom": "Custom Component"
       },
       "captcha": {
-        "title": "Captcha"
+        "title": "Captcha",
+        "captchaCardTitle": "Please complete the security verification",
+        "pageDescription": "Verify user identity by clicking on specific locations in the image.",
+        "pageTitle": "Captcha Component Example",
+        "basic": "Basic Usage",
+        "titlePlaceholder": "Captcha Title Text",
+        "captchaImageUrlPlaceholder": "Captcha Image (supports img tag src attribute value)",
+        "hintImage": "Hint Image",
+        "hintText": "Hint Text",
+        "hintImagePlaceholder": "Hint Image (supports img tag src attribute value)",
+        "hintTextPlaceholder": "Hint Text",
+        "showConfirm": "Show Confirm",
+        "hideConfirm": "Hide Confirm",
+        "widthPlaceholder": "Captcha Image Width Default 300px",
+        "heightPlaceholder": "Captcha Image Height Default 220px",
+        "paddingXPlaceholder": "Horizontal Padding Default 12px",
+        "paddingYPlaceholder": "Vertical Padding Default 16px",
+        "index": "Index:",
+        "timestamp": "Timestamp:",
+        "x": "x:",
+        "y": "y:"
       }
     }
   }

@@ -311,5 +311,14 @@
       "sidebarToggle": "Enable Sidebar Toggle",
       "lockScreen": "Enable Lock Screen"
     }
+  },
+  "captcha": {
+    "alt": "Supports img tag src attribute value",
+    "title": "Please complete the security verification",
+    "refreshAriaLabel": "Refresh captcha",
+    "confirmAriaLabel": "Confirm selection",
+    "confirm": "Confirm",
+    "pointAriaLabel": "Click point",
+    "clickInOrder": "Please click in order"
   }
 }
