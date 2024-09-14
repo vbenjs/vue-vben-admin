@@ -161,7 +161,7 @@ const handleClick = (point: CaptchaPoint) => {
           <span class="mr-3 w-16">{{
             $t('page.examples.captcha.index') + point.i
           }}</span>
-          <span class="mr-3 w-44">{{
+          <span class="mr-3 w-52">{{
             $t('page.examples.captcha.timestamp') + point.t
           }}</span>
           <span class="mr-3 w-16">{{
