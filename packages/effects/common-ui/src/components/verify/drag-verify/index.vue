@@ -208,7 +208,7 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
           if (props.value) {
             const contentEl = unref(contentElRef);
             if (contentEl) {
-              contentEl.style.width = `${Number.parseInt(barEl.getEl().style.width)}px`;
+              contentEl.getEl().style.width = `${Number.parseInt(barEl.getEl().style.width)}px`;
             }
           } else {
             resume();
