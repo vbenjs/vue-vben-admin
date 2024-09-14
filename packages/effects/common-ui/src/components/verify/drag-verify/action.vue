@@ -8,12 +8,6 @@ const props = defineProps<{
   toLeft: boolean;
 }>();
 const divRef = ref<HTMLDivElement>();
-const cls = computed(() => {
-  return {
-    'darg-verify-action': true,
-    'to-left': props.toLeft,
-  };
-});
 
 const left = ref('0px');
 const style = computed(() => {
@@ -41,7 +35,12 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="divRef" :class="cls" :style="style">
+  <div
+    ref="divRef"
+    :class="toLeft ? 'transition-width !left-0 duration-300' : ''"
+    :style="style"
+    class="absolute left-0 top-0 flex cursor-move items-center justify-center rounded-md bg-white"
+  >
     {{ left }}
   </div>
 </template>

@@ -10,13 +10,6 @@ const props = defineProps<{
   width: number | string;
 }>();
 
-const cls = computed(() => {
-  return {
-    'drag-verify-content': true,
-    success: props.isPassing,
-  };
-});
-
 const divRef = ref<HTMLDivElement>();
 
 const style = computed(() => {
@@ -39,9 +32,43 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="divRef" :class="cls" :style="style">
+  <div
+    ref="divRef"
+    :class="{
+      [$style.content]: true,
+      [$style.success]: isPassing,
+      [$style.default]: !isPassing,
+    }"
+    :style="style"
+    class="absolute top-0 select-none text-xs"
+  >
     {{ isPassing ? successText : text }}
   </div>
 </template>
 
-<style scoped></style>
+<style module>
+@keyframes slidetounlock {
+  0% {
+    background-position: -120px 0;
+  }
+
+  100% {
+    background-position: 120px 0;
+  }
+}
+
+.content {
+  line-height: inherit !important;
+  background-clip: text;
+  animation: slidetounlock 3s infinite;
+  text-size-adjust: none;
+}
+
+.success {
+  -webkit-text-fill-color: white;
+}
+
+.default {
+  -webkit-text-fill-color: #333;
+}
+</style>

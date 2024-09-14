@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, type CSSProperties, ref } from 'vue';
 
 const props = defineProps<{
+  barStyle: CSSProperties;
+  circle: boolean;
+  height: number | string;
   toLeft: boolean;
 }>();
 const divRef = ref<HTMLDivElement>();
 const width = ref('0px');
-const cls = computed(() => {
+
+const style = computed(() => {
+  const { barStyle, circle, height } = props;
+  const h = Number.parseInt(height as string);
   return {
-    'drag-verify-bar': true,
-    'to-left': props.toLeft,
+    borderRadius: circle ? `${h / 2}px 0 0 ${h / 2}px` : 0,
+    height: `${h}px`,
+    ...barStyle,
+    width: width.value,
   };
 });
 
@@ -24,7 +32,12 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="divRef" :class="cls" :style="{ width }"></div>
+  <div
+    ref="divRef"
+    :class="props.toLeft ? 'transition-width !w-0 duration-300' : ''"
+    :style="style"
+    class="absolute h-9 w-0 rounded-md bg-green-600"
+  ></div>
 </template>
 
 <style scoped></style>

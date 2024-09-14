@@ -118,16 +118,6 @@ const getWrapStyleRef = computed(() => {
   };
 });
 
-const getBarStyleRef = computed(() => {
-  const { barStyle, circle, height } = props;
-  const h = Number.parseInt(height as string);
-  return {
-    borderRadius: circle ? `${h / 2}px 0 0 ${h / 2}px` : 0,
-    height: `${h}px`,
-    ...barStyle,
-  };
-});
-
 watch(
   () => state.isPassing,
   (isPassing) => {
@@ -271,14 +261,20 @@ function resume() {
   <div
     ref="wrapElRef"
     :style="getWrapStyleRef"
-    class="darg-verify"
+    class="relative overflow-hidden rounded-md border border-gray-300 bg-gray-200 text-center"
     @mouseleave="handleDragOver"
     @mousemove="handleDragMoving"
     @mouseup="handleDragOver"
     @touchend="handleDragOver"
     @touchmove="handleDragMoving"
   >
-    <BarCmp ref="barElRef" :style="getBarStyleRef" :to-left="state.toLeft" />
+    <BarCmp
+      ref="barElRef"
+      :bar-style="barStyle"
+      :circle="circle"
+      :height="height"
+      :to-left="state.toLeft"
+    />
     <ContentCmp
       ref="contentElRef"
       :content-style="contentStyle"
@@ -299,87 +295,3 @@ function resume() {
     />
   </div>
 </template>
-<style lang="scss">
-$radius: 4px;
-
-@keyframes slidetounlock {
-  0% {
-    background-position: -120px 0;
-  }
-
-  100% {
-    background-position: 120px 0;
-  }
-}
-
-.darg-verify {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  background-color: rgb(238 238 238);
-  border: 1px solid #ddd;
-  border-radius: $radius;
-
-  &-bar {
-    position: absolute;
-    width: 0;
-    height: 36px;
-    background-color: green;
-    border-radius: $radius;
-
-    &.to-left {
-      width: 0 !important;
-      transition: width 0.3s;
-    }
-  }
-
-  &-content {
-    position: absolute;
-    top: 0;
-    font-size: 12px;
-    user-select: none;
-    background-color: -webkit-gradient(
-      linear,
-      left top,
-      right top,
-      color-stop(0, #333),
-      color-stop(0.4, #333),
-      color-stop(0.5, #fff),
-      color-stop(0.6, #333),
-      color-stop(1, #333)
-    );
-    background-clip: text;
-    animation: slidetounlock 3s infinite;
-    text-size-adjust: none;
-
-    &.success {
-      -webkit-text-fill-color: white;
-    }
-
-    & > * {
-      -webkit-text-fill-color: #333;
-    }
-  }
-
-  &-action {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: move;
-    background-color: white;
-    border-radius: $radius;
-
-    &__icon {
-      cursor: inherit;
-    }
-
-    &.to-left {
-      left: 0 !important;
-      transition: left 0.3s;
-    }
-  }
-}
-</style>
