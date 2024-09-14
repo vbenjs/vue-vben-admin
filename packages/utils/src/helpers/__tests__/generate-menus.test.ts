@@ -1,12 +1,13 @@
-import { describe, expect, it, vi } from 'vitest';
-
-import { generateMenus } from '../generate-menus'; // 替换为您的实际路径
 import {
   createRouter,
   createWebHistory,
   type Router,
   type RouteRecordRaw,
 } from 'vue-router';
+
+import { describe, expect, it, vi } from 'vitest';
+// 替换为您的实际路径
+import { generateMenus } from '../generate-menus';
 
 // Nested route setup to test child inclusion and hideChildrenInMenu functionality
 
