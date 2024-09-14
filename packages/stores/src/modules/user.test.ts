@@ -24,7 +24,7 @@ describe('useUserStore', () => {
     expect(store.userInfo).not.toBeNull();
     expect(store.userRoles.length).toBeGreaterThan(0);
 
-    store.setUserInfo(null as any); // 重置用户信息
+    store.setUserInfo(null as any);
     expect(store.userInfo).toBeNull();
     expect(store.userRoles).toEqual([]);
   });

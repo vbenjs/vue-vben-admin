@@ -5,7 +5,6 @@ import { useLockStore } from './lock';
 
 describe('useLockStore', () => {
   beforeEach(() => {
-    // 每个测试前重置 Pinia
     setActivePinia(createPinia());
   });
 

@@ -46,7 +46,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DialogPortal>
-    <SheetOverlay v-if="open && modal" />
+    <Transition name="fade">
+      <SheetOverlay v-if="open && modal" />
+    </Transition>
     <DialogContent
       :class="cn(sheetVariants({ side }), 'z-[1000]', props.class)"
       v-bind="{ ...forwarded, ...$attrs }"
