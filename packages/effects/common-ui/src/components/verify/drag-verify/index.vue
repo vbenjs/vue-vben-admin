@@ -91,8 +91,8 @@ defineExpose({
 });
 
 const wrapElRef = ref<HTMLDivElement>();
-const barElRef = ref<HTMLDivElement | null>(null);
-const contentElRef = ref<HTMLDivElement | null>(null);
+const barElRef = ref<typeof BarCmp>();
+const contentElRef = ref<typeof ContentCmp>();
 const actionElRef = ref<typeof ActionCmp>();
 
 useEventListener({
@@ -103,17 +103,6 @@ useEventListener({
     }
   },
   name: 'mouseup',
-});
-
-const getActionStyleRef = computed(() => {
-  const { actionStyle, height } = props;
-  const h = `${Number.parseInt(height as string)}px`;
-  return {
-    height: h,
-    left: 0,
-    width: h,
-    ...actionStyle,
-  };
 });
 
 const getWrapStyleRef = computed(() => {
@@ -136,18 +125,6 @@ const getBarStyleRef = computed(() => {
     borderRadius: circle ? `${h / 2}px 0 0 ${h / 2}px` : 0,
     height: `${h}px`,
     ...barStyle,
-  };
-});
-
-const getContentStyleRef = computed(() => {
-  const { contentStyle, height, width } = props;
-  const h = `${Number.parseInt(height as string)}px`;
-  const w = `${Number.parseInt(width as string)}px`;
-
-  return {
-    height: h,
-    width: w,
-    ...contentStyle,
   };
 });
 
@@ -202,8 +179,6 @@ function getOffset(el: HTMLDivElement) {
 function handleDragMoving(e: MouseEvent | TouchEvent) {
   const { isMoving, moveDistance } = state;
   if (isMoving) {
-    // eslint-disable-next-line no-console
-    console.log('isMoving', isMoving);
     const actionEl = unref(actionElRef);
     const barEl = unref(barElRef);
     if (!actionEl || !barEl) return;
@@ -217,10 +192,10 @@ function handleDragMoving(e: MouseEvent | TouchEvent) {
     });
     if (moveX > 0 && moveX <= offset) {
       actionEl.setLeft(`${moveX}px`);
-      barEl.style.width = `${moveX + actionWidth / 2}px`;
+      barEl.setWidth(`${moveX + actionWidth / 2}px`);
     } else if (moveX > offset) {
       actionEl.setLeft(`${widthNum - actionWidth}px`);
-      barEl.style.width = `${widthNum - actionWidth / 2}px`;
+      barEl.setWidth(`${widthNum - actionWidth / 2}px`);
       if (!props.isSlot) {
         checkPass();
       }
@@ -243,7 +218,7 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
           if (props.value) {
             const contentEl = unref(contentElRef);
             if (contentEl) {
-              contentEl.style.width = `${Number.parseInt(barEl.style.width)}px`;
+              contentEl.style.width = `${Number.parseInt(barEl.getEl().style.width)}px`;
             }
           } else {
             resume();
@@ -254,7 +229,7 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
       }
     } else {
       actionEl.setLeft(`${widthNum - actionWidth}px`);
-      barEl.style.width = `${widthNum - actionWidth / 2}px`;
+      barEl.setWidth(`${widthNum - actionWidth / 2}px`);
       checkPass();
     }
     state.isMoving = false;
@@ -286,10 +261,9 @@ function resume() {
   useTimeoutFn(() => {
     state.toLeft = false;
     actionEl.setLeft('0px');
-    barEl.style.width = '0';
+    barEl.setWidth('0px');
     //  The time is consistent with the animation time
   }, 300);
-  contentEl.style.width = unref(getContentStyleRef).width;
 }
 </script>
 
@@ -304,16 +278,21 @@ function resume() {
     @touchend="handleDragOver"
     @touchmove="handleDragMoving"
   >
-    <BarCmp :style="getBarStyleRef" :to-left="state.toLeft" />
+    <BarCmp ref="barElRef" :style="getBarStyleRef" :to-left="state.toLeft" />
     <ContentCmp
+      ref="contentElRef"
+      :content-style="contentStyle"
+      :height="height"
       :is-passing="state.isPassing"
       :success-text="successText"
       :text="text"
+      :width="width"
     />
     <ActionCmp
       ref="actionElRef"
+      :action-style="actionStyle"
+      :height="height"
       :is-passing="state.isPassing"
-      :style="getActionStyleRef"
       :to-left="state.toLeft"
       @mousedown="handleDragStart"
       @touchstart="handleDragStart"
