@@ -102,12 +102,12 @@
 
   .layout {
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: calc(100vw - 250px);
+    height: calc(100vh - 145px);
   }
 
   .sidebar {
-    height: 100vh;
+    height: calc(100vh - 145px);
     overflow-y: auto;
     transition: width 0.3s ease;
     background-color: #fff;
