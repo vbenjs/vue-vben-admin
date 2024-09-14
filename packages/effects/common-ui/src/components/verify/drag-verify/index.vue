@@ -4,7 +4,6 @@ import {
   type PropType,
   reactive,
   ref,
-  type Ref,
   unref,
   watch,
   watchEffect,
@@ -94,7 +93,7 @@ defineExpose({
 const wrapElRef = ref<HTMLDivElement>();
 const barElRef = ref<HTMLDivElement | null>(null);
 const contentElRef = ref<HTMLDivElement | null>(null);
-const actionElRef = ref(null) as Ref<HTMLDivElement | null>;
+const actionElRef = ref<typeof ActionCmp>();
 
 useEventListener({
   el: document,
@@ -182,12 +181,12 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
   if (state.isPassing) {
     return;
   }
-  const actionEl = unref(actionElRef);
-  if (!actionEl) return;
+  if (!actionElRef.value) return;
   emit('start', e);
+
   state.moveDistance =
     getEventPageX(e) -
-    Number.parseInt(actionEl.style.left.replace('px', ''), 10);
+    Number.parseInt(actionElRef.value.getStyle().left.replace('px', ''), 10);
   state.startTime = Date.now();
   state.isMoving = true;
 }
@@ -203,10 +202,12 @@ function getOffset(el: HTMLDivElement) {
 function handleDragMoving(e: MouseEvent | TouchEvent) {
   const { isMoving, moveDistance } = state;
   if (isMoving) {
+    // eslint-disable-next-line no-console
+    console.log('isMoving', isMoving);
     const actionEl = unref(actionElRef);
     const barEl = unref(barElRef);
     if (!actionEl || !barEl) return;
-    const { actionWidth, offset, widthNum } = getOffset(actionEl);
+    const { actionWidth, offset, widthNum } = getOffset(actionEl.getEl());
     const moveX = getEventPageX(e) - moveDistance;
 
     emit('move', {
@@ -215,10 +216,10 @@ function handleDragMoving(e: MouseEvent | TouchEvent) {
       moveX,
     });
     if (moveX > 0 && moveX <= offset) {
-      actionEl.style.left = `${moveX}px`;
+      actionEl.setLeft(`${moveX}px`);
       barEl.style.width = `${moveX + actionWidth / 2}px`;
     } else if (moveX > offset) {
-      actionEl.style.left = `${widthNum - actionWidth}px`;
+      actionEl.setLeft(`${widthNum - actionWidth}px`);
       barEl.style.width = `${widthNum - actionWidth / 2}px`;
       if (!props.isSlot) {
         checkPass();
@@ -231,11 +232,11 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
   const { isMoving, isPassing, moveDistance } = state;
   if (isMoving && !isPassing) {
     emit('end', e);
-    const actionEl = unref(actionElRef);
+    const actionEl = actionElRef.value;
     const barEl = unref(barElRef);
     if (!actionEl || !barEl) return;
     const moveX = getEventPageX(e) - moveDistance;
-    const { actionWidth, offset, widthNum } = getOffset(actionEl);
+    const { actionWidth, offset, widthNum } = getOffset(actionEl.getEl());
     if (moveX < offset) {
       if (props.isSlot) {
         setTimeout(() => {
@@ -252,7 +253,7 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
         resume();
       }
     } else {
-      actionEl.style.left = `${widthNum - actionWidth}px`;
+      actionEl.setLeft(`${widthNum - actionWidth}px`);
       barEl.style.width = `${widthNum - actionWidth / 2}px`;
       checkPass();
     }
@@ -284,7 +285,7 @@ function resume() {
   state.toLeft = true;
   useTimeoutFn(() => {
     state.toLeft = false;
-    actionEl.style.left = '0';
+    actionEl.setLeft('0px');
     barEl.style.width = '0';
     //  The time is consistent with the animation time
   }, 300);
@@ -297,16 +298,23 @@ function resume() {
     ref="wrapElRef"
     :style="getWrapStyleRef"
     class="darg-verify"
-    @onMouseleave="handleDragOver"
-    @onMousemove="handleDragMoving"
-    @onMouseup="handleDragOver"
-    @onTouchend="handleDragOver"
-    @onTouchmove="handleDragMoving"
+    @mouseleave="handleDragOver"
+    @mousemove="handleDragMoving"
+    @mouseup="handleDragOver"
+    @touchend="handleDragOver"
+    @touchmove="handleDragMoving"
   >
-    <BarCmp :style="getBarStyleRef" />
-    <ContentCmp :success-text="successText" :text="text" />
+    <BarCmp :style="getBarStyleRef" :to-left="state.toLeft" />
+    <ContentCmp
+      :is-passing="state.isPassing"
+      :success-text="successText"
+      :text="text"
+    />
     <ActionCmp
+      ref="actionElRef"
+      :is-passing="state.isPassing"
       :style="getActionStyleRef"
+      :to-left="state.toLeft"
       @mousedown="handleDragStart"
       @touchstart="handleDragStart"
     />

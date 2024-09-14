@@ -1,5 +1,15 @@
 <script setup lang="ts">
-const cls = [`darg-verify-bar`];
+import { computed } from 'vue';
+
+const props = defineProps<{
+  toLeft: boolean;
+}>();
+const cls = computed(() => {
+  return {
+    'drag-verify-bar': true,
+    'to-left': props.toLeft,
+  };
+});
 </script>
 
 <template>

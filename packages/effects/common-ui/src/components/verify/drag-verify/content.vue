@@ -1,14 +1,22 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue';
+
+const props = defineProps<{
+  isPassing: boolean;
   successText: string;
   text: string;
 }>();
 
-const cls = [`darg-verify-content`];
+const cls = computed(() => {
+  return {
+    'drag-verify-content': true,
+    success: props.isPassing,
+  };
+});
 </script>
 
 <template>
-  <div :class="cls">123</div>
+  <div :class="cls">{{ isPassing ? successText : text }}</div>
 </template>
 
 <style scoped></style>
