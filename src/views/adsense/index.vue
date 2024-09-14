@@ -8,13 +8,16 @@
         </div>
       </div>
       <div class="content">
-        <div class="top-toggle">
+        <div class="loading-container" v-if="loading">
+          <Spin size="large" />
+        </div>
+        <div v-if="!loading" class="top-toggle">
           <div class="title-container"
             ><Button @click="toggleMenu"> <AlignLeftOutlined /> </Button><em>{{ title }}</em>
           </div>
         </div>
 
-        <rightContent :tableHeader="tableHeader" :tableData="tableData" />
+        <rightContent v-if="!loading" :tableHeader="tableHeader" :tableData="tableData" />
       </div>
     </div>
   </div>
@@ -24,7 +27,7 @@
   import { ref, onBeforeMount, watch } from 'vue';
   import headerFilter from './components/headerFilter.vue';
   import leftMenu from './components/leftMenu.vue';
-  import { Button } from 'ant-design-vue';
+  import { Button, Spin } from 'ant-design-vue';
   import { googleListApi, googleGenerateApi } from '@/api/adsense/adsense';
   import rightContent from './components/rightContent.vue';
   import { AlignLeftOutlined } from '@ant-design/icons-vue';
@@ -33,6 +36,8 @@
   const menuParam = ref('');
   // 菜单切换
   const collapsed = ref(false);
+
+  const loading = ref(false);
 
   // 表单数据
   const tableHeader = ref([]);
@@ -71,9 +76,9 @@
     async ([newDateRange, newMenuParam]) => {
       const hasValidMenuParam =
         newMenuParam?.dimensions?.length > 0 && newMenuParam?.metrics?.length > 0;
-      console.log(hasValidMenuParam, 'hasValidMenuParam');
       if (hasValidMenuParam) {
         try {
+          loading.value = true;
           const res = await googleGenerateApi({
             account: adId.value,
             dateRange: newDateRange?.type || '',
@@ -85,7 +90,11 @@
           });
           tableHeader.value = res.headers;
           tableData.value = res.rows;
+          loading.value = false;
         } catch (error) {
+          tableHeader.value = [];
+          tableData.value = [];
+          loading.value = false;
           console.error('googleGenerateApi======err0r', error);
         }
       }
@@ -170,5 +179,10 @@
 
   .title-container {
     font-size: 18px;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
   }
 </style>

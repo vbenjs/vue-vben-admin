@@ -1,7 +1,7 @@
 <template>
   <div class="right-content">
     <!-- Button List with Ant Design Check Icon and Flexbox -->
-    <div class="button-container">
+    <!-- <div class="button-container">
       <Button
         v-for="(item, index) in buttons"
         :key="index"
@@ -11,7 +11,7 @@
         <CheckOutlined v-if="selectedButton === index" style="margin-right: 4px; color: green" />
         {{ item.label }}
       </Button>
-    </div>
+    </div> -->
 
     <!-- Bar Chart with white background and border -->
     <div id="chart" class="chart"></div>
@@ -28,9 +28,9 @@
 </template>
 
 <script setup>
-  import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-  import { Button, Table } from 'ant-design-vue';
-  import { CheckOutlined } from '@ant-design/icons-vue';
+  import { ref, watch, onMounted, onBeforeUnmount, onUnmounted, defineProps } from 'vue';
+  import { Table } from 'ant-design-vue';
+  // import { CheckOutlined } from '@ant-design/icons-vue';
   import * as echarts from 'echarts';
 
   // Props for table header and data
@@ -40,18 +40,18 @@
   });
 
   // Button List
-  const buttons = ref([
-    { label: 'Estimated earnings' },
-    { label: 'Impressions' },
-    { label: 'Impression RPM' },
-    { label: 'Active View Viewable' },
-    { label: 'Clicks' },
-  ]);
-  const selectedButton = ref(null);
+  // const buttons = ref([
+  //   { label: 'Estimated earnings' },
+  //   { label: 'Impressions' },
+  //   { label: 'Impression RPM' },
+  //   { label: 'Active View Viewable' },
+  //   { label: 'Clicks' },
+  // ]);
+  // const selectedButton = ref(null);
 
-  const selectButton = (index) => {
-    selectedButton.value = index;
-  };
+  // const selectButton = (index) => {
+  //   selectedButton.value = index;
+  // };
 
   // Dynamic Table Columns and Data
   const columns = ref([]);
@@ -106,38 +106,73 @@
       chartInstance.resize();
     }
   };
-
   const updateChart = () => {
     const chartDom = document.getElementById('chart');
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
     chartInstance = echarts.init(chartDom);
 
+    // 识别维度和指标
+    // const dimensionHeaders = props.tableHeader.filter((header) => header.type === 'DIMENSION');
+    const metricHeaders = props.tableHeader.filter((header) => header.type === 'METRIC_TALLY');
+
+    // 获取维度数据
+    const xAxisData = props.tableData.map((row) => {
+      return row.cells[props.tableHeader.findIndex((header) => header.type === 'DIMENSION')].value;
+    });
+
+    // 准备各个指标的 series 数据
+    const seriesData = metricHeaders.map((metric) => {
+      const data = props.tableData.map((row) => {
+        // 获取当前指标的值
+        const index = props.tableHeader.findIndex((header) => header.name === metric.name);
+        return Number(row.cells[index].value) || 0;
+      });
+
+      return {
+        name: metric.name,
+        type: 'bar',
+        data,
+      };
+    });
+
     const option = {
-      title: {},
-      tooltip: {},
+      // title: {
+      //   text: '动态数据统计',
+      // },
+      tooltip: {
+        trigger: 'axis',
+      },
+      legend: {
+        data: metricHeaders.map((metric) => metric.name),
+      },
       xAxis: {
         type: 'category',
-        data: props.tableHeader
-          .filter((header) => header.type === 'METRIC_TALLY')
-          .map((header) => header.name),
+        data: xAxisData,
+        axisLabel: {
+          interval: 0, // 强制显示所有标签
+          rotate: 45, // 可选，旋转标签
+          formatter: function (value) {
+            return value.length > 10 ? value.slice(0, 10) + '...' : value; // 长标签截断
+          },
+        },
+        axisTick: {
+          alignWithLabel: true, // 确保刻度线对齐标签
+        },
       },
+      // xAxis: {
+      //   type: 'category',
+      //   data: xAxisData, // X轴使用维度数据
+      // },
       yAxis: {
         type: 'value',
       },
-      series: [
-        {
-          data: props.tableData.map((row) =>
-            row.cells
-              .filter((_, i) => props.tableHeader[i].type === 'METRIC_TALLY')
-              .map((cell) => Number(cell.value) || 0),
-          ),
-          type: 'bar',
-        },
-      ],
+      series: seriesData,
     };
 
     chartInstance.setOption(option);
   };
-
   onMounted(() => {
     updateChart();
     window.addEventListener('resize', resizeChart);
@@ -146,7 +181,11 @@
   onBeforeUnmount(() => {
     window.removeEventListener('resize', resizeChart);
   });
-
+  onUnmounted(() => {
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
+  });
   watch(() => props.tableData, updateChart);
 </script>
 
