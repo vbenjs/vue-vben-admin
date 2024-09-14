@@ -16,6 +16,7 @@ const style = computed(() => {
   const { actionStyle, height } = props;
   const h = `${Number.parseInt(height as string)}px`;
   return {
+    background: 'hsl(var(--background))',
     height: h,
     left: left.value,
     width: h,
@@ -41,7 +42,7 @@ defineExpose({
     ref="divRef"
     :class="toLeft ? 'transition-width !left-0 duration-300' : ''"
     :style="style"
-    class="absolute left-0 top-0 flex cursor-move items-center justify-center rounded-md bg-white"
+    class="absolute left-0 top-0 flex cursor-move items-center justify-center rounded-md"
   >
     <slot v-if="$slots.icon" name="icon"></slot>
 

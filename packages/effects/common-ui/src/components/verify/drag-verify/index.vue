@@ -110,6 +110,7 @@ const getWrapStyleRef = computed(() => {
   const h = Number.parseInt(height as string);
   const w = `${Number.parseInt(width as string)}px`;
   return {
+    backgroundColor: 'hsl(var(--background-deep))',
     borderRadius: circle ? `${h / 2}px` : 0,
     height: `${h}px`,
     lineHeight: `${h}px`,
@@ -260,7 +261,7 @@ function resume() {
   <div
     ref="wrapElRef"
     :style="getWrapStyleRef"
-    class="relative overflow-hidden rounded-md border border-gray-300 bg-gray-200 text-center"
+    class="relative overflow-hidden rounded-md border border-gray-300 text-center"
     @mouseleave="handleDragOver"
     @mousemove="handleDragMoving"
     @mouseup="handleDragOver"

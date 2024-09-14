@@ -37,7 +37,6 @@ defineExpose({
     :class="{
       [$style.content]: true,
       [$style.success]: isPassing,
-      [$style.default]: !isPassing,
     }"
     :style="style"
     class="absolute top-0 flex select-none items-center justify-center text-xs"
@@ -68,9 +67,5 @@ defineExpose({
 
 .success {
   -webkit-text-fill-color: white;
-}
-
-.default {
-  -webkit-text-fill-color: #333;
 }
 </style>
