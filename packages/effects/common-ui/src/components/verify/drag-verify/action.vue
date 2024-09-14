@@ -43,8 +43,12 @@ defineExpose({
     :style="style"
     class="absolute left-0 top-0 flex cursor-move items-center justify-center rounded-md bg-white"
   >
-    <ChevronsRight v-if="!isPassing" />
-    <Check v-else />
+    <slot v-if="$slots.icon" name="icon"></slot>
+
+    <template v-else>
+      <ChevronsRight v-if="!isPassing" />
+      <Check v-else />
+    </template>
   </div>
 </template>
 

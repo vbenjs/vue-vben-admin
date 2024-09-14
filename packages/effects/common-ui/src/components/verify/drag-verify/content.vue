@@ -40,9 +40,12 @@ defineExpose({
       [$style.default]: !isPassing,
     }"
     :style="style"
-    class="absolute top-0 select-none text-xs"
+    class="absolute top-0 flex select-none items-center justify-center text-xs"
   >
-    {{ isPassing ? successText : text }}
+    <slot v-if="$slots.text" name="text"></slot>
+    <template v-else>
+      {{ isPassing ? successText : text }}
+    </template>
   </div>
 </template>
 
@@ -58,7 +61,6 @@ defineExpose({
 }
 
 .content {
-  line-height: inherit !important;
   background-clip: text;
   animation: slidetounlock 3s infinite;
   text-size-adjust: none;

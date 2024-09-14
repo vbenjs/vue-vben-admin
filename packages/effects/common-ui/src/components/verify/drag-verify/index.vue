@@ -252,7 +252,6 @@ function resume() {
     state.toLeft = false;
     actionEl.setLeft('0px');
     barEl.setWidth('0px');
-    //  The time is consistent with the animation time
   }, 300);
 }
 </script>
@@ -283,7 +282,11 @@ function resume() {
       :success-text="successText"
       :text="text"
       :width="width"
-    />
+    >
+      <template v-if="$slots.text" #text>
+        <slot :is-passing="state.isPassing" name="text"></slot>
+      </template>
+    </ContentCmp>
     <ActionCmp
       ref="actionElRef"
       :action-style="actionStyle"
@@ -292,6 +295,10 @@ function resume() {
       :to-left="state.toLeft"
       @mousedown="handleDragStart"
       @touchstart="handleDragStart"
-    />
+    >
+      <template v-if="$slots.actionIcon" #icon>
+        <slot :is-passing="state.isPassing" name="actionIcon"></slot>
+      </template>
+    </ActionCmp>
   </div>
 </template>
