@@ -6,8 +6,9 @@ enum Api {
 }
 
 export const googleGenerateApi = (params: any) => {
-  console.log(params, 'params');
-  defHttp.get({ url: Api.GOOGLE_GENERATE, params });
+  return defHttp.get({ url: Api.GOOGLE_GENERATE, params });
 };
 
-export const googleListApi = () => defHttp.get({ url: Api.GOOGLE_LIST });
+export const googleListApi = () => {
+  return defHttp.get({ url: Api.GOOGLE_LIST });
+};

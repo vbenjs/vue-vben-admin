@@ -74,7 +74,7 @@
       console.log(hasValidMenuParam, 'hasValidMenuParam');
       if (hasValidMenuParam) {
         try {
-          const res1 = await googleGenerateApi({
+          const res = await googleGenerateApi({
             account: adId.value,
             dateRange: newDateRange?.type || '',
             dimensions: newMenuParam?.dimensions || [],
@@ -83,9 +83,8 @@
             metrics: newMenuParam?.metrics || '',
             orderBy: newMenuParam?.orderBy || '',
           });
-          console.log(res1, 'res1');
-          tableHeader.value = result.headers;
-          tableData.value = result.rows;
+          tableHeader.value = res.headers;
+          tableData.value = res.rows;
         } catch (error) {
           console.error('googleGenerateApi======err0r', error);
         }
