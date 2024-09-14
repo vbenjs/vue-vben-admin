@@ -52,7 +52,9 @@ defineExpose({
 
 <template>
   <DialogPortal>
-    <DialogOverlay v-if="open && modal" @click="() => emits('close')" />
+    <Transition name="fade">
+      <DialogOverlay v-if="open && modal" @click="() => emits('close')" />
+    </Transition>
     <DialogContent
       ref="contentRef"
       v-bind="forwarded"

@@ -63,12 +63,11 @@ describe('useAccessStore', () => {
     store.tabs = [
       { fullPath: '/home', meta: {}, name: 'Home', path: '/home' },
     ] as any;
-    router.replace = vi.fn(); // 使用 vitest 的 mock 函数
+    router.replace = vi.fn();
 
     await store.closeAllTabs(router);
 
-    expect(store.tabs.length).toBe(1); // 假设没有固定的标签页
-    // expect(router.replace).toHaveBeenCalled();
+    expect(store.tabs.length).toBe(1);
   });
 
   it('closes a non-affix tab', () => {
@@ -161,7 +160,7 @@ describe('useAccessStore', () => {
     await store._bulkCloseByPaths(['/home', '/contact']);
 
     expect(store.tabs).toHaveLength(1);
-    expect(store.tabs[0].name).toBe('About');
+    expect(store.tabs[0]?.name).toBe('About');
   });
 
   it('closes all tabs to the left of the specified tab', async () => {
@@ -189,7 +188,7 @@ describe('useAccessStore', () => {
     await store.closeLeftTabs(targetTab);
 
     expect(store.tabs).toHaveLength(1);
-    expect(store.tabs[0].name).toBe('Contact');
+    expect(store.tabs[0]?.name).toBe('Contact');
   });
 
   it('closes all tabs except the specified tab', async () => {
@@ -217,7 +216,7 @@ describe('useAccessStore', () => {
     await store.closeOtherTabs(targetTab);
 
     expect(store.tabs).toHaveLength(1);
-    expect(store.tabs[0].name).toBe('About');
+    expect(store.tabs[0]?.name).toBe('About');
   });
 
   it('closes all tabs to the right of the specified tab', async () => {
@@ -245,7 +244,7 @@ describe('useAccessStore', () => {
     await store.closeRightTabs(targetTab);
 
     expect(store.tabs).toHaveLength(1);
-    expect(store.tabs[0].name).toBe('Home');
+    expect(store.tabs[0]?.name).toBe('Home');
   });
 
   it('closes the tab with the specified key', async () => {
