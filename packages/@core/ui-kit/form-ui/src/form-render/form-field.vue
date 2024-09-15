@@ -258,7 +258,8 @@ function createComponentProps(slotProps: Record<string, any>) {
             <component
               :is="fieldComponent"
               :class="{
-                'border-destructive focus:border-destructive': isInValid,
+                'border-destructive focus:border-destructive hover:border-destructive':
+                  isInValid,
               }"
               v-bind="createComponentProps(slotProps)"
               :disabled="shouldDisabled"
