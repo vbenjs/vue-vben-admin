@@ -18,7 +18,7 @@ const adSense: AppRouteModule = {
     {
       path: 'index',
       name: 'AdSensePage',
-      meta: { title: '基础用法' },
+      meta: { title: 'adsense' },
       component: () => import('@/views/adsense/index.vue'),
     },
   ],

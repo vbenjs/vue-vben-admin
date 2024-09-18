@@ -79,6 +79,10 @@
       if (hasValidMenuParam) {
         try {
           loading.value = true;
+          if (!adId.value) {
+            const { accounts } = await googleListApi();
+            adId.value = accounts[0].name;
+          }
           const res = await googleGenerateApi({
             account: adId.value,
             dateRange: newDateRange?.type || '',
