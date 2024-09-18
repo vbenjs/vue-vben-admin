@@ -14,7 +14,7 @@
     "nitropack": "^2.9.7"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
+    "@types/jsonwebtoken": "^9.0.7",
     "h3": "^1.12.0"
   }
 }
