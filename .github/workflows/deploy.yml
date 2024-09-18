@@ -18,11 +18,14 @@ jobs:
       with:
         node-version: '20'  # Use the Node.js version required by your project
 
+    - name: Install pnpm
+      run: npm install -g pnpm
+
     - name: Install dependencies
-      run: npm install
+      run: pnpm install
 
     - name: Build project
-      run: npm run build  # Adjust to your build script
+      run: pnpm run build  # Adjust to your build script
 
     - name: Sync dist to server
       env:
