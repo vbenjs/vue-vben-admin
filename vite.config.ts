@@ -17,7 +17,7 @@ export default defineApplicationConfig({
     server: {
       proxy: {
         '/admin': {
-          target: 'http://192.168.124.88:8000/admin',
+          target: 'https://adsapi.heomai.com/admin',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/admin`), ''),
