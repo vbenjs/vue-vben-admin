@@ -112,6 +112,7 @@ function createCssOptions(injectGlobalScss = true) {
               }
               return content;
             },
+            api: 'modern-compiler',
           },
         }
       : {},
