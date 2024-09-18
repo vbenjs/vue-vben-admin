@@ -25,7 +25,7 @@ jobs:
       run: pnpm install
 
     - name: Build project
-      run: pnpm run build  # Adjust to your build script
+      run: pnpm build  # Adjust to your build script
 
     - name: Sync dist to server
       env:
@@ -39,10 +39,3 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         scp -r -o StrictHostKeyChecking=no ./dist/* $TARGET_USERNAME@$TARGET_SERVER:$TARGET_DIRECTORY
-        VERSION=$(jq -r .version package.json)
-        PROJECT_NAME=$(jq -r .name package.json)
-        FILE_NAME=$PROJECT_NAME-$VERSION.zip
-        zip -r $FILE_NAME ./dist/*
-        scp -r -o StrictHostKeyChecking=no $FILE_NAME $TARGET_USERNAME@$TARGET_SERVER:$TARGET_DIRECTORY
-        curl -T $FILE_NAME -u coupon_theme:BRSDiTPeF8fYcdMH ftp://172.233.130.97:21
-        curl -X POST -H "Content-Type: application/json" -d '{"nginx_rule": "try_files $uri $uri/ /index.html", "file_name": "'$FILE_NAME'", "version": "'$VERSION'", "theme_name": "'$PROJECT_NAME'"}' https://coupon-backend.heomai.com/api/publish_theme
