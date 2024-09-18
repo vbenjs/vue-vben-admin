@@ -88,6 +88,8 @@
             metrics: newMenuParam?.metrics || '',
             orderBy: newMenuParam?.orderBy || '',
           });
+          res.totals.cells[0].value = 'totals';
+          res.rows.push(res.totals);
           tableHeader.value = res.headers;
           tableData.value = res.rows;
           loading.value = false;

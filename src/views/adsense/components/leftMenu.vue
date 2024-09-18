@@ -70,11 +70,7 @@
   const selectItem = (item) => {
     selectedItem.value = item.id;
     showMoveTop.value = null;
-    if (item.value) {
-      menuParams.value.dimensions.push(item.value);
-    } else {
-      menuParams.value.dimensions = [];
-    }
+    menuParams.value.dimensions = item.value;
     menuParams.value.itemTitle = item.name;
     menuParams.value.metrics = item.metrics;
     menuParams.value.orderBy = item.orderBy;
