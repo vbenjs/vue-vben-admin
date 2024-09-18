@@ -54,10 +54,10 @@ export function useVbenDrawer<
     ...options,
   } as DrawerApiOptions;
 
-  // mergedOptions.onOpenChange = (isOpen: boolean) => {
-  //   options.onOpenChange?.(isOpen);
-  //   injectData.options?.onOpenChange?.(isOpen);
-  // };
+  mergedOptions.onOpenChange = (isOpen: boolean) => {
+    options.onOpenChange?.(isOpen);
+    injectData.options?.onOpenChange?.(isOpen);
+  };
   const api = new DrawerApi(mergedOptions);
 
   const extendedApi: ExtendedDrawerApi = api as never;

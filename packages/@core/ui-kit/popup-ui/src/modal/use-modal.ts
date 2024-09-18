@@ -58,10 +58,10 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
     ...options,
   } as ModalApiOptions;
 
-  // mergedOptions.onOpenChange = (isOpen: boolean) => {
-  //   options.onOpenChange?.(isOpen);
-  //   injectData.options?.onOpenChange?.(isOpen);
-  // };
+  mergedOptions.onOpenChange = (isOpen: boolean) => {
+    options.onOpenChange?.(isOpen);
+    injectData.options?.onOpenChange?.(isOpen);
+  };
   const api = new ModalApi(mergedOptions);
 
   const extendedApi: ExtendedModalApi = api as never;
