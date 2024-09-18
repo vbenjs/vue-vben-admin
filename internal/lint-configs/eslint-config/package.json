@@ -41,7 +41,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-jsdoc": "^50.2.3",
     "eslint-plugin-jsonc": "^2.16.0",
-    "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-n": "^17.10.3",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-perfectionist": "^3.6.0",
     "eslint-plugin-prettier": "^5.2.1",

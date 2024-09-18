@@ -30,12 +30,12 @@ git -v
 
 ::: code-group
 
-```bash [GitHub]
+```sh [GitHub]
 # clone 代码
 git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
-```bash [Gitee]
+```sh [Gitee]
 # clone 代码
 # Gitee 的代码可能不是最新的
 git clone https://gitee.com/annsion/vue-vben-admin.git
