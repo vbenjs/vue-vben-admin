@@ -6,6 +6,7 @@ export const listConfig = [
     value: ['AD_UNIT_SIZE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -22,6 +23,7 @@ export const listConfig = [
     value: ['DATE', 'ACCOUNT_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -38,6 +40,7 @@ export const listConfig = [
     value: ['OWNED_SITE_DOMAIN_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -54,6 +57,7 @@ export const listConfig = [
     value: ['AD_UNIT_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -70,6 +74,7 @@ export const listConfig = [
     value: ['PLATFORM_TYPE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -86,6 +91,7 @@ export const listConfig = [
     value: ['PAGE_URL'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -102,6 +108,7 @@ export const listConfig = [
     value: ['COUNTRY_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -118,6 +125,7 @@ export const listConfig = [
     value: ['PRODUCT_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -134,6 +142,7 @@ export const listConfig = [
     value: ['PLATFORM_TYPE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -150,6 +159,7 @@ export const listConfig = [
     value: ['ACCOUNT_NAME', 'WEEK'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -166,6 +176,7 @@ export const listConfig = [
     value: ['ACCOUNT_NAME', 'MONTH'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -182,6 +193,7 @@ export const listConfig = [
     value: ['CUSTOM_CHANNEL_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -198,6 +210,7 @@ export const listConfig = [
     value: ['URL_CHANNEL_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -214,6 +227,7 @@ export const listConfig = [
     value: ['OWNED_SITE_DOMAIN_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -230,6 +244,7 @@ export const listConfig = [
     value: ['SERVED_AD_TYPE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -246,6 +261,7 @@ export const listConfig = [
     value: ['AD_FORMAT_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -262,6 +278,7 @@ export const listConfig = [
     value: ['CREATIVE_SIZE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -278,6 +295,7 @@ export const listConfig = [
     value: ['TARGETING_TYPE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -294,6 +312,7 @@ export const listConfig = [
     value: ['BID_TYPE_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -310,6 +329,7 @@ export const listConfig = [
     value: ['BUYER_NETWORK_NAME'],
     metrics: [
       'ESTIMATED_EARNINGS',
+      'COST_PER_CLICK',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
