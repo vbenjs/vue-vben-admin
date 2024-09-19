@@ -1163,8 +1163,8 @@ importers:
         specifier: 2.2.2
         version: 2.2.2(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2))
       pinia-plugin-persistedstate:
-        specifier: ^4.0.1
-        version: 4.0.1(pinia@2.2.2(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2)))(rollup@4.21.3)
+        specifier: ^4.0.2
+        version: 4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2)))(rollup@4.21.3)
       vue:
         specifier: 3.5.6
         version: 3.5.6(typescript@5.6.2)
@@ -3587,12 +3587,12 @@ packages:
     engines: {node: '>=10'}
     deprecated: This functionality has been moved to @npmcli/fs
 
-  '@nuxt/kit@3.13.1':
-    resolution: {integrity: sha512-FkUL349lp/3nVfTIyws4UDJ3d2jyv5Pk1DC1HQUCOkSloYYMdbRcQAUcb4fe2TCLNWvHM+FhU8jnzGTzjALZYA==}
+  '@nuxt/kit@3.13.2':
+    resolution: {integrity: sha512-KvRw21zU//wdz25IeE1E5m/aFSzhJloBRAQtv+evcFeZvuroIxpIQuUqhbzuwznaUwpiWbmwlcsp5uOWmi4vwA==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
-  '@nuxt/schema@3.13.1':
-    resolution: {integrity: sha512-ishbhzVGspjshG9AG0hYnKYY6LWXzCtua7OXV7C/DQ2yA7rRcy1xHpzKZUDbIRyxCHHCAcBd8jfHEUmEuhEPrA==}
+  '@nuxt/schema@3.13.2':
+    resolution: {integrity: sha512-CCZgpm+MkqtOMDEgF9SWgGPBXlQ01hV/6+2reDEpJuqFPGzV8HYKPBcIFvn7/z5ahtgutHLzjP71Na+hYcqSpw==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   '@one-ini/wasm@0.1.1':
@@ -7917,8 +7917,8 @@ packages:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
 
-  pinia-plugin-persistedstate@4.0.1:
-    resolution: {integrity: sha512-Gs2nhKUi6Rwhhc8PH9wvEAxfz4iZeJ/36qQv2ieYs94+zMozbGtMLIR4p9Aoim3c/PKf8J9orOz9n+f0ZF9CdA==}
+  pinia-plugin-persistedstate@4.0.2:
+    resolution: {integrity: sha512-KSApXsnGTrWKnAeHgEpYqtzeO84y4NH7uVM0/KMog+/oR2Py8p25tKjHQUmkcNNluzc0rJjFzlv2i5ZTdLeTXA==}
     peerDependencies:
       '@pinia/nuxt': '>=0.5.0'
       pinia: 2.2.2
@@ -9578,6 +9578,9 @@ packages:
 
   unimport@3.11.1:
     resolution: {integrity: sha512-DuB1Uoq01LrrXTScxnwOoMSlTXxyKcULguFxbLrMDFcE/CO0ZWHpEiyhovN0mycPt7K6luAHe8laqvwvuoeUPg==}
+
+  unimport@3.12.0:
+    resolution: {integrity: sha512-5y8dSvNvyevsnw4TBQkIQR1Rjdbb+XjVSwQwxltpnVZrStBvvPkMPcZrh1kg5kY77kpx6+D4Ztd3W6FOBH/y2Q==}
 
   unique-filename@1.1.1:
     resolution: {integrity: sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ==}
@@ -12698,9 +12701,9 @@ snapshots:
       mkdirp: 1.0.4
       rimraf: 3.0.2
 
-  '@nuxt/kit@3.13.1(rollup@4.21.3)':
+  '@nuxt/kit@3.13.2(rollup@4.21.3)':
     dependencies:
-      '@nuxt/schema': 3.13.1(rollup@4.21.3)
+      '@nuxt/schema': 3.13.2(rollup@4.21.3)
       c12: 1.11.2
       consola: 3.2.3
       defu: 6.1.4
@@ -12718,7 +12721,7 @@ snapshots:
       semver: 7.6.3
       ufo: 1.5.4
       unctx: 2.3.1
-      unimport: 3.11.1(rollup@4.21.3)
+      unimport: 3.12.0(rollup@4.21.3)
       untyped: 1.4.2
     transitivePeerDependencies:
       - magicast
@@ -12726,7 +12729,7 @@ snapshots:
       - supports-color
       - webpack-sources
 
-  '@nuxt/schema@3.13.1(rollup@4.21.3)':
+  '@nuxt/schema@3.13.2(rollup@4.21.3)':
     dependencies:
       compatx: 0.1.8
       consola: 3.2.3
@@ -12738,7 +12741,7 @@ snapshots:
       std-env: 3.7.0
       ufo: 1.5.4
       uncrypto: 0.1.3
-      unimport: 3.11.1(rollup@4.21.3)
+      unimport: 3.12.0(rollup@4.21.3)
       untyped: 1.4.2
     transitivePeerDependencies:
       - rollup
@@ -17639,9 +17642,9 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@4.0.1(pinia@2.2.2(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2)))(rollup@4.21.3):
+  pinia-plugin-persistedstate@4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2)))(rollup@4.21.3):
     dependencies:
-      '@nuxt/kit': 3.13.1(rollup@4.21.3)
+      '@nuxt/kit': 3.13.2(rollup@4.21.3)
       deep-pick-omit: 1.2.0
       defu: 6.1.4
       destr: 2.0.3
@@ -19412,7 +19415,7 @@ snapshots:
       - rollup
       - webpack-sources
 
-  unimport@3.11.1(rollup@4.21.3):
+  unimport@3.12.0(rollup@4.21.3):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.3)
       acorn: 8.12.1
