@@ -154,18 +154,27 @@ defineExpose({
       >
         <div
           v-if="state.showTip"
-          :class="[state.isPassing ? 'success' : 'error']"
+          :style="{
+            backgroundColor: state.isPassing
+              ? 'hsl(var(--success))'
+              : 'hsl(var(--red-700))',
+          }"
         >
           {{ tip }}
         </div>
-        <div v-if="!state.showTip && !state.draged" class="normal">
+        <div
+          v-if="!state.showTip && !state.draged"
+          class="bg-[rgba(0,0,0,0.3)]"
+        >
           点击图片可刷新
         </div>
       </div>
     </div>
 
     <DragVerify
+      v-bind="props"
       ref="basicRef"
+      :is-slot="true"
       :value="state.isPassing"
       class="mt-5"
       @end="handleDragEnd"
@@ -174,17 +183,3 @@ defineExpose({
     />
   </div>
 </template>
-
-<style lang="scss">
-.success {
-  background-color: green;
-}
-
-.error {
-  background-color: red;
-}
-
-.normal {
-  background-color: rgb(0 0 0 / 30%);
-}
-</style>

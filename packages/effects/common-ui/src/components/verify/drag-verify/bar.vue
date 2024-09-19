@@ -14,6 +14,7 @@ const style = computed(() => {
   const { barStyle, circle, height } = props;
   const h = Number.parseInt(height as string);
   return {
+    background: 'hsl(var(--success))',
     borderRadius: circle ? `${h / 2}px 0 0 ${h / 2}px` : 0,
     height: `${h}px`,
     ...barStyle,
@@ -36,7 +37,7 @@ defineExpose({
     ref="divRef"
     :class="props.toLeft ? 'transition-width !w-0 duration-300' : ''"
     :style="style"
-    class="absolute h-9 w-0 rounded-md bg-green-600"
+    class="absolute h-9 w-0 rounded-md"
   ></div>
 </template>
 
