@@ -11,6 +11,7 @@ import { initHmPlugin } from './plugins/hm';
 
 import './styles';
 
+import 'virtual:group-icons.css';
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
 
 export default {

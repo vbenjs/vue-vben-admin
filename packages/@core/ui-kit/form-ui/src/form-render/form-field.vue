@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ZodType } from 'zod';
 
-import type { FormSchema } from '../types';
+import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed } from 'vue';
 
@@ -16,7 +16,7 @@ import {
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
-import { useFormValues } from 'vee-validate';
+import { useFieldError, useFormValues } from 'vee-validate';
 
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
@@ -26,6 +26,7 @@ import { isEventObjectLike } from './helper';
 interface Props extends FormSchema {}
 
 const {
+  commonComponentProps,
   component,
   componentProps,
   dependencies,
@@ -38,12 +39,19 @@ const {
   labelWidth,
   renderComponentContent,
   rules,
-} = defineProps<Props>();
+} = defineProps<
+  {
+    commonComponentProps: MaybeComponentProps;
+  } & Props
+>();
 
 const { componentBindEventMap, componentMap, isVertical } = useFormContext();
 const formRenderProps = injectRenderFormProps();
 const values = useFormValues();
+const errors = useFieldError(fieldName);
 const formApi = formRenderProps.form;
+
+const isInValid = computed(() => errors.value?.length > 0);
 
 const fieldComponent = computed(() => {
   const finalComponent = isString(component)
@@ -130,6 +138,7 @@ const computedProps = computed(() => {
     : componentProps;
 
   return {
+    ...commonComponentProps,
     ...finalComponentProps,
     ...dynamicComponentProps.value,
   };
@@ -217,6 +226,7 @@ function createComponentProps(slotProps: Record<string, any>) {
     <FormItem
       v-show="isShow"
       :class="{
+        'form-valid-error': isInValid,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
       }"
@@ -248,10 +258,14 @@ function createComponentProps(slotProps: Record<string, any>) {
               ...slotProps,
               ...createComponentProps(slotProps),
               disabled: shouldDisabled,
+              isInValid,
             }"
           >
             <component
               :is="fieldComponent"
+              :class="{
+                'border-destructive focus:border-destructive': isInValid,
+              }"
               v-bind="createComponentProps(slotProps)"
               :disabled="shouldDisabled"
             >

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { CaptchaPoint, PointSelectionCaptchaProps } from './types';
 
-import { ref } from 'vue';
-
 import { RotateCw } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import { CaptchaCard } from '.';
+import { useCaptchaPoints } from './hooks/useCaptchaPoints';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   height: '220px',
@@ -19,44 +18,24 @@ const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   title: '',
   width: '300px',
 });
-
 const emit = defineEmits<{
   click: [CaptchaPoint];
   confirm: [Array<CaptchaPoint>, clear: () => void];
   refresh: [];
 }>();
+const { addPoint, clearPoints, points } = useCaptchaPoints();
 
 if (!props.hintImage && !props.hintText) {
-  throw new Error('At least one of hint image or hint text must be provided');
+  console.warn('At least one of hint image or hint text must be provided');
 }
 
-const points = ref<CaptchaPoint[]>([]);
 const POINT_OFFSET = 11;
 
 function getElementPosition(element: HTMLElement) {
-  let posX = 0;
-  let posY = 0;
-  if (element.getBoundingClientRect) {
-    const rect = element.getBoundingClientRect();
-    const doc = document.documentElement;
-    posX =
-      rect.left +
-      Math.max(doc.scrollLeft, document.body.scrollLeft) -
-      doc.clientLeft;
-    posY =
-      rect.top +
-      Math.max(doc.scrollTop, document.body.scrollTop) -
-      doc.clientTop;
-  } else {
-    while (element !== document.body) {
-      posX += element.offsetLeft;
-      posY += element.offsetTop;
-      element = element.offsetParent as HTMLElement;
-    }
-  }
+  const rect = element.getBoundingClientRect();
   return {
-    x: posX,
-    y: posY,
+    x: rect.left + window.scrollX,
+    y: rect.top + window.scrollY,
   };
 }
 
@@ -67,25 +46,35 @@ function handleClick(e: MouseEvent) {
 
     const { x: domX, y: domY } = getElementPosition(dom);
 
-    const mouseX = e.pageX || e.clientX;
-    const mouseY = e.pageY || e.clientY;
+    const mouseX = e.clientX + window.scrollX;
+    const mouseY = e.clientY + window.scrollY;
 
-    if (mouseX === undefined || mouseY === undefined)
-      throw new Error('Mouse coordinates not found');
+    if (typeof mouseX !== 'number' || typeof mouseY !== 'number') {
+      throw new TypeError('Mouse coordinates not found');
+    }
 
     const xPos = mouseX - domX;
     const yPos = mouseY - domY;
+
+    const rect = dom.getBoundingClientRect();
+
+    // 点击位置边界校验
+    if (xPos < 0 || yPos < 0 || xPos > rect.width || yPos > rect.height) {
+      console.warn('Click position is out of the valid range');
+      return;
+    }
 
     const x = Math.ceil(xPos);
     const y = Math.ceil(yPos);
 
     const point = {
-      i: points.value.length,
+      i: points.length,
       t: Date.now(),
       x,
       y,
     };
-    points.value.push(point);
+
+    addPoint(point);
 
     emit('click', point);
     e.stopPropagation();
@@ -97,7 +86,7 @@ function handleClick(e: MouseEvent) {
 
 function clear() {
   try {
-    points.value = [];
+    clearPoints();
   } catch (error) {
     console.error('Error in clear:', error);
   }
@@ -115,7 +104,7 @@ function handleRefresh() {
 function handleConfirm() {
   if (!props.showConfirm) return;
   try {
-    emit('confirm', points.value, clear);
+    emit('confirm', points, clear);
   } catch (error) {
     console.error('Error in handleConfirm:', error);
   }
@@ -164,6 +153,7 @@ function handleConfirm() {
       }"
       class="bg-primary text-primary-50 border-primary-50 absolute z-20 flex h-5 w-5 cursor-default items-center justify-center rounded-full border-2"
       role="button"
+      tabindex="0"
     >
       {{ index + 1 }}
     </div>

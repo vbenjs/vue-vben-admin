@@ -14,6 +14,7 @@ function generatorColorVariables(colorItems: ColorItem[]) {
   colorItems.forEach(({ alias, color, name }) => {
     if (color) {
       const colorsMap = getColors(new TinyColor(color).toHexString());
+
       let mainColor = colorsMap['500'];
 
       const colorKeys = Object.keys(colorsMap);

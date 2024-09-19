@@ -209,7 +209,11 @@ function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
   };
 }
 
-function handleMouseenter() {
+function handleMouseenter(e: MouseEvent) {
+  if (e?.offsetX < 10) {
+    return;
+  }
+
   // 未开启和未折叠状态不生效
   if (expandOnHover.value) {
     return;

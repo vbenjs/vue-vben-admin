@@ -11,3 +11,7 @@
 .ant-notification-notice {
   @apply dark:border-border/60 dark:border;
 }
+
+.ant-app .form-valid-error .ant-select-selector {
+  border-color: hsl(var(--destructive));
+}
