@@ -149,25 +149,25 @@ defineExpose({
         @click="resume"
         @load="handleImgOnLoad"
       />
-      <span
-        v-if="state.showTip"
-        :class="[state.isPassing ? 'success' : 'error']"
-        class="ir-dv-img__tip"
+      <div
+        class="absolute bottom-[10px] left-0 z-10 block h-[30px] w-full text-center text-xs leading-[30px] text-white"
       >
-        {{ tip }}
-      </span>
-      <span
-        v-if="!state.showTip && !state.draged"
-        class="ir-dv-img__tip normal"
-      >
-        点击图片可刷新
-      </span>
+        <div
+          v-if="state.showTip"
+          :class="[state.isPassing ? 'success' : 'error']"
+        >
+          {{ tip }}
+        </div>
+        <div v-if="!state.showTip && !state.draged" class="normal">
+          点击图片可刷新
+        </div>
+      </div>
     </div>
 
     <DragVerify
       ref="basicRef"
       :value="state.isPassing"
-      class="ir-dv-drag__bar"
+      class="mt-5"
       @end="handleDragEnd"
       @move="handleDragBarMove"
       @start="handleStart"
@@ -176,35 +176,15 @@ defineExpose({
 </template>
 
 <style lang="scss">
-.ir-dv {
-  &-img__tip {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    z-index: 1;
-    display: block;
-    width: 100%;
-    height: 30px;
-    font-size: 12px;
-    line-height: 30px;
-    color: white;
-    text-align: center;
+.success {
+  background-color: green;
+}
 
-    &.success {
-      background-color: green;
-    }
+.error {
+  background-color: red;
+}
 
-    &.error {
-      background-color: red;
-    }
-
-    &.normal {
-      background-color: rgb(0 0 0 / 30%);
-    }
-  }
-
-  &-drag__bar {
-    margin-top: 20px;
-  }
+.normal {
+  background-color: rgb(0 0 0 / 30%);
 }
 </style>
