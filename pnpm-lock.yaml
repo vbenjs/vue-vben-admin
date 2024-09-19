@@ -990,8 +990,8 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@vueuse/core':
-        specifier: ^11.0.3
-        version: 11.0.3(vue@3.5.5(typescript@5.6.2))
+        specifier: ^11.1.0
+        version: 11.1.0(vue@3.5.6(typescript@5.6.2))
       '@vueuse/integrations':
         specifier: ^11.1.0
         version: 11.1.0(async-validator@4.2.5)(axios@1.7.7)(focus-trap@7.5.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.3)(vue@3.5.6(typescript@5.6.2))
