@@ -107,6 +107,9 @@
         "title": "Verify",
         "drag-verify": {
           "title": "Drag Verify"
+        },
+        "rotate-verify": {
+          "title": "Rotate Verify"
         }
       }
     }

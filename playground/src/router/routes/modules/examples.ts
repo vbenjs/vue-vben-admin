@@ -118,6 +118,15 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.examples.verify.drag-verify.title'),
             },
           },
+          {
+            name: 'RotateVerifyExample',
+            path: '/examples/verify/rotate-verify',
+            component: () =>
+              import('#/views/examples/verify/rotate-verify/index.vue'),
+            meta: {
+              title: $t('page.examples.verify.rotate-verify.title'),
+            },
+          },
         ],
       },
     ],

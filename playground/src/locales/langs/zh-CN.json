@@ -107,6 +107,9 @@
         "title": "验证组件",
         "drag-verify": {
           "title": "拖动验证"
+        },
+        "rotate-verify": {
+          "title": "旋转校验"
         }
       }
     }

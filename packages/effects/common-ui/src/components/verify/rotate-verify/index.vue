@@ -65,9 +65,7 @@ function handleDragBarMove(data: VerifyMoveData) {
       unref(getFactorRef),
   );
   state.currentRotate = currentRotate;
-  state.imgStyle = {
-    transform: `rotateZ(${state.randomRotate - currentRotate}deg)`,
-  };
+  setImgRotate(state.randomRotate - currentRotate);
 }
 
 function handleImgOnLoad() {
@@ -76,9 +74,7 @@ function handleImgOnLoad() {
     minDegree! + Math.random() * (maxDegree! - minDegree!),
   ); // 生成随机角度
   state.randomRotate = ranRotate;
-  state.imgStyle = {
-    transform: `rotateZ(${ranRotate}deg)`,
-  };
+  setImgRotate(ranRotate);
 }
 
 function handleDragEnd() {
@@ -86,9 +82,7 @@ function handleDragEnd() {
   const { diffDegree } = props;
 
   if (Math.abs(randomRotate - currentRotate) >= (diffDegree || 20)) {
-    state.imgStyle = {
-      transform: `rotateZ(${randomRotate}deg)`,
-    };
+    setImgRotate(randomRotate);
     state.toOrigin = true;
     useTimeoutFn(() => {
       state.toOrigin = false;
@@ -100,6 +94,13 @@ function handleDragEnd() {
   }
   state.showTip = true;
 }
+
+function setImgRotate(deg: number) {
+  state.imgStyle = {
+    transform: `rotateZ(${deg}deg)`,
+  };
+}
+
 function checkPass() {
   state.isPassing = true;
   state.endTime = Date.now();
@@ -117,28 +118,51 @@ function resume() {
   handleImgOnLoad();
 }
 
+const imgCls = computed(() => {
+  return state.toOrigin ? ['transition-transform duration-300'] : [];
+});
+
+const tip = computed(() => {
+  return state.isPassing
+    ? `验证校验成功,耗时${((state.endTime - state.startTime) / 1000).toFixed(1)}秒！`
+    : '验证失败！';
+});
+
 defineExpose({
   resume,
 });
 </script>
 
 <template>
-  <div class="ir-dv">
-    <div :style="getImgWrapStyleRef" class="ir-dv-img__wrap"></div>
-    <span
-      v-if="state.showTip"
-      :class="[state.isPassing ? 'success' : 'error']"
-      class="ir-dv-img__tip"
+  <div class="relative flex flex-col items-center">
+    <div
+      :style="getImgWrapStyleRef"
+      class="relative overflow-hidden rounded-full"
     >
-      {{
-        state.isPassing
-          ? `验证校验成功,耗时${state.endTime - state.startTime}秒！`
-          : '验证失败！'
-      }}
-    </span>
-    <span v-if="!state.showTip && !state.draged" class="ir-dv-img__tip normal">
-      点击图片可刷新
-    </span>
+      <img
+        :class="imgCls"
+        :src="src"
+        :style="state.imgStyle"
+        :width="parseInt(props.width as string)"
+        alt="verify"
+        class="w-full rounded-full"
+        @click="resume"
+        @load="handleImgOnLoad"
+      />
+      <span
+        v-if="state.showTip"
+        :class="[state.isPassing ? 'success' : 'error']"
+        class="ir-dv-img__tip"
+      >
+        {{ tip }}
+      </span>
+      <span
+        v-if="!state.showTip && !state.draged"
+        class="ir-dv-img__tip normal"
+      >
+        点击图片可刷新
+      </span>
+    </div>
 
     <DragVerify
       ref="basicRef"
@@ -151,4 +175,36 @@ defineExpose({
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+.ir-dv {
+  &-img__tip {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+
+    &.success {
+      background-color: green;
+    }
+
+    &.error {
+      background-color: red;
+    }
+
+    &.normal {
+      background-color: rgb(0 0 0 / 30%);
+    }
+  }
+
+  &-drag__bar {
+    margin-top: 20px;
+  }
+}
+</style>
