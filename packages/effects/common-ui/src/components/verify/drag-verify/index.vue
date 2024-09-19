@@ -1,72 +1,15 @@
 <script setup lang="ts">
-import {
-  computed,
-  type PropType,
-  reactive,
-  ref,
-  unref,
-  watch,
-  watchEffect,
-} from 'vue';
+import { computed, reactive, ref, unref, watch, watchEffect } from 'vue';
 
 import { useTimeoutFn } from '@vueuse/core';
 
+import { basicProps } from '../props';
 import { useEventListener } from '../use-event-listener';
 import ActionCmp from './action.vue';
 import BarCmp from './bar.vue';
 import ContentCmp from './content.vue';
 
-const props = defineProps({
-  actionStyle: {
-    default: () => ({}),
-    type: Object as PropType<any>,
-  },
-
-  barStyle: {
-    default: () => ({}),
-    type: Object as PropType<any>,
-  },
-
-  circle: {
-    default: false,
-    type: Boolean as PropType<boolean>,
-  },
-  contentStyle: {
-    default: () => ({}),
-    type: Object as PropType<any>,
-  },
-  height: {
-    default: 40,
-    type: [Number, String] as PropType<number | string>,
-  },
-
-  isSlot: {
-    default: false,
-    type: Boolean as PropType<boolean>,
-  },
-
-  successText: {
-    default: '验证通过',
-    type: [String] as PropType<string>,
-  },
-
-  text: {
-    default: '请按住滑块拖动',
-    type: [String] as PropType<string>,
-  },
-  value: {
-    default: false,
-    type: Boolean as PropType<boolean>,
-  },
-  width: {
-    default: 220,
-    type: [Number, String] as PropType<number | string>,
-  },
-  wrapStyle: {
-    default: () => ({}),
-    type: Object as PropType<any>,
-  },
-});
+const props = defineProps(basicProps);
 
 const emit = defineEmits([
   'success',
