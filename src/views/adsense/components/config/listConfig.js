@@ -7,6 +7,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -24,6 +25,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -41,6 +43,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -58,6 +61,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -75,6 +79,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -92,6 +97,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -109,6 +115,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -126,6 +133,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -143,6 +151,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -160,6 +169,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -177,6 +187,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -194,6 +205,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -211,6 +223,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -228,6 +241,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -245,6 +259,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -262,6 +277,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -279,6 +295,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -296,6 +313,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -313,6 +331,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -330,6 +349,7 @@ export const listConfig = [
     metrics: [
       'ESTIMATED_EARNINGS',
       'COST_PER_CLICK',
+      'PAGE_VIEWS_RPM',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
