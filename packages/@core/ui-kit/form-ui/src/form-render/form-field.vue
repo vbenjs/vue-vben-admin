@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ZodType } from 'zod';
 
-import type { FormSchema } from '../types';
+import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed } from 'vue';
 
@@ -26,6 +26,7 @@ import { isEventObjectLike } from './helper';
 interface Props extends FormSchema {}
 
 const {
+  commonComponentProps,
   component,
   componentProps,
   dependencies,
@@ -38,7 +39,11 @@ const {
   labelWidth,
   renderComponentContent,
   rules,
-} = defineProps<Props>();
+} = defineProps<
+  {
+    commonComponentProps: MaybeComponentProps;
+  } & Props
+>();
 
 const { componentBindEventMap, componentMap, isVertical } = useFormContext();
 const formRenderProps = injectRenderFormProps();
@@ -133,6 +138,7 @@ const computedProps = computed(() => {
     : componentProps;
 
   return {
+    ...commonComponentProps,
     ...finalComponentProps,
     ...dynamicComponentProps.value,
   };

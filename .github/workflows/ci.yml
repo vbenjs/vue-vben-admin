@@ -17,7 +17,6 @@ env:
 jobs:
   test:
     name: Test
-    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -56,7 +55,6 @@ jobs:
 
   lint:
     name: Lint
-    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -109,7 +107,6 @@ jobs:
   ci-ok:
     name: CI OK
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') && always()
     needs: [test, check, lint]
     env:
       FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') }}

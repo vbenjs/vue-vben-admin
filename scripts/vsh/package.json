@@ -26,6 +26,6 @@
     "cac": "^6.7.14",
     "circular-dependency-scanner": "^2.3.0",
     "depcheck": "^1.4.7",
-    "publint": "^0.2.10"
+    "publint": "^0.2.11"
   }
 }
