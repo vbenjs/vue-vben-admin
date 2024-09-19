@@ -3,13 +3,25 @@ import { computed, reactive, ref, unref, watch, watchEffect } from 'vue';
 
 import { useTimeoutFn } from '@vueuse/core';
 
-import { basicProps } from '../props';
+import { type VerifyProps } from '../props';
 import { useEventListener } from '../use-event-listener';
 import ActionCmp from './action.vue';
 import BarCmp from './bar.vue';
 import ContentCmp from './content.vue';
 
-const props = defineProps(basicProps);
+const props = withDefaults(defineProps<VerifyProps>(), {
+  actionStyle: () => ({}),
+  barStyle: () => ({}),
+  circle: false,
+  contentStyle: () => ({}),
+  height: '40',
+  isSlot: false,
+  successText: '验证通过',
+  text: '请按住滑块拖动',
+  value: false,
+  width: '220',
+  wrapStyle: () => ({}),
+});
 
 const emit = defineEmits([
   'success',
