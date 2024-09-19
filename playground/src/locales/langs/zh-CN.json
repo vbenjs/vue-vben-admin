@@ -78,7 +78,8 @@
         "query": "查询表单",
         "rules": "表单校验",
         "dynamic": "动态表单",
-        "custom": "自定义组件"
+        "custom": "自定义组件",
+        "api": "Api"
       },
       "captcha": {
         "title": "验证码",

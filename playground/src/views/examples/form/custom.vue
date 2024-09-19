@@ -16,12 +16,11 @@ const [BaseForm] = useVbenForm({
     },
     labelClass: 'w-2/6',
   },
-  // 使用 tailwindcss grid布局
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical
-  layout: 'horizontal',
   // 水平布局，label和input在同一行
+  layout: 'horizontal',
   schema: [
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
@@ -31,7 +30,6 @@ const [BaseForm] = useVbenForm({
       suffix: () => h('span', { class: 'text-red-600' }, '元'),
     },
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'Input',
       fieldName: 'field1',
       label: '自定义组件slot',
@@ -41,14 +39,12 @@ const [BaseForm] = useVbenForm({
       }),
     },
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
       component: h(Input, { placeholder: '请输入' }),
       fieldName: 'field2',
       label: '自定义组件',
       rules: 'required',
     },
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'Input',
       fieldName: 'field3',
       label: '自定义组件(slot)',
