@@ -28,20 +28,20 @@
     }
   },
   "dependencies": {
-    "@changesets/git": "^3.0.1",
-    "@manypkg/get-packages": "^2.2.2",
-    "chalk": "^5.3.0",
-    "consola": "^3.2.3",
-    "dayjs": "^1.11.13",
-    "execa": "^9.4.0",
-    "find-up": "^7.0.0",
-    "nanoid": "^5.0.7",
-    "ora": "^8.1.0",
-    "pkg-types": "^1.2.0",
-    "prettier": "^3.3.3",
-    "rimraf": "^6.0.1"
+    "@changesets/git": "catalog:",
+    "@manypkg/get-packages": "catalog:",
+    "chalk": "catalog:",
+    "consola": "catalog:",
+    "dayjs": "catalog:",
+    "execa": "catalog:",
+    "find-up": "catalog:",
+    "nanoid": "catalog:",
+    "ora": "catalog:",
+    "pkg-types": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "catalog:"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0"
+    "@types/chalk": "catalog:"
   }
 }
