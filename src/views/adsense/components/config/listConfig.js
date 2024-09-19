@@ -5,6 +5,7 @@ export const listConfig = [
     des: 'Estimated earnings by Ad size',
     value: ['AD_UNIT_SIZE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -20,6 +21,7 @@ export const listConfig = [
     des: 'Estimated earnings by Date',
     value: ['DATE', 'ACCOUNT_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -35,6 +37,7 @@ export const listConfig = [
     des: 'Performance of each site',
     value: ['OWNED_SITE_DOMAIN_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -50,6 +53,7 @@ export const listConfig = [
     des: 'Estimated earnings by Ad unit',
     value: ['AD_UNIT_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -65,6 +69,7 @@ export const listConfig = [
     des: 'Estimated earnings by Platform and Content Platform',
     value: ['PLATFORM_TYPE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -80,6 +85,7 @@ export const listConfig = [
     des: 'Earnings for your popular pages',
     value: ['PAGE_URL'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -95,6 +101,7 @@ export const listConfig = [
     des: 'How ads perform by country',
     value: ['COUNTRY_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -110,6 +117,7 @@ export const listConfig = [
     des: 'Estimated earnings by Product',
     value: ['PRODUCT_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -125,6 +133,7 @@ export const listConfig = [
     des: 'Estimated earnings by Platform',
     value: ['PLATFORM_TYPE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -140,6 +149,7 @@ export const listConfig = [
     des: 'Estimated earnings by Week',
     value: ['ACCOUNT_NAME', 'WEEK'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -155,6 +165,7 @@ export const listConfig = [
     des: 'Estimated earnings by Month',
     value: ['ACCOUNT_NAME', 'MONTH'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -170,6 +181,7 @@ export const listConfig = [
     des: 'Estimated earnings by Custom channel',
     value: ['CUSTOM_CHANNEL_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -185,6 +197,7 @@ export const listConfig = [
     des: 'Estimated earnings by URL channels',
     value: ['URL_CHANNEL_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -200,6 +213,7 @@ export const listConfig = [
     des: 'Estimated earnings by Verified site',
     value: ['OWNED_SITE_DOMAIN_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -215,6 +229,7 @@ export const listConfig = [
     des: 'Estimated earnings by Served creative',
     value: ['SERVED_AD_TYPE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -230,6 +245,7 @@ export const listConfig = [
     des: 'Performance of different ad types',
     value: ['AD_FORMAT_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -245,6 +261,7 @@ export const listConfig = [
     des: 'Estimated earnings by Creative size',
     value: ['CREATIVE_SIZE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -260,6 +277,7 @@ export const listConfig = [
     des: 'Estimated earnings by Targeting type',
     value: ['TARGETING_TYPE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -275,6 +293,7 @@ export const listConfig = [
     des: 'Estimated earnings by Bid type',
     value: ['BID_TYPE_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
@@ -290,6 +309,7 @@ export const listConfig = [
     des: 'Estimated earnings by Ad network',
     value: ['BUYER_NETWORK_NAME'],
     metrics: [
+      'ESTIMATED_EARNINGS',
       'PAGE_VIEWS',
       'IMPRESSIONS',
       'IMPRESSIONS_RPM',
