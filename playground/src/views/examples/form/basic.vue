@@ -14,12 +14,11 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
-  // 使用 tailwindcss grid布局
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical
-  layout: 'horizontal',
   // 水平布局，label和input在同一行
+  layout: 'horizontal',
   schema: [
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
