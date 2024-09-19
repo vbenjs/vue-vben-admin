@@ -5,7 +5,7 @@ import { LAYOUT } from '@/router/constant';
 // import { t } from '@/hooks/web/useI18n';
 
 const adSense: AppRouteModule = {
-  path: '/adSense',
+  path: '/adv',
   name: 'AdSense',
   component: LAYOUT,
   meta: {
@@ -16,7 +16,7 @@ const adSense: AppRouteModule = {
   },
   children: [
     {
-      path: 'index',
+      path: '/adsense',
       name: 'AdSensePage',
       meta: { title: 'adsense' },
       component: () => import('@/views/adsense/index.vue'),

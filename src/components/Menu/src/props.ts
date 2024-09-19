@@ -28,7 +28,7 @@ export const basicProps = {
   },
   theme: {
     type: String as PropType<MenuTheme>,
-    default: ThemeEnum.DARK,
+    default: ThemeEnum.LIGHT,
   },
   inlineCollapsed: propTypes.bool,
   mixSider: propTypes.bool,

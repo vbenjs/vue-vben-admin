@@ -14,27 +14,27 @@ export default defineApplicationConfig({
         'ant-design-vue/es/locale/en_US',
       ],
     },
-    server: {
-      proxy: {
-        '/admin': {
-          target: 'https://adsapi.heomai.com/admin',
-          changeOrigin: true,
-          ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/admin`), ''),
-          // only https
-          // secure: false
-        },
-        '/upload': {
-          target: 'http://192.168.124.88:8000/',
-          changeOrigin: true,
-          ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
-        },
-      },
-      open: true, // 项目启动后，自动打开
-      warmup: {
-        clientFiles: ['./index.html', './src/{views,components}/*'],
-      },
-    },
+    // server: {
+    //   proxy: {
+    //     '/admin': {
+    //       target: 'http://192.168.124.88:8000/',
+    //       changeOrigin: true,
+    //       ws: true,
+    //       rewrite: (path) => path.replace(new RegExp(`^/admin`), ''),
+    //       // only https
+    //       // secure: false
+    //     },
+    //     '/upload': {
+    //       target: 'http://192.168.124.88:8000/',
+    //       changeOrigin: true,
+    //       ws: true,
+    //       rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
+    //     },
+    //   },
+    //   open: true, // 项目启动后，自动打开
+    //   warmup: {
+    //     clientFiles: ['./index.html', './src/{views,components}/*'],
+    //   },
+    // },
   },
 });

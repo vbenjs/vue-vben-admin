@@ -33,7 +33,7 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <UpgradePrompt class="mr-2" />
+      <!-- <UpgradePrompt class="mr-2" /> -->
 
       <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
 
@@ -72,7 +72,7 @@
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { propTypes } from '@/utils/propTypes';
 
-  import UpgradePrompt from './components/UpgradePrompt.vue';
+  // import UpgradePrompt from './components/UpgradePrompt.vue';
   import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '../trigger/index.vue';
   import { ErrorAction, FullScreen, LayoutBreadcrumb, Notify, UserDropDown } from './components';
