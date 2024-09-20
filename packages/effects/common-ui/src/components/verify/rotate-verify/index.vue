@@ -62,10 +62,12 @@ function handleDragBarMove(data: VerifyMoveData) {
   state.draged = true;
   const { height, imgWidth, maxDegree } = props;
   const { moveX } = data;
+  const denominator = imgWidth! - Number.parseInt(height as string);
+  if (denominator === 0) {
+    return;
+  }
   const currentRotate = Math.ceil(
-    (moveX / (imgWidth! - Number.parseInt(height as string))) *
-      maxDegree! *
-      unref(getFactorRef),
+    (moveX / denominator) * maxDegree! * unref(getFactorRef),
   );
   state.currentRotate = currentRotate;
   setImgRotate(state.randomRotate - currentRotate);

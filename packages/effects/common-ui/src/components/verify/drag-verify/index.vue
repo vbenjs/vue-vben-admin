@@ -4,7 +4,6 @@ import { computed, reactive, ref, unref, watch, watchEffect } from 'vue';
 import { useTimeoutFn } from '@vueuse/core';
 
 import { defaultDragVerifyProps, type VerifyProps } from '../props';
-import { useEventListener } from '../use-event-listener';
 import ActionCmp from './action.vue';
 import BarCmp from './bar.vue';
 import ContentCmp from './content.vue';
@@ -40,16 +39,6 @@ const wrapElRef = ref<HTMLDivElement>();
 const barElRef = ref<typeof BarCmp>();
 const contentElRef = ref<typeof ContentCmp>();
 const actionElRef = ref<typeof ActionCmp>();
-
-useEventListener({
-  el: document,
-  listener: () => {
-    if (state.isMoving) {
-      resume();
-    }
-  },
-  name: 'mouseup',
-});
 
 const getWrapStyleRef = computed(() => {
   const { circle, height, width, wrapStyle } = props;
@@ -100,7 +89,10 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
 
   state.moveDistance =
     getEventPageX(e) -
-    Number.parseInt(actionElRef.value.getStyle().left.replace('px', ''), 10);
+    Number.parseInt(
+      actionElRef.value.getStyle().left.replace('px', '') || '0',
+      10,
+    );
   state.startTime = Date.now();
   state.isMoving = true;
 }
