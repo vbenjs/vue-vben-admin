@@ -40,5 +40,3 @@ defineExpose({
     class="absolute h-9 w-0 rounded-md"
   ></div>
 </template>
-
-<style scoped></style>
