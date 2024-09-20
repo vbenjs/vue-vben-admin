@@ -19,16 +19,17 @@
   import { ref, defineEmits, onBeforeMount } from 'vue';
   import { Button, RangePicker } from 'ant-design-vue';
   import { CheckOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '@/hooks/web/useI18n';
 
   const emit = defineEmits(['sendData']);
-
+  const { t } = useI18n();
   // 日期选择
   const options = [
-    { label: 'Today', value: 'TODAY' },
-    { label: 'YesterDay', value: 'YESTERDAY' },
-    { label: 'Last 7 days', value: 'LAST_7_DAYS' },
-    { label: 'Last 30 days', value: 'LAST_30_DAYS' },
-    { label: 'This month', value: 'MONTH_TO_DATE' },
+    { label: t('report.Today'), value: 'TODAY' },
+    { label: t('report.Yesterday'), value: 'YESTERDAY' },
+    { label: t('report.Last 7 Days'), value: 'LAST_7_DAYS' },
+    { label: t('report.Last 30 Days'), value: 'LAST_30_DAYS' },
+    { label: t('report.This Month'), value: 'MONTH_TO_DATE' },
     // { label: 'Last month', value: 'lastMonth' },
   ];
 

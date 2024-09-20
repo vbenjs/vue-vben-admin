@@ -28,12 +28,12 @@
   import headerFilter from './components/headerFilter.vue';
   import leftMenu from './components/leftMenu.vue';
   import { Button, Spin } from 'ant-design-vue';
-  import { googleListApi, googleGenerateApi } from '@/api/adsense/adsense';
+  import { googleListApi, googleGenerateApi, googleFilterApi } from '@/api/adsense/adsense';
   import rightContent from './components/rightContent.vue';
   import { AlignLeftOutlined } from '@ant-design/icons-vue';
   // 接口参数
   const dateRange = ref({});
-  const menuParam = ref('');
+  const menuParam = ref({});
   // 菜单切换
   const collapsed = ref(false);
 
@@ -56,6 +56,7 @@
   // 菜单参数
   const menuSendData = (data) => {
     menuParam.value = data.value;
+    console.log(menuParam.value, 'menuParam.value');
     title.value = data.value.itemTitle;
   };
 
@@ -107,6 +108,22 @@
     },
     { deep: true, immediate: true },
   );
+  watch(
+    () => menuParam.value?.id,
+    async (newAdId) => {
+      console.log(newAdId, 'newAdId');
+      try {
+        if (newAdId) {
+          const res = await googleFilterApi({
+            id: newAdId,
+          });
+          console.log(res, 'res');
+        }
+      } catch (error) {
+        console.error('googleFilterApi======err0r', error);
+      }
+    },
+  );
 </script>
 
 <style lang="scss" scoped>
@@ -117,7 +134,6 @@
 
   .layout {
     display: flex;
-    width: calc(100vw - 250px);
     height: calc(100vh - 145px);
   }
 
@@ -134,7 +150,6 @@
 
   .content {
     flex: 1;
-    padding: 16px;
     overflow-y: auto;
     transition: margin-left 0.3s ease;
     background-color: #f8f9fa;

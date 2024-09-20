@@ -35,11 +35,11 @@
     <div :class="`${prefixCls}-action`">
       <!-- <UpgradePrompt class="mr-2" /> -->
 
-      <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
+      <!-- <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" /> -->
 
       <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
 
-      <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
+      <!-- <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" /> -->
 
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
@@ -60,7 +60,7 @@
   import { Layout } from 'ant-design-vue';
   import { computed, unref } from 'vue';
 
-  import { AppLocalePicker, AppLogo, AppSearch } from '@/components/Application';
+  import { AppLocalePicker, AppLogo } from '@/components/Application';
   import { SettingButtonPositionEnum } from '@/enums/appEnum';
   import { MenuModeEnum, MenuSplitTyeEnum } from '@/enums/menuEnum';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
@@ -75,7 +75,7 @@
   // import UpgradePrompt from './components/UpgradePrompt.vue';
   import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '../trigger/index.vue';
-  import { ErrorAction, FullScreen, LayoutBreadcrumb, Notify, UserDropDown } from './components';
+  import { ErrorAction, FullScreen, LayoutBreadcrumb, UserDropDown } from './components';
 
   const SettingDrawer = createAsyncComponent(() => import('@/layouts/default/setting/index.vue'), {
     loading: true,
@@ -99,12 +99,10 @@
   const {
     getHeaderTheme,
     getShowFullScreen,
-    getShowNotice,
     getShowContent,
     getShowBread,
     getShowHeaderLogo,
     getShowHeader,
-    getShowSearch,
   } = useHeaderSetting();
 
   const { getShowLocalePicker } = useLocale();

@@ -203,7 +203,7 @@
     box-sizing: border-box;
     flex-grow: 1;
     width: 100%;
-    height: 400px;
+    min-height: 500px;
     padding: 16px;
     border: 1px solid #dadce0;
     background-color: #fff;

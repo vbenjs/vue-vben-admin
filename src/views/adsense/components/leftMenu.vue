@@ -65,6 +65,7 @@
     metrics: [],
     orderBy: '',
     itemTitle: 'Top',
+    id: '',
   });
   const itemTitle = ref('');
   const selectItem = (item) => {
@@ -75,6 +76,7 @@
     menuParams.value.metrics = item.metrics;
     menuParams.value.orderBy = item.orderBy;
     itemTitle.value = item.name;
+    menuParams.value.id = item.id;
     emit('menuSendData', menuParams);
   };
   const toggleMoveTop = (id) => {
