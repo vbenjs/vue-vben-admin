@@ -102,7 +102,7 @@ const [Form, formApi] = useVbenForm({
       defaultValue: undefined,
       fieldName: 'options',
       label: '下拉选',
-      rules: 'required',
+      rules: 'selectRequired',
     },
     {
       component: 'RadioGroup',
@@ -120,7 +120,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'radioGroup',
       label: '单选组',
-      rules: 'required',
+      rules: 'selectRequired',
     },
     {
       component: 'CheckboxGroup',
@@ -139,7 +139,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'checkboxGroup',
       label: '多选组',
-      rules: 'required',
+      rules: 'selectRequired',
     },
     {
       component: 'Checkbox',
@@ -150,14 +150,21 @@ const [Form, formApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: 'required',
+      rules: 'selectRequired',
     },
     {
       component: 'DatePicker',
       defaultValue: undefined,
       fieldName: 'datePicker',
       label: '日期选择框',
-      rules: 'required',
+      rules: 'selectRequired',
+    },
+    {
+      component: 'RangePicker',
+      defaultValue: undefined,
+      fieldName: 'rangePicker',
+      label: '区间选择框',
+      rules: 'selectRequired',
     },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
