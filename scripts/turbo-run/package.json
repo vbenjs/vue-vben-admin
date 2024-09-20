@@ -22,8 +22,8 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
+    "@clack/prompts": "catalog:",
     "@vben/node-utils": "workspace:*",
-    "cac": "^6.7.14"
+    "cac": "catalog:"
   }
 }

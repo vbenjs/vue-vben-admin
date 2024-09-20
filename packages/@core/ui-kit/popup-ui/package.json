@@ -41,7 +41,7 @@
     "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
-    "@vueuse/core": "^11.1.0",
-    "vue": "^3.5.6"
+    "@vueuse/core": "catalog:",
+    "vue": "catalog:"
   }
 }

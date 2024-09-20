@@ -55,7 +55,8 @@
     }
   },
   "formRules": {
-    "required": "Please enter {0}"
+    "required": "Please enter {0}",
+    "selectRequired": "Please select {0}"
   },
   "widgets": {
     "document": "Document",

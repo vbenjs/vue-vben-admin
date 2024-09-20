@@ -5,7 +5,7 @@ import { RotateCw } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
-import { CaptchaCard } from '.';
+import CaptchaCard from './captcha-card.vue';
 import { useCaptchaPoints } from './hooks/useCaptchaPoints';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {

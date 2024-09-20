@@ -27,13 +27,13 @@
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
-    "@vueuse/core": "^11.1.0",
-    "@vueuse/integrations": "^11.1.0",
-    "qrcode": "^1.5.4",
-    "vue": "^3.5.6",
-    "vue-router": "^4.4.5"
+    "@vueuse/core": "catalog:",
+    "@vueuse/integrations": "catalog:",
+    "qrcode": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   },
   "devDependencies": {
-    "@types/qrcode": "^1.5.5"
+    "@types/qrcode": "catalog:"
   }
 }
