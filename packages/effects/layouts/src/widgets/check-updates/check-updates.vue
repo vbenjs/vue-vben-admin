@@ -28,7 +28,7 @@ async function getVersionTag() {
     ) {
       return null;
     }
-    const response = await fetch('/', {
+    const response = await fetch(import.meta.env.BASE_URL, {
       cache: 'no-cache',
       method: 'HEAD',
     });
