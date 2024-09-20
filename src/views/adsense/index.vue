@@ -31,6 +31,9 @@
   import { googleListApi, googleGenerateApi, googleFilterApi } from '@/api/adsense/adsense';
   import rightContent from './components/rightContent.vue';
   import { AlignLeftOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '@/hooks/web/useI18n';
+
+  const { t } = useI18n();
   // 接口参数
   const dateRange = ref({});
   const menuParam = ref({});
@@ -97,6 +100,12 @@
           res.rows.push(res.totals);
           tableHeader.value = res.headers;
           tableData.value = res.rows;
+          tableHeader.value.forEach((item) => {
+            const name = 'report.' + item.name;
+            item.name = t(name);
+          });
+          console.log(tableHeader.value[0].name, 'tableHeader');
+          console.log(tableData, 'tableData');
           loading.value = false;
         } catch (error) {
           tableHeader.value = [];
@@ -205,5 +214,6 @@
   .loading-container {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
   }
 </style>

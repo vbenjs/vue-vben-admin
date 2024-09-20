@@ -19,7 +19,9 @@
   import { ref, watch, onMounted, onBeforeUnmount, onUnmounted, defineProps } from 'vue';
   import { Table } from 'ant-design-vue';
   import * as echarts from 'echarts';
+  import { useI18n } from '@/hooks/web/useI18n';
 
+  const { t } = useI18n();
   // Props for table header and data
   const props = defineProps({
     tableHeader: Array,
@@ -75,11 +77,15 @@
 
   // Generate columns based on props.tableHeader
   const generateColumns = () => {
-    columns.value = props.tableHeader.map((header) => ({
-      title: header.name,
-      dataIndex: header.name,
-      sorter: true,
-    }));
+    columns.value = props.tableHeader.map((header) => {
+      // const title = 'report.' + header.name;
+      return {
+        title: header.name,
+        // title: t(title),
+        dataIndex: header.name,
+        sorter: true,
+      };
+    });
   };
 
   // Generate table data based on props.tableData
@@ -138,6 +144,8 @@
         const index = props.tableHeader.findIndex((header) => header.name === metric.name);
         return Number(row.cells[index].value) || 0;
       });
+      // const name = 'report.' + metric.name;
+      // metric.name = t(name);
       return {
         name: metric.name,
         type: 'bar',
@@ -167,6 +175,17 @@
         type: 'value',
       },
       series: seriesData,
+      graphic: {
+        type: 'text',
+        left: 'center',
+        top: 'middle',
+        style: {
+          text: seriesData.length > 0 ? '' : t('report.No Data Available'), // 自定义的无数据提示信息
+          fontSize: 20,
+          fontWeight: 'bold',
+          fill: '#999', // 文字颜色
+        },
+      },
     };
 
     chartInstance.setOption(option);
