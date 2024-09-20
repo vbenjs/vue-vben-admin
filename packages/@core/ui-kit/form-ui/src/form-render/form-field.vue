@@ -95,7 +95,7 @@ const shouldRequired = computed(() => {
   }
 
   if (isString(currentRules.value)) {
-    return currentRules.value === 'required';
+    return ['required', 'selectRequired'].includes(currentRules.value);
   }
 
   let isOptional = currentRules?.value?.isOptional?.();
