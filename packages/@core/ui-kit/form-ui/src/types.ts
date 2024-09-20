@@ -58,6 +58,7 @@ export type CustomRenderType = (() => Component | string) | string;
 
 export type FormSchemaRuleType =
   | 'required'
+  | 'selectRequired'
   | null
   | (Record<never, never> & string)
   | ZodTypeAny;
@@ -319,6 +320,11 @@ export interface VbenFormAdapterOptions<
   };
   defineRules?: {
     required?: (
+      value: any,
+      params: any,
+      ctx: Record<string, any>,
+    ) => boolean | string;
+    selectRequired?: (
       value: any,
       params: any,
       ctx: Record<string, any>,
