@@ -6,7 +6,7 @@ import { Bell, Sun } from '@vben/icons';
 import { preferences } from '@vben/preferences';
 import { useUserStore } from '@vben/stores';
 
-import { message } from 'ant-design-vue';
+import { Card, message } from 'ant-design-vue';
 
 const userStore = useUserStore();
 function handleSuccess() {
@@ -20,7 +20,7 @@ const avatar = computed(() => {
 
 <template>
   <Page title="旋转校验示例">
-    <div class="flex items-center justify-center p-4">
+    <Card class="flex items-center justify-center p-4">
       <RotateVerify
         :src="avatar"
         text="拖动以进行校验"
@@ -31,6 +31,6 @@ const avatar = computed(() => {
           <Sun v-else />
         </template>
       </RotateVerify>
-    </div>
+    </Card>
   </Page>
 </template>
