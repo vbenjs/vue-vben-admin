@@ -143,6 +143,19 @@ watch(
   },
 );
 
+watch(
+  () => preferences.app.layout,
+  async (val) => {
+    if (val === 'sidebar-mixed-nav' && preferences.sidebar.hidden) {
+      updatePreferences({
+        sidebar: {
+          hidden: false,
+        },
+      });
+    }
+  },
+);
+
 const slots = useSlots();
 const headerSlots = computed(() => {
   return Object.keys(slots).filter((key) => key.startsWith('header-'));
