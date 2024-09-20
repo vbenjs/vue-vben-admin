@@ -1461,7 +1461,7 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@vueuse/core':
-        specifier: ^11.1.0
+        specifier: 'catalog:'
         version: 11.1.0(vue@3.5.6(typescript@5.6.2))
       '@vueuse/integrations':
         specifier: 'catalog:'

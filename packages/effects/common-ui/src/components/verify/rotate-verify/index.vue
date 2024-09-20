@@ -6,9 +6,12 @@ import { computed, reactive, ref, unref, watch } from 'vue';
 import { useTimeoutFn } from '@vueuse/core';
 
 import DragVerify from '../drag-verify/index.vue';
-import { rotateProps } from '../props';
+import { defaultRotateVerifyProps, type RotateProps } from '../props';
 
-const props = defineProps(rotateProps);
+const props = withDefaults(
+  defineProps<RotateProps>(),
+  defaultRotateVerifyProps(),
+);
 const emit = defineEmits(['success', 'change', 'update:value']);
 const basicRef = ref<DragVerifyActionType | null>(null);
 const state = reactive({
@@ -180,6 +183,10 @@ defineExpose({
       @end="handleDragEnd"
       @move="handleDragBarMove"
       @start="handleStart"
-    />
+    >
+      <template v-for="(_, key) in $slots" :key="key" #[key]="slotProps">
+        <slot :name="key" v-bind="slotProps"></slot>
+      </template>
+    </DragVerify>
   </div>
 </template>

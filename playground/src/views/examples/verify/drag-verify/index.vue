@@ -7,7 +7,7 @@ import {
   Page,
   type VerifyPassingData,
 } from '@vben/common-ui';
-import { Bell, Github } from '@vben/icons';
+import { Bell, Sun } from '@vben/icons';
 
 import { Button, Card, message } from 'ant-design-vue';
 
@@ -62,7 +62,7 @@ const el5 = ref<DragVerifyActionType>();
         <DragVerify ref="el4" @success="handleSuccess">
           <template #actionIcon="{ isPassing }">
             <Bell v-if="isPassing" />
-            <Github v-else />
+            <Sun v-else />
           </template>
         </DragVerify>
         <Button class="ml-2" type="primary" @click="handleBtnClick(el4)">
@@ -78,7 +78,7 @@ const el5 = ref<DragVerifyActionType>();
             </template>
             <template v-else>
               拖动
-              <Github />
+              <Sun />
             </template>
           </template>
         </DragVerify>
