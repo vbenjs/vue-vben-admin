@@ -1,4 +1,4 @@
-import { getScrollbarWidth } from '@vben-core/shared/utils';
+import { getScrollbarWidth, needsScrollbar } from '@vben-core/shared/utils';
 
 import {
   useScrollLock as _useScrollLock,
@@ -13,6 +13,9 @@ export function useScrollLock() {
   const scrollbarWidth = getScrollbarWidth();
 
   tryOnBeforeMount(() => {
+    if (!needsScrollbar()) {
+      return;
+    }
     document.body.style.paddingRight = `${scrollbarWidth}px`;
 
     const layoutFixedNodes = document.querySelectorAll<HTMLElement>(
@@ -30,6 +33,9 @@ export function useScrollLock() {
   });
 
   tryOnBeforeUnmount(() => {
+    if (!needsScrollbar()) {
+      return;
+    }
     isLocked.value = false;
     const layoutFixedNodes = document.querySelectorAll<HTMLElement>(
       `.${SCROLL_FIXED_CLASS}`,
