@@ -166,6 +166,15 @@ const [Form, formApi] = useVbenForm({
       label: '区间选择框',
       rules: 'selectRequired',
     },
+    {
+      component: 'InputPassword',
+      componentProps: {
+        placeholder: '请输入',
+      },
+      fieldName: 'password',
+      label: '密码',
+      rules: 'required',
+    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
