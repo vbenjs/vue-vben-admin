@@ -194,7 +194,7 @@ export class FormApi {
 
     if (!hasField) {
       console.error(
-        'All children of the form Schema array that need to be updated must contain the `field` field',
+        'All items in the schema array must have a valid `fieldName` property to be updated',
       );
     }
     const currentSchema = [...(this.state?.schema ?? [])];
