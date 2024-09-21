@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  HUSKY: "0"
+  HUSKY: '0'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}

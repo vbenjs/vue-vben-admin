@@ -8,12 +8,6 @@ export default {
         singleQuote: false,
       },
     },
-    {
-      files: ['*.yaml', '*.yml'],
-      options: {
-        singleQuote: false,
-      },
-    },
   ],
   plugins: ['prettier-plugin-tailwindcss'],
   printWidth: 80,
