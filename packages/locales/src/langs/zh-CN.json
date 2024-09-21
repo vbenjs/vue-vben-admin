@@ -102,6 +102,7 @@
     "password": "密码",
     "usernameTip": "请输入用户名",
     "passwordTip": "请输入密码",
+    "verifyRequiredTip": "请先完成验证",
     "passwordErrorTip": "密码错误",
     "rememberMe": "记住账号",
     "createAnAccount": "创建一个账号",

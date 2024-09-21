@@ -70,9 +70,9 @@ watchEffect(() => {
 });
 
 function getEventPageX(e: MouseEvent | TouchEvent): number {
-  if (e instanceof MouseEvent) {
+  if ('pageX' in e) {
     return e.pageX;
-  } else if (e instanceof TouchEvent && e.touches[0]) {
+  } else if ('touches' in e && e.touches[0]) {
     return e.touches[0].pageX;
   }
   return 0;
@@ -183,6 +183,8 @@ function resume() {
   const barEl = unref(barRef);
   const contentEl = unref(contentRef);
   if (!actionEl || !barEl || !contentEl) return;
+
+  contentEl.getEl().style.width = '100%';
   state.toLeft = true;
   useTimeoutFn(() => {
     state.toLeft = false;

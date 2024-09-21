@@ -66,6 +66,10 @@ const getImgWrapStyleRef = computed(() => {
 
 const getFactorRef = computed(() => {
   const { maxDegree, minDegree } = props;
+  if (minDegree > maxDegree) {
+    console.warn('minDegree should not be greater than maxDegree');
+  }
+
   if (minDegree === maxDegree) {
     return Math.floor(1 + Math.random() * 1) / 10 + 1;
   }
@@ -116,6 +120,7 @@ function handleDragEnd() {
     checkPass();
   }
   state.showTip = true;
+  state.dragging = false;
 }
 
 function setImgRotate(deg: number) {
@@ -162,7 +167,7 @@ defineExpose({
   <div class="relative flex flex-col items-center">
     <div
       :style="getImgWrapStyleRef"
-      class="border-border relative overflow-hidden rounded-full border shadow-md"
+      class="border-border relative cursor-pointer overflow-hidden rounded-full border shadow-md"
     >
       <img
         :class="imgCls"
@@ -185,7 +190,7 @@ defineExpose({
         >
           {{ verifyTip }}
         </div>
-        <div v-if="!state.showTip && !state.dragging" class="bg-black/30">
+        <div v-if="!state.dragging" class="bg-black/30">
           {{ defaultTip || $t('ui.captcha.sliderRotateDefaultTip') }}
         </div>
       </div>
