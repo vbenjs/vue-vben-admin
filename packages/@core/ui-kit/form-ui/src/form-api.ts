@@ -43,12 +43,12 @@ function getDefaultState(): VbenFormProps {
 }
 
 export class FormApi {
-  // private prevState!: ModalState;
-  private state: null | VbenFormProps = null;
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
   public form = {} as FormActions;
-
   isMounted = false;
+
+  // private prevState!: ModalState;
+  public state: null | VbenFormProps = null;
 
   stateHandler: StateHandler;
 
@@ -90,6 +90,10 @@ export class FormApi {
   // 如果需要多次更新状态，可以使用 batch 方法
   batchStore(cb: () => void) {
     this.store.batch(cb);
+  }
+
+  getState() {
+    return this.state;
   }
 
   async getValues() {
@@ -177,7 +181,7 @@ export class FormApi {
   }
 
   unmounted() {
-    this.state = null;
+    // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();
   }

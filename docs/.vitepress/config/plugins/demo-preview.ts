@@ -83,7 +83,12 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
       if (!state.tokens[index]) {
         return '';
       }
-
+      const firstString = 'index.vue';
+      childFiles = childFiles.sort((a, b) => {
+        if (a === firstString) return -1;
+        if (b === firstString) return 1;
+        return a.localeCompare(b, 'en', { sensitivity: 'base' });
+      });
       state.tokens[index].content =
         `<DemoPreview files="${encodeURIComponent(JSON.stringify(childFiles))}" ><${ComponentName}/>
         `;

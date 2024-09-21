@@ -11,6 +11,10 @@ import {
 } from '@nolebase/vitepress-plugin-git-changelog/vite';
 import tailwind from 'tailwindcss';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin,
+} from 'vitepress-plugin-group-icons';
 
 import { demoPreviewPlugin } from './plugins/demo-preview';
 import { search as zhSearch } from './zh.mts';
@@ -21,6 +25,7 @@ export const shared = defineConfig({
   markdown: {
     preConfig(md) {
       md.use(demoPreviewPlugin);
+      md.use(groupIconMdPlugin);
     },
   },
   pwa: pwa(),
@@ -79,6 +84,7 @@ export const shared = defineConfig({
       }),
       GitChangelogMarkdownSection(),
       viteArchiverPlugin({ outputDir: '.vitepress' }),
+      groupIconVitePlugin(),
     ],
     server: {
       fs: {

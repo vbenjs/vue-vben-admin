@@ -69,3 +69,19 @@ export function getScrollbarWidth() {
   scrollDiv.remove();
   return scrollbarWidth;
 }
+
+export function needsScrollbar() {
+  const doc = document.documentElement;
+  const body = document.body;
+
+  // 检查 body 的 overflow-y 样式
+  const overflowY = window.getComputedStyle(body).overflowY;
+
+  // 如果明确设置了需要滚动条的样式
+  if (overflowY === 'scroll' || overflowY === 'auto') {
+    return doc.scrollHeight > window.innerHeight;
+  }
+
+  // 在其他情况下，根据 scrollHeight 和 innerHeight 比较判断
+  return doc.scrollHeight > window.innerHeight;
+}

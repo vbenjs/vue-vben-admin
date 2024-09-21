@@ -69,19 +69,19 @@
     }
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
-    "@tanstack/vue-store": "^0.5.5",
-    "@vue/reactivity": "^3.5.5",
-    "@vue/shared": "^3.5.5",
-    "clsx": "^2.1.1",
-    "defu": "^6.1.4",
-    "lodash.clonedeep": "^4.5.0",
-    "nprogress": "^0.2.0",
-    "tailwind-merge": "^2.5.2",
-    "theme-colors": "^0.1.0"
+    "@ctrl/tinycolor": "catalog:",
+    "@tanstack/vue-store": "catalog:",
+    "@vue/reactivity": "catalog:",
+    "@vue/shared": "catalog:",
+    "clsx": "catalog:",
+    "defu": "catalog:",
+    "lodash.clonedeep": "catalog:",
+    "nprogress": "catalog:",
+    "tailwind-merge": "catalog:",
+    "theme-colors": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash.clonedeep": "^4.5.9",
-    "@types/nprogress": "^0.2.3"
+    "@types/lodash.clonedeep": "catalog:",
+    "@types/nprogress": "catalog:"
   }
 }

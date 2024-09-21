@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
 
 import type { FormRenderProps, FormSchema, FormShape } from '../types';
@@ -7,7 +6,9 @@ import type { FormRenderProps, FormSchema, FormShape } from '../types';
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString, merge } from '@vben-core/shared/utils';
+import { cn, isString } from '@vben-core/shared/utils';
+
+import { type GenericObject } from 'vee-validate';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -70,51 +71,54 @@ const formCollapsed = computed(() => {
   return props.collapsed && isCalculated.value;
 });
 
-const computedSchema = computed((): FormSchema[] => {
-  const {
-    componentProps = {},
-    controlClass = '',
-    disabled,
-    formFieldProps = {},
-    formItemClass = '',
-    hideLabel = false,
-    hideRequiredMark = false,
-    labelClass = '',
-    labelWidth = 100,
-    wrapperClass = '',
-  } = props.commonConfig;
-  return (props.schema || []).map((schema, index): FormSchema => {
-    const keepIndex = keepFormItemIndex.value;
-
-    const hidden =
-      // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
-      props.showCollapseButton && !!formCollapsed.value && keepIndex
-        ? keepIndex <= index
-        : false;
-
-    return {
+const computedSchema = computed(
+  (): ({ commonComponentProps: Record<string, any> } & FormSchema)[] => {
+    const {
+      componentProps = {},
+      controlClass = '',
       disabled,
-      hideLabel,
-      hideRequiredMark,
-      labelWidth,
-      wrapperClass,
-      ...schema,
-      componentProps: merge({}, schema.componentProps, componentProps),
-      controlClass: cn(controlClass, schema.controlClass),
-      formFieldProps: {
-        ...formFieldProps,
-        ...schema.formFieldProps,
-      },
-      formItemClass: cn(
-        'flex-shrink-0',
-        { hidden },
-        formItemClass,
-        schema.formItemClass,
-      ),
-      labelClass: cn(labelClass, schema.labelClass),
-    };
-  });
-});
+      formFieldProps = {},
+      formItemClass = '',
+      hideLabel = false,
+      hideRequiredMark = false,
+      labelClass = '',
+      labelWidth = 100,
+      wrapperClass = '',
+    } = props.commonConfig;
+    return (props.schema || []).map((schema, index) => {
+      const keepIndex = keepFormItemIndex.value;
+
+      const hidden =
+        // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
+        props.showCollapseButton && !!formCollapsed.value && keepIndex
+          ? keepIndex <= index
+          : false;
+
+      return {
+        disabled,
+        hideLabel,
+        hideRequiredMark,
+        labelWidth,
+        wrapperClass,
+        ...schema,
+        commonComponentProps: componentProps,
+        componentProps: schema.componentProps,
+        controlClass: cn(controlClass, schema.controlClass),
+        formFieldProps: {
+          ...formFieldProps,
+          ...schema.formFieldProps,
+        },
+        formItemClass: cn(
+          'flex-shrink-0',
+          { hidden },
+          formItemClass,
+          schema.formItemClass,
+        ),
+        labelClass: cn(labelClass, schema.labelClass),
+      };
+    });
+  },
+);
 </script>
 
 <template>

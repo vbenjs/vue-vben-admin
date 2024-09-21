@@ -79,7 +79,9 @@ describe('requestClient', () => {
         : [400, { error: 'Bad Request' }];
     });
 
-    const response = await requestClient.upload('/test/upload', fileData);
+    const response = await requestClient.upload('/test/upload', {
+      file: fileData,
+    });
     expect(response.data).toEqual({ data: 'file uploaded' });
   });
 

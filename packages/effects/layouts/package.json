@@ -35,8 +35,8 @@
     "@vben/stores": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^11.0.3",
-    "vue": "^3.5.5",
-    "vue-router": "^4.4.5"
+    "@vueuse/core": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   }
 }

@@ -78,7 +78,8 @@
         "query": "Query Form",
         "rules": "Form Rules",
         "dynamic": "Dynamic Form",
-        "custom": "Custom Component"
+        "custom": "Custom Component",
+        "api": "Api"
       },
       "captcha": {
         "title": "Captcha",

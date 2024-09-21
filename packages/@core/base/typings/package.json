@@ -38,7 +38,7 @@
     }
   },
   "dependencies": {
-    "vue": "^3.5.5",
-    "vue-router": "^4.4.5"
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   }
 }

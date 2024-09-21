@@ -3,3 +3,5 @@ node_modules
 .gitignore
 *.md
 dist
+.turbo
+dist.zip

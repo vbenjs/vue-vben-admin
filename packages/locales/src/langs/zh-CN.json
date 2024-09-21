@@ -55,7 +55,8 @@
     }
   },
   "formRules": {
-    "required": "请输入{0}"
+    "required": "请输入{0}",
+    "selectRequired": "请选择{0}"
   },
   "widgets": {
     "document": "文档",

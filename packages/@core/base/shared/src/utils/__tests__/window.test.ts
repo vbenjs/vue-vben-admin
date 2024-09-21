@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { openWindow } from '../window'; // 假设你的函数在 'openWindow' 文件中
+import { openWindow } from '../window';
 
 describe('openWindow', () => {
   // 保存原始的 window.open 函数

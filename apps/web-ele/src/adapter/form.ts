@@ -78,6 +78,12 @@ setupVbenForm<FormComponentType>({
       }
       return true;
     },
+    selectRequired: (value, _params, ctx) => {
+      if (value === undefined || value === null) {
+        return $t('formRules.selectRequired', [ctx.label]);
+      }
+      return true;
+    },
   },
 });
 

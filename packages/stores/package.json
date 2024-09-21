@@ -22,9 +22,9 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "pinia": "2.2.2",
-    "pinia-plugin-persistedstate": "^4.0.1",
-    "vue": "^3.5.5",
-    "vue-router": "^4.4.5"
+    "pinia": "catalog:",
+    "pinia-plugin-persistedstate": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   }
 }
