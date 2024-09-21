@@ -42,15 +42,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
-      {
-        name: 'CaptchaExample',
-        path: '/examples/captcha',
-        component: () => import('#/views/examples/captcha/index.vue'),
-        meta: {
-          icon: 'logos:recaptcha',
-          title: $t('page.examples.captcha.title'),
-        },
-      },
+
       {
         name: 'FormExample',
         path: '/examples/form',
@@ -110,29 +102,38 @@ const routes: RouteRecordRaw[] = [
         ],
       },
       {
-        name: 'VerifyExample',
-        path: '/examples/verify',
+        name: 'CaptchaExample',
+        path: '/examples/captcha',
         meta: {
-          icon: 'arcticons:okta-verify',
-          title: $t('page.examples.verify.title'),
+          icon: 'logos:recaptcha',
+          title: $t('page.examples.captcha.title'),
         },
         children: [
           {
             name: 'DragVerifyExample',
-            path: '/examples/verify/drag-verify',
+            path: '/examples/captcha/slider',
             component: () =>
-              import('#/views/examples/verify/drag-verify/index.vue'),
+              import('#/views/examples/captcha/slider-captcha.vue'),
             meta: {
-              title: $t('page.examples.verify.drag-verify.title'),
+              title: $t('page.examples.captcha.sliderCaptcha'),
             },
           },
           {
             name: 'RotateVerifyExample',
-            path: '/examples/verify/rotate-verify',
+            path: '/examples/captcha/slider-rotate',
             component: () =>
-              import('#/views/examples/verify/rotate-verify/index.vue'),
+              import('#/views/examples/captcha/slider-rotate-captcha.vue'),
             meta: {
-              title: $t('page.examples.verify.rotate-verify.title'),
+              title: $t('page.examples.captcha.sliderRotateCaptcha'),
+            },
+          },
+          {
+            name: 'CaptchaPointSelectionExample',
+            path: '/examples/captcha/point-selection',
+            component: () =>
+              import('#/views/examples/captcha/point-selection-captcha.vue'),
+            meta: {
+              title: $t('page.examples.captcha.pointSelection'),
             },
           },
         ],

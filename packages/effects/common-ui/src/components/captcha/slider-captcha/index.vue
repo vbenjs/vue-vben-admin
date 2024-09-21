@@ -1,26 +1,39 @@
 <script setup lang="ts">
-import { computed, reactive, ref, unref, watch, watchEffect } from 'vue';
+import type {
+  CaptchaVerifyPassingData,
+  SliderCaptchaProps,
+  SliderRotateVerifyPassingData,
+} from '../types';
+
+import { reactive, unref, useTemplateRef, watch, watchEffect } from 'vue';
+
+import { $t } from '@vben/locales';
+import { cn } from '@vben-core/shared/utils';
 
 import { useTimeoutFn } from '@vueuse/core';
 
-import { defaultDragVerifyProps, type VerifyProps } from '../props';
-import ActionCmp from './action.vue';
-import BarCmp from './bar.vue';
-import ContentCmp from './content.vue';
+import SliderCaptchaAction from './slider-captcha-action.vue';
+import SliderCaptchaBar from './slider-captcha-bar.vue';
+import SliderCaptchaContent from './slider-captcha-content.vue';
 
-const props = withDefaults(
-  defineProps<VerifyProps>(),
-  defaultDragVerifyProps(),
-);
+const props = withDefaults(defineProps<SliderCaptchaProps>(), {
+  actionStyle: () => ({}),
+  barStyle: () => ({}),
+  contentStyle: () => ({}),
+  isSlot: false,
+  successText: '',
+  text: '',
+  wrapperStyle: () => ({}),
+});
 
-const emit = defineEmits([
-  'success',
-  'update:value',
-  'change',
-  'start',
-  'move',
-  'end',
-]);
+const emit = defineEmits<{
+  end: [MouseEvent | TouchEvent];
+  move: [SliderRotateVerifyPassingData];
+  start: [MouseEvent | TouchEvent];
+  success: [CaptchaVerifyPassingData];
+}>();
+
+const modelValue = defineModel<boolean>({ default: false });
 
 const state = reactive({
   endTime: 0,
@@ -35,24 +48,10 @@ defineExpose({
   resume,
 });
 
-const wrapElRef = ref<HTMLDivElement>();
-const barElRef = ref<typeof BarCmp>();
-const contentElRef = ref<typeof ContentCmp>();
-const actionElRef = ref<typeof ActionCmp>();
-
-const getWrapStyleRef = computed(() => {
-  const { circle, height, width, wrapStyle } = props;
-  const h = Number.parseInt(height as string);
-  const w = `${Number.parseInt(width as string)}px`;
-  return {
-    backgroundColor: 'hsl(var(--background-deep))',
-    borderRadius: circle ? `${h / 2}px` : 0,
-    height: `${h}px`,
-    lineHeight: `${h}px`,
-    width: w,
-    ...wrapStyle,
-  };
-});
+const wrapperRef = useTemplateRef<HTMLDivElement>('wrapperRef');
+const barRef = useTemplateRef<typeof SliderCaptchaBar>('barRef');
+const contentRef = useTemplateRef<typeof SliderCaptchaContent>('contentRef');
+const actionRef = useTemplateRef<typeof SliderCaptchaAction>('actionRef');
 
 watch(
   () => state.isPassing,
@@ -61,14 +60,13 @@ watch(
       const { endTime, startTime } = state;
       const time = (endTime - startTime) / 1000;
       emit('success', { isPassing, time: time.toFixed(1) });
-      emit('update:value', isPassing);
-      emit('change', isPassing);
+      modelValue.value = isPassing;
     }
   },
 );
 
 watchEffect(() => {
-  state.isPassing = !!props.value;
+  state.isPassing = !!modelValue.value;
 });
 
 function getEventPageX(e: MouseEvent | TouchEvent): number {
@@ -84,34 +82,33 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
   if (state.isPassing) {
     return;
   }
-  if (!actionElRef.value) return;
+  if (!actionRef.value) return;
   emit('start', e);
 
   state.moveDistance =
     getEventPageX(e) -
     Number.parseInt(
-      actionElRef.value.getStyle().left.replace('px', '') || '0',
+      actionRef.value.getStyle().left.replace('px', '') || '0',
       10,
     );
   state.startTime = Date.now();
   state.isMoving = true;
 }
 
-function getOffset(el: HTMLDivElement) {
-  const actionWidth = Number.parseInt(el.style.width);
-  const { width } = props;
-  const widthNum = Number.parseInt(width as string);
-  const offset = widthNum - actionWidth - 6;
-  return { actionWidth, offset, widthNum };
+function getOffset(actionEl: HTMLDivElement) {
+  const wrapperWidth = wrapperRef.value?.offsetWidth ?? 220;
+  const actionWidth = actionEl?.offsetWidth ?? 40;
+  const offset = wrapperWidth - actionWidth - 6;
+  return { actionWidth, offset, wrapperWidth };
 }
 
 function handleDragMoving(e: MouseEvent | TouchEvent) {
   const { isMoving, moveDistance } = state;
   if (isMoving) {
-    const actionEl = unref(actionElRef);
-    const barEl = unref(barElRef);
+    const actionEl = unref(actionRef);
+    const barEl = unref(barRef);
     if (!actionEl || !barEl) return;
-    const { actionWidth, offset, widthNum } = getOffset(actionEl.getEl());
+    const { actionWidth, offset, wrapperWidth } = getOffset(actionEl.getEl());
     const moveX = getEventPageX(e) - moveDistance;
 
     emit('move', {
@@ -123,8 +120,8 @@ function handleDragMoving(e: MouseEvent | TouchEvent) {
       actionEl.setLeft(`${moveX}px`);
       barEl.setWidth(`${moveX + actionWidth / 2}px`);
     } else if (moveX > offset) {
-      actionEl.setLeft(`${widthNum - actionWidth}px`);
-      barEl.setWidth(`${widthNum - actionWidth / 2}px`);
+      actionEl.setLeft(`${wrapperWidth - actionWidth}px`);
+      barEl.setWidth(`${wrapperWidth - actionWidth / 2}px`);
       if (!props.isSlot) {
         checkPass();
       }
@@ -136,16 +133,16 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
   const { isMoving, isPassing, moveDistance } = state;
   if (isMoving && !isPassing) {
     emit('end', e);
-    const actionEl = actionElRef.value;
-    const barEl = unref(barElRef);
+    const actionEl = actionRef.value;
+    const barEl = unref(barRef);
     if (!actionEl || !barEl) return;
     const moveX = getEventPageX(e) - moveDistance;
-    const { actionWidth, offset, widthNum } = getOffset(actionEl.getEl());
+    const { actionWidth, offset, wrapperWidth } = getOffset(actionEl.getEl());
     if (moveX < offset) {
       if (props.isSlot) {
         setTimeout(() => {
-          if (props.value) {
-            const contentEl = unref(contentElRef);
+          if (modelValue.value) {
+            const contentEl = unref(contentRef);
             if (contentEl) {
               contentEl.getEl().style.width = `${Number.parseInt(barEl.getEl().style.width)}px`;
             }
@@ -157,8 +154,8 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
         resume();
       }
     } else {
-      actionEl.setLeft(`${widthNum - actionWidth}px`);
-      barEl.setWidth(`${widthNum - actionWidth / 2}px`);
+      actionEl.setLeft(`${wrapperWidth - actionWidth + 10}px`);
+      barEl.setWidth(`${wrapperWidth - actionWidth / 2}px`);
       checkPass();
     }
     state.isMoving = false;
@@ -182,54 +179,55 @@ function resume() {
   state.toLeft = false;
   state.startTime = 0;
   state.endTime = 0;
-  const actionEl = unref(actionElRef);
-  const barEl = unref(barElRef);
-  const contentEl = unref(contentElRef);
+  const actionEl = unref(actionRef);
+  const barEl = unref(barRef);
+  const contentEl = unref(contentRef);
   if (!actionEl || !barEl || !contentEl) return;
   state.toLeft = true;
   useTimeoutFn(() => {
     state.toLeft = false;
-    actionEl.setLeft('0px');
-    barEl.setWidth('0px');
+    actionEl.setLeft('0');
+    barEl.setWidth('0');
   }, 300);
 }
 </script>
 
 <template>
   <div
-    ref="wrapElRef"
-    :style="getWrapStyleRef"
-    class="border-border relative overflow-hidden rounded-md border text-center"
+    ref="wrapperRef"
+    :class="
+      cn(
+        'border-border bg-background-deep relative flex h-10 w-full items-center overflow-hidden rounded-md border text-center',
+        props.class,
+      )
+    "
+    :style="wrapperStyle"
     @mouseleave="handleDragOver"
     @mousemove="handleDragMoving"
     @mouseup="handleDragOver"
     @touchend="handleDragOver"
     @touchmove="handleDragMoving"
   >
-    <BarCmp
-      ref="barElRef"
+    <SliderCaptchaBar
+      ref="barRef"
       :bar-style="barStyle"
-      :circle="circle"
-      :height="height"
       :to-left="state.toLeft"
     />
-    <ContentCmp
-      ref="contentElRef"
+    <SliderCaptchaContent
+      ref="contentRef"
       :content-style="contentStyle"
-      :height="height"
       :is-passing="state.isPassing"
-      :success-text="successText"
-      :text="text"
-      :width="width"
+      :success-text="successText || $t('ui.captcha.sliderSuccessText')"
+      :text="text || $t('ui.captcha.sliderDefaultText')"
     >
       <template v-if="$slots.text" #text>
         <slot :is-passing="state.isPassing" name="text"></slot>
       </template>
-    </ContentCmp>
-    <ActionCmp
-      ref="actionElRef"
+    </SliderCaptchaContent>
+
+    <SliderCaptchaAction
+      ref="actionRef"
       :action-style="actionStyle"
-      :height="height"
       :is-passing="state.isPassing"
       :to-left="state.toLeft"
       @mousedown="handleDragStart"
@@ -238,6 +236,6 @@ function resume() {
       <template v-if="$slots.actionIcon" #icon>
         <slot :is-passing="state.isPassing" name="actionIcon"></slot>
       </template>
-    </ActionCmp>
+    </SliderCaptchaAction>
   </div>
 </template>

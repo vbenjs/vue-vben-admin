@@ -1,22 +1,37 @@
 <script setup lang="ts">
-import type { DragVerifyActionType, VerifyMoveData } from '../typing';
+import type {
+  CaptchaVerifyPassingData,
+  SliderCaptchaActionType,
+  SliderRotateCaptchaProps,
+  SliderRotateVerifyPassingData,
+} from '../types';
 
-import { computed, reactive, ref, unref, watch } from 'vue';
+import { computed, reactive, unref, useTemplateRef, watch } from 'vue';
+
+import { $t } from '@vben/locales';
 
 import { useTimeoutFn } from '@vueuse/core';
 
-import DragVerify from '../drag-verify/index.vue';
-import { defaultRotateVerifyProps, type RotateProps } from '../props';
+import SliderCaptcha from '../slider-captcha/index.vue';
 
-const props = withDefaults(
-  defineProps<RotateProps>(),
-  defaultRotateVerifyProps(),
-);
-const emit = defineEmits(['success', 'change', 'update:value']);
-const basicRef = ref<DragVerifyActionType | null>(null);
+const props = withDefaults(defineProps<SliderRotateCaptchaProps>(), {
+  defaultTip: '',
+  diffDegree: 20,
+  imageSize: 260,
+  maxDegree: 300,
+  minDegree: 120,
+  src: '',
+});
+
+const emit = defineEmits<{
+  success: [CaptchaVerifyPassingData];
+}>();
+
+const slideBarRef = useTemplateRef<SliderCaptchaActionType>('slideBarRef');
+
 const state = reactive({
   currentRotate: 0,
-  draged: false,
+  dragging: false,
   endTime: 0,
   imgStyle: {},
   isPassing: false,
@@ -25,6 +40,9 @@ const state = reactive({
   startTime: 0,
   toOrigin: false,
 });
+
+const modalValue = defineModel<boolean>({ default: false });
+
 watch(
   () => state.isPassing,
   (isPassing) => {
@@ -32,18 +50,17 @@ watch(
       const { endTime, startTime } = state;
       const time = (endTime - startTime) / 1000;
       emit('success', { isPassing, time: time.toFixed(1) });
-      emit('change', isPassing);
-      emit('update:value', isPassing);
     }
+    modalValue.value = isPassing;
   },
 );
 
 const getImgWrapStyleRef = computed(() => {
-  const { imgWidth, imgWrapStyle } = props;
+  const { imageSize, imageWrapperStyle } = props;
   return {
-    height: `${imgWidth}px`,
-    width: `${imgWidth}px`,
-    ...imgWrapStyle,
+    height: `${imageSize}px`,
+    width: `${imageSize}px`,
+    ...imageWrapperStyle,
   };
 });
 
@@ -54,20 +71,21 @@ const getFactorRef = computed(() => {
   }
   return 1;
 });
+
 function handleStart() {
   state.startTime = Date.now();
 }
 
-function handleDragBarMove(data: VerifyMoveData) {
-  state.draged = true;
-  const { height, imgWidth, maxDegree } = props;
+function handleDragBarMove(data: SliderRotateVerifyPassingData) {
+  state.dragging = true;
+  const { imageSize, maxDegree } = props;
   const { moveX } = data;
-  const denominator = imgWidth! - Number.parseInt(height as string);
+  const denominator = imageSize!;
   if (denominator === 0) {
     return;
   }
   const currentRotate = Math.ceil(
-    (moveX / denominator) * maxDegree! * unref(getFactorRef),
+    (moveX / denominator) * 1.5 * maxDegree! * unref(getFactorRef),
   );
   state.currentRotate = currentRotate;
   setImgRotate(state.randomRotate - currentRotate);
@@ -113,7 +131,7 @@ function checkPass() {
 
 function resume() {
   state.showTip = false;
-  const basicEl = unref(basicRef);
+  const basicEl = unref(slideBarRef);
   if (!basicEl) {
     return;
   }
@@ -127,10 +145,12 @@ const imgCls = computed(() => {
   return state.toOrigin ? ['transition-transform duration-300'] : [];
 });
 
-const tip = computed(() => {
+const verifyTip = computed(() => {
   return state.isPassing
-    ? `验证校验成功,耗时${((state.endTime - state.startTime) / 1000).toFixed(1)}秒！`
-    : '验证失败！';
+    ? $t('ui.captcha.sliderRotateSuccessTip', [
+        ((state.endTime - state.startTime) / 1000).toFixed(1),
+      ])
+    : $t('ui.captcha.sliderRotateFailTip');
 });
 
 defineExpose({
@@ -142,46 +162,40 @@ defineExpose({
   <div class="relative flex flex-col items-center">
     <div
       :style="getImgWrapStyleRef"
-      class="relative overflow-hidden rounded-full"
+      class="border-border relative overflow-hidden rounded-full border shadow-md"
     >
       <img
         :class="imgCls"
         :src="src"
         :style="state.imgStyle"
-        :width="parseInt(props.width as string)"
         alt="verify"
         class="w-full rounded-full"
         @click="resume"
         @load="handleImgOnLoad"
       />
       <div
-        class="absolute bottom-[10px] left-0 z-10 block h-[30px] w-full text-center text-xs leading-[30px] text-white"
+        class="absolute bottom-3 left-0 z-10 block h-7 w-full text-center text-xs leading-[30px] text-white"
       >
         <div
           v-if="state.showTip"
-          :style="{
-            backgroundColor: state.isPassing
-              ? 'hsl(var(--success))'
-              : 'hsl(var(--red-700))',
+          :class="{
+            'bg-success/80': state.isPassing,
+            'bg-destructive/80': !state.isPassing,
           }"
         >
-          {{ tip }}
+          {{ verifyTip }}
         </div>
-        <div
-          v-if="!state.showTip && !state.draged"
-          class="bg-[rgba(0,0,0,0.3)]"
-        >
-          点击图片可刷新
+        <div v-if="!state.showTip && !state.dragging" class="bg-black/30">
+          {{ defaultTip || $t('ui.captcha.sliderRotateDefaultTip') }}
         </div>
       </div>
     </div>
 
-    <DragVerify
-      v-bind="props"
-      ref="basicRef"
-      :is-slot="true"
-      :value="state.isPassing"
+    <SliderCaptcha
+      ref="slideBarRef"
+      v-model="modalValue"
       class="mt-5"
+      is-slot
       @end="handleDragEnd"
       @move="handleDragBarMove"
       @start="handleStart"
@@ -189,6 +203,6 @@ defineExpose({
       <template v-for="(_, key) in $slots" :key="key" #[key]="slotProps">
         <slot :name="key" v-bind="slotProps"></slot>
       </template>
-    </DragVerify>
+    </SliderCaptcha>
   </div>
 </template>

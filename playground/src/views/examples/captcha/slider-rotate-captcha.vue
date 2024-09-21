@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { Page, RotateVerify } from '@vben/common-ui';
-import { Bell, Sun } from '@vben/icons';
+import { Page, SliderRotateCaptcha } from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
 import { useUserStore } from '@vben/stores';
 
@@ -19,18 +18,11 @@ const avatar = computed(() => {
 </script>
 
 <template>
-  <Page title="旋转校验示例">
-    <Card class="flex items-center justify-center p-4">
-      <RotateVerify
-        :src="avatar"
-        text="拖动以进行校验"
-        @success="handleSuccess"
-      >
-        <template #actionIcon="{ isPassing }">
-          <Bell v-if="isPassing" />
-          <Sun v-else />
-        </template>
-      </RotateVerify>
+  <Page description="用于前端简单的拖动校验场景" title="滑块旋转校验">
+    <Card class="mb-5" title="基本示例">
+      <div class="flex items-center justify-center p-4">
+        <SliderRotateCaptcha :src="avatar" @success="handleSuccess" />
+      </div>
     </Card>
   </Page>
 </template>

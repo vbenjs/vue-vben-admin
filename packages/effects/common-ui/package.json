@@ -23,6 +23,7 @@
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
+    "@vben-core/shared": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",

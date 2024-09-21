@@ -9,7 +9,7 @@ import { Card, Input, InputNumber, message, Switch } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
-const DEFAULT_CAPATCHA_IMAGE =
+const DEFAULT_CAPTCHA_IMAGE =
   'https://unpkg.com/@vbenjs/static-source@0.1.7/source/default-captcha-image.jpeg';
 
 const DEFAULT_HINT_IMAGE =
@@ -18,7 +18,7 @@ const DEFAULT_HINT_IMAGE =
 const selectedPoints = ref<CaptchaPoint[]>([]);
 const params = reactive({
   captchaImage: '',
-  captchaImageUrl: DEFAULT_CAPATCHA_IMAGE,
+  captchaImageUrl: DEFAULT_CAPTCHA_IMAGE,
   height: undefined,
   hintImage: '',
   hintImageUrl: DEFAULT_HINT_IMAGE,

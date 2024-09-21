@@ -1448,6 +1448,9 @@ importers:
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
