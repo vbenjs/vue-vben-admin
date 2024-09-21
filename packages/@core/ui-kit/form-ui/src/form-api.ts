@@ -5,7 +5,7 @@ import type {
   ValidationOptions,
 } from 'vee-validate';
 
-import type { FormActions, VbenFormProps } from './types';
+import type { FormActions, FormSchema, VbenFormProps } from './types';
 
 import { toRaw } from 'vue';
 
@@ -184,6 +184,37 @@ export class FormApi {
     // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();
+  }
+
+  updateSchema(schema: Partial<FormSchema>[]) {
+    const updated: Partial<FormSchema>[] = [...schema];
+    const hasField = updated.every(
+      (item) => Reflect.has(item, 'fieldName') && item.fieldName,
+    );
+
+    if (!hasField) {
+      console.error(
+        'All items in the schema array must have a valid `fieldName` property to be updated',
+      );
+      return;
+    }
+    const currentSchema = [...(this.state?.schema ?? [])];
+
+    const updatedMap: Record<string, any> = {};
+
+    updated.forEach((item) => {
+      if (item.fieldName) {
+        updatedMap[item.fieldName] = item;
+      }
+    });
+
+    currentSchema.forEach((schema, index) => {
+      const updatedData = updatedMap[schema.fieldName];
+      if (updatedData) {
+        currentSchema[index] = merge(updatedData, schema) as FormSchema;
+      }
+    });
+    this.setState({ schema: currentSchema });
   }
 
   async validate(opts?: Partial<ValidationOptions>) {
