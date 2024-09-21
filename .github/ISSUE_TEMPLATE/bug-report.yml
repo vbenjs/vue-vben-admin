@@ -1,7 +1,7 @@
 name: 🐞 Bug Report
 description: Report an issue with Vben Admin to help us make it better.
-title: "Bug: "
-labels: ["bug: pending triage"]
+title: 'Bug: '
+labels: ['bug: pending triage']
 
 body:
   - type: markdown

@@ -95,10 +95,10 @@
     "vue-tsc": "catalog:"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=20.10.0",
     "pnpm": ">=9.5.0"
   },
-  "packageManager": "pnpm@9.10.0",
+  "packageManager": "pnpm@9.11.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
@@ -109,7 +109,7 @@
       "@ctrl/tinycolor": "4.1.0",
       "clsx": "2.1.1",
       "pinia": "2.2.2",
-      "vue": "3.5.6"
+      "vue": "3.5.7"
     },
     "neverBuiltDependencies": [
       "canvas",
