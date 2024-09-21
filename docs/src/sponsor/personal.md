@@ -2,7 +2,7 @@
 
 如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
 
-![](https://unpkg.com/@vbenjs/static-source@0.1.6/source/sponsor.png)
+![](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
 
 您的赞助将帮助我们：
 

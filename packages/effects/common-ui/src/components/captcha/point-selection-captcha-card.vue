@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CaptchaCardProps } from './types';
+import type { PointSelectionCaptchaCardProps } from './types';
 
 import { computed } from 'vue';
 
@@ -14,7 +14,7 @@ import {
 
 import { parseValue } from './utils';
 
-const props = withDefaults(defineProps<CaptchaCardProps>(), {
+const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',
   paddingX: '12px',
   paddingY: '16px',

@@ -199,7 +199,7 @@ function resume() {
   <div
     ref="wrapElRef"
     :style="getWrapStyleRef"
-    class="relative overflow-hidden rounded-md border border-gray-300 text-center"
+    class="border-border relative overflow-hidden rounded-md border text-center"
     @mouseleave="handleDragOver"
     @mousemove="handleDragMoving"
     @mouseup="handleDragOver"

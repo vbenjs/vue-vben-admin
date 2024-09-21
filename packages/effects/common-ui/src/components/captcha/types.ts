@@ -18,7 +18,7 @@ export interface CaptchaPoint extends CaptchaData {
    */
   i: number;
 }
-export interface CaptchaCardProps {
+export interface PointSelectionCaptchaCardProps {
   /**
    * 验证码图片
    */
@@ -50,7 +50,8 @@ export interface CaptchaCardProps {
   width?: number | string;
 }
 
-export interface PointSelectionCaptchaProps extends CaptchaCardProps {
+export interface PointSelectionCaptchaProps
+  extends PointSelectionCaptchaCardProps {
   /**
    * 是否展示确定按钮
    * @default false
@@ -71,7 +72,7 @@ export interface PointSelectionCaptchaProps extends CaptchaCardProps {
 /**
  * TODO: 滑动验证码
  */
-// export interface SlideCaptchaProps extends CaptchaCardProps {
+// export interface SlideCaptchaProps extends PointSelectionCaptchaCardProps {
 //   /**
 //    * 瓦片图片高度
 //    * @default '40px'

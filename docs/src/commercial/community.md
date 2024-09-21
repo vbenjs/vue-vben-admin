@@ -24,4 +24,4 @@
 
 :::
 
-<img src="https://unpkg.com/@vbenjs/static-source@0.1.6/source/wechat.jpg" style="width: 300px;"/>
+<img src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/wechat.jpg" style="width: 300px;"/>
