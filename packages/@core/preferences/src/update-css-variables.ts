@@ -1,9 +1,7 @@
 import type { Preferences } from './types';
 
-import {
-  updateCSSVariables as executeUpdateCSSVariables,
-  generatorColorVariables,
-} from '@vben-core/shared';
+import { generatorColorVariables } from '@vben-core/shared/color';
+import { updateCSSVariables as executeUpdateCSSVariables } from '@vben-core/shared/utils';
 
 import { BUILT_IN_THEME_PRESETS } from './constants';
 
@@ -88,21 +86,22 @@ function updateMainColorVariables(preference: Preferences) {
     { alias: 'destructive', color: colorDestructive, name: 'red' },
   ]);
 
-  if (colorPrimary) {
-    const mainColor = colorVariables['--primary-500'];
-    mainColor &&
-      document.documentElement.style.setProperty('--primary', mainColor);
-  }
+  // 要设置的 CSS 变量映射
+  const colorMappings = {
+    '--green-500': '--success',
+    '--primary-500': '--primary',
+    '--red-500': '--destructive',
+    '--yellow-500': '--warning',
+  };
 
-  if (colorVariables['--green-500']) {
-    colorVariables['--success'] = colorVariables['--green-500'];
-  }
-  if (colorVariables['--yellow-500']) {
-    colorVariables['--warning'] = colorVariables['--yellow-500'];
-  }
-  if (colorVariables['--red-500']) {
-    colorVariables['--destructive'] = colorVariables['--red-500'];
-  }
+  // 统一处理颜色变量的更新
+  Object.entries(colorMappings).forEach(([sourceVar, targetVar]) => {
+    const colorValue = colorVariables[sourceVar];
+    if (colorValue) {
+      document.documentElement.style.setProperty(targetVar, colorValue);
+    }
+  });
+
   executeUpdateCSSVariables(colorVariables);
 }
 

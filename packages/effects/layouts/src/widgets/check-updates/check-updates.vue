@@ -7,12 +7,15 @@ import { ToastAction, useToast } from '@vben-core/shadcn-ui';
 interface Props {
   // 轮训时间，分钟
   checkUpdatesInterval?: number;
+  // 检查更新的地址
+  checkUpdateUrl?: string;
 }
 
 defineOptions({ name: 'CheckUpdates' });
 
 const props = withDefaults(defineProps<Props>(), {
   checkUpdatesInterval: 1,
+  checkUpdateUrl: import.meta.env.BASE_URL || '/',
 });
 
 const lastVersionTag = ref('');
@@ -28,7 +31,7 @@ async function getVersionTag() {
     ) {
       return null;
     }
-    const response = await fetch('/', {
+    const response = await fetch(props.checkUpdateUrl, {
       cache: 'no-cache',
       method: 'HEAD',
     });

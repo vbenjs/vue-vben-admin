@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   ContextMenuItem,
@@ -11,7 +11,7 @@ import {
 } from 'radix-vue';
 
 const props = defineProps<
-  { class?: HTMLAttributes['class']; inset?: boolean } & ContextMenuItemProps
+  { class?: any; inset?: boolean } & ContextMenuItemProps
 >();
 const emits = defineEmits<ContextMenuItemEmits>();
 

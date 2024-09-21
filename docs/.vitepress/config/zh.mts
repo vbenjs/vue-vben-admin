@@ -160,6 +160,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           link: 'common-ui/vben-drawer',
           text: 'Vben Drawer 抽屉',
         },
+        {
+          link: 'common-ui/vben-form',
+          text: 'Vben Form 表单',
+        },
       ],
     },
   ];

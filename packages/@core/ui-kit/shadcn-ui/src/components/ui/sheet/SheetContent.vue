@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   DialogContent,
   type DialogContentEmits,
   type DialogContentProps,
-  DialogOverlay,
   DialogPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
 
 import { type SheetVariants, sheetVariants } from './sheet';
+import SheetOverlay from './SheetOverlay.vue';
 
 interface SheetContentProps extends DialogContentProps {
-  class?: HTMLAttributes['class'];
+  class?: any;
+  modal?: boolean;
+  open?: boolean;
   side?: SheetVariants['side'];
 }
 
@@ -28,7 +30,13 @@ const props = defineProps<SheetContentProps>();
 const emits = defineEmits<DialogContentEmits>();
 
 const delegatedProps = computed(() => {
-  const { class: _, side: _side, ...delegated } = props;
+  const {
+    class: _,
+    modal: _modal,
+    open: _open,
+    side: _side,
+    ...delegated
+  } = props;
 
   return delegated;
 });
@@ -38,10 +46,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DialogPortal>
-    <DialogOverlay
-      class="bg-overlay data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[1000]"
-      data-dismissable-modal="true"
-    />
+    <Transition name="fade">
+      <SheetOverlay v-if="open && modal" />
+    </Transition>
     <DialogContent
       :class="cn(sheetVariants({ side }), 'z-[1000]', props.class)"
       v-bind="{ ...forwarded, ...$attrs }"

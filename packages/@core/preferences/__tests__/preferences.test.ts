@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { defaultPreferences } from './config';
-import { PreferenceManager } from './preferences';
-import { isDarkTheme } from './update-css-variables';
+import { defaultPreferences } from '../src/config';
+import { PreferenceManager } from '../src/preferences';
+import { isDarkTheme } from '../src/update-css-variables';
 
 describe('preferences', () => {
   let preferenceManager: PreferenceManager;

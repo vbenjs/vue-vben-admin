@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { ToastTitle, type ToastTitleProps } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & ToastTitleProps
->();
+const props = defineProps<{ class?: any } & ToastTitleProps>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

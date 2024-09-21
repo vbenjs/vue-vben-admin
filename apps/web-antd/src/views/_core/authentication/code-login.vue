@@ -1,15 +1,49 @@
 <script lang="ts" setup>
-import type { LoginCodeParams } from '@vben/common-ui';
+import type { LoginCodeParams, VbenFormSchema } from '@vben/common-ui';
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-import { AuthenticationCodeLogin } from '@vben/common-ui';
-import { LOGIN_PATH } from '@vben/constants';
+import { AuthenticationCodeLogin, z } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 
 defineOptions({ name: 'CodeLogin' });
 
 const loading = ref(false);
 
+const formSchema = computed((): VbenFormSchema[] => {
+  return [
+    {
+      component: 'VbenInput',
+      componentProps: {
+        placeholder: $t('authentication.mobile'),
+      },
+      fieldName: 'phoneNumber',
+      label: $t('authentication.mobile'),
+      rules: z
+        .string()
+        .min(1, { message: $t('authentication.mobileTip') })
+        .refine((v) => /^\d{11}$/.test(v), {
+          message: $t('authentication.mobileErrortip'),
+        }),
+    },
+    {
+      component: 'VbenPinInput',
+      componentProps: {
+        createText: (countdown: number) => {
+          const text =
+            countdown > 0
+              ? $t('authentication.sendText', [countdown])
+              : $t('authentication.sendCode');
+          return text;
+        },
+        placeholder: $t('authentication.code'),
+      },
+      fieldName: 'code',
+      label: $t('authentication.code'),
+      rules: z.string().min(1, { message: $t('authentication.codeTip') }),
+    },
+  ];
+});
 /**
  * 异步处理登录操作
  * Asynchronously handle the login process
@@ -23,8 +57,8 @@ async function handleLogin(values: LoginCodeParams) {
 
 <template>
   <AuthenticationCodeLogin
+    :form-schema="formSchema"
     :loading="loading"
-    :login-path="LOGIN_PATH"
     @submit="handleLogin"
   />
 </template>

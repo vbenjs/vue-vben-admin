@@ -3,7 +3,11 @@ import type { Router, RouteRecordNormalized } from 'vue-router';
 
 import { toRaw } from 'vue';
 
-import { openWindow, startProgress, stopProgress } from '@vben-core/shared';
+import {
+  openWindow,
+  startProgress,
+  stopProgress,
+} from '@vben-core/shared/utils';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
@@ -461,7 +465,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
   persist: [
     // tabs不需要保存在localStorage
     {
-      paths: ['tabs'],
+      pick: ['tabs'],
       storage: sessionStorage,
     },
   ],

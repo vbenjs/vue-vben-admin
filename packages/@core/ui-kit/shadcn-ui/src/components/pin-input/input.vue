@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PinInputProps } from './types';
 
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { VbenButton } from '../button';
 import { PinInput, PinInputGroup, PinInputInput } from '../ui/pin-input';
@@ -14,21 +14,27 @@ const props = withDefaults(defineProps<PinInputProps>(), {
   btnLoading: false,
   codeLength: 6,
   handleSendCode: async () => {},
+  maxTime: 60,
 });
 
 const emit = defineEmits<{
   complete: [];
 }>();
 
+const timer = ref<ReturnType<typeof setTimeout>>();
+
 const modelValue = defineModel<string>();
 
 const inputValue = ref<string[]>([]);
+const countdown = ref(0);
 
-const inputClass = computed(() => {
-  if (props.status === 'error') {
-    return 'border-destructive';
-  }
-  return '';
+const btnText = computed(() => {
+  const countdownValue = countdown.value;
+  return props.createText?.(countdownValue);
+});
+
+const btnLoading = computed(() => {
+  return props.loading || countdown.value > 0;
 });
 
 watch(
@@ -42,45 +48,58 @@ function handleComplete(e: string[]) {
   modelValue.value = e.join('');
   emit('complete');
 }
+
+async function handleSend(e: Event) {
+  e?.preventDefault();
+  await props.handleSendCode();
+  countdown.value = props.maxTime;
+  startCountdown();
+}
+
+function startCountdown() {
+  if (countdown.value > 0) {
+    timer.value = setTimeout(() => {
+      countdown.value--;
+      startCountdown();
+    }, 1000);
+  }
+}
+
+onBeforeUnmount(() => {
+  countdown.value = 0;
+  clearTimeout(timer.value);
+});
+
+const id = useId();
 </script>
 
 <template>
-  <div class="relative mb-6">
-    <label :for="name" class="mb-2 block text-sm font-medium">
-      {{ label }}
-    </label>
-    <PinInput
-      :id="name"
-      v-model="inputValue"
-      :class="inputClass"
-      class="flex justify-between"
-      otp
-      placeholder="○"
-      type="number"
-      @complete="handleComplete"
-    >
-      <PinInputGroup>
+  <PinInput
+    :id="id"
+    v-model="inputValue"
+    class="flex w-full justify-between"
+    otp
+    placeholder="○"
+    type="number"
+    @complete="handleComplete"
+  >
+    <div class="relative flex w-full">
+      <PinInputGroup class="mr-2">
         <PinInputInput
-          v-for="(id, index) in codeLength"
-          :key="id"
+          v-for="(item, index) in codeLength"
+          :key="item"
           :index="index"
         />
       </PinInputGroup>
       <VbenButton
         :loading="btnLoading"
-        class="w-[300px] xl:w-full"
+        class="flex-grow"
         size="lg"
         variant="outline"
-        @click="handleSendCode"
+        @click="handleSend"
       >
         {{ btnText }}
       </VbenButton>
-    </PinInput>
-    <p
-      v-if="status === 'error'"
-      class="text-destructive bottom-130 absolute mt-1 text-xs"
-    >
-      {{ errorTip }}
-    </p>
-  </div>
+    </div>
+  </PinInput>
 </template>

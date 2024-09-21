@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
-
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import { AvatarRoot } from 'radix-vue';
 
@@ -9,7 +7,7 @@ import { avatarVariant, type AvatarVariants } from './avatar';
 
 const props = withDefaults(
   defineProps<{
-    class?: HTMLAttributes['class'];
+    class?: any;
     shape?: AvatarVariants['shape'];
     size?: AvatarVariants['size'];
   }>(),

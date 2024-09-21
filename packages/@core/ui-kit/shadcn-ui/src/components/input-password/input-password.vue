@@ -2,13 +2,18 @@
 import { ref, useSlots } from 'vue';
 
 import { Eye, EyeOff } from '@vben-core/icons';
+import { cn } from '@vben-core/shared/utils';
 
-import { useForwardProps } from 'radix-vue';
-
-import { type InputProps, VbenInput } from '../input';
+import { Input } from '../ui/input';
 import PasswordStrength from './password-strength.vue';
 
-interface Props extends InputProps {}
+interface Props {
+  class?: any;
+  /**
+   * 是否显示密码强度
+   */
+  passwordStrength?: boolean;
+}
 
 defineOptions({
   inheritAttrs: false,
@@ -19,30 +24,30 @@ const props = defineProps<Props>();
 const modelValue = defineModel<string>();
 
 const slots = useSlots();
-const forward = useForwardProps(props);
 
 const show = ref(false);
 </script>
 
 <template>
-  <div class="relative">
-    <VbenInput
+  <div class="relative w-full">
+    <Input
+      v-bind="$attrs"
       v-model="modelValue"
-      v-bind="{ ...forward, ...$attrs }"
+      :class="cn(props.class)"
       :type="show ? 'text' : 'password'"
-    >
-      <template v-if="passwordStrength">
-        <PasswordStrength :password="modelValue" />
-        <p
-          v-if="slots.strengthText"
-          class="text-muted-foreground mt-1.5 text-xs"
-        >
-          <slot name="strengthText"> </slot>
-        </p>
-      </template>
-    </VbenInput>
+    />
+    <template v-if="passwordStrength">
+      <PasswordStrength :password="modelValue" />
+      <p v-if="slots.strengthText" class="text-muted-foreground mt-1.5 text-xs">
+        <slot name="strengthText"> </slot>
+      </p>
+    </template>
     <div
-      class="hover:text-foreground text-foreground/60 absolute inset-y-0 right-0 top-3 flex cursor-pointer pr-3 text-lg leading-5"
+      :class="{
+        'top-3': !!passwordStrength,
+        'top-1/2 -translate-y-1/2 items-center': !passwordStrength,
+      }"
+      class="hover:text-foreground text-foreground/60 absolute inset-y-0 right-0 flex cursor-pointer pr-3 text-lg leading-5"
       @click="show = !show"
     >
       <Eye v-if="show" class="size-4" />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   SwitchRoot,
@@ -11,9 +11,7 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<
-  { class?: HTMLAttributes['class'] } & SwitchRootProps
->();
+const props = defineProps<{ class?: any } & SwitchRootProps>();
 
 const emits = defineEmits<SwitchRootEmits>();
 

@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shared",
-  "version": "5.2.2",
+  "version": "5.3.0-beta.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -17,14 +17,7 @@
     "dist"
   ],
   "sideEffects": false,
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
-    },
     "./constants": {
       "types": "./src/constants/index.ts",
       "development": "./src/constants/index.ts",
@@ -53,25 +46,42 @@
   },
   "publishConfig": {
     "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+      "./constants": {
+        "types": "./dist/constants/index.d.ts",
+        "default": "./dist/constants/index.mjs"
+      },
+      "./utils": {
+        "types": "./dist/utils/index.d.ts",
+        "default": "./dist/utils/index.mjs"
+      },
+      "./color": {
+        "types": "./dist/color/index.d.ts",
+        "default": "./dist/color/index.mjs"
+      },
+      "./cache": {
+        "types": "./dist/cache/index.d.ts",
+        "default": "./dist/cache/index.mjs"
+      },
+      "./store": {
+        "types": "./dist/store/index.d.ts",
+        "default": "./dist/store.mjs"
       }
     }
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
-    "@tanstack/vue-store": "^0.5.5",
-    "@vue/shared": "^3.5.3",
-    "clsx": "^2.1.1",
-    "defu": "^6.1.4",
-    "lodash.clonedeep": "^4.5.0",
-    "nprogress": "^0.2.0",
-    "tailwind-merge": "^2.5.2",
-    "theme-colors": "^0.1.0"
+    "@ctrl/tinycolor": "catalog:",
+    "@tanstack/vue-store": "catalog:",
+    "@vue/reactivity": "catalog:",
+    "@vue/shared": "catalog:",
+    "clsx": "catalog:",
+    "defu": "catalog:",
+    "lodash.clonedeep": "catalog:",
+    "nprogress": "catalog:",
+    "tailwind-merge": "catalog:",
+    "theme-colors": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash.clonedeep": "^4.5.9",
-    "@types/nprogress": "^0.2.3"
+    "@types/lodash.clonedeep": "catalog:",
+    "@types/nprogress": "catalog:"
   }
 }

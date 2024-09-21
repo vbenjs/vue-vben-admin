@@ -4,9 +4,11 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import {
   CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
   CSS_VARIABLE_LAYOUT_CONTENT_WIDTH,
+} from '@vben-core/shared/constants';
+import {
   getElementVisibleRect,
   type VisibleDomRect,
-} from '@vben-core/shared';
+} from '@vben-core/shared/utils';
 
 import { useCssVar, useDebounceFn } from '@vueuse/core';
 

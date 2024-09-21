@@ -20,7 +20,13 @@ permissions:
 jobs:
   post-update:
     # if: ${{ github.actor == 'dependabot[bot]' }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          # - macos-latest
+          - windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

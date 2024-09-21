@@ -34,7 +34,7 @@ describe('fileUploader', () => {
       mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>
     ).mockResolvedValueOnce(mockResponse);
 
-    const result = await fileUploader.upload(url, file);
+    const result = await fileUploader.upload(url, { file });
     expect(result).toEqual(mockResponse);
     expect(mockAxiosInstance.post).toHaveBeenCalledWith(
       url,
@@ -66,7 +66,7 @@ describe('fileUploader', () => {
       headers: { 'Custom-Header': 'value' },
     };
 
-    const result = await fileUploader.upload(url, file, customConfig);
+    const result = await fileUploader.upload(url, { file }, customConfig);
     expect(result).toEqual(mockResponse);
     expect(mockAxiosInstance.post).toHaveBeenCalledWith(
       url,
@@ -87,7 +87,7 @@ describe('fileUploader', () => {
       mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>
     ).mockRejectedValueOnce(new Error('Network Error'));
 
-    await expect(fileUploader.upload(url, file)).rejects.toThrow(
+    await expect(fileUploader.upload(url, { file })).rejects.toThrow(
       'Network Error',
     );
   });
@@ -99,7 +99,7 @@ describe('fileUploader', () => {
       mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>
     ).mockRejectedValueOnce(new Error('Request failed with status code 404'));
 
-    await expect(fileUploader.upload(url, file)).rejects.toThrow(
+    await expect(fileUploader.upload(url, { file })).rejects.toThrow(
       'Request failed with status code 404',
     );
   });
@@ -111,7 +111,7 @@ describe('fileUploader', () => {
       mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>
     ).mockRejectedValueOnce(new Error('Request failed with status code 404'));
 
-    await expect(fileUploader.upload(url, file)).rejects.toThrow(
+    await expect(fileUploader.upload(url, { file })).rejects.toThrow(
       'Request failed with status code 404',
     );
   });

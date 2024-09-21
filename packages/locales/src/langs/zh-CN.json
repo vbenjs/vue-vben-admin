@@ -48,11 +48,15 @@
       "requestTimeout": "请求超时，请稍后再试。",
       "networkError": "网络异常，请检查您的网络连接后重试。",
       "badRequest": "请求错误。请检查您的输入并重试。",
-      "unauthorized": "登录认证过期。请重新登录后继续。",
+      "unauthorized": "登录认证过期，请重新登录后继续。",
       "forbidden": "禁止访问, 您没有权限访问此资源。",
       "notFound": "未找到, 请求的资源不存在。",
       "internalServerError": "内部服务器错误，请稍后再试。"
     }
+  },
+  "formRules": {
+    "required": "请输入{0}",
+    "selectRequired": "请选择{0}"
   },
   "widgets": {
     "document": "文档",
@@ -93,10 +97,12 @@
     "loginSuccess": "登录成功",
     "loginSuccessDesc": "欢迎回来",
     "loginSubtitle": "请输入您的帐户信息以开始管理您的项目",
+    "selectAccount": "快速选择账号",
     "username": "账号",
     "password": "密码",
     "usernameTip": "请输入用户名",
     "passwordTip": "请输入密码",
+    "passwordErrorTip": "密码错误",
     "rememberMe": "记住账号",
     "createAnAccount": "创建一个账号",
     "createAccount": "创建账号",
@@ -115,6 +121,7 @@
     "forgetPassword": "忘记密码?",
     "forgetPasswordSubtitle": "输入您的电子邮件，我们将向您发送重置密码的连接",
     "emailTip": "请输入邮箱",
+    "emailValidErrorTip": "你输入的邮箱格式不正确",
     "sendResetLink": "发送重置链接",
     "email": "邮箱",
     "qrcodeSubtitle": "请用手机扫描二维码登录",
@@ -124,8 +131,9 @@
     "code": "验证码",
     "codeTip": "请输入验证码",
     "mobile": "手机号码",
+    "mobileTip": "请输入手机号",
+    "mobileErrortip": "手机号码格式错误",
     "mobileLogin": "手机号登录",
-    "mobile-tip": "请输入手机号码",
     "sendCode": "获取验证码",
     "sendText": "{0}秒后重新获取",
     "thirdPartyLogin": "其他登录方式",
@@ -304,5 +312,14 @@
       "sidebarToggle": "启用侧边栏切换",
       "lockScreen": "启用锁屏"
     }
+  },
+  "captcha": {
+    "alt": "支持img标签src属性值",
+    "title": "请完成安全验证",
+    "refreshAriaLabel": "刷新验证码",
+    "confirmAriaLabel": "确认选择",
+    "confirm": "确认",
+    "pointAriaLabel": "点击点",
+    "clickInOrder": "请依次点击"
   }
 }

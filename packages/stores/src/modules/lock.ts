@@ -24,7 +24,7 @@ export const useLockStore = defineStore('core-lock', {
     },
   },
   persist: {
-    paths: ['isLockScreen', 'lockScreenPassword'],
+    pick: ['isLockScreen', 'lockScreenPassword'],
   },
   state: (): AppState => ({
     isLockScreen: false,

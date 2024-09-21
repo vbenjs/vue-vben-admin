@@ -23,16 +23,23 @@
     scroll-behavior: smooth;
     text-rendering: optimizelegibility;
     -webkit-tap-highlight-color: transparent;
+
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
   }
 
   #app,
   body,
   html {
-    @apply !pointer-events-auto size-full overscroll-none;
+    @apply size-full overscroll-none;
+
+    /* scrollbar-gutter: stable; */
   }
 
   body {
     min-height: 100vh;
+
+    /* pointer-events: auto !important; */
 
     /* overflow: overlay; */
 
@@ -87,6 +94,7 @@
   }
 
   /* 只有非mac下才进行调整，mac下使用默认滚动条 */
+
   html:not([data-platform='macOs']) {
     ::-webkit-scrollbar {
       @apply h-[10px] w-[10px];

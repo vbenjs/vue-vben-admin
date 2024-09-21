@@ -47,7 +47,10 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
     const regex = /<DemoPreview[^>]*\sdir="([^"]*)"/g;
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replaceAll(regex, (_match, dir) => {
-      const componentDir = join(process.cwd(), 'src', dir);
+      const componentDir = join(process.cwd(), 'src', dir).replaceAll(
+        '\\',
+        '/',
+      );
 
       let childFiles: string[] = [];
       let dirExists = true;
@@ -80,7 +83,12 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
       if (!state.tokens[index]) {
         return '';
       }
-
+      const firstString = 'index.vue';
+      childFiles = childFiles.sort((a, b) => {
+        if (a === firstString) return -1;
+        if (b === firstString) return 1;
+        return a.localeCompare(b, 'en', { sensitivity: 'base' });
+      });
       state.tokens[index].content =
         `<DemoPreview files="${encodeURIComponent(JSON.stringify(childFiles))}" ><${ComponentName}/>
         `;

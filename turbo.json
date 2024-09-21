@@ -30,7 +30,9 @@
       "dependsOn": ["^build"],
       "outputs": [".nitro/**", ".output/**"]
     },
-    "stub": {},
+    "stub": {
+      "cache": false
+    },
     "dev": {
       "dependsOn": [],
       "outputs": [],

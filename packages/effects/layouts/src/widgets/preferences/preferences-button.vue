@@ -13,7 +13,7 @@ function clearPreferencesAndLogout() {
 <template>
   <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout">
     <VbenIconButton>
-      <Settings class="size-4" />
+      <Settings class="text-foreground size-4" />
     </VbenIconButton>
   </Preferences>
 </template>

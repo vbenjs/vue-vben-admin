@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
-import { cn } from '@vben-core/shared';
+import { cn } from '@vben-core/shared/utils';
 
 import {
   SelectContent,
@@ -20,7 +20,7 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<{ class?: HTMLAttributes['class'] } & SelectContentProps>(),
+  defineProps<{ class?: any } & SelectContentProps>(),
   {
     position: 'popper',
   },

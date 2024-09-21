@@ -50,3 +50,38 @@ export function getElementVisibleRect(
     width: Math.max(0, right - left),
   };
 }
+
+export function getScrollbarWidth() {
+  const scrollDiv = document.createElement('div');
+
+  scrollDiv.style.visibility = 'hidden';
+  scrollDiv.style.overflow = 'scroll';
+  scrollDiv.style.position = 'absolute';
+  scrollDiv.style.top = '-9999px';
+
+  document.body.append(scrollDiv);
+
+  const innerDiv = document.createElement('div');
+  scrollDiv.append(innerDiv);
+
+  const scrollbarWidth = scrollDiv.offsetWidth - innerDiv.offsetWidth;
+
+  scrollDiv.remove();
+  return scrollbarWidth;
+}
+
+export function needsScrollbar() {
+  const doc = document.documentElement;
+  const body = document.body;
+
+  // 检查 body 的 overflow-y 样式
+  const overflowY = window.getComputedStyle(body).overflowY;
+
+  // 如果明确设置了需要滚动条的样式
+  if (overflowY === 'scroll' || overflowY === 'auto') {
+    return doc.scrollHeight > window.innerHeight;
+  }
+
+  // 在其他情况下，根据 scrollHeight 和 innerHeight 比较判断
+  return doc.scrollHeight > window.innerHeight;
+}
