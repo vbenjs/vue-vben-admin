@@ -52,7 +52,6 @@ const {
   license,
   version,
   // vite inject-metadata 插件注入的全局变量
-  // eslint-disable-next-line no-undef
 } = __VBEN_ADMIN_METADATA__ || {};
 
 const vbenDescriptionItems: DescriptionItem[] = [

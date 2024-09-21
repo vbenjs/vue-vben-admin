@@ -6,7 +6,7 @@ import { FormApi } from '../src/form-api';
 vi.mock('@vben-core/shared/utils', () => ({
   bindMethods: vi.fn(),
   createMerge: vi.fn((mergeFn) => {
-    return (stateOrFn, prev) => {
+    return (stateOrFn: any, prev: any) => {
       mergeFn(prev, 'key', stateOrFn);
       return { ...prev, ...stateOrFn };
     };
@@ -142,5 +142,66 @@ describe('formApi', () => {
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);
+  });
+});
+
+describe('updateSchema', () => {
+  let instance: FormApi;
+
+  beforeEach(() => {
+    instance = new FormApi();
+    instance.state = {
+      schema: [
+        { component: 'text', fieldName: 'name' },
+        { component: 'number', fieldName: 'age', label: 'Age' },
+      ],
+    };
+  });
+
+  it('should update the schema correctly when fieldName matches', () => {
+    const newSchema = [
+      { component: 'text', fieldName: 'name' },
+      { component: 'number', fieldName: 'age', label: 'Age' },
+    ];
+
+    instance.updateSchema(newSchema);
+
+    expect(instance.state?.schema?.[0]?.component).toBe('text');
+    expect(instance.state?.schema?.[1]?.label).toBe('Age');
+  });
+
+  it('should log an error if fieldName is missing in some items', () => {
+    const newSchema: any[] = [
+      { component: 'textarea', fieldName: 'name' },
+      { component: 'number' },
+    ];
+
+    const consoleErrorSpy = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    instance.updateSchema(newSchema);
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'All items in the schema array must have a valid `fieldName` property to be updated',
+    );
+  });
+
+  it('should not update schema if fieldName does not match', () => {
+    const newSchema = [{ component: 'textarea', fieldName: 'unknown' }];
+
+    instance.updateSchema(newSchema);
+
+    expect(instance.state?.schema?.[0]?.component).toBe('text');
+    expect(instance.state?.schema?.[1]?.component).toBe('number');
+  });
+
+  it('should not update schema if updatedMap is empty', () => {
+    const newSchema: any[] = [{ component: 'textarea' }];
+
+    instance.updateSchema(newSchema);
+
+    expect(instance.state?.schema?.[0]?.component).toBe('text');
+    expect(instance.state?.schema?.[1]?.component).toBe('number');
   });
 });

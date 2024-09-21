@@ -1,9 +1,9 @@
-name: "Setup Node"
+name: 'Setup Node'
 
-description: "Setup node and pnpm"
+description: 'Setup node and pnpm'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Install pnpm
       uses: pnpm/action-setup@v4
@@ -12,7 +12,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version
-        cache: "pnpm"
+        cache: 'pnpm'
 
     - name: Get pnpm store directory
       shell: bash

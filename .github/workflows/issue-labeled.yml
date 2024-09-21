@@ -19,27 +19,27 @@ jobs:
         if: github.event.label.name == 'enhancement'
         uses: actions-cool/issues-helper@v3
         with:
-          actions: "remove-labels"
+          actions: 'remove-labels'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
-          labels: "enhancement: pending triage"
+          labels: 'enhancement: pending triage'
 
       - name: remove bug pending
         if: github.event.label.name == 'bug'
         uses: actions-cool/issues-helper@v3
         with:
-          actions: "remove-labels"
+          actions: 'remove-labels'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
-          labels: "bug: pending triage"
+          labels: 'bug: pending triage'
 
       - name: needs reproduction
         if: github.event.label.name == 'needs reproduction'
         uses: actions-cool/issues-helper@v3
         with:
-          actions: "create-comment, remove-labels"
+          actions: 'create-comment, remove-labels'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hello @${{ github.event.issue.user.login }}. Please provide the complete reproduction steps and code. Issues labeled by `needs reproduction` will be closed if no activities in 3 days.
-          labels: "bug: pending triage"
+          labels: 'bug: pending triage'
