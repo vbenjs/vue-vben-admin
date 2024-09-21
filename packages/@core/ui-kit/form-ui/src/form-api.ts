@@ -196,6 +196,7 @@ export class FormApi {
       console.error(
         'All items in the schema array must have a valid `fieldName` property to be updated',
       );
+      return;
     }
     const currentSchema = [...(this.state?.schema ?? [])];
 
