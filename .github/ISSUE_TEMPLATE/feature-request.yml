@@ -1,7 +1,7 @@
 name: ✨ New Feature Proposal
 description: Propose a new feature to be added to Vben Admin
-title: "FEATURE: "
-labels: ["enhancement: pending triage"]
+title: 'FEATURE: '
+labels: ['enhancement: pending triage']
 body:
   - type: markdown
     attributes:

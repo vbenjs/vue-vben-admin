@@ -147,7 +147,7 @@ export async function javascript(): Promise<Linter.Config[]> {
         'no-template-curly-in-string': 'error',
         'no-this-before-super': 'error',
         'no-throw-literal': 'error',
-        'no-undef': 'error',
+        'no-undef': 'off',
         'no-undef-init': 'error',
         'no-unexpected-multiline': 'error',
         'no-unmodified-loop-condition': 'error',

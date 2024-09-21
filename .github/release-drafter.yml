@@ -1,7 +1,7 @@
-name-template: "v$RESOLVED_VERSION"
-tag-template: "v$RESOLVED_VERSION"
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
 version-template: $MAJOR.$MINOR.$PATCH
-change-template: "* $TITLE (#$NUMBER) @$AUTHOR"
+change-template: '* $TITLE (#$NUMBER) @$AUTHOR'
 template: |
   # What's Changed
 
@@ -10,52 +10,52 @@ template: |
   **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 
 categories:
-  - title: "🚀 Features"
+  - title: '🚀 Features'
     labels:
-      - "feature"
-  - title: "🐞 Bug Fixes"
+      - 'feature'
+  - title: '🐞 Bug Fixes'
     labels:
-      - "bug"
-  - title: "📈 Performance"
+      - 'bug'
+  - title: '📈 Performance'
     labels:
-      - "perf"
-      - "enhancement"
+      - 'perf'
+      - 'enhancement'
   - title: 📝 Documentation
     labels:
-      - "documentation"
+      - 'documentation'
   - title: 👻 Maintenance
     labels:
-      - "chore"
-      - "dependencies"
+      - 'chore'
+      - 'dependencies'
     # collapse-after: 12
   - title: 🚦 Tests
     labels:
-      - "tests"
-  - title: "Breaking"
-    label: "breaking"
+      - 'tests'
+  - title: 'Breaking'
+    label: 'breaking'
 
 version-resolver:
   major:
     labels:
-      - "major"
-      - "breaking"
+      - 'major'
+      - 'breaking'
   minor:
     labels:
-      - "minor"
+      - 'minor'
   patch:
     labels:
-      - "feature"
-      - "patch"
-      - "bug"
-      - "maintenance"
-      - "docs"
-      - "dependencies"
-      - "security"
+      - 'feature'
+      - 'patch'
+      - 'bug'
+      - 'maintenance'
+      - 'docs'
+      - 'dependencies'
+      - 'security'
 
 exclude-labels:
-  - "skip-changelog"
-  - "no-changelog"
-  - "changelog"
-  - "bump versions"
-  - "reverted"
-  - "invalid"
+  - 'skip-changelog'
+  - 'no-changelog'
+  - 'changelog'
+  - 'bump versions'
+  - 'reverted'
+  - 'invalid'
