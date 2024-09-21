@@ -1448,6 +1448,9 @@ importers:
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -1460,6 +1463,9 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../types
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 11.1.0(vue@3.5.7(typescript@5.6.2))
       '@vueuse/integrations':
         specifier: 'catalog:'
         version: 11.1.0(async-validator@4.2.5)(axios@1.7.7)(focus-trap@7.6.0)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.3)(vue@3.5.7(typescript@5.6.2))

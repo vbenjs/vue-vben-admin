@@ -10,6 +10,7 @@ export {
   ArrowUpToLine,
   Bell,
   BookOpenText,
+  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,

@@ -9,20 +9,24 @@ import { Card, Input, InputNumber, message, Switch } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
-import { captchaImage, hintImage } from './base64';
+const DEFAULT_CAPTCHA_IMAGE =
+  'https://unpkg.com/@vbenjs/static-source@0.1.7/source/default-captcha-image.jpeg';
+
+const DEFAULT_HINT_IMAGE =
+  'https://unpkg.com/@vbenjs/static-source@0.1.7/source/default-hint-image.png';
 
 const selectedPoints = ref<CaptchaPoint[]>([]);
 const params = reactive({
-  captchaImage,
-  captchaImageUrl: '',
+  captchaImage: '',
+  captchaImageUrl: DEFAULT_CAPTCHA_IMAGE,
   height: undefined,
-  hintImage,
-  hintImageUrl: '',
+  hintImage: '',
+  hintImageUrl: DEFAULT_HINT_IMAGE,
   hintText: '唇，燕，碴，找',
   paddingX: undefined,
   paddingY: undefined,
   showConfirm: true,
-  showHintImage: true,
+  showHintImage: false,
   title: '',
   width: undefined,
 });

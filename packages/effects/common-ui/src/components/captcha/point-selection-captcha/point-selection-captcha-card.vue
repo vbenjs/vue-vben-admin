@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CaptchaCardProps } from './types';
+import type { PointSelectionCaptchaCardProps } from '../types';
 
 import { computed } from 'vue';
 
@@ -12,9 +12,7 @@ import {
   CardTitle,
 } from '@vben-core/shadcn-ui';
 
-import { parseValue } from './utils';
-
-const props = withDefaults(defineProps<CaptchaCardProps>(), {
+const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',
   paddingX: '12px',
   paddingY: '16px',
@@ -25,6 +23,14 @@ const props = withDefaults(defineProps<CaptchaCardProps>(), {
 const emit = defineEmits<{
   click: [MouseEvent];
 }>();
+
+const parseValue = (value: number | string) => {
+  if (typeof value === 'number') {
+    return value;
+  }
+  const parsed = Number.parseFloat(value);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
 
 const rootStyles = computed(() => ({
   padding: `${parseValue(props.paddingY)}px ${parseValue(props.paddingX)}px`,
@@ -47,7 +53,7 @@ function handleClick(e: MouseEvent) {
     <CardHeader class="p-0">
       <CardTitle id="captcha-title" class="flex items-center justify-between">
         <template v-if="$slots.title">
-          <slot name="title">{{ $t('captcha.title') }}</slot>
+          <slot name="title">{{ $t('ui.captcha.title') }}</slot>
         </template>
         <template v-else>
           <span>{{ title }}</span>
@@ -60,7 +66,7 @@ function handleClick(e: MouseEvent) {
     <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
       <img
         v-show="captchaImage"
-        :alt="$t('captcha.alt')"
+        :alt="$t('ui.captcha.alt')"
         :src="captchaImage"
         :style="captchaStyles"
         class="relative z-10"

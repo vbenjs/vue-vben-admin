@@ -8,7 +8,7 @@ hero:
   text: Enterprise-Level Management System Framework
   tagline: Fully Upgraded, Ready to Use, Simple and Efficient
   image:
-    src: https://unpkg.com/@vbenjs/static-source@0.1.6/source/logo-v1.webp
+    src: https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp
     alt: Vben Admin
   actions:
     - theme: brand
