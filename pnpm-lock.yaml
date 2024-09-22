@@ -799,9 +799,21 @@ importers:
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../packages/effects/common-ui
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../packages/effects/hooks
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../packages/locales
+      '@vben/preferences':
+        specifier: workspace:*
+        version: link:../packages/preferences
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
+      ant-design-vue:
+        specifier: 'catalog:'
+        version: 4.2.5(vue@3.5.7(typescript@5.6.2))
       lucide-vue-next:
         specifier: 'catalog:'
         version: 0.445.0(vue@3.5.7(typescript@5.6.2))

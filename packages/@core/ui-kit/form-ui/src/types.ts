@@ -141,7 +141,7 @@ export interface FormCommonConfig {
   disabled?: boolean;
   /**
    * 所有表单项的控件样式
-   * @default ""
+   * @default {}
    */
   formFieldProps?: Partial<typeof Field>;
   /**
@@ -161,7 +161,7 @@ export interface FormCommonConfig {
   hideRequiredMark?: boolean;
   /**
    * 所有表单项的label样式
-   * @default "w-[100px]"
+   * @default ""
    */
   labelClass?: string;
   /**
@@ -295,6 +295,7 @@ export interface VbenFormProps<
 
   /**
    * 是否显示默认操作按钮
+   * @default true
    */
   showDefaultActions?: boolean;
 
