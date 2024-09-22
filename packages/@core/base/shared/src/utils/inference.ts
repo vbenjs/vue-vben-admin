@@ -11,9 +11,9 @@ function isUndefined(value?: unknown): value is undefined {
 }
 
 /**
- * 检查传入的值是否为字符串。
+ * 检查传入的值是否为boolean
  * @param value
- * @returns
+ * @returns 如果值是布尔值，返回true，否则返回false。
  */
 function isBoolean(value: unknown): value is boolean {
   return typeof value === 'boolean';

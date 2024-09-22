@@ -131,7 +131,7 @@ setupVbenForm<FormComponentType>({
   defineRules: {
     // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
-      if ((!value && value !== 0) || value.length === 0) {
+      if (value === undefined || value === null || value.length === 0) {
         return $t('formRules.required', [ctx.label]);
       }
       return true;
