@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { Page } from '@vben/common-ui';
-
-import { Button, Card, message, Space } from 'ant-design-vue';
+import { Button, message, Space } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter';
 
@@ -33,14 +31,6 @@ const [BaseForm, formApi] = useVbenForm({
       label: 'field1',
     },
     {
-      component: 'Input',
-      componentProps: {
-        placeholder: '请输入',
-      },
-      fieldName: 'field2',
-      label: 'field2',
-    },
-    {
       component: 'Select',
       componentProps: {
         allowClear: true,
@@ -62,8 +52,7 @@ const [BaseForm, formApi] = useVbenForm({
       label: '下拉选',
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });
 
 function onSubmit(values: Record<string, any>) {
@@ -189,7 +178,7 @@ function handleClick(
       formApi.setState((prev) => {
         const currentSchema = prev?.schema ?? [];
         const newSchema = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
           newSchema.push({
             component: 'Input',
             componentProps: {
@@ -209,7 +198,7 @@ function handleClick(
       formApi.setState((prev) => {
         const currentSchema = prev?.schema ?? [];
         return {
-          schema: currentSchema.slice(0, -3),
+          schema: currentSchema.slice(0, -2),
         };
       });
       break;
@@ -219,7 +208,7 @@ function handleClick(
 </script>
 
 <template>
-  <Page description="表单组件api操作示例。" title="表单组件">
+  <div>
     <Space class="mb-5 flex-wrap">
       <Button @click="handleClick('updateSchema')">updateSchema</Button>
       <Button @click="handleClick('labelWidth')">更改labelWidth</Button>
@@ -242,8 +231,6 @@ function handleClick(
         批量删除表单项
       </Button>
     </Space>
-    <Card title="操作示例">
-      <BaseForm />
-    </Card>
-  </Page>
+    <BaseForm />
+  </div>
 </template>

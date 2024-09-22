@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { Page } from '@vben/common-ui';
-
-import { Button, Card, message } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter';
 
-const [Form, formApi] = useVbenForm({
+const [Form] = useVbenForm({
   // 提交函数
   handleSubmit: onSubmit,
   schema: [
@@ -153,46 +151,9 @@ const [Form, formApi] = useVbenForm({
       help: '当字段2的值为`123`时，更改下拉选项',
       label: '动态配置',
     },
-    {
-      component: 'Input',
-      fieldName: 'field7',
-      label: '字段7',
-    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4',
-});
-
-const [SyncForm] = useVbenForm({
-  handleSubmit: onSubmit,
-  schema: [
-    {
-      component: 'Input',
-      // 字段名
-      fieldName: 'field1',
-      // 界面显示的label
-      label: '字段1',
-    },
-    {
-      component: 'Input',
-      componentProps: {
-        disabled: true,
-      },
-      dependencies: {
-        trigger(values, form) {
-          form.setFieldValue('field2', values.field1);
-        },
-        // 只有指定的字段改变时，才会触发
-        triggerFields: ['field1'],
-      },
-      // 字段名
-      fieldName: 'field2',
-      // 界面显示的label
-      label: '字段2',
-    },
-  ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4',
+  wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });
 
 function onSubmit(values: Record<string, any>) {
@@ -200,63 +161,8 @@ function onSubmit(values: Record<string, any>) {
     content: `form values: ${JSON.stringify(values)}`,
   });
 }
-
-function handleDelete() {
-  formApi.setState((prev) => {
-    return {
-      schema: prev.schema?.filter((item) => item.fieldName !== 'field7'),
-    };
-  });
-}
-
-function handleAdd() {
-  formApi.setState((prev) => {
-    return {
-      schema: [
-        ...(prev?.schema ?? []),
-        {
-          component: 'Input',
-          fieldName: `field${Date.now()}`,
-          label: '字段+',
-        },
-      ],
-    };
-  });
-}
-
-function handleUpdate() {
-  formApi.setState((prev) => {
-    return {
-      schema: prev.schema?.map((item) => {
-        if (item.fieldName === 'field3') {
-          return {
-            ...item,
-            label: '字段3-修改',
-          };
-        }
-        return item;
-      }),
-    };
-  });
-}
 </script>
 
 <template>
-  <Page
-    description="表单组件动态联动示例，包含了常用的场景。增删改，本质上是修改schema，你也可以通过 `setState` 动态修改schema。"
-    title="表单组件"
-  >
-    <Card title="表单动态联动示例">
-      <template #extra>
-        <Button class="mr-2" @click="handleUpdate">修改字段3</Button>
-        <Button class="mr-2" @click="handleDelete">删除字段7</Button>
-        <Button @click="handleAdd">添加字段</Button>
-      </template>
-      <Form />
-    </Card>
-
-    <Card class="mt-5" title="字段同步，字段1数据与字段2数据同步">
-      <SyncForm />
-    </Card>
-  </Page>
+  <Form />
 </template>

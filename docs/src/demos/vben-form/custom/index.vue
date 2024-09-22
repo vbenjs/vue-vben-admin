@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { h } from 'vue';
 
-import { Page } from '@vben/common-ui';
-
-import { Card, Input, message } from 'ant-design-vue';
+import { Input, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter';
 
@@ -51,8 +49,7 @@ const [Form] = useVbenForm({
       rules: 'required',
     },
   ],
-  // 中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-2',
+  wrapperClass: 'grid-cols-1',
 });
 
 function onSubmit(values: Record<string, any>) {
@@ -63,13 +60,9 @@ function onSubmit(values: Record<string, any>) {
 </script>
 
 <template>
-  <Page description="表单组件自定义示例" title="表单组件">
-    <Card title="基础示例">
-      <Form>
-        <template #field3="slotProps">
-          <Input placeholder="请输入" v-bind="slotProps" />
-        </template>
-      </Form>
-    </Card>
-  </Page>
+  <Form>
+    <template #field3="slotProps">
+      <Input placeholder="请输入" v-bind="slotProps" />
+    </template>
+  </Form>
 </template>

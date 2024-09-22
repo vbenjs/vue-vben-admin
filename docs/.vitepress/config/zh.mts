@@ -154,15 +154,19 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
       items: [
         {
           link: 'common-ui/vben-modal',
-          text: 'Vben Modal 模态框',
+          text: 'Modal 模态框',
         },
         {
           link: 'common-ui/vben-drawer',
-          text: 'Vben Drawer 抽屉',
+          text: 'Drawer 抽屉',
         },
         {
           link: 'common-ui/vben-form',
-          text: 'Vben Form 表单',
+          text: 'Form 表单',
+        },
+        {
+          link: 'common-ui/vben-count-to-animator',
+          text: 'CountToAnimator 数字动画',
         },
       ],
     },
