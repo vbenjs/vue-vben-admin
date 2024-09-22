@@ -219,6 +219,12 @@ export class FormApi {
 
   async validate(opts?: Partial<ValidationOptions>) {
     const form = await this.getForm();
-    return await form.validate(opts);
+
+    const validateResult = await form.validate(opts);
+
+    if (Object.keys(validateResult?.errors).length > 0) {
+      console.error('validate error', validateResult?.errors);
+    }
+    return validateResult;
   }
 }

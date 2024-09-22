@@ -11,6 +11,15 @@ function isUndefined(value?: unknown): value is undefined {
 }
 
 /**
+ * 检查传入的值是否为字符串。
+ * @param value
+ * @returns
+ */
+function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
+/**
  * 检查传入的值是否为空。
  *
  * 以下情况将被认为是空：
@@ -141,6 +150,7 @@ function getFirstNonNullOrUndefined<T>(
 
 export {
   getFirstNonNullOrUndefined,
+  isBoolean,
   isEmpty,
   isFunction,
   isHttpUrl,

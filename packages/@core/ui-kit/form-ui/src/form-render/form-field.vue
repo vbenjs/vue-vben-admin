@@ -85,7 +85,15 @@ const currentRules = computed(() => {
   return dynamicRules.value || rules;
 });
 
+const visible = computed(() => {
+  return isIf.value && isShow.value;
+});
+
 const shouldRequired = computed(() => {
+  if (!visible.value) {
+    return false;
+  }
+
   if (!currentRules.value) {
     return isRequired.value;
   }
@@ -113,6 +121,10 @@ const shouldRequired = computed(() => {
 });
 
 const fieldRules = computed(() => {
+  if (!visible.value) {
+    return null;
+  }
+
   let rules = currentRules.value;
   if (!rules) {
     return isRequired.value ? 'required' : null;

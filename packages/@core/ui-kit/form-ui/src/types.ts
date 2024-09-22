@@ -88,12 +88,12 @@ export interface FormItemDependencies {
    * 是否禁用
    * @returns 是否禁用
    */
-  disabled?: FormItemDependenciesCondition;
+  disabled?: boolean | FormItemDependenciesCondition;
   /**
    * 是否渲染（删除dom）
    * @returns 是否渲染
    */
-  if?: FormItemDependenciesCondition;
+  if?: boolean | FormItemDependenciesCondition;
   /**
    * 是否必填
    * @returns 是否必填
@@ -107,7 +107,7 @@ export interface FormItemDependencies {
    * 是否隐藏(Css)
    * @returns 是否隐藏
    */
-  show?: FormItemDependenciesCondition;
+  show?: boolean | FormItemDependenciesCondition;
   /**
    * 任意触发都会执行
    */
