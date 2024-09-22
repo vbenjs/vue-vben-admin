@@ -133,6 +133,10 @@ pnpm build
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
+## スター歴史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
+
 ## 貢献者
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">

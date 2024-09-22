@@ -132,6 +132,10 @@ pnpm build
 
 [CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
+
 ## Contributor
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">

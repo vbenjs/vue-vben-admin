@@ -5,6 +5,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [Vue(), VueJsx()],
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
   },
 });
