@@ -24,7 +24,7 @@ catalog:
   '@iconify/json': ^2.2.251
   '@iconify/tailwind': ^1.1.3
   '@iconify/vue': ^4.1.2
-  '@intlify/core-base': ^10.0.1
+  '@intlify/core-base': ^10.0.2
   '@intlify/unplugin-vue-i18n': ^5.0.0
   '@jspm/generator': ^2.3.1
   '@manypkg/get-packages': ^2.2.2
@@ -53,8 +53,8 @@ catalog:
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.1.4
   '@vitejs/plugin-vue-jsx': ^4.0.1
-  '@vue/reactivity': ^3.5.7
-  '@vue/shared': ^3.5.7
+  '@vue/reactivity': ^3.5.8
+  '@vue/shared': ^3.5.8
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^11.1.0
   '@vueuse/integrations': ^11.1.0
@@ -106,7 +106,7 @@ catalog:
   html-minifier-terser: ^7.2.0
   husky: ^9.1.6
   is-ci: ^3.0.1
-  jsdom: ^25.0.0
+  jsdom: ^25.0.1
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
@@ -139,7 +139,7 @@ catalog:
   sass: ^1.79.3
   sortablejs: ^1.15.3
   stylelint: ^16.9.0
-  stylelint-config-recess-order: ^5.1.0
+  stylelint-config-recess-order: ^5.1.1
   stylelint-config-recommended: ^14.0.1
   stylelint-config-recommended-scss: ^14.1.0
   stylelint-config-recommended-vue: ^1.5.0
@@ -166,9 +166,9 @@ catalog:
   vitepress: ^1.3.4
   vitepress-plugin-group-icons: ^1.2.4
   vitest: ^2.1.1
-  vue: ^3.5.7
+  vue: ^3.5.8
   vue-eslint-parser: ^9.4.3
-  vue-i18n: ^10.0.1
+  vue-i18n: ^10.0.2
   vue-router: ^4.4.5
   vue-tsc: ^2.1.6
   watermark-js-plus: ^1.5.6

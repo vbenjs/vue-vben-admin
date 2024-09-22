@@ -9,7 +9,7 @@ import {
 } from 'vue';
 
 // import { useAntdDesignTokens } from '@vben/hooks';
-import { initPreferences } from '@vben/preferences';
+// import { initPreferences } from '@vben/preferences';
 
 import { ConfigProvider, theme } from 'ant-design-vue';
 import mediumZoom from 'medium-zoom';
@@ -32,9 +32,9 @@ watch(
   () => nextTick(() => initZoom()),
 );
 
-initPreferences({
-  namespace: 'docs',
-});
+// initPreferences({
+//   namespace: 'docs',
+// });
 
 onMounted(() => {
   initZoom();
@@ -50,6 +50,9 @@ onBeforeUnmount(() => {
 });
 
 function watchDarkModeChange(callback: (isDark: boolean) => void) {
+  if (typeof window === 'undefined') {
+    return;
+  }
   const htmlElement = document.documentElement;
 
   const observer = new MutationObserver(() => {
