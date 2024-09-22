@@ -132,6 +132,10 @@ If you think this project is helpful to you, you can help the author buy a cup o
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
+
 ## Contributor
 
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">

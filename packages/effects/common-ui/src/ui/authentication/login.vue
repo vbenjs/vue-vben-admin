@@ -129,6 +129,7 @@ onMounted(() => {
         'cursor-wait': loading,
       }"
       :loading="loading"
+      aria-label="login"
       class="w-full"
       @click="handleSubmit"
     >

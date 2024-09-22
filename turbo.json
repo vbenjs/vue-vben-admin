@@ -33,6 +33,7 @@
     "stub": {
       "cache": false
     },
+    "test:e2e": {},
     "dev": {
       "dependsOn": [],
       "outputs": [],

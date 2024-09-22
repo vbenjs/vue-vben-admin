@@ -29,6 +29,7 @@ catalog:
   '@jspm/generator': ^2.3.1
   '@manypkg/get-packages': ^2.2.2
   '@nolebase/vitepress-plugin-git-changelog': ^2.5.0
+  '@playwright/test': ^1.47.2
   '@radix-icons/vue': ^1.0.0
   '@stylistic/stylelint-plugin': ^3.0.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
@@ -39,7 +40,6 @@ catalog:
   '@types/chalk': ^2.2.0
   '@types/eslint': ^9.6.1
   '@types/html-minifier-terser': ^7.0.2
-  '@types/jsdom': ^21.1.7
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
   '@types/node': ^22.5.5
@@ -103,10 +103,10 @@ catalog:
   get-port: ^7.1.0
   globals: ^15.9.0
   h3: ^1.12.0
+  happy-dom: ^15.7.4
   html-minifier-terser: ^7.2.0
   husky: ^9.1.6
   is-ci: ^3.0.1
-  jsdom: ^25.0.1
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
@@ -121,6 +121,7 @@ catalog:
   pinia: 2.2.2
   pinia-plugin-persistedstate: ^4.0.2
   pkg-types: ^1.2.0
+  playwright: ^1.47.2
   postcss: ^8.4.47
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.7.0
