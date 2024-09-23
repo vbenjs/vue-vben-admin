@@ -28,8 +28,8 @@ catalogs:
       specifier: ^9.11.0
       version: 9.11.0
     '@iconify/json':
-      specifier: ^2.2.251
-      version: 2.2.251
+      specifier: ^2.2.252
+      version: 2.2.252
     '@iconify/tailwind':
       specifier: ^1.1.3
       version: 1.1.3
@@ -37,10 +37,10 @@ catalogs:
       specifier: ^4.1.2
       version: 4.1.2
     '@intlify/core-base':
-      specifier: ^10.0.2
+      specifier: ^10.0.3
       version: 10.0.3
     '@intlify/unplugin-vue-i18n':
-      specifier: ^5.0.0
+      specifier: ^5.2.0
       version: 5.2.0
     '@jspm/generator':
       specifier: ^2.3.1
@@ -58,8 +58,8 @@ catalogs:
       specifier: ^1.0.0
       version: 1.0.0
     '@stylistic/stylelint-plugin':
-      specifier: ^3.0.1
-      version: 3.0.1
+      specifier: ^3.1.0
+      version: 3.1.0
     '@tailwindcss/nesting':
       specifier: 0.0.0-insiders.565cd3e
       version: 0.0.0-insiders.565cd3e
@@ -220,8 +220,8 @@ catalogs:
       specifier: ^3.2.0
       version: 3.2.0
     eslint-plugin-import-x:
-      specifier: ^4.2.1
-      version: 4.2.1
+      specifier: ^4.3.0
+      version: 4.3.0
     eslint-plugin-jsdoc:
       specifier: ^50.2.4
       version: 50.2.4
@@ -337,8 +337,8 @@ catalogs:
       specifier: ^16.1.0
       version: 16.1.0
     postcss-preset-env:
-      specifier: ^10.0.3
-      version: 10.0.4
+      specifier: ^10.0.5
+      version: 10.0.5
     postcss-scss:
       specifier: ^4.0.9
       version: 4.0.9
@@ -463,7 +463,7 @@ catalogs:
       specifier: ^9.4.3
       version: 9.4.3
     vue-i18n:
-      specifier: ^10.0.2
+      specifier: ^10.0.3
       version: 10.0.3
     vue-router:
       specifier: ^4.4.5
@@ -880,7 +880,7 @@ importers:
         version: 0.2.5(eslint@9.11.0(jiti@1.21.6))
       eslint-plugin-import-x:
         specifier: 'catalog:'
-        version: 4.2.1(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
+        version: 4.3.0(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
     devDependencies:
       '@eslint/js':
         specifier: 'catalog:'
@@ -956,7 +956,7 @@ importers:
     dependencies:
       '@stylistic/stylelint-plugin':
         specifier: 'catalog:'
-        version: 3.0.1(stylelint@16.9.0(typescript@5.6.2))
+        version: 3.1.0(stylelint@16.9.0(typescript@5.6.2))
       stylelint-config-recess-order:
         specifier: 'catalog:'
         version: 5.1.1(stylelint@16.9.0(typescript@5.6.2))
@@ -1045,7 +1045,7 @@ importers:
     dependencies:
       '@iconify/json':
         specifier: 'catalog:'
-        version: 2.2.251
+        version: 2.2.252
       '@iconify/tailwind':
         specifier: 'catalog:'
         version: 1.1.3
@@ -1072,7 +1072,7 @@ importers:
         version: 16.1.0(postcss@8.4.47)
       postcss-preset-env:
         specifier: 'catalog:'
-        version: 10.0.4(postcss@8.4.47)
+        version: 10.0.5(postcss@8.4.47)
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.12
@@ -3088,8 +3088,8 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
-  '@csstools/postcss-light-dark-function@2.0.3':
-    resolution: {integrity: sha512-8+lV5IKySJGtBXOwRVBPzwnTsVGKdsjnszsC/21DdKI+F279HcOfWgwTNpE0+NvX78bTlDD2kMqTaJ4T0VYzvA==}
+  '@csstools/postcss-light-dark-function@2.0.4':
+    resolution: {integrity: sha512-yHUt5DZ61Irvp72notmAl3Zt4Me50EWToWNocazyIFTVYFwwo/EucmV3hWi9zJehu3rOSvMclL7DzvRDfbak/A==}
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
@@ -3886,8 +3886,8 @@ packages:
   '@iconify-json/vscode-icons@1.2.2':
     resolution: {integrity: sha512-bTpT0HJDRqGkxQv8oiETNHLEnBZpnA1QaRD35CQyO7M7qgWVLx2xwn/lK6e4waojmlPC3ckMBx3WFIUUn0/Jdg==}
 
-  '@iconify/json@2.2.251':
-    resolution: {integrity: sha512-QltbOmMpDbjHG7F7shvkmnLu7UTEmf96Vuz+Mt7iWnr8V6bUTv9KSv5fuaZaYWL7zUN5FM4AZlY68/8JgQlRWg==}
+  '@iconify/json@2.2.252':
+    resolution: {integrity: sha512-AtdDjLhN4aBEncnWghiw9JdBRxKAXFcaQmwDFDWPL1UF/cPuuC8BADZzfHIoVcVlEvEbv69tFrzmhj1z/+PGlA==}
 
   '@iconify/tailwind@1.1.3':
     resolution: {integrity: sha512-SfyeT+2b/aKWA6DjwdevXdLUqaEqJ5xWTegD92KItaWc47IYsGuqrt/GOz4dJCPcTVCrsUjlvMpy8cNd+uV5nQ==}
@@ -4454,8 +4454,8 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stylistic/stylelint-plugin@3.0.1':
-    resolution: {integrity: sha512-j3mH8HSw2Rob/KJFWZ627w3CQ8gQqVHtzCdPeEffUg5vOgpz4rgrR+Xw2kU0OQCDcdW8Y1nKfdXKKjM5Rn8X0g==}
+  '@stylistic/stylelint-plugin@3.1.0':
+    resolution: {integrity: sha512-NU2XR6i1x163KdyDj3zqblA13890fBzHNZYqZ13aor/sB3Yq8kU/0NKCudv5pfl9Kb/UAteo/D7vKMHtaror/A==}
     engines: {node: ^18.12 || >=20.9}
     peerDependencies:
       stylelint: ^16.8.0
@@ -6264,8 +6264,8 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-import-x@4.2.1:
-    resolution: {integrity: sha512-WWi2GedccIJa0zXxx3WDnTgouGQTtdYK1nhXMwywbqqAgB0Ov+p1pYBsWh3VaB0bvBOwLse6OfVII7jZD9xo5Q==}
+  eslint-plugin-import-x@4.3.0:
+    resolution: {integrity: sha512-PxGzP7gAjF2DLeRnQtbYkkgZDg1intFyYr/XS1LgTYXUDrSXMHGkXx8++6i2eDv2jMs0jfeO6G6ykyeWxiFX7w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -8580,8 +8580,8 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
-  postcss-preset-env@10.0.4:
-    resolution: {integrity: sha512-FKwHOV7NHxu7PNhAhhOSwbAQrHTcvF/yfrObNMr4iTljmPYzsM7eRr9sYhSFq2if1GahrAv1SmmhFrcNWdFIuA==}
+  postcss-preset-env@10.0.5:
+    resolution: {integrity: sha512-ipPOgr3RY0utgJDbNoCX2dxKoQ4e4WO1pC21QhDlxCAX8+qC8O2Ezkzb54fd+8XtZ1UveA5gLjBsVo6dJDoWIg==}
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
@@ -12060,7 +12060,7 @@ snapshots:
       postcss: 8.4.47
       postcss-selector-parser: 6.1.2
 
-  '@csstools/postcss-light-dark-function@2.0.3(postcss@8.4.47)':
+  '@csstools/postcss-light-dark-function@2.0.4(postcss@8.4.47)':
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.1(@csstools/css-tokenizer@3.0.1)
       '@csstools/css-tokenizer': 3.0.1
@@ -12581,7 +12581,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.251':
+  '@iconify/json@2.2.252':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -13358,7 +13358,7 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stylistic/stylelint-plugin@3.0.1(stylelint@16.9.0(typescript@5.6.2))':
+  '@stylistic/stylelint-plugin@3.1.0(stylelint@16.9.0(typescript@5.6.2))':
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.1(@csstools/css-tokenizer@3.0.1)
       '@csstools/css-tokenizer': 3.0.1
@@ -15559,7 +15559,7 @@ snapshots:
       eslint: 9.11.0(jiti@1.21.6)
       ignore: 5.3.2
 
-  eslint-plugin-import-x@4.2.1(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2):
+  eslint-plugin-import-x@4.3.0(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2):
     dependencies:
       '@typescript-eslint/utils': 8.6.0(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
       debug: 4.3.7
@@ -18026,7 +18026,7 @@ snapshots:
       postcss: 8.4.47
       postcss-value-parser: 4.2.0
 
-  postcss-preset-env@10.0.4(postcss@8.4.47):
+  postcss-preset-env@10.0.5(postcss@8.4.47):
     dependencies:
       '@csstools/postcss-cascade-layers': 5.0.0(postcss@8.4.47)
       '@csstools/postcss-color-function': 4.0.2(postcss@8.4.47)
@@ -18040,7 +18040,7 @@ snapshots:
       '@csstools/postcss-ic-unit': 4.0.0(postcss@8.4.47)
       '@csstools/postcss-initial': 2.0.0(postcss@8.4.47)
       '@csstools/postcss-is-pseudo-class': 5.0.0(postcss@8.4.47)
-      '@csstools/postcss-light-dark-function': 2.0.3(postcss@8.4.47)
+      '@csstools/postcss-light-dark-function': 2.0.4(postcss@8.4.47)
       '@csstools/postcss-logical-float-and-clear': 3.0.0(postcss@8.4.47)
       '@csstools/postcss-logical-overflow': 2.0.0(postcss@8.4.47)
       '@csstools/postcss-logical-overscroll-behavior': 2.0.0(postcss@8.4.47)
