@@ -72,10 +72,8 @@
 
   // 根据分类处理数据
   const processMetricsData = (data) => {
-    console.log(data, 'data');
     return Object.keys(data).reduce((result, category) => {
       result[category] = Object.keys(data[category]).map((key) => {
-        console.log(data[category][key], 'data[category][key]');
         return {
           key,
           selected: data[category][key] === 'selected',
@@ -91,6 +89,7 @@
   // 过滤后的指标列表（根据搜索内容）
   const filteredMetrics = computed(() => {
     const query = searchQuery.value.toLowerCase();
+    console.log(query, 'query');
     const result = {};
     for (const category in metrics.value) {
       result[category] = metrics.value[category].filter((metric) =>

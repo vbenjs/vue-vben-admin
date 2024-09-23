@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-  import { ref, onBeforeMount, watch } from 'vue';
+  import { ref, onBeforeMount, watch, nextTick } from 'vue';
   import headerFilter from './components/headerFilter.vue';
   import leftMenu from './components/leftMenu.vue';
   import { Button, Spin } from 'ant-design-vue';
