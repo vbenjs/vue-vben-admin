@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'vue';
+
 export interface CaptchaData {
   /**
    * x
@@ -18,7 +20,7 @@ export interface CaptchaPoint extends CaptchaData {
    */
   i: number;
 }
-export interface CaptchaCardProps {
+export interface PointSelectionCaptchaCardProps {
   /**
    * 验证码图片
    */
@@ -50,7 +52,8 @@ export interface CaptchaCardProps {
   width?: number | string;
 }
 
-export interface PointSelectionCaptchaProps extends CaptchaCardProps {
+export interface PointSelectionCaptchaProps
+  extends PointSelectionCaptchaCardProps {
   /**
    * 是否展示确定按钮
    * @default false
@@ -68,22 +71,103 @@ export interface PointSelectionCaptchaProps extends CaptchaCardProps {
   hintText?: string;
 }
 
-/**
- * TODO: 滑动验证码
- */
-// export interface SlideCaptchaProps extends CaptchaCardProps {
-//   /**
-//    * 瓦片图片高度
-//    * @default '40px'
-//    */
-//   tileHeight?: number | string;
-//   /**
-//    * 瓦片图片宽度
-//    * @default '150px'
-//    */
-//   tileWidth?: number | string;
-//   /**
-//    * 瓦片图片
-//    */
-//   tileImage: string;
-// }
+export interface SliderCaptchaProps {
+  class?: any;
+  /**
+   * @description 滑块的样式
+   * @default {}
+   */
+  actionStyle?: CSSProperties;
+
+  /**
+   * @description 滑块条的样式
+   * @default {}
+   */
+  barStyle?: CSSProperties;
+
+  /**
+   * @description 内容的样式
+   * @default {}
+   */
+  contentStyle?: CSSProperties;
+
+  /**
+   * @description 组件的样式
+   * @default {}
+   */
+  wrapperStyle?: CSSProperties;
+
+  /**
+   * @description 是否作为插槽使用，用于联动组件，可参考旋转校验组件
+   * @default false
+   */
+  isSlot?: boolean;
+
+  /**
+   * @description 验证成功的提示
+   * @default '验证通过'
+   */
+  successText?: string;
+
+  /**
+   * @description 提示文字
+   * @default '请按住滑块拖动'
+   */
+  text?: string;
+}
+
+export interface SliderRotateCaptchaProps {
+  /**
+   * @description 旋转的角度
+   * @default 20
+   */
+  diffDegree?: number;
+
+  /**
+   * @description 图片的宽度
+   * @default 260
+   */
+  imageSize?: number;
+
+  /**
+   * @description 图片的样式
+   * @default {}
+   */
+  imageWrapperStyle?: CSSProperties;
+
+  /**
+   * @description 最大旋转角度
+   * @default 270
+   */
+  maxDegree?: number;
+
+  /**
+   * @description 最小旋转角度
+   * @default 90
+   */
+  minDegree?: number;
+
+  /**
+   * @description 图片的地址
+   */
+  src?: string;
+  /**
+   * @description 默认提示文本
+   */
+  defaultTip?: string;
+}
+
+export interface CaptchaVerifyPassingData {
+  isPassing: boolean;
+  time: number | string;
+}
+
+export interface SliderCaptchaActionType {
+  resume: () => void;
+}
+
+export interface SliderRotateVerifyPassingData {
+  event: MouseEvent | TouchEvent;
+  moveDistance: number;
+  moveX: number;
+}

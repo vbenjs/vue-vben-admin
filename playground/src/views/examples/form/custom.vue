@@ -7,7 +7,7 @@ import { Card, Input, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter';
 
-const [BaseForm] = useVbenForm({
+const [Form] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -65,11 +65,11 @@ function onSubmit(values: Record<string, any>) {
 <template>
   <Page description="表单组件自定义示例" title="表单组件">
     <Card title="基础示例">
-      <BaseForm>
+      <Form>
         <template #field3="slotProps">
           <Input placeholder="请输入" v-bind="slotProps" />
         </template>
-      </BaseForm>
+      </Form>
     </Card>
   </Page>
 </template>

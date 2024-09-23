@@ -41,12 +41,25 @@ const [BaseForm, formApi] = useVbenForm({
       label: 'field2',
     },
     {
-      component: 'Input',
+      component: 'Select',
       componentProps: {
-        placeholder: '请输入',
+        allowClear: true,
+        filterOption: true,
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+        placeholder: '请选择',
+        showSearch: true,
       },
-      fieldName: 'field3',
-      label: 'field3',
+      fieldName: 'fieldOptions',
+      label: '下拉选',
     },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
@@ -75,9 +88,36 @@ function handleClick(
     | 'showSubmitButton'
     | 'updateActionAlign'
     | 'updateResetButton'
+    | 'updateSchema'
     | 'updateSubmitButton',
 ) {
   switch (action) {
+    case 'updateSchema': {
+      formApi.updateSchema([
+        {
+          componentProps: {
+            options: [
+              {
+                label: '选项1',
+                value: '1',
+              },
+              {
+                label: '选项2',
+                value: '2',
+              },
+              {
+                label: '选项3',
+                value: '3',
+              },
+            ],
+          },
+          fieldName: 'fieldOptions',
+        },
+      ]);
+      message.success('字段 `fieldOptions` 下拉选项更新成功。');
+      break;
+    }
+
     case 'labelWidth': {
       formApi.setState({
         commonConfig: {
@@ -181,6 +221,7 @@ function handleClick(
 <template>
   <Page description="表单组件api操作示例。" title="表单组件">
     <Space class="mb-5 flex-wrap">
+      <Button @click="handleClick('updateSchema')">updateSchema</Button>
       <Button @click="handleClick('labelWidth')">更改labelWidth</Button>
       <Button @click="handleClick('resetLabelWidth')">还原labelWidth</Button>
       <Button @click="handleClick('disabled')">禁用表单</Button>

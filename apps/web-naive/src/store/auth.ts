@@ -9,9 +9,9 @@ import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
 import { defineStore } from 'pinia';
 
+import { notification } from '#/adapter';
 import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
-import { notification } from '#/naive';
 
 export const useAuthStore = defineStore('auth', () => {
   const accessStore = useAccessStore();

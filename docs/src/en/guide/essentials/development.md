@@ -46,8 +46,6 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
 ```json
 {
   "scripts": {
-    // Install dependencies
-    "bootstrap": "pnpm install",
     // Build the project
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     // Build the project with analysis
@@ -107,9 +105,9 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Package specification check
     "publint": "vsh publint",
     // Delete all node_modules, yarn.lock, package.lock.json, and reinstall dependencies
-    "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
+    "reinstall": "pnpm clean --del-lock && pnpm install",
     // Run vitest unit tests
-    "test:unit": "vitest",
+    "test:unit": "vitest run --dom",
     // Update project dependencies
     "update:deps": " pnpm update --latest --recursive",
     // Changeset generation and versioning

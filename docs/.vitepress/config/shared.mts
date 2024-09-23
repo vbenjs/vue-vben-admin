@@ -32,7 +32,7 @@ export const shared = defineConfig({
   srcDir: 'src',
   themeConfig: {
     i18nRouting: true,
-    logo: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/logo-v1.webp',
+    logo: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
     search: {
       options: {
         locales: {
@@ -138,12 +138,12 @@ function pwa(): PwaOptions {
       icons: [
         {
           sizes: '192x192',
-          src: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/pwa-icon-192.png',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/pwa-icon-192.png',
           type: 'image/png',
         },
         {
           sizes: '512x512',
-          src: 'https://unpkg.com/@vbenjs/static-source@0.1.6/source/pwa-icon-512.png',
+          src: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/pwa-icon-512.png',
           type: 'image/png',
         },
       ],

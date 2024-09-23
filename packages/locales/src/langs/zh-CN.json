@@ -102,6 +102,7 @@
     "password": "密码",
     "usernameTip": "请输入用户名",
     "passwordTip": "请输入密码",
+    "verifyRequiredTip": "请先完成验证",
     "passwordErrorTip": "密码错误",
     "rememberMe": "记住账号",
     "createAnAccount": "创建一个账号",
@@ -313,13 +314,20 @@
       "lockScreen": "启用锁屏"
     }
   },
-  "captcha": {
-    "alt": "支持img标签src属性值",
-    "title": "请完成安全验证",
-    "refreshAriaLabel": "刷新验证码",
-    "confirmAriaLabel": "确认选择",
-    "confirm": "确认",
-    "pointAriaLabel": "点击点",
-    "clickInOrder": "请依次点击"
+  "ui": {
+    "captcha": {
+      "title": "请完成安全验证",
+      "sliderSuccessText": "验证通过",
+      "sliderDefaultText": "请按住滑块拖动",
+      "sliderRotateDefaultTip": "点击图片可刷新",
+      "sliderRotateFailTip": "验证失败",
+      "sliderRotateSuccessTip": "验证成功，耗时{0}秒",
+      "alt": "支持img标签src属性值",
+      "refreshAriaLabel": "刷新验证码",
+      "confirmAriaLabel": "确认选择",
+      "confirm": "确认",
+      "pointAriaLabel": "点击点",
+      "clickInOrder": "请依次点击"
+    }
   }
 }

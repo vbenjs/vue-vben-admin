@@ -1,6 +1,6 @@
 name: 📚 Documentation
 description: Report an issue with Vben Admin Website to help us make it better.
-title: "Docs: "
+title: 'Docs: '
 labels: [documentation]
 body:
   - type: markdown

@@ -5,3 +5,7 @@ html.dark {
 .dark .VPContent {
   /* background-color: #14161a; */
 }
+
+.form-valid-error p {
+  margin: 0;
+}

@@ -7,6 +7,6 @@
 - 通过邮箱联系开发者： [ann.vben@gmail.com](mailto:ann.vben@gmail.com)
 - 通过微信联系开发者：
 
- <img src="https://unpkg.com/@vbenjs/static-source@0.1.6/source/wechat.jpg" style="width: 300px;"/>
+ <img src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/wechat.jpg" style="width: 300px;"/>
 
 我们会在第一时间回复您，定制费用根据需求而定。

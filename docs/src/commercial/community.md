@@ -10,7 +10,13 @@
 
 免费QQ群人数上限200，将会不定期清理。推荐加入QQ频道进行交流
 
+:::
+
 ## 微信群
+
+作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群。
+
+通过微信联系作者，注明加群来意：
 
 ::: tip
 
@@ -18,8 +24,4 @@
 
 :::
 
-作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群。
-
-通过微信联系作者，注明加群来意：
-
-<img src="https://unpkg.com/@vbenjs/static-source@0.1.6/source/wechat.jpg" style="width: 300px;"/>
+<img src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/wechat.jpg" style="width: 300px;"/>

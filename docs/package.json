@@ -1,16 +1,23 @@
 {
   "name": "@vben/docs",
-  "version": "5.3.0-beta.2",
+  "version": "5.3.0",
   "private": true,
   "scripts": {
     "build": "vitepress build",
     "dev": "vitepress dev",
     "docs:preview": "vitepress preview"
   },
+  "imports": {
+    "#/*": "./src/_env/*"
+  },
   "dependencies": {
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/preferences": "workspace:*",
     "@vben/styles": "workspace:*",
+    "ant-design-vue": "catalog:",
     "lucide-vue-next": "catalog:",
     "medium-zoom": "catalog:",
     "radix-vue": "catalog:",
