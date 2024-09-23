@@ -47,7 +47,7 @@ export class FormApi {
   public form = {} as FormActions;
   isMounted = false;
 
-  // private prevState!: ModalState;
+  public prevState: null | VbenFormProps = null;
   public state: null | VbenFormProps = null;
 
   stateHandler: StateHandler;
@@ -66,7 +66,9 @@ export class FormApi {
       },
       {
         onUpdate: () => {
+          this.prevState = this.state;
           this.state = this.store.state;
+          this.updateState();
         },
       },
     );
@@ -85,6 +87,24 @@ export class FormApi {
       throw new Error('<VbenForm /> is not mounted');
     }
     return this.form;
+  }
+
+  private updateState() {
+    const currentSchema = this.state?.schema ?? [];
+    const prevSchema = this.prevState?.schema ?? [];
+    // 进行了删除schema操作
+    if (currentSchema.length < prevSchema.length) {
+      const schemaMap = new Map(
+        currentSchema.map((item) => [item.fieldName, item]),
+      );
+      const deletedSchema = prevSchema.filter(
+        (item) => !schemaMap.has(item.fieldName),
+      );
+
+      for (const schema of deletedSchema) {
+        this.form?.setFieldValue(schema.fieldName, undefined);
+      }
+    }
   }
 
   // 如果需要多次更新状态，可以使用 batch 方法
