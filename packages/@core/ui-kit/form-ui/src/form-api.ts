@@ -43,11 +43,11 @@ function getDefaultState(): VbenFormProps {
 }
 
 export class FormApi {
+  private prevState: null | VbenFormProps = null;
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
   public form = {} as FormActions;
-  isMounted = false;
 
-  public prevState: null | VbenFormProps = null;
+  isMounted = false;
   public state: null | VbenFormProps = null;
 
   stateHandler: StateHandler;
@@ -94,11 +94,11 @@ export class FormApi {
     const prevSchema = this.prevState?.schema ?? [];
     // 进行了删除schema操作
     if (currentSchema.length < prevSchema.length) {
-      const schemaMap = new Map(
-        currentSchema.map((item) => [item.fieldName, item]),
+      const currentFields = new Set(
+        currentSchema.map((item) => item.fieldName),
       );
       const deletedSchema = prevSchema.filter(
-        (item) => !schemaMap.has(item.fieldName),
+        (item) => !currentFields.has(item.fieldName),
       );
 
       for (const schema of deletedSchema) {
