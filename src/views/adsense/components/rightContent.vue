@@ -1,5 +1,12 @@
 <template>
   <div class="right-content">
+    <div class="header-filter">
+      <Button v-for="(option, index) in selectList" :key="index">
+        {{ option }}
+      </Button>
+      <Button @click="togglePopUp"><EditOutlined /></Button>
+    </div>
+    <popUp ref="childRef" :metricsData="modalData" @update-selected="handleSelected" />
     <!-- Bar Chart with white background and border -->
     <div id="chart" class="chart"></div>
 
@@ -17,16 +24,27 @@
 
 <script setup>
   import { ref, watch, onMounted, onBeforeUnmount, onUnmounted, defineProps } from 'vue';
-  import { Table } from 'ant-design-vue';
+  import { Table, Button } from 'ant-design-vue';
   import * as echarts from 'echarts';
   import { useI18n } from '@/hooks/web/useI18n';
+  import popUp from './popUp.vue';
+  import { EditOutlined } from '@ant-design/icons-vue';
 
   const { t } = useI18n();
   // Props for table header and data
   const props = defineProps({
     tableHeader: Array,
     tableData: Array,
+    indexList: Object,
   });
+
+  // 控制筛选弹窗
+  const childRef = ref(null);
+  const togglePopUp = () => {
+    if (childRef.value) {
+      childRef.value.toggleModal(); // 调用子组件的方法
+    }
+  };
 
   // Dynamic Table Columns and Data
   const columns = ref([]);
@@ -74,7 +92,40 @@
       return dataObject;
     });
   };
+  // 选中列表
+  const selectList = ref([]);
+  const handleSelected = (selected) => {
+    selectList.value = selected.reduce((acc, cur) => {
+      const key = 'report.' + cur.key;
+      const accKey = t(key);
+      acc.push(accKey);
+      return acc;
+    }, []);
+  };
+  // 监听selectList 发生变化对数据源tableHeader做筛选，只保留selectList中的数据
+  watch(selectList, () => {
+    const filterList = props.tableHeader.filter((header) => selectList.value.includes(header.name));
+    columns.value = filterList.map((header) => {
+      return {
+        title: header.name,
+        dataIndex: header.name,
+        sorter: true,
+      };
+    });
+    metricHeaders.value = filterList;
+    updateChart();
+  });
 
+  const modalData = ref(props.indexList);
+  watch(
+    () => props.indexList, // 父组件监听从爷爷组件传来的数据
+    (newData) => {
+      if (newData) {
+        modalData.value = newData; // 更新弹窗组件的数据
+      }
+    },
+    { immediate: true },
+  );
   // Generate columns based on props.tableHeader
   const generateColumns = () => {
     columns.value = props.tableHeader.map((header) => {
@@ -120,7 +171,8 @@
       chartInstance.resize();
     }
   };
-
+  const metricHeaders = ref([]);
+  metricHeaders.value = props.tableHeader;
   const updateChart = () => {
     const chartDom = document.getElementById('chart');
     if (chartInstance) {
@@ -133,13 +185,10 @@
     });
     // 获取维度和指标
     // const dimensionHeader = props.tableHeader.find((header) => header.type === 'DIMENSION');
-    const metricHeaders = props.tableHeader;
-
     const xAxisData = filters.map((row) => {
       return row.cells[props.tableHeader.findIndex((header) => header.type === 'DIMENSION')].value;
     });
-
-    const seriesData = metricHeaders.map((metric) => {
+    const seriesData = metricHeaders.value.map((metric) => {
       const data = filters.map((row) => {
         const index = props.tableHeader.findIndex((header) => header.name === metric.name);
         return Number(row.cells[index].value) || 0;
@@ -157,7 +206,7 @@
         trigger: 'axis',
       },
       legend: {
-        data: metricHeaders.map((metric) => metric.name),
+        data: metricHeaders.value?.map((metric) => metric.name),
       },
       xAxis: {
         type: 'category',
@@ -238,5 +287,10 @@
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
     border-bottom: 1px solid #dadce0;
+  }
+
+  .header-filter {
+    display: flex;
+    gap: 10px;
   }
 </style>

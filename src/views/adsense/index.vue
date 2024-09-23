@@ -17,7 +17,12 @@
           </div>
         </div>
 
-        <rightContent v-if="!loading" :tableHeader="tableHeader" :tableData="tableData" />
+        <rightContent
+          v-if="!loading"
+          :tableHeader="tableHeader"
+          :tableData="tableData"
+          :indexList="indexList"
+        />
       </div>
     </div>
   </div>
@@ -59,7 +64,6 @@
   // 菜单参数
   const menuSendData = (data) => {
     menuParam.value = data.value;
-    console.log(menuParam.value, 'menuParam.value');
     title.value = data.value.itemTitle;
   };
 
@@ -104,8 +108,6 @@
             const name = 'report.' + item.name;
             item.name = t(name);
           });
-          console.log(tableHeader.value[0].name, 'tableHeader');
-          console.log(tableData, 'tableData');
           loading.value = false;
         } catch (error) {
           tableHeader.value = [];
@@ -117,21 +119,24 @@
     },
     { deep: true, immediate: true },
   );
+
+  const indexList = ref({});
   watch(
     () => menuParam.value?.id,
     async (newAdId) => {
-      console.log(newAdId, 'newAdId');
       try {
         if (newAdId) {
           const res = await googleFilterApi({
             id: newAdId,
           });
-          console.log(res, 'res');
+          indexList.value = res;
+          await nextTick();
         }
       } catch (error) {
         console.error('googleFilterApi======err0r', error);
       }
     },
+    { deep: true, immediate: true },
   );
 </script>
 
