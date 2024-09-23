@@ -110,7 +110,7 @@
       "@ctrl/tinycolor": "4.1.0",
       "clsx": "2.1.1",
       "pinia": "2.2.2",
-      "vue": "3.5.7"
+      "vue": "3.5.8"
     },
     "neverBuiltDependencies": [
       "canvas",
