@@ -79,7 +79,8 @@
         "rules": "表单校验",
         "dynamic": "动态表单",
         "custom": "自定义组件",
-        "api": "Api"
+        "api": "Api",
+        "merge": "合并表单"
       },
       "captcha": {
         "title": "验证码",
