@@ -27,6 +27,7 @@ const el2 = ref<SliderCaptchaActionType>();
 const el3 = ref<SliderCaptchaActionType>();
 const el4 = ref<SliderCaptchaActionType>();
 const el5 = ref<SliderCaptchaActionType>();
+const el6 = ref<SliderCaptchaActionType>();
 </script>
 
 <template>
@@ -95,7 +96,7 @@ const el5 = ref<SliderCaptchaActionType>();
     </Card>
     <Card class="mb-5" title="自定义内容(slot)">
       <div class="flex items-center justify-center p-4 px-[30%]">
-        <SliderCaptcha ref="el5" @success="handleSuccess">
+        <SliderCaptcha ref="el6" @success="handleSuccess">
           <template #text="{ isPassing }">
             <template v-if="isPassing">
               <Bell class="mr-2 size-4" />
@@ -107,7 +108,7 @@ const el5 = ref<SliderCaptchaActionType>();
             </template>
           </template>
         </SliderCaptcha>
-        <Button class="ml-2" type="primary" @click="handleBtnClick(el5)">
+        <Button class="ml-2" type="primary" @click="handleBtnClick(el6)">
           还原
         </Button>
       </div>
