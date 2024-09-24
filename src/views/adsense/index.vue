@@ -22,6 +22,8 @@
           :tableHeader="tableHeader"
           :tableData="tableData"
           :indexList="indexList"
+          @update-table="updateTable"
+          :selectedValue="selectedValue"
         />
       </div>
     </div>
@@ -41,7 +43,13 @@
   const { t } = useI18n();
   // 接口参数
   const dateRange = ref({});
-  const menuParam = ref({});
+  const menuParam = ref({
+    dimensions: [],
+    id: '',
+    itemTitle: '',
+    metrics: [],
+    orderBy: [],
+  });
   // 菜单切换
   const collapsed = ref(false);
 
@@ -67,6 +75,57 @@
     title.value = data.value.itemTitle;
   };
 
+  const selectedValue = ref([]);
+  // 请求图表数据
+  const tableDataList = async (dateRange, menuParam, metrics = '') => {
+    const hasValidMenuParam = menuParam?.dimensions?.length > 0 && menuParam?.metrics?.length > 0;
+    if (hasValidMenuParam) {
+      try {
+        loading.value = true;
+        if (!adId.value) {
+          const { accounts } = await googleListApi();
+          adId.value = accounts[0].name;
+        }
+        let metricsList = metrics ? metrics : menuParam.metrics;
+        const res = await googleGenerateApi({
+          account: adId.value,
+          dateRange: dateRange?.type || '',
+          dimensions: menuParam?.dimensions || [],
+          startDate: dateRange?.startDate || '',
+          endDate: dateRange?.endDate || '',
+          metrics: metricsList || '',
+          orderBy: menuParam?.orderBy || '',
+        });
+        res.totals.cells[0].value = 'totals';
+        res.rows.push(res.totals);
+        tableHeader.value = res.headers;
+        tableData.value = res.rows;
+        selectedValue.value = res.headers.reduce((acc, cur) => {
+          acc.push(cur.name);
+          return acc;
+        }, []);
+        tableHeader.value.forEach((item) => {
+          const name = 'report.' + item.name;
+          item.name = t(name);
+        });
+        loading.value = false;
+      } catch (error) {
+        tableHeader.value = [];
+        tableData.value = [];
+        loading.value = false;
+      }
+    }
+  };
+
+  // 接受updateTable数据，并监听重新发送接口更新列表数据
+  const updateTable = async (data) => {
+    const metrics = data.reduce((acc, cur) => {
+      // const key = 'report.' + cur.key;
+      acc.push(cur.key);
+      return acc;
+    }, []);
+    await tableDataList(dateRange.value, menuParam.value, metrics);
+  };
   // 前置接口获取id
   const adId = ref('');
   onBeforeMount(async () => {
@@ -82,40 +141,7 @@
   watch(
     [dateRange, menuParam],
     async ([newDateRange, newMenuParam]) => {
-      const hasValidMenuParam =
-        newMenuParam?.dimensions?.length > 0 && newMenuParam?.metrics?.length > 0;
-      if (hasValidMenuParam) {
-        try {
-          loading.value = true;
-          if (!adId.value) {
-            const { accounts } = await googleListApi();
-            adId.value = accounts[0].name;
-          }
-          const res = await googleGenerateApi({
-            account: adId.value,
-            dateRange: newDateRange?.type || '',
-            dimensions: newMenuParam?.dimensions || [],
-            startDate: newDateRange?.startDate || '',
-            endDate: newDateRange?.endDate || '',
-            metrics: newMenuParam?.metrics || '',
-            orderBy: newMenuParam?.orderBy || '',
-          });
-          res.totals.cells[0].value = 'totals';
-          res.rows.push(res.totals);
-          tableHeader.value = res.headers;
-          tableData.value = res.rows;
-          tableHeader.value.forEach((item) => {
-            const name = 'report.' + item.name;
-            item.name = t(name);
-          });
-          loading.value = false;
-        } catch (error) {
-          tableHeader.value = [];
-          tableData.value = [];
-          loading.value = false;
-          console.error('googleGenerateApi======err0r', error);
-        }
-      }
+      await tableDataList(newDateRange, newMenuParam);
     },
     { deep: true, immediate: true },
   );

@@ -1,12 +1,17 @@
 <template>
   <div class="right-content">
     <div class="header-filter">
-      <Button v-for="(option, index) in selectList" :key="index">
-        {{ option }}
+      <Button v-for="(option, index) in buttonList" :key="index">
+        {{ t(`report.${option.key}`) }}
       </Button>
       <Button @click="togglePopUp"><EditOutlined /></Button>
     </div>
-    <popUp ref="childRef" :metricsData="modalData" @update-selected="handleSelected" />
+    <popUp
+      ref="childRef"
+      :metricsData="modalData"
+      :selectedValue="selectedValue"
+      @update-selected="handleSelected"
+    />
     <!-- Bar Chart with white background and border -->
     <div id="chart" class="chart"></div>
 
@@ -23,7 +28,15 @@
 </template>
 
 <script setup>
-  import { ref, watch, onMounted, onBeforeUnmount, onUnmounted, defineProps } from 'vue';
+  import {
+    ref,
+    watch,
+    onMounted,
+    onBeforeUnmount,
+    onUnmounted,
+    defineProps,
+    defineEmits,
+  } from 'vue';
   import { Table, Button } from 'ant-design-vue';
   import * as echarts from 'echarts';
   import { useI18n } from '@/hooks/web/useI18n';
@@ -36,10 +49,15 @@
     tableHeader: Array,
     tableData: Array,
     indexList: Object,
+    selectedValue: Array,
   });
 
   // 控制筛选弹窗
   const childRef = ref(null);
+  const buttonList = ref([]);
+  onMounted(() => {
+    buttonList.value = childRef.value.selectedMetrics;
+  });
   const togglePopUp = () => {
     if (childRef.value) {
       childRef.value.toggleModal(); // 调用子组件的方法
@@ -93,6 +111,8 @@
     });
   };
   // 选中列表
+
+  const emit = defineEmits(['updateTable']);
   const selectList = ref([]);
   const handleSelected = (selected) => {
     selectList.value = selected.reduce((acc, cur) => {
@@ -101,20 +121,8 @@
       acc.push(accKey);
       return acc;
     }, []);
+    emit('updateTable', selected);
   };
-  // 监听selectList 发生变化对数据源tableHeader做筛选，只保留selectList中的数据
-  watch(selectList, () => {
-    const filterList = props.tableHeader.filter((header) => selectList.value.includes(header.name));
-    columns.value = filterList.map((header) => {
-      return {
-        title: header.name,
-        dataIndex: header.name,
-        sorter: true,
-      };
-    });
-    metricHeaders.value = filterList;
-    updateChart();
-  });
 
   const modalData = ref(props.indexList);
   watch(
@@ -292,5 +300,6 @@
   .header-filter {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
   }
 </style>

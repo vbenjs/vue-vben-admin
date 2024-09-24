@@ -1,7 +1,7 @@
 <template>
   <Modal
     v-model:open="isModalVisible"
-    title="选择您的指标"
+    :title="t('report.Choose your metric')"
     @ok="handleApply"
     @cancel="handleCancel"
     :width="720"
@@ -9,7 +9,11 @@
     <div class="modal-content">
       <div class="left-panel">
         <!-- 搜索框 -->
-        <Input.Search v-model="searchQuery" placeholder="搜索指标..." style="margin-bottom: 8px" />
+        <Input.Search
+          v-model="searchQuery"
+          :placeholder="t('report.Search Metrics')"
+          style="margin-bottom: 8px"
+        />
 
         <!-- 左侧列表：可选指标 -->
         <List :bordered="false" style="height: 300px; overflow-y: auto">
@@ -18,7 +22,7 @@
             <h4>{{ getCategoryName(categoryName) }}</h4>
             <ListItem v-for="metric in category" :key="metric.key">
               <Checkbox v-model:checked="metric.selected" :disabled="metric.disabled">
-                {{ metric.key }}
+                {{ t(`report.${metric.key}`) }}
               </Checkbox>
             </ListItem>
           </div>
@@ -28,15 +32,15 @@
       <div class="right-panel">
         <!-- 已选项标题 -->
         <div class="selected-header">
-          <h4>已选择 {{ selectedMetrics.length }} 项</h4>
-          <Button @click="clearAll">全部清除</Button>
+          <h4>{{ t('report.selected') }} {{ selectedMetrics.length }} {{ t('report.item') }}</h4>
+          <Button @click="clearAll">{{ t('report.Clear All') }}</Button>
         </div>
 
         <!-- 右侧列表：已选指标 (带拖拽功能) -->
         <List :bordered="false" style="height: 300px; overflow-y: auto">
           <!-- 去除边框 -->
           <ListItem v-for="metric in selectedMetrics" :key="metric.key">
-            <span>{{ metric.key }}</span>
+            <span>{{ t(`report.${metric.key}`) }}</span>
             <CloseOutlined @click="removeMetric(metric)" />
           </ListItem>
         </List>
@@ -44,39 +48,49 @@
     </div>
 
     <template #footer>
-      <Button @click="handleCancel">取消</Button>
-      <Button type="primary" @click="handleApply">应用</Button>
+      <Button @click="handleCancel">{{ t('report.Cancel') }}</Button>
+      <Button type="primary" @click="handleApply">{{ t('report.Submit') }}</Button>
     </template>
   </Modal>
 </template>
 
 <script setup>
-  import { ref, computed, defineEmits, defineProps, defineExpose } from 'vue';
+  import { ref, computed, defineEmits, defineProps, defineExpose, watch } from 'vue';
   import { Modal, Input, List, ListItem, Checkbox, Button } from 'ant-design-vue';
   import { CloseOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '@/hooks/web/useI18n';
+
+  const { t } = useI18n();
   // import draggable from 'vuedraggable';
 
   // 接收数据的 props
   const props = defineProps({
     metricsData: Object,
+    selectedValue: Array,
   });
-  console.log(props.metricsData, 'props');
+  console.log(props.selectedValue, 'selectedValue');
   // 弹窗的显示控制
   const isModalVisible = ref(false);
   const toggleModal = () => {
     isModalVisible.value = !isModalVisible.value;
   };
-  defineExpose({ toggleModal });
+
   // 搜索框内容
   const searchQuery = ref('');
 
   // 根据分类处理数据
   const processMetricsData = (data) => {
+    console.log(Object.keys(data), 'data');
     return Object.keys(data).reduce((result, category) => {
       result[category] = Object.keys(data[category]).map((key) => {
+        // const select = false;
+        // 如果key在props.selectedValue中，设置select为true
+        console.log(props.selectedValue.includes(key), '111');
+        const select = props.selectedValue.includes(key);
         return {
           key,
-          selected: data[category][key] === 'selected',
+          // selected: data[category][key] === 'selected',
+          selected: select,
           disabled: data[category][key] === 'disabled',
         };
       });
@@ -85,11 +99,9 @@
   };
 
   const metrics = ref(processMetricsData(props.metricsData));
-
   // 过滤后的指标列表（根据搜索内容）
   const filteredMetrics = computed(() => {
     const query = searchQuery.value.toLowerCase();
-    console.log(query, 'query');
     const result = {};
     for (const category in metrics.value) {
       result[category] = metrics.value[category].filter((metric) =>
@@ -97,6 +109,14 @@
       );
     }
     return result;
+  });
+
+  // 搜索
+  watch(searchQuery, (newValue) => {
+    if (newValue) {
+      console.log(123);
+      metrics.value = processMetricsData(props.metricsData);
+    }
   });
 
   // 已选中的指标列表
@@ -142,15 +162,17 @@
   const getCategoryName = (category) => {
     switch (category) {
       case 'recommend':
-        return '推荐';
+        return t('report.recommend');
       case 'advenced':
-        return '高级';
+        return t('report.advenced');
       case 'session':
-        return '会话';
+        return t('report.session');
       default:
         return '';
     }
   };
+
+  defineExpose({ toggleModal, selectedMetrics });
 </script>
 
 <style scoped>
