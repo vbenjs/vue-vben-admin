@@ -60,7 +60,6 @@ const [SecondForm, secondFormApi] = useVbenForm({
   handleSubmit: onSecondSubmit,
   layout: 'horizontal',
   resetButtonOptions: {
-    show: false,
     text: '上一步',
   },
   schema: [
