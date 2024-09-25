@@ -18,7 +18,7 @@ env:
 
 jobs:
   version:
-    if: (github.event.pull_request.merged || github.event_name == 'workflow_dispatch') && github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: (github.event.pull_request.merged || github.event_name == 'workflow_dispatch') && github.actor != 'dependabot[bot]' && !contains(github.event.head_commit.message, '[skip ci]') && github.repository == 'vbenjs/vue-vben-admin'
     # if: github.repository == 'vbenjs/vue-vben-admin'
     timeout-minutes: 15
     runs-on: ubuntu-latest

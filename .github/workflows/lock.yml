@@ -11,12 +11,13 @@ permissions:
 
 jobs:
   action:
+    if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-inactive-days: '30'
+          issue-inactive-days: '14'
           issue-lock-reason: ''
           pr-inactive-days: '30'
           pr-lock-reason: ''

@@ -1,6 +1,8 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
+import type { HttpResponse } from '@vben/request';
+
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import {
@@ -67,7 +69,7 @@ function createRequestClient(baseURL: string) {
   });
 
   // response数据解构
-  client.addResponseInterceptor({
+  client.addResponseInterceptor<HttpResponse>({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
 
