@@ -2,7 +2,7 @@ name: Lock Threads
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
@@ -11,13 +11,15 @@ permissions:
 
 jobs:
   action:
+    # prevents this action from running on forks
+    if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-inactive-days: '30'
-          issue-lock-reason: ''
-          pr-inactive-days: '30'
-          pr-lock-reason: ''
-          process-only: 'issues, prs'
+          issue-inactive-days: "30"
+          issue-lock-reason: ""
+          pr-inactive-days: "30"
+          pr-lock-reason: ""
+          process-only: "issues, prs"
