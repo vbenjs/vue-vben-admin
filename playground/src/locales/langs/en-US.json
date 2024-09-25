@@ -79,7 +79,8 @@
         "rules": "Form Rules",
         "dynamic": "Dynamic Form",
         "custom": "Custom Component",
-        "api": "Api"
+        "api": "Api",
+        "merge": "Merge Form"
       },
       "captcha": {
         "title": "Captcha",

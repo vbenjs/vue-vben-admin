@@ -123,6 +123,47 @@ export class FormApi {
     return form.values;
   }
 
+  merge(formApi: FormApi) {
+    const chain = [this, formApi];
+    const proxy = new Proxy(formApi, {
+      get(target: any, prop: any) {
+        if (prop === 'merge') {
+          return (nextFormApi: FormApi) => {
+            chain.push(nextFormApi);
+            return proxy;
+          };
+        }
+        if (prop === 'submitAllForm') {
+          return async (needMerge: boolean = true) => {
+            try {
+              const results = await Promise.all(
+                chain.map(async (api) => {
+                  const form = await api.getForm();
+                  const validateResult = await api.validate();
+                  if (!validateResult.valid) {
+                    return;
+                  }
+                  const rawValues = toRaw(form.values || {});
+                  return rawValues;
+                }),
+              );
+              if (needMerge) {
+                const mergedResults = Object.assign({}, ...results);
+                return mergedResults;
+              }
+              return results;
+            } catch (error) {
+              console.error('Validation error:', error);
+            }
+          };
+        }
+        return target[prop];
+      },
+    });
+
+    return proxy;
+  }
+
   mount(formActions: FormActions) {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
