@@ -29,6 +29,7 @@ const shadcnUiColors = {
     DEFAULT: 'hsl(var(--accent))',
     foreground: 'hsl(var(--accent-foreground))',
     hover: 'hsl(var(--accent-hover))',
+    lighter: 'has(val(--accent-lighter))',
   },
   background: {
     deep: 'hsl(var(--background-deep))',
