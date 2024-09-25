@@ -42,15 +42,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
-      {
-        name: 'CaptchaExample',
-        path: '/examples/captcha',
-        component: () => import('#/views/examples/captcha/index.vue'),
-        meta: {
-          icon: 'logos:recaptcha',
-          title: $t('page.examples.captcha.title'),
-        },
-      },
+
       {
         name: 'FormExample',
         path: '/examples/form',
@@ -105,6 +97,43 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/examples/form/api.vue'),
             meta: {
               title: $t('page.examples.form.api'),
+            },
+          },
+        ],
+      },
+      {
+        name: 'CaptchaExample',
+        path: '/examples/captcha',
+        meta: {
+          icon: 'logos:recaptcha',
+          title: $t('page.examples.captcha.title'),
+        },
+        children: [
+          {
+            name: 'DragVerifyExample',
+            path: '/examples/captcha/slider',
+            component: () =>
+              import('#/views/examples/captcha/slider-captcha.vue'),
+            meta: {
+              title: $t('page.examples.captcha.sliderCaptcha'),
+            },
+          },
+          {
+            name: 'RotateVerifyExample',
+            path: '/examples/captcha/slider-rotate',
+            component: () =>
+              import('#/views/examples/captcha/slider-rotate-captcha.vue'),
+            meta: {
+              title: $t('page.examples.captcha.sliderRotateCaptcha'),
+            },
+          },
+          {
+            name: 'CaptchaPointSelectionExample',
+            path: '/examples/captcha/point-selection',
+            component: () =>
+              import('#/views/examples/captcha/point-selection-captcha.vue'),
+            meta: {
+              title: $t('page.examples.captcha.pointSelection'),
             },
           },
         ],

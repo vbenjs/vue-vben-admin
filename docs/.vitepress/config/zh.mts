@@ -154,15 +154,19 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
       items: [
         {
           link: 'common-ui/vben-modal',
-          text: 'Vben Modal 模态框',
+          text: 'Modal 模态框',
         },
         {
           link: 'common-ui/vben-drawer',
-          text: 'Vben Drawer 抽屉',
+          text: 'Drawer 抽屉',
         },
         {
           link: 'common-ui/vben-form',
-          text: 'Vben Form 表单',
+          text: 'Form 表单',
+        },
+        {
+          link: 'common-ui/vben-count-to-animator',
+          text: 'CountToAnimator 数字动画',
         },
       ],
     },
@@ -172,13 +176,16 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
+      activeMatch: '^/(guide|components)/',
       text: '文档',
       items: [
         {
+          activeMatch: '^/guide/',
           link: '/guide/introduction/vben',
           text: '指南',
         },
         {
+          activeMatch: '^/components/',
           link: '/components/introduction',
           text: '组件',
         },

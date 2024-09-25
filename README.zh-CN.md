@@ -1,4 +1,4 @@
-<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.6/source/logo-v1.webp"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp"> </a> <br> <br>
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
@@ -77,6 +77,10 @@ pnpm dev
 pnpm build
 ```
 
+## 更新日志
+
+[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
+
 ## 如何贡献
 
 非常欢迎你的加入！[提一个 Issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) 或者提交一个 Pull Request。
@@ -120,17 +124,17 @@ pnpm build
 
 [@Vben](https://github.com/anncwb)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
+
 ## 捐赠
 
 如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
 
-![donate](https://unpkg.com/@vbenjs/static-source@0.1.6/source/sponsor.png)
+![donate](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
 
 <a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
-
-## 更新日志
-
-[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
 
 ## Contributor
 

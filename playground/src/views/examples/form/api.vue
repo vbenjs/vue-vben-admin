@@ -114,6 +114,7 @@ function handleClick(
           fieldName: 'fieldOptions',
         },
       ]);
+      message.success('字段 `fieldOptions` 下拉选项更新成功。');
       break;
     }
 

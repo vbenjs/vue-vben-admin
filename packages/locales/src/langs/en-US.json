@@ -103,6 +103,7 @@
     "usernameTip": "Please enter username",
     "passwordErrorTip": "Password is incorrect",
     "passwordTip": "Please enter password",
+    "verifyRequiredTip": "Please complete the verification first",
     "rememberMe": "Remember Me",
     "createAnAccount": "Create an Account",
     "createAccount": "Create Account",
@@ -313,13 +314,20 @@
       "lockScreen": "Enable Lock Screen"
     }
   },
-  "captcha": {
-    "alt": "Supports img tag src attribute value",
-    "title": "Please complete the security verification",
-    "refreshAriaLabel": "Refresh captcha",
-    "confirmAriaLabel": "Confirm selection",
-    "confirm": "Confirm",
-    "pointAriaLabel": "Click point",
-    "clickInOrder": "Please click in order"
+  "ui": {
+    "captcha": {
+      "title": "Please complete the security verification",
+      "sliderSuccessText": "Passed",
+      "sliderDefaultText": "Slider and drag",
+      "alt": "Supports img tag src attribute value",
+      "sliderRotateDefaultTip": "Click picture to refresh",
+      "sliderRotateFailTip": "Validation failed",
+      "sliderRotateSuccessTip": "Validation successful, time {0} seconds",
+      "refreshAriaLabel": "Refresh captcha",
+      "confirmAriaLabel": "Confirm selection",
+      "confirm": "Confirm",
+      "pointAriaLabel": "Click point",
+      "clickInOrder": "Please click in order"
+    }
   }
 }

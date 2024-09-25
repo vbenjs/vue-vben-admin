@@ -10,6 +10,17 @@ const [Form, formApi] = useVbenForm({
   handleSubmit: onSubmit,
   schema: [
     {
+      component: 'Input',
+      defaultValue: 'hidden value',
+      dependencies: {
+        show: false,
+        // 随意一个字段改变时，都会触发
+        triggerFields: ['field1Switch'],
+      },
+      fieldName: 'hiddenField',
+      label: '隐藏字段',
+    },
+    {
       component: 'Switch',
       defaultValue: true,
       fieldName: 'field1Switch',

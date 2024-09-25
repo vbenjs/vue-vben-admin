@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   getFirstNonNullOrUndefined,
+  isBoolean,
   isEmpty,
   isHttpUrl,
   isObject,
@@ -93,6 +94,21 @@ describe('isWindow', () => {
     expect(isWindow({})).toBe(false);
     expect(isWindow([])).toBe(false);
     expect(isWindow(null)).toBe(false);
+  });
+});
+
+describe('isBoolean', () => {
+  it('should return true for boolean values', () => {
+    expect(isBoolean(true)).toBe(true);
+    expect(isBoolean(false)).toBe(true);
+  });
+
+  it('should return false for non-boolean values', () => {
+    expect(isBoolean(null)).toBe(false);
+    expect(isBoolean(42)).toBe(false);
+    expect(isBoolean('string')).toBe(false);
+    expect(isBoolean({})).toBe(false);
+    expect(isBoolean([])).toBe(false);
   });
 });
 

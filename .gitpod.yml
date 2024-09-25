@@ -3,4 +3,4 @@ ports:
     onOpen: open-preview
 tasks:
   - init: corepack enable && pnpm install
-    command: pnpm run dev
+    command: pnpm run dev:play

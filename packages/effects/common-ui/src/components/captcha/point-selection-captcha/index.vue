@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { CaptchaPoint, PointSelectionCaptchaProps } from './types';
+import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
 import { RotateCw } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
-import CaptchaCard from './captcha-card.vue';
-import { useCaptchaPoints } from './hooks/useCaptchaPoints';
+import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
+import CaptchaCard from './point-selection-captcha-card.vue';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   height: '220px',
@@ -121,12 +121,12 @@ function handleConfirm() {
     @click="handleClick"
   >
     <template #title>
-      <slot name="title">{{ $t('captcha.title') }}</slot>
+      <slot name="title">{{ $t('ui.captcha.title') }}</slot>
     </template>
 
     <template #extra>
       <VbenIconButton
-        :aria-label="$t('captcha.refreshAriaLabel')"
+        :aria-label="$t('ui.captcha.refreshAriaLabel')"
         class="ml-1"
         @click="handleRefresh"
       >
@@ -134,19 +134,19 @@ function handleConfirm() {
       </VbenIconButton>
       <VbenButton
         v-if="showConfirm"
-        :aria-label="$t('captcha.confirmAriaLabel')"
+        :aria-label="$t('ui.captcha.confirmAriaLabel')"
         class="ml-2"
         size="sm"
         @click="handleConfirm"
       >
-        {{ $t('captcha.confirm') }}
+        {{ $t('ui.captcha.confirm') }}
       </VbenButton>
     </template>
 
     <div
       v-for="(point, index) in points"
       :key="index"
-      :aria-label="$t('captcha.pointAriaLabel') + (index + 1)"
+      :aria-label="$t('ui.captcha.pointAriaLabel') + (index + 1)"
       :style="{
         top: `${point.y - POINT_OFFSET}px`,
         left: `${point.x - POINT_OFFSET}px`,
@@ -160,15 +160,15 @@ function handleConfirm() {
     <template #footer>
       <img
         v-if="hintImage"
-        :alt="$t('captcha.alt')"
+        :alt="$t('ui.captcha.alt')"
         :src="hintImage"
-        class="h-10 w-full rounded border border-solid border-slate-200"
+        class="border-border h-10 w-full rounded border"
       />
       <div
         v-else-if="hintText"
-        class="flex h-10 w-full items-center justify-center rounded border border-solid border-slate-200"
+        class="border-border flex-center h-10 w-full rounded border"
       >
-        {{ `${$t('captcha.clickInOrder')}` + `【${hintText}】` }}
+        {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
       </div>
     </template>
   </CaptchaCard>
