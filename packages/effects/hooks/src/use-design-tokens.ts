@@ -257,6 +257,7 @@ export function useElementPlusDesignTokens() {
         '--el-fill-color': getCssVariableValue('--accent'),
         '--el-fill-color-blank': background,
         '--el-fill-color-light': getCssVariableValue('--accent'),
+        '--el-fill-color-lighter': getCssVariableValue('--accent-lighter'),
         '--el-text-color-primary': getCssVariableValue('--foreground'),
 
         '--el-text-color-regular': getCssVariableValue('--foreground'),
