@@ -15,6 +15,7 @@ permissions:
 jobs:
   build:
     name: Create Release
+    if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
     strategy:
       matrix:

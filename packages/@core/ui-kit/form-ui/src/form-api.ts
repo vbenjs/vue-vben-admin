@@ -17,6 +17,8 @@ import {
   StateHandler,
 } from '@vben-core/shared/utils';
 
+import { objectPick } from '@vueuse/core';
+
 const merge = createMerge((originObj, key, updates) => {
   if (Array.isArray(originObj[key]) && Array.isArray(updates)) {
     originObj[key] = updates;
@@ -223,12 +225,25 @@ export class FormApi {
     }
   }
 
+  /**
+   * 设置表单值
+   * @param fields record
+   * @param filterFields 过滤不在schema中定义的字段 默认为true
+   * @param shouldValidate
+   */
   async setValues(
     fields: Record<string, any>,
+    filterFields: boolean = true,
     shouldValidate: boolean = false,
   ) {
     const form = await this.getForm();
-    form.setValues(fields, shouldValidate);
+    if (!filterFields) {
+      form.setValues(fields, shouldValidate);
+      return;
+    }
+    const fieldNames = this.state?.schema?.map((item) => item.fieldName) ?? [];
+    const filteredFields = objectPick(fields, fieldNames);
+    form.setValues(filteredFields, shouldValidate);
   }
 
   async submitForm(e?: Event) {
