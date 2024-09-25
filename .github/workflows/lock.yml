@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   action:
+    # prevents this action from running on forks
+    if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v5
