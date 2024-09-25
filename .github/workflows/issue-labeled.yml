@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   reply-labeled:
+    if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
     steps:
       - name: remove enhancement pending

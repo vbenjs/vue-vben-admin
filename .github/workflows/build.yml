@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   post-update:
+    if: github.repository == 'vbenjs/vue-vben-admin'
     # if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ${{ matrix.os }}
     strategy:
