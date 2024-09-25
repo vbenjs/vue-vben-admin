@@ -7,6 +7,7 @@ import {
   ElMessage,
   ElNotification,
   ElSpace,
+  ElTable,
 } from 'element-plus';
 
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
@@ -38,6 +39,14 @@ function notify(type: NotificationType) {
     type,
   });
 }
+const tableData = [
+  { prop1: '1', prop2: 'A' },
+  { prop1: '2', prop2: 'B' },
+  { prop1: '3', prop2: 'C' },
+  { prop1: '4', prop2: 'D' },
+  { prop1: '5', prop2: 'E' },
+  { prop1: '6', prop2: 'F' },
+];
 </script>
 
 <template>
@@ -73,6 +82,12 @@ function notify(type: NotificationType) {
         <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
         <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
       </ElSpace>
+    </ElCard>
+    <ElCard class="mb-5">
+      <ElTable :data="tableData" stripe>
+        <ElTable.TableColumn label="测试列1" prop="prop1" />
+        <ElTable.TableColumn label="测试列2" prop="prop2" />
+      </ElTable>
     </ElCard>
   </Page>
 </template>
