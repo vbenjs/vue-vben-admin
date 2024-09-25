@@ -171,6 +171,7 @@ class PreferenceManager {
     // 加载并合并当前存储的偏好设置
     const mergedPreference = merge(
       {},
+      // overrides,
       this.loadCachedPreferences() || defaultPreferences,
       this.initialPreferences,
     );
