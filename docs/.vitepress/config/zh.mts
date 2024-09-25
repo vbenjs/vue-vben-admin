@@ -176,13 +176,16 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
+      activeMatch: '^/(guide|components)/',
       text: '文档',
       items: [
         {
+          activeMatch: '^/guide/',
           link: '/guide/introduction/vben',
           text: '指南',
         },
         {
+          activeMatch: '^/components/',
           link: '/components/introduction',
           text: '组件',
         },
