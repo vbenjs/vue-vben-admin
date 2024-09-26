@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { h, onMounted, onUnmounted, ref } from 'vue';
+import { h, onMounted, onUnmounted, watch } from 'vue';
 
 import { $t } from '@vben/locales';
 import { ToastAction, useToast } from '@vben-core/shadcn-ui';
+
+import { createWorker, createWorkFn } from './utils';
 
 interface Props {
   // 轮训时间，分钟
@@ -14,52 +16,35 @@ defineOptions({ name: 'CheckUpdates' });
 const props = withDefaults(defineProps<Props>(), {
   checkUpdatesInterval: 1,
 });
-
-const lastVersionTag = ref('');
-let isCheckingUpdates = false;
-const timer = ref<ReturnType<typeof setInterval>>();
+const rootPath = `${location.origin}/`;
 const { toast } = useToast();
 
-async function getVersionTag() {
-  try {
-    if (
-      location.hostname === 'localhost' ||
-      location.hostname === '127.0.0.1'
-    ) {
-      return null;
-    }
-    const response = await fetch('/', {
-      cache: 'no-cache',
-      method: 'HEAD',
-    });
+const opts = {
+  checkUpdatesInterval: props.checkUpdatesInterval,
+  fetchUrl: rootPath,
+  // immediate: false
+};
+watch(
+  () => props.checkUpdatesInterval,
+  () => {
+    opts.checkUpdatesInterval = props.checkUpdatesInterval;
+  },
+);
+const worker = createWorker(createWorkFn, []);
 
-    return (
-      response.headers.get('etag') || response.headers.get('last-modified')
-    );
-  } catch {
-    console.error('Failed to fetch version tag');
-    return null;
-  }
-}
+worker.addEventListener('message', (e: any) => {
+  // {type: 'showNotice', data: 'version'}
+  if (import.meta.env.MODE === 'production') handleNotice(e.data.data);
+});
 
-async function checkForUpdates() {
-  const versionTag = await getVersionTag();
-  if (!versionTag) {
-    return;
-  }
+const start = (immediate = false) => {
+  worker.postMessage({ data: { ...opts, immediate }, type: 'start' });
+};
+const stop = () => {
+  worker.postMessage({ type: 'stop' });
+};
 
-  // 首次运行时不提示更新
-  if (!lastVersionTag.value) {
-    lastVersionTag.value = versionTag;
-    return;
-  }
-
-  if (lastVersionTag.value !== versionTag && versionTag) {
-    clearInterval(timer.value);
-    handleNotice(versionTag);
-  }
-}
-function handleNotice(versionTag: string) {
+function handleNotice(/* versionTag: string*/) {
   const { dismiss } = toast({
     action: h('div', { class: 'inline-flex items-center' }, [
       h(
@@ -79,7 +64,6 @@ function handleNotice(versionTag: string) {
           class:
             'bg-primary text-primary-foreground hover:bg-primary-hover mx-1',
           onClick: () => {
-            lastVersionTag.value = versionTag;
             window.location.reload();
           },
         },
@@ -94,34 +78,12 @@ function handleNotice(versionTag: string) {
   });
 }
 
-function start() {
-  if (props.checkUpdatesInterval <= 0) {
-    return;
-  }
-
-  // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
-  timer.value = setInterval(
-    checkForUpdates,
-    props.checkUpdatesInterval * 60 * 1000,
-  );
-}
-
 function handleVisibilitychange() {
   if (document.hidden) {
     stop();
   } else {
-    if (!isCheckingUpdates) {
-      isCheckingUpdates = true;
-      checkForUpdates().finally(() => {
-        isCheckingUpdates = false;
-        start();
-      });
-    }
+    start(true);
   }
-}
-
-function stop() {
-  clearInterval(timer.value);
 }
 
 onMounted(() => {
