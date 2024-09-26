@@ -39,7 +39,7 @@
     "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
-    "clean": "vsh clean",
+    "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
     "dev": "turbo-run dev",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
