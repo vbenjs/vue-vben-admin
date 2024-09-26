@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { ChevronDownIcon } from '@radix-icons/vue';
+import { ChevronDown } from 'lucide-vue-next';
 import {
   AccordionHeader,
   AccordionTrigger,
@@ -32,7 +32,7 @@ const delegatedProps = computed(() => {
     >
       <slot></slot>
       <slot name="icon">
-        <ChevronDownIcon
+        <ChevronDown
           class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200"
         />
       </slot>

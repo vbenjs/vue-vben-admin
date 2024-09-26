@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { Cross2Icon } from '@radix-icons/vue';
+import { X } from 'lucide-vue-next';
 import {
   DialogClose,
   DialogContent,
@@ -77,7 +77,7 @@ defineExpose({
         "
         @click="() => emits('close')"
       >
-        <Cross2Icon class="h-4 w-4" />
+        <X class="h-4 w-4" />
       </DialogClose>
     </DialogContent>
   </DialogPortal>

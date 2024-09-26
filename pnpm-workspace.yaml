@@ -30,7 +30,6 @@ catalog:
   '@manypkg/get-packages': ^2.2.2
   '@nolebase/vitepress-plugin-git-changelog': ^2.5.0
   '@playwright/test': ^1.47.2
-  '@radix-icons/vue': ^1.0.0
   '@stylistic/stylelint-plugin': ^3.1.0
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.15

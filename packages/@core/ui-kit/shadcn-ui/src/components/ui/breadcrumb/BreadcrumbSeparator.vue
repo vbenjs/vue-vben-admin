@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { cn } from '@vben-core/shared/utils';
 
-import { ChevronRightIcon } from '@radix-icons/vue';
+import { ChevronRight } from 'lucide-vue-next';
 
 const props = defineProps<{
   class?: any;
@@ -15,7 +15,7 @@ const props = defineProps<{
     role="presentation"
   >
     <slot>
-      <ChevronRightIcon />
+      <ChevronRight />
     </slot>
   </li>
 </template>
