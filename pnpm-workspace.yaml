@@ -20,7 +20,7 @@ catalog:
   '@commitlint/cli': ^19.5.0
   '@commitlint/config-conventional': ^19.5.0
   '@ctrl/tinycolor': ^4.1.0
-  '@eslint/js': ^9.11.0
+  '@eslint/js': ^9.11.1
   '@iconify/json': ^2.2.252
   '@iconify/tailwind': ^1.1.3
   '@iconify/vue': ^4.1.2
@@ -42,13 +42,13 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.5.5
+  '@types/node': ^22.7.2
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.6.0
-  '@typescript-eslint/parser': ^8.6.0
+  '@typescript-eslint/eslint-plugin': ^8.7.0
+  '@typescript-eslint/parser': ^8.7.0
   '@vee-validate/zod': ^4.13.2
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.1.4
@@ -82,16 +82,16 @@ catalog:
   dotenv: ^16.4.5
   echarts: ^5.5.1
   element-plus: ^2.8.3
-  eslint: ^9.11.0
+  eslint: ^9.11.1
   eslint-config-turbo: ^2.1.2
   eslint-plugin-command: ^0.2.5
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.3.0
-  eslint-plugin-jsdoc: ^50.2.4
+  eslint-plugin-jsdoc: ^50.2.5
   eslint-plugin-jsonc: ^2.16.0
   eslint-plugin-n: ^17.10.3
   eslint-plugin-no-only-tests: ^3.3.0
-  eslint-plugin-perfectionist: ^3.6.0
+  eslint-plugin-perfectionist: ^3.7.0
   eslint-plugin-prettier: ^5.2.1
   eslint-plugin-regexp: ^2.6.0
   eslint-plugin-unicorn: ^55.0.0
@@ -111,9 +111,9 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.445.0
+  lucide-vue-next: ^0.446.0
   medium-zoom: ^1.1.0
-  naive-ui: ^2.39.0
+  naive-ui: ^2.40.0
   nanoid: ^5.0.7
   nitropack: ^2.9.7
   nprogress: ^0.2.0
@@ -129,7 +129,7 @@ catalog:
   postcss-preset-env: ^10.0.5
   postcss-scss: ^4.0.9
   prettier: ^3.3.3
-  prettier-plugin-tailwindcss: ^0.6.6
+  prettier-plugin-tailwindcss: ^0.6.8
   publint: ^0.2.11
   qrcode: ^1.5.4
   radix-vue: ^1.9.6
@@ -149,7 +149,7 @@ catalog:
   stylelint-prettier: ^5.0.2
   stylelint-scss: ^6.7.0
   tailwind-merge: ^2.5.2
-  tailwindcss: ^3.4.12
+  tailwindcss: ^3.4.13
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
   turbo: ^2.1.2
@@ -157,13 +157,13 @@ catalog:
   unbuild: ^2.0.0
   unplugin-element-plus: ^0.8.0
   vee-validate: ^4.13.2
-  vite: ^5.4.7
+  vite: ^5.4.8
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: 4.2.1
   vite-plugin-html: ^3.2.2
   vite-plugin-lib-inject-css: ^2.1.1
   vite-plugin-pwa: ^0.20.5
-  vite-plugin-vue-devtools: ^7.4.5
+  vite-plugin-vue-devtools: ^7.4.6
   vitepress: ^1.3.4
   vitepress-plugin-group-icons: ^1.2.4
   vitest: ^2.1.1
@@ -172,6 +172,6 @@ catalog:
   vue-i18n: ^10.0.3
   vue-router: ^4.4.5
   vue-tsc: ^2.1.6
-  watermark-js-plus: ^1.5.6
+  watermark-js-plus: ^1.5.7
   zod: ^3.23.8
   zod-defaults: ^0.1.3

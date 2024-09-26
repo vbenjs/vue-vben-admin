@@ -99,6 +99,14 @@ const routes: RouteRecordRaw[] = [
               title: $t('page.examples.form.api'),
             },
           },
+          {
+            name: 'FormMergeExample',
+            path: '/examples/form/merge',
+            component: () => import('#/views/examples/form/merge.vue'),
+            meta: {
+              title: $t('page.examples.form.merge'),
+            },
+          },
         ],
       },
       {

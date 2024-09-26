@@ -4,7 +4,6 @@ import { cac } from 'cac';
 
 import { defineCheckCircularCommand } from './check-circular';
 import { defineDepcheckCommand } from './check-dep';
-import { defineCleanCommand } from './clean';
 import { defineCodeWorkspaceCommand } from './code-workspace';
 import { defineLintCommand } from './lint';
 import { definePubLintCommand } from './publint';
@@ -17,9 +16,6 @@ try {
 
   // vsh publint
   definePubLintCommand(vsh);
-
-  // vsh clean
-  defineCleanCommand(vsh);
 
   // vsh code-workspace
   defineCodeWorkspaceCommand(vsh);

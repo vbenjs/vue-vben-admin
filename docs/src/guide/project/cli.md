@@ -42,16 +42,6 @@ pnpm vsh check-circular
 pnpm vsh check-dep
 ```
 
-### vsh clean
-
-删除项目的`node_modules`、`dist`、`.turbo`等目录，清理项目。
-
-#### 用法
-
-```bash
-pnpm vsh clean
-```
-
 #### 选项
 
 | 选项             | 说明                                    |

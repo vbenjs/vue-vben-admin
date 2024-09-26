@@ -39,7 +39,7 @@
     "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
-    "clean": "vsh clean",
+    "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
     "dev": "turbo-run dev",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
@@ -110,7 +110,7 @@
       "@ctrl/tinycolor": "4.1.0",
       "clsx": "2.1.1",
       "pinia": "2.2.2",
-      "vue": "3.5.7"
+      "vue": "3.5.8"
     },
     "neverBuiltDependencies": [
       "canvas",

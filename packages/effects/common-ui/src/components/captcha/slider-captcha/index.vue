@@ -154,7 +154,7 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
         resume();
       }
     } else {
-      actionEl.setLeft(`${wrapperWidth - actionWidth + 10}px`);
+      actionEl.setLeft(`${wrapperWidth - actionWidth}px`);
       barEl.setWidth(`${wrapperWidth - actionWidth / 2}px`);
       checkPass();
     }

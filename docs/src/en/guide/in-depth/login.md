@@ -37,8 +37,6 @@ If you want to adjust the content of the login form, you can configure the `Auth
 ```vue
 <AuthenticationLogin
   :loading="authStore.loginLoading"
-  password-placeholder="123456"
-  username-placeholder="vben"
   @submit="authStore.authLogin"
 />
 ```

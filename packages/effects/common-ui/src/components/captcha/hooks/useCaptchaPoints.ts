@@ -7,6 +7,7 @@ export function useCaptchaPoints() {
   function addPoint(point: CaptchaPoint) {
     points.push(point);
   }
+
   function clearPoints() {
     points.splice(0, points.length);
   }

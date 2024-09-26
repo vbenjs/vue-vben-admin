@@ -163,6 +163,8 @@ export async function deleteUserApi(user: UserInfo) {
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
+import type { HttpResponse } from '@vben/request';
+
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import {
@@ -230,7 +232,7 @@ function createRequestClient(baseURL: string) {
   });
 
   // response数据解构
-  client.addResponseInterceptor({
+  client.addResponseInterceptor<HttpResponse>({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
 
@@ -256,7 +258,10 @@ function createRequestClient(baseURL: string) {
 
   // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
   client.addResponseInterceptor(
-    errorMessageResponseInterceptor((msg: string) => message.error(msg)),
+    errorMessageResponseInterceptor((msg: string, _error) => {
+      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
+      message.error(msg);
+    }),
   );
 
   return client;
