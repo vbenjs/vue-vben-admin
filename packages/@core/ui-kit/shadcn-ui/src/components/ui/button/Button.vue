@@ -10,7 +10,7 @@ import { buttonVariants } from './button';
 interface Props extends PrimitiveProps {
   class?: any;
   size?: ButtonVariantSize;
-  variant?: 'heavy' & ButtonVariants;
+  variant?: ButtonVariants;
 }
 
 const props = withDefaults(defineProps<Props>(), {

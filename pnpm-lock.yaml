@@ -54,9 +54,6 @@ catalogs:
     '@playwright/test':
       specifier: ^1.47.2
       version: 1.47.2
-    '@radix-icons/vue':
-      specifier: ^1.0.0
-      version: 1.0.0
     '@stylistic/stylelint-plugin':
       specifier: ^3.1.0
       version: 3.1.0
@@ -1373,9 +1370,6 @@ importers:
 
   packages/@core/ui-kit/shadcn-ui:
     dependencies:
-      '@radix-icons/vue':
-        specifier: 'catalog:'
-        version: 1.0.0(vue@3.5.8(typescript@5.6.2))
       '@vben-core/composables':
         specifier: workspace:*
         version: link:../../composables
@@ -4211,11 +4205,6 @@ packages:
 
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
-
-  '@radix-icons/vue@1.0.0':
-    resolution: {integrity: sha512-gKWWk9tTK/laDRRNe5KLLR8A0qUwx4q4+DN8Fq48hJ904u78R82ayAO3TrxbNLgyn2D0h6rRiGdLzQWj7rPcvA==}
-    peerDependencies:
-      vue: 3.5.8
 
   '@rollup/plugin-alias@5.1.1':
     resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
@@ -13049,10 +13038,6 @@ snapshots:
       config-chain: 1.1.13
 
   '@polka/url@1.0.0-next.28': {}
-
-  '@radix-icons/vue@1.0.0(vue@3.5.8(typescript@5.6.2))':
-    dependencies:
-      vue: 3.5.8(typescript@5.6.2)
 
   '@rollup/plugin-alias@5.1.1(rollup@3.29.5)':
     optionalDependencies:

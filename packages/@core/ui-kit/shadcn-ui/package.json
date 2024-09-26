@@ -40,7 +40,6 @@
     }
   },
   "dependencies": {
-    "@radix-icons/vue": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shared": "workspace:*",
