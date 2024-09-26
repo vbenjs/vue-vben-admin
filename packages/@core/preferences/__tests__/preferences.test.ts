@@ -30,30 +30,30 @@ describe('preferences', () => {
     expect(preferences).toEqual(defaultPreferences);
   });
 
-  // it('initializes preferences with overrides', async () => {
-  //   const overrides: any = {
-  //     app: {
-  //       locale: 'en-US',
-  //     },
-  //   };
-  //   await preferenceManager.initPreferences({
-  //     namespace: 'testNamespace',
-  //     overrides,
-  //   });
+  it('initializes preferences with overrides', async () => {
+    const overrides: any = {
+      app: {
+        locale: 'en-US',
+      },
+    };
+    await preferenceManager.initPreferences({
+      namespace: 'testNamespace',
+      overrides,
+    });
 
-  //   // 等待防抖动操作完成
-  //   // await new Promise((resolve) => setTimeout(resolve, 300)); // 等待100毫秒
+    // 等待防抖动操作完成
+    // await new Promise((resolve) => setTimeout(resolve, 300)); // 等待100毫秒
 
-  //   const expected = {
-  //     ...defaultPreferences,
-  //     app: {
-  //       ...defaultPreferences.app,
-  //       ...overrides.app,
-  //     },
-  //   };
+    const expected = {
+      ...defaultPreferences,
+      app: {
+        ...defaultPreferences.app,
+        ...overrides.app,
+      },
+    };
 
-  //   expect(preferenceManager.getPreferences()).toEqual(expected);
-  // });
+    expect(preferenceManager.getPreferences()).toEqual(expected);
+  });
 
   it('updates theme mode correctly', () => {
     preferenceManager.updatePreferences({

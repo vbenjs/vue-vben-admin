@@ -42,23 +42,6 @@ Check the dependency situation of the entire project and output `unused dependen
 pnpm vsh check-dep
 ```
 
-### vsh clean
-
-Delete the project's `node_modules`, `dist`, `.turbo` directories, etc., to clean the project.
-
-#### Usage
-
-```bash
-pnpm vsh clean
-```
-
-#### Options
-
-| Option | Description |
-| --- | --- |
-| `-r,--recursive` | Recursively delete the entire project, default `true` |
-| `--del-lock` | Whether to delete the `pnpm-lock.yaml` file, default `true` |
-
 ### vsh lint
 
 Lint checks the project to see if the code in the project conforms to standards.
