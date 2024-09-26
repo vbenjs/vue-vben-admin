@@ -7,29 +7,38 @@
   color: inherit;
 }
 
+.ant-btn {
+  .anticon {
+    display: inline-flex;
+  }
+}
+
 .ant-message-notice-content,
 .ant-notification-notice {
   @apply dark:border-border/60 dark:border;
 }
 
-/** select 选择器的样式 */
-.form-valid-error .ant-select .ant-select-selector {
-  border-color: hsl(var(--destructive)) !important;
-}
+.form-valid-error {
+  /** select 选择器的样式 */
 
-.form-valid-error .ant-select-focused .ant-select-selector {
-  box-shadow: 0 0 0 2px rgb(255 38 5 / 6%) !important;
-}
+  .ant-select .ant-select-selector {
+    border-color: hsl(var(--destructive)) !important;
+  }
 
-/** 数字输入框样式 */
-.form-valid-error .ant-input-number-focused {
-  box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
-}
+  .ant-select-focused .ant-select-selector {
+    box-shadow: 0 0 0 2px rgb(255 38 5 / 6%) !important;
+  }
 
-/** 密码输入框样式 */
-.form-valid-error .ant-input-affix-wrapper:hover {
-  border-color: hsl(var(--destructive));
-  box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
+  /** 数字输入框样式 */
+  .ant-input-number-focused {
+    box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
+  }
+
+  /** 密码输入框样式 */
+  .ant-input-affix-wrapper:hover {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
+  }
 }
 
 /** 区间选择器下面来回切换时的样式 */
