@@ -19,14 +19,14 @@ async function cleanTargetsRecursively(currentDir, deletaLockFile) {
       const itemPath = join(currentDir, item);
       if (targets.includes(item)) {
         // 匹配到目标目录或文件时直接删除
-        await fs.rm(itemPath, { recursive: true, force: true });
+        await fs.rm(itemPath, { force: true, recursive: true });
         console.log(`Deleted: ${itemPath}`);
       }
       const stat = await fs.lstat(itemPath);
       if (stat.isDirectory()) {
-        await cleanTargetsRecursively(itemPath);
+        await cleanTargetsRecursively(itemPath, deletaLockFile);
       }
-    } catch (error) {
+    } catch {
       // console.error(`Error handling directory ${currentDir}: ${error.message}`);
     }
   }
