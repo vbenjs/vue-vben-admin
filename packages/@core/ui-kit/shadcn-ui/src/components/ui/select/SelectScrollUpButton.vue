@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { ChevronUpIcon } from '@radix-icons/vue';
+import { ChevronUp } from 'lucide-vue-next';
 import {
   SelectScrollUpButton,
   type SelectScrollUpButtonProps,
@@ -29,7 +29,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <slot>
-      <ChevronUpIcon />
+      <ChevronUp class="h-4 w-4" />
     </slot>
   </SelectScrollUpButton>
 </template>

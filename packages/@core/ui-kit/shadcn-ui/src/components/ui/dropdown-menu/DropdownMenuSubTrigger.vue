@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { ChevronRightIcon } from '@radix-icons/vue';
+import { ChevronRight } from 'lucide-vue-next';
 import {
   DropdownMenuSubTrigger,
   type DropdownMenuSubTriggerProps,
@@ -32,6 +32,6 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <slot></slot>
-    <ChevronRightIcon class="ml-auto h-4 w-4" />
+    <ChevronRight class="ml-auto h-4 w-4" />
   </DropdownMenuSubTrigger>
 </template>

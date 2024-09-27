@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { CheckIcon } from '@radix-icons/vue';
+import { Check } from 'lucide-vue-next';
 import {
   SelectItem,
   SelectItemIndicator,
@@ -35,7 +35,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   >
     <span class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectItemIndicator>
-        <CheckIcon class="h-4 w-4" />
+        <Check class="h-4 w-4" />
       </SelectItemIndicator>
     </span>
 

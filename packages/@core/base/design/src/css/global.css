@@ -82,11 +82,11 @@
     @apply opacity-100;
   }
 
-  input:-webkit-autofill {
+  /* input:-webkit-autofill {
     @apply border-none;
 
     box-shadow: 0 0 0 1000px transparent inset;
-  }
+  } */
 
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {

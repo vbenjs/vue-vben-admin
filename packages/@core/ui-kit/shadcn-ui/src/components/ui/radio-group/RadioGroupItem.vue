@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { CheckIcon } from '@radix-icons/vue';
+import { Circle } from 'lucide-vue-next';
 import {
   RadioGroupIndicator,
   RadioGroupItem,
@@ -33,7 +33,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <RadioGroupIndicator class="flex items-center justify-center">
-      <CheckIcon class="fill-primary h-3.5 w-3.5" />
+      <Circle class="h-2.5 w-2.5 fill-current text-current" />
     </RadioGroupIndicator>
   </RadioGroupItem>
 </template>

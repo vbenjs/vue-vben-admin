@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { CaretSortIcon } from '@radix-icons/vue';
+import { ChevronDown } from 'lucide-vue-next';
 import {
   SelectIcon,
   SelectTrigger,
@@ -34,7 +34,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   >
     <slot></slot>
     <SelectIcon as-child>
-      <CaretSortIcon class="h-4 w-4 opacity-50" />
+      <ChevronDown class="h-4 w-4 opacity-50" />
     </SelectIcon>
   </SelectTrigger>
 </template>

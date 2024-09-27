@@ -83,8 +83,8 @@ function escapeKeyDown(e: KeyboardEvent) {
 // pointer-down-outside
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
-  const isDismissableModal = !!target?.dataset.dismissableModal;
-  if (!closeOnClickModal.value || !isDismissableModal) {
+  const dismissableDrawer = !!target?.dataset.dismissableDrawer;
+  if (!closeOnClickModal.value || !dismissableDrawer) {
     e.preventDefault();
   }
 }

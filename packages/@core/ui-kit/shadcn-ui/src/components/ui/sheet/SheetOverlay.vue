@@ -6,6 +6,6 @@ useScrollLock();
 <template>
   <div
     class="bg-overlay fixed inset-0 z-[1000]"
-    data-dismissable-modal="true"
+    data-dismissable-drawer="true"
   ></div>
 </template>

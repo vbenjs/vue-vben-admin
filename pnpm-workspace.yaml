@@ -30,7 +30,6 @@ catalog:
   '@manypkg/get-packages': ^2.2.2
   '@nolebase/vitepress-plugin-git-changelog': ^2.5.0
   '@playwright/test': ^1.47.2
-  '@radix-icons/vue': ^1.0.0
   '@stylistic/stylelint-plugin': ^3.1.0
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.15
@@ -42,7 +41,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.7.0
+  '@types/node': ^22.7.2
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
@@ -87,7 +86,7 @@ catalog:
   eslint-plugin-command: ^0.2.5
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.3.0
-  eslint-plugin-jsdoc: ^50.2.4
+  eslint-plugin-jsdoc: ^50.2.5
   eslint-plugin-jsonc: ^2.16.0
   eslint-plugin-n: ^17.10.3
   eslint-plugin-no-only-tests: ^3.3.0
@@ -111,9 +110,9 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.445.0
+  lucide-vue-next: ^0.446.0
   medium-zoom: ^1.1.0
-  naive-ui: ^2.39.0
+  naive-ui: ^2.40.0
   nanoid: ^5.0.7
   nitropack: ^2.9.7
   nprogress: ^0.2.0
@@ -157,7 +156,7 @@ catalog:
   unbuild: ^2.0.0
   unplugin-element-plus: ^0.8.0
   vee-validate: ^4.13.2
-  vite: ^5.4.7
+  vite: ^5.4.8
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: 4.2.1
   vite-plugin-html: ^3.2.2
@@ -172,6 +171,6 @@ catalog:
   vue-i18n: ^10.0.3
   vue-router: ^4.4.5
   vue-tsc: ^2.1.6
-  watermark-js-plus: ^1.5.6
+  watermark-js-plus: ^1.5.7
   zod: ^3.23.8
   zod-defaults: ^0.1.3
