@@ -75,7 +75,7 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Check types
     "check:type": "turbo run typecheck",
     // Clean the project (delete node_modules, dist, .turbo, etc.)
-    "clean": "vsh clean",
+    "clean": "node ./scripts/clean.mjs",
     // Commit code
     "commit": "czg",
     // Start the project (by default, the dev scripts of all packages in the entire repository will run)

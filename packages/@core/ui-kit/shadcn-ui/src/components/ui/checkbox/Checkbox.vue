@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { CheckIcon } from '@radix-icons/vue';
+import { Check } from 'lucide-vue-next';
 import {
   CheckboxIndicator,
   CheckboxRoot,
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       class="flex h-full w-full items-center justify-center text-current"
     >
       <slot>
-        <CheckIcon class="h-4 w-4" />
+        <Check class="h-4 w-4" />
       </slot>
     </CheckboxIndicator>
   </CheckboxRoot>
