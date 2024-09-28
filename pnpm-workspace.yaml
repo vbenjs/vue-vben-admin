@@ -21,7 +21,7 @@ catalog:
   '@commitlint/config-conventional': ^19.5.0
   '@ctrl/tinycolor': ^4.1.0
   '@eslint/js': ^9.11.1
-  '@iconify/json': ^2.2.252
+  '@iconify/json': ^2.2.254
   '@iconify/tailwind': ^1.1.3
   '@iconify/vue': ^4.1.2
   '@intlify/core-base': ^10.0.3
@@ -41,7 +41,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.7.2
+  '@types/node': ^22.7.4
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
@@ -52,8 +52,8 @@ catalog:
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.1.4
   '@vitejs/plugin-vue-jsx': ^4.0.1
-  '@vue/reactivity': ^3.5.8
-  '@vue/shared': ^3.5.8
+  '@vue/reactivity': ^3.5.10
+  '@vue/shared': ^3.5.10
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^11.1.0
   '@vueuse/integrations': ^11.1.0
@@ -73,20 +73,20 @@ catalog:
   cross-env: ^7.0.3
   cspell: ^8.14.4
   cssnano: ^7.0.6
-  cz-git: ^1.9.4
-  czg: ^1.9.4
+  cz-git: ^1.10.0
+  czg: ^1.10.0
   dayjs: ^1.11.13
   defu: ^6.1.4
   depcheck: ^1.4.7
   dotenv: ^16.4.5
   echarts: ^5.5.1
-  element-plus: ^2.8.3
+  element-plus: ^2.8.4
   eslint: ^9.11.1
   eslint-config-turbo: ^2.1.2
-  eslint-plugin-command: ^0.2.5
+  eslint-plugin-command: ^0.2.6
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.3.0
-  eslint-plugin-jsdoc: ^50.2.5
+  eslint-plugin-jsdoc: ^50.3.0
   eslint-plugin-jsonc: ^2.16.0
   eslint-plugin-n: ^17.10.3
   eslint-plugin-no-only-tests: ^3.3.0
@@ -112,7 +112,7 @@ catalog:
   lodash.clonedeep: ^4.5.0
   lucide-vue-next: ^0.446.0
   medium-zoom: ^1.1.0
-  naive-ui: ^2.40.0
+  naive-ui: ^2.40.1
   nanoid: ^5.0.7
   nitropack: ^2.9.7
   nprogress: ^0.2.0
@@ -134,9 +134,9 @@ catalog:
   radix-vue: ^1.9.6
   resolve.exports: ^2.0.2
   rimraf: ^6.0.1
-  rollup: ^4.22.4
+  rollup: ^4.22.5
   rollup-plugin-visualizer: ^5.12.0
-  sass: ^1.79.3
+  sass: ^1.79.4
   sortablejs: ^1.15.3
   stylelint: ^16.9.0
   stylelint-config-recess-order: ^5.1.1
@@ -166,7 +166,7 @@ catalog:
   vitepress: ^1.3.4
   vitepress-plugin-group-icons: ^1.2.4
   vitest: ^2.1.1
-  vue: ^3.5.8
+  vue: ^3.5.10
   vue-eslint-parser: ^9.4.3
   vue-i18n: ^10.0.3
   vue-router: ^4.4.5
