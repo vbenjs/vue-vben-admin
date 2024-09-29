@@ -33,7 +33,7 @@ export function useRowSelection(
           // 点击 checkbox/radiobox 触发
 
           // 取出【当前页】所有 keyValues
-          const currentPageKeys = tableData.value.map((o) => parseRowKeyValue(unref(getRowKey), o));
+          const currentPageKeys = getCcurrentPageKeys();
 
           // 从【所有分页】已选的 keyValues，且属于【当前页】的部分
           for (const selectedKey of selectedRowKeysRef.value.filter((k) =>
@@ -110,6 +110,18 @@ export function useRowSelection(
     const { rowKey } = unref(propsRef);
     return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
   });
+	function getCcurrentPageKeys() {
+		const { childrenColumnName = 'children' } = unref(propsRef);
+		const keys: Key[] = [];
+		const extractKeys = (record: Recordable) => {
+			keys.push(parseRowKeyValue(unref(getRowKey), record));
+			if (record[childrenColumnName]?.length) {
+				record[childrenColumnName].forEach(extractKeys);
+			}
+		};
+		tableData.value.forEach(extractKeys);
+		return keys;
+	}
 
   function setSelectedRowKeys(keyValues?: Key[]) {
     selectedRowKeysRef.value = keyValues || [];
