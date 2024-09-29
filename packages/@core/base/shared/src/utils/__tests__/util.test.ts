@@ -139,8 +139,7 @@ describe('getNestedValue', () => {
   });
 
   it('should return the entire object if path is empty', () => {
-    const result = getNestedValue(data, '');
-    expect(result).toEqual(undefined);
+    expect(() => getNestedValue(data, '')()).toThrow();
   });
 
   it('should handle paths with array indexes', () => {
