@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
@@ -74,6 +74,13 @@ async function handleSubmit() {
 function toggleUnlockForm() {
   showUnlockForm.value = !showUnlockForm.value;
 }
+onMounted(() => {
+  document.body.style.overflow = 'hidden';
+});
+
+onBeforeUnmount(() => {
+  document.body.style.overflow = '';
+});
 </script>
 
 <template>
