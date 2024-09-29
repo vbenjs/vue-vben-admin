@@ -1524,6 +1524,9 @@ importers:
 
   packages/effects/layouts:
     dependencies:
+      '@vben-core/composables':
+        specifier: workspace:*
+        version: link:../../@core/composables
       '@vben-core/form-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/form-ui
