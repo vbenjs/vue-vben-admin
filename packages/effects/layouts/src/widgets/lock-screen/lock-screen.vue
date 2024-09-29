@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
 import { storeToRefs, useLockStore } from '@vben/stores';
+import { useScrollLock } from '@vben-core/composables';
 import { useVbenForm, z } from '@vben-core/form-ui';
 import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui';
 
@@ -74,13 +75,8 @@ async function handleSubmit() {
 function toggleUnlockForm() {
   showUnlockForm.value = !showUnlockForm.value;
 }
-onMounted(() => {
-  document.body.style.overflow = 'hidden';
-});
 
-onBeforeUnmount(() => {
-  document.body.style.overflow = '';
-});
+useScrollLock();
 </script>
 
 <template>
