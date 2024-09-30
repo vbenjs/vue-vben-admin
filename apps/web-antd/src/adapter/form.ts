@@ -57,16 +57,12 @@ export type FormComponentType =
   | 'Upload'
   | BaseFormComponentType;
 
-const withInputPlaceholder = <T extends Component>(component: T) => {
+const withDefaultPlaceholder = <T extends Component>(
+  component: T,
+  type: 'input' | 'select',
+) => {
   return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t('placeholder.input');
-    return h(component, { ...props, attrs, placeholder }, slots);
-  };
-};
-
-const withSelectPlaceholder = <T extends Component>(component: T) => {
-  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t('placeholder.select');
+    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
     return h(component, { ...props, attrs, placeholder }, slots);
   };
 };
@@ -87,20 +83,20 @@ setupVbenForm<FormComponentType>({
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider,
-    Input: withInputPlaceholder(Input),
-    InputNumber: withInputPlaceholder(InputNumber),
-    InputPassword: withInputPlaceholder(InputPassword),
-    Mentions: withInputPlaceholder(Mentions),
+    Input: withDefaultPlaceholder(Input, 'input'),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
+    InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
+    Mentions: withDefaultPlaceholder(Mentions, 'input'),
     Radio,
     RadioGroup,
     RangePicker,
     Rate,
-    Select: withSelectPlaceholder(Select),
+    Select: withDefaultPlaceholder(Select, 'select'),
     Space,
     Switch,
-    Textarea: withInputPlaceholder(Textarea),
+    Textarea: withDefaultPlaceholder(Textarea, 'input'),
     TimePicker,
-    TreeSelect: withSelectPlaceholder(TreeSelect),
+    TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
     Upload,
   },
   config: {
