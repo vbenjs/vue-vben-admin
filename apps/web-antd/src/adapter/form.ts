@@ -4,7 +4,7 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
-import { type Component, h } from 'vue';
+import { type Component, h, type SetupContext } from 'vue';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -57,15 +57,15 @@ export type FormComponentType =
   | 'Upload'
   | BaseFormComponentType;
 
-const withInputPlaceholder = (component: Component) => {
-  return (props: any, { attrs, slots }: any) => {
+const withInputPlaceholder = <T extends Component>(component: T) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
     const placeholder = props?.placeholder || $t('placeholder.input');
     return h(component, { ...props, attrs, placeholder }, slots);
   };
 };
 
-const withSelectPlaceholder = (component: Component) => {
-  return (props: any, { attrs, slots }: any) => {
+const withSelectPlaceholder = <T extends Component>(component: T) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
     const placeholder = props?.placeholder || $t('placeholder.select');
     return h(component, { ...props, attrs, placeholder }, slots);
   };
