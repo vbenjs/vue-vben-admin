@@ -58,6 +58,10 @@
     "required": "请输入{0}",
     "selectRequired": "请选择{0}"
   },
+  "placeholder": {
+    "input": "请输入",
+    "select": "请选择"
+  },
   "widgets": {
     "document": "文档",
     "qa": "问题 & 帮助",
