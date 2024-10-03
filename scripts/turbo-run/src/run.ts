@@ -46,6 +46,7 @@ export async function run(options: RunOptions) {
     process.exit(1);
   }
 
+  process.env.VITE_CJS_IGNORE_WARNING = '1';
   execaCommand(`pnpm --filter=${selectPkg} run ${command}`, {
     stdio: 'inherit',
   });

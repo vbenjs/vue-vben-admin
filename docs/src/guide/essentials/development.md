@@ -95,7 +95,7 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     // lint 代码
     "lint": "vsh lint",
     // 依赖安装完成之后，执行所有包的stub脚本
-    "postinstall": "turbo run stub",
+    "postinstall": "pnpm -r run stub --if-present",
     // 只允许使用pnpm
     "preinstall": "npx only-allow pnpm",
     // husky的安装
