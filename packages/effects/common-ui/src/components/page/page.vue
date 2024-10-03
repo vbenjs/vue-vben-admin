@@ -1,27 +1,67 @@
 <script setup lang="ts">
+import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+
 interface Props {
   title?: string;
   description?: string;
   contentClass?: string;
-  showFooter?: boolean;
+  /**
+   * 根据content可见高度自适应
+   */
+  autoContentHeight?: boolean;
 }
 
 defineOptions({
   name: 'Page',
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  contentClass: '',
-  description: '',
-  showFooter: false,
-  title: '',
+const {
+  contentClass = '',
+  description = '',
+  autoContentHeight = false,
+  title = '',
+} = defineProps<Props>();
+
+const headerHeight = ref(0);
+const footerHeight = ref(0);
+
+const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
+const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
+
+const contentStyle = computed(() => {
+  if (autoContentHeight) {
+    return {
+      height: `calc(var(--vben-content-height) - ${headerHeight.value}px - ${footerHeight.value}px)`,
+    };
+  }
+  return {};
+});
+
+async function calcContentHeight() {
+  if (!autoContentHeight) {
+    return;
+  }
+  await nextTick();
+  headerHeight.value = headerRef.value?.offsetHeight || 0;
+  footerHeight.value = footerRef.value?.offsetHeight || 0;
+}
+
+onMounted(() => {
+  calcContentHeight();
 });
 </script>
 
 <template>
   <div class="relative h-full">
     <div
-      v-if="description || $slots.description || title"
+      v-if="
+        description ||
+        $slots.description ||
+        title ||
+        $slots.title ||
+        $slots.extra
+      "
+      ref="headerRef"
       class="bg-card px-6 py-4"
     >
       <slot name="title">
@@ -42,12 +82,13 @@ const props = withDefaults(defineProps<Props>(), {
       </slot>
     </div>
 
-    <div :class="contentClass" class="m-4">
+    <div :class="contentClass" :style="contentStyle" class="h-full p-4">
       <slot></slot>
     </div>
 
     <div
-      v-if="props.showFooter"
+      v-if="$slots.footer"
+      ref="footerRef"
       class="bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4"
     >
       <slot name="footer"></slot>

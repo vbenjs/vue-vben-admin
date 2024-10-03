@@ -39,7 +39,7 @@ const defaultPreferences: Preferences = {
     icpLink: '',
   },
   footer: {
-    enable: true,
+    enable: false,
     fixed: false,
   },
   header: {

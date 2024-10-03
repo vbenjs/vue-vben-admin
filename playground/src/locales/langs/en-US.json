@@ -82,6 +82,10 @@
         "api": "Api",
         "merge": "Merge Form"
       },
+      "vxeTable": {
+        "title": "Vxe Table",
+        "basic": "Basic Table"
+      },
       "captcha": {
         "title": "Captcha",
         "pointSelection": "Point Selection Captcha",

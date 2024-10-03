@@ -42,7 +42,6 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
-
       {
         name: 'FormExample',
         path: '/examples/form',
@@ -105,6 +104,24 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/examples/form/merge.vue'),
             meta: {
               title: $t('page.examples.form.merge'),
+            },
+          },
+        ],
+      },
+      {
+        name: 'VxeTableExample',
+        path: '/examples/vxe-table',
+        meta: {
+          icon: 'lucide:table',
+          title: $t('page.examples.vxeTable.title'),
+        },
+        children: [
+          {
+            name: 'VxeTableBasicExample',
+            path: '/examples/vxe-table/basic',
+            component: () => import('#/views/examples/vxe-table/basic.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.basic'),
             },
           },
         ],
