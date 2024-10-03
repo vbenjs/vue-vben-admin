@@ -25,7 +25,6 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
-          icon: 'mdi:shield-key-outline',
           title: $t('page.demos.table'),
         },
         name: 'Table',
