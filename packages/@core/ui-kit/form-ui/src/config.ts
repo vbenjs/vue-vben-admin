@@ -20,7 +20,7 @@ import { defineRule } from 'vee-validate';
 
 const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
-export const DEFAULT_FORM_COMMOM_CONFIG: FormCommonConfig = {};
+export const DEFAULT_FORM_COMMON_CONFIG: FormCommonConfig = {};
 
 export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
   DefaultResetActionButton: h(VbenButton, { size: 'sm', variant: 'outline' }),
@@ -43,7 +43,7 @@ export function setupVbenForm<
 >(options: VbenFormAdapterOptions<T>) {
   const { components, config, defineRules } = options;
 
-  DEFAULT_FORM_COMMOM_CONFIG.disabledOnChangeListener =
+  DEFAULT_FORM_COMMON_CONFIG.disabledOnChangeListener =
     config?.disabledOnChangeListener ?? false;
 
   if (defineRules) {

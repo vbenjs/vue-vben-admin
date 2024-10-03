@@ -49,7 +49,7 @@ const withDefaultPlaceholder = <T extends Component>(
 ) => {
   return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
     const placeholder = props?.placeholder || $t(`placeholder.${type}`);
-    return h(component, { ...props, attrs, placeholder }, slots);
+    return h(component, { ...props, ...attrs, placeholder }, slots);
   };
 };
 

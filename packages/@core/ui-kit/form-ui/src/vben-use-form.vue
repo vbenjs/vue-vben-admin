@@ -7,7 +7,7 @@ import FormActions from './components/form-actions.vue';
 import {
   COMPONENT_BIND_EVENT_MAP,
   COMPONENT_MAP,
-  DEFAULT_FORM_COMMOM_CONFIG,
+  DEFAULT_FORM_COMMON_CONFIG,
 } from './config';
 import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
@@ -39,7 +39,7 @@ const handleUpdateCollapsed = (value: boolean) => {
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"
-    :global-common-config="DEFAULT_FORM_COMMOM_CONFIG"
+    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
   >
     <template
       v-for="slotName in delegatedSlots"

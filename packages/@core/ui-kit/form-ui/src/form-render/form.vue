@@ -11,7 +11,7 @@ import type {
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString } from '@vben-core/shared/utils';
+import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils';
 
 import { type GenericObject } from 'vee-validate';
 
@@ -94,7 +94,7 @@ const computedSchema = computed(
       labelClass = '',
       labelWidth = 100,
       wrapperClass = '',
-    } = Object.assign({}, props.globalCommonConfig, props.commonConfig);
+    } = mergeWithArrayOverride(props.commonConfig, props.globalCommonConfig);
     return (props.schema || []).map((schema, index) => {
       const keepIndex = keepFormItemIndex.value;
 
