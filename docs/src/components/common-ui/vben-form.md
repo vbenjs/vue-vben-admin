@@ -31,6 +31,7 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
+import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
@@ -84,6 +85,16 @@ export type FormComponentType =
   | 'Upload'
   | BaseFormComponentType;
 
+const withDefaultPlaceholder = <T extends Component>(
+  component: T,
+  type: 'input' | 'select',
+) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
+    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
+    return h(component, { ...props, ...attrs, placeholder }, slots);
+  };
+};
+
 // 初始化表单组件，并注册到form组件内部
 setupVbenForm<FormComponentType>({
   components: {
@@ -100,26 +111,27 @@ setupVbenForm<FormComponentType>({
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider,
-    Input,
-    InputNumber,
-    InputPassword,
-    Mentions,
+    Input: withDefaultPlaceholder(Input, 'input'),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
+    InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
+    Mentions: withDefaultPlaceholder(Mentions, 'input'),
     Radio,
     RadioGroup,
     RangePicker,
     Rate,
-    Select,
+    Select: withDefaultPlaceholder(Select, 'select'),
     Space,
     Switch,
-    Textarea,
+    Textarea: withDefaultPlaceholder(Textarea, 'input'),
     TimePicker,
-    TreeSelect,
+    TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
     Upload,
   },
   config: {
+    // 是否禁用onChange事件监听，naive ui组件库默认不需要监听onChange事件，否则会在控制台报错
+    disabledOnChangeListener: true,
     // ant design vue组件库默认都是 v-model:value
     baseModelPropName: 'value',
-
     // 一些组件是 v-model:checked 或者 v-model:fileList
     modelPropNameMap: {
       Checkbox: 'checked',
