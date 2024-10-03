@@ -3,7 +3,7 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 import {
   FormControl,
@@ -52,6 +52,16 @@ const errors = useFieldError(fieldName);
 const formApi = formRenderProps.form;
 
 const isInValid = computed(() => errors.value?.length > 0);
+const fieldComponentRef = ref<HTMLInputElement | null>(null);
+const focus = () => {
+  if (
+    fieldComponentRef.value &&
+    typeof fieldComponentRef.value.focus === 'function' &&
+    document.activeElement !== fieldComponentRef.value // 检查当前是否有元素被聚焦
+  ) {
+    fieldComponentRef.value.focus();
+  }
+};
 
 const fieldComponent = computed(() => {
   const finalComponent = isString(component)
@@ -155,6 +165,18 @@ const computedProps = computed(() => {
     ...dynamicComponentProps.value,
   };
 });
+
+watch(
+  () => computedProps.value?.autofocus,
+  (value) => {
+    if (value === true) {
+      nextTick(() => {
+        focus();
+      });
+    }
+  },
+  { immediate: true },
+);
 
 const shouldDisabled = computed(() => {
   return isDisabled.value || disabled || computedProps.value?.disabled;
@@ -275,6 +297,7 @@ function createComponentProps(slotProps: Record<string, any>) {
           >
             <component
               :is="fieldComponent"
+              ref="fieldComponentRef"
               :class="{
                 'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
                   isInValid,
