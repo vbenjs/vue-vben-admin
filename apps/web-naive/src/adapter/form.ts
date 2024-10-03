@@ -4,6 +4,7 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
+import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
@@ -43,6 +44,16 @@ export type FormComponentType =
   | 'Upload'
   | BaseFormComponentType;
 
+const withDefaultPlaceholder = <T extends Component>(
+  component: T,
+  type: 'input' | 'select',
+) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
+    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
+    return h(component, { ...props, ...attrs, placeholder }, slots);
+  };
+};
+
 // 初始化表单组件，并注册到form组件内部
 setupVbenForm<FormComponentType>({
   components: {
@@ -62,17 +73,18 @@ setupVbenForm<FormComponentType>({
       );
     },
     Divider: NDivider,
-    Input: NInput,
-    InputNumber: NInputNumber,
+    Input: withDefaultPlaceholder(NInput, 'input'),
+    InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
     RadioGroup: NRadioGroup,
-    Select: NSelect,
+    Select: withDefaultPlaceholder(NSelect, 'select'),
     Space: NSpace,
     Switch: NSwitch,
     TimePicker: NTimePicker,
-    TreeSelect: NTreeSelect,
+    TreeSelect: withDefaultPlaceholder(NTreeSelect, 'select'),
     Upload: NUpload,
   },
   config: {
+    disabledOnChangeListener: true,
     baseModelPropName: 'value',
     modelPropNameMap: {
       Checkbox: 'checked',

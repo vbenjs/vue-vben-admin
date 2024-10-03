@@ -3,7 +3,7 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, useTemplateRef, watch } from 'vue';
 
 import {
   FormControl,
@@ -32,6 +32,7 @@ const {
   dependencies,
   description,
   disabled,
+  disabledOnChangeListener,
   fieldName,
   formFieldProps,
   label,
@@ -49,19 +50,10 @@ const { componentBindEventMap, componentMap, isVertical } = useFormContext();
 const formRenderProps = injectRenderFormProps();
 const values = useFormValues();
 const errors = useFieldError(fieldName);
+const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
 
 const isInValid = computed(() => errors.value?.length > 0);
-const fieldComponentRef = ref<HTMLInputElement | null>(null);
-const focus = () => {
-  if (
-    fieldComponentRef.value &&
-    typeof fieldComponentRef.value.focus === 'function' &&
-    document.activeElement !== fieldComponentRef.value // 检查当前是否有元素被聚焦
-  ) {
-    fieldComponentRef.value.focus();
-  }
-};
 
 const fieldComponent = computed(() => {
   const finalComponent = isString(component)
@@ -171,7 +163,7 @@ watch(
   (value) => {
     if (value === true) {
       nextTick(() => {
-        focus();
+        autofocus();
       });
     }
   },
@@ -222,15 +214,16 @@ function fieldBindEvent(slotProps: Record<string, any>) {
     return {
       [`onUpdate:${bindEventField}`]: handler,
       [bindEventField]: value,
-      onChange: (e: Record<string, any>) => {
-        const shouldUnwrap = isEventObjectLike(e);
-        const onChange = slotProps?.componentField?.onChange;
-        if (!shouldUnwrap) {
-          return onChange?.(e);
-        }
-
-        return onChange?.(e?.target?.[bindEventField] ?? e);
-      },
+      onChange: disabledOnChangeListener
+        ? undefined
+        : (e: Record<string, any>) => {
+            const shouldUnwrap = isEventObjectLike(e);
+            const onChange = slotProps?.componentField?.onChange;
+            if (!shouldUnwrap) {
+              return onChange?.(e);
+            }
+            return onChange?.(e?.target?.[bindEventField] ?? e);
+          },
       onInput: () => {},
     };
   }
@@ -247,6 +240,17 @@ function createComponentProps(slotProps: Record<string, any>) {
   };
 
   return binds;
+}
+
+function autofocus() {
+  if (
+    fieldComponentRef.value &&
+    isFunction(fieldComponentRef.value.focus) &&
+    // 检查当前是否有元素被聚焦
+    document.activeElement !== fieldComponentRef.value
+  ) {
+    fieldComponentRef.value?.focus?.();
+  }
 }
 </script>
 

@@ -140,6 +140,11 @@ export interface FormCommonConfig {
    */
   disabled?: boolean;
   /**
+   * 是否禁用所有表单项的change事件监听
+   * @default false
+   */
+  disabledOnChangeListener?: boolean;
+  /**
    * 所有表单项的控件样式
    * @default {}
    */
@@ -317,6 +322,7 @@ export interface VbenFormAdapterOptions<
   components: Partial<Record<T, Component>>;
   config?: {
     baseModelPropName?: string;
+    disabledOnChangeListener?: boolean;
     modelPropNameMap?: Partial<Record<T, string>>;
   };
   defineRules?: {
