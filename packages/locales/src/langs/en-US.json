@@ -58,6 +58,10 @@
     "required": "Please enter {0}",
     "selectRequired": "Please select {0}"
   },
+  "placeholder": {
+    "input": "Please enter",
+    "select": "Please select"
+  },
   "widgets": {
     "document": "Document",
     "qa": "Q&A",

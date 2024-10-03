@@ -4,7 +4,7 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
-import { h } from 'vue';
+import { type Component, h, type SetupContext } from 'vue';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -57,6 +57,16 @@ export type FormComponentType =
   | 'Upload'
   | BaseFormComponentType;
 
+const withDefaultPlaceholder = <T extends Component>(
+  component: T,
+  type: 'input' | 'select',
+) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
+    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
+    return h(component, { ...props, attrs, placeholder }, slots);
+  };
+};
+
 // 初始化表单组件，并注册到form组件内部
 setupVbenForm<FormComponentType>({
   components: {
@@ -73,20 +83,20 @@ setupVbenForm<FormComponentType>({
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider,
-    Input,
-    InputNumber,
-    InputPassword,
-    Mentions,
+    Input: withDefaultPlaceholder(Input, 'input'),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
+    InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
+    Mentions: withDefaultPlaceholder(Mentions, 'input'),
     Radio,
     RadioGroup,
     RangePicker,
     Rate,
-    Select,
+    Select: withDefaultPlaceholder(Select, 'select'),
     Space,
     Switch,
-    Textarea,
+    Textarea: withDefaultPlaceholder(Textarea, 'input'),
     TimePicker,
-    TreeSelect,
+    TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
     Upload,
   },
   config: {
