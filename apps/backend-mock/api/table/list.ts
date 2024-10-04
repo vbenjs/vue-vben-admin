@@ -8,13 +8,16 @@ function generateMockDataList(count: number) {
   for (let i = 0; i < count; i++) {
     const dataItem = {
       id: faker.string.uuid(),
+      imageUrl: faker.image.avatar(),
+      open: faker.datatype.boolean(),
+      status: faker.helpers.arrayElement(['success', 'error', 'warning']),
       productName: faker.commerce.productName(),
       price: faker.commerce.price(),
       currency: faker.finance.currencyCode(),
       quantity: faker.number.int({ min: 1, max: 100 }),
       available: faker.datatype.boolean(),
       category: faker.commerce.department(),
-      releaseDate: faker.date.past().toISOString(),
+      releaseDate: faker.date.past(),
       rating: faker.number.float({ min: 1, max: 5 }),
       description: faker.commerce.productDescription(),
       weight: faker.number.float({ min: 0.1, max: 10 }),

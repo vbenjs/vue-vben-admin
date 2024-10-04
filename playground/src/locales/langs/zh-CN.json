@@ -90,7 +90,8 @@
         "fixed": "固定表头/列",
         "virtual": "虚拟滚动",
         "editCell": "单元格编辑",
-        "editRow": "行编辑"
+        "editRow": "行编辑",
+        "custom-cell": "自定义单元格"
       },
       "captcha": {
         "title": "验证码",

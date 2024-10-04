@@ -149,6 +149,15 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'VxeTableCustomCellExample',
+            path: '/examples/vxe-table/custom-cell',
+            component: () =>
+              import('#/views/examples/vxe-table/custom-cell.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.custom-cell'),
+            },
+          },
+          {
             name: 'VxeTableEditCellExample',
             path: '/examples/vxe-table/edit-cell',
             component: () => import('#/views/examples/vxe-table/edit-cell.vue'),

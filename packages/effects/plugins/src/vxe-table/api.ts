@@ -75,7 +75,16 @@ export class VxeGridApi {
       });
     }
 
-    await this.grid?.commitProxy?.('reload');
+    if (!this.grid?.commitProxy) {
+      console.warn('Unable to reload: grid or commitProxy is undefined');
+      return;
+    }
+
+    try {
+      await this.grid.commitProxy('reload');
+    } catch (error) {
+      console.error('Error occurred while reloading:', error);
+    }
   }
 
   setGridOptions(options: Partial<VxeGridProps['gridOptions']>) {

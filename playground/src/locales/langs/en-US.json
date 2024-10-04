@@ -90,7 +90,8 @@
         "fixed": "Fixed Header/Column",
         "virtual": "Virtual Scroll",
         "editCell": "Edit Cell",
-        "editRow": "Edit Row"
+        "editRow": "Edit Row",
+        "custom-cell": "Custom Cell"
       },
       "captcha": {
         "title": "Captcha",
