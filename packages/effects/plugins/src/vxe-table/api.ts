@@ -1,6 +1,8 @@
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { VxeGridProps, VxePaginationInfo } from './types';
+import type { VxeGridProps } from './types';
+
+import { toRaw } from 'vue';
 
 import { Store } from '@vben-core/shared/store';
 import {
@@ -15,13 +17,6 @@ function getDefaultState(): VxeGridProps {
     class: '',
     gridClass: '',
     gridOptions: {},
-    paginationClass: '',
-    paginationOptions: {},
-    paginationInfo: {
-      currentPage: 1,
-      pageSize: 20,
-      total: 0,
-    },
     gridEvents: {},
     formOptions: undefined,
   };
@@ -57,10 +52,6 @@ export class VxeGridApi {
     bindMethods(this);
   }
 
-  getPaginationInfo() {
-    return this.state?.paginationInfo;
-  }
-
   mount(instance: null | VxeGridInstance) {
     if (!this.isMounted && instance) {
       this.grid = instance;
@@ -69,20 +60,17 @@ export class VxeGridApi {
     }
   }
 
-  async reload(page?: number) {
-    if (page) {
-      this.setPaginationInfo({
-        currentPage: page,
-      });
-    }
-
-    if (!this.grid?.commitProxy) {
-      console.warn('Unable to reload: grid or commitProxy is undefined');
-      return;
-    }
-
+  async query(params: Record<string, any> = {}) {
     try {
-      await this.grid.commitProxy('reload');
+      await this.grid.commitProxy('query', toRaw(params));
+    } catch (error) {
+      console.error('Error occurred while querying:', error);
+    }
+  }
+
+  async reload(params: Record<string, any> = {}) {
+    try {
+      await this.grid.commitProxy('reload', toRaw(params));
     } catch (error) {
       console.error('Error occurred while reloading:', error);
     }
@@ -99,12 +87,6 @@ export class VxeGridApi {
       gridOptions: {
         loading: isLoading,
       },
-    });
-  }
-
-  setPaginationInfo(info: Partial<VxePaginationInfo>) {
-    this.setState({
-      paginationInfo: info,
     });
   }
 

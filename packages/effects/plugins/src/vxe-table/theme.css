@@ -47,3 +47,32 @@
 
   /* --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%); */
 }
+
+.vxe-pager {
+  .vxe-pager--prev-btn:not(.is--disabled):active,
+  .vxe-pager--next-btn:not(.is--disabled):active,
+  .vxe-pager--num-btn:not(.is--disabled):active,
+  .vxe-pager--jump-prev:not(.is--disabled):active,
+  .vxe-pager--jump-next:not(.is--disabled):active,
+  .vxe-pager--prev-btn:not(.is--disabled):focus,
+  .vxe-pager--next-btn:not(.is--disabled):focus,
+  .vxe-pager--num-btn:not(.is--disabled):focus,
+  .vxe-pager--jump-prev:not(.is--disabled):focus,
+  .vxe-pager--jump-next:not(.is--disabled):focus {
+    color: hsl(var(--accent-foreground));
+    background-color: hsl(var(--accent));
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 0 0 1px hsl(var(--border));
+  }
+
+  .vxe-pager {
+    &--wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &--sizes {
+      margin-right: auto;
+    }
+  }
+}

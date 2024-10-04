@@ -47,20 +47,18 @@ const gridOptions: VxeGridProps<RowType> = {
 };
 
 const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
-
-function reload(page?: number) {
-  gridApi.reload(page);
-}
 </script>
 
 <template>
   <Page auto-content-height>
     <Grid>
       <template #toolbar-tools>
-        <Button class="mr-2" type="primary" @click="reload()">
+        <Button class="mr-2" type="primary" @click="() => gridApi.query()">
           刷新当前页面
         </Button>
-        <Button type="primary" @click="reload(1)"> 刷新并返回第一页 </Button>
+        <Button type="primary" @click="() => gridApi.reload()">
+          刷新并返回第一页
+        </Button>
       </template>
     </Grid>
   </Page>

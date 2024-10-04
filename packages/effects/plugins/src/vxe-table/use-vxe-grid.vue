@@ -7,18 +7,20 @@ import type {
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
-import { computed, onMounted, toRaw, useSlots, useTemplateRef } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  toRaw,
+  useSlots,
+  useTemplateRef,
+} from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
-import {
-  cn,
-  getNestedValue,
-  isFunction,
-  mergeWithArrayOverride,
-} from '@vben/utils';
-import { VbenLoading, VbenPagination } from '@vben-core/shadcn-ui';
+import { cloneDeep, cn, mergeWithArrayOverride } from '@vben/utils';
+import { VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
@@ -41,10 +43,7 @@ const state = props.api?.useStore?.();
 const {
   gridOptions,
   class: className,
-  paginationClass,
-  paginationOptions,
   gridClass,
-  paginationInfo,
   gridEvents,
   formOptions,
 } = usePriorityValues(props, state);
@@ -61,7 +60,7 @@ const options = computed(() => {
   const slotActions = slots['toolbar-actions']?.();
   const slotTools = slots['toolbar-tools']?.();
 
-  const forceUseToolbarConfigOptions = showToolbar.value
+  const forceUseToolbarOptions = showToolbar.value
     ? {
         toolbarConfig: {
           slots: {
@@ -72,22 +71,49 @@ const options = computed(() => {
       }
     : {};
 
-  // const globalConfig = VxeUI.getConfig();
-
-  const mergedOptions: VxeTableGridProps = mergeWithArrayOverride(
-    {},
-    forceUseToolbarConfigOptions,
-    toRaw(gridOptions.value),
-    // globalConfig.grid,
+  const mergedOptions: VxeTableGridProps = cloneDeep(
+    mergeWithArrayOverride(
+      {},
+      forceUseToolbarOptions,
+      toRaw(gridOptions.value),
+    ),
   );
 
   if (mergedOptions.proxyConfig) {
     const { ajax } = mergedOptions.proxyConfig;
     mergedOptions.proxyConfig.enabled = !!ajax;
+    // 不自动加载数据, 由组件控制
+    mergedOptions.proxyConfig.autoLoad = false;
   }
 
   if (!showToolbar.value && mergedOptions.toolbarConfig) {
     mergedOptions.toolbarConfig.enabled = false;
+  }
+
+  if (mergedOptions.pagerConfig) {
+    mergedOptions.pagerConfig = mergeWithArrayOverride(
+      {},
+      mergedOptions.pagerConfig,
+      {
+        pageSize: 20,
+        background: true,
+        pageSizes: [10, 20, 30, 50, 100, 200],
+        className: 'mt-2 w-full',
+        layouts: [
+          'Total',
+          'Sizes',
+          'Home',
+          'PrevJump',
+          'PrevPage',
+          'Number',
+          'NextPage',
+          'NextJump',
+          'End',
+          // 'FullJump',
+        ] as any[],
+        size: 'mini' as const,
+      },
+    );
   }
   return mergedOptions;
 });
@@ -101,12 +127,19 @@ const events = computed(() => {
 const vbenFormOptions = computed(() => {
   const defaultFormProps: VbenFormProps = {
     handleSubmit: async () => {
-      props.api.reload(1);
+      const formValues = formApi.form.values;
+      props.api.reload(formValues);
     },
     handleReset: async () => {
       formApi.resetForm();
-      props.api.reload(1);
+      const formValues = formApi.form.values;
+      props.api.reload(formValues);
     },
+    // handleValuesChange(val) {
+    //   console.log('====================================');
+    //   console.log(111, val);
+    //   console.log('====================================');
+    // },
     collapseTriggerResize: true,
     // 所有表单项共用，可单独在表单内覆盖
     commonConfig: {
@@ -131,7 +164,7 @@ const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (!['empty', 'form', 'loading', 'pager'].includes(key)) {
+    if (!['empty', 'form', 'loading'].includes(key)) {
       resultSlots.push(key);
     }
   }
@@ -149,76 +182,23 @@ const delegatedFormSlots = computed(() => {
   return resultSlots;
 });
 
-function extendProxyOptions(options: VxeTableGridProps) {
-  const configQuery = options?.proxyConfig?.ajax?.query;
-
-  const config = VxeUI.getConfig();
-  const mergeOptions = mergeWithArrayOverride(options, config.grid);
-  props.api.setState({
-    gridOptions: {
-      ...mergeOptions,
-      pagerConfig: undefined,
-    },
-  });
-
-  if (
-    !options ||
-    !options.proxyConfig ||
-    !options.proxyConfig.ajax ||
-    !configQuery ||
-    !isFunction(configQuery)
-  ) {
-    return options;
+async function init() {
+  await nextTick();
+  const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
+  const defaultGridOptions: VxeTableGridProps = mergeWithArrayOverride(
+    {},
+    toRaw(gridOptions.value),
+    toRaw(globalGridConfig),
+  );
+  const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
+  if (autoLoad) {
+    props.api.reload(formApi.form.values);
   }
-
-  const responseTotal =
-    mergeOptions.proxyConfig?.response?.total ?? 'page.total';
-  // const responseResult = mergeOptions.proxyConfig.response?.result ?? 'result';
-
-  const wrapperQuery = async (params: any, ...args: any[]) => {
-    const formValues = formApi?.form?.values;
-    const data = await configQuery(
-      {
-        ...params,
-        form: formValues,
-        page: props.api.getPaginationInfo(),
-      },
-      ...args,
-    );
-    const total = getNestedValue(data, responseTotal as string);
-    // paginationInfo.total = total;
-    props.api.setPaginationInfo({ total });
-    return data;
-  };
-  props.api.setState({
-    gridOptions: {
-      proxyConfig: {
-        ajax: {
-          query: wrapperQuery,
-        },
-      },
-    },
-  });
-}
-
-function handlePageChange(currentPage: number, pageSize?: number) {
-  // paginationInfo.currentPage = currentPage;
-  // paginationInfo.pageSize = pageSize;
-  props.api.setPaginationInfo({ pageSize, currentPage });
-  gridRef.value?.commitProxy('query', { page: props.api.getPaginationInfo() });
-}
-
-function handleCurrentPageChange(page: number) {
-  props.api.setPaginationInfo({ currentPage: page });
-}
-
-function handlePerPageChange(pageSize: number) {
-  props.api.setPaginationInfo({ pageSize });
 }
 
 onMounted(() => {
   props.api?.mount?.(gridRef.value);
-  extendProxyOptions(options.value);
+  init();
 });
 </script>
 
@@ -272,20 +252,6 @@ onMounted(() => {
         <slot name="empty">
           <EmptyIcon class="mx-auto" />
           <div class="mt-2">{{ $t('common.noData') }}</div>
-        </slot>
-      </template>
-      <template v-if="options.pagerConfig" #pager>
-        <slot name="pager">
-          <VbenPagination
-            :class="cn('mt-1', paginationClass)"
-            v-bind="paginationOptions"
-            :current-page="paginationInfo?.currentPage"
-            :item-per-page="paginationInfo?.pageSize"
-            :total="paginationInfo?.total"
-            @page-change="handlePageChange"
-            @update:current-page="handleCurrentPageChange"
-            @update:item-per-page="handlePerPageChange"
-          />
         </slot>
       </template>
     </VxeGrid>

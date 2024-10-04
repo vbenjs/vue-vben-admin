@@ -1,6 +1,5 @@
 import type { DeepPartial } from '@vben/types';
 import type { VbenFormProps } from '@vben-core/form-ui';
-import type { VbenPaginationProps } from '@vben-core/shadcn-ui';
 import type {
   VxeGridListeners,
   VxeGridProps as VxeTableGridProps,
@@ -32,23 +31,14 @@ export interface VxeGridProps {
    * vxe-grid 配置
    */
   gridOptions?: DeepPartial<VxeTableGridProps>;
+  /**
+   * vxe-grid 事件
+   */
   gridEvents?: DeepPartial<VxeGridListeners>;
   /**
    * 表单配置
    */
   formOptions?: VbenFormProps;
-  /**
-   * 分页样式
-   */
-  paginationClass?: any;
-  /**
-   * 分页配置
-   */
-  paginationOptions?: VbenPaginationProps;
-  /**
-   * 分页信息
-   */
-  paginationInfo?: Partial<VxePaginationInfo>;
 }
 
 export type ExtendedVxeGridApi = {

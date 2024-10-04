@@ -308,6 +308,10 @@ export interface VbenFormProps<
    */
   handleSubmit?: HandleSubmitFn;
   /**
+   * 表单值变化回调
+   */
+  handleValuesChange?: (values: Record<string, any>) => void;
+  /**
    * 重置按钮参数
    */
   resetButtonOptions?: ActionButtonOptions;

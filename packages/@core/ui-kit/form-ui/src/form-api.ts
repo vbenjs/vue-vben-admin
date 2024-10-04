@@ -28,6 +28,7 @@ function getDefaultState(): VbenFormProps {
     commonConfig: {},
     handleReset: undefined,
     handleSubmit: undefined,
+    handleValuesChange: undefined,
     layout: 'horizontal',
     resetButtonOptions: {},
     schema: [],

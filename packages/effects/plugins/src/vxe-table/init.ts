@@ -14,7 +14,7 @@ import {
   VxeIcon,
   VxeInput,
   VxeLoading,
-  // VxePager,
+  VxePager,
   // VxeList,
   // VxeModal,
   // VxeOptgroup,
@@ -23,7 +23,7 @@ import {
   // VxeRadio,
   // VxeRadioButton,
   // VxeRadioGroup,
-  // VxeSelect,
+  VxeSelect,
   VxeTooltip,
   VxeUI,
   // VxeSwitch,
@@ -80,12 +80,12 @@ export function initVxeTable() {
   // VxeUI.component(VxeModal);
   // VxeUI.component(VxeOptgroup);
   // VxeUI.component(VxeOption);
-  VxeUI.component(createVirtualComponent('VxePager'));
+  VxeUI.component(VxePager);
   // VxeUI.component(VxePulldown);
   // VxeUI.component(VxeRadio);
   // VxeUI.component(VxeRadioButton);
   // VxeUI.component(VxeRadioGroup);
-  VxeUI.component(createVirtualComponent('VxeSelect'));
+  VxeUI.component(VxeSelect);
   // VxeUI.component(VxeSwitch);
   // VxeUI.component(VxeTextarea);
   VxeUI.component(VxeTooltip);
