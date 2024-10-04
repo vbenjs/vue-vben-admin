@@ -1,6 +1,6 @@
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { VxeGridProps } from './types';
+import type { VxeGridProps, VxePaginationInfo } from './types';
 
 import { Store } from '@vben-core/shared/store';
 import {
@@ -17,6 +17,12 @@ function getDefaultState(): VxeGridProps {
     gridOptions: {},
     paginationClass: '',
     paginationOptions: {},
+    paginationInfo: {
+      currentPage: 1,
+      pageSize: 20,
+      total: 0,
+    },
+    gridEvent: {},
   };
 }
 
@@ -35,12 +41,8 @@ export class VxeGridApi {
     const { ...storeState } = options;
 
     const defaultState = getDefaultState();
-
     this.store = new Store<VxeGridProps>(
-      {
-        ...defaultState,
-        ...storeState,
-      },
+      mergeWithArrayOverride(storeState, defaultState),
       {
         onUpdate: () => {
           // this.prevState = this.state;
@@ -54,6 +56,10 @@ export class VxeGridApi {
     bindMethods(this);
   }
 
+  getPaginationInfo() {
+    return this.state?.paginationInfo;
+  }
+
   mount(instance: null | VxeGridInstance) {
     if (!this.isMounted && instance) {
       this.grid = instance;
@@ -62,8 +68,14 @@ export class VxeGridApi {
     }
   }
 
-  async reload(...args: any[]) {
-    await this.grid?.commitProxy?.('reload', ...args);
+  async reload(page?: number) {
+    if (page) {
+      this.setPaginationInfo({
+        currentPage: page,
+      });
+    }
+
+    await this.grid?.commitProxy?.('reload');
   }
 
   setGridOptions(options: Partial<VxeGridProps['gridOptions']>) {
@@ -77,6 +89,12 @@ export class VxeGridApi {
       gridOptions: {
         loading: isLoading,
       },
+    });
+  }
+
+  setPaginationInfo(info: Partial<VxePaginationInfo>) {
+    this.setState({
+      paginationInfo: info,
     });
   }
 

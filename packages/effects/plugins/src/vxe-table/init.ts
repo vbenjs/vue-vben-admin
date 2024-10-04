@@ -1,9 +1,15 @@
+import type { SetupVxeTable } from './types';
+
+import { watch } from 'vue';
+
+import { usePreferences } from '@vben/preferences';
+
 import {
   VxeButton,
   VxeButtonGroup,
   // VxeCheckbox,
   // VxeCheckboxGroup,
-  // VxeForm,
+  VxeForm,
   // VxeFormGather,
   // VxeFormItem,
   VxeIcon,
@@ -43,8 +49,6 @@ export function initVxeTable() {
     return;
   }
 
-  initGlobalConfig();
-
   VxeUI.component(VxeTable);
   VxeUI.component(VxeColumn);
   VxeUI.component(VxeColgroup);
@@ -58,7 +62,7 @@ export function initVxeTable() {
   VxeUI.component(VxeButtonGroup);
   // VxeUI.component(VxeCheckbox);
   // VxeUI.component(VxeCheckboxGroup);
-  // VxeUI.component(VxeForm);
+  VxeUI.component(VxeForm);
   // VxeUI.component(VxeFormGather);
   // VxeUI.component(VxeFormItem);
   VxeUI.component(VxeIcon);
@@ -81,14 +85,19 @@ export function initVxeTable() {
   isInit = true;
 }
 
-function initGlobalConfig() {
-  // 旧版本使用 setup({}) 或者 config({})
-  VxeUI.setConfig({
-    grid: {
-      proxyConfig: {
-        autoLoad: true,
-        enabled: true,
-      },
+export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
+  const { configVxeTable } = setupOptions;
+  const preference = usePreferences();
+
+  watch(
+    () => preference.theme.value,
+    (theme) => {
+      VxeUI.setTheme(theme === 'dark' ? 'dark' : 'light');
     },
-  });
+    {
+      immediate: true,
+    },
+  );
+
+  configVxeTable(VxeUI);
 }

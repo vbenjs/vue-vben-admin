@@ -1,2 +1,2 @@
 export * from './core';
-export * from './demos';
+export * from './examples';

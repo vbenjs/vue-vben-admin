@@ -27,6 +27,9 @@ catalogs:
     '@eslint/js':
       specifier: ^9.11.1
       version: 9.11.1
+    '@faker-js/faker':
+      specifier: ^9.0.3
+      version: 9.0.3
     '@iconify/json':
       specifier: ^2.2.256
       version: 2.2.256
@@ -599,6 +602,9 @@ importers:
 
   apps/backend-mock:
     dependencies:
+      '@faker-js/faker':
+        specifier: 'catalog:'
+        version: 9.0.3
       jsonwebtoken:
         specifier: 'catalog:'
         version: 9.0.2
@@ -3997,6 +4003,10 @@ packages:
   '@eslint/plugin-kit@0.2.0':
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@faker-js/faker@9.0.3':
+    resolution: {integrity: sha512-lWrrK4QNlFSU+13PL9jMbMKLJYXDFu3tQfayBsMXX7KL/GiQeqfB1CzHkqD5UHBUtPAuPo6XwGbMFNdVMZObRA==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
@@ -12970,6 +12980,8 @@ snapshots:
   '@eslint/plugin-kit@0.2.0':
     dependencies:
       levn: 0.4.1
+
+  '@faker-js/faker@9.0.3': {}
 
   '@fastify/busboy@2.1.1': {}
 

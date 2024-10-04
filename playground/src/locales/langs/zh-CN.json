@@ -84,7 +84,13 @@
       },
       "vxeTable": {
         "title": "Vxe 表格",
-        "basic": "基础表格"
+        "basic": "基础表格",
+        "remote": "远程加载",
+        "tree": "树形表格",
+        "fixed": "固定表头/列",
+        "virtual": "虚拟滚动",
+        "editCell": "单元格编辑",
+        "editRow": "行编辑"
       },
       "captcha": {
         "title": "验证码",

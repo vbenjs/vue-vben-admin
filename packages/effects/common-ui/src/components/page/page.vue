@@ -24,6 +24,7 @@ const {
 
 const headerHeight = ref(0);
 const footerHeight = ref(0);
+const shouldAutoHeight = ref(false);
 
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
@@ -31,7 +32,10 @@ const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
 const contentStyle = computed(() => {
   if (autoContentHeight) {
     return {
-      height: `calc(var(--vben-content-height) - ${headerHeight.value}px - ${footerHeight.value}px)`,
+      height: shouldAutoHeight.value
+        ? `calc(var(--vben-content-height) - ${headerHeight.value}px - ${footerHeight.value}px)`
+        : '0',
+      // 'overflow-y': shouldAutoHeight.value?'auto':'unset',
     };
   }
   return {};
@@ -44,6 +48,9 @@ async function calcContentHeight() {
   await nextTick();
   headerHeight.value = headerRef.value?.offsetHeight || 0;
   footerHeight.value = footerRef.value?.offsetHeight || 0;
+  setTimeout(() => {
+    shouldAutoHeight.value = true;
+  }, 30);
 }
 
 onMounted(() => {
@@ -52,7 +59,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative h-full">
+  <div class="relative">
     <div
       v-if="
         description ||
@@ -62,16 +69,11 @@ onMounted(() => {
         $slots.extra
       "
       ref="headerRef"
-      class="bg-card px-6 py-4"
+      class="bg-card relative px-6 py-4"
     >
       <slot name="title">
-        <div
-          v-if="title"
-          class="mb-2 flex justify-between text-lg font-semibold"
-        >
+        <div v-if="title" class="mb-2 flex text-lg font-semibold">
           {{ title }}
-
-          <slot name="extra"></slot>
         </div>
       </slot>
 
@@ -80,6 +82,10 @@ onMounted(() => {
           {{ description }}
         </p>
       </slot>
+
+      <div v-if="$slots.extra" class="absolute bottom-4 right-4">
+        <slot name="extra"></slot>
+      </div>
     </div>
 
     <div :class="contentClass" :style="contentStyle" class="h-full p-4">

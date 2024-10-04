@@ -1,8 +1,9 @@
 :root {
   --vxe-ui-font-color: hsl(var(--foreground));
   --vxe-ui-font-primary-color: hsl(var(--primary));
-  --vxe-ui-font-lighten-color: #babdc0;
-  --vxe-ui-font-darken-color: #86898e;
+
+  /* --vxe-ui-font-lighten-color: #babdc0;
+  --vxe-ui-font-darken-color: #86898e; */
   --vxe-ui-font-disabled-color: hsl(var(--foreground) / 50%);
 
   /* base */
@@ -12,11 +13,17 @@
 
   /* layout */
   --vxe-ui-layout-background-color: hsl(var(--background));
+  --vxe-ui-table-resizable-line-color: hsl(var(--border));
+
+  /* --vxe-ui-table-fixed-left-scrolling-box-shadow: 8px 0px 10px -5px hsl(var(--accent));
+  --vxe-ui-table-fixed-right-scrolling-box-shadow: -8px 0px 10px -5px hsl(var(--accent)); */
 
   /* input */
   --vxe-ui-input-border-color: hsl(var(--border));
-  --vxe-ui-input-placeholder-color: #8d9095;
-  --vxe-ui-input-disabled-background-color: #262727;
+
+  /* --vxe-ui-input-placeholder-color: #8d9095; */
+
+  /* --vxe-ui-input-disabled-background-color: #262727; */
 
   /* loading */
   --vxe-ui-loading-background-color: hsl(var(--overlay-content));
@@ -25,8 +32,8 @@
   --vxe-ui-table-header-background-color: hsl(var(--accent));
   --vxe-ui-table-border-color: hsl(var(--border));
   --vxe-ui-table-row-hover-background-color: hsl(var(--accent-hover));
-  --vxe-ui-table-row-striped-background-color: hsl(var(--accent));
-  --vxe-ui-table-row-hover-striped-background-color: hsl(var(--accent-hover));
+  --vxe-ui-table-row-striped-background-color: hsl(var(--accent) / 60%);
+  --vxe-ui-table-row-hover-striped-background-color: hsl(var(--accent));
   --vxe-ui-table-row-radio-checked-background-color: hsl(var(--accent));
   --vxe-ui-table-row-hover-radio-checked-background-color: hsl(
     var(--accent-hover)
@@ -37,5 +44,6 @@
   );
   --vxe-ui-table-row-current-background-color: hsl(var(--accent));
   --vxe-ui-table-row-hover-current-background-color: hsl(var(--accent-hover));
-  --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%);
+
+  /* --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%); */
 }

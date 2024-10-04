@@ -1,10 +1,20 @@
 import type { DeepPartial } from '@vben/types';
 import type { VbenPaginationProps } from '@vben-core/shadcn-ui';
-import type { VxeGridProps as GridProps } from 'vxe-table';
+import type {
+  VxeGridProps as GridProps,
+  VxeGridListeners,
+  VxeUIExport,
+} from 'vxe-table';
 
 import type { VxeGridApi } from './api';
 
 import type { Ref } from 'vue';
+
+export interface VxePaginationInfo {
+  currentPage: number;
+  pageSize: number;
+  total: number;
+}
 
 export interface VxeGridProps {
   /**
@@ -19,6 +29,7 @@ export interface VxeGridProps {
    * vxe-grid 配置
    */
   gridOptions?: DeepPartial<GridProps>;
+  gridEvents?: DeepPartial<VxeGridListeners>;
   /**
    * 分页样式
    */
@@ -27,6 +38,10 @@ export interface VxeGridProps {
    * 分页配置
    */
   paginationOptions?: VbenPaginationProps;
+  /**
+   * 分页信息
+   */
+  paginationInfo?: Partial<VxePaginationInfo>;
 }
 
 export type ExtendedVxeGridApi = {
@@ -34,3 +49,7 @@ export type ExtendedVxeGridApi = {
     selector?: (state: NoInfer<VxeGridProps>) => T,
   ) => Readonly<Ref<T>>;
 } & VxeGridApi;
+
+export interface SetupVxeTable {
+  configVxeTable: (ui: VxeUIExport) => void;
+}

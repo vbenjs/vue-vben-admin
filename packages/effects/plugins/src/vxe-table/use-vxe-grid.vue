@@ -3,14 +3,20 @@ import type { VxeGridProps as GridProps, VxeGridInstance } from 'vxe-table';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
-import { computed, onMounted, reactive, useSlots, useTemplateRef } from 'vue';
+import { computed, onMounted, toRaw, useSlots, useTemplateRef } from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
-import { cn, createMerge, getNestedValue, isFunction } from '@vben/utils';
+import {
+  cn,
+  createMerge,
+  getNestedValue,
+  isFunction,
+  mergeWithArrayOverride,
+} from '@vben/utils';
 import { VbenLoading, VbenPagination } from '@vben-core/shadcn-ui';
 
-import { VxeGrid } from 'vxe-table';
+import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { initVxeTable } from './init';
 
@@ -36,13 +42,9 @@ const {
   paginationClass,
   paginationOptions,
   gridClass,
+  paginationInfo,
+  gridEvents,
 } = usePriorityValues(props, state);
-
-const paginationInfo = reactive({
-  currentPage: 1,
-  pageSize: 20,
-  total: 0,
-});
 
 const slots = useSlots();
 const merge = createMerge((originObj, key, updates) => {
@@ -52,41 +54,46 @@ const merge = createMerge((originObj, key, updates) => {
   }
 });
 
+const showToolbar = computed(() => {
+  return !!slots['toolbar-actions']?.() || !!slots['toolbar-tools']?.();
+});
+
 const options = computed(() => {
-  const defaultGridOptions: GridProps = {
-    border: true,
-    columnConfig: {
-      resizable: true,
-    },
-    height: 'auto',
-    minHeight: 180,
-    round: true,
-    size: 'small',
-  };
+  const slotActions = slots['toolbar-actions']?.();
+  const slotTools = slots['toolbar-tools']?.();
 
-  const slotActions = slots.actions?.();
-  const slotTools = slots.tools?.();
-
-  const forceUseToolbarConfigOptions =
-    slotActions || slotTools
-      ? {
-          toolbarConfig: {
-            slots: {
-              ...(slotActions ? { buttons: 'actions' } : {}),
-              ...(slotTools ? { tools: 'tools' } : {}),
-            },
+  const forceUseToolbarConfigOptions = showToolbar.value
+    ? {
+        toolbarConfig: {
+          slots: {
+            ...(slotActions ? { buttons: 'toolbar-actions' } : {}),
+            ...(slotTools ? { tools: 'toolbar-tools' } : {}),
           },
-        }
-      : {};
+        },
+      }
+    : {};
+
+  // const globalConfig = VxeUI.getConfig();
 
   const mergedOptions: GridProps = merge(
     {},
     forceUseToolbarConfigOptions,
-    gridOptions.value,
-    defaultGridOptions,
+    toRaw(gridOptions.value),
+    // globalConfig.grid,
   );
 
+  if (mergedOptions.proxyConfig) {
+    const { ajax } = mergedOptions.proxyConfig;
+    mergedOptions.proxyConfig.enabled = !!ajax;
+  }
+
   return mergedOptions;
+});
+
+const events = computed(() => {
+  return {
+    ...gridEvents.value,
+  };
 });
 
 const delegatedSlots = computed(() => {
@@ -103,6 +110,15 @@ const delegatedSlots = computed(() => {
 function extendProxyOptions(options: GridProps) {
   const configQuery = options?.proxyConfig?.ajax?.query;
 
+  const config = VxeUI.getConfig();
+  const mergeOptions = mergeWithArrayOverride(options, config.grid);
+  props.api.setState({
+    gridOptions: {
+      ...mergeOptions,
+      pagerConfig: undefined,
+    },
+  });
+
   if (
     !options ||
     !options.proxyConfig ||
@@ -113,19 +129,21 @@ function extendProxyOptions(options: GridProps) {
     return options;
   }
 
-  const responseTotal = options.proxyConfig.response?.total ?? 'page.total';
-  // const responseResult = options.proxyConfig.response?.result ?? 'result';
+  const responseTotal =
+    mergeOptions.proxyConfig?.response?.total ?? 'page.total';
+  // const responseResult = mergeOptions.proxyConfig.response?.result ?? 'result';
 
   const wrapperQuery = async (params: any, ...args: any[]) => {
     const data = await configQuery(
       {
         ...params,
-        page: paginationInfo,
+        page: props.api.getPaginationInfo(),
       },
       ...args,
     );
     const total = getNestedValue(data, responseTotal as string);
-    paginationInfo.total = total;
+    // paginationInfo.total = total;
+    props.api.setPaginationInfo({ total });
     return data;
   };
   props.api.setState({
@@ -139,15 +157,23 @@ function extendProxyOptions(options: GridProps) {
   });
 }
 
-function handlePageChange(currentPage: number, pageSize: number) {
-  paginationInfo.currentPage = currentPage;
-  paginationInfo.pageSize = pageSize;
-  gridRef.value?.commitProxy('query', { page: paginationInfo });
+function handlePageChange(currentPage: number, pageSize?: number) {
+  // paginationInfo.currentPage = currentPage;
+  // paginationInfo.pageSize = pageSize;
+  props.api.setPaginationInfo({ pageSize, currentPage });
+  gridRef.value?.commitProxy('query', { page: props.api.getPaginationInfo() });
+}
+
+function handleCurrentPageChange(page: number) {
+  props.api.setPaginationInfo({ currentPage: page });
+}
+
+function handlePerPageChange(pageSize: number) {
+  props.api.setPaginationInfo({ pageSize });
 }
 
 onMounted(() => {
   props.api?.mount?.(gridRef.value);
-
   extendProxyOptions(options.value);
 });
 </script>
@@ -160,12 +186,13 @@ onMounted(() => {
         cn(
           'p-2',
           {
-            'pt-0': $slots.actions || $slots.tools,
+            'pt-0': showToolbar,
           },
           gridClass,
         )
       "
       v-bind="options"
+      v-on="events"
     >
       <template
         v-for="slotName in delegatedSlots"
@@ -185,15 +212,17 @@ onMounted(() => {
           <div class="mt-2">暂无数据</div>
         </slot>
       </template>
-      <template #pager>
+      <template v-if="options.pagerConfig" #pager>
         <slot name="pager">
           <VbenPagination
             :class="cn('mt-1', paginationClass)"
             v-bind="paginationOptions"
-            v-model:current-page="paginationInfo.currentPage"
-            v-model:item-per-page="paginationInfo.pageSize"
-            :total="paginationInfo.total"
+            :current-page="paginationInfo?.currentPage"
+            :item-per-page="paginationInfo?.pageSize"
+            :total="paginationInfo?.total"
             @page-change="handlePageChange"
+            @update:current-page="handleCurrentPageChange"
+            @update:item-per-page="handlePerPageChange"
           />
         </slot>
       </template>

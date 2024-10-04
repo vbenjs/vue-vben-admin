@@ -42,7 +42,7 @@ export function useLayoutContentStyle() {
       contentHeight.value = `${visibleDomRect.value.height}px`;
       contentWidth.value = `${visibleDomRect.value.width}px`;
     },
-    100,
+    16,
   );
 
   onMounted(() => {

@@ -1,278 +1,92 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '@vben/plugins/vxe-table';
-
-import { reactive } from 'vue';
+import type { VxeGridListeners, VxeGridProps } from '#/adapter';
 
 import { Page } from '@vben/common-ui';
-import { useVbenVxeGrid } from '@vben/plugins/vxe-table';
 
-import { Button } from 'ant-design-vue';
+import { Button, message } from 'ant-design-vue';
 
-interface RowVO {
+import { useVbenVxeGrid } from '#/adapter';
+
+import DocButton from '../doc-button.vue';
+import { MOCK_TABLE_DATA } from './table-data';
+
+interface RowType {
   address: string;
   age: number;
   id: number;
   name: string;
   nickname: string;
   role: string;
-  sex: string;
 }
 
-const list = [
-  {
-    address: 'Shenzhen',
-    age: 28,
-    id: 10_001,
-    name: 'Test1',
-    nickname: 'T1',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 22,
-    id: 10_002,
-    name: 'Test2',
-    nickname: 'T2',
-    role: 'Test',
-    sex: 'Women',
-  },
-  {
-    address: 'Shanghai',
-    age: 32,
-    id: 10_003,
-    name: 'Test3',
-    nickname: 'T3',
-    role: 'PM',
-    sex: 'Man',
-  },
-  {
-    address: 'test abc',
-    age: 23,
-    id: 10_004,
-    name: 'Test4',
-    nickname: 'T4',
-    role: 'Designer',
-    sex: 'Women',
-  },
-  {
-    address: 'Shanghai',
-    age: 30,
-    id: 10_005,
-    name: 'Test5',
-    nickname: 'T5',
-    role: 'Develop',
-    sex: 'Women',
-  },
-  {
-    address: 'Shenzhen',
-    age: 21,
-    id: 10_006,
-    name: 'Test6',
-    nickname: 'T6',
-    role: 'Designer',
-    sex: 'Women',
-  },
-  {
-    address: 'Shenzhen',
-    age: 29,
-    id: 10_007,
-    name: 'Test7',
-    nickname: 'T7',
-    role: 'Test',
-    sex: 'Man',
-  },
-  {
-    address: 'test abc',
-    age: 35,
-    id: 10_008,
-    name: 'Test8',
-    nickname: 'T8',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Shenzhen',
-    age: 35,
-    id: 10_009,
-    name: 'Test9',
-    nickname: 'T9',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 35,
-    id: 100_010,
-    name: 'Test10',
-    nickname: 'T10',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 49,
-    id: 100_011,
-    name: 'Test11',
-    nickname: 'T11',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Shanghai',
-    age: 45,
-    id: 100_012,
-    name: 'Test12',
-    nickname: 'T12',
-    role: 'Develop',
-    sex: 'Women',
-  },
-  {
-    address: 'Guangzhou',
-    age: 35,
-    id: 100_013,
-    name: 'Test13',
-    nickname: 'T13',
-    role: 'Test',
-    sex: 'Women',
-  },
-  {
-    address: 'Shanghai',
-    age: 29,
-    id: 100_014,
-    name: 'Test14',
-    nickname: 'T14',
-    role: 'Test',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 39,
-    id: 100_015,
-    name: 'Test15',
-    nickname: 'T15',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 35,
-    id: 100_016,
-    name: 'Test16',
-    nickname: 'T16',
-    role: 'Test',
-    sex: 'Women',
-  },
-  {
-    address: 'Shanghai',
-    age: 39,
-    id: 100_017,
-    name: 'Test17',
-    nickname: 'T17',
-    role: 'Test',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 44,
-    id: 100_018,
-    name: 'Test18',
-    nickname: 'T18',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 39,
-    id: 100_019,
-    name: 'Test19',
-    nickname: 'T19',
-    role: 'Develop',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 35,
-    id: 100_020,
-    name: 'Test20',
-    nickname: 'T20',
-    role: 'Test',
-    sex: 'Women',
-  },
-  {
-    address: 'Shanghai',
-    age: 39,
-    id: 100_021,
-    name: 'Test21',
-    nickname: 'T21',
-    role: 'Test',
-    sex: 'Man',
-  },
-  {
-    address: 'Guangzhou',
-    age: 44,
-    id: 100_022,
-    name: 'Test22',
-    nickname: 'T22',
-    role: 'Develop',
-    sex: 'Man',
-  },
-];
-
-// 模拟接口
-const findPageList = (pageSize: number, currentPage: number) => {
-  // console.log(`调用查询接口 pageSize=${pageSize} currentPage=${currentPage}`);
-  return new Promise<{
-    page: {
-      total: number;
-    };
-    result: RowVO[];
-  }>((resolve) => {
-    setTimeout(() => {
-      resolve({
-        page: {
-          total: list.length,
-        },
-        result: list.slice(
-          (currentPage - 1) * pageSize,
-          currentPage * pageSize,
-        ),
-      });
-    }, 800);
-  });
-};
-
-const gridOptions = reactive<VxeGridProps<RowVO>>({
+const gridOptions: VxeGridProps<RowType> = {
   columns: [
-    { type: 'seq', width: 70 },
+    { title: '序号', type: 'seq', width: 50 },
     { field: 'name', title: 'Name' },
+    { field: 'age', sortable: true, title: 'Age' },
     { field: 'nickname', title: 'Nickname' },
     { field: 'role', title: 'Role' },
     { field: 'address', showOverflow: true, title: 'Address' },
   ],
-  pagerConfig: {},
-  proxyConfig: {
-    ajax: {
-      query: async ({ page }) => {
-        return findPageList(page.pageSize, page.currentPage);
-      },
-    },
+  data: MOCK_TABLE_DATA,
+  sortConfig: {
+    multiple: true,
   },
-});
+};
 
-const [Grid] = useVbenVxeGrid({ gridOptions });
+const gridEvents: VxeGridListeners<RowType> = {
+  cellClick: ({ row }) => {
+    message.info(`cell-click: ${row.name}`);
+  },
+};
+
+const [Grid, gridApi] = useVbenVxeGrid({ gridEvents, gridOptions });
+
+const showBorder = gridApi.useStore((state) => state.gridOptions?.border);
+const showStripe = gridApi.useStore((state) => state.gridOptions?.stripe);
+
+function changeBorder() {
+  gridApi.setGridOptions({
+    border: !showBorder.value,
+  });
+}
+
+function changeStripe() {
+  gridApi.setGridOptions({
+    stripe: !showStripe.value,
+  });
+}
+
+function changeLoading() {
+  gridApi.setLoading(true);
+  setTimeout(() => {
+    gridApi.setLoading(false);
+  }, 2000);
+}
 </script>
 
 <template>
-  <Page auto-content-height>
+  <Page
+    description="表格组件常用于快速开发数据展示与交互界面，示例数据为静态数据。该组件是对vxe-table进行简单的二次封装，大部分属性与方法与vxe-table保持一致。"
+    title="表格基础示例"
+  >
+    <template #extra>
+      <DocButton path="/components/common-ui/vben-vxe-table" />
+    </template>
     <Grid>
-      <template #actions>
-        <Button class="mr-2" type="primary">新增</Button>
-        <Button class="mr-2" type="default">编辑</Button>
-        <Button type="default">删除</Button>
+      <template #toolbar-actions>
+        <Button class="mr-2" type="primary">左右按钮插槽</Button>
       </template>
-      <template #tools>
-        <Button class="mr-2" type="primary">工具按钮</Button>
+      <template #toolbar-tools>
+        <Button class="mr-2" type="primary" @click="changeBorder">
+          {{ showBorder ? '隐藏' : '显示' }}边框
+        </Button>
+        <Button class="mr-2" type="primary" @click="changeLoading">
+          显示loading
+        </Button>
+        <Button class="mr-2" type="primary" @click="changeStripe">
+          {{ showStripe ? '隐藏' : '显示' }}斑马纹
+        </Button>
       </template>
     </Grid>
   </Page>
