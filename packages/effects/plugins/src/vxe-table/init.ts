@@ -1,21 +1,19 @@
 import type { SetupVxeTable } from './types';
 
-import { watch } from 'vue';
+import { defineComponent, watch } from 'vue';
 
 import { usePreferences } from '@vben/preferences';
 
 import {
   VxeButton,
   VxeButtonGroup,
-  // VxeCheckbox,
-  // VxeCheckboxGroup,
-  VxeForm,
   // VxeFormGather,
+  // VxeForm,
   // VxeFormItem,
   VxeIcon,
   VxeInput,
   VxeLoading,
-  VxePager,
+  // VxePager,
   // VxeList,
   // VxeModal,
   // VxeOptgroup,
@@ -24,13 +22,13 @@ import {
   // VxeRadio,
   // VxeRadioButton,
   // VxeRadioGroup,
-  VxeSelect,
+  // VxeSelect,
   VxeTooltip,
   VxeUI,
   // VxeSwitch,
   // VxeTextarea,
 } from 'vxe-pc-ui';
-
+import enUS from 'vxe-pc-ui/lib/language/en-US';
 // 导入默认的语言
 import zhCN from 'vxe-pc-ui/lib/language/zh-CN';
 import {
@@ -44,6 +42,13 @@ import {
 // 是否加载过
 let isInit = false;
 
+// 部分组件，如果没注册，vxe-table 会报错，这里实际没用组件，只是为了不报错，同时可以减少打包体积
+const createVirtualComponent = (name = '') => {
+  return defineComponent({
+    name,
+  });
+};
+
 export function initVxeTable() {
   if (isInit) {
     return;
@@ -55,14 +60,12 @@ export function initVxeTable() {
   VxeUI.component(VxeLoading);
   VxeUI.component(VxeGrid);
   VxeUI.component(VxeToolbar);
-  VxeUI.setI18n('zh-CN', zhCN);
-  VxeUI.setLanguage('zh-CN');
 
   VxeUI.component(VxeButton);
   VxeUI.component(VxeButtonGroup);
   // VxeUI.component(VxeCheckbox);
   // VxeUI.component(VxeCheckboxGroup);
-  VxeUI.component(VxeForm);
+  VxeUI.component(createVirtualComponent('VxeForm'));
   // VxeUI.component(VxeFormGather);
   // VxeUI.component(VxeFormItem);
   VxeUI.component(VxeIcon);
@@ -72,12 +75,12 @@ export function initVxeTable() {
   // VxeUI.component(VxeModal);
   // VxeUI.component(VxeOptgroup);
   // VxeUI.component(VxeOption);
-  VxeUI.component(VxePager);
+  VxeUI.component(createVirtualComponent('VxePager'));
   // VxeUI.component(VxePulldown);
   // VxeUI.component(VxeRadio);
   // VxeUI.component(VxeRadioButton);
   // VxeUI.component(VxeRadioGroup);
-  VxeUI.component(VxeSelect);
+  VxeUI.component(createVirtualComponent('VxeSelect'));
   // VxeUI.component(VxeSwitch);
   // VxeUI.component(VxeTextarea);
   VxeUI.component(VxeTooltip);
@@ -86,13 +89,22 @@ export function initVxeTable() {
 }
 
 export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
+  initVxeTable();
   const { configVxeTable } = setupOptions;
+
   const preference = usePreferences();
 
+  const localMap = {
+    'zh-CN': zhCN,
+    'en-US': enUS,
+  };
+
   watch(
-    () => preference.theme.value,
-    (theme) => {
+    [() => preference.theme.value, () => preference.locale.value],
+    ([theme, locale]) => {
       VxeUI.setTheme(theme === 'dark' ? 'dark' : 'light');
+      VxeUI.setI18n(locale, localMap[locale]);
+      VxeUI.setLanguage(locale);
     },
     {
       immediate: true,

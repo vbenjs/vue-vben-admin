@@ -9,8 +9,6 @@ import dayjs from 'dayjs';
 import { useVbenVxeGrid } from '#/adapter';
 import { getExampleTableApi } from '#/api';
 
-import DocButton from '../doc-button.vue';
-
 interface RowType {
   category: string;
   color: string;
@@ -38,6 +36,12 @@ const gridOptions: VxeGridProps<RowType> = {
       width: 100,
     },
     {
+      cellRender: { name: 'CellImage' },
+      field: 'imageUrl2',
+      title: 'Render Image',
+      width: 130,
+    },
+    {
       field: 'open',
       slots: { default: 'open' },
       title: 'Open',
@@ -61,9 +65,9 @@ const gridOptions: VxeGridProps<RowType> = {
       width: 200,
     },
     {
+      cellRender: { name: 'CellLink', props: { text: '编辑' } },
       field: 'action',
       fixed: 'right',
-      slots: { default: 'action' },
       title: '操作',
       width: 120,
     },
@@ -87,14 +91,7 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <Page
-    auto-content-height
-    description="通过远程加载数据的方式，实现表格数据的展示，该示例也展示了表格的自适应高度，同时开启分页"
-    title="远程加载示例"
-  >
-    <template #extra>
-      <DocButton path="/components/common-ui/vben-vxe-table" />
-    </template>
+  <Page auto-content-height>
     <Grid>
       <template #image-url="{ row }">
         <Image :src="row.imageUrl" height="30" width="30" />

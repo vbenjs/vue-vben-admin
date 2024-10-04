@@ -9,6 +9,7 @@ function generateMockDataList(count: number) {
     const dataItem = {
       id: faker.string.uuid(),
       imageUrl: faker.image.avatar(),
+      imageUrl2: faker.image.avatar(),
       open: faker.datatype.boolean(),
       status: faker.helpers.arrayElement(['success', 'error', 'warning']),
       productName: faker.commerce.productName(),

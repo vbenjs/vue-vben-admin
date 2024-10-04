@@ -91,7 +91,8 @@
         "virtual": "虚拟滚动",
         "editCell": "单元格编辑",
         "editRow": "行编辑",
-        "custom-cell": "自定义单元格"
+        "custom-cell": "自定义单元格",
+        "form": "开启搜索表单"
       },
       "captcha": {
         "title": "验证码",

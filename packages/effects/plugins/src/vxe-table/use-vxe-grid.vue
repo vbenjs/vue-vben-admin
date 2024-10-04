@@ -20,8 +20,6 @@ import { VbenLoading, VbenPagination } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
-import { initVxeTable } from './init';
-
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
 import './theme.css';
@@ -31,8 +29,6 @@ interface Props extends VxeGridProps {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
-
-initVxeTable();
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 

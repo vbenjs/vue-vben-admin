@@ -91,7 +91,8 @@
         "virtual": "Virtual Scroll",
         "editCell": "Edit Cell",
         "editRow": "Edit Row",
-        "custom-cell": "Custom Cell"
+        "custom-cell": "Custom Cell",
+        "form": "Form Table"
       },
       "captcha": {
         "title": "Captcha",
