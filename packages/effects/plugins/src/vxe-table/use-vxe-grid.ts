@@ -10,7 +10,7 @@ import VxeGrid from './use-vxe-grid.vue';
 export function useVbenVxeGrid(options: VxeGridProps) {
   // const IS_REACTIVE = isReactive(options);
   const api = new VxeGridApi(options);
-  const extendedApi: ExtendedVxeGridApi = api as never;
+  const extendedApi: ExtendedVxeGridApi = api as ExtendedVxeGridApi;
   extendedApi.useStore = (selector) => {
     return useStore(api.store, selector);
   };
@@ -18,7 +18,7 @@ export function useVbenVxeGrid(options: VxeGridProps) {
   const Grid = defineComponent(
     (props: VxeGridProps, { attrs, slots }) => {
       onBeforeUnmount(() => {
-        api.unmounted();
+        api.unmount();
       });
       return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
     },

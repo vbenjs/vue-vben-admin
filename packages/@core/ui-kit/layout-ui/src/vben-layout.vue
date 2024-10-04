@@ -364,8 +364,8 @@ watch(
 );
 
 watch(
-  () => headerWrapperHeight.value,
-  (height: number) => {
+  [() => headerWrapperHeight.value, () => isFullContent.value],
+  ([height]) => {
     setLayoutHeaderHeight(isFullContent.value ? 0 : height);
   },
   {

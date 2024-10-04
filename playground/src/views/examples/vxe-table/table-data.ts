@@ -1,5 +1,16 @@
-export const MOCK_TABLE_DATA = (() => {
-  const data: any[] = [];
+interface TableRowData {
+  address: string;
+  age: number;
+  id: number;
+  name: string;
+  nickname: string;
+  role: string;
+}
+
+const roles = ['User', 'Admin', 'Manager', 'Guest'];
+
+export const MOCK_TABLE_DATA: TableRowData[] = (() => {
+  const data: TableRowData[] = [];
   for (let i = 0; i < 40; i++) {
     data.push({
       address: `New York${i}`,
@@ -7,7 +18,7 @@ export const MOCK_TABLE_DATA = (() => {
       id: i,
       name: `Test${i}`,
       nickname: `Test${i}`,
-      role: `User${i}`,
+      role: roles[Math.floor(Math.random() * roles.length)] as string,
     });
   }
   return data;

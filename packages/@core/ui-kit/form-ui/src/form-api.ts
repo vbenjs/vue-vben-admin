@@ -249,7 +249,7 @@ export class FormApi {
     return rawValues;
   }
 
-  unmounted() {
+  unmount() {
     // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();

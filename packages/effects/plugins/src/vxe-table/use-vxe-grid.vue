@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import type { VxeGridProps as GridProps, VxeGridInstance } from 'vxe-table';
+import type {
+  VxeGridInstance,
+  VxeGridProps as VxeTableGridProps,
+} from 'vxe-table';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -9,7 +12,6 @@ import { usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
 import {
   cn,
-  createMerge,
   getNestedValue,
   isFunction,
   mergeWithArrayOverride,
@@ -47,12 +49,6 @@ const {
 } = usePriorityValues(props, state);
 
 const slots = useSlots();
-const merge = createMerge((originObj, key, updates) => {
-  if (Array.isArray(originObj[key]) && Array.isArray(updates)) {
-    originObj[key] = updates;
-    return true;
-  }
-});
 
 const showToolbar = computed(() => {
   return !!slots['toolbar-actions']?.() || !!slots['toolbar-tools']?.();
@@ -75,7 +71,7 @@ const options = computed(() => {
 
   // const globalConfig = VxeUI.getConfig();
 
-  const mergedOptions: GridProps = merge(
+  const mergedOptions: VxeTableGridProps = mergeWithArrayOverride(
     {},
     forceUseToolbarConfigOptions,
     toRaw(gridOptions.value),
@@ -107,7 +103,7 @@ const delegatedSlots = computed(() => {
   return resultSlots;
 });
 
-function extendProxyOptions(options: GridProps) {
+function extendProxyOptions(options: VxeTableGridProps) {
   const configQuery = options?.proxyConfig?.ajax?.query;
 
   const config = VxeUI.getConfig();

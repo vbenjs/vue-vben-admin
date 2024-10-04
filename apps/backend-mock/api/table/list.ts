@@ -17,7 +17,7 @@ function generateMockDataList(count: number) {
       releaseDate: faker.date.past().toISOString(),
       rating: faker.number.float({ min: 1, max: 5 }),
       description: faker.commerce.productDescription(),
-      weight: `${faker.number.float({ min: 0.1, max: 10 })} kg`,
+      weight: faker.number.float({ min: 0.1, max: 10 }),
       color: faker.color.human(),
       inProduction: faker.datatype.boolean(),
       tags: Array.from({ length: 3 }, () => faker.commerce.productAdjective()),

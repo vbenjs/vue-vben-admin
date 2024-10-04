@@ -22,7 +22,7 @@ function getDefaultState(): VxeGridProps {
       pageSize: 20,
       total: 0,
     },
-    gridEvent: {},
+    gridEvents: {},
   };
 }
 
@@ -38,7 +38,7 @@ export class VxeGridApi {
   public store: Store<VxeGridProps>;
 
   constructor(options: VxeGridProps = {}) {
-    const { ...storeState } = options;
+    const storeState = { ...options };
 
     const defaultState = getDefaultState();
     this.store = new Store<VxeGridProps>(
@@ -112,7 +112,7 @@ export class VxeGridApi {
     }
   }
 
-  unmounted() {
+  unmount() {
     this.isMounted = false;
     this.stateHandler.reset();
   }

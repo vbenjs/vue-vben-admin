@@ -3,6 +3,8 @@ import type { VxeGridProps } from '#/adapter';
 
 import { Page } from '@vben/common-ui';
 
+import { Button } from 'ant-design-vue';
+
 import { useVbenVxeGrid } from '#/adapter';
 
 import { MOCK_TREE_TABLE_DATA } from './table-data';
@@ -32,11 +34,26 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid] = useVbenVxeGrid({ gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+
+const expandAll = () => {
+  gridApi.grid?.setAllTreeExpand(true);
+};
+
+const collapseAll = () => {
+  gridApi.grid?.setAllTreeExpand(false);
+};
 </script>
 
 <template>
   <Page>
-    <Grid />
+    <Grid>
+      <template #toolbar-tools>
+        <Button class="mr-2" type="primary" @click="expandAll">
+          展开全部
+        </Button>
+        <Button type="primary" @click="collapseAll"> 折叠全部 </Button>
+      </template>
+    </Grid>
   </Page>
 </template>

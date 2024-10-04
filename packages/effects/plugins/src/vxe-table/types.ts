@@ -1,8 +1,8 @@
 import type { DeepPartial } from '@vben/types';
 import type { VbenPaginationProps } from '@vben-core/shadcn-ui';
 import type {
-  VxeGridProps as GridProps,
   VxeGridListeners,
+  VxeGridProps as VxeTableGridProps,
   VxeUIExport,
 } from 'vxe-table';
 
@@ -28,7 +28,7 @@ export interface VxeGridProps {
   /**
    * vxe-grid 配置
    */
-  gridOptions?: DeepPartial<GridProps>;
+  gridOptions?: DeepPartial<VxeTableGridProps>;
   gridEvents?: DeepPartial<VxeGridListeners>;
   /**
    * 分页样式

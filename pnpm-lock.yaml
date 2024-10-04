@@ -817,15 +817,9 @@ importers:
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../packages/effects/common-ui
-      '@vben/hooks':
-        specifier: workspace:*
-        version: link:../packages/effects/hooks
       '@vben/locales':
         specifier: workspace:*
         version: link:../packages/locales
-      '@vben/preferences':
-        specifier: workspace:*
-        version: link:../packages/preferences
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
@@ -1608,9 +1602,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@vben/constants':
-        specifier: workspace:*
-        version: link:../../constants
       '@vben/hooks':
         specifier: workspace:*
         version: link:../hooks

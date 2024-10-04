@@ -34,16 +34,21 @@ const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
 
 // 模拟行数据
 const loadList = (size = 200) => {
-  const dataList: RowType[] = [];
-  for (let i = 0; i < size; i++) {
-    dataList.push({
-      id: 10_000 + i,
-      name: `Test${i}`,
-      role: 'Developer',
-      sex: '男',
-    });
+  try {
+    const dataList: RowType[] = [];
+    for (let i = 0; i < size; i++) {
+      dataList.push({
+        id: 10_000 + i,
+        name: `Test${i}`,
+        role: 'Developer',
+        sex: '男',
+      });
+    }
+    gridApi.setGridOptions({ data: dataList });
+  } catch (error) {
+    console.error('Failed to load data:', error);
+    // Implement user-friendly error handling
   }
-  gridApi.setGridOptions({ data: dataList });
 };
 
 onMounted(() => {
