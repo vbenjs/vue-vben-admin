@@ -115,6 +115,9 @@ const options = computed(() => {
       },
     );
   }
+  if (mergedOptions.formConfig) {
+    mergedOptions.formConfig.enabled = false;
+  }
   return mergedOptions;
 });
 
@@ -135,15 +138,8 @@ const vbenFormOptions = computed(() => {
       const formValues = formApi.form.values;
       props.api.reload(formValues);
     },
-    // handleValuesChange(val) {
-    //   console.log('====================================');
-    //   console.log(111, val);
-    //   console.log('====================================');
-    // },
     collapseTriggerResize: true,
-    // 所有表单项共用，可单独在表单内覆盖
     commonConfig: {
-      // 所有表单项
       componentProps: {
         class: 'w-full',
       },
@@ -152,7 +148,6 @@ const vbenFormOptions = computed(() => {
     submitButtonOptions: {
       text: $t('common.query'),
     },
-    // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
     wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   };
   return {
@@ -190,10 +185,19 @@ async function init() {
     toRaw(gridOptions.value),
     toRaw(globalGridConfig),
   );
+  // 内部主动加载数据，防止form的默认值影响
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
     props.api.reload(formApi.form.values);
+  }
+
+  // form 由 vben-form代替，所以不适配formConfig，这里给出警告
+  const formConfig = defaultGridOptions.formConfig;
+  if (formConfig?.enabled) {
+    console.warn(
+      '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
+    );
   }
 }
 
