@@ -191,7 +191,8 @@ async function init() {
     toRaw(globalGridConfig),
   );
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
-  if (autoLoad) {
+  const enableProxyConfig = options.value.proxyConfig?.enabled;
+  if (enableProxyConfig && autoLoad) {
     props.api.reload(formApi.form.values);
   }
 }
