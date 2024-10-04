@@ -3,6 +3,8 @@ import type { VbenFormProps, VxeGridProps } from '#/adapter';
 
 import { Page } from '@vben/common-ui';
 
+import { message } from 'ant-design-vue';
+
 import { useVbenVxeGrid } from '#/adapter';
 import { getExampleTableApi } from '#/api';
 
@@ -79,6 +81,7 @@ const gridOptions: VxeGridProps<RowType> = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
+        message.success(`Query params: ${JSON.stringify(formValues)}`);
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
