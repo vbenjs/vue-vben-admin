@@ -17,12 +17,26 @@
     "./echarts": {
       "types": "./src/echarts/index.ts",
       "default": "./src/echarts/index.ts"
+    },
+    "./vxe-table": {
+      "types": "./src/vxe-table/index.ts",
+      "default": "./src/vxe-table/index.ts"
     }
   },
   "dependencies": {
+    "@vben-core/form-ui": "workspace:*",
+    "@vben-core/shadcn-ui": "workspace:*",
+    "@vben-core/shared": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/locales": "workspace:*",
     "@vben/preferences": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "echarts": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vxe-pc-ui": "catalog:",
+    "vxe-table": "catalog:"
   }
 }

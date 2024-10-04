@@ -27,9 +27,12 @@ catalogs:
     '@eslint/js':
       specifier: ^9.11.1
       version: 9.11.1
+    '@faker-js/faker':
+      specifier: ^9.0.3
+      version: 9.0.3
     '@iconify/json':
-      specifier: ^2.2.255
-      version: 2.2.255
+      specifier: ^2.2.256
+      version: 2.2.256
     '@iconify/tailwind':
       specifier: ^1.1.3
       version: 1.1.3
@@ -438,6 +441,9 @@ catalogs:
     vite-plugin-html:
       specifier: ^3.2.2
       version: 3.2.2
+    vite-plugin-lazy-import:
+      specifier: ^1.0.7
+      version: 1.0.7
     vite-plugin-lib-inject-css:
       specifier: ^2.1.1
       version: 2.1.1
@@ -468,6 +474,12 @@ catalogs:
     vue-tsc:
       specifier: ^2.1.6
       version: 2.1.6
+    vxe-pc-ui:
+      specifier: ^4.2.9
+      version: 4.2.12
+    vxe-table:
+      specifier: ^4.7.84
+      version: 4.7.85
     watermark-js-plus:
       specifier: ^1.5.7
       version: 1.5.7
@@ -590,6 +602,9 @@ importers:
 
   apps/backend-mock:
     dependencies:
+      '@faker-js/faker':
+        specifier: 'catalog:'
+        version: 9.0.3
       jsonwebtoken:
         specifier: 'catalog:'
         version: 9.0.2
@@ -802,15 +817,9 @@ importers:
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../packages/effects/common-ui
-      '@vben/hooks':
-        specifier: workspace:*
-        version: link:../packages/effects/hooks
       '@vben/locales':
         specifier: workspace:*
         version: link:../packages/locales
-      '@vben/preferences':
-        specifier: workspace:*
-        version: link:../packages/preferences
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
@@ -1042,7 +1051,7 @@ importers:
     dependencies:
       '@iconify/json':
         specifier: 'catalog:'
-        version: 2.2.255
+        version: 2.2.256
       '@iconify/tailwind':
         specifier: 'catalog:'
         version: 1.1.3
@@ -1171,6 +1180,9 @@ importers:
       vite-plugin-html:
         specifier: 'catalog:'
         version: 3.2.2(vite@5.4.8(@types/node@22.7.4)(less@4.2.0)(sass@1.79.4)(terser@5.33.0))
+      vite-plugin-lazy-import:
+        specifier: 'catalog:'
+        version: 1.0.7
 
   packages/@core/base/design: {}
 
@@ -1584,9 +1596,33 @@ importers:
 
   packages/effects/plugins:
     dependencies:
+      '@vben-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
+      '@vben-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@vben/icons':
+        specifier: workspace:*
+        version: link:../../icons
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../../locales
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../preferences
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@vben/utils':
+        specifier: workspace:*
+        version: link:../../utils
       '@vueuse/core':
         specifier: 'catalog:'
         version: 11.1.0(vue@3.5.10(typescript@5.6.2))
@@ -1596,6 +1632,12 @@ importers:
       vue:
         specifier: 3.5.10
         version: 3.5.10(typescript@5.6.2)
+      vxe-pc-ui:
+        specifier: 'catalog:'
+        version: 4.2.12
+      vxe-table:
+        specifier: 'catalog:'
+        version: 4.7.85
 
   packages/effects/request:
     dependencies:
@@ -3959,6 +4001,10 @@ packages:
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@faker-js/faker@9.0.3':
+    resolution: {integrity: sha512-lWrrK4QNlFSU+13PL9jMbMKLJYXDFu3tQfayBsMXX7KL/GiQeqfB1CzHkqD5UHBUtPAuPo6XwGbMFNdVMZObRA==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
@@ -3995,8 +4041,8 @@ packages:
   '@iconify-json/vscode-icons@1.2.2':
     resolution: {integrity: sha512-bTpT0HJDRqGkxQv8oiETNHLEnBZpnA1QaRD35CQyO7M7qgWVLx2xwn/lK6e4waojmlPC3ckMBx3WFIUUn0/Jdg==}
 
-  '@iconify/json@2.2.255':
-    resolution: {integrity: sha512-wtBKGYrKHOmRlbai6cd4yTfHakLQ4lLD68w5pb1RDf1+6o0QcvLdun1sWZNcqkOvZOZAUOUPVISqKkYDlWY6YA==}
+  '@iconify/json@2.2.256':
+    resolution: {integrity: sha512-u2RwfBUuDE3A8qx3vnXdcJMtirHc9QrRRULfGY6Il6/K76Odfrm4yVqS/fYIh+wXwWl/fZdAZEozqxpZftfnIQ==}
 
   '@iconify/tailwind@1.1.3':
     resolution: {integrity: sha512-SfyeT+2b/aKWA6DjwdevXdLUqaEqJ5xWTegD92KItaWc47IYsGuqrt/GOz4dJCPcTVCrsUjlvMpy8cNd+uV5nQ==}
@@ -5177,6 +5223,9 @@ packages:
   '@vueuse/shared@9.13.0':
     resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==}
 
+  '@vxe-ui/core@4.0.12':
+    resolution: {integrity: sha512-ft8f874eQSv4N9+oulFKeg8APgd8RMHeFeUUUTNckIRJ/cNi0dbR0Fe2+ZZpRl3BwRtbE2hHb2FKWmL2oyZkfw==}
+
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
     hasBin: true
@@ -6220,6 +6269,9 @@ packages:
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
+
+  dom-zindex@1.0.6:
+    resolution: {integrity: sha512-FKWIhiU96bi3xpP9ewRMgANsoVmMUBnMnmpCT6dPMZOunVYJQmJhSRruoI0XSPoHeIif3kyEuiHbFrOJwEJaEA==}
 
   domelementtype@2.3.0:
     resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
@@ -10251,6 +10303,9 @@ packages:
       '@nuxt/kit':
         optional: true
 
+  vite-plugin-lazy-import@1.0.7:
+    resolution: {integrity: sha512-mE6oAObOb4wqso4AoUGi9cLjdR+4vay1RCaKJvziBuFPlziZl7J0aw2hsqRTokLVRx3bli0a0VyjMOwsNDv58A==}
+
   vite-plugin-lib-inject-css@2.1.1:
     resolution: {integrity: sha512-RIMeVnqBK/8I0E9nnQWzws6pdj5ilRMPJSnXYb6nWxNR4EmDPnksnb/ACoR5Fy7QfzULqS4gtQMrjwnNCC9zoA==}
     peerDependencies:
@@ -10417,6 +10472,12 @@ packages:
     peerDependencies:
       vue: 3.5.10
 
+  vxe-pc-ui@4.2.12:
+    resolution: {integrity: sha512-zJ7sJLCtMahW5KNgiqQE+qDuBMoiOCIc0kl/W6ByoPgX5E1KzQTE3qvRc+v7pU/4GW//Vr3No/x1RwHMJix6Kg==}
+
+  vxe-table@4.7.85:
+    resolution: {integrity: sha512-sNQ4jKnU6vZkStTK2JDDKgIz5kKCCWtTtOVl7dpNsLJ16NYWMCDlNby5m/DJC+xa0dPvSdr7+AH4TXfD1vpRFg==}
+
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
@@ -10568,6 +10629,9 @@ packages:
   xdg-basedir@5.1.0:
     resolution: {integrity: sha512-GCPAHLvrIH13+c0SuacwvRYj2SxJXQ4kaVTT5xgL3kPrz56XxkF21IGhjSE1+W0aw7gpBWRGXLCPnPby6lSpmQ==}
     engines: {node: '>=12'}
+
+  xe-utils@3.5.30:
+    resolution: {integrity: sha512-5Ez6JUANpMakduiTLxrNObzqMebnM4697KvHW5okedkUjXvYgGvkbg0tABTkvwDW/Pb09v7vT68dzBOeAuOu0g==}
 
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
@@ -12914,6 +12978,8 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
+  '@faker-js/faker@9.0.3': {}
+
   '@fastify/busboy@2.1.1': {}
 
   '@floating-ui/core@1.6.8':
@@ -12954,7 +13020,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.255':
+  '@iconify/json@2.2.256':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -14463,6 +14529,11 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@vxe-ui/core@4.0.12':
+    dependencies:
+      dom-zindex: 1.0.6
+      xe-utils: 3.5.30
+
   JSONStream@1.3.5:
     dependencies:
       jsonparse: 1.3.1
@@ -15619,6 +15690,8 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
       entities: 4.5.0
+
+  dom-zindex@1.0.6: {}
 
   domelementtype@2.3.0: {}
 
@@ -20137,6 +20210,13 @@ snapshots:
       - rollup
       - supports-color
 
+  vite-plugin-lazy-import@1.0.7:
+    dependencies:
+      '@rollup/pluginutils': 5.1.2(rollup@4.24.0)
+      es-module-lexer: 1.5.4
+      rollup: 4.24.0
+      xe-utils: 3.5.30
+
   vite-plugin-lib-inject-css@2.1.1(vite@5.4.8(@types/node@22.7.4)(less@4.2.0)(sass@1.79.4)(terser@5.33.0)):
     dependencies:
       '@ast-grep/napi': 0.22.6
@@ -20362,6 +20442,14 @@ snapshots:
       vooks: 0.2.12(vue@3.5.10(typescript@5.6.2))
       vue: 3.5.10(typescript@5.6.2)
 
+  vxe-pc-ui@4.2.12:
+    dependencies:
+      '@vxe-ui/core': 4.0.12
+
+  vxe-table@4.7.85:
+    dependencies:
+      vxe-pc-ui: 4.2.12
+
   warning@4.0.3:
     dependencies:
       loose-envify: 1.4.0
@@ -20583,6 +20671,8 @@ snapshots:
       signal-exit: 4.1.0
 
   xdg-basedir@5.1.0: {}
+
+  xe-utils@3.5.30: {}
 
   xml-name-validator@4.0.0: {}
 

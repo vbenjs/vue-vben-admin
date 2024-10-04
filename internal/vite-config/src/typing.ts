@@ -123,6 +123,8 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   pwa?: boolean;
   /** pwa 插件配置 */
   pwaOptions?: Partial<PwaPluginOptions>;
+  /** 是否开启vxe-table懒加载 */
+  vxeTableLazyImport?: boolean;
 }
 
 interface LibraryPluginOptions extends CommonPluginOptions {

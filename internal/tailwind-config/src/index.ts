@@ -91,7 +91,10 @@ const customColors = {
   main: {
     DEFAULT: 'hsl(var(--main))',
   },
-  overlay: 'hsl(var(--overlay))',
+  overlay: {
+    content: 'hsl(var(--overlay-content))',
+    DEFAULT: 'hsl(var(--overlay))',
+  },
   red: {
     ...createColorsPalette('red'),
     foreground: 'hsl(var(--destructive-foreground))',

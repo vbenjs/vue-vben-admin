@@ -24,9 +24,11 @@ function getDefaultState(): VbenFormProps {
     actionWrapperClass: '',
     collapsed: false,
     collapsedRows: 1,
+    collapseTriggerResize: false,
     commonConfig: {},
     handleReset: undefined,
     handleSubmit: undefined,
+    handleValuesChange: undefined,
     layout: 'horizontal',
     resetButtonOptions: {},
     schema: [],
@@ -249,7 +251,7 @@ export class FormApi {
     return rawValues;
   }
 
-  unmounted() {
+  unmount() {
     // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();

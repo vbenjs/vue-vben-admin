@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { ExtendedFormApi, VbenFormProps } from './types';
 
+// import { toRaw, watch } from 'vue';
+
 import { useForwardPriorityValues } from '@vben-core/composables';
+// import { isFunction } from '@vben-core/shared/utils';
 
 import FormActions from './components/form-actions.vue';
 import {
@@ -31,6 +34,18 @@ props.formApi?.mount?.(form);
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });
 };
+// if (isFunction(forward.value.handleValuesChange)) {
+//   watch(
+//     () => form.values,
+//     (val) => {
+//       forward.value.handleValuesChange?.(toRaw(val));
+//     },
+//     {
+//       deep: true,
+//       immediate: true,
+//     },
+//   );
+// }
 </script>
 
 <template>
