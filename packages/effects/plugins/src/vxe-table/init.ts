@@ -3,6 +3,7 @@ import type { SetupVxeTable } from './types';
 import { defineComponent, watch } from 'vue';
 
 import { usePreferences } from '@vben/preferences';
+import { useVbenForm } from '@vben-core/form-ui';
 
 import {
   VxeButton,
@@ -29,6 +30,7 @@ import {
   // VxeTextarea,
 } from 'vxe-pc-ui';
 import enUS from 'vxe-pc-ui/lib/language/en-US';
+
 // 导入默认的语言
 import zhCN from 'vxe-pc-ui/lib/language/zh-CN';
 import {
@@ -41,6 +43,9 @@ import {
 
 // 是否加载过
 let isInit = false;
+
+// eslint-disable-next-line import/no-mutable-exports
+export let useTableForm: typeof useVbenForm;
 
 // 部分组件，如果没注册，vxe-table 会报错，这里实际没用组件，只是为了不报错，同时可以减少打包体积
 const createVirtualComponent = (name = '') => {
@@ -89,8 +94,10 @@ export function initVxeTable() {
 }
 
 export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
+  const { configVxeTable, useVbenForm } = setupOptions;
+
   initVxeTable();
-  const { configVxeTable } = setupOptions;
+  useTableForm = useVbenForm;
 
   const preference = usePreferences();
 

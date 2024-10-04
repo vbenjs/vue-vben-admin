@@ -1596,6 +1596,9 @@ importers:
 
   packages/effects/plugins:
     dependencies:
+      '@vben-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
@@ -1608,6 +1611,9 @@ importers:
       '@vben/icons':
         specifier: workspace:*
         version: link:../../icons
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../../locales
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../preferences

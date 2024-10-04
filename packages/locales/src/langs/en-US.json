@@ -31,7 +31,8 @@
     "confirm": "Comfirm",
     "noData": "No Data",
     "refresh": "Refresh",
-    "loadingMenu": "Loading Menu"
+    "loadingMenu": "Loading Menu",
+    "query": "Search"
   },
   "fallback": {
     "pageNotFound": "Oops! Page Not Found",

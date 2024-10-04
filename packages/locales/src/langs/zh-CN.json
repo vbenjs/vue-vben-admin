@@ -31,7 +31,8 @@
     "confirm": "确认",
     "noData": "暂无数据",
     "refresh": "刷新",
-    "loadingMenu": "加载菜单中"
+    "loadingMenu": "加载菜单中",
+    "query": "查询"
   },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",

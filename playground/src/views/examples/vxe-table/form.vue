@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter';
+import type { VbenFormProps, VxeGridProps } from '#/adapter';
 
 import { Page } from '@vben/common-ui';
-
-import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter';
 import { getExampleTableApi } from '#/api';
@@ -16,6 +14,50 @@ interface RowType {
   productName: string;
   releaseDate: string;
 }
+
+const formOptions: VbenFormProps = {
+  schema: [
+    {
+      component: 'Input',
+      fieldName: 'category',
+      label: 'Category',
+    },
+    {
+      component: 'Input',
+      fieldName: 'productName',
+      label: 'ProductName',
+    },
+    {
+      component: 'Input',
+      fieldName: 'price',
+      label: 'Price',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        allowClear: true,
+        options: [
+          {
+            label: 'Color1',
+            value: '1',
+          },
+          {
+            label: 'Color2',
+            value: '2',
+          },
+        ],
+        placeholder: '请选择',
+      },
+      fieldName: 'color',
+      label: 'Color',
+    },
+    {
+      component: 'DatePicker',
+      fieldName: 'datePicker',
+      label: 'Date',
+    },
+  ],
+};
 
 const gridOptions: VxeGridProps<RowType> = {
   checkboxConfig: {
@@ -36,32 +78,22 @@ const gridOptions: VxeGridProps<RowType> = {
   pagerConfig: {},
   proxyConfig: {
     ajax: {
-      query: async ({ page }) => {
+      query: async ({ form, page }) => {
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
+          ...form,
         });
       },
     },
   },
 };
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
-
-function reload(page?: number) {
-  gridApi.reload(page);
-}
+const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid>
-      <template #toolbar-tools>
-        <Button class="mr-2" type="primary" @click="reload()">
-          刷新当前页面
-        </Button>
-        <Button type="primary" @click="reload(1)"> 刷新并返回第一页 </Button>
-      </template>
-    </Grid>
+    <Grid />
   </Page>
 </template>

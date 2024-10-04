@@ -23,6 +23,7 @@ function getDefaultState(): VxeGridProps {
       total: 0,
     },
     gridEvents: {},
+    formOptions: undefined,
   };
 }
 
