@@ -176,7 +176,7 @@ function extendProxyOptions(options: VxeTableGridProps) {
   // const responseResult = mergeOptions.proxyConfig.response?.result ?? 'result';
 
   const wrapperQuery = async (params: any, ...args: any[]) => {
-    const formValues = await formApi.getValues();
+    const formValues = formApi?.form?.values;
     const data = await configQuery(
       {
         ...params,
