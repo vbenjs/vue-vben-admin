@@ -6,6 +6,5 @@ export default eventHandler((event) => {
   if (!userinfo) {
     return unAuthorizedResponse(event);
   }
-
   return useResponseSuccess(userinfo);
 });
