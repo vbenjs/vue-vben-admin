@@ -150,7 +150,7 @@ function removeItem(index: number) {
   } else {
     searchHistory.value.splice(index, 1);
   }
-  activeIndex.value = activeIndex.value - 1 >= 0 ? activeIndex.value - 1 : 0;
+  activeIndex.value = Math.max(activeIndex.value - 1, 0);
   scrollIntoView();
 }
 
