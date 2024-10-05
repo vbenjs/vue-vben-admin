@@ -27,7 +27,7 @@
 │   └── vite-config # 通用Vite 配置
 ├── package.json # 项目依赖配置
 ├── packages # 项目包目录
-│   ├── @core # 核心包
+│   ├── _core # 核心包
 │   │   ├── base # 基础包
 │   │   │   ├── design # 设计相关
 │   │   │   ├── icons # 图标

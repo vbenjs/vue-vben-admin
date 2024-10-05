@@ -27,7 +27,7 @@ The directory uses Monorepo management, and the project structure is as follows:
 │   └── vite-config # Common Vite configuration
 ├── package.json # Project dependency configuration
 ├── packages # Project packages directory
-│   ├── @core # Core package
+│   ├── _core # Core package
 │   │   ├── base # Base package
 │   │   │   ├── design # Design related
 │   │   │   ├── icons # Icons

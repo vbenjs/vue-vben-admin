@@ -728,22 +728,22 @@ importers:
         version: link:../../packages/utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 11.1.0(vue@3.5.10(typescript@5.6.2))
+        version: 11.1.0(vue@3.5.11(typescript@5.6.2))
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
       element-plus:
         specifier: 'catalog:'
-        version: 2.8.4(vue@3.5.10(typescript@5.6.2))
+        version: 2.8.4(vue@3.5.11(typescript@5.6.2))
       pinia:
         specifier: 2.2.2
-        version: 2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2))
+        version: 2.2.2(typescript@5.6.2)(vue@3.5.11(typescript@5.6.2))
       vue:
-        specifier: 3.5.10
-        version: 3.5.10(typescript@5.6.2)
+        specifier: ^3.5.11
+        version: 3.5.11(typescript@5.6.2)
       vue-router:
         specifier: 'catalog:'
-        version: 4.4.5(vue@3.5.10(typescript@5.6.2))
+        version: 4.4.5(vue@3.5.11(typescript@5.6.2))
     devDependencies:
       unplugin-element-plus:
         specifier: 'catalog:'
@@ -880,7 +880,7 @@ importers:
     dependencies:
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../packages/@core/ui-kit/shadcn-ui
+        version: link:../packages/_core/ui-kit/shadcn-ui
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../packages/effects/common-ui
@@ -1251,9 +1251,9 @@ importers:
         specifier: 'catalog:'
         version: 1.0.7
 
-  packages/@core/base/design: {}
+  packages/_core/base/design: {}
 
-  packages/@core/base/icons:
+  packages/_core/base/icons:
     dependencies:
       '@iconify/vue':
         specifier: 'catalog:'
@@ -1265,7 +1265,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/base/shared:
+  packages/_core/base/shared:
     dependencies:
       '@ctrl/tinycolor':
         specifier: ^4.1.0
@@ -1305,7 +1305,7 @@ importers:
         specifier: 'catalog:'
         version: 0.2.3
 
-  packages/@core/base/typings:
+  packages/_core/base/typings:
     dependencies:
       vue:
         specifier: ^3.5.11
@@ -1314,7 +1314,7 @@ importers:
         specifier: 'catalog:'
         version: 4.4.5(vue@3.5.11(typescript@5.6.2))
 
-  packages/@core/composables:
+  packages/_core/composables:
     dependencies:
       '@vben-core/shared':
         specifier: workspace:*
@@ -1336,7 +1336,7 @@ importers:
         specifier: 'catalog:'
         version: 1.15.8
 
-  packages/@core/preferences:
+  packages/_core/preferences:
     dependencies:
       '@vben-core/shared':
         specifier: workspace:*
@@ -1351,7 +1351,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/ui-kit/form-ui:
+  packages/_core/ui-kit/form-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1381,7 +1381,7 @@ importers:
         specifier: 'catalog:'
         version: 0.1.3(zod@3.23.8)
 
-  packages/@core/ui-kit/layout-ui:
+  packages/_core/ui-kit/layout-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1402,7 +1402,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/ui-kit/menu-ui:
+  packages/_core/ui-kit/menu-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1426,7 +1426,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/ui-kit/popup-ui:
+  packages/_core/ui-kit/popup-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1447,7 +1447,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/ui-kit/shadcn-ui:
+  packages/_core/ui-kit/shadcn-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1480,7 +1480,7 @@ importers:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
 
-  packages/@core/ui-kit/tabs-ui:
+  packages/_core/ui-kit/tabs-ui:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
@@ -1508,7 +1508,7 @@ importers:
     dependencies:
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/base/shared
+        version: link:../_core/base/shared
 
   packages/effects/access:
     dependencies:
@@ -1532,16 +1532,16 @@ importers:
     dependencies:
       '@vben-core/form-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
+        version: link:../../_core/ui-kit/form-ui
       '@vben-core/popup-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/popup-ui
+        version: link:../../_core/ui-kit/popup-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../_core/ui-kit/shadcn-ui
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../../@core/base/shared
+        version: link:../../_core/base/shared
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -1578,7 +1578,7 @@ importers:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../@core/composables
+        version: link:../../_core/composables
       '@vben/preferences':
         specifier: workspace:*
         version: link:../../preferences
@@ -1605,28 +1605,28 @@ importers:
     dependencies:
       '@vben-core/composables':
         specifier: workspace:*
-        version: link:../../@core/composables
+        version: link:../../_core/composables
       '@vben-core/form-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
+        version: link:../../_core/ui-kit/form-ui
       '@vben-core/layout-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/layout-ui
+        version: link:../../_core/ui-kit/layout-ui
       '@vben-core/menu-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/menu-ui
+        version: link:../../_core/ui-kit/menu-ui
       '@vben-core/popup-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/popup-ui
+        version: link:../../_core/ui-kit/popup-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../_core/ui-kit/shadcn-ui
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../../@core/base/shared
+        version: link:../../_core/base/shared
       '@vben-core/tabs-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/tabs-ui
+        version: link:../../_core/ui-kit/tabs-ui
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -1665,13 +1665,13 @@ importers:
     dependencies:
       '@vben-core/form-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
+        version: link:../../_core/ui-kit/form-ui
       '@vben-core/shadcn-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../_core/ui-kit/shadcn-ui
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../../@core/base/shared
+        version: link:../../_core/base/shared
       '@vben/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -1726,7 +1726,7 @@ importers:
     dependencies:
       '@vben-core/icons':
         specifier: workspace:*
-        version: link:../@core/base/icons
+        version: link:../_core/base/icons
 
   packages/locales:
     dependencies:
@@ -1735,7 +1735,7 @@ importers:
         version: 10.0.3
       '@vben-core/composables':
         specifier: workspace:*
-        version: link:../@core/composables
+        version: link:../_core/composables
       vue:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
@@ -1747,19 +1747,19 @@ importers:
     dependencies:
       '@vben-core/preferences':
         specifier: workspace:*
-        version: link:../@core/preferences
+        version: link:../_core/preferences
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/base/typings
+        version: link:../_core/base/typings
 
   packages/stores:
     dependencies:
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/base/shared
+        version: link:../_core/base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/base/typings
+        version: link:../_core/base/typings
       pinia:
         specifier: 2.2.2
         version: 2.2.2(typescript@5.6.2)(vue@3.5.11(typescript@5.6.2))
@@ -1777,13 +1777,13 @@ importers:
     dependencies:
       '@vben-core/design':
         specifier: workspace:*
-        version: link:../@core/base/design
+        version: link:../_core/base/design
 
   packages/types:
     dependencies:
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/base/typings
+        version: link:../_core/base/typings
       vue:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
@@ -1795,10 +1795,10 @@ importers:
     dependencies:
       '@vben-core/shared':
         specifier: workspace:*
-        version: link:../@core/base/shared
+        version: link:../_core/base/shared
       '@vben-core/typings':
         specifier: workspace:*
-        version: link:../@core/base/typings
+        version: link:../_core/base/typings
       vue-router:
         specifier: 'catalog:'
         version: 4.4.5(vue@3.5.11(typescript@5.6.2))

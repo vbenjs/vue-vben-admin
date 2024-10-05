@@ -58,51 +58,51 @@
     },
     {
       "name": "@vben-core/design",
-      "path": "packages/@core/base/design",
+      "path": "packages/_core/base/design",
     },
     {
       "name": "@vben-core/icons",
-      "path": "packages/@core/base/icons",
+      "path": "packages/_core/base/icons",
     },
     {
       "name": "@vben-core/shared",
-      "path": "packages/@core/base/shared",
+      "path": "packages/_core/base/shared",
     },
     {
       "name": "@vben-core/typings",
-      "path": "packages/@core/base/typings",
+      "path": "packages/_core/base/typings",
     },
     {
       "name": "@vben-core/composables",
-      "path": "packages/@core/composables",
+      "path": "packages/_core/composables",
     },
     {
       "name": "@vben-core/preferences",
-      "path": "packages/@core/preferences",
+      "path": "packages/_core/preferences",
     },
     {
       "name": "@vben-core/form-ui",
-      "path": "packages/@core/ui-kit/form-ui",
+      "path": "packages/_core/ui-kit/form-ui",
     },
     {
       "name": "@vben-core/layout-ui",
-      "path": "packages/@core/ui-kit/layout-ui",
+      "path": "packages/_core/ui-kit/layout-ui",
     },
     {
       "name": "@vben-core/menu-ui",
-      "path": "packages/@core/ui-kit/menu-ui",
+      "path": "packages/_core/ui-kit/menu-ui",
     },
     {
       "name": "@vben-core/popup-ui",
-      "path": "packages/@core/ui-kit/popup-ui",
+      "path": "packages/_core/ui-kit/popup-ui",
     },
     {
       "name": "@vben-core/shadcn-ui",
-      "path": "packages/@core/ui-kit/shadcn-ui",
+      "path": "packages/_core/ui-kit/shadcn-ui",
     },
     {
       "name": "@vben-core/tabs-ui",
-      "path": "packages/@core/ui-kit/tabs-ui",
+      "path": "packages/_core/ui-kit/tabs-ui",
     },
     {
       "name": "@vben/constants",

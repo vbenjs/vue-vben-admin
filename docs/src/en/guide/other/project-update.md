@@ -6,7 +6,7 @@ Because the project is a complete project template, not a plugin or a package, i
 
 ## What Should I Do
 
-The project is managed using a `Monorepo` approach and has abstracted some of the more core code, such as `packages/@core`, `packages/effects`. As long as the business code has not modified this part of the code, you can directly pull the latest code and then merge it into your branch. You only need to handle some conflicts simply. Other folders will only make some minor adjustments, which will not affect the business code.
+The project is managed using a `Monorepo` approach and has abstracted some of the more core code, such as `packages/_core`, `packages/effects`. As long as the business code has not modified this part of the code, you can directly pull the latest code and then merge it into your branch. You only need to handle some conflicts simply. Other folders will only make some minor adjustments, which will not affect the business code.
 
 ::: tip Recommendation
 
