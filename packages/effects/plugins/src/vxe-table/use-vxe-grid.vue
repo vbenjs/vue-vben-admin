@@ -63,6 +63,8 @@ const options = computed(() => {
   const slotActions = slots['toolbar-actions']?.();
   const slotTools = slots['toolbar-tools']?.();
 
+  const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
+
   const forceUseToolbarOptions = showToolbar.value
     ? {
         toolbarConfig: {
@@ -79,6 +81,7 @@ const options = computed(() => {
       {},
       forceUseToolbarOptions,
       toRaw(gridOptions.value),
+      globalGridConfig,
     ),
   );
 
@@ -205,7 +208,7 @@ async function init() {
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
-  const formConfig = options.value.formConfig;
+  const formConfig = gridOptions.value?.formConfig;
   if (formConfig) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
