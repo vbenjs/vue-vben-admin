@@ -87,6 +87,7 @@ const computedSchema = computed(
       controlClass = '',
       disabled,
       disabledOnChangeListener = false,
+      emptyStateValue = undefined,
       formFieldProps = {},
       formItemClass = '',
       hideLabel = false,
@@ -107,6 +108,7 @@ const computedSchema = computed(
       return {
         disabled,
         disabledOnChangeListener,
+        emptyStateValue,
         hideLabel,
         hideRequiredMark,
         labelWidth,

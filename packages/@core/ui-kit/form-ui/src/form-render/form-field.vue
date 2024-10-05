@@ -33,6 +33,7 @@ const {
   description,
   disabled,
   disabledOnChangeListener,
+  emptyStateValue,
   fieldName,
   formFieldProps,
   label,
@@ -55,7 +56,7 @@ const formApi = formRenderProps.form;
 
 const isInValid = computed(() => errors.value?.length > 0);
 
-const fieldComponent = computed(() => {
+const FieldComponent = computed(() => {
   const finalComponent = isString(component)
     ? componentMap.value[component]
     : component;
@@ -213,7 +214,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   if (bindEventField) {
     return {
       [`onUpdate:${bindEventField}`]: handler,
-      [bindEventField]: value,
+      [bindEventField]: value === undefined ? emptyStateValue : value,
       onChange: disabledOnChangeListener
         ? undefined
         : (e: Record<string, any>) => {
@@ -300,7 +301,7 @@ function autofocus() {
             }"
           >
             <component
-              :is="fieldComponent"
+              :is="FieldComponent"
               ref="fieldComponentRef"
               :class="{
                 'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':

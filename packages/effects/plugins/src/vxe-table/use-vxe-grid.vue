@@ -193,8 +193,8 @@ async function init() {
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
-  const formConfig = defaultGridOptions.formConfig;
-  if (formConfig?.enabled) {
+  const formConfig = options.value.formConfig;
+  if (formConfig) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
