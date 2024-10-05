@@ -75,7 +75,7 @@ function changeLoading() {
     </template>
     <Grid>
       <template #toolbar-actions>
-        <Button class="mr-2" type="primary">左右按钮插槽</Button>
+        <Button class="mr-2" type="primary">左侧插槽</Button>
       </template>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
