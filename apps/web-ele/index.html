@@ -14,19 +14,6 @@
     <!-- 由 vite 注入 VITE_APP_TITLE 变量，在 .env 文件内配置 -->
     <title><%= VITE_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />
-    <script>
-      // 生产环境下注入百度统计
-      if (window._VBEN_ADMIN_PRO_APP_CONF_) {
-        var _hmt = _hmt || [];
-        (function () {
-          var hm = document.createElement('script');
-          hm.src =
-            'https://hm.baidu.com/hm.js?97352b16ed2df8c3860cf5a1a65fb4dd';
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
-      }
-    </script>
   </head>
   <body>
     <div id="app"></div>

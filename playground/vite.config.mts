@@ -14,6 +14,7 @@ export default defineConfig(async () => {
             ws: true,
           },
         },
+        open: true,
       },
     },
   };
