@@ -38,6 +38,11 @@
 
   /* Used for success actions such as <message> */
 
+  --info: 240, 5%, 96%;
+  --info-foreground: 220, 4%, 58%;
+
+  /* Used for success actions such as <message> */
+
   --success: 144 57% 58%;
   --success-foreground: 0 0% 98%;
 
