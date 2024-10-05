@@ -154,6 +154,10 @@ export interface FormCommonConfig {
    */
   disabledOnChangeListener?: boolean;
   /**
+   * 所有表单项的空状态值,默认都是undefined，naive-ui的空状态值是null
+   */
+  emptyStateValue?: null | undefined;
+  /**
    * 所有表单项的控件样式
    * @default {}
    */
@@ -341,6 +345,7 @@ export interface VbenFormAdapterOptions<
   config?: {
     baseModelPropName?: string;
     disabledOnChangeListener?: boolean;
+    emptyStateValue?: null | undefined;
     modelPropNameMap?: Partial<Record<T, string>>;
   };
   defineRules?: {
