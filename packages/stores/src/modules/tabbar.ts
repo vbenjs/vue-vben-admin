@@ -209,7 +209,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         (item) => getTabPath(item) === getTabPath(tab),
       );
 
-      if (index >= 0 && index < this.tabs.length - 1) {
+      if (index !== -1 && index < this.tabs.length - 1) {
         const rightTabs = this.tabs.slice(index + 1);
 
         const paths: string[] = [];

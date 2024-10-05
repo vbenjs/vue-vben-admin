@@ -6,6 +6,8 @@ import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter';
 
+import DocButton from '../doc-button.vue';
+
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
@@ -329,6 +331,9 @@ function handleSetFormValue() {
     description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
     title="表单组件"
   >
+    <template #extra>
+      <DocButton path="/components/common-ui/vben-form" />
+    </template>
     <Card title="基础示例">
       <template #extra>
         <Button type="primary" @click="handleSetFormValue">设置表单值</Button>

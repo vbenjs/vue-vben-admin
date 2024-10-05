@@ -10,6 +10,7 @@
     "start": "nitro dev"
   },
   "dependencies": {
+    "@faker-js/faker": "catalog:",
     "jsonwebtoken": "catalog:",
     "nitropack": "catalog:"
   },

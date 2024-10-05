@@ -12,5 +12,5 @@ function handleClick() {
 </script>
 
 <template>
-  <Button type="link" @click="handleClick">查看组件文档</Button>
+  <Button @click="handleClick">查看组件文档</Button>
 </template>

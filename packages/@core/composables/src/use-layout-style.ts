@@ -4,6 +4,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import {
   CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
   CSS_VARIABLE_LAYOUT_CONTENT_WIDTH,
+  CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
+  CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
 } from '@vben-core/shared/constants';
 import {
   getElementVisibleRect,
@@ -15,7 +17,7 @@ import { useCssVar, useDebounceFn } from '@vueuse/core';
 /**
  * @zh_CN content style
  */
-function useContentStyle() {
+export function useLayoutContentStyle() {
   let resizeObserver: null | ResizeObserver = null;
   const contentElement = ref<HTMLDivElement | null>(null);
   const visibleDomRect = ref<null | VisibleDomRect>(null);
@@ -40,7 +42,7 @@ function useContentStyle() {
       contentHeight.value = `${visibleDomRect.value.height}px`;
       contentWidth.value = `${visibleDomRect.value.width}px`;
     },
-    100,
+    16,
   );
 
   onMounted(() => {
@@ -58,4 +60,28 @@ function useContentStyle() {
   return { contentElement, overlayStyle, visibleDomRect };
 }
 
-export { useContentStyle };
+export function useLayoutHeaderStyle() {
+  const headerHeight = useCssVar(CSS_VARIABLE_LAYOUT_HEADER_HEIGHT);
+
+  return {
+    getLayoutHeaderHeight: () => {
+      return Number.parseInt(`${headerHeight.value}`, 10);
+    },
+    setLayoutHeaderHeight: (height: number) => {
+      headerHeight.value = `${height}px`;
+    },
+  };
+}
+
+export function useLayoutFooterStyle() {
+  const footerHeight = useCssVar(CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT);
+
+  return {
+    getLayoutFooterHeight: () => {
+      return Number.parseInt(`${footerHeight.value}`, 10);
+    },
+    setLayoutFooterHeight: (height: number) => {
+      footerHeight.value = `${height}px`;
+    },
+  };
+}

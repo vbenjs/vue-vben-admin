@@ -39,7 +39,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "icpLink": "",
   },
   "footer": {
-    "enable": true,
+    "enable": false,
     "fixed": false,
   },
   "header": {

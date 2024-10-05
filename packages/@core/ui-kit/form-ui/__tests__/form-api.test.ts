@@ -109,7 +109,7 @@ describe('formApi', () => {
   });
 
   it('should unmount form and reset state', () => {
-    formApi.unmounted();
+    formApi.unmount();
     expect(formApi.isMounted).toBe(false);
   });
 

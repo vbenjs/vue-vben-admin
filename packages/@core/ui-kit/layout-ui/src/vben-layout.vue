@@ -4,7 +4,11 @@ import type { VbenLayoutProps } from './vben-layout';
 import type { CSSProperties } from 'vue';
 import { computed, ref, watch } from 'vue';
 
-import { SCROLL_FIXED_CLASS } from '@vben-core/composables';
+import {
+  SCROLL_FIXED_CLASS,
+  useLayoutFooterStyle,
+  useLayoutHeaderStyle,
+} from '@vben-core/composables';
 import { Menu } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
@@ -73,6 +77,9 @@ const {
   isScrolling,
   y: scrollY,
 } = useScroll(document);
+
+const { setLayoutHeaderHeight } = useLayoutHeaderStyle();
+const { setLayoutFooterHeight } = useLayoutFooterStyle();
 
 const { y: mouseY } = useMouse({ target: contentRef, type: 'client' });
 
@@ -350,6 +357,26 @@ watch(
     if (val) {
       sidebarCollapse.value = true;
     }
+  },
+  {
+    immediate: true,
+  },
+);
+
+watch(
+  [() => headerWrapperHeight.value, () => isFullContent.value],
+  ([height]) => {
+    setLayoutHeaderHeight(isFullContent.value ? 0 : height);
+  },
+  {
+    immediate: true,
+  },
+);
+
+watch(
+  () => props.footerHeight,
+  (height: number) => {
+    setLayoutFooterHeight(height);
   },
   {
     immediate: true,
