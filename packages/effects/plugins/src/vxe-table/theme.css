@@ -76,3 +76,7 @@
     }
   }
 }
+
+.vxe-pager--wrapper {
+  @apply justify-center md:justify-end;
+}
