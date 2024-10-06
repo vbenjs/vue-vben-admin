@@ -204,7 +204,6 @@
       "enable": "Enable Tab Bar",
       "icon": "Show Tabbar Icon",
       "showMore": "Show More Button",
-      "showRefresh": "Show Refresh Button",
       "showMaximize": "Show Maximize Button",
       "persist": "Persist Tabs",
       "dragable": "Enable Dragable Sort",
@@ -316,7 +315,8 @@
       "languageToggle": "Enable Language Toggle",
       "notification": "Enable Notification",
       "sidebarToggle": "Enable Sidebar Toggle",
-      "lockScreen": "Enable Lock Screen"
+      "lockScreen": "Enable Lock Screen",
+      "refresh": "Enable Refresh"
     }
   },
   "ui": {
