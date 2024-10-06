@@ -1,8 +1,6 @@
 import type { Watermark, WatermarkOptions } from 'watermark-js-plus';
 
-import { nextTick, onUnmounted, ref, watch } from 'vue';
-
-import { preferences } from '@vben/preferences';
+import { nextTick, onUnmounted, ref } from 'vue';
 
 const watermark = ref<Watermark>();
 const cachedOptions = ref<Partial<WatermarkOptions>>({
@@ -66,15 +64,6 @@ export function useWatermark() {
   function destroyWatermark() {
     watermark.value?.destroy();
   }
-
-  watch(
-    () => preferences.app.watermark,
-    (enable) => {
-      if (!enable) {
-        destroyWatermark();
-      }
-    },
-  );
 
   onUnmounted(() => {
     destroyWatermark();
