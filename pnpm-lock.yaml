@@ -475,8 +475,8 @@ catalogs:
       specifier: ^2.1.6
       version: 2.1.6
     vxe-pc-ui:
-      specifier: ^4.2.13
-      version: 4.2.13
+      specifier: ^4.2.14
+      version: 4.2.14
     vxe-table:
       specifier: ^4.7.84
       version: 4.7.85
@@ -1634,7 +1634,7 @@ importers:
         version: 3.5.11(typescript@5.6.2)
       vxe-pc-ui:
         specifier: 'catalog:'
-        version: 4.2.13
+        version: 4.2.14
       vxe-table:
         specifier: 'catalog:'
         version: 4.7.85
@@ -10224,8 +10224,8 @@ packages:
     peerDependencies:
       vue: ^3.5.11
 
-  vxe-pc-ui@4.2.13:
-    resolution: {integrity: sha512-zTI0pDAO0sJ5Snvv8zDnvxMcZt2dKg5RPrtOXsHpSuAW+B2dS/grdn7bvj7RVpgb/cSx4fdNoVmmU5U6HLufAA==}
+  vxe-pc-ui@4.2.14:
+    resolution: {integrity: sha512-yXZo7axUmn62bksPKFwOHafGJTDH7QXsvhWVwr/xb+vM4wLA14WUijyEnAJJvY78lM5FB8cIFZqwahOhj1Pu8w==}
 
   vxe-table@4.7.85:
     resolution: {integrity: sha512-sNQ4jKnU6vZkStTK2JDDKgIz5kKCCWtTtOVl7dpNsLJ16NYWMCDlNby5m/DJC+xa0dPvSdr7+AH4TXfD1vpRFg==}
@@ -19866,13 +19866,13 @@ snapshots:
       vooks: 0.2.12(vue@3.5.11(typescript@5.6.2))
       vue: 3.5.11(typescript@5.6.2)
 
-  vxe-pc-ui@4.2.13:
+  vxe-pc-ui@4.2.14:
     dependencies:
       '@vxe-ui/core': 4.0.12
 
   vxe-table@4.7.85:
     dependencies:
-      vxe-pc-ui: 4.2.13
+      vxe-pc-ui: 4.2.14
 
   warning@4.0.3:
     dependencies:

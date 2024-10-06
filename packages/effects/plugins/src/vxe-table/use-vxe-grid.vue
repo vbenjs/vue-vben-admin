@@ -143,7 +143,7 @@ const vbenFormOptions = computed(() => {
       props.api.reload(formValues);
     },
     handleReset: async () => {
-      formApi.resetForm();
+      await formApi.resetForm();
       const formValues = formApi.form.values;
       props.api.reload(formValues);
     },
