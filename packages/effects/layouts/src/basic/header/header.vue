@@ -31,7 +31,7 @@ withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
-const REFERENCE_VALUTE = 50;
+const REFERENCE_VALUE = 50;
 
 const accessStore = useAccessStore();
 const { globalSearchShortcutKey, preferencesButtonPosition } = usePreferences();
@@ -39,41 +39,41 @@ const slots = useSlots();
 const { refresh } = useRefresh();
 
 const rightSlots = computed(() => {
-  const list = [{ index: REFERENCE_VALUTE + 100, name: 'user-dropdown' }];
+  const list = [{ index: REFERENCE_VALUE + 100, name: 'user-dropdown' }];
   if (preferences.widget.globalSearch) {
     list.push({
-      index: REFERENCE_VALUTE,
+      index: REFERENCE_VALUE,
       name: 'global-search',
     });
   }
 
   if (preferencesButtonPosition.value.header) {
     list.push({
-      index: REFERENCE_VALUTE + 10,
+      index: REFERENCE_VALUE + 10,
       name: 'preferences',
     });
   }
   if (preferences.widget.themeToggle) {
     list.push({
-      index: REFERENCE_VALUTE + 20,
+      index: REFERENCE_VALUE + 20,
       name: 'theme-toggle',
     });
   }
   if (preferences.widget.languageToggle) {
     list.push({
-      index: REFERENCE_VALUTE + 30,
+      index: REFERENCE_VALUE + 30,
       name: 'language-toggle',
     });
   }
   if (preferences.widget.fullscreen) {
     list.push({
-      index: REFERENCE_VALUTE + 40,
+      index: REFERENCE_VALUE + 40,
       name: 'fullscreen',
     });
   }
   if (preferences.widget.notification) {
     list.push({
-      index: REFERENCE_VALUTE + 50,
+      index: REFERENCE_VALUE + 50,
       name: 'notification',
     });
   }
@@ -113,7 +113,7 @@ function clearPreferencesAndLogout() {
 
 <template>
   <template
-    v-for="slot in leftSlots.filter((item) => item.index < REFERENCE_VALUTE)"
+    v-for="slot in leftSlots.filter((item) => item.index < REFERENCE_VALUE)"
     :key="slot.name"
   >
     <slot :name="slot.name">
@@ -128,7 +128,7 @@ function clearPreferencesAndLogout() {
     <slot name="breadcrumb"></slot>
   </div>
   <template
-    v-for="slot in leftSlots.filter((item) => item.index > REFERENCE_VALUTE)"
+    v-for="slot in leftSlots.filter((item) => item.index > REFERENCE_VALUE)"
     :key="slot.name"
   >
     <slot :name="slot.name"></slot>
