@@ -20,6 +20,7 @@ export function useVbenVxeGrid(options: VxeGridProps) {
       onBeforeUnmount(() => {
         api.unmount();
       });
+      api.setState({ ...props, ...attrs });
       return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
     },
     {

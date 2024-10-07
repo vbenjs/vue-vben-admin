@@ -26,6 +26,7 @@ export function useVbenForm<
       onBeforeUnmount(() => {
         api.unmount();
       });
+      api.setState({ ...props, ...attrs });
       return () =>
         h(VbenUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },

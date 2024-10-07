@@ -78,7 +78,9 @@ watch(
 </script>
 <template>
   <div
-    :class="cn('col-span-full w-full text-right', rootProps.actionWrapperClass)"
+    :class="
+      cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)
+    "
     :style="queryFormStyle"
   >
     <component
