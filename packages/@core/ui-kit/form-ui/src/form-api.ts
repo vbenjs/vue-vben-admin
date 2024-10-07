@@ -12,28 +12,23 @@ import { toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
-  createMerge,
   isFunction,
+  mergeWithArrayOverride,
   StateHandler,
 } from '@vben-core/shared/utils';
 
 import { objectPick } from '@vueuse/core';
-
-const merge = createMerge((originObj, key, updates) => {
-  if (Array.isArray(originObj[key]) && Array.isArray(updates)) {
-    originObj[key] = updates;
-    return true;
-  }
-});
 
 function getDefaultState(): VbenFormProps {
   return {
     actionWrapperClass: '',
     collapsed: false,
     collapsedRows: 1,
+    collapseTriggerResize: false,
     commonConfig: {},
     handleReset: undefined,
     handleSubmit: undefined,
+    handleValuesChange: undefined,
     layout: 'horizontal',
     resetButtonOptions: {},
     schema: [],
@@ -218,10 +213,10 @@ export class FormApi {
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {
-        return merge(stateOrFn(prev), prev);
+        return mergeWithArrayOverride(stateOrFn(prev), prev);
       });
     } else {
-      this.store.setState((prev) => merge(stateOrFn, prev));
+      this.store.setState((prev) => mergeWithArrayOverride(stateOrFn, prev));
     }
   }
 
@@ -256,7 +251,7 @@ export class FormApi {
     return rawValues;
   }
 
-  unmounted() {
+  unmount() {
     // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();
@@ -287,7 +282,10 @@ export class FormApi {
     currentSchema.forEach((schema, index) => {
       const updatedData = updatedMap[schema.fieldName];
       if (updatedData) {
-        currentSchema[index] = merge(updatedData, schema) as FormSchema;
+        currentSchema[index] = mergeWithArrayOverride(
+          updatedData,
+          schema,
+        ) as FormSchema;
       }
     });
     this.setState({ schema: currentSchema });

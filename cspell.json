@@ -19,6 +19,7 @@
     "intlify",
     "mkdist",
     "mockjs",
+    "vitejs",
     "noopener",
     "noreferrer",
     "nprogress",

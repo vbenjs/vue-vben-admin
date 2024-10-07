@@ -33,10 +33,7 @@ function setupCommonGuard(router: Router) {
 
   router.afterEach((to) => {
     // 记录页面是否加载,如果已经加载，后续的页面切换动画等效果不在重复执行
-
-    if (preferences.tabbar.enable) {
-      loadedPaths.add(to.path);
-    }
+    loadedPaths.add(to.path);
 
     // 关闭页面加载进度条
     if (preferences.transition.progress) {

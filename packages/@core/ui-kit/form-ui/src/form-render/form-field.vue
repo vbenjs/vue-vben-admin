@@ -3,7 +3,7 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed } from 'vue';
+import { computed, nextTick, useTemplateRef, watch } from 'vue';
 
 import {
   FormControl,
@@ -32,6 +32,8 @@ const {
   dependencies,
   description,
   disabled,
+  disabledOnChangeListener,
+  emptyStateValue,
   fieldName,
   formFieldProps,
   label,
@@ -49,11 +51,12 @@ const { componentBindEventMap, componentMap, isVertical } = useFormContext();
 const formRenderProps = injectRenderFormProps();
 const values = useFormValues();
 const errors = useFieldError(fieldName);
+const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
 
 const isInValid = computed(() => errors.value?.length > 0);
 
-const fieldComponent = computed(() => {
+const FieldComponent = computed(() => {
   const finalComponent = isString(component)
     ? componentMap.value[component]
     : component;
@@ -156,6 +159,18 @@ const computedProps = computed(() => {
   };
 });
 
+watch(
+  () => computedProps.value?.autofocus,
+  (value) => {
+    if (value === true) {
+      nextTick(() => {
+        autofocus();
+      });
+    }
+  },
+  { immediate: true },
+);
+
 const shouldDisabled = computed(() => {
   return isDisabled.value || disabled || computedProps.value?.disabled;
 });
@@ -177,7 +192,7 @@ const fieldProps = computed(() => {
     keepValue: true,
     label,
     ...(rules ? { rules } : {}),
-    ...formFieldProps,
+    ...(formFieldProps as Record<string, any>),
   };
 });
 
@@ -199,16 +214,17 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   if (bindEventField) {
     return {
       [`onUpdate:${bindEventField}`]: handler,
-      [bindEventField]: value,
-      onChange: (e: Record<string, any>) => {
-        const shouldUnwrap = isEventObjectLike(e);
-        const onChange = slotProps?.componentField?.onChange;
-        if (!shouldUnwrap) {
-          return onChange?.(e);
-        }
-
-        return onChange?.(e?.target?.[bindEventField] ?? e);
-      },
+      [bindEventField]: value === undefined ? emptyStateValue : value,
+      onChange: disabledOnChangeListener
+        ? undefined
+        : (e: Record<string, any>) => {
+            const shouldUnwrap = isEventObjectLike(e);
+            const onChange = slotProps?.componentField?.onChange;
+            if (!shouldUnwrap) {
+              return onChange?.(e);
+            }
+            return onChange?.(e?.target?.[bindEventField] ?? e);
+          },
       onInput: () => {},
     };
   }
@@ -225,6 +241,17 @@ function createComponentProps(slotProps: Record<string, any>) {
   };
 
   return binds;
+}
+
+function autofocus() {
+  if (
+    fieldComponentRef.value &&
+    isFunction(fieldComponentRef.value.focus) &&
+    // 检查当前是否有元素被聚焦
+    document.activeElement !== fieldComponentRef.value
+  ) {
+    fieldComponentRef.value?.focus?.();
+  }
 }
 </script>
 
@@ -274,7 +301,8 @@ function createComponentProps(slotProps: Record<string, any>) {
             }"
           >
             <component
-              :is="fieldComponent"
+              :is="FieldComponent"
+              ref="fieldComponentRef"
               :class="{
                 'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
                   isInValid,

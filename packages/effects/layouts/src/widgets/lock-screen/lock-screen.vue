@@ -4,6 +4,7 @@ import { computed, reactive, ref } from 'vue';
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
 import { storeToRefs, useLockStore } from '@vben/stores';
+import { useScrollLock } from '@vben-core/composables';
 import { useVbenForm, z } from '@vben-core/form-ui';
 import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui';
 
@@ -74,6 +75,8 @@ async function handleSubmit() {
 function toggleUnlockForm() {
   showUnlockForm.value = !showUnlockForm.value;
 }
+
+useScrollLock();
 </script>
 
 <template>

@@ -42,7 +42,6 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.examples.ellipsis.title'),
         },
       },
-
       {
         name: 'FormExample',
         path: '/examples/form',
@@ -105,6 +104,89 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/examples/form/merge.vue'),
             meta: {
               title: $t('page.examples.form.merge'),
+            },
+          },
+        ],
+      },
+      {
+        name: 'VxeTableExample',
+        path: '/examples/vxe-table',
+        meta: {
+          icon: 'lucide:table',
+          title: $t('page.examples.vxeTable.title'),
+        },
+        children: [
+          {
+            name: 'VxeTableBasicExample',
+            path: '/examples/vxe-table/basic',
+            component: () => import('#/views/examples/vxe-table/basic.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.basic'),
+            },
+          },
+          {
+            name: 'VxeTableRemoteExample',
+            path: '/examples/vxe-table/remote',
+            component: () => import('#/views/examples/vxe-table/remote.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.remote'),
+            },
+          },
+          {
+            name: 'VxeTableTreeExample',
+            path: '/examples/vxe-table/tree',
+            component: () => import('#/views/examples/vxe-table/tree.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.tree'),
+            },
+          },
+          {
+            name: 'VxeTableFixedExample',
+            path: '/examples/vxe-table/fixed',
+            component: () => import('#/views/examples/vxe-table/fixed.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.fixed'),
+            },
+          },
+          {
+            name: 'VxeTableCustomCellExample',
+            path: '/examples/vxe-table/custom-cell',
+            component: () =>
+              import('#/views/examples/vxe-table/custom-cell.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.custom-cell'),
+            },
+          },
+          {
+            name: 'VxeTableFormExample',
+            path: '/examples/vxe-table/form',
+            component: () => import('#/views/examples/vxe-table/form.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.form'),
+            },
+          },
+          {
+            name: 'VxeTableEditCellExample',
+            path: '/examples/vxe-table/edit-cell',
+            component: () => import('#/views/examples/vxe-table/edit-cell.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.editCell'),
+            },
+          },
+          {
+            name: 'VxeTableEditRowExample',
+            path: '/examples/vxe-table/edit-row',
+            component: () => import('#/views/examples/vxe-table/edit-row.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.editRow'),
+            },
+          },
+          {
+            name: 'VxeTableVirtualExample',
+            path: '/examples/vxe-table/virtual',
+            component: () => import('#/views/examples/vxe-table/virtual.vue'),
+            meta: {
+              title: $t('page.examples.vxeTable.virtual'),
             },
           },
         ],

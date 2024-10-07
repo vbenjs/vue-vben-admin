@@ -78,7 +78,7 @@ const [QueryForm] = useVbenForm({
   // 是否可展开
   showCollapseButton: true,
   submitButtonOptions: {
-    text: '查询',
+    content: '查询',
   },
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });

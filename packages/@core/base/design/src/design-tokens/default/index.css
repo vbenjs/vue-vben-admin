@@ -38,6 +38,11 @@
 
   /* Used for success actions such as <message> */
 
+  --info: 240, 5%, 96%;
+  --info-foreground: 220, 4%, 58%;
+
+  /* Used for success actions such as <message> */
+
   --success: 144 57% 58%;
   --success-foreground: 0 0% 98%;
 
@@ -79,7 +84,7 @@
 
   /* 遮罩颜色 */
   --overlay: 0 0% 0% / 45%;
-  --overlay-light: 0 0% 95% / 45%;
+  --overlay-content: 0 0% 95% / 45%;
 
   /* 基本文字大小 */
   --font-size-base: 16px;

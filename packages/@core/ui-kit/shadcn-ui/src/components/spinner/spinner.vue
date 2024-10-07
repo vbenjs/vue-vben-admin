@@ -63,7 +63,7 @@ function onTransitionEnd() {
   <div
     :class="
       cn(
-        'flex-center z-100 dark:bg-overlay absolute left-0 top-0 size-full bg-[hsl(var(--overlay-light))] backdrop-blur-sm transition-all duration-500',
+        'flex-center z-100 bg-overlay-content absolute left-0 top-0 size-full backdrop-blur-sm transition-all duration-500',
         {
           'invisible opacity-0': !showSpinner,
         },

@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { ZodTypeAny } from 'zod';
 
-import type { FormRenderProps, FormSchema, FormShape } from '../types';
+import type {
+  FormCommonConfig,
+  FormRenderProps,
+  FormSchema,
+  FormShape,
+} from '../types';
 
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString } from '@vben-core/shared/utils';
+import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils';
 
 import { type GenericObject } from 'vee-validate';
 
@@ -17,12 +22,16 @@ import { getBaseRules, getDefaultValueInZodStack } from './helper';
 
 interface Props extends FormRenderProps {}
 
-const props = withDefaults(defineProps<Props>(), {
-  collapsedRows: 1,
-  commonConfig: () => ({}),
-  showCollapseButton: false,
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
-});
+const props = withDefaults(
+  defineProps<{ globalCommonConfig?: FormCommonConfig } & Props>(),
+  {
+    collapsedRows: 1,
+    commonConfig: () => ({}),
+    globalCommonConfig: () => ({}),
+    showCollapseButton: false,
+    wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
+  },
+);
 
 const emits = defineEmits<{
   submit: [event: any];
@@ -77,6 +86,8 @@ const computedSchema = computed(
       componentProps = {},
       controlClass = '',
       disabled,
+      disabledOnChangeListener = false,
+      emptyStateValue = undefined,
       formFieldProps = {},
       formItemClass = '',
       hideLabel = false,
@@ -84,7 +95,7 @@ const computedSchema = computed(
       labelClass = '',
       labelWidth = 100,
       wrapperClass = '',
-    } = props.commonConfig;
+    } = mergeWithArrayOverride(props.commonConfig, props.globalCommonConfig);
     return (props.schema || []).map((schema, index) => {
       const keepIndex = keepFormItemIndex.value;
 
@@ -96,6 +107,8 @@ const computedSchema = computed(
 
       return {
         disabled,
+        disabledOnChangeListener,
+        emptyStateValue,
         hideLabel,
         hideRequiredMark,
         labelWidth,

@@ -22,6 +22,7 @@ const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
 const appPreferencesButtonPosition = defineModel<string>(
   'appPreferencesButtonPosition',
 );
+const widgetRefresh = defineModel<boolean>('widgetRefresh');
 
 const positionItems = computed((): SelectOption[] => [
   {
@@ -60,6 +61,9 @@ const positionItems = computed((): SelectOption[] => [
   </SwitchItem>
   <SwitchItem v-model="widgetSidebarToggle">
     {{ $t('preferences.widget.sidebarToggle') }}
+  </SwitchItem>
+  <SwitchItem v-model="widgetRefresh">
+    {{ $t('preferences.widget.refresh') }}
   </SwitchItem>
   <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
     {{ $t('preferences.position.title') }}

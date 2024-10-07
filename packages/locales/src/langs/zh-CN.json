@@ -31,7 +31,8 @@
     "confirm": "确认",
     "noData": "暂无数据",
     "refresh": "刷新",
-    "loadingMenu": "加载菜单中"
+    "loadingMenu": "加载菜单中",
+    "query": "查询"
   },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",
@@ -57,6 +58,10 @@
   "formRules": {
     "required": "请输入{0}",
     "selectRequired": "请选择{0}"
+  },
+  "placeholder": {
+    "input": "请输入",
+    "select": "请选择"
   },
   "widgets": {
     "document": "文档",
@@ -199,7 +204,6 @@
       "enable": "启用标签栏",
       "icon": "显示标签栏图标",
       "showMore": "显示更多按钮",
-      "showRefresh": "显示刷新按钮",
       "showMaximize": "显示最大化按钮",
       "persist": "持久化标签页",
       "dragable": "启动拖拽排序",
@@ -311,7 +315,8 @@
       "languageToggle": "启用语言切换",
       "notification": "启用通知",
       "sidebarToggle": "启用侧边栏切换",
-      "lockScreen": "启用锁屏"
+      "lockScreen": "启用锁屏",
+      "refresh": "启用刷新"
     }
   },
   "ui": {

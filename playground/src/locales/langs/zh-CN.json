@@ -82,6 +82,18 @@
         "api": "Api",
         "merge": "合并表单"
       },
+      "vxeTable": {
+        "title": "Vxe 表格",
+        "basic": "基础表格",
+        "remote": "远程加载",
+        "tree": "树形表格",
+        "fixed": "固定表头/列",
+        "virtual": "虚拟滚动",
+        "editCell": "单元格编辑",
+        "editRow": "行编辑",
+        "custom-cell": "自定义单元格",
+        "form": "搜索表单"
+      },
       "captcha": {
         "title": "验证码",
         "pointSelection": "点选验证",

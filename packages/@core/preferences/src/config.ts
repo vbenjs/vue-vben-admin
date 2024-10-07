@@ -39,7 +39,7 @@ const defaultPreferences: Preferences = {
     icpLink: '',
   },
   footer: {
-    enable: true,
+    enable: false,
     fixed: false,
   },
   header: {
@@ -81,7 +81,7 @@ const defaultPreferences: Preferences = {
     showIcon: true,
     showMaximize: true,
     showMore: true,
-    showRefresh: true,
+
     styleType: 'chrome',
   },
   theme: {
@@ -107,6 +107,7 @@ const defaultPreferences: Preferences = {
     languageToggle: true,
     lockScreen: true,
     notification: true,
+    refresh: true,
     sidebarToggle: true,
     themeToggle: true,
   },

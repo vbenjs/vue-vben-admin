@@ -39,7 +39,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "icpLink": "",
   },
   "footer": {
-    "enable": true,
+    "enable": false,
     "fixed": false,
   },
   "header": {
@@ -81,7 +81,6 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "showIcon": true,
     "showMaximize": true,
     "showMore": true,
-    "showRefresh": true,
     "styleType": "chrome",
   },
   "theme": {
@@ -107,6 +106,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "languageToggle": true,
     "lockScreen": true,
     "notification": true,
+    "refresh": true,
     "sidebarToggle": true,
     "themeToggle": true,
   },

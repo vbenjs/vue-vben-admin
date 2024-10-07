@@ -174,19 +174,22 @@ if (enableShortcutKey.value) {
         />
         <div class="ml-2 w-full">
           <div
+            v-if="tagText || text || $slots.tagText"
             class="text-foreground mb-1 flex items-center text-sm font-medium"
           >
             {{ text }}
-            <Badge class="ml-2 text-green-400">
-              {{ tagText }}
-            </Badge>
+            <slot name="tagText">
+              <Badge v-if="tagText" class="ml-2 text-green-400">
+                {{ tagText }}
+              </Badge>
+            </slot>
           </div>
           <div class="text-muted-foreground text-xs font-normal">
             {{ description }}
           </div>
         </div>
       </DropdownMenuLabel>
-      <DropdownMenuSeparator />
+      <DropdownMenuSeparator v-if="menus?.length" />
       <DropdownMenuItem
         v-for="menu in menus"
         :key="menu.text"
@@ -208,7 +211,7 @@ if (enableShortcutKey.value) {
           {{ altView }} L
         </DropdownMenuShortcut>
       </DropdownMenuItem>
-      <DropdownMenuSeparator />
+      <DropdownMenuSeparator v-if="preferences.widget.lockScreen" />
       <DropdownMenuItem
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleLogout"

@@ -2,8 +2,8 @@ import { getScrollbarWidth, needsScrollbar } from '@vben-core/shared/utils';
 
 import {
   useScrollLock as _useScrollLock,
-  tryOnBeforeMount,
   tryOnBeforeUnmount,
+  tryOnMounted,
 } from '@vueuse/core';
 
 export const SCROLL_FIXED_CLASS = `_scroll__fixed_`;
@@ -12,7 +12,7 @@ export function useScrollLock() {
   const isLocked = _useScrollLock(document.body);
   const scrollbarWidth = getScrollbarWidth();
 
-  tryOnBeforeMount(() => {
+  tryOnMounted(() => {
     if (!needsScrollbar()) {
       return;
     }

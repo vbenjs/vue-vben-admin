@@ -85,3 +85,11 @@ export function needsScrollbar() {
   // 在其他情况下，根据 scrollHeight 和 innerHeight 比较判断
   return doc.scrollHeight > window.innerHeight;
 }
+
+export function triggerWindowResize(): void {
+  // 创建一个新的 resize 事件
+  const resizeEvent = new Event('resize');
+
+  // 触发 window 的 resize 事件
+  window.dispatchEvent(resizeEvent);
+}

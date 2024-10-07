@@ -1,6 +1,6 @@
 {
   "name": "@vben/layouts",
-  "version": "5.3.0",
+  "version": "5.3.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/composables": "workspace:*",
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",

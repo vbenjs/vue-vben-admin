@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/layouts';
 
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
+import { useWatermark } from '@vben/hooks';
 import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
 import {
   BasicLayout,
@@ -54,6 +55,7 @@ const notifications = ref<NotificationItem[]>([
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
+const { destroyWatermark, updateWatermark } = useWatermark();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
@@ -103,6 +105,22 @@ function handleNoticeClear() {
 function handleMakeAll() {
   notifications.value.forEach((item) => (item.isRead = true));
 }
+
+watch(
+  () => preferences.app.watermark,
+  async (enable) => {
+    if (enable) {
+      await updateWatermark({
+        content: `${userStore.userInfo?.username}`,
+      });
+    } else {
+      destroyWatermark();
+    }
+  },
+  {
+    immediate: true,
+  },
+);
 </script>
 
 <template>
