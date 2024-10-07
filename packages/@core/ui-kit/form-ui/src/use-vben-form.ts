@@ -26,6 +26,7 @@ export function useVbenForm<
       onBeforeUnmount(() => {
         api.unmount();
       });
+      api.setState({ ...props, ...attrs });
       return () =>
         h(VbenUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
@@ -37,9 +38,9 @@ export function useVbenForm<
   // Add reactivity support
   if (IS_REACTIVE) {
     watch(
-      () => options.schema,
+      () => options,
       () => {
-        api.setState({ schema: options.schema });
+        api.setState(options);
       },
       { immediate: true },
     );

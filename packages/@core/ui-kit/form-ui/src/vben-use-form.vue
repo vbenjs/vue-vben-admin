@@ -34,23 +34,12 @@ props.formApi?.mount?.(form);
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });
 };
-// if (isFunction(forward.value.handleValuesChange)) {
-//   watch(
-//     () => form.values,
-//     (val) => {
-//       forward.value.handleValuesChange?.(toRaw(val));
-//     },
-//     {
-//       deep: true,
-//       immediate: true,
-//     },
-//   );
-// }
 </script>
 
 <template>
   <Form
     v-bind="forward"
+    :collapsed="state.collapsed"
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"

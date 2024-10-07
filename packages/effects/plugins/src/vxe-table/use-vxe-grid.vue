@@ -215,7 +215,6 @@ async function init() {
     );
   }
 }
-
 onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
@@ -246,7 +245,7 @@ onMounted(() => {
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
       <template #form>
-        <div v-if="formOptions" class="relative rounded py-3 pb-6">
+        <div v-if="formOptions" class="relative rounded py-3 pb-4">
           <slot name="form">
             <Form v-bind="vbenFormOptions">
               <template
