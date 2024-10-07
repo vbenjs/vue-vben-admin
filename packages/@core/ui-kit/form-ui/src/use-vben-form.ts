@@ -38,9 +38,9 @@ export function useVbenForm<
   // Add reactivity support
   if (IS_REACTIVE) {
     watch(
-      () => options,
+      () => options.schema,
       () => {
-        api.setState(options);
+        api.setState({ schema: options.schema });
       },
       { immediate: true },
     );
