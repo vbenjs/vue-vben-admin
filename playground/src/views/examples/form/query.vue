@@ -80,7 +80,7 @@ const [QueryForm] = useVbenForm({
   // 是否可展开
   showCollapseButton: true,
   submitButtonOptions: {
-    text: '查询',
+    content: '查询',
   },
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
@@ -119,7 +119,7 @@ const [QueryForm1] = useVbenForm({
   // 是否可展开
   showCollapseButton: true,
   submitButtonOptions: {
-    text: '查询',
+    content: '查询',
   },
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',

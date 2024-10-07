@@ -16,16 +16,16 @@ const collapsed = defineModel({ default: false });
 
 const resetButtonOptions = computed(() => {
   return {
+    content: `${$t.value('reset')}`,
     show: true,
-    text: `${$t.value('reset')}`,
     ...unref(rootProps).resetButtonOptions,
   };
 });
 
 const submitButtonOptions = computed(() => {
   return {
+    content: `${$t.value('submit')}`,
     show: true,
-    text: `${$t.value('submit')}`,
     ...unref(rootProps).submitButtonOptions,
   };
 });
@@ -91,7 +91,7 @@ watch(
       @click="handleReset"
       v-bind="resetButtonOptions"
     >
-      {{ resetButtonOptions.text }}
+      {{ resetButtonOptions.content }}
     </component>
 
     <component
@@ -101,7 +101,7 @@ watch(
       @click="handleSubmit"
       v-bind="submitButtonOptions"
     >
-      {{ submitButtonOptions.text }}
+      {{ submitButtonOptions.content }}
     </component>
 
     <VbenExpandableArrow

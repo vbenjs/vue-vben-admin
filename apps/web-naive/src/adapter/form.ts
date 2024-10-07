@@ -62,15 +62,11 @@ setupVbenForm<FormComponentType>({
     DatePicker: NDatePicker,
     // 自定义默认的重置按钮
     DefaultResetActionButton: (props, { attrs, slots }) => {
-      return h(NButton, { ...props, attrs, text: false, type: 'info' }, slots);
+      return h(NButton, { ...props, attrs, type: 'info' }, slots);
     },
     // 自定义默认的提交按钮
     DefaultSubmitActionButton: (props, { attrs, slots }) => {
-      return h(
-        NButton,
-        { ...props, attrs, text: false, type: 'primary' },
-        slots,
-      );
+      return h(NButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: NDivider,
     Input: withDefaultPlaceholder(NInput, 'input'),
