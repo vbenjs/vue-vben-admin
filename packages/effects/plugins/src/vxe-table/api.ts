@@ -1,3 +1,4 @@
+import type { ExtendedFormApi } from '@vben-core/form-ui';
 import type { VxeGridInstance } from 'vxe-table';
 
 import type { VxeGridProps } from './types';
@@ -23,13 +24,15 @@ function getDefaultState(): VxeGridProps {
 }
 
 export class VxeGridApi {
+  private isMounted = false;
+
+  private stateHandler: StateHandler;
+  public formApi = {} as ExtendedFormApi;
+
   // private prevState: null | VxeGridProps = null;
   public grid = {} as VxeGridInstance;
 
-  isMounted = false;
   public state: null | VxeGridProps = null;
-
-  stateHandler: StateHandler;
 
   public store: Store<VxeGridProps>;
 
@@ -52,9 +55,10 @@ export class VxeGridApi {
     bindMethods(this);
   }
 
-  mount(instance: null | VxeGridInstance) {
+  mount(instance: null | VxeGridInstance, formApi: ExtendedFormApi) {
     if (!this.isMounted && instance) {
       this.grid = instance;
+      this.formApi = formApi;
       this.stateHandler.setConditionTrue();
       this.isMounted = true;
     }

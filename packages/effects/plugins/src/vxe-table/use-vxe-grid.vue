@@ -217,7 +217,7 @@ async function init() {
 }
 
 onMounted(() => {
-  props.api?.mount?.(gridRef.value);
+  props.api?.mount?.(gridRef.value, formApi);
   init();
 });
 </script>
