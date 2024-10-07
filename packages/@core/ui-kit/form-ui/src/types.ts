@@ -289,8 +289,8 @@ export interface FormRenderProps<
 }
 
 export interface ActionButtonOptions extends VbenButtonProps {
+  content?: string;
   show?: boolean;
-  text?: string;
 }
 
 export interface VbenFormProps<

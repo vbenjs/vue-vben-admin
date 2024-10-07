@@ -154,7 +154,7 @@ const vbenFormOptions = computed(() => {
     },
     showCollapseButton: true,
     submitButtonOptions: {
-      text: $t('common.query'),
+      content: $t('common.query'),
     },
     wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   };

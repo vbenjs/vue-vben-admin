@@ -1,93 +1,50 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElMessage,
-  ElNotification,
-  ElSpace,
-  ElTable,
-} from 'element-plus';
+import { useVbenForm } from '#/adapter';
 
-type NotificationType = 'error' | 'info' | 'success' | 'warning';
-
-function info() {
-  ElMessage.info('How many roads must a man walk down');
-}
-
-function error() {
-  ElMessage.error({
-    duration: 2500,
-    message: 'Once upon a time you dressed so fine',
-  });
-}
-
-function warning() {
-  ElMessage.warning('How many roads must a man walk down');
-}
-function success() {
-  ElMessage.success(
-    'Cause you walked hand in hand With another man in my place',
-  );
-}
-
-function notify(type: NotificationType) {
-  ElNotification({
-    duration: 2500,
-    message: '说点啥呢',
-    type,
-  });
-}
-const tableData = [
-  { prop1: '1', prop2: 'A' },
-  { prop1: '2', prop2: 'B' },
-  { prop1: '3', prop2: 'C' },
-  { prop1: '4', prop2: 'D' },
-  { prop1: '5', prop2: 'E' },
-  { prop1: '6', prop2: 'F' },
-];
+const [QueryForm] = useVbenForm({
+  // 默认展开
+  collapsed: false,
+  // 所有表单项共用，可单独在表单内覆盖
+  commonConfig: {
+    // 所有表单项
+    componentProps: {
+      class: 'w-full',
+    },
+  },
+  // 垂直布局，label和input在不同行，值为vertical
+  // 水平布局，label和input在同一行
+  layout: 'horizontal',
+  schema: [
+    {
+      // 组件需要在 #/adapter.ts内注册，并加上类型
+      component: 'Input',
+      // 对应组件的参数
+      componentProps: {
+        placeholder: '请输入用户名',
+      },
+      // 字段名
+      fieldName: 'username',
+      // 界面显示的label
+      label: '字符串',
+    },
+  ],
+  // 是否可展开
+  showCollapseButton: true,
+  submitButtonOptions: {
+    content: '查询',
+  },
+  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+});
 </script>
 
 <template>
   <Page
-    description="支持多语言，主题功能集成切换等"
-    title="Element Plus组件使用演示"
+    description="查询表单，常用语和表格组合使用，可进行收缩展开。"
+    title="表单组件"
   >
-    <ElCard class="mb-5">
-      <template #header> 按钮 </template>
-      <ElSpace>
-        <ElButton>Default</ElButton>
-        <ElButton type="primary"> Primary </ElButton>
-        <ElButton type="info"> Info </ElButton>
-        <ElButton type="success"> Success </ElButton>
-        <ElButton type="warning"> Warning </ElButton>
-        <ElButton type="danger"> Error </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <template #header> Message </template>
-      <ElSpace>
-        <ElButton type="info" @click="info"> 信息 </ElButton>
-        <ElButton type="danger" @click="error"> 错误 </ElButton>
-        <ElButton type="warning" @click="warning"> 警告 </ElButton>
-        <ElButton type="success" @click="success"> 成功 </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <template #header> Notification </template>
-      <ElSpace>
-        <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
-        <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
-        <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
-        <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <ElTable :data="tableData" stripe>
-        <ElTable.TableColumn label="测试列1" prop="prop1" />
-        <ElTable.TableColumn label="测试列2" prop="prop2" />
-      </ElTable>
-    </ElCard>
+    <QueryForm />
   </Page>
 </template>
