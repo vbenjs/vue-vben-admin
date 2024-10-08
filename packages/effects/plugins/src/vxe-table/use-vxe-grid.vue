@@ -14,6 +14,7 @@ import {
   toRaw,
   useSlots,
   useTemplateRef,
+  watch,
 } from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
@@ -53,7 +54,27 @@ const { isMobile } = usePreferences();
 
 const slots = useSlots();
 
-const [Form, formApi] = useTableForm({});
+const [Form, formApi] = useTableForm({
+  handleSubmit: async () => {
+    const formValues = formApi.form.values;
+    props.api.reload(formValues);
+  },
+  handleReset: async () => {
+    await formApi.resetForm();
+    const formValues = formApi.form.values;
+    props.api.reload(formValues);
+  },
+  commonConfig: {
+    componentProps: {
+      class: 'w-full',
+    },
+  },
+  showCollapseButton: true,
+  submitButtonOptions: {
+    content: $t('common.query'),
+  },
+  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+});
 
 const showToolbar = computed(() => {
   return !!slots['toolbar-actions']?.() || !!slots['toolbar-tools']?.();
@@ -136,40 +157,6 @@ const events = computed(() => {
   };
 });
 
-const vbenFormOptions = computed(() => {
-  const defaultFormProps: VbenFormProps = {
-    handleSubmit: async () => {
-      const formValues = formApi.form.values;
-      props.api.reload(formValues);
-    },
-    handleReset: async () => {
-      await formApi.resetForm();
-      const formValues = formApi.form.values;
-      props.api.reload(formValues);
-    },
-    commonConfig: {
-      componentProps: {
-        class: 'w-full',
-      },
-    },
-    showCollapseButton: true,
-    submitButtonOptions: {
-      content: $t('common.query'),
-    },
-    wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-  };
-  const finalFormOptions: VbenFormProps = mergeWithArrayOverride(
-    {},
-    formOptions.value,
-    defaultFormProps,
-  );
-
-  return {
-    ...finalFormOptions,
-    collapseTriggerResize: !!finalFormOptions.showCollapseButton,
-  };
-});
-
 const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
@@ -215,6 +202,27 @@ async function init() {
     );
   }
 }
+
+watch(
+  formOptions,
+  () => {
+    formApi.setState((prev) => {
+      const finalFormOptions: VbenFormProps = mergeWithArrayOverride(
+        {},
+        formOptions.value,
+        prev,
+      );
+      return {
+        ...finalFormOptions,
+        collapseTriggerResize: !!finalFormOptions.showCollapseButton,
+      };
+    });
+  },
+  {
+    immediate: true,
+  },
+);
+
 onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
@@ -247,7 +255,7 @@ onMounted(() => {
       <template #form>
         <div v-if="formOptions" class="relative rounded py-3 pb-4">
           <slot name="form">
-            <Form v-bind="vbenFormOptions">
+            <Form>
               <template
                 v-for="slotName in delegatedFormSlots"
                 :key="slotName"
