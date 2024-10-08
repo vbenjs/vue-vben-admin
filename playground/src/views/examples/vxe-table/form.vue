@@ -18,6 +18,7 @@ interface RowType {
 }
 
 const formOptions: VbenFormProps = {
+  collapsed: true,
   schema: [
     {
       component: 'Input',
@@ -95,13 +96,11 @@ const gridOptions: VxeGridProps<RowType> = {
 const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
 
 function toggleFormCollspae() {
-  gridApi.formApi.resetForm();
-  gridApi.setState({
-    formOptions: {
-      showCollapseButton: !(
-        gridApi.state?.formOptions?.showCollapseButton ?? true
-      ),
-    },
+  gridApi.formApi.setState((prev) => {
+    return {
+      ...prev,
+      showCollapseButton: !prev.showCollapseButton,
+    };
   });
 }
 </script>

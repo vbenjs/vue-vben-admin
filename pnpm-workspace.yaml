@@ -30,7 +30,7 @@ catalog:
   '@jspm/generator': ^2.3.1
   '@manypkg/get-packages': ^2.2.2
   '@nolebase/vitepress-plugin-git-changelog': ^2.5.0
-  '@playwright/test': ^1.47.2
+  '@playwright/test': ^1.48.0
   '@stylistic/stylelint-plugin': ^3.1.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.15
@@ -111,7 +111,7 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.447.0
+  lucide-vue-next: ^0.451.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.40.1
   nanoid: ^5.0.7
@@ -120,8 +120,8 @@ catalog:
   ora: ^8.1.0
   pinia: 2.2.2
   pinia-plugin-persistedstate: ^4.1.1
-  pkg-types: ^1.2.0
-  playwright: ^1.47.2
+  pkg-types: ^1.2.1
+  playwright: ^1.48.0
   postcss: ^8.4.47
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.7.0
@@ -173,7 +173,7 @@ catalog:
   vue-i18n: ^10.0.4
   vue-router: ^4.4.5
   vue-tsc: ^2.1.6
-  vxe-pc-ui: ^4.2.16
+  vxe-pc-ui: ^4.2.18
   vxe-table: ^4.7.86
   watermark-js-plus: ^1.5.7
   zod: ^3.23.8
