@@ -4,7 +4,6 @@ import type { VxeGridProps } from '#/adapter';
 import { Page } from '@vben/common-ui';
 
 import { Button, Image, Switch, Tag } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter';
 import { getExampleTableApi } from '#/api';
@@ -58,9 +57,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'price', title: 'Price', width: 100 },
     {
       field: 'releaseDate',
-      formatter: ({ cellValue }) => {
-        return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss');
-      },
+      formatter: 'formatDateTime',
       title: 'Date',
       width: 200,
     },
