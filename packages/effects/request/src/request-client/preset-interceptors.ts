@@ -91,7 +91,7 @@ export const errorMessageResponseInterceptor = (
         return Promise.reject(error);
       }
 
-      let errorMessage = error?.response?.data?.error?.message ?? '';
+      let errorMessage = '';
       const status = error?.response?.status;
 
       switch (status) {

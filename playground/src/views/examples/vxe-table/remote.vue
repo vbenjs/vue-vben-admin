@@ -30,7 +30,6 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'productName', title: 'Product Name' },
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'DateTime' },
-    { field: 'releaseDate', formatter: 'formatDate', title: 'Date' },
   ],
   height: 'auto',
   keepSource: true,
