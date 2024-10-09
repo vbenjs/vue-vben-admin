@@ -41,12 +41,12 @@ export function useResponseError(message: string, error: any = null) {
 
 export function forbiddenResponse(event: H3Event<EventHandlerRequest>) {
   setResponseStatus(event, 403);
-  return useResponseError('ForbiddenException', 'Forbidden Exception');
+  return useResponseError('Forbidden Exception', 'Forbidden Exception');
 }
 
 export function unAuthorizedResponse(event: H3Event<EventHandlerRequest>) {
   setResponseStatus(event, 401);
-  return useResponseError('UnauthorizedException', 'Unauthorized Exception');
+  return useResponseError('Unauthorized Exception', 'Unauthorized Exception');
 }
 
 export function sleep(ms: number) {
