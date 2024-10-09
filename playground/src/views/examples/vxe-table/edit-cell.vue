@@ -26,7 +26,7 @@ const gridOptions: VxeGridProps<RowType> = {
       title: 'Product Name',
     },
     { field: 'price', title: 'Price' },
-    { field: 'releaseDate', title: 'Date' },
+    { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
   editConfig: {
     mode: 'cell',

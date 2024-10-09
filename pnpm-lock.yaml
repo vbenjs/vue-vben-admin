@@ -55,8 +55,8 @@ catalogs:
       specifier: ^2.5.0
       version: 2.5.0
     '@playwright/test':
-      specifier: ^1.47.2
-      version: 1.47.2
+      specifier: ^1.48.0
+      version: 1.48.0
     '@stylistic/stylelint-plugin':
       specifier: ^3.1.1
       version: 3.1.1
@@ -295,8 +295,8 @@ catalogs:
       specifier: ^4.5.0
       version: 4.5.0
     lucide-vue-next:
-      specifier: ^0.447.0
-      version: 0.447.0
+      specifier: ^0.451.0
+      version: 0.451.0
     medium-zoom:
       specifier: ^1.1.0
       version: 1.1.0
@@ -319,11 +319,11 @@ catalogs:
       specifier: ^4.1.1
       version: 4.1.1
     pkg-types:
-      specifier: ^1.2.0
-      version: 1.2.0
+      specifier: ^1.2.1
+      version: 1.2.1
     playwright:
-      specifier: ^1.47.2
-      version: 1.47.2
+      specifier: ^1.48.0
+      version: 1.48.0
     postcss:
       specifier: ^8.4.47
       version: 8.4.47
@@ -475,8 +475,8 @@ catalogs:
       specifier: ^2.1.6
       version: 2.1.6
     vxe-pc-ui:
-      specifier: ^4.2.16
-      version: 4.2.16
+      specifier: ^4.2.18
+      version: 4.2.18
     vxe-table:
       specifier: ^4.7.86
       version: 4.7.86
@@ -508,7 +508,7 @@ importers:
         version: 2.27.9
       '@playwright/test':
         specifier: 'catalog:'
-        version: 1.47.2
+        version: 1.48.0
       '@types/node':
         specifier: 'catalog:'
         version: 22.7.5
@@ -571,7 +571,7 @@ importers:
         version: 15.2.10
       playwright:
         specifier: 'catalog:'
-        version: 1.47.2
+        version: 1.48.0
       rimraf:
         specifier: 'catalog:'
         version: 6.0.1
@@ -828,7 +828,7 @@ importers:
         version: 4.2.5(vue@3.5.11(typescript@5.6.2))
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.447.0(vue@3.5.11(typescript@5.6.2))
+        version: 0.451.0(vue@3.5.11(typescript@5.6.2))
       medium-zoom:
         specifier: 'catalog:'
         version: 1.1.0
@@ -1035,7 +1035,7 @@ importers:
         version: 8.1.0
       pkg-types:
         specifier: 'catalog:'
-        version: 1.2.0
+        version: 1.2.1
       prettier:
         specifier: 'catalog:'
         version: 3.3.3
@@ -1193,7 +1193,7 @@ importers:
         version: 4.1.2(vue@3.5.11(typescript@5.6.2))
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.447.0(vue@3.5.11(typescript@5.6.2))
+        version: 0.451.0(vue@3.5.11(typescript@5.6.2))
       vue:
         specifier: ^3.5.11
         version: 3.5.11(typescript@5.6.2)
@@ -1402,7 +1402,7 @@ importers:
         version: 0.7.0
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.447.0(vue@3.5.11(typescript@5.6.2))
+        version: 0.451.0(vue@3.5.11(typescript@5.6.2))
       radix-vue:
         specifier: 'catalog:'
         version: 1.9.7(vue@3.5.11(typescript@5.6.2))
@@ -1626,6 +1626,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 11.1.0(vue@3.5.11(typescript@5.6.2))
+      dayjs:
+        specifier: 'catalog:'
+        version: 1.11.13
       echarts:
         specifier: 'catalog:'
         version: 5.5.1
@@ -1634,7 +1637,7 @@ importers:
         version: 3.5.11(typescript@5.6.2)
       vxe-pc-ui:
         specifier: 'catalog:'
-        version: 4.2.16
+        version: 4.2.18
       vxe-table:
         specifier: 'catalog:'
         version: 4.7.86
@@ -4240,8 +4243,8 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@playwright/test@1.47.2':
-    resolution: {integrity: sha512-jTXRsoSPONAs8Za9QEQdyjFn+0ZQFjCiIztAIF6bi1HqhBzG9Ma7g1WotyiGqFSBRZjIEqMdT8RUlbk1QVhzCQ==}
+  '@playwright/test@1.48.0':
+    resolution: {integrity: sha512-W5lhqPUVPqhtc/ySvZI5Q8X2ztBOUgZ8LbAFy0JQgrXZs2xaILrUcNO3rQjwbLPfGK13+rZsDa1FpG+tqYkT5w==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -5611,6 +5614,9 @@ packages:
 
   confbox@0.1.7:
     resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
+
+  confbox@0.1.8:
+    resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
   config-chain@1.1.13:
     resolution: {integrity: sha512-qj+f8APARXHrM0hraqXYb2/bOVSV4PvJQlNZ/DVj0QrmNM2q2euizkeuVckQ57J+W0mRH6Hvi+k50M4Jul2VRQ==}
@@ -7644,8 +7650,8 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
-  lucide-vue-next@0.447.0:
-    resolution: {integrity: sha512-NXD61EHwgdIHZsVxFGYHowrPZnhWJOByVJ23LJB28BnXII29Cg157DmIbvrJ7idwbfhwYhCZ2moRfKOCwIvNiw==}
+  lucide-vue-next@0.451.0:
+    resolution: {integrity: sha512-EJ3tDuZqFdps6wt4hhqJ/EzCE7KbhClkncvnqXiVE6Ni5jzA5XS1Ut5yCGXjO/GBIe39t3qmNRQIRszqdCDuBA==}
     peerDependencies:
       vue: ^3.5.11
 
@@ -7850,6 +7856,9 @@ packages:
 
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
+
+  mlly@1.7.2:
+    resolution: {integrity: sha512-tN3dvVHYVz4DhSXinXIk7u9syPYaJvio118uomkovAtWBT+RdbP6Lfh/5Lvo519YMmwBafwlh20IPTXIStscpA==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -8286,13 +8295,16 @@ packages:
   pkg-types@1.2.0:
     resolution: {integrity: sha512-+ifYuSSqOQ8CqP4MbZA5hDpb97n3E8SVWdJe+Wms9kj745lmd3b7EZJiqvmLwAlmRfjrI7Hi5z3kdBJ93lFNPA==}
 
-  playwright-core@1.47.2:
-    resolution: {integrity: sha512-3JvMfF+9LJfe16l7AbSmU555PaTl2tPyQsVInqm3id16pdDfvZ8TTZ/pyzmkbDrZTQefyzU7AIHlZqQnxpqHVQ==}
+  pkg-types@1.2.1:
+    resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
+
+  playwright-core@1.48.0:
+    resolution: {integrity: sha512-RBvzjM9rdpP7UUFrQzRwR8L/xR4HyC1QXMzGYTbf1vjw25/ya9NRAVnXi/0fvFopjebvyPzsmoK58xxeEOaVvA==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.47.2:
-    resolution: {integrity: sha512-nx1cLMmQWqmA3UsnjaaokyoUpdVaaDhJhMoxX2qj3McpjnsqFHs516QAKYhqHAgOP+oCFTEOCOAaD1RgD/RQfA==}
+  playwright@1.48.0:
+    resolution: {integrity: sha512-qPqFaMEHuY/ug8o0uteYJSRfMGFikhUysk8ZvAtfKmUK3kc/6oNl/y3EczF8OFGYIi/Ex2HspMfzYArk6+XQSA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10254,8 +10266,8 @@ packages:
     peerDependencies:
       vue: ^3.5.11
 
-  vxe-pc-ui@4.2.16:
-    resolution: {integrity: sha512-gq6GXKnEPyxzIQx4T4LNtt15kl3KZqq+U11c4MniPK/9QOUuRva1oEocvMXAFtz17aL1zLDXrAq2rmrbebDHVQ==}
+  vxe-pc-ui@4.2.18:
+    resolution: {integrity: sha512-OfS3h7YitqwGCk4ILMUyFTBEtXnv3DnTvT7R2DYjG9O1fr6tY2EbRfnpaMMKUCfSHbq/7AyOJJNJz7/g6u8ucw==}
 
   vxe-table@4.7.86:
     resolution: {integrity: sha512-7VJjOb/jZf6JMobFER6ZfJI6Mt5L7N85dEOSLR20ZXwfSxRF6vfkXb7kAvuZ4FOXJxT2D7yaAEICPZHPCwwp4g==}
@@ -13122,9 +13134,9 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@playwright/test@1.47.2':
+  '@playwright/test@1.48.0':
     dependencies:
-      playwright: 1.47.2
+      playwright: 1.48.0
 
   '@pnpm/config.env-replace@1.1.0': {}
 
@@ -14761,6 +14773,8 @@ snapshots:
   concat-map@0.0.1: {}
 
   confbox@0.1.7: {}
+
+  confbox@0.1.8: {}
 
   config-chain@1.1.13:
     dependencies:
@@ -17045,7 +17059,7 @@ snapshots:
     dependencies:
       yallist: 4.0.0
 
-  lucide-vue-next@0.447.0(vue@3.5.11(typescript@5.6.2)):
+  lucide-vue-next@0.451.0(vue@3.5.11(typescript@5.6.2)):
     dependencies:
       vue: 3.5.11(typescript@5.6.2)
 
@@ -17258,6 +17272,13 @@ snapshots:
       acorn: 8.12.1
       pathe: 1.1.2
       pkg-types: 1.2.0
+      ufo: 1.5.4
+
+  mlly@1.7.2:
+    dependencies:
+      acorn: 8.12.1
+      pathe: 1.1.2
+      pkg-types: 1.2.1
       ufo: 1.5.4
 
   mri@1.2.0: {}
@@ -17772,11 +17793,17 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
 
-  playwright-core@1.47.2: {}
-
-  playwright@1.47.2:
+  pkg-types@1.2.1:
     dependencies:
-      playwright-core: 1.47.2
+      confbox: 0.1.8
+      mlly: 1.7.2
+      pathe: 1.1.2
+
+  playwright-core@1.48.0: {}
+
+  playwright@1.48.0:
+    dependencies:
+      playwright-core: 1.48.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -19942,13 +19969,13 @@ snapshots:
       vooks: 0.2.12(vue@3.5.11(typescript@5.6.2))
       vue: 3.5.11(typescript@5.6.2)
 
-  vxe-pc-ui@4.2.16:
+  vxe-pc-ui@4.2.18:
     dependencies:
       '@vxe-ui/core': 4.0.13
 
   vxe-table@4.7.86:
     dependencies:
-      vxe-pc-ui: 4.2.16
+      vxe-pc-ui: 4.2.18
 
   warning@4.0.3:
     dependencies:
