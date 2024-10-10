@@ -7,7 +7,7 @@ import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
+  name: 'PreferenceHeaderConfig',
 });
 
 defineProps<{ disabled: boolean }>();

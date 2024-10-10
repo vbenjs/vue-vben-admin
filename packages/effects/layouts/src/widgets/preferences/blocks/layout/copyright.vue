@@ -7,7 +7,7 @@ import InputItem from '../input-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
+  name: 'PreferenceCopyrightConfig',
 });
 
 const props = defineProps<{ disabled: boolean }>();
