@@ -4,7 +4,7 @@ import { $t } from '@vben/locales';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
+  name: 'PreferenceFooterConfig',
 });
 
 const footerEnable = defineModel<boolean>('footerEnable');
