@@ -5,7 +5,7 @@ import NumberFieldItem from '../number-field-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
+  name: 'PreferenceSidebarConfig',
 });
 
 defineProps<{ disabled: boolean }>();

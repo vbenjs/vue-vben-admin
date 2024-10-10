@@ -37,6 +37,7 @@ const defaultPreferences: Preferences = {
     enable: true,
     icp: '',
     icpLink: '',
+    settingShow: true,
   },
   footer: {
     enable: false,
