@@ -34,7 +34,7 @@ catalog:
   '@stylistic/stylelint-plugin': ^3.1.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.15
-  '@tanstack/vue-query': ^5.59.1
+  '@tanstack/vue-query': ^5.59.6
   '@tanstack/vue-store': ^0.5.5
   '@types/archiver': ^6.0.2
   '@types/chalk': ^2.2.0
@@ -62,7 +62,7 @@ catalog:
   archiver: ^7.0.1
   autoprefixer: ^10.4.20
   axios: ^1.7.7
-  axios-mock-adapter: ^2.0.0
+  axios-mock-adapter: ^2.1.0
   cac: ^6.7.14
   chalk: ^5.3.0
   cheerio: 1.0.0
@@ -126,7 +126,7 @@ catalog:
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.7.0
   postcss-import: ^16.1.0
-  postcss-preset-env: ^10.0.6
+  postcss-preset-env: ^10.0.7
   postcss-scss: ^4.0.9
   prettier: ^3.3.3
   prettier-plugin-tailwindcss: ^0.6.8
@@ -173,7 +173,7 @@ catalog:
   vue-i18n: ^10.0.4
   vue-router: ^4.4.5
   vue-tsc: ^2.1.6
-  vxe-pc-ui: ^4.2.18
+  vxe-pc-ui: ^4.2.19
   vxe-table: ^4.7.86
   watermark-js-plus: ^1.5.7
   zod: ^3.23.8
