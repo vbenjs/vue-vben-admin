@@ -26,6 +26,7 @@ import { VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
+import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
@@ -37,6 +38,8 @@ interface Props extends VxeGridProps {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
+
+const FORM_SLOT_PREFIX = 'form-';
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
@@ -172,11 +175,11 @@ const delegatedFormSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (key.startsWith('form-')) {
+    if (key.startsWith(FORM_SLOT_PREFIX)) {
       resultSlots.push(key);
     }
   }
-  return resultSlots;
+  return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
 });
 
 async function init() {
@@ -191,7 +194,7 @@ async function init() {
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
-    props.api.reload(formApi.form.values);
+    props.api.reload(formApi.form?.values ?? {});
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
@@ -201,6 +204,9 @@ async function init() {
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
   }
+
+  // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
+  extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
 }
 
 watch(

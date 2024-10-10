@@ -31,12 +31,6 @@ const gridOptions: VxeGridProps<RowType> = {
       width: 500,
     },
     {
-      field: 'releaseDate',
-      formatter: 'formatDate',
-      title: 'Date',
-      width: 300,
-    },
-    {
       field: 'action',
       fixed: 'right',
       slots: { default: 'action' },
