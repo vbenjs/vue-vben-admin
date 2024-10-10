@@ -102,7 +102,7 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
-const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
 
 const navigationStyleType = defineModel<NavigationStyleType>(
@@ -116,6 +116,7 @@ const navigationAccordion = defineModel<boolean>('navigationAccordion');
 const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 
+const copyrightSettingShow = defineModel<boolean>('copyrightSettingShow');
 const copyrightEnable = defineModel<boolean>('copyrightEnable');
 const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
 const copyrightCompanySiteLink = defineModel<string>(
@@ -339,7 +340,7 @@ async function handleReset() {
             </Block>
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
-                v-model:tabbar-dragable="tabbarDragable"
+                v-model:tabbar-draggable="tabbarDraggable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
@@ -369,7 +370,10 @@ async function handleReset() {
                 v-model:footer-fixed="footerFixed"
               />
             </Block>
-            <Block :title="$t('preferences.copyright.title')">
+            <Block
+              v-if="copyrightSettingShow"
+              :title="$t('preferences.copyright.title')"
+            >
               <Copyright
                 v-model:copyright-company-name="copyrightCompanyName"
                 v-model:copyright-company-site-link="copyrightCompanySiteLink"

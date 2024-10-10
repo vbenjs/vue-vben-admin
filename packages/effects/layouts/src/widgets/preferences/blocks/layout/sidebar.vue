@@ -4,10 +4,6 @@ import { $t } from '@vben/locales';
 import NumberFieldItem from '../number-field-item.vue';
 import SwitchItem from '../switch-item.vue';
 
-defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
-});
-
 defineProps<{ disabled: boolean }>();
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');

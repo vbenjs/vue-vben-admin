@@ -3,7 +3,7 @@ import type { VbenFormProps, VxeGridProps } from '#/adapter';
 
 import { Page } from '@vben/common-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter';
 import { getExampleTableApi } from '#/api';
@@ -60,6 +60,8 @@ const formOptions: VbenFormProps = {
       label: 'Date',
     },
   ],
+  // 控制表单是否显示折叠按钮
+  showCollapseButton: true,
 };
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -93,26 +95,11 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
-
-function toggleFormCollspae() {
-  gridApi.formApi.setState((prev) => {
-    return {
-      ...prev,
-      showCollapseButton: !prev.showCollapseButton,
-    };
-  });
-}
+const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid>
-      <template #toolbar-tools>
-        <Button type="primary" @click="toggleFormCollspae">
-          切换表单折叠按钮
-        </Button>
-      </template>
-    </Grid>
+    <Grid />
   </Page>
 </template>

@@ -206,7 +206,7 @@
       "showMore": "Show More Button",
       "showMaximize": "Show Maximize Button",
       "persist": "Persist Tabs",
-      "dragable": "Enable Dragable Sort",
+      "draggable": "Enable Draggable Sort",
       "styleType": {
         "title": "Tabs Style",
         "chrome": "Chrome",
