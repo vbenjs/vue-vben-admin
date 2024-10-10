@@ -21,7 +21,7 @@ export interface TabsProps {
   /**
    * @zh_CN 是否可以拖拽
    */
-  dragable?: boolean;
+  draggable?: boolean;
   /**
    * @zh_CN 间隙
    * @default 7

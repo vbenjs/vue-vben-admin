@@ -73,7 +73,7 @@ const defaultPreferences: Preferences = {
     width: 224,
   },
   tabbar: {
-    dragable: true,
+    draggable: true,
     enable: true,
     height: 38,
     keepAlive: true,
