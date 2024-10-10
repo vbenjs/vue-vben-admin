@@ -40,7 +40,7 @@
     "vite-plugin-vue-devtools": "catalog:"
   },
   "devDependencies": {
-    "@pnpm/workspace.read-manifest": "^2.2.1",
+    "@pnpm/workspace.read-manifest": "catalog:",
     "@types/archiver": "catalog:",
     "@types/html-minifier-terser": "catalog:",
     "@vben/node-utils": "workspace:*",
