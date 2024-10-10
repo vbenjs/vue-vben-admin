@@ -3,10 +3,6 @@ import { $t } from '@vben/locales';
 
 import SwitchItem from '../switch-item.vue';
 
-defineOptions({
-  name: 'PreferenceFooterConfig',
-});
-
 const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 </script>

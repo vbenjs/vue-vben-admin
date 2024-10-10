@@ -29,6 +29,9 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'address', showOverflow: true, title: 'Address' },
   ],
   data: MOCK_TABLE_DATA,
+  pagerConfig: {
+    enabled: false,
+  },
   sortConfig: {
     multiple: true,
   },
