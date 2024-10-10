@@ -102,7 +102,7 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
-const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
 
 const navigationStyleType = defineModel<NavigationStyleType>(
@@ -339,7 +339,7 @@ async function handleReset() {
             </Block>
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
-                v-model:tabbar-dragable="tabbarDragable"
+                v-model:tabbar-draggable="tabbarDraggable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"

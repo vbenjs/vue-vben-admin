@@ -17,7 +17,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   contentClass: 'vben-tabs-content',
-  dragable: true,
+  draggable: true,
   styleType: 'chrome',
 });
 

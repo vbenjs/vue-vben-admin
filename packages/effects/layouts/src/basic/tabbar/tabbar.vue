@@ -51,7 +51,7 @@ if (!preferences.tabbar.persist) {
     :active="currentActive"
     :class="theme"
     :context-menus="createContextMenus"
-    :dragable="preferences.tabbar.dragable"
+    :draggable="preferences.tabbar.draggable"
     :show-icon="showIcon"
     :style-type="preferences.tabbar.styleType"
     :tabs="currentTabs"
