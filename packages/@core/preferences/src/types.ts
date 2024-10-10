@@ -154,7 +154,7 @@ interface ShortcutKeyPreferences {
 
 interface TabbarPreferences {
   /** 是否开启多标签页拖拽 */
-  dragable: boolean;
+  draggable: boolean;
   /** 是否开启多标签页 */
   enable: boolean;
   /** 标签页高度 */

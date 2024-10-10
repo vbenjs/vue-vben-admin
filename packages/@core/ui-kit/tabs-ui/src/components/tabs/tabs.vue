@@ -75,7 +75,7 @@ const tabsView = computed((): TabConfig[] => {
         :class="[
           {
             'is-active dark:bg-accent bg-primary/15': tab.key === active,
-            dragable: !tab.affixTab,
+            draggable: !tab.affixTab,
           },
           typeWithClass.content,
         ]"

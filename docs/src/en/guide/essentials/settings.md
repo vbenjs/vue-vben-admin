@@ -226,7 +226,7 @@ const defaultPreferences: Preferences = {
     width: 230,
   },
   tabbar: {
-    dragable: true,
+    draggable: true,
     enable: true,
     height: 36,
     keepAlive: true,
@@ -406,7 +406,7 @@ interface ShortcutKeyPreferences {
 
 interface TabbarPreferences {
   /** Whether dragging of multiple tabs is enabled */
-  dragable: boolean;
+  draggable: boolean;
   /** Whether multiple tabs are enabled */
   enable: boolean;
   /** Tab height */

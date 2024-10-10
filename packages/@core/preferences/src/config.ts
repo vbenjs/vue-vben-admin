@@ -73,7 +73,7 @@ const defaultPreferences: Preferences = {
     width: 224,
   },
   tabbar: {
-    dragable: true,
+    draggable: true,
     enable: true,
     height: 38,
     keepAlive: true,
@@ -90,7 +90,7 @@ const defaultPreferences: Preferences = {
     colorPrimary: 'hsl(212 100% 45%)',
     colorSuccess: 'hsl(144 57% 58%)',
     colorWarning: 'hsl(42 84% 61%)',
-    mode: 'dark',
+    mode: 'auto',
     radius: '0.5',
     semiDarkHeader: false,
     semiDarkSidebar: true,

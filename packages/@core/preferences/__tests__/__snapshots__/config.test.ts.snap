@@ -73,7 +73,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "width": 224,
   },
   "tabbar": {
-    "dragable": true,
+    "draggable": true,
     "enable": true,
     "height": 38,
     "keepAlive": true,
