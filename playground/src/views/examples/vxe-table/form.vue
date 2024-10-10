@@ -83,8 +83,7 @@ const gridOptions: VxeGridProps<RowType> = {
   pagerConfig: {},
   proxyConfig: {
     ajax: {
-      query: async (a, formValues) => {
-        const { page } = a;
+      query: async ({ page }, formValues) => {
         message.success(`Query params: ${JSON.stringify(formValues)}`);
         return await getExampleTableApi({
           page: page.currentPage,
