@@ -73,16 +73,17 @@ watch(
     if (props.collapseTriggerResize) {
       triggerWindowResize();
     }
-  },
+  }
 );
 </script>
 <template>
   <div
-    :class="
-      cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)
-    "
+    :class="cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)"
     :style="queryFormStyle"
   >
+    <!-- 重置按钮前 -->
+    <slot name="reset-before"></slot>
+
     <component
       :is="COMPONENT_MAP.DefaultResetActionButton"
       v-if="resetButtonOptions.show"
@@ -94,6 +95,9 @@ watch(
       {{ resetButtonOptions.content }}
     </component>
 
+    <!-- 提交按钮前 -->
+    <slot name="submit-before"></slot>
+
     <component
       :is="COMPONENT_MAP.DefaultSubmitActionButton"
       v-if="submitButtonOptions.show"
@@ -104,6 +108,9 @@ watch(
       {{ submitButtonOptions.content }}
     </component>
 
+    <!-- 展开按钮前 -->
+    <slot name="advance-before"></slot>
+
     <VbenExpandableArrow
       v-if="rootProps.showCollapseButton"
       v-model:model-value="collapsed"
@@ -111,5 +118,8 @@ watch(
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
+
+    <!-- 展开按钮后 -->
+    <slot name="advance-after"></slot>
   </div>
 </template>
