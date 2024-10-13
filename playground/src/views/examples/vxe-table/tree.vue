@@ -27,6 +27,9 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'date', title: 'Date' },
   ],
   data: MOCK_TREE_TABLE_DATA,
+  pagerConfig: {
+    enabled: false,
+  },
   treeConfig: {
     parentField: 'parentId',
     rowField: 'id',

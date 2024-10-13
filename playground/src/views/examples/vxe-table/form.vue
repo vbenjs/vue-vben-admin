@@ -18,10 +18,12 @@ interface RowType {
 }
 
 const formOptions: VbenFormProps = {
-  collapsed: true,
+  // 默认展开
+  collapsed: false,
   schema: [
     {
       component: 'Input',
+      defaultValue: '1',
       fieldName: 'category',
       label: 'Category',
     },

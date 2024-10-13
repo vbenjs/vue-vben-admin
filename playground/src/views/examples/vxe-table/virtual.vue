@@ -23,6 +23,9 @@ const gridOptions: VxeGridProps<RowType> = {
   ],
   data: [],
   height: 'auto',
+  pagerConfig: {
+    enabled: false,
+  },
   scrollY: {
     enabled: true,
     gt: 0,
