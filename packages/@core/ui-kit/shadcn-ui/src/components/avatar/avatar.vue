@@ -7,7 +7,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui';
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;

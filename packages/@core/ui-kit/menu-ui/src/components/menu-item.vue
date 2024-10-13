@@ -4,8 +4,9 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
 import { useNamespace } from '@vben-core/composables';
-import { VbenIcon, VbenMenuBadge, VbenTooltip } from '@vben-core/shadcn-ui';
+import { VbenIcon, VbenTooltip } from '@vben-core/shadcn-ui';
 
+import { MenuBadge } from '../components';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 
 interface Props extends MenuItemProps {}
@@ -108,7 +109,7 @@ onBeforeUnmount(() => {
       <slot name="title"></slot>
     </VbenTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
-      <VbenMenuBadge
+      <MenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
         class="right-2"
         v-bind="props"
