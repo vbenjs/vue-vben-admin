@@ -84,7 +84,7 @@ watch(
     :style="queryFormStyle"
   >
     <component
-      :is="COMPONENT_MAP.DefaultResetActionButton"
+      :is="COMPONENT_MAP.DefaultButton"
       v-if="resetButtonOptions.show"
       class="mr-3"
       type="button"
@@ -95,7 +95,7 @@ watch(
     </component>
 
     <component
-      :is="COMPONENT_MAP.DefaultSubmitActionButton"
+      :is="COMPONENT_MAP.PrimaryButton"
       v-if="submitButtonOptions.show"
       type="button"
       @click="handleSubmit"

@@ -13,3 +13,5 @@ export {
   VbenPinInput,
   VbenSpinner,
 } from '@vben-core/shadcn-ui';
+
+export { globalShareState } from '@vben-core/shared/global-state';

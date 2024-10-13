@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { h, onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import { $t } from '@vben/locales';
-import { ToastAction, useToast } from '@vben-core/shadcn-ui';
+import { useVbenModal } from '@vben-core/popup-ui';
 
 interface Props {
   // 轮训时间，分钟
@@ -18,10 +18,21 @@ const props = withDefaults(defineProps<Props>(), {
   checkUpdateUrl: import.meta.env.BASE_URL || '/',
 });
 
-const lastVersionTag = ref('');
 let isCheckingUpdates = false;
+const currentVersionTag = ref('');
+const lastVersionTag = ref('');
 const timer = ref<ReturnType<typeof setInterval>>();
-const { toast } = useToast();
+
+const [UpdateNoticeModal, modalApi] = useVbenModal({
+  closable: false,
+  closeOnPressEscape: false,
+  closeOnClickModal: false,
+  onConfirm() {
+    lastVersionTag.value = currentVersionTag.value;
+    window.location.reload();
+    // handleSubmitLogout();
+  },
+});
 
 async function getVersionTag() {
   try {
@@ -63,38 +74,8 @@ async function checkForUpdates() {
   }
 }
 function handleNotice(versionTag: string) {
-  const { dismiss } = toast({
-    action: h('div', { class: 'inline-flex items-center' }, [
-      h(
-        ToastAction,
-        {
-          altText: $t('common.cancel'),
-          onClick: () => dismiss(),
-        },
-        {
-          default: () => $t('common.cancel'),
-        },
-      ),
-      h(
-        ToastAction,
-        {
-          altText: $t('common.refresh'),
-          class:
-            'bg-primary text-primary-foreground hover:bg-primary-hover mx-1',
-          onClick: () => {
-            lastVersionTag.value = versionTag;
-            window.location.reload();
-          },
-        },
-        {
-          default: () => $t('common.refresh'),
-        },
-      ),
-    ]),
-    description: $t('widgets.checkUpdatesDescription'),
-    duration: 0,
-    title: $t('widgets.checkUpdatesTitle'),
-  });
+  currentVersionTag.value = versionTag;
+  modalApi.open();
 }
 
 function start() {
@@ -138,5 +119,16 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <slot></slot>
+  <UpdateNoticeModal
+    :cancel-text="$t('common.cancel')"
+    :confirm-text="$t('common.refresh')"
+    :fullscreen-button="false"
+    :title="$t('widgets.checkUpdatesTitle')"
+    centered
+    content-class="px-8 min-h-10"
+    footer-class="border-none mb-3 mr-3"
+    header-class="border-none"
+  >
+    {{ $t('widgets.checkUpdatesDescription') }}
+  </UpdateNoticeModal>
 </template>
