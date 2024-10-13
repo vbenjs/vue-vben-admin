@@ -9,11 +9,7 @@ import { computed } from 'vue';
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '../ui/hover-card';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../ui';
 
 interface Props extends HoverCardRootProps {
   class?: any;

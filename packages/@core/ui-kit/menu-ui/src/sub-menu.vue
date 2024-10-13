@@ -3,9 +3,7 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { VbenMenuBadge } from '@vben-core/shadcn-ui';
-
-import { MenuItem, SubMenu as SubMenuComp } from './components';
+import { MenuBadge, MenuItem, SubMenu as SubMenuComp } from './components';
 // eslint-disable-next-line import/no-self-import
 import SubMenu from './sub-menu.vue';
 
@@ -54,7 +52,7 @@ const hasChildren = computed(() => {
     :path="menu.path"
   >
     <template #content>
-      <VbenMenuBadge
+      <MenuBadge
         :badge="menu.badge"
         :badge-type="menu.badgeType"
         :badge-variants="menu.badgeVariants"

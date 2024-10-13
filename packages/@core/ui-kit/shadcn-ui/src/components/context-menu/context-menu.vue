@@ -18,7 +18,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from '../ui/context-menu';
+} from '../../ui/context-menu';
 
 const props = defineProps<
   {

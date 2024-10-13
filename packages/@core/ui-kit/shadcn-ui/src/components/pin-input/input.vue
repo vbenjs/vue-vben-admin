@@ -3,8 +3,8 @@ import type { PinInputProps } from './types';
 
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
+import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
 import { VbenButton } from '../button';
-import { PinInput, PinInputGroup, PinInputInput } from '../ui/pin-input';
 
 defineOptions({
   inheritAttrs: false,
