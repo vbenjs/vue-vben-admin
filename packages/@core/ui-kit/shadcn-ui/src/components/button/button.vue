@@ -8,7 +8,7 @@ import { cn } from '@vben-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 
-import { buttonVariants } from '../ui/button';
+import { buttonVariants } from '../../ui';
 
 interface Props extends VbenButtonProps {}
 

@@ -8,7 +8,7 @@ import {
   VBEN_GITHUB_URL,
   VBEN_PREVIEW_URL,
 } from '@vben/constants';
-import { VbenLink, VbenRenderContent } from '@vben-core/shadcn-ui';
+import { VbenRenderContent } from '@vben-core/shadcn-ui';
 
 import { Page } from '../../components';
 
@@ -41,6 +41,13 @@ declare global {
   };
 }
 
+const renderLink = (href: string, text: string) =>
+  h(
+    'a',
+    { href, target: '_blank', class: 'text-primary hover:text-primary-hover' },
+    { default: () => text },
+  );
+
 const {
   authorEmail,
   authorName,
@@ -68,41 +75,25 @@ const vbenDescriptionItems: DescriptionItem[] = [
     title: '最后构建时间',
   },
   {
-    content: h(VbenLink, { href: homepage }, { default: () => '点击查看' }),
+    content: renderLink(homepage, '点击查看'),
     title: '主页',
   },
   {
-    content: h(VbenLink, { href: VBEN_DOC_URL }, { default: () => '点击查看' }),
+    content: renderLink(VBEN_DOC_URL, '点击查看'),
     title: '文档地址',
   },
   {
-    content: h(
-      VbenLink,
-      { href: VBEN_PREVIEW_URL },
-      { default: () => '点击查看' },
-    ),
+    content: renderLink(VBEN_PREVIEW_URL, '点击查看'),
     title: '预览地址',
   },
   {
-    content: h(
-      VbenLink,
-      { href: VBEN_GITHUB_URL },
-      { default: () => '点击查看' },
-    ),
+    content: renderLink(VBEN_GITHUB_URL, '点击查看'),
     title: 'Github',
   },
   {
     content: h('div', [
-      h(
-        VbenLink,
-        { class: 'mr-2', href: authorUrl },
-        { default: () => authorName },
-      ),
-      h(
-        VbenLink,
-        { href: `mailto:${authorEmail}` },
-        { default: () => authorEmail },
-      ),
+      renderLink(authorUrl, `${authorName}  `),
+      renderLink(`mailto:${authorEmail}`, authorEmail),
     ]),
     title: '作者',
   },
@@ -123,9 +114,13 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
   <Page :title="title">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
-        <VbenLink :href="VBEN_GITHUB_URL">
+        <a
+          :href="VBEN_GITHUB_URL"
+          class="text-primary hover:text-primary-hover"
+          target="_blank"
+        >
           {{ name }}
-        </VbenLink>
+        </a>
         {{ description }}
       </p>
     </template>
