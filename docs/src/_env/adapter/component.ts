@@ -22,6 +22,7 @@ import {
   InputNumber,
   InputPassword,
   Mentions,
+  notification,
   Radio,
   RadioGroup,
   RangePicker,
@@ -48,7 +49,6 @@ const withDefaultPlaceholder = <T extends Component>(
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
   | 'AutoComplete'
-  | 'Button'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -75,11 +75,10 @@ export type ComponentType =
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
     // 如果你的组件体积比较大，可以使用异步加载
-    // AutoComplete: () =>
-    // import('ant-design-vue').then((res) => res.AutoComplete),
+    // Button: () =>
+    // import('xxx').then((res) => res.Button),
 
     AutoComplete,
-    Button,
     Checkbox,
     CheckboxGroup,
     DatePicker,
@@ -111,6 +110,18 @@ async function initComponentAdapter() {
 
   // 将组件注册到全局共享状态中
   globalShareState.setComponents(components);
+
+  // 定义全局共享状态中的消息提示
+  globalShareState.defineMessage({
+    // 复制成功消息提示
+    copyPreferencesSuccess: (title, content) => {
+      notification.success({
+        description: content,
+        message: title,
+        placement: 'bottomRight',
+      });
+    },
+  });
 }
 
 export { initComponentAdapter };

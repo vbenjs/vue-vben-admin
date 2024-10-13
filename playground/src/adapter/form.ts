@@ -3,12 +3,11 @@ import type {
   VbenFormProps,
 } from '@vben/common-ui';
 
-import type { ComponentType } from './components';
+import type { ComponentType } from './component';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-// 初始化表单组件，并注册到form组件内部
 setupVbenForm<ComponentType>({
   config: {
     // ant design vue组件库默认都是 v-model:value

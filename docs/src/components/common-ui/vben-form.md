@@ -20,116 +20,23 @@ outline: deep
 
 ### 适配器说明
 
-每个应用都有不同的 UI 框架，所以在应用的 `src/adapter/form` 内部，你可以根据自己的需求，进行组件适配。下面是 `Ant Design Vue` 的适配器示例代码，可根据注释查看说明：
+每个应用都有不同的 UI 框架，所以在应用的 `src/adapter/form` 和 `src/adapter/component` 内部，你可以根据自己的需求，进行组件适配。下面是 `Ant Design Vue` 的适配器示例代码，可根据注释查看说明：
 
-::: details ant design 适配器
+::: details ant design vue 表单适配器
 
 ```ts
 import type {
-  BaseFormComponentType,
   VbenFormSchema as FormSchema,
   VbenFormProps,
 } from '@vben/common-ui';
 
-import type { Component, SetupContext } from 'vue';
-import { h } from 'vue';
+import type { ComponentType } from './component';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-import {
-  AutoComplete,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  DatePicker,
-  Divider,
-  Input,
-  InputNumber,
-  InputPassword,
-  Mentions,
-  Radio,
-  RadioGroup,
-  RangePicker,
-  Rate,
-  Select,
-  Space,
-  Switch,
-  Textarea,
-  TimePicker,
-  TreeSelect,
-  Upload,
-} from 'ant-design-vue';
-
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
-export type FormComponentType =
-  | 'AutoComplete'
-  | 'Checkbox'
-  | 'CheckboxGroup'
-  | 'DatePicker'
-  | 'Divider'
-  | 'Input'
-  | 'InputNumber'
-  | 'InputPassword'
-  | 'Mentions'
-  | 'Radio'
-  | 'RadioGroup'
-  | 'RangePicker'
-  | 'Rate'
-  | 'Select'
-  | 'Space'
-  | 'Switch'
-  | 'Textarea'
-  | 'TimePicker'
-  | 'TreeSelect'
-  | 'Upload'
-  | BaseFormComponentType;
-
-const withDefaultPlaceholder = <T extends Component>(
-  component: T,
-  type: 'input' | 'select',
-) => {
-  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
-    return h(component, { ...props, ...attrs, placeholder }, slots);
-  };
-};
-
-// 初始化表单组件，并注册到form组件内部
-setupVbenForm<FormComponentType>({
-  components: {
-    AutoComplete,
-    Checkbox,
-    CheckboxGroup,
-    DatePicker,
-    // 自定义默认的重置按钮
-    DefaultResetActionButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'default' }, slots);
-    },
-    // 自定义默认的提交按钮
-    DefaultSubmitActionButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'primary' }, slots);
-    },
-    Divider,
-    Input: withDefaultPlaceholder(Input, 'input'),
-    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
-    InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
-    Mentions: withDefaultPlaceholder(Mentions, 'input'),
-    Radio,
-    RadioGroup,
-    RangePicker,
-    Rate,
-    Select: withDefaultPlaceholder(Select, 'select'),
-    Space,
-    Switch,
-    Textarea: withDefaultPlaceholder(Textarea, 'input'),
-    TimePicker,
-    TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
-    Upload,
-  },
+setupVbenForm<ComponentType>({
   config: {
-    // 是否禁用onChange事件监听，naive ui组件库默认不需要监听onChange事件，否则会在控制台报错
-    disabledOnChangeListener: true,
     // ant design vue组件库默认都是 v-model:value
     baseModelPropName: 'value',
     // 一些组件是 v-model:checked 或者 v-model:fileList
@@ -158,12 +65,145 @@ setupVbenForm<FormComponentType>({
   },
 });
 
-const useVbenForm = useForm<FormComponentType>;
+const useVbenForm = useForm<ComponentType>;
 
 export { useVbenForm, z };
-
-export type VbenFormSchema = FormSchema<FormComponentType>;
+export type VbenFormSchema = FormSchema<ComponentType>;
 export type { VbenFormProps };
+```
+
+:::
+
+::: details ant design vue 组件适配器
+
+```ts
+/**
+ * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
+ * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
+ */
+
+import type { BaseFormComponentType } from '@vben/common-ui';
+
+import type { Component, SetupContext } from 'vue';
+import { h } from 'vue';
+
+import { globalShareState } from '@vben/common-ui';
+import { $t } from '@vben/locales';
+
+import {
+  AutoComplete,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  DatePicker,
+  Divider,
+  Input,
+  InputNumber,
+  InputPassword,
+  Mentions,
+  notification,
+  Radio,
+  RadioGroup,
+  RangePicker,
+  Rate,
+  Select,
+  Space,
+  Switch,
+  Textarea,
+  TimePicker,
+  TreeSelect,
+  Upload,
+} from 'ant-design-vue';
+
+const withDefaultPlaceholder = <T extends Component>(
+  component: T,
+  type: 'input' | 'select',
+) => {
+  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
+    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
+    return h(component, { ...props, ...attrs, placeholder }, slots);
+  };
+};
+
+// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
+export type ComponentType =
+  | 'AutoComplete'
+  | 'Checkbox'
+  | 'CheckboxGroup'
+  | 'DatePicker'
+  | 'DefaultButton'
+  | 'Divider'
+  | 'Input'
+  | 'InputNumber'
+  | 'InputPassword'
+  | 'Mentions'
+  | 'PrimaryButton'
+  | 'Radio'
+  | 'RadioGroup'
+  | 'RangePicker'
+  | 'Rate'
+  | 'Select'
+  | 'Space'
+  | 'Switch'
+  | 'Textarea'
+  | 'TimePicker'
+  | 'TreeSelect'
+  | 'Upload'
+  | BaseFormComponentType;
+
+async function initComponentAdapter() {
+  const components: Partial<Record<ComponentType, Component>> = {
+    // 如果你的组件体积比较大，可以使用异步加载
+    // Button: () =>
+    // import('xxx').then((res) => res.Button),
+
+    AutoComplete,
+    Checkbox,
+    CheckboxGroup,
+    DatePicker,
+    // 自定义默认按钮
+    DefaultButton: (props, { attrs, slots }) => {
+      return h(Button, { ...props, attrs, type: 'default' }, slots);
+    },
+    Divider,
+    Input: withDefaultPlaceholder(Input, 'input'),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
+    InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
+    Mentions: withDefaultPlaceholder(Mentions, 'input'),
+    // 自定义主要按钮
+    PrimaryButton: (props, { attrs, slots }) => {
+      return h(Button, { ...props, attrs, type: 'primary' }, slots);
+    },
+    Radio,
+    RadioGroup,
+    RangePicker,
+    Rate,
+    Select: withDefaultPlaceholder(Select, 'select'),
+    Space,
+    Switch,
+    Textarea: withDefaultPlaceholder(Textarea, 'input'),
+    TimePicker,
+    TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
+    Upload,
+  };
+
+  // 将组件注册到全局共享状态中
+  globalShareState.setComponents(components);
+
+  // 定义全局共享状态中的消息提示
+  globalShareState.defineMessage({
+    // 复制成功消息提示
+    copyPreferencesSuccess: (title, content) => {
+      notification.success({
+        description: content,
+        message: title,
+        placement: 'bottomRight',
+      });
+    },
+  });
+}
+
+export { initComponentAdapter };
 ```
 
 :::

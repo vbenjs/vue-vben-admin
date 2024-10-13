@@ -9,7 +9,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query';
 
 import { setupI18n } from '#/locales';
 
-import { initComponentAdapter } from './adapter/components';
+import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
 
