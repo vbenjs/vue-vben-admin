@@ -278,11 +278,11 @@ onMounted(() => {
               <template #submit-before="slotProps">
                 <slot name="submit-before" v-bind="slotProps"></slot>
               </template>
-              <template #advance-before="slotProps">
-                <slot name="advance-before" v-bind="slotProps"></slot>
+              <template #expand-before="slotProps">
+                <slot name="expand-before" v-bind="slotProps"></slot>
               </template>
-              <template #advance-after="slotProps">
-                <slot name="advance-after" v-bind="slotProps"></slot>
+              <template #expand-after="slotProps">
+                <slot name="expand-after" v-bind="slotProps"></slot>
               </template>
             </Form>
           </slot>

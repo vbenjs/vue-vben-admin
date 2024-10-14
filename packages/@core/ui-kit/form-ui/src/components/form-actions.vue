@@ -111,7 +111,7 @@ watch(
     </component>
 
     <!-- 展开按钮前 -->
-    <slot name="advance-before"></slot>
+    <slot name="expand-before"></slot>
 
     <VbenExpandableArrow
       v-if="rootProps.showCollapseButton"
@@ -122,6 +122,6 @@ watch(
     </VbenExpandableArrow>
 
     <!-- 展开按钮后 -->
-    <slot name="advance-after"></slot>
+    <slot name="expand-after"></slot>
   </div>
 </template>
