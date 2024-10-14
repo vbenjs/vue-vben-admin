@@ -58,7 +58,20 @@ const handleUpdateCollapsed = (value: boolean) => {
           v-if="forward.showDefaultActions"
           :model-value="state.collapsed"
           @update:model-value="handleUpdateCollapsed"
-        />
+        >
+          <template #reset-before="resetSlotProps">
+            <slot name="reset-before" v-bind="resetSlotProps"></slot>
+          </template>
+          <template #submit-before="submitSlotProps">
+            <slot name="submit-before" v-bind="submitSlotProps"></slot>
+          </template>
+          <template #expand-before="expandBeforeSlotProps">
+            <slot name="expand-before" v-bind="expandBeforeSlotProps"></slot>
+          </template>
+          <template #expand-after="expandAfterSlotProps">
+            <slot name="expand-after" v-bind="expandAfterSlotProps"></slot>
+          </template>
+        </FormActions>
       </slot>
     </template>
   </Form>
