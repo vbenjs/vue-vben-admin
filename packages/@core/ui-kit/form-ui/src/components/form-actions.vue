@@ -73,19 +73,21 @@ watch(
     if (props.collapseTriggerResize) {
       triggerWindowResize();
     }
-  }
+  },
 );
 </script>
 <template>
   <div
-    :class="cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)"
+    :class="
+      cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)
+    "
     :style="queryFormStyle"
   >
     <!-- 重置按钮前 -->
     <slot name="reset-before"></slot>
 
     <component
-      :is="COMPONENT_MAP.DefaultResetActionButton"
+      :is="COMPONENT_MAP.DefaultButton"
       v-if="resetButtonOptions.show"
       class="mr-3"
       type="button"
@@ -99,7 +101,7 @@ watch(
     <slot name="submit-before"></slot>
 
     <component
-      :is="COMPONENT_MAP.DefaultSubmitActionButton"
+      :is="COMPONENT_MAP.PrimaryButton"
       v-if="submitButtonOptions.show"
       type="button"
       @click="handleSubmit"

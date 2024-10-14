@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ButtonVariants } from '../ui/button';
+import type { ButtonVariants } from '../../ui';
 import type { VbenButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';

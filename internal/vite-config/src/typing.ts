@@ -139,12 +139,12 @@ type ApplicationOptions = ApplicationPluginOptions;
 
 type LibraryOptions = LibraryPluginOptions;
 
-type DefineApplicationOptions = (config: ConfigEnv) => Promise<{
+type DefineApplicationOptions = (config?: ConfigEnv) => Promise<{
   application?: ApplicationOptions;
   vite?: UserConfig;
 }>;
 
-type DefineLibraryOptions = (config: ConfigEnv) => Promise<{
+type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
   library?: LibraryOptions;
   vite?: UserConfig;
 }>;

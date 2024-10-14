@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shared",
-  "version": "5.3.2",
+  "version": "5.4.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -11,7 +11,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild"
+    "build": "pnpm unbuild",
+    "stub": "pnpm unbuild --stub"
   },
   "files": [
     "dist"
@@ -42,6 +43,11 @@
       "types": "./src/store.ts",
       "development": "./src/store.ts",
       "default": "./dist/store.mjs"
+    },
+    "./global-state": {
+      "types": "./dist/global-state.d.ts",
+      "development": "./src/global-state.ts",
+      "default": "./dist/global-state.mjs"
     }
   },
   "publishConfig": {
@@ -63,8 +69,12 @@
         "default": "./dist/cache/index.mjs"
       },
       "./store": {
-        "types": "./dist/store/index.d.ts",
+        "types": "./dist/store.d.ts",
         "default": "./dist/store.mjs"
+      },
+      "./global-state": {
+        "types": "./dist/global-state.d.ts",
+        "default": "./dist/global-state.mjs"
       }
     }
   },
