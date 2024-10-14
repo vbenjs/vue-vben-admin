@@ -10,13 +10,6 @@ function useSortable<T extends HTMLElement>(
       // @ts-expect-error - This is a dynamic import
       'sortablejs/modular/sortable.complete.esm.js'
     );
-    // const { AutoScroll } = await import(
-    //   // @ts-expect-error - This is a dynamic import
-    //   'sortablejs/modular/sortable.core.esm.js'
-    // );
-
-    // Sortable?.default?.mount?.(AutoScroll);
-
     const sortable = Sortable?.default?.create?.(sortableContainer, {
       animation: 300,
       delay: 400,
