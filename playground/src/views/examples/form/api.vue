@@ -3,7 +3,7 @@ import { Page } from '@vben/common-ui';
 
 import { Button, Card, message, Space } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 const [BaseForm, formApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
