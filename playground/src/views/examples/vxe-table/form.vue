@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { VbenFormProps, VxeGridProps } from '#/adapter';
+import type { VbenFormProps } from '#/adapter/form';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
 
 interface RowType {
@@ -18,9 +19,12 @@ interface RowType {
 }
 
 const formOptions: VbenFormProps = {
+  // 默认展开
+  collapsed: false,
   schema: [
     {
       component: 'Input',
+      defaultValue: '1',
       fieldName: 'category',
       label: 'Category',
     },
@@ -59,6 +63,8 @@ const formOptions: VbenFormProps = {
       label: 'Date',
     },
   ],
+  // 控制表单是否显示折叠按钮
+  showCollapseButton: true,
 };
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -73,7 +79,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'color', title: 'Color' },
     { field: 'productName', title: 'Product Name' },
     { field: 'price', title: 'Price' },
-    { field: 'releaseDate', title: 'Date' },
+    { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
   height: 'auto',
   keepSource: true,
@@ -92,28 +98,11 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
-
-function toggleFormCollspae() {
-  gridApi.formApi.resetForm();
-  gridApi.setState({
-    formOptions: {
-      showCollapseButton: !(
-        gridApi.state?.formOptions?.showCollapseButton ?? true
-      ),
-    },
-  });
-}
+const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid>
-      <template #toolbar-tools>
-        <Button type="primary" @click="toggleFormCollspae">
-          切换表单折叠按钮
-        </Button>
-      </template>
-    </Grid>
+    <Grid />
   </Page>
 </template>

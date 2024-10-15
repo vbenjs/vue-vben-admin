@@ -523,7 +523,8 @@ function isAffixTab(tab: TabDefinition) {
  * @param tab
  */
 function isTabShown(tab: TabDefinition) {
-  return !tab.meta.hideInTab;
+  const matched = tab?.matched ?? [];
+  return !tab.meta.hideInTab && matched.every((item) => !item.meta.hideInTab);
 }
 
 /**

@@ -13,7 +13,7 @@ import {
   PopoverContent,
   Popover as PopoverRoot,
   PopoverTrigger,
-} from '../ui/popover';
+} from '../../ui';
 
 interface Props extends PopoverRootProps {
   class?: any;

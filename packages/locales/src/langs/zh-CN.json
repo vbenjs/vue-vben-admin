@@ -178,6 +178,7 @@
     "plain": "朴素",
     "rounded": "圆润",
     "copyPreferences": "复制偏好设置",
+    "copyPreferencesSuccessTitle": "复制成功",
     "copyPreferencesSuccess": "复制成功，请在 app 下的 `src/preferences.ts`内进行覆盖",
     "clearAndLogout": "清空缓存 & 退出登录",
     "mode": "模式",
@@ -206,7 +207,7 @@
       "showMore": "显示更多按钮",
       "showMaximize": "显示最大化按钮",
       "persist": "持久化标签页",
-      "dragable": "启动拖拽排序",
+      "draggable": "启动拖拽排序",
       "styleType": {
         "title": "标签页风格",
         "chrome": "谷歌",

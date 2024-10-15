@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
 import { Button } from 'ant-design-vue';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
 
 interface RowType {
@@ -24,7 +24,12 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'color', title: 'Color', width: 300 },
     { field: 'productName', title: 'Product Name', width: 300 },
     { field: 'price', title: 'Price', width: 300 },
-    { field: 'releaseDate', title: 'Date', width: 500 },
+    {
+      field: 'releaseDate',
+      formatter: 'formatDateTime',
+      title: 'DateTime',
+      width: 500,
+    },
     {
       field: 'action',
       fixed: 'right',

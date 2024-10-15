@@ -6,10 +6,6 @@ import { $t } from '@vben/locales';
 import InputItem from '../input-item.vue';
 import SwitchItem from '../switch-item.vue';
 
-defineOptions({
-  name: 'PreferenceBreadcrumbConfig',
-});
-
 const props = defineProps<{ disabled: boolean }>();
 
 const copyrightEnable = defineModel<boolean>('copyrightEnable');

@@ -37,6 +37,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "enable": true,
     "icp": "",
     "icpLink": "",
+    "settingShow": true,
   },
   "footer": {
     "enable": false,
@@ -73,7 +74,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "width": 224,
   },
   "tabbar": {
-    "dragable": true,
+    "draggable": true,
     "enable": true,
     "height": 38,
     "keepAlive": true,
@@ -92,7 +93,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "mode": "dark",
     "radius": "0.5",
     "semiDarkHeader": false,
-    "semiDarkSidebar": true,
+    "semiDarkSidebar": false,
   },
   "transition": {
     "enable": true,

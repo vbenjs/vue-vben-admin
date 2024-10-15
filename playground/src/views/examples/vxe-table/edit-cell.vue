@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
 
 interface RowType {
@@ -26,7 +26,7 @@ const gridOptions: VxeGridProps<RowType> = {
       title: 'Product Name',
     },
     { field: 'price', title: 'Price' },
-    { field: 'releaseDate', title: 'Date' },
+    { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
   editConfig: {
     mode: 'cell',

@@ -9,8 +9,8 @@ import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 export type FormLayout = 'horizontal' | 'vertical';
 
 export type BaseFormComponentType =
-  | 'DefaultResetActionButton'
-  | 'DefaultSubmitActionButton'
+  | 'DefaultButton'
+  | 'PrimaryButton'
   | 'VbenCheckbox'
   | 'VbenInput'
   | 'VbenInputPassword'
@@ -341,7 +341,6 @@ export type ExtendedFormApi = {
 export interface VbenFormAdapterOptions<
   T extends BaseFormComponentType = BaseFormComponentType,
 > {
-  components: Partial<Record<T, Component>>;
   config?: {
     baseModelPropName?: string;
     disabledOnChangeListener?: boolean;

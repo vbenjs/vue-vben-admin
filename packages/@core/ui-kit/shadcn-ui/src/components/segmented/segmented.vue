@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 import { TabsTrigger } from 'radix-vue';
 
-import { Tabs, TabsContent, TabsList } from '../ui/tabs';
+import { Tabs, TabsContent, TabsList } from '../../ui';
 import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {

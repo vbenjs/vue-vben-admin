@@ -178,6 +178,7 @@
     "plain": "Plain",
     "rounded": "Rounded",
     "copyPreferences": "Copy Preferences",
+    "copyPreferencesSuccessTitle": "Copy successful",
     "copyPreferencesSuccess": "Copy successful, please override in `src/preferences.ts` under app",
     "clearAndLogout": "Clear Cache & Logout",
     "mode": "Mode",
@@ -206,7 +207,7 @@
       "showMore": "Show More Button",
       "showMaximize": "Show Maximize Button",
       "persist": "Persist Tabs",
-      "dragable": "Enable Dragable Sort",
+      "draggable": "Enable Draggable Sort",
       "styleType": {
         "title": "Tabs Style",
         "chrome": "Chrome",

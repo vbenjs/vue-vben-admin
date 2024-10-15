@@ -24,11 +24,11 @@ import {
 } from '@vben/preferences';
 import { useVbenDrawer } from '@vben-core/popup-ui';
 import {
-  useToast,
   VbenButton,
   VbenIconButton,
   VbenSegmented,
 } from '@vben-core/shadcn-ui';
+import { globalShareState } from '@vben-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';
 
@@ -54,7 +54,9 @@ import {
 } from './blocks';
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
-const { toast } = useToast();
+
+const message = globalShareState.getMessage();
+
 const appLocale = defineModel<SupportedLanguagesType>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appLayout = defineModel<LayoutType>('appLayout');
@@ -102,7 +104,7 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
-const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
 
 const navigationStyleType = defineModel<NavigationStyleType>(
@@ -116,6 +118,7 @@ const navigationAccordion = defineModel<boolean>('navigationAccordion');
 const footerEnable = defineModel<boolean>('footerEnable');
 const footerFixed = defineModel<boolean>('footerFixed');
 
+const copyrightSettingShow = defineModel<boolean>('copyrightSettingShow');
 const copyrightEnable = defineModel<boolean>('copyrightEnable');
 const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
 const copyrightCompanySiteLink = defineModel<string>(
@@ -195,10 +198,10 @@ const showBreadcrumbConfig = computed(() => {
 async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
 
-  toast({
-    description: $t('preferences.copyPreferences'),
-    title: $t('preferences.copyPreferencesSuccess'),
-  });
+  message.copyPreferencesSuccess?.(
+    $t('preferences.copyPreferencesSuccessTitle'),
+    $t('preferences.copyPreferencesSuccess'),
+  );
 }
 
 async function handleClearCache() {
@@ -213,10 +216,6 @@ async function handleReset() {
   }
   resetPreferences();
   await loadLocaleMessages(preferences.app.locale);
-  toast({
-    description: $t('preferences.resetTitle'),
-    title: $t('preferences.resetSuccess'),
-  });
 }
 </script>
 
@@ -339,7 +338,7 @@ async function handleReset() {
             </Block>
             <Block :title="$t('preferences.tabbar.title')">
               <Tabbar
-                v-model:tabbar-dragable="tabbarDragable"
+                v-model:tabbar-draggable="tabbarDraggable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
                 v-model:tabbar-show-icon="tabbarShowIcon"
@@ -369,7 +368,10 @@ async function handleReset() {
                 v-model:footer-fixed="footerFixed"
               />
             </Block>
-            <Block :title="$t('preferences.copyright.title')">
+            <Block
+              v-if="copyrightSettingShow"
+              :title="$t('preferences.copyright.title')"
+            >
               <Copyright
                 v-model:copyright-company-name="copyrightCompanyName"
                 v-model:copyright-company-site-link="copyrightCompanySiteLink"

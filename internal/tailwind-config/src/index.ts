@@ -1,6 +1,5 @@
 import type { Config } from 'tailwindcss';
 
-import fs from 'node:fs';
 import path from 'node:path';
 
 import { getPackagesSync } from '@vben/node-utils';
@@ -19,9 +18,9 @@ const tailwindPackages: string[] = [];
 
 packages.forEach((pkg) => {
   // apps目录下和 @vben-core/tailwind-ui 包需要使用到 tailwindcss ui
-  if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
-    tailwindPackages.push(pkg.dir);
-  }
+  // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
+  tailwindPackages.push(pkg.dir);
+  // }
 });
 
 const shadcnUiColors = {

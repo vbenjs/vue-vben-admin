@@ -1,6 +1,6 @@
 import type { AsTag } from 'radix-vue';
 
-import type { ButtonVariants, ButtonVariantSize } from '../ui/button';
+import type { ButtonVariants, ButtonVariantSize } from '../../ui';
 
 import type { Component } from 'vue';
 

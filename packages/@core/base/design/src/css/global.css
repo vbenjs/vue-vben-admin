@@ -94,7 +94,6 @@
   }
 
   /* 只有非mac下才进行调整，mac下使用默认滚动条 */
-
   html:not([data-platform='macOs']) {
     ::-webkit-scrollbar {
       @apply h-[10px] w-[10px];

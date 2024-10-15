@@ -17,7 +17,7 @@ defineProps<{ disabled?: boolean }>();
 const tabbarEnable = defineModel<boolean>('tabbarEnable');
 const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
-const tabbarDragable = defineModel<boolean>('tabbarDragable');
+const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
@@ -50,8 +50,8 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarPersist" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.persist') }}
   </SwitchItem>
-  <SwitchItem v-model="tabbarDragable" :disabled="!tabbarEnable">
-    {{ $t('preferences.tabbar.dragable') }}
+  <SwitchItem v-model="tabbarDraggable" :disabled="!tabbarEnable">
+    {{ $t('preferences.tabbar.draggable') }}
   </SwitchItem>
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.icon') }}

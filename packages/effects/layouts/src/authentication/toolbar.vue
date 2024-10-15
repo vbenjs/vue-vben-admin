@@ -3,6 +3,8 @@ import type { ToolbarType } from './types';
 
 import { computed } from 'vue';
 
+import { preferences } from '@vben/preferences';
+
 import {
   AuthenticationColorToggle,
   AuthenticationLayoutToggle,
@@ -41,7 +43,7 @@ const showTheme = computed(() => props.toolbarList.includes('theme'));
       <AuthenticationLayoutToggle v-if="showLayout" />
     </div>
     <!-- Always show Language and Theme toggles -->
-    <LanguageToggle v-if="showLanguage" />
-    <ThemeToggle v-if="showTheme" />
+    <LanguageToggle v-if="showLanguage && preferences.widget.languageToggle" />
+    <ThemeToggle v-if="showTheme && preferences.widget.themeToggle" />
   </div>
 </template>

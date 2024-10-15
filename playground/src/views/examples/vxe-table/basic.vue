@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { VxeGridListeners, VxeGridProps } from '#/adapter';
+import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
 import { Button, message } from 'ant-design-vue';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import DocButton from '../doc-button.vue';
 import { MOCK_TABLE_DATA } from './table-data';
@@ -29,6 +29,9 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'address', showOverflow: true, title: 'Address' },
   ],
   data: MOCK_TABLE_DATA,
+  pagerConfig: {
+    enabled: false,
+  },
   sortConfig: {
     multiple: true,
   },

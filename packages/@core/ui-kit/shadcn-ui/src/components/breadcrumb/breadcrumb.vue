@@ -3,7 +3,6 @@ import type { BreadcrumbProps } from './types';
 
 import { ChevronDown } from '@vben-core/icons';
 
-import { VbenIcon } from '../icon';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,13 +10,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '../ui/breadcrumb';
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
+} from '../../ui';
+import { VbenIcon } from '../icon';
 
 interface Props extends BreadcrumbProps {}
 

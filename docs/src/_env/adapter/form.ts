@@ -1,99 +1,23 @@
 import type {
-  BaseFormComponentType,
   VbenFormSchema as FormSchema,
   VbenFormProps,
 } from '@vben/common-ui';
 
-import { h } from 'vue';
+import type { ComponentType } from './component';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-import {
-  AutoComplete,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  DatePicker,
-  Divider,
-  Input,
-  InputNumber,
-  InputPassword,
-  Mentions,
-  Radio,
-  RadioGroup,
-  RangePicker,
-  Rate,
-  Select,
-  Space,
-  Switch,
-  Textarea,
-  TimePicker,
-  TreeSelect,
-  Upload,
-} from 'ant-design-vue';
+import { initComponentAdapter } from './component';
 
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
-export type FormComponentType =
-  | 'AutoComplete'
-  | 'Checkbox'
-  | 'CheckboxGroup'
-  | 'DatePicker'
-  | 'Divider'
-  | 'Input'
-  | 'InputNumber'
-  | 'InputPassword'
-  | 'Mentions'
-  | 'Radio'
-  | 'RadioGroup'
-  | 'RangePicker'
-  | 'Rate'
-  | 'Select'
-  | 'Space'
-  | 'Switch'
-  | 'Textarea'
-  | 'TimePicker'
-  | 'TreeSelect'
-  | 'Upload'
-  | BaseFormComponentType;
-
-// 初始化表单组件，并注册到form组件内部
-setupVbenForm<FormComponentType>({
-  components: {
-    AutoComplete,
-    Checkbox,
-    CheckboxGroup,
-    DatePicker,
-    // 自定义默认的重置按钮
-    DefaultResetActionButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'default' }, slots);
-    },
-    // 自定义默认的提交按钮
-    DefaultSubmitActionButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'primary' }, slots);
-    },
-    Divider,
-    Input,
-    InputNumber,
-    InputPassword,
-    Mentions,
-    Radio,
-    RadioGroup,
-    RangePicker,
-    Rate,
-    Select,
-    Space,
-    Switch,
-    Textarea,
-    TimePicker,
-    TreeSelect,
-    Upload,
-  },
+initComponentAdapter();
+setupVbenForm<ComponentType>({
   config: {
-    // ant design vue组件库默认都是 v-model:value
     baseModelPropName: 'value',
-
-    // 一些组件是 v-model:checked 或者 v-model:fileList
+    // naive-ui组件不接受onChang事件，所以需要禁用
+    disabledOnChangeListener: true,
+    // naive-ui组件的空值为null,不能是undefined，否则重置表单时不生效
+    emptyStateValue: null,
     modelPropNameMap: {
       Checkbox: 'checked',
       Radio: 'checked',
@@ -102,14 +26,12 @@ setupVbenForm<FormComponentType>({
     },
   },
   defineRules: {
-    // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
         return $t('formRules.required', [ctx.label]);
       }
       return true;
     },
-    // 选择项目必填国际化适配
     selectRequired: (value, _params, ctx) => {
       if (value === undefined || value === null) {
         return $t('formRules.selectRequired', [ctx.label]);
@@ -119,9 +41,9 @@ setupVbenForm<FormComponentType>({
   },
 });
 
-const useVbenForm = useForm<FormComponentType>;
+const useVbenForm = useForm<ComponentType>;
 
 export { useVbenForm, z };
 
-export type VbenFormSchema = FormSchema<FormComponentType>;
+export type VbenFormSchema = FormSchema<ComponentType>;
 export type { VbenFormProps };

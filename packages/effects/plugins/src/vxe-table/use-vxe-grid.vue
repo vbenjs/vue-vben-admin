@@ -14,6 +14,7 @@ import {
   toRaw,
   useSlots,
   useTemplateRef,
+  watch,
 } from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
@@ -25,6 +26,7 @@ import { VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
+import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
@@ -36,6 +38,8 @@ interface Props extends VxeGridProps {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
+
+const FORM_SLOT_PREFIX = 'form-';
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
@@ -53,7 +57,27 @@ const { isMobile } = usePreferences();
 
 const slots = useSlots();
 
-const [Form, formApi] = useTableForm({});
+const [Form, formApi] = useTableForm({
+  handleSubmit: async () => {
+    const formValues = formApi.form.values;
+    props.api.reload(formValues);
+  },
+  handleReset: async () => {
+    await formApi.resetForm();
+    const formValues = formApi.form.values;
+    props.api.reload(formValues);
+  },
+  commonConfig: {
+    componentProps: {
+      class: 'w-full',
+    },
+  },
+  showCollapseButton: true,
+  submitButtonOptions: {
+    content: $t('common.query'),
+  },
+  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+});
 
 const showToolbar = computed(() => {
   return !!slots['toolbar-actions']?.() || !!slots['toolbar-tools']?.();
@@ -136,40 +160,6 @@ const events = computed(() => {
   };
 });
 
-const vbenFormOptions = computed(() => {
-  const defaultFormProps: VbenFormProps = {
-    handleSubmit: async () => {
-      const formValues = formApi.form.values;
-      props.api.reload(formValues);
-    },
-    handleReset: async () => {
-      await formApi.resetForm();
-      const formValues = formApi.form.values;
-      props.api.reload(formValues);
-    },
-    commonConfig: {
-      componentProps: {
-        class: 'w-full',
-      },
-    },
-    showCollapseButton: true,
-    submitButtonOptions: {
-      content: $t('common.query'),
-    },
-    wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-  };
-  const finalFormOptions: VbenFormProps = mergeWithArrayOverride(
-    {},
-    formOptions.value,
-    defaultFormProps,
-  );
-
-  return {
-    ...finalFormOptions,
-    collapseTriggerResize: !!finalFormOptions.showCollapseButton,
-  };
-});
-
 const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
@@ -185,11 +175,11 @@ const delegatedFormSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (key.startsWith('form-')) {
+    if (key.startsWith(FORM_SLOT_PREFIX)) {
       resultSlots.push(key);
     }
   }
-  return resultSlots;
+  return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
 });
 
 async function init() {
@@ -204,7 +194,7 @@ async function init() {
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
-    props.api.reload(formApi.form.values);
+    props.api.reload(formApi.form?.values ?? {});
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
@@ -214,7 +204,31 @@ async function init() {
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
   }
+  props.api?.setState?.({ gridOptions: defaultGridOptions });
+  // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
+  extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
 }
+
+watch(
+  formOptions,
+  () => {
+    formApi.setState((prev) => {
+      const finalFormOptions: VbenFormProps = mergeWithArrayOverride(
+        {},
+        formOptions.value,
+        prev,
+      );
+      return {
+        ...finalFormOptions,
+        collapseTriggerResize: !!finalFormOptions.showCollapseButton,
+      };
+    });
+  },
+  {
+    immediate: true,
+  },
+);
+
 onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
@@ -247,13 +261,28 @@ onMounted(() => {
       <template #form>
         <div v-if="formOptions" class="relative rounded py-3 pb-4">
           <slot name="form">
-            <Form v-bind="vbenFormOptions">
+            <Form>
               <template
                 v-for="slotName in delegatedFormSlots"
                 :key="slotName"
                 #[slotName]="slotProps"
               >
-                <slot :name="slotName" v-bind="slotProps"></slot>
+                <slot
+                  :name="`${FORM_SLOT_PREFIX}${slotName}`"
+                  v-bind="slotProps"
+                ></slot>
+              </template>
+              <template #reset-before="slotProps">
+                <slot name="reset-before" v-bind="slotProps"></slot>
+              </template>
+              <template #submit-before="slotProps">
+                <slot name="submit-before" v-bind="slotProps"></slot>
+              </template>
+              <template #expand-before="slotProps">
+                <slot name="expand-before" v-bind="slotProps"></slot>
+              </template>
+              <template #expand-after="slotProps">
+                <slot name="expand-after" v-bind="slotProps"></slot>
               </template>
             </Form>
           </slot>
