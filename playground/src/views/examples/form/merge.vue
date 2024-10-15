@@ -5,7 +5,7 @@ import { Page } from '@vben/common-ui';
 
 import { Button, Card, message, Step, Steps, Switch } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 const currentTab = ref(0);
 function onFirstSubmit(values: Record<string, any>) {

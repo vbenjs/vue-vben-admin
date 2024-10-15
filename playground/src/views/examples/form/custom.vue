@@ -5,7 +5,7 @@ import { Page } from '@vben/common-ui';
 
 import { Card, Input, message } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 const [Form] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖

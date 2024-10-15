@@ -101,6 +101,7 @@ const customConfig: Linter.Config[] = [
       ],
     },
   },
+
   {
     // 不能引入@vben/*里面的包
     files: [
