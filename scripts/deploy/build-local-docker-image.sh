@@ -24,7 +24,7 @@ function install_dependencies() {
 
 function build_image() {
     # build docker
-    docker build . -f Dockerfile -t ${IMAGE_NAME} || ERROR="build_image failed"
+    docker build ../../ -f Dockerfile -t ${IMAGE_NAME} || ERROR="build_image failed"
 }
 
 function log_message() {
