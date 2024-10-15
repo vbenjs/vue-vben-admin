@@ -36,12 +36,16 @@ function generateMockDataList(count: number) {
 const mockData = generateMockDataList(100);
 
 function filterMockData(items = [], filters = {}) {
-  if (!Object.keys(filters)) return items;
+  filters = Object.fromEntries(
+    Object.entries(filters).filter(
+      ([_k, v]) => v !== null && v !== undefined && v !== '',
+    ),
+  );
+  if (Object.keys(filters).length === 0) return items;
   return items.filter((item) => {
     return Object.keys(filters).every((key) => {
       const filterValue = filters[key];
       const itemValue = item[key];
-      if (!filterValue) return true;
       if (Array.isArray(filterValue)) {
         if (!Array.isArray(itemValue)) return false;
         return filterValue.some((filterItem) => itemValue.includes(filterItem));
