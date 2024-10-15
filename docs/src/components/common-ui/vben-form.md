@@ -258,7 +258,7 @@ _注意_ 需要指定 `dependencies` 的 `triggerFields` 属性，设置由谁�
 
 ```vue
 <script setup lang="ts">
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 // Form 为弹窗组件
 // formApi 为弹窗的方法
@@ -475,7 +475,7 @@ rules的值可以是一个字符串，也可以是一个zod的schema。
 rules也支持 zod 的 schema，可以进行更复杂的校验，zod 的使用请查看 [zod文档](https://zod.dev/)。
 
 ```ts
-import { z } from '#/adapter';
+import { z } from '#/adapter/form';
 
 // 基础类型
 {
