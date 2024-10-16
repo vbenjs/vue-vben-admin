@@ -31,11 +31,30 @@ const builtinThemePresets = computed(() => {
 
 function typeView(name: BuiltinThemeType) {
   switch (name) {
+    case 'custom': {
+      return $t('preferences.theme.builtin.custom');
+    }
+    case 'deep-blue': {
+      return $t('preferences.theme.builtin.deepBlue');
+    }
+    case 'deep-green': {
+      return $t('preferences.theme.builtin.deepGreen');
+    }
     case 'default': {
       return $t('preferences.theme.builtin.default');
     }
-    case 'violet': {
-      return $t('preferences.theme.builtin.violet');
+    case 'gray': {
+      return $t('preferences.theme.builtin.gray');
+    }
+    case 'green': {
+      return $t('preferences.theme.builtin.green');
+    }
+
+    case 'neutral': {
+      return $t('preferences.theme.builtin.neutral');
+    }
+    case 'orange': {
+      return $t('preferences.theme.builtin.orange');
     }
     case 'pink': {
       return $t('preferences.theme.builtin.pink');
@@ -46,36 +65,17 @@ function typeView(name: BuiltinThemeType) {
     case 'sky-blue': {
       return $t('preferences.theme.builtin.skyBlue');
     }
-    case 'deep-blue': {
-      return $t('preferences.theme.builtin.deepBlue');
+    case 'slate': {
+      return $t('preferences.theme.builtin.slate');
     }
-
-    case 'green': {
-      return $t('preferences.theme.builtin.green');
-    }
-    case 'deep-green': {
-      return $t('preferences.theme.builtin.deepGreen');
-    }
-    case 'orange': {
-      return $t('preferences.theme.builtin.orange');
+    case 'violet': {
+      return $t('preferences.theme.builtin.violet');
     }
     case 'yellow': {
       return $t('preferences.theme.builtin.yellow');
     }
     case 'zinc': {
       return $t('preferences.theme.builtin.zinc');
-    }
-    case 'neutral': {
-      return $t('preferences.theme.builtin.neutral');
-    }
-    case 'slate': {
-      return $t('preferences.theme.builtin.slate');
-    }
-    case 'gray': {
-      return $t('preferences.theme.builtin.gray');
-    }
-    case 'custom': {
-      return $t('preferences.theme.builtin.custom');
     }
   }
 }
