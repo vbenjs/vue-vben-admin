@@ -81,6 +81,97 @@ function handleClick(
     | 'updateSubmitButton',
 ) {
   switch (action) {
+    case 'batchAddSchema': {
+      formApi.setState((prev) => {
+        const currentSchema = prev?.schema ?? [];
+        const newSchema = [];
+        for (let i = 0; i < 2; i++) {
+          newSchema.push({
+            component: 'Input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+            fieldName: `field${i}${Date.now()}`,
+            label: `field+`,
+          });
+        }
+        return {
+          schema: [...currentSchema, ...newSchema],
+        };
+      });
+      break;
+    }
+
+    case 'batchDeleteSchema': {
+      formApi.setState((prev) => {
+        const currentSchema = prev?.schema ?? [];
+        return {
+          schema: currentSchema.slice(0, -2),
+        };
+      });
+      break;
+    }
+    case 'disabled': {
+      formApi.setState({ commonConfig: { disabled: true } });
+      break;
+    }
+    case 'hiddenAction': {
+      formApi.setState({ showDefaultActions: false });
+      break;
+    }
+    case 'hiddenResetButton': {
+      formApi.setState({ resetButtonOptions: { show: false } });
+      break;
+    }
+    case 'hiddenSubmitButton': {
+      formApi.setState({ submitButtonOptions: { show: false } });
+      break;
+    }
+    case 'labelWidth': {
+      formApi.setState({
+        commonConfig: {
+          labelWidth: 150,
+        },
+      });
+      break;
+    }
+    case 'resetDisabled': {
+      formApi.setState({ commonConfig: { disabled: false } });
+      break;
+    }
+    case 'resetLabelWidth': {
+      formApi.setState({
+        commonConfig: {
+          labelWidth: 100,
+        },
+      });
+      break;
+    }
+    case 'showAction': {
+      formApi.setState({ showDefaultActions: true });
+      break;
+    }
+    case 'showResetButton': {
+      formApi.setState({ resetButtonOptions: { show: true } });
+      break;
+    }
+    case 'showSubmitButton': {
+      formApi.setState({ submitButtonOptions: { show: true } });
+      break;
+    }
+    case 'updateActionAlign': {
+      formApi.setState({
+        // 可以自行调整class
+        actionWrapperClass: 'text-center',
+      });
+      break;
+    }
+    case 'updateResetButton': {
+      formApi.setState({
+        resetButtonOptions: { disabled: true },
+      });
+      break;
+    }
     case 'updateSchema': {
       formApi.updateSchema([
         {
@@ -106,100 +197,9 @@ function handleClick(
       message.success('字段 `fieldOptions` 下拉选项更新成功。');
       break;
     }
-
-    case 'labelWidth': {
-      formApi.setState({
-        commonConfig: {
-          labelWidth: 150,
-        },
-      });
-      break;
-    }
-    case 'resetLabelWidth': {
-      formApi.setState({
-        commonConfig: {
-          labelWidth: 100,
-        },
-      });
-      break;
-    }
-    case 'disabled': {
-      formApi.setState({ commonConfig: { disabled: true } });
-      break;
-    }
-    case 'resetDisabled': {
-      formApi.setState({ commonConfig: { disabled: false } });
-      break;
-    }
-    case 'hiddenAction': {
-      formApi.setState({ showDefaultActions: false });
-      break;
-    }
-    case 'showAction': {
-      formApi.setState({ showDefaultActions: true });
-      break;
-    }
-    case 'hiddenResetButton': {
-      formApi.setState({ resetButtonOptions: { show: false } });
-      break;
-    }
-    case 'showResetButton': {
-      formApi.setState({ resetButtonOptions: { show: true } });
-      break;
-    }
-    case 'hiddenSubmitButton': {
-      formApi.setState({ submitButtonOptions: { show: false } });
-      break;
-    }
-    case 'showSubmitButton': {
-      formApi.setState({ submitButtonOptions: { show: true } });
-      break;
-    }
-    case 'updateResetButton': {
-      formApi.setState({
-        resetButtonOptions: { disabled: true },
-      });
-      break;
-    }
     case 'updateSubmitButton': {
       formApi.setState({
         submitButtonOptions: { loading: true },
-      });
-      break;
-    }
-    case 'updateActionAlign': {
-      formApi.setState({
-        // 可以自行调整class
-        actionWrapperClass: 'text-center',
-      });
-      break;
-    }
-    case 'batchAddSchema': {
-      formApi.setState((prev) => {
-        const currentSchema = prev?.schema ?? [];
-        const newSchema = [];
-        for (let i = 0; i < 2; i++) {
-          newSchema.push({
-            component: 'Input',
-            componentProps: {
-              placeholder: '请输入',
-            },
-            fieldName: `field${i}${Date.now()}`,
-            label: `field+`,
-          });
-        }
-        return {
-          schema: [...currentSchema, ...newSchema],
-        };
-      });
-      break;
-    }
-    case 'batchDeleteSchema': {
-      formApi.setState((prev) => {
-        const currentSchema = prev?.schema ?? [];
-        return {
-          schema: currentSchema.slice(0, -2),
-        };
       });
       break;
     }
