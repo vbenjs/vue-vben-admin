@@ -27,10 +27,10 @@ catalog:
   '@iconify/vue': ^4.1.2
   '@intlify/core-base': ^10.0.4
   '@intlify/unplugin-vue-i18n': ^5.2.0
-  '@jspm/generator': ^2.3.1
+  '@jspm/generator': ^2.4.1
   '@manypkg/get-packages': ^2.2.2
   '@nolebase/vitepress-plugin-git-changelog': ^2.6.1
-  '@playwright/test': ^1.48.0
+  '@playwright/test': ^1.48.1
   '@pnpm/workspace.read-manifest': ^2.2.1
   '@stylistic/stylelint-plugin': ^3.1.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
@@ -48,8 +48,8 @@ catalog:
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.8.1
-  '@typescript-eslint/parser': ^8.8.1
+  '@typescript-eslint/eslint-plugin': ^8.9.0
+  '@typescript-eslint/parser': ^8.9.0
   '@vee-validate/zod': ^4.13.2
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.1.4
@@ -88,11 +88,11 @@ catalog:
   eslint-plugin-command: ^0.2.6
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.3.1
-  eslint-plugin-jsdoc: ^50.4.0
+  eslint-plugin-jsdoc: ^50.4.1
   eslint-plugin-jsonc: ^2.16.0
   eslint-plugin-n: ^17.11.1
   eslint-plugin-no-only-tests: ^3.3.0
-  eslint-plugin-perfectionist: ^3.8.0
+  eslint-plugin-perfectionist: ^3.9.0
   eslint-plugin-prettier: ^5.2.1
   eslint-plugin-regexp: ^2.6.0
   eslint-plugin-unicorn: ^56.0.0
@@ -112,7 +112,7 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.452.0
+  lucide-vue-next: ^0.453.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.40.1
   nanoid: ^5.0.7
@@ -122,7 +122,7 @@ catalog:
   pinia: 2.2.2
   pinia-plugin-persistedstate: ^4.1.1
   pkg-types: ^1.2.1
-  playwright: ^1.48.0
+  playwright: ^1.48.1
   postcss: ^8.4.47
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.7.0
@@ -150,7 +150,7 @@ catalog:
   stylelint-prettier: ^5.0.2
   stylelint-scss: ^6.7.0
   tailwind-merge: ^2.5.4
-  tailwindcss: ^3.4.13
+  tailwindcss: ^3.4.14
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
   turbo: ^2.1.3
@@ -167,7 +167,7 @@ catalog:
   vite-plugin-pwa: ^0.20.5
   vite-plugin-vue-devtools: ^7.4.6
   vitepress: ^1.4.1
-  vitepress-plugin-group-icons: ^1.2.4
+  vitepress-plugin-group-icons: ^1.3.0
   vitest: ^2.1.3
   vue: ^3.5.12
   vue-eslint-parser: ^9.4.3
