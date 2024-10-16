@@ -306,7 +306,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
         (item) => getTabPath(item) === getTabPath(tab),
       );
       if (index !== -1) {
+        const oldTab = this.tabs[index];
         tab.meta.affixTab = true;
+        tab.meta.title = oldTab?.meta?.title as string;
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
@@ -411,7 +413,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
       );
 
       if (index !== -1) {
+        const oldTab = this.tabs[index];
         tab.meta.affixTab = false;
+        tab.meta.title = oldTab?.meta?.title as string;
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
