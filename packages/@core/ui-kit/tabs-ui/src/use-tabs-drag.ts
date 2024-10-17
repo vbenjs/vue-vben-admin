@@ -81,7 +81,14 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
       },
       onMove(evt) {
         const parent = findParentElement(evt.related);
-        return parent?.classList.contains('draggable') && props.draggable;
+        if (parent?.classList.contains('draggable') && props.draggable) {
+          const isCurrentAffix = evt.dragged.classList.contains('affix-tab');
+          const isRelatedAffix = evt.related.classList.contains('affix-tab');
+          // 不允许在固定的tab和非固定的tab之间互相拖拽
+          return isCurrentAffix === isRelatedAffix;
+        } else {
+          return false;
+        }
       },
       onStart: () => {
         el.style.cursor = 'grabbing';

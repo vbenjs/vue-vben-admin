@@ -69,7 +69,13 @@ const tabsView = computed((): TabConfig[] => {
         v-for="(tab, i) in tabsView"
         :key="tab.key"
         ref="tabRef"
-        :class="[{ 'is-active': tab.key === active, draggable: !tab.affixTab }]"
+        :class="[
+          {
+            'is-active': tab.key === active,
+            draggable: !tab.affixTab,
+            'affix-tab': tab.affixTab,
+          },
+        ]"
         :data-active-tab="active"
         :data-index="i"
         class="tabs-chrome__item draggable translate-all group relative -mr-3 flex h-full select-none items-center"

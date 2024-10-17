@@ -76,6 +76,7 @@ const tabsView = computed((): TabConfig[] => {
           {
             'is-active dark:bg-accent bg-primary/15': tab.key === active,
             draggable: !tab.affixTab,
+            'affix-tab': tab.affixTab,
           },
           typeWithClass.content,
         ]"
