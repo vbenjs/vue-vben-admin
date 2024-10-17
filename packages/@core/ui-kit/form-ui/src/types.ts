@@ -319,7 +319,6 @@ export interface VbenFormProps<
    * 重置按钮参数
    */
   resetButtonOptions?: ActionButtonOptions;
-
   /**
    * 是否显示默认操作按钮
    * @default true
@@ -330,6 +329,12 @@ export interface VbenFormProps<
    * 提交按钮参数
    */
   submitButtonOptions?: ActionButtonOptions;
+
+  /**
+   * 是否在回车时提交表单
+   * @default false
+   */
+  submitOnEnter?: boolean;
 }
 
 export type ExtendedFormApi = {
