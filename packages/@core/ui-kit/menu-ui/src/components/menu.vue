@@ -445,13 +445,13 @@ $namespace: vben;
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened-dark));
     --menu-item-background-color: var(--menu-background-color);
     --menu-item-color: hsl(var(--foreground) / 80%);
-    --menu-item-hover-color: hsl(var(--accent-foreground));
+    --menu-item-hover-color: hsl(var(--primary));
     --menu-item-hover-background-color: hsl(var(--accent));
-    --menu-item-active-color: hsl(var(--accent-foreground));
-    --menu-item-active-background-color: hsl(var(--accent));
-    --menu-submenu-hover-color: hsl(var(--foreground));
+    --menu-item-active-color: hsl(var(--primary));
+    --menu-item-active-background-color: hsl(var(--primary) / 15%);
+    --menu-submenu-hover-color: hsl(var(--primary));
     --menu-submenu-hover-background-color: hsl(var(--accent));
-    --menu-submenu-active-color: hsl(var(--foreground));
+    --menu-submenu-active-color: hsl(var(--primary));
     --menu-submenu-active-background-color: transparent;
     --menu-submenu-background-color: var(--menu-background-color);
   }
@@ -461,7 +461,7 @@ $namespace: vben;
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened));
     --menu-item-background-color: var(--menu-background-color);
     --menu-item-color: hsl(var(--foreground));
-    --menu-item-hover-color: var(--menu-item-color);
+    --menu-item-hover-color: hsl(var(--primary));
     --menu-item-hover-background-color: hsl(var(--accent));
     --menu-item-active-color: hsl(var(--primary));
     --menu-item-active-background-color: hsl(var(--primary) / 15%);
@@ -498,13 +498,13 @@ $namespace: vben;
     --menu-background-color: transparent;
 
     &.is-dark {
-      --menu-item-hover-color: hsl(var(--accent-foreground));
+      --menu-item-hover-color: hsl(var(--primary));
       --menu-item-hover-background-color: hsl(var(--accent));
-      --menu-item-active-color: hsl(var(--accent-foreground));
-      --menu-item-active-background-color: hsl(var(--accent));
-      --menu-submenu-active-color: hsl(var(--foreground));
-      --menu-submenu-active-background-color: hsl(var(--accent));
-      --menu-submenu-hover-color: hsl(var(--accent-foreground));
+      --menu-item-active-color: hsl(var(--primary));
+      --menu-item-active-background-color: hsl(var(--primary) / 15%);
+      --menu-submenu-active-color: hsl(var(--primary));
+      --menu-submenu-active-background-color: hsl(var(--primary) / 15%);
+      --menu-submenu-hover-color: hsl(var(--primary));
       --menu-submenu-hover-background-color: hsl(var(--accent));
     }
 
@@ -546,7 +546,7 @@ $namespace: vben;
           & > .#{$namespace}-menu-item {
             padding-left: calc(
               0px + var(--menu-item-indent) + var(--menu-level) *
-              var(--menu-item-indent)
+                var(--menu-item-indent)
             );
           }
         }
@@ -643,9 +643,9 @@ $namespace: vben;
       align-items: center;
       justify-content: center;
       padding: var(--menu-item-collapse-padding-y)
-      var(--menu-item-collapse-padding-x);
+        var(--menu-item-collapse-padding-x);
       margin: var(--menu-item-collapse-margin-y)
-      var(--menu-item-collapse-margin-x);
+        var(--menu-item-collapse-margin-x);
       transition: all 0.3s;
 
       &.is-active {
