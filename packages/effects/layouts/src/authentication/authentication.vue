@@ -61,12 +61,12 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     </AuthenticationFormView>
 
     <!-- 头部 Logo 和应用名称 -->
-    <div class="absolute left-0 top-0 z-10 flex flex-1">
+    <div v-if="logo || appName" class="absolute left-0 top-0 z-10 flex flex-1">
       <div
         class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
-        <img :alt="appName" :src="logo" class="mr-2" width="42" />
-        <p class="text-xl font-medium">
+        <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
+        <p v-if="appName" class="text-xl font-medium">
           {{ appName }}
         </p>
       </div>
