@@ -78,7 +78,7 @@ function createRequestClient(baseURL: string) {
       if (status >= 200 && status < 400 && code === 0) {
         return data;
       }
-      throw new Error(`Error ${status}: ${msg}`);
+      throw { response };
     },
   });
 
