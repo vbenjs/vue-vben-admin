@@ -544,10 +544,7 @@ $namespace: vben;
       & > .#{$namespace}-sub-menu {
         & > .#{$namespace}-menu {
           & > .#{$namespace}-menu-item {
-            padding-left: calc(
-              0px + var(--menu-item-indent) + var(--menu-level) *
-              var(--menu-item-indent)
-            );
+            padding-left: calc(0px + var(--menu-item-indent) + (var(--menu-level) * var(--menu-item-indent)));
           }
         }
 
