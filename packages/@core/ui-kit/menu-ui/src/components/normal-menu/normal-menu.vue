@@ -80,13 +80,13 @@ $namespace: vben;
       // color: hsl(var(--foreground) / 80%);
 
       &:not(.is-active):hover {
-        @apply text-foreground;
+        @apply text-primary;
       }
 
       &.is-active {
         .#{$namespace}-normal-menu__name,
         .#{$namespace}-normal-menu__icon {
-          @apply text-foreground;
+          @apply text-primary;
         }
       }
     }
