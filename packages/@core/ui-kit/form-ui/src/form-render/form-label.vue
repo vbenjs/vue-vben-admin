@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { FormLabel, VbenHelpTooltip } from '@vben-core/shadcn-ui';
+import { cn } from '@vben-core/shared/utils';
 
 interface Props {
+  class?: string;
   help?: string;
   required?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 </script>
 
 <template>
-  <FormLabel class="flex flex-row-reverse items-center">
+  <FormLabel :class="cn('mb-1 flex items-center', props.class)">
+    <span v-if="required" class="text-destructive mr-[2px]">*</span>
+    <slot></slot>
     <VbenHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">
       {{ help }}
     </VbenHelpTooltip>
-    <slot></slot>
-    <span v-if="required" class="text-destructive mr-[2px]">*</span>
   </FormLabel>
 </template>
