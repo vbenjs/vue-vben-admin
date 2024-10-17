@@ -16,6 +16,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
+
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical

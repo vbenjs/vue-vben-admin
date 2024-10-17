@@ -6,6 +6,8 @@ import type { ExtendedFormApi, VbenFormProps } from './types';
 import { useForwardPriorityValues } from '@vben-core/composables';
 // import { isFunction } from '@vben-core/shared/utils';
 
+import { useTemplateRef } from 'vue';
+
 import FormActions from './components/form-actions.vue';
 import {
   COMPONENT_BIND_EVENT_MAP,
@@ -21,6 +23,8 @@ interface Props extends VbenFormProps {
 
 const props = defineProps<Props>();
 
+const formActionsRef = useTemplateRef<typeof FormActions>('formActionsRef');
+
 const state = props.formApi?.useStore?.();
 
 const forward = useForwardPriorityValues(props, state);
@@ -34,10 +38,18 @@ props.formApi?.mount?.(form);
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });
 };
+
+function handleKeyDownEnter() {
+  if (!state.value.submitOnEnter || !formActionsRef.value) {
+    return;
+  }
+  formActionsRef.value?.handleSubmit?.();
+}
 </script>
 
 <template>
   <Form
+    @keydown.enter.prevent="handleKeyDownEnter"
     v-bind="forward"
     :collapsed="state.collapsed"
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
@@ -56,6 +68,7 @@ const handleUpdateCollapsed = (value: boolean) => {
       <slot v-bind="slotProps">
         <FormActions
           v-if="forward.showDefaultActions"
+          ref="formActionsRef"
           :model-value="state.collapsed"
           @update:model-value="handleUpdateCollapsed"
         >

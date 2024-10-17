@@ -35,6 +35,7 @@ function getDefaultState(): VbenFormProps {
     showCollapseButton: false,
     showDefaultActions: true,
     submitButtonOptions: {},
+    submitOnEnter: false,
     wrapperClass: 'grid-cols-1',
   };
 }

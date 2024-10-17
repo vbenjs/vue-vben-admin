@@ -75,6 +75,11 @@ watch(
     }
   },
 );
+
+defineExpose({
+  handleReset,
+  handleSubmit,
+});
 </script>
 <template>
   <div
