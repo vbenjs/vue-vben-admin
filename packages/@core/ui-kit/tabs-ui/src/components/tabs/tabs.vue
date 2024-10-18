@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import type { TabDefinition } from '@vben-core/typings';
 
-import type { TabConfig, TabsProps } from '../../types';
+import type { TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
 import { Pin, X } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon } from '@vben-core/shadcn-ui';
-import { deepToRaw } from '@vben-core/shared/utils';
 
 interface Props extends TabsProps {}
 
@@ -46,17 +45,16 @@ const typeWithClass = computed(() => {
   return typeClasses[props.styleType || 'plain'] || { content: '' };
 });
 
-const tabsView = computed((): TabConfig[] => {
-  return props.tabs.map((_tab) => {
-    const tab = deepToRaw(_tab);
+const tabsView = computed(() => {
+  return props.tabs.map((tab) => {
     return {
-      ...tab,
       affixTab: !!tab.meta?.affixTab,
       closable: Reflect.has(tab.meta, 'tabClosable')
         ? !!tab.meta.tabClosable
         : true,
       icon: tab.meta.icon as string,
       key: tab.fullPath || tab.path,
+      name: tab.name,
       title: (tab.meta?.newTabTitle || tab.meta?.title || tab.name) as string,
     };
   });
