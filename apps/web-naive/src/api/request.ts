@@ -12,7 +12,7 @@ import {
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
-import { message } from '#/adapter';
+import { message } from '#/adapter/naive';
 import { useAuthStore } from '#/store';
 
 import { refreshTokenApi } from './core';

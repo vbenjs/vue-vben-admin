@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { VbenFormProps, VxeGridProps } from '#/adapter';
+import type { VbenFormProps } from '#/adapter/form';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
 
 interface RowType {
@@ -18,10 +19,12 @@ interface RowType {
 }
 
 const formOptions: VbenFormProps = {
-  collapsed: true,
+  // 默认展开
+  collapsed: false,
   schema: [
     {
       component: 'Input',
+      defaultValue: '1',
       fieldName: 'category',
       label: 'Category',
     },
@@ -62,6 +65,8 @@ const formOptions: VbenFormProps = {
   ],
   // 控制表单是否显示折叠按钮
   showCollapseButton: true,
+  // 按下回车时是否提交表单
+  submitOnEnter: false,
 };
 
 const gridOptions: VxeGridProps<RowType> = {

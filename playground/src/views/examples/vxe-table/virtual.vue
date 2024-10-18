@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { onMounted } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 interface RowType {
   id: number;
@@ -23,6 +23,9 @@ const gridOptions: VxeGridProps<RowType> = {
   ],
   data: [],
   height: 'auto',
+  pagerConfig: {
+    enabled: false,
+  },
   scrollY: {
     enabled: true,
     gt: 0,

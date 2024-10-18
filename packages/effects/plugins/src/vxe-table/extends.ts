@@ -1,8 +1,10 @@
-import type { VxeGridProps } from 'vxe-table';
+import type { VxeGridProps, VxeUIExport } from 'vxe-table';
 
 import type { VxeGridApi } from './api';
 
 import { isFunction } from '@vben/utils';
+
+import dayjs from 'dayjs';
 
 export function extendProxyOptions(
   api: VxeGridApi,
@@ -45,6 +47,20 @@ function extendProxyOption(
           [key]: wrapperFn,
         },
       },
+    },
+  });
+}
+
+export function extendsDefaultFormatter(vxeUI: VxeUIExport) {
+  vxeUI.formats.add('formatDate', {
+    tableCellFormatMethod({ cellValue }) {
+      return dayjs(cellValue).format('YYYY-MM-DD');
+    },
+  });
+
+  vxeUI.formats.add('formatDateTime', {
+    tableCellFormatMethod({ cellValue }) {
+      return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss');
     },
   });
 }

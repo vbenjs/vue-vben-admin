@@ -3,7 +3,7 @@ import { Page } from '@vben/common-ui';
 
 import { Card, message } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 const [QueryForm] = useVbenForm({
   // 默认展开

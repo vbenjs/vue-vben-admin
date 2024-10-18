@@ -4,7 +4,7 @@ import { Page } from '@vben/common-ui';
 import { Button, Card, message } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 import DocButton from '../doc-button.vue';
 
@@ -16,6 +16,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
+
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical

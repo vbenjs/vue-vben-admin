@@ -134,7 +134,7 @@ If you think this project is helpful to you, you can help the author buy a cup o
 
 ![donate](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
 
-<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
+<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aee;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
 ## Contributor
 

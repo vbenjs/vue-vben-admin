@@ -18,7 +18,7 @@ function updateCSSVariables(preferences: Preferences) {
 
   const theme = preferences?.theme ?? {};
 
-  const { builtinType, colorPrimary, mode, radius } = theme;
+  const { builtinType, mode, radius } = theme;
 
   // html 设置 dark 类
   if (Reflect.has(theme, 'mode')) {
@@ -58,7 +58,7 @@ function updateCSSVariables(preferences: Preferences) {
     Reflect.has(theme, 'colorSuccess') ||
     Reflect.has(theme, 'colorWarning')
   ) {
-    preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
+    // preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
     updateMainColorVariables(preferences);
   }
 

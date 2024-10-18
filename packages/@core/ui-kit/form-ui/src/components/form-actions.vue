@@ -75,6 +75,11 @@ watch(
     }
   },
 );
+
+defineExpose({
+  handleReset,
+  handleSubmit,
+});
 </script>
 <template>
   <div
@@ -83,8 +88,11 @@ watch(
     "
     :style="queryFormStyle"
   >
+    <!-- 重置按钮前 -->
+    <slot name="reset-before"></slot>
+
     <component
-      :is="COMPONENT_MAP.DefaultResetActionButton"
+      :is="COMPONENT_MAP.DefaultButton"
       v-if="resetButtonOptions.show"
       class="mr-3"
       type="button"
@@ -94,8 +102,11 @@ watch(
       {{ resetButtonOptions.content }}
     </component>
 
+    <!-- 提交按钮前 -->
+    <slot name="submit-before"></slot>
+
     <component
-      :is="COMPONENT_MAP.DefaultSubmitActionButton"
+      :is="COMPONENT_MAP.PrimaryButton"
       v-if="submitButtonOptions.show"
       type="button"
       @click="handleSubmit"
@@ -104,6 +115,9 @@ watch(
       {{ submitButtonOptions.content }}
     </component>
 
+    <!-- 展开按钮前 -->
+    <slot name="expand-before"></slot>
+
     <VbenExpandableArrow
       v-if="rootProps.showCollapseButton"
       v-model:model-value="collapsed"
@@ -111,5 +125,8 @@ watch(
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
+
+    <!-- 展开按钮后 -->
+    <slot name="expand-after"></slot>
   </div>
 </template>

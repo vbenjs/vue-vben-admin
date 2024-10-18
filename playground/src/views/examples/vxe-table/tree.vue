@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
 import { Button } from 'ant-design-vue';
 
-import { useVbenVxeGrid } from '#/adapter';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { MOCK_TREE_TABLE_DATA } from './table-data';
 
@@ -27,6 +27,9 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'date', title: 'Date' },
   ],
   data: MOCK_TREE_TABLE_DATA,
+  pagerConfig: {
+    enabled: false,
+  },
   treeConfig: {
     parentField: 'parentId',
     rowField: 'id',

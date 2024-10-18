@@ -6,7 +6,7 @@ import type {
 import { generateAccessible } from '@vben/access';
 import { preferences } from '@vben/preferences';
 
-import { message } from '#/adapter';
+import { message } from '#/adapter/naive';
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';

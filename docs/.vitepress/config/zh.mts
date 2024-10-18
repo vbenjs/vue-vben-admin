@@ -165,6 +165,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'Form 表单',
         },
         {
+          link: 'common-ui/vben-vxe-table',
+          text: 'Vxe Table 表格',
+        },
+        {
           link: 'common-ui/vben-count-to-animator',
           text: 'CountToAnimator 数字动画',
         },
