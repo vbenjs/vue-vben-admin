@@ -312,14 +312,6 @@ export const useTabbarStore = defineStore('core-tabbar', {
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
-      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
-      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
-      // 获得固定tabs的index
-      const newIndex = affixTabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
-      // 交换位置重新排序
-      await this.sortTabs(index, newIndex);
     },
 
     /**
@@ -419,6 +411,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const index = this.tabs.findIndex(
         (item) => getTabPath(item) === getTabPath(tab),
       );
+
       if (index !== -1) {
         const oldTab = this.tabs[index];
         tab.meta.affixTab = false;
@@ -426,12 +419,6 @@ export const useTabbarStore = defineStore('core-tabbar', {
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
-      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
-      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
-      // 获得固定tabs的index,使用固定tabs的下一个位置也就是活动tabs的第一个位置
-      const newIndex = affixTabs.length;
-      // 交换位置重新排序
-      await this.sortTabs(index, newIndex);
     },
 
     /**
