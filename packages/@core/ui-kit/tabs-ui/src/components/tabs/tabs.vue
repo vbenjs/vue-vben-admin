@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TabDefinition } from '@vben-core/typings';
 
-import type { TabsProps } from '../../types';
+import type { TabConfig, TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
@@ -47,16 +47,19 @@ const typeWithClass = computed(() => {
 
 const tabsView = computed(() => {
   return props.tabs.map((tab) => {
+    const { fullPath, meta, name, path } = tab || {};
+    const { affixTab, icon, newTabTitle, tabClosable, title } = meta || {};
     return {
-      affixTab: !!tab.meta?.affixTab,
-      closable: Reflect.has(tab.meta, 'tabClosable')
-        ? !!tab.meta.tabClosable
-        : true,
-      icon: tab.meta.icon as string,
-      key: tab.fullPath || tab.path,
-      name: tab.name,
-      title: (tab.meta?.newTabTitle || tab.meta?.title || tab.name) as string,
-    };
+      affixTab: !!affixTab,
+      closable: Reflect.has(meta, 'tabClosable') ? !!tabClosable : true,
+      fullPath,
+      icon: icon as string,
+      key: fullPath || path,
+      meta,
+      name,
+      path,
+      title: (newTabTitle || title || name) as string,
+    } as TabConfig;
   });
 });
 </script>
