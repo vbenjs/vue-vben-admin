@@ -11,7 +11,7 @@ import {
   usePreferences,
 } from '@vben/preferences';
 import { useLockStore } from '@vben/stores';
-import { deepToRaw, mapTree } from '@vben/utils';
+import { cloneDeep, mapTree } from '@vben/utils';
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
 
@@ -112,7 +112,7 @@ const {
 
 function wrapperMenus(menus: MenuRecordRaw[]) {
   return mapTree(menus, (item) => {
-    return { ...deepToRaw(item), name: $t(item.name) };
+    return { ...cloneDeep(item), name: $t(item.name) };
   });
 }
 
