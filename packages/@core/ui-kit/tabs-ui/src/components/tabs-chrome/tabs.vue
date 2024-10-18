@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabDefinition } from '@vben-core/typings';
 
-import type { TabConfig, TabsProps } from '../../types';
+import type { TabsProps } from '../../types';
 
 import { computed, ref } from 'vue';
 
@@ -39,7 +39,7 @@ const style = computed(() => {
   };
 });
 
-const tabsView = computed((): TabConfig[] => {
+const tabsView = computed(() => {
   return props.tabs.map((tab) => {
     return {
       affixTab: !!tab.meta?.affixTab,
