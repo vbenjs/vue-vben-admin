@@ -143,13 +143,13 @@ function printResult(
 
           break;
         }
+        case 'suggestion': {
+          suggestionsCount++;
+          break;
+        }
         case 'warning': {
           warningCount++;
 
-          break;
-        }
-        case 'suggestion': {
-          suggestionsCount++;
           break;
         }
         // No default
