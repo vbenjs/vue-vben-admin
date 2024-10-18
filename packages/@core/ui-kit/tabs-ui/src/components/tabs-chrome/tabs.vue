@@ -7,7 +7,6 @@ import { computed, ref } from 'vue';
 
 import { Pin, X } from '@vben-core/icons';
 import { VbenContextMenu, VbenIcon } from '@vben-core/shadcn-ui';
-import { deepToRaw } from '@vben-core/shared/utils';
 
 interface Props extends TabsProps {}
 
@@ -40,19 +39,21 @@ const style = computed(() => {
   };
 });
 
-const tabsView = computed((): TabConfig[] => {
-  return props.tabs.map((_tab) => {
-    const tab = deepToRaw(_tab);
+const tabsView = computed(() => {
+  return props.tabs.map((tab) => {
+    const { fullPath, meta, name, path } = tab || {};
+    const { affixTab, icon, newTabTitle, tabClosable, title } = meta || {};
     return {
-      ...tab,
-      affixTab: !!tab.meta?.affixTab,
-      closable: Reflect.has(tab.meta, 'tabClosable')
-        ? !!tab.meta.tabClosable
-        : true,
-      icon: tab.meta.icon as string,
-      key: tab.fullPath || tab.path,
-      title: (tab.meta?.newTabTitle || tab.meta?.title || tab.name) as string,
-    };
+      affixTab: !!affixTab,
+      closable: Reflect.has(meta, 'tabClosable') ? !!tabClosable : true,
+      fullPath,
+      icon: icon as string,
+      key: fullPath || path,
+      meta,
+      name,
+      path,
+      title: (newTabTitle || title || name) as string,
+    } as TabConfig;
   });
 });
 </script>
