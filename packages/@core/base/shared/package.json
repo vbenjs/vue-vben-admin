@@ -81,7 +81,6 @@
   "dependencies": {
     "@ctrl/tinycolor": "catalog:",
     "@tanstack/vue-store": "catalog:",
-    "@vue/reactivity": "catalog:",
     "@vue/shared": "catalog:",
     "clsx": "catalog:",
     "defu": "catalog:",
