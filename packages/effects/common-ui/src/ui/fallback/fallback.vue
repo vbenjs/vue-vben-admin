@@ -48,11 +48,11 @@ const titleText = computed(() => {
     case '500': {
       return $t('fallback.internalError');
     }
-    case 'offline': {
-      return $t('fallback.offlineError');
-    }
     case 'coming-soon': {
       return $t('fallback.comingSoon');
+    }
+    case 'offline': {
+      return $t('fallback.offlineError');
     }
     default: {
       return '';
@@ -94,11 +94,11 @@ const fallbackIcon = computed(() => {
     case '500': {
       return Icon500;
     }
-    case 'offline': {
-      return IconOffline;
-    }
     case 'coming-soon': {
       return IconHello;
+    }
+    case 'offline': {
+      return IconOffline;
     }
     default: {
       return null;
