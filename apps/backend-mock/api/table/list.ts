@@ -35,6 +35,26 @@ function generateMockDataList(count: number) {
 
 const mockData = generateMockDataList(100);
 
+function filterMockData(items = [], filters = {}) {
+  filters = Object.fromEntries(
+    Object.entries(filters).filter(
+      ([_k, v]) => v !== null && v !== undefined && v !== '',
+    ),
+  );
+  if (Object.keys(filters).length === 0) return items;
+  return items.filter((item) => {
+    return Object.keys(filters).every((key) => {
+      const filterValue = filters[key];
+      const itemValue = item[key];
+      if (Array.isArray(filterValue)) {
+        if (!Array.isArray(itemValue)) return false;
+        return filterValue.some((filterItem) => itemValue.includes(filterItem));
+      }
+      return itemValue === filterValue;
+    });
+  });
+}
+
 export default eventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
   if (!userinfo) {
@@ -43,6 +63,9 @@ export default eventHandler(async (event) => {
 
   await sleep(600);
 
-  const { page, pageSize } = getQuery(event);
-  return usePageResponseSuccess(page as string, pageSize as string, mockData);
+  const { page, pageSize, ...query } = getQuery(event);
+
+  const filterData = filterMockData(mockData, query);
+
+  return usePageResponseSuccess(page as string, pageSize as string, filterData);
 });
