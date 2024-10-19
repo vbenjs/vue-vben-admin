@@ -46,10 +46,9 @@
     "watermark": "水印",
     "tabs": "标签页",
     "tabDetail": "标签详情页",
-    "fullScreen": {
-      "title": "全屏"
-    },
-    "clipboard": "剪贴板"
+    "fullScreen": "全屏",
+    "clipboard": "剪贴板",
+    "menuWithQuery": "带参菜单"
   },
   "breadcrumb": {
     "navigation": "面包屑导航",

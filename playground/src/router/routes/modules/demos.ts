@@ -174,7 +174,7 @@ const routes: RouteRecordRaw[] = [
               import('#/views/demos/features/full-screen/index.vue'),
             meta: {
               icon: 'lucide:fullscreen',
-              title: $t('demos.features.fullScreen.title'),
+              title: $t('demos.features.title'),
             },
           },
           {
@@ -185,6 +185,19 @@ const routes: RouteRecordRaw[] = [
             meta: {
               icon: 'lucide:copy',
               title: $t('demos.features.clipboard'),
+            },
+          },
+          {
+            name: 'MenuQueryDemo',
+            path: '/demos/menu-query',
+            component: () =>
+              import('#/views/demos/features/menu-query/index.vue'),
+            meta: {
+              icon: 'lucide:curly-braces',
+              query: {
+                id: 1,
+              },
+              title: $t('demos.features.menuWithQuery'),
             },
           },
           {

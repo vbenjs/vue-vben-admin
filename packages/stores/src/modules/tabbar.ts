@@ -336,7 +336,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 重置标签页标题
      */
     async resetTabTitle(tab: TabDefinition) {
-      if (!tab?.meta?.newTabTitle) {
+      if (tab?.meta?.newTabTitle) {
         return;
       }
       const findTab = this.tabs.find(
