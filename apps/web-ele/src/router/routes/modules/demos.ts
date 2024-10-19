@@ -10,14 +10,14 @@ const routes: RouteRecordRaw[] = [
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
       order: 1000,
-      title: $t('page.demos.title'),
+      title: $t('demos.title'),
     },
     name: 'Demos',
     path: '/demos',
     children: [
       {
         meta: {
-          title: $t('page.demos.element-plus'),
+          title: $t('demos.elementPlus'),
         },
         name: 'NaiveDemos',
         path: '/demos/element',

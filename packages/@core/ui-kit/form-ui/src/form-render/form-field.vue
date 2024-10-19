@@ -281,7 +281,7 @@ function autofocus() {
               'mr-2 flex-shrink-0 justify-end': !isVertical,
               'flex-row': isVertical,
             },
-            !isVertical && labelClass,
+            labelClass,
           )
         "
         :help="help"

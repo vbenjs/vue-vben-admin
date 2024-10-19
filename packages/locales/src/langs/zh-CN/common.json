@@ -1,0 +1,13 @@
+{
+  "back": "返回",
+  "backToHome": "返回首页",
+  "login": "登录",
+  "logout": "退出登录",
+  "prompt": "提示",
+  "cancel": "取消",
+  "confirm": "确认",
+  "noData": "暂无数据",
+  "refresh": "刷新",
+  "loadingMenu": "加载菜单中",
+  "query": "查询"
+}

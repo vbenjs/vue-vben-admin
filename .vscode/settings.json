@@ -197,11 +197,14 @@
     "playground/src/locales/langs",
     "apps/*/src/locales/langs"
   ],
-  "i18n-ally.pathMatcher": "{locale}.json",
-  "i18n-ally.enabledParsers": ["json", "ts", "js", "yaml"],
+  "i18n-ally.pathMatcher": "{locale}/{namespace}.{ext}",
+  "i18n-ally.enabledParsers": ["json"],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "zh-CN",
   "i18n-ally.enabledFrameworks": ["vue", "react"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.namespace": true,
 
   // 控制相关文件嵌套展示
   "explorer.fileNesting.enabled": true,
@@ -216,7 +219,6 @@
     "tailwind.config.mjs": "postcss.*"
   },
   "commentTranslate.hover.enabled": false,
-  "i18n-ally.keystyle": "nested",
   "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
   "typescript.tsdk": "node_modules/typescript/lib"
