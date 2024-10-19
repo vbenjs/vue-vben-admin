@@ -4,14 +4,21 @@ import type { Component, Ref } from 'vue';
 
 export interface ModalProps {
   /**
+   * 是否显示边框
+   * @default false
+   */
+  bordered?: boolean;
+  /**
    * 取消按钮文字
    */
   cancelText?: string;
+
   /**
    * 是否居中
    * @default false
    */
   centered?: boolean;
+
   class?: string;
   /**
    * 是否显示右上角的关闭按钮

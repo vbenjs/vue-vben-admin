@@ -103,6 +103,10 @@ interface RouteMeta {
    */
   order?: number;
   /**
+   * 菜单所携带的参数
+   */
+  query?: Recordable;
+  /**
    * 标题名称
    */
   title: string;

@@ -95,7 +95,11 @@ onMounted(() => {
 
 <template>
   <div>
-    <Modal :fullscreen-button="false" class="w-[600px]" header-class="py-2">
+    <Modal
+      :fullscreen-button="false"
+      class="w-[600px]"
+      header-class="py-2 border-b"
+    >
       <template #title>
         <div class="flex items-center">
           <Search class="text-muted-foreground mr-2 size-4" />
