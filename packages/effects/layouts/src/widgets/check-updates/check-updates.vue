@@ -123,12 +123,12 @@ onUnmounted(() => {
     :cancel-text="$t('common.cancel')"
     :confirm-text="$t('common.refresh')"
     :fullscreen-button="false"
-    :title="$t('widgets.checkUpdatesTitle')"
+    :title="$t('ui.widgets.checkUpdatesTitle')"
     centered
     content-class="px-8 min-h-10"
     footer-class="border-none mb-3 mr-3"
     header-class="border-none"
   >
-    {{ $t('widgets.checkUpdatesDescription') }}
+    {{ $t('ui.widgets.checkUpdatesDescription') }}
   </UpdateNoticeModal>
 </template>

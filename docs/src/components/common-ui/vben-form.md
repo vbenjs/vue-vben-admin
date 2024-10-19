@@ -51,14 +51,14 @@ setupVbenForm<ComponentType>({
     // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
-        return $t('formRules.required', [ctx.label]);
+        return $t('ui.formRules.required', [ctx.label]);
       }
       return true;
     },
     // 选择项目必填国际化适配
     selectRequired: (value, _params, ctx) => {
       if (value === undefined || value === null) {
-        return $t('formRules.selectRequired', [ctx.label]);
+        return $t('ui.formRules.selectRequired', [ctx.label]);
       }
       return true;
     },
@@ -120,7 +120,7 @@ const withDefaultPlaceholder = <T extends Component>(
   type: 'input' | 'select',
 ) => {
   return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t(`placeholder.${type}`);
+    const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`);
     return h(component, { ...props, ...attrs, placeholder }, slots);
   };
 };

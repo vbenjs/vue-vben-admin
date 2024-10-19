@@ -44,7 +44,7 @@ const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
     <template #shortcut> {{ altView }} , </template>
   </SwitchItem> -->
   <SwitchItem v-model="shortcutKeysLockScreen" :disabled="!shortcutKeysEnable">
-    {{ $t('widgets.lockScreen.title') }}
+    {{ $t('ui.widgets.lockScreen.title') }}
     <template #shortcut> {{ altView }} L </template>
   </SwitchItem>
 </template>

@@ -79,10 +79,10 @@ function handleClick(item: NotificationItem) {
 
     <div class="relative">
       <div class="flex items-center justify-between p-4 py-3">
-        <div class="text-foreground">{{ $t('widgets.notifications') }}</div>
+        <div class="text-foreground">{{ $t('ui.widgets.notifications') }}</div>
         <VbenIconButton
           :disabled="notifications.length <= 0"
-          :tooltip="$t('widgets.markAllAsRead')"
+          :tooltip="$t('ui.widgets.markAllAsRead')"
           @click="handleMakeAll"
         >
           <MailCheck class="size-4" />
@@ -138,10 +138,10 @@ function handleClick(item: NotificationItem) {
           variant="ghost"
           @click="handleClear"
         >
-          {{ $t('widgets.clearNotifications') }}
+          {{ $t('ui.widgets.clearNotifications') }}
         </VbenButton>
         <VbenButton size="sm" @click="handleViewAll">
-          {{ $t('widgets.viewAll') }}
+          {{ $t('ui.widgets.viewAll') }}
         </VbenButton>
       </div>
     </div>

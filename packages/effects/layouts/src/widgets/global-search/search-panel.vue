@@ -230,7 +230,7 @@ onMounted(() => {
       >
         <SearchX class="mx-auto mt-4 size-12" />
         <p class="mb-10 mt-6 text-xs">
-          {{ $t('widgets.search.noResults') }}
+          {{ $t('ui.widgets.search.noResults') }}
           <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"
           </span>
@@ -242,7 +242,7 @@ onMounted(() => {
         class="text-muted-foreground text-center"
       >
         <p class="my-10 text-xs">
-          {{ $t('widgets.search.noRecent') }}
+          {{ $t('ui.widgets.search.noRecent') }}
         </p>
       </div>
 
@@ -251,7 +251,7 @@ onMounted(() => {
           v-if="searchHistory.length > 0 && !keyword"
           class="text-muted-foreground mb-2 text-xs"
         >
-          {{ $t('widgets.search.recent') }}
+          {{ $t('ui.widgets.search.recent') }}
         </li>
         <li
           v-for="(item, index) in uniqueByField(searchResults, 'path')"

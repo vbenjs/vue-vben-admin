@@ -42,14 +42,14 @@ const [Form, { resetForm, validate }] = useVbenForm(
       {
         component: 'VbenInputPassword' as const,
         componentProps: {
-          placeholder: $t('widgets.lockScreen.placeholder'),
+          placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
         fieldName: 'lockScreenPassword',
         formFieldProps: { validateOnBlur: false },
         label: $t('authentication.password'),
         rules: z
           .string()
-          .min(1, { message: $t('widgets.lockScreen.placeholder') }),
+          .min(1, { message: $t('ui.widgets.lockScreen.placeholder') }),
       },
     ]),
     showDefaultActions: false,
@@ -79,7 +79,7 @@ async function handleSubmit() {
   <Modal
     :footer="false"
     :fullscreen-button="false"
-    :title="$t('widgets.lockScreen.title')"
+    :title="$t('ui.widgets.lockScreen.title')"
   >
     <div
       class="mb-10 flex w-full flex-col items-center px-10"
@@ -98,7 +98,7 @@ async function handleSubmit() {
         </div>
         <Form />
         <VbenButton class="mt-1 w-full" @click="handleSubmit">
-          {{ $t('widgets.lockScreen.screenButton') }}
+          {{ $t('ui.widgets.lockScreen.screenButton') }}
         </VbenButton>
       </div>
     </div>

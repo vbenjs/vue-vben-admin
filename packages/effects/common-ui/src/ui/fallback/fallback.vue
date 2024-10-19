@@ -40,19 +40,19 @@ const titleText = computed(() => {
 
   switch (props.status) {
     case '403': {
-      return $t('fallback.forbidden');
+      return $t('ui.fallback.forbidden');
     }
     case '404': {
-      return $t('fallback.pageNotFound');
+      return $t('ui.fallback.pageNotFound');
     }
     case '500': {
-      return $t('fallback.internalError');
+      return $t('ui.fallback.internalError');
     }
     case 'coming-soon': {
-      return $t('fallback.comingSoon');
+      return $t('ui.fallback.comingSoon');
     }
     case 'offline': {
-      return $t('fallback.offlineError');
+      return $t('ui.fallback.offlineError');
     }
     default: {
       return '';
@@ -66,16 +66,16 @@ const descText = computed(() => {
   }
   switch (props.status) {
     case '403': {
-      return $t('fallback.forbiddenDesc');
+      return $t('ui.fallback.forbiddenDesc');
     }
     case '404': {
-      return $t('fallback.pageNotFoundDesc');
+      return $t('ui.fallback.pageNotFoundDesc');
     }
     case '500': {
-      return $t('fallback.internalErrorDesc');
+      return $t('ui.fallback.internalErrorDesc');
     }
     case 'offline': {
-      return $t('fallback.offlineErrorDesc');
+      return $t('ui.fallback.offlineErrorDesc');
     }
     default: {
       return '';

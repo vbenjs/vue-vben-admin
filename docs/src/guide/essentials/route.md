@@ -105,7 +105,7 @@ const routes: RouteRecordRaw[] = [
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
       order: 1000,
-      title: $t('page.demos.title'),
+      title: $t('demos.title'),
     },
     name: 'Demos',
     path: '/demos',
@@ -115,7 +115,7 @@ const routes: RouteRecordRaw[] = [
       {
         meta: {
           icon: 'ic:round-menu',
-          title: $t('page.demos.nested.title'),
+          title: $t('demos.nested.title'),
         },
         name: 'NestedDemos',
         path: '/demos/nested',
@@ -128,7 +128,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               icon: 'ic:round-menu',
               keepAlive: true,
-              title: $t('page.demos.nested.menu1'),
+              title: $t('demos.nested.menu1'),
             },
           },
           {
@@ -137,7 +137,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               icon: 'ic:round-menu',
               keepAlive: true,
-              title: $t('page.demos.nested.menu2'),
+              title: $t('demos.nested.menu2'),
             },
             redirect: '/demos/nested/menu2/menu2-1',
             children: [
@@ -148,7 +148,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   icon: 'ic:round-menu',
                   keepAlive: true,
-                  title: $t('page.demos.nested.menu2_1'),
+                  title: $t('demos.nested.menu2_1'),
                 },
               },
             ],
@@ -158,7 +158,7 @@ const routes: RouteRecordRaw[] = [
             path: '/demos/nested/menu3',
             meta: {
               icon: 'ic:round-menu',
-              title: $t('page.demos.nested.menu3'),
+              title: $t('demos.nested.menu3'),
             },
             redirect: '/demos/nested/menu3/menu3-1',
             children: [
@@ -169,7 +169,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   icon: 'ic:round-menu',
                   keepAlive: true,
-                  title: $t('page.demos.nested.menu3_1'),
+                  title: $t('demos.nested.menu3_1'),
                 },
               },
               {
@@ -177,7 +177,7 @@ const routes: RouteRecordRaw[] = [
                 path: 'menu3-2',
                 meta: {
                   icon: 'ic:round-menu',
-                  title: $t('page.demos.nested.menu3_2'),
+                  title: $t('demos.nested.menu3_2'),
                 },
                 redirect: '/demos/nested/menu3/menu3-2/menu3-2-1',
                 children: [
@@ -189,7 +189,7 @@ const routes: RouteRecordRaw[] = [
                     meta: {
                       icon: 'ic:round-menu',
                       keepAlive: true,
-                      title: $t('page.demos.nested.menu3_2_1'),
+                      title: $t('demos.nested.menu3_2_1'),
                     },
                   },
                 ],

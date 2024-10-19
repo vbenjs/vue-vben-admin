@@ -68,7 +68,7 @@ const menus = computed(() => [
       });
     },
     icon: BookOpenText,
-    text: $t('widgets.document'),
+    text: $t('ui.widgets.document'),
   },
   {
     handler: () => {
@@ -86,7 +86,7 @@ const menus = computed(() => [
       });
     },
     icon: CircleHelp,
-    text: $t('widgets.qa'),
+    text: $t('ui.widgets.qa'),
   },
 ]);
 
