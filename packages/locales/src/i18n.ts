@@ -19,7 +19,7 @@ const i18n = createI18n({
   messages: {},
 });
 
-const modules = import.meta.glob('./langs/**/**/*.json');
+const modules = import.meta.glob('./langs/**/*.json');
 
 const { setSimpleLocale } = useSimpleLocale();
 

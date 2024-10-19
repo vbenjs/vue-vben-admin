@@ -53,7 +53,7 @@ Drawer 内的内容一般业务中，会比较复杂，所以我们可以将 dra
 ::: info 注意
 
 - `VbenDrawer` 组件对与参数的处理优先级是 `slot` > `props` > `state`(通过api更新的状态以及useVbenDrawer参数)。如果你已经传入了 `slot` 或者 `props`，那么 `setState` 将不会生效，这种情况下你可以通过 `slot` 或者 `props` 来更新状态。
-- 如果你使用到了 `connectedComponent` 参数，那么会存在 2 个`useVbenDrawer`, 此时，如果同时设置了相同的参数，那么以内部为准（也就是没有设置 connectedComponent 的代码）。比如 同时设置了 `onComfirm`，那么以内部的 `onComfirm` 为准。`onOpenChange`事件除外，内外都会触发。
+- 如果你使用到了 `connectedComponent` 参数，那么会存在 2 个`useVbenDrawer`, 此时，如果同时设置了相同的参数，那么以内部为准（也就是没有设置 connectedComponent 的代码）。比如 同时设置了 `onConfirm`，那么以内部的 `onConfirm` 为准。`onOpenChange`事件除外，内外都会触发。
 
 :::
 

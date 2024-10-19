@@ -9,7 +9,7 @@ import {
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
-const modules = import.meta.glob('./langs/**/**/*.json');
+const modules = import.meta.glob('./langs/**/*.json');
 
 const localesMap = loadLocalesMapFromDir(
   /\.\/langs\/([^/]+)\/(.*)\.json$/,
