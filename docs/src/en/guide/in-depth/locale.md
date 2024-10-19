@@ -58,7 +58,7 @@ updateLocale('en-US');
 
 To add new translation texts, simply find `src/locales/langs/` in the corresponding application and add the texts accordingly, for example:
 
-**src/locales/langs/zh-CN.ts**
+**src/locales/langs/zh-CN/\*.json**
 
 ````ts
 ```json

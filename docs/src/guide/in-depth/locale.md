@@ -58,7 +58,7 @@ updateLocale('en-US');
 
 新增翻译文本，只需要在对应的应用内，找到 `src/locales/langs/`，新增对应的文本即可，例:
 
-**src/locales/langs/zh-CN.ts**
+**src/locales/langs/zh-CN/\*.json**
 
 ````ts
 ```json
