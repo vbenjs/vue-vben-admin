@@ -1,9 +1,9 @@
 {
   "auth": {
-    "login": "登陆",
+    "login": "登录",
     "register": "注册",
-    "codeLogin": "验证码登陆",
-    "qrcodeLogin": "二维码登陆",
+    "codeLogin": "验证码登录",
+    "qrcodeLogin": "二维码登录",
     "forgetPassword": "忘记密码"
   },
   "dashboard": {

@@ -279,7 +279,7 @@ function autofocus() {
             'flex leading-6',
             {
               'mr-2 flex-shrink-0 justify-end': !isVertical,
-              'flex-row': isVertical,
+              'mb-1 flex-row': isVertical,
             },
             labelClass,
           )

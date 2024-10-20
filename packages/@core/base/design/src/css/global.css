@@ -142,6 +142,10 @@
     @apply outline-primary left-0 top-0 h-full w-full p-1 opacity-100;
   }
 
+  .vben-link {
+    @apply text-primary hover:text-primary-hover active:text-primary-active cursor-pointer;
+  }
+
   .card-box {
     @apply bg-card text-card-foreground border-border rounded-xl border;
   }

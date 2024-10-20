@@ -387,6 +387,10 @@ interface RouteMeta {
    */
   order?: number;
   /**
+   * 菜单所携带的参数
+   */
+  query?: Recordable;
+  /**
    * 标题名称
    */
   title: string;
@@ -541,6 +545,15 @@ interface RouteMeta {
 - 默认值：`0`
 
 用于配置页面的排序，用于路由到菜单排序。
+
+_注意:_ 排序仅针对一级菜单有效，二级菜单的排序需要在对应的一级菜单中按代码顺序设置。
+
+### query
+
+- 类型：`Recordable`
+- 默认值：`{}`
+
+用于配置页面的菜单参数，会在菜单中传递给页面。
 
 ## 路由刷新
 

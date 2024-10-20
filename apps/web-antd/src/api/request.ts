@@ -79,8 +79,7 @@ function createRequestClient(baseURL: string) {
         return data;
       }
 
-      const error = { response };
-      throw error;
+      throw Object.assign({}, response, { response });
     },
   });
 

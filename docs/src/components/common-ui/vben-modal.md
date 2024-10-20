@@ -104,6 +104,7 @@ const [Modal, modalApi] = useVbenModal({
 | contentClass | modal内容区域的class | `string` | - |
 | footerClass | modal底部区域的class | `string` | - |
 | headerClass | modal顶部区域的class | `string` | - |
+| bordered | 是否显示border | `boolean` | `false` |
 
 ### Event
 

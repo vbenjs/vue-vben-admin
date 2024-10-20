@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { LoginCodeParams, VbenFormSchema } from '@vben/common-ui';
+import type { VbenFormSchema } from '@vben/common-ui';
+import type { Recordable } from '@vben/types';
 
 import { computed, ref } from 'vue';
 
@@ -49,7 +50,7 @@ const formSchema = computed((): VbenFormSchema[] => {
  * Asynchronously handle the login process
  * @param values 登录表单数据
  */
-async function handleLogin(values: LoginCodeParams) {
+async function handleLogin(values: Recordable<any>) {
   // eslint-disable-next-line no-console
   console.log(values);
 }

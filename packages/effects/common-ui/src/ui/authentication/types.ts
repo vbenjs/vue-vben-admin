@@ -67,30 +67,4 @@ interface AuthenticationProps {
   submitButtonText?: string;
 }
 
-type LoginAndRegisterParams = Record<string, any>;
-
-interface LoginCodeParams {
-  code: string;
-  phoneNumber: string;
-}
-
-interface LoginEmits {
-  submit: [LoginAndRegisterParams];
-}
-
-interface LoginCodeEmits {
-  submit: [LoginCodeParams];
-}
-
-interface RegisterEmits {
-  submit: [LoginAndRegisterParams];
-}
-
-export type {
-  AuthenticationProps,
-  LoginAndRegisterParams,
-  LoginCodeEmits,
-  LoginCodeParams,
-  LoginEmits,
-  RegisterEmits,
-};
+export type { AuthenticationProps };

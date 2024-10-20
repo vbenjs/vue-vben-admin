@@ -39,9 +39,12 @@ export function useResponseError(message: string, error: any = null) {
   };
 }
 
-export function forbiddenResponse(event: H3Event<EventHandlerRequest>) {
+export function forbiddenResponse(
+  event: H3Event<EventHandlerRequest>,
+  message = 'Forbidden Exception',
+) {
   setResponseStatus(event, 403);
-  return useResponseError('Forbidden Exception', 'Forbidden Exception');
+  return useResponseError(message, message);
 }
 
 export function unAuthorizedResponse(event: H3Event<EventHandlerRequest>) {

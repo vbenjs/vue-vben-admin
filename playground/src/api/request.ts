@@ -79,8 +79,7 @@ function createRequestClient(baseURL: string) {
       if (status >= 200 && status < 400 && code === 0) {
         return data;
       }
-      const error = { response };
-      throw error;
+      throw Object.assign({}, response, { response });
     },
   });
 
