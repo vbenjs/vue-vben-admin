@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
+import type { Recordable } from '@vben/types';
 
 import { computed, ref } from 'vue';
 
@@ -27,7 +28,7 @@ const formSchema = computed((): VbenFormSchema[] => {
   ];
 });
 
-function handleSubmit(value: string) {
+function handleSubmit(value: Recordable<any>) {
   // eslint-disable-next-line no-console
   console.log('reset email:', value);
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Recordable } from '@vben/types';
 import type { VbenFormSchema } from '@vben-core/form-ui';
 
-import type { AuthenticationProps, LoginEmits } from './types';
+import type { AuthenticationProps } from './types';
 
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -40,10 +41,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  submit: LoginEmits['submit'];
+  submit: [Recordable<any>];
 }>();
 
-const [Form, { setFieldValue, validate }] = useVbenForm(
+const [Form, { setFieldValue, validate, getValues }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -62,13 +63,14 @@ const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
 const rememberMe = ref(!!localUsername);
 
 async function handleSubmit() {
-  const { valid, values } = await validate();
+  const { valid } = await validate();
+  const values = await getValues();
   if (valid) {
     localStorage.setItem(
       REMEMBER_ME_KEY,
       rememberMe.value ? values?.username : '',
     );
-    emit('submit', values as { password: string; username: string });
+    emit('submit', values);
   }
 }
 

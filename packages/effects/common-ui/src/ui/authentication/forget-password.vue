@@ -17,7 +17,7 @@ interface Props {
    */
   loading?: boolean;
   /**
-   * @zh_CN 登陆路径
+   * @zh_CN 登录路径
    */
   loginPath?: string;
   /**
@@ -47,10 +47,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  submit: [string];
+  submit: [Record<string, any>];
 }>();
 
-const [Form, { validate }] = useVbenForm(
+const [Form, { validate, getValues }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -64,10 +64,10 @@ const [Form, { validate }] = useVbenForm(
 const router = useRouter();
 
 async function handleSubmit() {
-  const { valid, values } = await validate();
-
+  const { valid } = await validate();
+  const values = await getValues();
   if (valid) {
-    emit('submit', values?.email);
+    emit('submit', values);
   }
 }
 
