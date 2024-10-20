@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Recordable } from '@vben/types';
+
 import { computed, reactive } from 'vue';
 
 import { $t } from '@vben/locales';
@@ -11,14 +13,6 @@ interface Props {
   text?: string;
 }
 
-interface LockAndRegisterParams {
-  lockScreenPassword: string;
-}
-
-interface RegisterEmits {
-  submit: [LockAndRegisterParams];
-}
-
 defineOptions({
   name: 'LockScreenModal',
 });
@@ -29,10 +23,10 @@ withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  submit: RegisterEmits['submit'];
+  submit: [Recordable<any>];
 }>();
 
-const [Form, { resetForm, validate }] = useVbenForm(
+const [Form, { resetForm, validate, getValues }] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -68,7 +62,8 @@ const [Modal] = useVbenModal({
 });
 
 async function handleSubmit() {
-  const { valid, values } = await validate();
+  const { valid } = await validate();
+  const values = await getValues();
   if (valid) {
     emit('submit', values?.lockScreenPassword);
   }

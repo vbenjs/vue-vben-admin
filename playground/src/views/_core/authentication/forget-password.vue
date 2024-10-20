@@ -27,7 +27,7 @@ const formSchema = computed((): VbenFormSchema[] => {
   ];
 });
 
-function handleSubmit(value: string) {
+function handleSubmit(value: Record<string, any>) {
   // eslint-disable-next-line no-console
   console.log('reset email:', value);
 }
