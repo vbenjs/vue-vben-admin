@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Recordable } from '@vben-core/typings';
 import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
@@ -192,11 +193,11 @@ const fieldProps = computed(() => {
     keepValue: true,
     label,
     ...(rules ? { rules } : {}),
-    ...(formFieldProps as Record<string, any>),
+    ...(formFieldProps as Recordable<any>),
   };
 });
 
-function fieldBindEvent(slotProps: Record<string, any>) {
+function fieldBindEvent(slotProps: Recordable<any>) {
   const modelValue = slotProps.componentField.modelValue;
   const handler = slotProps.componentField['onUpdate:modelValue'];
 
@@ -217,7 +218,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
       [bindEventField]: value === undefined ? emptyStateValue : value,
       onChange: disabledOnChangeListener
         ? undefined
-        : (e: Record<string, any>) => {
+        : (e: Recordable<any>) => {
             const shouldUnwrap = isEventObjectLike(e);
             const onChange = slotProps?.componentField?.onChange;
             if (!shouldUnwrap) {
@@ -231,7 +232,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   return {};
 }
 
-function createComponentProps(slotProps: Record<string, any>) {
+function createComponentProps(slotProps: Recordable<any>) {
   const bindEvents = fieldBindEvent(slotProps);
 
   const binds = {
@@ -279,7 +280,7 @@ function autofocus() {
             'flex leading-6',
             {
               'mr-2 flex-shrink-0 justify-end': !isVertical,
-              'flex-row': isVertical,
+              'mb-1 flex-row': isVertical,
             },
             labelClass,
           )

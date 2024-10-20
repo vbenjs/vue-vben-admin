@@ -107,10 +107,7 @@ function goToLogin() {
     </VbenButton>
     <div class="mt-4 text-center text-sm">
       {{ $t('authentication.alreadyHaveAccount') }}
-      <span
-        class="text-primary hover:text-primary-hover cursor-pointer text-sm font-normal"
-        @click="goToLogin()"
-      >
+      <span class="vben-link text-sm font-normal" @click="goToLogin()">
         {{ $t('authentication.goToLogin') }}
       </span>
     </div>
