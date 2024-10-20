@@ -44,7 +44,7 @@ declare global {
 const renderLink = (href: string, text: string) =>
   h(
     'a',
-    { href, target: '_blank', class: 'text-primary hover:text-primary-hover' },
+    { href, target: '_blank', class: 'vben-link' },
     { default: () => text },
   );
 
@@ -114,11 +114,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
   <Page :title="title">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
-        <a
-          :href="VBEN_GITHUB_URL"
-          class="text-primary hover:text-primary-hover"
-          target="_blank"
-        >
+        <a :href="VBEN_GITHUB_URL" class="vben-link" target="_blank">
           {{ name }}
         </a>
         {{ description }}

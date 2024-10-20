@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <FormLabel :class="cn('mb-1 flex items-center', props.class)">
+  <FormLabel :class="cn('flex items-center', props.class)">
     <span v-if="required" class="text-destructive mr-[2px]">*</span>
     <slot></slot>
     <VbenHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">

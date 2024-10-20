@@ -120,7 +120,7 @@ onMounted(() => {
 
       <span
         v-if="showForgetPassword"
-        class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
+        class="vben-link text-sm font-normal"
         @click="handleGo(forgetPasswordPath)"
       >
         {{ $t('authentication.forgetPassword') }}
@@ -169,7 +169,7 @@ onMounted(() => {
       <div v-if="showRegister" class="mt-3 text-center text-sm">
         {{ $t('authentication.accountTip') }}
         <span
-          class="text-primary hover:text-primary-hover active:text-primary-active cursor-pointer text-sm font-normal"
+          class="vben-link text-sm font-normal"
           @click="handleGo(registerPath)"
         >
           {{ $t('authentication.createAccount') }}

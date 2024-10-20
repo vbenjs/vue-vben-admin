@@ -16,33 +16,6 @@ const routes: RouteRecordRaw[] = [
     path: '/examples',
     children: [
       {
-        name: 'ModalExample',
-        path: '/examples/modal',
-        component: () => import('#/views/examples/modal/index.vue'),
-        meta: {
-          icon: 'system-uicons:window-content',
-          title: $t('examples.modal.title'),
-        },
-      },
-      {
-        name: 'DrawerExample',
-        path: '/examples/drawer',
-        component: () => import('#/views/examples/drawer/index.vue'),
-        meta: {
-          icon: 'iconoir:drawer',
-          title: $t('examples.drawer.title'),
-        },
-      },
-      {
-        name: 'EllipsisExample',
-        path: '/examples/ellipsis',
-        component: () => import('#/views/examples/ellipsis/index.vue'),
-        meta: {
-          icon: 'ion:ellipsis-horizontal',
-          title: $t('examples.ellipsis.title'),
-        },
-      },
-      {
         name: 'FormExample',
         path: '/examples/form',
         meta: {
@@ -227,6 +200,33 @@ const routes: RouteRecordRaw[] = [
             },
           },
         ],
+      },
+      {
+        name: 'ModalExample',
+        path: '/examples/modal',
+        component: () => import('#/views/examples/modal/index.vue'),
+        meta: {
+          icon: 'system-uicons:window-content',
+          title: $t('examples.modal.title'),
+        },
+      },
+      {
+        name: 'DrawerExample',
+        path: '/examples/drawer',
+        component: () => import('#/views/examples/drawer/index.vue'),
+        meta: {
+          icon: 'iconoir:drawer',
+          title: $t('examples.drawer.title'),
+        },
+      },
+      {
+        name: 'EllipsisExample',
+        path: '/examples/ellipsis',
+        component: () => import('#/views/examples/ellipsis/index.vue'),
+        meta: {
+          icon: 'ion:ellipsis-horizontal',
+          title: $t('examples.ellipsis.title'),
+        },
       },
     ],
   },

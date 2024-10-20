@@ -16,7 +16,7 @@ categories:
   - title: '🐞 Bug Fixes'
     labels:
       - 'bug'
-  - title: '📈 Performance'
+  - title: '📈 Performance & Enhancement'
     labels:
       - 'perf'
       - 'enhancement'

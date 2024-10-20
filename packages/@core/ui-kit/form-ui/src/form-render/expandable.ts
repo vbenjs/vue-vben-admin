@@ -22,6 +22,7 @@ export function useExpandable(props: FormRenderProps) {
     for (let index = 1; index <= rows; index++) {
       maxItem += mapping?.[index] ?? 0;
     }
+    // 保持一行
     return maxItem - 1 || 1;
   });
 
@@ -35,6 +36,7 @@ export function useExpandable(props: FormRenderProps) {
       if (val) {
         await nextTick();
         rowMapping.value = {};
+        isCalculated.value = false;
         await calculateRowMapping();
       }
     },
