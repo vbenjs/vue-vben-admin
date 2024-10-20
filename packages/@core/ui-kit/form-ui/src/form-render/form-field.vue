@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Recordable } from '@vben-core/typings';
 import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
@@ -193,11 +192,11 @@ const fieldProps = computed(() => {
     keepValue: true,
     label,
     ...(rules ? { rules } : {}),
-    ...(formFieldProps as Recordable<any>),
+    ...(formFieldProps as Record<string, any>),
   };
 });
 
-function fieldBindEvent(slotProps: Recordable<any>) {
+function fieldBindEvent(slotProps: Record<string, any>) {
   const modelValue = slotProps.componentField.modelValue;
   const handler = slotProps.componentField['onUpdate:modelValue'];
 
@@ -218,7 +217,7 @@ function fieldBindEvent(slotProps: Recordable<any>) {
       [bindEventField]: value === undefined ? emptyStateValue : value,
       onChange: disabledOnChangeListener
         ? undefined
-        : (e: Recordable<any>) => {
+        : (e: Record<string, any>) => {
             const shouldUnwrap = isEventObjectLike(e);
             const onChange = slotProps?.componentField?.onChange;
             if (!shouldUnwrap) {
@@ -232,7 +231,7 @@ function fieldBindEvent(slotProps: Recordable<any>) {
   return {};
 }
 
-function createComponentProps(slotProps: Recordable<any>) {
+function createComponentProps(slotProps: Record<string, any>) {
   const bindEvents = fieldBindEvent(slotProps);
 
   const binds = {
