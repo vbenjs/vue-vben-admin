@@ -84,7 +84,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
           // 预热文件
           clientFiles: [
             './index.html',
-            './bootstrap.ts',
+            './src/bootstrap.ts',
             './src/{views,layouts,router,store,api}/*',
           ],
         },
