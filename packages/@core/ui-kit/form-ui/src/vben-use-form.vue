@@ -39,7 +39,14 @@ const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });
 };
 
-function handleKeyDownEnter() {
+function handleKeyDownEnter(event: KeyboardEvent) {
+  // 如果是 textarea 不阻止默认行为，否则会导致无法换行。
+  // 跳过 textarea 的回车提交处理
+  if (event.target instanceof HTMLTextAreaElement) {
+    return;
+  }
+  event.preventDefault();
+
   if (!state.value.submitOnEnter || !formActionsRef.value) {
     return;
   }
@@ -49,7 +56,7 @@ function handleKeyDownEnter() {
 
 <template>
   <Form
-    @keydown.enter.prevent="handleKeyDownEnter"
+    @keydown.enter="handleKeyDownEnter"
     v-bind="forward"
     :collapsed="state.collapsed"
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
