@@ -8,10 +8,14 @@ import { filterTree, mapTree } from '@vben-core/shared/utils';
 async function generateRoutesByFrontend(
   routes: RouteRecordRaw[],
   roles: string[],
+  accessCodes: string[],
   forbiddenComponent?: RouteRecordRaw['component'],
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
   const finalRoutes = filterTree(routes, (route) => {
+    if (!route.meta?.authority) {
+      return hasPerms(route, accessCodes);
+    }
     return hasAuthority(route, roles);
   });
 
@@ -42,7 +46,20 @@ function hasAuthority(route: RouteRecordRaw, access: string[]) {
 
   return canAccess || (!canAccess && menuHasVisibleWithForbidden(route));
 }
+/**
+ * 判断路由是否有权限访问
+ * @param route
+ * @param access
+ */
+function hasPerms(route: RouteRecordRaw, access: string[]) {
+  const perms = route.meta?.perms;
+  if (!perms) {
+    return true;
+  }
+  const canAccess = access.some((value) => perms.includes(value));
 
+  return canAccess || (!canAccess && menuHasVisibleWithForbidden(route));
+}
 /**
  * 判断路由是否在菜单中显示，但是访问会被重定向到403
  * @param route
