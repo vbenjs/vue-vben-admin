@@ -1,2 +1,2 @@
-export * from './iconify/index';
-export * from './svg/index';
+export * from './iconify/index.js';
+export * from './svg/index.js';

@@ -1,6 +1,6 @@
 import { createIconifyIcon } from '@vben-core/icons';
 
-import './load';
+import './load.js';
 
 const SvgAvatar1Icon = createIconifyIcon('svg:avatar-1');
 const SvgAvatar2Icon = createIconifyIcon('svg:avatar-2');
