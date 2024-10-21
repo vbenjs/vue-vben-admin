@@ -141,12 +141,19 @@ After deploying to `nginx`，you might encounter the following error:
 Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "application/octet-stream". Strict MIME type checking is enforced for module scripts per HTML spec.
 ```
 
-Solution:
+Solution 1:
 
 ```bash
 http {
+    #If there is such a configuration, it needs to be commented out
+    #include       mime.types;
+
     types {
       application/javascript js mjs;
     }
 }
 ```
+
+Solution 2：
+
+Open the `mime.types` file under `nginx` and change `application/javascript js;` to `application/javascript js mjs;`
