@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Component, computed } from 'vue';
 
-import { Icon, IconDefault } from '@vben-core/icons';
+import { IconDefault, IconifyIcon } from '@vben-core/icons';
 import {
   isFunction,
   isHttpUrl,
@@ -28,6 +28,6 @@ const isComponent = computed(() => {
 <template>
   <component :is="icon as Component" v-if="isComponent" v-bind="$attrs" />
   <img v-else-if="isRemoteIcon" :src="icon as string" v-bind="$attrs" />
-  <Icon v-else-if="icon" v-bind="$attrs" :icon="icon as string" />
+  <IconifyIcon v-else-if="icon" v-bind="$attrs" :icon="icon as string" />
   <IconDefault v-else-if="fallback" v-bind="$attrs" />
 </template>

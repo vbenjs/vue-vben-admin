@@ -217,12 +217,13 @@ export function useElementPlusDesignTokens() {
 
         '--el-color-info-light-8': border,
         '--el-color-info-light-9': getCssVariableValue('--info'), // getCssVariableValue('--secondary'),
-
         '--el-color-primary': getCssVariableValue('--primary-500'),
         '--el-color-primary-dark-2': getCssVariableValue('--primary'),
         '--el-color-primary-light-3': getCssVariableValue('--primary-400'),
         '--el-color-primary-light-5': getCssVariableValue('--primary-300'),
-        '--el-color-primary-light-7': getCssVariableValue('--primary-200'),
+        '--el-color-primary-light-7': isDark.value
+          ? border
+          : getCssVariableValue('--primary-200'),
         '--el-color-primary-light-8': isDark.value
           ? border
           : getCssVariableValue('--primary-100'),
@@ -268,6 +269,7 @@ export function useElementPlusDesignTokens() {
 
         '--el-text-color-regular': getCssVariableValue('--foreground'),
       };
+
       updateCSSVariables(variables, `__vben_design_styles__`);
     },
     { immediate: true },

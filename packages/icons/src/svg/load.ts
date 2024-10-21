@@ -1,4 +1,6 @@
-import { addIcon, type IconifyIcon } from '@vben-core/icons';
+import type { IconifyIconStructure } from '@vben-core/icons';
+
+import { addIcon } from '@vben-core/icons';
 
 let loaded = false;
 if (!loaded) {
@@ -6,7 +8,7 @@ if (!loaded) {
   loaded = true;
 }
 
-function parseSvg(svgData: string): IconifyIcon {
+function parseSvg(svgData: string): IconifyIconStructure {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(svgData, 'image/svg+xml');
   const svgElement = xmlDoc.documentElement;

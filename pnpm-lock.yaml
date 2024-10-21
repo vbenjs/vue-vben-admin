@@ -31,8 +31,8 @@ catalogs:
       specifier: ^9.0.3
       version: 9.0.3
     '@iconify/json':
-      specifier: ^2.2.261
-      version: 2.2.261
+      specifier: ^2.2.262
+      version: 2.2.262
     '@iconify/tailwind':
       specifier: ^1.1.3
       version: 1.1.3
@@ -73,8 +73,8 @@ catalogs:
       specifier: ^5.59.13
       version: 5.59.13
     '@tanstack/vue-store':
-      specifier: ^0.5.5
-      version: 0.5.5
+      specifier: ^0.5.6
+      version: 0.5.6
     '@types/archiver':
       specifier: ^6.0.2
       version: 6.0.2
@@ -211,7 +211,7 @@ catalogs:
       specifier: ^9.13.0
       version: 9.13.0
     eslint-config-turbo:
-      specifier: ^2.2.0
+      specifier: ^2.2.1
       version: 2.2.1
     eslint-plugin-command:
       specifier: ^0.2.6
@@ -253,8 +253,8 @@ catalogs:
       specifier: ^0.5.4
       version: 0.5.4
     eslint-plugin-vue:
-      specifier: ^9.29.0
-      version: 9.29.0
+      specifier: ^9.29.1
+      version: 9.29.1
     execa:
       specifier: ^9.4.1
       version: 9.4.1
@@ -415,7 +415,7 @@ catalogs:
       specifier: ^0.1.0
       version: 0.1.0
     turbo:
-      specifier: ^2.2.0
+      specifier: ^2.2.1
       version: 2.2.1
     typescript:
       specifier: ^5.6.3
@@ -475,11 +475,11 @@ catalogs:
       specifier: ^2.1.6
       version: 2.1.6
     vxe-pc-ui:
-      specifier: ^4.2.24
-      version: 4.2.24
+      specifier: ^4.2.26
+      version: 4.2.26
     vxe-table:
-      specifier: ^4.7.86
-      version: 4.7.92
+      specifier: ^4.7.93
+      version: 4.7.93
     watermark-js-plus:
       specifier: ^1.5.7
       version: 1.5.7
@@ -938,7 +938,7 @@ importers:
         version: 0.5.4(@typescript-eslint/eslint-plugin@8.10.0(@typescript-eslint/parser@8.10.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3))(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3))(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3)(vitest@2.1.3(@types/node@22.7.7)(happy-dom@15.7.4)(less@4.2.0)(sass@1.79.5)(terser@5.36.0))
       eslint-plugin-vue:
         specifier: 'catalog:'
-        version: 9.29.0(eslint@9.13.0(jiti@2.3.3))
+        version: 9.29.1(eslint@9.13.0(jiti@2.3.3))
       globals:
         specifier: 'catalog:'
         version: 15.11.0
@@ -1051,7 +1051,7 @@ importers:
     dependencies:
       '@iconify/json':
         specifier: 'catalog:'
-        version: 2.2.261
+        version: 2.2.262
       '@iconify/tailwind':
         specifier: 'catalog:'
         version: 1.1.3
@@ -1208,7 +1208,7 @@ importers:
         version: 4.1.0
       '@tanstack/vue-store':
         specifier: 'catalog:'
-        version: 0.5.5(vue@3.5.12(typescript@5.6.3))
+        version: 0.5.6(vue@3.5.12(typescript@5.6.3))
       '@vue/shared':
         specifier: 'catalog:'
         version: 3.5.12
@@ -1634,10 +1634,10 @@ importers:
         version: 3.5.12(typescript@5.6.3)
       vxe-pc-ui:
         specifier: 'catalog:'
-        version: 4.2.24(vue@3.5.12(typescript@5.6.3))
+        version: 4.2.26(vue@3.5.12(typescript@5.6.3))
       vxe-table:
         specifier: 'catalog:'
-        version: 4.7.92(vue@3.5.12(typescript@5.6.3))
+        version: 4.7.93(vue@3.5.12(typescript@5.6.3))
 
   packages/effects/request:
     dependencies:
@@ -3876,8 +3876,8 @@ packages:
   '@iconify-json/vscode-icons@1.2.2':
     resolution: {integrity: sha512-bTpT0HJDRqGkxQv8oiETNHLEnBZpnA1QaRD35CQyO7M7qgWVLx2xwn/lK6e4waojmlPC3ckMBx3WFIUUn0/Jdg==}
 
-  '@iconify/json@2.2.261':
-    resolution: {integrity: sha512-uUm8Svulz5aRRF0X+r2/UG5P0xcUCGOGVmAFJ/ZANx29wqE79PvGCYXHuznNC0h8+UW1fnvprj7FmgJELvMYZw==}
+  '@iconify/json@2.2.262':
+    resolution: {integrity: sha512-h7zMbLxsKohKXvf2Lpq6Xob7dxkqXxrUVR58ZvZBgCSrHcE69QJmcFG/KaAwM1eGuKToWvgPWeb1xE6zy7juqg==}
 
   '@iconify/tailwind@1.1.3':
     resolution: {integrity: sha512-SfyeT+2b/aKWA6DjwdevXdLUqaEqJ5xWTegD92KItaWc47IYsGuqrt/GOz4dJCPcTVCrsUjlvMpy8cNd+uV5nQ==}
@@ -4498,8 +4498,8 @@ packages:
       '@vue/composition-api':
         optional: true
 
-  '@tanstack/vue-store@0.5.5':
-    resolution: {integrity: sha512-j+CDrxVhtQQNOjWzLmCqJeDwmmTAQGvEaNbLr1uPJ9rxJITodJtFNdBFj7l+Nd5o34v2ayEv64Ugh6+1BtuGNg==}
+  '@tanstack/vue-store@0.5.6':
+    resolution: {integrity: sha512-gMRicUGGWTN5QGlv9yBKWaAiHTmbH5DX0vozEblhRGYnBfFBwr51l3uzYndtilsFYfZvphEyngKTRdUb5KQ1OQ==}
     peerDependencies:
       '@vue/composition-api': ^1.2.1
       vue: ^3.5.12
@@ -6351,8 +6351,8 @@ packages:
       vitest:
         optional: true
 
-  eslint-plugin-vue@9.29.0:
-    resolution: {integrity: sha512-hamyjrBhNH6Li6R1h1VF9KHfshJlKgKEg3ARbGTn72CMNDSMhWbgC7NdkRDEh25AFW+4SDATzyNM+3gWuZii8g==}
+  eslint-plugin-vue@9.29.1:
+    resolution: {integrity: sha512-MH/MbVae4HV/tM8gKAVWMPJbYgW04CK7SuzYRrlNERpxbO0P3+Zdsa2oAcFBW6xNu7W6lIkGOsFAMCRTYmrlWQ==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -10198,11 +10198,11 @@ packages:
     peerDependencies:
       vue: ^3.5.12
 
-  vxe-pc-ui@4.2.24:
-    resolution: {integrity: sha512-ARriApnY+xuJTVAwmLgV47tZry0Fi6IbRzkxgP4kKbWJ8YFoqfU+Abe6fmhQsftRVpRBIiFwNz8SzBfX90xAWQ==}
+  vxe-pc-ui@4.2.26:
+    resolution: {integrity: sha512-dwPN0r0X+C6fr8ve0Tug19RZjxcdWQRfYy3V2fzqOoz+t2eB2F085/Pn7+Zpjps7mxajJCsgfQKSakN9tOKTmg==}
 
-  vxe-table@4.7.92:
-    resolution: {integrity: sha512-yzLggd7Xjl5HPd22NknPDPEXn8pec/fB8QbxOWdlMTbvRGA7586whG01gk/Exf6e7HJuQky4kt4gw9LrQVrzGQ==}
+  vxe-table@4.7.93:
+    resolution: {integrity: sha512-LkL/VWenJFGrPRG3BZdbThOJd3WGv1IXLfxVmaeWb8Oyj9LG902o9FP8GNQWFbZ+8Kj5SCUaUUF5S3pvbPXN+g==}
 
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
@@ -12519,7 +12519,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.261':
+  '@iconify/json@2.2.262':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -13352,7 +13352,7 @@ snapshots:
       vue: 3.5.12(typescript@5.6.3)
       vue-demi: 0.14.10(vue@3.5.12(typescript@5.6.3))
 
-  '@tanstack/vue-store@0.5.5(vue@3.5.12(typescript@5.6.3))':
+  '@tanstack/vue-store@0.5.6(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       '@tanstack/store': 0.5.5
       vue: 3.5.12(typescript@5.6.3)
@@ -15606,7 +15606,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-vue@9.29.0(eslint@9.13.0(jiti@2.3.3)):
+  eslint-plugin-vue@9.29.1(eslint@9.13.0(jiti@2.3.3)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.13.0(jiti@2.3.3))
       eslint: 9.13.0(jiti@2.3.3)
@@ -19787,15 +19787,15 @@ snapshots:
       vooks: 0.2.12(vue@3.5.12(typescript@5.6.3))
       vue: 3.5.12(typescript@5.6.3)
 
-  vxe-pc-ui@4.2.24(vue@3.5.12(typescript@5.6.3)):
+  vxe-pc-ui@4.2.26(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       '@vxe-ui/core': 4.0.16(vue@3.5.12(typescript@5.6.3))
     transitivePeerDependencies:
       - vue
 
-  vxe-table@4.7.92(vue@3.5.12(typescript@5.6.3)):
+  vxe-table@4.7.93(vue@3.5.12(typescript@5.6.3)):
     dependencies:
-      vxe-pc-ui: 4.2.24(vue@3.5.12(typescript@5.6.3))
+      vxe-pc-ui: 4.2.26(vue@3.5.12(typescript@5.6.3))
     transitivePeerDependencies:
       - vue
 
