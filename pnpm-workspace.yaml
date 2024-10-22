@@ -43,13 +43,13 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.7.7
+  '@types/node': ^22.7.8
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.10.0
-  '@typescript-eslint/parser': ^8.10.0
+  '@typescript-eslint/eslint-plugin': ^8.11.0
+  '@typescript-eslint/parser': ^8.11.0
   '@vee-validate/zod': ^4.14.3
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.1.4
@@ -84,7 +84,7 @@ catalog:
   echarts: ^5.5.1
   element-plus: ^2.8.6
   eslint: ^9.13.0
-  eslint-config-turbo: ^2.2.1
+  eslint-config-turbo: ^2.2.3
   eslint-plugin-command: ^0.2.6
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.3.1
@@ -153,7 +153,7 @@ catalog:
   tailwindcss: ^3.4.14
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
-  turbo: ^2.2.1
+  turbo: ^2.2.3
   typescript: ^5.6.3
   unbuild: ^2.0.0
   unplugin-element-plus: ^0.8.0

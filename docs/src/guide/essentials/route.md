@@ -383,6 +383,10 @@ interface RouteMeta {
    */
   menuVisibleWithForbidden?: boolean;
   /**
+   * 在新窗口打开
+   */
+  openInNewWindow?: boolean;
+  /**
    * 用于路由->菜单排序
    */
   order?: number;
@@ -538,6 +542,13 @@ interface RouteMeta {
 - 默认值：`false`
 
 用于配置页面在菜单可以看到，但是访问会被重定向到403。
+
+### openInNewWindow
+
+- 类型：`boolean`
+- 默认值：`false`
+
+设置为 `true` 时，会在新窗口打开页面。
 
 ### order
 
