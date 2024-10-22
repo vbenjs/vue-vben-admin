@@ -311,15 +311,15 @@ export const useTabbarStore = defineStore('core-tabbar', {
         tab.meta.title = oldTab?.meta?.title as string;
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
-        // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
-        const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
-        // 获得固定tabs的index
-        const newIndex = affixTabs.findIndex(
-          (item) => getTabPath(item) === getTabPath(tab),
-        );
-        // 交换位置重新排序
-        await this.sortTabs(index, newIndex);
       }
+      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
+      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      // 获得固定tabs的index
+      const newIndex = affixTabs.findIndex(
+        (item) => getTabPath(item) === getTabPath(tab),
+      );
+      // 交换位置重新排序
+      await this.sortTabs(index, newIndex);
     },
 
     /**
