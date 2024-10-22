@@ -23,4 +23,15 @@ function openWindow(url: string, options: OpenWindowOptions = {}): void {
   window.open(url, target, features);
 }
 
-export { openWindow };
+/**
+ * 在新窗口中打开路由。
+ * @param path
+ */
+function openRouteInNewWindow(path: string) {
+  const { hash, origin } = location;
+  const fullPath = path.startsWith('/') ? path : `/${path}`;
+  const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
+  openWindow(url, { target: '_blank' });
+}
+
+export { openRouteInNewWindow, openWindow };

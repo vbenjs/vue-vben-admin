@@ -385,6 +385,10 @@ interface RouteMeta {
    */
   menuVisibleWithForbidden?: boolean;
   /**
+   * Open in a new window
+   */
+  openInNewWindow?: boolean;
+  /**
    * Used for route->menu sorting
    */
   order?: number;

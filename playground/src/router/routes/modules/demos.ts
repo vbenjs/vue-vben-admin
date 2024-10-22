@@ -174,7 +174,7 @@ const routes: RouteRecordRaw[] = [
               import('#/views/demos/features/full-screen/index.vue'),
             meta: {
               icon: 'lucide:fullscreen',
-              title: $t('demos.features.title'),
+              title: $t('demos.features.fullScreen'),
             },
           },
           {
@@ -198,6 +198,17 @@ const routes: RouteRecordRaw[] = [
                 id: 1,
               },
               title: $t('demos.features.menuWithQuery'),
+            },
+          },
+          {
+            name: 'NewWindowDemo',
+            path: '/demos/new-window',
+            component: () =>
+              import('#/views/demos/features/new-window/index.vue'),
+            meta: {
+              icon: 'lucide:app-window',
+              openInNewWindow: true,
+              title: $t('demos.features.openInNewWindow'),
             },
           },
           {
