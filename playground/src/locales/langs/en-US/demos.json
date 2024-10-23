@@ -48,7 +48,8 @@
     "tabDetail": "Tab Detail Page",
     "fullScreen": "FullScreen",
     "clipboard": "Clipboard",
-    "menuWithQuery": "Menu With Query"
+    "menuWithQuery": "Menu With Query",
+    "openInNewWindow": "Open in New Window"
   },
   "breadcrumb": {
     "navigation": "Breadcrumb Navigation",

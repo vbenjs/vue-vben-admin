@@ -6,14 +6,12 @@ import { VbenIcon } from '../icon';
 interface Props extends BreadcrumbProps {}
 
 defineOptions({ name: 'Breadcrumb' });
-withDefaults(defineProps<Props>(), {
-  showIcon: false,
-});
+const { breadcrumbs, showIcon } = defineProps<Props>();
 
 const emit = defineEmits<{ select: [string] }>();
 
-function handleClick(path?: string) {
-  if (!path) {
+function handleClick(index: number, path?: string) {
+  if (!path || index === breadcrumbs.length - 1) {
     return;
   }
   emit('select', path);
@@ -27,7 +25,10 @@ function handleClick(path?: string) {
         :key="`${item.path}-${item.title}-${index}`"
       >
         <li>
-          <a href="javascript:void 0" @click.stop="handleClick(item.path)">
+          <a
+            href="javascript:void 0"
+            @click.stop="handleClick(index, item.path)"
+          >
             <span class="flex-center z-10 h-full">
               <VbenIcon
                 v-if="showIcon"

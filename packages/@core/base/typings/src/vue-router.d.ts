@@ -99,6 +99,10 @@ interface RouteMeta {
    */
   menuVisibleWithForbidden?: boolean;
   /**
+   * 在新窗口打开
+   */
+  openInNewWindow?: boolean;
+  /**
    * 用于路由->菜单排序
    */
   order?: number;
