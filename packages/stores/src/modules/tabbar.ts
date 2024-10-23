@@ -229,7 +229,6 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeTab(tab: TabDefinition, router: Router) {
       const { currentRoute } = router;
-
       // 关闭不是激活选项卡
       if (getTabPath(currentRoute.value) !== getTabPath(tab)) {
         this._close(tab);
@@ -245,11 +244,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       // 下一个tab存在，跳转到下一个
       if (after) {
-        this._close(currentRoute.value);
+        this._close(tab);
         await this._goToTab(after, router);
         // 上一个tab存在，跳转到上一个
       } else if (before) {
-        this._close(currentRoute.value);
+        this._close(tab);
         await this._goToTab(before, router);
       } else {
         console.error('Failed to close the tab; only one tab remains open.');
