@@ -229,6 +229,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeTab(tab: TabDefinition, router: Router) {
       const { currentRoute } = router;
+
       // 关闭不是激活选项卡
       if (getTabPath(currentRoute.value) !== getTabPath(tab)) {
         this._close(tab);
