@@ -50,7 +50,7 @@ const collapseAll = () => {
 
 <template>
   <Page>
-    <Grid>
+    <Grid table-title="数据列表" table-title-help="提示">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="expandAll">
           展开全部

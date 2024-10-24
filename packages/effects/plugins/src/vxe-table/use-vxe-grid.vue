@@ -22,7 +22,7 @@ import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
 import { cloneDeep, cn, mergeWithArrayOverride } from '@vben/utils';
-import { VbenLoading } from '@vben-core/shadcn-ui';
+import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
@@ -51,6 +51,8 @@ const {
   gridClass,
   gridEvents,
   formOptions,
+  tableTitle,
+  tableTitleHelp,
 } = usePriorityValues(props, state);
 
 const { isMobile } = usePreferences();
@@ -79,31 +81,45 @@ const [Form, formApi] = useTableForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
+const showTableTitle = computed(() => {
+  return !!slots.tableTitle?.() || tableTitle.value;
+});
+
 const showToolbar = computed(() => {
-  return !!slots['toolbar-actions']?.() || !!slots['toolbar-tools']?.();
+  return (
+    !!slots['toolbar-actions']?.() ||
+    !!slots['toolbar-tools']?.() ||
+    showTableTitle.value
+  );
+});
+
+const toolbarOptions = computed(() => {
+  const slotActions = slots['toolbar-actions']?.();
+  const slotTools = slots['toolbar-tools']?.();
+  if (!showToolbar.value) {
+    return {};
+  }
+  // 强制使用固定的toolbar配置，不允许用户自定义
+  // 减少配置的复杂度，以及后续维护的成本
+  return {
+    toolbarConfig: {
+      slots: {
+        ...(slotActions || showTableTitle.value
+          ? { buttons: 'toolbar-actions' }
+          : {}),
+        ...(slotTools ? { tools: 'toolbar-tools' } : {}),
+      },
+    },
+  };
 });
 
 const options = computed(() => {
-  const slotActions = slots['toolbar-actions']?.();
-  const slotTools = slots['toolbar-tools']?.();
-
   const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
-
-  const forceUseToolbarOptions = showToolbar.value
-    ? {
-        toolbarConfig: {
-          slots: {
-            ...(slotActions ? { buttons: 'toolbar-actions' } : {}),
-            ...(slotTools ? { tools: 'toolbar-tools' } : {}),
-          },
-        },
-      }
-    : {};
 
   const mergedOptions: VxeTableGridProps = cloneDeep(
     mergeWithArrayOverride(
       {},
-      forceUseToolbarOptions,
+      toolbarOptions.value,
       toRaw(gridOptions.value),
       globalGridConfig,
     ),
@@ -164,7 +180,7 @@ const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (!['empty', 'form', 'loading'].includes(key)) {
+    if (!['empty', 'form', 'loading', 'toolbar-actions'].includes(key)) {
       resultSlots.push(key);
     }
   }
@@ -209,6 +225,7 @@ async function init() {
   extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
 }
 
+// formOptions支持响应式
 watch(
   formOptions,
   () => {
@@ -251,6 +268,20 @@ onMounted(() => {
       v-bind="options"
       v-on="events"
     >
+      <!-- 左侧操作区域或者title -->
+      <template v-if="showToolbar" #toolbar-actions="slotProps">
+        <slot v-if="showTableTitle" name="table-title">
+          <div class="mr-1 pl-1 text-[1rem]">
+            {{ tableTitle }}
+            <VbenHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+              {{ tableTitleHelp }}
+            </VbenHelpTooltip>
+          </div>
+        </slot>
+        <slot name="toolbar-actions" v-bind="slotProps"> </slot>
+      </template>
+
+      <!-- 继承默认的slot -->
       <template
         v-for="slotName in delegatedSlots"
         :key="slotName"
@@ -258,6 +289,8 @@ onMounted(() => {
       >
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
+
+      <!-- form表单 -->
       <template #form>
         <div v-if="formOptions" class="relative rounded py-3 pb-4">
           <slot name="form">
@@ -291,11 +324,13 @@ onMounted(() => {
           ></div>
         </div>
       </template>
+      <!-- loading -->
       <template #loading>
         <slot name="loading">
           <VbenLoading :spinning="true" />
         </slot>
       </template>
+      <!-- 统一控状态 -->
       <template #empty>
         <slot name="empty">
           <EmptyIcon class="mx-auto" />

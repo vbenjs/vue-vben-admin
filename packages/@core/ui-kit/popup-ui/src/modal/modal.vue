@@ -258,7 +258,13 @@ function handleFocusOutside(e: Event) {
         v-if="showFooter"
         ref="footerRef"
         :class="
-          cn('flex-row items-center justify-end border-t p-2', footerClass)
+          cn(
+            'flex-row items-center justify-end p-2',
+            {
+              'border-t': bordered,
+            },
+            footerClass,
+          )
         "
       >
         <slot name="prepend-footer"></slot>

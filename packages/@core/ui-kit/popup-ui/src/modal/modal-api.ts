@@ -29,7 +29,7 @@ export class ModalApi {
     } = options;
 
     const defaultState: ModalState = {
-      bordered: false,
+      bordered: true,
       centered: false,
       class: '',
       closeOnClickModal: true,

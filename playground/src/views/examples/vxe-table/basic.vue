@@ -76,10 +76,10 @@ function changeLoading() {
     <template #extra>
       <DocButton path="/components/common-ui/vben-vxe-table" />
     </template>
-    <Grid>
-      <template #toolbar-actions>
+    <Grid table-title="基础列表" table-title-help="提示">
+      <!-- <template #toolbar-actions>
         <Button class="mr-2" type="primary">左侧插槽</Button>
-      </template>
+      </template> -->
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
           {{ showBorder ? '隐藏' : '显示' }}边框
