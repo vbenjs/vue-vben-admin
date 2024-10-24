@@ -102,6 +102,7 @@ function setupAccessGuard(router: Router) {
 
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({
+      accessCodes: accessStore.accessCodes || [],
       roles: userRoles,
       router,
       // 则会在菜单中显示，但是访问会被重定向到403
