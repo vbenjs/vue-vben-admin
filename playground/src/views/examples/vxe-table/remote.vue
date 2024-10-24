@@ -51,7 +51,7 @@ const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
 
 <template>
   <Page auto-content-height>
-    <Grid>
+    <Grid table-title="数据列表" table-title-help="提示">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="() => gridApi.query()">
           刷新当前页面

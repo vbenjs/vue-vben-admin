@@ -40,8 +40,5 @@
     "pkg-types": "catalog:",
     "prettier": "catalog:",
     "rimraf": "catalog:"
-  },
-  "devDependencies": {
-    "@types/chalk": "catalog:"
   }
 }

@@ -8,6 +8,7 @@
 
   /* base */
   --vxe-ui-base-popup-border-color: hsl(var(--border));
+  --vxe-ui-input-disabled-color: hsl(var(--border) / 60%);
 
   /* --vxe-ui-base-popup-box-shadow: 0px 12px 30px 8px rgb(0 0 0 / 50%); */
 
