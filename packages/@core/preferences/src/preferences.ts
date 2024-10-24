@@ -172,8 +172,8 @@ class PreferenceManager {
     const mergedPreference = merge(
       {},
       // overrides,
-      this.loadCachedPreferences() || {},
       this.initialPreferences,
+      this.loadCachedPreferences() || {},
     );
 
     // 更新偏好设置
