@@ -2,7 +2,7 @@ import type { VxeGridProps, VxeUIExport } from 'vxe-table';
 
 import type { VxeGridApi } from './api';
 
-import { isFunction } from '@vben/utils';
+import { getNestedValue, isFunction } from '@vben/utils';
 
 import dayjs from 'dayjs';
 
@@ -38,6 +38,22 @@ function extendProxyOption(
   const wrapperFn = async (params: any, _formValues: any, ...args: any[]) => {
     const formValues = getFormValues();
     const data = await configFn(params, formValues, ...args);
+
+    // If the page is incorrect, make corrections and request again
+    const response = proxyConfig?.response || {};
+    const total = response?.total;
+
+    const { pageSize, currentPage } = params.page;
+    const resultTotal: number = isFunction(total)
+      ? total({ data, $grid: api.grid })
+      : getNestedValue(data, total || 'total') || 0;
+    if (Number(resultTotal)) {
+      const currentTotalPage = Math.max(1, Math.ceil(resultTotal / pageSize));
+      if (currentPage > currentTotalPage) {
+        params.page.currentPage = currentTotalPage;
+        return await wrapperFn(params, _formValues, ...args);
+      }
+    }
     return data;
   };
   api.setState({
