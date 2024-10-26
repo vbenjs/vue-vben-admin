@@ -32,6 +32,7 @@ async function runDepcheck() {
           'vite',
           'vitest',
           'unbuild',
+          '@nestjs/cli',
           '@vben/tsconfig',
           '@vben/vite-config',
           '@vben/tailwind-config',

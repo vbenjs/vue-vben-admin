@@ -5,13 +5,14 @@ import { join } from 'node:path';
 
 import { defineApplicationConfig } from './application';
 import { defineLibraryConfig } from './library';
+import { defineServerConfig } from './server';
 
 export * from './application';
 export * from './library';
 
 function defineConfig(
   userConfigPromise?: DefineConfig,
-  type: 'application' | 'auto' | 'library' = 'auto',
+  type: 'application' | 'auto' | 'library' | 'server' = 'auto',
 ) {
   let projectType = type;
 
@@ -27,6 +28,9 @@ function defineConfig(
     }
     case 'library': {
       return defineLibraryConfig(userConfigPromise);
+    }
+    case 'server': {
+      return defineServerConfig(userConfigPromise);
     }
     default: {
       throw new Error(`Unsupported project type: ${projectType}`);

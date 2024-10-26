@@ -10,13 +10,13 @@ import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
-import { loadAndConvertEnv } from '../utils/env';
+import { loadApplicationEnv } from '../utils/env';
 import { getCommonConfig } from './common';
 
 function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
   return defineConfig(async (config) => {
     const options = await userConfigPromise?.(config);
-    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
+    const { appTitle, base, port, ...envConfig } = await loadApplicationEnv();
     const { command, mode } = config;
     const { application = {}, vite = {} } = options || {};
     const root = process.cwd();

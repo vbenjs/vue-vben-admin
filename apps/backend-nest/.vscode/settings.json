@@ -1,0 +1,7 @@
+{
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.module.ts,${capture}.service.ts,${capture}.dto.ts,${capture}.controller.ts",
+    "*.module.ts": "${capture}.module.ts,${capture}.service.ts,${capture}.dto.ts",
+    "*.service.ts": "${capture}.dto.ts"
+  }
+}

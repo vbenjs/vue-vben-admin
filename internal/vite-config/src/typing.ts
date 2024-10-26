@@ -1,6 +1,7 @@
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import type { ConfigEnv, PluginOption, UserConfig } from 'vite';
 import type { PluginOptions } from 'vite-plugin-dts';
+import type { RequestAdapterOption } from 'vite-plugin-node';
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
 interface IImportMap {
@@ -82,6 +83,8 @@ interface CommonPluginOptions {
   isBuild?: boolean;
   /** 构建模式 */
   mode?: string;
+  /** 是否没有前端元素 */
+  noElement?: boolean;
   /** 开启依赖分析 */
   visualizer?: boolean | PluginVisualizerOptions;
 }
@@ -135,6 +138,21 @@ interface LibraryPluginOptions extends CommonPluginOptions {
   injectLibCss?: boolean;
 }
 
+interface ServerPluginOptions extends CommonPluginOptions {
+  /** 适配器 */
+  adapter?: RequestAdapterOption;
+  /** 应用名称 */
+  appName?: string;
+  /** 应用入口 */
+  appPath?: string;
+  /** 开启 dts 输出 */
+  dts?: boolean | PluginOptions;
+  /** 应用入口的导出变量 */
+  exportName?: string;
+  /** 立即启动 */
+  immediate?: boolean;
+}
+
 type ApplicationOptions = ApplicationPluginOptions;
 
 type LibraryOptions = LibraryPluginOptions;
@@ -149,7 +167,15 @@ type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
   vite?: UserConfig;
 }>;
 
-type DefineConfig = DefineApplicationOptions | DefineLibraryOptions;
+type DefineServerOptions = (config?: ConfigEnv) => Promise<{
+  server?: ServerPluginOptions;
+  vite?: UserConfig;
+}>;
+
+type DefineConfig =
+  | DefineApplicationOptions
+  | DefineLibraryOptions
+  | DefineServerOptions;
 
 export type {
   ApplicationPluginOptions,
@@ -159,9 +185,11 @@ export type {
   DefineApplicationOptions,
   DefineConfig,
   DefineLibraryOptions,
+  DefineServerOptions,
   IImportMap,
   ImportmapPluginOptions,
   LibraryPluginOptions,
   NitroMockPluginOptions,
   PrintPluginOptions,
+  ServerPluginOptions,
 };

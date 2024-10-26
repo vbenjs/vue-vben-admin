@@ -1,4 +1,6 @@
-import type { ApplicationPluginOptions } from '../typing';
+import type { RequestAdapterOption } from 'vite-plugin-node';
+
+import type { ApplicationPluginOptions, ServerPluginOptions } from '../typing';
 
 import { join } from 'node:path';
 
@@ -60,7 +62,7 @@ async function loadEnv<T = Record<string, string>>(
   return envConfig as T;
 }
 
-async function loadAndConvertEnv(
+async function loadApplicationEnv(
   match = 'VITE_',
   confFiles = getConfFiles(),
 ): Promise<
@@ -104,4 +106,30 @@ async function loadAndConvertEnv(
   };
 }
 
-export { loadAndConvertEnv, loadEnv };
+async function loadServerEnv(match = 'VITE_', confFiles = getConfFiles()) {
+  const envConfig = await loadEnv(match, confFiles);
+
+  const {
+    VITE_ADAPTER,
+    VITE_APP_NAME,
+    VITE_APP_PATH,
+    VITE_EXPORT_NAME,
+    VITE_IMMEDIATE,
+    VITE_PORT,
+    VITE_VISUALIZER,
+  } = envConfig;
+
+  return {
+    adapter: getString(VITE_ADAPTER, 'nest') as RequestAdapterOption,
+    appName: getString(VITE_APP_NAME, 'Vben Server'),
+    appPath: getString(VITE_APP_PATH, 'src'),
+    exportName: getString(VITE_EXPORT_NAME, 'default'),
+    immediate: getBoolean(VITE_IMMEDIATE),
+    port: getNumber(VITE_PORT, 5173),
+    visualizer: getBoolean(VITE_VISUALIZER),
+  } satisfies {
+    port: number;
+  } & ServerPluginOptions;
+}
+
+export { loadApplicationEnv, loadEnv, loadServerEnv };

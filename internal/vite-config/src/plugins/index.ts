@@ -5,6 +5,7 @@ import type {
   CommonPluginOptions,
   ConditionPlugin,
   LibraryPluginOptions,
+  ServerPluginOptions,
 } from '../typing';
 
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
@@ -15,6 +16,7 @@ import viteCompressPlugin from 'vite-plugin-compression';
 import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
 import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
+import { VitePluginNode as vitePluginNode } from 'vite-plugin-node';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
@@ -49,10 +51,10 @@ async function loadConditionPlugins(conditionPlugins: ConditionPlugin[]) {
 async function loadCommonPlugins(
   options: CommonPluginOptions,
 ): Promise<ConditionPlugin[]> {
-  const { devtools, injectMetadata, isBuild, visualizer } = options;
+  const { devtools, injectMetadata, isBuild, noElement, visualizer } = options;
   return [
     {
-      condition: true,
+      condition: !noElement,
       plugins: () => [
         viteVue({
           script: {
@@ -65,7 +67,7 @@ async function loadCommonPlugins(
     },
 
     {
-      condition: !isBuild && devtools,
+      condition: !noElement && !isBuild && devtools,
       plugins: () => [viteVueDevTools()],
     },
     {
@@ -240,9 +242,53 @@ async function loadLibraryPlugins(
   ]);
 }
 
+/**
+ * 根据条件获取服务类型的vite插件
+ */
+async function loadServerPlugins(
+  options: ServerPluginOptions,
+): Promise<PluginOption[]> {
+  // 单独取，否则commonOptions拿不到
+  const isBuild = options.isBuild;
+  const { appName, dts, exportName, immediate, ...commonOptions } = options;
+  const { adapter, appPath } = options as Required<ServerPluginOptions>;
+  const commonPlugins = await loadCommonPlugins(commonOptions);
+  return await loadConditionPlugins([
+    ...commonPlugins,
+    {
+      condition: isBuild && !!dts,
+      plugins: () => [viteDtsPlugin({ logLevel: 'error' })],
+    },
+    {
+      condition: true,
+      plugins: () => [
+        vitePluginNode({
+          adapter,
+          appName,
+          appPath,
+          exportName,
+          initAppOnBoot: immediate,
+          outputFormat: 'esm',
+        }),
+      ],
+    },
+    {
+      condition: !isBuild,
+      plugins: () => [
+        {
+          config: () => ({ server: { hmr: true } }),
+          handleHotUpdate: ({ server }) => server.restart(),
+          name: 'auto-restart-server',
+        },
+      ],
+    },
+  ]);
+}
+
 export {
   loadApplicationPlugins,
   loadLibraryPlugins,
+  loadServerPlugins,
   viteArchiverPlugin,
   viteCompressPlugin,
   viteDtsPlugin,
