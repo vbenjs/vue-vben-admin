@@ -81,7 +81,10 @@ const formCollapsed = computed(() => {
 });
 
 const computedSchema = computed(
-  (): ({ commonComponentProps: Record<string, any> } & FormSchema)[] => {
+  (): ({
+    commonComponentProps: Record<string, any>;
+    formFieldProps: Record<string, any>;
+  } & Omit<FormSchema, 'formFieldProps'>)[] => {
     const {
       componentProps = {},
       controlClass = '',
