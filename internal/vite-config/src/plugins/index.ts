@@ -250,7 +250,15 @@ async function loadServerPlugins(
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
-  const { appName, dts, exportName, immediate, ...commonOptions } = options;
+  const {
+    appName,
+    dts,
+    exportName,
+    immediate,
+    swc,
+    swcOptions,
+    ...commonOptions
+  } = options;
   const { adapter, appPath } = options as Required<ServerPluginOptions>;
   const commonPlugins = await loadCommonPlugins(commonOptions);
   return await loadConditionPlugins([
@@ -269,6 +277,8 @@ async function loadServerPlugins(
           exportName,
           initAppOnBoot: immediate,
           outputFormat: 'esm',
+          swcOptions,
+          tsCompiler: swc ? 'swc' : 'esbuild',
         }),
       ],
     },

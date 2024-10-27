@@ -1,3 +1,4 @@
+import type { Options as SwcPluginOptions } from '@swc/core';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import type { ConfigEnv, PluginOption, UserConfig } from 'vite';
 import type { PluginOptions } from 'vite-plugin-dts';
@@ -151,6 +152,10 @@ interface ServerPluginOptions extends CommonPluginOptions {
   exportName?: string;
   /** 立即启动 */
   immediate?: boolean;
+  /** 是否开启swc */
+  swc?: boolean;
+  /** swc 插件配置 */
+  swcOptions?: SwcPluginOptions;
 }
 
 type ApplicationOptions = ApplicationPluginOptions;

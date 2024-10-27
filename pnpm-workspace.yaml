@@ -33,6 +33,7 @@ catalog:
   "@playwright/test": ^1.48.1
   "@pnpm/workspace.read-manifest": ^2.2.1
   "@stylistic/stylelint-plugin": ^3.1.1
+  "@swc/core": ^1.7.40
   "@tailwindcss/nesting": 0.0.0-insiders.565cd3e
   "@tailwindcss/typography": ^0.5.15
   "@tanstack/vue-query": ^5.59.16

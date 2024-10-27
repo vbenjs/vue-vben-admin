@@ -116,6 +116,7 @@ async function loadServerEnv(match = 'VITE_', confFiles = getConfFiles()) {
     VITE_EXPORT_NAME,
     VITE_IMMEDIATE,
     VITE_PORT,
+    VITE_SWC,
     VITE_VISUALIZER,
   } = envConfig;
 
@@ -126,6 +127,7 @@ async function loadServerEnv(match = 'VITE_', confFiles = getConfFiles()) {
     exportName: getString(VITE_EXPORT_NAME, 'default'),
     immediate: getBoolean(VITE_IMMEDIATE),
     port: getNumber(VITE_PORT, 5173),
+    swc: getBoolean(VITE_SWC),
     visualizer: getBoolean(VITE_VISUALIZER),
   } satisfies {
     port: number;
