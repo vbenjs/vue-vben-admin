@@ -20,6 +20,14 @@ export interface VxePaginationInfo {
 
 export interface VxeGridProps {
   /**
+   * 标题
+   */
+  tableTitle?: string;
+  /**
+   * 标题帮助
+   */
+  tableTitleHelp?: string;
+  /**
    * 组件class
    */
   class?: any;

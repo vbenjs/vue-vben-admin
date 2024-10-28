@@ -81,7 +81,7 @@ getCurrentInstance().ctx.xxxx;
 
 ## 依赖安装问题
 
-- 如果依赖安装不了或者启动报错可以尝试执行`pnpm run resintall`。
+- 如果依赖安装不了或者启动报错可以尝试执行`pnpm run reinstall`。
 - 如果依赖安装不了或者报错，可以尝试切换手机热点来进行依赖安装。
 - 如果还是不行，可以自行配置国内镜像安装。
 - 也可以在项目根目录创建 `.npmrc` 文件，内容如下
@@ -141,12 +141,19 @@ at Extract (vue-vben-admin-main\node_modules@purge-icons\core\dist\index.js:173:
 Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "application/octet-stream". Strict MIME type checking is enforced for module scripts per HTML spec.
 ```
 
-解决方式：
+解决方式一：
 
 ```bash
 http {
+    #如果有此项配置需要注释掉
+    #include       mime.types;
+
     types {
       application/javascript js mjs;
     }
 }
 ```
+
+解决方式二：
+
+进入 `nginx` 下的`mime.types`文件, 将`application/javascript js;` 修改为 `application/javascript js mjs;`

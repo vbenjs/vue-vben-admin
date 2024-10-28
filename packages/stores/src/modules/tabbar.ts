@@ -4,7 +4,7 @@ import type { Router, RouteRecordNormalized } from 'vue-router';
 import { toRaw } from 'vue';
 
 import {
-  openWindow,
+  openRouteInNewWindow,
   startProgress,
   stopProgress,
 } from '@vben-core/shared/utils';
@@ -245,11 +245,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       // 下一个tab存在，跳转到下一个
       if (after) {
-        this._close(currentRoute.value);
+        this._close(tab);
         await this._goToTab(after, router);
         // 上一个tab存在，跳转到上一个
       } else if (before) {
-        this._close(currentRoute.value);
+        this._close(tab);
         await this._goToTab(before, router);
       } else {
         console.error('Failed to close the tab; only one tab remains open.');
@@ -290,11 +290,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async openTabInNewWindow(tab: TabDefinition) {
-      const { hash, origin } = location;
-      const path = tab.fullPath || tab.path;
-      const fullPath = path.startsWith('/') ? path : `/${path}`;
-      const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
-      openWindow(url, { target: '_blank' });
+      openRouteInNewWindow(tab.fullPath || tab.path);
     },
 
     /**
@@ -312,6 +308,14 @@ export const useTabbarStore = defineStore('core-tabbar', {
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
+      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
+      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      // 获得固定tabs的index
+      const newIndex = affixTabs.findIndex(
+        (item) => getTabPath(item) === getTabPath(tab),
+      );
+      // 交换位置重新排序
+      await this.sortTabs(index, newIndex);
     },
 
     /**
@@ -419,6 +423,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
         // this.addTab(tab);
         this.tabs.splice(index, 1, tab);
       }
+      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
+      const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      // 获得固定tabs的index,使用固定tabs的下一个位置也就是活动tabs的第一个位置
+      const newIndex = affixTabs.length;
+      // 交换位置重新排序
+      await this.sortTabs(index, newIndex);
     },
 
     /**

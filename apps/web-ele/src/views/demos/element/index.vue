@@ -57,6 +57,7 @@ const tableData = [
     <ElCard class="mb-5">
       <template #header> 按钮 </template>
       <ElSpace>
+        <ElButton text>Text</ElButton>
         <ElButton>Default</ElButton>
         <ElButton type="primary"> Primary </ElButton>
         <ElButton type="info"> Info </ElButton>

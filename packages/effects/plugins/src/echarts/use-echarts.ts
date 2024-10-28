@@ -31,12 +31,11 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   const getOptions = computed((): EChartsOption => {
     if (!isDark.value) {
-      return cacheOptions;
+      return {};
     }
 
     return {
       backgroundColor: 'transparent',
-      ...cacheOptions,
     };
   });
 
@@ -52,10 +51,14 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   const renderEcharts = (options: EChartsOption, clear = true) => {
     cacheOptions = options;
+    const currentOptions = {
+      ...options,
+      ...getOptions.value,
+    };
     return new Promise((resolve) => {
       if (chartRef.value?.offsetHeight === 0) {
         useTimeoutFn(() => {
-          renderEcharts(getOptions.value);
+          renderEcharts(currentOptions);
           resolve(null);
         }, 30);
         return;
@@ -67,7 +70,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
             if (!instance) return;
           }
           clear && chartInstance?.clear();
-          chartInstance?.setOption(getOptions.value);
+          chartInstance?.setOption(currentOptions);
           resolve(null);
         }, 30);
       });

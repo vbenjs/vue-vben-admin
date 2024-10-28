@@ -1,6 +1,6 @@
 {
   "name": "@vben/node-utils",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -40,8 +40,5 @@
     "pkg-types": "catalog:",
     "prettier": "catalog:",
     "rimraf": "catalog:"
-  },
-  "devDependencies": {
-    "@types/chalk": "catalog:"
   }
 }
