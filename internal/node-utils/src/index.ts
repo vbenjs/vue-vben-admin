@@ -13,8 +13,6 @@ export { default as colors } from 'chalk';
 export { consola } from 'consola';
 export * from 'execa';
 
-export { nanoid } from 'nanoid';
-
 export { default as fs } from 'node:fs/promises';
 
 export { type PackageJson, readPackageJSON } from 'pkg-types';
