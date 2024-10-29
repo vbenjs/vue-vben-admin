@@ -2,6 +2,8 @@ import type { INestApplication } from '@nestjs/common';
 
 import { NestFactory } from '@nestjs/core';
 
+import plugins from '#/plugins';
+
 import { AppModule } from './index.module';
 
 let app: INestApplication;
@@ -10,6 +12,10 @@ async function createApp() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+
+  for (const plugin of plugins) {
+    app.use(plugin);
+  }
 
   return app;
 }
