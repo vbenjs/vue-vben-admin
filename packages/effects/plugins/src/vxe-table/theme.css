@@ -81,3 +81,11 @@
 .vxe-pager--wrapper {
   @apply justify-center md:justify-end;
 }
+
+.vxe-tools--operate {
+  @apply ml-3;
+}
+
+.vxe-table-custom--checkbox-option:hover {
+  background: none !important;
+}
