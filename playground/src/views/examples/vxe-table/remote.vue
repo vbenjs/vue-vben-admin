@@ -33,7 +33,6 @@ const gridOptions: VxeGridProps<RowType> = {
   ],
   height: 'auto',
   keepSource: true,
-  pagerConfig: {},
   proxyConfig: {
     ajax: {
       query: async ({ page }) => {
@@ -44,9 +43,18 @@ const gridOptions: VxeGridProps<RowType> = {
       },
     },
   },
+  toolbarConfig: {
+    custom: true,
+    // export: true,
+    // import: true,
+    refresh: true,
+    zoom: true,
+  },
 };
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({
+  gridOptions,
+});
 </script>
 
 <template>

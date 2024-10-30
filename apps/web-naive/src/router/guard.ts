@@ -8,7 +8,7 @@ import { startProgress, stopProgress } from '@vben/utils';
 import { useTitle } from '@vueuse/core';
 
 import { $t } from '#/locales';
-import { coreRouteNames, dynamicRoutes } from '#/router/routes';
+import { accessRoutes, coreRouteNames } from '#/router/routes';
 import { useAuthStore } from '#/store';
 
 import { generateAccess } from './access';
@@ -104,7 +104,7 @@ function setupAccessGuard(router: Router) {
       roles: userRoles,
       router,
       // 则会在菜单中显示，但是访问会被重定向到403
-      routes: dynamicRoutes,
+      routes: accessRoutes,
     });
 
     // 保存菜单信息和路由信息
