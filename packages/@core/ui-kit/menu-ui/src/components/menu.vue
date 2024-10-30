@@ -718,6 +718,10 @@ $namespace: vben;
     align-items: center;
     width: 100%;
     height: var(--menu-item-height);
+
+    span {
+      @include menu-title;
+    }
   }
 
   &.is-collapse-show-title {
