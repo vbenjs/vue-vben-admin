@@ -28,6 +28,7 @@ import {
   VxeSelect,
   VxeTooltip,
   VxeUI,
+  VxeUpload,
   // VxeSwitch,
   // VxeTextarea,
 } from 'vxe-pc-ui';
@@ -92,6 +93,7 @@ export function initVxeTable() {
   // VxeUI.component(VxeSwitch);
   // VxeUI.component(VxeTextarea);
   VxeUI.component(VxeTooltip);
+  VxeUI.component(VxeUpload);
 
   isInit = true;
 }

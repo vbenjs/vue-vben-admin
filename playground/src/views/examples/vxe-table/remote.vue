@@ -31,6 +31,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'DateTime' },
   ],
+  exportConfig: {},
   height: 'auto',
   keepSource: true,
   proxyConfig: {
@@ -45,7 +46,7 @@ const gridOptions: VxeGridProps<RowType> = {
   },
   toolbarConfig: {
     custom: true,
-    // export: true,
+    export: true,
     // import: true,
     refresh: true,
     zoom: true,
