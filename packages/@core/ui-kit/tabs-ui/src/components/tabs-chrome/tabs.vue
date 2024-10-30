@@ -79,6 +79,7 @@ const tabsView = computed(() => {
         ]"
         :data-active-tab="active"
         :data-index="i"
+        :data-title="tab.title"
         class="tabs-chrome__item draggable translate-all group relative -mr-3 flex h-full select-none items-center"
         data-tab-item="true"
         @click="active = tab.key"

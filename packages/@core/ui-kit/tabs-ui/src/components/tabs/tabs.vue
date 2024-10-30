@@ -82,6 +82,7 @@ const tabsView = computed(() => {
           typeWithClass.content,
         ]"
         :data-index="i"
+        :data-title="tab.title"
         class="tab-item [&:not(.is-active)]:hover:bg-accent translate-all group relative flex cursor-pointer select-none"
         data-tab-item="true"
         @click="active = tab.key"
