@@ -6,7 +6,12 @@ import { bindMethods, isFunction } from '@vben-core/shared/utils';
 export class ModalApi {
   private api: Pick<
     ModalApiOptions,
-    'onBeforeClose' | 'onCancel' | 'onConfirm' | 'onOpenChange'
+    | 'onBeforeClose'
+    | 'onCancel'
+    | 'onClosed'
+    | 'onConfirm'
+    | 'onOpenChange'
+    | 'onOpened'
   >;
   // private prevState!: ModalState;
   private state!: ModalState;
@@ -23,8 +28,10 @@ export class ModalApi {
       connectedComponent: _,
       onBeforeClose,
       onCancel,
+      onClosed,
       onConfirm,
       onOpenChange,
+      onOpened,
       ...storeState
     } = options;
 
@@ -77,8 +84,10 @@ export class ModalApi {
     this.api = {
       onBeforeClose,
       onCancel,
+      onClosed,
       onConfirm,
       onOpenChange,
+      onOpened,
     };
     bindMethods(this);
   }
@@ -115,11 +124,19 @@ export class ModalApi {
     }
   }
 
+  onClosed() {
+    this.api.onClosed?.();
+  }
+
   /**
    * 确认操作
    */
   onConfirm() {
     this.api.onConfirm?.();
+  }
+
+  onOpened() {
+    this.api.onOpened?.();
   }
 
   open() {
