@@ -27,7 +27,9 @@ const props = withDefaults(
   >(),
   { showClose: true },
 );
-const emits = defineEmits<{ close: [] } & DialogContentEmits>();
+const emits = defineEmits<
+  { close: []; closed: []; opened: [] } & DialogContentEmits
+>();
 
 const delegatedProps = computed(() => {
   const {
@@ -44,7 +46,13 @@ const delegatedProps = computed(() => {
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
-
+function onAnimationEnd() {
+  if (props.open) {
+    emits('opened');
+  } else {
+    emits('closed');
+  }
+}
 defineExpose({
   getContentRef: () => contentRef.value,
 });
@@ -57,6 +65,7 @@ defineExpose({
     </Transition>
     <DialogContent
       ref="contentRef"
+      @animationend="onAnimationEnd"
       v-bind="forwarded"
       :class="
         cn(

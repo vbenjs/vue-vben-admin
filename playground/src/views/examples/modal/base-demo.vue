@@ -7,9 +7,15 @@ const [Modal, modalApi] = useVbenModal({
   onCancel() {
     modalApi.close();
   },
+  onClosed() {
+    message.info('onClosed：关闭动画结束');
+  },
   onConfirm() {
     message.info('onConfirm');
     // modalApi.close();
+  },
+  onOpened() {
+    message.info('onOpened：打开动画结束');
   },
 });
 </script>
