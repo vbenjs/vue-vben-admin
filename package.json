@@ -107,6 +107,7 @@
       }
     },
     "overrides": {
+      "@ast-grep/napi": "catalog:",
       "@ctrl/tinycolor": "catalog:",
       "clsx": "catalog:",
       "pinia": "catalog:",

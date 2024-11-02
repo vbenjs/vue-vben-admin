@@ -13,6 +13,7 @@ packages:
   - docs
   - playground
 catalog:
+  '@ast-grep/napi': ^0.29.0
   '@changesets/changelog-github': ^0.5.0
   '@changesets/cli': ^2.27.9
   '@changesets/git': ^3.0.1
@@ -20,16 +21,16 @@ catalog:
   '@commitlint/cli': ^19.5.0
   '@commitlint/config-conventional': ^19.5.0
   '@ctrl/tinycolor': ^4.1.0
-  '@eslint/js': ^9.13.0
+  '@eslint/js': ^9.14.0
   '@faker-js/faker': ^9.1.0
-  '@iconify/json': ^2.2.265
+  '@iconify/json': ^2.2.266
   '@iconify/tailwind': ^1.1.3
   '@iconify/vue': ^4.1.2
   '@intlify/core-base': ^10.0.4
   '@intlify/unplugin-vue-i18n': ^5.2.0
   '@jspm/generator': ^2.4.1
   '@manypkg/get-packages': ^2.2.2
-  '@nolebase/vitepress-plugin-git-changelog': ^2.6.1
+  '@nolebase/vitepress-plugin-git-changelog': ^2.8.1
   '@playwright/test': ^1.48.2
   '@pnpm/workspace.read-manifest': ^2.2.1
   '@stylistic/stylelint-plugin': ^3.1.1
@@ -42,7 +43,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.8.2
+  '@types/node': ^22.8.6
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
@@ -56,8 +57,8 @@ catalog:
   '@vue/reactivity': ^3.5.12
   '@vue/shared': ^3.5.12
   '@vue/test-utils': ^2.4.6
-  '@vueuse/core': ^11.1.0
-  '@vueuse/integrations': ^11.1.0
+  '@vueuse/core': ^11.2.0
+  '@vueuse/integrations': ^11.2.0
   ant-design-vue: ^4.2.5
   archiver: ^7.0.1
   autoprefixer: ^10.4.20
@@ -72,7 +73,7 @@ catalog:
   commitlint-plugin-function-rules: ^4.0.0
   consola: ^3.2.3
   cross-env: ^7.0.3
-  cspell: ^8.15.4
+  cspell: ^8.15.5
   cssnano: ^7.0.6
   cz-git: ^1.10.1
   czg: ^1.10.1
@@ -81,15 +82,15 @@ catalog:
   depcheck: ^1.4.7
   dotenv: ^16.4.5
   echarts: ^5.5.1
-  element-plus: ^2.8.6
-  eslint: ^9.13.0
+  element-plus: ^2.8.7
+  eslint: ^9.14.0
   eslint-config-turbo: ^2.2.3
   eslint-plugin-command: ^0.2.6
   eslint-plugin-eslint-comments: ^3.2.0
-  eslint-plugin-import-x: ^4.3.1
+  eslint-plugin-import-x: ^4.4.0
   eslint-plugin-jsdoc: ^50.4.3
   eslint-plugin-jsonc: ^2.16.0
-  eslint-plugin-n: ^17.11.1
+  eslint-plugin-n: ^17.12.0
   eslint-plugin-no-only-tests: ^3.3.0
   eslint-plugin-perfectionist: ^3.9.1
   eslint-plugin-prettier: ^5.2.1
@@ -103,7 +104,7 @@ catalog:
   get-port: ^7.1.0
   globals: ^15.11.0
   h3: ^1.13.0
-  happy-dom: ^15.7.4
+  happy-dom: ^15.8.0
   html-minifier-terser: ^7.2.0
   husky: ^9.1.6
   is-ci: ^3.0.1
@@ -114,9 +115,9 @@ catalog:
   lucide-vue-next: ^0.454.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.40.1
-  nitropack: ^2.9.7
+  nitropack: ^2.10.0
   nprogress: ^0.2.0
-  ora: ^8.1.0
+  ora: ^8.1.1
   pinia: 2.2.2
   pinia-plugin-persistedstate: ^4.1.2
   pkg-types: ^1.2.1
@@ -125,7 +126,7 @@ catalog:
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.7.0
   postcss-import: ^16.1.0
-  postcss-preset-env: ^10.0.8
+  postcss-preset-env: ^10.0.9
   postcss-scss: ^4.0.9
   prettier: ^3.3.3
   prettier-plugin-tailwindcss: ^0.6.8
@@ -134,7 +135,7 @@ catalog:
   radix-vue: ^1.9.8
   resolve.exports: ^2.0.2
   rimraf: ^6.0.1
-  rollup: ^4.24.2
+  rollup: ^4.24.3
   rollup-plugin-visualizer: ^5.12.0
   sass: 1.79.5
   sortablejs: ^1.15.3
@@ -163,16 +164,16 @@ catalog:
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-lib-inject-css: ^2.1.1
   vite-plugin-pwa: ^0.20.5
-  vite-plugin-vue-devtools: ^7.5.4
-  vitepress: ^1.4.1
+  vite-plugin-vue-devtools: ^7.6.2
+  vitepress: ^1.4.3
   vitepress-plugin-group-icons: ^1.3.0
   vitest: ^2.1.4
   vue: ^3.5.12
   vue-eslint-parser: ^9.4.3
   vue-i18n: ^10.0.4
   vue-router: ^4.4.5
-  vue-tsc: ^2.1.8
-  vxe-pc-ui: ^4.2.33
+  vue-tsc: ^2.1.10
+  vxe-pc-ui: ^4.2.37
   vxe-table: ^4.7.97
   watermark-js-plus: ^1.5.7
   zod: ^3.23.8
