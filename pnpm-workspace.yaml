@@ -162,7 +162,6 @@ catalog:
   vite-plugin-dts: 4.2.1
   vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
-  vite-plugin-lib-inject-css: ^2.1.1
   vite-plugin-pwa: ^0.20.5
   vite-plugin-vue-devtools: ^7.6.2
   vitepress: ^1.4.3
