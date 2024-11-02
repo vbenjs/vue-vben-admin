@@ -438,9 +438,6 @@ catalogs:
     vite-plugin-lazy-import:
       specifier: ^1.0.7
       version: 1.0.7
-    vite-plugin-lib-inject-css:
-      specifier: ^2.1.1
-      version: 2.1.1
     vite-plugin-pwa:
       specifier: ^0.20.5
       version: 0.20.5
@@ -1116,9 +1113,6 @@ importers:
       resolve.exports:
         specifier: 'catalog:'
         version: 2.0.2
-      vite-plugin-lib-inject-css:
-        specifier: 'catalog:'
-        version: 2.1.1(vite@5.4.10(@types/node@22.8.6)(less@4.2.0)(sass@1.79.5)(terser@5.36.0))
       vite-plugin-pwa:
         specifier: 'catalog:'
         version: 0.20.5(vite@5.4.10(@types/node@22.8.6)(less@4.2.0)(sass@1.79.5)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0)
@@ -9912,11 +9906,6 @@ packages:
 
   vite-plugin-lazy-import@1.0.7:
     resolution: {integrity: sha512-mE6oAObOb4wqso4AoUGi9cLjdR+4vay1RCaKJvziBuFPlziZl7J0aw2hsqRTokLVRx3bli0a0VyjMOwsNDv58A==}
-
-  vite-plugin-lib-inject-css@2.1.1:
-    resolution: {integrity: sha512-RIMeVnqBK/8I0E9nnQWzws6pdj5ilRMPJSnXYb6nWxNR4EmDPnksnb/ACoR5Fy7QfzULqS4gtQMrjwnNCC9zoA==}
-    peerDependencies:
-      vite: '*'
 
   vite-plugin-pwa@0.20.5:
     resolution: {integrity: sha512-aweuI/6G6n4C5Inn0vwHumElU/UEpNuO+9iZzwPZGTCH87TeZ6YFMrEY6ZUBQdIHHlhTsbMDryFARcSuOdsz9Q==}
@@ -19415,13 +19404,6 @@ snapshots:
       es-module-lexer: 1.5.4
       rollup: 4.24.3
       xe-utils: 3.5.31
-
-  vite-plugin-lib-inject-css@2.1.1(vite@5.4.10(@types/node@22.8.6)(less@4.2.0)(sass@1.79.5)(terser@5.36.0)):
-    dependencies:
-      '@ast-grep/napi': 0.29.0
-      magic-string: 0.30.12
-      picocolors: 1.1.1
-      vite: 5.4.10(@types/node@22.8.6)(less@4.2.0)(sass@1.79.5)(terser@5.36.0)
 
   vite-plugin-pwa@0.20.5(vite@5.4.10(@types/node@22.8.6)(less@4.2.0)(sass@1.79.5)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0):
     dependencies:

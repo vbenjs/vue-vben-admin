@@ -1,5 +1,6 @@
 import errorHandler from './error';
 
+process.env.COMPATIBILITY_DATE = new Date().toISOString();
 export default defineNitroConfig({
   devErrorHandler: errorHandler,
   errorHandler: '~/error',
