@@ -220,7 +220,9 @@ async function init() {
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
-  if (formConfig) {
+  // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
+  // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
+  if (formConfig && formConfig.enabled) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
