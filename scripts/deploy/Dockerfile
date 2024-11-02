@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . /app
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run build
+RUN pnpm run build --filter=\!./docs
 
 RUN echo "Builder Success 🎉"
 
