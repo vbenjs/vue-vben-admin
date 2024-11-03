@@ -40,3 +40,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     return response.status(status).json(result);
   }
 }
+
+// 默认导出，便于glob导入
+export default HttpExceptionFilter;

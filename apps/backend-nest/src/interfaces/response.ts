@@ -1,3 +1,7 @@
+import { Reflector } from '@nestjs/core';
+
+export const SkipResCheck = Reflector.createDecorator<never>();
+
 export class ResponseClass<T = any> {
   constructor(
     public code: number,

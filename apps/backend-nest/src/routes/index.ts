@@ -6,8 +6,6 @@ const controller_glob_result = import.meta.glob<Type>('./*.controller.ts', {
 });
 const controllers = Object.values(controller_glob_result);
 
-@Module({
-  controllers,
-})
+@Module({ controllers })
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class RoutesModule {}

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
@@ -14,7 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const findUser = await this.AuthService.validateUser(username, password);
 
     if (!findUser) {
-      throw new UnauthorizedException();
+      throw new ForbiddenException('用户名或密码错误');
     }
 
     return findUser;
