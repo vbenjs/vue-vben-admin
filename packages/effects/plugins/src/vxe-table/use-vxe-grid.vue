@@ -41,6 +41,9 @@ const props = withDefaults(defineProps<Props>(), {});
 
 const FORM_SLOT_PREFIX = 'form-';
 
+const TOOLBAR_ACTIONS = 'toolbar-actions';
+const TOOLBAR_TOOLS = 'toolbar-tools';
+
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
 const state = props.api?.useStore?.();
@@ -87,15 +90,16 @@ const showTableTitle = computed(() => {
 
 const showToolbar = computed(() => {
   return (
-    !!slots['toolbar-actions']?.() ||
-    !!slots['toolbar-tools']?.() ||
+    !!slots[TOOLBAR_ACTIONS]?.() ||
+    !!slots[TOOLBAR_TOOLS]?.() ||
     showTableTitle.value
   );
 });
 
 const toolbarOptions = computed(() => {
-  const slotActions = slots['toolbar-actions']?.();
-  const slotTools = slots['toolbar-tools']?.();
+  const slotActions = slots[TOOLBAR_ACTIONS]?.();
+  const slotTools = slots[TOOLBAR_TOOLS]?.();
+
   if (!showToolbar.value) {
     return {};
   }
@@ -105,9 +109,9 @@ const toolbarOptions = computed(() => {
     toolbarConfig: {
       slots: {
         ...(slotActions || showTableTitle.value
-          ? { buttons: 'toolbar-actions' }
+          ? { buttons: TOOLBAR_ACTIONS }
           : {}),
-        ...(slotTools ? { tools: 'toolbar-tools' } : {}),
+        ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
       },
     },
   };
@@ -122,11 +126,6 @@ const options = computed(() => {
       toolbarOptions.value,
       toRaw(gridOptions.value),
       globalGridConfig,
-      {
-        // toolbarConfig: {
-        //   tools: [],
-        // },
-      } as VxeTableGridProps,
     ),
   );
 
@@ -185,7 +184,7 @@ const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (!['empty', 'form', 'loading', 'toolbar-actions'].includes(key)) {
+    if (!['empty', 'form', 'loading', TOOLBAR_ACTIONS].includes(key)) {
       resultSlots.push(key);
     }
   }

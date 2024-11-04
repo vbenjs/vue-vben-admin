@@ -44,7 +44,7 @@ const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const [Form, { setFieldValue, validate, getValues }] = useVbenForm(
+const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -63,8 +63,8 @@ const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
 const rememberMe = ref(!!localUsername);
 
 async function handleSubmit() {
-  const { valid } = await validate();
-  const values = await getValues();
+  const { valid } = await formApi.validate();
+  const values = await formApi.getValues();
   if (valid) {
     localStorage.setItem(
       REMEMBER_ME_KEY,
@@ -80,8 +80,12 @@ function handleGo(path: string) {
 
 onMounted(() => {
   if (localUsername) {
-    setFieldValue('username', localUsername);
+    formApi.setFieldValue('username', localUsername);
   }
+});
+
+defineExpose({
+  getFormApi: () => formApi,
 });
 </script>
 
