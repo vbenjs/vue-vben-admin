@@ -27,6 +27,7 @@
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
+    "build:nest": "pnpm run build --filter=@vben/backend-nest",
     "build:antd": "pnpm run build --filter=@vben/web-antd",
     "build:docker": "./scripts/deploy/build-local-docker-image.sh",
     "build:docs": "pnpm run build --filter=@vben/docs",
@@ -42,6 +43,7 @@
     "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
     "dev": "turbo-run dev",
+    "dev:nest": "pnpm -F @vben/backend-nest run dev",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     "dev:docs": "pnpm -F @vben/docs run dev",
     "dev:ele": "pnpm -F @vben/web-ele run dev",
