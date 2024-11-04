@@ -6,7 +6,8 @@ import { Page } from '@vben/common-ui';
 import { Button, message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getExampleTableApi } from '#/api';
+
+import { getExampleTableApi } from '../mock-api';
 
 interface RowType {
   category: string;

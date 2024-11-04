@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
@@ -49,8 +47,8 @@ const collapseAll = () => {
 </script>
 
 <template>
-  <Page>
-    <Grid table-title="数据列表" table-title-help="提示">
+  <div class="vp-raw flex h-[300px] w-full">
+    <Grid class="w-full" table-title="数据列表" table-title-help="提示">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="expandAll">
           展开全部
@@ -58,5 +56,5 @@ const collapseAll = () => {
         <Button type="primary" @click="collapseAll"> 折叠全部 </Button>
       </template>
     </Grid>
-  </Page>
+  </div>
 </template>

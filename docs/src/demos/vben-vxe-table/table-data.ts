@@ -11,7 +11,7 @@ const roles = ['User', 'Admin', 'Manager', 'Guest'];
 
 export const MOCK_TABLE_DATA: TableRowData[] = (() => {
   const data: TableRowData[] = [];
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 10; i++) {
     data.push({
       address: `New York${i}`,
       age: i + 1,

@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getExampleTableApi } from '#/api';
+
+import { getExampleTableApi } from '../mock-api';
 
 interface RowType {
   category: string;
@@ -59,11 +58,11 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <Page auto-content-height>
-    <Grid>
+  <div class="vp-raw flex h-[600px] w-full">
+    <Grid class="w-full">
       <template #action>
         <Button type="link">编辑</Button>
       </template>
     </Grid>
-  </Page>
+  </div>
 </template>

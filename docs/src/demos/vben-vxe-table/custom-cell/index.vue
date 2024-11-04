@@ -87,8 +87,8 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <div class="vp-raw w-full">
-    <Grid class="h-80 w-full">
+  <div class="vp-raw h-[600px] w-full">
+    <Grid class="w-full">
       <template #image-url="{ row }">
         <Image :src="row.imageUrl" height="30" width="30" />
       </template>
