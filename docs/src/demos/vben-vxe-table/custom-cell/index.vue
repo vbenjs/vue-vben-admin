@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Button, Image, Switch, Tag } from 'ant-design-vue';
+import { Image as AImage, Button, Switch, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
@@ -68,7 +68,6 @@ const gridOptions: VxeGridProps<RowType> = {
       width: 120,
     },
   ],
-  height: 'auto',
   keepSource: true,
   pagerConfig: {},
   proxyConfig: {
@@ -87,10 +86,10 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <div class="vp-raw h-[600px] w-full">
-    <Grid class="w-full">
+  <div class="vp-raw w-full">
+    <Grid>
       <template #image-url="{ row }">
-        <Image :src="row.imageUrl" height="30" width="30" />
+        <AImage :src="row.imageUrl" height="30" width="30" />
       </template>
       <template #open="{ row }">
         <Switch v-model:checked="row.open" />

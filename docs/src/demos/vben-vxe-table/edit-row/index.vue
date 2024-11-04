@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { Button, message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
@@ -36,7 +34,6 @@ const gridOptions: VxeGridProps<RowType> = {
     mode: 'row',
     trigger: 'click',
   },
-  height: 'auto',
   pagerConfig: {},
   proxyConfig: {
     ajax: {
@@ -79,7 +76,7 @@ const cancelRowEvent = (_row: RowType) => {
 </script>
 
 <template>
-  <Page auto-content-height>
+  <div class="vp-raw w-full">
     <Grid>
       <template #action="{ row }">
         <template v-if="hasEditStatus(row)">
@@ -91,5 +88,5 @@ const cancelRowEvent = (_row: RowType) => {
         </template>
       </template>
     </Grid>
-  </Page>
+  </div>
 </template>

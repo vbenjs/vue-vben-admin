@@ -66,8 +66,9 @@ function changeLoading() {
 </script>
 
 <template>
-  <div class="vp-raw flex w-full">
-    <Grid class="w-full">
+  <!-- 此处的`vp-raw` 是为了适配文档的展示效果，实际使用时不需要 -->
+  <div class="vp-raw w-full">
+    <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
           {{ showBorder ? '隐藏' : '显示' }}边框
