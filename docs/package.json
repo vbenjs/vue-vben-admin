@@ -20,9 +20,7 @@
     "lucide-vue-next": "catalog:",
     "medium-zoom": "catalog:",
     "radix-vue": "catalog:",
-    "vitepress-plugin-group-icons": "catalog:",
-    "vxe-pc-ui": "^4.2.38",
-    "vxe-table": "catalog:"
+    "vitepress-plugin-group-icons": "catalog:"
   },
   "devDependencies": {
     "@nolebase/vitepress-plugin-git-changelog": "catalog:",

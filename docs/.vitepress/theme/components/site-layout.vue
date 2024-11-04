@@ -11,6 +11,8 @@ import {
 // import { useAntdDesignTokens } from '@vben/hooks';
 // import { initPreferences } from '@vben/preferences';
 
+import { setTheme } from '@vben/plugins/vxe-table';
+
 import { ConfigProvider, theme } from 'ant-design-vue';
 import mediumZoom from 'medium-zoom';
 import { useRoute } from 'vitepress';
@@ -31,6 +33,10 @@ watch(
   () => route.path,
   () => nextTick(() => initZoom()),
 );
+
+watch(isDark, (dark) => {
+  setTheme(dark ? 'dark' : 'light');
+});
 
 // initPreferences({
 //   namespace: 'docs',

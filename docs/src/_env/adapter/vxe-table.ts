@@ -2,14 +2,9 @@ import { h } from 'vue';
 
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 
-import { Button, Image } from 'ant-design-vue';
+import { Button } from 'ant-design-vue';
 
 import { useVbenForm } from './form';
-
-import 'vxe-table/styles/index.scss';
-// import 'vxe-table/styles/cssvar.scss';
-// import 'vxe-pc-ui/styles/cssvar.scss';
-// import './theme.css';
 
 setupVbenVxeTable({
   configVxeTable: (vxeUI) => {
@@ -37,11 +32,18 @@ setupVbenVxeTable({
       },
     });
 
+    // const { theme } = useData();
+
+    // watch(theme.value, (t: string) => {
+    //   console.log(t);
+    //   // vxeUI.setTheme(t === 'dark' ? 'dark' : 'light');
+    // });
+
     // 表格配置项可以用 cellRender: { name: 'CellImage' },
     vxeUI.renderer.add('CellImage', {
       renderDefault(_renderOpts, params) {
         const { column, row } = params;
-        return h(Image, { src: row[column.field] });
+        return h(Image, { src: row[column.field] } as any);
       },
     });
 

@@ -66,11 +66,8 @@ function changeLoading() {
 </script>
 
 <template>
-  <div class="flex w-full">
+  <div class="vp-raw flex w-full">
     <Grid class="w-full">
-      <!-- <template #toolbar-actions>
-        <Button class="mr-2" type="primary">左侧插槽</Button>
-      </template> -->
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
           {{ showBorder ? '隐藏' : '显示' }}边框

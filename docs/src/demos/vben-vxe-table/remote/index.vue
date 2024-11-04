@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getExampleTableApi } from '#/api';
+
+import { getExampleTableApi } from '../mock-api';
 
 interface RowType {
   category: string;
@@ -59,8 +58,8 @@ const [Grid, gridApi] = useVbenVxeGrid({
 </script>
 
 <template>
-  <Page auto-content-height>
-    <Grid table-title="数据列表" table-title-help="提示">
+  <div class="vp-raw w-full">
+    <Grid class="h-80 w-full" table-title="数据列表" table-title-help="提示">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="() => gridApi.query()">
           刷新当前页面
@@ -70,5 +69,5 @@ const [Grid, gridApi] = useVbenVxeGrid({
         </Button>
       </template>
     </Grid>
-  </Page>
+  </div>
 </template>

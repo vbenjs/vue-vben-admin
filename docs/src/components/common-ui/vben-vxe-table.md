@@ -10,4 +10,8 @@ outline: deep
 
 <DemoPreview dir="demos/vben-vxe-table/basic" />
 
+<DemoPreview dir="demos/vben-vxe-table/remote" />
+
+<DemoPreview dir="demos/vben-vxe-table/custom-cell" />
+
 <DemoPreview dir="demos/vben-vxe-table/tree" />

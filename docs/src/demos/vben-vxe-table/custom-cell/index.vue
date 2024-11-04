@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { Button, Image, Switch, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getExampleTableApi } from '#/api';
+
+import { getExampleTableApi } from '../mock-api';
 
 interface RowType {
   category: string;
@@ -88,8 +87,8 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <Page auto-content-height>
-    <Grid>
+  <div class="vp-raw w-full">
+    <Grid class="h-80 w-full">
       <template #image-url="{ row }">
         <Image :src="row.imageUrl" height="30" width="30" />
       </template>
@@ -103,5 +102,5 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
         <Button type="link">编辑</Button>
       </template>
     </Grid>
-  </Page>
+  </div>
 </template>
