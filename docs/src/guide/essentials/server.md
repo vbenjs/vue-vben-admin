@@ -349,11 +349,94 @@ Mock 服务代码位于`apps/backend-mock`目录下，无需手动启动，已�
 
 [Nitro](https://nitro.unjs.io/) 语法简单，可以根据自己的需求进行配置及开发，具体配置可以查看 [Nitro 文档](https://nitro.unjs.io/)。
 
-## 关闭 Mock 服务
+### 关闭 Mock 服务
 
 mock的本质是一个真实的后端服务，如果不需要 mock 服务，可以在项目根目录下的 `.env.development` 文件中配置 `VITE_NITRO_MOCK=false` 即可关闭 mock 服务。
 
 ```bash
 # .env.development
 VITE_NITRO_MOCK=false
+```
+
+## NodeJS服务端
+
+::: tip 说明
+
+如果使用 NodeJS 作为服务端开发语言，也可以使用`Vben Admin`框架进行工程化管理。模板代码位于`apps/backend-nest`目录下，以[`vite-plugin-node`插件](https://github.com/axe-me/vite-plugin-node)配合`Vite`启动，以[NestJS](https://nestjs.com/)为服务运行程序搭建，可以根据自己的需求进行配置及开发。
+
+:::
+
+### 启动服务
+
+在项目根目录下运行以下命令即可启动服务：
+
+```bash
+pnpm dev:nest
+```
+
+### 更改适配器
+
+在项目根目录下的 `.env.development` 文件中配置 `VITE_ADAPTER` 即可更改适配器：
+
+```bash
+# 可选的适配器有：express、nest、koa、fastify
+VITE_ADAPTER=nest
+```
+
+::: tip 自定义适配器
+
+参考[`vite-plugin-node`自定义适配器介绍](https://github.com/axe-me/vite-plugin-node?tab=readme-ov-file#custom-adapter)，在项目根目录下的 `vite.config.mts` 文件中配置 `server.adapter` 即可自定义适配器。
+
+```ts
+// vite.config.mts
+import { defineConfig } from '@vben/vite-config';
+
+export default defineConfig(async () => {
+  return {
+    server: {
+      adapter({ app, server, req, res, next }) {
+        app(res, res);
+      },
+    },
+    vite: {},
+  };
+}, 'server');
+```
+
+:::
+
+### 配置应用入口文件
+
+在项目根目录下的 `.env` 文件中配置 `VITE_APP_PATH` 和 `VITE_EXPORT_NAME` 即可更改应用入口：
+
+```bash
+# 应用入口的路径，例如入口文件为`src/index.ts`则可以配置为`src`
+VITE_APP_PATH=src
+
+# 应用入口的导出变量，例如入口文件使用默认导出则可以配置为`default`
+VITE_EXPORT_NAME=default
+```
+
+### 立即启动服务
+
+在项目根目录下的 `.env` 文件中配置 `VITE_IMMEDIATE` 即可立即启动服务：
+
+```bash
+# 立即启动
+VITE_IMMEDIATE=true
+```
+
+### 依据环境设置的参数
+
+由于是服务端程序，开发环境和生产环境的参数类型高度一致，在此统一介绍，具体参考`.env.development`和`.env.production`文件。
+
+```bash
+# 端口号
+VITE_PORT=5320
+
+# 是否开启 SWC 编译
+VITE_SWC=true
+
+# JWT密钥
+VITE_JWT_SECRET=your_jwt_secret
 ```
