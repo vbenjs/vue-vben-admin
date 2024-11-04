@@ -5,8 +5,8 @@ import {
   Controller,
   ForbiddenException,
   Post,
-  Request,
-  Response,
+  Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -28,7 +28,7 @@ export class AuthController {
   ) {}
 
   @All('codes')
-  public codes(@Request() req: Express.Request) {
+  public codes(@Req() req: Express.Request) {
     const codes = AuthService.MOCK_CODES.find(
       (item) => item.username === (req.user as Express.User).username,
     )?.codes;
@@ -39,7 +39,10 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @Public()
   @Post('login')
-  public login(@Request() req: Express.Request, @Response() res: any) {
+  public login(
+    @Req() req: Express.Request,
+    @Res({ passthrough: true }) res: any,
+  ) {
     // 生成令牌
     const accessToken = this.AuthService.getAccessToken(
       req.user as Express.User,
@@ -54,7 +57,11 @@ export class AuthController {
   }
 
   @Post('logout')
-  public logout(@Response() res: any, @Cookies('jwt') refreshToken?: string) {
+  @Public()
+  public logout(
+    @Res({ passthrough: true }) res: any,
+    @Cookies('jwt') refreshToken?: string,
+  ) {
     if (!refreshToken) {
       return '';
     }
@@ -65,7 +72,10 @@ export class AuthController {
   }
 
   @Post('refresh')
-  public refresh(@Response() res: any, @Cookies('jwt') refreshToken?: string) {
+  public refresh(
+    @Res({ passthrough: true }) res: any,
+    @Cookies('jwt') refreshToken?: string,
+  ) {
     if (!refreshToken) {
       throw new ForbiddenException();
     }

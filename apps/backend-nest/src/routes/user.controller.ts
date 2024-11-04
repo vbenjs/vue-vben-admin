@@ -1,9 +1,9 @@
-import { All, Controller, Request } from '@nestjs/common';
+import { All, Controller, Req } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
   @All('info')
-  public codes(@Request() req: Express.Request) {
+  public codes(@Req() req: Express.Request) {
     return req.user as Express.User;
   }
 }

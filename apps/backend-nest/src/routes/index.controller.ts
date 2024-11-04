@@ -1,6 +1,6 @@
-import type { Response as ExpressResponse } from 'express';
+import type { Response } from 'express';
 
-import { All, Controller, Query, Response } from '@nestjs/common';
+import { All, Controller, Query, Res } from '@nestjs/common';
 
 import { Public } from '#/guards';
 import { SkipResCheck } from '#/interfaces/response';
@@ -25,7 +25,7 @@ export class UserController {
 
   @All('status')
   public status(
-    @Response() res: ExpressResponse,
+    @Res({ passthrough: true }) res: Response,
     @Query('status') status: string,
   ) {
     res.status(Number(status));

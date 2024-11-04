@@ -4,7 +4,7 @@ import type {
   NestInterceptor,
 } from '@nestjs/common';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,8 @@ import { ResponseClass, SkipResCheck } from '#/interfaces/response';
 export class TransformInterceptor<T>
   implements NestInterceptor<T, ResponseClass<T>>
 {
+  private readonly logger = new Logger('HTTP响应');
+
   constructor(private readonly Reflector: Reflector) {}
 
   intercept(
@@ -26,11 +28,13 @@ export class TransformInterceptor<T>
       [context.getHandler(), context.getClass()],
     );
 
-    if (isSkipResCheck) {
-      return next.handle();
-    }
-
-    return next.handle().pipe(map((data) => ResponseClass.Success(data)));
+    return next.handle().pipe(
+      map((data) => {
+        data = isSkipResCheck ? data : ResponseClass.Success(data);
+        this.logger.verbose(JSON.stringify(data));
+        return data;
+      }),
+    );
   }
 }
 

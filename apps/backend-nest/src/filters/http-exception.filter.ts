@@ -1,12 +1,19 @@
 import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import type { Response } from 'express';
 
-import { BadRequestException, Catch, HttpException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Catch,
+  HttpException,
+  Logger,
+} from '@nestjs/common';
 
 import { ResponseClass } from '#/interfaces/response';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger('HTTP错误响应');
+
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -37,6 +44,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       result.error = message;
     }
 
+    this.logger.verbose(JSON.stringify(result));
     return response.status(status).json(result);
   }
 }
