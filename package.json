@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-monorepo",
-  "version": "5.4.3",
+  "version": "5.4.4",
   "private": true,
   "keywords": [
     "monorepo",
@@ -107,6 +107,7 @@
       }
     },
     "overrides": {
+      "@ast-grep/napi": "catalog:",
       "@ctrl/tinycolor": "catalog:",
       "clsx": "catalog:",
       "pinia": "catalog:",
