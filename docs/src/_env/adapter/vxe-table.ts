@@ -6,6 +6,11 @@ import { Button, Image } from 'ant-design-vue';
 
 import { useVbenForm } from './form';
 
+import 'vxe-table/styles/index.scss';
+// import 'vxe-table/styles/cssvar.scss';
+// import 'vxe-pc-ui/styles/cssvar.scss';
+// import './theme.css';
+
 setupVbenVxeTable({
   configVxeTable: (vxeUI) => {
     vxeUI.setConfig({

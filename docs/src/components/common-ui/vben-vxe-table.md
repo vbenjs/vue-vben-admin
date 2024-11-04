@@ -9,3 +9,5 @@ outline: deep
 其中，表头的 **表单搜索** 部分采用了`Vben Form表单`，表格主体部分使用了`vxe-grid`组件，支持表格的分页、排序、筛选等功能。
 
 <DemoPreview dir="demos/vben-vxe-table/basic" />
+
+<DemoPreview dir="demos/vben-vxe-table/tree" />
