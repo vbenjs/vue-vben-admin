@@ -12,7 +12,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "stub": "pnpm unbuild --stub"
+    "stub": "pnpm unbuild"
   },
   "files": [
     "dist"
@@ -48,6 +48,7 @@
   "dependencies": {
     "@iconify/json": "catalog:",
     "@iconify/tailwind": "catalog:",
+    "@manypkg/get-packages": "catalog:",
     "@tailwindcss/nesting": "catalog:",
     "@tailwindcss/typography": "catalog:",
     "autoprefixer": "catalog:",
@@ -60,7 +61,6 @@
     "tailwindcss-animate": "catalog:"
   },
   "devDependencies": {
-    "@types/postcss-import": "catalog:",
-    "@vben/node-utils": "workspace:*"
+    "@types/postcss-import": "catalog:"
   }
 }

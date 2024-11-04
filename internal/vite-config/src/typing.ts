@@ -134,9 +134,6 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
 interface LibraryPluginOptions extends CommonPluginOptions {
   /** 开启 dts 输出 */
   dts?: boolean | PluginOptions;
-
-  /** 是否注入lib css */
-  injectLibCss?: boolean;
 }
 
 interface ServerPluginOptions extends CommonPluginOptions {
