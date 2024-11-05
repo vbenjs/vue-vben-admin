@@ -18,7 +18,11 @@ outline: deep
 
 ::: tip README
 
-下方示例代码中的，存在一些国际化、主题色未适配问题，这些问题只在文档内会出现，实际使用并不会有这些问题，可忽略，不必纠结。
+下方示例代码中, 出现的 `inject<UseVbenVxeGrid>` 是为了适配文档内的示例，实际使用时直接从 `'@vben/plugins/vxe-table'` 引入即可。
+
+```typescript
+import { useVbenVxeGrid } from '@vben/plugins/vxe-table';
+```
 
 :::
 
