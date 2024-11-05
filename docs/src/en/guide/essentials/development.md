@@ -150,6 +150,12 @@ To run the `docs` application:
 pnpm dev:docs
 ```
 
+## Public Static Resources
+
+If you need to use public static resources in the project, such as images, static HTML, etc., and you want to directly import them in the development process through `src="/xxx.png"`.
+
+You need to put the resource in the corresponding project's `public/static` directory. The import path for the resource should be `src="/static/xxx.png"`.
+
 ## DevTools
 
 The project has a built-in [Vue DevTools](https://github.com/vuejs/devtools-next) plugin, which can be used during development. It is disabled by default, but can be enabled in the `.env.development` file. After enabling it, restart the project:

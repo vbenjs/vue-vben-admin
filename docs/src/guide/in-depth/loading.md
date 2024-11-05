@@ -6,7 +6,7 @@
 
 ## 原理
 
-由 `vite-plugin-inject-app-loading` 插件实现，插件会在每个应用的注入一个全局的 `loading html`。
+由 `vite-plugin-inject-app-loading` 插件实现，插件会在每个应用都注入一个全局的 `loading html`。
 
 ## 关闭
 
