@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Image as AImage, Button, Switch, Tag } from 'ant-design-vue';
+import { Button, Image, Switch, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
@@ -89,7 +89,7 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
   <div class="vp-raw w-full">
     <Grid>
       <template #image-url="{ row }">
-        <AImage :src="row.imageUrl" height="30" width="30" />
+        <Image :src="row.imageUrl" height="30" width="30" />
       </template>
       <template #open="{ row }">
         <Switch v-model:checked="row.open" />
