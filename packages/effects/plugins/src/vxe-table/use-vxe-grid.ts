@@ -41,3 +41,5 @@ export function useVbenVxeGrid(options: VxeGridProps) {
 
   return [Grid, extendedApi] as const;
 }
+
+export type UseVbenVxeGrid = typeof useVbenVxeGrid;

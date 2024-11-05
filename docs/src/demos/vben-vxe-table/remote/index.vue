@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { UseVbenVxeGrid, VxeGridProps } from '#/adapter/vxe-table';
+
+import { inject } from 'vue';
 
 import { Button } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { type DemoTableApi } from '../mock-api';
 import { MOCK_API_DATA } from '../table-data';
@@ -16,6 +16,10 @@ interface RowType {
   productName: string;
   releaseDate: string;
 }
+
+const useVbenVxeGrid = inject<UseVbenVxeGrid>(
+  'useVbenVxeGrid',
+) as UseVbenVxeGrid;
 
 // 数据实例
 // const MOCK_TREE_TABLE_DATA = [

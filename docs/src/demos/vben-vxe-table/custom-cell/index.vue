@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { UseVbenVxeGrid, VxeGridProps } from '#/adapter/vxe-table';
+
+import { inject } from 'vue';
 
 import { Button, Image, Switch, Tag } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { getExampleTableApi } from '../mock-api';
 
@@ -18,6 +18,10 @@ interface RowType {
   releaseDate: string;
   status: 'error' | 'success' | 'warning';
 }
+
+const useVbenVxeGrid = inject<UseVbenVxeGrid>(
+  'useVbenVxeGrid',
+) as UseVbenVxeGrid;
 
 const gridOptions: VxeGridProps<RowType> = {
   checkboxConfig: {

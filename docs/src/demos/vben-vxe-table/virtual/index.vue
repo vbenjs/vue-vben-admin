@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { UseVbenVxeGrid, VxeGridProps } from '#/adapter/vxe-table';
 
-import { onMounted } from 'vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { inject, onMounted } from 'vue';
 
 interface RowType {
   id: number;
@@ -11,6 +9,10 @@ interface RowType {
   role: string;
   sex: string;
 }
+
+const useVbenVxeGrid = inject<UseVbenVxeGrid>(
+  'useVbenVxeGrid',
+) as UseVbenVxeGrid;
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
