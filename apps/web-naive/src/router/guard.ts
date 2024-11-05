@@ -5,9 +5,6 @@ import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
 
-import { useTitle } from '@vueuse/core';
-
-import { $t } from '#/locales';
 import { accessRoutes, coreRouteNames } from '#/router/routes';
 import { useAuthStore } from '#/store';
 
@@ -39,13 +36,6 @@ function setupCommonGuard(router: Router) {
     // 关闭页面加载进度条
     if (preferences.transition.progress) {
       stopProgress();
-    }
-
-    // 动态修改标题
-    if (preferences.app.dynamicTitle) {
-      const { title } = to.meta;
-      // useTitle(`${$t(title)} - ${preferences.app.name}`);
-      useTitle(`${$t(title)} - ${preferences.app.name}`);
     }
   });
 }

@@ -1,11 +1,14 @@
-import { createApp } from 'vue';
+import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
+import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
-import { setupI18n } from '#/locales';
+import { useTitle } from '@vueuse/core';
+
+import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
@@ -28,6 +31,16 @@ async function bootstrap(namespace: string) {
 
   // 配置路由及路由守卫
   app.use(router);
+
+  // 动态更新标题
+  watchEffect(() => {
+    if (preferences.app.dynamicTitle) {
+      const routeTitle = router.currentRoute.value.meta?.title;
+      const pageTitle =
+        (routeTitle ? `${$t(routeTitle)} - ` : '') + preferences.app.name;
+      useTitle(pageTitle);
+    }
+  });
 
   app.mount('#app');
 }
