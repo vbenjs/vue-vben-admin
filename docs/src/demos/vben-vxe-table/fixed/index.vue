@@ -37,7 +37,6 @@ const gridOptions: VxeGridProps<RowType> = {
       width: 120,
     },
   ],
-  height: 'auto',
   pagerConfig: {},
   proxyConfig: {
     ajax: {
@@ -58,8 +57,8 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <div class="vp-raw flex h-[600px] w-full">
-    <Grid class="w-full">
+  <div class="vp-raw w-full">
+    <Grid>
       <template #action>
         <Button type="link">编辑</Button>
       </template>

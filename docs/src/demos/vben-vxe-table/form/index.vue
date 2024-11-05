@@ -2,8 +2,6 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
@@ -25,17 +23,26 @@ const formOptions: VbenFormProps = {
   schema: [
     {
       component: 'Input',
+      componentProps: {
+        placeholder: 'Please enter category',
+      },
       defaultValue: '1',
       fieldName: 'category',
       label: 'Category',
     },
     {
       component: 'Input',
+      componentProps: {
+        placeholder: 'Please enter productName',
+      },
       fieldName: 'productName',
       label: 'ProductName',
     },
     {
       component: 'Input',
+      componentProps: {
+        placeholder: 'Please enter price',
+      },
       fieldName: 'price',
       label: 'Price',
     },
@@ -66,6 +73,9 @@ const formOptions: VbenFormProps = {
   ],
   // 控制表单是否显示折叠按钮
   showCollapseButton: true,
+  submitButtonOptions: {
+    content: '查询',
+  },
   // 按下回车时是否提交表单
   submitOnEnter: false,
 };
@@ -84,7 +94,6 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
-  height: 'auto',
   keepSource: true,
   pagerConfig: {},
   proxyConfig: {
@@ -105,7 +114,7 @@ const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
 </script>
 
 <template>
-  <Page auto-content-height>
+  <div class="vp-raw w-full">
     <Grid />
-  </Page>
+  </div>
 </template>

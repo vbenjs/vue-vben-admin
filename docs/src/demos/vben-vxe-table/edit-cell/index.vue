@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
-
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { getExampleTableApi } from '../mock-api';
@@ -33,7 +31,6 @@ const gridOptions: VxeGridProps<RowType> = {
     mode: 'cell',
     trigger: 'click',
   },
-  height: 'auto',
   pagerConfig: {},
   proxyConfig: {
     ajax: {
@@ -52,7 +49,7 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
 </script>
 
 <template>
-  <Page auto-content-height>
+  <div class="vp-raw w-full">
     <Grid />
-  </Page>
+  </div>
 </template>

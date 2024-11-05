@@ -110,12 +110,14 @@ const [Modal, modalApi] = useVbenModal({
 
 以下事件，只有在 `useVbenModal({onCancel:()=>{}})` 中传入才会生效。
 
-| 事件名 | 描述 | 类型 |
-| --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` |
-| onCancel | 点击取消按钮触发 | `()=>void` |
-| onConfirm | 点击确认按钮触发 | `()=>void` |
-| onOpenChange | 关闭或者打开弹窗时触发 | `(isOpen:boolean)=>void` |
+| 事件名 | 描述 | 类型 | 版本号 |
+| --- | --- | --- | --- |
+| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` |  |
+| onCancel | 点击取消按钮触发 | `()=>void` |  |
+| onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.4.3 |
+| onConfirm | 点击确认按钮触发 | `()=>void` |  |
+| onOpenChange | 关闭或者打开弹窗时触发 | `(isOpen:boolean)=>void` |  |
+| onOpened | 打开动画播放完毕时触发 | `()=>void` | >5.4.3 |
 
 ### Slots
 

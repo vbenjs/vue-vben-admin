@@ -16,6 +16,26 @@ interface RowType {
   type: string;
 }
 
+// 数据实例
+// const MOCK_TREE_TABLE_DATA = [
+//   {
+//     date: '2020-08-01',
+//     id: 10_000,
+//     name: 'Test1',
+//     parentId: null,
+//     size: 1024,
+//     type: 'mp3',
+//   },
+//   {
+//     date: '2021-04-01',
+//     id: 10_050,
+//     name: 'Test2',
+//     parentId: 10_000,
+//     size: 0,
+//     type: 'mp4',
+//   },
+// ];
+
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
     { type: 'seq', width: 70 },
@@ -47,8 +67,8 @@ const collapseAll = () => {
 </script>
 
 <template>
-  <div class="vp-raw flex h-[300px] w-full">
-    <Grid class="w-full" table-title="数据列表" table-title-help="提示">
+  <div class="vp-raw h-[300px] w-full">
+    <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="expandAll">
           展开全部

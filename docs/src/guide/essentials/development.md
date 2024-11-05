@@ -150,6 +150,12 @@ pnpm dev:ele
 pnpm dev:docs
 ```
 
+## 公共静态资源
+
+项目中需要使用到的公共静态资源，如：图片、静态HTML等，需要在开发中通过 `src="/xxx.png"` 直接引入的。
+
+需要将资源放在对应项目的 `public/static` 目录下。引入的路径为：`src="/static/xxx.png"`。
+
 ## DevTools
 
 项目内置了 [Vue DevTools](https://github.com/vuejs/devtools-next) 插件，可以在开发过程中使用。默认关闭，可在`.env.development` 内开启，并重新运行项目即可：

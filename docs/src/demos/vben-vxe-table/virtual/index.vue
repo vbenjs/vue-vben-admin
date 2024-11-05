@@ -3,8 +3,6 @@ import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { onMounted } from 'vue';
 
-import { Page } from '@vben/common-ui';
-
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 interface RowType {
@@ -60,7 +58,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page auto-content-height>
+  <div class="vp-raw h-[500px] w-full">
     <Grid />
-  </Page>
+  </div>
 </template>
