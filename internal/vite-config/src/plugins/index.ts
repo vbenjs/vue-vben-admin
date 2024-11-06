@@ -243,4 +243,5 @@ export {
   viteDtsPlugin,
   viteHtmlPlugin,
   viteVisualizerPlugin,
+  viteVxeTableImportsPlugin,
 };

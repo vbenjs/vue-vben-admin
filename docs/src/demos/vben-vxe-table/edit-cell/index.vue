@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { UseVbenVxeGrid, VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { inject } from 'vue';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { getExampleTableApi } from '../mock-api';
 
@@ -13,10 +13,6 @@ interface RowType {
   productName: string;
   releaseDate: string;
 }
-
-const useVbenVxeGrid = inject<UseVbenVxeGrid>(
-  'useVbenVxeGrid',
-) as UseVbenVxeGrid;
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [

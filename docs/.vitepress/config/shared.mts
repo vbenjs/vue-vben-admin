@@ -3,7 +3,10 @@ import type { HeadConfig } from 'vitepress';
 
 import { resolve } from 'node:path';
 
-import { viteArchiverPlugin } from '@vben/vite-config';
+import {
+  viteArchiverPlugin,
+  viteVxeTableImportsPlugin,
+} from '@vben/vite-config';
 
 import {
   GitChangelog,
@@ -85,6 +88,7 @@ export const shared = defineConfig({
       GitChangelogMarkdownSection(),
       viteArchiverPlugin({ outputDir: '.vitepress' }),
       groupIconVitePlugin(),
+      await viteVxeTableImportsPlugin(),
     ],
     server: {
       fs: {

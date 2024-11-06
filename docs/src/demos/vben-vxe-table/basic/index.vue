@@ -1,13 +1,9 @@
 <script lang="ts" setup>
-import type {
-  UseVbenVxeGrid,
-  VxeGridListeners,
-  VxeGridProps,
-} from '#/adapter/vxe-table';
-
-import { inject } from 'vue';
+import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
 
 import { Button, message } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { MOCK_TABLE_DATA } from '../table-data';
 
@@ -19,10 +15,6 @@ interface RowType {
   nickname: string;
   role: string;
 }
-
-const useVbenVxeGrid = inject<UseVbenVxeGrid>(
-  'useVbenVxeGrid',
-) as UseVbenVxeGrid;
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
