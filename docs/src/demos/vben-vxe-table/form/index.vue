@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { VbenFormProps } from '#/adapter/form';
-import type { UseVbenVxeGrid, VxeGridProps } from '#/adapter/vxe-table';
-
-import { inject } from 'vue';
+import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { message } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { getExampleTableApi } from '../mock-api';
 
@@ -16,10 +16,6 @@ interface RowType {
   productName: string;
   releaseDate: string;
 }
-
-const useVbenVxeGrid = inject<UseVbenVxeGrid>(
-  'useVbenVxeGrid',
-) as UseVbenVxeGrid;
 
 const formOptions: VbenFormProps = {
   // 默认展开

@@ -32,21 +32,6 @@ watch(
   () => nextTick(() => initZoom()),
 );
 
-function setVxeTheme(name?: string) {
-  const theme = !name || name === 'default' ? 'light' : name;
-
-  if (typeof document !== 'undefined') {
-    const documentElement = document.documentElement;
-    if (documentElement) {
-      documentElement.dataset.vxeUiTheme = theme;
-    }
-  }
-}
-
-watch(isDark, (dark) => {
-  setVxeTheme(dark ? 'dark' : 'light');
-});
-
 // initPreferences({
 //   namespace: 'docs',
 // });

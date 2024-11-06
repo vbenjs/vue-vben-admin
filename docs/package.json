@@ -8,7 +8,10 @@
     "docs:preview": "vitepress preview"
   },
   "imports": {
-    "#/*": "./src/_env/*"
+    "#/*": {
+      "node": "./src/_env/node/*",
+      "default": "./src/_env/*"
+    }
   },
   "dependencies": {
     "@vben-core/shadcn-ui": "workspace:*",
@@ -26,7 +29,6 @@
     "@nolebase/vitepress-plugin-git-changelog": "catalog:",
     "@vben/vite-config": "workspace:*",
     "@vite-pwa/vitepress": "catalog:",
-    "sass": "^1.80.6",
     "vitepress": "catalog:",
     "vue": "catalog:"
   }
