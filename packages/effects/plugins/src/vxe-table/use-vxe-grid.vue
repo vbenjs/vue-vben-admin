@@ -26,7 +26,6 @@ import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
-import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
@@ -229,7 +228,10 @@ async function init() {
   }
   props.api?.setState?.({ gridOptions: defaultGridOptions });
   // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
-  extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
+  // fix: 不需要进行扩展，因为在handleSubmit中已经传入正确的参数了：
+  // const formValues = formApi.form.values;
+  // props.api.reload(formValues);
+  // extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
 }
 
 // formOptions支持响应式
