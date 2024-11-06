@@ -93,9 +93,11 @@
     "@types/lodash.get": "catalog:",
     "@vue/shared": "catalog:",
     "clsx": "catalog:",
+    "crypto-js": "catalog:",
     "defu": "catalog:",
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",
+    "nanoid": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:",
@@ -103,6 +105,7 @@
     "crypto-js": "catalog:"
   },
   "devDependencies": {
+    "@types/crypto-js": "catalog:",
     "@types/lodash.clonedeep": "catalog:",
     "@types/nprogress": "catalog:",
     "@types/crypto-js": "catalog:"
