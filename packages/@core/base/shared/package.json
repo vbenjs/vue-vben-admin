@@ -48,6 +48,11 @@
       "types": "./dist/global-state.d.ts",
       "development": "./src/global-state.ts",
       "default": "./dist/global-state.mjs"
+    },
+    "./crypto": {
+      "types": "./dist/crypto/index.d.ts",
+      "development": "./src/crypto/index.ts",
+      "default": "./dist/crypto/index.mjs"
     }
   },
   "publishConfig": {
@@ -75,6 +80,10 @@
       "./global-state": {
         "types": "./dist/global-state.d.ts",
         "default": "./dist/global-state.mjs"
+      },
+      "./crypto": {
+        "types": "./dist/crypto/index.d.ts",
+        "default": "./dist/crypto/index.mjs"
       }
     }
   },
@@ -89,10 +98,13 @@
     "lodash.get": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
-    "theme-colors": "catalog:"
+    "theme-colors": "catalog:",
+    "nanoid": "catalog:",
+    "crypto-js": "catalog:"
   },
   "devDependencies": {
     "@types/lodash.clonedeep": "catalog:",
-    "@types/nprogress": "catalog:"
+    "@types/nprogress": "catalog:",
+    "@types/crypto-js": "catalog:"
   }
 }

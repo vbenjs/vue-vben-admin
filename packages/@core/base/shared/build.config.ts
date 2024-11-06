@@ -10,5 +10,6 @@ export default defineBuildConfig({
     'src/color/index',
     'src/cache/index',
     'src/global-state',
+    'src/crypto/index',
   ],
 });

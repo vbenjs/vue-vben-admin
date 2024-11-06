@@ -4,6 +4,7 @@ export * from './dom';
 export * from './inference';
 export * from './letter';
 export * from './merge';
+export * from './nanoid';
 export * from './nprogress';
 export * from './state-handler';
 export * from './to';
