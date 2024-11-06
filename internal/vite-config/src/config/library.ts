@@ -19,7 +19,6 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
 
     const plugins = await loadLibraryPlugins({
       dts: false,
-      injectLibCss: true,
       injectMetadata: true,
       isBuild,
       mode,
