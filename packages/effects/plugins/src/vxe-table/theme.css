@@ -66,15 +66,13 @@
     box-shadow: 0 0 0 1px hsl(var(--border));
   }
 
-  .vxe-pager {
-    &--wrapper {
-      display: flex;
-      align-items: center;
-    }
+  .vxe-pager--wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-    &--sizes {
-      margin-right: auto;
-    }
+  .vxe-pager--sizes {
+    margin-right: auto;
   }
 }
 
