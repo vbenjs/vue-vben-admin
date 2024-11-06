@@ -156,6 +156,7 @@ function pwa(): PwaOptions {
     registerType: 'autoUpdate',
     workbox: {
       globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
   };
 }

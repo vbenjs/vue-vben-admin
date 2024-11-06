@@ -14,6 +14,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/locales": "workspace:*",
+    "@vben/plugins": "workspace:*",
     "@vben/styles": "workspace:*",
     "ant-design-vue": "catalog:",
     "lucide-vue-next": "catalog:",
@@ -25,6 +26,7 @@
     "@nolebase/vitepress-plugin-git-changelog": "catalog:",
     "@vben/vite-config": "workspace:*",
     "@vite-pwa/vitepress": "catalog:",
+    "sass": "^1.80.6",
     "vitepress": "catalog:",
     "vue": "catalog:"
   }
