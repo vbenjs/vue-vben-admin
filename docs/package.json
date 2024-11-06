@@ -8,7 +8,10 @@
     "docs:preview": "vitepress preview"
   },
   "imports": {
-    "#/*": "./src/_env/*"
+    "#/*": {
+      "node": "./src/_env/node/*",
+      "default": "./src/_env/*"
+    }
   },
   "dependencies": {
     "@vben-core/shadcn-ui": "workspace:*",
