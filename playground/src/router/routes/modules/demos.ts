@@ -221,6 +221,15 @@ const routes: RouteRecordRaw[] = [
               title: 'Tanstack Query',
             },
           },
+          {
+            name: 'CryptoDemo',
+            path: '/demos/features/crypto',
+            component: () => import('#/views/demos/features/crypto/index.vue'),
+            meta: {
+              icon: 'lucide:message-square-lock',
+              title: 'Crypto  Demo',
+            },
+          },
         ],
       },
       // 面包屑导航

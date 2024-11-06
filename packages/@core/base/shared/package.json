@@ -48,6 +48,11 @@
       "types": "./dist/global-state.d.ts",
       "development": "./src/global-state.ts",
       "default": "./dist/global-state.mjs"
+    },
+    "./crypto": {
+      "types": "./dist/crypto/index.d.ts",
+      "development": "./src/crypto/index.ts",
+      "default": "./dist/crypto/index.mjs"
     }
   },
   "publishConfig": {
@@ -75,6 +80,10 @@
       "./global-state": {
         "types": "./dist/global-state.d.ts",
         "default": "./dist/global-state.mjs"
+      },
+      "./crypto": {
+        "types": "./dist/crypto/index.d.ts",
+        "default": "./dist/crypto/index.mjs"
       }
     }
   },
@@ -84,14 +93,17 @@
     "@types/lodash.get": "catalog:",
     "@vue/shared": "catalog:",
     "clsx": "catalog:",
+    "crypto-js": "catalog:",
     "defu": "catalog:",
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",
+    "nanoid": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"
   },
   "devDependencies": {
+    "@types/crypto-js": "catalog:",
     "@types/lodash.clonedeep": "catalog:",
     "@types/nprogress": "catalog:"
   }
