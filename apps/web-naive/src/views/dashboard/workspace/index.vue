@@ -7,6 +7,7 @@ import type {
 } from '@vben/common-ui';
 
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import {
   AnalysisChartCard,
@@ -18,6 +19,7 @@ import {
 } from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
 import { useUserStore } from '@vben/stores';
+import { openWindow } from '@vben/utils';
 
 import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
@@ -195,6 +197,44 @@ const trendItems: WorkbenchTrendItem[] = [
     title: 'Vben',
   },
 ];
+
+const router = useRouter();
+
+function toProject(project: WorkbenchProjectItem) {
+  openWindow(`https://github.com/search?q=${project.title}&type=repositories`);
+}
+
+function navTo(nav: WorkbenchQuickNavItem) {
+  switch (nav.title) {
+    case '仪表盘': {
+      router.push('/dashboard');
+      break;
+    }
+    case '图表': {
+      router.push('/analytics');
+      break;
+    }
+    case '权限管理': {
+      router.push('/demos/access/page-control');
+      break;
+    }
+    case '系统管理': {
+      router.push('/demos/features/login-expired');
+      break;
+    }
+    case '组件': {
+      router.push('/demos/features/icons');
+      break;
+    }
+    case '首页': {
+      router.push('/');
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+}
 </script>
 
 <template>
@@ -210,7 +250,11 @@ const trendItems: WorkbenchTrendItem[] = [
 
     <div class="mt-5 flex flex-col lg:flex-row">
       <div class="mr-4 w-full lg:w-3/5">
-        <WorkbenchProject :items="projectItems" title="项目" />
+        <WorkbenchProject
+          :items="projectItems"
+          title="项目"
+          @click="toProject"
+        />
         <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
       </div>
       <div class="w-full lg:w-2/5">
@@ -218,6 +262,7 @@ const trendItems: WorkbenchTrendItem[] = [
           :items="quickNavItems"
           class="mt-5 lg:mt-0"
           title="快捷导航"
+          @click="navTo"
         />
         <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
         <AnalysisChartCard class="mt-5" title="访问来源">
