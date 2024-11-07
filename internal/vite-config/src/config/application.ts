@@ -109,7 +109,7 @@ function createCssOptions(injectGlobalScss = true) {
               const relativePath = relative(root, filepath);
               // apps下的包注入全局样式
               if (relativePath.startsWith(`apps${path.sep}`)) {
-                return `@import "@vben/styles/global";\n${content}`;
+                return `@use "@vben/styles/global" as *;\n${content}`;
               }
               return content;
             },

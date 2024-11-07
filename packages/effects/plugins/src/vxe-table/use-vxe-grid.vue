@@ -11,6 +11,7 @@ import {
   computed,
   nextTick,
   onMounted,
+  onUnmounted,
   toRaw,
   useSlots,
   useTemplateRef,
@@ -255,6 +256,11 @@ watch(
 onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
+});
+
+onUnmounted(() => {
+  formApi?.unmount?.();
+  props.api?.unmount?.();
 });
 </script>
 

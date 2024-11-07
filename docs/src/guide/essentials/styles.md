@@ -72,7 +72,7 @@ const { b, e, is } = useNamespace('menu');
 </template>
 <style lang="scss" scoped>
 // 如果你在应用内使用，这行代码可以省略，已经在所有的应用内全局引入了
-@import '@vben/styles/global';
+@use '@vben/styles/global' as *;
 @include b('menu') {
   color: black;
 
