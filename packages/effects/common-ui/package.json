@@ -28,6 +28,7 @@
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",
+    "@vben/hooks": "workspace:*",
     "@vueuse/core": "catalog:",
     "@vueuse/integrations": "catalog:",
     "qrcode": "catalog:",
