@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { IconPicker } from '@vben/common-ui';
 import { listIcons } from '@vben/icons';
@@ -37,21 +37,26 @@ const props = withDefaults(defineProps<Props>(), {
 const refIconPicker = ref();
 const currentSelect = ref('');
 
-function getIcons() {
-  if (props.prefix) {
-    return listIcons('', props.prefix);
-  } else {
-    const prefix = iconsData.prefix;
-    return iconsData.icons.map((icon) => `${prefix}:${icon}`);
+const currentList = computed(() => {
+  try {
+    if (props.prefix) {
+      const icons = listIcons('', props.prefix);
+      if (icons.length === 0) {
+        console.warn(`No icons found for prefix: ${props.prefix}`);
+      }
+      return icons;
+    } else {
+      const prefix = iconsData.prefix;
+      return iconsData.icons.map((icon) => `${prefix}:${icon}`);
+    }
+  } catch (error) {
+    console.error('Failed to load icons:', error);
+    return [];
   }
-}
-
-const currentList = ref(getIcons());
+});
 
 const triggerPopover = () => {
-  if (refIconPicker.value) {
-    refIconPicker.value.changeOpenState();
-  }
+  refIconPicker.value?.changeOpenState?.();
 };
 
 const handleChange = (icon: string) => {

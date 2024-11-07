@@ -42,6 +42,14 @@ const currentSelect = ref('');
 const currentList = ref(props.icons);
 const refTrigger = ref<HTMLDivElement>();
 
+watch(
+  () => props.icons,
+  (newIcons) => {
+    currentList.value = newIcons;
+  },
+  { immediate: true },
+);
+
 const { getPaginationList, getTotal, setCurrentPage } = usePagination(
   currentList,
   props.pageSize,
