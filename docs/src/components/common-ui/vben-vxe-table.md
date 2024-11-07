@@ -112,7 +112,7 @@ export type * from '@vben/plugins/vxe-table';
 
 ## 树形表格
 
-树形表格，的数据源为扁平结构，可以指定`treeConfig`配置项，实现树形表格。
+树形表格的数据源为扁平结构，可以指定`treeConfig`配置项，实现树形表格。
 
 ```typescript
 treeConfig: {
