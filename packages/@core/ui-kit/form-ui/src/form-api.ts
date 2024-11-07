@@ -253,7 +253,7 @@ export class FormApi {
   }
 
   unmount() {
-    this.form.resetForm();
+    this.form?.resetForm?.();
     // this.state = null;
     this.isMounted = false;
     this.stateHandler.reset();
