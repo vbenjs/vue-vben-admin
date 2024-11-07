@@ -224,8 +224,6 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 | grid | vxe-table grid实例 | `VxeGridInstance` |
 | formApi | vbenForm api实例 | `FormApi` |
 
-### Props
-
 ## Props
 
 所有属性都可以传入 `useVbenVxeGrid` 的第一个参数中。
