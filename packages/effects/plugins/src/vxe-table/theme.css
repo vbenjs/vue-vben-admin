@@ -1,4 +1,4 @@
-:root {
+:root .vxe-grid {
   --vxe-ui-font-color: hsl(var(--foreground));
   --vxe-ui-font-primary-color: hsl(var(--primary));
 
@@ -14,7 +14,7 @@
 
   /* layout */
   --vxe-ui-layout-background-color: hsl(var(--background));
-  --vxe-ui-table-resizable-line-color: hsl(var(--border));
+  --vxe-ui-table-resizable-line-color: hsl(var(--heavy));
 
   /* --vxe-ui-table-fixed-left-scrolling-box-shadow: 8px 0px 10px -5px hsl(var(--accent));
   --vxe-ui-table-fixed-right-scrolling-box-shadow: -8px 0px 10px -5px hsl(var(--accent)); */
@@ -66,15 +66,13 @@
     box-shadow: 0 0 0 1px hsl(var(--border));
   }
 
-  .vxe-pager {
-    &--wrapper {
-      display: flex;
-      align-items: center;
-    }
+  .vxe-pager--wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-    &--sizes {
-      margin-right: auto;
-    }
+  .vxe-pager--sizes {
+    margin-right: auto;
   }
 }
 

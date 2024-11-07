@@ -8,12 +8,16 @@
     "docs:preview": "vitepress preview"
   },
   "imports": {
-    "#/*": "./src/_env/*"
+    "#/*": {
+      "node": "./src/_env/node/*",
+      "default": "./src/_env/*"
+    }
   },
   "dependencies": {
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/locales": "workspace:*",
+    "@vben/plugins": "workspace:*",
     "@vben/styles": "workspace:*",
     "ant-design-vue": "catalog:",
     "lucide-vue-next": "catalog:",
