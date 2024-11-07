@@ -61,7 +61,6 @@ watch(
     doAesEncryptFn();
   },
   {
-    debounce: 300,
     immediate: true,
   },
 );
