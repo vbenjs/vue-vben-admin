@@ -25,6 +25,9 @@ import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 const userStore = useUserStore();
 
+// 这是一个示例数据，实际项目中需要根据实际情况进行调整
+// url 也可以是内部路由，在 navTo 方法中识别处理，进行内部跳转
+// 例如：url: /dashboard/workspace
 const projectItems: WorkbenchProjectItem[] = [
   {
     color: '',
@@ -33,6 +36,7 @@ const projectItems: WorkbenchProjectItem[] = [
     group: '开源组',
     icon: 'carbon:logo-github',
     title: 'Github',
+    url: 'https://github.com',
   },
   {
     color: '#3fb27f',
@@ -41,6 +45,7 @@ const projectItems: WorkbenchProjectItem[] = [
     group: '算法组',
     icon: 'ion:logo-vue',
     title: 'Vue',
+    url: 'https://vuejs.org',
   },
   {
     color: '#e18525',
@@ -49,6 +54,7 @@ const projectItems: WorkbenchProjectItem[] = [
     group: '上班摸鱼',
     icon: 'ion:logo-html5',
     title: 'Html5',
+    url: 'https://developer.mozilla.org/zh-CN/docs/Web/HTML',
   },
   {
     color: '#bf0c2c',
@@ -57,6 +63,7 @@ const projectItems: WorkbenchProjectItem[] = [
     group: 'UI',
     icon: 'ion:logo-angular',
     title: 'Angular',
+    url: 'https://angular.io',
   },
   {
     color: '#00d8ff',
@@ -65,6 +72,7 @@ const projectItems: WorkbenchProjectItem[] = [
     group: '技术牛',
     icon: 'bx:bxl-react',
     title: 'React',
+    url: 'https://reactjs.org',
   },
   {
     color: '#EBD94E',
@@ -73,39 +81,47 @@ const projectItems: WorkbenchProjectItem[] = [
     group: '架构组',
     icon: 'ion:logo-javascript',
     title: 'Js',
+    url: 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript',
   },
 ];
 
+// 同样，这里的 url 也可以使用以 http 开头的外部链接
 const quickNavItems: WorkbenchQuickNavItem[] = [
   {
     color: '#1fdaca',
     icon: 'ion:home-outline',
     title: '首页',
+    url: '/',
   },
   {
     color: '#bf0c2c',
     icon: 'ion:grid-outline',
     title: '仪表盘',
+    url: '/dashboard',
   },
   {
     color: '#e18525',
     icon: 'ion:layers-outline',
     title: '组件',
+    url: '/demos/features/icons',
   },
   {
     color: '#3fb27f',
     icon: 'ion:settings-outline',
     title: '系统管理',
+    url: '/demos/features/login-expired', // 这里的 URL 是示例，实际项目中需要根据实际情况进行调整
   },
   {
     color: '#4daf1bc9',
     icon: 'ion:key-outline',
     title: '权限管理',
+    url: '/demos/access/page-control',
   },
   {
     color: '#00d8ff',
     icon: 'ion:bar-chart-outline',
     title: '图表',
+    url: '/analytics',
   },
 ];
 
@@ -200,39 +216,19 @@ const trendItems: WorkbenchTrendItem[] = [
 
 const router = useRouter();
 
-function toProject(project: WorkbenchProjectItem) {
-  openWindow(`https://github.com/search?q=${project.title}&type=repositories`);
-}
-
-function navTo(nav: WorkbenchQuickNavItem) {
-  switch (nav.title) {
-    case '仪表盘': {
-      router.push('/dashboard');
-      break;
-    }
-    case '图表': {
-      router.push('/analytics');
-      break;
-    }
-    case '权限管理': {
-      router.push('/demos/access/page-control');
-      break;
-    }
-    case '系统管理': {
-      router.push('/demos/features/login-expired');
-      break;
-    }
-    case '组件': {
-      router.push('/demos/features/icons');
-      break;
-    }
-    case '首页': {
-      router.push('/');
-      break;
-    }
-    default: {
-      break;
-    }
+// 这是一个示例方法，实际项目中需要根据实际情况进行调整
+// This is a sample method, adjust according to the actual project requirements
+function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
+  if (nav.url?.startsWith('http')) {
+    openWindow(nav.url);
+    return;
+  }
+  if (nav.url?.startsWith('/')) {
+    router.push(nav.url).catch((error) => {
+      console.error('Navigation failed:', error);
+    });
+  } else {
+    console.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
   }
 }
 </script>
@@ -250,11 +246,7 @@ function navTo(nav: WorkbenchQuickNavItem) {
 
     <div class="mt-5 flex flex-col lg:flex-row">
       <div class="mr-4 w-full lg:w-3/5">
-        <WorkbenchProject
-          :items="projectItems"
-          title="项目"
-          @click="toProject"
-        />
+        <WorkbenchProject :items="projectItems" title="项目" @click="navTo" />
         <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
       </div>
       <div class="w-full lg:w-2/5">
