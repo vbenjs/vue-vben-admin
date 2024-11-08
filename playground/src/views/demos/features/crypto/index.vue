@@ -2,14 +2,14 @@
 import { computed, ref, watch } from 'vue';
 
 import {
-  Card as ACard,
-  Col as ACol,
-  Divider as ADivider,
-  Input as AInput,
-  RadioButton as ARadioButton,
-  RadioGroup as ARadioGroup,
-  Row as ARow,
-  Textarea as ATextarea,
+  Card,
+  Col,
+  Divider,
+  Input,
+  RadioButton,
+  RadioGroup,
+  Row,
+  Textarea,
 } from 'ant-design-vue';
 
 import {
@@ -18,7 +18,7 @@ import {
   desDecryptFn,
   desEncryptFn,
   hashingFn,
-} from '#/views/demos/features/crypto/inner/CryptoHooks';
+} from './inner/crypto-hooks';
 
 const targetInputTextRef = ref('testtest');
 const secretKeyRef = ref('3mbzyxbpg6613ql');
@@ -68,18 +68,18 @@ watch(
 
 <template>
   <div class="box-border w-full px-2">
-    <ACard class="mb-3" title="使用Crypto加密">
+    <Card class="mb-3" title="使用Crypto加密">
       <div>要操作的字符串</div>
-      <AInput
+      <Input
         v-model:value="targetInputTextRef"
         placeholder="请输入要操作的字符串"
       />
       <div>使用的密钥</div>
       <AInput v-model:value="secretKeyRef" />
-    </ACard>
-    <ARow>
-      <ACol :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
-        <ACard class="mr-1" title="Hashing">
+    </Card>
+    <Row>
+      <Col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
+        <Card class="mr-1" title="Hashing">
           <div
             class="px-10px box-border flex w-full flex-col divide-y overflow-x-hidden"
           >
@@ -132,10 +132,10 @@ watch(
               </div>
             </div>
           </div>
-        </ACard>
-      </ACol>
-      <ACol :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
-        <ACard title="Ciphers">
+        </Card>
+      </Col>
+      <Col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
+        <Card title="Ciphers">
           <div
             class="px-10px box-border flex w-full flex-col overflow-x-hidden"
           >
@@ -144,17 +144,17 @@ watch(
             >
               <div class="flex-none">加密方式：</div>
               <div class="flex-1 text-center">
-                <ARadioGroup
+                <RadioGroup
                   v-model:value="encryModeRef"
                   button-style="solid"
                   size="small"
                 >
-                  <ARadioButton value="aes">AES</ARadioButton>
-                  <ARadioButton value="des">DES</ARadioButton>
-                </ARadioGroup>
+                  <RadioButton value="aes">AES</RadioButton>
+                  <RadioButton value="des">DES</RadioButton>
+                </RadioGroup>
               </div>
             </div>
-            <ADivider />
+            <Divider />
             <div v-if="encryModeRef === 'aes'">
               <div
                 class="flex h-auto w-full flex-row justify-between overflow-hidden"
@@ -168,16 +168,16 @@ watch(
                   </div>
                 </div>
               </div>
-              <ADivider />
+              <Divider />
               <div>
                 <div>解密:</div>
                 <div>要解密的文本</div>
-                <ATextarea
+                <Textarea
                   v-model:value="needDecryptTextRef"
                   placeholder="请输入要操作的字符串"
                 />
                 <div>解密后的原文</div>
-                <ATextarea :value="parseTextComputed" readonly />
+                <Textarea :value="parseTextComputed" readonly />
               </div>
             </div>
             <div v-else-if="encryModeRef === 'des'">
@@ -193,7 +193,7 @@ watch(
                   </div>
                 </div>
               </div>
-              <ADivider />
+              <Divider />
               <div>
                 <div>解密:</div>
                 <div>要解密的文本</div>
@@ -202,13 +202,13 @@ watch(
                   placeholder="请输入要操作的字符串"
                 />
                 <div>解密后的原文</div>
-                <ATextarea :value="parseTextComputed" readonly />
+                <Textarea :value="parseTextComputed" readonly />
               </div>
             </div>
           </div>
-        </ACard>
-      </ACol>
-    </ARow>
+        </Card>
+      </Col>
+    </Row>
   </div>
 </template>
 
