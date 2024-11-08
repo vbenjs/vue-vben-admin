@@ -21,6 +21,7 @@ interface RowType {
 const formOptions: VbenFormProps = {
   // 默认展开
   collapsed: false,
+  fieldMapToTime: [['dateRangePicker', ['startTime', 'endTime'], 'YYYY-MM']],
   schema: [
     {
       component: 'Input',
@@ -61,6 +62,11 @@ const formOptions: VbenFormProps = {
       component: 'DatePicker',
       fieldName: 'datePicker',
       label: 'Date',
+    },
+    {
+      component: 'RangePicker',
+      fieldName: 'dateRangePicker',
+      label: 'DateRange',
     },
   ],
   // 控制表单是否显示折叠按钮
