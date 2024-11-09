@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+import { ref, useTemplateRef, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
-import { Grip, Package2 } from '@vben/icons';
+import { EmptyIcon, Grip } from '@vben/icons';
 import {
   Button,
   Pagination,
@@ -38,9 +38,9 @@ const emit = defineEmits<{
   'update:value': [string];
 }>();
 
+const refTrigger = useTemplateRef<HTMLElement>('refTrigger');
 const currentSelect = ref('');
 const currentList = ref(props.icons);
-const refTrigger = ref<HTMLDivElement>();
 
 watch(
   () => props.icons,
@@ -50,7 +50,7 @@ watch(
   { immediate: true },
 );
 
-const { getPaginationList, getTotal, setCurrentPage } = usePagination(
+const { paginationList, total, setCurrentPage } = usePagination(
   currentList,
   props.pageSize,
 );
@@ -75,47 +75,57 @@ const handlePageChange = (page: number) => {
   setCurrentPage(page);
 };
 
-const changeOpenState = () => {
-  if (refTrigger.value) {
-    refTrigger.value.click();
-  }
-};
+function changeOpenState() {
+  refTrigger.value?.click?.();
+}
 
 defineExpose({ changeOpenState });
 </script>
 <template>
   <VbenPopover
     :content-props="{ align: 'end', alignOffset: -11, sideOffset: 8 }"
-    content-class="p-0 py-4"
+    content-class="p-0 pt-3"
   >
     <template #trigger>
       <div ref="refTrigger">
-        <VbenIcon :icon="currentSelect || Grip" class="size-6" />
+        <VbenIcon :icon="currentSelect || Grip" class="size-5" />
       </div>
     </template>
 
-    <div v-if="getPaginationList.length > 0">
+    <template v-if="paginationList.length > 0">
       <div class="grid max-h-[360px] w-full grid-cols-6 justify-items-center">
         <VbenIconButton
-          v-for="(item, index) in getPaginationList"
+          v-for="(item, index) in paginationList"
           :key="index"
           :tooltip="item"
           tooltip-side="top"
           @click="handleClick(item)"
         >
-          <VbenIcon :icon="item" />
+          <VbenIcon
+            :class="{
+              'text-primary transition-all': currentSelect === item,
+            }"
+            :icon="item"
+          />
         </VbenIconButton>
       </div>
-      <div v-if="getTotal >= pageSize" class="flex-center pt-1">
+      <div
+        v-if="total >= pageSize"
+        class="flex-center flex justify-end overflow-hidden border-t py-2 pr-3"
+      >
         <Pagination
           v-slot="{ page }"
           :items-per-page="36"
           :sibling-count="1"
-          :total="getTotal"
+          :total="total"
           show-edges
+          size="small"
           @update:page="handlePageChange"
         >
-          <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+          <PaginationList
+            v-slot="{ items }"
+            class="flex w-full items-center gap-1"
+          >
             <PaginationFirst class="size-5" />
             <PaginationPrev class="size-5" />
             <template v-for="(item, index) in items">
@@ -144,12 +154,12 @@ defineExpose({ changeOpenState });
           </PaginationList>
         </Pagination>
       </div>
-    </div>
+    </template>
 
     <template v-else>
       <div class="flex-col-center text-muted-foreground min-h-[150px] w-full">
-        <Package2 />
-        <div>{{ $t('common.noData') }}</div>
+        <EmptyIcon class="size-10" />
+        <div class="mt-1 text-sm">{{ $t('common.noData') }}</div>
       </div>
     </template>
   </VbenPopover>

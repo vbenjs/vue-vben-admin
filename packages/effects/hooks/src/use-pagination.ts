@@ -29,11 +29,11 @@ export function usePagination<T = any>(list: Ref<T[]>, pageSize: number) {
     Math.ceil(unref(list).length / unref(pageSizeRef)),
   );
 
-  const getPaginationList = computed(() => {
+  const paginationList = computed(() => {
     return pagination(unref(list), unref(currentPage), unref(pageSizeRef));
   });
 
-  const getTotal = computed(() => {
+  const total = computed(() => {
     return unref(list).length;
   });
 
@@ -53,5 +53,5 @@ export function usePagination<T = any>(list: Ref<T[]>, pageSize: number) {
     currentPage.value = 1;
   }
 
-  return { setCurrentPage, getTotal, setPageSize, getPaginationList };
+  return { setCurrentPage, total, setPageSize, paginationList };
 }

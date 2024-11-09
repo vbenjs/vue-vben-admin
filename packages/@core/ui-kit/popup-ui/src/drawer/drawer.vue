@@ -132,7 +132,7 @@ function handleFocusOutside(e: Event) {
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader
-        v-show="showHeader"
+        v-if="showHeader"
         :class="
           cn(
             '!flex flex-row items-center justify-between border-b px-6 py-5',
@@ -179,6 +179,12 @@ function handleFocusOutside(e: Event) {
         </div>
       </SheetHeader>
 
+      <template v-else>
+        <VisuallyHidden>
+          <SheetTitle />
+          <SheetDescription />
+        </VisuallyHidden>
+      </template>
       <div
         ref="wrapperRef"
         :class="

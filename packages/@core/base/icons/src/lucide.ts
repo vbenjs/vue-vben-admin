@@ -41,7 +41,6 @@ export {
   Minimize,
   Minimize2,
   MoonStar,
-  Package2,
   Palette,
   PanelLeft,
   PanelRight,
