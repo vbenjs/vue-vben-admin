@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ClassType } from '@vben-core/typings';
 import type {
   AvatarFallbackProps,
   AvatarImageProps,
@@ -11,9 +12,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '../../ui';
 
 interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
   alt?: string;
-  class?: any;
+  class?: ClassType;
   dot?: boolean;
-  dotClass?: any;
+  dotClass?: ClassType;
 }
 
 defineOptions({

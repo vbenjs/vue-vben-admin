@@ -320,7 +320,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 ```ts
 export interface ActionButtonOptions {
   /** 样式 */
-  class?: any;
+  class?: ClassType;
   /** 是否禁用 */
   disabled?: boolean;
   /** 是否加载中 */
