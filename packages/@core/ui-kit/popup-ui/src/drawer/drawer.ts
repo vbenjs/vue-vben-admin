@@ -7,7 +7,7 @@ export interface DrawerProps {
    * 取消按钮文字
    */
   cancelText?: string;
-  class?: string;
+  class?: any;
   /**
    * 是否显示右上角的关闭按钮
    * @default true
@@ -42,6 +42,14 @@ export interface DrawerProps {
    * @default true
    */
   footer?: boolean;
+  /**
+   * 弹窗底部样式
+   */
+  footerClass?: any;
+  /**
+   * 弹窗头部样式
+   */
+  headerClass?: any;
   /**
    * 弹窗是否显示
    * @default false

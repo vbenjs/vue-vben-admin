@@ -6,6 +6,7 @@ import path, { relative } from 'node:path';
 
 import { findMonorepoRoot } from '@vben/node-utils';
 
+import { NodePackageImporter } from 'sass';
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
@@ -85,7 +86,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
           clientFiles: [
             './index.html',
             './src/bootstrap.ts',
-            './src/{views,layouts,router,store,api}/*',
+            './src/{views,layouts,router,store,api,adapter}/*',
           ],
         },
       },
@@ -113,7 +114,8 @@ function createCssOptions(injectGlobalScss = true) {
               }
               return content;
             },
-            api: 'modern-compiler',
+            api: 'modern',
+            importers: [new NodePackageImporter()],
           },
         }
       : {},
