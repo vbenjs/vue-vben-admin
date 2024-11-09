@@ -52,18 +52,90 @@ async function handleSubmit(e: Event) {
   if (!valid) {
     return;
   }
-  await unref(rootProps).handleSubmit?.(toRaw(form.values));
+
+  const values = handleRangeTimeValue(toRaw(form.values));
+  await unref(rootProps).handleSubmit?.(values);
 }
 
 async function handleReset(e: Event) {
   e?.preventDefault();
   e?.stopPropagation();
   const props = unref(rootProps);
+
+  const values = toRaw(form.values);
+  // 清理时间字段
+  props.fieldMapToTime &&
+    props.fieldMapToTime.forEach(([_, [startTimeKey, endTimeKey]]) => {
+      delete values[startTimeKey];
+      delete values[endTimeKey];
+    });
+
   if (isFunction(props.handleReset)) {
-    await props.handleReset?.(form.values);
+    await props.handleReset?.(values);
   } else {
     form.resetForm();
   }
+}
+
+function handleRangeTimeValue(values: Record<string, any>) {
+  const fieldMapToTime = unref(rootProps).fieldMapToTime;
+
+  if (!fieldMapToTime) return values;
+
+  if (!Array.isArray(fieldMapToTime)) {
+    return values;
+  }
+
+  fieldMapToTime.forEach(
+    ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+      if (!values[field]) {
+        delete values[field];
+        return;
+      }
+
+      const [startTime, endTime] = values[field];
+      const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+        ? format
+        : [format, format];
+
+      values[startTimeKey] = startTime
+        ? formatTime(startTime, startTimeFormat)
+        : undefined;
+      values[endTimeKey] = endTime
+        ? formatTime(endTime, endTimeFormat)
+        : undefined;
+
+      delete values[field];
+    },
+  );
+
+  return values;
+}
+
+function formatTime(time: string, format: string): number | string {
+  const date = new Date(time);
+  const timestamp = (date: Date) => Math.floor(date.getTime() / 1000);
+
+  if (format === 'timestamp') return timestamp(date);
+  if (format === 'timestampStartDay')
+    return timestamp(
+      new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+    );
+
+  const padZero = (num: number) => num.toString().padStart(2, '0');
+  const replacements: Record<string, string> = {
+    DD: padZero(date.getDate()),
+    HH: padZero(date.getHours()),
+    MM: padZero(date.getMonth() + 1),
+    mm: padZero(date.getMinutes()),
+    ss: padZero(date.getSeconds()),
+    YYYY: date.getFullYear().toString(),
+  };
+
+  return format.replaceAll(
+    /YYYY|MM|DD|HH|mm|ss/g,
+    (match) => replacements[match] || match,
+  );
 }
 
 watch(

@@ -206,6 +206,12 @@ export type HandleResetFn = (
   values: Record<string, any>,
 ) => Promise<void> | void;
 
+export type FieldMapToTime = [
+  string,
+  [string, string],
+  ([string, string] | string)?,
+][];
+
 export interface FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormCommonConfig {
@@ -266,6 +272,10 @@ export interface FormRenderProps<
    * 组件集合
    */
   componentMap: Record<BaseFormComponentType, Component>;
+  /**
+   * 表单字段映射成时间格式
+   */
+  fieldMapToTime?: FieldMapToTime;
   /**
    * 表单实例
    */
