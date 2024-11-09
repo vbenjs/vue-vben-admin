@@ -13,8 +13,6 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "exports": {
     ".": {
       "types": "./src/index.ts",

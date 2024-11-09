@@ -37,7 +37,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
-    "default-passive-events": "^2.0.0",
+    "default-passive-events": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }
