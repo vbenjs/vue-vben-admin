@@ -87,3 +87,11 @@
 .vxe-table-custom--checkbox-option:hover {
   background: none !important;
 }
+
+.vxe-toolbar {
+  padding-top: 0;
+}
+
+.vxe-tools--operate:not(:has(button)) {
+  margin-left: 0;
+}

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ClassType } from '@vben-core/typings';
+
 import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
@@ -18,8 +20,8 @@ import DialogOverlay from './DialogOverlay.vue';
 const props = withDefaults(
   defineProps<
     {
-      class?: any;
-      closeClass?: any;
+      class?: ClassType;
+      closeClass?: ClassType;
       modal?: boolean;
       open?: boolean;
       showClose?: boolean;

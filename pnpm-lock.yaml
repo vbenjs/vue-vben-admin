@@ -1292,6 +1292,9 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       '@vee-validate/zod':
         specifier: 'catalog:'
         version: 4.14.7(vue@3.5.12(typescript@5.6.3))
@@ -1370,6 +1373,9 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 11.2.0(vue@3.5.12(typescript@5.6.3))

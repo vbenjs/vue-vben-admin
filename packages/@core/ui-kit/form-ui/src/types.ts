@@ -1,4 +1,5 @@
 import type { VbenButtonProps } from '@vben-core/shadcn-ui';
+import type { ClassType } from '@vben-core/typings';
 import type { FieldOptions, FormContext, GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
 
@@ -303,7 +304,7 @@ export interface VbenFormProps<
   /**
    * 表单操作区域class
    */
-  actionWrapperClass?: any;
+  actionWrapperClass?: ClassType;
   /**
    * 表单重置回调
    */
