@@ -89,7 +89,12 @@
 }
 
 .vxe-toolbar {
-  padding-top: 0;
+  padding: 0;
+}
+
+.vxe-buttons--wrapper:not(:empty),
+.vxe-tools--wrapper:not(:empty) {
+  padding: 0.6em 0;
 }
 
 .vxe-tools--operate:not(:has(button)) {

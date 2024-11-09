@@ -29,6 +29,8 @@ import {
 } from './menu';
 import { LayoutTabbar } from './tabbar';
 
+import 'default-passive-events';
+
 defineOptions({ name: 'BasicLayout' });
 
 const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();

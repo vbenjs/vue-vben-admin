@@ -179,12 +179,6 @@ function handleFocusOutside(e: Event) {
         </div>
       </SheetHeader>
 
-      <template v-else>
-        <VisuallyHidden>
-          <SheetTitle />
-          <SheetDescription />
-        </VisuallyHidden>
-      </template>
       <div
         ref="wrapperRef"
         :class="

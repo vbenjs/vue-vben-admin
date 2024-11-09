@@ -79,6 +79,7 @@ catalog:
   cz-git: ^1.11.0
   czg: ^1.11.0
   dayjs: ^1.11.13
+  default-passive-events: ^2.0.0
   defu: ^6.1.4
   depcheck: ^1.4.7
   dotenv: ^16.4.5
@@ -137,7 +138,7 @@ catalog:
   radix-vue: ^1.9.9
   resolve.exports: ^2.0.2
   rimraf: ^6.0.1
-  rollup: ^4.24.4
+  rollup: ^4.25.0
   rollup-plugin-visualizer: ^5.12.0
   sass: 1.80.6
   sortablejs: ^1.15.3
@@ -174,8 +175,8 @@ catalog:
   vue-i18n: ^10.0.4
   vue-router: ^4.4.5
   vue-tsc: ^2.1.10
-  vxe-pc-ui: ^4.2.46
-  vxe-table: ^4.8.8
+  vxe-pc-ui: ^4.2.49
+  vxe-table: ^4.8.9
   watermark-js-plus: ^1.5.7
   zod: ^3.23.8
   zod-defaults: ^0.1.3

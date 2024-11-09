@@ -1,5 +1,3 @@
-import 'default-passive-events';
-
 export * from './authentication';
 export * from './basic';
 export * from './iframe';
