@@ -31,7 +31,7 @@
   #app,
   body,
   html {
-    @apply size-full overscroll-none;
+    @apply size-full;
 
     /* scrollbar-gutter: stable; */
   }
