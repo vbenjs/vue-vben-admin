@@ -84,6 +84,7 @@
     "@types/lodash.get": "catalog:",
     "@vue/shared": "catalog:",
     "clsx": "catalog:",
+    "dayjs": "^1.11.13",
     "defu": "catalog:",
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",

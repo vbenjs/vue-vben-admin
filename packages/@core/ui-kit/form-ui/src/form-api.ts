@@ -242,6 +242,15 @@ export class FormApi {
     form.setValues(filteredFields, shouldValidate);
   }
 
+  async submitAndValidateForm() {
+    const form = await this.getForm();
+    const { valid } = await form.validate();
+    if (!valid) {
+      return;
+    }
+    return await this.submitForm();
+  }
+
   async submitForm(e?: Event) {
     e?.preventDefault();
     e?.stopPropagation();

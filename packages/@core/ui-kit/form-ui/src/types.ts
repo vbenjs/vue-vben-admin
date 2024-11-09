@@ -206,7 +206,7 @@ export type HandleResetFn = (
   values: Record<string, any>,
 ) => Promise<void> | void;
 
-export type FieldMapToTime = [
+export type FieldMappingTime = [
   string,
   [string, string],
   ([string, string] | string)?,
@@ -273,10 +273,6 @@ export interface FormRenderProps<
    */
   componentMap: Record<BaseFormComponentType, Component>;
   /**
-   * 表单字段映射成时间格式
-   */
-  fieldMapToTime?: FieldMapToTime;
-  /**
    * 表单实例
    */
   form?: FormContext<GenericObject>;
@@ -315,6 +311,10 @@ export interface VbenFormProps<
    * 表单操作区域class
    */
   actionWrapperClass?: ClassType;
+  /**
+   * 表单字段映射成时间格式
+   */
+  fieldMappingTime?: FieldMappingTime;
   /**
    * 表单重置回调
    */
