@@ -1478,6 +1478,9 @@ importers:
       '@vben/constants':
         specifier: workspace:*
         version: link:../../constants
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@vben/icons':
         specifier: workspace:*
         version: link:../../icons
