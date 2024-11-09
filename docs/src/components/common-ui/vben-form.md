@@ -280,7 +280,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | 方法名 | 描述 | 类型 |
 | --- | --- | --- |
 | submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` |
-| submitAndValidateForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` |
+| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` |
 | resetForm | 重置表单 | `()=>Promise<void>` |
 | setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` |
 | getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` |
