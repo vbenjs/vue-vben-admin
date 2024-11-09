@@ -303,4 +303,13 @@ export class FormApi {
     }
     return validateResult;
   }
+
+  async validateAndSubmitForm() {
+    const form = await this.getForm();
+    const { valid } = await form.validate();
+    if (!valid) {
+      return;
+    }
+    return await this.submitForm();
+  }
 }

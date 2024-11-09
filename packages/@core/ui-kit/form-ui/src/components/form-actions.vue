@@ -3,7 +3,12 @@ import { computed, toRaw, unref, watch } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils';
+import {
+  cn,
+  formatDate,
+  isFunction,
+  triggerWindowResize,
+} from '@vben-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';
@@ -64,8 +69,8 @@ async function handleReset(e: Event) {
 
   const values = toRaw(form.values);
   // 清理时间字段
-  props.fieldMapToTime &&
-    props.fieldMapToTime.forEach(([_, [startTimeKey, endTimeKey]]) => {
+  props.fieldMappingTime &&
+    props.fieldMappingTime.forEach(([_, [startTimeKey, endTimeKey]]) => {
       delete values[startTimeKey];
       delete values[endTimeKey];
     });
@@ -78,15 +83,13 @@ async function handleReset(e: Event) {
 }
 
 function handleRangeTimeValue(values: Record<string, any>) {
-  const fieldMapToTime = unref(rootProps).fieldMapToTime;
+  const fieldMappingTime = unref(rootProps).fieldMappingTime;
 
-  if (!fieldMapToTime) return values;
-
-  if (!Array.isArray(fieldMapToTime)) {
+  if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
     return values;
   }
 
-  fieldMapToTime.forEach(
+  fieldMappingTime.forEach(
     ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
       if (!values[field]) {
         delete values[field];
@@ -99,10 +102,10 @@ function handleRangeTimeValue(values: Record<string, any>) {
         : [format, format];
 
       values[startTimeKey] = startTime
-        ? formatTime(startTime, startTimeFormat)
+        ? formatDate(startTime, startTimeFormat)
         : undefined;
       values[endTimeKey] = endTime
-        ? formatTime(endTime, endTimeFormat)
+        ? formatDate(endTime, endTimeFormat)
         : undefined;
 
       delete values[field];
@@ -110,32 +113,6 @@ function handleRangeTimeValue(values: Record<string, any>) {
   );
 
   return values;
-}
-
-function formatTime(time: string, format: string): number | string {
-  const date = new Date(time);
-  const timestamp = (date: Date) => Math.floor(date.getTime() / 1000);
-
-  if (format === 'timestamp') return timestamp(date);
-  if (format === 'timestampStartDay')
-    return timestamp(
-      new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-    );
-
-  const padZero = (num: number) => num.toString().padStart(2, '0');
-  const replacements: Record<string, string> = {
-    DD: padZero(date.getDate()),
-    HH: padZero(date.getHours()),
-    MM: padZero(date.getMonth() + 1),
-    mm: padZero(date.getMinutes()),
-    ss: padZero(date.getSeconds()),
-    YYYY: date.getFullYear().toString(),
-  };
-
-  return format.replaceAll(
-    /YYYY|MM|DD|HH|mm|ss/g,
-    (match) => replacements[match] || match,
-  );
 }
 
 watch(
