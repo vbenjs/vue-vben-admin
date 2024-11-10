@@ -192,9 +192,6 @@ catalogs:
     dayjs:
       specifier: ^1.11.13
       version: 1.11.13
-    default-passive-events:
-      specifier: ^2.0.0
-      version: 2.0.0
     defu:
       specifier: ^6.1.4
       version: 6.1.4
@@ -1596,9 +1593,6 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 11.2.0(vue@3.5.12(typescript@5.6.3))
-      default-passive-events:
-        specifier: 'catalog:'
-        version: 2.0.0
       vue:
         specifier: ^3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -5735,9 +5729,6 @@ packages:
   default-browser@5.2.1:
     resolution: {integrity: sha512-WY/3TUME0x3KPYdRRxEJJvXRHV4PyPoUsxtZa78lwItwRQRHhd2U9xOscaT/YTf8uCXIAjeJOFBVEh/7FtD8Xg==}
     engines: {node: '>=18'}
-
-  default-passive-events@2.0.0:
-    resolution: {integrity: sha512-eMtt76GpDVngZQ3ocgvRcNCklUMwID1PaNbCNxfpDXuiOXttSh0HzBbda1HU9SIUsDc02vb7g9+3I5tlqe/qMQ==}
 
   define-data-property@1.1.4:
     resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
@@ -14742,8 +14733,6 @@ snapshots:
     dependencies:
       bundle-name: 4.1.0
       default-browser-id: 5.0.0
-
-  default-passive-events@2.0.0: {}
 
   define-data-property@1.1.4:
     dependencies:
