@@ -10,15 +10,18 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<PinInputProps>(), {
-  btnLoading: false,
-  codeLength: 6,
-  handleSendCode: async () => {},
-  maxTime: 60,
-});
+const {
+  codeLength = 6,
+  createText = async () => {},
+  disabled = false,
+  handleSendCode = async () => {},
+  loading = false,
+  maxTime = 60,
+} = defineProps<PinInputProps>();
 
 const emit = defineEmits<{
   complete: [];
+  sendError: [error: any];
 }>();
 
 const timer = ref<ReturnType<typeof setTimeout>>();
@@ -30,11 +33,11 @@ const countdown = ref(0);
 
 const btnText = computed(() => {
   const countdownValue = countdown.value;
-  return props.createText?.(countdownValue);
+  return createText?.(countdownValue);
 });
 
 const btnLoading = computed(() => {
-  return props.loading || countdown.value > 0;
+  return loading || countdown.value > 0;
 });
 
 watch(
@@ -50,10 +53,16 @@ function handleComplete(e: string[]) {
 }
 
 async function handleSend(e: Event) {
-  e?.preventDefault();
-  await props.handleSendCode();
-  countdown.value = props.maxTime;
-  startCountdown();
+  try {
+    e?.preventDefault();
+    await handleSendCode();
+    countdown.value = maxTime;
+    startCountdown();
+  } catch (error) {
+    console.error('Failed to send code:', error);
+    // Consider emitting an error event or showing a notification
+    emit('sendError', error);
+  }
 }
 
 function startCountdown() {
@@ -77,6 +86,7 @@ const id = useId();
   <PinInput
     :id="id"
     v-model="inputValue"
+    :disabled="disabled"
     class="flex w-full justify-between"
     otp
     placeholder="○"
@@ -92,6 +102,7 @@ const id = useId();
         />
       </PinInputGroup>
       <VbenButton
+        :disabled="disabled"
         :loading="btnLoading"
         class="flex-grow"
         size="lg"
