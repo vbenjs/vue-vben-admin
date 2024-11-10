@@ -21,6 +21,7 @@ const {
 
 const emit = defineEmits<{
   complete: [];
+  sendError: [error: any];
 }>();
 
 const timer = ref<ReturnType<typeof setTimeout>>();
@@ -52,10 +53,16 @@ function handleComplete(e: string[]) {
 }
 
 async function handleSend(e: Event) {
-  e?.preventDefault();
-  await handleSendCode();
-  countdown.value = maxTime;
-  startCountdown();
+  try {
+    e?.preventDefault();
+    await handleSendCode();
+    countdown.value = maxTime;
+    startCountdown();
+  } catch (error) {
+    console.error('Failed to send code:', error);
+    // Consider emitting an error event or showing a notification
+    emit('sendError', error);
+  }
 }
 
 function startCountdown() {
