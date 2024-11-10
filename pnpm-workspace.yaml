@@ -79,7 +79,6 @@ catalog:
   cz-git: ^1.11.0
   czg: ^1.11.0
   dayjs: ^1.11.13
-  default-passive-events: ^2.0.0
   defu: ^6.1.4
   depcheck: ^1.4.7
   dotenv: ^16.4.5
