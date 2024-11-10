@@ -9,6 +9,10 @@ interface PinInputProps {
    */
   createText?: (countdown: number) => string;
   /**
+   * 是否禁用
+   */
+  disabled?: boolean;
+  /**
    * 自定义验证码发送逻辑
    * @returns
    */
