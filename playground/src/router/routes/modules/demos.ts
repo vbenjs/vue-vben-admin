@@ -178,6 +178,16 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'FileDownloadDemo',
+            path: '/demos/features/file-download',
+            component: () =>
+              import('#/views/demos/features/file-download/index.vue'),
+            meta: {
+              icon: 'lucide:hard-drive-download',
+              title: $t('demos.features.fileDownload'),
+            },
+          },
+          {
             name: 'ClipboardDemo',
             path: '/demos/features/clipboard',
             component: () =>
