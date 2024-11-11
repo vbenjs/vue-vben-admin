@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+/**
+ * This components is refactored from vue-drag-resize: https://github.com/kirillmurashov/vue-drag-resize
+ */
+
 import {
   computed,
   getCurrentInstance,
