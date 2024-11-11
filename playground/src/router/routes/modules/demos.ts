@@ -231,15 +231,6 @@ const routes: RouteRecordRaw[] = [
               title: 'Tanstack Query',
             },
           },
-          {
-            name: 'VueResizeDemo',
-            path: '/demos/resize/basic',
-            component: () => import('#/views/demos/resize/basic.vue'),
-            meta: {
-              icon: 'lucide:resize',
-              title: 'Tanstack Query',
-            },
-          },
         ],
       },
       // 面包屑导航
