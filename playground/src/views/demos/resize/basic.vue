@@ -3,10 +3,10 @@ import { ref } from 'vue';
 
 import { Page, VResize } from '@vben/common-ui';
 
-const width = ref(0);
-const height = ref(0);
-const top = ref(0);
-const left = ref(0);
+const width = ref(200);
+const height = ref(200);
+const top = ref(200);
+const left = ref(200);
 
 const resize = (newRect: {
   height: number;
