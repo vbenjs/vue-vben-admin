@@ -21,10 +21,6 @@
     "./vxe-table": {
       "types": "./src/vxe-table/index.ts",
       "default": "./src/vxe-table/index.ts"
-    },
-    "./resize": {
-      "types": "./src/resize/index.ts",
-      "default": "./src/resize/index.ts"
     }
   },
   "dependencies": {
