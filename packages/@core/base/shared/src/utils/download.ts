@@ -64,8 +64,6 @@ export async function downloadFileFromImageUrl({
 
 /**
  * 通过 Blob 下载文件
- * @param blob - 文件的 Blob 对象
- * @param fileName - 可选，下载的文件名称
  */
 export function downloadFileFromBlob({
   fileName = DEFAULT_FILENAME,
@@ -81,8 +79,6 @@ export function downloadFileFromBlob({
 
 /**
  * 下载文件，支持 Blob、字符串和其他 BlobPart 类型
- * @param data - 文件的 BlobPart 数据
- * @param fileName - 下载的文件名称
  */
 export function downloadFileFromBlobPart({
   fileName = DEFAULT_FILENAME,
