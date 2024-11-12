@@ -233,7 +233,7 @@ const routes: RouteRecordRaw[] = [
         path: '/demos/resize/basic',
         component: () => import('#/views/examples/resize/basic.vue'),
         meta: {
-          icon: 'lucide:resize',
+          icon: 'material-symbols:resize',
           title: $t('examples.resize.title'),
         },
       },

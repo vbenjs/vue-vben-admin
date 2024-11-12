@@ -1059,7 +1059,7 @@ watch(
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .resize {
   position: absolute;
   box-sizing: border-box;
