@@ -2,42 +2,66 @@
 outline: deep
 ---
 
-# Routing and Menus
+# Routes and Menus
 
-In the project, the framework provides a basic routing system and **automatically generates the corresponding menu structure based on the routing file**.
+::: info
 
-## Route Types
+This page is translated by machine translation and may not be very accurate.
 
-Routes are divided into static routes and dynamic routes. Static routes are routes that have been determined when the project starts. Dynamic routes are generally routes that are dynamically generated based on the user's permissions after the user logs in.
+:::
+
+In the project, the framework provides a basic routing system and **automatically generates the corresponding menu structure based on the routing files**.
+
+## Types of Routes
+
+Routes are divided into core routes, static routes, and dynamic routes. Core routes are built-in routes of the framework, including root routes, login routes, 404 routes, etc.; static routes are routes that are determined when the project starts; dynamic routes are generally generated dynamically based on the user's permissions after the user logs in.
+
+Both static and dynamic routes go through permission control, which can be controlled by configuring the `authority` field in the `meta` property of the route.
+
+### Core Routes
+
+Core routes are built-in routes of the framework, including root routes, login routes, 404 routes, etc. The configuration of core routes is in the `src/router/routes/core` directory under the application.
+
+::: tip
+
+Core routes are mainly used for the basic functions of the framework, so it is not recommended to put business-related routes in core routes. It is recommended to put business-related routes in static or dynamic routes.
+
+:::
 
 ### Static Routes
 
-If your page project does not require permission control, you can directly use static routes. The configuration of static routes is in the `src/router/routes/index` directory under the application. Open the commented file content:
+The configuration of static routes is in the `src/router/routes/index` directory under the application. Open the commented file content:
+
+::: tip
+
+Permission control is controlled by the `authority` field in the `meta` property of the route. If your page project does not require permission control, you can omit the `authority` field.
+
+:::
 
 ```ts
-// If necessary, you can open your own comments and create folders
+// Uncomment if needed and create the folder
 // const externalRouteFiles = import.meta.glob('./external/**/*.ts', { eager: true }); // [!code --]
 const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code ++]
-/** Dynamic routing */
+/** Dynamic routes */
 const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
 
-/** External routing lists, which can be accessed without Layout, may be used for embedding in other systems */
+/** External route list, these pages can be accessed without Layout, possibly used for embedding in other systems */
 // const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code --]
 const externalRoutes: RouteRecordRaw[] = []; // [!code --]
 const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); // [!code ++]
 ```
 
-### Dynamic routing
+### Dynamic Routes
 
-The configuration of dynamic routing is in the corresponding application `src/router/routes/modules` directory. All routing files are stored in this directory. The content format of each file is as follows, which is consistent with the routing configuration format of Vue Router. The following is the configuration of secondary routes and multi-level routes.
+The configuration of dynamic routes is in the `src/router/routes/modules` directory under the corresponding application. This directory contains all the route files. The content format of each file is consistent with the Vue Router route configuration format. Below is the configuration of secondary and multi-level routes.
 
-## Define the route
+## Route Definition
 
-Static routes and dynamic routes are configured in the same way. The configuration of the level-2 and multi-level routes is as follows:
+The configuration method of static routes and dynamic routes is the same. Below is the configuration of secondary and multi-level routes:
 
-### Secondary route
+### Secondary Routes
 
-::: details Example code of the secondary route
+::: details Secondary Route Example Code
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -81,17 +105,16 @@ export default routes;
 
 :::
 
-### Multilevel routing
+### Multi-level Routes
 
 ::: tip
 
-- The parent route of multi-level routing does not need to set the 'component' attribute, only the 'children' attribute needs to be set. Unless you really need to display content under nested parent routing.
-
-- If there are no special circumstances, the 'redirect' attribute of the parent route does not need to be specified and will default to the first child route.
+- The parent route of multi-level routes does not need to set the `component` property, just set the `children` property. Unless you really need to display content nested under the parent route.
+- In most cases, the `redirect` property of the parent route does not need to be specified, it will default to the first child route.
 
 :::
 
-::: details Multilevel Routing Example Code
+::: details Multi-level Route Example Code
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -112,7 +135,7 @@ const routes: RouteRecordRaw[] = [
     path: '/demos',
     redirect: '/demos/access',
     children: [
-      // 嵌套菜单
+      // Nested menu
       {
         meta: {
           icon: 'ic:round-menu',
@@ -208,13 +231,13 @@ export default routes;
 
 :::
 
-## Add a New Page
+## Adding a New Page
 
 To add a new page, you only need to add a route and the corresponding page component.
 
-### Add a Route
+### Adding a Route
 
-Add a route object in the corresponding routing file as follows:
+Add a route object in the corresponding route file, as follows:
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -251,9 +274,9 @@ const routes: RouteRecordRaw[] = [
 export default routes;
 ```
 
-### Add Page Component
+### Adding a Page Component
 
-In `#/views/home/`, add a new `index.vue` file as follows:
+In `#/views/home/`, add a new `index.vue` file, as follows:
 
 ```vue
 <template>
@@ -265,11 +288,11 @@ In `#/views/home/`, add a new `index.vue` file as follows:
 
 ### Verification
 
-At this point, the page has been added. Access `http://localhost:5555/home/index` to see the corresponding page.
+At this point, the page has been added. Visit `http://localhost:5555/home/index` to see the corresponding page.
 
 ## Route Configuration
 
-The route configuration mainly resides in the `meta` attribute of the route object. Below are some commonly used configuration items：
+The route configuration items are mainly in the `meta` property of the route object. The following are common configuration items:
 
 ```ts {5-8}
 const routes = [
@@ -293,22 +316,21 @@ interface RouteMeta {
    */
   activeIcon?: string;
   /**
-   * The currently active menu, used when you want to activate a parent menu instead of the existing one
-   * @default false
+   * The currently active menu, sometimes you don't want to activate the existing menu, use this to activate the parent menu
    */
   activePath?: string;
   /**
-   * Whether to affix the tab
+   * Whether to fix the tab
    * @default false
    */
   affixTab?: boolean;
   /**
-   * The order of the affixed tab
+   * The order of fixed tabs
    * @default 0
    */
   affixTabOrder?: number;
   /**
-   * Specific role identifiers required for access
+   * Specific roles required to access
    * @default []
    */
   authority?: string[];
@@ -331,22 +353,22 @@ interface RouteMeta {
     | 'warning'
     | string;
   /**
-   * Children of the current route do not show in the menu
+   * The children of the current route are not displayed in the menu
    * @default false
    */
   hideChildrenInMenu?: boolean;
   /**
-   * The current route does not show in the breadcrumb
+   * The current route is not displayed in the breadcrumb
    * @default false
    */
   hideInBreadcrumb?: boolean;
   /**
-   * The current route does not show in the menu
+   * The current route is not displayed in the menu
    * @default false
    */
   hideInMenu?: boolean;
   /**
-   * The current route does not show in tabs
+   * The current route is not displayed in the tab
    * @default false
    */
   hideInTab?: boolean;
@@ -359,16 +381,16 @@ interface RouteMeta {
    */
   iframeSrc?: string;
   /**
-   * Ignore access, can be accessed directly
+   * Ignore permissions, can be accessed directly
    * @default false
    */
   ignoreAccess?: boolean;
   /**
-   * Enable KeepAlive caching
+   * Enable KeepAlive cache
    */
   keepAlive?: boolean;
   /**
-   * External link - redirect path
+   * External link - jump path
    */
   link?: string;
   /**
@@ -381,7 +403,7 @@ interface RouteMeta {
    */
   maxNumOfOpenTab?: number;
   /**
-   * The menu is visible, but access will be redirected to 403
+   * The menu can be seen, but access will be redirected to 403
    */
   menuVisibleWithForbidden?: boolean;
   /**
@@ -389,9 +411,13 @@ interface RouteMeta {
    */
   openInNewWindow?: boolean;
   /**
-   * Used for route->menu sorting
+   * Used for route -> menu sorting
    */
   order?: number;
+  /**
+   * Parameters carried by the menu
+   */
+  query?: Recordable;
   /**
    * Title name
    */
@@ -404,153 +430,169 @@ interface RouteMeta {
 ### title
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the page title, which will be displayed in the menu and tabs. It is generally used in conjunction with internationalization.
+Used to configure the title of the page, which will be displayed in the menu and tab. Generally used with internationalization.
 
 ### icon
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the page icon, which will be displayed in the menu and tabs. It is generally used in conjunction with an icon library. If it is an `http` link, the image will be automatically loaded.
+Used to configure the icon of the page, which will be displayed in the menu and tab. Generally used with an icon library, if it is an `http` link, the image will be loaded automatically.
 
 ### activeIcon
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the active icon of the page, which will be displayed in the menu. It is generally used in conjunction with an icon library. If it is an `http` link, the image will be automatically loaded.
+Used to configure the active icon of the page, which will be displayed in the menu. Generally used with an icon library, if it is an `http` link, the image will be loaded automatically.
 
 ### keepAlive
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the page caching is enabled. Once enabled, the page will be cached and not reloaded, only effective when tabs are enabled.
+Used to configure whether the page cache is enabled. When enabled, the page will be cached and will not reload, only effective when the tab is enabled.
 
 ### hideInMenu
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the page is hidden in the menu. If hidden, the page will not be displayed in the menu.
+Used to configure whether the page is hidden in the menu. When hidden, the page will not be displayed in the menu.
 
 ### hideInTab
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the page is hidden in tabs. If hidden, the page will not be displayed in tabs.
+Used to configure whether the page is hidden in the tab. When hidden, the page will not be displayed in the tab.
 
 ### hideInBreadcrumb
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the page is hidden in the breadcrumb. If hidden, the page will not be displayed in the breadcrumb.
+Used to configure whether the page is hidden in the breadcrumb. When hidden, the page will not be displayed in the breadcrumb.
 
 ### hideChildrenInMenu
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the child pages of the page are hidden in the menu. If hidden, the child pages will not be displayed in the menu.
+Used to configure whether the subpages of the page are hidden in the menu. When hidden, the subpages will not be displayed in the menu.
 
 ### authority
 
 - Type: `string[]`
-- Default value: `[]`
+- Default: `[]`
 
-Used to configure the page's permissions. Only users with corresponding permissions can access the page. If not configured, no permissions are required.
+Used to configure the permissions of the page. Only users with the corresponding permissions can access the page. If not configured, no permissions are required.
 
 ### badge
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the page's badge, which will be displayed in the menu.
+Used to configure the badge of the page, which will be displayed in the menu.
 
 ### badgeType
 
 - Type: `'dot' | 'normal'`
-- Default value: `'normal'`
+- Default: `'normal'`
 
-Used to configure the type of the page's badge. `dot` is a small red dot, `normal` is text.
+Used to configure the badge type of the page. `dot` is a small red dot, `normal` is text.
 
 ### badgeVariants
 
 - Type: `'default' | 'destructive' | 'primary' | 'success' | 'warning' | string`
-- Default value: `'success'`
+- Default: `'success'`
 
-Used to configure the color of the page's badge.
+Used to configure the badge color of the page.
 
 ### activePath
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the currently active menu. Sometimes when the page is not displayed in the menu, it is used to activate the parent menu.
+Used to configure the currently active menu. Sometimes the page is not displayed in the menu, and this is used to activate the parent menu.
 
 ### affixTab
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
-Used to configure whether the page tab is pinned. Once pinned, the page cannot be closed.
+Used to configure whether the page is fixed in the tab. When fixed, the page cannot be closed.
 
 ### affixTabOrder
 
 - Type: `number`
-- Default value: `0`
+- Default: `0`
 
-Used to configure the order of the pinned page tabs, sorted in ascending order.
+Used to configure the order of fixed tabs, sorted in ascending order.
 
 ### iframeSrc
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the `iframe` address of the embedded page. Once set, the corresponding page will be embedded in the current page.
+Used to configure the `iframe` address of the embedded page. When set, the corresponding page will be embedded in the current page.
 
 ### ignoreAccess
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
 Used to configure whether the page ignores permissions and can be accessed directly.
 
 ### link
 
 - Type: `string`
-- Default value: `''`
+- Default: `''`
 
-Used to configure the external link jump path, which will be opened in a new window.
+Used to configure the external link jump path, which will open in a new window.
 
 ### maxNumOfOpenTab
 
 - Type: `number`
-- Default value: `-1`
+- Default: `-1`
 
-Used to configure the maximum number of open tabs. Once set, the earliest opened tab will be automatically closed when a new tab is opened (only effective when opening tabs with the same name).
+Used to configure the maximum number of open tabs. When set, the earliest opened tab will be automatically closed when opening a new tab (only effective when opening tabs with the same name).
 
 ### menuVisibleWithForbidden
 
 - Type: `boolean`
-- Default value: `false`
+- Default: `false`
 
 Used to configure whether the page can be seen in the menu, but access will be redirected to 403.
+
+### openInNewWindow
+
+- Type: `boolean`
+- Default: `false`
+
+When set to `true`, the page will open in a new window.
 
 ### order
 
 - Type: `number`
-- Default value: `0`
+- Default: `0`
 
-Used to configure the page's order, for routing to menu sorting.
+Used to configure the sorting of the page, used for route to menu sorting.
+
+_Note:_ Sorting is only effective for first-level menus. The sorting of second-level menus needs to be set in the corresponding first-level menu in code order.
+
+### query
+
+- Type: `Recordable`
+- Default: `{}`
+
+Used to configure the menu parameters of the page, which will be passed to the page in the menu.
 
 ## Route Refresh
 
-The way to refresh the route is as follows:
+The route refresh method is as follows:
 
 ```vue
 <script setup lang="ts">
