@@ -18,7 +18,7 @@ interface IGraphValidateCodeProps {
 const props = defineProps<IGraphValidateCodeProps>();
 const emit = defineEmits<{
   (e: 'onEmitOnBlur'): void;
-  (e: 'onEmitOnChange'): void;
+  (e: 'onEmitOnChange', event: Event): void;
   (e: 'onEmitOnFocus'): void;
 }>();
 
@@ -27,7 +27,7 @@ const validateFailedComputed = computed(() => {
 });
 
 const imgLoadingStateRef = ref(false);
-const inputValue = defineModel('value');
+const inputValue = defineModel<string>('value');
 const imgDataRef = ref();
 const loadImgDataApiFn = () => {
   return new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ const handleFocus = () => {
   emit('onEmitOnFocus');
   // 光标聚焦
 };
-const handleChange = (e) => {
+const handleChange = (e: Event) => {
   // console.log('handleChange', e);
   emit('onEmitOnChange', e);
   // 输入框内容改变
