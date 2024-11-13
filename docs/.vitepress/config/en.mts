@@ -221,9 +221,9 @@ function nav(): DefaultTheme.NavItem[] {
       link: '/commercial/community',
       text: '👨‍👦‍👦 Community',
     },
-    {
-      link: '/friend-links/',
-      text: '🤝 Friend Links',
-    },
+    // {
+    //   link: '/friend-links/',
+    //   text: '🤝 Friend Links',
+    // },
   ];
 }

@@ -81,7 +81,8 @@
 }
 
 .vxe-tools--operate {
-  @apply ml-3;
+  margin-right: 0.25rem;
+  margin-left: 0.75rem;
 }
 
 .vxe-table-custom--checkbox-option:hover {
@@ -93,6 +94,7 @@
 }
 
 .vxe-buttons--wrapper:not(:empty),
+.vxe-tools--operate:not(:empty),
 .vxe-tools--wrapper:not(:empty) {
   padding: 0.6em 0;
 }

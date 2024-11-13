@@ -32,7 +32,7 @@ import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
-import './theme.css';
+import './style.css';
 
 interface Props extends VxeGridProps {
   api: ExtendedVxeGridApi;
@@ -270,7 +270,7 @@ onUnmounted(() => {
       ref="gridRef"
       :class="
         cn(
-          'p-2',
+          'p-2 pt-0',
           {
             'pt-0': showToolbar && !formOptions,
           },

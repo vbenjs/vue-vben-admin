@@ -282,10 +282,10 @@ function nav(): DefaultTheme.NavItem[] {
       //   },
       // ],
     },
-    {
-      link: '/friend-links/',
-      text: '🤝 友情链接',
-    },
+    // {
+    //   link: '/friend-links/',
+    //   text: '🤝 友情链接',
+    // },
   ];
 }
 
