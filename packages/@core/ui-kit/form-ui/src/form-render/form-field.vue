@@ -238,6 +238,12 @@ function createComponentProps(slotProps: Record<string, any>) {
     ...slotProps.componentField,
     ...computedProps.value,
     ...bindEvents,
+    ...(Reflect.has(computedProps.value, 'onChange')
+      ? { onChange: computedProps.value.onChange }
+      : {}),
+    ...(Reflect.has(computedProps.value, 'onInput')
+      ? { onInput: computedProps.value.onInput }
+      : {}),
   };
 
   return binds;
