@@ -9,6 +9,9 @@
   "ellipsis": {
     "title": "文本省略"
   },
+  "resize": {
+    "title": "拖动调整"
+  },
   "form": {
     "title": "表单",
     "basic": "基础表单",
