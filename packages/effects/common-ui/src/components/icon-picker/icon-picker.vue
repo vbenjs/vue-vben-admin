@@ -41,6 +41,7 @@ const emit = defineEmits<{
 const refTrigger = useTemplateRef<HTMLElement>('refTrigger');
 const currentSelect = ref('');
 const currentList = ref(props.icons);
+const currentPage = ref(1);
 
 watch(
   () => props.icons,
@@ -72,6 +73,7 @@ const handleClick = (icon: string) => {
 };
 
 const handlePageChange = (page: number) => {
+  currentPage.value = page;
   setCurrentPage(page);
 };
 
@@ -114,7 +116,6 @@ defineExpose({ changeOpenState });
         class="flex-center flex justify-end overflow-hidden border-t py-2 pr-3"
       >
         <Pagination
-          v-slot="{ page }"
           :items-per-page="36"
           :sibling-count="1"
           :total="total"
@@ -136,7 +137,7 @@ defineExpose({ changeOpenState });
                 as-child
               >
                 <Button
-                  :variant="item.value === page ? 'default' : 'outline'"
+                  :variant="item.value === currentPage ? 'default' : 'outline'"
                   class="size-5 p-0 text-sm"
                 >
                   {{ item.value }}
