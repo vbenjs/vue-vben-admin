@@ -18,7 +18,7 @@
 - **Permission Validation**: Comprehensive permission validation solutions, including button-level permission control.
 - **Multi-Theme**: Built-in multiple theme configurations & dark mode to meet personalized needs.
 - **Dynamic Menu**: Supports dynamic menus that can display based on permissions.
-- **Mock Data**: High-performance local Mock data solution based on Nitro.
+- **Mock Data**: High-performance local Mock data solution based on `Nitro`.
 - **Rich Components**: Provides a wide range of components to meet most business needs.
 - **Standardization**: Code quality is ensured with tools like `ESLint`, `Prettier`, `Stylelint`, `Publint`, and `CSpell`.
 - **Engineering**: Development efficiency is improved with tools like `Pnpm Monorepo`, `TurboRepo`, and `Changeset`.
@@ -26,9 +26,9 @@
 
 ## Browser Support
 
-**Local development** is recommended using the **latest version of Chrome**. **Versions below Chrome 80 are not supported**.
+- **Local development** is recommended using the **latest version of Chrome**. **Versions below Chrome 80 are not supported**.
 
-**Production environment** supports modern browsers, IE is not supported.
+- **Production environment** supports modern browsers, IE is not supported.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/)IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari |
 | :-: | :-: | :-: | :-: | :-: |
@@ -37,11 +37,9 @@
 ## Contribution
 
 - [Vben Admin](https://github.com/vbenjs/vue-vben-admin) is still being actively updated. Contributions are welcome to help maintain and improve the project, aiming to create a better mid- to backend solution.
-- If you wish to join us, you can provide suggestions or submit pull requests. We will invite you to join based on your activity.
+- If you wish to join us, you can start by contributing in the following ways, and we will invite you to join based on your activity.
 
 ::: info Join Us
-
-If you wish to join us, you can start by contributing in the following ways, and we will invite you to join based on your activity:
 
 - Regularly submit `PRs`.
 - Provide valuable suggestions.
