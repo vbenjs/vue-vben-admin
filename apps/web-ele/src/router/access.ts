@@ -5,12 +5,15 @@ import type {
 
 import { generateAccessible } from '@vben/access';
 import { preferences } from '@vben/preferences';
+import { cloneDeep } from '@vben/utils';
 
 import { ElMessage } from 'element-plus';
 
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
+
+import { staticMenuList } from './routes/static';
 
 const forbiddenComponent = () => import('#/views/_core/fallback/forbidden.vue');
 
@@ -29,7 +32,10 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
         duration: 1500,
         message: `${$t('common.loadingMenu')}...`,
       });
-      return await getAllMenusApi();
+
+      const dynamicMenus = await getAllMenusApi();
+      // 本地菜单和动态菜单合并
+      return [...cloneDeep(staticMenuList), ...dynamicMenus];
     },
     // 可以指定没有权限跳转403页面
     forbiddenComponent,
