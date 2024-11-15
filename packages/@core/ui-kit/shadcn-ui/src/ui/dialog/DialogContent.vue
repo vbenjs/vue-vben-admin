@@ -48,11 +48,14 @@ const delegatedProps = computed(() => {
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
-function onAnimationEnd() {
-  if (props.open) {
-    emits('opened');
-  } else {
-    emits('closed');
+function onAnimationEnd(event: AnimationEvent) {
+  // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
+  if (event.target === contentRef.value?.$el) {
+    if (props.open) {
+      emits('opened');
+    } else {
+      emits('closed');
+    }
   }
 }
 defineExpose({
