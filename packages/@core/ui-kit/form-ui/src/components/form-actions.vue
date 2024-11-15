@@ -91,6 +91,11 @@ function handleRangeTimeValue(values: Record<string, any>) {
 
   fieldMappingTime.forEach(
     ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+      if (startTimeKey && endTimeKey && values[field] === null) {
+        delete values[startTimeKey];
+        delete values[endTimeKey];
+      }
+
       if (!values[field]) {
         delete values[field];
         return;
