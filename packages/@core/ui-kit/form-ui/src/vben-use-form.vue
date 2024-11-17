@@ -40,6 +40,13 @@ const handleUpdateCollapsed = (value: boolean) => {
 };
 
 function handleKeyDownEnter(event: KeyboardEvent) {
+  if (
+    !state.value.submitOnEnter ||
+    !formActionsRef.value ||
+    !formActionsRef.value.handleSubmit
+  ) {
+    return;
+  }
   // 如果是 textarea 不阻止默认行为，否则会导致无法换行。
   // 跳过 textarea 的回车提交处理
   if (event.target instanceof HTMLTextAreaElement) {
@@ -47,9 +54,6 @@ function handleKeyDownEnter(event: KeyboardEvent) {
   }
   event.preventDefault();
 
-  if (!state.value.submitOnEnter || !formActionsRef.value) {
-    return;
-  }
   formActionsRef.value?.handleSubmit?.();
 }
 </script>

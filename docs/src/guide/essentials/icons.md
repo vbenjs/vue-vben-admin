@@ -67,7 +67,7 @@ import { SvgTestIcon } from '@vben/icons';
 </template>
 ```
 
-## Tailwind CSS 图标 <Badge text="不推荐" type="danger"/>
+## Tailwind CSS 图标
 
 ### 使用
 

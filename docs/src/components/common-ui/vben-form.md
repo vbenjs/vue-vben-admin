@@ -280,6 +280,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | 方法名 | 描述 | 类型 |
 | --- | --- | --- |
 | submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` |
+| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` |
 | resetForm | 重置表单 | `()=>Promise<void>` |
 | setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` |
 | getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` |
@@ -309,6 +310,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | collapsed | 是否折叠，在`是否展开，在showCollapseButton=true`时生效 | `boolean` | `false` |
 | collapseTriggerResize | 折叠时，触发`resize`事件 | `boolean` | `false` |
 | collapsedRows | 折叠时保持的行数 | `number` | `1` |
+| fieldMappingTime | 用于将表单内时间区域的应设成 2 个字段 | `[string, [string, string], string?][]` | - |
 | commonConfig | 表单项的通用配置，每个配置都会传递到每个表单项，表单项可覆盖 | `FormCommonConfig` | - |
 | schema | 表单项的每一项配置 | `FormSchema` | - |
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
@@ -320,7 +322,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 ```ts
 export interface ActionButtonOptions {
   /** 样式 */
-  class?: any;
+  class?: ClassType;
   /** 是否禁用 */
   disabled?: boolean;
   /** 是否加载中 */

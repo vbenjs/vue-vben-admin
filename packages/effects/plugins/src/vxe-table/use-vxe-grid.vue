@@ -11,6 +11,7 @@ import {
   computed,
   nextTick,
   onMounted,
+  onUnmounted,
   toRaw,
   useSlots,
   useTemplateRef,
@@ -31,7 +32,7 @@ import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
-import './theme.css';
+import './style.css';
 
 interface Props extends VxeGridProps {
   api: ExtendedVxeGridApi;
@@ -40,6 +41,9 @@ interface Props extends VxeGridProps {
 const props = withDefaults(defineProps<Props>(), {});
 
 const FORM_SLOT_PREFIX = 'form-';
+
+const TOOLBAR_ACTIONS = 'toolbar-actions';
+const TOOLBAR_TOOLS = 'toolbar-tools';
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
@@ -62,11 +66,13 @@ const slots = useSlots();
 const [Form, formApi] = useTableForm({
   handleSubmit: async () => {
     const formValues = formApi.form.values;
+    formApi.setLatestSubmissionValues(toRaw(formValues));
     props.api.reload(formValues);
   },
   handleReset: async () => {
     await formApi.resetForm();
     const formValues = formApi.form.values;
+    formApi.setLatestSubmissionValues(formValues);
     props.api.reload(formValues);
   },
   commonConfig: {
@@ -87,15 +93,16 @@ const showTableTitle = computed(() => {
 
 const showToolbar = computed(() => {
   return (
-    !!slots['toolbar-actions']?.() ||
-    !!slots['toolbar-tools']?.() ||
+    !!slots[TOOLBAR_ACTIONS]?.() ||
+    !!slots[TOOLBAR_TOOLS]?.() ||
     showTableTitle.value
   );
 });
 
 const toolbarOptions = computed(() => {
-  const slotActions = slots['toolbar-actions']?.();
-  const slotTools = slots['toolbar-tools']?.();
+  const slotActions = slots[TOOLBAR_ACTIONS]?.();
+  const slotTools = slots[TOOLBAR_TOOLS]?.();
+
   if (!showToolbar.value) {
     return {};
   }
@@ -105,9 +112,9 @@ const toolbarOptions = computed(() => {
     toolbarConfig: {
       slots: {
         ...(slotActions || showTableTitle.value
-          ? { buttons: 'toolbar-actions' }
+          ? { buttons: TOOLBAR_ACTIONS }
           : {}),
-        ...(slotTools ? { tools: 'toolbar-tools' } : {}),
+        ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
       },
     },
   };
@@ -130,10 +137,6 @@ const options = computed(() => {
     mergedOptions.proxyConfig.enabled = !!ajax;
     // 不自动加载数据, 由组件控制
     mergedOptions.proxyConfig.autoLoad = false;
-  }
-
-  if (!showToolbar.value && mergedOptions.toolbarConfig) {
-    mergedOptions.toolbarConfig.enabled = false;
   }
 
   if (mergedOptions.pagerConfig) {
@@ -180,7 +183,7 @@ const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (!['empty', 'form', 'loading', 'toolbar-actions'].includes(key)) {
+    if (!['empty', 'form', 'loading', TOOLBAR_ACTIONS].includes(key)) {
       resultSlots.push(key);
     }
   }
@@ -215,14 +218,18 @@ async function init() {
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
-  if (formConfig) {
+  // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
+  // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
+  if (formConfig && formConfig.enabled) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
   }
   props.api?.setState?.({ gridOptions: defaultGridOptions });
   // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
-  extendProxyOptions(props.api, defaultGridOptions, () => formApi.form.values);
+  extendProxyOptions(props.api, defaultGridOptions, () =>
+    formApi.getLatestSubmissionValues(),
+  );
 }
 
 // formOptions支持响应式
@@ -250,6 +257,11 @@ onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
 });
+
+onUnmounted(() => {
+  formApi?.unmount?.();
+  props.api?.unmount?.();
+});
 </script>
 
 <template>
@@ -258,7 +270,7 @@ onMounted(() => {
       ref="gridRef"
       :class="
         cn(
-          'p-2',
+          'p-2 pt-0',
           {
             'pt-0': showToolbar && !formOptions,
           },

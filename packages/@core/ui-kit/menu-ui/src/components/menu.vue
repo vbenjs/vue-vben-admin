@@ -64,7 +64,6 @@ const activePath = ref<MenuProvider['activePath']>(props.defaultActive);
 const items = ref<MenuProvider['items']>({});
 const subMenus = ref<MenuProvider['subMenus']>({});
 const mouseInChild = ref(false);
-const defaultSlots: VNodeArrayChildren = slots.default?.() ?? [];
 
 const isMenuPopup = computed<MenuProvider['isMenuPopup']>(() => {
   return (
@@ -73,6 +72,9 @@ const isMenuPopup = computed<MenuProvider['isMenuPopup']>(() => {
 });
 
 const getSlot = computed(() => {
+  // 更新插槽内容
+  const defaultSlots: VNodeArrayChildren = slots.default?.() ?? [];
+
   const originalSlot = flattedChildren(defaultSlots) as VNodeArrayChildren;
   const slotDefault =
     sliceIndex.value === -1
@@ -718,6 +720,10 @@ $namespace: vben;
     align-items: center;
     width: 100%;
     height: var(--menu-item-height);
+
+    span {
+      @include menu-title;
+    }
   }
 
   &.is-collapse-show-title {

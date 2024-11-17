@@ -1,6 +1,6 @@
 {
   "name": "@vben/node-utils",
-  "version": "5.4.3",
+  "version": "5.4.7",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -35,7 +35,6 @@
     "dayjs": "catalog:",
     "execa": "catalog:",
     "find-up": "catalog:",
-    "nanoid": "catalog:",
     "ora": "catalog:",
     "pkg-types": "catalog:",
     "prettier": "catalog:",

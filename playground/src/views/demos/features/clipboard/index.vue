@@ -17,7 +17,7 @@ const { copy, text } = useClipboard({ legacy: true, source });
         Current copied: <code>{{ text || 'none' }}</code>
       </p>
       <div class="flex">
-        <Input class="mr-3 flex w-[200px]" />
+        <Input v-model:value="source" class="mr-3 flex w-[200px]" />
         <Button type="primary" @click="copy(source)"> Copy </Button>
       </div>
     </Card>

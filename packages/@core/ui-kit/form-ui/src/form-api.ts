@@ -1,3 +1,4 @@
+import type { Recordable } from '@vben-core/typings';
 import type {
   FormState,
   GenericObject,
@@ -12,12 +13,12 @@ import { toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
+  createMerge,
   isFunction,
+  isObject,
   mergeWithArrayOverride,
   StateHandler,
 } from '@vben-core/shared/utils';
-
-import { objectPick } from '@vueuse/core';
 
 function getDefaultState(): VbenFormProps {
   return {
@@ -41,11 +42,14 @@ function getDefaultState(): VbenFormProps {
 }
 
 export class FormApi {
+  // 最后一次点击提交时的表单值
+  private latestSubmissionValues: null | Recordable<any> = null;
   private prevState: null | VbenFormProps = null;
+
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
   public form = {} as FormActions;
-
   isMounted = false;
+
   public state: null | VbenFormProps = null;
 
   stateHandler: StateHandler;
@@ -110,6 +114,10 @@ export class FormApi {
     this.store.batch(cb);
   }
 
+  getLatestSubmissionValues() {
+    return this.latestSubmissionValues || {};
+  }
+
   getState() {
     return this.state;
   }
@@ -164,6 +172,7 @@ export class FormApi {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
+      this.setLatestSubmissionValues({ ...toRaw(this.form.values) });
       this.isMounted = true;
     }
   }
@@ -207,6 +216,10 @@ export class FormApi {
     form.setFieldValue(field, value, shouldValidate);
   }
 
+  setLatestSubmissionValues(values: null | Recordable<any>) {
+    this.latestSubmissionValues = { ...toRaw(values) };
+  }
+
   setState(
     stateOrFn:
       | ((prev: VbenFormProps) => Partial<VbenFormProps>)
@@ -237,8 +250,17 @@ export class FormApi {
       form.setValues(fields, shouldValidate);
       return;
     }
-    const fieldNames = this.state?.schema?.map((item) => item.fieldName) ?? [];
-    const filteredFields = objectPick(fields, fieldNames);
+
+    const fieldMergeFn = createMerge((obj, key, value) => {
+      if (key in obj) {
+        obj[key] =
+          !Array.isArray(obj[key]) && isObject(obj[key])
+            ? fieldMergeFn(obj[key], value)
+            : value;
+      }
+      return true;
+    });
+    const filteredFields = fieldMergeFn(fields, form.values);
     form.setValues(filteredFields, shouldValidate);
   }
 
@@ -249,11 +271,14 @@ export class FormApi {
     await form.submitForm();
     const rawValues = toRaw(form.values || {});
     await this.state?.handleSubmit?.(rawValues);
+
     return rawValues;
   }
 
   unmount() {
+    this.form?.resetForm?.();
     // this.state = null;
+    this.latestSubmissionValues = null;
     this.isMounted = false;
     this.stateHandler.reset();
   }
@@ -301,5 +326,14 @@ export class FormApi {
       console.error('validate error', validateResult?.errors);
     }
     return validateResult;
+  }
+
+  async validateAndSubmitForm() {
+    const form = await this.getForm();
+    const { valid } = await form.validate();
+    if (!valid) {
+      return;
+    }
+    return await this.submitForm();
   }
 }

@@ -1,4 +1,4 @@
-:root {
+:root .vxe-grid {
   --vxe-ui-font-color: hsl(var(--foreground));
   --vxe-ui-font-primary-color: hsl(var(--primary));
 
@@ -14,7 +14,7 @@
 
   /* layout */
   --vxe-ui-layout-background-color: hsl(var(--background));
-  --vxe-ui-table-resizable-line-color: hsl(var(--border));
+  --vxe-ui-table-resizable-line-color: hsl(var(--heavy));
 
   /* --vxe-ui-table-fixed-left-scrolling-box-shadow: 8px 0px 10px -5px hsl(var(--accent));
   --vxe-ui-table-fixed-right-scrolling-box-shadow: -8px 0px 10px -5px hsl(var(--accent)); */
@@ -66,18 +66,39 @@
     box-shadow: 0 0 0 1px hsl(var(--border));
   }
 
-  .vxe-pager {
-    &--wrapper {
-      display: flex;
-      align-items: center;
-    }
+  .vxe-pager--wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-    &--sizes {
-      margin-right: auto;
-    }
+  .vxe-pager--sizes {
+    margin-right: auto;
   }
 }
 
 .vxe-pager--wrapper {
   @apply justify-center md:justify-end;
+}
+
+.vxe-tools--operate {
+  margin-right: 0.25rem;
+  margin-left: 0.75rem;
+}
+
+.vxe-table-custom--checkbox-option:hover {
+  background: none !important;
+}
+
+.vxe-toolbar {
+  padding: 0;
+}
+
+.vxe-buttons--wrapper:not(:empty),
+.vxe-tools--operate:not(:empty),
+.vxe-tools--wrapper:not(:empty) {
+  padding: 0.6em 0;
+}
+
+.vxe-tools--operate:not(:has(button)) {
+  margin-left: 0;
 }

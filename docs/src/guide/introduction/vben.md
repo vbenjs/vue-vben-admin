@@ -18,7 +18,7 @@
 - **权限验证**：完善的权限验证方案，按钮级别权限控制。
 - **多主题**：内置多种主题配置和黑暗模式，满足个性化需求。
 - **动态菜单**：支持动态菜单，可以根据权限配置显示菜单。
-- **Mock 数据**：基于 Nitro 的本地高性能 Mock 数据方案。
+- **Mock 数据**：基于 `Nitro` 的本地高性能 Mock 数据方案。
 - **组件丰富**：提供了丰富的组件，可以满足大部分的业务需求。
 - **规范**：代码规范，使用 `ESLint`、`Prettier`、`Stylelint`、`Publint`、`CSpell` 等工具保证代码质量。
 - **工程化**：使用 `Pnpm Monorepo`、`TurboRepo`、`Changeset` 等工具，提高开发效率。
@@ -26,9 +26,9 @@
 
 ## 浏览器支持
 
-**本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**`Chrome 80`以下版本。
+- **本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**`Chrome 80`以下版本。
 
-**生产环境**支持现代浏览器，不支持 IE。
+- **生产环境**支持现代浏览器，不支持 IE。
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/)IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari |
 | :-: | :-: | :-: | :-: | :-: |
@@ -37,13 +37,13 @@
 ## 贡献
 
 - [Vben Admin](https://github.com/vbenjs/vue-vben-admin) 还在持续更新中，本项目欢迎您的参与，共同维护，逐步完善，打造更好的中后台解决方案。
-- 如果你想加入我们，可以提供有价值的建议或者参与讨论，协助解决 issue，- 如果你想加入我们，可以提供有价值的建议或者参与讨论，协助解决 issue，我们会根据你的活跃度邀请你加入。。
+- 如果你有兴趣加入我们，可以通过以下方式开始，我们会根据你的活跃度邀请你加入。
 
 ::: info 加入我们
 
 - 长期提交 `PR`。
-- 提供一些好的建议。
-- 参与讨论，帮助解决一些 `issue`。
+- 提供有价值的建议。
+- 参与讨论，帮助解决 `issue`。
 - 共同维护文档。
 
 :::

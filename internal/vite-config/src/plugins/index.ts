@@ -14,7 +14,6 @@ import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
 import viteCompressPlugin from 'vite-plugin-compression';
 import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
-import { libInjectCss as viteLibInjectCss } from 'vite-plugin-lib-inject-css';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
@@ -225,17 +224,13 @@ async function loadLibraryPlugins(
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
-  const { dts, injectLibCss, ...commonOptions } = options;
+  const { dts, ...commonOptions } = options;
   const commonPlugins = await loadCommonPlugins(commonOptions);
   return await loadConditionPlugins([
     ...commonPlugins,
     {
       condition: isBuild && !!dts,
       plugins: () => [viteDtsPlugin({ logLevel: 'error' })],
-    },
-    {
-      condition: injectLibCss,
-      plugins: () => [viteLibInjectCss()],
     },
   ]);
 }
@@ -248,4 +243,5 @@ export {
   viteDtsPlugin,
   viteHtmlPlugin,
   viteVisualizerPlugin,
+  viteVxeTableImportsPlugin,
 };

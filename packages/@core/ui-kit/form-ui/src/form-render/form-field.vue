@@ -209,8 +209,9 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
       ? modelValue?.target?.[bindEventField]
-      : modelValue;
+      : (modelValue?.[bindEventField] ?? modelValue);
   }
+
   if (bindEventField) {
     return {
       [`onUpdate:${bindEventField}`]: handler,
@@ -223,6 +224,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
             if (!shouldUnwrap) {
               return onChange?.(e);
             }
+
             return onChange?.(e?.target?.[bindEventField] ?? e);
           },
       onInput: () => {},
@@ -238,6 +240,12 @@ function createComponentProps(slotProps: Record<string, any>) {
     ...slotProps.componentField,
     ...computedProps.value,
     ...bindEvents,
+    ...(Reflect.has(computedProps.value, 'onChange')
+      ? { onChange: computedProps.value.onChange }
+      : {}),
+    ...(Reflect.has(computedProps.value, 'onInput')
+      ? { onInput: computedProps.value.onInput }
+      : {}),
   };
 
   return binds;

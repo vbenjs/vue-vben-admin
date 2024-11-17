@@ -15,6 +15,7 @@ interface WorkbenchProjectItem {
   group: string;
   icon: Component | string;
   title: string;
+  url?: string;
 }
 
 interface WorkbenchTrendItem {
@@ -35,6 +36,7 @@ interface WorkbenchQuickNavItem {
   color?: string;
   icon: Component | string;
   title: string;
+  url?: string;
 }
 
 export type {

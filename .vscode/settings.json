@@ -160,6 +160,7 @@
   "stylelint.enable": true,
   "stylelint.packageManager": "pnpm",
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
+  "stylelint.customSyntax": "postcss-html",
   "stylelint.snippet": ["css", "less", "postcss", "scss", "vue"],
 
   "typescript.inlayHints.enumMemberValues.enabled": true,
@@ -221,5 +222,6 @@
   "commentTranslate.hover.enabled": false,
   "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "oxc.enable": false
 }

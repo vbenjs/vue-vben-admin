@@ -36,6 +36,7 @@ export class DrawerApi {
       confirmLoading: false,
       contentClass: '',
       footer: true,
+      header: true,
       isOpen: false,
       loading: false,
       modal: true,

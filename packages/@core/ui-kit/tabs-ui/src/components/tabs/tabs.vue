@@ -67,9 +67,9 @@ const tabsView = computed(() => {
 <template>
   <div
     :class="contentClass"
-    class="relative !flex h-full w-max items-center overflow-y-hidden pr-6"
+    class="relative !flex h-full w-max items-center overflow-hidden pr-6"
   >
-    <TransitionGroup name="slide-down">
+    <TransitionGroup name="slide-left">
       <div
         v-for="(tab, i) in tabsView"
         :key="tab.key"
