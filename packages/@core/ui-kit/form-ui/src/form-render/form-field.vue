@@ -209,8 +209,9 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
       ? modelValue?.target?.[bindEventField]
-      : modelValue;
+      : (modelValue?.[bindEventField] ?? modelValue);
   }
+
   if (bindEventField) {
     return {
       [`onUpdate:${bindEventField}`]: handler,
@@ -223,6 +224,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
             if (!shouldUnwrap) {
               return onChange?.(e);
             }
+
             return onChange?.(e?.target?.[bindEventField] ?? e);
           },
       onInput: () => {},
