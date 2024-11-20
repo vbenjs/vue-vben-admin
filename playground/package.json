@@ -29,7 +29,9 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@micro-zoe/micro-app": "catalog:",
     "@tanstack/vue-query": "catalog:",
+    "@types/lodash-es": "catalog:",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -47,6 +49,7 @@
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
+    "lodash-es": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"

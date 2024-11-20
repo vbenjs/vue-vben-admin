@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-
+// BasicLayout
 import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 

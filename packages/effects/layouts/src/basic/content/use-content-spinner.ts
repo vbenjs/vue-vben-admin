@@ -27,7 +27,13 @@ function useContentSpinner() {
 
   // 路由前置守卫
   router.beforeEach((to) => {
-    if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
+    // debugger;
+    if (
+      to.meta.loaded ||
+      !enableLoading.value ||
+      to.meta.iframeSrc ||
+      to.meta.micro
+    ) {
       return true;
     }
     startTime.value = performance.now();
@@ -37,7 +43,12 @@ function useContentSpinner() {
 
   // 路由后置守卫
   router.afterEach((to) => {
-    if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
+    if (
+      to.meta.loaded ||
+      !enableLoading.value ||
+      to.meta.iframeSrc ||
+      to.meta.micro
+    ) {
       return true;
     }
     onEnd();

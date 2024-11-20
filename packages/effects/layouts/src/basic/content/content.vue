@@ -11,7 +11,7 @@ import { preferences, usePreferences } from '@vben/preferences';
 import { storeToRefs, useTabbarStore } from '@vben/stores';
 
 import { IFrameRouterView } from '../../iframe';
-
+// import microItem from '../../micro/micro-item.vue';
 defineOptions({ name: 'LayoutContent' });
 
 const tabbarStore = useTabbarStore();
@@ -53,20 +53,17 @@ function transformComponent(
   component: VNode,
   route: RouteLocationNormalizedLoadedGeneric,
 ) {
-  // 组件视图未找到，如果有设置后备视图，则返回后备视图，如果没有，则抛出错误
-  if (!component) {
-    console.error(
-      'Component view not found，please check the route configuration',
-    );
-    return undefined;
-  }
+  // if (route.meta.micro) {
+  //   return microItem;
+  // }
 
   const routeName = route.name as string;
   // 如果组件没有 name，则直接返回
   if (!routeName) {
     return component;
   }
-  const componentName = (component?.type as any)?.name;
+
+  const componentName = (component.type as any).name;
 
   // 已经设置过 name，则直接返回
   if (componentName) {
@@ -84,6 +81,7 @@ function transformComponent(
 
   return component;
 }
+// console.clear();
 </script>
 
 <template>
@@ -96,17 +94,18 @@ function transformComponent(
           :exclude="getExcludeCachedTabs"
           :include="getCachedTabs"
         >
-          <component
-            :is="transformComponent(Component, route)"
-            v-if="renderRouteView"
-            v-show="!route.meta.iframeSrc"
-            :key="route.fullPath"
-          />
+          <div v-if="renderRouteView">
+            <component
+              :is="transformComponent(Component, route)"
+              v-show="!route.meta.iframeSrc"
+              :key="route.name"
+            />
+          </div>
         </KeepAlive>
         <component
           :is="Component"
           v-else-if="renderRouteView"
-          :key="route.fullPath"
+          :key="route.name"
         />
       </Transition>
     </RouterView>

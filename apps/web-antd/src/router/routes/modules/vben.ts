@@ -8,12 +8,13 @@ import {
   VBEN_NAIVE_PREVIEW_URL,
 } from '@vben/constants';
 
-import { BasicLayout, IFrameView } from '#/layouts';
+// BasicLayout
+import { IFrameView, LayoutContent } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
+    component: LayoutContent,
     meta: {
       badgeType: 'dot',
       icon: VBEN_LOGO_URL,

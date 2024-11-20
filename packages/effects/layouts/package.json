@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@micro-zoe/micro-app": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
@@ -28,6 +29,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
+    "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
