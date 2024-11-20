@@ -3635,16 +3635,16 @@ packages:
     resolution: {integrity: sha512-AFbhEo10DP095/45EauinQJ5hJ3rJUmuuqltGguvc3WsvezZN+g8qNHLGWKu60FHQVizMrQY7VJ+zVlBXlQQkQ==}
     engines: {node: '>= 16'}
 
-  '@intlify/message-compiler@11.0.0-beta.0':
-    resolution: {integrity: sha512-HWHv6jj7wJmHY5I73k80lBffDfnpqjx5vvn965YJB4lLvo0zkP3H15WGkwrLa/OR6fyYoP0DJVUKj9g2q7QJCA==}
+  '@intlify/message-compiler@11.0.0-beta.1':
+    resolution: {integrity: sha512-yMXfN4hg/EeSdtWfmoMrwB9X4TXwkBoZlTIpNydQaW9y0tSJHGnUPRoahtkbsyACCm9leSJINLY4jQ0rK6BK0Q==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@10.0.4':
     resolution: {integrity: sha512-ukFn0I01HsSgr3VYhYcvkTCLS7rGa0gw4A4AMpcy/A9xx/zRJy7PS2BElMXLwUazVFMAr5zuiTk3MQeoeGXaJg==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.0.0-beta.0':
-    resolution: {integrity: sha512-v/IAS+BBeaWIKPI4CgSKsil2vJ64naIUUENha3e7jfhq1CxinXQquQYUM2GcCC86USxzTGgu67nafbaYzHS3vA==}
+  '@intlify/shared@11.0.0-beta.1':
+    resolution: {integrity: sha512-Md/4T/QOx7wZ7zqVzSsMx2M/9Mx/1nsgsjXS5SFIowFKydqUhMz7K+y7pMFh781aNYz+rGXYwad8E9/+InK9SA==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@6.0.0':
@@ -12577,8 +12577,8 @@ snapshots:
 
   '@intlify/bundle-utils@10.0.0(vue-i18n@10.0.4(vue@3.5.13(typescript@5.6.3)))':
     dependencies:
-      '@intlify/message-compiler': 11.0.0-beta.0
-      '@intlify/shared': 11.0.0-beta.0
+      '@intlify/message-compiler': 11.0.0-beta.1
+      '@intlify/shared': 11.0.0-beta.1
       acorn: 8.14.0
       escodegen: 2.1.0
       estree-walker: 2.0.2
@@ -12599,14 +12599,14 @@ snapshots:
       '@intlify/shared': 10.0.4
       source-map-js: 1.2.1
 
-  '@intlify/message-compiler@11.0.0-beta.0':
+  '@intlify/message-compiler@11.0.0-beta.1':
     dependencies:
-      '@intlify/shared': 11.0.0-beta.0
+      '@intlify/shared': 11.0.0-beta.1
       source-map-js: 1.2.1
 
   '@intlify/shared@10.0.4': {}
 
-  '@intlify/shared@11.0.0-beta.0': {}
+  '@intlify/shared@11.0.0-beta.1': {}
 
   '@intlify/unplugin-vue-i18n@6.0.0(@vue/compiler-dom@3.5.13)(eslint@9.15.0(jiti@2.4.0))(rollup@4.27.2)(typescript@5.6.3)(vue-i18n@10.0.4(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
