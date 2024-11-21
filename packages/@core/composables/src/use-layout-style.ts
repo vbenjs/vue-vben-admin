@@ -29,6 +29,8 @@ export function useLayoutContentStyle() {
     return {
       height: `${height}px`,
       left: `${left}px`,
+      // height: `calc(100vh - ${top}px)`, //`${height}px`,
+      minHeight: `calc(100vh - ${top}px)`,
       position: 'fixed',
       top: `${top}px`,
       width: `${width}px`,

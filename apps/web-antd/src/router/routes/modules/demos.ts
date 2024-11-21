@@ -1,11 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '#/layouts';
+// BasicLayout
+import { LayoutContent } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
+    component: LayoutContent,
     meta: {
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,

@@ -78,7 +78,7 @@ function onTransitionEnd() {
   </div>
 </template>
 
-<style scoped>
+<style lang="less" scoped>
 .loader {
   &::before {
     animation: loader-shadow-ani 0.5s linear infinite;

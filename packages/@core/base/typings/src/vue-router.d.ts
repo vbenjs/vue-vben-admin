@@ -99,6 +99,15 @@ interface RouteMeta {
    */
   menuVisibleWithForbidden?: boolean;
   /**
+   * 微服务配置
+   */
+  micro?: {
+    baseroute: string; // 微服务基础路由
+    hash: string; // 微服务 hash
+    host: string; // 微服务地址
+    name: string; // 微服务名称
+  };
+  /**
    * 在新窗口打开
    */
   openInNewWindow?: boolean;

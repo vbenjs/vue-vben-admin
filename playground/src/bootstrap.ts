@@ -14,12 +14,16 @@ import { router } from '#/router';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
+import { microAppInit } from './useMicro';
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
   await initComponentAdapter();
 
   const app = createApp(App);
+
+  // 初始化微应用
+  await microAppInit(router);
 
   // 国际化 i18n 配置
   await setupI18n(app);
@@ -46,7 +50,7 @@ async function bootstrap(namespace: string) {
     }
   });
 
-  app.mount('#app');
+  app.mount('#micro-main-app');
 }
 
 export { bootstrap };

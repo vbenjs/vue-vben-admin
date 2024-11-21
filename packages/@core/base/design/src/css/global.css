@@ -28,6 +28,7 @@
     -moz-osx-font-smoothing: grayscale; */
   }
 
+  .app,
   #app,
   body,
   html {
