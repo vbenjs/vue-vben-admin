@@ -5,13 +5,18 @@ import { useAccessStore } from '@vben/stores';
 // preferences
 import { updatePreferences } from '@vben/preferences';
 
+import { type EventCenterForMicroApp } from '@micro-zoe/micro-app';
+
 import { router } from './router';
 
 declare global {
   interface Window {
-    // 关闭沙箱时,不存在window.eventCenterForAppNameVite对象 2024年8月20日 by jeff
+    // 关闭沙箱时,不存在window.eventCenterForAppNameVite对象
     // eventCenterForAppNameVite: any;
-    microApp: any; // EventCenterForMicroApp
+    microApp: {
+      dispatch(data: { AppName: string; data: unknown }): void;
+      getData(): Record<string, unknown>;
+    } & EventCenterForMicroApp;
     __MICRO_APP_NAME__: string;
     __MICRO_APP_ENVIRONMENT__: string;
     __MICRO_APP_BASE_APPLICATION__: string;
@@ -27,11 +32,19 @@ declare global {
  * window.microApp<EventCenterForMicroApp>.getData() 获得基座传入的参数
  * windows.__MICRO_APP_BASE_APPLICATION__
  * windows.rawWindow.eventCenterForAppNameVite==undefined
- * @param {*} data
+ * @param {IMicroAppData} data
  */
-function handleDataListener(data: Record<string, any>) {
+interface IMicroAppData {
+  accessToken?: string /* token */;
+  hash?: string /* 路由地址 */;
+  mainPreferences?: Record<string, unknown> /* 系统配置项 */;
+}
+function handleDataListener(data: IMicroAppData & Record<string, any>) {
   // 以下代码为开启沙箱时的代码
   try {
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid data received from base application');
+    }
     const {
       accessToken = undefined,
       hash = '/',
@@ -41,8 +54,9 @@ function handleDataListener(data: Record<string, any>) {
     // Object.keys(data).forEach((key) => {
     //   console.warn(`子应用获得基座数据 ${key}: `, data[key]);
     // });
+
     const accessStore = useAccessStore();
-    accessStore.setAccessToken(accessToken);
+    if (accessToken) accessStore.setAccessToken(accessToken);
     if (mainPreferences) updatePreferences(mainPreferences);
 
     // 当基座下发path时进行跳转
@@ -53,16 +67,23 @@ function handleDataListener(data: Record<string, any>) {
       console.warn('router.currentRoute:::', router.currentRoute);
       // history.replaceState(history.state, '', hash);
     }
-    // 向基座发送数据
+    // // 向基座发送数据
     // setTimeout(() => {
-    //   mainRouter.push('/');
+    //   // MAIN_ROUTER.push('/');
     //   window.microApp.dispatch({
     //     AppName: data.AppName,
     //     data: '向基座发送数据' + data.hash,
     //   });
     // }, 3000);
   } catch (error) {
-    console.error('向基座发送数据失败', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error(`[${data.AppName}] 数据处理失败:`, errorMessage);
+    window.microApp?.dispatch({
+      type: 'error',
+      AppName: data.AppName,
+      data: { message: errorMessage },
+    });
   }
 }
 

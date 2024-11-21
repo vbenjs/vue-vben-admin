@@ -77,11 +77,14 @@ function unmount() {
 async function bootstrap(namespace: string) {
   if (window.__MICRO_APP_ENVIRONMENT__) {
     console.warn('检测微应用环境', window.__MICRO_APP_ENVIRONMENT__);
+    const EXPOSE_MICRO_APP_NAME = `vben-micro-${window.__MICRO_APP_NAME__}`;
+    // 微前端环境下挂载到 window 上
     // @ts-ignore 为了规避 ts 类型检查
-    window[`vben-micro-${window.__MICRO_APP_NAME__}`] = {
-      mount: mount(namespace),
+    (window as any)[EXPOSE_MICRO_APP_NAME] = {
+      mount: async (ns: string) => await mount(ns),
       unmount,
     };
+    await (window as any)[EXPOSE_MICRO_APP_NAME].mount(namespace);
   } else {
     console.warn('非微前端环境');
     // 非微前端环境直接渲染

@@ -16,7 +16,7 @@ interface DataListenerType {
  * @param data
  */
 export function dataListener(data: DataListenerType) {
-  console.warn(`接收到来自 子应用 ${data.name} 的信息::::`, data);
+  console.warn(`接收到来自 子应用 ${data.appName} 的信息::::`, data);
 }
 
 export async function microAppInit(router: Router) {
@@ -36,13 +36,13 @@ export async function microAppInit(router: Router) {
       aftershow(e: CustomEvent) {
         console.warn(`子应用${e}推入前台之后`);
       },
-      beforemount(_e: any, appName: any) {
+      beforemount(_e: any, appName: string) {
         console.warn(`子应用${appName}即将渲染`);
       },
       beforeshow(e: CustomEvent) {
         console.warn(`子应用${e}推入前台之前`);
       },
-      created(_e: any, appName: any) {
+      created(_e: any, appName: string) {
         const accessStore = useAccessStore();
         const userStore = useUserStore();
         // 设置 layout 模式
@@ -55,10 +55,10 @@ export async function microAppInit(router: Router) {
           userInfo: userStore.userInfo,
         });
       },
-      error(_e: { detail: any }, appName: any) {
+      error(_e: { detail: any }, appName: string) {
         console.warn(`子应用${appName}加载出错`, _e.detail);
       },
-      mounted(_e: any, appName: any) {
+      mounted(_e: any, appName: string) {
         microApp.addDataListener(appName, dataListener);
         console.warn(`子应用${appName}已经渲染完成`);
         // setTimeout(() => {
@@ -67,7 +67,7 @@ export async function microAppInit(router: Router) {
         //   microApp.setData(appName, { msg: '基座应用询问是否渲染完成' });
         // }, 2000);
       },
-      unmount(_e: any, appName: any) {
+      unmount(_e: any, appName: string) {
         microApp.clearDataListener(appName);
         console.warn(`子应用${appName}已经卸载`);
       },
