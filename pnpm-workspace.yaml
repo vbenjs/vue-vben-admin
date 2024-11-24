@@ -153,7 +153,7 @@ catalog:
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
   turbo: ^2.3.1
-  typescript: ^5.6.3
+  typescript: 5.6.3
   unbuild: ^3.0.0-rc.11
   unplugin-element-plus: ^0.8.0
   vee-validate: ^4.14.7
