@@ -124,7 +124,7 @@ function sidebarCommercial(): DefaultTheme.SidebarItem[] {
   return [
     {
       link: 'community',
-      text: '社区',
+      text: '交流群',
     },
     {
       link: 'technical-support',
@@ -266,7 +266,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       link: '/commercial/community',
-      text: '👨‍👦‍👦 社区',
+      text: '👨‍👦‍👦 交流群',
       // items: [
       //   {
       //     link: 'https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=22ySzj7pKiw&businessType=9&from=246610&biz=ka&mainSourceId=share&subSourceId=others&jumpsource=shorturl#/pc',
