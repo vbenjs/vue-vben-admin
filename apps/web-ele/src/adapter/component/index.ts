@@ -15,6 +15,7 @@ import {
   ElButton,
   ElCheckbox,
   ElCheckboxGroup,
+  ElDatePicker,
   ElDivider,
   ElInput,
   ElInputNumber,
@@ -79,6 +80,7 @@ async function initComponentAdapter() {
     Space: ElSpace,
     Switch: ElSwitch,
     TimePicker: ElTimePicker,
+    DatePicker: ElDatePicker,
     TreeSelect: withDefaultPlaceholder(ElTreeSelect, 'select'),
     Upload: ElUpload,
   };
