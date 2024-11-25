@@ -157,6 +157,18 @@ const routes: RouteRecordRaw[] = [
             },
             children: [
               {
+                name: 'HideChildrenInMenuDemo',
+                path: '',
+                component: () =>
+                  import(
+                    '#/views/demos/features/hide-menu-children/children.vue'
+                  ),
+                meta: {
+                  hideInMenu: true,
+                  title: $t('demos.features.hideChildrenInMenu'),
+                },
+              },
+              {
                 name: 'HideChildrenInMenuChildrenDemo',
                 path: '/demos/features/hide-menu-children/children',
                 component: () =>
