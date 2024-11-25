@@ -15,6 +15,7 @@ import {
   ElButton,
   ElCheckbox,
   ElCheckboxGroup,
+  ElDatePicker,
   ElDivider,
   ElInput,
   ElInputNumber,
@@ -64,7 +65,7 @@ async function initComponentAdapter() {
     Checkbox: ElCheckbox,
     CheckboxGroup: ElCheckboxGroup,
     // 自定义默认按钮
-    DefaulButton: (props, { attrs, slots }) => {
+    DefaultButton: (props, { attrs, slots }) => {
       return h(ElButton, { ...props, attrs, type: 'info' }, slots);
     },
     // 自定义主要按钮
@@ -79,6 +80,7 @@ async function initComponentAdapter() {
     Space: ElSpace,
     Switch: ElSwitch,
     TimePicker: ElTimePicker,
+    DatePicker: ElDatePicker,
     TreeSelect: withDefaultPlaceholder(ElTreeSelect, 'select'),
     Upload: ElUpload,
   };
