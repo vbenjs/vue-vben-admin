@@ -1,0 +1,126 @@
+vue create personal-finance-tracker
+cd personal-finance-tracker
+npm install vue-router vuex chart.js vue-chartjs
+
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '../views/Home.vue';
+import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
+
+Vue.use(Router);
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
+];
+
+const router = new Router({
+  mode: 'history',
+  routes,
+});
+
+export default router;
+
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    transactions: [],
+  },
+  mutations: {
+    ADD_TRANSACTION(state, transaction) {
+      state.transactions.push(transaction);
+    },
+    DELETE_TRANSACTION(state, transactionId) {
+      state.transactions = state.transactions.filter(t => t.id !== transactionId);
+    },
+  },
+  actions: {
+    addTransaction({ commit }, transaction) {
+      commit('ADD_TRANSACTION', transaction);
+    },
+    deleteTransaction({ commit }, transactionId) {
+      commit('DELETE_TRANSACTION', transactionId);
+    },
+  },
+  getters: {
+    allTransactions: state => state.transactions,
+  },
+});
+
+<template>
+  <form @submit.prevent="submitTransaction">
+    <input v-model="amount" type="number" placeholder="Amount" required />
+    <input v-model="category" type="text" placeholder="Category" required />
+    <button type="submit">Add Transaction</button>
+  </form>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      amount: '',
+      category: '',
+    };
+  },
+  methods: {
+    submitTransaction() {
+      const transaction = {
+        id: Date.now(),
+        amount: parseFloat(this.amount),
+        category: this.category,
+      };
+      this.$store.dispatch('addTransaction', transaction);
+      this.amount = '';
+      this.category = '';
+    },
+  },
+};
+</script>
+
+
+<template>
+  <form @submit.prevent="submitTransaction">
+    <input v-model="amount" type="number" placeholder="Amount" required />
+    <input v-model="category" type="text" placeholder="Category" required />
+    <button type="submit">Add Transaction</button>
+  </form>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      amount: '',
+      category: '',
+    };
+  },
+  methods: {
+    submitTransaction() {
+      const transaction = {
+        id: Date.now(),
+        amount: parseFloat(this.amount),
+        category: this.category,
+      };
+      this.$store.dispatch('addTransaction', transaction);
+      this.amount = '';
+      this.category = '';
+    },
+  },
+};
+</script>
+
+<template>
+  <div>
+    <bar-chart :chart-data="chartData"></bar-chart>
+  </div>
+</template>
+
+<script>
+import { Bar }
