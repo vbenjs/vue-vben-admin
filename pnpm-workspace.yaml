@@ -157,7 +157,7 @@ catalog:
   unbuild: ^3.0.0-rc.11
   unplugin-element-plus: ^0.8.0
   vee-validate: ^4.14.7
-  vite: ^6.0.0
+  vite: ^6.0.1
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: 4.2.1
   vite-plugin-html: ^3.2.2
