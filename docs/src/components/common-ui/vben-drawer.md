@@ -88,6 +88,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | closeOnPressEscape | esc 关闭弹窗 | `boolean` | `true` |
 | confirmText | 确认按钮文本 | `string\|slot` | `确认` |
 | cancelText | 取消按钮文本 | `string\|slot` | `取消` |
+| placement | 抽屉弹出位置 | `'left'\|'right'\|'top'\|'bottom'` | `right` |
 | showCancelButton | 显示取消按钮 | `boolean` | `true` |
 | showConfirmButton | 显示确认按钮文本 | `boolean` | `true` |
 | class | modal的class，宽度通过这个配置 | `string` | - |

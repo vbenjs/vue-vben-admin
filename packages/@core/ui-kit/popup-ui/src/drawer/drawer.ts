@@ -4,6 +4,8 @@ import type { DrawerApi } from './drawer-api';
 
 import type { Component, Ref } from 'vue';
 
+export type DrawerPlacement = 'bottom' | 'left' | 'right' | 'top';
+
 export interface DrawerProps {
   /**
    * 取消按钮文字
@@ -72,6 +74,12 @@ export interface DrawerProps {
    * 是否自动聚焦
    */
   openAutoFocus?: boolean;
+
+  /**
+   * 抽屉位置
+   * @default right
+   */
+  placement?: DrawerPlacement;
   /**
    * 是否显示取消按钮
    * @default true

@@ -62,6 +62,7 @@ const {
   loading: showLoading,
   modal,
   openAutoFocus,
+  placement,
   showCancelButton,
   showConfirmButton,
   title,
@@ -119,11 +120,13 @@ function handleFocusOutside(e: Event) {
     <SheetContent
       :class="
         cn('flex w-[520px] flex-col', drawerClass, {
-          '!w-full': isMobile,
+          '!w-full': isMobile || placement === 'bottom' || placement === 'top',
+          'max-h-[100vh]': placement === 'bottom' || placement === 'top',
         })
       "
       :modal="modal"
       :open="state?.isOpen"
+      :side="placement"
       @close-auto-focus="handleFocusOutside"
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"

@@ -41,6 +41,7 @@ export class DrawerApi {
       loading: false,
       modal: true,
       openAutoFocus: false,
+      placement: 'right',
       showCancelButton: true,
       showConfirmButton: true,
       title: '',
