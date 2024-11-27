@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Page, useVbenDrawer } from '@vben/common-ui';
+import { type DrawerPlacement, Page, useVbenDrawer } from '@vben/common-ui';
 
 import { Button, Card } from 'ant-design-vue';
 
@@ -13,6 +13,7 @@ import SharedDataDemo from './shared-data-demo.vue';
 const [BaseDrawer, baseDrawerApi] = useVbenDrawer({
   // 连接抽离的组件
   connectedComponent: BaseDemo,
+  // placement: 'left',
 });
 
 const [AutoHeightDrawer, autoHeightDrawerApi] = useVbenDrawer({
@@ -31,7 +32,8 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: FormDrawerDemo,
 });
 
-function openBaseDrawer() {
+function openBaseDrawer(placement: DrawerPlacement = 'right') {
+  baseDrawerApi.setState({ placement });
   baseDrawerApi.open();
 }
 
@@ -81,7 +83,16 @@ function openFormDrawer() {
 
     <Card class="mb-4" title="基本使用">
       <p class="mb-3">一个基础的抽屉示例</p>
-      <Button type="primary" @click="openBaseDrawer">打开抽屉</Button>
+      <Button type="primary" @click="openBaseDrawer('right')">右侧打开</Button>
+      <Button class="ml-2" type="primary" @click="openBaseDrawer('bottom')">
+        底部打开
+      </Button>
+      <Button class="ml-2" type="primary" @click="openBaseDrawer('left')">
+        左侧打开
+      </Button>
+      <Button class="ml-2" type="primary" @click="openBaseDrawer('top')">
+        顶部打开
+      </Button>
     </Card>
 
     <Card class="mb-4" title="内容高度自适应滚动">
