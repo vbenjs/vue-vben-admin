@@ -59,6 +59,7 @@ const {
   closable,
   closeOnClickModal,
   closeOnPressEscape,
+  confirmDisabled,
   confirmLoading,
   confirmText,
   contentClass,
@@ -285,6 +286,7 @@ function handleFocusOutside(e: Event) {
           <component
             :is="components.PrimaryButton || VbenButton"
             v-if="showConfirmButton"
+            :disabled="confirmDisabled"
             :loading="confirmLoading"
             @click="() => modalApi?.onConfirm()"
           >
