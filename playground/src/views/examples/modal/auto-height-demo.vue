@@ -22,10 +22,10 @@ const [Modal, modalApi] = useVbenModal({
 });
 
 function handleUpdate(len: number) {
-  modalApi.setState({ loading: true });
+  modalApi.setState({ confirmDisabled: true, loading: true });
   setTimeout(() => {
     list.value = Array.from({ length: len }, (_v, k) => k + 1);
-    modalApi.setState({ loading: false });
+    modalApi.setState({ confirmDisabled: false, loading: false });
   }, 2000);
 }
 </script>
