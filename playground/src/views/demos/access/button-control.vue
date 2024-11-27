@@ -81,7 +81,7 @@ async function changeAccount(role: string) {
 
     <Card class="mb-5" title="组件形式控制 - 权限码">
       <AccessControl :codes="['AC_100100']" type="code">
-        <Button class="mr-4"> Super 账号可见 ["AC_1000100"] </Button>
+        <Button class="mr-4"> Super 账号可见 ["AC_100100"] </Button>
       </AccessControl>
       <AccessControl :codes="['AC_100030']" type="code">
         <Button class="mr-4"> Admin 账号可见 ["AC_100030"] </Button>
@@ -117,7 +117,7 @@ async function changeAccount(role: string) {
 
     <Card class="mb-5" title="函数形式控制">
       <Button v-if="hasAccessByCodes(['AC_100100'])" class="mr-4">
-        Super 账号可见 ["AC_1000100"]
+        Super 账号可见 ["AC_100100"]
       </Button>
       <Button v-if="hasAccessByCodes(['AC_100030'])" class="mr-4">
         Admin 账号可见 ["AC_100030"]
@@ -132,7 +132,7 @@ async function changeAccount(role: string) {
 
     <Card class="mb-5" title="指令方式 - 权限码">
       <Button class="mr-4" v-access:code="['AC_100100']">
-        Super 账号可见 ["AC_1000100"]
+        Super 账号可见 ["AC_100100"]
       </Button>
       <Button class="mr-4" v-access:code="['AC_100030']">
         Admin 账号可见 ["AC_100030"]
