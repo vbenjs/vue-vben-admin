@@ -43,7 +43,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  "@types/lodash.set": ^4.3.9
+  '@types/lodash.set': ^4.3.9
   '@types/node': ^22.10.0
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
