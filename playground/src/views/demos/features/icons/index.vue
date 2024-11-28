@@ -60,6 +60,17 @@ import IconPicker from './icon-picker.vue';
       </div>
     </Card>
 
+    <Card class="mb-5" title="Tailwind CSS">
+      <div class="flex items-center gap-5 text-3xl">
+        <span class="icon-[ant-design--alipay-circle-outlined]"></span>
+        <span class="icon-[ant-design--account-book-filled]"></span>
+        <span class="icon-[ant-design--container-outlined]"></span>
+        <span class="icon-[svg-spinners--wind-toy]"></span>
+        <span class="icon-[svg-spinners--blocks-wave]"></span>
+        <span class="icon-[line-md--compass-filled-loop]"></span>
+      </div>
+    </Card>
+
     <Card class="mb-5" title="图标选择器(Iconify)">
       <div class="flex items-center gap-5">
         <IconPicker width="300px" />
