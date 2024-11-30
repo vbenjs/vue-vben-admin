@@ -192,7 +192,7 @@ const headerFixed = computed(() => {
 });
 
 const showSidebar = computed(() => {
-  return isSideMode.value && sidebarEnable.value;
+  return isSideMode.value && sidebarEnable.value && !props.sidebarHidden;
 });
 
 /**
