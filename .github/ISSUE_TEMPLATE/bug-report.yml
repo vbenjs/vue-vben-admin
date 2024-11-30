@@ -62,7 +62,7 @@ body:
       description: Before submitting the issue, please make sure you do the following
       # description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com).
       options:
-        - label: Read the [docs](https://anncwb.github.io/vue-vben-admin-doc/)
+        - label: Read the [docs](https://doc.vben.pro/)
           required: true
         - label: Ensure the code is up to date. (Some issues have been fixed in the latest version)
           required: true
