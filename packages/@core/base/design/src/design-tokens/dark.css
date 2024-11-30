@@ -58,6 +58,8 @@
 
   /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
   --accent: 216 5% 19%;
+  --accent-dark: 240 0% 22%;
+  --accent-darker: 240 0% 26%;
   --accent-lighter: 216 5% 12%;
   --accent-hover: 216 5% 24%;
   --accent-foreground: 0 0% 98%;
