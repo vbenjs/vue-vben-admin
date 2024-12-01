@@ -15,3 +15,4 @@ export * from './update-css-variables';
 export * from './util';
 export * from './window';
 export { default as cloneDeep } from 'lodash.clonedeep';
+export { default as set } from 'lodash.set';

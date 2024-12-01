@@ -90,6 +90,9 @@ catalogs:
     '@types/lodash.clonedeep':
       specifier: ^4.5.9
       version: 4.5.9
+    '@types/lodash.set':
+      specifier: ^4.3.9
+      version: 4.3.9
     '@types/node':
       specifier: ^22.10.1
       version: 22.10.1
@@ -291,6 +294,9 @@ catalogs:
     lodash.clonedeep:
       specifier: ^4.5.0
       version: 4.5.0
+    lodash.set:
+      specifier: ^4.3.2
+      version: 4.3.2
     lucide-vue-next:
       specifier: ^0.462.0
       version: 0.462.0
@@ -1209,6 +1215,9 @@ importers:
       lodash.clonedeep:
         specifier: 'catalog:'
         version: 4.5.0
+      lodash.set:
+        specifier: 'catalog:'
+        version: 4.3.2
       nprogress:
         specifier: 'catalog:'
         version: 0.2.0
@@ -1222,6 +1231,9 @@ importers:
       '@types/lodash.clonedeep':
         specifier: 'catalog:'
         version: 4.5.9
+      '@types/lodash.set':
+        specifier: 'catalog:'
+        version: 4.3.9
       '@types/nprogress':
         specifier: 'catalog:'
         version: 0.2.3
@@ -4396,6 +4408,9 @@ packages:
   '@types/lodash.clonedeep@4.5.9':
     resolution: {integrity: sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==}
 
+  '@types/lodash.set@4.3.9':
+    resolution: {integrity: sha512-KOxyNkZpbaggVmqbpr82N2tDVTx05/3/j0f50Es1prxrWB0XYf9p3QNxqcbWb7P1Q9wlvsUSlCFnwlPCIJ46PQ==}
+
   '@types/lodash@4.17.13':
     resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
 
@@ -7446,6 +7461,9 @@ packages:
 
   lodash.once@4.1.1:
     resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
+
+  lodash.set@4.3.2:
+    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
 
   lodash.snakecase@4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
@@ -13297,6 +13315,10 @@ snapshots:
     dependencies:
       '@types/lodash': 4.17.13
 
+  '@types/lodash.set@4.3.9':
+    dependencies:
+      '@types/lodash': 4.17.13
+
   '@types/lodash@4.17.13': {}
 
   '@types/markdown-it@14.1.2':
@@ -16758,6 +16780,8 @@ snapshots:
   lodash.mergewith@4.6.2: {}
 
   lodash.once@4.1.1: {}
+
+  lodash.set@4.3.2: {}
 
   lodash.snakecase@4.1.1: {}
 
