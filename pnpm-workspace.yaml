@@ -21,29 +21,29 @@ catalog:
   '@commitlint/cli': ^19.6.0
   '@commitlint/config-conventional': ^19.6.0
   '@ctrl/tinycolor': ^4.1.0
-  '@eslint/js': ^9.15.0
+  '@eslint/js': ^9.16.0
   '@faker-js/faker': ^9.2.0
-  '@iconify/json': ^2.2.276
+  '@iconify/json': ^2.2.278
   '@iconify/tailwind': ^1.1.3
   '@iconify/vue': ^4.1.2
-  '@intlify/core-base': ^10.0.4
+  '@intlify/core-base': ^10.0.5
   '@intlify/unplugin-vue-i18n': ^6.0.0
   '@jspm/generator': ^2.4.1
   '@manypkg/get-packages': ^2.2.2
-  '@nolebase/vitepress-plugin-git-changelog': ^2.10.0
+  '@nolebase/vitepress-plugin-git-changelog': ^2.11.1
   '@playwright/test': ^1.49.0
-  '@pnpm/workspace.read-manifest': ^2.2.1
+  '@pnpm/workspace.read-manifest': ^1000.0.0
   '@stylistic/stylelint-plugin': ^3.1.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.15
-  '@tanstack/vue-query': ^5.61.4
+  '@tanstack/vue-query': ^5.62.0
   '@tanstack/vue-store': ^0.6.0
   '@types/archiver': ^6.0.3
   '@types/eslint': ^9.6.1
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.10.0
+  '@types/node': ^22.10.1
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
@@ -57,8 +57,8 @@ catalog:
   '@vue/reactivity': ^3.5.13
   '@vue/shared': ^3.5.13
   '@vue/test-utils': ^2.4.6
-  '@vueuse/core': ^11.3.0
-  '@vueuse/integrations': ^11.3.0
+  '@vueuse/core': ^12.0.0
+  '@vueuse/integrations': ^12.0.0
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.20
@@ -82,8 +82,8 @@ catalog:
   depcheck: ^1.4.7
   dotenv: ^16.4.5
   echarts: ^5.5.1
-  element-plus: ^2.8.8
-  eslint: ^9.15.0
+  element-plus: ^2.9.0
+  eslint: ^9.16.0
   eslint-config-turbo: ^2.3.3
   eslint-plugin-command: ^0.2.6
   eslint-plugin-eslint-comments: ^3.2.0
@@ -98,13 +98,13 @@ catalog:
   eslint-plugin-unicorn: ^56.0.1
   eslint-plugin-unused-imports: ^4.1.4
   eslint-plugin-vitest: ^0.5.4
-  eslint-plugin-vue: ^9.31.0
+  eslint-plugin-vue: ^9.32.0
   execa: ^9.5.1
   find-up: ^7.0.0
   get-port: ^7.1.0
   globals: ^15.12.0
   h3: ^1.13.0
-  happy-dom: ^15.11.6
+  happy-dom: ^15.11.7
   html-minifier-terser: ^7.2.0
   husky: ^9.1.7
   is-ci: ^3.0.1
@@ -112,7 +112,7 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.461.0
+  lucide-vue-next: ^0.462.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.40.2
   nitropack: ^2.10.4
@@ -135,11 +135,11 @@ catalog:
   radix-vue: ^1.9.10
   resolve.exports: ^2.0.2
   rimraf: ^6.0.1
-  rollup: ^4.27.4
+  rollup: ^4.28.0
   rollup-plugin-visualizer: ^5.12.0
   sass: 1.80.6
-  sortablejs: ^1.15.4
-  stylelint: ^16.10.0
+  sortablejs: ^1.15.6
+  stylelint: ^16.11.0
   stylelint-config-recess-order: ^5.1.1
   stylelint-config-recommended: ^14.0.1
   stylelint-config-recommended-scss: ^14.1.0
@@ -162,18 +162,18 @@ catalog:
   vite-plugin-dts: 4.2.1
   vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
-  vite-plugin-pwa: ^0.21.0
-  vite-plugin-vue-devtools: ^7.6.4
+  vite-plugin-pwa: ^0.21.1
+  vite-plugin-vue-devtools: ^7.6.7
   vitepress: ^1.5.0
   vitepress-plugin-group-icons: ^1.3.0
   vitest: ^2.1.6
   vue: ^3.5.13
   vue-eslint-parser: ^9.4.3
-  vue-i18n: ^10.0.4
+  vue-i18n: ^10.0.5
   vue-router: ^4.5.0
   vue-tsc: ^2.1.10
-  vxe-pc-ui: ^4.3.6
-  vxe-table: ^4.9.8
+  vxe-pc-ui: ^4.3.10
+  vxe-table: ^4.9.10
   watermark-js-plus: ^1.5.7
   zod: ^3.23.8
   zod-defaults: ^0.1.3
