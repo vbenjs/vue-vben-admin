@@ -247,7 +247,16 @@ function createComponentProps(slotProps: Record<string, any>) {
       ? { onInput: computedProps.value.onInput }
       : {}),
   };
-
+  /**
+   * FormController会透传id binds会传name到组件
+   * id name传到element-plus 的 daterange datetimerange timerange等等
+   * 会报错 Invalid prop: type check failed for prop "name". Expected Array, got String with value
+   * 临时解决 如果作者有更好的修复方案 麻烦告知我下 sd-hxf@qq.com
+   */
+  if (binds.type?.indexOf('range') > -1) {
+    binds.name = [];
+    binds.id = [];
+  }
   return binds;
 }
 
