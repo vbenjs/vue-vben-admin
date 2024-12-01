@@ -43,8 +43,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/jsonwebtoken': ^9.0.7
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^22.10.1
-  '@types/lodash.set': ^4.3.9
+  '@types/node': ^22.10.0
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
@@ -113,8 +112,7 @@ catalog:
   jsonwebtoken: ^9.0.2
   lint-staged: ^15.2.10
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.462.0
-  lodash.set: ^4.3.2
+  lucide-vue-next: ^0.461.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.40.2
   nitropack: ^2.10.4

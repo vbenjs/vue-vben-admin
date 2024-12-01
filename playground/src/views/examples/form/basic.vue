@@ -291,12 +291,6 @@ const [CustomLayoutForm] = useVbenForm({
       formItemClass: 'col-start-1',
       label: '字符串',
     },
-    {
-      component: 'Input',
-      defaultValue: 'field4.path',
-      fieldName: 'field4.path',
-      label: 'field4.path',
-    },
   ],
   // 一共三列
   wrapperClass: 'grid-cols-3',

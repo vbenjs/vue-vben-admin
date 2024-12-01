@@ -90,11 +90,8 @@ catalogs:
     '@types/lodash.clonedeep':
       specifier: ^4.5.9
       version: 4.5.9
-    '@types/lodash.set':
-      specifier: ^4.3.9
-      version: 4.3.9
     '@types/node':
-      specifier: ^22.10.1
+      specifier: ^22.10.0
       version: 22.10.1
     '@types/nprogress':
       specifier: ^0.2.3
@@ -294,12 +291,9 @@ catalogs:
     lodash.clonedeep:
       specifier: ^4.5.0
       version: 4.5.0
-    lodash.set:
-      specifier: ^4.3.2
-      version: 4.3.2
     lucide-vue-next:
-      specifier: ^0.462.0
-      version: 0.462.0
+      specifier: ^0.461.0
+      version: 0.461.0
     medium-zoom:
       specifier: ^1.1.0
       version: 1.1.0
@@ -829,7 +823,7 @@ importers:
         version: 4.2.6(vue@3.5.13(typescript@5.7.2))
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.462.0(vue@3.5.13(typescript@5.7.2))
+        version: 0.461.0(vue@3.5.13(typescript@5.7.2))
       medium-zoom:
         specifier: 'catalog:'
         version: 1.1.0
@@ -1187,7 +1181,7 @@ importers:
         version: 4.1.2(vue@3.5.13(typescript@5.7.2))
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.462.0(vue@3.5.13(typescript@5.7.2))
+        version: 0.461.0(vue@3.5.13(typescript@5.7.2))
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.2)
@@ -1215,9 +1209,6 @@ importers:
       lodash.clonedeep:
         specifier: 'catalog:'
         version: 4.5.0
-      lodash.set:
-        specifier: 'catalog:'
-        version: 4.3.2
       nprogress:
         specifier: 'catalog:'
         version: 0.2.0
@@ -1231,9 +1222,6 @@ importers:
       '@types/lodash.clonedeep':
         specifier: 'catalog:'
         version: 4.5.9
-      '@types/lodash.set':
-        specifier: 'catalog:'
-        version: 4.3.9
       '@types/nprogress':
         specifier: 'catalog:'
         version: 0.2.3
@@ -1408,7 +1396,7 @@ importers:
         version: 0.7.1
       lucide-vue-next:
         specifier: 'catalog:'
-        version: 0.462.0(vue@3.5.13(typescript@5.7.2))
+        version: 0.461.0(vue@3.5.13(typescript@5.7.2))
       radix-vue:
         specifier: 'catalog:'
         version: 1.9.10(vue@3.5.13(typescript@5.7.2))
@@ -4407,9 +4395,6 @@ packages:
 
   '@types/lodash.clonedeep@4.5.9':
     resolution: {integrity: sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==}
-
-  '@types/lodash.set@4.3.9':
-    resolution: {integrity: sha512-KOxyNkZpbaggVmqbpr82N2tDVTx05/3/j0f50Es1prxrWB0XYf9p3QNxqcbWb7P1Q9wlvsUSlCFnwlPCIJ46PQ==}
 
   '@types/lodash@4.17.13':
     resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
@@ -7462,9 +7447,6 @@ packages:
   lodash.once@4.1.1:
     resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
 
-  lodash.set@4.3.2:
-    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
-
   lodash.snakecase@4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
 
@@ -7518,8 +7500,8 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
-  lucide-vue-next@0.462.0:
-    resolution: {integrity: sha512-3H+GzhWA+qAW29EpJr/vCtPJK209zejoqsy6pCWSC6niPnywQeOA/yxl/WPQ38ODo3h7r0iGjpMKl8g/LS3+JA==}
+  lucide-vue-next@0.461.0:
+    resolution: {integrity: sha512-9qAQq4W3/Ka0VRUjXWDzoFex0lLuPxy8hf6vvs4xkc82tdGqIJhhSx+lAILX4BAiY4e+Hai5C0mGamDno6lHtA==}
     peerDependencies:
       vue: ^3.5.13
 
@@ -13265,7 +13247,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@types/eslint@9.6.1':
     dependencies:
@@ -13279,7 +13261,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
     optional: true
 
   '@types/hast@3.0.4':
@@ -13290,13 +13272,13 @@ snapshots:
 
   '@types/http-proxy@1.17.15':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@types/json-schema@7.0.15': {}
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
     optional: true
 
   '@types/jsonwebtoken@9.0.7':
@@ -13312,10 +13294,6 @@ snapshots:
       '@types/lodash': 4.17.13
 
   '@types/lodash.clonedeep@4.5.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.set@4.3.9':
     dependencies:
       '@types/lodash': 4.17.13
 
@@ -13360,7 +13338,7 @@ snapshots:
 
   '@types/readdir-glob@1.1.5':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@types/resolve@1.20.2': {}
 
@@ -16781,8 +16759,6 @@ snapshots:
 
   lodash.once@4.1.1: {}
 
-  lodash.set@4.3.2: {}
-
   lodash.snakecase@4.1.1: {}
 
   lodash.sortby@4.7.0: {}
@@ -16832,7 +16808,7 @@ snapshots:
     dependencies:
       yallist: 4.0.0
 
-  lucide-vue-next@0.462.0(vue@3.5.13(typescript@5.7.2)):
+  lucide-vue-next@0.461.0(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       vue: 3.5.13(typescript@5.7.2)
 
@@ -20195,4 +20171,4 @@ snapshots:
   zx@8.2.2:
     optionalDependencies:
       '@types/fs-extra': 11.0.4
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
