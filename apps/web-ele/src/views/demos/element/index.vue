@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
 
 import {
@@ -6,6 +8,7 @@ import {
   ElCard,
   ElMessage,
   ElNotification,
+  ElSegmented,
   ElSpace,
   ElTable,
 } from 'element-plus';
@@ -47,6 +50,10 @@ const tableData = [
   { prop1: '5', prop2: 'E' },
   { prop1: '6', prop2: 'F' },
 ];
+
+const segmentedValue = ref('Mon');
+
+const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 </script>
 
 <template>
@@ -83,6 +90,14 @@ const tableData = [
         <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
         <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
       </ElSpace>
+    </ElCard>
+    <ElCard class="mb-5">
+      <template #header> Segmented </template>
+      <ElSegmented
+        v-model="segmentedValue"
+        :options="segmentedOptions"
+        size="large"
+      />
     </ElCard>
     <ElCard class="mb-5">
       <ElTable :data="tableData" stripe>
