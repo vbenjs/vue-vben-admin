@@ -113,7 +113,10 @@ export class DrawerApi {
     this.api.onConfirm?.();
   }
 
-  open() {
+  open(payload?: any) {
+    if (payload) {
+      this.setData(payload);
+    }
     this.store.setState((prev) => ({ ...prev, isOpen: true }));
   }
 
