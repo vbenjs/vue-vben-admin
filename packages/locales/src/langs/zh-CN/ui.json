@@ -21,6 +21,10 @@
     "pointAriaLabel": "点击点",
     "clickInOrder": "请依次点击"
   },
+  "iconPicker": {
+    "placeholder": "选择一个图标",
+    "search": "搜索图标..."
+  },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",
     "pageNotFoundDesc": "抱歉，我们无法找到您要找的页面。",
