@@ -43,7 +43,7 @@ export function useFormInitial(
       if (Reflect.has(item, 'defaultValue')) {
         set(initialValues, item.fieldName, item.defaultValue);
       } else if (item.rules && !isString(item.rules)) {
-        set(zodObject, item.fieldName, item.defaultValue);
+        set(zodObject, item.fieldName, item.rules);
       }
     });
 
