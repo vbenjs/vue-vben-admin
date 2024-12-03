@@ -533,7 +533,7 @@ function handleHeaderToggle() {
           <template #toggle-button>
             <VbenIconButton
               v-if="showHeaderToggleButton"
-              class="my-0 ml-2 mr-1 rounded-md"
+              class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
               <Menu class="size-4" />
