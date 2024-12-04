@@ -58,6 +58,11 @@ const [BaseForm, baseFormApi] = useVbenForm({
       suffix: () => '¥',
     },
     {
+      component: 'IconPicker',
+      fieldName: 'icon',
+      label: '图标',
+    },
+    {
       component: 'Select',
       componentProps: {
         allowClear: true,
