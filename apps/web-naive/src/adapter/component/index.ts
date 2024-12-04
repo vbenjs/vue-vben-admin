@@ -19,6 +19,7 @@ import {
   NDivider,
   NInput,
   NInputNumber,
+  NRadio,
   NRadioGroup,
   NSelect,
   NSpace,
@@ -29,6 +30,18 @@ import {
 } from 'naive-ui';
 
 import { message } from '#/adapter/naive';
+
+const customNRadioGroupRender = <T extends Component>(component: T) => {
+  return (props: any, { attrs }: Omit<SetupContext, 'expose'>) => {
+    const placeholder = '';
+    const options = props.options;
+    return h(component, { ...props, ...attrs, placeholder }, () => {
+      return options?.map((option: any) =>
+        h(NRadio, { label: option.label, value: option.value }),
+      );
+    });
+  };
+};
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
@@ -77,7 +90,7 @@ async function initComponentAdapter() {
     Divider: NDivider,
     Input: withDefaultPlaceholder(NInput, 'input'),
     InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
-    RadioGroup: NRadioGroup,
+    RadioGroup: customNRadioGroupRender(NRadioGroup),
     Select: withDefaultPlaceholder(NSelect, 'select'),
     Space: NSpace,
     Switch: NSwitch,
