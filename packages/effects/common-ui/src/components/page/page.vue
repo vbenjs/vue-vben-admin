@@ -21,6 +21,8 @@ interface Props {
   autoContentHeight?: boolean;
   /** 头部固定 */
   fixedHeader?: boolean;
+  headerClass?: string;
+  footerClass?: string;
 }
 
 defineOptions({
@@ -96,6 +98,7 @@ onMounted(() => {
       :class="
         cn(
           'bg-card relative px-6 py-4',
+          headerClass,
           fixedHeader ? 'border-border border-b' : '',
         )
       "
@@ -125,7 +128,12 @@ onMounted(() => {
     <div
       v-if="$slots.footer"
       ref="footerRef"
-      class="bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4"
+      :class="
+        cn(
+          footerClass,
+          'bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4',
+        )
+      "
     >
       <slot name="footer"></slot>
     </div>
