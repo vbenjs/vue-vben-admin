@@ -99,7 +99,9 @@ onMounted(() => {
         cn(
           'bg-card relative px-6 py-4',
           headerClass,
-          fixedHeader ? 'border-border border-b' : '',
+          fixedHeader
+            ? 'border-border border-b transition-all duration-200'
+            : '',
         )
       "
       :style="headerStyle"
