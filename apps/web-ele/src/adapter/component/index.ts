@@ -8,7 +8,7 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
-import { globalShareState, IconPicker } from '@vben/common-ui';
+import { ApiSelect, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
@@ -22,6 +22,7 @@ import {
   ElNotification,
   ElRadioGroup,
   ElSelect,
+  ElSelectV2,
   ElSpace,
   ElSwitch,
   ElTimePicker,
@@ -41,6 +42,7 @@ const withDefaultPlaceholder = <T extends Component>(
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
+  | 'ApiSelect'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -62,7 +64,19 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-
+    ApiSelect: (props, { attrs, slots }) => {
+      return h(
+        ApiSelect,
+        {
+          ...props,
+          ...attrs,
+          component: ElSelectV2,
+          loadingSlot: 'loading',
+          visibleEvent: 'onDropdownVisibleChange',
+        },
+        slots,
+      );
+    },
     Checkbox: ElCheckbox,
     CheckboxGroup: ElCheckboxGroup,
     // 自定义默认按钮

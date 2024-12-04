@@ -7,6 +7,7 @@ import { Button, Card, message, TabPane, Tabs } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
+import { getAllMenusApi } from '#/api';
 
 import DocButton from '../doc-button.vue';
 
@@ -39,6 +40,27 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'username',
       // 界面显示的label
       label: '字符串',
+    },
+    {
+      // 组件需要在 #/adapter.ts内注册，并加上类型
+      component: 'ApiSelect',
+      // 对应组件的参数
+      componentProps: {
+        // 菜单接口转options格式
+        afterFetch: (data: { name: string; path: string }[]) => {
+          return data.map((item: any) => ({
+            label: item.name,
+            value: item.path,
+          }));
+        },
+        // 菜单接口
+        api: getAllMenusApi,
+        placeholder: '请选择',
+      },
+      // 字段名
+      fieldName: 'api',
+      // 界面显示的label
+      label: 'ApiSelect',
     },
     {
       component: 'InputPassword',

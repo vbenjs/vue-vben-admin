@@ -8,7 +8,7 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
-import { globalShareState, IconPicker } from '@vben/common-ui';
+import { ApiSelect, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
@@ -42,6 +42,7 @@ const withDefaultPlaceholder = <T extends Component>(
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
+  | 'ApiSelect'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -64,6 +65,18 @@ async function initComponentAdapter() {
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
+    ApiSelect: (props, { attrs, slots }) => {
+      return h(
+        ApiSelect,
+        {
+          ...props,
+          ...attrs,
+          component: NSelect,
+          modelField: 'value',
+        },
+        slots,
+      );
+    },
     Checkbox: NCheckbox,
     CheckboxGroup: NCheckboxGroup,
     DatePicker: NDatePicker,
