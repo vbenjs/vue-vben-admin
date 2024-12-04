@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  ref,
+  type StyleValue,
+  useTemplateRef,
+} from 'vue';
+
+import { preferences } from '@vben-core/preferences';
 
 interface Props {
   title?: string;
@@ -9,6 +18,8 @@ interface Props {
    * 根据content可见高度自适应
    */
   autoContentHeight?: boolean;
+  /** 头部固定 */
+  fixedHeader?: boolean;
 }
 
 defineOptions({
@@ -20,6 +31,7 @@ const {
   description = '',
   autoContentHeight = false,
   title = '',
+  fixedHeader = false,
 } = defineProps<Props>();
 
 const headerHeight = ref(0);
@@ -28,6 +40,18 @@ const shouldAutoHeight = ref(false);
 
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
+
+const headerStyle = computed<StyleValue>(() => {
+  return fixedHeader
+    ? {
+        position: 'sticky',
+        zIndex: 200,
+        top:
+          preferences.header.mode === 'fixed' ? 'var(--vben-header-height)' : 0,
+        borderBottom: '1px solid hsl(240 5.9% 90%)',
+      }
+    : undefined;
+});
 
 const contentStyle = computed(() => {
   if (autoContentHeight) {
@@ -69,6 +93,7 @@ onMounted(() => {
         $slots.extra
       "
       ref="headerRef"
+      :style="headerStyle"
       class="bg-card relative px-6 py-4"
     >
       <slot name="title">
