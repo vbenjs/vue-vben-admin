@@ -9,6 +9,7 @@ import {
 } from 'vue';
 
 import { preferences } from '@vben-core/preferences';
+import { cn } from '@vben-core/shared/utils';
 
 interface Props {
   title?: string;
@@ -48,7 +49,6 @@ const headerStyle = computed<StyleValue>(() => {
         zIndex: 200,
         top:
           preferences.header.mode === 'fixed' ? 'var(--vben-header-height)' : 0,
-        borderBottom: '1px solid hsl(240 5.9% 90%)',
       }
     : undefined;
 });
@@ -93,8 +93,13 @@ onMounted(() => {
         $slots.extra
       "
       ref="headerRef"
+      :class="
+        cn(
+          'bg-card relative px-6 py-4',
+          fixedHeader ? 'border-border border-b' : '',
+        )
+      "
       :style="headerStyle"
-      class="bg-card relative px-6 py-4"
     >
       <slot name="title">
         <div v-if="title" class="mb-2 flex text-lg font-semibold">
