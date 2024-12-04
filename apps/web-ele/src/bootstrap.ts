@@ -7,6 +7,7 @@ import '@vben/styles';
 import '@vben/styles/ele';
 
 import { useTitle } from '@vueuse/core';
+import { ElLoading } from 'element-plus';
 
 import { $t, setupI18n } from '#/locales';
 
@@ -18,6 +19,9 @@ async function bootstrap(namespace: string) {
   // 初始化组件适配器
   await initComponentAdapter();
   const app = createApp(App);
+
+  // 注册Element Plus提供的v-loading指令
+  app.directive('loading', ElLoading.directive);
 
   // 国际化 i18n 配置
   await setupI18n(app);
