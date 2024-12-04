@@ -77,6 +77,7 @@ function openFormModal() {
 <template>
   <Page
     description="弹窗组件常用于在不离开当前页面的情况下，显示额外的信息、表单或操作提示，更多api请查看组件文档。"
+    fixed-header
     title="弹窗组件示例"
   >
     <template #extra>

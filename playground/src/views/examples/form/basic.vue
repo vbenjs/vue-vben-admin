@@ -1,12 +1,16 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card, message, TabPane, Tabs } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 
 import DocButton from '../doc-button.vue';
+
+const activeTab = ref('basic');
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -331,18 +335,31 @@ function handleSetFormValue() {
   <Page
     content-class="flex flex-col gap-4"
     description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
+    fixed-header
+    header-class="pb-0"
     title="表单组件"
   >
+    <template #description>
+      <div class="text-muted-foreground">
+        <p>
+          表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。
+        </p>
+      </div>
+      <Tabs v-model:active-key="activeTab" :tab-bar-style="{ marginBottom: 0 }">
+        <TabPane key="basic" tab="基础示例" />
+        <TabPane key="layout" tab="自定义布局" />
+      </Tabs>
+    </template>
     <template #extra>
       <DocButton path="/components/common-ui/vben-form" />
     </template>
-    <Card title="基础示例">
+    <Card v-show="activeTab === 'basic'" title="基础示例">
       <template #extra>
         <Button type="primary" @click="handleSetFormValue">设置表单值</Button>
       </template>
       <BaseForm />
     </Card>
-    <Card title="使用tailwind自定义布局">
+    <Card v-show="activeTab === 'layout'" title="使用tailwind自定义布局">
       <CustomLayoutForm />
     </Card>
   </Page>

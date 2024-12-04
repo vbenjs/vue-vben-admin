@@ -1460,6 +1460,9 @@ importers:
       '@vben-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
+      '@vben-core/preferences':
+        specifier: workspace:*
+        version: link:../../@core/preferences
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
