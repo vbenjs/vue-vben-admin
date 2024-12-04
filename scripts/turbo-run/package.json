@@ -1,6 +1,6 @@
 {
   "name": "@vben/turbo-run",
-  "version": "5.4.8",
+  "version": "5.5.0",
   "private": true,
   "license": "MIT",
   "type": "module",
