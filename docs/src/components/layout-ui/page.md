@@ -18,19 +18,19 @@ outline: deep
 
 ### Props
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 页面标题 | `string\|slot` | - |
-| description | 页面描述（标题下的内容） | `string\|slot` | - |
-| contentClass | 内容区域的class | `string` | - |
-| headerClass | 头部区域的class | `string` | - |
-| footerClass | 底部区域的class | `string` | - |
-| autoContentHeight | 自动调整内容区域的高度 | `boolean` | `false` |
-| fixedHeader | 固定头部在页面内容区域顶部，在滚动时保持可见 | `boolean` | `false` |
+| 属性名 | 描述 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| title | 页面标题 | `string\|slot` | - | - |
+| description | 页面描述（标题下的内容） | `string\|slot` | - | - |
+| contentClass | 内容区域的class | `string` | - | - |
+| headerClass | 头部区域的class | `string` | - | `v5.5.0` |
+| footerClass | 底部区域的class | `string` | - | `v5.5.0` |
+| autoContentHeight | 自动调整内容区域的高度 | `boolean` | `false` | - |
+| fixedHeader | 固定头部在页面内容区域顶部，在滚动时保持可见 | `boolean` | `false` | `v5.5.0` |
 
 ::: tip 注意
 
-如果`title`、`description`、`extra`三者均未提供有效内容（通过`props`或者`slots`均可），则页面头部区域不会渲染。
+如果`title`、`description`、`extra`三者均未提供有效内容（通过`props`或者`slots`均可），则页面头部区域不会渲染。另外，`fixedHeader`属性目前仅在顶栏模式(`header.mode`)为`固定`(`fixed`)时有效。
 
 :::
 
