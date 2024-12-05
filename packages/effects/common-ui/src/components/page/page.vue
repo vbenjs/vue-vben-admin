@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  onMounted,
-  ref,
-  type StyleValue,
-  useTemplateRef,
-} from 'vue';
+import { computed, onMounted, ref, type StyleValue, useTemplateRef } from 'vue';
 
 import { preferences } from '@vben-core/preferences';
 import {
@@ -111,9 +104,9 @@ async function calcContentHeight() {
   if (!autoContentHeight) {
     return;
   }
-  await nextTick();
-  headerHeight.value = headerRef.value?.offsetHeight || 0;
-  footerHeight.value = footerRef.value?.offsetHeight || 0;
+  // await nextTick();
+  // headerHeight.value = headerRef.value?.offsetHeight || 0;
+  // footerHeight.value = footerRef.value?.offsetHeight || 0;
   setTimeout(() => {
     shouldAutoHeight.value = true;
   }, 30);
