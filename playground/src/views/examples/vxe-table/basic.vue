@@ -71,6 +71,7 @@ function changeLoading() {
 <template>
   <Page
     description="表格组件常用于快速开发数据展示与交互界面，示例数据为静态数据。该组件是对vxe-table进行简单的二次封装，大部分属性与方法与vxe-table保持一致。"
+    fixed-header
     title="表格基础示例"
   >
     <template #extra>
