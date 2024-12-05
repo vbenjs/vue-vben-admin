@@ -76,6 +76,8 @@ const formOptions: VbenFormProps = {
   submitButtonOptions: {
     content: '查询',
   },
+  // 是否在字段值改变时提交表单
+  submitOnChange: false,
   // 按下回车时是否提交表单
   submitOnEnter: false,
 };
