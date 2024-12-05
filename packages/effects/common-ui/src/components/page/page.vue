@@ -82,6 +82,7 @@ const headerStyle = computed<StyleValue>(() => {
 
 const footerStyle = computed<StyleValue>(() => {
   return {
+    zIndex: 201,
     bottom:
       preferences.footer.enable && preferences.footer.fixed
         ? `var(${CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT})`
@@ -174,7 +175,7 @@ onMounted(() => {
       :class="
         cn(
           footerClass,
-          'bg-card align-center border-border fixed right-0 flex border-t px-6 py-4 transition-all duration-200',
+          'bg-card align-center border-border fixed flex border-b border-t px-6 py-4 transition-all duration-200',
         )
       "
       :style="footerStyle"
