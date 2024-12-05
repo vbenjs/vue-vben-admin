@@ -42,6 +42,10 @@ const shouldAutoHeight = ref(false);
 
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
+
+const isHeaderFixed = computed(() => {
+  return preferences.header.mode === 'fixed' && fixedHeader;
+});
 const { height: headerHeight } = useElementSize(
   headerRef,
   {
@@ -60,7 +64,7 @@ const { height: footerHeight } = useElementSize(
 );
 
 const headerStyle = computed<StyleValue>(() => {
-  return fixedHeader
+  return isHeaderFixed.value
     ? {
         position: 'fixed',
         zIndex: 200,
@@ -86,7 +90,7 @@ const footerStyle = computed<StyleValue>(() => {
 
 const contentStyle = computed(() => {
   const style: StyleValue = {};
-  if (headerHeight.value > 0 && fixedHeader) {
+  if (headerHeight.value > 0 && isHeaderFixed.value) {
     style.marginTop = `${headerHeight.value}px`;
   }
   if (footerHeight.value > 0) {
