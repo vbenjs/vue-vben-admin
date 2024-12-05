@@ -9,7 +9,15 @@ import {
 } from 'vue';
 
 import { preferences } from '@vben-core/preferences';
+import {
+  CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
+  CSS_VARIABLE_LAYOUT_CONTENT_WIDTH,
+  CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
+  CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
+} from '@vben-core/shared/constants';
 import { cn } from '@vben-core/shared/utils';
+
+import { useElementSize } from '@vueuse/core';
 
 interface Props {
   title?: string;
@@ -37,34 +45,65 @@ const {
   fixedHeader = false,
 } = defineProps<Props>();
 
-const headerHeight = ref(0);
-const footerHeight = ref(0);
 const shouldAutoHeight = ref(false);
 
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
+const { height: headerHeight } = useElementSize(
+  headerRef,
+  {
+    height: 0,
+    width: 0,
+  },
+  { box: 'border-box' },
+);
+const { height: footerHeight } = useElementSize(
+  footerRef,
+  {
+    height: 0,
+    width: 0,
+  },
+  { box: 'border-box' },
+);
 
 const headerStyle = computed<StyleValue>(() => {
   return fixedHeader
     ? {
-        position: 'sticky',
+        position: 'fixed',
         zIndex: 200,
+        width: `var(${CSS_VARIABLE_LAYOUT_CONTENT_WIDTH})`,
         top:
-          preferences.header.mode === 'fixed' ? 'var(--vben-header-height)' : 0,
+          preferences.header.mode === 'fixed'
+            ? `var(${CSS_VARIABLE_LAYOUT_HEADER_HEIGHT})`
+            : 0,
       }
     : undefined;
 });
 
+const footerStyle = computed<StyleValue>(() => {
+  return {
+    bottom:
+      preferences.footer.enable && preferences.footer.fixed
+        ? `var(${CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT})`
+        : 0,
+    width: `var(${CSS_VARIABLE_LAYOUT_CONTENT_WIDTH})`,
+  };
+});
+
 const contentStyle = computed(() => {
-  if (autoContentHeight) {
-    return {
-      height: shouldAutoHeight.value
-        ? `calc(var(--vben-content-height) - ${headerHeight.value}px - ${footerHeight.value}px)`
-        : '0',
-      // 'overflow-y': shouldAutoHeight.value?'auto':'unset',
-    };
+  const style: StyleValue = {};
+  if (headerHeight.value > 0 && fixedHeader) {
+    style.marginTop = `${headerHeight.value}px`;
   }
-  return {};
+  if (footerHeight.value > 0) {
+    style.marginBottom = `${footerHeight.value}px`;
+  }
+  if (autoContentHeight) {
+    style.height = shouldAutoHeight.value
+      ? `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${footerHeight.value}px)`
+      : '0';
+  }
+  return style;
 });
 
 async function calcContentHeight() {
@@ -97,7 +136,7 @@ onMounted(() => {
       ref="headerRef"
       :class="
         cn(
-          'bg-card relative px-6 py-4',
+          'bg-card relative flex gap-2 px-6 py-4',
           headerClass,
           fixedHeader
             ? 'border-border border-b transition-all duration-200'
@@ -106,19 +145,21 @@ onMounted(() => {
       "
       :style="headerStyle"
     >
-      <slot name="title">
-        <div v-if="title" class="mb-2 flex text-lg font-semibold">
-          {{ title }}
-        </div>
-      </slot>
+      <div class="flex-auto">
+        <slot name="title">
+          <div v-if="title" class="mb-2 flex text-lg font-semibold">
+            {{ title }}
+          </div>
+        </slot>
 
-      <slot name="description">
-        <p v-if="description" class="text-muted-foreground">
-          {{ description }}
-        </p>
-      </slot>
+        <slot name="description">
+          <p v-if="description" class="text-muted-foreground">
+            {{ description }}
+          </p>
+        </slot>
+      </div>
 
-      <div v-if="$slots.extra" class="absolute bottom-4 right-4">
+      <div v-if="$slots.extra" class="mb-2 self-end">
         <slot name="extra"></slot>
       </div>
     </div>
@@ -133,9 +174,10 @@ onMounted(() => {
       :class="
         cn(
           footerClass,
-          'bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4',
+          'bg-card align-center border-border fixed right-0 flex border-t px-6 py-4 transition-all duration-200',
         )
       "
+      :style="footerStyle"
     >
       <slot name="footer"></slot>
     </div>

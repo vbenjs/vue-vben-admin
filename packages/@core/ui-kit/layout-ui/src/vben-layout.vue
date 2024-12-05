@@ -503,7 +503,7 @@ function handleHeaderToggle() {
 
     <div
       ref="contentRef"
-      class="flex flex-1 flex-col transition-all duration-300 ease-in"
+      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
     >
       <div
         :class="[
