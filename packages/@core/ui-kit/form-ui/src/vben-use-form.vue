@@ -6,7 +6,7 @@ import type { ExtendedFormApi, VbenFormProps } from './types';
 import { useForwardPriorityValues } from '@vben-core/composables';
 // import { isFunction } from '@vben-core/shared/utils';
 
-import { useTemplateRef, watch } from 'vue';
+import { toRaw, useTemplateRef, watch } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -62,6 +62,9 @@ function handleKeyDownEnter(event: KeyboardEvent) {
 watch(
   () => form.values,
   useDebounceFn(() => {
+    (props.handleValuesChange ?? state.value.handleValuesChange)?.(
+      toRaw(form.values),
+    );
     state.value.submitOnChange && props.formApi?.submitForm();
   }, 300),
   { deep: true },
