@@ -103,7 +103,13 @@ async function initComponentAdapter() {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
     Divider,
-    IconPicker,
+    IconPicker: (props, { attrs, slots }) => {
+      return h(
+        IconPicker,
+        { iconSlot: 'addonAfter', inputComponent: Input, ...props, ...attrs },
+        slots,
+      );
+    },
     Input: withDefaultPlaceholder(Input, 'input'),
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
