@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, h, ref, type VNode, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
 import { $t } from '@vben/locales';
 import {
   Button,
-  Input,
   Pagination,
   PaginationEllipsis,
   PaginationFirst,
@@ -29,12 +28,24 @@ interface Props {
    * 图标列表
    */
   icons?: string[];
+  /** Input组件 */
+  inputComponent?: VNode;
+  /** 图标插槽名，预览图标将被渲染到此插槽中 */
+  iconSlot?: string;
+  /** input组件的值属性名称 */
+  modelValueProp?: string;
+  /** 图标样式 */
+  iconClass?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   prefix: 'ant-design',
   pageSize: 36,
   icons: () => [],
+  inputComponent: () => h('div'),
+  iconSlot: 'default',
+  iconClass: 'size-4',
+  modelValueProp: 'value',
 });
 
 const emit = defineEmits<{
@@ -110,6 +121,19 @@ function close() {
   visible.value = false;
 }
 
+function onKeywordChange(v: string) {
+  keyword.value = v;
+}
+
+const searchInputProps = computed(() => {
+  return {
+    placeholder: $t('ui.iconPicker.search'),
+    [props.modelValueProp]: keyword.value,
+    [`onUpdate:${props.modelValueProp}`]: onKeywordChange,
+    class: 'mx-2',
+  };
+});
+
 defineExpose({ toggleOpenState, open, close });
 </script>
 <template>
@@ -119,24 +143,18 @@ defineExpose({ toggleOpenState, open, close });
     content-class="p-0 pt-3"
   >
     <template #trigger>
-      <slot :close="close" :icon="currentSelect" :open="open" name="trigger">
-        <div class="flex items-center gap-2">
-          <Input
-            :value="currentSelect"
-            class="flex-1 cursor-pointer"
-            v-bind="$attrs"
-            :placeholder="$t('ui.iconPicker.placeholder')"
-          />
-          <VbenIcon :icon="currentSelect || Grip" class="size-8" />
-        </div>
-      </slot>
+      <component
+        :is="inputComponent"
+        :[modelValueProp]="currentSelect"
+        :placeholder="$t('ui.iconPicker.placeholder')"
+      >
+        <template #[iconSlot]>
+          <VbenIcon :icon="currentSelect || Grip" class="size-4" />
+        </template>
+      </component>
     </template>
     <div class="mb-2 flex w-full">
-      <Input
-        v-model="keyword"
-        :placeholder="$t('ui.iconPicker.search')"
-        class="mx-2"
-      />
+      <component :is="inputComponent" v-bind="searchInputProps" />
     </div>
 
     <template v-if="paginationList.length > 0">

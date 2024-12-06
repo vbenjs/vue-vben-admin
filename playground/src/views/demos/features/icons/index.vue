@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 
 import { IconPicker, Page } from '@vben/common-ui';
 import {
-  IconifyIcon,
   MdiGithub,
   MdiGoogle,
   MdiKeyboardEsc,
@@ -22,6 +21,8 @@ import {
 import { Card, Input } from 'ant-design-vue';
 
 const iconValue = ref('ant-design:trademark-outlined');
+
+const inputComponent = h(Input);
 </script>
 
 <template>
@@ -84,23 +85,8 @@ const iconValue = ref('ant-design:trademark-outlined');
         <IconPicker class="w-[200px]" prefix="svg" />
       </div>
       <div class="mb-5 flex items-center gap-5">
-        <span>完整替换触发组件:</span>
-        <IconPicker class="w-[200px]">
-          <template #trigger="{ icon }">
-            <Input
-              :value="icon"
-              placeholder="点击这里选择图标"
-              style="width: 300px"
-            >
-              <template #addonAfter>
-                <IconifyIcon
-                  :icon="icon || 'ant-design:appstore-filled'"
-                  class="text-2xl"
-                />
-              </template>
-            </Input>
-          </template>
-        </IconPicker>
+        <span>使用Input:</span>
+        <IconPicker :input-component="inputComponent" icon-slot="addonAfter" />
       </div>
       <div class="flex items-center gap-5">
         <span>可手动输入，只能点击图标打开弹窗:</span>
@@ -111,14 +97,7 @@ const iconValue = ref('ant-design:trademark-outlined');
           style="width: 300px"
         >
           <template #addonAfter>
-            <IconPicker v-model="iconValue" class="w-[200px]">
-              <template #trigger="{ icon }">
-                <IconifyIcon
-                  :icon="icon || 'ant-design:appstore-filled'"
-                  class="text-2xl"
-                />
-              </template>
-            </IconPicker>
+            <IconPicker v-model="iconValue" class="w-[200px]" />
           </template>
         </Input>
       </div>

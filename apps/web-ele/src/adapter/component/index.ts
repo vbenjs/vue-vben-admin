@@ -88,7 +88,19 @@ async function initComponentAdapter() {
       return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: ElDivider,
-    IconPicker,
+    IconPicker: (props, { attrs, slots }) => {
+      return h(
+        IconPicker,
+        {
+          iconSlot: 'append',
+          modelValueProp: 'model-value',
+          inputComponent: ElInput,
+          ...props,
+          ...attrs,
+        },
+        slots,
+      );
+    },
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
     RadioGroup: ElRadioGroup,

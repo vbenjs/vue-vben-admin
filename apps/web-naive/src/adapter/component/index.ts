@@ -89,7 +89,13 @@ async function initComponentAdapter() {
       return h(NButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: NDivider,
-    IconPicker,
+    IconPicker: (props, { attrs, slots }) => {
+      return h(
+        IconPicker,
+        { iconSlot: 'suffix', inputComponent: NInput, ...props, ...attrs },
+        slots,
+      );
+    },
     Input: withDefaultPlaceholder(NInput, 'input'),
     InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
     RadioGroup: NRadioGroup,
