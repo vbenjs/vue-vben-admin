@@ -252,17 +252,27 @@ export class FormApi {
       return;
     }
 
+    /**
+     * 合并算法有待改进，目前的算法不支持object类型的值。
+     * 但是Antd的日期时间类型的组件值为dayjs对象类型，也是一个object类型，这里将dayjs对象排除深度合并
+     */
     const fieldMergeFn = createMerge((obj, key, value) => {
       if (key in obj) {
         obj[key] =
-          !Array.isArray(obj[key]) && isObject(obj[key])
+          !Array.isArray(obj[key]) &&
+          isObject(obj[key]) &&
+          !obj[key].$isDayjsObject
             ? fieldMergeFn(obj[key], value)
             : value;
       }
       return true;
     });
     const filteredFields = fieldMergeFn(fields, form.values);
-    form.setValues(filteredFields, shouldValidate);
+    try {
+      form.setValues(filteredFields, shouldValidate);
+    } catch (error) {
+      console.error('setValues error:', error);
+    }
   }
 
   async submitForm(e?: Event) {
