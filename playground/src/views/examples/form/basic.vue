@@ -362,7 +362,6 @@ function handleSetFormValue() {
   <Page
     content-class="flex flex-col gap-4"
     description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
-    fixed-header
     header-class="pb-0"
     title="表单组件"
   >
