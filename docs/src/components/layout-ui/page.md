@@ -18,15 +18,15 @@ outline: deep
 
 ### Props
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 页面标题 | `string\|slot` | - |
-| description | 页面描述（标题下的内容） | `string\|slot` | - |
-| contentClass | 内容区域的class | `string` | - |
-| headerClass | 头部区域的class | `string` | - |
-| footerClass | 底部区域的class | `string` | - |
-| autoContentHeight | 自动调整内容区域的高度 | `boolean` | `false` |
-| fixedHeader | 固定头部在页面内容区域顶部，在滚动时保持可见 | `boolean` | `false` |
+| 属性名 | 描述 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- | --- |
+| title | 页面标题 | `string\|slot` | - | - |
+| description | 页面描述（标题下的内容） | `string\|slot` | - | - |
+| contentClass | 内容区域的class | `string` | - | - |
+| headerClass | 头部区域的class | `string` | - | - |
+| footerClass | 底部区域的class | `string` | - | - |
+| autoContentHeight | 自动调整内容区域的高度 | `boolean` | `false` | - |
+| ~~fixedHeader~~ | ~~固定头部在页面内容区域顶部，在滚动时保持可见~~ | `boolean` | `false` | 待实现 |
 
 ::: tip 注意
 
