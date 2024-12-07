@@ -273,11 +273,7 @@ export class FormApi {
       return true;
     });
     const filteredFields = fieldMergeFn(fields, form.values);
-    try {
-      form.setValues(filteredFields, shouldValidate);
-    } catch (error) {
-      console.error('setValues error:', error);
-    }
+    form.setValues(filteredFields, shouldValidate);
   }
 
   async submitForm(e?: Event) {
