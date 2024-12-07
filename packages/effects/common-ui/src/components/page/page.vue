@@ -20,7 +20,7 @@ interface Props {
    */
   autoContentHeight?: boolean;
   /** 头部固定（暂未实现） */
-  // fixedHeader?: boolean;
+  fixedHeader?: boolean;
   headerClass?: string;
   footerClass?: string;
 }
