@@ -19,6 +19,8 @@ import {
   NDivider,
   NInput,
   NInputNumber,
+  NRadio,
+  NRadioButton,
   NRadioGroup,
   NSelect,
   NSpace,
@@ -78,7 +80,22 @@ async function initComponentAdapter() {
       );
     },
     Checkbox: NCheckbox,
-    CheckboxGroup: NCheckboxGroup,
+    CheckboxGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () => options.map((option) => h(NCheckbox, option));
+        }
+      }
+      return h(
+        NCheckboxGroup,
+        { ...props, ...attrs },
+        { default: defaultSlot },
+      );
+    },
     DatePicker: NDatePicker,
     // 自定义默认按钮
     DefaultButton: (props, { attrs, slots }) => {
@@ -98,7 +115,28 @@ async function initComponentAdapter() {
     },
     Input: withDefaultPlaceholder(NInput, 'input'),
     InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
-    RadioGroup: NRadioGroup,
+    RadioGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () =>
+            options.map((option) =>
+              h(attrs.isButton ? NRadioButton : NRadio, option),
+            );
+        }
+      }
+      const groupRender = h(
+        NRadioGroup,
+        { ...props, ...attrs },
+        { default: defaultSlot },
+      );
+      return attrs.isButton
+        ? h(NSpace, { vertical: true }, () => groupRender)
+        : groupRender;
+    },
     Select: withDefaultPlaceholder(NSelect, 'select'),
     Space: NSpace,
     Switch: NSwitch,
