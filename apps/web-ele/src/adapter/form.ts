@@ -12,6 +12,7 @@ setupVbenForm<ComponentType>({
   config: {
     modelPropNameMap: {
       Upload: 'fileList',
+      CheckboxGroup: 'model-value',
     },
   },
   defineRules: {
