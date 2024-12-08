@@ -15,12 +15,16 @@ import { $t } from '@vben/locales';
 import {
   ElButton,
   ElCheckbox,
+  ElCheckboxButton,
   ElCheckboxGroup,
   ElDatePicker,
   ElDivider,
   ElInput,
   ElInputNumber,
   ElNotification,
+  ElOption,
+  ElRadio,
+  ElRadioButton,
   ElRadioGroup,
   ElSelect,
   ElSelectV2,
@@ -79,7 +83,25 @@ async function initComponentAdapter() {
       );
     },
     Checkbox: ElCheckbox,
-    CheckboxGroup: ElCheckboxGroup,
+    CheckboxGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options, isButton } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () =>
+            options.map((option) =>
+              h(isButton ? ElCheckboxButton : ElCheckbox, option),
+            );
+        }
+      }
+      return h(
+        ElCheckboxGroup,
+        { ...props, ...attrs },
+        { ...slots, default: defaultSlot },
+      );
+    },
     // 自定义默认按钮
     DefaultButton: (props, { attrs, slots }) => {
       return h(ElButton, { ...props, attrs, type: 'info' }, slots);
@@ -104,8 +126,42 @@ async function initComponentAdapter() {
     },
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
-    RadioGroup: ElRadioGroup,
-    Select: withDefaultPlaceholder(ElSelect, 'select'),
+    RadioGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () =>
+            options.map((option) =>
+              h(attrs.isButton ? ElRadioButton : ElRadio, option),
+            );
+        }
+      }
+      return h(
+        ElRadioGroup,
+        { ...props, ...attrs },
+        { ...slots, default: defaultSlot },
+      );
+    },
+    Select: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () => options.map((option) => h(ElOption, option));
+        }
+      }
+      const placeholder = props?.placeholder || $t(`ui.placeholder.select`);
+      return h(
+        ElSelect,
+        { ...props, ...attrs, placeholder },
+        { ...slots, default: defaultSlot },
+      );
+    },
     Space: ElSpace,
     Switch: ElSwitch,
     TimePicker: (props, { attrs, slots }) => {
