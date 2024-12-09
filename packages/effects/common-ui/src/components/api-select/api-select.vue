@@ -10,30 +10,47 @@ import { objectOmit } from '@vueuse/core';
 
 type OptionsItem = {
   [name: string]: any;
+  children?: OptionsItem[];
   disabled?: boolean;
   label?: string;
   value?: string;
 };
 
 interface Props {
-  // 组件
+  /** 组件 */
   component: VNode;
+  /** 是否将value从数字转为string */
   numberToString?: boolean;
+  /** 获取options数据的函数 */
   api?: (arg?: any) => Promise<OptionsItem[] | Record<string, any>>;
+  /** 传递给api的参数 */
   params?: Record<string, any>;
+  /** 从api返回的结果中提取options数组的字段名 */
   resultField?: string;
+  /** label字段名 */
   labelField?: string;
+  /** children字段名，需要层级数据的组件可用 */
+  childrenField?: string;
+  /** value字段名 */
   valueField?: string;
+  /** 组件接收options数据的属性名 */
+  optionsPropName?: string;
+  /** 是否立即调用api */
   immediate?: boolean;
+  /** 每次`visibleEvent`事件发生时都重新请求数据 */
   alwaysLoad?: boolean;
+  /** 在api请求之前的回调函数 */
   beforeFetch?: AnyPromiseFunction<any, any>;
+  /** 在api请求之后的回调函数 */
   afterFetch?: AnyPromiseFunction<any, any>;
+  /** 直接传入选项数据，也作为api返回空数据时的后备数据 */
   options?: OptionsItem[];
-  // 尾部插槽
+  /** 组件的插槽名称，用来显示一个"加载中"的图标 */
   loadingSlot?: string;
-  // 可见时触发的事件名
+  /** 触发api请求的事件名 */
   visibleEvent?: string;
-  modelField?: string;
+  /** 组件的v-model属性名，默认为modelValue。部分组件可能为value */
+  modelPropName?: string;
 }
 
 defineOptions({ name: 'ApiSelect', inheritAttrs: false });
@@ -41,6 +58,8 @@ defineOptions({ name: 'ApiSelect', inheritAttrs: false });
 const props = withDefaults(defineProps<Props>(), {
   labelField: 'label',
   valueField: 'value',
+  childrenField: '',
+  optionsPropName: 'options',
   resultField: '',
   visibleEvent: '',
   numberToString: false,
@@ -50,7 +69,7 @@ const props = withDefaults(defineProps<Props>(), {
   loadingSlot: '',
   beforeFetch: undefined,
   afterFetch: undefined,
-  modelField: 'modelValue',
+  modelPropName: 'modelValue',
   api: undefined,
   options: () => [],
 });
@@ -69,29 +88,34 @@ const loading = ref(false);
 const isFirstLoaded = ref(false);
 
 const getOptions = computed(() => {
-  const { labelField, valueField, numberToString } = props;
+  const { labelField, valueField, childrenField, numberToString } = props;
 
-  const data: OptionsItem[] = [];
   const refOptionsData = unref(refOptions);
 
-  for (const next of refOptionsData) {
-    if (next) {
-      const value = get(next, valueField);
-      data.push({
-        ...objectOmit(next, [labelField, valueField]),
-        label: get(next, labelField),
+  function transformData(data: OptionsItem[]): OptionsItem[] {
+    return data.map((item) => {
+      const value = get(item, valueField);
+      return {
+        ...objectOmit(item, [labelField, valueField, childrenField]),
+        label: get(item, labelField),
         value: numberToString ? `${value}` : value,
-      });
-    }
+        ...(childrenField && item[childrenField]
+          ? { children: transformData(item[childrenField]) }
+          : {}),
+      };
+    });
   }
+
+  const data: OptionsItem[] = transformData(refOptionsData);
 
   return data.length > 0 ? data : props.options;
 });
 
 const bindProps = computed(() => {
   return {
-    [props.modelField]: unref(modelValue),
-    [`onUpdate:${props.modelField}`]: (val: string) => {
+    [props.modelPropName]: unref(modelValue),
+    [props.optionsPropName]: unref(getOptions),
+    [`onUpdate:${props.modelPropName}`]: (val: string) => {
       modelValue.value = val;
     },
     ...objectOmit(attrs, ['onUpdate:value']),
@@ -168,7 +192,6 @@ function emitChange() {
     <component
       :is="component"
       v-bind="bindProps"
-      :options="getOptions"
       :placeholder="$attrs.placeholder"
     >
       <template v-for="item in Object.keys($slots)" #[item]="data">
