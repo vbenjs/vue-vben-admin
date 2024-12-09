@@ -21,6 +21,8 @@ defineOptions({
 withDefaults(defineProps<Props>(), {
   items: () => [],
 });
+
+defineEmits(['click']);
 </script>
 
 <template>
@@ -37,6 +39,7 @@ withDefaults(defineProps<Props>(), {
             'border-b-0': index < 3,
           }"
           class="flex-col-center border-border group w-1/3 cursor-pointer border-b border-r border-t py-8 hover:shadow-xl"
+          @click="$emit('click', item)"
         >
           <VbenIcon
             :color="item.color"

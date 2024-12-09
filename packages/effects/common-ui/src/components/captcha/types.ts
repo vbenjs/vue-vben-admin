@@ -1,3 +1,5 @@
+import type { ClassType } from '@vben/types';
+
 import type { CSSProperties } from 'vue';
 
 export interface CaptchaData {
@@ -72,7 +74,7 @@ export interface PointSelectionCaptchaProps
 }
 
 export interface SliderCaptchaProps {
-  class?: any;
+  class?: ClassType;
   /**
    * @description 滑块的样式
    * @default {}

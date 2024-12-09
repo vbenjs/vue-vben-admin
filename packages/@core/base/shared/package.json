@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shared",
-  "version": "5.4.4",
+  "version": "5.4.7",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -84,6 +84,7 @@
     "@types/lodash.get": "catalog:",
     "@vue/shared": "catalog:",
     "clsx": "catalog:",
+    "dayjs": "catalog:",
     "defu": "catalog:",
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",

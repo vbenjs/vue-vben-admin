@@ -228,6 +228,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.ellipsis.title'),
         },
       },
+      {
+        name: 'VueResizeDemo',
+        path: '/demos/resize/basic',
+        component: () => import('#/views/examples/resize/basic.vue'),
+        meta: {
+          icon: 'material-symbols:resize',
+          title: $t('examples.resize.title'),
+        },
+      },
     ],
   },
 ];

@@ -8,7 +8,7 @@ import AutoHeightDemo from './auto-height-demo.vue';
 import BaseDemo from './base-demo.vue';
 import DragDemo from './drag-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
-import FormModalDemo from './form-model-demo.vue';
+import FormModalDemo from './form-modal-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
 const [BaseModal, baseModalApi] = useVbenModal({

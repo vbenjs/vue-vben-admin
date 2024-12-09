@@ -1,6 +1,6 @@
 {
   "name": "@vben/utils",
-  "version": "5.4.4",
+  "version": "5.4.7",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -13,8 +13,6 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "exports": {
     ".": {
       "types": "./src/index.ts",

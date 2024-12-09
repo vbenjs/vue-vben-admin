@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ClassType } from '@vben-core/typings';
+
 import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
@@ -18,8 +20,8 @@ import DialogOverlay from './DialogOverlay.vue';
 const props = withDefaults(
   defineProps<
     {
-      class?: any;
-      closeClass?: any;
+      class?: ClassType;
+      closeClass?: ClassType;
       modal?: boolean;
       open?: boolean;
       showClose?: boolean;
@@ -46,11 +48,14 @@ const delegatedProps = computed(() => {
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
-function onAnimationEnd() {
-  if (props.open) {
-    emits('opened');
-  } else {
-    emits('closed');
+function onAnimationEnd(event: AnimationEvent) {
+  // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
+  if (event.target === contentRef.value?.$el) {
+    if (props.open) {
+      emits('opened');
+    } else {
+      emits('closed');
+    }
   }
 }
 defineExpose({

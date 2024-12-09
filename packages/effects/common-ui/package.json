@@ -1,6 +1,6 @@
 {
   "name": "@vben/common-ui",
-  "version": "5.4.4",
+  "version": "5.4.7",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -25,6 +25,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben/constants": "workspace:*",
+    "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/types": "workspace:*",

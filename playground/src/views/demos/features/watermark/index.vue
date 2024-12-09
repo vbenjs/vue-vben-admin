@@ -4,7 +4,12 @@ import { useWatermark } from '@vben/hooks';
 
 import { Button, Card } from 'ant-design-vue';
 
-const { destroyWatermark, updateWatermark } = useWatermark();
+const { destroyWatermark, updateWatermark, watermark } = useWatermark();
+
+async function recreateWaterMark() {
+  destroyWatermark();
+  await updateWatermark({});
+}
 
 async function createWaterMark() {
   await updateWatermark({
@@ -21,7 +26,7 @@ async function createWaterMark() {
       ],
       type: 'linear',
     },
-    content: 'hello my watermark',
+    content: `hello my watermark\n${new Date().toLocaleString()}`,
     globalAlpha: 0.5,
     gridLayoutOptions: {
       cols: 2,
@@ -57,10 +62,25 @@ async function createWaterMark() {
     </template>
 
     <Card title="使用">
-      <Button class="mr-2" type="primary" @click="createWaterMark()">
+      <Button
+        :disabled="!!watermark"
+        class="mr-2"
+        type="primary"
+        @click="recreateWaterMark"
+      >
         创建水印
       </Button>
-      <Button danger @click="destroyWatermark">移除水印</Button>
+      <Button
+        :disabled="!watermark"
+        class="mr-2"
+        type="primary"
+        @click="createWaterMark"
+      >
+        更新水印
+      </Button>
+      <Button :disabled="!watermark" danger @click="destroyWatermark">
+        移除水印
+      </Button>
     </Card>
   </Page>
 </template>

@@ -62,6 +62,11 @@ export const shared = defineConfig({
           postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
         ],
       },
+      preprocessorOptions: {
+        scss: {
+          api: 'modern',
+        },
+      },
     },
     json: {
       stringify: true,
@@ -97,6 +102,7 @@ export const shared = defineConfig({
       host: true,
       port: 6173,
     },
+
     ssr: {
       external: ['@vue/repl'],
     },
