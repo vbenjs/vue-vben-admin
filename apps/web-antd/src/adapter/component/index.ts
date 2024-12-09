@@ -84,6 +84,7 @@ async function initComponentAdapter() {
       return h(
         ApiSelect,
         {
+          placeholder: $t('ui.placeholder.select'),
           ...props,
           ...attrs,
           component: Select,
@@ -98,6 +99,7 @@ async function initComponentAdapter() {
       return h(
         ApiSelect,
         {
+          placeholder: $t('ui.placeholder.select'),
           ...props,
           ...attrs,
           component: TreeSelect,
