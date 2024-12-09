@@ -89,7 +89,7 @@ async function initComponentAdapter() {
           component: Select,
           loadingSlot: 'suffixIcon',
           visibleEvent: 'onDropdownVisibleChange',
-          modelField: 'value',
+          modelPropName: 'value',
         },
         slots,
       );
@@ -103,7 +103,7 @@ async function initComponentAdapter() {
           component: TreeSelect,
           fieldNames: { label: 'label', value: 'value', children: 'children' },
           loadingSlot: 'suffixIcon',
-          modelField: 'value',
+          modelPropName: 'value',
           optionsPropName: 'treeData',
           visibleEvent: 'onVisibleChange',
         },

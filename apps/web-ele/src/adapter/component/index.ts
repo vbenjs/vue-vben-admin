@@ -93,7 +93,6 @@ async function initComponentAdapter() {
           props: { label: 'label', children: 'children' },
           nodeKey: 'value',
           loadingSlot: 'loading',
-          modelField: 'modelValue',
           optionsPropName: 'data',
           visibleEvent: 'onVisibleChange',
         },

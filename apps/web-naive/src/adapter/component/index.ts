@@ -75,7 +75,7 @@ async function initComponentAdapter() {
           ...props,
           ...attrs,
           component: NSelect,
-          modelField: 'value',
+          modelPropName: 'value',
         },
         slots,
       );
@@ -90,7 +90,7 @@ async function initComponentAdapter() {
           nodeKey: 'value',
           loadingSlot: 'arrow',
           keyField: 'value',
-          modelField: 'value',
+          modelPropName: 'value',
           optionsPropName: 'options',
           visibleEvent: 'onVisibleChange',
         },

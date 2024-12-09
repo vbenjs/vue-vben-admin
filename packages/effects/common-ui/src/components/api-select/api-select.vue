@@ -50,7 +50,7 @@ interface Props {
   /** 触发api请求的事件名 */
   visibleEvent?: string;
   /** 组件的v-model属性名，默认为modelValue。部分组件可能为value */
-  modelField?: string;
+  modelPropName?: string;
 }
 
 defineOptions({ name: 'ApiSelect', inheritAttrs: false });
@@ -69,7 +69,7 @@ const props = withDefaults(defineProps<Props>(), {
   loadingSlot: '',
   beforeFetch: undefined,
   afterFetch: undefined,
-  modelField: 'modelValue',
+  modelPropName: 'modelValue',
   api: undefined,
   options: () => [],
 });
@@ -96,10 +96,10 @@ const getOptions = computed(() => {
     return data.map((item) => {
       const value = get(item, valueField);
       return {
-        ...objectOmit(item, [labelField, valueField]),
+        ...objectOmit(item, [labelField, valueField, childrenField]),
         label: get(item, labelField),
         value: numberToString ? `${value}` : value,
-        ...(item[childrenField]
+        ...(childrenField && item[childrenField]
           ? { children: transformData(item[childrenField]) }
           : {}),
       };
@@ -113,9 +113,9 @@ const getOptions = computed(() => {
 
 const bindProps = computed(() => {
   return {
-    [props.modelField]: unref(modelValue),
+    [props.modelPropName]: unref(modelValue),
     [props.optionsPropName]: unref(getOptions),
-    [`onUpdate:${props.modelField}`]: (val: string) => {
+    [`onUpdate:${props.modelPropName}`]: (val: string) => {
       modelValue.value = val;
     },
     ...objectOmit(attrs, ['onUpdate:value']),
