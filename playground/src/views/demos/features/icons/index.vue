@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { Page } from '@vben/common-ui';
+import { h, ref } from 'vue';
+
+import { IconPicker, Page } from '@vben/common-ui';
 import {
   MdiGithub,
   MdiGoogle,
@@ -16,9 +18,11 @@ import {
   SvgDownloadIcon,
 } from '@vben/icons';
 
-import { Card } from 'ant-design-vue';
+import { Card, Input } from 'ant-design-vue';
 
-import IconPicker from './icon-picker.vue';
+const iconValue = ref('ant-design:trademark-outlined');
+
+const inputComponent = h(Input);
 </script>
 
 <template>
@@ -60,15 +64,42 @@ import IconPicker from './icon-picker.vue';
       </div>
     </Card>
 
-    <Card class="mb-5" title="图标选择器(Iconify)">
-      <div class="flex items-center gap-5">
-        <IconPicker width="300px" />
+    <Card class="mb-5" title="Tailwind CSS">
+      <div class="flex items-center gap-5 text-3xl">
+        <span class="icon-[ant-design--alipay-circle-outlined]"></span>
+        <span class="icon-[ant-design--account-book-filled]"></span>
+        <span class="icon-[ant-design--container-outlined]"></span>
+        <span class="icon-[svg-spinners--wind-toy]"></span>
+        <span class="icon-[svg-spinners--blocks-wave]"></span>
+        <span class="icon-[line-md--compass-filled-loop]"></span>
       </div>
     </Card>
 
-    <Card title="图标选择器(Svg)">
+    <Card class="mb-5" title="图标选择器">
+      <div class="mb-5 flex items-center gap-5">
+        <span>原始样式(Iconify):</span>
+        <IconPicker class="w-[200px]" />
+      </div>
+      <div class="mb-5 flex items-center gap-5">
+        <span>原始样式(svg):</span>
+        <IconPicker class="w-[200px]" prefix="svg" />
+      </div>
+      <div class="mb-5 flex items-center gap-5">
+        <span>使用Input:</span>
+        <IconPicker :input-component="inputComponent" icon-slot="addonAfter" />
+      </div>
       <div class="flex items-center gap-5">
-        <IconPicker prefix="svg" width="300px" />
+        <span>可手动输入，只能点击图标打开弹窗:</span>
+        <Input
+          v-model:value="iconValue"
+          allow-clear
+          placeholder="点击这里选择图标"
+          style="width: 300px"
+        >
+          <template #addonAfter>
+            <IconPicker v-model="iconValue" class="w-[200px]" />
+          </template>
+        </Input>
       </div>
     </Card>
   </Page>

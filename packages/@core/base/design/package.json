@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/design",
-  "version": "5.4.7",
+  "version": "5.5.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -28,7 +28,7 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/style.css"
+      "default": "./dist/design.css"
     }
   },
   "publishConfig": {

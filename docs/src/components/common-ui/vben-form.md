@@ -87,7 +87,7 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
-import { globalShareState } from '@vben/common-ui';
+import { globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
@@ -149,6 +149,7 @@ export type ComponentType =
   | 'TimePicker'
   | 'TreeSelect'
   | 'Upload'
+  | 'IconPicker';
   | BaseFormComponentType;
 
 async function initComponentAdapter() {
@@ -166,6 +167,7 @@ async function initComponentAdapter() {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
     Divider,
+    IconPicker,
     Input: withDefaultPlaceholder(Input, 'input'),
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
@@ -314,6 +316,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | commonConfig | 表单项的通用配置，每个配置都会传递到每个表单项，表单项可覆盖 | `FormCommonConfig` | - |
 | schema | 表单项的每一项配置 | `FormSchema` | - |
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
+| submitOnChange | 字段值改变时提交表单 | `boolean` | false |
 
 ### TS 类型说明
 
@@ -419,7 +422,7 @@ export interface FormSchema<
   help?: string;
   /** 表单项 */
   label?: string;
-  // 自定义组件内部渲染
+  /** 自定义组件内部渲染  */
   renderComponentContent?: RenderComponentContentType;
   /** 字段规则 */
   rules?: FormSchemaRuleType;
@@ -500,3 +503,20 @@ import { z } from '#/adapter/form';
             });
 }
 ```
+
+## Slots
+
+可以使用以下插槽在表单中插入自定义的内容
+
+| 插槽名        | 描述               |
+| ------------- | ------------------ |
+| reset-before  | 重置按钮之前的位置 |
+| submit-before | 提交按钮之前的位置 |
+| expand-before | 展开按钮之前的位置 |
+| expand-after  | 展开按钮之后的位置 |
+
+::: tip 字段插槽
+
+除了以上内置插槽之外，`schema`属性中每个字段的`fieldName`都可以作为插槽名称，这些字段插槽的优先级高于`component`定义的组件。也就是说，当提供了与`fieldName`同名的插槽时，这些插槽的内容将会作为这些字段的组件，此时`component`的值将会被忽略。
+
+:::
