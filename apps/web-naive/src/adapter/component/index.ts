@@ -45,6 +45,7 @@ const withDefaultPlaceholder = <T extends Component>(
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
   | 'ApiSelect'
+  | 'ApiTreeSelect'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -75,6 +76,23 @@ async function initComponentAdapter() {
           ...attrs,
           component: NSelect,
           modelField: 'value',
+        },
+        slots,
+      );
+    },
+    ApiTreeSelect: (props, { attrs, slots }) => {
+      return h(
+        ApiSelect,
+        {
+          ...props,
+          ...attrs,
+          component: NTreeSelect,
+          nodeKey: 'value',
+          loadingSlot: 'arrow',
+          keyField: 'value',
+          modelField: 'value',
+          optionsPropName: 'options',
+          visibleEvent: 'onVisibleChange',
         },
         slots,
       );

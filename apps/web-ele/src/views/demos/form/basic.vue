@@ -6,6 +6,7 @@ import { Page } from '@vben/common-ui';
 import { ElButton, ElCard, ElCheckbox, ElMessage } from 'element-plus';
 
 import { useVbenForm } from '#/adapter/form';
+import { getAllMenusApi } from '#/api';
 
 const [Form, formApi] = useVbenForm({
   commonConfig: {
@@ -21,6 +22,44 @@ const [Form, formApi] = useVbenForm({
     ElMessage.success(`表单数据：${JSON.stringify(values)}`);
   },
   schema: [
+    {
+      // 组件需要在 #/adapter.ts内注册，并加上类型
+      component: 'ApiSelect',
+      // 对应组件的参数
+      componentProps: {
+        // 菜单接口转options格式
+        afterFetch: (data: { name: string; path: string }[]) => {
+          return data.map((item: any) => ({
+            label: item.name,
+            value: item.path,
+          }));
+        },
+        // 菜单接口
+        api: getAllMenusApi,
+        placeholder: '请选择',
+      },
+      // 字段名
+      fieldName: 'api',
+      // 界面显示的label
+      label: 'ApiSelect',
+    },
+    {
+      component: 'ApiTreeSelect',
+      // 对应组件的参数
+      componentProps: {
+        // 菜单接口
+        api: getAllMenusApi,
+        childrenField: 'children',
+        // 菜单接口转options格式
+        labelField: 'name',
+        placeholder: '请选择',
+        valueField: 'path',
+      },
+      // 字段名
+      fieldName: 'apiTree',
+      // 界面显示的label
+      label: 'ApiTreeSelect',
+    },
     {
       component: 'Input',
       fieldName: 'string',
