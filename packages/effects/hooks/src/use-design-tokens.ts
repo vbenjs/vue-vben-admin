@@ -260,6 +260,9 @@ export function useElementPlusDesignTokens() {
         '--el-fill-color-light': getCssVariableValue('--accent'),
         '--el-fill-color-lighter': getCssVariableValue('--accent-lighter'),
 
+        '--el-fill-color-dark': getCssVariableValue('--accent-dark'),
+        '--el-fill-color-darker': getCssVariableValue('--accent-darker'),
+
         // 解决ElLoading背景色问题
         '--el-mask-color': isDark.value
           ? 'rgba(0,0,0,.8)'

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
 
 import {
@@ -6,6 +8,7 @@ import {
   ElCard,
   ElMessage,
   ElNotification,
+  ElSegmented,
   ElSpace,
   ElTable,
 } from 'element-plus';
@@ -47,6 +50,10 @@ const tableData = [
   { prop1: '5', prop2: 'E' },
   { prop1: '6', prop2: 'F' },
 ];
+
+const segmentedValue = ref('Mon');
+
+const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 </script>
 
 <template>
@@ -54,41 +61,57 @@ const tableData = [
     description="支持多语言，主题功能集成切换等"
     title="Element Plus组件使用演示"
   >
-    <ElCard class="mb-5">
-      <template #header> 按钮 </template>
-      <ElSpace>
-        <ElButton text>Text</ElButton>
-        <ElButton>Default</ElButton>
-        <ElButton type="primary"> Primary </ElButton>
-        <ElButton type="info"> Info </ElButton>
-        <ElButton type="success"> Success </ElButton>
-        <ElButton type="warning"> Warning </ElButton>
-        <ElButton type="danger"> Error </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <template #header> Message </template>
-      <ElSpace>
-        <ElButton type="info" @click="info"> 信息 </ElButton>
-        <ElButton type="danger" @click="error"> 错误 </ElButton>
-        <ElButton type="warning" @click="warning"> 警告 </ElButton>
-        <ElButton type="success" @click="success"> 成功 </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <template #header> Notification </template>
-      <ElSpace>
-        <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
-        <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
-        <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
-        <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
-      </ElSpace>
-    </ElCard>
-    <ElCard class="mb-5">
-      <ElTable :data="tableData" stripe>
-        <ElTable.TableColumn label="测试列1" prop="prop1" />
-        <ElTable.TableColumn label="测试列2" prop="prop2" />
-      </ElTable>
-    </ElCard>
+    <div class="flex flex-wrap gap-5">
+      <ElCard class="mb-5 w-auto">
+        <template #header> 按钮 </template>
+        <ElSpace>
+          <ElButton text>Text</ElButton>
+          <ElButton>Default</ElButton>
+          <ElButton type="primary"> Primary </ElButton>
+          <ElButton type="info"> Info </ElButton>
+          <ElButton type="success"> Success </ElButton>
+          <ElButton type="warning"> Warning </ElButton>
+          <ElButton type="danger"> Error </ElButton>
+        </ElSpace>
+      </ElCard>
+      <ElCard class="mb-5 w-80">
+        <template #header> Message </template>
+        <ElSpace>
+          <ElButton type="info" @click="info"> 信息 </ElButton>
+          <ElButton type="danger" @click="error"> 错误 </ElButton>
+          <ElButton type="warning" @click="warning"> 警告 </ElButton>
+          <ElButton type="success" @click="success"> 成功 </ElButton>
+        </ElSpace>
+      </ElCard>
+      <ElCard class="mb-5 w-80">
+        <template #header> Notification </template>
+        <ElSpace>
+          <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
+          <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
+          <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
+          <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
+        </ElSpace>
+      </ElCard>
+      <ElCard class="mb-5 w-auto">
+        <template #header> Segmented </template>
+        <ElSegmented
+          v-model="segmentedValue"
+          :options="segmentedOptions"
+          size="large"
+        />
+      </ElCard>
+      <ElCard class="mb-5 w-80">
+        <template #header> V-Loading </template>
+        <div class="flex size-72 items-center justify-center" v-loading="true">
+          一些演示的内容
+        </div>
+      </ElCard>
+      <ElCard class="mb-5 w-80">
+        <ElTable :data="tableData" stripe>
+          <ElTable.TableColumn label="测试列1" prop="prop1" />
+          <ElTable.TableColumn label="测试列2" prop="prop2" />
+        </ElTable>
+      </ElCard>
+    </div>
   </Page>
 </template>

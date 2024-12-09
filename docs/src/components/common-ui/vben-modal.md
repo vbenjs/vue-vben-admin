@@ -93,13 +93,14 @@ const [Modal, modalApi] = useVbenModal({
 | modal | 显示遮罩 | `boolean` | `true` |
 | header | 显示header | `boolean` | `true` |
 | footer | 显示footer | `boolean\|slot` | `true` |
+| confirmDisabled | 禁用确认按钮 | `boolean` | `false` |
 | confirmLoading | 确认按钮loading状态 | `boolean` | `false` |
 | closeOnClickModal | 点击遮罩关闭弹窗 | `boolean` | `true` |
 | closeOnPressEscape | esc 关闭弹窗 | `boolean` | `true` |
 | confirmText | 确认按钮文本 | `string\|slot` | `确认` |
 | cancelText | 取消按钮文本 | `string\|slot` | `取消` |
 | showCancelButton | 显示取消按钮 | `boolean` | `true` |
-| showConfirmButton | 显示确认按钮文本 | `boolean` | `true` |
+| showConfirmButton | 显示确认按钮 | `boolean` | `true` |
 | class | modal的class，宽度通过这个配置 | `string` | - |
 | contentClass | modal内容区域的class | `string` | - |
 | footerClass | modal底部区域的class | `string` | - |

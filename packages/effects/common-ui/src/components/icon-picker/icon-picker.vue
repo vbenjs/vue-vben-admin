@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, useTemplateRef, watch, watchEffect } from 'vue';
+import { computed, h, ref, type VNode, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
-import { EmptyIcon, Grip } from '@vben/icons';
+import { EmptyIcon, Grip, listIcons } from '@vben/icons';
+import { $t } from '@vben/locales';
 import {
   Button,
   Pagination,
@@ -18,58 +19,89 @@ import {
   VbenPopover,
 } from '@vben-core/shadcn-ui';
 
+import { refDebounced } from '@vueuse/core';
+
 interface Props {
-  value?: string;
   pageSize?: number;
+  prefix?: string;
   /**
    * 图标列表
    */
   icons?: string[];
+  /** Input组件 */
+  inputComponent?: VNode;
+  /** 图标插槽名，预览图标将被渲染到此插槽中 */
+  iconSlot?: string;
+  /** input组件的值属性名称 */
+  modelValueProp?: string;
+  /** 图标样式 */
+  iconClass?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: '',
+  prefix: 'ant-design',
   pageSize: 36,
   icons: () => [],
+  inputComponent: () => h('div'),
+  iconSlot: 'default',
+  iconClass: 'size-4',
+  modelValueProp: 'value',
 });
 
 const emit = defineEmits<{
   change: [string];
-  'update:value': [string];
 }>();
 
-const refTrigger = useTemplateRef<HTMLElement>('refTrigger');
-const currentSelect = ref('');
-const currentList = ref(props.icons);
-const currentPage = ref(1);
+const modelValue = defineModel({ default: '', type: String });
 
-watch(
-  () => props.icons,
-  (newIcons) => {
-    currentList.value = newIcons;
-  },
-  { immediate: true },
-);
+const visible = ref(false);
+const currentSelect = ref('');
+const currentPage = ref(1);
+const keyword = ref('');
+const keywordDebounce = refDebounced(keyword, 300);
+const currentList = computed(() => {
+  try {
+    if (props.prefix) {
+      const icons = listIcons('', props.prefix);
+      if (icons.length === 0) {
+        console.warn(`No icons found for prefix: ${props.prefix}`);
+      }
+      return icons;
+    } else {
+      return props.icons;
+    }
+  } catch (error) {
+    console.error('Failed to load icons:', error);
+    return [];
+  }
+});
+
+const showList = computed(() => {
+  return currentList.value.filter((item) =>
+    item.includes(keywordDebounce.value),
+  );
+});
 
 const { paginationList, total, setCurrentPage } = usePagination(
-  currentList,
+  showList,
   props.pageSize,
 );
 
 watchEffect(() => {
-  currentSelect.value = props.value;
+  currentSelect.value = modelValue.value;
 });
 
 watch(
   () => currentSelect.value,
   (v) => {
-    emit('update:value', v);
     emit('change', v);
   },
 );
 
 const handleClick = (icon: string) => {
   currentSelect.value = icon;
+  modelValue.value = icon;
+  close();
 };
 
 const handlePageChange = (page: number) => {
@@ -77,22 +109,53 @@ const handlePageChange = (page: number) => {
   setCurrentPage(page);
 };
 
-function changeOpenState() {
-  refTrigger.value?.click?.();
+function toggleOpenState() {
+  visible.value = !visible.value;
 }
 
-defineExpose({ changeOpenState });
+function open() {
+  visible.value = true;
+}
+
+function close() {
+  visible.value = false;
+}
+
+function onKeywordChange(v: string) {
+  keyword.value = v;
+}
+
+const searchInputProps = computed(() => {
+  return {
+    placeholder: $t('ui.iconPicker.search'),
+    [props.modelValueProp]: keyword.value,
+    [`onUpdate:${props.modelValueProp}`]: onKeywordChange,
+    class: 'mx-2',
+  };
+});
+
+defineExpose({ toggleOpenState, open, close });
 </script>
 <template>
   <VbenPopover
+    v-model:open="visible"
     :content-props="{ align: 'end', alignOffset: -11, sideOffset: 8 }"
     content-class="p-0 pt-3"
   >
     <template #trigger>
-      <div ref="refTrigger">
-        <VbenIcon :icon="currentSelect || Grip" class="size-5" />
-      </div>
+      <component
+        :is="inputComponent"
+        :[modelValueProp]="currentSelect"
+        :placeholder="$t('ui.iconPicker.placeholder')"
+      >
+        <template #[iconSlot]>
+          <VbenIcon :icon="currentSelect || Grip" class="size-4" />
+        </template>
+      </component>
     </template>
+    <div class="mb-2 flex w-full">
+      <component :is="inputComponent" v-bind="searchInputProps" />
+    </div>
 
     <template v-if="paginationList.length > 0">
       <div class="grid max-h-[360px] w-full grid-cols-6 justify-items-center">

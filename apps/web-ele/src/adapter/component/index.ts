@@ -4,23 +4,30 @@
  */
 
 import type { BaseFormComponentType } from '@vben/common-ui';
+import type { Recordable } from '@vben/types';
 
 import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
-import { globalShareState } from '@vben/common-ui';
+import { ApiSelect, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
   ElButton,
   ElCheckbox,
+  ElCheckboxButton,
   ElCheckboxGroup,
+  ElDatePicker,
   ElDivider,
   ElInput,
   ElInputNumber,
   ElNotification,
+  ElOption,
+  ElRadio,
+  ElRadioButton,
   ElRadioGroup,
   ElSelect,
+  ElSelectV2,
   ElSpace,
   ElSwitch,
   ElTimePicker,
@@ -40,10 +47,13 @@ const withDefaultPlaceholder = <T extends Component>(
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
+  | 'ApiSelect'
+  | 'ApiTreeSelect'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
   | 'Divider'
+  | 'IconPicker'
   | 'Input'
   | 'InputNumber'
   | 'RadioGroup'
@@ -60,11 +70,59 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-
+    ApiSelect: (props, { attrs, slots }) => {
+      return h(
+        ApiSelect,
+        {
+          placeholder: $t('ui.placeholder.select'),
+          ...props,
+          ...attrs,
+          component: ElSelectV2,
+          loadingSlot: 'loading',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
+    ApiTreeSelect: (props, { attrs, slots }) => {
+      return h(
+        ApiSelect,
+        {
+          placeholder: $t('ui.placeholder.select'),
+          ...props,
+          ...attrs,
+          component: ElTreeSelect,
+          props: { label: 'label', children: 'children' },
+          nodeKey: 'value',
+          loadingSlot: 'loading',
+          optionsPropName: 'data',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
     Checkbox: ElCheckbox,
-    CheckboxGroup: ElCheckboxGroup,
+    CheckboxGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options, isButton } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () =>
+            options.map((option) =>
+              h(isButton ? ElCheckboxButton : ElCheckbox, option),
+            );
+        }
+      }
+      return h(
+        ElCheckboxGroup,
+        { ...props, ...attrs },
+        { ...slots, default: defaultSlot },
+      );
+    },
     // 自定义默认按钮
-    DefaulButton: (props, { attrs, slots }) => {
+    DefaultButton: (props, { attrs, slots }) => {
       return h(ElButton, { ...props, attrs, type: 'info' }, slots);
     },
     // 自定义主要按钮
@@ -72,13 +130,101 @@ async function initComponentAdapter() {
       return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: ElDivider,
+    IconPicker: (props, { attrs, slots }) => {
+      return h(
+        IconPicker,
+        {
+          iconSlot: 'append',
+          modelValueProp: 'model-value',
+          inputComponent: ElInput,
+          ...props,
+          ...attrs,
+        },
+        slots,
+      );
+    },
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
-    RadioGroup: ElRadioGroup,
-    Select: withDefaultPlaceholder(ElSelect, 'select'),
+    RadioGroup: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () =>
+            options.map((option) =>
+              h(attrs.isButton ? ElRadioButton : ElRadio, option),
+            );
+        }
+      }
+      return h(
+        ElRadioGroup,
+        { ...props, ...attrs },
+        { ...slots, default: defaultSlot },
+      );
+    },
+    Select: (props, { attrs, slots }) => {
+      let defaultSlot;
+      if (Reflect.has(slots, 'default')) {
+        defaultSlot = slots.default;
+      } else {
+        const { options } = attrs;
+        if (Array.isArray(options)) {
+          defaultSlot = () => options.map((option) => h(ElOption, option));
+        }
+      }
+      const placeholder = props?.placeholder || $t(`ui.placeholder.select`);
+      return h(
+        ElSelect,
+        { ...props, ...attrs, placeholder },
+        { ...slots, default: defaultSlot },
+      );
+    },
     Space: ElSpace,
     Switch: ElSwitch,
-    TimePicker: ElTimePicker,
+    TimePicker: (props, { attrs, slots }) => {
+      const { name, id, isRange } = props;
+      const extraProps: Recordable<any> = {};
+      if (isRange) {
+        if (name && !Array.isArray(name)) {
+          extraProps.name = [name, `${name}_end`];
+        }
+        if (id && !Array.isArray(id)) {
+          extraProps.id = [id, `${id}_end`];
+        }
+      }
+      return h(
+        ElTimePicker,
+        {
+          ...props,
+          ...attrs,
+          ...extraProps,
+        },
+        slots,
+      );
+    },
+    DatePicker: (props, { attrs, slots }) => {
+      const { name, id, type } = props;
+      const extraProps: Recordable<any> = {};
+      if (type && type.includes('range')) {
+        if (name && !Array.isArray(name)) {
+          extraProps.name = [name, `${name}_end`];
+        }
+        if (id && !Array.isArray(id)) {
+          extraProps.id = [id, `${id}_end`];
+        }
+      }
+      return h(
+        ElDatePicker,
+        {
+          ...props,
+          ...attrs,
+          ...extraProps,
+        },
+        slots,
+      );
+    },
     TreeSelect: withDefaultPlaceholder(ElTreeSelect, 'select'),
     Upload: ElUpload,
   };

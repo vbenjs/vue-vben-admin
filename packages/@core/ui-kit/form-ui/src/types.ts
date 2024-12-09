@@ -343,6 +343,12 @@ export interface VbenFormProps<
   submitButtonOptions?: ActionButtonOptions;
 
   /**
+   * 是否在字段值改变时提交表单
+   * @default false
+   */
+  submitOnChange?: boolean;
+
+  /**
    * 是否在回车时提交表单
    * @default false
    */
