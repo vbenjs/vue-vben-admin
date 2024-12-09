@@ -12,6 +12,7 @@ import { globalShareState } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
+  type CheckboxProps,
   ElButton,
   ElCheckbox,
   ElCheckboxGroup,
@@ -27,6 +28,7 @@ import {
   ElTimePicker,
   ElTreeSelect,
   ElUpload,
+  type RadioProps,
 } from 'element-plus';
 
 const withDefaultPlaceholder = <T extends Component>(
@@ -37,12 +39,6 @@ const withDefaultPlaceholder = <T extends Component>(
     const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`);
     return h(component, { ...props, ...attrs, placeholder }, slots);
   };
-};
-
-type TKV = {
-  [key: string]: any;
-  label: string;
-  value: any;
 };
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
@@ -75,11 +71,8 @@ async function initComponentAdapter() {
         { ...props, attrs },
         props.options
           ? () =>
-              props.options?.map((option: TKV) => {
-                return h(ElCheckbox, {
-                  label: option.label,
-                  value: option.value,
-                });
+              props.options?.map((option: CheckboxProps) => {
+                return h(ElCheckbox, { ...option });
               })
           : slots,
       );
@@ -101,11 +94,8 @@ async function initComponentAdapter() {
         { ...props, attrs },
         props.options
           ? () =>
-              props.options?.map((option: TKV) => {
-                return h(ElRadio, {
-                  label: option.label,
-                  value: option.value,
-                });
+              props.options?.map((option: RadioProps) => {
+                return h(ElRadio, { ...option });
               })
           : slots,
       );
