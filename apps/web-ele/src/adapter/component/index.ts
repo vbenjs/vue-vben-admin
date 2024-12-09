@@ -22,11 +22,9 @@ import {
   ElInput,
   ElInputNumber,
   ElNotification,
-  ElOption,
   ElRadio,
   ElRadioButton,
   ElRadioGroup,
-  ElSelect,
   ElSelectV2,
   ElSpace,
   ElSwitch,
@@ -165,21 +163,7 @@ async function initComponentAdapter() {
       );
     },
     Select: (props, { attrs, slots }) => {
-      let defaultSlot;
-      if (Reflect.has(slots, 'default')) {
-        defaultSlot = slots.default;
-      } else {
-        const { options } = attrs;
-        if (Array.isArray(options)) {
-          defaultSlot = () => options.map((option) => h(ElOption, option));
-        }
-      }
-      const placeholder = props?.placeholder || $t(`ui.placeholder.select`);
-      return h(
-        ElSelect,
-        { ...props, ...attrs, placeholder },
-        { ...slots, default: defaultSlot },
-      );
+      return h(ElSelectV2, { ...props, attrs }, slots);
     },
     Space: ElSpace,
     Switch: ElSwitch,
