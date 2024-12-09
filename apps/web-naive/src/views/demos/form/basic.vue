@@ -35,7 +35,6 @@ const [Form, formApi] = useVbenForm({
         },
         // 菜单接口
         api: getAllMenusApi,
-        placeholder: '请选择',
       },
       // 字段名
       fieldName: 'api',
@@ -51,7 +50,6 @@ const [Form, formApi] = useVbenForm({
         childrenField: 'children',
         // 菜单接口转options格式
         labelField: 'name',
-        placeholder: '请选择',
         valueField: 'path',
       },
       // 字段名
