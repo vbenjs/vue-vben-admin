@@ -19,8 +19,9 @@ import {
   ElInput,
   ElInputNumber,
   ElNotification,
+  ElRadio,
   ElRadioGroup,
-  ElSelect,
+  ElSelectV2,
   ElSpace,
   ElSwitch,
   ElTimePicker,
@@ -36,6 +37,12 @@ const withDefaultPlaceholder = <T extends Component>(
     const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`);
     return h(component, { ...props, ...attrs, placeholder }, slots);
   };
+};
+
+type TKV = {
+  [key: string]: any;
+  label: string;
+  value: any;
 };
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
@@ -62,9 +69,23 @@ async function initComponentAdapter() {
     // import('xxx').then((res) => res.Button),
 
     Checkbox: ElCheckbox,
-    CheckboxGroup: ElCheckboxGroup,
+    CheckboxGroup: (props, { attrs, slots }) => {
+      return h(
+        ElCheckboxGroup,
+        { ...props, attrs },
+        props.options
+          ? () =>
+              props.options?.map((option: TKV) => {
+                return h(ElCheckbox, {
+                  label: option.label,
+                  value: option.value,
+                });
+              })
+          : slots,
+      );
+    },
     // 自定义默认按钮
-    DefaulButton: (props, { attrs, slots }) => {
+    DefaultButton: (props, { attrs, slots }) => {
       return h(ElButton, { ...props, attrs, type: 'info' }, slots);
     },
     // 自定义主要按钮
@@ -74,8 +95,22 @@ async function initComponentAdapter() {
     Divider: ElDivider,
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
-    RadioGroup: ElRadioGroup,
-    Select: withDefaultPlaceholder(ElSelect, 'select'),
+    RadioGroup: (props, { attrs, slots }) => {
+      return h(
+        ElRadioGroup,
+        { ...props, attrs },
+        props.options
+          ? () =>
+              props.options?.map((option: TKV) => {
+                return h(ElRadio, {
+                  label: option.label,
+                  value: option.value,
+                });
+              })
+          : slots,
+      );
+    },
+    Select: withDefaultPlaceholder(ElSelectV2, 'select'),
     Space: ElSpace,
     Switch: ElSwitch,
     TimePicker: ElTimePicker,
