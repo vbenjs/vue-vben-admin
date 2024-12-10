@@ -11,7 +11,7 @@ export interface DrawerProps {
    * 是否挂载到内容区域
    * @default false
    */
-  appendToMain?: false;
+  appendToMain?: boolean;
   /**
    * 取消按钮文字
    */
