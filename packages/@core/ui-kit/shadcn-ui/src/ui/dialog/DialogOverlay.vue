@@ -9,6 +9,6 @@ const id = inject('DISMISSABLE_MODAL_ID');
 <template>
   <div
     :data-dismissable-modal="id"
-    class="bg-overlay fixed inset-0 z-[1000]"
+    class="bg-overlay absolute inset-0 z-[1000]"
   ></div>
 </template>

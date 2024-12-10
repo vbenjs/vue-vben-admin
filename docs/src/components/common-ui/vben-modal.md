@@ -80,6 +80,7 @@ const [Modal, modalApi] = useVbenModal({
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| appendToMain | 是否挂载到内容区域（默认挂载到body） | `boolean` | `false` |
 | title | 标题 | `string\|slot` | - |
 | titleTooltip | 标题提示信息 | `string\|slot` | - |
 | description | 描述信息 | `string\|slot` | - |

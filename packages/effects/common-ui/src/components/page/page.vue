@@ -35,7 +35,7 @@ const contentStyle = computed(() => {
       height: shouldAutoHeight.value
         ? `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px)`
         : '0',
-      // 'overflow-y': shouldAutoHeight.value?'auto':'unset',
+      'overflow-y': shouldAutoHeight.value ? 'auto' : 'unset',
     };
   }
   return {};

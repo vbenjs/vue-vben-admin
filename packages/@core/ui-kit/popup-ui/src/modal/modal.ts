@@ -4,6 +4,11 @@ import type { Component, Ref } from 'vue';
 
 export interface ModalProps {
   /**
+   * 是否要挂载到内容区域
+   * @default false
+   */
+  appendToMain?: boolean;
+  /**
    * 是否显示边框
    * @default false
    */
