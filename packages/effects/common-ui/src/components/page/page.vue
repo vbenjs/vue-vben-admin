@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  ref,
+  type StyleValue,
+  useTemplateRef,
+} from 'vue';
 
 import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@vben-core/shared/constants';
 import { cn } from '@vben-core/shared/utils';
@@ -29,13 +36,13 @@ const shouldAutoHeight = ref(false);
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
 
-const contentStyle = computed(() => {
+const contentStyle = computed<StyleValue>(() => {
   if (autoContentHeight) {
     return {
       height: shouldAutoHeight.value
         ? `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px)`
         : '0',
-      // 'overflow-y': shouldAutoHeight.value?'auto':'unset',
+      overflowY: shouldAutoHeight.value ? 'auto' : 'unset',
     };
   }
   return {};

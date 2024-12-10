@@ -74,6 +74,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| appendToMain | 是否挂载到内容区域（默认挂载到body） | `boolean` | `false` |
 | title | 标题 | `string\|slot` | - |
 | titleTooltip | 标题提示信息 | `string\|slot` | - |
 | description | 描述信息 | `string\|slot` | - |
@@ -95,6 +96,13 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | contentClass | modal内容区域的class | `string` | - |
 | footerClass | modal底部区域的class | `string` | - |
 | headerClass | modal顶部区域的class | `string` | - |
+| zIndex | 抽屉的ZIndex层级 | `number` | `1000` |
+
+::: info appendToMain
+
+`appendToMain`可以指定将抽屉挂载到内容区域，打开抽屉时，内容区域以外的部分（标签栏、导航菜单等等）不会被遮挡。默认情况下，抽屉会挂载到body上。但是：挂载到内容区域时，作为页面根容器的`Page`组件，需要设置`auto-content-height`属性，以便抽屉能够正确计算高度。
+
+:::
 
 ### Event
 
