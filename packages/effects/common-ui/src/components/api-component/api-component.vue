@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { AnyPromiseFunction } from '@vben/types';
 
-import { computed, ref, unref, useAttrs, type VNode, watch } from 'vue';
+import { type Component, computed, ref, unref, useAttrs, watch } from 'vue';
 
 import { LoaderCircle } from '@vben/icons';
 import { get, isEqual, isFunction } from '@vben-core/shared/utils';
@@ -18,7 +18,7 @@ type OptionsItem = {
 
 interface Props {
   /** 组件 */
-  component: VNode;
+  component: Component;
   /** 是否将value从数字转为string */
   numberToString?: boolean;
   /** 获取options数据的函数 */
@@ -53,7 +53,7 @@ interface Props {
   modelPropName?: string;
 }
 
-defineOptions({ name: 'ApiSelect', inheritAttrs: false });
+defineOptions({ name: 'ApiComponent', inheritAttrs: false });
 
 const props = withDefaults(defineProps<Props>(), {
   labelField: 'label',
