@@ -20,6 +20,7 @@ import DialogOverlay from './DialogOverlay.vue';
 const props = withDefaults(
   defineProps<
     {
+      appendTo?: HTMLElement | string;
       class?: ClassType;
       closeClass?: ClassType;
       modal?: boolean;
@@ -27,7 +28,7 @@ const props = withDefaults(
       showClose?: boolean;
     } & DialogContentProps
   >(),
-  { showClose: true },
+  { appendTo: 'body', showClose: true },
 );
 const emits = defineEmits<
   { close: []; closed: []; opened: [] } & DialogContentEmits
@@ -64,7 +65,7 @@ defineExpose({
 </script>
 
 <template>
-  <DialogPortal>
+  <DialogPortal :to="appendTo">
     <Transition name="fade">
       <DialogOverlay v-if="open && modal" @click="() => emits('close')" />
     </Transition>
@@ -74,7 +75,7 @@ defineExpose({
       v-bind="forwarded"
       :class="
         cn(
-          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] fixed z-[1000] w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] absolute z-[1000] w-full p-6 shadow-lg outline-none sm:rounded-xl',
           props.class,
         )
       "

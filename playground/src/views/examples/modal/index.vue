@@ -9,11 +9,17 @@ import BaseDemo from './base-demo.vue';
 import DragDemo from './drag-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
 import FormModalDemo from './form-modal-demo.vue';
+import InContentModalDemo from './in-content-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
 const [BaseModal, baseModalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: BaseDemo,
+});
+
+const [InContentModal, inContentModalApi] = useVbenModal({
+  // 连接抽离的组件
+  connectedComponent: InContentModalDemo,
 });
 
 const [AutoHeightModal, autoHeightModalApi] = useVbenModal({
@@ -38,6 +44,10 @@ const [FormModal, formModalApi] = useVbenModal({
 
 function openBaseModal() {
   baseModalApi.open();
+}
+
+function openInContentModal() {
+  inContentModalApi.open();
 }
 
 function openAutoHeightModal() {
@@ -76,6 +86,7 @@ function openFormModal() {
 
 <template>
   <Page
+    auto-content-height
     description="弹窗组件常用于在不离开当前页面的情况下，显示额外的信息、表单或操作提示，更多api请查看组件文档。"
     title="弹窗组件示例"
   >
@@ -83,6 +94,7 @@ function openFormModal() {
       <DocButton path="/components/common-ui/vben-modal" />
     </template>
     <BaseModal />
+    <InContentModal />
     <AutoHeightModal />
     <DragModal />
     <DynamicModal />
@@ -91,6 +103,11 @@ function openFormModal() {
     <Card class="mb-4" title="基本使用">
       <p class="mb-3">一个基础的弹窗示例</p>
       <Button type="primary" @click="openBaseModal">打开弹窗</Button>
+    </Card>
+
+    <Card class="mb-4" title="指定容器">
+      <p class="mb-3">在内容区域打开弹窗的示例</p>
+      <Button type="primary" @click="openInContentModal">打开弹窗</Button>
     </Card>
 
     <Card class="mb-4" title="内容高度自适应">

@@ -15,17 +15,22 @@ import { type SheetVariants, sheetVariants } from './sheet';
 import SheetOverlay from './SheetOverlay.vue';
 
 interface SheetContentProps extends DialogContentProps {
+  appendTo?: HTMLElement | string;
   class?: any;
   modal?: boolean;
   open?: boolean;
   side?: SheetVariants['side'];
+  zIndex?: number;
 }
 
 defineOptions({
   inheritAttrs: false,
 });
 
-const props = defineProps<SheetContentProps>();
+const props = withDefaults(defineProps<SheetContentProps>(), {
+  appendTo: 'body',
+  zIndex: 1000,
+});
 
 const emits = defineEmits<DialogContentEmits>();
 
@@ -45,12 +50,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <DialogPortal>
+  <DialogPortal :to="appendTo">
     <Transition name="fade">
-      <SheetOverlay v-if="open && modal" />
+      <SheetOverlay v-if="open && modal" :style="{ zIndex }" />
     </Transition>
     <DialogContent
-      :class="cn(sheetVariants({ side }), 'z-[1000]', props.class)"
+      :class="cn(sheetVariants({ side }), props.class)"
+      :style="{ zIndex }"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot></slot>
