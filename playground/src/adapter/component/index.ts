@@ -8,12 +8,21 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
-import { ApiSelect, globalShareState, IconPicker } from '@vben/common-ui';
+import {
+  ApiCascader,
+  ApiCheckbox,
+  ApiRadio,
+  ApiSelect,
+  ApiTransfer,
+  globalShareState,
+  IconPicker,
+} from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import {
   AutoComplete,
   Button,
+  Cascader,
   Checkbox,
   CheckboxGroup,
   DatePicker,
@@ -32,6 +41,7 @@ import {
   Switch,
   Textarea,
   TimePicker,
+  Transfer,
   TreeSelect,
   Upload,
 } from 'ant-design-vue';
@@ -48,7 +58,11 @@ const withDefaultPlaceholder = <T extends Component>(
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
+  | 'ApiCascader'
+  | 'ApiCheckbox'
+  | 'ApiRadio'
   | 'ApiSelect'
+  | 'ApiTransfer'
   | 'ApiTreeSelect'
   | 'AutoComplete'
   | 'Checkbox'
@@ -81,6 +95,48 @@ async function initComponentAdapter() {
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
+    ApiCascader: (props, { attrs, slots }) => {
+      return h(
+        ApiCascader,
+        {
+          ...props,
+          ...attrs,
+          component: Cascader,
+          loadingSlot: 'suffixIcon',
+          modelPropName: 'value',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
+    ApiCheckbox: (props, { attrs, slots }) => {
+      return h(
+        ApiCheckbox,
+        {
+          ...props,
+          ...attrs,
+          component: CheckboxGroup,
+          loadingSlot: 'suffixIcon',
+          modelPropName: 'value',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
+    ApiRadio: (props, { attrs, slots }) => {
+      return h(
+        ApiRadio,
+        {
+          ...props,
+          ...attrs,
+          component: RadioGroup,
+          loadingSlot: 'suffixIcon',
+          modelPropName: 'value',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
     ApiSelect: (props, { attrs, slots }) => {
       return h(
         ApiSelect,
@@ -91,6 +147,23 @@ async function initComponentAdapter() {
           component: Select,
           loadingSlot: 'suffixIcon',
           modelPropName: 'value',
+          visibleEvent: 'onVisibleChange',
+        },
+        slots,
+      );
+    },
+    ApiTransfer: (props, { attrs, slots }) => {
+      return h(
+        ApiTransfer,
+        {
+          ...props,
+          ...attrs,
+          component: Transfer,
+          loadingSlot: 'suffixIcon',
+          modelPropName: 'target-keys',
+          optionsKeyName: 'key',
+          optionsLabelName: 'title',
+          render: (item) => item.title,
           visibleEvent: 'onVisibleChange',
         },
         slots,

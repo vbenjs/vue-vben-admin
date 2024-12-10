@@ -268,6 +268,47 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'treeSelect',
       label: '树选择',
     },
+    {
+      component: 'ApiRadio',
+      componentProps: {
+        api: getAllMenusApi,
+        labelField: 'name',
+        valueField: 'path',
+      },
+      fieldName: 'apiRadio',
+      label: 'ApiRadio',
+    },
+    {
+      component: 'ApiCheckbox',
+      componentProps: {
+        api: getAllMenusApi,
+        labelField: 'name',
+        valueField: 'path',
+      },
+      fieldName: 'apiCheckbox',
+      label: 'ApiCheckbox',
+    },
+    {
+      component: 'ApiCascader',
+      componentProps: {
+        api: getAllMenusApi,
+        labelField: 'name',
+        valueField: 'path',
+      },
+      fieldName: 'apiCascader',
+      label: 'ApiCascader',
+    },
+    {
+      component: 'ApiTransfer',
+      componentProps: {
+        api: getAllMenusApi,
+        keyField: 'path',
+        labelField: 'name',
+        titles: ['待选择', '已选择'],
+      },
+      fieldName: 'apiTransfer',
+      label: 'ApiTransfer',
+    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
@@ -353,6 +394,8 @@ function handleSetFormValue() {
    * 设置表单值(多个)
    */
   baseFormApi.setValues({
+    apiCheckbox: ['/'],
+    apiRadio: '/',
     checkboxGroup: ['1'],
     datePicker: dayjs('2022-01-01'),
     mentions: '@afc163',
