@@ -46,12 +46,3 @@ outline: deep
 | options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - |
 | visibleEvent | 触发重新请求数据的事件名 | `string` | - |
 | loadingSlot | 组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - |
-
-### Methods
-
-以下事件，只有在 `useVbenModal({onCancel:()=>{}})` 中传入才会生效。
-
-| 事件名 | 描述         | 类型       |
-| ------ | ------------ | ---------- |
-| start  | 开始执行动画 | `()=>void` |
-| reset  | 重置         | `()=>void` |
