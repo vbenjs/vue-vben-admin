@@ -46,17 +46,29 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 
+function isAppendToBody() {
+  return (
+    props.appendTo === 'body' ||
+    props.appendTo === document.body ||
+    !props.appendTo
+  );
+}
+
+const position = computed(() => {
+  return isAppendToBody() ? 'fixed' : 'absolute';
+});
+
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <DialogPortal :to="appendTo">
     <Transition name="fade">
-      <SheetOverlay v-if="open && modal" :style="{ zIndex }" />
+      <SheetOverlay v-if="open && modal" :style="{ zIndex, position }" />
     </Transition>
     <DialogContent
       :class="cn(sheetVariants({ side }), props.class)"
-      :style="{ zIndex }"
+      :style="{ zIndex, position }"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot></slot>
