@@ -39,7 +39,6 @@ outline: deep
 | optionsPropName | 组件接收options数据的属性名称 | `string` | `options` |
 | modelPropName | 组件的双向绑定属性名，默认为modelValue。部分组件可能为value | `string` | `modelValue` |
 | immediate | 是否立即调用api | `boolean` | `true` |
-| visibleEvent | 触发重新请求数据的事件名 | `string` | - |
 | alwaysLoad | 每次`visibleEvent`事件发生时都重新请求数据 | `boolean` | `false` |
 | beforeFetch | 在api请求之前的回调函数 | `AnyPromiseFunction<any, any>` | - |
 | afterFetch | 在api请求之后的回调函数 | `AnyPromiseFunction<any, any>` | - |
