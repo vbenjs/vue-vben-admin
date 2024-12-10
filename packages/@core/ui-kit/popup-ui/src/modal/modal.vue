@@ -81,6 +81,7 @@ const {
   showConfirmButton,
   title,
   titleTooltip,
+  zIndex,
 } = usePriorityValues(props, state);
 
 const shouldFullscreen = computed(
@@ -194,6 +195,7 @@ const getAppendTo = computed(() => {
       :modal="modal"
       :open="state?.isOpen"
       :show-close="closable"
+      :z-index="zIndex"
       close-class="top-3"
       @close-auto-focus="handleFocusOutside"
       @closed="() => modalApi?.onClosed()"
