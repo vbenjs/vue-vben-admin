@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
+import { Page } from '@vben/common-ui';
 
 import { Button, message } from 'ant-design-vue';
 
@@ -66,16 +66,6 @@ function changeLoading() {
     gridApi.setLoading(false);
   }, 2000);
 }
-
-const [Modal, modalApi] = useVbenModal();
-const [Drawer, drawerApi] = useVbenDrawer();
-function openModal() {
-  modalApi.open();
-}
-
-function openDrawer() {
-  drawerApi.open();
-}
 </script>
 
 <template>
@@ -85,10 +75,6 @@ function openDrawer() {
   >
     <template #extra>
       <DocButton path="/components/common-ui/vben-vxe-table" />
-    </template>
-    <template #footer>
-      <Button type="primary" @click="openModal">打开弹窗</Button>
-      <Button type="primary" @click="openDrawer">打开抽屉</Button>
     </template>
     <Modal title="弹窗测试">
       <p>这是一个弹窗</p>

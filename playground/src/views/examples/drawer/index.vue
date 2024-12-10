@@ -45,13 +45,19 @@ function openBaseDrawer(placement: DrawerPlacement = 'right') {
 }
 
 function openInContentDrawer(placement: DrawerPlacement = 'right') {
-  inContentDrawerApi.setState({ placement });
+  inContentDrawerApi.setState({ class: '', placement });
   if (placement === 'top') {
     // 页面顶部区域的层级只有200，所以设置一个低于200的值，抽屉从顶部滑出来的时候才比较合适
     inContentDrawerApi.setState({ zIndex: 199 });
   } else {
     inContentDrawerApi.setState({ zIndex: undefined });
   }
+  inContentDrawerApi.open();
+}
+
+function openMaxContentDrawer() {
+  // 这里只是用来演示方便。实际上自己使用的时候可以直接将这些配置卸载Drawer的属性里
+  inContentDrawerApi.setState({ class: 'w-full', placement: 'right' });
   inContentDrawerApi.open();
 }
 
@@ -146,6 +152,9 @@ function openFormDrawer() {
         @click="openInContentDrawer('top')"
       >
         顶部打开
+      </Button>
+      <Button class="mb-2 ml-2" type="primary" @click="openMaxContentDrawer">
+        内容区域全屏打开
       </Button>
     </Card>
 
