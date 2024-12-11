@@ -149,6 +149,7 @@ defineExpose({
       <component
         :is="COMPONENT_MAP.PrimaryButton"
         v-if="submitButtonOptions.show"
+        class="ml-3"
         type="button"
         @click="handleSubmit"
         v-bind="submitButtonOptions"
