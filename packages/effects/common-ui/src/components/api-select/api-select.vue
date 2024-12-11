@@ -198,7 +198,9 @@ function emitChange() {
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
       <template v-if="loadingSlot && loading" #[loadingSlot]>
-        <LoaderCircle class="animate-spin" />
+        <slot :loading="loading" :name="loadingSlot">
+          <LoaderCircle class="animate-spin" />
+        </slot>
       </template>
     </component>
   </div>
