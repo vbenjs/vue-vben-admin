@@ -14,7 +14,7 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw } from '@vben/icons';
+import { CloudUpload, Copy, RotateCw } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import {
   clearPreferencesCache,
@@ -30,7 +30,7 @@ import {
 } from '@vben-core/shadcn-ui';
 import { globalShareState } from '@vben-core/shared/global-state';
 
-import { useClipboard } from '@vueuse/core';
+import { useClipboard, useThrottleFn } from '@vueuse/core';
 
 import {
   Animation,
@@ -217,6 +217,18 @@ async function handleReset() {
   resetPreferences();
   await loadLocaleMessages(preferences.app.locale);
 }
+const harbor = computed(() => window.$harbor);
+// 防抖
+const handleUploadLog = useThrottleFn(() => {
+  if (!harbor.value) {
+    return;
+  }
+  harbor.value.onOfflineLog('upload');
+  message.copyPreferencesSuccess?.(
+    $t('preferences.logUploadSuccessTitle'),
+    $t('preferences.logUploadSuccess'),
+  );
+}, 5000);
 </script>
 
 <template>
@@ -228,6 +240,13 @@ async function handleReset() {
     >
       <template #extra>
         <div class="flex items-center">
+          <VbenIconButton
+            :disabled="!harbor"
+            :tooltip="$t('preferences.logUpload')"
+            class="relative"
+          >
+            <CloudUpload class="size-4" @click="handleUploadLog" />
+          </VbenIconButton>
           <VbenIconButton
             :disabled="!diffPreference"
             :tooltip="$t('preferences.resetTip')"
