@@ -111,7 +111,7 @@ const [Modal, modalApi] = useVbenModal({
 
 ::: info appendToMain
 
-`appendToMain`可以指定将弹窗挂载到内容区域，打开带这招的弹窗时，内容区域以外的部分（标签栏、导航菜单等等）不会被遮挡。默认情况下，弹窗会挂载到body上。但是：挂载到内容区域时，作为页面根容器的`Page`组件，需要设置`auto-content-height`属性，以便弹窗能够正确计算高度。
+`appendToMain`可以指定将弹窗挂载到内容区域，打开这种弹窗时，内容区域以外的部分（标签栏、导航菜单等等）不会被遮挡。默认情况下，弹窗会挂载到body上。但是：挂载到内容区域时，作为页面根容器的`Page`组件，需要设置`auto-content-height`属性，以便弹窗能够正确计算高度。
 
 :::
 
