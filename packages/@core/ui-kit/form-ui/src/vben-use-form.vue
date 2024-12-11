@@ -62,9 +62,7 @@ function handleKeyDownEnter(event: KeyboardEvent) {
 watch(
   () => form.values,
   useDebounceFn(() => {
-    (props.handleValuesChange ?? state.value.handleValuesChange)?.(
-      toRaw(form.values),
-    );
+    forward.value.handleValuesChange?.(toRaw(form.values));
     state.value.submitOnChange && props.formApi?.submitForm();
   }, 300),
   { deep: true },

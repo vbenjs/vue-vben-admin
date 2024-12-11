@@ -306,6 +306,8 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | actionWrapperClass | 表单操作区域class | `any` | - |
 | handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleSubmit | 表单提交回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
+| handleValuesChange | 表单值变化回调 | `(values: Record<string, any>,) => void` | - |
+| actionButtonsReverse | 调换操作按钮位置 | `boolean` | `false` |
 | resetButtonOptions | 重置按钮组件参数 | `ActionButtonOptions` | - |
 | submitButtonOptions | 提交按钮组件参数 | `ActionButtonOptions` | - |
 | showDefaultActions | 是否显示默认操作按钮 | `boolean` | `true` |

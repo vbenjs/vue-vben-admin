@@ -4,6 +4,11 @@ import type { Component, Ref } from 'vue';
 
 export interface ModalProps {
   /**
+   * 是否要挂载到内容区域
+   * @default false
+   */
+  appendToMain?: boolean;
+  /**
    * 是否显示边框
    * @default false
    */
@@ -12,7 +17,6 @@ export interface ModalProps {
    * 取消按钮文字
    */
   cancelText?: string;
-
   /**
    * 是否居中
    * @default false
@@ -20,6 +24,7 @@ export interface ModalProps {
   centered?: boolean;
 
   class?: string;
+
   /**
    * 是否显示右上角的关闭按钮
    * @default true
@@ -112,6 +117,10 @@ export interface ModalProps {
    * 弹窗标题提示
    */
   titleTooltip?: string;
+  /**
+   * 弹窗层级
+   */
+  zIndex?: number;
 }
 
 export interface ModalState extends ModalProps {
