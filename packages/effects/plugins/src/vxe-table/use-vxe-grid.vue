@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import type { VbenFormProps } from '@vben-core/form-ui';
 import type {
+  VxeGridDefines,
   VxeGridInstance,
+  VxeGridPropTypes,
   VxeGridProps as VxeTableGridProps,
 } from 'vxe-table';
 
@@ -57,6 +59,7 @@ const {
   formOptions,
   tableTitle,
   tableTitleHelp,
+  isFormShow,
 } = usePriorityValues(props, state);
 
 const { isMobile } = usePreferences();
@@ -103,21 +106,36 @@ const toolbarOptions = computed(() => {
   const slotActions = slots[TOOLBAR_ACTIONS]?.();
   const slotTools = slots[TOOLBAR_TOOLS]?.();
 
+  const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
+    tools: gridOptions.value?.toolbarConfig?.search
+      ? [
+          {
+            code: 'search',
+            icon: 'vxe-icon--search',
+            circle: true,
+            status: isFormShow.value ? 'primary' : undefined,
+            title: $t('common.search'),
+          },
+        ]
+      : [],
+  };
+
   if (!showToolbar.value) {
-    return {};
+    return { toolbarConfig };
   }
+
+  // if (gridOptions.value?.toolbarConfig?.search) {
+  // }
   // 强制使用固定的toolbar配置，不允许用户自定义
   // 减少配置的复杂度，以及后续维护的成本
-  return {
-    toolbarConfig: {
-      slots: {
-        ...(slotActions || showTableTitle.value
-          ? { buttons: TOOLBAR_ACTIONS }
-          : {}),
-        ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
-      },
-    },
+  toolbarConfig.slots = {
+    ...(slotActions || showTableTitle.value
+      ? { buttons: TOOLBAR_ACTIONS }
+      : {}),
+    ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
   };
+
+  return { toolbarConfig };
 });
 
 const options = computed(() => {
@@ -173,9 +191,18 @@ const options = computed(() => {
   return mergedOptions;
 });
 
+function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
+  if (event.code === 'search') {
+    props.api?.toggleSearchForm?.();
+  }
+  // @ts-ignore
+  gridEvents.value?.toolbarToolClick?.(event);
+}
+
 const events = computed(() => {
   return {
     ...gridEvents.value,
+    toolbarToolClick: onToolbarToolClick,
   };
 });
 
@@ -304,7 +331,11 @@ onUnmounted(() => {
 
       <!-- form表单 -->
       <template #form>
-        <div v-if="formOptions" class="relative rounded py-3 pb-4">
+        <div
+          v-if="formOptions"
+          v-show="isFormShow !== false"
+          class="relative rounded py-3 pb-4"
+        >
           <slot name="form">
             <Form>
               <template

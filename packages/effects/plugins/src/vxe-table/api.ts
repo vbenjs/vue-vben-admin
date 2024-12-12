@@ -8,6 +8,7 @@ import { toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
+  isBoolean,
   isFunction,
   mergeWithArrayOverride,
   StateHandler,
@@ -20,6 +21,7 @@ function getDefaultState(): VxeGridProps {
     gridOptions: {},
     gridEvents: {},
     formOptions: undefined,
+    isFormShow: true,
   };
 }
 
@@ -80,6 +82,12 @@ export class VxeGridApi {
     }
   }
 
+  setFormVisible(isVisible: boolean) {
+    this.setState({
+      isFormShow: isVisible,
+    });
+  }
+
   setGridOptions(options: Partial<VxeGridProps['gridOptions']>) {
     this.setState({
       gridOptions: options,
@@ -106,6 +114,16 @@ export class VxeGridApi {
     } else {
       this.store.setState((prev) => mergeWithArrayOverride(stateOrFn, prev));
     }
+  }
+
+  toggleSearchForm(show?: boolean) {
+    this.setState({
+      isFormShow: isBoolean(show) ? show : !this.state?.isFormShow,
+    });
+    // nextTick(() => {
+    //   this.grid.recalculate();
+    // });
+    return this.state?.isFormShow;
   }
 
   unmount() {
