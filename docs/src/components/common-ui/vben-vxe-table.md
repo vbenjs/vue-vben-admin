@@ -165,6 +165,8 @@ vxeUI.renderer.add('CellLink', {
 
 **表单搜索** 部分采用了`Vben Form 表单`，参考 [Vben Form 表单文档](/components/common-ui/vben-form)。
 
+当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。
+
 <DemoPreview dir="demos/vben-vxe-table/form" />
 
 ## 单元格编辑
@@ -215,14 +217,15 @@ const [Grid, gridApi] = useVbenVxeGrid({
 
 useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表单的方法。
 
-| 方法名 | 描述 | 类型 |
-| --- | --- | --- |
-| setLoading | 设置loading状态 | `(loading)=>void` |
-| setGridOptions | 设置vxe-table grid组件参数 | `(options: Partial<VxeGridProps['gridOptions'])=>void` |
-| reload | 重载表格，会进行初始化 | `(params:any)=>void` |
-| query | 重载表格，会保留当前分页 | `(params:any)=>void` |
-| grid | vxe-table grid实例 | `VxeGridInstance` |
-| formApi | vbenForm api实例 | `FormApi` |
+| 方法名 | 描述 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| setLoading | 设置loading状态 | `(loading)=>void` | - |
+| setGridOptions | 设置vxe-table grid组件参数 | `(options: Partial<VxeGridProps['gridOptions'])=>void` | - |
+| reload | 重载表格，会进行初始化 | `(params:any)=>void` | - |
+| query | 重载表格，会保留当前分页 | `(params:any)=>void` | - |
+| grid | vxe-table grid实例 | `VxeGridInstance` | - |
+| formApi | vbenForm api实例 | `FormApi` | - |
+| toggleSearchForm | 设置搜索表单显示状态 | `(show?: boolean)=>boolean` | 当省略参数时，则将表单在显示和隐藏两种状态之间切换 |
 
 ## Props
 
@@ -236,3 +239,4 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 | gridOptions    | grid组件的参数     | `VxeTableGridProps` |
 | gridEvents     | grid组件的触发的⌚️ | `VxeGridListeners`  |
 | formOptions    | 表单参数           | `VbenFormProps`     |
+| showSearchForm | 是否显示搜索表单   | `boolean`           |

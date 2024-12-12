@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { VbenFormProps } from '#/adapter/form';
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
@@ -71,7 +71,7 @@ const formOptions: VbenFormProps = {
   submitOnEnter: false,
 };
 
-const gridOptions: VxeGridProps<RowType> = {
+const gridOptions: VxeTableGridOptions<RowType> = {
   checkboxConfig: {
     highlight: true,
     labelField: 'name',
@@ -85,6 +85,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
+  exportConfig: {},
   height: 'auto',
   keepSource: true,
   pagerConfig: {},
@@ -100,9 +101,20 @@ const gridOptions: VxeGridProps<RowType> = {
       },
     },
   },
+  toolbarConfig: {
+    custom: true,
+    export: true,
+    refresh: true,
+    resizable: true,
+    search: true,
+    zoom: true,
+  },
 };
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid] = useVbenVxeGrid({
+  formOptions,
+  gridOptions,
+});
 </script>
 
 <template>
