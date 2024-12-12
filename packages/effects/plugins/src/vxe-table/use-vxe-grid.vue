@@ -107,17 +107,18 @@ const toolbarOptions = computed(() => {
   const slotTools = slots[TOOLBAR_TOOLS]?.();
 
   const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
-    tools: gridOptions.value?.toolbarConfig?.search
-      ? [
-          {
-            code: 'search',
-            icon: 'vxe-icon--search',
-            circle: true,
-            status: isFormShow.value ? 'primary' : undefined,
-            title: $t('common.search'),
-          },
-        ]
-      : [],
+    tools:
+      gridOptions.value?.toolbarConfig?.search && !!formOptions.value
+        ? [
+            {
+              code: 'search',
+              icon: 'vxe-icon--search',
+              circle: true,
+              status: isFormShow.value ? 'primary' : undefined,
+              title: $t('common.search'),
+            },
+          ]
+        : [],
   };
 
   if (!showToolbar.value) {

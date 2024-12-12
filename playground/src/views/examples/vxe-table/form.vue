@@ -107,6 +107,7 @@ const gridOptions: VxeTableGridOptions<RowType> = {
     refresh: true,
     resizable: true,
     search: true,
+    zoom: true,
   },
 };
 
