@@ -239,4 +239,4 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 | gridOptions    | grid组件的参数     | `VxeTableGridProps` |
 | gridEvents     | grid组件的触发的⌚️ | `VxeGridListeners`  |
 | formOptions    | 表单参数           | `VbenFormProps`     |
-| isFormShow     | 是否显示搜索表单   | `boolean`           |
+| showSearchForm | 是否显示搜索表单   | `boolean`           |

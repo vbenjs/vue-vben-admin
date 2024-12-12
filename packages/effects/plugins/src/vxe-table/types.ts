@@ -25,7 +25,8 @@ interface ToolbarConfigOptions extends VxeGridPropTypes.ToolbarConfig {
 }
 
 export interface VxeTableGridOptions<T = any> extends VxeTableGridProps<T> {
-  toolbarConfig: ToolbarConfigOptions;
+  /** 工具栏配置 */
+  toolbarConfig?: ToolbarConfigOptions;
 }
 
 export interface VxeGridProps {
@@ -60,7 +61,7 @@ export interface VxeGridProps {
   /**
    * 显示搜索表单
    */
-  isFormShow?: boolean;
+  showSearchForm?: boolean;
 }
 
 export type ExtendedVxeGridApi = {

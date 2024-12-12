@@ -21,7 +21,7 @@ function getDefaultState(): VxeGridProps {
     gridOptions: {},
     gridEvents: {},
     formOptions: undefined,
-    isFormShow: true,
+    showSearchForm: true,
   };
 }
 
@@ -82,12 +82,6 @@ export class VxeGridApi {
     }
   }
 
-  setFormVisible(isVisible: boolean) {
-    this.setState({
-      isFormShow: isVisible,
-    });
-  }
-
   setGridOptions(options: Partial<VxeGridProps['gridOptions']>) {
     this.setState({
       gridOptions: options,
@@ -118,12 +112,12 @@ export class VxeGridApi {
 
   toggleSearchForm(show?: boolean) {
     this.setState({
-      isFormShow: isBoolean(show) ? show : !this.state?.isFormShow,
+      showSearchForm: isBoolean(show) ? show : !this.state?.showSearchForm,
     });
     // nextTick(() => {
     //   this.grid.recalculate();
     // });
-    return this.state?.isFormShow;
+    return this.state?.showSearchForm;
   }
 
   unmount() {

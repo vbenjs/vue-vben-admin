@@ -3,6 +3,7 @@ import type { VbenFormProps } from '@vben-core/form-ui';
 import type {
   VxeGridDefines,
   VxeGridInstance,
+  VxeGridListeners,
   VxeGridPropTypes,
   VxeGridProps as VxeTableGridProps,
 } from 'vxe-table';
@@ -59,7 +60,7 @@ const {
   formOptions,
   tableTitle,
   tableTitleHelp,
-  isFormShow,
+  showSearchForm,
 } = usePriorityValues(props, state);
 
 const { isMobile } = usePreferences();
@@ -114,7 +115,7 @@ const toolbarOptions = computed(() => {
               code: 'search',
               icon: 'vxe-icon--search',
               circle: true,
-              status: isFormShow.value ? 'primary' : undefined,
+              status: showSearchForm.value ? 'primary' : undefined,
               title: $t('common.search'),
             },
           ]
@@ -196,8 +197,9 @@ function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
   if (event.code === 'search') {
     props.api?.toggleSearchForm?.();
   }
-  // @ts-ignore
-  gridEvents.value?.toolbarToolClick?.(event);
+  (
+    gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick']
+  )?.(event);
 }
 
 const events = computed(() => {
@@ -334,7 +336,7 @@ onUnmounted(() => {
       <template #form>
         <div
           v-if="formOptions"
-          v-show="isFormShow !== false"
+          v-show="showSearchForm !== false"
           class="relative rounded py-3 pb-4"
         >
           <slot name="form">
