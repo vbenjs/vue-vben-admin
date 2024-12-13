@@ -33,6 +33,7 @@ const {
   description,
   disabled,
   disabledOnChangeListener,
+  disabledOnInputListener,
   emptyStateValue,
   fieldName,
   formFieldProps,
@@ -227,10 +228,14 @@ function fieldBindEvent(slotProps: Record<string, any>) {
 
             return onChange?.(e?.target?.[bindEventField] ?? e);
           },
-      onInput: () => {},
+      ...(disabledOnInputListener ? { onInput: undefined } : {}),
     };
   }
-  return {};
+  return disabledOnInputListener
+    ? {
+        onInput: undefined,
+      }
+    : {};
 }
 
 function createComponentProps(slotProps: Record<string, any>) {
