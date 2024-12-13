@@ -6,7 +6,9 @@ import type { ExtendedFormApi, VbenFormProps } from './types';
 import { useForwardPriorityValues } from '@vben-core/composables';
 // import { isFunction } from '@vben-core/shared/utils';
 
-import { toRaw, useTemplateRef, watch } from 'vue';
+import { nextTick, onMounted, useTemplateRef, watch } from 'vue';
+
+import { cloneDeep } from '@vben-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -59,14 +61,16 @@ function handleKeyDownEnter(event: KeyboardEvent) {
   formActionsRef.value?.handleSubmit?.();
 }
 
-watch(
-  () => form.values,
-  useDebounceFn(() => {
-    forward.value.handleValuesChange?.(toRaw(form.values));
-    state.value.submitOnChange && props.formApi?.submitForm();
-  }, 300),
-  { deep: true },
-);
+const handleValuesChangeDebounced = useDebounceFn((newVal) => {
+  forward.value.handleValuesChange?.(cloneDeep(newVal));
+  state.value.submitOnChange && formActionsRef.value?.handleSubmit?.();
+}, 300);
+
+onMounted(async () => {
+  // 只在挂载后开始监听，form.values会有一个初始化的过程
+  await nextTick();
+  watch(() => form.values, handleValuesChangeDebounced, { deep: true });
+});
 </script>
 
 <template>
