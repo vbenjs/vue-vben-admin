@@ -55,6 +55,7 @@ if (!preferences.tabbar.persist) {
     :show-icon="showIcon"
     :style-type="preferences.tabbar.styleType"
     :tabs="currentTabs"
+    :wheelable="preferences.tabbar.wheelable"
     @close="handleClose"
     @sort-tabs="tabbarStore.sortTabs"
     @unpin="unpinTab"

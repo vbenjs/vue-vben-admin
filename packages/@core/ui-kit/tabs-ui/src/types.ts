@@ -33,7 +33,6 @@ export interface TabsProps {
    * 仅限 tabs-chrome
    */
   maxWidth?: number;
-
   /**
    * @zh_CN tab最小宽度
    * 仅限 tabs-chrome
@@ -44,15 +43,20 @@ export interface TabsProps {
    * @zh_CN 是否显示图标
    */
   showIcon?: boolean;
+
   /**
    * @zh_CN 标签页风格
    */
   styleType?: TabsStyleType;
-
   /**
    * @zh_CN 选项卡数据
    */
   tabs?: TabDefinition[];
+
+  /**
+   * @zh_CN 是否响应滚轮事件
+   */
+  wheelable?: boolean;
 }
 
 export interface TabConfig extends TabDefinition {

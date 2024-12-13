@@ -142,6 +142,13 @@ export function useTabsViewScroll(props: TabsProps) {
     scrollIsAtRight.value = right;
   }, 100);
 
+  function handleWheel({ deltaY }: WheelEvent) {
+    scrollViewportEl.value?.scrollBy({
+      behavior: 'smooth',
+      left: deltaY * 3,
+    });
+  }
+
   watch(
     () => props.active,
     async () => {
@@ -184,6 +191,7 @@ export function useTabsViewScroll(props: TabsProps) {
 
   return {
     handleScrollAt,
+    handleWheel,
     initScrollbar,
     scrollbarRef,
     scrollDirection,

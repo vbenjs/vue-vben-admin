@@ -8,8 +8,9 @@ defineOptions({
   name: 'PreferenceSwitchItem',
 });
 
-withDefaults(defineProps<{ disabled?: boolean }>(), {
+withDefaults(defineProps<{ disabled?: boolean; tip?: string }>(), {
   disabled: false,
+  tip: '',
 });
 
 const checked = defineModel<boolean>();
@@ -32,11 +33,17 @@ function handleClick() {
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <VbenTooltip v-if="slots.tip" side="bottom">
+      <VbenTooltip v-if="slots.tip || tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
-        <slot name="tip"></slot>
+        <slot name="tip">
+          <template v-if="tip">
+            <p v-for="(line, index) in tip.split('\n')" :key="index">
+              {{ line }}
+            </p>
+          </template>
+        </slot>
       </VbenTooltip>
     </span>
     <span v-if="$slots.shortcut" class="ml-auto mr-2 text-xs opacity-60">
