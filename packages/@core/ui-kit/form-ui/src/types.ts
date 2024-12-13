@@ -156,7 +156,7 @@ export interface FormCommonConfig {
   disabledOnChangeListener?: boolean;
   /**
    * 是否禁用所有表单项的input事件监听
-   * @default true
+   * @default false
    */
   disabledOnInputListener?: boolean;
   /**
