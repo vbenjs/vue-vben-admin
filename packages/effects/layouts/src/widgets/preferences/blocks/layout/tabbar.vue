@@ -54,7 +54,11 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarDraggable" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.draggable') }}
   </SwitchItem>
-  <SwitchItem v-model="tabbarWheelable" :disabled="!tabbarEnable">
+  <SwitchItem
+    v-model="tabbarWheelable"
+    :disabled="!tabbarEnable"
+    :tip="$t('preferences.tabbar.wheelableTip')"
+  >
     {{ $t('preferences.tabbar.wheelable') }}
   </SwitchItem>
   <SwitchItem v-model="tabbarShowIcon" :disabled="!tabbarEnable">

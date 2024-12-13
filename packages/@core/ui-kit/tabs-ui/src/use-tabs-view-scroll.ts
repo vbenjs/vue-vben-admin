@@ -144,8 +144,8 @@ export function useTabsViewScroll(props: TabsProps) {
 
   function handleWheel({ deltaY }: WheelEvent) {
     scrollViewportEl.value?.scrollBy({
-      // behavior: 'smooth',
-      left: deltaY,
+      behavior: 'smooth',
+      left: deltaY * 3,
     });
   }
 

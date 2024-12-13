@@ -56,6 +56,7 @@
     "persist": "Persist Tabs",
     "draggable": "Enable Draggable Sort",
     "wheelable": "Support Mouse Wheel",
+    "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
     "styleType": {
       "title": "Tabs Style",
       "chrome": "Chrome",
