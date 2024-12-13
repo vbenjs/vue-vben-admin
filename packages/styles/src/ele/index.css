@@ -33,4 +33,8 @@
   .el-radio-button:not(:first-child) .el-radio-button__inner {
     border-left: none;
   }
+
+  .el-textarea .el-textarea__inner {
+    border: 1px solid var(--el-color-danger);
+  }
 }
