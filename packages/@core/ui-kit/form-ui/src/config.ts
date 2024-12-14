@@ -45,8 +45,8 @@ export function setupVbenForm<
   const { config, defineRules } = options;
 
   const {
-    disabledOnChangeListener = false,
-    disabledOnInputListener = false,
+    disabledOnChangeListener = true,
+    disabledOnInputListener = true,
     emptyStateValue = undefined,
   } = (config || {}) as FormCommonConfig;
 

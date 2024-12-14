@@ -14,8 +14,6 @@ setupVbenForm<ComponentType>({
       Upload: 'fileList',
       CheckboxGroup: 'model-value',
     },
-    // select等组件的筛选功能会抛出input事件，需要禁用表单的input事件监听以免错误地更新了组件值
-    disabledOnInputListener: true,
   },
   defineRules: {
     required: (value, _params, ctx) => {
