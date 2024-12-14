@@ -43,6 +43,31 @@ export default eventHandler(async (event) => {
 
   await sleep(600);
 
-  const { page, pageSize } = getQuery(event);
-  return usePageResponseSuccess(page as string, pageSize as string, mockData);
+  const { page, pageSize, sortBy, sortOrder } = getQuery(event);
+  const listData = structuredClone(mockData);
+  if (sortBy && Reflect.has(listData[0], sortBy as string)) {
+    listData.sort((a, b) => {
+      if (sortOrder === 'asc') {
+        if (sortBy === 'price') {
+          return (
+            Number.parseFloat(a[sortBy as string]) -
+            Number.parseFloat(b[sortBy as string])
+          );
+        } else {
+          return a[sortBy as string] > b[sortBy as string] ? 1 : -1;
+        }
+      } else {
+        if (sortBy === 'price') {
+          return (
+            Number.parseFloat(b[sortBy as string]) -
+            Number.parseFloat(a[sortBy as string])
+          );
+        } else {
+          return a[sortBy as string] < b[sortBy as string] ? 1 : -1;
+        }
+      }
+    });
+  }
+
+  return usePageResponseSuccess(page as string, pageSize as string, listData);
 });
