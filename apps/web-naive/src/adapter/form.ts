@@ -10,8 +10,6 @@ import { $t } from '@vben/locales';
 
 setupVbenForm<ComponentType>({
   config: {
-    // naive-ui组件不接受onChang事件，所以需要禁用
-    disabledOnChangeListener: true,
     // naive-ui组件的空值为null,不能是undefined，否则重置表单时不生效
     emptyStateValue: null,
     baseModelPropName: 'value',
