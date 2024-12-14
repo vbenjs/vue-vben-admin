@@ -15,6 +15,7 @@ import {
   nextTick,
   onMounted,
   onUnmounted,
+  ref,
   toRaw,
   useSlots,
   useTemplateRef,
@@ -140,6 +141,8 @@ const toolbarOptions = computed(() => {
   return { toolbarConfig };
 });
 
+const isLoaded = ref(false);
+
 const options = computed(() => {
   const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
 
@@ -157,6 +160,16 @@ const options = computed(() => {
     mergedOptions.proxyConfig.enabled = !!ajax;
     // 不自动加载数据, 由组件控制
     mergedOptions.proxyConfig.autoLoad = false;
+    // 修复第一次加载数据时会丢失排序参数等问题，后续如果VxeTable修复了此BUG，可以去掉这些代码
+    if (mergedOptions.proxyConfig.ajax?.query && !isLoaded.value) {
+      mergedOptions.proxyConfig.ajax.query = async () => {
+        isLoaded.value = true;
+        await nextTick();
+        setTimeout(() => {
+          props.api.query();
+        }, 0);
+      };
+    }
   }
 
   if (mergedOptions.pagerConfig) {
@@ -239,6 +252,7 @@ async function init() {
     toRaw(gridOptions.value),
     toRaw(globalGridConfig),
   );
+
   // 内部主动加载数据，防止form的默认值影响
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
