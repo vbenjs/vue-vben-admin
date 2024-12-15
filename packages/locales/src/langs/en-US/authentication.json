@@ -38,7 +38,7 @@
   "qrcodeLogin": "QR Code Login",
   "codeSubtitle": "Enter your phone number to start managing your project",
   "code": "Security code",
-  "codeTip": "Security code is required",
+  "codeTip": "Security code required {0} characters",
   "mobile": "Mobile",
   "mobileLogin": "Mobile Login",
   "mobileTip": "Please enter mobile number",
