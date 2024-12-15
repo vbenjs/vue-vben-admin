@@ -87,6 +87,10 @@ const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarCollapsedShowTitle = defineModel<boolean>(
   'sidebarCollapsedShowTitle',
 );
+const sidebarAutoActivateChild = defineModel<boolean>(
+  'sidebarAutoActivateChild',
+);
+const SidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 
 const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
@@ -299,10 +303,13 @@ async function handleReset() {
 
             <Block :title="$t('preferences.sidebar.title')">
               <Sidebar
+                v-model:sidebar-auto-activate-child="sidebarAutoActivateChild"
                 v-model:sidebar-collapsed="sidebarCollapsed"
                 v-model:sidebar-collapsed-show-title="sidebarCollapsedShowTitle"
                 v-model:sidebar-enable="sidebarEnable"
+                v-model:sidebar-expand-on-hover="SidebarExpandOnHover"
                 v-model:sidebar-width="sidebarWidth"
+                :current-layout="appLayout"
                 :disabled="!isSideMode"
               />
             </Block>

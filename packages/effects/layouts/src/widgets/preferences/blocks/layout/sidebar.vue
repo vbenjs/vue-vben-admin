@@ -1,17 +1,23 @@
 <script setup lang="ts">
+import type { LayoutType } from '@vben/types';
+
 import { $t } from '@vben/locales';
 
 import NumberFieldItem from '../number-field-item.vue';
 import SwitchItem from '../switch-item.vue';
 
-defineProps<{ disabled: boolean }>();
+defineProps<{ currentLayout?: LayoutType; disabled: boolean }>();
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
 const sidebarWidth = defineModel<number>('sidebarWidth');
 const sidebarCollapsedShowTitle = defineModel<boolean>(
   'sidebarCollapsedShowTitle',
 );
+const sidebarAutoActivateChild = defineModel<boolean>(
+  'sidebarAutoActivateChild',
+);
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
+const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 </script>
 
 <template>
@@ -22,10 +28,26 @@ const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
     {{ $t('preferences.sidebar.collapsed') }}
   </SwitchItem>
   <SwitchItem
+    v-model="sidebarExpandOnHover"
+    :disabled="!sidebarEnable || disabled || !sidebarCollapsed"
+    :tip="$t('preferences.sidebar.expandOnHoverTip')"
+  >
+    {{ $t('preferences.sidebar.expandOnHover') }}
+  </SwitchItem>
+  <SwitchItem
     v-model="sidebarCollapsedShowTitle"
     :disabled="!sidebarEnable || disabled || !sidebarCollapsed"
   >
     {{ $t('preferences.sidebar.collapsedShowTitle') }}
+  </SwitchItem>
+  <SwitchItem
+    v-model="sidebarAutoActivateChild"
+    :disabled="
+      !sidebarEnable || currentLayout !== 'sidebar-mixed-nav' || disabled
+    "
+    :tip="$t('preferences.sidebar.autoActivateChildTip')"
+  >
+    {{ $t('preferences.sidebar.autoActivateChild') }}
   </SwitchItem>
   <NumberFieldItem
     v-model="sidebarWidth"
