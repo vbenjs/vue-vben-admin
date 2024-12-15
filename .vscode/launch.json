@@ -9,7 +9,7 @@
       "url": "http://localhost:5555",
       "env": { "NODE_ENV": "development" },
       "sourceMaps": true,
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/playground"
     },
     {
       "type": "chrome",
@@ -18,7 +18,7 @@
       "url": "http://localhost:5666",
       "env": { "NODE_ENV": "development" },
       "sourceMaps": true,
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/apps/web-antd"
     },
     {
       "type": "chrome",
@@ -27,7 +27,7 @@
       "url": "http://localhost:5777",
       "env": { "NODE_ENV": "development" },
       "sourceMaps": true,
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/apps/web-ele"
     },
     {
       "type": "chrome",
@@ -36,7 +36,7 @@
       "url": "http://localhost:5888",
       "env": { "NODE_ENV": "development" },
       "sourceMaps": true,
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/apps/web-naive"
     }
   ]
 }
