@@ -43,7 +43,11 @@ const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
   <SwitchItem
     v-model="sidebarAutoActivateChild"
     :disabled="
-      !sidebarEnable || currentLayout !== 'sidebar-mixed-nav' || disabled
+      !sidebarEnable ||
+      !['sidebar-mixed-nav', 'mixed-nav', 'sidebar-nav'].includes(
+        currentLayout as string,
+      ) ||
+      disabled
     "
     :tip="$t('preferences.sidebar.autoActivateChildTip')"
   >

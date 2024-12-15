@@ -14,11 +14,16 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
+  open: [string, string[]];
   select: [string, string?];
 }>();
 
 function handleMenuSelect(key: string) {
   emit('select', key, props.mode);
+}
+
+function handleMenuOpen(key: string, path: string[]) {
+  emit('open', key, path);
 }
 </script>
 
@@ -32,6 +37,7 @@ function handleMenuSelect(key: string) {
     :mode="mode"
     :rounded="rounded"
     :theme="theme"
+    @open="handleMenuOpen"
     @select="handleMenuSelect"
   />
 </template>
