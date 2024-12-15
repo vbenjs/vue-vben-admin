@@ -231,11 +231,10 @@ function fieldBindEvent(slotProps: Record<string, any>) {
       ...(disabledOnInputListener ? { onInput: undefined } : {}),
     };
   }
-  return disabledOnInputListener
-    ? {
-        onInput: undefined,
-      }
-    : {};
+  return {
+    ...(disabledOnInputListener ? { onInput: undefined } : {}),
+    ...(disabledOnChangeListener ? { onChange: undefined } : {}),
+  };
 }
 
 function createComponentProps(slotProps: Record<string, any>) {
