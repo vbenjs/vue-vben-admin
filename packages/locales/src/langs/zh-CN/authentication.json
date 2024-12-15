@@ -38,7 +38,7 @@
   "qrcodeLogin": "扫码登录",
   "codeSubtitle": "请输入您的手机号码以开始管理您的项目",
   "code": "验证码",
-  "codeTip": "请输入验证码",
+  "codeTip": "请输入{0}位验证码",
   "mobile": "手机号码",
   "mobileTip": "请输入手机号",
   "mobileErrortip": "手机号码格式错误",
