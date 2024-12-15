@@ -1,6 +1,6 @@
 import type { Arrayable, MaybeElementRef } from '@vueuse/core';
 
-import { computed, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 
 import { isFunction } from '@vben/utils';
@@ -19,7 +19,7 @@ export function useHoverToggle(
 ) {
   const isOutsides: Array<Ref<boolean>> = [];
   const value = ref(false);
-  const timer = ref<number | undefined>(0);
+  const timer = ref<ReturnType<typeof setTimeout> | undefined>();
   const refs = Array.isArray(refElement) ? refElement : [refElement];
   refs.forEach((refEle) => {
     const listener = useMouseInElement(refEle, { handleOutside: true });
@@ -54,6 +54,10 @@ export function useHoverToggle(
       watcher.pause();
     },
   };
+
+  onUnmounted(() => {
+    timer.value && clearTimeout(timer.value);
+  });
 
   return [value, controller] as [typeof value, typeof controller];
 }
