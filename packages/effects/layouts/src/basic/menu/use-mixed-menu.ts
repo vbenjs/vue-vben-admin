@@ -15,7 +15,8 @@ function useMixedMenu() {
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');
-
+  /** 记录当前顶级菜单下哪个子菜单最后激活 */
+  const defaultSubMap = new Map<string, string>();
   const { isMixedNav } = usePreferences();
 
   const needSplit = computed(
@@ -86,6 +87,25 @@ function useMixedMenu() {
     splitSideMenus.value = rootMenu?.children ?? [];
     if (splitSideMenus.value.length === 0) {
       navigation(key);
+    } else if (rootMenu && preferences.sidebar.autoActivateChild) {
+      navigation(
+        defaultSubMap.has(rootMenu.path)
+          ? (defaultSubMap.get(rootMenu.path) as string)
+          : rootMenu.path,
+      );
+    }
+  };
+
+  /**
+   * 侧边菜单展开事件
+   * @param key 路由路径
+   * @param parentsPath 父级路径
+   */
+  const handleMenuOpen = (key: string, parentsPath: string[]) => {
+    if (parentsPath.length <= 1 && preferences.sidebar.autoActivateChild) {
+      navigation(
+        defaultSubMap.has(key) ? (defaultSubMap.get(key) as string) : key,
+      );
     }
   };
 
@@ -107,6 +127,8 @@ function useMixedMenu() {
     (path) => {
       const currentPath = (route?.meta?.activePath as string) ?? path;
       calcSideMenus(currentPath);
+      if (rootMenuPath.value)
+        defaultSubMap.set(rootMenuPath.value, currentPath);
     },
     { immediate: true },
   );
@@ -118,6 +140,7 @@ function useMixedMenu() {
 
   return {
     handleMenuSelect,
+    handleMenuOpen,
     headerActive,
     headerMenus,
     sidebarActive,

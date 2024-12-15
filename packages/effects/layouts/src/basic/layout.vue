@@ -103,6 +103,7 @@ const {
 
 const {
   handleMenuSelect,
+  handleMenuOpen,
   headerActive,
   headerMenus,
   sidebarActive,
@@ -260,6 +261,7 @@ const headerSlots = computed(() => {
         :rounded="isMenuRounded"
         :theme="sidebarTheme"
         mode="vertical"
+        @open="handleMenuOpen"
         @select="handleMenuSelect"
       />
     </template>
