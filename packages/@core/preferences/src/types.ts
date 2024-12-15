@@ -125,6 +125,8 @@ interface NavigationPreferences {
 }
 
 interface SidebarPreferences {
+  /** 点击目录时自动激活子菜单   */
+  autoActivateChild: boolean;
   /** 侧边栏是否折叠 */
   collapsed: boolean;
   /** 侧边栏折叠时，是否显示title */

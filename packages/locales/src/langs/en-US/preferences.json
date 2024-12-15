@@ -45,7 +45,11 @@
     "width": "Width",
     "visible": "Show Sidebar",
     "collapsed": "Collpase Menu",
-    "collapsedShowTitle": "Show Menu Title"
+    "collapsedShowTitle": "Show Menu Title",
+    "autoActivateChild": "Auto Activate SubMenu",
+    "autoActivateChildTip": "`Enabled` to automatically activate the submenu while click menu.",
+    "expandOnHover": "Expand On Hover",
+    "expandOnHoverTip": "When the mouse hovers over menu, \n `Enabled` to expand children menus \n `Disabled` to expand whole sidebar."
   },
   "tabbar": {
     "title": "Tabbar",
