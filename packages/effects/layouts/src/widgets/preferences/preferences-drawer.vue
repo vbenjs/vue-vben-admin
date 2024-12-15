@@ -303,11 +303,11 @@ async function handleReset() {
 
             <Block :title="$t('preferences.sidebar.title')">
               <Sidebar
-                v-model:expand-on-hover="SidebarExpandOnHover"
                 v-model:sidebar-auto-activate-child="sidebarAutoActivateChild"
                 v-model:sidebar-collapsed="sidebarCollapsed"
                 v-model:sidebar-collapsed-show-title="sidebarCollapsedShowTitle"
                 v-model:sidebar-enable="sidebarEnable"
+                v-model:sidebar-expand-on-hover="SidebarExpandOnHover"
                 v-model:sidebar-width="sidebarWidth"
                 :current-layout="appLayout"
                 :disabled="!isSideMode"

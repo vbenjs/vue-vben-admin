@@ -17,7 +17,7 @@ const sidebarAutoActivateChild = defineModel<boolean>(
   'sidebarAutoActivateChild',
 );
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
-const SidebarExpandOnHover = defineModel<boolean>('expandOnHover');
+const SidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 </script>
 
 <template>
