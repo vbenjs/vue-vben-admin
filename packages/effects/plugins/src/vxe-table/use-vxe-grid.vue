@@ -243,7 +243,8 @@ async function init() {
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
-    props.api.reload(formApi.form?.values ?? {});
+    props.api.grid.commitProxy?.('_init');
+    // props.api.reload(formApi.form?.values ?? {});
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
