@@ -17,7 +17,7 @@ const sidebarAutoActivateChild = defineModel<boolean>(
   'sidebarAutoActivateChild',
 );
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
-const SidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
+const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const SidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
     {{ $t('preferences.sidebar.collapsed') }}
   </SwitchItem>
   <SwitchItem
-    v-model="SidebarExpandOnHover"
+    v-model="sidebarExpandOnHover"
     :disabled="!sidebarEnable || disabled || !sidebarCollapsed"
     :tip="$t('preferences.sidebar.expandOnHoverTip')"
   >

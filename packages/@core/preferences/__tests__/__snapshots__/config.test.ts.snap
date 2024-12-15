@@ -65,6 +65,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "globalSearch": true,
   },
   "sidebar": {
+    "autoActivateChild": false,
     "collapsed": false,
     "collapsedShowTitle": false,
     "enable": true,
