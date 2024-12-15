@@ -28,6 +28,22 @@ watch(
     modalApi.setState({ isOpen: val });
   },
 );
+
+/**
+ * 获取最大的zIndex值
+ */
+function getMaxZIndex() {
+  let maxZ = 0;
+  const elements = document.querySelectorAll('*');
+  [...elements].forEach((element) => {
+    const style = window.getComputedStyle(element);
+    const zIndex = style.getPropertyValue('z-index');
+    if (zIndex && !Number.isNaN(Number.parseInt(zIndex))) {
+      maxZ = Math.max(maxZ, Number.parseInt(zIndex));
+    }
+  });
+  return maxZ + 1;
+}
 </script>
 
 <template>
@@ -39,6 +55,7 @@ watch(
       :footer="false"
       :fullscreen-button="false"
       :header="false"
+      :z-index="getMaxZIndex()"
       class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
     >
       <VbenAvatar :src="avatar" class="mx-auto mb-6 size-20" />
