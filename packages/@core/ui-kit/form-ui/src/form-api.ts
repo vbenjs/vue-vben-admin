@@ -130,6 +130,11 @@ export class FormApi {
     return form.values;
   }
 
+  async isFieldValid(fieldName: string) {
+    const form = await this.getForm();
+    return form.isFieldValid(fieldName);
+  }
+
   merge(formApi: FormApi) {
     const chain = [this, formApi];
     const proxy = new Proxy(formApi, {
@@ -347,5 +352,15 @@ export class FormApi {
       return;
     }
     return await this.submitForm();
+  }
+
+  async validateField(fieldName: string, opts?: Partial<ValidationOptions>) {
+    const form = await this.getForm();
+    const validateResult = await form.validateField(fieldName, opts);
+
+    if (Object.keys(validateResult?.errors ?? {}).length > 0) {
+      console.error('validate error', validateResult?.errors);
+    }
+    return validateResult;
   }
 }
