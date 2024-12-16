@@ -287,6 +287,8 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` |
 | getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` |
 | validate | 表单校验 | `()=>Promise<void>` |
+| validateField | 校验指定字段 | `(fieldName: string)=>Promise<ValidationResult<unknown>>` |
+| isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` |
 | resetValidate | 重置表单校验 | `()=>Promise<void>` |
 | updateSchema | 更新formSchema | `(schema:FormSchema[])=>void` |
 | setFieldValue | 设置字段值 | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` |
