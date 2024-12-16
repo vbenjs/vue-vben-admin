@@ -1768,6 +1768,9 @@ importers:
       '@tanstack/vue-query':
         specifier: 'catalog:'
         version: 5.62.7(vue@3.5.13(typescript@5.7.2))
+      '@vben-core/menu-ui':
+        specifier: workspace:*
+        version: link:../packages/@core/ui-kit/menu-ui
       '@vben/access':
         specifier: workspace:*
         version: link:../packages/effects/access

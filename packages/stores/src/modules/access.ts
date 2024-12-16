@@ -41,6 +41,25 @@ interface AccessState {
  */
 export const useAccessStore = defineStore('core-access', {
   actions: {
+    getMenuByPath(path: string) {
+      function findMenu(
+        menus: MenuRecordRaw[],
+        path: string,
+      ): MenuRecordRaw | undefined {
+        for (const menu of menus) {
+          if (menu.path === path) {
+            return menu;
+          }
+          if (menu.children) {
+            const matched = findMenu(menu.children, path);
+            if (matched) {
+              return matched;
+            }
+          }
+        }
+      }
+      return findMenu(this.accessMenus, path);
+    },
     setAccessCodes(codes: string[]) {
       this.accessCodes = codes;
     },
