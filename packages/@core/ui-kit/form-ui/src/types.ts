@@ -137,6 +137,10 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
+   * 在Label后显示一个冒号
+   */
+  colon?: boolean;
+  /**
    * 所有表单项的props
    */
   componentProps?: ComponentProps;

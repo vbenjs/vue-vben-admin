@@ -16,6 +16,8 @@ const activeTab = ref('basic');
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
+    // 在label后显示一个冒号
+    colon: true,
     // 所有表单项
     componentProps: {
       class: 'w-full',
@@ -40,6 +42,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'username',
       // 界面显示的label
       label: '字符串',
+      rules: 'required',
     },
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
