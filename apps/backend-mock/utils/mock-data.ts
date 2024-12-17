@@ -4,6 +4,7 @@ export interface UserInfo {
   realName: string;
   roles: string[];
   username: string;
+  homePath?: string;
 }
 
 export const MOCK_USERS: UserInfo[] = [
@@ -20,6 +21,7 @@ export const MOCK_USERS: UserInfo[] = [
     realName: 'Admin',
     roles: ['admin'],
     username: 'admin',
+    homePath: '/workspace',
   },
   {
     id: 2,
@@ -27,6 +29,7 @@ export const MOCK_USERS: UserInfo[] = [
     realName: 'Jack',
     roles: ['user'],
     username: 'jack',
+    homePath: '/analytics',
   },
 ];
 
