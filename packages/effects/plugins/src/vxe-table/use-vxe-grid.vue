@@ -68,6 +68,7 @@ const { isMobile } = usePreferences();
 const slots = useSlots();
 
 const [Form, formApi] = useTableForm({
+  compact: true,
   handleSubmit: async () => {
     const formValues = formApi.form.values;
     formApi.setLatestSubmissionValues(toRaw(formValues));
@@ -284,6 +285,10 @@ watch(
   },
 );
 
+const isCompactForm = computed(() => {
+  return formApi.getState()?.compact;
+});
+
 onMounted(() => {
   props.api?.mount?.(gridRef.value, formApi);
   init();
@@ -338,7 +343,7 @@ onUnmounted(() => {
         <div
           v-if="formOptions"
           v-show="showSearchForm !== false"
-          class="relative rounded py-3 pb-4"
+          :class="cn('relative rounded py-3', isCompactForm ? 'pb-6' : 'pb-4')"
         >
           <slot name="form">
             <Form>

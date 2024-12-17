@@ -358,6 +358,13 @@ export interface FormCommonConfig {
    */
   componentProps?: ComponentProps;
   /**
+   * 是否紧凑模式(移除表单底部为显示校验错误信息所预留的空间)。
+   * 在有设置校验规则的场景下，建议不要将其设置为true
+   * 默认为false。但用作表格的搜索表单时，默认为true
+   * @default false
+   */
+  compact?: boolean;
+  /**
    * 所有表单项的控件样式
    */
   controlClass?: string;
