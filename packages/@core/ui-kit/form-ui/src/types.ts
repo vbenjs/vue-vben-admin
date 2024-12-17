@@ -274,6 +274,10 @@ export interface FormRenderProps<
    */
   commonConfig?: FormCommonConfig;
   /**
+   * 紧凑模式（移除表单每一项底部为校验信息预留的空间）
+   */
+  compact?: boolean;
+  /**
    * 组件v-model事件绑定
    */
   componentBindEventMap?: Partial<Record<BaseFormComponentType, string>>;

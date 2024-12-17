@@ -55,7 +55,7 @@ const values = useFormValues();
 const errors = useFieldError(fieldName);
 const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
-
+const compact = formRenderProps.compact;
 const isInValid = computed(() => errors.value?.length > 0);
 
 const FieldComponent = computed(() => {
@@ -281,8 +281,10 @@ function autofocus() {
         'form-valid-error': isInValid,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
+        'pb-6': !compact,
+        'pb-2': compact,
       }"
-      class="flex pb-6"
+      class="flex"
       v-bind="$attrs"
     >
       <FormLabel

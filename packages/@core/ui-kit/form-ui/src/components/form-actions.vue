@@ -138,7 +138,11 @@ defineExpose({
 <template>
   <div
     :class="
-      cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)
+      cn(
+        'col-span-full w-full text-right',
+        rootProps.compact ? 'pb-2' : 'pb-6',
+        rootProps.actionWrapperClass,
+      )
     "
     :style="queryFormStyle"
   >
