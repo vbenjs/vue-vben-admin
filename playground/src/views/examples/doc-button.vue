@@ -7,7 +7,13 @@ import { Button } from 'ant-design-vue';
 const props = defineProps<{ path: string }>();
 
 function handleClick() {
-  openWindow(VBEN_DOC_URL + props.path);
+  // 如果没有.html，打开页面时可能会出现404
+  const path =
+    VBEN_DOC_URL +
+    (props.path.toLowerCase().endsWith('.html')
+      ? props.path
+      : `${props.path}.html`);
+  openWindow(path);
 }
 </script>
 
