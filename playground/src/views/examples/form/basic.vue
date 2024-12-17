@@ -395,7 +395,7 @@ function handleSetFormValue() {
       </Tabs>
     </template>
     <template #extra>
-      <DocButton path="/components/common-ui/vben-form" />
+      <DocButton class="mb-2" path="/components/common-ui/vben-form" />
     </template>
     <Card v-show="activeTab === 'basic'" title="基础示例">
       <template #extra>

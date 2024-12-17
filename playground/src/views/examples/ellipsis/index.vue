@@ -15,6 +15,9 @@ const text = ref(longText);
     description="用于多行文本省略，支持点击展开和自定义内容。"
     title="文本省略组件示例"
   >
+    <template #extra>
+      <DocButton class="mb-2" path="/components/common-ui/vben-ellipsis-text" />
+    </template>
     <Card class="mb-4" title="基本使用">
       <EllipsisText :max-width="500">{{ text }}</EllipsisText>
     </Card>
