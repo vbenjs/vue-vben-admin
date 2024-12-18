@@ -38,7 +38,7 @@ const delegatedProps = computed(() => {
   >
     <ScrollAreaViewport
       as-child
-      class="h-full w-full rounded-[inherit]"
+      class="h-full w-full rounded-[inherit] focus:outline-none"
       @scroll="onScroll"
     >
       <slot></slot>
