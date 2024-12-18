@@ -58,11 +58,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     _close(tab: TabDefinition) {
-      const { fullPath } = tab;
+      const { path } = tab;
       if (isAffixTab(tab)) {
         return;
       }
-      const index = this.tabs.findIndex((item) => item.fullPath === fullPath);
+      const index = this.tabs.findIndex((item) => item.path === path);
       index !== -1 && this.tabs.splice(index, 1);
     },
     /**
@@ -188,7 +188,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const paths: string[] = [];
 
       for (const path of closePaths) {
-        if (path !== tab.fullPath) {
+        if (path !== tab.path) {
           const closeTab = this.tabs.find((item) => getTabPath(item) === path);
           if (!closeTab) {
             continue;
@@ -290,7 +290,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async openTabInNewWindow(tab: TabDefinition) {
-      openRouteInNewWindow(tab.fullPath || tab.path);
+      openRouteInNewWindow(tab.path);
     },
 
     /**
@@ -546,7 +546,7 @@ function isTabShown(tab: TabDefinition) {
  * @param tab
  */
 function getTabPath(tab: RouteRecordNormalized | TabDefinition) {
-  return decodeURIComponent((tab as TabDefinition).fullPath || tab.path);
+  return decodeURIComponent((tab as TabDefinition).path);
 }
 
 function routeToTab(route: RouteRecordNormalized) {
