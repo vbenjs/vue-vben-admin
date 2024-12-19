@@ -56,5 +56,11 @@
     "timestamp": "Timestamp:",
     "x": "x:",
     "y": "y:"
+  },
+  "resize": {
+    "title": "Resize"
+  },
+  "layout": {
+    "col-page": "ColPage Layout"
   }
 }

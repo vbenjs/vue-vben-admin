@@ -237,6 +237,17 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.resize.title'),
         },
       },
+      {
+        name: 'ColPageDemo',
+        path: '/examples/layout/col-page',
+        component: () => import('#/views/examples/layout/col-page.vue'),
+        meta: {
+          badge: 'Alpha',
+          badgeVariants: 'destructive',
+          icon: 'material-symbols:horizontal-distribute',
+          title: $t('examples.layout.col-page'),
+        },
+      },
     ],
   },
 ];

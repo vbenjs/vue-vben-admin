@@ -16,6 +16,7 @@ export * from './pagination';
 export * from './pin-input';
 export * from './popover';
 export * from './radio-group';
+export * from './resizable';
 export * from './scroll-area';
 export * from './select';
 export * from './separator';
