@@ -47,6 +47,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
+    "cssnano": "^7.0.6",
     "dayjs": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",

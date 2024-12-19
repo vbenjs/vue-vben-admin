@@ -41,6 +41,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "cssnano": "^7.0.6",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",
