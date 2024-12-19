@@ -17,6 +17,7 @@ export {
   ChevronsLeft,
   ChevronsRight,
   CircleHelp,
+  CloudUpload,
   Copy,
   CornerDownLeft,
   Ellipsis,
