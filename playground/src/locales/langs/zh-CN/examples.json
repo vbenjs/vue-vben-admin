@@ -59,5 +59,8 @@
     "timestamp": "时间戳：",
     "x": "x：",
     "y": "y："
+  },
+  "layout": {
+    "col-page": "双列布局"
   }
 }
