@@ -6,6 +6,7 @@ import type {
   VxeGridListeners,
   VxeGridPropTypes,
   VxeGridProps as VxeTableGridProps,
+  VxeToolbarPropTypes,
 } from 'vxe-table';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
@@ -107,28 +108,28 @@ const showToolbar = computed(() => {
 const toolbarOptions = computed(() => {
   const slotActions = slots[TOOLBAR_ACTIONS]?.();
   const slotTools = slots[TOOLBAR_TOOLS]?.();
-
-  const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
-    tools:
-      gridOptions.value?.toolbarConfig?.search && !!formOptions.value
-        ? [
-            {
-              code: 'search',
-              icon: 'vxe-icon--search',
-              circle: true,
-              status: showSearchForm.value ? 'primary' : undefined,
-              title: $t('common.search'),
-            },
-          ]
-        : [],
+  const searchBtn: VxeToolbarPropTypes.ToolConfig = {
+    code: 'search',
+    icon: 'vxe-icon--search',
+    circle: true,
+    status: showSearchForm.value ? 'primary' : undefined,
+    title: $t('common.search'),
   };
+  // 将搜索按钮合并到用户配置的toolbarConfig.tools中
+  const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
+    tools: (gridOptions.value?.toolbarConfig?.tools ??
+      []) as VxeToolbarPropTypes.ToolConfig[],
+  };
+  if (gridOptions.value?.toolbarConfig?.search && !!formOptions.value) {
+    toolbarConfig.tools = Array.isArray(toolbarConfig.tools)
+      ? [...toolbarConfig.tools, searchBtn]
+      : [searchBtn];
+  }
 
   if (!showToolbar.value) {
     return { toolbarConfig };
   }
 
-  // if (gridOptions.value?.toolbarConfig?.search) {
-  // }
   // 强制使用固定的toolbar配置，不允许用户自定义
   // 减少配置的复杂度，以及后续维护的成本
   toolbarConfig.slots = {
@@ -137,7 +138,6 @@ const toolbarOptions = computed(() => {
       : {}),
     ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
   };
-
   return { toolbarConfig };
 });
 
@@ -147,7 +147,7 @@ const options = computed(() => {
   const mergedOptions: VxeTableGridProps = cloneDeep(
     mergeWithArrayOverride(
       {},
-      toolbarOptions.value,
+      toRaw(toolbarOptions.value),
       toRaw(gridOptions.value),
       globalGridConfig,
     ),
