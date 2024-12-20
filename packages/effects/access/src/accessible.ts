@@ -42,7 +42,7 @@ async function generateRoutes(
   mode: AccessModeType,
   options: GenerateMenuAndRoutesOptions,
 ) {
-  const { forbiddenComponent, roles, routes } = options;
+  const { forbiddenComponent, roles, routes, accessCodes } = options;
 
   let resultRoutes: RouteRecordRaw[] = routes;
   switch (mode) {
@@ -54,6 +54,7 @@ async function generateRoutes(
       resultRoutes = await generateRoutesByFrontend(
         routes,
         roles || [],
+        accessCodes || [],
         forbiddenComponent,
       );
       break;
