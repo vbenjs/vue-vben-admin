@@ -306,7 +306,7 @@ onUnmounted(() => {
       ref="gridRef"
       :class="
         cn(
-          'p-2 pt-0',
+          'p-2',
           {
             'pt-0': showToolbar && !formOptions,
           },
