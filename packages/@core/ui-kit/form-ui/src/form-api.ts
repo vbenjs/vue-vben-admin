@@ -14,6 +14,7 @@ import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
   createMerge,
+  formatDate,
   isDate,
   isDayjsObject,
   isFunction,
@@ -127,7 +128,48 @@ export class FormApi {
 
   async getValues() {
     const form = await this.getForm();
-    return form.values;
+    return this.handleRangeTimeValue(toRaw(form.values));
+  }
+
+  handleRangeTimeValue(values: Record<string, any>) {
+    const fieldMappingTime = this.store.state.fieldMappingTime;
+
+    if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
+      return values;
+    }
+
+    fieldMappingTime.forEach(
+      ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+        if (startTimeKey && endTimeKey && values[field] === null) {
+          Reflect.deleteProperty(values, startTimeKey);
+          Reflect.deleteProperty(values, endTimeKey);
+          // delete values[startTimeKey];
+          // delete values[endTimeKey];
+        }
+
+        if (!values[field]) {
+          Reflect.deleteProperty(values, field);
+          // delete values[field];
+          return;
+        }
+
+        const [startTime, endTime] = values[field];
+        const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+          ? format
+          : [format, format];
+
+        values[startTimeKey] = startTime
+          ? formatDate(startTime, startTimeFormat)
+          : undefined;
+        values[endTimeKey] = endTime
+          ? formatDate(endTime, endTimeFormat)
+          : undefined;
+        Reflect.deleteProperty(values, field);
+        // delete values[field];
+      },
+    );
+
+    return values;
   }
 
   async isFieldValid(fieldName: string) {

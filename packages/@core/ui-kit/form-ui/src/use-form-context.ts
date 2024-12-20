@@ -1,4 +1,4 @@
-import type { FormActions, VbenFormProps } from './types';
+import type { ExtendedFormApi, FormActions, VbenFormProps } from './types';
 
 import { computed, type ComputedRef, unref, useSlots } from 'vue';
 
@@ -9,10 +9,14 @@ import { useForm } from 'vee-validate';
 import { object, type ZodRawShape } from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
 
+type VbenFormPropsExtend = {
+  formApi: ExtendedFormApi;
+} & VbenFormProps;
+
 export const [injectFormProps, provideFormProps] =
-  createContext<[ComputedRef<VbenFormProps> | VbenFormProps, FormActions]>(
-    'VbenFormProps',
-  );
+  createContext<
+    [ComputedRef<VbenFormPropsExtend> | VbenFormPropsExtend, FormActions]
+  >('VbenFormProps');
 
 export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
