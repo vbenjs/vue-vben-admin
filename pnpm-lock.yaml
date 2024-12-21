@@ -674,6 +674,9 @@ importers:
       ant-design-vue:
         specifier: 'catalog:'
         version: 4.2.6(vue@3.5.13(typescript@5.7.2))
+      cssnano:
+        specifier: ^7.0.6
+        version: 7.0.6(postcss@8.4.49)
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
@@ -734,6 +737,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 12.0.0(typescript@5.7.2)
+      cssnano:
+        specifier: ^7.0.6
+        version: 7.0.6(postcss@8.4.49)
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
@@ -801,6 +807,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 12.0.0(typescript@5.7.2)
+      cssnano:
+        specifier: ^7.0.6
+        version: 7.0.6(postcss@8.4.49)
       naive-ui:
         specifier: 'catalog:'
         version: 2.40.4(vue@3.5.13(typescript@5.7.2))
@@ -1820,6 +1829,9 @@ importers:
       ant-design-vue:
         specifier: 'catalog:'
         version: 4.2.6(vue@3.5.13(typescript@5.7.2))
+      cssnano:
+        specifier: ^7.0.6
+        version: 7.0.6(postcss@8.4.49)
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
