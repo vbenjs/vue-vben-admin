@@ -152,7 +152,7 @@ watch(
 );
 
 // 语言更新后，刷新页面
-watch(() => preferences.app.locale, refresh);
+watch(() => preferences.app.locale, refresh, { flush: 'post' });
 
 const slots = useSlots();
 const headerSlots = computed(() => {
