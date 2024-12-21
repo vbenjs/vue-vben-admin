@@ -3,12 +3,7 @@ import { computed, toRaw, unref, watch } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
-import {
-  cn,
-  formatDate,
-  isFunction,
-  triggerWindowResize,
-} from '@vben-core/shared/utils';
+import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';
@@ -57,8 +52,9 @@ async function handleSubmit(e: Event) {
   if (!valid) {
     return;
   }
-
-  const values = handleRangeTimeValue(toRaw(form.values));
+  const values = unref(rootProps).formApi.handleRangeTimeValue(
+    toRaw(form.values),
+  );
   await unref(rootProps).handleSubmit?.(values);
 }
 
@@ -80,44 +76,6 @@ async function handleReset(e: Event) {
   } else {
     form.resetForm();
   }
-}
-
-function handleRangeTimeValue(values: Record<string, any>) {
-  const fieldMappingTime = unref(rootProps).fieldMappingTime;
-
-  if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
-    return values;
-  }
-
-  fieldMappingTime.forEach(
-    ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
-      if (startTimeKey && endTimeKey && values[field] === null) {
-        delete values[startTimeKey];
-        delete values[endTimeKey];
-      }
-
-      if (!values[field]) {
-        delete values[field];
-        return;
-      }
-
-      const [startTime, endTime] = values[field];
-      const [startTimeFormat, endTimeFormat] = Array.isArray(format)
-        ? format
-        : [format, format];
-
-      values[startTimeKey] = startTime
-        ? formatDate(startTime, startTimeFormat)
-        : undefined;
-      values[endTimeKey] = endTime
-        ? formatDate(endTime, endTimeFormat)
-        : undefined;
-
-      delete values[field];
-    },
-  );
-
-  return values;
 }
 
 watch(
