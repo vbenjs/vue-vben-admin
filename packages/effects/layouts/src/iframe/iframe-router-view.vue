@@ -67,7 +67,7 @@ function showSpinning(index: number) {
 </script>
 <template>
   <template v-if="showIframe">
-    <template v-for="(item, index) in iframeRoutes" :key="item.fullPath">
+    <template v-for="(item, index) in iframeRoutes" :key="item.path">
       <div
         v-if="canRender(item)"
         v-show="routeShow(item)"
