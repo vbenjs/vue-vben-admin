@@ -20,18 +20,34 @@ const [rootProps, form] = injectFormProps();
 const collapsed = defineModel({ default: false });
 
 const resetButtonOptions = computed(() => {
+  const { resetButtonOptions } = unref(rootProps);
   return {
     content: `${$t.value('reset')}`,
     show: true,
-    ...unref(rootProps).resetButtonOptions,
+    ...resetButtonOptions,
+    ...(resetButtonOptions?.content
+      ? {
+          content: isFunction(resetButtonOptions.content)
+            ? resetButtonOptions.content()
+            : resetButtonOptions.content,
+        }
+      : {}),
   };
 });
 
 const submitButtonOptions = computed(() => {
+  const { submitButtonOptions } = unref(rootProps);
   return {
     content: `${$t.value('submit')}`,
     show: true,
-    ...unref(rootProps).submitButtonOptions,
+    ...submitButtonOptions,
+    ...(submitButtonOptions?.content
+      ? {
+          content: isFunction(submitButtonOptions.content)
+            ? submitButtonOptions.content()
+            : submitButtonOptions.content,
+        }
+      : {}),
   };
 });
 
