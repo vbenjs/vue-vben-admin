@@ -1,6 +1,6 @@
-@import './common';
-@import './variable';
-@import './toolbar';
-@import './component';
-@import 'vxe-table/styles/all';
-@import 'vxe-pc-ui/styles/all';
+@use './common' as *;
+@use './variable' as *;
+@use './toolbar' as *;
+@use './component' as *;
+@use 'vxe-table/styles/all' as *;
+@use 'vxe-pc-ui/styles/all' as *;

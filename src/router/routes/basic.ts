@@ -5,7 +5,7 @@ import { REDIRECT_NAME, LAYOUT, EXCEPTION_COMPONENT, PAGE_NOT_FOUND_NAME } from 
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   path: '/:path(.*)*',
-  name: PAGE_NOT_FOUND_NAME,
+  name: 'PageNotFound1',
   component: LAYOUT,
   meta: {
     title: 'ErrorPage',
