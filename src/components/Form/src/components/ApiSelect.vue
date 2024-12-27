@@ -3,6 +3,7 @@
     @dropdown-visible-change="handleFetch"
     v-bind="$attrs"
     @change="handleChange"
+    :show-search="true"
     @search="debounceSearchFn"
     :options="getOptions"
     v-model:value="state"
@@ -84,7 +85,7 @@
     },
   });
 
-  const emit = defineEmits(['options-change', 'change', 'update:value']);
+  const emit = defineEmits(['options-change', 'change', 'update:value', 'asearch']);
 
   const optionsRef = ref<OptionsItem[]>([]);
 
@@ -195,6 +196,8 @@
   let debounceSearchFn = useDebounceFn(handleSearch, 500);
 
   async function handleSearch(value: any) {
+    emit('asearch', value);
+
     if (!props.apiSearch) {
       return;
     }
