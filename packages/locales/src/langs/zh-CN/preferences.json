@@ -138,7 +138,11 @@
     "modeFixed": "固定",
     "modeAuto": "自动隐藏和显示",
     "modeAutoScroll": "滚动隐藏和显示",
-    "visible": "显示顶栏"
+    "visible": "显示顶栏",
+    "menuAlign": "菜单位置",
+    "menuAlignStart": "左侧",
+    "menuAlignEnd": "右侧",
+    "menuAlignCenter": "居中"
   },
   "footer": {
     "title": "底栏",

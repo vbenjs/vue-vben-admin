@@ -4,6 +4,7 @@ import type {
   BreadcrumbStyleType,
   BuiltinThemeType,
   ContentCompactType,
+  LayoutHeaderMenuAlignType,
   LayoutHeaderModeType,
   LayoutType,
   NavigationStyleType,
@@ -94,6 +95,8 @@ const SidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 
 const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
+const headerMenuAlign =
+  defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
 
 const breadcrumbEnable = defineModel<boolean>('breadcrumbEnable');
 const breadcrumbShowIcon = defineModel<boolean>('breadcrumbShowIcon');
@@ -317,6 +320,7 @@ async function handleReset() {
             <Block :title="$t('preferences.header.title')">
               <Header
                 v-model:header-enable="headerEnable"
+                v-model:header-menu-align="headerMenuAlign"
                 v-model:header-mode="headerMode"
                 :disabled="isFullContent"
               />
