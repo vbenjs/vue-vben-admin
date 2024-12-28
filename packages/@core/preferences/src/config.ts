@@ -46,6 +46,7 @@ const defaultPreferences: Preferences = {
   header: {
     enable: true,
     hidden: false,
+    menuAlign: 'start',
     mode: 'fixed',
   },
   logo: {

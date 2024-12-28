@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import type { LayoutHeaderModeType, SelectOption } from '@vben/types';
+import type {
+  LayoutHeaderMenuAlignType,
+  LayoutHeaderModeType,
+  SelectOption,
+} from '@vben/types';
 
 import { $t } from '@vben/locales';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
+import ToggleItem from '../toggle-item.vue';
 
 defineProps<{ disabled: boolean }>();
 
 const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
+const headerMenuAlign =
+  defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
 
 const localeItems: SelectOption[] = [
   {
@@ -29,6 +36,21 @@ const localeItems: SelectOption[] = [
     value: 'auto-scroll',
   },
 ];
+
+const headerMenuAlignItems: SelectOption[] = [
+  {
+    label: $t('preferences.header.menuAlignStart'),
+    value: 'start',
+  },
+  {
+    label: $t('preferences.header.menuAlignCenter'),
+    value: 'center',
+  },
+  {
+    label: $t('preferences.header.menuAlignEnd'),
+    value: 'end',
+  },
+];
 </script>
 
 <template>
@@ -42,4 +64,11 @@ const localeItems: SelectOption[] = [
   >
     {{ $t('preferences.mode') }}
   </SelectItem>
+  <ToggleItem
+    v-model="headerMenuAlign"
+    :disabled="!headerEnable"
+    :items="headerMenuAlignItems"
+  >
+    {{ $t('preferences.header.menuAlign') }}
+  </ToggleItem>
 </template>

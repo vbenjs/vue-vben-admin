@@ -138,7 +138,11 @@
     "modeStatic": "Static",
     "modeFixed": "Fixed",
     "modeAuto": "Auto hide & Show",
-    "modeAutoScroll": "Scroll to Hide & Show"
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "Menu Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "End",
+    "menuAlignCenter": "Center"
   },
   "footer": {
     "title": "Footer",
