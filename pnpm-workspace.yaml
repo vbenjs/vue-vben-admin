@@ -175,7 +175,7 @@ catalog:
   vue-eslint-parser: ^9.4.3
   vue-i18n: ^10.0.5
   vue-router: ^4.5.0
-  vue-tsc: ^2.2.0
+  vue-tsc: ^2.1.10
   vxe-pc-ui: ^4.3.48
   vxe-table: ^4.9.35
   watermark-js-plus: ^1.5.7
