@@ -19,6 +19,19 @@ type OptionsItem = {
 interface Props {
   /** 组件 */
   component: Component;
+  /** multiple时传入的modelValue是否是数组格式的string如1,2,3 */
+  arrayString?: boolean;
+  /** *树平级结构配置*/
+  treeParentField?: string;
+  treeTransform?: boolean;
+  /** 是否缓存合并每次加载的数据 */
+  cacheOptions?: boolean;
+  /** 远程搜索方法名 */
+  remotePropName?: string;
+  /** remoteMethod filter 字段名*/
+  remoteFilterField?: string;
+  /** remoteMethod 方法*/
+  remoteMethod?: (keyword: string) => void;
   /** 是否将value从数字转为string */
   numberToString?: boolean;
   /** 获取options数据的函数 */
@@ -58,6 +71,8 @@ defineOptions({ name: 'ApiComponent', inheritAttrs: false });
 const props = withDefaults(defineProps<Props>(), {
   labelField: 'label',
   valueField: 'value',
+  remoteFilterField: '',
+  remoteMethod: undefined,
   childrenField: '',
   optionsPropName: 'options',
   resultField: '',
@@ -71,7 +86,10 @@ const props = withDefaults(defineProps<Props>(), {
   afterFetch: undefined,
   modelPropName: 'modelValue',
   api: undefined,
+  treeParentField: 'pid',
+  treeTransform: false,
   options: () => [],
+  remotePropName: 'remoteMethod',
 });
 
 const emit = defineEmits<{
@@ -79,7 +97,6 @@ const emit = defineEmits<{
 }>();
 
 const modelValue = defineModel({ default: '' });
-
 const attrs = useAttrs();
 
 const refOptions = ref<OptionsItem[]>([]);
@@ -87,37 +104,135 @@ const loading = ref(false);
 // 首次是否加载过了
 const isFirstLoaded = ref(false);
 
-const getOptions = computed(() => {
-  const { labelField, valueField, childrenField, numberToString } = props;
-
-  const refOptionsData = unref(refOptions);
-
-  function transformData(data: OptionsItem[]): OptionsItem[] {
-    return data.map((item) => {
-      const value = get(item, valueField);
-      return {
-        ...objectOmit(item, [labelField, valueField, childrenField]),
-        label: get(item, labelField),
-        value: numberToString ? `${value}` : value,
-        ...(childrenField && item[childrenField]
-          ? { children: transformData(item[childrenField]) }
-          : {}),
-      };
-    });
+const strToArray = (val: unknown): string[] | unknown => {
+  if (val && typeof val === 'string') {
+    return val.split(',');
   }
+  return val;
+};
 
+const arrayToStr = (val: unknown): string | unknown => {
+  if (Array.isArray(val)) {
+    return val.join(',');
+  }
+  return val;
+};
+
+// 是否缓存
+const cacheOptions = computed(() => {
+  // return props.cacheOptions || props.remoteFilterField;
+  return props.cacheOptions;
+});
+
+// 转换数据
+const originOptions = computed(() => {
+  return transformData(props.options);
+});
+
+// 缓存数据
+const cachedOptions = ref<OptionsItem[]>([]);
+
+// 合并到缓存
+const mergeOptions = (
+  source: OptionsItem[],
+  target: OptionsItem[],
+): OptionsItem[] => {
+  if (target?.length === 0) {
+    return source;
+  }
+  if (source.length === 0) {
+    return target;
+  }
+  const res = [...source];
+  const existingValues = new Set(source.map((item) => item.value));
+  target?.forEach((item) => {
+    const value = item.value;
+    if (!existingValues.has(value)) {
+      res.push(item);
+      existingValues.add(value);
+    }
+  });
+  return res;
+};
+
+const remoteQuery = ref('');
+const handleDefaultRemoteMethod = (query: string) => {
+  remoteQuery.value = query;
+  if (query) {
+    fetchApi();
+  }
+};
+
+function buildTree(data: OptionsItem[]): OptionsItem[] {
+  const nodeMap = new Map<any, any>();
+  const result: OptionsItem[] = [];
+  const { treeParentField } = props;
+  // 将所有节点存入 Map，并初始化每个节点的 childrenField
+  data.forEach((item) => nodeMap.set(item.value, { ...item, children: [] }));
+  // 构建树结构
+  data.forEach((item) => {
+    const pid = item[treeParentField];
+    const currentNode = nodeMap.get(item.value);
+    const parent = nodeMap.get(pid);
+    if (parent) {
+      // 如果找到父节点，将当前节点挂载到父节点的
+      parent.children.push(currentNode);
+    } else {
+      result.push(currentNode);
+    }
+  });
+  return result;
+}
+
+function transformData(data: OptionsItem[]): OptionsItem[] {
+  const { labelField, valueField, childrenField, numberToString } = props;
+  const res = data.map((item) => {
+    const value = item.value === undefined ? get(item, valueField) : item.value;
+    // TODO 去掉多余字段
+    return {
+      ...objectOmit(item, [labelField, valueField, childrenField]),
+      label: item.label || get(item, labelField),
+      value: numberToString ? `${value}` : value,
+      ...(childrenField && item[childrenField]
+        ? { children: transformData(item[childrenField]) }
+        : {}),
+    };
+  });
+  return props.treeTransform ? buildTree(res) : res;
+}
+
+const getOptions = computed(() => {
+  const refOptionsData = unref(refOptions);
   const data: OptionsItem[] = transformData(refOptionsData);
+  // return data.length > 0 ? data : props.options;
+  return data.length > 0 ? data : [];
+});
 
-  return data.length > 0 ? data : props.options;
+const bindOptions = computed(() => {
+  const options = unref(cacheOptions)
+    ? mergeOptions(unref(originOptions), unref(cachedOptions))
+    : mergeOptions(unref(originOptions), unref(getOptions));
+  return unref(remoteQuery)
+    ? options.filter((item) => {
+        return item.label?.includes(unref(remoteQuery));
+      })
+    : options;
 });
 
 const bindProps = computed(() => {
   return {
-    [props.modelPropName]: unref(modelValue),
-    [props.optionsPropName]: unref(getOptions),
-    [`onUpdate:${props.modelPropName}`]: (val: string) => {
-      modelValue.value = val;
+    [props.modelPropName]: props.arrayString
+      ? strToArray(unref(modelValue))
+      : unref(modelValue),
+    // [props.optionsPropName]: unref(getOptions),
+    [props.optionsPropName]: unref(bindOptions),
+    [`onUpdate:${props.modelPropName}`]: (val: any) => {
+      modelValue.value = props.arrayString ? arrayToStr(val) : val;
     },
+    remote: !!props.remoteFilterField,
+    [props.remotePropName]:
+      props.remoteMethod ||
+      (props.remoteFilterField ? handleDefaultRemoteMethod : undefined),
     ...objectOmit(attrs, ['onUpdate:value']),
     ...(props.visibleEvent
       ? {
@@ -128,8 +243,8 @@ const bindProps = computed(() => {
 });
 
 async function fetchApi() {
-  let { api, beforeFetch, afterFetch, params, resultField } = props;
-
+  let { api, beforeFetch, afterFetch, params, resultField, remoteFilterField } =
+    props;
   if (!api || !isFunction(api) || loading.value) {
     return;
   }
@@ -139,7 +254,7 @@ async function fetchApi() {
     if (beforeFetch && isFunction(beforeFetch)) {
       params = (await beforeFetch(params)) || params;
     }
-    let res = await api(params);
+    let res = await api({ ...params, [remoteFilterField]: unref(remoteQuery) });
     if (afterFetch && isFunction(afterFetch)) {
       res = (await afterFetch(res)) || res;
     }
@@ -170,6 +285,13 @@ async function handleFetchForVisible(visible: boolean) {
       await fetchApi();
     }
   }
+}
+
+// 缓存监听
+if (unref(cacheOptions)) {
+  watch(getOptions, (options) => {
+    cachedOptions.value = mergeOptions(unref(cachedOptions), options);
+  });
 }
 
 watch(
