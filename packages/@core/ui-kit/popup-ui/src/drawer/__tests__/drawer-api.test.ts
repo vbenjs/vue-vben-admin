@@ -110,4 +110,19 @@ describe('drawerApi', () => {
     expect(drawerApi.store.state.title).toBe('Batch Title');
     expect(drawerApi.store.state.confirmText).toBe('Batch Confirm');
   });
+
+  it('should call onClosed callback when provided', () => {
+    const onClosed = vi.fn();
+    const drawerApiWithHook = new DrawerApi({ onClosed });
+    drawerApiWithHook.onClosed();
+    expect(onClosed).toHaveBeenCalled();
+  });
+
+  it('should call onOpened callback when provided', () => {
+    const onOpened = vi.fn();
+    const drawerApiWithHook = new DrawerApi({ onOpened });
+    drawerApiWithHook.open();
+    drawerApiWithHook.onOpened();
+    expect(onOpened).toHaveBeenCalled();
+  });
 });

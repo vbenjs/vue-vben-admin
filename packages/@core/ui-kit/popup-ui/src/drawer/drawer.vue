@@ -139,10 +139,12 @@ const getAppendTo = computed(() => {
       :side="placement"
       :z-index="zIndex"
       @close-auto-focus="handleFocusOutside"
+      @closed="() => drawerApi?.onClosed()"
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
       @open-auto-focus="handerOpenAutoFocus"
+      @opened="() => drawerApi?.onOpened()"
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader

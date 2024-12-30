@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
@@ -32,7 +32,9 @@ const props = withDefaults(defineProps<SheetContentProps>(), {
   zIndex: 1000,
 });
 
-const emits = defineEmits<DialogContentEmits>();
+const emits = defineEmits<
+  { close: []; closed: []; opened: [] } & DialogContentEmits
+>();
 
 const delegatedProps = computed(() => {
   const {
@@ -59,6 +61,17 @@ const position = computed(() => {
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
+function onAnimationEnd(event: AnimationEvent) {
+  // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
+  if (event.target === contentRef.value?.$el) {
+    if (props.open) {
+      emits('opened');
+    } else {
+      emits('closed');
+    }
+  }
+}
 </script>
 
 <template>
@@ -67,8 +80,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       <SheetOverlay v-if="open && modal" :style="{ zIndex, position }" />
     </Transition>
     <DialogContent
+      ref="contentRef"
       :class="cn(sheetVariants({ side }), props.class)"
       :style="{ zIndex, position }"
+      @animationend="onAnimationEnd"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot></slot>
