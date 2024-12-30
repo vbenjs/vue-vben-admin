@@ -84,6 +84,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | isOpen | 弹窗打开状态 | `boolean` | `false` |
 | loading | 弹窗加载状态 | `boolean` | `false` |
 | closable | 显示关闭按钮 | `boolean` | `true` |
+| closeIconPlacement | 关闭按钮位置 | `'left'\|'right'` | `right` |
 | modal | 显示遮罩 | `boolean` | `true` |
 | header | 显示header | `boolean` | `true` |
 | footer | 显示footer | `boolean\|slot` | `true` |
@@ -129,6 +130,8 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | default        | 默认插槽 - 弹窗内容 |
 | prepend-footer | 取消按钮左侧        |
 | append-footer  | 取消按钮右侧        |
+| close-icon     | 关闭按钮图标        |
+| extra          | 额外内容(标题右侧)  |
 
 ### modalApi
 

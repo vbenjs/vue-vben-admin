@@ -6,6 +6,8 @@ import type { Component, Ref } from 'vue';
 
 export type DrawerPlacement = 'bottom' | 'left' | 'right' | 'top';
 
+export type CloseIconPlacement = 'left' | 'right';
+
 export interface DrawerProps {
   /**
    * 是否挂载到内容区域
@@ -18,10 +20,14 @@ export interface DrawerProps {
   cancelText?: string;
   class?: ClassType;
   /**
-   * 是否显示右上角的关闭按钮
+   * 是否显示关闭按钮
    * @default true
    */
   closable?: boolean;
+  /**
+   * 关闭按钮的位置
+   */
+  closeIconPlacement?: CloseIconPlacement;
   /**
    * 点击弹窗遮罩是否关闭弹窗
    * @default true
