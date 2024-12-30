@@ -115,9 +115,9 @@ function useExtraMenu() {
   }
 
   watch(
-    () => route.path,
-    (path) => {
-      calcExtraMenus(path);
+    () => [route.path, preferences.app.layout],
+    ([path]) => {
+      calcExtraMenus(path || '');
     },
     { immediate: true },
   );
