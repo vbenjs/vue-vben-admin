@@ -11,6 +11,7 @@ import {
   FullContent,
   HeaderMixedNav,
   HeaderNav,
+  HeaderSidebarNav,
   MixedNav,
   SidebarMixedNav,
   SidebarNav,
@@ -35,6 +36,7 @@ const components: Record<LayoutType, Component> = {
   'sidebar-mixed-nav': SidebarMixedNav,
   'sidebar-nav': SidebarNav,
   'header-mixed-nav': HeaderMixedNav,
+  'header-sidebar-nav': HeaderSidebarNav,
 };
 
 const PRESET = computed((): PresetItem[] => [
@@ -52,6 +54,11 @@ const PRESET = computed((): PresetItem[] => [
     name: $t('preferences.horizontal'),
     tip: $t('preferences.horizontalTip'),
     type: 'header-nav',
+  },
+  {
+    name: $t('preferences.headerSidebarNav'),
+    tip: $t('preferences.headerSidebarNavTip'),
+    type: 'header-sidebar-nav',
   },
   {
     name: $t('preferences.mixedMenu'),

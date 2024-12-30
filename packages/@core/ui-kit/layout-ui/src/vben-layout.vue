@@ -183,7 +183,8 @@ const isSideMode = computed(
     currentLayout.value === 'mixed-nav' ||
     currentLayout.value === 'sidebar-mixed-nav' ||
     currentLayout.value === 'sidebar-nav' ||
-    currentLayout.value === 'header-mixed-nav',
+    currentLayout.value === 'header-mixed-nav' ||
+    currentLayout.value === 'header-sidebar-nav',
 );
 
 /**
@@ -215,6 +216,7 @@ const mainStyle = computed(() => {
     headerFixed.value &&
     currentLayout.value !== 'header-nav' &&
     currentLayout.value !== 'mixed-nav' &&
+    currentLayout.value !== 'header-sidebar-nav' &&
     showSidebar.value &&
     !props.isMobile
   ) {
