@@ -4,7 +4,15 @@ import type {
   ExtendedDrawerApi,
 } from './drawer';
 
-import { defineComponent, h, inject, nextTick, provide, reactive } from 'vue';
+import {
+  defineComponent,
+  h,
+  inject,
+  nextTick,
+  provide,
+  reactive,
+  ref,
+} from 'vue';
 
 import { useStore } from '@vben-core/shared/store';
 
@@ -22,6 +30,7 @@ export function useVbenDrawer<
   const { connectedComponent } = options;
   if (connectedComponent) {
     const extendedApi = reactive({});
+    const isDrawerReady = ref(true);
     const Drawer = defineComponent(
       (props: TParentDrawerProps, { attrs, slots }) => {
         provide(USER_DRAWER_INJECT_KEY, {
@@ -31,13 +40,23 @@ export function useVbenDrawer<
             Object.setPrototypeOf(extendedApi, api);
           },
           options,
+          async reCreateDrawer() {
+            isDrawerReady.value = false;
+            await nextTick();
+            isDrawerReady.value = true;
+          },
         });
         checkProps(extendedApi as ExtendedDrawerApi, {
           ...props,
           ...attrs,
           ...slots,
         });
-        return () => h(connectedComponent, { ...props, ...attrs }, slots);
+        return () =>
+          h(
+            isDrawerReady.value ? connectedComponent : 'div',
+            { ...props, ...attrs },
+            slots,
+          );
       },
       {
         inheritAttrs: false,
@@ -57,6 +76,14 @@ export function useVbenDrawer<
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);
     injectData.options?.onOpenChange?.(isOpen);
+  };
+
+  const onClosed = mergedOptions.onClosed;
+  mergedOptions.onClosed = () => {
+    onClosed?.();
+    if (mergedOptions.destroyOnClose) {
+      injectData.reCreateDrawer?.();
+    }
   };
   const api = new DrawerApi(mergedOptions);
 
