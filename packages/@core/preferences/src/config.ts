@@ -71,7 +71,7 @@ const defaultPreferences: Preferences = {
     collapsedShowTitle: false,
     enable: true,
     expandOnHover: true,
-    extraCollapse: true,
+    extraCollapse: false,
     hidden: false,
     width: 224,
   },
