@@ -1,6 +1,6 @@
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, type ComputedRef, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
@@ -9,11 +9,11 @@ import { findRootMenuByPath } from '@vben/utils';
 
 import { useNavigation } from './use-navigation';
 
-function useExtraMenu() {
+function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
   const accessStore = useAccessStore();
   const { navigation } = useNavigation();
 
-  const menus = computed(() => accessStore.accessMenus);
+  const menus = computed(() => useRootMenus?.value ?? accessStore.accessMenus);
 
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
@@ -22,6 +22,9 @@ function useExtraMenu() {
   const extraMenus = ref<MenuRecordRaw[]>([]);
   const sidebarExtraVisible = ref<boolean>(false);
   const extraActiveMenu = ref('');
+  const parentLevel = computed(() =>
+    preferences.app.layout === 'header-mixed-nav' ? 1 : 0,
+  );
 
   /**
    * 选择混合菜单事件
@@ -29,7 +32,7 @@ function useExtraMenu() {
    */
   const handleMixedMenuSelect = async (menu: MenuRecordRaw) => {
     extraMenus.value = menu?.children ?? [];
-    extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
+    extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
     const hasChildren = extraMenus.value.length > 0;
 
     sidebarExtraVisible.value = hasChildren;
@@ -53,10 +56,8 @@ function useExtraMenu() {
     menu: MenuRecordRaw,
     rootMenu?: MenuRecordRaw,
   ) => {
-    await nextTick();
-
     extraMenus.value = rootMenu?.children ?? extraRootMenus.value ?? [];
-    extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
+    extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
 
     if (preferences.sidebar.expandOnHover) {
       sidebarExtraVisible.value = extraMenus.value.length > 0;
@@ -67,23 +68,23 @@ function useExtraMenu() {
    * 侧边菜单鼠标移出事件
    */
   const handleSideMouseLeave = () => {
-    // const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
-    //   menus.value,
-    //   route.path,
-    // );
-    calcExtraMenus(route.path);
     if (preferences.sidebar.expandOnHover) {
-      sidebarExtraVisible.value = extraMenus.value.length > 0;
       return;
     }
-    sidebarExtraVisible.value = false;
+
+    const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
+      menus.value,
+      route.path,
+    );
+    extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
+    extraMenus.value = rootMenu?.children ?? [];
   };
 
   const handleMenuMouseEnter = (menu: MenuRecordRaw) => {
     if (!preferences.sidebar.expandOnHover) {
       const { findMenu } = findRootMenuByPath(menus.value, menu.path);
       extraMenus.value = findMenu?.children ?? [];
-      extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
+      extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
       sidebarExtraVisible.value = extraMenus.value.length > 0;
     }
   };
@@ -93,22 +94,12 @@ function useExtraMenu() {
     const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
       menus.value,
       currentPath,
+      parentLevel.value,
     );
-    if (preferences.app.layout === 'header-mixed-nav') {
-      const subExtra = findRootMenuByPath(
-        rootMenu?.children ?? [],
-        currentPath,
-        1,
-      );
-      extraRootMenus.value = subExtra.rootMenu?.children ?? [];
-      extraActiveMenu.value = subExtra.rootMenuPath ?? '';
-      extraMenus.value = subExtra.rootMenu?.children ?? [];
-    } else {
-      extraRootMenus.value = rootMenu?.children ?? [];
-      if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
-      extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
-      extraMenus.value = rootMenu?.children ?? [];
-    }
+    extraRootMenus.value = rootMenu?.children ?? [];
+    if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
+    extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
+    extraMenus.value = rootMenu?.children ?? [];
     if (preferences.sidebar.expandOnHover) {
       sidebarExtraVisible.value = extraMenus.value.length > 0;
     }

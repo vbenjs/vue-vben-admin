@@ -96,6 +96,17 @@ const showHeaderNav = computed(() => {
   );
 });
 
+const {
+  handleMenuSelect,
+  handleMenuOpen,
+  headerActive,
+  headerMenus,
+  sidebarActive,
+  sidebarMenus,
+  mixHeaderMenus,
+  sidebarVisible,
+} = useMixedMenu();
+
 // 侧边多列菜单
 const {
   extraActiveMenu,
@@ -105,19 +116,7 @@ const {
   handleMixedMenuSelect,
   handleSideMouseLeave,
   sidebarExtraVisible,
-} = useExtraMenu();
-
-const {
-  handleMenuSelect,
-  handleMenuOpen,
-  headerActive,
-  headerMenus,
-  sidebarActive,
-  sidebarMenus,
-  mixedSidebarActive,
-  mixHeaderMenus,
-  sidebarVisible,
-} = useMixedMenu();
+} = useExtraMenu(mixHeaderMenus);
 
 /**
  * 包装菜单，翻译菜单名称
@@ -275,7 +274,7 @@ const headerSlots = computed(() => {
     </template>
     <template #mixed-menu>
       <LayoutMixedMenu
-        :active-path="isHeaderMixedNav ? mixedSidebarActive : extraActiveMenu"
+        :active-path="extraActiveMenu"
         :menus="wrapperMenus(mixHeaderMenus, false)"
         :rounded="isMenuRounded"
         :theme="sidebarTheme"

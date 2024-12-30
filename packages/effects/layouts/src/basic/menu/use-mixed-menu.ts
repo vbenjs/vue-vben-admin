@@ -69,10 +69,6 @@ function useMixedMenu() {
     return (route?.meta?.activePath as string) ?? route.path;
   });
 
-  const mixedSidebarActive = computed(() => {
-    return mixedRootMenuPath.value || sidebarActive.value;
-  });
-
   /**
    * 头部菜单激活路径
    */
@@ -160,7 +156,6 @@ function useMixedMenu() {
     headerMenus,
     sidebarActive,
     sidebarMenus,
-    mixedSidebarActive,
     mixHeaderMenus,
     mixExtraMenus,
     sidebarVisible,
