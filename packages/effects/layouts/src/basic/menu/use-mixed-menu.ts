@@ -15,6 +15,8 @@ function useMixedMenu() {
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');
+  const mixedRootMenuPath = ref<string>('');
+  const mixExtraMenus = ref<MenuRecordRaw[]>([]);
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
   const { isMixedNav, isHeaderMixedNav } = usePreferences();
@@ -65,6 +67,10 @@ function useMixedMenu() {
    */
   const sidebarActive = computed(() => {
     return (route?.meta?.activePath as string) ?? route.path;
+  });
+
+  const mixedSidebarActive = computed(() => {
+    return mixedRootMenuPath.value || sidebarActive.value;
   });
 
   /**
@@ -124,6 +130,9 @@ function useMixedMenu() {
     if (!rootMenu) {
       rootMenu = menus.value.find((item) => item.path === path);
     }
+    const result = findRootMenuByPath(rootMenu?.children || [], path, 1);
+    mixedRootMenuPath.value = result.rootMenuPath ?? '';
+    mixExtraMenus.value = result.rootMenu?.children ?? [];
     rootMenuPath.value = rootMenu?.path ?? '';
     splitSideMenus.value = rootMenu?.children ?? [];
   }
@@ -151,7 +160,9 @@ function useMixedMenu() {
     headerMenus,
     sidebarActive,
     sidebarMenus,
+    mixedSidebarActive,
     mixHeaderMenus,
+    mixExtraMenus,
     sidebarVisible,
   };
 }

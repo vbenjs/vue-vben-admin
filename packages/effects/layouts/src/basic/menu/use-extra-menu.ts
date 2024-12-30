@@ -1,6 +1,6 @@
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, onBeforeMount, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
@@ -17,7 +17,7 @@ function useExtraMenu() {
 
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
-
+  const extraRootMenus = ref<MenuRecordRaw[]>([]);
   const route = useRoute();
   const extraMenus = ref<MenuRecordRaw[]>([]);
   const sidebarExtraVisible = ref<boolean>(false);
@@ -49,11 +49,13 @@ function useExtraMenu() {
    * @param menu
    * @param rootMenu
    */
-  const handleDefaultSelect = (
+  const handleDefaultSelect = async (
     menu: MenuRecordRaw,
     rootMenu?: MenuRecordRaw,
   ) => {
-    extraMenus.value = rootMenu?.children ?? [];
+    await nextTick();
+
+    extraMenus.value = rootMenu?.children ?? extraRootMenus.value ?? [];
     extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
 
     if (preferences.sidebar.expandOnHover) {
@@ -65,17 +67,16 @@ function useExtraMenu() {
    * 侧边菜单鼠标移出事件
    */
   const handleSideMouseLeave = () => {
+    // const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
+    //   menus.value,
+    //   route.path,
+    // );
+    calcExtraMenus(route.path);
     if (preferences.sidebar.expandOnHover) {
+      sidebarExtraVisible.value = extraMenus.value.length > 0;
       return;
     }
     sidebarExtraVisible.value = false;
-
-    const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
-      menus.value,
-      route.path,
-    );
-    extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
-    extraMenus.value = rootMenu?.children ?? [];
   };
 
   const handleMenuMouseEnter = (menu: MenuRecordRaw) => {
@@ -97,17 +98,19 @@ function useExtraMenu() {
       const subExtra = findRootMenuByPath(
         rootMenu?.children ?? [],
         currentPath,
+        1,
       );
-
-      extraActiveMenu.value =
-        subExtra.findMenu?.parents?.[1] ?? subExtra.findMenu?.path ?? '';
-      extraMenus.value =
-        (rootMenu?.children ?? []).find((m) => m.path === extraActiveMenu.value)
-          ?.children ?? [];
+      extraRootMenus.value = subExtra.rootMenu?.children ?? [];
+      extraActiveMenu.value = subExtra.rootMenuPath ?? '';
+      extraMenus.value = subExtra.rootMenu?.children ?? [];
     } else {
+      extraRootMenus.value = rootMenu?.children ?? [];
       if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
       extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
       extraMenus.value = rootMenu?.children ?? [];
+    }
+    if (preferences.sidebar.expandOnHover) {
+      sidebarExtraVisible.value = extraMenus.value.length > 0;
     }
   }
 
@@ -118,11 +121,6 @@ function useExtraMenu() {
     },
     { immediate: true },
   );
-
-  // 初始化计算侧边菜单
-  onBeforeMount(() => {
-    calcExtraMenus(route.meta?.activePath || route.path);
-  });
 
   return {
     extraActiveMenu,

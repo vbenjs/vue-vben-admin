@@ -114,6 +114,7 @@ const {
   headerMenus,
   sidebarActive,
   sidebarMenus,
+  mixedSidebarActive,
   mixHeaderMenus,
   sidebarVisible,
 } = useMixedMenu();
@@ -274,7 +275,7 @@ const headerSlots = computed(() => {
     </template>
     <template #mixed-menu>
       <LayoutMixedMenu
-        :active-path="extraActiveMenu"
+        :active-path="isHeaderMixedNav ? mixedSidebarActive : extraActiveMenu"
         :menus="wrapperMenus(mixHeaderMenus, false)"
         :rounded="isMenuRounded"
         :theme="sidebarTheme"
