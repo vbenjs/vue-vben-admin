@@ -17,10 +17,12 @@ function useMixedMenu() {
   const rootMenuPath = ref<string>('');
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
-  const { isMixedNav } = usePreferences();
+  const { isMixedNav, isHeaderMixedNav } = usePreferences();
 
   const needSplit = computed(
-    () => preferences.navigation.split && isMixedNav.value,
+    () =>
+      (preferences.navigation.split && isMixedNav.value) ||
+      isHeaderMixedNav.value,
   );
 
   const sidebarVisible = computed(() => {
@@ -52,6 +54,10 @@ function useMixedMenu() {
    */
   const sidebarMenus = computed(() => {
     return needSplit.value ? splitSideMenus.value : menus.value;
+  });
+
+  const mixHeaderMenus = computed(() => {
+    return isHeaderMixedNav.value ? sidebarMenus.value : headerMenus.value;
   });
 
   /**
@@ -145,6 +151,7 @@ function useMixedMenu() {
     headerMenus,
     sidebarActive,
     sidebarMenus,
+    mixHeaderMenus,
     sidebarVisible,
   };
 }

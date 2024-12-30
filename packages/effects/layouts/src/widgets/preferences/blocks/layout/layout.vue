@@ -9,6 +9,7 @@ import { VbenTooltip } from '@vben-core/shadcn-ui';
 
 import {
   FullContent,
+  HeaderMixedNav,
   HeaderNav,
   MixedNav,
   SidebarMixedNav,
@@ -33,6 +34,7 @@ const components: Record<LayoutType, Component> = {
   'mixed-nav': MixedNav,
   'sidebar-mixed-nav': SidebarMixedNav,
   'sidebar-nav': SidebarNav,
+  'header-mixed-nav': HeaderMixedNav,
 };
 
 const PRESET = computed((): PresetItem[] => [
@@ -55,6 +57,11 @@ const PRESET = computed((): PresetItem[] => [
     name: $t('preferences.mixedMenu'),
     tip: $t('preferences.mixedMenuTip'),
     type: 'mixed-nav',
+  },
+  {
+    name: $t('preferences.headerTwoColumn'),
+    tip: $t('preferences.headerTwoColumnTip'),
+    type: 'header-mixed-nav',
   },
   {
     name: $t('preferences.fullContent'),

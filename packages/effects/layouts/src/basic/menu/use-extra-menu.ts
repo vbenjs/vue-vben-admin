@@ -1,6 +1,6 @@
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
@@ -87,23 +87,42 @@ function useExtraMenu() {
     }
   };
 
-  watch(
-    () => route.path,
-    (path) => {
-      const currentPath = route.meta?.activePath || path;
-      // if (preferences.sidebar.expandOnHover) {
-      //   return;
-      // }
-      const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
-        menus.value,
+  function calcExtraMenus(path: string) {
+    const currentPath = route.meta?.activePath || path;
+    const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
+      menus.value,
+      currentPath,
+    );
+    if (preferences.app.layout === 'header-mixed-nav') {
+      const subExtra = findRootMenuByPath(
+        rootMenu?.children ?? [],
         currentPath,
       );
+
+      extraActiveMenu.value =
+        subExtra.findMenu?.parents?.[1] ?? subExtra.findMenu?.path ?? '';
+      extraMenus.value =
+        (rootMenu?.children ?? []).find((m) => m.path === extraActiveMenu.value)
+          ?.children ?? [];
+    } else {
       if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
       extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
       extraMenus.value = rootMenu?.children ?? [];
+    }
+  }
+
+  watch(
+    () => route.path,
+    (path) => {
+      calcExtraMenus(path);
     },
     { immediate: true },
   );
+
+  // 初始化计算侧边菜单
+  onBeforeMount(() => {
+    calcExtraMenus(route.meta?.activePath || route.path);
+  });
 
   return {
     extraActiveMenu,
