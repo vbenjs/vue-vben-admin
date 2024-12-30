@@ -97,7 +97,12 @@ function usePreferences() {
    * @zh_CN 是否包含侧边导航模式
    */
   const isSideMode = computed(() => {
-    return isMixedNav.value || isSideMixedNav.value || isSideNav.value;
+    return (
+      isMixedNav.value ||
+      isSideMixedNav.value ||
+      isSideNav.value ||
+      isHeaderMixedNav.value
+    );
   });
 
   const sidebarCollapsed = computed(() => {
