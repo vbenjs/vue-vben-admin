@@ -1,5 +1,6 @@
 type LayoutType =
   | 'full-content'
+  | 'header-mixed-nav'
   | 'header-nav'
   | 'mixed-nav'
   | 'sidebar-mixed-nav'
