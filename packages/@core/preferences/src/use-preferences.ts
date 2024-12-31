@@ -111,7 +111,8 @@ function usePreferences() {
       isMixedNav.value ||
       isSideMixedNav.value ||
       isSideNav.value ||
-      isHeaderMixedNav.value
+      isHeaderMixedNav.value ||
+      isHeaderSidebarNav.value
     );
   });
 
