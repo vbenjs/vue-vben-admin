@@ -162,6 +162,7 @@ const {
   isDark,
   isFullContent,
   isHeaderNav,
+  isHeaderSidebarNav,
   isMixedNav,
   isSideMixedNav,
   isSideMode,
@@ -344,7 +345,8 @@ async function handleReset() {
                 v-model:breadcrumb-show-icon="breadcrumbShowIcon"
                 v-model:breadcrumb-style-type="breadcrumbStyleType"
                 :disabled="
-                  !showBreadcrumbConfig || !(isSideNav || isSideMixedNav)
+                  !showBreadcrumbConfig ||
+                  !(isSideNav || isSideMixedNav || isHeaderSidebarNav)
                 "
               />
             </Block>
