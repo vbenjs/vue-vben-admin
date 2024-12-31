@@ -82,8 +82,18 @@ function usePreferences() {
     () => appPreferences.value.layout === 'header-nav',
   );
 
+  /**
+   * @zh_CN 是否为头部混合导航模式
+   */
   const isHeaderMixedNav = computed(
     () => appPreferences.value.layout === 'header-mixed-nav',
+  );
+
+  /**
+   * @zh_CN 是否为顶部通栏+侧边导航模式
+   */
+  const isHeaderSidebarNav = computed(
+    () => appPreferences.value.layout === 'header-sidebar-nav',
   );
 
   /**
@@ -225,6 +235,7 @@ function usePreferences() {
     isFullContent,
     isHeaderMixedNav,
     isHeaderNav,
+    isHeaderSidebarNav,
     isMixedNav,
     isMobile,
     isSideMixedNav,

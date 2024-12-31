@@ -40,6 +40,7 @@ const {
   isMobile,
   isSideMixedNav,
   isHeaderMixedNav,
+  isHeaderSidebarNav,
   layout,
   preferencesButtonPosition,
   sidebarCollapsed,
@@ -81,7 +82,7 @@ const logoCollapsed = computed(() => {
   if (isMobile.value && sidebarCollapsed.value) {
     return true;
   }
-  if (isHeaderNav.value || isMixedNav.value) {
+  if (isHeaderNav.value || isMixedNav.value || isHeaderSidebarNav.value) {
     return false;
   }
   return (
