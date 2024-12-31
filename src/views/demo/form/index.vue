@@ -48,7 +48,7 @@
             labelField="name"
             valueField="id"
             :params="searchParams"
-            @search="debounceOptionsFn"
+            @asearch="debounceOptionsFn"
           />
         </template>
       </BasicForm>
