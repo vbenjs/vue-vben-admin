@@ -1,6 +1,6 @@
-import type { ModalApi } from './modal-api';
-
 import type { Component, Ref } from 'vue';
+
+import type { ModalApi } from './modal-api';
 
 export interface ModalProps {
   /**
@@ -132,11 +132,11 @@ export interface ModalState extends ModalProps {
   sharedData?: Record<string, any>;
 }
 
-export type ExtendedModalApi = {
+export type ExtendedModalApi = ModalApi & {
   useStore: <T = NoInfer<ModalState>>(
     selector?: (state: NoInfer<ModalState>) => T,
   ) => Readonly<Ref<T>>;
-} & ModalApi;
+};
 
 export interface ModalApiOptions extends ModalState {
   /**

@@ -26,15 +26,6 @@ class StorageManager {
   }
 
   /**
-   * 获取完整的存储键
-   * @param key 原始键
-   * @returns 带前缀的完整键
-   */
-  private getFullKey(key: string): string {
-    return `${this.prefix}-${key}`;
-  }
-
-  /**
    * 清除所有带前缀的存储项
    */
   clear(): void {
@@ -112,6 +103,15 @@ class StorageManager {
     } catch (error) {
       console.error(`Error setting item with key "${fullKey}":`, error);
     }
+  }
+
+  /**
+   * 获取完整的存储键
+   * @param key 原始键
+   * @returns 带前缀的完整键
+   */
+  private getFullKey(key: string): string {
+    return `${this.prefix}-${key}`;
   }
 }
 

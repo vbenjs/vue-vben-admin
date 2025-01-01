@@ -1,5 +1,3 @@
-import type { ClassType, DeepPartial } from '@vben/types';
-import type { VbenFormProps } from '@vben-core/form-ui';
 import type {
   VxeGridListeners,
   VxeGridPropTypes,
@@ -7,9 +5,13 @@ import type {
   VxeUIExport,
 } from 'vxe-table';
 
-import type { VxeGridApi } from './api';
-
 import type { Ref } from 'vue';
+
+import type { ClassType, DeepPartial } from '@vben/types';
+
+import type { VbenFormProps } from '@vben-core/form-ui';
+
+import type { VxeGridApi } from './api';
 
 import { useVbenForm } from '@vben-core/form-ui';
 
@@ -64,11 +66,11 @@ export interface VxeGridProps {
   showSearchForm?: boolean;
 }
 
-export type ExtendedVxeGridApi = {
+export type ExtendedVxeGridApi = VxeGridApi & {
   useStore: <T = NoInfer<VxeGridProps>>(
     selector?: (state: NoInfer<VxeGridProps>) => T,
   ) => Readonly<Ref<T>>;
-} & VxeGridApi;
+};
 
 export interface SetupVxeTable {
   configVxeTable: (ui: VxeUIExport) => void;

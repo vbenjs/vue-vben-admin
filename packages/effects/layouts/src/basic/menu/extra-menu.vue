@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { MenuRecordRaw } from '@vben/types';
+
 import type { MenuProps } from '@vben-core/menu-ui';
 
 import { useRoute } from 'vue-router';

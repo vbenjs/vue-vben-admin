@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed, h, ref, type VNode, watch, watchEffect } from 'vue';
+import type { VNode } from 'vue';
+
+import { computed, h, ref, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
 import { $t } from '@vben/locales';
+
 import {
   Button,
   Pagination,

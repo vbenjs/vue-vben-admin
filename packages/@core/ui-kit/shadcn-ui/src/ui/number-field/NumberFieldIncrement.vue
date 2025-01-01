@@ -8,7 +8,7 @@ import { cn } from '@vben-core/shared/utils';
 import { Plus } from 'lucide-vue-next';
 import { NumberFieldIncrement, useForwardProps } from 'radix-vue';
 
-const props = defineProps<{ class?: any } & NumberFieldIncrementProps>();
+const props = defineProps<NumberFieldIncrementProps & { class?: any }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

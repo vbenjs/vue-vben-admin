@@ -3,6 +3,7 @@ import type { NotificationItem } from './types';
 
 import { Bell, MailCheck } from '@vben/icons';
 import { $t } from '@vben/locales';
+
 import {
   VbenButton,
   VbenIconButton,

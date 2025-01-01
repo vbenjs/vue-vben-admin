@@ -118,10 +118,10 @@ const [BaseForm, baseFormApi] = useVbenForm({
       componentProps: {
         // 菜单接口
         api: getAllMenusApi,
-        childrenField: 'children',
         // 菜单接口转options格式
         labelField: 'name',
         valueField: 'path',
+        childrenField: 'children',
       },
       // 字段名
       fieldName: 'apiTree',

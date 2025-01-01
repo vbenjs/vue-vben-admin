@@ -1,18 +1,21 @@
 <script setup lang="ts">
+import type {
+  DropdownMenuContentEmits,
+  DropdownMenuContentProps,
+} from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
 import {
   DropdownMenuContent,
-  type DropdownMenuContentEmits,
-  type DropdownMenuContentProps,
   DropdownMenuPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
 
 const props = withDefaults(
-  defineProps<{ class?: any } & DropdownMenuContentProps>(),
+  defineProps<DropdownMenuContentProps & { class?: any }>(),
   {
     sideOffset: 4,
   },

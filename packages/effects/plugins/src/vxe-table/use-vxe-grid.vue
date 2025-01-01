@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { VbenFormProps } from '@vben-core/form-ui';
 import type {
   VxeGridDefines,
   VxeGridInstance,
@@ -8,6 +7,8 @@ import type {
   VxeGridProps as VxeTableGridProps,
   VxeToolbarPropTypes,
 } from 'vxe-table';
+
+import type { VbenFormProps } from '@vben-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -27,6 +28,7 @@ import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
 import { cloneDeep, cn, mergeWithArrayOverride } from '@vben/utils';
+
 import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
 import { VxeGrid, VxeUI } from 'vxe-table';

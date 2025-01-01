@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ContextMenuPortal, type ContextMenuPortalProps } from 'radix-vue';
+import type { ContextMenuPortalProps } from 'radix-vue';
+
+import { ContextMenuPortal } from 'radix-vue';
 
 const props = defineProps<ContextMenuPortalProps>();
 </script>

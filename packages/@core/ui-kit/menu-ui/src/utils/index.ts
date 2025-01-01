@@ -4,6 +4,7 @@ import type {
   VNodeChild,
   VNodeNormalizedChildren,
 } from 'vue';
+
 import { isVNode } from 'vue';
 
 type VNodeChildAtom = Exclude<VNodeChild, Array<any>>;

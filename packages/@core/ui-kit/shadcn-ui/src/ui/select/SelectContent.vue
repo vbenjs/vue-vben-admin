@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import type { SelectContentEmits, SelectContentProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
 import {
   SelectContent,
-  type SelectContentEmits,
-  type SelectContentProps,
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
@@ -20,7 +20,7 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<{ class?: any } & SelectContentProps>(),
+  defineProps<SelectContentProps & { class?: any }>(),
   {
     position: 'popper',
   },

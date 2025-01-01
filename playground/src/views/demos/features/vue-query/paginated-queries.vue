@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { Ref } from 'vue';
+
 import type { IProducts } from './typing';
 
-import { type Ref, ref } from 'vue';
+import { ref } from 'vue';
 
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { Button } from 'ant-design-vue';

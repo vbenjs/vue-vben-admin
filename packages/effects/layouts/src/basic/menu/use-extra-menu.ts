@@ -1,6 +1,8 @@
+import type { ComputedRef } from 'vue';
+
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, type ComputedRef, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';

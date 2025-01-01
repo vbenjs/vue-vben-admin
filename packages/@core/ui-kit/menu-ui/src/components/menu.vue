@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { UseResizeObserverReturn } from '@vueuse/core';
 
+import type { VNodeArrayChildren } from 'vue';
+
 import type {
   MenuItemClicked,
   MenuItemRegistered,
@@ -15,7 +17,6 @@ import {
   ref,
   toRef,
   useSlots,
-  type VNodeArrayChildren,
   watch,
   watchEffect,
 } from 'vue';

@@ -12,8 +12,8 @@ import {
 
 import { useStore } from '@vben-core/shared/store';
 
-import VbenModal from './modal.vue';
 import { ModalApi } from './modal-api';
+import VbenModal from './modal.vue';
 
 const USER_MODAL_INJECT_KEY = Symbol('VBEN_MODAL_INJECT');
 

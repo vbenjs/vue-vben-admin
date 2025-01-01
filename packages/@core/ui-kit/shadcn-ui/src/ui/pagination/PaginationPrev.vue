@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import type { PaginationPrevProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
 import { ChevronLeft } from 'lucide-vue-next';
-import { PaginationPrev, type PaginationPrevProps } from 'radix-vue';
+import { PaginationPrev } from 'radix-vue';
 
 import { Button } from '../button';
 
 const props = withDefaults(
-  defineProps<{ class?: any } & PaginationPrevProps>(),
+  defineProps<PaginationPrevProps & { class?: any }>(),
   {
     asChild: true,
   },

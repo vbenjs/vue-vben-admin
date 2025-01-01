@@ -67,11 +67,11 @@ async function loadAndConvertEnv(
   match = 'VITE_',
   confFiles = getConfFiles(),
 ): Promise<
-  {
+  Partial<ApplicationPluginOptions> & {
     appTitle: string;
     base: string;
     port: number;
-  } & Partial<ApplicationPluginOptions>
+  }
 > {
   const envConfig = await loadEnv(match, confFiles);
 

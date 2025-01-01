@@ -1,4 +1,6 @@
-import { type DefaultTheme, defineConfig } from 'vitepress';
+import type { DefaultTheme } from 'vitepress';
+
+import { defineConfig } from 'vitepress';
 
 import { version } from '../../../package.json';
 

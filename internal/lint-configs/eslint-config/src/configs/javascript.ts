@@ -1,6 +1,5 @@
 import type { Linter } from 'eslint';
 
-// @ts-expect-error - no types
 import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';

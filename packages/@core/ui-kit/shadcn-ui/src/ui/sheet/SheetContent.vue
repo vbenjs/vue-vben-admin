@@ -1,17 +1,15 @@
 <script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
+
+import type { SheetVariants } from './sheet';
+
 import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  DialogContent,
-  type DialogContentEmits,
-  type DialogContentProps,
-  DialogPortal,
-  useForwardPropsEmits,
-} from 'radix-vue';
+import { DialogContent, DialogPortal, useForwardPropsEmits } from 'radix-vue';
 
-import { type SheetVariants, sheetVariants } from './sheet';
+import { sheetVariants } from './sheet';
 import SheetOverlay from './SheetOverlay.vue';
 
 interface SheetContentProps extends DialogContentProps {
@@ -33,7 +31,7 @@ const props = withDefaults(defineProps<SheetContentProps>(), {
 });
 
 const emits = defineEmits<
-  { close: []; closed: []; opened: [] } & DialogContentEmits
+  DialogContentEmits & { close: []; closed: []; opened: [] }
 >();
 
 const delegatedProps = computed(() => {

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { type Component, computed } from 'vue';
+import type { Component } from 'vue';
+
+import { computed } from 'vue';
 
 import { $t } from '@vben/locales';
 
