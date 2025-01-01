@@ -16,8 +16,8 @@ import {
 
 import { useStore } from '@vben-core/shared/store';
 
-import VbenDrawer from './drawer.vue';
 import { DrawerApi } from './drawer-api';
+import VbenDrawer from './drawer.vue';
 
 const USER_DRAWER_INJECT_KEY = Symbol('VBEN_DRAWER_INJECT');
 

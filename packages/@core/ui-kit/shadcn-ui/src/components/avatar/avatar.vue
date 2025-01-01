@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
 import type {
   AvatarFallbackProps,
   AvatarImageProps,
   AvatarRootProps,
 } from 'radix-vue';
 
+import type { ClassType } from '@vben-core/typings';
+
 import { computed } from 'vue';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui';
 
-interface Props extends AvatarRootProps, AvatarFallbackProps, AvatarImageProps {
+interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
   alt?: string;
   class?: ClassType;
   dot?: boolean;

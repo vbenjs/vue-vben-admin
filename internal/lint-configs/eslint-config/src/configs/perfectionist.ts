@@ -1,8 +1,13 @@
 import type { Linter } from 'eslint';
 
-import perfectionistPlugin from 'eslint-plugin-perfectionist';
+import { interopDefault } from '../util';
 
 export async function perfectionist(): Promise<Linter.Config[]> {
+  const perfectionistPlugin = await interopDefault(
+    // @ts-expect-error - no types
+    import('eslint-plugin-perfectionist'),
+  );
+
   return [
     perfectionistPlugin.configs['recommended-natural'],
     {
@@ -19,21 +24,28 @@ export async function perfectionist(): Promise<Linter.Config[]> {
           {
             customGroups: {
               type: {
-                vben: 'vben',
-                vue: 'vue',
+                'vben-core-type': ['^@vben-core/.+'],
+                'vben-type': ['^@vben/.+'],
+                'vue-type': ['^vue$', '^vue-.+', '^@vue/.+'],
               },
               value: {
-                vben: ['@vben*', '@vben/**/**', '@vben-core/**/**'],
-                vue: ['vue', 'vue-*', '@vue*'],
+                vben: ['^@vben/.+'],
+                'vben-core': ['^@vben-core/.+'],
+                vue: ['^vue$', '^vue-.+', '^@vue/.+'],
               },
             },
+            environment: 'node',
             groups: [
               ['external-type', 'builtin-type', 'type'],
+              'vue-type',
+              'vben-type',
+              'vben-core-type',
               ['parent-type', 'sibling-type', 'index-type'],
               ['internal-type'],
               'builtin',
               'vue',
               'vben',
+              'vben-core',
               'external',
               'internal',
               ['parent', 'sibling', 'index'],
@@ -43,12 +55,13 @@ export async function perfectionist(): Promise<Linter.Config[]> {
               'object',
               'unknown',
             ],
-            internalPattern: ['#*', '#*/**'],
+            internalPattern: ['^#/.+'],
             newlinesBetween: 'always',
             order: 'asc',
             type: 'natural',
           },
         ],
+        'perfectionist/sort-modules': 'off',
         'perfectionist/sort-named-exports': [
           'error',
           {
@@ -67,42 +80,6 @@ export async function perfectionist(): Promise<Linter.Config[]> {
             groups: ['unknown', 'items', 'list', 'children'],
             ignorePattern: ['children'],
             order: 'asc',
-            partitionByComment: 'Part:**',
-            type: 'natural',
-          },
-        ],
-        'perfectionist/sort-vue-attributes': [
-          'error',
-          {
-            // Based on: https://vuejs.org/style-guide/rules-recommended.html#element-attribute-order
-            customGroups: {
-              /* eslint-disable perfectionist/sort-objects */
-              DEFINITION: '*(is|:is|v-is)',
-              LIST_RENDERING: 'v-for',
-              CONDITIONALS: 'v-*(else-if|if|else|show|cloak)',
-              RENDER_MODIFIERS: 'v-*(pre|once)',
-              GLOBAL: '*(:id|id)',
-              UNIQUE: '*(ref|key|:ref|:key)',
-              SLOT: '*(v-slot|slot)',
-              TWO_WAY_BINDING: '*(v-model|v-model:*)',
-              // OTHER_DIRECTIVES e.g. 'v-custom-directive'
-              EVENTS: '*(v-on|@*)',
-              CONTENT: 'v-*(html|text)',
-              /* eslint-enable perfectionist/sort-objects */
-            },
-            groups: [
-              'DEFINITION',
-              'LIST_RENDERING',
-              'CONDITIONALS',
-              'RENDER_MODIFIERS',
-              'GLOBAL',
-              'UNIQUE',
-              'SLOT',
-              'TWO_WAY_BINDING',
-              'unknown',
-              'EVENTS',
-              'CONTENT',
-            ],
             type: 'natural',
           },
         ],

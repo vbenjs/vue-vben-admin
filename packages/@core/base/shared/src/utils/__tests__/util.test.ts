@@ -56,18 +56,18 @@ describe('bindMethods', () => {
 
   it('should not bind getter/setter properties', () => {
     class TestWithGetterSetter {
-      private _value: string = 'test';
-
-      constructor() {
-        bindMethods(this);
-      }
-
       get value() {
         return this._value;
       }
 
       set value(newValue: string) {
         this._value = newValue;
+      }
+
+      private _value: string = 'test';
+
+      constructor() {
+        bindMethods(this);
       }
     }
 

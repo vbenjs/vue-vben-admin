@@ -1,15 +1,14 @@
-import type { RouteRecordRaw } from 'vue-router';
-
 import type { Component } from 'vue';
+import type { RouteRecordRaw } from 'vue-router';
 
 /**
  * 扩展路由原始对象
  */
-type ExRouteRecordRaw = {
+type ExRouteRecordRaw = RouteRecordRaw & {
   parent?: string;
   parents?: string[];
   path?: any;
-} & RouteRecordRaw;
+};
 
 interface MenuRecordBadgeRaw {
   /**

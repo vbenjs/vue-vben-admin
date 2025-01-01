@@ -1,10 +1,11 @@
+import type { Component } from 'vue';
+
 import type {
   BaseFormComponentType,
   FormCommonConfig,
   VbenFormAdapterOptions,
 } from './types';
 
-import type { Component } from 'vue';
 import { h } from 'vue';
 
 import {

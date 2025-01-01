@@ -1,8 +1,10 @@
+import type { Locale } from './messages';
+
 import { computed, ref } from 'vue';
 
 import { createSharedComposable } from '@vueuse/core';
 
-import { getMessages, type Locale } from './messages';
+import { getMessages } from './messages';
 
 export const useSimpleLocale = createSharedComposable(() => {
   const currentLocale = ref<Locale>('zh-CN');

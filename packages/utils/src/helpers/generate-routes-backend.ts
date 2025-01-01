@@ -1,9 +1,10 @@
+import type { RouteRecordRaw } from 'vue-router';
+
 import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
   RouteRecordStringComponent,
 } from '@vben-core/typings';
-import type { RouteRecordRaw } from 'vue-router';
 
 import { mapTree } from '@vben-core/shared/utils';
 

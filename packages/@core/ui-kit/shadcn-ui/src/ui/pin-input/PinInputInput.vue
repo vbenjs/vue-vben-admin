@@ -1,15 +1,13 @@
 <script setup lang="ts">
+import type { PinInputInputProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  PinInputInput,
-  type PinInputInputProps,
-  useForwardProps,
-} from 'radix-vue';
+import { PinInputInput, useForwardProps } from 'radix-vue';
 
-const props = defineProps<{ class?: any } & PinInputInputProps>();
+const props = defineProps<PinInputInputProps & { class?: any }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

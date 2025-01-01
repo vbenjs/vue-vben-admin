@@ -2,7 +2,7 @@ export * from './constants';
 export * from './date';
 export * from './fs';
 export * from './git';
-export { add as gitAdd, getStagedFiles } from './git';
+export { getStagedFiles, add as gitAdd } from './git';
 export { generatorContentHash } from './hash';
 export * from './monorepo';
 export { toPosixPath } from './path';

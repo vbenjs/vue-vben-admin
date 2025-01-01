@@ -1,22 +1,18 @@
 <script setup lang="ts">
+import type { TooltipContentEmits, TooltipContentProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  TooltipContent,
-  type TooltipContentEmits,
-  type TooltipContentProps,
-  TooltipPortal,
-  useForwardPropsEmits,
-} from 'radix-vue';
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
 
 defineOptions({
   inheritAttrs: false,
 });
 
 const props = withDefaults(
-  defineProps<{ class?: any } & TooltipContentProps>(),
+  defineProps<TooltipContentProps & { class?: any }>(),
   {
     class: '',
     side: 'right',

@@ -1,10 +1,11 @@
-import type { Recordable } from '@vben-core/typings';
 import type {
   FormState,
   GenericObject,
   ResetFormOpts,
   ValidationOptions,
 } from 'vee-validate';
+
+import type { Recordable } from '@vben-core/typings';
 
 import type { FormActions, FormSchema, VbenFormProps } from './types';
 
@@ -45,19 +46,19 @@ function getDefaultState(): VbenFormProps {
 }
 
 export class FormApi {
-  // 最后一次点击提交时的表单值
-  private latestSubmissionValues: null | Recordable<any> = null;
-  private prevState: null | VbenFormProps = null;
-
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
   public form = {} as FormActions;
   isMounted = false;
 
   public state: null | VbenFormProps = null;
-
   stateHandler: StateHandler;
 
   public store: Store<VbenFormProps>;
+
+  // 最后一次点击提交时的表单值
+  private latestSubmissionValues: null | Recordable<any> = null;
+
+  private prevState: null | VbenFormProps = null;
 
   constructor(options: VbenFormProps = {}) {
     const { ...storeState } = options;
@@ -81,40 +82,6 @@ export class FormApi {
     this.state = this.store.state;
     this.stateHandler = new StateHandler();
     bindMethods(this);
-  }
-
-  private async getForm() {
-    if (!this.isMounted) {
-      // 等待form挂载
-      await this.stateHandler.waitForCondition();
-    }
-    if (!this.form?.meta) {
-      throw new Error('<VbenForm /> is not mounted');
-    }
-    return this.form;
-  }
-
-  private updateState() {
-    const currentSchema = this.state?.schema ?? [];
-    const prevSchema = this.prevState?.schema ?? [];
-    // 进行了删除schema操作
-    if (currentSchema.length < prevSchema.length) {
-      const currentFields = new Set(
-        currentSchema.map((item) => item.fieldName),
-      );
-      const deletedSchema = prevSchema.filter(
-        (item) => !currentFields.has(item.fieldName),
-      );
-
-      for (const schema of deletedSchema) {
-        this.form?.setFieldValue(schema.fieldName, undefined);
-      }
-    }
-  }
-
-  // 如果需要多次更新状态，可以使用 batch 方法
-  batchStore(cb: () => void) {
-    this.store.batch(cb);
   }
 
   getLatestSubmissionValues() {
@@ -362,5 +329,34 @@ export class FormApi {
       console.error('validate error', validateResult?.errors);
     }
     return validateResult;
+  }
+
+  private async getForm() {
+    if (!this.isMounted) {
+      // 等待form挂载
+      await this.stateHandler.waitForCondition();
+    }
+    if (!this.form?.meta) {
+      throw new Error('<VbenForm /> is not mounted');
+    }
+    return this.form;
+  }
+
+  private updateState() {
+    const currentSchema = this.state?.schema ?? [];
+    const prevSchema = this.prevState?.schema ?? [];
+    // 进行了删除schema操作
+    if (currentSchema.length < prevSchema.length) {
+      const currentFields = new Set(
+        currentSchema.map((item) => item.fieldName),
+      );
+      const deletedSchema = prevSchema.filter(
+        (item) => !currentFields.has(item.fieldName),
+      );
+
+      for (const schema of deletedSchema) {
+        this.form?.setFieldValue(schema.fieldName, undefined);
+      }
+    }
   }
 }

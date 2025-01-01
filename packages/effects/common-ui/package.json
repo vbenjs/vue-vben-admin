@@ -22,7 +22,6 @@
   "dependencies": {
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
-    "@vben-core/preferences": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben/constants": "workspace:*",

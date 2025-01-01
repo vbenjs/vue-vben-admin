@@ -1,5 +1,6 @@
-import type { TabDefinition } from '@vben-core/typings';
 import type { Router, RouteRecordNormalized } from 'vue-router';
+
+import type { TabDefinition } from '@vben-core/typings';
 
 import { toRaw } from 'vue';
 

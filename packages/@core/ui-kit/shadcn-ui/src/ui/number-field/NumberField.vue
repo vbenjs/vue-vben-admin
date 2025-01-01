@@ -7,7 +7,7 @@ import { cn } from '@vben-core/shared/utils';
 
 import { NumberFieldRoot, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<{ class?: any } & NumberFieldRootProps>();
+const props = defineProps<NumberFieldRootProps & { class?: any }>();
 const emits = defineEmits<NumberFieldRootEmits>();
 
 const delegatedProps = computed(() => {

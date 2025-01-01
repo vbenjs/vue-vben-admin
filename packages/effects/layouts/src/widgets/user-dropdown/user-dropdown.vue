@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+
 import type { AnyFunction } from '@vben/types';
 
-import type { Component } from 'vue';
 import { computed, useTemplateRef, watch } from 'vue';
 
 import { useHoverToggle } from '@vben/hooks';
@@ -10,6 +11,7 @@ import { $t } from '@vben/locales';
 import { preferences, usePreferences } from '@vben/preferences';
 import { useLockStore } from '@vben/stores';
 import { isWindowsOs } from '@vben/utils';
+
 import { useVbenModal } from '@vben-core/popup-ui';
 import {
   Badge,

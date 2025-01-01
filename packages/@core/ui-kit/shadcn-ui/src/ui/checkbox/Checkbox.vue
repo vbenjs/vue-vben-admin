@@ -12,7 +12,7 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<{ class?: any } & CheckboxRootProps>();
+const props = defineProps<CheckboxRootProps & { class?: any }>();
 const emits = defineEmits<CheckboxRootEmits>();
 
 const delegatedProps = computed(() => {

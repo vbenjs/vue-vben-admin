@@ -4,6 +4,12 @@ import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class DrawerApi {
+  // 共享数据
+  public sharedData: Record<'payload', any> = {
+    payload: {},
+  };
+  public store: Store<DrawerState>;
+
   private api: Pick<
     DrawerApiOptions,
     | 'onBeforeClose'
@@ -13,15 +19,9 @@ export class DrawerApi {
     | 'onOpenChange'
     | 'onOpened'
   >;
+
   // private prevState!: DrawerState;
   private state!: DrawerState;
-
-  // 共享数据
-  public sharedData: Record<'payload', any> = {
-    payload: {},
-  };
-
-  public store: Store<DrawerState>;
 
   constructor(options: DrawerApiOptions = {}) {
     const {
@@ -81,11 +81,6 @@ export class DrawerApi {
       onOpened,
     };
     bindMethods(this);
-  }
-
-  // 如果需要多次更新状态，可以使用 batch 方法
-  batchStore(cb: () => void) {
-    this.store.batch(cb);
   }
 
   /**

@@ -5,6 +5,8 @@ import type {
   CreateAxiosDefaults,
 } from 'axios';
 
+import type { RequestClientOptions } from './types';
+
 import { bindMethods, merge } from '@vben/utils';
 
 import axios from 'axios';
@@ -12,20 +14,19 @@ import axios from 'axios';
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
-import { type RequestClientOptions } from './types';
 
 class RequestClient {
-  private readonly instance: AxiosInstance;
-
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
-  public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
 
+  public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
   public download: FileDownloader['download'];
+
   // 是否正在刷新token
   public isRefreshing = false;
   // 刷新token队列
   public refreshTokenQueue: ((token: string) => void)[] = [];
   public upload: FileUploader['upload'];
+  private readonly instance: AxiosInstance;
 
   /**
    * 构造函数，用于创建Axios实例

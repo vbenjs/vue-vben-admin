@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CSSProperties } from 'vue';
+
 import type { VbenLayoutProps } from './vben-layout';
 
-import type { CSSProperties } from 'vue';
 import { computed, ref, watch } from 'vue';
 
 import {

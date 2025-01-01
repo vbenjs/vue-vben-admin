@@ -1,4 +1,7 @@
 import type { CSSProperties } from 'vue';
+
+import type { VisibleDomRect } from '@vben-core/shared/utils';
+
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import {
@@ -7,10 +10,7 @@ import {
   CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
   CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
 } from '@vben-core/shared/constants';
-import {
-  getElementVisibleRect,
-  type VisibleDomRect,
-} from '@vben-core/shared/utils';
+import { getElementVisibleRect } from '@vben-core/shared/utils';
 
 import { useCssVar, useDebounceFn } from '@vueuse/core';
 

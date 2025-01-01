@@ -3,9 +3,10 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
+import type { Component, SetupContext } from 'vue';
+
 import type { BaseFormComponentType } from '@vben/common-ui';
 
-import type { Component, SetupContext } from 'vue';
 import { h } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';

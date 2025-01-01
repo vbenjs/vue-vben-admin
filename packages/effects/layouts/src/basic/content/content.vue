@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+import type { VNode } from 'vue';
 import type {
   RouteLocationNormalizedLoaded,
   RouteLocationNormalizedLoadedGeneric,
 } from 'vue-router';
 
-import { type VNode } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben/preferences';
