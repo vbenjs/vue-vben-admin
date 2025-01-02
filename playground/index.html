@@ -27,6 +27,35 @@
         })();
       }
     </script>
+    <!-- 可以使用自己的部署的PageSpy的sdk 修改引入的地址即可 -->
+    <!--  https://pagespy.mufei88.com 为vben测试sdk地址 -->
+    <script
+      crossorigin="anonymous"
+      src="https://pagespy.mufei88.com/page-spy/index.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://pagespy.mufei88.com/plugin/data-harbor/index.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://pagespy.mufei88.com/plugin/rrweb/index.min.js"
+    ></script>
+    <script>
+      window.$harbor = new DataHarborPlugin();
+      window.$rrweb = new RRWebPlugin();
+
+      [window.$harbor, window.$rrweb].forEach((p) => {
+        PageSpy.registerPlugin(p);
+      });
+      // 实例化的参数都是可选的
+      window.$pageSpy = new PageSpy({
+        project: '<%= VITE_APP_TITLE %>',
+        autoRender: false,
+        title: 'Vben Admin',
+      });
+      // 之后即可使用 PageSpy，前往 https://pagespy.mufei88.com 体验
+    </script>
   </head>
   <body>
     <div id="app"></div>
