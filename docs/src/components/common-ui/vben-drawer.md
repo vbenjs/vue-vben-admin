@@ -100,7 +100,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | contentClass | modal内容区域的class | `string` | - |
 | footerClass | modal底部区域的class | `string` | - |
 | headerClass | modal顶部区域的class | `string` | - |
-| zIndex | 抽屉的ZIndex层级 | `number` | `1000` |
+| zIndex | 抽屉的ZIndex层级 | `number` | `2000` |
 
 ::: info appendToMain
 

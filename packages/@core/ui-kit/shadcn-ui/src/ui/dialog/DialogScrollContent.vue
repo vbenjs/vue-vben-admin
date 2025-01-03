@@ -16,7 +16,7 @@ import {
 
 const props = withDefaults(
   defineProps<DialogContentProps & { class?: any; zIndex?: number }>(),
-  { zIndex: 1000 },
+  { zIndex: 2000 },
 );
 const emits = defineEmits<DialogContentEmits>();
 
