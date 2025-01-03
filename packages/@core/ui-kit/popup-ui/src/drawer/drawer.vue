@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
   closeIconPlacement: 'right',
   drawerApi: undefined,
-  zIndex: 1000,
+  zIndex: 2000,
 });
 
 const components = globalShareState.getComponents();

@@ -29,7 +29,7 @@ const props = withDefaults(
       zIndex?: number;
     }
   >(),
-  { appendTo: 'body', showClose: true, zIndex: 1000 },
+  { appendTo: 'body', showClose: true, zIndex: 2000 },
 );
 const emits = defineEmits<
   DialogContentEmits & { close: []; closed: []; opened: [] }
