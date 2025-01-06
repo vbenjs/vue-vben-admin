@@ -68,6 +68,7 @@ pnpm install
 
 - 项目只支持使用 `pnpm` 进行依赖安装，默认会使用 `corepack` 来安装指定版本的 `pnpm`。:
 - 如果你的网络环境无法访问npm源，你可以设置系统的环境变量`COREPACK_NPM_REGISTRY=https://registry.npmmirror.com`，然后再执行`pnpm install`。
+- 如果你想要pnpm走代理，你可以设置在.npmrc 文件中配置 https-proxy 例如 `https-proxy = "http://127.0.0.1:10801"` 让pnpm从源站拉取最新的包。
 - 如果你不想使用`corepack`，你需要禁用`corepack`，然后使用你自己的`pnpm`进行安装。
 
 :::
