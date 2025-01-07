@@ -55,6 +55,7 @@ export type ComponentType =
   | 'IconPicker'
   | 'Input'
   | 'InputNumber'
+  | 'InputPassword'
   | 'RadioGroup'
   | 'Select'
   | 'Space'
@@ -144,6 +145,14 @@ async function initComponentAdapter() {
     },
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
+    InputPassword: (props, { attrs, slots }) => {
+      return h(ElInput, {
+        ...props,
+        ...attrs,
+        type: 'password',
+        showPassword: true,
+      }, slots);
+    },
     RadioGroup: (props, { attrs, slots }) => {
       let defaultSlot;
       if (Reflect.has(slots, 'default')) {
