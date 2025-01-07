@@ -24,6 +24,7 @@
     "url": "https://github.com/anncwb"
   },
   "type": "module",
+  "main": "electron.cjs",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
     "build:analyze": "turbo build:analyze",
@@ -58,7 +59,9 @@
     "test:unit": "vitest run --dom",
     "test:e2e": "turbo run test:e2e",
     "update:deps": "npx taze -r -w",
-    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
+    "electron:dev": "concurrently \"pnpm run dev:antd\" \"cross-env NODE_ENV=development electron electron.cjs\"",
+    "electron:build": "pnpm build:antd && electron-builder"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
@@ -78,8 +81,11 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "@vue/test-utils": "catalog:",
     "autoprefixer": "catalog:",
+    "concurrently": "^9.1.2",
     "cross-env": "catalog:",
     "cspell": "catalog:",
+    "electron": "24.8.8",
+    "electron-builder": "^24.13.3",
     "happy-dom": "catalog:",
     "husky": "catalog:",
     "is-ci": "catalog:",
@@ -118,5 +124,48 @@
       "canvas",
       "node-gyp"
     ]
+  },
+  "build": {
+    "appId": "xxx@gmail.com",
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "files": [
+      "!node_modules",
+      "apps/web-antd/dist/**",
+      "electron.cjs",
+      "node_modules/node-hid/**",
+      "node_modules/pkg-prebuilds/**"
+    ],
+    "asar": false,
+    "mac": {
+      "artifactName": "${productName}_setup_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "icon": "build/icons/512x512.png",
+      "target": [
+        "deb"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
   }
 }
