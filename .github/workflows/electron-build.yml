@@ -27,10 +27,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: pnpm run electron:build
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: electron-app
           # 根据不同的操作系统上传对应的安装包
           files: |
             ${{ matrix.os == 'windows-latest' && 'dist/*.exe' || '' }}
