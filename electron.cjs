@@ -1,18 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-
-// var HID = require('node-hid');
-
-
 function createWindow() {
-
-
-// // 列出所有可用的 HID 设备
-// HID.list((err, devices) => {
-//   if (err) throw err;
-//   console.log('Available HID devices:########', devices);
-// });
-
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -26,7 +14,7 @@ function createWindow() {
   mainWindow.loadURL(
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:5666' // 开发环境地址
-      : `file://${path.join(__dirname, './dist/index.html')}`, // 生产环境地址
+      : `file://${path.join(__dirname, 'apps/web-antd/dist/index.html')}`, // 生产环境地址这里暂时使用 antd 的打包地址
   );
 
   if (process.env.NODE_ENV === 'development') {

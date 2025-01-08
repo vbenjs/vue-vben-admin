@@ -126,18 +126,16 @@
     ]
   },
   "build": {
-    "appId": "xxx@gmail.com",
+    "appId": "canyanol@qq.com",
     "electronDownload": {
       "mirror": "https://npmmirror.com/mirrors/electron/"
     },
     "files": [
       "!node_modules",
       "apps/web-antd/dist/**",
-      "electron.cjs",
-      "node_modules/node-hid/**",
-      "node_modules/pkg-prebuilds/**"
+      "electron.cjs"
     ],
-    "asar": false,
+    "asar": true,
     "mac": {
       "artifactName": "${productName}_setup_${version}.${ext}",
       "target": [
