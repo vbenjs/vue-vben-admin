@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*' # 匹配所有以 v 开头的标签
   workflow_dispatch:
 
 jobs:
@@ -22,21 +24,32 @@ jobs:
       - name: Setup Node
         uses: ./.github/actions/setup-node
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Build Electron app
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: pnpm run electron:build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          path: |
+          files: |
             dist/*.exe
             dist/*.zip
             dist/*.dmg
-            dist/*.deb
-            dist/*.rpm
             dist/*.blockmap
-          name: electron-build-${{ matrix.os }}
+          draft: false
+          prerelease: false
+          name: Release ${{ github.ref_name }}
+          body: |
+            Release for ${{ matrix.os }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
