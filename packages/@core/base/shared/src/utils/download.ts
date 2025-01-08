@@ -31,6 +31,7 @@ export async function downloadFileFromUrl({
 
   if (isChrome || isSafari) {
     triggerDownload(source, resolveFileName(source, fileName));
+    return;
   }
   if (!source.includes('?')) {
     source += '?download';
