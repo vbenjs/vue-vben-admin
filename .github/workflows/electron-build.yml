@@ -8,7 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Checkout code
@@ -26,14 +29,15 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/heads/main')
         with:
+          # 根据不同的操作系统上传对应的安装包
           files: |
-            dist/*.exe
-            dist/*.zip
-            dist/*.dmg
-            dist/*.deb
-            dist/*.rpm
-            dist/*.blockmap
+            ${{ matrix.os == 'windows-latest' && 'dist/*.exe' || '' }}
+            ${{ matrix.os == 'windows-latest' && 'dist/*.zip' || '' }}
+            ${{ matrix.os == 'windows-latest' && 'dist/*.blockmap' || '' }}
+            ${{ matrix.os == 'macos-latest' && 'dist/*.dmg' || '' }}
+            ${{ matrix.os == 'macos-latest' && 'dist/*.zip' || '' }}
+            ${{ matrix.os == 'macos-latest' && 'dist/*.blockmap' || '' }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
