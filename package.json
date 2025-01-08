@@ -140,6 +140,10 @@
       "artifactName": "${productName}_setup_${version}.${ext}",
       "target": [
         "dmg"
+      ],
+      "arch": [
+        "x64",
+        "arm64"
       ]
     },
     "linux": {
