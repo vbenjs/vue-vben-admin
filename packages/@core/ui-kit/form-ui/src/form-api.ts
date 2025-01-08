@@ -15,6 +15,7 @@ import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
   createMerge,
+  formatDate,
   isDate,
   isDayjsObject,
   isFunction,
@@ -97,6 +98,44 @@ export class FormApi {
     return form.values;
   }
 
+  handleRangeTimeValue(values: Record<string, any>) {
+    const fieldMappingTime = this.state?.fieldMappingTime;
+
+    if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
+      return values;
+    }
+
+    fieldMappingTime.forEach(
+      ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+        if (startTimeKey && endTimeKey && values[field] === null) {
+          values[startTimeKey] = undefined;
+          values[endTimeKey] = undefined;
+        }
+
+        if (!values[field]) {
+          values[field] = undefined;
+          return;
+        }
+
+        const [startTime, endTime] = values[field];
+        const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+          ? format
+          : [format, format];
+
+        values[startTimeKey] = startTime
+          ? formatDate(startTime, startTimeFormat)
+          : undefined;
+        values[endTimeKey] = endTime
+          ? formatDate(endTime, endTimeFormat)
+          : undefined;
+
+        values[field] = undefined;
+      },
+    );
+
+    return values;
+  }
+
   async isFieldValid(fieldName: string) {
     const form = await this.getForm();
     return form.isFieldValid(fieldName);
@@ -122,7 +161,7 @@ export class FormApi {
                   if (!validateResult.valid) {
                     return;
                   }
-                  const rawValues = toRaw(form.values || {});
+                  const rawValues = api.handleRangeTimeValue(toRaw(form.values || {}));
                   return rawValues;
                 }),
               );
@@ -253,7 +292,7 @@ export class FormApi {
     e?.stopPropagation();
     const form = await this.getForm();
     await form.submitForm();
-    const rawValues = toRaw(form.values || {});
+    const rawValues = this.handleRangeTimeValue(toRaw(form.values || {}));
     await this.state?.handleSubmit?.(rawValues);
 
     return rawValues;
