@@ -9,6 +9,13 @@
 
 **中文** | [English](./README.md) | [日本語](./README.ja-JP.md)
 
+## vben-admin-electron 简介
+
+vben-admin-electron 是基于vue-vben-admin做了electron的集成，这里只做了antv 的适配，如需其他适配需要改动。
+
+> pnpm run electron:dev  开发
+> pnpm run electron:build 构建
+
 ## 简介
 
 Vue Vben Admin 是 Vue Vben Admin 的升级版本。作为一个免费开源的中后台模板，它采用了最新的 Vue 3、Vite、TypeScript 等主流技术开发，开箱即用，可用于中后台前端开发，也适合学习参考。

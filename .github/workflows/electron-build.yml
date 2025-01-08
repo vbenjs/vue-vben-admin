@@ -20,10 +20,20 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build Electron app
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: pnpm run electron:build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: electron-app
-          path: dist/*.exe
+          files: |
+            dist/*.exe
+            dist/*.zip
+            dist/*.dmg
+            dist/*.deb
+            dist/*.rpm
+            dist/*.blockmap
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
