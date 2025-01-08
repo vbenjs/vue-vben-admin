@@ -30,12 +30,13 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          files: |
+          path: |
             dist/*.exe
             dist/*.zip
             dist/*.dmg
             dist/*.deb
             dist/*.rpm
             dist/*.blockmap
+          name: electron-build-artifacts
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
