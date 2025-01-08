@@ -37,6 +37,6 @@ jobs:
             dist/*.deb
             dist/*.rpm
             dist/*.blockmap
-          name: electron-build-artifacts
+          name: electron-build-${{ matrix.os }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
