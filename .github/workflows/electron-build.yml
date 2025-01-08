@@ -8,7 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Checkout code
@@ -24,16 +27,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: pnpm run electron:build
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: |
+          path: |
             dist/*.exe
             dist/*.zip
             dist/*.dmg
             dist/*.deb
             dist/*.rpm
             dist/*.blockmap
+          name: electron-build-${{ matrix.os }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
