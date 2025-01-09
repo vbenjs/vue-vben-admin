@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { Input, Select } from 'ant-design-vue';
 
-const emit = defineEmits(['blur', 'change', 'change']);
+const emit = defineEmits(['blur', 'change']);
 
 const modelValue = defineModel<[string, string]>({
-  default: ['+85', ''],
+  default: () => [undefined, undefined],
 });
 
 function onChange() {
@@ -16,19 +16,21 @@ function onChange() {
     <Select
       v-model:value="modelValue[0]"
       class="w-[80px]"
-      show-search
-      placeholder="区码"
+      placeholder="类型"
+      allow-clear
       :class="{ 'valid-success': !!modelValue[0] }"
+      :options="[
+        { label: '个人', value: 'personal' },
+        { label: '工作', value: 'work' },
+        { label: '私密', value: 'private' },
+      ]"
       @blur="emit('blur')"
       @change="onChange"
-    >
-      <Select.Option value="+82">+82</Select.Option>
-      <Select.Option value="+85">+85</Select.Option>
-      <Select.Option value="+86">+86</Select.Option>
-    </Select>
+    />
     <Input
       placeholder="请输入11位手机号码"
       class="flex-1"
+      allow-clear
       :class="{ 'valid-success': modelValue[1]?.match(/^1[3-9]\d{9}$/) }"
       v-model:value="modelValue[1]"
       :maxlength="11"

@@ -18,7 +18,7 @@ const [Form] = useVbenForm({
     },
     labelClass: 'w-2/6',
   },
-  fieldMappingTime: [['field4', ['areaCode', 'phone'], null]],
+  fieldMappingTime: [['field4', ['phoneType', 'phoneNumber'], null]],
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical
@@ -56,16 +56,19 @@ const [Form] = useVbenForm({
     },
     {
       component: markRaw(TwoFields),
-      defaultValue: [undefined, '188'],
+      defaultValue: [undefined, ''],
       disabledOnChangeListener: false,
       fieldName: 'field4',
       formItemClass: 'col-span-1',
       label: '组合字段',
       rules: z
         .array(z.string().optional())
-        .length(2, '请输入手机号码')
+        .length(2, '请选择类型并输入手机号码')
         .refine((v) => !!v[0], {
-          message: '请选择区号',
+          message: '请选择类型',
+        })
+        .refine((v) => !!v[1] && v[1] !== '', {
+          message: '　　　　　　　输入手机号码',
         })
         .refine((v) => v[1]?.match(/^1[3-9]\d{9}$/), {
           // 使用全角空格占位，将错误提示文字挤到手机号码输入框的下面
