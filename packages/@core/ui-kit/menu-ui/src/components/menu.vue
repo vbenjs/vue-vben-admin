@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { UseResizeObserverReturn } from '@vueuse/core';
 
-import type { VNodeArrayChildren } from 'vue';
+import type { SetupContext, VNodeArrayChildren } from 'vue';
 
 import type {
   MenuItemClicked,
@@ -55,7 +55,7 @@ const emit = defineEmits<{
 
 const { b, is } = useNamespace('menu');
 const menuStyle = useMenuStyle();
-const slots = useSlots();
+const slots: SetupContext['slots'] = useSlots();
 const menu = ref<HTMLUListElement>();
 const sliceIndex = ref(-1);
 const openedMenus = ref<MenuProvider['openedMenus']>(

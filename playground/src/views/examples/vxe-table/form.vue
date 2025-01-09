@@ -61,7 +61,7 @@ const formOptions: VbenFormProps = {
     },
     {
       component: 'RangePicker',
-      defaultValue: [dayjs().subtract(-7, 'days'), dayjs()],
+      defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
       fieldName: 'date',
       label: 'Date',
     },
