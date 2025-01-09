@@ -4,7 +4,7 @@ import type { ZodTypeAny } from 'zod';
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
 import type { VbenButtonProps } from '@vben-core/shadcn-ui';
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType, Nullable } from '@vben-core/typings';
 
 import type { FormApi } from './form-api';
 
@@ -198,6 +198,11 @@ export interface FormCommonConfig {
    */
   labelWidth?: number;
   /**
+   * 所有表单项的model属性名
+   * @default "modelValue"
+   */
+  modelPropName?: string;
+  /**
    * 所有表单项的wrapper样式
    */
   wrapperClass?: string;
@@ -219,7 +224,7 @@ export type HandleResetFn = (
 export type FieldMappingTime = [
   string,
   [string, string],
-  ([string, string] | string)?,
+  ([string, string] | Nullable<string>)?,
 ][];
 
 export interface FormSchema<
@@ -330,7 +335,7 @@ export interface VbenFormProps<
    */
   actionWrapperClass?: ClassType;
   /**
-   * 表单字段映射成时间格式
+   * 表单字段映射
    */
   fieldMappingTime?: FieldMappingTime;
   /**

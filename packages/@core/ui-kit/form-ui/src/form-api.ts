@@ -368,17 +368,21 @@ export class FormApi {
         }
 
         const [startTime, endTime] = values[field];
-        const [startTimeFormat, endTimeFormat] = Array.isArray(format)
-          ? format
-          : [format, format];
+        if (format === null) {
+          values[startTimeKey] = startTime;
+          values[endTimeKey] = endTime;
+        } else {
+          const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+            ? format
+            : [format, format];
 
-        values[startTimeKey] = startTime
-          ? formatDate(startTime, startTimeFormat)
-          : undefined;
-        values[endTimeKey] = endTime
-          ? formatDate(endTime, endTimeFormat)
-          : undefined;
-
+          values[startTimeKey] = startTime
+            ? formatDate(startTime, startTimeFormat)
+            : undefined;
+          values[endTimeKey] = endTime
+            ? formatDate(endTime, endTimeFormat)
+            : undefined;
+        }
         // delete values[field];
         Reflect.deleteProperty(values, field);
       },
