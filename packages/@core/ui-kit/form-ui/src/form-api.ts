@@ -15,6 +15,7 @@ import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
   createMerge,
+  formatDate,
   isDate,
   isDayjsObject,
   isFunction,
@@ -94,7 +95,7 @@ export class FormApi {
 
   async getValues() {
     const form = await this.getForm();
-    return form.values;
+    return this.handleRangeTimeValue(form.values);
   }
 
   async isFieldValid(fieldName: string) {
@@ -117,12 +118,11 @@ export class FormApi {
             try {
               const results = await Promise.all(
                 chain.map(async (api) => {
-                  const form = await api.getForm();
                   const validateResult = await api.validate();
                   if (!validateResult.valid) {
                     return;
                   }
-                  const rawValues = toRaw(form.values || {});
+                  const rawValues = toRaw((await api.getValues()) || {});
                   return rawValues;
                 }),
               );
@@ -147,7 +147,9 @@ export class FormApi {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
-      this.setLatestSubmissionValues({ ...toRaw(this.form.values) });
+      this.setLatestSubmissionValues({
+        ...toRaw(this.handleRangeTimeValue(this.form.values)),
+      });
       this.isMounted = true;
     }
   }
@@ -253,7 +255,7 @@ export class FormApi {
     e?.stopPropagation();
     const form = await this.getForm();
     await form.submitForm();
-    const rawValues = toRaw(form.values || {});
+    const rawValues = toRaw(await this.getValues());
     await this.state?.handleSubmit?.(rawValues);
 
     return rawValues;
@@ -341,6 +343,48 @@ export class FormApi {
     }
     return this.form;
   }
+
+  private handleRangeTimeValue = (originValues: Record<string, any>) => {
+    const values = { ...originValues };
+    const fieldMappingTime = this.state?.fieldMappingTime;
+
+    if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
+      return values;
+    }
+
+    fieldMappingTime.forEach(
+      ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+        if (startTimeKey && endTimeKey && values[field] === null) {
+          Reflect.deleteProperty(values, startTimeKey);
+          Reflect.deleteProperty(values, endTimeKey);
+          // delete values[startTimeKey];
+          // delete values[endTimeKey];
+        }
+
+        if (!values[field]) {
+          Reflect.deleteProperty(values, field);
+          // delete values[field];
+          return;
+        }
+
+        const [startTime, endTime] = values[field];
+        const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+          ? format
+          : [format, format];
+
+        values[startTimeKey] = startTime
+          ? formatDate(startTime, startTimeFormat)
+          : undefined;
+        values[endTimeKey] = endTime
+          ? formatDate(endTime, endTimeFormat)
+          : undefined;
+
+        // delete values[field];
+        Reflect.deleteProperty(values, field);
+      },
+    );
+    return values;
+  };
 
   private updateState() {
     const currentSchema = this.state?.schema ?? [];
