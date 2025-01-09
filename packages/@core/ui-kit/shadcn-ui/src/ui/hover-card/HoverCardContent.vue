@@ -1,17 +1,14 @@
 <script setup lang="ts">
+import type { HoverCardContentProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  HoverCardContent,
-  type HoverCardContentProps,
-  HoverCardPortal,
-  useForwardProps,
-} from 'radix-vue';
+import { HoverCardContent, HoverCardPortal, useForwardProps } from 'radix-vue';
 
 const props = withDefaults(
-  defineProps<{ class?: any } & HoverCardContentProps>(),
+  defineProps<HoverCardContentProps & { class?: any }>(),
   {
     sideOffset: 4,
   },

@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shared",
-  "version": "5.5.1",
+  "version": "5.5.2",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -45,7 +45,7 @@
       "default": "./dist/store.mjs"
     },
     "./global-state": {
-      "types": "./dist/global-state.d.ts",
+      "types": "./src/global-state.ts",
       "development": "./src/global-state.ts",
       "default": "./dist/global-state.mjs"
     }

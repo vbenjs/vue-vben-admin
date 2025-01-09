@@ -1,6 +1,6 @@
-import type { ModalApi } from './modal-api';
-
 import type { Component, Ref } from 'vue';
+
+import type { ModalApi } from './modal-api';
 
 export interface ModalProps {
   /**
@@ -132,17 +132,21 @@ export interface ModalState extends ModalProps {
   sharedData?: Record<string, any>;
 }
 
-export type ExtendedModalApi = {
+export type ExtendedModalApi = ModalApi & {
   useStore: <T = NoInfer<ModalState>>(
     selector?: (state: NoInfer<ModalState>) => T,
   ) => Readonly<Ref<T>>;
-} & ModalApi;
+};
 
 export interface ModalApiOptions extends ModalState {
   /**
    * 独立的弹窗组件
    */
   connectedComponent?: Component;
+  /**
+   * 在关闭时销毁弹窗。仅在使用 connectedComponent 时有效
+   */
+  destroyOnClose?: boolean;
   /**
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns

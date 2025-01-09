@@ -1,6 +1,8 @@
 type LayoutType =
   | 'full-content'
+  | 'header-mixed-nav'
   | 'header-nav'
+  | 'header-sidebar-nav'
   | 'mixed-nav'
   | 'sidebar-mixed-nav'
   | 'sidebar-nav';
@@ -38,6 +40,7 @@ type BuiltinThemeType =
 type ContentCompactType = 'compact' | 'wide';
 
 type LayoutHeaderModeType = 'auto' | 'auto-scroll' | 'fixed' | 'static';
+type LayoutHeaderMenuAlignType = 'center' | 'end' | 'start';
 
 /**
  * 登录过期模式
@@ -95,6 +98,7 @@ export type {
   BreadcrumbStyleType,
   BuiltinThemeType,
   ContentCompactType,
+  LayoutHeaderMenuAlignType,
   LayoutHeaderModeType,
   LayoutType,
   LoginExpiredModeType,

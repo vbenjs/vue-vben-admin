@@ -44,7 +44,7 @@ const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
     v-model="sidebarAutoActivateChild"
     :disabled="
       !sidebarEnable ||
-      !['sidebar-mixed-nav', 'mixed-nav', 'sidebar-nav'].includes(
+      !['sidebar-mixed-nav', 'mixed-nav', 'header-mixed-nav'].includes(
         currentLayout as string,
       ) ||
       disabled

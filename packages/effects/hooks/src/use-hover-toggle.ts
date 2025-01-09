@@ -1,7 +1,8 @@
 import type { Arrayable, MaybeElementRef } from '@vueuse/core';
 
-import { computed, onUnmounted, ref, watch } from 'vue';
 import type { Ref } from 'vue';
+
+import { computed, onUnmounted, ref, watch } from 'vue';
 
 import { isFunction } from '@vben/utils';
 

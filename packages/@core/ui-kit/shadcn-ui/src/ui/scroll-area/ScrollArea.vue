@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ScrollAreaRootProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
@@ -6,7 +8,6 @@ import { cn } from '@vben-core/shared/utils';
 import {
   ScrollAreaCorner,
   ScrollAreaRoot,
-  type ScrollAreaRootProps,
   ScrollAreaViewport,
 } from 'radix-vue';
 
@@ -14,11 +15,11 @@ import ScrollBar from './ScrollBar.vue';
 
 const props = withDefaults(
   defineProps<
-    {
+    ScrollAreaRootProps & {
       class?: any;
       onScroll?: (event: Event) => void;
       viewportProps?: { onScroll: (event: Event) => void };
-    } & ScrollAreaRootProps
+    }
   >(),
   {
     onScroll: () => {},

@@ -9,7 +9,11 @@ vi.mock('@vben-core/shared/store', () => {
   return {
     isFunction: (fn: any) => typeof fn === 'function',
     Store: class {
+      get state() {
+        return this._state;
+      }
       private _state: DrawerState;
+
       private options: any;
 
       constructor(initialState: DrawerState, options: any) {
@@ -24,10 +28,6 @@ vi.mock('@vben-core/shared/store', () => {
       setState(fn: (prev: DrawerState) => DrawerState) {
         this._state = fn(this._state);
         this.options.onUpdate();
-      }
-
-      get state() {
-        return this._state;
       }
     },
   };
@@ -100,14 +100,18 @@ describe('drawerApi', () => {
     expect(onOpenChange).toHaveBeenCalledWith(true);
   });
 
-  it('should batch state updates', () => {
-    const batchSpy = vi.spyOn(drawerApi.store, 'batch');
-    drawerApi.batchStore(() => {
-      drawerApi.setState({ title: 'Batch Title' });
-      drawerApi.setState({ confirmText: 'Batch Confirm' });
-    });
-    expect(batchSpy).toHaveBeenCalled();
-    expect(drawerApi.store.state.title).toBe('Batch Title');
-    expect(drawerApi.store.state.confirmText).toBe('Batch Confirm');
+  it('should call onClosed callback when provided', () => {
+    const onClosed = vi.fn();
+    const drawerApiWithHook = new DrawerApi({ onClosed });
+    drawerApiWithHook.onClosed();
+    expect(onClosed).toHaveBeenCalled();
+  });
+
+  it('should call onOpened callback when provided', () => {
+    const onOpened = vi.fn();
+    const drawerApiWithHook = new DrawerApi({ onOpened });
+    drawerApiWithHook.open();
+    drawerApiWithHook.onOpened();
+    expect(onOpened).toHaveBeenCalled();
   });
 });

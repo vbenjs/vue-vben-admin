@@ -4,27 +4,34 @@ import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class DrawerApi {
-  private api: Pick<
-    DrawerApiOptions,
-    'onBeforeClose' | 'onCancel' | 'onConfirm' | 'onOpenChange'
-  >;
-  // private prevState!: DrawerState;
-  private state!: DrawerState;
-
   // 共享数据
   public sharedData: Record<'payload', any> = {
     payload: {},
   };
-
   public store: Store<DrawerState>;
+
+  private api: Pick<
+    DrawerApiOptions,
+    | 'onBeforeClose'
+    | 'onCancel'
+    | 'onClosed'
+    | 'onConfirm'
+    | 'onOpenChange'
+    | 'onOpened'
+  >;
+
+  // private prevState!: DrawerState;
+  private state!: DrawerState;
 
   constructor(options: DrawerApiOptions = {}) {
     const {
       connectedComponent: _,
       onBeforeClose,
       onCancel,
+      onClosed,
       onConfirm,
       onOpenChange,
+      onOpened,
       ...storeState
     } = options;
 
@@ -68,15 +75,12 @@ export class DrawerApi {
     this.api = {
       onBeforeClose,
       onCancel,
+      onClosed,
       onConfirm,
       onOpenChange,
+      onOpened,
     };
     bindMethods(this);
-  }
-
-  // 如果需要多次更新状态，可以使用 batch 方法
-  batchStore(cb: () => void) {
-    this.store.batch(cb);
   }
 
   /**
@@ -107,10 +111,28 @@ export class DrawerApi {
   }
 
   /**
+   * 弹窗关闭动画播放完毕后的回调
+   */
+  onClosed() {
+    if (!this.state.isOpen) {
+      this.api.onClosed?.();
+    }
+  }
+
+  /**
    * 确认操作
    */
   onConfirm() {
     this.api.onConfirm?.();
+  }
+
+  /**
+   * 弹窗打开动画播放完毕后的回调
+   */
+  onOpened() {
+    if (this.state.isOpen) {
+      this.api.onOpened?.();
+    }
   }
 
   open() {

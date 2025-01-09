@@ -54,6 +54,7 @@ Drawer 内的内容一般业务中，会比较复杂，所以我们可以将 dra
 
 - `VbenDrawer` 组件对与参数的处理优先级是 `slot` > `props` > `state`(通过api更新的状态以及useVbenDrawer参数)。如果你已经传入了 `slot` 或者 `props`，那么 `setState` 将不会生效，这种情况下你可以通过 `slot` 或者 `props` 来更新状态。
 - 如果你使用到了 `connectedComponent` 参数，那么会存在 2 个`useVbenDrawer`, 此时，如果同时设置了相同的参数，那么以内部为准（也就是没有设置 connectedComponent 的代码）。比如 同时设置了 `onConfirm`，那么以内部的 `onConfirm` 为准。`onOpenChange`事件除外，内外都会触发。
+- 使用了`connectedComponent`参数时，可以配置`destroyOnClose`属性来决定当关闭弹窗时，是否要销毁`connectedComponent`组件（重新创建`connectedComponent`组件，这将会把其内部所有的变量、状态、数据等恢复到初始状态。）。
 
 :::
 
@@ -75,12 +76,15 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | appendToMain | 是否挂载到内容区域（默认挂载到body） | `boolean` | `false` |
+| connectedComponent | 连接另一个Modal组件 | `Component` | - |
+| destroyOnClose | 关闭时销毁`connectedComponent` | `boolean` | `false` |
 | title | 标题 | `string\|slot` | - |
 | titleTooltip | 标题提示信息 | `string\|slot` | - |
 | description | 描述信息 | `string\|slot` | - |
 | isOpen | 弹窗打开状态 | `boolean` | `false` |
 | loading | 弹窗加载状态 | `boolean` | `false` |
 | closable | 显示关闭按钮 | `boolean` | `true` |
+| closeIconPlacement | 关闭按钮位置 | `'left'\|'right'` | `right` |
 | modal | 显示遮罩 | `boolean` | `true` |
 | header | 显示header | `boolean` | `true` |
 | footer | 显示footer | `boolean\|slot` | `true` |
@@ -108,12 +112,14 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 以下事件，只有在 `useVbenDrawer({onCancel:()=>{}})` 中传入才会生效。
 
-| 事件名 | 描述 | 类型 |
-| --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` |
-| onCancel | 点击取消按钮触发 | `()=>void` |
-| onConfirm | 点击确认按钮触发 | `()=>void` |
-| onOpenChange | 关闭或者打开弹窗时触发 | `(isOpen:boolean)=>void` |
+| 事件名 | 描述 | 类型 | 版本限制 |
+| --- | --- | --- | --- |
+| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` | --- |
+| onCancel | 点击取消按钮触发 | `()=>void` | --- |
+| onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.5.2 |
+| onConfirm | 点击确认按钮触发 | `()=>void` | --- |
+| onOpenChange | 关闭或者打开弹窗时触发 | `(isOpen:boolean)=>void` | --- |
+| onOpened | 打开动画播放完毕时触发 | `()=>void` | >5.5.2 |
 
 ### Slots
 
@@ -124,6 +130,8 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | default        | 默认插槽 - 弹窗内容 |
 | prepend-footer | 取消按钮左侧        |
 | append-footer  | 取消按钮右侧        |
+| close-icon     | 关闭按钮图标        |
+| extra          | 额外内容(标题右侧)  |
 
 ### modalApi
 

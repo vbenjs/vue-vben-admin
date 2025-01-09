@@ -1,8 +1,9 @@
 import type { EChartsOption } from 'echarts';
 
+import type { Ref } from 'vue';
+
 import type EchartsUI from './echarts-ui.vue';
 
-import type { Ref } from 'vue';
 import { computed, nextTick, watch } from 'vue';
 
 import { usePreferences } from '@vben/preferences';
@@ -108,6 +109,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   return {
     renderEcharts,
     resize,
+    chartInstance
   };
 }
 

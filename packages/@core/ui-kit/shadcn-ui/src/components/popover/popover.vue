@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
 import type {
   PopoverContentProps,
   PopoverRootEmits,
   PopoverRootProps,
 } from 'radix-vue';
+
+import type { ClassType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 

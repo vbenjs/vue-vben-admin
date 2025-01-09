@@ -1,8 +1,8 @@
 import type { AsTag } from 'radix-vue';
 
-import type { ButtonVariants, ButtonVariantSize } from '../../ui';
-
 import type { Component } from 'vue';
+
+import type { ButtonVariants, ButtonVariantSize } from '../../ui';
 
 export interface VbenButtonProps {
   /**

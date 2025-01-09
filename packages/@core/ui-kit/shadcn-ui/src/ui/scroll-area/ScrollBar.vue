@@ -1,16 +1,14 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  ScrollAreaScrollbar,
-  type ScrollAreaScrollbarProps,
-  ScrollAreaThumb,
-} from 'radix-vue';
+import { ScrollAreaScrollbar, ScrollAreaThumb } from 'radix-vue';
 
 const props = withDefaults(
-  defineProps<{ class?: any } & ScrollAreaScrollbarProps>(),
+  defineProps<ScrollAreaScrollbarProps & { class?: any }>(),
   {
     orientation: 'vertical',
   },

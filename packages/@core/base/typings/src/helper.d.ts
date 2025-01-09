@@ -1,4 +1,4 @@
-import { type ComputedRef, type MaybeRef } from 'vue';
+import type { ComputedRef, MaybeRef } from 'vue';
 
 /**
  * 深层递归所有属性为可选

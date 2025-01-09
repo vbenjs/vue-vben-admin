@@ -29,11 +29,23 @@ export function useLayout(props: VbenLayoutProps) {
   /**
    * 是否为混合导航模式
    */
-  const isMixedNav = computed(() => currentLayout.value === 'mixed-nav');
+  const isMixedNav = computed(
+    () =>
+      currentLayout.value === 'mixed-nav' ||
+      currentLayout.value === 'header-sidebar-nav',
+  );
+
+  /**
+   * 是否为头部混合模式
+   */
+  const isHeaderMixedNav = computed(
+    () => currentLayout.value === 'header-mixed-nav',
+  );
 
   return {
     currentLayout,
     isFullContent,
+    isHeaderMixedNav,
     isHeaderNav,
     isMixedNav,
     isSidebarMixedNav,

@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router';
 
 import { preferences } from '@vben/preferences';
 import { useTabbarStore } from '@vben/stores';
+
 import { VbenSpinner } from '@vben-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });

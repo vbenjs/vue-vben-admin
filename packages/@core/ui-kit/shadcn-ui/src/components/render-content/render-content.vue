@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Component, PropType } from 'vue';
+
 import { defineComponent, h } from 'vue';
 
 import { isFunction, isObject } from '@vben-core/shared/utils';

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { AvatarVariants } from './avatar';
+
 import { cn } from '@vben-core/shared/utils';
 
 import { AvatarRoot } from 'radix-vue';
 
-import { avatarVariant, type AvatarVariants } from './avatar';
+import { avatarVariant } from './avatar';
 
 const props = withDefaults(
   defineProps<{

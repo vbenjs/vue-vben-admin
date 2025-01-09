@@ -17,6 +17,8 @@
   "horizontalTip": "Horizontal menu mode, all menus displayed at the top",
   "twoColumn": "Two Column",
   "twoColumnTip": "Vertical Two Column Menu Mode",
+  "headerSidebarNav": "Header Vertical",
+  "headerSidebarNavTip": "Header Full Width, Sidebar Navigation Mode",
   "mixedMenu": "Mixed Menu",
   "mixedMenuTip": "Vertical & Horizontal Menu Co-exists",
   "fullContent": "Full Content",
@@ -138,7 +140,11 @@
     "modeStatic": "Static",
     "modeFixed": "Fixed",
     "modeAuto": "Auto hide & Show",
-    "modeAutoScroll": "Scroll to Hide & Show"
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "Menu Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "End",
+    "menuAlignCenter": "Center"
   },
   "footer": {
     "title": "Footer",

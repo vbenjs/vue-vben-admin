@@ -17,7 +17,11 @@
   "horizontalTip": "水平菜单模式，菜单全部显示在顶部",
   "twoColumn": "双列菜单",
   "twoColumnTip": "垂直双列菜单模式",
-  "mixedMenu": "混合菜单",
+  "headerSidebarNav": "侧边导航",
+  "headerSidebarNavTip": "顶部通栏，侧边导航模式",
+  "headerTwoColumn": "混合双列",
+  "headerTwoColumnTip": "双列、水平菜单共存模式",
+  "mixedMenu": "混合垂直",
   "mixedMenuTip": "垂直水平菜单共存",
   "fullContent": "内容全屏",
   "fullContentTip": "不显示任何菜单，只显示内容主体",
@@ -138,7 +142,11 @@
     "modeFixed": "固定",
     "modeAuto": "自动隐藏和显示",
     "modeAutoScroll": "滚动隐藏和显示",
-    "visible": "显示顶栏"
+    "visible": "显示顶栏",
+    "menuAlign": "菜单位置",
+    "menuAlignStart": "左侧",
+    "menuAlignEnd": "右侧",
+    "menuAlignCenter": "居中"
   },
   "footer": {
     "title": "底栏",

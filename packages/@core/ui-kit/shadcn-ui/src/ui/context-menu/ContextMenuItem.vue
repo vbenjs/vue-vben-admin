@@ -1,17 +1,14 @@
 <script setup lang="ts">
+import type { ContextMenuItemEmits, ContextMenuItemProps } from 'radix-vue';
+
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  ContextMenuItem,
-  type ContextMenuItemEmits,
-  type ContextMenuItemProps,
-  useForwardPropsEmits,
-} from 'radix-vue';
+import { ContextMenuItem, useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<
-  { class?: any; inset?: boolean } & ContextMenuItemProps
+  ContextMenuItemProps & { class?: any; inset?: boolean }
 >();
 const emits = defineEmits<ContextMenuItemEmits>();
 
