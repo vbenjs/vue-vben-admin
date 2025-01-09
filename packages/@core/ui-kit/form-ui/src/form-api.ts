@@ -118,12 +118,11 @@ export class FormApi {
             try {
               const results = await Promise.all(
                 chain.map(async (api) => {
-                  const form = await api.getForm();
                   const validateResult = await api.validate();
                   if (!validateResult.valid) {
                     return;
                   }
-                  const rawValues = toRaw(form.values || {});
+                  const rawValues = toRaw((await api.getValues()) || {});
                   return rawValues;
                 }),
               );
