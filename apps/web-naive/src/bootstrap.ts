@@ -4,6 +4,7 @@ import { registerAccessDirective } from '@vben/access';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
+import '@vben/styles/naive';
 
 import { useTitle } from '@vueuse/core';
 

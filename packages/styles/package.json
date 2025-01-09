@@ -21,6 +21,9 @@
     "./ele": {
       "default": "./src/ele/index.css"
     },
+    "./naive": {
+      "default": "./src/naive/index.css"
+    },
     "./global": {
       "default": "./src/global/index.scss"
     }
