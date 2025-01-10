@@ -481,8 +481,8 @@ catalogs:
       specifier: ^4.3.67
       version: 4.3.67
     vxe-table:
-      specifier: ^4.10.5
-      version: 4.10.5
+      specifier: 4.10.0
+      version: 4.10.0
     watermark-js-plus:
       specifier: ^1.5.7
       version: 1.5.7
@@ -1662,7 +1662,7 @@ importers:
         version: 4.3.67(vue@3.5.13(typescript@5.7.3))
       vxe-table:
         specifier: 'catalog:'
-        version: 4.10.5(vue@3.5.13(typescript@5.7.3))
+        version: 4.10.0(vue@3.5.13(typescript@5.7.3))
 
   packages/effects/request:
     dependencies:
@@ -10125,11 +10125,8 @@ packages:
   vxe-pc-ui@4.3.67:
     resolution: {integrity: sha512-RyRyxd7MUdlac5tOnWVb7V9alW+tFHTUOyXa9aIGyyMm5Nwrzdf/q4Un5KIlGaddFifgBAw82SGPfK+hQhaQDQ==}
 
-  vxe-pc-ui@4.3.68:
-    resolution: {integrity: sha512-uQxvZICO2XLu2FywpxQJkkCIYOhv/QqsoIJnOhyh2fBTAQjCT3zqPh/AIrB1v6r+FaFipjwyO+/4ZsNMMKbFeA==}
-
-  vxe-table@4.10.5:
-    resolution: {integrity: sha512-X04AwhfZLaBy1gSiCsVd0EPurIaFwOOna9XzojF0eUr2c6rYF8u9IrhP+vSBmOj+yDiAENf8QjXFyLgNU3NTTg==}
+  vxe-table@4.10.0:
+    resolution: {integrity: sha512-HysVARZXZGgXd5tR9vpahZcLB4RuB90ZoZNFKmKc670bGD3bWFFBdBpeQshXziVSkuPi65MqfE7Wq0b2enRcYg==}
 
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
@@ -19770,15 +19767,9 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  vxe-pc-ui@4.3.68(vue@3.5.13(typescript@5.7.3)):
+  vxe-table@4.10.0(vue@3.5.13(typescript@5.7.3)):
     dependencies:
-      '@vxe-ui/core': 4.0.29(vue@3.5.13(typescript@5.7.3))
-    transitivePeerDependencies:
-      - vue
-
-  vxe-table@4.10.5(vue@3.5.13(typescript@5.7.3)):
-    dependencies:
-      vxe-pc-ui: 4.3.68(vue@3.5.13(typescript@5.7.3))
+      vxe-pc-ui: 4.3.67(vue@3.5.13(typescript@5.7.3))
     transitivePeerDependencies:
       - vue
 
