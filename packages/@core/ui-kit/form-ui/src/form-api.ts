@@ -95,7 +95,7 @@ export class FormApi {
 
   async getValues() {
     const form = await this.getForm();
-    return this.handleRangeTimeValue(form.values);
+    return form.values ? this.handleRangeTimeValue(form.values) : {};
   }
 
   async isFieldValid(fieldName: string) {

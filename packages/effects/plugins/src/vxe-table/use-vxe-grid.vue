@@ -248,7 +248,10 @@ async function init() {
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
-    props.api.grid.commitProxy?.('_init', (await formApi.getValues()) ?? {});
+    props.api.grid.commitProxy?.(
+      '_init',
+      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
+    );
     // props.api.reload(formApi.form?.values ?? {});
   }
 
