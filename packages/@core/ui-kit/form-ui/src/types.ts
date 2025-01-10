@@ -4,7 +4,7 @@ import type { ZodTypeAny } from 'zod';
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
 import type { VbenButtonProps } from '@vben-core/shadcn-ui';
-import type { ClassType, Nullable } from '@vben-core/typings';
+import type { ClassType, MaybeComputedRef, Nullable } from '@vben-core/typings';
 
 import type { FormApi } from './form-api';
 
@@ -316,7 +316,7 @@ export interface FormRenderProps<
 
 export interface ActionButtonOptions extends VbenButtonProps {
   [key: string]: any;
-  content?: string;
+  content?: MaybeComputedRef<string>;
   show?: boolean;
 }
 
