@@ -21,11 +21,20 @@ async function generateRoutesByFrontend(
 
   // 如果有禁止访问的页面，将禁止访问的页面替换为403页面
   return mapTree(finalRoutes, (route) => {
-    if (menuHasVisibleWithForbidden(route)) {
+    if (isForBidden(route, roles)) {
       route.component = forbiddenComponent;
     }
     return route;
   });
+}
+
+/**
+ * 判断是否禁止访问
+ * @param route
+ * @returns
+ */
+function isForBidden (route: RouteRecordRaw, roles: string[]) {
+  return !!route.meta?.authority && !roles.some((role) => route.meta?.authority?.includes(role));
 }
 
 /**
