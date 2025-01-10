@@ -26,13 +26,7 @@ const emit = defineEmits<{
   unpin: [TabDefinition];
 }>();
 const active = defineModel<string>('active');
-function onMouseDown(e: MouseEvent, key: string) {
-  if (e.button === 1 && props.middleClickToClose) {
-    e.preventDefault();
-    e.stopPropagation();
-    emit('close', key);
-  }
-}
+
 const typeWithClass = computed(() => {
   const typeClasses: Record<string, { content: string }> = {
     brisk: {
@@ -68,6 +62,20 @@ const tabsView = computed(() => {
     } as TabConfig;
   });
 });
+
+function onMouseDown(e: MouseEvent, tab: TabConfig) {
+  if (
+    e.button === 1 &&
+    tab.closable &&
+    !tab.affixTab &&
+    tabsView.value.length > 1 &&
+    props.middleClickToClose
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+    emit('close', tab.key);
+  }
+}
 </script>
 
 <template>
@@ -91,7 +99,7 @@ const tabsView = computed(() => {
         class="tab-item [&:not(.is-active)]:hover:bg-accent translate-all group relative flex cursor-pointer select-none"
         data-tab-item="true"
         @click="active = tab.key"
-        @mousedown="onMouseDown($event, tab.key)"
+        @mousedown="onMouseDown($event, tab)"
       >
         <VbenContextMenu
           :handler-data="tab"
