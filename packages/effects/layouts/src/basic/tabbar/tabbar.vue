@@ -27,7 +27,6 @@ const {
   currentTabs,
   handleClick,
   handleClose,
-  handleMiddleClick,
 } = useTabbar();
 
 const menus = computed(() => {
@@ -60,7 +59,6 @@ if (!preferences.tabbar.persist) {
     :wheelable="preferences.tabbar.wheelable"
     :middle-click-to-close="preferences.tabbar.middleClickToClose"
     @close="handleClose"
-    @middle-click="handleMiddleClick"
     @sort-tabs="tabbarStore.sortTabs"
     @unpin="unpinTab"
     @update:active="handleClick"
