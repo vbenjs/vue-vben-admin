@@ -19,6 +19,8 @@
   "twoColumnTip": "Vertical Two Column Menu Mode",
   "headerSidebarNav": "Header Vertical",
   "headerSidebarNavTip": "Header Full Width, Sidebar Navigation Mode",
+  "headerTwoColumn": "Header Two Column",
+  "headerTwoColumnTip": "Header Navigation & Sidebar Two Column co-exists",
   "mixedMenu": "Mixed Menu",
   "mixedMenuTip": "Vertical & Horizontal Menu Co-exists",
   "fullContent": "Full Content",
@@ -62,6 +64,7 @@
     "persist": "Persist Tabs",
     "draggable": "Enable Draggable Sort",
     "wheelable": "Support Mouse Wheel",
+    "middleClickClose": "Close Tab when Mouse Middle Button Click",
     "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
     "styleType": {
       "title": "Tabs Style",

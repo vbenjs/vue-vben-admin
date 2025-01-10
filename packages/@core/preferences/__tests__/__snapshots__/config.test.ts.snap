@@ -80,6 +80,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "enable": true,
     "height": 38,
     "keepAlive": true,
+    "middleClickToClose": false,
     "persist": true,
     "showIcon": true,
     "showMaximize": true,

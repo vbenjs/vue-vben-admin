@@ -64,6 +64,7 @@
     "persist": "持久化标签页",
     "draggable": "启动拖拽排序",
     "wheelable": "启用纵向滚轮响应",
+    "middleClickClose": "点击鼠标中键关闭标签页",
     "wheelableTip": "开启后，标签栏区域可以响应滚轮的纵向滚动事件。\n关闭时，只能响应系统的横向滚动事件（需要按下Shift再滚动滚轮）",
     "styleType": {
       "title": "标签页风格",
