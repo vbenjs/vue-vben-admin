@@ -70,7 +70,7 @@ function createRequestClient(baseURL: string) {
   });
 
   // response数据解构
-  client.addResponseInterceptor<HttpResponse<string>>({
+  client.addResponseInterceptor<HttpResponse>({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
 
@@ -78,6 +78,7 @@ function createRequestClient(baseURL: string) {
       if (status >= 200 && status < 400 && code === 0) {
         return data;
       }
+
       throw Object.assign({}, response, { response });
     },
   });
