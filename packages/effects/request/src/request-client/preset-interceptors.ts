@@ -1,9 +1,15 @@
+import type { AxiosRequestConfig } from 'axios';
+
 import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
 import { $t } from '@vben/locales';
 
 import axios from 'axios';
+
+interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
+  __isRetryRequest?: boolean;
+}
 
 export const authenticateResponseInterceptor = ({
   client,
@@ -20,14 +26,18 @@ export const authenticateResponseInterceptor = ({
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
-      const { config, response } = error;
+      const config = error.config as ExtendedAxiosRequestConfig;
+      const response = error.response;
       // 如果不是 401 错误，直接抛出异常
       if (response?.status !== 401) {
         throw error;
       }
+      if (!config) {
+        throw error;
+      }
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
-      if (!enableRefreshToken || config.__isRetryRequest) {
+      if (!enableRefreshToken || config?.__isRetryRequest) {
         await doReAuthenticate();
         throw error;
       }
@@ -35,8 +45,10 @@ export const authenticateResponseInterceptor = ({
       if (client.isRefreshing) {
         return new Promise((resolve) => {
           client.refreshTokenQueue.push((newToken: string) => {
-            config.headers.Authorization = formatToken(newToken);
-            resolve(client.request(config.url, { ...config }));
+            if (config.headers?.Authorization) {
+              config.headers.Authorization = formatToken(newToken);
+            }
+            resolve(client.request(config.url as string, { ...config }));
           });
         });
       }
@@ -54,7 +66,7 @@ export const authenticateResponseInterceptor = ({
         // 清空队列
         client.refreshTokenQueue = [];
 
-        return client.request(error.config.url, { ...error.config });
+        return client.request(error.config?.url as string, { ...error.config });
       } catch (refreshError) {
         // 如果刷新 token 失败，处理错误（如强制登出或跳转登录页面）
         client.refreshTokenQueue.forEach((callback) => callback(''));
@@ -74,9 +86,9 @@ export const errorMessageResponseInterceptor = (
   makeErrorMessage?: MakeErrorMessageFn,
 ): ResponseInterceptorConfig => {
   return {
-    rejected: (error: any) => {
+    rejected: (error) => {
       if (axios.isCancel(error)) {
-        return Promise.reject(error);
+        // return Promise.reject(error);
       }
 
       const err: string = error?.toString?.() ?? '';

@@ -1,17 +1,14 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
 import type {
+  HttpResponse,
+  HttpResponseData,
   RequestInterceptorConfig,
   ResponseInterceptorConfig,
 } from '../types';
 
 const defaultRequestInterceptorConfig: RequestInterceptorConfig = {
   fulfilled: (response) => response,
-  rejected: (error) => Promise.reject(error),
-};
-
-const defaultResponseInterceptorConfig: ResponseInterceptorConfig = {
-  fulfilled: (response: AxiosResponse) => response,
   rejected: (error) => Promise.reject(error),
 };
 
@@ -29,11 +26,18 @@ class InterceptorManager {
     this.axiosInstance.interceptors.request.use(fulfilled, rejected);
   }
 
-  addResponseInterceptor<T = any>({
+  addResponseInterceptor<T extends HttpResponse>({
     fulfilled,
     rejected,
-  }: ResponseInterceptorConfig<T> = defaultResponseInterceptorConfig) {
-    this.axiosInstance.interceptors.response.use(fulfilled, rejected);
+  }: ResponseInterceptorConfig<T>) {
+    this.axiosInstance.interceptors.response.use(
+      <O extends T>(response: AxiosResponse<O>): HttpResponseData<O> | O => {
+        return fulfilled
+          ? (fulfilled(response) as HttpResponseData<O> | O)
+          : response.data;
+      },
+      rejected,
+    );
   }
 }
 

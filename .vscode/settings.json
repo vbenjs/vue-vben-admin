@@ -130,7 +130,7 @@
     "**/.DS_Store": true,
     "**/.vitepress/cache": true,
     "**/.idea": true,
-    "**/.vscode": false,
+    "**/.vscode": true,
     "**/.yarn": true,
     "**/tmp": true,
     "*.xml": true,
@@ -138,6 +138,7 @@
     "dist": true,
     "node_modules": true,
     "CHANGELOG.md": true,
+    "LICENSE": true,
     "**/pnpm-lock.yaml": true,
     "**/yarn.lock": true
   },

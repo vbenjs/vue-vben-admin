@@ -52,7 +52,7 @@ export async function typescript(): Promise<Linter.Config[]> {
             allow: ['arrowFunctions', 'functions', 'methods'],
           },
         ],
-        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-namespace': 'off',
         '@typescript-eslint/no-non-null-assertion': 'error',
         '@typescript-eslint/no-unused-expressions': 'off',

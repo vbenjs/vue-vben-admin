@@ -1,10 +1,11 @@
 import type {
+  AxiosError,
   AxiosResponse,
   CreateAxiosDefaults,
   InternalAxiosRequestConfig,
 } from 'axios';
 
-type RequestResponse<T = any> = AxiosResponse<T>;
+type RequestResponse<T = unknown> = AxiosResponse<T>;
 
 type RequestContentType =
   | 'application/json;charset=utf-8'
@@ -14,25 +15,7 @@ type RequestContentType =
 
 type RequestClientOptions = CreateAxiosDefaults;
 
-interface RequestInterceptorConfig {
-  fulfilled?: (
-    config: InternalAxiosRequestConfig,
-  ) =>
-    | InternalAxiosRequestConfig<any>
-    | Promise<InternalAxiosRequestConfig<any>>;
-  rejected?: (error: any) => any;
-}
-
-interface ResponseInterceptorConfig<T = any> {
-  fulfilled?: (
-    response: AxiosResponse<T>,
-  ) => AxiosResponse | Promise<AxiosResponse>;
-  rejected?: (error: any) => any;
-}
-
-type MakeErrorMessageFn = (message: string, error: any) => void;
-
-interface HttpResponse<T = any> {
+interface HttpResponse<T = unknown> {
   /**
    * 0 表示成功 其他表示失败
    * 0 means success, others means fail
@@ -42,8 +25,38 @@ interface HttpResponse<T = any> {
   message: string;
 }
 
+type HttpResponseData<T> = T extends HttpResponse<infer U> ? U : never;
+
+interface HttpErrorResponse {
+  code: number;
+  message: string;
+  error: string;
+}
+
+type MakeErrorMessageFn = (
+  message: string,
+  error: AxiosError<HttpErrorResponse>,
+) => void;
+
+interface RequestInterceptorConfig {
+  fulfilled?: (
+    config: InternalAxiosRequestConfig,
+  ) =>
+    | InternalAxiosRequestConfig<unknown>
+    | Promise<InternalAxiosRequestConfig<unknown>>;
+  rejected?: (error: unknown) => unknown;
+}
+
+interface ResponseInterceptorConfig<T = HttpResponse> {
+  fulfilled?: (response: AxiosResponse<T>) => HttpResponseData<T> | T;
+  rejected?: (
+    error: AxiosError<HttpErrorResponse>,
+  ) => AxiosError | Promise<AxiosError>;
+}
+
 export type {
   HttpResponse,
+  HttpResponseData,
   MakeErrorMessageFn,
   RequestClientOptions,
   RequestContentType,
