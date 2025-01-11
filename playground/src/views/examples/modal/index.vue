@@ -63,24 +63,25 @@ function openDynamicModal() {
 }
 
 function openSharedModal() {
-  sharedModalApi.setData({
-    content: '外部传递的数据 content',
-    payload: '外部传递的数据 payload',
-  });
-  sharedModalApi.open();
+  sharedModalApi
+    .setData({
+      content: '外部传递的数据 content',
+      payload: '外部传递的数据 payload',
+    })
+    .open();
 }
 
 function handleUpdateTitle() {
-  dynamicModalApi.setState({ title: '外部动态标题' });
-  dynamicModalApi.open();
+  dynamicModalApi.setState({ title: '外部动态标题' }).open();
 }
 
 function openFormModal() {
-  formModalApi.setData({
-    // 表单值
-    values: { field1: 'abc' },
-  });
-  formModalApi.open();
+  formModalApi
+    .setData({
+      // 表单值
+      values: { field1: 'abc' },
+    })
+    .open();
 }
 </script>
 

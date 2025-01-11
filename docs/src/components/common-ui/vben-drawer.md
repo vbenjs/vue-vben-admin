@@ -133,13 +133,13 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | close-icon     | 关闭按钮图标        |
 | extra          | 额外内容(标题右侧)  |
 
-### modalApi
+### drawerApi
 
-| 事件名 | 描述 | 类型 |
+| 方法 | 描述 | 类型 |
 | --- | --- | --- |
-| setState | 动态设置弹窗状态属性 | `setState(props) \| setState((prev)=>(props))` |
+| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>drawerApi` |
 | open | 打开弹窗 | `()=>void` |
 | close | 关闭弹窗 | `()=>void` |
-| setData | 设置共享数据 | `<T>(data:T)=>void` |
+| setData | 设置共享数据 | `<T>(data:T)=>drawerApi` |
 | getData | 获取共享数据 | `<T>()=>T` |
 | useStore | 获取可响应式状态 | - |
