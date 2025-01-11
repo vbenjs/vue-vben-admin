@@ -145,9 +145,9 @@ const [Modal, modalApi] = useVbenModal({
 
 | 方法 | 描述 | 类型 |
 | --- | --- | --- |
-| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modelApi` |
+| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` |
 | open | 打开弹窗 | `()=>void` |
 | close | 关闭弹窗 | `()=>void` |
-| setData | 设置共享数据 | `<T>(data:T)=>modelApi` |
+| setData | 设置共享数据 | `<T>(data:T)=>modalApi` |
 | getData | 获取共享数据 | `<T>()=>T` |
 | useStore | 获取可响应式状态 | - |
