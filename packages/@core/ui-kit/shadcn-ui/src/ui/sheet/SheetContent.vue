@@ -27,7 +27,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<SheetContentProps>(), {
   appendTo: 'body',
-  zIndex: 1000,
+  zIndex: 2000,
 });
 
 const emits = defineEmits<

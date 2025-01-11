@@ -110,7 +110,7 @@ const [Modal, modalApi] = useVbenModal({
 | footerClass | modal底部区域的class | `string` | - |
 | headerClass | modal顶部区域的class | `string` | - |
 | bordered | 是否显示border | `boolean` | `false` |
-| zIndex | 弹窗的ZIndex层级 | `number` | `1000` |
+| zIndex | 弹窗的ZIndex层级 | `number` | `2000` |
 
 ::: info appendToMain
 
