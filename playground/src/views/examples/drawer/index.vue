@@ -45,6 +45,10 @@ function openBaseDrawer(placement: DrawerPlacement = 'right') {
   baseDrawerApi.setState({ placement }).open();
 }
 
+function openBlurDrawer() {
+  baseDrawerApi.setState({ overlayBlur: 5 }).open();
+}
+
 function openInContentDrawer(placement: DrawerPlacement = 'right') {
   const state: Partial<DrawerState> = { class: '', placement };
   if (placement === 'top') {
@@ -123,6 +127,9 @@ function openFormDrawer() {
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBaseDrawer('top')">
         顶部打开
+      </Button>
+      <Button class="mb-2 ml-2" type="primary" @click="openBlurDrawer">
+        遮罩层模糊效果
       </Button>
     </Card>
 

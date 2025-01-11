@@ -6,6 +6,7 @@ import { Button, Card, Flex } from 'ant-design-vue';
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
 import BaseDemo from './base-demo.vue';
+import BlurDemo from './blur-demo.vue';
 import DragDemo from './drag-demo.vue';
 import DynamicDemo from './dynamic-demo.vue';
 import FormModalDemo from './form-modal-demo.vue';
@@ -47,6 +48,10 @@ const [NestedModal, nestedModalApi] = useVbenModal({
   connectedComponent: NestedDemo,
 });
 
+const [BlurModal, blurModalApi] = useVbenModal({
+  connectedComponent: BlurDemo,
+});
+
 function openBaseModal() {
   baseModalApi.open();
 }
@@ -80,6 +85,10 @@ function openNestedModal() {
   nestedModalApi.open();
 }
 
+function openBlurModal() {
+  blurModalApi.open();
+}
+
 function handleUpdateTitle() {
   dynamicModalApi.setState({ title: '外部动态标题' }).open();
 }
@@ -111,6 +120,7 @@ function openFormModal() {
     <SharedDataModal />
     <FormModal />
     <NestedModal />
+    <BlurModal />
     <Flex wrap="wrap" class="w-full" gap="10">
       <Card class="w-[300px]" title="基本使用">
         <p>一个基础的弹窗示例</p>
@@ -174,6 +184,13 @@ function openFormModal() {
         <p>在已经打开的弹窗中再次打开弹窗</p>
         <template #actions>
           <Button type="primary" @click="openNestedModal">打开嵌套弹窗</Button>
+        </template>
+      </Card>
+
+      <Card class="w-[300px]" title="遮罩模糊示例">
+        <p>遮罩层应用类似毛玻璃的模糊效果</p>
+        <template #actions>
+          <Button type="primary" @click="openBlurModal">打开弹窗</Button>
         </template>
       </Card>
     </Flex>
