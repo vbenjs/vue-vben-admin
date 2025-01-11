@@ -1,6 +1,6 @@
 import type { EventHandlerRequest, H3Event } from 'h3';
 
-export function useResponseSuccess<T = any>(data: T) {
+export function useResponseSuccess<T = unknown>(data: T) {
   return {
     code: 0,
     data,
@@ -9,7 +9,7 @@ export function useResponseSuccess<T = any>(data: T) {
   };
 }
 
-export function usePageResponseSuccess<T = any>(
+export function usePageResponseSuccess<T = unknown>(
   page: number | string,
   pageSize: number | string,
   list: T[],
@@ -30,7 +30,7 @@ export function usePageResponseSuccess<T = any>(
   };
 }
 
-export function useResponseError(message: string, error: any = null) {
+export function useResponseError(message: string, error: unknown = null) {
   return {
     code: -1,
     data: null,
@@ -56,7 +56,7 @@ export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function pagination<T = any>(
+export function pagination<T = unknown>(
   pageNo: number,
   pageSize: number,
   array: T[],

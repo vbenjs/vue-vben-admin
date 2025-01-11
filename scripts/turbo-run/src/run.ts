@@ -1,9 +1,17 @@
+import type { PackageJson } from '@vben/node-utils';
+
 import { execaCommand, getPackages } from '@vben/node-utils';
 
 import { cancel, isCancel, select } from '@clack/prompts';
 
 interface RunOptions {
   command?: string;
+}
+
+interface ScriptsPackageJson extends PackageJson {
+  scripts?: {
+    [key: string]: string;
+  };
 }
 
 export async function run(options: RunOptions) {
@@ -20,12 +28,12 @@ export async function run(options: RunOptions) {
 
   // 只显示有对应命令的包
   const selectPkgs = packages.filter((pkg) => {
-    return (pkg?.packageJson as Record<string, any>)?.scripts?.[command];
+    return (pkg?.packageJson as ScriptsPackageJson)?.scripts?.[command];
   });
 
   let selectPkg: string | symbol;
   if (selectPkgs.length > 1) {
-    selectPkg = await select<any, string>({
+    selectPkg = await select<string>({
       message: `Select the app you need to run [${command}]:`,
       options: selectPkgs.map((item) => ({
         label: item?.packageJson.name,

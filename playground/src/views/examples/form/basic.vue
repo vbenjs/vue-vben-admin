@@ -68,7 +68,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       componentProps: {
         // 菜单接口转options格式
         afterFetch: (data: { name: string; path: string }[]) => {
-          return data.map((item: any) => ({
+          return data.map((item) => ({
             label: item.name,
             value: item.path,
           }));

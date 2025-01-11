@@ -4,7 +4,7 @@
  */
 
 interface ComponentsState {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface MessageState {

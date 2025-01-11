@@ -1,4 +1,5 @@
 import type {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -65,23 +66,29 @@ class RequestClient {
   /**
    * DELETE请求方法
    */
-  public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public delete<T = unknown>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
     return this.request<T>(url, { ...config, method: 'DELETE' });
   }
 
   /**
    * GET请求方法
    */
-  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public get<T = unknown>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
     return this.request<T>(url, { ...config, method: 'GET' });
   }
 
   /**
    * POST请求方法
    */
-  public post<T = any>(
+  public post<T = unknown>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'POST' });
@@ -90,9 +97,9 @@ class RequestClient {
   /**
    * PUT请求方法
    */
-  public put<T = any>(
+  public put<T = unknown>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'PUT' });
@@ -108,8 +115,9 @@ class RequestClient {
         ...config,
       });
       return response as T;
-    } catch (error: any) {
-      throw error.response ? error.response.data : error;
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
+      throw axiosError.response ? axiosError.response.data : axiosError;
     }
   }
 }

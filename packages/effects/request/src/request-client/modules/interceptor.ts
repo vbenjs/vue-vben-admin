@@ -34,7 +34,7 @@ class InterceptorManager {
       <O extends T>(response: AxiosResponse<O>): HttpResponseData<O> | O => {
         return fulfilled
           ? (fulfilled(response) as HttpResponseData<O> | O)
-          : response.data;
+          : response?.data || response;
       },
       rejected,
     );

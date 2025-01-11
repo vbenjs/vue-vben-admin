@@ -3,7 +3,7 @@ import { ApiComponent } from '@vben/common-ui';
 
 import { Cascader } from 'ant-design-vue';
 
-const treeData: Record<string, any> = [
+const treeData = [
   {
     label: '浙江',
     value: 'zhejiang',
@@ -80,7 +80,7 @@ const treeData: Record<string, any> = [
 /**
  * 模拟请求接口
  */
-function fetchApi(): Promise<Record<string, any>> {
+function fetchApi(): Promise<typeof treeData> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(treeData);

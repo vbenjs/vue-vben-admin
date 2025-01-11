@@ -14,7 +14,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      data.value = drawerApi.getData<Record<string, any>>();
+      data.value = drawerApi.getData<Record<string, unknown>>();
     }
   },
 });

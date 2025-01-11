@@ -11,7 +11,7 @@ class FileUploader {
 
   public async upload(
     url: string,
-    data: Record<string, any> & { file: Blob | File },
+    data: Record<string, Blob | string> & { file: Blob | File },
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse> {
     const formData = new FormData();

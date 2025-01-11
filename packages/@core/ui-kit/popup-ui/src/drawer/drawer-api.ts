@@ -95,7 +95,7 @@ export class DrawerApi {
     }
   }
 
-  getData<T extends object = Record<string, any>>() {
+  getData<T extends object = Record<string, unknown>>() {
     return (this.sharedData?.payload ?? {}) as T;
   }
 
