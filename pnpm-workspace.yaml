@@ -156,6 +156,7 @@ catalog:
   tailwindcss: ^3.4.17
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
+  tippy.js: ^6.2.5
   turbo: ^2.3.3
   typescript: ^5.7.3
   unbuild: ^3.2.0
@@ -175,6 +176,7 @@ catalog:
   vue-eslint-parser: ^9.4.3
   vue-i18n: ^11.0.1
   vue-router: ^4.5.0
+  vue-tippy: ^6.6.0
   vue-tsc: 2.1.10
   vxe-pc-ui: ^4.3.67
   vxe-table: 4.10.0

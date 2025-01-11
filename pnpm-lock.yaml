@@ -420,6 +420,9 @@ catalogs:
     theme-colors:
       specifier: ^0.1.0
       version: 0.1.0
+    tippy.js:
+      specifier: ^6.2.5
+      version: 6.3.7
     turbo:
       specifier: ^2.3.3
       version: 2.3.3
@@ -474,6 +477,9 @@ catalogs:
     vue-router:
       specifier: ^4.5.0
       version: 4.5.0
+    vue-tippy:
+      specifier: ^6.6.0
+      version: 6.6.0
     vue-tsc:
       specifier: 2.1.10
       version: 2.1.10
@@ -1488,6 +1494,9 @@ importers:
       '@vben-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
+      '@vben-core/preferences':
+        specifier: workspace:*
+        version: link:../../@core/preferences
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
@@ -1518,12 +1527,18 @@ importers:
       qrcode:
         specifier: 'catalog:'
         version: 1.5.4
+      tippy.js:
+        specifier: 'catalog:'
+        version: 6.3.7
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
       vue-router:
         specifier: 'catalog:'
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
+      vue-tippy:
+        specifier: 'catalog:'
+        version: 6.6.0(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       '@types/qrcode':
         specifier: 'catalog:'
@@ -3801,6 +3816,9 @@ packages:
 
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
+
+  '@popperjs/core@2.11.8':
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
   '@redocly/ajv@8.11.2':
     resolution: {integrity: sha512-io1JpnwtIcvojV7QKDUSIuMN/ikdOUd1ReEnUnMKGfDVridQZ31J0MmIuqwuRjWDZfmvr+Q0MqCcfHM2gTivOg==}
@@ -8872,6 +8890,7 @@ packages:
   rollup-plugin-visualizer@5.13.1:
     resolution: {integrity: sha512-vMg8i6BprL8aFm9DKvL2c8AwS8324EgymYQo9o6E26wgVvwMhsJxS37aNL6ZsU7X9iAcMYwdME7gItLfG5fwJg==}
     engines: {node: '>=18'}
+    deprecated: Contains unintended breaking changes
     hasBin: true
     peerDependencies:
       rolldown: 1.x
@@ -9518,6 +9537,9 @@ packages:
     resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
     engines: {node: '>=14.0.0'}
 
+  tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+
   tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -10094,6 +10116,11 @@ packages:
 
   vue-router@4.5.0:
     resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
+    peerDependencies:
+      vue: ^3.5.13
+
+  vue-tippy@6.6.0:
+    resolution: {integrity: sha512-ISRIUQDlcEP05K1nCbvlVcd8yuWS6S3dI91qD0A2slgtwwWjih8Fn9Aymq4SNaHQsdiP5+MLRPZVDxFjKMPgKA==}
     peerDependencies:
       vue: ^3.5.13
 
@@ -12721,6 +12748,8 @@ snapshots:
       read-yaml-file: 2.1.0
 
   '@polka/url@1.0.0-next.28': {}
+
+  '@popperjs/core@2.11.8': {}
 
   '@redocly/ajv@8.11.2':
     dependencies:
@@ -19034,6 +19063,10 @@ snapshots:
 
   tinyspy@3.0.2: {}
 
+  tippy.js@6.3.7:
+    dependencies:
+      '@popperjs/core': 2.11.8
+
   tmp@0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
@@ -19726,6 +19759,11 @@ snapshots:
   vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.13(typescript@5.7.3)
+
+  vue-tippy@6.6.0(vue@3.5.13(typescript@5.7.3)):
+    dependencies:
+      tippy.js: 6.3.7
       vue: 3.5.13(typescript@5.7.3)
 
   vue-tsc@2.1.10(typescript@5.7.3):
