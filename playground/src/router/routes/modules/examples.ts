@@ -253,7 +253,7 @@ const routes: RouteRecordRaw[] = [
         path: '/examples/tippy',
         component: () => import('#/views/examples/tippy/index.vue'),
         meta: {
-          icon: 'material-symbols:chat-bubble',
+          icon: 'mdi:message-settings-outline',
           title: 'Tippy',
         },
       },
