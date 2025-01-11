@@ -111,6 +111,7 @@ const [Modal, modalApi] = useVbenModal({
 | headerClass | modal顶部区域的class | `string` | - |
 | bordered | 是否显示border | `boolean` | `false` |
 | zIndex | 弹窗的ZIndex层级 | `number` | `1000` |
+| overlayBlur | 遮罩模糊度 | `number` | - |
 
 ::: info appendToMain
 
