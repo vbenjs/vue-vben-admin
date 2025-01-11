@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { computed, reactive } from 'vue';
+import type { TippyProps } from '@vben/common-ui';
+
+import { reactive } from 'vue';
 
 import { Page, Tippy } from '@vben/common-ui';
 
@@ -7,129 +9,91 @@ import { Button, Card, Flex } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 
-const props = reactive({
+const tippyProps = reactive<TippyProps>({
   animation: 'shift-away',
   arrow: true,
   content: '这是一个提示',
-  delay: 200,
+  delay: [200, 200],
   duration: 200,
-  followCursor: '',
-  hideOnClick: '',
+  followCursor: false,
+  hideOnClick: false,
+  inertia: true,
   maxWidth: 'none',
   placement: 'top',
   theme: 'dark',
+  trigger: 'mouseenter focusin',
 });
 
-const tippyProps = computed(() => {
-  return {
-    ...props,
-    followCursor: ['', 'true'].includes(props.followCursor)
-      ? !!props.followCursor
-      : props.followCursor,
-    hideOnClick: ['', 'true'].includes(props.hideOnClick)
-      ? !!props.hideOnClick
-      : props.hideOnClick,
-  };
-});
+function parseBoolean(value: string) {
+  switch (value) {
+    case 'false': {
+      return false;
+    }
+    case 'true': {
+      return true;
+    }
+    default: {
+      return value;
+    }
+  }
+}
 
 const [Form] = useVbenForm({
   handleValuesChange(values) {
-    Object.assign(props, { ...values });
+    Object.assign(tippyProps, {
+      ...values,
+      delay: [values.delay1, values.delay2],
+      followCursor: parseBoolean(values.followCursor),
+      hideOnClick: parseBoolean(values.hideOnClick),
+      trigger: values.trigger.join(' '),
+    });
   },
   schema: [
     {
-      component: 'Select',
-      componentProps: {
-        class: 'w-full',
-        options: [
-          { label: 'shift-away', value: 'shift-away' },
-          { label: 'scale', value: 'scale' },
-          { label: 'scale-extreme', value: 'scale-extreme' },
-          { label: 'scale-subtle', value: 'scale-subtle' },
-          { label: 'perspective', value: 'perspective' },
-          { label: 'fade', value: 'fade' },
-        ],
-      },
-      defaultValue: props.animation,
-      fieldName: 'animation',
-      label: '动画',
-    },
-    {
-      component: 'InputNumber',
-      defaultValue: props.duration,
-      fieldName: 'duration',
-      label: '动画时长',
-    },
-    {
-      component: 'Input',
-      defaultValue: props.content,
-      fieldName: 'content',
-      label: '内容',
-    },
-    {
-      component: 'Switch',
-      defaultValue: props.arrow,
-      fieldName: 'arrow',
-      label: '箭头',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        class: 'w-full',
-        options: [
-          { label: '不跟随', value: '' },
-          { label: '完全跟随', value: 'true' },
-          { label: '仅横向', value: 'horizontal' },
-          { label: '仅纵向', value: 'vertical' },
-          { label: '仅初始', value: 'initial' },
-        ],
-      },
-      defaultValue: props.followCursor,
-      fieldName: 'followCursor',
-      label: '跟随指针',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        class: 'w-full',
-        options: [
-          { label: '否', value: '' },
-          { label: '是', value: 'true' },
-          { label: '仅内部点击', value: 'toggle' },
-        ],
-      },
-      defaultValue: props.hideOnClick,
-      fieldName: 'hideOnClick',
-      label: '点击后隐藏',
-    },
-    {
-      component: 'InputNumber',
-      defaultValue: 100,
-      fieldName: 'delay',
-      label: '延时',
-    },
-
-    {
       component: 'RadioGroup',
       componentProps: {
+        buttonStyle: 'solid',
+        class: 'w-full',
         options: [
-          { label: 'auto', value: 'auto' },
-          { label: 'dark', value: 'dark' },
-          { label: 'light', value: 'light' },
+          { label: '自动', value: 'auto' },
+          { label: '暗色', value: 'dark' },
+          { label: '亮色', value: 'light' },
         ],
+        optionType: 'button',
       },
-      defaultValue: props.theme,
+      defaultValue: tippyProps.theme,
       fieldName: 'theme',
       label: '主题',
     },
     {
-      component: 'Input',
+      component: 'Select',
       componentProps: {
-        placeholder: 'none、200px',
+        class: 'w-full',
+        options: [
+          { label: '向上滑入', value: 'shift-away' },
+          { label: '向下滑入', value: 'shift-toward' },
+          { label: '缩放', value: 'scale' },
+          { label: '透视', value: 'perspective' },
+          { label: '淡入', value: 'fade' },
+        ],
       },
-      defaultValue: props.maxWidth,
-      fieldName: 'maxWidth',
-      label: '最大宽度',
+      defaultValue: tippyProps.animation,
+      fieldName: 'animation',
+      label: '动画类型',
+    },
+    {
+      component: 'RadioGroup',
+      componentProps: {
+        buttonStyle: 'solid',
+        options: [
+          { label: '是', value: true },
+          { label: '否', value: false },
+        ],
+        optionType: 'button',
+      },
+      defaultValue: tippyProps.inertia,
+      fieldName: 'inertia',
+      label: '动画惯性',
     },
     {
       component: 'Select',
@@ -150,11 +114,124 @@ const [Form] = useVbenForm({
           { label: '右下', value: 'right-end' },
         ],
       },
-      defaultValue: 'top',
+      defaultValue: tippyProps.placement,
       fieldName: 'placement',
       label: '位置',
     },
+    {
+      component: 'InputNumber',
+      componentProps: {
+        addonAfter: '毫秒',
+      },
+      defaultValue: tippyProps.duration,
+      fieldName: 'duration',
+      label: '动画时长',
+    },
+    {
+      component: 'InputNumber',
+      componentProps: {
+        addonAfter: '毫秒',
+      },
+      defaultValue: 100,
+      fieldName: 'delay1',
+      label: '显示延时',
+    },
+    {
+      component: 'InputNumber',
+      componentProps: {
+        addonAfter: '毫秒',
+      },
+      defaultValue: 100,
+      fieldName: 'delay2',
+      label: '隐藏延时',
+    },
+    {
+      component: 'Input',
+      defaultValue: tippyProps.content,
+      fieldName: 'content',
+      label: '内容',
+    },
+    {
+      component: 'RadioGroup',
+      componentProps: {
+        buttonStyle: 'solid',
+        options: [
+          { label: '是', value: true },
+          { label: '否', value: false },
+        ],
+        optionType: 'button',
+      },
+      defaultValue: tippyProps.arrow,
+      fieldName: 'arrow',
+      label: '指示箭头',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        class: 'w-full',
+        options: [
+          { label: '不跟随', value: 'false' },
+          { label: '完全跟随', value: 'true' },
+          { label: '仅横向', value: 'horizontal' },
+          { label: '仅纵向', value: 'vertical' },
+          { label: '仅初始', value: 'initial' },
+        ],
+      },
+      defaultValue: tippyProps.followCursor?.toString(),
+      fieldName: 'followCursor',
+      label: '跟随指针',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        class: 'w-full',
+        mode: 'multiple',
+        options: [
+          { label: '鼠标移入', value: 'mouseenter' },
+          { label: '被点击', value: 'click' },
+          { label: '获得焦点', value: 'focusin' },
+          { label: '无触发，仅手动', value: 'manual' },
+        ],
+      },
+      defaultValue: tippyProps.trigger?.split(' '),
+      fieldName: 'trigger',
+      label: '触发方式',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        class: 'w-full',
+        options: [
+          { label: '否', value: 'false' },
+          { label: '是', value: 'true' },
+          { label: '仅内部', value: 'toggle' },
+        ],
+      },
+      defaultValue: tippyProps.hideOnClick?.toString(),
+      dependencies: {
+        componentProps(_, formAction) {
+          return {
+            disabled: !formAction.values.trigger.includes('click'),
+          };
+        },
+        triggerFields: ['trigger'],
+      },
+      fieldName: 'hideOnClick',
+      help: '只有在触发方式为`click`时才有效',
+      label: '点击后隐藏',
+    },
+    {
+      component: 'Input',
+      componentProps: {
+        allowClear: true,
+        placeholder: 'none、200px',
+      },
+      defaultValue: tippyProps.maxWidth,
+      fieldName: 'maxWidth',
+      label: '最大宽度',
+    },
   ],
+  showDefaultActions: false,
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 

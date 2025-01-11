@@ -10,25 +10,26 @@ import { usePreferences } from '@vben-core/preferences';
 import useTippyDirective from './directive';
 
 import 'tippy.js/dist/tippy.css';
+import 'tippy.js/dist/backdrop.css';
 import 'tippy.js/themes/light.css';
 import 'tippy.js/animations/scale.css';
-import 'tippy.js/animations/scale-subtle.css';
-import 'tippy.js/animations/scale-extreme.css';
+import 'tippy.js/animations/shift-toward.css';
 import 'tippy.js/animations/shift-away.css';
 import 'tippy.js/animations/perspective.css';
 
 const { isDark } = usePreferences();
-export type TippyProps = Props & {
-  animation?:
-    | 'fade'
-    | 'perspective'
-    | 'scale'
-    | 'scale-extreme'
-    | 'scale-subtle'
-    | 'shift-away'
-    | boolean;
-  theme?: 'auto' | 'dark' | 'light';
-};
+export type TippyProps = Partial<
+  Props & {
+    animation?:
+      | 'fade'
+      | 'perspective'
+      | 'scale'
+      | 'shift-away'
+      | 'shift-toward'
+      | boolean;
+    theme?: 'auto' | 'dark' | 'light';
+  }
+>;
 
 export function initTippy(app: App<Element>, options?: DefaultProps) {
   setDefaultProps({
