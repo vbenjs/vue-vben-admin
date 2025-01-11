@@ -1,4 +1,6 @@
-import type { App, Component } from 'vue';
+import type { DefaultProps, Props } from 'tippy.js';
+
+import type { App, SetupContext } from 'vue';
 
 import { h, watchEffect } from 'vue';
 import { setDefaultProps, Tippy as TippyComponent } from 'vue-tippy';
@@ -7,26 +9,58 @@ import { usePreferences } from '@vben-core/preferences';
 
 import useTippyDirective from './directive';
 
-import './theme.css';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/animations/scale.css';
+import 'tippy.js/animations/scale-subtle.css';
+import 'tippy.js/animations/scale-extreme.css';
+import 'tippy.js/animations/shift-away.css';
+import 'tippy.js/animations/perspective.css';
 
 const { isDark } = usePreferences();
+export type TippyProps = Props & {
+  animation?:
+    | 'fade'
+    | 'perspective'
+    | 'scale'
+    | 'scale-extreme'
+    | 'scale-subtle'
+    | 'shift-away'
+    | boolean;
+  theme?: 'auto' | 'dark' | 'light';
+};
 
-export function initTippy(app: App<Element>) {
+export function initTippy(app: App<Element>, options?: DefaultProps) {
   setDefaultProps({
     allowHTML: true,
     delay: [500, 200],
     theme: isDark.value ? '' : 'light',
+    ...options,
   });
-  watchEffect(() => {
-    setDefaultProps({ theme: isDark.value ? '' : 'light' });
-  });
+  if (!options || !Reflect.has(options, 'theme') || options.theme === 'auto') {
+    watchEffect(() => {
+      setDefaultProps({ theme: isDark.value ? '' : 'light' });
+    });
+  }
+
   app.directive('tippy', useTippyDirective(isDark));
 }
 
-export const Tippy: Component = (props, { attrs, slots }) => {
+export const Tippy = (props: any, { attrs, slots }: SetupContext) => {
+  let theme: string = (attrs.theme as string) ?? 'auto';
+  if (theme === 'auto') {
+    theme = isDark.value ? '' : 'light';
+  }
+  if (theme === 'dark') {
+    theme = '';
+  }
   return h(
     TippyComponent,
-    { theme: isDark.value ? '' : 'light', ...props, ...attrs },
+    {
+      ...props,
+      ...attrs,
+      theme,
+    },
     slots,
   );
 };

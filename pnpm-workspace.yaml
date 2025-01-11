@@ -156,6 +156,7 @@ catalog:
   tailwindcss: ^3.4.17
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
+  tippy.js: ^6.2.5
   turbo: ^2.3.3
   typescript: ^5.7.3
   unbuild: ^3.2.0
