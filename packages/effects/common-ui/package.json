@@ -22,6 +22,7 @@
   "dependencies": {
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/popup-ui": "workspace:*",
+    "@vben-core/preferences": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -32,8 +33,10 @@
     "@vueuse/core": "catalog:",
     "@vueuse/integrations": "catalog:",
     "qrcode": "catalog:",
+    "tippy.js": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "vue-tippy": "catalog:"
   },
   "devDependencies": {
     "@types/qrcode": "catalog:"

@@ -248,6 +248,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.layout.col-page'),
         },
       },
+      {
+        name: 'TippyDemo',
+        path: '/examples/tippy',
+        component: () => import('#/views/examples/tippy/index.vue'),
+        meta: {
+          icon: 'mdi:message-settings-outline',
+          title: 'Tippy',
+        },
+      },
     ],
   },
 ];

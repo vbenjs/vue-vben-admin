@@ -9,11 +9,12 @@ const [Modal, modalApi] = useVbenModal({
 });
 
 function openModal() {
-  modalApi.setData({
-    content: '外部传递的数据 content',
-    payload: '外部传递的数据 payload',
-  });
-  modalApi.open();
+  modalApi
+    .setData({
+      content: '外部传递的数据 content',
+      payload: '外部传递的数据 payload',
+    })
+    .open();
 }
 </script>
 

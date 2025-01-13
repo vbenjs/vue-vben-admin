@@ -7,6 +7,9 @@ const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {
     drawerApi.close();
   },
+  onClosed() {
+    drawerApi.setState({ overlayBlur: 0, placement: 'right' });
+  },
   onConfirm() {
     message.info('onConfirm');
     // drawerApi.close();

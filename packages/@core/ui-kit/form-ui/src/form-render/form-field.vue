@@ -41,6 +41,7 @@ const {
   label,
   labelClass,
   labelWidth,
+  modelPropName,
   renderComponentContent,
   rules,
 } = defineProps<
@@ -202,9 +203,9 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   const modelValue = slotProps.componentField.modelValue;
   const handler = slotProps.componentField['onUpdate:modelValue'];
 
-  const bindEventField = isString(component)
-    ? componentBindEventMap.value?.[component]
-    : null;
+  const bindEventField =
+    modelPropName ||
+    (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
   // antd design 的一些组件会传递一个 event 对象

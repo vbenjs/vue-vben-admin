@@ -9,11 +9,12 @@ const [Drawer, drawerApi] = useVbenDrawer({
 });
 
 function open() {
-  drawerApi.setData({
-    content: '外部传递的数据 content',
-    payload: '外部传递的数据 payload',
-  });
-  drawerApi.open();
+  drawerApi
+    .setData({
+      content: '外部传递的数据 content',
+      payload: '外部传递的数据 payload',
+    })
+    .open();
 }
 </script>
 

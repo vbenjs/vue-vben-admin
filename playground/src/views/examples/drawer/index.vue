@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DrawerPlacement } from '@vben/common-ui';
+import type { DrawerPlacement, DrawerState } from '@vben/common-ui';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
@@ -42,25 +42,25 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
 });
 
 function openBaseDrawer(placement: DrawerPlacement = 'right') {
-  baseDrawerApi.setState({ placement });
-  baseDrawerApi.open();
+  baseDrawerApi.setState({ placement }).open();
+}
+
+function openBlurDrawer() {
+  baseDrawerApi.setState({ overlayBlur: 5 }).open();
 }
 
 function openInContentDrawer(placement: DrawerPlacement = 'right') {
-  inContentDrawerApi.setState({ class: '', placement });
+  const state: Partial<DrawerState> = { class: '', placement };
   if (placement === 'top') {
     // 页面顶部区域的层级只有200，所以设置一个低于200的值，抽屉从顶部滑出来的时候才比较合适
-    inContentDrawerApi.setState({ zIndex: 199 });
-  } else {
-    inContentDrawerApi.setState({ zIndex: undefined });
+    state.zIndex = 199;
   }
-  inContentDrawerApi.open();
+  inContentDrawerApi.setState(state).open();
 }
 
 function openMaxContentDrawer() {
   // 这里只是用来演示方便。实际上自己使用的时候可以直接将这些配置卸载Drawer的属性里
-  inContentDrawerApi.setState({ class: 'w-full', placement: 'right' });
-  inContentDrawerApi.open();
+  inContentDrawerApi.setState({ class: 'w-full', placement: 'right' }).open();
 }
 
 function openAutoHeightDrawer() {
@@ -72,24 +72,25 @@ function openDynamicDrawer() {
 }
 
 function handleUpdateTitle() {
-  dynamicDrawerApi.setState({ title: '外部动态标题' });
-  dynamicDrawerApi.open();
+  dynamicDrawerApi.setState({ title: '外部动态标题' }).open();
 }
 
 function openSharedDrawer() {
-  sharedDrawerApi.setData({
-    content: '外部传递的数据 content',
-    payload: '外部传递的数据 payload',
-  });
-  sharedDrawerApi.open();
+  sharedDrawerApi
+    .setData({
+      content: '外部传递的数据 content',
+      payload: '外部传递的数据 payload',
+    })
+    .open();
 }
 
 function openFormDrawer() {
-  formDrawerApi.setData({
-    // 表单值
-    values: { field1: 'abc', field2: '123' },
-  });
-  formDrawerApi.open();
+  formDrawerApi
+    .setData({
+      // 表单值
+      values: { field1: 'abc', field2: '123' },
+    })
+    .open();
 }
 </script>
 
@@ -126,6 +127,9 @@ function openFormDrawer() {
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBaseDrawer('top')">
         顶部打开
+      </Button>
+      <Button class="mb-2 ml-2" type="primary" @click="openBlurDrawer">
+        遮罩层模糊效果
       </Button>
     </Card>
 

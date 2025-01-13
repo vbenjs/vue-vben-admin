@@ -77,6 +77,7 @@ const {
   loading: showLoading,
   modal,
   openAutoFocus,
+  overlayBlur,
   showCancelButton,
   showConfirmButton,
   title,
@@ -196,6 +197,7 @@ const getAppendTo = computed(() => {
       :open="state?.isOpen"
       :show-close="closable"
       :z-index="zIndex"
+      :overlay-blur="overlayBlur"
       close-class="top-3"
       @close-auto-focus="handleFocusOutside"
       @closed="() => modalApi?.onClosed()"

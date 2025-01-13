@@ -100,6 +100,10 @@ export interface ModalProps {
    */
   openAutoFocus?: boolean;
   /**
+   * 弹窗遮罩模糊效果
+   */
+  overlayBlur?: number;
+  /**
    * 是否显示取消按钮
    * @default true
    */

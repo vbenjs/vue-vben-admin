@@ -25,6 +25,7 @@ const props = withDefaults(
       closeClass?: ClassType;
       modal?: boolean;
       open?: boolean;
+      overlayBlur?: number;
       showClose?: boolean;
       zIndex?: number;
     }
@@ -82,7 +83,12 @@ defineExpose({
     <Transition name="fade">
       <DialogOverlay
         v-if="open && modal"
-        :style="{ zIndex, position }"
+        :style="{
+          zIndex,
+          position,
+          backdropFilter:
+            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+        }"
         @click="() => emits('close')"
       />
     </Transition>
