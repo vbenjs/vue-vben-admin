@@ -153,3 +153,20 @@ jobs:
           username: ${{ secrets.WEB_NAIVE_FTP_ACCOUNT }}
           password: ${{ secrets.WEB_NAIVE_FTP_PASSWORD }}
           local-dir: ./apps/web-naive/dist/
+
+  rerun-on-failure:
+    name: Rerun on failure
+    needs:
+      - deploy-playground-ftp
+      - deploy-docs-ftp
+      - deploy-antd-ftp
+      - deploy-ele-ftp
+      - deploy-naive-ftp
+    if: failure() && fromJSON(github.run_attempt) < 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retry ${{ fromJSON(github.run_attempt) }} of 10
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}

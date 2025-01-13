@@ -34,6 +34,11 @@ export interface TabsProps {
    */
   maxWidth?: number;
   /**
+   * @zh_CN 点击中键时关闭Tab
+   */
+  middleClickToClose?: boolean;
+
+  /**
    * @zh_CN tab最小宽度
    * 仅限 tabs-chrome
    */
@@ -43,11 +48,11 @@ export interface TabsProps {
    * @zh_CN 是否显示图标
    */
   showIcon?: boolean;
-
   /**
    * @zh_CN 标签页风格
    */
   styleType?: TabsStyleType;
+
   /**
    * @zh_CN 选项卡数据
    */
