@@ -103,6 +103,8 @@ interface FooterPreferences {
 interface HeaderPreferences {
   /** 顶栏是否启用 */
   enable: boolean;
+  /** header高度 */
+  height: number;
   /** 顶栏是否隐藏,css-隐藏 */
   hidden: boolean;
   /** 顶栏菜单位置 */
