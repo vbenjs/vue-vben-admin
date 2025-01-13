@@ -36,6 +36,12 @@ setupVbenForm<ComponentType>({
       }
       return true;
     },
+    multipleRequired: (value, _params, ctx) => {
+      if (value === undefined || value === null || value.length === 0) {
+        return $t('ui.formRules.selectRequired', [ctx.label]);
+      }
+      return true;
+    },
   },
 });
 
