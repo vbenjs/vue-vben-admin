@@ -138,6 +138,10 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
+   * 是否自动赋值
+   */
+  autoDefaultValue?: boolean;
+  /**
    * 在Label后显示一个冒号
    */
   colon?: boolean;

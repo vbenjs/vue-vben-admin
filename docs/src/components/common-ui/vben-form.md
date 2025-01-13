@@ -366,6 +366,10 @@ export interface ActionButtonOptions {
 ```ts
 export interface FormCommonConfig {
   /**
+   * 是否自动赋值
+   */
+  autoDefaultValue?: boolean;
+  /**
    * 所有表单项的props
    */
   componentProps?: ComponentProps;
