@@ -138,6 +138,10 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
+   * 是否自动赋值
+   */
+  autoDefaultValue?: boolean;
+  /**
    * 在Label后显示一个冒号
    */
   colon?: boolean;
@@ -395,6 +399,11 @@ export interface VbenFormAdapterOptions<
     modelPropNameMap?: Partial<Record<T, string>>;
   };
   defineRules?: {
+    multipleRequired?: (
+      value: any,
+      params: any,
+      ctx: Record<string, any>,
+    ) => boolean | string;
     required?: (
       value: any,
       params: any,

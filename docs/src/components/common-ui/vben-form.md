@@ -48,6 +48,12 @@ setupVbenForm<ComponentType>({
     },
   },
   defineRules: {
+    multipleRequired: (value, _params, ctx) => {
+      if (value === undefined || value === null || value.length === 0) {
+        return $t('ui.formRules.selectRequired', [ctx.label]);
+      }
+      return true;
+    },
     // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
@@ -359,6 +365,10 @@ export interface ActionButtonOptions {
 
 ```ts
 export interface FormCommonConfig {
+  /**
+   * 是否自动赋值
+   */
+  autoDefaultValue?: boolean;
   /**
    * 所有表单项的props
    */
