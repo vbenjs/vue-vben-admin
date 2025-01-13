@@ -3,7 +3,7 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed, nextTick, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, onMounted, useTemplateRef, watch } from 'vue';
 
 import {
   FormControl,
@@ -26,10 +26,12 @@ import { isEventObjectLike } from './helper';
 interface Props extends FormSchema {}
 
 const {
+  autoDefaultValue = false,
   colon,
   commonComponentProps,
   component,
   componentProps,
+  defaultValue,
   dependencies,
   description,
   disabled,
@@ -163,6 +165,16 @@ const computedProps = computed(() => {
     ...dynamicComponentProps.value,
   };
 });
+const computedItemProps = computed(() => {
+  const finalComponentProps = isFunction(componentProps)
+    ? componentProps(values.value, formApi!)
+    : componentProps;
+
+  return {
+    ...finalComponentProps,
+    ...dynamicComponentProps.value,
+  };
+});
 
 watch(
   () => computedProps.value?.autofocus,
@@ -201,6 +213,23 @@ const fieldProps = computed(() => {
   };
 });
 
+onMounted(() => {
+  if (
+    autoDefaultValue &&
+    Reflect.has(commonComponentProps, 'change') &&
+    defaultValue
+  ) {
+    const value = (formApi && formApi.values[fieldName]) ?? defaultValue;
+    commonComponentProps.change(value, {
+      e: value,
+      ...computedProps.value,
+      emptyStateValue,
+      formApi,
+      name: fieldName,
+    });
+  }
+});
+
 function fieldBindEvent(slotProps: Record<string, any>) {
   const modelValue = slotProps.componentField.modelValue;
   const handler = slotProps.componentField['onUpdate:modelValue'];
@@ -210,6 +239,19 @@ function fieldBindEvent(slotProps: Record<string, any>) {
     (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
+
+  const change = (...e: any) => {
+    handler(...e);
+    if (Reflect.has(commonComponentProps, 'change')) {
+      commonComponentProps.change(e[0], {
+        e,
+        ...slotProps.componentField,
+        ...computedProps.value,
+        [bindEventField || '']: value === undefined ? emptyStateValue : value,
+        formApi,
+      });
+    }
+  };
   // antd design 的一些组件会传递一个 event 对象
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
@@ -219,7 +261,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
 
   if (bindEventField) {
     return {
-      [`onUpdate:${bindEventField}`]: handler,
+      [`onUpdate:${bindEventField}`]: change,
       [bindEventField]: value === undefined ? emptyStateValue : value,
       onChange: disabledOnChangeListener
         ? undefined
@@ -243,17 +285,42 @@ function fieldBindEvent(slotProps: Record<string, any>) {
 
 function createComponentProps(slotProps: Record<string, any>) {
   const bindEvents = fieldBindEvent(slotProps);
-
-  const binds = {
+  const assginData = {
     ...slotProps.componentField,
     ...computedProps.value,
     ...bindEvents,
+  };
+
+  const change = (key: string, value: any, ...e: any) => {
+    if (!Reflect.has(assginData, key)) return;
+    (assginData as any)[key](...e);
+
+    nextTick(() => {
+      if (Reflect.has(computedItemProps.value, 'change')) {
+        computedItemProps.value.change(value, {
+          e,
+          ...slotProps.componentField,
+          ...computedProps.value,
+          ...bindEvents,
+          formApi,
+        });
+      }
+    });
+  };
+  const binds = {
+    ...assginData,
     ...(Reflect.has(computedProps.value, 'onChange')
-      ? { onChange: computedProps.value.onChange }
+      ? { onChange: (...e: any) => change('onChange', e[0], ...e) }
       : {}),
     ...(Reflect.has(computedProps.value, 'onInput')
-      ? { onInput: computedProps.value.onInput }
+      ? { onInput: (...e: any) => change('onInput', e[0], ...e) }
       : {}),
+    'onUpdate:modelValue': (...e: any) => {
+      change('onUpdate:modelValue', e[0], ...e);
+    },
+    'onUpdate:value': (...e: any) => {
+      change('onUpdate:value', e[0], ...e);
+    },
   };
 
   return binds;

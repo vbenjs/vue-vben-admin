@@ -85,6 +85,7 @@ const computedSchema = computed(
     formFieldProps: Record<string, any>;
   })[] => {
     const {
+      autoDefaultValue = false,
       colon = false,
       componentProps = {},
       controlClass = '',
@@ -111,6 +112,7 @@ const computedSchema = computed(
           : false;
 
       return {
+        autoDefaultValue,
         colon,
         disabled,
         disabledOnChangeListener,
