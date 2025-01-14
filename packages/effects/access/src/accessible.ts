@@ -22,10 +22,28 @@ async function generateAccessible(
   // 生成路由
   const accessibleRoutes = await generateRoutes(mode, options);
 
+  const root = router.getRoutes().find((item) => item.path === '/');
+
   // 动态添加到router实例内
   accessibleRoutes.forEach((route) => {
-    router.addRoute(route);
+    if (root && !route.meta?.noBasicLayout) {
+      // 为了兼容之前的版本用法，如果包含子路由，则将component移除，以免出现多层BasicLayout
+      // 如果你的项目已经跟进了本次修改，移除了所有自定义菜单首级的BasicLayout，可以将这段if代码删除
+      if (route.children && route.children.length > 0) {
+        delete route.component;
+      }
+      root.children?.push(route);
+    } else {
+      router.addRoute(route);
+    }
   });
+
+  if (root) {
+    if (root.name) {
+      router.removeRoute(root.name);
+    }
+    router.addRoute(root);
+  }
 
   // 生成菜单
   const accessibleMenus = await generateMenus(accessibleRoutes, options.router);
