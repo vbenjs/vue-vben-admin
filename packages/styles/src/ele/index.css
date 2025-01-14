@@ -38,3 +38,7 @@
     border: 1px solid var(--el-color-danger);
   }
 }
+
+html .el-loading-mask {
+  z-index: 1000;
+}
