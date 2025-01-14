@@ -371,6 +371,9 @@ export class FormApi {
         if (format === null) {
           values[startTimeKey] = startTime;
           values[endTimeKey] = endTime;
+        } else if (isFunction(format)) {
+          values[startTimeKey] = format(startTime, startTimeKey);
+          values[endTimeKey] = format(endTime, endTimeKey);
         } else {
           const [startTimeFormat, endTimeFormat] = Array.isArray(format)
             ? format
