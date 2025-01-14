@@ -98,6 +98,10 @@ interface RouteMeta {
    */
   menuVisibleWithForbidden?: boolean;
   /**
+   * 不使用基础布局（仅在顶级生效）
+   */
+  noBasicLayout?: boolean;
+  /**
    * 在新窗口打开
    */
   openInNewWindow?: boolean;
