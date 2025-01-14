@@ -29,9 +29,6 @@ const coreRoutes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      hideInBreadcrumb: true,
-      hideInMenu: true,
-      hideInTab: true,
       title: 'Root',
     },
     name: 'Root',
