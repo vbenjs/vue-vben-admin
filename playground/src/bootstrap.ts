@@ -1,7 +1,11 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
-import { initTippy } from '@vben/common-ui';
+import {
+  initTippy,
+  setDefaultDrawerProps,
+  setDefaultModalProps,
+} from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
@@ -19,6 +23,16 @@ import App from './app.vue';
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
   await initComponentAdapter();
+
+  // 设置弹窗的默认配置
+  setDefaultModalProps({
+    fullscreenButton: false,
+    zIndex: 1020,
+  });
+  // 设置抽屉的默认配置
+  setDefaultDrawerProps({
+    zIndex: 1020,
+  });
 
   const app = createApp(App);
 

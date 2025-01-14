@@ -1,3 +1,3 @@
 export type * from './modal';
 export { default as VbenModal } from './modal.vue';
-export { useVbenModal } from './use-modal';
+export { setDefaultModalProps, useVbenModal } from './use-modal';
