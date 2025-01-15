@@ -1,4 +1,6 @@
 :root {
+  /** 弹出层的基础层级 **/
+  --popup-z-index: 2000;
   --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
     'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
