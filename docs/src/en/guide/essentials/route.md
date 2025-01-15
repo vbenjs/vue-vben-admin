@@ -73,7 +73,6 @@ import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       badgeType: 'dot',
       badgeVariants: 'destructive',
@@ -124,7 +123,6 @@ import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
@@ -249,7 +247,6 @@ import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       icon: 'mdi:home',
       title: $t('page.home.title'),

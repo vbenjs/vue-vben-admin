@@ -21,6 +21,12 @@ import VbenDrawer from './drawer.vue';
 
 const USER_DRAWER_INJECT_KEY = Symbol('VBEN_DRAWER_INJECT');
 
+const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
+
+export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
+  Object.assign(DEFAULT_DRAWER_PROPS, props);
+}
+
 export function useVbenDrawer<
   TParentDrawerProps extends DrawerProps = DrawerProps,
 >(options: DrawerApiOptions = {}) {
@@ -69,6 +75,7 @@ export function useVbenDrawer<
   const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
 
   const mergedOptions = {
+    ...DEFAULT_DRAWER_PROPS,
     ...injectData.options,
     ...options,
   } as DrawerApiOptions;
