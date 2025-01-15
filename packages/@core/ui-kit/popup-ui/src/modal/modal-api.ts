@@ -109,6 +109,21 @@ export class ModalApi {
     return (this.sharedData?.payload ?? {}) as T;
   }
 
+    /**
+   * 提交时等待 禁用相关操作
+   */
+  loadingAndDisable(flag: boolean) {
+    this.setState({
+      closable: !flag,
+      closeOnClickModal: !flag,
+      closeOnPressEscape: !flag,
+      confirmLoading: flag,
+      loading: flag,
+      showCancelButton: !flag,
+    });
+    return this;
+  }
+
   /**
    * 取消操作
    */
