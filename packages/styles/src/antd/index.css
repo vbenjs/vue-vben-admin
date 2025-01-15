@@ -56,5 +56,5 @@
 }
 
 .ant-message {
-  z-index: 1050;
+  z-index: var(--popup-z-index);
 }

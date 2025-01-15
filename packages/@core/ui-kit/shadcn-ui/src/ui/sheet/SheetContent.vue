@@ -28,7 +28,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<SheetContentProps>(), {
   appendTo: 'body',
-  zIndex: 1000,
 });
 
 const emits = defineEmits<
@@ -79,7 +78,7 @@ function onAnimationEnd(event: AnimationEvent) {
       <SheetOverlay
         v-if="open && modal"
         :style="{
-          zIndex,
+          ...(zIndex ? { zIndex } : {}),
           position,
           backdropFilter:
             overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
@@ -88,9 +87,9 @@ function onAnimationEnd(event: AnimationEvent) {
     </Transition>
     <DialogContent
       ref="contentRef"
-      :class="cn(sheetVariants({ side }), props.class)"
+      :class="cn('z-popup', sheetVariants({ side }), props.class)"
       :style="{
-        zIndex,
+        ...(zIndex ? { zIndex } : {}),
         position,
       }"
       @animationend="onAnimationEnd"

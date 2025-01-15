@@ -81,3 +81,7 @@
     transform: translateY(0);
   }
 }
+
+.z-popup {
+  z-index: var(--popup-z-index);
+}
