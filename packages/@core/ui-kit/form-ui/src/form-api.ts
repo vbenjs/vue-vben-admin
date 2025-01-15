@@ -404,9 +404,8 @@ export class FormApi {
       const deletedSchema = prevSchema.filter(
         (item) => !currentFields.has(item.fieldName),
       );
-
       for (const schema of deletedSchema) {
-        this.form?.setFieldValue(schema.fieldName, undefined);
+        this.form?.setFieldValue?.(schema.fieldName, undefined);
       }
     }
   }
