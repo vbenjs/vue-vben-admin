@@ -109,6 +109,8 @@ type MergeAll<
 
 type EmitType = (name: Name, ...args: any[]) => void;
 
+type MaybePromise<T> = Promise<T> | T;
+
 export type {
   AnyFunction,
   AnyNormalFunction,
@@ -118,6 +120,7 @@ export type {
   EmitType,
   IntervalHandle,
   MaybeComputedRef,
+  MaybePromise,
   MaybeReadonlyRef,
   Merge,
   MergeAll,

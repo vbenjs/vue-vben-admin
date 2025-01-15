@@ -54,7 +54,3 @@
 .ant-app .form-valid-error .ant-picker-focused {
   box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
 }
-
-.ant-message {
-  z-index: var(--popup-z-index);
-}

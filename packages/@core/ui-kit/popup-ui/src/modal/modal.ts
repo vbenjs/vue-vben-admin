@@ -1,5 +1,7 @@
 import type { Component, Ref } from 'vue';
 
+import type { MaybePromise } from '@vben-core/typings';
+
 import type { ModalApi } from './modal-api';
 
 export interface ModalProps {
@@ -114,6 +116,10 @@ export interface ModalProps {
    */
   showConfirmButton?: boolean;
   /**
+   * 提交中（锁定弹窗状态）
+   */
+  submitting?: boolean;
+  /**
    * 弹窗标题
    */
   title?: string;
@@ -155,7 +161,7 @@ export interface ModalApiOptions extends ModalState {
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns
    */
-  onBeforeClose?: () => void;
+  onBeforeClose?: () => MaybePromise<boolean | undefined>;
   /**
    * 点击取消按钮的回调
    */
