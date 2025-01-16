@@ -252,7 +252,7 @@ const getAppendTo = computed(() => {
         ref="wrapperRef"
         :class="
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
-            'pointer-events-none overflow-hidden': showLoading || submitting,
+            'overflow-hidden': showLoading || submitting,
           })
         "
       >
