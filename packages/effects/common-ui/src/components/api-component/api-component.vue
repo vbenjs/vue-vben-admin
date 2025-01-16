@@ -121,7 +121,7 @@ const bindProps = computed(() => {
     [`onUpdate:${props.modelPropName}`]: (val: string) => {
       modelValue.value = val;
     },
-    ...objectOmit(attrs, ['onUpdate:value']),
+    ...objectOmit(attrs, [`onUpdate:${props.modelPropName}`]),
     ...(props.visibleEvent
       ? {
           [props.visibleEvent]: handleFetchForVisible,
@@ -191,18 +191,16 @@ function emitChange() {
 }
 </script>
 <template>
-  <div v-bind="{ ...$attrs }">
-    <component
-      :is="component"
-      v-bind="bindProps"
-      :placeholder="$attrs.placeholder"
-    >
-      <template v-for="item in Object.keys($slots)" #[item]="data">
-        <slot :name="item" v-bind="data || {}"></slot>
-      </template>
-      <template v-if="loadingSlot && loading" #[loadingSlot]>
-        <LoaderCircle class="animate-spin" />
-      </template>
-    </component>
-  </div>
+  <component
+    :is="component"
+    v-bind="bindProps"
+    :placeholder="$attrs.placeholder"
+  >
+    <template v-for="item in Object.keys($slots)" #[item]="data">
+      <slot :name="item" v-bind="data || {}"></slot>
+    </template>
+    <template v-if="loadingSlot && loading" #[loadingSlot]>
+      <LoaderCircle class="animate-spin" />
+    </template>
+  </component>
 </template>

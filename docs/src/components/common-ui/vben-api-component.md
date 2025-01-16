@@ -129,7 +129,8 @@ function fetchApi(): Promise<Record<string, any>> {
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| component | 欲包装的组件 | `Component` | - |
+| modelValue(v-model) | 当前值 | `any` | - |
+| component | 欲包装的组件（以下称为目标组件） | `Component` | - |
 | numberToString | 是否将value从数字转为string | `boolean` | `false` |
 | api | 获取数据的函数 | `(arg?: any) => Promise<OptionsItem[] \| Record<string, any>>` | - |
 | params | 传递给api的参数 | `Record<string, any>` | - |
@@ -137,16 +138,12 @@ function fetchApi(): Promise<Record<string, any>> {
 | labelField | label字段名 | `string` | `label` |
 | childrenField | 子级数据字段名，需要层级数据的组件可用 | `string` | `` |
 | valueField | value字段名 | `string` | `value` |
-| optionsPropName | 组件接收options数据的属性名称 | `string` | `options` |
-| modelPropName | 组件的双向绑定属性名，默认为modelValue。部分组件可能为value | `string` | `modelValue` |
+| optionsPropName | 目标组件接收options数据的属性名称 | `string` | `options` |
+| modelPropName | 目标组件的双向绑定属性名，默认为modelValue。部分组件可能为value | `string` | `modelValue` |
 | immediate | 是否立即调用api | `boolean` | `true` |
 | alwaysLoad | 每次`visibleEvent`事件发生时都重新请求数据 | `boolean` | `false` |
 | beforeFetch | 在api请求之前的回调函数 | `AnyPromiseFunction<any, any>` | - |
 | afterFetch | 在api请求之后的回调函数 | `AnyPromiseFunction<any, any>` | - |
 | options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - |
 | visibleEvent | 触发重新请求数据的事件名 | `string` | - |
-| loadingSlot | 组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - |
-
-```
-
-```
+| loadingSlot | 目标组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - |
