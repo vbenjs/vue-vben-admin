@@ -80,6 +80,7 @@ const {
   overlayBlur,
   showCancelButton,
   showConfirmButton,
+  submitting,
   title,
   titleTooltip,
   zIndex,
@@ -115,9 +116,9 @@ watch(
 );
 
 watch(
-  () => showLoading.value,
-  (v) => {
-    if (v && wrapperRef.value) {
+  () => [showLoading.value, submitting.value],
+  ([l, s]) => {
+    if ((s || l) && wrapperRef.value) {
       wrapperRef.value.scrollTo({
         // behavior: 'smooth',
         top: 0,
@@ -135,13 +136,13 @@ function handleFullscreen() {
   });
 }
 function interactOutside(e: Event) {
-  if (!closeOnClickModal.value) {
+  if (!closeOnClickModal.value || submitting.value) {
     e.preventDefault();
     e.stopPropagation();
   }
 }
 function escapeKeyDown(e: KeyboardEvent) {
-  if (!closeOnPressEscape.value) {
+  if (!closeOnPressEscape.value || submitting.value) {
     e.preventDefault();
   }
 }
@@ -156,7 +157,11 @@ function handerOpenAutoFocus(e: Event) {
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
   const isDismissableModal = target?.dataset.dismissableModal;
-  if (!closeOnClickModal.value || isDismissableModal !== id) {
+  if (
+    !closeOnClickModal.value ||
+    isDismissableModal !== id ||
+    submitting.value
+  ) {
     e.preventDefault();
     e.stopPropagation();
   }
@@ -174,7 +179,7 @@ const getAppendTo = computed(() => {
   <Dialog
     :modal="false"
     :open="state?.isOpen"
-    @update:open="() => modalApi?.close()"
+    @update:open="() => (!submitting ? modalApi?.close() : undefined)"
   >
     <DialogContent
       ref="contentRef"
@@ -195,7 +200,7 @@ const getAppendTo = computed(() => {
       "
       :modal="modal"
       :open="state?.isOpen"
-      :show-close="closable"
+      :show-close="submitting ? false : closable"
       :z-index="zIndex"
       :overlay-blur="overlayBlur"
       close-class="top-3"
@@ -247,12 +252,12 @@ const getAppendTo = computed(() => {
         ref="wrapperRef"
         :class="
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
-            'pointer-events-none overflow-hidden': showLoading,
+            'pointer-events-none overflow-hidden': showLoading || submitting,
           })
         "
       >
         <VbenLoading
-          v-if="showLoading"
+          v-if="showLoading || submitting"
           class="size-full h-auto min-h-full"
           spinning
         />
@@ -287,6 +292,7 @@ const getAppendTo = computed(() => {
             :is="components.DefaultButton || VbenButton"
             v-if="showCancelButton"
             variant="ghost"
+            :disabled="submitting"
             @click="() => modalApi?.onCancel()"
           >
             <slot name="cancelText">
@@ -298,7 +304,7 @@ const getAppendTo = computed(() => {
             :is="components.PrimaryButton || VbenButton"
             v-if="showConfirmButton"
             :disabled="confirmDisabled"
-            :loading="confirmLoading"
+            :loading="confirmLoading || submitting"
             @click="() => modalApi?.onConfirm()"
           >
             <slot name="confirmText">

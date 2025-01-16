@@ -113,6 +113,7 @@ const [Modal, modalApi] = useVbenModal({
 | bordered | 是否显示border | `boolean` | `false` |
 | zIndex | 弹窗的ZIndex层级 | `number` | `1000` |
 | overlayBlur | 遮罩模糊度 | `number` | - |
+| submitting | 标记为提交中，锁定弹窗当前状态 | `boolean` | `false` |
 
 ::: info appendToMain
 
@@ -126,7 +127,7 @@ const [Modal, modalApi] = useVbenModal({
 
 | 事件名 | 描述 | 类型 | 版本号 |
 | --- | --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` |  |
+| onBeforeClose | 关闭前触发，返回 `false`或者被`reject`则禁止关闭 | `()=>Promise<boolean>\|boolean` |  |
 | onCancel | 点击取消按钮触发 | `()=>void` |  |
 | onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.4.3 |
 | onConfirm | 点击确认按钮触发 | `()=>void` |  |
@@ -153,3 +154,10 @@ const [Modal, modalApi] = useVbenModal({
 | setData | 设置共享数据 | `<T>(data:T)=>modalApi` |
 | getData | 获取共享数据 | `<T>()=>T` |
 | useStore | 获取可响应式状态 | - |
+| lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` |
+
+::: info lock
+
+`lock`方法用于锁定当前弹窗的状态，一般用于提交数据的过程中防止用户重复提交或者弹窗被意外关闭、表单数据被改变等等。当处于锁定状态时，弹窗的确认按钮会变为loading状态，同时禁用确认按钮、隐藏关闭按钮、禁止ESC或者点击遮罩等方式关闭弹窗、开启弹窗的spinner动画以遮挡弹窗内容。调用`close`方法关闭处于锁定状态的弹窗时，会自动解锁。
+
+:::

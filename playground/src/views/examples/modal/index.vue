@@ -97,7 +97,7 @@ function openFormModal() {
   formModalApi
     .setData({
       // 表单值
-      values: { field1: 'abc' },
+      values: { field1: 'abc', field2: '123' },
     })
     .open();
 }
