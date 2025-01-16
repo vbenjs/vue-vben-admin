@@ -127,7 +127,7 @@ const [Modal, modalApi] = useVbenModal({
 
 | 事件名 | 描述 | 类型 | 版本号 |
 | --- | --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`或者被`reject`则禁止关闭 | `()=>Promise<boolean>\|boolean` |  |
+| onBeforeClose | 关闭前触发，返回 `false`或者被`reject`则禁止关闭 | `()=>Promise<boolean>\|boolean` | >5.5.2支持Promise |
 | onCancel | 点击取消按钮触发 | `()=>void` |  |
 | onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.4.3 |
 | onConfirm | 点击确认按钮触发 | `()=>void` |  |
@@ -146,15 +146,15 @@ const [Modal, modalApi] = useVbenModal({
 
 ### modalApi
 
-| 方法 | 描述 | 类型 |
-| --- | --- | --- |
-| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` |
-| open | 打开弹窗 | `()=>void` |
-| close | 关闭弹窗 | `()=>void` |
-| setData | 设置共享数据 | `<T>(data:T)=>modalApi` |
-| getData | 获取共享数据 | `<T>()=>T` |
-| useStore | 获取可响应式状态 | - |
-| lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` |
+| 方法 | 描述 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` | - |
+| open | 打开弹窗 | `()=>void` | - |
+| close | 关闭弹窗 | `()=>void` | - |
+| setData | 设置共享数据 | `<T>(data:T)=>modalApi` | - |
+| getData | 获取共享数据 | `<T>()=>T` | - |
+| useStore | 获取可响应式状态 | - | - |
+| lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` | >5.5.2 |
 
 ::: info lock
 
