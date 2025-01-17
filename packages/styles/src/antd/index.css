@@ -11,6 +11,15 @@
   .anticon {
     display: inline-flex;
   }
+
+  /* * 修复按钮添加图标时的位置问题 */
+  svg {
+    display: inline-block;
+  }
+
+  svg + span {
+    margin-inline-start: 6px;
+  }
 }
 
 .ant-message-notice-content,
