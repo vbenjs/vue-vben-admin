@@ -1,7 +1,7 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
-import type { HttpResponse } from '@vben/request';
+import type { RequestClientOptions } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -20,8 +20,9 @@ import { refreshTokenApi } from './core';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
-function createRequestClient(baseURL: string) {
+function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   const client = new RequestClient({
+    ...options,
     baseURL,
   });
 
@@ -66,20 +67,6 @@ function createRequestClient(baseURL: string) {
       config.headers.Authorization = formatToken(accessStore.accessToken);
       config.headers['Accept-Language'] = preferences.app.locale;
       return config;
-    },
-  });
-
-  // response数据解构
-  client.addResponseInterceptor<HttpResponse>({
-    fulfilled: (response) => {
-      const { data: responseData, status } = response;
-
-      const { code, data } = responseData;
-      if (status >= 200 && status < 400 && code === 0) {
-        return data;
-      }
-
-      throw Object.assign({}, response, { response });
     },
   });
 

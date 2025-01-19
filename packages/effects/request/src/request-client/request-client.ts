@@ -1,11 +1,10 @@
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  CreateAxiosDefaults,
-} from 'axios';
+import type { AxiosInstance, AxiosResponse, CreateAxiosDefaults } from 'axios';
 
-import type { RequestClientOptions } from './types';
+import type {
+  HttpResponse,
+  RequestClientConfig,
+  RequestClientOptions,
+} from './types';
 
 import { bindMethods, merge } from '@vben/utils';
 
@@ -54,6 +53,24 @@ class RequestClient {
     this.addResponseInterceptor =
       interceptorManager.addResponseInterceptor.bind(interceptorManager);
 
+    // 添加基础的响应处理，根据设置决定返回响应的哪一部分
+    this.addResponseInterceptor<HttpResponse>({
+      fulfilled: (response) => {
+        const { config, data: responseData, status } = response;
+
+        if (config.responseReturn === 'raw') {
+          return response;
+        }
+
+        const { code, data } = responseData;
+
+        if (status >= 200 && status < 400 && code === 0) {
+          return config.responseReturn === 'body' ? responseData : data;
+        }
+        throw Object.assign({}, response, { response });
+      },
+    });
+
     // 实例化文件上传器
     const fileUploader = new FileUploader(this);
     this.upload = fileUploader.upload.bind(fileUploader);
@@ -65,14 +82,17 @@ class RequestClient {
   /**
    * DELETE请求方法
    */
-  public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public delete<T = any>(
+    url: string,
+    config?: RequestClientConfig,
+  ): Promise<T> {
     return this.request<T>(url, { ...config, method: 'DELETE' });
   }
 
   /**
    * GET请求方法
    */
-  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public get<T = any>(url: string, config?: RequestClientConfig): Promise<T> {
     return this.request<T>(url, { ...config, method: 'GET' });
   }
 
@@ -82,7 +102,7 @@ class RequestClient {
   public post<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig,
+    config?: RequestClientConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'POST' });
   }
@@ -93,7 +113,7 @@ class RequestClient {
   public put<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig,
+    config?: RequestClientConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'PUT' });
   }
@@ -101,7 +121,10 @@ class RequestClient {
   /**
    * 通用的请求方法
    */
-  public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
+  public async request<T>(
+    url: string,
+    config: RequestClientConfig,
+  ): Promise<T> {
     try {
       const response: AxiosResponse<T> = await this.instance({
         url,
