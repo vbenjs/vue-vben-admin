@@ -1,4 +1,4 @@
-import type { AxiosInstance, AxiosResponse, CreateAxiosDefaults } from 'axios';
+import type { AxiosInstance, AxiosResponse } from 'axios';
 
 import type {
   HttpResponse,
@@ -33,10 +33,11 @@ class RequestClient {
    */
   constructor(options: RequestClientOptions = {}) {
     // 合并默认配置和传入的配置
-    const defaultConfig: CreateAxiosDefaults = {
+    const defaultConfig: RequestClientOptions = {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
+      responseReturn: 'raw',
       // 默认超时时间
       timeout: 10_000,
     };

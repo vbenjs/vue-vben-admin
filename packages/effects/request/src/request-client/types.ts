@@ -9,7 +9,7 @@ type ExtendOptions = {
   /** 响应数据的返回方式。
    * raw: 原始的AxiosResponse，包括headers、status等。
    * body: 返回响应数据的BODY部分。
-   * data: 解构响应的BODY数据，只返回其中的data节点数据(默认方式)。
+   * data: 解构响应的BODY数据，只返回其中的data节点数据。
    */
   responseReturn?: 'body' | 'data' | 'raw';
 };
