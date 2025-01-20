@@ -15,6 +15,7 @@ class FileDownloader {
     const finalConfig: RequestClientConfig = {
       ...config,
       responseType: 'blob',
+      responseReturn: 'raw',
     };
 
     const response = await this.client.get<RequestResponse<Blob>>(
