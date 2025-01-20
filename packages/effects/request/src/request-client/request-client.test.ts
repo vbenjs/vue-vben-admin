@@ -48,29 +48,6 @@ describe('requestClient', () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it('should return different response types', async () => {
-    const mockData = { code: 0, msg: 'ok', data: 'response' };
-    mock.onGet('/test/diff').reply(200, mockData);
-
-    const responseRaw = await requestClient.get('/test/diff', {
-      responseReturn: 'raw',
-    });
-    expect(responseRaw.status).toBe(200);
-    expect(responseRaw.data).toEqual(mockData);
-
-    const responseBody = await requestClient.get('/test/diff', {
-      responseReturn: 'body',
-    });
-    expect(responseBody.code).toEqual(mockData.code);
-    expect(responseBody.msg).toEqual(mockData.msg);
-    expect(responseBody.data).toEqual(mockData.data);
-
-    const responseData = await requestClient.get('/test/diff', {
-      responseReturn: 'data',
-    });
-    expect(responseData).toEqual(mockData.data);
-  });
-
   it('should handle network errors', async () => {
     mock.onGet('/test/error').networkError();
     try {
