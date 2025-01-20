@@ -1,10 +1,6 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
-import type {
-  HttpResponse,
-  RequestClientConfig,
-  RequestClientOptions,
-} from './types';
+import type { RequestClientConfig, RequestClientOptions } from './types';
 
 import { bindMethods, merge } from '@vben/utils';
 
@@ -53,24 +49,6 @@ class RequestClient {
       interceptorManager.addRequestInterceptor.bind(interceptorManager);
     this.addResponseInterceptor =
       interceptorManager.addResponseInterceptor.bind(interceptorManager);
-
-    // 添加基础的响应处理，根据设置决定返回响应的哪一部分
-    this.addResponseInterceptor<HttpResponse>({
-      fulfilled: (response) => {
-        const { config, data: responseData, status } = response;
-
-        if (config.responseReturn === 'raw') {
-          return response;
-        }
-
-        const { code, data } = responseData;
-
-        if (status >= 200 && status < 400 && code === 0) {
-          return config.responseReturn === 'body' ? responseData : data;
-        }
-        throw Object.assign({}, response, { response });
-      },
-    });
 
     // 实例化文件上传器
     const fileUploader = new FileUploader(this);
