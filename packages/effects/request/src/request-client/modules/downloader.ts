@@ -1,5 +1,5 @@
 import type { RequestClient } from '../request-client';
-import type { RequestClientConfig, RequestResponse } from '../types';
+import type { RequestClientConfig } from '../types';
 
 type DownloadRequestConfig = {
   /**
@@ -20,9 +20,9 @@ class FileDownloader {
    * 下载文件
    * @param url 文件的完整链接
    * @param config 配置信息，可选。
-   * @returns 如果config.responseReturn为'body'，则返回Blob(默认)，否则返回AxiosResponse<Blob>
+   * @returns 如果config.responseReturn为'body'，则返回Blob(默认)，否则返回RequestResponse<Blob>
    */
-  public async download<T = RequestResponse<Blob>>(
+  public async download<T = Blob>(
     url: string,
     config?: DownloadRequestConfig,
   ): Promise<T> {
