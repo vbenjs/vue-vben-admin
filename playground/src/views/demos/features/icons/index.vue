@@ -94,7 +94,7 @@ const inputComponent = h(Input);
           v-model="iconValue3"
           icon-slot="addonAfter"
           model-value-prop="value"
-          prefix1="mdi"
+          prefix="mdi"
         />
       </div>
       <div class="flex items-center gap-5">
@@ -106,7 +106,7 @@ const inputComponent = h(Input);
           style="width: 300px"
         >
           <template #addonAfter>
-            <IconPicker v-model="iconValue4" prefix1="mdi-light" type="icon" />
+            <IconPicker v-model="iconValue4" prefix="mdi-light" type="icon" />
           </template>
         </Input>
       </div>
