@@ -23,7 +23,7 @@ import {
   VbenPopover,
 } from '@vben-core/shadcn-ui';
 
-import { refDebounced } from '@vueuse/core';
+import { refDebounced, watchDebounced } from '@vueuse/core';
 
 import { fetchIconsData } from './icons';
 
@@ -73,14 +73,14 @@ const keyword = ref('');
 const keywordDebounce = refDebounced(keyword, 300);
 const innerIcons = ref<string[]>([]);
 
-watch(
+watchDebounced(
   () => props.prefix,
   async (prefix) => {
     if (prefix && prefix !== 'svg' && props.autoFetchApi) {
       innerIcons.value = await fetchIconsData(prefix);
     }
   },
-  { immediate: true },
+  { immediate: true, debounce: 500, maxWait: 1000 },
 );
 
 const currentList = computed(() => {
@@ -180,10 +180,17 @@ defineExpose({ toggleOpenState, open, close });
           :is="inputComponent"
           :[modelValueProp]="currentSelect"
           :placeholder="$t('ui.iconPicker.placeholder')"
+          role="combobox"
+          :aria-label="$t('ui.iconPicker.placeholder')"
+          aria-expanded="visible"
           v-bind="$attrs"
         >
           <template #[iconSlot]>
-            <VbenIcon :icon="currentSelect || Grip" class="size-4" />
+            <VbenIcon
+              :icon="currentSelect || Grip"
+              class="size-4"
+              aria-hidden="true"
+            />
           </template>
         </component>
         <div class="relative w-full" v-else>
@@ -192,10 +199,14 @@ defineExpose({ toggleOpenState, open, close });
             v-model="currentSelect"
             :placeholder="$t('ui.iconPicker.placeholder')"
             class="h-8 w-full pr-8"
+            role="combobox"
+            :aria-label="$t('ui.iconPicker.placeholder')"
+            aria-expanded="visible"
           />
           <VbenIcon
             :icon="currentSelect || Grip"
             class="absolute right-1 top-1 size-6"
+            aria-hidden="true"
           />
         </div>
       </template>
