@@ -20,7 +20,10 @@ import {
 
 import { Card, Input } from 'ant-design-vue';
 
-const iconValue = ref('ant-design:trademark-outlined');
+const iconValue1 = ref('ant-design:trademark-outlined');
+const iconValue2 = ref('svg:avatar-1');
+const iconValue3 = ref('mdi:alien-outline');
+const iconValue4 = ref('mdi-light:book-multiple');
 
 const inputComponent = h(Input);
 </script>
@@ -78,26 +81,32 @@ const inputComponent = h(Input);
     <Card class="mb-5" title="图标选择器">
       <div class="mb-5 flex items-center gap-5">
         <span>原始样式(Iconify):</span>
-        <IconPicker class="w-[200px]" />
+        <IconPicker v-model="iconValue1" class="w-[200px]" />
       </div>
       <div class="mb-5 flex items-center gap-5">
         <span>原始样式(svg):</span>
-        <IconPicker class="w-[200px]" prefix="svg" />
+        <IconPicker v-model="iconValue2" class="w-[200px]" prefix="svg" />
       </div>
       <div class="mb-5 flex items-center gap-5">
-        <span>使用Input:</span>
-        <IconPicker :input-component="inputComponent" icon-slot="addonAfter" />
+        <span>自定义Input:</span>
+        <IconPicker
+          :input-component="inputComponent"
+          v-model="iconValue3"
+          icon-slot="addonAfter"
+          model-value-prop="value"
+          prefix="mdi"
+        />
       </div>
       <div class="flex items-center gap-5">
-        <span>可手动输入，只能点击图标打开弹窗:</span>
+        <span>显示为一个Icon:</span>
         <Input
-          v-model:value="iconValue"
+          v-model:value="iconValue4"
           allow-clear
           placeholder="点击这里选择图标"
           style="width: 300px"
         >
           <template #addonAfter>
-            <IconPicker v-model="iconValue" class="w-[200px]" />
+            <IconPicker v-model="iconValue4" prefix="mdi-light" type="icon" />
           </template>
         </Input>
       </div>
