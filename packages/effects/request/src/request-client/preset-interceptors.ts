@@ -25,15 +25,15 @@ export const defaultResponseInterceptor = ({
       if (config.responseReturn === 'raw') {
         return response;
       }
-      const code = responseData[codeField];
-      if (
-        status >= 200 && status < 400 && isFunction(successCode)
-          ? successCode(code)
-          : code === successCode
-      ) {
+
+      if (status >= 200 && status < 400) {
         if (config.responseReturn === 'body') {
           return responseData;
-        } else {
+        } else if (
+          isFunction(successCode)
+            ? successCode(responseData[codeField])
+            : responseData[codeField] === successCode
+        ) {
           return isFunction(dataField)
             ? dataField(responseData)
             : responseData[dataField];
