@@ -39,7 +39,7 @@
     width: 100%;
     height: 0;
     min-height: 0;
-    overflow: auto;
+    overflow: hidden auto;
 
     // begin: 下面这块代码 在我的项目打包后在比较宽的屏幕(2K 31 寸)有显示 bug 有偶发性 清缓存首次进入会出现 , 刷新就没了, 这里为什么要指定宽度 ?
     &.fixed {
