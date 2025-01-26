@@ -329,10 +329,14 @@ function autofocus() {
               v-bind="createComponentProps(slotProps)"
               :disabled="shouldDisabled"
             >
-              <template v-for="name in renderContentKey" :key="name" #[name]>
+              <template
+                v-for="name in renderContentKey"
+                :key="name"
+                #[name]="renderSlotProps"
+              >
                 <VbenRenderContent
                   :content="customContentRender[name]"
-                  v-bind="slotProps"
+                  v-bind="{ ...renderSlotProps, $formContext: slotProps }"
                 />
               </template>
               <!-- <slot></slot> -->
