@@ -2,16 +2,16 @@
 import type { MenuRecordRaw } from '@vben/types';
 
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { SearchX, X } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@vben/utils';
 
 import { VbenIcon, VbenScrollbar } from '@vben-core/shadcn-ui';
-import { isHttpUrl } from '@vben-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
+
+import { useNavigation } from '../../basic/menu/use-navigation';
 
 defineOptions({
   name: 'SearchPanel',
@@ -26,7 +26,6 @@ const props = withDefaults(
 );
 const emit = defineEmits<{ close: [] }>();
 
-const router = useRouter();
 const searchHistory = useLocalStorage<MenuRecordRaw[]>(
   `__search-history-${location.hostname}__`,
   [],
@@ -86,6 +85,7 @@ function scrollIntoView() {
   }
 }
 
+const { navigation } = useNavigation();
 // enter keyboard event
 async function handleEnter() {
   if (searchResults.value.length === 0) {
@@ -101,11 +101,7 @@ async function handleEnter() {
     searchHistory.value.push(to);
     handleClose();
     await nextTick();
-    if (isHttpUrl(to.path)) {
-      window.open(to.path, '_blank');
-    } else {
-      router.push({ path: to.path, replace: true });
-    }
+    await navigation(to.path);
   }
 }
 
