@@ -110,6 +110,10 @@ interface RouteMeta {
    */
   order?: number;
   /**
+   * 需要特定的权限码标识才可以访问
+   */
+  perms?: string[];
+  /**
    * 菜单所携带的参数
    */
   query?: Recordable;
@@ -131,6 +135,7 @@ type RouteRecordStringComponent<T = string> = Omit<
 type ComponentRecordType = Record<string, () => Promise<Component>>;
 
 interface GenerateMenuAndRoutesOptions {
+  accessCodes?: string[];
   fetchMenuListAsync?: () => Promise<RouteRecordStringComponent[]>;
   forbiddenComponent?: RouteRecordRaw['component'];
   layoutMap?: ComponentRecordType;
