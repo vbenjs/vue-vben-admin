@@ -14,7 +14,9 @@ const {
   codeLength = 6,
   createText = async () => {},
   disabled = false,
-  handleSendCode = async () => {},
+  handleSendCode = async () => {
+    return true;
+  },
   loading = false,
   maxTime = 60,
 } = defineProps<PinInputProps>();
@@ -59,7 +61,8 @@ function handleComplete(e: string[]) {
 async function handleSend(e: Event) {
   try {
     e?.preventDefault();
-    await handleSendCode();
+    const bool = await handleSendCode();
+    if (!bool) return;
     countdown.value = maxTime;
     startCountdown();
   } catch (error) {
