@@ -231,19 +231,14 @@ function createRequestClient(baseURL: string) {
     },
   });
 
-  // response数据解构
-  client.addResponseInterceptor<HttpResponse>({
-    fulfilled: (response) => {
-      const { data: responseData, status } = response;
-
-      const { code, data } = responseData;
-
-      if (status >= 200 && status < 400 && code === 0) {
-        return data;
-      }
-      throw Object.assign({}, response, { response });
-    },
-  });
+  // 处理返回的响应数据格式
+  client.addResponseInterceptor(
+    defaultResponseInterceptor({
+      codeField: 'code',
+      dataField: 'data',
+      successCode: 0,
+    }),
+  );
 
   // token过期的处理
   client.addResponseInterceptor(
