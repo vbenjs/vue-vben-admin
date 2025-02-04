@@ -4,9 +4,8 @@ import type { TippyProps } from '@vben/common-ui';
 import { reactive } from 'vue';
 
 import { Page, Tippy } from '@vben/common-ui';
-import { ChevronDown } from '@vben/icons';
 
-import { Button, Card, Flex, Tag } from 'ant-design-vue';
+import { Button, Card, Flex } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 
@@ -278,18 +277,8 @@ function goDoc() {
             animation: 'scale',
           }"
         >
-          <template #icon>
-            <ChevronDown class="size-4" />
-          </template>
           指定动画
         </Button>
-        <Tag color="#f50">
-          <template #icon>
-            <ChevronDown class="size-4" />
-          </template>
-
-          默认配置
-        </Tag>
       </Flex>
     </Card>
     <Card title="组件形式使用" class="mt-4">
