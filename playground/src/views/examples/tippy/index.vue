@@ -4,8 +4,9 @@ import type { TippyProps } from '@vben/common-ui';
 import { reactive } from 'vue';
 
 import { Page, Tippy } from '@vben/common-ui';
+import { ChevronDown } from '@vben/icons';
 
-import { Button, Card, Flex } from 'ant-design-vue';
+import { Button, Card, Flex, Tag } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 
@@ -254,7 +255,7 @@ function goDoc() {
       <p class="mb-4">
         指令形式使用比较简洁，直接在需要展示tooltip的组件上用v-tippy传递配置，适用于固定内容的工具提示。
       </p>
-      <Flex warp="warp" gap="20">
+      <Flex warp="warp" gap="20" align="center">
         <Button v-tippy="'这是一个提示，使用了默认的配置'">默认配置</Button>
 
         <Button
@@ -277,8 +278,18 @@ function goDoc() {
             animation: 'scale',
           }"
         >
+          <template #icon>
+            <ChevronDown class="size-4" />
+          </template>
           指定动画
         </Button>
+        <Tag color="#f50">
+          <template #icon>
+            <ChevronDown class="size-4" />
+          </template>
+
+          默认配置
+        </Tag>
       </Flex>
     </Card>
     <Card title="组件形式使用" class="mt-4">
