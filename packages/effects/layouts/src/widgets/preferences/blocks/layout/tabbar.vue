@@ -58,7 +58,7 @@ const styleItems = computed((): SelectOption[] => [
   </SwitchItem>
   <NumberFieldItem
     v-model="tabbarMaxCount"
-    :disabled="!tabbarEnable || !tabbarPersist"
+    :disabled="!tabbarEnable"
     :max="30"
     :min="0"
     :step="5"
