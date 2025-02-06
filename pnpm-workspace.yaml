@@ -13,7 +13,7 @@ packages:
   - docs
   - playground
 catalog:
-  '@ast-grep/napi': ^0.32.3
+  '@ast-grep/napi': ^0.34.4
   '@changesets/changelog-github': ^0.5.0
   '@changesets/cli': ^2.27.12
   '@changesets/git': ^3.0.2
@@ -23,14 +23,14 @@ catalog:
   '@ctrl/tinycolor': ^4.1.0
   '@eslint/js': ^9.19.0
   '@faker-js/faker': ^9.4.0
-  '@iconify/json': ^2.2.302
+  '@iconify/json': ^2.2.303
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^4.3.0
   '@intlify/core-base': ^11.1.0
   '@intlify/unplugin-vue-i18n': ^6.0.3
   '@jspm/generator': ^2.4.2
   '@manypkg/get-packages': ^2.2.2
-  '@nolebase/vitepress-plugin-git-changelog': ^2.12.1
+  '@nolebase/vitepress-plugin-git-changelog': ^2.13.0
   '@playwright/test': ^1.50.1
   '@pnpm/workspace.read-manifest': ^1000.0.2
   '@stylistic/stylelint-plugin': ^3.1.1
@@ -116,7 +116,7 @@ catalog:
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
   lodash.isequal: ^4.5.0
-  lucide-vue-next: ^0.469.0
+  lucide-vue-next: ^0.474.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.41.0
   nitropack: ^2.10.4
@@ -134,14 +134,14 @@ catalog:
   postcss-scss: ^4.0.9
   prettier: ^3.4.2
   prettier-plugin-tailwindcss: ^0.6.11
-  publint: ^0.2.12
+  publint: ^0.3.3
   qrcode: ^1.5.4
   radix-vue: ^1.9.13
   resolve.exports: ^2.0.3
   rimraf: ^6.0.1
   rollup: ^4.34.2
   rollup-plugin-visualizer: ^5.14.0
-  sass: ^1.83.4
+  sass: ^1.84.0
   sortablejs: ^1.15.6
   stylelint: ^16.14.1
   stylelint-config-recess-order: ^5.1.1
@@ -177,9 +177,9 @@ catalog:
   vue-i18n: ^11.1.0
   vue-router: ^4.5.0
   vue-tippy: ^6.6.0
-  vue-tsc: 2.1.10
-  vxe-pc-ui: ^4.3.79
-  vxe-table: 4.10.0
+  vue-tsc: 2.2.0
+  vxe-pc-ui: ^4.3.80
+  vxe-table: 4.10.5
   watermark-js-plus: ^1.5.7
   zod: ^3.24.1
   zod-defaults: ^0.1.3
