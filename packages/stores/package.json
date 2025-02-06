@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@vben-core/preferences": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "pinia": "catalog:",
