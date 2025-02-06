@@ -62,6 +62,8 @@
     "showMore": "Show More Button",
     "showMaximize": "Show Maximize Button",
     "persist": "Persist Tabs",
+    "maxCount": "Max Count of Tabs",
+    "maxCountTip": "When the number of tabs exceeds the maximum,\nthe oldest tab will be closed.\n Set to 0 to disable count checking.",
     "draggable": "Enable Draggable Sort",
     "wheelable": "Support Mouse Wheel",
     "middleClickClose": "Close Tab when Mouse Middle Button Click",
