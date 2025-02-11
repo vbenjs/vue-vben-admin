@@ -349,8 +349,8 @@ catalogs:
       specifier: ^4.0.9
       version: 4.0.9
     prettier:
-      specifier: ^3.4.2
-      version: 3.4.2
+      specifier: ^3.5.0
+      version: 3.5.0
     prettier-plugin-tailwindcss:
       specifier: ^0.6.11
       version: 0.6.11
@@ -937,7 +937,7 @@ importers:
         version: 4.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3)
       eslint-plugin-prettier:
         specifier: 'catalog:'
-        version: 5.2.3(@types/eslint@9.6.1)(eslint@9.19.0(jiti@2.4.2))(prettier@3.4.2)
+        version: 5.2.3(@types/eslint@9.6.1)(eslint@9.19.0(jiti@2.4.2))(prettier@3.5.0)
       eslint-plugin-regexp:
         specifier: 'catalog:'
         version: 2.7.0(eslint@9.19.0(jiti@2.4.2))
@@ -967,10 +967,10 @@ importers:
     dependencies:
       prettier:
         specifier: 'catalog:'
-        version: 3.4.2
+        version: 3.5.0
       prettier-plugin-tailwindcss:
         specifier: 'catalog:'
-        version: 0.6.11(prettier@3.4.2)
+        version: 0.6.11(prettier@3.5.0)
 
   internal/lint-configs/stylelint-config:
     dependencies:
@@ -995,7 +995,7 @@ importers:
         version: 4.0.9(postcss@8.5.1)
       prettier:
         specifier: 'catalog:'
-        version: 3.4.2
+        version: 3.5.0
       stylelint:
         specifier: 'catalog:'
         version: 16.14.1(typescript@5.7.3)
@@ -1016,7 +1016,7 @@ importers:
         version: 6.0.4(stylelint@16.14.1(typescript@5.7.3))
       stylelint-prettier:
         specifier: 'catalog:'
-        version: 5.0.3(prettier@3.4.2)(stylelint@16.14.1(typescript@5.7.3))
+        version: 5.0.3(prettier@3.5.0)(stylelint@16.14.1(typescript@5.7.3))
 
   internal/node-utils:
     dependencies:
@@ -1049,7 +1049,7 @@ importers:
         version: 1.3.1
       prettier:
         specifier: 'catalog:'
-        version: 3.4.2
+        version: 3.5.0
       rimraf:
         specifier: 'catalog:'
         version: 6.0.1
@@ -3533,6 +3533,10 @@ packages:
 
   '@intlify/shared@11.1.0':
     resolution: {integrity: sha512-DvpNSxiMrFqYMaGSRDDnQgO/L0MqNH4KWw9CUx8LRHHIdWp08En9DpmSRNpauUOxKpHAhyJJxx92BHZk9J84EQ==}
+    engines: {node: '>= 16'}
+
+  '@intlify/shared@11.1.1':
+    resolution: {integrity: sha512-2kGiWoXaeV8HZlhU/Nml12oTbhv7j2ufsJ5vQaa0VTjzUmZVdd/nmKFRAOJ/FtjO90Qba5AnZDwsrY7ZND5udA==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@6.0.3':
@@ -8476,8 +8480,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.4.2:
-    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+  prettier@3.5.0:
+    resolution: {integrity: sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -12186,12 +12190,14 @@ snapshots:
 
   '@intlify/shared@11.1.0': {}
 
+  '@intlify/shared@11.1.1': {}
+
   '@intlify/unplugin-vue-i18n@6.0.3(@vue/compiler-dom@3.5.13)(eslint@9.19.0(jiti@2.4.2))(rollup@4.34.2)(typescript@5.7.3)(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@9.19.0(jiti@2.4.2))
       '@intlify/bundle-utils': 10.0.0(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))
-      '@intlify/shared': 11.1.0
-      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.0)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
+      '@intlify/shared': 11.1.1
+      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.1)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
       '@rollup/pluginutils': 5.1.4(rollup@4.34.2)
       '@typescript-eslint/scope-manager': 8.23.0
       '@typescript-eslint/typescript-estree': 8.23.0(typescript@5.7.3)
@@ -12213,11 +12219,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.0)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))':
+  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.1)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@babel/parser': 7.26.7
     optionalDependencies:
-      '@intlify/shared': 11.1.0
+      '@intlify/shared': 11.1.1
       '@vue/compiler-dom': 3.5.13
       vue: 3.5.13(typescript@5.7.3)
       vue-i18n: 11.1.0(vue@3.5.13(typescript@5.7.3))
@@ -15096,10 +15102,10 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint@9.19.0(jiti@2.4.2))(prettier@3.4.2):
+  eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint@9.19.0(jiti@2.4.2))(prettier@3.5.0):
     dependencies:
       eslint: 9.19.0(jiti@2.4.2)
-      prettier: 3.4.2
+      prettier: 3.5.0
       prettier-linter-helpers: 1.0.0
       synckit: 0.9.2
     optionalDependencies:
@@ -17732,13 +17738,13 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-tailwindcss@0.6.11(prettier@3.4.2):
+  prettier-plugin-tailwindcss@0.6.11(prettier@3.5.0):
     dependencies:
-      prettier: 3.4.2
+      prettier: 3.5.0
 
   prettier@2.8.8: {}
 
-  prettier@3.4.2: {}
+  prettier@3.5.0: {}
 
   pretty-bytes@5.6.0: {}
 
@@ -18560,9 +18566,9 @@ snapshots:
       postcss-sorting: 8.0.2(postcss@8.5.1)
       stylelint: 16.14.1(typescript@5.7.3)
 
-  stylelint-prettier@5.0.3(prettier@3.4.2)(stylelint@16.14.1(typescript@5.7.3)):
+  stylelint-prettier@5.0.3(prettier@3.5.0)(stylelint@16.14.1(typescript@5.7.3)):
     dependencies:
-      prettier: 3.4.2
+      prettier: 3.5.0
       prettier-linter-helpers: 1.0.0
       stylelint: 16.14.1(typescript@5.7.3)
 
