@@ -48,7 +48,7 @@ const tabsView = computed(() => {
       closable: Reflect.has(meta, 'tabClosable') ? !!tabClosable : true,
       fullPath,
       icon: icon as string,
-      key: fullPath || path,
+      key: path || fullPath,
       meta,
       name,
       path,
