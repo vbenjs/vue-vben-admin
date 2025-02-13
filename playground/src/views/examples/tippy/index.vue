@@ -254,7 +254,7 @@ function goDoc() {
       <p class="mb-4">
         指令形式使用比较简洁，直接在需要展示tooltip的组件上用v-tippy传递配置，适用于固定内容的工具提示。
       </p>
-      <Flex warp="warp" gap="20">
+      <Flex warp="warp" gap="20" align="center">
         <Button v-tippy="'这是一个提示，使用了默认的配置'">默认配置</Button>
 
         <Button

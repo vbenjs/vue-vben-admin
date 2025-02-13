@@ -2,11 +2,11 @@ import type { Arrayable, MaybeElementRef } from '@vueuse/core';
 
 import type { Ref } from 'vue';
 
-import { computed, onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, unref, watch } from 'vue';
 
 import { isFunction } from '@vben/utils';
 
-import { useMouseInElement } from '@vueuse/core';
+import { useElementHover } from '@vueuse/core';
 
 /**
  * 监测鼠标是否在元素内部，如果在元素内部则返回 true，否则返回 false
@@ -18,15 +18,19 @@ export function useHoverToggle(
   refElement: Arrayable<MaybeElementRef>,
   delay: (() => number) | number = 500,
 ) {
-  const isOutsides: Array<Ref<boolean>> = [];
+  const isHovers: Array<Ref<boolean>> = [];
   const value = ref(false);
   const timer = ref<ReturnType<typeof setTimeout> | undefined>();
   const refs = Array.isArray(refElement) ? refElement : [refElement];
   refs.forEach((refEle) => {
-    const listener = useMouseInElement(refEle, { handleOutside: true });
-    isOutsides.push(listener.isOutside);
+    const eleRef = computed(() => {
+      const ele = unref(refEle);
+      return ele instanceof Element ? ele : (ele?.$el as Element);
+    });
+    const isHover = useElementHover(eleRef);
+    isHovers.push(isHover);
   });
-  const isOutsideAll = computed(() => isOutsides.every((v) => v.value));
+  const isOutsideAll = computed(() => isHovers.every((v) => !v.value));
 
   function setValueDelay(val: boolean) {
     timer.value && clearTimeout(timer.value);

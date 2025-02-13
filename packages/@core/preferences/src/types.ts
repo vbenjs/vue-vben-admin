@@ -168,6 +168,8 @@ interface TabbarPreferences {
   height: number;
   /** 开启标签页缓存功能 */
   keepAlive: boolean;
+  /** 限制最大数量 */
+  maxCount: number;
   /** 是否点击中键时关闭标签 */
   middleClickToClose: boolean;
   /** 是否持久化标签 */

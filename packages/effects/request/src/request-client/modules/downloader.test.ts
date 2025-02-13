@@ -31,6 +31,7 @@ describe('fileDownloader', () => {
     expect(result).toEqual(mockBlob);
     expect(mockAxiosInstance.get).toHaveBeenCalledWith(url, {
       responseType: 'blob',
+      responseReturn: 'body',
     });
   });
 
@@ -51,6 +52,7 @@ describe('fileDownloader', () => {
     expect(mockAxiosInstance.get).toHaveBeenCalledWith(url, {
       ...customConfig,
       responseType: 'blob',
+      responseReturn: 'body',
     });
   });
 
