@@ -106,7 +106,7 @@ catalog:
   get-port: ^7.1.0
   globals: ^15.14.0
   h3: ^1.14.0
-  happy-dom: ^16.8.1
+  happy-dom: ^17.1.0
   html-minifier-terser: ^7.2.0
   husky: ^9.1.7
   is-ci: ^4.1.0
