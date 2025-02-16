@@ -12,7 +12,7 @@ export interface JsonViewerProps {
   /** 是否展开 */
   expanded?: boolean;
   /** 时间格式化函数 */
-  timeformat?: (time: any) => string;
+  timeformat?: (time: Date | number | string) => string;
   /** 预览模式 */
   previewMode?: boolean;
   /** 显示数组索引 */

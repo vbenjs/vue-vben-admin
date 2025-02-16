@@ -13,8 +13,14 @@ import { json1, json2 } from './data';
     <Card title="默认配置">
       <JsonViewer v-model="json1" />
     </Card>
-    <Card title="可复制、展开3层" class="mt-4">
-      <JsonViewer v-model="json2" :expand-depth="3" copyable :sort="false" />
+    <Card title="可复制、默认展开3层、显示边框" class="mt-4">
+      <JsonViewer
+        v-model="json2"
+        :expand-depth="3"
+        copyable
+        :sort="false"
+        boxed
+      />
     </Card>
   </Page>
 </template>

@@ -28,6 +28,10 @@ const props = withDefaults(defineProps<JsonViewerProps>(), {
   parseString: true,
 });
 
+const emit = defineEmits<{
+  parseError: [error: Error];
+}>();
+
 const attrs: SetupContext['attrs'] = useAttrs();
 
 const bindProps = computed<Recordable<any>>(() => {
@@ -52,6 +56,7 @@ const jsonToShow = computed(() => {
     try {
       return JSON.parse(modelValue.value);
     } catch (error) {
+      emit('parseError', error as Error);
       console.error('Error parsing JSON:', error);
       return modelValue.value;
     }
