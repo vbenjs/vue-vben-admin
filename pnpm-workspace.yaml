@@ -175,6 +175,7 @@ catalog:
   vue: ^3.5.13
   vue-eslint-parser: ^9.4.3
   vue-i18n: ^11.1.0
+  vue-json-viewer: ^3.0.4
   vue-router: ^4.5.0
   vue-tippy: ^6.6.0
   vue-tsc: 2.1.10
