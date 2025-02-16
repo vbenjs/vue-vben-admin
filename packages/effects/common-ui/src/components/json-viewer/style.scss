@@ -70,8 +70,17 @@
     }
   }
 
-  .jv-code {
-    padding: 10px !important;
+  &.jv-container .jv-code {
+    padding: 10px;
+
+    &.boxed:not(.open) {
+      padding-bottom: 20px;
+      margin-bottom: 10px;
+    }
+
+    &.open {
+      padding-bottom: 10px;
+    }
 
     .jv-toggle {
       &::before {
