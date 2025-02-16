@@ -255,6 +255,15 @@ const routes: RouteRecordRaw[] = [
           title: 'Tippy',
         },
       },
+      {
+        name: 'JsonViewer',
+        path: '/examples/json-viewer',
+        component: () => import('#/views/examples/json-viewer/index.vue'),
+        meta: {
+          icon: 'tabler:json',
+          title: 'JsonViewer',
+        },
+      },
     ],
   },
 ];
