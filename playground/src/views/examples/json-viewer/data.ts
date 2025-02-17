@@ -26,8 +26,8 @@ export const json1 = {
   ],
 };
 
-export const json2 = `
-{
+export const json2 = JSON.parse(`
+  {
 	"id": "chatcmpl-123",
 	"object": "chat.completion",
 	"created": 1677652288,
@@ -46,6 +46,21 @@ export const json2 = `
 		"completion_tokens": 12,
 		"total_tokens": 21,
     "debug_mode": true
-	}
+	},
+  "debug": {
+    "startAt": "2021-08-01T00:00:00Z",
+    "logs": [
+      {
+        "timestamp": "2021-08-01T00:00:00Z",
+        "message": "This is a debug message",
+        "extra":[ "extra1", "extra2" ]
+      },
+      {
+        "timestamp": "2021-08-01T00:00:01Z",
+        "message": "This is another debug message",
+        "extra":[ "extra3", "extra4" ]
+      }
+    ]
+  }
 }
-`;
+  `);

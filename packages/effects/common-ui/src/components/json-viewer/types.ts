@@ -1,4 +1,6 @@
 export interface JsonViewerProps {
+  /** 要展示的结构数据 */
+  value: any;
   /** 展开深度 */
   expandDepth?: number;
   /** 是否可复制 */
@@ -19,6 +21,24 @@ export interface JsonViewerProps {
   showArrayIndex?: boolean;
   /** 显示双引号 */
   showDoubleQuotes?: boolean;
-  /** 解析字符串 */
-  parseString?: boolean;
+}
+
+export interface JsonViewerAction {
+  action: string;
+  text: string;
+  trigger: HTMLElement;
+}
+
+export interface JsonViewerValue {
+  value: any;
+  path: string;
+  depth: number;
+  el: HTMLElement;
+}
+
+export interface JsonViewerToggle {
+  /** 鼠标事件 */
+  event: MouseEvent;
+  /** 当前展开状态 */
+  open: boolean;
 }
