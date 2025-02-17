@@ -3,7 +3,12 @@ import type { SetupContext } from 'vue';
 
 import type { Recordable } from '@vben/types';
 
-import type { JsonViewerProps } from './types';
+import type {
+  JsonViewerAction,
+  JsonViewerProps,
+  JsonViewerToggle,
+  JsonViewerValue,
+} from './types';
 
 import { computed, useAttrs } from 'vue';
 // @ts-ignore
@@ -11,7 +16,7 @@ import VueJsonViewer from 'vue-json-viewer';
 
 import { $t } from '@vben/locales';
 
-import { isBoolean, isString } from '@vben-core/shared/utils';
+import { isBoolean } from '@vben-core/shared/utils';
 
 defineOptions({ name: 'JsonViewer' });
 
@@ -25,14 +30,43 @@ const props = withDefaults(defineProps<JsonViewerProps>(), {
   previewMode: false,
   showArrayIndex: true,
   showDoubleQuotes: false,
-  parseString: true,
 });
 
 const emit = defineEmits<{
-  parseError: [error: Error];
+  click: [event: MouseEvent];
+  copied: [event: JsonViewerAction];
+  keyClick: [key: string];
+  toggle: [param: JsonViewerToggle];
+  valueClick: [value: JsonViewerValue];
 }>();
 
 const attrs: SetupContext['attrs'] = useAttrs();
+
+function handleClick(event: MouseEvent) {
+  if (
+    event.target instanceof HTMLElement &&
+    event.target.classList.contains('jv-item')
+  ) {
+    const pathNode = event.target.closest('.jv-push');
+    if (!pathNode || !pathNode.hasAttribute('path')) {
+      return;
+    }
+    const param: JsonViewerValue = {
+      path: '',
+      value: '',
+      depth: 0,
+      el: event.target,
+    };
+
+    param.path = pathNode.getAttribute('path') || '';
+    param.depth = Number(pathNode.getAttribute('depth')) || 0;
+
+    param.value = event.target.textContent || undefined;
+    param.value = JSON.parse(param.value);
+    emit('valueClick', param);
+  }
+  emit('click', event);
+}
 
 const bindProps = computed<Recordable<any>>(() => {
   const copyable = {
@@ -45,28 +79,15 @@ const bindProps = computed<Recordable<any>>(() => {
   return {
     ...props,
     ...attrs,
+    onCopied: (event: JsonViewerAction) => emit('copied', event),
+    onKeyclick: (key: string) => emit('keyClick', key),
+    onClick: (event: MouseEvent) => handleClick(event),
     copyable: props.copyable ? copyable : false,
   };
 });
-
-const modelValue = defineModel();
-
-const jsonToShow = computed(() => {
-  if (props.parseString && isString(modelValue.value)) {
-    try {
-      return JSON.parse(modelValue.value);
-    } catch (error) {
-      emit('parseError', error as Error);
-      console.error('Error parsing JSON:', error);
-      return modelValue.value;
-    }
-  } else {
-    return modelValue.value;
-  }
-});
 </script>
 <template>
-  <VueJsonViewer :value="jsonToShow" v-bind="bindProps">
+  <VueJsonViewer v-bind="bindProps">
     <template #copy="slotProps">
       <slot name="copy" v-bind="slotProps"></slot>
     </template>
