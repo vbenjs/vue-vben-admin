@@ -60,6 +60,7 @@ catalog:
   '@vue/shared': ^3.5.13
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^12.7.0
+  '@vueuse/motion': ^2.2.6
   '@vueuse/integrations': ^12.7.0
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
