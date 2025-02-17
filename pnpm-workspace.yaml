@@ -140,7 +140,7 @@ catalog:
   radix-vue: ^1.9.14
   resolve.exports: ^2.0.3
   rimraf: ^6.0.1
-  rollup: ^4.34.7
+  rollup: ^4.34.8
   rollup-plugin-visualizer: ^5.14.0
   sass: ^1.85.0
   sortablejs: ^1.15.6
