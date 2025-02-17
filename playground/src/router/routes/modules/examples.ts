@@ -273,6 +273,15 @@ const routes: RouteRecordRaw[] = [
           title: 'Motion',
         },
       },
+      {
+        name: 'CountTo',
+        path: '/examples/count-to',
+        component: () => import('#/views/examples/count-to/index.vue'),
+        meta: {
+          icon: 'mdi:animation-play',
+          title: 'CountTo',
+        },
+      },
     ],
   },
 ];
