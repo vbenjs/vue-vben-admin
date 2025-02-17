@@ -98,7 +98,7 @@ catalog:
   eslint-plugin-perfectionist: ^4.9.0
   eslint-plugin-prettier: ^5.2.3
   eslint-plugin-regexp: ^2.7.0
-  eslint-plugin-unicorn: ^56.0.1
+  eslint-plugin-unicorn: ^57.0.0
   eslint-plugin-unused-imports: ^4.1.4
   eslint-plugin-vitest: ^0.5.4
   eslint-plugin-vue: ^9.32.0
