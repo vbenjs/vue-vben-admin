@@ -2,6 +2,7 @@ import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
 import { initTippy } from '@vben/common-ui';
+import { MotionPlugin } from '@vben/plugins/motion';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
@@ -48,6 +49,9 @@ async function bootstrap(namespace: string) {
 
   // 配置@tanstack/vue-query
   app.use(VueQueryPlugin);
+
+  // 配置Motion插件
+  app.use(MotionPlugin);
 
   // 动态更新标题
   watchEffect(() => {
