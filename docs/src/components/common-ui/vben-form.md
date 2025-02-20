@@ -445,9 +445,9 @@ export interface FormSchema<
   /** 字段名，也作为自定义插槽的名称 */
   fieldName: string;
   /** 帮助信息 */
-  help?: string;
-  /** 表单项 */
-  label?: string;
+  help?: CustomRenderType;
+  /** 表单的标签（如果是一个string，会用于默认必选规则的消息提示） */
+  label?: CustomRenderType;
   /** 自定义组件内部渲染  */
   renderComponentContent?: RenderComponentContentType;
   /** 字段规则 */

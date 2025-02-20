@@ -193,7 +193,7 @@ const fieldProps = computed(() => {
   const rules = fieldRules.value;
   return {
     keepValue: true,
-    // label,
+    label: isString(label) ? label : '',
     ...(rules ? { rules } : {}),
     ...(formFieldProps as Record<string, any>),
   };
