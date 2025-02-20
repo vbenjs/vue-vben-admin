@@ -42,11 +42,18 @@ outline: deep
 | transition | 动画效果       | `string`  | `linear` |
 | decimals   | 保留小数点位数 | `number`  | `0`      |
 
+### Events
+
+| 事件名         | 描述           | 类型           |
+| -------------- | -------------- | -------------- |
+| started        | 动画已开始     | `()=>void`     |
+| finished       | 动画已结束     | `()=>void`     |
+| ~~onStarted~~  | ~~动画已开始~~ | ~~`()=>void`~~ |
+| ~~onFinished~~ | ~~动画已结束~~ | ~~`()=>void`~~ |
+
 ### Methods
 
-以下事件，只有在 `useVbenModal({onCancel:()=>{}})` 中传入才会生效。
-
-| 事件名 | 描述         | 类型       |
+| 方法名 | 描述         | 类型       |
 | ------ | ------------ | ---------- |
 | start  | 开始执行动画 | `()=>void` |
 | reset  | 重置         | `()=>void` |
