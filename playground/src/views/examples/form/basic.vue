@@ -160,6 +160,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       label: '图标',
     },
     {
+      colon: false,
       component: 'Select',
       componentProps: {
         allowClear: true,
@@ -178,8 +179,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
         showSearch: true,
       },
       fieldName: 'options',
-      label: '下拉选',
-      suffix: () => h(Tag, { color: 'warning' }, () => '😎自定义后缀'),
+      label: () => h(Tag, { color: 'warning' }, () => '😎自定义：'),
     },
     {
       component: 'RadioGroup',

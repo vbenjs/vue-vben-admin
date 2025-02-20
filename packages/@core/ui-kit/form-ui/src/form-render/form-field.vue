@@ -193,7 +193,7 @@ const fieldProps = computed(() => {
   const rules = fieldRules.value;
   return {
     keepValue: true,
-    label,
+    // label,
     ...(rules ? { rules } : {}),
     ...(formFieldProps as Record<string, any>),
   };
@@ -305,7 +305,7 @@ function autofocus() {
         :style="labelStyle"
       >
         <template v-if="label">
-          <span>{{ label }}</span>
+          <VbenRenderContent :content="label" />
           <span v-if="colon" class="ml-[2px]">:</span>
         </template>
       </FormLabel>

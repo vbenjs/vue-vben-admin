@@ -250,7 +250,7 @@ export interface FormSchema<
   /** 帮助信息 */
   help?: CustomRenderType;
   /** 表单项 */
-  label?: string;
+  label?: CustomRenderType;
   // 自定义组件内部渲染
   renderComponentContent?: RenderComponentContentType;
   /** 字段规则 */
