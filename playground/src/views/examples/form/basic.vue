@@ -4,10 +4,18 @@ import { h, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 
 import { useDebounceFn } from '@vueuse/core';
-import { Button, Card, message, Spin, TabPane, Tabs } from 'ant-design-vue';
+import {
+  Button,
+  Card,
+  message,
+  Spin,
+  TabPane,
+  Tabs,
+  Tag,
+} from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm, z } from '#/adapter/form';
 import { getAllMenusApi } from '#/api';
 
 import DocButton from '../doc-button.vue';
@@ -111,6 +119,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
           notFoundContent: fetching.value ? h(Spin) : undefined,
         };
       },
+      rules: 'selectRequired',
     },
     {
       component: 'ApiTreeSelect',
@@ -151,6 +160,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       label: '图标',
     },
     {
+      colon: false,
       component: 'Select',
       componentProps: {
         allowClear: true,
@@ -169,7 +179,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
         showSearch: true,
       },
       fieldName: 'options',
-      label: '下拉选',
+      label: () => h(Tag, { color: 'warning' }, () => '😎自定义：'),
     },
     {
       component: 'RadioGroup',
@@ -225,6 +235,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
+      rules: z.any().refine((v) => v, { message: '为什么不同意？勾上它！' }),
     },
     {
       component: 'Mentions',
@@ -255,6 +266,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
         class: 'w-auto',
       },
       fieldName: 'switch',
+      help: () => ['这是一个帮助信息', '第二行'].map((v) => h('p', () => v)),
       label: '开关',
     },
     {

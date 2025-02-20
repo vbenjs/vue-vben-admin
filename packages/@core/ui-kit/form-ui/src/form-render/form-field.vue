@@ -193,7 +193,7 @@ const fieldProps = computed(() => {
   const rules = fieldRules.value;
   return {
     keepValue: true,
-    label,
+    label: isString(label) ? label : '',
     ...(rules ? { rules } : {}),
     ...(formFieldProps as Record<string, any>),
   };
@@ -285,7 +285,7 @@ function autofocus() {
         'pb-6': !compact,
         'pb-2': compact,
       }"
-      class="flex"
+      class="relative flex"
       v-bind="$attrs"
     >
       <FormLabel
@@ -305,55 +305,59 @@ function autofocus() {
         :style="labelStyle"
       >
         <template v-if="label">
-          <span>{{ label }}</span>
+          <VbenRenderContent :content="label" />
           <span v-if="colon" class="ml-[2px]">:</span>
         </template>
       </FormLabel>
-      <div :class="cn('relative flex w-full items-center', wrapperClass)">
-        <FormControl :class="cn(controlClass)">
-          <slot
-            v-bind="{
-              ...slotProps,
-              ...createComponentProps(slotProps),
-              disabled: shouldDisabled,
-              isInValid,
-            }"
-          >
-            <component
-              :is="FieldComponent"
-              ref="fieldComponentRef"
-              :class="{
-                'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
+      <div class="w-full overflow-hidden">
+        <div :class="cn('relative flex w-full items-center', wrapperClass)">
+          <div class="flex-auto overflow-hidden">
+            <FormControl :class="cn(controlClass)">
+              <slot
+                v-bind="{
+                  ...slotProps,
+                  ...createComponentProps(slotProps),
+                  disabled: shouldDisabled,
                   isInValid,
-              }"
-              v-bind="createComponentProps(slotProps)"
-              :disabled="shouldDisabled"
-            >
-              <template
-                v-for="name in renderContentKey"
-                :key="name"
-                #[name]="renderSlotProps"
+                }"
               >
-                <VbenRenderContent
-                  :content="customContentRender[name]"
-                  v-bind="{ ...renderSlotProps, formContext: slotProps }"
-                />
-              </template>
-              <!-- <slot></slot> -->
-            </component>
-          </slot>
-        </FormControl>
-        <!-- 自定义后缀 -->
-        <div v-if="suffix" class="ml-1">
-          <VbenRenderContent :content="suffix" />
+                <component
+                  :is="FieldComponent"
+                  ref="fieldComponentRef"
+                  :class="{
+                    'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
+                      isInValid,
+                  }"
+                  v-bind="createComponentProps(slotProps)"
+                  :disabled="shouldDisabled"
+                >
+                  <template
+                    v-for="name in renderContentKey"
+                    :key="name"
+                    #[name]="renderSlotProps"
+                  >
+                    <VbenRenderContent
+                      :content="customContentRender[name]"
+                      v-bind="{ ...renderSlotProps, formContext: slotProps }"
+                    />
+                  </template>
+                  <!-- <slot></slot> -->
+                </component>
+              </slot>
+            </FormControl>
+          </div>
+
+          <!-- 自定义后缀 -->
+          <div v-if="suffix" class="ml-1">
+            <VbenRenderContent :content="suffix" />
+          </div>
+          <FormDescription v-if="description" class="ml-1">
+            <VbenRenderContent :content="description" />
+          </FormDescription>
         </div>
 
-        <FormDescription v-if="description">
-          <VbenRenderContent :content="description" />
-        </FormDescription>
-
         <Transition name="slide-up">
-          <FormMessage class="absolute -bottom-[22px]" />
+          <FormMessage class="absolute bottom-1" />
         </Transition>
       </div>
     </FormItem>
