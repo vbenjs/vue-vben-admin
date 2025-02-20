@@ -179,6 +179,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       },
       fieldName: 'options',
       label: '下拉选',
+      suffix: () => h(Tag, { color: 'warning' }, () => '😎自定义后缀'),
     },
     {
       component: 'RadioGroup',
@@ -265,9 +266,8 @@ const [BaseForm, baseFormApi] = useVbenForm({
         class: 'w-auto',
       },
       fieldName: 'switch',
-      help: () => ['这是一个帮助信息', '第二行'].map((v) => h('p', v)),
+      help: () => ['这是一个帮助信息', '第二行'].map((v) => h('p', () => v)),
       label: '开关',
-      suffix: () => h(Tag, { color: 'warning' }, '😎没啥用的提示'),
     },
     {
       component: 'DatePicker',
