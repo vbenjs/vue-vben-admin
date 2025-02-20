@@ -13,12 +13,22 @@
   }
 
   /* * 修复按钮添加图标时的位置问题 */
-  svg {
+  > svg {
     display: inline-block;
   }
 
-  svg + span {
+  > svg + span {
     margin-inline-start: 6px;
+  }
+}
+
+.ant-tag {
+  > svg {
+    display: inline-block;
+  }
+
+  > svg + span {
+    margin-inline-start: 4px;
   }
 }
 

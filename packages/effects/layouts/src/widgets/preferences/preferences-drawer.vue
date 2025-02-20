@@ -116,6 +116,7 @@ const tabbarPersist = defineModel<boolean>('tabbarPersist');
 const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarWheelable = defineModel<boolean>('tabbarWheelable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
+const tabbarMaxCount = defineModel<number>('tabbarMaxCount');
 const tabbarMiddleClickToClose = defineModel<boolean>(
   'tabbarMiddleClickToClose',
 );
@@ -365,6 +366,7 @@ async function handleReset() {
                 v-model:tabbar-show-more="tabbarShowMore"
                 v-model:tabbar-style-type="tabbarStyleType"
                 v-model:tabbar-wheelable="tabbarWheelable"
+                v-model:tabbar-max-count="tabbarMaxCount"
                 v-model:tabbar-middle-click-to-close="tabbarMiddleClickToClose"
               />
             </Block>

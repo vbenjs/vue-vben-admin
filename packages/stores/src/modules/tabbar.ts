@@ -4,6 +4,7 @@ import type { TabDefinition } from '@vben-core/typings';
 
 import { toRaw } from 'vue';
 
+import { preferences } from '@vben-core/preferences';
 import {
   openRouteInNewWindow,
   startProgress,
@@ -107,6 +108,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       });
 
       if (tabIndex === -1) {
+        const maxCount = preferences.tabbar.maxCount;
         // 获取动态路由打开数，超过 0 即代表需要控制打开数
         const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ??
           -1) as number;
@@ -122,8 +124,14 @@ export const useTabbarStore = defineStore('core-tabbar', {
             (item) => item.name === routeTab.name,
           );
           index !== -1 && this.tabs.splice(index, 1);
+        } else if (maxCount > 0 && this.tabs.length >= maxCount) {
+          // 关闭第一个
+          const index = this.tabs.findIndex(
+            (item) =>
+              !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
+          );
+          index !== -1 && this.tabs.splice(index, 1);
         }
-
         this.tabs.push(tab);
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数

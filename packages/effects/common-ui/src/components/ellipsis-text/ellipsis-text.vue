@@ -5,6 +5,8 @@ import { computed, ref, watchEffect } from 'vue';
 
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
+import { useElementSize } from '@vueuse/core';
+
 interface Props {
   /**
    * 是否启用点击文本展开全部
@@ -78,11 +80,13 @@ const ellipsis = ref();
 const isExpand = ref(false);
 const defaultTooltipMaxWidth = ref();
 
+const { width: eleWidth } = useElementSize(ellipsis);
+
 watchEffect(
   () => {
-    if (props.tooltip && ellipsis.value) {
+    if (props.tooltip && eleWidth.value) {
       defaultTooltipMaxWidth.value =
-        props.tooltipMaxWidth ?? ellipsis.value.offsetWidth + 24;
+        props.tooltipMaxWidth ?? eleWidth.value + 24;
     }
   },
   { flush: 'post' },

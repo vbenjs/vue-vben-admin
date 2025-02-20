@@ -80,6 +80,7 @@ const defaultPreferences: Preferences = {
     enable: true,
     height: 38,
     keepAlive: true,
+    maxCount: 0,
     middleClickToClose: false,
     persist: true,
     showIcon: true,

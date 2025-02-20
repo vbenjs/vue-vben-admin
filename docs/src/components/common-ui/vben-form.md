@@ -347,7 +347,7 @@ export interface ActionButtonOptions {
   /** 是否显示 */
   show?: boolean;
   /** 按钮文本 */
-  text?: string;
+  content?: string;
   /** 任意属性 */
   [key: string]: any;
 }
