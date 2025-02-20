@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { FormLabel, VbenHelpTooltip } from '@vben-core/shadcn-ui';
+import type { CustomRenderType } from '../types';
+
+import {
+  FormLabel,
+  VbenHelpTooltip,
+  VbenRenderContent,
+} from '@vben-core/shadcn-ui';
 import { cn } from '@vben-core/shared/utils';
 
 interface Props {
   class?: string;
-  help?: string;
+  help?: CustomRenderType;
   required?: boolean;
 }
 
@@ -16,7 +22,7 @@ const props = defineProps<Props>();
     <span v-if="required" class="text-destructive mr-[2px]">*</span>
     <slot></slot>
     <VbenHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">
-      {{ help }}
+      <VbenRenderContent :content="help" />
     </VbenHelpTooltip>
   </FormLabel>
 </template>
