@@ -301,17 +301,18 @@ function autofocus() {
           )
         "
         :help="help"
+        :colon="colon"
+        :label="label"
         :required="shouldRequired && !hideRequiredMark"
         :style="labelStyle"
       >
         <template v-if="label">
           <VbenRenderContent :content="label" />
-          <span v-if="colon" class="ml-[2px]">:</span>
         </template>
       </FormLabel>
       <div class="w-full overflow-hidden">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
-          <div class="flex-auto overflow-hidden">
+          <div class="flex-auto overflow-hidden p-[2px]">
             <FormControl :class="cn(controlClass)">
               <slot
                 v-bind="{
