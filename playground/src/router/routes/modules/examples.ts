@@ -54,6 +54,14 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'FormLayoutExample',
+            path: '/examples/form/custom-layout',
+            component: () => import('#/views/examples/form/custom-layout.vue'),
+            meta: {
+              title: $t('examples.form.layout'),
+            },
+          },
+          {
             name: 'FormCustomExample',
             path: '/examples/form/custom',
             component: () => import('#/views/examples/form/custom.vue'),

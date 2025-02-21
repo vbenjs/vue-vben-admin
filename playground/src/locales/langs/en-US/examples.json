@@ -12,6 +12,7 @@
   "form": {
     "title": "Form",
     "basic": "Basic Form",
+    "layout": "Custom Layout",
     "query": "Query Form",
     "rules": "Form Rules",
     "dynamic": "Dynamic Form",
