@@ -62,6 +62,9 @@ catalog:
   '@vueuse/core': ^12.7.0
   '@vueuse/motion': ^2.2.6
   '@vueuse/integrations': ^12.7.0
+  '@types/currency-formatter': ^1.5.4
+  '@shopify/app-bridge': ^3.7.10
+  currency-formatter: ^1.5.5
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.20
