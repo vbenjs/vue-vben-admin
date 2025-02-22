@@ -1860,9 +1860,6 @@ importers:
 
   packages/utils:
     dependencies:
-      '@shopify/app-bridge':
-        specifier: 'catalog:'
-        version: 3.7.10
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
