@@ -5,10 +5,6 @@
       "path": "apps/backend-mock",
     },
     {
-      "name": "@vben/docs",
-      "path": "docs",
-    },
-    {
       "name": "@vben/commitlint-config",
       "path": "internal/lint-configs/commitlint-config",
     },
