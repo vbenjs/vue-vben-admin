@@ -1,0 +1,161 @@
+<script lang="ts" setup>
+import { onBeforeMount, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { Page, VbenButton } from '@vben/common-ui';
+import { ArrowLeft, Check } from '@vben/icons';
+import { preferences } from '@vben/preferences';
+
+import { Flex, message, Steps } from 'ant-design-vue';
+
+import { onboardFinished } from '#/api';
+import { DefaultRoutes } from '#/constants';
+import { ArrowRight } from '#/icons';
+import { useShopSettingStore, useShopStore } from '#/store';
+import { toPercentage, toRate } from '#/utils';
+
+import Cogs from './cogs.vue';
+import ExampleOrder from './exampleOrder.vue';
+import HandlingFees from './handlingFees.vue';
+import { onboardForm } from './service';
+import ShippingFees from './shippingFees.vue';
+import TransactionFees from './transactionFees.vue';
+
+const shopStore = useShopStore();
+const shopSettingStore = useShopSettingStore();
+const router = useRouter();
+
+const state = reactive({
+  currentStep: 0,
+  loading: false,
+});
+
+const steps = ['COGS', 'Handling Fees', 'Shipping Costs', 'Transaction Fees'];
+const items = steps.map((item) => ({ key: item, title: item }));
+
+const next = () => {
+  state.currentStep++;
+};
+
+const prev = () => {
+  state.currentStep--;
+};
+
+const onboardFinish = () => {
+  state.loading = true;
+  const payload = {
+    cogsRate: toRate(onboardForm.cogsRate),
+    handlingFees: onboardForm.handlingFees,
+    shippingCostLevel: onboardForm.shippingFeeLevel,
+    shippingCostPrice: onboardForm.shippingFeePrice,
+    transactionFees: onboardForm.transactionFees.map((item) => ({
+      ...item,
+      percentageFee: toRate(item.percentageFee),
+      externalFeePercentage: toRate(item.externalFeePercentage),
+    })),
+  };
+
+  onboardFinished(payload)
+    .then(() => {
+      message.success('Onboarding completed successfully');
+
+      // Reload the page
+      window.location.reload();
+    })
+    .finally(() => {
+      state.loading = false;
+    });
+};
+
+onBeforeMount(() => {
+  // Redirect to the home page if the user has already completed the onboarding
+  if (!shopStore.isOnboarding) {
+    router.push(DefaultRoutes.HOME);
+  }
+
+  // Set the default values
+  const defaultRegion = shopSettingStore.defaulRegion;
+  onboardForm.shippingFeeLevel = defaultRegion.shippingCostLevel;
+  onboardForm.shippingFeePrice = defaultRegion.shippingCostPrice;
+
+  onboardForm.cogsRate = toPercentage(shopSettingStore.cogsRate);
+  onboardForm.handlingFees = shopSettingStore.handlingFees;
+  onboardForm.transactionFees = shopSettingStore.transactionFees.map(
+    (item) => ({
+      ...item,
+      fixedFee: item.fixedFee,
+      percentageFee: toPercentage(item.percentageFee),
+      externalFeePercentage: toPercentage(item.externalFeePercentage),
+    }),
+  );
+});
+</script>
+
+<template>
+  <Page class="mt-10 h-full">
+    <Flex class="h-full" vertical align="center" gap="large">
+      <h2
+        class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+      >
+        Welcome to the {{ preferences.app.name }}!
+      </h2>
+
+      <small class="text-sm leading-none">
+        To calculate your profits, we need your cost details.
+      </small>
+
+      <div class="mt-5 w-full max-w-4xl">
+        <Steps :current="state.currentStep" :items="items" class="mb-10" />
+
+        <div class="mb-10 flex items-center justify-center space-x-5">
+          <VbenButton
+            variant="outline"
+            class="w-32"
+            :disabled="state.currentStep === 0"
+            style="margin-left: 8px"
+            @click="prev"
+          >
+            <ArrowLeft class="mr-2 size-4" />
+            Previous
+          </VbenButton>
+
+          <VbenButton
+            class="w-32"
+            v-if="state.currentStep < steps.length - 1"
+            type="primary"
+            @click="next"
+          >
+            Next
+            <ArrowRight class="ml-2 size-4" />
+          </VbenButton>
+
+          <VbenButton
+            :loading="state.loading"
+            class="w-32"
+            v-if="state.currentStep === steps.length - 1"
+            type="primary"
+            @click="onboardFinish"
+          >
+            Finish
+            <Check class="ml-2 size-4" />
+          </VbenButton>
+        </div>
+
+        <div class="flex flex-row space-x-5">
+          <Cogs v-if="state.currentStep === 0" />
+          <HandlingFees v-if="state.currentStep === 1" />
+          <ShippingFees v-if="state.currentStep === 2" />
+          <TransactionFees v-if="state.currentStep === 3" />
+
+          <ExampleOrder />
+        </div>
+        <!-- <div>
+          {{ onboardForm }}
+        </div>
+        <div>
+          {{ sampleOrder }}
+        </div> -->
+      </div>
+    </Flex>
+  </Page>
+</template>

@@ -17,6 +17,10 @@
       "path": "apps/web-naive",
     },
     {
+      "name": "@vben/web-np",
+      "path": "apps/web-np",
+    },
+    {
       "name": "@vben/docs",
       "path": "docs",
     },
