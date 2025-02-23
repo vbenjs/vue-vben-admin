@@ -88,7 +88,7 @@ function onTransitionEnd() {
       </span>
     </slot>
 
-    <div v-if="text" class="mt-4 text-xs">{{ text }}</div>
+    <div v-if="text" class="text-primary mt-4 text-xs">{{ text }}</div>
     <slot></slot>
   </div>
 </template>
