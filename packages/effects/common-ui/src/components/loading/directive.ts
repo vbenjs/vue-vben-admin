@@ -21,6 +21,7 @@ const loadingDirective: Directive = {
   unmounted(el) {
     const instance = el[LOADING_INSTANCE_KEY];
     el.classList.remove(CLASS_NAME_RELATIVE);
+    render(null, el);
     instance.el.remove();
 
     el[LOADING_INSTANCE_KEY] = null;
@@ -30,10 +31,17 @@ const loadingDirective: Directive = {
     const instance = el[LOADING_INSTANCE_KEY];
     const options = getOptions(binding);
     if (options && instance?.component) {
-      Object.keys(options).forEach((key) => {
-        instance.component.props[key] = options[key];
-      });
-      instance.component.update();
+      try {
+        Object.keys(options).forEach((key) => {
+          instance.component.props[key] = options[key];
+        });
+        instance.component.update();
+      } catch (error) {
+        console.error(
+          'Failed to update loading component in directive:',
+          error,
+        );
+      }
     }
   },
 };
@@ -59,6 +67,7 @@ const spinningDirective: Directive = {
   unmounted(el) {
     const instance = el[SPINNER_INSTANCE_KEY];
     el.classList.remove(CLASS_NAME_RELATIVE);
+    render(null, el);
     instance.el.remove();
 
     el[SPINNER_INSTANCE_KEY] = null;
@@ -68,10 +77,17 @@ const spinningDirective: Directive = {
     const instance = el[SPINNER_INSTANCE_KEY];
     const options = getOptions(binding);
     if (options && instance?.component) {
-      Object.keys(options).forEach((key) => {
-        instance.component.props[key] = options[key];
-      });
-      instance.component.update();
+      try {
+        Object.keys(options).forEach((key) => {
+          instance.component.props[key] = options[key];
+        });
+        instance.component.update();
+      } catch (error) {
+        console.error(
+          'Failed to update spinner component in directive:',
+          error,
+        );
+      }
     }
   },
 };
