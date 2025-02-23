@@ -1,7 +1,11 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
-import { initTippy } from '@vben/common-ui';
+import {
+  initTippy,
+  loadingDirective,
+  spinningDirective,
+} from '@vben/common-ui';
 import { MotionPlugin } from '@vben/plugins/motion';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
@@ -31,6 +35,11 @@ async function bootstrap(namespace: string) {
   // });
 
   const app = createApp(App);
+
+  // 注册v-loading指令
+  app.directive('loading', loadingDirective);
+  // 注册v-spinning指令
+  app.directive('spinning', spinningDirective);
 
   // 国际化 i18n 配置
   await setupI18n(app);
