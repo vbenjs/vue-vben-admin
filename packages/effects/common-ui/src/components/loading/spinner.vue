@@ -12,8 +12,3 @@ defineProps({
     <VbenSpinner :spinning="spinning" />
   </div>
 </template>
-<style>
-.spinner-parent--relative {
-  position: relative !important;
-}
-</style>

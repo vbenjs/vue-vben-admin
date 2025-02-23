@@ -1,7 +1,7 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
-import { initTippy, spinningDirective } from '@vben/common-ui';
+import { initTippy, registerLoadingDirective } from '@vben/common-ui';
 import { MotionPlugin } from '@vben/plugins/motion';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
@@ -33,11 +33,11 @@ async function bootstrap(namespace: string) {
   // 注册Element Plus提供的v-loading指令
   app.directive('loading', ElLoading.directive);
 
-  // 注册Vben提供的v-loading指令， 这两种指令根据个人喜好选择其一，或者都不注册
-  // app.directive('loading', loadingDirective);
-
-  // 注册v-spinning指令
-  app.directive('spinning', spinningDirective);
+  // 注册Vben提供的v-loading和v-spinning指令
+  registerLoadingDirective(app, {
+    loading: false, // Vben提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册Vben提供的v-loading指令
+    spinning: 'spinning',
+  });
 
   // 国际化 i18n 配置
   await setupI18n(app);

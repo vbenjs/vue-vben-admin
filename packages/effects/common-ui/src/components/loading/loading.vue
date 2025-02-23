@@ -17,8 +17,3 @@ defineProps<{
     </VbenLoading>
   </div>
 </template>
-<style>
-.loading-parent--relative {
-  position: relative !important;
-}
-</style>
