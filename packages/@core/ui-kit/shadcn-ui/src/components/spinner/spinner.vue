@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 // const startTime = ref(0);
 const showSpinner = ref(false);
-const renderSpinner = ref(true);
+const renderSpinner = ref(false);
 const timer = ref<ReturnType<typeof setTimeout>>();
 
 watch(
@@ -74,6 +74,7 @@ function onTransitionEnd() {
   >
     <div
       :class="{ paused: !renderSpinner }"
+      v-if="renderSpinner"
       class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded after:content-['']"
     ></div>
   </div>

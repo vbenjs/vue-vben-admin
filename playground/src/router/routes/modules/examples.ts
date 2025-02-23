@@ -290,6 +290,15 @@ const routes: RouteRecordRaw[] = [
           title: 'CountTo',
         },
       },
+      {
+        name: 'Loading',
+        path: '/examples/loading',
+        component: () => import('#/views/examples/loading/index.vue'),
+        meta: {
+          icon: 'mdi:circle-double',
+          title: 'Loading',
+        },
+      },
     ],
   },
 ];
