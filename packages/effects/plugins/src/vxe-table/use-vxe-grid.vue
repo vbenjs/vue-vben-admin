@@ -350,7 +350,7 @@ onUnmounted(() => {
         <div
           v-if="formOptions"
           v-show="showSearchForm !== false"
-          :class="cn('relative rounded py-3', isCompactForm ? 'pb-6' : 'pb-4')"
+          :class="cn('relative rounded py-3', isCompactForm ? 'pb-8' : 'pb-4')"
         >
           <slot name="form">
             <Form>
