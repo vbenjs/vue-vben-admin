@@ -15,6 +15,8 @@ export * from '@vben-core/popup-ui';
 // 给文档用
 export {
   VbenButton,
+  VbenButtonGroup,
+  VbenCheckButtonGroup,
   VbenCountToAnimator,
   VbenInputPassword,
   VbenLoading,

@@ -63,5 +63,8 @@
   },
   "layout": {
     "col-page": "ColPage Layout"
+  },
+  "button-group": {
+    "title": "Button Group"
   }
 }
