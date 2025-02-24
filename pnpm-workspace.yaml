@@ -133,7 +133,7 @@ catalog:
   postcss-import: ^16.1.0
   postcss-preset-env: ^10.1.4
   postcss-scss: ^4.0.9
-  prettier: ^3.5.1
+  prettier: ^3.5.2
   prettier-plugin-tailwindcss: ^0.6.11
   publint: ^0.2.12
   qrcode: ^1.5.4
