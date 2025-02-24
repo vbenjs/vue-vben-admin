@@ -4,8 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@vben/*": ["/node_modules/@vben/*"],  // Windows 路径分隔符错误
-      "#": ["src"]                        // 路径别名重复定义
+      "@vben/*": ["./node_modules/@vben/*"],  // Windows 路径分隔符错误
+      "#/*": ["./src/*"]                      
     }
   },
   "references": [{ "path": "./tsconfig.node.json" }],
