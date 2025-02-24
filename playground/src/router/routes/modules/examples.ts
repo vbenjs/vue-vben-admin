@@ -299,6 +299,15 @@ const routes: RouteRecordRaw[] = [
           title: 'Loading',
         },
       },
+      {
+        name: 'ButtonGroup',
+        path: '/examples/button-group',
+        component: () => import('#/views/examples/button-group/index.vue'),
+        meta: {
+          icon: 'mdi:check-circle',
+          title: $t('examples.button-group.title'),
+        },
+      },
     ],
   },
 ];

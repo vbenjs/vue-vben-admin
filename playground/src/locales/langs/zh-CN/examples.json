@@ -63,5 +63,8 @@
   },
   "layout": {
     "col-page": "双列布局"
+  },
+  "button-group": {
+    "title": "按钮组"
   }
 }

@@ -14,6 +14,8 @@ export {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Circle,
+  CircleCheckBig,
   CircleHelp,
   Copy,
   CornerDownLeft,
