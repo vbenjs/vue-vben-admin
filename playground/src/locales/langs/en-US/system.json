@@ -7,6 +7,7 @@
     "status": "Status",
     "createTime": "Create Time",
     "remark": "Remark",
-    "operation": "Operation"
+    "operation": "Operation",
+    "parentDept": "Parent Department"
   }
 }

@@ -6,6 +6,7 @@ const routes: RouteRecordRaw[] = [
   {
     meta: {
       icon: 'ion:settings-outline',
+      order: 9997,
       title: $t('system.title'),
     },
     name: 'System',

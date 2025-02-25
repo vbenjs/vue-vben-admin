@@ -66,7 +66,7 @@ const [Modal, modalApi] = useVbenModal({
 
 <template>
   <Modal :title="getTitle">
-    <Form />
+    <Form class="mx-4" />
     <template #prepend-footer>
       <div class="flex-auto">
         <Button type="primary" danger @click="resetForm">

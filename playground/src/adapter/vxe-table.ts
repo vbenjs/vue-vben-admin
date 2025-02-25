@@ -2,9 +2,10 @@ import type { Recordable } from '@vben/types';
 
 import { h } from 'vue';
 
+import { IconifyIcon } from '@vben/icons';
 import { $te } from '@vben/locales';
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
-import { isString } from '@vben/utils';
+import { isFunction, isString } from '@vben/utils';
 
 import { objectOmit } from '@vueuse/core';
 import { Button, Image, Popconfirm, Tag } from 'ant-design-vue';
@@ -42,6 +43,15 @@ setupVbenVxeTable({
         showOverflow: true,
         size: 'small',
       },
+    });
+
+    /**
+     * 解决vxeTable在热更新时可能会出错的问题
+     */
+    vxeUI.renderer.forEach((_item, key) => {
+      if (key.startsWith('Cell')) {
+        vxeUI.renderer.delete(key);
+      }
     });
 
     // 表格配置项可以用 cellRender: { name: 'CellImage' },
@@ -84,9 +94,27 @@ setupVbenVxeTable({
       },
     });
 
+    /**
+     * 注册表格的操作按钮渲染器
+     */
     vxeUI.renderer.add('CellOperation', {
-      renderTableDefault({ attrs, options, props }, { row }) {
+      renderTableDefault({ attrs, options, props }, { column, row }) {
         const defaultProps = { size: 'small', type: 'link', ...props };
+        let align = 'end';
+        switch (column.align) {
+          case 'center': {
+            align = 'center';
+            break;
+          }
+          case 'left': {
+            align = 'start';
+            break;
+          }
+          default: {
+            align = 'end';
+            break;
+          }
+        }
         const presets: Recordable<Recordable<any>> = {
           delete: {
             danger: true,
@@ -98,19 +126,28 @@ setupVbenVxeTable({
         };
         const operations: Array<Recordable<any>> = (
           options || ['edit', 'delete']
-        ).map((opt) => {
-          if (isString(opt)) {
-            return presets[opt]
-              ? { code: opt, ...presets[opt], ...defaultProps }
-              : {
-                  code: opt,
-                  text: $te(`common.${opt}`) ? $t(`common.${opt}`) : opt,
-                  ...defaultProps,
-                };
-          } else {
-            return { ...defaultProps, ...opt };
-          }
-        });
+        )
+          .map((opt) => {
+            if (isString(opt)) {
+              return presets[opt]
+                ? { code: opt, ...presets[opt], ...defaultProps }
+                : {
+                    code: opt,
+                    text: $te(`common.${opt}`) ? $t(`common.${opt}`) : opt,
+                    ...defaultProps,
+                  };
+            } else {
+              return { ...defaultProps, ...presets[opt.code], ...opt };
+            }
+          })
+          .map((opt) => {
+            const optBtn: Recordable<any> = {};
+            Object.keys(opt).forEach((key) => {
+              optBtn[key] = isFunction(opt[key]) ? opt[key](row) : opt[key];
+            });
+            return optBtn;
+          })
+          .filter((opt) => opt.show !== false);
 
         function renderBtn(opt: Recordable<any>, listen = true) {
           return h(
@@ -118,6 +155,7 @@ setupVbenVxeTable({
             {
               ...props,
               ...opt,
+              icon: undefined,
               onClick: listen
                 ? () =>
                     attrs?.onClick?.({
@@ -126,7 +164,18 @@ setupVbenVxeTable({
                     })
                 : undefined,
             },
-            { default: () => opt.text },
+            {
+              default: () => {
+                const content = [];
+                if (opt.icon) {
+                  content.push(
+                    h(IconifyIcon, { class: 'size-5', icon: opt.icon }),
+                  );
+                }
+                content.push(opt.text);
+                return content;
+              },
+            },
           );
         }
 
@@ -138,6 +187,7 @@ setupVbenVxeTable({
               title: $t('ui.actionTitle.delete', [attrs?.nameTitle || '']),
               ...props,
               ...opt,
+              icon: undefined,
               onConfirm: () => {
                 attrs?.onClick?.({
                   code: opt.code,
@@ -162,7 +212,14 @@ setupVbenVxeTable({
         const btns = operations.map((opt) =>
           opt.code === 'delete' ? renderConfirm(opt) : renderBtn(opt),
         );
-        return h('div', { class: 'flex table-operations' }, btns);
+        return h(
+          'div',
+          {
+            class: 'flex table-operations',
+            style: { justifyContent: align },
+          },
+          btns,
+        );
       },
     });
 
@@ -173,8 +230,11 @@ setupVbenVxeTable({
 });
 
 export { useVbenVxeGrid };
-export type OnActionClickFn<T = Recordable<any>> = (params: {
+export type OnActionClickParams<T = Recordable<any>> = {
   code: string;
   row: T;
-}) => void;
+};
+export type OnActionClickFn<T = Recordable<any>> = (
+  params: OnActionClickParams<T>,
+) => void;
 export type * from '@vben/plugins/vxe-table';

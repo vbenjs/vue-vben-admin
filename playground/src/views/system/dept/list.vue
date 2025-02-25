@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
+import type {
+  OnActionClickParams,
+  VxeTableGridOptions,
+} from '#/adapter/vxe-table';
 import type { SystemDeptApi } from '#/api/system/dept';
 
 import { Page, useVbenModal } from '@vben/common-ui';
@@ -19,40 +22,73 @@ const [FormModal, formModalApi] = useVbenModal({
   destroyOnClose: true,
 });
 
-const onActionClick: OnActionClickFn<SystemDeptApi.SystemDept> = ({
-  code,
-  row,
-}) => {
-  switch (code) {
-    case 'delete': {
-      const hideLoading = message.loading({
-        content: $t('ui.actionMessage.deleting', [row.name]),
-        duration: 0,
+/**
+ * 编辑部门
+ * @param row
+ */
+function onEdit(row: SystemDeptApi.SystemDept) {
+  formModalApi.setData(row).open();
+}
+
+/**
+ * 添加下级部门
+ * @param row
+ */
+function onAppend(row: SystemDeptApi.SystemDept) {
+  formModalApi.setData({ pid: row.id }).open();
+}
+
+/**
+ * 创建新部门
+ */
+function onCreate() {
+  formModalApi.setData(null).open();
+}
+
+/**
+ * 删除部门
+ * @param row
+ */
+function onDelete(row: SystemDeptApi.SystemDept) {
+  const hideLoading = message.loading({
+    content: $t('ui.actionMessage.deleting', [row.name]),
+    duration: 0,
+    key: 'action_process_msg',
+  });
+  deleteDept(row.id)
+    .then(() => {
+      message.success({
+        content: $t('ui.actionMessage.deleteSuccess', [row.name]),
         key: 'action_process_msg',
       });
-      deleteDept(row.id)
-        .then(() => {
-          message.success({
-            content: $t('ui.actionMessage.deleteSuccess', [row.name]),
-            key: 'action_process_msg',
-          });
-          refreshGrid();
-        })
-        .catch(() => {
-          hideLoading();
-        });
+      refreshGrid();
+    })
+    .catch(() => {
+      hideLoading();
+    });
+}
 
+/**
+ * 表格操作按钮的回调函数
+ */
+function onActionClick({
+  code,
+  row,
+}: OnActionClickParams<SystemDeptApi.SystemDept>) {
+  switch (code) {
+    case 'append': {
+      onAppend(row);
+      break;
+    }
+    case 'delete': {
+      onDelete(row);
       break;
     }
     case 'edit': {
-      formModalApi.setData(row).open();
+      onEdit(row);
       break;
     }
   }
-};
-
-function onCreate() {
-  formModalApi.setData(null).open();
 }
 
 const [Grid, gridApi] = useVbenVxeGrid({
@@ -78,19 +114,22 @@ const [Grid, gridApi] = useVbenVxeGrid({
       zoom: true,
     },
     treeConfig: {
-      expandAll: true,
-      parentField: 'parentId',
+      parentField: 'pid',
       rowField: 'id',
       transform: false,
     },
   } as VxeTableGridOptions,
 });
+
+/**
+ * 刷新表格
+ */
 function refreshGrid() {
   gridApi.query();
 }
 </script>
 <template>
-  <Page title="部门列表" auto-content-height>
+  <Page auto-content-height>
     <FormModal @success="refreshGrid" />
     <Grid table-title="部门列表">
       <template #toolbar-actions>
