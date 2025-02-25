@@ -4,7 +4,7 @@ import { computed, h, reactive } from 'vue';
 import { Page } from '@vben/common-ui';
 import { useUserStore } from '@vben/stores';
 
-import { Card, Divider, message } from 'ant-design-vue';
+import { Card, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { useCurrencyStore, useShopStore } from '#/store';
@@ -71,7 +71,12 @@ const [ShopSettingForm, formApi] = useVbenForm({
     },
     {
       component: 'Divider',
-      fieldName: 'system-state',
+      fieldName: '_divider',
+      renderComponentContent: () => {
+        return {
+          default: () => h('div', 'Currency Converter Display'),
+        };
+      },
       hideLabel: true,
       formItemClass: 'col-span-3 !my-0 !py-0',
       componentProps: {
@@ -134,9 +139,6 @@ function onSubmit(values: Record<string, any>) {
   <Page auto-content-height>
     <Card title="Shop settings">
       <ShopSettingForm>
-        <template #system-state="slotProps">
-          <Divider v-bind="slotProps">Currency Converter Display</Divider>
-        </template>
         <template #currencyRate>
           <span v-if="state.appCurrency !== shopStore.shop.currency">{{
             displayRate

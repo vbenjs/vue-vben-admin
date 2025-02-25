@@ -5,11 +5,17 @@ import type { VbenFormProps } from '#/adapter/form';
 
 import { markRaw } from 'vue';
 
-import { Page, VbenButton } from '@vben/common-ui';
+import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { capitalizeFirstLetter } from '@vben/utils';
 
 import { useDebounceFn } from '@vueuse/core';
-import { InputNumber, message, Switch, Tag } from 'ant-design-vue';
+import {
+  Image as AImage,
+  InputNumber,
+  message,
+  Switch,
+  Tag,
+} from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { updateCalcCOGSBy, updateCogsByDate, updateHandlingFees } from '#/api';
@@ -18,11 +24,16 @@ import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
+import FormModal from './form-modal.vue';
 import Select from './modules/select.vue';
 import { calcMargin, costTableOptions } from './table-config';
 
 const shopSettingStore = useShopSettingStore();
 const shopStore = useShopStore();
+
+const [FormContentModal, formContentModalApi] = useVbenModal({
+  connectedComponent: FormModal,
+});
 
 const formOptions: VbenFormProps = {
   schema: [
@@ -189,10 +200,15 @@ const handleHandlingFeesChanged = useDebounceFn(
   },
   2000,
 );
+
+const openFormModal = (row: IProduct) => {
+  formContentModalApi.setData(row).open();
+};
 </script>
 
 <template>
   <Page auto-content-height>
+    <FormContentModal />
     <Grid table-title="COGS & Handling Fees Settings">
       <template #level="{ row }: { row: IProduct }">
         <div class="min-w-24" v-if="!row.parentId">
@@ -209,11 +225,9 @@ const handleHandlingFeesChanged = useDebounceFn(
       <template #name="{ row }: { row: IProduct }">
         <!-- Avatar and Title - Only show for parent level -->
         <div class="my-1 flex items-center justify-start" v-if="!row.parentId">
-          <img
-            v-if="row.image"
-            :src="row.image"
-            class="h-[35px] w-[35px] min-w-5 flex-none rounded-md border border-dotted object-cover"
-          />
+          <div class="h-[35px] w-[35px] min-w-5 flex-none object-cover">
+            <AImage :src="row.image" class="rounded-lg border" />
+          </div>
           <div class="ml-1 shrink">
             <!-- Two line: title & sub title -->
             <div>{{ row.name }}</div>
@@ -260,6 +274,7 @@ const handleHandlingFeesChanged = useDebounceFn(
             />
 
             <VbenButton
+              @click="openFormModal(row)"
               :disabled="row.loading"
               variant="outline"
               size="icon"

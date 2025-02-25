@@ -21,7 +21,7 @@ export const costTableOptions: VxeTableGridOptions = {
     },
     {
       field: 'name',
-      title: 'Name',
+      title: 'Title',
       align: 'left',
       minWidth: 200,
       treeNode: true,
@@ -103,7 +103,11 @@ interface IFees {
 export interface IProduct {
   id: string;
   regionId: string;
+  variantId?: string;
+  variantTitle?: string;
   parentId?: string;
+  productId?: string;
+  productTitle: string;
   loading?: boolean;
   name: string;
   status: string;
@@ -166,6 +170,8 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
       _product.regionId = formValues.zoneUUID;
       _product.calcBy = regionFees.type;
       _product.variants = Object.values(_product.variants);
+      _product.productId = _product.id;
+      _product.productTitle = _product.name;
 
       /**
        * Only show variants if
@@ -181,8 +187,13 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
 
       _product.variants.forEach((_variant: IProduct) => {
         _variant.parentId = _product.id;
+        _variant.variantId = _variant.id;
+        _variant.variantTitle = _variant.name;
+        _variant.productId = _product.id;
+        _variant.productTitle = _product.name;
         _variant.calcBy = _product.calcBy;
         _variant.regionId = _product.regionId;
+        _variant.image = _product.image;
 
         children.push(_variant);
       });
