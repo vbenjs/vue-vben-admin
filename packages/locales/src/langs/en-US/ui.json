@@ -1,7 +1,23 @@
 {
   "formRules": {
     "required": "Please enter {0}",
-    "selectRequired": "Please select {0}"
+    "selectRequired": "Please select {0}",
+    "minLength": "{0} must be at least {1} characters",
+    "maxLength": "{0} can be at most {1} characters",
+    "length": "{0} must be {1} characters long"
+  },
+  "actionTitle": {
+    "edit": "Modify {0}",
+    "create": "Create {0}",
+    "delete": "Delete {0}",
+    "view": "View {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "Are you sure to delete {0}?",
+    "deleting": "Deleting {0} ...",
+    "deleteSuccess": "{0} deleted successfully",
+    "operationSuccess": "Operation succeeded",
+    "operationFailed": "Operation failed"
   },
   "placeholder": {
     "input": "Please enter",

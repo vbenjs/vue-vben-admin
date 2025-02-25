@@ -1,0 +1,13 @@
+{
+  "title": "System Management",
+  "dept": {
+    "name": "Department",
+    "title": "Department Management",
+    "deptName": "Department Name",
+    "status": "Status",
+    "createTime": "Create Time",
+    "remark": "Remark",
+    "operation": "Operation",
+    "parentDept": "Parent Department"
+  }
+}

@@ -6,9 +6,15 @@
   "prompt": "Prompt",
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "reset": "Reset",
   "noData": "No Data",
   "refresh": "Refresh",
   "loadingMenu": "Loading Menu",
   "query": "Search",
-  "search": "Search"
+  "search": "Search",
+  "enabled": "Enabled",
+  "disabled": "Disabled",
+  "edit": "Edit",
+  "delete": "Delete",
+  "create": "Create"
 }
