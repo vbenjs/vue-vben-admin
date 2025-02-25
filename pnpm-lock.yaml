@@ -277,8 +277,8 @@ catalogs:
       specifier: ^1.15.0
       version: 1.15.0
     happy-dom:
-      specifier: ^16.8.1
-      version: 16.8.1
+      specifier: ^17.1.8
+      version: 17.1.8
     html-minifier-terser:
       specifier: ^7.2.0
       version: 7.2.0
@@ -576,7 +576,7 @@ importers:
         version: 8.17.3
       happy-dom:
         specifier: 'catalog:'
-        version: 16.8.1
+        version: 17.1.8
       husky:
         specifier: 'catalog:'
         version: 9.1.7
@@ -609,7 +609,7 @@ importers:
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)(yaml@2.7.0)
       vitest:
         specifier: 'catalog:'
-        version: 2.1.9(@types/node@22.13.4)(happy-dom@16.8.1)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)
+        version: 2.1.9(@types/node@22.13.4)(happy-dom@17.1.8)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
@@ -955,7 +955,7 @@ importers:
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-vitest:
         specifier: 'catalog:'
-        version: 0.5.4(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.4)(happy-dom@16.8.1)(less@4.2.2)(sass@1.85.0)(terser@5.37.0))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.4)(happy-dom@17.1.8)(less@4.2.2)(sass@1.85.0)(terser@5.37.0))
       eslint-plugin-vue:
         specifier: 'catalog:'
         version: 9.32.0(eslint@9.20.1(jiti@2.4.2))
@@ -6713,8 +6713,8 @@ packages:
   h3@1.15.0:
     resolution: {integrity: sha512-OsjX4JW8J4XGgCgEcad20pepFQWnuKH+OwkCJjogF3C+9AZ1iYdtB4hX6vAb5DskBiu5ljEXqApINjR8CqoCMQ==}
 
-  happy-dom@16.8.1:
-    resolution: {integrity: sha512-n0QrmT9lD81rbpKsyhnlz3DgnMZlaOkJPpgi746doA+HvaMC79bdWkwjrNnGJRvDrWTI8iOcJiVTJ5CdT/AZRw==}
+  happy-dom@17.1.8:
+    resolution: {integrity: sha512-Yxbq/FG79z1rhAf/iB6YM8wO2JB/JDQBy99RiLSs+2siEAi5J05x9eW1nnASHZJbpldjJE2KuFLsLZ+AzX/IxA==}
     engines: {node: '>=18.0.0'}
 
   has-bigints@1.1.0:
@@ -15617,13 +15617,13 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.4)(happy-dom@16.8.1)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.4)(happy-dom@17.1.8)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
       eslint: 9.20.1(jiti@2.4.2)
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
-      vitest: 2.1.9(@types/node@22.13.4)(happy-dom@16.8.1)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)
+      vitest: 2.1.9(@types/node@22.13.4)(happy-dom@17.1.8)(less@4.2.2)(sass@1.85.0)(terser@5.37.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -16201,7 +16201,7 @@ snapshots:
       ufo: 1.5.4
       uncrypto: 0.1.3
 
-  happy-dom@16.8.1:
+  happy-dom@17.1.8:
     dependencies:
       webidl-conversions: 7.0.0
       whatwg-mimetype: 3.0.0
@@ -20132,7 +20132,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest@2.1.9(@types/node@22.13.4)(happy-dom@16.8.1)(less@4.2.2)(sass@1.85.0)(terser@5.37.0):
+  vitest@2.1.9(@types/node@22.13.4)(happy-dom@17.1.8)(less@4.2.2)(sass@1.85.0)(terser@5.37.0):
     dependencies:
       '@vitest/expect': 2.1.9
       '@vitest/mocker': 2.1.9(vite@5.4.14(@types/node@22.13.4)(less@4.2.2)(sass@1.85.0)(terser@5.37.0))
@@ -20156,7 +20156,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.4
-      happy-dom: 16.8.1
+      happy-dom: 17.1.8
     transitivePeerDependencies:
       - less
       - lightningcss
