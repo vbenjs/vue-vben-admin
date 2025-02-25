@@ -1,7 +1,23 @@
 {
   "formRules": {
     "required": "请输入{0}",
-    "selectRequired": "请选择{0}"
+    "selectRequired": "请选择{0}",
+    "minLength": "{0}至少{1}个字符",
+    "maxLength": "{0}最多{1}个字符",
+    "length": "{0}长度必须为{1}个字符"
+  },
+  "actionTitle": {
+    "edit": "修改{0}",
+    "create": "新增{0}",
+    "delete": "删除{0}",
+    "view": "查看{0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "确定删除 {0} 吗？",
+    "deleting": "正在删除 {0} ...",
+    "deleteSuccess": "{0} 删除成功",
+    "operationSuccess": "操作成功",
+    "operationFailed": "操作失败"
   },
   "placeholder": {
     "input": "请输入",

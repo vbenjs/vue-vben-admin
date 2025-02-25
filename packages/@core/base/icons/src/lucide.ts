@@ -49,6 +49,7 @@ export {
   PanelRight,
   Pin,
   PinOff,
+  Plus,
   RotateCw,
   Search,
   SearchX,

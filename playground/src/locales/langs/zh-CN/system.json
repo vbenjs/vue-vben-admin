@@ -1,0 +1,13 @@
+{
+  "dept": {
+    "createTime": "创建时间",
+    "deptName": "部门名称",
+    "name": "部门",
+    "operation": "操作",
+    "parentDept": "上级部门",
+    "remark": "备注",
+    "status": "状态",
+    "title": "部门管理"
+  },
+  "title": "系统管理"
+}
