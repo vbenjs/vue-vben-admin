@@ -1,10 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { verifyAccessToken } from '~/utils/jwt-utils';
-import {
-  sleep,
-  unAuthorizedResponse,
-  useResponseSuccess,
-} from '~/utils/response';
+import { unAuthorizedResponse, useResponseSuccess } from '~/utils/response';
 
 const formatterCN = new Intl.DateTimeFormat('zh-CN', {
   timeZone: 'Asia/Shanghai',
@@ -58,8 +54,6 @@ export default eventHandler(async (event) => {
   if (!userinfo) {
     return unAuthorizedResponse(event);
   }
-
-  await sleep(600);
 
   const listData = structuredClone(mockData);
 
