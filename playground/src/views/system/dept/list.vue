@@ -132,8 +132,7 @@ function refreshGrid() {
   <Page auto-content-height>
     <FormModal @success="refreshGrid" />
     <Grid table-title="部门列表">
-      <template #toolbar-actions>
-        <div class="flex-auto"></div>
+      <template #toolbar-tools>
         <Button type="primary" @click="onCreate">
           <Plus class="size-5" />
           {{ $t('ui.actionTitle.create', [$t('system.dept.name')]) }}
