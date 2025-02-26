@@ -34,4 +34,14 @@ const coreRouteNames = traverseTreeValues(coreRoutes, (route) => route.name);
 
 /** 有权限校验的路由列表，包含动态路由和静态路由 */
 const accessRoutes = [...dynamicRoutes, ...staticRoutes];
-export { accessRoutes, coreRouteNames, routes };
+
+const componentKeys: string[] = Object.keys(
+  import.meta.glob('../../views/**/*.vue'),
+)
+  .filter((item) => !item.includes('/modules/'))
+  .map((v) => {
+    const path = v.replace('../../views/', '/');
+    return path.endsWith('.vue') ? path.slice(0, -4) : path;
+  });
+
+export { accessRoutes, componentKeys, coreRouteNames, routes };

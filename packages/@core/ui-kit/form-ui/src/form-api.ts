@@ -93,9 +93,9 @@ export class FormApi {
     return this.state;
   }
 
-  async getValues() {
+  async getValues<T = Recordable<any>>() {
     const form = await this.getForm();
-    return form.values ? this.handleRangeTimeValue(form.values) : {};
+    return (form.values ? this.handleRangeTimeValue(form.values) : {}) as T;
   }
 
   async isFieldValid(fieldName: string) {

@@ -5,7 +5,7 @@ import { h } from 'vue';
 import { IconifyIcon } from '@vben/icons';
 import { $te } from '@vben/locales';
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
-import { isFunction, isString } from '@vben/utils';
+import { get, isFunction, isString } from '@vben/utils';
 
 import { objectOmit } from '@vueuse/core';
 import { Button, Image, Popconfirm, Tag } from 'ant-design-vue';
@@ -77,8 +77,8 @@ setupVbenVxeTable({
     // 单元格渲染： Tag
     vxeUI.renderer.add('CellTag', {
       renderTableDefault({ options, props }, { column, row }) {
-        const value = row[column.field];
-        const tagOptions = options || [
+        const value = get(row, column.field);
+        const tagOptions = options ?? [
           { color: 'success', label: $t('common.enabled'), value: 1 },
           { color: 'error', label: $t('common.disabled'), value: 0 },
         ];
@@ -87,7 +87,7 @@ setupVbenVxeTable({
           Tag,
           {
             ...props,
-            ...objectOmit(tagItem, ['label']),
+            ...objectOmit(tagItem ?? {}, ['label']),
           },
           { default: () => tagItem?.label ?? value },
         );

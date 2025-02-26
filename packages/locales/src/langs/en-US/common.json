@@ -16,5 +16,7 @@
   "disabled": "Disabled",
   "edit": "Edit",
   "delete": "Delete",
-  "create": "Create"
+  "create": "Create",
+  "yes": "Yes",
+  "no": "No"
 }
