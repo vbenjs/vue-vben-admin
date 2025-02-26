@@ -1,6 +1,6 @@
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { MOCK_MENU_LIST } from '~/utils/mock-data';
-import { unAuthorizedResponse } from '~/utils/response';
+import { unAuthorizedResponse, useResponseSuccess } from '~/utils/response';
 
 export default eventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
