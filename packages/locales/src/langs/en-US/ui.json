@@ -4,7 +4,10 @@
     "selectRequired": "Please select {0}",
     "minLength": "{0} must be at least {1} characters",
     "maxLength": "{0} can be at most {1} characters",
-    "length": "{0} must be {1} characters long"
+    "length": "{0} must be {1} characters long",
+    "alreadyExists": "{0} `{1}` already exists",
+    "startWith": "{0} must start with `{1}`",
+    "invalidURL": "Please input a valid URL"
   },
   "actionTitle": {
     "edit": "Modify {0}",

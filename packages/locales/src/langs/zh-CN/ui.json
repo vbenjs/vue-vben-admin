@@ -4,7 +4,10 @@
     "selectRequired": "请选择{0}",
     "minLength": "{0}至少{1}个字符",
     "maxLength": "{0}最多{1}个字符",
-    "length": "{0}长度必须为{1}个字符"
+    "length": "{0}长度必须为{1}个字符",
+    "alreadyExists": "{0} `{1}` 已存在",
+    "startWith": "{0}必须以 {1} 开头",
+    "invalidURL": "请输入有效的链接"
   },
   "actionTitle": {
     "edit": "修改{0}",
