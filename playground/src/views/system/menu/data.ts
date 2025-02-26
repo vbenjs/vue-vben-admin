@@ -62,7 +62,7 @@ export function useColumns(
           case 'menu': {
             return row.component ?? '';
           }
-          case 'embed': {
+          case 'embedded': {
             return row.meta?.iframeSrc ?? '';
           }
           case 'link': {

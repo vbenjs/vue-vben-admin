@@ -12,6 +12,8 @@ import { IconifyIcon } from '@vben/icons';
 import { $te } from '@vben/locales';
 import { getPopupContainer } from '@vben/utils';
 
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+
 import { useVbenForm, z } from '#/adapter/form';
 import {
   createMenu,
@@ -42,7 +44,7 @@ const schema: VbenFormSchema[] = [
     },
     defaultValue: 'menu',
     fieldName: 'type',
-    formItemClass: 'col-span-6',
+    formItemClass: 'col-span-2 md:col-span-2',
     label: $t('system.menu.type'),
   },
   {
@@ -262,8 +264,6 @@ const schema: VbenFormSchema[] = [
     },
     defaultValue: 1,
     fieldName: 'status',
-    formItemClass: 'col-span-3',
-    // hideLabel: true,
     label: $t('system.menu.status'),
   },
   {
@@ -331,7 +331,7 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'divider1',
-    formItemClass: 'col-span-6 pb-0',
+    formItemClass: 'col-span-2 md:col-span-2 pb-0',
     hideLabel: true,
     renderComponentContent() {
       return {
@@ -348,7 +348,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.keepAlive',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.keepAlive'),
@@ -364,7 +363,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.affixTab',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.affixTab'),
@@ -380,7 +378,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.hideInMenu',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.hideInMenu'),
@@ -396,7 +393,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.hideChildrenInMenu',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.hideChildrenInMenu'),
@@ -412,7 +408,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.hideInBreadcrumb',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.hideInBreadcrumb'),
@@ -428,7 +423,6 @@ const schema: VbenFormSchema[] = [
       triggerFields: ['type'],
     },
     fieldName: 'meta.hideInTab',
-    formItemClass: 'col-span-3',
     renderComponentContent() {
       return {
         default: () => $t('system.menu.hideInTab'),
@@ -437,15 +431,17 @@ const schema: VbenFormSchema[] = [
   },
 ];
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isHorizontal = computed(() => breakpoints.greaterOrEqual('md').value);
+
 const [Form, formApi] = useVbenForm({
   commonConfig: {
     colon: true,
-    formItemClass: 'col-span-3',
+    formItemClass: 'col-span-2 md:col-span-1',
   },
-  layout: 'horizontal',
   schema,
   showDefaultActions: false,
-  wrapperClass: 'grid-cols-6 gap-x-4',
+  wrapperClass: 'grid-cols-2 gap-x-4',
 });
 
 const [Drawer, drawerApi] = useVbenDrawer({
@@ -519,7 +515,7 @@ const getDrawerTitle = computed(() =>
 );
 </script>
 <template>
-  <Drawer class="min-w-[700px]" :title="getDrawerTitle">
-    <Form class="mx-4" />
+  <Drawer class="w-full max-w-[800px]" :title="getDrawerTitle">
+    <Form class="mx-4" :layout="isHorizontal ? 'horizontal' : 'vertical'" />
   </Drawer>
 </template>
