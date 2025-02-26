@@ -1,139 +1,196 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
-import { h, reactive } from 'vue';
+import { reactive } from 'vue';
 
-import { useVbenModal } from '@vben/common-ui';
+import { useVbenModal, VbenButton } from '@vben/common-ui';
+import { IconifyIcon } from '@vben/icons';
 
-import { Image } from 'ant-design-vue';
+import {
+  DatePicker,
+  Image,
+  InputNumber,
+  message,
+  TypographyTitle,
+} from 'ant-design-vue';
+import dayjs from 'dayjs';
 
-import { useVbenForm } from '#/adapter/form';
+import { updateCogsByRegion } from '#/api';
+import { useShopStore } from '#/store';
+import { formatReportDate } from '#/utils';
 
 const state = reactive({
   formValue: null as IProduct | null,
+  cogsArr: [] as { date: any; price: any }[],
 });
 
-const [CogsForm, formApi] = useVbenForm({
-  layout: 'horizontal',
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2',
-  showDefaultActions: false,
-  commonConfig: {
-    colon: true,
-  },
-  schema: [
-    {
-      component: 'Input',
-      componentProps: {
-        disabled: true,
-      },
-      dependencies: {
-        show: false,
-        triggerFields: ['productTitle'],
-      },
-      fieldName: 'id',
-      label: 'Hidden Field',
-    },
-    {
-      component: h('span'),
-      renderComponentContent: () => {
-        return {
-          default: () => h('div', state.formValue?.productTitle),
-        };
-      },
-      fieldName: 'productTitle',
-      label: 'Product Title',
-    },
-    {
-      component: h('span'),
-      renderComponentContent: () => {
-        return {
-          default: () => h('div', state.formValue?.variantTitle),
-        };
-      },
-      dependencies: {
-        show: (values) => {
-          return !!values.variantId;
-        },
-        triggerFields: ['id'],
-      },
-      fieldName: 'variantTitle',
-      label: 'Variant Title',
-    },
-    {
-      component: h('span'),
-      renderComponentContent: () => {
-        return {
-          default: () => h('div', state.formValue?.productId),
-        };
-      },
-      fieldName: 'productId',
-      label: 'Product ID',
-      formItemClass: 'col-start-1',
-    },
-    {
-      component: h('span'),
-      renderComponentContent: () => {
-        return {
-          default: () => h('div', state.formValue?.variantId),
-        };
-      },
-      dependencies: {
-        show: (values) => {
-          return !!values.variantId;
-        },
-        triggerFields: ['id'],
-      },
-      fieldName: 'variantId',
-      label: 'Variant ID',
-    },
-    {
-      component: 'Divider',
-      fieldName: '_divider',
-      renderComponentContent: () => {
-        return {
-          default: () => h('div', 'COGS - Historical settings'),
-        };
-      },
-      hideLabel: true,
-      componentProps: {
-        dashed: true,
-        class: '!my-0 !py-0',
-        orientation: 'left',
-        plain: true,
-      },
-      formItemClass: 'col-start-1',
-    },
-  ],
-});
+const shopStore = useShopStore();
 
 const [Modal, modalApi] = useVbenModal({
   onCancel() {
     modalApi.close();
   },
   onConfirm: async () => {
-    await formApi.validateAndSubmitForm();
+    modalApi.lock();
+    updateCogsByRegion({
+      regionId: state.formValue?.regionId,
+      productId: state.formValue?.productId,
+      variantId: state.formValue?.variantId,
+      cogs: state.cogsArr,
+    })
+      .then(() => {
+        message.success('Cost of Goods Sold updated successfully');
+      })
+      .finally(() => {
+        modalApi.setData({ reload: true });
+        modalApi.close();
+      });
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
       state.formValue = modalApi.getData<IProduct>();
 
-      if (state.formValue) {
-        formApi.setValues(state.formValue);
-      }
+      // Parse state.cogsInfo from state.formValue
+      const zoneUUID = state.formValue?.regionId;
+
+      // Convert object to array
+      state.cogsArr = state.formValue?.fees[zoneUUID]?.cogs ?? [];
+      state.cogsArr = state.cogsArr.map((item: any) => {
+        return {
+          date: dayjs.unix(item.date),
+          price: item.price,
+        };
+      });
     }
   },
 });
+
+const showRemoveBtn = (counter: any) => {
+  if (counter === state.cogsArr.length - 1) {
+    return false;
+  }
+
+  return true;
+};
+
+const getNextDate = (counter: any) => {
+  if (!counter) {
+    return 'Ongoding';
+  }
+
+  const previousDate = state.cogsArr[counter - 1]?.date.subtract(1, 'day');
+  return formatReportDate(previousDate, 'YYYY-MM-DD');
+};
+
+const addNewRow = () => {
+  const newDate = dayjs();
+  state.cogsArr = [
+    {
+      date: newDate,
+      price: 0,
+    },
+    ...state.cogsArr,
+  ];
+};
 </script>
 <template>
-  <Modal title="Cost of Goods Sold - Settings" confirm-text="Submit">
-    <div
-      class="mb-5 flex items-center justify-center"
-      v-if="state.formValue?.image"
-    >
-      <div class="h-[100px] w-[100px] min-w-5 flex-none object-cover">
-        <Image :src="state.formValue?.image" class="rounded-lg border" />
-      </div>
+  <Modal class="w-[700px]" title="Cost of Goods Sold" confirm-text="Submit">
+    <div class="mb-5 w-full text-center">
+      <Image
+        v-if="state.formValue?.image"
+        :src="state.formValue?.image"
+        class="!h-[100px] !w-[100px] rounded-lg border"
+      />
     </div>
-    <CogsForm />
+
+    <div class="text-center">
+      <TypographyTitle :level="3">
+        {{ state.formValue?.productTitle }}
+      </TypographyTitle>
+
+      <TypographyTitle
+        class="!mt-0 !italic"
+        :level="5"
+        v-if="state.formValue?.variantTitle"
+      >
+        Variant - {{ state.formValue?.variantTitle }}
+      </TypographyTitle>
+    </div>
+
+    <div class="relative !mt-8 overflow-x-auto">
+      <table
+        class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400"
+      >
+        <thead
+          class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3 text-center">From</th>
+            <th scope="col" class="px-6 py-3 text-center">To</th>
+            <th scope="col" class="px-6 py-3">Price</th>
+            <th scope="col" class="px-6 py-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(_item, _key) in state.cogsArr"
+            :key="_key"
+            class="bg-white dark:bg-gray-800"
+          >
+            <td class="px-4 py-2 text-center">
+              <DatePicker
+                v-if="showRemoveBtn(_key)"
+                v-model:value="_item.date"
+                class="w-full"
+                format="YYYY-MM-DD"
+                placeholder="Select date"
+              />
+              <div class="" v-else>2006-06-01</div>
+            </td>
+            <td class="px-4 py-2 text-center">
+              {{ getNextDate(_key) }}
+            </td>
+            <td class="px-4 py-2">
+              <InputNumber
+                :min="0"
+                :prefix="shopStore.shop.currencySymbol"
+                v-model:value="_item.price"
+                class="w-full"
+              />
+            </td>
+            <td class="flex w-full items-center justify-center py-2">
+              <div class="size-7">
+                <VbenButton
+                  variant="outline"
+                  class="size-7"
+                  size="icon"
+                  v-if="showRemoveBtn(_key)"
+                  @click="state.cogsArr.splice(_key, 1)"
+                >
+                  <IconifyIcon
+                    class="size-6 text-red-500"
+                    icon="ic:baseline-minus"
+                  />
+                </VbenButton>
+              </div>
+              <div class="ml-2 size-7">
+                <VbenButton
+                  variant="outline"
+                  class="size-7"
+                  size="icon"
+                  v-if="!_key"
+                  @click="addNewRow()"
+                >
+                  <IconifyIcon
+                    class="text-foreground size-6"
+                    icon="ic:baseline-plus"
+                  />
+                </VbenButton>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </Modal>
 </template>

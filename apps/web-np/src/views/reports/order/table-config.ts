@@ -2,11 +2,9 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { reactive } from 'vue';
 
-import { formatDate } from '@vben/utils';
-
 import { getReportOrderApi } from '#/api';
 import { useShopStore } from '#/store';
-import { calcGrossProfitMargin } from '#/utils';
+import { calcGrossProfitMargin, formatReportDate } from '#/utils';
 
 const shopStore = useShopStore();
 const state = reactive({
@@ -31,7 +29,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       field: 'processedAt',
       title: 'Date',
       formatter: (time: any) => {
-        return formatDate(time.cellValue, 'MMM DD, YYYY');
+        return formatReportDate(time.cellValue);
       },
       minWidth: 110,
     },

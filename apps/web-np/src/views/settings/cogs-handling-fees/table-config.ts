@@ -97,7 +97,7 @@ interface IFees {
   id: string;
   type: CostCalcBy;
   handlingFees: number;
-  cogs: any[];
+  cogs: { date: number; price: number }[];
 }
 
 export interface IProduct {
@@ -118,7 +118,7 @@ export interface IProduct {
   handlingFees: number;
   margin: string;
   calcBy: CostCalcBy;
-  fees: IFees[];
+  fees: Record<string, IFees>;
   variants: any[];
 }
 
@@ -143,9 +143,9 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
       // Calculate handlingFee
       item.handlingFees = regionFees.handlingFees;
 
-      // Calculate cogs
-      const maxKey = Math.max(...Object.keys(regionFees.cogs).map(Number));
-      item.cogs = regionFees.cogs[maxKey];
+      // Sort costs by date
+      regionFees.cogs = regionFees.cogs.sort((a, b) => b.date - a.date);
+      item.cogs = regionFees.cogs[0]?.price ?? 0;
 
       item.margin = calcMargin(item);
 

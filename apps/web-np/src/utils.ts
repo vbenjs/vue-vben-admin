@@ -1,3 +1,5 @@
+import { formatDate } from '@vben/utils';
+
 import { findCurrency, format } from 'currency-formatter';
 
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
@@ -41,4 +43,8 @@ export function toRate(number: number): number {
 
 export function numberWithCommas(x: any) {
   return x.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function formatReportDate(date: any, fmtDate = 'MMM DD, YYYY') {
+  return formatDate(date, fmtDate);
 }

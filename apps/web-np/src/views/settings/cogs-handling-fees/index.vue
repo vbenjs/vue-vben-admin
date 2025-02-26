@@ -6,6 +6,7 @@ import type { VbenFormProps } from '#/adapter/form';
 import { markRaw } from 'vue';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
+import { IconifyIcon } from '@vben/icons';
 import { capitalizeFirstLetter } from '@vben/utils';
 
 import { useDebounceFn } from '@vueuse/core';
@@ -18,7 +19,11 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { updateCalcCOGSBy, updateCogsByDate, updateHandlingFees } from '#/api';
+import {
+  updateCalcCOGSBy as updateCalcCOGSLevel,
+  updateCogsByDate,
+  updateHandlingFees,
+} from '#/api';
 import { CostCalcLevel } from '#/constants';
 import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
@@ -33,6 +38,13 @@ const shopStore = useShopStore();
 
 const [FormContentModal, formContentModalApi] = useVbenModal({
   connectedComponent: FormModal,
+  onClosed: () => {
+    const { reload } = formContentModalApi.getData();
+
+    if (reload === true) {
+      gridApi.reload();
+    }
+  },
 });
 
 const formOptions: VbenFormProps = {
@@ -130,7 +142,7 @@ const handleSwitchChange = (row: IProduct) => {
 
   row.loading = true;
 
-  updateCalcCOGSBy({
+  updateCalcCOGSLevel({
     productId: row.id,
     regionId: row.regionId,
     type: newType,
@@ -165,13 +177,13 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
 
   updateCogsByDate(payload).finally(() => {
     row.loading = false;
-    row.margin = calcMargin(row);
+    gridApi.reload();
 
     message.success({
       content: 'The cost has been updated.',
     });
   });
-}, 3000);
+}, 2000);
 
 const handleHandlingFeesChanged = useDebounceFn(
   async (row: IProduct, val: any) => {
@@ -204,12 +216,47 @@ const handleHandlingFeesChanged = useDebounceFn(
 const openFormModal = (row: IProduct) => {
   formContentModalApi.setData(row).open();
 };
+
+const handleExport = () => {
+  gridApi.setLoading(true);
+
+  setTimeout(() => {
+    gridApi.setLoading(false);
+  }, 3000);
+};
 </script>
 
 <template>
   <Page auto-content-height>
     <FormContentModal />
     <Grid table-title="COGS & Handling Fees Settings">
+      <template #toolbar-tools>
+        <VbenButton
+          v-show="0"
+          size="xs"
+          variant="outline"
+          class="mr-2 w-[100px]"
+          type="primary"
+          @click="handleExport"
+        >
+          <IconifyIcon
+            icon="ant-design:download-outlined"
+            class="mr-2 size-5"
+          />
+          Export
+        </VbenButton>
+        <VbenButton
+          v-show="0"
+          size="xs"
+          variant="outline"
+          class="mr-2 w-[100px]"
+          type="primary"
+        >
+          <IconifyIcon icon="ant-design:upload-outlined" class="mr-2 size-5" />
+          Import
+        </VbenButton>
+      </template>
+
       <template #level="{ row }: { row: IProduct }">
         <div class="min-w-24" v-if="!row.parentId">
           <Switch
@@ -225,8 +272,12 @@ const openFormModal = (row: IProduct) => {
       <template #name="{ row }: { row: IProduct }">
         <!-- Avatar and Title - Only show for parent level -->
         <div class="my-1 flex items-center justify-start" v-if="!row.parentId">
-          <div class="h-[35px] w-[35px] min-w-5 flex-none object-cover">
-            <AImage :src="row.image" class="rounded-lg border" />
+          <div class="h-[35px] w-[35px] flex-none">
+            <AImage
+              v-if="row.image"
+              :src="row.image"
+              class="!h-[35px] !w-[35px] rounded-lg border"
+            />
           </div>
           <div class="ml-1 shrink">
             <!-- Two line: title & sub title -->
