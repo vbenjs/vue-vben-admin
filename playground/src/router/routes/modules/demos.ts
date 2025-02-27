@@ -147,8 +147,6 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'HideChildrenInMenuParentDemo',
             path: '/demos/features/hide-menu-children',
-            component: () =>
-              import('#/views/demos/features/hide-menu-children/parent.vue'),
             meta: {
               hideChildrenInMenu: true,
               icon: 'ic:round-menu',
@@ -160,10 +158,10 @@ const routes: RouteRecordRaw[] = [
                 path: '',
                 component: () =>
                   import(
-                    '#/views/demos/features/hide-menu-children/children.vue'
+                    '#/views/demos/features/hide-menu-children/parent.vue'
                   ),
                 meta: {
-                  hideInMenu: true,
+                  // hideInMenu: true,
                   title: $t('demos.features.hideChildrenInMenu'),
                 },
               },
@@ -174,7 +172,10 @@ const routes: RouteRecordRaw[] = [
                   import(
                     '#/views/demos/features/hide-menu-children/children.vue'
                   ),
-                meta: { title: $t('demos.features.hideChildrenInMenu') },
+                meta: {
+                  activePath: '/demos/features/hide-menu-children',
+                  title: $t('demos.features.hideChildrenInMenu'),
+                },
               },
             ],
           },
