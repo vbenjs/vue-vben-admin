@@ -518,20 +518,25 @@ import { z } from '#/adapter/form';
 
 // 可选(可以是undefined)，并且携带默认值。注意zod的optional不包括空字符串''
 {
-   rules: z.string().default('默认值').optional(),
+  rules: z.string().default('默认值').optional();
 }
 
-// 可以是空字符串、undefined或者一个邮箱地址
+// 可以是空字符串、undefined或者一个邮箱地址(两种不同的用法)
 {
-  rules: z.union(z.string().email().optional(), z.literal(""))
+  rules: z.union([z.string().email().optional(), z.literal('')]);
+}
+
+{
+  rules: z.string().email().or(z.literal('')).optional();
 }
 
 // 复杂校验
 {
-   z.string().min(1, { message: "请输入" })
-            .refine((value) => value === "123", {
-              message: "值必须为123",
-            });
+  z.string()
+    .min(1, { message: '请输入' })
+    .refine((value) => value === '123', {
+      message: '值必须为123',
+    });
 }
 ```
 
