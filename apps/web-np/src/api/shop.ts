@@ -35,3 +35,9 @@ export async function updateHandlingFees(data: any) {
     data,
   );
 }
+
+export async function updateTransactionFees(data: any) {
+  return requestClient.put('/api/shop/settings/transaction-fees', {
+    transactionFees: data,
+  });
+}

@@ -37,36 +37,37 @@ onBeforeMount(() => {
     <table class="min-w-full divide-y">
       <thead>
         <tr>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Payment gateways
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Fixed fees
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Percentage fees
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Shopify external fees
           </th>
         </tr>
       </thead>
       <tbody class="divide-y">
         <tr v-for="item in onboardForm.transactionFees" :key="item.uuid">
-          <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
+          <td class="whitespace-nowrap px-2 py-4 text-sm font-semibold">
             {{ item.name }}
           </td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="px-2 py-4 text-start text-sm">
             <InputNumber
               :min="0"
               @change="handleChange"
               :prefix="shopStore.shop.currencySymbol"
+              :addon-after="shopStore.shop.currency"
               v-model:value="item.fixedFee"
               class="w-full max-w-48"
               size="small"
             />
           </td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="px-2 py-4 text-start text-sm">
             <InputNumber
               :min="0"
               @change="handleChange"
@@ -76,7 +77,7 @@ onBeforeMount(() => {
               size="small"
             />
           </td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="px-2 py-4 text-start text-sm">
             <InputNumber
               :min="0"
               @change="handleChange"
@@ -98,28 +99,30 @@ onBeforeMount(() => {
     <table class="min-w-full divide-y">
       <thead>
         <tr>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Example order
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Net Payment
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Payment gateways
           </th>
-          <th class="px-6 py-3 text-end text-xs font-medium uppercase">
+          <th class="px-2 py-3 text-end text-xs font-semibold uppercase">
             Transaction Fees
           </th>
         </tr>
       </thead>
       <tbody class="divide-y">
         <tr>
-          <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">#9999</td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="whitespace-nowrap px-2 py-4 text-sm font-semibold">
+            #9999
+          </td>
+          <td class="px-2 py-4 text-start text-sm">
             {{ formatMoney(sampleOrder.grossSales, shopStore.shop.currency) }}
           </td>
-          <td class="px-6 py-4 text-start text-sm">Other</td>
-          <td class="px-6 py-4 text-end text-sm font-bold">
+          <td class="px-2 py-4 text-start text-sm">Other</td>
+          <td class="px-2 py-4 text-end text-sm font-bold">
             {{
               formatMoney(sampleOrder.transactionFees, shopStore.shop.currency)
             }}

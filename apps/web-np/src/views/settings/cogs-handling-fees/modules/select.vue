@@ -33,7 +33,7 @@ function onChange() {
 
 function handleNewZone() {
   router.push({
-    name: 'settings.zones',
+    name: 'settings.shipping-fees',
   });
 }
 </script>

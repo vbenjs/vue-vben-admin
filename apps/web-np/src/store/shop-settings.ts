@@ -1,4 +1,8 @@
+import { cloneDeep } from '@vben/utils';
+
 import { defineStore } from 'pinia';
+
+import { updateTransactionFees } from '#/api';
 
 export interface ITransactionFee {
   externalFeePercentage: number;
@@ -32,11 +36,25 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
       this.regions = settings.regions;
       this.transactionFees = settings.transactionFees;
     },
+    async setTransactionsFees(transactionFees: ITransactionFee[]) {
+      const payload = cloneDeep(transactionFees).map((fee) => {
+        fee.percentageFee = fee.percentageFee / 100;
+        fee.externalFeePercentage = fee.externalFeePercentage / 100;
+
+        return fee;
+      });
+
+      return updateTransactionFees(payload).then((_) => {
+        this.transactionFees = payload;
+      });
+    },
   },
 
   getters: {
     defaulRegion(): IRegion {
-      return this.regions.find((region) => region.uuid === 'default');
+      return this.regions.find(
+        (region) => region.uuid === 'default',
+      ) as IRegion;
     },
   },
 

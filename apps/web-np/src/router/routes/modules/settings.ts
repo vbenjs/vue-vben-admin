@@ -32,31 +32,31 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
-          title: 'Shipping Costs',
-          icon: 'carbon:car',
-        },
-        name: 'ShippingFees',
-        path: '/settings/shipping-fees',
-        component: () => import('#/views/reports/order/index.vue'),
-      },
-      {
-        meta: {
           title: 'Transaction Fees',
           icon: 'mdi:account-payment-outline',
         },
         name: 'Transaction Fees',
         path: '/settings/transcation-fees',
-        component: () => import('#/views/reports/order/index.vue'),
+        component: () => import('#/views/settings/transaction-fees/index.vue'),
       },
       {
         meta: {
-          title: 'Zones',
-          icon: 'file-icons:moment-timezone',
+          title: 'Zone & Shipping',
+          icon: 'carbon:car',
         },
-        name: 'settings.zones',
-        path: '/settings/zones',
+        name: 'settings.shipping-fees',
+        path: '/settings/shipping-fees',
         component: () => import('#/views/reports/order/index.vue'),
       },
+      // {
+      //   meta: {
+      //     title: 'Zones',
+      //     icon: 'file-icons:moment-timezone',
+      //   },
+      //   name: 'settings.zones',
+      //   path: '/settings/zones',
+      //   component: () => import('#/views/settings/zone/index.vue'),
+      // },
     ],
   },
 ];

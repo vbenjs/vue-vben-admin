@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { ITransactionFee } from '#/store';
+
 import { onBeforeMount, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -78,14 +80,14 @@ onBeforeMount(() => {
   onboardForm.shippingFeeLevel = defaultRegion.shippingCostLevel;
   onboardForm.shippingFeePrice = defaultRegion.shippingCostPrice;
 
-  onboardForm.cogsRate = toPercentage(shopSettingStore.cogsRate);
+  onboardForm.cogsRate = toPercentage(shopSettingStore.cogsRate) as any;
   onboardForm.handlingFees = shopSettingStore.handlingFees;
   onboardForm.transactionFees = shopSettingStore.transactionFees.map(
-    (item) => ({
+    (item): ITransactionFee => ({
       ...item,
       fixedFee: item.fixedFee,
-      percentageFee: toPercentage(item.percentageFee),
-      externalFeePercentage: toPercentage(item.externalFeePercentage),
+      percentageFee: toPercentage(item.percentageFee) as any,
+      externalFeePercentage: toPercentage(item.externalFeePercentage) as any,
     }),
   );
 });
@@ -149,12 +151,6 @@ onBeforeMount(() => {
 
           <ExampleOrder />
         </div>
-        <!-- <div>
-          {{ onboardForm }}
-        </div>
-        <div>
-          {{ sampleOrder }}
-        </div> -->
       </div>
     </Flex>
   </Page>
