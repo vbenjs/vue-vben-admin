@@ -55,6 +55,7 @@ const {
   cancelText,
   class: drawerClass,
   closable,
+  closeIconPlacement,
   closeOnClickModal,
   closeOnPressEscape,
   confirmLoading,
