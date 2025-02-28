@@ -66,7 +66,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
         class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
       >
         <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
-        <p v-if="appName" class="text-xl font-medium">
+        <p v-if="appName" class="m-0 text-xl font-medium">
           {{ appName }}
         </p>
       </div>
