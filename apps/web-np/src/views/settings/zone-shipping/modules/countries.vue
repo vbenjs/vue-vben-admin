@@ -20,7 +20,7 @@ function onChange() {
       @change="onChange"
       mode="multiple"
       style="width: 100%"
-      placeholder="select one country"
+      placeholder="Select at least one country"
       :options="countries"
     >
       <template #option="{ value: val, label, icon }">

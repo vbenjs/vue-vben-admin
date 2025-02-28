@@ -8,7 +8,7 @@ import { IconifyIcon } from '@vben/icons';
 import { Modal, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { countries, ShippingCostLevel } from '#/constants';
+import { countries, defaultRegionUUID, ShippingCostLevel } from '#/constants';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
@@ -147,9 +147,7 @@ const getCountries = (row: IRegion) => {
         }}
       </template>
       <template #countries="{ row }: { row: IRegion }">
-        <div v-if="row.uuid === shopSettingStore.defaulRegion.uuid">
-          All countries
-        </div>
+        <div v-if="row.uuid === defaultRegionUUID">All countries</div>
         <template v-else>
           <template v-for="country in getCountries(row)" :key="country">
             <Tag>

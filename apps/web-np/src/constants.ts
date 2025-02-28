@@ -13,6 +13,8 @@ export enum DefaultRoutes {
   ONBOARS = '/onboard',
 }
 
+export const defaultRegionUUID = 'default';
+
 export const countries = [
   { value: 'AU', label: 'Australia', icon: '🇦🇺' },
   { value: 'AT', label: 'Austria', icon: '🇦🇹' },

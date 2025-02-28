@@ -1,10 +1,77 @@
+import type { VbenFormProps } from '@vben/common-ui';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
+import { markRaw } from 'vue';
+
 import { getHandlingFeesAndCOGS } from '#/api';
-import { CostCalcLevel as CostCalcBy } from '#/constants';
+import { CostCalcLevel as CostCalcBy, defaultRegionUUID } from '#/constants';
 import { toPercentage } from '#/utils';
 
-export const costTableOptions: VxeTableGridOptions = {
+import Select from './modules/select.vue';
+
+export const formOptions: VbenFormProps = {
+  schema: [
+    {
+      component: markRaw(Select),
+      defaultValue: defaultRegionUUID,
+      fieldName: 'zoneUUID',
+      label: 'Zone',
+    },
+    {
+      component: 'Input',
+      fieldName: 'name',
+      label: 'Name',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        allowClear: true,
+        mode: 'multiple',
+        options: [
+          {
+            value: 'ACTIVE',
+            label: 'Active',
+          },
+          {
+            value: 'DRAFT',
+            label: 'Draft',
+          },
+          {
+            value: 'ARCHIVED',
+            label: 'Archived',
+          },
+        ],
+      },
+      fieldName: 'status',
+      label: 'Status',
+    },
+    // {
+    //   component: 'Checkbox',
+    //   fieldName: 'onlyZeroCOGS',
+    //   label: '',
+    //   renderComponentContent: () => {
+    //     return {
+    //       default: () => ['Only show zero COGS'],
+    //     };
+    //   },
+    // },
+  ],
+  showCollapseButton: false,
+  collapsed: true,
+  submitOnChange: true,
+  submitOnEnter: true,
+  showDefaultActions: true,
+  resetButtonOptions: {
+    show: false,
+  },
+  submitButtonOptions: {
+    show: false,
+  },
+  wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4',
+};
+
+export const gridOptions: VxeTableGridOptions = {
   checkboxConfig: {
     highlight: true,
     labelField: 'id',

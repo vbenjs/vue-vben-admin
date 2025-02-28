@@ -3,6 +3,7 @@ import { cloneDeep } from '@vben/utils';
 import { defineStore } from 'pinia';
 
 import { removeRegion, updateRegion, updateTransactionFees } from '#/api';
+import { defaultRegionUUID } from '#/constants';
 
 export interface ITransactionFee {
   externalFeePercentage: number;
@@ -60,12 +61,15 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
         return res;
       });
     },
+    getZoneName(uuid: any) {
+      return this.regions.find((region) => region.uuid === uuid)?.name ?? '';
+    },
   },
 
   getters: {
     defaulRegion(): IRegion {
       return this.regions.find(
-        (region) => region.uuid === 'default',
+        (region) => region.uuid === defaultRegionUUID,
       ) as IRegion;
     },
   },

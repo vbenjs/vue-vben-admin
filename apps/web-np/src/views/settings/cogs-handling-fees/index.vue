@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
-import type { VbenFormProps } from '#/adapter/form';
-
-import { markRaw } from 'vue';
-
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { capitalizeFirstLetter } from '@vben/utils';
@@ -24,22 +20,34 @@ import {
   updateCogsByDate,
   updateHandlingFees,
 } from '#/api';
-import { CostCalcLevel } from '#/constants';
+import { CostCalcLevel, defaultRegionUUID } from '#/constants';
 import { AntHistory } from '#/icons';
-import { useShopSettingStore, useShopStore } from '#/store';
+import { useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
-import FormModal from './form-modal.vue';
-import Select from './modules/select.vue';
-import { calcMargin, costTableOptions } from './table-config';
+import CogsFormModal from './cogs-form-modal.vue';
+import ProductFormModal from './product-form-modal.vue';
+import { calcMargin, formOptions, gridOptions } from './table-config';
 
-const shopSettingStore = useShopSettingStore();
 const shopStore = useShopStore();
 
-const [FormContentModal, formContentModalApi] = useVbenModal({
-  connectedComponent: FormModal,
+const [ProductFormContentModal, productFormModalApi] = useVbenModal({
+  connectedComponent: ProductFormModal,
+  onClosed: () => {},
+});
+
+const openProductFormModal = () => {
+  productFormModalApi
+    .setData({
+      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
+    })
+    .open();
+};
+
+const [CogsFormContentModal, cogsFormModalApi] = useVbenModal({
+  connectedComponent: CogsFormModal,
   onClosed: () => {
-    const { reload } = formContentModalApi.getData();
+    const { reload } = cogsFormModalApi.getData();
 
     if (reload === true) {
       gridApi.reload();
@@ -47,69 +55,12 @@ const [FormContentModal, formContentModalApi] = useVbenModal({
   },
 });
 
-const formOptions: VbenFormProps = {
-  schema: [
-    {
-      component: markRaw(Select),
-      defaultValue: shopSettingStore.defaulRegion.uuid,
-      fieldName: 'zoneUUID',
-      label: 'Zone',
-    },
-    {
-      component: 'Input',
-      fieldName: 'name',
-      label: 'Name',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        allowClear: true,
-        mode: 'multiple',
-        options: [
-          {
-            value: 'ACTIVE',
-            label: 'Active',
-          },
-          {
-            value: 'DRAFT',
-            label: 'Draft',
-          },
-          {
-            value: 'ARCHIVED',
-            label: 'Archived',
-          },
-        ],
-      },
-      fieldName: 'status',
-      label: 'Status',
-    },
-    {
-      component: 'Checkbox',
-      fieldName: 'onlyZeroCOGS',
-      label: '',
-      renderComponentContent: () => {
-        return {
-          default: () => ['Only show zero COGS'],
-        };
-      },
-    },
-  ],
-  collapsed: true,
-  showCollapseButton: true,
-  submitOnChange: true,
-  submitOnEnter: true,
-  showDefaultActions: true,
-  resetButtonOptions: {
-    show: false,
-  },
-  submitButtonOptions: {
-    show: false,
-  },
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4',
+const openCogsFormModal = (row: IProduct) => {
+  cogsFormModalApi.setData(row).open();
 };
 
 const [Grid, gridApi] = useVbenVxeGrid({
-  gridOptions: costTableOptions,
+  gridOptions,
   formOptions,
 });
 
@@ -213,10 +164,6 @@ const handleHandlingFeesChanged = useDebounceFn(
   2000,
 );
 
-const openFormModal = (row: IProduct) => {
-  formContentModalApi.setData(row).open();
-};
-
 const handleExport = () => {
   gridApi.setLoading(true);
 
@@ -224,13 +171,32 @@ const handleExport = () => {
     gridApi.setLoading(false);
   }, 3000);
 };
+
+const showAlterProductsBtn = () => {
+  // return true;
+  return (
+    gridApi.formApi.form &&
+    gridApi.formApi.form.values.zoneUUID !== defaultRegionUUID
+  );
+};
 </script>
 
 <template>
   <Page auto-content-height>
-    <FormContentModal />
+    <ProductFormContentModal />
+    <CogsFormContentModal />
     <Grid table-title="COGS & Handling Fees Settings">
       <template #toolbar-tools>
+        <VbenButton
+          v-show="showAlterProductsBtn()"
+          class="mr-2"
+          size="sm"
+          type="primary"
+          @click="openProductFormModal()"
+        >
+          <IconifyIcon class="mr-2 size-4" icon="ant-design:edit-twotone" />
+          Alter the product list
+        </VbenButton>
         <VbenButton
           v-show="0"
           size="xs"
@@ -271,7 +237,10 @@ const handleExport = () => {
       </template>
       <template #name="{ row }: { row: IProduct }">
         <!-- Avatar and Title - Only show for parent level -->
-        <div class="my-1 flex items-center justify-start" v-if="!row.parentId">
+        <div
+          class="my-1 flex items-center justify-start space-x-2"
+          v-if="!row.parentId"
+        >
           <div class="h-[35px] w-[35px] flex-none">
             <AImage
               v-if="row.image"
@@ -325,7 +294,7 @@ const handleExport = () => {
             />
 
             <VbenButton
-              @click="openFormModal(row)"
+              @click="openCogsFormModal(row)"
               :disabled="row.loading"
               variant="outline"
               size="icon"
