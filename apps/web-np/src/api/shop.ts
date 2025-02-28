@@ -41,3 +41,11 @@ export async function updateTransactionFees(data: any) {
     transactionFees: data,
   });
 }
+
+export async function updateRegion(data: any) {
+  return requestClient.post('/api/region', data);
+}
+
+export async function removeRegion(uuid: any) {
+  return requestClient.delete(`/api/region/${uuid}`);
+}

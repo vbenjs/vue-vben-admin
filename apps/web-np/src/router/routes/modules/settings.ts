@@ -13,15 +13,6 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         meta: {
-          title: 'General',
-          icon: 'ic:baseline-shopify',
-        },
-        name: 'settings.general',
-        path: '/settings/general',
-        component: () => import('#/views/settings/general/index.vue'),
-      },
-      {
-        meta: {
           title: 'COGS & Handling',
           icon: 'lsicon:goods-outline',
         },
@@ -46,17 +37,17 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'settings.shipping-fees',
         path: '/settings/shipping-fees',
-        component: () => import('#/views/reports/order/index.vue'),
+        component: () => import('#/views/settings/zone-shipping/index.vue'),
       },
-      // {
-      //   meta: {
-      //     title: 'Zones',
-      //     icon: 'file-icons:moment-timezone',
-      //   },
-      //   name: 'settings.zones',
-      //   path: '/settings/zones',
-      //   component: () => import('#/views/settings/zone/index.vue'),
-      // },
+      {
+        meta: {
+          title: 'General',
+          icon: 'ic:baseline-shopify',
+        },
+        name: 'settings.general',
+        path: '/settings/general',
+        component: () => import('#/views/settings/general/index.vue'),
+      },
     ],
   },
 ];

@@ -2,7 +2,7 @@ import { cloneDeep } from '@vben/utils';
 
 import { defineStore } from 'pinia';
 
-import { updateTransactionFees } from '#/api';
+import { removeRegion, updateRegion, updateTransactionFees } from '#/api';
 
 export interface ITransactionFee {
   externalFeePercentage: number;
@@ -13,7 +13,7 @@ export interface ITransactionFee {
   uuid: string;
 }
 
-interface IRegion {
+export interface IRegion {
   countries: string[];
   name: string;
   shippingCostLevel: any;
@@ -46,6 +46,18 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
 
       return updateTransactionFees(payload).then((_) => {
         this.transactionFees = payload;
+      });
+    },
+    async setRegion(region: any) {
+      return updateRegion(region).then((res) => {
+        this.regions = res;
+        return res;
+      });
+    },
+    async removeRegion(uuid: any) {
+      return removeRegion(uuid).then((res) => {
+        this.regions = res;
+        return res;
       });
     },
   },
