@@ -178,6 +178,7 @@ const headerSlots = computed(() => {
     :content-compact="preferences.app.contentCompact"
     :footer-enable="preferences.footer.enable"
     :footer-fixed="preferences.footer.fixed"
+    :header-height="preferences.header.height"
     :header-hidden="preferences.header.hidden"
     :header-mode="preferences.header.mode"
     :header-theme="headerTheme"
@@ -283,9 +284,9 @@ const headerSlots = computed(() => {
         :menus="wrapperMenus(mixHeaderMenus, false)"
         :rounded="isMenuRounded"
         :theme="sidebarTheme"
-        @default-select="handleDefaultSelect"
         @enter="handleMenuMouseEnter"
         @select="handleMixedMenuSelect"
+        @default-select="handleDefaultSelect"
       />
     </template>
     <!-- 侧边额外区域 -->
