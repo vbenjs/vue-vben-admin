@@ -45,7 +45,7 @@ catalog:
   '@types/lodash.clonedeep': ^4.5.9
   '@types/lodash.get': ^4.4.9
   '@types/lodash.isequal': ^4.5.8
-  '@types/node': ^22.13.5
+  '@types/node': ^22.13.9
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
