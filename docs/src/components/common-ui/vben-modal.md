@@ -155,6 +155,7 @@ const [Modal, modalApi] = useVbenModal({
 | getData | 获取共享数据 | `<T>()=>T` | - |
 | useStore | 获取可响应式状态 | - | - |
 | lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` | >5.5.2 |
+| unlock | lock方法的反操作，解除弹窗的锁定状态，也是lock(false)的别名 | `()=>modalApi` | >5.5.3 |
 
 ::: info lock
 
