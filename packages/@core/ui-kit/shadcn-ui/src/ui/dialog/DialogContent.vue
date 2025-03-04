@@ -23,6 +23,7 @@ const props = withDefaults(
       appendTo?: HTMLElement | string;
       class?: ClassType;
       closeClass?: ClassType;
+      closeDisabled?: boolean;
       modal?: boolean;
       open?: boolean;
       overlayBlur?: number;
@@ -30,7 +31,7 @@ const props = withDefaults(
       zIndex?: number;
     }
   >(),
-  { appendTo: 'body', showClose: true },
+  { appendTo: 'body', closeDisabled: false, showClose: true },
 );
 const emits = defineEmits<
   DialogContentEmits & { close: []; closed: []; opened: [] }
@@ -108,6 +109,7 @@ defineExpose({
 
       <DialogClose
         v-if="showClose"
+        :disabled="closeDisabled"
         :class="
           cn(
             'data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-3 top-3 h-6 w-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none',
