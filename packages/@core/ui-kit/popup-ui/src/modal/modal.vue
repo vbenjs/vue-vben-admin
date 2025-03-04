@@ -200,10 +200,17 @@ const getAppendTo = computed(() => {
       "
       :modal="modal"
       :open="state?.isOpen"
-      :show-close="submitting ? false : closable"
+      :show-close="closable"
       :z-index="zIndex"
       :overlay-blur="overlayBlur"
-      close-class="top-3"
+      :close-class="
+        cn(
+          'top-3',
+          submitting
+            ? 'cursor-not-allowed pointer-events-none'
+            : 'cursor-pointer',
+        )
+      "
       @close-auto-focus="handleFocusOutside"
       @closed="() => modalApi?.onClosed()"
       @escape-key-down="escapeKeyDown"
