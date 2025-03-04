@@ -52,6 +52,7 @@ export class DrawerApi {
       placement: 'right',
       showCancelButton: true,
       showConfirmButton: true,
+      submitting: false,
       title: '',
     };
 
@@ -92,12 +93,25 @@ export class DrawerApi {
     // 如果 onBeforeClose 返回 false，则不关闭弹窗
     const allowClose = this.api.onBeforeClose?.() ?? true;
     if (allowClose) {
-      this.store.setState((prev) => ({ ...prev, isOpen: false }));
+      this.store.setState((prev) => ({
+        ...prev,
+        isOpen: false,
+        submitting: false,
+      }));
     }
   }
 
   getData<T extends object = Record<string, any>>() {
     return (this.sharedData?.payload ?? {}) as T;
+  }
+
+  /**
+   * 锁定抽屉状态（用于提交过程中的等待状态）
+   * @description 锁定状态将禁用默认的取消按钮，使用spinner覆盖抽屉内容，隐藏关闭按钮，阻止手动关闭弹窗，将默认的提交按钮标记为loading状态
+   * @param isLocked 是否锁定
+   */
+  lock(isLocked: boolean = true) {
+    return this.setState({ submitting: isLocked });
   }
 
   /**
@@ -156,5 +170,13 @@ export class DrawerApi {
       this.store.setState((prev) => ({ ...prev, ...stateOrFn }));
     }
     return this;
+  }
+
+  /**
+   * 解除抽屉的锁定状态
+   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   */
+  unlock() {
+    return this.lock(false);
   }
 }

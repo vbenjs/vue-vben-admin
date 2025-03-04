@@ -137,11 +137,19 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 ### drawerApi
 
-| 方法 | 描述 | 类型 |
-| --- | --- | --- |
+| 方法 | 描述 | 类型 | 版本限制 |
+| --- | --- | --- | --- |
 | setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>drawerApi` |
-| open | 打开弹窗 | `()=>void` |
-| close | 关闭弹窗 | `()=>void` |
-| setData | 设置共享数据 | `<T>(data:T)=>drawerApi` |
-| getData | 获取共享数据 | `<T>()=>T` |
-| useStore | 获取可响应式状态 | - |
+| open | 打开弹窗 | `()=>void` | --- |
+| close | 关闭弹窗 | `()=>void` | --- |
+| setData | 设置共享数据 | `<T>(data:T)=>drawerApi` | --- |
+| getData | 获取共享数据 | `<T>()=>T` | --- |
+| useStore | 获取可响应式状态 | - | --- |
+| lock | 将抽屉标记为提交中，锁定当前状态 | `(isLock:boolean)=>drawerApi` | >5.5.3 |
+| unlock | lock方法的反操作，解除抽屉的锁定状态，也是lock(false)的别名 | `()=>drawerApi` | >5.5.3 |
+
+::: info lock
+
+`lock`方法用于锁定抽屉的状态，一般用于提交数据的过程中防止用户重复提交或者抽屉被意外关闭、表单数据被改变等等。当处于锁定状态时，抽屉的确认按钮会变为loading状态，同时禁用取消按钮和关闭按钮、禁止ESC或者点击遮罩等方式关闭抽屉、开启抽屉的spinner动画以遮挡弹窗内容。调用`close`方法关闭处于锁定状态的抽屉时，会自动解锁。要主动解除这种状态，可以调用`unlock`方法或者再次调用lock方法并传入false参数。
+
+:::
