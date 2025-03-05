@@ -101,7 +101,7 @@ catalog:
   eslint-plugin-unicorn: ^56.0.1
   eslint-plugin-unused-imports: ^4.1.4
   eslint-plugin-vitest: ^0.5.4
-  eslint-plugin-vue: ^9.32.0
+  eslint-plugin-vue: ^10.0.0
   execa: ^9.5.2
   find-up: ^7.0.0
   get-port: ^7.1.0
