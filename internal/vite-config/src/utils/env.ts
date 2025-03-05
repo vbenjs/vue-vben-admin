@@ -29,6 +29,33 @@ function getConfFiles() {
   return ['.env', '.env.local', `.env.${mode}`, `.env.${mode}.local`];
 }
 
+const regex = /(\w+)=(\w+)/g;
+/**
+ * 获取命令行中传入的参数
+ */
+function getConfByScript() {
+  const script = process.env.npm_lifecycle_script;
+  const scriptEnv: Record<string, string> = {};
+  let matcher;
+  while (true) {
+    matcher = regex.exec(script as string);
+    if (matcher === null) {
+      break;
+    }
+    if (matcher.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
+
+    if (matcher) {
+      const key = matcher[1] as string;
+      scriptEnv[key] = matcher[2] as string;
+    }
+  }
+
+  return scriptEnv;
+}
+
+
 /**
  * Get the environment variables starting with the specified prefix
  * @param match prefix
@@ -39,7 +66,8 @@ async function loadEnv<T = Record<string, string>>(
   confFiles = getConfFiles(),
 ) {
   let envConfig = {};
-
+  
+  // 配置文件中的配置
   for (const confFile of confFiles) {
     try {
       const confFilePath = join(process.cwd(), confFile);
@@ -54,6 +82,12 @@ async function loadEnv<T = Record<string, string>>(
       console.error(`Error while parsing ${confFile}`, error);
     }
   }
+
+  // 命令行中的配置
+  const scriptConfig = getConfByScript();
+  envConfig = { ...envConfig, ...scriptConfig };
+  console.log('命令行中的参数已经覆盖配置文件中的参数 %o', scriptConfig);
+  
   const reg = new RegExp(`^(${match})`);
   Object.keys(envConfig).forEach((key) => {
     if (!reg.test(key)) {
