@@ -213,6 +213,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/examples/modal/index.vue'),
         meta: {
           icon: 'system-uicons:window-content',
+          keepAlive: true,
           title: $t('examples.modal.title'),
         },
       },
@@ -222,6 +223,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/examples/drawer/index.vue'),
         meta: {
           icon: 'iconoir:drawer',
+          keepAlive: true,
           title: $t('examples.drawer.title'),
         },
       },
