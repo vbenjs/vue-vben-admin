@@ -256,7 +256,6 @@ const getAppendTo = computed(() => {
         :class="
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
             'overflow-hidden': showLoading || submitting,
-            hidden: isDeactivated,
           })
         "
       >
