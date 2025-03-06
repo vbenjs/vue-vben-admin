@@ -36,6 +36,13 @@ export async function updateHandlingFees(data: any) {
   );
 }
 
+export async function updateRegionProducts(data: any) {
+  return requestClient.put(
+    '/api/shop/settings/cogs-handling-fees/region-products',
+    data,
+  );
+}
+
 export async function updateTransactionFees(data: any) {
   return requestClient.put('/api/shop/settings/transaction-fees', {
     transactionFees: data,

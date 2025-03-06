@@ -33,7 +33,13 @@ const shopStore = useShopStore();
 
 const [ProductFormContentModal, productFormModalApi] = useVbenModal({
   connectedComponent: ProductFormModal,
-  onClosed: () => {},
+  onClosed: () => {
+    const { reload } = productFormModalApi.getData();
+
+    if (reload === true) {
+      gridApi.reload();
+    }
+  },
 });
 
 const openProductFormModal = () => {

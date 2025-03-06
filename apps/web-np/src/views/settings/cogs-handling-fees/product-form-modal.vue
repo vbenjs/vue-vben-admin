@@ -5,6 +5,7 @@ import { useVbenForm, useVbenModal } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
 
+import { updateRegionProducts } from '#/api';
 import { useShopSettingStore } from '#/store';
 
 import Products from './modules/products.vue';
@@ -18,8 +19,7 @@ const state = reactive({
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
 
-  shopSettingStore
-    .setRegion(values)
+  updateRegionProducts(values)
     .then(() => {
       message.success('The zone has been updated successfully');
     })
@@ -62,7 +62,7 @@ const [Form, formApi] = useVbenForm({
     {
       component: markRaw(Products),
       defaultValue: [],
-      fieldName: '_selectProducts',
+      fieldName: 'zoneProducts',
       label: '',
       rules: 'required',
       dependencies: {
@@ -95,7 +95,7 @@ const [Modal, modalApi] = useVbenModal({
       state.zoneName = shopSettingStore.getZoneName(zoneUUID);
       formApi.setValues({
         zoneUUID,
-        _selectProducts: [],
+        zoneProducts: [],
       });
     }
   },
