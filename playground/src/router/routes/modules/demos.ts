@@ -532,7 +532,7 @@ const routes: RouteRecordRaw[] = [
             children: [
               {
                 name: 'Menu31Demo',
-                path: 'menu3-1',
+                path: '/demos/nested/menu3/menu3-1',
                 component: () => import('#/views/demos/nested/menu-3-1.vue'),
                 meta: {
                   icon: 'ic:round-menu',
@@ -542,7 +542,7 @@ const routes: RouteRecordRaw[] = [
               },
               {
                 name: 'Menu32Demo',
-                path: 'menu3-2',
+                path: '/demos/nested/menu3/menu3-2',
                 meta: {
                   icon: 'ic:round-menu',
                   title: $t('demos.nested.menu3_2'),
