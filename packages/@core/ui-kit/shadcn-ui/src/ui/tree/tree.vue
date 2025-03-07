@@ -4,7 +4,7 @@ import type { FlattenedItem } from 'radix-vue';
 
 import type { ClassType, Recordable } from '@vben-core/typings';
 
-import { computed, onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 
 import { ChevronRight, IconifyIcon } from '@vben-core/icons';
 import { cn, get } from '@vben-core/shared/utils';
@@ -72,12 +72,18 @@ const emits = defineEmits<{
   'update:modelValue': [value: Arrayable<Recordable<any>>];
 }>();
 
+interface InnerFlattenItem<T = Recordable<any>> {
+  hasChildren: boolean;
+  level: number;
+  value: T;
+}
+
 function flatten<T = Recordable<any>>(
   items: T[],
   childrenField: string = 'children',
   level = 0,
-): { hasChildren: boolean; level: number; value: T }[] {
-  const result: { hasChildren: boolean; level: number; value: T }[] = [];
+): InnerFlattenItem<T>[] {
+  const result: InnerFlattenItem<T>[] = [];
   items.forEach((item) => {
     const children = get(item, childrenField) as Array<T>;
     const val = {
@@ -92,19 +98,7 @@ function flatten<T = Recordable<any>>(
   return result;
 }
 
-const flattenData = computed(() =>
-  flatten(props.treeData, props.childrenField),
-);
-
-onMounted(() => {
-  // 根据展开级别，计算展开的节点Key
-  if (
-    props.defaultExpandedLevel !== undefined &&
-    props.defaultExpandedLevel >= 0
-  )
-    expandToLevel(props.defaultExpandedLevel);
-});
-
+const flattenData = ref<Array<InnerFlattenItem>>([]);
 const modelValue = useVModel(props, 'modelValue', emits, {
   deep: true,
   defaultValue: props.defaultValue ?? [],
@@ -114,18 +108,35 @@ const expanded = ref<Array<number | string>>(props.defaultExpandedKeys ?? []);
 
 const treeValue = ref();
 
+onMounted(() => {
+  watchEffect(() => {
+    flattenData.value = flatten(props.treeData, props.childrenField);
+    updateTreeValue();
+    if (
+      props.defaultExpandedLevel !== undefined &&
+      props.defaultExpandedLevel > 0
+    )
+      expandToLevel(props.defaultExpandedLevel);
+  });
+});
+
 function getItemByValue(value: number | string) {
   return flattenData.value.find(
     (item) => get(item.value, props.valueField) === value,
   )?.value;
 }
 
+function updateTreeValue() {
+  const val = modelValue.value;
+  treeValue.value = Array.isArray(val)
+    ? val.map((v) => getItemByValue(v))
+    : getItemByValue(val);
+}
+
 watch(
   modelValue,
-  (val) => {
-    treeValue.value = Array.isArray(val)
-      ? val.map((v) => getItemByValue(v))
-      : getItemByValue(val);
+  () => {
+    updateTreeValue();
   },
   { deep: true, immediate: true },
 );
@@ -139,7 +150,7 @@ function updateModelValue(val: Arrayable<Recordable<any>>) {
 function expandToLevel(level: number) {
   const keys: string[] = [];
   flattenData.value.forEach((item) => {
-    if (item.level <= level) {
+    if (item.level <= level - 1) {
       keys.push(get(item.value, props.valueField));
     }
   });
