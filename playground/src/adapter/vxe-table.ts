@@ -183,6 +183,9 @@ setupVbenVxeTable({
           return h(
             Popconfirm,
             {
+              getPopupContainer(el) {
+                return el.closest('tbody') || document.body;
+              },
               placement: 'topLeft',
               title: $t('ui.actionTitle.delete', [attrs?.nameTitle || '']),
               ...props,
