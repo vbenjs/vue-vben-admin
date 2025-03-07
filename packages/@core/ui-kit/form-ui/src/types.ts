@@ -70,6 +70,7 @@ export type CustomRenderType = (() => Component | string) | string;
 export type FormSchemaRuleType =
   | 'required'
   | 'selectRequired'
+  | ((v: any) => (boolean | string) | Promise<boolean | string>)
   | null
   | (Record<never, never> & string)
   | ZodTypeAny;

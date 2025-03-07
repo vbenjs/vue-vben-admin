@@ -7,7 +7,7 @@ import type { ExtendedFormApi, FormActions, VbenFormProps } from './types';
 import { computed, unref, useSlots } from 'vue';
 
 import { createContext } from '@vben-core/shadcn-ui';
-import { isString } from '@vben-core/shared/utils';
+import { isFunction, isString } from '@vben-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object } from 'zod';
@@ -48,8 +48,17 @@ export function useFormInitial(
     (unref(props).schema || []).forEach((item) => {
       if (Reflect.has(item, 'defaultValue')) {
         initialValues[item.fieldName] = item.defaultValue;
-      } else if (item.rules && !isString(item.rules)) {
-        zodObject[item.fieldName] = item.rules;
+      } else if (item.rules) {
+        if (
+          typeof item.rules === 'object' &&
+          'parse' in item.rules &&
+          typeof item.rules.parse === 'function' &&
+          '_def' in item.rules
+        ) {
+          zodObject[item.fieldName] = item.rules;
+        } else if (isFunction(item.rules) || isString(item.rules)) {
+          initialValues[item.fieldName] = undefined;
+        }
       }
     });
 
