@@ -310,17 +310,6 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.button-group.title'),
         },
       },
-      {
-        name: 'Tree',
-        path: '/examples/tree',
-        component: () => import('#/views/examples/tree/index.vue'),
-        meta: {
-          badge: 'Alpha',
-          badgeVariants: 'destructive',
-          icon: 'mdi:tree',
-          title: 'Tree',
-        },
-      },
     ],
   },
 ];

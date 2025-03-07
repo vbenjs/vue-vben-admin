@@ -7,7 +7,7 @@ export namespace SystemRoleApi {
     [key: string]: any;
     id: string;
     name: string;
-    premissions: string[];
+    permissions: string[];
     remark?: string;
     status: 0 | 1;
   }
