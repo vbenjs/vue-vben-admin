@@ -22,6 +22,8 @@ export {
   VbenLoading,
   VbenPinInput,
   VbenSpinner,
+  VbenTree,
 } from '@vben-core/shadcn-ui';
 
+export type { FlattenedItem } from '@vben-core/shadcn-ui';
 export { globalShareState } from '@vben-core/shared/global-state';

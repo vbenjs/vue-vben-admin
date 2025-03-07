@@ -48,5 +48,18 @@
       "none": "None"
     },
     "badgeVariants": "Badge Style"
+  },
+  "role": {
+    "title": "Role Management",
+    "list": "Role List",
+    "name": "Role",
+    "roleName": "Role Name",
+    "id": "Role ID",
+    "status": "Status",
+    "remark": "Remark",
+    "createTime": "Creation Time",
+    "operation": "Operation",
+    "permissions": "Permissions",
+    "setPermissions": "Permissions"
   }
 }
