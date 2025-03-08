@@ -12,6 +12,7 @@ import Products from './modules/products.vue';
 
 const shopSettingStore = useShopSettingStore();
 const state = reactive({
+  deleteMode: false,
   zoneUUID: '',
   zoneName: '',
 });
@@ -40,6 +41,14 @@ const [Form, formApi] = useVbenForm({
   },
   schema: [
     {
+      component: 'Input',
+      dependencies: {
+        show: false,
+        triggerFields: ['deleteMode'],
+      },
+      fieldName: 'deleteMode',
+    },
+    {
       component: h('span'),
       renderComponentContent: () => {
         return {
@@ -66,7 +75,7 @@ const [Form, formApi] = useVbenForm({
       label: '',
       rules: 'required',
       dependencies: {
-        if(values) {
+        show(values) {
           return !values.allProducts;
         },
         triggerFields: ['allProducts'],
@@ -85,15 +94,17 @@ const [Modal, modalApi] = useVbenModal({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      const { zoneUUID } = modalApi.getData<any>();
+      const { zoneUUID, deleteMode } = modalApi.getData<any>();
 
       if (!zoneUUID) {
         return;
       }
 
+      state.deleteMode = deleteMode;
       state.zoneUUID = zoneUUID;
       state.zoneName = shopSettingStore.getZoneName(zoneUUID);
       formApi.setValues({
+        deleteMode,
         zoneUUID,
         zoneProducts: [],
       });
@@ -104,8 +115,9 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal
     class="w-[700px]"
-    title="Alter the product list "
-    confirm-text="Submit"
+    :title="state.deleteMode ? 'Remove products' : 'Add products'"
+    :confirm-text="state.deleteMode ? 'Remove' : 'Add'"
+    :close-on-click-modal="false"
   >
     <Form />
   </Modal>

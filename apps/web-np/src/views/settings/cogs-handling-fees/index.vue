@@ -42,9 +42,10 @@ const [ProductFormContentModal, productFormModalApi] = useVbenModal({
   },
 });
 
-const openProductFormModal = () => {
+const openProductFormModal = (deleteMode: boolean = false) => {
   productFormModalApi
     .setData({
+      deleteMode,
       zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
     })
     .open();
@@ -193,16 +194,32 @@ const showAlterProductsBtn = () => {
     <CogsFormContentModal />
     <Grid table-title="COGS & Handling Fees Settings">
       <template #toolbar-tools>
-        <VbenButton
-          v-show="showAlterProductsBtn()"
-          class="mr-2"
-          size="sm"
-          type="primary"
-          @click="openProductFormModal()"
-        >
-          <IconifyIcon class="mr-2 size-4" icon="ant-design:edit-twotone" />
-          Alter the product list
-        </VbenButton>
+        <template v-if="showAlterProductsBtn()">
+          <VbenButton
+            class="mr-2 w-[150px]"
+            size="sm"
+            type="primary"
+            @click="openProductFormModal()"
+          >
+            <IconifyIcon
+              class="mr-2 size-4"
+              icon="ant-design:plus-circle-twotone"
+            />
+            Add products
+          </VbenButton>
+          <VbenButton
+            class="mr-2 w-[150px]"
+            size="sm"
+            variant="destructive"
+            @click="openProductFormModal(true)"
+          >
+            <IconifyIcon
+              class="mr-2 size-4"
+              icon="ant-design:minus-circle-twotone"
+            />
+            Remove products
+          </VbenButton>
+        </template>
         <VbenButton
           v-show="0"
           size="xs"

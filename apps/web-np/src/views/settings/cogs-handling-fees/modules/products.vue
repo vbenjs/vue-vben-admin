@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core';
 import { Select as ASelect, Image, Spin } from 'ant-design-vue';
 
 import { getHandlingFeesAndCOGS } from '#/api';
-
-const emit = defineEmits(['change']);
 
 const products = defineModel<string[]>({
   default: [],
@@ -17,10 +15,6 @@ const state = reactive({
   value: [],
   fetching: false,
 });
-
-function onChange(): void {
-  emit('change', 'sample');
-}
 
 const handleSearch = useDebounceFn((value: string) => {
   state.fetching = true;
@@ -40,12 +34,15 @@ const handleSearch = useDebounceFn((value: string) => {
       state.fetching = false;
     });
 }, 1000);
+
+onMounted(() => {
+  handleSearch('');
+});
 </script>
 <template>
   <div class="">
     <ASelect
       v-model:value="products"
-      @change="onChange"
       @search="handleSearch"
       :filter-option="false"
       :not-found-content="state.fetching ? undefined : null"
