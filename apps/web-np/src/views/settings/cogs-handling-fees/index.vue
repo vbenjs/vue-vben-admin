@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
+import { reactive } from 'vue';
+
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { capitalizeFirstLetter } from '@vben/utils';
@@ -10,19 +12,21 @@ import {
   Image as AImage,
   InputNumber,
   message,
+  Modal,
   Switch,
   Tag,
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
+  exportCogsHandlingFees,
   updateCalcCOGSBy as updateCalcCOGSLevel,
   updateCogsByDate,
   updateHandlingFees,
 } from '#/api';
 import { CostCalcLevel, defaultRegionUUID } from '#/constants';
 import { AntHistory } from '#/icons';
-import { useShopStore } from '#/store';
+import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
 import CogsFormModal from './cogs-form-modal.vue';
@@ -30,6 +34,11 @@ import ProductFormModal from './product-form-modal.vue';
 import { calcMargin, formOptions, gridOptions } from './table-config';
 
 const shopStore = useShopStore();
+const shopSettingStore = useShopSettingStore();
+
+const state = reactive({
+  exporting: false,
+});
 
 const [ProductFormContentModal, productFormModalApi] = useVbenModal({
   connectedComponent: ProductFormModal,
@@ -172,11 +181,26 @@ const handleHandlingFeesChanged = useDebounceFn(
 );
 
 const handleExport = () => {
-  gridApi.setLoading(true);
+  const zoneName = shopSettingStore.getZoneName(
+    gridApi.formApi.form.values.zoneUUID,
+  );
 
-  setTimeout(() => {
-    gridApi.setLoading(false);
-  }, 3000);
+  Modal.confirm({
+    title: `Export all fees from the ${zoneName} zone`,
+    content:
+      "While we process the download file, you can continue using the application. The file will be automatically downloaded once it's complete.",
+    okText: 'Yes',
+    cancelText: 'No',
+    onOk: async () => {
+      state.exporting = true;
+
+      exportCogsHandlingFees({
+        regionId: gridApi.formApi.form.values.zoneUUID,
+      }).finally(() => {
+        state.exporting = false;
+      });
+    },
+  });
 };
 
 const showAlterProductsBtn = () => {
@@ -198,18 +222,6 @@ const showAlterProductsBtn = () => {
           <VbenButton
             class="mr-2 w-[150px]"
             size="sm"
-            type="primary"
-            @click="openProductFormModal()"
-          >
-            <IconifyIcon
-              class="mr-2 size-4"
-              icon="ant-design:plus-circle-twotone"
-            />
-            Add products
-          </VbenButton>
-          <VbenButton
-            class="mr-2 w-[150px]"
-            size="sm"
             variant="destructive"
             @click="openProductFormModal(true)"
           >
@@ -219,9 +231,21 @@ const showAlterProductsBtn = () => {
             />
             Remove products
           </VbenButton>
+          <VbenButton
+            class="mr-2 w-[150px]"
+            size="sm"
+            type="primary"
+            @click="openProductFormModal()"
+          >
+            <IconifyIcon
+              class="mr-2 size-4"
+              icon="ant-design:plus-circle-twotone"
+            />
+            Add products
+          </VbenButton>
         </template>
         <VbenButton
-          v-show="0"
+          :loading="state.exporting"
           size="xs"
           variant="outline"
           class="mr-2 w-[100px]"
@@ -229,13 +253,13 @@ const showAlterProductsBtn = () => {
           @click="handleExport"
         >
           <IconifyIcon
+            v-if="!state.exporting"
             icon="ant-design:download-outlined"
             class="mr-2 size-5"
           />
           Export
         </VbenButton>
         <VbenButton
-          v-show="0"
           size="xs"
           variant="outline"
           class="mr-2 w-[100px]"
