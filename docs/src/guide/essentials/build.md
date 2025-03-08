@@ -47,7 +47,7 @@ cd apps/web-antd/dist
 # 本地预览，默认端口8080
 live-server
 # 指定端口
-live-server --port 9000
+live-server --port=9000
 ```
 
 ## 压缩
