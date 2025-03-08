@@ -31,7 +31,7 @@ const forward = useForwardPriorityValues(props, state);
 
 const { delegatedSlots, form } = useFormInitial(forward);
 
-provideFormProps([forward, form]);
+provideFormProps([forward, form, props.formApi]);
 
 props.formApi?.mount?.(form);
 

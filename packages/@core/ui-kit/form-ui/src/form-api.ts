@@ -56,6 +56,9 @@ export class FormApi {
 
   public store: Store<VbenFormProps>;
 
+  // 保存字段的blur状态，字段触发校验时可以通过blur状态判断是否要校验
+  private fieldBlurState: Record<string, boolean> = {};
+
   // 最后一次点击提交时的表单值
   private latestSubmissionValues: null | Recordable<any> = null;
 
@@ -84,6 +87,10 @@ export class FormApi {
     this.stateHandler = new StateHandler();
     bindMethods(this);
   }
+
+  getFieldBlurState = (fieldName: string): boolean | undefined => {
+    return this.fieldBlurState[fieldName];
+  };
 
   getLatestSubmissionValues() {
     return this.latestSubmissionValues || {};
@@ -188,6 +195,10 @@ export class FormApi {
     });
   }
 
+  setFieldBlurState = (fieldName: string, state: boolean) => {
+    this.fieldBlurState[fieldName] = state;
+  };
+
   async setFieldValue(field: string, value: any, shouldValidate?: boolean) {
     const form = await this.getForm();
     form.setFieldValue(field, value, shouldValidate);
@@ -267,6 +278,7 @@ export class FormApi {
     this.latestSubmissionValues = null;
     this.isMounted = false;
     this.stateHandler.reset();
+    this.fieldBlurState = {};
   }
 
   updateSchema(schema: Partial<FormSchema>[]) {

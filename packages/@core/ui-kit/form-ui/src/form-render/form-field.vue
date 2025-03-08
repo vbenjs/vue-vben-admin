@@ -18,6 +18,7 @@ import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';
 
+import { injectFormProps } from '../use-form-context';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
@@ -189,7 +190,7 @@ const renderContentKey = computed(() => {
   return Object.keys(customContentRender.value);
 });
 
-const fieldProps = computed(() => {
+const fieldProps = computed<Record<string, any>>(() => {
   const rules = fieldRules.value;
   return {
     keepValue: true,
@@ -239,8 +240,24 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   };
 }
 
+const { setFieldBlurState } = injectFormProps()[2];
+
 function createComponentProps(slotProps: Record<string, any>) {
   const bindEvents = fieldBindEvent(slotProps);
+
+  let onBlur = slotProps.componentField?.onBlur;
+  let onFocus;
+  if (
+    !fieldProps.value?.validateOnModelUpdate &&
+    fieldProps.value?.validateOnBlur
+  ) {
+    // 表单字段触发blur事件时，保存字段的blur状态
+    onBlur = (e: FocusEvent) => {
+      setFieldBlurState(fieldName, true);
+      slotProps?.handleBlur?.(e);
+    };
+    onFocus = () => setFieldBlurState(fieldName, false);
+  }
 
   const binds = {
     ...slotProps.componentField,
@@ -252,6 +269,8 @@ function createComponentProps(slotProps: Record<string, any>) {
     ...(Reflect.has(computedProps.value, 'onInput')
       ? { onInput: computedProps.value.onInput }
       : {}),
+    onBlur,
+    onFocus,
   };
 
   return binds;

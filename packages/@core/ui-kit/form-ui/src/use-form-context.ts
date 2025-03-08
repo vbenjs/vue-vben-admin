@@ -16,9 +16,13 @@ import { getDefaultsForSchema } from 'zod-defaults';
 type ExtendFormProps = VbenFormProps & { formApi: ExtendedFormApi };
 
 export const [injectFormProps, provideFormProps] =
-  createContext<[ComputedRef<ExtendFormProps> | ExtendFormProps, FormActions]>(
-    'VbenFormProps',
-  );
+  createContext<
+    [
+      ComputedRef<ExtendFormProps> | ExtendFormProps,
+      FormActions,
+      ExtendedFormApi,
+    ]
+  >('VbenFormProps');
 
 export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
