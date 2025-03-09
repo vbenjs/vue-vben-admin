@@ -195,7 +195,7 @@ const handleExport = () => {
       state.exporting = true;
 
       exportCogsHandlingFees({
-        regionId: gridApi.formApi.form.values.zoneUUID,
+        zoneUUID: gridApi.formApi.form.values.zoneUUID,
       }).finally(() => {
         state.exporting = false;
       });
