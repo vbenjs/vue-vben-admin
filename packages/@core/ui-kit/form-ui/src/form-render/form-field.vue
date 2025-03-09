@@ -3,7 +3,7 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed, nextTick, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
 import {
   FormControl,
@@ -18,6 +18,7 @@ import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';
 
+import { injectComponentRefMap } from '../use-form-context';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
@@ -267,6 +268,15 @@ function autofocus() {
     fieldComponentRef.value?.focus?.();
   }
 }
+const componentRefMap = injectComponentRefMap();
+watch(fieldComponentRef, (componentRef) => {
+  componentRefMap?.set(fieldName, componentRef);
+});
+onUnmounted(() => {
+  if (componentRefMap?.has(fieldName)) {
+    componentRefMap.delete(fieldName);
+  }
+});
 </script>
 
 <template>

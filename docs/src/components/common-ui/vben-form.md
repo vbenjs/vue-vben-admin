@@ -279,22 +279,24 @@ const [Form, formApi] = useVbenForm({
 
 useVbenForm 返回的第二个参数，是一个对象，包含了一些表单的方法。
 
-| 方法名 | 描述 | 类型 |
-| --- | --- | --- |
-| submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` |
-| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` |
-| resetForm | 重置表单 | `()=>Promise<void>` |
-| setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` |
-| getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` |
-| validate | 表单校验 | `()=>Promise<void>` |
-| validateField | 校验指定字段 | `(fieldName: string)=>Promise<ValidationResult<unknown>>` |
-| isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` |
-| resetValidate | 重置表单校验 | `()=>Promise<void>` |
-| updateSchema | 更新formSchema | `(schema:FormSchema[])=>void` |
-| setFieldValue | 设置字段值 | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` |
-| setState | 设置组件状态（props） | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` |
-| getState | 获取组件状态（props） | `()=>Promise<VbenFormProps>` |
-| form | 表单对象实例，可以操作表单，见 [useForm](https://vee-validate.logaretm.com/v4/api/use-form/) | - |
+| 方法名 | 描述 | 类型 | 版本号 |
+| --- | --- | --- | --- |
+| submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
+| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
+| resetForm | 重置表单 | `()=>Promise<void>` | - |
+| setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
+| getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` | - |
+| validate | 表单校验 | `()=>Promise<void>` | - |
+| validateField | 校验指定字段 | `(fieldName: string)=>Promise<ValidationResult<unknown>>` | - |
+| isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` | - |
+| resetValidate | 重置表单校验 | `()=>Promise<void>` | - |
+| updateSchema | 更新formSchema | `(schema:FormSchema[])=>void` | - |
+| setFieldValue | 设置字段值 | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` | - |
+| setState | 设置组件状态（props） | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` | - |
+| getState | 获取组件状态（props） | `()=>Promise<VbenFormProps>` | - |
+| form | 表单对象实例，可以操作表单，见 [useForm](https://vee-validate.logaretm.com/v4/api/use-form/) | - | - |
+| getFieldComponentRef | 获取指定字段的组件实例 | `<T=unknown>(fieldName: string)=>T` | >5.5.3 |
+| getFocusedField | 获取当前已获得焦点的字段 | `()=>string\|undefined` | >5.5.3 |
 
 ## Props
 
