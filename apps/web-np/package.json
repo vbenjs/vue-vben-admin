@@ -26,6 +26,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@shopify/app-bridge": "catalog:",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -45,9 +46,9 @@
     "currency-formatter": "catalog:",
     "dayjs": "catalog:",
     "pinia": "catalog:",
+    "pusher-js": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:",
-    "@shopify/app-bridge": "catalog:"
+    "vue-router": "catalog:"
   },
   "devDependencies": {
     "@types/currency-formatter": "^1.5.4"

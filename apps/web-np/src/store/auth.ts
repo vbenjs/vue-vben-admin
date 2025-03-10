@@ -101,6 +101,7 @@ export const useAuthStore = defineStore('auth', () => {
     shopStore.setStates(
       {
         ...res.shop,
+        id: res.userId,
         currencyRate: currencyStore.getRate(
           res.shop.currency,
           res.shop.currencyFromApp,

@@ -64,6 +64,7 @@ catalog:
   '@vueuse/integrations': ^12.7.0
   '@types/currency-formatter': ^1.5.4
   '@shopify/app-bridge': ^3.7.10
+  pusher-js: ^8.2.1
   currency-formatter: ^1.5.5
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1

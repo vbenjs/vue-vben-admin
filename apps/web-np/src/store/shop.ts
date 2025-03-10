@@ -1,4 +1,7 @@
+import type { Channel } from 'pusher-js';
+
 import { defineStore } from 'pinia';
+import Pusher from 'pusher-js';
 
 import { updateGeneralSettings } from '#/api';
 
@@ -11,6 +14,7 @@ enum ShopState {
 }
 
 interface IShop {
+  id: string;
   countryCode: string;
   countryName: string;
   currency: string;
@@ -33,11 +37,18 @@ interface IShopState {
   transaction_fee_config: ShopState;
 }
 
+interface IPusherState {
+  pusher: null | Pusher;
+  channel: Channel | null;
+}
+
 export const useShopStore = defineStore('np-shop', {
   actions: {
     setStates(shop: any, state: any) {
       this.shop = shop;
       this.state = state;
+
+      this.initPusher();
     },
     updateAppCurrency(appCurrency: string) {
       const currencyStore = useCurrencyStore();
@@ -51,16 +62,47 @@ export const useShopStore = defineStore('np-shop', {
         );
       });
     },
+    initPusher() {
+      if (!this.pusherState.pusher) {
+        this.pusherState.pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
+          cluster: import.meta.env.VITE_PUSHER_CLUSTER,
+          forceTLS: true,
+        });
+      }
+
+      if (this.pusherState.channel) {
+        this.pusherState.channel.unsubscribe();
+        this.pusherState.channel = null;
+      }
+
+      this.pusherState.channel = this.pusherState.pusher.subscribe(
+        this.channelName,
+      );
+    },
+    disconnectPusher() {
+      this.pusherState.channel?.unsubscribe();
+      this.pusherState.channel = null;
+
+      this.pusherState.pusher?.disconnect();
+      this.pusherState.pusher = null;
+    },
   },
 
   getters: {
+    channelName(): string {
+      return import.meta.env.VITE_PUSHER_CHANNEL_PREFIX + this.shop.id;
+    },
+    channel(): Channel | null {
+      return this.pusherState.channel;
+    },
     isOnboarding(): boolean {
       return this.state.onboard === ShopState.PROCESSING;
     },
   },
 
-  state: (): { shop: IShop; state: IShopState } => ({
+  state: (): { pusherState: IPusherState; shop: IShop; state: IShopState } => ({
     shop: {
+      id: '',
       countryCode: '',
       countryName: '',
       currency: '',
@@ -80,6 +122,10 @@ export const useShopStore = defineStore('np-shop', {
       handling_fees_config: ShopState.PROCESSED,
       shipping_fee_config: ShopState.PROCESSED,
       transaction_fee_config: ShopState.PROCESSED,
+    },
+    pusherState: {
+      pusher: null,
+      channel: null,
     },
   }),
 });
