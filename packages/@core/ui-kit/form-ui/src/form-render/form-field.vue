@@ -113,6 +113,10 @@ const shouldRequired = computed(() => {
     return ['required', 'selectRequired'].includes(currentRules.value);
   }
 
+  if (isFunction(currentRules.value)) {
+    return true;
+  }
+
   let isOptional = currentRules?.value?.isOptional?.();
 
   // 如果有设置默认值，则不是必填，需要特殊处理
@@ -138,6 +142,10 @@ const fieldRules = computed(() => {
   }
 
   if (isString(rules)) {
+    return rules;
+  }
+
+  if (isFunction(rules)) {
     return rules;
   }
 
