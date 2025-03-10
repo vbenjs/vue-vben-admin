@@ -13,24 +13,24 @@ packages:
   - docs
   - playground
 catalog:
-  '@ast-grep/napi': ^0.32.3
+  '@ast-grep/napi': ^0.36.0
   '@changesets/changelog-github': ^0.5.1
   '@changesets/cli': ^2.28.1
   '@changesets/git': ^3.0.2
-  '@clack/prompts': ^0.9.1
+  '@clack/prompts': ^0.10.0
   '@commitlint/cli': ^19.8.0
   '@commitlint/config-conventional': ^19.8.0
   '@ctrl/tinycolor': ^4.1.0
   '@eslint/js': ^9.22.0
   '@faker-js/faker': ^9.6.0
-  '@iconify/json': ^2.2.314
+  '@iconify/json': ^2.2.315
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^4.3.0
   '@intlify/core-base': ^11.1.2
   '@intlify/unplugin-vue-i18n': ^6.0.3
   '@jspm/generator': ^2.5.1
   '@manypkg/get-packages': ^2.2.2
-  '@nolebase/vitepress-plugin-git-changelog': ^2.15.0
+  '@nolebase/vitepress-plugin-git-changelog': ^2.15.1
   '@playwright/test': ^1.51.0
   '@pnpm/workspace.read-manifest': ^1000.1.1
   '@stylistic/stylelint-plugin': ^3.1.2
@@ -50,8 +50,8 @@ catalog:
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.5
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.26.0
-  '@typescript-eslint/parser': ^8.26.0
+  '@typescript-eslint/eslint-plugin': ^8.26.1
+  '@typescript-eslint/parser': ^8.26.1
   '@vee-validate/zod': ^4.15.0
   '@vite-pwa/vitepress': ^0.5.3
   '@vitejs/plugin-vue': ^5.2.1
@@ -64,7 +64,7 @@ catalog:
   '@vueuse/integrations': ^12.8.2
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
-  autoprefixer: ^10.4.20
+  autoprefixer: ^10.4.21
   axios: ^1.8.2
   axios-mock-adapter: ^2.1.0
   cac: ^6.7.14
@@ -95,7 +95,7 @@ catalog:
   eslint-plugin-jsonc: ^2.19.1
   eslint-plugin-n: ^17.16.2
   eslint-plugin-no-only-tests: ^3.3.0
-  eslint-plugin-perfectionist: ^4.10.0
+  eslint-plugin-perfectionist: ^4.10.1
   eslint-plugin-prettier: ^5.2.3
   eslint-plugin-regexp: ^2.7.0
   eslint-plugin-unicorn: ^56.0.1
@@ -117,7 +117,7 @@ catalog:
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
   lodash.isequal: ^4.5.0
-  lucide-vue-next: ^0.469.0
+  lucide-vue-next: ^0.479.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.41.0
   nitropack: ^2.11.6
@@ -135,7 +135,7 @@ catalog:
   postcss-scss: ^4.0.9
   prettier: ^3.5.3
   prettier-plugin-tailwindcss: ^0.6.11
-  publint: ^0.2.12
+  publint: ^0.3.9
   qrcode: ^1.5.4
   radix-vue: ^1.9.17
   resolve.exports: ^2.0.3
@@ -159,7 +159,7 @@ catalog:
   theme-colors: ^0.1.0
   tippy.js: ^6.2.5
   turbo: ^2.4.4
-  typescript: ^5.7.3
+  typescript: ^5.8.2
   unbuild: ^3.5.0
   unplugin-element-plus: ^0.9.1
   vee-validate: ^4.15.0
@@ -179,9 +179,9 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^4.5.0
   vue-tippy: ^6.6.0
-  vue-tsc: 2.1.10
+  vue-tsc: 2.2.8
   vxe-pc-ui: ^4.4.8
-  vxe-table: 4.10.0
+  vxe-table: 4.11.19
   watermark-js-plus: ^1.5.8
   zod: ^3.24.2
   zod-defaults: ^0.1.3
