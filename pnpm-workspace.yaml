@@ -61,7 +61,7 @@ catalog:
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^12.8.2
   '@vueuse/motion': ^2.2.6
-  '@vueuse/integrations': ^12.8.2
+  '@vueuse/integrations': ^13.0.0
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.20
