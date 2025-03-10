@@ -1,4 +1,4 @@
-import type { RouteComponent } from 'vue-router';
+import type { Component, DefineComponent } from 'vue';
 
 import type {
   AccessModeType,
@@ -97,14 +97,16 @@ async function generateRoutes(
       route.name &&
       isString(route.name)
     ) {
-      const originalComponent =
-        route.component as () => Promise<RouteComponent>;
+      const originalComponent = route.component as () => Promise<{
+        default: Component | DefineComponent;
+      }>;
       route.component = async () => {
-        const { default: component } = await originalComponent();
+        const component = await originalComponent();
+        if (!component.default) return component;
         return defineComponent({
           name: route.name as string,
           setup(props, { attrs, slots }) {
-            return () => h(component, { ...props, ...attrs }, slots);
+            return () => h(component.default, { ...props, ...attrs }, slots);
           },
         });
       };
