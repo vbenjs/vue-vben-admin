@@ -165,7 +165,7 @@ vxeUI.renderer.add('CellLink', {
 
 **表单搜索** 部分采用了`Vben Form 表单`，参考 [Vben Form 表单文档](/components/common-ui/vben-form)。
 
-当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。
+当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。表格的所有以`form-`开头的命名插槽都会被传递给搜索表单。
 
 <DemoPreview dir="demos/vben-vxe-table/form" />
 
@@ -250,3 +250,9 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 | toolbar-actions | 工具栏左侧部分（表格标题附近）               |
 | toolbar-tools   | 工具栏右侧部分（vxeTable原生工具按钮的左侧） |
 | table-title     | 表格标题插槽                                 |
+
+::: info 搜索表单的插槽
+
+对于使用了搜索表单的表格来说，所有以`form-`开头的命名插槽都会传递给表单。
+
+:::
