@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -38,6 +38,16 @@ const shopSettingStore = useShopSettingStore();
 
 const state = reactive({
   exporting: false,
+});
+
+onMounted(() => {
+  shopStore.channel?.bind(
+    'export',
+    (payload: { type: string; url: string }) => {
+      state.exporting = false;
+      window.open(payload.url, '_blank');
+    },
+  );
 });
 
 const [ProductFormContentModal, productFormModalApi] = useVbenModal({
@@ -196,8 +206,6 @@ const handleExport = () => {
 
       exportCogsHandlingFees({
         zoneUUID: gridApi.formApi.form.values.zoneUUID,
-      }).finally(() => {
-        state.exporting = false;
       });
     },
   });

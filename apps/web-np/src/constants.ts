@@ -13,6 +13,10 @@ export enum DefaultRoutes {
   ONBOARS = '/onboard',
 }
 
+export enum NotificationType {
+  COGS_HANDLING_FEES_EXPORT = 'cogs-handling-fees-export',
+}
+
 export const defaultRegionUUID = 'default';
 
 export const countries = [
