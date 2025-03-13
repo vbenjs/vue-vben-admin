@@ -23,7 +23,7 @@ import AnalyticsVisits from './analytics-visits.vue';
 const overviewItems: AnalysisOverviewItem[] = [
   {
     icon: SvgCardIcon,
-    title: '用户量',
+    title: '用户量2',
     totalTitle: '总用户量',
     totalValue: 120_000,
     value: 2000,
