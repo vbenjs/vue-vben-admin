@@ -3,7 +3,7 @@ import { h, markRaw, reactive } from 'vue';
 
 import { useVbenForm, useVbenModal } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { Button, message } from 'ant-design-vue';
 
 import { updateRegionProducts } from '#/api';
 import { useShopSettingStore } from '#/store';
@@ -32,6 +32,7 @@ function onSubmit(values: Record<string, any>) {
 
 const [Form, formApi] = useVbenForm({
   handleSubmit: onSubmit,
+  showDefaultActions: false,
   commonConfig: {
     colon: true,
     componentProps: {
@@ -82,7 +83,6 @@ const [Form, formApi] = useVbenForm({
       },
     },
   ],
-  showDefaultActions: false,
 });
 
 const [Modal, modalApi] = useVbenModal({
@@ -115,10 +115,24 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal
     class="w-[700px]"
+    confirm-text="Add"
     :title="state.deleteMode ? 'Remove products' : 'Add products'"
-    :confirm-text="state.deleteMode ? 'Remove' : 'Add'"
+    :show-confirm-button="!state.deleteMode"
     :close-on-click-modal="false"
   >
     <Form />
+
+    <template #prepend-footer>
+      <div class="flex-auto">
+        <Button
+          v-if="state.deleteMode"
+          type="primary"
+          danger
+          @click="modalApi.onConfirm"
+        >
+          Remove
+        </Button>
+      </div>
+    </template>
   </Modal>
 </template>
