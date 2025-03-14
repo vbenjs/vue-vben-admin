@@ -3,7 +3,7 @@ import { h, markRaw, reactive } from 'vue';
 
 import { useVbenForm, useVbenModal } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { importCogsHandlingFees } from '#/api';
 import { useShopSettingStore } from '#/store';
@@ -23,6 +23,7 @@ function onSubmit(values: Record<string, any>) {
     .then(() => {
       message.success(
         'The file has been uploaded successfully and is being processed',
+        5,
       );
     })
     .finally(() => {
@@ -94,5 +95,11 @@ const [Modal, modalApi] = useVbenModal({
     :close-on-click-modal="false"
   >
     <Form />
+
+    <TypographyParagraph class="mt-5 px-5 italic">
+      <span class="font-semibold">Note:</span> After uploading the file, the
+      system will process the data and update the fees in the system. Please
+      make sure the file is correct before uploading.
+    </TypographyParagraph>
   </Modal>
 </template>

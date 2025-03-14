@@ -145,7 +145,7 @@ const addNewRow = () => {
                 format="YYYY-MM-DD"
                 placeholder="Select date"
               />
-              <div class="" v-else>2006-06-01</div>
+              <div class="" v-else>{{ _item.date.format('YYYY-MM-DD') }}</div>
             </td>
             <td class="px-4 py-2 text-center">
               {{ getNextDate(_key) }}

@@ -15,6 +15,7 @@ export enum DefaultRoutes {
 
 export enum NotificationType {
   COGS_HANDLING_FEES_EXPORT = 'cogs-handling-fees-export',
+  COGS_HANDLING_FEES_IMPORT = 'cogs-handling-fees-import',
 }
 
 export const defaultRegionUUID = 'default';

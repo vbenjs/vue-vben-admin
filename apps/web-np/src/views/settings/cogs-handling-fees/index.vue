@@ -24,7 +24,11 @@ import {
   updateCogsByDate,
   updateHandlingFees,
 } from '#/api';
-import { CostCalcLevel, defaultRegionUUID } from '#/constants';
+import {
+  CostCalcLevel,
+  defaultRegionUUID,
+  NotificationType,
+} from '#/constants';
 import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
@@ -46,8 +50,23 @@ onMounted(() => {
   shopStore.pusherChannel.bind(
     'export',
     (payload: { type: string; url: string }) => {
-      state.exporting = false;
-      window.open(payload.url, '_blank');
+      switch (payload.type) {
+        case NotificationType.COGS_HANDLING_FEES_EXPORT: {
+          state.exporting = false;
+          window.open(payload.url, '_blank');
+          break;
+        }
+
+        case NotificationType.COGS_HANDLING_FEES_IMPORT: {
+          state.importing = false;
+          gridApi.reload();
+          break;
+        }
+
+        default: {
+          break;
+        }
+      }
     },
   );
 });

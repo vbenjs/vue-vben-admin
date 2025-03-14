@@ -18,10 +18,19 @@ const beforeUpload: UploadProps['beforeUpload'] = (file) => {
   selectedFile.value = file;
   return false;
 };
+
+const handleRemove: UploadProps['onRemove'] = () => {
+  selectedFile.value = null;
+};
 </script>
 <template>
   <div class="">
-    <Upload accept=".csv" :max-count="1" :before-upload="beforeUpload">
+    <Upload
+      accept=".csv"
+      :max-count="1"
+      :before-upload="beforeUpload"
+      @remove="handleRemove"
+    >
       <VbenButton variant="outline">
         <IconifyIcon icon="ant-design:upload-outlined" class="mr-2 size-5" />
         Choose *.csv file to import
