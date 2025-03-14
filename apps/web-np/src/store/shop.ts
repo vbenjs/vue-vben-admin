@@ -76,7 +76,7 @@ export const useShopStore = defineStore('np-shop', {
       }
 
       this.pusherState.channel = this.pusherState.pusher.subscribe(
-        this.channelName,
+        this.pusherChannelName,
       );
     },
     disconnectPusher() {
@@ -89,11 +89,11 @@ export const useShopStore = defineStore('np-shop', {
   },
 
   getters: {
-    channelName(): string {
+    pusherChannelName(): string {
       return import.meta.env.VITE_PUSHER_CHANNEL_PREFIX + this.shop.id;
     },
-    channel(): Channel | null {
-      return this.pusherState.channel;
+    pusherChannel(): Channel {
+      return this.pusherState.channel as any;
     },
     isOnboarding(): boolean {
       return this.state.onboard === ShopState.PROCESSING;

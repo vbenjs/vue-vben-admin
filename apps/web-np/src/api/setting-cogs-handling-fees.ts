@@ -45,3 +45,13 @@ export async function exportCogsHandlingFees(data: any) {
     data,
   );
 }
+
+export async function importCogsHandlingFees(data: any) {
+  return requestClient.request('/api/shop/settings/cogs-handling-fees/import', {
+    data,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+}

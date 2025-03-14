@@ -3,16 +3,15 @@ import { h, markRaw, reactive } from 'vue';
 
 import { useVbenForm, useVbenModal } from '@vben/common-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
-import { updateRegionProducts } from '#/api';
+import { importCogsHandlingFees } from '#/api';
 import { useShopSettingStore } from '#/store';
 
-import Products from './modules/products.vue';
+import UploadCmp from './modules/upload.vue';
 
 const shopSettingStore = useShopSettingStore();
 const state = reactive({
-  deleteMode: false,
   zoneUUID: '',
   zoneName: '',
 });
@@ -20,12 +19,14 @@ const state = reactive({
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
 
-  updateRegionProducts(values)
+  importCogsHandlingFees(values)
     .then(() => {
-      message.success('The zone has been updated successfully');
+      message.success(
+        'The file has been uploaded successfully and is being processed',
+      );
     })
     .finally(() => {
-      modalApi.setData({ reload: true });
+      modalApi.setData({ processing: true });
       modalApi.close();
     });
 }
@@ -42,14 +43,6 @@ const [Form, formApi] = useVbenForm({
   },
   schema: [
     {
-      component: 'Input',
-      dependencies: {
-        show: false,
-        triggerFields: ['deleteMode'],
-      },
-      fieldName: 'deleteMode',
-    },
-    {
       component: h('span'),
       renderComponentContent: () => {
         return {
@@ -60,27 +53,9 @@ const [Form, formApi] = useVbenForm({
       label: 'Zone name',
     },
     {
-      component: 'Checkbox',
-      fieldName: 'allProducts',
-      label: 'Products',
-      renderComponentContent: () => {
-        return {
-          default: () => ['All products'],
-        };
-      },
-    },
-    {
-      component: markRaw(Products),
-      defaultValue: [],
-      fieldName: 'zoneProducts',
-      label: '',
+      component: markRaw(UploadCmp),
+      fieldName: 'csvFile',
       rules: 'required',
-      dependencies: {
-        show(values) {
-          return !values.allProducts;
-        },
-        triggerFields: ['allProducts'],
-      },
     },
   ],
 });
@@ -100,7 +75,6 @@ const [Modal, modalApi] = useVbenModal({
         return;
       }
 
-      state.deleteMode = deleteMode;
       state.zoneUUID = zoneUUID;
       state.zoneName = shopSettingStore.getZoneName(zoneUUID);
       formApi.setValues({
@@ -115,24 +89,10 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal
     class="w-[700px]"
-    confirm-text="Add"
-    :title="state.deleteMode ? 'Remove products' : 'Add products'"
-    :show-confirm-button="!state.deleteMode"
+    confirm-text="Submit"
+    title="Import products"
     :close-on-click-modal="false"
   >
     <Form />
-
-    <template #prepend-footer>
-      <div class="flex-auto">
-        <Button
-          v-if="state.deleteMode"
-          type="primary"
-          danger
-          @click="modalApi.onConfirm"
-        >
-          Remove
-        </Button>
-      </div>
-    </template>
   </Modal>
 </template>

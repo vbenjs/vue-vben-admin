@@ -29,8 +29,9 @@ import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
-import CogsFormModal from './cogs-form-modal.vue';
-import ProductFormModal from './product-form-modal.vue';
+import CogsFormModal from './modal-cogs-form.vue';
+import ImportFormModal from './modal-import-form.vue';
+import ProductFormModal from './modal-product-form.vue';
 import { calcMargin, formOptions, gridOptions } from './table-config';
 
 const shopStore = useShopStore();
@@ -38,10 +39,11 @@ const shopSettingStore = useShopSettingStore();
 
 const state = reactive({
   exporting: false,
+  importing: false,
 });
 
 onMounted(() => {
-  shopStore.channel?.bind(
+  shopStore.pusherChannel.bind(
     'export',
     (payload: { type: string; url: string }) => {
       state.exporting = false;
@@ -49,6 +51,25 @@ onMounted(() => {
     },
   );
 });
+
+const [ImportFormContentModal, importFormModalApi] = useVbenModal({
+  connectedComponent: ImportFormModal,
+  onClosed: () => {
+    const { processing } = importFormModalApi.getData();
+
+    if (processing === true) {
+      state.importing = processing;
+    }
+  },
+});
+
+const openImportFormModal = () => {
+  importFormModalApi
+    .setData({
+      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
+    })
+    .open();
+};
 
 const [ProductFormContentModal, productFormModalApi] = useVbenModal({
   connectedComponent: ProductFormModal,
@@ -224,6 +245,7 @@ const showAlterProductsBtn = () => {
   <Page auto-content-height>
     <ProductFormContentModal />
     <CogsFormContentModal />
+    <ImportFormContentModal />
     <Grid table-title="COGS & Handling Fees Settings">
       <template #toolbar-tools>
         <template v-if="showAlterProductsBtn()">
@@ -268,12 +290,18 @@ const showAlterProductsBtn = () => {
           Export
         </VbenButton>
         <VbenButton
+          :loading="state.importing"
           size="xs"
           variant="outline"
           class="mr-2 w-[100px]"
           type="primary"
+          @click="openImportFormModal"
         >
-          <IconifyIcon icon="ant-design:upload-outlined" class="mr-2 size-5" />
+          <IconifyIcon
+            v-if="!state.importing"
+            icon="ant-design:upload-outlined"
+            class="mr-2 size-5"
+          />
           Import
         </VbenButton>
       </template>

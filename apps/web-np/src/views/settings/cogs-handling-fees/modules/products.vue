@@ -24,7 +24,7 @@ const handleSearch = useDebounceFn((value: string) => {
     name: value,
   })
     .then((res) => {
-      state.data = res.items.map((item) => ({
+      state.data = res.items.map((item: any) => ({
         value: item.id,
         label: item.name,
         image: item.image,
