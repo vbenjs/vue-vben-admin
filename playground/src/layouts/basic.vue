@@ -106,9 +106,7 @@ function handleMakeAll() {
   notifications.value.forEach((item) => (item.isRead = true));
 }
 
-function handleClickLogo() {
-  console.log('=>(basic.vue:111) handleClickLogo');
-}
+function handleClickLogo() {}
 
 watch(
   () => preferences.app.watermark,

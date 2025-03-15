@@ -8,9 +8,7 @@ import { $t } from '#/locales';
 
 const appName = computed(() => preferences.app.name);
 const logo = computed(() => preferences.logo.source);
-const clickLogo = () => {
-  console.log('click logo');
-};
+const clickLogo = () => {};
 </script>
 
 <template>
