@@ -74,7 +74,7 @@ catalog:
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   commitlint-plugin-function-rules: ^4.0.1
-  consola: ^3.4.0
+  consola: ^3.4.1
   cross-env: ^7.0.3
   cspell: ^8.17.5
   cssnano: ^7.0.6
