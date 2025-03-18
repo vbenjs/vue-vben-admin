@@ -61,7 +61,7 @@ const [Form, formApi] = useVbenForm({
       },
     },
     {
-      component: 'Select',
+      component: 'Select' as any,
       defaultValue: ShippingCostLevel.WEIGHT,
       componentProps: {
         options: [
@@ -70,11 +70,11 @@ const [Form, formApi] = useVbenForm({
         ],
       },
       fieldName: 'shippingCostLevel',
-      label: 'Shipping cost level',
+      label: 'Shipping cost by',
       rules: 'required',
     },
     {
-      component: 'InputNumber',
+      component: 'InputNumber' as any,
       defaultValue: 0,
       componentProps: {
         prefix: shopStore.shop.currencySymbol,

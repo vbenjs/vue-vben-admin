@@ -45,7 +45,7 @@ const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'shippingCostLevel',
-      title: 'Shipping Cost Level',
+      title: 'Shipping Cost By',
       titlePrefix: {
         content:
           'Shipping cost will be calculated based on the weight or quantity of the items in the cart.',
