@@ -104,13 +104,13 @@ const [Form, formApi] = useVbenForm({
       component: 'Input',
       fieldName: 'name',
       label: 'Name',
-      rules: 'required',
       dependencies: {
         if(values) {
           return values.uuid !== 'default';
         },
         triggerFields: ['uuid'],
       },
+      rules: z.string().min(3),
     },
     {
       component: 'Select' as any,

@@ -14,6 +14,7 @@ import { formatMoney, formatReportDate, toPercentage } from '#/utils';
 
 import FormModal from './form-modal.vue';
 import { CustomCostType, customCostTypes } from './service';
+import { formOptions } from './table-config';
 
 const shopStore = useShopStore();
 
@@ -118,7 +119,10 @@ const gridOptions: VxeTableGridOptions = {
   },
 };
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({
+  gridOptions,
+  formOptions,
+});
 
 const handleDelete = (row: ICustomCost) => {
   Modal.confirm({
