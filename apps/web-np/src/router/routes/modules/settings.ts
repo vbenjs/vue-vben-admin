@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
           title: 'COGS & Handling',
           icon: 'lsicon:goods-outline',
         },
-        name: 'COGSAndHandling',
+        name: 'settings.cogs-handling-fees',
         path: '/settings/cogs-and-handling',
         component: () =>
           import('#/views/settings/cogs-handling-fees/index.vue'),
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
           title: 'Transaction Fees',
           icon: 'mdi:account-payment-outline',
         },
-        name: 'Transaction Fees',
+        name: 'settings.transaction-fees',
         path: '/settings/transcation-fees',
         component: () => import('#/views/settings/transaction-fees/index.vue'),
       },
@@ -38,6 +38,15 @@ const routes: RouteRecordRaw[] = [
         name: 'settings.shipping-fees',
         path: '/settings/shipping-fees',
         component: () => import('#/views/settings/zone-shipping/index.vue'),
+      },
+      {
+        meta: {
+          title: 'Custom Costs',
+          icon: 'ant-design:dollar-circle-twotone',
+        },
+        name: 'settings.custom-costs',
+        path: '/settings/custom-costs',
+        component: () => import('#/views/settings/custom-costs/index.vue'),
       },
       {
         meta: {
