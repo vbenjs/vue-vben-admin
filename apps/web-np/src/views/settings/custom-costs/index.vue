@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import type { ICustomCost } from '#/api';
-import type { IRegion } from '#/store';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -9,26 +8,26 @@ import { IconifyIcon } from '@vben/icons';
 import { Modal } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getCustomCostList } from '#/api';
-import { useShopSettingStore } from '#/store';
-import { formatReportDate } from '#/utils';
+import { deleteCustomCost, getCustomCostList } from '#/api';
+import { useShopStore } from '#/store';
+import { formatMoney, formatReportDate, toPercentage } from '#/utils';
 
 import FormModal from './form-modal.vue';
+import { CustomCostType, customCostTypes } from './service';
 
-// const shopStore = useShopStore();
-const shopSettingStore = useShopSettingStore();
+const shopStore = useShopStore();
 
 const [FormContentModal, formContentModalApi] = useVbenModal({
   connectedComponent: FormModal,
   onClosed: () => {
     const { reload } = formContentModalApi.getData();
     if (reload === true) {
-      gridApi.setGridOptions({ data: shopSettingStore.regions });
+      gridApi.reload();
     }
   },
 });
 
-const openFormModal = (row: IRegion | null = null) => {
+const openFormModal = (row: ICustomCost | null = null) => {
   formContentModalApi.setData(row).open();
 };
 
@@ -67,12 +66,23 @@ const gridOptions: VxeTableGridOptions = {
     {
       field: 'type',
       title: 'Type',
-      slots: { default: 'type' },
+      formatter: (val: any): any => {
+        return customCostTypes.find((item) => item.value === val.cellValue)
+          ?.label;
+      },
       width: 200,
     },
     {
       field: 'dailyCost',
       title: 'Daily Cost',
+      slots: { default: 'dailyCost' },
+      align: 'left',
+      width: 200,
+    },
+    {
+      field: 'note',
+      title: 'Note',
+      align: 'left',
       width: 200,
     },
     {
@@ -110,7 +120,7 @@ const gridOptions: VxeTableGridOptions = {
 
 const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
 
-const handleDelete = (row: IRegion) => {
+const handleDelete = (row: ICustomCost) => {
   Modal.confirm({
     title: 'Delete Custom Cost',
     content: 'Are you sure you want to delete this custom cost?',
@@ -118,8 +128,8 @@ const handleDelete = (row: IRegion) => {
     okText: 'Yes',
     cancelText: 'No',
     onOk: async () => {
-      await shopSettingStore.removeRegion(row.uuid).then(() => {
-        gridApi.setGridOptions({ data: shopSettingStore.regions });
+      await deleteCustomCost([row.id]).then(() => {
+        gridApi.reload();
       });
     },
   });
@@ -146,16 +156,27 @@ const handleDelete = (row: IRegion) => {
         </VbenButton>
       </template>
 
-      <template #type="{ row }: { row: ICustomCost }">
-        {{ row.type }}
+      <template #dailyCost="{ row }: { row: ICustomCost }">
+        <div
+          v-if="
+            row.type === CustomCostType.DAILY ||
+            row.type === CustomCostType.WEEKLY ||
+            row.type === CustomCostType.ONE_TIME ||
+            row.type === CustomCostType.MONTHLY
+          "
+        >
+          {{ formatMoney(row.dailyCost, shopStore.shop.currency) }}
+        </div>
+        <div v-if="row.type === CustomCostType.GROSS_SALE_PERCENTAGE">
+          {{ toPercentage(row.grossSaleRate) }}%
+        </div>
       </template>
 
-      <template #action="{ row }: { row: IRegion }">
+      <template #action="{ row }: { row: ICustomCost }">
         <VbenButton
           variant="outline"
           size="icon"
           class="mr-2 size-7"
-          v-if="row.uuid !== 'default'"
           @click="handleDelete(row)"
         >
           <IconifyIcon
