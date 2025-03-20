@@ -69,8 +69,8 @@ async function generateMenus(
     };
   });
 
-  // 对菜单进行排序
-  menus = menus.sort((a, b) => (a.order || 999) - (b.order || 999));
+  // 对菜单进行排序，避免order=0时被替换成999的问题
+  menus = menus.sort((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
 
   const finalMenus = filterTree(menus, (menu) => {
     return !!menu.show;
