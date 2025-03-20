@@ -1,19 +1,27 @@
 <script lang="ts" setup>
 import type { ICustomCost } from '#/api';
 
+import { reactive } from 'vue';
+
 import { useVbenForm, useVbenModal, z } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { Button, message } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { storeCustomCost } from '#/api';
 import { useShopStore } from '#/store';
 import { toPercentage, toRate } from '#/utils';
 
+import FormModalExample from './form-modal-example.vue';
 import { CustomCostType, customCostTypes } from './service';
 
 const shopStore = useShopStore();
 const onGoingDate = dayjs('9999-12-31');
+const state = reactive({
+  showExample: false,
+  currenType: CustomCostType.DAILY as CustomCostType,
+  currentAmount: 0,
+});
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
@@ -38,17 +46,28 @@ function onSubmit(values: Record<string, any>) {
 }
 
 function onChanged(values: Record<string, any>) {
+  state.currenType = values.type;
+
   switch (values.type) {
     case CustomCostType.DAILY: {
+      state.currentAmount = values.dailyCost;
+
       formApi.setValues({
-        periodCost: values.dailyCost,
+        periodCost: state.currentAmount,
       });
       break;
     }
 
+    case CustomCostType.GROSS_SALE_PERCENTAGE: {
+      state.currentAmount = values.grossSaleRate;
+      break;
+    }
+
     case CustomCostType.MONTHLY: {
+      state.currentAmount = +(values.periodCost / 30).toFixed(2);
+
       formApi.setValues({
-        dailyCost: +(values.periodCost / 30).toFixed(2),
+        dailyCost: state.currentAmount,
       });
       break;
     }
@@ -60,16 +79,18 @@ function onChanged(values: Record<string, any>) {
 
       const date = values.endDate as dayjs.Dayjs;
       const diffDays = date.diff(values.startDate, 'days');
+      state.currentAmount = +(values.periodCost / diffDays).toFixed(2);
 
       formApi.setValues({
-        dailyCost: +(values.periodCost / diffDays).toFixed(2),
+        dailyCost: state.currentAmount,
       });
       break;
     }
 
     case CustomCostType.WEEKLY: {
+      state.currentAmount = +(values.periodCost / 7).toFixed(2);
       formApi.setValues({
-        dailyCost: +(values.periodCost / 7).toFixed(2),
+        dailyCost: state.currentAmount,
       });
       break;
     }
@@ -273,5 +294,22 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal class="w-[700px]" title="Custom Cost" confirm-text="Submit">
     <Form />
+    <FormModalExample
+      v-show="state.showExample"
+      :type="state.currenType"
+      :amount="state.currentAmount"
+    />
+
+    <template #prepend-footer>
+      <div class="flex-auto">
+        <Button
+          type="dashed"
+          size="small"
+          @click="state.showExample = !state.showExample"
+        >
+          {{ state.showExample ? 'Hide' : 'Show' }} example
+        </Button>
+      </div>
+    </template>
   </Modal>
 </template>
