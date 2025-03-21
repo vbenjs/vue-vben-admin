@@ -7,7 +7,7 @@ import type { ExtendedFormApi, FormActions, VbenFormProps } from './types';
 import { computed, unref, useSlots } from 'vue';
 
 import { createContext } from '@vben-core/shadcn-ui';
-import { isString } from '@vben-core/shared/utils';
+import { isString, mergeWithArrayOverride, set } from '@vben-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object } from 'zod';
@@ -50,7 +50,7 @@ export function useFormInitial(
     const zodObject: ZodRawShape = {};
     (unref(props).schema || []).forEach((item) => {
       if (Reflect.has(item, 'defaultValue')) {
-        initialValues[item.fieldName] = item.defaultValue;
+        set(initialValues, item.fieldName, item.defaultValue);
       } else if (item.rules && !isString(item.rules)) {
         zodObject[item.fieldName] = item.rules;
       }
@@ -58,7 +58,11 @@ export function useFormInitial(
 
     const schemaInitialValues = getDefaultsForSchema(object(zodObject));
 
-    return { ...initialValues, ...schemaInitialValues };
+    const zodDefaults: Record<string, any> = {};
+    for (const key in schemaInitialValues) {
+      set(zodDefaults, key, schemaInitialValues[key]);
+    }
+    return mergeWithArrayOverride(initialValues, zodDefaults);
   }
 
   return {
