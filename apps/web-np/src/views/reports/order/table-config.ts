@@ -65,12 +65,12 @@ export const orderTableOptions: VxeTableGridOptions = {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'customerFee',
-      title: 'Customer Paid',
+      title: 'Customer Extra Paid',
       titlePrefix: {
         content: 'The fees paid by the customer. Ex: shipping, tips, etc.',
       },
       align: 'right',
-      minWidth: 140,
+      minWidth: 180,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -117,13 +117,13 @@ export const orderTableOptions: VxeTableGridOptions = {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'handlingFees',
-      title: 'Handling',
+      title: 'Handling Fees',
       titlePrefix: {
         content:
           'Handling fees are the costs associated with the handling of goods, including the cost of labor, packaging, and shipping.',
       },
       align: 'right',
-      minWidth: 120,
+      minWidth: 150,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -137,13 +137,13 @@ export const orderTableOptions: VxeTableGridOptions = {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'transactionFees',
-      title: 'Transaction',
+      title: 'Transaction Fees',
       titlePrefix: {
         content:
           'Transaction fees are fees that a merchant must pay every time a customer makes a purchase with a credit card. These fees can vary depending on the credit card company and the merchant account provider.',
       },
       align: 'right',
-      minWidth: 120,
+      minWidth: 160,
     },
     {
       cellRender: { name: 'cellMoney' },

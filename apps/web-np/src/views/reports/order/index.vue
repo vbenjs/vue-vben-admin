@@ -31,7 +31,7 @@ const handleRecalculate = () => {
 <template>
   <Page auto-content-height>
     <FormContentModal />
-    <Grid table-title="Order Report">
+    <Grid>
       <template #toolbar-tools>
         <VbenButton
           class="mr-2"

@@ -265,11 +265,11 @@ const showAlterProductsBtn = () => {
     <ProductFormContentModal />
     <CogsFormContentModal />
     <ImportFormContentModal />
-    <Grid table-title="COGS & Handling Fees Settings">
+    <Grid>
       <template #toolbar-tools>
         <template v-if="showAlterProductsBtn()">
           <VbenButton
-            class="mr-2 w-[150px]"
+            class="mr-2 w-[100px]"
             size="sm"
             variant="destructive"
             @click="openProductFormModal(true)"
@@ -278,10 +278,10 @@ const showAlterProductsBtn = () => {
               class="mr-2 size-4"
               icon="ant-design:minus-circle-twotone"
             />
-            Remove products
+            Remove
           </VbenButton>
           <VbenButton
-            class="mr-2 w-[150px]"
+            class="mr-2 w-[100px]"
             size="sm"
             type="primary"
             @click="openProductFormModal()"
@@ -290,7 +290,7 @@ const showAlterProductsBtn = () => {
               class="mr-2 size-4"
               icon="ant-design:plus-circle-twotone"
             />
-            Add products
+            Add
           </VbenButton>
         </template>
         <VbenButton
