@@ -29,12 +29,12 @@ export const customCostTypes = [
     value: CustomCostType.GROSS_SALE_PERCENTAGE,
     label: '% of Gross Sale',
   },
-  // {
-  //   value: 'revenue_percentage',
-  //   label: '% of Revenue',
-  // },
-  // {
-  //   value: 'gross_profit_percentage',
-  //   label: '% of Gross Profit',
-  // },
+  {
+    value: CustomCostType.REVENUE_PERCENTAGE,
+    label: '% of Revenue',
+  },
+  {
+    value: CustomCostType.GROSS_PROFIT_PERCENTAGE,
+    label: '% of Gross Profit',
+  },
 ];

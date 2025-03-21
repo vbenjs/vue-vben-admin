@@ -87,6 +87,12 @@ const handleDelete = (row: ICustomCost) => {
         <div v-if="row.type === CustomCostType.GROSS_SALE_PERCENTAGE">
           {{ toPercentage(row.grossSaleRate) }}%
         </div>
+        <div v-if="row.type === CustomCostType.REVENUE_PERCENTAGE">
+          {{ toPercentage(row.revenueRate) }}%
+        </div>
+        <div v-if="row.type === CustomCostType.GROSS_PROFIT_PERCENTAGE">
+          {{ toPercentage(row.grossProfitRate) }}%
+        </div>
       </template>
 
       <template #action="{ row }: { row: ICustomCost }">

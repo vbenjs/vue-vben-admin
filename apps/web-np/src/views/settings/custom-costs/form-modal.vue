@@ -30,6 +30,14 @@ function onSubmit(values: Record<string, any>) {
     values.grossSaleRate = toRate(values.grossSaleRate);
   }
 
+  if (values.type === CustomCostType.REVENUE_PERCENTAGE) {
+    values.revenueRate = toRate(values.revenueRate);
+  }
+
+  if (values.type === CustomCostType.GROSS_PROFIT_PERCENTAGE) {
+    values.grossProfitRate = toRate(values.grossProfitRate);
+  }
+
   if (values.endDate && !onGoingDate.diff(values.endDate)) {
     values.endDate = null;
   }
@@ -55,6 +63,11 @@ function onChanged(values: Record<string, any>) {
       formApi.setValues({
         periodCost: state.currentAmount,
       });
+      break;
+    }
+
+    case CustomCostType.GROSS_PROFIT_PERCENTAGE: {
+      state.currentAmount = values.grossProfitRate;
       break;
     }
 
@@ -84,6 +97,11 @@ function onChanged(values: Record<string, any>) {
       formApi.setValues({
         dailyCost: state.currentAmount,
       });
+      break;
+    }
+
+    case CustomCostType.REVENUE_PERCENTAGE: {
+      state.currentAmount = values.revenueRate;
       break;
     }
 
@@ -215,6 +233,40 @@ const [Form, formApi] = useVbenForm({
       rules: z.number().gt(0).max(100),
     },
     {
+      component: 'InputNumber' as any,
+      defaultValue: 0,
+      componentProps: {
+        addonAfter: '%',
+        min: 0,
+      },
+      dependencies: {
+        if(values) {
+          return values.type === CustomCostType.REVENUE_PERCENTAGE;
+        },
+        triggerFields: ['type'],
+      },
+      fieldName: 'revenueRate',
+      label: '% of Revenue',
+      rules: z.number().gt(0).max(100),
+    },
+    {
+      component: 'InputNumber' as any,
+      defaultValue: 0,
+      componentProps: {
+        addonAfter: '%',
+        min: 0,
+      },
+      dependencies: {
+        if(values) {
+          return values.type === CustomCostType.GROSS_PROFIT_PERCENTAGE;
+        },
+        triggerFields: ['type'],
+      },
+      fieldName: 'grossProfitRate',
+      label: '% of Gross profit',
+      rules: z.number().gt(0).max(100),
+    },
+    {
       component: 'DatePicker' as any,
       defaultValue: dayjs().add(-7, 'd'),
       componentProps: {
@@ -284,6 +336,10 @@ const [Modal, modalApi] = useVbenModal({
       formApi.setValues({
         ...values,
         grossSaleRate: Number.parseFloat(toPercentage(values.grossSaleRate)),
+        revenueRate: Number.parseFloat(toPercentage(values.revenueRate)),
+        grossProfitRate: Number.parseFloat(
+          toPercentage(values.grossProfitRate),
+        ),
         startDate: dayjs(values.startDate),
         endDate: values.endDate ? dayjs(values.endDate) : onGoingDate,
       });

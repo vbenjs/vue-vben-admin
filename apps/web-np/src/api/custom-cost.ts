@@ -10,6 +10,8 @@ export interface ICustomCost {
   periodCost: string;
   dailyCost: string;
   grossSaleRate: number;
+  revenueRate: number;
+  grossProfitRate: number;
   startDate: string;
   endDate: string;
   updatedAt: string;
