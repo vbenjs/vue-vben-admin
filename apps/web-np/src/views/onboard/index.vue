@@ -16,12 +16,12 @@ import { ArrowRight } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { toPercentage, toRate } from '#/utils';
 
-import Cogs from './cogs.vue';
-import ExampleOrder from './exampleOrder.vue';
-import HandlingFees from './handlingFees.vue';
+import ExampleOrder from './example-order.vue';
 import { onboardForm } from './service';
-import ShippingFees from './shippingFees.vue';
-import TransactionFees from './transactionFees.vue';
+import Cogs from './step-1-cogs.vue';
+import HandlingFees from './step-2-handling-fees.vue';
+import ShippingFees from './step-3-shipping-fees.vue';
+import TransactionFees from './step-4-transaction-fees.vue';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();

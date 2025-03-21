@@ -10,7 +10,7 @@ import { message } from 'ant-design-vue';
 import { useShopSettingStore } from '#/store';
 import { toPercentage } from '#/utils';
 import { onboardForm, sampleOrder } from '#/views/onboard/service';
-import TransactionFees from '#/views/onboard/transactionFees.vue';
+import TransactionFees from '#/views/onboard/step-4-transaction-fees.vue';
 
 const shopSettingStore = useShopSettingStore();
 const state = reactive({
