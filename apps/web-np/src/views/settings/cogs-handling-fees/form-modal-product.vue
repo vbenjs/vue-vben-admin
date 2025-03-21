@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { h, markRaw, reactive } from 'vue';
 
-import { useVbenForm, useVbenModal } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui';
 
 import { Button, message } from 'ant-design-vue';
 
+import { useVbenForm } from '#/adapter/form';
 import { updateRegionProducts } from '#/api';
 import { useShopSettingStore } from '#/store';
 

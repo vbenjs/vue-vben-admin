@@ -3,7 +3,8 @@ import type { ITransactionFee } from '#/store';
 
 import { onBeforeMount, reactive } from 'vue';
 
-import { Page, VbenButton } from '@vben/common-ui';
+import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
+import { IconifyIcon } from '@vben/icons';
 
 import { message } from 'ant-design-vue';
 
@@ -11,6 +12,8 @@ import { useShopSettingStore } from '#/store';
 import { toPercentage } from '#/utils';
 import { onboardForm, sampleOrder } from '#/views/onboard/service';
 import TransactionFees from '#/views/onboard/step-4-transaction-fees.vue';
+
+import FormModalRecalculate from './form-modal-recalculate.vue';
 
 const shopSettingStore = useShopSettingStore();
 const state = reactive({
@@ -21,6 +24,10 @@ onBeforeMount(() => {
   sampleOrder.grossSales = 100;
 
   handleReset();
+});
+
+const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
+  connectedComponent: FormModalRecalculate,
 });
 
 const handleReset = () => {
@@ -50,23 +57,30 @@ const handleSubmit = () => {
 
 <template>
   <Page>
+    <RecalculateFormContentModal />
     <TransactionFees />
-    <div class="mr-10 mt-5 flex justify-end space-x-5">
-      <VbenButton
-        class="w-[100px]"
-        variant="outline"
-        @click="handleReset"
-        :disabled="state.loading"
-      >
-        Reset
+    <div class="mt-5 flex items-center justify-between">
+      <VbenButton type="primary" @click="recalculateFormModalApi.open()">
+        <IconifyIcon class="mr-2 size-4" icon="ant-design:calculator-twotone" />
+        Recalculate costs
       </VbenButton>
-      <VbenButton
-        :loading="state.loading"
-        class="w-[100px]"
-        @click="handleSubmit"
-      >
-        Save
-      </VbenButton>
+      <div class="flex justify-end space-x-5">
+        <VbenButton
+          class="w-[100px]"
+          variant="outline"
+          @click="handleReset"
+          :disabled="state.loading"
+        >
+          Reset
+        </VbenButton>
+        <VbenButton
+          :loading="state.loading"
+          class="w-[100px]"
+          @click="handleSubmit"
+        >
+          Save
+        </VbenButton>
+      </div>
     </div>
   </Page>
 </template>

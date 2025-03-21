@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { useVbenForm, useVbenModal } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui';
 
 import { message, TypographyParagraph } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
+import { useVbenForm } from '#/adapter/form';
 import { recalculateOrderCosts } from '#/api';
 import { RecalculateCostsType } from '#/constants';
 
@@ -86,19 +87,6 @@ const [Modal, modalApi] = useVbenModal({
   },
   onConfirm: async () => {
     await formApi.validateAndSubmitForm();
-  },
-  onOpenChange(isOpen: boolean) {
-    if (isOpen) {
-      const values = modalApi.getData<any>();
-
-      if (!values.name) {
-        return;
-      }
-
-      formApi.setValues({
-        ...values,
-      });
-    }
   },
 });
 </script>

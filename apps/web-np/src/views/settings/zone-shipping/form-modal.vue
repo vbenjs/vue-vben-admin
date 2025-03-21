@@ -3,10 +3,11 @@ import type { IRegion } from '#/store';
 
 import { markRaw } from 'vue';
 
-import { useVbenForm, useVbenModal } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
 
+import { useVbenForm } from '#/adapter/form';
 import { ShippingCostLevel } from '#/constants';
 import { useShopSettingStore, useShopStore } from '#/store';
 

@@ -14,7 +14,7 @@ function onSubmit(values: Record<string, any>) {
 
   recalculateOrderCosts({
     ...values,
-    costTypes: [RecalculateCostsType.COSG_HANDLING_FEES],
+    costTypes: [RecalculateCostsType.TRANSACTION_FEES],
   })
     .then(() => {
       message.success(
@@ -42,7 +42,7 @@ const [Form, formApi] = useVbenForm({
   fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
     {
-      component: 'RangePicker',
+      component: 'RangePicker' as any,
       componentProps: {
         presets: [
           { label: 'Today', value: [dayjs().add(-1, 'd'), dayjs()] },
@@ -79,7 +79,7 @@ const redirectToOrderReport = () => {
 <template>
   <Modal
     class="w-[700px]"
-    title="Recalculate COGS - Handling Fees"
+    title="Recalculate Transaction Fees"
     confirm-text="Submit"
   >
     <template #prepend-footer>

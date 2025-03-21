@@ -77,7 +77,7 @@ onMounted(() => {
   );
 });
 
-const [RecalculateFormContentModal, formContentModalApi] = useVbenModal({
+const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
   connectedComponent: FormModalRecalculate,
 });
 
@@ -290,7 +290,7 @@ const showAlterProductsBtn = () => {
           class="mr-2"
           size="sm"
           type="primary"
-          @click="formContentModalApi.open()"
+          @click="recalculateFormModalApi.open()"
         >
           <IconifyIcon
             class="mr-2 size-4"
