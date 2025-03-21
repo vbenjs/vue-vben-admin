@@ -10,6 +10,29 @@ import { toPercentage } from '#/utils';
 
 import Select from './modules/select.vue';
 
+const statusList = [
+  {
+    value: 'ACTIVE',
+    label: 'Active',
+    className: 'success',
+  },
+  {
+    value: 'DRAFT',
+    label: 'Draft',
+    className: 'warning',
+  },
+  {
+    value: 'ARCHIVED',
+    label: 'Archived',
+    className: 'error',
+  },
+];
+
+export const getStatusClass = (status: string) => {
+  const item = statusList.find((item) => item.value === status);
+  return item ? item.className : 'default';
+};
+
 export const formOptions: VbenFormProps = {
   schema: [
     {
@@ -28,34 +51,11 @@ export const formOptions: VbenFormProps = {
       componentProps: {
         allowClear: true,
         mode: 'multiple',
-        options: [
-          {
-            value: 'ACTIVE',
-            label: 'Active',
-          },
-          {
-            value: 'DRAFT',
-            label: 'Draft',
-          },
-          {
-            value: 'ARCHIVED',
-            label: 'Archived',
-          },
-        ],
+        options: statusList,
       },
       fieldName: 'status',
       label: 'Status',
     },
-    // {
-    //   component: 'Checkbox',
-    //   fieldName: 'onlyZeroCOGS',
-    //   label: '',
-    //   renderComponentContent: () => {
-    //     return {
-    //       default: () => ['Only show zero COGS'],
-    //     };
-    //   },
-    // },
   ],
   showCollapseButton: false,
   collapsed: true,

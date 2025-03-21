@@ -8,19 +8,13 @@ import FormModalRecalculate from './form-modal-recalculate.vue';
 import { orderTableOptions } from './table-config';
 import { formOptions } from './table-filter';
 
-const [Grid, gridApi] = useVbenVxeGrid({
+const [Grid] = useVbenVxeGrid({
   gridOptions: orderTableOptions,
   formOptions,
 });
 
 const [FormContentModal, formContentModalApi] = useVbenModal({
   connectedComponent: FormModalRecalculate,
-  onClosed: () => {
-    const { reload } = formContentModalApi.getData();
-    if (reload === true) {
-      gridApi.reload();
-    }
-  },
 });
 
 const handleRecalculate = () => {

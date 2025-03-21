@@ -1,16 +1,20 @@
 <script lang="ts" setup>
 import { useVbenForm, useVbenModal } from '@vben/common-ui';
 
-import { message, TypographyParagraph } from 'ant-design-vue';
+import { Button, message, TypographyParagraph } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { recalculateOrderCosts } from '#/api';
 import { RecalculateCostsType } from '#/constants';
+import { router } from '#/router';
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
 
-  recalculateOrderCosts(values)
+  recalculateOrderCosts({
+    ...values,
+    costTypes: [RecalculateCostsType.COSG_HANDLING_FEES],
+  })
     .then(() => {
       message.success(
         'Your request has been submitted successfully. Once the job is completed, the system will send a notification.',
@@ -32,7 +36,7 @@ const [Form, formApi] = useVbenForm({
     componentProps: {
       class: 'w-full',
     },
-    labelClass: 'w-1/4',
+    labelClass: 'w-1/6',
   },
   fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
@@ -52,29 +56,6 @@ const [Form, formApi] = useVbenForm({
       defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
       fieldName: 'date',
       label: 'Date',
-      rules: 'required',
-    },
-    {
-      component: 'CheckboxGroup',
-      componentProps: {
-        name: 'costTypes',
-        options: [
-          {
-            label: 'COGS - Handling fees',
-            value: RecalculateCostsType.COSG_HANDLING_FEES,
-          },
-          {
-            label: 'Shipping cost',
-            value: RecalculateCostsType.SHIPPING_COSTS,
-          },
-          {
-            label: 'Transaction fees',
-            value: RecalculateCostsType.TRANSACTION_FEES,
-          },
-        ],
-      },
-      fieldName: 'costTypes',
-      label: 'Costs',
       rules: 'required',
     },
   ],
@@ -101,9 +82,25 @@ const [Modal, modalApi] = useVbenModal({
     }
   },
 });
+
+const redirectToOrderReport = () => {
+  modalApi.close();
+  router.push({ name: 'reports.order' });
+};
 </script>
 <template>
-  <Modal class="w-[700px]" title="Recalculate Costs" confirm-text="Submit">
+  <Modal
+    class="w-[700px]"
+    title="Recalculate COGS - Handling Fees"
+    confirm-text="Submit"
+  >
+    <template #prepend-footer>
+      <div class="flex-auto">
+        <Button size="small" type="dashed" @click="redirectToOrderReport">
+          Go to Order Report
+        </Button>
+      </div>
+    </template>
     <Form />
 
     <TypographyParagraph class="mt-5 px-5 italic">
@@ -111,6 +108,11 @@ const [Modal, modalApi] = useVbenModal({
       recalculation request, the system will schedule the recalculation of all
       related costs. Once the job is completed, the system will send a
       notification.
+    </TypographyParagraph>
+
+    <TypographyParagraph class="mt-5 px-5 italic">
+      To review the result, please go to the
+      <span class="font-semibold">Order Report</span> page.
     </TypographyParagraph>
   </Modal>
 </template>

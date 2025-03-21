@@ -8,6 +8,12 @@ export enum CostCalcLevel {
   VARIANT = 'VARIANT',
 }
 
+export enum RecalculateCostsType {
+  COSG_HANDLING_FEES = 'handling_fees_cogs',
+  SHIPPING_COSTS = 'shipping_costs',
+  TRANSACTION_FEES = 'transaction_fees',
+}
+
 export enum DefaultRoutes {
   HOME = '/dashboard',
   ONBOARS = '/onboard',

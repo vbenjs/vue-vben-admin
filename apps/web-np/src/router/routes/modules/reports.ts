@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('reports.order.title'),
           icon: 'fluent-mdl2:reservation-orders',
         },
-        name: 'ReportsOrder',
+        name: 'reports.order',
         path: '/reports/order',
         component: () => import('#/views/reports/order/index.vue'),
       },

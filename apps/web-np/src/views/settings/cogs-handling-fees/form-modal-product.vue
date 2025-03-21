@@ -120,8 +120,6 @@ const [Modal, modalApi] = useVbenModal({
     :show-confirm-button="!state.deleteMode"
     :close-on-click-modal="false"
   >
-    <Form />
-
     <template #prepend-footer>
       <div class="flex-auto">
         <Button
@@ -134,5 +132,7 @@ const [Modal, modalApi] = useVbenModal({
         </Button>
       </div>
     </template>
+
+    <Form />
   </Modal>
 </template>

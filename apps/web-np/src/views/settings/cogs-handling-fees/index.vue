@@ -33,10 +33,16 @@ import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
-import CogsFormModal from './modal-cogs-form.vue';
-import ImportFormModal from './modal-import-form.vue';
-import ProductFormModal from './modal-product-form.vue';
-import { calcMargin, formOptions, gridOptions } from './table-config';
+import CogsFormModal from './form-modal-cogs.vue';
+import ImportFormModal from './form-modal-import.vue';
+import ProductFormModal from './form-modal-product.vue';
+import FormModalRecalculate from './form-modal-recalculate.vue';
+import {
+  calcMargin,
+  formOptions,
+  getStatusClass,
+  gridOptions,
+} from './table-config';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();
@@ -69,6 +75,10 @@ onMounted(() => {
       }
     },
   );
+});
+
+const [RecalculateFormContentModal, formContentModalApi] = useVbenModal({
+  connectedComponent: FormModalRecalculate,
 });
 
 const [ImportFormContentModal, importFormModalApi] = useVbenModal({
@@ -132,23 +142,6 @@ const [Grid, gridApi] = useVbenVxeGrid({
 
 const formatStatus = (status: string) => {
   return capitalizeFirstLetter(status.toLowerCase());
-};
-
-const getStatusClass = (status: string) => {
-  switch (status) {
-    case 'ACTIVE': {
-      return 'success';
-    }
-    case 'ARCHIVED': {
-      return 'error';
-    }
-    case 'DRAFT': {
-      return 'warning';
-    }
-    default: {
-      return 'default';
-    }
-  }
 };
 
 const handleSwitchChange = (row: IProduct) => {
@@ -252,7 +245,6 @@ const handleExport = () => {
 };
 
 const showAlterProductsBtn = () => {
-  // return true;
   return (
     gridApi.formApi.form &&
     gridApi.formApi.form.values.zoneUUID !== defaultRegionUUID
@@ -262,6 +254,7 @@ const showAlterProductsBtn = () => {
 
 <template>
   <Page auto-content-height>
+    <RecalculateFormContentModal />
     <ProductFormContentModal />
     <CogsFormContentModal />
     <ImportFormContentModal />
@@ -293,6 +286,18 @@ const showAlterProductsBtn = () => {
             Add
           </VbenButton>
         </template>
+        <VbenButton
+          class="mr-2"
+          size="sm"
+          type="primary"
+          @click="formContentModalApi.open()"
+        >
+          <IconifyIcon
+            class="mr-2 size-4"
+            icon="ant-design:calculator-twotone"
+          />
+          Recalculate costs
+        </VbenButton>
         <VbenButton
           :loading="state.exporting"
           size="xs"
