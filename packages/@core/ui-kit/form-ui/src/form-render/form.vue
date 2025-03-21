@@ -12,7 +12,12 @@ import type {
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils';
+import {
+  cn,
+  isFunction,
+  isString,
+  mergeWithArrayOverride,
+} from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -48,15 +53,24 @@ const shapes = computed(() => {
 
     let typeName = '';
     if (rules && !isString(rules)) {
-      typeName = rules._def.typeName;
+      typeName = isFunction(rules) ? 'ZodFunction' : rules._def.typeName;
     }
 
-    const baseRules = getBaseRules(rules) as ZodTypeAny;
+    const baseRules =
+      typeName === 'ZodFunction' ? rules : (getBaseRules(rules) as ZodTypeAny);
+
+    const _default =
+      typeName === 'ZodFunction' ? undefined : getDefaultValueInZodStack(rules);
+
+    const required =
+      typeName === 'ZodFunction'
+        ? true
+        : !['ZodNullable', 'ZodOptional'].includes(typeName);
 
     resultShapes.push({
-      default: getDefaultValueInZodStack(rules),
+      default: _default,
       fieldName,
-      required: !['ZodNullable', 'ZodOptional'].includes(typeName),
+      required,
       rules: baseRules,
     });
   });
