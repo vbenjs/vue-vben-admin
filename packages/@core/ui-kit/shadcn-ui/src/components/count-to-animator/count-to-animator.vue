@@ -37,7 +37,18 @@ const props = withDefaults(defineProps<Props>(), {
   useEasing: true,
 });
 
-const emit = defineEmits(['onStarted', 'onFinished']);
+const emit = defineEmits<{
+  finished: [];
+  /**
+   * @deprecated 请使用{@link finished}事件
+   */
+  onFinished: [];
+  /**
+   * @deprecated 请使用{@link started}事件
+   */
+  onStarted: [];
+  started: [];
+}>();
 
 const source = ref(props.startVal);
 const disabled = ref(false);
@@ -73,8 +84,14 @@ function run() {
   outputValue = useTransition(source, {
     disabled,
     duration: props.duration,
-    onFinished: () => emit('onFinished'),
-    onStarted: () => emit('onStarted'),
+    onFinished: () => {
+      emit('finished');
+      emit('onFinished');
+    },
+    onStarted: () => {
+      emit('started');
+      emit('onStarted');
+    },
     ...(props.useEasing
       ? { transition: TransitionPresets[props.transition] }
       : {}),

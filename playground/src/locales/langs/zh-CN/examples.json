@@ -15,6 +15,7 @@
   "form": {
     "title": "表单",
     "basic": "基础表单",
+    "layout": "自定义布局",
     "query": "查询表单",
     "rules": "表单校验",
     "dynamic": "动态表单",
@@ -62,5 +63,8 @@
   },
   "layout": {
     "col-page": "双列布局"
+  },
+  "button-group": {
+    "title": "按钮组"
   }
 }

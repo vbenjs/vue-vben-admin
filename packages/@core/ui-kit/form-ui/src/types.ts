@@ -244,13 +244,13 @@ export interface FormSchema<
   /** 依赖 */
   dependencies?: FormItemDependencies;
   /** 描述 */
-  description?: string;
+  description?: CustomRenderType;
   /** 字段名 */
   fieldName: string;
   /** 帮助信息 */
-  help?: string;
+  help?: CustomRenderType;
   /** 表单项 */
-  label?: string;
+  label?: CustomRenderType;
   // 自定义组件内部渲染
   renderComponentContent?: RenderComponentContentType;
   /** 字段规则 */

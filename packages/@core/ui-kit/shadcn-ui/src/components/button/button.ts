@@ -22,3 +22,21 @@ export interface VbenButtonProps {
   size?: ButtonVariantSize;
   variant?: ButtonVariants;
 }
+
+export type CustomRenderType = (() => Component | string) | string;
+
+export type ValueType = boolean | number | string;
+
+export interface VbenButtonGroupProps
+  extends Pick<VbenButtonProps, 'disabled'> {
+  beforeChange?: (
+    value: ValueType,
+    isChecked: boolean,
+  ) => boolean | PromiseLike<boolean | undefined> | undefined;
+  btnClass?: any;
+  gap?: number;
+  multiple?: boolean;
+  options?: { label: CustomRenderType; value: ValueType }[];
+  showIcon?: boolean;
+  size?: 'large' | 'middle' | 'small';
+}

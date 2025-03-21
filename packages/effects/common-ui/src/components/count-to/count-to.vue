@@ -53,7 +53,7 @@ const numMain = computed(() => {
   const result = currentValue.value
     .toFixed(props.decimals)
     .split('.')[0]
-    ?.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ',');
+    ?.replaceAll(/\B(?=(\d{3})+(?!\d))/g, props.separator);
   return result;
 });
 

@@ -180,4 +180,12 @@ export class ModalApi {
     }
     return this;
   }
+
+  /**
+   * 解除弹窗的锁定状态
+   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   */
+  unlock() {
+    return this.lock(false);
+  }
 }

@@ -14,6 +14,8 @@ import InContentModalDemo from './in-content-demo.vue';
 import NestedDemo from './nested-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
+defineOptions({ name: 'ModalExample' });
+
 const [BaseModal, baseModalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: BaseDemo,

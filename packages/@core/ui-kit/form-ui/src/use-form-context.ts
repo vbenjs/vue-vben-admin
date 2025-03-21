@@ -20,6 +20,9 @@ export const [injectFormProps, provideFormProps] =
     'VbenFormProps',
   );
 
+export const [injectComponentRefMap, provideComponentRefMap] =
+  createContext<Map<string, unknown>>('ComponentRefMap');
+
 export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
 ) {
