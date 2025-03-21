@@ -12,10 +12,15 @@ import { countries, defaultRegionUUID, ShippingCostLevel } from '#/constants';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
 
+import FormModalRecalculate from './form-modal-recalculate.vue';
 import FormModal from './form-modal.vue';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();
+
+const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
+  connectedComponent: FormModalRecalculate,
+});
 
 const [FormContentModal, formContentModalApi] = useVbenModal({
   connectedComponent: FormModal,
@@ -117,10 +122,23 @@ const getCountries = (row: IRegion) => {
 
 <template>
   <Page auto-content-height>
+    <RecalculateFormContentModal />
     <FormContentModal />
 
     <Grid table-title="Zone - Shipping Fees">
       <template #toolbar-tools>
+        <VbenButton
+          type="primary"
+          class="mr-2"
+          size="sm"
+          @click="recalculateFormModalApi.open()"
+        >
+          <IconifyIcon
+            class="mr-2 size-4"
+            icon="ant-design:calculator-twotone"
+          />
+          Recalculate costs
+        </VbenButton>
         <VbenButton
           class="mr-2"
           size="sm"
