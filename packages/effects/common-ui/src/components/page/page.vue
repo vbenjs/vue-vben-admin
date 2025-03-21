@@ -92,12 +92,7 @@ onMounted(() => {
     <div
       v-if="$slots.footer"
       ref="footerRef"
-      :class="
-        cn(
-          'bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4',
-          footerClass,
-        )
-      "
+      :class="cn('bg-card align-center flex px-6 py-4', footerClass)"
     >
       <slot name="footer"></slot>
     </div>
