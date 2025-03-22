@@ -45,6 +45,7 @@ catalog:
   '@types/lodash.clonedeep': ^4.5.9
   '@types/lodash.get': ^4.4.9
   '@types/lodash.isequal': ^4.5.8
+  '@types/lodash.set': ^4.3.2
   '@types/node': ^22.13.10
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
@@ -116,6 +117,7 @@ catalog:
   lint-staged: ^15.4.3
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
+  lodash.set: ^4.3.2
   lodash.isequal: ^4.5.0
   lucide-vue-next: ^0.469.0
   medium-zoom: ^1.1.0

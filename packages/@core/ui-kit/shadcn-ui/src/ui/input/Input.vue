@@ -30,3 +30,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
     "
   />
 </template>
+<style lang="scss" scoped>
+input {
+  --ring: var(--primary);
+}
+</style>
