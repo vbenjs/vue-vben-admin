@@ -49,8 +49,18 @@ const calcDailyCost = (item: IReport, format: boolean = true) => {
       break;
     }
 
-    case CustomCostType.GROSS_SALE_PERCENTAGE: {
+    case CustomCostType.GROSS_PROFIT_PERCENTAGE: {
       amount = item.grossProfit * (props.amount / 100);
+      break;
+    }
+
+    case CustomCostType.GROSS_SALE_PERCENTAGE: {
+      amount = item.grossSale * (props.amount / 100);
+      break;
+    }
+
+    case CustomCostType.REVENUE_PERCENTAGE: {
+      amount = item.revenue * (props.amount / 100);
       break;
     }
   }
