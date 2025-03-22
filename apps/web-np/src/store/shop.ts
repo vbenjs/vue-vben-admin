@@ -1,5 +1,8 @@
 import type { Channel } from 'pusher-js';
 
+import { useAccessStore } from '@vben/stores';
+
+import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 import Pusher from 'pusher-js';
 
@@ -42,6 +45,14 @@ interface IPusherState {
   channel: Channel | null;
 }
 
+interface INotification {
+  title: string;
+  message: string;
+  alertType: string;
+  reloadNotification: boolean;
+  showAlert: boolean;
+}
+
 export const useShopStore = defineStore('np-shop', {
   actions: {
     setStates(shop: any, state: any) {
@@ -64,9 +75,17 @@ export const useShopStore = defineStore('np-shop', {
     },
     initPusher() {
       if (!this.pusherState.pusher) {
+        const accessStore = useAccessStore();
+
         this.pusherState.pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
           cluster: import.meta.env.VITE_PUSHER_CLUSTER,
           forceTLS: true,
+          authEndpoint: import.meta.env.VITE_PUSHER_AUTH_ENDPOINT,
+          auth: {
+            headers: {
+              Authorization: `Bearer ${accessStore.accessToken}`,
+            },
+          },
         });
       }
 
@@ -77,6 +96,19 @@ export const useShopStore = defineStore('np-shop', {
 
       this.pusherState.channel = this.pusherState.pusher.subscribe(
         this.pusherChannelName,
+      );
+
+      this.pusherState.channel.bind(
+        'broadcast_notification_event',
+        (payload: INotification) => {
+          if (payload.showAlert) {
+            notification[payload.alertType as 'success']({
+              message: payload.title,
+              description: payload.message,
+              duration: 4.5,
+            });
+          }
+        },
       );
     },
     disconnectPusher() {
@@ -90,7 +122,7 @@ export const useShopStore = defineStore('np-shop', {
 
   getters: {
     pusherChannelName(): string {
-      return import.meta.env.VITE_PUSHER_CHANNEL_PREFIX + this.shop.id;
+      return `private-shop_id-${this.shop.id}`;
     },
     pusherChannel(): Channel {
       return this.pusherState.channel as any;

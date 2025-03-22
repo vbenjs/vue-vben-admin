@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
-import { onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -24,11 +24,7 @@ import {
   updateCogsByDate,
   updateHandlingFees,
 } from '#/api';
-import {
-  CostCalcLevel,
-  defaultRegionUUID,
-  NotificationType,
-} from '#/constants';
+import { CostCalcLevel, defaultRegionUUID } from '#/constants';
 import { AntHistory } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
 import { formatMoney } from '#/utils';
@@ -50,31 +46,6 @@ const shopSettingStore = useShopSettingStore();
 const state = reactive({
   exporting: false,
   importing: false,
-});
-
-onMounted(() => {
-  shopStore.pusherChannel.bind(
-    'export',
-    (payload: { type: string; url: string }) => {
-      switch (payload.type) {
-        case NotificationType.COGS_HANDLING_FEES_EXPORT: {
-          state.exporting = false;
-          window.open(payload.url, '_blank');
-          break;
-        }
-
-        case NotificationType.COGS_HANDLING_FEES_IMPORT: {
-          state.importing = false;
-          gridApi.reload();
-          break;
-        }
-
-        default: {
-          break;
-        }
-      }
-    },
-  );
 });
 
 const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
