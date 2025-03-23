@@ -15,9 +15,12 @@ export * from '@vben-core/popup-ui';
 export {
   VbenButton,
   VbenCountToAnimator,
+  VbenIconButton,
   VbenInputPassword,
   VbenLoading,
   VbenPinInput,
+  VbenPopover,
+  VbenScrollbar,
   VbenSpinner,
 } from '@vben-core/shadcn-ui';
 

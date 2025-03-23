@@ -36,8 +36,12 @@ const props = defineProps({
 const getFileName = () => {
   const fileName = props.urlName ?? props.url;
 
+  if (fileName.length <= 20) {
+    return fileName;
+  }
+
   // Try to get the start and last 10 chars of the file name
-  return `${fileName.slice(0, 10)}...${fileName.slice(-10)}`;
+  return `...${fileName.slice(-18)}`;
 };
 </script>
 <template>

@@ -58,6 +58,8 @@ export interface INotification {
   url: null | string;
   urlType: null | string;
   urlName: null | string;
+  readAt: null | string;
+  createdAt: null | string;
 }
 
 export const useShopStore = defineStore('np-shop', {
