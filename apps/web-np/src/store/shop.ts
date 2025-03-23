@@ -1,5 +1,7 @@
 import type { Channel } from 'pusher-js';
 
+import { h } from 'vue';
+
 import { useAccessStore } from '@vben/stores';
 
 import { notification } from 'ant-design-vue';
@@ -7,6 +9,7 @@ import { defineStore } from 'pinia';
 import Pusher from 'pusher-js';
 
 import { updateGeneralSettings } from '#/api';
+import NotificationMessage from '#/views/_core/notification-message.vue';
 
 import { useCurrencyStore } from './currency';
 
@@ -45,12 +48,16 @@ interface IPusherState {
   channel: Channel | null;
 }
 
-interface INotification {
+export interface INotification {
+  type: string;
   title: string;
   message: string;
   alertType: string;
   reloadNotification: boolean;
   showAlert: boolean;
+  url: null | string;
+  urlType: null | string;
+  urlName: null | string;
 }
 
 export const useShopStore = defineStore('np-shop', {
@@ -99,13 +106,13 @@ export const useShopStore = defineStore('np-shop', {
       );
 
       this.pusherState.channel.bind(
-        'broadcast_notification_event',
+        this.pusherEventName,
         (payload: INotification) => {
           if (payload.showAlert) {
             notification[payload.alertType as 'success']({
+              description: h(NotificationMessage, payload as any),
               message: payload.title,
-              description: payload.message,
-              duration: 4.5,
+              duration: 7,
             });
           }
         },
@@ -126,6 +133,9 @@ export const useShopStore = defineStore('np-shop', {
     },
     pusherChannel(): Channel {
       return this.pusherState.channel as any;
+    },
+    pusherEventName(): string {
+      return 'broadcast_notification_event';
     },
     isOnboarding(): boolean {
       return this.state.onboard === ShopState.PROCESSING;

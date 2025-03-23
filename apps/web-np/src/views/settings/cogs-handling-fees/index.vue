@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import type { IProduct } from './table-config';
 
-import { reactive } from 'vue';
+import type { INotification } from '#/store';
+
+import { onMounted, reactive } from 'vue';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -61,6 +63,30 @@ const [ImportFormContentModal, importFormModalApi] = useVbenModal({
       state.importing = processing;
     }
   },
+});
+
+onMounted(() => {
+  shopStore.pusherChannel.bind(
+    shopStore.pusherEventName,
+    (payload: INotification) => {
+      switch (payload.type) {
+        case 'COGSHandlingFeesExportNotification': {
+          state.exporting = false;
+          break;
+        }
+
+        case 'COGSHandlingFeesImportNotification': {
+          state.importing = false;
+          gridApi.reload();
+          break;
+        }
+
+        default: {
+          break;
+        }
+      }
+    },
+  );
 });
 
 const openImportFormModal = () => {
