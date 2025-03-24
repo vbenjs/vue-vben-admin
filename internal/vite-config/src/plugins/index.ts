@@ -18,6 +18,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
 
 import { viteArchiverPlugin } from './archiver';
+import { viteElectronPlugin } from './electron';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
@@ -97,6 +98,7 @@ async function loadApplicationPlugins(
     archiverPluginOptions,
     compress,
     compressTypes,
+    electron,
     extraAppConfig,
     html,
     i18n,
@@ -212,6 +214,10 @@ async function loadApplicationPlugins(
       plugins: async () => {
         return [await viteArchiverPlugin(archiverPluginOptions)];
       },
+    },
+    {
+      condition: electron,
+      plugins: () => [viteElectronPlugin(commonOptions)],
     },
   ]);
 }

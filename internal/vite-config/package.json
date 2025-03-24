@@ -47,12 +47,15 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "dayjs": "catalog:",
     "dotenv": "catalog:",
+    "electron": "catalog:",
     "rollup": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
     "sass": "catalog:",
     "vite": "catalog:",
     "vite-plugin-compression": "catalog:",
     "vite-plugin-dts": "catalog:",
+    "vite-plugin-electron": "catalog:",
+    "vite-plugin-electron-renderer": "catalog:",
     "vite-plugin-html": "catalog:",
     "vite-plugin-lazy-import": "catalog:"
   }

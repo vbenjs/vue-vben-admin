@@ -98,6 +98,8 @@
     "@types/lodash.get": "catalog:",
     "@types/lodash.isequal": "catalog:",
     "@types/lodash.set": "catalog:",
-    "@types/nprogress": "catalog:"
+    "@types/nprogress": "catalog:",
+    "@vben-core/typings": "workspace:*",
+    "electron": "catalog:"
   }
 }

@@ -16,17 +16,60 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build --mode production",
+    "build": "pnpm vite build --mode production && electron-builder",
     "build:analyze": "pnpm vite build --mode analyze",
-    "dev": "pnpm vite --mode development",
+    "dev": "cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=true pnpm vite --mode development",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "test:e2e": "playwright test",
     "test:e2e-ui": "playwright test --ui",
     "test:e2e-codegen": "playwright codegen"
   },
+  "main": "dist-electron/main/main.js",
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:5555/"
+    }
+  },
   "imports": {
     "#/*": "./src/*"
+  },
+  "build": {
+    "productName": "VbenAdminPlayground",
+    "appId": "pro.vben.playground",
+    "copyright": "vben.pro © 2025",
+    "compression": "maximum",
+    "artifactName": "${productName}-v${version}-${platform}-${arch}.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "dist-electron/release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json",
+      "!node_modules/**",
+      "!dist-electron/release/**"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "VbenAdmin"
+    },
+    "win": {
+      "icon": "./electron/logo/logo_256.ico",
+      "target": "nsis"
+    },
+    "mac": {
+      "icon": "./electron/logo/logo_256.ico"
+    },
+    "linux": {
+      "icon": "./electron/logo/logo_256.ico"
+    }
   },
   "dependencies": {
     "@tanstack/vue-query": "catalog:",
@@ -51,5 +94,10 @@
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "cross-env": "catalog:",
+    "electron": "catalog:",
+    "electron-builder": "catalog:"
   }
 }

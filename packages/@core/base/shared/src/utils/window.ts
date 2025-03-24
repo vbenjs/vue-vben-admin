@@ -28,10 +28,11 @@ function openWindow(url: string, options: OpenWindowOptions = {}): void {
  * @param path
  */
 function openRouteInNewWindow(path: string) {
-  const { hash, origin } = location;
+  // const { hash, origin } = location;
   const fullPath = path.startsWith('/') ? path : `/${path}`;
-  const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
-  openWindow(url, { target: '_blank' });
+  // const url = `${origin}${hash ? '/#' : ''}${fullPath}`;
+  // openWindow(url, { target: '_blank' });
+  window.ipcRenderer.invoke('open-win', fullPath);
 }
 
 export { openRouteInNewWindow, openWindow };

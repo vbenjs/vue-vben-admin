@@ -27,6 +27,9 @@
     },
     "./vue-router": {
       "types": "./vue-router.d.ts"
+    },
+    "./electron": {
+      "types": "./electron.d.ts"
     }
   },
   "publishConfig": {

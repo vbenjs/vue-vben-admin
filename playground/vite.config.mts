@@ -2,7 +2,9 @@ import { defineConfig } from '@vben/vite-config';
 
 export default defineConfig(async () => {
   return {
-    application: {},
+    application: {
+      electron: true,
+    },
     vite: {
       server: {
         proxy: {

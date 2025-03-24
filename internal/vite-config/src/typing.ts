@@ -95,6 +95,8 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   compress?: boolean;
   /** 压缩类型 */
   compressTypes?: ('brotli' | 'gzip')[];
+  /** 启用electron */
+  electron?: boolean;
   /** 在构建的时候抽离配置文件 */
   extraAppConfig?: boolean;
   /** 是否开启html插件  */
