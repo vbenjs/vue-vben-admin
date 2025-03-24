@@ -13,6 +13,7 @@ import { Bell } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { useToggle } from '@vueuse/core';
+import { Modal } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import {
@@ -63,10 +64,20 @@ function handleMakeAll() {
 }
 
 function handleClear() {
-  state.clearLoading = true;
-  clearAllNotification().then(() => {
-    state.clearLoading = false;
-    state.notificationList = [];
+  Modal.confirm({
+    title: `Clear Notifications`,
+    content:
+      "Once you clear all notifications, you can't recover them. Are you sure you want to continue?",
+    okText: 'Yes',
+    cancelText: 'No',
+    onOk: async () => {
+      state.clearLoading = true;
+
+      clearAllNotification().then(() => {
+        state.clearLoading = false;
+        state.notificationList = [];
+      });
+    },
   });
 }
 

@@ -7,11 +7,12 @@ import { BasicLayout, LockScreen, UserDropdown } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 
-import { useAuthStore } from '#/store';
+import { useAuthStore, useShopStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
 import Notification from './notification.vue';
 
+const shopStore = useShopStore();
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
@@ -48,7 +49,7 @@ const menus = computed(() => [
 ]);
 
 const avatar = computed(() => {
-  return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
+  return 'https://i.ibb.co/ymg7NtjT/shopify-header-logo-png-webp-1.png';
 });
 
 async function handleLogout() {
@@ -78,9 +79,9 @@ watch(
       <UserDropdown
         :avatar
         :menus
-        :text="userStore.userInfo?.realName"
-        description="ann.vben@gmail.com-longhominh"
-        tag-text="Pro"
+        :text="userStore.userInfo?.username"
+        :description="shopStore.shop.domain ?? shopStore.shop.myshopifyDomain"
+        tag-text="Free"
         @logout="handleLogout"
       />
     </template>
