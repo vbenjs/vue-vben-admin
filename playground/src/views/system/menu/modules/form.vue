@@ -32,7 +32,6 @@ const emit = defineEmits<{
   success: [];
 }>();
 const formData = ref<SystemMenuApi.SystemMenu>();
-const loading = ref(false);
 const titleSuffix = ref<string>();
 const schema: VbenFormSchema[] = [
   {
@@ -445,9 +444,6 @@ const [Form, formApi] = useVbenForm({
 });
 
 const [Drawer, drawerApi] = useVbenDrawer({
-  onBeforeClose() {
-    if (loading.value) return false;
-  },
   onConfirm: onSubmit,
   onOpenChange(isOpen) {
     if (isOpen) {
@@ -474,13 +470,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 async function onSubmit() {
   const { valid } = await formApi.validate();
   if (valid) {
-    loading.value = true;
-    drawerApi.setState({
-      closeOnClickModal: false,
-      closeOnPressEscape: false,
-      confirmLoading: true,
-      loading: true,
-    });
+    drawerApi.lock();
     const data =
       await formApi.getValues<
         Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>
@@ -498,13 +488,7 @@ async function onSubmit() {
       drawerApi.close();
       emit('success');
     } finally {
-      loading.value = false;
-      drawerApi.setState({
-        closeOnClickModal: true,
-        closeOnPressEscape: true,
-        confirmLoading: false,
-        loading: false,
-      });
+      drawerApi.unlock();
     }
   }
 }
