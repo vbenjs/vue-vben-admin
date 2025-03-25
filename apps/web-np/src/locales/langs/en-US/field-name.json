@@ -1,0 +1,16 @@
+{
+  "grossSales": "Gross Sales",
+  "customerFee": "Customer Extra Paid ⊕",
+  "customerFeeExplain": "The fees paid by the customer. Ex: shipping, tips, etc.",
+  "discount": "Discount ⊖",
+  "refundTotal": "Refund ⊖",
+  "netPayment": "Revenue",
+  "cogs": "COGS ⊖",
+  "handlingFees": "Handling Fees ⊖",
+  "shippingCosts": "Shipping Costs ⊖",
+  "transactionFees": "Transaction Fees ⊖",
+  "grossProfit": "Gross Profit",
+  "taxesTotal": "Taxes Collected ⊕",
+  "netProfit": "Net Profit",
+  "netProfitMargin": "Net Profit Margin"
+}

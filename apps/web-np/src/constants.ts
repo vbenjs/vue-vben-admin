@@ -26,6 +26,33 @@ export enum NotificationType {
 
 export const defaultRegionUUID = 'default';
 
+export const orderStatusList = [
+  {
+    value: 'AUTHORIZED',
+    label: 'Authorized',
+  },
+  {
+    value: 'PAID',
+    label: 'Paid',
+  },
+  {
+    value: 'PARTIALLY_PAID',
+    label: 'Partially Paid',
+  },
+  {
+    value: 'PARTIALLY_REFUNDED',
+    label: 'Partially Refunded',
+  },
+  {
+    value: 'PENDING',
+    label: 'Pending',
+  },
+  {
+    value: 'VOIDED',
+    label: 'Voided',
+  },
+];
+
 export const countries = [
   { value: 'AU', label: 'Australia', icon: '🇦🇺' },
   { value: 'AT', label: 'Austria', icon: '🇦🇹' },

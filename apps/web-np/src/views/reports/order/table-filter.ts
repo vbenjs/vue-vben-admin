@@ -2,6 +2,8 @@ import type { VbenFormProps } from '#/adapter/form';
 
 import dayjs from 'dayjs';
 
+import { orderStatusList } from '#/constants';
+
 export const formOptions: VbenFormProps = {
   collapsed: false,
   fieldMappingTime: [['date', ['from', 'to']]],
@@ -29,32 +31,7 @@ export const formOptions: VbenFormProps = {
       componentProps: {
         allowClear: true,
         mode: 'multiple',
-        options: [
-          {
-            value: 'AUTHORIZED',
-            label: 'Authorized',
-          },
-          {
-            value: 'PAID',
-            label: 'Paid',
-          },
-          {
-            value: 'PARTIALLY_PAID',
-            label: 'Partially Paid',
-          },
-          {
-            value: 'PARTIALLY_REFUNDED',
-            label: 'Partially Refunded',
-          },
-          {
-            value: 'PENDING',
-            label: 'Pending',
-          },
-          {
-            value: 'VOIDED',
-            label: 'Voided',
-          },
-        ],
+        options: orderStatusList,
         placeholder: 'Payment status',
       },
       fieldName: 'financialStatus',

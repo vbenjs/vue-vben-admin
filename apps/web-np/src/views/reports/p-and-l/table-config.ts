@@ -7,6 +7,8 @@ import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getPAndLReport } from '#/api';
+import { orderStatusList } from '#/constants';
+import { toPercentage } from '#/utils';
 
 interface IPAndLReport {
   date: string;
@@ -37,6 +39,8 @@ export const gridOptions: VxeTableGridOptions = {
 
         generateColumns(data.items);
 
+        // Calculate extra fields
+        data.items = addExtraFields(data.items);
         data.items = transformData(data.items);
 
         return data;
@@ -51,7 +55,7 @@ const generateColumns = (data: IPAndLReport[]) => {
       title: 'Date',
       field: 'id',
       slots: { default: 'id' },
-      width: 150,
+      width: 160,
       align: 'left',
     },
   ];
@@ -62,13 +66,22 @@ const generateColumns = (data: IPAndLReport[]) => {
       field: item.date,
       width: 150,
       align: 'right',
-      cellRender: { name: 'cellMoney' },
+      slots: { default: 'date' },
     });
   });
 
   gridApi.setGridOptions({
     columns: ymCols,
   });
+};
+
+const addExtraFields = (data: any) => {
+  data.forEach((item: any) => {
+    item.netProfit = item.grossProfit + item.taxesTotal;
+    item.netProfitMargin = toPercentage(item.netProfit / item.grossSales);
+  });
+
+  return data;
 };
 
 function transformData(data: any[]): any[] {
@@ -113,32 +126,7 @@ export const formOptions: VbenFormProps = {
       componentProps: {
         allowClear: true,
         mode: 'multiple',
-        options: [
-          {
-            value: 'AUTHORIZED',
-            label: 'Authorized',
-          },
-          {
-            value: 'PAID',
-            label: 'Paid',
-          },
-          {
-            value: 'PARTIALLY_PAID',
-            label: 'Partially Paid',
-          },
-          {
-            value: 'PARTIALLY_REFUNDED',
-            label: 'Partially Refunded',
-          },
-          {
-            value: 'PENDING',
-            label: 'Pending',
-          },
-          {
-            value: 'VOIDED',
-            label: 'Voided',
-          },
-        ],
+        options: orderStatusList,
         placeholder: 'Payment status',
       },
       fieldName: 'financialStatus',

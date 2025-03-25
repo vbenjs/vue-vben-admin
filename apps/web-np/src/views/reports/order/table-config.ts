@@ -2,6 +2,8 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { reactive } from 'vue';
 
+import { $t } from '@vben/locales';
+
 import { getReportOrderApi } from '#/api';
 import { useShopStore } from '#/store';
 import { calcGrossProfitMargin, formatReportDate } from '#/utils';
@@ -57,7 +59,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'grossSales',
-      title: 'Gross Sales',
+      title: $t('field-name.grossSales'),
       align: 'right',
       minWidth: 150,
     },
@@ -65,9 +67,9 @@ export const orderTableOptions: VxeTableGridOptions = {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'customerFee',
-      title: 'Customer Extra Paid',
+      title: $t('field-name.customerFee'),
       titlePrefix: {
-        content: 'The fees paid by the customer. Ex: shipping, tips, etc.',
+        content: $t('field-name.customerFeeExplain'),
       },
       align: 'right',
       minWidth: 180,
