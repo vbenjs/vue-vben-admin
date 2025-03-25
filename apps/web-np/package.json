@@ -48,7 +48,8 @@
     "pinia": "catalog:",
     "pusher-js": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "vxe-table": "catalog:"
   },
   "devDependencies": {
     "@types/currency-formatter": "^1.5.4"

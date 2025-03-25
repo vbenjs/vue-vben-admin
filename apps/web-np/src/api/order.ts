@@ -23,3 +23,7 @@ export async function getReportOrderApi(params: ITableApi.PageFetchParams) {
 export async function recalculateOrderCosts(payload: any) {
   return requestClient.post('/api/order/recalculate-costs', payload);
 }
+
+export async function getPAndLReport(params: ITableApi.PageFetchParams) {
+  return requestClient.get('/api/order/p-and-l', { params });
+}

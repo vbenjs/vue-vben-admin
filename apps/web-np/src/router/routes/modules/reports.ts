@@ -29,7 +29,7 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'PAndLReport',
         path: '/reports/p-and-l-report',
-        component: () => import('#/views/reports/order/index.vue'),
+        component: () => import('#/views/reports/p-and-l/index.vue'),
       },
       {
         meta: {
