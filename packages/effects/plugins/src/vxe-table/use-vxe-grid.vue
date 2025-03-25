@@ -29,7 +29,7 @@ import { usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
-import { cloneDeep, cn, mergeWithArrayOverride } from '@vben/utils';
+import { cloneDeep, cn, isEqual, mergeWithArrayOverride } from '@vben/utils';
 
 import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
@@ -81,10 +81,14 @@ const [Form, formApi] = useTableForm({
     props.api.reload(formValues);
   },
   handleReset: async () => {
+    const prevValues = await formApi.getValues();
     await formApi.resetForm();
     const formValues = await formApi.getValues();
     formApi.setLatestSubmissionValues(formValues);
-    props.api.reload(formValues);
+    // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
+    if (isEqual(prevValues, formValues) || !formOptions.value?.submitOnChange) {
+      props.api.reload(formValues);
+    }
   },
   commonConfig: {
     componentProps: {

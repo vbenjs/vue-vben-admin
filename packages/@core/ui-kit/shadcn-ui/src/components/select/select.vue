@@ -32,4 +32,8 @@ const props = defineProps<Props>();
 button[role='combobox'][data-placeholder] {
   color: hsl(var(--muted-foreground));
 }
+
+button {
+  --ring: var(--primary);
+}
 </style>
