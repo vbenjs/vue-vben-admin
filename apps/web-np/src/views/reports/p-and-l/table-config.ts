@@ -23,6 +23,11 @@ export const gridOptions: VxeTableGridOptions = {
     refresh: true,
     zoom: true,
   },
+  treeConfig: {
+    parentField: 'parentId',
+    rowField: 'id',
+    transform: true,
+  },
   exportConfig: {},
   height: 'auto',
   columns: [],
@@ -35,11 +40,28 @@ export const gridOptions: VxeTableGridOptions = {
           ...formValues,
         });
 
+        if (data.items.length === 0) {
+          return data;
+        }
+
+        // eslint-disable-next-line unicorn/no-array-reduce
+        const sumRecords = data.items.reduce((acc: any, record: any) => {
+          for (const key in record) {
+            if (key !== 'date') {
+              acc[key] = (acc[key] || 0) + record[key];
+            }
+          }
+          return acc;
+        }, {});
+
+        sumRecords.date = 'Total';
+        data.items.unshift(sumRecords);
+
         generateColumns(data.items);
 
         // Calculate extra fields
         data.items = addExtraFields(data.items);
-        data.items = transformData(data.items);
+        data.items = transformData(data.items, data.customCostList);
 
         return data;
       },
@@ -55,6 +77,7 @@ const generateColumns = (data: IPAndLReport[]) => {
       slots: { default: 'id' },
       width: 200,
       align: 'left',
+      treeNode: true,
     },
   ];
 
@@ -75,14 +98,16 @@ const generateColumns = (data: IPAndLReport[]) => {
 
 const addExtraFields = (data: any) => {
   data.forEach((item: any) => {
-    item.netProfit = item.grossProfit - item.totalTax;
-    item.netProfitMargin = toPercentage(item.netProfit / item.netPayment);
+    item.netProfit = item.grossProfit - item.totalTax - item.totalCustomCost;
+    item.netProfitMargin = item.netPayment
+      ? toPercentage(item.netProfit / item.netPayment)
+      : 0;
   });
 
   return data;
 };
 
-function transformData(data: any[]): any[] {
+function transformData(data: any[], costName: any): any[] {
   const result: any[] = [];
 
   if (data.length === 0) return result;
@@ -94,6 +119,18 @@ function transformData(data: any[]): any[] {
     data.forEach((entry) => {
       obj[entry.date] = entry[key];
     });
+
+    // Check key include string 'totalCustomCost'
+    if (key.includes('totalCustomCost_')) {
+      obj.parentId = 'totalCustomCost';
+
+      const costId: any = key.split('_')[1];
+      obj.costName = 'N/A';
+
+      if (costName[costId]) {
+        obj.costName = costName[costId];
+      }
+    }
 
     result.push(obj);
   });

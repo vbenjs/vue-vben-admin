@@ -27,6 +27,9 @@
   "grossProfitMargin": "Gross Profit Margin",
   "grossProfitMarginExplain": "Gross profit margin = (Gross profit / Revenue) * 100%",
 
+  "totalCustomCost": "Custom Costs",
+  "totalCustomCostExplain": "Custom Costs are the costs associated with the production of goods, including the cost of labor, tax, advertising, and other expenses.",
+
   "totalTax": "Taxes Collected",
   "totalTaxExplain": "Taxes Collected",
 

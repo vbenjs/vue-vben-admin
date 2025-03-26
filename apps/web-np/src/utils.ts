@@ -80,6 +80,10 @@ export const getFieldExplain = (id: string) => {
       return $t('field-name.netProfitMarginExplain');
     }
 
+    case 'totalCustomCost': {
+      return $t('field-name.totalCustomCostExplain');
+    }
+
     default: {
       return '';
     }

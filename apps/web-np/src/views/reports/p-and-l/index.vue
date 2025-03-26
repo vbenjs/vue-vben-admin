@@ -35,10 +35,13 @@ const formatVal = (rowName: string, val: any) => {
 <template>
   <Page auto-content-height>
     <Grid>
-      <template #id="{ row: { id } }">
+      <template #id="{ row: { id, costName } }">
         <div class="flex items-center space-x-1">
-          <span :class="[{ 'font-semibold': hasBold(id) }]">
+          <span v-if="!costName" :class="[{ 'font-semibold': hasBold(id) }]">
             {{ $t(`field-name.${id}`) }}
+          </span>
+          <span v-else>
+            {{ costName }}
           </span>
           <template v-if="getFieldExplain(id)">
             <IconifyIcon
