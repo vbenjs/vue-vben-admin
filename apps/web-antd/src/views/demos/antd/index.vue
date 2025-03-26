@@ -35,7 +35,7 @@ function notify(type: NotificationType) {
 <template>
   <Page
     description="支持多语言，主题功能集成切换等"
-    title="Ant Design Vue组件使用演示"
+    title="Ant Design Vue组件使用演示1111"
   >
     <Card class="mb-5" title="按钮">
       <Space>
@@ -43,6 +43,8 @@ function notify(type: NotificationType) {
         <Button type="primary"> Primary </Button>
         <Button> Info </Button>
         <Button danger> Error </Button>
+
+
       </Space>
     </Card>
     <Card class="mb-5" title="Message">
