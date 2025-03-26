@@ -33,8 +33,6 @@ export const gridOptions: VxeTableGridOptions = {
           page: page.currentPage,
           pageSize: page.pageSize,
           ...formValues,
-        }).then((res) => {
-          return res;
         });
 
         generateColumns(data.items);
@@ -55,7 +53,7 @@ const generateColumns = (data: IPAndLReport[]) => {
       title: 'Date',
       field: 'id',
       slots: { default: 'id' },
-      width: 160,
+      width: 200,
       align: 'left',
     },
   ];
@@ -77,8 +75,8 @@ const generateColumns = (data: IPAndLReport[]) => {
 
 const addExtraFields = (data: any) => {
   data.forEach((item: any) => {
-    item.netProfit = item.grossProfit + item.taxesTotal;
-    item.netProfitMargin = toPercentage(item.netProfit / item.grossSales);
+    item.netProfit = item.grossProfit - item.totalTax;
+    item.netProfitMargin = toPercentage(item.netProfit / item.netPayment);
   });
 
   return data;
@@ -96,6 +94,7 @@ function transformData(data: any[]): any[] {
     data.forEach((entry) => {
       obj[entry.date] = entry[key];
     });
+
     result.push(obj);
   });
 

@@ -1,16 +1,38 @@
 {
   "grossSales": "Gross Sales",
-  "customerFee": "Customer Extra Paid ⊕",
-  "customerFeeExplain": "The fees paid by the customer. Ex: shipping, tips, etc.",
-  "discount": "Discount ⊖",
-  "refundTotal": "Refund ⊖",
+  "grossSalesExplain": "  Gross sales = Subtotal + Ship + Tip + Taxes Collected",
+
+  "totalDiscount": "Discount",
+  "totalShipping": "Shipping",
+  "totalTip": "Tip",
+  "totalRefund": "Refund",
+
   "netPayment": "Revenue",
-  "cogs": "COGS ⊖",
-  "handlingFees": "Handling Fees ⊖",
-  "shippingCosts": "Shipping Costs ⊖",
-  "transactionFees": "Transaction Fees ⊖",
+  "netPaymentExplain": "Revenue (Net payment) = Gross sales - Discount - Refund",
+
+  "cogs": "COGS",
+  "cogsExplain": "Cost of Goods Sold (COGS) is the direct costs attributable to the production of the goods sold in a company. This amount includes the cost of the materials used in creating the good along with the direct labor costs used to produce the good.",
+
+  "handlingFees": "Handling Fees",
+  "handlingFeesExplain": "Handling fees are the costs associated with the handling of goods, including the cost of labor, packaging, and shipping.",
+
+  "shippingCosts": "Shipping Costs",
+
+  "transactionFees": "Transaction Fees",
+  "transactionFeesExplain": "Transaction fees are fees that a merchant must pay every time a customer makes a purchase with a credit card. These fees can vary depending on the credit card company and the merchant account provider.",
+
   "grossProfit": "Gross Profit",
-  "taxesTotal": "Taxes Collected ⊕",
+  "grossProfitExplain": "Gross profit = Revenue - COGS - Handling - Shipping cost - Transaction",
+
+  "grossProfitMargin": "Gross Profit Margin",
+  "grossProfitMarginExplain": "Gross profit margin = (Gross profit / Revenue) * 100%",
+
+  "totalTax": "Taxes Collected",
+  "totalTaxExplain": "Taxes Collected",
+
   "netProfit": "Net Profit",
-  "netProfitMargin": "Net Profit Margin"
+  "netProfitExplain": "Net profit = Gross profit - Collected taxes - Custom costs",
+
+  "netProfitMargin": "Net Profit Margin",
+  "netProfitMarginExplain": "Net profit margin = (Net profit / Revenue) * 100%"
 }

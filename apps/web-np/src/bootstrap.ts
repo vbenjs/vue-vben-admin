@@ -40,7 +40,9 @@ async function bootstrap(namespace: string) {
   registerAccessDirective(app);
 
   // 初始化 tippy
-  initTippy(app);
+  initTippy(app, {
+    delay: 100,
+  } as any);
 
   // 配置路由及路由守卫
   app.use(router);

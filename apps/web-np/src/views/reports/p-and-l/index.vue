@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
+import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { useShopStore } from '#/store';
-import { formatMoney, numberWithCommas } from '#/utils';
+import { formatMoney, getFieldExplain, numberWithCommas } from '#/utils';
 
 import { Grid } from './table-config';
 
@@ -35,8 +36,19 @@ const formatVal = (rowName: string, val: any) => {
   <Page auto-content-height>
     <Grid>
       <template #id="{ row: { id } }">
-        <div :class="[{ 'font-semibold': hasBold(id) }]">
-          {{ $t(`field-name.${id}`) }}
+        <div class="flex items-center space-x-1">
+          <span :class="[{ 'font-semibold': hasBold(id) }]">
+            {{ $t(`field-name.${id}`) }}
+          </span>
+          <template v-if="getFieldExplain(id)">
+            <IconifyIcon
+              v-tippy="{
+                content: getFieldExplain(id),
+                placement: 'right',
+              }"
+              icon="ant-design:question-circle-outlined"
+            />
+          </template>
         </div>
       </template>
       <template #date="{ row, column: { field } }">

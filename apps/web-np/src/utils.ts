@@ -1,3 +1,4 @@
+import { $t } from '@vben/locales';
 import { formatDate } from '@vben/utils';
 
 import { findCurrency, format } from 'currency-formatter';
@@ -48,3 +49,39 @@ export function numberWithCommas(x: any) {
 export function formatReportDate(date: any, fmtDate = 'MMM DD, YYYY') {
   return formatDate(date, fmtDate);
 }
+
+export const getFieldExplain = (id: string) => {
+  switch (id) {
+    case 'cogs': {
+      return $t('field-name.cogsExplain');
+    }
+
+    case 'customerFee': {
+      return $t('field-name.customerFeeExplain');
+    }
+
+    case 'grossProfit': {
+      return $t('field-name.grossProfitExplain');
+    }
+
+    case 'grossSales': {
+      return $t('field-name.grossSalesExplain');
+    }
+
+    case 'netPayment': {
+      return $t('field-name.netPaymentExplain');
+    }
+
+    case 'netProfit': {
+      return $t('field-name.netProfitExplain');
+    }
+
+    case 'netProfitMargin': {
+      return $t('field-name.netProfitMarginExplain');
+    }
+
+    default: {
+      return '';
+    }
+  }
+};

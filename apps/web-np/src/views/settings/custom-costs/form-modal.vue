@@ -143,6 +143,9 @@ const [Form, formApi] = useVbenForm({
       component: 'Input',
       fieldName: 'name',
       label: 'Name',
+      componentProps: {
+        placeholder: 'Tax, Rent, Employee, Advertisement etc.',
+      },
       dependencies: {
         if(values) {
           return values.uuid !== 'default';
