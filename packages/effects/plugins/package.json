@@ -25,6 +25,14 @@
     "./motion": {
       "types": "./src/motion/index.ts",
       "default": "./src/motion/index.ts"
+    },
+    "./aieditor": {
+      "types": "./src/aieditor/index.ts",
+      "default": "./src/aieditor/index.ts"
+    },
+    "./xg-player": {
+      "types": "./src/xg-player/index.ts",
+      "default": "./src/xg-player/index.ts"
     }
   },
   "dependencies": {
@@ -39,9 +47,11 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
+    "aieditor": "catalog:",
     "echarts": "catalog:",
     "vue": "catalog:",
     "vxe-pc-ui": "catalog:",
-    "vxe-table": "catalog:"
+    "vxe-table": "catalog:",
+    "xgplayer": "catalog:"
   }
 }

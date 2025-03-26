@@ -52,7 +52,9 @@
     "vitepress",
     "vnode",
     "vueuse",
-    "yxxx"
+    "yxxx",
+    "aieditor",
+    "xgplayer"
   ],
   "ignorePaths": [
     "**/node_modules/**",
