@@ -37,6 +37,7 @@ import { message } from '#/adapter/naive';
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
   type: 'input' | 'select',
+  componentProps: Recordable<any> = {},
 ) => {
   return defineComponent({
     inheritAttrs: false,
@@ -59,7 +60,11 @@ const withDefaultPlaceholder = <T extends Component>(
         }
       });
       return () =>
-        h(component, { ...props, ...attrs, placeholder, ref: innerRef }, slots);
+        h(
+          component,
+          { ...componentProps, placeholder, ...props, ...attrs, ref: innerRef },
+          slots,
+        );
     },
   });
 };
@@ -90,37 +95,19 @@ async function initComponentAdapter() {
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
-    ApiSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: NSelect,
-          modelPropName: 'value',
-        },
-        slots,
-      );
-    },
-    ApiTreeSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: NTreeSelect,
-          nodeKey: 'value',
-          loadingSlot: 'arrow',
-          keyField: 'value',
-          modelPropName: 'value',
-          optionsPropName: 'options',
-          visibleEvent: 'onVisibleChange',
-        },
-        slots,
-      );
-    },
+    ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: NSelect,
+      modelPropName: 'value',
+    }),
+    ApiTreeSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: NTreeSelect,
+      nodeKey: 'value',
+      loadingSlot: 'arrow',
+      keyField: 'value',
+      modelPropName: 'value',
+      optionsPropName: 'options',
+      visibleEvent: 'onVisibleChange',
+    }),
     Checkbox: NCheckbox,
     CheckboxGroup: (props, { attrs, slots }) => {
       let defaultSlot;
@@ -148,13 +135,10 @@ async function initComponentAdapter() {
       return h(NButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: NDivider,
-    IconPicker: (props, { attrs, slots }) => {
-      return h(
-        IconPicker,
-        { iconSlot: 'suffix', inputComponent: NInput, ...props, ...attrs },
-        slots,
-      );
-    },
+    IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
+      iconSlot: 'suffix',
+      inputComponent: NInput,
+    }),
     Input: withDefaultPlaceholder(NInput, 'input'),
     InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
     RadioGroup: (props, { attrs, slots }) => {
