@@ -75,63 +75,29 @@ function onTransitionEnd() {
     <div
       :class="{ paused: !renderSpinner }"
       v-if="renderSpinner"
-      class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:left-0 before:top-[60px] before:h-[5px] before:w-12 before:rounded-[50%] before:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded after:content-['']"
+      class="loader"
     ></div>
   </div>
 </template>
 
 <style scoped>
-.paused {
-  &::before {
-    animation-play-state: paused !important;
-  }
-
-  &::after {
-    animation-play-state: paused !important;
-  }
-}
-
 .loader {
-  &::before {
-    animation: loader-shadow-ani 0.5s linear infinite;
-  }
+  --m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
 
-  &::after {
-    animation: loader-jump-ani 0.5s linear infinite;
-  }
+  width: 50px;
+  aspect-ratio: 1;
+  padding: 8px;
+  background: hsl(var(--primary) / 50%);
+  border-radius: 50%;
+  mask: var(--m);
+  mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
 }
 
-@keyframes loader-jump-ani {
-  15% {
-    border-bottom-right-radius: 3px;
-  }
-
-  25% {
-    transform: translateY(9px) rotate(22.5deg);
-  }
-
-  50% {
-    border-bottom-right-radius: 40px;
-    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
-  }
-
-  75% {
-    transform: translateY(9px) rotate(67.5deg);
-  }
-
-  100% {
-    transform: translateY(0) rotate(90deg);
-  }
-}
-
-@keyframes loader-shadow-ani {
-  0%,
-  100% {
-    transform: scale(1, 1);
-  }
-
-  50% {
-    transform: scale(1.2, 1);
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
   }
 }
 </style>

@@ -12,6 +12,7 @@ import { defineComponent, getCurrentInstance, h, ref } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
+import { FormEditor } from '@vben/plugins/aieditor';
 
 import {
   AutoComplete,
@@ -37,6 +38,8 @@ import {
   TreeSelect,
   Upload,
 } from 'ant-design-vue';
+
+import { ImgUpload } from './upload';
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
@@ -144,6 +147,10 @@ async function initComponentAdapter() {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
     Divider,
+    // 嵌入富文本
+    Editor: (props, { attrs, slots }) => {
+      return h(FormEditor, { ...props, ...attrs }, slots);
+    },
     IconPicker: (props, { attrs, slots }) => {
       return h(
         IconPicker,
@@ -156,6 +163,10 @@ async function initComponentAdapter() {
         },
         slots,
       );
+    },
+    // 图片上传组件
+    ImgUpload: (props, { attrs, slots }) => {
+      return h(ImgUpload, { ...props, ...attrs }, slots);
     },
     Input: withDefaultPlaceholder(Input, 'input'),
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
@@ -175,6 +186,7 @@ async function initComponentAdapter() {
     Textarea: withDefaultPlaceholder(Textarea, 'input'),
     TimePicker,
     TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
+
     Upload,
   };
 

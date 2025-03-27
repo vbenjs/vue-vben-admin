@@ -16,6 +16,9 @@
   html {
     @apply text-foreground bg-background font-sans text-[100%];
 
+    /* 使用系统字体 */
+    @apply antialiased;
+
     font-variation-settings: normal;
     line-height: 1.15;
     text-size-adjust: 100%;

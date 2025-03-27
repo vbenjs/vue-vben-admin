@@ -1,9 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    { "repo": "vbenjs/vue-vben-admin" }
-  ],
+  "changelog": false,
   "commit": false,
   "fixed": [["@vben-core/*", "@vben/*"]],
   "snapshot": {

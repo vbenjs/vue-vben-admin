@@ -310,6 +310,59 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.button-group.title'),
         },
       },
+      {
+        name: 'Media',
+        path: '/examples/media',
+        component: () => import('#/views/examples/media/index.vue'),
+        meta: {
+          icon: 'mdi:video',
+          title: '媒体组件',
+        },
+      },
+      {
+        name: 'Map',
+        path: '/examples/map',
+        meta: {
+          icon: 'mdi:map-marker',
+          title: '地图',
+        },
+        children: [
+          {
+            name: '高德地图',
+            path: '/examples/map/gaode',
+            component: () => import('#/views/examples/map/gaode.vue'),
+          },
+        ],
+      },
+      {
+        name: 'Camera',
+        path: '/examples/camera',
+        component: () => import('#/views/examples/camera/index.vue'),
+        meta: {
+          icon: 'mdi:camera',
+          title: '相机',
+        },
+      },
+      {
+        name: 'Editor',
+        path: '/examples/editor',
+        meta: {
+          icon: 'mdi:code-json',
+          title: '编辑器',
+        },
+        children: [
+          {
+            name: '腾讯文档风格',
+            path: '/examples/editor/index',
+            component: () => import('#/views/examples/editor/index.vue'),
+          },
+          {
+            name: '嵌入表单',
+            path: '/examples/editor/form',
+            component: () => import('#/views/examples/editor/form.vue'),
+          },
+        ],
+      },
     ],
   },
 ];
