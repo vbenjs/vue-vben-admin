@@ -9,6 +9,7 @@ import { Button, message } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { storeCustomCost } from '#/api';
+import { datePresets } from '#/constants';
 import { useShopStore } from '#/store';
 import { toPercentage, toRate } from '#/utils';
 
@@ -273,14 +274,7 @@ const [Form, formApi] = useVbenForm({
       component: 'DatePicker' as any,
       defaultValue: dayjs().add(-7, 'd'),
       componentProps: {
-        presets: [
-          { label: 'Last 7 Days', value: dayjs().add(-7, 'd') },
-          { label: 'Last 14 Days', value: dayjs().add(-14, 'd') },
-          { label: 'Last 30 Days', value: dayjs().add(-30, 'd') },
-          { label: 'Last 90 Days', value: dayjs().add(-90, 'd') },
-          { label: 'Last year', value: dayjs().add(-365, 'd') },
-          { label: 'Last 2 year', value: dayjs().add(-730, 'd') },
-        ],
+        presets: datePresets,
       },
       fieldName: 'startDate',
       label: 'Start date',
