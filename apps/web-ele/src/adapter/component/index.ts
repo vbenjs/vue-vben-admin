@@ -37,6 +37,7 @@ import {
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
   type: 'input' | 'select',
+  componentProps: Recordable<any> = {},
 ) => {
   return defineComponent({
     inheritAttrs: false,
@@ -59,7 +60,11 @@ const withDefaultPlaceholder = <T extends Component>(
         }
       });
       return () =>
-        h(component, { ...props, ...attrs, placeholder, ref: innerRef }, slots);
+        h(
+          component,
+          { ...componentProps, placeholder, ...props, ...attrs, ref: innerRef },
+          slots,
+        );
     },
   });
 };
@@ -89,37 +94,19 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-    ApiSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: ElSelectV2,
-          loadingSlot: 'loading',
-          visibleEvent: 'onVisibleChange',
-        },
-        slots,
-      );
-    },
-    ApiTreeSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: ElTreeSelect,
-          props: { label: 'label', children: 'children' },
-          nodeKey: 'value',
-          loadingSlot: 'loading',
-          optionsPropName: 'data',
-          visibleEvent: 'onVisibleChange',
-        },
-        slots,
-      );
-    },
+    ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: ElSelectV2,
+      loadingSlot: 'loading',
+      visibleEvent: 'onVisibleChange',
+    }),
+    ApiTreeSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: ElTreeSelect,
+      props: { label: 'label', children: 'children' },
+      nodeKey: 'value',
+      loadingSlot: 'loading',
+      optionsPropName: 'data',
+      visibleEvent: 'onVisibleChange',
+    }),
     Checkbox: ElCheckbox,
     CheckboxGroup: (props, { attrs, slots }) => {
       let defaultSlot;
@@ -149,19 +136,11 @@ async function initComponentAdapter() {
       return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: ElDivider,
-    IconPicker: (props, { attrs, slots }) => {
-      return h(
-        IconPicker,
-        {
-          iconSlot: 'append',
-          modelValueProp: 'model-value',
-          inputComponent: ElInput,
-          ...props,
-          ...attrs,
-        },
-        slots,
-      );
-    },
+    IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
+      iconSlot: 'append',
+      modelValueProp: 'model-value',
+      inputComponent: ElInput,
+    }),
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
     RadioGroup: (props, { attrs, slots }) => {
