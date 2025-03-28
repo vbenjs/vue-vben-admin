@@ -2,6 +2,7 @@ import type { ExtendedVxeGridApi } from 'node_modules/@vben/plugins/src/vxe-tabl
 import type { VxeGridPropTypes } from 'vxe-table';
 
 import dayjs from 'dayjs';
+import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 export const groupData = (dataItems: any, formValues: any) => {
@@ -17,6 +18,13 @@ export const groupData = (dataItems: any, formValues: any) => {
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-W${weekNumber}`;
+    } else if (formValues.groupBy === 'quarter') {
+      dayjs.extend(quarterOfYear);
+      const __date = dayjs(record.date);
+      const quarterNumber = __date.quarter();
+      const yearNumber = __date.format('YYYY');
+
+      _dateName = `${yearNumber}-Q${quarterNumber}`;
     } else {
       _dateName = dayjs(record.date).format('YYYY-MM');
     }

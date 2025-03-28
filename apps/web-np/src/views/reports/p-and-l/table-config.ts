@@ -81,6 +81,7 @@ export const formOptions: VbenFormProps = {
     ['date', ['fromDate', 'toDate']],
     ['week', ['fromWeek', 'toWeek']],
     ['month', ['fromMonth', 'toMonth']],
+    ['quarter', ['fromQuarter', 'toQuarter']],
   ],
   schema: [
     {
@@ -90,15 +91,19 @@ export const formOptions: VbenFormProps = {
         options: [
           {
             value: 'daily',
-            label: 'Daily',
+            label: 'Day',
           },
           {
             value: 'weekly',
-            label: 'Weekly',
+            label: 'Week',
           },
           {
             value: 'monthly',
-            label: 'Monthly',
+            label: 'Month',
+          },
+          {
+            value: 'quarter',
+            label: 'Quarter',
           },
         ],
       },
@@ -155,6 +160,21 @@ export const formOptions: VbenFormProps = {
       defaultValue: [dayjs(), dayjs()],
       fieldName: 'month',
       label: 'Month',
+    },
+    {
+      component: 'RangePicker',
+      componentProps: {
+        picker: 'quarter',
+      },
+      dependencies: {
+        if(values) {
+          return values.groupBy === 'quarter';
+        },
+        triggerFields: ['groupBy'],
+      },
+      defaultValue: [dayjs(), dayjs()],
+      fieldName: 'quarter',
+      label: 'Quarter',
     },
     {
       component: 'Select',
