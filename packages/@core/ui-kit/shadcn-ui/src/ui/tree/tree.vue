@@ -210,7 +210,7 @@ defineExpose({
     v-slot="{ flattenItems }"
     :class="
       cn(
-        'text-blackA11 select-none list-none rounded-lg p-2 text-sm font-medium',
+        'text-blackA11 container select-none list-none rounded-lg p-2 text-sm font-medium',
         $attrs.class as unknown as ClassType,
         bordered ? 'border' : '',
       )
@@ -219,11 +219,7 @@ defineExpose({
     <div class="w-full" v-if="$slots.header">
       <slot name="header"> </slot>
     </div>
-    <TransitionGroup
-      :name="transition ? 'fade' : ''"
-      mode="out-in"
-      class="container"
-    >
+    <TransitionGroup :name="transition ? 'fade' : ''">
       <TreeItem
         v-for="item in flattenItems"
         v-slot="{
