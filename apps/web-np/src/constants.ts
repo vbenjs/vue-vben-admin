@@ -93,8 +93,18 @@ export const dateRangePresets = [
   { label: 'Last 14 Days', value: [dayjs().add(-14, 'd'), dayjs()] },
   { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
   { label: 'Last 90 Days', value: [dayjs().add(-90, 'd'), dayjs()] },
-  { label: 'Last year', value: [dayjs().add(-365, 'd'), dayjs()] },
-  { label: 'Last 2 years', value: [dayjs().add(-730, 'd'), dayjs()] },
+  { label: 'Last year', value: [dayjs().add(-1, 'year'), dayjs()] },
+
+  // This month
+  {
+    label: 'This Month',
+    value: [dayjs().startOf('month'), dayjs().endOf('month')],
+  },
+  // This year
+  {
+    label: 'This Year',
+    value: [dayjs().startOf('year'), dayjs().endOf('year')],
+  },
 ];
 
 export const datePresets = [
@@ -103,6 +113,10 @@ export const datePresets = [
   { label: 'Last 14 Days', value: dayjs().add(-14, 'd') },
   { label: 'Last 30 Days', value: dayjs().add(-30, 'd') },
   { label: 'Last 90 Days', value: dayjs().add(-90, 'd') },
-  { label: 'Last year', value: dayjs().add(-365, 'd') },
-  { label: 'Last 2 years', value: dayjs().add(-730, 'd') },
+  { label: 'Last year', value: dayjs().add(-1, 'year') },
+
+  // This month
+  { label: 'This Month', value: dayjs().startOf('month') },
+  // This year
+  { label: 'This Year', value: dayjs().startOf('year') },
 ];
