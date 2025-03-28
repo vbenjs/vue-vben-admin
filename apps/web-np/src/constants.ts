@@ -87,7 +87,7 @@ export const countries = [
   { value: 'US', label: 'United States', icon: '🇺🇸' },
 ];
 
-export const datePresets = [
+export const dateRangePresets = [
   { label: 'Today', value: [dayjs().add(-1, 'd'), dayjs()] },
   { label: 'Last 7 Days', value: [dayjs().add(-7, 'd'), dayjs()] },
   { label: 'Last 14 Days', value: [dayjs().add(-14, 'd'), dayjs()] },
@@ -95,4 +95,14 @@ export const datePresets = [
   { label: 'Last 90 Days', value: [dayjs().add(-90, 'd'), dayjs()] },
   { label: 'Last year', value: [dayjs().add(-365, 'd'), dayjs()] },
   { label: 'Last 2 years', value: [dayjs().add(-730, 'd'), dayjs()] },
+];
+
+export const datePresets = [
+  { label: 'Today', value: dayjs().add(-1, 'd') },
+  { label: 'Last 7 Days', value: dayjs().add(-7, 'd') },
+  { label: 'Last 14 Days', value: dayjs().add(-14, 'd') },
+  { label: 'Last 30 Days', value: dayjs().add(-30, 'd') },
+  { label: 'Last 90 Days', value: dayjs().add(-90, 'd') },
+  { label: 'Last year', value: dayjs().add(-365, 'd') },
+  { label: 'Last 2 years', value: dayjs().add(-730, 'd') },
 ];

@@ -3,11 +3,12 @@ import type { ICustomCost } from '#/api';
 
 import { reactive } from 'vue';
 
-import { useVbenForm, useVbenModal, z } from '@vben/common-ui';
+import { useVbenModal, z } from '@vben/common-ui';
 
 import { Button, message } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
+import { useVbenForm } from '#/adapter/form';
 import { storeCustomCost } from '#/api';
 import { datePresets } from '#/constants';
 import { useShopStore } from '#/store';

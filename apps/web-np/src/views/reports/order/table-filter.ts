@@ -2,7 +2,7 @@ import type { VbenFormProps } from '#/adapter/form';
 
 import dayjs from 'dayjs';
 
-import { datePresets, orderStatusList } from '#/constants';
+import { dateRangePresets, orderStatusList } from '#/constants';
 
 export const formOptions: VbenFormProps = {
   collapsed: false,
@@ -11,8 +11,7 @@ export const formOptions: VbenFormProps = {
     {
       component: 'RangePicker',
       componentProps: {
-        // Show last week button
-        presets: datePresets,
+        presets: dateRangePresets,
       },
       defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
       fieldName: 'date',

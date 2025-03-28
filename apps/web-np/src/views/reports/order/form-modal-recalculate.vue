@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 import { recalculateOrderCosts } from '#/api';
-import { datePresets, RecalculateCostsType } from '#/constants';
+import { dateRangePresets, RecalculateCostsType } from '#/constants';
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
@@ -40,7 +40,7 @@ const [Form, formApi] = useVbenForm({
     {
       component: 'RangePicker',
       componentProps: {
-        presets: datePresets,
+        presets: dateRangePresets,
       },
       defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
       fieldName: 'date',
