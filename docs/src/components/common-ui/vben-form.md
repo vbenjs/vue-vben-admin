@@ -323,6 +323,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | schema | 表单项的每一项配置 | `FormSchema[]` | - |
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
 | submitOnChange | 字段值改变时提交表单(内部防抖，这个属性一般用于表格的搜索表单) | `boolean` | false |
+| compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
 
 ::: tip fieldMappingTime
 
