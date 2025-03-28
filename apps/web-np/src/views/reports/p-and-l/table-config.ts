@@ -1,5 +1,3 @@
-import type { VxeGridPropTypes } from 'vxe-table';
-
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
@@ -10,9 +8,12 @@ import { getPAndLReport } from '#/api';
 import { orderStatusList } from '#/constants';
 import { toPercentage } from '#/utils';
 
-interface IPAndLReport {
-  date: string;
-}
+import {
+  createTotalRow,
+  generateDateColumns,
+  groupData,
+  transformDataRowToColumn,
+} from './service';
 
 export const gridOptions: VxeTableGridOptions = {
   pagerConfig: {
@@ -45,51 +46,15 @@ export const gridOptions: VxeTableGridOptions = {
         }
 
         // Group data base on GroupBy type
-        if (formValues.groupBy === 'monthly') {
-          const newDataItems: any[] = [];
-          data.items.forEach((record: any) => {
-            const _date = dayjs(record.date).format('YYYY-MM');
-
-            const existingRecord = newDataItems.find(
-              (item) => item.date === _date,
-            );
-
-            if (existingRecord) {
-              for (const key in record) {
-                if (key !== 'date') {
-                  existingRecord[key] =
-                    (existingRecord[key] || 0) + record[key];
-                }
-              }
-            } else {
-              newDataItems.push({
-                ...record,
-                date: _date,
-              });
-            }
-          });
-
-          data.items = newDataItems;
+        if (formValues.groupBy !== 'daily') {
+          data.items = groupData(data.items, formValues);
         }
 
         // Create sum record - Start
-        // eslint-disable-next-line unicorn/no-array-reduce
-        const sumRecords = data.items.reduce((acc: any, record: any) => {
-          for (const key in record) {
-            if (key !== 'date') {
-              acc[key] = (acc[key] || 0) + record[key];
-            }
-          }
-          return acc;
-        }, {});
+        data.items.unshift(createTotalRow(data.items));
 
-        sumRecords.date = 'Total';
-        data.items.unshift(sumRecords);
-        // Create sum record - End
+        generateDateColumns(gridApi, data.items);
 
-        generateDateColumns(data.items);
-
-        // Calculate extra fields
         data.items = addExtraFields(data.items);
         data.items = transformDataRowToColumn(data.items, data.customCostList);
 
@@ -97,33 +62,6 @@ export const gridOptions: VxeTableGridOptions = {
       },
     },
   },
-};
-
-const generateDateColumns = (data: IPAndLReport[]) => {
-  const ymCols: VxeGridPropTypes.Columns = [
-    {
-      title: 'Date',
-      field: 'id',
-      slots: { default: 'id' },
-      width: 200,
-      align: 'left',
-      treeNode: true,
-    },
-  ];
-
-  data.forEach((item) => {
-    ymCols.push({
-      title: item.date,
-      field: item.date,
-      width: 150,
-      align: 'right',
-      slots: { default: 'date' },
-    });
-  });
-
-  gridApi.setGridOptions({
-    columns: ymCols,
-  });
 };
 
 const addExtraFields = (data: any) => {
@@ -137,56 +75,11 @@ const addExtraFields = (data: any) => {
   return data;
 };
 
-function transformDataRowToColumn(data: any[], costName: any): any[] {
-  const result: any[] = [];
-
-  if (data.length === 0) return result;
-
-  const keys = Object.keys(data[0]).filter((key) => key !== 'date');
-
-  keys.forEach((key) => {
-    const obj: any = { id: key };
-    data.forEach((entry) => {
-      obj[entry.date] = entry[key];
-    });
-
-    // Check key include string 'totalCustomCost'
-    if (key.includes('totalCustomCost_')) {
-      obj.parentId = 'totalCustomCost';
-
-      const costId: any = key.split('_')[1];
-      obj.costName = 'N/A';
-
-      if (costName[costId]) {
-        obj.costName = costName[costId];
-      }
-    }
-
-    result.push(obj);
-  });
-
-  return result;
-}
-
-const groupBy = [
-  {
-    value: 'daily',
-    label: 'Daily',
-  },
-  // {
-  //   value: 'weekly',
-  //   label: 'Weekly',
-  // },
-  {
-    value: 'monthly',
-    label: 'Monthly',
-  },
-];
-
 export const formOptions: VbenFormProps = {
   collapsed: false,
   fieldMappingTime: [
     ['date', ['fromDate', 'toDate']],
+    ['week', ['fromWeek', 'toWeek']],
     ['month', ['fromMonth', 'toMonth']],
   ],
   schema: [
@@ -194,7 +87,20 @@ export const formOptions: VbenFormProps = {
       component: 'Select' as any,
       defaultValue: 'daily',
       componentProps: {
-        options: groupBy,
+        options: [
+          {
+            value: 'daily',
+            label: 'Daily',
+          },
+          {
+            value: 'weekly',
+            label: 'Weekly',
+          },
+          {
+            value: 'monthly',
+            label: 'Monthly',
+          },
+        ],
       },
       fieldName: 'groupBy',
       label: 'Report type',
@@ -219,6 +125,21 @@ export const formOptions: VbenFormProps = {
       defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
       fieldName: 'date',
       label: 'Date',
+    },
+    {
+      component: 'RangePicker',
+      componentProps: {
+        picker: 'week',
+      },
+      dependencies: {
+        if(values) {
+          return values.groupBy === 'weekly';
+        },
+        triggerFields: ['groupBy'],
+      },
+      defaultValue: [dayjs(), dayjs()],
+      fieldName: 'week',
+      label: 'Weekly',
     },
     {
       component: 'RangePicker',
