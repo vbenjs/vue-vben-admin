@@ -44,6 +44,35 @@ export const gridOptions: VxeTableGridOptions = {
           return data;
         }
 
+        // Group data base on GroupBy type
+        if (formValues.groupBy === 'monthly') {
+          const newDataItems: any[] = [];
+          data.items.forEach((record: any) => {
+            const _date = dayjs(record.date).format('YYYY-MM');
+
+            const existingRecord = newDataItems.find(
+              (item) => item.date === _date,
+            );
+
+            if (existingRecord) {
+              for (const key in record) {
+                if (key !== 'date') {
+                  existingRecord[key] =
+                    (existingRecord[key] || 0) + record[key];
+                }
+              }
+            } else {
+              newDataItems.push({
+                ...record,
+                date: _date,
+              });
+            }
+          });
+
+          data.items = newDataItems;
+        }
+
+        // Create sum record - Start
         // eslint-disable-next-line unicorn/no-array-reduce
         const sumRecords = data.items.reduce((acc: any, record: any) => {
           for (const key in record) {
@@ -56,12 +85,13 @@ export const gridOptions: VxeTableGridOptions = {
 
         sumRecords.date = 'Total';
         data.items.unshift(sumRecords);
+        // Create sum record - End
 
-        generateColumns(data.items);
+        generateDateColumns(data.items);
 
         // Calculate extra fields
         data.items = addExtraFields(data.items);
-        data.items = transformData(data.items, data.customCostList);
+        data.items = transformDataRowToColumn(data.items, data.customCostList);
 
         return data;
       },
@@ -69,7 +99,7 @@ export const gridOptions: VxeTableGridOptions = {
   },
 };
 
-const generateColumns = (data: IPAndLReport[]) => {
+const generateDateColumns = (data: IPAndLReport[]) => {
   const ymCols: VxeGridPropTypes.Columns = [
     {
       title: 'Date',
@@ -107,7 +137,7 @@ const addExtraFields = (data: any) => {
   return data;
 };
 
-function transformData(data: any[], costName: any): any[] {
+function transformDataRowToColumn(data: any[], costName: any): any[] {
   const result: any[] = [];
 
   if (data.length === 0) return result;
@@ -138,10 +168,37 @@ function transformData(data: any[], costName: any): any[] {
   return result;
 }
 
+const groupBy = [
+  {
+    value: 'daily',
+    label: 'Daily',
+  },
+  // {
+  //   value: 'weekly',
+  //   label: 'Weekly',
+  // },
+  {
+    value: 'monthly',
+    label: 'Monthly',
+  },
+];
+
 export const formOptions: VbenFormProps = {
   collapsed: false,
-  fieldMappingTime: [['date', ['fromDate', 'toDate']]],
+  fieldMappingTime: [
+    ['date', ['fromDate', 'toDate']],
+    ['month', ['fromMonth', 'toMonth']],
+  ],
   schema: [
+    {
+      component: 'Select' as any,
+      defaultValue: 'daily',
+      componentProps: {
+        options: groupBy,
+      },
+      fieldName: 'groupBy',
+      label: 'Report type',
+    },
     {
       component: 'RangePicker',
       componentProps: {
@@ -153,9 +210,30 @@ export const formOptions: VbenFormProps = {
           { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
         ],
       },
+      dependencies: {
+        if(values) {
+          return values.groupBy === 'daily';
+        },
+        triggerFields: ['groupBy'],
+      },
       defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
       fieldName: 'date',
       label: 'Date',
+    },
+    {
+      component: 'RangePicker',
+      componentProps: {
+        picker: 'month',
+      },
+      dependencies: {
+        if(values) {
+          return values.groupBy === 'monthly';
+        },
+        triggerFields: ['groupBy'],
+      },
+      defaultValue: [dayjs(), dayjs()],
+      fieldName: 'month',
+      label: 'Month',
     },
     {
       component: 'Select',
