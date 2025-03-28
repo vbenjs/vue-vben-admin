@@ -103,6 +103,8 @@ interface FooterPreferences {
 interface HeaderPreferences {
   /** 顶栏是否启用 */
   enable: boolean;
+  /** header高度 */
+  height: number;
   /** 顶栏是否隐藏,css-隐藏 */
   hidden: boolean;
   /** 顶栏菜单位置 */
@@ -142,6 +144,10 @@ interface SidebarPreferences {
   extraCollapse: boolean;
   /** 侧边栏是否隐藏 - css */
   hidden: boolean;
+  /** 是否显示侧边栏展开按钮 */
+  showCollapseButton: boolean;
+  /** 是否显示侧边栏固定按钮 */
+  showFixedButton: boolean;
   /** 侧边栏宽度 */
   width: number;
 }

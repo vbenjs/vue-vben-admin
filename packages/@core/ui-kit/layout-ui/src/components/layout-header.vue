@@ -3,6 +3,9 @@ import type { CSSProperties } from 'vue';
 
 import { computed, useSlots } from 'vue';
 
+import { useNamespace } from '@vben-core/composables';
+import { cn } from '@vben-core/shared/utils';
+
 interface Props {
   /**
    * 横屏
@@ -42,6 +45,7 @@ const props = withDefaults(defineProps<Props>(), {});
 
 const slots = useSlots();
 
+const { b } = useNamespace('layout');
 const style = computed((): CSSProperties => {
   const { fullWidth, height, show } = props;
   const right = !show || !fullWidth ? undefined : 0;
@@ -62,9 +66,14 @@ const logoStyle = computed((): CSSProperties => {
 
 <template>
   <header
-    :class="theme"
+    :class="
+      cn(
+        theme,
+        b('header'),
+        'border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200',
+      )
+    "
     :style="style"
-    class="border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200"
   >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>

@@ -5,7 +5,7 @@ import type {
   VxeUIExport,
 } from 'vxe-table';
 
-import type { Ref } from 'vue';
+import type { Ref, VNode } from 'vue';
 
 import type { ClassType, DeepPartial } from '@vben/types';
 
@@ -66,6 +66,33 @@ export interface VxeGridProps {
   showSearchForm?: boolean;
 }
 
+export interface VxeCustomSlots {
+  /**
+   * 自定义全局的加载中状态
+   */
+  loadingRender?: (params: any) => string | VNode;
+  /**
+   * 自定义全局的分割线
+   */
+  dividerRender?: (params: any) => string | VNode;
+  /**
+   * 自定义空状态
+   */
+  emptyRender?: (params: any) => string | VNode;
+  /**
+   * 自定义分页器
+   */
+  pagerRender?: (params: any) => VNode;
+  /**
+   * 自定义左侧工具栏
+   */
+  leftToolbarRender?: (params: any) => VNode;
+  /**
+   * 自定义右侧工具栏
+   */
+  rightToolbarRender?: (params: any) => VNode;
+}
+
 export type ExtendedVxeGridApi = VxeGridApi & {
   useStore: <T = NoInfer<VxeGridProps>>(
     selector?: (state: NoInfer<VxeGridProps>) => T,
@@ -75,4 +102,5 @@ export type ExtendedVxeGridApi = VxeGridApi & {
 export interface SetupVxeTable {
   configVxeTable: (ui: VxeUIExport) => void;
   useVbenForm: typeof useVbenForm;
+  customSlots?: VxeCustomSlots;
 }

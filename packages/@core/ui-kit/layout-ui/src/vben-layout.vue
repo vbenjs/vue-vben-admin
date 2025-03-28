@@ -9,10 +9,12 @@ import {
   SCROLL_FIXED_CLASS,
   useLayoutFooterStyle,
   useLayoutHeaderStyle,
+  useNamespace,
 } from '@vben-core/composables';
 import { Menu } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
+import { cn } from '@vben-core/shared/utils';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 
@@ -53,6 +55,8 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarExtraCollapsedWidth: 60,
   sidebarHidden: false,
   sidebarMixedWidth: 80,
+  sidebarShowCollapseButton: true,
+  sidebarShowFixedButton: true,
   sidebarTheme: 'dark',
   sidebarWidth: 180,
   sideCollapseWidth: 60,
@@ -62,6 +66,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{ sideMouseLeave: []; toggleSidebar: [] }>();
+const { b, be } = useNamespace('layout');
 const sidebarCollapse = defineModel<boolean>('sidebarCollapse', {
   default: false,
 });
@@ -479,7 +484,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
 </script>
 
 <template>
-  <div class="relative flex min-h-full w-full">
+  <div :class="cn('relative flex min-h-full w-full', b())">
     <LayoutSidebar
       v-if="sidebarEnableState"
       v-model:collapse="sidebarCollapse"
@@ -488,6 +493,8 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       v-model:extra-collapse="sidebarExtraCollapse"
       v-model:extra-visible="sidebarExtraVisible"
       :collapse-width="getSideCollapseWidth"
+      :show-collapse-button="sidebarShowCollapseButton"
+      :show-fixed-button="sidebarShowFixedButton"
       :dom-visible="!isMobile"
       :extra-width="sidebarExtraWidth"
       :fixed-extra="sidebarExpandOnHover"
@@ -522,7 +529,12 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
 
     <div
       ref="contentRef"
-      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
+      :class="
+        cn(
+          b('content'),
+          'flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in',
+        )
+      "
     >
       <div
         :class="[
@@ -581,7 +593,9 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         :padding-right="contentPaddingRight"
         :padding-top="contentPaddingTop"
         :style="contentStyle"
-        class="transition-[margin-top] duration-200"
+        :class="
+          cn(be('content', 'container'), 'transition-[margin-top] duration-200')
+        "
       >
         <slot name="content"></slot>
 

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type {
+  VxeGridDefines,
   VxeGridInstance,
+  VxeGridListeners,
   VxeGridPropTypes,
   VxeGridProps as VxeTableGridProps,
   VxeToolbarPropTypes,
@@ -28,6 +30,9 @@ import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
 import { cloneDeep, cn, isEqual, mergeWithArrayOverride } from '@vben/utils';
 
+import { VbenHelpTooltip } from '@vben-core/shadcn-ui';
+
+import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
@@ -46,11 +51,7 @@ const props = withDefaults(defineProps<Props>(), {});
 const FORM_SLOT_PREFIX = 'form-';
 
 const TOOLBAR_ACTIONS = 'toolbar-actions';
-const TOOLBAR_ACTIONS_PREFIX = 'toolbar-actions-prefix';
-const TOOLBAR_ACTIONS_SUFFIX = 'toolbar-actions-suffix';
 const TOOLBAR_TOOLS = 'toolbar-tools';
-const TOOLBAR_TOOLS_PREFIX = 'toolbar-tools-prefix';
-const TOOLBAR_TOOLS_SUFFIX = 'toolbar-tools-suffix';
 
 const { b } = useNamespace('vxe-grid');
 
@@ -65,6 +66,7 @@ const {
   gridEvents,
   formOptions,
   tableTitle,
+  tableTitleHelp,
   showSearchForm,
 } = usePriorityValues(props, state);
 
@@ -94,8 +96,7 @@ const [Form, formApi] = useTableForm({
       class: 'w-full',
     },
   },
-  showCollapseButton: false,
-  actionButtonsReverse: true,
+  showCollapseButton: true,
   submitButtonOptions: {
     content: computed(() => $t('common.search')),
   },
@@ -106,35 +107,34 @@ const showTableTitle = computed(() => {
   return !!slots.tableTitle?.() || tableTitle.value;
 });
 
-const showToolbarActions = computed(() => {
+const showToolbar = computed(() => {
   return (
     !!slots[TOOLBAR_ACTIONS]?.() ||
-    !!slots[TOOLBAR_ACTIONS_PREFIX]?.() ||
-    !!slots[TOOLBAR_ACTIONS_SUFFIX]?.() ||
-    vxeCustomSlots?.leftToolbarRender ||
+    !!slots[TOOLBAR_TOOLS]?.() ||
     showTableTitle.value
   );
 });
 
-const showToolbarTools = computed(() => {
-  return (
-    !!slots[TOOLBAR_TOOLS]?.() ||
-    !!slots[TOOLBAR_TOOLS_PREFIX]?.() ||
-    !!slots[TOOLBAR_TOOLS_SUFFIX]?.() ||
-    vxeCustomSlots?.rightToolbarRender
-  );
-});
-
-const showToolbar = computed(() => {
-  return showToolbarActions.value || showToolbarTools.value;
-});
-
 const toolbarOptions = computed(() => {
+  const slotActions = slots[TOOLBAR_ACTIONS]?.();
+  const slotTools = slots[TOOLBAR_TOOLS]?.();
+  const searchBtn: VxeToolbarPropTypes.ToolConfig = {
+    code: 'search',
+    icon: 'vxe-icon-search',
+    circle: true,
+    status: showSearchForm.value ? 'primary' : undefined,
+    title: $t('common.search'),
+  };
   // 将搜索按钮合并到用户配置的toolbarConfig.tools中
   const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
     tools: (gridOptions.value?.toolbarConfig?.tools ??
       []) as VxeToolbarPropTypes.ToolConfig[],
   };
+  if (gridOptions.value?.toolbarConfig?.search && !!formOptions.value) {
+    toolbarConfig.tools = Array.isArray(toolbarConfig.tools)
+      ? [...toolbarConfig.tools, searchBtn]
+      : [searchBtn];
+  }
 
   if (!showToolbar.value) {
     return { toolbarConfig };
@@ -143,8 +143,10 @@ const toolbarOptions = computed(() => {
   // 强制使用固定的toolbar配置，不允许用户自定义
   // 减少配置的复杂度，以及后续维护的成本
   toolbarConfig.slots = {
-    ...(showToolbarActions.value ? { buttons: TOOLBAR_ACTIONS } : {}),
-    ...(showToolbarTools.value ? { tools: TOOLBAR_TOOLS } : {}),
+    ...(slotActions || showTableTitle.value
+      ? { buttons: TOOLBAR_ACTIONS }
+      : {}),
+    ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
   };
   return { toolbarConfig };
 });
@@ -202,22 +204,34 @@ const options = computed(() => {
   return mergedOptions;
 });
 
+function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
+  if (event.code === 'search') {
+    onSearchBtnClick();
+  }
+  (
+    gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick']
+  )?.(event);
+}
+
+function onSearchBtnClick() {
+  props.api?.toggleSearchForm?.();
+}
+
+const events = computed(() => {
+  return {
+    ...gridEvents.value,
+    toolbarToolClick: onToolbarToolClick,
+  };
+});
+
 const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
     if (
-      ![
-        'empty',
-        'form',
-        'loading',
-        TOOLBAR_ACTIONS,
-        TOOLBAR_ACTIONS_PREFIX,
-        TOOLBAR_ACTIONS_SUFFIX,
-        TOOLBAR_TOOLS,
-        TOOLBAR_TOOLS_PREFIX,
-        TOOLBAR_TOOLS_SUFFIX,
-      ].includes(key)
+      !['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(
+        key,
+      )
     ) {
       resultSlots.push(key);
     }
@@ -322,23 +336,19 @@ onUnmounted(() => {
         )
       "
       v-bind="options"
-      v-on="gridEvents"
+      v-on="events"
     >
       <!-- 左侧操作区域或者title -->
       <template v-if="showToolbar" #toolbar-actions="slotProps">
         <slot v-if="showTableTitle" name="table-title">
           <div class="mr-1 pl-1 text-[1rem]">
             {{ tableTitle }}
+            <VbenHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+              {{ tableTitleHelp }}
+            </VbenHelpTooltip>
           </div>
         </slot>
-        <component
-          v-if="vxeCustomSlots?.leftToolbarRender"
-          :is="vxeCustomSlots?.leftToolbarRender"
-          v-bind="slotProps"
-        />
-        <slot name="toolbar-actions-prefix"></slot>
         <slot name="toolbar-actions" v-bind="slotProps"> </slot>
-        <slot name="toolbar-actions-suffix"></slot>
       </template>
 
       <!-- 继承默认的slot -->
@@ -349,17 +359,17 @@ onUnmounted(() => {
       >
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
-
-      <!-- 右侧工具区域 -->
       <template #toolbar-tools="slotProps">
-        <component
-          v-if="vxeCustomSlots?.rightToolbarRender"
-          :is="vxeCustomSlots?.rightToolbarRender"
-          v-bind="slotProps"
-        />
-        <slot name="toolbar-tools-prefix"></slot>
         <slot name="toolbar-tools" v-bind="slotProps"></slot>
-        <slot name="toolbar-tools-suffix"></slot>
+        <VxeButton
+          icon="vxe-icon-search"
+          circle
+          class="ml-2"
+          v-if="gridOptions?.toolbarConfig?.search && !!formOptions"
+          :status="showSearchForm ? 'primary' : undefined"
+          :title="$t('common.search')"
+          @click="onSearchBtnClick"
+        />
       </template>
 
       <!-- form表单 -->

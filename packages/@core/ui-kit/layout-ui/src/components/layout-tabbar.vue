@@ -3,6 +3,9 @@ import type { CSSProperties } from 'vue';
 
 import { computed } from 'vue';
 
+import { useNamespace } from '@vben-core/composables';
+import { cn } from '@vben-core/shared/utils';
+
 interface Props {
   /**
    * 高度
@@ -11,6 +14,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
+
+const { b } = useNamespace('layout');
 
 const style = computed((): CSSProperties => {
   const { height } = props;
@@ -23,7 +28,12 @@ const style = computed((): CSSProperties => {
 <template>
   <section
     :style="style"
-    class="border-border bg-background flex w-full border-b transition-all"
+    :class="
+      cn(
+        b('tabbar'),
+        'border-border bg-background flex w-full border-b transition-all',
+      )
+    "
   >
     <slot></slot>
   </section>

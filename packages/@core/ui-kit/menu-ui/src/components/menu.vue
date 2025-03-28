@@ -401,11 +401,11 @@ $namespace: vben;
     transition: transform 0.25s;
   }
 
-  &:hover {
-    .#{$namespace}-menu__icon {
-      transform: scale(1.2);
-    }
-  }
+  // &:hover {
+  //   .#{$namespace}-menu__icon {
+  //     transform: scale(1.2);
+  //   }
+  // }
 
   &:hover,
   &:focus {

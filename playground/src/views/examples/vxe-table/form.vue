@@ -67,7 +67,7 @@ const formOptions: VbenFormProps = {
     },
   ],
   // 控制表单是否显示折叠按钮
-  showCollapseButton: true,
+  showCollapseButton: false,
   // 是否在字段值改变时提交表单
   submitOnChange: true,
   // 按下回车时是否提交表单
@@ -103,14 +103,6 @@ const gridOptions: VxeTableGridOptions<RowType> = {
         });
       },
     },
-  },
-  toolbarConfig: {
-    custom: true,
-    export: true,
-    refresh: true,
-    resizable: true,
-    search: true,
-    zoom: true,
   },
 };
 

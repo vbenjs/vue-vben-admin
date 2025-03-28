@@ -2,7 +2,8 @@ import type { Recordable } from '@vben/types';
 
 import { h } from 'vue';
 
-import { IconifyIcon } from '@vben/icons';
+import { VbenLoading } from '@vben/common-ui';
+import { EmptyIcon, IconifyIcon } from '@vben/icons';
 import { $te } from '@vben/locales';
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 import { get, isFunction, isString } from '@vben/utils';
@@ -23,12 +24,20 @@ setupVbenVxeTable({
         columnConfig: {
           resizable: true,
         },
-
+        emptyRender: {
+          name: 'customEmptyRender',
+        },
         formConfig: {
           // 全局禁用vxe-table的表单配置，使用formOptions
           enabled: false,
         },
         minHeight: 180,
+        pagerConfig: {
+          background: false,
+          className: '',
+          pageSize: 10,
+          pageSizes: [10, 20, 30, 50, 100, 200],
+        },
         proxyConfig: {
           autoLoad: true,
           response: {
@@ -42,6 +51,31 @@ setupVbenVxeTable({
         round: true,
         showOverflow: true,
         size: 'small',
+        toolbarConfig: {
+          custom: false,
+          export: false,
+          refresh: true,
+          resizable: true,
+          zoom: true,
+        },
+      },
+    });
+
+    /**
+     * 自定义全局空状态
+     */
+    vxeUI.renderer.add('customEmptyRender', {
+      renderTableEmpty() {
+        return h(
+          'div',
+          {
+            class: 'flex flex-col items-center justify-center',
+          },
+          [
+            h(EmptyIcon, { class: 'mx-auto' }),
+            h('div', { class: 'mt-2' }, $t('common.noData')),
+          ],
+        );
       },
     });
 
@@ -257,6 +291,22 @@ setupVbenVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
+  customSlots: {
+    // 自定义全局的分割线
+    dividerRender: () =>
+      h('div', {
+        class:
+          'bg-background-deep z-100 absolute -left-2 bottom-1 h-2 w-[calc(100%)] overflow-hidden md:bottom-2 md:h-3',
+      }),
+    // leftToolbarRender: () => h('div', {}, '左侧工具栏'),
+
+    // 自定义分页器
+    // pagerRender: () => h('div', {}, '分页器'),
+    // 自定义全局的加载中状态
+    loadingRender: () => h(VbenLoading, { spinning: true }),
+    // rightToolbarRender: () => h('div', {}, '右侧工具栏'),
+  },
+
   useVbenForm,
 });
 

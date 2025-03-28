@@ -5,8 +5,9 @@ import type { ContentCompactType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { useLayoutContentStyle } from '@vben-core/composables';
+import { useLayoutContentStyle, useNamespace } from '@vben-core/composables';
 import { Slot } from '@vben-core/shadcn-ui';
+import { cn } from '@vben-core/shared/utils';
 
 interface Props {
   /**
@@ -27,6 +28,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {});
 
 const { contentElement, overlayStyle } = useLayoutContentStyle();
+
+const { be } = useNamespace('layout');
 
 const style = computed((): CSSProperties => {
   const {
@@ -55,7 +58,11 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <main ref="contentElement" :style="style" class="bg-background-deep relative">
+  <main
+    ref="contentElement"
+    :style="style"
+    :class="cn(be('content', 'main'), 'bg-background-deep relative')"
+  >
     <Slot :style="overlayStyle">
       <slot name="overlay"></slot>
     </Slot>
