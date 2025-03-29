@@ -10,9 +10,8 @@ import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 import { storeCustomCost } from '#/api';
-import { datePresets } from '#/constants';
 import { useShopStore } from '#/store';
-import { toPercentage, toRate } from '#/utils';
+import { getDatePreset, toPercentage, toRate } from '#/utils';
 
 import FormModalExample from './form-modal-example.vue';
 import { CustomCostType, customCostTypes } from './service';
@@ -275,7 +274,16 @@ const [Form, formApi] = useVbenForm({
       component: 'DatePicker' as any,
       defaultValue: dayjs().add(-7, 'd'),
       componentProps: {
-        presets: datePresets,
+        presets: getDatePreset([
+          'today',
+          'last7Days',
+          'last14Days',
+          'last30Days',
+          'last90Days',
+          'lastYear',
+          'thisMonth',
+          'thisYear',
+        ]),
       },
       fieldName: 'startDate',
       label: 'Start date',
@@ -289,8 +297,7 @@ const [Form, formApi] = useVbenForm({
           { label: 'On going', value: onGoingDate },
           { label: 'Next 30 Days', value: dayjs().add(30, 'd') },
           { label: 'Next 7 Days', value: dayjs().add(7, 'd') },
-          { label: 'Last 7 Days', value: dayjs().add(-7, 'd') },
-          { label: 'Last 30 Days', value: dayjs().add(-30, 'd') },
+          ...getDatePreset(['last7Days', 'last30Days']),
         ],
         format: (value: any) => {
           const val = value.format('YYYY-MM-DD');

@@ -4,7 +4,7 @@ import { reactive } from 'vue';
 
 import { $t } from '@vben/locales';
 
-import { getReportOrderApi } from '#/api';
+import { getOrders } from '#/api';
 import { useShopStore } from '#/store';
 import { calcGrossProfitMargin, formatReportDate } from '#/utils';
 
@@ -166,7 +166,7 @@ export const orderTableOptions: VxeTableGridOptions = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        const res = await getReportOrderApi({
+        const res = await getOrders({
           page: page.currentPage,
           pageSize: page.pageSize,
           ...formValues,

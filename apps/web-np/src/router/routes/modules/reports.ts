@@ -38,7 +38,7 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'ProductAnalytics',
         path: '/reports/product-analytics',
-        component: () => import('#/views/reports/order/index.vue'),
+        component: () => import('#/views/reports/product/index.vue'),
       },
       {
         meta: {

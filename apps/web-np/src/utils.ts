@@ -2,6 +2,7 @@ import { $t } from '@vben/locales';
 import { formatDate } from '@vben/utils';
 
 import { findCurrency, format } from 'currency-formatter';
+import dayjs from 'dayjs';
 
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
@@ -88,4 +89,65 @@ export const getFieldExplain = (id: string) => {
       return '';
     }
   }
+};
+
+export const getDatePreset = (
+  presets: string[],
+  isDateRange: boolean = false,
+) => {
+  const datePresets = [
+    {
+      id: 'today',
+      label: 'Today',
+      value: dayjs().add(-1, 'd'),
+    },
+    {
+      id: 'last7Days',
+      label: 'Last 7 Days',
+      value: dayjs().add(-7, 'd'),
+    },
+    {
+      id: 'last14Days',
+      label: 'Last 14 Days',
+      value: dayjs().add(-14, 'd'),
+    },
+    {
+      id: 'last30Days',
+      label: 'Last 30 Days',
+      value: dayjs().add(-30, 'd'),
+    },
+    {
+      id: 'last90Days',
+      label: 'Last 90 Days',
+      value: dayjs().add(-90, 'd'),
+    },
+    {
+      id: 'lastYear',
+      label: 'Last year',
+      value: dayjs().add(-1, 'year'),
+    },
+    {
+      id: 'thisMonth',
+      label: 'This Month',
+      value: dayjs().startOf('month'),
+    },
+    {
+      id: 'thisYear',
+      label: 'This Year',
+      value: dayjs().startOf('year'),
+    },
+  ];
+
+  const result = datePresets.filter((item) => presets.includes(item.id));
+
+  if (isDateRange) {
+    return result.map((item) => {
+      return {
+        label: item.label,
+        value: [item.value, dayjs()],
+      };
+    });
+  }
+
+  return result;
 };

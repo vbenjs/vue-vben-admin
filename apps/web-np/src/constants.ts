@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export enum ShippingCostLevel {
   QUANTITY = 'QUANTITY',
   WEIGHT = 'WEIGHT',
@@ -85,38 +83,4 @@ export const countries = [
   { value: 'CH', label: 'Switzerland', icon: '🇨🇭' },
   { value: 'GB', label: 'United Kingdom', icon: '🇬🇧' },
   { value: 'US', label: 'United States', icon: '🇺🇸' },
-];
-
-export const dateRangePresets = [
-  { label: 'Today', value: [dayjs().add(-1, 'd'), dayjs()] },
-  { label: 'Last 7 Days', value: [dayjs().add(-7, 'd'), dayjs()] },
-  { label: 'Last 14 Days', value: [dayjs().add(-14, 'd'), dayjs()] },
-  { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
-  { label: 'Last 90 Days', value: [dayjs().add(-90, 'd'), dayjs()] },
-  { label: 'Last year', value: [dayjs().add(-1, 'year'), dayjs()] },
-
-  // This month
-  {
-    label: 'This Month',
-    value: [dayjs().startOf('month'), dayjs().endOf('month')],
-  },
-  // This year
-  {
-    label: 'This Year',
-    value: [dayjs().startOf('year'), dayjs().endOf('year')],
-  },
-];
-
-export const datePresets = [
-  { label: 'Today', value: dayjs().add(-1, 'd') },
-  { label: 'Last 7 Days', value: dayjs().add(-7, 'd') },
-  { label: 'Last 14 Days', value: dayjs().add(-14, 'd') },
-  { label: 'Last 30 Days', value: dayjs().add(-30, 'd') },
-  { label: 'Last 90 Days', value: dayjs().add(-90, 'd') },
-  { label: 'Last year', value: dayjs().add(-1, 'year') },
-
-  // This month
-  { label: 'This Month', value: dayjs().startOf('month') },
-  // This year
-  { label: 'This Year', value: dayjs().startOf('year') },
 ];

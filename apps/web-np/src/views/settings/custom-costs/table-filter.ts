@@ -1,6 +1,6 @@
 import type { VbenFormProps } from '@vben/common-ui';
 
-import { dateRangePresets } from '#/constants';
+import { getDatePreset } from '#/utils';
 
 import { customCostTypes } from './service';
 
@@ -15,8 +15,19 @@ export const formOptions: VbenFormProps = {
     {
       component: 'RangePicker',
       componentProps: {
-        // Show last week button
-        presets: dateRangePresets,
+        presets: getDatePreset(
+          [
+            'today',
+            'last7Days',
+            'last14Days',
+            'last30Days',
+            'last90Days',
+            'lastYear',
+            'thisMonth',
+            'thisYear',
+          ],
+          true,
+        ),
       },
       fieldName: 'date',
       label: 'Date',

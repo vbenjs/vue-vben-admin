@@ -9,7 +9,7 @@ export namespace ITableApi {
   }
 }
 
-export async function getReportOrderApi(params: ITableApi.PageFetchParams) {
+export async function getOrders(params: ITableApi.PageFetchParams) {
   return requestClient.get('/api/order', { params }).then((res) => {
     res.items = res.items.map((item: any) => {
       item.grossProfitMargin = calcGrossProfitMargin(item);
