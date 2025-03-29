@@ -1,6 +1,7 @@
 {
   "name": "@vben/web-antd",
   "version": "1.0.0",
+  "private": true,
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
