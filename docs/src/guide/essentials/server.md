@@ -110,6 +110,36 @@ VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 
 项目中默认自带了基于 `axios` 封装的基础的请求配置，核心由 `@vben/request` 包提供。项目没有过多的封装，只是简单的封装了一些常用的配置，如有其他需求，可以自行增加或者调整配置。针对不同的app，可能是用到了不同的组件库以及`store`,所以在应用目录下的`src/api/request.ts`文件夹下，有对应的请求配置文件,如`web-antd`项目下的`src/api/request.ts`文件,可以根据自己的需求进行配置。
 
+### 扩展的配置
+
+除了基础的Axios配置外，扩展了部分配置。
+
+```ts
+type ExtendOptions<T = any> = {
+  /**
+   * 参数序列化方式。预置了几种针对数组的序列化类型
+   * - brackets: ids[]=1&ids[]=2&ids[]=3
+   * - comma: ids=1,2,3
+   * - indices: ids[0]=1&ids[1]=2&ids[2]=3
+   * - repeat: ids=1&ids=2&ids=3
+   * @default 'brackets'
+   */
+  paramsSerializer?:
+    | 'brackets'
+    | 'comma'
+    | 'indices'
+    | 'repeat'
+    | AxiosRequestConfig<T>['paramsSerializer'];
+  /**
+   * 响应数据的返回方式。
+   * - raw: 原始的AxiosResponse，包括headers、status等，不做是否成功请求的检查。
+   * - body: 返回响应数据的BODY部分（只会根据status检查请求是否成功，忽略对code的判断，这种情况下应由调用方检查请求是否成功）。
+   * - data: 解构响应的BODY数据，只返回其中的data节点数据（会检查status和code是否为成功状态）。
+   */
+  responseReturn?: 'body' | 'data' | 'raw';
+};
+```
+
 ### 请求示例
 
 #### GET 请求

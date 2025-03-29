@@ -50,7 +50,8 @@
     "clipboard": "剪贴板",
     "menuWithQuery": "带参菜单",
     "openInNewWindow": "新窗口打开",
-    "fileDownload": "文件下载"
+    "fileDownload": "文件下载",
+    "requestParamsSerializer": "参数序列化"
   },
   "breadcrumb": {
     "navigation": "面包屑导航",
