@@ -111,6 +111,9 @@ catalogs:
     '@types/qrcode':
       specifier: ^1.5.5
       version: 1.5.5
+    '@types/qs':
+      specifier: ^6.9.18
+      version: 6.9.18
     '@types/sortablejs':
       specifier: ^1.15.8
       version: 1.15.8
@@ -369,6 +372,9 @@ catalogs:
     qrcode:
       specifier: ^1.5.4
       version: 1.5.4
+    qs:
+      specifier: ^6.14.0
+      version: 6.14.0
     radix-vue:
       specifier: ^1.9.17
       version: 1.9.17
@@ -1714,7 +1720,13 @@ importers:
       axios:
         specifier: 'catalog:'
         version: 1.8.2
+      qs:
+        specifier: 'catalog:'
+        version: 6.14.0
     devDependencies:
+      '@types/qs':
+        specifier: 'catalog:'
+        version: 6.9.18
       axios-mock-adapter:
         specifier: 'catalog:'
         version: 2.1.0(axios@1.8.2)
@@ -4330,6 +4342,9 @@ packages:
 
   '@types/qrcode@1.5.5':
     resolution: {integrity: sha512-CdfBi/e3Qk+3Z/fXYShipBT13OJ2fDO2Q2w5CIP5anLTLIndQG9z6P1cnm+8zCWSpm5dnxMFd/uREtb0EXuQzg==}
+
+  '@types/qs@6.9.18':
+    resolution: {integrity: sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA==}
 
   '@types/readdir-glob@1.1.5':
     resolution: {integrity: sha512-raiuEPUYqXu+nvtY2Pe8s8FEmZ3x5yAH4VkLdihcPdalvsHltomrRC9BzuStrJ9yk06470hS0Crw0f1pXqD+Hg==}
@@ -8649,6 +8664,10 @@ packages:
     resolution: {integrity: sha512-1ca71Zgiu6ORjHqFBDpnSMTR2ReToX4l1Au1VFLyVeBTFavzQnv5JxMFr3ukHVKpSrSA2MCk0lNJSykjUfz7Zg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  qs@6.14.0:
+    resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
+    engines: {node: '>=0.6'}
 
   quansync@0.2.8:
     resolution: {integrity: sha512-4+saucphJMazjt7iOM27mbFCk+D9dd/zmgMDCzRZ8MEoBfYp7lAvoN38et/phRQF6wOPMy/OROBGgoWeSKyluA==}
@@ -13161,6 +13180,8 @@ snapshots:
   '@types/qrcode@1.5.5':
     dependencies:
       '@types/node': 22.13.10
+
+  '@types/qs@6.9.18': {}
 
   '@types/readdir-glob@1.1.5':
     dependencies:
@@ -17950,6 +17971,10 @@ snapshots:
       dijkstrajs: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
+
+  qs@6.14.0:
+    dependencies:
+      side-channel: 1.1.0
 
   quansync@0.2.8: {}
 
