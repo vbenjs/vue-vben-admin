@@ -366,7 +366,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="slide-up">
-          <FormMessage class="absolute bottom-1" />
+          <FormMessage class="bottom-1" :class="{ absolute: !compact }" />
         </Transition>
       </div>
     </FormItem>
