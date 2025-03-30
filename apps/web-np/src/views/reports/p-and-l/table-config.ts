@@ -28,6 +28,7 @@ export const gridOptions: VxeTableGridOptions = {
     parentField: 'parentId',
     rowField: 'id',
     transform: true,
+    expandAll: true,
   },
   exportConfig: {},
   height: 'auto',

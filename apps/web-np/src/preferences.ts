@@ -16,6 +16,9 @@ export const overridesPreferences = defineOverridesPreferences({
   tabbar: {
     enable: false,
   },
+  navigation: {
+    accordion: false,
+  },
   copyright: {
     companyName: 'Netpower',
     companySiteLink: 'https://www.netpower.com',

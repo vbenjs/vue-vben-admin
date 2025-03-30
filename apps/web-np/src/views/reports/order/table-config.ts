@@ -16,9 +16,49 @@ const state = reactive({
 });
 
 export const orderTableOptions: VxeTableGridOptions = {
-  checkboxConfig: {
-    highlight: true,
-    labelField: 'id',
+  exportConfig: {},
+  height: 'auto',
+  keepSource: true,
+  toolbarConfig: {
+    search: true,
+    custom: true,
+    refresh: true,
+    zoom: true,
+  },
+  showFooter: true,
+  footerMethod: () => {
+    if (!state.footerData) {
+      return [];
+    }
+
+    return [state.footerData];
+  },
+  mergeFooterItems: [{ row: 0, col: 0, rowspan: 1, colspan: 2 }],
+  proxyConfig: {
+    ajax: {
+      query: async ({ page }, formValues) => {
+        const res = await getOrders({
+          page: page.currentPage,
+          pageSize: page.pageSize,
+          ...formValues,
+        });
+
+        if (res.summary) {
+          state.footerData = res.summary;
+
+          // Reset some fields
+          state.footerData.name = `${res.total} order(s)`;
+          state.footerData.processedAt = '';
+          state.footerData.grossProfitMargin = calcGrossProfitMargin(
+            state.footerData,
+          ).toString();
+        } else {
+          state.footerData = null;
+        }
+
+        return res;
+      },
+    },
   },
   columns: [
     {
@@ -160,48 +200,4 @@ export const orderTableOptions: VxeTableGridOptions = {
       minWidth: 170,
     },
   ],
-  exportConfig: {},
-  height: 'auto',
-  keepSource: true,
-  proxyConfig: {
-    ajax: {
-      query: async ({ page }, formValues) => {
-        const res = await getOrders({
-          page: page.currentPage,
-          pageSize: page.pageSize,
-          ...formValues,
-        });
-
-        if (res.summary) {
-          state.footerData = res.summary;
-
-          // Reset some fields
-          state.footerData.name = `${res.total} order(s)`;
-          state.footerData.processedAt = '';
-          state.footerData.grossProfitMargin = calcGrossProfitMargin(
-            state.footerData,
-          ).toString();
-        } else {
-          state.footerData = null;
-        }
-
-        return res;
-      },
-    },
-  },
-  toolbarConfig: {
-    search: true,
-    custom: true,
-    refresh: true,
-    zoom: true,
-  },
-  showFooter: true,
-  footerMethod: () => {
-    if (!state.footerData) {
-      return [];
-    }
-
-    return [state.footerData];
-  },
-  mergeFooterItems: [{ row: 0, col: 0, rowspan: 1, colspan: 2 }],
 };
