@@ -147,8 +147,6 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'HideChildrenInMenuParentDemo',
             path: '/demos/features/hide-menu-children',
-            component: () =>
-              import('#/views/demos/features/hide-menu-children/parent.vue'),
             meta: {
               hideChildrenInMenu: true,
               icon: 'ic:round-menu',
@@ -160,10 +158,10 @@ const routes: RouteRecordRaw[] = [
                 path: '',
                 component: () =>
                   import(
-                    '#/views/demos/features/hide-menu-children/children.vue'
+                    '#/views/demos/features/hide-menu-children/parent.vue'
                   ),
                 meta: {
-                  hideInMenu: true,
+                  // hideInMenu: true,
                   title: $t('demos.features.hideChildrenInMenu'),
                 },
               },
@@ -174,7 +172,10 @@ const routes: RouteRecordRaw[] = [
                   import(
                     '#/views/demos/features/hide-menu-children/children.vue'
                   ),
-                meta: { title: $t('demos.features.hideChildrenInMenu') },
+                meta: {
+                  activePath: '/demos/features/hide-menu-children',
+                  title: $t('demos.features.hideChildrenInMenu'),
+                },
               },
             ],
           },
@@ -240,6 +241,18 @@ const routes: RouteRecordRaw[] = [
             meta: {
               icon: 'lucide:git-pull-request-arrow',
               title: 'Tanstack Query',
+            },
+          },
+          {
+            name: 'RequestParamsSerializerDemo',
+            path: '/demos/features/request-params-serializer',
+            component: () =>
+              import(
+                '#/views/demos/features/request-params-serializer/index.vue'
+              ),
+            meta: {
+              icon: 'lucide:git-pull-request-arrow',
+              title: $t('demos.features.requestParamsSerializer'),
             },
           },
         ],
@@ -531,7 +544,7 @@ const routes: RouteRecordRaw[] = [
             children: [
               {
                 name: 'Menu31Demo',
-                path: 'menu3-1',
+                path: '/demos/nested/menu3/menu3-1',
                 component: () => import('#/views/demos/nested/menu-3-1.vue'),
                 meta: {
                   icon: 'ic:round-menu',
@@ -541,7 +554,7 @@ const routes: RouteRecordRaw[] = [
               },
               {
                 name: 'Menu32Demo',
-                path: 'menu3-2',
+                path: '/demos/nested/menu3/menu3-2',
                 meta: {
                   icon: 'ic:round-menu',
                   title: $t('demos.nested.menu3_2'),

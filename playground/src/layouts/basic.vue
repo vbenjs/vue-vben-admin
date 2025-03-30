@@ -14,12 +14,25 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
+import { useAccessStore, useTabbarStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
+
+const { setMenuList } = useTabbarStore();
+setMenuList([
+  'close',
+  'affix',
+  'maximize',
+  'reload',
+  'open-in-new-window',
+  'close-left',
+  'close-right',
+  'close-other',
+  'close-all',
+]);
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -106,6 +119,8 @@ function handleMakeAll() {
   notifications.value.forEach((item) => (item.isRead = true));
 }
 
+function handleClickLogo() {}
+
 watch(
   () => preferences.app.watermark,
   async (enable) => {
@@ -124,7 +139,10 @@ watch(
 </script>
 
 <template>
-  <BasicLayout @clear-preferences-and-logout="handleLogout">
+  <BasicLayout
+    @clear-preferences-and-logout="handleLogout"
+    @click-logo="handleClickLogo"
+  >
     <template #user-dropdown>
       <UserDropdown
         :avatar

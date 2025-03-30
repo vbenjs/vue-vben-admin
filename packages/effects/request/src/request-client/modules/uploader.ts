@@ -16,7 +16,13 @@ class FileUploader {
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          formData.append(`${key}[${index}]`, item);
+        });
+      } else {
+        formData.append(key, value);
+      }
     });
 
     const finalConfig: RequestClientConfig = {

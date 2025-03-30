@@ -213,6 +213,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/examples/modal/index.vue'),
         meta: {
           icon: 'system-uicons:window-content',
+          keepAlive: true,
           title: $t('examples.modal.title'),
         },
       },
@@ -222,6 +223,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/examples/drawer/index.vue'),
         meta: {
           icon: 'iconoir:drawer',
+          keepAlive: true,
           title: $t('examples.drawer.title'),
         },
       },
@@ -288,6 +290,24 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'mdi:animation-play',
           title: 'CountTo',
+        },
+      },
+      {
+        name: 'Loading',
+        path: '/examples/loading',
+        component: () => import('#/views/examples/loading/index.vue'),
+        meta: {
+          icon: 'mdi:circle-double',
+          title: 'Loading',
+        },
+      },
+      {
+        name: 'ButtonGroup',
+        path: '/examples/button-group',
+        component: () => import('#/views/examples/button-group/index.vue'),
+        meta: {
+          icon: 'mdi:check-circle',
+          title: $t('examples.button-group.title'),
         },
       },
     ],

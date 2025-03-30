@@ -3,12 +3,12 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
-import type { Component, SetupContext } from 'vue';
+import type { Component } from 'vue';
 
 import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
-import { h } from 'vue';
+import { defineComponent, getCurrentInstance, h, ref } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -37,11 +37,36 @@ import {
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
   type: 'input' | 'select',
+  componentProps: Recordable<any> = {},
 ) => {
-  return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`);
-    return h(component, { ...props, ...attrs, placeholder }, slots);
-  };
+  return defineComponent({
+    inheritAttrs: false,
+    name: component.name,
+    setup: (props: any, { attrs, expose, slots }) => {
+      const placeholder =
+        props?.placeholder ||
+        attrs?.placeholder ||
+        $t(`ui.placeholder.${type}`);
+      // 透传组件暴露的方法
+      const innerRef = ref();
+      const publicApi: Recordable<any> = {};
+      expose(publicApi);
+      const instance = getCurrentInstance();
+      instance?.proxy?.$nextTick(() => {
+        for (const key in innerRef.value) {
+          if (typeof innerRef.value[key] === 'function') {
+            publicApi[key] = innerRef.value[key];
+          }
+        }
+      });
+      return () =>
+        h(
+          component,
+          { ...componentProps, placeholder, ...props, ...attrs, ref: innerRef },
+          slots,
+        );
+    },
+  });
 };
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
@@ -69,37 +94,19 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-    ApiSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: ElSelectV2,
-          loadingSlot: 'loading',
-          visibleEvent: 'onVisibleChange',
-        },
-        slots,
-      );
-    },
-    ApiTreeSelect: (props, { attrs, slots }) => {
-      return h(
-        ApiComponent,
-        {
-          placeholder: $t('ui.placeholder.select'),
-          ...props,
-          ...attrs,
-          component: ElTreeSelect,
-          props: { label: 'label', children: 'children' },
-          nodeKey: 'value',
-          loadingSlot: 'loading',
-          optionsPropName: 'data',
-          visibleEvent: 'onVisibleChange',
-        },
-        slots,
-      );
-    },
+    ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: ElSelectV2,
+      loadingSlot: 'loading',
+      visibleEvent: 'onVisibleChange',
+    }),
+    ApiTreeSelect: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: ElTreeSelect,
+      props: { label: 'label', children: 'children' },
+      nodeKey: 'value',
+      loadingSlot: 'loading',
+      optionsPropName: 'data',
+      visibleEvent: 'onVisibleChange',
+    }),
     Checkbox: ElCheckbox,
     CheckboxGroup: (props, { attrs, slots }) => {
       let defaultSlot;
@@ -129,19 +136,11 @@ async function initComponentAdapter() {
       return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
     },
     Divider: ElDivider,
-    IconPicker: (props, { attrs, slots }) => {
-      return h(
-        IconPicker,
-        {
-          iconSlot: 'append',
-          modelValueProp: 'model-value',
-          inputComponent: ElInput,
-          ...props,
-          ...attrs,
-        },
-        slots,
-      );
-    },
+    IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
+      iconSlot: 'append',
+      modelValueProp: 'model-value',
+      inputComponent: ElInput,
+    }),
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
     RadioGroup: (props, { attrs, slots }) => {

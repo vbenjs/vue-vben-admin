@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { RefSelectProps } from 'ant-design-vue/es/select';
+
 import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
@@ -82,6 +84,7 @@ function handleClick(
   action:
     | 'batchAddSchema'
     | 'batchDeleteSchema'
+    | 'componentRef'
     | 'disabled'
     | 'hiddenAction'
     | 'hiddenResetButton'
@@ -127,6 +130,11 @@ function handleClick(
           schema: currentSchema.slice(0, -3),
         };
       });
+      break;
+    }
+    case 'componentRef': {
+      // 获取下拉组件的实例，并调用它的focus方法
+      formApi.getFieldComponentRef<RefSelectProps>('fieldOptions')?.focus();
       break;
     }
     case 'disabled': {
@@ -182,6 +190,7 @@ function handleClick(
       formApi.setState({ submitButtonOptions: { show: true } });
       break;
     }
+
     case 'updateActionAlign': {
       formApi.setState({
         // 可以自行调整class
@@ -189,7 +198,6 @@ function handleClick(
       });
       break;
     }
-
     case 'updateResetButton': {
       formApi.setState({
         resetButtonOptions: { disabled: true },
@@ -257,6 +265,7 @@ function handleClick(
       <Button @click="handleClick('batchDeleteSchema')">
         批量删除表单项
       </Button>
+      <Button @click="handleClick('componentRef')">下拉组件获取焦点</Button>
     </Space>
     <Card title="操作示例">
       <BaseForm />

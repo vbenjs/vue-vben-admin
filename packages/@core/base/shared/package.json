@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shared",
-  "version": "5.5.3",
+  "version": "5.5.4",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -88,6 +88,7 @@
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",
     "lodash.isequal": "catalog:",
+    "lodash.set": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"
@@ -96,6 +97,7 @@
     "@types/lodash.clonedeep": "catalog:",
     "@types/lodash.get": "catalog:",
     "@types/lodash.isequal": "catalog:",
+    "@types/lodash.set": "catalog:",
     "@types/nprogress": "catalog:"
   }
 }

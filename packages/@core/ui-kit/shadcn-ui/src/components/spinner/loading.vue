@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 // const startTime = ref(0);
 const showSpinner = ref(false);
-const renderSpinner = ref(true);
+const renderSpinner = ref(false);
 const timer = ref<ReturnType<typeof setTimeout>>();
 
 watch(
@@ -69,7 +69,7 @@ function onTransitionEnd() {
   <div
     :class="
       cn(
-        'z-100 dark:bg-overlay bg-overlay-content pointer-events-none absolute left-0 top-0 flex size-full flex-col items-center justify-center transition-all duration-500',
+        'z-100 dark:bg-overlay bg-overlay-content absolute left-0 top-0 flex size-full flex-col items-center justify-center transition-all duration-500',
         {
           'invisible opacity-0': !showSpinner,
         },
@@ -78,15 +78,18 @@ function onTransitionEnd() {
     "
     @transitionend="onTransitionEnd"
   >
-    <span class="dot relative inline-block size-9 text-3xl">
-      <i
-        v-for="index in 4"
-        :key="index"
-        class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"
-      ></i>
-    </span>
+    <slot name="icon" v-if="renderSpinner">
+      <span class="dot relative inline-block size-9 text-3xl">
+        <i
+          v-for="index in 4"
+          :key="index"
+          class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"
+        ></i>
+      </span>
+    </slot>
 
-    <div v-if="text" class="mt-4 text-xs">{{ text }}</div>
+    <div v-if="text" class="text-primary mt-4 text-xs">{{ text }}</div>
+    <slot></slot>
   </div>
 </template>
 

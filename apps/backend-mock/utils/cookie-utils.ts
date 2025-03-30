@@ -14,7 +14,7 @@ export function setRefreshTokenCookie(
 ) {
   setCookie(event, 'jwt', refreshToken, {
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60, // unit: seconds
     sameSite: 'none',
     secure: true,
   });

@@ -209,7 +209,8 @@ export function useTabbar() {
         text: $t('preferences.tabbar.contextMenu.closeAll'),
       },
     ];
-    return menus;
+
+    return menus.filter((item) => tabbarStore.getMenuList.includes(item.key));
   };
 
   return {

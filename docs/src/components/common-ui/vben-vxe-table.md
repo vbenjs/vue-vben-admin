@@ -165,7 +165,7 @@ vxeUI.renderer.add('CellLink', {
 
 **表单搜索** 部分采用了`Vben Form 表单`，参考 [Vben Form 表单文档](/components/common-ui/vben-form)。
 
-当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。
+当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。表格的所有以`form-`开头的命名插槽都会被传递给搜索表单。
 
 <DemoPreview dir="demos/vben-vxe-table/form" />
 
@@ -231,12 +231,28 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 
 所有属性都可以传入 `useVbenVxeGrid` 的第一个参数中。
 
-| 属性名         | 描述               | 类型                |
-| -------------- | ------------------ | ------------------- |
-| tableTitle     | 表格标题           | `string`            |
-| tableTitleHelp | 表格标题帮助信息   | `string`            |
-| gridClass      | grid组件的class    | `string`            |
-| gridOptions    | grid组件的参数     | `VxeTableGridProps` |
-| gridEvents     | grid组件的触发的⌚️ | `VxeGridListeners`  |
-| formOptions    | 表单参数           | `VbenFormProps`     |
-| showSearchForm | 是否显示搜索表单   | `boolean`           |
+| 属性名         | 描述                 | 类型                |
+| -------------- | -------------------- | ------------------- |
+| tableTitle     | 表格标题             | `string`            |
+| tableTitleHelp | 表格标题帮助信息     | `string`            |
+| gridClass      | grid组件的class      | `string`            |
+| gridOptions    | grid组件的参数       | `VxeTableGridProps` |
+| gridEvents     | grid组件的触发的事件 | `VxeGridListeners`  |
+| formOptions    | 表单参数             | `VbenFormProps`     |
+| showSearchForm | 是否显示搜索表单     | `boolean`           |
+
+## Slots
+
+大部分插槽的说明请参考 [vxe-table 官方文档](https://vxetable.cn/v4/#/grid/api)，但工具栏部分由于做了一些定制封装，需使用以下插槽定制表格的工具栏：
+
+| 插槽名          | 描述                                         |
+| --------------- | -------------------------------------------- |
+| toolbar-actions | 工具栏左侧部分（表格标题附近）               |
+| toolbar-tools   | 工具栏右侧部分（vxeTable原生工具按钮的左侧） |
+| table-title     | 表格标题插槽                                 |
+
+::: info 搜索表单的插槽
+
+对于使用了搜索表单的表格来说，所有以`form-`开头的命名插槽都会传递给表单。
+
+:::

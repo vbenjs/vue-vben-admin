@@ -1,7 +1,7 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
-import { initTippy } from '@vben/common-ui';
+import { initTippy, registerLoadingDirective } from '@vben/common-ui';
 import { MotionPlugin } from '@vben/plugins/motion';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
@@ -30,6 +30,12 @@ async function bootstrap(namespace: string) {
   // });
 
   const app = createApp(App);
+
+  // 注册v-loading指令
+  registerLoadingDirective(app, {
+    loading: 'loading', // 在这里可以自定义指令名称，也可以明确提供false表示不注册这个指令
+    spinning: 'spinning',
+  });
 
   // 国际化 i18n 配置
   await setupI18n(app);
