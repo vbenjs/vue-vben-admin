@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<VbenButtonGroupProps>(), {
   showIcon: true,
   size: 'middle',
 });
-
+const emit = defineEmits(['btnClick']);
 const btnDefaultProps = computed(() => {
   return {
     ...objectOmit(props, ['options', 'btnClass', 'size', 'disabled']),
@@ -90,6 +90,7 @@ async function onBtnClick(value: ValueType) {
     innerValue.value = [value];
     modelValue.value = value;
   }
+  emit('btnClick', value);
 }
 </script>
 <template>

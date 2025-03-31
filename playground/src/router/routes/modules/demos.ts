@@ -243,6 +243,18 @@ const routes: RouteRecordRaw[] = [
               title: 'Tanstack Query',
             },
           },
+          {
+            name: 'RequestParamsSerializerDemo',
+            path: '/demos/features/request-params-serializer',
+            component: () =>
+              import(
+                '#/views/demos/features/request-params-serializer/index.vue'
+              ),
+            meta: {
+              icon: 'lucide:git-pull-request-arrow',
+              title: $t('demos.features.requestParamsSerializer'),
+            },
+          },
         ],
       },
       // 面包屑导航

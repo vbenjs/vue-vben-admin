@@ -22,9 +22,11 @@
   "dependencies": {
     "@vben/locales": "workspace:*",
     "@vben/utils": "workspace:*",
-    "axios": "catalog:"
+    "axios": "catalog:",
+    "qs": "catalog:"
   },
   "devDependencies": {
+    "@types/qs": "catalog:",
     "axios-mock-adapter": "catalog:"
   }
 }

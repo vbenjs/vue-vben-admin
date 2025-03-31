@@ -134,6 +134,8 @@ interface SidebarPreferences {
   autoActivateChild: boolean;
   /** 侧边栏是否折叠 */
   collapsed: boolean;
+  /** 侧边栏折叠按钮是否可见 */
+  collapsedButton: boolean;
   /** 侧边栏折叠时，是否显示title */
   collapsedShowTitle: boolean;
   /** 侧边栏是否可见 */
@@ -142,12 +144,10 @@ interface SidebarPreferences {
   expandOnHover: boolean;
   /** 侧边栏扩展区域是否折叠 */
   extraCollapse: boolean;
+  /** 侧边栏固定按钮是否可见 */
+  fixedButton: boolean;
   /** 侧边栏是否隐藏 - css */
   hidden: boolean;
-  /** 是否显示侧边栏展开按钮 */
-  showCollapseButton: boolean;
-  /** 是否显示侧边栏固定按钮 */
-  showFixedButton: boolean;
   /** 侧边栏宽度 */
   width: number;
 }

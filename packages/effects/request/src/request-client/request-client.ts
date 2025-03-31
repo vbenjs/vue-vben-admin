@@ -2,13 +2,38 @@ import type { AxiosInstance, AxiosResponse } from 'axios';
 
 import type { RequestClientConfig, RequestClientOptions } from './types';
 
-import { bindMethods, merge } from '@vben/utils';
+import { bindMethods, isString, merge } from '@vben/utils';
 
 import axios from 'axios';
+import qs from 'qs';
 
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
+
+function getParamsSerializer(
+  paramsSerializer: RequestClientOptions['paramsSerializer'],
+) {
+  if (isString(paramsSerializer)) {
+    switch (paramsSerializer) {
+      case 'brackets': {
+        return (params: any) =>
+          qs.stringify(params, { arrayFormat: 'brackets' });
+      }
+      case 'comma': {
+        return (params: any) => qs.stringify(params, { arrayFormat: 'comma' });
+      }
+      case 'indices': {
+        return (params: any) =>
+          qs.stringify(params, { arrayFormat: 'indices' });
+      }
+      case 'repeat': {
+        return (params: any) => qs.stringify(params, { arrayFormat: 'repeat' });
+      }
+    }
+  }
+  return paramsSerializer;
+}
 
 class RequestClient {
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
@@ -39,6 +64,9 @@ class RequestClient {
     };
     const { ...axiosConfig } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
+    requestConfig.paramsSerializer = getParamsSerializer(
+      requestConfig.paramsSerializer,
+    );
     this.instance = axios.create(requestConfig);
 
     bindMethods(this);
@@ -108,6 +136,9 @@ class RequestClient {
       const response: AxiosResponse<T> = await this.instance({
         url,
         ...config,
+        ...(config.paramsSerializer
+          ? { paramsSerializer: getParamsSerializer(config.paramsSerializer) }
+          : {}),
       });
       return response as T;
     } catch (error: any) {

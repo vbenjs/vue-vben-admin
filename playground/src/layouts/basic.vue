@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/layouts';
 
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
@@ -14,12 +14,25 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
+import { useAccessStore, useTabbarStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
+
+const { setMenuList } = useTabbarStore();
+setMenuList([
+  'close',
+  'affix',
+  'maximize',
+  'reload',
+  'open-in-new-window',
+  'close-left',
+  'close-right',
+  'close-other',
+  'close-all',
+]);
 
 const notifications = ref<NotificationItem[]>([
   {
@@ -113,7 +126,7 @@ watch(
   async (enable) => {
     if (enable) {
       await updateWatermark({
-        content: `${userStore.userInfo?.username}`,
+        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
       });
     } else {
       destroyWatermark();
@@ -123,6 +136,12 @@ watch(
     immediate: true,
   },
 );
+
+onBeforeMount(() => {
+  if (preferences.app.watermark) {
+    destroyWatermark();
+  }
+});
 </script>
 
 <template>

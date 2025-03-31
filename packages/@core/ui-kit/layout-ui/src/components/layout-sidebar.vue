@@ -66,11 +66,12 @@ interface Props {
   show?: boolean;
   /**
    * 显示折叠按钮
-   * @default false
+   * @default true
    */
   showCollapseButton?: boolean;
   /**
-   * 是否显示固定按钮
+   * 显示固定按钮
+   * @default true
    */
   showFixedButton?: boolean;
   /**

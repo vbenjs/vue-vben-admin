@@ -11,7 +11,6 @@ import { onMounted, ref, watchEffect } from 'vue';
 import { ChevronRight, IconifyIcon } from '@vben-core/icons';
 import { cn, get } from '@vben-core/shared/utils';
 
-import { useVModel } from '@vueuse/core';
 import { TreeItem, TreeRoot } from 'radix-vue';
 
 import { Checkbox } from '../checkbox';
@@ -27,7 +26,6 @@ const props = withDefaults(defineProps<TreeProps>(), {
   expanded: () => [],
   iconField: 'icon',
   labelField: 'label',
-  modelValue: () => [],
   multiple: false,
   showIcon: true,
   transition: true,
@@ -38,7 +36,6 @@ const props = withDefaults(defineProps<TreeProps>(), {
 const emits = defineEmits<{
   expand: [value: FlattenedItem<Recordable<any>>];
   select: [value: FlattenedItem<Recordable<any>>];
-  'update:modelValue': [value: Arrayable<Recordable<any>>];
 }>();
 
 interface InnerFlattenItem<T = Recordable<any>, P = number | string> {
@@ -76,11 +73,7 @@ function flatten<T = Recordable<any>, P = number | string>(
 }
 
 const flattenData = ref<Array<InnerFlattenItem>>([]);
-const modelValue = useVModel(props, 'modelValue', emits, {
-  deep: true,
-  defaultValue: props.defaultValue ?? [],
-  passive: (props.modelValue === undefined) as false,
-});
+const modelValue = defineModel<Arrayable<number | string>>();
 const expanded = ref<Array<number | string>>(props.defaultExpandedKeys ?? []);
 
 const treeValue = ref();
@@ -105,9 +98,13 @@ function getItemByValue(value: number | string) {
 
 function updateTreeValue() {
   const val = modelValue.value;
-  treeValue.value = Array.isArray(val)
-    ? val.map((v) => getItemByValue(v))
-    : getItemByValue(val);
+  if (val === undefined) {
+    treeValue.value = undefined;
+  } else {
+    treeValue.value = Array.isArray(val)
+      ? val.map((v) => getItemByValue(v))
+      : getItemByValue(val);
+  }
 }
 
 function updateModelValue(val: Arrayable<Recordable<any>>) {
@@ -173,13 +170,6 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
           modelValue.value.push(p);
         }
       });
-  } else {
-    if (Array.isArray(modelValue.value)) {
-      const index = modelValue.value.indexOf(get(item.value, props.valueField));
-      if (index !== -1) {
-        modelValue.value.splice(index, 1);
-      }
-    }
   }
   updateTreeValue();
   emits('select', item);
@@ -240,7 +230,7 @@ defineExpose({
         @select="
           (event) => {
             if (event.detail.originalEvent.type === 'click') {
-              // event.preventDefault();
+              event.preventDefault();
             }
             onSelect(item, event.detail.isSelected);
           }
