@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/layouts';
 
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
@@ -126,7 +126,7 @@ watch(
   async (enable) => {
     if (enable) {
       await updateWatermark({
-        content: `${userStore.userInfo?.username}`,
+        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
       });
     } else {
       destroyWatermark();
@@ -136,6 +136,12 @@ watch(
     immediate: true,
   },
 );
+
+onBeforeMount(() => {
+  if (preferences.app.watermark) {
+    destroyWatermark();
+  }
+});
 </script>
 
 <template>
