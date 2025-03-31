@@ -27,8 +27,6 @@ export interface TreeProps {
   iconField?: string;
   /** label字段 */
   labelField?: string;
-  /** 当前值 */
-  modelValue?: Arrayable<number | string>;
   /** 是否多选 */
   multiple?: boolean;
   /** 显示由iconField指定的图标 */
