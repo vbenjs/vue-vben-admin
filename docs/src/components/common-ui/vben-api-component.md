@@ -123,6 +123,10 @@ function fetchApi(): Promise<Record<string, any>> {
 
 :::
 
+## 并发和缓存
+
+有些场景下可能需要使用多个ApiComponent，它们使用了相同的远程数据源（例如用在可编辑的表格中）。如果直接将请求后端接口的函数传递给api属性，则每一个实例都会访问一次接口，这会造成资源浪费，是完全没有必要的。Tanstack Query提供了并发控制、缓存、重试等诸多特性，我们可以将接口请求函数用useQuery包装一下再传递给ApiComponent，这样的话无论页面有多少个使用相同数据源的ApiComponent实例，都只会发起一次远程请求。演示效果请参考 [Playground vue-query](http://localhost:5555/demos/features/vue-query)，具体代码请查看项目文件[concurrency-caching](https://github.com/vbenjs/vue-vben-admin/blob/main/playground/src/views/demos/features/vue-query/concurrency-caching.vue)
+
 ## API
 
 ### Props
@@ -147,3 +151,10 @@ function fetchApi(): Promise<Record<string, any>> {
 | options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - |
 | visibleEvent | 触发重新请求数据的事件名 | `string` | - |
 | loadingSlot | 目标组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - |
+
+### Methods
+
+| 方法 | 描述 | 类型 | 版本要求 |
+| --- | --- | --- | --- |
+| getComponentRef | 获取被包装的组件的实例 | ()=>T | >5.5.4 |
+| updateParam | 设置接口请求参数（将与params属性合并） | (newParams: Record<string, any>)=>void | >5.5.4 |
