@@ -1,4 +1,6 @@
-import { type DefaultTheme, defineConfig } from 'vitepress';
+import type { DefaultTheme } from 'vitepress';
+
+import { defineConfig } from 'vitepress';
 
 import { version } from '../../../package.json';
 
@@ -185,6 +187,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
         {
           link: 'common-ui/vben-count-to-animator',
           text: 'CountToAnimator 数字动画',
+        },
+        {
+          link: 'common-ui/vben-ellipsis-text',
+          text: 'EllipsisText 省略文本',
         },
       ],
     },

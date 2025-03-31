@@ -13,8 +13,7 @@ function openModal() {
 }
 
 function handleUpdateTitle() {
-  modalApi.setState({ title: '外部动态标题' });
-  modalApi.open();
+  modalApi.setState({ title: '外部动态标题' }).open();
 }
 </script>
 

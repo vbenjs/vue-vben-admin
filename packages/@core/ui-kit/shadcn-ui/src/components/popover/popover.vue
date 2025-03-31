@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
 import type {
   PopoverContentProps,
   PopoverRootEmits,
   PopoverRootProps,
 } from 'radix-vue';
+
+import type { ClassType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
@@ -47,7 +48,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
       <PopoverContent
         :class="contentClass"
-        class="side-content z-[1000]"
+        class="side-content z-popup"
         v-bind="contentProps"
       >
         <slot></slot>

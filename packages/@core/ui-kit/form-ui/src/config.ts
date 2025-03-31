@@ -1,10 +1,11 @@
+import type { Component } from 'vue';
+
 import type {
   BaseFormComponentType,
   FormCommonConfig,
   VbenFormAdapterOptions,
 } from './types';
 
-import type { Component } from 'vue';
 import { h } from 'vue';
 
 import {
@@ -44,11 +45,15 @@ export function setupVbenForm<
 >(options: VbenFormAdapterOptions<T>) {
   const { config, defineRules } = options;
 
-  const { disabledOnChangeListener = false, emptyStateValue = undefined } =
-    (config || {}) as FormCommonConfig;
+  const {
+    disabledOnChangeListener = true,
+    disabledOnInputListener = true,
+    emptyStateValue = undefined,
+  } = (config || {}) as FormCommonConfig;
 
   Object.assign(DEFAULT_FORM_COMMON_CONFIG, {
     disabledOnChangeListener,
+    disabledOnInputListener,
     emptyStateValue,
   });
 

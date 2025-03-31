@@ -1,4 +1,4 @@
-import type { UserConfig } from 'vite';
+import type { CSSOptions, UserConfig } from 'vite';
 
 import type { DefineApplicationOptions } from '../typing';
 
@@ -100,7 +100,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
   });
 }
 
-function createCssOptions(injectGlobalScss = true) {
+function createCssOptions(injectGlobalScss = true): CSSOptions {
   const root = findMonorepoRoot();
   return {
     preprocessorOptions: injectGlobalScss

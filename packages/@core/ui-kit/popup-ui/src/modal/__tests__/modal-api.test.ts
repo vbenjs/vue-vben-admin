@@ -8,7 +8,11 @@ vi.mock('@vben-core/shared/store', () => {
   return {
     isFunction: (fn: any) => typeof fn === 'function',
     Store: class {
+      get state() {
+        return this._state;
+      }
       private _state: ModalState;
+
       private options: any;
 
       constructor(initialState: ModalState, options: any) {
@@ -23,10 +27,6 @@ vi.mock('@vben-core/shared/store', () => {
       setState(fn: (prev: ModalState) => ModalState) {
         this._state = fn(this._state);
         this.options.onUpdate();
-      }
-
-      get state() {
-        return this._state;
       }
     },
   };
@@ -98,17 +98,6 @@ describe('modalApi', () => {
     const modalApiWithHook = new ModalApi({ onOpenChange });
     modalApiWithHook.open();
     expect(onOpenChange).toHaveBeenCalledWith(true);
-  });
-
-  it('should batch state updates', () => {
-    const batchSpy = vi.spyOn(modalApi.store, 'batch');
-    modalApi.batchStore(() => {
-      modalApi.setState({ title: 'Batch Title' });
-      modalApi.setState({ confirmText: 'Batch Confirm' });
-    });
-    expect(batchSpy).toHaveBeenCalled();
-    expect(modalApi.store.state.title).toBe('Batch Title');
-    expect(modalApi.store.state.confirmText).toBe('Batch Confirm');
   });
 
   it('should call onClosed callback when provided', () => {

@@ -139,6 +139,7 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'select',
       label: 'Select',
       componentProps: {
+        filterable: true,
         options: [
           { value: 'A', label: '选项A' },
           { value: 'B', label: '选项B' },

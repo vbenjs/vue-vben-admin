@@ -11,6 +11,25 @@
   .anticon {
     display: inline-flex;
   }
+
+  /* * 修复按钮添加图标时的位置问题 */
+  > svg {
+    display: inline-block;
+  }
+
+  > svg + span {
+    margin-inline-start: 6px;
+  }
+}
+
+.ant-tag {
+  > svg {
+    display: inline-block;
+  }
+
+  > svg + span {
+    margin-inline-start: 4px;
+  }
 }
 
 .ant-message-notice-content,
@@ -21,7 +40,7 @@
 .form-valid-error {
   /** select 选择器的样式 */
 
-  .ant-select .ant-select-selector {
+  .ant-select:not(.valid-success) .ant-select-selector:not(.valid-success) {
     border-color: hsl(var(--destructive)) !important;
   }
 
@@ -38,6 +57,10 @@
   .ant-input-affix-wrapper:hover {
     border-color: hsl(var(--destructive));
     box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
+  }
+
+  .ant-input:not(.valid-success) {
+    border-color: hsl(var(--destructive)) !important;
   }
 }
 

@@ -1,6 +1,5 @@
 import type { Linter } from 'eslint';
 
-// @ts-expect-error - no types
 import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
@@ -175,7 +174,7 @@ export async function javascript(): Promise<Linter.Config[]> {
         ],
         'no-use-before-define': [
           'error',
-          { classes: false, functions: false, variables: true },
+          { classes: false, functions: false, variables: false },
         ],
         'no-useless-backreference': 'error',
         'no-useless-call': 'error',

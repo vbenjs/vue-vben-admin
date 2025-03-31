@@ -62,12 +62,10 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_LOGO_URL } from '@vben/constants';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       badgeType: 'dot',
       badgeVariants: 'destructive',
@@ -103,7 +101,6 @@ export default routes;
 
 ::: tip
 
-- 多级路由的父级路由无需设置 `component` 属性，只需设置 `children` 属性即可。除非你真的需要在父级路由嵌套下显示内容。
 - 如果没有特殊情况，父级路由的 `redirect` 属性，不需要指定，默认会指向第一个子路由。
 
 :::
@@ -113,12 +110,10 @@ export default routes;
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
@@ -238,12 +233,10 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_LOGO_URL } from '@vben/constants';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
   {
-    component: BasicLayout,
     meta: {
       icon: 'mdi:home',
       title: $t('page.home.title'),
@@ -400,6 +393,10 @@ interface RouteMeta {
    * 菜单可以看到，但是访问会被重定向到403
    */
   menuVisibleWithForbidden?: boolean;
+  /**
+   * 当前路由不使用基础布局（仅在顶级生效）
+   */
+  noBasicLayout?: boolean;
   /**
    * 在新窗口打开
    */
@@ -583,6 +580,13 @@ _注意:_ 排序仅针对一级菜单有效，二级菜单的排序需要在对�
 - 默认值：`{}`
 
 用于配置页面的菜单参数，会在菜单中传递给页面。
+
+### noBasicLayout
+
+- 类型：`boolean`
+- 默认值：`false`
+
+用于配置当前路由不使用基础布局，仅在顶级时生效。默认情况下，所有的路由都会被包裹在基础布局中（包含顶部以及侧边等导航部件），如果你的页面不需要这些部件，可以设置 `noBasicLayout` 为 `true`。
 
 ## 路由刷新
 

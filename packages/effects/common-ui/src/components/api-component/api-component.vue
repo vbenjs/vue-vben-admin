@@ -1,9 +1,12 @@
 <script lang="ts" setup>
+import type { Component } from 'vue';
+
 import type { AnyPromiseFunction } from '@vben/types';
 
-import { type Component, computed, ref, unref, useAttrs, watch } from 'vue';
+import { computed, ref, unref, useAttrs, watch } from 'vue';
 
 import { LoaderCircle } from '@vben/icons';
+
 import { get, isEqual, isFunction } from '@vben-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
@@ -81,7 +84,7 @@ const emit = defineEmits<{
 const modelValue = defineModel({ default: '' });
 
 const attrs = useAttrs();
-
+const innerParams = ref({});
 const refOptions = ref<OptionsItem[]>([]);
 const loading = ref(false);
 // 首次是否加载过了
@@ -118,7 +121,7 @@ const bindProps = computed(() => {
     [`onUpdate:${props.modelPropName}`]: (val: string) => {
       modelValue.value = val;
     },
-    ...objectOmit(attrs, ['onUpdate:value']),
+    ...objectOmit(attrs, [`onUpdate:${props.modelPropName}`]),
     ...(props.visibleEvent
       ? {
           [props.visibleEvent]: handleFetchForVisible,
@@ -172,8 +175,15 @@ async function handleFetchForVisible(visible: boolean) {
   }
 }
 
+const params = computed(() => {
+  return {
+    ...props.params,
+    ...unref(innerParams),
+  };
+});
+
 watch(
-  () => props.params,
+  params,
   (value, oldValue) => {
     if (isEqual(value, oldValue)) {
       return;
@@ -186,20 +196,28 @@ watch(
 function emitChange() {
   emit('optionsChange', unref(getOptions));
 }
+const componentRef = ref();
+defineExpose({
+  /** 获取被包装的组件实例 */
+  getComponentRef: <T = any,>() => componentRef.value as T,
+  /** 更新Api参数 */
+  updateParam(newParams: Record<string, any>) {
+    innerParams.value = newParams;
+  },
+});
 </script>
 <template>
-  <div v-bind="{ ...$attrs }">
-    <component
-      :is="component"
-      v-bind="bindProps"
-      :placeholder="$attrs.placeholder"
-    >
-      <template v-for="item in Object.keys($slots)" #[item]="data">
-        <slot :name="item" v-bind="data || {}"></slot>
-      </template>
-      <template v-if="loadingSlot && loading" #[loadingSlot]>
-        <LoaderCircle class="animate-spin" />
-      </template>
-    </component>
-  </div>
+  <component
+    :is="component"
+    v-bind="bindProps"
+    :placeholder="$attrs.placeholder"
+    ref="componentRef"
+  >
+    <template v-for="item in Object.keys($slots)" #[item]="data">
+      <slot :name="item" v-bind="data || {}"></slot>
+    </template>
+    <template v-if="loadingSlot && loading" #[loadingSlot]>
+      <LoaderCircle class="animate-spin" />
+    </template>
+  </component>
 </template>

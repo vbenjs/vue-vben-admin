@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
+
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
@@ -166,7 +167,7 @@ const headerStyle = computed((): CSSProperties => {
 
   return {
     ...(isSidebarMixed ? { display: 'flex', justifyContent: 'center' } : {}),
-    height: `${headerHeight}px`,
+    height: `${headerHeight - 1}px`,
     ...contentWidthStyle.value,
   };
 });

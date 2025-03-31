@@ -38,7 +38,7 @@ defineEmits(['click']);
             'border-b-0': index < 3,
             'pb-4': index > 2,
           }"
-          class="border-border group w-full cursor-pointer border-b border-r border-t p-4 transition-all hover:shadow-xl md:w-1/2 lg:w-1/3"
+          class="border-border group w-full cursor-pointer border-r border-t p-4 transition-all hover:shadow-xl md:w-1/2 lg:w-1/3"
         >
           <div class="flex items-center">
             <VbenIcon

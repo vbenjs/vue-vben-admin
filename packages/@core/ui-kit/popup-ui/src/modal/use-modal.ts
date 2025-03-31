@@ -1,13 +1,27 @@
 import type { ExtendedModalApi, ModalApiOptions, ModalProps } from './modal';
 
-import { defineComponent, h, inject, nextTick, provide, reactive } from 'vue';
+import {
+  defineComponent,
+  h,
+  inject,
+  nextTick,
+  provide,
+  reactive,
+  ref,
+} from 'vue';
 
 import { useStore } from '@vben-core/shared/store';
 
-import VbenModal from './modal.vue';
 import { ModalApi } from './modal-api';
+import VbenModal from './modal.vue';
 
 const USER_MODAL_INJECT_KEY = Symbol('VBEN_MODAL_INJECT');
+
+const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
+
+export function setDefaultModalProps(props: Partial<ModalProps>) {
+  Object.assign(DEFAULT_MODAL_PROPS, props);
+}
 
 export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   options: ModalApiOptions = {},
@@ -18,6 +32,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   const { connectedComponent } = options;
   if (connectedComponent) {
     const extendedApi = reactive({});
+    const isModalReady = ref(true);
     const Modal = defineComponent(
       (props: TParentModalProps, { attrs, slots }) => {
         provide(USER_MODAL_INJECT_KEY, {
@@ -27,6 +42,11 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
             Object.setPrototypeOf(extendedApi, api);
           },
           options,
+          async reCreateModal() {
+            isModalReady.value = false;
+            await nextTick();
+            isModalReady.value = true;
+          },
         });
         checkProps(extendedApi as ExtendedModalApi, {
           ...props,
@@ -35,7 +55,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
         });
         return () =>
           h(
-            connectedComponent,
+            isModalReady.value ? connectedComponent : 'div',
             {
               ...props,
               ...attrs,
@@ -54,6 +74,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   const injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
 
   const mergedOptions = {
+    ...DEFAULT_MODAL_PROPS,
     ...injectData.options,
     ...options,
   } as ModalApiOptions;
@@ -61,6 +82,15 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);
     injectData.options?.onOpenChange?.(isOpen);
+  };
+
+  const onClosed = mergedOptions.onClosed;
+
+  mergedOptions.onClosed = () => {
+    onClosed?.();
+    if (mergedOptions.destroyOnClose) {
+      injectData.reCreateModal?.();
+    }
   };
   const api = new ModalApi(mergedOptions);
 

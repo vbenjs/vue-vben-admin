@@ -1,5 +1,6 @@
-import type { ExtendedFormApi } from '@vben-core/form-ui';
 import type { VxeGridInstance } from 'vxe-table';
+
+import type { ExtendedFormApi } from '@vben-core/form-ui';
 
 import type { VxeGridProps } from './types';
 
@@ -8,6 +9,7 @@ import { toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
+  isBoolean,
   isFunction,
   mergeWithArrayOverride,
   StateHandler,
@@ -20,21 +22,22 @@ function getDefaultState(): VxeGridProps {
     gridOptions: {},
     gridEvents: {},
     formOptions: undefined,
+    showSearchForm: true,
   };
 }
 
 export class VxeGridApi {
-  private isMounted = false;
-
-  private stateHandler: StateHandler;
   public formApi = {} as ExtendedFormApi;
 
   // private prevState: null | VxeGridProps = null;
   public grid = {} as VxeGridInstance;
-
   public state: null | VxeGridProps = null;
 
   public store: Store<VxeGridProps>;
+
+  private isMounted = false;
+
+  private stateHandler: StateHandler;
 
   constructor(options: VxeGridProps = {}) {
     const storeState = { ...options };
@@ -106,6 +109,16 @@ export class VxeGridApi {
     } else {
       this.store.setState((prev) => mergeWithArrayOverride(stateOrFn, prev));
     }
+  }
+
+  toggleSearchForm(show?: boolean) {
+    this.setState({
+      showSearchForm: isBoolean(show) ? show : !this.state?.showSearchForm,
+    });
+    // nextTick(() => {
+    //   this.grid.recalculate();
+    // });
+    return this.state?.showSearchForm;
   }
 
   unmount() {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CSSProperties } from 'vue';
+
 import type { VbenLayoutProps } from './vben-layout';
 
-import type { CSSProperties } from 'vue';
 import { computed, ref, watch } from 'vue';
 
 import {
@@ -61,10 +62,16 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{ sideMouseLeave: []; toggleSidebar: [] }>();
-const sidebarCollapse = defineModel<boolean>('sidebarCollapse');
+const sidebarCollapse = defineModel<boolean>('sidebarCollapse', {
+  default: false,
+});
 const sidebarExtraVisible = defineModel<boolean>('sidebarExtraVisible');
-const sidebarExtraCollapse = defineModel<boolean>('sidebarExtraCollapse');
-const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
+const sidebarExtraCollapse = defineModel<boolean>('sidebarExtraCollapse', {
+  default: false,
+});
+const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover', {
+  default: false,
+});
 const sidebarEnable = defineModel<boolean>('sidebarEnable', { default: true });
 
 // side是否处于hover状态展开菜单中
@@ -87,6 +94,7 @@ const { y: mouseY } = useMouse({ target: contentRef, type: 'client' });
 const {
   currentLayout,
   isFullContent,
+  isHeaderMixedNav,
   isHeaderNav,
   isMixedNav,
   isSidebarMixedNav,
@@ -112,7 +120,9 @@ const getSideCollapseWidth = computed(() => {
   const { sidebarCollapseShowTitle, sidebarMixedWidth, sideCollapseWidth } =
     props;
 
-  return sidebarCollapseShowTitle || isSidebarMixedNav.value
+  return sidebarCollapseShowTitle ||
+    isSidebarMixedNav.value ||
+    isHeaderMixedNav.value
     ? sidebarMixedWidth
     : sideCollapseWidth;
 });
@@ -145,12 +155,15 @@ const getSidebarWidth = computed(() => {
 
   if (
     !sidebarEnableState.value ||
-    (sidebarHidden && !isSidebarMixedNav.value && !isMixedNav.value)
+    (sidebarHidden &&
+      !isSidebarMixedNav.value &&
+      !isMixedNav.value &&
+      !isHeaderMixedNav.value)
   ) {
     return width;
   }
 
-  if (isSidebarMixedNav.value && !isMobile) {
+  if ((isHeaderMixedNav.value || isSidebarMixedNav.value) && !isMobile) {
     width = sidebarMixedWidth;
   } else if (sidebarCollapse.value) {
     width = isMobile ? 0 : getSideCollapseWidth.value;
@@ -176,7 +189,9 @@ const isSideMode = computed(
   () =>
     currentLayout.value === 'mixed-nav' ||
     currentLayout.value === 'sidebar-mixed-nav' ||
-    currentLayout.value === 'sidebar-nav',
+    currentLayout.value === 'sidebar-nav' ||
+    currentLayout.value === 'header-mixed-nav' ||
+    currentLayout.value === 'header-sidebar-nav',
 );
 
 /**
@@ -208,12 +223,13 @@ const mainStyle = computed(() => {
     headerFixed.value &&
     currentLayout.value !== 'header-nav' &&
     currentLayout.value !== 'mixed-nav' &&
+    currentLayout.value !== 'header-sidebar-nav' &&
     showSidebar.value &&
     !props.isMobile
   ) {
     // fixed模式下生效
     const isSideNavEffective =
-      isSidebarMixedNav.value &&
+      (isSidebarMixedNav.value || isHeaderMixedNav.value) &&
       sidebarExpandOnHover.value &&
       sidebarExtraVisible.value;
 
@@ -476,7 +492,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :extra-width="sidebarExtraWidth"
       :fixed-extra="sidebarExpandOnHover"
       :header-height="isMixedNav ? 0 : headerHeight"
-      :is-sidebar-mixed="isSidebarMixedNav"
+      :is-sidebar-mixed="isSidebarMixedNav || isHeaderMixedNav"
       :margin-top="sidebarMarginTop"
       :mixed-width="sidebarMixedWidth"
       :show="showSidebar"
@@ -489,7 +505,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         <slot name="logo"></slot>
       </template>
 
-      <template v-if="isSidebarMixedNav">
+      <template v-if="isSidebarMixedNav || isHeaderMixedNav">
         <slot name="mixed-menu"></slot>
       </template>
       <template v-else>

@@ -150,7 +150,9 @@ const [Form, formApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: 'selectRequired',
+      rules: z.boolean().refine((value) => value, {
+        message: '请勾选',
+      }),
     },
     {
       component: 'DatePicker',

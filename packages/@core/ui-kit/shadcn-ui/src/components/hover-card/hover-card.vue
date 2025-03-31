@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
 import type {
   HoverCardContentProps,
   HoverCardRootEmits,
   HoverCardRootProps,
 } from 'radix-vue';
+
+import type { ClassType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
@@ -46,7 +47,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     <HoverCardContent
       :class="contentClass"
       v-bind="contentProps"
-      class="side-content z-[1000]"
+      class="side-content z-popup"
     >
       <slot></slot>
     </HoverCardContent>

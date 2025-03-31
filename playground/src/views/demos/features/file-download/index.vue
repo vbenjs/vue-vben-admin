@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
 import {
   downloadFileFromBase64,
@@ -9,7 +11,23 @@ import {
 
 import { Button, Card } from 'ant-design-vue';
 
+import { downloadFile1, downloadFile2 } from '#/api/examples/download';
+
 import imageBase64 from './base64';
+
+const downloadResult = ref('');
+
+function getBlob() {
+  downloadFile1().then((res) => {
+    downloadResult.value = `获取Blob成功，长度：${res.size}`;
+  });
+}
+
+function getResponse() {
+  downloadFile2().then((res) => {
+    downloadResult.value = `获取Response成功，headers：${JSON.stringify(res.headers)},长度：${res.data.size}`;
+  });
+}
 </script>
 
 <template>
@@ -69,6 +87,14 @@ import imageBase64 from './base64';
       >
         Download TxT
       </Button>
+    </Card>
+
+    <Card class="my-5" title="Request download">
+      <Button type="primary" @click="getBlob"> 获取Blob </Button>
+      <Button type="primary" class="ml-4" @click="getResponse">
+        获取Response
+      </Button>
+      <div class="mt-4">{{ downloadResult }}</div>
     </Card>
   </Page>
 </template>

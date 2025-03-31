@@ -7,6 +7,7 @@ import {
   preferences,
   updatePreferences,
 } from '@vben/preferences';
+
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
 defineOptions({

@@ -1,6 +1,6 @@
 {
   "name": "@vben/styles",
-  "version": "5.5.0",
+  "version": "5.5.4",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -20,6 +20,9 @@
     },
     "./ele": {
       "default": "./src/ele/index.css"
+    },
+    "./naive": {
+      "default": "./src/naive/index.css"
     },
     "./global": {
       "default": "./src/global/index.scss"

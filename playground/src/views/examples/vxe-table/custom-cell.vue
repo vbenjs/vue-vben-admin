@@ -82,6 +82,7 @@ const gridOptions: VxeGridProps<RowType> = {
       },
     },
   },
+  showOverflow: false,
 };
 
 const [Grid] = useVbenVxeGrid({ gridOptions });

@@ -4,6 +4,7 @@ import type { PointSelectionCaptchaCardProps } from '../types';
 import { computed } from 'vue';
 
 import { $t } from '@vben/locales';
+
 import {
   Card,
   CardContent,

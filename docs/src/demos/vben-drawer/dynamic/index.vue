@@ -13,8 +13,7 @@ function open() {
 }
 
 function handleUpdateTitle() {
-  drawerApi.setState({ title: '外部动态标题' });
-  drawerApi.open();
+  drawerApi.setState({ title: '外部动态标题' }).open();
 }
 </script>
 

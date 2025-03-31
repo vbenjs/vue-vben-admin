@@ -10,11 +10,11 @@ import { minify } from 'html-minifier-terser';
 
 const DEFAULT_PROVIDER = 'jspm.io';
 
-type pluginOptions = {
+type pluginOptions = GeneratorOptions & {
   debug?: boolean;
   defaultProvider?: 'esm.sh' | 'jsdelivr' | 'jspm.io';
   importmap?: Array<{ name: string; range?: string }>;
-} & GeneratorOptions;
+};
 
 // async function getLatestVersionOfShims() {
 //   const result = await fetch('https://ga.jspm.io/npm:es-module-shims');

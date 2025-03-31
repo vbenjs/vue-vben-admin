@@ -10,6 +10,7 @@ import {
 } from '@vben-core/composables';
 import { X } from '@vben-core/icons';
 import {
+  Separator,
   Sheet,
   SheetClose,
   SheetContent,
@@ -33,7 +34,9 @@ interface Props extends DrawerProps {
 
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
+  closeIconPlacement: 'right',
   drawerApi: undefined,
+  submitting: false,
   zIndex: 1000,
 });
 
@@ -53,6 +56,7 @@ const {
   cancelText,
   class: drawerClass,
   closable,
+  closeIconPlacement,
   closeOnClickModal,
   closeOnPressEscape,
   confirmLoading,
@@ -66,9 +70,11 @@ const {
   loading: showLoading,
   modal,
   openAutoFocus,
+  overlayBlur,
   placement,
   showCancelButton,
   showConfirmButton,
+  submitting,
   title,
   titleTooltip,
   zIndex,
@@ -87,12 +93,12 @@ watch(
 );
 
 function interactOutside(e: Event) {
-  if (!closeOnClickModal.value) {
+  if (!closeOnClickModal.value || submitting.value) {
     e.preventDefault();
   }
 }
 function escapeKeyDown(e: KeyboardEvent) {
-  if (!closeOnPressEscape.value) {
+  if (!closeOnPressEscape.value || submitting.value) {
     e.preventDefault();
   }
 }
@@ -100,7 +106,11 @@ function escapeKeyDown(e: KeyboardEvent) {
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
   const dismissableDrawer = target?.dataset.dismissableDrawer;
-  if (!closeOnClickModal.value || dismissableDrawer !== id) {
+  if (
+    submitting.value ||
+    !closeOnClickModal.value ||
+    dismissableDrawer !== id
+  ) {
     e.preventDefault();
   }
 }
@@ -117,7 +127,9 @@ function handleFocusOutside(e: Event) {
 }
 
 const getAppendTo = computed(() => {
-  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}` : undefined;
+  return appendToMain.value
+    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
+    : undefined;
 });
 </script>
 <template>
@@ -138,11 +150,14 @@ const getAppendTo = computed(() => {
       :open="state?.isOpen"
       :side="placement"
       :z-index="zIndex"
+      :overlay-blur="overlayBlur"
       @close-auto-focus="handleFocusOutside"
+      @closed="() => drawerApi?.onClosed()"
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
       @open-auto-focus="handerOpenAutoFocus"
+      @opened="() => drawerApi?.onOpened()"
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader
@@ -153,11 +168,30 @@ const getAppendTo = computed(() => {
             headerClass,
             {
               'px-4 py-3': closable,
+              'pl-2': closable && closeIconPlacement === 'left',
             },
           )
         "
       >
-        <div>
+        <div class="flex items-center">
+          <SheetClose
+            v-if="closable && closeIconPlacement === 'left'"
+            as-child
+            :disabled="submitting"
+            class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+          >
+            <slot name="close-icon">
+              <VbenIconButton>
+                <X class="size-4" />
+              </VbenIconButton>
+            </slot>
+          </SheetClose>
+          <Separator
+            v-if="closable && closeIconPlacement === 'left'"
+            class="ml-1 mr-2 h-8"
+            decorative
+            orientation="vertical"
+          />
           <SheetTitle v-if="title" class="text-left">
             <slot name="title">
               {{ title }}
@@ -182,13 +216,16 @@ const getAppendTo = computed(() => {
         <div class="flex-center">
           <slot name="extra"></slot>
           <SheetClose
-            v-if="closable"
+            v-if="closable && closeIconPlacement === 'right'"
             as-child
+            :disabled="submitting"
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
-            <VbenIconButton>
-              <X class="size-4" />
-            </VbenIconButton>
+            <slot name="close-icon">
+              <VbenIconButton>
+                <X class="size-4" />
+              </VbenIconButton>
+            </slot>
           </SheetClose>
         </div>
       </SheetHeader>
@@ -206,7 +243,11 @@ const getAppendTo = computed(() => {
           })
         "
       >
-        <VbenLoading v-if="showLoading" class="size-full" spinning />
+        <VbenLoading
+          v-if="showLoading || submitting"
+          class="size-full"
+          spinning
+        />
 
         <slot></slot>
       </div>
@@ -226,6 +267,7 @@ const getAppendTo = computed(() => {
             :is="components.DefaultButton || VbenButton"
             v-if="showCancelButton"
             variant="ghost"
+            :disabled="submitting"
             @click="() => drawerApi?.onCancel()"
           >
             <slot name="cancelText">
@@ -236,7 +278,7 @@ const getAppendTo = computed(() => {
           <component
             :is="components.PrimaryButton || VbenButton"
             v-if="showConfirmButton"
-            :loading="confirmLoading"
+            :loading="confirmLoading || submitting"
             @click="() => drawerApi?.onConfirm()"
           >
             <slot name="confirmText">

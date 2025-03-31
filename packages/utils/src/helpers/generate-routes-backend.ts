@@ -1,9 +1,10 @@
+import type { RouteRecordRaw } from 'vue-router';
+
 import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
   RouteRecordStringComponent,
 } from '@vben-core/typings';
-import type { RouteRecordRaw } from 'vue-router';
 
 import { mapTree } from '@vben-core/shared/utils';
 
@@ -55,12 +56,14 @@ function convertRoutes(
       // 页面组件转换
     } else if (component) {
       const normalizePath = normalizeViewPath(component);
-      route.component =
-        pageMap[
-          normalizePath.endsWith('.vue')
-            ? normalizePath
-            : `${normalizePath}.vue`
-        ];
+      const pageKey = normalizePath.endsWith('.vue')
+        ? normalizePath
+        : `${normalizePath}.vue`;
+      if (pageMap[pageKey]) {
+        route.component = pageMap[pageKey];
+      } else {
+        console.error(`route component is invalid: ${pageKey}`, route);
+      }
     }
 
     return route;

@@ -27,3 +27,13 @@ const props = defineProps<Props>();
     </SelectContent>
   </Select>
 </template>
+
+<style lang="scss" scoped>
+button[role='combobox'][data-placeholder] {
+  color: hsl(var(--muted-foreground));
+}
+
+button {
+  --ring: var(--primary);
+}
+</style>

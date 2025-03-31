@@ -1,10 +1,13 @@
-import type { Recordable } from '@vben-core/typings';
 import type {
   FormState,
   GenericObject,
   ResetFormOpts,
   ValidationOptions,
 } from 'vee-validate';
+
+import type { ComponentPublicInstance } from 'vue';
+
+import type { Recordable } from '@vben-core/typings';
 
 import type { FormActions, FormSchema, VbenFormProps } from './types';
 
@@ -14,6 +17,7 @@ import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
   createMerge,
+  formatDate,
   isDate,
   isDayjsObject,
   isFunction,
@@ -45,19 +49,24 @@ function getDefaultState(): VbenFormProps {
 }
 
 export class FormApi {
-  // 最后一次点击提交时的表单值
-  private latestSubmissionValues: null | Recordable<any> = null;
-  private prevState: null | VbenFormProps = null;
-
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
   public form = {} as FormActions;
   isMounted = false;
 
   public state: null | VbenFormProps = null;
-
   stateHandler: StateHandler;
 
   public store: Store<VbenFormProps>;
+
+  /**
+   * 组件实例映射
+   */
+  private componentRefMap: Map<string, unknown> = new Map();
+
+  // 最后一次点击提交时的表单值
+  private latestSubmissionValues: null | Recordable<any> = null;
+
+  private prevState: null | VbenFormProps = null;
 
   constructor(options: VbenFormProps = {}) {
     const { ...storeState } = options;
@@ -83,38 +92,44 @@ export class FormApi {
     bindMethods(this);
   }
 
-  private async getForm() {
-    if (!this.isMounted) {
-      // 等待form挂载
-      await this.stateHandler.waitForCondition();
-    }
-    if (!this.form?.meta) {
-      throw new Error('<VbenForm /> is not mounted');
-    }
-    return this.form;
+  /**
+   * 获取字段组件实例
+   * @param fieldName 字段名
+   * @returns 组件实例
+   */
+  getFieldComponentRef<T = ComponentPublicInstance>(
+    fieldName: string,
+  ): T | undefined {
+    return this.componentRefMap.has(fieldName)
+      ? (this.componentRefMap.get(fieldName) as T)
+      : undefined;
   }
 
-  private updateState() {
-    const currentSchema = this.state?.schema ?? [];
-    const prevSchema = this.prevState?.schema ?? [];
-    // 进行了删除schema操作
-    if (currentSchema.length < prevSchema.length) {
-      const currentFields = new Set(
-        currentSchema.map((item) => item.fieldName),
-      );
-      const deletedSchema = prevSchema.filter(
-        (item) => !currentFields.has(item.fieldName),
-      );
-
-      for (const schema of deletedSchema) {
-        this.form?.setFieldValue(schema.fieldName, undefined);
+  /**
+   * 获取当前聚焦的字段，如果没有聚焦的字段则返回undefined
+   */
+  getFocusedField() {
+    for (const fieldName of this.componentRefMap.keys()) {
+      const ref = this.getFieldComponentRef(fieldName);
+      if (ref) {
+        let el: HTMLElement | null = null;
+        if (ref instanceof HTMLElement) {
+          el = ref;
+        } else if (ref.$el instanceof HTMLElement) {
+          el = ref.$el;
+        }
+        if (!el) {
+          continue;
+        }
+        if (
+          el === document.activeElement ||
+          el.contains(document.activeElement)
+        ) {
+          return fieldName;
+        }
       }
     }
-  }
-
-  // 如果需要多次更新状态，可以使用 batch 方法
-  batchStore(cb: () => void) {
-    this.store.batch(cb);
+    return undefined;
   }
 
   getLatestSubmissionValues() {
@@ -125,9 +140,14 @@ export class FormApi {
     return this.state;
   }
 
-  async getValues() {
+  async getValues<T = Recordable<any>>() {
     const form = await this.getForm();
-    return form.values;
+    return (form.values ? this.handleRangeTimeValue(form.values) : {}) as T;
+  }
+
+  async isFieldValid(fieldName: string) {
+    const form = await this.getForm();
+    return form.isFieldValid(fieldName);
   }
 
   merge(formApi: FormApi) {
@@ -145,12 +165,11 @@ export class FormApi {
             try {
               const results = await Promise.all(
                 chain.map(async (api) => {
-                  const form = await api.getForm();
                   const validateResult = await api.validate();
                   if (!validateResult.valid) {
                     return;
                   }
-                  const rawValues = toRaw(form.values || {});
+                  const rawValues = toRaw((await api.getValues()) || {});
                   return rawValues;
                 }),
               );
@@ -171,11 +190,14 @@ export class FormApi {
     return proxy;
   }
 
-  mount(formActions: FormActions) {
+  mount(formActions: FormActions, componentRefMap: Map<string, unknown>) {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
-      this.setLatestSubmissionValues({ ...toRaw(this.form.values) });
+      this.setLatestSubmissionValues({
+        ...toRaw(this.handleRangeTimeValue(this.form.values)),
+      });
+      this.componentRefMap = componentRefMap;
       this.isMounted = true;
     }
   }
@@ -281,7 +303,7 @@ export class FormApi {
     e?.stopPropagation();
     const form = await this.getForm();
     await form.submitForm();
-    const rawValues = toRaw(form.values || {});
+    const rawValues = toRaw(await this.getValues());
     await this.state?.handleSubmit?.(rawValues);
 
     return rawValues;
@@ -347,5 +369,92 @@ export class FormApi {
       return;
     }
     return await this.submitForm();
+  }
+
+  async validateField(fieldName: string, opts?: Partial<ValidationOptions>) {
+    const form = await this.getForm();
+    const validateResult = await form.validateField(fieldName, opts);
+
+    if (Object.keys(validateResult?.errors ?? {}).length > 0) {
+      console.error('validate error', validateResult?.errors);
+    }
+    return validateResult;
+  }
+
+  private async getForm() {
+    if (!this.isMounted) {
+      // 等待form挂载
+      await this.stateHandler.waitForCondition();
+    }
+    if (!this.form?.meta) {
+      throw new Error('<VbenForm /> is not mounted');
+    }
+    return this.form;
+  }
+
+  private handleRangeTimeValue = (originValues: Record<string, any>) => {
+    const values = { ...originValues };
+    const fieldMappingTime = this.state?.fieldMappingTime;
+
+    if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
+      return values;
+    }
+
+    fieldMappingTime.forEach(
+      ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+        if (startTimeKey && endTimeKey && values[field] === null) {
+          Reflect.deleteProperty(values, startTimeKey);
+          Reflect.deleteProperty(values, endTimeKey);
+          // delete values[startTimeKey];
+          // delete values[endTimeKey];
+        }
+
+        if (!values[field]) {
+          Reflect.deleteProperty(values, field);
+          // delete values[field];
+          return;
+        }
+
+        const [startTime, endTime] = values[field];
+        if (format === null) {
+          values[startTimeKey] = startTime;
+          values[endTimeKey] = endTime;
+        } else if (isFunction(format)) {
+          values[startTimeKey] = format(startTime, startTimeKey);
+          values[endTimeKey] = format(endTime, endTimeKey);
+        } else {
+          const [startTimeFormat, endTimeFormat] = Array.isArray(format)
+            ? format
+            : [format, format];
+
+          values[startTimeKey] = startTime
+            ? formatDate(startTime, startTimeFormat)
+            : undefined;
+          values[endTimeKey] = endTime
+            ? formatDate(endTime, endTimeFormat)
+            : undefined;
+        }
+        // delete values[field];
+        Reflect.deleteProperty(values, field);
+      },
+    );
+    return values;
+  };
+
+  private updateState() {
+    const currentSchema = this.state?.schema ?? [];
+    const prevSchema = this.prevState?.schema ?? [];
+    // 进行了删除schema操作
+    if (currentSchema.length < prevSchema.length) {
+      const currentFields = new Set(
+        currentSchema.map((item) => item.fieldName),
+      );
+      const deletedSchema = prevSchema.filter(
+        (item) => !currentFields.has(item.fieldName),
+      );
+      for (const schema of deletedSchema) {
+        this.form?.setFieldValue?.(schema.fieldName, undefined);
+      }
+    }
   }
 }

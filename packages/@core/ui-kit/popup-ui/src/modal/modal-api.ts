@@ -4,6 +4,12 @@ import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class ModalApi {
+  // 共享数据
+  public sharedData: Record<'payload', any> = {
+    payload: {},
+  };
+  public store: Store<ModalState>;
+
   private api: Pick<
     ModalApiOptions,
     | 'onBeforeClose'
@@ -13,15 +19,9 @@ export class ModalApi {
     | 'onOpenChange'
     | 'onOpened'
   >;
+
   // private prevState!: ModalState;
   private state!: ModalState;
-
-  // 共享数据
-  public sharedData: Record<'payload', any> = {
-    payload: {},
-  };
-
-  public store: Store<ModalState>;
 
   constructor(options: ModalApiOptions = {}) {
     const {
@@ -93,25 +93,34 @@ export class ModalApi {
     bindMethods(this);
   }
 
-  // 如果需要多次更新状态，可以使用 batch 方法
-  batchStore(cb: () => void) {
-    this.store.batch(cb);
-  }
-
   /**
    * 关闭弹窗
+   * @description 关闭弹窗时会调用 onBeforeClose 钩子函数，如果 onBeforeClose 返回 false，则不关闭弹窗
    */
-  close() {
+  async close() {
     // 通过 onBeforeClose 钩子函数来判断是否允许关闭弹窗
     // 如果 onBeforeClose 返回 false，则不关闭弹窗
-    const allowClose = this.api.onBeforeClose?.() ?? true;
+    const allowClose = (await this.api.onBeforeClose?.()) ?? true;
     if (allowClose) {
-      this.store.setState((prev) => ({ ...prev, isOpen: false }));
+      this.store.setState((prev) => ({
+        ...prev,
+        isOpen: false,
+        submitting: false,
+      }));
     }
   }
 
   getData<T extends object = Record<string, any>>() {
     return (this.sharedData?.payload ?? {}) as T;
+  }
+
+  /**
+   * 锁定弹窗状态（用于提交过程中的等待状态）
+   * @description 锁定状态将禁用默认的取消按钮，使用spinner覆盖弹窗内容，隐藏关闭按钮，阻止手动关闭弹窗，将默认的提交按钮标记为loading状态
+   * @param isLocked 是否锁定
+   */
+  lock(isLocked = true) {
+    return this.setState({ submitting: isLocked });
   }
 
   /**
@@ -156,6 +165,7 @@ export class ModalApi {
 
   setData<T>(payload: T) {
     this.sharedData.payload = payload;
+    return this;
   }
 
   setState(
@@ -168,5 +178,14 @@ export class ModalApi {
     } else {
       this.store.setState((prev) => ({ ...prev, ...stateOrFn }));
     }
+    return this;
+  }
+
+  /**
+   * 解除弹窗的锁定状态
+   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   */
+  unlock() {
+    return this.lock(false);
   }
 }

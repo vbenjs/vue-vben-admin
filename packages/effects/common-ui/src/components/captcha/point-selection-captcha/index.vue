@@ -3,6 +3,7 @@ import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
 import { RotateCw } from '@vben/icons';
 import { $t } from '@vben/locales';
+
 import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';

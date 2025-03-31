@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { VbenFormProps } from '#/adapter/form';
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
+import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
@@ -21,6 +22,7 @@ interface RowType {
 const formOptions: VbenFormProps = {
   // 默认展开
   collapsed: false,
+  fieldMappingTime: [['date', ['start', 'end']]],
   schema: [
     {
       component: 'Input',
@@ -58,8 +60,9 @@ const formOptions: VbenFormProps = {
       label: 'Color',
     },
     {
-      component: 'DatePicker',
-      fieldName: 'datePicker',
+      component: 'RangePicker',
+      defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
+      fieldName: 'date',
       label: 'Date',
     },
   ],
@@ -71,7 +74,7 @@ const formOptions: VbenFormProps = {
   submitOnEnter: false,
 };
 
-const gridOptions: VxeGridProps<RowType> = {
+const gridOptions: VxeTableGridOptions<RowType> = {
   checkboxConfig: {
     highlight: true,
     labelField: 'name',
@@ -85,6 +88,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
   ],
+  exportConfig: {},
   height: 'auto',
   keepSource: true,
   pagerConfig: {},
@@ -100,9 +104,20 @@ const gridOptions: VxeGridProps<RowType> = {
       },
     },
   },
+  toolbarConfig: {
+    custom: true,
+    export: true,
+    refresh: true,
+    resizable: true,
+    search: true,
+    zoom: true,
+  },
 };
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid] = useVbenVxeGrid({
+  formOptions,
+  gridOptions,
+});
 </script>
 
 <template>
