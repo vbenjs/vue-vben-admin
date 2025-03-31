@@ -150,6 +150,73 @@ To run the `docs` application:
 pnpm dev:docs
 ```
 
+### Distinguishing Build Environments
+
+In actual business development, multiple environments are usually distinguished during the build process, such as the test environment `test` and the production environment `build`.
+
+At this point, you can modify three files and add corresponding script configurations to distinguish between production environments.
+
+Take the addition of the test environment `test` to `@vben/web-antd` as an example:
+
+- `apps\web-antd\package.json`
+
+```json
+"scripts": {
+  "build:prod": "pnpm vite build --mode production",
+  "build:test": "pnpm vite build --mode test",
+  "build:analyze": "pnpm vite build --mode analyze",
+  "dev": "pnpm vite --mode development",
+  "preview": "vite preview",
+  "typecheck": "vue-tsc --noEmit --skipLibCheck"
+}
+```
+
+Add the command `"build:test"` and change the original `"build"` to `"build:prod"` to avoid building packages for two environments simultaneously.
+
+- `package.json`
+
+```json
+"scripts": {
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "build:analyze": "turbo build:analyze",
+    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    "build-test:antd": "pnpm run build --filter=@vben/web-antd build:test",
+
+    ······
+}
+```
+
+Add the command to build the test environment in the root directory `package.json`.
+
+- `turbo.json`
+
+```json
+"tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "dist/**",
+        "dist.zip",
+        ".vitepress/dist.zip",
+        ".vitepress/dist/**"
+      ]
+    },
+
+    "build-test:antd": {
+      "dependsOn": ["@vben/web-antd#build:test"],
+      "outputs": ["dist/**"]
+    },
+
+    "@vben/web-antd#build:test": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+
+    ······
+```
+
+Add the relevant dependent commands in `turbo.json`.
+
 ## Public Static Resources
 
 If you need to use public static resources in the project, such as images, static HTML, etc., and you want to directly import them in the development process through `src="/xxx.png"`.

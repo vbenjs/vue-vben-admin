@@ -150,6 +150,73 @@ pnpm dev:ele
 pnpm dev:docs
 ```
 
+## 区分构建环境
+
+在实际的业务开发中，通常会在构建时区分多种环境，如测试环境`test`、生产环境`build`等。
+
+此时可以修改三个文件，在其中增加对应的脚本配置来达到区分生产环境的效果。
+
+以`@vben/web-antd`添加测试环境`test`为例：
+
+- `apps\web-antd\package.json`
+
+```json
+"scripts": {
+  "build:prod": "pnpm vite build --mode production",
+  "build:test": "pnpm vite build --mode test",
+  "build:analyze": "pnpm vite build --mode analyze",
+  "dev": "pnpm vite --mode development",
+  "preview": "vite preview",
+  "typecheck": "vue-tsc --noEmit --skipLibCheck"
+},
+```
+
+增加命令`"build:test"`, 并将原`"build"`改为`"build:prod"`以避免同时构建两个环境的包。
+
+- `package.json`
+
+```json
+"scripts": {
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
+    "build:analyze": "turbo build:analyze",
+    "build:antd": "pnpm run build --filter=@vben/web-antd",
+    "build-test:antd": "pnpm run build --filter=@vben/web-antd build:test",
+
+    ······
+}
+```
+
+在根目录`package.json`中加入构建测试环境的命令
+
+- `turbo.json`
+
+```json
+"tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "dist/**",
+        "dist.zip",
+        ".vitepress/dist.zip",
+        ".vitepress/dist/**"
+      ]
+    },
+
+    "build-test:antd": {
+      "dependsOn": ["@vben/web-antd#build:test"],
+      "outputs": ["dist/**"]
+    },
+
+    "@vben/web-antd#build:test": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+
+    ······
+```
+
+在`turbo.json`中加入相关依赖的命令
+
 ## 公共静态资源
 
 项目中需要使用到的公共静态资源，如：图片、静态HTML等，需要在开发中通过 `src="/xxx.png"` 直接引入的。
