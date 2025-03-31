@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { LayoutType } from '@vben/types';
 
+import { onMounted } from 'vue';
+
 import { $t } from '@vben/locales';
 
+import CheckboxItem from '../checkbox-item.vue';
 import NumberFieldItem from '../number-field-item.vue';
 import SwitchItem from '../switch-item.vue';
 
@@ -18,6 +21,27 @@ const sidebarAutoActivateChild = defineModel<boolean>(
 );
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
+
+const sidebarButtons = defineModel<string[]>('sidebarButtons', { default: [] });
+const sidebarCollapsedButton = defineModel<boolean>('sidebarCollapsedButton');
+const sidebarFixedButton = defineModel<boolean>('sidebarFixedButton');
+
+onMounted(() => {
+  if (
+    sidebarCollapsedButton.value &&
+    !sidebarButtons.value.includes('collapsed')
+  ) {
+    sidebarButtons.value.push('collapsed');
+  }
+  if (sidebarFixedButton.value && !sidebarButtons.value.includes('fixed')) {
+    sidebarButtons.value.push('fixed');
+  }
+});
+
+const handleCheckboxChange = () => {
+  sidebarCollapsedButton.value = !!sidebarButtons.value.includes('collapsed');
+  sidebarFixedButton.value = !!sidebarButtons.value.includes('fixed');
+};
 </script>
 
 <template>
@@ -53,6 +77,17 @@ const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
   >
     {{ $t('preferences.sidebar.autoActivateChild') }}
   </SwitchItem>
+  <CheckboxItem
+    :items="[
+      { label: '收缩按钮', value: 'collapsed' },
+      { label: '固定按钮', value: 'fixed' },
+    ]"
+    multiple
+    v-model="sidebarButtons"
+    :on-btn-click="handleCheckboxChange"
+  >
+    按钮配置
+  </CheckboxItem>
   <NumberFieldItem
     v-model="sidebarWidth"
     :disabled="!sidebarEnable || disabled"

@@ -68,10 +68,12 @@ const defaultPreferences: Preferences = {
   sidebar: {
     autoActivateChild: false,
     collapsed: false,
+    collapsedButton: true,
     collapsedShowTitle: false,
     enable: true,
     expandOnHover: true,
     extraCollapse: false,
+    fixedButton: true,
     hidden: false,
     width: 224,
   },
