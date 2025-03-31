@@ -1,5 +1,6 @@
 export * from './core';
 export * from './custom-cost';
+export * from './customer';
 export * from './notification';
 export * from './onboard';
 export * from './order';

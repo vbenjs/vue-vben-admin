@@ -23,16 +23,23 @@ export function calcGrossProfitMargin(item: any) {
 
 export function getCurrencySymbol(currency: string) {
   const e = findCurrency(currency);
+
   return e ? e.symbol : currency;
 }
 
 export function formatMoney(val: any, currency: any = null, rate = 1) {
-  return format(val * rate, {
+  const amount = convertRate(val, rate);
+
+  return format(amount, {
     code: currency,
     precision: 2,
     thousand: ',',
     decimal: '.',
   });
+}
+
+export function convertRate(val: any, rate = 1) {
+  return val * rate;
 }
 
 export function toPercentage(rate: number): string {
@@ -120,6 +127,16 @@ export const getDatePreset = (
       id: 'last90Days',
       label: 'Last 90 Days',
       value: dayjs().add(-90, 'd'),
+    },
+    {
+      id: 'last3Months',
+      label: 'Last 3 Months',
+      value: dayjs().add(-3, 'month'),
+    },
+    {
+      id: 'last6Months',
+      label: 'Last 6 Months',
+      value: dayjs().add(-6, 'month'),
     },
     {
       id: 'lastYear',

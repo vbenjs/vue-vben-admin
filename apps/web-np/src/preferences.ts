@@ -8,6 +8,7 @@ export const overridesPreferences = defineOverridesPreferences({
   },
   theme: {
     mode: 'light',
+    radius: '0.25',
   },
   widget: {
     languageToggle: false,

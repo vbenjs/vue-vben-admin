@@ -47,7 +47,7 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'CustomerAnalytics',
         path: '/reports/customer-analytics',
-        component: () => import('#/views/reports/order/index.vue'),
+        component: () => import('#/views/reports/customer-ltv/index.vue'),
       },
     ],
   },
