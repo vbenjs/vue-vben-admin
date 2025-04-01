@@ -4,7 +4,7 @@ import type { Recordable } from '@vben-core/typings';
 
 import type { AlertProps } from './alert';
 
-import { h, readonly, ref, render } from 'vue';
+import { h, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { Input } from '@vben-core/shadcn-ui';
@@ -15,8 +15,6 @@ import Alert from './alert.vue';
 const alerts = ref<Array<{ container: HTMLElement; instance: Component }>>([]);
 
 const { $t } = useSimpleLocale();
-
-export const alertList = readonly(alerts);
 
 export function vbenAlert(options: AlertProps): Promise<void>;
 export function vbenAlert(
