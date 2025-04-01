@@ -2,7 +2,7 @@ import type { Component } from 'vue';
 
 import type { Recordable } from '@vben-core/typings';
 
-import type { AlertProps } from './alert';
+import type { AlertProps, BeforeCloseScope } from './alert';
 
 import { h, ref, render } from 'vue';
 
@@ -131,9 +131,10 @@ export function vbenConfirm(
 
 export async function vbenPrompt<T = any>(
   options: Omit<AlertProps, 'beforeClose'> & {
-    beforeClose?: (
-      val: T,
-    ) => boolean | Promise<boolean | undefined> | undefined;
+    beforeClose?: (scope: {
+      isConfirm: boolean;
+      value: T | undefined;
+    }) => boolean | Promise<boolean | undefined> | undefined;
     component?: Component;
     componentProps?: Recordable<any>;
     defaultValue?: T;
@@ -165,9 +166,12 @@ export async function vbenPrompt<T = any>(
   contents.push(componentRef);
   const props: AlertProps & Recordable<any> = {
     ...delegated,
-    async beforeClose() {
+    async beforeClose(scope: BeforeCloseScope) {
       if (delegated.beforeClose) {
-        return await delegated.beforeClose(modelValue.value);
+        return await delegated.beforeClose({
+          ...scope,
+          value: modelValue.value,
+        });
       }
     },
     content: h(
