@@ -1,7 +1,16 @@
 <script lang="ts" setup>
-import { Page, useVbenModal } from '@vben/common-ui';
+import { onBeforeUnmount } from 'vue';
 
-import { Button, Card, Flex } from 'ant-design-vue';
+import {
+  alert,
+  clearAllAlerts,
+  confirm,
+  Page,
+  prompt,
+  useVbenModal,
+} from '@vben/common-ui';
+
+import { Button, Card, Flex, message } from 'ant-design-vue';
 
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';
@@ -103,6 +112,61 @@ function openFormModal() {
     })
     .open();
 }
+
+function openAlert() {
+  alert({
+    content: '这是一个弹窗',
+    icon: 'success',
+  }).then(() => {
+    message.info('用户关闭了弹窗');
+  });
+}
+
+onBeforeUnmount(() => {
+  // 清除所有弹窗
+  clearAllAlerts();
+});
+
+function openConfirm() {
+  confirm({
+    beforeClose() {
+      // 这里可以做一些异步操作
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true);
+        }, 1000);
+      });
+    },
+    content: '这是一个确认弹窗',
+    icon: 'question',
+  })
+    .then(() => {
+      message.success('用户确认了操作');
+    })
+    .catch(() => {
+      message.error('用户取消了操作');
+    });
+}
+
+async function openPrompt() {
+  prompt<string>({
+    async beforeClose(val) {
+      if (val === '芝士') {
+        message.error('不能吃芝士');
+        return false;
+      }
+    },
+    componentProps: { placeholder: '不能吃芝士...' },
+    content: '中午吃了什么？',
+    icon: 'question',
+  })
+    .then((res) => {
+      message.success(`用户输入了：${res}`);
+    })
+    .catch(() => {
+      message.error('用户取消了输入');
+    });
+}
 </script>
 
 <template>
@@ -193,6 +257,14 @@ function openFormModal() {
         <p>遮罩层应用类似毛玻璃的模糊效果</p>
         <template #actions>
           <Button type="primary" @click="openBlurModal">打开弹窗</Button>
+        </template>
+      </Card>
+      <Card class="w-[300px]" title="轻量提示弹窗">
+        <p>通过快捷方法创建动态提示弹窗，适合一些轻量的提示和确认、输入等</p>
+        <template #actions>
+          <Button type="primary" @click="openAlert">Alert</Button>
+          <Button type="primary" @click="openConfirm">Confirm</Button>
+          <Button type="primary" @click="openPrompt">Prompt</Button>
         </template>
       </Card>
     </Flex>
