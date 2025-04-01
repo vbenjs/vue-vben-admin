@@ -129,7 +129,8 @@ onBeforeUnmount(() => {
 
 function openConfirm() {
   confirm({
-    beforeClose() {
+    beforeClose({ isConfirm }) {
+      if (!isConfirm) return;
       // 这里可以做一些异步操作
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -150,8 +151,8 @@ function openConfirm() {
 
 async function openPrompt() {
   prompt<string>({
-    async beforeClose(val) {
-      if (val === '芝士') {
+    async beforeClose({ isConfirm, value }) {
+      if (isConfirm && value === '芝士') {
         message.error('不能吃芝士');
         return false;
       }

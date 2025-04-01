@@ -92,15 +92,17 @@ function handleConfirm() {
   isConfirm.value = true;
   emits('confirm');
 }
+
 function handleCancel() {
-  open.value = false;
+  isConfirm.value = false;
 }
+
 const loading = ref(false);
 async function handleOpenChange(val: boolean) {
   if (!val && props.beforeClose) {
     loading.value = true;
     try {
-      const res = await props.beforeClose();
+      const res = await props.beforeClose({ isConfirm: isConfirm.value });
       if (res !== false) {
         open.value = false;
       }
@@ -141,6 +143,7 @@ async function handleOpenChange(val: boolean) {
                 size="icon"
                 class="rounded-full"
                 :disabled="loading"
+                @click="handleCancel"
               >
                 <X class="text-muted-foreground size-4" />
               </VbenButton>
@@ -154,22 +157,20 @@ async function handleOpenChange(val: boolean) {
           <VbenLoading v-if="loading" :spinning="loading" />
         </AlertDialogDescription>
         <div class="flex justify-end gap-x-2">
-          <AlertDialogCancel
-            v-if="showCancel"
-            @click="handleCancel"
-            :disabled="loading"
-          >
+          <AlertDialogCancel v-if="showCancel" :disabled="loading">
             <component
               :is="components.DefaultButton || VbenButton"
               variant="ghost"
+              @click="handleCancel"
             >
               {{ cancelText || $t('cancel') }}
             </component>
           </AlertDialogCancel>
-          <AlertDialogAction @click="handleConfirm">
+          <AlertDialogAction>
             <component
               :is="components.PrimaryButton || VbenButton"
               :loading="loading"
+              @click="handleConfirm"
             >
               {{ confirmText || $t('confirm') }}
             </component>

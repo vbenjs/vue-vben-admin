@@ -2,9 +2,15 @@ import type { Component } from 'vue';
 
 export type IconType = 'error' | 'info' | 'question' | 'success' | 'warning';
 
+export type BeforeCloseScope = {
+  isConfirm: boolean;
+};
+
 export type AlertProps = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
-  beforeClose?: () => boolean | Promise<boolean | undefined> | undefined;
+  beforeClose?: (
+    scope: BeforeCloseScope,
+  ) => boolean | Promise<boolean | undefined> | undefined;
   /** 边框 */
   bordered?: boolean;
   /** 取消按钮的标题 */

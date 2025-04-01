@@ -38,9 +38,16 @@ Alert提供的功能与Modal类似，但只适用于简单应用场景。例如�
 /** 预置的图标类型 */
 export type IconType = 'error' | 'info' | 'question' | 'success' | 'warning';
 
+export type BeforeCloseScope = {
+  /** 是否为点击确认按钮触发的关闭 */
+  isConfirm: boolean;
+};
+
 export type AlertProps = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
-  beforeClose?: () => boolean | Promise<boolean | undefined> | undefined;
+  beforeClose?: (
+    scope: BeforeCloseScope,
+  ) => boolean | Promise<boolean | undefined> | undefined;
   /** 边框 */
   bordered?: boolean;
   /** 取消按钮的标题 */
@@ -81,7 +88,7 @@ export function alert(
 
 /**
  * 弹出输入框的函数签名。
- * 参数beforeClose会传入用户当前输入的值
+ * beforeClose的参数会传入用户当前输入的值
  * component指定接受用户输入的组件，默认为Input
  * componentProps 为输入组件设置的属性数据
  * defaultValue 默认的值
@@ -90,7 +97,10 @@ export function alert(
 export async function prompt<T = any>(
   options: Omit<AlertProps, 'beforeClose'> & {
     beforeClose?: (
-      val: T,
+      scope: BeforeCloseScope & {
+        /** 输入组件的当前值 */
+        value: T;
+      },
     ) => boolean | Promise<boolean | undefined> | undefined;
     component?: Component;
     componentProps?: Recordable<any>;
