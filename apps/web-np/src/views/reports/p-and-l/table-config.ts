@@ -1,12 +1,15 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
+import { markRaw } from 'vue';
+
 import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getPAndLReport } from '#/api';
 import { orderStatusList } from '#/constants';
-import { toPercentage } from '#/utils';
+import { getDatePreset, toPercentage } from '#/utils';
+import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import {
   createTotalRow,
@@ -87,7 +90,7 @@ export const formOptions: VbenFormProps = {
   schema: [
     {
       component: 'Select' as any,
-      defaultValue: 'daily',
+      defaultValue: 'monthly',
       componentProps: {
         options: [
           {
@@ -102,25 +105,27 @@ export const formOptions: VbenFormProps = {
             value: 'monthly',
             label: 'Month',
           },
-          {
-            value: 'quarter',
-            label: 'Quarter',
-          },
         ],
       },
       fieldName: 'groupBy',
       label: 'Report type',
     },
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
-        // Show last week button
-        presets: [
-          { label: 'Today', value: [dayjs().add(-1, 'd'), dayjs()] },
-          { label: 'Last 7 Days', value: [dayjs().add(-7, 'd'), dayjs()] },
-          { label: 'Last 14 Days', value: [dayjs().add(-14, 'd'), dayjs()] },
-          { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
-        ],
+        picker: 'day',
+        pickerLimit: 90,
+        presets: getDatePreset(
+          [
+            'today',
+            'last7Days',
+            'last14Days',
+            'lastMonth',
+            'previousMonth',
+            'thisMonth',
+          ],
+          true,
+        ),
       },
       dependencies: {
         if(values) {
@@ -133,9 +138,20 @@ export const formOptions: VbenFormProps = {
       label: 'Date',
     },
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
         picker: 'week',
+        pickerLimit: 12,
+        presets: getDatePreset(
+          [
+            'last7Days',
+            'last14Days',
+            'lastMonth',
+            'previousMonth',
+            'thisMonth',
+          ],
+          true,
+        ),
       },
       dependencies: {
         if(values) {
@@ -143,14 +159,27 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs(), dayjs()],
+      defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
       fieldName: 'week',
       label: 'Weekly',
     },
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
         picker: 'month',
+        pickerLimitName: '1 year',
+        presets: getDatePreset(
+          [
+            'lastMonth',
+            'last2Months',
+            'last3Months',
+            'lastYear',
+            'previousMonth',
+            'thisMonth',
+            'thisYear',
+          ],
+          true,
+        ),
       },
       dependencies: {
         if(values) {
@@ -158,24 +187,9 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs(), dayjs()],
+      defaultValue: [dayjs().add(-2, 'month'), dayjs()],
       fieldName: 'month',
       label: 'Month',
-    },
-    {
-      component: 'RangePicker',
-      componentProps: {
-        picker: 'quarter',
-      },
-      dependencies: {
-        if(values) {
-          return values.groupBy === 'quarter';
-        },
-        triggerFields: ['groupBy'],
-      },
-      defaultValue: [dayjs(), dayjs()],
-      fieldName: 'quarter',
-      label: 'Quarter',
     },
     {
       component: 'Select',

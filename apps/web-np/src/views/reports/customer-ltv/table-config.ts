@@ -83,7 +83,7 @@ const formOptions: VbenFormProps = {
       component: markRaw(DateRangePicker),
       componentProps: {
         picker: 'month',
-        pickerLimit: 5,
+        pickerLimit: 6,
         presets: getDatePreset(['last3Months', 'last6Months'], true),
       },
       defaultValue: [dayjs().subtract(6, 'months'), dayjs()],

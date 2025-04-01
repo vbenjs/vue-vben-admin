@@ -278,8 +278,8 @@ const [Form, formApi] = useVbenForm({
           'today',
           'last7Days',
           'last14Days',
-          'last30Days',
-          'last90Days',
+          'lastMonth',
+          'last3Months',
           'lastYear',
           'thisMonth',
           'thisYear',
@@ -297,7 +297,7 @@ const [Form, formApi] = useVbenForm({
           { label: 'On going', value: onGoingDate },
           { label: 'Next 30 Days', value: dayjs().add(30, 'd') },
           { label: 'Next 7 Days', value: dayjs().add(7, 'd') },
-          ...getDatePreset(['last7Days', 'last30Days']),
+          ...getDatePreset(['last7Days', 'lastMonth']),
         ],
         format: (value: any) => {
           const val = value.format('YYYY-MM-DD');

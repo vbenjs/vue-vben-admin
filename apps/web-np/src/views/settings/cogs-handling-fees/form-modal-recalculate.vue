@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { markRaw } from 'vue';
+
 import { useVbenModal } from '@vben/common-ui';
 
 import { Button, message, TypographyParagraph } from 'ant-design-vue';
@@ -9,6 +11,7 @@ import { recalculateOrderCosts } from '#/api';
 import { RecalculateCostsType } from '#/constants';
 import { router } from '#/router';
 import { getDatePreset } from '#/utils';
+import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
@@ -43,23 +46,26 @@ const [Form, formApi] = useVbenForm({
   fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
+        picker: 'day',
+        pickerLimitName: '1 year',
         presets: getDatePreset(
           [
             'today',
             'last7Days',
             'last14Days',
-            'last30Days',
-            'last90Days',
+            'lastMonth',
+            'last2Months',
+            'last3Months',
+            'last6Months',
             'lastYear',
-            'thisMonth',
             'thisYear',
           ],
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
+      defaultValue: [dayjs().subtract(1, 'month'), dayjs()],
       fieldName: 'date',
       label: 'Date',
       rules: 'required',

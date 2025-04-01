@@ -54,7 +54,7 @@ export function numberWithCommas(x: any) {
   return x.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-export function formatReportDate(date: any, fmtDate = 'MMM DD, YYYY') {
+export function formatReportDate(date: any, fmtDate = 'YYYY-MM-DD') {
   return formatDate(date, fmtDate);
 }
 
@@ -119,14 +119,14 @@ export const getDatePreset = (
       value: dayjs().add(-14, 'd'),
     },
     {
-      id: 'last30Days',
-      label: 'Last 30 Days',
-      value: dayjs().add(-30, 'd'),
+      id: 'lastMonth',
+      label: 'Last Month',
+      value: dayjs().add(-1, 'month'),
     },
     {
-      id: 'last90Days',
-      label: 'Last 90 Days',
-      value: dayjs().add(-90, 'd'),
+      id: 'last2Months',
+      label: 'Last 2 Months',
+      value: dayjs().add(-2, 'month'),
     },
     {
       id: 'last3Months',
@@ -144,6 +144,11 @@ export const getDatePreset = (
       value: dayjs().add(-1, 'year'),
     },
     {
+      id: 'previousMonth',
+      label: 'Previous Month',
+      value: dayjs().add(-1, 'month').startOf('month'),
+    },
+    {
       id: 'thisMonth',
       label: 'This Month',
       value: dayjs().startOf('month'),
@@ -159,9 +164,15 @@ export const getDatePreset = (
 
   if (isDateRange) {
     return result.map((item) => {
+      let today = dayjs();
+
+      if (item.id === 'previousMonth') {
+        today = dayjs().add(-1, 'month').endOf('month');
+      }
+
       return {
         label: item.label,
-        value: [item.value, dayjs()],
+        value: [item.value, today],
       };
     });
   }

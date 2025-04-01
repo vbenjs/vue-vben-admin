@@ -1,6 +1,9 @@
 import type { VbenFormProps } from '@vben/common-ui';
 
+import { markRaw } from 'vue';
+
 import { getDatePreset } from '#/utils';
+import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import { customCostTypes } from './service';
 
@@ -13,15 +16,15 @@ export const formOptions: VbenFormProps = {
       label: 'Name',
     },
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
         presets: getDatePreset(
           [
             'today',
             'last7Days',
             'last14Days',
-            'last30Days',
-            'last90Days',
+            'lastMonth',
+            'last3Months',
             'lastYear',
             'thisMonth',
             'thisYear',

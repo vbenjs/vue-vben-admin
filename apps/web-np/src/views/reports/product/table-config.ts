@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { getProductSalesReport } from '#/api';
 import { getDatePreset } from '#/utils';
 import Products from '#/views/settings/cogs-handling-fees/modules/products.vue';
+import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 export const gridOptions: VxeTableGridOptions = {
   height: 'auto',
@@ -113,14 +114,23 @@ export const formOptions: VbenFormProps = {
   fieldMappingTime: [['date', ['fromDate', 'toDate']]],
   schema: [
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
+        picker: 'day',
+        pickerLimit: 30,
         presets: getDatePreset(
-          ['today', 'last7Days', 'last14Days', 'last30Days', 'thisMonth'],
+          [
+            'today',
+            'last7Days',
+            'last14Days',
+            'lastMonth',
+            'previousMonth',
+            'thisMonth',
+          ],
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
+      defaultValue: [dayjs().subtract(1, 'month'), dayjs()],
       fieldName: 'date',
       label: 'Date',
     },

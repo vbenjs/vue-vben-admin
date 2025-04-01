@@ -1,32 +1,37 @@
 import type { VbenFormProps } from '#/adapter/form';
 
+import { markRaw } from 'vue';
+
 import dayjs from 'dayjs';
 
 import { orderStatusList } from '#/constants';
 import { getDatePreset } from '#/utils';
+import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 export const formOptions: VbenFormProps = {
   collapsed: false,
   fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
     {
-      component: 'RangePicker',
+      component: markRaw(DateRangePicker),
       componentProps: {
+        picker: 'day',
+        pickerLimitName: '1 year',
         presets: getDatePreset(
           [
             'today',
             'last7Days',
             'last14Days',
-            'last30Days',
-            'last90Days',
+            'lastMonth',
             'lastYear',
+            'previousMonth',
             'thisMonth',
             'thisYear',
           ],
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
+      defaultValue: [dayjs().subtract(1, 'month'), dayjs()],
       fieldName: 'date',
       label: 'Date',
     },
