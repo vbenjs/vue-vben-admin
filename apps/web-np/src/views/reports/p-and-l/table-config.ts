@@ -51,7 +51,7 @@ export const gridOptions: VxeTableGridOptions = {
 
         // Group data base on GroupBy type
         if (formValues.groupBy !== 'daily') {
-          data.items = groupData(data.items, formValues);
+          data.items = groupData(data.items, formValues.groupBy);
         }
 
         // Create sum record - Start
@@ -59,7 +59,7 @@ export const gridOptions: VxeTableGridOptions = {
 
         generateDateColumns(gridApi, data.items);
 
-        data.items = addExtraFields(data.items);
+        addExtraFields(data.items);
         data.items = transformDataRowToColumn(data.items, data.customCostList);
 
         return data;
@@ -68,15 +68,20 @@ export const gridOptions: VxeTableGridOptions = {
   },
 };
 
-const addExtraFields = (data: any) => {
+export const addExtraFields = (data: any) => {
   data.forEach((item: any) => {
     item.netProfit = item.grossProfit - item.totalTax - item.totalCustomCost;
     item.netProfitMargin = item.netPayment
       ? toPercentage(item.netProfit / item.netPayment)
       : 0;
-  });
 
-  return data;
+    item.totalCosts =
+      item.totalCustomCost +
+      item.cogs +
+      item.handlingFees +
+      item.shippingCosts +
+      item.transactionFees;
+  });
 };
 
 export const formOptions: VbenFormProps = {

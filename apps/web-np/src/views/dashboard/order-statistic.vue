@@ -2,10 +2,11 @@
 import { computed } from 'vue';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
+import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { useShopStore } from '#/store';
-import { formatMoney, getFieldExplain } from '#/utils';
+import { formatMoney } from '#/utils';
 
 import { state } from './service';
 
@@ -22,27 +23,35 @@ const getOverview = computed(() => {
       value: state.orderTotal.quantityOrder,
     },
     {
-      title: $t('field-name.grossSales'),
-      explain: getFieldExplain('grossSales'),
+      title: $t('field-name.netPayment'),
+      explain: $t('field-name.netPaymentExplain'),
       value: formatMoney(
-        state.orderTotal.grossSales,
+        state.orderTotal.netPayment,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
-      isBold: true,
     },
     {
-      title: 'Total Costs',
-      value: formatMoney(0, shopStore.shop.currencyFromApp),
+      title: $t('field-name.totalCosts'),
+      explain: $t('field-name.totalCostsExplain'),
+      value: formatMoney(
+        state.orderTotal.totalCosts,
+        shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
+      ),
     },
     {
-      title: 'Net Profit',
+      title: $t('field-name.netProfit'),
+      explain: $t('field-name.netProfitExplain'),
       value: formatMoney(
         state.orderTotal.netProfit,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Net Profit Margin',
+      title: $t('field-name.netProfitMargin'),
+      explain: $t('field-name.netProfitMarginExplain'),
       value: `${state.orderTotal.netProfitMargin}%`,
     },
   ];
@@ -55,6 +64,7 @@ const getDetails = computed(() => {
       value: formatMoney(
         state.orderTotal.totalShipping,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
@@ -62,94 +72,116 @@ const getDetails = computed(() => {
       value: formatMoney(
         state.orderTotal.totalTip,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
       title: $t('field-name.grossSales'),
-      explain: getFieldExplain('grossSales'),
+      explain: $t('field-name.grossSalesExplain'),
       value: formatMoney(
         state.orderTotal.grossSales,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
       isBold: true,
     },
     {
-      title: 'Discounts',
+      title: $t('field-name.totalDiscount'),
       value: formatMoney(
         state.orderTotal.discount,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Refunds',
+      title: $t('field-name.totalRefund'),
       value: formatMoney(
         state.orderTotal.refund,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Revenue',
+      title: $t('field-name.netPayment'),
+      explain: $t('field-name.netPaymentExplain'),
       value: formatMoney(
         state.orderTotal.netPayment,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
+      isBold: true,
     },
     {
-      title: 'COGS',
+      title: $t('field-name.cogs'),
+      explain: $t('field-name.cogsExplain'),
       value: formatMoney(state.orderTotal.cogs, shopStore.shop.currencyFromApp),
     },
     {
-      title: 'Handling Fees',
+      title: $t('field-name.handlingFees'),
+      explain: $t('field-name.handlingFeesExplain'),
       value: formatMoney(
         state.orderTotal.handlingFees,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Shipping Costs',
+      title: $t('field-name.shippingCosts'),
       value: formatMoney(
         state.orderTotal.shippingCosts,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Transaction Fees',
+      title: $t('field-name.transactionFees'),
       value: formatMoney(
         state.orderTotal.transactionFees,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Gross Profit',
+      title: $t('field-name.grossProfit'),
+      explain: $t('field-name.grossProfitExplain'),
       value: formatMoney(
         state.orderTotal.grossProfit,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
+      isBold: true,
     },
     {
-      title: 'Custom Costs',
-      value: formatMoney(
-        state.orderTotal.customCost,
-        shopStore.shop.currencyFromApp,
-      ),
-    },
-    {
-      title: 'Tax Collected',
+      title: $t('field-name.totalTax'),
       value: formatMoney(
         state.orderTotal.totalTax,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
     },
     {
-      title: 'Net Profit',
+      title: $t('field-name.customCosts'),
+      value: formatMoney(
+        state.orderTotal.customCosts,
+        shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
+      ),
+    },
+    {
+      title: $t('field-name.netProfit'),
+      explain: $t('field-name.netProfitExplain'),
       value: formatMoney(
         state.orderTotal.netProfit,
         shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
       ),
+      isBold: true,
     },
     {
-      title: 'Net Profit Margin',
+      title: $t('field-name.netProfitMargin'),
+      explain: $t('field-name.netProfitMarginExplain'),
       value: `${state.orderTotal.netProfitMargin}%`,
+      isBold: true,
     },
   ];
 });
@@ -163,7 +195,20 @@ const getDetails = computed(() => {
     <template v-for="item in getOverview" :key="item.title">
       <Card class="w-full" :title="item.title">
         <CardHeader class="pb-2">
-          <CardTitle class="text-lg">{{ item.title }}</CardTitle>
+          <CardTitle class="flex items-center space-x-1 text-lg">
+            <span>
+              {{ item.title }}
+            </span>
+
+            <template v-if="item.explain">
+              <IconifyIcon
+                v-tippy="{
+                  content: item.explain,
+                }"
+                icon="ant-design:question-circle-outlined"
+              />
+            </template>
+          </CardTitle>
         </CardHeader>
 
         <CardContent class="flex items-center justify-between text-lg">
@@ -181,7 +226,7 @@ const getDetails = computed(() => {
       <Card class="w-full border-0" :title="item.title">
         <CardHeader class="pb-2">
           <CardTitle
-            class="flex space-x-1"
+            class="flex items-center space-x-1"
             :class="item.isBold ? 'font-semibold' : 'font-normal'"
           >
             <span>

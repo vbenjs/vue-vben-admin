@@ -22,7 +22,7 @@
   "transactionFeesExplain": "Transaction fees are fees that a merchant must pay every time a customer makes a purchase with a credit card. These fees can vary depending on the credit card company and the merchant account provider.",
 
   "grossProfit": "Gross Profit",
-  "grossProfitExplain": "Gross profit = Revenue - COGS - Handling - Shipping cost - Transaction",
+  "grossProfitExplain": "Gross profit = Revenue - COGS - Handling fees - Shipping costs - Transaction fees",
 
   "grossProfitMargin": "Gross Profit Margin",
   "grossProfitMarginExplain": "Gross profit margin = (Gross profit / Revenue) * 100%",
@@ -31,11 +31,15 @@
   "totalCustomCostExplain": "Custom Costs are the costs associated with the production of goods, including the cost of labor, tax, advertising, and other expenses.",
 
   "totalTax": "Taxes Collected",
-  "totalTaxExplain": "Taxes Collected",
 
   "netProfit": "Net Profit",
-  "netProfitExplain": "Net profit = Gross profit - Collected taxes - Custom costs",
+  "netProfitExplain": "Net profit = Gross profit - Taxes collected - Custom costs",
 
   "netProfitMargin": "Net Profit Margin",
-  "netProfitMarginExplain": "Net profit margin = (Net profit / Revenue) * 100%"
+  "netProfitMarginExplain": "Net profit margin = (Net profit / Revenue) * 100%",
+
+  "customCosts": "Cutom Costs",
+
+  "totalCosts": "Total Costs",
+  "totalCostsExplain": "Total costs = Custom costs + COGS +  Handling fees + Shipping costs + Transaction fees"
 }

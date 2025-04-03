@@ -5,20 +5,20 @@ import dayjs from 'dayjs';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 
-export const groupData = (dataItems: any, formValues: any) => {
+export const groupData = (dataItems: any, groupBy: string) => {
   const newDataItems: any[] = [];
 
   dataItems.forEach((record: any) => {
     let _dateName: string = '';
 
-    if (formValues.groupBy === 'weekly') {
+    if (groupBy === 'weekly') {
       dayjs.extend(weekOfYear);
       const __date = dayjs(record.date);
       const weekNumber = __date.week();
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-W${weekNumber}`;
-    } else if (formValues.groupBy === 'quarter') {
+    } else if (groupBy === 'quarter') {
       dayjs.extend(quarterOfYear);
       const __date = dayjs(record.date);
       const quarterNumber = __date.quarter();
