@@ -4,12 +4,11 @@ import type { PickerMode } from 'ant-design-vue/es/vc-picker/interface';
 import { computed } from 'vue';
 
 import { RangePicker } from 'ant-design-vue';
-import { Dayjs } from 'dayjs';
 
 interface Props {
-  modelValue: [Dayjs, Dayjs];
+  modelValue: any[];
   presets: any[];
-  picker: PickerMode;
+  picker?: PickerMode;
   pickerLimit?: number;
   pickerLimitName?: null | string;
 }
@@ -38,7 +37,7 @@ const getLimitName = computed(() => {
   <div class="">
     <RangePicker
       :picker="props.picker"
-      :value="props.modelValue"
+      :value="props.modelValue as any"
       :presets="props.presets"
       @change="onChange"
     >

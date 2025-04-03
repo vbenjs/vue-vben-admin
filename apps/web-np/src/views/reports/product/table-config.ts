@@ -117,13 +117,15 @@ export const formOptions: VbenFormProps = {
       component: markRaw(DateRangePicker),
       componentProps: {
         picker: 'day',
-        pickerLimit: 30,
+        pickerLimitName: '6 months',
         presets: getDatePreset(
           [
             'today',
             'last7Days',
             'last14Days',
             'lastMonth',
+            'last2Months',
+            'last3Months',
             'previousMonth',
             'thisMonth',
           ],
