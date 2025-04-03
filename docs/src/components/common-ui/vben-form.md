@@ -318,7 +318,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | collapsed | 是否折叠，在`showCollapseButton`为`true`时生效 | `boolean` | `false` |
 | collapseTriggerResize | 折叠时，触发`resize`事件 | `boolean` | `false` |
 | collapsedRows | 折叠时保持的行数 | `number` | `1` |
-| fieldMappingTime | 用于将表单内的数组值值映射成 2 个字段 | `[string, [string, string],Nullable<string>\|[string,string]\|((any,string)=>any)?][]` | - |
+| fieldMappingTime | 用于将表单内的数组值映射成 2 个字段 | `[string, [string, string],Nullable<string>\|[string,string]\|((any,string)=>any)?][]` | - |
 | commonConfig | 表单项的通用配置，每个配置都会传递到每个表单项，表单项可覆盖 | `FormCommonConfig` | - |
 | schema | 表单项的每一项配置 | `FormSchema[]` | - |
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
