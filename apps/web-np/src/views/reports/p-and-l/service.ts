@@ -99,7 +99,16 @@ export const transformDataRowToColumn = (data: any[], costName: any): any[] => {
 
   if (data.length === 0) return result;
 
-  const keys = Object.keys(data[0]).filter((key) => key !== 'date');
+  const keys = Object.keys(data[0]).filter((key) => {
+    return (
+      key !== 'date' &&
+      key !== 'quantityTotal' &&
+      key !== 'quantityRefund' &&
+      key !== 'totalTip' &&
+      key !== 'totalShipping' &&
+      key !== 'totalOrders'
+    );
+  });
 
   keys.forEach((key) => {
     const obj: any = { id: key };

@@ -8,19 +8,16 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  VbenCountToAnimator,
   VbenIcon,
 } from '@vben/common-ui';
 
-import { findCurrency } from 'currency-formatter';
-
 import { useShopStore } from '#/store';
-import { convertRate } from '#/utils';
+import { convertRate, formatMoney, toPercentage } from '#/utils';
 
 interface IAnalysisOverviewItem {
   icon: Component | string;
   title: string;
-  value: number;
+  value: any;
   suffix?: string;
   prefix?: string;
   explain?: string;
@@ -56,25 +53,15 @@ const getItems = computed((): IAnalysisOverviewItem[] => {
   let totalCutomerRepurchase = 0;
   let totalRevenue = 0;
 
-  props.items.forEach((item) => {
+  props.items.forEach((item: any) => {
     totalCutomer += item.quantityNew;
     totalCutomerRepurchase += item.quantityRepurchase;
     totalRevenue += item.netPayment;
   });
 
-  const currencyInfo = findCurrency(shopStore.shop.currencyFromApp);
-
   totalRevenue = convertRate(totalRevenue, shopStore.shop.currencyRate);
-  let prefixMoney = currencyInfo?.symbolOnLeft ? currencyInfo?.symbol : '';
-  let suffixMoney = currencyInfo?.symbolOnLeft ? '' : currencyInfo?.symbol;
-
-  if (currencyInfo?.spaceBetweenAmountAndSymbol) {
-    if (prefixMoney) {
-      prefixMoney += ' ';
-    } else {
-      suffixMoney = ` ${suffixMoney}`;
-    }
-  }
+  const ltv = totalCutomer ? totalRevenue / totalCutomer : 0;
+  const repurchase = totalCutomer ? totalCutomerRepurchase / totalCutomer : 0;
 
   return [
     {
@@ -85,7 +72,7 @@ const getItems = computed((): IAnalysisOverviewItem[] => {
     {
       icon: 'ant-design:user-switch-outlined',
       title: 'Repurchase Rate',
-      value: totalCutomer ? (totalCutomerRepurchase / totalCutomer) * 100 : 0,
+      value: `${toPercentage(repurchase)}%`,
       suffix: '%',
       explain:
         'Repurchase Rate = (Total Repurchase Customers / Total Customers) * 100',
@@ -93,17 +80,13 @@ const getItems = computed((): IAnalysisOverviewItem[] => {
     {
       icon: 'ant-design:dollar-circle-outlined',
       title: 'Total Revenue',
-      value: totalRevenue,
-      prefix: prefixMoney,
-      suffix: suffixMoney,
+      value: formatMoney(totalRevenue, shopStore.shop.currencyFromApp),
       explain: 'Total Revenue from the new customers',
     },
     {
       icon: 'ant-design:field-time-outlined',
       title: 'Lifetime Value (LTV)',
-      value: totalCutomer ? totalRevenue / totalCutomer : 0,
-      prefix: prefixMoney,
-      suffix: suffixMoney,
+      value: formatMoney(ltv, shopStore.shop.currencyFromApp),
       explain:
         'Lifetime Value (LTV) represents the average revenue a customer generates over their entire duration as a paying customer.',
     },
@@ -124,17 +107,13 @@ const getItems = computed((): IAnalysisOverviewItem[] => {
         }"
       >
         <CardHeader>
-          <CardTitle class="text-lg">{{ item.title }}</CardTitle>
+          <CardTitle>{{ item.title }}</CardTitle>
         </CardHeader>
 
         <CardContent class="flex items-center justify-between">
-          <VbenCountToAnimator
-            :duration="0"
-            :end-val="item.value"
-            class="text-xl"
-            :prefix="item.prefix as string"
-            :suffix="item.suffix as string"
-          />
+          <div class="text-xl">
+            {{ item.value }}
+          </div>
           <VbenIcon :icon="item.icon" class="size-8 flex-shrink-0" />
         </CardContent>
       </Card>

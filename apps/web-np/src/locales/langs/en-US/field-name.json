@@ -3,8 +3,8 @@
   "grossSalesExplain": "  Gross sales = Subtotal + Ship + Tip + Taxes Collected",
 
   "totalDiscount": "Discount",
-  "totalShipping": "Shipping",
-  "totalTip": "Tip",
+  "totalShipping": "Shipping Collected",
+  "totalTip": "Tip Collected",
   "totalRefund": "Refund",
 
   "netPayment": "Revenue",
