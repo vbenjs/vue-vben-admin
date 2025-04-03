@@ -10,7 +10,7 @@ import { findRootMenuByPath } from '@vben/utils';
 import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
-  const { navigation } = useNavigation();
+  const { navigation, willOpenedByWindow } = useNavigation();
   const accessStore = useAccessStore();
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
@@ -89,11 +89,15 @@ function useMixedMenu() {
       navigation(key);
       return;
     }
-
     const rootMenu = menus.value.find((item) => item.path === key);
-    rootMenuPath.value = rootMenu?.path ?? '';
-    splitSideMenus.value = rootMenu?.children ?? [];
-    if (splitSideMenus.value.length === 0) {
+    const _splitSideMenus = rootMenu?.children ?? [];
+
+    if (!willOpenedByWindow(key)) {
+      rootMenuPath.value = rootMenu?.path ?? '';
+      splitSideMenus.value = _splitSideMenus;
+    }
+
+    if (_splitSideMenus.length === 0) {
       navigation(key);
     } else if (rootMenu && preferences.sidebar.autoActivateChild) {
       navigation(

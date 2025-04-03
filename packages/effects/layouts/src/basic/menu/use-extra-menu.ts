@@ -13,7 +13,7 @@ import { useNavigation } from './use-navigation';
 
 function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
   const accessStore = useAccessStore();
-  const { navigation } = useNavigation();
+  const { navigation, willOpenedByWindow } = useNavigation();
 
   const menus = computed(() => useRootMenus?.value ?? accessStore.accessMenus);
 
@@ -33,11 +33,15 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
    * @param menu
    */
   const handleMixedMenuSelect = async (menu: MenuRecordRaw) => {
-    extraMenus.value = menu?.children ?? [];
-    extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
-    const hasChildren = extraMenus.value.length > 0;
+    const _extraMenus = menu?.children ?? [];
+    const hasChildren = _extraMenus.length > 0;
 
-    sidebarExtraVisible.value = hasChildren;
+    if (!willOpenedByWindow(menu.path)) {
+      extraMenus.value = _extraMenus ?? [];
+      extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
+      sidebarExtraVisible.value = hasChildren;
+    }
+
     if (!hasChildren) {
       await navigation(menu.path);
     } else if (preferences.sidebar.autoActivateChild) {

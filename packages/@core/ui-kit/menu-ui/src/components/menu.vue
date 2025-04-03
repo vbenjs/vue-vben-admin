@@ -23,7 +23,6 @@ import {
 
 import { useNamespace } from '@vben-core/composables';
 import { Ellipsis } from '@vben-core/icons';
-import { isHttpUrl } from '@vben-core/shared/utils';
 
 import { useResizeObserver } from '@vueuse/core';
 
@@ -247,9 +246,6 @@ function handleMenuItemClick(data: MenuItemClicked) {
   const { parentPaths, path } = data;
   if (!path || !parentPaths) {
     return;
-  }
-  if (!isHttpUrl(path)) {
-    activePath.value = path;
   }
 
   emit('select', path, parentPaths);
