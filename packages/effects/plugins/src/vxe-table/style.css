@@ -46,6 +46,8 @@
   --vxe-ui-table-row-current-background-color: hsl(var(--accent));
   --vxe-ui-table-row-hover-current-background-color: hsl(var(--accent-hover));
 
+  height: auto !important;
+
   /* --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%); */
 }
 
