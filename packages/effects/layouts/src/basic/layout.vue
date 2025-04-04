@@ -228,7 +228,11 @@ const headerSlots = computed(() => {
         :text="preferences.app.name"
         :theme="showHeaderNav ? headerTheme : theme"
         @click="clickLogo"
-      />
+      >
+        <template v-if="$slots['logo-text']" #text>
+          <slot name="logo-text"></slot>
+        </template>
+      </VbenLogo>
     </template>
     <!-- 头部区域 -->
     <template #header>
@@ -310,7 +314,11 @@ const headerSlots = computed(() => {
         v-if="preferences.logo.enable"
         :text="preferences.app.name"
         :theme="theme"
-      />
+      >
+        <template v-if="$slots['logo-text']" #text>
+          <slot name="logo-text"></slot>
+        </template>
+      </VbenLogo>
     </template>
 
     <template #tabbar>
