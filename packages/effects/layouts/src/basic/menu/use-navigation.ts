@@ -29,7 +29,19 @@ function useNavigation() {
     }
   };
 
-  return { navigation };
+  const willOpenedByWindow = (path: string) => {
+    const route = routeMetaMap.get(path);
+    const { openInNewWindow = false } = route?.meta ?? {};
+    if (isHttpUrl(path)) {
+      return true;
+    } else if (openInNewWindow) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  return { navigation, willOpenedByWindow };
 }
 
 export { useNavigation };
