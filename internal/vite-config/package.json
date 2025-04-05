@@ -31,6 +31,7 @@
     "@jspm/generator": "catalog:",
     "archiver": "catalog:",
     "cheerio": "catalog:",
+    "code-inspector-plugin": "^0.20.7",
     "get-port": "catalog:",
     "html-minifier-terser": "catalog:",
     "nitropack": "catalog:",
