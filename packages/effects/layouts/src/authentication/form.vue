@@ -15,7 +15,7 @@ defineOptions({
         <KeepAlive :include="['Login']">
           <component
             :is="Component"
-            :key="route.fullPath"
+            :key="route.path"
             class="enter-x mt-6 w-full sm:mx-auto md:max-w-md"
           />
         </KeepAlive>
