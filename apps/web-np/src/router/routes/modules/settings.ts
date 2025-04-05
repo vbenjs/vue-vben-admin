@@ -4,7 +4,6 @@ const routes: RouteRecordRaw[] = [
   {
     meta: {
       icon: 'codicon:settings',
-      keepAlive: true,
       order: 90_000,
       title: 'Settings',
     },

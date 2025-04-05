@@ -34,7 +34,7 @@ const getLimitName = computed(() => {
 </script>
 
 <template>
-  <div class="">
+  <div>
     <RangePicker
       :picker="props.picker"
       :value="props.modelValue as any"

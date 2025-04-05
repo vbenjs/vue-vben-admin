@@ -84,7 +84,10 @@ const formOptions: VbenFormProps = {
       componentProps: {
         picker: 'month',
         pickerLimit: 6,
-        presets: getDatePreset(['last3Months', 'last6Months'], true),
+        presets: getDatePreset(
+          ['last3Months', 'last6Months', 'lastYear', 'thisYear'],
+          true,
+        ),
       },
       defaultValue: [dayjs().subtract(6, 'months'), dayjs()],
       fieldName: 'month',

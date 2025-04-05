@@ -4,6 +4,8 @@ import { formatDate } from '@vben/utils';
 import { findCurrency, format } from 'currency-formatter';
 import dayjs from 'dayjs';
 
+import { router } from '#/router';
+
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
 export function calcPercentage(a: number, b: number) {
@@ -178,4 +180,14 @@ export const getDatePreset = (
   }
 
   return result;
+};
+
+export const redirect = (name: string) => {
+  router.push({
+    name,
+  });
+};
+
+export const redirectToPath = (path: string) => {
+  router.push(path);
 };

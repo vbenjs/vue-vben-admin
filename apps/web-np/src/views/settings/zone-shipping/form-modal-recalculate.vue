@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 import { markRaw } from 'vue';
 
-import { useVbenModal } from '@vben/common-ui';
+import { useVbenModal, VbenButton } from '@vben/common-ui';
 
-import { Button, message, TypographyParagraph } from 'ant-design-vue';
+import { message, TypographyParagraph } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 import { recalculateOrderCosts } from '#/api';
 import { RecalculateCostsType } from '#/constants';
-import { router } from '#/router';
-import { getDatePreset } from '#/utils';
+import { getDatePreset, redirect } from '#/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 function onSubmit(values: Record<string, any>) {
@@ -84,7 +83,7 @@ const [Modal, modalApi] = useVbenModal({
 
 const redirectToOrderReport = () => {
   modalApi.close();
-  router.push({ name: 'reports.order' });
+  redirect('reports.order');
 };
 </script>
 <template>
@@ -95,9 +94,14 @@ const redirectToOrderReport = () => {
   >
     <template #prepend-footer>
       <div class="flex-auto">
-        <Button size="small" type="dashed" @click="redirectToOrderReport">
-          Go to Order Report
-        </Button>
+        <VbenButton
+          variant="link"
+          size="xs"
+          class="w-[110px]"
+          @click="redirectToOrderReport()"
+        >
+          View order report
+        </VbenButton>
       </div>
     </template>
     <Form />

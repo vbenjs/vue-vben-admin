@@ -14,7 +14,7 @@ function onChange() {
 }
 </script>
 <template>
-  <div class="">
+  <div>
     <ASelect
       v-model:value="modelValue"
       @change="onChange"

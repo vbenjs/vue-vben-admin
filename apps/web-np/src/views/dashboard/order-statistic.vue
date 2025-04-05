@@ -153,6 +153,7 @@ const getDetails = computed(() => {
     },
     {
       title: $t('field-name.totalTax'),
+      explain: $t('field-name.totalTaxExplain'),
       value: formatMoney(
         state.orderTotal.totalTax,
         shopStore.shop.currencyFromApp,
@@ -206,6 +207,7 @@ const getDetails = computed(() => {
                   content: item.explain,
                 }"
                 icon="ant-design:question-circle-outlined"
+                class="size-4"
               />
             </template>
           </CardTitle>

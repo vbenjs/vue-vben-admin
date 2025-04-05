@@ -2,7 +2,6 @@
 import type { ITransactionFee } from '#/store';
 
 import { onBeforeMount, reactive } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { Page, VbenButton } from '@vben/common-ui';
 import { ArrowLeft, Check } from '@vben/icons';
@@ -14,7 +13,7 @@ import { onboardFinished } from '#/api';
 import { DefaultRoutes } from '#/constants';
 import { ArrowRight } from '#/icons';
 import { useShopSettingStore, useShopStore } from '#/store';
-import { toPercentage, toRate } from '#/utils';
+import { redirectToPath, toPercentage, toRate } from '#/utils';
 
 import ExampleOrder from './example-order.vue';
 import { onboardForm } from './service';
@@ -25,7 +24,6 @@ import TransactionFees from './step-4-transaction-fees.vue';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();
-const router = useRouter();
 
 const state = reactive({
   currentStep: 0,
@@ -72,7 +70,7 @@ const onboardFinish = () => {
 onBeforeMount(() => {
   // Redirect to the home page if the user has already completed the onboarding
   if (!shopStore.isOnboarding) {
-    router.push(DefaultRoutes.HOME);
+    redirectToPath(DefaultRoutes.HOME);
   }
 
   // Set the default values

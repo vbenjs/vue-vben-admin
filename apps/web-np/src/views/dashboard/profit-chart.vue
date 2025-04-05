@@ -3,14 +3,20 @@ import type { EchartsUIType } from '@vben/plugins/echarts';
 
 import { onMounted, ref, watch } from 'vue';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  VbenButton,
+} from '@vben/common-ui';
 import { $t } from '@vben/locales';
 import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 
 import { Select } from 'ant-design-vue';
 
 import { useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
+import { formatMoney, redirect } from '#/utils';
 
 import { generateDashboardData, state } from './service';
 
@@ -117,15 +123,26 @@ const reload = () => {
   <Card class="mt-5">
     <CardHeader>
       <CardTitle class="flex items-center justify-between space-x-1">
-        <span class="text-lg">Profit Performance</span>
+        <span class="text-lg"> Profit Performance </span>
 
-        <Select
-          v-model:value="state.charts.profit.groupBy"
-          size="small"
-          class="w-[100px]"
-          :options="chartOptions"
-          @change="handleChangeGroupBy"
-        />
+        <div class="flex items-center">
+          <VbenButton
+            class="w-[100px] !p-0 text-right"
+            size="xs"
+            variant="link"
+            @click="redirect('reports.p-and-l')"
+          >
+            View details
+          </VbenButton>
+
+          <Select
+            v-model:value="state.charts.profit.groupBy"
+            size="small"
+            class="w-[100px]"
+            :options="chartOptions"
+            @change="handleChangeGroupBy"
+          />
+        </div>
       </CardTitle>
     </CardHeader>
     <CardContent>

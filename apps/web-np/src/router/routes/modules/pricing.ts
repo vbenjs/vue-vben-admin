@@ -4,7 +4,6 @@ const routes: RouteRecordRaw[] = [
   // {
   //   meta: {
   //     icon: 'carbon:pricing-quick-proposal',
-  //     keepAlive: true,
   //     order: 100_000,
   //     title: 'Pricing',
   //   },

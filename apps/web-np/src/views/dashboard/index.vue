@@ -5,6 +5,9 @@ import { getDatePreset } from '#/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import OrderStatistic from './order-statistic.vue';
+import OverviewCustomCosts from './overview-custom-costs.vue';
+import OverviewCustomer from './overview-customer.vue';
+import OverviewOrder from './overview-order.vue';
 import ProfitChart from './profit-chart.vue';
 import { loadData, state } from './service';
 
@@ -52,5 +55,14 @@ const handleDateChange = (date: any) => {
     <OrderStatistic />
 
     <ProfitChart />
+
+    <div
+      v-loading="state.orderLoading"
+      class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+    >
+      <OverviewOrder />
+      <OverviewCustomCosts />
+      <OverviewCustomer />
+    </div>
   </div>
 </template>

@@ -74,12 +74,11 @@ const getItems = computed((): IAnalysisOverviewItem[] => {
       title: 'Repurchase Rate',
       value: `${toPercentage(repurchase)}%`,
       suffix: '%',
-      explain:
-        'Repurchase Rate = (Total Repurchase Customers / Total Customers) * 100',
+      explain: 'Repurchase Rate = (Repurchase customers / New customers) * 100',
     },
     {
       icon: 'ant-design:dollar-circle-outlined',
-      title: 'Total Revenue',
+      title: 'New customer revenue',
       value: formatMoney(totalRevenue, shopStore.shop.currencyFromApp),
       explain: 'Total Revenue from the new customers',
     },

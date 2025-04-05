@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 
 import dayjs from 'dayjs';
 
-import { getPAndLReport } from '#/api';
+import { getLTVReport, getPAndLReport } from '#/api';
 import { useShopStore } from '#/store';
 import { convertRate, toPercentage } from '#/utils';
 
@@ -38,6 +38,11 @@ export const state = reactive({
     netProfit: 0,
     netProfitMargin: '0',
     totalCosts: 0,
+  },
+  customerTotal: {
+    newCustomers: 0,
+    quantityRepurchase: 0,
+    netPayment: 0,
   },
   charts: {
     profit: {
@@ -77,6 +82,25 @@ export const loadData = () => {
     .finally(() => {
       state.orderLoading = false;
     });
+
+  getLTVReport({
+    fromMonth: state.dateRange[0]?.format('YYYY-MM-DD'),
+    toMonth: state.dateRange[1]?.format('YYYY-MM-DD'),
+  }).then((res) => {
+    generateCutomerLTV(res.items);
+  });
+};
+
+const generateCutomerLTV = (data: any) => {
+  state.customerTotal.newCustomers = 0;
+  state.customerTotal.quantityRepurchase = 0;
+  state.customerTotal.netPayment = 0;
+
+  data.forEach((item: any) => {
+    state.customerTotal.newCustomers += item.quantityNew;
+    state.customerTotal.quantityRepurchase += item.quantityRepurchase;
+    state.customerTotal.netPayment += item.netPayment;
+  });
 };
 
 export const generateDashboardData = () => {

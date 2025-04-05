@@ -24,7 +24,7 @@ const handleRemove: UploadProps['onRemove'] = () => {
 };
 </script>
 <template>
-  <div class="">
+  <div>
     <Upload
       accept=".csv"
       :max-count="1"

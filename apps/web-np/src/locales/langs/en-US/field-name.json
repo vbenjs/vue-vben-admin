@@ -31,6 +31,7 @@
   "totalCustomCostExplain": "Custom Costs are the costs associated with the production of goods, including the cost of labor, tax, advertising, and other expenses.",
 
   "totalTax": "Taxes Collected",
+  "totalTaxExplain": "Taxes Collected is the amount of taxes that a business collects from its customers on behalf of the government. This amount is typically a percentage of the sale price and is added to the total cost of the goods or services sold.",
 
   "netProfit": "Net Profit",
   "netProfitExplain": "Net profit = Gross profit - Taxes collected - Custom costs",

@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { Button, Divider, Select } from 'ant-design-vue';
 
 import { AntPlus } from '#/icons';
 import { useShopSettingStore } from '#/store';
+import { redirect } from '#/utils';
 
 const emit = defineEmits(['blur', 'change']);
 const shopSettingStore = useShopSettingStore();
-const router = useRouter();
 
 const VNodes = defineComponent({
   props: {
@@ -32,9 +31,7 @@ function onChange() {
 }
 
 function handleNewZone() {
-  router.push({
-    name: 'settings.shipping-fees',
-  });
+  redirect('settings.shipping-fees');
 }
 </script>
 <template>

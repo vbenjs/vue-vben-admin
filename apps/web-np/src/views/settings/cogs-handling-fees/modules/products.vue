@@ -40,7 +40,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="">
+  <div>
     <ASelect
       v-model:value="products"
       @search="handleSearch"
