@@ -11,23 +11,23 @@ export async function updateCalcCOGSBy(data: any) {
   );
 }
 
-export async function updateCogsByDate(data: any) {
+export async function updateCogsByLastDate(data: any) {
   return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/cogs/by-date',
+    '/api/shop/settings/cogs-handling-fees/update-cogs-by-last-date',
     data,
   );
 }
 
 export async function updateCogsByRegion(data: any) {
   return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/cogs/by-date-rage',
+    '/api/shop/settings/cogs-handling-fees/update-cogs-by-date-rage',
     data,
   );
 }
 
 export async function updateHandlingFees(data: any) {
   return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/handling-fees',
+    '/api/shop/settings/cogs-handling-fees/update-handling-fees',
     data,
   );
 }

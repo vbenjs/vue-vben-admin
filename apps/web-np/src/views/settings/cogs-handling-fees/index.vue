@@ -23,7 +23,7 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportCogsHandlingFees,
   updateCalcCOGSBy as updateCalcCOGSLevel,
-  updateCogsByDate,
+  updateCogsByLastDate,
   updateHandlingFees,
 } from '#/api';
 import { CostCalcLevel, defaultRegionUUID } from '#/constants';
@@ -35,12 +35,7 @@ import CogsFormModal from './form-modal-cogs.vue';
 import ImportFormModal from './form-modal-import.vue';
 import ProductFormModal from './form-modal-product.vue';
 import FormModalRecalculate from './form-modal-recalculate.vue';
-import {
-  calcMargin,
-  formOptions,
-  getStatusClass,
-  gridOptions,
-} from './table-config';
+import { formOptions, getStatusClass, gridOptions } from './table-config';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();
@@ -182,14 +177,17 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
     payload.productId = row.parentId;
   }
 
-  updateCogsByDate(payload).finally(() => {
-    row.loading = false;
-    gridApi.reload();
+  updateCogsByLastDate(payload)
+    .then(() => {
+      gridApi.reload();
 
-    message.success({
-      content: 'The cost has been updated.',
+      message.success({
+        content: 'The cost has been updated.',
+      });
+    })
+    .finally(() => {
+      row.loading = false;
     });
-  });
 }, 2000);
 
 const handleHandlingFeesChanged = useDebounceFn(
@@ -208,14 +206,17 @@ const handleHandlingFeesChanged = useDebounceFn(
       payload.productId = row.parentId;
     }
 
-    updateHandlingFees(payload).finally(() => {
-      row.loading = false;
-      row.margin = calcMargin(row);
+    updateHandlingFees(payload)
+      .then(() => {
+        gridApi.reload();
 
-      message.success({
-        content: 'The cost has been updated.',
+        message.success({
+          content: 'The cost has been updated.',
+        });
+      })
+      .finally(() => {
+        row.loading = false;
       });
-    });
   },
   2000,
 );
