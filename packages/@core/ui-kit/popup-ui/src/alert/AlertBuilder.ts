@@ -1,10 +1,10 @@
-import type { Component } from 'vue';
+import type { Component, VNode } from 'vue';
 
 import type { Recordable } from '@vben-core/typings';
 
-import type { AlertProps, BeforeCloseScope } from './alert';
+import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
 
-import { h, ref, render } from 'vue';
+import { h, nextTick, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { Input } from '@vben-core/shadcn-ui';
@@ -130,40 +130,58 @@ export function vbenConfirm(
 }
 
 export async function vbenPrompt<T = any>(
-  options: Omit<AlertProps, 'beforeClose'> & {
-    beforeClose?: (scope: {
-      isConfirm: boolean;
-      value: T | undefined;
-    }) => boolean | Promise<boolean | undefined> | undefined;
-    component?: Component;
-    componentProps?: Recordable<any>;
-    defaultValue?: T;
-    modelPropName?: string;
-  },
+  options: PromptProps<T>,
 ): Promise<T | undefined> {
   const {
     component: _component,
     componentProps: _componentProps,
+    componentSlots,
     content,
     defaultValue,
     modelPropName: _modelPropName,
     ...delegated
   } = options;
-  const contents: Component[] = [];
+
   const modelValue = ref<T | undefined>(defaultValue);
+  const inputComponentRef = ref<null | VNode>(null);
+  const staticContents: Component[] = [];
+
   if (isString(content)) {
-    contents.push(h('span', content));
-  } else {
-    contents.push(content);
+    staticContents.push(h('span', content));
+  } else if (content) {
+    staticContents.push(content as Component);
   }
-  const componentProps = _componentProps || {};
+
   const modelPropName = _modelPropName || 'modelValue';
-  componentProps[modelPropName] = modelValue.value;
-  componentProps[`onUpdate:${modelPropName}`] = (val: any) => {
-    modelValue.value = val;
+  const componentProps = { ..._componentProps };
+
+  // 每次渲染时都会重新计算的内容函数
+  const contentRenderer = () => {
+    const currentProps = { ...componentProps };
+
+    // 设置当前值
+    currentProps[modelPropName] = modelValue.value;
+
+    // 设置更新处理函数
+    currentProps[`onUpdate:${modelPropName}`] = (val: T) => {
+      modelValue.value = val;
+    };
+
+    // 创建输入组件
+    inputComponentRef.value = h(
+      _component || Input,
+      currentProps,
+      componentSlots,
+    );
+
+    // 返回包含静态内容和输入组件的数组
+    return h(
+      'div',
+      { class: 'flex flex-col gap-2' },
+      { default: () => [...staticContents, inputComponentRef.value] },
+    );
   };
-  const componentRef = h(_component || Input, componentProps);
-  contents.push(componentRef);
+
   const props: AlertProps & Recordable<any> = {
     ...delegated,
     async beforeClose(scope: BeforeCloseScope) {
@@ -174,23 +192,46 @@ export async function vbenPrompt<T = any>(
         });
       }
     },
-    content: h(
-      'div',
-      { class: 'flex flex-col gap-2' },
-      { default: () => contents },
-    ),
-    onOpened() {
-      // 组件挂载完成后，自动聚焦到输入组件
-      if (
-        componentRef.component?.exposed &&
-        isFunction(componentRef.component.exposed.focus)
-      ) {
-        componentRef.component.exposed.focus();
-      } else if (componentRef.el && isFunction(componentRef.el.focus)) {
-        componentRef.el.focus();
+    // 使用函数形式，每次渲染都会重新计算内容
+    content: contentRenderer,
+    contentMasking: true,
+    async onOpened() {
+      await nextTick();
+      const componentRef: null | VNode = inputComponentRef.value;
+      if (componentRef) {
+        if (
+          componentRef.component?.exposed &&
+          isFunction(componentRef.component.exposed.focus)
+        ) {
+          componentRef.component.exposed.focus();
+        } else {
+          if (componentRef.el) {
+            if (
+              isFunction(componentRef.el.focus) &&
+              ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(
+                componentRef.el.tagName,
+              )
+            ) {
+              componentRef.el.focus();
+            } else if (isFunction(componentRef.el.querySelector)) {
+              const focusableElement = componentRef.el.querySelector(
+                'input, select, textarea, button',
+              );
+              if (focusableElement && isFunction(focusableElement.focus)) {
+                focusableElement.focus();
+              }
+            } else if (
+              componentRef.el.nextElementSibling &&
+              isFunction(componentRef.el.nextElementSibling.focus)
+            ) {
+              componentRef.el.nextElementSibling.focus();
+            }
+          }
+        }
       }
     },
   };
+
   await vbenConfirm(props);
   return modelValue.value;
 }

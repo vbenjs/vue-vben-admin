@@ -1,7 +1,10 @@
 <script lang="ts" setup>
+import { h } from 'vue';
+
 import { alert, prompt, VbenButton } from '@vben/common-ui';
 
-import { VbenSelect } from '@vben-core/shadcn-ui';
+import { Input, RadioGroup } from 'ant-design-vue';
+import { BadgeJapaneseYen } from 'lucide-vue-next';
 
 function showPrompt() {
   prompt({
@@ -17,25 +20,62 @@ function showPrompt() {
 
 function showSelectPrompt() {
   prompt({
-    component: VbenSelect,
+    component: Input,
     componentProps: {
+      placeholder: '请输入',
+      prefix: '充值金额',
+      type: 'number',
+    },
+    componentSlots: {
+      addonAfter: () => h(BadgeJapaneseYen),
+    },
+    content: '此弹窗演示了如何使用componentSlots传递自定义插槽',
+    icon: 'question',
+    modelPropName: 'value',
+  }).then((val) => {
+    if (val) alert(`你输入的是${val}`);
+  });
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function showAsyncPrompt() {
+  prompt({
+    async beforeClose(scope) {
+      console.log(scope);
+      if (scope.isConfirm) {
+        if (scope.value) {
+          // 模拟异步操作，如果不成功，可以返回false
+          await sleep(2000);
+        } else {
+          alert('请选择一个选项');
+          return false;
+        }
+      }
+    },
+    component: RadioGroup,
+    componentProps: {
+      class: 'flex flex-col',
       options: [
         { label: 'Option 1', value: 'option1' },
         { label: 'Option 2', value: 'option2' },
         { label: 'Option 3', value: 'option3' },
       ],
-      placeholder: '请选择',
     },
-    content: 'This is an alert message with icon',
+    content: '选择一个选项后再点击[确认]',
     icon: 'question',
+    modelPropName: 'value',
   }).then((val) => {
-    alert(`你选择的是${val}`);
+    alert(`${val} 已设置。`);
   });
 }
 </script>
 <template>
   <div class="flex gap-4">
     <VbenButton @click="showPrompt">Prompt</VbenButton>
-    <VbenButton @click="showSelectPrompt">Confirm With Select</VbenButton>
+    <VbenButton @click="showSelectPrompt">Prompt With Select</VbenButton>
+    <VbenButton @click="showAsyncPrompt">Prompt With Async</VbenButton>
   </div>
 </template>
