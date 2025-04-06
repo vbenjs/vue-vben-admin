@@ -11,6 +11,7 @@ packages:
   - apps/*
   - scripts/*
   - playground
+  - themes/*
 catalog:
   '@ast-grep/napi': ^0.32.3
   '@changesets/changelog-github': ^0.5.1

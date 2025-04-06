@@ -33,33 +33,33 @@
   }
 
   .loader {
-    width: fit-content;
-    font-family: system-ui, sans-serif;
-    font-size: 40px;
-    font-weight: bold;
-    color: #0000;
-    text-transform: uppercase;
-    background: linear-gradient(-60deg, #0000 45%, #000 0 55%, #0000 0) 0/300%
-      100% no-repeat text;
-    animation: l3 2s linear infinite;
-    -webkit-text-stroke: 1px #000;
+    position: relative;
+    width: 50px;
+    aspect-ratio: 1;
+    border: 8px solid #0000;
+    border-right-color: hsl(var(--primary) / 20%);
+    border-radius: 50%;
+    animation: l24 1s infinite linear;
   }
 
-  .dark .loader {
-    color: #fff;
-    -webkit-text-stroke: 1px #000;
-    background: linear-gradient(-60deg, #fff 45%, #fff 0 55%, #fff 0) 0/300%
-      100% no-repeat text;
-    animation: l3 2s linear infinite;
+  .loader::before,
+  .loader::after {
+    position: absolute;
+    inset: -8px;
+    content: '';
+    border: inherit;
+    border-radius: 50%;
+    animation: inherit;
+    animation-duration: 2s;
   }
 
-  .loader::before {
-    content: 'Loading...';
+  .loader::after {
+    animation-duration: 4s;
   }
 
-  @keyframes l3 {
-    0% {
-      background-position: 100%;
+  @keyframes l24 {
+    100% {
+      transform: rotate(1turn);
     }
   }
 </style>

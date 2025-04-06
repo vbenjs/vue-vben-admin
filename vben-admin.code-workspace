@@ -164,5 +164,9 @@
       "name": "@vben/vsh",
       "path": "scripts/vsh",
     },
+    {
+      "name": "@sokach/theme-01",
+      "path": "themes/theme-01",
+    },
   ],
 }

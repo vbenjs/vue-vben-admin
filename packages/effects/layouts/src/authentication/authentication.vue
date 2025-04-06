@@ -2,6 +2,9 @@
 import type { ToolbarType } from './types';
 
 import { preferences, usePreferences } from '@vben/preferences';
+import { cn } from '@vben/utils';
+
+import { useNamespace } from '@vben-core/composables';
 
 import { Copyright } from '../basic/copyright';
 import AuthenticationFormView from './form.vue';
@@ -32,14 +35,16 @@ withDefaults(defineProps<Props>(), {
   clickLogo: () => {},
 });
 
+const { b } = useNamespace('auth-layout');
 const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
   usePreferences();
 </script>
 
 <template>
   <div
-    :class="[isDark]"
-    class="flex min-h-full flex-1 select-none overflow-x-hidden"
+    :class="
+      cn(b(), isDark, 'flex min-h-full flex-1 select-none overflow-x-hidden')
+    "
   >
     <template v-if="toolbar">
       <slot name="toolbar">
@@ -49,7 +54,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     <!-- 左侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelLeft"
-      class="min-h-full w-2/5 flex-1"
+      :class="cn(b('panel'), 'min-h-full w-2/5 flex-1')"
       transition-name="slide-left"
     >
       <template v-if="copyright" #copyright>
@@ -63,67 +68,94 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     </AuthenticationFormView>
 
     <!-- 头部 Logo 和应用名称 -->
-    <div
-      v-if="logo || appName"
-      class="absolute left-0 top-0 z-10 flex flex-1"
-      @click="clickLogo"
-    >
+    <slot name="logo">
       <div
-        class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+        v-if="logo || appName"
+        class="absolute left-0 top-0 z-10 flex flex-1"
+        @click="clickLogo"
       >
-        <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
-        <p v-if="appName" class="m-0 text-xl font-medium">
-          {{ appName }}
-        </p>
+        <div
+          class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+        >
+          <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
+          <p v-if="appName" class="m-0 text-xl font-medium">
+            {{ appName }}
+          </p>
+        </div>
       </div>
-    </div>
+    </slot>
 
     <!-- 系统介绍 -->
+
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
         class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
       >
-        <div class="login-background absolute left-0 top-0 size-full"></div>
-        <div class="flex-col-center -enter-x mr-20 h-full">
-          <template v-if="sloganImage">
-            <img
+        <div
+          :class="
+            cn(
+              b('container'),
+              'login-background absolute left-0 top-0 size-full',
+            )
+          "
+        ></div>
+        <slot name="slogan">
+          <div class="flex-col-center -enter-x mr-20 h-full">
+            <template v-if="sloganImage">
+              <img
+                :alt="appName"
+                :src="sloganImage"
+                class="animate-float h-64 w-2/5"
+              />
+            </template>
+            <SloganIcon
+              v-else
               :alt="appName"
-              :src="sloganImage"
               class="animate-float h-64 w-2/5"
             />
-          </template>
-          <SloganIcon v-else :alt="appName" class="animate-float h-64 w-2/5" />
-          <div class="text-1xl text-foreground mt-6 font-sans lg:text-2xl">
-            {{ pageTitle }}
+            <div class="text-1xl text-foreground mt-6 font-sans lg:text-2xl">
+              {{ pageTitle }}
+            </div>
+            <div class="dark:text-muted-foreground mt-2">
+              {{ pageDescription }}
+            </div>
           </div>
-          <div class="dark:text-muted-foreground mt-2">
-            {{ pageDescription }}
-          </div>
-        </div>
+        </slot>
       </div>
     </div>
 
     <!-- 中心认证面板 -->
     <div v-if="authPanelCenter" class="flex-center relative w-full">
-      <div class="login-background absolute left-0 top-0 size-full"></div>
-      <AuthenticationFormView
-        class="md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]"
-      >
-        <template v-if="copyright" #copyright>
-          <slot name="copyright">
-            <Copyright
-              v-if="preferences.copyright.enable"
-              v-bind="preferences.copyright"
-            />
-          </slot>
-        </template>
-      </AuthenticationFormView>
+      <div
+        :class="
+          cn(b('container'), 'login-background absolute left-0 top-0 size-full')
+        "
+      ></div>
+      <div :class="cn(b('panel-wrapper'), 'flex-center absolute flex w-full')">
+        <AuthenticationFormView
+          :class="
+            cn(
+              b('panel'),
+              'md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]',
+            )
+          "
+        >
+          <template v-if="copyright" #copyright>
+            <slot name="copyright">
+              <Copyright
+                v-if="preferences.copyright.enable"
+                v-bind="preferences.copyright"
+              />
+            </slot>
+          </template>
+        </AuthenticationFormView>
+      </div>
     </div>
 
     <!-- 右侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelRight"
-      class="min-h-full w-[34%] flex-1"
+      :class="cn(b('panel'), 'min-h-full w-[34%] flex-1')"
     >
       <template v-if="copyright" #copyright>
         <slot name="copyright">

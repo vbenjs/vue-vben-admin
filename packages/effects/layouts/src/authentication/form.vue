@@ -1,12 +1,23 @@
 <script setup lang="ts">
+import { cn } from '@vben/utils';
+
+import { useNamespace } from '@vben-core/composables';
+
 defineOptions({
   name: 'AuthenticationFormView',
 });
+
+const { be } = useNamespace('auth-layout-panel');
 </script>
 
 <template>
   <div
-    class="flex-col-center dark:bg-background-deep bg-background relative px-6 py-10 lg:flex-initial lg:px-8"
+    :class="
+      cn(
+        be('form'),
+        'flex-col-center dark:bg-background-deep bg-background relative px-6 py-10 lg:flex-initial lg:px-8',
+      )
+    "
   >
     <slot></slot>
     <!-- Router View with Transition and KeepAlive -->

@@ -30,6 +30,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@sokach/theme-01": "workspace:*",
     "@tanstack/vue-query": "catalog:",
     "@vben-core/menu-ui": "workspace:*",
     "@vben/access": "workspace:*",

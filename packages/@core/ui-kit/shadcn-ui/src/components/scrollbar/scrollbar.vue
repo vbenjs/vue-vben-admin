@@ -135,7 +135,7 @@ function handleScroll(event: Event) {
   }
 }
 
-.scrollbar-top-shadow {
+/* .scrollbar-top-shadow {
   background: linear-gradient(
     to bottom,
     hsl(var(--scroll-shadow, var(--background))),
@@ -149,5 +149,5 @@ function handleScroll(event: Event) {
     hsl(var(--scroll-shadow, var(--background))),
     transparent
   );
-}
+} */
 </style>

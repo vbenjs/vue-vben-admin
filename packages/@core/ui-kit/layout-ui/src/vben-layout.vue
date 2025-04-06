@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{ sideMouseLeave: []; toggleSidebar: [] }>();
-const { b, be } = useNamespace('layout');
+const { b } = useNamespace('layout');
 const sidebarCollapse = defineModel<boolean>('sidebarCollapse', {
   default: false,
 });
@@ -137,6 +137,10 @@ const getSideCollapseWidth = computed(() => {
  */
 const sidebarEnableState = computed(() => {
   return !isHeaderNav.value && sidebarEnable.value;
+});
+
+const sidebarCollapseHeight = computed(() => {
+  return props.sidebarFixedButton || props.sidebarCollapsedButton ? 42 : 0;
 });
 
 /**
@@ -495,6 +499,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :show-collapse-button="sidebarCollapsedButton"
       :show-fixed-button="sidebarFixedButton"
       :collapse-width="getSideCollapseWidth"
+      :collapse-height="sidebarCollapseHeight"
       :dom-visible="!isMobile"
       :extra-width="sidebarExtraWidth"
       :fixed-extra="sidebarExpandOnHover"
@@ -531,17 +536,18 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       ref="contentRef"
       :class="
         cn(
-          b('content'),
+          b('content-wrapper'),
           'flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in',
         )
       "
     >
       <div
         :class="[
-          {
-            'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
-          },
+          // {
+          //   'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
+          // },
           SCROLL_FIXED_CLASS,
+          b('header-wrapper'),
         ]"
         :style="headerWrapperStyle"
         class="overflow-hidden transition-all duration-200"
@@ -593,9 +599,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         :padding-right="contentPaddingRight"
         :padding-top="contentPaddingTop"
         :style="contentStyle"
-        :class="
-          cn(be('content', 'container'), 'transition-[margin-top] duration-200')
-        "
+        :class="cn(b('content'), 'transition-[margin-top] duration-200')"
       >
         <slot name="content"></slot>
 

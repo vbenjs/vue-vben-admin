@@ -1,0 +1,29 @@
+{
+  "name": "@sokach/theme-01",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./styles": {
+      "development": "./src/styles/index.scss",
+      "default": "./dist/styles.css"
+    },
+    "./antd": {
+      "development": "./src/styles/antd/index.scss",
+      "default": "./dist/styles/antd/index.scss"
+    }
+  }
+}
