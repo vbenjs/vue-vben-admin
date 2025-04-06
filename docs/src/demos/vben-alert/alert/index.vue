@@ -3,7 +3,7 @@ import { h } from 'vue';
 
 import { alert, VbenButton } from '@vben/common-ui';
 
-import { Empty } from 'ant-design-vue';
+import { Result } from 'ant-design-vue';
 
 function showAlert() {
   alert('This is an alert message');
@@ -18,7 +18,12 @@ function showIconAlert() {
 
 function showCustomAlert() {
   alert({
-    content: h(Empty, { description: '什么都没有' }),
+    buttonAlign: 'center',
+    content: h(Result, {
+      status: 'success',
+      subTitle: '已成功创建订单。订单ID：2017182818828182881',
+      title: '操作成功',
+    }),
   });
 }
 </script>

@@ -30,6 +30,7 @@ import { cn } from '@vben-core/shared/utils';
 
 const props = withDefaults(defineProps<AlertProps>(), {
   bordered: true,
+  buttonAlign: 'end',
   centered: true,
   containerClass: 'w-[520px]',
 });
@@ -154,9 +155,9 @@ async function handleOpenChange(val: boolean) {
           <div class="m-4 mb-6 min-h-[30px]">
             <VbenRenderContent :content="content" render-br />
           </div>
-          <VbenLoading v-if="loading" :spinning="loading" />
+          <VbenLoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
-        <div class="flex justify-end gap-x-2">
+        <div class="flex justify-end gap-x-2" :class="`justify-${buttonAlign}`">
           <AlertDialogCancel v-if="showCancel" :disabled="loading">
             <component
               :is="components.DefaultButton || VbenButton"
