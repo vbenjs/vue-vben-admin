@@ -15,7 +15,10 @@ export type AlertProps = {
   ) => boolean | Promise<boolean | undefined> | undefined;
   /** 边框 */
   bordered?: boolean;
-  /** 按钮对齐方式 */
+  /**
+   * 按钮对齐方式
+   * @default 'end'
+   */
   buttonAlign?: 'center' | 'end' | 'start';
   /** 取消按钮的标题 */
   cancelText?: string;

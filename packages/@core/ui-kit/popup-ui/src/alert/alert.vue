@@ -30,7 +30,7 @@ import { cn } from '@vben-core/shared/utils';
 
 const props = withDefaults(defineProps<AlertProps>(), {
   bordered: true,
-  buttonAlign: 'right',
+  buttonAlign: 'end',
   centered: true,
   containerClass: 'w-[520px]',
 });
