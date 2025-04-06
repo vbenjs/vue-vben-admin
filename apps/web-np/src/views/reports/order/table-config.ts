@@ -22,7 +22,7 @@ export const orderTableOptions: VxeTableGridOptions = {
   toolbarConfig: {
     search: true,
     custom: true,
-    refresh: true,
+    refresh: { code: 'query' },
     zoom: true,
   },
   showFooter: true,
