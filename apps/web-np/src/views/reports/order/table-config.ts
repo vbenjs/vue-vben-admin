@@ -76,23 +76,23 @@ export const orderTableOptions: VxeTableGridOptions = {
       minWidth: 110,
     },
     {
-      field: 'quantityTotal',
-      footerClassName: 'font-semibold',
-      title: 'Items',
-      minWidth: 100,
-    },
-    {
       field: 'quantityCurrent',
       footerClassName: 'font-semibold',
       title: 'Current Items',
       minWidth: 130,
-      visible: false,
     },
     {
       field: 'quantityRefund',
       footerClassName: 'font-semibold',
       title: 'Refund Items',
       minWidth: 130,
+      visible: false,
+    },
+    {
+      field: 'quantityTotal',
+      footerClassName: 'font-semibold',
+      title: 'Total Items',
+      minWidth: 100,
       visible: false,
     },
     {
