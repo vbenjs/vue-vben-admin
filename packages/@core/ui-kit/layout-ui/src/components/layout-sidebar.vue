@@ -303,7 +303,7 @@ function handleMouseleave() {
       />
 
       <SidebarFixedButton
-        v-if="!extraCollapse"
+        v-if="!extraCollapse && showFixedButton"
         v-model:expand-on-hover="expandOnHover"
       />
       <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
