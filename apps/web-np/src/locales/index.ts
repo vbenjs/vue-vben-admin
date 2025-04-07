@@ -67,8 +67,10 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
     }
   }
   if (locale) {
-    locale.weekStart = 1;
-    dayjs.locale(locale);
+    dayjs.locale({
+      ...locale,
+      weekStart: 1,
+    });
   } else {
     console.error(`Failed to load dayjs locale for ${lang}`);
   }
