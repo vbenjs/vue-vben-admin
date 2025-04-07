@@ -45,6 +45,7 @@
     "@vben/node-utils": "workspace:*",
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
+    "code-inspector-plugin": "^0.20.7",
     "dayjs": "catalog:",
     "dotenv": "catalog:",
     "rollup": "catalog:",

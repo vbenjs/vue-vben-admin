@@ -10,6 +10,7 @@ import type {
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
+import { codeInspectorPlugin as viteCodeInspectorPlugin } from 'code-inspector-plugin';
 import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
 import viteCompressPlugin from 'vite-plugin-compression';
 import viteDtsPlugin from 'vite-plugin-dts';
@@ -118,6 +119,14 @@ async function loadApplicationPlugins(
 
   return await loadConditionPlugins([
     ...commonPlugins,
+    {
+      condition: !isBuild,
+      plugins: () => [
+        viteCodeInspectorPlugin({
+          bundler: 'vite',
+        }),
+      ],
+    },
     {
       condition: i18n,
       plugins: async () => {
