@@ -6,11 +6,11 @@ import type { ValueType, VbenButtonGroupProps } from './button';
 import { computed, ref, watch } from 'vue';
 
 import { Circle, CircleCheckBig, LoaderCircle } from '@vben-core/icons';
-import { VbenRenderContent } from '@vben-core/shadcn-ui';
 import { cn, isFunction } from '@vben-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
+import { VbenRenderContent } from '../render-content';
 import VbenButtonGroup from './button-group.vue';
 import Button from './button.vue';
 
