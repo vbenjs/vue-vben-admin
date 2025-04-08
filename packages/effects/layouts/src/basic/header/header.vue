@@ -9,6 +9,9 @@ import { useAccessStore } from '@vben/stores';
 import { VbenFullScreen, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import {
+  AppClose,
+  AppMaxmize,
+  AppMinmize,
   GlobalSearch,
   LanguageToggle,
   PreferencesButton,
@@ -41,6 +44,13 @@ const { refresh } = useRefresh();
 
 const rightSlots = computed(() => {
   const list = [{ index: REFERENCE_VALUE + 100, name: 'user-dropdown' }];
+  if (window.ipcRenderer) {
+    list.push(
+      { index: REFERENCE_VALUE + 110, name: 'app-minimize' },
+      { index: REFERENCE_VALUE + 120, name: 'app-maximize' },
+      { index: REFERENCE_VALUE + 120, name: 'app-close' },
+    );
+  }
   if (preferences.widget.globalSearch) {
     list.push({
       index: REFERENCE_VALUE,
@@ -165,6 +175,15 @@ function clearPreferencesAndLogout() {
         </template>
         <template v-else-if="slot.name === 'fullscreen'">
           <VbenFullScreen class="mr-1" />
+        </template>
+        <template v-else-if="slot.name === 'app-minimize'">
+          <AppMinmize class="mr-1" />
+        </template>
+        <template v-else-if="slot.name === 'app-maximize'">
+          <AppMaxmize class="mr-1" />
+        </template>
+        <template v-else-if="slot.name === 'app-close'">
+          <AppClose class="mr-1" />
         </template>
       </slot>
     </template>

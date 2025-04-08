@@ -1687,6 +1687,10 @@ importers:
       vue-router:
         specifier: 'catalog:'
         version: 4.5.0(vue@3.5.13(typescript@5.8.3))
+    devDependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../@core/base/typings
 
   packages/effects/plugins:
     dependencies:

@@ -64,7 +64,7 @@ const logoStyle = computed((): CSSProperties => {
   <header
     :class="theme"
     :style="style"
-    class="border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200"
+    class="app-header border-border bg-header top-0 flex w-full flex-[0_0_auto] items-center border-b pl-2 transition-[margin-top] duration-200"
   >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>
@@ -75,3 +75,17 @@ const logoStyle = computed((): CSSProperties => {
     <slot></slot>
   </header>
 </template>
+<style lang="scss" scoped>
+.bg-header {
+  app-region: drag;
+  user-select: none;
+
+  :deep(.cursor-pointer),
+  :deep(.vben-sub-menu),
+  :deep(.vben-menu-item),
+  :deep(button),
+  :deep(a) {
+    app-region: no-drag;
+  }
+}
+</style>

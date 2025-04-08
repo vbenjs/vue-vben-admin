@@ -6,6 +6,9 @@ import { computed } from 'vue';
 import { preferences } from '@vben/preferences';
 
 import {
+  AppClose,
+  AppMaxmize,
+  AppMinmize,
   AuthenticationColorToggle,
   AuthenticationLayoutToggle,
   LanguageToggle,
@@ -28,6 +31,8 @@ const showColor = computed(() => props.toolbarList.includes('color'));
 const showLayout = computed(() => props.toolbarList.includes('layout'));
 const showLanguage = computed(() => props.toolbarList.includes('language'));
 const showTheme = computed(() => props.toolbarList.includes('theme'));
+
+const isElectron = window?.ipcRenderer !== undefined;
 </script>
 
 <template>
@@ -45,5 +50,10 @@ const showTheme = computed(() => props.toolbarList.includes('theme'));
     <!-- Always show Language and Theme toggles -->
     <LanguageToggle v-if="showLanguage && preferences.widget.languageToggle" />
     <ThemeToggle v-if="showTheme && preferences.widget.themeToggle" />
+    <template v-if="isElectron">
+      <AppMinmize />
+      <AppMaxmize />
+      <AppClose />
+    </template>
   </div>
 </template>

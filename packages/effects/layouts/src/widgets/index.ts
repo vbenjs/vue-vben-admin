@@ -1,3 +1,6 @@
+export * from './app-close';
+export * from './app-maximize';
+export * from './app-minimize';
 export { default as Breadcrumb } from './breadcrumb.vue';
 export * from './check-updates';
 export { default as AuthenticationColorToggle } from './color-toggle.vue';

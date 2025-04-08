@@ -39,5 +39,8 @@
     "@vueuse/core": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@vben-core/typings": "workspace:*"
   }
 }

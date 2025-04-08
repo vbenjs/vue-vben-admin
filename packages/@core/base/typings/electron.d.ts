@@ -1,6 +1,11 @@
 import type { IpcRendererEvent } from 'electron';
 
-export type IpcRendererInvoke = 'open-win';
+export type IpcRendererInvoke =
+  | 'app-close'
+  | 'app-maximize'
+  | 'app-minimize'
+  | 'is-maximized'
+  | 'open-win';
 
 declare global {
   interface Window {

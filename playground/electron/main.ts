@@ -41,8 +41,10 @@ const indexHtml = path.join(RENDERER_DIST, 'index.html');
 async function createWindow() {
   win = new BrowserWindow({
     autoHideMenuBar: true,
+    frame: false,
     height: 900,
     icon: path.join(process.env.VITE_PUBLIC as string, 'favicon.ico'),
+    movable: true,
     show: false,
     title: 'Main window',
     webPreferences: {
@@ -58,6 +60,14 @@ async function createWindow() {
   win.once('ready-to-show', () => {
     win?.maximize(); // 最大化窗口
     win?.show(); // 显示窗口
+  });
+
+  win.on('maximize', () => {
+    win?.webContents.send('maximize-changed', true);
+  });
+
+  win.on('unmaximize', () => {
+    win?.webContents.send('maximize-changed', false);
   });
 
   if (VITE_DEV_SERVER_URL) {
@@ -132,6 +142,7 @@ app.on('activate', () => {
 // New window example arg: new windows url
 ipcMain.handle('open-win', (_, arg) => {
   const childWindow = new BrowserWindow({
+    frame: false,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,
@@ -142,8 +153,40 @@ ipcMain.handle('open-win', (_, arg) => {
 
   if (VITE_DEV_SERVER_URL) {
     childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`);
-    childWindow.webContents.openDevTools();
   } else {
     childWindow.loadFile(indexHtml, { hash: arg });
   }
+});
+
+ipcMain.handle('app-minimize', (event) => {
+  const browserWindow = BrowserWindow.fromWebContents(event.sender);
+  if (browserWindow) {
+    browserWindow.minimize();
+  }
+});
+
+ipcMain.handle('app-maximize', (event) => {
+  const browserWindow = BrowserWindow.fromWebContents(event.sender);
+  if (browserWindow) {
+    if (browserWindow.isMaximized()) {
+      browserWindow.restore();
+    } else {
+      browserWindow.maximize();
+    }
+  }
+});
+
+ipcMain.handle('app-close', (event) => {
+  const browserWindow = BrowserWindow.fromWebContents(event.sender);
+  if (browserWindow) {
+    browserWindow.close();
+  }
+});
+
+ipcMain.handle('is-maximized', (event) => {
+  const browserWindow = BrowserWindow.fromWebContents(event.sender);
+  if (browserWindow) {
+    return browserWindow.isMaximized();
+  }
+  return false;
 });
