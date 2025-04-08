@@ -28,8 +28,8 @@ const Button = defineAsyncComponent(() => import('ant-design-vue/es/button'));
 const Checkbox = defineAsyncComponent(
   () => import('ant-design-vue/es/checkbox'),
 );
-const CheckboxGroup = defineAsyncComponent(
-  () => import('ant-design-vue/es/checkbox/group'),
+const CheckboxGroup = defineAsyncComponent(() =>
+  import('ant-design-vue/es/checkbox').then((res) => res.CheckboxGroup),
 );
 const DatePicker = defineAsyncComponent(
   () => import('ant-design-vue/es/date-picker'),
@@ -39,15 +39,15 @@ const Input = defineAsyncComponent(() => import('ant-design-vue/es/input'));
 const InputNumber = defineAsyncComponent(
   () => import('ant-design-vue/es/input-number'),
 );
-const InputPassword = defineAsyncComponent(
-  () => import('ant-design-vue/es/input/Password'),
+const InputPassword = defineAsyncComponent(() =>
+  import('ant-design-vue/es/input').then((res) => res.InputPassword),
 );
 const Mentions = defineAsyncComponent(
   () => import('ant-design-vue/es/mentions'),
 );
 const Radio = defineAsyncComponent(() => import('ant-design-vue/es/radio'));
-const RadioGroup = defineAsyncComponent(
-  () => import('ant-design-vue/es/radio/group'),
+const RadioGroup = defineAsyncComponent(() =>
+  import('ant-design-vue/es/radio').then((res) => res.RadioGroup),
 );
 const RangePicker = defineAsyncComponent(() =>
   import('ant-design-vue/es/date-picker').then((res) => res.RangePicker),
@@ -56,8 +56,8 @@ const Rate = defineAsyncComponent(() => import('ant-design-vue/es/rate'));
 const Select = defineAsyncComponent(() => import('ant-design-vue/es/select'));
 const Space = defineAsyncComponent(() => import('ant-design-vue/es/space'));
 const Switch = defineAsyncComponent(() => import('ant-design-vue/es/switch'));
-const Textarea = defineAsyncComponent(
-  () => import('ant-design-vue/es/input/Textarea'),
+const Textarea = defineAsyncComponent(() =>
+  import('ant-design-vue/es/input').then((res) => res.Textarea),
 );
 const TimePicker = defineAsyncComponent(
   () => import('ant-design-vue/es/time-picker'),
