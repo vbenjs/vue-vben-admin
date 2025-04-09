@@ -180,9 +180,7 @@
     "json5"
   ],
 
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
+  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
 
   "github.copilot.enable": {
     "*": true,
@@ -234,5 +232,6 @@
     "nolebase",
     "rollup",
     "vitest"
-  ]
+  ],
+  "marscode.chatLanguage": "cn"
 }
