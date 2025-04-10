@@ -39,7 +39,9 @@ const [Modal, modalApi] = useVbenModal({
       modalApi.lock();
       const data = await formApi.getValues();
       try {
-        await (formData.value?.id ? updateDept(formData.value.id, data) : createDept(data));
+        await (formData.value?.id
+          ? updateDept(formData.value.id, data)
+          : createDept(data));
         modalApi.close();
         emit('success');
       } finally {
