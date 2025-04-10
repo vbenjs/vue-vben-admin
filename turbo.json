@@ -1,3 +1,4 @@
+// json文件也注释
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
