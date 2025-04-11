@@ -261,6 +261,9 @@ async function openPrompt() {
         </template>
       </Card>
       <Card class="w-[300px]" title="轻量提示弹窗">
+        <template #extra>
+          <DocButton path="/components/common-ui/vben-alert" />
+        </template>
         <p>通过快捷方法创建动态提示弹窗，适合一些轻量的提示和确认、输入等</p>
         <template #actions>
           <Button type="primary" @click="openAlert">Alert</Button>
