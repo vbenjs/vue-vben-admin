@@ -138,7 +138,7 @@ async function handleOpenChange(val: boolean) {
           <div class="flex items-center">
             <component :is="getIconRender" class="mr-2" />
             <span class="flex-auto">{{ $t(title) }}</span>
-            <AlertDialogCancel v-if="showCancel">
+            <AlertDialogCancel v-if="showCancel" as-child>
               <VbenButton
                 variant="ghost"
                 size="icon"
@@ -158,16 +158,17 @@ async function handleOpenChange(val: boolean) {
           <VbenLoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
         <div class="flex justify-end gap-x-2" :class="`justify-${buttonAlign}`">
-          <AlertDialogCancel v-if="showCancel" :disabled="loading">
+          <AlertDialogCancel v-if="showCancel" as-child>
             <component
               :is="components.DefaultButton || VbenButton"
+              :disabled="loading"
               variant="ghost"
               @click="handleCancel"
             >
               {{ cancelText || $t('cancel') }}
             </component>
           </AlertDialogCancel>
-          <AlertDialogAction>
+          <AlertDialogAction as-child>
             <component
               :is="components.PrimaryButton || VbenButton"
               :loading="loading"
