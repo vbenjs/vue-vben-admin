@@ -39,6 +39,7 @@ function getDefaultState(): VbenFormProps {
     layout: 'horizontal',
     resetButtonOptions: {},
     schema: [],
+    showActionFormSameLine: false,
     showCollapseButton: false,
     showDefaultActions: true,
     submitButtonOptions: {},
@@ -295,6 +296,7 @@ export class FormApi {
       return true;
     });
     const filteredFields = fieldMergeFn(fields, form.values);
+    this.handleStringToArrayFields(filteredFields);
     form.setValues(filteredFields, shouldValidate);
   }
 
@@ -304,6 +306,7 @@ export class FormApi {
     const form = await this.getForm();
     await form.submitForm();
     const rawValues = toRaw(await this.getValues());
+    this.handleArrayToStringFields(rawValues);
     await this.state?.handleSubmit?.(rawValues);
 
     return rawValues;
@@ -392,9 +395,51 @@ export class FormApi {
     return this.form;
   }
 
+  private handleArrayToStringFields = (originValues: Record<string, any>) => {
+    const arrayToStringFields = this.state?.arrayToStringFields;
+    if (!arrayToStringFields || !Array.isArray(arrayToStringFields)) {
+      return;
+    }
+
+    const processFields = (fields: string[], separator: string = ',') => {
+      fields.forEach((field) => {
+        if (Array.isArray(originValues[field])) {
+          originValues[field] = originValues[field].join(separator);
+        }
+      });
+    };
+
+    // 处理简单数组格式 ['field1', 'field2', ';'] 或 ['field1', 'field2']
+    if (arrayToStringFields.every((item) => typeof item === 'string')) {
+      const lastItem =
+        arrayToStringFields[arrayToStringFields.length - 1] || '';
+      const fields =
+        lastItem.length === 1
+          ? arrayToStringFields.slice(0, -1)
+          : arrayToStringFields;
+      const separator = lastItem.length === 1 ? lastItem : ',';
+      processFields(fields, separator);
+      return;
+    }
+
+    // 处理嵌套数组格式 [['field1'], ';']
+    arrayToStringFields.forEach((fieldConfig) => {
+      if (Array.isArray(fieldConfig)) {
+        const [fields, separator = ','] = fieldConfig;
+        if (Array.isArray(fields)) {
+          processFields(fields, separator);
+        } else if (Array.isArray(originValues[fields])) {
+          originValues[fields] = originValues[fields].join(separator);
+        }
+      }
+    });
+  };
+
   private handleRangeTimeValue = (originValues: Record<string, any>) => {
     const values = { ...originValues };
     const fieldMappingTime = this.state?.fieldMappingTime;
+
+    this.handleStringToArrayFields(values);
 
     if (!fieldMappingTime || !Array.isArray(fieldMappingTime)) {
       return values;
@@ -439,6 +484,46 @@ export class FormApi {
       },
     );
     return values;
+  };
+
+  private handleStringToArrayFields = (originValues: Record<string, any>) => {
+    const arrayToStringFields = this.state?.arrayToStringFields;
+    if (!arrayToStringFields || !Array.isArray(arrayToStringFields)) {
+      return;
+    }
+
+    const processFields = (fields: string[], separator: string = ',') => {
+      fields.forEach((field) => {
+        if (typeof originValues[field] === 'string') {
+          originValues[field] = originValues[field].split(separator);
+        }
+      });
+    };
+
+    // 处理简单数组格式 ['field1', 'field2', ';'] 或 ['field1', 'field2']
+    if (arrayToStringFields.every((item) => typeof item === 'string')) {
+      const lastItem =
+        arrayToStringFields[arrayToStringFields.length - 1] || '';
+      const fields =
+        lastItem.length === 1
+          ? arrayToStringFields.slice(0, -1)
+          : arrayToStringFields;
+      const separator = lastItem.length === 1 ? lastItem : ',';
+      processFields(fields, separator);
+      return;
+    }
+
+    // 处理嵌套数组格式 [['field1'], ';']
+    arrayToStringFields.forEach((fieldConfig) => {
+      if (Array.isArray(fieldConfig)) {
+        const [fields, separator = ','] = fieldConfig;
+        if (Array.isArray(fields)) {
+          processFields(fields, separator);
+        } else if (typeof originValues[fields] === 'string') {
+          originValues[fields] = originValues[fields].split(separator);
+        }
+      }
+    });
   };
 
   private updateState() {
