@@ -130,7 +130,7 @@ const reload = () => {
             class="w-[100px] !p-0 text-right"
             size="xs"
             variant="link"
-            @click="redirect('reports.p-and-l')"
+            @click="redirect('reports-p-and-l')"
           >
             View details
           </VbenButton>

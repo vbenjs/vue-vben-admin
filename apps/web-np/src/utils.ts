@@ -1,4 +1,5 @@
 import { $t } from '@vben/locales';
+import { useAccessStore } from '@vben/stores';
 import { formatDate } from '@vben/utils';
 
 import { findCurrency, format } from 'currency-formatter';
@@ -190,4 +191,11 @@ export const redirect = (name: string) => {
 
 export const redirectToPath = (path: string) => {
   router.push(path);
+};
+
+export const openNewTab = () => {
+  const accessStore = useAccessStore();
+  const url = `${window.location.origin}/auth/token?token=${accessStore.accessToken}`;
+
+  window.open(url, '_blank');
 };

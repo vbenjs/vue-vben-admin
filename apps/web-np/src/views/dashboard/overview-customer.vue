@@ -60,7 +60,7 @@ const getData = computed(() => {
           class="w-[100px] !p-0 text-right"
           size="xs"
           variant="link"
-          @click="redirect('reports.customer-analytics')"
+          @click="redirect('reports-customer-analytics')"
         >
           View details
         </VbenButton>

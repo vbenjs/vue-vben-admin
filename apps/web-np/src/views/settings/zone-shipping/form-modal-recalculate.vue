@@ -83,7 +83,7 @@ const [Modal, modalApi] = useVbenModal({
 
 const redirectToOrderReport = () => {
   modalApi.close();
-  redirect('reports.order');
+  redirect('reports-order');
 };
 </script>
 <template>
