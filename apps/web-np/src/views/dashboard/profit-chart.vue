@@ -69,7 +69,7 @@ const reload = () => {
     series: [
       {
         name: $t('field-name.netPayment'),
-        barMaxWidth: 80,
+        barMaxWidth: 20,
         stack: 'profit',
         data: state.charts.profit.revenue,
         type: 'bar',
@@ -80,7 +80,7 @@ const reload = () => {
       },
       {
         name: $t('field-name.totalCosts'),
-        barMaxWidth: 80,
+        barMaxWidth: 20,
         stack: 'profit',
         color: 'red',
         data: state.charts.profit.totalCosts,
