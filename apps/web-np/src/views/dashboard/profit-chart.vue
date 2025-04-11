@@ -73,6 +73,10 @@ const reload = () => {
         stack: 'profit',
         data: state.charts.profit.revenue,
         type: 'bar',
+        itemStyle: {
+          borderRadius: [8, 8, 0, 0],
+          color: '#4C9AFF', // Màu xanh dương tươi
+        },
       },
       {
         name: $t('field-name.totalCosts'),
@@ -81,6 +85,10 @@ const reload = () => {
         color: 'red',
         data: state.charts.profit.totalCosts,
         type: 'bar',
+        itemStyle: {
+          borderRadius: [0, 0, 8, 8],
+          color: '#FF6B6B', // Màu đỏ hồng đẹp mắt
+        },
       },
       {
         name: $t('field-name.netProfit'),
@@ -90,7 +98,14 @@ const reload = () => {
         smooth: true,
         symbolSize: 7,
         lineStyle: {
-          width: 3, // Đặt độ dày của đường
+          width: 3,
+          color: '#00C853',
+          shadowColor: 'rgba(0, 200, 83, 0.5)',
+          shadowBlur: 10,
+          shadowOffsetY: 4,
+        },
+        itemStyle: {
+          color: '#00C853',
         },
       },
     ],

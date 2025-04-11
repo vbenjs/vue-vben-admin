@@ -23,7 +23,7 @@ const [FormContentModal, formContentModalApi] = useVbenModal({
   onClosed: () => {
     const { reload } = formContentModalApi.getData();
     if (reload === true) {
-      gridApi.reload();
+      gridApi.query();
     }
   },
 });
@@ -46,7 +46,7 @@ const handleDelete = (row: ICustomCost) => {
     cancelText: 'No',
     onOk: async () => {
       await deleteCustomCost([row.id]).then(() => {
-        gridApi.reload();
+        gridApi.query();
       });
     },
   });

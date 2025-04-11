@@ -118,7 +118,7 @@ const [CogsFormContentModal, cogsFormModalApi] = useVbenModal({
     const { reload } = cogsFormModalApi.getData();
 
     if (reload === true) {
-      gridApi.reload();
+      gridApi.query();
     }
   },
 });
@@ -179,7 +179,7 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
 
   updateCogsByLastDate(payload)
     .then(() => {
-      gridApi.reload();
+      gridApi.query();
 
       message.success({
         content: 'The cost has been updated.',
@@ -208,7 +208,7 @@ const handleHandlingFeesChanged = useDebounceFn(
 
     updateHandlingFees(payload)
       .then(() => {
-        gridApi.reload();
+        gridApi.query();
 
         message.success({
           content: 'The cost has been updated.',
