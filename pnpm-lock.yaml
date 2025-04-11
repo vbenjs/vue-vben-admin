@@ -211,8 +211,8 @@ catalogs:
       specifier: ^1.4.7
       version: 1.4.7
     dotenv:
-      specifier: ^16.4.7
-      version: 16.4.7
+      specifier: ^16.5.0
+      version: 16.5.0
     echarts:
       specifier: ^5.6.0
       version: 5.6.0
@@ -1183,7 +1183,7 @@ importers:
         version: 1.11.13
       dotenv:
         specifier: 'catalog:'
-        version: 16.4.7
+        version: 16.5.0
       rollup:
         specifier: 'catalog:'
         version: 4.39.0
@@ -6064,6 +6064,10 @@ packages:
 
   dotenv@16.4.7:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
   dotenv@8.6.0:
@@ -15362,6 +15366,8 @@ snapshots:
 
   dotenv@16.4.7: {}
 
+  dotenv@16.5.0: {}
+
   dotenv@8.6.0: {}
 
   dunder-proto@1.0.1:
@@ -19936,7 +19942,7 @@ snapshots:
       colorette: 2.0.20
       connect-history-api-fallback: 1.6.0
       consola: 2.15.3
-      dotenv: 16.4.7
+      dotenv: 16.5.0
       dotenv-expand: 8.0.3
       ejs: 3.1.10
       fast-glob: 3.3.3
