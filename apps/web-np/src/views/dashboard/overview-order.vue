@@ -80,7 +80,7 @@ const getData = computed(() => {
           class="w-[100px] !p-0 text-right"
           size="xs"
           variant="link"
-          @click="redirect('reports.order')"
+          @click="redirect('reports-order')"
         >
           View details
         </VbenButton>
