@@ -138,6 +138,7 @@ function openConfirm() {
         }, 1000);
       });
     },
+    centered: false,
     content: '这是一个确认弹窗',
     icon: 'question',
   })
@@ -160,6 +161,7 @@ async function openPrompt() {
     componentProps: { placeholder: '不能吃芝士...' },
     content: '中午吃了什么？',
     icon: 'question',
+    overlayBlur: 3,
   })
     .then((res) => {
       message.success(`用户输入了：${res}`);
