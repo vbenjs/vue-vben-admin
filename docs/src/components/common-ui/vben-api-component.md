@@ -132,7 +132,7 @@ function fetchApi(): Promise<Record<string, any>> {
 ### Props
 
 | 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | modelValue(v-model) | 当前值 | `any` | - |
 | component | 欲包装的组件（以下称为目标组件） | `Component` | - |
 | numberToString | 是否将value从数字转为string | `boolean` | `false` |
@@ -151,6 +151,16 @@ function fetchApi(): Promise<Record<string, any>> {
 | options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - |
 | visibleEvent | 触发重新请求数据的事件名 | `string` | - |
 | loadingSlot | 目标组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - |
+| autoSelect | 自动设置选项 | `'first' \| 'last' \| 'none'\| false` | false | - |
+
+#### autoSelect 自动设置选项
+
+如果当前值为undefined，在选项数据成功加载之后，自动从备选项中选择一个作为当前值。默认值为`false`，即不自动选择选项。注意：该属性不应用于多选组件。可选值有：
+
+- `first`：自动选择第一个选项
+- `last`：自动选择最后一个选项
+- `one`：有且仅有一个选项时，自动选择它
+- false：不自动选择选项
 
 ### Methods
 

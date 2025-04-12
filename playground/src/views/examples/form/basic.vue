@@ -74,6 +74,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
         },
         // 菜单接口
         api: getAllMenusApi,
+        autoSelect: 'first',
       },
       // 字段名
       fieldName: 'api',
