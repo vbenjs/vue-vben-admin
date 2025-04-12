@@ -54,6 +54,14 @@ interface Props {
   visibleEvent?: string;
   /** 组件的v-model属性名，默认为modelValue。部分组件可能为value */
   modelPropName?: string;
+  /**
+   * 自动选择
+   * - `first`：自动选择第一个选项
+   * - `last`：自动选择最后一个选项
+   * - `one`: 当请求的结果只有一个选项时，自动选择该选项
+   * - false：不自动选择(默认)
+   */
+  autoSelect?: 'first' | 'last' | 'one' | false;
 }
 
 defineOptions({ name: 'ApiComponent', inheritAttrs: false });
@@ -74,6 +82,7 @@ const props = withDefaults(defineProps<Props>(), {
   afterFetch: undefined,
   modelPropName: 'modelValue',
   api: undefined,
+  autoSelect: false,
   options: () => [],
 });
 
@@ -81,7 +90,7 @@ const emit = defineEmits<{
   optionsChange: [OptionsItem[]];
 }>();
 
-const modelValue = defineModel({ default: '' });
+const modelValue = defineModel<any>({ default: undefined });
 
 const attrs = useAttrs();
 const innerParams = ref({});
@@ -194,6 +203,31 @@ watch(
 );
 
 function emitChange() {
+  if (
+    modelValue.value === undefined &&
+    props.autoSelect &&
+    unref(getOptions).length > 0
+  ) {
+    let firstOption;
+    switch (props.autoSelect) {
+      case 'first': {
+        firstOption = unref(getOptions)[0];
+        break;
+      }
+      case 'last': {
+        firstOption = unref(getOptions)[unref(getOptions).length - 1];
+        break;
+      }
+      case 'one': {
+        if (unref(getOptions).length === 1) {
+          firstOption = unref(getOptions)[0];
+        }
+        break;
+      }
+    }
+
+    if (firstOption) modelValue.value = firstOption[props.valueField];
+  }
   emit('optionsChange', unref(getOptions));
 }
 const componentRef = ref();
