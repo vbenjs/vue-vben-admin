@@ -3,7 +3,7 @@ import { h } from 'vue';
 
 import { alert, prompt, VbenButton } from '@vben/common-ui';
 
-import { Input, RadioGroup } from 'ant-design-vue';
+import { Input, RadioGroup, Select } from 'ant-design-vue';
 import { BadgeJapaneseYen } from 'lucide-vue-next';
 
 function showPrompt() {
@@ -18,7 +18,7 @@ function showPrompt() {
     });
 }
 
-function showSelectPrompt() {
+function showSlotsPrompt() {
   prompt({
     component: Input,
     componentProps: {
@@ -37,6 +37,29 @@ function showSelectPrompt() {
   });
 }
 
+function showSelectPrompt() {
+  prompt({
+    component: Select,
+    componentProps: {
+      options: [
+        { label: 'Option A', value: 'Option A' },
+        { label: 'Option B', value: 'Option B' },
+        { label: 'Option C', value: 'Option C' },
+      ],
+      placeholder: '请选择',
+      // 弹窗会设置body的pointer-events为none，这回影响下拉框的点击事件
+      popupClassName: 'pointer-events-auto',
+    },
+    content: '此弹窗演示了如何使用component传递自定义组件',
+    icon: 'question',
+    modelPropName: 'value',
+  }).then((val) => {
+    if (val) {
+      alert(`你选择了${val}`);
+    }
+  });
+}
+
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -44,7 +67,6 @@ function sleep(ms: number) {
 function showAsyncPrompt() {
   prompt({
     async beforeClose(scope) {
-      console.log(scope);
       if (scope.isConfirm) {
         if (scope.value) {
           // 模拟异步操作，如果不成功，可以返回false
@@ -75,6 +97,7 @@ function showAsyncPrompt() {
 <template>
   <div class="flex gap-4">
     <VbenButton @click="showPrompt">Prompt</VbenButton>
+    <VbenButton @click="showSlotsPrompt"> Prompt With slots </VbenButton>
     <VbenButton @click="showSelectPrompt">Prompt With Select</VbenButton>
     <VbenButton @click="showAsyncPrompt">Prompt With Async</VbenButton>
   </div>
