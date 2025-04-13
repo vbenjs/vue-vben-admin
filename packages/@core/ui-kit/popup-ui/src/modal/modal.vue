@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ExtendedModalApi, ModalProps } from './modal';
 
-import { computed, nextTick, provide, ref, useId, watch } from 'vue';
+import { computed, nextTick, provide, ref, unref, useId, watch } from 'vue';
 
 import {
   useIsMobile,
@@ -67,6 +67,7 @@ const {
   confirmText,
   contentClass,
   description,
+  destroyOnClose,
   draggable,
   footer: showFooter,
   footerClass,
@@ -176,6 +177,10 @@ const getAppendTo = computed(() => {
     ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
     : undefined;
 });
+
+const getForceMount = computed(() => {
+  return !unref(destroyOnClose);
+});
 </script>
 <template>
   <Dialog
@@ -197,9 +202,11 @@ const getAppendTo = computed(() => {
               shouldFullscreen,
             'top-1/2 !-translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
+            hidden: !state?.isOpen && getForceMount,
           },
         )
       "
+      :force-mount="getForceMount"
       :modal="modal"
       :open="state?.isOpen"
       :show-close="closable"
