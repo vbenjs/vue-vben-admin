@@ -198,7 +198,7 @@ async function openPrompt() {
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="指定容器">
+      <Card class="w-[300px]" title="指定容器+关闭后不销毁">
         <p>在内容区域打开弹窗的示例</p>
         <template #actions>
           <Button type="primary" @click="openInContentModal">打开弹窗</Button>
