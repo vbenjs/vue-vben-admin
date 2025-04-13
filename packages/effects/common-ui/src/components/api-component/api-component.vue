@@ -226,7 +226,7 @@ function emitChange() {
       }
     }
 
-    if (firstOption) modelValue.value = firstOption[props.valueField];
+    if (firstOption) modelValue.value = firstOption.value;
   }
   emit('optionsChange', unref(getOptions));
 }
