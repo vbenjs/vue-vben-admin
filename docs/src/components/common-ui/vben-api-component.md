@@ -151,7 +151,7 @@ function fetchApi(): Promise<Record<string, any>> {
 | options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - | - |
 | visibleEvent | 触发重新请求数据的事件名 | `string` | - | - |
 | loadingSlot | 目标组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - | - |
-| autoSelect | 自动设置选项 | `'first' \| 'last' \| 'none'\| false` | `false` | >5.5.4 |
+| autoSelect | 自动设置选项 | `'first' \| 'last' \| 'one'\| (item: OptionsItem[]) => OptionsItem \| false` | `false` | >5.5.4 |
 
 #### autoSelect 自动设置选项
 
@@ -160,6 +160,7 @@ function fetchApi(): Promise<Record<string, any>> {
 - `first`：自动选择第一个选项
 - `last`：自动选择最后一个选项
 - `one`：有且仅有一个选项时，自动选择它
+- `函数`：自定义选择逻辑，函数的参数为options，返回值为选择的选项
 - false：不自动选择选项
 
 ### Methods
