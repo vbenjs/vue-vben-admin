@@ -85,6 +85,6 @@ const coreRoutes: RouteRecordRaw[] = [
   },
 ];
 
-const loginPaths = [LOGIN_PATH, '/auth/shopify'];
+const loginPaths = [LOGIN_PATH];
 
 export { coreRoutes, fallbackNotFoundRoute, loginPaths };
