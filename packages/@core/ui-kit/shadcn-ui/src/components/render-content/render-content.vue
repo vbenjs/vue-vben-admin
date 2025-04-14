@@ -31,12 +31,11 @@ export default defineComponent({
         if (props.renderBr && isString(props.content)) {
           const lines = props.content.split('\n');
           const result = [];
-          for (let i = 0; i < lines.length; i++) {
-            const line = lines[i];
-            result.push(h('span', { key: i }, line));
-            if (i < lines.length - 1) {
-              result.push(h('br'));
-            }
+          for (const [i, line] of lines.entries()) {
+            result.push(h('p', { key: i }, line));
+            // if (i < lines.length - 1) {
+            //   result.push(h('br'));
+            // }
           }
           return result;
         } else {

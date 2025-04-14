@@ -2,6 +2,8 @@ import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
 import type { Recordable } from '@vben-core/typings';
 
+import { createContext } from '@vben-core/shadcn-ui';
+
 export type IconType = 'error' | 'info' | 'question' | 'success' | 'warning';
 
 export type BeforeCloseScope = {
@@ -70,3 +72,28 @@ export type PromptProps<T = any> = {
   /** 输入组件的值属性名 */
   modelPropName?: string;
 } & Omit<AlertProps, 'beforeClose'>;
+
+/**
+ * Alert上下文
+ */
+export type AlertContext = {
+  /** 执行取消操作 */
+  doCancel: () => void;
+  /** 执行确认操作 */
+  doConfirm: () => void;
+};
+
+export const [injectAlertContext, provideAlertContext] =
+  createContext<AlertContext>('VbenAlertContext');
+
+/**
+ * 获取Alert上下文
+ * @returns AlertContext
+ */
+export function useAlertContext() {
+  const context = injectAlertContext();
+  if (!context) {
+    throw new Error('useAlertContext must be used within an AlertProvider');
+  }
+  return context;
+}

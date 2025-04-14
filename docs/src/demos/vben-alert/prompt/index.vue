@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { h } from 'vue';
 
-import { alert, prompt, VbenButton } from '@vben/common-ui';
+import { alert, prompt, useAlertContext, VbenButton } from '@vben/common-ui';
 
 import { Input, RadioGroup, Select } from 'ant-design-vue';
 import { BadgeJapaneseYen } from 'lucide-vue-next';
@@ -20,16 +20,30 @@ function showPrompt() {
 
 function showSlotsPrompt() {
   prompt({
-    component: Input,
-    componentProps: {
-      placeholder: '请输入',
-      prefix: '充值金额',
-      type: 'number',
+    component: () => {
+      // 获取弹窗上下文。注意：只能在setup或者函数式组件中调用
+      const { doConfirm } = useAlertContext();
+      return h(
+        Input,
+        {
+          onKeydown(e: KeyboardEvent) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              // 调用弹窗提供的确认方法
+              doConfirm();
+            }
+          },
+          placeholder: '请输入',
+          prefix: '充值金额：',
+          type: 'number',
+        },
+        {
+          addonAfter: () => h(BadgeJapaneseYen),
+        },
+      );
     },
-    componentSlots: {
-      addonAfter: () => h(BadgeJapaneseYen),
-    },
-    content: '此弹窗演示了如何使用componentSlots传递自定义插槽',
+    content:
+      '此弹窗演示了如何使用自定义插槽，并且可以使用useAlertContext获取到弹窗的上下文。\n在输入框中按下回车键会触发确认操作。',
     icon: 'question',
     modelPropName: 'value',
   }).then((val) => {
