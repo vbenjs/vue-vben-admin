@@ -157,7 +157,11 @@ async function handleOpenChange(val: boolean) {
           </div>
           <VbenLoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
-        <div class="flex justify-end gap-x-2" :class="`justify-${buttonAlign}`">
+        <div
+          class="flex items-center justify-end gap-x-2"
+          :class="`justify-${buttonAlign}`"
+        >
+          <VbenRenderContent :content="footer" />
           <AlertDialogCancel v-if="showCancel" as-child>
             <component
               :is="components.DefaultButton || VbenButton"
