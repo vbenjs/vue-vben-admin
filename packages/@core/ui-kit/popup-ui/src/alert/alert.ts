@@ -36,6 +36,10 @@ export type AlertProps = {
   contentMasking?: boolean;
   /** 弹窗的图标（在标题的前面） */
   icon?: Component | IconType;
+  /**
+   * 弹窗遮罩模糊效果
+   */
+  overlayBlur?: number;
   /** 是否显示取消按钮 */
   showCancel?: boolean;
   /** 弹窗标题 */

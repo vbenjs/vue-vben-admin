@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ExtendedModalApi, ModalProps } from './modal';
 
-import { computed, nextTick, provide, ref, useId, watch } from 'vue';
+import { computed, nextTick, provide, ref, unref, useId, watch } from 'vue';
 
 import {
   useIsMobile,
@@ -34,6 +34,7 @@ interface Props extends ModalProps {
 
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
+  destroyOnClose: true,
   modalApi: undefined,
 });
 
@@ -67,6 +68,7 @@ const {
   confirmText,
   contentClass,
   description,
+  destroyOnClose,
   draggable,
   footer: showFooter,
   footerClass,
@@ -100,10 +102,15 @@ const { dragging, transform } = useModalDraggable(
   shouldDraggable,
 );
 
+const firstOpened = ref(false);
+const isClosed = ref(false);
+
 watch(
   () => state?.value?.isOpen,
   async (v) => {
     if (v) {
+      isClosed.value = false;
+      if (!firstOpened.value) firstOpened.value = true;
       await nextTick();
       if (!contentRef.value) return;
       const innerContentRef = contentRef.value.getContentRef();
@@ -113,6 +120,7 @@ watch(
       dialogRef.value.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     }
   },
+  { immediate: true },
 );
 
 watch(
@@ -176,6 +184,15 @@ const getAppendTo = computed(() => {
     ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
     : undefined;
 });
+
+const getForceMount = computed(() => {
+  return !unref(destroyOnClose);
+});
+
+function handleClosed() {
+  isClosed.value = true;
+  props.modalApi?.onClosed();
+}
 </script>
 <template>
   <Dialog
@@ -197,9 +214,11 @@ const getAppendTo = computed(() => {
               shouldFullscreen,
             'top-1/2 !-translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
+            hidden: isClosed,
           },
         )
       "
+      :force-mount="getForceMount"
       :modal="modal"
       :open="state?.isOpen"
       :show-close="closable"
@@ -207,7 +226,7 @@ const getAppendTo = computed(() => {
       :overlay-blur="overlayBlur"
       close-class="top-3"
       @close-auto-focus="handleFocusOutside"
-      @closed="() => modalApi?.onClosed()"
+      @closed="handleClosed"
       :close-disabled="submitting"
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"
