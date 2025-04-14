@@ -7,7 +7,7 @@ import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
 import { h, nextTick, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
-import { Input } from '@vben-core/shadcn-ui';
+import { Input, VbenRenderContent } from '@vben-core/shadcn-ui';
 import { isFunction, isString } from '@vben-core/shared/utils';
 
 import Alert from './alert.vue';
@@ -146,11 +146,7 @@ export async function vbenPrompt<T = any>(
   const inputComponentRef = ref<null | VNode>(null);
   const staticContents: Component[] = [];
 
-  if (isString(content)) {
-    staticContents.push(h('span', content));
-  } else if (content) {
-    staticContents.push(content as Component);
-  }
+  staticContents.push(h(VbenRenderContent, { content, renderBr: true }));
 
   const modelPropName = _modelPropName || 'modelValue';
   const componentProps = { ..._componentProps };
