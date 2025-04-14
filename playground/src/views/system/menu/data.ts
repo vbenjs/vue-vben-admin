@@ -11,7 +11,7 @@ export function getMenuTypeOptions() {
       value: 'catalog',
     },
     { color: 'default', label: $t('system.menu.typeMenu'), value: 'menu' },
-    { color: 'error', label: $t('system.menu.typeButton'), value: 'button' },
+    { color: 'error', label: $t('system.menu.typeButton'), value: 'action' },
     {
       color: 'success',
       label: $t('system.menu.typeEmbedded'),

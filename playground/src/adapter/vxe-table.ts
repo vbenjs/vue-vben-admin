@@ -212,7 +212,12 @@ setupVbenVxeTable({
             Popconfirm,
             {
               getPopupContainer(el) {
-                return el.closest('tbody') || document.body;
+                return (
+                  el
+                    .closest('.vxe-table--viewport-wrapper')
+                    ?.querySelector('.vxe-table--main-wrapper')
+                    ?.querySelector('tbody') || document.body
+                );
               },
               placement: 'topLeft',
               title: $t('ui.actionTitle.delete', [attrs?.nameTitle || '']),
