@@ -401,11 +401,9 @@ export class FormApi {
     }
 
     const processFields = (fields: string[], separator: string = ',') => {
-      fields.forEach((field) => {
-        if (Array.isArray(originValues[field])) {
-          originValues[field] = originValues[field].join(separator);
-        }
-      });
+      this.processFields(fields, separator, originValues, (value, sep) =>
+        Array.isArray(value) ? value.join(sep) : value,
+      );
     };
 
     // 处理简单数组格式 ['field1', 'field2', ';'] 或 ['field1', 'field2']
@@ -425,11 +423,14 @@ export class FormApi {
     arrayToStringFields.forEach((fieldConfig) => {
       if (Array.isArray(fieldConfig)) {
         const [fields, separator = ','] = fieldConfig;
-        if (Array.isArray(fields)) {
-          processFields(fields, separator);
-        } else if (Array.isArray(originValues[fields])) {
-          originValues[fields] = originValues[fields].join(separator);
+        // 根据类型定义，fields 应该始终是字符串数组
+        if (!Array.isArray(fields)) {
+          console.warn(
+            `Invalid field configuration: fields should be an array of strings, got ${typeof fields}`,
+          );
+          return;
         }
+        processFields(fields, separator);
       }
     });
   };
@@ -492,10 +493,20 @@ export class FormApi {
     }
 
     const processFields = (fields: string[], separator: string = ',') => {
-      fields.forEach((field) => {
-        if (typeof originValues[field] === 'string') {
-          originValues[field] = originValues[field].split(separator);
+      this.processFields(fields, separator, originValues, (value, sep) => {
+        if (typeof value !== 'string') {
+          return value;
         }
+        // 处理空字符串的情况
+        if (value === '') {
+          return [];
+        }
+        // 处理复杂分隔符的情况
+        const escapedSeparator = sep.replaceAll(
+          /[.*+?^${}()|[\]\\]/g,
+          String.raw`\$&`,
+        );
+        return value.split(new RegExp(escapedSeparator));
       });
     };
 
@@ -519,9 +530,33 @@ export class FormApi {
         if (Array.isArray(fields)) {
           processFields(fields, separator);
         } else if (typeof originValues[fields] === 'string') {
-          originValues[fields] = originValues[fields].split(separator);
+          const value = originValues[fields];
+          if (value === '') {
+            originValues[fields] = [];
+          } else {
+            const escapedSeparator = separator.replaceAll(
+              /[.*+?^${}()|[\]\\]/g,
+              String.raw`\$&`,
+            );
+            originValues[fields] = value.split(new RegExp(escapedSeparator));
+          }
         }
       }
+    });
+  };
+
+  private processFields = (
+    fields: string[],
+    separator: string,
+    originValues: Record<string, any>,
+    transformFn: (value: any, separator: string) => any,
+  ) => {
+    fields.forEach((field) => {
+      const value = originValues[field];
+      if (value === undefined || value === null) {
+        return;
+      }
+      originValues[field] = transformFn(value, separator);
     });
   };
 
