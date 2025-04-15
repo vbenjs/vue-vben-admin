@@ -242,6 +242,10 @@ function emitChange() {
 }
 const componentRef = ref();
 defineExpose({
+  /** 获取options数据 */
+  getOptions: () => unref(getOptions),
+  /** 获取当前值 */
+  getValue: () => unref(modelValue),
   /** 获取被包装的组件实例 */
   getComponentRef: <T = any,>() => componentRef.value as T,
   /** 更新Api参数 */
