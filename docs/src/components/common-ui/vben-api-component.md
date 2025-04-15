@@ -169,3 +169,5 @@ function fetchApi(): Promise<Record<string, any>> {
 | --- | --- | --- | --- |
 | getComponentRef | 获取被包装的组件的实例 | ()=>T | >5.5.4 |
 | updateParam | 设置接口请求参数（将与params属性合并） | (newParams: Record<string, any>)=>void | >5.5.4 |
+| getOptions | 获取已加载的选项数据 | ()=>OptionsItem[] | >5.5.4 |
+| getValue | 获取当前值 | ()=>any | >5.5.4 |
