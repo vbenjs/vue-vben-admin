@@ -333,12 +333,16 @@ const [BaseForm, baseFormApi] = useVbenForm({
     {
       component: 'Upload',
       componentProps: {
+        // 更多属性见：https://ant.design/components/upload-cn
         accept: '.png,.jpg,.jpeg',
+        // 自动携带认证信息
         customRequest: upload_file,
         disabled: false,
         maxCount: 1,
         multiple: false,
         showUploadList: true,
+        // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
+        listType: 'picture-card',
       },
       fieldName: 'files',
       label: $t('examples.form.file'),
@@ -360,7 +364,7 @@ function onSubmit(values: Record<string, any>) {
   const failedFiles = files.filter((file) => file.status !== 'done');
 
   const msg = [
-    ...doneFiles.map((file) => file.response.url),
+    ...doneFiles.map((file) => file.response?.url || file.url),
     ...failedFiles.map((file) => file.name),
   ].join(', ');
 
@@ -374,7 +378,8 @@ function onSubmit(values: Record<string, any>) {
     });
     return;
   }
-
+  // 如果需要可提交前替换为需要的urls
+  values.files = doneFiles.map((file) => file.response?.url || file.url);
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
   });
@@ -387,6 +392,14 @@ function handleSetFormValue() {
   baseFormApi.setValues({
     checkboxGroup: ['1'],
     datePicker: dayjs('2022-01-01'),
+    files: [
+      {
+        name: 'example.png',
+        status: 'done',
+        uid: '-1',
+        url: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
+      },
+    ],
     mentions: '@afc163',
     number: 3,
     options: '1',
