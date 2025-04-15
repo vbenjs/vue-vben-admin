@@ -42,7 +42,11 @@ Alert提供的快捷方法alert、confirm、prompt动态创建的弹窗在已打
 
 当弹窗的content、footer、icon使用自定义组件时，在这些组件中可以使用 `useAlertContext` 获取当前弹窗的上下文对象，用来主动控制弹窗。
 
-::: tip 注意 `useAlertContext`只能用在setup或者函数式组件中。:::
+::: tip 注意
+
+`useAlertContext`只能用在setup或者函数式组件中。
+
+:::
 
 ### Methods
 
