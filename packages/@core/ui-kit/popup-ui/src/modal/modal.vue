@@ -103,7 +103,7 @@ const { dragging, transform } = useModalDraggable(
 );
 
 const firstOpened = ref(false);
-const isClosed = ref(false);
+const isClosed = ref(true);
 
 watch(
   () => state?.value?.isOpen,
