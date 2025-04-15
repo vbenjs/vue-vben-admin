@@ -333,7 +333,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
     {
       component: 'Upload',
       componentProps: {
-        accept: '.png,.jpg,jpeg',
+        accept: '.png,.jpg,.jpeg',
         customRequest: upload_file,
         disabled: false,
         maxCount: 1,
@@ -341,10 +341,10 @@ const [BaseForm, baseFormApi] = useVbenForm({
         showUploadList: true,
       },
       fieldName: 'files',
-      label: '文件',
+      label: $t('examples.form.file'),
       renderComponentContent: () => {
         return {
-          default: () => '点击上传图片',
+          default: () => $t('examples.form.upload-image'),
         };
       },
       rules: 'required',
