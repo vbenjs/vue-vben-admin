@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { h, ref } from 'vue';
+import type { UploadFile } from 'ant-design-vue';
+
+import { h, ref, toRaw } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -9,6 +11,8 @@ import dayjs from 'dayjs';
 
 import { useVbenForm, z } from '#/adapter/form';
 import { getAllMenusApi } from '#/api';
+import { upload_file } from '#/api/examples/upload';
+import { $t } from '#/locales';
 
 import DocButton from '../doc-button.vue';
 
@@ -326,12 +330,51 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'treeSelect',
       label: '树选择',
     },
+    {
+      component: 'Upload',
+      componentProps: {
+        accept: '.png,.jpg,jpeg',
+        customRequest: upload_file,
+        disabled: false,
+        maxCount: 1,
+        multiple: false,
+        showUploadList: true,
+      },
+      fieldName: 'files',
+      label: '文件',
+      renderComponentContent: () => {
+        return {
+          default: () => '点击上传图片',
+        };
+      },
+      rules: 'required',
+    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
 function onSubmit(values: Record<string, any>) {
+  const files = toRaw(values.files) as UploadFile[];
+  const doneFiles = files.filter((file) => file.status === 'done');
+  const failedFiles = files.filter((file) => file.status !== 'done');
+
+  const msg = [
+    ...doneFiles.map((file) => file.response.url),
+    ...failedFiles.map((file) => file.name),
+  ].join(', ');
+
+  if (failedFiles.length === 0) {
+    message.success({
+      content: `${$t('examples.form.upload-urls')}: ${msg}`,
+    });
+  } else {
+    message.error({
+      content: `${$t('examples.form.upload-error')}: ${msg}`,
+    });
+    return;
+  }
+
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
   });
