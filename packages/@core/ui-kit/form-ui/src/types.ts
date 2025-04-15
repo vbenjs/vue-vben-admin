@@ -232,6 +232,12 @@ export type FieldMappingTime = [
   )?,
 ][];
 
+export type ArrayToStringFields = Array<
+  | [string[], string?] // 嵌套数组格式，可选分隔符
+  | string // 单个字段，使用默认分隔符
+  | string[] // 简单数组格式，最后一个元素可以是分隔符
+>;
+
 export interface FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormCommonConfig {
@@ -267,6 +273,10 @@ export interface FormRenderProps<
   T extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**
+   * 表单字段数组映射字符串配置 默认使用","
+   */
+  arrayToStringFields?: ArrayToStringFields;
+  /**
    * 是否展开，在showCollapseButton=true下生效
    */
   collapsed?: boolean;
@@ -297,6 +307,10 @@ export interface FormRenderProps<
    */
   componentMap: Record<BaseFormComponentType, Component>;
   /**
+   * 表单字段映射到时间格式
+   */
+  fieldMappingTime?: FieldMappingTime;
+  /**
    * 表单实例
    */
   form?: FormContext<GenericObject>;
@@ -308,10 +322,15 @@ export interface FormRenderProps<
    * 表单定义
    */
   schema?: FormSchema<T>[];
+
   /**
    * 是否显示展开/折叠
    */
   showCollapseButton?: boolean;
+  /**
+   * 格式化日期
+   */
+
   /**
    * 表单栅格布局
    * @default "grid-cols-1"
@@ -340,6 +359,11 @@ export interface VbenFormProps<
    */
   actionWrapperClass?: ClassType;
   /**
+   * 表单字段数组映射字符串配置 默认使用","
+   */
+  arrayToStringFields?: ArrayToStringFields;
+
+  /**
    * 表单字段映射
    */
   fieldMappingTime?: FieldMappingTime;
@@ -359,6 +383,7 @@ export interface VbenFormProps<
    * 重置按钮参数
    */
   resetButtonOptions?: ActionButtonOptions;
+
   /**
    * 是否显示默认操作按钮
    * @default true
