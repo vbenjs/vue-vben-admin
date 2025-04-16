@@ -42,6 +42,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
   fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD']],
   // 提交函数
   handleSubmit: onSubmit,
+  handleValuesChange(_values, fieldsChanged) {
+    message.info(`表单以下字段发生变化：${fieldsChanged.join('，')}`);
+  },
 
   // 垂直布局，label和input在不同行，值为vertical
   // 水平布局，label和input在同一行
