@@ -1,6 +1,6 @@
 import type { Component, Ref } from 'vue';
 
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType, MaybePromise } from '@vben-core/typings';
 
 import type { DrawerApi } from './drawer-api';
 
@@ -151,7 +151,7 @@ export interface DrawerApiOptions extends DrawerState {
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns
    */
-  onBeforeClose?: () => void;
+  onBeforeClose?: () => MaybePromise<boolean | undefined>;
   /**
    * 点击取消按钮的回调
    */
