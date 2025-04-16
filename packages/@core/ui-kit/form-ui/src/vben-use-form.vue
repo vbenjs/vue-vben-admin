@@ -72,7 +72,7 @@ onMounted(async () => {
   await nextTick();
   watch(
     () => form.values,
-    (newVal) => {
+    async (newVal) => {
       if (forward.value.handleValuesChange) {
         const fields = state.value.schema?.map((item) => {
           return item.fieldName;
@@ -91,7 +91,10 @@ onMounted(async () => {
 
           if (changedFields.length > 0) {
             // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
-            forward.value.handleValuesChange(cloneDeep(newVal), changedFields);
+            forward.value.handleValuesChange(
+              cloneDeep(await forward.value.formApi.getValues()),
+              changedFields,
+            );
           }
         }
       }
