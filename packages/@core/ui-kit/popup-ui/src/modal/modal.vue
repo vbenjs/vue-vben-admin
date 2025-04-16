@@ -186,7 +186,7 @@ const getAppendTo = computed(() => {
 });
 
 const getForceMount = computed(() => {
-  return !unref(destroyOnClose);
+  return !unref(destroyOnClose) && unref(firstOpened);
 });
 
 function handleClosed() {
