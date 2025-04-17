@@ -260,7 +260,7 @@ describe('useAccessStore', () => {
       fullPath: keyToClose,
       meta: {},
       name: 'About',
-      path: '/about',
+      path: keyToClose,
     } as any);
     store.addTab({
       fullPath: '/contact',
