@@ -310,7 +310,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | actionWrapperClass | 表单操作区域class | `any` | - |
 | handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleSubmit | 表单提交回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
-| handleValuesChange | 表单值变化回调 | `(values: Record<string, any>,) => void` | - |
+| handleValuesChange | 表单值变化回调 | `(values: Record<string, any>, fieldsChanged: string[]) => void` | - |
 | actionButtonsReverse | 调换操作按钮位置 | `boolean` | `false` |
 | resetButtonOptions | 重置按钮组件参数 | `ActionButtonOptions` | - |
 | submitButtonOptions | 提交按钮组件参数 | `ActionButtonOptions` | - |
@@ -324,6 +324,12 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
 | submitOnChange | 字段值改变时提交表单(内部防抖，这个属性一般用于表格的搜索表单) | `boolean` | false |
 | compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
+
+::: tip handleValuesChange
+
+`handleValuesChange` 回调函数的第一个参数`values`装载了表单改变后的当前值对象，第二个参数`fieldsChanged`是一个数组，包含了所有被改变的字段名。注意：第二个参数仅在v5.5.4(不含)以上版本可用，并且传递的是已在schema中定义的字段名。如果你使用了字段映射并且需要检查是哪些字段发生了变化的话，请注意该参数并不会包含映射后的字段名。
+
+:::
 
 ::: tip fieldMappingTime
 

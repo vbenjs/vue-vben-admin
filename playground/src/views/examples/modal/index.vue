@@ -138,6 +138,7 @@ function openConfirm() {
         }, 1000);
       });
     },
+    centered: false,
     content: '这是一个确认弹窗',
     icon: 'question',
   })
@@ -160,6 +161,7 @@ async function openPrompt() {
     componentProps: { placeholder: '不能吃芝士...' },
     content: '中午吃了什么？',
     icon: 'question',
+    overlayBlur: 3,
   })
     .then((res) => {
       message.success(`用户输入了：${res}`);
@@ -196,7 +198,7 @@ async function openPrompt() {
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="指定容器">
+      <Card class="w-[300px]" title="指定容器+关闭后不销毁">
         <p>在内容区域打开弹窗的示例</p>
         <template #actions>
           <Button type="primary" @click="openInContentModal">打开弹窗</Button>
@@ -261,6 +263,9 @@ async function openPrompt() {
         </template>
       </Card>
       <Card class="w-[300px]" title="轻量提示弹窗">
+        <template #extra>
+          <DocButton path="/components/common-ui/vben-alert" />
+        </template>
         <p>通过快捷方法创建动态提示弹窗，适合一些轻量的提示和确认、输入等</p>
         <template #actions>
           <Button type="primary" @click="openAlert">Alert</Button>

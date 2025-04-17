@@ -8,31 +8,67 @@ import type { Component } from 'vue';
 import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
-import { defineComponent, getCurrentInstance, h, ref } from 'vue';
+import {
+  defineAsyncComponent,
+  defineComponent,
+  getCurrentInstance,
+  h,
+  ref,
+} from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-import {
-  NButton,
-  NCheckbox,
-  NCheckboxGroup,
-  NDatePicker,
-  NDivider,
-  NInput,
-  NInputNumber,
-  NRadio,
-  NRadioButton,
-  NRadioGroup,
-  NSelect,
-  NSpace,
-  NSwitch,
-  NTimePicker,
-  NTreeSelect,
-  NUpload,
-} from 'naive-ui';
-
 import { message } from '#/adapter/naive';
+
+const NButton = defineAsyncComponent(() =>
+  import('naive-ui/es/button').then((res) => res.NButton),
+);
+const NCheckbox = defineAsyncComponent(() =>
+  import('naive-ui/es/checkbox').then((res) => res.NCheckbox),
+);
+const NCheckboxGroup = defineAsyncComponent(() =>
+  import('naive-ui/es/checkbox').then((res) => res.NCheckboxGroup),
+);
+const NDatePicker = defineAsyncComponent(() =>
+  import('naive-ui/es/date-picker').then((res) => res.NDatePicker),
+);
+const NDivider = defineAsyncComponent(() =>
+  import('naive-ui/es/divider').then((res) => res.NDivider),
+);
+const NInput = defineAsyncComponent(() =>
+  import('naive-ui/es/input').then((res) => res.NInput),
+);
+const NInputNumber = defineAsyncComponent(() =>
+  import('naive-ui/es/input-number').then((res) => res.NInputNumber),
+);
+const NRadio = defineAsyncComponent(() =>
+  import('naive-ui/es/radio').then((res) => res.NRadio),
+);
+const NRadioButton = defineAsyncComponent(() =>
+  import('naive-ui/es/radio').then((res) => res.NRadioButton),
+);
+const NRadioGroup = defineAsyncComponent(() =>
+  import('naive-ui/es/radio').then((res) => res.NRadioGroup),
+);
+const NSelect = defineAsyncComponent(() =>
+  import('naive-ui/es/select').then((res) => res.NSelect),
+);
+const NSpace = defineAsyncComponent(() =>
+  import('naive-ui/es/space').then((res) => res.NSpace),
+);
+const NSwitch = defineAsyncComponent(() =>
+  import('naive-ui/es/switch').then((res) => res.NSwitch),
+);
+const NTimePicker = defineAsyncComponent(() =>
+  import('naive-ui/es/time-picker').then((res) => res.NTimePicker),
+);
+const NTreeSelect = defineAsyncComponent(() =>
+  import('naive-ui/es/tree-select').then((res) => res.NTreeSelect),
+);
+const NUpload = defineAsyncComponent(() =>
+  import('naive-ui/es/upload').then((res) => res.NUpload),
+);
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,

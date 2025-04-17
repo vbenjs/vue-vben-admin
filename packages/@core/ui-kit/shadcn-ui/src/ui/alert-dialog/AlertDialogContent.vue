@@ -61,7 +61,7 @@ defineExpose({
 
 <template>
   <AlertDialogPortal>
-    <Transition name="fade">
+    <Transition name="fade" appear>
       <AlertDialogOverlay
         v-if="open && modal"
         :style="{
@@ -80,7 +80,17 @@ defineExpose({
       v-bind="forwarded"
       :class="
         cn(
-          'z-popup bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          'z-popup bg-background w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+          'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+          {
+            'data-[state=open]:slide-in-from-top-[48%] data-[state=closed]:slide-out-to-top-[48%]':
+              !centered,
+            'data-[state=open]:slide-in-from-top-[98%] data-[state=closed]:slide-out-to-top-[148%]':
+              centered,
+            'top-[10vh]': !centered,
+            'top-1/2 -translate-y-1/2': centered,
+          },
           props.class,
         )
       "

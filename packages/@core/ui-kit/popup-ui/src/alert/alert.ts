@@ -2,6 +2,8 @@ import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
 import type { Recordable } from '@vben-core/typings';
 
+import { createContext } from '@vben-core/shadcn-ui';
+
 export type IconType = 'error' | 'info' | 'question' | 'success' | 'warning';
 
 export type BeforeCloseScope = {
@@ -34,8 +36,14 @@ export type AlertProps = {
   contentClass?: string;
   /** 执行beforeClose回调期间，在内容区域显示一个loading遮罩*/
   contentMasking?: boolean;
+  /** 弹窗底部内容（与按钮在同一个容器中） */
+  footer?: Component | string;
   /** 弹窗的图标（在标题的前面） */
   icon?: Component | IconType;
+  /**
+   * 弹窗遮罩模糊效果
+   */
+  overlayBlur?: number;
   /** 是否显示取消按钮 */
   showCancel?: boolean;
   /** 弹窗标题 */
@@ -64,3 +72,28 @@ export type PromptProps<T = any> = {
   /** 输入组件的值属性名 */
   modelPropName?: string;
 } & Omit<AlertProps, 'beforeClose'>;
+
+/**
+ * Alert上下文
+ */
+export type AlertContext = {
+  /** 执行取消操作 */
+  doCancel: () => void;
+  /** 执行确认操作 */
+  doConfirm: () => void;
+};
+
+export const [injectAlertContext, provideAlertContext] =
+  createContext<AlertContext>('VbenAlertContext');
+
+/**
+ * 获取Alert上下文
+ * @returns AlertContext
+ */
+export function useAlertContext() {
+  const context = injectAlertContext();
+  if (!context) {
+    throw new Error('useAlertContext must be used within an AlertProvider');
+  }
+  return context;
+}

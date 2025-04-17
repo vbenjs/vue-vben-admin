@@ -198,9 +198,16 @@ class PreferenceManager {
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', ({ matches: isDark }) => {
-        this.updatePreferences({
-          theme: { mode: isDark ? 'dark' : 'light' },
-        });
+        // 如果偏好设置中主题模式为auto，则跟随系统更新
+        if (this.state.theme.mode === 'auto') {
+          this.updatePreferences({
+            theme: { mode: isDark ? 'dark' : 'light' },
+          });
+          // 恢复为auto模式
+          this.updatePreferences({
+            theme: { mode: 'auto' },
+          });
+        }
       });
   }
 
