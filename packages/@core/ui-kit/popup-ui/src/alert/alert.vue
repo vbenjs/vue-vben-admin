@@ -91,14 +91,13 @@ const getIconRender = computed(() => {
 });
 
 function doCancel() {
-  isConfirm.value = false;
+  handleCancel();
   handleOpenChange(false);
 }
 
 function doConfirm() {
-  isConfirm.value = true;
+  handleConfirm();
   handleOpenChange(false);
-  emits('confirm');
 }
 
 provideAlertContext({
@@ -117,11 +116,13 @@ function handleCancel() {
 
 const loading = ref(false);
 async function handleOpenChange(val: boolean) {
+  const confirmState = isConfirm.value;
+  isConfirm.value = false;
   await nextTick();
   if (!val && props.beforeClose) {
     loading.value = true;
     try {
-      const res = await props.beforeClose({ isConfirm: isConfirm.value });
+      const res = await props.beforeClose({ isConfirm: confirmState });
       if (res !== false) {
         open.value = false;
       }
