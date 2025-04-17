@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { h, ref } from 'vue';
+import type { UploadFile } from 'ant-design-vue';
+
+import { h, ref, toRaw } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -9,6 +11,8 @@ import dayjs from 'dayjs';
 
 import { useVbenForm, z } from '#/adapter/form';
 import { getAllMenusApi } from '#/api';
+import { upload_file } from '#/api/examples/upload';
+import { $t } from '#/locales';
 
 import DocButton from '../doc-button.vue';
 
@@ -329,12 +333,56 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'treeSelect',
       label: '树选择',
     },
+    {
+      component: 'Upload',
+      componentProps: {
+        // 更多属性见：https://ant.design/components/upload-cn
+        accept: '.png,.jpg,.jpeg',
+        // 自动携带认证信息
+        customRequest: upload_file,
+        disabled: false,
+        maxCount: 1,
+        multiple: false,
+        showUploadList: true,
+        // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
+        listType: 'picture-card',
+      },
+      fieldName: 'files',
+      label: $t('examples.form.file'),
+      renderComponentContent: () => {
+        return {
+          default: () => $t('examples.form.upload-image'),
+        };
+      },
+      rules: 'required',
+    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
 function onSubmit(values: Record<string, any>) {
+  const files = toRaw(values.files) as UploadFile[];
+  const doneFiles = files.filter((file) => file.status === 'done');
+  const failedFiles = files.filter((file) => file.status !== 'done');
+
+  const msg = [
+    ...doneFiles.map((file) => file.response?.url || file.url),
+    ...failedFiles.map((file) => file.name),
+  ].join(', ');
+
+  if (failedFiles.length === 0) {
+    message.success({
+      content: `${$t('examples.form.upload-urls')}: ${msg}`,
+    });
+  } else {
+    message.error({
+      content: `${$t('examples.form.upload-error')}: ${msg}`,
+    });
+    return;
+  }
+  // 如果需要可提交前替换为需要的urls
+  values.files = doneFiles.map((file) => file.response?.url || file.url);
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
   });
@@ -347,6 +395,14 @@ function handleSetFormValue() {
   baseFormApi.setValues({
     checkboxGroup: ['1'],
     datePicker: dayjs('2022-01-01'),
+    files: [
+      {
+        name: 'example.png',
+        status: 'done',
+        uid: '-1',
+        url: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
+      },
+    ],
     mentions: '@afc163',
     number: 3,
     options: '1',
