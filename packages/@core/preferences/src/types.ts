@@ -33,9 +33,11 @@ interface AppPreferences {
   compact: boolean;
   /** 是否开启内容紧凑模式 */
   contentCompact: ContentCompactType;
-  // /** 应用默认头像 */
+  /** 紧凑模式内容宽度 */
+  contentCompactWidth?: number;
+  /** 应用默认头像 */
   defaultAvatar: string;
-  // /** 开启动态标题 */
+  /** 开启动态标题 */
   dynamicTitle: boolean;
   /** 是否开启检查更新 */
   enableCheckUpdates: boolean;
@@ -98,11 +100,15 @@ interface FooterPreferences {
   enable: boolean;
   /** 底栏是否固定 */
   fixed: boolean;
+  /** 底栏高度 */
+  height: number;
 }
 
 interface HeaderPreferences {
   /** 顶栏是否启用 */
   enable: boolean;
+  /** 顶栏高度 */
+  height: number;
   /** 顶栏是否隐藏,css-隐藏 */
   hidden: boolean;
   /** 顶栏菜单位置 */
@@ -136,16 +142,22 @@ interface SidebarPreferences {
   collapsedButton: boolean;
   /** 侧边栏折叠时，是否显示title */
   collapsedShowTitle: boolean;
+  /** 侧边菜单折叠宽度 */
+  collapseWidth: number;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */
   expandOnHover: boolean;
   /** 侧边栏扩展区域是否折叠 */
   extraCollapse: boolean;
+  /** 侧边栏额外折叠宽度 */
+  extraCollapsedWidth: number;
   /** 侧边栏固定按钮是否可见 */
   fixedButton: boolean;
   /** 侧边栏是否隐藏 - css */
   hidden: boolean;
+  /** 混合侧边栏宽度 */
+  mixedWidth: number;
   /** 侧边栏宽度 */
   width: number;
 }
@@ -241,11 +253,26 @@ interface WidgetPreferences {
   themeToggle: boolean;
 }
 
+interface ContentPreferences {
+  /** 内容区域内边距 */
+  padding: number;
+  /** 内容区域内边距-底部 */
+  paddingBottom: number;
+  /** 内容区域内边距-左侧 */
+  paddingLeft: number;
+  /** 内容区域内边距-右侧 */
+  paddingRight: number;
+  /** 内容区域内边距-顶部 */
+  paddingTop: number;
+}
+
 interface Preferences {
   /** 全局配置 */
   app: AppPreferences;
   /** 顶栏配置 */
   breadcrumb: BreadcrumbPreferences;
+  /** 内容区域配置 */
+  content: ContentPreferences;
   /** 版权配置 */
   copyright: CopyrightPreferences;
   /** 底栏配置 */
@@ -279,6 +306,7 @@ interface InitialOptions {
 export type {
   AppPreferences,
   BreadcrumbPreferences,
+  ContentPreferences,
   FooterPreferences,
   HeaderPreferences,
   InitialOptions,

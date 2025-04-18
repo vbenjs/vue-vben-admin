@@ -9,6 +9,7 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
+    contentCompactWidth: 1200,
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
     dynamicTitle: true,
@@ -30,6 +31,13 @@ const defaultPreferences: Preferences = {
     showIcon: true,
     styleType: 'normal',
   },
+  content: {
+    padding: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+  },
   copyright: {
     companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
@@ -42,9 +50,11 @@ const defaultPreferences: Preferences = {
   footer: {
     enable: false,
     fixed: false,
+    height: 32,
   },
   header: {
     enable: true,
+    height: 48,
     hidden: false,
     menuAlign: 'start',
     mode: 'fixed',
@@ -70,11 +80,14 @@ const defaultPreferences: Preferences = {
     collapsed: false,
     collapsedButton: true,
     collapsedShowTitle: false,
+    collapseWidth: 48,
     enable: true,
     expandOnHover: true,
     extraCollapse: false,
+    extraCollapsedWidth: 48,
     fixedButton: true,
     hidden: false,
+    mixedWidth: 80,
     width: 224,
   },
   tabbar: {
