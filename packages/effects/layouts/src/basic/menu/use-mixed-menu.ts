@@ -74,7 +74,7 @@ function useMixedMenu() {
    */
   const headerActive = computed(() => {
     if (!needSplit.value) {
-      return route.path;
+      return route.meta?.activePath ?? route.path;
     }
     return rootMenuPath.value;
   });
