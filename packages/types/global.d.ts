@@ -18,5 +18,6 @@ export interface ApplicationConfig {
 declare global {
   interface Window {
     _VBEN_ADMIN_PRO_APP_CONF_: VbenAdminProAppConfigRaw;
+    Tawk_API: any;
   }
 }
