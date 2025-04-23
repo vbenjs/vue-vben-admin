@@ -110,7 +110,7 @@
       "@ast-grep/napi": "catalog:",
       "@ctrl/tinycolor": "catalog:",
       "clsx": "catalog:",
-      "esbuild": "0.24.0",
+      "esbuild": "0.25.3",
       "pinia": "catalog:",
       "vue": "catalog:"
     },
