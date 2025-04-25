@@ -41,7 +41,6 @@ watch(
         innerValue.value.length > 0 ? innerValue.value[0] : undefined;
     }
   },
-  { immediate: true },
 );
 
 watch(
@@ -60,7 +59,7 @@ watch(
       innerValue.value = val === undefined ? [] : [val as ValueType];
     }
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
 
 async function onBtnClick(value: ValueType) {
