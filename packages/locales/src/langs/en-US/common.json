@@ -18,5 +18,7 @@
   "delete": "Delete",
   "create": "Create",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "showSearchPanel": "Show search panel",
+  "hideSearchPanel": "Hide search panel"
 }
