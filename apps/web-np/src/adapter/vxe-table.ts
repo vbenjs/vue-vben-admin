@@ -70,6 +70,17 @@ setupVbenVxeTable({
       },
     });
 
+    vxeUI.renderer.add('CellTitle', {
+      renderTableDefault(renderOpts: any, params: any) {
+        const { column, row } = params;
+
+        // convert abc_xyz to Abc Xyz
+        return row[column.field]
+          .replaceAll('_', ' ')
+          .replaceAll(/\b\w/g, (l) => l.toUpperCase());
+      },
+    });
+
     const cellMoney = (renderOpts: any, params: any) => {
       const shopStore = useShopStore();
 

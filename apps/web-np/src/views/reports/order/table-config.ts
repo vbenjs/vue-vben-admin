@@ -165,6 +165,14 @@ export const orderTableOptions: VxeTableGridOptions = {
       minWidth: 120,
     },
     {
+      cellRender: { name: 'CellTitle' },
+      field: 'paymentGateway',
+      title: 'Payment Getway',
+      align: 'center',
+      minWidth: 160,
+      // visible: false,
+    },
+    {
       cellRender: { name: 'cellMoney' },
       footerClassName: 'font-semibold',
       field: 'transactionFees',
