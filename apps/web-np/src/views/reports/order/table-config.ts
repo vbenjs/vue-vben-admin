@@ -170,7 +170,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       title: 'Payment Getway',
       align: 'center',
       minWidth: 160,
-      // visible: false,
+      visible: false,
     },
     {
       cellRender: { name: 'cellMoney' },
