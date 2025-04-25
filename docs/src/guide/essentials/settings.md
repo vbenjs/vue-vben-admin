@@ -185,6 +185,7 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
+    contentCompactWidth: 1200,
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
     dynamicTitle: true,
@@ -194,7 +195,7 @@ const defaultPreferences: Preferences = {
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
-    loginExpiredMode: 'modal',
+    loginExpiredMode: 'page',
     name: 'Vben Admin',
     preferencesButtonPosition: 'auto',
     watermark: false,
@@ -206,6 +207,13 @@ const defaultPreferences: Preferences = {
     showIcon: true,
     styleType: 'normal',
   },
+  content: {
+    padding: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+  },
   copyright: {
     companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
@@ -213,14 +221,18 @@ const defaultPreferences: Preferences = {
     enable: true,
     icp: '',
     icpLink: '',
+    settingShow: true,
   },
   footer: {
-    enable: true,
+    enable: false,
     fixed: false,
+    height: 32,
   },
   header: {
     enable: true,
+    height: 48,
     hidden: false,
+    menuAlign: 'start',
     mode: 'fixed',
   },
   logo: {
@@ -242,23 +254,31 @@ const defaultPreferences: Preferences = {
   sidebar: {
     autoActivateChild: false,
     collapsed: false,
+    collapsedButton: true,
     collapsedShowTitle: false,
+    collapseWidth: 48,
     enable: true,
     expandOnHover: true,
-    extraCollapse: true,
+    extraCollapse: false,
+    extraCollapsedWidth: 48,
+    fixedButton: true,
     hidden: false,
-    width: 230,
+    mixedWidth: 80,
+    width: 224,
   },
   tabbar: {
     draggable: true,
     enable: true,
-    height: 36,
+    height: 38,
     keepAlive: true,
+    maxCount: 0,
+    middleClickToClose: false,
     persist: true,
     showIcon: true,
     showMaximize: true,
     showMore: true,
     styleType: 'chrome',
+    wheelable: true,
   },
   theme: {
     builtinType: 'default',
@@ -269,7 +289,7 @@ const defaultPreferences: Preferences = {
     mode: 'dark',
     radius: '0.5',
     semiDarkHeader: false,
-    semiDarkSidebar: true,
+    semiDarkSidebar: false,
   },
   transition: {
     enable: true,
@@ -310,9 +330,11 @@ interface AppPreferences {
   compact: boolean;
   /** 是否开启内容紧凑模式 */
   contentCompact: ContentCompactType;
-  // /** 应用默认头像 */
+  /** 紧凑模式内容宽度 */
+  contentCompactWidth?: number;
+  /** 应用默认头像 */
   defaultAvatar: string;
-  // /** 开启动态标题 */
+  /** 开启动态标题 */
   dynamicTitle: boolean;
   /** 是否开启检查更新 */
   enableCheckUpdates: boolean;
@@ -366,6 +388,8 @@ interface CopyrightPreferences {
   icp: string;
   /** 备案号链接 */
   icpLink: string;
+  /** 设置面板是否显示*/
+  settingShow?: boolean;
 }
 
 interface FooterPreferences {
@@ -373,13 +397,19 @@ interface FooterPreferences {
   enable: boolean;
   /** 底栏是否固定 */
   fixed: boolean;
+  /** 底栏高度 */
+  height: number;
 }
 
 interface HeaderPreferences {
   /** 顶栏是否启用 */
   enable: boolean;
+  /** 顶栏高度 */
+  height: number;
   /** 顶栏是否隐藏,css-隐藏 */
   hidden: boolean;
+  /** 顶栏菜单位置 */
+  menuAlign: LayoutHeaderMenuAlignType;
   /** header显示模式 */
   mode: LayoutHeaderModeType;
 }
@@ -401,18 +431,30 @@ interface NavigationPreferences {
 }
 
 interface SidebarPreferences {
+  /** 点击目录时自动激活子菜单   */
+  autoActivateChild: boolean;
   /** 侧边栏是否折叠 */
   collapsed: boolean;
+  /** 侧边栏折叠按钮是否可见 */
+  collapsedButton: boolean;
   /** 侧边栏折叠时，是否显示title */
   collapsedShowTitle: boolean;
+  /** 侧边菜单折叠宽度 */
+  collapseWidth: number;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */
   expandOnHover: boolean;
   /** 侧边栏扩展区域是否折叠 */
   extraCollapse: boolean;
+  /** 侧边栏额外折叠宽度 */
+  extraCollapsedWidth: number;
+  /** 侧边栏固定按钮是否可见 */
+  fixedButton: boolean;
   /** 侧边栏是否隐藏 - css */
   hidden: boolean;
+  /** 混合侧边栏宽度 */
+  mixedWidth: number;
   /** 侧边栏宽度 */
   width: number;
 }
@@ -439,6 +481,10 @@ interface TabbarPreferences {
   height: number;
   /** 开启标签页缓存功能 */
   keepAlive: boolean;
+  /** 限制最大数量 */
+  maxCount: number;
+  /** 是否点击中键时关闭标签 */
+  middleClickToClose: boolean;
   /** 是否持久化标签 */
   persist: boolean;
   /** 是否开启多标签页图标 */
@@ -449,6 +495,8 @@ interface TabbarPreferences {
   showMore: boolean;
   /** 标签页风格 */
   styleType: TabsStyleType;
+  /** 是否开启鼠标滚轮响应 */
+  wheelable: boolean;
 }
 
 interface ThemePreferences {
@@ -502,11 +550,26 @@ interface WidgetPreferences {
   themeToggle: boolean;
 }
 
+interface ContentPreferences {
+  /** 内容区域内边距 */
+  padding: number;
+  /** 内容区域内边距-底部 */
+  paddingBottom: number;
+  /** 内容区域内边距-左侧 */
+  paddingLeft: number;
+  /** 内容区域内边距-右侧 */
+  paddingRight: number;
+  /** 内容区域内边距-顶部 */
+  paddingTop: number;
+}
+
 interface Preferences {
   /** 全局配置 */
   app: AppPreferences;
   /** 顶栏配置 */
   breadcrumb: BreadcrumbPreferences;
+  /** 内容区域配置 */
+  content: ContentPreferences;
   /** 版权配置 */
   copyright: CopyrightPreferences;
   /** 底栏配置 */
