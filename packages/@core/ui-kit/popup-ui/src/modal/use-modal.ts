@@ -17,7 +17,9 @@ import VbenModal from './modal.vue';
 
 const USER_MODAL_INJECT_KEY = Symbol('VBEN_MODAL_INJECT');
 
-const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
+const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {
+  destroyOnClose: true,
+};
 
 export function setDefaultModalProps(props: Partial<ModalProps>) {
   Object.assign(DEFAULT_MODAL_PROPS, props);
@@ -86,7 +88,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
 
   mergedOptions.onClosed = () => {
     options.onClosed?.();
-    if (options.destroyOnClose) {
+    if (mergedOptions.destroyOnClose) {
       injectData.reCreateModal?.();
     }
   };
