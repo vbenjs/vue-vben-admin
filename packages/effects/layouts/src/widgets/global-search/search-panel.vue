@@ -18,7 +18,7 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<{ keyword: string; menus: MenuRecordRaw[] }>(),
+  defineProps<{ keyword?: string; menus?: MenuRecordRaw[] }>(),
   {
     keyword: '',
     menus: () => [],
