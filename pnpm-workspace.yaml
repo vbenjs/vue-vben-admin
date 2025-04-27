@@ -149,6 +149,7 @@ catalog:
   rollup: ^4.39.0
   rollup-plugin-visualizer: ^5.14.0
   sass: ^1.86.3
+  secure-ls: ^2.0.0
   sortablejs: ^1.15.6
   stylelint: ^16.18.0
   stylelint-config-recess-order: ^5.1.1

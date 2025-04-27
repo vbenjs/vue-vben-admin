@@ -12,7 +12,7 @@ import {
   updatePreferences,
   usePreferences,
 } from '@vben/preferences';
-import { useLockStore } from '@vben/stores';
+import { useAccessStore } from '@vben/stores';
 import { cloneDeep, mapTree } from '@vben/utils';
 
 import { VbenAdminLayout } from '@vben-core/layout-ui';
@@ -49,7 +49,7 @@ const {
   sidebarCollapsed,
   theme,
 } = usePreferences();
-const lockStore = useLockStore();
+const accessStore = useAccessStore();
 const { refresh } = useRefresh();
 
 const sidebarTheme = computed(() => {
@@ -356,7 +356,7 @@ const headerSlots = computed(() => {
       />
 
       <Transition v-if="preferences.widget.lockScreen" name="slide-up">
-        <slot v-if="lockStore.isLockScreen" name="lock-screen"></slot>
+        <slot v-if="accessStore.isLockScreen" name="lock-screen"></slot>
       </Transition>
 
       <template v-if="preferencesButtonPosition.fixed">
