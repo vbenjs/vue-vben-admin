@@ -1,6 +1,6 @@
 {
   "name": "@vben/stores",
-  "version": "5.5.4",
+  "version": "5.5.5",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -25,6 +25,7 @@
     "@vben-core/typings": "workspace:*",
     "pinia": "catalog:",
     "pinia-plugin-persistedstate": "catalog:",
+    "secure-ls": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }

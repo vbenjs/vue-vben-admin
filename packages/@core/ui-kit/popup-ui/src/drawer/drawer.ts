@@ -53,6 +53,10 @@ export interface DrawerProps {
    */
   description?: string;
   /**
+   * 在关闭时销毁抽屉
+   */
+  destroyOnClose?: boolean;
+  /**
    * 是否显示底部
    * @default true
    */
@@ -143,10 +147,6 @@ export interface DrawerApiOptions extends DrawerState {
    * 独立的抽屉组件
    */
   connectedComponent?: Component;
-  /**
-   * 在关闭时销毁抽屉。仅在使用 connectedComponent 时有效
-   */
-  destroyOnClose?: boolean;
   /**
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns
