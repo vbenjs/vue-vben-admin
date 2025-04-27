@@ -10,7 +10,7 @@ import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {
   defaultValue?: string;
-  tabs: SegmentedItem[];
+  tabs?: SegmentedItem[];
 }
 
 const props = withDefaults(defineProps<Props>(), {

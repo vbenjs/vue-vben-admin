@@ -24,8 +24,8 @@ export function useVbenVxeGrid(options: VxeGridProps) {
       return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
     },
     {
-      inheritAttrs: false,
       name: 'VbenVxeGrid',
+      inheritAttrs: false,
     },
   );
   // Add reactivity support
