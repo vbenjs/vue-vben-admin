@@ -20,6 +20,9 @@ hero:
     - theme: alt
       text: 在 GitHub 查看
       link: https://github.com/vbenjs/vue-vben-admin
+    - theme: alt
+      text: DeepWiki 文档
+      link: https://deepwiki.com/vbenjs/vue-vben-admin
 
 features:
   - icon: 🚀
