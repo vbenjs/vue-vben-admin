@@ -184,19 +184,33 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-    ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
-      component: ElSelectV2,
-      loadingSlot: 'loading',
-      visibleEvent: 'onVisibleChange',
-    }),
-    ApiTreeSelect: withDefaultPlaceholder(ApiComponent, 'select', {
-      component: ElTreeSelect,
-      props: { label: 'label', children: 'children' },
-      nodeKey: 'value',
-      loadingSlot: 'loading',
-      optionsPropName: 'data',
-      visibleEvent: 'onVisibleChange',
-    }),
+    ApiSelect: withDefaultPlaceholder(
+      {
+        ...ApiComponent,
+        name: 'ApiSelect',
+      },
+      'select',
+      {
+        component: ElSelectV2,
+        loadingSlot: 'loading',
+        visibleEvent: 'onVisibleChange',
+      },
+    ),
+    ApiTreeSelect: withDefaultPlaceholder(
+      {
+        ...ApiComponent,
+        name: 'ApiTreeSelect',
+      },
+      'select',
+      {
+        component: ElTreeSelect,
+        props: { label: 'label', children: 'children' },
+        nodeKey: 'value',
+        loadingSlot: 'loading',
+        optionsPropName: 'data',
+        visibleEvent: 'onVisibleChange',
+      },
+    ),
     Checkbox: ElCheckbox,
     CheckboxGroup: (props, { attrs, slots }) => {
       let defaultSlot;
