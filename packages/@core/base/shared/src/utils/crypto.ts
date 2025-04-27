@@ -72,7 +72,7 @@ function stringToBytes(str: string): number[] {
  * 字节数组转换为字符串
  */
 function bytesToString(bytes: number[]): string {
-  return String.fromCharCode.apply(null, bytes);
+  return new TextDecoder().decode(new Uint8Array(bytes));
 }
 
 /**
