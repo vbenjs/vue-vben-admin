@@ -14,8 +14,8 @@
     padding: 0 4px 2px;
     font-size: 0.9em;
     line-height: 0.9;
-    color: hsl(var(--secondary-foreground));
     vertical-align: 2px;
+    color: hsl(var(--secondary-foreground));
     cursor: pointer;
     user-select: none;
     background-color: hsl(var(--secondary));
@@ -65,7 +65,7 @@
 
     &.jv-string {
       color: hsl(var(--primary));
-      word-break: break-word;
+      overflow-wrap: break-word;
       white-space: normal;
     }
   }

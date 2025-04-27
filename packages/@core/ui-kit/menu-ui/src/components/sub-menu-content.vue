@@ -10,7 +10,7 @@ import { VbenIcon } from '@vben-core/shadcn-ui';
 import { useMenuContext } from '../hooks';
 
 interface Props extends MenuItemProps {
-  isMenuMore: boolean;
+  isMenuMore?: boolean;
   isTopLevelMenuSubmenu: boolean;
   level?: number;
 }

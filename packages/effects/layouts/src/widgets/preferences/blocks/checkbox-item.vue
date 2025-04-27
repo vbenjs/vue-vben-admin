@@ -14,7 +14,7 @@ defineOptions({
 withDefaults(
   defineProps<{
     disabled?: boolean;
-    items: SelectOption[];
+    items?: SelectOption[];
     multiple?: boolean;
     onBtnClick?: (value: string) => void;
     placeholder?: string;
