@@ -2,6 +2,8 @@ import type { Pinia } from 'pinia';
 
 import type { App } from 'vue';
 
+import { decrypt, encrypt } from '@vben-core/shared/utils';
+
 import { createPinia } from 'pinia';
 
 let pinia: Pinia;
@@ -20,11 +22,27 @@ export async function initStores(app: App, options: InitStoreOptions) {
   const { createPersistedState } = await import('pinia-plugin-persistedstate');
   pinia = createPinia();
   const { namespace } = options;
+  const STORAGE_CRYPTO_KEY =
+    import.meta.env.VITE_STORAGE_CRYPTO_KEY || 'vben-admin-crypto';
+  const IS_PROD = import.meta.env.PROD;
   pinia.use(
     createPersistedState({
       // key $appName-$store.id
       key: (storeKey) => `${namespace}-${storeKey}`,
-      storage: localStorage,
+      storage: IS_PROD
+        ? {
+            getItem: (key) => {
+              const value = localStorage.getItem(key);
+              if (value) {
+                return decrypt(value, STORAGE_CRYPTO_KEY);
+              }
+              return null;
+            },
+            setItem: (key, value) => {
+              localStorage.setItem(key, encrypt(value, STORAGE_CRYPTO_KEY));
+            },
+          }
+        : localStorage,
     }),
   );
   app.use(pinia);

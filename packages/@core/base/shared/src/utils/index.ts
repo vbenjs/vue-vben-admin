@@ -1,4 +1,5 @@
 export * from './cn';
+export * from './crypto';
 export * from './date';
 export * from './diff';
 export * from './dom';
