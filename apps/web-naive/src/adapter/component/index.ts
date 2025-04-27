@@ -131,19 +131,33 @@ async function initComponentAdapter() {
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
-    ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
-      component: NSelect,
-      modelPropName: 'value',
-    }),
-    ApiTreeSelect: withDefaultPlaceholder(ApiComponent, 'select', {
-      component: NTreeSelect,
-      nodeKey: 'value',
-      loadingSlot: 'arrow',
-      keyField: 'value',
-      modelPropName: 'value',
-      optionsPropName: 'options',
-      visibleEvent: 'onVisibleChange',
-    }),
+    ApiSelect: withDefaultPlaceholder(
+      {
+        ...ApiComponent,
+        name: 'ApiSelect',
+      },
+      'select',
+      {
+        component: NSelect,
+        modelPropName: 'value',
+      },
+    ),
+    ApiTreeSelect: withDefaultPlaceholder(
+      {
+        ...ApiComponent,
+        name: 'ApiTreeSelect',
+      },
+      'select',
+      {
+        component: NTreeSelect,
+        nodeKey: 'value',
+        loadingSlot: 'arrow',
+        keyField: 'value',
+        modelPropName: 'value',
+        optionsPropName: 'options',
+        visibleEvent: 'onVisibleChange',
+      },
+    ),
     Checkbox: NCheckbox,
     CheckboxGroup: (props, { attrs, slots }) => {
       let defaultSlot;
