@@ -60,7 +60,7 @@ git clone https://github.com/vbenjs/vue-vben-admin.git
 ```bash
 cd vue-vben-admin
 
-corepack enable
+npm i -g corepack
 
 pnpm install
 ```

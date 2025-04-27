@@ -6,7 +6,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_OPTIONS=--max-old-space-size=8192
 ENV TZ=Asia/Shanghai
 
-RUN corepack enable
+RUN npm i -g corepack
 
 WORKDIR /app
 
