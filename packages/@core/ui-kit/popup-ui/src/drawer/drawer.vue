@@ -82,17 +82,17 @@ const {
   zIndex,
 } = usePriorityValues(props, state);
 
-watch(
-  () => showLoading.value,
-  (v) => {
-    if (v && wrapperRef.value) {
-      wrapperRef.value.scrollTo({
-        // behavior: 'smooth',
-        top: 0,
-      });
-    }
-  },
-);
+// watch(
+//   () => showLoading.value,
+//   (v) => {
+//     if (v && wrapperRef.value) {
+//       wrapperRef.value.scrollTo({
+//         // behavior: 'smooth',
+//         top: 0,
+//       });
+//     }
+//   },
+// );
 
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value || submitting.value) {
@@ -266,19 +266,13 @@ const getForceMount = computed(() => {
         ref="wrapperRef"
         :class="
           cn('relative flex-1 overflow-y-auto p-3', contentClass, {
-            'overflow-hidden': showLoading,
+            'pointer-events-none': showLoading || submitting,
           })
         "
       >
-        <VbenLoading
-          v-if="showLoading || submitting"
-          class="size-full"
-          spinning
-        />
-
         <slot></slot>
       </div>
-
+      <VbenLoading v-if="showLoading || submitting" spinning />
       <SheetFooter
         v-if="showFooter"
         :class="

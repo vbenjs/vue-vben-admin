@@ -123,17 +123,17 @@ watch(
   { immediate: true },
 );
 
-watch(
-  () => [showLoading.value, submitting.value],
-  ([l, s]) => {
-    if ((s || l) && wrapperRef.value) {
-      wrapperRef.value.scrollTo({
-        // behavior: 'smooth',
-        top: 0,
-      });
-    }
-  },
-);
+// watch(
+//   () => [showLoading.value, submitting.value],
+//   ([l, s]) => {
+//     if ((s || l) && wrapperRef.value) {
+//       wrapperRef.value.scrollTo({
+//         // behavior: 'smooth',
+//         top: 0,
+//       });
+//     }
+//   },
+// );
 
 function handleFullscreen() {
   props.modalApi?.setState((prev) => {
@@ -274,18 +274,13 @@ function handleClosed() {
         ref="wrapperRef"
         :class="
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
-            'overflow-hidden': showLoading || submitting,
+            'pointer-events-none': showLoading || submitting,
           })
         "
       >
-        <VbenLoading
-          v-if="showLoading || submitting"
-          class="size-full h-auto min-h-full"
-          spinning
-        />
         <slot></slot>
       </div>
-
+      <VbenLoading v-if="showLoading || submitting" spinning />
       <VbenIconButton
         v-if="fullscreenButton"
         class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-3 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
