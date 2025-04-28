@@ -100,7 +100,7 @@ catalogs:
       specifier: ^4.3.9
       version: 4.3.9
     '@types/node':
-      specifier: ^22.15.2
+      specifier: ^22.15.3
       version: 22.15.3
     '@types/nprogress':
       specifier: ^0.2.3
