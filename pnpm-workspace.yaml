@@ -30,13 +30,13 @@ catalog:
   '@intlify/unplugin-vue-i18n': ^6.0.8
   '@jspm/generator': ^2.5.1
   '@manypkg/get-packages': ^2.2.2
-  '@nolebase/vitepress-plugin-git-changelog': ^2.16.0
+  '@nolebase/vitepress-plugin-git-changelog': ^2.17.0
   '@playwright/test': ^1.52.0
   '@pnpm/workspace.read-manifest': ^1000.1.4
   '@stylistic/stylelint-plugin': ^3.1.2
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.16
-  '@tanstack/vue-query': ^5.74.6
+  '@tanstack/vue-query': ^5.74.7
   '@tanstack/vue-store': ^0.7.0
   '@types/archiver': ^6.0.3
   '@types/eslint': ^9.6.1
@@ -108,7 +108,7 @@ catalog:
   find-up: ^7.0.0
   get-port: ^7.1.0
   globals: ^16.0.0
-  h3: ^1.15.1
+  h3: ^1.15.3
   happy-dom: ^17.4.4
   html-minifier-terser: ^7.2.0
   husky: ^9.1.7
@@ -123,7 +123,7 @@ catalog:
   lucide-vue-next: ^0.503.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.41.0
-  nitropack: ^2.11.9
+  nitropack: ^2.11.11
   nprogress: ^0.2.0
   ora: ^8.2.0
   pinia: ^3.0.2
@@ -174,7 +174,7 @@ catalog:
   vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-pwa: ^1.0.0
-  vite-plugin-vue-devtools: ^7.7.5
+  vite-plugin-vue-devtools: ^7.7.6
   vitepress: ^1.6.3
   vitepress-plugin-group-icons: ^1.5.2
   vitest: ^3.1.2
@@ -186,7 +186,7 @@ catalog:
   vue-tippy: ^6.7.0
   vue-tsc: 2.1.10
   vxe-pc-ui: ^4.5.14
-  vxe-table: ^4.12.5
+  vxe-table: ^4.13.14
   watermark-js-plus: ^1.6.0
   zod: ^3.24.3
   zod-defaults: ^0.1.3

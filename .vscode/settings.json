@@ -14,7 +14,7 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.cursorBlinking": "expand",
-  "editor.largeFileOptimizations": false,
+  "editor.largeFileOptimizations": true,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.guides.bracketPairs": "active",
@@ -91,6 +91,7 @@
     "**/bower_components": true,
     "**/.turbo": true,
     "**/.idea": true,
+    "**/.vitepress": true,
     "**/tmp": true,
     "**/.git": true,
     "**/.svn": true,
@@ -111,6 +112,8 @@
     "**/dist/**": true,
     "**/yarn.lock": true
   },
+
+  "typescript.tsserver.exclude": ["**/node_modules", "**/dist", "**/.turbo"],
 
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
