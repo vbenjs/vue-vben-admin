@@ -66,6 +66,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       footerClassName: 'font-semibold',
       title: 'Order ID',
       minWidth: 120,
+      fixed: 'left',
     },
     {
       field: 'processedAt',
@@ -74,6 +75,7 @@ export const orderTableOptions: VxeTableGridOptions = {
         return formatReportDate(time.cellValue);
       },
       minWidth: 110,
+      fixed: 'left',
     },
     {
       field: 'quantityCurrent',
