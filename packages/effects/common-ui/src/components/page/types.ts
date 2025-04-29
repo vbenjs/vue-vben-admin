@@ -8,5 +8,5 @@ export interface PageProps {
   autoContentHeight?: boolean;
   headerClass?: string;
   footerClass?: string;
-  height?: number | string;
+  height?: number;
 }
