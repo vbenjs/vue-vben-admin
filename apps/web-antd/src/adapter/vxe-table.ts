@@ -11,11 +11,14 @@ setupVbenVxeTable({
     vxeUI.setConfig({
       grid: {
         align: 'center',
-        border: false,
+        border: true,
         columnConfig: {
           resizable: true,
         },
         minHeight: 180,
+        showOverflow: true,
+        showHeaderOverflow: true,
+        showFooterOverflow: true,
         formConfig: {
           // 全局禁用vxe-table的表单配置，使用formOptions
           enabled: false,
@@ -23,16 +26,23 @@ setupVbenVxeTable({
         proxyConfig: {
           autoLoad: true,
           response: {
-            result: 'items',
+            result: 'list',
             total: 'total',
-            list: 'items',
+            list: 'list',
           },
           showActiveMsg: true,
           showResponseMsg: false,
         },
+        pagerConfig: {
+          pageSize: 30,
+          pageSizes: [30, 50, 100],
+        },
         round: true,
-        showOverflow: true,
         size: 'small',
+        height: 'auto',
+        rowConfig: {
+          isCurrent: true,
+        },
       },
     });
 

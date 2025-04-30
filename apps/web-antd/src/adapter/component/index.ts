@@ -17,7 +17,6 @@ import {
 } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
-import { $t } from '@vben/locales';
 
 import { notification } from 'ant-design-vue';
 
@@ -73,13 +72,10 @@ const withDefaultPlaceholder = <T extends Component>(
   componentProps: Recordable<any> = {},
 ) => {
   return defineComponent({
-    inheritAttrs: false,
     name: component.name,
+    inheritAttrs: false,
     setup: (props: any, { attrs, expose, slots }) => {
-      const placeholder =
-        props?.placeholder ||
-        attrs?.placeholder ||
-        $t(`ui.placeholder.${type}`);
+      const placeholder = props?.placeholder || attrs?.placeholder;
       // 透传组件暴露的方法
       const innerRef = ref();
       const publicApi: Recordable<any> = {};
