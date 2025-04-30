@@ -45,6 +45,7 @@
     "dayjs": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "pinyin-pro": "^3.26.0"
   }
 }

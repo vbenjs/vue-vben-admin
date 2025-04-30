@@ -96,10 +96,10 @@ const [StoreModal, modalApi] = useVbenModal({
 const handleAdd = () => {
   modalApi.setData({}).open();
 };
-const handleEdit = (row: StroeApi.StroeItem) => {
+const handleEdit = (row: StoreApi.StoreItem) => {
   modalApi.setData(row).open();
 };
-const handleDelete = (row: StroeApi.StroeItem) => {
+const handleDelete = (row: StoreApi.StoreItem) => {
   Modal.confirm({
     icon: null,
     centered: true,
