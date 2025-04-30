@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "apps/web-antd",
+      "problemMatcher": [],
+      "label": "npm: dev - apps/web-antd",
+      "detail": "pnpm vite --mode development",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

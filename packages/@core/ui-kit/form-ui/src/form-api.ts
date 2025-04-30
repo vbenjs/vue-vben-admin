@@ -40,7 +40,7 @@ function getDefaultState(): VbenFormProps {
     resetButtonOptions: {},
     schema: [],
     showCollapseButton: false,
-    showDefaultActions: true,
+    showDefaultActions: false,
     submitButtonOptions: {},
     submitOnChange: false,
     submitOnEnter: false,

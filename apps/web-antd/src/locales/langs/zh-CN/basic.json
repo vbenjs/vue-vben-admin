@@ -1,0 +1,11 @@
+{
+  "title": "基本信息",
+  "bank": "银行管理",
+  "customer": "客户管理",
+  "supplier": "供货商管理",
+  "product": "产品管理",
+  "store": "仓库管理",
+  "brand": "品牌管理",
+  "color": "颜色管理",
+  "unit": "单位管理"
+}
