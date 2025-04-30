@@ -118,8 +118,7 @@ const handleRefresh = (code: 'query' | 'reload') => {
   <Page auto-content-height>
     <template #title>
       <div class="flex items-center justify-between">
-        <div class="flex items-center">
-          <span>名称：</span>
+        <div>
           <InputSearch
             allow-clear
             enter-button="查询"
