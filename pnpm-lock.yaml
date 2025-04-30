@@ -1335,6 +1335,9 @@ importers:
       '@vben-core/composables':
         specifier: workspace:*
         version: link:../../composables
+      '@vben-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
       '@vben-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
