@@ -100,7 +100,7 @@ const [BankModal, modalApi] = useVbenModal({
 const handleAdd = () => {
   modalApi.setData({}).open();
 };
-const handleEdit = (row: StroeApi.StroeItem) => {
+const handleEdit = (row: BankApi.BankItem) => {
   modalApi.setData(row).open();
 };
 const handleDelete = (row: BankApi.BankItem) => {
