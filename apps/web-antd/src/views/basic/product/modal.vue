@@ -332,8 +332,14 @@ const [Form, formApi] = useVbenForm({
       label: '库存数量',
       defaultValue: 0,
       dependencies: {
-        triggerFields: ['id'],
+        triggerFields: ['id', 'isVirtual'],
         if: (values) => !values.id,
+        disabled: (values) => values.isVirtual === 1,
+        trigger: (values) => {
+          if (values.isVirtual === 1) {
+            values.num = 0;
+          }
+        },
       },
       rules: z
         .number({ message: '请输入库存数量' })
@@ -362,8 +368,14 @@ const [Form, formApi] = useVbenForm({
         .number({ message: '请输入库存单价' })
         .min(0, { message: '库存单价不能小于 0' }),
       dependencies: {
-        triggerFields: ['id'],
+        triggerFields: ['id', 'isVirtual'],
         if: (values) => !values.id,
+        disabled: (values) => values.isVirtual === 1,
+        trigger: (values) => {
+          if (values.isVirtual === 1) {
+            values.price = 0;
+          }
+        },
       },
     },
     {
@@ -389,8 +401,14 @@ const [Form, formApi] = useVbenForm({
         .number({ message: '请输入库存总价' })
         .min(0, { message: '库存总价不能小于 0' }),
       dependencies: {
-        triggerFields: ['id'],
+        triggerFields: ['id', 'isVirtual'],
         if: (values) => !values.id,
+        disabled: (values) => values.isVirtual === 1,
+        trigger: (values) => {
+          if (values.isVirtual === 1) {
+            values.totalPrice = 0;
+          }
+        },
       },
     },
   ],

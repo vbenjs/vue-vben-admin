@@ -74,11 +74,13 @@ const gridOptions: VxeGridProps = {
   //   remote: true,
   // },
 };
-const [Grid, gridApi] = useVbenVxeGrid({
-  gridOptions,
-});
+const gridEvents: VxeGridListeners<UnitApi.UnitItem> = {
+  cellDblclick: ({ row }) => handleEdit(row),
+};
+const [Grid, gridApi] = useVbenVxeGrid({ gridOptions, gridEvents });
 const [UnitModal, modalApi] = useVbenModal({
   connectedComponent: ExtraModal,
+  destroyOnClose: true,
 });
 const handleAdd = () => {
   modalApi.setData({}).open();

@@ -95,7 +95,10 @@ const gridOptions: VxeGridProps = {
     },
   },
 };
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+const gridEvents: VxeGridListeners<SupplierApi.SupplierItem> = {
+  cellDblclick: ({ row }) => handleEdit(row),
+};
+const [Grid, gridApi] = useVbenVxeGrid({ gridOptions, gridEvents });
 const [SupplierModal, modalApi] = useVbenModal({
   connectedComponent: ExtraModal,
   destroyOnClose: true,
