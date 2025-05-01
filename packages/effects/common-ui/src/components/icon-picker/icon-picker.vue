@@ -165,6 +165,10 @@ const searchInputProps = computed(() => {
   };
 });
 
+function updateCurrentSelect(v: string) {
+  currentSelect.value = v;
+}
+
 defineExpose({ toggleOpenState, open, close });
 </script>
 <template>
@@ -184,11 +188,7 @@ defineExpose({ toggleOpenState, open, close });
           role="combobox"
           :aria-label="$t('ui.iconPicker.placeholder')"
           aria-expanded="visible"
-          :[`onUpdate:${modelValueProp}`]="
-            (v: string) => {
-              currentSelect = v;
-            }
-          "
+          :[`onUpdate:${modelValueProp}`]="updateCurrentSelect"
           v-bind="$attrs"
         >
           <template #[iconSlot]>
