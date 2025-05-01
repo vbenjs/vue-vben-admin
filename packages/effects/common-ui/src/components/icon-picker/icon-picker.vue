@@ -171,7 +171,8 @@ defineExpose({ toggleOpenState, open, close });
   <VbenPopover
     v-model:open="visible"
     :content-props="{ align: 'end', alignOffset: -11, sideOffset: 8 }"
-    content-class="p-0 pt-3"
+    content-class="p-0 pt-3 w-full"
+    trigger-class="w-full"
   >
     <template #trigger>
       <template v-if="props.type === 'input'">
@@ -183,6 +184,11 @@ defineExpose({ toggleOpenState, open, close });
           role="combobox"
           :aria-label="$t('ui.iconPicker.placeholder')"
           aria-expanded="visible"
+          :[`onUpdate:${modelValueProp}`]="
+            (v: string) => {
+              currentSelect = v;
+            }
+          "
           v-bind="$attrs"
         >
           <template #[iconSlot]>
