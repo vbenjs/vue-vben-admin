@@ -34,7 +34,7 @@ interface Props extends ModalProps {
 
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
-  destroyOnClose: true,
+  destroyOnClose: false,
   modalApi: undefined,
 });
 
