@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 
-import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
+import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
@@ -56,7 +56,7 @@ function setupAccessGuard(router: Router) {
         return decodeURIComponent(
           (to.query?.redirect as string) ||
             userStore.userInfo?.homePath ||
-            DEFAULT_HOME_PATH,
+            preferences.app.defaultHomePath,
         );
       }
       return true;
@@ -75,7 +75,7 @@ function setupAccessGuard(router: Router) {
           path: LOGIN_PATH,
           // 如不需要，直接删除 query
           query:
-            to.fullPath === DEFAULT_HOME_PATH
+            to.fullPath === preferences.app.defaultHomePath
               ? {}
               : { redirect: encodeURIComponent(to.fullPath) },
           // 携带当前跳转的页面，登录后重新跳转该页面
@@ -107,8 +107,8 @@ function setupAccessGuard(router: Router) {
     accessStore.setAccessRoutes(accessibleRoutes);
     accessStore.setIsAccessChecked(true);
     const redirectPath = (from.query.redirect ??
-      (to.path === DEFAULT_HOME_PATH
-        ? userInfo.homePath || DEFAULT_HOME_PATH
+      (to.path === preferences.app.defaultHomePath
+        ? userInfo.homePath || preferences.app.defaultHomePath
         : to.fullPath)) as string;
 
     return {
