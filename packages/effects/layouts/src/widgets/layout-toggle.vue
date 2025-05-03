@@ -39,7 +39,8 @@ const menus = computed((): VbenDropdownMenuItem[] => [
 
 const { authPanelCenter, authPanelLeft, authPanelRight } = usePreferences();
 
-function handleUpdate(value: string) {
+function handleUpdate(value: string | undefined) {
+  if (!value) return;
   updatePreferences({
     app: {
       authPageLayout: value as AuthPageLayoutType,

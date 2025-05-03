@@ -12,7 +12,6 @@ interface Props extends TabsProps {}
 
 defineOptions({
   name: 'VbenTabsChrome',
-  // eslint-disable-next-line perfectionist/sort-objects
   inheritAttrs: false,
 });
 

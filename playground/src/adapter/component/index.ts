@@ -73,8 +73,8 @@ const withDefaultPlaceholder = <T extends Component>(
   componentProps: Recordable<any> = {},
 ) => {
   return defineComponent({
-    inheritAttrs: false,
     name: component.name,
+    inheritAttrs: false,
     setup: (props: any, { attrs, expose, slots }) => {
       const placeholder =
         props?.placeholder ||
