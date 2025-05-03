@@ -66,7 +66,7 @@ async function generateAccessible(
   }
 
   // 生成菜单
-  const accessibleMenus = await generateMenus(accessibleRoutes, options.router);
+  const accessibleMenus = generateMenus(accessibleRoutes, options.router);
 
   return { accessibleMenus, accessibleRoutes };
 }

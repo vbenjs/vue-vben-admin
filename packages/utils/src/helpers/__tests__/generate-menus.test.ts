@@ -69,7 +69,7 @@ describe('generateMenus', () => {
       },
     ];
 
-    const menus = await generateMenus(mockRoutes, mockRouter as any);
+    const menus = generateMenus(mockRoutes, mockRouter as any);
     expect(menus).toEqual(expectedMenus);
   });
 
@@ -82,7 +82,7 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(mockRoutesWithMeta, mockRouter as any);
+    const menus = generateMenus(mockRoutesWithMeta, mockRouter as any);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -109,7 +109,7 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(mockRoutesWithParams, mockRouter as any);
+    const menus = generateMenus(mockRoutesWithParams, mockRouter as any);
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -141,10 +141,7 @@ describe('generateMenus', () => {
       },
     ] as RouteRecordRaw[];
 
-    const menus = await generateMenus(
-      mockRoutesWithRedirect,
-      mockRouter as any,
-    );
+    const menus = generateMenus(mockRoutesWithRedirect, mockRouter as any);
     expect(menus).toEqual([
       // Assuming your generateMenus function excludes redirect routes from the menu
       {
@@ -195,7 +192,7 @@ describe('generateMenus', () => {
   });
 
   it('should generate menu list with correct order', async () => {
-    const menus = await generateMenus(routes, router);
+    const menus = generateMenus(routes, router);
     const expectedMenus = [
       {
         badge: undefined,
@@ -230,7 +227,7 @@ describe('generateMenus', () => {
 
   it('should handle empty routes', async () => {
     const emptyRoutes: any[] = [];
-    const menus = await generateMenus(emptyRoutes, router);
+    const menus = generateMenus(emptyRoutes, router);
     expect(menus).toEqual([]);
   });
 });
