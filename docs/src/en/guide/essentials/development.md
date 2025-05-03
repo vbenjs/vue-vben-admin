@@ -98,8 +98,8 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     "postinstall": "pnpm -r run stub --if-present",
     // Only allow using pnpm
     "preinstall": "npx only-allow pnpm",
-    // Install husky
-    "prepare": "is-ci || husky",
+    // Install lefthook
+    "prepare": "is-ci || lefthook install",
     // Preview the application
     "preview": "turbo-run preview",
     // Package specification check
