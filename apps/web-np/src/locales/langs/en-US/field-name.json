@@ -18,6 +18,7 @@
 
   "shippingCosts": "Shipping Costs",
 
+  "paymentGateway": "Payment Gateway",
   "transactionFees": "Transaction Fees",
   "transactionFeesExplain": "Transaction fees are fees that a merchant must pay every time a customer makes a purchase with a credit card. These fees can vary depending on the credit card company and the merchant account provider.",
 

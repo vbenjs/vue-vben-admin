@@ -130,6 +130,9 @@ export const useShopStore = defineStore('np-shop', {
   },
 
   getters: {
+    handleName(): string {
+      return this.shop.myshopifyDomain.replace('.myshopify.com', '');
+    },
     pusherChannelName(): string {
       return `private-shop_id-${this.shop.id}`;
     },

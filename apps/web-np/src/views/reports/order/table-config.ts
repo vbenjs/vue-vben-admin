@@ -62,6 +62,7 @@ export const orderTableOptions: VxeTableGridOptions = {
   },
   columns: [
     {
+      slots: { default: 'name' },
       field: 'name',
       footerClassName: 'font-semibold',
       title: 'Order ID',
@@ -76,6 +77,13 @@ export const orderTableOptions: VxeTableGridOptions = {
       },
       minWidth: 110,
       fixed: 'left',
+    },
+    {
+      field: 'financialStatus',
+      cellRender: { name: 'cellTitle' },
+      title: 'Status',
+      minWidth: 200,
+      visible: false,
     },
     {
       field: 'quantityCurrent',
@@ -94,6 +102,12 @@ export const orderTableOptions: VxeTableGridOptions = {
       field: 'quantityTotal',
       footerClassName: 'font-semibold',
       title: 'Total Items',
+      minWidth: 100,
+      visible: false,
+    },
+    {
+      field: 'weight',
+      title: 'Weight (Kg)',
       minWidth: 100,
       visible: false,
     },
@@ -167,9 +181,9 @@ export const orderTableOptions: VxeTableGridOptions = {
       minWidth: 120,
     },
     {
-      cellRender: { name: 'CellTitle' },
+      cellRender: { name: 'cellTitle' },
       field: 'paymentGateway',
-      title: 'Payment Getway',
+      title: $t('field-name.paymentGateway'),
       align: 'center',
       minWidth: 160,
       visible: false,

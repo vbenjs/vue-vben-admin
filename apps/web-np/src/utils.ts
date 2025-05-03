@@ -30,6 +30,12 @@ export function getCurrencySymbol(currency: string) {
   return e ? e.symbol : currency;
 }
 
+export function formatTitle(title: string) {
+  return title
+    .replaceAll('_', ' ')
+    .replaceAll(/\b\w/g, (l: any) => l.toUpperCase());
+}
+
 export function formatMoney(val: any, currency: any = null, rate = 1) {
   const amount = convertRate(val, rate);
 
@@ -191,6 +197,10 @@ export const redirect = (name: string) => {
 
 export const redirectToPath = (path: string) => {
   router.push(path);
+};
+
+export const redirectToNewTab = (url: string) => {
+  window.open(url, '_blank');
 };
 
 export const openNewTab = () => {
