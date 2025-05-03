@@ -31,6 +31,7 @@ import {
   createSubMenuContext,
   useMenuStyle,
 } from '../hooks';
+import { useMenuScroll } from '../hooks/use-menu-scroll';
 import { flattedChildren } from '../utils';
 import SubMenu from './sub-menu.vue';
 
@@ -44,6 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   mode: 'vertical',
   rounded: true,
   theme: 'dark',
+  scrollToActive: false,
 });
 
 const emit = defineEmits<{
@@ -206,15 +208,19 @@ function handleResize() {
   isFirstTimeRender = false;
 }
 
-function getActivePaths() {
-  const activeItem = activePath.value && items.value[activePath.value];
+const enableScroll = computed(
+  () => props.scrollToActive && props.mode === 'vertical' && !props.collapse,
+);
 
-  if (!activeItem || props.mode === 'horizontal' || props.collapse) {
-    return [];
-  }
+const { scrollToActiveItem } = useMenuScroll(activePath, {
+  enable: enableScroll,
+  delay: 320,
+});
 
-  return activeItem.parentPaths;
-}
+// 监听 activePath 变化，自动滚动到激活项
+watch(activePath, () => {
+  scrollToActiveItem();
+});
 
 // 默认展开菜单
 function initMenu() {
@@ -317,6 +323,16 @@ function removeSubMenu(subMenu: MenuItemRegistered) {
 
 function removeMenuItem(item: MenuItemRegistered) {
   Reflect.deleteProperty(items.value, item.path);
+}
+
+function getActivePaths() {
+  const activeItem = activePath.value && items.value[activePath.value];
+
+  if (!activeItem || props.mode === 'horizontal' || props.collapse) {
+    return [];
+  }
+
+  return activeItem.parentPaths;
 }
 </script>
 <template>
