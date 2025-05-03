@@ -62,8 +62,8 @@ catalog:
   '@vue/shared': ^3.5.13
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^13.1.0
-  '@vueuse/motion': ^3.0.3
   '@vueuse/integrations': ^13.1.0
+  '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.21
@@ -111,15 +111,14 @@ catalog:
   h3: ^1.15.3
   happy-dom: ^17.4.6
   html-minifier-terser: ^7.2.0
-  husky: ^9.1.7
   is-ci: ^4.1.0
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2
-  lint-staged: ^15.5.1
+  lefthook: ^1.11.12
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
-  lodash.set: ^4.3.2
   lodash.isequal: ^4.5.0
+  lodash.set: ^4.3.2
   lucide-vue-next: ^0.507.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.41.0

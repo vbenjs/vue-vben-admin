@@ -22,7 +22,6 @@ const DEFAULT_CONFIG = {
     '@vben/backend-mock',
     '@vben/commitlint-config',
     '@vben/eslint-config',
-    '@vben/lint-staged-config',
     '@vben/node-utils',
     '@vben/prettier-config',
     '@vben/stylelint-config',
