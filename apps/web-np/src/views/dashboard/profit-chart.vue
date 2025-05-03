@@ -13,7 +13,7 @@ import {
 import { $t } from '@vben/locales';
 import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 
-import { Select } from 'ant-design-vue';
+import { Empty, Select } from 'ant-design-vue';
 
 import { useShopStore } from '#/store';
 import { formatMoney, redirect } from '#/utils';
@@ -161,7 +161,12 @@ const reload = () => {
       </CardTitle>
     </CardHeader>
     <CardContent>
-      <EchartsUI ref="chartRef" />
+      <EchartsUI
+        ref="chartRef"
+        v-show="state.charts.profit.netProfit.length > 0"
+      />
+
+      <Empty v-show="state.charts.profit.netProfit.length === 0" />
     </CardContent>
   </Card>
 </template>

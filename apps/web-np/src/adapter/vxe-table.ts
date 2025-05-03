@@ -5,7 +5,7 @@ import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 import { Button, Image, Typography } from 'ant-design-vue';
 
 import { useShopStore } from '#/store';
-import { formatMoney, numberWithCommas } from '#/utils';
+import { formatMoney, formatTitle, numberWithCommas } from '#/utils';
 
 import { useVbenForm } from './form';
 
@@ -70,14 +70,11 @@ setupVbenVxeTable({
       },
     });
 
-    vxeUI.renderer.add('CellTitle', {
-      renderTableDefault(renderOpts: any, params: any) {
+    vxeUI.renderer.add('cellTitle', {
+      renderTableDefault(_: any, params: any) {
         const { column, row } = params;
 
-        // convert abc_xyz to Abc Xyz
-        return row[column.field]
-          .replaceAll('_', ' ')
-          .replaceAll(/\b\w/g, (l) => l.toUpperCase());
+        return formatTitle(row[column.field]);
       },
     });
 

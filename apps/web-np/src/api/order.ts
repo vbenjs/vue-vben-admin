@@ -27,3 +27,7 @@ export async function recalculateOrderCosts(payload: any) {
 export async function getPAndLReport(params: any) {
   return requestClient.get('/api/order/p-and-l', { params });
 }
+
+export async function getOrderDetail(params: any) {
+  return requestClient.get('/api/order/detail', { params });
+}
