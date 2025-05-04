@@ -15,7 +15,7 @@ onBeforeMount(() => {
 
   isShopifyEmbedded()
     ? authStore.authLoginViaShopifySession(queryParams)
-    : authStore.authLogin({ myshopifyDomain: queryParams.shop as string });
+    : authStore.authInstall({ myshopifyDomain: queryParams.shop as string });
 });
 </script>
 
