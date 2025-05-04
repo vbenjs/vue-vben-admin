@@ -348,8 +348,8 @@ const showAlterProductsBtn = () => {
         >
           <div class="h-[35px] w-[35px] flex-none">
             <AImage
-              v-if="row.image"
               :src="row.image"
+              fallback="/static/images/no-image.png"
               class="!h-[35px] !w-[35px] rounded-lg border"
             />
           </div>

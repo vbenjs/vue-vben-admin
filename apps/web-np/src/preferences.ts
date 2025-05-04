@@ -25,7 +25,6 @@ export const overridesPreferences = defineOverridesPreferences({
     companySiteLink: 'https://www.netpower.com',
   },
   logo: {
-    source:
-      'https://spf-finance.s3.us-east-1.amazonaws.com/assets/images/logo.png',
+    source: '/static/images/logo.png',
   },
 });
