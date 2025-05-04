@@ -49,7 +49,7 @@ const menus = computed(() => [
 ]);
 
 const avatar = computed(() => {
-  return 'https://i.ibb.co/ymg7NtjT/shopify-header-logo-png-webp-1.png';
+  return '/static/images/shopify-header-logo.png';
 });
 
 async function handleLogout() {

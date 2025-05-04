@@ -51,19 +51,39 @@ const [Grid] = useVbenVxeGrid({
         field: 'quantityRefund',
         title: 'Refund Quantity',
         minWidth: 150,
+      },
+      {
+        cellRender: { name: 'cellMoney' },
+        field: 'pricePerUnit',
+        title: 'Price',
+        minWidth: 200,
+        align: 'right',
+      },
+      {
+        cellRender: { name: 'cellMoney' },
+        field: 'netPayment',
+        title: $t('field-name.netPayment'),
+        minWidth: 200,
         align: 'right',
       },
       {
         cellRender: { name: 'cellMoney' },
         field: 'cogs',
-        title: 'COGS',
+        title: $t('field-name.cogs'),
         minWidth: 200,
         align: 'right',
       },
       {
         cellRender: { name: 'cellMoney' },
         field: 'handlingFees',
-        title: 'Handling Fees',
+        title: $t('field-name.handlingFees'),
+        minWidth: 200,
+        align: 'right',
+      },
+      {
+        cellRender: { name: 'cellMoney' },
+        field: 'grossProfit',
+        title: $t('field-name.grossProfit'),
         minWidth: 200,
         align: 'right',
       },
@@ -76,6 +96,11 @@ const [Grid] = useVbenVxeGrid({
             page: 1,
             pageSize: 100,
             orderId: state.order.id,
+          });
+
+          // Calculate the grossProfit for each item
+          res.items.forEach((item: any) => {
+            item.grossProfit = item.netPayment - item.cogs - item.handlingFees;
           });
 
           return res;
@@ -116,17 +141,17 @@ const [Modal, modalApi] = useVbenModal({
       <DescriptionsItem label="Processed Date">
         {{ state.order.processedAt.substring(0, 10) }}
       </DescriptionsItem>
-      <DescriptionsItem label="Current Quantity">
-        {{ state.order.quantityCurrent }}
-      </DescriptionsItem>
-      <DescriptionsItem label="Refund Quantity">
-        {{ state.order.quantityRefund }}
-      </DescriptionsItem>
       <DescriptionsItem label="Total Quantity">
         {{ state.order.quantityTotal }}
       </DescriptionsItem>
       <DescriptionsItem label="Weight">
         {{ state.order.weight }} Kg
+      </DescriptionsItem>
+      <DescriptionsItem label="Current Quantity">
+        {{ state.order.quantityCurrent }}
+      </DescriptionsItem>
+      <DescriptionsItem label="Refund Quantity">
+        {{ state.order.quantityRefund }}
       </DescriptionsItem>
       <DescriptionsItem
         :label="$t('field-name.grossSales')"
@@ -230,8 +255,8 @@ const [Modal, modalApi] = useVbenModal({
         <div class="my-1 flex items-center justify-start space-x-2">
           <div class="h-[35px] w-[35px] flex-none">
             <AImage
-              v-if="row.productImage"
               :src="row.productImage"
+              fallback="/static/images/no-image.png"
               class="!h-[35px] !w-[35px] rounded-lg border"
             />
           </div>

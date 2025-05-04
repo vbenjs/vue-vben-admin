@@ -21,8 +21,8 @@ const [Grid] = useVbenVxeGrid({
         <div class="my-1 flex items-center justify-start space-x-2">
           <div class="h-[35px] w-[35px] flex-none">
             <AImage
-              v-if="row.productImage"
               :src="row.productImage"
+              fallback="/static/images/no-image.png"
               class="!h-[35px] !w-[35px] rounded-lg border"
             />
           </div>
