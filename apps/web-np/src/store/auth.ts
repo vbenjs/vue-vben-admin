@@ -139,12 +139,11 @@ export const useAuthStore = defineStore('auth', () => {
         store: userInfo.shop.myshopifyDomain,
       },
       (error: any) => {
-        // do something if error
-        if (error === undefined) {
-          return;
+        if (error !== undefined) {
+          console.error('Tawk Login', error);
         }
 
-        console.error('Tawk Login', error);
+        // window.Tawk_API.minimize();
       },
     );
   }
