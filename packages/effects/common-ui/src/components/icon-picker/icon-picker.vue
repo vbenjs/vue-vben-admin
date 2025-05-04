@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VNode } from 'vue';
 
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
@@ -22,8 +22,9 @@ import {
   VbenIconButton,
   VbenPopover,
 } from '@vben-core/shadcn-ui';
+import { isFunction } from '@vben-core/shared/utils';
 
-import { refDebounced, watchDebounced } from '@vueuse/core';
+import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';
 
 import { fetchIconsData } from './icons';
 
@@ -63,6 +64,8 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   change: [string];
 }>();
+
+const attrs = useAttrs();
 
 const modelValue = defineModel({ default: '', type: String });
 
@@ -167,7 +170,14 @@ const searchInputProps = computed(() => {
 
 function updateCurrentSelect(v: string) {
   currentSelect.value = v;
+  const eventKey = `onUpdate:${props.modelValueProp}`;
+  if (attrs[eventKey] && isFunction(attrs[eventKey])) {
+    attrs[eventKey](v);
+  }
 }
+const getBindAttrs = computed(() => {
+  return objectOmit(attrs, [`onUpdate:${props.modelValueProp}`]);
+});
 
 defineExpose({ toggleOpenState, open, close });
 </script>
@@ -189,7 +199,7 @@ defineExpose({ toggleOpenState, open, close });
           :aria-label="$t('ui.iconPicker.placeholder')"
           aria-expanded="visible"
           :[`onUpdate:${modelValueProp}`]="updateCurrentSelect"
-          v-bind="$attrs"
+          v-bind="getBindAttrs"
         >
           <template #[iconSlot]>
             <VbenIcon
