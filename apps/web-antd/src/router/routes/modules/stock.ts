@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
   {
     meta: {
       icon: 'ant-design:database-filled',
-      order: 7,
+      order: 5,
       title: $t('stock.title'),
     },
     name: 'Stock',
@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = [
         path: '/stock/current',
         component: () => import('#/views/stock/current/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('stock.current'),
           keepAlive: true,
         },
@@ -27,7 +26,6 @@ const routes: RouteRecordRaw[] = [
         path: '/stock/productRecord',
         component: () => import('#/views/stock/productRecord/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('stock.productRecord'),
           keepAlive: true,
         },

@@ -1,0 +1,74 @@
+.CustomSuccessButton {
+  background-color: #18a058;
+  color: #fff;
+  border: none;
+}
+.CustomSuccessButton:hover {
+  background-color: #36ad6a;
+  color: #fff !important;
+}
+.CustomSuccessButton[disabled] {
+  background-color: #f7f7f7;
+  color: rgba(50, 54, 57, 0.25) !important;
+  border: none;
+}
+
+.CustomPrimaryButton {
+  background-color: #2080f0;
+  color: #fff;
+  border: none;
+}
+.CustomPrimaryButton:hover {
+  background-color: #4098fc;
+  color: #fff !important;
+}
+.CustomPrimaryButton[disabled] {
+  background-color: #f7f7f7;
+  color: rgba(50, 54, 57, 0.25) !important;
+  border: none;
+}
+
+.CustomWarningButton {
+  background-color: #f0a020;
+  color: #fff;
+  border: none;
+}
+.CustomWarningButton:hover {
+  background-color: #fcb040;
+  color: #fff !important;
+}
+.CustomWarningButton[disabled] {
+  background-color: #f7f7f7;
+  color: rgba(50, 54, 57, 0.25) !important;
+  border: none;
+}
+
+.CustomErrorButton {
+  background-color: #d03050;
+  color: #fff;
+  border: none;
+}
+.CustomErrorButton:hover {
+  background-color: #de576d;
+  color: #fff !important;
+}
+.CustomErrorButton[disabled] {
+  background-color: #f7f7f7;
+  color: rgba(50, 54, 57, 0.25) !important;
+  border: none;
+}
+
+.CustomInfoButton {
+  background-color: #777;
+  color: #fff;
+  border: none;
+}
+.CustomInfoButton:hover {
+  background-color: #999;
+  color: #fff !important;
+}
+.CustomInfoButton[disabled] {
+  background-color: #f7f7f7;
+  color: rgba(50, 54, 57, 0.25) !important;
+  border: none;
+}

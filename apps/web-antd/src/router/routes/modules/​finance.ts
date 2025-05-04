@@ -5,8 +5,8 @@ import { $t } from '#/locales';
 const routes: RouteRecordRaw[] = [
   {
     meta: {
-      icon: 'ant-design:database-filled',
-      order: 7,
+      icon: 'mdi-light:chart-bar',
+      order: 6,
       title: $t('finance.title'),
     },
     name: 'Finance',
@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = [
         path: '/finance/bankRecord',
         component: () => import('#/views/finance/bankRecord/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('finance.bankRecord'),
           keepAlive: true,
         },

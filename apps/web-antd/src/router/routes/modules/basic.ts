@@ -5,8 +5,8 @@ import { $t } from '#/locales';
 const routes: RouteRecordRaw[] = [
   {
     meta: {
-      icon: 'ant-design:database-filled',
-      order: 1,
+      icon: 'mdi-light:sitemap',
+      order: 2,
       title: $t('basic.title'),
     },
     name: 'Basic',
@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/brand',
         component: () => import('#/views/basic/brand/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.brand'),
           keepAlive: true,
         },
@@ -27,7 +26,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/color',
         component: () => import('#/views/basic/color/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.color'),
           keepAlive: true,
         },
@@ -37,7 +35,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/unit',
         component: () => import('#/views/basic/unit/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.unit'),
           keepAlive: true,
         },
@@ -47,7 +44,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/bank',
         component: () => import('#/views/basic/bank/index.vue'),
         meta: {
-          icon: 'lucide:area-chart',
           title: $t('basic.bank'),
           keepAlive: true,
         },
@@ -57,7 +53,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/customer',
         component: () => import('#/views/basic/customer/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.customer'),
           keepAlive: true,
         },
@@ -67,7 +62,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/supplier',
         component: () => import('#/views/basic/supplier/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.supplier'),
           keepAlive: true,
         },
@@ -77,7 +71,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/store',
         component: () => import('#/views/basic/store/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.store'),
           keepAlive: true,
         },
@@ -87,7 +80,6 @@ const routes: RouteRecordRaw[] = [
         path: '/basic/product',
         component: () => import('#/views/basic/product/index.vue'),
         meta: {
-          icon: 'carbon:customer',
           title: $t('basic.product'),
           keepAlive: true,
         },
