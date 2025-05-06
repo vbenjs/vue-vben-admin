@@ -219,7 +219,7 @@ setupVbenVxeTable({
                * 鉴于以上各种情况，一种折中的解决方案是弹出层展示时，禁止操作表格的滚动条。
                * 这样既解决了弹窗的遮挡问题，又不至于让弹窗随着表格的滚动而跑出视口区域。
                */
-              getPopupContainer() {
+              getPopupContainer(el) {
                 viewportWrapper = el.closest('.vxe-table--viewport-wrapper');
                 return document.body;
               },
