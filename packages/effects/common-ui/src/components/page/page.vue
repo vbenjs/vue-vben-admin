@@ -12,7 +12,8 @@ defineOptions({
   name: 'Page',
 });
 
-const { autoContentHeight = false } = defineProps<PageProps>();
+const { autoContentHeight = false, heightOffset = 0 } =
+  defineProps<PageProps>();
 
 const headerHeight = ref(0);
 const footerHeight = ref(0);
@@ -24,7 +25,7 @@ const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
 const contentStyle = computed<StyleValue>(() => {
   if (autoContentHeight) {
     return {
-      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px)`,
+      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${typeof heightOffset === 'number' ? `${heightOffset}px` : heightOffset})`,
       overflowY: shouldAutoHeight.value ? 'auto' : 'unset',
     };
   }

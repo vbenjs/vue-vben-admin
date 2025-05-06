@@ -187,6 +187,7 @@ const defaultPreferences: Preferences = {
     contentCompact: 'wide',
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
+    defaultHomePath: '/analytics',
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
@@ -312,6 +313,8 @@ interface AppPreferences {
   contentCompact: ContentCompactType;
   // /** 应用默认头像 */
   defaultAvatar: string;
+  /** 默认首页地址 */
+  defaultHomePath: string;
   // /** 开启动态标题 */
   dynamicTitle: boolean;
   /** 是否开启检查更新 */

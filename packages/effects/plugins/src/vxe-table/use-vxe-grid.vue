@@ -148,7 +148,9 @@ const toolbarOptions = computed(() => {
     icon: 'vxe-icon-search',
     circle: true,
     status: showSearchForm.value ? 'primary' : undefined,
-    title: $t('common.search'),
+    title: showSearchForm.value
+      ? $t('common.hideSearchPanel')
+      : $t('common.showSearchPanel'),
   };
   // 将搜索按钮合并到用户配置的toolbarConfig.tools中
   const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {

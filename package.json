@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-monorepo",
-  "version": "5.5.4",
+  "version": "5.5.5",
   "private": true,
   "keywords": [
     "monorepo",
@@ -51,14 +51,14 @@
     "lint": "vsh lint",
     "postinstall": "pnpm -r run stub --if-present",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "is-ci || husky",
     "preview": "turbo-run preview",
     "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm install",
     "test:unit": "vitest run --dom",
     "test:e2e": "turbo run test:e2e",
     "update:deps": "npx taze -r -w",
-    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
+    "catalog": "pnpx codemod pnpm/catalog"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
@@ -81,9 +81,8 @@
     "cross-env": "catalog:",
     "cspell": "catalog:",
     "happy-dom": "catalog:",
-    "husky": "catalog:",
     "is-ci": "catalog:",
-    "lint-staged": "catalog:",
+    "lefthook": "catalog:",
     "playwright": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",
@@ -99,7 +98,7 @@
     "node": ">=20.10.0",
     "pnpm": ">=9.12.0"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.10.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
@@ -110,7 +109,7 @@
       "@ast-grep/napi": "catalog:",
       "@ctrl/tinycolor": "catalog:",
       "clsx": "catalog:",
-      "esbuild": "0.24.0",
+      "esbuild": "0.25.3",
       "pinia": "catalog:",
       "vue": "catalog:"
     },

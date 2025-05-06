@@ -14,7 +14,7 @@ import { VbenButton } from '@vben-core/shadcn-ui';
 import Title from './auth-title.vue';
 
 interface Props {
-  formSchema: VbenFormSchema[];
+  formSchema?: VbenFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */

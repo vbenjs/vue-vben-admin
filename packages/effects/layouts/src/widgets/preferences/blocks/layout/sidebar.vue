@@ -79,14 +79,14 @@ const handleCheckboxChange = () => {
   </SwitchItem>
   <CheckboxItem
     :items="[
-      { label: '收缩按钮', value: 'collapsed' },
-      { label: '固定按钮', value: 'fixed' },
+      { label: $t('preferences.sidebar.buttonCollapsed'), value: 'collapsed' },
+      { label: $t('preferences.sidebar.buttonFixed'), value: 'fixed' },
     ]"
     multiple
     v-model="sidebarButtons"
     :on-btn-click="handleCheckboxChange"
   >
-    按钮配置
+    {{ $t('preferences.sidebar.buttons') }}
   </CheckboxItem>
   <NumberFieldItem
     v-model="sidebarWidth"

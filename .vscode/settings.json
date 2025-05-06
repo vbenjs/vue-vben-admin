@@ -14,7 +14,7 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.cursorBlinking": "expand",
-  "editor.largeFileOptimizations": false,
+  "editor.largeFileOptimizations": true,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.guides.bracketPairs": "active",
@@ -91,6 +91,7 @@
     "**/bower_components": true,
     "**/.turbo": true,
     "**/.idea": true,
+    "**/.vitepress": true,
     "**/tmp": true,
     "**/.git": true,
     "**/.svn": true,
@@ -111,6 +112,8 @@
     "**/dist/**": true,
     "**/yarn.lock": true
   },
+
+  "typescript.tsserver.exclude": ["**/node_modules", "**/dist", "**/.turbo"],
 
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
@@ -216,7 +219,7 @@
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
-    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json",
+    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json,lefthook.yml",
     "tailwind.config.mjs": "postcss.*"
   },
   "commentTranslate.hover.enabled": false,

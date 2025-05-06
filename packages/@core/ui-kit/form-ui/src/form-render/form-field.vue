@@ -5,6 +5,7 @@ import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
+import { CircleAlert } from '@vben-core/icons';
 import {
   FormControl,
   FormDescription,
@@ -12,6 +13,7 @@ import {
   FormItem,
   FormMessage,
   VbenRenderContent,
+  VbenTooltip,
 } from '@vben-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
@@ -354,6 +356,24 @@ onUnmounted(() => {
                 </template>
                 <!-- <slot></slot> -->
               </component>
+              <VbenTooltip
+                v-if="compact && isInValid"
+                :delay-duration="300"
+                side="left"
+              >
+                <template #trigger>
+                  <slot name="trigger">
+                    <CircleAlert
+                      :class="
+                        cn(
+                          'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
+                        )
+                      "
+                    />
+                  </slot>
+                </template>
+                <FormMessage />
+              </VbenTooltip>
             </slot>
           </FormControl>
           <!-- 自定义后缀 -->
@@ -365,7 +385,7 @@ onUnmounted(() => {
           </FormDescription>
         </div>
 
-        <Transition name="slide-up">
+        <Transition name="slide-up" v-if="!compact">
           <FormMessage class="absolute bottom-1" />
         </Transition>
       </div>

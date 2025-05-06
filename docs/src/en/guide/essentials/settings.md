@@ -164,6 +164,7 @@ const defaultPreferences: Preferences = {
     contentCompact: 'wide',
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
+    defaultHomePath: '/analytics',
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
@@ -289,6 +290,8 @@ interface AppPreferences {
   contentCompact: ContentCompactType;
   // /** Default application avatar */
   defaultAvatar: string;
+  /** Default homepage path */
+  defaultHomePath: string;
   // /** Enable dynamic title */
   dynamicTitle: boolean;
   /** Whether to enable update checks */
