@@ -211,13 +211,9 @@ setupVbenVxeTable({
           return h(
             Popconfirm,
             {
-              getPopupContainer(el) {
-                return (
-                  el
-                    .closest('.vxe-table--viewport-wrapper')
-                    ?.querySelector('.vxe-table--main-wrapper')
-                    ?.querySelector('tbody') || document.body
-                );
+              // 直接定位在 document.body 上，避免被固定列遮挡
+              getPopupContainer() {
+                return document.body;
               },
               placement: 'topLeft',
               title: $t('ui.actionTitle.delete', [attrs?.nameTitle || '']),
