@@ -9,6 +9,7 @@ import {
   h,
   inject,
   nextTick,
+  onDeactivated,
   provide,
   reactive,
   ref,
@@ -70,6 +71,14 @@ export function useVbenDrawer<
         inheritAttrs: false,
       },
     );
+
+    /**
+     * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+     */
+    onDeactivated(() => {
+      (extendedApi as ExtendedDrawerApi)?.close?.();
+    });
+
     return [Drawer, extendedApi as ExtendedDrawerApi] as const;
   }
 
