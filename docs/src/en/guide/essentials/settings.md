@@ -60,6 +60,29 @@ VITE_INJECT_APP_LOADING=true
 VITE_ARCHIVER=true
 ```
 
+```bash [.env.production]
+# Public Path for Resources, must start and end with /
+VITE_BASE=/
+
+# API URL
+VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
+
+# Whether to enable compression, can be set to none, brotli, gzip
+VITE_COMPRESS=gzip
+
+# Whether to enable PWA
+VITE_PWA=false
+
+# vue-router mode
+VITE_ROUTER_HISTORY=hash
+
+# Whether to inject global loading
+VITE_INJECT_APP_LOADING=true
+
+# Whether to generate dist.zip after packaging
+VITE_ARCHIVER=true
+```
+
 :::
 
 ## Dynamic Configuration in Production Environment
@@ -142,6 +165,7 @@ import { defineOverridesPreferences } from '@vben/preferences';
 /**
  * @description Project configuration file
  * Only a part of the configuration in the project needs to be covered, and unnecessary configurations do not need to be covered. The default configuration will be automatically used
+ * !!! Please clear the cache after changing the configuration, otherwise it may not take effect
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -172,7 +196,7 @@ const defaultPreferences: Preferences = {
     isMobile: false,
     layout: 'sidebar-nav',
     locale: 'zh-CN',
-    loginExpiredMode: 'modal',
+    loginExpiredMode: 'page',
     name: 'Vben Admin',
     preferencesButtonPosition: 'auto',
     watermark: false,
@@ -191,14 +215,16 @@ const defaultPreferences: Preferences = {
     enable: true,
     icp: '',
     icpLink: '',
+    settingShow: true,
   },
   footer: {
-    enable: true,
+    enable: false,
     fixed: false,
   },
   header: {
     enable: true,
     hidden: false,
+    menuAlign: 'start',
     mode: 'fixed',
   },
   logo: {
@@ -220,23 +246,28 @@ const defaultPreferences: Preferences = {
   sidebar: {
     autoActivateChild: false,
     collapsed: false,
+    collapsedButton: true,
     collapsedShowTitle: false,
     enable: true,
     expandOnHover: true,
-    extraCollapse: true,
+    extraCollapse: false,
+    fixedButton: true,
     hidden: false,
-    width: 230,
+    width: 224,
   },
   tabbar: {
     draggable: true,
     enable: true,
-    height: 36,
+    height: 38,
     keepAlive: true,
+    maxCount: 0,
+    middleClickToClose: false,
     persist: true,
     showIcon: true,
     showMaximize: true,
     showMore: true,
     styleType: 'chrome',
+    wheelable: true,
   },
   theme: {
     builtinType: 'default',
@@ -247,7 +278,7 @@ const defaultPreferences: Preferences = {
     mode: 'dark',
     radius: '0.5',
     semiDarkHeader: false,
-    semiDarkSidebar: true,
+    semiDarkSidebar: false,
   },
   transition: {
     enable: true,
@@ -261,9 +292,9 @@ const defaultPreferences: Preferences = {
     languageToggle: true,
     lockScreen: true,
     notification: true,
+    refresh: true,
     sidebarToggle: true,
     themeToggle: true,
-    refresh: true,
   },
 };
 ```
@@ -345,6 +376,8 @@ interface CopyrightPreferences {
   icp: string;
   /** Link to the ICP */
   icpLink: string;
+  /** Whether to show in settings panel */
+  settingShow?: boolean;
 }
 
 interface FooterPreferences {
@@ -359,6 +392,8 @@ interface HeaderPreferences {
   enable: boolean;
   /** Whether the header is hidden, css-hidden */
   hidden: boolean;
+  /** Header menu alignment */
+  menuAlign: LayoutHeaderMenuAlignType;
   /** Header display mode */
   mode: LayoutHeaderModeType;
 }
@@ -379,8 +414,12 @@ interface NavigationPreferences {
   styleType: NavigationStyleType;
 }
 interface SidebarPreferences {
+  /** Automatically activate child menu when clicking on directory */
+  autoActivateChild: boolean;
   /** Whether the sidebar is collapsed */
   collapsed: boolean;
+  /** Whether the sidebar collapse button is visible */
+  collapsedButton: boolean;
   /** Whether to show title when sidebar is collapsed */
   collapsedShowTitle: boolean;
   /** Whether the sidebar is visible */
@@ -389,6 +428,8 @@ interface SidebarPreferences {
   expandOnHover: boolean;
   /** Whether the sidebar extension area is collapsed */
   extraCollapse: boolean;
+  /** Whether the sidebar fixed button is visible */
+  fixedButton: boolean;
   /** Whether the sidebar is hidden - css */
   hidden: boolean;
   /** Sidebar width */
@@ -417,6 +458,10 @@ interface TabbarPreferences {
   height: number;
   /** Whether tab caching is enabled */
   keepAlive: boolean;
+  /** Maximum number of tabs */
+  maxCount: number;
+  /** Whether to close tab when middle-clicked */
+  middleClickToClose: boolean;
   /** Whether tabs are persistent */
   persist: boolean;
   /** Whether icons in multiple tabs are enabled */
@@ -427,6 +472,8 @@ interface TabbarPreferences {
   showMore: boolean;
   /** Tab style */
   styleType: TabsStyleType;
+  /** Whether mouse wheel response is enabled */
+  wheelable: boolean;
 }
 interface ThemePreferences {
   /** Built-in theme name */
@@ -514,5 +561,6 @@ interface Preferences {
 
 - The `overridesPreferences` method only needs to override a part of the configurations in the project. There's no need to override configurations that are not needed; they will automatically use the default settings.
 - Any configuration item can be overridden. You just need to override it within the `overridesPreferences` method. Do not modify the default configuration file.
+- Please clear the cache after changing the configuration, otherwise it may not take effect.
 
 :::
