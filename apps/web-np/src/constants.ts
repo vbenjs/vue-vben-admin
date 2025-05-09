@@ -84,3 +84,8 @@ export const countries = [
   { value: 'GB', label: 'United Kingdom', icon: '🇬🇧' },
   { value: 'US', label: 'United States', icon: '🇺🇸' },
 ];
+
+export const accountType = [
+  { value: 'facebook', label: 'Facebook', icon: 'logos:facebook' },
+  { value: 'google', label: 'Google', icon: 'flat-color-icons:google' },
+];

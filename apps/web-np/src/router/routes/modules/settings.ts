@@ -49,6 +49,15 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
+          title: 'Ads Integration',
+          icon: 'mdi:ads',
+        },
+        name: 'settings.account',
+        path: '/settings/account',
+        component: () => import('#/views/settings/account/index.vue'),
+      },
+      {
+        meta: {
           title: 'General',
           icon: 'ic:baseline-shopify',
         },
