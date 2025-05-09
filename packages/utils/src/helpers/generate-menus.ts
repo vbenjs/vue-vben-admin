@@ -51,7 +51,7 @@ function generateMenus(
     // 处理子菜单
     const resultChildren = hideChildrenInMenu
       ? []
-      : (children as MenuRecordRaw[]);
+      : ((children as MenuRecordRaw[]) ?? []);
 
     // 设置子菜单的父子关系
     if (resultChildren.length > 0) {
