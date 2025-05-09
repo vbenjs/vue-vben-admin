@@ -334,7 +334,13 @@ export const useTabbarStore = defineStore('core-tabbar', {
     /**
      * 刷新标签页
      */
-    async refresh(router: Router) {
+    async refresh(router: Router | string) {
+      // 如果是Router路由，那么就根据当前路由刷新
+      // 如果是string字符串，为路由名称，则定向刷新指定标签页，不能是当前路由名称，否则不会刷新
+      if (typeof router === 'string') {
+        return await this.refreshByName(router);
+      }
+
       const { currentRoute } = router;
       const { name } = currentRoute.value;
 
@@ -347,6 +353,15 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.excludeCachedTabs.delete(name as string);
       this.renderRouteView = true;
       stopProgress();
+    },
+
+    /**
+     * 根据路由名称刷新指定标签页
+     */
+    async refreshByName(name: string) {
+      this.excludeCachedTabs.add(name);
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      this.excludeCachedTabs.delete(name);
     },
 
     /**

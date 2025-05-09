@@ -41,8 +41,8 @@ export function useTabs() {
     await tabbarStore.toggleTabPin(tab || route);
   }
 
-  async function refreshTab() {
-    await tabbarStore.refresh(router);
+  async function refreshTab(name?: string) {
+    await tabbarStore.refresh(name || router);
   }
 
   async function openTabInNewWindow(tab?: RouteLocationNormalized) {
