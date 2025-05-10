@@ -28,6 +28,7 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
 });
 
+const maxLevel = ref<number>(0);
 const permissions = ref<DataNode[]>([]);
 const loadingPermissions = ref(false);
 
@@ -71,9 +72,24 @@ async function loadPermissions() {
   try {
     const res = await getMenuList();
     permissions.value = res as unknown as DataNode[];
+    maxLevel.value = getMaxLevel(permissions.value);
   } finally {
     loadingPermissions.value = false;
   }
+}
+
+function getMaxLevel<T extends Record<string, any>>(
+  items: T[],
+  level = 0,
+): number {
+  let maxLevel = level;
+  items.forEach((item) => {
+    const children = item.children as T[];
+    if (Array.isArray(children) && children.length > 0) {
+      maxLevel = Math.max(maxLevel, getMaxLevel(children, level + 1));
+    }
+  });
+  return maxLevel;
 }
 
 const getDrawerTitle = computed(() => {
@@ -103,7 +119,7 @@ function getNodeClass(node: Recordable<any>) {
             :tree-data="permissions"
             multiple
             bordered
-            :default-expanded-level="2"
+            :default-expanded-level="maxLevel"
             :get-node-class="getNodeClass"
             v-bind="slotProps"
             value-field="id"

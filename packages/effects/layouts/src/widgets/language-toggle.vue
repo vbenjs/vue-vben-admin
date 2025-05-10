@@ -31,9 +31,29 @@ async function handleUpdate(value: string | undefined) {
       :model-value="preferences.app.locale"
       @update:model-value="handleUpdate"
     >
-      <VbenIconButton>
+      <VbenIconButton class="language-button">
         <Languages class="text-foreground size-4" />
       </VbenIconButton>
     </VbenDropdownRadioMenu>
   </div>
 </template>
+
+<style scoped>
+.language-button:hover {
+  animation: language-expand 0.6s;
+}
+
+@keyframes language-expand {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

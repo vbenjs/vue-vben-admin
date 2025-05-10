@@ -23,6 +23,7 @@ const defaultPreferences: Preferences = {
     name: 'Vben Admin',
     preferencesButtonPosition: 'auto',
     watermark: false,
+    watermarkContent: '',
   },
   breadcrumb: {
     enable: true,

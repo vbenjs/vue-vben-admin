@@ -40,7 +40,9 @@ const emits = defineEmits<{
 
 interface InnerFlattenItem<T = Recordable<any>, P = number | string> {
   hasChildren: boolean;
+  id: P;
   level: number;
+  parentId: null | P;
   parents: P[];
   value: T;
 }
@@ -49,24 +51,25 @@ function flatten<T = Recordable<any>, P = number | string>(
   items: T[],
   childrenField: string = 'children',
   level = 0,
+  parentId: null | P = null,
   parents: P[] = [],
 ): InnerFlattenItem<T, P>[] {
   const result: InnerFlattenItem<T, P>[] = [];
   items.forEach((item) => {
     const children = get(item, childrenField) as Array<T>;
-    const val = {
+    const id = get(item, props.valueField) as P;
+    const val: InnerFlattenItem<T, P> = {
       hasChildren: Array.isArray(children) && children.length > 0,
+      id,
       level,
+      parentId,
       parents: [...parents],
       value: item,
     };
     result.push(val);
     if (val.hasChildren)
       result.push(
-        ...flatten(children, childrenField, level + 1, [
-          ...parents,
-          get(item, props.valueField),
-        ]),
+        ...flatten(children, childrenField, level + 1, id, [...parents, id]),
       );
   });
   return result;
@@ -171,6 +174,43 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
         }
       });
   }
+  if (
+    !props.checkStrictly &&
+    props.multiple &&
+    props.autoCheckParent &&
+    !isSelected
+  ) {
+    flattenData.value
+      .find((i) => {
+        return (
+          get(i.value, props.valueField) === get(item.value, props.valueField)
+        );
+      })
+      ?.parents?.reverse()
+      .forEach((p) => {
+        const children = flattenData.value.filter((i) => {
+          return (
+            i.parents.length > 0 &&
+            i.parents.includes(p) &&
+            i.id !== item._id &&
+            i.parentId === p
+          );
+        });
+        if (Array.isArray(modelValue.value)) {
+          const hasSelectedChild = children.some((child) =>
+            (modelValue.value as unknown[]).includes(
+              get(child.value, props.valueField),
+            ),
+          );
+          if (!hasSelectedChild) {
+            const index = modelValue.value.indexOf(p);
+            if (index !== -1) {
+              modelValue.value.splice(index, 1);
+            }
+          }
+        }
+      });
+  }
   updateTreeValue();
   emits('select', item);
 }
@@ -200,13 +240,13 @@ defineExpose({
     v-slot="{ flattenItems }"
     :class="
       cn(
-        'text-blackA11 container select-none list-none rounded-lg p-2 text-sm font-medium',
+        'text-blackA11 container select-none list-none rounded-lg text-sm font-medium',
         $attrs.class as unknown as ClassType,
         bordered ? 'border' : '',
       )
     "
   >
-    <div class="w-full" v-if="$slots.header">
+    <div class="w-full border-b p-1" v-if="$slots.header">
       <slot name="header"> </slot>
     </div>
     <TransitionGroup :name="transition ? 'fade' : ''">

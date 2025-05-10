@@ -13,8 +13,28 @@ function clearPreferencesAndLogout() {
 </script>
 <template>
   <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout">
-    <VbenIconButton>
+    <VbenIconButton class="setting-button">
       <Settings class="text-foreground size-4" />
     </VbenIconButton>
   </Preferences>
 </template>
+
+<style scoped>
+:deep(.setting-button) {
+  &:hover {
+    svg {
+      animation: setting-rotate 0.6s;
+    }
+  }
+}
+
+@keyframes setting-rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+</style>
