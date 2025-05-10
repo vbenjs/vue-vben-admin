@@ -63,6 +63,10 @@ interface AppPreferences {
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
+  /**
+   * @zh_CN 水印文字内容
+   */
+  watermarkContent: string;
 }
 
 interface BreadcrumbPreferences {

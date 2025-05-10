@@ -67,6 +67,7 @@ const appColorGrayMode = defineModel<boolean>('appColorGrayMode');
 const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
+const appWatermarkContent = defineModel<string>('appWatermarkContent');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 const appPreferencesButtonPosition = defineModel<PreferencesButtonPositionType>(
   'appPreferencesButtonPosition',
@@ -258,8 +259,8 @@ async function handleReset() {
         </div>
       </template>
 
-      <div class="p-1">
-        <VbenSegmented v-model="activeTab" :tabs="tabs">
+      <div>
+        <VbenSegmented v-model="activeTab" :tabs="tabs" fixed-tabs-header>
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
@@ -267,6 +268,7 @@ async function handleReset() {
                 v-model:app-enable-check-updates="appEnableCheckUpdates"
                 v-model:app-locale="appLocale"
                 v-model:app-watermark="appWatermark"
+                v-model:app-watermark-content="appWatermarkContent"
               />
             </Block>
 

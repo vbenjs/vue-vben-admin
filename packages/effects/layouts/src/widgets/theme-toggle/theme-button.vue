@@ -161,6 +161,12 @@ function toggleTheme(event: MouseEvent) {
     .theme-toggle__sun-beams {
       transform: rotateZ(0.25turn);
     }
+
+    &:hover {
+      svg {
+        animation: sun-rotate 0.6s;
+      }
+    }
   }
 
   &.is-dark {
@@ -173,6 +179,12 @@ function toggleTheme(event: MouseEvent) {
     .theme-toggle__sun-beams {
       @apply opacity-0;
     }
+
+    &:hover {
+      svg {
+        animation: moon-expand 0.6s;
+      }
+    }
   }
 
   &:hover > svg {
@@ -180,6 +192,30 @@ function toggleTheme(event: MouseEvent) {
     .theme-toggle__moon {
       @apply fill-foreground;
     }
+  }
+}
+
+@keyframes sun-rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes moon-expand {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 </style>
