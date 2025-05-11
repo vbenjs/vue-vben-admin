@@ -35,7 +35,7 @@ interface Props extends DrawerProps {
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
   closeIconPlacement: 'right',
-  destroyOnClose: true,
+  destroyOnClose: false,
   drawerApi: undefined,
   submitting: false,
   zIndex: 1000,

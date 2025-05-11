@@ -35,6 +35,8 @@ interface AppPreferences {
   contentCompact: ContentCompactType;
   // /** 应用默认头像 */
   defaultAvatar: string;
+  /** 默认首页地址 */
+  defaultHomePath: string;
   // /** 开启动态标题 */
   dynamicTitle: boolean;
   /** 是否开启检查更新 */

@@ -98,8 +98,8 @@ npm 脚本是项目常见的配置，用于执行一些常见的任务，比如�
     "postinstall": "pnpm -r run stub --if-present",
     // 只允许使用pnpm
     "preinstall": "npx only-allow pnpm",
-    // husky的安装
-    "prepare": "is-ci || husky",
+    // lefthook的安装
+    "prepare": "is-ci || lefthook install",
     // 预览应用
     "preview": "turbo-run preview",
     // 包规范检查

@@ -70,7 +70,7 @@ export async function perfectionist(): Promise<Linter.Config[]> {
           },
         ],
         'perfectionist/sort-objects': [
-          'error',
+          'off',
           {
             customGroups: {
               items: 'items',
