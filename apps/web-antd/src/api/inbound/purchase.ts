@@ -7,7 +7,7 @@ export namespace PurchaseApi {
     id: number;
     purchaseOrderNo: string;
     purchaseSupplierName: string;
-    purchaseBankName: string;
+    purchasePurchaseName: string;
     purchaseStoreName: string;
     purchaseHandlerName: string;
     purchaseTradeAt: string;
@@ -40,4 +40,26 @@ export async function getPurchaseListApi(params: Api.BasicParams) {
  */
 export async function getPurchaseInitApi() {
   return requestClient.get(`/purchase/init`);
+}
+/**
+ * 创建采购入库
+ */
+export async function createPurchaseApi(data: PurchaseApi.PurchaseItem) {
+  return requestClient.post('/purchase', data);
+}
+export async function getPurchaseByIdApi(id: number | string) {
+  return requestClient.get<PurchaseApi.PurchaseItem>(`/purchase/${id}`);
+}
+export async function auditByIdApi({ id }) {
+  return requestClient.put(`/purchase/audit/${id}`);
+}
+
+export async function unauditByIdApi({ id }) {
+  return requestClient.put(`/purchase/unaudit/${id}`);
+}
+export async function deletePurchaseApi(id: number | string) {
+  return requestClient.delete<{ affected: number }>(`/purchase/${id}`);
+}
+export async function updatePurchaseApi({ id, ...data }) {
+  return requestClient.put<{ affected: number }>(`/purchase/${id}`, data);
 }

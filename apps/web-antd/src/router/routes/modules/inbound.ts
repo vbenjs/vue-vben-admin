@@ -19,6 +19,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: $t('inbound.purchase'),
           keepAlive: true,
+          maxNumOfOpenTab: 1,
         },
       },
       {
