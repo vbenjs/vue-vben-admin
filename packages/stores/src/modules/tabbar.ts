@@ -401,8 +401,21 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
     /**
      * @zh_CN 设置标签页标题
-     * @param tab
-     * @param title
+     *
+     * 该方法允许设置静态字符串或动态函数作为标签标题。
+     * 当使用函数作为标题时，每次需要显示标题时都会调用该函数获取最新的标题内容，
+     * 这对于需要根据状态或语言变化动态更新标签标题非常有用。
+     *
+     * @param {TabDefinition} tab - 要设置标题的标签页
+     * @param {(() => string) | string} title - 要设置的标题，可以是字符串或返回字符串的函数
+     *
+     * @example
+     * // 设置静态标题
+     * setTabTitle(tab, '新标签页');
+     *
+     * @example
+     * // 设置动态标题（随语言变化）
+     * setTabTitle(tab, () => t('common.dashboard'));
      */
     async setTabTitle(tab: TabDefinition, title: (() => string) | string) {
       const findTab = this.tabs.find(
