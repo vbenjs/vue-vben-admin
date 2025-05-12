@@ -1,3 +1,4 @@
+import type { ComputedRef } from 'vue';
 import type { RouteLocationNormalized } from 'vue-router';
 
 import { useRoute, useRouter } from 'vue-router';
@@ -56,20 +57,21 @@ export function useTabs() {
   /**
    * 设置当前标签页的标题
    *
-   * 该函数允许设置静态字符串或动态函数作为标签标题。
-   * 当使用函数作为标题时，每次需要显示标题时都会调用该函数获取最新的标题内容，
-   * 这对于需要根据状态或语言变化动态更新标签标题非常有用。
+   * @description 支持设置静态标题字符串或动态计算标题
+   * @description 动态标题会在每次渲染时重新计算,适用于多语言或状态相关的标题
    *
-   * @param {(() => string) | string} title - 要设置的标题，可以是字符串或返回字符串的函数
-   * @example
-   * // 设置静态标题
-   * setTabTitle('新标签页');
+   * @param title - 标题内容
+   *   - 静态标题: 直接传入字符串
+   *   - 动态标题: 传入 ComputedRef
    *
    * @example
-   * // 设置动态标题（随语言变化）
-   * setTabTitle(() => t('common.dashboard'));
+   * // 静态标题
+   * setTabTitle('标签页')
+   *
+   * // 动态标题(多语言)
+   * setTabTitle(computed(() => t('page.title')))
    */
-  async function setTabTitle(title: (() => string) | string) {
+  async function setTabTitle(title: ComputedRef<string> | string) {
     tabbarStore.setUpdateTime();
     await tabbarStore.setTabTitle(route, title);
   }

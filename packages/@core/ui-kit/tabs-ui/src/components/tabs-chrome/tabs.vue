@@ -42,8 +42,6 @@ const tabsView = computed(() => {
   return props.tabs.map((tab) => {
     const { fullPath, meta, name, path } = tab || {};
     const { affixTab, icon, newTabTitle, tabClosable, title } = meta || {};
-    const newTabTitle2 =
-      newTabTitle instanceof Function ? newTabTitle() : newTabTitle;
     return {
       affixTab: !!affixTab,
       closable: Reflect.has(meta, 'tabClosable') ? !!tabClosable : true,
@@ -53,7 +51,7 @@ const tabsView = computed(() => {
       meta,
       name,
       path,
-      title: (newTabTitle2 || title || name) as string,
+      title: (newTabTitle || title || name) as string,
     } as TabConfig;
   });
 });
