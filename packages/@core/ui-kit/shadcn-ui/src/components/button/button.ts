@@ -36,7 +36,7 @@ export interface VbenButtonGroupProps
   btnClass?: any;
   gap?: number;
   multiple?: boolean;
-  options?: { label: CustomRenderType; value: ValueType }[];
+  options?: { [key: string]: any; label: CustomRenderType; value: ValueType }[];
   showIcon?: boolean;
   size?: 'large' | 'middle' | 'small';
 }
