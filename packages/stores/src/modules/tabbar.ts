@@ -404,7 +404,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      * @param title
      */
-    async setTabTitle(tab: TabDefinition, title: string) {
+    async setTabTitle(tab: TabDefinition, title: (() => string) | string) {
       const findTab = this.tabs.find(
         (item) => getTabPath(item) === getTabPath(tab),
       );

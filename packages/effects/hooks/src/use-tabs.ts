@@ -53,7 +53,7 @@ export function useTabs() {
     await tabbarStore.closeTabByKey(key, router);
   }
 
-  async function setTabTitle(title: string) {
+  async function setTabTitle(title: (() => string) | string) {
     tabbarStore.setUpdateTime();
     await tabbarStore.setTabTitle(route, title);
   }
