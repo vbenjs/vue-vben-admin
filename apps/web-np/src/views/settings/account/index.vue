@@ -2,8 +2,12 @@
 import { Page, VbenButton } from '@vben/common-ui';
 import { useAppConfig } from '@vben/hooks';
 import { IconifyIcon } from '@vben/icons';
+import { capitalizeFirstLetter } from '@vben/utils';
+
+import { Dropdown, Menu, MenuItem, Modal, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { deleteAccount, syncAccount } from '#/api';
 import { accountType } from '#/constants';
 import { useShopStore } from '#/store';
 import { redirectToNewTab } from '#/utils';
@@ -13,7 +17,7 @@ import { formOptions } from './table-filter';
 
 const shopStore = useShopStore();
 
-const [Grid] = useVbenVxeGrid({
+const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
   formOptions,
 });
@@ -28,6 +32,63 @@ const addNewConnection = (type: string) => {
   const url = `${apiURL}/auth-social/generate?type=${type}&shopId=${shopStore.shop.id}`;
 
   redirectToNewTab(url);
+};
+
+const statusList = [
+  {
+    value: 'connected',
+    label: 'Connected',
+    className: 'success',
+  },
+  {
+    value: 'disconnected',
+    label: 'Disconnected',
+    className: 'error',
+  },
+  {
+    value: 'active',
+    label: 'Active',
+    className: 'success',
+  },
+  {
+    value: 'inactive',
+    label: 'Inactive',
+    className: 'error',
+  },
+];
+
+const getStatusClass = (status: string) => {
+  const item = statusList.find((item) => item.value === status);
+  return item ? item.className : 'default';
+};
+
+const handleDelete = (row: any) => {
+  Modal.confirm({
+    title: 'Remove Connection',
+    content:
+      'Are you sure you want to remove this connection? This action cannot be undone.',
+    okType: 'danger',
+    okText: 'Yes',
+    cancelText: 'No',
+    onOk: async () => {
+      await deleteAccount(row.id).then(() => {
+        gridApi.query();
+      });
+    },
+  });
+};
+
+const handleManualSync = (row: any) => {
+  Modal.confirm({
+    title: 'Sync Account Information',
+    content: 'Do you want to sync all Ad Accounts?',
+    okText: 'Sync',
+    onOk: async () => {
+      await syncAccount(row.id).then(() => {
+        gridApi.query();
+      });
+    },
+  });
 };
 </script>
 
@@ -47,13 +108,16 @@ const addNewConnection = (type: string) => {
             class="mr-2 size-4"
             icon="ant-design:plus-circle-outlined"
           />
-          New Facebook Connection
+          Add Facebook Connection
         </VbenButton>
       </template>
 
       <template #type="{ row }: { row: any }">
-        <!-- Avatar and Title - Only show for parent level -->
-        <div class="my-1 flex items-center justify-start space-x-2">
+        <div
+          v-if="row.parentId === undefined"
+          class="my-1 flex items-center justify-start space-x-2"
+        >
+          <!-- Avatar and Title - Only show for parent level -->
           <div class="h-[35px] w-[35px] flex-none">
             <IconifyIcon
               class="size-[35px] text-red-500"
@@ -69,21 +133,49 @@ const addNewConnection = (type: string) => {
             </div>
           </div>
         </div>
+        <div v-else class="pl-10">
+          {{ row.name }}
+        </div>
       </template>
 
-      <template #action="">
-        <VbenButton variant="outline" size="icon" class="mr-2 size-7">
-          <IconifyIcon
-            class="size-4 text-red-500"
-            icon="ant-design:delete-twotone"
-          />
-        </VbenButton>
-        <VbenButton variant="outline" size="icon" class="size-7">
-          <IconifyIcon
-            class="text-primary-500 size-4"
-            icon="ant-design:edit-twotone"
-          />
-        </VbenButton>
+      <template #status="{ row }: { row: any }">
+        <Tag :color="getStatusClass(row.status)" class="w-[100px] text-center">
+          {{ capitalizeFirstLetter(row.status) }}
+        </Tag>
+      </template>
+
+      <template #action="{ row }: { row: any }">
+        <Dropdown v-if="row.parentId === undefined">
+          <VbenButton size="sm" variant="outline">
+            <IconifyIcon class="mr-2 size-4" icon="ant-design:more-outlined" />
+            Actions
+          </VbenButton>
+          <template #overlay>
+            <Menu>
+              <MenuItem @click="handleDelete(row)">
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:delete-twotone" />
+                  <span>Remove</span>
+                </div>
+              </MenuItem>
+              <MenuItem
+                @click="handleManualSync(row)"
+                :disabled="row.status !== 'connected'"
+              >
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:sync-outlined" />
+                  <span>Manual sync</span>
+                </div>
+              </MenuItem>
+              <MenuItem @click="addNewConnection(row.type)">
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:link-outlined" />
+                  <span>Reconnect</span>
+                </div>
+              </MenuItem>
+            </Menu>
+          </template>
+        </Dropdown>
       </template>
     </Grid>
   </Page>

@@ -21,6 +21,7 @@ export interface ILineItem {
 export interface IOrder {
   id: string;
   name: string;
+  countryCode: string;
   processedAt: string; // ISO date string
   grossSales: number;
   totalDiscount: number;
