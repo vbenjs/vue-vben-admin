@@ -158,7 +158,7 @@ export function useTabbar() {
       },
       {
         disabled: disabledRefresh,
-        handler: refreshTab,
+        handler: () => refreshTab(),
         icon: RotateCw,
         key: 'reload',
         text: $t('preferences.tabbar.contextMenu.reload'),
