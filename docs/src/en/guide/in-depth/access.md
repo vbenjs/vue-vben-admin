@@ -4,10 +4,11 @@ outline: deep
 
 # Access Control
 
-The framework has built-in two types of access control methods:
+The framework has built-in three types of access control methods:
 
 - Determining whether a menu or button can be accessed based on user roles
 - Determining whether a menu or button can be accessed through an API
+- Using a mixed mode that combines both frontend role-based and backend API-based access control
 
 ## Frontend Access Control
 
@@ -150,6 +151,43 @@ const dashboardMenus = [
 :::
 
 At this point, the configuration is complete. You need to ensure that after logging in, the format of the menu returned by the interface is correct; otherwise, access will not be possible.
+
+
+## Mixed Access Control
+
+**Implementation Principle**: The mixed mode combines both frontend and backend access control methods, merging the route tables generated from frontend static routes and backend dynamic routes. This approach ensures both the stability of basic routes and the flexibility of permission control. The system simultaneously filters frontend routes based on roles and retrieves dynamic routes from the backend, ultimately combining these two parts to generate a complete route table.
+
+**Advantage**: It offers the benefits of both frontend and backend control. Core fixed routes can be maintained in the frontend, while business-related dynamic routes are controlled by the backend, enabling a more flexible permission management solution.
+
+**Application Scenario**: Suitable for application systems that have both fixed system function modules and business modules requiring flexible configuration.
+
+### Steps
+
+- Ensure the current mode is set to mixed access control
+
+Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='mixed'`.
+
+```ts
+import { defineOverridesPreferences } from '@vben/preferences';
+
+export const overridesPreferences = defineOverridesPreferences({
+  // overrides
+  app: {
+    accessMode: 'mixed',
+  },
+});
+```
+
+- Configure frontend route permissions (same as frontend access control)
+
+- Ensure the roles returned by the interface match the permissions in the frontend route table (same as frontend access control)
+
+- Ensure the structure of the menu data returned by the interface is correct (same as backend access control)
+
+You need to ensure that user roles match the permission settings in the frontend routes, and that the menu data structure returned by the backend is also correct.
+
+At this point, the mixed mode configuration is complete. The system will process both frontend static routes and backend dynamic routes, merging them to generate the final route table and menu.
+
 
 ## Fine-grained Control of Buttons
 
