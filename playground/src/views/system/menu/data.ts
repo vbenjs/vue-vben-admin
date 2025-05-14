@@ -1,7 +1,15 @@
 import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
 import type { SystemMenuApi } from '#/api/system/menu';
 
+import { useWindowSize } from '@vueuse/core';
+
 import { $t } from '#/locales';
+
+const BREAKPOINT_MD = 640; // 小屏幕断点
+
+// 检测是否为移动端
+const { width } = useWindowSize();
+const isMobile = width.value < BREAKPOINT_MD;
 
 export function getMenuTypeOptions() {
   return [
@@ -28,7 +36,7 @@ export function useColumns(
     {
       align: 'left',
       field: 'meta.title',
-      fixed: 'left',
+      fixed: isMobile ? '' : 'left',
       slots: { default: 'title' },
       title: $t('system.menu.menuTitle'),
       treeNode: true,
