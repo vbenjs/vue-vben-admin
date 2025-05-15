@@ -621,6 +621,7 @@ refresh();
 每个标签页Tab使用唯一的key标识，设置Tab key有三种方式，优先级由高到低：
 
 - 使用路由query参数pageKey
+
 ```vue
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
