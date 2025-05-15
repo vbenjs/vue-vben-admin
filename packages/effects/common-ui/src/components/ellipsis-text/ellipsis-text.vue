@@ -129,7 +129,7 @@ function handleExpand() {
             '-webkit-line-clamp': isExpand ? '' : line,
             'max-width': textMaxWidth,
           }"
-          class="cursor-text overflow-hidden"
+          class="cursor-text overflow-hidden whitespace-normal"
           @click="handleExpand"
           v-bind="$attrs"
         >
