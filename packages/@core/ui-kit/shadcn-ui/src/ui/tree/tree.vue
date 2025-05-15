@@ -226,13 +226,17 @@ defineExpose({
             'data-[selected]:bg-accent': !multiple,
           })
         "
-        v-bind="item.bind"
+        v-bind="
+          Object.assign(item.bind, {
+            tabindex: !disabled ? -1 : undefined,
+          })
+        "
         @select="
           (event) => {
             if (event.detail.originalEvent.type === 'click') {
               event.preventDefault();
             }
-            onSelect(item, event.detail.isSelected);
+            !disabled && onSelect(item, event.detail.isSelected);
           }
         "
         @toggle="
@@ -240,7 +244,7 @@ defineExpose({
             if (event.detail.originalEvent.type === 'click') {
               event.preventDefault();
             }
-            onToggle(item);
+            !disabled && onToggle(item);
           }
         "
         class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
@@ -262,10 +266,11 @@ defineExpose({
         <Checkbox
           v-if="multiple"
           :checked="isSelected"
+          :disabled="disabled"
           :indeterminate="isIndeterminate"
           @click="
             () => {
-              handleSelect();
+              !disabled && handleSelect();
               // onSelect(item, !isSelected);
             }
           "
@@ -276,7 +281,7 @@ defineExpose({
             (_event) => {
               // $event.stopPropagation();
               // $event.preventDefault();
-              handleSelect();
+              !disabled && handleSelect();
               // onSelect(item, !isSelected);
             }
           "
