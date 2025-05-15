@@ -1,4 +1,8 @@
-import type { Router, RouteRecordNormalized } from 'vue-router';
+import type {
+  RouteLocationNormalized,
+  Router,
+  RouteRecordNormalized,
+} from 'vue-router';
 
 import type { TabDefinition } from '@vben-core/typings';
 
@@ -52,9 +56,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
     /**
      * Close tabs in bulk
      */
-    async _bulkCloseByPaths(paths: string[]) {
+    async _bulkCloseByKeys(keys: string[]) {
       this.tabs = this.tabs.filter((item) => {
-        return !paths.includes(getTabPath(item));
+        return !keys.includes(item.key as string);
       });
 
       this.updateCacheTabs();
@@ -64,11 +68,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     _close(tab: TabDefinition) {
-      const { fullPath } = tab;
       if (isAffixTab(tab)) {
         return;
       }
-      const index = this.tabs.findIndex((item) => item.fullPath === fullPath);
+      const index = this.tabs.findIndex((item) => item.key === tab.key);
       index !== -1 && this.tabs.splice(index, 1);
     },
     /**
@@ -103,12 +106,16 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     addTab(routeTab: TabDefinition) {
       const tab = cloneTab(routeTab);
+      // 如果未设置key，设置tab的key
+      if (!tab.key) {
+        tab.key = getTabKey(routeTab);
+      }
       if (!isTabShown(tab)) {
         return;
       }
 
-      const tabIndex = this.tabs.findIndex((tab) => {
-        return getTabPath(tab) === getTabPath(routeTab);
+      const tabIndex = this.tabs.findIndex((item) => {
+        return item.key === tab.key;
       });
 
       if (tabIndex === -1) {
@@ -173,54 +180,50 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async closeLeftTabs(tab: TabDefinition) {
-      const index = this.tabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const index = this.tabs.findIndex((item) => item.key === tab.key);
 
       if (index < 1) {
         return;
       }
 
       const leftTabs = this.tabs.slice(0, index);
-      const paths: string[] = [];
+      const keys: string[] = [];
 
       for (const item of leftTabs) {
         if (!isAffixTab(item)) {
-          paths.push(getTabPath(item));
+          keys.push(item.key as string);
         }
       }
-      await this._bulkCloseByPaths(paths);
+      await this._bulkCloseByKeys(keys);
     },
     /**
      * @zh_CN 关闭其他标签页
      * @param tab
      */
     async closeOtherTabs(tab: TabDefinition) {
-      const closePaths = this.tabs.map((item) => getTabPath(item));
+      const closeKeys = this.tabs.map((item) => item.key);
 
-      const paths: string[] = [];
+      const keys: string[] = [];
 
-      for (const path of closePaths) {
-        if (path !== tab.fullPath) {
-          const closeTab = this.tabs.find((item) => getTabPath(item) === path);
+      for (const key of closeKeys) {
+        if (key !== tab.key) {
+          const closeTab = this.tabs.find((item) => item.key === key);
           if (!closeTab) {
             continue;
           }
           if (!isAffixTab(closeTab)) {
-            paths.push(getTabPath(closeTab));
+            keys.push(closeTab.key as string);
           }
         }
       }
-      await this._bulkCloseByPaths(paths);
+      await this._bulkCloseByKeys(keys);
     },
     /**
      * @zh_CN 关闭右侧标签页
      * @param tab
      */
     async closeRightTabs(tab: TabDefinition) {
-      const index = this.tabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const index = this.tabs.findIndex((item) => item.key === tab.key);
 
       if (index !== -1 && index < this.tabs.length - 1) {
         const rightTabs = this.tabs.slice(index + 1);
@@ -228,10 +231,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
         const paths: string[] = [];
         for (const item of rightTabs) {
           if (!isAffixTab(item)) {
-            paths.push(getTabPath(item));
+            paths.push(item.key as string);
           }
         }
-        await this._bulkCloseByPaths(paths);
+        await this._bulkCloseByKeys(paths);
       }
     },
 
@@ -244,13 +247,13 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const { currentRoute } = router;
 
       // 关闭不是激活选项卡
-      if (getTabPath(currentRoute.value) !== getTabPath(tab)) {
+      if (getTabKey(currentRoute.value) !== tab.key) {
         this._close(tab);
         this.updateCacheTabs();
         return;
       }
       const index = this.getTabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(currentRoute.value),
+        (item) => item.key === getTabKey(currentRoute.value),
       );
 
       const before = this.getTabs[index - 1];
@@ -276,9 +279,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeTabByKey(key: string, router: Router) {
       const originKey = decodeURIComponent(key);
-      const index = this.tabs.findIndex(
-        (item) => getTabPath(item) === originKey,
-      );
+      const index = this.tabs.findIndex((item) => item.key === originKey);
       if (index === -1) {
         return;
       }
@@ -290,13 +291,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * 根据路径获取标签页
-     * @param path
+     * 根据tab的key获取tab
+     * @param key
      */
-    getTabByPath(path: string) {
-      return this.getTabs.find(
-        (item) => getTabPath(item) === path,
-      ) as TabDefinition;
+    getTabByKey(key: string) {
+      return this.getTabs.find((item) => item.key === key) as TabDefinition;
     },
     /**
      * @zh_CN 新窗口打开标签页
@@ -311,9 +310,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async pinTab(tab: TabDefinition) {
-      const index = this.tabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const index = this.tabs.findIndex((item) => item.key === tab.key);
       if (index !== -1) {
         const oldTab = this.tabs[index];
         tab.meta.affixTab = true;
@@ -324,9 +321,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       // 获得固定tabs的index
-      const newIndex = affixTabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const newIndex = affixTabs.findIndex((item) => item.key === tab.key);
       // 交换位置重新排序
       await this.sortTabs(index, newIndex);
     },
@@ -371,9 +366,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       if (tab?.meta?.newTabTitle) {
         return;
       }
-      const findTab = this.tabs.find(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const findTab = this.tabs.find((item) => item.key === tab.key);
       if (findTab) {
         findTab.meta.newTabTitle = undefined;
         await this.updateCacheTabs();
@@ -405,9 +398,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param title
      */
     async setTabTitle(tab: TabDefinition, title: string) {
-      const findTab = this.tabs.find(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const findTab = this.tabs.find((item) => item.key === tab.key);
 
       if (findTab) {
         findTab.meta.newTabTitle = title;
@@ -448,9 +439,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param tab
      */
     async unpinTab(tab: TabDefinition) {
-      const index = this.tabs.findIndex(
-        (item) => getTabPath(item) === getTabPath(tab),
-      );
+      const index = this.tabs.findIndex((item) => item.key === tab.key);
 
       if (index !== -1) {
         const oldTab = this.tabs[index];
@@ -591,11 +580,20 @@ function isTabShown(tab: TabDefinition) {
 }
 
 /**
- * @zh_CN 获取标签页路径
+ * 从route获取tab页的key
  * @param tab
  */
-function getTabPath(tab: RouteRecordNormalized | TabDefinition) {
-  return decodeURIComponent((tab as TabDefinition).fullPath || tab.path);
+function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
+  const {
+    fullPath,
+    path,
+    meta: { fullPathKey } = {},
+    query: { pageKey } = {},
+  } = tab as RouteLocationNormalized;
+  if (pageKey) {
+    return pageKey as string;
+  }
+  return decodeURIComponent(((fullPathKey ?? true) ? fullPath : path) || path);
 }
 
 function routeToTab(route: RouteRecordNormalized) {
@@ -603,5 +601,8 @@ function routeToTab(route: RouteRecordNormalized) {
     meta: route.meta,
     name: route.name,
     path: route.path,
+    key: getTabKey(route),
   } as TabDefinition;
 }
+
+export { getTabKey };
