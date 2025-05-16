@@ -192,9 +192,9 @@ defineExpose({
     :model-value="treeValue"
     v-model:expanded="expanded as string[]"
     :default-expanded="defaultExpandedKeys as string[]"
-    :propagate-select="!checkStrictly"
-    :multiple="multiple"
-    :disabled="disabled"
+    :propagate-select="!props.checkStrictly"
+    :multiple="props.multiple"
+    :disabled="props.disabled"
     :selection-behavior="allowClear || multiple ? 'toggle' : 'replace'"
     @update:model-value="updateModelValue"
     v-slot="{ flattenItems }"
@@ -229,7 +229,11 @@ defineExpose({
         v-bind="item.bind"
         @select="
           (event) => {
-            if (event.detail.originalEvent.type === 'click') {
+            if (
+              event.detail.originalEvent.type === 'click' ||
+              props.disabled ||
+              get(item.value, 'disabled')
+            ) {
               event.preventDefault();
             }
             onSelect(item, event.detail.isSelected);
@@ -263,6 +267,7 @@ defineExpose({
           v-if="multiple"
           :checked="isSelected"
           :indeterminate="isIndeterminate"
+          :disabled="disabled || get(item.value, 'disabled')"
           @click="
             () => {
               handleSelect();
@@ -274,10 +279,10 @@ defineExpose({
           class="flex items-center gap-1 pl-2"
           @click="
             (_event) => {
-              // $event.stopPropagation();
-              // $event.preventDefault();
+              if (props.disabled || get(item.value, 'disabled')) {
+                return;
+              }
               handleSelect();
-              // onSelect(item, !isSelected);
             }
           "
         >
