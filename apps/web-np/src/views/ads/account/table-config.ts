@@ -31,18 +31,14 @@ export const gridOptions: VxeTableGridOptions = {
       minWidth: 110,
     },
     {
-      field: 'lastSyncedAt',
-      title: 'Last Synced',
-      formatter: (time: any) => {
-        return time.cellValue
-          ? formatReportDate(time.cellValue)
-          : (null as any);
-      },
+      field: 'nextSyncedAt',
+      title: 'Next Sync',
+      slots: { default: 'nextSyncedAt' },
       minWidth: 110,
     },
     {
-      field: 'nextSyncedAt',
-      title: 'Next Synced',
+      field: 'lastSyncedAt',
+      title: 'Last Sync',
       formatter: (time: any) => {
         return time.cellValue
           ? formatReportDate(time.cellValue)
@@ -64,19 +60,12 @@ export const gridOptions: VxeTableGridOptions = {
       },
       minWidth: 110,
     },
-    // {
-    //   field: 'createdAt',
-    //   title: 'Created At',
-    //   formatter: (time: any) => {
-    //     return formatReportDate(time.cellValue);
-    //   },
-    //   minWidth: 110,
-    // },
     {
       field: 'action',
       slots: { default: 'action' },
       title: '',
       minWidth: 110,
+      align: 'left',
     },
   ],
   exportConfig: {},
@@ -100,6 +89,7 @@ export const gridOptions: VxeTableGridOptions = {
 };
 
 async function generateTableData(page: any, formValues: any): Promise<any> {
+  const onlyShowActiveAdAccounts = formValues.onlyShowActiveAdAccounts ?? false;
   return await getAccounts({
     page: page.currentPage,
     pageSize: page.pageSize,
@@ -115,6 +105,14 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
 
     res.items.forEach((_item: any) => {
       _item.adAccounts.forEach((_adAccount: any) => {
+        if (onlyShowActiveAdAccounts && _adAccount.status !== 'active') {
+          return;
+        }
+
+        if (_item.status === 'disconnected') {
+          _adAccount.status = _item.status;
+        }
+
         _adAccount.parentId = _item.id;
         _adAccount.expiredAt = null;
         children.push(_adAccount);

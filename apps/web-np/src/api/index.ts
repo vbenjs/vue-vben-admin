@@ -1,4 +1,4 @@
-export * from './account';
+export * from './ads';
 export * from './core';
 export * from './custom-cost';
 export * from './customer';
