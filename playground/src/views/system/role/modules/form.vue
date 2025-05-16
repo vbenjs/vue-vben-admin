@@ -106,7 +106,6 @@ function getNodeClass(node: Recordable<any>) {
             :default-expanded-level="2"
             :get-node-class="getNodeClass"
             v-bind="slotProps"
-            :disabled="true"
             value-field="id"
             label-field="meta.title"
             icon-field="meta.icon"
