@@ -224,11 +224,12 @@ defineExpose({
         :class="
           cn('cursor-pointer', getNodeClass?.(item), {
             'data-[selected]:bg-accent': !multiple,
+            'cursor-not-allowed': disabled,
           })
         "
         v-bind="
           Object.assign(item.bind, {
-            tabindex: !disabled ? -1 : undefined,
+            onfocus: disabled ? 'this.blur()' : undefined,
           })
         "
         @select="
