@@ -45,7 +45,7 @@ export function useTabbar() {
   } = useTabs();
 
   const currentActive = computed(() => {
-    return route.fullPath;
+    return route.path;
   });
 
   const { locale } = useI18n();
@@ -100,7 +100,7 @@ export function useTabbar() {
   );
 
   watch(
-    () => route.path,
+    () => [route.path, route.query],
     () => {
       const meta = route.matched?.[route.matched.length - 1]?.meta;
       tabbarStore.addTab({
