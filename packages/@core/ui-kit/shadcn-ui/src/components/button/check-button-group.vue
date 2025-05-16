@@ -119,7 +119,7 @@ async function onBtnClick(value: ValueType) {
         <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
         <Circle v-else />
       </div>
-      <slot name="option" :label="btn.label" :value="btn.value">
+      <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
         <VbenRenderContent :content="btn.label" />
       </slot>
     </Button>
@@ -127,6 +127,9 @@ async function onBtnClick(value: ValueType) {
 </template>
 <style lang="scss" scoped>
 .vben-check-button-group {
+  display: flex;
+  flex-wrap: wrap;
+
   &:deep(.size-large) button {
     .icon-wrapper {
       margin-right: 0.3rem;
@@ -157,6 +160,17 @@ async function onBtnClick(value: ValueType) {
         width: 0.65rem;
         height: 0.65rem;
       }
+    }
+  }
+
+  &.no-gap > :deep(button):nth-of-type(1) {
+    border-right-width: 0;
+  }
+
+  &.no-gap {
+    :deep(button + button) {
+      margin-right: -1px;
+      border-left-width: 1px;
     }
   }
 }

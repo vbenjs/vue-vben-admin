@@ -1,3 +1,4 @@
+import type { ComputedRef } from 'vue';
 import type { Router, RouteRecordNormalized } from 'vue-router';
 
 import type { TabDefinition } from '@vben-core/typings';
@@ -401,10 +402,23 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
     /**
      * @zh_CN 设置标签页标题
-     * @param tab
-     * @param title
+     *
+     * @zh_CN 支持设置静态标题字符串或计算属性作为动态标题
+     * @zh_CN 当标题为计算属性时,标题会随计算属性值变化而自动更新
+     * @zh_CN 适用于需要根据状态或多语言动态更新标题的场景
+     *
+     * @param {TabDefinition} tab - 标签页对象
+     * @param {ComputedRef<string> | string} title - 标题内容,支持静态字符串或计算属性
+     *
+     * @example
+     * // 设置静态标题
+     * setTabTitle(tab, '新标签页');
+     *
+     * @example
+     * // 设置动态标题
+     * setTabTitle(tab, computed(() => t('common.dashboard')));
      */
-    async setTabTitle(tab: TabDefinition, title: string) {
+    async setTabTitle(tab: TabDefinition, title: ComputedRef<string> | string) {
       const findTab = this.tabs.find(
         (item) => getTabPath(item) === getTabPath(tab),
       );
