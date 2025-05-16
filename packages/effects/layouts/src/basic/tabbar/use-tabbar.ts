@@ -45,7 +45,7 @@ export function useTabbar() {
   } = useTabs();
 
   const currentActive = computed(() => {
-    return route.fullPath;
+    return route.path;
   });
 
   const { locale } = useI18n();
@@ -146,7 +146,7 @@ export function useTabbar() {
       {
         handler: async () => {
           if (!contentIsMaximize.value) {
-            await router.push(tab.fullPath);
+            await router.push(tab.path);
           }
           toggleMaximize();
         },
