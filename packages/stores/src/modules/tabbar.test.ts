@@ -22,6 +22,7 @@ describe('useAccessStore', () => {
     const tab: any = {
       fullPath: '/home',
       meta: {},
+      key: '/home',
       name: 'Home',
       path: '/home',
     };
