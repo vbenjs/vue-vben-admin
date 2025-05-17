@@ -46,12 +46,14 @@ describe('useAccessStore', () => {
     const store = useTabbarStore();
     const initialTab: any = {
       fullPath: '/existing',
-      meta: {},
+      meta: {
+        fullPathKey: false,
+      },
       name: 'Existing',
       path: '/existing',
       query: {},
     };
-    store.tabs.push(initialTab);
+    store.addTab(initialTab);
     const updatedTab = { ...initialTab, query: { id: '1' } };
     store.addTab(updatedTab);
     expect(store.tabs.length).toBe(1);
@@ -60,9 +62,12 @@ describe('useAccessStore', () => {
 
   it('closes all tabs', async () => {
     const store = useTabbarStore();
-    store.tabs = [
-      { fullPath: '/home', meta: {}, name: 'Home', path: '/home' },
-    ] as any;
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
     router.replace = vi.fn();
 
     await store.closeAllTabs(router);
@@ -157,7 +162,7 @@ describe('useAccessStore', () => {
       path: '/contact',
     } as any);
 
-    await store._bulkCloseByPaths(['/home', '/contact']);
+    await store._bulkCloseByKeys(['/home', '/contact']);
 
     expect(store.tabs).toHaveLength(1);
     expect(store.tabs[0]?.name).toBe('About');
@@ -183,9 +188,8 @@ describe('useAccessStore', () => {
       name: 'Contact',
       path: '/contact',
     };
-    store.addTab(targetTab);
-
-    await store.closeLeftTabs(targetTab);
+    const addTargetTab = store.addTab(targetTab);
+    await store.closeLeftTabs(addTargetTab);
 
     expect(store.tabs).toHaveLength(1);
     expect(store.tabs[0]?.name).toBe('Contact');
@@ -205,7 +209,7 @@ describe('useAccessStore', () => {
       name: 'About',
       path: '/about',
     };
-    store.addTab(targetTab);
+    const addTargetTab = store.addTab(targetTab);
     store.addTab({
       fullPath: '/contact',
       meta: {},
@@ -213,7 +217,7 @@ describe('useAccessStore', () => {
       path: '/contact',
     } as any);
 
-    await store.closeOtherTabs(targetTab);
+    await store.closeOtherTabs(addTargetTab);
 
     expect(store.tabs).toHaveLength(1);
     expect(store.tabs[0]?.name).toBe('About');
@@ -227,7 +231,7 @@ describe('useAccessStore', () => {
       name: 'Home',
       path: '/home',
     };
-    store.addTab(targetTab);
+    const addTargetTab = store.addTab(targetTab);
     store.addTab({
       fullPath: '/about',
       meta: {},
@@ -241,7 +245,7 @@ describe('useAccessStore', () => {
       path: '/contact',
     } as any);
 
-    await store.closeRightTabs(targetTab);
+    await store.closeRightTabs(addTargetTab);
 
     expect(store.tabs).toHaveLength(1);
     expect(store.tabs[0]?.name).toBe('Home');
