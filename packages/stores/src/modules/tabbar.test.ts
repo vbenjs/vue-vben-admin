@@ -26,9 +26,9 @@ describe('useAccessStore', () => {
       name: 'Home',
       path: '/home',
     };
-    store.addTab(tab);
+    const addNewTab = store.addTab(tab);
     expect(store.tabs.length).toBe(1);
-    expect(store.tabs[0]).toEqual(tab);
+    expect(store.tabs[0]).toEqual(addNewTab);
   });
 
   it('adds a new tab if it does not exist', () => {
@@ -39,8 +39,8 @@ describe('useAccessStore', () => {
       name: 'New',
       path: '/new',
     };
-    store.addTab(newTab);
-    expect(store.tabs).toContainEqual(newTab);
+    const addNewTab = store.addTab(newTab);
+    expect(store.tabs).toContainEqual(addNewTab);
   });
 
   it('updates an existing tab instead of adding a new one', () => {
