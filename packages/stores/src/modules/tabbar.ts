@@ -63,7 +63,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         (item) => !keySet.has(getTabKeyFromTab(item)),
       );
 
-      this.updateCacheTabs();
+      await this.updateCacheTabs();
     },
     /**
      * @zh_CN 关闭标签页
@@ -107,7 +107,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param routeTab
      */
     addTab(routeTab: TabDefinition): TabDefinition {
-      const tab = cloneTab(routeTab);
+      let tab = cloneTab(routeTab);
       if (!tab.key) {
         tab.key = getTabKey(routeTab);
       }
@@ -162,7 +162,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
             mergedTab.meta.newTabTitle = curMeta.newTabTitle;
           }
         }
-
+        tab = mergedTab;
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTabs();
@@ -609,16 +609,22 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
     fullPath,
     path,
     meta: { fullPathKey } = {},
-    query: { pageKey } = {},
+    query = {},
   } = tab as RouteLocationNormalized;
+  // pageKey可能是数组（查询参数重复时可能出现）
+  const pageKey = Array.isArray(query.pageKey)
+    ? query.pageKey[0]
+    : query.pageKey;
+  let rawKey;
   if (pageKey) {
-    return pageKey as string;
+    rawKey = pageKey;
+  } else {
+    rawKey = fullPathKey === false ? path : (fullPath ?? path);
   }
-  const rawKey = fullPathKey === false ? path : fullPath;
   try {
-    return decodeURIComponent(rawKey || path);
+    return decodeURIComponent(rawKey);
   } catch {
-    return rawKey || path;
+    return rawKey;
   }
 }
 
