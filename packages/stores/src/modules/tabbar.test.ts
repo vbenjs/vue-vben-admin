@@ -64,9 +64,12 @@ describe('useAccessStore', () => {
 
   it('closes all tabs', async () => {
     const store = useTabbarStore();
-    store.tabs = [
-      { fullPath: '/home', meta: {}, name: 'Home', path: '/home' },
-    ] as any;
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
     router.replace = vi.fn();
 
     await store.closeAllTabs(router);
