@@ -30,7 +30,7 @@ const {
 } = useTabbar();
 
 const menus = computed(() => {
-  const tab = tabbarStore.getTabByPath(currentActive.value);
+  const tab = tabbarStore.getTabByKey(currentActive.value);
   const menus = createContextMenus(tab);
   return menus.map((item) => {
     return {
