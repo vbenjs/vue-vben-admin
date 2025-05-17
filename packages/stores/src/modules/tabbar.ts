@@ -104,14 +104,14 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 添加标签页
      * @param routeTab
      */
-    addTab(routeTab: TabDefinition) {
+    addTab(routeTab: TabDefinition): TabDefinition {
       const tab = cloneTab(routeTab);
       // 如果未设置key，设置tab的key
       if (!tab.key) {
         tab.key = getTabKey(routeTab);
       }
       if (!isTabShown(tab)) {
-        return;
+        return tab;
       }
 
       const tabIndex = this.tabs.findIndex((item) => {
@@ -165,6 +165,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTabs();
+      return tab;
     },
     /**
      * @zh_CN 关闭所有标签页
@@ -593,7 +594,9 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
   if (pageKey) {
     return pageKey as string;
   }
-  return decodeURIComponent(((fullPathKey ?? true) ? fullPath : path) || path);
+  const rawKey =
+    fullPathKey === true || fullPathKey === undefined ? fullPath : path;
+  return decodeURIComponent(rawKey || path);
 }
 
 function routeToTab(route: RouteRecordNormalized) {
