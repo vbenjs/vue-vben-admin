@@ -140,7 +140,10 @@ function useMixedMenu() {
   watch(
     () => route.path,
     (path) => {
-      const currentPath = (route?.meta?.activePath as string) ?? path;
+      const currentPath = route?.meta?.activePath ?? route?.meta?.link ?? path;
+      if (willOpenedByWindow(currentPath)) {
+        return;
+      }
       calcSideMenus(currentPath);
       if (rootMenuPath.value)
         defaultSubMap.set(rootMenuPath.value, currentPath);
