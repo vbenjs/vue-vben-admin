@@ -14,6 +14,7 @@ import {
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getOrderDetail } from '#/api';
+import { countries } from '#/constants';
 import { useShopStore } from '#/store';
 import {
   calcGrossProfitMargin,
@@ -128,12 +129,21 @@ const [Modal, modalApi] = useVbenModal({
     );
   },
 });
+
+const getCountryName = (countryCode: string) => {
+  const country = countries.find((item) => item.value === countryCode);
+
+  return country ? country.label : countryCode;
+};
 </script>
 <template>
   <Modal class="w-[1024px]" title="Details" confirm-text="Go to Shopify Order">
     <Descriptions class="mx-2" size="small" bordered :column="2">
-      <DescriptionsItem label="Name" :span="2" class="font-bold">
+      <DescriptionsItem label="Name" class="font-bold">
         {{ state.order.name }}
+      </DescriptionsItem>
+      <DescriptionsItem label="Country">
+        {{ getCountryName(state.order.countryCode) }}
       </DescriptionsItem>
       <DescriptionsItem label="Status">
         {{ formatTitle(state.order.financialStatus) }}

@@ -5,6 +5,7 @@ export const overridesPreferences = defineOverridesPreferences({
     name: import.meta.env.VITE_APP_TITLE,
     locale: 'en-US',
     enablePreferences: false,
+    enableCheckUpdates: false,
   },
   theme: {
     mode: 'light',

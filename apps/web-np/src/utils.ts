@@ -7,6 +7,8 @@ import dayjs from 'dayjs';
 
 import { router } from '#/router';
 
+import { adType } from './constants';
+
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
 export function calcPercentage(a: number, b: number) {
@@ -208,4 +210,9 @@ export const openNewTab = () => {
   const url = `${window.location.origin}/auth/token?token=${accessStore.accessToken}`;
 
   window.open(url, '_blank');
+};
+
+export const getAdsIcon = (type: string) => {
+  const val = adType.find((item) => item.value === type)?.icon;
+  return val || 'ant-design:question-circle-outlined';
 };
