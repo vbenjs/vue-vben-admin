@@ -1,12 +1,28 @@
 import type { VbenFormProps } from '@vben/common-ui';
 
 export const formOptions: VbenFormProps = {
-  fieldMappingTime: [['date', ['from', 'to']]],
+  commonConfig: {
+    colon: true,
+    componentProps: {
+      class: 'w-full',
+    },
+    labelClass: 'w-2/6',
+  },
   schema: [
     {
       component: 'Input',
-      fieldName: 'name',
-      label: 'Name',
+      fieldName: 'adName',
+      label: 'Ad Name',
+    },
+    {
+      component: 'Input',
+      fieldName: 'adGroupName',
+      label: 'Group Name',
+    },
+    {
+      component: 'Input',
+      fieldName: 'adCampaignName',
+      label: 'Campaign Name',
     },
   ],
   showCollapseButton: false,
@@ -20,5 +36,5 @@ export const formOptions: VbenFormProps = {
   submitButtonOptions: {
     show: false,
   },
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2',
+  wrapperClass: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
 };

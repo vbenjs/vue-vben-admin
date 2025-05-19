@@ -28,13 +28,13 @@ export const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'adGroupName',
-      title: 'Ad Group Name',
+      title: 'Group Name',
       align: 'left',
       minWidth: 250,
     },
     {
       field: 'adCampaignName',
-      title: 'Ad Campaign Name',
+      title: 'Campaign Name',
       align: 'left',
       minWidth: 250,
     },

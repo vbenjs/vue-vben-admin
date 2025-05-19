@@ -1,7 +1,6 @@
 import type { VbenFormProps } from '@vben/common-ui';
 
 export const formOptions: VbenFormProps = {
-  fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
     {
       component: 'Input',
