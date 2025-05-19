@@ -186,6 +186,12 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
+    contentCompactWidth: 1200,
+    contentPadding: 16,
+    contentPaddingBottom: 16,
+    contentPaddingLeft: 16,
+    contentPaddingRight: 16,
+    contentPaddingTop: 16,
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
     defaultHomePath: '/analytics',
@@ -200,6 +206,7 @@ const defaultPreferences: Preferences = {
     name: 'Vben Admin',
     preferencesButtonPosition: 'auto',
     watermark: false,
+    zIndex: 200,
   },
   breadcrumb: {
     enable: true,
@@ -220,9 +227,11 @@ const defaultPreferences: Preferences = {
   footer: {
     enable: false,
     fixed: false,
+    height: 32,
   },
   header: {
     enable: true,
+    height: 50,
     hidden: false,
     menuAlign: 'start',
     mode: 'fixed',
@@ -248,11 +257,14 @@ const defaultPreferences: Preferences = {
     collapsed: false,
     collapsedButton: true,
     collapsedShowTitle: false,
+    collapseWidth: 60,
     enable: true,
     expandOnHover: true,
     extraCollapse: false,
+    extraCollapsedWidth: 60,
     fixedButton: true,
     hidden: false,
+    mixedWidth: 80,
     width: 224,
   },
   tabbar: {
@@ -319,6 +331,18 @@ interface AppPreferences {
   compact: boolean;
   /** Whether to enable content compact mode */
   contentCompact: ContentCompactType;
+  /** Content compact width */
+  contentCompactWidth: number;
+  /** Content padding */
+  contentPadding: number;
+  /** Content bottom padding */
+  contentPaddingBottom: number;
+  /** Content left padding */
+  contentPaddingLeft: number;
+  /** Content right padding */
+  contentPaddingRight: number;
+  /** Content top padding */
+  contentPaddingTop: number;
   // /** Default application avatar */
   defaultAvatar: string;
   /** Default homepage path */
@@ -349,6 +373,8 @@ interface AppPreferences {
    * @zh_CN Whether to enable watermark
    */
   watermark: boolean;
+  /** z-index */
+  zIndex: number;
 }
 interface BreadcrumbPreferences {
   /** Whether breadcrumbs are enabled */
@@ -385,11 +411,15 @@ interface FooterPreferences {
   enable: boolean;
   /** Whether the footer is fixed */
   fixed: boolean;
+  /** Footer height */
+  height: number;
 }
 
 interface HeaderPreferences {
   /** Whether the header is enabled */
   enable: boolean;
+  /** Header height */
+  height: number;
   /** Whether the header is hidden, css-hidden */
   hidden: boolean;
   /** Header menu alignment */
@@ -422,16 +452,22 @@ interface SidebarPreferences {
   collapsedButton: boolean;
   /** Whether to show title when sidebar is collapsed */
   collapsedShowTitle: boolean;
+  /** Sidebar collapse width */
+  collapseWidth: number;
   /** Whether the sidebar is visible */
   enable: boolean;
   /** Menu auto-expand state */
   expandOnHover: boolean;
   /** Whether the sidebar extension area is collapsed */
   extraCollapse: boolean;
+  /** Sidebar extension area collapse width */
+  extraCollapsedWidth: number;
   /** Whether the sidebar fixed button is visible */
   fixedButton: boolean;
   /** Whether the sidebar is hidden - css */
   hidden: boolean;
+  /** Mixed sidebar width */
+  mixedWidth: number;
   /** Sidebar width */
   width: number;
 }
