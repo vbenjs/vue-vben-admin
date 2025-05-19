@@ -214,7 +214,7 @@ server {
 
 使用 nginx 处理项目部署后的跨域问题
 
-1. 配置前端项目接口地址，在项目目录下的``.env.production`文件中配置：
+1. 配置前端项目接口地址，在项目目录下的`.env.production`文件中配置：
 
 ```bash
 VITE_GLOB_API_URL=/api
