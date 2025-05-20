@@ -18,7 +18,7 @@ import { router } from './router';
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
-  initComponentAdapter();
+  await initComponentAdapter();
 
   // 初始化表单组件
   await initSetupVbenForm();
