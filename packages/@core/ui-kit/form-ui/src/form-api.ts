@@ -11,7 +11,7 @@ import type { Recordable } from '@vben-core/typings';
 
 import type { FormActions, FormSchema, VbenFormProps } from './types';
 
-import { toRaw } from 'vue';
+import { isRef, toRaw } from 'vue';
 
 import { Store } from '@vben-core/shared/store';
 import {
@@ -100,9 +100,26 @@ export class FormApi {
   getFieldComponentRef<T = ComponentPublicInstance>(
     fieldName: string,
   ): T | undefined {
-    return this.componentRefMap.has(fieldName)
-      ? (this.componentRefMap.get(fieldName) as T)
+    let target = this.componentRefMap.has(fieldName)
+      ? (this.componentRefMap.get(fieldName) as ComponentPublicInstance)
       : undefined;
+    if (
+      target &&
+      target.$.type.name === 'AsyncComponentWrapper' &&
+      target.$.subTree.ref
+    ) {
+      if (Array.isArray(target.$.subTree.ref)) {
+        if (
+          target.$.subTree.ref.length > 0 &&
+          isRef(target.$.subTree.ref[0]?.r)
+        ) {
+          target = target.$.subTree.ref[0]?.r.value as ComponentPublicInstance;
+        }
+      } else if (isRef(target.$.subTree.ref.r)) {
+        target = target.$.subTree.ref.r.value as ComponentPublicInstance;
+      }
+    }
+    return target as T;
   }
 
   /**
