@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  onUpdated,
+  ref,
+  watchEffect,
+} from 'vue';
 
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
@@ -125,7 +132,7 @@ const checkEllipsis = () => {
 let resizeObserver: null | ResizeObserver = null;
 
 onMounted(() => {
-  if (window.ResizeObserver && props.tooltipWhenEllipsis) {
+  if (typeof ResizeObserver !== 'undefined' && props.tooltipWhenEllipsis) {
     resizeObserver = new ResizeObserver(() => {
       checkEllipsis();
     });
@@ -137,6 +144,13 @@ onMounted(() => {
 
   // 初始检测
   checkEllipsis();
+});
+
+// 使用onUpdated钩子检测内容变化
+onUpdated(() => {
+  if (props.tooltipWhenEllipsis) {
+    checkEllipsis();
+  }
 });
 
 onBeforeUnmount(() => {
