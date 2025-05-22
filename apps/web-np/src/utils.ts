@@ -7,6 +7,8 @@ import dayjs from 'dayjs';
 
 import { router } from '#/router';
 
+import { adType } from './constants';
+
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
 export function calcPercentage(a: number, b: number) {
@@ -129,28 +131,28 @@ export const getDatePreset = (
     },
     {
       id: 'lastMonth',
-      label: 'Last Month',
-      value: dayjs().add(-1, 'month'),
+      label: 'Last 30 Days',
+      value: dayjs().add(-30, 'd'),
     },
     {
       id: 'last2Months',
-      label: 'Last 2 Months',
-      value: dayjs().add(-2, 'month'),
+      label: 'Last 60 Days',
+      value: dayjs().add(-60, 'd'),
     },
     {
       id: 'last3Months',
-      label: 'Last 3 Months',
-      value: dayjs().add(-3, 'month'),
+      label: 'Last 90 Days',
+      value: dayjs().add(-90, 'd'),
     },
     {
       id: 'last6Months',
-      label: 'Last 6 Months',
-      value: dayjs().add(-6, 'month'),
+      label: 'Last 180 Days',
+      value: dayjs().add(-180, 'd'),
     },
     {
       id: 'lastYear',
-      label: 'Last year',
-      value: dayjs().add(-1, 'year'),
+      label: 'Last 365 Days',
+      value: dayjs().add(-365, 'd'),
     },
     {
       id: 'previousMonth',
@@ -208,4 +210,9 @@ export const openNewTab = () => {
   const url = `${window.location.origin}/auth/token?token=${accessStore.accessToken}`;
 
   window.open(url, '_blank');
+};
+
+export const getAdsIcon = (type: string) => {
+  const val = adType.find((item) => item.value === type)?.icon;
+  return val || 'ant-design:question-circle-outlined';
 };

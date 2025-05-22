@@ -1,0 +1,290 @@
+<script lang="ts" setup>
+import type { INotification } from '#/store';
+
+import { onMounted } from 'vue';
+
+import { Page, VbenButton } from '@vben/common-ui';
+import { useAppConfig } from '@vben/hooks';
+import { IconifyIcon } from '@vben/icons';
+import { capitalizeFirstLetter } from '@vben/utils';
+
+import { Dropdown, Menu, MenuItem, Modal, Tag } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { deleteAccount, syncAccount, syncAdInsight } from '#/api';
+import { StateStatus } from '#/constants';
+import { useShopStore } from '#/store';
+import { formatReportDate, getAdsIcon, redirectToNewTab } from '#/utils';
+
+import { gridOptions } from './table-config';
+import { formOptions } from './table-filter';
+
+const shopStore = useShopStore();
+
+const [Grid, gridApi] = useVbenVxeGrid({
+  gridOptions,
+  formOptions,
+});
+
+onMounted(() => {
+  shopStore.pusherChannel.bind(
+    shopStore.pusherEventName,
+    (payload: INotification) => {
+      switch (payload.type) {
+        case 'SyncAccountNotification': {
+          gridApi.query();
+          break;
+        }
+
+        default: {
+          break;
+        }
+      }
+    },
+  );
+});
+
+const addNewConnection = (type: string) => {
+  const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
+  const url = `${apiURL}/auth-social/generate?type=${type}&shopId=${shopStore.shop.id}`;
+
+  redirectToNewTab(url);
+};
+
+const statusList = [
+  // Sync Status
+  {
+    value: 'pending',
+    label: 'Sync pending',
+    className: 'warning',
+  },
+  {
+    value: 'processing',
+    label: 'Syncing',
+    className: 'warning',
+  },
+  {
+    value: 'processed',
+    label: 'Synced',
+    className: 'success',
+  },
+  {
+    value: 'failed',
+    label: 'Sync failed',
+    className: 'error',
+  },
+
+  // Account - Status
+  {
+    value: 'connected',
+    label: 'Connected',
+    className: 'success',
+  },
+  {
+    value: 'disconnected',
+    label: 'Disconnected',
+    className: 'error',
+  },
+
+  // Ad Account - Status
+  {
+    value: 'active',
+    label: 'Active',
+    className: 'success',
+  },
+  {
+    value: 'inactive',
+    label: 'Inactive',
+    className: 'error',
+  },
+];
+
+const getStatusClass = (val: string) => {
+  const item = statusList.find((item) => item.value === val);
+  return item ? item.className : 'default';
+};
+
+const getStatusLabel = (val: string) => {
+  const item = statusList.find((item) => item.value === val);
+  return item ? item.label : '';
+};
+
+const handleDelete = (row: any) => {
+  Modal.confirm({
+    title: 'Remove Connection',
+    content:
+      'Are you sure you want to remove this connection? This action cannot be undone.',
+    okType: 'danger',
+    okText: 'Yes',
+    cancelText: 'No',
+    onOk: async () => {
+      await deleteAccount(row.id).then(() => {
+        gridApi.query();
+      });
+    },
+  });
+};
+
+const handleManualSync = (row: any) => {
+  Modal.confirm({
+    title: 'Sync Account Information',
+    content:
+      'Would you like to synchronize all data and insights for Ad Accounts?',
+    okText: 'Sync',
+    onOk: async () => {
+      await syncAccount(row.id).then(() => {
+        gridApi.query();
+      });
+    },
+  });
+};
+
+const handleManualSyncAdInsight = (row: any) => {
+  Modal.confirm({
+    title: 'Sync Ad Insights',
+    content: `Would you like to synchronize all insights for '${row.name}'?`,
+    okText: 'Sync',
+    onOk: async () => {
+      await syncAdInsight(row.parentId, row.id).then(() => {
+        gridApi.query();
+      });
+    },
+  });
+};
+</script>
+
+<template>
+  <Page auto-content-height>
+    <FormContentModal />
+
+    <Grid>
+      <template #toolbar-tools>
+        <VbenButton
+          class="mr-2"
+          size="sm"
+          type="primary"
+          @click="addNewConnection('facebook')"
+        >
+          <IconifyIcon
+            class="mr-2 size-4"
+            icon="ant-design:plus-circle-outlined"
+          />
+          Add Facebook Connection
+        </VbenButton>
+      </template>
+
+      <template #type="{ row }: { row: any }">
+        <div
+          v-if="row.parentId === undefined"
+          class="my-1 flex items-center justify-start space-x-2"
+        >
+          <!-- Avatar and Title - Only show for parent level -->
+          <div class="h-[35px] w-[35px] flex-none">
+            <IconifyIcon
+              class="size-[35px] text-red-500"
+              :icon="getAdsIcon(row.type)"
+            />
+          </div>
+          <div class="ml-1 shrink">
+            <div class="font-semibold">
+              {{ row.name }}
+            </div>
+            <div class="text-muted-foreground text-xs italic">
+              {{ row.email }}
+            </div>
+          </div>
+        </div>
+        <div v-else class="pl-10">
+          {{ row.name }}
+        </div>
+      </template>
+
+      <template #status="{ row }: { row: any }">
+        <Tag :color="getStatusClass(row.status)" class="w-[100px] text-center">
+          {{ capitalizeFirstLetter(row.status) }}
+        </Tag>
+      </template>
+
+      <template #nextSyncedAt="{ row }: { row: any }">
+        <!-- Show Account status -->
+        <template
+          v-if="
+            !row.parentId && row.status !== 'disconnected' && row.nextSyncedAt
+          "
+        >
+          <template v-if="row.syncStatus === StateStatus.PROCESSED">
+            {{ formatReportDate(row.nextSyncedAt) }}
+          </template>
+          <Tag
+            v-else
+            :color="getStatusClass(row.syncStatus)"
+            class="w-[100px] text-center"
+          >
+            {{ getStatusLabel(row.syncStatus) }}
+          </Tag>
+        </template>
+
+        <!-- Show Ad Account status -->
+        <template v-if="row.parentId && row.lastSyncedAt && row.syncStatus">
+          <Tag
+            :color="getStatusClass(row.syncStatus)"
+            class="w-[100px] text-center"
+          >
+            {{ getStatusLabel(row.syncStatus) }}
+          </Tag>
+        </template>
+      </template>
+
+      <template #action="{ row }: { row: any }">
+        <Dropdown v-if="row.parentId === undefined">
+          <VbenButton size="sm" variant="outline">
+            <IconifyIcon class="mr-2 size-4" icon="ant-design:more-outlined" />
+            Actions
+          </VbenButton>
+          <template #overlay>
+            <Menu>
+              <MenuItem
+                @click="handleManualSync(row)"
+                :disabled="
+                  row.status !== 'connected' ||
+                  row.syncStatus !== StateStatus.PROCESSED
+                "
+              >
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:sync-outlined" />
+                  <span>Sync Ad Accounts</span>
+                </div>
+              </MenuItem>
+              <MenuItem @click="addNewConnection(row.type)">
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:link-outlined" />
+                  <span>Reconnect</span>
+                </div>
+              </MenuItem>
+              <MenuItem @click="handleDelete(row)">
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:delete-twotone" />
+                  <span>Remove</span>
+                </div>
+              </MenuItem>
+            </Menu>
+          </template>
+        </Dropdown>
+
+        <VbenButton
+          v-if="row.parentId !== undefined"
+          size="sm"
+          variant="outline"
+          :disabled="
+            row.syncStatus !== StateStatus.PROCESSED ||
+            row.status === 'disconnected'
+          "
+          @click="handleManualSyncAdInsight(row)"
+        >
+          <IconifyIcon icon="ant-design:sync-outlined" class="mr-2" />
+          <span>Sync insights</span>
+        </VbenButton>
+      </template>
+    </Grid>
+  </Page>
+</template>

@@ -22,6 +22,9 @@ export const gridOptions: VxeTableGridOptions = {
   pagerConfig: {
     enabled: false,
   },
+  rowConfig: {
+    isHover: true,
+  },
   toolbarConfig: {
     search: true,
     refresh: true,
@@ -90,7 +93,6 @@ export const formOptions: VbenFormProps = {
     ['date', ['fromDate', 'toDate']],
     ['week', ['fromWeek', 'toWeek']],
     ['month', ['fromMonth', 'toMonth']],
-    ['quarter', ['fromQuarter', 'toQuarter']],
   ],
   schema: [
     {

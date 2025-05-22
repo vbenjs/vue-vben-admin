@@ -19,6 +19,7 @@ export const gridOptions: VxeTableGridOptions = {
   },
   rowConfig: {
     height: 48,
+    isHover: true,
   },
   proxyConfig: {
     ajax: {

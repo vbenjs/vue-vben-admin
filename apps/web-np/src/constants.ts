@@ -8,6 +8,13 @@ export enum CostCalcLevel {
   VARIANT = 'VARIANT',
 }
 
+export enum StateStatus {
+  FAILED = 'failed',
+  PENDING = 'pending',
+  PROCESSED = 'processed',
+  PROCESSING = 'processing',
+}
+
 export enum RecalculateCostsType {
   COSG_HANDLING_FEES = 'handling_fees_cogs',
   SHIPPING_COSTS = 'shipping_costs',
@@ -83,4 +90,9 @@ export const countries = [
   { value: 'CH', label: 'Switzerland', icon: '🇨🇭' },
   { value: 'GB', label: 'United Kingdom', icon: '🇬🇧' },
   { value: 'US', label: 'United States', icon: '🇺🇸' },
+];
+
+export const adType = [
+  { value: 'facebook', label: 'Facebook', icon: 'logos:facebook' },
+  { value: 'google', label: 'Google', icon: 'flat-color-icons:google' },
 ];
