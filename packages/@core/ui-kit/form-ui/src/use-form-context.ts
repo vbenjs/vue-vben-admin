@@ -51,11 +51,8 @@ export function useFormInitial(
       } else if (item.rules && !isString(item.rules)) {
         // 检查规则是否适合提取默认值
         const customDefaultValue = getCustomDefaultValue(item.rules);
-        if (customDefaultValue === undefined) {
-          // 否则将规则添加到 zodObject
-          zodObject[item.fieldName] = item.rules;
-        } else {
-          // 如果有自定义默认值，直接使用
+        zodObject[item.fieldName] = item.rules;
+        if (customDefaultValue !== undefined) {
           initialValues[item.fieldName] = customDefaultValue;
         }
       }
