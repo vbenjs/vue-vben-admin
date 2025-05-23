@@ -9,7 +9,9 @@ import { router } from '#/router';
 
 import { adType } from './constants';
 
-export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
+export function isShopifyEmbedded() {
+  return window.shopify !== undefined;
+}
 
 export function calcPercentage(a: number, b: number) {
   if (!b) {

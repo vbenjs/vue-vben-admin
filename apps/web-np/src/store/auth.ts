@@ -6,8 +6,6 @@ import { useRouter } from 'vue-router';
 import { LOGIN_PATH } from '@vben/constants';
 import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
-import { createApp } from '@shopify/app-bridge';
-import { getSessionToken } from '@shopify/app-bridge/utilities';
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 
@@ -42,14 +40,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function authLoginViaShopifySession(params: Recordable<any>) {
-    // Verify Shopify token
-    const app = createApp({
-      apiKey: import.meta.env.VITE_SHOPIFY_APP_KEY,
-      host: new URLSearchParams(location.search).get('host') as string,
-    });
-
-    getSessionToken(app).then((_) => {
-      // console.log('TODO: In the future we will use this token to verify the Shopify session');
+    window.shopify.idToken().then((_) => {
+      // TODO: Verify Shopify token
     });
 
     loginLoading.value = true;
