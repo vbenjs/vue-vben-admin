@@ -1,7 +1,7 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
-import type { RequestClientOptions } from '@vben/request';
+import type { AxiosResponseHeaders, RequestClientOptions } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -14,6 +14,7 @@ import {
 import { useAccessStore } from '@vben/stores';
 
 import { message } from 'ant-design-vue';
+import JSONBigInt from 'json-bigint';
 
 import { useAuthStore } from '#/store';
 
@@ -25,6 +26,12 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   const client = new RequestClient({
     ...options,
     baseURL,
+    transformResponse: (data: any, header: AxiosResponseHeaders) => {
+      // storeAsString指示将BigInt存储为字符串，设为false则会存储为内置的BigInt类型
+      return header.getContentType()?.toString().includes('application/json')
+        ? JSONBigInt({ storeAsString: true }).parse(data)
+        : data;
+    },
   });
 
   /**
