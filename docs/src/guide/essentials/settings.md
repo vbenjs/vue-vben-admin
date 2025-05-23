@@ -237,6 +237,7 @@ const defaultPreferences: Preferences = {
   },
   logo: {
     enable: true,
+    fit: 'contain',
     source: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
   },
   navigation: {
@@ -431,6 +432,8 @@ interface HeaderPreferences {
 interface LogoPreferences {
   /** logo是否可见 */
   enable: boolean;
+  /** logo图片适应方式 */
+  fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** logo地址 */
   source: string;
 }
