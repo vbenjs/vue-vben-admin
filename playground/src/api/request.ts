@@ -12,6 +12,7 @@ import {
   RequestClient,
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
+import { cloneDeep } from '@vben/utils';
 
 import { message } from 'ant-design-vue';
 import JSONBigInt from 'json-bigint';
@@ -29,7 +30,9 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     transformResponse: (data: any, header: AxiosResponseHeaders) => {
       // storeAsString指示将BigInt存储为字符串，设为false则会存储为内置的BigInt类型
       return header.getContentType()?.toString().includes('application/json')
-        ? JSONBigInt({ storeAsString: true }).parse(data)
+        ? cloneDeep(
+            JSONBigInt({ storeAsString: true, strict: true }).parse(data),
+          )
         : data;
     },
   });
