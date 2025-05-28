@@ -1,6 +1,8 @@
 import type { RequestClient } from '../request-client';
 import type { RequestClientConfig } from '../types';
 
+import { isUndefined } from '@vben/utils';
+
 class FileUploader {
   private client: RequestClient;
 
@@ -21,7 +23,7 @@ class FileUploader {
           formData.append(`${key}[${index}]`, item);
         });
       } else {
-        formData.append(key, value);
+        !isUndefined(value) && formData.append(key, value);
       }
     });
 
