@@ -391,8 +391,8 @@ catalogs:
       specifier: ^4.40.1
       version: 4.40.1
     rollup-plugin-visualizer:
-      specifier: ^5.14.0
-      version: 5.14.0
+      specifier: ^6.0.1
+      version: 6.0.1
     sass:
       specifier: ^1.87.0
       version: 1.87.0
@@ -1192,7 +1192,7 @@ importers:
         version: 4.40.1
       rollup-plugin-visualizer:
         specifier: 'catalog:'
-        version: 5.14.0(rollup@4.40.1)
+        version: 6.0.1(rollup@4.40.1)
       sass:
         specifier: 'catalog:'
         version: 1.87.0
@@ -9625,6 +9625,19 @@ packages:
 
   rollup-plugin-visualizer@5.14.0:
     resolution: {integrity: sha512-VlDXneTDaKsHIw8yzJAFWtrzguoJ/LnQ+lMpoVfYJ3jJF4Ihe5oYLAqLklIK/35lgUY+1yEzCkHyZ1j4A5w5fA==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      rolldown: 1.x
+      rollup: 2.x || 3.x || 4.x
+    peerDependenciesMeta:
+      rolldown:
+        optional: true
+      rollup:
+        optional: true
+
+  rollup-plugin-visualizer@6.0.1:
+    resolution: {integrity: sha512-NjlGElvLXCSZSAi3gNRZbfX3qlQbQcJ9TW97c5JpqfVwMhttj9YwEdPwcvbKj91RnMX2PWAjonvSEv6UEYtnRQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -19824,6 +19837,15 @@ snapshots:
       '@babel/code-frame': 7.26.2
 
   rollup-plugin-visualizer@5.14.0(rollup@4.40.1):
+    dependencies:
+      open: 8.4.2
+      picomatch: 4.0.2
+      source-map: 0.7.4
+      yargs: 17.7.2
+    optionalDependencies:
+      rollup: 4.40.1
+
+  rollup-plugin-visualizer@6.0.1(rollup@4.40.1):
     dependencies:
       open: 8.4.2
       picomatch: 4.0.2
