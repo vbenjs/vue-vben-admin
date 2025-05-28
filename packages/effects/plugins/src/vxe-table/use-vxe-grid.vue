@@ -59,6 +59,7 @@ const FORM_SLOT_PREFIX = 'form-';
 
 const TOOLBAR_ACTIONS = 'toolbar-actions';
 const TOOLBAR_TOOLS = 'toolbar-tools';
+const TABLE_TITLE = 'table-title';
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
@@ -129,7 +130,7 @@ const [Form, formApi] = useTableForm({
 });
 
 const showTableTitle = computed(() => {
-  return !!slots.tableTitle?.() || tableTitle.value;
+  return !!slots[TABLE_TITLE]?.() || tableTitle.value;
 });
 
 const showToolbar = computed(() => {
