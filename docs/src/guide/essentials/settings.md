@@ -21,7 +21,7 @@
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- 以 `VITE_GLOB_*` 开头的的变量，在打包的时候，会被加入 `_app.config.js`配置文件当中. :::
+- 以 `VITE_GLOB_*` 开头的的变量，在打包的时候，会被加入 `_app.config.js`配置文件当中.
 
 :::
 
@@ -134,6 +134,27 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
   export interface ApplicationConfig {
     apiURL: string;
     otherApiURL: string; // [!code ++]
+  }
+  ```
+
+- 在 `packages/effects/hooks/src/use-app-config.ts` 中，新增对应的配置项，如：
+
+  ```ts
+  export function useAppConfig(
+    env: Record<string, any>,
+    isProduction: boolean,
+  ): ApplicationConfig {
+    // 生产环境下，直接使用 window._VBEN_ADMIN_PRO_APP_CONF_ 全局变量
+    const config = isProduction
+      ? window._VBEN_ADMIN_PRO_APP_CONF_
+      : (env as VbenAdminProAppConfigRaw);
+
+    const { VITE_GLOB_API_URL, VITE_GLOB_OTHER_API_URL } = config; // [!code ++]
+
+    return {
+      apiURL: VITE_GLOB_API_URL,
+      otherApiURL: VITE_GLOB_OTHER_API_URL, // [!code ++]
+    };
   }
   ```
 
