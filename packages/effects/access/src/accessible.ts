@@ -136,7 +136,6 @@ async function generateRoutes(
     if (!firstChild?.path || !firstChild.path.startsWith('/')) {
       return route;
     }
-
     route.redirect = firstChild.path;
     return route;
   });
