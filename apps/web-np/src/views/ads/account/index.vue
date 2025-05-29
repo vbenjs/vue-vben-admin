@@ -157,7 +157,7 @@ const handleManualSyncAdInsight = (row: any) => {
   <Page auto-content-height>
     <FormContentModal />
 
-    <Grid table-title="Ads Integration">
+    <Grid>
       <template #toolbar-tools>
         <VbenButton
           class="mr-2"

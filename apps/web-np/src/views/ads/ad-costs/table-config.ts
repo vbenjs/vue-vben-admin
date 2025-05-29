@@ -16,7 +16,7 @@ export const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'id',
-      title: 'Add to costs',
+      title: 'Attach to costs',
       slots: { default: 'addToCosts' },
       width: 150,
     },
@@ -38,6 +38,13 @@ export const gridOptions: VxeTableGridOptions = {
       align: 'left',
       minWidth: 250,
     },
+    {
+      field: 'action',
+      slots: { default: 'action' },
+      title: '',
+      minWidth: 110,
+      align: 'left',
+    },
   ],
   exportConfig: {},
   toolbarConfig: {
@@ -58,10 +65,6 @@ export const gridOptions: VxeTableGridOptions = {
           pageSize: page.pageSize,
           ...formValues,
         }).then((res) => {
-          res.items.forEach((_item: any) => {
-            _item.accountType = _item.accountId.split('_')[0] || 'facebook';
-          });
-
           return res;
         });
       },

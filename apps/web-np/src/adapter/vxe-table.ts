@@ -84,14 +84,9 @@ setupVbenVxeTable({
       const { props } = renderOpts;
       const { column, row } = params;
 
-      const number =
-        props?.useBaseCurrency === true
-          ? formatMoney(row[column.field], shopStore.shop.currency, 1)
-          : formatMoney(
-              row[column.field],
-              shopStore.shop.currencyFromApp,
-              shopStore.shop.currencyRate,
-            );
+      const currency = props?.currency ?? shopStore.shop.currencyFromApp;
+      const rate = props?.rate ?? shopStore.shop.currencyRate;
+      const number = formatMoney(row[column.field], currency, rate);
 
       return h(Typography.Text, props, number);
     };
