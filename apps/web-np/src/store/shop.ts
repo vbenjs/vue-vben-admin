@@ -70,10 +70,11 @@ export const useShopStore = defineStore('np-shop', {
 
       this.initPusher();
     },
-    updateAppCurrency(appCurrency: string) {
+    updateSetting(values: any) {
       const currencyStore = useCurrencyStore();
+      const { appCurrency } = values;
 
-      return updateGeneralSettings({ appCurrency }).finally(() => {
+      return updateGeneralSettings(values).finally(() => {
         // Update the currency and rate in the shop store
         this.shop.currencyFromApp = appCurrency;
         this.shop.currencyRate = currencyStore.getRate(

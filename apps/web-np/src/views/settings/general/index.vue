@@ -7,10 +7,12 @@ import { useUserStore } from '@vben/stores';
 import { Card, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { useCurrencyStore, useShopStore } from '#/store';
+import { useCurrencyStore, useShopSettingStore, useShopStore } from '#/store';
+import { toPercentage } from '#/utils';
 
 const userStore = useUserStore();
 const shopStore = useShopStore();
+const shopSettingStore = useShopSettingStore();
 const currencyStore = useCurrencyStore();
 
 const state = reactive({
@@ -70,6 +72,19 @@ const [ShopSettingForm, formApi] = useVbenForm({
       label: 'Email',
     },
     {
+      component: 'InputNumber',
+      componentProps: {
+        controls: false,
+        max: 100,
+        min: 0,
+        addonAfter: '%',
+      },
+      help: 'The percentage of the cost of goods sold for removed products.',
+      defaultValue: toPercentage(shopSettingStore.cogsRate),
+      fieldName: 'cogsRate',
+      label: 'COGS Rate',
+    },
+    {
       component: 'Divider',
       fieldName: '_divider',
       renderComponentContent: () => {
@@ -122,7 +137,7 @@ function onSubmit(values: Record<string, any>) {
     },
   });
 
-  shopStore.updateAppCurrency(values.appCurrency).then(() => {
+  shopStore.updateSetting(values).then(() => {
     formApi.setState({
       submitButtonOptions: {
         loading: false,
