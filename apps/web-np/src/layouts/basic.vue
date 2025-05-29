@@ -11,6 +11,7 @@ import { useAuthStore, useShopStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
 import Notification from './notification.vue';
+import ShopStatistic from './shop-statistic.vue';
 
 const shopStore = useShopStore();
 const userStore = useUserStore();
@@ -86,6 +87,7 @@ watch(
       />
     </template>
     <template #notification>
+      <ShopStatistic />
       <Notification />
       <!-- <Chat /> -->
     </template>

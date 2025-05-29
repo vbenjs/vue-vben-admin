@@ -79,7 +79,7 @@ const [ShopSettingForm, formApi] = useVbenForm({
         min: 0,
         addonAfter: '%',
       },
-      help: 'The percentage of the cost of goods sold for removed products.',
+      help: 'Example: The product A has been removed and the price is $100. If the COGS Rate is 75%, the cost of goods sold will be $75.',
       defaultValue: toPercentage(shopSettingStore.cogsRate),
       fieldName: 'cogsRate',
       label: 'COGS Rate',

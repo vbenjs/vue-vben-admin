@@ -98,7 +98,7 @@ const getFileName = (item: INotification) => {
     content-class="relative right-2 w-[360px] p-0"
   >
     <template #trigger>
-      <div class="flex-center mr-2 h-full" @click.stop="toggle()">
+      <div class="flex-center mr-1 h-full" @click.stop="toggle()">
         <VbenIconButton class="bell-button text-foreground relative">
           <span
             v-if="showDot"
