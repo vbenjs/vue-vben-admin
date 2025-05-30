@@ -16,7 +16,6 @@ import { isRef, toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
-  createMerge,
   formatDate,
   isDate,
   isDayjsObject,
@@ -294,24 +293,55 @@ export class FormApi {
     }
 
     /**
-     * 合并算法有待改进，目前的算法不支持object类型的值。
+     * 合并算法
+     * 支持object嵌套赋值
+     * 数组直接判断覆盖
      * antd的日期时间相关组件的值类型为dayjs对象
      * element-plus的日期时间相关组件的值类型可能为Date对象
      * 以上两种类型需要排除深度合并
      */
-    const fieldMergeFn = createMerge((obj, key, value) => {
-      if (key in obj) {
-        obj[key] =
-          !Array.isArray(obj[key]) &&
-          isObject(obj[key]) &&
-          !isDayjsObject(obj[key]) &&
-          !isDate(obj[key])
-            ? fieldMergeFn(obj[key], value)
-            : value;
+    const fieldMergeFn = (
+      target: Record<string, any>,
+      source: Record<string, any>,
+    ) => {
+      const result = { ...target };
+
+      for (const key in source) {
+        const targetValue = result[key];
+        const sourceValue = source[key];
+
+        // 如果 sourceValue 是 null 或 undefined，保留旧值
+        if (sourceValue === null || sourceValue === undefined) {
+          continue;
+        }
+
+        // 如果 sourceValue 是数组，直接覆盖
+        if (Array.isArray(sourceValue)) {
+          result[key] = sourceValue;
+        }
+        // 如果 sourceValue 是对象（非 Date、非 Dayjs），进行深度合并
+        else if (
+          isObject(sourceValue) &&
+          !isDate(sourceValue) &&
+          !isDayjsObject(sourceValue)
+        ) {
+          result[key] =
+            isObject(targetValue) &&
+            !isDate(targetValue) &&
+            !isDayjsObject(targetValue)
+              ? fieldMergeFn(targetValue, sourceValue)
+              : sourceValue;
+        }
+        // 其他情况（如基本类型）直接赋值
+        else {
+          result[key] = sourceValue;
+        }
       }
-      return true;
-    });
-    const filteredFields = fieldMergeFn(fields, form.values);
+
+      return result;
+    };
+
+    const filteredFields = fieldMergeFn(form.values, fields);
     this.handleStringToArrayFields(filteredFields);
     form.setValues(filteredFields, shouldValidate);
   }
