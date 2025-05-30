@@ -31,3 +31,7 @@ export async function getPAndLReport(params: any) {
 export async function getOrderDetail(params: any) {
   return requestClient.get('/api/order/detail', { params });
 }
+
+export async function countProcessingOrders() {
+  return requestClient.get('/api/order/processing-orders');
+}

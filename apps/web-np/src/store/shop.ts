@@ -54,6 +54,7 @@ export interface INotification {
   message: string;
   alertType: string;
   reloadNotification: boolean;
+  reloadStatistic: boolean;
   showAlert: boolean;
   url: null | string;
   urlType: null | string;
