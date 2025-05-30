@@ -46,7 +46,11 @@ interface Props {
   /**
    * 菜单数组
    */
-  menus?: Array<{ handler: AnyFunction; icon?: Component; text: string }>;
+  menus?: Array<{
+    handler: AnyFunction;
+    icon?: Component | Function | string;
+    text: string;
+  }>;
 
   /**
    * 标签文本
