@@ -98,7 +98,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
 
-    // updateTawkInfo(res);
+    updateTawkInfo(res);
 
     // Update stores
     userStore.setUserInfo(res as any);
@@ -119,26 +119,26 @@ export const useAuthStore = defineStore('auth', () => {
     return res;
   }
 
-  // function updateTawkInfo(userInfo: any) {
-  //   window.Tawk_API = window.Tawk_API || {};
+  function updateTawkInfo(userInfo: any) {
+    window.Tawk_API = window.Tawk_API || {};
 
-  //   window.Tawk_API.login(
-  //     {
-  //       hash: userInfo.tawkHash,
-  //       userId: userInfo.userId,
-  //       name: userInfo.realName,
-  //       email: userInfo.email,
-  //       store: userInfo.shop.myshopifyDomain,
-  //     },
-  //     (error: any) => {
-  //       if (error !== undefined) {
-  //         console.error('Tawk Login', error);
-  //       }
+    window.Tawk_API.login(
+      {
+        hash: userInfo.tawkHash,
+        userId: userInfo.userId,
+        name: userInfo.realName,
+        email: userInfo.email,
+        store: userInfo.shop.myshopifyDomain,
+      },
+      (error: any) => {
+        if (error !== undefined) {
+          console.error('Tawk Login', error);
+        }
 
-  //       // window.Tawk_API.minimize();
-  //     },
-  //   );
-  // }
+        // window.Tawk_API.minimize();
+      },
+    );
+  }
 
   function $reset() {
     loginLoading.value = false;
