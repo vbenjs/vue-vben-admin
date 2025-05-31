@@ -1,19 +1,23 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+// import { computed } from 'vue';
 
 import { AuthPageLayout } from '@vben/layouts';
-import { preferences } from '@vben/preferences';
+// import { preferences } from '@vben/preferences';
 
 import { $t } from '#/locales';
 
-const appName = computed(() => preferences.app.name);
-const logo = computed(() => preferences.logo.source);
+import sloganImg from '/static/slogan.jpg';
+// const appName = computed(() => preferences.app.name);
+// const logo = computed(() => preferences.logo.source);
 </script>
 
 <template>
   <AuthPageLayout
-    :app-name="appName"
-    :logo="logo"
+    :copyright="true"
+    :toolbar="false"
+    app-name=""
+    logo=""
+    :slogan-image="sloganImg"
     :page-description="$t('authentication.pageDesc')"
     :page-title="$t('authentication.pageTitle')"
   >

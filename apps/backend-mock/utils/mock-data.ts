@@ -26,9 +26,9 @@ export const MOCK_USERS: UserInfo[] = [
   {
     id: 2,
     password: '123456',
-    realName: 'Jack',
+    realName: 'Test',
     roles: ['user'],
-    username: 'jack',
+    username: 'test',
     homePath: '/analytics',
   },
 ];
@@ -47,7 +47,7 @@ export const MOCK_CODES = [
   {
     // user
     codes: ['AC_1000001', 'AC_1000002'],
-    username: 'jack',
+    username: 'test',
   },
 ];
 
@@ -182,7 +182,7 @@ export const MOCK_MENUS = [
   },
   {
     menus: [...dashboardMenus, ...createDemosMenus('user')],
-    username: 'jack',
+    username: 'test',
   },
 ];
 

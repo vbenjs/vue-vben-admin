@@ -54,9 +54,10 @@ const emit = defineEmits<{
 const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
-      hideLabel: true,
+      hideLabel: false,
       hideRequiredMark: true,
     },
+    layout: 'vertical',
     schema: computed(() => props.formSchema),
     showDefaultActions: false,
   }),
@@ -85,11 +86,16 @@ defineExpose({
   <div>
     <Title>
       <slot name="title">
-        {{ title || $t('authentication.forgetPassword') }} 🤦🏻‍♂️
+        {{ title || $t('authentication.forgetPassword') }}
       </slot>
       <template #desc>
         <slot name="subTitle">
-          {{ subTitle || $t('authentication.forgetPasswordSubtitle') }}
+          <div class="mt-4 text-sm">
+            {{ $t('authentication.alreadyHaveAccount') }}
+            <span class="vben-link text-sm font-normal" @click="goToLogin()">
+              {{ $t('authentication.goToLogin') }}
+            </span>
+          </div>
         </slot>
       </template>
     </Title>
@@ -105,12 +111,12 @@ defineExpose({
         @click="handleSubmit"
       >
         <slot name="submitButtonText">
-          {{ submitButtonText || $t('authentication.sendResetLink') }}
+          {{ submitButtonText || $t('authentication.signUp') }}
         </slot>
       </VbenButton>
-      <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+      <!-- <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}
-      </VbenButton>
+      </VbenButton> -->
     </div>
   </div>
 </template>

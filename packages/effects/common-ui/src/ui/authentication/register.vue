@@ -57,11 +57,12 @@ const emit = defineEmits<{
 const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
-      hideLabel: true,
+      hideLabel: false,
       hideRequiredMark: true,
     },
     schema: computed(() => props.formSchema),
     showDefaultActions: false,
+    layout: 'vertical',
   }),
 );
 
@@ -88,34 +89,33 @@ defineExpose({
   <div>
     <Title>
       <slot name="title">
-        {{ title || $t('authentication.createAnAccount') }} 🚀
+        {{ title || $t('authentication.createAnAccount') }}
       </slot>
       <template #desc>
         <slot name="subTitle">
-          {{ subTitle || $t('authentication.signUpSubtitle') }}
+          <div class="mt-4 text-sm">
+            {{ $t('authentication.alreadyHaveAccount') }}
+            <span class="vben-link text-sm font-normal" @click="goToLogin()">
+              {{ $t('authentication.goToLogin') }}
+            </span>
+          </div>
         </slot>
       </template>
     </Title>
-    <Form />
 
+    <Form />
     <VbenButton
       :class="{
         'cursor-wait': loading,
       }"
       :loading="loading"
       aria-label="register"
-      class="mt-2 w-full"
+      class="mt-2 h-10 w-full"
       @click="handleSubmit"
     >
       <slot name="submitButtonText">
         {{ submitButtonText || $t('authentication.signUp') }}
       </slot>
     </VbenButton>
-    <div class="mt-4 text-center text-sm">
-      {{ $t('authentication.alreadyHaveAccount') }}
-      <span class="vben-link text-sm font-normal" @click="goToLogin()">
-        {{ $t('authentication.goToLogin') }}
-      </span>
-    </div>
   </div>
 </template>

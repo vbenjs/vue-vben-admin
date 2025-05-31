@@ -2,15 +2,17 @@
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
-import { computed, h, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 
 import { AuthenticationRegister, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
+import notReceiveCode from './not-receive-code.vue';
+
 defineOptions({ name: 'Register' });
 
 const loading = ref(false);
-
+const CODE_LENGTH = 6;
 const formSchema = computed((): VbenFormSchema[] => {
   return [
     {
@@ -23,9 +25,57 @@ const formSchema = computed((): VbenFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
     },
     {
+      component: 'VbenInput',
+      componentProps: {
+        placeholder: $t('authentication.mobile'),
+      },
+      fieldName: 'phoneNumber',
+      label: $t('authentication.mobile'),
+      rules: z
+        .string()
+        .min(1, { message: $t('authentication.mobileTip') })
+        .refine((v) => /^\d{11}$/.test(v), {
+          message: $t('authentication.mobileErrortip'),
+        }),
+    },
+    {
+      component: 'VbenPinInput',
+      dependencies: {
+        disabled(values) {
+          if (!/^\d{11}$/.test(values.phoneNumber)) {
+            return true;
+          }
+          return false;
+        },
+        triggerFields: ['phoneNumber'],
+      },
+      componentProps: {
+        codeLength: CODE_LENGTH,
+        createText: (countdown: number) => {
+          const text =
+            countdown > 0
+              ? $t('authentication.sendText', [countdown])
+              : $t('authentication.sendCode');
+          return text;
+        },
+        placeholder: $t('authentication.code'),
+      },
+
+      fieldName: 'code',
+      label: $t('authentication.code'),
+      rules: z.string().length(CODE_LENGTH, {
+        message: $t('authentication.codeTip', [CODE_LENGTH]),
+      }),
+    },
+    {
+      component: markRaw(notReceiveCode),
+      hideLabel: true,
+      fieldName: 'notReceiveCode',
+    },
+    {
       component: 'VbenInputPassword',
       componentProps: {
-        passwordStrength: true,
+        passwordStrength: false,
         placeholder: $t('authentication.password'),
       },
       fieldName: 'password',
@@ -57,27 +107,27 @@ const formSchema = computed((): VbenFormSchema[] => {
       fieldName: 'confirmPassword',
       label: $t('authentication.confirmPassword'),
     },
-    {
-      component: 'VbenCheckbox',
-      fieldName: 'agreePolicy',
-      renderComponentContent: () => ({
-        default: () =>
-          h('span', [
-            $t('authentication.agree'),
-            h(
-              'a',
-              {
-                class: 'vben-link ml-1 ',
-                href: '',
-              },
-              `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,
-            ),
-          ]),
-      }),
-      rules: z.boolean().refine((value) => !!value, {
-        message: $t('authentication.agreeTip'),
-      }),
-    },
+    // {
+    //   component: 'VbenCheckbox',
+    //   fieldName: 'agreePolicy',
+    //   renderComponentContent: () => ({
+    //     default: () =>
+    //       h('span', [
+    //         $t('authentication.agree'),
+    //         h(
+    //           'a',
+    //           {
+    //             class: 'vben-link ml-1 ',
+    //             href: '',
+    //           },
+    //           `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,
+    //         ),
+    //       ]),
+    //   }),
+    //   rules: z.boolean().refine((value) => !!value, {
+    //     message: $t('authentication.agreeTip'),
+    //   }),
+    // },
   ];
 });
 

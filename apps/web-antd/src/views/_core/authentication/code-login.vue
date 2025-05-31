@@ -8,7 +8,6 @@ import { AuthenticationCodeLogin, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 defineOptions({ name: 'CodeLogin' });
-
 const loading = ref(false);
 const CODE_LENGTH = 6;
 

@@ -40,9 +40,9 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'Vben',
-    companySiteLink: 'https://www.vben.pro',
-    date: '2024',
+    companyName: '',
+    companySiteLink: '',
+    date: '2024-2025 深碳科技（深圳）有限公司',
     enable: true,
     icp: '',
     icpLink: '',

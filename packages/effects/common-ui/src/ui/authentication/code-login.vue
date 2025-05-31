@@ -3,15 +3,14 @@ import type { Recordable } from '@vben/types';
 
 import type { VbenFormSchema } from '@vben-core/form-ui';
 
-import { computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, reactive, watch } from 'vue';
 
 import { $t } from '@vben/locales';
 
 import { useVbenForm } from '@vben-core/form-ui';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
-import Title from './auth-title.vue';
+// import Title from './auth-title.vue';
 
 interface Props {
   formSchema: VbenFormSchema[];
@@ -35,6 +34,11 @@ interface Props {
    * @zh_CN 按钮文本
    */
   submitButtonText?: string;
+
+  /**
+   * @zh_CN 当前激活的标签键
+   */
+  activeTabKey?: string;
 }
 
 defineOptions({
@@ -47,13 +51,14 @@ const props = withDefaults(defineProps<Props>(), {
   submitButtonText: '',
   subTitle: '',
   title: '',
+  activeTabKey: '',
 });
 
 const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const router = useRouter();
+// const router = useRouter();
 
 const [Form, formApi] = useVbenForm(
   reactive({
@@ -66,6 +71,16 @@ const [Form, formApi] = useVbenForm(
   }),
 );
 
+watch(
+  () => props.activeTabKey,
+  (newKey: string) => {
+    if (newKey) {
+      formApi.resetValidate();
+    }
+  },
+  { immediate: true },
+);
+
 async function handleSubmit() {
   const { valid } = await formApi.validate();
   const values = await formApi.getValues();
@@ -73,10 +88,13 @@ async function handleSubmit() {
     emit('submit', values);
   }
 }
+// const notReceiveCode = () => {
+//   console.warn('收不到验证码，请联系管理员或尝试其他登录方式。');
+// };
 
-function goToLogin() {
-  router.push(props.loginPath);
-}
+// function goToLogin() {
+//   router.push(props.loginPath);
+// }
 
 defineExpose({
   getFormApi: () => formApi,
@@ -84,34 +102,37 @@ defineExpose({
 </script>
 
 <template>
-  <div>
-    <Title>
-      <slot name="title">
-        {{ title || $t('authentication.welcomeBack') }} 📲
-      </slot>
-      <template #desc>
-        <span class="text-muted-foreground">
-          <slot name="subTitle">
-            {{ subTitle || $t('authentication.codeSubtitle') }}
-          </slot>
-        </span>
-      </template>
-    </Title>
+  <div class="w-full">
     <Form />
+    <!-- <div class="mb-6 flex justify-end">
+      <span
+        class="not-receive-text text-sm font-normal"
+        @click="notReceiveCode"
+      >
+        收不到验证码？
+      </span>
+    </div> -->
+
     <VbenButton
       :class="{
         'cursor-wait': loading,
       }"
       :loading="loading"
-      class="w-full"
+      class="h-10 w-full"
       @click="handleSubmit"
     >
       <slot name="submitButtonText">
         {{ submitButtonText || $t('common.login') }}
       </slot>
     </VbenButton>
-    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+    <!-- <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
-    </VbenButton>
+    </VbenButton> -->
   </div>
 </template>
+<style scoped lang="scss">
+.not-receive-text {
+  color: hsl(227deg 13% 57%);
+  cursor: pointer;
+}
+</style>

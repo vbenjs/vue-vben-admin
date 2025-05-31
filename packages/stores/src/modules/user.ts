@@ -43,11 +43,14 @@ export const useUserStore = defineStore('core-user', {
     setUserInfo(userInfo: BasicUserInfo | null) {
       // 设置用户信息
       this.userInfo = userInfo;
+      console.warn('userInfo', userInfo);
       // 设置角色信息
       const roles = userInfo?.roles ?? [];
+
       this.setUserRoles(roles);
     },
     setUserRoles(roles: string[]) {
+      // TODO: 这里可以做一些角色转换 Front项目，统一设置为 'user'
       this.userRoles = roles;
     },
   },

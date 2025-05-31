@@ -31,6 +31,15 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "build-test:antd": {
+      "dependsOn": ["@vben/web-antd#build:test"],
+      "outputs": ["dist/**"]
+    },
+
+    "@vben/web-antd#build:test": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "@vben/backend-mock#build": {
       "dependsOn": ["^build"],
       "outputs": [".nitro/**", ".output/**"]
