@@ -78,6 +78,7 @@ const activeKey = ref(defaultValue.value);
 
           &:nth-child(2) {
             margin-left: 24px;
+
             &::before {
               display: none;
             }
