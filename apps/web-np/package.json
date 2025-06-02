@@ -26,6 +26,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@shopify/app-bridge": "^3.7.10",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -51,7 +52,6 @@
     "vxe-table": "catalog:"
   },
   "devDependencies": {
-    "@shopify/app-bridge-types": "*",
     "@types/currency-formatter": "^1.5.4"
   }
 }

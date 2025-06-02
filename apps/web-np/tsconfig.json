@@ -5,8 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "#/*": ["./src/*"]
-    },
-    "types": ["@shopify/app-bridge-types"]
+    }
   },
   "references": [{ "path": "./tsconfig.node.json" }],
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]

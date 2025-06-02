@@ -6,522 +6,27 @@ settings:
 
 catalogs:
   default:
-    '@changesets/changelog-github':
-      specifier: ^0.5.1
-      version: 0.5.1
-    '@changesets/cli':
-      specifier: ^2.28.1
-      version: 2.28.1
-    '@changesets/git':
-      specifier: ^3.0.2
-      version: 3.0.2
-    '@clack/prompts':
-      specifier: ^0.9.1
-      version: 0.9.1
-    '@commitlint/cli':
-      specifier: ^19.8.0
-      version: 19.8.0
-    '@commitlint/config-conventional':
-      specifier: ^19.8.0
-      version: 19.8.0
-    '@eslint/js':
-      specifier: ^9.22.0
-      version: 9.23.0
-    '@faker-js/faker':
-      specifier: ^9.6.0
-      version: 9.6.0
-    '@iconify/json':
-      specifier: ^2.2.314
-      version: 2.2.321
-    '@iconify/tailwind':
-      specifier: ^1.2.0
-      version: 1.2.0
-    '@iconify/vue':
-      specifier: ^4.3.0
-      version: 4.3.0
-    '@intlify/core-base':
-      specifier: ^11.1.2
-      version: 11.1.2
-    '@intlify/unplugin-vue-i18n':
-      specifier: ^6.0.3
-      version: 6.0.3
-    '@jspm/generator':
-      specifier: ^2.5.1
-      version: 2.5.1
-    '@manypkg/get-packages':
-      specifier: ^2.2.2
-      version: 2.2.2
-    '@nolebase/vitepress-plugin-git-changelog':
-      specifier: ^2.15.0
-      version: 2.15.1
-    '@playwright/test':
-      specifier: ^1.51.0
-      version: 1.51.1
-    '@pnpm/workspace.read-manifest':
-      specifier: ^1000.1.1
-      version: 1000.1.2
-    '@stylistic/stylelint-plugin':
-      specifier: ^3.1.2
-      version: 3.1.2
-    '@tailwindcss/nesting':
-      specifier: 0.0.0-insiders.565cd3e
-      version: 0.0.0-insiders.565cd3e
-    '@tailwindcss/typography':
-      specifier: ^0.5.16
-      version: 0.5.16
-    '@tanstack/vue-query':
-      specifier: ^5.67.2
-      version: 5.71.0
-    '@tanstack/vue-store':
-      specifier: ^0.7.0
-      version: 0.7.0
-    '@types/archiver':
-      specifier: ^6.0.3
-      version: 6.0.3
-    '@types/eslint':
-      specifier: ^9.6.1
-      version: 9.6.1
-    '@types/html-minifier-terser':
-      specifier: ^7.0.2
-      version: 7.0.2
-    '@types/jsonwebtoken':
-      specifier: ^9.0.9
-      version: 9.0.9
-    '@types/lodash.clonedeep':
-      specifier: ^4.5.9
-      version: 4.5.9
-    '@types/lodash.get':
-      specifier: ^4.4.9
-      version: 4.4.9
-    '@types/lodash.isequal':
-      specifier: ^4.5.8
-      version: 4.5.8
-    '@types/lodash.set':
-      specifier: ^4.3.2
-      version: 4.3.9
-    '@types/node':
-      specifier: ^22.13.10
-      version: 22.13.14
-    '@types/nprogress':
-      specifier: ^0.2.3
-      version: 0.2.3
-    '@types/postcss-import':
-      specifier: ^14.0.3
-      version: 14.0.3
-    '@types/qrcode':
-      specifier: ^1.5.5
-      version: 1.5.5
-    '@types/qs':
-      specifier: ^6.9.18
-      version: 6.9.18
-    '@types/sortablejs':
-      specifier: ^1.15.8
-      version: 1.15.8
-    '@typescript-eslint/eslint-plugin':
-      specifier: ^8.26.0
-      version: 8.28.0
-    '@typescript-eslint/parser':
-      specifier: ^8.26.0
-      version: 8.28.0
-    '@vee-validate/zod':
-      specifier: ^4.15.0
-      version: 4.15.0
-    '@vite-pwa/vitepress':
-      specifier: ^0.5.3
-      version: 0.5.3
-    '@vitejs/plugin-vue':
-      specifier: ^5.2.1
-      version: 5.2.1
-    '@vitejs/plugin-vue-jsx':
-      specifier: ^4.1.1
-      version: 4.1.1
-    '@vue/shared':
-      specifier: ^3.5.13
-      version: 3.5.13
-    '@vue/test-utils':
-      specifier: ^2.4.6
-      version: 2.4.6
     '@vueuse/core':
       specifier: ^12.8.2
       version: 12.8.2
-    '@vueuse/integrations':
-      specifier: ^12.8.2
-      version: 12.8.2
-    '@vueuse/motion':
-      specifier: ^2.2.6
-      version: 2.2.6
     ant-design-vue:
       specifier: ^4.2.6
       version: 4.2.6
-    archiver:
-      specifier: ^7.0.1
-      version: 7.0.1
-    autoprefixer:
-      specifier: ^10.4.20
-      version: 10.4.20
-    axios:
-      specifier: ^1.8.2
-      version: 1.8.4
-    axios-mock-adapter:
-      specifier: ^2.1.0
-      version: 2.1.0
-    cac:
-      specifier: ^6.7.14
-      version: 6.7.14
-    chalk:
-      specifier: ^5.4.1
-      version: 5.4.1
-    cheerio:
-      specifier: ^1.0.0
-      version: 1.0.0
-    circular-dependency-scanner:
-      specifier: ^2.3.0
-      version: 2.3.0
-    class-variance-authority:
-      specifier: ^0.7.1
-      version: 0.7.1
-    commitlint-plugin-function-rules:
-      specifier: ^4.0.1
-      version: 4.0.1
-    consola:
-      specifier: ^3.4.0
-      version: 3.4.0
-    cross-env:
-      specifier: ^7.0.3
-      version: 7.0.3
-    cspell:
-      specifier: ^8.17.5
-      version: 8.18.1
-    cssnano:
-      specifier: ^7.0.6
-      version: 7.0.6
     currency-formatter:
       specifier: ^1.5.5
       version: 1.5.9
-    cz-git:
-      specifier: ^1.11.1
-      version: 1.11.1
-    czg:
-      specifier: ^1.11.1
-      version: 1.11.1
     dayjs:
       specifier: ^1.11.13
       version: 1.11.13
-    defu:
-      specifier: ^6.1.4
-      version: 6.1.4
-    depcheck:
-      specifier: ^1.4.7
-      version: 1.4.7
-    dotenv:
-      specifier: ^16.4.7
-      version: 16.4.7
-    echarts:
-      specifier: ^5.6.0
-      version: 5.6.0
-    element-plus:
-      specifier: ^2.9.6
-      version: 2.9.7
-    eslint:
-      specifier: ^9.22.0
-      version: 9.23.0
-    eslint-config-turbo:
-      specifier: ^2.4.4
-      version: 2.4.4
-    eslint-plugin-command:
-      specifier: ^0.2.7
-      version: 0.2.7
-    eslint-plugin-eslint-comments:
-      specifier: ^3.2.0
-      version: 3.2.0
-    eslint-plugin-import-x:
-      specifier: ^4.6.1
-      version: 4.6.1
-    eslint-plugin-jsdoc:
-      specifier: ^50.6.3
-      version: 50.6.3
-    eslint-plugin-jsonc:
-      specifier: ^2.19.1
-      version: 2.19.1
-    eslint-plugin-n:
-      specifier: ^17.16.2
-      version: 17.17.0
-    eslint-plugin-no-only-tests:
-      specifier: ^3.3.0
-      version: 3.3.0
-    eslint-plugin-perfectionist:
-      specifier: ^4.10.0
-      version: 4.10.1
-    eslint-plugin-prettier:
-      specifier: ^5.2.3
-      version: 5.2.3
-    eslint-plugin-regexp:
-      specifier: ^2.7.0
-      version: 2.7.0
-    eslint-plugin-unicorn:
-      specifier: ^56.0.1
-      version: 56.0.1
-    eslint-plugin-unused-imports:
-      specifier: ^4.1.4
-      version: 4.1.4
-    eslint-plugin-vitest:
-      specifier: ^0.5.4
-      version: 0.5.4
-    eslint-plugin-vue:
-      specifier: ^9.33.0
-      version: 9.33.0
-    execa:
-      specifier: ^9.5.2
-      version: 9.5.2
-    find-up:
-      specifier: ^7.0.0
-      version: 7.0.0
-    get-port:
-      specifier: ^7.1.0
-      version: 7.1.0
-    globals:
-      specifier: ^15.15.0
-      version: 15.15.0
-    h3:
-      specifier: ^1.15.1
-      version: 1.15.1
-    happy-dom:
-      specifier: ^16.8.1
-      version: 16.8.1
-    html-minifier-terser:
-      specifier: ^7.2.0
-      version: 7.2.0
-    husky:
-      specifier: ^9.1.7
-      version: 9.1.7
-    is-ci:
-      specifier: ^4.1.0
-      version: 4.1.0
-    jsonc-eslint-parser:
-      specifier: ^2.4.0
-      version: 2.4.0
-    jsonwebtoken:
-      specifier: ^9.0.2
-      version: 9.0.2
-    lint-staged:
-      specifier: ^15.4.3
-      version: 15.4.3
-    lodash.clonedeep:
-      specifier: ^4.5.0
-      version: 4.5.0
-    lodash.get:
-      specifier: ^4.4.2
-      version: 4.4.2
-    lodash.isequal:
-      specifier: ^4.5.0
-      version: 4.5.0
-    lodash.set:
-      specifier: ^4.3.2
-      version: 4.3.2
-    lucide-vue-next:
-      specifier: ^0.469.0
-      version: 0.469.0
-    medium-zoom:
-      specifier: ^1.1.0
-      version: 1.1.0
-    naive-ui:
-      specifier: ^2.41.0
-      version: 2.41.0
-    nitropack:
-      specifier: ^2.11.6
-      version: 2.11.8
-    nprogress:
-      specifier: ^0.2.0
-      version: 0.2.0
-    ora:
-      specifier: ^8.2.0
-      version: 8.2.0
-    pinia-plugin-persistedstate:
-      specifier: ^4.2.0
-      version: 4.2.0
-    pkg-types:
-      specifier: ^1.3.1
-      version: 1.3.1
-    playwright:
-      specifier: ^1.51.0
-      version: 1.51.1
-    postcss:
-      specifier: ^8.5.3
-      version: 8.5.3
-    postcss-antd-fixes:
-      specifier: ^0.2.0
-      version: 0.2.0
-    postcss-html:
-      specifier: ^1.8.0
-      version: 1.8.0
-    postcss-import:
-      specifier: ^16.1.0
-      version: 16.1.0
-    postcss-preset-env:
-      specifier: ^10.1.5
-      version: 10.1.5
-    postcss-scss:
-      specifier: ^4.0.9
-      version: 4.0.9
-    prettier:
-      specifier: ^3.5.3
-      version: 3.5.3
-    prettier-plugin-tailwindcss:
-      specifier: ^0.6.11
-      version: 0.6.11
-    publint:
-      specifier: ^0.2.12
-      version: 0.2.12
     pusher-js:
       specifier: ^8.2.1
       version: 8.4.0
-    qrcode:
-      specifier: ^1.5.4
-      version: 1.5.4
-    qs:
-      specifier: ^6.14.0
-      version: 6.14.0
-    radix-vue:
-      specifier: ^1.9.17
-      version: 1.9.17
-    resolve.exports:
-      specifier: ^2.0.3
-      version: 2.0.3
-    rimraf:
-      specifier: ^6.0.1
-      version: 6.0.1
-    rollup:
-      specifier: ^4.35.0
-      version: 4.38.0
-    rollup-plugin-visualizer:
-      specifier: ^5.14.0
-      version: 5.14.0
-    sass:
-      specifier: ^1.85.1
-      version: 1.86.0
-    sortablejs:
-      specifier: ^1.15.6
-      version: 1.15.6
-    stylelint:
-      specifier: ^16.15.0
-      version: 16.17.0
-    stylelint-config-recess-order:
-      specifier: ^5.1.1
-      version: 5.1.1
-    stylelint-config-recommended:
-      specifier: ^14.0.1
-      version: 14.0.1
-    stylelint-config-recommended-scss:
-      specifier: ^14.1.0
-      version: 14.1.0
-    stylelint-config-recommended-vue:
-      specifier: ^1.6.0
-      version: 1.6.0
-    stylelint-config-standard:
-      specifier: ^36.0.1
-      version: 36.0.1
-    stylelint-order:
-      specifier: ^6.0.4
-      version: 6.0.4
-    stylelint-prettier:
-      specifier: ^5.0.3
-      version: 5.0.3
-    stylelint-scss:
-      specifier: ^6.11.1
-      version: 6.11.1
-    tailwind-merge:
-      specifier: ^2.6.0
-      version: 2.6.0
-    tailwindcss:
-      specifier: ^3.4.17
-      version: 3.4.17
-    tailwindcss-animate:
-      specifier: ^1.0.7
-      version: 1.0.7
-    theme-colors:
-      specifier: ^0.1.0
-      version: 0.1.0
-    tippy.js:
-      specifier: ^6.2.5
-      version: 6.3.7
-    turbo:
-      specifier: ^2.4.4
-      version: 2.4.4
-    typescript:
-      specifier: ^5.7.3
-      version: 5.7.3
-    unbuild:
-      specifier: ^3.5.0
-      version: 3.5.0
-    unplugin-element-plus:
-      specifier: ^0.9.1
-      version: 0.9.1
-    vee-validate:
-      specifier: ^4.15.0
-      version: 4.15.0
-    vite:
-      specifier: ^6.2.1
-      version: 6.2.3
-    vite-plugin-compression:
-      specifier: ^0.5.1
-      version: 0.5.1
-    vite-plugin-dts:
-      specifier: ^4.5.3
-      version: 4.5.3
-    vite-plugin-html:
-      specifier: ^3.2.2
-      version: 3.2.2
-    vite-plugin-lazy-import:
-      specifier: ^1.0.7
-      version: 1.0.7
-    vite-plugin-pwa:
-      specifier: ^0.21.1
-      version: 0.21.1
-    vite-plugin-vue-devtools:
-      specifier: ^7.7.2
-      version: 7.7.2
-    vitepress:
-      specifier: ^1.6.3
-      version: 1.6.3
-    vitepress-plugin-group-icons:
-      specifier: ^1.3.6
-      version: 1.3.8
-    vitest:
-      specifier: ^2.1.9
-      version: 2.1.9
-    vue-eslint-parser:
-      specifier: ^9.4.3
-      version: 9.4.3
-    vue-i18n:
-      specifier: ^11.1.2
-      version: 11.1.2
-    vue-json-viewer:
-      specifier: ^3.0.4
-      version: 3.0.4
     vue-router:
       specifier: ^4.5.0
       version: 4.5.0
-    vue-tippy:
-      specifier: ^6.6.0
-      version: 6.6.0
-    vue-tsc:
-      specifier: 2.1.10
-      version: 2.1.10
-    vxe-pc-ui:
-      specifier: ^4.4.8
-      version: 4.5.7
     vxe-table:
       specifier: 4.10.0
       version: 4.10.0
-    watermark-js-plus:
-      specifier: ^1.5.8
-      version: 1.5.8
-    zod:
-      specifier: ^3.24.2
-      version: 3.24.2
-    zod-defaults:
-      specifier: ^0.1.3
-      version: 0.1.3
 
 overrides:
   '@ast-grep/napi': ^0.32.3
@@ -846,6 +351,9 @@ importers:
 
   apps/web-np:
     dependencies:
+      '@shopify/app-bridge':
+        specifier: ^3.7.10
+        version: 3.7.10
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -916,9 +424,6 @@ importers:
         specifier: 'catalog:'
         version: 4.10.0(vue@3.5.13(typescript@5.8.2))
     devDependencies:
-      '@shopify/app-bridge-types':
-        specifier: '*'
-        version: 0.0.18
       '@types/currency-formatter':
         specifier: ^1.5.4
         version: 1.5.4
@@ -3665,8 +3170,8 @@ packages:
     resolution: {integrity: sha512-dF2iMMy8P9uKVHV/20LA1ulFLL+MKSbfMiixSmn6fpwqzvix38OIc7ebgnFbBqElvghZCW9ACtzKTGKsTGTWGA==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.1.3':
-    resolution: {integrity: sha512-pTFBgqa/99JRA2H1qfyqv97MKWJrYngXBA/I0elZcYxvJgcCw3mApAoPW3mJ7vx3j+Ti0FyKUFZ4hWxdjKaxvA==}
+  '@intlify/shared@11.1.5':
+    resolution: {integrity: sha512-+I4vRzHm38VjLr/CAciEPJhGYFzWWW4HMTm+6H3WqknXLh0ozNX9oC8ogMUwTSXYR/wGUb1/lTpNziiCH5MybQ==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@12.0.0-alpha.2':
@@ -4371,8 +3876,11 @@ packages:
   '@shikijs/vscode-textmate@10.0.1':
     resolution: {integrity: sha512-fTIQwLF+Qhuws31iw7Ncl1R3HUDtGwIipiJ9iU+UsDUwMhegFcQKQHd51nZjb7CArq0MvON8rbgCGQYWHUKAdg==}
 
-  '@shopify/app-bridge-types@0.0.18':
-    resolution: {integrity: sha512-02AiWgn1op7qCKx6HXpFqBwJNPoqZ9g47hltch1ZD4bC+2vVuCgePlmJ+yEFWcN5tW9AG/a27Igsbi0LnY01gA==}
+  '@shopify/app-bridge-core@1.1.1':
+    resolution: {integrity: sha512-kEnJUpkC9vDdmGMN3Mezq/FlDBqP+DFg/A1PFzqTW8FILu0wzFmz1aFk4Hxy6Y6ilceMmn8QXsyLA9DfaeH4jQ==}
+
+  '@shopify/app-bridge@3.7.10':
+    resolution: {integrity: sha512-zy4c05DEOkYXm1yWIe0FrI0lq6hzffIT4JWzb9XKqY5OPRNHRHg+ihDt0ZnR8eMVmYV03yStpGAITIfqOgn4TQ==}
 
   '@simonwep/pickr@1.8.2':
     resolution: {integrity: sha512-/l5w8BIkrpP6n1xsetx9MWPWlU6OblN5YgZZphxan0Tq4BByTCETL6lyIeY8lagalS2Nbt4F2W034KHLIiunKA==}
@@ -5273,6 +4781,10 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
+  base64url@3.0.1:
+    resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
+    engines: {node: '>=6.0.0'}
 
   better-path-resolve@1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
@@ -10569,6 +10081,9 @@ packages:
   watermark-js-plus@1.5.8:
     resolution: {integrity: sha512-dSQHNSq8hVe6abEAPGKPcjq88XKWu4wiikeELyUlcs48xqQOWG3eWeWNLHcG6Pegujp8HTLXPzKsDvzFLKC+iA==}
 
+  web-vitals@3.5.2:
+    resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
+
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
@@ -12751,7 +12266,7 @@ snapshots:
 
   '@intlify/shared@11.1.2': {}
 
-  '@intlify/shared@11.1.3': {}
+  '@intlify/shared@11.1.5': {}
 
   '@intlify/shared@12.0.0-alpha.2': {}
 
@@ -12759,8 +12274,8 @@ snapshots:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@9.23.0(jiti@2.4.2))
       '@intlify/bundle-utils': 10.0.0(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))
-      '@intlify/shared': 11.1.3
-      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.3)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
+      '@intlify/shared': 11.1.5
+      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.5)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
       '@rollup/pluginutils': 5.1.4(rollup@4.38.0)
       '@typescript-eslint/scope-manager': 8.23.0
       '@typescript-eslint/typescript-estree': 8.23.0(typescript@5.8.2)
@@ -12782,11 +12297,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.3)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
+  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.5)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@babel/parser': 7.26.7
     optionalDependencies:
-      '@intlify/shared': 11.1.3
+      '@intlify/shared': 11.1.5
       '@vue/compiler-dom': 3.5.13
       vue: 3.5.13(typescript@5.8.2)
       vue-i18n: 11.1.2(vue@3.5.13(typescript@5.8.2))
@@ -13459,7 +12974,13 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.1': {}
 
-  '@shopify/app-bridge-types@0.0.18': {}
+  '@shopify/app-bridge-core@1.1.1': {}
+
+  '@shopify/app-bridge@3.7.10':
+    dependencies:
+      '@shopify/app-bridge-core': 1.1.1
+      base64url: 3.0.1
+      web-vitals: 3.5.2
 
   '@simonwep/pickr@1.8.2':
     dependencies:
@@ -14585,6 +14106,8 @@ snapshots:
     optional: true
 
   base64-js@1.5.1: {}
+
+  base64url@3.0.1: {}
 
   better-path-resolve@1.0.0:
     dependencies:
@@ -20708,6 +20231,8 @@ snapshots:
       loose-envify: 1.4.0
 
   watermark-js-plus@1.5.8: {}
+
+  web-vitals@3.5.2: {}
 
   webidl-conversions@3.0.1: {}
 
