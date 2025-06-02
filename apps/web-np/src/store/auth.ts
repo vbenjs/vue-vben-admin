@@ -106,8 +106,6 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
 
-    updateTawkInfo(res);
-
     // Update stores
     userStore.setUserInfo(res as any);
     currencyStore.setStates(res.currencies);
@@ -125,27 +123,6 @@ export const useAuthStore = defineStore('auth', () => {
     shopSettingStore.setStates(res.settings);
 
     return res;
-  }
-
-  function updateTawkInfo(userInfo: any) {
-    window.Tawk_API = window.Tawk_API || {};
-
-    window.Tawk_API.login(
-      {
-        hash: userInfo.tawkHash,
-        userId: userInfo.userId,
-        name: userInfo.realName,
-        email: userInfo.email,
-        store: userInfo.shop.myshopifyDomain,
-      },
-      (error: any) => {
-        if (error !== undefined) {
-          console.error('Tawk Login', error);
-        }
-
-        // window.Tawk_API.minimize();
-      },
-    );
   }
 
   function $reset() {

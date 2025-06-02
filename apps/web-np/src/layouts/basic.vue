@@ -10,7 +10,6 @@ import { useAccessStore, useUserStore } from '@vben/stores';
 import { useAuthStore, useShopStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
-import Chat from './chat.vue';
 import Notification from './notification.vue';
 import ShopStatistic from './shop-statistic.vue';
 
@@ -90,7 +89,7 @@ watch(
     <template #notification>
       <ShopStatistic />
       <Notification />
-      <Chat />
+      <!-- <Chat /> -->
     </template>
     <template #extra>
       <AuthenticationLoginExpiredModal
