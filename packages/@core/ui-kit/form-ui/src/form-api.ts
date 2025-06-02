@@ -292,13 +292,41 @@ export class FormApi {
       return;
     }
 
+    
+
+  /**
+   * 设置表单值
+   * @param fields record
+   * @param filterFields 过滤不在schema中定义的字段 默认为true
+   * @param shouldValidate
+   */
+  async setValues(
+    fields: Record<string, any>,
+    filterFields: boolean = true,
+    shouldValidate: boolean = false,
+  ) {
+    const form = await this.getForm();
+    if (!filterFields) {
+      form.setValues(fields, shouldValidate);
+      return;
+    }
+
     /**
-     * 合并算法
-     * 支持object嵌套赋值
-     * 数组直接判断覆盖
-     * antd的日期时间相关组件的值类型为dayjs对象
-     * element-plus的日期时间相关组件的值类型可能为Date对象
-     * 以上两种类型需要排除深度合并
+     * 深度合并两个对象，支持嵌套对象、数组直接覆盖，忽略 Date 和 Dayjs 对象深度合并
+     *
+     * 主要用于合并表单当前值 [target] 与传入的新值 [source]
+     * 合并策略：
+     * - 基本类型直接覆盖
+     * - 数组直接替换
+     * - 非日期类对象进行递归合并
+     *
+     * @param target - 当前对象（通常是 form.values）
+     * @param source - 新传入的对象（通常是 fields）
+     * @returns 返回合并后的新对象，不修改原对象
+     *
+     * @example
+     * fieldMergeFn({ a: { b: 1 } }, { a: { c: 2 }, d: 3 });
+     * // 返回: { a: { b: 1, c: 2 }, d: 3 }
      */
     const fieldMergeFn = (
       target: Record<string, any>,
@@ -341,7 +369,57 @@ export class FormApi {
       return result;
     };
 
-    const filteredFields = fieldMergeFn(form.values, fields);
+    /**
+     * 从对象中提取指定字段路径的子集，支持多级嵌套字段（如 'user.address.city'）
+     *
+     * @param obj - 要从中提取字段的对象
+     * @param filedNames - 字段路径数组，可以是多级字段（例如 ['user.name', 'user.age']）
+     * @returns 返回一个新对象，仅包含 `filedNames` 所指定的字段及其值
+     *
+     * @example
+     * const obj = {
+     *   user: { name: 'Alice', age: 25 },
+     *   email: 'alice@example.com'
+     * };
+     * pickFields(obj, ['user.name', 'email']);
+     * // 返回: { user: { name: 'Alice' }, email: 'alice@example.com' }
+     */
+    function pickFields(obj: Record<string, any>, filedNames: string[]) {
+      const result: Record<string, any> = {};
+
+      for (const path of filedNames) {
+        const keys: string[] = path.split('.');
+        let value: any = obj;
+        let target: any = result;
+
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i] as string;
+
+          if (value && typeof value === 'object' && key in value) {
+            value = value[key];
+            if (i === keys.length - 1) {
+              // 最后一级字段存在才赋值
+              target[key] = value;
+            } else {
+              // 初始化中间结构
+              target[key] = target[key] || {};
+              target = target[key];
+            }
+          } else {
+            // 路径不存在则跳过
+            break;
+          }
+        }
+      }
+
+      return result;
+    }
+
+    const fieldNames = (this.state?.schema ?? []).map((item) => item.fieldName);
+    const filteredFields = pickFields(
+      fieldMergeFn(form.values, fields),
+      fieldNames,
+    );
     this.handleStringToArrayFields(filteredFields);
     form.setValues(filteredFields, shouldValidate);
   }
