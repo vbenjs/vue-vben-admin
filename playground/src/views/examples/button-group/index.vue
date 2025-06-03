@@ -9,6 +9,7 @@ import {
   VbenButtonGroup,
   VbenCheckButtonGroup,
 } from '@vben/common-ui';
+import { LoaderCircle, Square, SquareCheckBig } from '@vben/icons';
 
 import { Button, Card, message } from 'ant-design-vue';
 
@@ -203,6 +204,21 @@ function onBtnClick(value: any) {
           :options="options"
           v-bind="compProps"
         />
+      </div>
+      <p class="mt-4">自定义图标{{ checkValue }}</p>
+      <div class="mt-2 flex flex-col gap-2">
+        <VbenCheckButtonGroup
+          v-model="checkValue"
+          multiple
+          :options="options"
+          v-bind="compProps"
+        >
+          <template #icon="{ loading, checked }">
+            <LoaderCircle class="animate-spin" v-if="loading" />
+            <SquareCheckBig v-else-if="checked" />
+            <Square v-else />
+          </template>
+        </VbenCheckButtonGroup>
       </div>
     </Card>
 

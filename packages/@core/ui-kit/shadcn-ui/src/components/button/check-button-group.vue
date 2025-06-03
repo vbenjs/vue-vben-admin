@@ -124,12 +124,18 @@ async function onBtnClick(value: ValueType) {
       @click="onBtnClick(btn.value)"
     >
       <div class="icon-wrapper" v-if="props.showIcon">
-        <LoaderCircle
-          class="animate-spin"
-          v-if="loadingValues.includes(btn.value)"
-        />
-        <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
-        <Circle v-else />
+        <slot
+          name="icon"
+          :loading="loadingValues.includes(btn.value)"
+          :checked="innerValue.includes(btn.value)"
+        >
+          <LoaderCircle
+            class="animate-spin"
+            v-if="loadingValues.includes(btn.value)"
+          />
+          <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
+          <Circle v-else />
+        </slot>
       </div>
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
         <VbenRenderContent :content="btn.label" />
