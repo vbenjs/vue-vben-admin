@@ -21,7 +21,7 @@ The rules are consistent with [Vite Env Variables and Modes](https://vitejs.dev/
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging. :::
+- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging.
 
 :::
 
@@ -138,6 +138,27 @@ To add a new dynamically modifiable configuration item, simply follow the steps 
   }
   ```
 
+- In `packages/effects/hooks/src/use-app-config.ts`, add the corresponding configuration item, such as:
+
+  ```ts
+  export function useAppConfig(
+    env: Record<string, any>,
+    isProduction: boolean,
+  ): ApplicationConfig {
+    // In production environment, directly use the window._VBEN_ADMIN_PRO_APP_CONF_ global variable
+    const config = isProduction
+      ? window._VBEN_ADMIN_PRO_APP_CONF_
+      : (env as VbenAdminProAppConfigRaw);
+
+    const { VITE_GLOB_API_URL, VITE_GLOB_OTHER_API_URL } = config; // [!code ++]
+
+    return {
+      apiURL: VITE_GLOB_API_URL,
+      otherApiURL: VITE_GLOB_OTHER_API_URL, // [!code ++]
+    };
+  }
+  ```
+
 At this point, you can use the `useAppConfig` method within the project to access the newly added configuration item.
 
 ```ts
@@ -186,6 +207,12 @@ const defaultPreferences: Preferences = {
     colorWeakMode: false,
     compact: false,
     contentCompact: 'wide',
+    contentCompactWidth: 1200,
+    contentPadding: 0,
+    contentPaddingBottom: 0,
+    contentPaddingLeft: 0,
+    contentPaddingRight: 0,
+    contentPaddingTop: 0,
     defaultAvatar:
       'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
     defaultHomePath: '/analytics',
@@ -200,6 +227,7 @@ const defaultPreferences: Preferences = {
     name: 'Vben Admin',
     preferencesButtonPosition: 'auto',
     watermark: false,
+    zIndex: 200,
   },
   breadcrumb: {
     enable: true,
@@ -220,15 +248,18 @@ const defaultPreferences: Preferences = {
   footer: {
     enable: false,
     fixed: false,
+    height: 32,
   },
   header: {
     enable: true,
+    height: 50,
     hidden: false,
     menuAlign: 'start',
     mode: 'fixed',
   },
   logo: {
     enable: true,
+    fit: 'contain',
     source: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
   },
   navigation: {
@@ -248,11 +279,14 @@ const defaultPreferences: Preferences = {
     collapsed: false,
     collapsedButton: true,
     collapsedShowTitle: false,
+    collapseWidth: 60,
     enable: true,
     expandOnHover: true,
     extraCollapse: false,
+    extraCollapsedWidth: 60,
     fixedButton: true,
     hidden: false,
+    mixedWidth: 80,
     width: 224,
   },
   tabbar: {
@@ -319,6 +353,18 @@ interface AppPreferences {
   compact: boolean;
   /** Whether to enable content compact mode */
   contentCompact: ContentCompactType;
+  /** Content compact width */
+  contentCompactWidth: number;
+  /** Content padding */
+  contentPadding: number;
+  /** Content bottom padding */
+  contentPaddingBottom: number;
+  /** Content left padding */
+  contentPaddingLeft: number;
+  /** Content right padding */
+  contentPaddingRight: number;
+  /** Content top padding */
+  contentPaddingTop: number;
   // /** Default application avatar */
   defaultAvatar: string;
   /** Default homepage path */
@@ -349,6 +395,8 @@ interface AppPreferences {
    * @zh_CN Whether to enable watermark
    */
   watermark: boolean;
+  /** z-index */
+  zIndex: number;
 }
 interface BreadcrumbPreferences {
   /** Whether breadcrumbs are enabled */
@@ -385,11 +433,15 @@ interface FooterPreferences {
   enable: boolean;
   /** Whether the footer is fixed */
   fixed: boolean;
+  /** Footer height */
+  height: number;
 }
 
 interface HeaderPreferences {
   /** Whether the header is enabled */
   enable: boolean;
+  /** Header height */
+  height: number;
   /** Whether the header is hidden, css-hidden */
   hidden: boolean;
   /** Header menu alignment */
@@ -401,6 +453,8 @@ interface HeaderPreferences {
 interface LogoPreferences {
   /** Whether the logo is visible */
   enable: boolean;
+  /** Logo image fitting method */
+  fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** Logo URL */
   source: string;
 }
@@ -422,16 +476,22 @@ interface SidebarPreferences {
   collapsedButton: boolean;
   /** Whether to show title when sidebar is collapsed */
   collapsedShowTitle: boolean;
+  /** Sidebar collapse width */
+  collapseWidth: number;
   /** Whether the sidebar is visible */
   enable: boolean;
   /** Menu auto-expand state */
   expandOnHover: boolean;
   /** Whether the sidebar extension area is collapsed */
   extraCollapse: boolean;
+  /** Sidebar extension area collapse width */
+  extraCollapsedWidth: number;
   /** Whether the sidebar fixed button is visible */
   fixedButton: boolean;
   /** Whether the sidebar is hidden - css */
   hidden: boolean;
+  /** Mixed sidebar width */
+  mixedWidth: number;
   /** Sidebar width */
   width: number;
 }
