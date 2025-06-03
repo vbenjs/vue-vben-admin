@@ -3,8 +3,9 @@ import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
 
-import { computed, nextTick, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
+import { CircleAlert } from '@vben-core/icons';
 import {
   FormControl,
   FormDescription,
@@ -12,12 +13,14 @@ import {
   FormItem,
   FormMessage,
   VbenRenderContent,
+  VbenTooltip,
 } from '@vben-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';
 
+import { injectComponentRefMap } from '../use-form-context';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
@@ -267,6 +270,15 @@ function autofocus() {
     fieldComponentRef.value?.focus?.();
   }
 }
+const componentRefMap = injectComponentRefMap();
+watch(fieldComponentRef, (componentRef) => {
+  componentRefMap?.set(fieldName, componentRef);
+});
+onUnmounted(() => {
+  if (componentRefMap?.has(fieldName)) {
+    componentRefMap.delete(fieldName);
+  }
+});
 </script>
 
 <template>
@@ -280,6 +292,7 @@ function autofocus() {
       v-show="isShow"
       :class="{
         'form-valid-error': isInValid,
+        'form-is-required': shouldRequired,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
         'pb-6': !compact,
@@ -310,44 +323,59 @@ function autofocus() {
           <VbenRenderContent :content="label" />
         </template>
       </FormLabel>
-      <div class="w-full overflow-hidden">
+      <div class="flex-auto overflow-hidden p-[1px]">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
-          <div class="flex-auto overflow-hidden p-[2px]">
-            <FormControl :class="cn(controlClass)">
-              <slot
-                v-bind="{
-                  ...slotProps,
-                  ...createComponentProps(slotProps),
-                  disabled: shouldDisabled,
-                  isInValid,
+          <FormControl :class="cn(controlClass)">
+            <slot
+              v-bind="{
+                ...slotProps,
+                ...createComponentProps(slotProps),
+                disabled: shouldDisabled,
+                isInValid,
+              }"
+            >
+              <component
+                :is="FieldComponent"
+                ref="fieldComponentRef"
+                :class="{
+                  'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
+                    isInValid,
                 }"
+                v-bind="createComponentProps(slotProps)"
+                :disabled="shouldDisabled"
               >
-                <component
-                  :is="FieldComponent"
-                  ref="fieldComponentRef"
-                  :class="{
-                    'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
-                      isInValid,
-                  }"
-                  v-bind="createComponentProps(slotProps)"
-                  :disabled="shouldDisabled"
+                <template
+                  v-for="name in renderContentKey"
+                  :key="name"
+                  #[name]="renderSlotProps"
                 >
-                  <template
-                    v-for="name in renderContentKey"
-                    :key="name"
-                    #[name]="renderSlotProps"
-                  >
-                    <VbenRenderContent
-                      :content="customContentRender[name]"
-                      v-bind="{ ...renderSlotProps, formContext: slotProps }"
+                  <VbenRenderContent
+                    :content="customContentRender[name]"
+                    v-bind="{ ...renderSlotProps, formContext: slotProps }"
+                  />
+                </template>
+                <!-- <slot></slot> -->
+              </component>
+              <VbenTooltip
+                v-if="compact && isInValid"
+                :delay-duration="300"
+                side="left"
+              >
+                <template #trigger>
+                  <slot name="trigger">
+                    <CircleAlert
+                      :class="
+                        cn(
+                          'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
+                        )
+                      "
                     />
-                  </template>
-                  <!-- <slot></slot> -->
-                </component>
-              </slot>
-            </FormControl>
-          </div>
-
+                  </slot>
+                </template>
+                <FormMessage />
+              </VbenTooltip>
+            </slot>
+          </FormControl>
           <!-- 自定义后缀 -->
           <div v-if="suffix" class="ml-1">
             <VbenRenderContent :content="suffix" />
@@ -357,7 +385,7 @@ function autofocus() {
           </FormDescription>
         </div>
 
-        <Transition name="slide-up">
+        <Transition name="slide-up" v-if="!compact">
           <FormMessage class="absolute bottom-1" />
         </Transition>
       </div>

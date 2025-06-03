@@ -1072,8 +1072,8 @@ watch(
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  content: '';
   outline: 1px dashed #d6d6d6;
+  content: '';
 }
 
 .resize-stick {

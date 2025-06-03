@@ -243,6 +243,28 @@ const routes: RouteRecordRaw[] = [
               title: 'Tanstack Query',
             },
           },
+          {
+            name: 'RequestParamsSerializerDemo',
+            path: '/demos/features/request-params-serializer',
+            component: () =>
+              import(
+                '#/views/demos/features/request-params-serializer/index.vue'
+              ),
+            meta: {
+              icon: 'lucide:git-pull-request-arrow',
+              title: $t('demos.features.requestParamsSerializer'),
+            },
+          },
+          {
+            name: 'BigIntDemo',
+            path: '/demos/features/json-bigint',
+            component: () =>
+              import('#/views/demos/features/json-bigint/index.vue'),
+            meta: {
+              icon: 'lucide:grape',
+              title: 'JSON BigInt',
+            },
+          },
         ],
       },
       // 面包屑导航
@@ -532,7 +554,7 @@ const routes: RouteRecordRaw[] = [
             children: [
               {
                 name: 'Menu31Demo',
-                path: 'menu3-1',
+                path: '/demos/nested/menu3/menu3-1',
                 component: () => import('#/views/demos/nested/menu-3-1.vue'),
                 meta: {
                   icon: 'ic:round-menu',
@@ -542,7 +564,7 @@ const routes: RouteRecordRaw[] = [
               },
               {
                 name: 'Menu32Demo',
-                path: 'menu3-2',
+                path: '/demos/nested/menu3/menu3-2',
                 meta: {
                   icon: 'ic:round-menu',
                   title: $t('demos.nested.menu3_2'),

@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, ref, watchEffect } from 'vue';
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  onUpdated,
+  ref,
+  watchEffect,
+} from 'vue';
 
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
@@ -34,6 +41,16 @@ interface Props {
    */
   tooltip?: boolean;
   /**
+   * 是否只在文本被截断时显示提示框
+   * @default false
+   */
+  tooltipWhenEllipsis?: boolean;
+  /**
+   * 文本截断检测的像素差异阈值，越大则判断越严格
+   * @default 3
+   */
+  ellipsisThreshold?: number;
+  /**
    * 提示框背景颜色，优先级高于 overlayStyle
    */
   tooltipBackgroundColor?: string;
@@ -62,12 +79,15 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: '100%',
   placement: 'top',
   tooltip: true,
+  tooltipWhenEllipsis: false,
+  ellipsisThreshold: 3,
   tooltipBackgroundColor: '',
   tooltipColor: '',
   tooltipFontSize: 14,
   tooltipMaxWidth: undefined,
   tooltipOverlayStyle: () => ({ textAlign: 'justify' }),
 });
+
 const emit = defineEmits<{ expandChange: [boolean] }>();
 
 const textMaxWidth = computed(() => {
@@ -79,8 +99,66 @@ const textMaxWidth = computed(() => {
 const ellipsis = ref();
 const isExpand = ref(false);
 const defaultTooltipMaxWidth = ref();
+const isEllipsis = ref(false);
 
 const { width: eleWidth } = useElementSize(ellipsis);
+
+// 检测文本是否被截断
+const checkEllipsis = () => {
+  if (!ellipsis.value || !props.tooltipWhenEllipsis) return;
+
+  const element = ellipsis.value;
+
+  const originalText = element.textContent || '';
+  const originalTrimmed = originalText.trim();
+
+  // 对于空文本直接返回 false
+  if (!originalTrimmed) {
+    isEllipsis.value = false;
+    return;
+  }
+
+  const widthDiff = element.scrollWidth - element.clientWidth;
+  const heightDiff = element.scrollHeight - element.clientHeight;
+
+  // 使用足够大的差异阈值确保只有真正被截断的文本才会显示 tooltip
+  isEllipsis.value =
+    props.line === 1
+      ? widthDiff > props.ellipsisThreshold
+      : heightDiff > props.ellipsisThreshold;
+};
+
+// 使用 ResizeObserver 监听尺寸变化
+let resizeObserver: null | ResizeObserver = null;
+
+onMounted(() => {
+  if (typeof ResizeObserver !== 'undefined' && props.tooltipWhenEllipsis) {
+    resizeObserver = new ResizeObserver(() => {
+      checkEllipsis();
+    });
+
+    if (ellipsis.value) {
+      resizeObserver.observe(ellipsis.value);
+    }
+  }
+
+  // 初始检测
+  checkEllipsis();
+});
+
+// 使用onUpdated钩子检测内容变化
+onUpdated(() => {
+  if (props.tooltipWhenEllipsis) {
+    checkEllipsis();
+  }
+});
+
+onBeforeUnmount(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+    resizeObserver = null;
+  }
+});
 
 watchEffect(
   () => {
@@ -91,9 +169,13 @@ watchEffect(
   },
   { flush: 'post' },
 );
+
 function onExpand() {
   isExpand.value = !isExpand.value;
   emit('expandChange', isExpand.value);
+  if (props.tooltipWhenEllipsis) {
+    checkEllipsis();
+  }
 }
 
 function handleExpand() {
@@ -110,7 +192,9 @@ function handleExpand() {
         color: tooltipColor,
         backgroundColor: tooltipBackgroundColor,
       }"
-      :disabled="!props.tooltip || isExpand"
+      :disabled="
+        !props.tooltip || isExpand || (props.tooltipWhenEllipsis && !isEllipsis)
+      "
       :side="placement"
     >
       <slot name="tooltip">

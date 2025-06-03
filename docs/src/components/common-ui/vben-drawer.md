@@ -78,7 +78,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | --- | --- | --- | --- |
 | appendToMain | 是否挂载到内容区域（默认挂载到body） | `boolean` | `false` |
 | connectedComponent | 连接另一个Modal组件 | `Component` | - |
-| destroyOnClose | 关闭时销毁`connectedComponent` | `boolean` | `false` |
+| destroyOnClose | 关闭时销毁 | `boolean` | `false` |
 | title | 标题 | `string\|slot` | - |
 | titleTooltip | 标题提示信息 | `string\|slot` | - |
 | description | 描述信息 | `string\|slot` | - |
@@ -127,13 +127,14 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 除了上面的属性类型包含`slot`，还可以通过插槽来自定义弹窗的内容。
 
-| 插槽名         | 描述                |
-| -------------- | ------------------- |
-| default        | 默认插槽 - 弹窗内容 |
-| prepend-footer | 取消按钮左侧        |
-| append-footer  | 取消按钮右侧        |
-| close-icon     | 关闭按钮图标        |
-| extra          | 额外内容(标题右侧)  |
+| 插槽名         | 描述                                               |
+| -------------- | -------------------------------------------------- |
+| default        | 默认插槽 - 弹窗内容                                |
+| prepend-footer | 取消按钮左侧                                       |
+| center-footer  | 取消按钮和确认按钮中间（不使用 footer 插槽时有效） |
+| append-footer  | 确认按钮右侧                                       |
+| close-icon     | 关闭按钮图标                                       |
+| extra          | 额外内容(标题右侧)                                 |
 
 ### drawerApi
 

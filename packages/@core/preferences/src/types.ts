@@ -33,8 +33,22 @@ interface AppPreferences {
   compact: boolean;
   /** 是否开启内容紧凑模式 */
   contentCompact: ContentCompactType;
+  /** 内容紧凑宽度 */
+  contentCompactWidth: number;
+  /** 内容内边距 */
+  contentPadding: number;
+  /** 内容底部内边距 */
+  contentPaddingBottom: number;
+  /** 内容左侧内边距 */
+  contentPaddingLeft: number;
+  /** 内容右侧内边距 */
+  contentPaddingRight: number;
+  /** 内容顶部内边距 */
+  contentPaddingTop: number;
   // /** 应用默认头像 */
   defaultAvatar: string;
+  /** 默认首页地址 */
+  defaultHomePath: string;
   // /** 开启动态标题 */
   dynamicTitle: boolean;
   /** 是否开启检查更新 */
@@ -61,6 +75,8 @@ interface AppPreferences {
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
+  /** z-index */
+  zIndex: number;
 }
 
 interface BreadcrumbPreferences {
@@ -98,11 +114,15 @@ interface FooterPreferences {
   enable: boolean;
   /** 底栏是否固定 */
   fixed: boolean;
+  /** 底栏高度 */
+  height: number;
 }
 
 interface HeaderPreferences {
   /** 顶栏是否启用 */
   enable: boolean;
+  /** 顶栏高度 */
+  height: number;
   /** 顶栏是否隐藏,css-隐藏 */
   hidden: boolean;
   /** 顶栏菜单位置 */
@@ -114,6 +134,8 @@ interface HeaderPreferences {
 interface LogoPreferences {
   /** logo是否可见 */
   enable: boolean;
+  /** logo图片适应方式 */
+  fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** logo地址 */
   source: string;
 }
@@ -132,16 +154,26 @@ interface SidebarPreferences {
   autoActivateChild: boolean;
   /** 侧边栏是否折叠 */
   collapsed: boolean;
+  /** 侧边栏折叠按钮是否可见 */
+  collapsedButton: boolean;
   /** 侧边栏折叠时，是否显示title */
   collapsedShowTitle: boolean;
+  /** 侧边栏折叠宽度 */
+  collapseWidth: number;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */
   expandOnHover: boolean;
   /** 侧边栏扩展区域是否折叠 */
   extraCollapse: boolean;
+  /** 侧边栏扩展区域折叠宽度 */
+  extraCollapsedWidth: number;
+  /** 侧边栏固定按钮是否可见 */
+  fixedButton: boolean;
   /** 侧边栏是否隐藏 - css */
   hidden: boolean;
+  /** 混合侧边栏宽度 */
+  mixedWidth: number;
   /** 侧边栏宽度 */
   width: number;
 }

@@ -19,7 +19,7 @@
   /* --popover: 222.82deg 8.43% 12.27%; */
 
   /* 弹出层的背景色与主题区域背景色太过接近  */
-  --popover: 0 0 14.2%;
+  --popover: 0 0% 14.2%;
   --popover-foreground: 210 40% 98%;
 
   /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */

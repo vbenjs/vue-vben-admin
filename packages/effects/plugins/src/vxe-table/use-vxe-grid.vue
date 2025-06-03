@@ -29,10 +29,17 @@ import { usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
-import { cloneDeep, cn, mergeWithArrayOverride } from '@vben/utils';
+import {
+  cloneDeep,
+  cn,
+  isBoolean,
+  isEqual,
+  mergeWithArrayOverride,
+} from '@vben/utils';
 
 import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
+import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
@@ -52,6 +59,7 @@ const FORM_SLOT_PREFIX = 'form-';
 
 const TOOLBAR_ACTIONS = 'toolbar-actions';
 const TOOLBAR_TOOLS = 'toolbar-tools';
+const TABLE_TITLE = 'table-title';
 
 const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
 
@@ -66,10 +74,30 @@ const {
   tableTitle,
   tableTitleHelp,
   showSearchForm,
+  separator,
 } = usePriorityValues(props, state);
 
 const { isMobile } = usePreferences();
-
+const isSeparator = computed(() => {
+  if (
+    !formOptions.value ||
+    showSearchForm.value === false ||
+    separator.value === false
+  ) {
+    return false;
+  }
+  if (separator.value === true || separator.value === undefined) {
+    return true;
+  }
+  return separator.value.show !== false;
+});
+const separatorBg = computed(() => {
+  return !separator.value ||
+    isBoolean(separator.value) ||
+    !separator.value.backgroundColor
+    ? undefined
+    : separator.value.backgroundColor;
+});
 const slots: SetupContext['slots'] = useSlots();
 
 const [Form, formApi] = useTableForm({
@@ -80,10 +108,14 @@ const [Form, formApi] = useTableForm({
     props.api.reload(formValues);
   },
   handleReset: async () => {
+    const prevValues = await formApi.getValues();
     await formApi.resetForm();
     const formValues = await formApi.getValues();
     formApi.setLatestSubmissionValues(formValues);
-    props.api.reload(formValues);
+    // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
+    if (isEqual(prevValues, formValues) || !formOptions.value?.submitOnChange) {
+      props.api.reload(formValues);
+    }
   },
   commonConfig: {
     componentProps: {
@@ -98,7 +130,7 @@ const [Form, formApi] = useTableForm({
 });
 
 const showTableTitle = computed(() => {
-  return !!slots.tableTitle?.() || tableTitle.value;
+  return !!slots[TABLE_TITLE]?.() || tableTitle.value;
 });
 
 const showToolbar = computed(() => {
@@ -114,10 +146,12 @@ const toolbarOptions = computed(() => {
   const slotTools = slots[TOOLBAR_TOOLS]?.();
   const searchBtn: VxeToolbarPropTypes.ToolConfig = {
     code: 'search',
-    icon: 'vxe-icon--search',
+    icon: 'vxe-icon-search',
     circle: true,
     status: showSearchForm.value ? 'primary' : undefined,
-    title: $t('common.search'),
+    title: showSearchForm.value
+      ? $t('common.hideSearchPanel')
+      : $t('common.showSearchPanel'),
   };
   // 将搜索按钮合并到用户配置的toolbarConfig.tools中
   const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
@@ -200,11 +234,15 @@ const options = computed(() => {
 
 function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
   if (event.code === 'search') {
-    props.api?.toggleSearchForm?.();
+    onSearchBtnClick();
   }
   (
     gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick']
   )?.(event);
+}
+
+function onSearchBtnClick() {
+  props.api?.toggleSearchForm?.();
 }
 
 const events = computed(() => {
@@ -218,7 +256,11 @@ const delegatedSlots = computed(() => {
   const resultSlots: string[] = [];
 
   for (const key of Object.keys(slots)) {
-    if (!['empty', 'form', 'loading', TOOLBAR_ACTIONS].includes(key)) {
+    if (
+      !['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(
+        key,
+      )
+    ) {
       resultSlots.push(key);
     }
   }
@@ -234,6 +276,15 @@ const delegatedFormSlots = computed(() => {
     }
   }
   return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
+});
+
+const showDefaultEmpty = computed(() => {
+  // 检查是否有原生的 VXE Table 空状态配置
+  const hasEmptyText = options.value.emptyText !== undefined;
+  const hasEmptyRender = options.value.emptyRender !== undefined;
+
+  // 如果有原生配置，就不显示默认的空状态
+  return !hasEmptyText && !hasEmptyRender;
 });
 
 async function init() {
@@ -344,13 +395,36 @@ onUnmounted(() => {
       >
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
+      <template #toolbar-tools="slotProps">
+        <slot name="toolbar-tools" v-bind="slotProps"></slot>
+        <VxeButton
+          icon="vxe-icon-search"
+          circle
+          class="ml-2"
+          v-if="gridOptions?.toolbarConfig?.search && !!formOptions"
+          :status="showSearchForm ? 'primary' : undefined"
+          :title="$t('common.search')"
+          @click="onSearchBtnClick"
+        />
+      </template>
 
       <!-- form表单 -->
       <template #form>
         <div
           v-if="formOptions"
           v-show="showSearchForm !== false"
-          :class="cn('relative rounded py-3', isCompactForm ? 'pb-8' : 'pb-4')"
+          :class="
+            cn(
+              'relative rounded py-3',
+              isCompactForm
+                ? isSeparator
+                  ? 'pb-8'
+                  : 'pb-4'
+                : isSeparator
+                  ? 'pb-4'
+                  : 'pb-0',
+            )
+          "
         >
           <slot name="form">
             <Form>
@@ -379,6 +453,10 @@ onUnmounted(() => {
             </Form>
           </slot>
           <div
+            v-if="isSeparator"
+            :style="{
+              ...(separatorBg ? { backgroundColor: separatorBg } : undefined),
+            }"
             class="bg-background-deep z-100 absolute -left-2 bottom-1 h-2 w-[calc(100%+1rem)] overflow-hidden md:bottom-2 md:h-3"
           ></div>
         </div>
@@ -390,7 +468,7 @@ onUnmounted(() => {
         </slot>
       </template>
       <!-- 统一控状态 -->
-      <template #empty>
+      <template v-if="showDefaultEmpty" #empty>
         <slot name="empty">
           <EmptyIcon class="mx-auto" />
           <div class="mt-2">{{ $t('common.noData') }}</div>

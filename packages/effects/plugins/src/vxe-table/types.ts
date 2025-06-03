@@ -31,6 +31,11 @@ export interface VxeTableGridOptions<T = any> extends VxeTableGridProps<T> {
   toolbarConfig?: ToolbarConfigOptions;
 }
 
+export interface SeparatorOptions {
+  show?: boolean;
+  backgroundColor?: string;
+}
+
 export interface VxeGridProps<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
@@ -67,6 +72,10 @@ export interface VxeGridProps<
    * 显示搜索表单
    */
   showSearchForm?: boolean;
+  /**
+   * 搜索表单与表格主体之间的分隔条
+   */
+  separator?: boolean | SeparatorOptions;
 }
 
 export type ExtendedVxeGridApi<

@@ -10,7 +10,7 @@ import { findRootMenuByPath } from '@vben/utils';
 import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
-  const { navigation } = useNavigation();
+  const { navigation, willOpenedByWindow } = useNavigation();
   const accessStore = useAccessStore();
   const route = useRoute();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
@@ -74,7 +74,7 @@ function useMixedMenu() {
    */
   const headerActive = computed(() => {
     if (!needSplit.value) {
-      return route.path;
+      return route.meta?.activePath ?? route.path;
     }
     return rootMenuPath.value;
   });
@@ -89,11 +89,15 @@ function useMixedMenu() {
       navigation(key);
       return;
     }
-
     const rootMenu = menus.value.find((item) => item.path === key);
-    rootMenuPath.value = rootMenu?.path ?? '';
-    splitSideMenus.value = rootMenu?.children ?? [];
-    if (splitSideMenus.value.length === 0) {
+    const _splitSideMenus = rootMenu?.children ?? [];
+
+    if (!willOpenedByWindow(key)) {
+      rootMenuPath.value = rootMenu?.path ?? '';
+      splitSideMenus.value = _splitSideMenus;
+    }
+
+    if (_splitSideMenus.length === 0) {
       navigation(key);
     } else if (rootMenu && preferences.sidebar.autoActivateChild) {
       navigation(
@@ -136,7 +140,10 @@ function useMixedMenu() {
   watch(
     () => route.path,
     (path) => {
-      const currentPath = (route?.meta?.activePath as string) ?? path;
+      const currentPath = route?.meta?.activePath ?? route?.meta?.link ?? path;
+      if (willOpenedByWindow(currentPath)) {
+        return;
+      }
       calcSideMenus(currentPath);
       if (rootMenuPath.value)
         defaultSubMap.set(rootMenuPath.value, currentPath);

@@ -1,4 +1,5 @@
 export * from './accordion';
+export * from './alert-dialog';
 export * from './avatar';
 export * from './badge';
 export * from './breadcrumb';
@@ -27,3 +28,4 @@ export * from './textarea';
 export * from './toggle';
 export * from './toggle-group';
 export * from './tooltip';
+export * from './tree';

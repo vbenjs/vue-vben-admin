@@ -13,6 +13,7 @@ import FormDrawerDemo from './form-drawer-demo.vue';
 import inContentDemo from './in-content-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
 
+defineOptions({ name: 'DrawerExample' });
 const [BaseDrawer, baseDrawerApi] = useVbenDrawer({
   // 连接抽离的组件
   connectedComponent: BaseDemo,

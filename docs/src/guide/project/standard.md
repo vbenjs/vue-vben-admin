@@ -33,8 +33,8 @@
 - [Prettier](https://prettier.io/) 用于代码格式化
 - [Commitlint](https://commitlint.js.org/) 用于检查 git 提交信息的规范
 - [Publint](https://publint.dev/) 用于检查 npm 包的规范
-- [Lint Staged](https://github.com/lint-staged/lint-staged) 用于在 git 提交前运行代码校验
 - [Cspell](https://cspell.org/) 用于检查拼写错误
+- [lefthook](https://github.com/evilmartians/lefthook) 用于管理 Git hooks，在提交前自动运行代码校验和格式化
 
 ## ESLint
 
@@ -148,18 +148,66 @@ cspell 配置文件为 `cspell.json`，可以根据项目需求进行修改。
 
 git hook 一般结合各种 lint，在 git 提交代码的时候进行代码风格校验，如果校验没通过，则不会进行提交。需要开发者自行修改后再次进行提交
 
-### husky
+### lefthook
 
-有一个问题就是校验会校验全部代码，但是我们只想校验我们自己提交的代码，这个时候就可以使用 husky。
+有一个问题就是校验会校验全部代码，但是我们只想校验我们自己提交的代码，这个时候就可以使用 lefthook。
 
-最有效的解决方案就是将 Lint 校验放到本地，常见做法是使用 husky 或者 pre-commit 在本地提交之前先做一次 Lint 校验。
+最有效的解决方案就是将 Lint 校验放到本地，常见做法是使用 lefthook 在本地提交之前先做一次 Lint 校验。
 
-项目在 `.husky` 内部定义了相应的 hooks
+项目在 `lefthook.yml` 内部定义了相应的 hooks：
 
-#### 如何关闭 Husky
+- `pre-commit`: 在提交前运行，用于代码格式化和检查
 
-如果你想关闭 Husky，直接删除 `.husky` 目录即可。
+  - `code-workspace`: 更新 VSCode 工作区配置
+  - `lint-md`: 格式化 Markdown 文件
+  - `lint-vue`: 格式化并检查 Vue 文件
+  - `lint-js`: 格式化并检查 JavaScript/TypeScript 文件
+  - `lint-style`: 格式化并检查样式文件
+  - `lint-package`: 格式化 package.json
+  - `lint-json`: 格式化其他 JSON 文件
 
-### lint-staged
+- `post-merge`: 在合并后运行，用于自动安装依赖
 
-用于自动修复提交文件风格问题,其配置文件为 `.lintstagedrc.mjs`，可以根据项目需求进行修改。
+  - `install`: 运行 `pnpm install` 安装新依赖
+
+- `commit-msg`: 在提交时运行，用于检查提交信息格式
+  - `commitlint`: 使用 commitlint 检查提交信息
+
+#### 如何关闭 lefthook
+
+如果你想关闭 lefthook，有两种方式：
+
+::: code-group
+
+```bash [临时关闭]
+git commit -m 'feat: add home page' --no-verify
+```
+
+```bash [永久关闭]
+# 删除 lefthook.yml 文件即可
+rm lefthook.yml
+```
+
+:::
+
+#### 如何修改 lefthook 配置
+
+如果你想修改 lefthook 的配置，可以编辑 `lefthook.yml` 文件。例如：
+
+```yaml
+pre-commit:
+  parallel: true # 并行执行任务
+  jobs:
+    - name: lint-js
+      run: pnpm prettier --cache --ignore-unknown --write {staged_files}
+      glob: '*.{js,jsx,ts,tsx}'
+```
+
+其中：
+
+- `parallel`: 是否并行执行任务
+- `jobs`: 定义要执行的任务列表
+- `name`: 任务名称
+- `run`: 要执行的命令
+- `glob`: 匹配的文件模式
+- `{staged_files}`: 表示暂存的文件列表

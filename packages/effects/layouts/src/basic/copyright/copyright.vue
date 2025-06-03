@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 interface Props {
-  companyName: string;
+  companyName?: string;
   companySiteLink?: string;
-  date: string;
+  date?: string;
   icp?: string;
   icpLink?: string;
 }

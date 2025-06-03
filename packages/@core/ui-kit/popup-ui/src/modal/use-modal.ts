@@ -5,6 +5,7 @@ import {
   h,
   inject,
   nextTick,
+  onDeactivated,
   provide,
   reactive,
   ref,
@@ -63,11 +64,20 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
             slots,
           );
       },
+      // eslint-disable-next-line vue/one-component-per-file
       {
-        inheritAttrs: false,
         name: 'VbenParentModal',
+        inheritAttrs: false,
       },
     );
+
+    /**
+     * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+     */
+    onDeactivated(() => {
+      (extendedApi as ExtendedModalApi)?.close?.();
+    });
+
     return [Modal, extendedApi as ExtendedModalApi] as const;
   }
 
@@ -85,13 +95,13 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   };
 
   const onClosed = mergedOptions.onClosed;
-
   mergedOptions.onClosed = () => {
     onClosed?.();
     if (mergedOptions.destroyOnClose) {
       injectData.reCreateModal?.();
     }
   };
+
   const api = new ModalApi(mergedOptions);
 
   const extendedApi: ExtendedModalApi = api as never;
@@ -113,9 +123,10 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
           slots,
         );
     },
+    // eslint-disable-next-line vue/one-component-per-file
     {
-      inheritAttrs: false,
       name: 'VbenModal',
+      inheritAttrs: false,
     },
   );
   injectData.extendApi?.(extendedApi);

@@ -58,7 +58,7 @@ git clone https://gitee.com/annsion/vue-vben-admin.git
 cd vue-vben-admin
 
 # 使用项目指定的pnpm版本进行依赖安装
-corepack enable
+npm i -g corepack
 
 # 安装依赖
 pnpm install

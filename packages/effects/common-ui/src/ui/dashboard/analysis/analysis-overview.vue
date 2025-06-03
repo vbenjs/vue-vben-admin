@@ -12,7 +12,7 @@ import {
 } from '@vben-core/shadcn-ui';
 
 interface Props {
-  items: AnalysisOverviewItem[];
+  items?: AnalysisOverviewItem[];
 }
 
 defineOptions({

@@ -33,8 +33,8 @@ The project integrates the following code verification tools:
 - [Prettier](https://prettier.io/) for code formatting
 - [Commitlint](https://commitlint.js.org/) for checking the standard of git commit messages
 - [Publint](https://publint.dev/) for checking the standard of npm packages
-- [Lint Staged](https://github.com/lint-staged/lint-staged) for running code verification before git commits
 - [Cspell](https://cspell.org/) for checking spelling errors
+- [lefthook](https://github.com/evilmartians/lefthook) for managing Git hooks, automatically running code checks and formatting before commits
 
 ## ESLint
 
@@ -148,18 +148,66 @@ The cspell configuration file is `cspell.json`, which can be modified according 
 
 Git hooks are generally combined with various lints to check code style during git commits. If the check fails, the commit will not proceed. Developers need to modify and resubmit.
 
-### husky
+### lefthook
 
-One issue is that the check will verify all code, but we only want to check the code we are committing. This is where husky comes in.
+One issue is that the check will verify all code, but we only want to check the code we are committing. This is where lefthook comes in.
 
-The most effective solution is to perform Lint checks locally before committing. A common practice is to use husky or pre-commit to perform a Lint check before local submission.
+The most effective solution is to perform Lint checks locally before committing. A common practice is to use lefthook to perform a Lint check before local submission.
 
-The project defines corresponding hooks inside `.husky`.
+The project defines corresponding hooks inside `lefthook.yml`:
 
-#### How to Disable Husky
+- `pre-commit`: Runs before commit, used for code formatting and checking
 
-If you want to disable Husky, simply delete the .husky directory.
+  - `code-workspace`: Updates VSCode workspace configuration
+  - `lint-md`: Formats Markdown files
+  - `lint-vue`: Formats and checks Vue files
+  - `lint-js`: Formats and checks JavaScript/TypeScript files
+  - `lint-style`: Formats and checks style files
+  - `lint-package`: Formats package.json
+  - `lint-json`: Formats other JSON files
 
-### lint-staged
+- `post-merge`: Runs after merge, used for automatic dependency installation
 
-Used for automatically fixing style issues of committed files. Its configuration file is `.lintstagedrc.mjs`, which can be modified according to project needs.
+  - `install`: Runs `pnpm install` to install new dependencies
+
+- `commit-msg`: Runs during commit, used for checking commit message format
+  - `commitlint`: Uses commitlint to check commit messages
+
+#### How to Disable lefthook
+
+If you want to disable lefthook, there are two ways:
+
+::: code-group
+
+```bash [Temporary disable]
+git commit -m 'feat: add home page' --no-verify
+```
+
+```bash [Permanent disable]
+# Simply delete the lefthook.yml file
+rm lefthook.yml
+```
+
+:::
+
+#### How to Modify lefthook Configuration
+
+If you want to modify lefthook's configuration, you can edit the `lefthook.yml` file. For example:
+
+```yaml
+pre-commit:
+  parallel: true # Execute tasks in parallel
+  jobs:
+    - name: lint-js
+      run: pnpm prettier --cache --ignore-unknown --write {staged_files}
+      glob: '*.{js,jsx,ts,tsx}'
+```
+
+Where:
+
+- `parallel`: Whether to execute tasks in parallel
+- `jobs`: Defines the list of tasks to execute
+- `name`: Task name
+- `run`: Command to execute
+- `glob`: File pattern to match
+- `{staged_files}`: Represents the list of staged files

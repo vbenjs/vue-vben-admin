@@ -19,7 +19,7 @@ const checkValue = ref(['a', 'b']);
 
 const options = [
   { label: '选项1', value: 'a' },
-  { label: '选项2', value: 'b' },
+  { label: '选项2', value: 'b', num: 999 },
   { label: '选项3', value: 'c' },
   { label: '选项4', value: 'd' },
   { label: '选项5', value: 'e' },
@@ -168,10 +168,11 @@ function onBtnClick(value: any) {
           :options="options"
           v-bind="compProps"
         >
-          <template #option="{ label, value }">
+          <template #option="{ label, value, data }">
             <div class="flex items-center">
               <span>{{ label }}</span>
               <span class="ml-2 text-gray-400">{{ value }}</span>
+              <span v-if="data.num" class="white ml-2">{{ data.num }}</span>
             </div>
           </template>
         </VbenCheckButtonGroup>
