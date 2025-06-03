@@ -43,10 +43,7 @@ catalog:
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.9
-  '@types/lodash.clonedeep': ^4.5.9
-  '@types/lodash.get': ^4.4.9
-  '@types/lodash.isequal': ^4.5.8
-  '@types/lodash.set': ^4.3.9
+  '@types/lodash': ^4.17.17
   '@types/node': ^22.15.3
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
@@ -117,10 +114,7 @@ catalog:
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2
   lefthook: ^1.11.12
-  lodash.clonedeep: ^4.5.0
-  lodash.get: ^4.4.2
-  lodash.isequal: ^4.5.0
-  lodash.set: ^4.3.2
+  lodash: ^4.17.21
   lucide-vue-next: ^0.507.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.41.0

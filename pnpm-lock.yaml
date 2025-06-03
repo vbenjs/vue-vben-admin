@@ -90,18 +90,9 @@ catalogs:
     '@types/jsonwebtoken':
       specifier: ^9.0.9
       version: 9.0.9
-    '@types/lodash.clonedeep':
-      specifier: ^4.5.9
-      version: 4.5.9
-    '@types/lodash.get':
-      specifier: ^4.4.9
-      version: 4.4.9
-    '@types/lodash.isequal':
-      specifier: ^4.5.8
-      version: 4.5.8
-    '@types/lodash.set':
-      specifier: ^4.3.9
-      version: 4.3.9
+    '@types/lodash':
+      specifier: ^4.17.17
+      version: 4.17.17
     '@types/node':
       specifier: ^22.15.3
       version: 22.15.3
@@ -306,18 +297,9 @@ catalogs:
     lefthook:
       specifier: ^1.11.12
       version: 1.11.12
-    lodash.clonedeep:
-      specifier: ^4.5.0
-      version: 4.5.0
-    lodash.get:
-      specifier: ^4.4.2
-      version: 4.4.2
-    lodash.isequal:
-      specifier: ^4.5.0
-      version: 4.5.0
-    lodash.set:
-      specifier: ^4.3.2
-      version: 4.3.2
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
     lucide-vue-next:
       specifier: ^0.507.0
       version: 0.507.0
@@ -1246,18 +1228,9 @@ importers:
       defu:
         specifier: 'catalog:'
         version: 6.1.4
-      lodash.clonedeep:
+      lodash:
         specifier: 'catalog:'
-        version: 4.5.0
-      lodash.get:
-        specifier: 'catalog:'
-        version: 4.4.2
-      lodash.isequal:
-        specifier: 'catalog:'
-        version: 4.5.0
-      lodash.set:
-        specifier: 'catalog:'
-        version: 4.3.2
+        version: 4.17.21
       nprogress:
         specifier: 'catalog:'
         version: 0.2.0
@@ -1268,18 +1241,9 @@ importers:
         specifier: 'catalog:'
         version: 0.1.0
     devDependencies:
-      '@types/lodash.clonedeep':
+      '@types/lodash':
         specifier: 'catalog:'
-        version: 4.5.9
-      '@types/lodash.get':
-        specifier: 'catalog:'
-        version: 4.4.9
-      '@types/lodash.isequal':
-        specifier: 'catalog:'
-        version: 4.5.8
-      '@types/lodash.set':
-        specifier: 'catalog:'
-        version: 4.3.9
+        version: 4.17.17
       '@types/nprogress':
         specifier: 'catalog:'
         version: 0.2.3
@@ -4372,20 +4336,8 @@ packages:
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
-  '@types/lodash.clonedeep@4.5.9':
-    resolution: {integrity: sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==}
-
-  '@types/lodash.get@4.4.9':
-    resolution: {integrity: sha512-J5dvW98sxmGnamqf+/aLP87PYXyrha9xIgc2ZlHl6OHMFR2Ejdxep50QfU0abO1+CH6+ugx+8wEUN1toImAinA==}
-
-  '@types/lodash.isequal@4.5.8':
-    resolution: {integrity: sha512-uput6pg4E/tj2LGxCZo9+y27JNyB2OZuuI/T5F+ylVDYuqICLG2/ktjxx0v6GvVntAf8TvEzeQLcV0ffRirXuA==}
-
-  '@types/lodash.set@4.3.9':
-    resolution: {integrity: sha512-KOxyNkZpbaggVmqbpr82N2tDVTx05/3/j0f50Es1prxrWB0XYf9p3QNxqcbWb7P1Q9wlvsUSlCFnwlPCIJ46PQ==}
-
-  '@types/lodash@4.17.16':
-    resolution: {integrity: sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==}
+  '@types/lodash@4.17.17':
+    resolution: {integrity: sha512-RRVJ+J3J+WmyOTqnz3PiBLA501eKwXl2noseKOrNo/6+XEHjTAxO4xHvxQB6QuNm+s4WRbn6rSiap8+EA+ykFQ==}
 
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
@@ -7888,18 +7840,11 @@ packages:
   lodash.castarray@4.4.0:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
 
-  lodash.clonedeep@4.5.0:
-    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
-
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   lodash.defaults@4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
-
-  lodash.get@4.4.2:
-    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -7909,10 +7854,6 @@ packages:
 
   lodash.isboolean@3.0.3:
     resolution: {integrity: sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==}
-
-  lodash.isequal@4.5.0:
-    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
-    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isinteger@4.0.4:
     resolution: {integrity: sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==}
@@ -7940,9 +7881,6 @@ packages:
 
   lodash.once@4.1.1:
     resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
-
-  lodash.set@4.3.2:
-    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
 
   lodash.snakecase@4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
@@ -14082,25 +14020,9 @@ snapshots:
 
   '@types/lodash-es@4.17.12':
     dependencies:
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.17
 
-  '@types/lodash.clonedeep@4.5.9':
-    dependencies:
-      '@types/lodash': 4.17.16
-
-  '@types/lodash.get@4.4.9':
-    dependencies:
-      '@types/lodash': 4.17.16
-
-  '@types/lodash.isequal@4.5.8':
-    dependencies:
-      '@types/lodash': 4.17.16
-
-  '@types/lodash.set@4.3.9':
-    dependencies:
-      '@types/lodash': 4.17.16
-
-  '@types/lodash@4.17.16': {}
+  '@types/lodash@4.17.17': {}
 
   '@types/markdown-it@14.1.2':
     dependencies:
@@ -16208,7 +16130,7 @@ snapshots:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.8.3))
       '@floating-ui/dom': 1.6.13
       '@popperjs/core': '@sxzz/popperjs-es@2.11.7'
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.17
       '@types/lodash-es': 4.17.12
       '@vueuse/core': 9.13.0(vue@3.5.13(typescript@5.8.3))
       async-validator: 4.2.5
@@ -18036,21 +17958,15 @@ snapshots:
 
   lodash.castarray@4.4.0: {}
 
-  lodash.clonedeep@4.5.0: {}
-
   lodash.debounce@4.0.8: {}
 
   lodash.defaults@4.2.0: {}
-
-  lodash.get@4.4.2: {}
 
   lodash.includes@4.3.0: {}
 
   lodash.isarguments@3.1.0: {}
 
   lodash.isboolean@3.0.3: {}
-
-  lodash.isequal@4.5.0: {}
 
   lodash.isinteger@4.0.4: {}
 
@@ -18069,8 +17985,6 @@ snapshots:
   lodash.mergewith@4.6.2: {}
 
   lodash.once@4.1.1: {}
-
-  lodash.set@4.3.2: {}
 
   lodash.snakecase@4.1.1: {}
 
@@ -18417,7 +18331,7 @@ snapshots:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.13(typescript@5.8.3))
       '@types/katex': 0.16.7
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.17
       '@types/lodash-es': 4.17.12
       async-validator: 4.2.5
       css-render: 0.15.14
