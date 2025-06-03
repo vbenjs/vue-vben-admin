@@ -51,6 +51,7 @@ const compProps = reactive({
   gap: 0,
   showIcon: true,
   size: 'middle',
+  allowClear: false,
 } as Recordable<any>);
 
 const [Form] = useVbenForm({
@@ -62,6 +63,9 @@ const [Form] = useVbenForm({
         compProps[k] = values[k];
       }
     });
+  },
+  commonConfig: {
+    labelWidth: 150,
   },
   schema: [
     {
@@ -108,6 +112,20 @@ const [Form] = useVbenForm({
       defaultValue: false,
       fieldName: 'beforeChange',
       label: '前置回调',
+    },
+    {
+      component: 'Switch',
+      defaultValue: false,
+      fieldName: 'allowClear',
+      label: '允许清除',
+      help: '单选时是否允许取消选中（值为undefined）',
+    },
+    {
+      component: 'InputNumber',
+      defaultValue: 0,
+      fieldName: 'maxCount',
+      label: '最大选中数量',
+      help: '多选时有效，0表示不限制',
     },
   ],
   showDefaultActions: false,
