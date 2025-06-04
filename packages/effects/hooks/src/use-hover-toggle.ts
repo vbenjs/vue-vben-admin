@@ -15,22 +15,38 @@ import { useElementHover } from '@vueuse/core';
  * @returns 返回一个数组，第一个元素是一个 ref，表示鼠标是否在元素内部，第二个元素是一个控制器，可以通过 enable 和 disable 方法来控制监听器的启用和禁用
  */
 export function useHoverToggle(
-  refElement: Arrayable<MaybeElementRef>,
+  refElement: Arrayable<MaybeElementRef> | Ref<HTMLElement[] | null>,
   delay: (() => number) | number = 500,
 ) {
-  const isHovers: Array<Ref<boolean>> = [];
   const value = ref(false);
   const timer = ref<ReturnType<typeof setTimeout> | undefined>();
-  const refs = Array.isArray(refElement) ? refElement : [refElement];
-  refs.forEach((refEle) => {
-    const eleRef = computed(() => {
-      const ele = unref(refEle);
-      return ele instanceof Element ? ele : (ele?.$el as Element);
-    });
-    const isHover = useElementHover(eleRef);
-    isHovers.push(isHover);
+
+  // 使用计算属性包装 refElement，使其响应式变化
+  const refs = computed(() => {
+    const raw = unref(refElement);
+    if (raw === null) return [];
+    return Array.isArray(raw) ? raw : [raw];
   });
-  const isOutsideAll = computed(() => isHovers.every((v) => !v.value));
+  // 存储所有 hover 状态
+  const isHovers = ref<Array<Ref<boolean>>>([]);
+
+  // 更新 hover 监听的函数
+  function updateHovers() {
+    isHovers.value = refs.value.map((refEle) => {
+      const eleRef = computed(() => {
+        const ele = unref(refEle);
+        return ele instanceof Element ? ele : (ele?.$el as Element);
+      });
+      return useElementHover(eleRef);
+    });
+  }
+
+  // 初始设置
+  updateHovers();
+  // 监听 refs 变化
+  watch(refs, updateHovers, { deep: true });
+
+  const isOutsideAll = computed(() => isHovers.value.every((v) => !v.value));
 
   function setValueDelay(val: boolean) {
     timer.value && clearTimeout(timer.value);
