@@ -19,6 +19,8 @@ const props = withDefaults(defineProps<VbenButtonGroupProps>(), {
   multiple: false,
   showIcon: true,
   size: 'middle',
+  allowClear: false,
+  maxCount: 0,
 });
 const emit = defineEmits(['btnClick']);
 const btnDefaultProps = computed(() => {
@@ -82,12 +84,22 @@ async function onBtnClick(value: ValueType) {
     if (innerValue.value.includes(value)) {
       innerValue.value = innerValue.value.filter((item) => item !== value);
     } else {
+      if (props.maxCount > 0 && innerValue.value.length >= props.maxCount) {
+        innerValue.value = innerValue.value.slice(0, props.maxCount - 1);
+      }
       innerValue.value.push(value);
     }
     modelValue.value = innerValue.value;
   } else {
-    innerValue.value = [value];
-    modelValue.value = value;
+    if (props.allowClear && innerValue.value.includes(value)) {
+      innerValue.value = [];
+      modelValue.value = undefined;
+      emit('btnClick', undefined);
+      return;
+    } else {
+      innerValue.value = [value];
+      modelValue.value = value;
+    }
   }
   emit('btnClick', value);
 }
@@ -112,12 +124,18 @@ async function onBtnClick(value: ValueType) {
       @click="onBtnClick(btn.value)"
     >
       <div class="icon-wrapper" v-if="props.showIcon">
-        <LoaderCircle
-          class="animate-spin"
-          v-if="loadingValues.includes(btn.value)"
-        />
-        <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
-        <Circle v-else />
+        <slot
+          name="icon"
+          :loading="loadingValues.includes(btn.value)"
+          :checked="innerValue.includes(btn.value)"
+        >
+          <LoaderCircle
+            class="animate-spin"
+            v-if="loadingValues.includes(btn.value)"
+          />
+          <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
+          <Circle v-else />
+        </slot>
       </div>
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
         <VbenRenderContent :content="btn.label" />
