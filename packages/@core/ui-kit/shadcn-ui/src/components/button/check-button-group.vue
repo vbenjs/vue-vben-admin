@@ -122,6 +122,7 @@ async function onBtnClick(value: ValueType) {
       v-bind="btnDefaultProps"
       :variant="innerValue.includes(btn.value) ? 'default' : 'outline'"
       @click="onBtnClick(btn.value)"
+      type="button"
     >
       <div class="icon-wrapper" v-if="props.showIcon">
         <slot
