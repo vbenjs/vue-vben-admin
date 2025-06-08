@@ -1,3 +1,4 @@
+import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
 import type { Recordable } from '@vben/types';
 
 import type { ComponentType } from './component';
@@ -47,7 +48,7 @@ setupVbenVxeTable({
         round: true,
         showOverflow: true,
         size: 'small',
-      },
+      } as VxeTableGridOptions,
     });
 
     /**
