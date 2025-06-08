@@ -281,7 +281,7 @@ defineExpose({
             if (event.detail.originalEvent.type === 'click') {
               event.preventDefault();
             }
-            !(disabled || get(item.value, 'disabled')) && onToggle(item);
+            !isNodeDisabled(item) && onToggle(item);
           }
         "
         class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
