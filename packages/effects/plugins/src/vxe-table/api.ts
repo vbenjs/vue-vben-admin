@@ -26,14 +26,14 @@ function getDefaultState(): VxeGridProps {
   };
 }
 
-export class VxeGridApi {
+export class VxeGridApi<T extends Record<string, any> = any> {
   public formApi = {} as ExtendedFormApi;
 
   // private prevState: null | VxeGridProps = null;
-  public grid = {} as VxeGridInstance;
-  public state: null | VxeGridProps = null;
+  public grid = {} as VxeGridInstance<T>;
+  public state: null | VxeGridProps<T> = null;
 
-  public store: Store<VxeGridProps>;
+  public store: Store<VxeGridProps<T>>;
 
   private isMounted = false;
 
@@ -99,8 +99,8 @@ export class VxeGridApi {
 
   setState(
     stateOrFn:
-      | ((prev: VxeGridProps) => Partial<VxeGridProps>)
-      | Partial<VxeGridProps>,
+      | ((prev: VxeGridProps<T>) => Partial<VxeGridProps<T>>)
+      | Partial<VxeGridProps<T>>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {
