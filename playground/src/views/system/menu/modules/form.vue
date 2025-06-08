@@ -241,10 +241,10 @@ const schema: VbenFormSchema[] = [
     component: 'Input',
     dependencies: {
       rules: (values) => {
-        return values.type === 'action' ? 'required' : null;
+        return values.type === 'button' ? 'required' : null;
       },
       show: (values) => {
-        return ['action', 'catalog', 'embedded', 'menu'].includes(values.type);
+        return ['button', 'catalog', 'embedded', 'menu'].includes(values.type);
       },
       triggerFields: ['type'],
     },
@@ -277,7 +277,7 @@ const schema: VbenFormSchema[] = [
     },
     dependencies: {
       show: (values) => {
-        return values.type !== 'action';
+        return values.type !== 'button';
       },
       triggerFields: ['type'],
     },
@@ -295,7 +295,7 @@ const schema: VbenFormSchema[] = [
     },
     dependencies: {
       show: (values) => {
-        return values.type !== 'action';
+        return values.type !== 'button';
       },
       triggerFields: ['type'],
     },
@@ -314,7 +314,7 @@ const schema: VbenFormSchema[] = [
     },
     dependencies: {
       show: (values) => {
-        return values.type !== 'action';
+        return values.type !== 'button';
       },
       triggerFields: ['type'],
     },
@@ -325,7 +325,7 @@ const schema: VbenFormSchema[] = [
     component: 'Divider',
     dependencies: {
       show: (values) => {
-        return !['action', 'link'].includes(values.type);
+        return !['button', 'link'].includes(values.type);
       },
       triggerFields: ['type'],
     },
@@ -372,7 +372,7 @@ const schema: VbenFormSchema[] = [
     component: 'Checkbox',
     dependencies: {
       show: (values) => {
-        return !['action'].includes(values.type);
+        return !['button'].includes(values.type);
       },
       triggerFields: ['type'],
     },
@@ -402,7 +402,7 @@ const schema: VbenFormSchema[] = [
     component: 'Checkbox',
     dependencies: {
       show: (values) => {
-        return !['action', 'link'].includes(values.type);
+        return !['button', 'link'].includes(values.type);
       },
       triggerFields: ['type'],
     },
@@ -417,7 +417,7 @@ const schema: VbenFormSchema[] = [
     component: 'Checkbox',
     dependencies: {
       show: (values) => {
-        return !['action', 'link'].includes(values.type);
+        return !['button', 'link'].includes(values.type);
       },
       triggerFields: ['type'],
     },
