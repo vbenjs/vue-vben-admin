@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  VbenButton,
-} from '@vben/common-ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { useShopStore } from '#/store';
-import { formatMoney, redirect, toPercentage } from '#/utils';
+import { formatMoney, toPercentage } from '#/utils';
 
 import { state } from './service';
 
@@ -70,14 +64,14 @@ const getData = computed(() => {
     <CardHeader class="pb-2">
       <CardTitle class="text-md flex items-center justify-between">
         <span>Cost Summary</span>
-        <VbenButton
+        <!-- <VbenButton
           class="w-[100px] !p-0 text-right"
           size="xs"
           variant="link"
           @click="redirect('settings.custom-costs')"
         >
           View details
-        </VbenButton>
+        </VbenButton> -->
       </CardTitle>
     </CardHeader>
 
