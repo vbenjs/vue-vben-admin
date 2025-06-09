@@ -12,16 +12,24 @@ const modelValue = defineModel<string[]>({
 function onChange() {
   emit('change', modelValue.value);
 }
+
+const filterOption = (input: string, option: any) => {
+  return (
+    option.label.toLowerCase().includes(input.toLowerCase()) ||
+    option.value.toLowerCase().includes(input.toLowerCase())
+  );
+};
 </script>
 <template>
   <div>
     <ASelect
+      :filter-option="filterOption"
+      :options="countries"
       v-model:value="modelValue"
       @change="onChange"
       mode="multiple"
       style="width: 100%"
       placeholder="Select at least one country"
-      :options="countries"
     >
       <template #option="{ value: val, label, icon }">
         <span role="img" :aria-label="val"> {{ icon }} </span>
