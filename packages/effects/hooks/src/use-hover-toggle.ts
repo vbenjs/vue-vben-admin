@@ -59,6 +59,9 @@ export function useHoverToggle(
     hoverScopes.value = [];
 
     isHovers.value = refs.value.map((refEle) => {
+      if (!refEle) {
+        return ref(false);
+      }
       const eleRef = computed(() => {
         const ele = unref(refEle);
         return ele instanceof Element ? ele : (ele?.$el as Element);
@@ -73,10 +76,18 @@ export function useHoverToggle(
     });
   }
 
+  // 监听元素数量变化，避免过度执行
+  const elementsCount = computed(() => {
+    const raw = unref(refElement);
+    if (raw === null) return 0;
+    return Array.isArray(raw) ? raw.length : 1;
+  });
+
   // 初始设置
   updateHovers();
-  // 监听 refs 变化
-  watch(refs, updateHovers, { deep: 1 });
+
+  // 只在元素数量变化时重新设置监听器
+  const stopWatcher = watch(elementsCount, updateHovers, { deep: false });
 
   const isOutsideAll = computed(() => isHovers.value.every((v) => !v.value));
 
@@ -123,7 +134,7 @@ export function useHoverToggle(
     }
   }
 
-  const watcher = watch(
+  const hoverWatcher = watch(
     isOutsideAll,
     (val) => {
       setValueDelay(!val);
@@ -133,15 +144,17 @@ export function useHoverToggle(
 
   const controller = {
     enable() {
-      watcher.resume();
+      hoverWatcher.resume();
     },
     disable() {
-      watcher.pause();
+      hoverWatcher.pause();
     },
   };
 
   onUnmounted(() => {
     clearTimers();
+    // 停止监听器
+    stopWatcher();
     // 停止所有剩余的作用域
     hoverScopes.value.forEach((scope) => scope.stop());
   });
