@@ -309,4 +309,5 @@ export const countries = [
 export const adType = [
   { value: 'facebook', label: 'Facebook', icon: 'logos:facebook' },
   { value: 'google', label: 'Google', icon: 'flat-color-icons:google' },
+  { value: 'tiktok', label: 'Tiktok', icon: 'ic:baseline-tiktok' },
 ];

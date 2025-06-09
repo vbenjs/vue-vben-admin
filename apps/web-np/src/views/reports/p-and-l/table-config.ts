@@ -73,7 +73,12 @@ export const gridOptions: VxeTableGridOptions = {
 
 export const addExtraFields = (data: any) => {
   data.forEach((item: any) => {
-    item.netProfit = item.grossProfit - item.totalTax - item.totalCustomCost;
+    item.netProfit =
+      item.grossProfit -
+      item.totalTax -
+      item.totalCustomCost -
+      item.totalAdSpend;
+
     item.netProfitMargin = item.netPayment
       ? toPercentage(item.netProfit / item.netPayment)
       : 0;
