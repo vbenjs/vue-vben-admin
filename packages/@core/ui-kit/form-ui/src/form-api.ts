@@ -292,25 +292,6 @@ export class FormApi {
       return;
     }
 
-    
-
-  /**
-   * 设置表单值
-   * @param fields record
-   * @param filterFields 过滤不在schema中定义的字段 默认为true
-   * @param shouldValidate
-   */
-  async setValues(
-    fields: Record<string, any>,
-    filterFields: boolean = true,
-    shouldValidate: boolean = false,
-  ) {
-    const form = await this.getForm();
-    if (!filterFields) {
-      form.setValues(fields, shouldValidate);
-      return;
-    }
-
     /**
      * 深度合并两个对象，支持嵌套对象、数组直接覆盖，忽略 Date 和 Dayjs 对象深度合并
      *
