@@ -161,9 +161,17 @@ const getDetails = computed(() => {
       ),
     },
     {
-      title: $t('field-name.customCosts'),
+      title: $t('field-name.totalCustomCost'),
       value: formatMoney(
-        state.orderTotal.customCosts,
+        state.orderTotal.totalCustomCost,
+        shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
+      ),
+    },
+    {
+      title: $t('field-name.totalAdSpend'),
+      value: formatMoney(
+        state.orderTotal.totalAdSpend,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),

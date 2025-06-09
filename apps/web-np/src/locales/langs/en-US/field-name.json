@@ -42,8 +42,6 @@
   "netProfitMargin": "Net Profit Margin",
   "netProfitMarginExplain": "Net profit margin = (Net profit / Revenue) * 100%",
 
-  "customCosts": "Cutom Costs",
-
   "totalCosts": "Total Costs",
-  "totalCostsExplain": "Total costs = Custom costs + COGS +  Handling fees + Shipping costs + Transaction fees"
+  "totalCostsExplain": "Total costs = COGS +  Handling fees + Shipping costs + Transaction fees + Custom costs + Ad spends"
 }

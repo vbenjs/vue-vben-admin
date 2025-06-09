@@ -52,9 +52,14 @@ const getData = computed(() => {
       percent: totalCost ? state.orderTotal.transactionFees / totalCost : 0,
     },
     {
-      title: $t('field-name.customCosts'),
-      value: formatMoney(state.orderTotal.customCosts, currency, rate),
-      percent: totalCost ? state.orderTotal.customCosts / totalCost : 0,
+      title: $t('field-name.totalCustomCost'),
+      value: formatMoney(state.orderTotal.totalCustomCost, currency, rate),
+      percent: totalCost ? state.orderTotal.totalCustomCost / totalCost : 0,
+    },
+    {
+      title: $t('field-name.totalAdSpend'),
+      value: formatMoney(state.orderTotal.totalAdSpend, currency, rate),
+      percent: totalCost ? state.orderTotal.totalAdSpend / totalCost : 0,
     },
   ];
 });

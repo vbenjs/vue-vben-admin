@@ -84,6 +84,7 @@ export const addExtraFields = (data: any) => {
       : 0;
 
     item.totalCosts =
+      item.totalAdSpend +
       item.totalCustomCost +
       item.cogs +
       item.handlingFees +

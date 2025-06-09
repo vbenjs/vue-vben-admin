@@ -34,7 +34,8 @@ export const state = reactive({
     transactionFees: 0,
     grossProfit: 0,
     totalTax: 0,
-    customCosts: 0,
+    totalCustomCost: 0,
+    totalAdSpend: 0,
     netProfit: 0,
     netProfitMargin: '0',
     totalCosts: 0,
@@ -167,7 +168,8 @@ const calcOrderStatistic = (data: any) => {
   state.orderTotal.transactionFees = itemTotal.transactionFees ?? 0;
   state.orderTotal.grossProfit = itemTotal.grossProfit ?? 0;
 
-  state.orderTotal.customCosts = itemTotal.totalCustomCost ?? 0;
+  state.orderTotal.totalCustomCost = itemTotal.totalCustomCost ?? 0;
+  state.orderTotal.totalAdSpend = itemTotal.totalAdSpend ?? 0;
   state.orderTotal.totalTax = itemTotal.totalTax ?? 0;
   state.orderTotal.totalCosts = itemTotal.totalCosts ?? 0;
   state.orderTotal.netProfit = itemTotal.netProfit ?? 0;
