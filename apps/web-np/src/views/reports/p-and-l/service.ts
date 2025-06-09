@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 
+import { adType } from '#/constants';
+
 export const groupData = (dataItems: any, groupBy: string) => {
   const newDataItems: any[] = [];
 
@@ -126,6 +128,20 @@ export const transformDataRowToColumn = (data: any[], costName: any): any[] => {
       if (costName[costId]) {
         obj.costName = costName[costId];
       }
+    }
+
+    // Check key include string 'totalAdSpend'
+    if (key.includes('totalAdSpend_')) {
+      obj.parentId = 'totalAdSpend';
+
+      const adChannel: any = key.split('_')[1];
+      obj.costName = 'N/A';
+
+      adType.forEach((type: any) => {
+        if (type.value === adChannel) {
+          obj.costName = type.label;
+        }
+      });
     }
 
     result.push(obj);

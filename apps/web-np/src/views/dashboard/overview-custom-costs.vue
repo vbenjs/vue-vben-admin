@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  VbenButton,
-} from '@vben/common-ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { useShopStore } from '#/store';
-import { formatMoney, redirect, toPercentage } from '#/utils';
+import { formatMoney, toPercentage } from '#/utils';
 
 import { state } from './service';
 
@@ -52,9 +46,14 @@ const getData = computed(() => {
       percent: totalCost ? state.orderTotal.transactionFees / totalCost : 0,
     },
     {
-      title: $t('field-name.customCosts'),
-      value: formatMoney(state.orderTotal.customCosts, currency, rate),
-      percent: totalCost ? state.orderTotal.customCosts / totalCost : 0,
+      title: $t('field-name.totalCustomCost'),
+      value: formatMoney(state.orderTotal.totalCustomCost, currency, rate),
+      percent: totalCost ? state.orderTotal.totalCustomCost / totalCost : 0,
+    },
+    {
+      title: $t('field-name.totalAdSpend'),
+      value: formatMoney(state.orderTotal.totalAdSpend, currency, rate),
+      percent: totalCost ? state.orderTotal.totalAdSpend / totalCost : 0,
     },
   ];
 });
@@ -65,14 +64,14 @@ const getData = computed(() => {
     <CardHeader class="pb-2">
       <CardTitle class="text-md flex items-center justify-between">
         <span>Cost Summary</span>
-        <VbenButton
+        <!-- <VbenButton
           class="w-[100px] !p-0 text-right"
           size="xs"
           variant="link"
           @click="redirect('settings.custom-costs')"
         >
           View details
-        </VbenButton>
+        </VbenButton> -->
       </CardTitle>
     </CardHeader>
 
