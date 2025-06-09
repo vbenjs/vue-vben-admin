@@ -2,7 +2,7 @@ import type { Arrayable, MaybeElementRef } from '@vueuse/core';
 
 import type { Ref } from 'vue';
 
-import { computed, onUnmounted, ref, unref, watch } from 'vue';
+import { computed, effectScope, onUnmounted, ref, unref, watch } from 'vue';
 
 import { isFunction } from '@vben/utils';
 
@@ -20,7 +20,7 @@ const DEFAULT_ENTER_DELAY = 0; // 鼠标进入延迟时间，默认为 0（立�
 
 /**
  * 监测鼠标是否在元素内部，如果在元素内部则返回 true，否则返回 false
- * @param refElement 所有需要检测的元素。如果提供了一个数组，那么鼠标在任何一个元素内部都会返回 true
+ * @param refElement 所有需要检测的元素。支持单个元素、元素数组或响应式引用的元素数组。如果鼠标在任何一个元素内部都会返回 true
  * @param delay 延迟更新状态的时间，可以是数字或包含进入/离开延迟的配置对象
  * @returns 返回一个数组，第一个元素是一个 ref，表示鼠标是否在元素内部，第二个元素是一个控制器，可以通过 enable 和 disable 方法来控制监听器的启用和禁用
  */
@@ -41,6 +41,7 @@ export function useHoverToggle(
   const value = ref(false);
   const enterTimer = ref<ReturnType<typeof setTimeout> | undefined>();
   const leaveTimer = ref<ReturnType<typeof setTimeout> | undefined>();
+  const hoverScopes = ref<ReturnType<typeof effectScope>[]>([]);
 
   // 使用计算属性包装 refElement，使其响应式变化
   const refs = computed(() => {
@@ -53,19 +54,29 @@ export function useHoverToggle(
 
   // 更新 hover 监听的函数
   function updateHovers() {
+    // 停止并清理之前的作用域
+    hoverScopes.value.forEach((scope) => scope.stop());
+    hoverScopes.value = [];
+
     isHovers.value = refs.value.map((refEle) => {
       const eleRef = computed(() => {
         const ele = unref(refEle);
         return ele instanceof Element ? ele : (ele?.$el as Element);
       });
-      return useElementHover(eleRef);
+
+      // 为每个元素创建独立的作用域
+      const scope = effectScope();
+      const hoverRef = scope.run(() => useElementHover(eleRef)) || ref(false);
+      hoverScopes.value.push(scope);
+
+      return hoverRef;
     });
   }
 
   // 初始设置
   updateHovers();
   // 监听 refs 变化
-  watch(refs, updateHovers, { deep: true });
+  watch(refs, updateHovers, { deep: 1 });
 
   const isOutsideAll = computed(() => isHovers.value.every((v) => !v.value));
 
@@ -131,8 +142,9 @@ export function useHoverToggle(
 
   onUnmounted(() => {
     clearTimers();
+    // 停止所有剩余的作用域
+    hoverScopes.value.forEach((scope) => scope.stop());
   });
 
   return [value, controller] as [typeof value, typeof controller];
 }
-
