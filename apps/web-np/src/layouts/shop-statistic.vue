@@ -1,21 +1,23 @@
 <script lang="ts" setup>
-import type { INotification } from '#/store';
-
 import { computed, onMounted, reactive } from 'vue';
 
-import { VbenIconButton, VbenPopover, VbenScrollbar } from '@vben/common-ui';
+import {
+  VbenButton,
+  VbenIconButton,
+  VbenPopover,
+  VbenScrollbar,
+} from '@vben/common-ui';
 
 import { useToggle } from '@vueuse/core';
 import { Tag } from 'ant-design-vue';
 
 import { countProcessingOrders } from '#/api';
 import { Statistic } from '#/icons';
-import { useShopStore } from '#/store';
 
 const [open, toggle] = useToggle();
-const shopStore = useShopStore();
 
 const state = reactive({
+  loading: false,
   statisticList: [
     {
       title: 'Calculate Order',
@@ -27,24 +29,26 @@ const state = reactive({
 onMounted(() => {
   loadData();
 
-  shopStore.pusherChannel.bind(
-    shopStore.pusherEventName,
-    (payload: INotification) => {
-      if (payload.reloadStatistic) {
-        loadData();
-      }
-    },
-  );
+  // Call loadData every seconds to update the statistic
+  setInterval(() => {
+    loadData();
+  }, 30_000);
 });
 
 const loadData = () => {
-  countProcessingOrders().then((res) => {
-    if (!state.statisticList[0]) {
-      return;
-    }
+  state.loading = true;
 
-    state.statisticList[0].amount = res;
-  });
+  countProcessingOrders()
+    .then((res) => {
+      if (!state.statisticList[0]) {
+        return;
+      }
+
+      state.statisticList[0].amount = res;
+    })
+    .finally(() => {
+      state.loading = false;
+    });
 };
 
 const isProcessing = computed(() => {
@@ -56,7 +60,7 @@ const getStatusLabel = (val: any) => {
     return `Processing ${val} item(s)`;
   }
 
-  return 'Done';
+  return 'Finished';
 };
 </script>
 <template>
@@ -72,7 +76,7 @@ const getStatusLabel = (val: any) => {
       </div>
     </template>
 
-    <div class="relative">
+    <div class="relative" v-loading="state.loading">
       <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">System Statistic</div>
       </div>
@@ -92,6 +96,19 @@ const getStatusLabel = (val: any) => {
           </template>
         </ul>
       </VbenScrollbar>
+
+      <div
+        class="border-border flex items-center justify-center border-t px-4 py-3"
+      >
+        <VbenButton
+          @click="loadData"
+          size="sm"
+          variant="ghost"
+          :loading="state.loading"
+        >
+          Refresh
+        </VbenButton>
+      </div>
     </div>
   </VbenPopover>
 </template>
