@@ -3,7 +3,7 @@ import { cloneDeep } from '@vben/utils';
 import { defineStore } from 'pinia';
 
 import { removeRegion, updateRegion, updateTransactionFees } from '#/api';
-import { defaultRegionUUID } from '#/constants';
+import { defaultRegionUUID } from '#/shared/constants';
 
 export interface ITransactionFee {
   externalFeePercentage: number;

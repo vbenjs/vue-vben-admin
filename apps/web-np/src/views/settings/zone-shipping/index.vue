@@ -8,9 +8,13 @@ import { IconifyIcon } from '@vben/icons';
 import { Modal, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { countries, defaultRegionUUID, ShippingCostLevel } from '#/constants';
+import {
+  countries,
+  defaultRegionUUID,
+  ShippingCostLevel,
+} from '#/shared/constants';
+import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
 
 import FormModalRecalculate from './form-modal-recalculate.vue';
 import FormModal from './form-modal.vue';

@@ -1,5 +1,5 @@
 import { requestClient } from '#/api/request';
-import { getCurrencySymbol } from '#/utils';
+import { getCurrencySymbol } from '#/shared/utils';
 
 interface IAuth {
   [key: string]: any;

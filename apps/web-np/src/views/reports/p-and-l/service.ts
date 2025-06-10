@@ -1,11 +1,8 @@
 import type { ExtendedVxeGridApi } from 'node_modules/@vben/plugins/src/vxe-table/types';
 import type { VxeGridPropTypes } from 'vxe-table';
 
-import dayjs from 'dayjs';
-import quarterOfYear from 'dayjs/plugin/quarterOfYear';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-
-import { adType } from '#/constants';
+import { adType } from '#/shared/constants';
+import { dayjsInGMT } from '#/shared/dayjs';
 
 export const groupData = (dataItems: any, groupBy: string) => {
   const newDataItems: any[] = [];
@@ -14,21 +11,19 @@ export const groupData = (dataItems: any, groupBy: string) => {
     let _dateName: string = '';
 
     if (groupBy === 'weekly') {
-      dayjs.extend(weekOfYear);
-      const __date = dayjs(record.date);
+      const __date = dayjsInGMT(record.date);
       const weekNumber = __date.week();
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-W${weekNumber}`;
     } else if (groupBy === 'quarter') {
-      dayjs.extend(quarterOfYear);
-      const __date = dayjs(record.date);
+      const __date = dayjsInGMT(record.date);
       const quarterNumber = __date.quarter();
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-Q${quarterNumber}`;
     } else {
-      _dateName = dayjs(record.date).format('YYYY-MM');
+      _dateName = dayjsInGMT(record.date).format('YYYY-MM');
     }
 
     const existingRecord = newDataItems.find((item) => item.date === _dateName);

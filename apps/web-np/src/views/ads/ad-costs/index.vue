@@ -6,8 +6,8 @@ import { Dropdown, Menu, MenuItem, Modal, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { attachToCosts, syncAdInfo } from '#/api';
+import { getAdsIcon } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { getAdsIcon } from '#/utils';
 
 import { gridOptions } from './table-config';
 import { formOptions } from './table-filter';

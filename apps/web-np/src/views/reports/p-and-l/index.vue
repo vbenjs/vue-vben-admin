@@ -3,8 +3,8 @@ import { Page } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
+import { formatMoney, getFieldExplain, numberWithCommas } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, getFieldExplain, numberWithCommas } from '#/utils';
 
 import { Grid } from './table-config';
 

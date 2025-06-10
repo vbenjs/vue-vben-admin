@@ -12,9 +12,9 @@ import { useTitle } from '@vueuse/core';
 import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
-import { initCrisp } from './adapter/crisp';
 import App from './app.vue';
 import { router } from './router';
+import { initCrisp } from './shared/crisp';
 
 async function bootstrap(namespace: string) {
   initCrisp();

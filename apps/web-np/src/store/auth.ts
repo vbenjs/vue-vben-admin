@@ -18,8 +18,8 @@ import {
   loginApiViaShopifySession,
   logoutApi,
 } from '#/api';
-import { DefaultRoutes } from '#/constants';
 import { $t } from '#/locales';
+import { DefaultRoutes } from '#/shared/constants';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -105,6 +105,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
+
+    // setCrispShopInfo(res);
 
     // Update stores
     userStore.setUserInfo(res as any);

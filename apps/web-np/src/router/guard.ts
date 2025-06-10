@@ -5,8 +5,8 @@ import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
 
-import { DefaultRoutes } from '#/constants';
 import { accessRoutes, coreRouteNames } from '#/router/routes';
+import { DefaultRoutes } from '#/shared/constants';
 import { useAuthStore, useShopStore } from '#/store';
 
 import { generateAccess } from './access';

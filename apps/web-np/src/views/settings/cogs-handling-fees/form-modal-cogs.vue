@@ -13,11 +13,11 @@ import {
   message,
   TypographyTitle,
 } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { updateCogsByRegion } from '#/api';
+import { dayjsInGMT } from '#/shared/dayjs';
+import { formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatReportDate } from '#/utils';
 
 const state = reactive({
   formValue: null as IProduct | null,
@@ -57,7 +57,7 @@ const [Modal, modalApi] = useVbenModal({
       state.cogsArr = state.formValue?.fees[zoneUUID]?.cogs ?? [];
       state.cogsArr = state.cogsArr.map((item: any) => {
         return {
-          date: dayjs.unix(item.date),
+          date: dayjsInGMT(item.date).unix(),
           price: item.price,
         };
       });
@@ -83,7 +83,7 @@ const getNextDate = (counter: any) => {
 };
 
 const addNewRow = () => {
-  const newDate = dayjs();
+  const newDate = dayjsInGMT();
   state.cogsArr = [
     {
       date: newDate,

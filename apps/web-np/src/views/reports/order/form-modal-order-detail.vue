@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IOrder } from '#/interfaces';
+import type { IOrder } from '#/shared/interfaces';
 
 import { reactive } from 'vue';
 
@@ -14,14 +14,15 @@ import {
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getOrderDetail } from '#/api';
-import { countries } from '#/constants';
-import { useShopStore } from '#/store';
+import { countries } from '#/shared/constants';
 import {
   calcGrossProfitMargin,
   formatMoney,
+  formatReportDate,
   formatTitle,
   redirectToNewTab,
-} from '#/utils';
+} from '#/shared/utils';
+import { useShopStore } from '#/store';
 
 const state = reactive({
   order: {} as IOrder,
@@ -149,7 +150,7 @@ const getCountryName = (countryCode: string) => {
         {{ formatTitle(state.order.financialStatus) }}
       </DescriptionsItem>
       <DescriptionsItem label="Processed Date">
-        {{ state.order.processedAt.substring(0, 10) }}
+        {{ formatReportDate(state.order.processedAt) }}
       </DescriptionsItem>
       <DescriptionsItem label="Total Quantity">
         {{ state.order.quantityTotal }}

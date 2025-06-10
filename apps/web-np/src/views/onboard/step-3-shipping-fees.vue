@@ -3,9 +3,9 @@ import { onBeforeMount } from 'vue';
 
 import { Card, InputNumber, RadioButton, RadioGroup } from 'ant-design-vue';
 
-import { ShippingCostLevel } from '#/constants';
+import { ShippingCostLevel } from '#/shared/constants';
+import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
 
 import { onboardForm, sampleOrder } from './service';
 

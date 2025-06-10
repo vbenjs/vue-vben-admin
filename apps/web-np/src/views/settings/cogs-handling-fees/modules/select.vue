@@ -4,8 +4,8 @@ import { defineComponent } from 'vue';
 import { Button, Divider, Select } from 'ant-design-vue';
 
 import { AntPlus } from '#/icons';
+import { redirect } from '#/shared/utils';
 import { useShopSettingStore } from '#/store';
-import { redirect } from '#/utils';
 
 const emit = defineEmits(['blur', 'change']);
 const shopSettingStore = useShopSettingStore();

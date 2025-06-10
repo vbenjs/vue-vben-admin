@@ -3,12 +3,11 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { markRaw } from 'vue';
 
-import dayjs from 'dayjs';
-
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getPAndLReport } from '#/api';
-import { orderStatusList } from '#/constants';
-import { getDatePreset, toPercentage } from '#/utils';
+import { orderStatusList } from '#/shared/constants';
+import { dayjsInGMT } from '#/shared/dayjs';
+import { getDatePreset, toPercentage } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import {
@@ -148,7 +147,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
+      defaultValue: [dayjsInGMT().subtract(7, 'days'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
     },
@@ -176,7 +175,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().subtract(7, 'days'), dayjs()],
+      defaultValue: [dayjsInGMT().subtract(7, 'days'), dayjsInGMT()],
       fieldName: 'week',
       label: 'Weekly',
     },
@@ -204,7 +203,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().add(-2, 'month'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-2, 'month'), dayjsInGMT()],
       fieldName: 'month',
       label: 'Month',
     },

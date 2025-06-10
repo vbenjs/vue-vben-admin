@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Select as ASelect, Tag } from 'ant-design-vue';
 
-import { countries } from '#/constants';
+import { countries } from '#/shared/constants';
 
 const emit = defineEmits(['change']);
 

@@ -3,7 +3,7 @@ import { Page } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getAdsIcon } from '#/utils';
+import { getAdsIcon } from '#/shared/utils';
 
 import { gridOptions } from './table-config';
 import { formOptions } from './table-filter';

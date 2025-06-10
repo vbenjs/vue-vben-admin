@@ -8,7 +8,7 @@ import { useVbenModal } from '@vben/common-ui';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { ShippingCostLevel } from '#/constants';
+import { ShippingCostLevel } from '#/shared/constants';
 import { useShopSettingStore, useShopStore } from '#/store';
 
 import Countries from './modules/countries.vue';

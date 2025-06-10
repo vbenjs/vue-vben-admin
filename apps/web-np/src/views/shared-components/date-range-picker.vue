@@ -46,9 +46,9 @@ const getLimitName = computed(() => {
         v-if="props.pickerLimit || props.pickerLimitName"
       >
         <div
-          class="text-foreground flex w-full flex-col space-x-0 text-center italic"
+          class="text-foreground flex w-full flex-col space-y-1 py-2 text-center italic"
         >
-          <span>
+          <span class="leading-none">
             Please choose a date range within a maximum period of
             <strong>{{ getLimitName }}</strong>
           </span>

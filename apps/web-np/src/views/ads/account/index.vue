@@ -12,9 +12,9 @@ import { Dropdown, Menu, MenuItem, Modal, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteAccount, syncAccount, syncAdInsight } from '#/api';
-import { StateStatus } from '#/constants';
+import { StateStatus } from '#/shared/constants';
+import { formatReportDate, getAdsIcon, redirectToNewTab } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatReportDate, getAdsIcon, redirectToNewTab } from '#/utils';
 
 import { gridOptions } from './table-config';
 import { formOptions } from './table-filter';

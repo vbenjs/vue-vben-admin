@@ -15,7 +15,8 @@ import { preferences } from '@vben/preferences';
 
 import antdEnLocale from 'ant-design-vue/es/locale/en_US';
 import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
-import dayjs from 'dayjs';
+
+import { dayjsInGMT } from '#/shared/dayjs';
 
 const antdLocale = ref<Locale>(antdDefaultLocale);
 
@@ -67,7 +68,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
     }
   }
   if (locale) {
-    dayjs.locale({
+    dayjsInGMT().locale({
       ...locale,
       weekStart: 1,
     });

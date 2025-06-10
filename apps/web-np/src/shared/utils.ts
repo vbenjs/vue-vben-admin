@@ -1,13 +1,12 @@
 import { $t } from '@vben/locales';
 import { useAccessStore } from '@vben/stores';
-import { formatDate } from '@vben/utils';
 
 import { findCurrency, format } from 'currency-formatter';
-import dayjs from 'dayjs';
 
 import { router } from '#/router';
 
 import { adType } from './constants';
+import { dayjsInGMT } from './dayjs';
 
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
@@ -66,17 +65,13 @@ export function numberWithCommas(x: any) {
 }
 
 export function formatReportDate(date: any, fmtDate = 'YYYY-MM-DD') {
-  return formatDate(date, fmtDate);
+  return dayjsInGMT(date).format(fmtDate);
 }
 
 export const getFieldExplain = (id: string) => {
   switch (id) {
     case 'cogs': {
       return $t('field-name.cogsExplain');
-    }
-
-    case 'customerFee': {
-      return $t('field-name.customerFeeExplain');
     }
 
     case 'grossProfit': {
@@ -117,57 +112,57 @@ export const getDatePreset = (
     {
       id: 'today',
       label: 'Today',
-      value: dayjs().add(-1, 'd'),
+      value: dayjsInGMT().add(-1, 'd'),
     },
     {
       id: 'last7Days',
       label: 'Last 7 Days',
-      value: dayjs().add(-7, 'd'),
+      value: dayjsInGMT().add(-7, 'd'),
     },
     {
       id: 'last14Days',
       label: 'Last 14 Days',
-      value: dayjs().add(-14, 'd'),
+      value: dayjsInGMT().add(-14, 'd'),
     },
     {
       id: 'lastMonth',
       label: 'Last 30 Days',
-      value: dayjs().add(-30, 'd'),
+      value: dayjsInGMT().add(-30, 'd'),
     },
     {
       id: 'last2Months',
       label: 'Last 60 Days',
-      value: dayjs().add(-60, 'd'),
+      value: dayjsInGMT().add(-60, 'd'),
     },
     {
       id: 'last3Months',
       label: 'Last 90 Days',
-      value: dayjs().add(-90, 'd'),
+      value: dayjsInGMT().add(-90, 'd'),
     },
     {
       id: 'last6Months',
       label: 'Last 180 Days',
-      value: dayjs().add(-180, 'd'),
+      value: dayjsInGMT().add(-180, 'd'),
     },
     {
       id: 'lastYear',
       label: 'Last 365 Days',
-      value: dayjs().add(-365, 'd'),
+      value: dayjsInGMT().add(-365, 'd'),
     },
     {
       id: 'previousMonth',
       label: 'Previous Month',
-      value: dayjs().add(-1, 'month').startOf('month'),
+      value: dayjsInGMT().add(-1, 'month').startOf('month'),
     },
     {
       id: 'thisMonth',
       label: 'This Month',
-      value: dayjs().startOf('month'),
+      value: dayjsInGMT().startOf('month'),
     },
     {
       id: 'thisYear',
       label: 'This Year',
-      value: dayjs().startOf('year'),
+      value: dayjsInGMT().startOf('year'),
     },
   ];
 
@@ -175,10 +170,10 @@ export const getDatePreset = (
 
   if (isDateRange) {
     return result.map((item) => {
-      let today = dayjs();
+      let today = dayjsInGMT();
 
       if (item.id === 'previousMonth') {
-        today = dayjs().add(-1, 'month').endOf('month');
+        today = dayjsInGMT().add(-1, 'month').endOf('month');
       }
 
       return {

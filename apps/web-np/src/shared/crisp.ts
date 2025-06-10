@@ -4,17 +4,15 @@ export const initCrisp = () => {
   Crisp.configure(import.meta.env.VITE_GLOB_CRISP_WEBSITE_ID);
 };
 
-export const setCrispUserInfo = (userInfo: any) => {
-  Crisp.setTokenId(userInfo.uuid);
+export const setCrispShopInfo = (shopInfo: any) => {
+  Crisp.setTokenId(shopInfo.uuid);
   Crisp.session.reset();
-
   Crisp.session.setData({
-    plan: userInfo.charge_name,
-    shopify_domain: userInfo.myshopify_domain,
+    plan: shopInfo.charge_name,
+    shopify_domain: shopInfo.myshopify_domain,
   });
-
-  Crisp.user.setNickname(userInfo.realName);
-  Crisp.user.setEmail(userInfo.email);
+  Crisp.user.setNickname(shopInfo.realName);
+  Crisp.user.setEmail(shopInfo.email);
 };
 
 export const CrispOpenWithText = (obj: any) => {

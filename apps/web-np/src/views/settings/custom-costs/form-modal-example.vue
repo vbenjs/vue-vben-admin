@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
 
 import { CustomCostType } from './service';
 

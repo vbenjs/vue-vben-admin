@@ -2,9 +2,9 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 
-import { DefaultRoutes } from '#/constants';
 import { AuthPageLayout, BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
+import { DefaultRoutes } from '#/shared/constants';
 import Login from '#/views/_core/authentication/login.vue';
 
 /** 全局404页面 */

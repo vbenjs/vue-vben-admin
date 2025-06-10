@@ -10,8 +10,8 @@ import {
 } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
+import { formatMoney, redirect } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, redirect } from '#/utils';
 
 import { state } from './service';
 

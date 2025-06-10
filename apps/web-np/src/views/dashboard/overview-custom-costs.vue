@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
+import { formatMoney, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, toPercentage } from '#/utils';
 
 import { state } from './service';
 

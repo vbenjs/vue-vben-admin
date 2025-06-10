@@ -8,8 +8,8 @@ import { Modal } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteCustomCost } from '#/api';
+import { formatMoney, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, toPercentage } from '#/utils';
 
 import FormModal from './form-modal.vue';
 import { CustomCostType } from './service';

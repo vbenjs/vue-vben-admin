@@ -14,13 +14,13 @@ import { $t } from '@vben/locales';
 
 import { useToggle } from '@vueuse/core';
 import { Modal } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import {
   clearAllNotification,
   getNotificationList,
   makeAlltNotificationAsRead,
 } from '#/api';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { useShopStore } from '#/store';
 
 const [open, toggle] = useToggle();
@@ -142,7 +142,7 @@ const getFileName = (item: INotification) => {
                   </a>
                 </p>
                 <p class="text-muted-foreground line-clamp-2 text-xs">
-                  {{ dayjs(item.createdAt) }}
+                  {{ dayjsInGMT(item.createdAt).format() }}
                 </p>
               </div>
             </li>

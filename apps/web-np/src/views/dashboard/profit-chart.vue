@@ -15,8 +15,8 @@ import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 
 import { Empty, Select } from 'ant-design-vue';
 
+import { formatMoney, redirect } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, redirect } from '#/utils';
 
 import { generateDashboardData, state } from './service';
 

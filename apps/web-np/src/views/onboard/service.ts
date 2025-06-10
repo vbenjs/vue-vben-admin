@@ -2,7 +2,7 @@ import type { ITransactionFee } from '#/store';
 
 import { reactive } from 'vue';
 
-import { ShippingCostLevel } from '#/constants';
+import { ShippingCostLevel } from '#/shared/constants';
 
 export const sampleOrder = reactive({
   grossSales: 0,

@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router';
 
 import { VbenLoading } from '@vben/common-ui';
 
+import { isShopifyEmbedded } from '#/shared/utils';
 import { useAuthStore } from '#/store';
-import { isShopifyEmbedded } from '#/utils';
 
 const authStore = useAuthStore();
 const route = useRoute();

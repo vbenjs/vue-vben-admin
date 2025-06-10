@@ -5,7 +5,7 @@ import { reactive } from 'vue';
 import { format } from 'currency-formatter';
 
 import { getAdInsights } from '#/api';
-import { formatReportDate } from '#/utils';
+import { formatReportDate } from '#/shared/utils';
 
 const state = reactive({
   footerData: <any>null,
