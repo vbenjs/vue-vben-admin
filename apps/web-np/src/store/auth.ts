@@ -20,6 +20,7 @@ import {
 } from '#/api';
 import { $t } from '#/locales';
 import { DefaultRoutes } from '#/shared/constants';
+import { scrispSetShopInfo } from '#/shared/crisp';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -106,7 +107,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
 
-    // setCrispShopInfo(res);
+    scrispSetShopInfo(res);
 
     // Update stores
     userStore.setUserInfo(res as any);

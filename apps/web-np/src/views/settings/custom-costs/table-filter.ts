@@ -14,6 +14,9 @@ export const formOptions: VbenFormProps = {
       component: 'Input',
       fieldName: 'name',
       label: 'Name',
+      componentProps: {
+        placeholder: 'Search by cost name',
+      },
     },
     {
       component: markRaw(DateRangePicker),
@@ -41,6 +44,7 @@ export const formOptions: VbenFormProps = {
         allowClear: true,
         mode: 'multiple',
         options: customCostTypes,
+        placeholder: 'Select cost type',
       },
       fieldName: 'type',
       label: 'Type',

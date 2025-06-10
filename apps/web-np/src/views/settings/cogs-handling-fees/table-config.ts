@@ -48,6 +48,9 @@ export const formOptions: VbenFormProps = {
       component: 'Input',
       fieldName: 'name',
       label: 'Name',
+      componentProps: {
+        placeholder: 'Search by product name',
+      },
     },
     {
       component: 'Select',
@@ -55,6 +58,7 @@ export const formOptions: VbenFormProps = {
         allowClear: true,
         mode: 'multiple',
         options: statusList,
+        placeholder: 'Select status',
       },
       fieldName: 'status',
       label: 'Status',

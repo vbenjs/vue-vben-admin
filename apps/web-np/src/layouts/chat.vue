@@ -1,11 +1,17 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { VbenIconButton } from '@vben/common-ui';
 
 import { Support } from '#/icons';
+import { crispDisplay } from '#/shared/crisp';
+
+const display = ref(true);
 
 const handleClick = () => {
-  window.Tawk_API.minimize();
-  window.Tawk_API.toggleVisibility();
+  display.value = !display.value;
+
+  crispDisplay(display.value);
 };
 </script>
 <template>

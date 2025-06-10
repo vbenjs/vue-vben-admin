@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -11,7 +11,7 @@ import { Grid, state } from './table-config';
 const shopStore = useShopStore();
 
 const getMonth = (item: any, columnName: any) => {
-  return dayjsInGMT(item.customerMonth)
+  return dayjs(item.customerMonth)
     .add(columnName - 1, 'month')
     .format('YYYY-MM');
 };
