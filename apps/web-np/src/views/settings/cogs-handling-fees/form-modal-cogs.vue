@@ -15,7 +15,7 @@ import {
 } from 'ant-design-vue';
 
 import { updateCogsByRegion } from '#/api';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -57,7 +57,7 @@ const [Modal, modalApi] = useVbenModal({
       state.cogsArr = state.formValue?.fees[zoneUUID]?.cogs ?? [];
       state.cogsArr = state.cogsArr.map((item: any) => {
         return {
-          date: dayjsInGMT(item.date).unix(),
+          date: dayjs.unix(item.date),
           price: item.price,
         };
       });
