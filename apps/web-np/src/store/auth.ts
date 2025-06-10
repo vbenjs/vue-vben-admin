@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function authLoginViaShopifySession(params: Recordable<any>) {
     // Verify Shopify token
     const app = createApp({
-      apiKey: import.meta.env.VITE_SHOPIFY_APP_KEY,
+      apiKey: import.meta.env.VITE_GLOB_SHOPIFY_APP_KEY,
       host: new URLSearchParams(location.search).get('host') as string,
     });
 

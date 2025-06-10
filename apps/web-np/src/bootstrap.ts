@@ -12,10 +12,13 @@ import { useTitle } from '@vueuse/core';
 import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
+import { initCrisp } from './adapter/crisp';
 import App from './app.vue';
 import { router } from './router';
 
 async function bootstrap(namespace: string) {
+  initCrisp();
+
   // 初始化组件适配器
   await initComponentAdapter();
 
