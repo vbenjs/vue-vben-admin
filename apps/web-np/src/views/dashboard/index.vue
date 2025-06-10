@@ -4,7 +4,7 @@ import { onBeforeMount } from 'vue';
 import { VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
-import { getDatePreset, isShopifyEmbedded, openNewTab } from '#/utils';
+import { getDatePreset, isShopifyEmbedded, openNewTab } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import OrderStatistic from './order-statistic.vue';

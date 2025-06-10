@@ -3,8 +3,8 @@ import { computed } from 'vue';
 
 import { Card, Divider } from 'ant-design-vue';
 
+import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
 
 import { sampleOrder } from './service';
 

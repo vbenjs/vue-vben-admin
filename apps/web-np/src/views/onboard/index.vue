@@ -10,10 +10,10 @@ import { preferences } from '@vben/preferences';
 import { Flex, message, Steps } from 'ant-design-vue';
 
 import { onboardFinished } from '#/api';
-import { DefaultRoutes } from '#/constants';
 import { ArrowRight } from '#/icons';
+import { DefaultRoutes } from '#/shared/constants';
+import { redirectToPath, toPercentage, toRate } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
-import { redirectToPath, toPercentage, toRate } from '#/utils';
 
 import ExampleOrder from './example-order.vue';
 import { onboardForm } from './service';

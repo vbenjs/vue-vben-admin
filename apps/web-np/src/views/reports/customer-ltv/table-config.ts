@@ -3,11 +3,10 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { markRaw, reactive } from 'vue';
 
-import dayjs from 'dayjs';
-
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getLTVReport } from '#/api';
-import { getDatePreset } from '#/utils';
+import { dayjsInGMT } from '#/shared/dayjs';
+import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import { generateDateColumns, transformDataRowToColumn } from './service';
@@ -36,7 +35,7 @@ const gridOptions: VxeTableGridOptions = {
     }
 
     const addMonth: any = +column.field - 1;
-    const currenMonth = dayjs(row.customerMonth)
+    const currenMonth = dayjsInGMT(row.customerMonth)
       .add(addMonth, 'month')
       .format('YYYY-MM');
 
@@ -89,7 +88,7 @@ const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(6, 'months'), dayjs()],
+      defaultValue: [dayjsInGMT().subtract(6, 'months'), dayjsInGMT()],
       fieldName: 'month',
       label: 'Month',
     },

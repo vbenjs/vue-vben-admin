@@ -1,7 +1,7 @@
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getCustomCostList } from '#/api';
-import { formatReportDate } from '#/utils';
+import { formatReportDate } from '#/shared/utils';
 
 import { customCostTypes } from './service';
 

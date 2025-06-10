@@ -5,8 +5,11 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import { markRaw } from 'vue';
 
 import { getHandlingFeesAndCOGS } from '#/api';
-import { CostCalcLevel as CostCalcBy, defaultRegionUUID } from '#/constants';
-import { toPercentage } from '#/utils';
+import {
+  CostCalcLevel as CostCalcBy,
+  defaultRegionUUID,
+} from '#/shared/constants';
+import { toPercentage } from '#/shared/utils';
 
 import Select from './modules/select.vue';
 

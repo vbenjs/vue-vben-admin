@@ -8,8 +8,8 @@ import { IconifyIcon } from '@vben/icons';
 
 import { message } from 'ant-design-vue';
 
+import { toPercentage } from '#/shared/utils';
 import { useShopSettingStore } from '#/store';
-import { toPercentage } from '#/utils';
 import { onboardForm, sampleOrder } from '#/views/onboard/service';
 import TransactionFees from '#/views/onboard/step-4-transaction-fees.vue';
 

@@ -18,8 +18,8 @@ import {
   loginApiViaShopifySession,
   logoutApi,
 } from '#/api';
-import { DefaultRoutes } from '#/constants';
 import { $t } from '#/locales';
+import { DefaultRoutes } from '#/shared/constants';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function authLoginViaShopifySession(params: Recordable<any>) {
     // Verify Shopify token
     const app = createApp({
-      apiKey: import.meta.env.VITE_SHOPIFY_APP_KEY,
+      apiKey: import.meta.env.VITE_GLOB_SHOPIFY_APP_KEY,
       host: new URLSearchParams(location.search).get('host') as string,
     });
 
@@ -105,6 +105,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
+
+    // setCrispShopInfo(res);
 
     // Update stores
     userStore.setUserInfo(res as any);

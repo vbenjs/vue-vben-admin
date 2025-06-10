@@ -1,7 +1,7 @@
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getAccounts } from '#/api';
-import { formatReportDate } from '#/utils';
+import { formatReportDate } from '#/shared/utils';
 
 export const gridOptions: VxeTableGridOptions = {
   checkboxConfig: {

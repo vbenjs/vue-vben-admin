@@ -7,8 +7,8 @@ import { useUserStore } from '@vben/stores';
 import { Card, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
+import { toPercentage } from '#/shared/utils';
 import { useCurrencyStore, useShopSettingStore, useShopStore } from '#/store';
-import { toPercentage } from '#/utils';
 
 const userStore = useUserStore();
 const shopStore = useShopStore();

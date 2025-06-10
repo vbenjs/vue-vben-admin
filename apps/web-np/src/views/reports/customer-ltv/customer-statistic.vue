@@ -11,8 +11,8 @@ import {
   VbenIcon,
 } from '@vben/common-ui';
 
+import { convertRate, formatMoney, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { convertRate, formatMoney, toPercentage } from '#/utils';
 
 interface IAnalysisOverviewItem {
   icon: Component | string;

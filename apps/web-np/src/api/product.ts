@@ -1,5 +1,5 @@
 import { requestClient } from '#/api/request';
-import { calcGrossProfitMargin } from '#/utils';
+import { calcGrossProfitMargin } from '#/shared/utils';
 
 export async function getProductSalesReport(params: any) {
   return requestClient

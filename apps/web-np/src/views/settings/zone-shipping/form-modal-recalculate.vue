@@ -4,12 +4,12 @@ import { markRaw } from 'vue';
 import { useVbenModal, VbenButton } from '@vben/common-ui';
 
 import { message, TypographyParagraph } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 import { recalculateOrderCosts } from '#/api';
-import { RecalculateCostsType } from '#/constants';
-import { getDatePreset, redirect } from '#/utils';
+import { RecalculateCostsType } from '#/shared/constants';
+import { dayjsInGMT } from '#/shared/dayjs';
+import { getDatePreset, redirect } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 function onSubmit(values: Record<string, any>) {
@@ -64,7 +64,7 @@ const [Form, formApi] = useVbenForm({
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(1, 'month'), dayjs()],
+      defaultValue: [dayjsInGMT().subtract(1, 'month'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
       rules: 'required',

@@ -3,8 +3,8 @@ import { onBeforeMount } from 'vue';
 
 import { Card, InputNumber } from 'ant-design-vue';
 
+import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney } from '#/utils';
 
 import { onboardForm, sampleOrder } from './service';
 

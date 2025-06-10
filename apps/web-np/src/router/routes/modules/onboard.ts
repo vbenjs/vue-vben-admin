@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { DefaultRoutes } from '#/constants';
+import { DefaultRoutes } from '#/shared/constants';
 
 const routes: RouteRecordRaw[] = [
   {

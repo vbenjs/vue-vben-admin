@@ -4,8 +4,8 @@ import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 
 import { Button, Image, Typography } from 'ant-design-vue';
 
+import { formatMoney, formatTitle, numberWithCommas } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { formatMoney, formatTitle, numberWithCommas } from '#/utils';
 
 import { useVbenForm } from './form';
 

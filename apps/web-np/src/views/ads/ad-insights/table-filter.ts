@@ -2,9 +2,8 @@ import type { VbenFormProps } from '@vben/common-ui';
 
 import { markRaw } from 'vue';
 
-import dayjs from 'dayjs';
-
-import { getDatePreset } from '#/utils';
+import { dayjsInGMT } from '#/shared/dayjs';
+import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 export const formOptions: VbenFormProps = {
@@ -36,7 +35,7 @@ export const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjs().subtract(30, 'days'), dayjs()],
+      defaultValue: [dayjsInGMT().subtract(1, 'M'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
     },

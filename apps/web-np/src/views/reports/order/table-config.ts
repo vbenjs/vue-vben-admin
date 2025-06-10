@@ -5,8 +5,8 @@ import { reactive } from 'vue';
 import { $t } from '@vben/locales';
 
 import { getOrders } from '#/api';
+import { calcGrossProfitMargin, formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
-import { calcGrossProfitMargin, formatReportDate } from '#/utils';
 
 const shopStore = useShopStore();
 const state = reactive({

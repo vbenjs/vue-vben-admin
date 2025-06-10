@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { formatMoney } from '#/utils';
+import { formatMoney } from '#/shared/utils';
 
 interface ICurrencyState {
   baseCurrency: string;
