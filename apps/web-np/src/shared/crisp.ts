@@ -22,6 +22,7 @@ export const crispOpenWithText = (obj: any) => {
 export const crispDisplay = (show: boolean) => {
   if (show) {
     Crisp.chat.show();
+    Crisp.chat.open();
   } else {
     Crisp.chat.hide();
   }

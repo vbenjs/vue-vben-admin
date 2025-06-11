@@ -20,7 +20,7 @@ import {
 } from '#/api';
 import { $t } from '#/locales';
 import { DefaultRoutes } from '#/shared/constants';
-import { scrispSetShopInfo } from '#/shared/crisp';
+import { crispDisplay, scrispSetShopInfo } from '#/shared/crisp';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -108,6 +108,7 @@ export const useAuthStore = defineStore('auth', () => {
     const res = await getUserInfoApi();
 
     scrispSetShopInfo(res);
+    crispDisplay(false);
 
     // Update stores
     userStore.setUserInfo(res as any);
