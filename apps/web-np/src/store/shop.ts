@@ -9,9 +9,11 @@ import { defineStore } from 'pinia';
 import Pusher from 'pusher-js';
 
 import { updateGeneralSettings } from '#/api';
+import { StateStatus } from '#/shared/constants';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
 import { useCurrencyStore } from './currency';
+import { useSystemStatisticStore } from './system-statistic';
 
 enum ShopState {
   PENDING = 'pending',
@@ -111,6 +113,12 @@ export const useShopStore = defineStore('np-shop', {
       this.pusherState.channel.bind(
         this.pusherEventName,
         (payload: INotification) => {
+          if (payload.type === 'OrderCalculatedNotification') {
+            const systemStatisticStore = useSystemStatisticStore();
+
+            systemStatisticStore.setCalcOrder(StateStatus.PROCESSED);
+          }
+
           if (payload.showAlert) {
             notification[payload.alertType as 'success']({
               description: h(NotificationMessage, payload as any),

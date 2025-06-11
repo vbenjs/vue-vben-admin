@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, reactive } from 'vue';
+import { onMounted } from 'vue';
 
 import {
   VbenButton,
@@ -11,56 +11,28 @@ import {
 import { useToggle } from '@vueuse/core';
 import { Tag } from 'ant-design-vue';
 
-import { countProcessingOrders } from '#/api';
 import { Statistic } from '#/icons';
+import { StateStatus } from '#/shared/constants';
+import { useSystemStatisticStore } from '#/store';
 
 const [open, toggle] = useToggle();
-
-const state = reactive({
-  loading: false,
-  statisticList: [
-    {
-      title: 'Calculate Order',
-      amount: 0,
-    },
-  ],
-});
+const systemStatisticStore = useSystemStatisticStore();
 
 onMounted(() => {
-  loadData();
+  systemStatisticStore.loadData();
 
   // Call loadData every seconds to update the statistic
   setInterval(() => {
-    loadData();
+    systemStatisticStore.loadData();
   }, 30_000);
 });
 
-const loadData = () => {
-  state.loading = true;
-
-  countProcessingOrders()
-    .then((res) => {
-      if (!state.statisticList[0]) {
-        return;
-      }
-
-      state.statisticList[0].amount = res;
-    })
-    .finally(() => {
-      state.loading = false;
-    });
-};
-
-const isProcessing = computed(() => {
-  return state.statisticList.some((item) => item.amount > 0);
-});
-
 const getStatusLabel = (val: any) => {
-  if (val > 0) {
-    return `Processing ${val} item(s)`;
+  if (val === StateStatus.PROCESSED) {
+    return 'Finished';
   }
 
-  return 'Finished';
+  return 'Processing';
 };
 </script>
 <template>
@@ -71,29 +43,53 @@ const getStatusLabel = (val: any) => {
     <template #trigger>
       <div class="flex-center mr-1 h-full" @click.stop="toggle()">
         <VbenIconButton class="bell-button text-foreground relative">
-          <Statistic class="size-5" :class="{ 'animate-spin': isProcessing }" />
+          <Statistic
+            class="size-5"
+            :class="{ 'animate-spin': systemStatisticStore.isProcessing }"
+          />
         </VbenIconButton>
       </div>
     </template>
-
-    <div class="relative" v-loading="state.loading">
+    <div class="relative" v-loading="systemStatisticStore.loading">
       <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">System Statistic</div>
       </div>
       <VbenScrollbar>
         <ul class="!flex max-h-[360px] w-full flex-col">
-          <template v-for="item in state.statisticList" :key="item.title">
-            <li
-              class="hover:bg-accent border-border relative flex w-full items-start gap-5 border-t px-5 py-3"
-            >
-              <div class="flex w-full items-end justify-between leading-none">
-                <div class="text-sm">{{ item.title }}</div>
-                <Tag color="success" class="text-center">
-                  {{ getStatusLabel(item.amount) }}
-                </Tag>
-              </div>
-            </li>
-          </template>
+          <li
+            class="hover:bg-accent border-border relative flex w-full items-start gap-5 border-t px-5 py-3"
+          >
+            <div class="flex w-full items-end justify-between leading-none">
+              <div class="text-sm">Calculate Order</div>
+              <Tag color="success" class="text-center">
+                {{ getStatusLabel(systemStatisticStore.calcOrder) }}
+              </Tag>
+            </div>
+          </li>
+          <li class="hover:bg-accent relative w-full px-5 py-2">
+            <div class="flex w-full items-end justify-between leading-none">
+              <div class="text-sm">Sync Orders</div>
+              <Tag color="success" class="text-center">
+                {{ getStatusLabel(systemStatisticStore.syncShopifyOrder) }}
+              </Tag>
+            </div>
+          </li>
+          <li class="hover:bg-accent relative w-full px-5 py-2">
+            <div class="flex w-full items-end justify-between leading-none">
+              <div class="text-sm">Sync Products</div>
+              <Tag color="success" class="text-center">
+                {{ getStatusLabel(systemStatisticStore.syncShopifyProduct) }}
+              </Tag>
+            </div>
+          </li>
+          <li class="hover:bg-accent relative w-full px-5 py-2">
+            <div class="flex w-full items-end justify-between leading-none">
+              <div class="text-sm">Sync Customers</div>
+              <Tag color="success" class="text-center">
+                {{ getStatusLabel(systemStatisticStore.syncShopifyCustomer) }}
+              </Tag>
+            </div>
+          </li>
         </ul>
       </VbenScrollbar>
 
@@ -101,10 +97,10 @@ const getStatusLabel = (val: any) => {
         class="border-border flex items-center justify-center border-t px-4 py-3"
       >
         <VbenButton
-          @click="loadData"
+          @click="systemStatisticStore.loadData(true)"
           size="sm"
           variant="ghost"
-          :loading="state.loading"
+          :loading="systemStatisticStore.loading"
         >
           Refresh
         </VbenButton>

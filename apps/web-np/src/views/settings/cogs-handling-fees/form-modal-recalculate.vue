@@ -7,10 +7,13 @@ import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { recalculateOrderCosts } from '#/api';
-import { RecalculateCostsType } from '#/shared/constants';
+import { RecalculateCostsType, StateStatus } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, redirect } from '#/shared/utils';
+import { useSystemStatisticStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
+
+const systemStatisticStore = useSystemStatisticStore();
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
@@ -26,6 +29,8 @@ function onSubmit(values: Record<string, any>) {
       );
       modalApi.setData({ reload: true });
       modalApi.close();
+
+      systemStatisticStore.setCalcOrder(StateStatus.PROCESSING);
     })
     .finally(() => {
       modalApi.lock(false);

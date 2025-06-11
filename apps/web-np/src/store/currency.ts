@@ -45,12 +45,6 @@ export const useCurrencyStore = defineStore('np-currency', {
     },
   },
 
-  getters: {
-    isOnboarding(): boolean {
-      return true;
-    },
-  },
-
   state: (): ICurrencyState => ({
     baseCurrency: '',
     date: '',

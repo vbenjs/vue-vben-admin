@@ -1,5 +1,11 @@
 import { requestClient } from '#/api/request';
 
+export async function getShopStatistic(payload: any) {
+  return requestClient.get('/api/shop/statistic', {
+    params: payload,
+  });
+}
+
 export async function updateGeneralSettings(data: any) {
   return requestClient.put('/api/shop/settings/general', data);
 }
