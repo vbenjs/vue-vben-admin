@@ -159,7 +159,7 @@ catalog:
   stylelint-order: ^7.0.0
   stylelint-prettier: ^5.0.3
   stylelint-scss: ^6.11.1
-  tailwind-merge: ^2.6.0
+  tailwind-merge: ^3.3.1
   tailwindcss: ^3.4.17
   tailwindcss-animate: ^1.0.7
   theme-colors: ^0.1.0
