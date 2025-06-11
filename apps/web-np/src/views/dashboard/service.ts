@@ -175,7 +175,6 @@ const calcOrderStatistic = (data: any) => {
   state.orderTotal.totalCosts = itemTotal.totalCosts ?? 0;
   state.orderTotal.netProfit = itemTotal.netProfit ?? 0;
 
-  state.orderTotal.totalAdSpend = 2;
   if (state.orderTotal.totalAdSpend) {
     state.orderTotal.roas =
       state.orderTotal.netPayment / state.orderTotal.totalAdSpend;
