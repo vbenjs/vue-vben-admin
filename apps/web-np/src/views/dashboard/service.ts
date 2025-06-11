@@ -35,6 +35,8 @@ export const state = reactive({
     totalTax: 0,
     totalCustomCost: 0,
     totalAdSpend: 0,
+    roas: 0,
+    poas: 0,
     netProfit: 0,
     netProfitMargin: '0',
     totalCosts: 0,
@@ -172,6 +174,15 @@ const calcOrderStatistic = (data: any) => {
   state.orderTotal.totalTax = itemTotal.totalTax ?? 0;
   state.orderTotal.totalCosts = itemTotal.totalCosts ?? 0;
   state.orderTotal.netProfit = itemTotal.netProfit ?? 0;
+
+  state.orderTotal.totalAdSpend = 2;
+  if (state.orderTotal.totalAdSpend) {
+    state.orderTotal.roas =
+      state.orderTotal.netPayment / state.orderTotal.totalAdSpend;
+
+    state.orderTotal.poas =
+      state.orderTotal.grossProfit / state.orderTotal.totalAdSpend;
+  }
 
   state.orderTotal.netProfitMargin = state.orderTotal.netPayment
     ? toPercentage(state.orderTotal.netProfit / state.orderTotal.netPayment)

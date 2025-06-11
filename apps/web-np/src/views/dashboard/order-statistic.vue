@@ -177,6 +177,24 @@ const getDetails = computed(() => {
       ),
     },
     {
+      title: $t('field-name.roas'),
+      explain: $t('field-name.roasExplain'),
+      value: formatMoney(
+        state.orderTotal.roas,
+        shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
+      ),
+    },
+    {
+      title: $t('field-name.poas'),
+      explain: $t('field-name.poasExplain'),
+      value: formatMoney(
+        state.orderTotal.poas,
+        shopStore.shop.currencyFromApp,
+        shopStore.shop.currencyRate,
+      ),
+    },
+    {
       title: $t('field-name.netProfit'),
       explain: $t('field-name.netProfitExplain'),
       value: formatMoney(
