@@ -110,7 +110,7 @@ catalog:
   get-port: ^7.1.0
   globals: ^16.0.0
   h3: ^1.15.3
-  happy-dom: ^17.4.6
+  happy-dom: ^18.0.1
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
