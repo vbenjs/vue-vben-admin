@@ -4,7 +4,7 @@ export const initCrisp = () => {
   Crisp.configure(import.meta.env.VITE_GLOB_CRISP_WEBSITE_ID);
 };
 
-export const scrispSetShopInfo = (shopInfo: any) => {
+export const crispSetShopInfo = (shopInfo: any) => {
   Crisp.setTokenId(shopInfo.userId);
   Crisp.session.reset();
   Crisp.session.setData({
@@ -19,10 +19,15 @@ export const crispOpenWithText = (obj: any) => {
   Crisp.message.send('text', obj);
 };
 
-export const crispDisplay = (show: boolean) => {
+export const crispDisplay = (show: boolean, isOpen: boolean = true) => {
   if (show) {
     Crisp.chat.show();
-    Crisp.chat.open();
+
+    if (isOpen) {
+      Crisp.chat.open();
+    } else {
+      Crisp.chat.close();
+    }
   } else {
     Crisp.chat.hide();
   }

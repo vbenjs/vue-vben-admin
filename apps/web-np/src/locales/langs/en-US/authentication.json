@@ -6,7 +6,7 @@
   "loginSuccessDesc": "Welcome Back",
   "loginSubtitle": "Enter your Shopify store domain to manage your profit",
   "selectAccount": "Quick Select Account",
-  "username": "Ex: net-profit.myshopify.com",
+  "username": "E.g. finily.myshopify.com",
   "password": "Password",
   "usernameTip": "Please enter your Shopify store domain",
   "passwordErrorTip": "Password is incorrect",

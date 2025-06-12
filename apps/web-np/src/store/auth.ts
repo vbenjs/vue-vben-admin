@@ -20,7 +20,7 @@ import {
 } from '#/api';
 import { $t } from '#/locales';
 import { DefaultRoutes } from '#/shared/constants';
-import { crispDisplay, scrispSetShopInfo } from '#/shared/crisp';
+import { crispDisplay, crispSetShopInfo } from '#/shared/crisp';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -107,9 +107,6 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     const res = await getUserInfoApi();
 
-    scrispSetShopInfo(res);
-    crispDisplay(false);
-
     // Update stores
     userStore.setUserInfo(res as any);
     currencyStore.setStates(res.currencies);
@@ -125,6 +122,9 @@ export const useAuthStore = defineStore('auth', () => {
       res.state,
     );
     shopSettingStore.setStates(res.settings);
+
+    crispSetShopInfo(res);
+    crispDisplay(shopStore.isOnboarding, false);
 
     return res;
   }
