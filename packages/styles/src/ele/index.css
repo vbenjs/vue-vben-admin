@@ -2,6 +2,117 @@
   --el-card-border-radius: var(--radius) !important;
 }
 
+/* 分页器background模式 圆角 */
+.el-pagination {
+  --el-pagination-border-radius: var(--radius) !important;
+}
+
+/* propper 圆角 */
+.el-popper {
+  --el-popper-border-radius: var(--radius) !important;
+}
+
+/* table 圆角 */
+.el-table--border {
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--el-table-border-color) !important;
+}
+
+.el-table--border .el-table__inner-wrapper:after,
+.el-table--border:after,
+.el-table--border:before,
+.el-table__inner-wrapper:before,
+.el-table__border-left-patch {
+  display: none;
+}
+
+.el-table--border .el-table__header > thead > tr:last-child > .el-table__cell {
+  /* border-bottom: none; */
+}
+
+.el-table--border .el-table__header > thead > tr > .el-table__cell:last-child {
+  border-right: none;
+}
+
+.el-table--border .el-table__body > tbody > tr:last-child > .el-table__cell {
+  border-bottom: none;
+}
+
+.el-table--border .el-table__body > tbody > tr > .el-table__cell:last-child {
+  border-right: none;
+}
+
+/* 描述列表 圆角 */
+.el-descriptions
+  .el-descriptions__table.is-bordered
+  tr:first-child
+  > .el-descriptions__cell:first-child {
+  border-top-left-radius: var(--radius) !important;
+}
+.el-descriptions
+  .el-descriptions__table.is-bordered
+  tr:first-child
+  > .el-descriptions__cell:last-child {
+  border-top-right-radius: var(--radius) !important;
+}
+.el-descriptions
+  .el-descriptions__table.is-bordered
+  tr:last-child
+  > .el-descriptions__cell:first-child {
+  border-bottom-left-radius: var(--radius) !important;
+}
+.el-descriptions
+  .el-descriptions__table.is-bordered
+  tr:last-child
+  > .el-descriptions__cell:last-child {
+  border-bottom-right-radius: var(--radius) !important;
+}
+
+.el-descriptions
+  .el-descriptions__table.is-bordered
+  tr
+  > .el-descriptions__cell {
+  border-top: none !important;
+  border-left: none !important;
+}
+.el-descriptions .el-descriptions__table.is-bordered {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: var(--radius);
+  border-top: var(--el-descriptions-table-border);
+  border-left: var(--el-descriptions-table-border);
+}
+
+/* ElMessageBox 圆角 */
+.el-message-box {
+  --el-messagebox-border-radius: var(--radius) !important;
+}
+
+/* el-popover 圆角 */
+.el-popover {
+  --el-popover-border-radius: var(--radius) !important;
+}
+
+/* 顶部 el-tabs 圆角 */
+.el-tabs.el-tabs--top.el-tabs--border-card{
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.el-tabs .el-tabs__nav.is-top {
+  border-radius: var(--radius);
+}
+
+
+/* 左侧 el-tabs 圆角 */
+.el-tabs.el-tabs--left.el-tabs--border-card{
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+/* 隐藏左侧 el-tabs 时 底部border */
+.el-tabs.el-tabs--left>.el-tabs__header{
+  border-bottom:none !important
+}
+
 .form-valid-error {
   /** select 选择器的样式 */
   .el-select .el-select__wrapper {

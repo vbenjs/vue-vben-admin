@@ -207,7 +207,7 @@ export function useElementPlusDesignTokens() {
           : getCssVariableValue('--destructive-200'),
         '--el-color-danger-light-8': isDark.value
           ? getCssVariableValue('--destructive-900')
-          : getCssVariableValue('--destructive-100'),
+          : getCssVariableValue('--destructive-200'),
         '--el-color-danger-light-9': isDark.value
           ? getCssVariableValue('--destructive-950')
           : getCssVariableValue('--destructive-50'),
@@ -227,7 +227,7 @@ export function useElementPlusDesignTokens() {
           : getCssVariableValue('--destructive-200'),
         '--el-color-error-light-8': isDark.value
           ? getCssVariableValue('--destructive-900')
-          : getCssVariableValue('--destructive-100'),
+          : getCssVariableValue('--destructive-200'),
         '--el-color-error-light-9': isDark.value
           ? getCssVariableValue('--destructive-950')
           : getCssVariableValue('--destructive-50'),
@@ -251,7 +251,7 @@ export function useElementPlusDesignTokens() {
           : getCssVariableValue('--primary-200'),
         '--el-color-primary-light-8': isDark.value
           ? getCssVariableValue('--primary-900')
-          : getCssVariableValue('--primary-100'),
+          : getCssVariableValue('--primary-200'),
         '--el-color-primary-light-9': isDark.value
           ? getCssVariableValue('--primary-950')
           : getCssVariableValue('--primary-50'),
@@ -271,7 +271,7 @@ export function useElementPlusDesignTokens() {
           : getCssVariableValue('--success-200'),
         '--el-color-success-light-8': isDark.value
           ? getCssVariableValue('--success-900')
-          : getCssVariableValue('--success-100'),
+          : getCssVariableValue('--success-200'),
         '--el-color-success-light-9': isDark.value
           ? getCssVariableValue('--success-950')
           : getCssVariableValue('--success-50'),
@@ -291,7 +291,7 @@ export function useElementPlusDesignTokens() {
           : getCssVariableValue('--warning-200'),
         '--el-color-warning-light-8': isDark.value
           ? getCssVariableValue('--warning-900')
-          : getCssVariableValue('--warning-100'),
+          : getCssVariableValue('--warning-200'),
         '--el-color-warning-light-9': isDark.value
           ? getCssVariableValue('--warning-950')
           : getCssVariableValue('--warning-50'),
