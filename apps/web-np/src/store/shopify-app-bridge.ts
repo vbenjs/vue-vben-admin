@@ -13,7 +13,7 @@ export const useShopifyAppBridgeStore = defineStore('np-shopify-appbridge', {
     },
     getSessionToken() {
       if (!this.appBridge) {
-        throw new Error('App Bridge is not initialized');
+        this.initAppBridge();
       }
 
       getSessionToken(this.appBridge).then((_) => {
@@ -22,7 +22,7 @@ export const useShopifyAppBridgeStore = defineStore('np-shopify-appbridge', {
     },
     redirect(url: string, newTab: boolean = false) {
       if (!this.appBridge) {
-        throw new Error('App Bridge is not initialized');
+        this.initAppBridge();
       }
 
       const redirect = Redirect.create(this.appBridge);
