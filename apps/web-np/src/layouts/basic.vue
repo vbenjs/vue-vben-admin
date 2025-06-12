@@ -8,6 +8,11 @@ import { BasicLayout, LockScreen, UserDropdown } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 
+import {
+  authInNewTab,
+  isShopifyEmbedded,
+  redirectToExternal,
+} from '#/shared/utils';
 import { useAuthStore, useShopStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
@@ -22,40 +27,63 @@ const accessStore = useAccessStore();
 const router = useRouter();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
-const menus = computed(() => [
-  {
-    handler: () => {
-      router.push({
-        name: 'settings.general',
-      });
+const menus = computed(() => {
+  const profileMenus = [];
+
+  if (isShopifyEmbedded()) {
+    profileMenus.push({
+      handler: () => {
+        authInNewTab();
+      },
+      icon: 'ant-design:fullscreen-outlined',
+      text: 'Open Fullscreen',
+    });
+  } else {
+    profileMenus.push({
+      handler: () => {
+        shopStore.redirectToAdmin();
+      },
+      icon: 'ic:baseline-shopify',
+      text: 'Shopify admin page',
+    });
+  }
+
+  profileMenus.push(
+    {
+      handler: () => {
+        const url = `https://${shopStore.shop.myshopifyDomain}`;
+        redirectToExternal(url);
+      },
+      icon: 'ic:baseline-shopify',
+      text: 'Shopify store',
     },
-    icon: 'ic:baseline-shopify',
-    text: 'Profile settings',
-  },
-  {
-    handler: shopStore.redirectToPricing,
-    icon: 'ant-design:dollar-circle-twotone',
-    text: 'Pricing plans',
-  },
-  // {
-  //   handler: () => {
-  //     openWindow(VBEN_GITHUB_URL, {
-  //       target: '_blank',
-  //     });
-  //   },
-  //   icon: MdiGithub,
-  //   text: 'GitHub',
-  // },
-  // {
-  //   handler: () => {
-  //     openWindow(`${VBEN_GITHUB_URL}/issues`, {
-  //       target: '_blank',
-  //     });
-  //   },
-  //   icon: CircleHelp,
-  //   text: $t('ui.widgets.qa'),
-  // },
-]);
+    {
+      handler: () => {
+        const url = `https://apps.shopify.com/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}`;
+        redirectToExternal(url);
+      },
+      icon: 'ic:baseline-shopify',
+      text: 'Shopify app page',
+    },
+    {
+      handler: () => {
+        router.push({
+          name: 'settings.general',
+        });
+      },
+      icon: 'codicon:settings',
+      text: 'Profile settings',
+    },
+    // NOT DELETE THIS BLOCK
+    // {
+    //   handler: shopStore.redirectToPricing,
+    //   icon: 'ant-design:dollar-circle-twotone',
+    //   text: 'Pricing plans',
+    // },
+  );
+
+  return profileMenus;
+});
 
 const avatar = computed(() => {
   return '/static/images/shopify-header-logo.png';
@@ -89,7 +117,7 @@ watch(
         :avatar
         :menus="menus as any"
         :text="userStore.userInfo?.username"
-        :description="shopStore.handleName"
+        :description="shopStore.shop.domain ?? shopStore.shop.myshopifyDomain"
         :tag-text="shopStore.shop.subscriptionName"
         @logout="handleLogout"
       />

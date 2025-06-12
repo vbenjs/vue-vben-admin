@@ -32,10 +32,6 @@ const handleDateChange = (date: any) => {
   state.dateRange = date;
   loadData();
 };
-
-const hanleNewTab = () => {
-  authInNewTab();
-};
 </script>
 
 <template>
@@ -49,13 +45,13 @@ const hanleNewTab = () => {
           v-if="isShopifyEmbedded()"
           variant="outline"
           size="sm"
-          @click="hanleNewTab"
+          @click="authInNewTab"
         >
           <IconifyIcon
             icon="ant-design:fullscreen-outlined"
             class="mr-2 size-5"
           />
-          Open new tab
+          Open Fullscreen
         </VbenButton>
         <DateRangePicker
           picker-limit-name="1 year"

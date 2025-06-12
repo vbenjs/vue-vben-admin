@@ -196,6 +196,10 @@ export const redirectToPath = (path: string) => {
   router.push(path);
 };
 
+export const redirectToExternal = (url: string) => {
+  window.location.href = url;
+};
+
 export const redirectToNewTab = (url: string) => {
   window.open(url, '_blank');
 };
@@ -204,7 +208,7 @@ export const authInNewTab = () => {
   const accessStore = useAccessStore();
   const url = `${window.location.origin}/auth/token?token=${accessStore.accessToken}`;
 
-  redirectToNewTab(url);
+  redirectToExternal(url);
 };
 
 export const getAdsIcon = (type: string) => {

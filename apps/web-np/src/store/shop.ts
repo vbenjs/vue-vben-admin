@@ -10,7 +10,7 @@ import Pusher from 'pusher-js';
 
 import { shopUpdateSubscriptionInfo, updateGeneralSettings } from '#/api';
 import { StateStatus } from '#/shared/constants';
-import { redirectToNewTab } from '#/shared/utils';
+import { redirectToExternal } from '#/shared/utils';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
 import { useCurrencyStore } from './currency';
@@ -94,9 +94,12 @@ export const useShopStore = defineStore('np-shop', {
       });
     },
     redirectToPricing() {
-      const pricingUrl = `https://admin.shopify.com/store/${this.handleName}/charges/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}/pricing_plans`;
-
-      redirectToNewTab(pricingUrl);
+      const url = `https://admin.shopify.com/store/${this.handleName}/charges/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}/pricing_plans`;
+      redirectToExternal(url);
+    },
+    redirectToAdmin() {
+      const url = `https://admin.shopify.com/store/${this.handleName}/apps/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}`;
+      redirectToExternal(url);
     },
     initPusher() {
       if (!this.pusherState.pusher) {
