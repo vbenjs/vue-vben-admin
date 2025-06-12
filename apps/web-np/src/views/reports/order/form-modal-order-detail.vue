@@ -20,7 +20,6 @@ import {
   formatMoney,
   formatReportDate,
   formatTitle,
-  redirectToNewTab,
 } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -124,10 +123,7 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.close();
   },
   onConfirm: async () => {
-    const handleName = shopStore.handleName;
-    redirectToNewTab(
-      `https://admin.shopify.com/store/${handleName}/orders/${state.order.id}`,
-    );
+    shopStore.redirectToOrderPage(state.order.id);
   },
 });
 

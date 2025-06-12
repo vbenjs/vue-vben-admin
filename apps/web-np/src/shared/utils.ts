@@ -1,9 +1,11 @@
 import { $t } from '@vben/locales';
 import { useAccessStore } from '@vben/stores';
 
+import { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 import { findCurrency, format } from 'currency-formatter';
 
 import { router } from '#/router';
+import { useShopifyAppBridgeStore } from '#/store/shopify-app-bridge';
 
 import { adType } from './constants';
 import { dayjsInGMT } from './dayjs';
@@ -196,12 +198,19 @@ export const redirectToPath = (path: string) => {
   router.push(path);
 };
 
-export const redirectToExternal = (url: string) => {
-  window.location.href = url;
-};
+export const redirectToExternal = (url: string, newTab: boolean = false) => {
+  if (isShopifyEmbedded()) {
+    const shopifyAppBridgeStore = useShopifyAppBridgeStore();
+    shopifyAppBridgeStore.redirect(url, newTab);
+    return;
+  }
 
-export const redirectToNewTab = (url: string) => {
-  window.open(url, '_blank');
+  if (newTab) {
+    window.open(url, '_blank');
+    return;
+  }
+
+  window.location.href = url;
 };
 
 export const authInNewTab = () => {

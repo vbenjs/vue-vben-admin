@@ -13,7 +13,11 @@ import { Dropdown, Menu, MenuItem, Modal, Tag } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteAccount, syncAccount, syncAdInsight } from '#/api';
 import { StateStatus } from '#/shared/constants';
-import { formatReportDate, getAdsIcon, redirectToNewTab } from '#/shared/utils';
+import {
+  formatReportDate,
+  getAdsIcon,
+  redirectToExternal,
+} from '#/shared/utils';
 import { useShopStore } from '#/store';
 
 import { gridOptions } from './table-config';
@@ -48,7 +52,7 @@ const addNewConnection = (type: string) => {
   const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
   const url = `${apiURL}/auth-social/generate?type=${type}&shopId=${shopStore.shop.id}`;
 
-  redirectToNewTab(url);
+  redirectToExternal(url);
 };
 
 const statusList = [

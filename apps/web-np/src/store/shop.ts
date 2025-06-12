@@ -101,6 +101,10 @@ export const useShopStore = defineStore('np-shop', {
       const url = `https://admin.shopify.com/store/${this.handleName}/apps/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}`;
       redirectToExternal(url);
     },
+    redirectToOrderPage(orderId: any, newTab: boolean = true) {
+      const url = `https://admin.shopify.com/store/${this.handleName}/orders/${orderId}`;
+      redirectToExternal(url, newTab);
+    },
     initPusher() {
       if (!this.pusherState.pusher) {
         const accessStore = useAccessStore();
