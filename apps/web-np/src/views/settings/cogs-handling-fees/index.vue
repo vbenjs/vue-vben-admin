@@ -388,8 +388,9 @@ const showAlterProductsBtn = () => {
       </template>
       <template #cogs="{ row }: { row: IProduct }">
         <template v-if="isShow(row)">
-          <div class="flex space-x-2">
+          <div class="flex justify-end space-x-2">
             <InputNumber
+              class="w-full"
               :min="0"
               :addon-after="shopStore.shop.currency"
               :disabled="row.loading"
