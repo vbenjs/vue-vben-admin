@@ -103,7 +103,7 @@ export const useShopStore = defineStore('np-shop', {
     },
     redirectToOrderPage(orderId: any, newTab: boolean = true) {
       const url = `https://admin.shopify.com/store/${this.handleName}/orders/${orderId}`;
-      redirectToExternal(url, newTab);
+      redirectToExternal(url, newTab, true);
     },
     initPusher() {
       if (!this.pusherState.pusher) {

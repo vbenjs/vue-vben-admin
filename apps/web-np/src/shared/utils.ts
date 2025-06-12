@@ -198,8 +198,12 @@ export const redirectToPath = (path: string) => {
   router.push(path);
 };
 
-export const redirectToExternal = (url: string, newTab: boolean = false) => {
-  if (isShopifyEmbedded()) {
+export const redirectToExternal = (
+  url: string,
+  newTab: boolean = false,
+  force: boolean = false,
+) => {
+  if (isShopifyEmbedded() && !force) {
     const shopifyAppBridgeStore = useShopifyAppBridgeStore();
     shopifyAppBridgeStore.redirect(url, newTab);
     return;
