@@ -8,8 +8,9 @@ import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 import Pusher from 'pusher-js';
 
-import { updateGeneralSettings } from '#/api';
+import { shopUpdateSubscriptionInfo, updateGeneralSettings } from '#/api';
 import { StateStatus } from '#/shared/constants';
+import { redirectToNewTab } from '#/shared/utils';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
 import { useCurrencyStore } from './currency';
@@ -31,7 +32,9 @@ interface IShop {
   currencyRate: number;
   domain: string;
   myshopifyDomain: string;
-  plan: string;
+  subscriptionId: string;
+  subscriptionName: string;
+  subscriptionPlan: string;
 }
 
 interface IShopState {
@@ -84,6 +87,16 @@ export const useShopStore = defineStore('np-shop', {
           appCurrency,
         );
       });
+    },
+    updateSubscriptionInfo() {
+      return shopUpdateSubscriptionInfo().then((res: any) => {
+        this.shop = res.shop;
+      });
+    },
+    redirectToPricing() {
+      const pricingUrl = `https://admin.shopify.com/store/${this.handleName}/charges/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}/pricing_plans`;
+
+      redirectToNewTab(pricingUrl);
     },
     initPusher() {
       if (!this.pusherState.pusher) {
@@ -167,7 +180,9 @@ export const useShopStore = defineStore('np-shop', {
       currencyRate: 1,
       domain: '',
       myshopifyDomain: '',
-      plan: '',
+      subscriptionId: '',
+      subscriptionName: '',
+      subscriptionPlan: '',
     },
     state: {
       product_sync: ShopState.PROCESSED,

@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
 
 import { VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
-import { getDatePreset, isShopifyEmbedded, openNewTab } from '#/shared/utils';
+import { DefaultRoutes } from '#/shared/constants';
+import { authInNewTab, getDatePreset, isShopifyEmbedded } from '#/shared/utils';
+import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import OrderStatistic from './order-statistic.vue';
@@ -14,8 +17,15 @@ import OverviewOrder from './overview-order.vue';
 import ProfitChart from './profit-chart.vue';
 import { loadData, state } from './service';
 
+const query = useRoute();
+const shopStore = useShopStore();
+
 onBeforeMount(() => {
   loadData();
+
+  if (query.path === DefaultRoutes.PRICING) {
+    shopStore.updateSubscriptionInfo();
+  }
 });
 
 const handleDateChange = (date: any) => {
@@ -24,7 +34,7 @@ const handleDateChange = (date: any) => {
 };
 
 const hanleNewTab = () => {
-  openNewTab();
+  authInNewTab();
 };
 </script>
 

@@ -200,11 +200,11 @@ export const redirectToNewTab = (url: string) => {
   window.open(url, '_blank');
 };
 
-export const openNewTab = () => {
+export const authInNewTab = () => {
   const accessStore = useAccessStore();
   const url = `${window.location.origin}/auth/token?token=${accessStore.accessToken}`;
 
-  window.open(url, '_blank');
+  redirectToNewTab(url);
 };
 
 export const getAdsIcon = (type: string) => {

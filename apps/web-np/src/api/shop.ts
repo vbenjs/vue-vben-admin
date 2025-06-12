@@ -16,6 +16,10 @@ export async function updateTransactionFees(data: any) {
   });
 }
 
+export async function shopUpdateSubscriptionInfo() {
+  return requestClient.post('/api/shop/subscription/sync');
+}
+
 export async function updateRegion(data: any) {
   return requestClient.post('/api/region', data);
 }

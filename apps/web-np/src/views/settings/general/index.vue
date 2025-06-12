@@ -54,12 +54,29 @@ const [ShopSettingForm, formApi] = useVbenForm({
   layout: 'horizontal',
   schema: [
     {
+      component: h('span', shopStore.shop.id),
+      fieldName: 'id',
+      label: 'Shop ID',
+    },
+    {
+      component: h('span', userStore.userInfo?.username),
+      fieldName: 'id',
+      label: 'Name',
+    },
+    {
       component: h(
         'span',
         shopStore.shop.domain ?? shopStore.shop.myshopifyDomain,
       ),
       fieldName: 'domain',
       label: 'Domain',
+    },
+    {
+      component: h('span', shopStore.shop.subscriptionName),
+      labelClass: 'font-bold',
+      formItemClass: 'font-bold',
+      fieldName: 'id',
+      label: 'Subscription',
     },
     {
       component: h('span', userStore.userInfo?.realName),

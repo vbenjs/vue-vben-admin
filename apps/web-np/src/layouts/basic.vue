@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { useWatermark } from '@vben/hooks';
@@ -18,18 +19,24 @@ const shopStore = useShopStore();
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
+const router = useRouter();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
 const menus = computed(() => [
-  // {
-  //   handler: () => {
-  //     openWindow(VBEN_DOC_URL, {
-  //       target: '_blank',
-  //     });
-  //   },
-  //   icon: BookOpenText,
-  //   text: $t('ui.widgets.document'),
-  // },
+  {
+    handler: () => {
+      router.push({
+        name: 'settings.general',
+      });
+    },
+    icon: 'ic:baseline-shopify',
+    text: 'Profile settings',
+  },
+  {
+    handler: shopStore.redirectToPricing,
+    icon: 'ant-design:dollar-circle-twotone',
+    text: 'Pricing plans',
+  },
   // {
   //   handler: () => {
   //     openWindow(VBEN_GITHUB_URL, {
@@ -80,10 +87,10 @@ watch(
     <template #user-dropdown>
       <UserDropdown
         :avatar
-        :menus
+        :menus="menus as any"
         :text="userStore.userInfo?.username"
-        :description="shopStore.shop.domain ?? shopStore.shop.myshopifyDomain"
-        tag-text="Free"
+        :description="shopStore.handleName"
+        :tag-text="shopStore.shop.subscriptionName"
         @logout="handleLogout"
       />
     </template>
