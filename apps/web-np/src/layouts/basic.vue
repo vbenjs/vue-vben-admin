@@ -37,6 +37,7 @@ const menus = computed(() => {
       },
       icon: 'ant-design:fullscreen-outlined',
       text: 'Open Fullscreen',
+      order: 40,
     });
   } else {
     profileMenus.push({
@@ -45,6 +46,7 @@ const menus = computed(() => {
       },
       icon: 'ic:baseline-shopify',
       text: 'Shopify admin page',
+      order: 10,
     });
   }
 
@@ -56,6 +58,7 @@ const menus = computed(() => {
       },
       icon: 'ic:baseline-shopify',
       text: 'Shopify store',
+      order: 20,
     },
     {
       handler: () => {
@@ -64,8 +67,20 @@ const menus = computed(() => {
       },
       icon: 'ic:baseline-shopify',
       text: 'Shopify app page',
+      order: 30,
     },
-    {
+    // NOT DELETE THIS BLOCK
+    // {
+    //   handler: shopStore.redirectToPricing,
+    //   icon: 'ant-design:dollar-circle-twotone',
+    //   text: 'Pricing plans',
+    //   order: 50,
+    // },
+  );
+
+  // Get route name
+  if (router.currentRoute.value.name !== 'settings.general') {
+    profileMenus.push({
       handler: () => {
         router.push({
           name: 'settings.general',
@@ -73,14 +88,12 @@ const menus = computed(() => {
       },
       icon: 'codicon:settings',
       text: 'Profile settings',
-    },
-    // NOT DELETE THIS BLOCK
-    // {
-    //   handler: shopStore.redirectToPricing,
-    //   icon: 'ant-design:dollar-circle-twotone',
-    //   text: 'Pricing plans',
-    // },
-  );
+      order: 50,
+    });
+  }
+
+  // Sort the menus by order
+  profileMenus.sort((a, b) => a.order - b.order);
 
   return profileMenus;
 });
