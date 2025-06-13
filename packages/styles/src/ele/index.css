@@ -14,14 +14,14 @@
 
 /* table 圆角 */
 .el-table--border {
-  border-radius: var(--radius) !important;
   border: 1px solid var(--el-table-border-color) !important;
+  border-radius: var(--radius) !important;
 }
 
-.el-table--border .el-table__inner-wrapper:after,
-.el-table--border:after,
-.el-table--border:before,
-.el-table__inner-wrapper:before,
+.el-table--border .el-table__inner-wrapper::after,
+.el-table--border::after,
+.el-table--border::before,
+.el-table__inner-wrapper::before,
 .el-table__border-left-patch {
   display: none;
 }
@@ -49,18 +49,21 @@
   > .el-descriptions__cell:first-child {
   border-top-left-radius: var(--radius) !important;
 }
+
 .el-descriptions
   .el-descriptions__table.is-bordered
   tr:first-child
   > .el-descriptions__cell:last-child {
   border-top-right-radius: var(--radius) !important;
 }
+
 .el-descriptions
   .el-descriptions__table.is-bordered
   tr:last-child
   > .el-descriptions__cell:first-child {
   border-bottom-left-radius: var(--radius) !important;
 }
+
 .el-descriptions
   .el-descriptions__table.is-bordered
   tr:last-child
@@ -75,12 +78,13 @@
   border-top: none !important;
   border-left: none !important;
 }
+
 .el-descriptions .el-descriptions__table.is-bordered {
   border-spacing: 0;
   border-collapse: separate;
-  border-radius: var(--radius);
   border-top: var(--el-descriptions-table-border);
   border-left: var(--el-descriptions-table-border);
+  border-radius: var(--radius);
 }
 
 /* ElMessageBox 圆角 */
@@ -95,18 +99,20 @@
 
 /* 顶部 el-tabs 圆角 */
 .el-tabs.el-tabs--top.el-tabs--border-card {
-  border-radius: var(--radius);
   overflow: hidden;
+  border-radius: var(--radius);
 }
+
 .el-tabs .el-tabs__nav.is-top {
   border-radius: var(--radius);
 }
 
 /* 左侧 el-tabs 圆角 */
 .el-tabs.el-tabs--left.el-tabs--border-card {
-  border-radius: var(--radius);
   overflow: hidden;
+  border-radius: var(--radius);
 }
+
 /* 隐藏左侧 el-tabs 时 底部border */
 .el-tabs.el-tabs--left > .el-tabs__header {
   border-bottom: none !important;
