@@ -103,6 +103,10 @@ const tableData2 = [
 const checked = ref(true);
 
 const tabPosition = ref('top');
+
+function changeChecked(v: boolean) {
+  checked.value = v;
+}
 </script>
 
 <template>
@@ -254,66 +258,38 @@ const tabPosition = ref('top');
           <ElSpace>
             <ElCheckTag
               :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
+              @change="changeChecked"
               type="primary"
             >
               Tag 1
             </ElCheckTag>
             <ElCheckTag
               :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
+              @change="changeChecked"
               type="success"
             >
               Tag 2
             </ElCheckTag>
-            <ElCheckTag
-              :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
-              type="info"
-            >
+            <ElCheckTag :checked="checked" @change="changeChecked" type="info">
               Tag 3
             </ElCheckTag>
             <ElCheckTag
               :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
+              @change="changeChecked"
               type="warning"
             >
               Tag 4
             </ElCheckTag>
             <ElCheckTag
               :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
+              @change="changeChecked"
               type="danger"
             >
               Tag 5
             </ElCheckTag>
             <ElCheckTag
               :checked="checked"
-              @change="
-                (v) => {
-                  checked = v;
-                }
-              "
+              @change="changeChecked"
               disabled
               type="success"
             >
