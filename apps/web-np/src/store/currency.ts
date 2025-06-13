@@ -28,7 +28,7 @@ export const useCurrencyStore = defineStore('np-currency', {
 
       const rate = toRate?.rate / baseRate?.rate;
 
-      const toLabel = formatMoney(rate);
+      const toLabel = formatMoney(rate, null, 1, 8);
 
       return `1 ${baseRate.currency} = ${toLabel} ${toRate.currency}`;
     },

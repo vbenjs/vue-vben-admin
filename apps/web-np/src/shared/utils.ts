@@ -39,12 +39,17 @@ export function formatTitle(title: string) {
     .replaceAll(/\b\w/g, (l: any) => l.toUpperCase());
 }
 
-export function formatMoney(val: any, currency: any = null, rate = 1) {
+export function formatMoney(
+  val: any,
+  currency: any = null,
+  rate = 1,
+  precision = 2,
+) {
   const amount = convertRate(val, rate);
 
   return format(amount, {
     code: currency,
-    precision: 2,
+    precision,
     thousand: ',',
     decimal: '.',
   });
