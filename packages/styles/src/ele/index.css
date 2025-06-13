@@ -94,7 +94,7 @@
 }
 
 /* 顶部 el-tabs 圆角 */
-.el-tabs.el-tabs--top.el-tabs--border-card{
+.el-tabs.el-tabs--top.el-tabs--border-card {
   border-radius: var(--radius);
   overflow: hidden;
 }
@@ -102,15 +102,14 @@
   border-radius: var(--radius);
 }
 
-
 /* 左侧 el-tabs 圆角 */
-.el-tabs.el-tabs--left.el-tabs--border-card{
+.el-tabs.el-tabs--left.el-tabs--border-card {
   border-radius: var(--radius);
   overflow: hidden;
 }
 /* 隐藏左侧 el-tabs 时 底部border */
-.el-tabs.el-tabs--left>.el-tabs__header{
-  border-bottom:none !important
+.el-tabs.el-tabs--left > .el-tabs__header {
+  border-bottom: none !important;
 }
 
 .form-valid-error {
