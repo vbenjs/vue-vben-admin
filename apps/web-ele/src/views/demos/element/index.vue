@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
 import {
+  ElAlert,
   ElButton,
   ElCard,
   ElCheckTag,
+  ElDatePicker,
   ElDescriptions,
   ElDescriptionsItem,
+  ElDialog,
+  ElInput,
+  ElInputNumber,
   ElMessage,
   ElMessageBox,
   ElNotification,
@@ -30,64 +35,64 @@ import {
   ElTimeSelect,
   ElTooltip,
   ElTreeSelect,
+  ElUpload,
 } from 'element-plus';
 
+// 类型定义
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
+type ButtonType = 'danger' | 'info' | 'primary' | 'success' | 'warning';
+type TagType = 'danger' | 'info' | 'primary' | 'success' | 'warning';
 
-function info() {
-  ElMessage.info('How many roads must a man walk down');
-}
+// 常量定义
+const BUTTON_TYPES: ButtonType[] = [
+  'primary',
+  'success',
+  'info',
+  'warning',
+  'danger',
+];
+const TAG_TYPES: TagType[] = [
+  'primary',
+  'success',
+  'info',
+  'warning',
+  'danger',
+];
+const SEGMENTED_OPTIONS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const PAGE_SIZES = [100, 200, 300, 400];
 
-function error() {
-  ElMessage.error({
+// 消息配置
+const MESSAGE_CONFIG = {
+  info: 'How many roads must a man walk down',
+  warning: 'How many roads must a man walk down',
+  success: 'Cause you walked hand in hand With another man in my place',
+  error: {
     duration: 2500,
     message: 'Once upon a time you dressed so fine',
-  });
-}
+  },
+} as const;
 
-function warning() {
-  ElMessage.warning('How many roads must a man walk down');
-}
-function success() {
-  ElMessage.success(
-    'Cause you walked hand in hand With another man in my place',
-  );
-}
-
-function messageBox() {
-  ElMessageBox.alert('This is a message', 'Title', {
-    confirmButtonText: 'OK',
-    callback: (action: any) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
-      });
-    },
-  });
-}
-
-function notify(type: NotificationType) {
-  ElNotification({
-    duration: 2500,
-    message: '说点啥呢',
-    type,
-  });
-}
+// 响应式数据
 const segmentedValue = ref('Mon');
-
-const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-const type1 = ref();
-const date = ref();
-const options = Array.from({ length: 1000 }).map((_, idx) => ({
-  value: `Option ${idx + 1}`,
-  label: `${[idx % 10]}${idx}`,
-}));
-
+const type1 = ref<string>('');
+const date = ref<string>('');
 const currentPage = ref(4);
 const pageSize = ref(100);
+const checked = ref(true);
+const tabPosition = ref('top');
+const inputValue = ref('');
+const inputNumberValue = ref(1);
+const dialogVisible = ref(false);
 
-const tableData2 = [
+// 计算属性 - 优化性能
+const selectOptions = computed(() =>
+  Array.from({ length: 1000 }).map((_, idx) => ({
+    value: `Option ${idx + 1}`,
+    label: `${idx % 10}${idx}`,
+  })),
+);
+
+const tableData = computed(() => [
   {
     date: '2016-05-03',
     name: 'Tom',
@@ -98,15 +103,49 @@ const tableData2 = [
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
-];
+]);
 
-const checked = ref(true);
+// 优化的消息函数
+const showMessage = {
+  info: () => ElMessage.info(MESSAGE_CONFIG.info),
+  warning: () => ElMessage.warning(MESSAGE_CONFIG.warning),
+  success: () => ElMessage.success(MESSAGE_CONFIG.success),
+  error: () => ElMessage.error(MESSAGE_CONFIG.error),
+};
 
-const tabPosition = ref('top');
+// 优化的通知函数
+const showNotification = (type: NotificationType) => {
+  ElNotification({
+    duration: 2500,
+    message: '说点啥呢',
+    type,
+  });
+};
 
-function changeChecked(v: boolean) {
+// 消息框函数
+const showMessageBox = () => {
+  ElMessageBox.alert('This is a message', 'Title', {
+    confirmButtonText: 'OK',
+    callback: (action: any) => {
+      ElMessage({
+        type: 'info',
+        message: `action: ${action}`,
+      });
+    },
+  });
+};
+
+// 切换选中状态
+const toggleChecked = (v: boolean) => {
   checked.value = v;
-}
+};
+
+const elAlertList: ('error' | 'info' | 'success' | 'warning')[] = [
+  'success',
+  'info',
+  'warning',
+  'error',
+];
 </script>
 
 <template>
@@ -115,240 +154,301 @@ function changeChecked(v: boolean) {
     title="Element Plus组件使用演示"
   >
     <div class="flex flex-wrap gap-4">
-      <ElCard class="mb-4 w-auto">
-        <template #header> Button </template>
+      <!-- Button 按钮组件演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>按钮</template>
         <div class="flex flex-col gap-4">
-          <div>
+          <!-- 基础按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton>Default</ElButton>
-            <ElButton type="primary">Primary</ElButton>
-            <ElButton type="success">Success</ElButton>
-            <ElButton type="info">Info</ElButton>
-            <ElButton type="warning">Warning</ElButton>
-            <ElButton type="danger">Danger</ElButton>
+            <ElButton v-for="type in BUTTON_TYPES" :key="type" :type="type">
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
 
-          <div>
+          <!-- 朴素按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton plain>Plain</ElButton>
-            <ElButton type="primary" plain>Primary</ElButton>
-            <ElButton type="success" plain>Success</ElButton>
-            <ElButton type="info" plain>Info</ElButton>
-            <ElButton type="warning" plain>Warning</ElButton>
-            <ElButton type="danger" plain>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`plain-${type}`"
+              :type="type"
+              plain
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
 
-          <div>
+          <!-- 圆角按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton round>Round</ElButton>
-            <ElButton type="primary" round>Primary</ElButton>
-            <ElButton type="success" round>Success</ElButton>
-            <ElButton type="info" round>Info</ElButton>
-            <ElButton type="warning" round>Warning</ElButton>
-            <ElButton type="danger" round>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`round-${type}`"
+              :type="type"
+              round
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
 
-          <div>
+          <!-- 圆形按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton :icon="Plus" circle />
-            <ElButton type="primary" :icon="Plus" circle />
-            <ElButton type="success" :icon="Plus" circle />
-            <ElButton type="info" :icon="Plus" circle />
-            <ElButton type="warning" :icon="Plus" circle />
-            <ElButton type="danger" :icon="Plus" circle />
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`circle-${type}`"
+              :type="type"
+              :icon="Plus"
+              circle
+            />
           </div>
 
-          <div>
+          <!-- 禁用按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton disabled>Default</ElButton>
-            <ElButton type="primary" disabled>Primary</ElButton>
-            <ElButton type="success" disabled>Success</ElButton>
-            <ElButton type="info" disabled>Info</ElButton>
-            <ElButton type="warning" disabled>Warning</ElButton>
-            <ElButton type="danger" disabled>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`disabled-${type}`"
+              :type="type"
+              disabled
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
 
-          <div>
+          <!-- 禁用朴素按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton plain disabled>Plain</ElButton>
-            <ElButton type="primary" plain disabled>Primary</ElButton>
-            <ElButton type="success" plain disabled>Success</ElButton>
-            <ElButton type="info" plain disabled>Info</ElButton>
-            <ElButton type="warning" plain disabled>Warning</ElButton>
-            <ElButton type="danger" plain disabled>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`plain-disabled-${type}`"
+              :type="type"
+              plain
+              disabled
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
-          <div>
+
+          <!-- 链接按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton link>Plain</ElButton>
-            <ElButton type="primary" link>Primary</ElButton>
-            <ElButton type="success" link>Success</ElButton>
-            <ElButton type="info" link>Info</ElButton>
-            <ElButton type="warning" link>Warning</ElButton>
-            <ElButton type="danger" link>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`link-${type}`"
+              :type="type"
+              link
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
-          <div>
+
+          <!-- 禁用链接按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton link disabled>Plain</ElButton>
-            <ElButton type="primary" link disabled>Primary</ElButton>
-            <ElButton type="success" link disabled>Success</ElButton>
-            <ElButton type="info" link disabled>Info</ElButton>
-            <ElButton type="warning" link disabled>Warning</ElButton>
-            <ElButton type="danger" link disabled>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`link-disabled-${type}`"
+              :type="type"
+              link
+              disabled
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
-          <div>
+
+          <!-- 文字按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton text>Plain</ElButton>
-            <ElButton type="primary" text>Primary</ElButton>
-            <ElButton type="success" text>Success</ElButton>
-            <ElButton type="info" text>Info</ElButton>
-            <ElButton type="warning" text>Warning</ElButton>
-            <ElButton type="danger" text>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`text-${type}`"
+              :type="type"
+              text
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
-          <div>
+
+          <!-- 禁用文字按钮 -->
+          <div class="flex flex-wrap gap-2">
             <ElButton text disabled>Plain</ElButton>
-            <ElButton type="primary" text disabled>Primary</ElButton>
-            <ElButton type="success" text disabled>Success</ElButton>
-            <ElButton type="info" text disabled>Info</ElButton>
-            <ElButton type="warning" text disabled>Warning</ElButton>
-            <ElButton type="danger" text disabled>Danger</ElButton>
+            <ElButton
+              v-for="type in BUTTON_TYPES"
+              :key="`text-disabled-${type}`"
+              :type="type"
+              text
+              disabled
+            >
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            </ElButton>
           </div>
         </div>
       </ElCard>
-      <ElCard class="mb-4 w-auto">
-        <template #header> Tag </template>
+
+      <!-- Tag 标签组件演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>标签</template>
         <div class="flex flex-col gap-4">
-          <ElSpace>
-            <ElTag type="primary">Tag 1</ElTag>
-            <ElTag type="success">Tag 2</ElTag>
-            <ElTag type="info">Tag 3</ElTag>
-            <ElTag type="warning">Tag 4</ElTag>
-            <ElTag type="danger">Tag 5</ElTag>
+          <!-- 基础标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`tag-${type}`"
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
-            <ElTag effect="dark" type="primary">Tag 1</ElTag>
-            <ElTag effect="dark" type="success">Tag 2</ElTag>
-            <ElTag effect="dark" type="info">Tag 3</ElTag>
-            <ElTag effect="dark" type="warning">Tag 4</ElTag>
-            <ElTag effect="dark" type="danger">Tag 5</ElTag>
+
+          <!-- 深色标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`dark-${type}`"
+              effect="dark"
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
-            <ElTag effect="plain" type="primary">Tag 1</ElTag>
-            <ElTag effect="plain" type="success">Tag 2</ElTag>
-            <ElTag effect="plain" type="info">Tag 3</ElTag>
-            <ElTag effect="plain" type="warning">Tag 4</ElTag>
-            <ElTag effect="plain" type="danger">Tag 5</ElTag>
+
+          <!-- 朴素标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`plain-${type}`"
+              effect="plain"
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
-            <ElTag round type="primary">Tag 1</ElTag>
-            <ElTag round type="success">Tag 2</ElTag>
-            <ElTag round type="info">Tag 3</ElTag>
-            <ElTag round type="warning">Tag 4</ElTag>
-            <ElTag round type="danger">Tag 5</ElTag>
+
+          <!-- 圆形标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`round-${type}`"
+              round
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
-            <ElTag round effect="dark" type="primary">Tag 1</ElTag>
-            <ElTag round effect="dark" type="success">Tag 2</ElTag>
-            <ElTag round effect="dark" type="info">Tag 3</ElTag>
-            <ElTag round effect="dark" type="warning">Tag 4</ElTag>
-            <ElTag round effect="dark" type="danger">Tag 5</ElTag>
+
+          <!-- 圆形深色标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`round-dark-${type}`"
+              round
+              effect="dark"
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
-            <ElTag round effect="plain" type="primary">Tag 1</ElTag>
-            <ElTag round effect="plain" type="success">Tag 2</ElTag>
-            <ElTag round effect="plain" type="info">Tag 3</ElTag>
-            <ElTag round effect="plain" type="warning">Tag 4</ElTag>
-            <ElTag round effect="plain" type="danger">Tag 5</ElTag>
+
+          <!-- 圆形朴素标签 -->
+          <ElSpace wrap>
+            <ElTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`round-plain-${type}`"
+              round
+              effect="plain"
+              :type="type"
+            >
+              Tag {{ index + 1 }}
+            </ElTag>
           </ElSpace>
-          <ElSpace>
+
+          <!-- 可选择标签 -->
+          <ElSpace wrap>
             <ElCheckTag checked>Checked</ElCheckTag>
-            <ElCheckTag :checked="checked" @change="changeChecked">
+            <ElCheckTag :checked="checked" @change="toggleChecked">
               Toggle me
             </ElCheckTag>
             <ElCheckTag disabled>Disabled</ElCheckTag>
           </ElSpace>
-          <ElSpace>
+
+          <!-- 可选择彩色标签 -->
+          <ElSpace wrap>
             <ElCheckTag
+              v-for="(type, index) in TAG_TYPES"
+              :key="`check-${type}`"
               :checked="checked"
-              @change="changeChecked"
-              type="primary"
+              :type="type"
+              @change="toggleChecked"
             >
-              Tag 1
+              Tag {{ index + 1 }}
             </ElCheckTag>
             <ElCheckTag
               :checked="checked"
-              @change="changeChecked"
-              type="success"
-            >
-              Tag 2
-            </ElCheckTag>
-            <ElCheckTag :checked="checked" @change="changeChecked" type="info">
-              Tag 3
-            </ElCheckTag>
-            <ElCheckTag
-              :checked="checked"
-              @change="changeChecked"
-              type="warning"
-            >
-              Tag 4
-            </ElCheckTag>
-            <ElCheckTag
-              :checked="checked"
-              @change="changeChecked"
-              type="danger"
-            >
-              Tag 5
-            </ElCheckTag>
-            <ElCheckTag
-              :checked="checked"
-              @change="changeChecked"
               disabled
               type="success"
+              @change="toggleChecked"
             >
-              Tag 6
+              Disabled
             </ElCheckTag>
-          </ElSpace>
-        </div>
-      </ElCard>
-      <ElCard class="mb-4 w-auto">
-        <template #header> Table </template>
-        <div class="flex flex-col gap-4">
-          无边框
-          <ElSpace>
-            <ElTable
-              :data="tableData2"
-              style="width: 300px"
-              show-overflow-tooltip
-            >
-              <ElTableColumn prop="date" label="Date" width="180" />
-              <ElTableColumn prop="name" label="Name" width="180" />
-              <ElTableColumn prop="address" label="Address" />
-            </ElTable>
-          </ElSpace>
-          有边框
-          <ElSpace>
-            <ElTable
-              :data="tableData2"
-              style="width: 300px"
-              show-overflow-tooltip
-              border
-            >
-              <ElTableColumn prop="date" label="Date" width="180" />
-              <ElTableColumn prop="name" label="Name" width="180" />
-              <ElTableColumn prop="address" label="Address" fixed="right" />
-            </ElTable>
-          </ElSpace>
-          无表头
-          <ElSpace>
-            <ElTable
-              :data="tableData2"
-              style="width: 300px"
-              show-overflow-tooltip
-              :show-header="false"
-              border
-            >
-              <ElTableColumn prop="date" label="Date" width="180" />
-              <ElTableColumn prop="name" label="Name" width="180" />
-              <ElTableColumn prop="address" label="Address" fixed="right" />
-            </ElTable>
           </ElSpace>
         </div>
       </ElCard>
 
-      <ElCard class="mb-4 w-auto">
-        <template #header> Popper </template>
+      <!-- Table 表格组件演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>表格</template>
+        <div class="flex flex-col gap-4">
+          <div>
+            <div class="mb-2 text-sm font-medium text-gray-600">无边框</div>
+            <ElTable
+              :data="tableData"
+              style="width: 200px"
+              show-overflow-tooltip
+            >
+              <ElTableColumn prop="date" label="Date" width="120" />
+              <ElTableColumn prop="name" label="Name" width="80" />
+              <ElTableColumn prop="address" label="Address" fixed="right" />
+            </ElTable>
+          </div>
+
+          <div>
+            <div class="mb-2 text-sm font-medium text-gray-600">有边框</div>
+            <ElTable
+              :data="tableData"
+              style="width: 200px"
+              show-overflow-tooltip
+              border
+            >
+              <ElTableColumn prop="date" label="Date" width="120" />
+              <ElTableColumn prop="name" label="Name" width="80" />
+              <ElTableColumn prop="address" label="Address" fixed="right" />
+            </ElTable>
+          </div>
+
+          <div>
+            <div class="mb-2 text-sm font-medium text-gray-600">无表头</div>
+            <ElTable
+              :data="tableData"
+              style="width: 200px"
+              show-overflow-tooltip
+              :show-header="false"
+              border
+            >
+              <ElTableColumn prop="date" label="Date" width="120" />
+              <ElTableColumn prop="name" label="Name" width="80" />
+              <ElTableColumn prop="address" label="Address" fixed="right" />
+            </ElTable>
+          </div>
+        </div>
+      </ElCard>
+
+      <!-- Popper 弹出组件演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>弹出组件</template>
         <div class="grid grid-cols-2 gap-4">
-          <ElSpace>
+          <ElSpace direction="vertical">
             <ElSelect
               v-model="type1"
               placeholder="Select"
@@ -359,18 +459,21 @@ function changeChecked(v: boolean) {
               <ElOption label="Option 2" value="2" disabled />
             </ElSelect>
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElSelectV2
               v-model="type1"
-              :options="options"
+              :options="selectOptions"
               placeholder="ElSelectV2"
               style="width: 240px"
             />
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElTimePicker v-model="date" placeholder="ElTimePicker" />
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElTimeSelect
               v-model="date"
               start="08:30"
@@ -379,24 +482,27 @@ function changeChecked(v: boolean) {
               placeholder="Select time"
             />
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElTreeSelect
               v-model="type1"
-              :data="options"
+              :data="selectOptions"
               :render-after-expand="false"
               style="width: 240px"
               placeholder="ElTreeSelect"
             />
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElPopconfirm title="Are you sure to delete this?">
               <template #reference>
                 <ElButton>Delete</ElButton>
               </template>
             </ElPopconfirm>
-            <ElButton @click="messageBox"> Message Box </ElButton>
+            <ElButton @click="showMessageBox">Message Box</ElButton>
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElPopover
               placement="top-start"
               title="Title"
@@ -409,7 +515,8 @@ function changeChecked(v: boolean) {
               </template>
             </ElPopover>
           </ElSpace>
-          <ElSpace>
+
+          <ElSpace direction="vertical">
             <ElTooltip content="Top center" placement="top">
               <ElButton>Dark</ElButton>
             </ElTooltip>
@@ -423,27 +530,49 @@ function changeChecked(v: boolean) {
           </ElSpace>
         </div>
       </ElCard>
-      <!--  -->
+
+      <!-- Message 消息提示演示 -->
       <ElCard class="mb-4">
-        <template #header> Message </template>
-        <ElSpace>
-          <ElButton type="info" @click="info"> 信息 </ElButton>
-          <ElButton type="danger" @click="error"> 错误 </ElButton>
-          <ElButton type="warning" @click="warning"> 警告 </ElButton>
-          <ElButton type="success" @click="success"> 成功 </ElButton>
+        <template #header>消息提示</template>
+        <ElSpace wrap>
+          <ElButton type="info" @click="showMessage.info">信息</ElButton>
+          <ElButton type="danger" @click="showMessage.error">错误</ElButton>
+          <ElButton type="warning" @click="showMessage.warning">警告</ElButton>
+          <ElButton type="success" @click="showMessage.success">成功</ElButton>
         </ElSpace>
       </ElCard>
+
+      <!-- Notification 通知演示 -->
       <ElCard class="mb-4 w-80">
-        <template #header> Notification </template>
-        <ElSpace>
-          <ElButton type="info" @click="notify('info')"> 信息 </ElButton>
-          <ElButton type="danger" @click="notify('error')"> 错误 </ElButton>
-          <ElButton type="warning" @click="notify('warning')"> 警告 </ElButton>
-          <ElButton type="success" @click="notify('success')"> 成功 </ElButton>
+        <template #header>通知</template>
+        <ElSpace wrap>
+          <ElButton
+            v-for="type in [
+              'info',
+              'error',
+              'warning',
+              'success',
+            ] as NotificationType[]"
+            :key="`notify-${type}`"
+            :type="type === 'error' ? 'danger' : type"
+            @click="showNotification(type)"
+          >
+            {{
+              type === 'info'
+                ? '信息'
+                : type === 'error'
+                  ? '错误'
+                  : type === 'warning'
+                    ? '警告'
+                    : '成功'
+            }}
+          </ElButton>
         </ElSpace>
       </ElCard>
+
+      <!-- Popconfirm 气泡确认框演示 -->
       <ElCard class="mb-4 w-80">
-        <template #header> Popconfirm </template>
+        <template #header>气泡确认框</template>
         <ElSpace>
           <ElPopconfirm title="Are you sure to delete this?">
             <template #reference>
@@ -452,78 +581,81 @@ function changeChecked(v: boolean) {
           </ElPopconfirm>
         </ElSpace>
       </ElCard>
-      <ElCard class="mb-4 w-auto">
-        <template #header> Segmented </template>
-        <ElSegmented v-model="segmentedValue" :options="segmentedOptions" />
+
+      <!-- Segmented 分段控制器演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>分段控制器</template>
+        <ElSegmented v-model="segmentedValue" :options="SEGMENTED_OPTIONS" />
       </ElCard>
 
+      <!-- Loading 加载演示 -->
       <ElCard class="mb-4 w-80">
-        <template #header> V-Loading </template>
+        <template #header>加载中</template>
         <div class="flex size-72 items-center justify-center" v-loading="true">
           一些演示的内容
         </div>
       </ElCard>
 
-      <ElCard class="mb-4 w-auto">
-        <template #header> Descriptions </template>
-        <div class="flex flex-col gap-4">
-          <ElSpace>
-            <ElDescriptions class="margin-top" :column="1" border>
-              <ElDescriptionsItem label="UserName">
-                kooriookami
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="Telephone">
-                18100000000
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="Place"> Suzhou </ElDescriptionsItem>
-              <ElDescriptionsItem label="Remarks">
-                <ElTag size="small">School</ElTag>
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="Address">
-                No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu
-                Province
-              </ElDescriptionsItem>
-            </ElDescriptions>
-          </ElSpace>
-        </div>
+      <!-- Descriptions 描述列表演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>描述列表</template>
+        <ElDescriptions class="margin-top" :column="1" border>
+          <ElDescriptionsItem label="UserName">
+            kooriookami
+          </ElDescriptionsItem>
+          <ElDescriptionsItem label="Telephone">
+            18100000000
+          </ElDescriptionsItem>
+          <ElDescriptionsItem label="Place">Suzhou</ElDescriptionsItem>
+          <ElDescriptionsItem label="Remarks">
+            <ElTag size="small">School</ElTag>
+          </ElDescriptionsItem>
+          <ElDescriptionsItem label="Address">
+            No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+          </ElDescriptionsItem>
+        </ElDescriptions>
       </ElCard>
 
-      <ElCard class="mb-4 w-auto">
-        <template #header> Pagination </template>
+      <!-- Pagination 分页演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>分页</template>
         <div class="flex flex-col gap-4">
-          <ElSpace>
+          <div>
+            <div class="mb-2 text-sm font-medium text-gray-600">无背景</div>
             <ElPagination
               v-model:current-page="currentPage"
               v-model:page-size="pageSize"
-              :page-sizes="[100, 200, 300, 400]"
+              :page-sizes="PAGE_SIZES"
               :background="false"
               layout="total, sizes, prev, pager, next, jumper"
               :total="400"
             />
-          </ElSpace>
-          <ElSpace>
+          </div>
+          <div>
+            <div class="mb-2 text-sm font-medium text-gray-600">有背景</div>
             <ElPagination
               v-model:current-page="currentPage"
               v-model:page-size="pageSize"
-              :page-sizes="[100, 200, 300, 400]"
+              :page-sizes="PAGE_SIZES"
               :background="true"
               layout="total, sizes, prev, pager, next, jumper"
               :total="400"
             />
-          </ElSpace>
+          </div>
         </div>
       </ElCard>
 
-      <ElCard class="mb-4 w-auto">
-        <template #header> Tabs </template>
+      <!-- Tabs 标签页演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>标签页</template>
         <div class="mb-4 flex gap-4">
           <ElTabs v-model="tabPosition" type="card">
-            <ElTabPane label="top" name="top">top</ElTabPane>
-            <ElTabPane label="right" name="right">right</ElTabPane>
+            <ElTabPane label="top" name="top">顶部标签页</ElTabPane>
+            <ElTabPane label="right" name="right">右侧标签页</ElTabPane>
           </ElTabs>
           <ElTabs v-model="tabPosition" type="border-card">
-            <ElTabPane label="top" name="top">top</ElTabPane>
-            <ElTabPane label="right" name="right">right</ElTabPane>
+            <ElTabPane label="top" name="top">顶部边框标签页</ElTabPane>
+            <ElTabPane label="right" name="right">右侧边框标签页</ElTabPane>
           </ElTabs>
         </div>
         <div class="flex gap-4">
@@ -533,8 +665,8 @@ function changeChecked(v: boolean) {
             type="card"
             class="h-full"
           >
-            <ElTabPane label="top" name="top">top</ElTabPane>
-            <ElTabPane label="right" name="right">right</ElTabPane>
+            <ElTabPane label="top" name="top">左侧标签页</ElTabPane>
+            <ElTabPane label="right" name="right">右侧标签页</ElTabPane>
           </ElTabs>
           <ElTabs
             v-model="tabPosition"
@@ -542,10 +674,116 @@ function changeChecked(v: boolean) {
             type="border-card"
             class="h-full"
           >
-            <ElTabPane label="top" name="top">top</ElTabPane>
-            <ElTabPane label="right" name="right">right</ElTabPane>
+            <ElTabPane label="top" name="top">左侧边框标签页</ElTabPane>
+            <ElTabPane label="right" name="right">右侧边框标签页</ElTabPane>
           </ElTabs>
         </div>
+      </ElCard>
+
+      <!-- Input 输入组件演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>输入框</template>
+        <div class="flex flex-col gap-4">
+          <div class="grid grid-cols-2 gap-4">
+            <ElInput v-model="inputValue" placeholder="基础输入框" />
+            <ElInput v-model="inputValue" placeholder="禁用状态" disabled />
+            <ElInput v-model="inputValue" placeholder="可清空" clearable />
+            <ElInput
+              v-model="inputValue"
+              placeholder="密码框"
+              type="password"
+              show-password
+            />
+            <ElInputNumber v-model="inputNumberValue" :min="1" :max="10" />
+            <ElInputNumber
+              v-model="inputNumberValue"
+              :min="1"
+              :max="10"
+              disabled
+            />
+          </div>
+        </div>
+      </ElCard>
+
+      <!-- DatePicker 日期选择器演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>日期选择器</template>
+        <div class="grid grid-cols-1 gap-4">
+          <ElDatePicker v-model="date" type="date" placeholder="选择日期" />
+          <ElDatePicker
+            v-model="date"
+            type="datetime"
+            placeholder="选择日期时间"
+          />
+          <ElDatePicker
+            v-model="date"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          />
+          <ElDatePicker
+            v-model="date"
+            type="datetimerange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          />
+        </div>
+      </ElCard>
+
+      <!-- Alert/Badge 警告和徽章演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>警告提示</template>
+        <div>
+          <div class="mb-2 text-sm font-medium text-gray-600">警告</div>
+          <div class="flex flex-col gap-2">
+            <ElAlert
+              v-for="type in elAlertList"
+              :key="`alert-${type}`"
+              :title="`${type} alert`"
+              :type="type"
+              show-icon
+            />
+          </div>
+        </div>
+      </ElCard>
+
+      <!-- Avatar/Upload 头像和上传演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>文件上传</template>
+        <div>
+          <div class="mb-2 text-sm font-medium text-gray-600">上传</div>
+          <ElUpload
+            class="upload-demo"
+            drag
+            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+            multiple
+          >
+            <div class="el-upload__text">
+              将文件拖到此处，或<em>点击上传</em>
+            </div>
+          </ElUpload>
+        </div>
+      </ElCard>
+
+      <!-- Dialog 对话框演示 -->
+      <ElCard class="mb-4 w-auto min-w-[200px]">
+        <template #header>对话框</template>
+        <ElButton type="primary" @click="dialogVisible = true">
+          打开对话框
+        </ElButton>
+        <ElDialog v-model="dialogVisible" title="提示" width="500">
+          <span>这是一段信息</span>
+          <template #footer>
+            <div class="dialog-footer">
+              <ElButton @click="dialogVisible = false">取消</ElButton>
+              <ElButton type="primary" @click="dialogVisible = false">
+                确定
+              </ElButton>
+            </div>
+          </template>
+        </ElDialog>
       </ElCard>
     </div>
   </Page>

@@ -102,9 +102,9 @@
   overflow: hidden;
   border-radius: var(--radius);
 }
-
-.el-tabs .el-tabs__nav.is-top {
-  border-radius: var(--radius);
+.el-tabs.el-tabs--top.el-tabs--card .el-tabs__nav.is-top {
+  border-top-left-radius: var(--radius) !important;
+  border-top-right-radius: var(--radius) !important;
 }
 
 /* 左侧 el-tabs 圆角 */
@@ -112,10 +112,19 @@
   overflow: hidden;
   border-radius: var(--radius);
 }
+.el-tabs.el-tabs--left.el-tabs--card .el-tabs__nav.is-left {
+  border-top-left-radius: var(--radius) !important;
+  border-bottom-left-radius: var(--radius) !important;
+}
 
 /* 隐藏左侧 el-tabs 时 底部border */
 .el-tabs.el-tabs--left > .el-tabs__header {
   border-bottom: none !important;
+}
+
+/* 上传拖拽区域 圆角 */
+.el-upload-dragger {
+  border-radius: var(--radius) !important;
 }
 
 .form-valid-error {
