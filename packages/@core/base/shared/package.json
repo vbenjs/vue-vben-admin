@@ -85,19 +85,13 @@
     "clsx": "catalog:",
     "dayjs": "catalog:",
     "defu": "catalog:",
-    "lodash.clonedeep": "catalog:",
-    "lodash.get": "catalog:",
-    "lodash.isequal": "catalog:",
-    "lodash.set": "catalog:",
+    "lodash": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash.clonedeep": "catalog:",
-    "@types/lodash.get": "catalog:",
-    "@types/lodash.isequal": "catalog:",
-    "@types/lodash.set": "catalog:",
+    "@types/lodash": "catalog:",
     "@types/nprogress": "catalog:"
   }
 }
