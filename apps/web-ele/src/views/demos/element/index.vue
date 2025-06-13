@@ -252,7 +252,9 @@ function changeChecked(v: boolean) {
           </ElSpace>
           <ElSpace>
             <ElCheckTag checked>Checked</ElCheckTag>
-            <ElCheckTag :checked="checked"> Toggle me </ElCheckTag>
+            <ElCheckTag :checked="checked" @change="changeChecked">
+              Toggle me
+            </ElCheckTag>
             <ElCheckTag disabled>Disabled</ElCheckTag>
           </ElSpace>
           <ElSpace>
