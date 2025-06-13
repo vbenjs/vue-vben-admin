@@ -45,7 +45,6 @@ export const useAuthStore = defineStore('auth', () => {
     const shopifyAppBridgeStore = useShopifyAppBridgeStore();
 
     // Verify Shopify token
-    shopifyAppBridgeStore.initAppBridge();
     shopifyAppBridgeStore.getSessionToken();
 
     loginLoading.value = true;

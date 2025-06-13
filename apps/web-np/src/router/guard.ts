@@ -8,6 +8,7 @@ import { startProgress, stopProgress } from '@vben/utils';
 import { accessRoutes, coreRouteNames } from '#/router/routes';
 import { DefaultRoutes } from '#/shared/constants';
 import { useAuthStore, useShopStore } from '#/store';
+import { useShopifyAppBridgeStore } from '#/store/shopify-app-bridge';
 
 import { generateAccess } from './access';
 import { loginPaths } from './routes/core';
@@ -52,6 +53,10 @@ function setupAccessGuard(router: Router) {
     const userStore = useUserStore();
     const shopStore = useShopStore();
     const authStore = useAuthStore();
+    const shopifyAppBridgeStore = useShopifyAppBridgeStore();
+
+    // Always initialize App Bridge on TOP
+    shopifyAppBridgeStore.initAppBridge();
 
     // 基本路由，这些路由不需要进入权限拦截
     if (coreRouteNames.includes(to.name as string)) {

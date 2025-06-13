@@ -1,28 +1,32 @@
 import { createApp } from '@shopify/app-bridge';
 import { Redirect } from '@shopify/app-bridge/actions';
-import { getSessionToken } from '@shopify/app-bridge/utilities';
+import {
+  getSessionToken,
+  isShopifyEmbedded,
+} from '@shopify/app-bridge/utilities';
 import { defineStore } from 'pinia';
 
 export const useShopifyAppBridgeStore = defineStore('np-shopify-appbridge', {
   actions: {
     initAppBridge() {
+      if (!isShopifyEmbedded()) {
+        return;
+      }
+
       this.appBridge = createApp({
         apiKey: import.meta.env.VITE_GLOB_SHOPIFY_APP_KEY,
         host: new URLSearchParams(location.search).get('host') as string,
       });
     },
     getSessionToken() {
-      if (!this.appBridge) {
-        this.initAppBridge();
-      }
-
       getSessionToken(this.appBridge).then((_) => {
         // You can use the token for further API calls or verification
       });
     },
     redirect(url: string, newTab: boolean = false) {
       if (!this.appBridge) {
-        this.initAppBridge();
+        window.open(url, '_blank');
+        return;
       }
 
       const redirect = Redirect.create(this.appBridge);
