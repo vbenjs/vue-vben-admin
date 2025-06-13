@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import type { ExtendedModalApi, ModalProps } from './modal';
 
-import { computed, nextTick, provide, ref, unref, useId, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onDeactivated,
+  provide,
+  ref,
+  unref,
+  useId,
+  watch,
+} from 'vue';
 
 import {
   useIsMobile,
@@ -134,6 +143,16 @@ watch(
 //     }
 //   },
 // );
+
+/**
+ * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ */
+onDeactivated(() => {
+  // 如果弹窗没有被挂载到内容区域，则关闭弹窗
+  if (!appendToMain.value) {
+    props.modalApi?.close();
+  }
+});
 
 function handleFullscreen() {
   props.modalApi?.setState((prev) => {
