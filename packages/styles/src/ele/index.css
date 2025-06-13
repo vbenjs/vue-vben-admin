@@ -102,6 +102,7 @@
   overflow: hidden;
   border-radius: var(--radius);
 }
+
 .el-tabs.el-tabs--top.el-tabs--card .el-tabs__nav.is-top {
   border-top-left-radius: var(--radius) !important;
   border-top-right-radius: var(--radius) !important;
@@ -112,6 +113,7 @@
   overflow: hidden;
   border-radius: var(--radius);
 }
+
 .el-tabs.el-tabs--left.el-tabs--card .el-tabs__nav.is-left {
   border-top-left-radius: var(--radius) !important;
   border-bottom-left-radius: var(--radius) !important;
