@@ -1,0 +1,98 @@
+{
+  "menu": {
+    "name": "数字货币工具",
+    "recommendations": "AI交易建议",
+    "portfolio": "投资组合",
+    "apiKeys": "API密钥管理",
+    "recharge": "Token充值"
+  },
+  "common": {
+    "currency": "币种",
+    "amount": "数量",
+    "price": "价格",
+    "value": "价值",
+    "action": "操作",
+    "status": "状态",
+    "balance": "余额",
+    "submit": "提交",
+    "save": "保存",
+    "remove": "移除",
+    "cancel": "取消",
+    "success": "成功",
+    "error": "错误",
+    "loading": "加载中...",
+    "description": "描述",
+    "placeholder": "请输入...",
+    "selectPlaceholder": "请选择..."
+  },
+  "recommendations": {
+    "title": "AI交易建议",
+    "subTitle": "获取基于AI的加密货币交易信号",
+    "currency": "选择币种",
+    "timeframe": "选择时间框架",
+    "riskAppetite": "选择风险偏好",
+    "getRecommendation": "获取建议",
+    "currentBalance": "当前Token余额",
+    "recommendationResult": "AI建议结果",
+    "orderDetails": "模拟订单详情",
+    "insufficientTokens": "Token余额不足，请先充值。",
+    "tokenCost": "本次消耗Tokens",
+    "timeframeOptions": {
+      "1h": "1小时",
+      "4h": "4小时",
+      "1d": "1天",
+      "1w": "1周"
+    },
+    "riskAppetiteOptions": {
+      "Low": "低风险",
+      "Medium": "中风险",
+      "High": "高风险"
+    }
+  },
+  "portfolio": {
+    "title": "我的投资组合",
+    "currentHoldings": "当前持仓",
+    "historicalPositions": "历史仓位",
+    "asset": "资产",
+    "purchasePrice": "买入均价",
+    "currentPrice": "当前价格",
+    "totalValue": "总价值",
+    "entryPrice": "开仓价格",
+    "exitPrice": "平仓价格",
+    "profitLoss": "盈亏(P/L)",
+    "timestamp": "时间",
+    "noHoldings": "暂无持仓记录",
+    "noPositions": "暂无历史仓位记录"
+  },
+  "apiKeys": {
+    "title": "交易所API密钥管理",
+    "subTitle": "安全连接您的交易所账户",
+    "addKeyTitle": "添加新的API密钥",
+    "exchange": "选择交易所",
+    "apiKey": "API Key",
+    "apiSecret": "API Secret",
+    "saveKey": "保存API密钥",
+    "boundKeysTitle": "已绑定的API密钥",
+    "confirmRemove": "确定要移除此API密钥吗？",
+    "removeSuccess": "API密钥已移除。",
+    "saveSuccess": "API密钥已保存。",
+    "exchangeNames": {
+      "Binance": "币安",
+      "CoinbasePro": "Coinbase Pro",
+      "Kraken": "Kraken",
+      "Bybit": "Bybit"
+    }
+  },
+  "recharge": {
+    "title": "Token充值",
+    "subTitle": "为您的账户增加Token以使用高级功能",
+    "tokenType": "选择Token类型",
+    "amount": "输入充值数量",
+    "rechargeButton": "立即充值",
+    "currentBalance": "当前余额",
+    "likeToken": "LIKE Token",
+    "usdtToken": "USDT Token",
+    "rechargeSuccess": "充值成功！",
+    "minAmount": "充值数量必须大于0。"
+  }
+}
