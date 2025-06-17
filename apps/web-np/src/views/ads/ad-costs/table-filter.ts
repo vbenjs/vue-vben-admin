@@ -12,17 +12,34 @@ export const formOptions: VbenFormProps = {
     {
       component: 'Input',
       fieldName: 'adName',
-      label: 'Ad Name',
+      label: 'Ad',
+      componentProps: {
+        placeholder: 'Search by Ad Name',
+      },
     },
     {
       component: 'Input',
       fieldName: 'adGroupName',
-      label: 'Group Name',
+      label: 'Group',
+      componentProps: {
+        placeholder: 'Search by Group Name',
+      },
     },
     {
       component: 'Input',
       fieldName: 'adCampaignName',
-      label: 'Campaign Name',
+      label: 'Campaign',
+      componentProps: {
+        placeholder: 'Search by Campaign Name',
+      },
+    },
+    {
+      component: 'Input',
+      fieldName: 'adAccountName',
+      label: 'Account',
+      componentProps: {
+        placeholder: 'Search by Ad Account Name',
+      },
     },
   ],
   showCollapseButton: false,
@@ -36,5 +53,5 @@ export const formOptions: VbenFormProps = {
   submitButtonOptions: {
     show: false,
   },
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+  wrapperClass: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
 };

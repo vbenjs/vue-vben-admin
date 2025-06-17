@@ -39,6 +39,12 @@ export const gridOptions: VxeTableGridOptions = {
       minWidth: 250,
     },
     {
+      field: 'adAccountName',
+      title: 'Accoumt Name',
+      align: 'left',
+      minWidth: 150,
+    },
+    {
       field: 'action',
       slots: { default: 'action' },
       title: '',
