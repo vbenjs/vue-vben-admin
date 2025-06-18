@@ -146,7 +146,7 @@ const bindProps = computed(() => {
 });
 
 async function fetchApi() {
-  let { api, beforeFetch, afterFetch, params, resultField } = props;
+  const { api, beforeFetch, afterFetch, resultField } = props;
 
   if (!api || !isFunction(api) || loading.value) {
     return;
@@ -154,10 +154,11 @@ async function fetchApi() {
   refOptions.value = [];
   try {
     loading.value = true;
+    let finalParams = unref(params);
     if (beforeFetch && isFunction(beforeFetch)) {
-      params = (await beforeFetch(params)) || params;
+      finalParams = (await beforeFetch(finalParams)) || finalParams;
     }
-    let res = await api(params);
+    let res = await api(finalParams);
     if (afterFetch && isFunction(afterFetch)) {
       res = (await afterFetch(res)) || res;
     }
