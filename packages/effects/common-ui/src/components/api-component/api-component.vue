@@ -3,11 +3,11 @@ import type { Component } from 'vue';
 
 import type { AnyPromiseFunction } from '@vben/types';
 
-import { computed, ref, unref, useAttrs, watch } from 'vue';
+import { computed, nextTick, ref, unref, useAttrs, watch } from 'vue';
 
 import { LoaderCircle } from '@vben/icons';
 
-import { get, isEqual, isFunction } from '@vben-core/shared/utils';
+import { cloneDeep, get, isEqual, isFunction } from '@vben-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
@@ -104,6 +104,8 @@ const refOptions = ref<OptionsItem[]>([]);
 const loading = ref(false);
 // 首次是否加载过了
 const isFirstLoaded = ref(false);
+// 标记是否有待处理的请求
+const hasPendingRequest = ref(false);
 
 const getOptions = computed(() => {
   const { labelField, valueField, childrenField, numberToString } = props;
@@ -148,15 +150,22 @@ const bindProps = computed(() => {
 async function fetchApi() {
   const { api, beforeFetch, afterFetch, resultField } = props;
 
-  if (!api || !isFunction(api) || loading.value) {
+  if (!api || !isFunction(api)) {
     return;
   }
+
+  // 如果正在加载，标记有待处理的请求并返回
+  if (loading.value) {
+    hasPendingRequest.value = true;
+    return;
+  }
+
   refOptions.value = [];
   try {
     loading.value = true;
-    let finalParams = unref(params);
+    let finalParams = unref(mergedParams);
     if (beforeFetch && isFunction(beforeFetch)) {
-      finalParams = (await beforeFetch(finalParams)) || finalParams;
+      finalParams = (await beforeFetch(cloneDeep(finalParams))) || finalParams;
     }
     let res = await api(finalParams);
     if (afterFetch && isFunction(afterFetch)) {
@@ -178,6 +187,13 @@ async function fetchApi() {
     isFirstLoaded.value = false;
   } finally {
     loading.value = false;
+    // 如果有待处理的请求，立即触发新的请求
+    if (hasPendingRequest.value) {
+      hasPendingRequest.value = false;
+      // 使用 nextTick 确保状态更新完成后再触发新请求
+      await nextTick();
+      fetchApi();
+    }
   }
 }
 
@@ -191,7 +207,7 @@ async function handleFetchForVisible(visible: boolean) {
   }
 }
 
-const params = computed(() => {
+const mergedParams = computed(() => {
   return {
     ...props.params,
     ...unref(innerParams),
@@ -199,7 +215,7 @@ const params = computed(() => {
 });
 
 watch(
-  params,
+  mergedParams,
   (value, oldValue) => {
     if (isEqual(value, oldValue)) {
       return;
