@@ -4,7 +4,7 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import { markRaw } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getPAndLReport } from '#/api';
+import { orderGetPAndLReport } from '#/api';
 import { orderStatusList } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, toPercentage } from '#/shared/utils';
@@ -41,7 +41,7 @@ export const gridOptions: VxeTableGridOptions = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        const data: any = await getPAndLReport({
+        const data: any = await orderGetPAndLReport({
           page: page.currentPage,
           pageSize: page.pageSize,
           ...formValues,

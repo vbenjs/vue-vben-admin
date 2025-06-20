@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-import { getLTVReport, getPAndLReport } from '#/api';
+import { getLTVReport, orderGetPAndLReport } from '#/api';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
@@ -60,7 +60,7 @@ export const state = reactive({
 
 export const loadData = () => {
   state.orderLoading = true;
-  getPAndLReport({
+  orderGetPAndLReport({
     groupBy: 'daily',
     fromDate: state.dateRange[0]?.format('YYYY-MM-DD'),
     toDate: state.dateRange[1]?.format('YYYY-MM-DD'),

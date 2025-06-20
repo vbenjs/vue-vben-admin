@@ -6,7 +6,7 @@ import { useVbenModal, VbenButton } from '@vben/common-ui';
 import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { recalculateOrderCosts } from '#/api';
+import { orderRecalculateCosts } from '#/api';
 import { RecalculateCostsType, StateStatus } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, redirect } from '#/shared/utils';
@@ -18,7 +18,7 @@ const systemStatisticStore = useSystemStatisticStore();
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
 
-  recalculateOrderCosts({
+  orderRecalculateCosts({
     ...values,
     costTypes: [RecalculateCostsType.COSG_HANDLING_FEES],
   })

@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { markRaw } from 'vue';
 
-import { useVbenModal, VbenButton } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui';
 
 import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { orderRecalculateCosts } from '#/api';
-import { RecalculateCostsType, StateStatus } from '#/shared/constants';
+import { orderSyncManually } from '#/api';
+import { StateStatus } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
-import { getDatePreset, redirect } from '#/shared/utils';
+import { getDatePreset } from '#/shared/utils';
 import { useSystemStatisticStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -18,10 +18,7 @@ const systemStatisticStore = useSystemStatisticStore();
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
 
-  orderRecalculateCosts({
-    ...values,
-    costTypes: [RecalculateCostsType.SHIPPING_COSTS],
-  })
+  orderSyncManually(values)
     .then(() => {
       message.success(
         'Your request has been submitted successfully. Once the job is completed, the system will send a notification.',
@@ -45,7 +42,7 @@ const [Form, formApi] = useVbenForm({
     componentProps: {
       class: 'w-full',
     },
-    labelClass: 'w-1/6',
+    labelClass: 'w-1/4',
   },
   fieldMappingTime: [['date', ['from', 'to']]],
   schema: [
@@ -85,42 +82,15 @@ const [Modal, modalApi] = useVbenModal({
     await formApi.validateAndSubmitForm();
   },
 });
-
-const redirectToOrderReport = () => {
-  modalApi.close();
-  redirect('reports-order');
-};
 </script>
 <template>
-  <Modal
-    class="w-[700px]"
-    title="Recalculate Shipping Cost"
-    confirm-text="Submit"
-  >
-    <template #prepend-footer>
-      <div class="flex-auto">
-        <VbenButton
-          variant="link"
-          size="xs"
-          class="w-[110px]"
-          @click="redirectToOrderReport()"
-        >
-          View order report
-        </VbenButton>
-      </div>
-    </template>
+  <Modal class="w-[700px]" title="Sync Shopify Manually" confirm-text="Submit">
     <Form />
 
     <TypographyParagraph class="mt-5 px-5 italic">
-      <span class="font-semibold">Note:</span> After submitting the
-      recalculation request, the system will schedule the recalculation of all
-      related costs. Once the job is completed, the system will send a
-      notification.
-    </TypographyParagraph>
-
-    <TypographyParagraph class="mt-5 px-5 italic">
-      To review the result, please go to the
-      <span class="font-semibold">Order Report</span> page.
+      <span class="font-semibold">Note:</span> All orders are automatically
+      synced to the app. If you still wish to sync manually, please use this
+      form.
     </TypographyParagraph>
   </Modal>
 </template>

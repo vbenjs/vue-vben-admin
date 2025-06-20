@@ -13,7 +13,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getOrderDetail } from '#/api';
+import { orderGetDetail } from '#/api';
 import { countries } from '#/shared/constants';
 import {
   calcGrossProfitMargin,
@@ -93,7 +93,7 @@ const [Grid] = useVbenVxeGrid({
       autoQuery: false,
       ajax: {
         query: async () => {
-          const res = await getOrderDetail({
+          const res = await orderGetDetail({
             page: 1,
             pageSize: 100,
             orderId: state.order.id,

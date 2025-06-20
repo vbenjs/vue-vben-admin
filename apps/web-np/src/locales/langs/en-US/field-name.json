@@ -34,10 +34,10 @@
   "totalAdSpend": "Ad Spends",
 
   "roas": "ROAS",
-  "roasExplain": "ROAS = Total Revenue / Advertising Costs. ROAS stands for Return on Ad Spend. It's a digital marketing metric that measures how much revenue a business generates for every dollar spent on advertising.",
+  "roasExplain": "ROAS = Total Revenue / Ad Spends. ROAS stands for Return on Ad Spend. It's a digital marketing metric that measures how much revenue a business generates for every dollar spent on advertising.",
 
   "poas": "POAS",
-  "poasExplain": "POAS = Gross Profit / Advertising Costs. POAS (Profit on Ad Spend) is a marketing metric that measures the profitability of an ad campaign by focusing on the net profit earned for every dollar spent on advertising.",
+  "poasExplain": "POAS = Gross Profit / Ad Spends. POAS (Profit on Ad Spend) is a marketing metric that measures the profitability of an ad campaign by focusing on the net profit earned for every dollar spent on advertising.",
 
   "totalTax": "Taxes Collected",
   "totalTaxExplain": "Taxes Collected is the amount of taxes that a business collects from its customers on behalf of the government. This amount is typically a percentage of the sale price and is added to the total cost of the goods or services sold.",

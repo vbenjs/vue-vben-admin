@@ -9,7 +9,7 @@ export namespace ITableApi {
   }
 }
 
-export async function getOrders(params: ITableApi.PageFetchParams) {
+export async function orderGetList(params: ITableApi.PageFetchParams) {
   return requestClient.get('/api/order', { params }).then((res) => {
     res.items = res.items.map((item: any) => {
       item.grossProfitMargin = calcGrossProfitMargin(item);
@@ -20,14 +20,24 @@ export async function getOrders(params: ITableApi.PageFetchParams) {
   });
 }
 
-export async function recalculateOrderCosts(payload: any) {
+export async function orderRecalculateCosts(payload: any) {
   return requestClient.post('/api/order/recalculate-costs', payload);
 }
 
-export async function getPAndLReport(params: any) {
+export async function orderSyncManually(payload: any) {
+  return requestClient.post('/api/order/sync', payload);
+}
+
+export async function orderGetPAndLReport(params: any) {
   return requestClient.get('/api/order/p-and-l', { params });
 }
 
-export async function getOrderDetail(params: any) {
+export async function orderGetDetail(params: any) {
   return requestClient.get('/api/order/detail', { params });
+}
+
+export async function orderDelete(ids: any) {
+  return requestClient.delete('/api/order', {
+    data: { ids },
+  });
 }
