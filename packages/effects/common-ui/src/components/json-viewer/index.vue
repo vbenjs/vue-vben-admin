@@ -18,6 +18,9 @@ import { $t } from '@vben/locales';
 
 import { isBoolean } from '@vben-core/shared/utils';
 
+// @ts-ignore
+import JsonBigint from 'json-bigint';
+
 defineOptions({ name: 'JsonViewer' });
 
 const props = withDefaults(defineProps<JsonViewerProps>(), {
@@ -68,6 +71,20 @@ function handleClick(event: MouseEvent) {
   emit('click', event);
 }
 
+// 支持显示 bigint 数据，如较长的订单号
+const jsonData = computed<Record<string, any>>(() => {
+  if (typeof props.value !== 'string') {
+    return props.value || {};
+  }
+
+  try {
+    return JsonBigint({ storeAsString: true }).parse(props.value);
+  } catch (error) {
+    console.error('JSON parse error:', error);
+    return {};
+  }
+});
+
 const bindProps = computed<Recordable<any>>(() => {
   const copyable = {
     copyText: $t('ui.jsonViewer.copy'),
@@ -79,6 +96,7 @@ const bindProps = computed<Recordable<any>>(() => {
   return {
     ...props,
     ...attrs,
+    value: jsonData.value,
     onCopied: (event: JsonViewerAction) => emit('copied', event),
     onKeyclick: (key: string) => emit('keyClick', key),
     onClick: (event: MouseEvent) => handleClick(event),
