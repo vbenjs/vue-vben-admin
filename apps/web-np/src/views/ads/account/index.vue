@@ -8,10 +8,15 @@ import { useAppConfig } from '@vben/hooks';
 import { IconifyIcon } from '@vben/icons';
 import { capitalizeFirstLetter } from '@vben/utils';
 
-import { Dropdown, Menu, MenuItem, Modal, Tag } from 'ant-design-vue';
+import { Dropdown, Menu, MenuItem, Modal, Switch, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { deleteAccount, syncAccount, syncAdInsight } from '#/api';
+import {
+  adAttachToCosts,
+  deleteAccount,
+  syncAccount,
+  syncAdInsight,
+} from '#/api';
 import { StateStatus } from '#/shared/constants';
 import {
   formatReportDate,
@@ -155,6 +160,29 @@ const handleManualSyncAdInsight = (row: any) => {
     },
   });
 };
+
+const handleSwitchCosts = (adAccount: any, checked: any) => {
+  adAccount.loading = true;
+
+  Modal.confirm({
+    title: checked ? 'Attach to Cost Tracking' : 'Detach from Cost Tracking',
+    content: `Would you like to perform this action for '${adAccount.name}'? It will affect cost tracking for this Ad Account.`,
+    onOk: async () => {
+      adAttachToCosts(
+        'ad_account_id',
+        adAccount.parentId.split('-')[0],
+        adAccount.parentId.split('-')[1],
+        adAccount.id,
+        checked,
+      ).finally(() => {
+        gridApi.reload();
+      });
+    },
+    onCancel: () => {
+      adAccount.loading = false;
+    },
+  });
+};
 </script>
 
 <template>
@@ -236,6 +264,20 @@ const handleManualSyncAdInsight = (row: any) => {
           >
             {{ getStatusLabel(row.syncStatus) }}
           </Tag>
+        </template>
+      </template>
+
+      <template #addToCosts="{ row }: { row: any }">
+        <template v-if="row.parentId !== undefined">
+          <Switch
+            @change="
+              (checked) => {
+                handleSwitchCosts(row, checked);
+              }
+            "
+            :loading="row.loading"
+            :checked="!row.detachFromCosts?.includes(shopStore.shop.id)"
+          />
         </template>
       </template>
 

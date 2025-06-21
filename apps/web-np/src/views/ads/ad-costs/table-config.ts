@@ -45,6 +45,12 @@ export const gridOptions: VxeTableGridOptions = {
       minWidth: 150,
     },
     {
+      field: 'createdAt',
+      title: 'Synced At',
+      align: 'center',
+      minWidth: 150,
+    },
+    {
       field: 'action',
       slots: { default: 'action' },
       title: '',

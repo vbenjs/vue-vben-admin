@@ -17,7 +17,7 @@ export const formOptions: VbenFormProps = {
       defaultValue: true,
       renderComponentContent: () => {
         return {
-          default: () => ['Only active Ad Accounts'],
+          default: () => ['Only show the valid Ad Accounts'],
         };
       },
     },

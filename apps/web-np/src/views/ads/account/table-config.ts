@@ -61,6 +61,15 @@ export const gridOptions: VxeTableGridOptions = {
       minWidth: 110,
     },
     {
+      field: 'id',
+      title: 'Attach to costs',
+      titlePrefix: {
+        content: 'Attach/Detach the Ad Accounts to the costs.',
+      },
+      slots: { default: 'addToCosts' },
+      width: 150,
+    },
+    {
       field: 'action',
       slots: { default: 'action' },
       title: '',

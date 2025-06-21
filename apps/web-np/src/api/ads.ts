@@ -25,7 +25,7 @@ export async function getAdList(params: any) {
   return requestClient.get('/api/ads/ad', { params });
 }
 
-export async function attachToCosts(
+export async function adAttachToCosts(
   attachType: string,
   accountType: string,
   accountId: string,

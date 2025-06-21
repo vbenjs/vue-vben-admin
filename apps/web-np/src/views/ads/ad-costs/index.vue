@@ -5,7 +5,7 @@ import { IconifyIcon } from '@vben/icons';
 import { Dropdown, Menu, MenuItem, Modal, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { attachToCosts, syncAdInfo } from '#/api';
+import { adAttachToCosts, syncAdInfo } from '#/api';
 import { getAdsIcon } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -33,24 +33,24 @@ const handleSyncAdInfo = (row: any) => {
 
 const handleSwitchCosts = (row: any, checked: any) => {
   row.loading = true;
-  attachToCosts(
+  adAttachToCosts(
     'ad_id',
     row.accountType,
     row.accountId,
     row.adId,
     checked,
   ).finally(() => {
-    gridApi.reload();
+    gridApi.query();
   });
 };
 
 const handleAttachAdGroupToCosts = (row: any) => {
   Modal.confirm({
-    title: 'Attach Ad Group to costs',
+    title: 'Attach the same Ad Group to costs',
     content:
       'Would you like to attach all ads in this Ad Group to costs? This will enable cost tracking for all ads in the same group.',
     onOk: async () => {
-      await attachToCosts(
+      await adAttachToCosts(
         'ad_group_id',
         row.accountType,
         row.accountId,
@@ -65,10 +65,10 @@ const handleAttachAdGroupToCosts = (row: any) => {
 
 const handleDetachAdGroupFromCosts = (row: any) => {
   Modal.confirm({
-    title: 'Detach Ad Group from costs',
+    title: 'Detach the same Ad Group from costs',
     content: 'Would you like to detach all ads in this Ad Group from costs?',
     onOk: async () => {
-      await attachToCosts(
+      await adAttachToCosts(
         'ad_group_id',
         row.accountType,
         row.accountId,
@@ -83,10 +83,10 @@ const handleDetachAdGroupFromCosts = (row: any) => {
 
 const handleAttachAdCampaignToCosts = (row: any) => {
   Modal.confirm({
-    title: 'Attach Ad Campaign to costs',
+    title: 'Attach the same Ad Campaign to costs',
     content: 'Would you like to attach all ads in this Ad Campaign to costs?',
     onOk: async () => {
-      await attachToCosts(
+      await adAttachToCosts(
         'ad_campaign_id',
         row.accountType,
         row.accountId,
@@ -101,10 +101,10 @@ const handleAttachAdCampaignToCosts = (row: any) => {
 
 const handleDetachAdCampaignFromCosts = (row: any) => {
   Modal.confirm({
-    title: 'Detach Ad Campaign from costs',
+    title: 'Detach the same Ad Campaign from costs',
     content: 'Would you like to detach all ads in this Ad Campaign from costs?',
     onOk: async () => {
-      await attachToCosts(
+      await adAttachToCosts(
         'ad_campaign_id',
         row.accountType,
         row.accountId,
@@ -159,25 +159,25 @@ const handleDetachAdCampaignFromCosts = (row: any) => {
               <MenuItem @click="handleAttachAdGroupToCosts(row)">
                 <div class="flex items-center justify-start space-x-2">
                   <IconifyIcon icon="ant-design:plus-outlined" />
-                  <span>Attach the Ad Group to costs</span>
+                  <span>Attach the same Ad Group to costs</span>
                 </div>
               </MenuItem>
               <MenuItem @click="handleDetachAdGroupFromCosts(row)">
                 <div class="flex items-center justify-start space-x-2">
                   <IconifyIcon icon="ant-design:minus-outlined" />
-                  <span>Detach the Ad Group from costs</span>
+                  <span>Detach the same Ad Group from costs</span>
                 </div>
               </MenuItem>
               <MenuItem @click="handleAttachAdCampaignToCosts(row)">
                 <div class="flex items-center justify-start space-x-2">
                   <IconifyIcon icon="ant-design:plus-outlined" />
-                  <span>Attach the Ad Campaign to costs</span>
+                  <span>Attach the same Ad Campaign to costs</span>
                 </div>
               </MenuItem>
               <MenuItem @click="handleDetachAdCampaignFromCosts(row)">
                 <div class="flex items-center justify-start space-x-2">
                   <IconifyIcon icon="ant-design:minus-outlined" />
-                  <span>Detach the Ad Campaign from costs</span>
+                  <span>Detach the same Ad Campaign from costs</span>
                 </div>
               </MenuItem>
             </Menu>
