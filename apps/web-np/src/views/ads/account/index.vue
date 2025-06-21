@@ -229,7 +229,7 @@ const handleManualSyncAdInsight = (row: any) => {
         </template>
 
         <!-- Show Ad Account status -->
-        <template v-if="row.parentId && row.lastSyncedAt && row.syncStatus">
+        <template v-if="row.parentId && row.syncStatus">
           <Tag
             :color="getStatusClass(row.syncStatus)"
             class="w-[100px] text-center"

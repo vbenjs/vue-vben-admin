@@ -70,8 +70,9 @@ export const orderTableOptions: VxeTableGridOptions = {
       field: 'name',
       footerClassName: 'font-semibold',
       title: 'Order ID',
-      minWidth: 120,
+      minWidth: 200,
       fixed: 'left',
+      align: 'left',
     },
     {
       field: 'processedAt',
