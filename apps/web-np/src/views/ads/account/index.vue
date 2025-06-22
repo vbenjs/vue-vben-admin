@@ -155,7 +155,7 @@ const handleManualSyncAdInsight = (row: any) => {
     okText: 'Sync',
     onOk: async () => {
       await syncAdInsight(row.parentId, row.id).then(() => {
-        gridApi.query();
+        gridApi.reload();
       });
     },
   });
@@ -322,7 +322,8 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
           size="sm"
           variant="outline"
           :disabled="
-            row.syncStatus !== StateStatus.PROCESSED ||
+            row.syncStatus === StateStatus.PROCESSING ||
+            row.syncStatus === StateStatus.PENDING ||
             row.status === 'disconnected'
           "
           @click="handleManualSyncAdInsight(row)"

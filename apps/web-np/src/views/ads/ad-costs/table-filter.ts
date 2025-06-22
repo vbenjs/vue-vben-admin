@@ -36,7 +36,7 @@ export const formOptions: VbenFormProps = {
     {
       component: 'Input',
       fieldName: 'adAccountName',
-      label: 'Account',
+      label: 'Ad Account',
       componentProps: {
         placeholder: 'Search by Ad Account Name',
       },

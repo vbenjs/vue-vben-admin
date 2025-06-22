@@ -13,7 +13,7 @@ const state = reactive({
 
 export const gridOptions: VxeTableGridOptions = {
   showFooter: true,
-  mergeFooterItems: [{ row: 0, col: 0, rowspan: 1, colspan: 2 }],
+  mergeFooterItems: [{ row: 0, col: 0, rowspan: 1, colspan: 3 }],
   footerMethod: () => {
     if (!state.footerData) {
       return [];
@@ -43,6 +43,37 @@ export const gridOptions: VxeTableGridOptions = {
       },
       width: 110,
       fixed: 'left',
+    },
+    {
+      field: 'adName',
+      title: 'Ad Name',
+      footerClassName: 'font-semibold',
+      minWidth: 110,
+      align: 'left',
+    },
+    {
+      field: 'adGroupName',
+      title: 'Ad Group',
+      footerClassName: 'font-semibold',
+      minWidth: 150,
+      align: 'left',
+      visible: false,
+    },
+    {
+      field: 'adCampaignName',
+      title: 'Ad Campaign',
+      footerClassName: 'font-semibold',
+      minWidth: 150,
+      align: 'left',
+      visible: false,
+    },
+    {
+      field: 'adAccountName',
+      title: 'Ad Account',
+      footerClassName: 'font-semibold',
+      minWidth: 150,
+      align: 'left',
+      visible: false,
     },
     {
       field: 'impressions',
@@ -100,6 +131,7 @@ export const gridOptions: VxeTableGridOptions = {
     search: true,
     refresh: { code: 'query' },
     zoom: true,
+    custom: true,
   },
   height: 'auto',
   rowConfig: {

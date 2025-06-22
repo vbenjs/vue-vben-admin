@@ -39,6 +39,38 @@ export const formOptions: VbenFormProps = {
       fieldName: 'date',
       label: 'Date',
     },
+    {
+      component: 'Input',
+      fieldName: 'adName',
+      label: 'Ad',
+      componentProps: {
+        placeholder: 'Search by Ad Name',
+      },
+    },
+    {
+      component: 'Input',
+      fieldName: 'adGroupName',
+      label: 'Group',
+      componentProps: {
+        placeholder: 'Search by Group Name',
+      },
+    },
+    {
+      component: 'Input',
+      fieldName: 'adCampaignName',
+      label: 'Campaign',
+      componentProps: {
+        placeholder: 'Search by Campaign Name',
+      },
+    },
+    {
+      component: 'Input',
+      fieldName: 'adAccountName',
+      label: 'Ad Account',
+      componentProps: {
+        placeholder: 'Search by Ad Account Name',
+      },
+    },
   ],
   showCollapseButton: false,
   collapsed: true,
