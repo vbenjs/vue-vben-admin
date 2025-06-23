@@ -105,10 +105,17 @@ const shouldDraggable = computed(
   () => draggable.value && !shouldFullscreen.value && header.value,
 );
 
+const getAppendTo = computed(() => {
+  return appendToMain.value
+    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
+    : undefined;
+});
+
 const { dragging, transform } = useModalDraggable(
   dialogRef,
   headerRef,
   shouldDraggable,
+  getAppendTo,
 );
 
 const firstOpened = ref(false);
@@ -198,11 +205,6 @@ function handleFocusOutside(e: Event) {
   e.preventDefault();
   e.stopPropagation();
 }
-const getAppendTo = computed(() => {
-  return appendToMain.value
-    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
-    : undefined;
-});
 
 const getForceMount = computed(() => {
   return !unref(destroyOnClose) && unref(firstOpened);
