@@ -21,6 +21,10 @@
       "path": "apps/web-np",
     },
     {
+      "name": "@vben/web-np-admin",
+      "path": "apps/web-np-admin",
+    },
+    {
       "name": "@vben/docs",
       "path": "docs",
     },
