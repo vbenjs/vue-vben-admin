@@ -1,9 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
+import { LOGIN_PATH } from '@vben/constants';
 
 import { AuthPageLayout, BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
+import { DefaultRoutes } from '#/shared/constants';
 import Login from '#/views/_core/authentication/login.vue';
 
 /** 全局404页面 */
@@ -34,7 +35,7 @@ const coreRoutes: RouteRecordRaw[] = [
     },
     name: 'Root',
     path: '/',
-    redirect: DEFAULT_HOME_PATH,
+    redirect: DefaultRoutes.HOME,
     children: [],
   },
   {

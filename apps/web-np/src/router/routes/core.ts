@@ -35,7 +35,7 @@ const coreRoutes: RouteRecordRaw[] = [
     },
     name: 'Root',
     path: '/',
-    redirect: DefaultRoutes.ONBOARS,
+    redirect: DefaultRoutes.ONBOARD,
     children: [],
   },
   {

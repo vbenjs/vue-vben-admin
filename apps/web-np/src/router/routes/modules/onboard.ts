@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
       noBasicLayout: true,
     },
     name: 'Onboard',
-    path: DefaultRoutes.ONBOARS,
+    path: DefaultRoutes.ONBOARD,
     component: () => import('#/views/onboard/index.vue'),
   },
 ];

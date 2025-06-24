@@ -23,7 +23,7 @@ export enum RecalculateCostsType {
 
 export enum DefaultRoutes {
   HOME = '/dashboard',
-  ONBOARS = '/onboard',
+  ONBOARD = '/onboard',
   PRICING = '/pricing',
 }
 

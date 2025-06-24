@@ -104,9 +104,9 @@ function setupAccessGuard(router: Router) {
     const userRoles = userInfo.roles ?? [];
 
     // Customized by Ethan Wilson
-    if (shopStore.isOnboarding && to.path !== DefaultRoutes.ONBOARS) {
+    if (shopStore.isOnboarding && to.path !== DefaultRoutes.ONBOARD) {
       return {
-        path: DefaultRoutes.ONBOARS,
+        path: DefaultRoutes.ONBOARD,
         replace: true,
       };
     }
