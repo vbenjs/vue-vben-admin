@@ -17,7 +17,7 @@
       "path": "apps/web-naive",
     },
     {
-      "name": "@vben/web-np",
+      "name": "@vben/web-np-app",
       "path": "apps/web-np",
     },
     {

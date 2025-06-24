@@ -926,6 +926,69 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
 
+  apps/web-np-admin:
+    dependencies:
+      '@vben/access':
+        specifier: workspace:*
+        version: link:../../packages/effects/access
+      '@vben/common-ui':
+        specifier: workspace:*
+        version: link:../../packages/effects/common-ui
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../../packages/effects/hooks
+      '@vben/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@vben/layouts':
+        specifier: workspace:*
+        version: link:../../packages/effects/layouts
+      '@vben/locales':
+        specifier: workspace:*
+        version: link:../../packages/locales
+      '@vben/plugins':
+        specifier: workspace:*
+        version: link:../../packages/effects/plugins
+      '@vben/preferences':
+        specifier: workspace:*
+        version: link:../../packages/preferences
+      '@vben/request':
+        specifier: workspace:*
+        version: link:../../packages/effects/request
+      '@vben/stores':
+        specifier: workspace:*
+        version: link:../../packages/stores
+      '@vben/styles':
+        specifier: workspace:*
+        version: link:../../packages/styles
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@vben/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 12.8.2(typescript@5.8.2)
+      ant-design-vue:
+        specifier: 'catalog:'
+        version: 4.2.6(vue@3.5.13(typescript@5.8.2))
+      dayjs:
+        specifier: 'catalog:'
+        version: 1.11.13
+      pinia:
+        specifier: ^2.3.1
+        version: 2.3.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2))
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.8.2)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.0(vue@3.5.13(typescript@5.8.2))
+
   docs:
     dependencies:
       '@vben-core/shadcn-ui':
@@ -3662,8 +3725,8 @@ packages:
     resolution: {integrity: sha512-dF2iMMy8P9uKVHV/20LA1ulFLL+MKSbfMiixSmn6fpwqzvix38OIc7ebgnFbBqElvghZCW9ACtzKTGKsTGTWGA==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.1.5':
-    resolution: {integrity: sha512-+I4vRzHm38VjLr/CAciEPJhGYFzWWW4HMTm+6H3WqknXLh0ozNX9oC8ogMUwTSXYR/wGUb1/lTpNziiCH5MybQ==}
+  '@intlify/shared@11.1.7':
+    resolution: {integrity: sha512-4yZeMt2Aa/7n5Ehy4KalUlvt3iRLcg1tq9IBVfOgkyWFArN4oygn6WxgGIFibP3svpaH8DarbNaottq+p0gUZQ==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@12.0.0-alpha.2':
@@ -12458,7 +12521,7 @@ snapshots:
 
   '@intlify/shared@11.1.2': {}
 
-  '@intlify/shared@11.1.5': {}
+  '@intlify/shared@11.1.7': {}
 
   '@intlify/shared@12.0.0-alpha.2': {}
 
@@ -12466,8 +12529,8 @@ snapshots:
     dependencies:
       '@eslint-community/eslint-utils': 4.5.1(eslint@9.23.0(jiti@2.4.2))
       '@intlify/bundle-utils': 10.0.0(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))
-      '@intlify/shared': 11.1.5
-      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.5)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
+      '@intlify/shared': 11.1.7
+      '@intlify/vue-i18n-extensions': 8.0.0(@intlify/shared@11.1.7)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
       '@rollup/pluginutils': 5.1.4(rollup@4.38.0)
       '@typescript-eslint/scope-manager': 8.28.0
       '@typescript-eslint/typescript-estree': 8.28.0(typescript@5.8.2)
@@ -12489,11 +12552,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.5)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
+  '@intlify/vue-i18n-extensions@8.0.0(@intlify/shared@11.1.7)(@vue/compiler-dom@3.5.13)(vue-i18n@11.1.2(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@babel/parser': 7.26.7
     optionalDependencies:
-      '@intlify/shared': 11.1.5
+      '@intlify/shared': 11.1.7
       '@vue/compiler-dom': 3.5.13
       vue: 3.5.13(typescript@5.8.2)
       vue-i18n: 11.1.2(vue@3.5.13(typescript@5.8.2))
