@@ -364,8 +364,8 @@ catalogs:
       specifier: ^4.0.9
       version: 4.0.9
     prettier:
-      specifier: ^3.5.3
-      version: 3.5.3
+      specifier: ^3.6.1
+      version: 3.6.1
     prettier-plugin-tailwindcss:
       specifier: ^0.6.11
       version: 0.6.11
@@ -958,7 +958,7 @@ importers:
         version: 4.12.3(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
       eslint-plugin-prettier:
         specifier: 'catalog:'
-        version: 5.2.6(@types/eslint@9.6.1)(eslint@9.26.0(jiti@2.4.2))(prettier@3.5.3)
+        version: 5.2.6(@types/eslint@9.6.1)(eslint@9.26.0(jiti@2.4.2))(prettier@3.6.1)
       eslint-plugin-regexp:
         specifier: 'catalog:'
         version: 2.7.0(eslint@9.26.0(jiti@2.4.2))
@@ -988,10 +988,10 @@ importers:
     dependencies:
       prettier:
         specifier: 'catalog:'
-        version: 3.5.3
+        version: 3.6.1
       prettier-plugin-tailwindcss:
         specifier: 'catalog:'
-        version: 0.6.11(prettier@3.5.3)
+        version: 0.6.11(prettier@3.6.1)
 
   internal/lint-configs/stylelint-config:
     dependencies:
@@ -1016,7 +1016,7 @@ importers:
         version: 4.0.9(postcss@8.5.3)
       prettier:
         specifier: 'catalog:'
-        version: 3.5.3
+        version: 3.6.1
       stylelint:
         specifier: 'catalog:'
         version: 16.19.1(typescript@5.8.3)
@@ -1037,7 +1037,7 @@ importers:
         version: 7.0.0(stylelint@16.19.1(typescript@5.8.3))
       stylelint-prettier:
         specifier: 'catalog:'
-        version: 5.0.3(prettier@3.5.3)(stylelint@16.19.1(typescript@5.8.3))
+        version: 5.0.3(prettier@3.6.1)(stylelint@16.19.1(typescript@5.8.3))
 
   internal/node-utils:
     dependencies:
@@ -1070,7 +1070,7 @@ importers:
         version: 2.1.0
       prettier:
         specifier: 'catalog:'
-        version: 3.5.3
+        version: 3.6.1
       rimraf:
         specifier: 'catalog:'
         version: 6.0.1
@@ -9310,8 +9310,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.5.3:
-    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+  prettier@3.6.1:
+    resolution: {integrity: sha512-5xGWRa90Sp2+x1dQtNpIpeOQpTDBs9cZDmA/qs2vDNN2i18PdapqY7CmBeyLlMuGqXJRIOPaCaVZTLNQRWUH/A==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -16535,10 +16535,10 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-prettier@5.2.6(@types/eslint@9.6.1)(eslint@9.26.0(jiti@2.4.2))(prettier@3.5.3):
+  eslint-plugin-prettier@5.2.6(@types/eslint@9.6.1)(eslint@9.26.0(jiti@2.4.2))(prettier@3.6.1):
     dependencies:
       eslint: 9.26.0(jiti@2.4.2)
-      prettier: 3.5.3
+      prettier: 3.6.1
       prettier-linter-helpers: 1.0.0
       synckit: 0.11.4
     optionalDependencies:
@@ -19487,13 +19487,13 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-tailwindcss@0.6.11(prettier@3.5.3):
+  prettier-plugin-tailwindcss@0.6.11(prettier@3.6.1):
     dependencies:
-      prettier: 3.5.3
+      prettier: 3.6.1
 
   prettier@2.8.8: {}
 
-  prettier@3.5.3: {}
+  prettier@3.6.1: {}
 
   pretty-bytes@5.6.0: {}
 
@@ -20384,9 +20384,9 @@ snapshots:
       postcss-sorting: 9.1.0(postcss@8.5.3)
       stylelint: 16.19.1(typescript@5.8.3)
 
-  stylelint-prettier@5.0.3(prettier@3.5.3)(stylelint@16.19.1(typescript@5.8.3)):
+  stylelint-prettier@5.0.3(prettier@3.6.1)(stylelint@16.19.1(typescript@5.8.3)):
     dependencies:
-      prettier: 3.5.3
+      prettier: 3.6.1
       prettier-linter-helpers: 1.0.0
       stylelint: 16.19.1(typescript@5.8.3)
 
