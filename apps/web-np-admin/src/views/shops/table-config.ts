@@ -34,17 +34,13 @@ export const orderTableOptions: VxeTableGridOptions = {
     {
       field: 'id',
       title: 'ID',
+      slots: { default: 'id' },
       width: 150,
-    },
-    {
-      field: 'status',
-      title: 'Status',
-      slots: { default: 'status' },
-      width: 150,
+      align: 'left',
     },
     {
       field: 'name',
-      title: 'Name',
+      title: 'Owner',
       slots: { default: 'name' },
       minWidth: 200,
       align: 'left',
@@ -62,6 +58,12 @@ export const orderTableOptions: VxeTableGridOptions = {
       slots: { default: 'country' },
       width: 150,
       align: 'left',
+    },
+    {
+      field: 'status',
+      title: 'Status',
+      slots: { default: 'status' },
+      width: 150,
     },
     {
       field: 'createdAt',

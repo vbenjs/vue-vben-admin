@@ -29,10 +29,21 @@ const handleLogin = async (row: any) => {
 <template>
   <Page auto-content-height>
     <Grid>
-      <template #name="{ row }">
+      <template #id="{ row }">
         <div class="flex flex-col gap-0">
           <div class="font-semibold">
             {{ row.name }}
+          </div>
+          <div class="italic">
+            {{ row.id }}
+          </div>
+        </div>
+      </template>
+
+      <template #name="{ row }">
+        <div class="flex flex-col gap-0">
+          <div class="font-semibold">
+            {{ row.ownerName }}
           </div>
           <div class="italic">
             {{ row.email }}
