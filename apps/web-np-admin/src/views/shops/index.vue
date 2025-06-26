@@ -34,7 +34,7 @@ const handleLogin = async (row: any) => {
           <div class="font-semibold">
             {{ row.name }}
           </div>
-          <div class="italic">
+          <div class="!text-xs italic">
             {{ row.id }}
           </div>
         </div>
@@ -45,19 +45,10 @@ const handleLogin = async (row: any) => {
           <div class="font-semibold">
             {{ row.ownerName }}
           </div>
-          <div class="italic">
+          <div class="!text-xs italic">
             {{ row.email }}
           </div>
         </div>
-      </template>
-
-      <template #status="{ row }">
-        <Tag
-          :color="row.status === 'Active' ? 'success' : 'error'"
-          class="w-20 text-center"
-        >
-          {{ row.status }}
-        </Tag>
       </template>
 
       <template #domain="{ row }">
@@ -84,6 +75,15 @@ const handleLogin = async (row: any) => {
             {{ row.currency }} - {{ row.appCurrency }} (App)
           </div>
         </div>
+      </template>
+
+      <template #status="{ row }">
+        <Tag
+          :color="row.status === 'Active' ? 'success' : 'error'"
+          class="w-20 text-center"
+        >
+          {{ row.status }}
+        </Tag>
       </template>
 
       <template #action="{ row }: { row: any }">

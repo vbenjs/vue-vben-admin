@@ -33,7 +33,7 @@ export const orderTableOptions: VxeTableGridOptions = {
   columns: [
     {
       field: 'id',
-      title: 'ID',
+      title: 'Shop',
       slots: { default: 'id' },
       width: 150,
       align: 'left',
