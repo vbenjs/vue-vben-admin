@@ -1554,6 +1554,9 @@ importers:
       '@vueuse/integrations':
         specifier: 'catalog:'
         version: 13.1.0(async-validator@4.2.5)(axios@1.9.0)(focus-trap@7.6.4)(jwt-decode@4.0.0)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.6)(vue@3.5.13(typescript@5.8.3))
+      json-bigint:
+        specifier: 'catalog:'
+        version: 1.0.0
       qrcode:
         specifier: 'catalog:'
         version: 1.5.4
