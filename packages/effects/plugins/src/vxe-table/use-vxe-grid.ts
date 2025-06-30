@@ -1,3 +1,7 @@
+import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
+
+import type { SlotsType } from 'vue';
+
 import type { BaseFormComponentType } from '@vben-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
@@ -31,6 +35,16 @@ export function useVbenVxeGrid<
     {
       name: 'VbenVxeGrid',
       inheritAttrs: false,
+      slots: Object as SlotsType<
+        {
+          // 表格标题
+          'table-title': never;
+          // 工具栏左侧部分
+          'toolbar-actions': VxeGridSlotTypes.DefaultSlotParams<T>;
+          // 工具栏右侧部分
+          'toolbar-tools': VxeGridSlotTypes.DefaultSlotParams<T>;
+        } & Omit<VxeGridSlots<T>, 'form'>
+      >,
     },
   );
   // Add reactivity support
