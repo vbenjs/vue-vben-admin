@@ -13,6 +13,12 @@ import { useStore } from '@vben-core/shared/store';
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';
 
+type FilteredSlots<T> = {
+  [K in keyof VxeGridSlots<T> as K extends 'form'
+    ? never
+    : K]: VxeGridSlots<T>[K];
+};
+
 export function useVbenVxeGrid<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
@@ -38,12 +44,12 @@ export function useVbenVxeGrid<
       slots: Object as SlotsType<
         {
           // 表格标题
-          'table-title': never;
+          'table-title': undefined;
           // 工具栏左侧部分
           'toolbar-actions': VxeGridSlotTypes.DefaultSlotParams<T>;
           // 工具栏右侧部分
           'toolbar-tools': VxeGridSlotTypes.DefaultSlotParams<T>;
-        } & Omit<VxeGridSlots<T>, 'form'>
+        } & FilteredSlots<T>
       >,
     },
   );
