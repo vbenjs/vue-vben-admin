@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<TreeProps>(), {
   defaultExpandedKeys: () => [],
   defaultExpandedLevel: 0,
   disabled: false,
+  disabledField: 'disabled',
   expanded: () => [],
   iconField: 'icon',
   labelField: 'label',
@@ -101,16 +102,37 @@ function updateTreeValue() {
   if (val === undefined) {
     treeValue.value = undefined;
   } else {
-    treeValue.value = Array.isArray(val)
-      ? val.map((v) => getItemByValue(v))
-      : getItemByValue(val);
+    if (Array.isArray(val)) {
+      const filteredValues = val.filter((v) => {
+        const item = getItemByValue(v);
+        return item && !get(item, props.disabledField);
+      });
+      treeValue.value = filteredValues.map((v) => getItemByValue(v));
+
+      if (filteredValues.length !== val.length) {
+        modelValue.value = filteredValues;
+      }
+    } else {
+      const item = getItemByValue(val);
+      if (item && !get(item, props.disabledField)) {
+        treeValue.value = item;
+      } else {
+        treeValue.value = undefined;
+        modelValue.value = undefined;
+      }
+    }
   }
 }
 
 function updateModelValue(val: Arrayable<Recordable<any>>) {
-  modelValue.value = Array.isArray(val)
-    ? val.map((v) => get(v, props.valueField))
-    : get(val, props.valueField);
+  if (Array.isArray(val)) {
+    const filteredVal = val.filter((v) => !get(v, props.disabledField));
+    modelValue.value = filteredVal.map((v) => get(v, props.valueField));
+  } else {
+    if (val && !get(val, props.disabledField)) {
+      modelValue.value = get(val, props.valueField);
+    }
+  }
 }
 
 function expandToLevel(level: number) {
@@ -149,10 +171,18 @@ function collapseAll() {
   expanded.value = [];
 }
 
+function isNodeDisabled(item: FlattenedItem<Recordable<any>>) {
+  return props.disabled || get(item.value, props.disabledField);
+}
+
 function onToggle(item: FlattenedItem<Recordable<any>>) {
   emits('expand', item);
 }
 function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
+  if (isNodeDisabled(item)) {
+    return;
+  }
+
   if (
     !props.checkStrictly &&
     props.multiple &&
@@ -224,28 +254,34 @@ defineExpose({
         :class="
           cn('cursor-pointer', getNodeClass?.(item), {
             'data-[selected]:bg-accent': !multiple,
-            'cursor-not-allowed': disabled,
+            'cursor-not-allowed': isNodeDisabled(item),
           })
         "
         v-bind="
           Object.assign(item.bind, {
-            onfocus: disabled ? 'this.blur()' : undefined,
+            onfocus: isNodeDisabled(item) ? 'this.blur()' : undefined,
+            disabled: isNodeDisabled(item),
           })
         "
         @select="
-          (event) => {
+          (event: any) => {
+            if (isNodeDisabled(item)) {
+              event.preventDefault();
+              event.stopPropagation();
+              return;
+            }
             if (event.detail.originalEvent.type === 'click') {
               event.preventDefault();
             }
-            !disabled && onSelect(item, event.detail.isSelected);
+            onSelect(item, event.detail.isSelected);
           }
         "
         @toggle="
-          (event) => {
+          (event: any) => {
             if (event.detail.originalEvent.type === 'click') {
               event.preventDefault();
             }
-            !disabled && onToggle(item);
+            !isNodeDisabled(item) && onToggle(item);
           }
         "
         class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
@@ -266,24 +302,32 @@ defineExpose({
         </div>
         <Checkbox
           v-if="multiple"
-          :checked="isSelected"
-          :disabled="disabled"
-          :indeterminate="isIndeterminate"
+          :checked="isSelected && !isNodeDisabled(item)"
+          :disabled="isNodeDisabled(item)"
+          :indeterminate="isIndeterminate && !isNodeDisabled(item)"
           @click="
-            () => {
-              !disabled && handleSelect();
-              // onSelect(item, !isSelected);
+            (event: MouseEvent) => {
+              if (isNodeDisabled(item)) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+              }
+              handleSelect();
             }
           "
         />
         <div
           class="flex items-center gap-1 pl-2"
           @click="
-            (_event) => {
-              // $event.stopPropagation();
-              // $event.preventDefault();
-              !disabled && handleSelect();
-              // onSelect(item, !isSelected);
+            (event: MouseEvent) => {
+              if (isNodeDisabled(item)) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+              }
+              event.stopPropagation();
+              event.preventDefault();
+              handleSelect();
             }
           "
         >
