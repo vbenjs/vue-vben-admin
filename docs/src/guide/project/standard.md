@@ -4,7 +4,6 @@
 
 - 如果你想向项目贡献代码，请确保你的代码符合项目的代码规范。
 - 如果你使用的是 `vscode`，需要安装以下插件：
-
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 脚本代码检查
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
   - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - 单词语法检查
@@ -157,7 +156,6 @@ git hook 一般结合各种 lint，在 git 提交代码的时候进行代码风�
 项目在 `lefthook.yml` 内部定义了相应的 hooks：
 
 - `pre-commit`: 在提交前运行，用于代码格式化和检查
-
   - `code-workspace`: 更新 VSCode 工作区配置
   - `lint-md`: 格式化 Markdown 文件
   - `lint-vue`: 格式化并检查 Vue 文件
@@ -167,7 +165,6 @@ git hook 一般结合各种 lint，在 git 提交代码的时候进行代码风�
   - `lint-json`: 格式化其他 JSON 文件
 
 - `post-merge`: 在合并后运行，用于自动安装依赖
-
   - `install`: 运行 `pnpm install` 安装新依赖
 
 - `commit-msg`: 在提交时运行，用于检查提交信息格式

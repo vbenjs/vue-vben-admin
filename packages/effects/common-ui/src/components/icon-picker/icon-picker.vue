@@ -81,7 +81,7 @@ watch(keywordDebounce, () => {
   currentPage.value = 1;
   setCurrentPage(1);
 });
-  
+
 watchDebounced(
   () => props.prefix,
   async (prefix) => {
