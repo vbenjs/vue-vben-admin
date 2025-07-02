@@ -59,7 +59,7 @@ catalog:
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.0.0
   '@vitejs/plugin-vue': ^5.2.4
-  '@vitejs/plugin-vue-jsx': ^4.2.0
+  '@vitejs/plugin-vue-jsx': ^5.0.1
   '@vue/reactivity': ^3.5.17
   '@vue/shared': ^3.5.17
   '@vue/test-utils': ^2.4.6
