@@ -186,7 +186,7 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
-  vue-tsc: 2.2.10
+  vue-tsc: 2.2.12
   vxe-pc-ui: ^4.6.42
   vxe-table: ^4.13.51
   watermark-js-plus: ^1.6.2
