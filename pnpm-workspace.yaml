@@ -14,11 +14,11 @@ packages:
   - playground
 
 catalog:
-  '@ast-grep/napi': ^0.37.0
+  '@ast-grep/napi': ^0.38.6
   '@changesets/changelog-github': ^0.5.1
   '@changesets/cli': ^2.29.5
   '@changesets/git': ^3.0.4
-  '@clack/prompts': ^0.10.1
+  '@clack/prompts': ^0.11.0
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
   '@ctrl/tinycolor': ^4.1.0
@@ -27,7 +27,7 @@ catalog:
   '@iconify/json': ^2.2.354
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
-  '@intlify/core-base': ^11.1.7
+  '@intlify/core-base': ^11.1.8
   '@intlify/unplugin-vue-i18n': ^6.0.8
   '@jspm/generator': ^2.6.2
   '@manypkg/get-packages': ^3.0.0
@@ -105,7 +105,7 @@ catalog:
   eslint-plugin-unicorn: ^59.0.1
   eslint-plugin-unused-imports: ^4.1.4
   eslint-plugin-vitest: ^0.5.4
-  eslint-plugin-vue: ^10.2.0
+  eslint-plugin-vue: ^10.3.0
   execa: ^9.6.0
   find-up: ^7.0.0
   get-port: ^7.1.0
@@ -122,7 +122,7 @@ catalog:
   lodash.get: ^4.4.2
   lodash.isequal: ^4.5.0
   lodash.set: ^4.3.2
-  lucide-vue-next: ^0.507.0
+  lucide-vue-next: ^0.525.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.42.0
   nitropack: ^2.11.13
@@ -182,7 +182,7 @@ catalog:
   vitest: ^3.2.4
   vue: ^3.5.17
   vue-eslint-parser: ^10.2.0
-  vue-i18n: ^11.1.7
+  vue-i18n: ^11.1.8
   vue-json-viewer: ^3.0.4
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
@@ -190,5 +190,5 @@ catalog:
   vxe-pc-ui: ^4.6.42
   vxe-table: ^4.13.51
   watermark-js-plus: ^1.6.2
-  zod: ^3.25.67
+  zod: ^3.25.68
   zod-defaults: ^0.1.3
