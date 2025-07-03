@@ -127,7 +127,12 @@ function resetCanvas() {
   if (!puzzleCanvas || !pieceCanvas) return;
   pieceCanvas.width = canvasWidth;
   const puzzleCanvasCtx = puzzleCanvas.getContext('2d');
-  const pieceCanvasCtx = pieceCanvas.getContext('2d');
+  // Canvas2D: Multiple readback operations using getImageData
+  // are faster with the willReadFrequently attribute set to true.
+  // See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently (anonymous)
+  const pieceCanvasCtx = pieceCanvas.getContext('2d', {
+    willReadFrequently: true,
+  });
   if (!puzzleCanvasCtx || !pieceCanvasCtx) return;
   puzzleCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   pieceCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -139,9 +144,16 @@ function initCanvas() {
   const pieceCanvas = unref(pieceCanvasRef);
   if (!puzzleCanvas || !pieceCanvas) return;
   const puzzleCanvasCtx = puzzleCanvas.getContext('2d');
-  const pieceCanvasCtx = pieceCanvas.getContext('2d');
+  // Canvas2D: Multiple readback operations using getImageData
+  // are faster with the willReadFrequently attribute set to true.
+  // See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently (anonymous)
+  const pieceCanvasCtx = pieceCanvas.getContext('2d', {
+    willReadFrequently: true,
+  });
   if (!puzzleCanvasCtx || !pieceCanvasCtx) return;
   const img = new Image();
+  // 解决跨域
+  img.crossOrigin = 'Anonymous';
   img.src = src;
   img.addEventListener('load', () => {
     draw(puzzleCanvasCtx, pieceCanvasCtx);
@@ -158,6 +170,7 @@ function initCanvas() {
     );
     pieceCanvas.width = pieceLength;
     pieceCanvasCtx.putImageData(imageData, 0, sy);
+    setLeft('0');
   });
 }
 
@@ -265,7 +278,7 @@ onMounted(() => {
         @click="resume"
       ></canvas>
       <div
-        class="absolute bottom-3 left-0 z-10 block h-7 w-full text-center text-xs leading-[30px] text-white"
+        class="h-15 absolute bottom-3 left-0 z-10 block w-full text-center text-xs leading-[30px] text-white"
       >
         <div
           v-if="state.showTip"

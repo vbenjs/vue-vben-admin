@@ -44,6 +44,7 @@
     "pointSelection": "点选验证",
     "sliderCaptcha": "滑块验证",
     "sliderRotateCaptcha": "旋转验证",
+    "sliderTranslateCaptcha": "拼图滑块验证",
     "captchaCardTitle": "请完成安全验证",
     "pageDescription": "通过点击图片中的特定位置来验证用户身份。",
     "pageTitle": "验证码组件示例",
