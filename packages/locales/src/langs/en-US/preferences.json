@@ -45,6 +45,9 @@
     "fixed": "Fixed"
   },
   "sidebar": {
+    "buttons": "Show Buttons",
+    "buttonFixed": "Fixed",
+    "buttonCollapsed": "Collapsed",
     "title": "Sidebar",
     "width": "Width",
     "visible": "Show Sidebar",

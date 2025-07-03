@@ -18,7 +18,11 @@
     "dynamic": "Dynamic Form",
     "custom": "Custom Component",
     "api": "Api",
-    "merge": "Merge Form"
+    "merge": "Merge Form",
+    "upload-error": "Partial file upload failed",
+    "upload-urls": "Urls after file upload",
+    "file": "file",
+    "upload-image": "Click to upload image"
   },
   "vxeTable": {
     "title": "Vxe Table",

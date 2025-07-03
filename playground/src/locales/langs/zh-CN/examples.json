@@ -21,7 +21,11 @@
     "dynamic": "动态表单",
     "custom": "自定义组件",
     "api": "Api",
-    "merge": "合并表单"
+    "merge": "合并表单",
+    "upload-error": "部分文件上传失败",
+    "upload-urls": "文件上传后的网址",
+    "file": "文件",
+    "upload-image": "点击上传图片"
   },
   "vxeTable": {
     "title": "Vxe 表格",

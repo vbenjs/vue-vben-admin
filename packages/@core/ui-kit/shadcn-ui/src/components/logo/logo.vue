@@ -7,6 +7,10 @@ interface Props {
    */
   collapsed?: boolean;
   /**
+   * @zh_CN Logo 图片适应方式
+   */
+  fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  /**
    * @zh_CN Logo 跳转地址
    */
   href?: string;
@@ -38,6 +42,7 @@ withDefaults(defineProps<Props>(), {
   logoSize: 32,
   src: '',
   theme: 'light',
+  fit: 'cover',
 });
 </script>
 
@@ -53,14 +58,16 @@ withDefaults(defineProps<Props>(), {
         :alt="text"
         :src="src"
         :size="logoSize"
+        :fit="fit"
         class="relative rounded-none bg-transparent"
       />
-      <span
-        v-if="!collapsed"
-        class="text-foreground truncate text-nowrap font-semibold"
-      >
-        {{ text }}
-      </span>
+      <template v-if="!collapsed">
+        <slot name="text">
+          <span class="text-foreground truncate text-nowrap font-semibold">
+            {{ text }}
+          </span>
+        </slot>
+      </template>
     </a>
   </div>
 </template>

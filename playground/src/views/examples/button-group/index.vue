@@ -9,6 +9,7 @@ import {
   VbenButtonGroup,
   VbenCheckButtonGroup,
 } from '@vben/common-ui';
+import { LoaderCircle, Square, SquareCheckBig } from '@vben/icons';
 
 import { Button, Card, message } from 'ant-design-vue';
 
@@ -19,7 +20,7 @@ const checkValue = ref(['a', 'b']);
 
 const options = [
   { label: '选项1', value: 'a' },
-  { label: '选项2', value: 'b' },
+  { label: '选项2', value: 'b', num: 999 },
   { label: '选项3', value: 'c' },
   { label: '选项4', value: 'd' },
   { label: '选项5', value: 'e' },
@@ -51,6 +52,7 @@ const compProps = reactive({
   gap: 0,
   showIcon: true,
   size: 'middle',
+  allowClear: false,
 } as Recordable<any>);
 
 const [Form] = useVbenForm({
@@ -62,6 +64,9 @@ const [Form] = useVbenForm({
         compProps[k] = values[k];
       }
     });
+  },
+  commonConfig: {
+    labelWidth: 150,
   },
   schema: [
     {
@@ -108,6 +113,20 @@ const [Form] = useVbenForm({
       defaultValue: false,
       fieldName: 'beforeChange',
       label: '前置回调',
+    },
+    {
+      component: 'Switch',
+      defaultValue: false,
+      fieldName: 'allowClear',
+      label: '允许清除',
+      help: '单选时是否允许取消选中（值为undefined）',
+    },
+    {
+      component: 'InputNumber',
+      defaultValue: 0,
+      fieldName: 'maxCount',
+      label: '最大选中数量',
+      help: '多选时有效，0表示不限制',
     },
   ],
   showDefaultActions: false,
@@ -168,10 +187,11 @@ function onBtnClick(value: any) {
           :options="options"
           v-bind="compProps"
         >
-          <template #option="{ label, value }">
+          <template #option="{ label, value, data }">
             <div class="flex items-center">
               <span>{{ label }}</span>
               <span class="ml-2 text-gray-400">{{ value }}</span>
+              <span v-if="data.num" class="white ml-2">{{ data.num }}</span>
             </div>
           </template>
         </VbenCheckButtonGroup>
@@ -184,6 +204,21 @@ function onBtnClick(value: any) {
           :options="options"
           v-bind="compProps"
         />
+      </div>
+      <p class="mt-4">自定义图标{{ checkValue }}</p>
+      <div class="mt-2 flex flex-col gap-2">
+        <VbenCheckButtonGroup
+          v-model="checkValue"
+          multiple
+          :options="options"
+          v-bind="compProps"
+        >
+          <template #icon="{ loading, checked }">
+            <LoaderCircle class="animate-spin" v-if="loading" />
+            <SquareCheckBig v-else-if="checked" />
+            <Square v-else />
+          </template>
+        </VbenCheckButtonGroup>
       </div>
     </Card>
 

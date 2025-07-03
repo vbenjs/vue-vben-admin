@@ -1,10 +1,16 @@
+import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
 import type { Recordable } from '@vben/types';
+
+import type { ComponentType } from './component';
 
 import { h } from 'vue';
 
 import { IconifyIcon } from '@vben/icons';
 import { $te } from '@vben/locales';
-import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
+import {
+  setupVbenVxeTable,
+  useVbenVxeGrid as useGrid,
+} from '@vben/plugins/vxe-table';
 import { get, isFunction, isString } from '@vben/utils';
 
 import { objectOmit } from '@vueuse/core';
@@ -42,7 +48,7 @@ setupVbenVxeTable({
         round: true,
         showOverflow: true,
         size: 'small',
-      },
+      } as VxeTableGridOptions,
     });
 
     /**
@@ -208,17 +214,34 @@ setupVbenVxeTable({
         }
 
         function renderConfirm(opt: Recordable<any>) {
+          let viewportWrapper: HTMLElement | null = null;
           return h(
             Popconfirm,
             {
+              /**
+               * 当popconfirm用在固定列中时，将固定列作为弹窗的容器时可能会因为固定列较窄而无法容纳弹窗
+               * 将表格主体区域作为弹窗容器时又会因为固定列的层级较高而遮挡弹窗
+               * 将body或者表格视口区域作为弹窗容器时又会导致弹窗无法跟随表格滚动。
+               * 鉴于以上各种情况，一种折中的解决方案是弹出层展示时，禁止操作表格的滚动条。
+               * 这样既解决了弹窗的遮挡问题，又不至于让弹窗随着表格的滚动而跑出视口区域。
+               */
               getPopupContainer(el) {
-                return el.closest('tbody') || document.body;
+                viewportWrapper = el.closest('.vxe-table--viewport-wrapper');
+                return document.body;
               },
               placement: 'topLeft',
               title: $t('ui.actionTitle.delete', [attrs?.nameTitle || '']),
               ...props,
               ...opt,
               icon: undefined,
+              onOpenChange: (open: boolean) => {
+                // 当弹窗打开时，禁止表格的滚动
+                if (open) {
+                  viewportWrapper?.style.setProperty('pointer-events', 'none');
+                } else {
+                  viewportWrapper?.style.removeProperty('pointer-events');
+                }
+              },
               onConfirm: () => {
                 attrs?.onClick?.({
                   code: opt.code,
@@ -260,7 +283,10 @@ setupVbenVxeTable({
   useVbenForm,
 });
 
-export { useVbenVxeGrid };
+export const useVbenVxeGrid = <T extends Record<string, any>>(
+  ...rest: Parameters<typeof useGrid<T, ComponentType>>
+) => useGrid<T, ComponentType>(...rest);
+
 export type OnActionClickParams<T = Recordable<any>> = {
   code: string;
   row: T;

@@ -43,6 +43,12 @@ interface MenuProps {
   rounded?: boolean;
 
   /**
+   * @zh_CN 是否自动滚动到激活的菜单项
+   * @default false
+   */
+  scrollToActive?: boolean;
+
+  /**
    * @zh_CN 菜单主题
    * @default dark
    */

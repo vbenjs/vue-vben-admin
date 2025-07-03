@@ -9,7 +9,7 @@ export function useCaptchaPoints() {
   }
 
   function clearPoints() {
-    points.splice(0, points.length);
+    points.splice(0);
   }
   return {
     addPoint,

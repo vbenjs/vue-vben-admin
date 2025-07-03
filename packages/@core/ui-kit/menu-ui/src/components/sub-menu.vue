@@ -208,6 +208,8 @@ onBeforeUnmount(() => {
           nsMenu.e('popup-container'),
           is(rootMenu.theme, true),
           opened ? '' : 'hidden',
+          'overflow-auto',
+          'max-h-[calc(var(--radix-hover-card-content-available-height)-20px)]',
         ]"
         :content-props="contentProps"
         :open="true"

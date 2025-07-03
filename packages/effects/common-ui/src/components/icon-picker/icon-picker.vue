@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VNode } from 'vue';
 
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
@@ -22,8 +22,9 @@ import {
   VbenIconButton,
   VbenPopover,
 } from '@vben-core/shadcn-ui';
+import { isFunction } from '@vben-core/shared/utils';
 
-import { refDebounced, watchDebounced } from '@vueuse/core';
+import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';
 
 import { fetchIconsData } from './icons';
 
@@ -64,6 +65,8 @@ const emit = defineEmits<{
   change: [string];
 }>();
 
+const attrs = useAttrs();
+
 const modelValue = defineModel({ default: '', type: String });
 
 const visible = ref(false);
@@ -72,6 +75,12 @@ const currentPage = ref(1);
 const keyword = ref('');
 const keywordDebounce = refDebounced(keyword, 300);
 const innerIcons = ref<string[]>([]);
+
+/* 当检索关键词变化时，重置分页 */
+watch(keywordDebounce, () => {
+  currentPage.value = 1;
+  setCurrentPage(1);
+});
 
 watchDebounced(
   () => props.prefix,
@@ -165,13 +174,25 @@ const searchInputProps = computed(() => {
   };
 });
 
+function updateCurrentSelect(v: string) {
+  currentSelect.value = v;
+  const eventKey = `onUpdate:${props.modelValueProp}`;
+  if (attrs[eventKey] && isFunction(attrs[eventKey])) {
+    attrs[eventKey](v);
+  }
+}
+const getBindAttrs = computed(() => {
+  return objectOmit(attrs, [`onUpdate:${props.modelValueProp}`]);
+});
+
 defineExpose({ toggleOpenState, open, close });
 </script>
 <template>
   <VbenPopover
     v-model:open="visible"
     :content-props="{ align: 'end', alignOffset: -11, sideOffset: 8 }"
-    content-class="p-0 pt-3"
+    content-class="p-0 pt-3 w-full"
+    trigger-class="w-full"
   >
     <template #trigger>
       <template v-if="props.type === 'input'">
@@ -183,7 +204,8 @@ defineExpose({ toggleOpenState, open, close });
           role="combobox"
           :aria-label="$t('ui.iconPicker.placeholder')"
           aria-expanded="visible"
-          v-bind="$attrs"
+          :[`onUpdate:${modelValueProp}`]="updateCurrentSelect"
+          v-bind="getBindAttrs"
         >
           <template #[iconSlot]>
             <VbenIcon

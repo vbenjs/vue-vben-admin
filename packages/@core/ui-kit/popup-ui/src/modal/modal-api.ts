@@ -44,6 +44,7 @@ export class ModalApi {
       confirmDisabled: false,
       confirmLoading: false,
       contentClass: '',
+      destroyOnClose: true,
       draggable: false,
       footer: true,
       footerClass: '',

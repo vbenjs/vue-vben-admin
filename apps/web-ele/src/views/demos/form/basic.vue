@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { h } from 'vue';
 
-import { Page } from '@vben/common-ui';
+import { Page, useVbenDrawer } from '@vben/common-ui';
 
 import { ElButton, ElCard, ElCheckbox, ElMessage } from 'element-plus';
 
@@ -17,11 +17,16 @@ const [Form, formApi] = useVbenForm({
   },
   layout: 'horizontal',
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  // wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   handleSubmit: (values) => {
     ElMessage.success(`表单数据：${JSON.stringify(values)}`);
   },
   schema: [
+    {
+      component: 'IconPicker',
+      fieldName: 'icon',
+      label: 'IconPicker',
+    },
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'ApiSelect',
@@ -149,6 +154,8 @@ const [Form, formApi] = useVbenForm({
     },
   ],
 });
+
+const [Drawer, drawerApi] = useVbenDrawer();
 function setFormValues() {
   formApi.setValues({
     string: 'string',
@@ -168,6 +175,9 @@ function setFormValues() {
     description="我们重新包装了CheckboxGroup、RadioGroup、Select，可以通过options属性传入选项属性数组以自动生成选项"
     title="表单演示"
   >
+    <Drawer class="w-[600px]" title="基础表单示例">
+      <Form />
+    </Drawer>
     <ElCard>
       <template #header>
         <div class="flex items-center">
@@ -175,7 +185,7 @@ function setFormValues() {
           <ElButton type="primary" @click="setFormValues">设置表单值</ElButton>
         </div>
       </template>
-      <Form />
+      <ElButton type="primary" @click="drawerApi.open"> 打开抽屉 </ElButton>
     </ElCard>
   </Page>
 </template>

@@ -61,6 +61,10 @@ export interface ModalProps {
    */
   description?: string;
   /**
+   * 在关闭时销毁弹窗
+   */
+  destroyOnClose?: boolean;
+  /**
    * 是否可拖拽
    * @default false
    */
@@ -153,10 +157,6 @@ export interface ModalApiOptions extends ModalState {
    * 独立的弹窗组件
    */
   connectedComponent?: Component;
-  /**
-   * 在关闭时销毁弹窗。仅在使用 connectedComponent 时有效
-   */
-  destroyOnClose?: boolean;
   /**
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns

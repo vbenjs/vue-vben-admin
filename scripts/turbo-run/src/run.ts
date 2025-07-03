@@ -25,7 +25,7 @@ export async function run(options: RunOptions) {
 
   let selectPkg: string | symbol;
   if (selectPkgs.length > 1) {
-    selectPkg = await select<any, string>({
+    selectPkg = await select<string>({
       message: `Select the app you need to run [${command}]:`,
       options: selectPkgs.map((item) => ({
         label: item?.packageJson.name,

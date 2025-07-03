@@ -6,11 +6,11 @@ import type { ValueType, VbenButtonGroupProps } from './button';
 import { computed, ref, watch } from 'vue';
 
 import { Circle, CircleCheckBig, LoaderCircle } from '@vben-core/icons';
-import { VbenRenderContent } from '@vben-core/shadcn-ui';
 import { cn, isFunction } from '@vben-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
+import { VbenRenderContent } from '../render-content';
 import VbenButtonGroup from './button-group.vue';
 import Button from './button.vue';
 
@@ -19,8 +19,10 @@ const props = withDefaults(defineProps<VbenButtonGroupProps>(), {
   multiple: false,
   showIcon: true,
   size: 'middle',
+  allowClear: false,
+  maxCount: 0,
 });
-
+const emit = defineEmits(['btnClick']);
 const btnDefaultProps = computed(() => {
   return {
     ...objectOmit(props, ['options', 'btnClass', 'size', 'disabled']),
@@ -41,7 +43,6 @@ watch(
         innerValue.value.length > 0 ? innerValue.value[0] : undefined;
     }
   },
-  { immediate: true },
 );
 
 watch(
@@ -60,7 +61,7 @@ watch(
       innerValue.value = val === undefined ? [] : [val as ValueType];
     }
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
 
 async function onBtnClick(value: ValueType) {
@@ -83,13 +84,24 @@ async function onBtnClick(value: ValueType) {
     if (innerValue.value.includes(value)) {
       innerValue.value = innerValue.value.filter((item) => item !== value);
     } else {
+      if (props.maxCount > 0 && innerValue.value.length >= props.maxCount) {
+        innerValue.value = innerValue.value.slice(0, props.maxCount - 1);
+      }
       innerValue.value.push(value);
     }
     modelValue.value = innerValue.value;
   } else {
-    innerValue.value = [value];
-    modelValue.value = value;
+    if (props.allowClear && innerValue.value.includes(value)) {
+      innerValue.value = [];
+      modelValue.value = undefined;
+      emit('btnClick', undefined);
+      return;
+    } else {
+      innerValue.value = [value];
+      modelValue.value = value;
+    }
   }
+  emit('btnClick', value);
 }
 </script>
 <template>
@@ -110,16 +122,23 @@ async function onBtnClick(value: ValueType) {
       v-bind="btnDefaultProps"
       :variant="innerValue.includes(btn.value) ? 'default' : 'outline'"
       @click="onBtnClick(btn.value)"
+      type="button"
     >
       <div class="icon-wrapper" v-if="props.showIcon">
-        <LoaderCircle
-          class="animate-spin"
-          v-if="loadingValues.includes(btn.value)"
-        />
-        <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
-        <Circle v-else />
+        <slot
+          name="icon"
+          :loading="loadingValues.includes(btn.value)"
+          :checked="innerValue.includes(btn.value)"
+        >
+          <LoaderCircle
+            class="animate-spin"
+            v-if="loadingValues.includes(btn.value)"
+          />
+          <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
+          <Circle v-else />
+        </slot>
       </div>
-      <slot name="option" :label="btn.label" :value="btn.value">
+      <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
         <VbenRenderContent :content="btn.label" />
       </slot>
     </Button>
@@ -127,6 +146,9 @@ async function onBtnClick(value: ValueType) {
 </template>
 <style lang="scss" scoped>
 .vben-check-button-group {
+  display: flex;
+  flex-wrap: wrap;
+
   &:deep(.size-large) button {
     .icon-wrapper {
       margin-right: 0.3rem;
@@ -157,6 +179,17 @@ async function onBtnClick(value: ValueType) {
         width: 0.65rem;
         height: 0.65rem;
       }
+    }
+  }
+
+  &.no-gap > :deep(button):nth-of-type(1) {
+    border-right-width: 0;
+  }
+
+  &.no-gap {
+    :deep(button + button) {
+      margin-right: -1px;
+      border-left-width: 1px;
     }
   }
 }

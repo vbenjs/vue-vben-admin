@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
-import { computed, provide, ref, useId, watch } from 'vue';
+import {
+  computed,
+  onDeactivated,
+  provide,
+  ref,
+  unref,
+  useId,
+  watch,
+} from 'vue';
 
 import {
   useIsMobile,
@@ -35,6 +43,7 @@ interface Props extends DrawerProps {
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
   closeIconPlacement: 'right',
+  destroyOnClose: false,
   drawerApi: undefined,
   submitting: false,
   zIndex: 1000,
@@ -63,6 +72,7 @@ const {
   confirmText,
   contentClass,
   description,
+  destroyOnClose,
   footer: showFooter,
   footerClass,
   header: showHeader,
@@ -80,17 +90,27 @@ const {
   zIndex,
 } = usePriorityValues(props, state);
 
-watch(
-  () => showLoading.value,
-  (v) => {
-    if (v && wrapperRef.value) {
-      wrapperRef.value.scrollTo({
-        // behavior: 'smooth',
-        top: 0,
-      });
-    }
-  },
-);
+// watch(
+//   () => showLoading.value,
+//   (v) => {
+//     if (v && wrapperRef.value) {
+//       wrapperRef.value.scrollTo({
+//         // behavior: 'smooth',
+//         top: 0,
+//       });
+//     }
+//   },
+// );
+
+/**
+ * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ */
+onDeactivated(() => {
+  // 如果弹窗没有被挂载到内容区域，则关闭弹窗
+  if (!appendToMain.value) {
+    props.drawerApi?.close();
+  }
+});
 
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value || submitting.value) {
@@ -131,6 +151,29 @@ const getAppendTo = computed(() => {
     ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
     : undefined;
 });
+
+/**
+ * destroyOnClose功能完善
+ */
+// 是否打开过
+const hasOpened = ref(false);
+const isClosed = ref(true);
+watch(
+  () => state?.value?.isOpen,
+  (value) => {
+    isClosed.value = false;
+    if (value && !unref(hasOpened)) {
+      hasOpened.value = true;
+    }
+  },
+);
+function handleClosed() {
+  isClosed.value = true;
+  props.drawerApi?.onClosed();
+}
+const getForceMount = computed(() => {
+  return !unref(destroyOnClose) && unref(hasOpened);
+});
 </script>
 <template>
   <Sheet
@@ -144,15 +187,17 @@ const getAppendTo = computed(() => {
         cn('flex w-[520px] flex-col', drawerClass, {
           '!w-full': isMobile || placement === 'bottom' || placement === 'top',
           'max-h-[100vh]': placement === 'bottom' || placement === 'top',
+          hidden: isClosed,
         })
       "
       :modal="modal"
       :open="state?.isOpen"
       :side="placement"
       :z-index="zIndex"
+      :force-mount="getForceMount"
       :overlay-blur="overlayBlur"
       @close-auto-focus="handleFocusOutside"
-      @closed="() => drawerApi?.onClosed()"
+      @closed="handleClosed"
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
@@ -239,19 +284,13 @@ const getAppendTo = computed(() => {
         ref="wrapperRef"
         :class="
           cn('relative flex-1 overflow-y-auto p-3', contentClass, {
-            'overflow-hidden': showLoading,
+            'pointer-events-none': showLoading || submitting,
           })
         "
       >
-        <VbenLoading
-          v-if="showLoading || submitting"
-          class="size-full"
-          spinning
-        />
-
         <slot></slot>
       </div>
-
+      <VbenLoading v-if="showLoading || submitting" spinning />
       <SheetFooter
         v-if="showFooter"
         :class="
@@ -274,7 +313,7 @@ const getAppendTo = computed(() => {
               {{ cancelText || $t('cancel') }}
             </slot>
           </component>
-
+          <slot name="center-footer"></slot>
           <component
             :is="components.PrimaryButton || VbenButton"
             v-if="showConfirmButton"

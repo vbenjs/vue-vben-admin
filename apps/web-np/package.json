@@ -44,10 +44,10 @@
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "crisp-sdk-web": "^1.0.25",
-    "currency-formatter": "catalog:",
+    "currency-formatter": "^1.5.9",
     "dayjs": "catalog:",
     "pinia": "catalog:",
-    "pusher-js": "catalog:",
+    "pusher-js": "^8.4.0",
     "vue": "catalog:",
     "vue-router": "catalog:",
     "vxe-table": "catalog:"

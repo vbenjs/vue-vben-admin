@@ -54,7 +54,6 @@ describe('drawerApi', () => {
   });
 
   it('should close the drawer if onBeforeClose allows it', () => {
-    drawerApi.open();
     drawerApi.close();
     expect(drawerApi.store.state.isOpen).toBe(false);
   });

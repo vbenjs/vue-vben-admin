@@ -45,6 +45,9 @@
     "fixed": "固定"
   },
   "sidebar": {
+    "buttons": "显示按钮",
+    "buttonFixed": "固定按钮",
+    "buttonCollapsed": "折叠按钮",
     "title": "侧边栏",
     "width": "宽度",
     "visible": "显示侧边栏",

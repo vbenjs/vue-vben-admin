@@ -30,5 +30,6 @@ function lockDrawer() {
     <Button type="primary" @click="lockDrawer">锁定抽屉状态</Button>
     <!-- <template #prepend-footer> slot </template> -->
     <!-- <template #append-footer> prepend slot </template> -->
+    <!-- <template #center-footer> center slot </template> -->
   </Drawer>
 </template>

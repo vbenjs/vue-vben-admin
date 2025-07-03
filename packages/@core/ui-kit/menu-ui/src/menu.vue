@@ -18,15 +18,9 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   collapse: false,
-  // theme: 'dark',
 });
 
 const forward = useForwardProps(props);
-
-// const emit = defineEmits<{
-//   'update:openKeys': [key: Key[]];
-//   'update:selectedKeys': [key: Key[]];
-// }>();
 </script>
 
 <template>

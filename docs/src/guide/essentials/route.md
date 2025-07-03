@@ -340,6 +340,10 @@ interface RouteMeta {
     | 'warning'
     | string;
   /**
+   * 路由的完整路径作为key（默认true）
+   */
+  fullPathKey?: boolean;
+  /**
    * 当前路由的子级在菜单中不展现
    * @default false
    */
@@ -502,6 +506,13 @@ interface RouteMeta {
 
 用于配置页面的徽标颜色。
 
+### fullPathKey
+
+- 类型：`boolean`
+- 默认值：`true`
+
+是否将路由的完整路径作为tab key（默认true）
+
 ### activePath
 
 - 类型：`string`
@@ -602,3 +613,32 @@ const { refresh } = useRefresh();
 refresh();
 </script>
 ```
+
+## 标签页与路由控制
+
+在某些场景下，需要单个路由打开多个标签页，或者修改路由的query不打开新的标签页
+
+每个标签页Tab使用唯一的key标识，设置Tab key有三种方式，优先级由高到低：
+
+- 使用路由query参数pageKey
+
+```vue
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+// 跳转路由
+const router = useRouter();
+router.push({
+  path: 'path',
+  query: {
+    pageKey: 'key',
+  },
+});
+```
+
+- 路由的完整路径作为key
+
+`meta` 属性中的 `fullPathKey`不为false，则使用路由`fullPath`作为key
+
+- 路由的path作为key
+
+`meta` 属性中的 `fullPathKey`为false，则使用路由`path`作为key

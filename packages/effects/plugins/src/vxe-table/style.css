@@ -45,6 +45,11 @@
   );
   --vxe-ui-table-row-current-background-color: hsl(var(--accent));
   --vxe-ui-table-row-hover-current-background-color: hsl(var(--accent-hover));
+  --vxe-ui-font-primary-tinge-color: hsl(var(--primary));
+  --vxe-ui-font-primary-lighten-color: hsl(var(--primary) / 60%);
+  --vxe-ui-font-primary-darken-color: hsl(var(--primary));
+
+  height: auto !important;
 
   /* --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%); */
 }
@@ -101,4 +106,12 @@
 
 .vxe-tools--operate:not(:has(button)) {
   margin-left: 0;
+}
+
+.vxe-grid--layout-header-wrapper {
+  overflow: visible;
+}
+
+.vxe-grid--layout-body-content-wrapper {
+  overflow: hidden;
 }

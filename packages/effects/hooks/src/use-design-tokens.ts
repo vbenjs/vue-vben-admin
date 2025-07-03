@@ -193,67 +193,107 @@ export function useElementPlusDesignTokens() {
 
         '--el-border-radius-base': getCssVariableValue('--radius', false),
         '--el-color-danger': getCssVariableValue('--destructive-500'),
-        '--el-color-danger-dark-2': getCssVariableValue('--destructive'),
-        '--el-color-danger-light-3': getCssVariableValue('--destructive-400'),
-        '--el-color-danger-light-5': getCssVariableValue('--destructive-300'),
-        '--el-color-danger-light-7': getCssVariableValue('--destructive-200'),
+        '--el-color-danger-dark-2': isDark.value
+          ? getCssVariableValue('--destructive-400')
+          : getCssVariableValue('--destructive-600'),
+        '--el-color-danger-light-3': isDark.value
+          ? getCssVariableValue('--destructive-600')
+          : getCssVariableValue('--destructive-400'),
+        '--el-color-danger-light-5': isDark.value
+          ? getCssVariableValue('--destructive-700')
+          : getCssVariableValue('--destructive-300'),
+        '--el-color-danger-light-7': isDark.value
+          ? getCssVariableValue('--destructive-800')
+          : getCssVariableValue('--destructive-200'),
         '--el-color-danger-light-8': isDark.value
-          ? border
+          ? getCssVariableValue('--destructive-900')
           : getCssVariableValue('--destructive-100'),
         '--el-color-danger-light-9': isDark.value
-          ? accent
+          ? getCssVariableValue('--destructive-950')
           : getCssVariableValue('--destructive-50'),
 
         '--el-color-error': getCssVariableValue('--destructive-500'),
-        '--el-color-error-dark-2': getCssVariableValue('--destructive'),
-        '--el-color-error-light-3': getCssVariableValue('--destructive-400'),
-        '--el-color-error-light-5': getCssVariableValue('--destructive-300'),
-        '--el-color-error-light-7': getCssVariableValue('--destructive-200'),
+        '--el-color-error-dark-2': isDark.value
+          ? getCssVariableValue('--destructive-400')
+          : getCssVariableValue('--destructive-600'),
+        '--el-color-error-light-3': isDark.value
+          ? getCssVariableValue('--destructive-600')
+          : getCssVariableValue('--destructive-400'),
+        '--el-color-error-light-5': isDark.value
+          ? getCssVariableValue('--destructive-700')
+          : getCssVariableValue('--destructive-300'),
+        '--el-color-error-light-7': isDark.value
+          ? getCssVariableValue('--destructive-800')
+          : getCssVariableValue('--destructive-200'),
         '--el-color-error-light-8': isDark.value
-          ? border
+          ? getCssVariableValue('--destructive-900')
           : getCssVariableValue('--destructive-100'),
         '--el-color-error-light-9': isDark.value
-          ? accent
+          ? getCssVariableValue('--destructive-950')
           : getCssVariableValue('--destructive-50'),
 
+        '--el-color-info-light-5': border,
         '--el-color-info-light-8': border,
         '--el-color-info-light-9': getCssVariableValue('--info'), // getCssVariableValue('--secondary'),
+
         '--el-color-primary': getCssVariableValue('--primary-500'),
-        '--el-color-primary-dark-2': getCssVariableValue('--primary'),
-        '--el-color-primary-light-3': getCssVariableValue('--primary-400'),
-        '--el-color-primary-light-5': getCssVariableValue('--primary-300'),
+        '--el-color-primary-dark-2': isDark.value
+          ? getCssVariableValue('--primary-400')
+          : getCssVariableValue('--primary-600'),
+        '--el-color-primary-light-3': isDark.value
+          ? getCssVariableValue('--primary-600')
+          : getCssVariableValue('--primary-400'),
+        '--el-color-primary-light-5': isDark.value
+          ? getCssVariableValue('--primary-700')
+          : getCssVariableValue('--primary-300'),
         '--el-color-primary-light-7': isDark.value
-          ? border
+          ? getCssVariableValue('--primary-800')
           : getCssVariableValue('--primary-200'),
         '--el-color-primary-light-8': isDark.value
-          ? border
+          ? getCssVariableValue('--primary-900')
           : getCssVariableValue('--primary-100'),
         '--el-color-primary-light-9': isDark.value
-          ? accent
+          ? getCssVariableValue('--primary-950')
           : getCssVariableValue('--primary-50'),
 
         '--el-color-success': getCssVariableValue('--success-500'),
-        '--el-color-success-dark-2': getCssVariableValue('--success'),
-        '--el-color-success-light-3': getCssVariableValue('--success-400'),
-        '--el-color-success-light-5': getCssVariableValue('--success-300'),
-        '--el-color-success-light-7': getCssVariableValue('--success-200'),
+        '--el-color-success-dark-2': isDark.value
+          ? getCssVariableValue('--success-400')
+          : getCssVariableValue('--success-600'),
+        '--el-color-success-light-3': isDark.value
+          ? getCssVariableValue('--success-600')
+          : getCssVariableValue('--success-400'),
+        '--el-color-success-light-5': isDark.value
+          ? getCssVariableValue('--success-700')
+          : getCssVariableValue('--success-300'),
+        '--el-color-success-light-7': isDark.value
+          ? getCssVariableValue('--success-800')
+          : getCssVariableValue('--success-200'),
         '--el-color-success-light-8': isDark.value
-          ? border
+          ? getCssVariableValue('--success-900')
           : getCssVariableValue('--success-100'),
         '--el-color-success-light-9': isDark.value
-          ? accent
+          ? getCssVariableValue('--success-950')
           : getCssVariableValue('--success-50'),
 
         '--el-color-warning': getCssVariableValue('--warning-500'),
-        '--el-color-warning-dark-2': getCssVariableValue('--warning'),
-        '--el-color-warning-light-3': getCssVariableValue('--warning-400'),
-        '--el-color-warning-light-5': getCssVariableValue('--warning-300'),
-        '--el-color-warning-light-7': getCssVariableValue('--warning-200'),
+        '--el-color-warning-dark-2': isDark.value
+          ? getCssVariableValue('--warning-400')
+          : getCssVariableValue('--warning-600'),
+        '--el-color-warning-light-3': isDark.value
+          ? getCssVariableValue('--warning-600')
+          : getCssVariableValue('--warning-400'),
+        '--el-color-warning-light-5': isDark.value
+          ? getCssVariableValue('--warning-700')
+          : getCssVariableValue('--warning-300'),
+        '--el-color-warning-light-7': isDark.value
+          ? getCssVariableValue('--warning-800')
+          : getCssVariableValue('--warning-200'),
         '--el-color-warning-light-8': isDark.value
-          ? border
+          ? getCssVariableValue('--warning-900')
           : getCssVariableValue('--warning-100'),
         '--el-color-warning-light-9': isDark.value
-          ? accent
+          ? getCssVariableValue('--warning-950')
           : getCssVariableValue('--warning-50'),
 
         '--el-fill-color': getCssVariableValue('--accent'),

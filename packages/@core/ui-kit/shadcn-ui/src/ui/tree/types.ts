@@ -22,13 +22,13 @@ export interface TreeProps {
   defaultValue?: Arrayable<number | string>;
   /** 禁用 */
   disabled?: boolean;
+  /** 禁用字段名 */
+  disabledField?: string;
   /** 自定义节点类名 */
   getNodeClass?: (item: FlattenedItem<Recordable<any>>) => string;
   iconField?: string;
   /** label字段 */
   labelField?: string;
-  /** 当前值 */
-  modelValue?: Arrayable<number | string>;
   /** 是否多选 */
   multiple?: boolean;
   /** 显示由iconField指定的图标 */

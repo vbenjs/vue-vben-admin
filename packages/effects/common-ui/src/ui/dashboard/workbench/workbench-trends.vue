@@ -10,7 +10,7 @@ import {
 } from '@vben-core/shadcn-ui';
 
 interface Props {
-  items: WorkbenchTrendItem[];
+  items?: WorkbenchTrendItem[];
   title: string;
 }
 

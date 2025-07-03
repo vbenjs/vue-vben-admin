@@ -104,6 +104,11 @@
   --vp-custom-block-tip-text: var(--vp-c-text-1);
   --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+
+  /**
+  * modal zIndex
+  */
+  --popup-z-index: 1000;
 }
 
 @media (min-width: 640px) {

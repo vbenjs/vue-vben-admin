@@ -31,8 +31,8 @@ export function useVbenForm<
         h(VbenUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
     {
-      inheritAttrs: false,
       name: 'VbenUseForm',
+      inheritAttrs: false,
     },
   );
   // Add reactivity support

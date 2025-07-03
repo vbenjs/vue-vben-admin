@@ -169,6 +169,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'ApiComponent Api组件包装器',
         },
         {
+          link: 'common-ui/vben-alert',
+          text: 'Alert 轻量提示框',
+        },
+        {
           link: 'common-ui/vben-modal',
           text: 'Modal 模态框',
         },

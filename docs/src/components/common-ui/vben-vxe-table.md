@@ -167,6 +167,23 @@ vxeUI.renderer.add('CellLink', {
 
 当启用了表单搜索时，可以在toolbarConfig中配置`search`为`true`来让表格在工具栏区域显示一个搜索表单控制按钮。表格的所有以`form-`开头的命名插槽都会被传递给搜索表单。
 
+### 定制分隔条
+
+当你启用表单搜索时，在表单和表格之间会显示一个分隔条。这个分隔条使用了默认的组件背景色，并且横向贯穿整个Vben Vxe Table在视觉上融入了页面的默认背景中。如果你在Vben Vxe Table的外层包裹了一个不同背景色的容器（如将其放在一个Card内），默认的表单和表格之间的分隔条可能就显得格格不入了，下面的代码演示了如何定制这个分隔条。
+
+```ts
+const [Grid] = useVbenVxeGrid({
+  formOptions: {},
+  gridOptions: {},
+  // 完全移除分隔条
+  separator: false,
+  // 你也可以使用下面的代码来移除分隔条
+  // separator: { show: false },
+  // 或者使用下面的代码来改变分隔条的颜色
+  // separator: { backgroundColor: 'rgba(100,100,0,0.5)' },
+});
+```
+
 <DemoPreview dir="demos/vben-vxe-table/form" />
 
 ## 单元格编辑
@@ -231,15 +248,16 @@ useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表�
 
 所有属性都可以传入 `useVbenVxeGrid` 的第一个参数中。
 
-| 属性名         | 描述                 | 类型                |
-| -------------- | -------------------- | ------------------- |
-| tableTitle     | 表格标题             | `string`            |
-| tableTitleHelp | 表格标题帮助信息     | `string`            |
-| gridClass      | grid组件的class      | `string`            |
-| gridOptions    | grid组件的参数       | `VxeTableGridProps` |
-| gridEvents     | grid组件的触发的事件 | `VxeGridListeners`  |
-| formOptions    | 表单参数             | `VbenFormProps`     |
-| showSearchForm | 是否显示搜索表单     | `boolean`           |
+| 属性名 | 描述 | 类型 | 版本要求 |
+| --- | --- | --- | --- |
+| tableTitle | 表格标题 | `string` | - |
+| tableTitleHelp | 表格标题帮助信息 | `string` | - |
+| gridClass | grid组件的class | `string` | - |
+| gridOptions | grid组件的参数 | `VxeTableGridProps` | - |
+| gridEvents | grid组件的触发的事件 | `VxeGridListeners` | - |
+| formOptions | 表单参数 | `VbenFormProps` | - |
+| showSearchForm | 是否显示搜索表单 | `boolean` | - |
+| separator | 搜索表单与表格主体之间的分隔条 | `boolean\|SeparatorOptions` | >5.5.4 |
 
 ## Slots
 

@@ -5,10 +5,11 @@ import type {
   RouteLocationNormalizedLoadedGeneric,
 } from 'vue-router';
 
+import { computed } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben/preferences';
-import { storeToRefs, useTabbarStore } from '@vben/stores';
+import { getTabKey, storeToRefs, useTabbarStore } from '@vben/stores';
 
 import { IFrameRouterView } from '../../iframe';
 
@@ -19,6 +20,15 @@ const { keepAlive } = usePreferences();
 
 const { getCachedTabs, getExcludeCachedTabs, renderRouteView } =
   storeToRefs(tabbarStore);
+
+/**
+ * 是否使用动画
+ */
+const getEnabledTransition = computed(() => {
+  const { transition } = preferences;
+  const transitionName = transition.name;
+  return transitionName && transition.enable;
+});
 
 // 页面切换动画
 function getTransitionName(_route: RouteLocationNormalizedLoaded) {
@@ -90,7 +100,12 @@ function transformComponent(
   <div class="relative h-full">
     <IFrameRouterView />
     <RouterView v-slot="{ Component, route }">
-      <Transition :name="getTransitionName(route)" appear mode="out-in">
+      <Transition
+        v-if="getEnabledTransition"
+        :name="getTransitionName(route)"
+        appear
+        mode="out-in"
+      >
         <KeepAlive
           v-if="keepAlive"
           :exclude="getExcludeCachedTabs"
@@ -100,15 +115,34 @@ function transformComponent(
             :is="transformComponent(Component, route)"
             v-if="renderRouteView"
             v-show="!route.meta.iframeSrc"
-            :key="route.fullPath"
+            :key="getTabKey(route)"
           />
         </KeepAlive>
         <component
           :is="Component"
           v-else-if="renderRouteView"
-          :key="route.fullPath"
+          :key="getTabKey(route)"
         />
       </Transition>
+      <template v-else>
+        <KeepAlive
+          v-if="keepAlive"
+          :exclude="getExcludeCachedTabs"
+          :include="getCachedTabs"
+        >
+          <component
+            :is="transformComponent(Component, route)"
+            v-if="renderRouteView"
+            v-show="!route.meta.iframeSrc"
+            :key="getTabKey(route)"
+          />
+        </KeepAlive>
+        <component
+          :is="Component"
+          v-else-if="renderRouteView"
+          :key="getTabKey(route)"
+        />
+      </template>
     </RouterView>
   </div>
 </template>

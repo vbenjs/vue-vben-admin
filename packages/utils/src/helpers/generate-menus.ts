@@ -1,30 +1,38 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
-import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben-core/typings';
+import type {
+  ExRouteRecordRaw,
+  MenuRecordRaw,
+  RouteMeta,
+} from '@vben-core/typings';
 
 import { filterTree, mapTree } from '@vben-core/shared/utils';
 
 /**
  * 根据 routes 生成菜单列表
- * @param routes
+ * @param routes - 路由配置列表
+ * @param router - Vue Router 实例
+ * @returns 生成的菜单列表
  */
-async function generateMenus(
+function generateMenus(
   routes: RouteRecordRaw[],
   router: Router,
-): Promise<MenuRecordRaw[]> {
+): MenuRecordRaw[] {
   // 将路由列表转换为一个以 name 为键的对象映射
-  // 获取所有router最终的path及name
   const finalRoutesMap: { [key: string]: string } = Object.fromEntries(
     router.getRoutes().map(({ name, path }) => [name, path]),
   );
 
   let menus = mapTree<ExRouteRecordRaw, MenuRecordRaw>(routes, (route) => {
-    // 路由表的路径写法有多种，这里从router获取到最终的path并赋值
-    const path = finalRoutesMap[route.name as string] ?? route.path;
+    // 获取最终的路由路径
+    const path = finalRoutesMap[route.name as string] ?? route.path ?? '';
 
-    // 转换为菜单结构
-    // const path = matchRoute?.path ?? route.path;
-    const { meta, name: routeName, redirect, children } = route;
+    const {
+      meta = {} as RouteMeta,
+      name: routeName,
+      redirect,
+      children = [],
+    } = route;
     const {
       activeIcon,
       badge,
@@ -35,24 +43,27 @@ async function generateMenus(
       link,
       order,
       title = '',
-    } = meta || {};
+    } = meta;
 
+    // 确保菜单名称不为空
     const name = (title || routeName || '') as string;
 
-    // 隐藏子菜单
+    // 处理子菜单
     const resultChildren = hideChildrenInMenu
       ? []
-      : (children as MenuRecordRaw[]);
+      : ((children as MenuRecordRaw[]) ?? []);
 
-    // 将菜单的所有父级和父级菜单记录到菜单项内
-    if (resultChildren && resultChildren.length > 0) {
+    // 设置子菜单的父子关系
+    if (resultChildren.length > 0) {
       resultChildren.forEach((child) => {
-        child.parents = [...(route.parents || []), path];
+        child.parents = [...(route.parents ?? []), path];
         child.parent = path;
       });
     }
-    // 隐藏子菜单
+
+    // 确定最终路径
     const resultPath = hideChildrenInMenu ? redirect || path : link || path;
+
     return {
       activeIcon,
       badge,
@@ -63,19 +74,17 @@ async function generateMenus(
       order,
       parent: route.parent,
       parents: route.parents,
-      path: resultPath as string,
-      show: !route?.meta?.hideInMenu,
-      children: resultChildren || [],
+      path: resultPath,
+      show: !meta.hideInMenu,
+      children: resultChildren,
     };
   });
 
   // 对菜单进行排序，避免order=0时被替换成999的问题
   menus = menus.sort((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
 
-  const finalMenus = filterTree(menus, (menu) => {
-    return !!menu.show;
-  });
-  return finalMenus;
+  // 过滤掉隐藏的菜单项
+  return filterTree(menus, (menu) => !!menu.show);
 }
 
 export { generateMenus };

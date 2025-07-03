@@ -9,7 +9,7 @@ import { useHoverToggle } from '@vben/hooks';
 import { LockKeyhole, LogOut } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { preferences, usePreferences } from '@vben/preferences';
-import { useLockStore } from '@vben/stores';
+import { useAccessStore } from '@vben/stores';
 import { isWindowsOs } from '@vben/utils';
 
 import { useVbenModal } from '@vben-core/popup-ui';
@@ -46,7 +46,11 @@ interface Props {
   /**
    * 菜单数组
    */
-  menus?: Array<{ handler: AnyFunction; icon?: Component; text: string }>;
+  menus?: Array<{
+    handler: AnyFunction;
+    icon?: Component | Function | string;
+    text: string;
+  }>;
 
   /**
    * 标签文本
@@ -82,7 +86,7 @@ const emit = defineEmits<{ logout: [] }>();
 
 const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
   usePreferences();
-const lockStore = useLockStore();
+const accessStore = useAccessStore();
 const [LockModal, lockModalApi] = useVbenModal({
   connectedComponent: LockScreenModal,
 });
@@ -133,7 +137,7 @@ function handleOpenLock() {
 
 function handleSubmitLock(lockScreenPassword: string) {
   lockModalApi.close();
-  lockStore.lockScreen(lockScreenPassword);
+  accessStore.lockScreen(lockScreenPassword);
 }
 
 function handleLogout() {

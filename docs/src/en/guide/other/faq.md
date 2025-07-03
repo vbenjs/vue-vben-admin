@@ -18,7 +18,7 @@ If you encounter a problem, you can start looking from the following aspects:
 
 ## Dependency Issues
 
-In a `Monorepo` project, it is necessary to develop the habit of executing `pnpm install` every time you `git pull` the code, as new dependency packages are often added. The project has already configured automatic execution of `pnpm install` in `.husky/git-merge`, but sometimes there might be issues. If it does not execute automatically, it is recommended to execute it manually once.
+In a `Monorepo` project, it's important to get into the habit of running `pnpm install` after every `git pull` because new dependencies are often added. The project has configured automatic execution of `pnpm install` in `lefthook.yml`, but sometimes there might be issues. If it does not execute automatically, it is recommended to execute it manually once.
 
 ## About Cache Update Issues
 

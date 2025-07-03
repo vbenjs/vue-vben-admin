@@ -11,7 +11,7 @@ import { useNavigation } from './use-navigation';
 
 interface Props extends MenuProps {
   collapse?: boolean;
-  menus: MenuRecordRaw[];
+  menus?: MenuRecordRaw[];
 }
 
 withDefaults(defineProps<Props>(), {

@@ -3,6 +3,8 @@ import type { AuthenticationProps } from './types';
 
 import { computed, watch } from 'vue';
 
+import { $t } from '@vben/locales';
+
 import { useVbenModal } from '@vben-core/popup-ui';
 import { Slot, VbenAvatar } from '@vben-core/shadcn-ui';
 
@@ -36,6 +38,16 @@ const getZIndex = computed(() => {
 });
 
 /**
+ * 排除ant-message和loading:9999的z-index
+ */
+const zIndexExcludeClass = ['ant-message', 'loading'];
+function isZIndexExcludeClass(element: Element) {
+  return zIndexExcludeClass.some((className) =>
+    element.classList.contains(className),
+  );
+}
+
+/**
  * 获取最大的zIndex值
  */
 function calcZIndex() {
@@ -44,7 +56,11 @@ function calcZIndex() {
   [...elements].forEach((element) => {
     const style = window.getComputedStyle(element);
     const zIndex = style.getPropertyValue('z-index');
-    if (zIndex && !Number.isNaN(Number.parseInt(zIndex))) {
+    if (
+      zIndex &&
+      !Number.isNaN(Number.parseInt(zIndex)) &&
+      !isZIndexExcludeClass(element)
+    ) {
       maxZ = Math.max(maxZ, Number.parseInt(zIndex));
     }
   });

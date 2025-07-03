@@ -46,3 +46,47 @@ async function getVersionTag() {
   }
 }
 ```
+
+## 替换为第三方库检查更新方式
+
+如果需要通过其他方式检查更新，例如使用其他版本控制方式（chunkHash、version.json）、使用`Web Worker`在后台轮询更新、自定义检查更新时机（不使用轮询），你可以通过JS库`version-polling`来实现。
+
+```bash
+pnpm add version-polling
+```
+
+以`apps/web-antd`项目为例，在项目入口文件`main.ts`或者`app.vue`添加以下代码
+
+```ts
+import { h } from 'vue';
+
+import { Button, notification } from 'ant-design-vue';
+import { createVersionPolling } from 'version-polling';
+
+createVersionPolling({
+  silent: import.meta.env.MODE === 'development', // 开发环境下不检测
+  onUpdate: (self) => {
+    const key = `open${Date.now()}`;
+    notification.info({
+      message: '提示',
+      description: '检测到网页有更新, 是否刷新页面加载最新版本？',
+      btn: () =>
+        h(
+          Button,
+          {
+            type: 'primary',
+            size: 'small',
+            onClick: () => {
+              notification.close(key);
+              self.onRefresh();
+            },
+          },
+          { default: () => '刷新' },
+        ),
+      key,
+      duration: null,
+      placement: 'bottomRight',
+    });
+  },
+});
+```

@@ -106,7 +106,7 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
   initVxeTable();
   useTableForm = useVbenForm;
 
-  const preference = usePreferences();
+  const { isDark, locale } = usePreferences();
 
   const localMap = {
     'zh-CN': zhCN,
@@ -114,11 +114,11 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
   };
 
   watch(
-    [() => preference.theme.value, () => preference.locale.value],
-    ([theme, locale]) => {
-      VxeUI.setTheme(theme === 'dark' ? 'dark' : 'light');
-      VxeUI.setI18n(locale, localMap[locale]);
-      VxeUI.setLanguage(locale);
+    [() => isDark.value, () => locale.value],
+    ([isDarkValue, localeValue]) => {
+      VxeUI.setTheme(isDarkValue ? 'dark' : 'light');
+      VxeUI.setI18n(localeValue, localMap[localeValue]);
+      VxeUI.setLanguage(localeValue);
     },
     {
       immediate: true,

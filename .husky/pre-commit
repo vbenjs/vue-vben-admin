@@ -1,7 +1,0 @@
-# update `.vscode/vben-admin.code-workspace` file
-pnpm vsh code-workspace --auto-commit
-
-# Format and submit code according to lintstagedrc.js configuration
-pnpm exec lint-staged
-
-echo Run pre-commit hook done.

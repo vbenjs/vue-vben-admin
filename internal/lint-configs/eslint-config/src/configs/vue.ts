@@ -10,7 +10,15 @@ export async function vue(): Promise<Linter.Config[]> {
     interopDefault(import('@typescript-eslint/parser')),
   ] as const);
 
+  const flatEssential = pluginVue.configs?.['flat/essential'] || [];
+  const flatStronglyRecommended =
+    pluginVue.configs?.['flat/strongly-recommended'] || [];
+  const flatRecommended = pluginVue.configs?.['flat/recommended'] || [];
+
   return [
+    ...flatEssential,
+    ...flatStronglyRecommended,
+    ...flatRecommended,
     {
       files: ['**/*.vue'],
       languageOptions: {
@@ -43,12 +51,9 @@ export async function vue(): Promise<Linter.Config[]> {
       plugins: {
         vue: pluginVue,
       },
-      processor: pluginVue.processors['.vue'],
+      processor: pluginVue.processors?.['.vue'],
       rules: {
-        ...pluginVue.configs.base.rules,
-        ...pluginVue.configs['vue3-essential'].rules,
-        ...pluginVue.configs['vue3-strongly-recommended'].rules,
-        ...pluginVue.configs['vue3-recommended'].rules,
+        ...pluginVue.configs?.base?.rules,
 
         'vue/attribute-hyphenation': [
           'error',
@@ -131,7 +136,6 @@ export async function vue(): Promise<Linter.Config[]> {
         'vue/require-default-prop': 'error',
         'vue/require-explicit-emits': 'error',
         'vue/require-prop-types': 'off',
-        'vue/script-setup-uses-vars': 'error',
         'vue/singleline-html-element-content-newline': 'off',
         'vue/space-infix-ops': 'error',
         'vue/space-unary-ops': ['error', { nonwords: false, words: true }],

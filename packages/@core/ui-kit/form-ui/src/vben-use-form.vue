@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { Recordable } from '@vben-core/typings';
+
 import type { ExtendedFormApi, VbenFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
-// import { isFunction } from '@vben-core/shared/utils';
 
 import { useForwardPriorityValues } from '@vben-core/composables';
-import { cloneDeep } from '@vben-core/shared/utils';
+import { cloneDeep, get, isEqual, set } from '@vben-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -61,16 +62,46 @@ function handleKeyDownEnter(event: KeyboardEvent) {
 }
 
 const handleValuesChangeDebounced = useDebounceFn(async () => {
-  forward.value.handleValuesChange?.(
-    cloneDeep(await forward.value.formApi.getValues()),
-  );
   state.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm();
 }, 300);
+
+const valuesCache: Recordable<any> = {};
 
 onMounted(async () => {
   // 只在挂载后开始监听，form.values会有一个初始化的过程
   await nextTick();
-  watch(() => form.values, handleValuesChangeDebounced, { deep: true });
+  watch(
+    () => form.values,
+    async (newVal) => {
+      if (forward.value.handleValuesChange) {
+        const fields = state.value.schema?.map((item) => {
+          return item.fieldName;
+        });
+
+        if (fields && fields.length > 0) {
+          const changedFields: string[] = [];
+          fields.forEach((field) => {
+            const newFieldValue = get(newVal, field);
+            const oldFieldValue = get(valuesCache, field);
+            if (!isEqual(newFieldValue, oldFieldValue)) {
+              changedFields.push(field);
+              set(valuesCache, field, newFieldValue);
+            }
+          });
+
+          if (changedFields.length > 0) {
+            // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
+            forward.value.handleValuesChange(
+              cloneDeep(await forward.value.formApi.getValues()),
+              changedFields,
+            );
+          }
+        }
+      }
+      handleValuesChangeDebounced();
+    },
+    { deep: true },
+  );
 });
 </script>
 
