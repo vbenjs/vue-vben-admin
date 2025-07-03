@@ -25,7 +25,7 @@ const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
 const contentStyle = computed<StyleValue>(() => {
   if (autoContentHeight) {
     return {
-      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${typeof heightOffset === 'number' ? `${heightOffset}px` : heightOffset}) - ${footerHeight.value}px`,
+      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${typeof heightOffset === 'number' ? `${heightOffset}px` : heightOffset})`,
       overflowY: shouldAutoHeight.value ? 'auto' : 'unset',
     };
   }
