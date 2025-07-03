@@ -145,8 +145,8 @@ catalogs:
       specifier: ^2.4.6
       version: 2.4.6
     '@vueuse/core':
-      specifier: ^13.4.0
-      version: 13.4.0
+      specifier: ^13.5.0
+      version: 13.5.0
     '@vueuse/integrations':
       specifier: ^13.4.0
       version: 13.4.0
@@ -697,7 +697,7 @@ importers:
         version: link:../../packages/utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       ant-design-vue:
         specifier: 'catalog:'
         version: 4.2.6(vue@3.5.17(typescript@5.8.3))
@@ -760,7 +760,7 @@ importers:
         version: link:../../packages/utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
@@ -827,7 +827,7 @@ importers:
         version: link:../../packages/utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       naive-ui:
         specifier: 'catalog:'
         version: 2.42.0(vue@3.5.17(typescript@5.8.3))
@@ -1300,7 +1300,7 @@ importers:
         version: link:../base/shared
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       radix-vue:
         specifier: 'catalog:'
         version: 1.9.17(vue@3.5.17(typescript@5.8.3))
@@ -1325,7 +1325,7 @@ importers:
         version: link:../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1352,7 +1352,7 @@ importers:
         version: 4.15.1(vue@3.5.17(typescript@5.8.3))(zod@3.25.67)
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.17(typescript@5.8.3))
@@ -1385,7 +1385,7 @@ importers:
         version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1409,7 +1409,7 @@ importers:
         version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1433,7 +1433,7 @@ importers:
         version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1454,7 +1454,7 @@ importers:
         version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -1487,7 +1487,7 @@ importers:
         version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1550,7 +1550,7 @@ importers:
         version: link:../../types
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       '@vueuse/integrations':
         specifier: 'catalog:'
         version: 13.4.0(async-validator@4.2.5)(axios@1.10.0)(focus-trap@7.6.4)(jwt-decode@4.0.0)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.6)(vue@3.5.17(typescript@5.8.3))
@@ -1599,7 +1599,7 @@ importers:
         version: link:../../utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1662,7 +1662,7 @@ importers:
         version: link:../../utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1701,7 +1701,7 @@ importers:
         version: link:../../utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       '@vueuse/motion':
         specifier: 'catalog:'
         version: 3.0.3(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3))
@@ -1879,7 +1879,7 @@ importers:
         version: link:../packages/utils
       '@vueuse/core':
         specifier: 'catalog:'
-        version: 13.4.0(vue@3.5.17(typescript@5.8.3))
+        version: 13.5.0(vue@3.5.17(typescript@5.8.3))
       ant-design-vue:
         specifier: 'catalog:'
         version: 4.2.6(vue@3.5.17(typescript@5.8.3))
@@ -5208,6 +5208,11 @@ packages:
     peerDependencies:
       vue: ^3.5.17
 
+  '@vueuse/core@13.5.0':
+    resolution: {integrity: sha512-wV7z0eUpifKmvmN78UBZX8T7lMW53Nrk6JP5+6hbzrB9+cJ3jr//hUlhl9TZO/03bUkMK6gGkQpqOPWoabr72g==}
+    peerDependencies:
+      vue: ^3.5.17
+
   '@vueuse/core@9.13.0':
     resolution: {integrity: sha512-pujnclbeHWxxPRqXWmdkKV5OX4Wk4YeK7wusHqRwU0Q7EFusHoqNA/aPhB6KCh9hEqJkLAJo7bb0Lh9b+OIVzw==}
 
@@ -5303,6 +5308,9 @@ packages:
   '@vueuse/metadata@13.4.0':
     resolution: {integrity: sha512-CPDQ/IgOeWbqItg1c/pS+Ulum63MNbpJ4eecjFJqgD/JUCJ822zLfpw6M9HzSvL6wbzMieOtIAW/H8deQASKHg==}
 
+  '@vueuse/metadata@13.5.0':
+    resolution: {integrity: sha512-euhItU3b0SqXxSy8u1XHxUCdQ8M++bsRs+TYhOLDU/OykS7KvJnyIFfep0XM5WjIFry9uAPlVSjmVHiqeshmkw==}
+
   '@vueuse/metadata@9.13.0':
     resolution: {integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==}
 
@@ -5324,6 +5332,11 @@ packages:
 
   '@vueuse/shared@13.4.0':
     resolution: {integrity: sha512-+AxuKbw8R1gYy5T21V5yhadeNM7rJqb4cPaRI9DdGnnNl3uqXh+unvQ3uCaA2DjYLbNr1+l7ht/B4qEsRegX6A==}
+    peerDependencies:
+      vue: ^3.5.17
+
+  '@vueuse/shared@13.5.0':
+    resolution: {integrity: sha512-K7GrQIxJ/ANtucxIXbQlUHdB0TPA8c+q5i+zbrjxuhJCnJ9GtBg75sBSnvmLSxHKPg2Yo8w62PWksl9kwH0Q8g==}
     peerDependencies:
       vue: ^3.5.17
 
@@ -8135,6 +8148,41 @@ packages:
     resolution: {integrity: sha512-l9RhSBp1SHqLCjSGWoeeVWqKcTBOMW8v2CCYrUt5eb6sik7AjT6+Neqf3sClsXH7SjELjj43yjmg6loqPtfDgg==}
     cpu: [x64]
     os: [darwin]
+
+  lefthook-freebsd-arm64@1.11.14:
+    resolution: {integrity: sha512-oSdJKGGMohktFXC6faZCUt5afyHpDwWGIWAkHGgOXUVD/LiZDEn6U/8cQmKm1UAfBySuPTtfir0VeM04y6188g==}
+    cpu: [arm64]
+    os: [freebsd]
+
+  lefthook-freebsd-x64@1.11.14:
+    resolution: {integrity: sha512-gZdMWZwOtIhIPK3GPYac7JhXrxF188gkw65i6O7CedS/meDlK2vjBv5BUVLeD/satv4+jibEdV0h4Qqu/xIh2A==}
+    cpu: [x64]
+    os: [freebsd]
+
+  lefthook-linux-arm64@1.11.14:
+    resolution: {integrity: sha512-sZmqbTsGQFQw7gbfi9eIHFOxfcs66QfZYLRMh1DktODhyhRXB8RtI6KMeKCtPEGLhbK55/I4TprC8Qvj86UBgw==}
+    cpu: [arm64]
+    os: [linux]
+
+  lefthook-linux-x64@1.11.14:
+    resolution: {integrity: sha512-c+to1BRzFe419SNXAR6YpCBP8EVWxvUxlON3Z+efzmrHhdlhm7LvEoJcN4RQE4Gc2rJQJNe87OjsEZQkc4uQLg==}
+    cpu: [x64]
+    os: [linux]
+
+  lefthook-openbsd-arm64@1.11.14:
+    resolution: {integrity: sha512-fivG3D9G4ASRCTf3ecfz1WdnrHCW9pezaI8v1NVve8t6B2q0d0yeaje5dfhoAsAvwiFPRaMzka1Qaoyu8O8G9Q==}
+    cpu: [arm64]
+    os: [openbsd]
+
+  lefthook-openbsd-x64@1.11.14:
+    resolution: {integrity: sha512-vikmG0jf7JVKR3be6Wk3l1jtEdedEqk1BTdsaHFX1bj0qk0azcqlZ819Wt/IoyIYDzQCHKowZ6DuXsRjT+RXWA==}
+    cpu: [x64]
+    os: [openbsd]
+
+  lefthook-windows-arm64@1.11.14:
+    resolution: {integrity: sha512-5PoAJ9QKaqxJn1NWrhrhXpAROpl/dT7bGTo7VMj2ATO1cpRatbn6p+ssvc3tgeriFThowFb1D11Fg6OlFLi6UQ==}
+    cpu: [arm64]
+    os: [win32]
 
   lefthook-windows-x64@1.11.14:
     resolution: {integrity: sha512-kBeOPR0Aj5hQGxoBBntgz5/e/xaH5Vnzlq9lJjHW8sf23qu/JVUGg6ceCoicyVWJi+ZOBliTa8KzwCu+mgyJjw==}
@@ -15410,6 +15458,13 @@ snapshots:
       '@vueuse/shared': 13.4.0(vue@3.5.17(typescript@5.8.3))
       vue: 3.5.17(typescript@5.8.3)
 
+  '@vueuse/core@13.5.0(vue@3.5.17(typescript@5.8.3))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 13.5.0
+      '@vueuse/shared': 13.5.0(vue@3.5.17(typescript@5.8.3))
+      vue: 3.5.17(typescript@5.8.3)
+
   '@vueuse/core@9.13.0(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.16
@@ -15456,11 +15511,13 @@ snapshots:
 
   '@vueuse/metadata@13.4.0': {}
 
+  '@vueuse/metadata@13.5.0': {}
+
   '@vueuse/metadata@9.13.0': {}
 
   '@vueuse/motion@3.0.3(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3))':
     dependencies:
-      '@vueuse/core': 13.4.0(vue@3.5.17(typescript@5.8.3))
+      '@vueuse/core': 13.5.0(vue@3.5.17(typescript@5.8.3))
       '@vueuse/shared': 13.1.0(vue@3.5.17(typescript@5.8.3))
       defu: 6.1.4
       framesync: 6.1.2
@@ -15490,6 +15547,10 @@ snapshots:
       vue: 3.5.17(typescript@5.8.3)
 
   '@vueuse/shared@13.4.0(vue@3.5.17(typescript@5.8.3))':
+    dependencies:
+      vue: 3.5.17(typescript@5.8.3)
+
+  '@vueuse/shared@13.5.0(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       vue: 3.5.17(typescript@5.8.3)
 
@@ -18583,6 +18644,27 @@ snapshots:
   lefthook-darwin-x64@1.11.14:
     optional: true
 
+  lefthook-freebsd-arm64@1.11.14:
+    optional: true
+
+  lefthook-freebsd-x64@1.11.14:
+    optional: true
+
+  lefthook-linux-arm64@1.11.14:
+    optional: true
+
+  lefthook-linux-x64@1.11.14:
+    optional: true
+
+  lefthook-openbsd-arm64@1.11.14:
+    optional: true
+
+  lefthook-openbsd-x64@1.11.14:
+    optional: true
+
+  lefthook-windows-arm64@1.11.14:
+    optional: true
+
   lefthook-windows-x64@1.11.14:
     optional: true
 
@@ -18590,6 +18672,13 @@ snapshots:
     optionalDependencies:
       lefthook-darwin-arm64: 1.11.14
       lefthook-darwin-x64: 1.11.14
+      lefthook-freebsd-arm64: 1.11.14
+      lefthook-freebsd-x64: 1.11.14
+      lefthook-linux-arm64: 1.11.14
+      lefthook-linux-x64: 1.11.14
+      lefthook-openbsd-arm64: 1.11.14
+      lefthook-openbsd-x64: 1.11.14
+      lefthook-windows-arm64: 1.11.14
       lefthook-windows-x64: 1.11.14
 
   less@4.3.0:

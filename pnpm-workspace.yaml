@@ -63,7 +63,7 @@ catalog:
   '@vue/reactivity': ^3.5.17
   '@vue/shared': ^3.5.17
   '@vue/test-utils': ^2.4.6
-  '@vueuse/core': ^13.4.0
+  '@vueuse/core': ^13.5.0
   '@vueuse/integrations': ^13.4.0
   '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
