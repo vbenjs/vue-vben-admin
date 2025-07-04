@@ -76,6 +76,12 @@ const keyword = ref('');
 const keywordDebounce = refDebounced(keyword, 300);
 const innerIcons = ref<string[]>([]);
 
+/* 当检索关键词变化时，重置分页 */
+watch(keywordDebounce, () => {
+  currentPage.value = 1;
+  setCurrentPage(1);
+});
+
 watchDebounced(
   () => props.prefix,
   async (prefix) => {
