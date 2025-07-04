@@ -93,7 +93,7 @@ function handleDragEnd() {
   const { pieceX } = state;
   const { diffDistance } = props;
 
-  if (Math.abs(pieceX - state.moveDistance) >= (diffDistance || 5)) {
+  if (Math.abs(pieceX - state.moveDistance) >= (diffDistance || 3)) {
     setLeft('0');
     state.moveDistance = 0;
   } else {
