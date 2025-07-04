@@ -85,6 +85,15 @@ const routes: RouteRecordRaw[] = [
               title: $t('examples.form.merge'),
             },
           },
+          {
+            name: 'FormScrollToErrorExample',
+            path: '/examples/form/scroll-to-error-test',
+            component: () =>
+              import('#/views/examples/form/scroll-to-error-test.vue'),
+            meta: {
+              title: $t('examples.form.scrollToError'),
+            },
+          },
         ],
       },
       {
