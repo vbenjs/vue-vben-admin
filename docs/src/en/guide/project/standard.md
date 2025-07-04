@@ -4,7 +4,6 @@
 
 - If you want to contribute code to the project, please ensure your code complies with the project's coding standards.
 - If you are using `vscode`, you need to install the following plugins:
-
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Script code checking
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatting
   - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - Word syntax checking
@@ -157,7 +156,6 @@ The most effective solution is to perform Lint checks locally before committing.
 The project defines corresponding hooks inside `lefthook.yml`:
 
 - `pre-commit`: Runs before commit, used for code formatting and checking
-
   - `code-workspace`: Updates VSCode workspace configuration
   - `lint-md`: Formats Markdown files
   - `lint-vue`: Formats and checks Vue files
@@ -167,7 +165,6 @@ The project defines corresponding hooks inside `lefthook.yml`:
   - `lint-json`: Formats other JSON files
 
 - `post-merge`: Runs after merge, used for automatic dependency installation
-
   - `install`: Runs `pnpm install` to install new dependencies
 
 - `commit-msg`: Runs during commit, used for checking commit message format

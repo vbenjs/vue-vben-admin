@@ -1,3 +1,7 @@
+import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
+
+import type { SlotsType } from 'vue';
+
 import type { BaseFormComponentType } from '@vben-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
@@ -8,6 +12,12 @@ import { useStore } from '@vben-core/shared/store';
 
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';
+
+type FilteredSlots<T> = {
+  [K in keyof VxeGridSlots<T> as K extends 'form'
+    ? never
+    : K]: VxeGridSlots<T>[K];
+};
 
 export function useVbenVxeGrid<
   T extends Record<string, any> = any,
@@ -31,6 +41,16 @@ export function useVbenVxeGrid<
     {
       name: 'VbenVxeGrid',
       inheritAttrs: false,
+      slots: Object as SlotsType<
+        {
+          // 表格标题
+          'table-title': undefined;
+          // 工具栏左侧部分
+          'toolbar-actions': VxeGridSlotTypes.DefaultSlotParams<T>;
+          // 工具栏右侧部分
+          'toolbar-tools': VxeGridSlotTypes.DefaultSlotParams<T>;
+        } & FilteredSlots<T>
+      >,
     },
   );
   // Add reactivity support
