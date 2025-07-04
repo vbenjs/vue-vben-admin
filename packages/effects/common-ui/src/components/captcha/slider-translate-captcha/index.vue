@@ -53,7 +53,7 @@ const state = reactive({
   startTime: 0,
   endTime: 0,
   pieceX: 0,
-  PieceY: 0,
+  pieceY: 0,
   moveDistance: 0,
   isPassing: false,
   showTip: false,
@@ -73,10 +73,10 @@ function setLeft(val: string) {
 
 const verifyTip = computed(() => {
   return state.isPassing
-    ? $t('ui.captcha.sliderRotateSuccessTip', [
+    ? $t('ui.captcha.sliderTranslateSuccessTip', [
         ((state.endTime - state.startTime) / 1000).toFixed(1),
       ])
-    : $t('ui.captcha.sliderRotateFailTip');
+    : $t('ui.captcha.sliderTranslateFailTip');
 });
 function handleStart() {
   state.startTime = Date.now();
@@ -93,7 +93,7 @@ function handleDragEnd() {
   const { pieceX } = state;
   const { diffDistance } = props;
 
-  if (Math.abs(pieceX - state.moveDistance) >= (diffDistance || 10)) {
+  if (Math.abs(pieceX - state.moveDistance) >= (diffDistance || 5)) {
     setLeft('0');
     state.moveDistance = 0;
   } else {
@@ -161,7 +161,7 @@ function initCanvas() {
     pieceCanvasCtx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
     const pieceLength = squareLength + 2 * circleRadius + 3;
     const sx = state.pieceX;
-    const sy = state.PieceY - 2 * circleRadius - 1;
+    const sy = state.pieceY - 2 * circleRadius - 1;
     const imageData = pieceCanvasCtx.getImageData(
       sx,
       sy,
@@ -185,12 +185,12 @@ function draw(ctx1: CanvasRenderingContext2D, ctx2: CanvasRenderingContext2D) {
     squareLength + 2 * circleRadius,
     canvasWidth - (squareLength + 2 * circleRadius),
   );
-  state.PieceY = getRandomNumberByRange(
+  state.pieceY = getRandomNumberByRange(
     3 * circleRadius,
     canvasHeight - (squareLength + 2 * circleRadius),
   );
-  drawPiece(ctx1, state.pieceX, state.PieceY, CanvasOpr.Fill);
-  drawPiece(ctx2, state.pieceX, state.PieceY, CanvasOpr.Clip);
+  drawPiece(ctx1, state.pieceX, state.pieceY, CanvasOpr.Fill);
+  drawPiece(ctx2, state.pieceX, state.pieceY, CanvasOpr.Clip);
 }
 
 // 绘制拼图切块
@@ -246,7 +246,7 @@ function resume() {
   state.dragging = false;
   state.isPassing = false;
   state.pieceX = 0;
-  state.PieceY = 0;
+  state.pieceY = 0;
 
   basicEl.resume();
   resetCanvas();
@@ -290,7 +290,7 @@ onMounted(() => {
           {{ verifyTip }}
         </div>
         <div v-if="!state.dragging" class="bg-black/30">
-          {{ defaultTip || $t('ui.captcha.sliderRotateDefaultTip') }}
+          {{ defaultTip || $t('ui.captcha.sliderTranslateDefaultTip') }}
         </div>
       </div>
     </div>
