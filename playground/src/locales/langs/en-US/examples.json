@@ -42,6 +42,7 @@
     "pointSelection": "Point Selection Captcha",
     "sliderCaptcha": "Slider Captcha",
     "sliderRotateCaptcha": "Rotate Captcha",
+    "sliderTranslateCaptcha": "Translate Captcha",
     "captchaCardTitle": "Please complete the security verification",
     "pageDescription": "Verify user identity by clicking on specific locations in the image.",
     "pageTitle": "Captcha Component Example",

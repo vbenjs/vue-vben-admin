@@ -206,6 +206,15 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'TranslateVerifyExample',
+            path: '/examples/captcha/slider-translate',
+            component: () =>
+              import('#/views/examples/captcha/slider-translate-captcha.vue'),
+            meta: {
+              title: $t('examples.captcha.sliderTranslateCaptcha'),
+            },
+          },
+          {
             name: 'CaptchaPointSelectionExample',
             path: '/examples/captcha/point-selection',
             component: () =>
