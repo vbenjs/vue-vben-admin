@@ -23,7 +23,8 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "test:e2e": "playwright test",
     "test:e2e-ui": "playwright test --ui",
-    "test:e2e-codegen": "playwright codegen"
+    "test:e2e-codegen": "playwright codegen",
+    "tauri": "tauri"
   },
   "imports": {
     "#/*": "./src/*"
@@ -51,9 +52,12 @@
     "json-bigint": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2"
   },
   "devDependencies": {
-    "@types/json-bigint": "catalog:"
+    "@types/json-bigint": "catalog:",
+    "@tauri-apps/cli": "^2"
   }
 }

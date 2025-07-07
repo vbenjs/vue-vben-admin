@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { useAntdDesignTokens } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 
+import { invoke } from '@tauri-apps/api/core';
 import { App, ConfigProvider, theme } from 'ant-design-vue';
 
 import { antdLocale } from '#/locales';
@@ -27,6 +28,18 @@ const tokenTheme = computed(() => {
     algorithm,
     token: tokens,
   };
+});
+
+const greetMsg = ref('');
+
+async function greet() {
+  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+  greetMsg.value = await invoke('greet', { name: 'vben' });
+}
+onMounted(async () => {
+  await greet();
+  // eslint-disable-next-line no-console
+  console.log(greetMsg.value);
 });
 </script>
 
