@@ -4,10 +4,11 @@ outline: deep
 
 # Access Control
 
-The framework has built-in two types of access control methods:
+The framework has built-in three types of access control methods:
 
 - Determining whether a menu or button can be accessed based on user roles
 - Determining whether a menu or button can be accessed through an API
+- Mixed mode: Using both frontend and backend access control simultaneously
 
 ## Frontend Access Control
 
@@ -150,6 +151,43 @@ const dashboardMenus = [
 :::
 
 At this point, the configuration is complete. You need to ensure that after logging in, the format of the menu returned by the interface is correct; otherwise, access will not be possible.
+
+## Mixed Access Control
+
+**Implementation Principle**: Mixed mode combines both frontend access control and backend access control methods. The system processes frontend fixed route permissions and backend dynamic menu data in parallel, ultimately merging both parts of routes to provide a more flexible access control solution.
+
+**Advantages**: Combines the performance advantages of frontend control with the flexibility of backend control, suitable for complex business scenarios requiring permission management.
+
+### Steps
+
+- Ensure the current mode is set to mixed access control
+
+Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='mixed'`.
+
+```ts
+import { defineOverridesPreferences } from '@vben/preferences';
+
+export const overridesPreferences = defineOverridesPreferences({
+  // overrides
+  app: {
+    accessMode: 'mixed',
+  },
+});
+```
+
+- Configure frontend route permissions
+
+Same as the route permission configuration method in [Frontend Access Control](#frontend-access-control) mode.
+
+- Configure backend menu interface
+
+Same as the interface configuration method in [Backend Access Control](#backend-access-control) mode.
+
+- Ensure roles and permissions match
+
+Must satisfy both frontend route permission configuration and backend menu data return requirements, ensuring user roles match the permission configurations of both modes.
+
+At this point, the configuration is complete. Mixed mode will automatically merge frontend and backend routes, providing complete access control functionality.
 
 ## Fine-grained Control of Buttons
 

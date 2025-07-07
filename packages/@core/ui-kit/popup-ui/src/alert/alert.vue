@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<AlertProps>(), {
   bordered: true,
   buttonAlign: 'end',
   centered: true,
-  containerClass: 'w-[520px]',
 });
 const emits = defineEmits(['closed', 'confirm', 'opened']);
 const open = defineModel<boolean>('open', { default: false });
@@ -148,7 +147,7 @@ async function handleOpenChange(val: boolean) {
       :class="
         cn(
           containerClass,
-          'left-0 right-0 mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:rounded-[var(--radius)] md:w-[520px] md:max-w-[80%]',
+          'left-0 right-0 mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:w-[520px] sm:max-w-[80%] sm:rounded-[var(--radius)]',
           {
             'border-border border': bordered,
             'shadow-3xl': !bordered,

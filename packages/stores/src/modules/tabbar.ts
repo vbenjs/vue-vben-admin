@@ -208,7 +208,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const keys: string[] = [];
 
       for (const key of closeKeys) {
-        if (key !== tab.key) {
+        if (key !== getTabKeyFromTab(tab)) {
           const closeTab = this.tabs.find(
             (item) => getTabKeyFromTab(item) === key,
           );

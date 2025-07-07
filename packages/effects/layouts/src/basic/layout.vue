@@ -234,6 +234,7 @@ const headerSlots = computed(() => {
     <template #logo>
       <VbenLogo
         v-if="preferences.logo.enable"
+        :fit="preferences.logo.fit"
         :class="logoClass"
         :collapsed="logoCollapsed"
         :src="preferences.logo.source"
@@ -324,6 +325,7 @@ const headerSlots = computed(() => {
     <template #side-extra-title>
       <VbenLogo
         v-if="preferences.logo.enable"
+        :fit="preferences.logo.fit"
         :text="preferences.app.name"
         :theme="theme"
       >

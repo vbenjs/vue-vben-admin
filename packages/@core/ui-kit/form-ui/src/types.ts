@@ -388,6 +388,12 @@ export interface VbenFormProps<
   resetButtonOptions?: ActionButtonOptions;
 
   /**
+   * 验证失败时是否自动滚动到第一个错误字段
+   * @default false
+   */
+  scrollToFirstError?: boolean;
+
+  /**
    * 是否显示默认操作按钮
    * @default true
    */

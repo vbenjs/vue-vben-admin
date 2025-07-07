@@ -21,7 +21,7 @@ The rules are consistent with [Vite Env Variables and Modes](https://vitejs.dev/
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging. :::
+- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging.
 
 :::
 
@@ -138,6 +138,27 @@ To add a new dynamically modifiable configuration item, simply follow the steps 
   }
   ```
 
+- In `packages/effects/hooks/src/use-app-config.ts`, add the corresponding configuration item, such as:
+
+  ```ts
+  export function useAppConfig(
+    env: Record<string, any>,
+    isProduction: boolean,
+  ): ApplicationConfig {
+    // In production environment, directly use the window._VBEN_ADMIN_PRO_APP_CONF_ global variable
+    const config = isProduction
+      ? window._VBEN_ADMIN_PRO_APP_CONF_
+      : (env as VbenAdminProAppConfigRaw);
+
+    const { VITE_GLOB_API_URL, VITE_GLOB_OTHER_API_URL } = config; // [!code ++]
+
+    return {
+      apiURL: VITE_GLOB_API_URL,
+      otherApiURL: VITE_GLOB_OTHER_API_URL, // [!code ++]
+    };
+  }
+  ```
+
 At this point, you can use the `useAppConfig` method within the project to access the newly added configuration item.
 
 ```ts
@@ -238,6 +259,7 @@ const defaultPreferences: Preferences = {
   },
   logo: {
     enable: true,
+    fit: 'contain',
     source: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
   },
   navigation: {
@@ -431,6 +453,8 @@ interface HeaderPreferences {
 interface LogoPreferences {
   /** Whether the logo is visible */
   enable: boolean;
+  /** Logo image fitting method */
+  fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** Logo URL */
   source: string;
 }

@@ -80,7 +80,7 @@ defineExpose({
       v-bind="forwarded"
       :class="
         cn(
-          'z-popup bg-background w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          'z-popup bg-background p-6 shadow-lg outline-none sm:rounded-xl',
           'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
           {

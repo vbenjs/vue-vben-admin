@@ -255,6 +255,16 @@ const routes: RouteRecordRaw[] = [
               title: $t('demos.features.requestParamsSerializer'),
             },
           },
+          {
+            name: 'BigIntDemo',
+            path: '/demos/features/json-bigint',
+            component: () =>
+              import('#/views/demos/features/json-bigint/index.vue'),
+            meta: {
+              icon: 'lucide:grape',
+              title: 'JSON BigInt',
+            },
+          },
         ],
       },
       // 面包屑导航

@@ -26,6 +26,12 @@ outline: deep
 
 <DemoPreview dir="demos/vben-ellipsis-text/tooltip" />
 
+## 自动显示 tooltip
+
+通过`tooltip-when-ellipsis`设置，仅在文本长度超出导致省略号出现时才触发 tooltip。
+
+<DemoPreview dir="demos/vben-ellipsis-text/auto-display" />
+
 ## API
 
 ### Props
@@ -37,6 +43,8 @@ outline: deep
 | maxWidth | 文本区域最大宽度 | `number \| string` | `'100%'` |
 | placement | 提示浮层的位置 | `'bottom'\|'left'\|'right'\|'top'` | `'top'` |
 | tooltip | 启用文本提示 | `boolean` | `true` |
+| tooltipWhenEllipsis | 内容超出，自动启用文本提示 | `boolean` | `false` |
+| ellipsisThreshold | 设置 tooltipWhenEllipsis 后才生效，文本截断检测的像素差异阈值，越大则判断越严格，如果碰见异常情况可以自己设置阈值 | `number` | `3` |
 | tooltipBackgroundColor | 提示文本的背景颜色 | `string` | - |
 | tooltipColor | 提示文本的颜色 | `string` | - |
 | tooltipFontSize | 提示文本的大小 | `string` | - |

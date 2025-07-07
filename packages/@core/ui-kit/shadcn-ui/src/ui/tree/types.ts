@@ -22,6 +22,8 @@ export interface TreeProps {
   defaultValue?: Arrayable<number | string>;
   /** 禁用 */
   disabled?: boolean;
+  /** 禁用字段名 */
+  disabledField?: string;
   /** 自定义节点类名 */
   getNodeClass?: (item: FlattenedItem<Recordable<any>>) => string;
   iconField?: string;

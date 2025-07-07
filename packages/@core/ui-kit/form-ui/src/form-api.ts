@@ -11,7 +11,7 @@ import type { Recordable } from '@vben-core/typings';
 
 import type { FormActions, FormSchema, VbenFormProps } from './types';
 
-import { toRaw } from 'vue';
+import { isRef, toRaw } from 'vue';
 
 import { Store } from '@vben-core/shared/store';
 import {
@@ -39,6 +39,7 @@ function getDefaultState(): VbenFormProps {
     layout: 'horizontal',
     resetButtonOptions: {},
     schema: [],
+    scrollToFirstError: false,
     showCollapseButton: false,
     showDefaultActions: true,
     submitButtonOptions: {},
@@ -100,9 +101,26 @@ export class FormApi {
   getFieldComponentRef<T = ComponentPublicInstance>(
     fieldName: string,
   ): T | undefined {
-    return this.componentRefMap.has(fieldName)
-      ? (this.componentRefMap.get(fieldName) as T)
+    let target = this.componentRefMap.has(fieldName)
+      ? (this.componentRefMap.get(fieldName) as ComponentPublicInstance)
       : undefined;
+    if (
+      target &&
+      target.$.type.name === 'AsyncComponentWrapper' &&
+      target.$.subTree.ref
+    ) {
+      if (Array.isArray(target.$.subTree.ref)) {
+        if (
+          target.$.subTree.ref.length > 0 &&
+          isRef(target.$.subTree.ref[0]?.r)
+        ) {
+          target = target.$.subTree.ref[0]?.r.value as ComponentPublicInstance;
+        }
+      } else if (isRef(target.$.subTree.ref.r)) {
+        target = target.$.subTree.ref.r.value as ComponentPublicInstance;
+      }
+    }
+    return target as T;
   }
 
   /**
@@ -236,6 +254,41 @@ export class FormApi {
     });
   }
 
+  /**
+   * 滚动到第一个错误字段
+   * @param errors 验证错误对象
+   */
+  scrollToFirstError(errors: Record<string, any> | string) {
+    // https://github.com/logaretm/vee-validate/discussions/3835
+    const firstErrorFieldName =
+      typeof errors === 'string' ? errors : Object.keys(errors)[0];
+
+    if (!firstErrorFieldName) {
+      return;
+    }
+
+    let el = document.querySelector(
+      `[name="${firstErrorFieldName}"]`,
+    ) as HTMLElement;
+
+    // 如果通过 name 属性找不到，尝试通过组件引用查找, 正常情况下不会走到这，怕哪天 vee-validate 改了 name 属性有个兜底的
+    if (!el) {
+      const componentRef = this.getFieldComponentRef(firstErrorFieldName);
+      if (componentRef && componentRef.$el instanceof HTMLElement) {
+        el = componentRef.$el;
+      }
+    }
+
+    if (el) {
+      // 滚动到错误字段，添加一些偏移量以确保字段完全可见
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+    }
+  }
+
   async setFieldValue(field: string, value: any, shouldValidate?: boolean) {
     const form = await this.getForm();
     form.setFieldValue(field, value, shouldValidate);
@@ -360,14 +413,21 @@ export class FormApi {
 
     if (Object.keys(validateResult?.errors ?? {}).length > 0) {
       console.error('validate error', validateResult?.errors);
+
+      if (this.state?.scrollToFirstError) {
+        this.scrollToFirstError(validateResult.errors);
+      }
     }
     return validateResult;
   }
 
   async validateAndSubmitForm() {
     const form = await this.getForm();
-    const { valid } = await form.validate();
+    const { valid, errors } = await form.validate();
     if (!valid) {
+      if (this.state?.scrollToFirstError) {
+        this.scrollToFirstError(errors);
+      }
       return;
     }
     return await this.submitForm();
@@ -379,6 +439,10 @@ export class FormApi {
 
     if (Object.keys(validateResult?.errors ?? {}).length > 0) {
       console.error('validate error', validateResult?.errors);
+
+      if (this.state?.scrollToFirstError) {
+        this.scrollToFirstError(fieldName);
+      }
     }
     return validateResult;
   }
