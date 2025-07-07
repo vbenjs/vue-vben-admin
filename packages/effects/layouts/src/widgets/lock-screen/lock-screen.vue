@@ -85,7 +85,7 @@ useScrollLock();
     <transition name="slide-left">
       <div v-show="!showUnlockForm" class="size-full">
         <div
-          class="flex-col-center text-foreground/80 hover:text-foreground group my-4 cursor-pointer text-xl font-semibold"
+          class="flex-col-center text-foreground/80 hover:text-foreground group fixed left-1/2 top-6 z-[2001] -translate-x-1/2 cursor-pointer text-xl font-semibold"
           @click="toggleUnlockForm"
         >
           <LockKeyhole
@@ -93,19 +93,23 @@ useScrollLock();
           />
           <span>{{ $t('ui.widgets.lockScreen.unlock') }}</span>
         </div>
-        <div class="flex h-full justify-center px-[10%]">
-          <div
-            class="bg-accent flex-center relative mb-14 mr-20 h-4/5 w-2/5 flex-auto rounded-3xl text-center text-[260px]"
-          >
-            <span class="absolute left-4 top-4 text-xl font-semibold">
-              {{ meridiem }}
-            </span>
-            {{ hour }}
-          </div>
-          <div
-            class="bg-accent flex-center mb-14 h-4/5 w-2/5 flex-auto rounded-3xl text-center text-[260px]"
-          >
-            {{ minute }}
+        <div class="flex h-full w-full items-center justify-center">
+          <div class="flex w-full justify-center gap-4 px-4 sm:gap-6 md:gap-8">
+            <div
+              class="bg-accent relative flex h-[140px] w-[140px] items-center justify-center rounded-xl text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
+            >
+              <span
+                class="absolute left-3 top-3 text-xs font-semibold sm:text-sm md:text-xl"
+              >
+                {{ meridiem }}
+              </span>
+              {{ hour }}
+            </div>
+            <div
+              class="bg-accent flex h-[140px] w-[140px] items-center justify-center rounded-xl text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
+            >
+              {{ minute }}
+            </div>
           </div>
         </div>
       </div>
@@ -117,9 +121,8 @@ useScrollLock();
         class="flex-center size-full"
         @keydown.enter.prevent="handleSubmit"
       >
-        <div class="flex-col-center mb-10 w-[300px]">
+        <div class="flex-col-center mb-10 w-[90%] max-w-[300px] px-4">
           <VbenAvatar :src="avatar" class="enter-x mb-6 size-20" />
-
           <div class="enter-x mb-2 w-full items-center">
             <Form />
           </div>
@@ -145,12 +148,13 @@ useScrollLock();
     </transition>
 
     <div
-      class="enter-y absolute bottom-5 w-full text-center xl:text-xl 2xl:text-3xl"
+      class="enter-y absolute bottom-5 w-full text-center text-xl md:text-2xl xl:text-xl 2xl:text-3xl"
     >
-      <div v-if="showUnlockForm" class="enter-x mb-2 text-3xl">
-        {{ hour }}:{{ minute }} <span class="text-lg">{{ meridiem }}</span>
+      <div v-if="showUnlockForm" class="enter-x mb-2 text-2xl md:text-3xl">
+        {{ hour }}:{{ minute }}
+        <span class="text-base md:text-lg">{{ meridiem }}</span>
       </div>
-      <div class="text-3xl">{{ date }}</div>
+      <div class="text-xl md:text-3xl">{{ date }}</div>
     </div>
   </div>
 </template>
