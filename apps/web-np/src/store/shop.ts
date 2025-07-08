@@ -9,7 +9,7 @@ import { defineStore } from 'pinia';
 import Pusher from 'pusher-js';
 
 import { shopUpdateSubscriptionInfo, updateGeneralSettings } from '#/api';
-import { StateStatus } from '#/shared/constants';
+import { StateStatus, SubscriptionPlans } from '#/shared/constants';
 import { redirectToExternal } from '#/shared/utils';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
@@ -173,6 +173,9 @@ export const useShopStore = defineStore('np-shop', {
     },
     isOnboarding(): boolean {
       return this.state.onboard === ShopState.PROCESSING;
+    },
+    isFreeSubsription(): boolean {
+      return this.shop.subscriptionPlan === SubscriptionPlans.FREE;
     },
   },
 

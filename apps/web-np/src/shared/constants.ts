@@ -15,6 +15,11 @@ export enum StateStatus {
   PROCESSING = 'processing',
 }
 
+export enum SubscriptionPlans {
+  FREE = 'free',
+  PRO = 'pro',
+}
+
 export enum RecalculateCostsType {
   COSG_HANDLING_FEES = 'handling_fees_cogs',
   SHIPPING_COSTS = 'shipping_costs',

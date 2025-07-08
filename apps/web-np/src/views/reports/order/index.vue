@@ -11,6 +11,7 @@ import { Modal } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { orderDelete } from '#/api';
 import { StateStatus } from '#/shared/constants';
+import { showWatermark } from '#/shared/utils';
 import { useShopStore, useSystemStatisticStore } from '#/store';
 
 import FormModalOrderDetail from './form-modal-order-detail.vue';
@@ -49,6 +50,8 @@ onMounted(() => {
       }
     },
   );
+
+  showWatermark();
 });
 
 const handleDetailOpen = (order: any) => {
@@ -91,7 +94,6 @@ const showDeleteOrderBtn = () => {
   <Page auto-content-height>
     <FormContentModal />
     <FormOrdDetailModal />
-    <FormOrderSyncModal />
     <Grid>
       <template #name="{ row }">
         <VbenButton size="sm" variant="link" @click="handleDetailOpen(row)">

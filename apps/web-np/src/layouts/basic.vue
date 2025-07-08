@@ -28,7 +28,32 @@ const router = useRouter();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
 const menus = computed(() => {
-  const profileMenus = [];
+  const profileMenus = [
+    {
+      handler: () => {
+        const url = `https://${shopStore.shop.myshopifyDomain}`;
+        redirectToExternal(url);
+      },
+      icon: 'ic:baseline-shopify',
+      text: 'Shopify store',
+      order: 20,
+    },
+    {
+      handler: () => {
+        const url = `https://apps.shopify.com/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}`;
+        redirectToExternal(url);
+      },
+      icon: 'ic:baseline-shopify',
+      text: 'Shopify app page',
+      order: 30,
+    },
+    {
+      handler: shopStore.redirectToPricing,
+      icon: 'ant-design:dollar-circle-twotone',
+      text: 'Pricing plans',
+      order: 50,
+    },
+  ];
 
   if (isShopifyEmbedded()) {
     profileMenus.push({
@@ -49,34 +74,6 @@ const menus = computed(() => {
       order: 10,
     });
   }
-
-  profileMenus.push(
-    {
-      handler: () => {
-        const url = `https://${shopStore.shop.myshopifyDomain}`;
-        redirectToExternal(url);
-      },
-      icon: 'ic:baseline-shopify',
-      text: 'Shopify store',
-      order: 20,
-    },
-    {
-      handler: () => {
-        const url = `https://apps.shopify.com/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}`;
-        redirectToExternal(url);
-      },
-      icon: 'ic:baseline-shopify',
-      text: 'Shopify app page',
-      order: 30,
-    },
-    // NOT DELETE THIS BLOCK
-    // {
-    //   handler: shopStore.redirectToPricing,
-    //   icon: 'ant-design:dollar-circle-twotone',
-    //   text: 'Pricing plans',
-    //   order: 50,
-    // },
-  );
 
   // Get route name
   if (router.currentRoute.value.name !== 'settings.general') {

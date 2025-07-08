@@ -60,7 +60,7 @@ const [ShopSettingForm, formApi] = useVbenForm({
     },
     {
       component: h('span', userStore.userInfo?.username),
-      fieldName: 'id',
+      fieldName: 'name',
       label: 'Name',
     },
     {
@@ -72,10 +72,10 @@ const [ShopSettingForm, formApi] = useVbenForm({
       label: 'Domain',
     },
     {
-      component: h('span', shopStore.shop.subscriptionName),
+      component: h('span'),
       labelClass: 'font-bold',
       formItemClass: 'font-bold',
-      fieldName: 'id',
+      fieldName: 'subscriptionName',
       label: 'Subscription',
     },
     {
@@ -175,6 +175,9 @@ function onSubmit(values: Record<string, any>) {
           <span v-if="state.appCurrency !== shopStore.shop.currency">{{
             displayRate
           }}</span>
+        </template>
+        <template #subscriptionName>
+          <span> {{ shopStore.shop.subscriptionName }} Plan</span>
         </template>
       </ShopSettingForm>
     </Card>

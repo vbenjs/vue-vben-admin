@@ -1,3 +1,4 @@
+import { useWatermark } from '@vben/hooks';
 import { $t } from '@vben/locales';
 import { useAccessStore } from '@vben/stores';
 
@@ -5,6 +6,7 @@ import { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 import { findCurrency, format } from 'currency-formatter';
 
 import { router } from '#/router';
+import { useShopStore } from '#/store';
 import { useShopifyAppBridgeStore } from '#/store/shopify-app-bridge';
 
 import { adType } from './constants';
@@ -232,4 +234,24 @@ export const authInNewTab = () => {
 export const getAdsIcon = (type: string) => {
   const val = adType.find((item) => item.value === type)?.icon;
   return val || 'ant-design:question-circle-outlined';
+};
+
+export const showWatermark = (parent: string = '.vxe-table--main-wrapper') => {
+  const shopStore = useShopStore();
+  const { updateWatermark } = useWatermark();
+
+  setTimeout(() => {
+    if (!shopStore.isFreeSubsription) {
+      return;
+    }
+
+    updateWatermark({
+      parent,
+      contentType: 'image',
+      image: '/static/images/logo-text-512.png',
+      width: 200,
+      height: 200,
+      imageWidth: 100, // image width
+    });
+  }, 1000);
 };
