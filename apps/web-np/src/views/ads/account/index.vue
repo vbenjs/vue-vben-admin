@@ -191,18 +191,31 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
 
     <Grid>
       <template #toolbar-tools>
-        <VbenButton
-          class="mr-2"
-          size="sm"
-          type="primary"
-          @click="addNewConnection('facebook')"
-        >
-          <IconifyIcon
-            class="mr-2 size-4"
-            icon="ant-design:plus-circle-outlined"
-          />
-          Add Facebook Connection
-        </VbenButton>
+        <Dropdown>
+          <VbenButton size="sm" type="primary">
+            <IconifyIcon
+              class="mr-2 size-4"
+              icon="ant-design:plus-circle-outlined"
+            />
+            Add Connection
+          </VbenButton>
+          <template #overlay>
+            <Menu>
+              <MenuItem @click="addNewConnection('facebook')">
+                <div class="flex items-center justify-start space-x-2">
+                  <IconifyIcon :icon="getAdsIcon('facebook')" />
+                  <span>Facebook</span>
+                </div>
+              </MenuItem>
+              <MenuItem @click="addNewConnection('tiktok')">
+                <div class="flex items-center justify-start space-x-2">
+                  <IconifyIcon :icon="getAdsIcon('tiktok')" />
+                  <span>Tiktok</span>
+                </div>
+              </MenuItem>
+            </Menu>
+          </template>
+        </Dropdown>
       </template>
 
       <template #type="{ row }: { row: any }">
