@@ -11,6 +11,9 @@ export const overridesPreferences = defineOverridesPreferences({
     mode: 'light',
     radius: '0.25',
   },
+  sidebar: {
+    enable: false,
+  },
   widget: {
     languageToggle: false,
     lockScreen: false,

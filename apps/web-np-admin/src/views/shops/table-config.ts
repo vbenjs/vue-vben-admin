@@ -60,6 +60,13 @@ export const orderTableOptions: VxeTableGridOptions = {
       align: 'left',
     },
     {
+      field: 'plan',
+      title: 'Plan/Charge',
+      slots: { default: 'plan' },
+      width: 150,
+      align: 'left',
+    },
+    {
       field: 'status',
       title: 'Status',
       slots: { default: 'status' },
