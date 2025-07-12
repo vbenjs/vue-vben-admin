@@ -21,7 +21,7 @@ The rules are consistent with [Vite Env Variables and Modes](https://vitejs.dev/
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging. :::
+- Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging.
 
 :::
 
@@ -135,6 +135,27 @@ To add a new dynamically modifiable configuration item, simply follow the steps 
   export interface ApplicationConfig {
     apiURL: string;
     otherApiURL: string; // [!code ++]
+  }
+  ```
+
+- In `packages/effects/hooks/src/use-app-config.ts`, add the corresponding configuration item, such as:
+
+  ```ts
+  export function useAppConfig(
+    env: Record<string, any>,
+    isProduction: boolean,
+  ): ApplicationConfig {
+    // In production environment, directly use the window._VBEN_ADMIN_PRO_APP_CONF_ global variable
+    const config = isProduction
+      ? window._VBEN_ADMIN_PRO_APP_CONF_
+      : (env as VbenAdminProAppConfigRaw);
+
+    const { VITE_GLOB_API_URL, VITE_GLOB_OTHER_API_URL } = config; // [!code ++]
+
+    return {
+      apiURL: VITE_GLOB_API_URL,
+      otherApiURL: VITE_GLOB_OTHER_API_URL, // [!code ++]
+    };
   }
   ```
 

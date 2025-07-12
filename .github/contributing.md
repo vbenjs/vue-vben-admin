@@ -19,11 +19,9 @@ Project maintainers have the right and responsibility to remove, edit, or reject
 - Checkout a topic branch from the relevant branch, e.g. main, and merge back against that branch.
 
 - If adding a new feature:
-
   - Provide a convincing reason to add this feature. Ideally, you should open a suggestion issue first and have it approved before working on it.
 
 - If fixing bug:
-
   - Provide a detailed description of the bug in the PR. Live demo preferred.
 
 - It's OK to have multiple small commits as you work on the PR - GitHub can automatically squash them before merging.

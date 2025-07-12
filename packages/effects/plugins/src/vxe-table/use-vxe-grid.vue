@@ -278,6 +278,15 @@ const delegatedFormSlots = computed(() => {
   return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
 });
 
+const showDefaultEmpty = computed(() => {
+  // 检查是否有原生的 VXE Table 空状态配置
+  const hasEmptyText = options.value.emptyText !== undefined;
+  const hasEmptyRender = options.value.emptyRender !== undefined;
+
+  // 如果有原生配置，就不显示默认的空状态
+  return !hasEmptyText && !hasEmptyRender;
+});
+
 async function init() {
   await nextTick();
   const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
@@ -459,7 +468,7 @@ onUnmounted(() => {
         </slot>
       </template>
       <!-- 统一控状态 -->
-      <template #empty>
+      <template v-if="showDefaultEmpty" #empty>
         <slot name="empty">
           <EmptyIcon class="mx-auto" />
           <div class="mt-2">{{ $t('common.noData') }}</div>

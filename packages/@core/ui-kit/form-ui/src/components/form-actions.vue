@@ -48,13 +48,18 @@ const queryFormStyle = computed(() => {
 async function handleSubmit(e: Event) {
   e?.preventDefault();
   e?.stopPropagation();
-  const { valid } = await form.validate();
+  const props = unref(rootProps);
+  if (!props.formApi) {
+    return;
+  }
+
+  const { valid } = await props.formApi.validate();
   if (!valid) {
     return;
   }
 
-  const values = toRaw(await unref(rootProps).formApi?.getValues());
-  await unref(rootProps).handleSubmit?.(values);
+  const values = toRaw(await props.formApi.getValues());
+  await props.handleSubmit?.(values);
 }
 
 async function handleReset(e: Event) {
