@@ -118,7 +118,12 @@ const computedSchema = computed(
       // 处理函数形式的formItemClass
       let resolvedSchemaFormItemClass = schema.formItemClass;
       if (isFunction(schema.formItemClass)) {
-        resolvedSchemaFormItemClass = schema.formItemClass();
+        try {
+          resolvedSchemaFormItemClass = schema.formItemClass();
+        } catch (error) {
+          console.error('Error calling formItemClass function:', error);
+          resolvedSchemaFormItemClass = '';
+        }
       }
 
       return {
