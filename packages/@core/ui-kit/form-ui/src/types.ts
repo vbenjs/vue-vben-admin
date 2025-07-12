@@ -35,6 +35,9 @@ export type FormItemClassType =
   | (Record<never, never> & string)
   | WrapperClassType;
 
+// 扩展的表单项类名类型
+export type FormItemClassTypeExtended = (() => string) | FormItemClassType;
+
 export type FormFieldOptions = Partial<
   FieldOptions & {
     validateOnBlur?: boolean;
@@ -174,10 +177,10 @@ export interface FormCommonConfig {
    */
   formFieldProps?: FormFieldOptions;
   /**
-   * 所有表单项的栅格布局
+   * 所有表单项的栅格布局，支持函数形式
    * @default ""
    */
-  formItemClass?: string;
+  formItemClass?: FormItemClassTypeExtended;
   /**
    * 隐藏所有表单项label
    * @default false
