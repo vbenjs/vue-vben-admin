@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, h, reactive } from 'vue';
 
-import { Page } from '@vben/common-ui';
+import { Page, VbenButton } from '@vben/common-ui';
 import { useUserStore } from '@vben/stores';
 
 import { Card, message } from 'ant-design-vue';
@@ -177,7 +177,13 @@ function onSubmit(values: Record<string, any>) {
           }}</span>
         </template>
         <template #subscriptionName>
-          <span> {{ shopStore.shop.subscriptionName }} Plan</span>
+          <VbenButton
+            variant="link"
+            class="pl-0"
+            @click="shopStore.redirectToPricing"
+          >
+            {{ shopStore.shop.subscriptionName }} Plan
+          </VbenButton>
         </template>
       </ShopSettingForm>
     </Card>

@@ -2,11 +2,8 @@
 import { onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { VbenButton } from '@vben/common-ui';
-import { IconifyIcon } from '@vben/icons';
-
 import { DefaultRoutes } from '#/shared/constants';
-import { authInNewTab, getDatePreset, isShopifyEmbedded } from '#/shared/utils';
+import { getDatePreset } from '#/shared/utils';
 import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -41,18 +38,6 @@ const handleDateChange = (date: any) => {
         <h1 class="text-md font-semibold md:text-2xl">Dashboard</h1>
       </div>
       <div class="flex items-start space-x-5">
-        <VbenButton
-          v-if="isShopifyEmbedded()"
-          variant="outline"
-          size="sm"
-          @click="authInNewTab"
-        >
-          <IconifyIcon
-            icon="ant-design:fullscreen-outlined"
-            class="mr-2 size-5"
-          />
-          Open Fullscreen
-        </VbenButton>
         <DateRangePicker
           picker-limit-name="1 year"
           :model-value="state.dateRange"

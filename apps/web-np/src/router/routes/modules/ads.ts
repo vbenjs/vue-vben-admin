@@ -4,8 +4,8 @@ const routes: RouteRecordRaw[] = [
   {
     meta: {
       icon: 'mdi:ads',
-      order: 50,
-      title: 'Ads Management',
+      title: 'Ad Management',
+      order: 90,
     },
     name: 'ads',
     path: '/ads',

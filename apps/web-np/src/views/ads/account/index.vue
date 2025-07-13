@@ -197,7 +197,7 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
               class="mr-2 size-4"
               icon="ant-design:plus-circle-outlined"
             />
-            Add Connection
+            Add Ad Connection
           </VbenButton>
           <template #overlay>
             <Menu>
