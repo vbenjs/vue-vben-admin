@@ -225,10 +225,7 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
         >
           <!-- Avatar and Title - Only show for parent level -->
           <div class="h-[35px] w-[35px] flex-none">
-            <IconifyIcon
-              class="size-[35px] text-red-500"
-              :icon="getAdsIcon(row.type)"
-            />
+            <IconifyIcon class="size-[35px]" :icon="getAdsIcon(row.type)" />
           </div>
           <div class="ml-1 shrink">
             <div class="font-semibold">

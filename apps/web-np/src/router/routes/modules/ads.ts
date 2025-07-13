@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
       {
         meta: {
           title: 'Ad Cost Rules',
-          icon: 'ant-design:dollar-circle-twotone',
+          icon: 'ant-design:tags-twotone',
         },
         name: 'ads.costs',
         path: '/ads/ad-costs',

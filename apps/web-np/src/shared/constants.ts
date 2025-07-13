@@ -313,7 +313,11 @@ export const countries = [
 ];
 
 export const adType = [
-  { value: 'facebook', label: 'Facebook', icon: 'logos:facebook' },
-  { value: 'google', label: 'Google', icon: 'flat-color-icons:google' },
-  { value: 'tiktok', label: 'Tiktok', icon: 'ic:baseline-tiktok' },
+  {
+    value: 'facebook',
+    label: 'Facebook',
+    icon: 'ant-design:facebook-outlined',
+  },
+  { value: 'google', label: 'Google', icon: 'ant-design:google-outlined' },
+  { value: 'tiktok', label: 'Tiktok', icon: 'ant-design:tik-tok-outlined' },
 ];
