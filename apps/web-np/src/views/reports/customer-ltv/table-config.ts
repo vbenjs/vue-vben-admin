@@ -4,7 +4,7 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import { markRaw, reactive } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getLTVReport } from '#/api';
+import { customerGetLTVReport } from '#/api';
 import dayjs from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
@@ -51,7 +51,7 @@ const gridOptions: VxeTableGridOptions = {
     ajax: {
       query: async (_, formValues) => {
         state.loading = true;
-        const data: any = await getLTVReport({
+        const data: any = await customerGetLTVReport({
           ...formValues,
         }).finally(() => {
           state.loading = false;

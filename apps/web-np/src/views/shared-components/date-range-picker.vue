@@ -11,11 +11,13 @@ interface Props {
   picker?: PickerMode;
   pickerLimit?: number;
   pickerLimitName?: null | string;
+  allowClear?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   picker: 'date',
   pickerLimit: 0,
   pickerLimitName: null,
+  allowClear: true,
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -37,8 +39,9 @@ const getLimitName = computed(() => {
   <div>
     <RangePicker
       :picker="props.picker"
-      :value="props.modelValue"
+      :value="props.modelValue as any"
       :presets="props.presets"
+      :allow-clear="props.allowClear"
       @change="onChange"
     >
       <template

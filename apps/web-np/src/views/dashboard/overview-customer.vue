@@ -13,24 +13,26 @@ import { IconifyIcon } from '@vben/icons';
 import { formatMoney, redirect, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { state } from './service';
+import { currentPeriod } from './service';
 
 const shopStore = useShopStore();
 const currency = shopStore.shop.currencyFromApp;
 const rate = shopStore.shop.currencyRate;
 const getData = computed(() => {
-  const repurchasedRate = state.customerTotal.newCustomers
-    ? state.customerTotal.quantityRepurchase / state.customerTotal.newCustomers
+  const repurchasedRate = currentPeriod.customerTotal.newCustomers
+    ? currentPeriod.customerTotal.quantityRepurchase /
+      currentPeriod.customerTotal.newCustomers
     : 0;
 
-  const ltv = state.customerTotal.newCustomers
-    ? state.customerTotal.netPayment / state.customerTotal.newCustomers
+  const ltv = currentPeriod.customerTotal.newCustomers
+    ? currentPeriod.customerTotal.netPayment /
+      currentPeriod.customerTotal.newCustomers
     : 0;
 
   return [
     {
       title: 'New customers',
-      value: state.customerTotal.newCustomers,
+      value: currentPeriod.customerTotal.newCustomers,
     },
     {
       title: 'Repurchase rate',
@@ -39,7 +41,11 @@ const getData = computed(() => {
     },
     {
       title: 'New customers revenue',
-      value: formatMoney(state.customerTotal.netPayment, currency, rate),
+      value: formatMoney(
+        currentPeriod.customerTotal.netPayment,
+        currency,
+        rate,
+      ),
     },
     {
       title: 'Lifetime Value (LTV)',

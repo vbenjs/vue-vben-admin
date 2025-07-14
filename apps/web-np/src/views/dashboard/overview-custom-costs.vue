@@ -8,14 +8,14 @@ import { $t } from '@vben/locales';
 import { formatMoney, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { state } from './service';
+import { currentPeriod } from './service';
 
 const shopStore = useShopStore();
 const currency = shopStore.shop.currencyFromApp;
 const rate = shopStore.shop.currencyRate;
 
 const getData = computed(() => {
-  const totalCost = state.orderTotal.totalCosts;
+  const totalCost = currentPeriod.orderTotal.totalCosts;
   return [
     {
       title: $t('field-name.totalCosts'),
@@ -26,34 +26,59 @@ const getData = computed(() => {
     {
       title: $t('field-name.cogs'),
       explain: $t('field-name.cogsExplain'),
-      value: formatMoney(state.orderTotal.cogs, shopStore.shop.currencyFromApp),
-      percent: totalCost ? state.orderTotal.cogs / totalCost : 0,
+      value: formatMoney(
+        currentPeriod.orderTotal.cogs,
+        shopStore.shop.currencyFromApp,
+      ),
+      percent: totalCost ? currentPeriod.orderTotal.cogs / totalCost : 0,
     },
     {
       title: $t('field-name.handlingFees'),
       explain: $t('field-name.handlingFeesExplain'),
-      value: formatMoney(state.orderTotal.handlingFees, currency, rate),
-      percent: totalCost ? state.orderTotal.handlingFees / totalCost : 0,
+      value: formatMoney(currentPeriod.orderTotal.handlingFees, currency, rate),
+      percent: totalCost
+        ? currentPeriod.orderTotal.handlingFees / totalCost
+        : 0,
     },
     {
       title: $t('field-name.shippingCosts'),
-      value: formatMoney(state.orderTotal.shippingCosts, currency, rate),
-      percent: totalCost ? state.orderTotal.shippingCosts / totalCost : 0,
+      value: formatMoney(
+        currentPeriod.orderTotal.shippingCosts,
+        currency,
+        rate,
+      ),
+      percent: totalCost
+        ? currentPeriod.orderTotal.shippingCosts / totalCost
+        : 0,
     },
     {
       title: $t('field-name.transactionFees'),
-      value: formatMoney(state.orderTotal.transactionFees, currency, rate),
-      percent: totalCost ? state.orderTotal.transactionFees / totalCost : 0,
+      value: formatMoney(
+        currentPeriod.orderTotal.transactionFees,
+        currency,
+        rate,
+      ),
+      percent: totalCost
+        ? currentPeriod.orderTotal.transactionFees / totalCost
+        : 0,
     },
     {
       title: $t('field-name.totalCustomCost'),
-      value: formatMoney(state.orderTotal.totalCustomCost, currency, rate),
-      percent: totalCost ? state.orderTotal.totalCustomCost / totalCost : 0,
+      value: formatMoney(
+        currentPeriod.orderTotal.totalCustomCost,
+        currency,
+        rate,
+      ),
+      percent: totalCost
+        ? currentPeriod.orderTotal.totalCustomCost / totalCost
+        : 0,
     },
     {
       title: $t('field-name.totalAdSpend'),
-      value: formatMoney(state.orderTotal.totalAdSpend, currency, rate),
-      percent: totalCost ? state.orderTotal.totalAdSpend / totalCost : 0,
+      value: formatMoney(currentPeriod.orderTotal.totalAdSpend, currency, rate),
+      percent: totalCost
+        ? currentPeriod.orderTotal.totalAdSpend / totalCost
+        : 0,
     },
   ];
 });

@@ -8,7 +8,7 @@ import { $t } from '@vben/locales';
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { state } from './service';
+import { currentPeriod, dashboardState } from './service';
 
 defineOptions({
   name: 'CustomerStatistic',
@@ -20,13 +20,13 @@ const getOverview = computed(() => {
   return [
     {
       title: 'Orders',
-      value: state.orderTotal.quantityOrder,
+      value: currentPeriod.orderTotal.quantityOrder,
     },
     {
       title: $t('field-name.netPayment'),
       explain: $t('field-name.netPaymentExplain'),
       value: formatMoney(
-        state.orderTotal.netPayment,
+        currentPeriod.orderTotal.netPayment,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -35,7 +35,7 @@ const getOverview = computed(() => {
       title: $t('field-name.totalCosts'),
       explain: $t('field-name.totalCostsExplain'),
       value: formatMoney(
-        state.orderTotal.totalCosts,
+        currentPeriod.orderTotal.totalCosts,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -44,7 +44,7 @@ const getOverview = computed(() => {
       title: $t('field-name.netProfit'),
       explain: $t('field-name.netProfitExplain'),
       value: formatMoney(
-        state.orderTotal.netProfit,
+        currentPeriod.orderTotal.netProfit,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -52,7 +52,7 @@ const getOverview = computed(() => {
     {
       title: $t('field-name.netProfitMargin'),
       explain: $t('field-name.netProfitMarginExplain'),
-      value: `${state.orderTotal.netProfitMargin}%`,
+      value: `${currentPeriod.orderTotal.netProfitMargin}%`,
     },
   ];
 });
@@ -62,7 +62,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalShipping'),
       value: formatMoney(
-        state.orderTotal.totalShipping,
+        currentPeriod.orderTotal.totalShipping,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -70,7 +70,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalTip'),
       value: formatMoney(
-        state.orderTotal.totalTip,
+        currentPeriod.orderTotal.totalTip,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -79,7 +79,7 @@ const getDetails = computed(() => {
       title: $t('field-name.grossSales'),
       explain: $t('field-name.grossSalesExplain'),
       value: formatMoney(
-        state.orderTotal.grossSales,
+        currentPeriod.orderTotal.grossSales,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -88,7 +88,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalDiscount'),
       value: formatMoney(
-        state.orderTotal.discount,
+        currentPeriod.orderTotal.discount,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -96,7 +96,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalRefund'),
       value: formatMoney(
-        state.orderTotal.refund,
+        currentPeriod.orderTotal.refund,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -105,7 +105,7 @@ const getDetails = computed(() => {
       title: $t('field-name.netPayment'),
       explain: $t('field-name.netPaymentExplain'),
       value: formatMoney(
-        state.orderTotal.netPayment,
+        currentPeriod.orderTotal.netPayment,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -114,13 +114,16 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.cogs'),
       explain: $t('field-name.cogsExplain'),
-      value: formatMoney(state.orderTotal.cogs, shopStore.shop.currencyFromApp),
+      value: formatMoney(
+        currentPeriod.orderTotal.cogs,
+        shopStore.shop.currencyFromApp,
+      ),
     },
     {
       title: $t('field-name.handlingFees'),
       explain: $t('field-name.handlingFeesExplain'),
       value: formatMoney(
-        state.orderTotal.handlingFees,
+        currentPeriod.orderTotal.handlingFees,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -128,7 +131,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.shippingCosts'),
       value: formatMoney(
-        state.orderTotal.shippingCosts,
+        currentPeriod.orderTotal.shippingCosts,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -136,7 +139,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.transactionFees'),
       value: formatMoney(
-        state.orderTotal.transactionFees,
+        currentPeriod.orderTotal.transactionFees,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -145,7 +148,7 @@ const getDetails = computed(() => {
       title: $t('field-name.grossProfit'),
       explain: $t('field-name.grossProfitExplain'),
       value: formatMoney(
-        state.orderTotal.grossProfit,
+        currentPeriod.orderTotal.grossProfit,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -155,7 +158,7 @@ const getDetails = computed(() => {
       title: $t('field-name.totalTax'),
       explain: $t('field-name.totalTaxExplain'),
       value: formatMoney(
-        state.orderTotal.totalTax,
+        currentPeriod.orderTotal.totalTax,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -163,7 +166,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalCustomCost'),
       value: formatMoney(
-        state.orderTotal.totalCustomCost,
+        currentPeriod.orderTotal.totalCustomCost,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -171,7 +174,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalAdSpend'),
       value: formatMoney(
-        state.orderTotal.totalAdSpend,
+        currentPeriod.orderTotal.totalAdSpend,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -180,7 +183,7 @@ const getDetails = computed(() => {
       title: $t('field-name.roas'),
       explain: $t('field-name.roasExplain'),
       value: formatMoney(
-        state.orderTotal.roas,
+        currentPeriod.orderTotal.roas,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -189,7 +192,7 @@ const getDetails = computed(() => {
       title: $t('field-name.poas'),
       explain: $t('field-name.poasExplain'),
       value: formatMoney(
-        state.orderTotal.poas,
+        currentPeriod.orderTotal.poas,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -198,7 +201,7 @@ const getDetails = computed(() => {
       title: $t('field-name.netProfit'),
       explain: $t('field-name.netProfitExplain'),
       value: formatMoney(
-        state.orderTotal.netProfit,
+        currentPeriod.orderTotal.netProfit,
         shopStore.shop.currencyFromApp,
         shopStore.shop.currencyRate,
       ),
@@ -207,7 +210,7 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.netProfitMargin'),
       explain: $t('field-name.netProfitMarginExplain'),
-      value: `${state.orderTotal.netProfitMargin}%`,
+      value: `${currentPeriod.orderTotal.netProfitMargin}%`,
       isBold: true,
     },
   ];
@@ -216,7 +219,7 @@ const getDetails = computed(() => {
 
 <template>
   <div
-    v-loading="state.orderLoading"
+    v-loading="dashboardState.loading"
     class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
   >
     <template v-for="item in getOverview" :key="item.title">
@@ -248,7 +251,7 @@ const getDetails = computed(() => {
 
   <Card
     class="mt-5 grid grid-cols-1 gap-4 pb-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
-    v-loading="state.orderLoading"
+    v-loading="dashboardState.loading"
   >
     <template v-for="item in getDetails" :key="item.title">
       <Card class="w-full border-0" :title="item.title">

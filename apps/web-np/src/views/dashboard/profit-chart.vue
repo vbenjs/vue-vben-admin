@@ -18,7 +18,11 @@ import { Empty, Select } from 'ant-design-vue';
 import { formatMoney, redirect } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { generateDashboardData, state } from './service';
+import {
+  currentPeriod,
+  dashboardState,
+  generateDashboardData,
+} from './service';
 
 const chartRef = ref<EchartsUIType>();
 const shopStore = useShopStore();
@@ -44,14 +48,14 @@ onMounted(() => {
 });
 
 const handleChangeGroupBy = (val: any) => {
-  state.charts.profit.groupBy = val;
+  dashboardState.profitChart.groupBy = val;
 
-  generateDashboardData();
+  generateDashboardData(currentPeriod);
 };
 
 // Call reload when state.charts.profit.netProfit change
 watch(
-  () => state.charts.profit.netProfit,
+  () => dashboardState.profitChart.netProfit,
   () => {
     reload();
   },
@@ -71,7 +75,7 @@ const reload = () => {
         name: $t('field-name.netPayment'),
         barMaxWidth: 20,
         stack: 'profit',
-        data: state.charts.profit.revenue,
+        data: dashboardState.profitChart.revenue,
         type: 'bar',
         itemStyle: {
           borderRadius: [8, 8, 0, 0],
@@ -83,7 +87,7 @@ const reload = () => {
         barMaxWidth: 20,
         stack: 'profit',
         color: 'red',
-        data: state.charts.profit.totalCosts,
+        data: dashboardState.profitChart.totalCosts,
         type: 'bar',
         itemStyle: {
           borderRadius: [0, 0, 8, 8],
@@ -93,7 +97,7 @@ const reload = () => {
       {
         name: $t('field-name.netProfit'),
         color: '#16A537',
-        data: state.charts.profit.netProfit,
+        data: dashboardState.profitChart.netProfit,
         type: 'line',
         smooth: true,
         symbolSize: 7,
@@ -110,7 +114,7 @@ const reload = () => {
       },
     ],
     xAxis: {
-      data: state.charts.profit.xAxis,
+      data: dashboardState.profitChart.xAxis,
       type: 'category',
     },
     yAxis: {
@@ -151,7 +155,7 @@ const reload = () => {
           </VbenButton>
 
           <Select
-            v-model:value="state.charts.profit.groupBy"
+            v-model:value="dashboardState.profitChart.groupBy"
             size="small"
             class="w-[100px]"
             :options="chartOptions"
@@ -163,10 +167,10 @@ const reload = () => {
     <CardContent>
       <EchartsUI
         ref="chartRef"
-        v-show="state.charts.profit.netProfit.length > 0"
+        v-show="dashboardState.profitChart.netProfit.length > 0"
       />
 
-      <Empty v-show="state.charts.profit.netProfit.length === 0" />
+      <Empty v-show="dashboardState.profitChart.netProfit.length === 0" />
     </CardContent>
   </Card>
 </template>
