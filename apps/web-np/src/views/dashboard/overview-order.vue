@@ -13,33 +13,36 @@ import { IconifyIcon } from '@vben/icons';
 import { formatMoney, redirect } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { state } from './service';
+import { currentPeriod } from './service';
 
 const shopStore = useShopStore();
 const currency = shopStore.shop.currencyFromApp;
 const rate = shopStore.shop.currencyRate;
 
 const getData = computed(() => {
-  const avgOrderRevenue = state.orderTotal.quantityOrder
-    ? state.orderTotal.netPayment / state.orderTotal.quantityOrder
+  const avgOrderRevenue = currentPeriod.orderTotal.quantityOrder
+    ? currentPeriod.orderTotal.netPayment /
+      currentPeriod.orderTotal.quantityOrder
     : 0;
 
-  const avgOrderCost = state.orderTotal.quantityOrder
-    ? state.orderTotal.totalCosts / state.orderTotal.quantityOrder
+  const avgOrderCost = currentPeriod.orderTotal.quantityOrder
+    ? currentPeriod.orderTotal.totalCosts /
+      currentPeriod.orderTotal.quantityOrder
     : 0;
 
-  const avgOrderNetProfit = state.orderTotal.quantityOrder
-    ? state.orderTotal.netProfit / state.orderTotal.quantityOrder
+  const avgOrderNetProfit = currentPeriod.orderTotal.quantityOrder
+    ? currentPeriod.orderTotal.netProfit /
+      currentPeriod.orderTotal.quantityOrder
     : 0;
 
   return [
     {
       title: 'Orders',
-      value: state.orderTotal.quantityOrder,
+      value: currentPeriod.orderTotal.quantityOrder,
     },
     {
       title: 'Revenue',
-      value: formatMoney(state.orderTotal.netPayment, currency, rate),
+      value: formatMoney(currentPeriod.orderTotal.netPayment, currency, rate),
     },
     {
       title: 'Avg. order revenue',
@@ -49,7 +52,7 @@ const getData = computed(() => {
     },
     {
       title: 'Total cost',
-      value: formatMoney(state.orderTotal.totalCosts, currency, rate),
+      value: formatMoney(currentPeriod.orderTotal.totalCosts, currency, rate),
     },
     {
       title: 'Avg. order cost',
@@ -59,7 +62,7 @@ const getData = computed(() => {
     },
     {
       title: 'Total net profit',
-      value: formatMoney(state.orderTotal.netProfit, currency, rate),
+      value: formatMoney(currentPeriod.orderTotal.netProfit, currency, rate),
     },
     {
       title: 'Avg. order profit',

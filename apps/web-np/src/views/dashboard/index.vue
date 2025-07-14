@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { onBeforeMount } from 'vue';
+import type { DashboardData } from './service';
+
+import { computed, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { DefaultRoutes } from '#/shared/constants';
@@ -12,23 +14,53 @@ import OverviewCustomCosts from './overview-custom-costs.vue';
 import OverviewCustomer from './overview-customer.vue';
 import OverviewOrder from './overview-order.vue';
 import ProfitChart from './profit-chart.vue';
-import { loadData, state } from './service';
+import {
+  currentPeriod,
+  dashboardState,
+  loadDataByPeriod,
+  previousPeriod,
+} from './service';
 
 const query = useRoute();
 const shopStore = useShopStore();
 
 onBeforeMount(() => {
-  loadData();
-
   if (query.path === DefaultRoutes.PRICING) {
     shopStore.updateSubscriptionInfo();
   }
+
+  loadDataByPeriod(currentPeriod);
+  loadDataByPeriod(previousPeriod);
 });
 
-const handleDateChange = (date: any) => {
-  state.dateRange = date;
-  loadData();
+const handleDateChange = (
+  date: any,
+  payload: DashboardData,
+  changePreviousPeriod = false,
+) => {
+  payload.dateRange = date;
+  loadDataByPeriod(payload);
+
+  if (changePreviousPeriod) {
+    previousPeriod.dateRange = generateSamePeriodPreset.value[0]?.value as any;
+    loadDataByPeriod(previousPeriod);
+  }
 };
+
+const generateSamePeriodPreset = computed(() => {
+  const days =
+    currentPeriod.dateRange[1].diff(currentPeriod.dateRange[0], 'days') + 1; // +1 to include the end date
+
+  return [
+    {
+      label: 'Same Period',
+      value: [
+        currentPeriod.dateRange[0].add(-1 * days, 'days'),
+        currentPeriod.dateRange[0].add(-1, 'days'),
+      ],
+    },
+  ];
+});
 </script>
 
 <template>
@@ -40,7 +72,8 @@ const handleDateChange = (date: any) => {
       <div class="flex flex-wrap items-center justify-end space-x-0">
         <DateRangePicker
           picker-limit-name="1 year"
-          :model-value="state.dateRange"
+          :model-value="currentPeriod.dateRange"
+          :allow-clear="false"
           :presets="
             getDatePreset(
               [
@@ -58,31 +91,18 @@ const handleDateChange = (date: any) => {
               true,
             )
           "
-          @update:model-value="handleDateChange"
+          @update:model-value="
+            (val) => handleDateChange(val, currentPeriod, true)
+          "
         />
-        <!-- <div class="text-nowrap px-5">Compare with</div>
+        <div class="text-nowrap px-5">Compare with</div>
         <DateRangePicker
           picker-limit-name="1 year"
-          :model-value="state.previousDateRange"
-          :presets="
-            getDatePreset(
-              [
-                'today',
-                'last7Days',
-                'last14Days',
-                'lastMonth',
-                'last2Months',
-                'last3Months',
-                'lastYear',
-                'previousMonth',
-                'thisMonth',
-                'thisYear',
-              ],
-              true,
-            )
-          "
-          @update:model-value="handleDateChange"
-        /> -->
+          :model-value="previousPeriod.dateRange"
+          :allow-clear="false"
+          :presets="generateSamePeriodPreset"
+          @update:model-value="(val) => handleDateChange(val, previousPeriod)"
+        />
       </div>
     </div>
 
@@ -91,7 +111,7 @@ const handleDateChange = (date: any) => {
     <ProfitChart />
 
     <div
-      v-loading="state.orderLoading"
+      v-loading="dashboardState.loading"
       class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
     >
       <OverviewOrder />
