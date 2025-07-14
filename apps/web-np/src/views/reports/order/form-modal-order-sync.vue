@@ -8,7 +8,7 @@ import { message, TypographyParagraph } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 import { orderSyncManually } from '#/api';
 import { StateStatus } from '#/shared/constants';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import { useSystemStatisticStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
@@ -66,7 +66,7 @@ const [Form, formApi] = useVbenForm({
           true,
         ),
       },
-      defaultValue: [dayjsInGMT().subtract(1, 'month'), dayjsInGMT()],
+      defaultValue: [dayjs().add(-1, 'month').add(1, 'day'), dayjs()],
       fieldName: 'date',
       label: 'Date',
       rules: 'required',

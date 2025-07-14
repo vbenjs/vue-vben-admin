@@ -33,15 +33,14 @@ const handleDateChange = (date: any) => {
 
 <template>
   <div class="p-5">
-    <div class="mb-5 flex justify-between">
+    <div class="mb-5 flex flex-wrap justify-between">
       <div class="flex items-start space-x-5">
         <h1 class="text-md font-semibold md:text-2xl">Dashboard</h1>
       </div>
-      <div class="flex items-start space-x-5">
+      <div class="flex flex-wrap items-center justify-end space-x-0">
         <DateRangePicker
           picker-limit-name="1 year"
           :model-value="state.dateRange"
-          :picker-limit="30"
           :presets="
             getDatePreset(
               [
@@ -61,6 +60,29 @@ const handleDateChange = (date: any) => {
           "
           @update:model-value="handleDateChange"
         />
+        <!-- <div class="text-nowrap px-5">Compare with</div>
+        <DateRangePicker
+          picker-limit-name="1 year"
+          :model-value="state.previousDateRange"
+          :presets="
+            getDatePreset(
+              [
+                'today',
+                'last7Days',
+                'last14Days',
+                'lastMonth',
+                'last2Months',
+                'last3Months',
+                'lastYear',
+                'previousMonth',
+                'thisMonth',
+                'thisYear',
+              ],
+              true,
+            )
+          "
+          @update:model-value="handleDateChange"
+        /> -->
       </div>
     </div>
 

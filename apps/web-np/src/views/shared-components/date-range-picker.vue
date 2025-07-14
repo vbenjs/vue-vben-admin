@@ -50,7 +50,7 @@ const getLimitName = computed(() => {
         >
           <span class="leading-none">
             Please choose a date range within a maximum period of
-            <strong>{{ getLimitName }}</strong>
+            <strong>{{ getLimitName }}</strong> (GMT+0)
           </span>
           <span class="text-xs">
             Ex: From <strong>2022</strong>-01-01 to <strong>2022</strong>-01-15

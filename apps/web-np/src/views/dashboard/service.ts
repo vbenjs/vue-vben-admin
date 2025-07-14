@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 
 import { getLTVReport, orderGetPAndLReport } from '#/api';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -15,7 +15,7 @@ import { addExtraFields } from '../reports/p-and-l/table-config';
 const shopStore = useShopStore();
 
 export const state = reactive({
-  dateRange: [dayjsInGMT().subtract(1, 'month'), dayjsInGMT()],
+  dateRange: [dayjs(), dayjs()],
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
   orderLoading: false,

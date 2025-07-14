@@ -9,7 +9,7 @@ import { Button, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { storeCustomCost } from '#/api';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { getDatePreset, toPercentage, toRate } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -17,7 +17,7 @@ import FormModalExample from './form-modal-example.vue';
 import { CustomCostType, customCostTypes } from './service';
 
 const shopStore = useShopStore();
-const onGoingDate = dayjsInGMT('9999-12-31');
+const onGoingDate = dayjs('9999-12-31');
 const state = reactive({
   showExample: false,
   currenType: CustomCostType.DAILY as CustomCostType,
@@ -272,7 +272,7 @@ const [Form, formApi] = useVbenForm({
     },
     {
       component: 'DatePicker' as any,
-      defaultValue: dayjsInGMT().add(-7, 'd'),
+      defaultValue: dayjs().add(-7, 'd'),
       componentProps: {
         presets: getDatePreset([
           'today',
@@ -291,12 +291,12 @@ const [Form, formApi] = useVbenForm({
     },
     {
       component: 'DatePicker' as any,
-      defaultValue: dayjsInGMT(),
+      defaultValue: dayjs(),
       componentProps: {
         presets: [
           { label: 'On going', value: onGoingDate },
-          { label: 'Next 30 Days', value: dayjsInGMT().add(30, 'd') },
-          { label: 'Next 7 Days', value: dayjsInGMT().add(7, 'd') },
+          { label: 'Next 30 Days', value: dayjs().add(30, 'd') },
+          { label: 'Next 7 Days', value: dayjs().add(7, 'd') },
           ...getDatePreset(['last7Days', 'lastMonth']),
         ],
         format: (value: any) => {
@@ -345,8 +345,8 @@ const [Modal, modalApi] = useVbenModal({
         grossProfitRate: Number.parseFloat(
           toPercentage(values.grossProfitRate),
         ),
-        startDate: dayjsInGMT(values.startDate),
-        endDate: values.endDate ? dayjsInGMT(values.endDate) : onGoingDate,
+        startDate: dayjs(values.startDate),
+        endDate: values.endDate ? dayjs(values.endDate) : onGoingDate,
       });
     }
   },

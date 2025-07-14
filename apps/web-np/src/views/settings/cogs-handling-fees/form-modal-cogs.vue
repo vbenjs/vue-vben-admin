@@ -15,7 +15,7 @@ import {
 } from 'ant-design-vue';
 
 import { updateCogsByRegion } from '#/api';
-import dayjs, { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -75,7 +75,7 @@ const showRemoveBtn = (counter: any) => {
 
 const getNextDate = (counter: any) => {
   if (!counter) {
-    return 'Ongoding';
+    return 'Ongoing';
   }
 
   const previousDate = state.cogsArr[counter - 1]?.date.subtract(1, 'day');
@@ -83,7 +83,7 @@ const getNextDate = (counter: any) => {
 };
 
 const addNewRow = () => {
-  const newDate = dayjsInGMT();
+  const newDate = dayjs();
   state.cogsArr = [
     {
       date: newDate,

@@ -5,7 +5,7 @@ import { markRaw, reactive } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getLTVReport } from '#/api';
-import dayjs, { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -88,7 +88,7 @@ const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjsInGMT().subtract(6, 'months'), dayjsInGMT()],
+      defaultValue: [dayjs().add(-6, 'months'), dayjs()],
       fieldName: 'month',
       label: 'Month',
     },

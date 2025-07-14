@@ -6,7 +6,7 @@ import { markRaw } from 'vue';
 import { $t } from '@vben/locales';
 
 import { getProductSalesReport } from '#/api';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import Products from '#/views/settings/cogs-handling-fees/modules/products.vue';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
@@ -132,7 +132,7 @@ export const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjsInGMT().subtract(1, 'month'), dayjsInGMT()],
+      defaultValue: [dayjs().add(-1, 'month').add(1, 'day'), dayjs()],
       fieldName: 'date',
       label: 'Date',
     },
