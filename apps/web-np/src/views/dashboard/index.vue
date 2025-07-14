@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DashboardData } from './service';
 
-import { onBeforeMount } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { DefaultRoutes } from '#/shared/constants';
@@ -33,10 +33,34 @@ onBeforeMount(() => {
   loadDataByPeriod(previousPeriod);
 });
 
-const handleDateChange = (date: any, payload: DashboardData) => {
+const handleDateChange = (
+  date: any,
+  payload: DashboardData,
+  changePreviousPeriod = false,
+) => {
   payload.dateRange = date;
   loadDataByPeriod(payload);
+
+  if (changePreviousPeriod) {
+    previousPeriod.dateRange = generateSamePeriodPreset.value[0]?.value as any;
+    loadDataByPeriod(previousPeriod);
+  }
 };
+
+const generateSamePeriodPreset = computed(() => {
+  const days =
+    currentPeriod.dateRange[1].diff(currentPeriod.dateRange[0], 'days') + 1; // +1 to include the end date
+
+  return [
+    {
+      label: 'Same Period',
+      value: [
+        currentPeriod.dateRange[0].add(-1 * days, 'days'),
+        currentPeriod.dateRange[0].add(-1, 'days'),
+      ],
+    },
+  ];
+});
 </script>
 
 <template>
@@ -67,14 +91,16 @@ const handleDateChange = (date: any, payload: DashboardData) => {
               true,
             )
           "
-          @update:model-value="(val) => handleDateChange(val, currentPeriod)"
+          @update:model-value="
+            (val) => handleDateChange(val, currentPeriod, true)
+          "
         />
         <div class="text-nowrap px-5">Compare with</div>
         <DateRangePicker
           picker-limit-name="1 year"
           :model-value="previousPeriod.dateRange"
           :allow-clear="false"
-          :presets="[]"
+          :presets="generateSamePeriodPreset"
           @update:model-value="(val) => handleDateChange(val, previousPeriod)"
         />
       </div>

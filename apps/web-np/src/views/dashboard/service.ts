@@ -50,6 +50,27 @@ export type DashboardData = {
 
 export const dashboardState = reactive({
   loading: false,
+  changePercent: {
+    quantityOrder: '',
+    netPayment: '',
+    totalCosts: '',
+    netProfit: '',
+    totalShipping: '',
+    totalTip: '',
+    grossSales: '',
+    discount: '',
+    refund: '',
+    cogs: '',
+    handlingFees: '',
+    shippingCosts: '',
+    transactionFees: '',
+    grossProfit: '',
+    totalTax: '',
+    totalCustomCost: '',
+    totalAdSpend: '',
+    roas: '',
+    poas: '',
+  },
   profitChart: {
     groupBy: 'daily',
     xAxis: [] as any[],
@@ -61,7 +82,7 @@ export const dashboardState = reactive({
 });
 
 export const currentPeriod = reactive<DashboardData>({
-  dateRange: [dayjs().add(-29, 'day'), dayjs()],
+  dateRange: [dayjs().add(-6, 'day'), dayjs()],
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
   orderTotal: {
@@ -95,7 +116,7 @@ export const currentPeriod = reactive<DashboardData>({
 });
 
 export const previousPeriod = reactive<DashboardData>({
-  dateRange: [dayjs().add(-60, 'day'), dayjs().add(-30, 'day')],
+  dateRange: [dayjs().add(-13, 'day'), dayjs().add(-7, 'day')],
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
   orderTotal: {
@@ -159,6 +180,8 @@ export const loadDataByPeriod = (payload: DashboardData) => {
     })
     .finally(() => {
       dashboardState.loading = false;
+
+      calcChangePercent();
     });
 
   customerGetLTVReport({
@@ -167,6 +190,103 @@ export const loadDataByPeriod = (payload: DashboardData) => {
   }).then((res) => {
     generateCutomerLTV(res.items, payload);
   });
+};
+
+export const calcChangePercent = () => {
+  dashboardState.changePercent.quantityOrder = formatChange(
+    currentPeriod.orderTotal.quantityOrder,
+    previousPeriod.orderTotal.quantityOrder,
+  );
+
+  dashboardState.changePercent.netPayment = formatChange(
+    currentPeriod.orderTotal.netPayment,
+    previousPeriod.orderTotal.netPayment,
+  );
+
+  dashboardState.changePercent.totalCosts = formatChange(
+    currentPeriod.orderTotal.totalCosts,
+    previousPeriod.orderTotal.totalCosts,
+  );
+
+  dashboardState.changePercent.netProfit = formatChange(
+    currentPeriod.orderTotal.netProfit,
+    previousPeriod.orderTotal.netProfit,
+  );
+
+  dashboardState.changePercent.totalShipping = formatChange(
+    currentPeriod.orderTotal.totalShipping,
+    previousPeriod.orderTotal.totalShipping,
+  );
+
+  dashboardState.changePercent.totalTip = formatChange(
+    currentPeriod.orderTotal.totalTip,
+    previousPeriod.orderTotal.totalTip,
+  );
+
+  dashboardState.changePercent.grossSales = formatChange(
+    currentPeriod.orderTotal.grossSales,
+    previousPeriod.orderTotal.grossSales,
+  );
+
+  dashboardState.changePercent.discount = formatChange(
+    currentPeriod.orderTotal.discount,
+    previousPeriod.orderTotal.discount,
+  );
+
+  dashboardState.changePercent.refund = formatChange(
+    currentPeriod.orderTotal.refund,
+    previousPeriod.orderTotal.refund,
+  );
+
+  dashboardState.changePercent.cogs = formatChange(
+    currentPeriod.orderTotal.cogs,
+    previousPeriod.orderTotal.cogs,
+  );
+
+  dashboardState.changePercent.handlingFees = formatChange(
+    currentPeriod.orderTotal.handlingFees,
+    previousPeriod.orderTotal.handlingFees,
+  );
+
+  dashboardState.changePercent.shippingCosts = formatChange(
+    currentPeriod.orderTotal.shippingCosts,
+    previousPeriod.orderTotal.shippingCosts,
+  );
+
+  dashboardState.changePercent.transactionFees = formatChange(
+    currentPeriod.orderTotal.transactionFees,
+    previousPeriod.orderTotal.transactionFees,
+  );
+
+  dashboardState.changePercent.grossProfit = formatChange(
+    currentPeriod.orderTotal.grossProfit,
+    previousPeriod.orderTotal.grossProfit,
+  );
+
+  dashboardState.changePercent.totalTax = formatChange(
+    currentPeriod.orderTotal.totalTax,
+    previousPeriod.orderTotal.totalTax,
+  );
+
+  dashboardState.changePercent.totalCustomCost = formatChange(
+    currentPeriod.orderTotal.totalCustomCost,
+    previousPeriod.orderTotal.totalCustomCost,
+  );
+
+  dashboardState.changePercent.totalAdSpend = formatChange(
+    currentPeriod.orderTotal.totalAdSpend,
+    previousPeriod.orderTotal.totalAdSpend,
+  );
+
+  dashboardState.changePercent.roas = formatChange(
+    currentPeriod.orderTotal.roas,
+    previousPeriod.orderTotal.roas,
+  );
+
+  dashboardState.changePercent.poas = formatChange(
+    currentPeriod.orderTotal.poas,
+    previousPeriod.orderTotal.poas,
+  );
 };
 
 const generateCutomerLTV = (data: any, payload: DashboardData) => {
@@ -268,3 +388,33 @@ const calcOrderStatistic = (data: any, payload: DashboardData) => {
     ? toPercentage(payload.orderTotal.netProfit / payload.orderTotal.netPayment)
     : '0';
 };
+
+function calculatePercentageChange(
+  newProfit: number,
+  oldProfit: number,
+): number {
+  if (oldProfit === 0) {
+    if (newProfit === 0) {
+      return 0;
+    }
+    return newProfit > 0 ? Infinity : -Infinity;
+  }
+
+  return ((newProfit - oldProfit) / Math.abs(oldProfit)) * 100;
+}
+
+function formatChange(newProfit: number, oldProfit: number): string {
+  const change = calculatePercentageChange(newProfit, oldProfit);
+
+  if (change === 0) {
+    return '';
+  }
+
+  if (change === Infinity || change === -Infinity) {
+    return change > 0 ? '↑ ∞%' : '↓ ∞%';
+  }
+
+  const sign = change > 0 ? '↑ ' : '↓ ';
+
+  return `${sign}${Math.round(change)}%`;
+}
