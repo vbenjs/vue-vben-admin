@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-import { customerGetLTVReport, orderGetPAndLReport } from '#/api';
+import { orderGetPAndLReport } from '#/api';
 import dayjs from '#/shared/dayjs';
 import { calcLTV, convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
@@ -51,14 +51,9 @@ export const dashboardState = reactive({
 });
 
 export type DashboardData = {
-  calcChart: boolean;
-  customerReport: {
-    netPayment: number;
-    newCustomers: number;
-    quantityRepurchase: number;
-  };
   dateRange: [dayjs.Dayjs, dayjs.Dayjs];
   dateRangeChanged: boolean;
+  hasProfitChart: boolean;
   pAndLReport: {
     cogs: number;
     discount: number;
@@ -118,12 +113,7 @@ export const currentPeriod = reactive<DashboardData>({
     facebook: 0,
     tiktok: 0,
   },
-  customerReport: {
-    newCustomers: 0,
-    quantityRepurchase: 0,
-    netPayment: 0,
-  },
-  calcChart: true,
+  hasProfitChart: true,
 });
 
 export const previousPeriod = reactive<DashboardData>({
@@ -157,12 +147,7 @@ export const previousPeriod = reactive<DashboardData>({
     facebook: 0,
     tiktok: 0,
   },
-  customerReport: {
-    newCustomers: 0,
-    quantityRepurchase: 0,
-    netPayment: 0,
-  },
-  calcChart: false,
+  hasProfitChart: false,
 });
 
 export const loadDataByPeriod = (payload: DashboardData) => {
@@ -179,7 +164,7 @@ export const loadDataByPeriod = (payload: DashboardData) => {
     .then((res) => {
       const items = res.items.reverse();
 
-      if (payload.calcChart) {
+      if (payload.hasProfitChart) {
         if (items.length > 62) {
           dashboardState.profitChart.groupBy = 'monthly';
         } else if (items.length > 32) {
@@ -198,21 +183,6 @@ export const loadDataByPeriod = (payload: DashboardData) => {
       dashboardState.loading = false;
 
       calcChangePercent();
-    });
-
-  customerGetLTVReport({
-    fromMonth: fromDate,
-    toMonth: toDate,
-  })
-    .then((res) => {
-      generateCutomerLTV(res.items, payload);
-    })
-    .finally(() => {
-      // Cacl changes
-      dashboardState.changePercent.newCustomers = formatChange(
-        currentPeriod.customerReport.newCustomers,
-        previousPeriod.customerReport.newCustomers,
-      );
     });
 };
 
@@ -323,23 +293,14 @@ export const calcChangePercent = () => {
   );
 };
 
-const generateCutomerLTV = (data: any, payload: DashboardData) => {
-  payload.customerReport.newCustomers = 0;
-  payload.customerReport.quantityRepurchase = 0;
-  payload.customerReport.netPayment = 0;
-
-  data.forEach((item: any) => {
-    payload.customerReport.newCustomers += item.quantityNew;
-    payload.customerReport.quantityRepurchase += item.quantityRepurchase;
-    payload.customerReport.netPayment += item.netPayment;
-  });
-};
-
 export const generateDashboardData = (payload: DashboardData) => {
   let items = payload.rawOrders;
   const customCostList = payload.rawCustomCosts;
 
-  if (payload.calcChart && dashboardState.profitChart.groupBy !== 'daily') {
+  if (
+    payload.hasProfitChart &&
+    dashboardState.profitChart.groupBy !== 'daily'
+  ) {
     items = groupData(items, dashboardState.profitChart.groupBy);
   }
 
@@ -347,7 +308,7 @@ export const generateDashboardData = (payload: DashboardData) => {
 
   calcOrderStatistic(items, payload);
 
-  if (payload.calcChart) {
+  if (payload.hasProfitChart) {
     generateProfitChartData(items, customCostList);
   }
 };

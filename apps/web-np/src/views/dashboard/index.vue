@@ -137,7 +137,6 @@ const generateSamePeriodPreset = computed(() => {
       <OverviewCostChart class="col-span-4 md:col-span-2 2xl:col-span-2" />
       <OverviewCosts class="col-span-4 md:col-span-2 2xl:col-span-1" />
       <OverviewOrder class="col-span-4 md:col-span-2 2xl:col-span-1" />
-      <!-- <OverviewCustomer class="col-span-4 md:col-span-2 2xl:col-span-1" /> -->
     </div>
   </div>
 </template>

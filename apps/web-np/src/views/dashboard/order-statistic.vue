@@ -283,17 +283,6 @@ const getDetails = computed(() => {
       value: `${currentPeriod.pAndLReport.netProfitMargin}%`,
       isBold: true,
     },
-    // {
-    //   title: 'New customers',
-    //   value: currentPeriod.customerReport.newCustomers,
-    //   changePercent: dashboardState.changePercent.newCustomers,
-    //   previousValue: previousPeriod.customerReport.newCustomers,
-    // },
-    // {
-    //   title: $t('field-name.ltv'),
-    //   explain: $t('field-name.ltvExplain'),
-    //   value: formatMoney(getLTV(), currency, rate),
-    // },
   ];
 });
 </script>
