@@ -8,71 +8,66 @@ import { $t } from '@vben/locales';
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { currentPeriod, dashboardState, previousPeriod } from './service';
+import {
+  currentPeriod,
+  dashboardState,
+  getChangePercentColor,
+  previousPeriod,
+} from './service';
 
 defineOptions({
   name: 'CustomerStatistic',
 });
 
 const shopStore = useShopStore();
+const currency = shopStore.shop.currencyFromApp;
+const rate = shopStore.shop.currencyRate;
 
 const getOverview = computed(() => {
   return [
     {
       title: 'Orders',
-      value: currentPeriod.orderTotal.quantityOrder,
+      value: currentPeriod.pAndLReport.quantityOrder,
       changePercent: dashboardState.changePercent.quantityOrder,
-      previousValue: previousPeriod.orderTotal.quantityOrder,
+      previousValue: previousPeriod.pAndLReport.quantityOrder,
     },
     {
       title: $t('field-name.netPayment'),
       explain: $t('field-name.netPaymentExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.netPayment,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.netPayment, currency, rate),
       changePercent: dashboardState.changePercent.netPayment,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.netPayment,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.netPayment,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalCosts'),
       explain: $t('field-name.totalCostsExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.totalCosts,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.totalCosts, currency, rate),
       changePercent: dashboardState.changePercent.totalCosts,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalCosts,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalCosts,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.netProfit'),
       explain: $t('field-name.netProfitExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.netProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.netProfit, currency, rate),
       changePercent: dashboardState.changePercent.netProfit,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.netProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.netProfit,
+        currency,
+        rate,
       ),
     },
     {
       title: 'Profit Margin',
       explain: $t('field-name.netProfitMarginExplain'),
-      value: `${currentPeriod.orderTotal.netProfitMargin}%`,
+      value: `${currentPeriod.pAndLReport.netProfitMargin}%`,
     },
   ];
 });
@@ -82,268 +77,214 @@ const getDetails = computed(() => {
     {
       title: $t('field-name.totalShipping'),
       value: formatMoney(
-        currentPeriod.orderTotal.totalShipping,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.totalShipping,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.totalShipping,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalShipping,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalShipping,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalTip'),
-      value: formatMoney(
-        currentPeriod.orderTotal.totalTip,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.totalTip, currency, rate),
       changePercent: dashboardState.changePercent.totalTip,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalTip,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalTip,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.grossSales'),
       explain: $t('field-name.grossSalesExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.grossSales,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.grossSales, currency, rate),
       isBold: true,
       changePercent: dashboardState.changePercent.grossSales,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.grossSales,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.grossSales,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalDiscount'),
-      value: formatMoney(
-        currentPeriod.orderTotal.discount,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.discount, currency, rate),
       changePercent: dashboardState.changePercent.discount,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.discount,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.discount,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalRefund'),
-      value: formatMoney(
-        currentPeriod.orderTotal.refund,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.refund, currency, rate),
       changePercent: dashboardState.changePercent.refund,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.refund,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.refund,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.netPayment'),
       explain: $t('field-name.netPaymentExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.netPayment,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.netPayment, currency, rate),
       isBold: true,
       changePercent: dashboardState.changePercent.netPayment,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.netPayment,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.netPayment,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.cogs'),
       explain: $t('field-name.cogsExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.cogs,
-        shopStore.shop.currencyFromApp,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.cogs, currency),
       changePercent: dashboardState.changePercent.cogs,
-      previousValue: formatMoney(
-        previousPeriod.orderTotal.cogs,
-        shopStore.shop.currencyFromApp,
-      ),
+      previousValue: formatMoney(previousPeriod.pAndLReport.cogs, currency),
     },
     {
       title: $t('field-name.handlingFees'),
       explain: $t('field-name.handlingFeesExplain'),
       value: formatMoney(
-        currentPeriod.orderTotal.handlingFees,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.handlingFees,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.handlingFees,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.handlingFees,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.handlingFees,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.shippingCosts'),
       value: formatMoney(
-        currentPeriod.orderTotal.shippingCosts,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.shippingCosts,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.shippingCosts,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.shippingCosts,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.shippingCosts,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.transactionFees'),
       value: formatMoney(
-        currentPeriod.orderTotal.transactionFees,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.transactionFees,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.transactionFees,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.transactionFees,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.transactionFees,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.grossProfit'),
       explain: $t('field-name.grossProfitExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.grossProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.grossProfit, currency, rate),
       isBold: true,
       changePercent: dashboardState.changePercent.grossProfit,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.grossProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.grossProfit,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalTax'),
       explain: $t('field-name.totalTaxExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.totalTax,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.totalTax, currency, rate),
       changePercent: dashboardState.changePercent.totalTax,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalTax,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalTax,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalCustomCost'),
       value: formatMoney(
-        currentPeriod.orderTotal.totalCustomCost,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.totalCustomCost,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.totalCustomCost,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalCustomCost,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalCustomCost,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.totalAdSpend'),
       value: formatMoney(
-        currentPeriod.orderTotal.totalAdSpend,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        currentPeriod.pAndLReport.totalAdSpend,
+        currency,
+        rate,
       ),
       changePercent: dashboardState.changePercent.totalAdSpend,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.totalAdSpend,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.totalAdSpend,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.roas'),
       explain: $t('field-name.roasExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.roas,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.roas, currency, rate),
       changePercent: dashboardState.changePercent.roas,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.roas,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.roas,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.poas'),
       explain: $t('field-name.poasExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.poas,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.poas, currency, rate),
       changePercent: dashboardState.changePercent.poas,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.poas,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.poas,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.netProfit'),
       explain: $t('field-name.netProfitExplain'),
-      value: formatMoney(
-        currentPeriod.orderTotal.netProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
-      ),
+      value: formatMoney(currentPeriod.pAndLReport.netProfit, currency, rate),
       isBold: true,
       changePercent: dashboardState.changePercent.netProfit,
       previousValue: formatMoney(
-        previousPeriod.orderTotal.netProfit,
-        shopStore.shop.currencyFromApp,
-        shopStore.shop.currencyRate,
+        previousPeriod.pAndLReport.netProfit,
+        currency,
+        rate,
       ),
     },
     {
       title: $t('field-name.netProfitMargin'),
       explain: $t('field-name.netProfitMarginExplain'),
-      value: `${currentPeriod.orderTotal.netProfitMargin}%`,
+      value: `${currentPeriod.pAndLReport.netProfitMargin}%`,
       isBold: true,
     },
   ];
 });
-
-const getClassColor = (value: string) => {
-  if (value.includes('↓')) {
-    return 'text-destructive-500';
-  }
-
-  return 'text-success-500';
-};
 </script>
 
 <template>
@@ -372,7 +313,7 @@ const getClassColor = (value: string) => {
             <template v-if="item.changePercent">
               <span
                 class="!ml-4"
-                :class="getClassColor(item.changePercent)"
+                :class="getChangePercentColor(item.changePercent)"
                 v-tippy="{
                   content: item.previousValue
                     ? `Compared with ${item.previousValue}`
@@ -419,7 +360,7 @@ const getClassColor = (value: string) => {
             <template v-if="item.changePercent">
               <span
                 class="!ml-4"
-                :class="getClassColor(item.changePercent)"
+                :class="getChangePercentColor(item.changePercent)"
                 v-tippy="{
                   content: item.previousValue
                     ? `Compared with ${item.previousValue}`

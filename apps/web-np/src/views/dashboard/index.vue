@@ -4,13 +4,17 @@ import type { DashboardData } from './service';
 import { computed, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { Button } from 'ant-design-vue';
+
 import { DefaultRoutes } from '#/shared/constants';
 import { getDatePreset } from '#/shared/utils';
 import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import OrderStatistic from './order-statistic.vue';
-import OverviewCustomCosts from './overview-custom-costs.vue';
+import OverviewAds from './overview-ads.vue';
+import OverviewCostChart from './overview-cost-chart.vue';
+import OverviewCosts from './overview-costs.vue';
 import OverviewCustomer from './overview-customer.vue';
 import OverviewOrder from './overview-order.vue';
 import ProfitChart from './profit-chart.vue';
@@ -29,9 +33,13 @@ onBeforeMount(() => {
     shopStore.updateSubscriptionInfo();
   }
 
+  loadAllData();
+});
+
+const loadAllData = () => {
   loadDataByPeriod(currentPeriod);
   loadDataByPeriod(previousPeriod);
-});
+};
 
 const handleDateChange = (
   date: any,
@@ -39,11 +47,11 @@ const handleDateChange = (
   changePreviousPeriod = false,
 ) => {
   payload.dateRange = date;
-  loadDataByPeriod(payload);
+  payload.dateRangeChanged = true;
 
   if (changePreviousPeriod) {
     previousPeriod.dateRange = generateSamePeriodPreset.value[0]?.value as any;
-    loadDataByPeriod(previousPeriod);
+    previousPeriod.dateRangeChanged = true;
   }
 };
 
@@ -101,22 +109,43 @@ const generateSamePeriodPreset = computed(() => {
           :model-value="previousPeriod.dateRange"
           :allow-clear="false"
           :presets="generateSamePeriodPreset"
-          @update:model-value="(val) => handleDateChange(val, previousPeriod)"
+          @update:model-value="
+            (val) => handleDateChange(val, previousPeriod, false)
+          "
         />
+        <Button
+          :disabled="
+            dashboardState.loading ||
+            !currentPeriod.dateRangeChanged ||
+            !currentPeriod.dateRangeChanged
+          "
+          @click="loadAllData"
+          type="primary"
+          class="!ml-2"
+        >
+          Submit
+        </Button>
       </div>
     </div>
 
     <OrderStatistic />
-
     <ProfitChart />
 
     <div
       v-loading="dashboardState.loading"
       class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
     >
+      <OverviewCostChart class="xl:col-span-2" />
+      <OverviewCosts />
+    </div>
+
+    <div
+      v-loading="dashboardState.loading"
+      class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+    >
       <OverviewOrder />
-      <OverviewCustomCosts />
       <OverviewCustomer />
+      <OverviewAds />
     </div>
   </div>
 </template>

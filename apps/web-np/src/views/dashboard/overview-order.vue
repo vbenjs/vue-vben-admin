@@ -20,29 +20,29 @@ const currency = shopStore.shop.currencyFromApp;
 const rate = shopStore.shop.currencyRate;
 
 const getData = computed(() => {
-  const avgOrderRevenue = currentPeriod.orderTotal.quantityOrder
-    ? currentPeriod.orderTotal.netPayment /
-      currentPeriod.orderTotal.quantityOrder
+  const avgOrderRevenue = currentPeriod.pAndLReport.quantityOrder
+    ? currentPeriod.pAndLReport.netPayment /
+      currentPeriod.pAndLReport.quantityOrder
     : 0;
 
-  const avgOrderCost = currentPeriod.orderTotal.quantityOrder
-    ? currentPeriod.orderTotal.totalCosts /
-      currentPeriod.orderTotal.quantityOrder
+  const avgOrderCost = currentPeriod.pAndLReport.quantityOrder
+    ? currentPeriod.pAndLReport.totalCosts /
+      currentPeriod.pAndLReport.quantityOrder
     : 0;
 
-  const avgOrderNetProfit = currentPeriod.orderTotal.quantityOrder
-    ? currentPeriod.orderTotal.netProfit /
-      currentPeriod.orderTotal.quantityOrder
+  const avgOrderNetProfit = currentPeriod.pAndLReport.quantityOrder
+    ? currentPeriod.pAndLReport.netProfit /
+      currentPeriod.pAndLReport.quantityOrder
     : 0;
 
   return [
     {
       title: 'Orders',
-      value: currentPeriod.orderTotal.quantityOrder,
+      value: currentPeriod.pAndLReport.quantityOrder,
     },
     {
       title: 'Revenue',
-      value: formatMoney(currentPeriod.orderTotal.netPayment, currency, rate),
+      value: formatMoney(currentPeriod.pAndLReport.netPayment, currency, rate),
     },
     {
       title: 'Avg. order revenue',
@@ -52,7 +52,7 @@ const getData = computed(() => {
     },
     {
       title: 'Total cost',
-      value: formatMoney(currentPeriod.orderTotal.totalCosts, currency, rate),
+      value: formatMoney(currentPeriod.pAndLReport.totalCosts, currency, rate),
     },
     {
       title: 'Avg. order cost',
@@ -62,7 +62,7 @@ const getData = computed(() => {
     },
     {
       title: 'Total net profit',
-      value: formatMoney(currentPeriod.orderTotal.netProfit, currency, rate),
+      value: formatMoney(currentPeriod.pAndLReport.netProfit, currency, rate),
     },
     {
       title: 'Avg. order profit',

@@ -14,40 +14,6 @@ import { addExtraFields } from '../reports/p-and-l/table-config';
 
 const shopStore = useShopStore();
 
-export type DashboardData = {
-  calcChart: boolean;
-  customerTotal: {
-    netPayment: number;
-    newCustomers: number;
-    quantityRepurchase: number;
-  };
-  dateRange: [dayjs.Dayjs, dayjs.Dayjs];
-  orderTotal: {
-    cogs: number;
-    discount: number;
-    grossProfit: number;
-    grossSales: number;
-    handlingFees: number;
-    netPayment: number;
-    netProfit: number;
-    netProfitMargin: string;
-    poas: number;
-    quantityOrder: number;
-    refund: number;
-    roas: number;
-    shippingCosts: number;
-    totalAdSpend: number;
-    totalCosts: number;
-    totalCustomCost: number;
-    totalShipping: number;
-    totalTax: number;
-    totalTip: number;
-    transactionFees: number;
-  };
-  rawCustomCosts: any[];
-  rawOrders: any[];
-};
-
 export const dashboardState = reactive({
   loading: false,
   changePercent: {
@@ -68,6 +34,8 @@ export const dashboardState = reactive({
     totalTax: '',
     totalCustomCost: '',
     totalAdSpend: '',
+    facebook: '',
+    tiktok: '',
     roas: '',
     poas: '',
   },
@@ -81,11 +49,49 @@ export const dashboardState = reactive({
   },
 });
 
+export type DashboardData = {
+  calcChart: boolean;
+  customerTotal: {
+    netPayment: number;
+    newCustomers: number;
+    quantityRepurchase: number;
+  };
+  dateRange: [dayjs.Dayjs, dayjs.Dayjs];
+  dateRangeChanged: boolean;
+  pAndLReport: {
+    cogs: number;
+    discount: number;
+    facebook: number;
+    grossProfit: number;
+    grossSales: number;
+    handlingFees: number;
+    netPayment: number;
+    netProfit: number;
+    netProfitMargin: string;
+    poas: number;
+    quantityOrder: number;
+    refund: number;
+    roas: number;
+    shippingCosts: number;
+    tiktok: number;
+    totalAdSpend: number;
+    totalCosts: number;
+    totalCustomCost: number;
+    totalShipping: number;
+    totalTax: number;
+    totalTip: number;
+    transactionFees: number;
+  };
+  rawCustomCosts: any[];
+  rawOrders: any[];
+};
+
 export const currentPeriod = reactive<DashboardData>({
   dateRange: [dayjs().add(-6, 'day'), dayjs()],
+  dateRangeChanged: false,
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
-  orderTotal: {
+  pAndLReport: {
     quantityOrder: 0,
     totalTip: 0,
     totalShipping: 0,
@@ -100,12 +106,16 @@ export const currentPeriod = reactive<DashboardData>({
     grossProfit: 0,
     totalTax: 0,
     totalCustomCost: 0,
-    totalAdSpend: 0,
-    roas: 0,
-    poas: 0,
     netProfit: 0,
     netProfitMargin: '0',
     totalCosts: 0,
+
+    // Ad spend
+    totalAdSpend: 0,
+    roas: 0,
+    poas: 0,
+    facebook: 0,
+    tiktok: 0,
   },
   customerTotal: {
     newCustomers: 0,
@@ -117,9 +127,10 @@ export const currentPeriod = reactive<DashboardData>({
 
 export const previousPeriod = reactive<DashboardData>({
   dateRange: [dayjs().add(-13, 'day'), dayjs().add(-7, 'day')],
+  dateRangeChanged: false,
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
-  orderTotal: {
+  pAndLReport: {
     quantityOrder: 0,
     totalTip: 0,
     totalShipping: 0,
@@ -134,12 +145,16 @@ export const previousPeriod = reactive<DashboardData>({
     grossProfit: 0,
     totalTax: 0,
     totalCustomCost: 0,
-    totalAdSpend: 0,
-    roas: 0,
-    poas: 0,
     netProfit: 0,
     netProfitMargin: '0',
     totalCosts: 0,
+
+    // Ad spend
+    totalAdSpend: 0,
+    roas: 0,
+    poas: 0,
+    facebook: 0,
+    tiktok: 0,
   },
   customerTotal: {
     newCustomers: 0,
@@ -194,98 +209,108 @@ export const loadDataByPeriod = (payload: DashboardData) => {
 
 export const calcChangePercent = () => {
   dashboardState.changePercent.quantityOrder = formatChange(
-    currentPeriod.orderTotal.quantityOrder,
-    previousPeriod.orderTotal.quantityOrder,
+    currentPeriod.pAndLReport.quantityOrder,
+    previousPeriod.pAndLReport.quantityOrder,
   );
 
   dashboardState.changePercent.netPayment = formatChange(
-    currentPeriod.orderTotal.netPayment,
-    previousPeriod.orderTotal.netPayment,
+    currentPeriod.pAndLReport.netPayment,
+    previousPeriod.pAndLReport.netPayment,
   );
 
   dashboardState.changePercent.totalCosts = formatChange(
-    currentPeriod.orderTotal.totalCosts,
-    previousPeriod.orderTotal.totalCosts,
+    currentPeriod.pAndLReport.totalCosts,
+    previousPeriod.pAndLReport.totalCosts,
   );
 
   dashboardState.changePercent.netProfit = formatChange(
-    currentPeriod.orderTotal.netProfit,
-    previousPeriod.orderTotal.netProfit,
+    currentPeriod.pAndLReport.netProfit,
+    previousPeriod.pAndLReport.netProfit,
   );
 
   dashboardState.changePercent.totalShipping = formatChange(
-    currentPeriod.orderTotal.totalShipping,
-    previousPeriod.orderTotal.totalShipping,
+    currentPeriod.pAndLReport.totalShipping,
+    previousPeriod.pAndLReport.totalShipping,
   );
 
   dashboardState.changePercent.totalTip = formatChange(
-    currentPeriod.orderTotal.totalTip,
-    previousPeriod.orderTotal.totalTip,
+    currentPeriod.pAndLReport.totalTip,
+    previousPeriod.pAndLReport.totalTip,
   );
 
   dashboardState.changePercent.grossSales = formatChange(
-    currentPeriod.orderTotal.grossSales,
-    previousPeriod.orderTotal.grossSales,
+    currentPeriod.pAndLReport.grossSales,
+    previousPeriod.pAndLReport.grossSales,
   );
 
   dashboardState.changePercent.discount = formatChange(
-    currentPeriod.orderTotal.discount,
-    previousPeriod.orderTotal.discount,
+    currentPeriod.pAndLReport.discount,
+    previousPeriod.pAndLReport.discount,
   );
 
   dashboardState.changePercent.refund = formatChange(
-    currentPeriod.orderTotal.refund,
-    previousPeriod.orderTotal.refund,
+    currentPeriod.pAndLReport.refund,
+    previousPeriod.pAndLReport.refund,
   );
 
   dashboardState.changePercent.cogs = formatChange(
-    currentPeriod.orderTotal.cogs,
-    previousPeriod.orderTotal.cogs,
+    currentPeriod.pAndLReport.cogs,
+    previousPeriod.pAndLReport.cogs,
   );
 
   dashboardState.changePercent.handlingFees = formatChange(
-    currentPeriod.orderTotal.handlingFees,
-    previousPeriod.orderTotal.handlingFees,
+    currentPeriod.pAndLReport.handlingFees,
+    previousPeriod.pAndLReport.handlingFees,
   );
 
   dashboardState.changePercent.shippingCosts = formatChange(
-    currentPeriod.orderTotal.shippingCosts,
-    previousPeriod.orderTotal.shippingCosts,
+    currentPeriod.pAndLReport.shippingCosts,
+    previousPeriod.pAndLReport.shippingCosts,
   );
 
   dashboardState.changePercent.transactionFees = formatChange(
-    currentPeriod.orderTotal.transactionFees,
-    previousPeriod.orderTotal.transactionFees,
+    currentPeriod.pAndLReport.transactionFees,
+    previousPeriod.pAndLReport.transactionFees,
   );
 
   dashboardState.changePercent.grossProfit = formatChange(
-    currentPeriod.orderTotal.grossProfit,
-    previousPeriod.orderTotal.grossProfit,
+    currentPeriod.pAndLReport.grossProfit,
+    previousPeriod.pAndLReport.grossProfit,
   );
 
   dashboardState.changePercent.totalTax = formatChange(
-    currentPeriod.orderTotal.totalTax,
-    previousPeriod.orderTotal.totalTax,
+    currentPeriod.pAndLReport.totalTax,
+    previousPeriod.pAndLReport.totalTax,
   );
 
   dashboardState.changePercent.totalCustomCost = formatChange(
-    currentPeriod.orderTotal.totalCustomCost,
-    previousPeriod.orderTotal.totalCustomCost,
+    currentPeriod.pAndLReport.totalCustomCost,
+    previousPeriod.pAndLReport.totalCustomCost,
   );
 
   dashboardState.changePercent.totalAdSpend = formatChange(
-    currentPeriod.orderTotal.totalAdSpend,
-    previousPeriod.orderTotal.totalAdSpend,
+    currentPeriod.pAndLReport.totalAdSpend,
+    previousPeriod.pAndLReport.totalAdSpend,
+  );
+
+  dashboardState.changePercent.facebook = formatChange(
+    currentPeriod.pAndLReport.facebook,
+    previousPeriod.pAndLReport.facebook,
+  );
+
+  dashboardState.changePercent.tiktok = formatChange(
+    currentPeriod.pAndLReport.tiktok,
+    previousPeriod.pAndLReport.tiktok,
   );
 
   dashboardState.changePercent.roas = formatChange(
-    currentPeriod.orderTotal.roas,
-    previousPeriod.orderTotal.roas,
+    currentPeriod.pAndLReport.roas,
+    previousPeriod.pAndLReport.roas,
   );
 
   dashboardState.changePercent.poas = formatChange(
-    currentPeriod.orderTotal.poas,
-    previousPeriod.orderTotal.poas,
+    currentPeriod.pAndLReport.poas,
+    previousPeriod.pAndLReport.poas,
   );
 };
 
@@ -355,37 +380,41 @@ const generateProfitChartData = (data: any, costName: any) => {
 const calcOrderStatistic = (data: any, payload: DashboardData) => {
   const itemTotal = createTotalRow(data);
 
-  payload.orderTotal.quantityOrder = itemTotal.totalOrders ?? 0;
-  payload.orderTotal.totalTip = itemTotal.totalTip ?? 0;
-  payload.orderTotal.totalShipping = itemTotal.totalShipping ?? 0;
+  payload.pAndLReport.quantityOrder = itemTotal.totalOrders ?? 0;
+  payload.pAndLReport.totalTip = itemTotal.totalTip ?? 0;
+  payload.pAndLReport.totalShipping = itemTotal.totalShipping ?? 0;
 
-  payload.orderTotal.grossSales = itemTotal.grossSales ?? 0;
-  payload.orderTotal.discount = itemTotal.totalDiscount ?? 0;
-  payload.orderTotal.refund = itemTotal.totalRefund ?? 0;
-  payload.orderTotal.netPayment = itemTotal.netPayment ?? 0;
+  payload.pAndLReport.grossSales = itemTotal.grossSales ?? 0;
+  payload.pAndLReport.discount = itemTotal.totalDiscount ?? 0;
+  payload.pAndLReport.refund = itemTotal.totalRefund ?? 0;
+  payload.pAndLReport.netPayment = itemTotal.netPayment ?? 0;
 
-  payload.orderTotal.cogs = itemTotal.cogs ?? 0;
-  payload.orderTotal.handlingFees = itemTotal.handlingFees ?? 0;
-  payload.orderTotal.shippingCosts = itemTotal.shippingCosts ?? 0;
-  payload.orderTotal.transactionFees = itemTotal.transactionFees ?? 0;
-  payload.orderTotal.grossProfit = itemTotal.grossProfit ?? 0;
+  payload.pAndLReport.cogs = itemTotal.cogs ?? 0;
+  payload.pAndLReport.handlingFees = itemTotal.handlingFees ?? 0;
+  payload.pAndLReport.shippingCosts = itemTotal.shippingCosts ?? 0;
+  payload.pAndLReport.transactionFees = itemTotal.transactionFees ?? 0;
+  payload.pAndLReport.grossProfit = itemTotal.grossProfit ?? 0;
 
-  payload.orderTotal.totalCustomCost = itemTotal.totalCustomCost ?? 0;
-  payload.orderTotal.totalAdSpend = itemTotal.totalAdSpend ?? 0;
-  payload.orderTotal.totalTax = itemTotal.totalTax ?? 0;
-  payload.orderTotal.totalCosts = itemTotal.totalCosts ?? 0;
-  payload.orderTotal.netProfit = itemTotal.netProfit ?? 0;
+  payload.pAndLReport.totalCustomCost = itemTotal.totalCustomCost ?? 0;
+  payload.pAndLReport.totalAdSpend = itemTotal.totalAdSpend ?? 0;
+  payload.pAndLReport.facebook = itemTotal.totalAdSpend_facebook ?? 0;
+  payload.pAndLReport.tiktok = itemTotal.totalAdSpend_tiktok ?? 0;
+  payload.pAndLReport.totalTax = itemTotal.totalTax ?? 0;
+  payload.pAndLReport.totalCosts = itemTotal.totalCosts ?? 0;
+  payload.pAndLReport.netProfit = itemTotal.netProfit ?? 0;
 
-  if (payload.orderTotal.totalAdSpend) {
-    payload.orderTotal.roas =
-      payload.orderTotal.netPayment / payload.orderTotal.totalAdSpend;
+  if (payload.pAndLReport.totalAdSpend) {
+    payload.pAndLReport.roas =
+      payload.pAndLReport.netPayment / payload.pAndLReport.totalAdSpend;
 
-    payload.orderTotal.poas =
-      payload.orderTotal.grossProfit / payload.orderTotal.totalAdSpend;
+    payload.pAndLReport.poas =
+      payload.pAndLReport.grossProfit / payload.pAndLReport.totalAdSpend;
   }
 
-  payload.orderTotal.netProfitMargin = payload.orderTotal.netPayment
-    ? toPercentage(payload.orderTotal.netProfit / payload.orderTotal.netPayment)
+  payload.pAndLReport.netProfitMargin = payload.pAndLReport.netPayment
+    ? toPercentage(
+        payload.pAndLReport.netProfit / payload.pAndLReport.netPayment,
+      )
     : '0';
 };
 
@@ -418,3 +447,11 @@ function formatChange(newProfit: number, oldProfit: number): string {
 
   return `${sign}${Math.round(change)}%`;
 }
+
+export const getChangePercentColor = (value: string) => {
+  if (value.includes('↓')) {
+    return 'text-destructive-500';
+  }
+
+  return 'text-success-500';
+};

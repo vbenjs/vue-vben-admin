@@ -12,12 +12,14 @@ interface Props {
   pickerLimit?: number;
   pickerLimitName?: null | string;
   allowClear?: boolean;
+  disabled?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   picker: 'date',
   pickerLimit: 0,
   pickerLimitName: null,
   allowClear: true,
+  disabled: false,
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -42,6 +44,7 @@ const getLimitName = computed(() => {
       :value="props.modelValue as any"
       :presets="props.presets"
       :allow-clear="props.allowClear"
+      :disabled="props.disabled"
       @change="onChange"
     >
       <template
