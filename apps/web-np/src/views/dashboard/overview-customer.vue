@@ -9,30 +9,26 @@ import {
   VbenButton,
 } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
+import { $t } from '@vben/locales';
 
 import { formatMoney, redirect, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
-import { currentPeriod } from './service';
+import { currentPeriod, getLTV } from './service';
 
 const shopStore = useShopStore();
 const currency = shopStore.shop.currencyFromApp;
 const rate = shopStore.shop.currencyRate;
 const getData = computed(() => {
-  const repurchasedRate = currentPeriod.customerTotal.newCustomers
-    ? currentPeriod.customerTotal.quantityRepurchase /
-      currentPeriod.customerTotal.newCustomers
-    : 0;
-
-  const ltv = currentPeriod.customerTotal.newCustomers
-    ? currentPeriod.customerTotal.netPayment /
-      currentPeriod.customerTotal.newCustomers
+  const repurchasedRate = currentPeriod.customerReport.newCustomers
+    ? currentPeriod.customerReport.quantityRepurchase /
+      currentPeriod.customerReport.newCustomers
     : 0;
 
   return [
     {
       title: 'New customers',
-      value: currentPeriod.customerTotal.newCustomers,
+      value: currentPeriod.customerReport.newCustomers,
     },
     {
       title: 'Repurchase rate',
@@ -42,23 +38,22 @@ const getData = computed(() => {
     {
       title: 'New customers revenue',
       value: formatMoney(
-        currentPeriod.customerTotal.netPayment,
+        currentPeriod.customerReport.netPayment,
         currency,
         rate,
       ),
     },
     {
-      title: 'Lifetime Value (LTV)',
-      value: formatMoney(ltv, currency, rate),
-      explain:
-        'Lifetime Value (LTV) represents the average revenue a customer generates over their entire duration as a paying customer.',
+      title: $t('field-name.ltv'),
+      value: formatMoney(getLTV(), currency, rate),
+      explain: $t('field-name.ltvExplain'),
     },
   ];
 });
 </script>
 
 <template>
-  <Card class="w-full" title="Order Summary">
+  <Card class="w-full">
     <CardHeader class="pb-2">
       <CardTitle class="text-md flex items-center justify-between">
         <span>Customer Summary</span>

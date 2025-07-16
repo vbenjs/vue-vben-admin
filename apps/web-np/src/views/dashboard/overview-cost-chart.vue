@@ -57,8 +57,8 @@ const reload = () => {
         },
         labelLine: {
           show: true,
-          length: 30,
-          length2: 25,
+          length: 15,
+          length2: 15,
           smooth: true,
           lineStyle: {
             width: 1.5,

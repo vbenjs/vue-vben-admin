@@ -255,3 +255,7 @@ export const showWatermark = (parent: string = '.vxe-table--main-wrapper') => {
     });
   }, 1000);
 };
+
+export const calcLTV = (newCustomers: number, netPayment: number) => {
+  return newCustomers ? netPayment / newCustomers : 0;
+};

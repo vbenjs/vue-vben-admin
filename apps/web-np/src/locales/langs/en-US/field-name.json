@@ -49,5 +49,8 @@
   "netProfitMarginExplain": "Net profit margin = (Net profit / Revenue) * 100%",
 
   "totalCosts": "Total Costs",
-  "totalCostsExplain": "Total costs = COGS +  Handling fees + Shipping costs + Transaction fees + Custom costs + Ad spends"
+  "totalCostsExplain": "Total costs = COGS +  Handling fees + Shipping costs + Transaction fees + Custom costs + Ad spends",
+
+  "ltv": "Lifetime Value (LTV)",
+  "ltvExplain": "Lifetime Value (LTV) represents the average revenue a customer generates over their entire duration as a paying customer."
 }

@@ -16,7 +16,6 @@ import OverviewAdsChart from './overview-ads-chart.vue';
 import OverviewAds from './overview-ads.vue';
 import OverviewCostChart from './overview-cost-chart.vue';
 import OverviewCosts from './overview-costs.vue';
-import OverviewCustomer from './overview-customer.vue';
 import OverviewOrder from './overview-order.vue';
 import ProfitChart from './profit-chart.vue';
 import {
@@ -133,12 +132,12 @@ const generateSamePeriodPreset = computed(() => {
     <ProfitChart />
 
     <div v-loading="dashboardState.loading" class="mt-5 grid grid-cols-4 gap-4">
-      <OverviewCostChart class="col-span-4 md:col-span-2 2xl:col-span-1" />
-      <OverviewCosts class="col-span-4 md:col-span-2 2xl:col-span-1" />
-      <OverviewOrder class="col-span-4 md:col-span-2 2xl:col-span-1" />
-      <OverviewCustomer class="col-span-4 md:col-span-2 2xl:col-span-1" />
       <OverviewAdsChart class="col-span-4 md:col-span-2 2xl:col-span-3" />
       <OverviewAds class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewCostChart class="col-span-4 md:col-span-2 2xl:col-span-2" />
+      <OverviewCosts class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewOrder class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <!-- <OverviewCustomer class="col-span-4 md:col-span-2 2xl:col-span-1" /> -->
     </div>
   </div>
 </template>

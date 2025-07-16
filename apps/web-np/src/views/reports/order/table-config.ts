@@ -70,7 +70,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       field: 'name',
       footerClassName: 'font-semibold',
       title: 'Order ID',
-      minWidth: 200,
+      minWidth: 110,
       fixed: 'left',
       align: 'left',
     },
@@ -81,12 +81,12 @@ export const orderTableOptions: VxeTableGridOptions = {
         return formatReportDate(time.cellValue);
       },
       minWidth: 110,
-      fixed: 'left',
     },
     {
       field: 'financialStatus',
       cellRender: { name: 'cellTitle' },
       title: 'Status',
+      align: 'left',
       minWidth: 200,
       visible: false,
     },
@@ -95,6 +95,7 @@ export const orderTableOptions: VxeTableGridOptions = {
       footerClassName: 'font-semibold',
       title: 'Current Items',
       minWidth: 130,
+      visible: false,
     },
     {
       field: 'quantityRefund',

@@ -65,7 +65,7 @@ const getOverview = computed(() => {
       ),
     },
     {
-      title: 'Profit Margin',
+      title: $t('field-name.netProfitMargin'),
       explain: $t('field-name.netProfitMarginExplain'),
       value: `${currentPeriod.pAndLReport.netProfitMargin}%`,
     },
@@ -283,6 +283,17 @@ const getDetails = computed(() => {
       value: `${currentPeriod.pAndLReport.netProfitMargin}%`,
       isBold: true,
     },
+    // {
+    //   title: 'New customers',
+    //   value: currentPeriod.customerReport.newCustomers,
+    //   changePercent: dashboardState.changePercent.newCustomers,
+    //   previousValue: previousPeriod.customerReport.newCustomers,
+    // },
+    // {
+    //   title: $t('field-name.ltv'),
+    //   explain: $t('field-name.ltvExplain'),
+    //   value: formatMoney(getLTV(), currency, rate),
+    // },
   ];
 });
 </script>
@@ -295,20 +306,24 @@ const getDetails = computed(() => {
     <template v-for="item in getOverview" :key="item.title">
       <Card class="w-full" :title="item.title">
         <CardHeader class="pb-2">
-          <CardTitle class="flex flex-nowrap items-center space-x-1 text-lg">
-            <span>
-              {{ item.title }}
-            </span>
+          <CardTitle
+            class="flex flex-nowrap items-center justify-between text-lg"
+          >
+            <div class="flex flex-nowrap items-center space-x-1">
+              <span>
+                {{ item.title }}
+              </span>
 
-            <template v-if="item.explain">
-              <IconifyIcon
-                v-tippy="{
-                  content: item.explain,
-                }"
-                icon="ant-design:question-circle-outlined"
-                class="size-4"
-              />
-            </template>
+              <template v-if="item.explain">
+                <IconifyIcon
+                  v-tippy="{
+                    content: item.explain,
+                  }"
+                  icon="ant-design:question-circle-outlined"
+                  class="size-4"
+                />
+              </template>
+            </div>
 
             <template v-if="item.changePercent">
               <span

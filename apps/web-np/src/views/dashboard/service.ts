@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 
 import { customerGetLTVReport, orderGetPAndLReport } from '#/api';
 import dayjs from '#/shared/dayjs';
-import { convertRate, toPercentage } from '#/shared/utils';
+import { calcLTV, convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
 import {
@@ -38,6 +38,7 @@ export const dashboardState = reactive({
     tiktok: '',
     roas: '',
     poas: '',
+    newCustomers: '',
   },
   profitChart: {
     groupBy: 'daily',
@@ -51,7 +52,7 @@ export const dashboardState = reactive({
 
 export type DashboardData = {
   calcChart: boolean;
-  customerTotal: {
+  customerReport: {
     netPayment: number;
     newCustomers: number;
     quantityRepurchase: number;
@@ -117,7 +118,7 @@ export const currentPeriod = reactive<DashboardData>({
     facebook: 0,
     tiktok: 0,
   },
-  customerTotal: {
+  customerReport: {
     newCustomers: 0,
     quantityRepurchase: 0,
     netPayment: 0,
@@ -156,7 +157,7 @@ export const previousPeriod = reactive<DashboardData>({
     facebook: 0,
     tiktok: 0,
   },
-  customerTotal: {
+  customerReport: {
     newCustomers: 0,
     quantityRepurchase: 0,
     netPayment: 0,
@@ -202,9 +203,17 @@ export const loadDataByPeriod = (payload: DashboardData) => {
   customerGetLTVReport({
     fromMonth: fromDate,
     toMonth: toDate,
-  }).then((res) => {
-    generateCutomerLTV(res.items, payload);
-  });
+  })
+    .then((res) => {
+      generateCutomerLTV(res.items, payload);
+    })
+    .finally(() => {
+      // Cacl changes
+      dashboardState.changePercent.newCustomers = formatChange(
+        currentPeriod.customerReport.newCustomers,
+        previousPeriod.customerReport.newCustomers,
+      );
+    });
 };
 
 export const calcChangePercent = () => {
@@ -315,14 +324,14 @@ export const calcChangePercent = () => {
 };
 
 const generateCutomerLTV = (data: any, payload: DashboardData) => {
-  payload.customerTotal.newCustomers = 0;
-  payload.customerTotal.quantityRepurchase = 0;
-  payload.customerTotal.netPayment = 0;
+  payload.customerReport.newCustomers = 0;
+  payload.customerReport.quantityRepurchase = 0;
+  payload.customerReport.netPayment = 0;
 
   data.forEach((item: any) => {
-    payload.customerTotal.newCustomers += item.quantityNew;
-    payload.customerTotal.quantityRepurchase += item.quantityRepurchase;
-    payload.customerTotal.netPayment += item.netPayment;
+    payload.customerReport.newCustomers += item.quantityNew;
+    payload.customerReport.quantityRepurchase += item.quantityRepurchase;
+    payload.customerReport.netPayment += item.netPayment;
   });
 };
 
@@ -454,4 +463,11 @@ export const getChangePercentColor = (value: string) => {
   }
 
   return 'text-success-500';
+};
+
+export const getLTV = () => {
+  return calcLTV(
+    currentPeriod.customerReport.newCustomers,
+    currentPeriod.customerReport.newCustomers,
+  );
 };

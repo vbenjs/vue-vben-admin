@@ -83,7 +83,7 @@ const getData = computed(() => {
 </script>
 
 <template>
-  <Card class="w-full" title="Order Summary">
+  <Card class="w-full">
     <CardHeader class="pb-2">
       <CardTitle class="text-md flex items-center justify-between">
         <span>Ad Summary</span>
