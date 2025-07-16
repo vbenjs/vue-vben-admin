@@ -165,7 +165,6 @@ export const previousPeriod = reactive<DashboardData>({
 });
 
 export const loadDataByPeriod = (payload: DashboardData) => {
-  payload.dateRangeChanged = false;
   dashboardState.loading = true;
 
   const fromDate = payload.dateRange[0].format('YYYY-MM-DD');

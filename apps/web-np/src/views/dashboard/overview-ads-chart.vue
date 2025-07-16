@@ -76,8 +76,8 @@ const reload = () => {
           focus: 'series',
         },
         data: [
-          previousPeriod.pAndLReport.facebook,
-          currentPeriod.pAndLReport.facebook,
+          Number(previousPeriod.pAndLReport.facebook.toFixed(2)),
+          Number(currentPeriod.pAndLReport.facebook.toFixed(2)),
         ],
       },
       {
@@ -91,8 +91,8 @@ const reload = () => {
           focus: 'series',
         },
         data: [
-          previousPeriod.pAndLReport.tiktok,
-          currentPeriod.pAndLReport.tiktok,
+          Number(currentPeriod.pAndLReport.tiktok.toFixed(2)),
+          Number(currentPeriod.pAndLReport.tiktok.toFixed(2)),
         ],
       },
     ],
