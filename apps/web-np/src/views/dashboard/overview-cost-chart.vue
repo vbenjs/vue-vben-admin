@@ -73,28 +73,28 @@ const reload = () => {
         },
         data: [
           {
-            name: $t('field-name.cogs'),
-            value: currentPeriod.pAndLReport.cogs,
-          },
-          {
-            name: $t('field-name.handlingFees'),
-            value: currentPeriod.pAndLReport.handlingFees,
-          },
-          {
-            name: $t('field-name.shippingCosts'),
-            value: currentPeriod.pAndLReport.shippingCosts,
-          },
-          {
-            name: $t('field-name.transactionFees'),
-            value: currentPeriod.pAndLReport.transactionFees,
+            name: $t('field-name.totalAdSpend'),
+            value: currentPeriod.pAndLReport.totalAdSpend,
           },
           {
             name: $t('field-name.totalCustomCost'),
             value: currentPeriod.pAndLReport.totalCustomCost,
           },
           {
-            name: $t('field-name.totalAdSpend'),
-            value: currentPeriod.pAndLReport.totalAdSpend,
+            name: $t('field-name.transactionFees'),
+            value: currentPeriod.pAndLReport.transactionFees,
+          },
+          {
+            name: $t('field-name.shippingCosts'),
+            value: currentPeriod.pAndLReport.shippingCosts,
+          },
+          {
+            name: $t('field-name.handlingFees'),
+            value: currentPeriod.pAndLReport.handlingFees,
+          },
+          {
+            name: $t('field-name.cogs'),
+            value: currentPeriod.pAndLReport.cogs,
           },
         ],
       },
