@@ -12,6 +12,7 @@ import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import OrderStatistic from './order-statistic.vue';
+import OverviewAdsChart from './overview-ads-chart.vue';
 import OverviewAds from './overview-ads.vue';
 import OverviewCostChart from './overview-cost-chart.vue';
 import OverviewCosts from './overview-costs.vue';
@@ -131,21 +132,13 @@ const generateSamePeriodPreset = computed(() => {
     <OrderStatistic />
     <ProfitChart />
 
-    <div
-      v-loading="dashboardState.loading"
-      class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
-    >
-      <OverviewCostChart class="xl:col-span-2" />
-      <OverviewCosts />
-    </div>
-
-    <div
-      v-loading="dashboardState.loading"
-      class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
-    >
-      <OverviewOrder />
-      <OverviewCustomer />
-      <OverviewAds />
+    <div v-loading="dashboardState.loading" class="mt-5 grid grid-cols-4 gap-4">
+      <OverviewCostChart class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewCosts class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewOrder class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewCustomer class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewAdsChart class="col-span-4 md:col-span-2 2xl:col-span-3" />
+      <OverviewAds class="col-span-4 md:col-span-2 2xl:col-span-1" />
     </div>
   </div>
 </template>

@@ -107,7 +107,7 @@ const reload = () => {
   <Card>
     <CardHeader>
       <CardTitle class="flex items-center justify-between space-x-1">
-        <span class="text-lg"> Cost Analytics </span>
+        <span> Cost Analytics </span>
       </CardTitle>
     </CardHeader>
     <CardContent>

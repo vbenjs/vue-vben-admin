@@ -41,7 +41,11 @@ const getData = computed(() => {
     {
       title: $t('field-name.handlingFees'),
       explain: $t('field-name.handlingFeesExplain'),
-      value: formatMoney(currentPeriod.pAndLReport.handlingFees, currency, rate),
+      value: formatMoney(
+        currentPeriod.pAndLReport.handlingFees,
+        currency,
+        rate,
+      ),
       changePercent: dashboardState.changePercent.handlingFees,
       previousValue: formatMoney(
         previousPeriod.pAndLReport.handlingFees,
@@ -93,7 +97,11 @@ const getData = computed(() => {
     },
     {
       title: $t('field-name.totalAdSpend'),
-      value: formatMoney(currentPeriod.pAndLReport.totalAdSpend, currency, rate),
+      value: formatMoney(
+        currentPeriod.pAndLReport.totalAdSpend,
+        currency,
+        rate,
+      ),
       changePercent: dashboardState.changePercent.totalAdSpend,
       previousValue: formatMoney(
         previousPeriod.pAndLReport.totalAdSpend,
@@ -109,7 +117,7 @@ const getData = computed(() => {
   <Card class="w-full" title="Order Summary">
     <CardHeader class="pb-2">
       <CardTitle class="text-md flex items-center justify-between">
-        <!-- <span>Cost Summary</span> -->
+        <span>Cost Summary</span>
       </CardTitle>
     </CardHeader>
 
@@ -135,7 +143,7 @@ const getData = computed(() => {
           </template>
         </div>
         <div class="flex space-x-2">
-          <div>
+          <div :class="item.isBold ? 'font-semibold' : ''">
             {{ item.value }}
           </div>
           <div class="w-[60px] text-right italic">
