@@ -312,7 +312,6 @@ const getDetails = computed(() => {
 
             <template v-if="item.changePercent">
               <span
-                class="!ml-4"
                 :class="getChangePercentColor(item.changePercent)"
                 v-tippy="{
                   content: item.previousValue
@@ -359,7 +358,6 @@ const getDetails = computed(() => {
 
             <template v-if="item.changePercent">
               <span
-                class="!ml-4"
                 :class="getChangePercentColor(item.changePercent)"
                 v-tippy="{
                   content: item.previousValue
