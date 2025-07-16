@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 
 import { orderGetPAndLReport } from '#/api';
 import dayjs from '#/shared/dayjs';
-import { calcLTV, convertRate, toPercentage } from '#/shared/utils';
+import { convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
 import {
@@ -424,11 +424,4 @@ export const getChangePercentColor = (value: string) => {
   }
 
   return 'text-success-500';
-};
-
-export const getLTV = () => {
-  return calcLTV(
-    currentPeriod.customerReport.newCustomers,
-    currentPeriod.customerReport.newCustomers,
-  );
 };
