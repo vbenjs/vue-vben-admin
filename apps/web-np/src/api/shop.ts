@@ -27,3 +27,11 @@ export async function updateRegion(data: any) {
 export async function removeRegion(uuid: any) {
   return requestClient.delete(`/api/region/${uuid}`);
 }
+
+export async function shopMailReport(payload: any) {
+  return requestClient.post(`/api/shop/mail/report`, payload);
+}
+
+export async function shopUpdateMailReport(data: any) {
+  return requestClient.put('/api/shop/settings/mail-report', data);
+}

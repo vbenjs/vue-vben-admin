@@ -43,16 +43,16 @@ const routes: RouteRecordRaw[] = [
     path: '/settings/custom-costs',
     component: () => import('#/views/settings/custom-costs/index.vue'),
   },
-  // {
-  //   meta: {
-  //     title: 'Auto Mail Report',
-  //     order: 99,
-  //     icon: 'ant-design:mail-twotone',
-  //   },
-  //   name: 'reports-email',
-  //   path: '/reports/email',
-  //   component: () => import('#/views/settings/auto-mail/index.vue'),
-  // },
+  {
+    meta: {
+      title: 'Auto Mail Report',
+      order: 99,
+      icon: 'ant-design:mail-twotone',
+    },
+    name: 'reports-email',
+    path: '/reports/email',
+    component: () => import('#/views/settings/auto-mail/index.vue'),
+  },
   {
     meta: {
       title: 'Shop Settings',

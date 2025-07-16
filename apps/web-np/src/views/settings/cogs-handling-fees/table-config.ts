@@ -54,6 +54,7 @@ export const formOptions: VbenFormProps = {
     },
     {
       component: 'Select',
+      defaultValue: ['ACTIVE'],
       componentProps: {
         allowClear: true,
         mode: 'multiple',

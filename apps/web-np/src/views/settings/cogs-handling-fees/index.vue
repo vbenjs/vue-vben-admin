@@ -72,7 +72,7 @@ onMounted(() => {
 
         case 'COGSHandlingFeesImportNotification': {
           state.importing = false;
-          gridApi.reload();
+          gridApi.query();
           break;
         }
 
@@ -149,7 +149,7 @@ const handleSwitchChange = (row: IProduct) => {
     regionId: row.regionId,
     type: newType,
   }).finally(() => {
-    gridApi.reload();
+    gridApi.query();
   });
 };
 

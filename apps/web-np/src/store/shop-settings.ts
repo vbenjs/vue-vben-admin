@@ -2,7 +2,12 @@ import { cloneDeep } from '@vben/utils';
 
 import { defineStore } from 'pinia';
 
-import { removeRegion, updateRegion, updateTransactionFees } from '#/api';
+import {
+  removeRegion,
+  shopUpdateMailReport,
+  updateRegion,
+  updateTransactionFees,
+} from '#/api';
 import { defaultRegionUUID } from '#/shared/constants';
 
 export interface ITransactionFee {
@@ -27,6 +32,7 @@ interface IShopSettings {
   handlingFees: any;
   regions: IRegion[];
   transactionFees: ITransactionFee[];
+  mailWeeklyReport: boolean;
 }
 
 export const useShopSettingStore = defineStore('np-shop-setting', {
@@ -36,6 +42,7 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
       this.handlingFees = settings.handlingFees;
       this.regions = settings.regions;
       this.transactionFees = settings.transactionFees;
+      this.mailWeeklyReport = settings.mailWeeklyReport;
     },
     async setTransactionsFees(transactionFees: ITransactionFee[]) {
       const payload = cloneDeep(transactionFees).map((fee) => {
@@ -61,6 +68,14 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
         return res;
       });
     },
+    async updateMailWeeklyReport(status: boolean) {
+      return shopUpdateMailReport({
+        type: 'weekly',
+        status,
+      }).then(() => {
+        this.mailWeeklyReport = status;
+      });
+    },
     getZoneName(uuid: any) {
       return this.regions.find((region) => region.uuid === uuid)?.name ?? '';
     },
@@ -79,5 +94,6 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
     handlingFees: {},
     regions: [],
     transactionFees: [],
+    mailWeeklyReport: true,
   }),
 });
