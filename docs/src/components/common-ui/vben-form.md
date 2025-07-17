@@ -395,7 +395,7 @@ export interface FormCommonConfig {
    * 所有表单项的栅格布局
    * @default ""
    */
-  formItemClass?: string;
+  formItemClass?: (() => string) | string;
   /**
    * 隐藏所有表单项label
    * @default false
