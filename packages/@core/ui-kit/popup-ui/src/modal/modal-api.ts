@@ -59,6 +59,7 @@ export class ModalApi {
       showCancelButton: true,
       showConfirmButton: true,
       title: '',
+      animationType: 'slide',
     };
 
     this.store = new Store<ModalState>(

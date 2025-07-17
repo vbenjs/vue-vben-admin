@@ -6,6 +6,11 @@ import type { ModalApi } from './modal-api';
 
 export interface ModalProps {
   /**
+   * 动画类型
+   * @default 'slide'
+   */
+  animationType?: 'scale' | 'slide';
+  /**
    * 是否要挂载到内容区域
    * @default false
    */
