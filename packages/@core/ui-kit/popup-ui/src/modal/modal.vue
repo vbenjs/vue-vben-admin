@@ -94,6 +94,7 @@ const {
   submitting,
   title,
   titleTooltip,
+  animationType,
   zIndex,
 } = usePriorityValues(props, state);
 
@@ -244,6 +245,7 @@ function handleClosed() {
       :modal="modal"
       :open="state?.isOpen"
       :show-close="closable"
+      :animation-type="animationType"
       :z-index="zIndex"
       :overlay-blur="overlayBlur"
       close-class="top-3"
