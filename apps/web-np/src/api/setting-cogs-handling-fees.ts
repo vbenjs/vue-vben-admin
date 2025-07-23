@@ -40,10 +40,7 @@ export async function updateRegionProducts(data: any) {
 }
 
 export async function shopBulkUpdateProductFees(data: any) {
-  return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/bulk-update',
-    data,
-  );
+  return requestClient.put('/api/product/cost/bulk-update', data);
 }
 
 export async function exportCogsHandlingFees(data: any) {
