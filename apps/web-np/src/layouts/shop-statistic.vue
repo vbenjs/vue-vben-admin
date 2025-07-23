@@ -7,6 +7,7 @@ import {
   VbenPopover,
   VbenScrollbar,
 } from '@vben/common-ui';
+import { useAccessStore } from '@vben/stores';
 
 import { useToggle } from '@vueuse/core';
 import { Tag } from 'ant-design-vue';
@@ -17,12 +18,17 @@ import { useSystemStatisticStore } from '#/store';
 
 const [open, toggle] = useToggle();
 const systemStatisticStore = useSystemStatisticStore();
+const accessStore = useAccessStore();
 
 onMounted(() => {
   systemStatisticStore.loadData();
 
   // Call loadData every seconds to update the statistic
   setInterval(() => {
+    if (!accessStore.accessToken) {
+      return;
+    }
+
     systemStatisticStore.loadData();
   }, 30_000);
 });

@@ -18,6 +18,13 @@ export async function updateCogsByLastDate(data: any) {
   );
 }
 
+export async function shopUpdateCogsSource(data: any) {
+  return requestClient.put(
+    '/api/shop/settings/cogs-handling-fees/update-cogs-source',
+    data,
+  );
+}
+
 export async function updateCogsByRegion(data: any) {
   return requestClient.put(
     '/api/shop/settings/cogs-handling-fees/update-cogs-by-date-rage',

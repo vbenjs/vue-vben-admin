@@ -42,7 +42,7 @@ const [Modal, modalApi] = useVbenModal({
         message.success('Cost of Goods Sold updated successfully');
       })
       .finally(() => {
-        modalApi.setData({ reload: true });
+        modalApi.setData({ reload: true, row: state.formValue });
         modalApi.close();
       });
   },
@@ -104,7 +104,7 @@ const addNewRow = () => {
     </div>
 
     <div class="text-center">
-      <TypographyTitle :level="3">
+      <TypographyTitle :level="4">
         {{ state.formValue?.productTitle }}
       </TypographyTitle>
 

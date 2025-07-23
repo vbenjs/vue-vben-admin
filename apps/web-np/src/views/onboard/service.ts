@@ -34,6 +34,7 @@ export const sampleOrder = reactive({
 
 export const onboardForm = reactive({
   cogsRate: 0,
+  cogsFromShopify: true,
   handlingFees: 1,
   shippingFeeLevel: ShippingCostLevel.QUANTITY,
   shippingFeePrice: 0,

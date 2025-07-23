@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { isShopifyEmbedded } from '#/shared/utils';
+import { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
 const routes: RouteRecordRaw[] = [
   {

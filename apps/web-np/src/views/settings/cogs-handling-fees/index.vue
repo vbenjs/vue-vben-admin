@@ -22,12 +22,16 @@ import {
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportCogsHandlingFees,
+  shopUpdateCogsSource,
   updateCalcCOGSBy as updateCalcCOGSLevel,
   updateCogsByLastDate,
   updateHandlingFees,
 } from '#/api';
-import { AntHistory } from '#/icons';
-import { CostCalcLevel, defaultRegionUUID } from '#/shared/constants';
+import {
+  CostCalcLevel,
+  defaultRegionUUID,
+  ECogsSource,
+} from '#/shared/constants';
 import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
 
@@ -35,7 +39,9 @@ import CogsFormModal from './form-modal-cogs.vue';
 import ImportFormModal from './form-modal-import.vue';
 import ProductFormModal from './form-modal-product.vue';
 import FormModalRecalculate from './form-modal-recalculate.vue';
-import { formOptions, getStatusClass, gridOptions } from './table-config';
+import Cogs from './modules/cogs.vue';
+import { gridOptions, isShopifyCogsSource } from './table-config';
+import { formOptions, getStatusClass } from './table-filter';
 
 const shopStore = useShopStore();
 const shopSettingStore = useShopSettingStore();
@@ -115,17 +121,13 @@ const openProductFormModal = (deleteMode: boolean = false) => {
 const [CogsFormContentModal, cogsFormModalApi] = useVbenModal({
   connectedComponent: CogsFormModal,
   onClosed: () => {
-    const { reload } = cogsFormModalApi.getData();
+    const { reload, row } = cogsFormModalApi.getData();
 
     if (reload === true) {
-      gridApi.query();
+      reloadGrid(row);
     }
   },
 });
-
-const openCogsFormModal = (row: IProduct) => {
-  cogsFormModalApi.setData(row).open();
-};
 
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
@@ -136,7 +138,7 @@ const formatStatus = (status: string) => {
   return capitalizeFirstLetter(status.toLowerCase());
 };
 
-const handleSwitchChange = (row: IProduct) => {
+const handleCalcByChange = (row: IProduct) => {
   const newType =
     row.calcBy === CostCalcLevel.PRODUCT
       ? CostCalcLevel.VARIANT
@@ -149,16 +151,8 @@ const handleSwitchChange = (row: IProduct) => {
     regionId: row.regionId,
     type: newType,
   }).finally(() => {
-    gridApi.query();
+    reloadGrid(row);
   });
-};
-
-const isShow = (row: IProduct) => {
-  if (!row.parentId && row.calcBy === CostCalcLevel.VARIANT) {
-    return false;
-  }
-
-  return true;
 };
 
 const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
@@ -179,7 +173,7 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
 
   updateCogsByLastDate(payload)
     .then(() => {
-      gridApi.query();
+      reloadGrid(row);
 
       message.success({
         content: 'The cost has been updated.',
@@ -189,6 +183,34 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
       row.loading = false;
     });
 }, 2000);
+
+const handleCOGSSourceChanged = (row: IProduct, checked: any) => {
+  row.loading = true;
+
+  const payload = {
+    productId: row.id,
+    variantId: null as any,
+    regionId: row.regionId,
+    cogsSource: checked ? ECogsSource.SHOPIFY : ECogsSource.MANUAL,
+  };
+
+  if (row.parentId) {
+    payload.variantId = row.id;
+    payload.productId = row.parentId;
+  }
+
+  shopUpdateCogsSource(payload)
+    .then(() => {
+      reloadGrid(row);
+
+      message.success({
+        content: 'The request has been sent successfully.',
+      });
+    })
+    .finally(() => {
+      row.loading = false;
+    });
+};
 
 const handleHandlingFeesChanged = useDebounceFn(
   async (row: IProduct, val: any) => {
@@ -208,7 +230,7 @@ const handleHandlingFeesChanged = useDebounceFn(
 
     updateHandlingFees(payload)
       .then(() => {
-        gridApi.query();
+        reloadGrid(row);
 
         message.success({
           content: 'The cost has been updated.',
@@ -220,6 +242,28 @@ const handleHandlingFeesChanged = useDebounceFn(
   },
   2000,
 );
+
+const reloadGrid = (row: IProduct) => {
+  gridApi.query().then(() => {
+    message.success({
+      content: 'Please recalculate the cost after updating.',
+    });
+
+    if (row.isProductRow) {
+      return;
+    }
+
+    const _productRow = gridApi.grid
+      .getData()
+      .find((c: any) => c.id === row.productId);
+
+    if (!_productRow) {
+      return;
+    }
+
+    gridApi.grid.toggleTreeExpand(_productRow);
+  });
+};
 
 const handleExport = () => {
   const zoneName = shopSettingStore.getZoneName(
@@ -242,7 +286,7 @@ const handleExport = () => {
   });
 };
 
-const showAlterProductsBtn = () => {
+const showAddAndRemoveBtns = () => {
   return (
     gridApi.formApi.form &&
     gridApi.formApi.form.values.zoneUUID !== defaultRegionUUID
@@ -258,7 +302,7 @@ const showAlterProductsBtn = () => {
     <ImportFormContentModal />
     <Grid>
       <template #toolbar-tools>
-        <template v-if="showAlterProductsBtn()">
+        <template v-if="showAddAndRemoveBtns()">
           <VbenButton
             class="mr-2 w-[100px]"
             size="sm"
@@ -329,12 +373,15 @@ const showAlterProductsBtn = () => {
       </template>
 
       <template #level="{ row }: { row: IProduct }">
-        <div class="min-w-24" v-if="!row.parentId">
+        <div class="min-w-24" v-if="row.isProductRow">
           <Switch
-            @change="handleSwitchChange(row)"
+            :class="{
+              '!bg-warning-500': !row.calcByProduct,
+            }"
+            @change="handleCalcByChange(row)"
             :disabled="row.variants.length <= 1"
             :loading="row.loading"
-            :checked="row.calcBy === CostCalcLevel.PRODUCT"
+            :checked="row.calcByProduct"
             checked-children="Product"
             un-checked-children="Variant"
           />
@@ -344,7 +391,7 @@ const showAlterProductsBtn = () => {
         <!-- Avatar and Title - Only show for parent level -->
         <div
           class="my-1 flex items-center justify-start space-x-2"
-          v-if="!row.parentId"
+          v-if="row.isProductRow"
         >
           <div class="h-[35px] w-[35px] flex-none">
             <AImage
@@ -370,59 +417,80 @@ const showAlterProductsBtn = () => {
         <div v-else class="pl-5">{{ row.name }}</div>
       </template>
       <template #status="{ row }: { row: IProduct }">
-        <Tag :color="getStatusClass(row.status)" v-if="!row.parentId">
+        <Tag :color="getStatusClass(row.status)" v-if="row.isProductRow">
           {{ formatStatus(row.status) }}
         </Tag>
       </template>
       <template #price="{ row }: { row: IProduct }">
-        <template v-if="isShow(row)">
+        <template v-if="row.cogsSourceShow || row.priceMin === row.priceMax">
           {{ formatMoney(row.price, shopStore.shop.currency) }}
         </template>
-        <template v-else> _ </template>
-      </template>
-      <template #margin="{ row }: { row: IProduct }">
-        <template v-if="isShow(row)">
-          {{ row.margin }}
+        <template v-else>
+          {{ formatMoney(row.priceMin, shopStore.shop.currency) }}
+          ~
+          {{ formatMoney(row.priceMax, shopStore.shop.currency) }}
         </template>
-        <template v-else> _ </template>
       </template>
       <template #cogs="{ row }: { row: IProduct }">
-        <template v-if="isShow(row)">
-          <div class="flex justify-end space-x-2">
-            <InputNumber
-              class="w-full"
-              :min="0"
-              :addon-after="shopStore.shop.currency"
-              :disabled="row.loading"
-              v-model:value="row.cogs"
-              @change="handleCOGSChanged(row, $event)"
-              size="small"
-            />
-
-            <VbenButton
-              @click="openCogsFormModal(row)"
-              :disabled="row.loading"
-              variant="outline"
-              size="icon"
-              class="size-6"
-            >
-              <AntHistory class="size-4" />
-            </VbenButton>
-          </div>
-        </template>
-        <template v-else> _ </template>
+        <Cogs
+          @open-history-modal="cogsFormModalApi.setData(row).open()"
+          @change="handleCOGSChanged(row, $event)"
+          :product="row"
+        />
+      </template>
+      <template #cogsSource="{ row }: { row: IProduct }">
+        <div v-if="!row.cogsSourceShow">
+          <VbenButton
+            class="!p-0 text-xs"
+            @click="gridApi.grid.toggleTreeExpand(row)"
+            :disabled="row.loading"
+            variant="link"
+          >
+            View Detail
+          </VbenButton>
+        </div>
+        <Switch
+          v-else
+          :class="{
+            '!bg-success-500': isShopifyCogsSource(row),
+          }"
+          @change="($event: any) => handleCOGSSourceChanged(row, $event)"
+          :disabled="row.loading"
+          :loading="row.loading"
+          :checked="isShopifyCogsSource(row)"
+          checked-children="Shopify"
+          un-checked-children="Manual"
+        />
       </template>
       <template #handlingFees="{ row }: { row: IProduct }">
-        <template v-if="isShow(row)">
-          <InputNumber
-            :min="0"
-            :addon-after="shopStore.shop.currency"
-            :disabled="row.loading"
-            v-model:value="row.handlingFees"
-            @change="handleHandlingFeesChanged(row, $event)"
-            class="w-full min-w-20"
-            size="small"
-          />
+        <InputNumber
+          v-if="row.cogsSourceShow"
+          :min="0"
+          :addon-after="shopStore.shop.currency"
+          :disabled="row.loading"
+          v-model:value="row.handlingFees"
+          @change="handleHandlingFeesChanged(row, $event)"
+          class="w-full min-w-20"
+          size="small"
+        />
+
+        <template
+          v-else-if="
+            row.cogsSourceShow || row.handlingFeesMin === row.handlingFeesMax
+          "
+        >
+          {{ formatMoney(row.handlingFeesMin, shopStore.shop.currency) }}
+        </template>
+        <template v-else>
+          {{ formatMoney(row.handlingFeesMin, shopStore.shop.currency) }}
+          ~
+          {{ formatMoney(row.handlingFeesMax, shopStore.shop.currency) }}
+        </template>
+      </template>
+
+      <template #margin="{ row }: { row: IProduct }">
+        <template v-if="row.cogsSourceShow">
+          {{ row.margin }}
         </template>
         <template v-else> _ </template>
       </template>

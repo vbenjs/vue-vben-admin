@@ -10,6 +10,8 @@ import {
 } from '#/api';
 import { defaultRegionUUID } from '#/shared/constants';
 
+import { ECogsSource } from './../shared/constants';
+
 export interface ITransactionFee {
   externalFeePercentage: number;
   fixedFee: number;
@@ -29,6 +31,7 @@ export interface IRegion {
 
 interface IShopSettings {
   cogsRate: number;
+  cogsSourceDefault: ECogsSource;
   handlingFees: any;
   regions: IRegion[];
   transactionFees: ITransactionFee[];
@@ -43,6 +46,7 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
       this.regions = settings.regions;
       this.transactionFees = settings.transactionFees;
       this.mailWeeklyReport = settings.mailWeeklyReport;
+      this.cogsSourceDefault = settings.cogsSourceDefault;
     },
     async setTransactionsFees(transactionFees: ITransactionFee[]) {
       const payload = cloneDeep(transactionFees).map((fee) => {
@@ -91,6 +95,7 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
 
   state: (): IShopSettings => ({
     cogsRate: 0,
+    cogsSourceDefault: ECogsSource.SHOPIFY,
     handlingFees: {},
     regions: [],
     transactionFees: [],

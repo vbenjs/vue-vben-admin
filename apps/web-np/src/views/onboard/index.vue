@@ -45,6 +45,7 @@ const onboardFinish = () => {
   state.loading = true;
   const payload = {
     cogsRate: toRate(onboardForm.cogsRate),
+    cogsSource: onboardForm.cogsFromShopify ? 'shopify' : 'manual',
     handlingFees: onboardForm.handlingFees,
     shippingCostLevel: onboardForm.shippingFeeLevel,
     shippingCostPrice: onboardForm.shippingFeePrice,

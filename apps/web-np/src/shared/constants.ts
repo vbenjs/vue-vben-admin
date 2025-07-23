@@ -321,3 +321,13 @@ export const adType = [
   { value: 'google', label: 'Google', icon: 'ant-design:google-outlined' },
   { value: 'tiktok', label: 'Tiktok', icon: 'ant-design:tik-tok-outlined' },
 ];
+
+export enum ECogsSource {
+  MANUAL = 'manual',
+  SHOPIFY = 'shopify',
+}
+
+export const cogsSoures = [
+  { value: ECogsSource.MANUAL, label: 'Manual' },
+  { value: ECogsSource.SHOPIFY, label: 'Shopify' },
+];

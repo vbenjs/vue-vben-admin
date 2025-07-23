@@ -7,6 +7,7 @@ import { useUserStore } from '@vben/stores';
 import { Card, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
+import { cogsSoures } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
 import { useCurrencyStore, useShopSettingStore, useShopStore } from '#/store';
 
@@ -89,6 +90,22 @@ const [ShopSettingForm, formApi] = useVbenForm({
       label: 'Email',
     },
     {
+      component: 'Divider',
+      fieldName: '_dividerss',
+      renderComponentContent: () => {
+        return {
+          default: () => h('div', 'Cost of Goods Sold (COGS) & Handling Fees'),
+        };
+      },
+      hideLabel: true,
+      formItemClass: 'col-span-1 md:col-span-2 lg:col-span-3 !my-0 !py-0',
+      componentProps: {
+        dashed: true,
+        orientation: 'left',
+        plain: true,
+      },
+    },
+    {
       component: 'InputNumber',
       componentProps: {
         controls: false,
@@ -96,10 +113,31 @@ const [ShopSettingForm, formApi] = useVbenForm({
         min: 0,
         addonAfter: '%',
       },
-      help: 'Example: The product A has been removed and the price is $100. If the COGS Rate is 75%, the cost of goods sold will be $75.',
+      help: 'Example: Product A has been removed and was priced at $100. With a COGS rate of 75%, the cost of goods sold for that item in the original order would be $75.',
       defaultValue: toPercentage(shopSettingStore.cogsRate),
       fieldName: 'cogsRate',
-      label: 'COGS Rate',
+      label: 'Default Rate',
+    },
+    {
+      component: 'Select',
+      help: 'When syncing products from Shopify, the COGS source will either be pulled from the Shopify or set manually.',
+      fieldName: 'cogsSource',
+      label: 'Source',
+      defaultValue: shopSettingStore.cogsSourceDefault,
+      componentProps: {
+        options: cogsSoures,
+      },
+    },
+    {
+      component: 'InputNumber',
+      componentProps: {
+        // controls: false,
+        addonAfter: shopStore.shop.currency,
+      },
+      help: 'This is the default handling fee for new products. You can change it later in the COGS & Handling Fees settings.',
+      defaultValue: shopSettingStore.handlingFees,
+      fieldName: 'handlingFees',
+      label: 'Handling Fees',
     },
     {
       component: 'Divider',
@@ -110,7 +148,7 @@ const [ShopSettingForm, formApi] = useVbenForm({
         };
       },
       hideLabel: true,
-      formItemClass: 'col-span-3 !my-0 !py-0',
+      formItemClass: 'col-span-1 md:col-span-2 lg:col-span-3 !my-0 !py-0',
       componentProps: {
         dashed: true,
         orientation: 'left',
@@ -120,6 +158,7 @@ const [ShopSettingForm, formApi] = useVbenForm({
     {
       component: h('span', shopStore.shop.currency),
       fieldName: 'shopCurrency',
+      help: 'The currency sync from Shopify',
       formItemClass: 'col-start-1',
       label: 'From Shopify',
     },
@@ -135,6 +174,7 @@ const [ShopSettingForm, formApi] = useVbenForm({
       },
       defaultValue: shopStore.shop.currencyFromApp,
       fieldName: 'appCurrency',
+      help: 'The currency display in the app',
       label: 'App display',
     },
     {

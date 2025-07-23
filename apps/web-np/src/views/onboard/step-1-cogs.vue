@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
 
-import { Card, InputNumber, Slider } from 'ant-design-vue';
+import { $t } from '@vben/locales';
+
+import { Card, Image, InputNumber, Slider, Switch } from 'ant-design-vue';
 
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
@@ -44,71 +46,96 @@ onBeforeMount(() => {
       </a>
     </template>
     <p>
-      Cost of goods sold (COGS) is the direct cost of producing products that
-      your business sells. Also referred to as "cost of sales", COGS includes
-      the cost of materials and labor directly related to the production of
-      retail products.
+      {{ $t('field-name.cogsExplain') }}
     </p>
 
-    <div class="mt-5 flex">
-      <div class="font-semibold">Set default COGS rate for 1 item:</div>
-      <div class="ml-5 font-bold">{{ onboardForm.cogsRate }}%</div>
+    <div class="mt-5 w-full text-center">
+      <Switch
+        checked-children="Sync from Shopify"
+        un-checked-children="Manual"
+        :class="{
+          '!bg-green-500': !onboardForm.cogsFromShopify,
+        }"
+        :checked="onboardForm.cogsFromShopify"
+        @change="
+          (checked: any) => {
+            onboardForm.cogsFromShopify = checked;
+          }
+        "
+      />
     </div>
 
-    <Slider
-      @change="handleCogsRateChange"
-      v-model:value="onboardForm.cogsRate"
-      :marks="{
-        0: '0%',
-        75: '75%',
-        100: '100%',
-      }"
-    />
+    <div class="mt-5" v-show="onboardForm.cogsFromShopify">
+      The system will automatically sync the
+      <span class="font-semibold italic">"Cost per item"</span> valuell from
+      Shopify and use it as the COGS value. For example:
 
-    <table class="min-w-full divide-y">
-      <thead>
-        <tr>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
-            Example product
-          </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
-            Sale price
-          </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
-            Quantity
-          </th>
-          <th class="px-6 py-3 text-end text-xs font-medium uppercase">COGS</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y">
-        <tr v-for="(item, index) in sampleOrder.lineItems" :key="index">
-          <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
-            {{ item.name }}
-          </td>
-          <td class="px-6 py-4 text-start text-sm">
-            <InputNumber
-              :min="0"
-              :prefix="shopStore.shop.currencySymbol"
-              v-model:value="item.price"
-              @change="handleCogsRateChange"
-              class="w-full max-w-48"
-              size="small"
-            />
-          </td>
-          <td class="px-6 py-4 text-start text-sm">
-            <InputNumber
-              :min="0"
-              class="w-full max-w-48"
-              size="small"
-              v-model:value="item.quantity"
-              @change="handleCogsRateChange"
-            />
-          </td>
-          <td class="px-6 py-4 text-end text-sm font-bold">
-            {{ formatMoney(item.cogs, shopStore.shop.currency) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <Image class="mt-2" src="/static/images/cogs-from-shopify.png" />
+    </div>
+
+    <div class="mt-5" v-show="!onboardForm.cogsFromShopify">
+      <div class="flex">
+        <div class="font-semibold">Set default COGS rate for 1 item:</div>
+        <div class="ml-5 font-bold">{{ onboardForm.cogsRate }}%</div>
+      </div>
+
+      <Slider
+        @change="handleCogsRateChange"
+        v-model:value="onboardForm.cogsRate"
+        :marks="{
+          0: '0%',
+          75: '75%',
+          100: '100%',
+        }"
+      />
+
+      <table class="min-w-full divide-y">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+              Example product
+            </th>
+            <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+              Sale price
+            </th>
+            <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+              Quantity
+            </th>
+            <th class="px-6 py-3 text-end text-xs font-medium uppercase">
+              COGS
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr v-for="(item, index) in sampleOrder.lineItems" :key="index">
+            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
+              {{ item.name }}
+            </td>
+            <td class="px-6 py-4 text-start text-sm">
+              <InputNumber
+                :min="0"
+                :prefix="shopStore.shop.currencySymbol"
+                v-model:value="item.price"
+                @change="handleCogsRateChange"
+                class="w-full max-w-48"
+                size="small"
+              />
+            </td>
+            <td class="px-6 py-4 text-start text-sm">
+              <InputNumber
+                :min="0"
+                class="w-full max-w-48"
+                size="small"
+                v-model:value="item.quantity"
+                @change="handleCogsRateChange"
+              />
+            </td>
+            <td class="px-6 py-4 text-end text-sm font-bold">
+              {{ formatMoney(item.cogs, shopStore.shop.currency) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </Card>
 </template>

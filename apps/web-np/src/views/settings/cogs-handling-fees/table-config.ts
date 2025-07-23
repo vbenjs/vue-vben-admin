@@ -1,83 +1,8 @@
-import type { VbenFormProps } from '@vben/common-ui';
-
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
-import { markRaw } from 'vue';
-
 import { getHandlingFeesAndCOGS } from '#/api';
-import {
-  CostCalcLevel as CostCalcBy,
-  defaultRegionUUID,
-} from '#/shared/constants';
+import { CostCalcLevel as CostCalcBy, ECogsSource } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
-
-import Select from './modules/select.vue';
-
-const statusList = [
-  {
-    value: 'ACTIVE',
-    label: 'Active',
-    className: 'success',
-  },
-  {
-    value: 'DRAFT',
-    label: 'Draft',
-    className: 'warning',
-  },
-  {
-    value: 'ARCHIVED',
-    label: 'Archived',
-    className: 'error',
-  },
-];
-
-export const getStatusClass = (status: string) => {
-  const item = statusList.find((item) => item.value === status);
-  return item ? item.className : 'default';
-};
-
-export const formOptions: VbenFormProps = {
-  schema: [
-    {
-      component: markRaw(Select),
-      defaultValue: defaultRegionUUID,
-      fieldName: 'zoneUUID',
-      label: 'Zone',
-    },
-    {
-      component: 'Input',
-      fieldName: 'name',
-      label: 'Name',
-      componentProps: {
-        placeholder: 'Search by product name',
-      },
-    },
-    {
-      component: 'Select',
-      defaultValue: ['ACTIVE'],
-      componentProps: {
-        allowClear: true,
-        mode: 'multiple',
-        options: statusList,
-        placeholder: 'Select status',
-      },
-      fieldName: 'status',
-      label: 'Status',
-    },
-  ],
-  showCollapseButton: false,
-  collapsed: true,
-  submitOnChange: true,
-  submitOnEnter: true,
-  showDefaultActions: true,
-  resetButtonOptions: {
-    show: false,
-  },
-  submitButtonOptions: {
-    show: false,
-  },
-  wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4',
-};
 
 export const gridOptions: VxeTableGridOptions = {
   checkboxConfig: {
@@ -89,14 +14,8 @@ export const gridOptions: VxeTableGridOptions = {
   },
   columns: [
     {
-      field: 'calcBy',
-      title: 'Calc By Level',
-      slots: { default: 'level' },
-      width: 120,
-    },
-    {
       field: 'name',
-      title: 'Title',
+      title: 'Name',
       align: 'left',
       minWidth: 200,
       treeNode: true,
@@ -107,6 +26,26 @@ export const gridOptions: VxeTableGridOptions = {
       title: 'Status',
       width: 100,
       slots: { default: 'status' },
+    },
+    {
+      field: 'calcBy',
+      title: 'Fees Level',
+      titlePrefix: {
+        content:
+          'If the cost is calculated by product, the cost from the product will apply to all variants. If the cost is calculated by variant, each variant will have its own cost.',
+      },
+      slots: { default: 'level' },
+      width: 120,
+    },
+    {
+      field: 'cogsSource',
+      title: 'COGS Source',
+      titlePrefix: {
+        content:
+          'COGS Source indicates where the COGS data is coming from. It can be either manually entered or synced from Shopify...',
+      },
+      minWidth: 120,
+      slots: { default: 'cogsSource' },
     },
     {
       field: 'price',
@@ -123,7 +62,7 @@ export const gridOptions: VxeTableGridOptions = {
           'Cost of Goods Sold (COGS) is the direct costs attributable to the production of the goods sold in a company. This amount includes the cost of the materials used in creating the good along with the direct labor costs used to produce the good.',
       },
       align: 'right',
-      minWidth: 170,
+      minWidth: 200,
       slots: { default: 'cogs' },
     },
     {
@@ -140,6 +79,10 @@ export const gridOptions: VxeTableGridOptions = {
     {
       field: 'margin',
       title: 'Margin',
+      titlePrefix: {
+        content:
+          'Margin = (Selling Price - COGS - Handling Fees) / Selling Price',
+      },
       align: 'right',
       width: 90,
       slots: { default: 'margin' },
@@ -165,15 +108,16 @@ export const gridOptions: VxeTableGridOptions = {
     parentField: 'parentId',
     rowField: 'id',
     transform: true,
-    expandAll: true,
+    expandAll: false,
   },
 };
 
 interface IFees {
   id: string;
   type: CostCalcBy;
-  handlingFees: number;
+  cogsSource: string;
   cogs: { date: number; price: number }[];
+  handlingFees: number;
 }
 
 export interface IProduct {
@@ -184,23 +128,49 @@ export interface IProduct {
   parentId?: string;
   productId?: string;
   productTitle: string;
+  isProductRow: boolean;
   loading?: boolean;
   name: string;
   status: string;
   url: string;
   image: string;
   price: number;
-  cogs: number;
+  priceMin: number;
+  priceMax: number;
   handlingFees: number;
+  handlingFeesMin: number;
+  handlingFeesMax: number;
   margin: string;
   calcBy: CostCalcBy;
+  calcByProduct: boolean;
+  cogs: number;
+  cogsMin: number;
+  cogsMax: number;
+  cogsShopify: number;
+  cogsSource: string;
+  cogsSourceShow: boolean;
   fees: Record<string, IFees>;
   variants: any[];
 }
 
 export const calcMargin = (item: IProduct) => {
-  const totalCost = item.cogs + item.handlingFees;
-  return `${toPercentage((item.price - totalCost) / item.price)}%`;
+  if (item.price <= 0) {
+    return '-';
+  }
+
+  return `${toPercentage((item.price - item.cogs - item.handlingFees) / item.price)}%`;
+};
+
+export const isProductRow = (item: IProduct): boolean => {
+  return !item.parentId;
+};
+
+export const isProductHasOneVariant = (item: IProduct): boolean => {
+  return isProductRow(item) && item.variants?.length <= 1;
+};
+
+export const isShopifyCogsSource = (item: IProduct): boolean => {
+  return item.cogsSource === ECogsSource.SHOPIFY;
 };
 
 async function generateTableData(page: any, formValues: any): Promise<any> {
@@ -214,18 +184,72 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
 
     // Build the table data
     res.items = res.items.map((item: IProduct) => {
-      const regionFees = item.fees[formValues.zoneUUID] as IFees;
+      item.isProductRow = isProductRow(item);
+
+      if (isProductHasOneVariant(item)) {
+        item.calcBy = CostCalcBy.PRODUCT;
+      }
+      item.calcByProduct = item.calcBy === CostCalcBy.PRODUCT;
 
       // Calculate handlingFee
+      const regionFees = item.fees[formValues.zoneUUID] as IFees;
       item.handlingFees = regionFees.handlingFees;
+      item.cogsSource = regionFees.cogsSource;
+      item.cogsSourceShow = true;
+
+      if (item.isProductRow && !item.calcByProduct) {
+        item.cogsSourceShow = false;
+      }
 
       // Sort costs by date
       regionFees.cogs = regionFees.cogs.sort((a, b) => b.date - a.date);
-      item.cogs = regionFees.cogs[0]?.price ?? 0;
+      item.cogs = isShopifyCogsSource(item)
+        ? item.cogsShopify
+        : (regionFees.cogs[0]?.price ?? 0);
 
       item.margin = calcMargin(item);
 
       return item;
+    });
+
+    // Set Min and Max values
+    res.items = res.items.map((_product: IProduct) => {
+      if (!_product.isProductRow) {
+        return _product;
+      }
+
+      const _variants = res.items.filter(
+        (c: IProduct) => c.parentId === _product.id,
+      );
+
+      _variants.forEach((_variant: IProduct) => {
+        _product.priceMin = Math.min(
+          _variant.price,
+          _product.priceMin ?? _variant.price,
+        );
+        _product.priceMax = Math.max(
+          _variant.price,
+          _product.priceMax ?? _variant.price,
+        );
+        _product.cogsMin = Math.min(
+          _variant.cogs,
+          _product.cogsMin ?? _variant.cogs,
+        );
+        _product.cogsMax = Math.max(
+          _variant.cogs,
+          _product.cogsMax ?? _variant.cogs,
+        );
+        _product.handlingFeesMin = Math.min(
+          _variant.handlingFees,
+          _product.handlingFeesMin ?? _variant.handlingFees,
+        );
+        _product.handlingFeesMax = Math.max(
+          _variant.handlingFees,
+          _product.handlingFeesMax ?? _variant.handlingFees,
+        );
+      });
+
+      return _product;
     });
 
     return res;
