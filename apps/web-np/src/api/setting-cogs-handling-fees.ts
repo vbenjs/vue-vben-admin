@@ -4,13 +4,6 @@ export async function getHandlingFeesAndCOGS(params: any) {
   return requestClient.get('/api/shop/settings/cogs-handling-fees', { params });
 }
 
-export async function updateCalcCOGSBy(data: any) {
-  return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/calc-by',
-    data,
-  );
-}
-
 export async function updateCogsByLastDate(data: any) {
   return requestClient.put(
     '/api/shop/settings/cogs-handling-fees/update-cogs-by-last-date',

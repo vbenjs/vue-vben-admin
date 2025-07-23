@@ -26,7 +26,6 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportCogsHandlingFees,
   productBulkUpdateFees,
-  updateCalcCOGSBy as updateCalcCOGSLevel,
   updateCogsByLastDate,
 } from '#/api';
 import {
@@ -38,6 +37,7 @@ import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
 
 import FormModalBulkCogsSource from './form-modal-bulk-cogs-source.vue';
+import FormModalBulkFeeLevel from './form-modal-bulk-fee-level.vue';
 import FormModalBulkHandlingFee from './form-modal-bulk-handling-fee.vue';
 import CogsFormModal from './form-modal-cogs.vue';
 import ImportFormModal from './form-modal-import.vue';
@@ -83,6 +83,17 @@ const [BulkCogsSourceModal, bulkCogsSourceModalApi] = useVbenModal({
   connectedComponent: FormModalBulkCogsSource,
   onClosed: () => {
     const { reload } = bulkCogsSourceModalApi.getData();
+
+    if (reload === true) {
+      gridApi.query();
+    }
+  },
+});
+
+const [BulkFeeLevelModal, bulkFeeLevelModalApi] = useVbenModal({
+  connectedComponent: FormModalBulkFeeLevel,
+  onClosed: () => {
+    const { reload } = bulkFeeLevelModalApi.getData();
 
     if (reload === true) {
       gridApi.query();
@@ -172,21 +183,30 @@ const openProductFormModal = (deleteMode: boolean = false) => {
     .open();
 };
 
-const handleCalcByChange = (row: IProduct) => {
-  const newType =
+const handleFeeLevelChanged = (row: IProduct) => {
+  const feeLevel =
     row.calcBy === CostCalcLevel.PRODUCT
       ? CostCalcLevel.VARIANT
       : CostCalcLevel.PRODUCT;
 
   row.loading = true;
 
-  updateCalcCOGSLevel({
-    productId: row.id,
+  productBulkUpdateFees({
+    feeLevel,
     regionId: row.regionId,
-    type: newType,
-  }).finally(() => {
-    reloadGrid(row);
-  });
+    selectedItems: [row],
+    type: 'FEE_LEVEL',
+  })
+    .then(() => {
+      reloadGrid(row);
+
+      message.success({
+        content: 'The request has been processed successfully.',
+      });
+    })
+    .finally(() => {
+      row.loading = false;
+    });
 };
 
 const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
@@ -344,6 +364,7 @@ const getBulkActionTitle = () => {
     <ImportFormContentModal />
     <BulkCogsSourceModal />
     <BulkHandlingFeeModal />
+    <BulkFeeLevelModal />
     <Grid>
       <template #toolbar-tools>
         <template v-if="showAddAndRemoveBtns()">
@@ -405,6 +426,18 @@ const getBulkActionTitle = () => {
               >
                 Update Handling Fees
               </MenuItem>
+              <MenuItem
+                @click="
+                  bulkFeeLevelModalApi
+                    .setData({
+                      checkedItems: gridState.checkedItems,
+                      regionId: gridApi.formApi.form.values.zoneUUID,
+                    })
+                    .open()
+                "
+              >
+                Update Fee Level
+              </MenuItem>
             </Menu>
           </template>
         </Dropdown>
@@ -459,7 +492,7 @@ const getBulkActionTitle = () => {
             :class="{
               '!bg-warning-500': !row.calcByProduct,
             }"
-            @change="handleCalcByChange(row)"
+            @change="handleFeeLevelChanged(row)"
             :disabled="row.variants.length <= 1"
             :loading="row.loading"
             :checked="row.calcByProduct"

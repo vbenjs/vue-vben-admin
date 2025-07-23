@@ -41,7 +41,7 @@ export const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'calcBy',
-      title: 'Fees Level',
+      title: 'Fee Level',
       titlePrefix: {
         content:
           'If the cost is calculated by product, the cost from the product will apply to all variants. If the cost is calculated by variant, each variant will have its own cost.',
