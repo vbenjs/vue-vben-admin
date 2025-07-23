@@ -16,6 +16,10 @@ export async function updateTransactionFees(data: any) {
   });
 }
 
+export async function shopUpdateMailReport(data: any) {
+  return requestClient.put('/api/shop/settings/mail-report', data);
+}
+
 export async function shopUpdateSubscriptionInfo() {
   return requestClient.post('/api/shop/subscription/sync');
 }
@@ -30,8 +34,4 @@ export async function removeRegion(uuid: any) {
 
 export async function shopMailReport(payload: any) {
   return requestClient.post(`/api/shop/mail/report`, payload);
-}
-
-export async function shopUpdateMailReport(data: any) {
-  return requestClient.put('/api/shop/settings/mail-report', data);
 }

@@ -21,7 +21,7 @@ export enum SubscriptionPlans {
 }
 
 export enum RecalculateCostsType {
-  COSG_HANDLING_FEES = 'handling_fees_cogs',
+  COGS_HANDLING_FEES = 'handling_fees_cogs',
   SHIPPING_COSTS = 'shipping_costs',
   TRANSACTION_FEES = 'transaction_fees',
 }

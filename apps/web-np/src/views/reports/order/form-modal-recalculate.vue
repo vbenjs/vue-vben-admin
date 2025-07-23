@@ -78,7 +78,7 @@ const [Form, formApi] = useVbenForm({
         options: [
           {
             label: 'COGS - Handling fees',
-            value: RecalculateCostsType.COSG_HANDLING_FEES,
+            value: RecalculateCostsType.COGS_HANDLING_FEES,
           },
           {
             label: 'Shipping cost',

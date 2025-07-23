@@ -20,7 +20,7 @@ function onSubmit(values: Record<string, any>) {
 
   orderRecalculateCosts({
     ...values,
-    costTypes: [RecalculateCostsType.COSG_HANDLING_FEES],
+    costTypes: [RecalculateCostsType.COGS_HANDLING_FEES],
   })
     .then(() => {
       message.success(

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { INotification } from '#/store';
 
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 
 import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -24,6 +24,18 @@ const systemStatisticStore = useSystemStatisticStore();
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions: orderTableOptions,
   formOptions,
+  gridEvents: {
+    checkboxChange: ({ records }: { records: any }) => {
+      state.checkedItems = records;
+    },
+    checkboxAll: ({ records }: { records: any }) => {
+      state.checkedItems = records;
+    },
+  },
+});
+
+const state = reactive({
+  checkedItems: [] as any[],
 });
 
 const [FormContentModal, formContentModalApi] = useVbenModal({
@@ -63,8 +75,7 @@ const handleDetailOpen = (order: any) => {
 };
 
 const handleDeleteOrders = () => {
-  const selectRecords: any[] =
-    gridApi.grid?.getCheckboxRecords().map((item) => item.id) || [];
+  const selectRecords: any[] = state.checkedItems.map((item) => item.id) || [];
 
   Modal.confirm({
     title: 'Delete Selected Orders',
@@ -79,14 +90,6 @@ const handleDeleteOrders = () => {
       });
     },
   });
-};
-
-const showDeleteOrderBtn = () => {
-  try {
-    return gridApi.grid?.getCheckboxRecords().length > 0;
-  } catch {
-    return false;
-  }
 };
 </script>
 
@@ -108,10 +111,10 @@ const showDeleteOrderBtn = () => {
           type="primary"
           variant="destructive"
           @click="handleDeleteOrders"
-          v-if="showDeleteOrderBtn()"
+          v-if="state.checkedItems.length > 0"
         >
           <IconifyIcon class="mr-2 size-4" icon="ant-design:delete-twotone" />
-          Delete {{ gridApi.grid?.getCheckboxRecords().length || 0 }} orders
+          Delete {{ state.checkedItems.length || 0 }} orders
         </VbenButton>
 
         <VbenButton

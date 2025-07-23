@@ -12,7 +12,10 @@ import { capitalizeFirstLetter } from '@vben/utils';
 import { useDebounceFn } from '@vueuse/core';
 import {
   Image as AImage,
+  Dropdown,
   InputNumber,
+  Menu,
+  MenuItem,
   message,
   Modal,
   Switch,
@@ -22,7 +25,7 @@ import {
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportCogsHandlingFees,
-  shopUpdateCogsSource,
+  shopBulkUpdateProductFees,
   updateCalcCOGSBy as updateCalcCOGSLevel,
   updateCogsByLastDate,
   updateHandlingFees,
@@ -35,12 +38,13 @@ import {
 import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
 
+import FormModalBulkCogsSource from './form-modal-bulk-cogs-source.vue';
 import CogsFormModal from './form-modal-cogs.vue';
 import ImportFormModal from './form-modal-import.vue';
 import ProductFormModal from './form-modal-product.vue';
 import FormModalRecalculate from './form-modal-recalculate.vue';
 import Cogs from './modules/cogs.vue';
-import { gridOptions, isShopifyCogsSource } from './table-config';
+import { gridOptions, gridState, isShopifyCogsSource } from './table-config';
 import { formOptions, getStatusClass } from './table-filter';
 
 const shopStore = useShopStore();
@@ -49,21 +53,6 @@ const shopSettingStore = useShopSettingStore();
 const state = reactive({
   exporting: false,
   importing: false,
-});
-
-const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
-  connectedComponent: FormModalRecalculate,
-});
-
-const [ImportFormContentModal, importFormModalApi] = useVbenModal({
-  connectedComponent: ImportFormModal,
-  onClosed: () => {
-    const { processing } = importFormModalApi.getData();
-
-    if (processing === true) {
-      state.importing = processing;
-    }
-  },
 });
 
 onMounted(() => {
@@ -90,13 +79,31 @@ onMounted(() => {
   );
 });
 
-const openImportFormModal = () => {
-  importFormModalApi
-    .setData({
-      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
-    })
-    .open();
-};
+const [BulkCogsSourceModal, bulkCogsSourceModalApi] = useVbenModal({
+  connectedComponent: FormModalBulkCogsSource,
+  onClosed: () => {
+    const { reload } = bulkCogsSourceModalApi.getData();
+
+    if (reload === true) {
+      gridApi.query();
+    }
+  },
+});
+
+const [RecalculateFormContentModal, recalculateFormModalApi] = useVbenModal({
+  connectedComponent: FormModalRecalculate,
+});
+
+const [ImportFormContentModal, importFormModalApi] = useVbenModal({
+  connectedComponent: ImportFormModal,
+  onClosed: () => {
+    const { processing } = importFormModalApi.getData();
+
+    if (processing === true) {
+      state.importing = processing;
+    }
+  },
+});
 
 const [ProductFormContentModal, productFormModalApi] = useVbenModal({
   connectedComponent: ProductFormModal,
@@ -108,15 +115,6 @@ const [ProductFormContentModal, productFormModalApi] = useVbenModal({
     }
   },
 });
-
-const openProductFormModal = (deleteMode: boolean = false) => {
-  productFormModalApi
-    .setData({
-      deleteMode,
-      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
-    })
-    .open();
-};
 
 const [CogsFormContentModal, cogsFormModalApi] = useVbenModal({
   connectedComponent: CogsFormModal,
@@ -132,10 +130,35 @@ const [CogsFormContentModal, cogsFormModalApi] = useVbenModal({
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
   formOptions,
+  gridEvents: {
+    checkboxChange: ({ records }: { records: any }) => {
+      gridState.checkedItems = records;
+    },
+    checkboxAll: ({ records }: { records: any }) => {
+      gridState.checkedItems = records;
+    },
+  },
 });
 
 const formatStatus = (status: string) => {
   return capitalizeFirstLetter(status.toLowerCase());
+};
+
+const openImportFormModal = () => {
+  importFormModalApi
+    .setData({
+      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
+    })
+    .open();
+};
+
+const openProductFormModal = (deleteMode: boolean = false) => {
+  productFormModalApi
+    .setData({
+      deleteMode,
+      zoneUUID: gridApi.formApi.form.values.zoneUUID as any,
+    })
+    .open();
 };
 
 const handleCalcByChange = (row: IProduct) => {
@@ -184,27 +207,20 @@ const handleCOGSChanged = useDebounceFn(async (row: IProduct, val: any) => {
     });
 }, 2000);
 
-const handleCOGSSourceChanged = (row: IProduct, checked: any) => {
+const handleCogsSourceChanged = (row: IProduct, checked: any) => {
   row.loading = true;
 
-  const payload = {
-    productId: row.id,
-    variantId: null as any,
-    regionId: row.regionId,
+  shopBulkUpdateProductFees({
     cogsSource: checked ? ECogsSource.SHOPIFY : ECogsSource.MANUAL,
-  };
-
-  if (row.parentId) {
-    payload.variantId = row.id;
-    payload.productId = row.parentId;
-  }
-
-  shopUpdateCogsSource(payload)
+    regionId: row.regionId,
+    selectedItems: [row],
+    type: 'COGS_SOURCE',
+  })
     .then(() => {
       reloadGrid(row);
 
       message.success({
-        content: 'The request has been sent successfully.',
+        content: 'The request has been processed successfully.',
       });
     })
     .finally(() => {
@@ -292,6 +308,28 @@ const showAddAndRemoveBtns = () => {
     gridApi.formApi.form.values.zoneUUID !== defaultRegionUUID
   );
 };
+
+const getBulkActionTitle = () => {
+  const products = gridState.checkedItems.filter((item: IProduct) => {
+    return !item.parentId;
+  }).length;
+
+  const variants = gridState.checkedItems.filter(
+    (item: IProduct) => !!item.parentId,
+  ).length;
+
+  const prefix = 'Bulk action for ';
+
+  if (products > 0 && variants > 0) {
+    return `${prefix}${products} products, ${variants} variants`;
+  }
+
+  if (products > 0) {
+    return `${prefix}${products} products`;
+  }
+
+  return `${prefix}${variants} variants`;
+};
 </script>
 
 <template>
@@ -300,6 +338,7 @@ const showAddAndRemoveBtns = () => {
     <ProductFormContentModal />
     <CogsFormContentModal />
     <ImportFormContentModal />
+    <BulkCogsSourceModal />
     <Grid>
       <template #toolbar-tools>
         <template v-if="showAddAndRemoveBtns()">
@@ -328,6 +367,32 @@ const showAddAndRemoveBtns = () => {
             Add
           </VbenButton>
         </template>
+
+        <Dropdown class="mr-2" v-if="gridState.checkedItems.length > 0">
+          <VbenButton size="sm" type="primary">
+            <IconifyIcon class="mr-2 size-4" icon="ant-design:more-outlined" />
+            {{ getBulkActionTitle() }}
+          </VbenButton>
+          <template #overlay>
+            <Menu>
+              <!-- <MenuItem> Update COGS </MenuItem> -->
+              <MenuItem
+                @click="
+                  bulkCogsSourceModalApi
+                    .setData({
+                      checkedItems: gridState.checkedItems,
+                      regionId: gridApi.formApi.form.values.zoneUUID,
+                    })
+                    .open()
+                "
+              >
+                Update COGS source
+              </MenuItem>
+              <!-- <MenuItem> Update Handling Fees </MenuItem> -->
+            </Menu>
+          </template>
+        </Dropdown>
+
         <VbenButton
           class="mr-2"
           size="sm"
@@ -454,7 +519,7 @@ const showAddAndRemoveBtns = () => {
           :class="{
             '!bg-success-500': isShopifyCogsSource(row),
           }"
-          @change="($event: any) => handleCOGSSourceChanged(row, $event)"
+          @change="($event: any) => handleCogsSourceChanged(row, $event)"
           :disabled="row.loading"
           :loading="row.loading"
           :checked="isShopifyCogsSource(row)"

@@ -1,8 +1,14 @@
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
+import { reactive } from 'vue';
+
 import { getHandlingFeesAndCOGS } from '#/api';
 import { CostCalcLevel as CostCalcBy, ECogsSource } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
+
+export const gridState = reactive({
+  checkedItems: [] as any[],
+});
 
 export const gridOptions: VxeTableGridOptions = {
   checkboxConfig: {
@@ -13,6 +19,12 @@ export const gridOptions: VxeTableGridOptions = {
     height: 48,
   },
   columns: [
+    {
+      type: 'checkbox',
+      field: 'id',
+      title: '',
+      width: 30,
+    },
     {
       field: 'name',
       title: 'Name',
@@ -94,6 +106,8 @@ export const gridOptions: VxeTableGridOptions = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
+        gridState.checkedItems = [];
+
         return await generateTableData(page, formValues);
       },
     },
