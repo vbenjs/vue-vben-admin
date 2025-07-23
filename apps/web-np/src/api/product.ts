@@ -14,3 +14,7 @@ export async function getProductSalesReport(params: any) {
       return res;
     });
 }
+
+export async function productBulkUpdateFees(data: any) {
+  return requestClient.put('/api/product/cost/bulk-update', data);
+}

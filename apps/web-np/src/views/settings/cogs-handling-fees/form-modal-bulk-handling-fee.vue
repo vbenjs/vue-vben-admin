@@ -9,15 +9,14 @@ import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { productBulkUpdateFees } from '#/api';
-import { cogsSoures } from '#/shared/constants';
-import { useShopSettingStore } from '#/store';
-
-const shopSettingStore = useShopSettingStore();
+import { useShopStore } from '#/store';
 
 const state = reactive({
   zoneUUID: '' as string,
   checkedItems: [] as IProduct[],
 });
+
+const shopStore = useShopStore();
 
 function onSubmit(values: Record<string, any>) {
   modalApi.lock();
@@ -39,7 +38,7 @@ function onSubmit(values: Record<string, any>) {
     ...values,
     regionId: state.zoneUUID,
     selectedItems: payload,
-    type: 'COGS_SOURCE',
+    type: 'HANDLING_FEES',
   })
     .then(() => {
       message.success('Bulk COGS source updated successfully.');
@@ -63,13 +62,12 @@ const [Form, formApi] = useVbenForm({
   },
   schema: [
     {
-      component: 'Select',
-      help: 'When syncing products from Shopify, the COGS source will either be pulled from the Shopify or set manually.',
-      fieldName: 'cogsSource',
-      label: 'COGS Source',
-      defaultValue: shopSettingStore.cogsSourceDefault,
+      component: 'InputNumber',
+      fieldName: 'handlingFee',
+      label: 'Handling Fee',
+      defaultValue: 1,
       componentProps: {
-        options: cogsSoures,
+        addonAfter: shopStore.shop.currency,
       },
     },
   ],
@@ -95,14 +93,14 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal
     class="w-[700px]"
-    title="Bulk Action - Update COGS Source"
+    title="Bulk Action - Update Handling Fees"
     confirm-text="Submit"
   >
     <Form />
 
     <TypographyParagraph class="mt-5 px-5 text-center italic">
       <span class="font-semibold">Note:</span> Please recalculate the costs
-      after updating the COGS source.
+      after updating the handling fees.
     </TypographyParagraph>
   </Modal>
 </template>

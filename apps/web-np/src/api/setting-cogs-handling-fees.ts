@@ -25,22 +25,11 @@ export async function updateCogsByRegion(data: any) {
   );
 }
 
-export async function updateHandlingFees(data: any) {
-  return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/update-handling-fees',
-    data,
-  );
-}
-
 export async function updateRegionProducts(data: any) {
   return requestClient.put(
     '/api/shop/settings/cogs-handling-fees/region-products',
     data,
   );
-}
-
-export async function shopBulkUpdateProductFees(data: any) {
-  return requestClient.put('/api/product/cost/bulk-update', data);
 }
 
 export async function exportCogsHandlingFees(data: any) {
