@@ -4,20 +4,6 @@ export async function getHandlingFeesAndCOGS(params: any) {
   return requestClient.get('/api/shop/settings/cogs-handling-fees', { params });
 }
 
-export async function updateCogsByLastDate(data: any) {
-  return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/update-cogs-by-last-date',
-    data,
-  );
-}
-
-export async function updateCogsByRegion(data: any) {
-  return requestClient.put(
-    '/api/shop/settings/cogs-handling-fees/update-cogs-by-date-rage',
-    data,
-  );
-}
-
 export async function updateRegionProducts(data: any) {
   return requestClient.put(
     '/api/shop/settings/cogs-handling-fees/region-products',

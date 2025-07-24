@@ -14,7 +14,7 @@ import {
   TypographyTitle,
 } from 'ant-design-vue';
 
-import { updateCogsByRegion } from '#/api';
+import { productUpdateCogsByDateRange } from '#/api';
 import dayjs from '#/shared/dayjs';
 import { formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
@@ -32,7 +32,8 @@ const [Modal, modalApi] = useVbenModal({
   },
   onConfirm: async () => {
     modalApi.lock();
-    updateCogsByRegion({
+
+    productUpdateCogsByDateRange({
       regionId: state.formValue?.regionId,
       productId: state.formValue?.productId,
       variantId: state.formValue?.variantId,

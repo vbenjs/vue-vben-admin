@@ -18,3 +18,7 @@ export async function getProductSalesReport(params: any) {
 export async function productBulkUpdateFees(data: any) {
   return requestClient.put('/api/product/cost/bulk-update', data);
 }
+
+export async function productUpdateCogsByDateRange(data: any) {
+  return requestClient.put('/api/product/cost/cogs-by-date-range', data);
+}
