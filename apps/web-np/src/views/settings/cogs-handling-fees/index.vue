@@ -395,7 +395,18 @@ const getBulkActionTitle = () => {
           </VbenButton>
           <template #overlay>
             <Menu>
-              <!-- <MenuItem> Update COGS </MenuItem> -->
+              <MenuItem
+                @click="
+                  bulkFeeLevelModalApi
+                    .setData({
+                      checkedItems: gridState.checkedItems,
+                      regionId: gridApi.formApi.form.values.zoneUUID,
+                    })
+                    .open()
+                "
+              >
+                Update Fee Level
+              </MenuItem>
               <MenuItem
                 @click="
                   bulkCogsSourceModalApi
@@ -408,6 +419,7 @@ const getBulkActionTitle = () => {
               >
                 Update COGS source
               </MenuItem>
+              <!-- <MenuItem> Update COGS </MenuItem> -->
               <MenuItem
                 @click="
                   bulkHandlingFeeModalApi
@@ -419,18 +431,6 @@ const getBulkActionTitle = () => {
                 "
               >
                 Update Handling Fees
-              </MenuItem>
-              <MenuItem
-                @click="
-                  bulkFeeLevelModalApi
-                    .setData({
-                      checkedItems: gridState.checkedItems,
-                      regionId: gridApi.formApi.form.values.zoneUUID,
-                    })
-                    .open()
-                "
-              >
-                Update Fee Level
               </MenuItem>
             </Menu>
           </template>
