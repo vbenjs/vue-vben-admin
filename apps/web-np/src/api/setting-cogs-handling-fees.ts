@@ -1,9 +1,5 @@
 import { requestClient } from '#/api/request';
 
-export async function getHandlingFeesAndCOGS(params: any) {
-  return requestClient.get('/api/shop/settings/cogs-handling-fees', { params });
-}
-
 export async function updateRegionProducts(data: any) {
   return requestClient.put(
     '/api/shop/settings/cogs-handling-fees/region-products',

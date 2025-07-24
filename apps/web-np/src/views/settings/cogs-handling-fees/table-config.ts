@@ -2,7 +2,7 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { reactive } from 'vue';
 
-import { getHandlingFeesAndCOGS } from '#/api';
+import { productGetList } from '#/api';
 import { ECogsSource, EFeeLevel } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
 
@@ -188,7 +188,7 @@ export const isShopifyCogsSource = (item: IProduct): boolean => {
 };
 
 async function generateTableData(page: any, formValues: any): Promise<any> {
-  return await getHandlingFeesAndCOGS({
+  return await productGetList({
     page: page.currentPage,
     pageSize: page.pageSize,
     ...formValues,

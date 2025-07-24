@@ -4,7 +4,7 @@ import { onMounted, reactive } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 import { Select as ASelect, Image, Spin } from 'ant-design-vue';
 
-import { getHandlingFeesAndCOGS } from '#/api';
+import { productGetList } from '#/api';
 
 const products = defineModel<string[]>({
   default: [],
@@ -19,7 +19,7 @@ const state = reactive({
 const handleSearch = useDebounceFn((value: string) => {
   state.fetching = true;
 
-  getHandlingFeesAndCOGS({
+  productGetList({
     pageSize: 50,
     name: value,
   })

@@ -1,6 +1,18 @@
 import { requestClient } from '#/api/request';
 import { calcGrossProfitMargin } from '#/shared/utils';
 
+export async function productGetList(params: any) {
+  return requestClient.get('/api/product', { params });
+}
+
+export async function productBulkUpdateFees(data: any) {
+  return requestClient.put('/api/product/cost/bulk-update', data);
+}
+
+export async function productUpdateCogsByDateRange(data: any) {
+  return requestClient.put('/api/product/cost/cogs-by-date-range', data);
+}
+
 export async function getProductSalesReport(params: any) {
   return requestClient
     .get('/api/product/sales-report', { params })
@@ -13,12 +25,4 @@ export async function getProductSalesReport(params: any) {
 
       return res;
     });
-}
-
-export async function productBulkUpdateFees(data: any) {
-  return requestClient.put('/api/product/cost/bulk-update', data);
-}
-
-export async function productUpdateCogsByDateRange(data: any) {
-  return requestClient.put('/api/product/cost/cogs-by-date-range', data);
 }
