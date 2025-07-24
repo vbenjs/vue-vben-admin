@@ -28,11 +28,7 @@ import {
   productBulkUpdateFees,
   updateCogsByLastDate,
 } from '#/api';
-import {
-  CostCalcLevel,
-  defaultRegionUUID,
-  ECogsSource,
-} from '#/shared/constants';
+import { defaultRegionUUID, ECogsSource, EFeeLevel } from '#/shared/constants';
 import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
 
@@ -185,9 +181,7 @@ const openProductFormModal = (deleteMode: boolean = false) => {
 
 const handleFeeLevelChanged = (row: IProduct) => {
   const feeLevel =
-    row.calcBy === CostCalcLevel.PRODUCT
-      ? CostCalcLevel.VARIANT
-      : CostCalcLevel.PRODUCT;
+    row.feeLevel === EFeeLevel.PRODUCT ? EFeeLevel.VARIANT : EFeeLevel.PRODUCT;
 
   row.loading = true;
 
@@ -490,12 +484,12 @@ const getBulkActionTitle = () => {
         <div class="min-w-24" v-if="row.isProductRow">
           <Switch
             :class="{
-              '!bg-warning-500': !row.calcByProduct,
+              '!bg-warning-500': !row.feeLevelProduct,
             }"
             @change="handleFeeLevelChanged(row)"
             :disabled="row.variants.length <= 1"
             :loading="row.loading"
-            :checked="row.calcByProduct"
+            :checked="row.feeLevelProduct"
             checked-children="Product"
             un-checked-children="Variant"
           />
@@ -520,7 +514,7 @@ const getBulkActionTitle = () => {
             <div
               class="text-muted-foreground text-xs"
               v-if="
-                row.calcBy === CostCalcLevel.PRODUCT && row.variants.length > 1
+                row.feeLevel === EFeeLevel.PRODUCT && row.variants.length > 1
               "
             >
               Applies to all {{ row.variants.length }} variants

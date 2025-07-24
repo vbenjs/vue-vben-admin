@@ -3,7 +3,7 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import { reactive } from 'vue';
 
 import { getHandlingFeesAndCOGS } from '#/api';
-import { CostCalcLevel as CostCalcBy, ECogsSource } from '#/shared/constants';
+import { ECogsSource, EFeeLevel } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
 
 export const gridState = reactive({
@@ -128,7 +128,7 @@ export const gridOptions: VxeTableGridOptions = {
 
 interface IFees {
   id: string;
-  type: CostCalcBy;
+  type: EFeeLevel;
   cogsSource: string;
   cogs: { date: number; price: number }[];
   handlingFees: number;
@@ -155,8 +155,8 @@ export interface IProduct {
   handlingFeesMin: number;
   handlingFeesMax: number;
   margin: string;
-  calcBy: CostCalcBy;
-  calcByProduct: boolean;
+  feeLevel: EFeeLevel;
+  feeLevelProduct: boolean;
   cogs: number;
   cogsMin: number;
   cogsMax: number;
@@ -201,9 +201,9 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
       item.isProductRow = isProductRow(item);
 
       if (isProductHasOneVariant(item)) {
-        item.calcBy = CostCalcBy.PRODUCT;
+        item.feeLevel = EFeeLevel.PRODUCT;
       }
-      item.calcByProduct = item.calcBy === CostCalcBy.PRODUCT;
+      item.feeLevelProduct = item.feeLevel === EFeeLevel.PRODUCT;
 
       // Calculate handlingFee
       const regionFees = item.fees[formValues.zoneUUID] as IFees;
@@ -211,7 +211,7 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
       item.cogsSource = regionFees.cogsSource;
       item.cogsSourceShow = true;
 
-      if (item.isProductRow && !item.calcByProduct) {
+      if (item.isProductRow && !item.feeLevelProduct) {
         item.cogsSourceShow = false;
       }
 
@@ -282,7 +282,7 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
 
       // Reset fields
       _product.regionId = formValues.zoneUUID;
-      _product.calcBy = regionFees.type;
+      _product.feeLevel = regionFees.type;
       _product.variants = Object.values(_product.variants);
       _product.productId = _product.id;
       _product.productTitle = _product.name;
@@ -294,7 +294,7 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
        */
       if (
         _product.variants.length <= 1 ||
-        _product.calcBy === CostCalcBy.PRODUCT
+        _product.feeLevel === EFeeLevel.PRODUCT
       ) {
         return true;
       }
@@ -305,7 +305,7 @@ async function generateTableData(page: any, formValues: any): Promise<any> {
         _variant.variantTitle = _variant.name;
         _variant.productId = _product.id;
         _variant.productTitle = _product.name;
-        _variant.calcBy = _product.calcBy;
+        _variant.feeLevel = _product.feeLevel;
         _variant.regionId = _product.regionId;
         _variant.image = _product.image;
 

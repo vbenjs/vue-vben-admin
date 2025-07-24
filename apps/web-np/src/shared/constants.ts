@@ -3,7 +3,7 @@ export enum ShippingCostLevel {
   WEIGHT = 'WEIGHT',
 }
 
-export enum CostCalcLevel {
+export enum EFeeLevel {
   PRODUCT = 'PRODUCT',
   VARIANT = 'VARIANT',
 }
