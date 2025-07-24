@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { SetupContext } from 'vue';
+import type { SetupContext  } from 'vue';
 
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, useSlots, watch } from 'vue';
+import { computed, useSlots, watch, onMounted } from 'vue';
 
 import { useRefresh } from '@vben/hooks';
+import { useRoute } from 'vue-router';
 import { $t, i18n } from '@vben/locales';
 import {
   preferences,
@@ -14,6 +15,7 @@ import {
 } from '@vben/preferences';
 import { useAccessStore } from '@vben/stores';
 import { cloneDeep, mapTree } from '@vben/utils';
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
@@ -152,6 +154,21 @@ function clearPreferencesAndLogout() {
 function clickLogo() {
   emit('clickLogo');
 }
+
+function autoCollapseMenuByRouteMeta(route: RouteLocationNormalizedLoaded) {
+  // 只在双列模式下生效
+  if (preferences.app.layout === 'sidebar-mixed-nav') {
+    if (route.meta && route.meta.hideInMenu) {
+      sidebarExtraVisible.value = false;
+    }
+  }
+}
+
+const route = useRoute();
+
+onMounted(() => {
+  autoCollapseMenuByRouteMeta(route);
+});
 
 watch(
   () => preferences.app.layout,
