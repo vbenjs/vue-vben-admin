@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import { useAppConfig } from '@vben/hooks';
 import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { VbenIconButton } from '@vben-core/shadcn-ui';
 
+import DingdingLogin from './dingding-login.vue';
+
 defineOptions({
   name: 'ThirdPartyLogin',
 });
+
+const {
+  auth: { dingding: dingdingAuthConfig },
+} = useAppConfig(import.meta.env, import.meta.env.PROD);
 </script>
 
 <template>
@@ -20,18 +27,40 @@ defineOptions({
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
-      <VbenIconButton class="mb-3">
+      <VbenIconButton
+        :tooltip="$t('authentication.wechatLogin')"
+        tooltip-side="top"
+        class="mb-3"
+      >
         <MdiWechat />
       </VbenIconButton>
-      <VbenIconButton class="mb-3">
+      <VbenIconButton
+        :tooltip="$t('authentication.qqLogin')"
+        tooltip-side="top"
+        class="mb-3"
+      >
         <MdiQqchat />
       </VbenIconButton>
-      <VbenIconButton class="mb-3">
+      <VbenIconButton
+        :tooltip="$t('authentication.githubLogin')"
+        tooltip-side="top"
+        class="mb-3"
+      >
         <MdiGithub />
       </VbenIconButton>
-      <VbenIconButton class="mb-3">
+      <VbenIconButton
+        :tooltip="$t('authentication.googleLogin')"
+        tooltip-side="top"
+        class="mb-3"
+      >
         <MdiGoogle />
       </VbenIconButton>
+      <DingdingLogin
+        v-if="dingdingAuthConfig"
+        :corp-id="dingdingAuthConfig.corpId"
+        :client-id="dingdingAuthConfig.clientId"
+        class="mb-3"
+      />
     </div>
   </div>
 </template>
