@@ -16,7 +16,7 @@ export async function updateTransactionFees(data: any) {
   });
 }
 
-export async function shopUpdateMailReport(data: any) {
+export async function shopToggleMailReport(data: any) {
   return requestClient.put('/api/shop/settings/mail-report', data);
 }
 

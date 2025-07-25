@@ -16,6 +16,7 @@ import { Image, message, Switch } from 'ant-design-vue';
 
 import { useShopSettingStore } from '#/store';
 
+import FormModalSendMonthlyReport from './form-modal-send-monthly-report.vue';
 import FormModalSendWeeklyReport from './form-modal-send-weekly-report.vue';
 
 const shopSettingStore = useShopSettingStore();
@@ -23,28 +24,37 @@ const mailTemplates = reactive([
   {
     type: 'weekly',
     title: 'Weekly Report',
-    desciption: 'Every monday',
+    description: 'Every monday',
     checked: shopSettingStore.mailWeeklyReport,
     loading: false,
     showSample: false,
     sampleImage: '/static/images-sample-mail/weekly-report.png',
   },
-  // {
-  //   type: 'monthly',
-  //   title: 'Monthly Report',
-  //   checked: false,
-  //   loading: false,
-  //   showSample: false,
-  //   sampleImage: '/static/images-sample-mail/weekly-report.png',
-  // },
+  {
+    type: 'monthly',
+    title: 'Monthly Report',
+    description: 'Every first day of the month',
+    checked: shopSettingStore.mailMonthlyReport,
+    loading: false,
+    showSample: false,
+    sampleImage: '/static/images-sample-mail/monthly-report.png',
+  },
 ]);
 
 const [SendWeeklyReportModal, sendWeeklyReportModalApi] = useVbenModal({
   connectedComponent: FormModalSendWeeklyReport,
 });
 
+const [SendMonthlyReportModal, sendMonthlyReportModalApi] = useVbenModal({
+  connectedComponent: FormModalSendMonthlyReport,
+});
+
 const sendTestMail = (type: string) => {
   switch (type) {
+    case 'monthly': {
+      sendMonthlyReportModalApi.open();
+      break;
+    }
     case 'weekly': {
       sendWeeklyReportModalApi.open();
       break;
@@ -59,7 +69,7 @@ const toggleSetting = (item: any, checked: boolean) => {
   item.loading = true;
 
   shopSettingStore
-    .updateMailWeeklyReport(checked)
+    .toggleMailReport(checked, item.type)
     .then(() => {
       item.checked = checked;
       message.success('The setting has been updated successfully.');
@@ -73,7 +83,8 @@ const toggleSetting = (item: any, checked: boolean) => {
 <template>
   <Page>
     <SendWeeklyReportModal />
-    <div class="grid gap-4">
+    <SendMonthlyReportModal />
+    <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
       <template v-for="item in mailTemplates" :key="item.title">
         <Card class="w-full" :title="item.title">
           <CardHeader>
@@ -82,7 +93,7 @@ const toggleSetting = (item: any, checked: boolean) => {
                 <span class="text-xl">{{ item.title }}</span>
 
                 <span class="ml-2 text-sm font-normal italic text-gray-500">
-                  ( {{ item.desciption }} )
+                  ( {{ item.description }} )
                 </span>
               </div>
               <Switch

@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 
 import {
   removeRegion,
-  shopUpdateMailReport,
+  shopToggleMailReport,
   updateRegion,
   updateTransactionFees,
 } from '#/api';
@@ -36,6 +36,7 @@ interface IShopSettings {
   regions: IRegion[];
   transactionFees: ITransactionFee[];
   mailWeeklyReport: boolean;
+  mailMonthlyReport: boolean;
 }
 
 export const useShopSettingStore = defineStore('np-shop-setting', {
@@ -46,6 +47,7 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
       this.regions = settings.regions;
       this.transactionFees = settings.transactionFees;
       this.mailWeeklyReport = settings.mailWeeklyReport;
+      this.mailMonthlyReport = settings.mailMonthlyReport;
       this.cogsSourceDefault = settings.cogsSourceDefault;
     },
     async setTransactionsFees(transactionFees: ITransactionFee[]) {
@@ -72,9 +74,9 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
         return res;
       });
     },
-    async updateMailWeeklyReport(status: boolean) {
-      return shopUpdateMailReport({
-        type: 'weekly',
+    async toggleMailReport(status: boolean, type: string) {
+      return shopToggleMailReport({
+        type,
         status,
       }).then(() => {
         this.mailWeeklyReport = status;
@@ -100,5 +102,6 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
     regions: [],
     transactionFees: [],
     mailWeeklyReport: true,
+    mailMonthlyReport: true,
   }),
 });
