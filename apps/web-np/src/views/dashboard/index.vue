@@ -17,6 +17,7 @@ import OverviewAds from './overview-ads.vue';
 import OverviewCostChart from './overview-cost-chart.vue';
 import OverviewCosts from './overview-costs.vue';
 import OverviewOrder from './overview-order.vue';
+import OverviewQrCode from './overview-qr-code.vue';
 import ProfitChart from './profit-chart.vue';
 import {
   currentPeriod,
@@ -132,11 +133,16 @@ const generateSamePeriodPreset = computed(() => {
     <ProfitChart />
 
     <div v-loading="dashboardState.loading" class="mt-5 grid grid-cols-4 gap-4">
-      <OverviewAdsChart class="col-span-4 md:col-span-2 2xl:col-span-3" />
+      <OverviewAdsChart class="col-span-4 md:col-span-2 2xl:col-span-2" />
       <OverviewAds class="col-span-4 md:col-span-2 2xl:col-span-1" />
+      <OverviewQrCode class="hidden md:col-span-2 2xl:col-span-1 2xl:block" />
+
       <OverviewCostChart class="col-span-4 md:col-span-2 2xl:col-span-2" />
       <OverviewCosts class="col-span-4 md:col-span-2 2xl:col-span-1" />
       <OverviewOrder class="col-span-4 md:col-span-2 2xl:col-span-1" />
+
+      <!-- Hide from 2xl size -->
+      <OverviewQrCode class="col-span-4 md:col-span-2 2xl:hidden" />
     </div>
   </div>
 </template>

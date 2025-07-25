@@ -3,10 +3,16 @@ import type { EchartsUIType } from '@vben/plugins/echarts';
 
 import { onMounted, ref, watch } from 'vue';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  VbenButton,
+} from '@vben/common-ui';
 import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 
-import { formatMoney } from '#/shared/utils';
+import { formatMoney, redirect } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
 import { currentPeriod, previousPeriod } from './service';
@@ -105,6 +111,15 @@ const reload = () => {
     <CardHeader>
       <CardTitle class="flex items-center justify-between space-x-1">
         <span> Ad Analytics </span>
+
+        <VbenButton
+          class="w-[100px] !p-0 text-right"
+          size="xs"
+          variant="link"
+          @click="redirect('reports-p-and-l')"
+        >
+          View details
+        </VbenButton>
       </CardTitle>
     </CardHeader>
     <CardContent>

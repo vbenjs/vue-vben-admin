@@ -42,6 +42,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "@vueuse/integrations": "catalog:",
     "ant-design-vue": "catalog:",
     "crisp-sdk-web": "^1.0.25",
     "currency-formatter": "^1.5.9",
