@@ -1,19 +1,14 @@
 <script lang="ts" setup>
-import { Page, useVbenModal, VbenButton } from '@vben/common-ui';
+import { Page, VbenButton } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
-import { Dropdown, Menu, MenuItem, Tag } from 'ant-design-vue';
+import { Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { shopGenerateToken } from '#/api';
 
-import FormModalSendWeeklyReport from './form-modal-send-weekly-report.vue';
 import { orderTableOptions } from './table-config';
 import { formOptions } from './table-filter';
-
-const [SendWeeklyReportModal, sendWeeklyReportModalApi] = useVbenModal({
-  connectedComponent: FormModalSendWeeklyReport,
-});
 
 const [Grid] = useVbenVxeGrid({
   gridOptions: orderTableOptions,
@@ -33,7 +28,6 @@ const handleLogin = async (row: any) => {
 
 <template>
   <Page auto-content-height>
-    <SendWeeklyReportModal />
     <Grid>
       <template #id="{ row }">
         <div class="flex flex-col gap-0">
@@ -102,7 +96,7 @@ const handleLogin = async (row: any) => {
       </template>
 
       <template #action="{ row }: { row: any }">
-        <!-- <VbenButton
+        <VbenButton
           @click="handleLogin(row)"
           :loading="row.loading"
           size="sm"
@@ -116,9 +110,9 @@ const handleLogin = async (row: any) => {
             />
             Login
           </div>
-        </VbenButton> -->
+        </VbenButton>
 
-        <Dropdown>
+        <!-- <Dropdown>
           <VbenButton size="sm" variant="outline">
             <IconifyIcon class="mr-2 size-4" icon="ant-design:more-outlined" />
             Actions
@@ -141,7 +135,7 @@ const handleLogin = async (row: any) => {
               </MenuItem>
             </Menu>
           </template>
-        </Dropdown>
+        </Dropdown> -->
       </template>
     </Grid>
   </Page>

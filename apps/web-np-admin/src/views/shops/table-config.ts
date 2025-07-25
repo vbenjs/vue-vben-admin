@@ -78,8 +78,8 @@ export const orderTableOptions: VxeTableGridOptions = {
       width: 110,
     },
     {
-      field: 'updatedAt',
-      title: 'Updated',
+      field: 'lastLoginAt',
+      title: 'Last Login',
       width: 110,
     },
     {
