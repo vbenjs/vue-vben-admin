@@ -118,7 +118,7 @@ export const useAuthStore = defineStore('auth', () => {
     shopSettingStore.setStates(res.settings);
 
     crispSetShopInfo(res);
-    crispDisplay(shopStore.isOnboarding, false);
+    crispDisplay(shopSettingStore.showChatPopup);
 
     return res;
   }

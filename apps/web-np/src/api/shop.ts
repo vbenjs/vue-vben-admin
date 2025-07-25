@@ -20,6 +20,10 @@ export async function shopToggleMailReport(data: any) {
   return requestClient.put('/api/shop/settings/mail-report', data);
 }
 
+export async function shopToggleShowChatPopup(data: any) {
+  return requestClient.put('/api/shop/settings/toggle-chat-popup', data);
+}
+
 export async function shopUpdateSubscriptionInfo() {
   return requestClient.post('/api/shop/subscription/sync');
 }

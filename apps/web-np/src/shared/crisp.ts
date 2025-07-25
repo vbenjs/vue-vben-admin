@@ -19,15 +19,9 @@ export const crispOpenWithText = (obj: any) => {
   Crisp.message.send('text', obj);
 };
 
-export const crispDisplay = (show: boolean, isOpen: boolean = true) => {
+export const crispDisplay = (show: boolean) => {
   if (show) {
     Crisp.chat.show();
-
-    if (isOpen) {
-      Crisp.chat.open();
-    } else {
-      Crisp.chat.close();
-    }
   } else {
     Crisp.chat.hide();
   }

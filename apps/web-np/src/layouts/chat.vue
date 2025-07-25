@@ -1,21 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-
 import { Support } from '#/icons';
-import { crispDisplay } from '#/shared/crisp';
+import { useShopSettingStore } from '#/store';
 
-const display = ref(false);
-
-const handleClick = () => {
-  display.value = !display.value;
-
-  crispDisplay(display.value);
-};
+const shopSettingStore = useShopSettingStore();
 </script>
 <template>
   <div
     class="md:bg-accent group flex h-8 cursor-pointer items-center gap-2 rounded-2xl border-none bg-none px-2 py-0.5 outline-none"
-    @click="handleClick()"
+    @click="shopSettingStore.toggleChatPopup()"
   >
     <Support class="size-5" />
     <span

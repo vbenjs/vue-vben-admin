@@ -5,10 +5,12 @@ import { defineStore } from 'pinia';
 import {
   removeRegion,
   shopToggleMailReport,
+  shopToggleShowChatPopup,
   updateRegion,
   updateTransactionFees,
 } from '#/api';
 import { defaultRegionUUID } from '#/shared/constants';
+import { crispDisplay } from '#/shared/crisp';
 
 import { ECogsSource } from './../shared/constants';
 
@@ -37,18 +39,20 @@ interface IShopSettings {
   transactionFees: ITransactionFee[];
   mailWeeklyReport: boolean;
   mailMonthlyReport: boolean;
+  showChatPopup: boolean;
 }
 
 export const useShopSettingStore = defineStore('np-shop-setting', {
   actions: {
     setStates(settings: any) {
       this.cogsRate = settings.cogsRate;
+      this.cogsSourceDefault = settings.cogsSourceDefault;
       this.handlingFees = settings.handlingFees;
       this.regions = settings.regions;
       this.transactionFees = settings.transactionFees;
       this.mailWeeklyReport = settings.mailWeeklyReport;
       this.mailMonthlyReport = settings.mailMonthlyReport;
-      this.cogsSourceDefault = settings.cogsSourceDefault;
+      this.showChatPopup = settings.showChatPopup;
     },
     async setTransactionsFees(transactionFees: ITransactionFee[]) {
       const payload = cloneDeep(transactionFees).map((fee) => {
@@ -82,13 +86,22 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
         this.mailWeeklyReport = status;
       });
     },
+    async toggleChatPopup() {
+      this.showChatPopup = !this.showChatPopup;
+
+      crispDisplay(this.showChatPopup);
+
+      return shopToggleShowChatPopup({
+        showChatPopup: this.showChatPopup,
+      });
+    },
     getZoneName(uuid: any) {
       return this.regions.find((region) => region.uuid === uuid)?.name ?? '';
     },
   },
 
   getters: {
-    defaulRegion(): IRegion {
+    defaultRegion(): IRegion {
       return this.regions.find(
         (region) => region.uuid === defaultRegionUUID,
       ) as IRegion;
@@ -103,5 +116,6 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
     transactionFees: [],
     mailWeeklyReport: true,
     mailMonthlyReport: true,
+    showChatPopup: false,
   }),
 });

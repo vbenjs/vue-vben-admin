@@ -75,7 +75,7 @@ onBeforeMount(() => {
   }
 
   // Set the default values
-  const defaultRegion = shopSettingStore.defaulRegion;
+  const defaultRegion = shopSettingStore.defaultRegion;
   onboardForm.shippingFeeLevel = defaultRegion.shippingCostLevel;
   onboardForm.shippingFeePrice = defaultRegion.shippingCostPrice;
 
