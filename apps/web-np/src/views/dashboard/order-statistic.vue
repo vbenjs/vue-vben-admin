@@ -316,6 +316,7 @@ const getDetails = computed(() => {
 
             <template v-if="item.changePercent">
               <span
+                class="text-sm"
                 :class="getChangePercentColor(item.changePercent)"
                 v-tippy="{
                   content: item.previousValue
