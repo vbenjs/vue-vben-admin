@@ -67,7 +67,7 @@ onBeforeMount(() => {
 
     <div class="mt-5" v-show="onboardForm.cogsFromShopify">
       The system will automatically sync the
-      <span class="font-semibold italic">"Cost per item"</span> valuell from
+      <span class="font-semibold italic">"Cost per item"</span> value from
       Shopify and use it as the COGS value. For example:
 
       <Image class="mt-2" src="/static/images/cogs-from-shopify.png" />

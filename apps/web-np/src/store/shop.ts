@@ -14,6 +14,7 @@ import { redirectToExternal } from '#/shared/utils';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
 import { useCurrencyStore } from './currency';
+import { useShopSettingStore } from './shop-settings';
 import { useSystemStatisticStore } from './system-statistic';
 
 enum ShopState {
@@ -77,11 +78,14 @@ export const useShopStore = defineStore('np-shop', {
     },
     updateSetting(values: any) {
       const currencyStore = useCurrencyStore();
+      const shopSettingStore = useShopSettingStore();
       const { appCurrency } = values;
 
       return updateGeneralSettings(values).finally(() => {
         // Update the currency and rate in the shop store
         this.shop.currencyFromApp = appCurrency;
+        shopSettingStore.cogsSourceDefault = values.cogsSource;
+
         this.shop.currencyRate = currencyStore.getRate(
           this.shop.currency,
           appCurrency,
@@ -174,7 +178,7 @@ export const useShopStore = defineStore('np-shop', {
     isOnboarding(): boolean {
       return this.state.onboard === ShopState.PROCESSING;
     },
-    isFreeSubsription(): boolean {
+    isFreeSubscription(): boolean {
       return this.shop.subscriptionPlan === SubscriptionPlans.FREE;
     },
   },

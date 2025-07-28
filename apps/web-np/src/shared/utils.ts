@@ -241,7 +241,7 @@ export const showWatermark = (parent: string = '.vxe-table--main-wrapper') => {
   const { updateWatermark } = useWatermark();
 
   setTimeout(() => {
-    if (!shopStore.isFreeSubsription) {
+    if (!shopStore.isFreeSubscription) {
       return;
     }
 
