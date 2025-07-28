@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type { SetupContext } from 'vue';
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, useSlots, watch } from 'vue';
+import { computed, onMounted, useSlots, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 import { useRefresh } from '@vben/hooks';
 import { $t, i18n } from '@vben/locales';
@@ -152,6 +154,23 @@ function clearPreferencesAndLogout() {
 function clickLogo() {
   emit('clickLogo');
 }
+
+function autoCollapseMenuByRouteMeta(route: RouteLocationNormalizedLoaded) {
+  // 只在双列模式下生效
+  if (
+    preferences.app.layout === 'sidebar-mixed-nav' &&
+    route.meta &&
+    route.meta.hideInMenu
+  ) {
+    sidebarExtraVisible.value = false;
+  }
+}
+
+const route = useRoute();
+
+onMounted(() => {
+  autoCollapseMenuByRouteMeta(route);
+});
 
 watch(
   () => preferences.app.layout,
