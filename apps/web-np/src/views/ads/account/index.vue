@@ -155,7 +155,17 @@ const handleManualSyncAdInsight = (row: any) => {
     okText: 'Sync',
     onOk: async () => {
       await syncAdInsight(row.parentId, row.id).then(() => {
-        gridApi.reload();
+        gridApi.query().then(() => {
+          const _accountRow = gridApi.grid
+            .getData()
+            .find((c: any) => c.id === row.parentId);
+
+          if (!_accountRow) {
+            return;
+          }
+
+          gridApi.grid.setTreeExpand([_accountRow], true);
+        });
       });
     },
   });
@@ -278,7 +288,17 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
       </template>
 
       <template #addToCosts="{ row }: { row: any }">
-        <template v-if="row.parentId !== undefined">
+        <template v-if="row.parentId === undefined">
+          <VbenButton
+            class="!p-0 text-xs"
+            @click="gridApi.grid.toggleTreeExpand(row)"
+            :disabled="row.loading"
+            variant="link"
+          >
+            View Detail
+          </VbenButton>
+        </template>
+        <template v-else>
           <Switch
             @change="
               (checked) => {

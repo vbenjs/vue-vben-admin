@@ -14,7 +14,7 @@ export const formOptions: VbenFormProps = {
       component: 'Checkbox',
       fieldName: 'onlyShowActiveAdAccounts',
       label: '',
-      defaultValue: true,
+      defaultValue: false,
       renderComponentContent: () => {
         return {
           default: () => ['Only show the valid Ad Accounts'],
