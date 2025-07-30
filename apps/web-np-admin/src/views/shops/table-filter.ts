@@ -28,29 +28,6 @@ export const formOptions: VbenFormProps = {
         placeholder: ' ',
       },
     },
-    // {
-    //   component: markRaw(DateRangePicker),
-    //   componentProps: {
-    //     picker: 'day',
-    //     pickerLimitName: '1 year',
-    //     presets: getDatePreset(
-    //       [
-    //         'today',
-    //         'last7Days',
-    //         'last14Days',
-    //         'lastMonth',
-    //         'lastYear',
-    //         'previousMonth',
-    //         'thisMonth',
-    //         'thisYear',
-    //       ],
-    //       true,
-    //     ),
-    //   },
-    //   defaultValue: [dayjsInGMT().subtract(1, 'month'), dayjsInGMT()],
-    //   fieldName: 'date',
-    //   label: 'Date',
-    // },
     {
       component: 'Select',
       componentProps: {
@@ -72,6 +49,7 @@ export const formOptions: VbenFormProps = {
         ],
         placeholder: '',
       },
+      defaultValue: ['active'],
       fieldName: 'status',
       label: 'Status',
     },

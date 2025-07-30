@@ -60,6 +60,13 @@ export const orderTableOptions: VxeTableGridOptions = {
       align: 'left',
     },
     {
+      field: 'plan',
+      title: 'Plan/Charge',
+      slots: { default: 'plan' },
+      width: 150,
+      align: 'left',
+    },
+    {
       field: 'status',
       title: 'Status',
       slots: { default: 'status' },
@@ -71,8 +78,8 @@ export const orderTableOptions: VxeTableGridOptions = {
       width: 110,
     },
     {
-      field: 'updatedAt',
-      title: 'Updated',
+      field: 'lastLoginAt',
+      title: 'Last Login',
       width: 110,
     },
     {

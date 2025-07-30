@@ -58,10 +58,10 @@ const handleLogin = async (row: any) => {
             target="_blank"
             class="cursor-pointer font-semibold text-blue-500"
           >
-            {{ row.myshopifyDomain }}
+            {{ row.domain }}
           </a>
           <div class="!text-xs italic">
-            {{ row.domain }}
+            {{ row.myshopifyDomain }}
           </div>
         </div>
       </template>
@@ -74,6 +74,15 @@ const handleLogin = async (row: any) => {
           <div class="italic">
             {{ row.currency }} - {{ row.appCurrency }} (App)
           </div>
+        </div>
+      </template>
+
+      <template #plan="{ row }">
+        <div class="flex flex-col">
+          <div class="font-semibold">
+            {{ row.plan }}
+          </div>
+          <div class="italic">{{ row.subscriptionName }} (App)</div>
         </div>
       </template>
 
@@ -114,6 +123,14 @@ const handleLogin = async (row: any) => {
                 <div class="flex items-center justify-start space-x-1">
                   <IconifyIcon icon="ant-design:safety-outlined" />
                   <span>Login</span>
+                </div>
+              </MenuItem>
+              <MenuItem
+                @click="sendWeeklyReportModalApi.setData({ shop: row }).open()"
+              >
+                <div class="flex items-center justify-start space-x-1">
+                  <IconifyIcon icon="ant-design:mail-twotone" />
+                  <span>Send weekly report</span>
                 </div>
               </MenuItem>
             </Menu>
