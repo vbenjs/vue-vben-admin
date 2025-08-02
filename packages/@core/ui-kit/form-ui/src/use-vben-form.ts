@@ -4,16 +4,15 @@ import type {
   VbenFormProps,
 } from './types';
 
-import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
+import {defineComponent, h, isReactive, onBeforeUnmount, watch} from 'vue';
 
-import { useStore } from '@vben-core/shared/store';
+import {useStore} from '@vben-core/shared/store';
 
-import { FormApi } from './form-api';
+import {FormApi} from './form-api';
 import VbenUseForm from './vben-use-form.vue';
 
-export function useVbenForm<
-  T extends BaseFormComponentType = BaseFormComponentType,
->(options: VbenFormProps<T>) {
+export function useVbenForm<T extends BaseFormComponentType = BaseFormComponentType, >(options: VbenFormProps<T>) {
+  // 外部传值
   const IS_REACTIVE = isReactive(options);
   const api = new FormApi(options);
   const extendedApi: ExtendedFormApi = api as never;
@@ -21,14 +20,14 @@ export function useVbenForm<
     return useStore(api.store, selector);
   };
 
-  const Form = defineComponent(
-    (props: VbenFormProps, { attrs, slots }) => {
+  // 定义表单组件
+  const Form = defineComponent((props: VbenFormProps, {attrs, slots}) => {
       onBeforeUnmount(() => {
         api.unmount();
       });
-      api.setState({ ...props, ...attrs });
+      api.setState({...props, ...attrs});
       return () =>
-        h(VbenUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
+        h(VbenUseForm, {...props, ...attrs, formApi: extendedApi}, slots);
     },
     {
       name: 'VbenUseForm',
@@ -40,9 +39,9 @@ export function useVbenForm<
     watch(
       () => options.schema,
       () => {
-        api.setState({ schema: options.schema });
+        api.setState({schema: options.schema});
       },
-      { immediate: true },
+      {immediate: true},
     );
   }
 

@@ -1,96 +1,3 @@
-<script setup lang="ts">
-import type { Recordable } from '@vben/types';
-
-import type { VbenFormSchema } from '@vben-core/form-ui';
-
-import type { AuthenticationProps } from './types';
-
-import { computed, onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { $t } from '@vben/locales';
-
-import { useVbenForm } from '@vben-core/form-ui';
-import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui';
-
-import Title from './auth-title.vue';
-import ThirdPartyLogin from './third-party-login.vue';
-
-interface Props extends AuthenticationProps {
-  formSchema?: VbenFormSchema[];
-}
-
-defineOptions({
-  name: 'AuthenticationLogin',
-});
-
-const props = withDefaults(defineProps<Props>(), {
-  codeLoginPath: '/auth/code-login',
-  forgetPasswordPath: '/auth/forget-password',
-  formSchema: () => [],
-  loading: false,
-  qrCodeLoginPath: '/auth/qrcode-login',
-  registerPath: '/auth/register',
-  showCodeLogin: true,
-  showForgetPassword: true,
-  showQrcodeLogin: true,
-  showRegister: true,
-  showRememberMe: true,
-  showThirdPartyLogin: true,
-  submitButtonText: '',
-  subTitle: '',
-  title: '',
-});
-
-const emit = defineEmits<{
-  submit: [Recordable<any>];
-}>();
-
-const [Form, formApi] = useVbenForm(
-  reactive({
-    commonConfig: {
-      hideLabel: true,
-      hideRequiredMark: true,
-    },
-    schema: computed(() => props.formSchema),
-    showDefaultActions: false,
-  }),
-);
-const router = useRouter();
-
-const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`;
-
-const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
-
-const rememberMe = ref(!!localUsername);
-
-async function handleSubmit() {
-  const { valid } = await formApi.validate();
-  const values = await formApi.getValues();
-  if (valid) {
-    localStorage.setItem(
-      REMEMBER_ME_KEY,
-      rememberMe.value ? values?.username : '',
-    );
-    emit('submit', values);
-  }
-}
-
-function handleGo(path: string) {
-  router.push(path);
-}
-
-onMounted(() => {
-  if (localUsername) {
-    formApi.setFieldValue('username', localUsername);
-  }
-});
-
-defineExpose({
-  getFormApi: () => formApi,
-});
-</script>
-
 <template>
   <div @keydown.enter.prevent="handleSubmit">
     <slot name="title">
@@ -108,7 +15,8 @@ defineExpose({
       </Title>
     </slot>
 
-    <Form />
+    <!-- 登录表单 -->
+    <Form/>
 
     <div
       v-if="showRememberMe || showForgetPassword"
@@ -168,7 +76,7 @@ defineExpose({
 
     <!-- 第三方登录 -->
     <slot name="third-party-login">
-      <ThirdPartyLogin v-if="showThirdPartyLogin" />
+      <ThirdPartyLogin v-if="showThirdPartyLogin"/>
     </slot>
 
     <slot name="to-register">
@@ -184,3 +92,99 @@ defineExpose({
     </slot>
   </div>
 </template>
+
+<script setup lang="ts">
+import type {Recordable} from '@vben/types';
+
+import type {VbenFormSchema} from '@vben-core/form-ui';
+
+import type {AuthenticationProps} from './types';
+
+import {computed, onMounted, reactive, ref} from 'vue';
+import {useRouter} from 'vue-router';
+
+import {$t} from '@vben/locales';
+
+import {useVbenForm} from '@vben-core/form-ui';
+import {VbenButton, VbenCheckbox} from '@vben-core/shadcn-ui';
+
+import Title from './auth-title.vue';
+import ThirdPartyLogin from './third-party-login.vue';
+
+interface Props extends AuthenticationProps {
+  formSchema?: VbenFormSchema[];
+}
+
+defineOptions({
+  name: 'AuthenticationLogin',
+});
+
+const props = withDefaults(defineProps<Props>(), {
+  codeLoginPath: '/auth/code-login',
+  forgetPasswordPath: '/auth/forget-password',
+  formSchema: () => [],
+  loading: false,
+  qrCodeLoginPath: '/auth/qrcode-login',
+  registerPath: '/auth/register',
+  showCodeLogin: true,
+  showForgetPassword: true,
+  showQrcodeLogin: true,
+  showRegister: true,
+  showRememberMe: true,
+  showThirdPartyLogin: true,
+  submitButtonText: '',
+  subTitle: '',
+  title: '',
+});
+
+const emit = defineEmits<{
+  submit: [Recordable<any>];
+}>();
+
+const [Form, formApi] = useVbenForm(
+  reactive({
+    commonConfig: {
+      hideLabel: true,
+      hideRequiredMark: true,
+    },
+    schema: computed(() => props.formSchema),
+    showDefaultActions: false,
+  }),
+);
+const router = useRouter();
+
+const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`;
+
+const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
+
+const rememberMe = ref(!!localUsername);
+
+async function handleSubmit() {
+  // 表单校验
+  const {valid} = await formApi.validate();
+  // 表单拿值
+  const values = await formApi.getValues();
+  if (valid) {
+    localStorage.setItem(
+      REMEMBER_ME_KEY,
+      rememberMe.value ? values?.username : '',
+    );
+    emit('submit', values);
+  }
+}
+
+function handleGo(path: string) {
+  router.push(path);
+}
+
+onMounted(() => {
+  if (localUsername) {
+    formApi.setFieldValue('username', localUsername);
+  }
+});
+
+defineExpose({
+  getFormApi: () => formApi,
+});
+</script>
+

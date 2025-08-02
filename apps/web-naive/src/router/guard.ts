@@ -1,14 +1,14 @@
-import type { Router } from 'vue-router';
+import type {Router} from 'vue-router';
 
-import { LOGIN_PATH } from '@vben/constants';
-import { preferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
-import { startProgress, stopProgress } from '@vben/utils';
+import {LOGIN_PATH} from '@vben/constants';
+import {preferences} from '@vben/preferences';
+import {useAccessStore, useUserStore} from '@vben/stores';
+import {startProgress, stopProgress} from '@vben/utils';
 
-import { accessRoutes, coreRouteNames } from '#/router/routes';
-import { useAuthStore } from '#/store';
+import {accessRoutes, coreRouteNames} from '#/router/routes';
+import {useAuthStore} from '#/store';
 
-import { generateAccess } from './access';
+import {generateAccess} from './access';
 
 /**
  * 通用守卫配置
@@ -55,8 +55,8 @@ function setupAccessGuard(router: Router) {
       if (to.path === LOGIN_PATH && accessStore.accessToken) {
         return decodeURIComponent(
           (to.query?.redirect as string) ||
-            userStore.userInfo?.homePath ||
-            preferences.app.defaultHomePath,
+          userStore.userInfo?.homePath ||
+          preferences.app.defaultHomePath,
         );
       }
       return true;
@@ -77,7 +77,7 @@ function setupAccessGuard(router: Router) {
           query:
             to.fullPath === preferences.app.defaultHomePath
               ? {}
-              : { redirect: encodeURIComponent(to.fullPath) },
+              : {redirect: encodeURIComponent(to.fullPath)},
           // 携带当前跳转的页面，登录后重新跳转该页面
           replace: true,
         };
@@ -95,7 +95,7 @@ function setupAccessGuard(router: Router) {
     const userRoles = userInfo.roles ?? [];
 
     // 生成菜单和路由
-    const { accessibleMenus, accessibleRoutes } = await generateAccess({
+    const {accessibleMenus, accessibleRoutes} = await generateAccess({
       roles: userRoles,
       router,
       // 则会在菜单中显示，但是访问会被重定向到403
@@ -129,4 +129,4 @@ function createRouterGuard(router: Router) {
   setupAccessGuard(router);
 }
 
-export { createRouterGuard };
+export {createRouterGuard};

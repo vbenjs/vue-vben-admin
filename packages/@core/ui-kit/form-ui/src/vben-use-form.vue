@@ -1,15 +1,57 @@
-<script setup lang="ts">
-import type { Recordable } from '@vben-core/typings';
+<template>
+  <Form
+    @keydown.enter="handleKeyDownEnter"
+    v-bind="forward"
+    :collapsed="state.collapsed"
+    :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
+    :component-map="COMPONENT_MAP"
+    :form="form"
+    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
+  >
+    <template
+      v-for="slotName in delegatedSlots"
+      :key="slotName"
+      #[slotName]="slotProps"
+    >
+      <slot :name="slotName" v-bind="slotProps"></slot>
+    </template>
+    <template #default="slotProps">
+      <slot v-bind="slotProps">
+        <FormActions
+          v-if="forward.showDefaultActions"
+          :model-value="state.collapsed"
+          @update:model-value="handleUpdateCollapsed"
+        >
+          <template #reset-before="resetSlotProps">
+            <slot name="reset-before" v-bind="resetSlotProps"></slot>
+          </template>
+          <template #submit-before="submitSlotProps">
+            <slot name="submit-before" v-bind="submitSlotProps"></slot>
+          </template>
+          <template #expand-before="expandBeforeSlotProps">
+            <slot name="expand-before" v-bind="expandBeforeSlotProps"></slot>
+          </template>
+          <template #expand-after="expandAfterSlotProps">
+            <slot name="expand-after" v-bind="expandAfterSlotProps"></slot>
+          </template>
+        </FormActions>
+      </slot>
+    </template>
+  </Form>
+</template>
 
-import type { ExtendedFormApi, VbenFormProps } from './types';
+<script setup lang="ts">
+import type {Recordable} from '@vben-core/typings';
+
+import type {ExtendedFormApi, VbenFormProps} from './types';
 
 // import { toRaw, watch } from 'vue';
-import { nextTick, onMounted, watch } from 'vue';
+import {nextTick, onMounted, watch} from 'vue';
 
-import { useForwardPriorityValues } from '@vben-core/composables';
-import { cloneDeep, get, isEqual, set } from '@vben-core/shared/utils';
+import {useForwardPriorityValues} from '@vben-core/composables';
+import {cloneDeep, get, isEqual, set} from '@vben-core/shared/utils';
 
-import { useDebounceFn } from '@vueuse/core';
+import {useDebounceFn} from '@vueuse/core';
 
 import FormActions from './components/form-actions.vue';
 import {
@@ -17,12 +59,13 @@ import {
   COMPONENT_MAP,
   DEFAULT_FORM_COMMON_CONFIG,
 } from './config';
-import { Form } from './form-render';
+import {Form} from './form-render';
 import {
   provideComponentRefMap,
   provideFormProps,
   useFormInitial,
 } from './use-form-context';
+
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends VbenFormProps {
   formApi: ExtendedFormApi;
@@ -36,7 +79,7 @@ const forward = useForwardPriorityValues(props, state);
 
 const componentRefMap = new Map<string, unknown>();
 
-const { delegatedSlots, form } = useFormInitial(forward);
+const {delegatedSlots, form} = useFormInitial(forward);
 
 provideFormProps([forward, form]);
 provideComponentRefMap(componentRefMap);
@@ -44,7 +87,7 @@ provideComponentRefMap(componentRefMap);
 props.formApi?.mount?.(form, componentRefMap);
 
 const handleUpdateCollapsed = (value: boolean) => {
-  props.formApi?.setState({ collapsed: !!value });
+  props.formApi?.setState({collapsed: !!value});
 };
 
 function handleKeyDownEnter(event: KeyboardEvent) {
@@ -100,49 +143,7 @@ onMounted(async () => {
       }
       handleValuesChangeDebounced();
     },
-    { deep: true },
+    {deep: true},
   );
 });
 </script>
-
-<template>
-  <Form
-    @keydown.enter="handleKeyDownEnter"
-    v-bind="forward"
-    :collapsed="state.collapsed"
-    :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
-    :component-map="COMPONENT_MAP"
-    :form="form"
-    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
-  >
-    <template
-      v-for="slotName in delegatedSlots"
-      :key="slotName"
-      #[slotName]="slotProps"
-    >
-      <slot :name="slotName" v-bind="slotProps"></slot>
-    </template>
-    <template #default="slotProps">
-      <slot v-bind="slotProps">
-        <FormActions
-          v-if="forward.showDefaultActions"
-          :model-value="state.collapsed"
-          @update:model-value="handleUpdateCollapsed"
-        >
-          <template #reset-before="resetSlotProps">
-            <slot name="reset-before" v-bind="resetSlotProps"></slot>
-          </template>
-          <template #submit-before="submitSlotProps">
-            <slot name="submit-before" v-bind="submitSlotProps"></slot>
-          </template>
-          <template #expand-before="expandBeforeSlotProps">
-            <slot name="expand-before" v-bind="expandBeforeSlotProps"></slot>
-          </template>
-          <template #expand-after="expandAfterSlotProps">
-            <slot name="expand-after" v-bind="expandAfterSlotProps"></slot>
-          </template>
-        </FormActions>
-      </slot>
-    </template>
-  </Form>
-</template>

@@ -41,6 +41,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "js-md5": "^0.8.3",
     "naive-ui": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",

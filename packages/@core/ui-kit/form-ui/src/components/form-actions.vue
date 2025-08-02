@@ -1,91 +1,3 @@
-<script setup lang="ts">
-import { computed, toRaw, unref, watch } from 'vue';
-
-import { useSimpleLocale } from '@vben-core/composables';
-import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils';
-
-import { COMPONENT_MAP } from '../config';
-import { injectFormProps } from '../use-form-context';
-
-const { $t } = useSimpleLocale();
-
-const [rootProps, form] = injectFormProps();
-
-const collapsed = defineModel({ default: false });
-
-const resetButtonOptions = computed(() => {
-  return {
-    content: `${$t.value('reset')}`,
-    show: true,
-    ...unref(rootProps).resetButtonOptions,
-  };
-});
-
-const submitButtonOptions = computed(() => {
-  return {
-    content: `${$t.value('submit')}`,
-    show: true,
-    ...unref(rootProps).submitButtonOptions,
-  };
-});
-
-// const isQueryForm = computed(() => {
-//   return !!unref(rootProps).showCollapseButton;
-// });
-
-const queryFormStyle = computed(() => {
-  if (!unref(rootProps).actionWrapperClass) {
-    return {
-      'grid-column': `-2 / -1`,
-      marginLeft: 'auto',
-    };
-  }
-
-  return {};
-});
-
-async function handleSubmit(e: Event) {
-  e?.preventDefault();
-  e?.stopPropagation();
-  const { valid } = await form.validate();
-  if (!valid) {
-    return;
-  }
-
-  const values = toRaw(await unref(rootProps).formApi?.getValues());
-  await unref(rootProps).handleSubmit?.(values);
-}
-
-async function handleReset(e: Event) {
-  e?.preventDefault();
-  e?.stopPropagation();
-  const props = unref(rootProps);
-
-  const values = toRaw(await props.formApi?.getValues());
-
-  if (isFunction(props.handleReset)) {
-    await props.handleReset?.(values);
-  } else {
-    form.resetForm();
-  }
-}
-
-watch(
-  () => collapsed.value,
-  () => {
-    const props = unref(rootProps);
-    if (props.collapseTriggerResize) {
-      triggerWindowResize();
-    }
-  },
-);
-
-defineExpose({
-  handleReset,
-  handleSubmit,
-});
-</script>
 <template>
   <div
     :class="
@@ -98,6 +10,7 @@ defineExpose({
     :style="queryFormStyle"
   >
     <template v-if="rootProps.actionButtonsReverse">
+
       <!-- 提交按钮前 -->
       <slot name="submit-before"></slot>
 
@@ -158,3 +71,92 @@ defineExpose({
     <slot name="expand-after"></slot>
   </div>
 </template>
+<script setup lang="ts">
+import {computed, toRaw, unref, watch} from 'vue';
+
+import {useSimpleLocale} from '@vben-core/composables';
+import {VbenExpandableArrow} from '@vben-core/shadcn-ui';
+import {cn, isFunction, triggerWindowResize} from '@vben-core/shared/utils';
+
+import {COMPONENT_MAP} from '../config';
+import {injectFormProps} from '../use-form-context';
+
+const {$t} = useSimpleLocale();
+
+const [rootProps, form] = injectFormProps();
+
+const collapsed = defineModel({default: false});
+
+const resetButtonOptions = computed(() => {
+  return {
+    content: `${$t.value('reset')}`,
+    show: true,
+    ...unref(rootProps).resetButtonOptions,
+  };
+});
+
+const submitButtonOptions = computed(() => {
+  return {
+    content: `${$t.value('submit')}`,
+    show: true,
+    ...unref(rootProps).submitButtonOptions,
+  };
+});
+
+// const isQueryForm = computed(() => {
+//   return !!unref(rootProps).showCollapseButton;
+// });
+
+const queryFormStyle = computed(() => {
+  if (!unref(rootProps).actionWrapperClass) {
+    return {
+      'grid-column': `-2 / -1`,
+      marginLeft: 'auto',
+    };
+  }
+
+  return {};
+});
+
+async function handleSubmit(e: Event) {
+  e?.preventDefault();
+  e?.stopPropagation();
+  const {valid} = await form.validate();
+  if (!valid) {
+    return;
+  }
+
+  const values = toRaw(await unref(rootProps).formApi?.getValues());
+  await unref(rootProps).handleSubmit?.(values);
+}
+
+async function handleReset(e: Event) {
+  e?.preventDefault();
+  e?.stopPropagation();
+  const props = unref(rootProps);
+
+  const values = toRaw(await props.formApi?.getValues());
+
+  if (isFunction(props.handleReset)) {
+    await props.handleReset?.(values);
+  } else {
+    form.resetForm();
+  }
+}
+
+watch(
+  () => collapsed.value,
+  () => {
+    const props = unref(rootProps);
+    if (props.collapseTriggerResize) {
+      triggerWindowResize();
+    }
+  },
+);
+
+defineExpose({
+  handleReset,
+  handleSubmit,
+});
+</script>
+

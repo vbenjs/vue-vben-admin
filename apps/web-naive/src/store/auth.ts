@@ -1,18 +1,21 @@
-import type { Recordable, UserInfo } from '@vben/types';
+import type {Recordable, UserInfo} from '@vben/types';
 
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
 
-import { LOGIN_PATH } from '@vben/constants';
-import { preferences } from '@vben/preferences';
-import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
+import {LOGIN_PATH} from '@vben/constants';
+import {preferences} from '@vben/preferences';
+import {resetAllStores, useAccessStore, useUserStore} from '@vben/stores';
 
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 
-import { notification } from '#/adapter/naive';
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
-import { $t } from '#/locales';
+import {notification} from '#/adapter/naive';
+import {getAccessCodesApi, getUserInfoApi, loginApi, logoutApi} from '#/api';
+import {$t} from '#/locales';
+import {md5} from "js-md5";
 
+
+// 定义 pinia
 export const useAuthStore = defineStore('auth', () => {
   const accessStore = useAccessStore();
   const userStore = useUserStore();
@@ -25,15 +28,16 @@ export const useAuthStore = defineStore('auth', () => {
    * Asynchronously handle the login process
    * @param params 登录表单数据
    */
-  async function authLogin(
-    params: Recordable<any>,
-    onSuccess?: () => Promise<void> | void,
-  ) {
+  async function authLogin(params: Recordable<any>, onSuccess?: () => Promise<void> | void,) {
     // 异步处理用户登录操作并获取 accessToken
     let userInfo: null | UserInfo = null;
+    params.password = md5(params.password);
+
     try {
       loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
+      const res = await loginApi(params);
+      const accessToken = res.data
+
 
       // 如果成功获取到 accessToken
       if (accessToken) {
@@ -41,33 +45,41 @@ export const useAuthStore = defineStore('auth', () => {
         accessStore.setAccessToken(accessToken);
 
         // 获取用户信息并存储到 accessStore 中
-        const [fetchUserInfoResult, accessCodes] = await Promise.all([
+        const [fetchUserInfoResult] = await Promise.all([
           fetchUserInfo(),
-          getAccessCodesApi(),
+          // getAccessCodesApi(),
         ]);
-
-        userInfo = fetchUserInfoResult;
+        userInfo = fetchUserInfoResult?.data?.user;
 
         userStore.setUserInfo(userInfo);
-        accessStore.setAccessCodes(accessCodes);
 
-        if (accessStore.loginExpired) {
-          accessStore.setLoginExpired(false);
-        } else {
-          onSuccess
-            ? await onSuccess?.()
-            : await router.push(
-                userInfo.homePath || preferences.app.defaultHomePath,
-              );
-        }
+        ;
+        // 路由跳转
+        await router.push(
+          preferences.app.defaultHomePath,
+        );
 
-        if (userInfo?.realName) {
+        if (userInfo?.nickname) {
           notification.success({
             content: $t('authentication.loginSuccess'),
-            description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
+            description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.nickname}`,
             duration: 3000,
           });
         }
+        // accessStore.setAccessCodes(accessCodes);
+
+
+        // if (accessStore.loginExpired) {
+        //   accessStore.setLoginExpired(false);
+        // } else {
+        //   onSuccess
+        //     ? await onSuccess?.()
+        //     : await router.push(
+        //       userInfo.homePath || preferences.app.defaultHomePath,
+        //     );
+        // }
+
+
       }
     } finally {
       loginLoading.value = false;
@@ -92,12 +104,13 @@ export const useAuthStore = defineStore('auth', () => {
       path: LOGIN_PATH,
       query: redirect
         ? {
-            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
-          }
+          redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+        }
         : {},
     });
   }
 
+  // 获取用户信息
   async function fetchUserInfo() {
     let userInfo: null | UserInfo = null;
     userInfo = await getUserInfoApi();

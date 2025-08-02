@@ -1,16 +1,11 @@
-import type { RequestClient } from './request-client';
-import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
+import type {RequestClient} from './request-client';
+import type {MakeErrorMessageFn, ResponseInterceptorConfig} from './types';
 
-import { $t } from '@vben/locales';
-import { isFunction } from '@vben/utils';
+import {$t} from '@vben/locales';
 
 import axios from 'axios';
 
-export const defaultResponseInterceptor = ({
-  codeField = 'code',
-  dataField = 'data',
-  successCode = 0,
-}: {
+export const defaultResponseInterceptor = ({}: {
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
@@ -18,39 +13,28 @@ export const defaultResponseInterceptor = ({
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
   successCode: ((code: any) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
+
   return {
     fulfilled: (response) => {
-      const { config, data: responseData, status } = response;
 
-      if (config.responseReturn === 'raw') {
-        return response;
-      }
+      const {data: responseData} = response;
+      const statusCode = response.data.code;
 
-      if (status >= 200 && status < 400) {
-        if (config.responseReturn === 'body') {
-          return responseData;
-        } else if (
-          isFunction(successCode)
-            ? successCode(responseData[codeField])
-            : responseData[codeField] === successCode
-        ) {
-          return isFunction(dataField)
-            ? dataField(responseData)
-            : responseData[dataField];
-        }
+      if (statusCode >= 200 && statusCode < 400) {
+        return responseData
       }
-      throw Object.assign({}, response, { response });
+      throw Object.assign({}, response, {response});
     },
   };
 };
 
 export const authenticateResponseInterceptor = ({
-  client,
-  doReAuthenticate,
-  doRefreshToken,
-  enableRefreshToken,
-  formatToken,
-}: {
+                                                  client,
+                                                  doReAuthenticate,
+                                                  doRefreshToken,
+                                                  enableRefreshToken,
+                                                  formatToken,
+                                                }: {
   client: RequestClient;
   doReAuthenticate: () => Promise<void>;
   doRefreshToken: () => Promise<string>;
@@ -59,11 +43,12 @@ export const authenticateResponseInterceptor = ({
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
-      const { config, response } = error;
-      // 如果不是 401 错误，直接抛出异常
-      if (response?.status !== 401) {
+      const {config, response} = error;
+      // 如果不是 10003 错误，直接抛出异常
+      if (response?.data?.code !== 10003) {
         throw error;
       }
+
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
       if (!enableRefreshToken || config.__isRetryRequest) {
@@ -75,7 +60,7 @@ export const authenticateResponseInterceptor = ({
         return new Promise((resolve) => {
           client.refreshTokenQueue.push((newToken: string) => {
             config.headers.Authorization = formatToken(newToken);
-            resolve(client.request(config.url, { ...config }));
+            resolve(client.request(config.url, {...config}));
           });
         });
       }
@@ -93,7 +78,7 @@ export const authenticateResponseInterceptor = ({
         // 清空队列
         client.refreshTokenQueue = [];
 
-        return client.request(error.config.url, { ...error.config });
+        return client.request(error.config.url, {...error.config});
       } catch (refreshError) {
         // 如果刷新 token 失败，处理错误（如强制登出或跳转登录页面）
         client.refreshTokenQueue.forEach((callback) => callback(''));
@@ -132,7 +117,6 @@ export const errorMessageResponseInterceptor = (
 
       let errorMessage = '';
       const status = error?.response?.status;
-
       switch (status) {
         case 400: {
           errorMessage = $t('ui.fallback.http.badRequest');
@@ -152,6 +136,11 @@ export const errorMessageResponseInterceptor = (
         }
         case 408: {
           errorMessage = $t('ui.fallback.http.requestTimeout');
+          break;
+        }
+        case 500: {
+          errorMessage = error.response.data.message;
+          // errorMessage = $t('ui.fallback.http.internalServerError')
           break;
         }
         default: {
