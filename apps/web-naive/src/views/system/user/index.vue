@@ -14,7 +14,7 @@
       :draggable="true"
       :submitting="fromConfig.submitting"
     >
-      <BaseForm />
+      <BaseForm> </BaseForm>
     </Modal>
   </Page>
 </template>
@@ -23,7 +23,7 @@
 import { getALLSystemUser } from '#/api/core/system/user';
 import { reactive } from 'vue';
 import { Page } from '@vben/common-ui';
-import { NDataTable, NButton } from 'naive-ui';
+import { NDataTable, NButton, NUpload } from 'naive-ui';
 
 import {
   createModalConfig,

@@ -1,12 +1,18 @@
 // config.ts
-import { h, reactive, ref, watch, shallowRef } from 'vue';
-import { NTag, NButton } from 'naive-ui';
+import { h, reactive, ref, watch, shallowRef, computed, markRaw } from 'vue';
+import { NTag, NButton, NUpload, sliderDark } from 'naive-ui';
 import { imgUrl } from '#/utils/imgUrl';
 import { useVbenForm } from '#/adapter/form';
 import { useVbenModal } from '@vben/common-ui';
 import { z } from '#/adapter/form';
 import { editSystemUserInfo, addSystemUser } from '#/api/core/system/user';
 import { message } from '#/adapter/naive';
+import md5 from 'js-md5';
+import { useAccessStore } from '@vben/stores';
+
+// 拼接请求头
+const BaseIURL = import.meta.env.VITE_BASE_API;
+const UploadImgUrl = import.meta.env.VITE_UPLOAD_IMG_URL;
 
 // 创建 Modal 的工厂函数
 export const createModalConfig = () => {
@@ -17,6 +23,7 @@ export const createModalConfig = () => {
     modalApi,
   };
 };
+
 // 单条数据
 let itemData = reactive({});
 
@@ -103,7 +110,7 @@ export const createTableColumns = (
             let { fromConfig } = config;
             fromConfig.isAdd = false;
             modalApi.open();
-            itemData = Object.assign(itemData, item);
+            Object.assign(itemData, item);
             formApi.setValues(itemData);
           },
         },
@@ -122,10 +129,14 @@ export const createBaseForm = (modalApi: any, config: any) => {
   // 提交函数
   const onSubmit = async (values: Record<string, any>) => {
     if (fromConfig.isAdd) {
+      let POSTDATA = Object.assign({}, values);
+      POSTDATA.password = md5(values.password);
       fromConfig.submitting = true;
-      await addSystemUser(values);
-      message.success('系统用户已添加');
-      modalApi.close();
+      const result = await addSystemUser(POSTDATA);
+      if (result.code == 200) {
+        message.success('系统用户已添加');
+        modalApi.close();
+      }
       fromConfig.submitting = false;
     } else {
       const UpdateData = Object.assign(itemData, values);
@@ -156,7 +167,7 @@ export const createBaseForm = (modalApi: any, config: any) => {
     () => fromConfig.isAdd,
     (isAdd) => {
       // 更新 schema
-      FromFields.value = setFromFields(isAdd);
+      FromFields.value = setFromFields(isAdd, formApi);
     },
     { immediate: true },
   );
@@ -165,14 +176,76 @@ export const createBaseForm = (modalApi: any, config: any) => {
 };
 
 // 动态设置表单字段
-function setFromFields(status: boolean) {
+function setFromFields(status: boolean, formApi: any) {
+  const accessStore = useAccessStore();
+  // 创建响应式头像URL
+  const AVATARURL = ref('');
+
+  // 在新增模式下，不监听itemData变化，直接设置为空
+  if (status) {
+    // 新增模式，头像URL为空
+    AVATARURL.value = '';
+  } else {
+    // 编辑模式，监听itemData变化
+    watch(
+      itemData,
+      (newData: any) => {
+        AVATARURL.value = imgUrl(newData.avatar_url || '');
+      },
+      { immediate: true },
+    );
+  }
+
   const FromFields = [
+    {
+      component: markRaw(NUpload),
+      componentProps: computed(() => ({
+        action: BaseIURL + UploadImgUrl,
+        listType: 'image-card',
+        max: 1,
+        accept: 'image/*',
+        showPreviewButton: false,
+        headers: {
+          authorization: accessStore.accessToken,
+        },
+        data:{
+          module: 'admin',
+        },
+        name: 'file',
+        defaultFileList: AVATARURL.value
+          ? [
+              {
+                id: 'current-avatar',
+                name: '头像',
+                status: 'finished',
+                url: AVATARURL.value,
+              },
+            ]
+          : [],
+        onFinish: ({ file, event }: any) => {
+          const response = JSON.parse(event?.target?.response);
+          console.log('上传头像响应:', response);
+          if (response.code === 200) {
+            message.success('头像上传成功');
+          } else {
+            message.error(response.message || '头像上传失败');
+          }
+        },
+      })),
+      fieldName: 'avatar_url',
+      label: '头像',
+      rules: z.string().url({ message: '请输入有效的图片链接' }),
+    },
     {
       component: 'Input',
       componentProps: { placeholder: '请输入用户昵称' },
       fieldName: 'nickname',
       label: '昵称',
-      rules: z.string().min(1, { message: '请输入昵称' }).max(20),
+      rules: z
+        .string()
+        .min(2, { message: '昵称长度不能少于两个字符' })
+        .max(20, { message: '昵称长度不能多余20个字符' }),
+      defaultValue: '银河以西',
     },
     {
       component: 'Input',
@@ -180,6 +253,7 @@ function setFromFields(status: boolean) {
       fieldName: 'mailbox',
       label: '邮箱',
       rules: z.string().email({ message: '请输入有效的邮箱地址' }),
+      defaultValue: '1145523637@qq.com',
     },
     {
       component: 'Input',
@@ -193,6 +267,7 @@ function setFromFields(status: boolean) {
             /^(?:\+86)?1[3-9]\d{9}$|^(?:\+86)?0\d{2,3}-\d{7,8}$/.test(value),
           { message: '请输入有效电话号码' },
         ),
+      defaultValue: '15581330087',
     },
     {
       component: 'Select',
@@ -231,26 +306,39 @@ function setFromFields(status: boolean) {
         componentProps: { placeholder: '请输入账号' },
         fieldName: 'account',
         label: '账号',
-        rules: z.string().min(1, { message: '账号不能为空' }),
+        rules: z
+          .string()
+          .min(2, { message: '账号长度不能小于2' })
+          .max(20, { message: '账号长度不能大于20' }),
+        defaultValue: 'yinheyixi',
       },
       {
         component: 'Input',
         componentProps: { placeholder: '请输入密码', type: 'password' },
         fieldName: 'password',
         label: '密码',
-        rules: z.string().min(6, { message: '密码至少6位' }),
+        rules: z
+          .string()
+          .min(6, { message: '密码至少6位' })
+          .max(20, { message: '密码不能超过20位' }),
+        defaultValue: '123456',
       },
-      // {
-      //   component: 'InputPassword',
-      //   componentProps: { placeholder: '请再次输入密码' },
-      //   fieldName: 'confirmPassword',
-      //   label: '确认密码',
-      //   rules: z
-      //     .string()
-      //     .refine((val) => val === formApi.getValues().password, {
-      //       message: '两次输入的密码不一致',
-      //     }),
-      // },
+      {
+        component: 'Input',
+        componentProps: { placeholder: '请再次输入密码', type: 'password' },
+        fieldName: 'confirmPassword',
+        label: '确认密码',
+        rules: z.string().refine(
+          async (confirmPassword) => {
+            const { password } = await formApi.getValues();
+            return confirmPassword === password;
+          },
+          {
+            message: '两次输入的密码不一致',
+          },
+        ),
+        defaultValue: '123456',
+      },
     );
   }
   return FromFields;

@@ -1,21 +1,21 @@
-import type {RequestClientOptions} from '@vben/request';
+import type { RequestClientOptions } from '@vben/request';
 
-import {useAppConfig} from '@vben/hooks';
-import {preferences} from '@vben/preferences';
+import { useAppConfig } from '@vben/hooks';
+import { preferences } from '@vben/preferences';
 import {
   authenticateResponseInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
   RequestClient,
 } from '@vben/request';
-import {useAccessStore} from '@vben/stores';
+import { useAccessStore } from '@vben/stores';
 
-import {message} from '#/adapter/naive';
-import {useAuthStore} from '#/store';
+import { message } from '#/adapter/naive';
+import { useAuthStore } from '#/store';
 
-import {refreshTokenApi} from './core';
+import { refreshTokenApi } from './core';
 
-const {apiURL} = useAppConfig(import.meta.env, import.meta.env.PROD);
+const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
 function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   const client = new RequestClient({
@@ -74,7 +74,6 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
       codeField: 'code',
       dataField: 'data',
       successCode: 200,
-
     }),
   );
 
@@ -93,13 +92,10 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-
       const errorMessage = error?.response?.data.message ?? '未知意外';
 
       // 如果没有错误信息，则会根据状态码进行提示
       message.error(errorMessage || msg);
-      // console.log(errorMessage);
-
     }),
   );
 
@@ -110,4 +106,4 @@ export const requestClient = createRequestClient(apiURL, {
   responseReturn: 'data',
 });
 
-export const baseRequestClient = new RequestClient({baseURL: apiURL});
+export const baseRequestClient = new RequestClient({ baseURL: apiURL });

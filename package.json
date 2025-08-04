@@ -117,5 +117,8 @@
       "canvas",
       "node-gyp"
     ]
+  },
+  "dependencies": {
+    "js-md5": "^0.8.3"
   }
 }

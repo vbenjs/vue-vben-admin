@@ -1,7 +1,7 @@
-import type {RequestClient} from './request-client';
-import type {MakeErrorMessageFn, ResponseInterceptorConfig} from './types';
+import type { RequestClient } from './request-client';
+import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
-import {$t} from '@vben/locales';
+import { $t } from '@vben/locales';
 
 import axios from 'axios';
 
@@ -13,28 +13,26 @@ export const defaultResponseInterceptor = ({}: {
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
   successCode: ((code: any) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
-
   return {
     fulfilled: (response) => {
-
-      const {data: responseData} = response;
+      const { data: responseData } = response;
       const statusCode = response.data.code;
 
       if (statusCode >= 200 && statusCode < 400) {
-        return responseData
+        return responseData;
       }
-      throw Object.assign({}, response, {response});
+      throw Object.assign({}, response, { response });
     },
   };
 };
 
 export const authenticateResponseInterceptor = ({
-                                                  client,
-                                                  doReAuthenticate,
-                                                  doRefreshToken,
-                                                  enableRefreshToken,
-                                                  formatToken,
-                                                }: {
+  client,
+  doReAuthenticate,
+  doRefreshToken,
+  enableRefreshToken,
+  formatToken,
+}: {
   client: RequestClient;
   doReAuthenticate: () => Promise<void>;
   doRefreshToken: () => Promise<string>;
@@ -43,7 +41,7 @@ export const authenticateResponseInterceptor = ({
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
-      const {config, response} = error;
+      const { config, response } = error;
       // 如果不是 10003 错误，直接抛出异常
       if (response?.data?.code !== 10003) {
         throw error;
@@ -60,7 +58,7 @@ export const authenticateResponseInterceptor = ({
         return new Promise((resolve) => {
           client.refreshTokenQueue.push((newToken: string) => {
             config.headers.Authorization = formatToken(newToken);
-            resolve(client.request(config.url, {...config}));
+            resolve(client.request(config.url, { ...config }));
           });
         });
       }
@@ -78,7 +76,7 @@ export const authenticateResponseInterceptor = ({
         // 清空队列
         client.refreshTokenQueue = [];
 
-        return client.request(error.config.url, {...error.config});
+        return client.request(error.config.url, { ...error.config });
       } catch (refreshError) {
         // 如果刷新 token 失败，处理错误（如强制登出或跳转登录页面）
         client.refreshTokenQueue.forEach((callback) => callback(''));
@@ -148,6 +146,7 @@ export const errorMessageResponseInterceptor = (
         }
       }
       makeErrorMessage?.(errorMessage, error);
+      return error || errorMessage;
       return Promise.reject(error);
     },
   };

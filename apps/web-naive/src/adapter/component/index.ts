@@ -123,7 +123,6 @@ export type ComponentType =
   | 'TimePicker'
   | 'TreeSelect'
   | 'Upload'
-  | 'InputPassword'
   | BaseFormComponentType;
 
 async function initComponentAdapter() {
