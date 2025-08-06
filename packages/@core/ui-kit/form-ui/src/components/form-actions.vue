@@ -77,8 +77,8 @@ watch(
 
 const actionWrapperClass = computed(() => {
   const props = unref(rootProps);
-  props.actionLayout = props.actionLayout || 'rowEnd';
-  props.actionPosition = props.actionPosition || 'right';
+  const actionLayout = props.actionLayout || 'rowEnd';
+  const actionPosition = props.actionPosition || 'right';
 
   const cls = [
     'flex',
@@ -89,7 +89,7 @@ const actionWrapperClass = computed(() => {
     props.actionWrapperClass,
   ];
 
-  switch (props.actionLayout) {
+  switch (actionLayout) {
     case 'newLine':
       cls.push('col-span-full');
       break;
@@ -99,7 +99,7 @@ const actionWrapperClass = computed(() => {
     // 'inline' 不需要额外类名，保持默认
   }
 
-  switch (props.actionPosition) {
+  switch (actionPosition) {
     case 'left':
       cls.push('justify-start');
       break;
