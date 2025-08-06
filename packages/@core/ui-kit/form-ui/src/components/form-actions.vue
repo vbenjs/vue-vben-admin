@@ -34,17 +34,6 @@ const submitButtonOptions = computed(() => {
 //   return !!unref(rootProps).showCollapseButton;
 // });
 
-const queryFormStyle = computed(() => {
-  if (!unref(rootProps).actionWrapperClass) {
-    return {
-      'grid-column': `-2 / -1`,
-      marginLeft: 'auto',
-    };
-  }
-
-  return {};
-});
-
 async function handleSubmit(e: Event) {
   e?.preventDefault();
   e?.stopPropagation();
@@ -88,6 +77,9 @@ watch(
 
 const actionWrapperClass = computed(() => {
   const props = unref(rootProps);
+  props.actionLayout = props.actionLayout || 'rowEnd';
+  props.actionPosition = props.actionPosition || 'right';
+
   const cls = [
     'flex',
     'w-full',
@@ -95,16 +87,30 @@ const actionWrapperClass = computed(() => {
     'gap-3',
     props.compact ? 'pb-2' : 'pb-6',
     props.layout === 'vertical' ? 'self-end' : 'self-center',
-    props.actionType === 'block' ? 'col-span-full' : 'col-[-2/-1]',
     props.actionWrapperClass,
   ];
 
-  if (props.actionPosition === 'left') {
-    cls.push('justify-start');
-  } else if (props.actionPosition === 'center') {
-    cls.push('justify-center');
-  } else {
-    cls.push('justify-end');
+  switch (props.actionLayout) {
+    case 'newLine':
+      cls.push('col-span-full');
+      break;
+    case 'rowEnd':
+      cls.push('col-[-2/-1]');
+      break;
+    // 'inline' 不需要额外类名，保持默认
+  }
+
+  switch (props.actionPosition) {
+    case 'left':
+      cls.push('justify-start');
+      break;
+    case 'center':
+      cls.push('justify-center');
+      break;
+    default:
+      // case 'right': 默认右对齐
+      cls.push('justify-end');
+      break;
   }
 
   return cls.join(' ');

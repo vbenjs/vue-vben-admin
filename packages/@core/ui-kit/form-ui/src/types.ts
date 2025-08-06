@@ -355,14 +355,14 @@ export interface VbenFormProps<
    */
   actionButtonsReverse?: boolean;
   /**
+   * 操作按钮组的样式
+   * newLine: 在新行显示。rowEnd: 在行内显示，靠右对齐（默认）。inline: 使用grid默认样式
+   */
+  actionLayout?: 'inline' | 'newLine' | 'rowEnd';
+  /**
    * 操作按钮组显示位置，默认靠右显示
    */
   actionPosition?: 'center' | 'left' | 'right';
-  /**
-   * 操作按钮组的样式
-   * inline: 行类显示，block: 新一行单独显示
-   */
-  actionType?: 'block' | 'inline';
   /**
    * 表单操作区域class
    */
