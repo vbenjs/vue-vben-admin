@@ -355,6 +355,15 @@ export interface VbenFormProps<
    */
   actionButtonsReverse?: boolean;
   /**
+   * 操作按钮组显示位置，默认靠右显示
+   */
+  actionPosition?: 'center' | 'left' | 'right';
+  /**
+   * 操作按钮组的样式
+   * inline: 行类显示，block: 新一行单独显示
+   */
+  actionType?: 'block' | 'inline';
+  /**
    * 表单操作区域class
    */
   actionWrapperClass?: ClassType;

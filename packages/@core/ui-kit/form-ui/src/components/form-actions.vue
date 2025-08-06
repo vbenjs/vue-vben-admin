@@ -86,23 +86,37 @@ watch(
   },
 );
 
+const actionWrapperClass = computed(() => {
+  const props = unref(rootProps);
+  const cls = [
+    'flex',
+    'w-full',
+    'items-center',
+    'gap-3',
+    props.compact ? 'pb-2' : 'pb-6',
+    props.layout === 'vertical' ? 'self-end' : 'self-center',
+    props.actionType === 'block' ? 'col-span-full' : 'col-[-2/-1]',
+    props.actionWrapperClass,
+  ];
+
+  if (props.actionPosition === 'left') {
+    cls.push('justify-start');
+  } else if (props.actionPosition === 'center') {
+    cls.push('justify-center');
+  } else {
+    cls.push('justify-end');
+  }
+
+  return cls.join(' ');
+});
+
 defineExpose({
   handleReset,
   handleSubmit,
 });
 </script>
 <template>
-  <div
-    :class="
-      cn(
-        'col-span-full w-full text-right',
-        rootProps.compact ? 'pb-2' : 'pb-6',
-        rootProps.layout === 'vertical' ? 'self-end' : 'self-center',
-        rootProps.actionWrapperClass,
-      )
-    "
-    :style="queryFormStyle"
-  >
+  <div :class="cn(actionWrapperClass)">
     <template v-if="rootProps.actionButtonsReverse">
       <!-- 提交按钮前 -->
       <slot name="submit-before"></slot>
@@ -110,7 +124,6 @@ defineExpose({
       <component
         :is="COMPONENT_MAP.PrimaryButton"
         v-if="submitButtonOptions.show"
-        class="ml-3"
         type="button"
         @click="handleSubmit"
         v-bind="submitButtonOptions"
@@ -125,7 +138,6 @@ defineExpose({
     <component
       :is="COMPONENT_MAP.DefaultButton"
       v-if="resetButtonOptions.show"
-      class="ml-3"
       type="button"
       @click="handleReset"
       v-bind="resetButtonOptions"
@@ -140,7 +152,6 @@ defineExpose({
       <component
         :is="COMPONENT_MAP.PrimaryButton"
         v-if="submitButtonOptions.show"
-        class="ml-3"
         type="button"
         @click="handleSubmit"
         v-bind="submitButtonOptions"
@@ -153,9 +164,9 @@ defineExpose({
     <slot name="expand-before"></slot>
 
     <VbenExpandableArrow
+      class="ml-[-0.3em]"
       v-if="rootProps.showCollapseButton"
       v-model:model-value="collapsed"
-      class="ml-2"
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
