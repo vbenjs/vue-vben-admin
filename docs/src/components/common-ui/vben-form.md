@@ -308,6 +308,8 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | showCollapseButton | 是否显示折叠按钮 | `boolean` | `false` |
 | wrapperClass | 表单的布局，基于tailwindcss | `any` | - |
 | actionWrapperClass | 表单操作区域class | `any` | - |
+| actionLayout | 表单操作按钮位置 | `'newLine' \| 'rowEnd' \| 'inline'` | `rowEnd` |
+| actionPosition | 表单操作按钮对齐方式 | `'left' \| 'center' \| 'right'` | `right` |
 | handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleSubmit | 表单提交回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleValuesChange | 表单值变化回调 | `(values: Record<string, any>, fieldsChanged: string[]) => void` | - |
