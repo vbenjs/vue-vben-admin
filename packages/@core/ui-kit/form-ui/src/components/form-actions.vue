@@ -97,6 +97,7 @@ defineExpose({
       cn(
         'col-span-full w-full text-right',
         rootProps.compact ? 'pb-2' : 'pb-6',
+        rootProps.layout === 'vertical' ? 'self-end' : 'self-center',
         rootProps.actionWrapperClass,
       )
     "
