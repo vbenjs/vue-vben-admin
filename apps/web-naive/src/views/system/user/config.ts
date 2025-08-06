@@ -1,14 +1,19 @@
 // config.ts
 import { h, reactive, ref, watch, shallowRef, computed, markRaw } from 'vue';
-import { NTag, NButton, NUpload, sliderDark } from 'naive-ui';
+import { NTag, NButton, NUpload} from 'naive-ui';
 import { imgUrl } from '#/utils/imgUrl';
 import { useVbenForm } from '#/adapter/form';
 import { useVbenModal } from '@vben/common-ui';
 import { z } from '#/adapter/form';
-import { editSystemUserInfo, addSystemUser } from '#/api/core/system/user';
-import { message } from '#/adapter/naive';
+import {
+  editSystemUserInfo,
+  addSystemUser,
+  deleteSystemUser,
+} from '#/api/core/system/user';
+import {dialog, message } from '#/adapter/naive';
 import md5 from 'js-md5';
 import { useAccessStore } from '@vben/stores';
+import { set } from '@vben/utils';
 
 // 拼接请求头
 const BaseIURL = import.meta.env.VITE_BASE_API;
@@ -25,100 +30,140 @@ export const createModalConfig = () => {
 };
 
 // 单条数据
-let itemData = reactive({});
+let itemData = reactive({
+  avatar_id: '',
+  avatar_url: '',
+});
 
 // 创建表格配置的工厂函数
 export const createTableColumns = (
   modalApi: any,
   formApi: any,
   config: any,
-) => [
-  {
-    key: 'id',
-    title: 'ID',
-  },
-  {
-    key: 'avatar_url',
-    title: '头像',
-    render(row: any) {
-      return h('img', {
-        src: imgUrl(row.avatar_url),
-        style: {
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-        },
-      });
+) => {
+  return [
+    {
+      key: 'id',
+      title: 'ID',
     },
-  },
-  {
-    key: 'nickname',
-    title: '昵称',
-  },
-  {
-    key: 'telephone',
-    title: '电话',
-  },
-  {
-    key: 'mailbox',
-    title: '邮箱',
-  },
-  {
-    key: 'status',
-    title: '状态',
-    render(row: any) {
-      let statusText = '启用';
-      let statusColor:
-        | 'default'
-        | 'error'
-        | 'primary'
-        | 'success'
-        | 'info'
-        | 'warning' = 'primary';
-      if (row.status) {
-        statusText = '启用';
-        statusColor = 'primary';
-      } else {
-        statusText = '禁用';
-        statusColor = 'error';
-      }
-      return h(
-        NTag,
-        {
-          type: statusColor,
-          bordered: true,
-          strong: true,
-        },
-        {
-          default: () => statusText,
-        },
-      );
-    },
-  },
-  {
-    title: '操作',
-    key: 'actions',
-    render(item: any) {
-      return h(
-        NButton,
-        {
-          size: 'small',
-          type: 'success',
-          tertiary: true,
-          round: true,
-          onClick: () => {
-            let { fromConfig } = config;
-            fromConfig.isAdd = false;
-            modalApi.open();
-            Object.assign(itemData, item);
-            formApi.setValues(itemData);
+    {
+      key: 'avatar_url',
+      title: '头像',
+      render(row: any) {
+        return h('img', {
+          src: imgUrl(row.avatar_url),
+          style: {
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
           },
-        },
-        { default: () => '编辑信息' },
-      );
+        });
+      },
     },
-  },
-];
+    {
+      key: 'nickname',
+      title: '昵称',
+    },
+    {
+      key: 'telephone',
+      title: '电话',
+    },
+    {
+      key: 'mailbox',
+      title: '邮箱',
+    },
+    {
+      key: 'status',
+      title: '状态',
+      render(row: any) {
+        let statusText = '启用';
+        let statusColor:
+          | 'default'
+          | 'error'
+          | 'primary'
+          | 'success'
+          | 'info'
+          | 'warning' = 'primary';
+        if (row.status) {
+          statusText = '启用';
+          statusColor = 'primary';
+        } else {
+          statusText = '禁用';
+          statusColor = 'error';
+        }
+        return h(
+          NTag,
+          {
+            type: statusColor,
+            bordered: true,
+            strong: true,
+          },
+          {
+            default: () => statusText,
+          },
+        );
+      },
+    },
+    {
+      title: '操作',
+      key: 'actions',
+      render(item: any) {
+        // 返回一个包含两个按钮的容器
+        return h('div', { style: { display: 'flex', gap: '8px' } }, [
+          h(
+            NButton,
+            {
+              size: 'small',
+              type: 'success',
+              tertiary: true,
+              round: true,
+              onClick: () => {
+                let { fromConfig } = config;
+                fromConfig.isAdd = false;
+                modalApi.open();
+                Object.assign(itemData, item);
+                formApi.setValues(itemData);
+              },
+            },
+            { default: () => '编辑信息' },
+          ),
+          h(
+            NButton,
+            {
+              size: 'small',
+              type: 'error', // 按钮类型（错误色，区分编辑）
+              tertiary: true,
+              round: true,
+              onClick: () => {
+                dialog.error({
+                  title: '确认删除',
+                  content: `您确定要删除用户 ${item.nickname} 吗？`,
+                  positiveText: '确定',
+                  negativeText: '取消',
+                  onPositiveClick: async () => {
+                    const result = await deleteSystemUser({ id: item.id });
+                    if (result.code !== 200) {
+                      message.error('删除用户失败');
+                      return;
+                    }else{
+                      message.success('用户已删除');
+                      setTimeout(() => {
+                        config.init(); // 重新加载数据
+                      }, 1000);
+                      // config.init(); 
+                    }
+                    
+                  },
+                });
+              },
+            },
+            { default: () => '删除' }, // 按钮文字
+          ),
+        ]);
+      },
+    },
+  ];
+};
 
 export const createBaseForm = (modalApi: any, config: any) => {
   const { init, fromConfig } = config;
@@ -135,6 +180,7 @@ export const createBaseForm = (modalApi: any, config: any) => {
       const result = await addSystemUser(POSTDATA);
       if (result.code == 200) {
         message.success('系统用户已添加');
+        config.init();
         modalApi.close();
       }
       fromConfig.submitting = false;
@@ -208,7 +254,7 @@ function setFromFields(status: boolean, formApi: any) {
         headers: {
           authorization: accessStore.accessToken,
         },
-        data:{
+        data: {
           module: 'admin',
         },
         name: 'file',
@@ -224,8 +270,12 @@ function setFromFields(status: boolean, formApi: any) {
           : [],
         onFinish: ({ file, event }: any) => {
           const response = JSON.parse(event?.target?.response);
-          console.log('上传头像响应:', response);
           if (response.code === 200) {
+            const { data } = response;
+            itemData.avatar_url = data.img_path;
+            itemData.avatar_id = data.id;
+            formApi.setFieldValue('avatar_url', data.img_path);
+            formApi.setFieldValue('avatar_id', data.id);
             message.success('头像上传成功');
           } else {
             message.error(response.message || '头像上传失败');
@@ -234,7 +284,7 @@ function setFromFields(status: boolean, formApi: any) {
       })),
       fieldName: 'avatar_url',
       label: '头像',
-      rules: z.string().url({ message: '请输入有效的图片链接' }),
+      rules: z.string(),
     },
     {
       component: 'Input',

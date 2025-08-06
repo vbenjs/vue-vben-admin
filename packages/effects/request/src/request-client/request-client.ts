@@ -1,15 +1,15 @@
-import type {AxiosInstance, AxiosResponse} from 'axios';
+import type { AxiosInstance, AxiosResponse } from 'axios';
 
-import type {RequestClientConfig, RequestClientOptions} from './types';
+import type { RequestClientConfig, RequestClientOptions } from './types';
 
-import {bindMethods, isString, merge} from '@vben/utils';
+import { bindMethods, isString, merge } from '@vben/utils';
 
 import axios from 'axios';
 import qs from 'qs';
 
-import {FileDownloader} from './modules/downloader';
-import {InterceptorManager} from './modules/interceptor';
-import {FileUploader} from './modules/uploader';
+import { FileDownloader } from './modules/downloader';
+import { InterceptorManager } from './modules/interceptor';
+import { FileUploader } from './modules/uploader';
 
 function getParamsSerializer(
   paramsSerializer: RequestClientOptions['paramsSerializer'],
@@ -18,17 +18,17 @@ function getParamsSerializer(
     switch (paramsSerializer) {
       case 'brackets': {
         return (params: any) =>
-          qs.stringify(params, {arrayFormat: 'brackets'});
+          qs.stringify(params, { arrayFormat: 'brackets' });
       }
       case 'comma': {
-        return (params: any) => qs.stringify(params, {arrayFormat: 'comma'});
+        return (params: any) => qs.stringify(params, { arrayFormat: 'comma' });
       }
       case 'indices': {
         return (params: any) =>
-          qs.stringify(params, {arrayFormat: 'indices'});
+          qs.stringify(params, { arrayFormat: 'indices' });
       }
       case 'repeat': {
-        return (params: any) => qs.stringify(params, {arrayFormat: 'repeat'});
+        return (params: any) => qs.stringify(params, { arrayFormat: 'repeat' });
       }
     }
   }
@@ -94,16 +94,17 @@ class RequestClient {
    */
   public delete<T = any>(
     url: string,
+    data?: any,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, {...config, method: 'DELETE'});
+    return this.request<T>(url, { ...config, data, method: 'DELETE' });
   }
 
   /**
    * GET请求方法
    */
   public get<T = any>(url: string, config?: RequestClientConfig): Promise<T> {
-    return this.request<T>(url, {...config, method: 'GET'});
+    return this.request<T>(url, { ...config, method: 'GET' });
   }
 
   /**
@@ -114,7 +115,7 @@ class RequestClient {
     data?: any,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, {...config, data, method: 'POST'});
+    return this.request<T>(url, { ...config, data, method: 'POST' });
   }
 
   /**
@@ -125,7 +126,7 @@ class RequestClient {
     data?: any,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, {...config, data, method: 'PUT'});
+    return this.request<T>(url, { ...config, data, method: 'PUT' });
   }
 
   /**
@@ -140,7 +141,7 @@ class RequestClient {
         url,
         ...config,
         ...(config.paramsSerializer
-          ? {paramsSerializer: getParamsSerializer(config.paramsSerializer)}
+          ? { paramsSerializer: getParamsSerializer(config.paramsSerializer) }
           : {}),
       });
       return response as T;
@@ -150,4 +151,4 @@ class RequestClient {
   }
 }
 
-export {RequestClient};
+export { RequestClient };

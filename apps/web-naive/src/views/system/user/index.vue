@@ -23,7 +23,7 @@
 import { getALLSystemUser } from '#/api/core/system/user';
 import { reactive } from 'vue';
 import { Page } from '@vben/common-ui';
-import { NDataTable, NButton, NUpload } from 'naive-ui';
+import { NDataTable, NButton, useDialog, useMessage } from 'naive-ui';
 
 import {
   createModalConfig,
@@ -32,7 +32,7 @@ import {
 } from './config';
 
 // 系统用户
-let systemUser = reactive([]);
+let systemUser: any = reactive([]);
 
 // 表单配置
 let fromConfig = reactive({
@@ -40,10 +40,15 @@ let fromConfig = reactive({
   isAdd: false,
 });
 
+// naiveui组件
+const NDialog = useDialog();
+const NMessage = useMessage();
+
 // 初始化函数
 const init = () => {
   getALLSystemUser().then((res) => {
-    systemUser = Object.assign(systemUser, res.data?.data);
+    systemUser.length = 0;
+    systemUser.push(...(res.data?.data || []));
   });
 };
 init();
@@ -66,6 +71,10 @@ const { BaseForm, formApi } = createBaseForm(modalApi, {
 const TableColumns = createTableColumns(modalApi, formApi, {
   init,
   fromConfig,
+  naiveComponents: {
+    NDialog,
+    NMessage,
+  },
 });
 </script>
 
