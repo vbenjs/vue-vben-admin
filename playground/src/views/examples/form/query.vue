@@ -126,8 +126,12 @@ const [QueryForm1] = useVbenForm({
 });
 
 const [QueryForm2] = useVbenForm({
-  // 默认展开
-  collapsed: false,
+  // 操作按钮组 newLine: 在新行显示。rowEnd: 在行内显示，靠右对齐（默认）。inline: 使用grid默认样式
+  actionLayout: 'newLine',
+  actionPosition: 'left', // 操作按钮组在左侧显示
+  // 默认折叠
+  collapsed: true,
+  collapsedRows: 3,
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -202,7 +206,7 @@ function onSubmit(values: Record<string, any>) {
     </Card>
 
     <Card class="mb-5" title="查询表单，默认展开，垂直布局">
-      <QueryForm2 action-layout="newLine" action-position="left" />
+      <QueryForm2 />
     </Card>
 
     <Card title="查询表单，默认折叠，折叠时保留2行">
