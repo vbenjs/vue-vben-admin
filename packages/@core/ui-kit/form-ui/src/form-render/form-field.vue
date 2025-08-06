@@ -384,7 +384,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="slide-up" v-if="!compact">
-          <FormMessage class="absolute bottom-1" />
+          <FormMessage class="absolute" />
         </Transition>
       </div>
     </FormItem>
