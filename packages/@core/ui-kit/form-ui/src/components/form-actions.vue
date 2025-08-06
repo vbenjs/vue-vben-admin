@@ -85,7 +85,6 @@ const actionWrapperClass = computed(() => {
     'w-full',
     'items-center',
     'gap-3',
-    props.compact ? 'pb-2' : 'pb-6',
     props.layout === 'vertical' ? 'self-end' : 'self-center',
     props.actionWrapperClass,
   ];
