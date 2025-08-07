@@ -41,6 +41,16 @@ const emits = defineEmits<{
   submit: [event: any];
 }>();
 
+const wrapperClass = computed(() => {
+  const cls = ['flex flex-col'];
+  if (props.layout === 'vertical') {
+    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4');
+  } else {
+    cls.push('gap-2');
+  }
+  return cn(...cls, props.wrapperClass);
+});
+
 provideFormRenderProps(props);
 
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
