@@ -44,9 +44,9 @@ const emits = defineEmits<{
 const wrapperClass = computed(() => {
   const cls = ['flex flex-col'];
   if (props.layout === 'vertical') {
-    cls.push(props.compact ? 'gap-2' : 'gap-6');
+    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4');
   } else {
-    cls.push(props.compact ? 'gap-2' : 'gap-y-6 gap-x-2');
+    cls.push('gap-2');
   }
   return cn(...cls, props.wrapperClass);
 });

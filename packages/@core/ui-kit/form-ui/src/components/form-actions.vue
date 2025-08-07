@@ -85,31 +85,37 @@ const actionWrapperClass = computed(() => {
     'w-full',
     'items-center',
     'gap-3',
+    props.compact ? 'pb-2' : 'pb-4',
     props.layout === 'vertical' ? 'self-end' : 'self-center',
     props.actionWrapperClass,
   ];
 
   switch (actionLayout) {
-    case 'newLine':
+    case 'newLine': {
       cls.push('col-span-full');
       break;
-    case 'rowEnd':
+    }
+    case 'rowEnd': {
       cls.push('col-[-2/-1]');
       break;
+    }
     // 'inline' 不需要额外类名，保持默认
   }
 
   switch (actionPosition) {
-    case 'left':
-      cls.push('justify-start');
-      break;
-    case 'center':
+    case 'center': {
       cls.push('justify-center');
       break;
-    default:
+    }
+    case 'left': {
+      cls.push('justify-start');
+      break;
+    }
+    default: {
       // case 'right': 默认右对齐
       cls.push('justify-end');
       break;
+    }
   }
 
   return cls.join(' ');
