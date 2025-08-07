@@ -1,6 +1,11 @@
 import { faker } from '@faker-js/faker';
+import { eventHandler, getQuery } from 'h3';
 import { verifyAccessToken } from '~/utils/jwt-utils';
-import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
+import {
+  sleep,
+  unAuthorizedResponse,
+  usePageResponseSuccess,
+} from '~/utils/response';
 
 function generateMockDataList(count: number) {
   const dataList = [];
@@ -45,25 +50,37 @@ export default eventHandler(async (event) => {
 
   const { page, pageSize, sortBy, sortOrder } = getQuery(event);
   const listData = structuredClone(mockData);
-  if (sortBy && Reflect.has(listData[0], sortBy as string)) {
+
+  // 检查 sortBy 是否是 listData 元素的合法属性键
+  if (
+    sortBy &&
+    listData[0] &&
+    Object.prototype.hasOwnProperty.call(listData[0], sortBy as string)
+  ) {
+    // 定义数组元素的类型
+    type ItemType = (typeof listData)[0];
+    const sortKey = sortBy as keyof ItemType; // 将 sortBy 断言为合法键
+
     listData.sort((a, b) => {
       if (sortOrder === 'asc') {
-        if (sortBy === 'price') {
+        if (sortKey === 'price') {
+          // 处理 price 的特殊比较逻辑（转换为数字）
           return (
-            Number.parseFloat(a[sortBy as string]) -
-            Number.parseFloat(b[sortBy as string])
+            Number.parseFloat(a[sortKey] as string) -
+            Number.parseFloat(b[sortKey] as string)
           );
         } else {
-          return a[sortBy as string] > b[sortBy as string] ? 1 : -1;
+          // 非 price 属性使用字符串比较
+          return (a[sortKey] as string) > (b[sortKey] as string) ? 1 : -1;
         }
       } else {
-        if (sortBy === 'price') {
+        if (sortKey === 'price') {
           return (
-            Number.parseFloat(b[sortBy as string]) -
-            Number.parseFloat(a[sortBy as string])
+            Number.parseFloat(b[sortKey] as string) -
+            Number.parseFloat(a[sortKey] as string)
           );
         } else {
-          return a[sortBy as string] < b[sortBy as string] ? 1 : -1;
+          return (a[sortKey] as string) < (b[sortKey] as string) ? 1 : -1;
         }
       }
     });
