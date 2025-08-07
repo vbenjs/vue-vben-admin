@@ -34,7 +34,11 @@ export function verifyAccessToken(
     return null;
   }
 
-  const token = authHeader.split(' ')[1] as string;
+  const tokenParts = authHeader.split(' ');
+  if (tokenParts.length !== 2) {
+    return null;
+  }
+  const token = tokenParts[1] as string;
   try {
     const decoded = jwt.verify(
       token,
@@ -61,6 +65,9 @@ export function verifyRefreshToken(
     const user = MOCK_USERS.find(
       (item) => item.username === username,
     ) as UserInfo;
+    if (!user) {
+      return null;
+    }
     const { password: _pwd, ...userinfo } = user;
     return userinfo;
   } catch {

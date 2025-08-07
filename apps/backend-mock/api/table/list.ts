@@ -63,16 +63,12 @@ export default eventHandler(async (event) => {
 
     listData.sort((a, b) => {
       if (sortOrder === 'asc') {
-        if (sortKey === 'price') {
-          // 处理 price 的特殊比较逻辑（转换为数字）
-          return (
-            Number.parseFloat(a[sortKey] as string) -
-            Number.parseFloat(b[sortKey] as string)
-          );
-        } else {
-          // 非 price 属性使用字符串比较
-          return (a[sortKey] as string) > (b[sortKey] as string) ? 1 : -1;
-        }
+        const aValue = a[sortKey];
+        const bValue = b[sortKey];
+
+        return typeof aValue === 'number' && typeof bValue === 'number'
+          ? aValue - bValue
+          : String(aValue).localeCompare(String(bValue));
       } else {
         if (sortKey === 'price') {
           return (
