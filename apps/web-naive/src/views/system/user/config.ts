@@ -1,6 +1,6 @@
 // config.ts
 import { h, reactive, ref, watch, shallowRef, computed, markRaw } from 'vue';
-import { NTag, NButton, NUpload} from 'naive-ui';
+import { NTag, NButton, NUpload } from 'naive-ui';
 import { imgUrl } from '#/utils/imgUrl';
 import { useVbenForm } from '#/adapter/form';
 import { useVbenModal } from '@vben/common-ui';
@@ -10,10 +10,9 @@ import {
   addSystemUser,
   deleteSystemUser,
 } from '#/api/core/system/user';
-import {dialog, message } from '#/adapter/naive';
+import { dialog, message } from '#/adapter/naive';
 import md5 from 'js-md5';
 import { useAccessStore } from '@vben/stores';
-import { set } from '@vben/utils';
 
 // 拼接请求头
 const BaseIURL = import.meta.env.VITE_BASE_API;
@@ -41,6 +40,162 @@ export const createTableColumns = (
   formApi: any,
   config: any,
 ) => {
+  const { init } = config;
+
+  let pagination = reactive({
+    page: 1,
+    pageSize: 10,
+    itemCount: 0, // 总条数会在 init 中动态设置
+    showSizePicker: true,
+    pageSizes: [10, 20, 50, 100],
+    onChange: (page: number) => {
+      pagination.page = page;
+      init(); // 会从外部 reactive 的 queryParams 取值
+    },
+    onUpdatePageSize: (pageSize: number) => {
+      pagination.pageSize = pageSize;
+      pagination.page = 1;
+      init();
+    },
+  });
+
+  const TableColumns = setTableColumns(modalApi, formApi, config);
+
+  return {
+    TableColumns,
+    pagination,
+  };
+};
+
+// 创建表单配置的工厂函数
+export const createBaseForm = (modalApi: any, config: any) => {
+  const { init, fromConfig } = config;
+
+  // 动态 schema
+  const FromFields = shallowRef();
+
+  // 提交函数
+  const onSubmit = async (values: Record<string, any>) => {
+    if (fromConfig.isAdd) {
+      let POSTDATA = Object.assign({}, values);
+      POSTDATA.password = md5(values.password);
+      fromConfig.submitting = true;
+      const result = await addSystemUser(POSTDATA);
+      if (result.code == 200) {
+        message.success('系统用户已添加');
+        config.init();
+        modalApi.close();
+      }
+      fromConfig.submitting = false;
+    } else {
+      const UpdateData = Object.assign(itemData, values);
+      fromConfig.submitting = true;
+      await editSystemUserInfo(UpdateData);
+      message.success('用户信息已更新');
+      init();
+      modalApi.close();
+      fromConfig.submitting = false;
+    }
+  };
+
+  // 初始化空 schema 给 useVbenForm
+  const [BaseForm, formApi] = useVbenForm({
+    schema: FromFields,
+    handleSubmit: onSubmit,
+    commonConfig: {
+      componentProps: {
+        class: 'w-full',
+      },
+    },
+    layout: 'horizontal',
+    wrapperClass: 'grid-cols-1',
+  });
+
+  // 监听 isAdd 动态更新 schema
+  watch(
+    () => fromConfig.isAdd,
+    (isAdd) => {
+      // 更新 schema
+      FromFields.value = setFromFields(isAdd, formApi);
+    },
+    { immediate: true },
+  );
+
+  return { BaseForm, formApi };
+};
+
+// 创建查询表单
+export const createQueryForm = (config: any) => {
+  const { init } = config;
+  const [QueryForm, queryFormApi] = useVbenForm({
+    schema: [
+      {
+        component: 'Input',
+        fieldName: 'nickname',
+        label: '昵称',
+        componentProps: {
+          placeholder: '请输入昵称',
+          clearable: true,
+        },
+      },
+      {
+        component: 'Input',
+        fieldName: 'telephone',
+        label: '电话',
+        componentProps: {
+          placeholder: '请输入电话',
+          clearable: true,
+        },
+      },
+      {
+        component: 'Input',
+        fieldName: 'mailbox',
+        label: '邮箱',
+        componentProps: {
+          placeholder: '请输入邮箱',
+          clearable: true,
+        },
+      },
+      {
+        component: 'Select',
+        componentProps: {
+          options: [
+            { label: '启用', value: 1 },
+            { label: '禁用', value: 0 },
+          ],
+          placeholder: '请选择用户状态',
+          showSearch: true,
+        },
+        fieldName: 'status',
+        label: '状态',
+      },
+    ],
+    commonConfig: {
+      componentProps: {
+        class: 'w-full',
+      },
+    },
+    // showCollapseButton: true,
+    // collapsed: true,
+    layout: 'inline',
+    submitButtonOptions: {
+      content: '查询',
+    },
+    handleSubmit: (value) => {
+      init(value);
+    },
+    handleReset: async () => {
+      queryFormApi.resetForm();
+      init({}, true);
+    },
+    wrapperClass:
+      'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2',
+  });
+  return { QueryForm, queryFormApi };
+};
+
+// 设置表格列
+function setTableColumns(modalApi: any, formApi: any, config: any) {
   return [
     {
       key: 'id',
@@ -145,14 +300,13 @@ export const createTableColumns = (
                     if (result.code !== 200) {
                       message.error('删除用户失败');
                       return;
-                    }else{
+                    } else {
                       message.success('用户已删除');
                       setTimeout(() => {
                         config.init(); // 重新加载数据
                       }, 1000);
-                      // config.init(); 
+                      // config.init();
                     }
-                    
                   },
                 });
               },
@@ -163,64 +317,7 @@ export const createTableColumns = (
       },
     },
   ];
-};
-
-export const createBaseForm = (modalApi: any, config: any) => {
-  const { init, fromConfig } = config;
-
-  // 动态 schema
-  const FromFields = shallowRef();
-
-  // 提交函数
-  const onSubmit = async (values: Record<string, any>) => {
-    if (fromConfig.isAdd) {
-      let POSTDATA = Object.assign({}, values);
-      POSTDATA.password = md5(values.password);
-      fromConfig.submitting = true;
-      const result = await addSystemUser(POSTDATA);
-      if (result.code == 200) {
-        message.success('系统用户已添加');
-        config.init();
-        modalApi.close();
-      }
-      fromConfig.submitting = false;
-    } else {
-      const UpdateData = Object.assign(itemData, values);
-      fromConfig.submitting = true;
-      await editSystemUserInfo(UpdateData);
-      message.success('用户信息已更新');
-      init();
-      modalApi.close();
-      fromConfig.submitting = false;
-    }
-  };
-
-  // 初始化空 schema 给 useVbenForm
-  const [BaseForm, formApi] = useVbenForm({
-    schema: FromFields,
-    handleSubmit: onSubmit,
-    commonConfig: {
-      componentProps: {
-        class: 'w-full',
-      },
-    },
-    layout: 'horizontal',
-    wrapperClass: 'grid-cols-1',
-  });
-
-  // 监听 isAdd 动态更新 schema
-  watch(
-    () => fromConfig.isAdd,
-    (isAdd) => {
-      // 更新 schema
-      FromFields.value = setFromFields(isAdd, formApi);
-    },
-    { immediate: true },
-  );
-
-  return { BaseForm, formApi };
-};
-
+}
 // 动态设置表单字段
 function setFromFields(status: boolean, formApi: any) {
   const accessStore = useAccessStore();

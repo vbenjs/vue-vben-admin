@@ -3,8 +3,8 @@ import { requestClient } from '#/api/request';
 /**
  * 获取所有后台用户
  */
-export async function getALLSystemUser() {
-  return requestClient.get('/admin/system/getALLSystemUser');
+export async function getALLSystemUser(params: any) {
+  return requestClient.get('/admin/system/getALLSystemUser', { params });
 }
 
 // 编辑系统用户信息
