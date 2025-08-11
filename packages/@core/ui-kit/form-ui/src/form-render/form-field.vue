@@ -295,7 +295,7 @@ onUnmounted(() => {
         'form-is-required': shouldRequired,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
-        'pb-6': !compact,
+        'pb-4': !compact,
         'pb-2': compact,
       }"
       class="relative flex"
@@ -386,7 +386,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="slide-up" v-if="!compact">
-          <FormMessage class="absolute bottom-1" />
+          <FormMessage class="absolute" />
         </Transition>
       </div>
     </FormItem>
