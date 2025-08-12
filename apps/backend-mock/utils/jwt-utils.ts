@@ -46,9 +46,10 @@ export function verifyAccessToken(
     ) as unknown as UserPayload;
 
     const username = decoded.username;
-    const user = MOCK_USERS.find(
-      (item) => item.username === username,
-    ) as UserInfo;
+    const user = MOCK_USERS.find((item) => item.username === username);
+    if (!user) {
+      return null;
+    }
     const { password: _pwd, ...userinfo } = user;
     return userinfo;
   } catch {

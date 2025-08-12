@@ -51,15 +51,18 @@ export default eventHandler(async (event) => {
   const { page, pageSize, sortBy, sortOrder } = getQuery(event);
   const listData = structuredClone(mockData);
 
+  // 规范化 query 入参，兼容 string[]
+  const sortKeyRaw = Array.isArray(sortBy) ? sortBy[0] : sortBy;
+
   // 检查 sortBy 是否是 listData 元素的合法属性键
   if (
-    sortBy &&
+    typeof sortKeyRaw === 'string' &&
     listData[0] &&
-    Object.prototype.hasOwnProperty.call(listData[0], sortBy as string)
+    Object.prototype.hasOwnProperty.call(listData[0], sortKeyRaw)
   ) {
     // 定义数组元素的类型
     type ItemType = (typeof listData)[0];
-    const sortKey = sortBy as keyof ItemType; // 将 sortBy 断言为合法键
+    const sortKey = sortKeyRaw as keyof ItemType; // 将 sortBy 断言为合法键
 
     listData.sort((a, b) => {
       if (sortOrder === 'asc') {
@@ -70,14 +73,12 @@ export default eventHandler(async (event) => {
           ? aValue - bValue
           : String(aValue).localeCompare(String(bValue));
       } else {
-        if (sortKey === 'price') {
-          return (
-            Number.parseFloat(b[sortKey] as string) -
-            Number.parseFloat(a[sortKey] as string)
-          );
-        } else {
-          return (a[sortKey] as string) < (b[sortKey] as string) ? 1 : -1;
-        }
+        const aValue = a[sortKey];
+        const bValue = b[sortKey];
+
+        return typeof aValue === 'number' && typeof bValue === 'number'
+          ? aValue - bValue
+          : String(aValue).localeCompare(String(bValue));
       }
     });
   }
