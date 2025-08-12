@@ -49,6 +49,17 @@ export default eventHandler(async (event) => {
   await sleep(600);
 
   const { page, pageSize, sortBy, sortOrder } = getQuery(event);
+  // 规范化分页参数，处理 string[]
+  const pageRaw = Array.isArray(page) ? page[0] : page;
+  const pageSizeRaw = Array.isArray(pageSize) ? pageSize[0] : pageSize;
+  const pageNumber = Math.max(
+    1,
+    Number.parseInt(String(pageRaw ?? '1'), 10) || 1,
+  );
+  const pageSizeNumber = Math.min(
+    100,
+    Math.max(1, Number.parseInt(String(pageSizeRaw ?? '10'), 10) || 10),
+  );
   const listData = structuredClone(mockData);
 
   // 规范化 query 入参，兼容 string[]
@@ -98,5 +109,9 @@ export default eventHandler(async (event) => {
     });
   }
 
-  return usePageResponseSuccess(page as string, pageSize as string, listData);
+  return usePageResponseSuccess(
+    String(pageNumber),
+    String(pageSizeNumber),
+    listData,
+  );
 });
