@@ -53,7 +53,7 @@ export default eventHandler(async (event) => {
 
   // 规范化 query 入参，兼容 string[]
   const sortKeyRaw = Array.isArray(sortBy) ? sortBy[0] : sortBy;
-
+  const sortOrderRaw = Array.isArray(sortOrder) ? sortOrder[0] : sortOrder;
   // 检查 sortBy 是否是 listData 元素的合法属性键
   if (
     typeof sortKeyRaw === 'string' &&
@@ -63,23 +63,38 @@ export default eventHandler(async (event) => {
     // 定义数组元素的类型
     type ItemType = (typeof listData)[0];
     const sortKey = sortKeyRaw as keyof ItemType; // 将 sortBy 断言为合法键
-
+    const isDesc = sortOrderRaw === 'desc';
     listData.sort((a, b) => {
-      if (sortOrder === 'asc') {
-        const aValue = a[sortKey];
-        const bValue = b[sortKey];
+      const aValue = a[sortKey] as unknown;
+      const bValue = b[sortKey] as unknown;
 
-        return typeof aValue === 'number' && typeof bValue === 'number'
-          ? aValue - bValue
-          : String(aValue).localeCompare(String(bValue));
+      let result = 0;
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        result = aValue - bValue;
+      } else if (aValue instanceof Date && bValue instanceof Date) {
+        result = aValue.getTime() - bValue.getTime();
+      } else if (typeof aValue === 'boolean' && typeof bValue === 'boolean') {
+        if (aValue === bValue) {
+          result = 0;
+        } else {
+          result = aValue ? 1 : -1;
+        }
       } else {
-        const aValue = a[sortKey];
-        const bValue = b[sortKey];
-
-        return typeof aValue === 'number' && typeof bValue === 'number'
-          ? aValue - bValue
-          : String(aValue).localeCompare(String(bValue));
+        const aStr = String(aValue);
+        const bStr = String(bValue);
+        const aNum = Number(aStr);
+        const bNum = Number(bStr);
+        result =
+          Number.isFinite(aNum) && Number.isFinite(bNum)
+            ? aNum - bNum
+            : aStr.localeCompare(bStr, undefined, {
+                numeric: true,
+                sensitivity: 'base',
+              });
       }
+
+      return isDesc ? -result : result;
     });
   }
 
