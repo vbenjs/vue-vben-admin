@@ -1,4 +1,3 @@
 {
-  // automatic generation
   "extends": "./.nitro/types/tsconfig.json"
 }
