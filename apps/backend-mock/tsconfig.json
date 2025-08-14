@@ -1,4 +1,3 @@
 {
-  // 这个模块不需要任何类型修复，nitro 启动会生成对应的类型文件
   "extends": "./.nitro/types/tsconfig.json"
 }
