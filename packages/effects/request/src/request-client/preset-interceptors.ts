@@ -1,5 +1,9 @@
 import type { RequestClient } from './request-client';
-import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
+import type {
+  MakeErrorMessageFn,
+  RequestResponse,
+  ResponseInterceptorConfig,
+} from './types';
 
 import { $t } from '@vben/locales';
 import { isFunction } from '@vben/utils';
@@ -49,19 +53,21 @@ export const authenticateResponseInterceptor = ({
   doReAuthenticate,
   doRefreshToken,
   enableRefreshToken,
+  enableRefreshFunc,
   formatToken,
 }: {
   client: RequestClient;
   doReAuthenticate: () => Promise<void>;
   doRefreshToken: () => Promise<string>;
   enableRefreshToken: boolean;
+  enableRefreshFunc: (response: RequestResponse) => boolean;
   formatToken: (token: string) => null | string;
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
       const { config, response } = error;
-      // 如果不是 401 错误，直接抛出异常
-      if (response?.status !== 401) {
+      // 根据外部传入的函数判断是否需要 重新认证
+      if (!enableRefreshFunc(response)) {
         throw error;
       }
       // 判断是否启用了 refreshToken 功能
