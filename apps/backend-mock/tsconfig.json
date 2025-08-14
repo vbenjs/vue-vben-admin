@@ -1,14 +1,3 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@vben/tsconfig/node.json",
-  "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "~/utils/*": ["utils/*"]
-    },
-    "noEmit": false
-  },
-  "include": ["**/*.ts", "**/*.*.ts"]
+  "extends": "./.nitro/types/tsconfig.json"
 }
