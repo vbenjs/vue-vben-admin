@@ -304,7 +304,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| layout | 表单项布局 | `'horizontal' \| 'vertical'` | `horizontal` |
+| layout | 表单项布局 | `'horizontal' \| 'vertical'\| 'inline'` | `horizontal` |
 | showCollapseButton | 是否显示折叠按钮 | `boolean` | `false` |
 | wrapperClass | 表单的布局，基于tailwindcss | `any` | - |
 | actionWrapperClass | 表单操作区域class | `any` | - |

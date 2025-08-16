@@ -42,11 +42,13 @@ const emits = defineEmits<{
 }>();
 
 const wrapperClass = computed(() => {
-  const cls = ['flex flex-col'];
+  const cls = ['flex'];
   if (props.layout === 'vertical') {
-    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4');
+    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4', 'flex-col grid');
+  } else if (props.layout === 'inline') {
+    cls.push('flex-wrap gap-2');
   } else {
-    cls.push('gap-2');
+    cls.push('gap-2 flex-col grid');
   }
   return cn(...cls, props.wrapperClass);
 });
@@ -170,7 +172,7 @@ const computedSchema = computed(
 
 <template>
   <component :is="formComponent" v-bind="formComponentProps">
-    <div ref="wrapperRef" :class="wrapperClass" class="grid">
+    <div ref="wrapperRef" :class="wrapperClass">
       <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
         <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
           <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>
