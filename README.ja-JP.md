@@ -140,8 +140,12 @@ pnpm build
 
 ## 貢献者
 
+<a href="https://openomy.app/github/vbenjs/vue-vben-admin" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=vbenjs/vue-vben-admin&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
 <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-  <img alt="Contributors" src="https://opencollective.com/vbenjs/contributors.svg?button=false" />
+  <img alt="Contributors" src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
 </a>
 
 ## Discord
