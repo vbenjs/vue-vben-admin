@@ -58,8 +58,8 @@ catalog:
   '@typescript-eslint/parser': ^8.35.1
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.0.0
-  '@vitejs/plugin-vue': ^5.2.4
-  '@vitejs/plugin-vue-jsx': ^4.2.0
+  '@vitejs/plugin-vue': ^6.0.1
+  '@vitejs/plugin-vue-jsx': ^5.0.1
   '@vue/reactivity': ^3.5.17
   '@vue/shared': ^3.5.17
   '@vue/test-utils': ^2.4.6
@@ -167,10 +167,10 @@ catalog:
   tippy.js: ^6.3.7
   turbo: ^2.5.4
   typescript: ^5.8.3
-  unbuild: ^3.5.0
+  unbuild: ^3.6.1
   unplugin-element-plus: ^0.10.0
   vee-validate: ^4.15.1
-  vite: ^6.3.5
+  vite: ^7.1.2
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: ^4.5.4
   vite-plugin-html: ^3.2.2
