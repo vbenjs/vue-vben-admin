@@ -54,7 +54,9 @@ const [Drawer, drawerApi] = useVbenDrawer({
       if (data) {
         formData.value = data;
         id.value = data.id;
-        formApi.setValues(data);
+        setTimeout(() => {
+          formApi.setValues(data);
+        }, 300);
       } else {
         id.value = undefined;
       }
