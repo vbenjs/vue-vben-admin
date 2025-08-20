@@ -1,6 +1,11 @@
 import { faker } from '@faker-js/faker';
+import { eventHandler, getQuery } from 'h3';
 import { verifyAccessToken } from '~/utils/jwt-utils';
-import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
+import {
+  sleep,
+  unAuthorizedResponse,
+  usePageResponseSuccess,
+} from '~/utils/response';
 
 function generateMockDataList(count: number) {
   const dataList = [];
@@ -44,30 +49,69 @@ export default eventHandler(async (event) => {
   await sleep(600);
 
   const { page, pageSize, sortBy, sortOrder } = getQuery(event);
+  // 规范化分页参数，处理 string[]
+  const pageRaw = Array.isArray(page) ? page[0] : page;
+  const pageSizeRaw = Array.isArray(pageSize) ? pageSize[0] : pageSize;
+  const pageNumber = Math.max(
+    1,
+    Number.parseInt(String(pageRaw ?? '1'), 10) || 1,
+  );
+  const pageSizeNumber = Math.min(
+    100,
+    Math.max(1, Number.parseInt(String(pageSizeRaw ?? '10'), 10) || 10),
+  );
   const listData = structuredClone(mockData);
-  if (sortBy && Reflect.has(listData[0], sortBy as string)) {
+
+  // 规范化 query 入参，兼容 string[]
+  const sortKeyRaw = Array.isArray(sortBy) ? sortBy[0] : sortBy;
+  const sortOrderRaw = Array.isArray(sortOrder) ? sortOrder[0] : sortOrder;
+  // 检查 sortBy 是否是 listData 元素的合法属性键
+  if (
+    typeof sortKeyRaw === 'string' &&
+    listData[0] &&
+    Object.prototype.hasOwnProperty.call(listData[0], sortKeyRaw)
+  ) {
+    // 定义数组元素的类型
+    type ItemType = (typeof listData)[0];
+    const sortKey = sortKeyRaw as keyof ItemType; // 将 sortBy 断言为合法键
+    const isDesc = sortOrderRaw === 'desc';
     listData.sort((a, b) => {
-      if (sortOrder === 'asc') {
-        if (sortBy === 'price') {
-          return (
-            Number.parseFloat(a[sortBy as string]) -
-            Number.parseFloat(b[sortBy as string])
-          );
+      const aValue = a[sortKey] as unknown;
+      const bValue = b[sortKey] as unknown;
+
+      let result = 0;
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        result = aValue - bValue;
+      } else if (aValue instanceof Date && bValue instanceof Date) {
+        result = aValue.getTime() - bValue.getTime();
+      } else if (typeof aValue === 'boolean' && typeof bValue === 'boolean') {
+        if (aValue === bValue) {
+          result = 0;
         } else {
-          return a[sortBy as string] > b[sortBy as string] ? 1 : -1;
+          result = aValue ? 1 : -1;
         }
       } else {
-        if (sortBy === 'price') {
-          return (
-            Number.parseFloat(b[sortBy as string]) -
-            Number.parseFloat(a[sortBy as string])
-          );
-        } else {
-          return a[sortBy as string] < b[sortBy as string] ? 1 : -1;
-        }
+        const aStr = String(aValue);
+        const bStr = String(bValue);
+        const aNum = Number(aStr);
+        const bNum = Number(bStr);
+        result =
+          Number.isFinite(aNum) && Number.isFinite(bNum)
+            ? aNum - bNum
+            : aStr.localeCompare(bStr, undefined, {
+                numeric: true,
+                sensitivity: 'base',
+              });
       }
+
+      return isDesc ? -result : result;
     });
   }
 
-  return usePageResponseSuccess(page as string, pageSize as string, listData);
+  return usePageResponseSuccess(
+    String(pageNumber),
+    String(pageSizeNumber),
+    listData,
+  );
 });

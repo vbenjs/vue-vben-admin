@@ -85,6 +85,15 @@ const routes: RouteRecordRaw[] = [
               title: $t('examples.form.merge'),
             },
           },
+          {
+            name: 'FormScrollToErrorExample',
+            path: '/examples/form/scroll-to-error-test',
+            component: () =>
+              import('#/views/examples/form/scroll-to-error-test.vue'),
+            meta: {
+              title: $t('examples.form.scrollToError'),
+            },
+          },
         ],
       },
       {
@@ -194,6 +203,15 @@ const routes: RouteRecordRaw[] = [
               import('#/views/examples/captcha/slider-rotate-captcha.vue'),
             meta: {
               title: $t('examples.captcha.sliderRotateCaptcha'),
+            },
+          },
+          {
+            name: 'TranslateVerifyExample',
+            path: '/examples/captcha/slider-translate',
+            component: () =>
+              import('#/views/examples/captcha/slider-translate-captcha.vue'),
+            meta: {
+              title: $t('examples.captcha.sliderTranslateCaptcha'),
             },
           },
           {
