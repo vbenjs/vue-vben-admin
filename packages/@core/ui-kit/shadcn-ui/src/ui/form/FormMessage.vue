@@ -34,17 +34,17 @@ const { formMessageId, name } = useFormField();
 
 <style>
 .vben-form-message-compact {
-  height: auto;
-  min-height: 1.5rem;
-  opacity: 1;
   position: absolute;
   top: 100%;
-  z-index: 1;
-  background: hsl(var(--destructive));
-  width: calc(100% - 1rem);
-  color: white;
-  border-radius: var(--radius);
   left: 1rem;
+  z-index: 1;
+  width: calc(100% - 1rem);
+  height: auto;
+  min-height: 1.5rem;
   padding: 2px 8px;
+  color: white;
+  background: hsl(var(--destructive));
+  border-radius: var(--radius);
+  opacity: 1;
 }
 </style>
