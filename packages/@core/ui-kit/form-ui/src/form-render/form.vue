@@ -43,12 +43,10 @@ const emits = defineEmits<{
 
 const wrapperClass = computed(() => {
   const cls = ['flex'];
-  if (props.layout === 'vertical') {
-    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4', 'flex-col grid');
-  } else if (props.layout === 'inline') {
-    cls.push('flex-wrap gap-2');
+  if (props.layout === 'inline') {
+    cls.push('flex-wrap gap-x-2');
   } else {
-    cls.push('gap-2 flex-col grid');
+    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4', 'flex-col grid');
   }
   return cn(...cls, props.wrapperClass);
 });
