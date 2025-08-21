@@ -47,23 +47,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
         drawerApi.unlock();
       });
   },
-  onOpenChange(isOpen) {
-    if (isOpen) {
-      const data = drawerApi.getData<SystemRoleApi.SystemRole>();
-      formApi.resetForm();
-      if (data) {
-        formData.value = data;
-        id.value = data.id;
-// playground/src/views/system/role/modules/form.vue
 
-<script setup lang="ts">
-import { computed, ref, nextTick } from 'vue';
-// … other imports …
-
-export default {
-  // … other component options …
-  methods: {
-    // Refactored to ensure form fields are mounted before setting values
    async onOpenChange(isOpen) {
        if (isOpen) {
          const data = drawerApi.getData<SystemRoleApi.SystemRole>();
@@ -79,27 +63,13 @@ export default {
          if (permissions.value.length === 0) {
            await loadPermissions();
          }
-
         // Wait for Vue to flush DOM updates (form fields mounted)
          await nextTick();
-
          if (data) {
            formApi.setValues(data);
          }
        }
      },
-  },
-};
-</script>
-      } else {
-        id.value = undefined;
-      }
-
-      if (permissions.value.length === 0) {
-        loadPermissions();
-      }
-    }
-  },
 });
 
 async function loadPermissions() {
