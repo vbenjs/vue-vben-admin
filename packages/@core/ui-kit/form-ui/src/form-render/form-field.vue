@@ -5,7 +5,6 @@ import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
-import { CircleAlert } from '@vben-core/icons';
 import {
   FormControl,
   FormDescription,
@@ -13,7 +12,6 @@ import {
   FormItem,
   FormMessage,
   VbenRenderContent,
-  VbenTooltip,
 } from '@vben-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
@@ -323,7 +321,7 @@ onUnmounted(() => {
           <VbenRenderContent :content="label" />
         </template>
       </FormLabel>
-      <div class="flex-auto overflow-hidden p-[1px]">
+      <div class="relative flex-auto p-[1px]">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
           <FormControl :class="cn(controlClass)">
             <slot
@@ -340,6 +338,7 @@ onUnmounted(() => {
                 :class="{
                   'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
                     isInValid,
+                  'hover:z-10 focus:z-10': compact,
                 }"
                 v-bind="createComponentProps(slotProps)"
                 :disabled="shouldDisabled"
@@ -356,24 +355,6 @@ onUnmounted(() => {
                 </template>
                 <!-- <slot></slot> -->
               </component>
-              <VbenTooltip
-                v-if="compact && isInValid"
-                :delay-duration="300"
-                side="left"
-              >
-                <template #trigger>
-                  <slot name="trigger">
-                    <CircleAlert
-                      :class="
-                        cn(
-                          'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
-                        )
-                      "
-                    />
-                  </slot>
-                </template>
-                <FormMessage />
-              </VbenTooltip>
             </slot>
           </FormControl>
           <!-- 自定义后缀 -->
@@ -385,8 +366,8 @@ onUnmounted(() => {
           </FormDescription>
         </div>
 
-        <Transition name="slide-up" v-if="!compact">
-          <FormMessage class="absolute" />
+        <Transition name="slide-up">
+          <FormMessage :compact="compact" class="absolute" />
         </Transition>
       </div>
     </FormItem>
