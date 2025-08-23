@@ -1,4 +1,4 @@
-import { baseRequestClient, requestClient } from '#/api/request';
+import { baseRequestClient, client, requestClient } from '#/api/request';
 
 export namespace AuthApi {
   /** 登录接口参数 */
@@ -21,25 +21,38 @@ export namespace AuthApi {
 /**
  * 登录
  */
-export async function loginApi(data: AuthApi.LoginParams) {
-  return requestClient.post<AuthApi.LoginResult>('/auth/login', data, {
-    withCredentials: true,
-  });
+// export async function loginApi(data: AuthApi.LoginParams) {
+//   return requestClient.post<AuthApi.LoginResult>('/auth/login', data, {
+//     withCredentials: true,
+//   });
+// }
+export async function loginApi(params: AuthApi.LoginParams) {
+  const method = client.post<AuthApi.LoginResult>('/auth/login', params);
+  method.meta = {
+    authRole: 'login',
+  };
+  return method;
 }
 
 /**
  * 刷新accessToken
  */
+// export async function refreshTokenApi() {
+//   return baseRequestClient.post<AuthApi.RefreshTokenResult>(
+//     '/auth/refresh',
+//     null,
+//     {
+//       withCredentials: true,
+//     },
+//   );
+// }
 export async function refreshTokenApi() {
-  return baseRequestClient.post<AuthApi.RefreshTokenResult>(
-    '/auth/refresh',
-    null,
-    {
-      withCredentials: true,
-    },
-  );
+  const method = client.post<AuthApi.RefreshTokenResult>('/auth/refresh');
+  method.meta = {
+    authRole: 'refreshToken',
+  };
+  return method;
 }
-
 /**
  * 退出登录
  */
