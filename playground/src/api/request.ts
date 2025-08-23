@@ -4,7 +4,11 @@
 import type { AxiosResponseHeaders, RequestClientOptions } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
-import { AlovaClient } from '@vben/plugins/alova';
+import {
+  AlovaClient,
+  createServerTokenAuthentication,
+  VueHook,
+} from '@vben/plugins/alova';
 import { preferences } from '@vben/preferences';
 import {
   authenticateResponseInterceptor,
@@ -130,9 +134,9 @@ export interface PageFetchParams {
 }
 
 let count = 0;
-export const client = new AlovaClient(
-  { baseURL: apiURL },
-  {
+
+const { onAuthRequired, onResponseRefreshToken } =
+  createServerTokenAuthentication<typeof VueHook>({
     async login(response, method) {
       // localStorage.setItem('token', response.token);
       // localStorage.setItem('refresh_token', response.refresh_token);
@@ -140,6 +144,7 @@ export const client = new AlovaClient(
     assignToken: (method) => {
       const accessStore = useAccessStore();
       const accessToken = accessStore.accessToken;
+      method.config.headers['Accept-Language'] = preferences.app.locale;
       method.config.headers.Authorization = accessToken
         ? `Bearer ${accessToken}`
         : null;
@@ -169,7 +174,10 @@ export const client = new AlovaClient(
         }
       },
     },
-  },
+  });
+export const client = new AlovaClient(
+  { baseURL: apiURL },
+  { onAuthRequired, onResponseRefreshToken },
 );
 
 client.addResponseSuccessInterceptor(async (json) => {
