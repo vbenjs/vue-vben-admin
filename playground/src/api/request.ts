@@ -134,12 +134,24 @@ export interface PageFetchParams {
 }
 
 let count = 0;
-
+interface ResponseData<T = unknown> {
+  [key: string]: unknown;
+  code?: number;
+  data?: T;
+  message?: string;
+}
 const { onAuthRequired, onResponseRefreshToken } =
   createServerTokenAuthentication<typeof VueHook>({
-    async login(response, method) {
-      // localStorage.setItem('token', response.token);
-      // localStorage.setItem('refresh_token', response.refresh_token);
+    async login(response) {
+      // const accessStore = useAccessStore();
+      if (response.status >= 400) {
+        throw new Error(response.statusText);
+      }
+      const json = await response.clone().json();
+      if (json.code !== 0) {
+        throw new Error(json.message);
+      }
+      // accessStore.setAccessToken(json.access_token);
     },
     assignToken: (method) => {
       const accessStore = useAccessStore();
@@ -149,7 +161,9 @@ const { onAuthRequired, onResponseRefreshToken } =
         ? `Bearer ${accessToken}`
         : null;
     },
-    logout(response, method) {},
+    logout(response, method) {
+      console.log(response, method);
+    },
     refreshTokenOnSuccess: {
       // 在请求前触发，将接收到method参数，并返回boolean表示token是否过期
       isExpired: (response) => {
@@ -175,12 +189,17 @@ const { onAuthRequired, onResponseRefreshToken } =
       },
     },
   });
-export const client = new AlovaClient(
+export const client = new AlovaClient<ResponseData>(
   { baseURL: apiURL },
   { onAuthRequired, onResponseRefreshToken },
 );
 
-client.addResponseSuccessInterceptor(async (json) => {
+client.addResponseSuccessInterceptor(async (response, method) => {
+  if (response.status >= 400) {
+    throw new Error(response.statusText);
+  }
+  const json = await response.clone().json();
+
   if (json.code !== 0) {
     throw new Error(json.message);
   }
