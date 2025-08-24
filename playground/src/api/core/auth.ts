@@ -1,4 +1,4 @@
-import { baseRequestClient, client, requestClient } from '#/api/request';
+import { client, requestClient } from '#/api/request';
 
 export namespace AuthApi {
   /** 登录接口参数 */
@@ -53,13 +53,22 @@ export async function refreshTokenApi() {
   };
   return method;
 }
+
 /**
  * 退出登录
  */
+// export async function logoutApi() {
+//   return baseRequestClient.post('/auth/logout', null, {
+//     withCredentials: true,
+//   });
+// }
+
 export async function logoutApi() {
-  return baseRequestClient.post('/auth/logout', null, {
-    withCredentials: true,
-  });
+  const method = client.post('/auth/logout');
+  method.meta = {
+    authRole: 'logout',
+  };
+  return method;
 }
 
 /**
