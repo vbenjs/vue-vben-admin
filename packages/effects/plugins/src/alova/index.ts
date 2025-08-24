@@ -9,6 +9,7 @@ import type {
   RespondedAlovaGenerics,
   ResponseCompleteHandler,
   ResponseErrorHandler,
+  ResponseSuccessHandler,
   StatesHook,
 } from 'alova';
 import type {
@@ -26,23 +27,6 @@ import VueHook from 'alova/vue';
 type RequestMethod<T extends AlovaGenerics = AlovaGenerics> = (
   method: Method<T>,
 ) => Promise<void> | void;
-
-/**
- * 标准响应数据结构
- */
-interface ResponseData<T = unknown> {
-  code?: number;
-  data?: T;
-  message?: string;
-  [key: string]: unknown;
-}
-
-/**
- * 响应成功拦截器方法类型
- */
-type ResponseSuccessMethod<T = unknown> = (
-  json: ResponseData<T>,
-) => Promise<ResponseData<T>>;
 
 /**
  * Alova HTTP客户端封装类
@@ -69,7 +53,7 @@ class AlovaClient<T extends AlovaGenerics = AlovaGenerics> {
   /**
    * 请求成功拦截器数组
    */
-  public responseSuccessInterceptor: ResponseSuccessMethod[] = [];
+  public responseSuccessInterceptor: ResponseSuccessHandler<T>[] = [];
   /**
    * 构造函数
    * @param options Alova配置选项
@@ -77,12 +61,12 @@ class AlovaClient<T extends AlovaGenerics = AlovaGenerics> {
    */
   constructor(
     options: AlovaOptions<T>,
-    authOptions: TokenAuthenticationResult<
+    authOptions?: TokenAuthenticationResult<
       StatesHook<any>,
       AlovaRequestAdapterUnified
-    > = {},
+    >,
   ) {
-    const { onAuthRequired, onResponseRefreshToken } = authOptions;
+    const { onAuthRequired, onResponseRefreshToken } = authOptions || {};
     const beforeRequest = async (method: Method<T>) => {
       for (const interceptor of this.requestInterceptor) {
         await interceptor(method);
@@ -93,17 +77,13 @@ class AlovaClient<T extends AlovaGenerics = AlovaGenerics> {
       // 当使用 `alova/fetch` 请求适配器时，第一个参数接收Response对象
       // 第二个参数为当前请求的method实例，你可以用它同步请求前后的配置信息
       onSuccess: async (response: Response, method: Method<T>) => {
-        if (response.status >= 400) {
-          throw new Error(response.statusText);
-        }
-        const json = await response.json();
-
-        let result = json;
+        let result: any = null;
         for (const interceptor of this.responseSuccessInterceptor) {
-          result = await interceptor(json);
+          result = await interceptor(response, method);
+          if (result) {
+            return result;
+          }
         }
-
-        return result;
       },
 
       onError: async (err: Error, method: Method<T>) => {
@@ -124,7 +104,6 @@ class AlovaClient<T extends AlovaGenerics = AlovaGenerics> {
     };
 
     this.instance = createAlova({
-      baseURL: '',
       requestAdapter: adapterFetch(),
       statesHook: VueHook,
       beforeRequest: onAuthRequired
