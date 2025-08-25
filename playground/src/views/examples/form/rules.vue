@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
 
 import { Button, Card, message } from 'ant-design-vue';
 
 import { useVbenForm, z } from '#/adapter/form';
+
+const isCompact = ref(true);
 
 const [Form, formApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -17,7 +21,7 @@ const [Form, formApi] = useVbenForm({
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical
   // 水平布局，label和input在同一行
-  layout: 'horizontal',
+  // layout: 'horizontal',
   schema: [
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
@@ -234,12 +238,13 @@ function onSubmit(values: Record<string, any>) {
   <Page description="表单校验示例" title="表单组件">
     <Card title="基础组件校验示例">
       <template #extra>
-        <Button @click="() => formApi.validate()">校验表单</Button>
+        <Button @click="isCompact = !isCompact">切换Compact</Button>
+        <Button class="mx-2" @click="() => formApi.validate()">校验表单</Button>
         <Button class="mx-2" @click="() => formApi.resetValidate()">
           清空校验信息
         </Button>
       </template>
-      <Form />
+      <Form :compact="isCompact" />
     </Card>
   </Page>
 </template>
