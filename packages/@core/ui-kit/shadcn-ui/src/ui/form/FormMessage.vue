@@ -43,9 +43,9 @@ const { formMessageId, name } = useFormField();
   min-height: 1.5rem;
   padding: 2px 8px;
   color: hsl(var(--destructive-foreground));
+  pointer-events: none;
   background: hsl(var(--destructive));
   border-radius: var(--radius);
   opacity: 1;
-  pointer-events: none;
 }
 </style>
