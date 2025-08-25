@@ -82,7 +82,7 @@ defineExpose({
 </script>
 
 <template>
-  <Teleport :to="appendTo">
+  <Teleport defer :to="appendTo">
     <Transition name="fade">
       <DialogOverlay
         v-if="open && modal"
