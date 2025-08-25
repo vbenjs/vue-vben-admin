@@ -338,7 +338,7 @@ onUnmounted(() => {
                 :class="{
                   'border-destructive focus:border-destructive hover:border-destructive/80 focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
                     isInValid,
-                  'hover:z-10 focus:z-10': compact,
+                  'relative hover:z-10 focus:z-10': compact,
                 }"
                 v-bind="createComponentProps(slotProps)"
                 :disabled="shouldDisabled"
