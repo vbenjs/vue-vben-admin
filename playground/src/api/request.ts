@@ -4,6 +4,11 @@
 import type { AxiosResponseHeaders, RequestClientOptions } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
+import {
+  AlovaClient,
+  createServerTokenAuthentication,
+  VueHook,
+} from '@vben/plugins/alova';
 import { preferences } from '@vben/preferences';
 import {
   authenticateResponseInterceptor,
@@ -127,3 +132,76 @@ export interface PageFetchParams {
   pageNo?: number;
   pageSize?: number;
 }
+
+let count = 0;
+interface ResponseData<T = unknown> {
+  [key: string]: unknown;
+  code?: number;
+  data?: T;
+  message?: string;
+}
+const { onAuthRequired, onResponseRefreshToken } =
+  createServerTokenAuthentication<typeof VueHook>({
+    async login(response) {
+      // const accessStore = useAccessStore();
+      if (response.status >= 400) {
+        throw new Error(response.statusText);
+      }
+      const json = await response.clone().json();
+      if (json.code !== 0) {
+        throw new Error(json.message);
+      }
+      // accessStore.setAccessToken(json.access_token);
+    },
+    assignToken: (method) => {
+      const accessStore = useAccessStore();
+      const accessToken = accessStore.accessToken;
+      method.config.headers['Accept-Language'] = preferences.app.locale;
+      method.config.headers.Authorization = accessToken
+        ? `Bearer ${accessToken}`
+        : null;
+    },
+    logout(response, method) {
+      console.log(response, method);
+    },
+    refreshTokenOnSuccess: {
+      // 在请求前触发，将接收到method参数，并返回boolean表示token是否过期
+      isExpired: (response) => {
+        if (count > 5) {
+          return false;
+        }
+        count++;
+        return response.status === 401;
+      },
+
+      // 当token过期时触发，在此函数中触发刷新token
+      handler: async (method) => {
+        try {
+          const accessStore = useAccessStore();
+          const { accessToken } = await refreshTokenApi();
+          accessStore.setAccessToken(accessToken);
+        } catch (error) {
+          // token刷新失败，跳转回登录页
+          location.href = '/login';
+          // 并抛出错误
+          throw error;
+        }
+      },
+    },
+  });
+export const client = new AlovaClient<ResponseData>(
+  { baseURL: apiURL },
+  { onAuthRequired, onResponseRefreshToken },
+);
+
+client.addResponseSuccessInterceptor(async (response, method) => {
+  if (response.status >= 400) {
+    throw new Error(response.statusText);
+  }
+  const json = await response.clone().json();
+
+  if (json.code !== 0) {
+    throw new Error(json.message);
+  }
+  return json.data;
+});

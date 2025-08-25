@@ -6,7 +6,7 @@ import {
 } from '~/utils/cookie-utils';
 import { generateAccessToken, verifyRefreshToken } from '~/utils/jwt-utils';
 import { MOCK_USERS } from '~/utils/mock-data';
-import { forbiddenResponse } from '~/utils/response';
+import { forbiddenResponse, useResponseSuccess } from '~/utils/response';
 
 export default defineEventHandler(async (event) => {
   const refreshToken = getRefreshTokenFromCookie(event);
@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
   const accessToken = generateAccessToken(findUser);
 
   setRefreshTokenCookie(event, refreshToken);
-
-  return accessToken;
+  return useResponseSuccess({
+    accessToken,
+  });
 });

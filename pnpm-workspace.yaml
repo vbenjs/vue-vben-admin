@@ -73,6 +73,7 @@ catalog:
   axios-mock-adapter: ^2.1.0
   cac: ^6.7.14
   chalk: ^5.4.1
+  alova: ^3.3.4
   cheerio: ^1.1.0
   circular-dependency-scanner: ^2.3.0
   class-variance-authority: ^0.7.1
