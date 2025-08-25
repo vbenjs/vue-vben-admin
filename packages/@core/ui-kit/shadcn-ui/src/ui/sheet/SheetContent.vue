@@ -73,7 +73,7 @@ function onAnimationEnd(event: AnimationEvent) {
 </script>
 
 <template>
-  <Teleport :to="appendTo">
+  <Teleport defer :to="appendTo">
     <Transition name="fade">
       <SheetOverlay
         v-if="open && modal"
