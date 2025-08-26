@@ -8,22 +8,22 @@ export async function getSystemAllRoles(params: any) {
 }
 
 /**
- * 获取所有后台用户
+ * 修改后台用户身份信息
  */
-export async function createRole(params: any) {
-  return requestClient.get('/admin/system/getALLSystemUser', { params });
+export async function editSystemRolesInfo(data: any) {
+  return requestClient.put('/admin/system/editSystemRolesInfo', data);
 }
 
 /**
- * 获取所有后台用户
+ * 新增后台用户身份
  */
-export async function deleteRole(params: any) {
-  return requestClient.get('/admin/system/getALLSystemUser', { params });
+export async function addSystemRoles(data: any) {
+  return requestClient.post('/admin/system/addSystemRoles', data);
 }
 
 /**
- * 获取所有后台用户
+ * 删除后台用户身份
  */
-export async function updateRole(params: any, test: any) {
-  return requestClient.get('/admin/system/getALLSystemUser', { params });
+export async function deleteSystemRoles(data: any) {
+  return requestClient.delete('/admin/system/deleteSystemRoles', data);
 }

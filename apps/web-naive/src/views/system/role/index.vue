@@ -1,12 +1,24 @@
 <template>
   <Page auto-content-height>
     <!-- 新增表单 -->
-    <FormDrawer />
+    <FormDrawer @success="onRefresh"> </FormDrawer>
     <Grid table-title="角色列表">
       <template #toolbar-tools>
         <n-button type="primary" @click="onCreate">
           <Plus class="size-5" />
           新增系统角色
+        </n-button>
+      </template>
+      <template #status="{ row }">
+        <n-switch
+          :value="row.status"
+          @update:value="(val) => editSystemRoles(val, row)"
+        />
+      </template>
+      <template #operation="{ row }">
+        <n-button type="primary" @click="deletRole(row)">
+          <Plus class="size-5" />
+          删除
         </n-button>
       </template>
     </Grid>
@@ -17,15 +29,15 @@
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
-import { NButton } from 'naive-ui';
+import { NButton, NSwitch } from 'naive-ui';
 
 import { dialog, message } from '#/adapter/naive';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
-  deleteRole,
   getSystemAllRoles,
-  updateRole,
+  editSystemRolesInfo,
+  deleteSystemRoles,
 } from '#/api/core/system/role';
 
 import { useColumns, useGridFormSchema } from './data';
@@ -43,9 +55,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
     submitOnChange: true,
   },
   gridOptions: {
-    columns: useColumns(onActionClick, onStatusChange) as any,
+    columns: useColumns(onActionClick) as any,
     height: 'auto',
     keepSource: true,
+
+    // 数据加载
     proxyConfig: {
       autoLoad: true,
       ajax: {
@@ -93,45 +107,19 @@ function onActionClick(e: any) {
 }
 
 /**
- * 将Antd的Modal.confirm封装为promise，方便在异步函数中调用。
- * @param content 提示内容
- * @param title 提示标题
+ *
+ * @param data 修改权限状态
+ * @param item
  */
-function confirm(content: string, title: string) {
-  return new Promise((reslove, reject) => {
-    // dialog.confirm({
-    //   content,
-    //   onCancel() {
-    //     reject(new Error('已取消'));
-    //   },
-    //   onOk() {
-    //     reslove(true);
-    //   },
-    //   title,
-    // });
-  });
-}
-
-/**
- * 状态开关即将改变
- * @param newStatus 期望改变的状态值
- * @param row 行数据
- * @returns 返回false则中止改变，返回其他值（undefined、true）则允许改变
- */
-async function onStatusChange(newStatus: number, row: any) {
-  const status: any = {
-    0: '禁用',
-    1: '启用',
-  };
-  try {
-    await confirm(
-      `你要将${row.name}的状态切换为 【${status[newStatus.toString()]}】 吗？`,
-      `切换状态`,
-    );
-    await updateRole(row.id, { status: newStatus });
-    return true;
-  } catch {
-    return false;
+async function editSystemRoles(data: any, row: any) {
+  const { id } = row;
+  const status = data ? 1 : 0;
+  const result = await editSystemRolesInfo({ id, status });
+  if (result.code === 200) {
+    message.success('修改成功');
+    row.status = data;
+  } else {
+    message.error(result.msg || '修改失败');
   }
 }
 
@@ -158,11 +146,28 @@ function onDelete(row: any) {
   //   });
 }
 
+// 刷新列表
 function onRefresh() {
   gridApi.query();
 }
 
+// 新增角色
 function onCreate() {
   formDrawerApi.setData({}).open();
+}
+
+// 删除角色
+function deletRole(row: any) {
+  dialog.error({
+    title: '删除',
+    content: `是否删除角色【${row.role_name}】`,
+    positiveText: '确认',
+    negativeText: '取消',
+    onPositiveClick: async () => {
+      const result = await deleteSystemRoles({ id: row.id });
+      message.success('删除成功');
+      onRefresh();
+    },
+  });
 }
 </script>

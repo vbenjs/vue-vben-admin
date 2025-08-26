@@ -1,7 +1,7 @@
 <template>
   <Drawer :title="getDrawerTitle">
     <Form>
-      <template #permissions="slotProps">
+      <!-- <template #permissions="slotProps">
         <n-spin :spinning="loadingPermissions" wrapper-class-name="w-full">
           <VbenTree
             :tree-data="permissions"
@@ -20,7 +20,7 @@
             </template>
           </VbenTree>
         </n-spin>
-      </template>
+      </template> -->
     </Form>
   </Drawer>
 </template>
@@ -34,31 +34,33 @@ import { NSpin } from 'naive-ui';
 
 import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api/core/system/menu';
-import { createRole, updateRole } from '#/api/core/system/role';
+import { addSystemRoles, editSystemRolesInfo } from '#/api/core/system/role';
 import { $t } from '#/locales';
 
 import { useFormSchema } from '../data';
 
 const emits = defineEmits(['success']);
 
-const formData = ref<SystemRoleApi.SystemRole>();
+const formData = ref();
 
 const [Form, formApi] = useVbenForm({
   schema: useFormSchema(),
   showDefaultActions: false,
 });
 
-const permissions = ref<DataNode[]>([]);
+const permissions = ref([]);
 const loadingPermissions = ref(false);
 
 const id = ref();
 const [Drawer, drawerApi] = useVbenDrawer({
   async onConfirm() {
+    // 校验
     const { valid } = await formApi.validate();
     if (!valid) return;
     const values = await formApi.getValues();
+    // 锁定抽屉
     drawerApi.lock();
-    (id.value ? updateRole(id.value, values) : createRole(values))
+    (id.value ? editSystemRolesInfo(values) : addSystemRoles(values))
       .then(() => {
         emits('success');
         drawerApi.close();
@@ -69,7 +71,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      const data = drawerApi.getData<SystemRoleApi.SystemRole>();
+      const data = drawerApi.getData();
       formApi.resetForm();
       if (data) {
         formData.value = data;
