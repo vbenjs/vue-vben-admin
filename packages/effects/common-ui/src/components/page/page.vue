@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative flex min-h-full flex-col">
     <div
       v-if="
         description ||
@@ -86,7 +86,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div :class="cn('h-full p-4', contentClass)" :style="contentStyle">
+    <div :class="cn('h-full flex-1 p-4', contentClass)" :style="contentStyle">
       <slot></slot>
     </div>
     <div
@@ -103,3 +103,4 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
