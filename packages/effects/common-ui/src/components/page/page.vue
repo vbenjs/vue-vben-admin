@@ -86,21 +86,15 @@ onMounted(() => {
       </div>
     </div>
 
-    <div :class="cn('h-full flex-1 p-4', contentClass)" :style="contentStyle">
+    <div :class="cn('min-h-0 flex-1 p-4', contentClass)" :style="contentStyle">
       <slot></slot>
     </div>
     <div
       v-if="$slots.footer"
       ref="footerRef"
-      :class="
-        cn(
-          'bg-card align-center bottom-0 left-0 right-0 flex px-6 py-4',
-          footerClass,
-        )
-      "
+      :class="cn('bg-card align-center flex px-6 py-4', footerClass)"
     >
       <slot name="footer"></slot>
     </div>
   </div>
 </template>
-
