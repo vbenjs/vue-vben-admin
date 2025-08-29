@@ -25,7 +25,7 @@ const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
 const contentStyle = computed<StyleValue>(() => {
   if (autoContentHeight) {
     return {
-      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${typeof heightOffset === 'number' ? `${heightOffset}px` : heightOffset})`,
+      height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px - ${footerHeight.value}px - ${typeof heightOffset === 'number' ? `${heightOffset}px` : heightOffset})`,
       overflowY: shouldAutoHeight.value ? 'auto' : 'unset',
     };
   }
@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative flex min-h-full flex-col">
     <div
       v-if="
         description ||
@@ -89,16 +89,10 @@ onMounted(() => {
     <div :class="cn('h-full p-4', contentClass)" :style="contentStyle">
       <slot></slot>
     </div>
-
     <div
       v-if="$slots.footer"
       ref="footerRef"
-      :class="
-        cn(
-          'bg-card align-center absolute bottom-0 left-0 right-0 flex px-6 py-4',
-          footerClass,
-        )
-      "
+      :class="cn('bg-card align-center flex px-6 py-4', footerClass)"
     >
       <slot name="footer"></slot>
     </div>
