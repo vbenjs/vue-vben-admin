@@ -86,7 +86,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div :class="cn('min-h-0 flex-1 p-4', contentClass)" :style="contentStyle">
+    <div :class="cn('h-full p-4', contentClass)" :style="contentStyle">
       <slot></slot>
     </div>
     <div
