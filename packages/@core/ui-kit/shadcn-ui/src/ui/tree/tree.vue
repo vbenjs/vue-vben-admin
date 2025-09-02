@@ -103,10 +103,15 @@ function updateTreeValue() {
     treeValue.value = undefined;
   } else {
     if (Array.isArray(val)) {
-      const filteredValues = val.filter((v) => {
+      let filteredValues = val.filter((v) => {
         const item = getItemByValue(v);
         return item && !get(item, props.disabledField);
       });
+
+      if (!props.checkStrictly && props.autoCheckParent) {
+        filteredValues = processParentSelection(filteredValues);
+      }
+
       treeValue.value = filteredValues.map((v) => getItemByValue(v));
 
       if (filteredValues.length !== val.length) {
@@ -123,7 +128,35 @@ function updateTreeValue() {
     }
   }
 }
+function processParentSelection(
+  selectedValues: Array<number | string>,
+): Array<number | string> {
+  if (props.checkStrictly) return selectedValues;
 
+  const result = [...selectedValues];
+
+  for (let i = result.length - 1; i >= 0; i--) {
+    const currentValue = result[i];
+    if (currentValue === undefined) continue;
+    const currentItem = getItemByValue(currentValue);
+
+    if (!currentItem) continue;
+
+    const children = get(currentItem, props.childrenField);
+    if (Array.isArray(children) && children.length > 0) {
+      const hasSelectedChildren = children.some((child) => {
+        const childValue = get(child, props.valueField);
+        return result.includes(childValue);
+      });
+
+      if (!hasSelectedChildren) {
+        result.splice(i, 1);
+      }
+    }
+  }
+
+  return result;
+}
 function updateModelValue(val: Arrayable<Recordable<any>>) {
   if (Array.isArray(val)) {
     const filteredVal = val.filter((v) => !get(v, props.disabledField));
@@ -287,7 +320,11 @@ defineExpose({
         class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded px-2 py-1 outline-none focus:ring-2"
       >
         <ChevronRight
-          v-if="item.hasChildren"
+          v-if="
+            item.hasChildren &&
+            Array.isArray(item.value[childrenField]) &&
+            item.value[childrenField].length > 0
+          "
           class="size-4 cursor-pointer transition"
           :class="{ 'rotate-90': isExpanded }"
           @click.stop="

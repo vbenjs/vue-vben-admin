@@ -55,7 +55,7 @@ const gridOptions: VxeGridProps<RowType> = {
     custom: true,
     export: true,
     // import: true,
-    refresh: { code: 'query' },
+    refresh: true,
     zoom: true,
   },
 };
