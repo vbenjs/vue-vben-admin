@@ -89,6 +89,7 @@
     "lodash.get": "catalog:",
     "lodash.isequal": "catalog:",
     "lodash.set": "catalog:",
+    "mitt": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"

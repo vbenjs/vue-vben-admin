@@ -124,6 +124,7 @@ catalog:
   lodash.set: ^4.3.2
   lucide-vue-next: ^0.507.0
   medium-zoom: ^1.1.0
+  mitt: ^3.0.1
   naive-ui: ^2.42.0
   nitropack: ^2.11.13
   nprogress: ^0.2.0
