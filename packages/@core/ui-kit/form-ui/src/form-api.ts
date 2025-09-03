@@ -330,20 +330,23 @@ export class FormApi {
     }
 
     /**
-     * 合并算法有待改进，目前的算法不支持object类型的值。
      * antd的日期时间相关组件的值类型为dayjs对象
      * element-plus的日期时间相关组件的值类型可能为Date对象
      * 以上两种类型需要排除深度合并
      */
     const fieldMergeFn = createMerge((obj, key, value) => {
       if (key in obj) {
-        obj[key] =
-          !Array.isArray(obj[key]) &&
-          isObject(obj[key]) &&
-          !isDayjsObject(obj[key]) &&
-          !isDate(obj[key])
-            ? fieldMergeFn(obj[key], value)
-            : value;
+        if (!Array.isArray(obj[key]) &&
+            isObject(obj[key]) &&
+            !isDayjsObject(obj[key]) &&
+            !isDate(obj[key]) &&
+            isObject(value)) { // 添加对 value 也是对象的检查
+          // 递归合并对象
+          fieldMergeFn(obj[key], value);
+        } else {
+          obj[key] = value; // 直接赋值
+        }
+        return false; // 返回 false 表示已经处理，不需要默认合并
       }
       return true;
     });
