@@ -6,7 +6,7 @@ import type {
 
 import { computed, ref, watch } from 'vue';
 
-import { isBoolean, isFunction } from '@vben-core/shared/utils';
+import { getNestedValue, isBoolean, isFunction } from '@vben-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 
@@ -37,6 +37,10 @@ export default function useDependencies(
     // 该字段可能会被多个字段触发
     const triggerFields = getDependencies()?.triggerFields ?? [];
     return triggerFields.map((dep) => {
+      // 支持嵌套字段访问，如 'config.name'
+      if (dep.includes('.')) {
+        return getNestedValue(values.value, dep);
+      }
       return values.value[dep];
     });
   });
