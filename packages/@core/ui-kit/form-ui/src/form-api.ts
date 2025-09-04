@@ -343,10 +343,11 @@ export class FormApi {
             isObject(value)) { // 添加对 value 也是对象的检查
           // 递归合并对象
           fieldMergeFn(obj[key], value);
+          return false;
         } else {
           obj[key] = value; // 直接赋值
+          return true;
         }
-        return false; // 返回 false 表示已经处理，不需要默认合并
       }
       return true;
     });
