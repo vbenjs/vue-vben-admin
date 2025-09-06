@@ -511,40 +511,118 @@ export class FormApi {
 
     fieldMappingTime.forEach(
       ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
-        if (startTimeKey && endTimeKey && values[field] === null) {
-          Reflect.deleteProperty(values, startTimeKey);
-          Reflect.deleteProperty(values, endTimeKey);
-          // delete values[startTimeKey];
-          // delete values[endTimeKey];
-        }
+        // 处理多级路径的辅助函数
+        const setNestedValue = (
+          obj: Record<string, any>,
+          path: string,
+          value: any,
+        ): void => {
+          const keys = path.split('.');
+          if (keys.length === 1) {
+            // 单级路径直接赋值
+            obj[path] = value;
+          } else {
+            // 多级路径创建嵌套对象
+            let target: Record<string, any> = obj;
+            for (let i = 0; i < keys.length - 1; i++) {
+              const key = keys[i];
+              if (key !== undefined) {
+                // 添加类型检查
+                if (
+                  !(key in target) ||
+                  typeof target[key] !== 'object' ||
+                  target[key] === null
+                ) {
+                  target[key] = {};
+                }
+                target = target[key] as Record<string, any>;
+              }
+            }
+            const lastKey = keys[keys.length - 1];
+            if (lastKey !== undefined) {
+              target[lastKey] = value;
+            }
+          }
+        };
 
-        if (!values[field]) {
-          Reflect.deleteProperty(values, field);
-          // delete values[field];
+        // 处理多级路径的删除函数
+        const deleteNestedProperty = (
+          obj: Record<string, any>,
+          path: string,
+        ): void => {
+          const keys = path.split('.');
+          if (keys.length === 1) {
+            // 单级路径直接删除
+            Reflect.deleteProperty(obj, path);
+          } else {
+            // 多级路径导航到目标对象并删除属性
+            let target: Record<string, any> = obj;
+            for (let i = 0; i < keys.length - 1; i++) {
+              const key = keys[i];
+              if (key !== undefined) {
+                // 添加类型检查
+                if (
+                  !(key in target) ||
+                  typeof target[key] !== 'object' ||
+                  target[key] === null
+                ) {
+                  return;
+                }
+                target = target[key] as Record<string, any>;
+              }
+            }
+            const lastKey = keys[keys.length - 1];
+            if (lastKey !== undefined) {
+              Reflect.deleteProperty(target, lastKey);
+            }
+          }
+        };
+
+        // 类型安全检查
+        if (!field || !startTimeKey || !endTimeKey) {
           return;
         }
 
-        const [startTime, endTime] = values[field];
+        if (startTimeKey && endTimeKey && values[field] === null) {
+          deleteNestedProperty(values, startTimeKey);
+          deleteNestedProperty(values, endTimeKey);
+        }
+
+        if (!values[field]) {
+          deleteNestedProperty(values, field);
+          return;
+        }
+
+        const timeRange = values[field];
+        if (!Array.isArray(timeRange) || timeRange.length < 2) {
+          return;
+        }
+
+        const [startTime, endTime] = timeRange;
         if (format === null) {
-          values[startTimeKey] = startTime;
-          values[endTimeKey] = endTime;
+          setNestedValue(values, startTimeKey, startTime);
+          setNestedValue(values, endTimeKey, endTime);
         } else if (isFunction(format)) {
-          values[startTimeKey] = format(startTime, startTimeKey);
-          values[endTimeKey] = format(endTime, endTimeKey);
+          setNestedValue(values, startTimeKey, format(startTime, startTimeKey));
+          setNestedValue(values, endTimeKey, format(endTime, endTimeKey));
         } else {
           const [startTimeFormat, endTimeFormat] = Array.isArray(format)
             ? format
             : [format, format];
 
-          values[startTimeKey] = startTime
-            ? formatDate(startTime, startTimeFormat)
-            : undefined;
-          values[endTimeKey] = endTime
-            ? formatDate(endTime, endTimeFormat)
-            : undefined;
+          setNestedValue(
+            values,
+            startTimeKey,
+            startTime ? formatDate(startTime, startTimeFormat) : undefined,
+          );
+          setNestedValue(
+            values,
+            endTimeKey,
+            endTime ? formatDate(endTime, endTimeFormat) : undefined,
+          );
         }
-        // delete values[field];
-        Reflect.deleteProperty(values, field);
+
+        deleteNestedProperty(values, field);
       },
     );
     return values;
