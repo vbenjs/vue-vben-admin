@@ -43,7 +43,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
-  fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD']],
+  fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD'], ['rangePicker2', ['createTimeQuery.startTime', 'createTimeQuery.endTime'], 'YYYY-MM-DD HH:mm:ss']],
   // 提交函数
   handleSubmit: onSubmit,
   handleValuesChange(_values, fieldsChanged) {
@@ -280,6 +280,17 @@ const [BaseForm, baseFormApi] = useVbenForm({
       component: 'RangePicker',
       fieldName: 'rangePicker',
       label: '范围选择器',
+    },
+    {
+      component: 'RangePicker',
+      fieldName: 'rangePicker2',
+      componentProps: {
+        showTime: true,
+        format: 'YYYY-MM-DD HH:mm:ss',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: ['开始日期', '结束日期'],
+      },
+      label: '时间范围选择器',
     },
     {
       component: 'TimePicker',
