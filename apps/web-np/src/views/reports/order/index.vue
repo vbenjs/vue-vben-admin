@@ -99,8 +99,20 @@ const handleDeleteOrders = () => {
     <FormOrdDetailModal />
     <Grid>
       <template #name="{ row }">
-        <VbenButton size="sm" variant="link" @click="handleDetailOpen(row)">
-          {{ row.name }}
+        <VbenButton
+          size="sm"
+          variant="link"
+          @click="
+            handleDetailOpen(row);
+            $event?.stopPropagation();
+          "
+          v-tippy="{
+            content: `View details for ${row.name}`,
+          }"
+        >
+          <span class="max-w-[120px] overflow-hidden text-ellipsis">
+            {{ row.name }}
+          </span>
         </VbenButton>
       </template>
 
