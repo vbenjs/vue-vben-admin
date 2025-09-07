@@ -5,7 +5,7 @@ import { markRaw } from 'vue';
 
 import { $t } from '@vben/locales';
 
-import { getProductSalesReport } from '#/api';
+import { productGetSalesReport } from '#/api';
 import dayjs from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import Products from '#/views/settings/cogs-handling-fees/modules/products.vue';
@@ -13,29 +13,38 @@ import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 export const gridOptions: VxeTableGridOptions = {
   height: 'auto',
-  pagerConfig: {
-    enabled: false,
-  },
   rowConfig: {
     height: 48,
     isHover: true,
   },
   proxyConfig: {
     ajax: {
-      query: async (_, formValues) => {
-        const res = await getProductSalesReport({
+      query: async ({ page, sort }, formValues) => {
+        const res = await productGetSalesReport({
+          page: page.currentPage,
+          pageSize: page.pageSize,
+          sortBy: sort.field,
+          sortOrder: sort.order,
           ...formValues,
         });
 
         return res;
       },
     },
+    sort: true,
   },
   toolbarConfig: {
     search: true,
     custom: true,
     refresh: { code: 'query' },
     zoom: true,
+  },
+  sortConfig: {
+    remote: true,
+    defaultSort: {
+      field: 'netPayment',
+      order: 'desc',
+    },
   },
   columns: [
     {
@@ -50,11 +59,13 @@ export const gridOptions: VxeTableGridOptions = {
       className: 'font-semibold',
       title: 'Units Sold',
       minWidth: 130,
+      sortable: true,
     },
     {
       field: 'quantityRefund',
       title: 'Refund',
       minWidth: 130,
+      sortable: true,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -63,6 +74,7 @@ export const gridOptions: VxeTableGridOptions = {
       title: $t('field-name.netPayment'),
       align: 'right',
       minWidth: 150,
+      sortable: true,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -73,6 +85,7 @@ export const gridOptions: VxeTableGridOptions = {
       },
       align: 'right',
       minWidth: 150,
+      sortable: true,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -83,6 +96,7 @@ export const gridOptions: VxeTableGridOptions = {
       },
       align: 'right',
       minWidth: 150,
+      sortable: true,
     },
     {
       cellRender: { name: 'cellMoney' },
@@ -94,6 +108,7 @@ export const gridOptions: VxeTableGridOptions = {
       },
       align: 'right',
       minWidth: 150,
+      sortable: true,
     },
     {
       cellRender: { name: 'CellPercentage' },

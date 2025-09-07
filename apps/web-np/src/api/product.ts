@@ -13,7 +13,7 @@ export async function productUpdateCogsByDateRange(data: any) {
   return requestClient.put('/api/product/cost/cogs-by-date-range', data);
 }
 
-export async function getProductSalesReport(params: any) {
+export async function productGetSalesReport(params: any) {
   return requestClient
     .get('/api/product/sales-report', { params })
     .then((res) => {
