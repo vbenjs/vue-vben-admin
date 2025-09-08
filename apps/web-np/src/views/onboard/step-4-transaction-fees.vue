@@ -102,10 +102,10 @@ onBeforeMount(() => {
           <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
             Example order
           </th>
-          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
+          <th class="px-2 py-3 text-center text-xs font-semibold uppercase">
             Net Payment
           </th>
-          <th class="px-2 py-3 text-start text-xs font-semibold uppercase">
+          <th class="px-2 py-3 text-center text-xs font-semibold uppercase">
             Payment gateways
           </th>
           <th class="px-2 py-3 text-end text-xs font-semibold uppercase">
@@ -118,10 +118,10 @@ onBeforeMount(() => {
           <td class="whitespace-nowrap px-2 py-4 text-sm font-semibold">
             #9999
           </td>
-          <td class="px-2 py-4 text-start text-sm">
+          <td class="px-2 py-4 text-center text-sm">
             {{ formatMoney(sampleOrder.grossSales, shopStore.shop.currency) }}
           </td>
-          <td class="px-2 py-4 text-start text-sm">Other</td>
+          <td class="px-2 py-4 text-center text-sm">Other</td>
           <td class="px-2 py-4 text-end text-sm font-bold">
             {{
               formatMoney(sampleOrder.transactionFees, shopStore.shop.currency)

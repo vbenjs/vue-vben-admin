@@ -58,7 +58,7 @@ onBeforeMount(() => {
           <th class="px-6 py-3 text-start text-xs font-medium uppercase">
             Example product
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-6 py-3 text-center text-xs font-medium uppercase">
             Quantity
           </th>
           <th class="px-6 py-3 text-end text-xs font-medium uppercase">
@@ -71,7 +71,7 @@ onBeforeMount(() => {
           <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
             {{ item.name }}
           </td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="px-6 py-4 text-center text-sm">
             {{ item.quantity }}
           </td>
           <td class="px-6 py-4 text-end text-sm font-bold">

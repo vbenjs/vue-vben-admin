@@ -28,14 +28,6 @@ export async function shopUpdateSubscriptionInfo() {
   return requestClient.post('/api/shop/subscription/sync');
 }
 
-export async function updateRegion(data: any) {
-  return requestClient.post('/api/region', data);
-}
-
-export async function removeRegion(uuid: any) {
-  return requestClient.delete(`/api/region/${uuid}`);
-}
-
 export async function shopMailReport(payload: any) {
   return requestClient.post(`/api/shop/mail/report`, payload);
 }

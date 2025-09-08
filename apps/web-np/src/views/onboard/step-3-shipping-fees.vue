@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
 
-import { Card, InputNumber, RadioButton, RadioGroup } from 'ant-design-vue';
+import { Card, InputNumber, Select } from 'ant-design-vue';
 
-import { ShippingCostLevel } from '#/shared/constants';
+import { ShippingCostLevel, ShippingCostLevelList } from '#/shared/constants';
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -12,21 +12,34 @@ import { onboardForm, sampleOrder } from './service';
 const shopStore = useShopStore();
 
 const getUnitName = () => {
-  return onboardForm.shippingFeeLevel === ShippingCostLevel.QUANTITY
-    ? '/ Item'
-    : '/ Kg';
+  switch (onboardForm.shippingFeeLevel) {
+    case ShippingCostLevel.QUANTITY: {
+      return '/ Item';
+    }
+    case ShippingCostLevel.WEIGHT: {
+      return '/ Kg';
+    }
+    default: {
+      return '/ Order';
+    }
+  }
 };
 
 const handleChange = () => {
-  let totlaUnit = sampleOrder.totalWeight;
+  let totalUnit = sampleOrder.totalWeight;
 
   if (onboardForm.shippingFeeLevel === ShippingCostLevel.QUANTITY) {
-    totlaUnit = sampleOrder.lineItems.reduce(
+    totalUnit = sampleOrder.lineItems.reduce(
       (acc, item) => acc + item.quantity,
       0,
     );
   }
-  sampleOrder.shippingFees = onboardForm.shippingFeePrice * totlaUnit;
+
+  if (onboardForm.shippingFeeLevel === ShippingCostLevel.ORDER) {
+    totalUnit = 1;
+  }
+
+  sampleOrder.shippingFees = onboardForm.shippingFeePrice * totalUnit;
 };
 
 const totalQuantity = sampleOrder.lineItems.reduce(
@@ -47,27 +60,18 @@ onBeforeMount(() => {
       customer.
     </p>
 
-    <div class="mt-5 flex justify-between">
+    <div class="mt-5 flex items-center justify-between">
       <div class="font-semibold">The shipping costs will be calculated by</div>
 
-      <RadioGroup
-        @change="handleChange"
-        class="w-full max-w-48"
+      <Select
         v-model:value="onboardForm.shippingFeeLevel"
-      >
-        <RadioButton
-          class="w-full max-w-24"
-          :value="ShippingCostLevel.QUANTITY"
-        >
-          Quantity
-        </RadioButton>
-        <RadioButton class="w-full max-w-24" :value="ShippingCostLevel.WEIGHT">
-          Weight
-        </RadioButton>
-      </RadioGroup>
+        class="w-full max-w-48"
+        :options="ShippingCostLevelList"
+        @change="handleChange"
+      />
     </div>
 
-    <div class="mt-2 flex justify-between">
+    <div class="mt-2 flex items-center justify-between">
       <div class="font-semibold">Default shipping cost for 1 unit</div>
 
       <InputNumber
@@ -86,10 +90,10 @@ onBeforeMount(() => {
           <th class="px-6 py-3 text-start text-xs font-medium uppercase">
             Example order
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
-            Total Quantity
+          <th class="px-6 py-3 text-center text-xs font-medium uppercase">
+            Item Quantity
           </th>
-          <th class="px-6 py-3 text-start text-xs font-medium uppercase">
+          <th class="px-6 py-3 text-center text-xs font-medium uppercase">
             Total Weight
           </th>
           <th class="px-6 py-3 text-end text-xs font-medium uppercase">
@@ -100,11 +104,11 @@ onBeforeMount(() => {
       <tbody class="divide-y">
         <tr>
           <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">#9999</td>
-          <td class="px-6 py-4 text-start text-sm">
+          <td class="px-6 py-4 text-center text-sm">
             {{ totalQuantity }}
           </td>
-          <td class="px-6 py-4 text-start text-sm">
-            {{ sampleOrder.totalWeight }}
+          <td class="px-6 py-4 text-center text-sm">
+            {{ sampleOrder.totalWeight }} Kg
           </td>
           <td class="px-6 py-4 text-end text-sm font-bold">
             {{ formatMoney(sampleOrder.shippingFees, shopStore.shop.currency) }}

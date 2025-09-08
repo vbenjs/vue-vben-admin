@@ -1,4 +1,5 @@
 export enum ShippingCostLevel {
+  ORDER = 'ORDER',
   QUANTITY = 'QUANTITY',
   WEIGHT = 'WEIGHT',
 }
@@ -65,6 +66,22 @@ export const orderStatusList = [
     label: 'Voided',
   },
 ];
+
+export const ShippingCostLevelList = [
+  {
+    label: 'Quantity',
+    value: ShippingCostLevel.QUANTITY,
+  },
+  {
+    label: 'Weight',
+    value: ShippingCostLevel.WEIGHT,
+  },
+  {
+    label: 'Order',
+    value: ShippingCostLevel.ORDER,
+  },
+];
+
 export const countries = [
   { value: 'AD', label: 'Andorra', icon: '🇦🇩' },
   { value: 'AE', label: 'United Arab Emirates', icon: '🇦🇪' },

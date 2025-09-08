@@ -8,7 +8,7 @@ import { useVbenModal } from '@vben/common-ui';
 import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { ShippingCostLevel } from '#/shared/constants';
+import { ShippingCostLevel, ShippingCostLevelList } from '#/shared/constants';
 import { useShopSettingStore, useShopStore } from '#/store';
 
 import Countries from './modules/countries.vue';
@@ -65,10 +65,7 @@ const [Form, formApi] = useVbenForm({
       component: 'Select' as any,
       defaultValue: ShippingCostLevel.WEIGHT,
       componentProps: {
-        options: [
-          { label: 'Weight', value: ShippingCostLevel.WEIGHT },
-          { label: 'Quantity', value: ShippingCostLevel.QUANTITY },
-        ],
+        options: ShippingCostLevelList,
       },
       fieldName: 'shippingCostLevel',
       label: 'Shipping cost by',
@@ -136,7 +133,7 @@ const [Modal, modalApi] = useVbenModal({
         "
         class="ml-10"
       >
-        If the shipping cost is set to
+        If the cost is set to
         <span class="font-semibold">$5 for every 1kg (weight)</span>, the total
         shipping cost for Order A will be
         <span class="font-semibold">$7.5</span> (1.5 x $5)
@@ -147,10 +144,19 @@ const [Modal, modalApi] = useVbenModal({
         "
         class="ml-10"
       >
-        If the shipping cost is set to
+        If the cost is set to
         <span class="font-semibold">$3 for every 1 item (quantity)</span>, the
         total shipping cost for Order A will be
         <span class="font-semibold">$6</span> (2 x $3)
+      </div>
+      <div
+        v-if="formApi.form.values.shippingCostLevel === ShippingCostLevel.ORDER"
+        class="ml-10"
+      >
+        If the cost is set to
+        <span class="font-semibold">$1 for every 1 order</span>, the total
+        shipping cost for Order A will be
+        <span class="font-semibold">$1</span>
       </div>
     </TypographyParagraph>
   </Modal>

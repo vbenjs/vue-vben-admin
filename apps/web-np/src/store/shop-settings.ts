@@ -3,10 +3,10 @@ import { cloneDeep } from '@vben/utils';
 import { defineStore } from 'pinia';
 
 import {
-  removeRegion,
+  regionDelete,
+  regionUpdate,
   shopToggleMailReport,
   shopToggleShowChatPopup,
-  updateRegion,
   updateTransactionFees,
 } from '#/api';
 import { defaultRegionUUID } from '#/shared/constants';
@@ -67,13 +67,13 @@ export const useShopSettingStore = defineStore('np-shop-setting', {
       });
     },
     async setRegion(region: any) {
-      return updateRegion(region).then((res) => {
+      return regionUpdate(region).then((res) => {
         this.regions = res;
         return res;
       });
     },
     async removeRegion(uuid: any) {
-      return removeRegion(uuid).then((res) => {
+      return regionDelete(uuid).then((res) => {
         this.regions = res;
         return res;
       });
