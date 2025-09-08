@@ -42,7 +42,7 @@ export const gridOptions: VxeTableGridOptions = {
   sortConfig: {
     remote: true,
     defaultSort: {
-      field: 'netPayment',
+      field: 'grossProfit',
       order: 'desc',
     },
   },
