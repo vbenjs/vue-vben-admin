@@ -5,7 +5,7 @@ import { markRaw } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { message, TypographyParagraph } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { ShippingCostLevel } from '#/shared/constants';
@@ -126,5 +126,32 @@ const [Modal, modalApi] = useVbenModal({
 <template>
   <Modal class="w-[700px]" title="Zone - Shipping Cost " confirm-text="Submit">
     <Form />
+    <TypographyParagraph class="mt-5 px-5 italic">
+      <span class="font-semibold">Example:</span>
+      Order A has <span class="font-semibold">2 items</span> with a total weight
+      of <span class="font-semibold">1.5kg</span>
+      <div
+        v-if="
+          formApi.form.values.shippingCostLevel === ShippingCostLevel.WEIGHT
+        "
+        class="ml-10"
+      >
+        If the shipping cost is set to
+        <span class="font-semibold">$5 for every 1kg (weight)</span>, the total
+        shipping cost for Order A will be
+        <span class="font-semibold">$7.5</span> (1.5 x $5)
+      </div>
+      <div
+        v-if="
+          formApi.form.values.shippingCostLevel === ShippingCostLevel.QUANTITY
+        "
+        class="ml-10"
+      >
+        If the shipping cost is set to
+        <span class="font-semibold">$3 for every 1 item (quantity)</span>, the
+        total shipping cost for Order A will be
+        <span class="font-semibold">$6</span> (2 x $3)
+      </div>
+    </TypographyParagraph>
   </Modal>
 </template>

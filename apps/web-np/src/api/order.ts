@@ -41,3 +41,7 @@ export async function orderDelete(ids: any) {
     data: { ids },
   });
 }
+
+export async function orderUpdateCostsManually(payload: any) {
+  return requestClient.post('/api/order/update-costs-manually', payload);
+}

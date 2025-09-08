@@ -44,6 +44,13 @@ const [FormContentModal, formContentModalApi] = useVbenModal({
 
 const [FormOrdDetailModal, formDetailModalApi] = useVbenModal({
   connectedComponent: FormModalOrderDetail,
+  onClosed: () => {
+    const { reload } = formDetailModalApi.getData();
+
+    if (reload === true) {
+      gridApi.query();
+    }
+  },
 });
 
 onMounted(() => {
@@ -52,7 +59,7 @@ onMounted(() => {
     (payload: INotification) => {
       switch (payload.type) {
         case 'OrderCalculatedNotification': {
-          gridApi.reload();
+          gridApi.query();
           break;
         }
 

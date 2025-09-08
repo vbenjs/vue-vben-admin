@@ -8,12 +8,15 @@ import { $t } from '@vben/locales';
 
 import {
   Image as AImage,
+  Button,
   Descriptions,
   DescriptionsItem,
+  InputNumber,
+  message,
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { orderGetDetail } from '#/api';
+import { orderGetDetail, orderUpdateCostsManually } from '#/api';
 import { countries } from '#/shared/constants';
 import {
   calcGrossProfitMargin,
@@ -116,14 +119,28 @@ const shopStore = useShopStore();
 const [Modal, modalApi] = useVbenModal({
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      state.order = modalApi.getData<{ order: any }>().order;
+      state.order = { ...modalApi.getData<{ order: any }>().order };
     }
   },
   onCancel() {
     modalApi.close();
   },
   onConfirm: async () => {
-    shopStore.redirectToOrderPage(state.order.id);
+    modalApi.lock();
+
+    orderUpdateCostsManually({
+      orderId: state.order.id,
+      cogs: state.order.cogs,
+      handlingFees: state.order.handlingFees,
+      shippingCosts: state.order.shippingCosts,
+    })
+      .then(() => {
+        message.success('Order costs updated successfully');
+      })
+      .finally(() => {
+        modalApi.setData({ reload: true });
+        modalApi.close();
+      });
   },
 });
 
@@ -132,9 +149,32 @@ const getCountryName = (countryCode: string) => {
 
   return country ? country.label : countryCode;
 };
+
+const calcGrossProfit = () => {
+  state.order.grossProfit =
+    state.order.grossSales -
+    state.order.cogs -
+    state.order.handlingFees -
+    state.order.shippingCosts -
+    state.order.transactionFees;
+
+  return state.order.grossProfit;
+};
 </script>
 <template>
-  <Modal class="w-[1024px]" title="Details" confirm-text="Go to Shopify Order">
+  <Modal class="w-[1024px]" title="Details" confirm-text="Save">
+    <template #prepend-footer>
+      <div class="flex-auto">
+        <Button
+          @click="shopStore.redirectToOrderPage(state.order.id)"
+          type="dashed"
+          size="small"
+        >
+          Go to Shopify Order
+        </Button>
+      </div>
+    </template>
+
     <Descriptions class="mx-2" size="small" bordered :column="2">
       <DescriptionsItem label="Name" class="font-bold">
         {{ state.order.name }}
@@ -205,31 +245,70 @@ const getCountryName = (countryCode: string) => {
         }}
       </DescriptionsItem>
       <DescriptionsItem :label="$t('field-name.cogs')" :span="2">
-        {{
-          formatMoney(
-            state.order.cogs,
-            shopStore.shop.currencyFromApp,
-            shopStore.shop.currencyRate,
-          )
-        }}
+        <div class="flex items-center justify-between space-x-2">
+          <span class="w-full flex-1">
+            {{
+              formatMoney(
+                state.order.cogs,
+                shopStore.shop.currencyFromApp,
+                shopStore.shop.currencyRate,
+              )
+            }}
+          </span>
+
+          <InputNumber
+            :min="0"
+            :addon-after="shopStore.shop.currency"
+            addon-before="Edit"
+            v-model:value="state.order.cogs"
+            class="max-w-300 min-w-20"
+            size="small"
+          />
+        </div>
       </DescriptionsItem>
       <DescriptionsItem :label="$t('field-name.handlingFees')" :span="2">
-        {{
-          formatMoney(
-            state.order.handlingFees,
-            shopStore.shop.currencyFromApp,
-            shopStore.shop.currencyRate,
-          )
-        }}
+        <div class="flex items-center justify-between space-x-2">
+          <span class="w-full flex-1">
+            {{
+              formatMoney(
+                state.order.handlingFees,
+                shopStore.shop.currencyFromApp,
+                shopStore.shop.currencyRate,
+              )
+            }}
+          </span>
+
+          <InputNumber
+            :min="0"
+            :addon-after="shopStore.shop.currency"
+            addon-before="Edit"
+            v-model:value="state.order.handlingFees"
+            class="max-w-300 min-w-20"
+            size="small"
+          />
+        </div>
       </DescriptionsItem>
       <DescriptionsItem :label="$t('field-name.shippingCosts')" :span="2">
-        {{
-          formatMoney(
-            state.order.shippingCosts,
-            shopStore.shop.currencyFromApp,
-            shopStore.shop.currencyRate,
-          )
-        }}
+        <div class="flex items-center justify-between space-x-2">
+          <span class="w-full flex-1">
+            {{
+              formatMoney(
+                state.order.shippingCosts,
+                shopStore.shop.currencyFromApp,
+                shopStore.shop.currencyRate,
+              )
+            }}
+          </span>
+
+          <InputNumber
+            :min="0"
+            :addon-after="shopStore.shop.currency"
+            addon-before="Edit"
+            v-model:value="state.order.shippingCosts"
+            class="max-w-300 min-w-20"
+            size="small"
+          />
+        </div>
       </DescriptionsItem>
       <DescriptionsItem :label="$t('field-name.transactionFees')">
         {{
@@ -246,7 +325,7 @@ const getCountryName = (countryCode: string) => {
       <DescriptionsItem :label="$t('field-name.grossProfit')" class="font-bold">
         {{
           formatMoney(
-            state.order.grossProfit,
+            calcGrossProfit(),
             shopStore.shop.currencyFromApp,
             shopStore.shop.currencyRate,
           )
