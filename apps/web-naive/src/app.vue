@@ -49,7 +49,7 @@ const themeOverrides = computed((): GlobalThemeOverrides => {
   >
     <NNotificationProvider>
       <NMessageProvider>
-        <RouterView />
+        <RouterView :key="$route.fullPath" />
       </NMessageProvider>
     </NNotificationProvider>
   </NConfigProvider>
