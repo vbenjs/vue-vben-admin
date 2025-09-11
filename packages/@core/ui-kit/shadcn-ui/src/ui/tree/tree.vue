@@ -159,19 +159,21 @@ function collapseAll() {
 }
 
 function checkAll() {
-  if (props.multiple) {
-    modelValue.value = flattenData.value.map((item) =>
-      get(item.value, props.valueField),
-    );
-    updateTreeValue();
-  }
+  if (!props.multiple) return;
+  modelValue.value = [
+    ...new Set(
+      flattenData.value
+        .filter((item) => !get(item.value, props.disabledField))
+        .map((item) => get(item.value, props.valueField)),
+    ),
+  ];
+  updateTreeValue();
 }
 
 function unCheckAll() {
-  if (props.multiple) {
-    modelValue.value = [];
-    updateTreeValue();
-  }
+  if (!props.multiple) return;
+  modelValue.value = [];
+  updateTreeValue();
 }
 
 function isNodeDisabled(item: FlattenedItem<Recordable<any>>) {
