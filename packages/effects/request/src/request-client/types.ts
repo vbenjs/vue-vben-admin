@@ -46,7 +46,7 @@ type RequestClientOptions = CreateAxiosDefaults & ExtendOptions;
  */
 interface SseRequestOptions extends RequestInit {
   onMessage?: (message: string) => void;
-  onEnd?: (message: string) => void;
+  onEnd?: () => void;
 }
 
 interface RequestInterceptorConfig {

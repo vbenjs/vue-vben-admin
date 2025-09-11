@@ -89,7 +89,8 @@ describe('sSE', () => {
 
     expect(onMessage).toHaveBeenCalledTimes(2);
     expect(messages.join('')).toBe('hello world');
-    expect(onEnd).toHaveBeenCalledWith('hello world');
+    // onEnd 不再带参数
+    expect(onEnd).toHaveBeenCalled();
   });
 
   it('should apply request interceptors', async () => {
@@ -101,20 +102,30 @@ describe('sSE', () => {
       fulfilled: interceptor,
     });
 
-    vi.stubGlobal('fetch', createFetchMock(['data']));
-
     // 创建 fetch mock，并挂到全局
     const fetchMock = createFetchMock(['data']);
     vi.stubGlobal('fetch', fetchMock);
+
     await sse.requestSSE('/sse', undefined, {});
 
     expect(interceptor).toHaveBeenCalled();
     expect(fetchMock).toHaveBeenCalledWith(
-      'http://localhost//sse',
+      'http://localhost/sse',
       expect.objectContaining({
-        headers: expect.objectContaining({ 'x-test': 'intercepted' }),
+        headers: expect.any(Headers),
       }),
     );
+
+    const calls = fetchMock.mock?.calls;
+    expect(calls).toBeDefined();
+    expect(calls?.length).toBeGreaterThan(0);
+
+    const init = calls?.[0]?.[1] as RequestInit;
+    expect(init).toBeDefined();
+
+    const headers = init?.headers as Headers;
+    expect(headers?.get('x-test')).toBe('intercepted');
+    expect(headers?.get('accept')).toBe('text/event-stream');
   });
 
   it('should throw error when no reader', async () => {
