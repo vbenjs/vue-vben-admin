@@ -42,7 +42,7 @@ export const gridOptions: VxeTableGridOptions = {
   sortConfig: {
     remote: true,
     defaultSort: {
-      field: 'grossProfit',
+      field: 'grossProfitMargin',
       order: 'desc',
     },
   },
@@ -120,6 +120,7 @@ export const gridOptions: VxeTableGridOptions = {
       },
       align: 'right',
       minWidth: 170,
+      sortable: true,
     },
   ],
 };
