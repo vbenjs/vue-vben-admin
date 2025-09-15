@@ -19,7 +19,7 @@ jobs:
     steps:
       # 关闭未活动的 Issues
       - name: Close Inactive Issues
-        uses: actions/stale@v9
+        uses: actions/stale@v10
         with:
           days-before-stale: -1 # Issues and PR will never be flagged stale automatically.
           stale-issue-label: needs-reproduction # Label that flags an issue as stale.
