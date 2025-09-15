@@ -170,7 +170,7 @@ catalog:
   unbuild: ^3.6.1
   unplugin-element-plus: ^0.10.0
   vee-validate: ^4.15.1
-  vite: ^7.1.2
+  vite: ^7.1.5
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: ^4.5.4
   vite-plugin-html: ^3.2.2
