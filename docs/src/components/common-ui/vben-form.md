@@ -473,6 +473,8 @@ export interface FormSchema<
   fieldName: string;
   /** 帮助信息 */
   help?: CustomRenderType;
+  /** 是否隐藏表单项 */
+  hide?: boolean;
   /** 表单的标签（如果是一个string，会用于默认必选规则的消息提示） */
   label?: CustomRenderType;
   /** 自定义组件内部渲染  */

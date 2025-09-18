@@ -255,6 +255,8 @@ export interface FormSchema<
   fieldName: string;
   /** 帮助信息 */
   help?: CustomRenderType;
+  /** 是否隐藏表单项 */
+  hide?: boolean;
   /** 表单项 */
   label?: CustomRenderType;
   // 自定义组件内部渲染
