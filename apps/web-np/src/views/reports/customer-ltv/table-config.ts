@@ -5,7 +5,7 @@ import { markRaw, reactive } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { customerGetLTVReport } from '#/api';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -35,7 +35,7 @@ const gridOptions: VxeTableGridOptions = {
     }
 
     const addMonth: any = +column.field - 1;
-    const currentMonth = dayjsInGMT(row.customerMonth)
+    const currentMonth = dayjs(row.customerMonth)
       .add(addMonth, 'month')
       .format('YYYY-MM');
 
