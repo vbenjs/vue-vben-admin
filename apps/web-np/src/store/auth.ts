@@ -19,6 +19,7 @@ import {
 import { $t } from '#/locales';
 import { DefaultRoutes } from '#/shared/constants';
 import { crispDisplay, crispSetShopInfo } from '#/shared/crisp';
+import dayjs from '#/shared/dayjs';
 
 import { useCurrencyStore } from './currency';
 import { useShopStore } from './shop';
@@ -116,6 +117,9 @@ export const useAuthStore = defineStore('auth', () => {
       res.state,
     );
     shopSettingStore.setStates(res.settings);
+
+    // Set timezone
+    dayjs.tz.setDefault(shopStore.shop.timezone);
 
     crispSetShopInfo(res);
     crispDisplay(shopSettingStore.showChatPopup);

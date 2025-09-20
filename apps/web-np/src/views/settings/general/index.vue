@@ -7,7 +7,7 @@ import { useUserStore } from '@vben/stores';
 import { Card, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { cogsSoures } from '#/shared/constants';
+import { cogsSoures, timezones } from '#/shared/constants';
 import { toPercentage } from '#/shared/utils';
 import { useCurrencyStore, useShopSettingStore, useShopStore } from '#/store';
 
@@ -88,6 +88,21 @@ const [ShopSettingForm, formApi] = useVbenForm({
       component: h('span', userStore.userInfo?.email),
       fieldName: 'ownerEmail',
       label: 'Email',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        filterOption: true,
+        options: timezones.map((item) => ({
+          label: item,
+          value: item,
+        })),
+        showSearch: true,
+      },
+      defaultValue: shopStore.shop.timezone,
+      fieldName: 'timezone',
+      help: 'This timezone will be used to calculate the date range for reports and other time-based features.',
+      label: 'Timezone',
     },
     {
       component: 'Divider',
@@ -209,7 +224,7 @@ function onSubmit(values: Record<string, any>) {
 
 <template>
   <Page auto-content-height>
-    <Card title="Shop settings">
+    <Card title="Settings">
       <ShopSettingForm>
         <template #currencyRate>
           <span v-if="state.appCurrency !== shopStore.shop.currency">{{

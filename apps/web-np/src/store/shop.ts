@@ -72,7 +72,13 @@ export interface INotification {
 export const useShopStore = defineStore('np-shop', {
   actions: {
     setStates(shop: any, state: any) {
-      this.shop = shop;
+      this.shop = {
+        ...this.shop,
+        ...shop,
+        timezone:
+          shop.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+      };
+
       this.state = state;
 
       this.initPusher();

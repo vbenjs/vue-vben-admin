@@ -55,7 +55,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     meta: {
-      title: 'Shop Settings',
+      title: 'Settings',
       icon: 'codicon:settings',
       order: 100,
     },

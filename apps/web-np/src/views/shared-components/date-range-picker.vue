@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 import { RangePicker } from 'ant-design-vue';
 
-import dayjs from '#/shared/dayjs';
+import { useShopStore } from '#/store';
 
 interface Props {
   modelValue: any[];
@@ -25,6 +25,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const shopStore = useShopStore();
 
 const onChange = (val: any) => {
   emit('update:modelValue', val);
@@ -58,11 +60,12 @@ const getLimitName = computed(() => {
         >
           <span class="leading-none">
             Please choose a date range within a maximum period of
-            <strong>{{ getLimitName }}</strong> ({{ dayjs.tz.guess() }})
+            <strong>{{ getLimitName }}</strong>
           </span>
           <span class="text-xs">
             Ex: From <strong>2022</strong>-01-01 to <strong>2022</strong>-01-15
             is a valid range
+            <span class="font-bold">({{ shopStore.shop.timezone }})</span>
           </span>
         </div>
       </template>
