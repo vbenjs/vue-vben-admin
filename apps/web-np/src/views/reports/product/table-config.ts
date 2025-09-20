@@ -6,7 +6,7 @@ import { markRaw } from 'vue';
 import { $t } from '@vben/locales';
 
 import { productGetSalesReport } from '#/api';
-import dayjs from '#/shared/dayjs';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import Products from '#/views/settings/cogs-handling-fees/modules/products.vue';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
@@ -127,7 +127,7 @@ export const gridOptions: VxeTableGridOptions = {
 
 export const formOptions: VbenFormProps = {
   collapsed: false,
-  fieldMappingTime: [['date', ['fromDate', 'toDate']]],
+  fieldMappingTime: [['date', ['fromDate', 'toDate'], 'YYYY-MM-DDTHH:mm:ssZ']],
   schema: [
     {
       component: markRaw(DateRangePicker),
@@ -148,7 +148,7 @@ export const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjs().add(-1, 'month').add(1, 'day'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-1, 'month').add(1, 'day'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
     },

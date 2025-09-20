@@ -9,7 +9,7 @@ import { Button, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { storeCustomCost } from '#/api';
-import dayjs from '#/shared/dayjs';
+import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, toPercentage, toRate } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -272,7 +272,7 @@ const [Form, formApi] = useVbenForm({
     },
     {
       component: 'DatePicker' as any,
-      defaultValue: dayjs().add(-7, 'd'),
+      defaultValue: dayjsInGMT().add(-7, 'd'),
       componentProps: {
         presets: getDatePreset([
           'today',
@@ -291,12 +291,12 @@ const [Form, formApi] = useVbenForm({
     },
     {
       component: 'DatePicker' as any,
-      defaultValue: dayjs(),
+      defaultValue: dayjsInGMT(),
       componentProps: {
         presets: [
           { label: 'On going', value: onGoingDate },
-          { label: 'Next 30 Days', value: dayjs().add(30, 'd') },
-          { label: 'Next 7 Days', value: dayjs().add(7, 'd') },
+          { label: 'Next 30 Days', value: dayjsInGMT().add(30, 'd') },
+          { label: 'Next 7 Days', value: dayjsInGMT().add(7, 'd') },
           ...getDatePreset(['last7Days', 'lastMonth']),
         ],
         format: (value: any) => {
@@ -345,8 +345,8 @@ const [Modal, modalApi] = useVbenModal({
         grossProfitRate: Number.parseFloat(
           toPercentage(values.grossProfitRate),
         ),
-        startDate: dayjs(values.startDate),
-        endDate: values.endDate ? dayjs(values.endDate) : onGoingDate,
+        startDate: dayjsInGMT(values.startDate),
+        endDate: values.endDate ? dayjsInGMT(values.endDate) : onGoingDate,
       });
     }
   },

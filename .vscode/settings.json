@@ -233,6 +233,7 @@
     "dotenv",
     "isequal",
     "jspm",
+    "myshopify",
     "napi",
     "nolebase",
     "rollup",

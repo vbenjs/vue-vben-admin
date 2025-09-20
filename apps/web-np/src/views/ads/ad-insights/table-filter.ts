@@ -2,7 +2,7 @@ import type { VbenFormProps } from '@vben/common-ui';
 
 import { markRaw } from 'vue';
 
-import dayjs from '#/shared/dayjs';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -14,7 +14,7 @@ export const formOptions: VbenFormProps = {
     },
     labelClass: 'w-2/6',
   },
-  fieldMappingTime: [['date', ['fromDate', 'toDate']]],
+  fieldMappingTime: [['date', ['fromDate', 'toDate'], 'YYYY-MM-DDTHH:mm:ssZ']],
   schema: [
     {
       component: markRaw(DateRangePicker),
@@ -35,7 +35,7 @@ export const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjs().add(-1, 'month').add(1, 'day'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-1, 'month').add(1, 'day'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
     },

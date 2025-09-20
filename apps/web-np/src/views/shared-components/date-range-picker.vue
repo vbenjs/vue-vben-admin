@@ -5,6 +5,8 @@ import { computed } from 'vue';
 
 import { RangePicker } from 'ant-design-vue';
 
+import dayjs from '#/shared/dayjs';
+
 interface Props {
   modelValue: any[];
   presets: any[];
@@ -56,7 +58,7 @@ const getLimitName = computed(() => {
         >
           <span class="leading-none">
             Please choose a date range within a maximum period of
-            <strong>{{ getLimitName }}</strong> (GMT+0)
+            <strong>{{ getLimitName }}</strong> ({{ dayjs.tz.guess() }})
           </span>
           <span class="text-xs">
             Ex: From <strong>2022</strong>-01-01 to <strong>2022</strong>-01-15

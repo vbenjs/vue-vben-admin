@@ -15,7 +15,7 @@ import {
 } from 'ant-design-vue';
 
 import { productUpdateCogsByDateRange } from '#/api';
-import dayjs from '#/shared/dayjs';
+import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { formatReportDate } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -84,7 +84,7 @@ const getNextDate = (counter: any) => {
 };
 
 const addNewRow = () => {
-  const newDate = dayjs();
+  const newDate = dayjsInGMT();
   state.cogsArr = [
     {
       date: newDate,

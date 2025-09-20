@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 
 import { orderGetPAndLReport } from '#/api';
-import dayjs from '#/shared/dayjs';
+import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { convertRate, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
@@ -83,7 +83,7 @@ export type DashboardData = {
 };
 
 export const currentPeriod = reactive<DashboardData>({
-  dateRange: [dayjs().add(-6, 'day'), dayjs()],
+  dateRange: [dayjsInGMT().add(-6, 'day'), dayjsInGMT()],
   dateRangeChanged: false,
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
@@ -117,7 +117,7 @@ export const currentPeriod = reactive<DashboardData>({
 });
 
 export const previousPeriod = reactive<DashboardData>({
-  dateRange: [dayjs().add(-13, 'day'), dayjs().add(-7, 'day')],
+  dateRange: [dayjsInGMT().add(-13, 'day'), dayjsInGMT().add(-7, 'day')],
   dateRangeChanged: false,
   rawOrders: [] as any[],
   rawCustomCosts: [] as any[],
@@ -153,8 +153,8 @@ export const previousPeriod = reactive<DashboardData>({
 export const loadDataByPeriod = (payload: DashboardData) => {
   dashboardState.loading = true;
 
-  const fromDate = payload.dateRange[0].format('YYYY-MM-DD');
-  const toDate = payload.dateRange[1].format('YYYY-MM-DD');
+  const fromDate = payload.dateRange[0].format('YYYY-MM-DDTHH:mm:ssZ');
+  const toDate = payload.dateRange[1].format('YYYY-MM-DDTHH:mm:ssZ');
 
   orderGetPAndLReport({
     groupBy: 'daily',

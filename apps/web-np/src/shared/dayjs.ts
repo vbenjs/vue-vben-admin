@@ -10,7 +10,7 @@ dayjs.extend(weekOfYear);
 dayjs.extend(quarterOfYear);
 
 export function dayjsInGMT(date?: any) {
-  return dayjs(date).tz('Etc/GMT');
+  return dayjs(date).tz();
 }
 
 export default dayjs;

@@ -10,7 +10,7 @@ import { useShopStore } from '#/store';
 import { useShopifyAppBridgeStore } from '#/store/shopify-app-bridge';
 
 import { adType } from './constants';
-import dayjs, { dayjsInGMT } from './dayjs';
+import { dayjsInGMT } from './dayjs';
 
 export { isShopifyEmbedded } from '@shopify/app-bridge/utilities';
 
@@ -121,57 +121,57 @@ export const getDatePreset = (
     {
       id: 'today',
       label: 'Today',
-      value: dayjs(),
+      value: dayjsInGMT(),
     },
     {
       id: 'last7Days',
       label: 'Last 7 Days',
-      value: dayjs().add(-6, 'd'),
+      value: dayjsInGMT().add(-6, 'd'),
     },
     {
       id: 'last14Days',
       label: 'Last 14 Days',
-      value: dayjs().add(-13, 'd'),
+      value: dayjsInGMT().add(-13, 'd'),
     },
     {
       id: 'lastMonth',
       label: 'Last 1 Month',
-      value: dayjs().add(-1, 'month').add(1, 'day'),
+      value: dayjsInGMT().add(-1, 'month').add(1, 'day'),
     },
     {
       id: 'last2Months',
       label: 'Last 2 Months',
-      value: dayjs().add(-2, 'month').add(1, 'day'),
+      value: dayjsInGMT().add(-2, 'month').add(1, 'day'),
     },
     {
       id: 'last3Months',
       label: 'Last 3 Months',
-      value: dayjs().add(-3, 'month').add(1, 'day'),
+      value: dayjsInGMT().add(-3, 'month').add(1, 'day'),
     },
     {
       id: 'last6Months',
       label: 'Last 6 Months',
-      value: dayjs().add(-6, 'month').add(1, 'day'),
+      value: dayjsInGMT().add(-6, 'month').add(1, 'day'),
     },
     {
       id: 'lastYear',
       label: 'Last 1 Year',
-      value: dayjs().add(-1, 'year').add(1, 'day'),
+      value: dayjsInGMT().add(-1, 'year').add(1, 'day'),
     },
     {
       id: 'previousMonth',
       label: 'Previous Month',
-      value: dayjs().add(-1, 'month').startOf('month'),
+      value: dayjsInGMT().add(-1, 'month').startOf('month'),
     },
     {
       id: 'thisMonth',
       label: 'This Month',
-      value: dayjs().startOf('month'),
+      value: dayjsInGMT().startOf('month'),
     },
     {
       id: 'thisYear',
       label: 'This Year',
-      value: dayjs().startOf('year'),
+      value: dayjsInGMT().startOf('year'),
     },
   ];
 
@@ -179,10 +179,10 @@ export const getDatePreset = (
 
   if (isDateRange) {
     return result.map((item) => {
-      let today = dayjs();
+      let today = dayjsInGMT();
 
       if (item.id === 'previousMonth') {
-        today = dayjs().add(-1, 'month').endOf('month');
+        today = dayjsInGMT().add(-1, 'month').endOf('month');
       }
 
       return {

@@ -8,7 +8,7 @@ import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 import { customCostTypes } from './service';
 
 export const formOptions: VbenFormProps = {
-  fieldMappingTime: [['date', ['from', 'to']]],
+  fieldMappingTime: [['date', ['from', 'to'], 'YYYY-MM-DDTHH:mm:ssZ']],
   schema: [
     {
       component: 'Input',

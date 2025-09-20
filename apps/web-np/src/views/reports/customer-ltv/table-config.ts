@@ -5,7 +5,7 @@ import { markRaw, reactive } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { customerGetLTVReport } from '#/api';
-import dayjs from '#/shared/dayjs';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -35,15 +35,15 @@ const gridOptions: VxeTableGridOptions = {
     }
 
     const addMonth: any = +column.field - 1;
-    const currenMonth = dayjs(row.customerMonth)
+    const currentMonth = dayjsInGMT(row.customerMonth)
       .add(addMonth, 'month')
       .format('YYYY-MM');
 
-    if (row[currenMonth] === undefined) {
+    if (row[currentMonth] === undefined) {
       return 'invisible';
     }
 
-    if (row.currenMonthColumn === +column.field) {
+    if (row.currentMonthColumn === +column.field) {
       return 'bg-background-deep font-semibold';
     }
   },
@@ -76,7 +76,9 @@ const gridOptions: VxeTableGridOptions = {
 const formOptions: VbenFormProps = {
   collapsed: false,
   wrapperClass: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-  fieldMappingTime: [['month', ['fromMonth', 'toMonth']]],
+  fieldMappingTime: [
+    ['month', ['fromMonth', 'toMonth'], 'YYYY-MM-DDTHH:mm:ssZ'],
+  ],
   schema: [
     {
       component: markRaw(DateRangePicker),
@@ -88,7 +90,7 @@ const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjs().add(-6, 'months'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-6, 'months'), dayjsInGMT()],
       fieldName: 'month',
       label: 'Month',
     },

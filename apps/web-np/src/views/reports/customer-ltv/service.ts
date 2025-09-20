@@ -1,7 +1,7 @@
 import type { ExtendedVxeGridApi } from 'node_modules/@vben/plugins/src/vxe-table/types';
 import type { VxeGridPropTypes } from 'vxe-table';
 
-import dayjs from '#/shared/dayjs';
+import { dayjsInGMT } from '#/shared/dayjs';
 
 function getOrdinalSuffix(n: number): any {
   const s = ['th', 'st', 'nd', 'rd'];
@@ -39,7 +39,8 @@ export const generateDateColumns = (
   // Loop from toMonth to fromMonth
   while (currentMonth <= toMonth) {
     // Title: 1st Month, 2nd Month, 3rd Month, 4th Month, ...
-    const monthDifference = dayjs(currentMonth).diff(fromMonth, 'month') + 1;
+    const monthDifference =
+      dayjsInGMT(currentMonth).diff(fromMonth, 'month') + 1;
 
     // Create the title with the correct ordinal suffix
     const title = `${monthDifference}${getOrdinalSuffix(monthDifference)} Month`;
@@ -52,7 +53,7 @@ export const generateDateColumns = (
       slots: { default: 'date' },
     });
 
-    currentMonth = dayjs(currentMonth).add(1, 'month').format('YYYY-MM');
+    currentMonth = dayjsInGMT(currentMonth).add(1, 'month').format('YYYY-MM');
   }
 
   gridApi.setGridOptions({
@@ -75,7 +76,7 @@ export const transformDataRowToColumn = (
     const item = generateRowData(data, customerMonth, toMonth);
     result.push(item);
 
-    customerMonth = dayjs(customerMonth).add(1, 'month').format('YYYY-MM');
+    customerMonth = dayjsInGMT(customerMonth).add(1, 'month').format('YYYY-MM');
   }
 
   return result;
@@ -118,11 +119,13 @@ const generateRowData = (
       item.quantityRepurchase = foundDB.quantityRepurchase;
     }
 
-    processedMonth = dayjs(processedMonth).add(1, 'month').format('YYYY-MM');
+    processedMonth = dayjsInGMT(processedMonth)
+      .add(1, 'month')
+      .format('YYYY-MM');
     counter++;
   }
 
-  item.currenMonthColumn = counter;
+  item.currentMonthColumn = counter;
 
   return item;
 };

@@ -6,7 +6,7 @@ import { markRaw } from 'vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { orderGetPAndLReport } from '#/api';
 import { orderStatusList } from '#/shared/constants';
-import dayjs from '#/shared/dayjs';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, toPercentage } from '#/shared/utils';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
@@ -95,9 +95,9 @@ export const addExtraFields = (data: any) => {
 export const formOptions: VbenFormProps = {
   collapsed: false,
   fieldMappingTime: [
-    ['date', ['fromDate', 'toDate']],
-    ['week', ['fromWeek', 'toWeek']],
-    ['month', ['fromMonth', 'toMonth']],
+    ['date', ['fromDate', 'toDate'], 'YYYY-MM-DDTHH:mm:ssZ'],
+    ['week', ['fromWeek', 'toWeek'], 'YYYY-MM-DDTHH:mm:ssZ'],
+    ['month', ['fromMonth', 'toMonth'], 'YYYY-MM-DDTHH:mm:ssZ'],
   ],
   schema: [
     {
@@ -147,7 +147,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().add(-6, 'days'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-6, 'days'), dayjsInGMT()],
       fieldName: 'date',
       label: 'Date',
     },
@@ -175,7 +175,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().add(-6, 'days'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-6, 'days'), dayjsInGMT()],
       fieldName: 'week',
       label: 'Weekly',
     },
@@ -203,7 +203,7 @@ export const formOptions: VbenFormProps = {
         },
         triggerFields: ['groupBy'],
       },
-      defaultValue: [dayjs().add(-2, 'month'), dayjs()],
+      defaultValue: [dayjsInGMT().add(-2, 'month'), dayjsInGMT()],
       fieldName: 'month',
       label: 'Month',
     },

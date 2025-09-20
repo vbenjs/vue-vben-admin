@@ -36,6 +36,7 @@ interface IShop {
   subscriptionId: string;
   subscriptionName: string;
   subscriptionPlan: string;
+  timezone: string;
 }
 
 interface IShopState {
@@ -197,6 +198,7 @@ export const useShopStore = defineStore('np-shop', {
       subscriptionId: '',
       subscriptionName: '',
       subscriptionPlan: '',
+      timezone: 'Asia/Tokyo',
     },
     state: {
       product_sync: ShopState.PROCESSED,
