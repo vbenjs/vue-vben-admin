@@ -2,7 +2,7 @@ import type { ExtendedVxeGridApi } from 'node_modules/@vben/plugins/src/vxe-tabl
 import type { VxeGridPropTypes } from 'vxe-table';
 
 import { adType } from '#/shared/constants';
-import { dayjsInGMT } from '#/shared/dayjs';
+import dayjs from '#/shared/dayjs';
 
 export const groupData = (dataItems: any, groupBy: string) => {
   const newDataItems: any[] = [];
@@ -11,19 +11,19 @@ export const groupData = (dataItems: any, groupBy: string) => {
     let _dateName: string = '';
 
     if (groupBy === 'weekly') {
-      const __date = dayjsInGMT(record.date);
+      const __date = dayjs(record.date);
       const weekNumber = __date.week();
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-W${weekNumber}`;
     } else if (groupBy === 'quarter') {
-      const __date = dayjsInGMT(record.date);
+      const __date = dayjs(record.date);
       const quarterNumber = __date.quarter();
       const yearNumber = __date.format('YYYY');
 
       _dateName = `${yearNumber}-Q${quarterNumber}`;
     } else {
-      _dateName = dayjsInGMT(record.date).format('YYYY-MM');
+      _dateName = dayjs(record.date).format('YYYY-MM');
     }
 
     const existingRecord = newDataItems.find((item) => item.date === _dateName);

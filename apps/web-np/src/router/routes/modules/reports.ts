@@ -33,16 +33,16 @@ const routes: RouteRecordRaw[] = [
     path: '/reports/product-analytics',
     component: () => import('#/views/reports/product/index.vue'),
   },
-  {
-    meta: {
-      title: 'Customer Analytics',
-      order: 40,
-      icon: 'carbon:customer',
-    },
-    name: 'reports-customer-analytics',
-    path: '/reports/customer-analytics',
-    component: () => import('#/views/reports/customer-ltv/index.vue'),
-  },
+  // {
+  //   meta: {
+  //     title: 'Customer Analytics',
+  //     order: 40,
+  //     icon: 'carbon:customer',
+  //   },
+  //   name: 'reports-customer-analytics',
+  //   path: '/reports/customer-analytics',
+  //   component: () => import('#/views/reports/customer-ltv/index.vue'),
+  // },
 ];
 
 export default routes;
