@@ -61,7 +61,7 @@ export const gridOptions: VxeTableGridOptions = {
 
         generateDateColumns(gridApi, data.items);
 
-        addExtraFields(data.items);
+        addExtraFields(data.items, false);
         data.items = transformDataRowToColumn(data.items, data.customCostList);
 
         return data;
@@ -70,7 +70,7 @@ export const gridOptions: VxeTableGridOptions = {
   },
 };
 
-export const addExtraFields = (data: any) => {
+export const addExtraFields = (data: any, hasTotalCost: boolean = true) => {
   data.forEach((item: any) => {
     item.netProfit =
       item.grossProfit -
@@ -82,13 +82,15 @@ export const addExtraFields = (data: any) => {
       ? toPercentage(item.netProfit / item.netPayment)
       : 0;
 
-    item.totalCosts =
-      item.totalAdSpend +
-      item.totalCustomCost +
-      item.cogs +
-      item.handlingFees +
-      item.shippingCosts +
-      item.transactionFees;
+    if (hasTotalCost) {
+      item.totalCosts =
+        item.totalAdSpend +
+        item.totalCustomCost +
+        item.cogs +
+        item.handlingFees +
+        item.shippingCosts +
+        item.transactionFees;
+    }
   });
 };
 
