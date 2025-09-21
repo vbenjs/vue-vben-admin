@@ -102,8 +102,7 @@ export const transformDataRowToColumn = (data: any[], costName: any): any[] => {
       key !== 'quantityTotal' &&
       key !== 'quantityRefund' &&
       key !== 'totalTip' &&
-      key !== 'totalShipping' &&
-      key !== 'totalOrders'
+      key !== 'totalShipping'
     );
   });
 

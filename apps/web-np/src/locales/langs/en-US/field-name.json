@@ -52,5 +52,7 @@
   "totalCostsExplain": "Total costs = COGS +  Handling fees + Shipping costs + Transaction fees + Custom costs + Ad spends",
 
   "ltv": "Lifetime Value (LTV)",
-  "ltvExplain": "Lifetime Value (LTV) represents the average revenue a customer generates over their entire duration as a paying customer."
+  "ltvExplain": "Lifetime Value (LTV) represents the average revenue a customer generates over their entire duration as a paying customer.",
+
+  "totalOrders": "Total Orders"
 }

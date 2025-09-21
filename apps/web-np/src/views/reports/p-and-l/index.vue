@@ -24,6 +24,10 @@ const formatVal = (rowName: string, val: any) => {
     return numberWithCommas(`${val}%`);
   }
 
+  if (rowName === 'totalOrders') {
+    return val;
+  }
+
   return formatMoney(
     val,
     shopStore.shop.currencyFromApp,
