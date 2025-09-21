@@ -104,7 +104,7 @@ export const formOptions: VbenFormProps = {
   schema: [
     {
       component: 'Select' as any,
-      defaultValue: 'monthly',
+      defaultValue: 'daily',
       componentProps: {
         options: [
           {

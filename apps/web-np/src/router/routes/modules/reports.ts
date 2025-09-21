@@ -5,23 +5,23 @@ import { $t } from '#/locales';
 const routes: RouteRecordRaw[] = [
   {
     meta: {
-      title: $t('reports.order.title'),
-      order: 10,
-      icon: 'fluent-mdl2:reservation-orders',
-    },
-    name: 'reports-order',
-    path: '/reports/order',
-    component: () => import('#/views/reports/order/index.vue'),
-  },
-  {
-    meta: {
       title: 'P&L Report',
-      order: 20,
+      order: 10,
       icon: 'clarity:analytics-outline-badged',
     },
     name: 'reports-p-and-l',
     path: '/reports/p-and-l-report',
     component: () => import('#/views/reports/p-and-l/index.vue'),
+  },
+  {
+    meta: {
+      title: $t('reports.order.title'),
+      order: 20,
+      icon: 'fluent-mdl2:reservation-orders',
+    },
+    name: 'reports-order',
+    path: '/reports/order',
+    component: () => import('#/views/reports/order/index.vue'),
   },
   {
     meta: {
