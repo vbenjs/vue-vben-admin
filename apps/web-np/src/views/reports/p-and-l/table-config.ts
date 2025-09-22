@@ -8,6 +8,7 @@ import { orderGetPAndLReport } from '#/api';
 import { orderStatusList } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset, toPercentage } from '#/shared/utils';
+import { useShopStore } from '#/store/shop';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import {
@@ -16,6 +17,8 @@ import {
   groupData,
   transformDataRowToColumn,
 } from './service';
+
+const shopStore = useShopStore();
 
 export const gridOptions: VxeTableGridOptions = {
   pagerConfig: {
@@ -120,6 +123,7 @@ export const formOptions: VbenFormProps = {
             label: 'Month',
           },
         ],
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'groupBy',
       label: 'Report type',
@@ -142,6 +146,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       dependencies: {
         if(values) {
@@ -170,6 +175,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       dependencies: {
         if(values) {
@@ -198,6 +204,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       dependencies: {
         if(values) {
@@ -216,6 +223,7 @@ export const formOptions: VbenFormProps = {
         mode: 'multiple',
         options: orderStatusList,
         placeholder: 'Payment status',
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'financialStatus',
       label: 'Status',

@@ -4,6 +4,7 @@ import { Page } from '@vben/common-ui';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { formatMoney } from '#/shared/utils';
 import { useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import CustomerStatistic from './customer-statistic.vue';
 import { Grid, state } from './table-config';
@@ -33,6 +34,10 @@ const formatVal = (val: number) => {
 <template>
   <Page>
     <Grid table-title="Customer Analytics">
+      <template #toolbar-tools>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+      </template>
+
       <template #id="{ row }">
         <div class="flex flex-col space-y-0">
           <div class="font-semibold">

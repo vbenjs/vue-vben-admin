@@ -5,7 +5,10 @@ import { markRaw } from 'vue';
 import { orderStatusList } from '#/shared/constants';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
+import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
+
+const shopStore = useShopStore();
 
 export const formOptions: VbenFormProps = {
   collapsed: false,
@@ -29,6 +32,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       defaultValue: [dayjsInGMT().add(-1, 'month').add(1, 'day'), dayjsInGMT()],
       fieldName: 'date',
@@ -41,6 +45,7 @@ export const formOptions: VbenFormProps = {
         mode: 'multiple',
         options: orderStatusList,
         placeholder: 'Payment status',
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'financialStatus',
       label: 'Status',
@@ -51,6 +56,7 @@ export const formOptions: VbenFormProps = {
       label: 'Order ID',
       componentProps: {
         placeholder: ' ',
+        disabled: shopStore.isFreeSubscription,
       },
     },
   ],

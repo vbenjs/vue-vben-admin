@@ -3,8 +3,11 @@ import type { VbenFormProps } from '@vben/common-ui';
 import { markRaw } from 'vue';
 
 import { defaultRegionUUID } from '#/shared/constants';
+import { useShopStore } from '#/store';
 
 import Select from './modules/select.vue';
+
+const shopStore = useShopStore();
 
 const statusList = [
   {
@@ -33,6 +36,9 @@ export const formOptions: VbenFormProps = {
   schema: [
     {
       component: markRaw(Select),
+      componentProps: {
+        disabled: shopStore.isFreeSubscription,
+      },
       defaultValue: defaultRegionUUID,
       fieldName: 'zoneUUID',
       label: 'Zone',
@@ -43,6 +49,7 @@ export const formOptions: VbenFormProps = {
       label: 'ID',
       componentProps: {
         placeholder: 'Search by Product ID',
+        disabled: shopStore.isFreeSubscription,
       },
     },
     {
@@ -51,6 +58,7 @@ export const formOptions: VbenFormProps = {
       label: 'Name',
       componentProps: {
         placeholder: 'Search by Product Name',
+        disabled: shopStore.isFreeSubscription,
       },
     },
     {
@@ -61,6 +69,7 @@ export const formOptions: VbenFormProps = {
         mode: 'multiple',
         options: statusList,
         placeholder: 'Select status',
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'status',
       label: 'Status',

@@ -5,6 +5,7 @@ import { $t } from '@vben/locales';
 
 import { formatMoney, getFieldExplain, numberWithCommas } from '#/shared/utils';
 import { useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import { Grid } from './table-config';
 
@@ -62,6 +63,10 @@ const formatVal = (rowName: string, val: any) => {
         <div :class="[{ 'font-semibold': hasBold(row.id) }]">
           {{ formatVal(row.id, row[field]) }}
         </div>
+      </template>
+
+      <template #toolbar-tools>
+        <UpgradeBtn />
       </template>
     </Grid>
   </Page>

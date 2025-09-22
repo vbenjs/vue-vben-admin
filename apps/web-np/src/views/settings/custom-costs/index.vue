@@ -10,6 +10,7 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteCustomCost } from '#/api';
 import { formatMoney, toPercentage } from '#/shared/utils';
 import { useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import FormModal from './form-modal.vue';
 import { CustomCostType } from './service';
@@ -59,11 +60,14 @@ const handleDelete = (row: ICustomCost) => {
 
     <Grid table-title="Custom Costs">
       <template #toolbar-tools>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+
         <VbenButton
           class="mr-2"
           size="sm"
           type="primary"
           @click="openFormModal()"
+          :disabled="shopStore.isFreeSubscription"
         >
           <IconifyIcon
             class="mr-2 size-4"

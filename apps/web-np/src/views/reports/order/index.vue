@@ -13,6 +13,7 @@ import { orderDelete } from '#/api';
 import { StateStatus } from '#/shared/constants';
 import { showWatermark } from '#/shared/utils';
 import { useShopStore, useSystemStatisticStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import FormModalOrderDetail from './form-modal-order-detail.vue';
 import FormModalRecalculate from './form-modal-recalculate.vue';
@@ -124,11 +125,14 @@ const handleDeleteOrders = () => {
       </template>
 
       <template #toolbar-tools>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+
         <VbenButton
           class="mr-2 w-[150px]"
           size="sm"
           type="primary"
           variant="destructive"
+          :disabled="shopStore.isFreeSubscription"
           @click="handleDeleteOrders"
           v-if="state.checkedItems.length > 0"
         >
@@ -140,6 +144,7 @@ const handleDeleteOrders = () => {
           class="mr-2 w-[150px]"
           size="sm"
           type="primary"
+          :disabled="shopStore.isFreeSubscription"
           @click="formContentModalApi.open()"
         >
           <IconifyIcon

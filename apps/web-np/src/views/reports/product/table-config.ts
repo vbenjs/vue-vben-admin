@@ -8,8 +8,11 @@ import { $t } from '@vben/locales';
 import { productGetSalesReport } from '#/api';
 import { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
+import { useShopStore } from '#/store';
 import Products from '#/views/settings/cogs-handling-fees/modules/products.vue';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
+
+const shopStore = useShopStore();
 
 export const gridOptions: VxeTableGridOptions = {
   height: 'auto',
@@ -147,6 +150,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       defaultValue: [dayjsInGMT().add(-1, 'month').add(1, 'day'), dayjsInGMT()],
       fieldName: 'date',

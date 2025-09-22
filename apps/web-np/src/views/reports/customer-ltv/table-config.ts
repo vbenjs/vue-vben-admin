@@ -7,9 +7,12 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { customerGetLTVReport } from '#/api';
 import dayjs, { dayjsInGMT } from '#/shared/dayjs';
 import { getDatePreset } from '#/shared/utils';
+import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import { generateDateColumns, transformDataRowToColumn } from './service';
+
+const shopStore = useShopStore();
 
 const gridOptions: VxeTableGridOptions = {
   pagerConfig: {
@@ -89,6 +92,7 @@ const formOptions: VbenFormProps = {
           ['last3Months', 'last6Months', 'lastYear', 'thisYear'],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       defaultValue: [dayjsInGMT().add(-5, 'months'), dayjsInGMT()],
       fieldName: 'month',

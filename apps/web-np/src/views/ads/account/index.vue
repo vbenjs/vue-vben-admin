@@ -24,6 +24,7 @@ import {
   redirectToExternal,
 } from '#/shared/utils';
 import { useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import { gridOptions } from './table-config';
 import { formOptions } from './table-filter';
@@ -201,7 +202,9 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
 
     <Grid>
       <template #toolbar-tools>
-        <Dropdown>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+
+        <Dropdown :disabled="shopStore.isFreeSubscription">
           <VbenButton size="sm" type="primary">
             <IconifyIcon
               class="mr-2 size-4"

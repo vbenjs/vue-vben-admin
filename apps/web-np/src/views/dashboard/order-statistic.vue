@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@vben/common-ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  VbenButton,
+} from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
-import { formatMoney } from '#/shared/utils';
+import { Alert } from 'ant-design-vue';
+
+import { formatMoney, redirectToExternal } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
 import {
@@ -285,6 +293,11 @@ const getDetails = computed(() => {
     },
   ];
 });
+
+const handleWriteReview = () => {
+  const url = `https://apps.shopify.com/${import.meta.env.VITE_GLOB_SHOPIFY_APP_HANDLE}#modal-show=WriteReviewModal`;
+  redirectToExternal(url);
+};
 </script>
 
 <template>
@@ -336,6 +349,43 @@ const getDetails = computed(() => {
       </Card>
     </template>
   </div>
+
+  <Alert
+    v-if="shopStore.isFreeSubscription"
+    :show-icon="true"
+    class="mt-5"
+    type="warning"
+    closable
+  >
+    <template #icon>
+      <IconifyIcon icon="emojione-v1:ringing-bell" />
+    </template>
+    <template #message>
+      <span class="font-semibold">
+        Get 45 More Days of Pro – Just for Sharing the Love!
+      </span>
+    </template>
+    <template #description>
+      Love our app? Help others discover it too! Leave us a ⭐️⭐️⭐️⭐️⭐️
+      review and share your thoughts on the app store.
+      <div>
+        Then, take a screenshot of your review and send it to us via the
+        chatbox. We’ll extend your Pro trial by another
+        <strong>45 days – totally free</strong>!
+      </div>
+
+      <VbenButton
+        class="mt-2"
+        size="sm"
+        variant="secondary"
+        @click="handleWriteReview"
+      >
+        <IconifyIcon class="mr-2" icon="ant-design:export-outlined" />
+        Move to Shopify App Store
+      </VbenButton>
+    </template>
+    <template #action> </template>
+  </Alert>
 
   <Card
     class="mt-5 grid grid-cols-1 gap-4 pb-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"

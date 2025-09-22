@@ -27,6 +27,7 @@ import { exportCogsHandlingFees, productBulkUpdateFees } from '#/api';
 import { defaultRegionUUID, ECogsSource, EFeeLevel } from '#/shared/constants';
 import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import FormModalBulkCogsSource from './form-modal-bulk-cogs-source.vue';
 import FormModalBulkCogs from './form-modal-bulk-cogs.vue';
@@ -362,6 +363,8 @@ const getBulkActionTitle = () => {
     <BulkCogsModal />
     <Grid>
       <template #toolbar-tools>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+
         <template v-if="showAddAndRemoveBtns()">
           <VbenButton
             class="mr-2 w-[100px]"

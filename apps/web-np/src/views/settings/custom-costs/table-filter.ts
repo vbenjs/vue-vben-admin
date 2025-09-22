@@ -3,9 +3,12 @@ import type { VbenFormProps } from '@vben/common-ui';
 import { markRaw } from 'vue';
 
 import { getDatePreset } from '#/shared/utils';
+import { useShopStore } from '#/store';
 import DateRangePicker from '#/views/shared-components/date-range-picker.vue';
 
 import { customCostTypes } from './service';
+
+const shopStore = useShopStore();
 
 export const formOptions: VbenFormProps = {
   fieldMappingTime: [['date', ['from', 'to'], 'YYYY-MM-DDTHH:mm:ssZ']],
@@ -16,6 +19,7 @@ export const formOptions: VbenFormProps = {
       label: 'Name',
       componentProps: {
         placeholder: 'Search by cost name',
+        disabled: shopStore.isFreeSubscription,
       },
     },
     {
@@ -34,6 +38,7 @@ export const formOptions: VbenFormProps = {
           ],
           true,
         ),
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'date',
       label: 'Date',
@@ -45,6 +50,7 @@ export const formOptions: VbenFormProps = {
         mode: 'multiple',
         options: customCostTypes,
         placeholder: 'Select cost type',
+        disabled: shopStore.isFreeSubscription,
       },
       fieldName: 'type',
       label: 'Type',

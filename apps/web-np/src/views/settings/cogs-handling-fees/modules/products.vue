@@ -5,9 +5,16 @@ import { useDebounceFn } from '@vueuse/core';
 import { Select as ASelect, Image, Spin } from 'ant-design-vue';
 
 import { productGetList } from '#/api';
+import { useShopStore } from '#/store';
 
 const products = defineModel<string[]>({
   default: [],
+});
+
+const shopStore = useShopStore();
+
+onMounted(() => {
+  handleSearch('');
 });
 
 const state = reactive({
@@ -34,10 +41,6 @@ const handleSearch = useDebounceFn((value: string) => {
       state.fetching = false;
     });
 }, 1000);
-
-onMounted(() => {
-  handleSearch('');
-});
 </script>
 <template>
   <div>
@@ -50,6 +53,7 @@ onMounted(() => {
       mode="multiple"
       style="width: 100%"
       placeholder="Select at least one product"
+      :disabled="shopStore.isFreeSubscription"
     >
       <template #option="{ label, image }">
         <div class="my-1 flex items-center justify-start space-x-2">

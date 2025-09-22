@@ -1,3 +1,4 @@
+import type dayjs from 'dayjs';
 import type { Channel } from 'pusher-js';
 
 import { h } from 'vue';
@@ -10,6 +11,7 @@ import Pusher from 'pusher-js';
 
 import { shopUpdateSubscriptionInfo, updateGeneralSettings } from '#/api';
 import { StateStatus, SubscriptionPlans } from '#/shared/constants';
+import { dayjsInGMT } from '#/shared/dayjs';
 import { redirectToExternal } from '#/shared/utils';
 import NotificationMessage from '#/views/_core/notification-message.vue';
 
@@ -37,6 +39,7 @@ interface IShop {
   subscriptionName: string;
   subscriptionPlan: string;
   timezone: string;
+  createdAt: dayjs.Dayjs | null;
 }
 
 interface IShopState {
@@ -75,6 +78,7 @@ export const useShopStore = defineStore('np-shop', {
       this.shop = {
         ...this.shop,
         ...shop,
+        createdAt: shop.createdAt ? dayjsInGMT(shop.createdAt) : null,
         timezone:
           shop.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
@@ -186,6 +190,15 @@ export const useShopStore = defineStore('np-shop', {
       return this.state.onboard === ShopState.PROCESSING;
     },
     isFreeSubscription(): boolean {
+      // createdAt is null         => false
+      // createdAt + 14 days > now => false
+      if (
+        !this.shop.createdAt ||
+        this.shop.createdAt.add(14, 'days').isAfter(dayjsInGMT())
+      ) {
+        return false;
+      }
+
       return this.shop.subscriptionPlan === SubscriptionPlans.FREE;
     },
   },
@@ -205,6 +218,7 @@ export const useShopStore = defineStore('np-shop', {
       subscriptionName: '',
       subscriptionPlan: '',
       timezone: 'Asia/Tokyo',
+      createdAt: null,
     },
     state: {
       product_sync: ShopState.PROCESSED,

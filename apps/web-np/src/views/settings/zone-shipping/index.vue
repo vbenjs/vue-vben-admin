@@ -15,6 +15,7 @@ import {
 } from '#/shared/constants';
 import { formatMoney } from '#/shared/utils';
 import { useShopSettingStore, useShopStore } from '#/store';
+import UpgradeBtn from '#/views/shared-components/upgrade-btn.vue';
 
 import FormModalRecalculate from './form-modal-recalculate.vue';
 import FormModal from './form-modal.vue';
@@ -131,6 +132,8 @@ const getCountries = (row: IRegion) => {
 
     <Grid table-title="Zone - Shipping Fees">
       <template #toolbar-tools>
+        <UpgradeBtn class="mr-2 w-[150px]" />
+
         <VbenButton
           type="primary"
           class="mr-2"
@@ -148,6 +151,7 @@ const getCountries = (row: IRegion) => {
           size="sm"
           type="primary"
           @click="openFormModal()"
+          :disabled="shopStore.isFreeSubscription"
         >
           <IconifyIcon
             class="mr-2 size-4"
