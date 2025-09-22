@@ -90,7 +90,7 @@ const formOptions: VbenFormProps = {
           true,
         ),
       },
-      defaultValue: [dayjsInGMT().add(-6, 'months'), dayjsInGMT()],
+      defaultValue: [dayjsInGMT().add(-5, 'months'), dayjsInGMT()],
       fieldName: 'month',
       label: 'Month',
     },
