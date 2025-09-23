@@ -28,7 +28,7 @@ catalog:
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.1.7
-  '@intlify/unplugin-vue-i18n': ^6.0.8
+  '@intlify/unplugin-vue-i18n': ^11.0.1
   '@jspm/generator': ^2.6.2
   '@manypkg/get-packages': ^3.0.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.0
