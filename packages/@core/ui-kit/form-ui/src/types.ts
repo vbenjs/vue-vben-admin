@@ -277,7 +277,8 @@ export interface FormRenderProps<
    */
   arrayToStringFields?: ArrayToStringFields;
   /**
-   * 是否展开，在showCollapseButton=true下生效
+   * 是否折叠，在showCollapseButton=true下生效
+   * true:折叠 false:展开
    */
   collapsed?: boolean;
   /**
