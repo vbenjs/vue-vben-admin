@@ -368,7 +368,7 @@ const handleWriteReview = () => {
     </template>
     <template #description>
       Love our app? Help others discover it too! Leave us a ⭐️⭐️⭐️⭐️⭐️
-      review and share your thoughts on the app store.
+      review.
       <div>
         Then, take a screenshot of your review and send it to us via the
         chatbox. We’ll extend your Pro trial by another
