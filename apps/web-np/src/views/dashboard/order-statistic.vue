@@ -16,6 +16,7 @@ import { Alert } from 'ant-design-vue';
 import { formatMoney, redirectToExternal } from '#/shared/utils';
 import { useShopStore } from '#/store';
 
+import UpgradeBtn from '../shared-components/upgrade-btn.vue';
 import {
   currentPeriod,
   dashboardState,
@@ -374,15 +375,19 @@ const handleWriteReview = () => {
         <strong>45 days – totally free</strong>!
       </div>
 
-      <VbenButton
-        class="mt-2"
-        size="sm"
-        variant="secondary"
-        @click="handleWriteReview"
-      >
-        <IconifyIcon class="mr-2" icon="ant-design:export-outlined" />
-        Move to Shopify App Store
-      </VbenButton>
+      <div class="flex items-center space-x-2">
+        <UpgradeBtn class="mt-2" size="sm" variant="secondary" />
+
+        <VbenButton
+          class="mt-2"
+          size="sm"
+          variant="secondary"
+          @click="handleWriteReview"
+        >
+          <IconifyIcon class="mr-2" icon="ant-design:export-outlined" />
+          Move to Shopify App Store
+        </VbenButton>
+      </div>
     </template>
     <template #action> </template>
   </Alert>

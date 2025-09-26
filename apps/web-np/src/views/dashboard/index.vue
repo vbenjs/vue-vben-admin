@@ -83,6 +83,7 @@ const generateSamePeriodPreset = computed(() => {
           picker-limit-name="1 year"
           :model-value="currentPeriod.dateRange"
           :allow-clear="false"
+          :disabled="shopStore.isFreeSubscription"
           :presets="
             getDatePreset(
               [
@@ -110,6 +111,7 @@ const generateSamePeriodPreset = computed(() => {
           :model-value="previousPeriod.dateRange"
           :allow-clear="false"
           :presets="generateSamePeriodPreset"
+          :disabled="shopStore.isFreeSubscription"
           @update:model-value="
             (val) => handleDateChange(val, previousPeriod, false)
           "
