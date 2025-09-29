@@ -40,23 +40,3 @@ export interface TreeProps {
   /** 值字段 */
   valueField?: string;
 }
-
-export function treePropsDefaults() {
-  return {
-    allowClear: false,
-    autoCheckParent: true,
-    bordered: false,
-    checkStrictly: false,
-    defaultExpandedKeys: () => [],
-    defaultExpandedLevel: 0,
-    disabled: false,
-    disabledField: 'disabled',
-    iconField: 'icon',
-    labelField: 'label',
-    multiple: false,
-    showIcon: true,
-    transition: true,
-    valueField: 'value',
-    childrenField: 'children',
-  };
-}

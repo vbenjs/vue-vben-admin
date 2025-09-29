@@ -10,5 +10,179 @@
     "title": "Dashboard",
     "analytics": "Analytics",
     "workspace": "Workspace"
+  },
+  "notifications": {
+    "center": "Notification Center",
+    "drawerTitle": "Notification Detail",
+    "openCenter": "Open notification center",
+    "subtitle": "You have {count} unread message(s).",
+    "empty": "All caught up!",
+    "emptySelection": "Select a notification to view the details.",
+    "badges": {
+      "unread": "Unread"
+    },
+    "actions": {
+      "stopPolling": "Stop auto refresh",
+      "startPolling": "Start auto refresh",
+      "refresh": "Refresh",
+      "markAll": "Mark all as read",
+      "clear": "Clear all",
+      "open": "Open",
+      "markRead": "Mark as read",
+      "markUnread": "Mark as unread",
+      "remove": "Remove"
+    },
+    "filter": {
+      "placeholder": "Search title or summary",
+      "category": {
+        "all": "All categories"
+      },
+      "status": {
+        "all": "All",
+        "unread": "Unread",
+        "read": "Read"
+      }
+    },
+    "category": {
+      "announcement": "Announcement",
+      "task": "Task",
+      "message": "Message"
+    },
+    "detail": {
+      "link": "Open related link",
+      "attachments": "Attachments"
+    },
+    "meta": {
+      "lastSynced": "Last synced",
+      "neverSynced": "Not synced yet",
+      "unread": "{count} unread"
+    },
+    "table": {
+      "title": "Title",
+      "category": "Category",
+      "date": "Received at",
+      "actions": "Actions"
+    },
+    "templates": {
+      "navTitle": "Message Templates",
+      "title": "Message Template Management",
+      "subtitle": "Manage reusable notification templates including create, edit and disable operations.",
+      "status": {
+        "enabled": "Enabled",
+        "disabled": "Disabled"
+      },
+      "type": {
+        "system": "System",
+        "business": "Business",
+        "marketing": "Marketing"
+      },
+      "priority": {
+        "high": "High Priority",
+        "medium": "Medium Priority",
+        "low": "Low Priority"
+      },
+      "form": {
+        "code": "Template Code",
+        "codePlaceholder": "Enter template code",
+        "status": "Template Status",
+        "statusPlaceholder": "Select template status",
+        "type": "Notification Type",
+        "typePlaceholder": "Select notification type",
+        "priority": "Default Priority",
+        "priorityPlaceholder": "Select default priority"
+      },
+      "actions": {
+        "create": "New Template",
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete",
+        "testSend": "Test Send"
+      },
+      "table": {
+        "code": "Template Code",
+        "title": "Template Title",
+        "type": "Notification Type",
+        "priority": "Default Priority",
+        "status": "Template Status",
+        "updatedTime": "Updated At",
+        "actions": "Actions"
+      },
+      "dialog": {
+        "createTitle": "Create Template",
+        "editTitle": "Edit Template",
+        "code": "Template Code",
+        "codePlaceholder": "Enter a unique template code",
+        "title": "Template Title",
+        "titlePlaceholder": "Enter template title",
+        "content": "Template Content",
+        "contentPlaceholder": "Enter template content, placeholders are supported",
+        "type": "Notification Type",
+        "typePlaceholder": "Select notification type",
+        "priority": "Default Priority",
+        "priorityPlaceholder": "Select default priority",
+        "status": "Template Status",
+        "statusPlaceholder": "Select template status",
+        "desc": "Template Description",
+        "descPlaceholder": "Enter template description (optional)"
+      },
+      "detail": {
+        "title": "Template Detail",
+        "content": "Template Content",
+        "desc": "Description",
+        "noDesc": "No description",
+        "updatedTime": "Updated At",
+        "createdTime": "Created At",
+        "empty": "Select a template to preview."
+      },
+      "common": {
+        "unknown": "Unknown"
+      },
+      "message": {
+        "loadFailed": "Failed to load templates",
+        "detailFailed": "Failed to load template detail",
+        "validateFailed": "Please complete the form before submitting",
+        "updateSuccess": "Template updated",
+        "createSuccess": "Template created",
+        "saveFailed": "Failed to save template",
+        "deleteConfirmTitle": "Delete Template",
+        "deleteConfirm": "Are you sure you want to delete \"{title}\"?",
+        "deleteSuccess": "Template deleted",
+        "deleteFailed": "Failed to delete template"
+      },
+      "rules": {
+        "codeMin": "Template code must contain at least 2 characters",
+        "codeMax": "Template code must not exceed 64 characters",
+        "titleMin": "Template title must contain at least 2 characters",
+        "titleMax": "Template title must not exceed 128 characters",
+        "contentRequired": "Template content is required",
+        "statusRequired": "Template status is required",
+        "descMax": "Description must not exceed 256 characters"
+      },
+      "testSend": {
+        "title": "Test Send - {title}",
+        "resultTitle": "Response",
+        "form": {
+          "templateId": "Template ID",
+          "userIds": "User IDs",
+          "userIdsPlaceholder": "Enter recipient user IDs separated by commas, e.g. 1,2,3",
+          "extraData": "Extra Data (JSON)",
+          "extraDataPlaceholder": "Optional JSON payload for template variables"
+        },
+        "actions": {
+          "submit": "Send Now"
+        },
+        "message": {
+          "validateFailed": "Please complete the required fields before sending",
+          "userIdsInvalid": "Provide at least one valid user ID separated by commas",
+          "templateIdInvalid": "Template ID is invalid, please reopen the test send dialog",
+          "extraDataInvalid": "Extra data must be valid JSON",
+          "success": "Test message sent successfully",
+          "failed": "Failed to send test message, please try again"
+        },
+        "rules": {
+          "userIdsRequired": "Please enter recipient user IDs"
+        }
+      }
+    }
   }
 }

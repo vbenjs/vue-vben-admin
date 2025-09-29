@@ -9,5 +9,7 @@ export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     name: import.meta.env.VITE_APP_TITLE,
+    // 启用混合模式：静态路由 + 动态路由共存
+    accessMode: 'mixed',
   },
 });

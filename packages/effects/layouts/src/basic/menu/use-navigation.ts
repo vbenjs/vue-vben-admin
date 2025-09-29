@@ -29,8 +29,7 @@ function useNavigation() {
       return true;
     }
     const route = routeMetaMap.get(path);
-    // 如果有外链或者设置了在新窗口打开，返回 true
-    return !!(route?.meta?.link || route?.meta?.openInNewWindow);
+    return route?.meta?.openInNewWindow ?? false;
   };
 
   const resolveHref = (path: string): string => {
@@ -40,13 +39,7 @@ function useNavigation() {
   const navigation = async (path: string) => {
     try {
       const route = routeMetaMap.get(path);
-      const { openInNewWindow = false, query = {}, link } = route?.meta ?? {};
-
-      // 检查是否有外链
-      if (link && typeof link === 'string') {
-        openWindow(link, { target: '_blank' });
-        return;
-      }
+      const { openInNewWindow = false, query = {} } = route?.meta ?? {};
 
       if (isHttpUrl(path)) {
         openWindow(path, { target: '_blank' });

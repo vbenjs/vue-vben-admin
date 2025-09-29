@@ -10,8 +10,10 @@ import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
+// getAccessCodesApi
+import { getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
+import { resetRoutes } from '#/router';
 
 export const useAuthStore = defineStore('auth', () => {
   const accessStore = useAccessStore();
@@ -33,23 +35,26 @@ export const useAuthStore = defineStore('auth', () => {
     let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
-
+      // const { sessionId } = await loginApi(params);
+      const data = await loginApi(params);
+      // console.warn('login response:', temp);
       // 如果成功获取到 accessToken
-      if (accessToken) {
+      if (data && data.sessionId) {
         // 将 accessToken 存储到 accessStore 中
-        accessStore.setAccessToken(accessToken);
+        accessStore.setAccessToken(data.sessionId);
 
         // 获取用户信息并存储到 accessStore 中
-        const [fetchUserInfoResult, accessCodes] = await Promise.all([
-          fetchUserInfo(),
-          getAccessCodesApi(),
-        ]);
+        // const [fetchUserInfoResult, accessCodes] = await Promise.all([
+        //   fetchUserInfo(),
+        //   getAccessCodesApi(),
+        // ]);
+        // const [fetchUserInfoResult] = await Promise.all([fetchUserInfo()]);
 
-        userInfo = fetchUserInfoResult;
+        // userInfo = fetchUserInfoResult;
+        userInfo = data.userInfo;
 
         userStore.setUserInfo(userInfo);
-        accessStore.setAccessCodes(accessCodes);
+        accessStore.setAccessCodes(userInfo.accessCodes ?? []);
 
         if (accessStore.loginExpired) {
           accessStore.setLoginExpired(false);
@@ -61,9 +66,9 @@ export const useAuthStore = defineStore('auth', () => {
               );
         }
 
-        if (userInfo?.realName) {
+        if (userInfo?.displayName) {
           ElNotification({
-            message: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
+            message: `${$t('authentication.loginSuccessDesc')}:${userInfo?.displayName}`,
             title: $t('authentication.loginSuccess'),
             type: 'success',
           });
@@ -84,6 +89,16 @@ export const useAuthStore = defineStore('auth', () => {
     } catch {
       // 不做任何处理
     }
+    // 确保权限和用户信息立即清空，避免路由守卫根据旧状态做跳转
+    accessStore.setAccessToken(null);
+    accessStore.setRefreshToken(null);
+    accessStore.setAccessCodes([]);
+    accessStore.setAccessMenus([]);
+    accessStore.setAccessRoutes([]);
+    accessStore.setIsAccessChecked(false);
+    userStore.setUserInfo(null);
+
+    resetRoutes();
     resetAllStores();
     accessStore.setLoginExpired(false);
 

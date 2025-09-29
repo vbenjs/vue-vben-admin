@@ -3,13 +3,13 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 interface BasicUserInfo {
   [key: string]: any;
   /**
-   * 头像
-   */
-  avatar: string;
-  /**
    * 用户昵称
    */
-  realName: string;
+  displayName: string;
+  /**
+   * 头像
+   */
+  photo: string;
   /**
    * 用户角色
    */
@@ -17,7 +17,7 @@ interface BasicUserInfo {
   /**
    * 用户id
    */
-  userId: string;
+  userId: number;
   /**
    * 用户名
    */
@@ -50,6 +50,9 @@ export const useUserStore = defineStore('core-user', {
     setUserRoles(roles: string[]) {
       this.userRoles = roles;
     },
+  },
+  persist: {
+    pick: ['userInfo', 'userRoles'],
   },
   state: (): AccessState => ({
     userInfo: null,

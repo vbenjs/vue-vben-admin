@@ -196,7 +196,7 @@ export async function getUserInfoApi() {
 /** 只需要保证登录接口返回值有以下字段即可，多的字段可以自行使用 */
 export interface UserInfo {
   roles: string[];
-  realName: string;
+  displayName: string;
 }
 ```
 

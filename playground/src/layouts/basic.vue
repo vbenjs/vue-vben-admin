@@ -126,7 +126,7 @@ watch(
   async (enable) => {
     if (enable) {
       await updateWatermark({
-        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
+        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.displayName}`,
       });
     } else {
       destroyWatermark();
@@ -153,7 +153,7 @@ onBeforeMount(() => {
       <UserDropdown
         :avatar
         :menus
-        :text="userStore.userInfo?.realName"
+        :text="userStore.userInfo?.displayName"
         description="ann.vben@gmail.com"
         tag-text="Pro"
         trigger="both"

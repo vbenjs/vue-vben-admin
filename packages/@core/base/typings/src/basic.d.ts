@@ -8,14 +8,16 @@ type SelectOption = BasicOption;
 type TabOption = BasicOption;
 
 interface BasicUserInfo {
-  /**
-   * 头像
-   */
-  avatar: string;
+  /** 权限码 */
+  accessCodes?: string[];
   /**
    * 用户昵称
    */
-  realName: string;
+  displayName: string;
+  /**
+   * 头像
+   */
+  photo: string;
   /**
    * 用户角色
    */
@@ -23,7 +25,7 @@ interface BasicUserInfo {
   /**
    * 用户id
    */
-  userId: string;
+  userId: number;
   /**
    * 用户名
    */

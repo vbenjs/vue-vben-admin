@@ -10,5 +10,179 @@
     "title": "概览",
     "analytics": "分析页",
     "workspace": "工作台"
+  },
+  "notifications": {
+    "center": "消息中心",
+    "drawerTitle": "消息详情",
+    "openCenter": "进入消息中心",
+    "subtitle": "当前共有 {count} 条未读消息。",
+    "empty": "暂无消息",
+    "emptySelection": "请选择一条消息查看详情。",
+    "badges": {
+      "unread": "未读"
+    },
+    "actions": {
+      "stopPolling": "停止自动刷新",
+      "startPolling": "开启自动刷新",
+      "refresh": "刷新",
+      "markAll": "全部标记为已读",
+      "clear": "清空",
+      "open": "查看",
+      "markRead": "标记已读",
+      "markUnread": "标记未读",
+      "remove": "删除"
+    },
+    "filter": {
+      "placeholder": "搜索标题或摘要",
+      "category": {
+        "all": "全部类型"
+      },
+      "status": {
+        "all": "全部",
+        "unread": "未读",
+        "read": "已读"
+      }
+    },
+    "category": {
+      "announcement": "公告",
+      "task": "任务",
+      "message": "私信"
+    },
+    "detail": {
+      "link": "打开相关链接",
+      "attachments": "附件"
+    },
+    "meta": {
+      "lastSynced": "最近同步时间",
+      "neverSynced": "尚未同步",
+      "unread": "未读 {count} 条"
+    },
+    "table": {
+      "title": "标题",
+      "category": "类型",
+      "date": "接收时间",
+      "actions": "操作"
+    },
+    "templates": {
+      "navTitle": "消息模板",
+      "title": "消息模板管理",
+      "subtitle": "维护通知模板，支持新增、编辑、禁用等操作。",
+      "status": {
+        "enabled": "启用",
+        "disabled": "禁用"
+      },
+      "type": {
+        "system": "系统通知",
+        "business": "业务通知",
+        "marketing": "营销通知"
+      },
+      "priority": {
+        "high": "高优先级",
+        "medium": "中优先级",
+        "low": "低优先级"
+      },
+      "form": {
+        "code": "模板编码",
+        "codePlaceholder": "请输入模板编码",
+        "status": "模板状态",
+        "statusPlaceholder": "请选择模板状态",
+        "type": "通知类型",
+        "typePlaceholder": "请选择通知类型",
+        "priority": "默认优先级",
+        "priorityPlaceholder": "请选择默认优先级"
+      },
+      "actions": {
+        "create": "新增模板",
+        "view": "查看",
+        "edit": "编辑",
+        "delete": "删除",
+        "testSend": "测试发送"
+      },
+      "table": {
+        "code": "模板编码",
+        "title": "模板标题",
+        "type": "通知类型",
+        "priority": "默认优先级",
+        "status": "模板状态",
+        "updatedTime": "更新时间",
+        "actions": "操作"
+      },
+      "dialog": {
+        "createTitle": "新增模板",
+        "editTitle": "编辑模板",
+        "code": "模板编码",
+        "codePlaceholder": "请输入模板编码（需唯一）",
+        "title": "模板标题",
+        "titlePlaceholder": "请输入模板标题",
+        "content": "模板内容",
+        "contentPlaceholder": "请输入模板内容，支持变量占位符",
+        "type": "通知类型",
+        "typePlaceholder": "请选择通知类型",
+        "priority": "默认优先级",
+        "priorityPlaceholder": "请选择默认优先级",
+        "status": "模板状态",
+        "statusPlaceholder": "请选择模板状态",
+        "desc": "模板描述",
+        "descPlaceholder": "请输入模板描述（选填）"
+      },
+      "detail": {
+        "title": "模板详情",
+        "content": "模板内容",
+        "desc": "模板描述",
+        "noDesc": "暂无描述",
+        "updatedTime": "更新时间",
+        "createdTime": "创建时间",
+        "empty": "请选择要查看的模板记录。"
+      },
+      "common": {
+        "unknown": "未知"
+      },
+      "message": {
+        "loadFailed": "加载模板列表失败",
+        "detailFailed": "获取模板详情失败",
+        "validateFailed": "请完善表单信息后再提交",
+        "updateSuccess": "模板更新成功",
+        "createSuccess": "模板创建成功",
+        "saveFailed": "保存模板失败",
+        "deleteConfirmTitle": "确认删除",
+        "deleteConfirm": "确定要删除模板“{title}”吗？",
+        "deleteSuccess": "删除成功",
+        "deleteFailed": "删除模板失败"
+      },
+      "rules": {
+        "codeMin": "模板编码至少 2 个字符",
+        "codeMax": "模板编码最多 64 个字符",
+        "titleMin": "模板标题至少 2 个字符",
+        "titleMax": "模板标题最多 128 个字符",
+        "contentRequired": "请输入模板内容",
+        "statusRequired": "请选择模板状态",
+        "descMax": "模板描述最多 256 个字符"
+      },
+      "testSend": {
+        "title": "模板测试发送：{title}",
+        "resultTitle": "发送结果",
+        "form": {
+          "templateId": "模板ID",
+          "userIds": "用户ID列表",
+          "userIdsPlaceholder": "请输入接收用户ID，逗号分隔，例如 1,2,3",
+          "extraData": "额外数据（JSON）",
+          "extraDataPlaceholder": "可选，填写 JSON 字符串，作为模板变量参数"
+        },
+        "actions": {
+          "submit": "立即发送"
+        },
+        "message": {
+          "validateFailed": "请完善测试发送所需信息",
+          "userIdsInvalid": "请填写至少一个有效的用户ID，使用逗号分隔",
+          "templateIdInvalid": "模板ID无效，请重新打开测试发送窗口",
+          "extraDataInvalid": "额外数据必须为合法的 JSON 格式",
+          "success": "测试发送成功",
+          "failed": "测试发送失败，请稍后重试"
+        },
+        "rules": {
+          "userIdsRequired": "请输入接收用户ID"
+        }
+      }
+    }
   }
 }

@@ -86,62 +86,6 @@ const [QueryForm] = useVbenForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
-const [InlineForm] = useVbenForm({
-  layout: 'inline',
-  schema: [
-    {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
-      component: 'Input',
-      // 对应组件的参数
-      componentProps: {
-        placeholder: '请输入用户名',
-      },
-      // 字段名
-      fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
-    },
-    {
-      component: 'InputPassword',
-      componentProps: {
-        placeholder: '请输入密码',
-      },
-      fieldName: 'password',
-      label: '密码',
-    },
-    {
-      component: 'InputNumber',
-      componentProps: {
-        placeholder: '请输入',
-      },
-      fieldName: 'number',
-      label: '数字(带后缀)',
-      suffix: () => '¥',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        allowClear: true,
-        filterOption: true,
-        options: [
-          {
-            label: '选项1',
-            value: '1',
-          },
-          {
-            label: '选项2',
-            value: '2',
-          },
-        ],
-        placeholder: '请选择',
-        showSearch: true,
-      },
-      fieldName: 'options',
-      label: '下拉选',
-    },
-  ],
-});
-
 const [QueryForm1] = useVbenForm({
   // 默认展开
   collapsed: true,
@@ -259,10 +203,6 @@ function onSubmit(values: Record<string, any>) {
   >
     <Card class="mb-5" title="查询表单，默认展开">
       <QueryForm />
-    </Card>
-
-    <Card class="mb-5" title="查询表单，单行表单">
-      <InlineForm />
     </Card>
 
     <Card class="mb-5" title="查询表单，默认展开，垂直布局">

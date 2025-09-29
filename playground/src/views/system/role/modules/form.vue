@@ -5,9 +5,9 @@ import type { Recordable } from '@vben/types';
 
 import type { SystemRoleApi } from '#/api/system/role';
 
-import { computed, nextTick, ref } from 'vue';
+import { computed, ref } from 'vue';
 
-import { Tree, useVbenDrawer } from '@vben/common-ui';
+import { useVbenDrawer, VbenTree } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
 import { Spin } from 'ant-design-vue';
@@ -47,26 +47,20 @@ const [Drawer, drawerApi] = useVbenDrawer({
         drawerApi.unlock();
       });
   },
-
-  async onOpenChange(isOpen) {
+  onOpenChange(isOpen) {
     if (isOpen) {
       const data = drawerApi.getData<SystemRoleApi.SystemRole>();
       formApi.resetForm();
-
       if (data) {
         formData.value = data;
         id.value = data.id;
+        formApi.setValues(data);
       } else {
         id.value = undefined;
       }
 
       if (permissions.value.length === 0) {
-        await loadPermissions();
-      }
-      // Wait for Vue to flush DOM updates (form fields mounted)
-      await nextTick();
-      if (data) {
-        formApi.setValues(data);
+        loadPermissions();
       }
     }
   },
@@ -92,6 +86,9 @@ function getNodeClass(node: Recordable<any>) {
   const classes: string[] = [];
   if (node.value?.type === 'button') {
     classes.push('inline-flex');
+    if (node.index % 3 >= 1) {
+      classes.push('!pl-0');
+    }
   }
 
   return classes.join(' ');
@@ -102,7 +99,7 @@ function getNodeClass(node: Recordable<any>) {
     <Form>
       <template #permissions="slotProps">
         <Spin :spinning="loadingPermissions" wrapper-class-name="w-full">
-          <Tree
+          <VbenTree
             :tree-data="permissions"
             multiple
             bordered
@@ -117,7 +114,7 @@ function getNodeClass(node: Recordable<any>) {
               <IconifyIcon v-if="value.meta.icon" :icon="value.meta.icon" />
               {{ $t(value.meta.title) }}
             </template>
-          </Tree>
+          </VbenTree>
         </Spin>
       </template>
     </Form>

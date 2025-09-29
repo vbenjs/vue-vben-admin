@@ -8,7 +8,12 @@ import { computed, ref } from 'vue';
 import { cn } from '@vben-core/shared/utils';
 
 import { X } from 'lucide-vue-next';
-import { DialogClose, DialogContent, useForwardPropsEmits } from 'radix-vue';
+import {
+  DialogClose,
+  DialogContent,
+  DialogPortal,
+  useForwardPropsEmits,
+} from 'radix-vue';
 
 import DialogOverlay from './DialogOverlay.vue';
 
@@ -82,7 +87,7 @@ defineExpose({
 </script>
 
 <template>
-  <Teleport defer :to="appendTo">
+  <DialogPortal :to="appendTo">
     <Transition name="fade">
       <DialogOverlay
         v-if="open && modal"
@@ -127,5 +132,5 @@ defineExpose({
         <X class="h-4 w-4" />
       </DialogClose>
     </DialogContent>
-  </Teleport>
+  </DialogPortal>
 </template>

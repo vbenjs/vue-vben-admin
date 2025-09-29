@@ -73,6 +73,8 @@
     }
   },
   "widgets": {
+    "personSetting": "个人信息",
+    "changePassword": "修改密码",
     "document": "文档",
     "qa": "问题 & 帮助",
     "setting": "设置",

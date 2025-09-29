@@ -35,10 +35,6 @@ interface Props {
    * @zh_CN 描述
    */
   description?: string;
-  /**
-   * @zh_CN 是否显示返回按钮
-   */
-  showBack?: boolean;
 }
 
 defineOptions({
@@ -48,7 +44,6 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   description: '',
   loading: false,
-  showBack: true,
   loginPath: '/auth/login',
   submitButtonText: '',
   subTitle: '',
@@ -93,12 +88,7 @@ function goToLogin() {
       </p>
     </div>
 
-    <VbenButton
-      v-if="showBack"
-      class="mt-4 w-full"
-      variant="outline"
-      @click="goToLogin()"
-    >
+    <VbenButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>

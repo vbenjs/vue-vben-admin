@@ -107,6 +107,7 @@ export class ModalApi {
       this.store.setState((prev) => ({
         ...prev,
         isOpen: false,
+        submitting: false,
       }));
     }
   }
@@ -161,11 +162,7 @@ export class ModalApi {
   }
 
   open() {
-    this.store.setState((prev) => ({
-      ...prev,
-      isOpen: true,
-      submitting: false,
-    }));
+    this.store.setState((prev) => ({ ...prev, isOpen: true }));
   }
 
   setData<T>(payload: T) {

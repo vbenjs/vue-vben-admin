@@ -41,7 +41,6 @@ const {
   emptyStateValue,
   fieldName,
   formFieldProps,
-  hide,
   label,
   labelClass,
   labelWidth,
@@ -60,7 +59,7 @@ const values = useFormValues();
 const errors = useFieldError(fieldName);
 const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
-const compact = computed(() => formRenderProps.compact);
+const compact = formRenderProps.compact;
 const isInValid = computed(() => errors.value?.length > 0);
 
 const FieldComponent = computed(() => {
@@ -96,7 +95,7 @@ const currentRules = computed(() => {
 });
 
 const visible = computed(() => {
-  return !hide && isIf.value && isShow.value;
+  return isIf.value && isShow.value;
 });
 
 const shouldRequired = computed(() => {
@@ -284,7 +283,7 @@ onUnmounted(() => {
 
 <template>
   <FormField
-    v-if="!hide && isIf"
+    v-if="isIf"
     v-bind="fieldProps"
     v-slot="slotProps"
     :name="fieldName"
