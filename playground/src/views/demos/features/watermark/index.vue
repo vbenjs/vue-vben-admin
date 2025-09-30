@@ -8,7 +8,7 @@ const { destroyWatermark, updateWatermark, watermark } = useWatermark();
 
 async function recreateWaterMark() {
   destroyWatermark();
-  await updateWatermark({});
+  await createWaterMark();
 }
 
 async function createWaterMark() {
