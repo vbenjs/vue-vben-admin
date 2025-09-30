@@ -8,7 +8,36 @@ const { destroyWatermark, updateWatermark, watermark } = useWatermark();
 
 async function recreateWaterMark() {
   destroyWatermark();
-  await updateWatermark({});
+  await updateWatermark({
+    advancedStyle: {
+      colorStops: [
+        {
+          color: 'yellow',
+          offset: 0,
+        },
+        {
+          color: 'pink',
+          offset: 1,
+        },
+      ],
+      type: 'linear',
+    },
+    content: `my first watermark\n${new Date().toLocaleString()}`,
+    globalAlpha: 0.5,
+    gridLayoutOptions: {
+      cols: 2,
+      gap: [20, 20],
+      matrix: [
+        [1, 0],
+        [0, 1],
+      ],
+      rows: 2,
+    },
+    height: 200,
+    layout: 'grid',
+    rotate: 22,
+    width: 200,
+  });
 }
 
 async function createWaterMark() {
