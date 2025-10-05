@@ -51,6 +51,10 @@
   "sendCode": "Get Security code",
   "sendText": "Resend in {0}s",
   "thirdPartyLogin": "Or continue with",
+  "weChat": "WeChat",
+  "qq": "QQ",
+  "gitHub": "GitHub",
+  "google": "Google",
   "loginAgainTitle": "Please Log In Again",
   "loginAgainSubTitle": "Your login session has expired. Please log in again to continue.",
   "layout": {

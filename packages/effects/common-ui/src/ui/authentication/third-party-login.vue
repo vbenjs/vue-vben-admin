@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useAppConfig } from '@vben/hooks';
-import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@vben/icons';
+import {
+  SvgGithubIcon,
+  SvgGoogleIcon,
+  SvgQQChatIcon,
+  SvgWeChatIcon,
+} from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { VbenIconButton } from '@vben-core/shadcn-ui';
@@ -32,28 +37,28 @@ const {
         tooltip-side="top"
         class="mb-3"
       >
-        <MdiWechat />
+        <SvgWeChatIcon />
       </VbenIconButton>
       <VbenIconButton
         :tooltip="$t('authentication.qqLogin')"
         tooltip-side="top"
         class="mb-3"
       >
-        <MdiQqchat />
+        <SvgQQChatIcon />
       </VbenIconButton>
       <VbenIconButton
         :tooltip="$t('authentication.githubLogin')"
         tooltip-side="top"
         class="mb-3"
       >
-        <MdiGithub />
+        <SvgGithubIcon />
       </VbenIconButton>
       <VbenIconButton
         :tooltip="$t('authentication.googleLogin')"
         tooltip-side="top"
         class="mb-3"
       >
-        <MdiGoogle />
+        <SvgGoogleIcon />
       </VbenIconButton>
       <DingdingLogin
         v-if="dingdingAuthConfig"
