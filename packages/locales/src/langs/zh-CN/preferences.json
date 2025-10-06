@@ -37,6 +37,7 @@
   "language": "语言",
   "dynamicTitle": "动态标题",
   "watermark": "水印",
+  "watermarkContent": "请输入水印文案",
   "checkUpdates": "定时检查更新",
   "position": {
     "title": "偏好设置位置",

@@ -75,6 +75,10 @@ interface AppPreferences {
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
+  /**
+   * @zh_CN 水印文案
+   */
+  watermarkContent: string;
   /** z-index */
   zIndex: number;
 }
