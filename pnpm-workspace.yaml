@@ -107,7 +107,7 @@ catalog:
   eslint-plugin-vitest: ^0.5.4
   eslint-plugin-vue: ^10.2.0
   execa: ^9.6.0
-  find-up: ^7.0.0
+  find-up: ^8.0.0
   get-port: ^7.1.0
   globals: ^16.3.0
   h3: ^1.15.3
