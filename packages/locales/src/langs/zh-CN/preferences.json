@@ -1,6 +1,8 @@
 {
   "title": "偏好设置",
   "subtitle": "自定义偏好设置 & 实时预览",
+  "enableStickyPreferencesNavigationBar": "开启首选项导航栏吸顶效果",
+  "disableStickyPreferencesNavigationBar": "关闭首选项导航栏吸顶效果",
   "resetTitle": "重置偏好设置",
   "resetTip": "数据有变化，点击可进行重置",
   "resetSuccess": "重置偏好设置成功",
