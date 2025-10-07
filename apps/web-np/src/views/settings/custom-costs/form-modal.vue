@@ -92,7 +92,7 @@ function onChanged(values: Record<string, any>) {
       }
 
       const date = values.endDate as any;
-      const diffDays = date.diff(values.startDate, 'days');
+      const diffDays = date.diff(values.startDate, 'days') + 1;
       state.currentAmount = +(values.periodCost / diffDays).toFixed(2);
 
       formApi.setValues({
