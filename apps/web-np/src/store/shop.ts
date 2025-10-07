@@ -190,6 +190,10 @@ export const useShopStore = defineStore('np-shop', {
       return this.state.onboard === ShopState.PROCESSING;
     },
     isFreeSubscription(): boolean {
+      if (this.shop.subscriptionPlan !== SubscriptionPlans.FREE) {
+        return false;
+      }
+
       // createdAt is null         => false
       // createdAt + 14 days > now => false
       if (
@@ -199,7 +203,12 @@ export const useShopStore = defineStore('np-shop', {
         return false;
       }
 
-      return this.shop.subscriptionPlan === SubscriptionPlans.FREE;
+      const diffDate = dayjsInGMT().diff(dayjsInGMT('2025-10-07'), 'day');
+      if (this.shop.id === '72394408099' && diffDate < 45) {
+        return false;
+      }
+
+      return true;
     },
   },
 
