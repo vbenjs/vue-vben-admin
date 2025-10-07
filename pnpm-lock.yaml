@@ -22,8 +22,8 @@ catalogs:
       specifier: ^19.8.1
       version: 19.8.1
     '@commitlint/config-conventional':
-      specifier: ^19.8.1
-      version: 19.8.1
+      specifier: ^20.0.0
+      version: 20.0.0
     '@eslint/js':
       specifier: ^9.30.1
       version: 9.30.1
@@ -897,7 +897,7 @@ importers:
         version: 19.8.1(@types/node@22.16.0)(typescript@5.8.3)
       '@commitlint/config-conventional':
         specifier: 'catalog:'
-        version: 19.8.1
+        version: 20.0.0
       '@vben/node-utils':
         specifier: workspace:*
         version: link:../../node-utils
@@ -2838,8 +2838,8 @@ packages:
     engines: {node: '>=v18'}
     hasBin: true
 
-  '@commitlint/config-conventional@19.8.1':
-    resolution: {integrity: sha512-/AZHJL6F6B/G959CsMAzrPKKZjeEiAVifRyEwXxcT6qtqbPwGw+iQxmNS+Bu+i09OCtdNRW6pNpBvgPrtMr9EQ==}
+  '@commitlint/config-conventional@20.0.0':
+    resolution: {integrity: sha512-q7JroPIkDBtyOkVe9Bca0p7kAUYxZMxkrBArCfuD3yN4KjRAenP9PmYwnn7rsw8Q+hHq1QB2BRmBh0/Z19ZoJw==}
     engines: {node: '>=v18'}
 
   '@commitlint/config-validator@19.8.1':
@@ -2900,6 +2900,10 @@ packages:
 
   '@commitlint/types@19.8.1':
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
+    engines: {node: '>=v18'}
+
+  '@commitlint/types@20.0.0':
+    resolution: {integrity: sha512-bVUNBqG6aznYcYjTjnc3+Cat/iBgbgpflxbIBTnsHTX0YVpnmINPEkSRWymT2Q8aSH3Y7aKnEbunilkYe8TybA==}
     engines: {node: '>=v18'}
 
   '@cspell/cspell-bundled-dicts@8.19.4':
@@ -12996,9 +13000,9 @@ snapshots:
       - '@types/node'
       - typescript
 
-  '@commitlint/config-conventional@19.8.1':
+  '@commitlint/config-conventional@20.0.0':
     dependencies:
-      '@commitlint/types': 19.8.1
+      '@commitlint/types': 20.0.0
       conventional-changelog-conventionalcommits: 7.0.2
 
   '@commitlint/config-validator@19.8.1':
@@ -13089,6 +13093,11 @@ snapshots:
       find-up: 7.0.0
 
   '@commitlint/types@19.8.1':
+    dependencies:
+      '@types/conventional-commits-parser': 5.0.1
+      chalk: 5.4.1
+
+  '@commitlint/types@20.0.0':
     dependencies:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.4.1
