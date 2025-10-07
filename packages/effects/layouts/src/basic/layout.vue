@@ -158,7 +158,9 @@ function clickLogo() {
 function autoCollapseMenuByRouteMeta(route: RouteLocationNormalizedLoaded) {
   // 只在双列模式下生效
   if (
-    preferences.app.layout === 'sidebar-mixed-nav' &&
+    ['header-mixed-nav', 'sidebar-mixed-nav'].includes(
+      preferences.app.layout,
+    ) &&
     route.meta &&
     route.meta.hideInMenu
   ) {
