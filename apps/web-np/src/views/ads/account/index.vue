@@ -226,6 +226,15 @@ const handleSwitchCosts = (adAccount: any, checked: any) => {
                   <span>Tiktok</span>
                 </div>
               </MenuItem>
+              <MenuItem
+                v-if="shopStore.shop.id === '62370414670'"
+                @click="addNewConnection('google')"
+              >
+                <div class="flex items-center justify-start space-x-2">
+                  <IconifyIcon :icon="getAdsIcon('google')" />
+                  <span>Google</span>
+                </div>
+              </MenuItem>
             </Menu>
           </template>
         </Dropdown>
