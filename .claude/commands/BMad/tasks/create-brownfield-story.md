@@ -116,9 +116,7 @@ Start with the story template, filling in what's known:
 
 ## Story
 
-As a {{user_type}},
-I want {{enhancement_capability}},
-so that {{value_delivered}}.
+As a {{user_type}}, I want {{enhancement_capability}}, so that {{value_delivered}}.
 
 ## Context Source
 

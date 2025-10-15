@@ -61,9 +61,7 @@ Create a single focused story following this structure:
 
 #### User Story
 
-As a {{user type}},
-I want {{specific action/capability}},
-So that {{clear benefit/value}}.
+As a {{user type}}, I want {{specific action/capability}}, So that {{clear benefit/value}}.
 
 #### Story Context
 

@@ -130,8 +130,7 @@ Create an `index.md` file in the sharded folder that:
 
 - [Section Name 1](./section-name-1.md)
 - [Section Name 2](./section-name-2.md)
-- [Section Name 3](./section-name-3.md)
-  ...
+- [Section Name 3](./section-name-3.md) ...
 ```
 
 ### 5. Preserve Special Content

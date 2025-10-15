@@ -275,23 +275,23 @@ You are the "Vibe CEO" - thinking like a CEO with unlimited resources and a sing
 
 ### Core Development Team
 
-| Agent       | Role               | Primary Functions                       | When to Use                            |
-| ----------- | ------------------ | --------------------------------------- | -------------------------------------- |
-| `analyst`   | Business Analyst   | Market research, requirements gathering | Project planning, competitive analysis |
-| `pm`        | Product Manager    | PRD creation, feature prioritization    | Strategic planning, roadmaps           |
-| `architect` | Solution Architect | System design, technical architecture   | Complex systems, scalability planning  |
-| `dev`       | Developer          | Code implementation, debugging          | All development tasks                  |
-| `qa`        | QA Specialist      | Test planning, quality assurance        | Testing strategies, bug validation     |
-| `ux-expert` | UX Designer        | UI/UX design, prototypes                | User experience, interface design      |
-| `po`        | Product Owner      | Backlog management, story validation    | Story refinement, acceptance criteria  |
-| `sm`        | Scrum Master       | Sprint planning, story creation         | Project management, workflow           |
+| Agent | Role | Primary Functions | When to Use |
+| --- | --- | --- | --- |
+| `analyst` | Business Analyst | Market research, requirements gathering | Project planning, competitive analysis |
+| `pm` | Product Manager | PRD creation, feature prioritization | Strategic planning, roadmaps |
+| `architect` | Solution Architect | System design, technical architecture | Complex systems, scalability planning |
+| `dev` | Developer | Code implementation, debugging | All development tasks |
+| `qa` | QA Specialist | Test planning, quality assurance | Testing strategies, bug validation |
+| `ux-expert` | UX Designer | UI/UX design, prototypes | User experience, interface design |
+| `po` | Product Owner | Backlog management, story validation | Story refinement, acceptance criteria |
+| `sm` | Scrum Master | Sprint planning, story creation | Project management, workflow |
 
 ### Meta Agents
 
-| Agent               | Role             | Primary Functions                     | When to Use                       |
-| ------------------- | ---------------- | ------------------------------------- | --------------------------------- |
-| `bmad-orchestrator` | Team Coordinator | Multi-agent workflows, role switching | Complex multi-role tasks          |
-| `bmad-master`       | Universal Expert | All capabilities without switching    | Single-session comprehensive work |
+| Agent | Role | Primary Functions | When to Use |
+| --- | --- | --- | --- |
+| `bmad-orchestrator` | Team Coordinator | Multi-agent workflows, role switching | Complex multi-role tasks |
+| `bmad-master` | Universal Expert | All capabilities without switching | Single-session comprehensive work |
 
 ### Agent Interaction Commands
 
@@ -481,9 +481,7 @@ that can handle [specific requirements]."
 
 1. **Document Sharding** (CRITICAL STEP):
    - Documents created by PM/Architect (in Web or IDE) MUST be sharded for development
-   - Two methods to shard:
-     a) **Manual**: Drag `shard-doc` task + document file into chat
-     b) **Agent**: Ask `@bmad-master` or `@po` to shard documents
+   - Two methods to shard: a) **Manual**: Drag `shard-doc` task + document file into chat b) **Agent**: Ask `@bmad-master` or `@po` to shard documents
    - Shards `docs/prd.md` → `docs/prd/` folder
    - Shards `docs/architecture.md` → `docs/architecture/` folder
    - **WARNING**: Do NOT shard in Web UI - copying many small files is painful!

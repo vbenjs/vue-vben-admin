@@ -169,16 +169,13 @@ After review and any refactoring, append your results to the story file in the Q
 
 ### Gate Status
 
-Gate: {STATUS} → qa.qaLocation/gates/{epic}.{story}-{slug}.yml
-Risk profile: qa.qaLocation/assessments/{epic}.{story}-risk-{YYYYMMDD}.md
-NFR assessment: qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md
+Gate: {STATUS} → qa.qaLocation/gates/{epic}.{story}-{slug}.yml Risk profile: qa.qaLocation/assessments/{epic}.{story}-risk-{YYYYMMDD}.md NFR assessment: qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md
 
 # Note: Paths should reference core-config.yaml for custom configurations
 
 ### Recommended Status
 
-[✓ Ready for Done] / [✗ Changes Required - See unchecked items above]
-(Story owner decides final status)
+[✓ Ready for Done] / [✗ Changes Required - See unchecked items above] (Story owner decides final status)
 ```
 
 ## Output 2: Create Quality Gate File

@@ -214,12 +214,8 @@ The PO ensures:
 
 ### Phase 4: Save and Shard Documents
 
-1. Save your PRD and Architecture as:
-   docs/prd.md
-   docs/architecture.md
-   (Note: You can optionally prefix with 'brownfield-' if managing multiple versions)
-2. Shard your docs:
-   In your IDE
+1. Save your PRD and Architecture as: docs/prd.md docs/architecture.md (Note: You can optionally prefix with 'brownfield-' if managing multiple versions)
+2. Shard your docs: In your IDE
 
    ```bash
    @po
@@ -273,14 +269,14 @@ In brownfield projects, the Test Architect (Quinn) becomes your safety net again
 
 The Test Architect addresses unique brownfield complexities:
 
-| **Challenge**               | **How Test Architect Helps**                      | **Command**         |
-| --------------------------- | ------------------------------------------------- | ------------------- |
-| **Regression Risks**        | Identifies which existing features might break    | `*risk`             |
-| **Legacy Dependencies**     | Maps integration points and hidden dependencies   | `*trace`            |
-| **Performance Degradation** | Validates no slowdown in existing flows           | `*nfr`              |
-| **Coverage Gaps**           | Finds untested legacy code that new changes touch | `*design`           |
-| **Breaking Changes**        | Detects API/contract violations                   | `*review`           |
-| **Migration Safety**        | Validates data transformations and rollback plans | `*risk` + `*review` |
+| **Challenge** | **How Test Architect Helps** | **Command** |
+| --- | --- | --- |
+| **Regression Risks** | Identifies which existing features might break | `*risk` |
+| **Legacy Dependencies** | Maps integration points and hidden dependencies | `*trace` |
+| **Performance Degradation** | Validates no slowdown in existing flows | `*nfr` |
+| **Coverage Gaps** | Finds untested legacy code that new changes touch | `*design` |
+| **Breaking Changes** | Detects API/contract violations | `*review` |
+| **Migration Safety** | Validates data transformations and rollback plans | `*risk` + `*review` |
 
 #### Complete Test Architect Workflow for Brownfield
 
@@ -375,12 +371,12 @@ The review specifically analyzes:
 
 The Test Architect uses enhanced risk scoring for brownfield:
 
-| **Risk Category**      | **Brownfield Factors**                     | **Impact on Gate**  |
-| ---------------------- | ------------------------------------------ | ------------------- |
-| **Regression Risk**    | Number of integration points × Age of code | Score ≥9 = FAIL     |
-| **Data Risk**          | Migration complexity × Data volume         | Score ≥6 = CONCERNS |
-| **Performance Risk**   | Current load × Added complexity            | Score ≥6 = CONCERNS |
-| **Compatibility Risk** | API consumers × Contract changes           | Score ≥9 = FAIL     |
+| **Risk Category** | **Brownfield Factors** | **Impact on Gate** |
+| --- | --- | --- |
+| **Regression Risk** | Number of integration points × Age of code | Score ≥9 = FAIL |
+| **Data Risk** | Migration complexity × Data volume | Score ≥6 = CONCERNS |
+| **Performance Risk** | Current load × Added complexity | Score ≥6 = CONCERNS |
+| **Compatibility Risk** | API consumers × Contract changes | Score ≥9 = FAIL |
 
 #### Brownfield Testing Standards
 
@@ -396,13 +392,13 @@ Quinn enforces additional standards for brownfield:
 
 #### Quick Reference: Brownfield Test Commands
 
-| **Scenario**                      | **Commands to Run**                                  | **Order**  | **Why Critical**              |
-| --------------------------------- | ---------------------------------------------------- | ---------- | ----------------------------- |
-| **Adding Feature to Legacy Code** | `*risk` → `*design` → `*trace` → `*review`           | Sequential | Map all dependencies first    |
-| **API Modification**              | `*risk` → `*design` → `*nfr` → `*review`             | Sequential | Prevent breaking consumers    |
-| **Performance-Critical Change**   | `*nfr` early and often → `*review`                   | Continuous | Catch degradation immediately |
-| **Data Migration**                | `*risk` → `*design` → `*trace` → `*review` → `*gate` | Full cycle | Ensure data integrity         |
-| **Bug Fix in Complex System**     | `*risk` → `*trace` → `*review`                       | Focused    | Prevent side effects          |
+| **Scenario** | **Commands to Run** | **Order** | **Why Critical** |
+| --- | --- | --- | --- |
+| **Adding Feature to Legacy Code** | `*risk` → `*design` → `*trace` → `*review` | Sequential | Map all dependencies first |
+| **API Modification** | `*risk` → `*design` → `*nfr` → `*review` | Sequential | Prevent breaking consumers |
+| **Performance-Critical Change** | `*nfr` early and often → `*review` | Continuous | Catch degradation immediately |
+| **Data Migration** | `*risk` → `*design` → `*trace` → `*review` → `*gate` | Full cycle | Ensure data integrity |
+| **Bug Fix in Complex System** | `*risk` → `*trace` → `*review` | Focused | Prevent side effects |
 
 #### Integration with Brownfield Scenarios
 

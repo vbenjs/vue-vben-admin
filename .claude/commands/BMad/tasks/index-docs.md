@@ -137,11 +137,7 @@ For each file referenced in the index but not found in the filesystem:
 1. Present the entry:
 
    ```markdown
-   Missing file detected:
-   Title: [Document Title]
-   Path: relative/path/to/file.md
-   Description: Existing description
-   Section: [Root Documents | Folder Name]
+   Missing file detected: Title: [Document Title] Path: relative/path/to/file.md Description: Existing description Section: [Root Documents | Folder Name]
 
    Options:
 

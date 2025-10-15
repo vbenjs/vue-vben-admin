@@ -17,12 +17,14 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 ## 对外接口
 
 ### API 接口
+
 - **认证接口**: `src/api/core/auth.ts`
 - **用户接口**: `src/api/core/user.ts`
 - **菜单接口**: `src/api/core/menu.ts`
 - **请求封装**: `src/api/request.ts`
 
 ### 路由结构
+
 - **核心路由**: `src/router/routes/core.ts`
 - **仪表盘**: `src/router/routes/modules/dashboard.ts`
 - **演示模块**: `src/router/routes/modules/demos.ts`
@@ -31,6 +33,7 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 ## 关键依赖与配置
 
 ### 主要依赖
+
 - **@vben/** 系列包: 项目内部共享包
 - **ant-design-vue**: UI 框架
 - **vue**: 核心框架
@@ -39,33 +42,39 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 - **@vueuse/core**: Vue 组合式工具
 
 ### 应用配置
+
 - **偏好设置**: `src/preferences.ts`
 - **环境变量**: 通过 Vite 环境变量管理
 - **代理配置**: 配置了 `/api` 路径代理到后端 Mock 服务
 
 ### 布局组件
+
 - **基础布局**: `src/layouts/basic.vue`
 - **认证布局**: `src/layouts/auth.vue`
 
 ## 数据模型
 
 ### 认证模型
+
 - **登录参数**: `AuthApi.LoginParams { username?, password? }`
 - **登录结果**: `AuthApi.LoginResult { accessToken }`
 - **刷新令牌**: `AuthApi.RefreshTokenResult`
 
 ### 用户模型
+
 - 通过 `@vben/stores` 包管理用户状态
 - 支持权限码获取和验证
 
 ## 测试与质量
 
 ### 测试策略
+
 - 使用 Vitest 进行单元测试
 - 使用 Playwright 进行 E2E 测试
 - 测试文件位于各模块的 `__tests__` 目录
 
 ### 代码质量
+
 - 使用 ESLint 和 Prettier 进行代码规范检查
 - TypeScript 严格模式确保类型安全
 - 支持类型检查: `pnpm typecheck`
@@ -81,6 +90,7 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 ## 状态管理
 
 ### Store 结构
+
 - **认证状态**: `src/store/auth.ts`
 - **主 Store**: `src/store/index.ts`
 - 使用 Pinia 进行状态管理，支持持久化
@@ -88,28 +98,33 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 ## 视图组件
 
 ### 核心视图
+
 - **仪表盘分析**: `src/views/dashboard/analytics/`
 - **工作区**: `src/views/dashboard/workspace/`
 - **关于页面**: `src/views/_core/about/`
 
 ### 认证视图
+
 - **登录**: `src/views/_core/authentication/login.vue`
 - **注册**: `src/views/_core/authentication/register.vue`
 - **忘记密码**: `src/views/_core/authentication/forget-password.vue`
 - **二维码登录**: `src/views/_core/authentication/qrcode-login.vue`
 
 ### 错误页面
+
 - **404**: `src/views/_core/fallback/not-found.vue`
 - **403**: `src/views/_core/fallback/forbidden.vue`
 - **500**: `src/views/_core/fallback/internal-error.vue`
 - **网络错误**: `src/views/_core/fallback/offline.vue`
 
 ### 演示组件
+
 - **Ant Design 演示**: `src/views/demos/antd/index.vue`
 
 ## 适配器层
 
 ### 组件适配器
+
 - **表单适配器**: `src/adapter/form.ts`
 - **组件适配器**: `src/adapter/component/index.ts`
 - **表格适配器**: `src/adapter/vxe-table.ts`
@@ -117,16 +132,19 @@ Web Antd 是 FactoryOS 的主应用，基于 Ant Design Vue 构建的现代化�
 ## 常见问题 (FAQ)
 
 ### 如何添加新的页面？
+
 1. 在 `src/views/` 下创建页面组件
 2. 在 `src/router/routes/modules/` 下添加路由配置
 3. 在语言包中添加页面标题翻译
 
 ### 如何添加新的 API 接口？
+
 1. 在 `src/api/` 下创建接口文件
 2. 定义请求参数和响应类型
 3. 使用 `requestClient` 或 `baseRequestClient` 发送请求
 
 ### 如何自定义主题？
+
 通过 `@vben/preferences` 包进行主题配置，支持亮色/暗色主题切换。
 
 ## 相关文件清单

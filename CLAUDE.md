@@ -13,16 +13,19 @@ FactoryOS 是一个基于 Vue Vben Admin 5.5.9 的现代化 monorepo 项目，�
 ### 技术栈
 
 **核心技术**
+
 - **Vue 3.5+** - 渐进式 JavaScript 框架
 - **TypeScript 5.8+** - 类型安全的 JavaScript
 - **Vite 7.1+** - 现代前端构建工具
 - **Pinia 3.0+** - Vue 状态管理库
 
 **UI 框架**
+
 - **Ant Design Vue 4.2+** - 企业级 UI 设计语言
 - **Tailwind CSS 3.4+** - 实用优先的 CSS 框架
 
 **开发工具**
+
 - **Turbo** - Monorepo 构建工具
 - **pnpm 10.14+** - 包管理器
 - **ESLint + Prettier** - 代码质量工具
@@ -93,7 +96,7 @@ graph TD
 ## 模块索引
 
 | 模块名称 | 路径 | 类型 | 语言 | 描述 |
-|---------|------|------|------|------|
+| --- | --- | --- | --- | --- |
 | **backend-mock** | apps/backend-mock | 应用 | TypeScript | 基于 Nitro 的 Mock 后端服务 |
 | **web-antd** | apps/web-antd | 应用 | TypeScript | 主应用 (Ant Design Vue) |
 | **@core/base** | packages/@core/base | 包 | TypeScript | 基础功能 (设计系统、共享工具、类型定义) |
@@ -132,6 +135,7 @@ graph TD
 ## 运行与开发
 
 ### 环境要求
+
 - Node.js >= 20.10.0
 - pnpm >= 9.12.0
 
@@ -176,11 +180,13 @@ pnpm check
 ## 测试策略
 
 ### 单元测试
+
 - 使用 Vitest + happy-dom
 - 测试文件位置：各包目录下的 `__tests__` 文件夹
 - 命名模式：`*.test.ts` 或 `*.spec.ts`
 
 ### E2E 测试
+
 - 使用 Playwright
 - 测试文件位置：`playground/__tests__/e2e/`
 - 主要测试用户流程和关键功能
@@ -188,6 +194,7 @@ pnpm check
 ## 编码规范
 
 ### 代码质量标准
+
 - 单个文件代码不超过1000行
 - 单个函数不超过50行
 - 必须有完整的注释，包括函数说明、参数说明、返回值说明
@@ -195,18 +202,21 @@ pnpm check
 - 复杂逻辑必须有注释解释
 
 ### 错误处理原则
+
 - 所有可能的错误都必须处理
 - 错误信息要明确，便于调试
 - 不允许空catch块
 - 关键路径必须有日志记录
 
 ### 性能要求
+
 - 数据库查询必须有索引支持
 - 循环内不允许执行数据库操作
 - 大数据量处理必须分批进行
 - 缓存策略要明确
 
 ### 安全规范
+
 - 所有用户输入必须验证
 - 密码必须加密存储
 - API接口必须有权限控制
@@ -215,6 +225,7 @@ pnpm check
 ## AI 使用指引
 
 ### 项目结构理解
+
 1. 这是一个 monorepo 项目，使用 pnpm workspace 管理依赖
 2. 主要应用在 `apps/` 目录下
 3. 共享包在 `packages/` 目录下
@@ -222,12 +233,14 @@ pnpm check
 5. UI 组件库使用 Ant Design Vue
 
 ### 开发流程
+
 1. 首先阅读相关模块的 CLAUDE.md 文件
 2. 理解模块之间的依赖关系
 3. 遵循项目的代码规范和测试策略
 4. 确保类型安全，使用 TypeScript 严格模式
 
 ### 常见问题
+
 1. 如果遇到依赖问题，尝试运行 `pnpm reinstall`
 2. 如果遇到类型错误，检查是否正确导入了类型定义
 3. 如果遇到构建问题，检查是否正确配置了 Vite
@@ -241,14 +254,17 @@ pnpm check
 4. 使用 TypeScript 严格模式确保类型安全
 
 ### 构建优化
+
 - 支持增量构建和缓存
 - 自动代码分割和懒加载
 - 生产环境优化和压缩
 
 ### Mock 后端服务
+
 项目包含一个基于 Nitro 的 Mock 后端服务，默认运行在 `http://localhost:5320/api`，在 `vite.config.mts` 中配置了代理规则。
 
 ### 应用架构
+
 - **模块化设计**: 基于 workspace 的 monorepo 架构
 - **组件化开发**: 使用 @core/ui-kit 提供统一的 UI 组件
 - **类型安全**: 全面的 TypeScript 类型定义
@@ -256,7 +272,9 @@ pnpm check
 - **主题系统**: 支持多主题切换
 
 ### 包管理
+
 使用 pnpm workspace 管理包依赖，支持:
+
 - `workspace:*` 协议用于内部包引用
 - `catalog:` 协议用于统一版本管理
 - 自动依赖提升和去重

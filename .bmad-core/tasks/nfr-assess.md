@@ -36,8 +36,7 @@ If story_path or story file can't be found:
 
 ### 1. Elicit Scope
 
-**Interactive mode:** Ask which NFRs to assess
-**Non-interactive mode:** Default to core four (security, performance, reliability, maintainability)
+**Interactive mode:** Ask which NFRs to assess **Non-interactive mode:** Default to core four (security, performance, reliability, maintainability)
 
 ```text
 Which NFRs should I assess? (Enter numbers or press Enter for default)
@@ -61,8 +60,7 @@ Look for NFR requirements in:
 - `docs/architecture/*.md` files
 - `docs/technical-preferences.md`
 
-**Interactive mode:** Ask for missing thresholds
-**Non-interactive mode:** Mark as CONCERNS with "Target unknown"
+**Interactive mode:** Ask for missing thresholds **Non-interactive mode:** Mark as CONCERNS with "Target unknown"
 
 ```text
 No performance requirements found. What's your target response time?
@@ -130,8 +128,7 @@ If `technical-preferences.md` defines custom weights, use those instead.
 ```markdown
 # NFR Assessment: {epic}.{story}
 
-Date: {date}
-Reviewer: Quinn
+Date: {date} Reviewer: Quinn
 
 <!-- Note: Source story not found (if applicable) -->
 

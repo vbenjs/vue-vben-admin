@@ -122,11 +122,11 @@ Create risk matrix:
 ```markdown
 ## Risk Matrix
 
-| Risk ID  | Description             | Probability | Impact     | Score | Priority |
-| -------- | ----------------------- | ----------- | ---------- | ----- | -------- |
-| SEC-001  | XSS vulnerability       | High (3)    | High (3)   | 9     | Critical |
-| PERF-001 | Slow query on dashboard | Medium (2)  | Medium (2) | 4     | Medium   |
-| DATA-001 | Backup failure          | Low (1)     | High (3)   | 3     | Low      |
+| Risk ID | Description | Probability | Impact | Score | Priority |
+| --- | --- | --- | --- | --- | --- |
+| SEC-001 | XSS vulnerability | High (3) | High (3) | 9 | Critical |
+| PERF-001 | Slow query on dashboard | Medium (2) | Medium (2) | 4 | Medium |
+| DATA-001 | Backup failure | Low (1) | High (3) | 3 | Low |
 ```
 
 ### 4. Risk Mitigation Strategies
@@ -189,8 +189,7 @@ risk_summary:
 ```markdown
 # Risk Profile: Story {epic}.{story}
 
-Date: {date}
-Reviewer: Quinn (Test Architect)
+Date: {date} Reviewer: Quinn (Test Architect)
 
 ## Executive Summary
 
@@ -203,14 +202,10 @@ Reviewer: Quinn (Test Architect)
 
 ### 1. [ID]: Risk Title
 
-**Score: 9 (Critical)**
-**Probability**: High - Detailed reasoning
-**Impact**: High - Potential consequences
-**Mitigation**:
+**Score: 9 (Critical)** **Probability**: High - Detailed reasoning **Impact**: High - Potential consequences **Mitigation**:
 
 - Immediate action required
-- Specific steps to take
-  **Testing Focus**: Specific test scenarios needed
+- Specific steps to take **Testing Focus**: Specific test scenarios needed
 
 ## Risk Distribution
 
