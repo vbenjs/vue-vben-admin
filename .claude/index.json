@@ -1,0 +1,206 @@
+{
+  "timestamp": "2025-10-15T22:37:04.000Z",
+  "project": {
+    "name": "FactoryOS",
+    "version": "5.5.9",
+    "description": "基于 Vue Vben Admin 5.5.9 的 monorepo 项目，使用 Vue 3、Vite、TypeScript 等现代前端技术构建的中后台管理系统模板"
+  },
+  "modules": [
+    {
+      "name": "backend-mock",
+      "path": "apps/backend-mock",
+      "type": "application",
+      "language": "TypeScript",
+      "entry": "apps/backend-mock/nitro.config.ts",
+      "description": "基于 Nitro 的 Mock 后端服务",
+      "interfaces": [
+        "认证接口: /auth/login, /auth/logout, /auth/refresh",
+        "系统管理接口: /system/dept, /system/menu, /system/role",
+        "用户接口: /user/info",
+        "通用接口: /table/list, /upload, /status"
+      ],
+      "dependencies": ["nitropack", "jsonwebtoken", "@faker-js/faker", "h3"],
+      "tests": false,
+      "coverage": "medium"
+    },
+    {
+      "name": "web-antd",
+      "path": "apps/web-antd",
+      "type": "application",
+      "language": "TypeScript",
+      "entry": "apps/web-antd/src/main.ts",
+      "description": "主应用 (Ant Design Vue)",
+      "interfaces": [
+        "认证模块: 登录、登出、权限验证",
+        "用户管理: 用户信息、权限管理",
+        "仪表盘: 数据分析、工作区",
+        "系统设置: 偏好设置、主题切换"
+      ],
+      "dependencies": ["@vben/*", "ant-design-vue", "vue", "vue-router", "pinia"],
+      "tests": false,
+      "coverage": "medium"
+    }
+  ],
+  "packages": [
+    {
+      "name": "@core/base",
+      "path": "packages/@core/base",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "基础功能 (设计系统、共享工具、类型定义)",
+      "subpackages": ["design", "icons", "shared", "typings"],
+      "dependencies": ["@vueuse/core", "vue"],
+      "tests": true,
+      "coverage": "high"
+    },
+    {
+      "name": "@core/composables",
+      "path": "packages/@core/composables",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "Vue 组合式函数",
+      "dependencies": ["@vueuse/core", "vue"],
+      "tests": true,
+      "coverage": "medium"
+    },
+    {
+      "name": "@core/preferences",
+      "path": "packages/@core/preferences",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "偏好设置",
+      "dependencies": ["@vueuse/core", "vue", "@vben-core/shared", "@vben-core/typings"],
+      "tests": true,
+      "coverage": "high"
+    },
+    {
+      "name": "@core/ui-kit",
+      "path": "packages/@core/ui-kit",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "UI 组件库",
+      "subpackages": ["form-ui", "layout-ui", "menu-ui", "popup-ui", "shadcn-ui", "tabs-ui"],
+      "dependencies": ["@vueuse/core", "vue"],
+      "tests": true,
+      "coverage": "medium"
+    },
+    {
+      "name": "effects",
+      "path": "packages/effects",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "功能效果包 (布局、插件等)",
+      "subpackages": ["access", "common-ui", "hooks", "layouts", "plugins", "request"],
+      "dependencies": ["@vben-core/*", "@vueuse/core", "vue"],
+      "tests": true,
+      "coverage": "medium"
+    },
+    {
+      "name": "constants",
+      "path": "packages/constants",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "常量定义",
+      "dependencies": [],
+      "tests": false,
+      "coverage": "low"
+    },
+    {
+      "name": "icons",
+      "path": "packages/icons",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "图标包",
+      "dependencies": ["vue"],
+      "tests": false,
+      "coverage": "low"
+    },
+    {
+      "name": "locales",
+      "path": "packages/locales",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "国际化",
+      "dependencies": ["vue"],
+      "tests": false,
+      "coverage": "low"
+    },
+    {
+      "name": "stores",
+      "path": "packages/stores",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "状态管理",
+      "dependencies": ["vue"],
+      "tests": true,
+      "coverage": "medium"
+    },
+    {
+      "name": "styles",
+      "path": "packages/styles",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "样式",
+      "dependencies": [],
+      "tests": false,
+      "coverage": "low"
+    },
+    {
+      "name": "types",
+      "path": "packages/types",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "类型定义",
+      "dependencies": ["vue"],
+      "tests": false,
+      "coverage": "low"
+    },
+    {
+      "name": "utils",
+      "path": "packages/utils",
+      "type": "package",
+      "language": "TypeScript",
+      "description": "工具函数",
+      "dependencies": [],
+      "tests": true,
+      "coverage": "medium"
+    }
+  ],
+  "statistics": {
+    "total_modules": 14,
+    "total_packages": 12,
+    "total_applications": 2,
+    "total_files_scanned": 50,
+    "coverage": "medium",
+    "ignored_directories": [
+      "node_modules",
+      "dist",
+      ".git",
+      ".output",
+      ".nitro",
+      ".temp",
+      ".cache"
+    ],
+    "tests_found": true,
+    "testing_framework": "vitest",
+    "e2e_testing": "playwright",
+    "documentation_generated": true,
+    "coverage_by_level": {
+      "high": 3,
+      "medium": 6,
+      "low": 5
+    }
+  },
+  "gaps": [
+    "packages/business 目录尚未扫描",
+    "internal 目录的工具包尚未详细分析",
+    "scripts 目录的构建脚本尚未扫描",
+    "playground 目录的测试环境尚未扫描"
+  ],
+  "truncated": false,
+  "recommendations": [
+    "建议优先补扫: packages/business, internal/, scripts/, playground/",
+    "建议增加对业务逻辑包的深度分析",
+    "建议完善各模块的测试覆盖率统计"
+  ]
+}
