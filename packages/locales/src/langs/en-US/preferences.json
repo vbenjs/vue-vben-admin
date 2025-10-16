@@ -1,6 +1,8 @@
 {
   "title": "Preferences",
   "subtitle": "Customize Preferences & Preview in Real Time",
+  "enableStickyPreferencesNavigationBar": "Enable sticky preferences navigation bar",
+  "disableStickyPreferencesNavigationBar": "Disable sticky preferences navigation bar",
   "resetTip": "Data has changed, click to reset",
   "resetTitle": "Reset Preferences",
   "resetSuccess": "Preferences reset successfully",
@@ -37,6 +39,7 @@
   "language": "Language",
   "dynamicTitle": "Dynamic Title",
   "watermark": "Watermark",
+  "watermarkContent": "Please input Watermark content",
   "checkUpdates": "Periodic update check",
   "position": {
     "title": "Preferences Postion",

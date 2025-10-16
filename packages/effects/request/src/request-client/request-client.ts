@@ -9,6 +9,7 @@ import qs from 'qs';
 
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
+import { SSE } from './modules/sse';
 import { FileUploader } from './modules/uploader';
 
 function getParamsSerializer(
@@ -41,12 +42,14 @@ class RequestClient {
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
   public download: FileDownloader['download'];
 
+  public readonly instance: AxiosInstance;
   // 是否正在刷新token
   public isRefreshing = false;
+  public postSSE: SSE['postSSE'];
   // 刷新token队列
   public refreshTokenQueue: ((token: string) => void)[] = [];
+  public requestSSE: SSE['requestSSE'];
   public upload: FileUploader['upload'];
-  private readonly instance: AxiosInstance;
 
   /**
    * 构造函数，用于创建Axios实例
@@ -84,6 +87,10 @@ class RequestClient {
     // 实例化文件下载器
     const fileDownloader = new FileDownloader(this);
     this.download = fileDownloader.download.bind(fileDownloader);
+    // 实例化SSE模块
+    const sse = new SSE(this);
+    this.postSSE = sse.postSSE.bind(sse);
+    this.requestSSE = sse.requestSSE.bind(sse);
   }
 
   /**
@@ -101,6 +108,13 @@ class RequestClient {
    */
   public get<T = any>(url: string, config?: RequestClientConfig): Promise<T> {
     return this.request<T>(url, { ...config, method: 'GET' });
+  }
+
+  /**
+   * 获取基础URL
+   */
+  public getBaseUrl() {
+    return this.instance.defaults.baseURL;
   }
 
   /**
