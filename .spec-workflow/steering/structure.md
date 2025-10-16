@@ -175,6 +175,7 @@ FactoryOS/
 ## Naming Conventions
 
 ### Files
+
 - **组件文件**: `PascalCase.vue` (例: `UserProfile.vue`, `DataTable.vue`)
 - **服务文件**: `kebab-case.ts` (例: `user-service.ts`, `auth-service.ts`)
 - **工具函数**: `kebab-case.ts` (例: `date-utils.ts`, `format-utils.ts`)
@@ -182,6 +183,7 @@ FactoryOS/
 - **测试文件**: `[filename].test.ts` (例: `user-service.test.ts`, `UserProfile.test.ts`)
 
 ### 代码
+
 - **类/接口**: `PascalCase` (例: `UserService`, `UserProfile`)
 - **函数/方法**: `camelCase` (例: `getUserProfile`, `formatDate`)
 - **常量**: `UPPER_SNAKE_CASE` (例: `API_BASE_URL`, `MAX_RETRY_COUNT`)
@@ -189,6 +191,7 @@ FactoryOS/
 - **组件名**: `PascalCase` (例: `UserProfile`, `DataTable`)
 
 ### 目录
+
 - **特性模块**: `kebab-case` (例: `user-management/`, `inventory-system/`)
 - **功能模块**: `kebab-case` (例: `auth/`, `api/`, `components/`)
 - **测试目录**: `__tests__/` 或 `test/`
@@ -196,6 +199,7 @@ FactoryOS/
 ## Import Patterns
 
 ### Import Order
+
 1. **外部依赖** (第三方库)
 2. **内部包** (@core, @vben 等内部包)
 3. **相对导入** (同级和下级模块)
@@ -224,6 +228,7 @@ import './styles/UserProfile.css';
 ```
 
 ### 模块组织
+
 - **绝对导入**: 使用 `@/` 别名从项目根目录导入
 - **包导入**: 使用 `@vben/` 命名空间导入内部包
 - **类型导入**: 使用 `type` 关键字进行类型导入
@@ -232,6 +237,7 @@ import './styles/UserProfile.css';
 ## Code Structure Patterns
 
 ### 模块组织
+
 ```typescript
 // 1. 外部依赖导入
 import { ref, computed, onMounted } from 'vue';
@@ -260,6 +266,7 @@ export default defineComponent({
 ```
 
 ### Vue 组件结构
+
 ```vue
 <script setup lang="ts">
 // 1. 导入声明
@@ -315,6 +322,7 @@ onMounted(() => {
 ```
 
 ### 函数/方法组织
+
 ```typescript
 export const getUserProfile = async (userId: string): Promise<User> => {
   // 1. 输入验证
@@ -350,16 +358,19 @@ export const getUserProfile = async (userId: string): Promise<User> => {
 ## Module Boundaries
 
 ### 核心架构边界
+
 - **@core 层**: 提供基础功能和设计系统，不依赖业务逻辑
 - **effects 层**: 业务功能和插件，依赖 @core 层
 - **apps 层**: 应用程序，依赖 core 和 effects 层
 
 ### 功能模块边界
+
 - **UI 组件**: 纯展示组件，不包含业务逻辑
 - **业务逻辑**: 数据处理和状态管理，不依赖 UI 组件
 - **数据访问**: API 调用和数据转换，独立于业务逻辑
 
 ### 平台边界
+
 - **浏览器特定**: DOM 操作和浏览器 API
 - **通用逻辑**: 纯函数和工具类，可跨平台使用
 - **类型定义**: TypeScript 接口和类型，平台无关
@@ -367,18 +378,21 @@ export const getUserProfile = async (userId: string): Promise<User> => {
 ## Code Size Guidelines
 
 ### 文件大小
+
 - **组件文件**: 建议 < 300 行
 - **工具函数文件**: 建议 < 200 行
 - **类型定义文件**: 建议 < 500 行
 - **测试文件**: 建议 < 400 行
 
 ### 函数/方法大小
+
 - **简单函数**: 建议 < 20 行
 - **复杂函数**: 建议 < 50 行
 - **组件方法**: 建议 < 30 行
 - **异步函数**: 建议 < 40 行
 
 ### 复杂度限制
+
 - **圈复杂度**: 建议不超过 10
 - **嵌套深度**: 建议不超过 4 层
 - **参数数量**: 建议不超过 5 个参数
@@ -387,6 +401,7 @@ export const getUserProfile = async (userId: string): Promise<User> => {
 ## Dashboard/Monitoring Structure
 
 ### 管理后台结构
+
 ```
 src/views/dashboard/
 ├── analytics/              # 数据分析仪表板
@@ -404,6 +419,7 @@ src/views/dashboard/
 ```
 
 ### 监控组件分离
+
 - **数据采集**: 独立的数据收集模块
 - **可视化**: 图表和仪表板组件
 - **告警系统**: 异常检测和通知
@@ -412,23 +428,27 @@ src/views/dashboard/
 ## Documentation Standards
 
 ### API 文档
+
 - 所有公共 API 必须有完整的 JSDoc 注释
 - 包含参数说明、返回值、异常处理
 - 提供使用示例和注意事项
 
 ### 组件文档
+
 - 组件用途和功能描述
 - Props 和 Events 详细说明
 - 使用示例和最佳实践
 - 可访问性和性能说明
 
 ### 复杂逻辑文档
+
 - 业务逻辑的详细说明
 - 算法实现和优化思路
 - 性能考虑和限制
 - 未来改进计划
 
 ### README 文件
+
 - 每个主要模块必须有 README.md
 - 说明模块用途、依赖关系、使用方法
 - 提供快速开始指南和示例代码
