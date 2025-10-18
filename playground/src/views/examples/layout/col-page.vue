@@ -22,8 +22,8 @@ const props = reactive({
   leftWidth: 30,
   resizable: true,
   rightWidth: 70,
-  splitHandle: false,
-  splitLine: false,
+  splitHandle: true,
+  splitLine: true,
 });
 const leftMinWidth = ref(props.leftMinWidth || 1);
 const leftMaxWidth = ref(props.leftMaxWidth || 100);
@@ -42,7 +42,11 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
     <template #left="{ isCollapsed, expand }">
       <div v-if="isCollapsed" @click="expand">
         <Tooltip title="点击展开左侧">
-          <Button shape="circle" type="primary">
+          <Button
+            shape="circle"
+            type="primary"
+            class="flex items-center justify-center"
+          >
             <template #icon>
               <IconifyIcon class="text-2xl" icon="bi:arrow-right" />
             </template>
