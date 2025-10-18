@@ -199,8 +199,7 @@ BMAD 通过项目级 `opencode.jsonc`/`opencode.json`（仅 JSON，无 Markdown 
     - 使用文件引用（`{file:./.bmad-core/...}`）合并 BMAD 代理和命令，幂等地。
     - 保留其他顶级字段和用户定义的条目。
 
-- 前缀和冲突：
-  -您可以选择加入代理键前缀 `bmad-` 和命令键前缀 `bmad:tasks:` 以避免名称冲突。
+- 前缀和冲突：-您可以选择加入代理键前缀 `bmad-` 和命令键前缀 `bmad:tasks:` 以避免名称冲突。
   - 如果键已存在且不是 BMAD 管理的，安装程序将跳过它并建议启用前缀。
 
 - 添加的内容：
@@ -449,14 +448,14 @@ test_summary:
 
 测试架构师在整个开发生命周期中提供价值。以下是在何时以及如何利用每种能力：
 
-| **阶段**          | **命令** | **何时使用**         | **价值**                  | **输出**                                                     |
-| ------------------ | ----------- | ----------------------- | -------------------------- | -------------------------------------------------------------- |
-| **故事起草** | `*risk`     | SM 起草故事后        | 早期识别陷阱            | `docs/qa/assessments/{epic}.{story}-risk-{YYYYMMDD}.md`        |
-|                    | `*design`   | 风险评估后           | 指导 dev 测试策略    | `docs/qa/assessments/{epic}.{story}-test-design-{YYYYMMDD}.md` |
-| **开发**    | `*trace`    | 中期实现             | 验证测试覆盖率        | `docs/qa/assessments/{epic}.{story}-trace-{YYYYMMDD}.md`       |
-|                    | `*nfr`      | 构建功能时          | 早期发现质量问题     | `docs/qa/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md`         |
-| **审查**         | `*review`   | 故事标记完成         | 全面质量评估           | 故事中的 QA 结果 + 门控文件                                |
-| **审查后**    | `*gate`     | 解决问题后          | 更新质量决策           | 更新的 `docs/qa/gates/{epic}.{story}-{slug}.yml`              |
+| **阶段** | **命令** | **何时使用** | **价值** | **输出** |
+| --- | --- | --- | --- | --- |
+| **故事起草** | `*risk` | SM 起草故事后 | 早期识别陷阱 | `docs/qa/assessments/{epic}.{story}-risk-{YYYYMMDD}.md` |
+|  | `*design` | 风险评估后 | 指导 dev 测试策略 | `docs/qa/assessments/{epic}.{story}-test-design-{YYYYMMDD}.md` |
+| **开发** | `*trace` | 中期实现 | 验证测试覆盖率 | `docs/qa/assessments/{epic}.{story}-trace-{YYYYMMDD}.md` |
+|  | `*nfr` | 构建功能时 | 早期发现质量问题 | `docs/qa/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md` |
+| **审查** | `*review` | 故事标记完成 | 全面质量评估 | 故事中的 QA 结果 + 门控文件 |
+| **审查后** | `*gate` | 解决问题后 | 更新质量决策 | 更新的 `docs/qa/gates/{epic}.{story}-{slug}.yml` |
 
 #### 示例命令
 
@@ -575,3 +574,4 @@ devLoadAlwaysFiles:
 ## 结论
 
 记住：BMAD 旨在增强您的开发过程，而不是替代您的专业知识。将其用作加速项目的强大工具，同时保持对设计决策和实现细节的控制。
+```

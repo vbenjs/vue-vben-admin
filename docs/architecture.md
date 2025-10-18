@@ -11,6 +11,7 @@
 根据 PRD 分析，FactoryOS 基于现有的 Vue Vben Admin 5.5.9 monorepo 项目：
 
 **现有项目基础：**
+
 - **框架**: Vue Vben Admin 5.5.9
 - **技术栈**: Vue 3.5+, TypeScript 5.8+, Vite 7.1+, Pinia 3.0+
 - **架构**: Monorepo with pnpm workspace
@@ -19,6 +20,7 @@
 - **测试**: Vitest + Playwright
 
 **约束条件：**
+
 - 必须保持现有技术栈兼容性
 - 需要扩展现有权限系统支持多公司架构
 - 集成 Dify 平台需要安全 iframe 嵌入
@@ -26,11 +28,12 @@
 
 ### Change Log
 
-| 日期         | 版本  | 描述       | 作者                  |
-|------------|-----|----------|---------------------|
-| 2025-10-17 | 1.0 | 初始架构文档创建 | Winston (Architect) |
+| 日期       | 版本 | 描述             | 作者                |
+| ---------- | ---- | ---------------- | ------------------- |
+| 2025-10-17 | 1.0  | 初始架构文档创建 | Winston (Architect) |
 
 ---
+
 ## High Level Architecture
 
 ### Technical Summary
@@ -41,17 +44,15 @@ FactoryOS 企业级 AI 协作平台采用微服务架构设计，基于现有的
 
 **推荐方案：混合云架构**
 
-**平台**: 阿里云 + AWS 混合云
-**核心服务**:
+**平台**: 阿里云 + AWS 混合云 **核心服务**:
+
 - **阿里云**：ECS、RDS、Redis、OSS、钉钉集成
 - **AWS**：S3、Lambda、CloudFront（国际化备份）
 - **部署区域**: 华东1(杭州) + 新加坡
 
 ### Repository Structure
 
-**结构**: Monorepo (保持现有结构)
-**Monorepo 工具**: pnpm workspace + Turbo (现有)
-**包组织策略**: 基于功能域的模块化设计
+**结构**: Monorepo (保持现有结构) **Monorepo 工具**: pnpm workspace + Turbo (现有) **包组织策略**: 基于功能域的模块化设计
 
 ```
 factoryos/
@@ -188,45 +189,47 @@ graph TB
 - **缓存策略**: 多层缓存提升系统性能 - _理由_: 大量数据查询和报表生成需要性能优化
 
 ---
+
 ## Tech Stack
 
 ### Technology Stack Table
 
-| 类别                   | 技术                   | 版本            | 用途              | 理由                       |
-|----------------------|----------------------|---------------|-----------------|--------------------------|
-| Frontend Language    | TypeScript           | 5.8+          | 类型安全的JavaScript | 提供类型安全，支持大型项目开发，与现有技术栈一致 |
-| Frontend Framework   | Vue 3                | 3.5+          | 渐进式JavaScript框架 | 现有技术栈，优秀的响应式系统，组合式API    |
-| UI Component Library | Ant Design Vue       | 4.2+          | 企业级UI设计语言       | 现有技术栈，丰富的企业组件，设计一致性    |
-| State Management     | Pinia                | 3.0+          | Vue状态管理库        | 现有技术栈，TypeScript友好，简单易用  |
-| Backend Language     | Node.js              | 20.10+        | JavaScript运行时   | 与前端技术栈统一，丰富生态，高性能        |
-| Backend Framework    | Express.js           | 4.18+         | Web应用框架         | 成熟稳定，中间件丰富，社区活跃          |
-| API Style            | REST API             | OpenAPI 3.0   | API设计规范         | 标准化，工具支持完善，易于理解          |
-| Database             | PostgreSQL           | 15+           | 主数据库            | 企业级特性，JSON支持，扩展性好        |
-| Cache                | Redis                | 7.2+          | 内存缓存            | 高性能，数据结构丰富，持久化支持         |
-| File Storage         | 阿里云OSS               | 3.0+          | 对象存储            | 高可靠性，CDN加速，成本合理          |
-| Authentication       | JWT + Refresh Token  | 2.0+          | 身份认证            | 无状态，支持刷新，安全性好            |
-| Frontend Testing     | Vitest               | 1.0+          | 单元测试框架          | 与Vite深度集成，速度快，API友好      |
-| Backend Testing      | Jest                 | 29.7+         | 测试框架            | 成熟稳定，功能完善，生态丰富           |
-| E2E Testing          | Playwright           | 1.40+         | 端到端测试           | 跨浏览器，自动等待，调试工具完善         |
-| Build Tool           | Vite                 | 7.1+          | 构建工具            | 现有技术栈，开发体验好，构建速度快        |
-| Bundler              | Turbo                | 1.11+         | Monorepo构建工具    | 现有技术栈，缓存优化，并行构建          |
-| IaC Tool             | Terraform            | 1.6+          | 基础设施即代码         | 多云支持，状态管理，模块化            |
-| CI/CD                | GitHub Actions       | 5.0+          | 持续集成部署          | 与GitHub深度集成，市场丰富，免费额度    |
-| Monitoring           | Prometheus + Grafana | 2.47+ / 10.2+ | 监控可视化           | 开源标准，生态完善，可视化强大          |
-| Logging              | ELK Stack            | 8.11+         | 日志管理            | 集中式日志，全文搜索，实时分析          |
-| CSS Framework        | Tailwind CSS         | 3.4+          | 原子化CSS          | 现有技术栈，高度可定制，性能优秀         |
+| 类别 | 技术 | 版本 | 用途 | 理由 |
+| --- | --- | --- | --- | --- |
+| Frontend Language | TypeScript | 5.8+ | 类型安全的JavaScript | 提供类型安全，支持大型项目开发，与现有技术栈一致 |
+| Frontend Framework | Vue 3 | 3.5+ | 渐进式JavaScript框架 | 现有技术栈，优秀的响应式系统，组合式API |
+| UI Component Library | Ant Design Vue | 4.2+ | 企业级UI设计语言 | 现有技术栈，丰富的企业组件，设计一致性 |
+| State Management | Pinia | 3.0+ | Vue状态管理库 | 现有技术栈，TypeScript友好，简单易用 |
+| Backend Language | Node.js | 20.10+ | JavaScript运行时 | 与前端技术栈统一，丰富生态，高性能 |
+| Backend Framework | Express.js | 4.18+ | Web应用框架 | 成熟稳定，中间件丰富，社区活跃 |
+| API Style | REST API | OpenAPI 3.0 | API设计规范 | 标准化，工具支持完善，易于理解 |
+| Database | PostgreSQL | 15+ | 主数据库 | 企业级特性，JSON支持，扩展性好 |
+| Cache | Redis | 7.2+ | 内存缓存 | 高性能，数据结构丰富，持久化支持 |
+| File Storage | 阿里云OSS | 3.0+ | 对象存储 | 高可靠性，CDN加速，成本合理 |
+| Authentication | JWT + Refresh Token | 2.0+ | 身份认证 | 无状态，支持刷新，安全性好 |
+| Frontend Testing | Vitest | 1.0+ | 单元测试框架 | 与Vite深度集成，速度快，API友好 |
+| Backend Testing | Jest | 29.7+ | 测试框架 | 成熟稳定，功能完善，生态丰富 |
+| E2E Testing | Playwright | 1.40+ | 端到端测试 | 跨浏览器，自动等待，调试工具完善 |
+| Build Tool | Vite | 7.1+ | 构建工具 | 现有技术栈，开发体验好，构建速度快 |
+| Bundler | Turbo | 1.11+ | Monorepo构建工具 | 现有技术栈，缓存优化，并行构建 |
+| IaC Tool | Terraform | 1.6+ | 基础设施即代码 | 多云支持，状态管理，模块化 |
+| CI/CD | GitHub Actions | 5.0+ | 持续集成部署 | 与GitHub深度集成，市场丰富，免费额度 |
+| Monitoring | Prometheus + Grafana | 2.47+ / 10.2+ | 监控可视化 | 开源标准，生态完善，可视化强大 |
+| Logging | ELK Stack | 8.11+ | 日志管理 | 集中式日志，全文搜索，实时分析 |
+| CSS Framework | Tailwind CSS | 3.4+ | 原子化CSS | 现有技术栈，高度可定制，性能优秀 |
 
 ### 特殊技术栈补充：
 
-| 类别              | 技术               | 版本          | 用途       | 理由                |
-|-----------------|------------------|-------------|----------|-------------------|
-| AI Integration  | Dify Platform    | Latest      | AI对话能力   | 专业AI平台，安全可靠，功能完善  |
-| Communication   | PostMessage API  | HTML5       | iframe通信 | 标准API，安全性好，兼容性强   |
-| Multi-DB        | Prisma / TypeORM | 5.7+ / 0.3+ | 多数据库ORM  | 类型安全，多数据库支持，迁移管理  |
-| Message Queue   | Bull Queue       | 4.12+       | 任务队列     | Redis支持，任务重试，监控面板 |
-| Workflow Engine | BPMN.io          | 11.0+       | 工作流引擎    | 标准化，可视化，可扩展       |
+| 类别 | 技术 | 版本 | 用途 | 理由 |
+| --- | --- | --- | --- | --- |
+| AI Integration | Dify Platform | Latest | AI对话能力 | 专业AI平台，安全可靠，功能完善 |
+| Communication | PostMessage API | HTML5 | iframe通信 | 标准API，安全性好，兼容性强 |
+| Multi-DB | Prisma / TypeORM | 5.7+ / 0.3+ | 多数据库ORM | 类型安全，多数据库支持，迁移管理 |
+| Message Queue | Bull Queue | 4.12+ | 任务队列 | Redis支持，任务重试，监控面板 |
+| Workflow Engine | BPMN.io | 11.0+ | 工作流引擎 | 标准化，可视化，可扩展 |
 
 **技术选择理由：**
+
 - **保持一致性**： 继续使用现有 Vue Vben Admin 技术栈，降低学习成本
 - **企业级特性**： 选择成熟稳定的技术，确保系统可靠性
 - **开发效率**： 优先选择开发体验好的工具，提升团队生产力
@@ -234,6 +237,7 @@ graph TB
 - **扩展性**： 支持未来业务增长和技术演进
 
 ---
+
 ## Data Models
 
 ### User (用户模型)
@@ -241,6 +245,7 @@ graph TB
 **Purpose:** 表示系统用户，支持多公司架构和权限管理
 
 **Key Attributes:**
+
 - id: string - 用户唯一标识符
 - email: string - 邮箱地址（登录用）
 - username: string - 用户名
@@ -296,6 +301,7 @@ interface UserProfile {
 **Purpose:** 表示三家公司实体，支持数据隔离和独立配置
 
 **Key Attributes:**
+
 - id: string - 公司唯一标识符
 - name: string - 公司名称
 - code: string - 公司代码（用于数据路由）
@@ -348,6 +354,7 @@ interface CompanySettings {
 **Purpose:** 表示项目信息，支持甘特图和成本管理
 
 **Key Attributes:**
+
 - id: string - 项目唯一标识符
 - name: string - 项目名称
 - description: string - 项目描述
@@ -413,6 +420,7 @@ interface ProjectBudget {
 **Purpose:** 记录与AI助手的对话，支持多轮对话和上下文管理
 
 **Key Attributes:**
+
 - id: string - 对话唯一标识符
 - userId: string - 用户ID
 - agentType: AIAgentType - AI助手类型
@@ -468,6 +476,7 @@ interface ConversationContext {
 **Purpose:** 表示财务数据，支持多数据库和报表生成
 
 **Key Attributes:**
+
 - id: string - 记录唯一标识符
 - companyId: string - 公司ID
 - type: FinancialType - 财务类型
@@ -521,12 +530,14 @@ interface FinancialSource {
 ```
 
 #### Relationships
+
 - 关联 Company (多对一)
 - 关联 FinancialCategory (多对一)
 - 关联 User (审批人，多对一)
 - 关联 ApprovalRequest (一对多)
 
 **设计决策理由：**
+
 - **多租户支持**： 所有核心模型都包含 companyId，确保数据隔离
 - **审计追踪**： 包含创建时间、更新时间、审批信息等
 - **扩展性**： 使用元数据字段支持未来业务扩展
@@ -534,6 +545,7 @@ interface FinancialSource {
 - **关系完整性**： 清晰的模型关系定义
 
 ---
+
 ## API Specification
 
 ### REST API Specification
@@ -1434,7 +1446,9 @@ paths:
                             type: string
                             enum: [queued, processing, completed, failed]
 ```
+
 **API 设计理由：**
+
 - **RESTful 设计**： 遵循 REST 原则，使用标准 HTTP 方法
 - **统一响应格式**： 所有 API 使用统一的响应结构
 - **分页支持**： 列表接口支持分页，避免大数据量问题
@@ -1443,71 +1457,83 @@ paths:
 - **文档化**： 完整的 OpenAPI 3.0 规范，便于生成文档和 SDK
 
 ---
+
 ## Components
 
 ### Component List
 
 **API Gateway (API 网关)**
+
 - **Responsibility**: 统一入口处理所有 API 请求，实现认证、限流、路由和监控
 - **Key Interfaces**: HTTP/HTTPS 入口端点, JWT 认证中间件, 请求路由规则, 限流和熔断机制, 请求/响应日志记录
 - **Dependencies**: 认证服务、配置中心、监控系统
 - **Technology Stack**: Kong + Express.js 中间件 + Redis
 
 **Authentication Service (认证服务)**
+
 - **Responsibility**: 处理用户身份认证、授权和会话管理
 - **Key Interfaces**: /auth/login, /auth/refresh, /auth/logout, /auth/verify, /permissions/check
 - **Dependencies**: 用户数据库、Redis 缓存、邮件服务
 - **Technology Stack**: Node.js + Express.js + JWT + bcrypt + Redis
 
 **AI Integration Service (AI 集成服务)**
+
 - **Responsibility**: 管理与 Dify 平台的集成，处理 AI 对话和内容生成
 - **Key Interfaces**: /ai/conversations, /ai/agents/config, /ai/webhook/dify, PostMessage 通信接口, 文件上传/下载接口
 - **Dependencies**: Dify 平台、文件存储、对话数据库
 - **Technology Stack**: Node.js + Express.js + PostMessage API + iframe 沙箱
 
 **Multi-Database Access Layer (多数据库访问层)**
+
 - **Responsibility**: 提供统一的多数据库访问接口，支持不同公司的数据库连接
 - **Key Interfaces**: 数据库连接管理器, 查询路由器（基于公司代码）, 数据同步接口, 事务管理器, 连接池管理
 - **Dependencies**: MySQL、PostgreSQL、SQL Server、Redis
 - **Technology Stack**: Prisma ORM + TypeORM + 连接池管理器
 
 **Workflow Engine (工作流引擎)**
+
 - **Responsibility**: 管理审批流程、业务流程自动化和状态机控制
 - **Key Interfaces**: 流程定义接口, 流程实例管理, 任务分配和处理, 条件判断和路由, 流程监控接口
 - **Dependencies**: 用户服务、通知服务、数据库
 - **Technology Stack**: BPMN.js + Node.js + 状态机库
 
 **Financial Service (财务服务)**
+
 - **Responsibility**: 处理财务数据管理、报表生成和财务分析
 - **Key Interfaces**: 财务记录 CRUD, 报表生成接口, 数据同步接口, 财务分析接口, 预警通知接口
 - **Dependencies**: 多数据库连接器、报表引擎、通知服务
 - **Technology Stack**: Node.js + Excel.js + PDFKit + 数据分析库
 
 **Project Management Service (项目管理服务)**
+
 - **Responsibility**: 管理项目信息、甘特图、成本分析和团队协作
 - **Key Interfaces**: 项目 CRUD 操作, 甘特图数据接口, 成本分析接口, 团队管理接口, 进度跟踪接口
 - **Dependencies**: 用户服务、财务服务、通知服务
 - **Technology Stack**: Node.js + 甘特图库 + 数据分析库
 
 **DingTalk Integration Service (钉钉集成服务)**
+
 - **Responsibility**: 处理与钉钉 API 的集成，同步用户、组织架构和工作数据
 - **Key Interfaces**: 用户同步接口, 组织架构同步, 考勤数据获取, 工作记录同步, 消息推送接口
 - **Dependencies**: 钉钉 API、用户服务、数据库
 - **Technology Stack**: Node.js + 钉钉 SDK + HTTP 客户端
 
 **File Management Service (文件管理服务)**
+
 - **Responsibility**: 管理文件上传、存储、下载和版本控制
 - **Key Interfaces**: 文件上传/下载, 文件元数据管理, 版本控制接口, 权限检查接口, 文件预览接口
 - **Dependencies**: 阿里云 OSS、数据库、权限服务
 - **Technology Stack**: Node.js + OSS SDK + 文件处理库
 
 **Notification Service (通知服务)**
+
 - **Responsibility**: 管理系统通知、邮件发送和消息推送
 - **Key Interfaces**: 通知创建和发送, 邮件发送接口, 消息推送接口, 通知模板管理, 通知历史查询
 - **Dependencies**: 邮件服务、钉钉 API、数据库
 - **Technology Stack**: Node.js + Nodemailer + 消息队列
 
 **Frontend Application (前端应用)**
+
 - **Responsibility**: 提供用户界面，处理用户交互和状态管理
 - **Key Interfaces**: Vue 3 组件接口, 路由管理接口, 状态管理接口, API 客户端接口, 主题和配置接口
 - **Dependencies**: API 网关、AI 集成服务、文件服务
@@ -1642,6 +1668,7 @@ graph TD
 ```
 
 **组件设计理由：**
+
 - **单一职责**： 每个组件都有明确的职责边界
 - **松耦合**： 组件间通过标准接口通信，降低依赖
 - **高内聚**： 相关功能聚合在同一组件内
@@ -1649,9 +1676,11 @@ graph TD
 - **可测试**： 清晰的接口便于单元测试和集成测试
 
 ---
+
 ## External APIs
 
 ### Dify Platform API
+
 - **Purpose**: 提供 AI 对话能力，支持文档编辑、视频制作、财务分析等多种 AI 助手
 - **Documentation**: `https://docs.dify.ai/`
 - **Authentication**: API Key + JWT Token
@@ -1660,6 +1689,7 @@ graph TD
 - **Integration Notes**: 使用 iframe 嵌入方式集成 Dify 聊天界面，通过 PostMessage API 实现前后端安全通信
 
 ### DingTalk API
+
 - **Purpose**: 同步企业通信数据、组织架构和员工信息
 - **Documentation**: `https://open.dingtalk.com/document/`
 - **Authentication**: App Key + App Secret + Access Token
@@ -1668,6 +1698,7 @@ graph TD
 - **Integration Notes**: 实现增量数据同步，处理钉钉 API 的分页和限流
 
 ### 银行财务 API
+
 - **Purpose**: 获取银行账户信息、交易记录和财务对账数据
 - **Documentation**: 各银行不同的 API 文档
 - **Authentication**: API Key + 数字证书 + 签名验证
@@ -1676,6 +1707,7 @@ graph TD
 - **Integration Notes**: 不同银行需要不同的集成适配器，需要处理银行 API 的安全认证和数据加密
 
 ### 云存储 API (阿里云 OSS)
+
 - **Purpose**: 存储和管理文件，包括文档、图片、视频等
 - **Documentation**: `https://help.aliyun.com/product/31815.html`
 - **Authentication**: Access Key ID + Access Key Secret + STS Token
@@ -1684,6 +1716,7 @@ graph TD
 - **Integration Notes**: 实现文件上传的进度跟踪和断点续传，支持大文件分片上传
 
 ### 邮件服务 API (阿里云邮件推送)
+
 - **Purpose**: 发送系统通知、报表和提醒邮件
 - **Documentation**: `https://help.aliyun.com/product/29412.html`
 - **Authentication**: Access Key + Region ID
@@ -1692,6 +1725,7 @@ graph TD
 - **Integration Notes**: 实现邮件模板管理，支持邮件发送状态跟踪和统计
 
 ### 消息队列 API (阿里云 MQ)
+
 - **Purpose**: 处理异步任务和系统解耦
 - **Documentation**: `https://help.aliyun.com/product/29530.html`
 - **Authentication**: Access Key + Instance ID
@@ -1700,6 +1734,7 @@ graph TD
 - **Integration Notes**: 实现消息的可靠投递和重试机制，支持消息优先级和延迟消息
 
 **外部 API 集成策略：**
+
 - **统一适配器模式**： 为每个外部 API 创建适配器，统一接口格式
 - **错误处理和重试**： 实现指数退避重试和熔断机制
 - **监控和告警**： 监控 API 调用性能和可用性
@@ -1708,6 +1743,7 @@ graph TD
 - **数据同步**： 支持增量同步和冲突解决
 
 ---
+
 ## Core Workflows
 
 ### 用户认证和权限验证流程
@@ -1830,6 +1866,7 @@ sequenceDiagram
 ```
 
 ### 审批流程执行
+
 ```mermaid
 sequenceDiagram
     participant User as 申请人
@@ -1872,6 +1909,7 @@ sequenceDiagram
 ```
 
 ### 多数据源同步流程
+
 ```mermaid
 sequenceDiagram
     participant Admin as 管理员
@@ -1913,7 +1951,9 @@ sequenceDiagram
     Monitor-->>Frontend: 返回同步报告
     Frontend-->>Admin: 显示同步详情
 ```
+
 **工作流设计理由：**
+
 - **清晰的角色定义**： 每个参与者都有明确的职责
 - **错误处理**： 包含完整的错误处理和恢复机制
 - **异步处理**： 长时间任务使用异步模式，避免阻塞
@@ -1921,9 +1961,11 @@ sequenceDiagram
 - **用户体验**： 提供实时反馈和状态更新
 
 ---
+
 ## Database Schema
 
 ### 主数据库架构 (PostgreSQL)
+
 ```sql
 -- 用户表
 CREATE TABLE users (
@@ -1980,6 +2022,7 @@ CREATE INDEX idx_projects_company_id ON projects(company_id);
 ### 财务数据库架构 (各公司独立)
 
 #### 福建微柏 MySQL 财务数据库
+
 ```sql
 CREATE TABLE financial_records (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -1994,6 +2037,7 @@ CREATE TABLE financial_records (
 ```
 
 #### 福建鲤东 PostgreSQL 财务数据库
+
 ```sql
 CREATE TABLE financial_records (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2008,6 +2052,7 @@ CREATE TABLE financial_records (
 ```
 
 #### 成都鲤东 SQL Server 财务数据库
+
 ```sql
 CREATE TABLE financial_records (
     id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
@@ -2022,6 +2067,7 @@ CREATE TABLE financial_records (
 ```
 
 **数据库设计理由：**
+
 - **多数据库支持**： 针对不同公司的现有数据库架构设计
 - **数据隔离**： 每个公司使用独立的数据库实例
 - **标准化和定制化**： 主数据库统一管理用户和权限，财务数据库适配现有系统
@@ -2031,11 +2077,13 @@ CREATE TABLE financial_records (
 - **数据完整性**： 使用外键约束确保数据一致性
 
 ---
+
 ## Frontend Architecture
 
 ### Component Architecture
 
 #### Component Organization
+
 ```
 src/
 ├── components/           # 通用组件
@@ -2080,6 +2128,7 @@ src/
 - **服务模块化**： 按业务域（如 `projectsAPI`, `authAPI`）创建独立的服务文件，封装所有相关 API 调用。
 
 **前端架构设计理由：**
+
 - **组件化设计**： 基于功能域的组件拆分，提高复用性
 - **类型安全**： 完整的 TypeScript 类型定义
 - **状态管理**： 使用 Pinia 进行统一状态管理
@@ -2089,6 +2138,7 @@ src/
 - **性能优化**： 路由懒加载和组件缓存
 
 ---
+
 ## Backend Architecture
 
 ### Service Architecture
@@ -2096,6 +2146,7 @@ src/
 采用混合架构：核心服务使用容器化部署，AI 集成和报表生成等计算密集型服务使用 Serverless 架构。
 
 #### Function Organization
+
 ```
 backend-services/
 ├── api-gateway/         # API网关服务
@@ -2107,10 +2158,12 @@ backend-services/
 ```
 
 ### Database Architecture
+
 - **Schema Design**： 使用 TypeORM 或 Prisma 等 ORM 定义实体模型，与数据库表结构对应。
 - **Data Access Layer**: 采用 Repository 模式，为每个实体创建一个 Repository 类，封装所有数据库操作。这使得业务逻辑与数据访问逻辑分离，便于测试和维护。
 
 ### Authentication and Authorization
+
 - **Auth Flow**: 用户登录时，认证服务验证凭据，生成 JWT Access Token 和 Refresh Token。Access Token 用于后续 API 请求，Refresh Token 用于在 Access Token 过期时获取新的 Token。
 - **Middleware/Guards**:
   - **authMiddleware**: 验证 JWT Token 的有效性，解析用户信息并附加到请求对象上。
@@ -2119,6 +2172,7 @@ backend-services/
   - **requireCompanyAccess**: 验证用户是否有权访问 `X-Company-Code` 头指定的公司数据。
 
 **后端架构设计理由：**
+
 - **微服务架构**： 按业务域拆分服务，支持独立部署和扩展
 - **Serverless 混合**： 核心服务容器化，计算密集型服务 Serverless
 - **数据访问层**： 统一的 Repository 模式，支持多种数据库
@@ -2128,7 +2182,9 @@ backend-services/
 - **可扩展性**： 支持水平扩展和负载均衡
 
 ---
+
 ## Unified Project Structure
+
 ```
 factoryos/
 ├── .github/                 # GitHub Actions CI/CD
@@ -2153,23 +2209,29 @@ factoryos/
 ```
 
 ---
+
 ## Development Workflow
+
 - **Local Setup**: 提供自动化的 `setup-env.sh` 脚本，用于安装依赖、设置环境变量、启动 Docker 容器（数据库、Redis）和运行数据库迁移。
 - **Development Commands**: 使用 `pnpm` 和 `turbo` 提供的脚本来启动开发服务器、运行测试、检查代码质量和构建项目。
 - **Environment Configuration**: 通过 `.env.local` (前端) 和 `.env` (后端) 文件管理不同环境的配置。
 - **Workflow**: 采用基于 Git Flow 的功能分支开发模式，通过 Pull Request 进行代码审查，自动化 CI/CD 流程触发测试和部署。
 
 ---
+
 ## Deployment Architecture
 
 ### Deployment Strategy
+
 - **Frontend Deployment**: 使用 Vercel 或 阿里云 CDN + OSS 进行部署，利用其全球边缘节点实现低延迟访问。
 - **Backend Deployment**:
   - **核心微服务**: 使用 Docker 容器化，并通过 Kubernetes 或 阿里云 ECS + Docker Compose 进行编排和部署。
   - **Serverless 函数**: AI 相关服务部署到 AWS Lambda 或 阿里云函数计算，实现按需扩展和成本优化。
 
 ### CI/CD Pipeline
+
 使用 GitHub Actions 实现自动化 CI/CD 流程：
+
 1. **Push/PR Trigger**: 在 `main` 或 `develop` 分支上触发。
 2. **Lint & Test**: 运行代码检查、类型检查、单元测试和 E2E 测试。
 3. **Security Scan**: 运行 Snyk 或类似的工具进行安全漏洞扫描。
@@ -2179,22 +2241,26 @@ factoryos/
    - `main` 分支的成功构建将自动部署到 **Production** 环境。
 
 ### Environments
-| 环境          | 前端URL                         | 后端URL                             | 用途   |
-|-------------|-------------------------------|-----------------------------------|------|
-| Development | http://localhost:3000         | http://localhost:3000/api         | 本地开发 |
-| Staging     | https://staging.factoryos.com | https://staging-api.factoryos.com | 测试环境 |
-| Production  | https://factoryos.com         | https://api.factoryos.com         | 生产环境 |
+
+| 环境 | 前端URL | 后端URL | 用途 |
+| --- | --- | --- | --- |
+| Development | http://localhost:3000 | http://localhost:3000/api | 本地开发 |
+| Staging | https://staging.factoryos.com | https://staging-api.factoryos.com | 测试环境 |
+| Production | https://factoryos.com | https://api.factoryos.com | 生产环境 |
 
 ---
+
 ## Security and Performance
 
 ### Security Requirements
+
 - **Frontend**: 实施严格的 `Content-Security-Policy` (CSP) 头，使用 `HttpOnly` cookies，对用户输入进行清理以防止 XSS。
 - **Backend**: 所有 API 端点都进行输入验证，实施严格的 CORS策略，使用参数化查询防止 SQL 注入。
 - **Rate Limiting**: 对 API 网关和认证接口实施速率限制，防止暴力破解和 DoS 攻击。
 - **Authentication**: 采用强密码策略，多因素认证（MFA），并安全管理会话。
 
 ### Performance Optimization
+
 - **Frontend**:
   - **代码分割**: 按路由懒加载组件。
   - **资源优化**: 压缩图片，使用 WebP 格式。
@@ -2205,20 +2271,25 @@ factoryos/
   - **异步处理**: 使用消息队列处理耗时任务（如报表生成）。
 
 ---
+
 ## Testing Strategy
 
 ### Testing Pyramid
+
 - **Unit Tests (70%)**: 使用 Vitest (前端) 和 Jest (后端) 对单个组件、函数和类进行测试。
 - **Integration Tests (20%)**: 测试服务与数据库、外部 API 等的交互。
 - **E2E Tests (10%)**: 使用 Playwright 模拟真实用户流程，覆盖关键业务场景。
 
 ### Test Organization
+
 测试代码与源代码并存，遵循 `*.test.ts` (单元/集成) 和 `*.spec.ts` (E2E) 的命名约定。测试将在 CI 流程中自动运行，不通过的构建将无法合并和部署。
 
 ---
+
 ## Coding Standards
 
 ### Critical Fullstack Rules
+
 - **多公司数据隔离**: 所有数据库查询必须包含 `companyId` 过滤条件。
 - **AI安全集成**: 与Dify的通信必须通过`PostMessage` API，所有消息必须验证和过滤。
 - **权限验证**: 所有API端点必须实现权限检查。
@@ -2227,22 +2298,27 @@ factoryos/
 - **敏感数据处理**: 密码、Token等敏感信息必须加密存储，日志中禁止记录。
 
 ### Naming Conventions
-| 元素    | 前端                   | 后端               | 示例                     |
-|-------|----------------------|------------------|--------------------------|
-| 组件    | PascalCase           | -                | `UserProfile.vue`        |
-| 钩子函数  | camelCase with 'use' | -                | `useAuth.ts`             |
-| API路由 | -                    | kebab-case       | `/api/user-profile`      |
-| 数据库表  | -                    | snake_case       | `users`, `ai_conversations` |
-| 变量/函数 | camelCase            | camelCase        | `getUserData()`          |
+
+| 元素      | 前端                 | 后端       | 示例                        |
+| --------- | -------------------- | ---------- | --------------------------- |
+| 组件      | PascalCase           | -          | `UserProfile.vue`           |
+| 钩子函数  | camelCase with 'use' | -          | `useAuth.ts`                |
+| API路由   | -                    | kebab-case | `/api/user-profile`         |
+| 数据库表  | -                    | snake_case | `users`, `ai_conversations` |
+| 变量/函数 | camelCase            | camelCase  | `getUserData()`             |
 
 ---
+
 ## Error Handling Strategy
+
 - **Error Response Format**: 定义统一的 JSON 错误响应结构，包含 `code`, `message`, `requestId` 和 `details`。
 - **Frontend Handling**: 创建一个全局错误处理服务，捕获 API 错误、网络错误和 JavaScript 运行时错误，向用户显示友好的通知，并将详细信息发送到监控系统。
 - **Backend Handling**: 使用全局错误处理中间件捕获所有未处理的异常，记录详细日志，并向客户端返回标准化的错误响应。
 
 ---
+
 ## Monitoring and Observability
+
 - **Monitoring Stack**: Prometheus + Grafana (后端)，Sentry (前端错误追踪)，ELK Stack (日志聚合)。
 - **Key Metrics**:
   - **Frontend**: Core Web Vitals, JS 错误率, API 响应时间。
@@ -2250,6 +2326,7 @@ factoryos/
   - **AI Service**: AI 对话成功率, 平均响应时间, Token 使用量。
 
 ---
+
 ## Summary
 
 该架构设计为FactoryOS企业级AI协作平台提供了一个健壮、安全且可扩展的技术基础。它通过微服务、多租户设计和现代化的全栈技术，能够有效支持三家公司的复杂业务需求，同时确保系统的高可用性和高性能。下一步是基于此文档制定详细的开发计划，并开始搭建项目的基础设施。
