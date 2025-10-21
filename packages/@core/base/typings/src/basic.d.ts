@@ -13,17 +13,21 @@ interface BasicUserInfo {
    */
   avatar: string;
   /**
+   * 用户id
+   */
+  id: string;
+  /**
    * 用户昵称
    */
   realName: string;
   /**
-   * 用户角色
+   * 用户权限数组
+   */
+  roleIdList: string[];
+  /**
+   * 用户身份权限列表
    */
   roles?: string[];
-  /**
-   * 用户id
-   */
-  userId: string;
   /**
    * 用户名
    */

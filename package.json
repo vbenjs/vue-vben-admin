@@ -81,6 +81,7 @@
     "vue": "catalog:",
     "vue-tsc": "catalog:"
   },
+  "packageManager": "pnpm@10.15.1",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {

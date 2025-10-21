@@ -1609,6 +1609,9 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
+      '@vben/request':
+        specifier: workspace:*
+        version: link:../effects/request
       vue:
         specifier: ^3.5.17
         version: 3.5.21(typescript@5.9.2)
