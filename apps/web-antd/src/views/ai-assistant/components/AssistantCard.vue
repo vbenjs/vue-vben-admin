@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { AssistantConfig } from '#/types/ai-assistant';
 
-import { Card, Badge } from 'ant-design-vue';
 import { computed } from 'vue';
+
+import { Badge, Card } from 'ant-design-vue';
 
 interface Props {
   assistant: AssistantConfig;
@@ -57,13 +58,11 @@ const handleClick = () => {
 
 <template>
   <Card
-    :class="[
-      'assistant-card',
-      {
-        'assistant-card--disabled': disabled || !assistant.enabled,
-        'assistant-card--clickable': !disabled && assistant.enabled,
-      },
-    ]"
+    class="assistant-card"
+    :class="{
+      'assistant-card--disabled': disabled || !assistant.enabled,
+      'assistant-card--clickable': !disabled && assistant.enabled,
+    }"
     hoverable
     @click="handleClick"
   >
@@ -102,8 +101,8 @@ const handleClick = () => {
 <style scoped>
 .assistant-card {
   height: 100%;
-  background: hsl(var(--card));
   color: hsl(var(--card-foreground));
+  background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   transition: all 0.3s ease;
 }
@@ -135,7 +134,7 @@ const handleClick = () => {
   background: linear-gradient(
     135deg,
     hsl(var(--primary)) 0%,
-    hsl(var(--primary) / 0.8) 100%
+    hsl(var(--primary) / 80%) 100%
   );
 }
 
@@ -145,7 +144,7 @@ const handleClick = () => {
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: hsl(var(--card-foreground) / 0.12);
+  background: hsl(var(--card-foreground) / 12%);
   border-radius: 50%;
   backdrop-filter: blur(10px);
 }

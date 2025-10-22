@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import type { AssistantConfig, AssistantType } from '#/types/ai-assistant';
 
-import { getAssistantConfigsApi } from '#/api/ai-assistant';
 import AssistantCard from '../components/AssistantCard.vue';
 
 import { Row, Col, Spin, Empty, Input, Select, Alert } from 'ant-design-vue';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@vben/stores';
 import { Search } from '@vben/icons';
 
 const router = useRouter();
-const userStore = useUserStore();
 
 // 状态管理
 const loading = ref(false);
@@ -30,20 +27,9 @@ const assistantTypeOptions = [
   { label: '法律审查', value: 'legal' },
 ];
 
-// 检查用户是否有权限访问某个助手
+// 检查用户是否有权限访问某个助手 (简化版，允许所有人访问)
 const hasPermission = (permissions: string[]) => {
-  // 如果没有权限要求,则所有人都可以访问
-  if (!permissions || permissions.length === 0) {
-    return true;
-  }
-
-  // 获取用户的权限代码
-  const userPermissions = userStore.userInfo?.roles || [];
-
-  // 检查用户是否有任一所需权限
-  return permissions.some((permission) =>
-    userPermissions.some((role: any) => role === permission || role.code === permission),
-  );
+  return true;
 };
 
 // 过滤后的助手列表
@@ -190,7 +176,8 @@ const fetchAssistants = async () => {
 
 // 导航到助手详情页
 const navigateToAssistant = (type: AssistantType) => {
-  router.push(`/ai-assistant/${type}`);
+  // 直接导航到聊天页面
+  router.push('/ai-assistant/chat');
 };
 
 // 重试加载
@@ -250,7 +237,7 @@ onMounted(() => {
     >
       <template #description>
         <p>无法加载AI助手配置,请检查网络连接或稍后重试。</p>
-        <a-button type="primary" @click="retry" class="mt-2">重试</a-button>
+        <Button type="primary" @click="retry" class="mt-2">重试</Button>
       </template>
     </Alert>
 
@@ -352,10 +339,10 @@ onMounted(() => {
   justify-content: center;
   min-height: 400px;
   padding: 48px;
-  background: hsl(var(--card));
-  border-radius: 8px;
-  border: 1px solid hsl(var(--border));
   color: hsl(var(--muted-foreground));
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
 }
 
 @media (max-width: 768px) {

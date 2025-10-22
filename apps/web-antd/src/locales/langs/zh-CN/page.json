@@ -10,5 +10,10 @@
     "title": "概览",
     "analytics": "分析页",
     "workspace": "工作台"
+  },
+  "aiAssistant": {
+    "title": "AI助手",
+    "hub": "助手中心",
+    "chat": "智能对话"
   }
 }

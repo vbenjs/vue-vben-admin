@@ -10,5 +10,10 @@
     "title": "Dashboard",
     "analytics": "Analytics",
     "workspace": "Workspace"
+  },
+  "aiAssistant": {
+    "title": "AI Assistant",
+    "hub": "Assistant Hub",
+    "chat": "Smart Chat"
   }
 }
