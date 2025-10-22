@@ -22,12 +22,8 @@ interface Props {
   timezone?: string;
 }
 
-interface Listener {
-  change: (timezone: string) => void;
-}
-
 const props = defineProps<Props>();
-const emit = defineEmits<Listener>();
+const emit = defineEmits<{ change: [string] }>();
 
 const TimezoneIcon = createIconifyIcon('fluent-mdl2:world-clock');
 
