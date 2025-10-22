@@ -1,17 +1,13 @@
-import type {
-  VbenFormSchema as FormSchema,
-  VbenFormProps,
-} from '@vben/common-ui';
+import type { VbenFormProps, VbenFormSchema as FormSchema } from "@vben/common-ui";
+import { setupVbenForm, useVbenForm as useForm, z } from "@vben/common-ui";
 
-import type { ComponentType } from './component';
-
-import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
-import { $t } from '@vben/locales';
+import type { ComponentType } from "./component";
+import { $t } from "@vben/locales";
 
 async function initSetupVbenForm() {
   setupVbenForm<ComponentType>({
     config: {
-      // ant design vue组件库默认都是 v-model:value
+      // tdesign组件库默认都是 v-model:value
       baseModelPropName: 'value',
 
       // 一些组件是 v-model:checked 或者 v-model:fileList

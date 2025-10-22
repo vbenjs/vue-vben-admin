@@ -9,6 +9,7 @@ import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
 import { notification } from 'ant-design-vue';
+
 /**
  * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
@@ -178,11 +179,27 @@ async function initComponentAdapter() {
     // Mentions: withDefaultPlaceholder(Mentions, 'input'),
     // 自定义主要按钮
     PrimaryButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, theme: 'primary' }, slots);
+      let ghost = false;
+      let variant = props.variant;
+      if (props.variant === 'ghost') {
+        ghost = true;
+        variant = 'base';
+      }
+      return h(
+        Button,
+        { ...props, ghost, variant, attrs, theme: 'default' },
+        slots,
+      );
     },
     Radio,
     RadioGroup,
-    RangePicker,
+    RangePicker: (props, { attrs, slots }) => {
+      return h(
+        RangePicker,
+        { ...props, modelValue: props.modelValue ?? [], attrs },
+        slots,
+      );
+    },
     Rate,
     Select: withDefaultPlaceholder(Select, 'select'),
     Space,

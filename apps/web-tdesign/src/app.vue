@@ -1,39 +1,32 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { onMounted } from "vue";
 
-import { useAntdDesignTokens } from '@vben/hooks';
-import { preferences, usePreferences } from '@vben/preferences';
+import { usePreferences } from "@vben/preferences";
+import { merge } from "@vben/utils";
 
-import { App, ConfigProvider, theme } from 'ant-design-vue';
-
-import { antdLocale } from '#/locales';
+import { ConfigProvider } from "tdesign-vue-next";
+import zhConfig from "tdesign-vue-next/es/locale/zh_CN";
 
 defineOptions({ name: 'App' });
-
 const { isDark } = usePreferences();
-const { tokens } = useAntdDesignTokens();
 
-const tokenTheme = computed(() => {
-  const algorithm = isDark.value
-    ? [theme.darkAlgorithm]
-    : [theme.defaultAlgorithm];
+onMounted(() => {
+  document.documentElement.setAttribute(
+    'theme-mode',
+    isDark.value ? 'dark' : '',
+  );
+});
 
-  // antd 紧凑模式算法
-  if (preferences.app.compact) {
-    algorithm.push(theme.compactAlgorithm);
-  }
-
-  return {
-    algorithm,
-    token: tokens,
-  };
+const globalConfig = merge(zhConfig, {
+  // 可以在此处定义更多自定义配置，具体可配置内容参看 API 文档
+  calendar: {},
+  table: {},
+  pagination: {},
 });
 </script>
 
 <template>
-  <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
-    <App>
+  <ConfigProvider :global-config="globalConfig">
       <RouterView />
-    </App>
   </ConfigProvider>
 </template>
