@@ -16,7 +16,7 @@ import {
 interface Props {
   timezoneOptions: string[];
   okHandler?: (
-    modalApi?: ExtendedModalApi,
+    modalApi: ExtendedModalApi,
     timezone?: string,
   ) => Promise<void> | void;
   timezone?: string;
