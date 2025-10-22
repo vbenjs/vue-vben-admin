@@ -70,7 +70,7 @@ const handleClickItem = (timezone: string) => {
             @click="handleClickItem(item)"
           >
             <RadioGroupItem :id="item" :value="item" />
-            <label class="cursor-pointer">{{ item }}</label>
+            <label :for="item" class="cursor-pointer">{{ item }}</label>
           </div>
         </RadioGroup>
       </div>
@@ -79,7 +79,7 @@ const handleClickItem = (timezone: string) => {
 </template>
 
 <style scoped>
-.container {
+.timezone-container {
   padding-left: 20px;
 }
 </style>

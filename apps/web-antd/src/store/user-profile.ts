@@ -38,7 +38,9 @@ const useUserProfileStore = defineStore('user-profile', () => {
     }
   }
 
-  initTimezone();
+  initTimezone().catch((error) => {
+    console.error('Failed to initialize timezone during store setup:', error);
+  });
 
   return {
     timezone: timezoneRef,
