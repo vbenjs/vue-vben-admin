@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Card, Button } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
+
+import { Button, Card } from 'ant-design-vue';
 
 const router = useRouter();
 
@@ -27,9 +28,7 @@ const goToHub = () => {
           <Button type="primary" @click="goToChat" style="margin-right: 16px">
             前往聊天页面
           </Button>
-          <Button @click="goToHub">
-            前往助手中心
-          </Button>
+          <Button @click="goToHub"> 前往助手中心 </Button>
         </div>
       </div>
     </Card>

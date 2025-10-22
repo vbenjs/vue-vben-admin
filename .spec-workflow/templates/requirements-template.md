@@ -32,19 +32,24 @@
 ## Non-Functional Requirements
 
 ### Code Architecture and Modularity
+
 - **Single Responsibility Principle**: Each file should have a single, well-defined purpose
 - **Modular Design**: Components, utilities, and services should be isolated and reusable
 - **Dependency Management**: Minimize interdependencies between modules
 - **Clear Interfaces**: Define clean contracts between components and layers
 
 ### Performance
+
 - [Performance requirements]
 
 ### Security
+
 - [Security requirements]
 
 ### Reliability
+
 - [Reliability requirements]
 
 ### Usability
+
 - [Usability requirements]

@@ -8,7 +8,7 @@
 Example for a library/package:
 project-root/
 ├── src/                    # Source code
-├── tests/                  # Test files  
+├── tests/                  # Test files
 ├── docs/                   # Documentation
 ├── examples/               # Usage examples
 └── [build/dist/out]        # Build output
@@ -31,12 +31,14 @@ Common patterns:
 ## Naming Conventions
 
 ### Files
+
 - **Components/Modules**: [e.g., `PascalCase`, `snake_case`, `kebab-case`]
 - **Services/Handlers**: [e.g., `UserService`, `user_service`, `user-service`]
 - **Utilities/Helpers**: [e.g., `dateUtils`, `date_utils`, `date-utils`]
 - **Tests**: [e.g., `[filename]_test`, `[filename].test`, `[filename]Test`]
 
 ### Code
+
 - **Classes/Types**: [e.g., `PascalCase`, `CamelCase`, `snake_case`]
 - **Functions/Methods**: [e.g., `camelCase`, `snake_case`, `PascalCase`]
 - **Constants**: [e.g., `UPPER_SNAKE_CASE`, `SCREAMING_CASE`, `PascalCase`]
@@ -45,12 +47,14 @@ Common patterns:
 ## Import Patterns
 
 ### Import Order
+
 1. External dependencies
 2. Internal modules
 3. Relative imports
 4. Style imports
 
 ### Module/Package Organization
+
 ```
 [Describe your project's import/include patterns]
 Examples:
@@ -65,6 +69,7 @@ Examples:
 [Define common patterns for organizing code within files. Below are examples - choose what applies to your project]
 
 ### Module/Class Organization
+
 ```
 Example patterns:
 1. Imports/includes/dependencies
@@ -76,6 +81,7 @@ Example patterns:
 ```
 
 ### Function/Method Organization
+
 ```
 Example patterns:
 - Input validation first
@@ -85,6 +91,7 @@ Example patterns:
 ```
 
 ### File Organization Principles
+
 ```
 Choose what works for your project:
 - One class/module per file
@@ -101,28 +108,34 @@ Choose what works for your project:
 4. **Consistency**: Follow patterns established in the codebase
 
 ## Module Boundaries
+
 [Define how different parts of your project interact and maintain separation of concerns]
 
 Examples of boundary patterns:
+
 - **Core vs Plugins**: Core functionality vs extensible plugins
-- **Public API vs Internal**: What's exposed vs implementation details  
+- **Public API vs Internal**: What's exposed vs implementation details
 - **Platform-specific vs Cross-platform**: OS-specific code isolation
 - **Stable vs Experimental**: Production code vs experimental features
 - **Dependencies direction**: Which modules can depend on which
 
 ## Code Size Guidelines
+
 [Define your project's guidelines for file and function sizes]
 
 Suggested guidelines:
+
 - **File size**: [Define maximum lines per file]
 - **Function/Method size**: [Define maximum lines per function]
 - **Class/Module complexity**: [Define complexity limits]
 - **Nesting depth**: [Maximum nesting levels]
 
 ## Dashboard/Monitoring Structure (if applicable)
+
 [How dashboard or monitoring components are organized]
 
 ### Example Structure:
+
 ```
 src/
 └── dashboard/          # Self-contained dashboard subsystem
@@ -133,12 +146,14 @@ src/
 ```
 
 ### Separation of Concerns
+
 - Dashboard isolated from core business logic
 - Own CLI entry point for independent operation
 - Minimal dependencies on main application
 - Can be disabled without affecting core functionality
 
 ## Documentation Standards
+
 - All public APIs must have documentation
 - Complex logic should include inline comments
 - README files for major modules

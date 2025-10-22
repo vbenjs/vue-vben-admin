@@ -2,7 +2,12 @@
  * AI助手相关类型定义
  */
 
-export type AssistantType = 'document' | 'video' | 'financial' | 'technical' | 'legal';
+export type AssistantType =
+  | 'document'
+  | 'financial'
+  | 'legal'
+  | 'technical'
+  | 'video';
 
 export interface AssistantSettings {
   /** 最大文件大小（字节） */

@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import type { AssistantConfig, AssistantType } from '#/types/ai-assistant';
 
-import AssistantCard from '../components/AssistantCard.vue';
-
-import { Row, Col, Spin, Empty, Input, Select, Alert } from 'ant-design-vue';
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 import { Search } from '@vben/icons';
+
+import { Alert, Col, Empty, Input, Row, Select, Spin } from 'ant-design-vue';
+
+import AssistantCard from '../components/AssistantCard.vue';
 
 const router = useRouter();
 
 // 状态管理
 const loading = ref(false);
 const assistants = ref<AssistantConfig[]>([]);
-const error = ref<string | null>(null);
+const error = ref<null | string>(null);
 const searchQuery = ref('');
-const filterType = ref<AssistantType | 'all'>('all');
+const filterType = ref<'all' | AssistantType>('all');
 
 // 助手类型选项
 const assistantTypeOptions = [
@@ -65,7 +67,7 @@ const fetchAssistants = async () => {
   try {
     // 临时使用Mock数据,等后端API准备好后再切换
     // const response = await getAssistantConfigsApi();
-    
+
     // Mock数据
     const mockAssistants: AssistantConfig[] = [
       {
@@ -80,7 +82,7 @@ const fetchAssistants = async () => {
         usageCount: 1250,
         lastUsed: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2小时前
         settings: {
-          maxFileSize: 10485760,
+          maxFileSize: 10_485_760,
           allowedFileTypes: ['.doc', '.docx', '.pdf'],
           maxConversationLength: 100,
           enableQualityControl: true,
@@ -99,7 +101,7 @@ const fetchAssistants = async () => {
         usageCount: 856,
         lastUsed: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1天前
         settings: {
-          maxFileSize: 104857600,
+          maxFileSize: 104_857_600,
           allowedFileTypes: ['.mp4', '.avi', '.mov'],
           maxConversationLength: 50,
           enableQualityControl: true,
@@ -118,7 +120,7 @@ const fetchAssistants = async () => {
         usageCount: 2340,
         lastUsed: new Date(Date.now() - 30 * 60 * 1000), // 30分钟前
         settings: {
-          maxFileSize: 5242880,
+          maxFileSize: 5_242_880,
           allowedFileTypes: ['.xlsx', '.csv'],
           maxConversationLength: 100,
           enableQualityControl: true,
@@ -137,7 +139,7 @@ const fetchAssistants = async () => {
         usageCount: 3120,
         lastUsed: new Date(Date.now() - 10 * 60 * 1000), // 10分钟前
         settings: {
-          maxFileSize: 2097152,
+          maxFileSize: 2_097_152,
           allowedFileTypes: ['.txt', '.log'],
           maxConversationLength: 150,
           enableQualityControl: true,
@@ -156,7 +158,7 @@ const fetchAssistants = async () => {
         usageCount: 567,
         lastUsed: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7天前
         settings: {
-          maxFileSize: 10485760,
+          maxFileSize: 10_485_760,
           allowedFileTypes: ['.pdf', '.doc', '.docx'],
           maxConversationLength: 100,
           enableQualityControl: true,
@@ -164,11 +166,11 @@ const fetchAssistants = async () => {
         },
       },
     ];
-    
+
     assistants.value = mockAssistants;
-  } catch (err: any) {
-    error.value = err.message || '加载AI助手配置失败';
-    console.error('Failed to fetch assistants:', err);
+  } catch (error_: any) {
+    error.value = error_.message || '加载AI助手配置失败';
+    console.error('Failed to fetch assistants:', error_);
   } finally {
     loading.value = false;
   }
@@ -262,11 +264,7 @@ onMounted(() => {
     </div>
 
     <!-- 空状态 -->
-    <Empty
-      v-else
-      description="没有找到匹配的AI助手"
-      class="hub-empty"
-    >
+    <Empty v-else description="没有找到匹配的AI助手" class="hub-empty">
       <template #image>
         <span class="text-6xl">🤖</span>
       </template>
