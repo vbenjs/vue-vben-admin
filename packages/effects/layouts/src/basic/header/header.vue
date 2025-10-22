@@ -66,15 +66,21 @@ const rightSlots = computed(() => {
       name: 'language-toggle',
     });
   }
-  if (preferences.widget.fullscreen) {
+  if (preferences.widget.timezone) {
     list.push({
       index: REFERENCE_VALUE + 40,
+      name: 'timezone',
+    });
+  }
+  if (preferences.widget.fullscreen) {
+    list.push({
+      index: REFERENCE_VALUE + 50,
       name: 'fullscreen',
     });
   }
   if (preferences.widget.notification) {
     list.push({
-      index: REFERENCE_VALUE + 50,
+      index: REFERENCE_VALUE + 60,
       name: 'notification',
     });
   }
