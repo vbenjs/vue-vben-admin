@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { h, onMounted, onUnmounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { ArrowLeft, Maximize, Minimize } from '@vben/icons';
+import { onMounted, ref } from 'vue';
 
 import { Alert, Button, Card, Spin } from 'ant-design-vue';
 
-const router = useRouter();
 const isLoading = ref(true);
 const hasError = ref(false);
-const isFullscreen = ref(false);
-const chatContainer = ref<HTMLElement>();
 
 // Dify 聊天机器人配置
 const DIFY_URL = 'https://dify.icerain.love/chatbot/wzr4NzKNvUuhiHhL';
@@ -24,33 +18,6 @@ onMounted(() => {
     isLoading.value = false;
   }, 2000);
 });
-
-/**
- * 页面卸载时的清理工作
- */
-onUnmounted(() => {
-  // 清理事件监听器等
-});
-
-/**
- * 返回助手中心
- */
-const goBack = () => {
-  router.push('/ai-assistant');
-};
-
-/**
- * 切换全屏模式
- */
-const toggleFullscreen = () => {
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
-    isFullscreen.value = false;
-  } else {
-    chatContainer.value?.requestFullscreen();
-    isFullscreen.value = true;
-  }
-};
 
 /**
  * iframe 加载完成回调
@@ -67,51 +34,10 @@ const onIframeError = () => {
   isLoading.value = false;
   hasError.value = true;
 };
-
-/**
- * 监听全屏状态变化
- */
-const handleFullscreenChange = () => {
-  isFullscreen.value = !!document.fullscreenElement;
-};
-
-// 添加全屏状态监听
-onMounted(() => {
-  document.addEventListener('fullscreenchange', handleFullscreenChange);
-});
-
-onUnmounted(() => {
-  document.removeEventListener('fullscreenchange', handleFullscreenChange);
-});
 </script>
 
 <template>
-  <div class="ai-chat-page" ref="chatContainer">
-    <!-- 页面头部 -->
-    <div class="chat-header">
-      <div class="header-left">
-        <Button
-          type="text"
-          :icon="h(ArrowLeft)"
-          @click="goBack"
-          class="back-button"
-        >
-          返回助手中心
-        </Button>
-      </div>
-      <div class="header-right">
-        <Button
-          type="text"
-          :icon="isFullscreen ? h(Minimize) : h(Maximize)"
-          @click="toggleFullscreen"
-          class="fullscreen-button"
-          :title="isFullscreen ? '退出全屏' : '全屏模式'"
-        >
-          {{ isFullscreen ? '退出全屏' : '全屏' }}
-        </Button>
-      </div>
-    </div>
-
+  <div class="ai-chat-page">
     <!-- 聊天内容区域 -->
     <div class="chat-content">
       <!-- 加载状态 -->
@@ -146,15 +72,17 @@ onUnmounted(() => {
       <!-- 聊天 iframe -->
       <div v-else class="iframe-container">
         <Card class="chat-card">
-          <iframe
-            :src="DIFY_URL"
-            class="chat-iframe"
-            frameborder="0"
-            allow="microphone"
-            @load="onIframeLoad"
-            @error="onIframeError"
-            title="AI智能助手对话界面"
-          ></iframe>
+          <div class="iframe-wrapper">
+            <iframe
+              :src="DIFY_URL"
+              class="chat-iframe"
+              frameborder="0"
+              allow="microphone"
+              @load="onIframeLoad"
+              @error="onIframeError"
+              title="AI智能助手对话界面"
+            ></iframe>
+          </div>
         </Card>
       </div>
     </div>
@@ -165,24 +93,8 @@ onUnmounted(() => {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .ai-chat-page {
-    height: calc(100vh - 48px);
-  }
-
-  .chat-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 12px 16px;
-  }
-
-  .header-left {
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .header-right {
-    justify-content: flex-end;
-    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 48px);
   }
 
   .chat-content {
@@ -201,14 +113,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 480px) {
-  .back-button span {
-    display: none;
-  }
-
-  .fullscreen-button span {
-    display: none;
-  }
-
   .chat-content {
     padding: 8px;
   }
@@ -217,74 +121,18 @@ onUnmounted(() => {
 .ai-chat-page {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 64px);
+  height: 100%;
+  min-height: calc(100vh - 100px);
   overflow: hidden;
   background: hsl(var(--background));
 }
 
-/* 页面头部 */
-.chat-header {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  background: hsl(var(--card));
-  border-bottom: 1px solid hsl(var(--border));
-}
-
-.header-left {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.back-button {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: hsl(var(--muted-foreground));
-  transition: color 0.2s ease;
-}
-
-.back-button:hover {
-  color: hsl(var(--primary));
-}
-
-.header-title h1 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: hsl(var(--foreground));
-}
-
-.header-title p {
-  margin: 4px 0 0;
-  font-size: 14px;
-  color: hsl(var(--muted-foreground));
-}
-
-.header-right {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.fullscreen-button {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  color: hsl(var(--muted-foreground));
-  transition: color 0.2s ease;
-}
-
-.fullscreen-button:hover {
-  color: hsl(var(--primary));
-}
-
 /* 聊天内容区域 */
 .chat-content {
+  box-sizing: border-box;
+  display: flex;
   flex: 1;
+  flex-direction: column;
   padding: 24px;
   overflow: hidden;
 }
@@ -293,7 +141,8 @@ onUnmounted(() => {
 .error-container,
 .iframe-container {
   display: flex;
-  align-items: center;
+  flex: 1;
+  align-items: stretch;
   justify-content: center;
   height: 100%;
 }
@@ -302,9 +151,12 @@ onUnmounted(() => {
 .error-card,
 .chat-card {
   width: 100%;
-  max-width: 1200px;
   height: 100%;
-  max-height: 800px;
+}
+
+.chat-card {
+  display: flex;
+  flex-direction: column;
 }
 
 .loading-content {
@@ -334,24 +186,30 @@ onUnmounted(() => {
 .chat-iframe {
   width: 100%;
   height: 100%;
-  min-height: 700px;
   border: none;
   border-radius: 8px;
 }
 
-/* 全屏模式样式 */
-.ai-chat-page:fullscreen {
-  background: hsl(var(--background));
+.iframe-wrapper {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-.ai-chat-page:fullscreen .chat-header {
-  background: hsl(var(--background));
-  backdrop-filter: blur(8px);
-}
-
-.ai-chat-page:fullscreen .chat-footer {
-  background: hsl(var(--background));
-  backdrop-filter: blur(8px);
+/* 叠加层用于遮挡 iframe 内的 Powered by 提示 */
+.iframe-wrapper::after {
+  position: absolute;
+  right: 75px;
+  bottom: 859px;
+  z-index: 2;
+  width: 120px;
+  height: 32px;
+  pointer-events: none;
+  content: '';
+  background: hsl(var(--card));
+  background-color: #f8f9fa;
+  border-radius: 6px;
 }
 
 /* 加载动画 */
