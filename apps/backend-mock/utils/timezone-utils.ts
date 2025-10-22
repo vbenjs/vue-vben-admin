@@ -5,6 +5,5 @@ export const setTimezone = (timeZone: string) => {
 };
 
 export const getTimezone = () => {
-  console.log('mockTimeZone', mockTimeZone);
   return mockTimeZone;
 };

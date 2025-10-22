@@ -2,7 +2,7 @@
 import type { ExtendedModalApi } from '@vben/common-ui';
 import type { NotificationItem } from '@vben/layouts';
 
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, unref, watch } from 'vue';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
@@ -67,7 +67,7 @@ const showDot = computed(() =>
 );
 
 const userProfileStore = useUserProfileStore();
-const computedTimezone = computed(() => userProfileStore.timezone);
+const computedTimezone = computed(() => unref(userProfileStore.timezone));
 
 const timezoneOptions = ref<string[]>([]);
 onMounted(async () => {
@@ -76,9 +76,12 @@ onMounted(async () => {
   );
 });
 const handleSetTimezone = async (
-  timezone: string,
   modalApi: ExtendedModalApi,
+  timezone?: string,
 ) => {
+  if (!timezone) {
+    return;
+  }
   try {
     modalApi.setState({ confirmLoading: true });
     await userProfileStore.setTimezone(timezone);

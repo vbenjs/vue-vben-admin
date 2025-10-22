@@ -17,11 +17,11 @@ const useUserProfileStore = defineStore('user-profile', () => {
    * @param timezone 时区字符串
    */
   async function setTimezone(timezone: string) {
+    // 保存用户的时区设置
+    await setUserTimezoneApi(timezone);
     timezoneRef.value = timezone;
     // 设置dayjs默认时区
     setDefaultTimezone(timezone);
-    // 保存用户的时区设置
-    await setUserTimezoneApi(timezone);
   }
 
   /**

@@ -69,7 +69,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   const renderEcharts = (
     options: EChartsOption,
-    clear = true
+    clear = true,
   ): Promise<Nullable<echarts.ECharts>> => {
     cacheOptions = options;
     const currentOptions = {

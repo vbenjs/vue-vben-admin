@@ -16,8 +16,8 @@ import {
 interface Props {
   timezoneOptions: string[];
   okHandler?: (
-    timezone: string,
-    modalApi: ExtendedModalApi,
+    modalApi?: ExtendedModalApi,
+    timezone?: string,
   ) => Promise<void> | void;
   timezone?: string;
 }
@@ -34,7 +34,7 @@ const TimezoneIcon = createIconifyIcon('fluent-mdl2:world-clock');
 const [Modal, modalApi] = useVbenModal({
   fullscreenButton: false,
   onConfirm: () => {
-    props.okHandler?.(unref(timezoneValue), modalApi);
+    props.okHandler?.(modalApi, unref(timezoneValue));
   },
 });
 
@@ -42,11 +42,11 @@ const handleClick = () => {
   modalApi.open();
 };
 
-const timezoneValue = ref(props.timezone);
+const timezoneValue = ref<string | undefined>(unref(props.timezone));
 watch(
   () => props.timezone,
   (newTimezone) => {
-    timezoneValue.value = newTimezone;
+    timezoneValue.value = unref(newTimezone);
   },
 );
 const handleClickItem = (timezone: string) => {
