@@ -1,0 +1,380 @@
+openapi: 3.0.3
+info:
+  title: FactoryOS API (Draft v0)
+  version: 0.0.1
+  description: |
+    Draft OpenAPI spec aligned with PRD and architecture.
+    Notes:
+    - All protected endpoints require `X-FactoryOS-Context` header with companyId/userId/roles.
+    - Real backend must enforce RBAC+ABAC, rate limiting, idempotency, and full audit.
+servers:
+  - url: /api
+    description: Default relative API base
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieRefresh:
+      type: apiKey
+      in: cookie
+      name: refresh_token
+  parameters:
+    XFactoryOSContext:
+      name: X-FactoryOS-Context
+      in: header
+      required: true
+      description: JSON string with companyId/userId/roles, e.g. {"companyId":"c001","userId":"u123","roles":["admin"]}
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    AuthLoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    AuthLoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+    UserInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        companyId:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    MenuItem:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        path:
+          type: string
+        icon:
+          type: string
+        permission:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+    Dept:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parentId:
+          type: string
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+    PaginatedDeptList:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dept'
+    PaginatedRoleList:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    TableRow:
+      type: object
+      additionalProperties: true
+    TableList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableRow'
+        total:
+          type: integer
+    UploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+paths:
+  /auth/login:
+    post:
+      summary: Login and get access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLoginRequest'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Set-Cookie:
+              description: HttpOnly refresh token cookie (implementation-defined name)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLoginResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /auth/refresh:
+    post:
+      summary: Refresh access token via cookie
+      security:
+        - cookieRefresh: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          description: Unauthorized
+  /auth/logout:
+    post:
+      summary: Logout and clear refresh cookie
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: No Content
+  /auth/codes:
+    get:
+      summary: Get permission codes for current user
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /user/info:
+    get:
+      summary: Get current user info
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+  /menu/all:
+    get:
+      summary: Get full menu tree
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+  /system/dept/list:
+    get:
+      summary: List departments (paginated)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Search'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDeptList'
+  /system/dept/{id}:
+    put:
+      summary: Update department (example)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dept'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dept'
+    delete:
+      summary: Delete department (example)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+  /system/role/list:
+    get:
+      summary: List roles (paginated)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Search'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRoleList'
+  /table/list:
+    get:
+      summary: Generic table list
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Search'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableList'
+  /upload:
+    post:
+      summary: Upload a file
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/XFactoryOSContext'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
