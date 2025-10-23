@@ -10,7 +10,7 @@
     },
     {
       "name": "@vben/docs",
-      "path": "docs",
+      "path": "doc",
     },
     {
       "name": "@vben/commitlint-config",
