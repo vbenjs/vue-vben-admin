@@ -23,7 +23,8 @@ VALIDATION APPROACH:
 4. Completeness - All aspects of the product vision are covered
 5. Feasibility - Requirements are technically achievable
 
-EXECUTION MODE: Ask the user if they want to work through the checklist:
+EXECUTION MODE:
+Ask the user if they want to work through the checklist:
 
 - Section by section (interactive mode) - Review each section, present findings, get confirmation before proceeding
 - All at once (comprehensive mode) - Complete full analysis and present comprehensive report at end]]
@@ -310,7 +311,8 @@ Create a comprehensive validation report that includes:
    - Readiness for architecture phase (Ready/Nearly Ready/Not Ready)
    - Most critical gaps or concerns
 
-2. Category Analysis Table Fill in the actual table with:
+2. Category Analysis Table
+   Fill in the actual table with:
    - Status: PASS (90%+ complete), PARTIAL (60-89%), FAIL (<60%)
    - Critical Issues: Specific problems that block progress
 

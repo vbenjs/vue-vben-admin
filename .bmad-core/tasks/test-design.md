@@ -91,7 +91,8 @@ Ensure:
 ```markdown
 # Test Design: Story {epic}.{story}
 
-Date: {date} Designer: Quinn (Test Architect)
+Date: {date}
+Designer: Quinn (Test Architect)
 
 ## Test Strategy Overview
 
@@ -107,11 +108,11 @@ Date: {date} Designer: Quinn (Test Architect)
 
 #### Scenarios
 
-| ID | Level | Priority | Test | Justification |
-| --- | --- | --- | --- | --- |
-| 1.3-UNIT-001 | Unit | P0 | Validate input format | Pure validation logic |
-| 1.3-INT-001 | Integration | P0 | Service processes request | Multi-component flow |
-| 1.3-E2E-001 | E2E | P1 | User completes journey | Critical path validation |
+| ID           | Level       | Priority | Test                      | Justification            |
+| ------------ | ----------- | -------- | ------------------------- | ------------------------ |
+| 1.3-UNIT-001 | Unit        | P0       | Validate input format     | Pure validation logic    |
+| 1.3-INT-001  | Integration | P0       | Service processes request | Multi-component flow     |
+| 1.3-E2E-001  | E2E         | P1       | User completes journey    | Critical path validation |
 
 [Continue for all ACs...]
 

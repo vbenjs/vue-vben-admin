@@ -19,7 +19,8 @@ Generate comprehensive documentation for existing projects optimized for AI deve
 - Focus documentation ONLY on these relevant areas
 - Skip unrelated parts of the codebase to keep docs lean
 
-**IF NO PRD EXISTS**: Ask the user:
+**IF NO PRD EXISTS**:
+Ask the user:
 
 "I notice you haven't provided a PRD or requirements document. To create more focused and useful documentation, I recommend one of these options:
 
@@ -107,7 +108,8 @@ This document captures the CURRENT STATE of the [Project Name] codebase, includi
 
 ### Document Scope
 
-[If PRD provided: "Focused on areas relevant to: {enhancement description}"] [If no PRD: "Comprehensive documentation of entire system"]
+[If PRD provided: "Focused on areas relevant to: {enhancement description}"]
+[If no PRD: "Comprehensive documentation of entire system"]
 
 ### Change Log
 

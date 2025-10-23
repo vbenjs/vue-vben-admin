@@ -17,7 +17,8 @@ Before proceeding with this checklist, ensure you have access to:
 
 IMPORTANT: If any required documents are missing or inaccessible, immediately ask the user for their location or content before proceeding.
 
-PROJECT TYPE DETECTION: First, determine the project type by checking:
+PROJECT TYPE DETECTION:
+First, determine the project type by checking:
 
 - Does the architecture include a frontend/UI component?
 - Is there a frontend-architecture.md document?
@@ -29,14 +30,16 @@ If this is a backend-only or service-only project:
 - Focus extra attention on API design, service architecture, and integration patterns
 - Note in your final report that frontend sections were skipped due to project type
 
-VALIDATION APPROACH: For each section, you must:
+VALIDATION APPROACH:
+For each section, you must:
 
 1. Deep Analysis - Don't just check boxes, thoroughly analyze each item against the provided documentation
 2. Evidence-Based - Cite specific sections or quotes from the documents when validating
 3. Critical Thinking - Question assumptions and identify gaps, not just confirm what's present
 4. Risk Assessment - Consider what could go wrong with each architectural decision
 
-EXECUTION MODE: Ask the user if they want to work through the checklist:
+EXECUTION MODE:
+Ask the user if they want to work through the checklist:
 
 - Section by section (interactive mode) - Review each section, present findings, get confirmation before proceeding
 - All at once (comprehensive mode) - Complete full analysis and present comprehensive report at end]]

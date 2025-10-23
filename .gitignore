@@ -50,3 +50,6 @@ vite.config.ts.*
 *.sw?
 .history
 .cursor
+# BMAD (local only)
+.bmad-core/
+.bmad-*/

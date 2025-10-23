@@ -24,7 +24,8 @@ Required context:
 - Access to PRD, architecture, and other key documents
 - Understanding of remaining work planned
 
-APPROACH: This is an interactive process with the user. Work through each section together, discussing implications and options. The user makes final decisions, but provide expert guidance on technical feasibility and impact.
+APPROACH:
+This is an interactive process with the user. Work through each section together, discussing implications and options. The user makes final decisions, but provide expert guidance on technical feasibility and impact.
 
 REMEMBER: Changes are opportunities to improve, not failures. Handle them professionally and constructively.]]
 
@@ -165,7 +166,8 @@ This proposal guides all subsequent work.]]
 
 Get explicit approval - implicit agreement causes problems.
 
-FINAL REPORT: After completing the checklist, provide a concise summary:
+FINAL REPORT:
+After completing the checklist, provide a concise summary:
 
 - What changed and why
 - What we're doing about it
