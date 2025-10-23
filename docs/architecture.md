@@ -26,6 +26,23 @@
 - 集成 Dify 平台需要安全 iframe 嵌入
 - 支持现有模块化架构模式
 
+### Repository State Assessment（现状映射）
+
+对当前仓库的关键模块进行一次“现状 → 架构映射”的基线评估，作为后续演进与验收的锚点：
+
+- apps/web-antd（主 Web 应用）
+  - 已有 AI 助手模块与对话页：`apps/web-antd/src/views/ai-assistant/chat/index.vue`，以 iframe 方式嵌入 Dify；支持通过路由 `url|base|token|inputs|hideBrand` 或 env 配置。
+  - 认证与权限 API 封装齐全：`apps/web-antd/src/api/core/auth.ts`（login/refresh/logout/codes）。
+  - UI 栈与构建工具（Vue3/TS/Vite/Ant Design Vue/Pinia）与本架构文档假设一致，可直接承载 Conversation Shell/命令面板/卡片渲染等基座能力。
+- apps/backend-mock（Nitro Mock 服务）
+  - 已提供认证、用户、菜单、系统数据、表格、上传等端点，用于前后端并行开发与契约验证。
+  - 具备统一响应与 JWT/Refresh/Cookie 工具，可作为 API 网关与服务层的“形态参考”，但仍需补齐多租户上下文、RBAC/ABAC、审计与限流/熔断的实现。
+- docs 与 playground
+  - `docs/prd.md` 与本文件需保持双向一致（契约、里程碑、SRE 约束）。
+  - `playground/` 提供 E2E 场景，适合承载融合式交互（Conversation Shell + CardSchema）回归用例。
+
+结论：现状已满足前端基座与 Mock 并行开发的先决条件；需按里程碑逐步引入 Dify 安全签名/双向通信、命令面板/搜索基座、多租户上下文传播与审计闭环。
+
 ### Change Log
 
 | 日期       | 版本 | 描述                               | 作者                |
@@ -33,6 +50,8 @@
 | 2025-10-17 | 1.0  | 初始架构文档创建                   | Winston (Architect) |
 | 2025-10-23 | 1.1  | 增补AI融合式导航/交互架构          | FactoryOS AI        |
 | 2025-10-23 | 1.2  | 对齐 PRD v1.2：Dify 契约/权限/观测 | Winston (Architect) |
+| 2025-10-23 | 1.3  | 增补仓库现状映射/里程碑/契约快照     | Winston (Architect) |
+| 2025-10-23 | 1.4  | 命令面板/Provider 契约与 ActionBus TS | Winston (Architect) |
 
 ---
 
@@ -54,28 +73,28 @@ FactoryOS 企业级 AI 协作平台采用微服务架构设计，基于现有的
 
 ### Repository Structure
 
-**结构**: Monorepo (保持现有结构) **Monorepo 工具**: pnpm workspace + Turbo (现有) **包组织策略**: 基于功能域的模块化设计
+**结构**: Monorepo（保持现有）  |  **工具**: pnpm workspace + Turbo（现有）  |  **包组织策略**: 基于功能域的模块化
 
 ```
 factoryos/
 ├── apps/
 │   ├── web-antd/              # 主应用 (现有)
 │   ├── backend-mock/          # Mock服务 (现有)
-│   └── ai-integration/        # AI集成服务 (新增)
+│   └── ai-integration/        # AI集成服务 (目标)
 ├── packages/
 │   ├── @core/                 # 核心包 (现有)
 │   ├── effects/               # 效果包 (现有)
-│   ├── business/              # 业务包 (新增)
+│   ├── business/              # 业务包 (目标)
 │   │   ├── auth/             # 认证授权
 │   │   ├── ai/               # AI相关
 │   │   ├── finance/          # 财务管理
 │   │   └── workflow/         # 工作流
-│   └── integration/           # 集成包 (新增)
+│   └── integration/           # 集成包 (目标)
 │       ├── dingtalk/         # 钉钉集成
 │       ├── dify/             # Dify集成
 │       └── database/         # 数据库集成
 ├── internal/                  # 内部工具 (现有)
-└── infrastructure/           # 基础设施代码 (新增)
+└── infrastructure/           # 基础设施代码 (目标)
     ├── terraform/           # Terraform配置
     └── docker/              # 容器配置
 ```
@@ -97,6 +116,20 @@ factoryos/
 - 个人中心：我的资料、偏好设置（默认“智能模式”）、我的收藏、最近访问
 
 路由策略：每个模块至少包含 `chat` 与若干 `view` 路由，`chat` 为默认路由；命令面板与全局搜索可直达任意路由并支持参数化跳转。公司上下文切换后，所有视图与搜索结果即时收敛至当前公司可见数据。
+
+### Implementation Milestones（与 PRD 对齐）
+
+- M1 基座与安全：
+  - Conversation Shell（消息流、上下文、卡片渲染器、动作执行器）与 CardSchema v1；
+  - 命令面板/全局搜索（Provider + ActionBus），只读动作优先；
+  - Dify 安全签名（HMAC+nonce+ts）与 PostMessage 双向通信（只读卡片通路）；
+  - 多租户上下文传播与基本审计（traceId/幂等）。
+- M2 业务闭环：
+  - 项目/财务两域“对话（模块）+ 典型视图 + 关键报表/动作”端到端闭环；
+  - RBAC/ABAC 前置判定、草稿/二次确认/审批联动、错误/降级策略落地。
+- M3 横向扩展与 SRE 固化：
+  - 员工/审批/资料库/BI、统一数据访问层、多 DB 连接器；
+  - 缓存/限流/熔断/降级与指标/日志/追踪打通，容量压测与 SLO 验证。
 
 ### High Level Architecture Diagram
 
@@ -208,6 +241,13 @@ graph TB
 - **iframe 沙箱模式**: 安全集成第三方 AI 平台 - _理由_: 平衡功能集成与安全性要求
 - **缓存策略**: 多层缓存提升系统性能 - _理由_: 大量数据查询和报表生成需要性能优化
 
+### Security, Multitenancy & Audit（安全/多租户/审计）
+
+- 多租户上下文传播：companyId + userId + roles 贯穿前端到服务层与数据层，默认跨租户访问拒绝；跨公司访问需要显式授权与审计。
+- 权限判定：动作前统一走权限网关（RBAC + ABAC）；字段级脱敏/隐藏按策略执行。
+- 审计：记录消息ID/参数哈希/权限决策/执行结果/操作者/时间；可检索、聚合与导出；保留期可配。
+- 速率限制：对外部（Dify/钉钉/数据库）与内部关键路径执行限流、重试与熔断，避免级联故障。
+
 ### AI 融合式交互架构
 
 核心原则：模块内默认“智能模式”与“表单模式”可切换；首屏即聊天栏，以对话驱动业务动作，必要时弹出表单片段进行补全/确认。
@@ -224,6 +264,11 @@ graph TB
   - 会话上下文包含公司、部门、当前模块、选中实体（项目/报表/流程），用于缩小检索与动作范围。
   - 重要状态入库（AIConversation），保证跨端与跨会话的延续性与审计追踪。
 
+补充（与 PRD 对齐）：
+
+- Dify 输入编码：浏览器侧可按键值进行 gzip + base64 + encodeURIComponent 编码（CompressionStream 可用则启用）。
+- 版本化：CardSchema/Action 协议版本化（meta.version），保持向后兼容；命令/搜索候选使用稳定 ID。
+
 #### Conversation Shell 组件划分
 - MessageStream：渲染消息与卡片，支持流式追加和骨架占位。
 - ContextPanel：显示当前对象/过滤条件/变量；支持一键注入 Prompt 参数。
@@ -234,6 +279,91 @@ graph TB
 - 字段：`type | title | subtitle | body | data | actions[] | meta{source,time,traceId}`
 - 图表：`chart{kind,line|bar|pie|funnel|gantt|heatmap, series, unit, note}`
 - 约束：每卡片≤1个主行动、≤3个次行动；支持“跳转保持上下文/回填对话”。
+
+#### CardSchema（v1）TypeScript 接口（草案）
+
+```ts
+export type CardType = 'summary' | 'table' | 'chart' | 'list' | 'steps' | 'action' | 'preview';
+
+export interface CardAction {
+  id: string;              // 稳定 ID（用于审计与遥测）
+  kind: 'primary' | 'secondary' | 'danger' | 'link';
+  label: string;
+  action: string;          // 动作名（交由 ActionBus 处理）
+  params?: Record<string, unknown>;
+  confirm?: boolean;       // 是否需二次确认/表单片段
+}
+
+export interface CardSchema {
+  type: CardType;
+  title?: string;
+  subtitle?: string;
+  body?: string;           // Markdown 片段或富文本
+  data?: unknown;          // 结构化数据（表格/图表/list 数据）
+  chart?: {
+    kind?: 'line' | 'bar' | 'pie' | 'funnel' | 'gantt' | 'heatmap';
+    series?: Array<Record<string, unknown>>;
+    unit?: string;
+    note?: string;
+  };
+  actions?: CardAction[];  // 主行动置于首位
+  meta?: {
+    source?: string;
+    time?: string;         // ISO8601
+    traceId?: string;
+    version?: string;      // 协议版本
+  };
+}
+```
+
+### Interface Contracts Snapshot（接口契约快照，与 PRD 一致）
+
+以 apps/backend-mock 为参考的 v0 版契约（真实后端需在网关层补齐多租户/RBAC/ABAC/审计/限流并发布 OpenAPI）：
+
+- 认证与权限
+  - POST /auth/login → { username, password } → { accessToken } + 刷新 Token Cookie
+  - POST /auth/refresh → 新的 accessToken（需 Cookie）
+  - POST /auth/logout → 清除 Cookie/会话
+  - GET  /auth/codes → string[]（权限码，用于前端菜单/按钮级控制）
+- 用户与菜单
+  - GET /user/info → 用户基本信息与角色
+  - GET /menu/all  → 菜单树（含基础路由/权限标记）
+- 系统与通用
+  - GET /system/dept/list、GET /system/role/list → 分页/过滤列表
+  - PUT/DELETE /system/dept/[id] → 示例更新/删除
+  - GET /table/list → 通用表格数据
+  - POST /upload → 上传文件返回 URL
+
+以上请求在真实后端中必须强制携带 companyId 上下文，网关侧统一执行：限流/熔断、RBAC+ABAC 判定、幂等与审计落库。
+
+OpenAPI 契约草案（v0）：docs/openapi/factoryos-openapi.yaml
+
+#### PostMessage 契约（TypeScript 草案）
+
+```ts
+export interface DifyRequest {
+  traceId: string;
+  appId: string;
+  userId: string;
+  companyId: string;
+  scope: 'projects' | 'finance' | 'approvals' | 'hr' | 'knowledge' | 'settings';
+  intent: string;
+  params?: Record<string, unknown>;
+  context?: { locale?: string; tz?: string };
+  nonce: string;
+  ts: number;                // epoch seconds
+  sig: string;               // HMAC-SHA256(base64)
+}
+
+export interface DifyResponse {
+  traceId: string;
+  cards: CardSchema[];
+  actions?: CardAction[];
+  tokensUsed?: number;
+  warnings?: string[];
+  error?: { code: string; message: string };
+}
+```
 
 #### Dify 集成契约（iframe + PostMessage）
 - 通道：`factoryos:dify:request` / `factoryos:dify:response`
@@ -309,6 +439,25 @@ sequenceDiagram
 
     note over CS,GP: 超时≥20s → 返回“转离线任务”卡片；错误三段式反馈（问题/原因/建议）
 ```
+
+### Non-Functional Requirements（NFR，与 PRD 对齐）
+
+- 安全与隐私：端到端加密，敏感字段最小化传输与脱敏；Prompt 注入防护；跨租户严格隔离。
+- 性能预算：
+  - UI 首屏 ≤ 3s；常用交互 ≤ 200ms；
+  - 对话首 token 延迟 P95 ≤ 800ms；常规问答 P95 ≤ 2.5s；含工具动作 P95 ≤ 5s（流式优先）。
+- 可用性与退化：命令面板与对话服务 ≥ 99.9%；外部 AI 不可用时回退模板/缓存与人工流程。
+- 权限与审计：对话触发动作 100% 记录（消息ID、请求参数、审批/权限决策、结果）；可追溯、可导出。
+- 兼容性与响应式：桌/平/移一致体验；WCAG AA。
+- 国际化：中英双语；命令与对话支持多语言输入输出。
+- 版本化与兼容：CardSchema/Action 协议版本化；命令/搜索稳定 ID。
+- 速率限制与熔断：对外部系统/数据库统一限流、重试与熔断策略。
+
+### Feature Flags & Rollback（开关与回滚策略）
+
+- 新增安全签名/权限网关/命令面板/统一访问层等能力均以开关灰度发布。
+- 前端保留旧 iframe 直连与本地权限判定路径作为兜底；可一键回退。
+- 伴随 OpenAPI 契约与前端接口文档更新；提供演示用例与快速回滚剧本。
 
 ### 命令面板与全局搜索架构
 
@@ -401,6 +550,157 @@ sequenceDiagram
     end
 ```
 
+### 命令面板/Provider 契约（TypeScript 草案）
+
+```ts
+export interface CommandContext {
+  companyId: string;
+  userId: string;
+  roles: string[];
+  locale?: string;
+  tz?: string;
+  // 可选：当前模块/实体上下文（用于收敛搜索与默认参数回填）
+  scope?: 'projects' | 'finance' | 'approvals' | 'hr' | 'knowledge' | 'settings';
+  entity?: { type: string; id: string } | null;
+}
+
+export type CommandKind = 'action' | 'view' | 'entity';
+
+export interface PermissionHint {
+  allowed: boolean;
+  reason?: string;           // 不允许时的解释（用于灰态提示）
+  minimalPermission?: string; // 最小授权建议（如：perm:finance.report.read）
+}
+
+export interface RouteTarget {
+  path: string;              // 如：/projects/cost
+  params?: Record<string, string | number>;
+  query?: Record<string, string | number | boolean>;
+}
+
+export interface ParamSpec<T = unknown> {
+  name: string;
+  required?: boolean;
+  description?: string;
+  schema?: 'string' | 'number' | 'boolean' | 'date' | 'json' | 'enum';
+  enumValues?: Array<string | number>;
+  default?: T;
+  // 简易校验器（前端可用）；复杂校验由服务端兜底
+  validate?: (v: unknown) => boolean;
+}
+
+export interface ConfirmSpec {
+  required: boolean;
+  title?: string;
+  message?: string;
+  // 可选：表单片段参数（与表单模式片段一致）
+  formParams?: ParamSpec[];
+}
+
+export interface CommandItem {
+  id: string;                // 稳定 ID（用于审计/遥测）
+  kind: CommandKind;
+  title: string;             // 展示标题
+  subtitle?: string;         // 说明/命中原因
+  icon?: string;             // 图标标识
+  // 权限提示：决定是否可选/灰态
+  permission: PermissionHint;
+  // 视图跳转目标（kind=view/entity）
+  target?: RouteTarget;
+  // 动作定义（kind=action）
+  action?: {
+    name: string;            // 动作名（交由 ActionBus 处理）
+    params?: ParamSpec[];    // 需要的参数定义
+    confirm?: ConfirmSpec;   // 是否需要二次确认/表单片段
+  };
+  // 排序/权重/分组信息
+  score?: number;
+  group?: string;            // 如：项目/财务/审批
+}
+
+export interface CommandProvider {
+  id: string;                // 提供者 ID（模块维度）
+  displayName: string;       // 供调试/可视化使用
+  // 将用户输入解析为候选项列表
+  resolve: (
+    query: string,
+    context: CommandContext
+  ) => Promise<CommandItem[]>;
+}
+
+export interface CommandPaletteAPI {
+  registerProvider: (provider: CommandProvider) => void;
+  unregisterProvider: (id: string) => void;
+  search: (query: string, context: CommandContext) => Promise<CommandItem[]>;
+}
+```
+
+### ActionBus 执行路径（TypeScript 草案）
+
+```ts
+export interface ActionContext extends CommandContext {
+  traceId: string;            // 前端生成并贯穿
+  idempotencyKey?: string;    // 默认=traceId
+}
+
+export interface ActionRequest {
+  actionId: string;           // 对应 CommandItem.id 或 action.name
+  params?: Record<string, unknown>;
+  context: ActionContext;
+}
+
+export type ActionStatus =
+  | 'success'
+  | 'requiresApproval'
+  | 'denied'
+  | 'queued'
+  | 'error';
+
+export interface ApprovalInfo {
+  approvalId: string;
+  previewCard?: CardSchema;   // 审批前的预览卡片
+}
+
+export interface RedirectInfo {
+  to: RouteTarget;            // 成功后建议跳转
+  preserveContext?: boolean;  // 是否保留对话上下文
+}
+
+export interface ActionResult {
+  status: ActionStatus;
+  message?: string;
+  cards?: CardSchema[];       // 执行结果以卡片返回（建议）
+  approval?: ApprovalInfo;    // 需要审批时返回
+  redirect?: RedirectInfo;    // 可选跳转
+  warnings?: string[];
+  error?: { code: string; detail?: string };
+}
+
+export interface PrecheckResult {
+  allowed: boolean;
+  reason?: string;
+  // 需要确认/补参
+  confirm?: ConfirmSpec;
+}
+
+export interface ActionBus {
+  // 注册动作处理器（模块内）
+  register: (actionId: string, handler: (req: ActionRequest) => Promise<ActionResult>) => void;
+  unregister: (actionId: string) => void;
+
+  // 可选：执行前检查（权限/参数/配额等）
+  precheck?: (req: ActionRequest) => Promise<PrecheckResult>;
+
+  // 分发执行：统一注入 RBAC/ABAC 判定、幂等键、审计
+  dispatch: (req: ActionRequest) => Promise<ActionResult>;
+}
+```
+
+说明与约束：
+- CommandProvider 仅负责“解析查询 → 候选项”，不直接执行；执行统一走 ActionBus，保证 RBAC/ABAC 判定、审计与降级策略一致。
+- ActionBus.dispatch 在发送给后端前注入 `traceId/idempotencyKey`，后端执行结果建议以 CardSchema 返回，前端可直接渲染并提供后续行动。
+- 错误与降级统一：`denied/queued/error` 均以卡片/提示返回，包含重试/申请最小权限/转离线任务等建议。
+
 ### 多租户上下文传播
 - 上下文载体：`X-FactoryOS-Context` 头（`companyId,userId,roles,locale,tz`）+ JWT 内嵌 claim。
 - 前端：公司切换器更新全局 Store，并通知路由/搜索/对话收敛数据域。
@@ -486,6 +786,20 @@ sequenceDiagram
 - 组件与状态：
   - `packages/stores` 提供会话、命令、搜索、权限等 Store；
   - `packages/utils` 提供 CardSchema、ActionBus、PostMessage 封装、权限工具。
+
+### SRE 与可观测性计划（目标）
+
+- 指标与预算：
+  - 对话首卡片 P95 < 4s；命令面板 P95 < 300ms；后端服务可用性 ≥ 99.9%。
+  - Dify 依赖超时 20s 进入离线任务降级；全链路幂等冲突 409 归一化处理。
+- 可观测性：
+  - 指标：cards 渲染时延、action 执行成功率、限流/熔断次数、外部依赖错误率；
+  - 日志：结构化、traceId 贯通；
+  - 追踪：gateway→service→db 链路 + 前端关键交互埋点（采样）。
+- 可靠性：
+  - 多级缓存（服务内/Redis）+ 限流 + 熔断 + 重试退避；
+  - 金丝雀/灰度发布，回滚模板；
+  - 事后审计：对话/命令/视图/API 全链路审计与合规导出。
 
 #### AI 助手视图与路由示例（apps/web-antd/src/views/ai-assistant）
 
