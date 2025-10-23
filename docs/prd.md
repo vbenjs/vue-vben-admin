@@ -19,12 +19,49 @@
 
 当前 FactoryOS 是基于 Vue Vben Admin 5.5.9 的现代化 monorepo 项目，具备完善的前端技术栈和模块化架构。三家公司在业务运营中面临信息分散、效率低下、数据分析不足等问题。通过集成 AI 技术，特别是 Dify 平台的对话式 AI 能力，可以显著提升企业运营效率、决策质量和创新能力。该项目将把现有的 FactoryOS 从一个基础的管理系统扩展为综合性的企业级 AI 协作平台。
 
+### 现有项目评估与差距分析（Architect 视角）
+
+为保证规划可落地，基于当前代码库（monorepo）进行一次基线评估，并将关键差距纳入本 PRD 的里程碑规划。
+
+- 代码结构与模块
+  - `apps/web-antd/`：主 Web 应用（Vue 3 + Ant Design Vue）；已存在 AI 助手入口与聊天页面（`src/views/ai-assistant/chat/index.vue`）。
+  - `apps/backend-mock/`：基于 Nitro 的 Mock API，涵盖认证（`/auth/login|logout|refresh|codes`）、菜单、用户信息、系统数据（部门/角色/菜单）、表格/上传、测试等端点；便于前后端并行与契约校验。
+  - `docs/`：已含 `architecture.md`，文档与本 PRD 需要保持一致更新；有多语言指南与项目操作说明。
+  - `playground/`：示例与 E2E 场景（Playwright），适合作为融合式交互回归验证的承载地。
+  - `scripts/`：包含 CI/构建/部署/开发工具脚本；与 Turbo/pnpm 协同。
+
+- 技术与环境基线
+  - Node ≥ 20.10、pnpm ≥ 9.12（`pnpm-workspace.yaml` + Turbo 驱动工作流）；Vite 7、Vitest、Playwright、Stylelint/ESLint/Prettier 已入仓。
+  - 前端：Vue 3.5+、TypeScript 5.8+、Ant Design Vue 4.2+、Pinia 3+；样式与主题体系完整。
+  - Mock 后端：Nitro + h3；JWT、刷新 Token、Cookie 工具与统一响应封装已具雏形。
+
+- 已实现能力快照（与 PRD 对齐度）
+  - AI 助手（对话视图）：以 iframe 嵌入 Dify，支持通过路由参数或环境变量配置 base/token，提供容错与 Loading/Error UI；支持将 `inputs` 参数按需 gzip+base64+encodeURIComponent 编码后透传，具备“遮挡品牌”可选能力（受许可限制）。
+  - 基础认证与权限码获取：`/auth/login|refresh|logout|codes` 已打通前端 API 封装与 Mock 端点。
+  - 基础系统模块：菜单、部门、角色、通用表格/上传等 Mock 能力可用于早期页面与数据流通。
+  - 开发体验：pnpm + Turbo 工作流、Vitest、Playwright、Stylelint/ESLint/Prettier 与 Tailwind/Tokens 等基础设施健全。
+
+- 关键差距（需纳入版本路线图）
+  - Dify 安全集成：当前为直嵌 iframe，仍缺少服务端签名/限流/脱敏与 PostMessage 双向通信契约落地（参考 `docs/architecture.md` 的“Dify 集成契约”）。
+  - 融合式交互基座：Conversation Shell、CardSchema、ActionBus、命令面板/全局搜索尚未形成稳定可复用内核与协议版本。
+  - 多租户与审计：公司上下文传播、RBAC+ABAC 判定、动作审计（traceId/幂等）与合规导出需在 API 网关/服务层补齐。
+  - 统一数据访问层与连接器：针对多财务库（MySQL/PG/SQL Server）的映射与统一查询接口尚未实现。
+  - SRE 策略：缓存/限流/熔断/降级与可观测性（日志/指标/追踪）未按 SLO 目标固化，需引入并验证。
+
+- 优先级建议（里程碑拆分）
+  1) M1（基础内核）：Conversation Shell + CardSchema v1 + 命令面板/搜索 + Dify 签名通道（只读卡片）+ 多租户上下文传播 + 审计基座。
+  2) M2（业务首落地）：项目与财务两个域的“对话（模块）+ 两个典型视图 + 两个关键报表/动作”端到端闭环；上线最小 RBAC/ABAC 规则与审批联动一条链路。
+  3) M3（横向扩展）：员工与审批、资料库与 BI、统一数据访问层、多 DB 连接器、SRE 策略固化与容量压测。
+
+以上现状评估与差距已同步到本 PRD 的非功能需求与 Epic/Story 设计中，作为验收与推进的客观依据。
+
 ### 变更记录
 
 | 日期       | 版本 | 描述                          | 作者        |
 | ---------- | ---- | ----------------------------- | ----------- |
 | 2025-10-16 | 1.0  | 初始 PRD 创建                 | John (PM)   |
 | 2025-10-23 | 1.1  | 导航与交互重构（AI 融合式）版 | FactoryOS AI |
+| 2025-10-23 | 1.2  | 补充“现有项目评估与差距分析”  | Winston (Architect) |
 
 ## 需求
 
@@ -257,6 +294,8 @@
 
 采用 pnpm workspace 管理的 Monorepo 结构，这与现有 FactoryOS 架构保持一致。这种结构便于包管理和代码共享，支持独立开发和部署。
 
+工程基线：Node ≥ 20.10，pnpm ≥ 9.12；使用 Turbo 进行任务编排。请在 PR/发布前执行 `pnpm check` 与 `pnpm test:*` 相关检查，保持与仓库的 CI 规约一致。
+
 ### 服务架构
 
 采用 **Monorepo 内的微服务架构**。前端保持单体应用架构，后端服务采用微服务设计，通过 API 网关统一管理。AI 功能通过 Dify iframe 集成，数据集成通过独立的服务模块实现。
@@ -303,6 +342,36 @@
 - **CI/CD**：使用 GitHub Actions 或 GitLab CI 进行自动化部署
 - **监控**：集成应用性能监控（APM）和错误追踪
 - **日志**：结构化日志记录，支持日志聚合和分析
+
+### 与现有代码的接口契约（首批）
+
+为确保前后端协同与可替换性，以下 Mock 契约作为第 0 版参考标准（以 `apps/backend-mock` 为准）：
+
+- 认证与权限
+  - `POST /auth/login`：输入 `{ username, password }`，返回 `{ accessToken }` 并设置刷新 Token Cookie；失败返回 403 与统一错误体。
+  - `POST /auth/refresh`：返回新的 Access Token；需携带 Cookie；失败状态遵循 401/403 语义。
+  - `POST /auth/logout`：清除 Cookie 与会话状态。
+  - `GET /auth/codes`：返回权限码字符串数组，用于前端菜单/按钮级控制。
+- 用户与菜单
+  - `GET /user/info`：返回当前用户信息与角色等。
+  - `GET /menu/all`：返回菜单树（含基础路由/权限标记）。
+- 系统数据与通用能力
+  - `GET /system/dept/list`、`GET /system/role/list`：分页/过滤列表。
+  - `PUT/DELETE /system/dept/[id]`：示例性更新/删除端点。
+  - `GET /table/list`：通用表格数据。
+  - `POST /upload`：通用上传返回文件 URL。
+
+以上端点仅为 Mock 参考，真实后端需在网关层补充多租户上下文校验、RBAC/ABAC 判定、审计落库与限流/熔断策略，并对外以 OpenAPI 契约发布。
+
+### AI 助手现状与规划
+
+- 现状
+  - 前端已提供 `AI 助手 · 对话` 视图（`apps/web-antd/src/views/ai-assistant/chat/index.vue`），支持通过路由 `url|base|token|inputs|hideBrand` 参数或环境变量构建 iframe 地址，具备 Loading/错误兜底与“品牌遮挡（可选）”能力。
+  - `inputs` 支持按键值在浏览器侧进行 `gzip + base64 + encodeURIComponent` 编码（CompressionStream 可用则启用），用于 Dify 的兼容性输入。
+- 规划
+  - M1：引入与后端的 PostMessage 双向通信与服务端签名（traceId、nonce、ts、HMAC），统一 CardSchema 与 Action 执行路径（只读动作优先）。
+  - M2：动作执行前置 RBAC/ABAC 判定、草稿/二次确认/审批联动；支持“转离线任务”降级；卡片版本化与向后兼容。
+  - M3：统一命令面板/全局搜索与对话的语义对齐，形成“直达视图/动作”的一致体验；可观测性打通（cards/actions 级指标）。
 
 ## Epic 列表
 
