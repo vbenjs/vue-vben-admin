@@ -57,7 +57,8 @@
     "catalog": "pnpx codemod pnpm/catalog",
     "bmad:refresh": "bmad-method install -f -i codex",
     "bmad:list": "bmad-method list:agents",
-    "bmad:validate": "bmad-method validate"
+    "bmad:validate": "bmad-method validate",
+    "shard:prd": "node internal/scripts/shard-prd.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
