@@ -12,7 +12,8 @@ const route = useRoute();
 // 是否隐藏 Dify 的品牌标识（覆盖遮挡方式，仅在允许去品牌的场景使用）
 const hideBrand = computed(() => {
   const q = route.query as Record<string, any>;
-  const v = (q.hideBrand as string) ?? (import.meta as any).env?.VITE_DIFY_HIDE_BRAND;
+  const v =
+    (q.hideBrand as string) ?? (import.meta as any).env?.VITE_DIFY_HIDE_BRAND;
   return String(v).toLowerCase() === 'true' || v === '1';
 });
 
@@ -31,7 +32,9 @@ async function encodeInputsForIframe(inputs: Record<string, any>) {
         const encoder = new TextEncoder();
         const data = encoder.encode(raw);
         const cs = new CompressionStream('gzip');
-        const writer = (new Response(data).body as ReadableStream).pipeThrough(cs);
+        const writer = (new Response(data).body as ReadableStream).pipeThrough(
+          cs,
+        );
         const compressed = await new Response(writer).arrayBuffer();
         // base64 编码
         const bytes = new Uint8Array(compressed);
@@ -43,7 +46,7 @@ async function encodeInputsForIframe(inputs: Record<string, any>) {
         // 退化：不压缩，仅做 encodeURIComponent，仍可用于少数不强制压缩的场景
         result[key] = encodeURIComponent(raw);
       }
-    } catch (e) {
+    } catch {
       // 发生异常时退化处理
       result[key] = encodeURIComponent(raw);
     }
@@ -63,11 +66,15 @@ async function encodeInputsForIframe(inputs: Record<string, any>) {
 const difyUrl = computed(() => {
   const q = route.query as Record<string, any>;
   const fullUrl = q.url as string | undefined;
-  const base = (q.base as string) || (import.meta as any).env?.VITE_DIFY_BASE || 'https://udify.app';
-  const token = (q.token as string) || (import.meta as any).env?.VITE_DIFY_TOKEN;
+  const base =
+    (q.base as string) ||
+    (import.meta as any).env?.VITE_DIFY_BASE ||
+    'https://udify.app';
+  const token =
+    (q.token as string) || (import.meta as any).env?.VITE_DIFY_TOKEN;
 
   // 兜底：保留原有硬编码地址，确保即使未配置也能工作
-  const fallback = 'https://dify.icerain.love/chatbot/wzr4NzKNvUuhiHhL';
+  const fallback = 'https://dify.icerain.love/chatbot/mB7o44I2LtkqYhnO';
 
   if (fullUrl) return fullUrl;
   if (token) return `${base.replace(/\/$/, '')}/chatbot/${token}`;
@@ -83,10 +90,10 @@ async function buildIframeSrc() {
   try {
     const q = route.query as Record<string, any>;
     const inputsRaw = q.inputs as any;
-    let baseUrl = difyUrl.value;
+    const baseUrl = difyUrl.value;
 
     // 解析 inputs：支持对象或 JSON 字符串
-    let inputs: Record<string, any> | null = null;
+    let inputs: null | Record<string, any> = null;
     if (inputsRaw) {
       if (typeof inputsRaw === 'string') {
         try {
@@ -114,7 +121,7 @@ async function buildIframeSrc() {
     }
 
     iframeSrc.value = url.toString();
-  } catch (e) {
+  } catch {
     // 出错时退回基础地址
     iframeSrc.value = difyUrl.value;
   }
