@@ -1,23 +1,24 @@
-import type { EChartsOption } from "echarts";
+import type { EChartsOption } from 'echarts';
 
-import type { Ref } from "vue";
-import { computed, nextTick, watch } from "vue";
+import type { Ref } from 'vue';
 
-import type { Nullable } from "@vben/types";
+import type { Nullable } from '@vben/types';
 
-import type EchartsUI from "./echarts-ui.vue";
+import type EchartsUI from './echarts-ui.vue';
 
-import { usePreferences } from "@vben/preferences";
+import { computed, nextTick, watch } from 'vue';
+
+import { usePreferences } from '@vben/preferences';
 
 import {
   tryOnUnmounted,
   useDebounceFn,
   useResizeObserver,
   useTimeoutFn,
-  useWindowSize
-} from "@vueuse/core";
+  useWindowSize,
+} from '@vueuse/core';
 
-import echarts from "./echarts";
+import echarts from './echarts';
 
 type EchartsUIType = typeof EchartsUI | undefined;
 
@@ -68,7 +69,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   const renderEcharts = (
     options: EChartsOption,
-    clear = true
+    clear = true,
   ): Promise<Nullable<echarts.ECharts>> => {
     cacheOptions = options;
     const currentOptions = {

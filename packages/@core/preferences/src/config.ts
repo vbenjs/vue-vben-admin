@@ -1,4 +1,4 @@
-import type { Preferences } from "./types";
+import type { Preferences } from './types';
 
 const defaultPreferences: Preferences = {
   app: {
@@ -32,7 +32,6 @@ const defaultPreferences: Preferences = {
     watermark: false,
     watermarkContent: '',
     zIndex: 200,
-
   },
   breadcrumb: {
     enable: true,
