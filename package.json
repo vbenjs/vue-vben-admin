@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-monorepo",
-  "version": "5.5.8",
+  "version": "5.5.9",
   "private": true,
   "keywords": [
     "monorepo",
@@ -98,7 +98,7 @@
     "node": ">=20.10.0",
     "pnpm": ">=9.12.0"
   },
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.14.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {

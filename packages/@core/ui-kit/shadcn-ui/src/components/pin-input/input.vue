@@ -59,9 +59,9 @@ function handleComplete(e: string[]) {
 async function handleSend(e: Event) {
   try {
     e?.preventDefault();
-    await handleSendCode();
     countdown.value = maxTime;
     startCountdown();
+    await handleSendCode();
   } catch (error) {
     console.error('Failed to send code:', error);
     // Consider emitting an error event or showing a notification

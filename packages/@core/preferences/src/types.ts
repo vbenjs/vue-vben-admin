@@ -59,6 +59,10 @@ interface AppPreferences {
    * @zh_CN 是否开启refreshToken
    */
   enableRefreshToken: boolean;
+  /**
+   * @zh_CN 是否开启首选项导航栏吸顶效果
+   */
+  enableStickyPreferencesNavigationBar: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */
@@ -75,6 +79,10 @@ interface AppPreferences {
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
+  /**
+   * @zh_CN 水印文案
+   */
+  watermarkContent: string;
   /** z-index */
   zIndex: number;
 }

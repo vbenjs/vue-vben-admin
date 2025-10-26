@@ -276,7 +276,7 @@ export const MOCK_MENU_LIST = [
         children: [
           {
             id: 20_401,
-            pid: 201,
+            pid: 202,
             name: 'SystemDeptCreate',
             status: 1,
             type: 'button',
@@ -285,7 +285,7 @@ export const MOCK_MENU_LIST = [
           },
           {
             id: 20_402,
-            pid: 201,
+            pid: 202,
             name: 'SystemDeptEdit',
             status: 1,
             type: 'button',
@@ -294,7 +294,7 @@ export const MOCK_MENU_LIST = [
           },
           {
             id: 20_403,
-            pid: 201,
+            pid: 202,
             name: 'SystemDeptDelete',
             status: 1,
             type: 'button',

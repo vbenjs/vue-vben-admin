@@ -50,7 +50,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     <AuthenticationFormView
       v-if="authPanelLeft"
       class="min-h-full w-2/5 flex-1"
-      transition-name="slide-left"
+      data-side="left"
     >
       <template v-if="copyright" #copyright>
         <slot name="copyright">
@@ -86,7 +86,14 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
         class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
       >
         <div class="login-background absolute left-0 top-0 size-full"></div>
-        <div class="flex-col-center -enter-x mr-20 h-full">
+        <div
+          :key="authPanelLeft ? 'left' : authPanelRight ? 'right' : 'center'"
+          class="flex-col-center mr-20 h-full"
+          :class="{
+            'enter-x': authPanelLeft,
+            '-enter-x': authPanelRight,
+          }"
+        >
           <template v-if="sloganImage">
             <img
               :alt="appName"
@@ -110,6 +117,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
       <div class="login-background absolute left-0 top-0 size-full"></div>
       <AuthenticationFormView
         class="md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]"
+        data-side="bottom"
       >
         <template v-if="copyright" #copyright>
           <slot name="copyright">
@@ -125,7 +133,8 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     <!-- 右侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelRight"
-      class="min-h-full w-[34%] flex-1"
+      class="min-h-full w-2/5 flex-1"
+      data-side="right"
     >
       <template v-if="copyright" #copyright>
         <slot name="copyright">

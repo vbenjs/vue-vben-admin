@@ -1,5 +1,7 @@
 import type { EventHandlerRequest, H3Event } from 'h3';
 
+import { deleteCookie, getCookie, setCookie } from 'h3';
+
 export function clearRefreshTokenCookie(event: H3Event<EventHandlerRequest>) {
   deleteCookie(event, 'jwt', {
     httpOnly: true,

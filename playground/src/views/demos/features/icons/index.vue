@@ -3,11 +3,7 @@ import { h, ref } from 'vue';
 
 import { IconPicker, Page } from '@vben/common-ui';
 import {
-  MdiGithub,
-  MdiGoogle,
   MdiKeyboardEsc,
-  MdiQqchat,
-  MdiWechat,
   SvgAvatar1Icon,
   SvgAvatar2Icon,
   SvgAvatar3Icon,
@@ -16,6 +12,10 @@ import {
   SvgCakeIcon,
   SvgCardIcon,
   SvgDownloadIcon,
+  SvgGithubIcon,
+  SvgGoogleIcon,
+  SvgQQChatIcon,
+  SvgWeChatIcon,
 } from '@vben/icons';
 
 import { Card, Input } from 'ant-design-vue';
@@ -46,10 +46,10 @@ const inputComponent = h(Input);
 
     <Card class="mb-5" title="Iconify">
       <div class="flex items-center gap-5">
-        <MdiGithub class="size-8" />
-        <MdiGoogle class="size-8 text-red-500" />
-        <MdiQqchat class="size-8 text-green-500" />
-        <MdiWechat class="size-8" />
+        <SvgGithubIcon class="size-8" />
+        <SvgGoogleIcon class="size-8" />
+        <SvgQQChatIcon class="size-8" />
+        <SvgWeChatIcon class="size-8" />
         <MdiKeyboardEsc class="size-8" />
       </div>
     </Card>
