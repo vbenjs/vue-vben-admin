@@ -39,7 +39,7 @@ catalog:
   '@tailwindcss/typography': ^0.5.16
   '@tanstack/vue-query': ^5.81.5
   '@tanstack/vue-store': ^0.7.1
-  '@types/archiver': ^6.0.3
+  '@types/archiver': ^7.0.0
   '@types/eslint': ^9.6.1
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4

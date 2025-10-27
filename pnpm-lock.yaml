@@ -76,8 +76,8 @@ catalogs:
       specifier: ^0.7.1
       version: 0.7.1
     '@types/archiver':
-      specifier: ^6.0.3
-      version: 6.0.3
+      specifier: ^7.0.0
+      version: 7.0.0
     '@types/eslint':
       specifier: ^9.6.1
       version: 9.6.1
@@ -1168,7 +1168,7 @@ importers:
         version: 1000.2.0
       '@types/archiver':
         specifier: 'catalog:'
-        version: 6.0.3
+        version: 7.0.0
       '@types/html-minifier-terser':
         specifier: 'catalog:'
         version: 7.0.2
@@ -4743,8 +4743,8 @@ packages:
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
 
-  '@types/archiver@6.0.3':
-    resolution: {integrity: sha512-a6wUll6k3zX6qs5KlxIggs1P1JcYJaTCx2gnlr+f0S1yd2DoaEwoIK10HmBaLnZwWneBz+JBm0dwcZu0zECBcQ==}
+  '@types/archiver@7.0.0':
+    resolution: {integrity: sha512-/3vwGwx9n+mCQdYZ2IKGGHEFL30I96UgBlk8EtRDDFQ9uxM1l4O5Ci6r00EMAkiDaTqD9DQ6nVrWRICnBPtzzg==}
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
@@ -14928,7 +14928,7 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/archiver@6.0.3':
+  '@types/archiver@7.0.0':
     dependencies:
       '@types/readdir-glob': 1.1.5
 
@@ -15041,7 +15041,7 @@ snapshots:
 
   '@types/readdir-glob@1.1.5':
     dependencies:
-      '@types/node': 22.15.3
+      '@types/node': 22.16.0
 
   '@types/resolve@1.20.2': {}
 
@@ -15061,7 +15061,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.15.3
+      '@types/node': 22.16.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.35.1(@typescript-eslint/parser@8.35.1(eslint@9.30.1(jiti@2.5.1))(typescript@5.8.3))(eslint@9.30.1(jiti@2.5.1))(typescript@5.8.3)':
