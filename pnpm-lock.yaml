@@ -391,8 +391,8 @@ catalogs:
       specifier: ^4.44.1
       version: 4.44.1
     rollup-plugin-visualizer:
-      specifier: ^5.14.0
-      version: 5.14.0
+      specifier: ^6.0.5
+      version: 6.0.5
     sass:
       specifier: ^1.89.2
       version: 1.89.2
@@ -1192,7 +1192,7 @@ importers:
         version: 4.44.1
       rollup-plugin-visualizer:
         specifier: 'catalog:'
-        version: 5.14.0(rollup@4.44.1)
+        version: 6.0.5(rollup@4.44.1)
       sass:
         specifier: 'catalog:'
         version: 1.89.2
@@ -10088,12 +10088,12 @@ packages:
       rollup: ^3.29.4 || ^4
       typescript: ^4.5 || ^5.0
 
-  rollup-plugin-visualizer@5.14.0:
-    resolution: {integrity: sha512-VlDXneTDaKsHIw8yzJAFWtrzguoJ/LnQ+lMpoVfYJ3jJF4Ihe5oYLAqLklIK/35lgUY+1yEzCkHyZ1j4A5w5fA==}
+  rollup-plugin-visualizer@6.0.3:
+    resolution: {integrity: sha512-ZU41GwrkDcCpVoffviuM9Clwjy5fcUxlz0oMoTXTYsK+tcIFzbdacnrr2n8TXcHxbGKKXtOdjxM2HUS4HjkwIw==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
-      rolldown: 1.x
+      rolldown: 1.x || ^1.0.0-beta
       rollup: 2.x || 3.x || 4.x
     peerDependenciesMeta:
       rolldown:
@@ -10101,8 +10101,8 @@ packages:
       rollup:
         optional: true
 
-  rollup-plugin-visualizer@6.0.3:
-    resolution: {integrity: sha512-ZU41GwrkDcCpVoffviuM9Clwjy5fcUxlz0oMoTXTYsK+tcIFzbdacnrr2n8TXcHxbGKKXtOdjxM2HUS4HjkwIw==}
+  rollup-plugin-visualizer@6.0.5:
+    resolution: {integrity: sha512-9+HlNgKCVbJDs8tVtjQ43US12eqaiHyyiLMdBwQ7vSZPiHMysGNo2E88TAp1si5wx8NAoYriI2A5kuKfIakmJg==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -14555,7 +14555,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.7
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 4.44.1
 
@@ -14563,7 +14563,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 2.79.2
 
@@ -14571,7 +14571,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 4.44.1
 
@@ -14579,7 +14579,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 4.46.2
 
@@ -16698,7 +16698,7 @@ snapshots:
   cspell-glob@8.19.4:
     dependencies:
       '@cspell/url': 8.19.4
-      picomatch: 4.0.2
+      picomatch: 4.0.3
 
   cspell-grammar@8.19.4:
     dependencies:
@@ -17834,9 +17834,9 @@ snapshots:
     dependencies:
       pend: 1.2.0
 
-  fdir@6.4.4(picomatch@4.0.2):
+  fdir@6.4.4(picomatch@4.0.3):
     optionalDependencies:
-      picomatch: 4.0.2
+      picomatch: 4.0.3
 
   fdir@6.4.6(picomatch@4.0.2):
     optionalDependencies:
@@ -20775,7 +20775,7 @@ snapshots:
     optionalDependencies:
       '@babel/code-frame': 7.27.1
 
-  rollup-plugin-visualizer@5.14.0(rollup@4.44.1):
+  rollup-plugin-visualizer@6.0.3(rollup@4.44.1):
     dependencies:
       open: 8.4.2
       picomatch: 4.0.2
@@ -20784,10 +20784,10 @@ snapshots:
     optionalDependencies:
       rollup: 4.44.1
 
-  rollup-plugin-visualizer@6.0.3(rollup@4.44.1):
+  rollup-plugin-visualizer@6.0.5(rollup@4.44.1):
     dependencies:
       open: 8.4.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
       source-map: 0.7.4
       yargs: 17.7.2
     optionalDependencies:
@@ -21628,8 +21628,8 @@ snapshots:
 
   tinyglobby@0.2.13:
     dependencies:
-      fdir: 6.4.4(picomatch@4.0.2)
-      picomatch: 4.0.2
+      fdir: 6.4.4(picomatch@4.0.3)
+      picomatch: 4.0.3
 
   tinyglobby@0.2.14:
     dependencies:
@@ -21863,7 +21863,7 @@ snapshots:
       magic-string: 0.30.17
       mlly: 1.7.4
       pathe: 2.0.3
-      picomatch: 4.0.2
+      picomatch: 4.0.3
       pkg-types: 2.1.0
       scule: 1.3.0
       strip-literal: 3.0.0
@@ -21958,7 +21958,7 @@ snapshots:
   unplugin@2.3.5:
     dependencies:
       acorn: 8.15.0
-      picomatch: 4.0.2
+      picomatch: 4.0.3
       webpack-virtual-modules: 0.6.2
 
   unrs-resolver@1.9.2:
