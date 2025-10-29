@@ -39,7 +39,7 @@ export async function refreshTokenApi() {
  * 退出登录
  */
 export async function logoutApi() {
-  return baseRequestClient.post('sys/auth/logout');
+  return requestClient.post('sys/auth/logout');
 }
 
 /**

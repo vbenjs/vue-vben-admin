@@ -59,9 +59,7 @@ export const useAuthStore = defineStore('auth', () => {
         } else {
           onSuccess
             ? await onSuccess?.()
-            : await router.push(
-                userInfo?.homePath || preferences.app.defaultHomePath,
-              );
+            : await router.push(preferences.app.defaultHomePath);
         }
 
         if (userInfo?.realName) {
@@ -105,6 +103,8 @@ export const useAuthStore = defineStore('auth', () => {
     let userInfo: null | UserInfo = null;
     userInfo = await getUserInfoApi();
     userStore.setUserInfo(userInfo);
+    // 登出后将 isAccessChecked 置为 false，也就是将已经检查访问权限变成未检查访问权限
+    accessStore.setIsAccessChecked(false);
     return userInfo;
   }
 

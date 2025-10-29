@@ -64,10 +64,10 @@ function setupAccessGuard(router: Router) {
 
     // accessToken 检查
     if (!accessStore.accessToken) {
-      // 明确声明忽略权限访问权限，则可以访问
-      if (to.meta.ignoreAccess) {
-        return true;
-      }
+      // // 明确声明忽略权限访问权限，则可以访问
+      // if (to.meta.ignoreAccess) {
+      //   return true;
+      // }
 
       // 没有访问权限，跳转登录页面
       if (to.fullPath !== LOGIN_PATH) {
