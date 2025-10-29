@@ -1,14 +1,15 @@
-import type { TimezoneOption } from '@vben/types';
-
 import { requestClient } from '#/api/request';
 
 /**
  * 获取系统支持的时区列表
  */
 export async function getTimezoneOptionsApi() {
-  return await requestClient.get<TimezoneOption[]>(
-    '/timezone/getTimezoneOptions',
-  );
+  return await requestClient.get<
+    {
+      label: string;
+      value: string;
+    }[]
+  >('/timezone/getTimezoneOptions');
 }
 /**
  * 获取用户时区
