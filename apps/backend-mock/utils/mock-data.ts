@@ -7,7 +7,7 @@ export interface UserInfo {
   homePath?: string;
 }
 
-export interface TimeZoneOption {
+export interface TimezoneOption {
   offset: number;
   timeZone: string;
 }
@@ -397,7 +397,7 @@ export function getMenuIds(menus: any[]) {
 /**
  * 时区选项
  */
-export const TIME_ZONE_OPTIONS: TimeZoneOption[] = [
+export const TIME_ZONE_OPTIONS: TimezoneOption[] = [
   {
     offset: -5,
     timezone: 'America/New_York',

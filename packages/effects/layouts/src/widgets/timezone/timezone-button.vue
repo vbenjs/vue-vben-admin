@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { ExtendedModalApi } from '@vben-core/popup-ui';
-
-import { ref, unref, watch } from 'vue';
+import { ref, unref } from 'vue';
 
 import { createIconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
+import { useTimezoneStore } from '@vben/stores';
 
 import { useVbenModal } from '@vben-core/popup-ui';
 import {
@@ -13,41 +12,42 @@ import {
   VbenIconButton,
 } from '@vben-core/shadcn-ui';
 
-interface Props {
-  timezoneOptions: string[];
-  okHandler?: (
-    modalApi: ExtendedModalApi,
-    timezone?: string,
-  ) => Promise<void> | void;
-  timezone?: string;
-}
-
-const props = defineProps<Props>();
-const emit = defineEmits<{ change: [string] }>();
-
 const TimezoneIcon = createIconifyIcon('fluent-mdl2:world-clock');
+
+const timezoneStore = useTimezoneStore();
+
+const timezoneRef = ref<null | string>(null);
+
+const timezoneOptionsRef = ref<
+  {
+    label: string;
+    value: string;
+  }[]
+>([]);
 
 const [Modal, modalApi] = useVbenModal({
   fullscreenButton: false,
-  onConfirm: () => {
-    props.okHandler?.(modalApi, unref(timezoneValue));
+  onConfirm: async () => {
+    try {
+      modalApi.setState({ confirmLoading: true });
+      if (timezoneRef.value) {
+        await timezoneStore.setTimezone(unref(timezoneRef));
+      }
+      modalApi.close();
+    } finally {
+      modalApi.setState({ confirmLoading: false });
+    }
+  },
+  async onOpenChange(isOpen) {
+    if (isOpen) {
+      timezoneRef.value = unref(timezoneStore.timezone);
+      timezoneOptionsRef.value = await timezoneStore.getTimezoneOptions();
+    }
   },
 });
 
 const handleClick = () => {
   modalApi.open();
-};
-
-const timezoneValue = ref<string | undefined>(unref(props.timezone));
-watch(
-  () => props.timezone,
-  (newTimezone) => {
-    timezoneValue.value = unref(newTimezone);
-  },
-);
-const handleClickItem = (timezone: string) => {
-  timezoneValue.value = timezone;
-  emit('change', timezone);
 };
 </script>
 
@@ -62,15 +62,16 @@ const handleClickItem = (timezone: string) => {
     </VbenIconButton>
     <Modal :title="$t('ui.widgets.timezone.setTimezone')">
       <div class="timezone-container">
-        <RadioGroup v-model="timezoneValue" class="flex flex-col gap-2">
+        <RadioGroup v-model="timezoneRef" class="flex flex-col gap-2">
           <div
             class="flex cursor-pointer items-center gap-2"
-            v-for="item in props.timezoneOptions"
-            :key="`container${item}`"
-            @click="handleClickItem(item)"
+            v-for="item in timezoneOptionsRef"
+            :key="`container${item.value}`"
           >
-            <RadioGroupItem :id="item" :value="item" />
-            <label :for="item" class="cursor-pointer">{{ item }}</label>
+            <RadioGroupItem :id="item.value" :value="item.value" />
+            <label :for="item.value" class="cursor-pointer">{{
+              item.label
+            }}</label>
           </div>
         </RadioGroup>
       </div>

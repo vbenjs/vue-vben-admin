@@ -10,5 +10,5 @@ export default eventHandler(async (event) => {
   }
   const { timezone } = await readBody(event);
   setTimezone(timezone);
-  return useResponseSuccess();
+  return useResponseSuccess({});
 });

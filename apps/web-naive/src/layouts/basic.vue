@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import type { ExtendedModalApi } from '@vben/common-ui';
 import type { NotificationItem } from '@vben/layouts';
 
-import { computed, onMounted, ref, unref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
@@ -12,21 +11,16 @@ import {
   BasicLayout,
   LockScreen,
   Notification,
-  TimezoneButton,
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
-import { useMessage } from 'naive-ui';
-
-import { getTimezoneOptionsApi } from '#/api';
 import { $t } from '#/locales';
-import { useAuthStore, useUserProfileStore } from '#/store';
+import { useAuthStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
-const message = useMessage();
 const notifications = ref<NotificationItem[]>([
   {
     avatar: 'https://avatar.vercel.sh/vercel.svg?text=VB',
@@ -65,32 +59,6 @@ const { destroyWatermark, updateWatermark } = useWatermark();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
-
-const userProfileStore = useUserProfileStore();
-const computedTimezone = computed(() => unref(userProfileStore.timezone));
-
-const timezoneOptions = ref<string[]>([]);
-onMounted(async () => {
-  timezoneOptions.value = ((await getTimezoneOptionsApi()) || []).map(
-    (item) => item.timezone,
-  );
-});
-const handleSetTimezone = async (
-  modalApi: ExtendedModalApi,
-  timezone?: string,
-) => {
-  if (!timezone) {
-    return;
-  }
-  try {
-    modalApi.setState({ confirmLoading: true });
-    await userProfileStore.setTimezone(timezone);
-    message.success($t('ui.widgets.timezone.setSuccess'));
-    modalApi.close();
-  } finally {
-    modalApi.setState({ confirmLoading: false });
-  }
-};
 
 const menus = computed(() => [
   {
@@ -178,14 +146,6 @@ watch(
         :notifications="notifications"
         @clear="handleNoticeClear"
         @make-all="handleMakeAll"
-      />
-    </template>
-    <template #timezone>
-      <TimezoneButton
-        :ok-handler="handleSetTimezone"
-        :timezone="computedTimezone"
-        :timezone-options="timezoneOptions"
-        name="out"
       />
     </template>
     <template #extra>
