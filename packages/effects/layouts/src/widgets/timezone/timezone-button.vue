@@ -16,7 +16,7 @@ const TimezoneIcon = createIconifyIcon('fluent-mdl2:world-clock');
 
 const timezoneStore = useTimezoneStore();
 
-const timezoneRef = ref<null | string>(null);
+const timezoneRef = ref<string | undefined>();
 
 const timezoneOptionsRef = ref<
   {
