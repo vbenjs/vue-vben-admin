@@ -30,8 +30,9 @@ const [Modal, modalApi] = useVbenModal({
   onConfirm: async () => {
     try {
       modalApi.setState({ confirmLoading: true });
-      if (timezoneRef.value) {
-        await timezoneStore.setTimezone(unref(timezoneRef));
+      const timezone = unref(timezoneRef);
+      if (timezone) {
+        await timezoneStore.setTimezone(timezone);
       }
       modalApi.close();
     } finally {

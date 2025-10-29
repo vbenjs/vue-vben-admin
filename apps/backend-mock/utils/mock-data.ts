@@ -9,7 +9,7 @@ export interface UserInfo {
 
 export interface TimezoneOption {
   offset: number;
-  timeZone: string;
+  timezone: string;
 }
 
 export const MOCK_USERS: UserInfo[] = [

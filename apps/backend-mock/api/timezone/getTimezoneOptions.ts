@@ -3,5 +3,9 @@ import { TIME_ZONE_OPTIONS } from '~/utils/mock-data';
 import { useResponseSuccess } from '~/utils/response';
 
 export default eventHandler(() => {
-  return useResponseSuccess(TIME_ZONE_OPTIONS);
+  const data = TIME_ZONE_OPTIONS.map((o) => ({
+    label: `${o.timezone} (GMT${o.offset >= 0 ? `+${o.offset}` : o.offset})`,
+    value: o.timezone,
+  }));
+  return useResponseSuccess(data);
 });

@@ -13,7 +13,7 @@ interface TimezoneHandler {
       value: string;
     }[]
   >;
-  onTimezoneChange?: (timezone: string) => Promise<void>;
+  setTimezone?: (timezone: string) => Promise<void>;
 }
 
 /**
@@ -63,13 +63,12 @@ const useTimezoneStore = defineStore(
       getTimezone() || new Intl.DateTimeFormat().resolvedOptions().timeZone,
     );
 
-    const timezoneHandler = getTimezoneHandler();
-
     /**
      * 初始化时区
      * Initialize the timezone
      */
     async function initTimezone() {
+      const timezoneHandler = getTimezoneHandler();
       const timezone = await timezoneHandler.getTimezone?.();
       if (timezone) {
         timezoneRef.value = timezone;
@@ -84,7 +83,8 @@ const useTimezoneStore = defineStore(
      * @param timezone 时区字符串
      */
     async function setTimezone(timezone: string) {
-      await timezoneHandler.onTimezoneChange?.(timezone);
+      const timezoneHandler = getTimezoneHandler();
+      await timezoneHandler.setTimezone?.(timezone);
       timezoneRef.value = timezone;
       // 设置dayjs默认时区
       setDefaultTimezone(timezone);
@@ -95,7 +95,8 @@ const useTimezoneStore = defineStore(
      * Get the timezone options
      */
     async function getTimezoneOptions() {
-      return await timezoneHandler.getTimezoneOptions();
+      const timezoneHandler = getTimezoneHandler();
+      return (await timezoneHandler.getTimezoneOptions?.()) || [];
     }
 
     initTimezone().catch((error) => {

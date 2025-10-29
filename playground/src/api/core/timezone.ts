@@ -6,14 +6,9 @@ import { requestClient } from '#/api/request';
  * 获取系统支持的时区列表
  */
 export async function getTimezoneOptionsApi() {
-  const dataList =
-    (await requestClient.get<TimezoneOption[]>(
-      '/timezone/getTimezoneOptions',
-    )) || [];
-  return dataList.map((item) => ({
-    label: item.timezone,
-    value: item.timezone,
-  }));
+  return await requestClient.get<TimezoneOption[]>(
+    '/timezone/getTimezoneOptions',
+  );
 }
 /**
  * 获取用户时区
@@ -25,6 +20,6 @@ export async function getTimezoneApi(): Promise<null | string | undefined> {
  * 设置用户时区
  * @param timezone 时区
  */
-export async function setTimezoneApi(timezone: string) {
+export async function setTimezoneApi(timezone: string): Promise<void> {
   return requestClient.post('/timezone/setTimezone', { timezone });
 }
