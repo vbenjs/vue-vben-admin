@@ -1,7 +1,10 @@
 import { ref, unref } from 'vue';
 
 import { DEFAULT_TIME_ZONE_OPTIONS } from '@vben-core/preferences';
-import { getTimezone, setDefaultTimezone } from '@vben-core/shared/utils';
+import {
+  getCurrentTimezone,
+  setCurrentTimezone,
+} from '@vben-core/shared/utils';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
@@ -59,9 +62,7 @@ const getTimezoneHandler = () => {
 const useTimezoneStore = defineStore(
   'core-timezone',
   () => {
-    const timezoneRef = ref(
-      getTimezone() || new Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
+    const timezoneRef = ref(getCurrentTimezone());
 
     /**
      * 初始化时区
@@ -74,7 +75,7 @@ const useTimezoneStore = defineStore(
         timezoneRef.value = timezone;
       }
       // 设置dayjs默认时区
-      setDefaultTimezone(unref(timezoneRef));
+      setCurrentTimezone(unref(timezoneRef));
     }
 
     /**
@@ -87,7 +88,7 @@ const useTimezoneStore = defineStore(
       await timezoneHandler.setTimezone?.(timezone);
       timezoneRef.value = timezone;
       // 设置dayjs默认时区
-      setDefaultTimezone(timezone);
+      setCurrentTimezone(timezone);
     }
 
     /**
@@ -103,10 +104,15 @@ const useTimezoneStore = defineStore(
       console.error('Failed to initialize timezone during store setup:', error);
     });
 
+    function $reset() {
+      timezoneRef.value = getCurrentTimezone();
+    }
+
     return {
       timezone: timezoneRef,
       setTimezone,
       getTimezoneOptions,
+      $reset,
     };
   },
   {
