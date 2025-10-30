@@ -16,7 +16,7 @@ export function formatDate(time: FormatDate, format = 'YYYY-MM-DD') {
     return date.tz().format(format);
   } catch (error) {
     console.error(`Error formatting date: ${error}`);
-    return time;
+    return String(time);
   }
 }
 
