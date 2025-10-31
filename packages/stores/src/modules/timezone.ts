@@ -1,7 +1,10 @@
 import { ref, unref } from 'vue';
 
-import { DEFAULT_TIME_ZONE_OPTIONS } from "@vben-core/preferences";
-import { getCurrentTimezone, setCurrentTimezone } from "@vben-core/shared/utils";
+import { DEFAULT_TIME_ZONE_OPTIONS } from '@vben-core/preferences';
+import {
+  getCurrentTimezone,
+  setCurrentTimezone,
+} from '@vben-core/shared/utils';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
