@@ -3,7 +3,7 @@ import type { EventHandlerRequest, H3Event } from 'h3';
 import type { UserInfo } from './mock-data';
 
 import { getHeader } from 'h3';
-import jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 import { MOCK_USERS } from './mock-data';
 
@@ -17,11 +17,11 @@ export interface UserPayload extends UserInfo {
 }
 
 export function generateAccessToken(user: UserInfo) {
-  return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
+  return sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 }
 
 export function generateRefreshToken(user: UserInfo) {
-  return jwt.sign(user, REFRESH_TOKEN_SECRET, {
+  return sign(user, REFRESH_TOKEN_SECRET, {
     expiresIn: '30d',
   });
 }
@@ -40,7 +40,7 @@ export function verifyAccessToken(
   }
   const token = tokenParts[1] as string;
   try {
-    const decoded = jwt.verify(
+    const decoded = verify(
       token,
       ACCESS_TOKEN_SECRET,
     ) as unknown as UserPayload;
@@ -61,7 +61,7 @@ export function verifyRefreshToken(
   token: string,
 ): null | Omit<UserInfo, 'password'> {
   try {
-    const decoded = jwt.verify(token, REFRESH_TOKEN_SECRET) as UserPayload;
+    const decoded = verify(token, REFRESH_TOKEN_SECRET) as UserPayload;
     const username = decoded.username;
     const user = MOCK_USERS.find(
       (item) => item.username === username,
