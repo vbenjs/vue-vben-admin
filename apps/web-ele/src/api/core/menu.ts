@@ -13,8 +13,8 @@ enum ListType {
  * 获取用户的菜单列表
  */
 export async function getAllMenusApi() {
-  return requestClient.get<RouteRecordStringComponent[]>('sys:menu/list', {
-    data: {
+  return requestClient.get<RouteRecordStringComponent[]>(`sys:menu/list`, {
+    params: {
       type: ListType.Menu,
     },
   });
