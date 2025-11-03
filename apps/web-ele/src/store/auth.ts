@@ -10,7 +10,13 @@ import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
+import {
+  getAccessCodesApi,
+  getUserInfoApi,
+  getUserRoleApi,
+  loginApi,
+  logoutApi,
+} from '#/api';
 import { $t } from '#/locales';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -101,7 +107,13 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function fetchUserInfo() {
     let userInfo: null | UserInfo = null;
-    userInfo = await getUserInfoApi();
+    const userInfoData = await getUserInfoApi();
+    const userRoleData = await getUserRoleApi(userInfoData.id);
+    userInfo = {
+      ...userInfoData,
+      roles: [userRoleData.name],
+      roleRemark: userRoleData.remark,
+    };
     userStore.setUserInfo(userInfo);
     // 登出后将 isAccessChecked 置为 false，也就是将已经检查访问权限变成未检查访问权限
     accessStore.setIsAccessChecked(false);

@@ -15,11 +15,11 @@ interface BasicUserInfo {
   /**
    * 用户id
    */
-  id: string;
+  id: number;
   /**
    * 用户昵称
    */
-  realName: string;
+  realName?: string;
   /**
    * 用户权限数组
    */
@@ -27,7 +27,7 @@ interface BasicUserInfo {
   /**
    * 用户身份权限列表
    */
-  roles?: string[];
+  roles: string[];
   /**
    * 用户名
    */

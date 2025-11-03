@@ -15,6 +15,15 @@ export namespace AuthApi {
     refreshTokenExpire: string;
   }
 
+  export interface UserRoleInfo {
+    id: number;
+    name: string;
+    roleCode: string;
+    remark: string;
+    menuIdList: number[];
+    createTime: null | string;
+  }
+
   export interface RefreshTokenResult {
     accessToken: string;
     accessTokenExpire: string;
@@ -47,4 +56,15 @@ export async function logoutApi() {
  */
 export async function getAccessCodesApi() {
   return [];
+}
+
+/**
+ * 获取用户的角色
+ * @param id 用户id
+ * @returns
+ */
+export async function getUserRoleApi(
+  id: number,
+): Promise<AuthApi.UserRoleInfo> {
+  return requestClient.get(`/sys/role/${id}`);
 }

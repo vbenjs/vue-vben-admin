@@ -9,15 +9,19 @@ interface BasicUserInfo {
   /**
    * 用户id
    */
-  id: string;
+  id: number;
   /**
    * 用户昵称
    */
-  realName: string;
+  realName?: string;
   /**
-   * 用户角色
+   * 角色名
    */
-  roles?: string[];
+  roleRemark: string;
+  /**
+   * 角色
+   */
+  roles: string[];
   /**
    * 用户名
    */
@@ -29,6 +33,7 @@ interface AccessState {
    * 用户信息
    */
   userInfo: BasicUserInfo | null;
+  userRoleName: string;
   /**
    * 用户角色
    */
@@ -45,15 +50,22 @@ export const useUserStore = defineStore('core-user', {
       this.userInfo = userInfo;
       // 设置角色信息
       const roles = userInfo?.roles ?? [];
+      // 设置角色名称
+      const roleName = userInfo?.roleRemark ?? '';
       this.setUserRoles(roles);
+      this.setUserRoleName(roleName);
     },
     setUserRoles(roles: string[]) {
       this.userRoles = roles;
+    },
+    setUserRoleName(name: string) {
+      this.userRoleName = name;
     },
   },
   state: (): AccessState => ({
     userInfo: null,
     userRoles: [],
+    userRoleName: '',
   }),
 });
 
