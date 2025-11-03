@@ -146,6 +146,8 @@ interface LogoPreferences {
   fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** logo地址 */
   source: string;
+  /** 暗色主题logo地址 (可选，若不设置则使用 source) */
+  sourceDark?: string;
 }
 
 interface NavigationPreferences {
