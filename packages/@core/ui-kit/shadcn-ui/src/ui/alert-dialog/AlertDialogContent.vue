@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type {
-  AlertDialogContentEmits,
-  AlertDialogContentProps,
-} from 'reka-ui';
+import type { AlertDialogContentEmits, AlertDialogContentProps } from 'reka-ui';
 
 import type { ClassType } from '@vben-core/typings';
 

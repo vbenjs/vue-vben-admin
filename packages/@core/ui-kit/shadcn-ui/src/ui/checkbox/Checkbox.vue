@@ -6,11 +6,7 @@ import { computed } from 'vue';
 import { cn } from '@vben-core/shared/utils';
 
 import { Check, Minus } from 'lucide-vue-next';
-import {
-  CheckboxIndicator,
-  CheckboxRoot,
-  useForwardPropsEmits,
-} from 'reka-ui';
+import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
 
 const props = defineProps<
   CheckboxRootProps & { class?: any; indeterminate?: boolean }

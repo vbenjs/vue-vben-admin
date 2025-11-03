@@ -71,9 +71,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
           <Checkbox v-model="props.resizable">可拖动调整宽度</Checkbox>
           <Checkbox v-model="props.splitLine">显示拖动分隔线</Checkbox>
           <Checkbox v-model="props.splitHandle">显示拖动手柄</Checkbox>
-          <Checkbox v-model="props.leftCollapsible">
-            左侧可折叠
-          </Checkbox>
+          <Checkbox v-model="props.leftCollapsible"> 左侧可折叠 </Checkbox>
         </div>
         <div class="flex items-center gap-2">
           <span>左侧最小宽度百分比：</span>

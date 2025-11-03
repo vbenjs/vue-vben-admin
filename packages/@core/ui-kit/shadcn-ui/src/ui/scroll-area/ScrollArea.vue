@@ -5,11 +5,7 @@ import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import {
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-} from 'reka-ui';
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'reka-ui';
 
 import ScrollBar from './ScrollBar.vue';
 
