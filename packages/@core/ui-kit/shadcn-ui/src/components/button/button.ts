@@ -1,4 +1,4 @@
-import type { AsTag } from 'radix-vue';
+import type { AsTag } from 'reka-ui';
 
 import type { Component } from 'vue';
 

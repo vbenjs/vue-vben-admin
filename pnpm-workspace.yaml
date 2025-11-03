@@ -143,7 +143,7 @@ catalog:
   publint: ^0.3.12
   qrcode: ^1.5.4
   qs: ^6.14.0
-  radix-vue: ^1.9.17
+  reka-ui: ^2.6.0
   resolve.exports: ^2.0.3
   rimraf: ^6.0.1
   rollup: ^4.44.1

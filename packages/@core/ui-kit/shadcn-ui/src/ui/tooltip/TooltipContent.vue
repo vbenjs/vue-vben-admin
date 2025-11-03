@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { TooltipContentEmits, TooltipContentProps } from 'radix-vue';
+import type { TooltipContentEmits, TooltipContentProps } from 'reka-ui';
 
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
 
 defineOptions({
   inheritAttrs: false,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TooltipContentProps } from 'radix-vue';
+import type { TooltipContentProps } from 'reka-ui';
 
 import type { StyleValue } from 'vue';
 

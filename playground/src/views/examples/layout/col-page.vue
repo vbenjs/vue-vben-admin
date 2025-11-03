@@ -68,10 +68,10 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
     <Card class="ml-2" title="基本使用">
       <div class="flex flex-col gap-2">
         <div class="flex gap-2">
-          <Checkbox v-model:checked="props.resizable">可拖动调整宽度</Checkbox>
-          <Checkbox v-model:checked="props.splitLine">显示拖动分隔线</Checkbox>
-          <Checkbox v-model:checked="props.splitHandle">显示拖动手柄</Checkbox>
-          <Checkbox v-model:checked="props.leftCollapsible">
+          <Checkbox v-model="props.resizable">可拖动调整宽度</Checkbox>
+          <Checkbox v-model="props.splitLine">显示拖动分隔线</Checkbox>
+          <Checkbox v-model="props.splitHandle">显示拖动手柄</Checkbox>
+          <Checkbox v-model="props.leftCollapsible">
             左侧可折叠
           </Checkbox>
         </div>
