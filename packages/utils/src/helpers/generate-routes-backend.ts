@@ -44,6 +44,7 @@ function convertRoutes(
 ): RouteRecordRaw[] {
   const realRoutes = convertToRealRouting(routes);
 
+  // debugger;
   return mapTree(realRoutes, (node) => {
     const route = node as unknown as RouteRecordRaw;
     const { component, name } = node;
@@ -87,21 +88,69 @@ function normalizeViewPath(path: string): string {
 
 // 转换成真实的路由
 function convertToRealRouting(routes: RouteRecordStringComponent[]) {
-  function replacePropWithPath(data: Record<string, any>[], prop: string) {
+  function replaceAttribute(
+    data: Record<string, any>[],
+    attrs: [string, string],
+  ) {
+    const [from, to] = attrs;
     return data.map((item) => {
-      item.path = item[prop];
+      item[to] = item[from];
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete item[prop];
-      if (Array.isArray(item.children)) {
-        item.children = replacePropWithPath(item.children, prop);
+      delete item[from];
+
+      if (Array.isArray(item.children) && item.children.length > 0) {
+        item.children = replaceAttribute(item.children, attrs);
       }
       return item;
     });
   }
 
+  function handleMoreAttribute(data: Record<string, any>) {
+    const removeAttrSet = new Set([
+      'authority',
+      'createTime',
+      'icon',
+      'id',
+      'openStyle',
+      'parentName',
+      'pid',
+      'sort',
+      'type',
+    ]);
+
+    const obj = cloneDeep(data);
+    for (const attr of removeAttrSet) {
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete obj[attr];
+      }
+    }
+    if (Array.isArray(obj.children) && obj.children.length > 0) {
+      obj.children = obj.children.map((r) => handleMoreAttribute(r));
+    }
+    return obj;
+  }
+
+  function getRedirectPath(
+    data: Record<string, any>,
+    [trackProp, splitProp]: [string, string],
+  ): string {
+    if (!Object.prototype.hasOwnProperty.call(data, splitProp)) return '';
+    if (Array.isArray(data[trackProp]) && data[trackProp].length > 0) {
+      return [
+        data[splitProp],
+        getRedirectPath(data[trackProp][0], [trackProp, splitProp]),
+      ]
+        .join('/')
+        .trim();
+    }
+    return data[splitProp].trim();
+  }
+
   return routes.map((item) => {
-    // 替换所有路由中的 url 字段为 path
-    const [route] = replacePropWithPath([cloneDeep(item)], 'url') as [
+    const copyItem = cloneDeep(item);
+    // 替换所有路由中的 url 字段为 path，并去除多余的对象属性
+    const [route] = replaceAttribute([copyItem], ['url', 'path']) as [
       Record<string, any>,
     ];
 
@@ -109,7 +158,7 @@ function convertToRealRouting(routes: RouteRecordStringComponent[]) {
       // 处理有子菜单的根路由
       if (Array.isArray(route.children) && route.children.length > 0) {
         route.component = 'BasicLayout';
-        route.redirect = [route.path, route.children[0]?.path].join('/');
+        route.redirect = getRedirectPath(route, ['children', 'path']);
         // bug: 如果是多级菜单,则二级菜单之后没有处理
         // 处理子菜单(二级菜单)的 component 和 name
         route.children = route.children.map((r) => {
@@ -140,7 +189,7 @@ function convertToRealRouting(routes: RouteRecordStringComponent[]) {
       .join('');
 
     // tag: 需要处理掉无用的属性
-    return route;
+    return handleMoreAttribute(route);
   });
 }
 
