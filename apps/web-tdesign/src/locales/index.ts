@@ -2,8 +2,6 @@ import type { App } from 'vue';
 
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@vben/locales';
 
-import { ref } from 'vue';
-
 import {
   $t,
   setupI18n as coreSetup,
