@@ -3,7 +3,7 @@ import type { SegmentedItem } from './types';
 
 import { computed } from 'vue';
 
-import { TabsTrigger } from 'radix-vue';
+import { TabsTrigger } from 'reka-ui';
 
 import { Tabs, TabsContent, TabsList } from '../../ui';
 import TabsIndicator from './tabs-indicator.vue';

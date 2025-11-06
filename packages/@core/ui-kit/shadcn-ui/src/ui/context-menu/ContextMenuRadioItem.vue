@@ -2,7 +2,7 @@
 import type {
   ContextMenuRadioItemEmits,
   ContextMenuRadioItemProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import { computed } from 'vue';
 
@@ -13,7 +13,7 @@ import {
   ContextMenuItemIndicator,
   ContextMenuRadioItem,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = defineProps<ContextMenuRadioItemProps & { class?: any }>();
 const emits = defineEmits<ContextMenuRadioItemEmits>();

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
-import type { FlattenedItem } from 'radix-vue';
+import type { FlattenedItem } from 'reka-ui';
 
 import type { ClassType, Recordable } from '@vben-core/typings';
 
@@ -11,7 +11,7 @@ import { onMounted, ref, watchEffect } from 'vue';
 import { ChevronRight, IconifyIcon } from '@vben-core/icons';
 import { cn, get } from '@vben-core/shared/utils';
 
-import { TreeItem, TreeRoot } from 'radix-vue';
+import { TreeItem, TreeRoot } from 'reka-ui';
 
 import { Checkbox } from '../checkbox';
 import { treePropsDefaults } from './types';
@@ -307,7 +307,10 @@ defineExpose({
         <Checkbox
           v-if="multiple"
           @click.stop
-          @update:checked="(checked) => (checked ? checkAll() : unCheckAll())"
+          @update:model-value="
+            (checked: boolean | 'indeterminate') =>
+              checked === true ? checkAll() : unCheckAll()
+          "
         />
       </div>
     </div>

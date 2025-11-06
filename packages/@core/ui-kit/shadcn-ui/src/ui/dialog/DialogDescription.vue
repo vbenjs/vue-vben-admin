@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { DialogDescriptionProps } from 'radix-vue';
+import type { DialogDescriptionProps } from 'reka-ui';
 
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { DialogDescription, useForwardProps } from 'radix-vue';
+import { DialogDescription, useForwardProps } from 'reka-ui';
 
 const props = defineProps<DialogDescriptionProps & { class?: any }>();
 
