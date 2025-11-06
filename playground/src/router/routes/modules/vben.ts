@@ -9,7 +9,7 @@ import {
   VBEN_NAIVE_PREVIEW_URL,
   VBEN_TD_PREVIEW_URL,
 } from '@vben/constants';
-import { SvgAntdvLogoIcon } from '@vben/icons';
+import { SvgAntdvLogoIcon, SvgTDesignIcon } from '@vben/icons';
 
 import { IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -84,7 +84,7 @@ const routes: RouteRecordRaw[] = [
         component: IFrameView,
         meta: {
           badgeType: 'dot',
-          icon: 'logos:tdesign',
+          icon: SvgTDesignIcon,
           link: VBEN_TD_PREVIEW_URL,
           title: $t('demos.vben.tdesign'),
         },
