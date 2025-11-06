@@ -1,9 +1,5 @@
-import {
-  DialogPlugin,
-  MessagePlugin,
-  NotificationPlugin,
+export {
+  DialogPlugin as dialog,
+  MessagePlugin as message,
+  NotifyPlugin as notification,
 } from 'tdesign-vue-next';
-
-export const message = MessagePlugin;
-export const notification = NotificationPlugin;
-export const dialog = DialogPlugin;
