@@ -187,7 +187,7 @@ async function initComponentAdapter() {
       }
       return h(
         Button,
-        { ...props, ghost, variant, attrs, theme: 'default' },
+        { ...props, ghost, variant, attrs, theme: 'primary' },
         slots,
       );
     },

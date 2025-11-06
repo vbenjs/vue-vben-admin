@@ -7,9 +7,9 @@ import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
-import { notification } from '#/adapter/tdesign';
 import { defineStore } from 'pinia';
 
+import { notification } from '#/adapter/tdesign';
 import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
 
@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
     onSuccess?: () => Promise<void> | void,
   ) {
     // 异步处理用户登录操作并获取 accessToken
-    const userInfo: null | UserInfo = null;
+    let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
       const { accessToken } = await loginApi(params);

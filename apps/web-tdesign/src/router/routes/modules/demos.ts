@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'AntDesignDemos',
         path: '/demos/ant-design',
-        component: () => import('#/views/demos/antd/index.vue'),
+        component: () => import('#/views/demos/tdesign/index.vue'),
       },
     ],
   },
