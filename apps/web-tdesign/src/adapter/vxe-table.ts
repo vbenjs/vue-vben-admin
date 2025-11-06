@@ -4,7 +4,7 @@ import { h } from 'vue';
 
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 
-import { Button, Image } from 'ant-design-vue';
+import { Button, Image } from 'tdesign-vue-next';
 
 import { useVbenForm } from './form';
 
@@ -52,7 +52,7 @@ setupVbenVxeTable({
         const { props } = renderOpts;
         return h(
           Button,
-          { size: 'small', type: 'link' },
+          { size: 'small', theme: 'primary', variant: 'text' },
           { default: () => props?.text },
         );
       },
