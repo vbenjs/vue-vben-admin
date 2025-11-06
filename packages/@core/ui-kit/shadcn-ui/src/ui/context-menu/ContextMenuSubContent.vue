@@ -2,13 +2,13 @@
 import type {
   DropdownMenuSubContentEmits,
   DropdownMenuSubContentProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { ContextMenuSubContent, useForwardPropsEmits } from 'radix-vue';
+import { ContextMenuSubContent, useForwardPropsEmits } from 'reka-ui';
 
 const props = defineProps<DropdownMenuSubContentProps & { class?: any }>();
 const emits = defineEmits<DropdownMenuSubContentEmits>();
