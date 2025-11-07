@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type {
-  AlertDialogContentEmits,
-  AlertDialogContentProps,
-} from 'radix-vue';
+import type { AlertDialogContentEmits, AlertDialogContentProps } from 'reka-ui';
 
 import type { ClassType } from '@vben-core/typings';
 
@@ -14,7 +11,7 @@ import {
   AlertDialogContent,
   AlertDialogPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import AlertDialogOverlay from './AlertDialogOverlay.vue';
 

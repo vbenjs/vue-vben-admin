@@ -2,7 +2,7 @@
 import type {
   DropdownMenuCheckboxItemEmits,
   DropdownMenuCheckboxItemProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import { computed } from 'vue';
 
@@ -13,7 +13,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuItemIndicator,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = defineProps<DropdownMenuCheckboxItemProps & { class?: any }>();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();

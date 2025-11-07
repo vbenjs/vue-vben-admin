@@ -102,6 +102,10 @@
       "errorPasswordTip": "密码错误，请重新输入",
       "backToLogin": "返回登录",
       "entry": "进入系统"
+    },
+    "timezone": {
+      "setTimezone": "设置时区",
+      "setSuccess": "时区设置成功"
     }
   }
 }

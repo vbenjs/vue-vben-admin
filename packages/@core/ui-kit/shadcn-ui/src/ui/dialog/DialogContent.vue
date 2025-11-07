@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
+import type { DialogContentEmits, DialogContentProps } from 'reka-ui';
 
 import type { ClassType } from '@vben-core/typings';
 
@@ -8,7 +8,7 @@ import { computed, ref } from 'vue';
 import { cn } from '@vben-core/shared/utils';
 
 import { X } from 'lucide-vue-next';
-import { DialogClose, DialogContent, useForwardPropsEmits } from 'radix-vue';
+import { DialogClose, DialogContent, useForwardPropsEmits } from 'reka-ui';
 
 import DialogOverlay from './DialogOverlay.vue';
 
