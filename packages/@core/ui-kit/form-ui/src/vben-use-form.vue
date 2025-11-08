@@ -25,7 +25,7 @@ import {
 } from './use-form-context';
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends VbenFormProps {
-  formApi: ExtendedFormApi;
+  formApi?: ExtendedFormApi;
 }
 
 const props = defineProps<Props>();
@@ -44,14 +44,13 @@ provideComponentRefMap(componentRefMap);
 props.formApi?.mount?.(form, componentRefMap);
 
 const handleUpdateCollapsed = (value: boolean) => {
-  const collapsedValue = !!value;
-  props.formApi?.setState({ collapsed: collapsedValue });
+  props.formApi?.setState({ collapsed: value });
   // 触发收起展开状态变化回调
-  forward.value.handleCollapsedChange?.(collapsedValue);
+  forward.value.handleCollapsedChange?.(value);
 };
 
 function handleKeyDownEnter(event: KeyboardEvent) {
-  if (!state.value.submitOnEnter || !forward.value.formApi?.isMounted) {
+  if (!state?.value.submitOnEnter || !forward.value.formApi?.isMounted) {
     return;
   }
   // 如果是 textarea 不阻止默认行为，否则会导致无法换行。
@@ -61,11 +60,11 @@ function handleKeyDownEnter(event: KeyboardEvent) {
   }
   event.preventDefault();
 
-  forward.value.formApi.validateAndSubmitForm();
+  forward.value.formApi?.validateAndSubmitForm();
 }
 
 const handleValuesChangeDebounced = useDebounceFn(async () => {
-  state.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm();
+  state?.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm();
 }, 300);
 
 const valuesCache: Recordable<any> = {};
@@ -77,7 +76,7 @@ onMounted(async () => {
     () => form.values,
     async (newVal) => {
       if (forward.value.handleValuesChange) {
-        const fields = state.value.schema?.map((item) => {
+        const fields = state?.value.schema?.map((item) => {
           return item.fieldName;
         });
 
@@ -95,7 +94,7 @@ onMounted(async () => {
           if (changedFields.length > 0) {
             // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
             forward.value.handleValuesChange(
-              cloneDeep(await forward.value.formApi.getValues()),
+              cloneDeep((await forward.value.formApi?.getValues()) ?? {}),
               changedFields,
             );
           }
@@ -112,7 +111,7 @@ onMounted(async () => {
   <Form
     @keydown.enter="handleKeyDownEnter"
     v-bind="forward"
-    :collapsed="state.collapsed"
+    :collapsed="state?.collapsed"
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"
@@ -129,7 +128,7 @@ onMounted(async () => {
       <slot v-bind="slotProps">
         <FormActions
           v-if="forward.showDefaultActions"
-          :model-value="state.collapsed"
+          :model-value="state?.collapsed"
           @update:model-value="handleUpdateCollapsed"
         >
           <template #reset-before="resetSlotProps">

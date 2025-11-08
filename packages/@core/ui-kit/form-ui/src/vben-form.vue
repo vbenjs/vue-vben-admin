@@ -40,10 +40,9 @@ const { delegatedSlots, form } = useFormInitial(props);
 provideFormProps([props, form]);
 
 const handleUpdateCollapsed = (value: boolean) => {
-  const collapsedValue = !!value;
-  currentCollapsed.value = collapsedValue;
+  currentCollapsed.value = value;
   // 触发收起展开状态变化回调
-  props.handleCollapsedChange?.(collapsedValue);
+  props.handleCollapsedChange?.(value);
 };
 
 watchEffect(() => {
