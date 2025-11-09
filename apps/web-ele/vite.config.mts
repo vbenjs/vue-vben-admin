@@ -17,7 +17,7 @@ export default defineConfig(async () => {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
             // 鉴权系统线上地址
-            target: 'http://43.136.232.43:7444/api',
+            target: 'http://117.72.15.74:7444/api',
             ws: true,
           },
         },
