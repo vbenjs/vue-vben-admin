@@ -1,20 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --color-border: hsl(var(--border));
-  --color-foreground: hsl(var(--foreground));
-  --color-background: hsl(var(--background));
-  --color-background-deep: hsl(var(--background-deep));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-}
-
 @layer base {
   *,
   ::after,
