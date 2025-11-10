@@ -1,19 +1,35 @@
 @import "tailwindcss";
 
+@theme {
+  --color-border: hsl(var(--border));
+  --color-foreground: hsl(var(--foreground));
+  --color-background: hsl(var(--background));
+  --color-background-deep: hsl(var(--background-deep));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+}
+
 @layer base {
   *,
   ::after,
   ::before {
-    @apply border-border;
-
+    border-color: hsl(var(--border));
     box-sizing: border-box;
     border-style: solid;
     border-width: 0;
   }
 
   html {
-    @apply text-foreground bg-background font-sans text-[100%];
-
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    font-family: var(--font-family);
+    font-size: 100%;
     font-variation-settings: normal;
     line-height: 1.15;
     text-size-adjust: 100%;
@@ -29,7 +45,8 @@
   #app,
   body,
   html {
-    @apply size-full;
+    width: 100%;
+    height: 100%;
 
     /* scrollbar-gutter: stable; */
   }
@@ -51,44 +68,45 @@
   a:hover,
   a:link,
   a:visited {
-    @apply no-underline;
+    text-decoration: none;
   }
 
   ::view-transition-new(root),
   ::view-transition-old(root) {
-    @apply animate-none mix-blend-normal;
+    animation: none;
+    mix-blend-mode: normal;
   }
 
   ::view-transition-old(root) {
-    @apply z-[1];
+    z-index: 1;
   }
 
   ::view-transition-new(root) {
-    @apply z-[2147483646];
+    z-index: 2147483646;
   }
 
   html.dark::view-transition-old(root) {
-    @apply z-[2147483646];
+    z-index: 2147483646;
   }
 
   html.dark::view-transition-new(root) {
-    @apply z-[1];
+    z-index: 1;
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply opacity-100;
+    opacity: 100%;
   }
 
   /* input:-webkit-autofill {
-    @apply border-none;
-
+    border: none;
     box-shadow: 0 0 0 1000px transparent inset;
   } */
 
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
-    @apply m-0 appearance-none;
+    margin: 0;
+    appearance: none;
   }
 
   /* 只有非mac下才进行调整，mac下使用默认滚动条 */

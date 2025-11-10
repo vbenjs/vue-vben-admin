@@ -49,6 +49,7 @@
     "@iconify/json": "catalog:",
     "@iconify/tailwind": "catalog:",
     "@manypkg/get-packages": "catalog:",
+    "@tailwindcss/postcss": "catalog:",
     "@tailwindcss/typography": "catalog:",
     "autoprefixer": "catalog:",
     "cssnano": "catalog:",
