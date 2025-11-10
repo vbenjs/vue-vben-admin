@@ -13,7 +13,6 @@ export interface FormSchemaItem {
   description: string;
   fieldName: string;
   label: string;
-  name: string;
   value: boolean;
 }
 
