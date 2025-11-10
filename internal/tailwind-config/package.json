@@ -43,13 +43,12 @@
     "./*": "./*"
   },
   "peerDependencies": {
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": ">=4.0.0-alpha"
   },
   "dependencies": {
     "@iconify/json": "catalog:",
     "@iconify/tailwind": "catalog:",
     "@manypkg/get-packages": "catalog:",
-    "@tailwindcss/nesting": "catalog:",
     "@tailwindcss/typography": "catalog:",
     "autoprefixer": "catalog:",
     "cssnano": "catalog:",
