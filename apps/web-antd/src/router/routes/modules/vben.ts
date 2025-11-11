@@ -6,7 +6,9 @@ import {
   VBEN_GITHUB_URL,
   VBEN_LOGO_URL,
   VBEN_NAIVE_PREVIEW_URL,
+  VBEN_TD_PREVIEW_URL,
 } from '@vben/constants';
+import { SvgTDesignIcon } from '@vben/icons';
 
 import { IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -51,6 +53,17 @@ const routes: RouteRecordRaw[] = [
           icon: 'logos:naiveui',
           link: VBEN_NAIVE_PREVIEW_URL,
           title: $t('demos.vben.naive-ui'),
+        },
+      },
+      {
+        name: 'VbenTDesign',
+        path: '/vben-admin/tdesign',
+        component: IFrameView,
+        meta: {
+          badgeType: 'dot',
+          icon: SvgTDesignIcon,
+          link: VBEN_TD_PREVIEW_URL,
+          title: $t('demos.vben.tdesign'),
         },
       },
       {
