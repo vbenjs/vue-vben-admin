@@ -54,6 +54,24 @@ const notifications = ref<NotificationItem[]>([
     message: '描述信息描述信息描述信息',
     title: '代办提醒',
   },
+  {
+    id: 5,
+    avatar: 'https://avatar.vercel.sh/satori',
+    date: '1天前',
+    isRead: false,
+    message: '描述信息描述信息描述信息',
+    title: '跳转Workspace示例',
+    link: '/workspace',
+  },
+  {
+    id: 6,
+    avatar: 'https://avatar.vercel.sh/satori',
+    date: '1天前',
+    isRead: false,
+    message: '描述信息描述信息描述信息',
+    title: '跳转外部链接示例',
+    link: 'https://doc.vben.pro',
+  },
 ]);
 
 const userStore = useUserStore();

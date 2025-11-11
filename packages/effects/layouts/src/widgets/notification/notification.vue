@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
+import { useRouter } from 'vue-router';
+
 import { Bell, CircleCheckBig, CircleX, MailCheck } from '@vben/icons';
 import { $t } from '@vben/locales';
 
@@ -39,6 +41,7 @@ const emit = defineEmits<{
   viewAll: [];
 }>();
 
+const router = useRouter();
 const [open, toggle] = useToggle();
 
 function close() {
@@ -59,7 +62,28 @@ function handleClear() {
 }
 
 function handleClick(item: NotificationItem) {
-  emit('read', item);
+  // 如果通知项有链接，点击时跳转
+  if (item.link) {
+    navigateTo(item.link, item.query, item.state);
+  }
+}
+
+function navigateTo(
+  link: string,
+  query?: Record<string, any>,
+  state?: Record<string, any>,
+) {
+  if (link.startsWith('http://') || link.startsWith('https://')) {
+    // 外部链接，在新标签页打开
+    window.open(link, '_blank');
+  } else {
+    // 内部路由链接，支持 query 参数和 state
+    router.push({
+      path: link,
+      query: query || {},
+      state,
+    });
+  }
 }
 </script>
 <template>
