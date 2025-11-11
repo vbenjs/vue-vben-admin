@@ -93,8 +93,9 @@ onMounted(async () => {
 
           if (changedFields.length > 0) {
             // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
+            const values = await forward.value.formApi?.getValues();
             forward.value.handleValuesChange(
-              cloneDeep((await forward.value.formApi?.getValues()) ?? {}),
+              cloneDeep(values ?? {}) as Record<string, any>,
               changedFields,
             );
           }
