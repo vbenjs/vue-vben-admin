@@ -7,8 +7,9 @@ import {
   VBEN_GITHUB_URL,
   VBEN_LOGO_URL,
   VBEN_NAIVE_PREVIEW_URL,
+  VBEN_TD_PREVIEW_URL,
 } from '@vben/constants';
-import { SvgAntdvLogoIcon } from '@vben/icons';
+import { SvgAntdvLogoIcon, SvgTDesignIcon } from '@vben/icons';
 
 import { IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -75,6 +76,17 @@ const routes: RouteRecordRaw[] = [
           icon: 'logos:element',
           link: VBEN_ELE_PREVIEW_URL,
           title: $t('demos.vben.element-plus'),
+        },
+      },
+      {
+        name: 'VbenTDesign',
+        path: '/vben-admin/tdesign',
+        component: IFrameView,
+        meta: {
+          badgeType: 'dot',
+          icon: SvgTDesignIcon,
+          link: VBEN_TD_PREVIEW_URL,
+          title: $t('demos.vben.tdesign'),
         },
       },
     ],

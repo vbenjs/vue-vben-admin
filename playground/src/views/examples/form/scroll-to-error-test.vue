@@ -132,10 +132,7 @@ async function fillPartialData() {
     <Card title="功能测试">
       <template #extra>
         <div class="flex items-center gap-2">
-          <Switch
-            v-model:checked="scrollEnabled"
-            @change="toggleScrollToError"
-          />
+          <Switch v-model="scrollEnabled" @change="toggleScrollToError" />
           <span>启用滚动到错误字段</span>
         </div>
       </template>

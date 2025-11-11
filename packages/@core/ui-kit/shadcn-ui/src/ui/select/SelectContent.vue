@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectContentEmits, SelectContentProps } from 'radix-vue';
+import type { SelectContentEmits, SelectContentProps } from 'reka-ui';
 
 import { computed } from 'vue';
 
@@ -10,7 +10,7 @@ import {
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import SelectScrollDownButton from './SelectScrollDownButton.vue';
 import SelectScrollUpButton from './SelectScrollUpButton.vue';
@@ -55,7 +55,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
           cn(
             'p-1',
             position === 'popper' &&
-              'h-[--radix-select-trigger-height] w-full min-w-[--radix-select-trigger-width]',
+              'h-[--reka-select-trigger-height] w-full min-w-[--reka-select-trigger-width]',
           )
         "
       >

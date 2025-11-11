@@ -66,6 +66,7 @@
     "document": "文档",
     "antdv": "Ant Design Vue 版本",
     "naive-ui": "Naive UI 版本",
-    "element-plus": "Element Plus 版本"
+    "element-plus": "Element Plus 版本",
+    "tdesign": "TDesign Vue 版本"
   }
 }

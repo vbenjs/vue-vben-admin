@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { TabsContentProps } from 'radix-vue';
+import type { TabsContentProps } from 'reka-ui';
 
 import { computed } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { TabsContent } from 'radix-vue';
+import { TabsContent } from 'reka-ui';
 
 const props = defineProps<TabsContentProps & { class?: any }>();
 
