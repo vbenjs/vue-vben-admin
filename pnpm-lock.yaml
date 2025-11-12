@@ -161,7 +161,7 @@ catalogs:
       version: 7.0.1
     autoprefixer:
       specifier: ^10.4.22
-      version: 10.4.21
+      version: 10.4.22
     axios:
       specifier: ^1.10.0
       version: 1.13.2
@@ -222,6 +222,9 @@ catalogs:
     element-plus:
       specifier: ^2.10.2
       version: 2.11.7
+    es-toolkit:
+      specifier: ^1.41.0
+      version: 1.41.0
     eslint:
       specifier: ^9.30.1
       version: 9.39.1
@@ -461,7 +464,7 @@ catalogs:
       version: 4.15.1
     vite:
       specifier: ^7.2.2
-      version: 7.2.1
+      version: 7.2.2
     vite-plugin-compression:
       specifier: ^0.5.1
       version: 0.5.1
@@ -626,7 +629,7 @@ importers:
         specifier: 'catalog:'
         version: 3.2.4(@types/node@24.10.1)(happy-dom@17.6.3)(jiti@2.6.1)(less@4.4.2)(sass@1.93.3)(terser@5.44.1)(yaml@2.8.1)
       vue:
-        specifier: ^3.5.24
+        specifier: ^3.5.17
         version: 3.5.24(typescript@5.9.3)
       vue-tsc:
         specifier: 'catalog:'
@@ -1316,6 +1319,9 @@ importers:
       defu:
         specifier: 'catalog:'
         version: 6.1.4
+      es-toolkit:
+        specifier: 'catalog:'
+        version: 1.41.0
       lodash.clonedeep:
         specifier: 'catalog:'
         version: 4.5.0
@@ -14530,7 +14536,7 @@ snapshots:
       '@types/web-bluetooth': 0.0.21
       '@vueuse/metadata': 12.8.2
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
-      vue: 3.5.23(typescript@5.9.3)
+      vue: 3.5.24(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -14562,7 +14568,7 @@ snapshots:
     dependencies:
       '@vueuse/core': 12.8.2(typescript@5.9.3)
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
-      vue: 3.5.23(typescript@5.9.3)
+      vue: 3.5.24(typescript@5.9.3)
     optionalDependencies:
       async-validator: 4.2.5
       axios: 1.13.2
@@ -14610,7 +14616,7 @@ snapshots:
 
   '@vueuse/shared@12.8.2(typescript@5.9.3)':
     dependencies:
-      vue: 3.5.23(typescript@5.9.3)
+      vue: 3.5.24(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 

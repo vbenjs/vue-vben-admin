@@ -87,6 +87,7 @@
     "defu": "catalog:",
     "lodash.clonedeep": "catalog:",
     "lodash.get": "catalog:",
+    "es-toolkit": "catalog:",
     "lodash.isequal": "catalog:",
     "lodash.set": "catalog:",
     "nprogress": "catalog:",
