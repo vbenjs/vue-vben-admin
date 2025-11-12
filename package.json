@@ -93,7 +93,7 @@
     "unbuild": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "vue": "catalog:",
+    "vue": "^3.5.24",
     "vue-tsc": "catalog:"
   },
   "engines": {
