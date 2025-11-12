@@ -243,6 +243,8 @@ interface ThemePreferences {
   mode: ThemeModeType;
   /** 圆角 */
   radius: string;
+  /** 字体大小（单位：px） */
+  fontSize: number;
   /** 是否开启半深色header（只在theme='light'时生效） */
   semiDarkHeader: boolean;
   /** 是否开启半深色菜单（只在theme='light'时生效） */

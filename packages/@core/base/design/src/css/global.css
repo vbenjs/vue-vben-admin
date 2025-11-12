@@ -14,8 +14,9 @@
   }
 
   html {
-    @apply text-foreground bg-background font-sans text-[100%];
+    @apply text-foreground bg-background font-sans;
 
+    font-size: var(--font-size-base, 16px);
     font-variation-settings: normal;
     line-height: 1.15;
     text-size-adjust: 100%;
