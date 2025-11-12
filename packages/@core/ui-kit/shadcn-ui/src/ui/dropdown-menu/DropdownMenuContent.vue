@@ -2,7 +2,7 @@
 import type {
   DropdownMenuContentEmits,
   DropdownMenuContentProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 import { computed } from 'vue';
 
@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = withDefaults(
   defineProps<DropdownMenuContentProps & { class?: any }>(),

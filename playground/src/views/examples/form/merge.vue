@@ -94,7 +94,7 @@ async function handleMergeSubmit() {
     <Card title="基础示例">
       <template #extra>
         <Switch
-          v-model:checked="needMerge"
+          v-model="needMerge"
           checked-children="开启字段合并"
           class="mr-4"
           un-checked-children="关闭字段合并"

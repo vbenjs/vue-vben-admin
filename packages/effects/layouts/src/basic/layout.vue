@@ -259,6 +259,7 @@ const headerSlots = computed(() => {
         :class="logoClass"
         :collapsed="logoCollapsed"
         :src="preferences.logo.source"
+        :src-dark="preferences.logo.sourceDark"
         :text="preferences.app.name"
         :theme="showHeaderNav ? headerTheme : theme"
         @click="clickLogo"
@@ -350,6 +351,8 @@ const headerSlots = computed(() => {
       <VbenLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
+        :src="preferences.logo.source"
+        :src-dark="preferences.logo.sourceDark"
         :text="preferences.app.name"
         :theme="theme"
       >

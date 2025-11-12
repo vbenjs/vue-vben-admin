@@ -12,7 +12,7 @@ import {
   TabsList,
   TabsRoot,
   TabsTrigger,
-} from 'radix-vue';
+} from 'reka-ui';
 
 defineOptions({
   inheritAttrs: false,
@@ -56,7 +56,7 @@ const toggleOpen = () => {
         <TabsList class="relative flex">
           <template v-if="open">
             <TabsIndicator
-              class="absolute bottom-0 left-0 h-[2px] w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full transition-[width,transform] duration-300"
+              class="absolute bottom-0 left-0 h-[2px] w-[--reka-tabs-indicator-size] translate-x-[--reka-tabs-indicator-position] rounded-full transition-[width,transform] duration-300"
             >
               <div class="size-full bg-[var(--vp-c-indigo-1)]"></div>
             </TabsIndicator>

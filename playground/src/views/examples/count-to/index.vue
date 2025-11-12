@@ -115,7 +115,7 @@ function onFinished() {
           </Col>
           <Col :span="8">
             <FormItem label="禁用动画" name="disabled">
-              <Switch v-model:checked="props.disabled" />
+              <Switch v-model="props.disabled" />
             </FormItem>
           </Col>
           <Col :span="8">
