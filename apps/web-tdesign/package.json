@@ -42,7 +42,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "dayjs": "catalog:",
-    "lodash-es": "^4.17.21",
+    "es-toolkit": "catalog:",
     "pinia": "catalog:",
     "tdesign-vue-next": "^1.17.1",
     "vue": "catalog:",
