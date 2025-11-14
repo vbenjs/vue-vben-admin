@@ -24,7 +24,7 @@ catalog:
   '@ctrl/tinycolor': ^4.1.0
   '@eslint/js': ^9.30.1
   '@faker-js/faker': ^9.9.0
-  '@iconify/json': ^2.2.406
+  '@iconify/json': ^2.2.407
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.1.7
@@ -37,7 +37,7 @@ catalog:
   '@stylistic/stylelint-plugin': ^3.1.3
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.16
-  '@tanstack/vue-query': ^5.91.0
+  '@tanstack/vue-query': ^5.91.1
   '@tanstack/vue-store': ^0.8.0
   '@types/archiver': ^6.0.3
   '@types/eslint': ^9.6.1
@@ -187,9 +187,9 @@ catalog:
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
   vue-tsc: 2.2.10
-  vxe-pc-ui: ^4.10.22
-  vxe-table: ^4.17.14
+  vxe-pc-ui: ^4.10.27
+  vxe-table: ^4.17.15
   watermark-js-plus: ^1.6.2
   zod: ^3.25.67
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
   es-toolkit: ^1.41.0
