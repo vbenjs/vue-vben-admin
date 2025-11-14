@@ -112,6 +112,7 @@
       "@ctrl/tinycolor": "catalog:",
       "clsx": "catalog:",
       "esbuild": "0.25.3",
+      "jiti": "^2.6.1",
       "pinia": "catalog:",
       "vue": "catalog:"
     },
