@@ -163,6 +163,7 @@ catalog:
   tailwind-merge: ^2.6.0
   tailwindcss: ^3.4.18
   tailwindcss-animate: ^1.0.7
+  tdesign-vue-next: ^1.17.1
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
   turbo: ^2.6.1
