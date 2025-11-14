@@ -31,8 +31,8 @@ catalogs:
       specifier: ^9.9.0
       version: 9.9.0
     '@iconify/json':
-      specifier: ^2.2.406
-      version: 2.2.406
+      specifier: ^2.2.407
+      version: 2.2.407
     '@iconify/tailwind':
       specifier: ^1.2.0
       version: 1.2.0
@@ -70,8 +70,8 @@ catalogs:
       specifier: ^0.5.16
       version: 0.5.19
     '@tanstack/vue-query':
-      specifier: ^5.91.0
-      version: 5.91.0
+      specifier: ^5.91.1
+      version: 5.91.1
     '@tanstack/vue-store':
       specifier: ^0.8.0
       version: 0.8.0
@@ -502,11 +502,11 @@ catalogs:
       specifier: 2.2.10
       version: 2.2.10
     vxe-pc-ui:
-      specifier: ^4.10.22
-      version: 4.10.22
+      specifier: ^4.10.27
+      version: 4.10.27
     vxe-table:
-      specifier: ^4.17.14
-      version: 4.17.14
+      specifier: ^4.17.15
+      version: 4.17.15
     watermark-js-plus:
       specifier: ^1.6.2
       version: 1.6.3
@@ -514,8 +514,8 @@ catalogs:
       specifier: ^3.25.67
       version: 3.25.76
     zod-defaults:
-      specifier: 0.1.3
-      version: 0.1.3
+      specifier: 0.2.3
+      version: 0.2.3
 
 overrides:
   '@ast-grep/napi': ^0.39.9
@@ -893,8 +893,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.4(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))
       tdesign-vue-next:
-        specifier: ^1.17.1
-        version: 1.17.2(vue@3.5.24(typescript@5.9.3))
+        specifier: ^1.17.3
+        version: 1.17.3(vue@3.5.24(typescript@5.9.3))
       vue:
         specifier: ^3.5.24
         version: 3.5.24(typescript@5.9.3)
@@ -1144,7 +1144,7 @@ importers:
     dependencies:
       '@iconify/json':
         specifier: 'catalog:'
-        version: 2.2.406
+        version: 2.2.407
       '@iconify/tailwind':
         specifier: 'catalog:'
         version: 1.2.0
@@ -1423,7 +1423,7 @@ importers:
         version: 3.25.76
       zod-defaults:
         specifier: 'catalog:'
-        version: 0.1.3(zod@3.25.76)
+        version: 0.2.3(zod@3.25.76)
 
   packages/@core/ui-kit/layout-ui:
     dependencies:
@@ -1772,10 +1772,10 @@ importers:
         version: 3.5.24(typescript@5.9.3)
       vxe-pc-ui:
         specifier: 'catalog:'
-        version: 4.10.22(vue@3.5.24(typescript@5.9.3))
+        version: 4.10.27(vue@3.5.24(typescript@5.9.3))
       vxe-table:
         specifier: 'catalog:'
-        version: 4.17.14(vue@3.5.24(typescript@5.9.3))
+        version: 4.17.15(vue@3.5.24(typescript@5.9.3))
 
   packages/effects/request:
     dependencies:
@@ -1890,7 +1890,7 @@ importers:
     dependencies:
       '@tanstack/vue-query':
         specifier: 'catalog:'
-        version: 5.91.0(vue@3.5.24(typescript@5.9.3))
+        version: 5.91.1(vue@3.5.24(typescript@5.9.3))
       '@vben-core/menu-ui':
         specifier: workspace:*
         version: link:../packages/@core/ui-kit/menu-ui
@@ -3656,8 +3656,8 @@ packages:
   '@iconify-json/vscode-icons@1.2.33':
     resolution: {integrity: sha512-2lKDybGxXXeLeeqeNT2YVDYXs5va0YMHf06w3GemS22j/0CCTpKwKDK7REaibsCq3bRV8qX0RJDM4AbREE7L+w==}
 
-  '@iconify/json@2.2.406':
-    resolution: {integrity: sha512-Xr/ACbGCrgAs/Ee/JYvQT1/dDTTbw79OEilSUpVyga66I6gP25GT4INnWQt6ra0yDsnhluP5jLHiG+L9fvpQRg==}
+  '@iconify/json@2.2.407':
+    resolution: {integrity: sha512-GI81Sh05/31UyyIK2+hhMpzJb3PgvAJq/w6B0xgfQcTMwsWOaLL0QV50WNgoIHltt8FvqgR+BK/nOGnrTqugiQ==}
 
   '@iconify/tailwind@1.2.0':
     resolution: {integrity: sha512-KgpIHWOTcRYw1XcoUqyNSrmYyfLLqZYu3AmP8zdfLk0F5TqRO8YerhlvlQmGfn7rJXgPeZN569xPAJnJ53zZxA==}
@@ -4489,8 +4489,8 @@ packages:
     resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
     engines: {node: '>=12'}
 
-  '@tanstack/query-core@5.90.8':
-    resolution: {integrity: sha512-4E0RP/0GJCxSNiRF2kAqE/LQkTJVlL/QNU7gIJSptaseV9HP6kOuA+N11y4bZKZxa3QopK3ZuewwutHx6DqDXQ==}
+  '@tanstack/query-core@5.90.9':
+    resolution: {integrity: sha512-UFOCQzi6pRGeVTVlPNwNdnAvT35zugcIydqjvFUzG62dvz2iVjElmNp/hJkUoM5eqbUPfSU/GJIr/wbvD8bTUw==}
 
   '@tanstack/store@0.8.0':
     resolution: {integrity: sha512-Om+BO0YfMZe//X2z0uLF2j+75nQga6TpTJgLJQBiq85aOyZNIhkCgleNcud2KQg4k4v9Y9l+Uhru3qWMPGTOzQ==}
@@ -4498,8 +4498,8 @@ packages:
   '@tanstack/virtual-core@3.13.12':
     resolution: {integrity: sha512-1YBOJfRHV4sXUmWsFSf5rQor4Ss82G8dQWLRbnk3GA4jeP8hQt1hxXh0tmflpC0dz3VgEv/1+qwPyLeWkQuPFA==}
 
-  '@tanstack/vue-query@5.91.0':
-    resolution: {integrity: sha512-oyYZPu/HNfYhfd6doJHKil4hQG7I0GgZYA7cmyV6rBGsDpIYvDbBSRUWLmcd3+wkp2QnrnwqsC/4XM0lMJgGOA==}
+  '@tanstack/vue-query@5.91.1':
+    resolution: {integrity: sha512-dzYkiZKoLb5T7FI6wuJ3LHCdRswS3f8M+0IzVwpkN90fZWOUc0a2kwolPJZWp6HqngmMAXd/rZPzq/CSf3y7Rw==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^3.5.24
@@ -4647,8 +4647,8 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
-  '@types/validator@13.15.4':
-    resolution: {integrity: sha512-LSFfpSnJJY9wbC0LQxgvfb+ynbHftFo0tMsFOl/J4wexLnYMmDSPaj2ZyDv3TkfL1UePxPrxOWJfbiRS8mQv7A==}
+  '@types/validator@13.15.9':
+    resolution: {integrity: sha512-9ENIuq9PUX45M1QRtfJDprgfErED4fBiMPmjlPci4W9WiBelVtHYCjF3xkQNcSnmUeuruLS1kH6hSl5M1vz4Sw==}
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -9976,8 +9976,8 @@ packages:
     peerDependencies:
       vue: ^3.5.24
 
-  tdesign-vue-next@1.17.2:
-    resolution: {integrity: sha512-nTofPSKGQguOS+Lb62fDiLS1Rs3Ngzb8rE8sPEjfMdDjdFZ5kEUgvVp+J+8GKfgwVRAZRjv//qSzZVt6cqgXxA==}
+  tdesign-vue-next@1.17.3:
+    resolution: {integrity: sha512-4x1E5qfcE+rROjfozJz0g3Prc2tSCmoXtZ/Q7BG4rW37FqDborcPd+G9wE3E8Rht2z84/kuzK/SZur0tMjIshQ==}
     engines: {node: '>= 18'}
     peerDependencies:
       vue: ^3.5.24
@@ -10403,8 +10403,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  validator@13.15.20:
-    resolution: {integrity: sha512-KxPOq3V2LmfQPP4eqf3Mq/zrT0Dqp2Vmx2Bn285LwVahLc+CsxOM0crBHczm8ijlcjZ0Q5Xd6LW3z3odTPnlrw==}
+  validator@13.15.23:
+    resolution: {integrity: sha512-4yoz1kEWqUjzi5zsPbAS/903QXSYp0UOtHsPpp7p9rHAw/W+dkInskAE386Fat3oKRROwO98d9ZB0G4cObgUyw==}
     engines: {node: '>= 0.10'}
 
   vdirs@0.1.8:
@@ -10684,11 +10684,11 @@ packages:
     peerDependencies:
       vue: ^3.5.24
 
-  vxe-pc-ui@4.10.22:
-    resolution: {integrity: sha512-a7WgzkKlzAkcy0MDjpWg/jOxbNyDfiKD1gmwemCIm68Hhi96EYdACYV5kXpIU6S2lIemtSzmUHAnEnAwm3o03w==}
+  vxe-pc-ui@4.10.27:
+    resolution: {integrity: sha512-Y9o4oAfJuoX1lqYixqiuiTcjGCTqU5Rww+W78CbrJN5TglPJdR0gW7Hq5quR7baCBT3P8JaiFbxtG2gfb9ZcSw==}
 
-  vxe-table@4.17.14:
-    resolution: {integrity: sha512-bnPvt6TURzN1FMSB9q3HbyY4yiWDKXnWZW+x7x5V7S5HCbAIDgtVYMYky4JnFlsEaA7Six67Oxycktfx4/DJUQ==}
+  vxe-table@4.17.15:
+    resolution: {integrity: sha512-3nLcymzN12ZGTwO/8E2jyZsLA7kUbnZ4ZQgRBYp6+GbeUDX2QVuLgf0mtbS05wtbRuh4RdfRM6Tf+TbvKwhcig==}
 
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
@@ -10938,10 +10938,10 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod-defaults@0.1.3:
-    resolution: {integrity: sha512-Cp4UjuVfXqwaOx8A5LlM0IRBZs8B7AXgF+XOZWF8CjMDhsY/Jki+y7VS4adVtQj9NNSsAPwylUlJp9INuxPEnA==}
+  zod-defaults@0.2.3:
+    resolution: {integrity: sha512-7pYkOH1/c+Ril5AZUYtsbhMkehkI8CMqzFZ7YZXfC9SMLRvZuLyonQE7BAIVSNxeTpqTZmW5BLxGSzWMnKNdIw==}
     peerDependencies:
-      zod: ^3.23.8
+      zod: ^4.1.12
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -12897,7 +12897,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.406':
+  '@iconify/json@2.2.407':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
@@ -13808,16 +13808,16 @@ snapshots:
     dependencies:
       remove-accents: 0.5.0
 
-  '@tanstack/query-core@5.90.8': {}
+  '@tanstack/query-core@5.90.9': {}
 
   '@tanstack/store@0.8.0': {}
 
   '@tanstack/virtual-core@3.13.12': {}
 
-  '@tanstack/vue-query@5.91.0(vue@3.5.24(typescript@5.9.3))':
+  '@tanstack/vue-query@5.91.1(vue@3.5.24(typescript@5.9.3))':
     dependencies:
       '@tanstack/match-sorter-utils': 8.19.4
-      '@tanstack/query-core': 5.90.8
+      '@tanstack/query-core': 5.90.9
       '@vue/devtools-api': 6.6.4
       vue: 3.5.24(typescript@5.9.3)
       vue-demi: 0.14.10(vue@3.5.24(typescript@5.9.3))
@@ -13960,7 +13960,7 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@types/validator@13.15.4': {}
+  '@types/validator@13.15.9': {}
 
   '@types/web-bluetooth@0.0.16': {}
 
@@ -19794,21 +19794,21 @@ snapshots:
       '@babel/runtime': 7.28.4
       vue: 3.5.24(typescript@5.9.3)
 
-  tdesign-vue-next@1.17.2(vue@3.5.24(typescript@5.9.3)):
+  tdesign-vue-next@1.17.3(vue@3.5.24(typescript@5.9.3)):
     dependencies:
       '@babel/runtime': 7.28.4
       '@popperjs/core': 2.11.8
       '@types/lodash-es': 4.17.12
       '@types/sortablejs': 1.15.9
       '@types/tinycolor2': 1.4.6
-      '@types/validator': 13.15.4
+      '@types/validator': 13.15.9
       dayjs: 1.11.19
       lodash-es: 4.17.21
       mitt: 3.0.1
       sortablejs: 1.15.6
       tdesign-icons-vue-next: 0.4.1(vue@3.5.24(typescript@5.9.3))
       tinycolor2: 1.6.0
-      validator: 13.15.20
+      validator: 13.15.23
       vue: 3.5.24(typescript@5.9.3)
 
   temp-dir@2.0.0: {}
@@ -20249,7 +20249,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  validator@13.15.20: {}
+  validator@13.15.23: {}
 
   vdirs@0.1.8(vue@3.5.24(typescript@5.9.3)):
     dependencies:
@@ -20628,15 +20628,15 @@ snapshots:
       vooks: 0.2.12(vue@3.5.24(typescript@5.9.3))
       vue: 3.5.24(typescript@5.9.3)
 
-  vxe-pc-ui@4.10.22(vue@3.5.24(typescript@5.9.3)):
+  vxe-pc-ui@4.10.27(vue@3.5.24(typescript@5.9.3)):
     dependencies:
       '@vxe-ui/core': 4.2.14(vue@3.5.24(typescript@5.9.3))
     transitivePeerDependencies:
       - vue
 
-  vxe-table@4.17.14(vue@3.5.24(typescript@5.9.3)):
+  vxe-table@4.17.15(vue@3.5.24(typescript@5.9.3)):
     dependencies:
-      vxe-pc-ui: 4.10.22(vue@3.5.24(typescript@5.9.3))
+      vxe-pc-ui: 4.10.27(vue@3.5.24(typescript@5.9.3))
     transitivePeerDependencies:
       - vue
 
@@ -20980,7 +20980,7 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-defaults@0.1.3(zod@3.25.76):
+  zod-defaults@0.2.3(zod@3.25.76):
     dependencies:
       zod: 3.25.76
 
