@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/longho/Coding/j1c/np-admin/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
