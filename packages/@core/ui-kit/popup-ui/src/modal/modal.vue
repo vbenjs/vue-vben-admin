@@ -94,12 +94,11 @@ const {
   submitting,
   title,
   titleTooltip,
+  animationType,
   zIndex,
 } = usePriorityValues(props, state);
 
-const shouldFullscreen = computed(
-  () => (fullscreen.value && header.value) || isMobile.value,
-);
+const shouldFullscreen = computed(() => fullscreen.value || isMobile.value);
 
 const shouldDraggable = computed(
   () => draggable.value && !shouldFullscreen.value && header.value,
@@ -181,7 +180,7 @@ function escapeKeyDown(e: KeyboardEvent) {
   }
 }
 
-function handerOpenAutoFocus(e: Event) {
+function handleOpenAutoFocus(e: Event) {
   if (!openAutoFocus.value) {
     e?.preventDefault();
   }
@@ -209,6 +208,12 @@ function handleFocusOutside(e: Event) {
 const getForceMount = computed(() => {
   return !unref(destroyOnClose) && unref(firstOpened);
 });
+
+const handleOpened = () => {
+  requestAnimationFrame(() => {
+    props.modalApi?.onOpened();
+  });
+};
 
 function handleClosed() {
   isClosed.value = true;
@@ -244,6 +249,7 @@ function handleClosed() {
       :modal="modal"
       :open="state?.isOpen"
       :show-close="closable"
+      :animation-type="animationType"
       :z-index="zIndex"
       :overlay-blur="overlayBlur"
       close-class="top-3"
@@ -253,8 +259,8 @@ function handleClosed() {
       @escape-key-down="escapeKeyDown"
       @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
-      @open-auto-focus="handerOpenAutoFocus"
-      @opened="() => modalApi?.onOpened()"
+      @open-auto-focus="handleOpenAutoFocus"
+      @opened="handleOpened"
       @pointer-down-outside="pointerDownOutside"
     >
       <DialogHeader

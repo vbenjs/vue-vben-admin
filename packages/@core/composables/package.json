@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/composables",
-  "version": "5.5.7",
+  "version": "5.5.9",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -37,7 +37,7 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
-    "radix-vue": "catalog:",
+    "reka-ui": "catalog:",
     "sortablejs": "catalog:",
     "vue": "catalog:"
   },

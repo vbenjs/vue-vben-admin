@@ -12,7 +12,12 @@ import type {
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils';
+import {
+  cn,
+  isFunction,
+  isString,
+  mergeWithArrayOverride,
+} from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -35,6 +40,16 @@ const props = withDefaults(
 const emits = defineEmits<{
   submit: [event: any];
 }>();
+
+const wrapperClass = computed(() => {
+  const cls = ['flex'];
+  if (props.layout === 'inline') {
+    cls.push('flex-wrap gap-x-2');
+  } else {
+    cls.push(props.compact ? 'gap-x-2' : 'gap-x-4', 'flex-col grid');
+  }
+  return cn(...cls, props.wrapperClass);
+});
 
 provideFormRenderProps(props);
 
@@ -110,6 +125,17 @@ const computedSchema = computed(
           ? keepIndex <= index
           : false;
 
+      // 处理函数形式的formItemClass
+      let resolvedSchemaFormItemClass = schema.formItemClass;
+      if (isFunction(schema.formItemClass)) {
+        try {
+          resolvedSchemaFormItemClass = schema.formItemClass();
+        } catch (error) {
+          console.error('Error calling formItemClass function:', error);
+          resolvedSchemaFormItemClass = '';
+        }
+      }
+
       return {
         colon,
         disabled,
@@ -133,7 +159,7 @@ const computedSchema = computed(
           'flex-shrink-0',
           { hidden },
           formItemClass,
-          schema.formItemClass,
+          resolvedSchemaFormItemClass,
         ),
         labelClass: cn(labelClass, schema.labelClass),
       };
@@ -144,7 +170,7 @@ const computedSchema = computed(
 
 <template>
   <component :is="formComponent" v-bind="formComponentProps">
-    <div ref="wrapperRef" :class="wrapperClass" class="grid">
+    <div ref="wrapperRef" :class="wrapperClass">
       <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
         <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
           <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>

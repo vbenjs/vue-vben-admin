@@ -59,9 +59,9 @@ function handleComplete(e: string[]) {
 async function handleSend(e: Event) {
   try {
     e?.preventDefault();
-    await handleSendCode();
     countdown.value = maxTime;
     startCountdown();
+    await handleSendCode();
   } catch (error) {
     console.error('Failed to send code:', error);
     // Consider emitting an error event or showing a notification
@@ -84,6 +84,8 @@ onBeforeUnmount(() => {
 });
 
 const id = useId();
+
+const pinType = 'text' as const;
 </script>
 
 <template>
@@ -94,7 +96,7 @@ const id = useId();
     class="flex w-full justify-between"
     otp
     placeholder="○"
-    type="number"
+    :type="pinType"
     @complete="handleComplete"
   >
     <div class="relative flex w-full">

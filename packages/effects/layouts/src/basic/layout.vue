@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type { SetupContext } from 'vue';
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import type { MenuRecordRaw } from '@vben/types';
 
-import { computed, useSlots, watch } from 'vue';
+import { computed, onMounted, useSlots, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 import { useRefresh } from '@vben/hooks';
 import { $t, i18n } from '@vben/locales';
@@ -153,6 +155,25 @@ function clickLogo() {
   emit('clickLogo');
 }
 
+function autoCollapseMenuByRouteMeta(route: RouteLocationNormalizedLoaded) {
+  // 只在双列模式下生效
+  if (
+    ['header-mixed-nav', 'sidebar-mixed-nav'].includes(
+      preferences.app.layout,
+    ) &&
+    route.meta &&
+    route.meta.hideInMenu
+  ) {
+    sidebarExtraVisible.value = false;
+  }
+}
+
+const route = useRoute();
+
+onMounted(() => {
+  autoCollapseMenuByRouteMeta(route);
+});
+
 watch(
   () => preferences.app.layout,
   async (val) => {
@@ -238,6 +259,7 @@ const headerSlots = computed(() => {
         :class="logoClass"
         :collapsed="logoCollapsed"
         :src="preferences.logo.source"
+        :src-dark="preferences.logo.sourceDark"
         :text="preferences.app.name"
         :theme="showHeaderNav ? headerTheme : theme"
         @click="clickLogo"
@@ -280,6 +302,9 @@ const headerSlots = computed(() => {
         </template>
         <template #notification>
           <slot name="notification"></slot>
+        </template>
+        <template #timezone>
+          <slot name="timezone"></slot>
         </template>
         <template v-for="item in headerSlots" #[item]>
           <slot :name="item"></slot>
@@ -326,6 +351,8 @@ const headerSlots = computed(() => {
       <VbenLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
+        :src="preferences.logo.source"
+        :src-dark="preferences.logo.sourceDark"
         :text="preferences.app.name"
         :theme="theme"
       >

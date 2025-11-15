@@ -41,6 +41,7 @@ const {
   emptyStateValue,
   fieldName,
   formFieldProps,
+  hide,
   label,
   labelClass,
   labelWidth,
@@ -59,7 +60,7 @@ const values = useFormValues();
 const errors = useFieldError(fieldName);
 const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
-const compact = formRenderProps.compact;
+const compact = computed(() => formRenderProps.compact);
 const isInValid = computed(() => errors.value?.length > 0);
 
 const FieldComponent = computed(() => {
@@ -95,7 +96,7 @@ const currentRules = computed(() => {
 });
 
 const visible = computed(() => {
-  return isIf.value && isShow.value;
+  return !hide && isIf.value && isShow.value;
 });
 
 const shouldRequired = computed(() => {
@@ -283,7 +284,7 @@ onUnmounted(() => {
 
 <template>
   <FormField
-    v-if="isIf"
+    v-if="!hide && isIf"
     v-bind="fieldProps"
     v-slot="slotProps"
     :name="fieldName"
@@ -295,7 +296,7 @@ onUnmounted(() => {
         'form-is-required': shouldRequired,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
-        'pb-6': !compact,
+        'pb-4': !compact,
         'pb-2': compact,
       }"
       class="relative flex"
@@ -386,7 +387,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="slide-up" v-if="!compact">
-          <FormMessage class="absolute bottom-1" />
+          <FormMessage class="absolute" />
         </Transition>
       </div>
     </FormItem>

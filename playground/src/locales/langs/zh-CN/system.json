@@ -1,4 +1,5 @@
 {
+  "title": "系统管理",
   "dept": {
     "list": "部门列表",
     "createTime": "创建时间",
@@ -62,6 +63,5 @@
     "operation": "操作",
     "permissions": "权限",
     "setPermissions": "授权"
-  },
-  "title": "系统管理"
+  }
 }

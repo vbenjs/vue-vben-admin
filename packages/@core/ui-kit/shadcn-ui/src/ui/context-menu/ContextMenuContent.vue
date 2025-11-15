@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type {
-  ContextMenuContentEmits,
-  ContextMenuContentProps,
-} from 'radix-vue';
+import type { ContextMenuContentEmits, ContextMenuContentProps } from 'reka-ui';
 
 import { computed } from 'vue';
 
@@ -12,7 +9,7 @@ import {
   ContextMenuContent,
   ContextMenuPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = defineProps<ContextMenuContentProps & { class?: any }>();
 const emits = defineEmits<ContextMenuContentEmits>();

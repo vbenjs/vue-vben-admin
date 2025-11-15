@@ -1,6 +1,6 @@
 {
   "name": "@vben/docs",
-  "version": "5.5.7",
+  "version": "5.5.9",
   "private": true,
   "scripts": {
     "build": "vitepress build",
@@ -22,7 +22,7 @@
     "ant-design-vue": "catalog:",
     "lucide-vue-next": "catalog:",
     "medium-zoom": "catalog:",
-    "radix-vue": "catalog:",
+    "reka-ui": "catalog:",
     "vitepress-plugin-group-icons": "catalog:"
   },
   "devDependencies": {

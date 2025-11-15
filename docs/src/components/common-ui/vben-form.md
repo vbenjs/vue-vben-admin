@@ -90,30 +90,52 @@ import { h } from 'vue';
 import { globalShareState, IconPicker } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-import {
-  AutoComplete,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  DatePicker,
-  Divider,
-  Input,
-  InputNumber,
-  InputPassword,
-  Mentions,
-  notification,
-  Radio,
-  RadioGroup,
-  RangePicker,
-  Rate,
-  Select,
-  Space,
-  Switch,
-  Textarea,
-  TimePicker,
-  TreeSelect,
-  Upload,
-} from 'ant-design-vue';
+const AutoComplete = defineAsyncComponent(
+  () => import('ant-design-vue/es/auto-complete'),
+);
+const Button = defineAsyncComponent(() => import('ant-design-vue/es/button'));
+const Checkbox = defineAsyncComponent(
+  () => import('ant-design-vue/es/checkbox'),
+);
+const CheckboxGroup = defineAsyncComponent(() =>
+  import('ant-design-vue/es/checkbox').then((res) => res.CheckboxGroup),
+);
+const DatePicker = defineAsyncComponent(
+  () => import('ant-design-vue/es/date-picker'),
+);
+const Divider = defineAsyncComponent(() => import('ant-design-vue/es/divider'));
+const Input = defineAsyncComponent(() => import('ant-design-vue/es/input'));
+const InputNumber = defineAsyncComponent(
+  () => import('ant-design-vue/es/input-number'),
+);
+const InputPassword = defineAsyncComponent(() =>
+  import('ant-design-vue/es/input').then((res) => res.InputPassword),
+);
+const Mentions = defineAsyncComponent(
+  () => import('ant-design-vue/es/mentions'),
+);
+const Radio = defineAsyncComponent(() => import('ant-design-vue/es/radio'));
+const RadioGroup = defineAsyncComponent(() =>
+  import('ant-design-vue/es/radio').then((res) => res.RadioGroup),
+);
+const RangePicker = defineAsyncComponent(() =>
+  import('ant-design-vue/es/date-picker').then((res) => res.RangePicker),
+);
+const Rate = defineAsyncComponent(() => import('ant-design-vue/es/rate'));
+const Select = defineAsyncComponent(() => import('ant-design-vue/es/select'));
+const Space = defineAsyncComponent(() => import('ant-design-vue/es/space'));
+const Switch = defineAsyncComponent(() => import('ant-design-vue/es/switch'));
+const Textarea = defineAsyncComponent(() =>
+  import('ant-design-vue/es/input').then((res) => res.Textarea),
+);
+const TimePicker = defineAsyncComponent(
+  () => import('ant-design-vue/es/time-picker'),
+);
+const TreeSelect = defineAsyncComponent(
+  () => import('ant-design-vue/es/tree-select'),
+);
+const Upload = defineAsyncComponent(() => import('ant-design-vue/es/upload'));
+
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
@@ -304,13 +326,16 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| layout | 表单项布局 | `'horizontal' \| 'vertical'` | `horizontal` |
+| layout | 表单项布局 | `'horizontal' \| 'vertical'\| 'inline'` | `horizontal` |
 | showCollapseButton | 是否显示折叠按钮 | `boolean` | `false` |
 | wrapperClass | 表单的布局，基于tailwindcss | `any` | - |
 | actionWrapperClass | 表单操作区域class | `any` | - |
+| actionLayout | 表单操作按钮位置 | `'newLine' \| 'rowEnd' \| 'inline'` | `rowEnd` |
+| actionPosition | 表单操作按钮对齐方式 | `'left' \| 'center' \| 'right'` | `right` |
 | handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleSubmit | 表单提交回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
 | handleValuesChange | 表单值变化回调 | `(values: Record<string, any>, fieldsChanged: string[]) => void` | - |
+| handleCollapsedChange | 表单收起展开状态变化回调 | `(collapsed: boolean) => void` | - |
 | actionButtonsReverse | 调换操作按钮位置 | `boolean` | `false` |
 | resetButtonOptions | 重置按钮组件参数 | `ActionButtonOptions` | - |
 | submitButtonOptions | 提交按钮组件参数 | `ActionButtonOptions` | - |
@@ -324,6 +349,7 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
 | submitOnChange | 字段值改变时提交表单(内部防抖，这个属性一般用于表格的搜索表单) | `boolean` | false |
 | compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
+| scrollToFirstError | 表单验证失败时是否自动滚动到第一个错误字段 | `boolean` | false |
 
 ::: tip handleValuesChange
 
@@ -394,7 +420,7 @@ export interface FormCommonConfig {
    * 所有表单项的栅格布局
    * @default ""
    */
-  formItemClass?: string;
+  formItemClass?: (() => string) | string;
   /**
    * 隐藏所有表单项label
    * @default false
@@ -448,6 +474,8 @@ export interface FormSchema<
   fieldName: string;
   /** 帮助信息 */
   help?: CustomRenderType;
+  /** 是否隐藏表单项 */
+  hide?: boolean;
   /** 表单的标签（如果是一个string，会用于默认必选规则的消息提示） */
   label?: CustomRenderType;
   /** 自定义组件内部渲染  */

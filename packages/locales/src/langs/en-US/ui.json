@@ -32,8 +32,11 @@
     "sliderDefaultText": "Slider and drag",
     "alt": "Supports img tag src attribute value",
     "sliderRotateDefaultTip": "Click picture to refresh",
+    "sliderTranslateDefaultTip": "Click picture to refresh",
     "sliderRotateFailTip": "Validation failed",
     "sliderRotateSuccessTip": "Validation successful, time {0} seconds",
+    "sliderTranslateFailTip": "Validation failed",
+    "sliderTranslateSuccessTip": "Validation successful, time {0} seconds",
     "refreshAriaLabel": "Refresh captcha",
     "confirmAriaLabel": "Confirm selection",
     "confirm": "Confirm",
@@ -99,6 +102,10 @@
       "errorPasswordTip": "Password error, please re-enter",
       "backToLogin": "Back to login",
       "entry": "Enter the system"
+    },
+    "timezone": {
+      "setTimezone": "Set Timezone",
+      "setSuccess": "Timezone set successfully"
     }
   }
 }

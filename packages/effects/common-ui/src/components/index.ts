@@ -14,14 +14,15 @@ export * from '@vben-core/popup-ui';
 
 // 给文档用
 export {
-  VbenAvatar,
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
+  VbenAvatar,
   VbenButton,
   VbenButtonGroup,
+  VbenCheckbox,
   VbenCheckButtonGroup,
   VbenCountToAnimator,
   VbenFullScreen,
@@ -33,8 +34,8 @@ export {
   VbenPinInput,
   VbenPopover,
   VbenScrollbar,
+  VbenSelect,
   VbenSpinner,
-  VbenTree,
 } from '@vben-core/shadcn-ui';
 
 export type { FlattenedItem } from '@vben-core/shadcn-ui';

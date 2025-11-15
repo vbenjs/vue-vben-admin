@@ -31,8 +31,11 @@
     "sliderSuccessText": "验证通过",
     "sliderDefaultText": "请按住滑块拖动",
     "sliderRotateDefaultTip": "点击图片可刷新",
+    "sliderTranslateDefaultTip": "点击图片可刷新",
     "sliderRotateFailTip": "验证失败",
     "sliderRotateSuccessTip": "验证成功，耗时{0}秒",
+    "sliderTranslateFailTip": "验证失败",
+    "sliderTranslateSuccessTip": "验证成功，耗时{0}秒",
     "alt": "支持img标签src属性值",
     "refreshAriaLabel": "刷新验证码",
     "confirmAriaLabel": "确认选择",
@@ -99,6 +102,10 @@
       "errorPasswordTip": "密码错误，请重新输入",
       "backToLogin": "返回登录",
       "entry": "进入系统"
+    },
+    "timezone": {
+      "setTimezone": "设置时区",
+      "setSuccess": "时区设置成功"
     }
   }
 }
