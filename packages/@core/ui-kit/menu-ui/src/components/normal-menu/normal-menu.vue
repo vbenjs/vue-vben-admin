@@ -102,7 +102,7 @@ $namespace: vben;
     }
 
     .#{$namespace}-normal-menu__icon {
-      font-size: 20px;
+      font-size: calc(var(--font-size-base, 16px) * 1.25);
     }
   }
 
@@ -146,14 +146,14 @@ $namespace: vben;
 
   &__icon {
     max-height: 20px;
-    font-size: 20px;
+    font-size: calc(var(--font-size-base, 16px) * 1.25);
     transition: all 0.25s ease;
   }
 
   &__name {
     margin-top: 8px;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: calc(var(--font-size-base, 16px) * 0.75);
     font-weight: 400;
     transition: all 0.25s ease;
   }

@@ -444,7 +444,7 @@ $namespace: vben;
 .#{$namespace}-menu__popup-container,
 .#{$namespace}-menu {
   --menu-title-width: 140px;
-  --menu-item-icon-size: 16px;
+  --menu-item-icon-size: var(--font-size-base, 16px);
   --menu-item-height: 38px;
   --menu-item-padding-y: 21px;
   --menu-item-padding-x: 12px;
@@ -458,7 +458,7 @@ $namespace: vben;
   --menu-item-collapse-margin-x: 0px;
   --menu-item-radius: 0px;
   --menu-item-indent: 16px;
-  --menu-font-size: 14px;
+  --menu-font-size: calc(var(--font-size-base, 16px) * 0.875);
 
   &.is-dark {
     --menu-background-color: hsl(var(--menu));
@@ -752,7 +752,7 @@ $namespace: vben;
     }
     .#{$namespace}-menu__icon {
       display: block;
-      font-size: 20px !important;
+      font-size: calc(var(--font-size-base, 16px) * 1.25) !important;
       transition: all 0.25s ease;
     }
 
@@ -760,7 +760,7 @@ $namespace: vben;
       display: inline-flex;
       margin-top: 8px;
       margin-bottom: 0;
-      font-size: 12px;
+      font-size: calc(var(--font-size-base, 16px) * 0.75);
       font-weight: 400;
       line-height: normal;
       transition: all 0.25s ease;

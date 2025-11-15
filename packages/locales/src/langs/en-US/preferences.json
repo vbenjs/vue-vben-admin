@@ -120,6 +120,8 @@
   "theme": {
     "title": "Theme",
     "radius": "Radius",
+    "fontSize": "Font Size",
+    "fontSizeTip": "Adjust global font size with real-time preview",
     "light": "Light",
     "dark": "Dark",
     "darkSidebar": "Semi Dark Sidebar",
