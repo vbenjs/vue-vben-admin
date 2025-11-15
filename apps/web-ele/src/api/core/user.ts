@@ -17,3 +17,35 @@ export async function getUserPageApi(
 ): Promise<UserPageResponse> {
   return requestClient.get<UserPageResponse>('/sys/user/page', { params });
 }
+
+export async function createUserApi(data: {
+  avatar?: string;
+  password: string;
+  roleIdList: number[];
+  username: string;
+}) {
+  return requestClient.post('/sys/user', data);
+}
+
+export async function updateUserApi(data: {
+  avatar?: string;
+  id: number;
+  password?: string;
+  roleIdList: number[];
+  username: string;
+}) {
+  return requestClient.put('/sys/user', data);
+}
+
+export interface UserDetail {
+  id: number;
+  username: string;
+  avatar: null | string;
+  roleIdList: number[];
+}
+
+export async function getUserDetailApi(id: number) {
+  return requestClient.get<{ code: number; data: UserDetail; msg: string }>(
+    `/sys/user/${id}`,
+  );
+}

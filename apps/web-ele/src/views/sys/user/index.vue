@@ -2,7 +2,7 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page } from '@vben/common-ui';
+import { Page, useVbenDrawer } from '@vben/common-ui';
 
 import { Picture as IconPicture } from '@element-plus/icons-vue';
 import { ElButton, ElCol, ElIcon, ElImage, ElRow } from 'element-plus';
@@ -10,7 +10,10 @@ import { ElButton, ElCol, ElIcon, ElImage, ElRow } from 'element-plus';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getUserPageApi } from '#/api/core/user';
 
+import UserDrawer from './drawer.vue';
+
 interface RowType {
+  id: number;
   username: string;
   avatar: string;
   roleIdList: number[];
@@ -110,12 +113,34 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
+
+const [Drawer, drawerApi] = useVbenDrawer({
+  connectedComponent: UserDrawer,
+  onClosed: () => gridApi.reload(),
+});
+
+function onAddUser() {
+  drawerApi.setData({ mode: 'create' }).setState({ title: '新增用户' }).open();
+}
+
+function onEditUser(row: RowType) {
+  drawerApi
+    .setData({ mode: 'edit', record: row })
+    .setState({ title: '编辑用户' })
+    .open();
+}
 </script>
 
 <template>
   <Page auto-content-height>
+    <Drawer class="w-[600px]" />
     <Grid>
+      <template #toolbar-actions>
+        <ElButton type="primary" size="small" @click="onAddUser">
+          新增用户
+        </ElButton>
+      </template>
       <template #avatar="{ row }">
         <ElImage :src="row.avatar || ''" style="width: 30px; height: 30px">
           <template #error>
@@ -138,11 +163,17 @@ const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
           <span>无角色</span>
         </div>
       </template>
-
-      <template>
+      <template #action="{ row }">
         <ElRow :gutter="8">
           <ElCol :span="12">
-            <ElButton type="primary" link size="small">编辑</ElButton>
+            <ElButton
+              type="primary"
+              link
+              size="small"
+              @click="() => onEditUser(row)"
+            >
+              编辑
+            </ElButton>
           </ElCol>
           <ElCol :span="12">
             <ElButton type="danger" link size="small">删除</ElButton>
