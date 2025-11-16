@@ -9,6 +9,7 @@ import { useVbenForm, z } from '#/adapter/form';
 import {
   createUserApi,
   getUserDetailApi,
+  getRoleListApi,
   updateUserApi,
 } from '#/api/core/user';
 
@@ -106,6 +107,17 @@ watch(
         record?: Record<string, any>;
       }>();
       await formApi.setValues({ __mode: payload?.mode });
+      const roleRes = await getRoleListApi();
+      const roleData = (roleRes as any)?.data ?? roleRes;
+      const roleOptions = Array.isArray(roleData)
+        ? roleData.map((item: any) => ({ label: item.remark ?? item.name, value: item.id }))
+        : [];
+      formApi.updateSchema([
+        {
+          fieldName: 'roleIdList',
+          componentProps: { options: roleOptions },
+        } as any,
+      ]);
       if (payload?.mode === 'edit') {
         formApi.setState((prev) => {
           const currentSchema = prev?.schema ?? [];

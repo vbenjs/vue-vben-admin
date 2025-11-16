@@ -45,7 +45,14 @@ export interface UserDetail {
 }
 
 export async function getUserDetailApi(id: number) {
-  return requestClient.get<{ code: number; data: UserDetail; msg: string }>(
+  return requestClient.get(
     `/sys/user/${id}`,
   );
+}
+
+/**
+ * 获取角色列表
+ */
+export async function getRoleListApi() {
+  return requestClient.get('/sys/role/list');
 }
