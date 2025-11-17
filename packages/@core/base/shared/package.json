@@ -86,6 +86,7 @@
     "dayjs": "catalog:",
     "defu": "catalog:",
     "es-toolkit": "catalog:",
+    "lodash.clonedeep": "catalog:",
     "nprogress": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"
