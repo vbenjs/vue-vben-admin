@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 
+import fs from 'node:fs';
 import path from 'node:path';
 
 import { addDynamicIconSelectors } from '@iconify/tailwind';
@@ -11,15 +12,23 @@ import { enterAnimationPlugin } from './plugins/entry';
 
 // import defaultTheme from 'tailwindcss/defaultTheme';
 
-const { packages } = getPackagesSync(process.cwd());
+// 只有在当前工作目录（process.cwd）能找到 package.json 时，才调用 getPackagesSync
+let packages: Array<any> = [];
+try {
+  const pkgJsonPath = path.join(process.cwd(), 'package.json');
+  // 当 Prettier/编辑器在 VS Code 可执行目录运行时（没有 package.json），退回空列表
+  packages = fs.existsSync(pkgJsonPath)
+    ? getPackagesSync(process.cwd()).packages
+    : [];
+} catch {
+  console.log('test?');
+  packages = [];
+}
 
 const tailwindPackages: string[] = [];
 
 packages.forEach((pkg) => {
-  // apps目录下和 @vben-core/tailwind-ui 包需要使用到 tailwindcss ui
-  // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
   tailwindPackages.push(pkg.dir);
-  // }
 });
 
 const shadcnUiColors = {
