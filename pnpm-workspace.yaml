@@ -22,7 +22,7 @@ catalog:
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
   '@ctrl/tinycolor': ^4.1.0
-  '@eslint/js': ^9.30.1
+  '@eslint/js': ^9.39.1
   '@faker-js/faker': ^9.9.0
   '@iconify/json': ^2.2.406
   '@iconify/tailwind': ^1.2.0
@@ -90,22 +90,22 @@ catalog:
   dotenv: ^16.6.1
   echarts: ^6.0.0
   element-plus: ^2.10.2
-  eslint: ^9.30.1
+  eslint: ^9.39.1
   eslint-config-turbo: ^2.6.1
   eslint-plugin-command: ^3.3.1
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.16.1
-  eslint-plugin-jsdoc: ^50.8.0
-  eslint-plugin-jsonc: ^2.20.1
-  eslint-plugin-n: ^17.20.0
+  eslint-plugin-jsdoc: ^61.2.1
+  eslint-plugin-jsonc: ^2.21.0
+  eslint-plugin-n: ^17.23.1
   eslint-plugin-no-only-tests: ^3.3.0
-  eslint-plugin-perfectionist: ^4.15.0
-  eslint-plugin-prettier: ^5.5.1
-  eslint-plugin-regexp: ^2.9.0
-  eslint-plugin-unicorn: ^59.0.1
-  eslint-plugin-unused-imports: ^4.1.4
+  eslint-plugin-perfectionist: ^4.15.1
+  eslint-plugin-prettier: ^5.5.4
+  eslint-plugin-regexp: ^2.10.0
+  eslint-plugin-unicorn: ^62.0.0
+  eslint-plugin-unused-imports: ^4.3.0
   eslint-plugin-vitest: ^0.5.4
-  eslint-plugin-vue: ^10.2.0
+  eslint-plugin-vue: ^10.5.1
   execa: ^9.6.0
   find-up: ^7.0.0
   get-port: ^7.1.0
@@ -114,8 +114,9 @@ catalog:
   happy-dom: ^17.6.3
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
+  jiti: ^2.6.1
   json-bigint: ^1.0.0
-  jsonc-eslint-parser: ^2.4.0
+  jsonc-eslint-parser: ^2.4.1
   jsonwebtoken: ^9.0.2
   lefthook: ^1.13.6
   lodash.clonedeep: ^4.5.0
@@ -177,7 +178,7 @@ catalog:
   vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-pwa: ^1.0.1
-  vite-plugin-vue-devtools: ^7.7.7
+  vite-plugin-vue-devtools: ^8.0.3
   vitepress: ^1.6.3
   vitepress-plugin-group-icons: ^1.6.1
   vitest: ^3.2.4
@@ -187,10 +188,10 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
-  vue-tsc: 2.2.10
+  vue-tsc: ^3.1.1
   vxe-pc-ui: ^4.10.22
   vxe-table: ^4.17.14
   watermark-js-plus: ^1.6.2
   zod: ^3.25.67
-  zod-defaults: ^0.2.3
+  zod-defaults: ^0.1.3
   es-toolkit: ^1.41.0
