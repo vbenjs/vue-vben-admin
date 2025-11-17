@@ -81,7 +81,7 @@ function generateMenus(
   });
 
   // 对菜单进行排序，避免order=0时被替换成999的问题
-  menus = menus.sort((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
+  menus = menus.toSorted((a, b) => (a?.order ?? 999) - (b?.order ?? 999));
 
   // 过滤掉隐藏的菜单项
   return filterTree(menus, (menu) => !!menu.show);

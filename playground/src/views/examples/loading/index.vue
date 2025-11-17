@@ -51,7 +51,7 @@ const loadingV = refAutoReset(false, 3000);
             <template #icon>
               <IconifyIcon
                 icon="svg-spinners:ring-resize"
-                class="text-primary size-10"
+                class="size-10 text-primary"
               />
             </template>
           </Loading>
@@ -65,7 +65,7 @@ const loadingV = refAutoReset(false, 3000);
             <template #icon>
               <IconifyIcon
                 icon="svg-spinners:bars-scale"
-                class="text-primary size-10"
+                class="size-10 text-primary"
               />
             </template>
           </Loading>

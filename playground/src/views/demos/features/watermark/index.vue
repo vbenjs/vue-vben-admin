@@ -48,7 +48,7 @@ async function createWaterMark() {
 <template>
   <Page title="水印">
     <template #description>
-      <div class="text-foreground/80 mt-2">
+      <div class="mt-2 text-foreground/80">
         水印使用了
         <a
           class="text-primary"

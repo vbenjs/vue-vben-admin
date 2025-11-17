@@ -31,7 +31,7 @@ const inputComponent = h(Input);
 <template>
   <Page title="图标">
     <template #description>
-      <div class="text-foreground/80 mt-2">
+      <div class="mt-2 text-foreground/80">
         图标可在
         <a
           class="text-primary"
