@@ -48,10 +48,10 @@ const toggleOpen = () => {
 <template>
   <TabsRoot
     v-model="currentTab"
-    class="bg-background-deep border-border overflow-hidden rounded-b-xl border-t"
+    class="overflow-hidden rounded-b-xl border-t border-border bg-background-deep"
     @update:model-value="open = true"
   >
-    <div class="border-border bg-background flex border-b-2 pr-2">
+    <div class="flex border-b-2 border-border bg-background pr-2">
       <div class="flex w-full items-center justify-between text-[13px]">
         <TabsList class="relative flex">
           <template v-if="open">
@@ -64,7 +64,7 @@ const toggleOpen = () => {
               v-for="(tab, index) in tabs"
               :key="index"
               :value="tab.label"
-              class="border-box text-foreground px-4 py-3 data-[state=active]:text-[var(--vp-c-indigo-1)]"
+              class="border-box px-4 py-3 text-foreground data-[state=active]:text-[var(--vp-c-indigo-1)]"
               tabindex="-1"
             >
               {{ tab.label }}
@@ -81,7 +81,7 @@ const toggleOpen = () => {
           <VbenTooltip side="top">
             <template #trigger>
               <Code
-                class="hover:bg-accent size-7 cursor-pointer rounded-full p-1.5"
+                class="size-7 cursor-pointer rounded-full p-1.5 hover:bg-accent"
                 @click="toggleOpen"
               />
             </template>
@@ -101,7 +101,7 @@ const toggleOpen = () => {
         as-child
         class="rounded-xl"
       >
-        <div class="text-foreground relative rounded-xl">
+        <div class="relative rounded-xl text-foreground">
           <component :is="tab.component" class="border-0" />
         </div>
       </TabsContent>
