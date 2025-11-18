@@ -8,8 +8,8 @@ import { ElButton, ElMessage } from 'element-plus';
 import { useVbenForm, z } from '#/adapter/form';
 import {
   createUserApi,
-  getUserDetailApi,
   getRoleListApi,
+  getUserDetailApi,
   updateUserApi,
 } from '#/api/core/user';
 
@@ -110,7 +110,10 @@ watch(
       const roleRes = await getRoleListApi();
       const roleData = (roleRes as any)?.data ?? roleRes;
       const roleOptions = Array.isArray(roleData)
-        ? roleData.map((item: any) => ({ label: item.remark ?? item.name, value: item.id }))
+        ? roleData.map((item: any) => ({
+            label: item.remark ?? item.name,
+            value: item.id,
+          }))
         : [];
       formApi.updateSchema([
         {
