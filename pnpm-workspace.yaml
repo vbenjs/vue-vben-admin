@@ -14,7 +14,7 @@ packages:
   - playground
 
 catalog:
-  '@ast-grep/napi': ^0.39.9
+  '@ast-grep/napi': ^0.40.0
   '@changesets/changelog-github': ^0.5.1
   '@changesets/cli': ^2.29.7
   '@changesets/git': ^3.0.4
@@ -24,7 +24,7 @@ catalog:
   '@ctrl/tinycolor': ^4.1.0
   '@eslint/js': ^9.30.1
   '@faker-js/faker': ^9.9.0
-  '@iconify/json': ^2.2.406
+  '@iconify/json': ^2.2.408
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.1.7
@@ -37,7 +37,7 @@ catalog:
   '@stylistic/stylelint-plugin': ^3.1.3
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.16
-  '@tanstack/vue-query': ^5.91.0
+  '@tanstack/vue-query': ^5.91.2
   '@tanstack/vue-store': ^0.8.0
   '@types/archiver': ^6.0.3
   '@types/eslint': ^9.6.1
@@ -54,8 +54,8 @@ catalog:
   '@types/qrcode': ^1.5.5
   '@types/qs': ^6.14.0
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.46.4
-  '@typescript-eslint/parser': ^8.46.4
+  '@typescript-eslint/eslint-plugin': ^8.47.0
+  '@typescript-eslint/parser': ^8.47.0
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.0.0
   '@vitejs/plugin-vue': ^6.0.1
@@ -89,7 +89,7 @@ catalog:
   depcheck: ^1.4.7
   dotenv: ^16.6.1
   echarts: ^6.0.0
-  element-plus: ^2.10.2
+  element-plus: ^2.11.8
   eslint: ^9.30.1
   eslint-config-turbo: ^2.6.1
   eslint-plugin-command: ^3.3.1
@@ -122,9 +122,9 @@ catalog:
   lodash.get: ^4.4.2
   lodash.isequal: ^4.5.0
   lodash.set: ^4.3.2
-  lucide-vue-next: ^0.553.0
+  lucide-vue-next: ^0.554.0
   medium-zoom: ^1.1.0
-  naive-ui: ^2.42.0
+  naive-ui: ^2.43.2
   nitropack: ^2.11.13
   nprogress: ^0.2.0
   ora: ^8.2.0
@@ -148,7 +148,7 @@ catalog:
   rimraf: ^6.1.0
   rollup: ^4.44.1
   rollup-plugin-visualizer: ^5.14.0
-  sass: ^1.94.0
+  sass: ^1.94.1
   secure-ls: ^2.0.0
   sortablejs: ^1.15.6
   stylelint: ^16.21.0
@@ -187,9 +187,9 @@ catalog:
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
   vue-tsc: 2.2.10
-  vxe-pc-ui: ^4.10.22
-  vxe-table: ^4.17.14
+  vxe-pc-ui: ^4.10.27
+  vxe-table: ^4.17.16
   watermark-js-plus: ^1.6.2
   zod: ^3.25.67
-  zod-defaults: 0.1.3
-  es-toolkit: ^1.41.0
+  zod-defaults: 0.2.3
+  es-toolkit: ^1.42.0
