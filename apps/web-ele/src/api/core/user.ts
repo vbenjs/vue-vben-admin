@@ -45,9 +45,7 @@ export interface UserDetail {
 }
 
 export async function getUserDetailApi(id: number) {
-  return requestClient.get(
-    `/sys/user/${id}`,
-  );
+  return requestClient.get(`/sys/user/${id}`);
 }
 
 /**
