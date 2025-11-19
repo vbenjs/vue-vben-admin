@@ -56,7 +56,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
       <div
         v-else
         :style="{ minWidth: '200px' }"
-        class="border-border bg-card mr-2 rounded-[var(--radius)] border p-2"
+        class="mr-2 rounded-[var(--radius)] border border-border bg-card p-2"
       >
         <p>这里是左侧内容</p>
         <p>这里是左侧内容</p>
