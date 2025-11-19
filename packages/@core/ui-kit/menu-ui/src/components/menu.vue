@@ -388,7 +388,7 @@ $namespace: vben;
   padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
   margin: 0 var(--menu-item-margin-x) var(--menu-item-margin-y)
     var(--menu-item-margin-x);
-  font-size: var(--menu-font-size);
+  font-size: var(--menu-font-size) !important;
   color: var(--menu-item-color);
   white-space: nowrap;
   text-decoration: none;
@@ -433,6 +433,7 @@ $namespace: vben;
   max-width: var(--menu-title-width);
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: var(--menu-font-size) !important;
   white-space: nowrap;
   opacity: 1;
 }
@@ -458,7 +459,6 @@ $namespace: vben;
   --menu-item-collapse-margin-x: 0px;
   --menu-item-radius: 0px;
   --menu-item-indent: 16px;
-  --menu-font-size: calc(var(--font-size-base, 16px) * 0.875);
 
   &.is-dark {
     --menu-background-color: hsl(var(--menu));
@@ -785,7 +785,7 @@ $namespace: vben;
     width: 100%;
     height: 100%;
     padding: 0 var(--menu-item-padding-x);
-    font-size: var(--menu-font-size);
+    font-size: var(--menu-font-size) !important;
     line-height: var(--menu-item-height);
   }
 }
@@ -812,8 +812,13 @@ $namespace: vben;
 
 .#{$namespace}-sub-menu-content {
   height: var(--menu-item-height);
+  font-size: var(--menu-font-size) !important;
 
   @include menu-item;
+
+  * {
+    font-size: inherit !important;
+  }
 
   &__icon-arrow {
     position: absolute;
