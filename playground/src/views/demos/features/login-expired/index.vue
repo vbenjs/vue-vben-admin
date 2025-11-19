@@ -20,7 +20,7 @@ async function handleClick(type: LoginExpiredModeType) {
 <template>
   <Page title="登录过期演示">
     <template #description>
-      <div class="text-foreground/80 mt-2">
+      <div class="mt-2 text-foreground/80">
         接口请求遇到401状态码时，需要重新登录。有两种方式：
         <p>1.转到登录页，登录成功后跳转回原页面</p>
         <p>

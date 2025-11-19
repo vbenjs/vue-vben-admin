@@ -7,7 +7,7 @@ import { initStores } from '@vben/stores';
 import '@vben/styles';
 // import '@vben/styles/antd';
 // 引入组件库的少量全局样式变量
-import 'tdesign-vue-next/es/style/index.css';
+
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
@@ -16,6 +16,8 @@ import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
 import App from './app.vue';
 import { router } from './router';
+
+import 'tdesign-vue-next/es/style/index.css';
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器

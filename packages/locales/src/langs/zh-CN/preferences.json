@@ -120,6 +120,8 @@
   "theme": {
     "title": "主题",
     "radius": "圆角",
+    "fontSize": "字体大小",
+    "fontSizeTip": "调整全局字体大小，实时预览效果",
     "light": "浅色",
     "dark": "深色",
     "darkSidebar": "深色侧边栏",

@@ -93,6 +93,7 @@
 
   /* 基本文字大小 */
   --font-size-base: 16px;
+  --menu-font-size: calc(var(--font-size-base) * 0.875);
 
   /* =============component & UI============= */
 

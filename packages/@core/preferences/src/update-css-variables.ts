@@ -66,6 +66,19 @@ function updateCSSVariables(preferences: Preferences) {
   if (Reflect.has(theme, 'radius')) {
     document.documentElement.style.setProperty('--radius', `${radius}rem`);
   }
+
+  // 更新字体大小
+  if (Reflect.has(theme, 'fontSize')) {
+    const fontSize = theme.fontSize;
+    document.documentElement.style.setProperty(
+      '--font-size-base',
+      `${fontSize}px`,
+    );
+    document.documentElement.style.setProperty(
+      '--menu-font-size',
+      `calc(${fontSize}px * 0.875)`,
+    );
+  }
 }
 
 /**
