@@ -113,7 +113,8 @@
       "clsx": "catalog:",
       "esbuild": "0.25.3",
       "pinia": "catalog:",
-      "vue": "catalog:"
+      "vue": "catalog:",
+      "jiti": "^2.6.1"
     },
     "neverBuiltDependencies": [
       "canvas",
