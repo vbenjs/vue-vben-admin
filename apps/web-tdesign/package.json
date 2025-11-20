@@ -44,7 +44,7 @@
     "dayjs": "catalog:",
     "es-toolkit": "catalog:",
     "pinia": "catalog:",
-    "tdesign-vue-next": "^1.17.1",
+    "tdesign-vue-next": "^1.17.3",
     "vue": "catalog:",
     "vue-router": "catalog:"
   },
