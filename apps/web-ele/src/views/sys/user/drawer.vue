@@ -106,6 +106,10 @@ watch(
         mode: 'create' | 'edit';
         record?: Record<string, any>;
       }>();
+      if (payload?.mode === 'create') {
+        await formApi.resetForm();
+        await formApi.resetValidate();
+      }
       await formApi.setValues({ __mode: payload?.mode });
       const roleRes = await getRoleListApi();
       const roleData = (roleRes as any)?.data ?? roleRes;

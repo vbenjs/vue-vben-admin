@@ -15,7 +15,7 @@ export async function getUserInfoApi(): Promise<UserInfo> {
 export async function getUserPageApi(
   params: UserPageRequest,
 ): Promise<UserPageResponse> {
-  return requestClient.get<UserPageResponse>('/sys/user/page', { params });
+  return requestClient.post<UserPageResponse>('/sys/user/page', params);
 }
 
 export async function createUserApi(data: {
