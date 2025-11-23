@@ -628,7 +628,7 @@ importers:
     dependencies:
       '@element-plus/icons-vue':
         specifier: ^2.3.2
-        version: 2.3.2(vue@3.5.21(typescript@5.9.2))
+        version: 2.3.2(vue@3.5.24(typescript@5.9.3))
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
