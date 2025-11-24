@@ -92,7 +92,7 @@ const rightSlots = computed(() => {
       list.push({ index: Number(name[2]), name: key });
     }
   });
-  return list.sort((a, b) => a.index - b.index);
+  return list.toSorted((a, b) => a.index - b.index);
 });
 
 const leftSlots = computed(() => {
@@ -111,7 +111,7 @@ const leftSlots = computed(() => {
       list.push({ index: Number(name[2]), name: key });
     }
   });
-  return list.sort((a, b) => a.index - b.index);
+  return list.toSorted((a, b) => a.index - b.index);
 });
 
 function clearPreferencesAndLogout() {

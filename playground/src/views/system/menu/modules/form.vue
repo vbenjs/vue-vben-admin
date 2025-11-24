@@ -107,7 +107,7 @@ const schema: VbenFormSchema[] = [
     componentProps() {
       // 不需要处理多语言时就无需这么做
       return {
-        addonAfter: titleSuffix.value,
+        ...(titleSuffix.value && { addonAfter: titleSuffix.value }),
         onChange({ target: { value } }: ChangeEvent) {
           titleSuffix.value = value && $te(value) ? $t(value) : undefined;
         },
@@ -442,7 +442,6 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
   wrapperClass: 'grid-cols-2 gap-x-4',
 });
-
 const [Drawer, drawerApi] = useVbenDrawer({
   onConfirm: onSubmit,
   onOpenChange(isOpen) {
