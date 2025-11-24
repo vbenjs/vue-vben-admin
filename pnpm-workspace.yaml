@@ -34,7 +34,7 @@ catalog:
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.0
   '@playwright/test': ^1.56.1
   '@pnpm/workspace.read-manifest': ^1000.2.6
-  '@stylistic/stylelint-plugin': ^3.1.3
+  '@stylistic/stylelint-plugin': ^4.0.0
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.16
   '@tanstack/vue-query': ^5.91.0
