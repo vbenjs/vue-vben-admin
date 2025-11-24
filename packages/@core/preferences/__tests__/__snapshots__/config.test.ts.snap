@@ -113,6 +113,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "colorPrimary": "hsl(212 100% 45%)",
     "colorSuccess": "hsl(144 57% 58%)",
     "colorWarning": "hsl(42 84% 61%)",
+    "fontSize": 16,
     "mode": "dark",
     "radius": "0.5",
     "semiDarkHeader": false,

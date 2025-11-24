@@ -44,11 +44,8 @@
     "dayjs": "catalog:",
     "es-toolkit": "catalog:",
     "pinia": "catalog:",
-    "tdesign-vue-next": "^1.17.1",
+    "tdesign-vue-next": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
-  },
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.12"
   }
 }

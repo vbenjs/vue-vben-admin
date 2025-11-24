@@ -220,7 +220,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
         );
       })
       ?.parents?.filter((item) => !get(item, props.disabledField))
-      ?.reverse()
+      ?.toReversed()
       .forEach((p) => {
         const children = flattenData.value.filter((i) => {
           return (
@@ -302,7 +302,7 @@ defineExpose({
       >
         <ChevronRight
           :class="{ 'rotate-90': expanded?.length > 0 }"
-          class="text-foreground/80 hover:text-foreground size-4 cursor-pointer transition"
+          class="size-4 cursor-pointer text-foreground/80 transition hover:text-foreground"
         />
         <Checkbox
           v-if="multiple"
@@ -329,7 +329,7 @@ defineExpose({
         :class="
           cn('cursor-pointer', getNodeClass?.(item), {
             'data-[selected]:bg-accent': !multiple,
-            'text-foreground/50 cursor-not-allowed': isNodeDisabled(item),
+            'cursor-not-allowed text-foreground/50': isNodeDisabled(item),
           })
         "
         v-bind="
@@ -367,7 +367,7 @@ defineExpose({
             Array.isArray(item.value[childrenField]) &&
             item.value[childrenField].length > 0
           "
-          class="text-foreground/80 hover:text-foreground size-4 cursor-pointer transition"
+          class="size-4 cursor-pointer text-foreground/80 transition hover:text-foreground"
           :class="{ 'rotate-90': isExpanded }"
           @click.stop="
             () => {
@@ -380,7 +380,7 @@ defineExpose({
         <div class="flex items-center gap-1">
           <Checkbox
             v-if="multiple"
-            :checked="isSelected && !isNodeDisabled(item)"
+            :model-value="isSelected && !isNodeDisabled(item)"
             :disabled="isNodeDisabled(item)"
             :indeterminate="isIndeterminate && !isNodeDisabled(item)"
             @click="

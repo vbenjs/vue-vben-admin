@@ -15,5 +15,6 @@ export { default as GlobalShortcutKeys } from './shortcut-keys/global.vue';
 export { default as SwitchItem } from './switch-item.vue';
 export { default as BuiltinTheme } from './theme/builtin.vue';
 export { default as ColorMode } from './theme/color-mode.vue';
+export { default as FontSize } from './theme/font-size.vue';
 export { default as Radius } from './theme/radius.vue';
 export { default as Theme } from './theme/theme.vue';
