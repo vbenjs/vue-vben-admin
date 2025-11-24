@@ -380,7 +380,7 @@ defineExpose({
         <div class="flex items-center gap-1">
           <Checkbox
             v-if="multiple"
-            :checked="isSelected && !isNodeDisabled(item)"
+            :model-value="isSelected && !isNodeDisabled(item)"
             :disabled="isNodeDisabled(item)"
             :indeterminate="isIndeterminate && !isNodeDisabled(item)"
             @click="
