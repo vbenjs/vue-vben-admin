@@ -181,7 +181,7 @@ catalog:
   vite-plugin-vue-devtools: ^8.0.3
   vitepress: ^1.6.3
   vitepress-plugin-group-icons: ^1.6.1
-  vitest: ^3.2.4
+  vitest: ^4.0.13
   vue: ^3.5.24
   vue-eslint-parser: ^10.2.0
   vue-i18n: ^11.1.7
