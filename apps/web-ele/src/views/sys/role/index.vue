@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 
-import { Delete, Edit, Key, Plus, Search, User } from '@element-plus/icons-vue';
+import { Delete, Edit, Key, Plus, Search, User, Refresh } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 // 角色列表数据
-const roleList = ref([]);
+const roleList = ref<any[]>([]);
 const total = ref(0);
 const loading = ref(false);
 
@@ -58,14 +58,14 @@ const getRoleList = async () => {
     // total.value = res.data.total
 
     // 模拟数据
-    const roleList = ref([
+    roleList.value = [
       {
         id: 1,
         name: '超级管理员',
         roleCode: 'admin',
+        createTime: '2025-10-01 10:30:00',
         remark: '拥有系统所有权限',
         menuIdList: [1, 2, 3, 4, 5],
-        createTime: '2025-10-01 10:30:00',
       },
       {
         id: 2,
@@ -73,7 +73,7 @@ const getRoleList = async () => {
         roleCode: 'user',
         remark: '只能查看和编辑内容，不能删除',
         menuIdList: [1, 2, 3],
-        createTime: '2025-10-11 10:30:00',
+        createTime: '2025-10-11 10:30:00'
       },
       {
         id: 3,
@@ -83,7 +83,7 @@ const getRoleList = async () => {
         menuIdList: [1, 2, 3, 4],
         createTime: '2025-10-25 10:30:00',
       },
-    ]);
+    ];
     total.value = roleList.value.length;
   } catch {
     ElMessage.error('获取角色列表失败');
@@ -126,13 +126,13 @@ const saveRole = async () => {
       ElMessage.success('添加成功');
     } else {
       // 调用后端保存接口
-      // await roleApi.updataRole(formModel)
+      // await roleApi.updateRole(formModel)
       ElMessage.success('修改成功');
     }
     dialog.visible = false;
     getRoleList(); // 刷新列表
   } catch {
-    ElMessage.success('操作失败');
+    ElMessage.error('操作失败');
   }
 };
 
@@ -179,7 +179,7 @@ const handleReset = () => {
 };
 
 // 分页处理
-const hanleSizeChange = (size: number) => {
+const handleSizeChange = (size: number) => {
   params.size = size;
   params.page = 1;
   getRoleList();
@@ -230,7 +230,7 @@ onMounted(() => {
           <el-button type="primary" :icon="Search" @click="handleSearch">
             搜索
           </el-button>
-          <el-button type="Refresh" @click="handleReset"> 重置 </el-button>
+          <el-button :icon="Refresh" @click="handleReset"> 重置 </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -283,13 +283,13 @@ onMounted(() => {
       <!-- 分页区域 -->
       <div class="pagination-container">
         <el-pagination
-          v-model:vurrent-page="params.page"
+          v-model:current-page="params.page"
           v-model:page-size="params.size"
           :total="total"
           :page-sizes="[10, 20, 50, 100]"
           :background="true"
           layout="total,sizes,prev,pager,next,jumper"
-          @size-change="hanleSizeChange"
+          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
       </div>
@@ -299,16 +299,16 @@ onMounted(() => {
     <el-dialog v-model="dialog.visible" :title="dialog.title" width="500px">
       <el-form :model="formModel" label-width="80px">
         <el-form-item label="角色名称" required>
-          <el-input v-model="formModel.name" plachholder="请输入角色名称" />
+          <el-input v-model="formModel.name" placeholder="请输入角色名称" />
         </el-form-item>
         <el-form-item label="角色编码" required>
-          <el-input v-model="formModel.roleCode" plachholder="请输入角色编码" />
+          <el-input v-model="formModel.roleCode" placeholder="请输入角色编码" />
         </el-form-item>
         <el-form-item label="备注">
           <el-input
             v-model="formModel.remark"
             type="textarea"
-            plachholder="请输入备注信息"
+            placeholder="请输入备注信息"
             :rows="3"
           />
         </el-form-item>
