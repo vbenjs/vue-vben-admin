@@ -28,13 +28,16 @@ async function generateAccessible(
   // 生成路由
   const accessibleRoutes = await generateRoutes(mode, options);
 
+  // 处理隐藏子路由：将全部隐藏的子路由提升为同级独立路由
+  const flattenedRoutes = flattenHiddenChildren(accessibleRoutes);
+
   const root = router.getRoutes().find((item) => item.path === '/');
 
   // 获取已有的路由名称列表
   const names = root?.children?.map((item) => item.name) ?? [];
 
   // 动态添加到router实例内
-  accessibleRoutes.forEach((route) => {
+  flattenedRoutes.forEach((route) => {
     if (root && !route.meta?.noBasicLayout) {
       // 为了兼容之前的版本用法，如果包含子路由，则将component移除，以免出现多层BasicLayout
       // 如果你的项目已经跟进了本次修改，移除了所有自定义菜单首级的BasicLayout，可以将这段if代码删除
@@ -136,7 +139,11 @@ async function generateRoutes(
     }
 
     // 如果有redirect或者没有子路由，则直接返回
-    if (route.redirect || !route.children || route.children.length === 0) {
+    if (
+      route.redirect ||
+      !route.children ||
+      route.children.every((item) => item.meta?.hideInMenu)
+    ) {
       return route;
     }
     const firstChild = route.children[0];
@@ -151,6 +158,30 @@ async function generateRoutes(
   });
 
   return resultRoutes;
+}
+
+/**
+ * 将所有子路由扁平化为独立路由，隐藏的子路由设置 activePath
+ */
+function flattenHiddenChildren(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+  return routes.flatMap((route) => {
+    const { children } = route;
+    if (!children?.length) return [route];
+
+    // 子路由设置 activePath（隐藏的）并递归扁平化
+    const flatChildren = flattenHiddenChildren(
+      children.map((c) =>
+        c.meta?.hideInMenu
+          ? {
+              ...c,
+              meta: { ...c.meta, activePath: c.meta.activePath || route.path },
+            }
+          : c,
+      ),
+    );
+    const { children: _, ...parent } = route;
+    return [...flatChildren, parent as RouteRecordRaw];
+  });
 }
 
 export { generateAccessible };
