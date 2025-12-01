@@ -1,8 +1,43 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 
-import { Delete, Edit, Key, Plus, Search, User, Refresh } from '@element-plus/icons-vue';
+import {
+  Delete,
+  Edit,
+  Key,
+  Plus,
+  Refresh,
+  Search,
+  User,
+} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
+
+let mockRoleData = [
+  {
+    id: 1,
+    name: '超级管理员',
+    roleCode: 'admin',
+    createTime: '2025-10-01 10:30:00',
+    remark: '拥有系统所有权限',
+    menuIdList: [1, 2, 3, 4, 5],
+  },
+  {
+    id: 2,
+    name: '普通用户',
+    roleCode: 'user',
+    remark: '只能查看和编辑内容，不能删除',
+    menuIdList: [1, 2, 3],
+    createTime: '2025-10-11 10:30:00',
+  },
+  {
+    id: 3,
+    name: '编辑者',
+    roleCode: 'editor',
+    remark: '查看 编辑 增加 删除',
+    menuIdList: [1, 2, 3, 4],
+    createTime: '2025-10-25 10:30:00',
+  },
+];
 
 // 角色列表数据
 const roleList = ref<any[]>([]);
@@ -52,39 +87,28 @@ const menuDialog = reactive({
 const getRoleList = async () => {
   loading.value = true;
   try {
-    // 调用后端API获取角色列表
-    // const res = await roleApi.getRoleList(params)
-    // roleList.value = res.data.roleList
-    // total.value = res.data.total
+    // 模拟网络延迟
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-    // 模拟数据
-    roleList.value = [
-      {
-        id: 1,
-        name: '超级管理员',
-        roleCode: 'admin',
-        createTime: '2025-10-01 10:30:00',
-        remark: '拥有系统所有权限',
-        menuIdList: [1, 2, 3, 4, 5],
-      },
-      {
-        id: 2,
-        name: '普通用户',
-        roleCode: 'user',
-        remark: '只能查看和编辑内容，不能删除',
-        menuIdList: [1, 2, 3],
-        createTime: '2025-10-11 10:30:00'
-      },
-      {
-        id: 3,
-        name: '编辑者',
-        roleCode: 'editor',
-        remark: '查看 编辑 增加 删除',
-        menuIdList: [1, 2, 3, 4],
-        createTime: '2025-10-25 10:30:00',
-      },
-    ];
-    total.value = roleList.value.length;
+    // 应用搜索过滤
+    let filteredData = [...mockRoleData];
+    if (params.name) {
+      filteredData = filteredData.filter(
+        (item) => item.name.includes(params.name), // 保持模糊匹配
+      );
+    }
+    // 添加角编码搜索
+    if (params.roleCode) {
+      filteredData = filteredData.filter(
+        (item) => item.roleCode === params.roleCode,
+      ); // 保持精准匹配
+    }
+
+    // 应用分页
+    const start = (params.page - 1) * params.size;
+    const end = start + params.size;
+    roleList.value = filteredData.slice(start, end);
+    total.value = filteredData.length;
   } catch {
     ElMessage.error('获取角色列表失败');
   } finally {
@@ -121,10 +145,21 @@ const handleEdit = (row: any) => {
 const saveRole = async () => {
   try {
     if (dialog.type === 'add') {
+      // 模拟添加操作-将新角色添加到列表
+      const newRole = {
+        ...formModel,
+        createTime: new Date().toLocaleString(),
+      };
+      mockRoleData.unshift(newRole);
       // 调用后端保存接口
       // await roleApi.addRole(formModel)
       ElMessage.success('添加成功');
     } else {
+      // 编辑逻辑
+      const index = mockRoleData.findIndex((item) => item.id === formModel.id);
+      if (index !== -1) {
+        mockRoleData[index] = { ...mockRoleData[index], ...formModel };
+      }
       // 调用后端保存接口
       // await roleApi.updateRole(formModel)
       ElMessage.success('修改成功');
@@ -144,6 +179,9 @@ const handleDelete = async (row: any) => {
     });
     // 调用后端保存接口
     // await roleApi.deleteRole(row.id)
+
+    // 添加这一行：从模拟数据中删除
+    mockRoleData = mockRoleData.filter((item) => item.id !== row.id);
     ElMessage.success('删除成功');
     getRoleList(); // 刷新列表
   } catch {
