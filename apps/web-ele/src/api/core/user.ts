@@ -54,3 +54,10 @@ export async function getUserDetailApi(id: number) {
 export async function getRoleListApi() {
   return requestClient.get('/sys/role/list');
 }
+
+/**
+ * 删除用户
+ */
+export async function deleteUserApi(integers: number[]) {
+  return requestClient.delete('/sys/user', { data: integers });
+}

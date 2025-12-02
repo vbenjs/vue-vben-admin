@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 
-import { useVbenDrawer } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui';
 
 import { ElButton, ElMessage } from 'element-plus';
 
@@ -13,7 +13,7 @@ import {
   updateUserApi,
 } from '#/api/core/user';
 
-const [Drawer, drawerApi] = useVbenDrawer();
+const [Modal, modalApi] = useVbenModal();
 
 const [Form, formApi] = useVbenForm({
   commonConfig: {
@@ -71,7 +71,7 @@ async function submit() {
   const { valid } = await formApi.validate();
   const values = await formApi.getValues();
   if (!valid) return;
-  const payload = drawerApi.getData<{
+  const payload = modalApi.getData<{
     mode: 'create' | 'edit';
     record?: { id: number };
   }>();
@@ -91,18 +91,18 @@ async function submit() {
           avatar: values.avatar,
         }));
     ElMessage.success('保存成功');
-    await drawerApi.close();
+    await modalApi.close();
   } catch {
     ElMessage.error('保存失败');
   }
 }
 
-const stateRef = drawerApi.useStore();
+const stateRef = modalApi.useStore();
 watch(
   () => stateRef.value?.isOpen,
   async (isOpen) => {
     if (isOpen) {
-      const payload = drawerApi.getData<{
+      const payload = modalApi.getData<{
         mode: 'create' | 'edit';
         record?: Record<string, any>;
       }>();
@@ -169,7 +169,7 @@ watch(
           roleIdList: data.roleIdList ?? [],
         });
       }
-      drawerApi.setState({
+      modalApi.setState({
         title: payload?.mode === 'edit' ? '编辑用户' : '新增用户',
       });
     }
@@ -178,11 +178,11 @@ watch(
 </script>
 
 <template>
-  <Drawer :footer="false" class="w-[600px]">
+  <Modal :footer="false" class="w-[600px]">
     <Form />
     <div class="mt-4 flex justify-end">
-      <ElButton class="mr-2" @click="() => drawerApi.close()">取消</ElButton>
+      <ElButton class="mr-2" @click="() => modalApi.close()">取消</ElButton>
       <ElButton type="primary" @click="submit">保存</ElButton>
     </div>
-  </Drawer>
+  </Modal>
 </template>

@@ -2,15 +2,23 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { Page, useVbenDrawer } from '@vben/common-ui';
+import { Page, useVbenModal } from '@vben/common-ui';
 
 import { Picture as IconPicture } from '@element-plus/icons-vue';
-import { ElButton, ElCol, ElIcon, ElImage, ElRow } from 'element-plus';
+import {
+  ElButton,
+  ElCol,
+  ElIcon,
+  ElImage,
+  ElMessage,
+  ElMessageBox,
+  ElRow,
+} from 'element-plus';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getUserPageApi } from '#/api/core/user';
+import { deleteUserApi, getUserPageApi } from '#/api/core/user';
 
-import UserDrawer from './drawer.vue';
+import UserDrawer from './model.vue';
 
 interface RowType {
   id: number;
@@ -30,25 +38,6 @@ const formOptions: VbenFormProps = {
       },
       fieldName: 'username',
       label: '用户名',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        allowClear: true,
-        options: [
-          {
-            label: '角色1',
-            value: '1',
-          },
-          {
-            label: '角色2',
-            value: '2',
-          },
-        ],
-        placeholder: '请选择角色',
-      },
-      fieldName: 'roleIdList',
-      label: '角色',
     },
   ],
   // 控制表单是否显示折叠按钮
@@ -75,12 +64,6 @@ const gridOptions: VxeGridProps<RowType> = {
       slots: { default: 'avatar' },
       align: 'center',
       title: '头像',
-    },
-    {
-      align: 'center',
-      title: '角色',
-      field: 'roleIdList',
-      slots: { default: 'roleid-list' },
     },
     {
       field: 'action',
@@ -115,26 +98,45 @@ const gridOptions: VxeGridProps<RowType> = {
 
 const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
 
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Modal, modalApi] = useVbenModal({
   connectedComponent: UserDrawer,
+  animationType: 'scale',
   onClosed: () => gridApi.reload(),
 });
 
 function onAddUser() {
-  drawerApi.setData({ mode: 'create' }).setState({ title: '新增用户' }).open();
+  modalApi.setData({ mode: 'create' }).setState({ title: '新增用户' }).open();
 }
 
 function onEditUser(row: RowType) {
-  drawerApi
+  modalApi
     .setData({ mode: 'edit', record: row })
     .setState({ title: '编辑用户' })
     .open();
+}
+
+async function onDeleteUser(row: RowType) {
+  try {
+    await ElMessageBox.confirm('确认删除该用户？', '提示', { type: 'warning' });
+    await deleteUserApi([row.id]);
+    ElMessage.success('删除成功');
+    await gridApi.reload();
+  } catch (error: any) {
+    if (typeof error === 'string' && (error === 'cancel' || error === 'close'))
+      return;
+    if (
+      error?.action &&
+      (error.action === 'cancel' || error.action === 'close')
+    )
+      return;
+    ElMessage.error('删除失败');
+  }
 }
 </script>
 
 <template>
   <Page auto-content-height>
-    <Drawer class="w-[600px]" />
+    <Modal class="w-[600px]" />
     <Grid>
       <template #toolbar-actions>
         <ElButton type="primary" size="small" @click="onAddUser">
@@ -176,7 +178,14 @@ function onEditUser(row: RowType) {
             </ElButton>
           </ElCol>
           <ElCol :span="12">
-            <ElButton type="danger" link size="small">删除</ElButton>
+            <ElButton
+              type="danger"
+              link
+              size="small"
+              @click="() => onDeleteUser(row)"
+            >
+              删除
+            </ElButton>
           </ElCol>
         </ElRow>
       </template>
