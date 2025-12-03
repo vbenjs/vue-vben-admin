@@ -17,6 +17,7 @@
     "dotenv",
     "echarts",
     "ependencies",
+    "esbuild",
     "esno",
     "etag",
     "execa",
