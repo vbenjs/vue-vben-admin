@@ -30,6 +30,7 @@ describe('useSortable', () => {
 
     // Import sortablejs to access the mocked create function
     const Sortable = await import(
+      // @ts-expect-error - no types
       'sortablejs/modular/sortable.complete.esm.js'
     );
 
