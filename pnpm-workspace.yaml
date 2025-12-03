@@ -13,6 +13,14 @@ packages:
   - docs
   - playground
 
+overrides:
+  '@ast-grep/napi': 'catalog:'
+  '@ctrl/tinycolor': 'catalog:'
+  clsx: 'catalog:'
+  esbuild: 'catalog:'
+  jiti: 'catalog:'
+  pinia: 'catalog:'
+  vue: 'catalog:'
 catalog:
   '@ast-grep/napi': ^0.39.9
   '@changesets/changelog-github': ^0.5.2
@@ -45,9 +53,6 @@ catalog:
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/lodash.get': ^4.4.9
-  '@types/lodash.isequal': ^4.5.8
-  '@types/lodash.set': ^4.3.9
   '@types/node': ^24.10.1
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
@@ -60,7 +65,6 @@ catalog:
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.2
   '@vitejs/plugin-vue-jsx': ^5.1.2
-  '@vue/reactivity': ^3.5.25
   '@vue/shared': ^3.5.25
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^14.1.0
@@ -124,9 +128,6 @@ catalog:
   jsonwebtoken: ^9.0.2
   lefthook: ^1.13.6
   lodash.clonedeep: ^4.5.0
-  lodash.get: ^4.4.2
-  lodash.isequal: ^4.5.0
-  lodash.set: ^4.3.2
   lucide-vue-next: ^0.553.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.43.2
@@ -202,11 +203,3 @@ catalog:
 peerDependencyRules:
   allowedVersions:
     eslint: '*'
-overrides:
-  '@ast-grep/napi': 'catalog:'
-  '@ctrl/tinycolor': 'catalog:'
-  clsx: 'catalog:'
-  esbuild: 'catalog:'
-  jiti: 'catalog:'
-  pinia: 'catalog:'
-  vue: 'catalog:'
