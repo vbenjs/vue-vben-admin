@@ -21,6 +21,7 @@ overrides:
   jiti: 'catalog:'
   pinia: 'catalog:'
   vue: 'catalog:'
+
 catalog:
   '@ast-grep/napi': ^0.39.9
   '@changesets/changelog-github': ^0.5.2
@@ -200,6 +201,11 @@ catalog:
   yaml-eslint-parser: ^1.3.1
   zod: ^3.25.76
   zod-defaults: 0.1.3
+
+neverBuiltDependencies:
+  - canvas
+  - node-gyp
+
 peerDependencyRules:
   allowedVersions:
     eslint: '*'
