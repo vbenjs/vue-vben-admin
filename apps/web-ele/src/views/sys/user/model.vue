@@ -46,10 +46,7 @@ const [Form, formApi] = useVbenForm({
       component: 'Select',
       componentProps: {
         allowClear: true,
-        options: [
-          { label: '角色1', value: 1 },
-          { label: '角色2', value: 2 },
-        ],
+        options: [],
         placeholder: '请选择角色',
         showSearch: true,
         multiple: true,
@@ -58,8 +55,8 @@ const [Form, formApi] = useVbenForm({
       label: '角色',
     },
     {
-      component: 'Input',
-      componentProps: { placeholder: '请输入头像URL' },
+      component: 'ImageUpload',
+      componentProps: { limit: 1, isShowTip: true },
       fieldName: 'avatar',
       label: '头像',
     },
