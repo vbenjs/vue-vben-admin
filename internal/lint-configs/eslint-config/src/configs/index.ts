@@ -8,6 +8,7 @@ export * from './jsdoc';
 export * from './jsonc';
 export * from './node';
 export * from './perfectionist';
+export * from './pnpm';
 export * from './prettier';
 export * from './regexp';
 export * from './test';

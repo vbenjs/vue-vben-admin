@@ -100,25 +100,5 @@
     "node": ">=20.12.0",
     "pnpm": ">=10.0.0"
   },
-  "packageManager": "pnpm@10.22.0",
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "eslint": "*"
-      }
-    },
-    "overrides": {
-      "@ast-grep/napi": "catalog:",
-      "@ctrl/tinycolor": "catalog:",
-      "clsx": "catalog:",
-      "esbuild": "0.25.3",
-      "jiti": "catalog:",
-      "pinia": "catalog:",
-      "vue": "catalog:"
-    },
-    "neverBuiltDependencies": [
-      "canvas",
-      "node-gyp"
-    ]
-  }
+  "packageManager": "pnpm@10.22.0"
 }

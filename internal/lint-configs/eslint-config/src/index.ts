@@ -11,6 +11,7 @@ import {
   jsonc,
   node,
   perfectionist,
+  pnpm,
   prettier,
   regexp,
   test,
@@ -50,6 +51,7 @@ async function defineConfig(config: FlatConfig[] = []) {
     command(),
     turbo(),
     yaml(),
+    pnpm(),
     ...customConfig,
     ...config,
   ];

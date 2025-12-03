@@ -43,6 +43,7 @@
     "eslint-plugin-n": "catalog:",
     "eslint-plugin-no-only-tests": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",
+    "eslint-plugin-pnpm": "catalog:",
     "eslint-plugin-prettier": "catalog:",
     "eslint-plugin-regexp": "catalog:",
     "eslint-plugin-unicorn": "catalog:",

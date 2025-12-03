@@ -255,6 +255,9 @@ catalogs:
     eslint-plugin-perfectionist:
       specifier: ^4.15.1
       version: 4.15.1
+    eslint-plugin-pnpm:
+      specifier: ^1.3.0
+      version: 1.3.0
     eslint-plugin-prettier:
       specifier: ^5.5.4
       version: 5.5.4
@@ -1026,6 +1029,9 @@ importers:
       eslint-plugin-perfectionist:
         specifier: 'catalog:'
         version: 4.15.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+      eslint-plugin-pnpm:
+        specifier: 'catalog:'
+        version: 1.3.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-prettier:
         specifier: 'catalog:'
         version: 5.5.4(@types/eslint@9.6.1)(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)
@@ -6213,6 +6219,10 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
+  empathic@2.0.0:
+    resolution: {integrity: sha512-i6UzDscO/XfAcNYD75CfICkmfLedpyPDdozrLMmQc5ORaQcdMoc21OnlEylMIqI7U8eniKrPMxxtj8k0vhmJhA==}
+    engines: {node: '>=14'}
+
   encodeurl@2.0.0:
     resolution: {integrity: sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==}
     engines: {node: '>= 0.8'}
@@ -6422,6 +6432,11 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       eslint: '>=8.45.0'
+
+  eslint-plugin-pnpm@1.3.0:
+    resolution: {integrity: sha512-Lkdnj3afoeUIkDUu8X74z60nrzjQ2U55EbOeI+qz7H1He4IO4gmUKT2KQIl0It52iMHJeuyLDWWNgjr6UIK8nw==}
+    peerDependencies:
+      eslint: ^9.0.0
 
   eslint-plugin-prettier@5.5.4:
     resolution: {integrity: sha512-swNtI95SToIz05YINMA6Ox5R057IMAmWZ26GqPxusAp1TZzj+IdY9tXNWWD3vkF/wEqydCONcwjTFpxybBqZsg==}
@@ -8448,6 +8463,9 @@ packages:
   pngjs@5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
+
+  pnpm-workspace-yaml@1.3.0:
+    resolution: {integrity: sha512-Krb5q8Totd5mVuLx7we+EFHq/AfxA75nbfTm25Q1pIf606+RlaKUG+PXH8SDihfe5b5k4H09gE+sL47L1t5lbw==}
 
   popmotion@11.0.5:
     resolution: {integrity: sha512-la8gPM1WYeFznb/JqF4GiTkRRPZsfaj2+kCxqQgr2MJylMmIKUwBfWW8Wa5fml/8gmtlD5yI01MP1QCZPWmppA==}
@@ -15521,6 +15539,8 @@ snapshots:
 
   emoji-regex@9.2.2: {}
 
+  empathic@2.0.0: {}
+
   encodeurl@2.0.0: {}
 
   encoding-sniffer@0.2.1:
@@ -15818,6 +15838,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  eslint-plugin-pnpm@1.3.0(eslint@9.39.1(jiti@2.6.1)):
+    dependencies:
+      empathic: 2.0.0
+      eslint: 9.39.1(jiti@2.6.1)
+      jsonc-eslint-parser: 2.4.1
+      pathe: 2.0.3
+      pnpm-workspace-yaml: 1.3.0
+      tinyglobby: 0.2.15
+      yaml-eslint-parser: 1.3.1
 
   eslint-plugin-prettier@5.5.4(@types/eslint@9.6.1)(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4):
     dependencies:
@@ -17939,6 +17969,10 @@ snapshots:
   pluralize@8.0.0: {}
 
   pngjs@5.0.0: {}
+
+  pnpm-workspace-yaml@1.3.0:
+    dependencies:
+      yaml: 2.8.2
 
   popmotion@11.0.5:
     dependencies:
