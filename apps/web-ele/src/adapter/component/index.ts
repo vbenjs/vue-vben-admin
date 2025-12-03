@@ -15,7 +15,7 @@ import { $t } from '@vben/locales';
 
 import { ElNotification } from 'element-plus';
 
-import ImageUpload from '../../components/ImageUpload/index.vue';
+import ImageUpload from '#/components/ImageUpload/index.vue';
 
 const ElButton = defineAsyncComponent(() =>
   Promise.all([

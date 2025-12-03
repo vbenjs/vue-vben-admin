@@ -130,10 +130,7 @@ async function httpRequest(option: any) {
     const resp = await uploadFile(form);
     const data = (resp as any) ?? resp;
     const normalize = (s: string) =>
-      s
-        .trim()
-        .replace(/^`+|`+$/g, '')
-        .replace(/^"+|"+$/g, '')
+      s.trim()
         .replace(/^'+|'+$/g, '');
     let url = '';
     let name = option.file?.name ?? 'image';
