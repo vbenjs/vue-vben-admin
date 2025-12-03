@@ -34,7 +34,7 @@ catalog:
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.0
   '@playwright/test': ^1.56.1
   '@pnpm/workspace.read-manifest': ^1000.2.6
-  '@stylistic/stylelint-plugin': ^3.1.3
+  '@stylistic/stylelint-plugin': ^4.0.0
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.16
   '@tanstack/vue-query': ^5.91.0
@@ -54,8 +54,8 @@ catalog:
   '@types/qrcode': ^1.5.5
   '@types/qs': ^6.14.0
   '@types/sortablejs': ^1.15.8
-  '@typescript-eslint/eslint-plugin': ^8.46.4
-  '@typescript-eslint/parser': ^8.46.4
+  '@typescript-eslint/eslint-plugin': ^8.48.1
+  '@typescript-eslint/parser': ^8.48.1
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.0.0
   '@vitejs/plugin-vue': ^6.0.1
@@ -95,7 +95,7 @@ catalog:
   eslint-plugin-command: ^3.3.1
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.16.1
-  eslint-plugin-jsdoc: ^61.2.1
+  eslint-plugin-jsdoc: ^61.4.1
   eslint-plugin-jsonc: ^2.21.0
   eslint-plugin-n: ^17.23.1
   eslint-plugin-no-only-tests: ^3.3.0
@@ -105,11 +105,11 @@ catalog:
   eslint-plugin-unicorn: ^62.0.0
   eslint-plugin-unused-imports: ^4.3.0
   eslint-plugin-vitest: ^0.5.4
-  eslint-plugin-vue: ^10.5.1
+  eslint-plugin-vue: ^10.6.2
   execa: ^9.6.0
   find-up: ^7.0.0
   get-port: ^7.1.0
-  globals: ^16.3.0
+  globals: ^16.5.0
   h3: ^1.15.3
   happy-dom: ^17.6.3
   html-minifier-terser: ^7.2.0
@@ -139,8 +139,8 @@ catalog:
   postcss-import: ^16.1.1
   postcss-preset-env: ^10.2.4
   postcss-scss: ^4.0.9
-  prettier: ^3.6.2
-  prettier-plugin-tailwindcss: ^0.7.1
+  prettier: ^3.7.4
+  prettier-plugin-tailwindcss: ^0.7.2
   publint: ^0.3.12
   qrcode: ^1.5.4
   qs: ^6.14.0
@@ -152,12 +152,12 @@ catalog:
   sass: ^1.94.0
   secure-ls: ^2.0.0
   sortablejs: ^1.15.6
-  stylelint: ^16.21.0
-  stylelint-config-recess-order: ^6.1.0
+  stylelint: ^16.26.1
+  stylelint-config-recess-order: ^7.4.0
   stylelint-config-recommended: ^17.0.0
-  stylelint-config-recommended-scss: ^14.1.0
+  stylelint-config-recommended-scss: ^16.0.2
   stylelint-config-recommended-vue: ^1.6.1
-  stylelint-config-standard: ^38.0.0
+  stylelint-config-standard: ^39.0.1
   stylelint-order: ^7.0.0
   stylelint-prettier: ^5.0.3
   stylelint-scss: ^6.12.1
