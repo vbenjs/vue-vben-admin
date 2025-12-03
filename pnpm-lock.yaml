@@ -273,6 +273,9 @@ catalogs:
     eslint-plugin-vue:
       specifier: ^10.6.2
       version: 10.6.2
+    eslint-plugin-yml:
+      specifier: ^1.19.0
+      version: 1.19.0
     execa:
       specifier: ^9.6.0
       version: 9.6.1
@@ -513,6 +516,9 @@ catalogs:
     watermark-js-plus:
       specifier: ^1.6.2
       version: 1.6.3
+    yaml-eslint-parser:
+      specifier: ^1.3.1
+      version: 1.3.1
     zod:
       specifier: ^3.25.67
       version: 3.25.76
@@ -1038,6 +1044,9 @@ importers:
       eslint-plugin-vue:
         specifier: 'catalog:'
         version: 10.6.2(@typescript-eslint/parser@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@2.6.1)))
+      eslint-plugin-yml:
+        specifier: 'catalog:'
+        version: 1.19.0(eslint@9.39.1(jiti@2.6.1))
       globals:
         specifier: 'catalog:'
         version: 16.5.0
@@ -1047,6 +1056,9 @@ importers:
       vue-eslint-parser:
         specifier: 'catalog:'
         version: 10.2.0(eslint@9.39.1(jiti@2.6.1))
+      yaml-eslint-parser:
+        specifier: 'catalog:'
+        version: 1.3.1
 
   internal/lint-configs/prettier-config:
     dependencies:
@@ -6478,6 +6490,12 @@ packages:
         optional: true
       '@typescript-eslint/parser':
         optional: true
+
+  eslint-plugin-yml@1.19.0:
+    resolution: {integrity: sha512-S+4GbcCWksFKAvFJtf0vpdiCkZZvDJCV4Zsi9ahmYkYOYcf+LRqqzvzkb/ST7vTYV6sFwXOvawzYyL/jFT2nQA==}
+    engines: {node: ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: '>=6.0.0'
 
   eslint-scope@8.4.0:
     resolution: {integrity: sha512-sNXOfKCn74rt8RICKMvJS7XKV/Xk9kA7DyJr8mJik3S7Cwgy3qlkkmyS2uQB3jiJg6VNdZd/pDBJu0nvG2NlTg==}
@@ -15878,6 +15896,18 @@ snapshots:
       xml-name-validator: 4.0.0
     optionalDependencies:
       '@typescript-eslint/parser': 8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+
+  eslint-plugin-yml@1.19.0(eslint@9.39.1(jiti@2.6.1)):
+    dependencies:
+      debug: 4.4.3
+      diff-sequences: 27.5.1
+      escape-string-regexp: 4.0.0
+      eslint: 9.39.1(jiti@2.6.1)
+      eslint-compat-utils: 0.6.5(eslint@9.39.1(jiti@2.6.1))
+      natural-compare: 1.4.0
+      yaml-eslint-parser: 1.3.1
+    transitivePeerDependencies:
+      - supports-color
 
   eslint-scope@8.4.0:
     dependencies:

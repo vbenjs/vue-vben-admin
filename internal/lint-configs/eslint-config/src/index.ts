@@ -18,6 +18,7 @@ import {
   typescript,
   unicorn,
   vue,
+  yaml,
 } from './configs';
 import { customConfig } from './custom-config';
 
@@ -48,6 +49,7 @@ async function defineConfig(config: FlatConfig[] = []) {
     regexp(),
     command(),
     turbo(),
+    yaml(),
     ...customConfig,
     ...config,
   ];

@@ -15,3 +15,4 @@ export * from './turbo';
 export * from './typescript';
 export * from './unicorn';
 export * from './vue';
+export * from './yaml';
