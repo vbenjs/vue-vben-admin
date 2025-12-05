@@ -108,11 +108,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     let userInfo: null | UserInfo = null;
     const userInfoData = await getUserInfoApi();
-    const userRoleData = await getUserRoleApi(userInfoData.id);
     userInfo = {
       ...userInfoData,
-      roles: [userRoleData.name],
-      roleRemark: userRoleData.remark,
     };
     userStore.setUserInfo(userInfo);
     // 登出后将 isAccessChecked 置为 false，也就是将已经检查访问权限变成未检查访问权限
