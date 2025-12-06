@@ -24,7 +24,8 @@
   },
   "placeholder": {
     "input": "请输入",
-    "select": "请选择"
+    "select": "请选择",
+    "upload": "请上传"
   },
   "captcha": {
     "title": "请完成安全验证",

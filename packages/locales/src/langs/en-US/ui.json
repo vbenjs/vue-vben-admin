@@ -24,7 +24,8 @@
   },
   "placeholder": {
     "input": "Please enter",
-    "select": "Please select"
+    "select": "Please select",
+    "upload": "Please upload"
   },
   "captcha": {
     "title": "Please complete the security verification",

@@ -226,16 +226,5 @@
   "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "oxc.enable": false,
-  "cSpell.words": [
-    "archiver",
-    "axios",
-    "dotenv",
-    "isequal",
-    "jspm",
-    "napi",
-    "nolebase",
-    "rollup",
-    "vitest"
-  ]
+  "oxc.enable": false
 }
