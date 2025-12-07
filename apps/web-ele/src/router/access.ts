@@ -8,7 +8,7 @@ import { preferences } from '@vben/preferences';
 
 import { ElMessage } from 'element-plus';
 
-import { getDiffTypeMenuListApi } from '#/api';
+import { getMenuNavApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
 
@@ -29,7 +29,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
         duration: 1500,
         message: `${$t('common.loadingMenu')}...`,
       });
-      return await getDiffTypeMenuListApi('menu');
+      return await getMenuNavApi();
     },
     // 可以指定没有权限跳转403页面
     forbiddenComponent,
