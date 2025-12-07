@@ -36,7 +36,7 @@ export interface MenuData {
 export async function getDiffTypeMenuListApi(type: keyof typeof ListType) {
   return requestClient.get<MenuData[]>(`sys:menu/list`, {
     params: {
-      type: ListType[type],
+      type: ListType[type] === 'null' ? undefined : ListType[type],
     },
   });
 }
@@ -46,4 +46,41 @@ export async function getDiffTypeMenuListApi(type: keyof typeof ListType) {
  */
 export async function getMenuNavApi() {
   return requestClient.get<RouteRecordStringComponent[]>(`sys:menu/nav`);
+}
+
+/**
+ * 添加菜单接口
+ * @param data 添加菜单的参数
+ * @returns
+ */
+export async function appendMenuApi(
+  data: Pick<MenuData, 'meta' | 'name' | 'pid' | 'type' | 'url'>,
+) {
+  return requestClient.post(`sys:menu`, data);
+}
+
+/**
+ * 更新菜单的接口
+ * @param data 更新菜单的参数
+ * @returns
+ */
+export async function updateMenuApi(
+  data: Partial<Pick<MenuData, 'meta' | 'name' | 'pid' | 'type' | 'url'>> & {
+    id: number;
+  },
+) {
+  return requestClient.put(`sys:menu`, data);
+}
+
+/**
+ * 删除菜单的接口
+ * @param id 菜单id
+ * @returns
+ */
+export async function deleteMenuApi(id: number) {
+  return requestClient.delete(`sys:menu`, {
+    params: {
+      id,
+    },
+  });
 }
