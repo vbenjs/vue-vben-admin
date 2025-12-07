@@ -2,7 +2,7 @@ import type { RouteRecordStringComponent } from '@vben/types';
 
 import { requestClient } from '#/api/request';
 
-enum ListType {
+export enum ListType {
   menu = 0,
   button,
   interface,

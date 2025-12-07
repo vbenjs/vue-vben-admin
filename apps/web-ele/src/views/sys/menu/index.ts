@@ -92,14 +92,38 @@ function findNodeParentId(id: number, data: RowType[]) {
  * @param data - 数据节点数据
  * @returns 节点完整路径
  */
-function getFullPath(id: number, data: RowType[]) {
+function getFullPath({
+  id,
+  data,
+  returnType = 'url',
+}: {
+  data: RowType[];
+  id: number;
+  returnType: 'meta.title' | 'url';
+}) {
   if (data.length === 0) return '';
   const nodesMap = buildNodeMap(data);
   const ids = findNodeParentId(id, data);
-  const paths = ids.map((id) => nodesMap.get(id)?.url);
-  return paths.join('/').slice(-1) === '/'
-    ? paths.join('/').slice(0, -1)
-    : paths.join('/');
+  let nodes, result;
+  switch (returnType) {
+    case 'meta.title': {
+      nodes = ids.map((id) => nodesMap.get(id)?.meta?.title);
+      result = nodes.join('-');
+      break;
+    }
+    case 'url': {
+      nodes = ids.map((id) => nodesMap.get(id)?.url);
+      result =
+        nodes.join('/').slice(-1) === '/'
+          ? nodes.join('/').slice(0, -1)
+          : nodes.join('/');
+      break;
+    }
+    default: {
+      void 0;
+    }
+  }
+  return result;
 }
 
 export {
