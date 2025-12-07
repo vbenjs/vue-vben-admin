@@ -1,9 +1,8 @@
 <script lang="ts" setup>
+import type { RowType } from './';
+
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
-import type { MenuData } from '#/api/core/menu';
-
-import { cloneDeep } from '@vben/utils';
 
 import { ElButton, ElText, ElTooltip } from 'element-plus';
 
@@ -11,22 +10,7 @@ import { z } from '#/adapter/form';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getDiffTypeMenuListApi } from '#/api/core/menu';
 
-interface RowType {
-  id: number;
-  pid: null | number;
-  name: string;
-  url: string;
-  type: 0 | 1 | 2;
-  sort: number;
-  createTime: null | string;
-  parentName: null | string;
-  meta: {
-    authority: null | string;
-    icon: string;
-    title: string;
-  };
-  children: [] | RowType[];
-}
+import { getFullPath, transformationBackendToTable } from './';
 
 const formOptions: VbenFormProps = {
   collapsed: false,
@@ -38,24 +22,25 @@ const formOptions: VbenFormProps = {
         options: [
           {
             label: '菜单',
-            value: '0',
+            value: 'menu',
           },
           {
             label: '按钮',
-            value: '1',
+            value: 'button',
           },
           {
             label: '接口',
-            value: '2',
+            value: 'interface',
           },
           {
             label: '全部',
-            value: undefined,
+            value: 'all',
           },
         ],
       },
       fieldName: 'type',
       label: '菜单类型',
+      defaultValue: 'menu',
       rules: z.string(z.number().gte(0).lte(2)),
     },
   ],
@@ -120,38 +105,12 @@ const gridOptions: VxeGridProps<RowType> = {
       },
     },
     ajax: {
-      query: async () => {
-        const transformation = (item: MenuData): RowType => {
-          const {
-            id,
-            pid,
-            name,
-            url,
-            type,
-            sort,
-            createTime,
-            parentName,
-            meta,
-          } = item;
-          const children =
-            Array.isArray(item.children) && item.children.length > 0
-              ? item.children.map((child) => transformation(child))
-              : [];
-          return {
-            id,
-            pid,
-            name,
-            url,
-            type,
-            sort,
-            createTime,
-            parentName,
-            meta,
-            children,
-          };
-        };
-        const respData = await getDiffTypeMenuListApi('menu');
-        return respData.map((item) => transformation(item));
+      query: async (_, formValues) => {
+        const respData = await getDiffTypeMenuListApi(formValues.type);
+        gridApi.setGridOptions({
+          data: respData.map((item) => transformationBackendToTable(item)),
+        });
+        return respData.map((item) => transformationBackendToTable(item));
       },
     },
   },
@@ -164,28 +123,11 @@ const typeMap = new Map([
   [2, '接口'],
 ]);
 
-// TODO: 获取菜单的真实路径
-const getFullPath = (row: RowType, _data = gridOptions.data) => {
-  // 搜索
-  const data: RowType[] = cloneDeep(_data)!;
-  const record = [];
-  for (let i = 0; i < data?.length; i++) {
-    if (data?.[i]?.id === row.id) {
-      record.push(data?.[i]?.url);
-      break;
-    }
-    // 如果最后一项也没有找到
-    if (i === data?.length - 1) {
-      // getFullPath(row)
-    }
-  }
-};
-
 const handleAddMenu = () => {};
 
-const handleEditMenu = (id: number) => {};
+// const handleEditMenu = (id: number) => {};
 
-const handleDeleteMenu = (id: number) => {};
+// const handleDeleteMenu = (id: number) => {};
 </script>
 
 <template>
@@ -208,9 +150,15 @@ const handleDeleteMenu = (id: number) => {};
             <ElText type="primary"> # </ElText>
           </ElTooltip>
         </template>
-        <!-- TODO: 待完成菜单 -->
         <template v-else>
-          <ElText type="primary">{{ row.url }}</ElText>
+          <ElText type="primary">
+            {{
+              getFullPath(
+                row.id,
+                gridApi?.state?.gridOptions?.data as RowType[],
+              )
+            }}
+          </ElText>
         </template>
       </template>
       <template #action="{ row }">
