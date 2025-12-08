@@ -94,4 +94,32 @@ function mapTree<T, V extends Record<string, any>>(
   });
 }
 
-export { filterTree, mapTree, traverseTreeValues };
+/**
+ * 对树形结构数据进行递归排序
+ * @param treeData - 树形数据数组
+ * @param sortFunction - 排序函数，用于定义排序规则
+ * @param options - 配置选项，包括子节点属性名
+ * @returns 排序后的树形数据
+ */
+function sortTree<T extends Record<string, any>>(
+  treeData: T[],
+  sortFunction: (a: T, b: T) => number,
+  options?: TreeConfigOptions,
+): T[] {
+  const { childProps } = options || {
+    childProps: 'children',
+  };
+
+  return treeData.toSorted(sortFunction).map((item) => {
+    const children = item[childProps];
+    if (children && Array.isArray(children) && children.length > 0) {
+      return {
+        ...item,
+        [childProps]: sortTree(children, sortFunction, options),
+      };
+    }
+    return item;
+  });
+}
+
+export { filterTree, mapTree, sortTree, traverseTreeValues };
