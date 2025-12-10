@@ -12,32 +12,44 @@ import {
 } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
-let mockRoleData = [
-  {
-    id: 1,
-    name: '超级管理员',
-    roleCode: 'admin',
-    createTime: '2025-10-01 10:30:00',
-    remark: '拥有系统所有权限',
-    menuIdList: [1, 2, 3, 4, 5],
-  },
-  {
-    id: 2,
-    name: '普通用户',
-    roleCode: 'user',
-    remark: '只能查看和编辑内容，不能删除',
-    menuIdList: [1, 2, 3],
-    createTime: '2025-10-11 10:30:00',
-  },
-  {
-    id: 3,
-    name: '编辑者',
-    roleCode: 'editor',
-    remark: '查看 编辑 增加 删除',
-    menuIdList: [1, 2, 3, 4],
-    createTime: '2025-10-25 10:30:00',
-  },
-];
+import {
+  addRoleApi,
+  deleteRoleApi,
+  getRoleInfoApi,
+  getRoleListApi,
+  updateRoleApi,
+} from '#/api/core';
+
+// 认证相关状态
+const authStatus = ref('检查中...'); // '未认证' | '已认证' | '检查中...'
+const showLoginPrompt = ref(false);
+
+// let mockRoleData = [
+//   {
+//     id: 1,
+//     name: '超级管理员',
+//     roleCode: 'admin',
+//     createTime: '2025-10-01 10:30:00',
+//     remark: '拥有系统所有权限',
+//     menuIdList: [1, 2, 3, 4, 5],
+//   },
+//   {
+//     id: 2,
+//     name: '普通用户',
+//     roleCode: 'user',
+//     remark: '只能查看和编辑内容，不能删除',
+//     menuIdList: [1, 2, 3],
+//     createTime: '2025-10-11 10:30:00',
+//   },
+//   {
+//     id: 3,
+//     name: '编辑者',
+//     roleCode: 'editor',
+//     remark: '查看 编辑 增加 删除',
+//     menuIdList: [1, 2, 3, 4],
+//     createTime: '2025-10-25 10:30:00',
+//   },
+// ];
 
 // 角色列表数据
 const roleList = ref<any[]>([]);
@@ -47,26 +59,216 @@ const loading = ref(false);
 // 请求参数
 const params = reactive({
   page: 1,
-  size: 10,
+  limit: 10,
   name: '',
   roleCode: '',
+  order: '',
+  asc: true,
 });
 
-// 表单数据-对应后端保存/修改接口
+// 表单数据
 const formModel = reactive({
   id: 0,
   name: '',
   roleCode: '',
   remark: '',
-  menuIdList: [],
-  createTime: '',
+  menuIdList: [] as number[],
 });
 
 // 对话框控制
 const dialog = reactive({
   visible: false,
   title: '添加角色',
-  type: 'add',
+  type: 'add' as 'add' | 'edit',
+});
+
+// 获取角色列表 - 添加认证检查
+const getRoleList = async () => {
+  // 🔥 修改这里：先检查认证
+  if (!checkAuth()) {
+    ElMessage.warning('请先设置有效的token');
+    showLoginPrompt.value = true; // 显示登录提示
+    loading.value = false;
+    return;
+  }
+
+  loading.value = true;
+  try {
+    const res = await getRoleListApi(params);
+    console.warn('API响应原始数据:', res);
+
+    if (res.code === 0) {
+      // ✅ 直接使用 res.data，因为它就是数组
+      roleList.value = res.data || [];
+      total.value = roleList.value.length;
+
+      console.warn('处理后的角色列表:', roleList.value);
+
+      // 🔥 添加这里：如果数据为空，显示提示
+      if (roleList.value.length === 0) {
+        ElMessage.info('暂无角色数据');
+      }
+    } else if (res.code === 401) {
+      // 🔥 添加这里：处理401错误
+      ElMessage.error(`认证失败: ${res.msg}`);
+      authStatus.value = '未认证';
+      showLoginPrompt.value = true;
+    } else {
+      ElMessage.error(res.msg || '获取角色列表失败');
+    }
+  } catch (error: any) {
+    console.error('获取角色列表错误:', error);
+
+    // 🔥 修改这里：更详细的错误处理
+    if (error.response?.status === 401) {
+      ElMessage.error('认证已过期，请重新设置token');
+      authStatus.value = '未认证';
+      showLoginPrompt.value = true;
+    } else if (error.response?.status === 404) {
+      ElMessage.error('角色列表接口不存在（404）');
+      console.warn('请检查：1.后端服务是否运行 2.接口路径是否正确');
+    } else {
+      ElMessage.error(error.message || '获取角色列表失败');
+    }
+  } finally {
+    loading.value = false;
+  }
+};
+
+// 添加角色-打开对话框
+const handleAdd = () => {
+  dialog.type = 'add';
+  dialog.title = '添加角色';
+  dialog.visible = true;
+
+  // 重置表单数据
+  Object.assign(formModel, {
+    id: 0,
+    name: '',
+    roleCode: '',
+    remark: '',
+    menuIdList: [],
+  });
+};
+
+// 编辑角色
+const handleEdit = async (row: any) => {
+  dialog.type = 'edit';
+  dialog.title = '编辑角色';
+
+  try {
+    const res = await getRoleInfoApi(row.id);
+    if (res.code === 200 || res.code === 0) {
+      Object.assign(formModel, res.data);
+      dialog.visible = true;
+    } else {
+      ElMessage.error(res.msg || '获取角色详情失败');
+    }
+  } catch (error: any) {
+    console.error('获取角色详情错误:', error);
+    // 失败时使用列表中的基本信息
+    Object.assign(formModel, { ...row, menuIdList: row.menuIdList || [] });
+    dialog.visible = true;
+  }
+};
+
+// 保存角色 - 简化版
+const saveRole = async () => {
+  // 1. 基本验证
+  if (!formModel.name.trim()) {
+    ElMessage.warning('请输入角色名称');
+    return;
+  }
+  if (!formModel.roleCode.trim()) {
+    ElMessage.warning('请输入角色编码');
+    return;
+  }
+
+  // 2. 准备数据（根据添加或编辑）
+  let saveData: any;
+  let apiCall: Promise<any>;
+
+  if (dialog.type === 'edit' && formModel.id > 0) {
+    // 编辑模式
+    saveData = {
+      id: formModel.id,
+      name: formModel.name.trim(),
+      roleCode: formModel.roleCode.trim(),
+      remark: formModel.remark.trim(),
+      menuIdList: [...(formModel.menuIdList || [])],
+    };
+    apiCall = updateRoleApi(saveData);
+  } else {
+    // 添加模式（重点）
+    saveData = {
+      name: formModel.name.trim(),
+      roleCode: formModel.roleCode.trim(),
+      remark: formModel.remark.trim(),
+      menuIdList: [...(formModel.menuIdList || [])],
+    };
+    apiCall = addRoleApi(saveData);
+  }
+
+  console.warn('准备发送的数据:', saveData);
+
+  try {
+    // 3. 调用API
+    const result = await apiCall;
+    console.warn('API响应:', result);
+
+    // 4. 处理响应 - 根据您的后端响应格式调整
+    // 您后端返回的是 {"code":0,"msg":"success","data":null}
+    if (result.code === 0 || result.code === 200) {
+      ElMessage.success(dialog.type === 'add' ? '添加成功' : '修改成功');
+      dialog.visible = false;
+      await getRoleList(); // 刷新列表
+    } else {
+      // 显示错误信息
+      ElMessage.error(result.msg || result.message || '操作失败');
+    }
+  } catch (error: any) {
+    console.error('保存失败:', error);
+    ElMessage.error('保存失败，请检查网络连接');
+  }
+};
+
+// 删除角色-调用后端接口
+const handleDelete = async (row: any) => {
+  try {
+    await ElMessageBox.confirm(`确定删除角色 "${row.name}" 吗？`, '提示', {
+      type: 'warning',
+    });
+
+    const res = await deleteRoleApi(row.id);
+
+    if (res.code === 200 || res.code === 0) {
+      ElMessage.success('删除成功');
+      getRoleList();
+    } else {
+      ElMessage.error(res.msg || '删除失败');
+    }
+  } catch (error: any) {
+    if (error !== 'cancel' && error.message !== 'cancel') {
+      console.error('删除角色错误:', error);
+      ElMessage.error('删除失败');
+    }
+  }
+};
+
+// 在 onMounted 中调用
+onMounted(() => {
+  console.warn('页面加载...');
+
+  // 🔥 修改这里：先检查认证，再获取数据
+  if (checkAuth()) {
+    getRoleList();
+  } else {
+    ElMessage.warning();
+    // 延迟显示登录提示，避免页面闪烁
+    setTimeout(() => {
+      showLoginPrompt.value = true;
+    }, 500);
+  }
 });
 
 // 分配用户对话框
@@ -83,110 +285,54 @@ const menuDialog = reactive({
   roleName: '',
 });
 
-// 获取角色列表
-const getRoleList = async () => {
-  loading.value = true;
-  try {
-    // 模拟网络延迟
-    await new Promise((resolve) => setTimeout(resolve, 300));
+// 🔥 添加这里：认证检查函数
+const checkAuth = () => {
+  console.warn('检查认证状态...');
 
-    // 应用搜索过滤
-    let filteredData = [...mockRoleData];
-    if (params.name) {
-      filteredData = filteredData.filter(
-        (item) => item.name.includes(params.name), // 保持模糊匹配
-      );
-    }
-    // 添加角编码搜索
-    if (params.roleCode) {
-      filteredData = filteredData.filter(
-        (item) => item.roleCode === params.roleCode,
-      ); // 保持精准匹配
-    }
+  // 从localStorage获取token
+  const token =
+    localStorage.getItem('accessToken') || localStorage.getItem('token');
 
-    // 应用分页
-    const start = (params.page - 1) * params.size;
-    const end = start + params.size;
-    roleList.value = filteredData.slice(start, end);
-    total.value = filteredData.length;
-  } catch {
-    ElMessage.error('获取角色列表失败');
-  } finally {
-    loading.value = false;
+  if (token) {
+    authStatus.value = '已认证';
+    console.warn('✅ 找到token:', `${token.slice(0, 30)}...`);
+    return true;
   }
+
+  authStatus.value = '未认证';
+  console.warn('❌ 未找到token');
+  return false;
 };
 
-// 添加角色-打开对话框
-const handleAdd = () => {
-  dialog.type = 'add';
-  dialog.title = '添加角色';
-  dialog.visible = true;
-  // 重置表单数据-对应后端保存接口格式
-  Object.assign(formModel, {
-    id: 0,
-    name: '',
-    roleCode: '',
-    remark: '',
-    menuIdList: [],
-    createTime: '',
-  });
+// 关闭对话框函数
+const closeUserDialog = () => {
+  userDialog.visible = false;
 };
 
-// 编辑角色-打开对话框
-const handleEdit = (row: any) => {
-  dialog.type = 'edit';
-  dialog.title = '编辑角色';
-  dialog.visible = true;
-  // 填充表单数据-对应后端修改接口格式
-  Object.assign(formModel, { ...row });
+// 搜索
+const handleSearch = () => {
+  params.page = 1;
+  getRoleList();
 };
 
-// 保存角色(添加/修改)-调用后端接口
-const saveRole = async () => {
-  try {
-    if (dialog.type === 'add') {
-      // 模拟添加操作-将新角色添加到列表
-      const newRole = {
-        ...formModel,
-        createTime: new Date().toLocaleString(),
-      };
-      mockRoleData.unshift(newRole);
-      // 调用后端保存接口
-      // await roleApi.addRole(formModel)
-      ElMessage.success('添加成功');
-    } else {
-      // 编辑逻辑
-      const index = mockRoleData.findIndex((item) => item.id === formModel.id);
-      if (index !== -1) {
-        mockRoleData[index] = { ...mockRoleData[index], ...formModel };
-      }
-      // 调用后端保存接口
-      // await roleApi.updateRole(formModel)
-      ElMessage.success('修改成功');
-    }
-    dialog.visible = false;
-    getRoleList(); // 刷新列表
-  } catch {
-    ElMessage.error('操作失败');
-  }
+// 重置
+const handleReset = () => {
+  params.name = '';
+  params.roleCode = '';
+  params.page = 1;
+  getRoleList();
 };
 
-// 删除角色-调用后端接口
-const handleDelete = async (row: any) => {
-  try {
-    await ElMessageBox.confirm(`确定删除角色 "${row.name}" 吗？`, '提示', {
-      type: 'warning',
-    });
-    // 调用后端保存接口
-    // await roleApi.deleteRole(row.id)
+// 分页处理
+const handleSizeChange = (size: number) => {
+  params.limit = size;
+  params.page = 1;
+  getRoleList();
+};
 
-    // 添加这一行：从模拟数据中删除
-    mockRoleData = mockRoleData.filter((item) => item.id !== row.id);
-    ElMessage.success('删除成功');
-    getRoleList(); // 刷新列表
-  } catch {
-    // 用户取消删除
-  }
+const handleCurrentChange = (page: number) => {
+  params.page = page;
+  getRoleList();
 };
 
 // 分配用户-打开分配用户对话框
@@ -203,35 +349,19 @@ const assignMenus = (row: any) => {
   menuDialog.visible = true;
 };
 
-// 搜索
-const handleSearch = () => {
-  params.page = 1;
-  getRoleList();
+const closeMenuDialog = () => {
+  menuDialog.visible = false;
 };
 
-// 重置
-const handleReset = () => {
-  params.name = '';
-  params.roleCode = '';
-  getRoleList();
-};
-
-// 分页处理
-const handleSizeChange = (size: number) => {
-  params.size = size;
-  params.page = 1;
-  getRoleList();
-};
-
-const handleCurrentChange = (page: number) => {
-  params.page = page;
-  getRoleList();
+const closeDialog = () => {
+  // 这个是关闭角色对话框的
+  dialog.visible = false;
 };
 
 // 初始化加载数据
-onMounted(() => {
-  getRoleList();
-});
+// onMounted(() => {
+//   getRoleList();
+// });
 </script>
 
 <template>
@@ -255,6 +385,7 @@ onMounted(() => {
             v-model="params.name"
             placeholder="请输入角色名称"
             style="width: 200px"
+            @keyup.enter="handleSearch"
           />
         </el-form-item>
         <el-form-item label="角色编码：">
@@ -322,7 +453,7 @@ onMounted(() => {
       <div class="pagination-container">
         <el-pagination
           v-model:current-page="params.page"
-          v-model:page-size="params.size"
+          v-model:page-size="params.limit"
           :total="total"
           :page-sizes="[10, 20, 50, 100]"
           :background="true"
@@ -352,7 +483,7 @@ onMounted(() => {
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button @click="dialog.visible = false">取消</el-button>
+        <el-button @click="closeDialog">取消</el-button>
         <el-button type="primary" @click="saveRole">确定</el-button>
       </template>
     </el-dialog>
@@ -369,7 +500,7 @@ onMounted(() => {
         <!-- 这里可以嵌入用户分配组件 -->
       </div>
       <template #footer>
-        <el-button @click="userDialog.visible = false">取消</el-button>
+        <el-button @click="closeUserDialog()">取消</el-button>
         <el-button type="primary">保存</el-button>
       </template>
     </el-dialog>
@@ -377,7 +508,7 @@ onMounted(() => {
     <!-- 分配菜单权限对话框 -->
     <el-dialog
       v-model="menuDialog.visible"
-      :title="`分配权限-${userDialog.roleName}`"
+      :title="`分配权限-${menuDialog.roleName}`"
       width="600px"
     >
       <div>
@@ -386,7 +517,7 @@ onMounted(() => {
         <!-- 这里可以嵌入菜单分配组件 -->
       </div>
       <template #footer>
-        <el-button @click="userDialog.visible = false">取消</el-button>
+        <el-button @click="closeMenuDialog">取消</el-button>
         <el-button type="primary">保存</el-button>
       </template>
     </el-dialog>
