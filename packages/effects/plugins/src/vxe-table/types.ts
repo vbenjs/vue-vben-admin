@@ -41,6 +41,10 @@ export interface VxeGridProps<
   D extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**
+   * 表格 loading
+   */
+  loading?: boolean;
+  /**
    * 标题
    */
   tableTitle?: string;
@@ -76,6 +80,10 @@ export interface VxeGridProps<
    * 搜索表单与表格主体之间的分隔条
    */
   separator?: boolean | SeparatorOptions;
+  /**
+   * 表单提交时触发的代理指令，默认为 reload
+   */
+  formSubmitCommand?: 'query' | 'reload';
 }
 
 export type ExtendedVxeGridApi<

@@ -17,12 +17,14 @@ import {
 
 function getDefaultState(): VxeGridProps {
   return {
+    loading: false,
     class: '',
     gridClass: '',
     gridOptions: {},
     gridEvents: {},
     formOptions: undefined,
     showSearchForm: true,
+    formSubmitCommand: 'reload',
   };
 }
 
@@ -91,9 +93,7 @@ export class VxeGridApi<T extends Record<string, any> = any> {
 
   setLoading(isLoading: boolean) {
     this.setState({
-      gridOptions: {
-        loading: isLoading,
-      },
+      loading: isLoading,
     });
   }
 

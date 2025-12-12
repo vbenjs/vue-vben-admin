@@ -25,7 +25,7 @@ import {
   watch,
 } from 'vue';
 
-import { usePriorityValues } from '@vben/hooks';
+import { usePriorityValue, usePriorityValues } from '@vben/hooks';
 import { EmptyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
@@ -75,7 +75,10 @@ const {
   tableTitleHelp,
   showSearchForm,
   separator,
+  loading,
 } = usePriorityValues(props, state);
+
+const formSubmitCommand = usePriorityValue('formSubmitCommand', props, state);
 
 const { isMobile } = usePreferences();
 const isSeparator = computed(() => {
@@ -105,7 +108,7 @@ const [Form, formApi] = useTableForm({
   handleSubmit: async () => {
     const formValues = await formApi.getValues();
     formApi.setLatestSubmissionValues(toRaw(formValues));
-    props.api.reload(formValues);
+    await executeProxyCommand(formValues);
   },
   handleReset: async () => {
     const prevValues = await formApi.getValues();
@@ -114,7 +117,7 @@ const [Form, formApi] = useTableForm({
     formApi.setLatestSubmissionValues(formValues);
     // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
     if (isEqual(prevValues, formValues) || !formOptions.value?.submitOnChange) {
-      props.api.reload(formValues);
+      await executeProxyCommand(formValues);
     }
   },
   commonConfig: {
@@ -231,6 +234,25 @@ const options = computed(() => {
   }
   return mergedOptions;
 });
+
+const gridLoading = computed(() => {
+  if (loading.value !== undefined) {
+    return loading.value;
+  }
+  return gridOptions.value?.loading ?? false;
+});
+
+const proxyCommandCode = computed<'query' | 'reload'>(() => {
+  return formSubmitCommand.value === 'query' ? 'query' : 'reload';
+});
+
+async function executeProxyCommand(params: Record<string, any>) {
+  if (proxyCommandCode.value === 'query') {
+    await props.api.grid?.setCurrentPage?.(1);
+    return await props.api.query(params);
+  }
+  return await props.api.reload(params);
+}
 
 function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
   if (event.code === 'search') {
@@ -362,6 +384,7 @@ onUnmounted(() => {
   <div :class="cn('bg-card h-full rounded-md', className)">
     <VxeGrid
       ref="gridRef"
+      :loading="gridLoading"
       :class="
         cn(
           'p-2',
