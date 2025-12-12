@@ -30,8 +30,13 @@ interface RolePageParams {
   asc?: boolean;
 }
 
-// 获取角色分页列表
-export async function getRoleListApi(
+// 菜单权限interface ResultListSysMenuVO {
+//   id: number;
+
+// }
+
+// 获取角色列表
+export async function getAllRoleApi(
   params: RolePageParams,
 ): Promise<Result<SysRoleVO[]>> {
   return requestClient.get<RoleListResult>('/sys/role/list', {
@@ -39,34 +44,15 @@ export async function getRoleListApi(
   });
 }
 
+// 获取角色列表(分页)
+export async function getRolePage(params: any) {
+  return requestClient.post('/sys/role/page', params);
+}
+
 // 获取角色详情
 export async function getRoleInfoApi(id: number): Promise<Result<SysRoleVO>> {
   return requestClient.get<Result<SysRoleVO>>(`/sys/role/${id}`);
 }
-
-// 添加角色 - 连接真实后端
-// export async function addRoleApi(data: SysRoleVO): Promise<Result<string>> {
-//   try {
-//     console.log('🚀 发送添加角色请求到后端:', data);
-
-//     // 使用 requestClient 发送请求
-//     const result = await requestClient.post<Result<string>>('/sys/role', data);
-
-//     console.log('📥 后端返回结果:', result);
-
-//     // 如果后端返回null，抛出错误
-//     if (!result) {
-//       throw new Error('后端返回null响应');
-//     }
-
-//     return result;
-//   } catch (error: any) {
-//     console.error('❌ 添加角色接口错误:', error);
-
-//     // 重新抛出错误，让前端可以捕获并显示
-//     throw error;
-//   }
-// }
 
 // 添加角色
 export async function addRoleApi(data: SysRoleVO): Promise<Result<string>> {

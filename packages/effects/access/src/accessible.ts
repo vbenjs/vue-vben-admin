@@ -64,7 +64,6 @@ async function generateAccessible(
     }
     router.addRoute(root);
   }
-
   // 生成菜单
   const accessibleMenus = generateMenus(accessibleRoutes, options.router);
 

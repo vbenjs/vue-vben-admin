@@ -14,6 +14,7 @@ async function initSetupVbenForm() {
       modelPropNameMap: {
         Upload: 'fileList',
         CheckboxGroup: 'model-value',
+        ImageUpload: 'modelValue',
       },
     },
     defineRules: {

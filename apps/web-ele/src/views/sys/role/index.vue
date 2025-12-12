@@ -16,13 +16,9 @@ import {
   addRoleApi,
   deleteRoleApi,
   getRoleInfoApi,
-  getRoleListApi,
+  getRolePage,
   updateRoleApi,
 } from '#/api/core';
-
-// 认证相关状态
-const authStatus = ref('检查中...'); // '未认证' | '已认证' | '检查中...'
-const showLoginPrompt = ref(false);
 
 // let mockRoleData = [
 //   {
@@ -52,11 +48,11 @@ const showLoginPrompt = ref(false);
 // ];
 
 // 角色列表数据
-const roleList = ref<any[]>([]);
+const roleList = ref([]);
 const total = ref(0);
 const loading = ref(false);
 
-// 请求参数
+// 请求参数-分页
 const params = reactive({
   page: 1,
   limit: 10,
@@ -82,57 +78,59 @@ const dialog = reactive({
   type: 'add' as 'add' | 'edit',
 });
 
+// 菜单权限
+const Props = ref({
+  label: 'name',
+  children: 'zones',
+});
+
+const count = ref(1);
+interface NodeData {}
+
+// 事件处理方法
+const handleCheckChange = (
+  data: NodeData,
+  checked: boolean,
+  indeterminate: boolean,
+) => {
+  console.warn(data, checked, indeterminate);
+};
+
+const handleNodeClick = (data: any) => {
+  console.warn(data);
+};
+
+// 异步加载节点方法
+const loadNode = (node: any, resolve: any) => {
+  if (node.level === 0) {
+    return resolve([{ name: 'region1' }, { name: 'region2' }]);
+  }
+  if (node.level > 3) return resolve([]);
+
+  let hasChild;
+  if (node.data.name === 'region1') {
+    hasChild = true;
+  } else if (node.data.name === 'region2') {
+    hasChild = false;
+  } else {
+    hasChild = Math.random() > 0.5;
+  }
+
+  setTimeout(() => {
+    const children = hasChild
+      ? [{ name: `zone${count.value++}` }, { name: `zone${count.value++}` }]
+      : [];
+    resolve(children);
+  }, 500);
+};
+
 // 获取角色列表 - 添加认证检查
 const getRoleList = async () => {
-  // 🔥 修改这里：先检查认证
-  if (!checkAuth()) {
-    ElMessage.warning('请先设置有效的token');
-    showLoginPrompt.value = true; // 显示登录提示
-    loading.value = false;
-    return;
-  }
-
   loading.value = true;
-  try {
-    const res = await getRoleListApi(params);
-    console.warn('API响应原始数据:', res);
-
-    if (res.code === 0) {
-      // ✅ 直接使用 res.data，因为它就是数组
-      roleList.value = res.data || [];
-      total.value = roleList.value.length;
-
-      console.warn('处理后的角色列表:', roleList.value);
-
-      // 🔥 添加这里：如果数据为空，显示提示
-      if (roleList.value.length === 0) {
-        ElMessage.info('暂无角色数据');
-      }
-    } else if (res.code === 401) {
-      // 🔥 添加这里：处理401错误
-      ElMessage.error(`认证失败: ${res.msg}`);
-      authStatus.value = '未认证';
-      showLoginPrompt.value = true;
-    } else {
-      ElMessage.error(res.msg || '获取角色列表失败');
-    }
-  } catch (error: any) {
-    console.error('获取角色列表错误:', error);
-
-    // 🔥 修改这里：更详细的错误处理
-    if (error.response?.status === 401) {
-      ElMessage.error('认证已过期，请重新设置token');
-      authStatus.value = '未认证';
-      showLoginPrompt.value = true;
-    } else if (error.response?.status === 404) {
-      ElMessage.error('角色列表接口不存在（404）');
-      console.warn('请检查：1.后端服务是否运行 2.接口路径是否正确');
-    } else {
-      ElMessage.error(error.message || '获取角色列表失败');
-    }
-  } finally {
-    loading.value = false;
-  }
+  const res = await getRolePage(params);
+  roleList.value = res.list || [];
+  total.value = res.total;
+  loading.value = false;
 };
 
 // 添加角色-打开对话框
@@ -172,7 +170,7 @@ const handleEdit = async (row: any) => {
   }
 };
 
-// 保存角色 - 简化版
+// 保存角色
 const saveRole = async () => {
   // 1. 基本验证
   if (!formModel.name.trim()) {
@@ -199,7 +197,7 @@ const saveRole = async () => {
     };
     apiCall = updateRoleApi(saveData);
   } else {
-    // 添加模式（重点）
+    // 添加模式
     saveData = {
       name: formModel.name.trim(),
       roleCode: formModel.roleCode.trim(),
@@ -215,9 +213,7 @@ const saveRole = async () => {
     // 3. 调用API
     const result = await apiCall;
     console.warn('API响应:', result);
-
-    // 4. 处理响应 - 根据您的后端响应格式调整
-    // 您后端返回的是 {"code":0,"msg":"success","data":null}
+    // 4. 处理响应 - 根据后端响应格式调整
     if (result.code === 0 || result.code === 200) {
       ElMessage.success(dialog.type === 'add' ? '添加成功' : '修改成功');
       dialog.visible = false;
@@ -228,7 +224,6 @@ const saveRole = async () => {
     }
   } catch (error: any) {
     console.error('保存失败:', error);
-    ElMessage.error('保存失败，请检查网络连接');
   }
 };
 
@@ -250,25 +245,13 @@ const handleDelete = async (row: any) => {
   } catch (error: any) {
     if (error !== 'cancel' && error.message !== 'cancel') {
       console.error('删除角色错误:', error);
-      ElMessage.error('删除失败');
     }
   }
 };
 
-// 在 onMounted 中调用
+// 组件挂载后自动加载角色列表
 onMounted(() => {
-  console.warn('页面加载...');
-
-  // 🔥 修改这里：先检查认证，再获取数据
-  if (checkAuth()) {
-    getRoleList();
-  } else {
-    ElMessage.warning();
-    // 延迟显示登录提示，避免页面闪烁
-    setTimeout(() => {
-      showLoginPrompt.value = true;
-    }, 500);
-  }
+  getRoleList();
 });
 
 // 分配用户对话框
@@ -284,25 +267,6 @@ const menuDialog = reactive({
   roleId: 0,
   roleName: '',
 });
-
-// 🔥 添加这里：认证检查函数
-const checkAuth = () => {
-  console.warn('检查认证状态...');
-
-  // 从localStorage获取token
-  const token =
-    localStorage.getItem('accessToken') || localStorage.getItem('token');
-
-  if (token) {
-    authStatus.value = '已认证';
-    console.warn('✅ 找到token:', `${token.slice(0, 30)}...`);
-    return true;
-  }
-
-  authStatus.value = '未认证';
-  console.warn('❌ 未找到token');
-  return false;
-};
 
 // 关闭对话框函数
 const closeUserDialog = () => {
@@ -357,11 +321,6 @@ const closeDialog = () => {
   // 这个是关闭角色对话框的
   dialog.visible = false;
 };
-
-// 初始化加载数据
-// onMounted(() => {
-//   getRoleList();
-// });
 </script>
 
 <template>
@@ -472,6 +431,17 @@ const closeDialog = () => {
         </el-form-item>
         <el-form-item label="角色编码" required>
           <el-input v-model="formModel.roleCode" placeholder="请输入角色编码" />
+        </el-form-item>
+        <!-- 菜单权限 -->
+        <el-form-item label="菜单权限">
+          <el-tree
+            :props="Props"
+            :load="loadNode"
+            lazy
+            show-checkbox
+            @check-change="handleCheckChange"
+            @node-click="handleNodeClick"
+          />
         </el-form-item>
         <el-form-item label="备注">
           <el-input

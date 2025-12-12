@@ -15,6 +15,8 @@ import { $t } from '@vben/locales';
 
 import { ElNotification } from 'element-plus';
 
+import ImageUpload from '#/components/ImageUpload/index.vue';
+
 const ElButton = defineAsyncComponent(() =>
   Promise.all([
     import('element-plus/es/components/button/index'),
@@ -161,6 +163,7 @@ export type ComponentType =
   | 'DatePicker'
   | 'Divider'
   | 'IconPicker'
+  | 'ImageUpload'
   | 'Input'
   | 'InputNumber'
   | 'RadioGroup'
@@ -307,6 +310,7 @@ async function initComponentAdapter() {
       );
     },
     TreeSelect: withDefaultPlaceholder(ElTreeSelect, 'select'),
+    ImageUpload,
     Upload: ElUpload,
   };
 
