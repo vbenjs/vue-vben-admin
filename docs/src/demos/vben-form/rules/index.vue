@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { markRaw } from 'vue';
+
 import { message } from 'ant-design-vue';
 
 import { useVbenForm, z } from '#/adapter/form';
@@ -48,7 +50,7 @@ const [Form] = useVbenForm({
       },
       fieldName: 'field3',
       label: '默认值(非必填)',
-      rules: z.string().default('默认值').optional(),
+      rules: markRaw(z.string().default('默认值').optional()),
     },
     {
       component: 'Input',
@@ -57,7 +59,7 @@ const [Form] = useVbenForm({
       },
       fieldName: 'field31',
       label: '自定义信息',
-      rules: z.string().min(1, { message: '最少输入1个字符' }),
+      rules: markRaw(z.string().min(1, '最少输入1个字符')),
     },
     {
       component: 'Input',
@@ -69,7 +71,7 @@ const [Form] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: z.string().email('请输入正确的邮箱'),
+      rules: markRaw(z.email('请输入正确的邮箱')),
     },
     {
       component: 'InputNumber',

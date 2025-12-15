@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VbenFormSchema } from '#/adapter/form';
 
-import { computed, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 
 import { ProfilePasswordSetting, z } from '@vben/common-ui';
 
@@ -39,12 +39,12 @@ const formSchema = computed((): VbenFormSchema[] => {
       dependencies: {
         rules(values) {
           const { newPassword } = values;
-          return z
-            .string({ required_error: '请再次输入新密码' })
-            .min(1, { message: '请再次输入新密码' })
-            .refine((value) => value === newPassword, {
-              message: '两次输入的密码不一致',
-            });
+          return markRaw(
+            z
+              .string()
+              .min(1, '请再次输入新密码')
+              .refine((value) => value === newPassword, '两次输入的密码不一致'),
+          );
         },
         triggerFields: ['newPassword'],
       },

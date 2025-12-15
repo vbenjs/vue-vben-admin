@@ -5,7 +5,7 @@ import type { Recordable } from '@vben/types';
 
 import type { VbenFormSchema } from '#/adapter/form';
 
-import { computed, h, ref } from 'vue';
+import { computed, h, markRaw, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
@@ -50,21 +50,25 @@ const schema: VbenFormSchema[] = [
     component: 'Input',
     fieldName: 'name',
     label: $t('system.menu.menuName'),
-    rules: z
-      .string()
-      .min(2, $t('ui.formRules.minLength', [$t('system.menu.menuName'), 2]))
-      .max(30, $t('ui.formRules.maxLength', [$t('system.menu.menuName'), 30]))
-      .refine(
-        async (value: string) => {
-          return !(await isMenuNameExists(value, formData.value?.id));
-        },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.menuName'),
-            value,
-          ]),
-        }),
-      ),
+    rules: markRaw(
+      z
+        .string()
+        .min(2, $t('ui.formRules.minLength', [$t('system.menu.menuName'), 2]))
+        .max(30, $t('ui.formRules.maxLength', [$t('system.menu.menuName'), 30]))
+        .refine(
+          async (value: string) => {
+            return !(await isMenuNameExists(value, formData.value?.id));
+          },
+          {
+            error: (value) => {
+              return $t('ui.formRules.alreadyExists', [
+                $t('system.menu.menuName'),
+                value,
+              ]);
+            },
+          },
+        ),
+    ),
   },
   {
     component: 'ApiTreeSelect',
@@ -127,27 +131,31 @@ const schema: VbenFormSchema[] = [
     },
     fieldName: 'path',
     label: $t('system.menu.path'),
-    rules: z
-      .string()
-      .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
-      .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
-      .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
-      .refine(
-        async (value: string) => {
-          return !(await isMenuPathExists(value, formData.value?.id));
-        },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.path'),
-            value,
-          ]),
-        }),
-      ),
+    rules: markRaw(
+      z
+        .string()
+        .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
+        .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
+        .refine(
+          (value: string) => {
+            return value.startsWith('/');
+          },
+          $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+        )
+        .refine(
+          async (value: string) => {
+            return !(await isMenuPathExists(value, formData.value?.id));
+          },
+          {
+            error: (value) => {
+              return $t('ui.formRules.alreadyExists', [
+                $t('system.menu.path'),
+                value,
+              ]);
+            },
+          },
+        ),
+    ),
   },
   {
     component: 'Input',
@@ -160,20 +168,22 @@ const schema: VbenFormSchema[] = [
     fieldName: 'activePath',
     help: $t('system.menu.activePathHelp'),
     label: $t('system.menu.activePath'),
-    rules: z
-      .string()
-      .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
-      .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
-      .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
-      .refine(async (value: string) => {
-        return await isMenuPathExists(value, formData.value?.id);
-      }, $t('system.menu.activePathMustExist'))
-      .optional(),
+    rules: markRaw(
+      z
+        .string()
+        .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
+        .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
+        .refine(
+          (value: string) => {
+            return value.startsWith('/');
+          },
+          $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+        )
+        .refine(async (value: string) => {
+          return await isMenuPathExists(value, formData.value?.id);
+        }, $t('system.menu.activePathMustExist'))
+        .optional(),
+    ),
   },
   {
     component: 'IconPicker',
@@ -235,7 +245,7 @@ const schema: VbenFormSchema[] = [
     },
     fieldName: 'linkSrc',
     label: $t('system.menu.linkSrc'),
-    rules: z.string().url($t('ui.formRules.invalidURL')),
+    rules: markRaw(z.url($t('ui.formRules.invalidURL'))),
   },
   {
     component: 'Input',
