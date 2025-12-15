@@ -30,6 +30,10 @@ export interface MenuData {
   children: [] | MenuData[];
 }
 
+export type UpdateMenuParams = Partial<
+  Pick<MenuData, 'id' | 'meta' | 'name' | 'pid' | 'sort' | 'type' | 'url'>
+>;
+
 /**
  * 获取不同类型的菜单列表
  */
@@ -64,11 +68,7 @@ export async function appendMenuApi(
  * @param data 更新菜单的参数
  * @returns
  */
-export async function updateMenuApi(
-  data: Partial<Pick<MenuData, 'meta' | 'name' | 'pid' | 'type' | 'url'>> & {
-    id: number;
-  },
-) {
+export async function updateMenuApi(data: UpdateMenuParams) {
   return requestClient.put(`sys:menu`, data);
 }
 
