@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
+import type { ZodType } from 'zod';
 
 import type {
   FormCommonConfig,
@@ -22,7 +22,10 @@ import {
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
-import { getBaseRules, getDefaultValueInZodStack } from './helper';
+import {
+  getBaseRules_byZodSchema,
+  getDefaultValue_byZodSchema,
+} from './helper';
 
 interface Props extends FormRenderProps {}
 
@@ -36,7 +39,6 @@ const props = withDefaults(
     wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
   },
 );
-
 const emits = defineEmits<{
   submit: [event: any];
 }>();
@@ -59,20 +61,20 @@ const shapes = computed(() => {
   const resultShapes: FormShape[] = [];
   props.schema?.forEach((schema) => {
     const { fieldName } = schema;
-    const rules = schema.rules as ZodTypeAny;
+    const zodSchema = schema.rules as ZodType;
 
-    let typeName = '';
-    if (rules && !isString(rules)) {
-      typeName = rules._def.typeName;
+    let zodType = '';
+    if (zodSchema && !isString(zodSchema)) {
+      zodType = zodSchema.def.type;
     }
 
-    const baseRules = getBaseRules(rules) as ZodTypeAny;
+    const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
 
     resultShapes.push({
-      default: getDefaultValueInZodStack(rules),
+      default: getDefaultValue_byZodSchema(zodSchema),
       fieldName,
-      required: !['ZodNullable', 'ZodOptional'].includes(typeName),
-      rules: baseRules,
+      required: !['nullable', 'optional'].includes(zodType),
+      rules: baseZodSchema,
     });
   });
   return resultShapes;

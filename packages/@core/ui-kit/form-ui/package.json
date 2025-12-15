@@ -46,7 +46,6 @@
     "@vueuse/core": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
-    "zod": "catalog:",
-    "zod-defaults": "catalog:"
+    "zod": "catalog:"
   }
 }
