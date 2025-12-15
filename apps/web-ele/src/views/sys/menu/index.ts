@@ -95,35 +95,43 @@ function findNodeParentId(id: number, data: RowType[]) {
 function getFullPath({
   id,
   data,
-  returnType = 'url',
+  options,
 }: {
   data: RowType[];
   id: number;
-  returnType: 'meta.title' | 'url';
+  options: {
+    extractVal: 'meta.title' | 'url';
+    returnVal?: 'nodes' | 'result';
+  };
 }) {
-  if (data.length === 0) return '';
+  if (data.length === 0) return;
+  const { extractVal, returnVal } = options;
   const nodesMap = buildNodeMap(data);
   const ids = findNodeParentId(id, data);
-  let nodes, result;
-  switch (returnType) {
+  const res: { nodes: string[]; result: string } = { nodes: [], result: '' };
+  switch (extractVal) {
     case 'meta.title': {
-      nodes = ids.map((id) => nodesMap.get(id)?.meta?.title);
-      result = nodes.join('-');
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      res.nodes = ids.map((id) => nodesMap.get(id)!.meta!.title);
+      res.result = res.nodes.join('-');
       break;
     }
     case 'url': {
-      nodes = ids.map((id) => nodesMap.get(id)?.url);
-      result =
-        nodes.join('/').slice(-1) === '/'
-          ? nodes.join('/').slice(0, -1)
-          : nodes.join('/');
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      res.nodes = ids.map((id) => nodesMap.get(id)!.url);
+      const urlPath = res.nodes.join('/');
+      res.result = urlPath.slice(-1) === '/' ? urlPath.slice(0, -1) : urlPath;
       break;
     }
     default: {
-      void 0;
+      return res as never;
     }
   }
-  return result;
+
+  if (returnVal) {
+    return res[returnVal];
+  }
+  return res;
 }
 
 export {
