@@ -6,13 +6,20 @@ import type { VxeGridProps, VxeGridPropTypes } from '#/adapter/vxe-table';
 
 import { computed, ref } from 'vue';
 
-import { ElButton, ElText, ElTooltip } from 'element-plus';
+import { confirm, useVbenModal } from '@vben/common-ui';
+
+import { ElButton, ElMessage, ElText, ElTooltip } from 'element-plus';
 
 import { z } from '#/adapter/form';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { getDiffTypeMenuListApi, ListType } from '#/api/core/menu';
+import {
+  deleteMenuApi,
+  getDiffTypeMenuListApi,
+  ListType,
+} from '#/api/core/menu';
 
 import { getFullPath, transformationBackendToTable } from './';
+import ExtraModel from './modal.vue';
 
 const menuMap = new Map<
   number,
@@ -238,11 +245,69 @@ const toolbarMenuText = computed(() => {
   return text ? `新增${text}` : '';
 });
 
+const [Model, modalApi] = useVbenModal({
+  // 连接抽离的组件
+  connectedComponent: ExtraModel,
+});
+
 const handleAddMenu = () => {};
 
-// const handleEditMenu = (id: number) => {};
+const handleEditMenu = (row: RowType) => {
+  const { pid, id, sort, name, url } = row;
 
-// const handleDeleteMenu = (id: number) => {};
+  const prefixUrl = (() => {
+    const options = {
+      extractVal: 'url' as const,
+      returnVal: 'nodes' as const,
+    };
+    const nodes = getFullPath({
+      id,
+      data: gridStore.value.gridOptions?.data as RowType[],
+      options,
+    })! as string[];
+    return nodes.slice(0, -1).join('/');
+  })();
+  const title = `编辑${menuMap.get(menuType.value as number)?.title}`;
+  modalApi
+    .setState({
+      title,
+    })
+    .setData({
+      type: menuType.value,
+      pid,
+      id,
+      sort,
+      name,
+      url,
+      $other: {
+        prefixUrl,
+        behavior: 'edit',
+      },
+    })
+    .open();
+};
+
+const handleDeleteMenu = (row: RowType) => {
+  const { id, name } = row;
+  const title = `删除${menuMap.get(menuType.value as number)?.title}`;
+  const content = `确认删除${name}该${menuMap.get(menuType.value as number)?.title}吗？`;
+  confirm({
+    cancelText: '取消',
+    confirmText: '删除',
+    content,
+    icon: 'warning',
+    title,
+    buttonAlign: 'center',
+    overlayBlur: 2,
+  })
+    .then(() => {
+      return deleteMenuApi(id);
+    })
+    .then(() => {
+      ElMessage.success(`${title}成功`);
+    })
+    .catch(() => {});
+};
 </script>
 
 <template>
@@ -281,30 +346,30 @@ const handleAddMenu = () => {};
               getFullPath({
                 id: row.id,
                 data: gridStore?.gridOptions?.data as RowType[],
-                returnType: 'url',
+                options: {
+                  extractVal: 'url' as const,
+                  returnVal: 'result' as const,
+                },
               })
             }}
           </ElText>
         </template>
       </template>
       <template #action="{ row }">
-        <ElButton
-          type="primary"
-          link
-          size="small"
-          @click="handleEditMenu(row.id)"
-        >
+        <ElButton type="primary" link size="small" @click="handleEditMenu(row)">
           编辑
         </ElButton>
         <ElButton
           type="danger"
           link
           size="small"
-          @click="handleDeleteMenu(row.id)"
+          @click="handleDeleteMenu(row)"
         >
           删除
         </ElButton>
       </template>
     </Grid>
+
+    <Model />
   </div>
 </template>
