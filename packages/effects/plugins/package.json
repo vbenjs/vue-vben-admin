@@ -39,6 +39,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
+    "@vxe-ui/plugin-render-antd": "catalog:",
     "echarts": "catalog:",
     "vue": "catalog:",
     "vxe-pc-ui": "catalog:",

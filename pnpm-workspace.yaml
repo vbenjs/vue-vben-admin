@@ -66,6 +66,7 @@ catalog:
   '@vueuse/core': ^13.4.0
   '@vueuse/integrations': ^14.0.0
   '@vueuse/motion': ^3.0.3
+  '@vxe-ui/plugin-render-antd': ^4.1.0
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.22

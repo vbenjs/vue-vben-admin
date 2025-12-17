@@ -6,6 +6,7 @@ import { usePreferences } from '@vben/preferences';
 
 import { useVbenForm } from '@vben-core/form-ui';
 
+import VxeUIPluginRenderAntd from '@vxe-ui/plugin-render-antd';
 import {
   VxeButton,
   VxeCheckbox,
@@ -46,6 +47,8 @@ import {
 } from 'vxe-table';
 
 import { extendsDefaultFormatter } from './extends';
+
+import '@vxe-ui/plugin-render-antd/dist/style.css';
 
 // 是否加载过
 let isInit = false;
@@ -96,6 +99,7 @@ export function initVxeTable() {
   // VxeUI.component(VxeTextarea);
   VxeUI.component(VxeTooltip);
   VxeUI.component(VxeUpload);
+  VxeUI.use(VxeUIPluginRenderAntd);
 
   isInit = true;
 }
