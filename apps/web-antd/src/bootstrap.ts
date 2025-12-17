@@ -6,6 +6,7 @@ import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
+import '@vben/styles/vxe';
 
 import { useTitle } from '@vueuse/core';
 
