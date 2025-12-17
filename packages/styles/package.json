@@ -26,6 +26,9 @@
     },
     "./global": {
       "default": "./src/global/index.scss"
+    },
+    "./vxe": {
+      "default": "./src/vxe/index.css"
     }
   },
   "dependencies": {
