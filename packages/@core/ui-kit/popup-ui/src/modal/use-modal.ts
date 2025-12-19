@@ -28,26 +28,29 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
 ) {
   // Modal一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
   // 外部的Modal通过provide/inject传递api
-
   const { connectedComponent } = options;
   if (connectedComponent) {
     const extendedApi = reactive({});
     const isModalReady = ref(true);
     const Modal = defineComponent(
       (props: TParentModalProps, { attrs, slots }) => {
-        provide(USER_MODAL_INJECT_KEY, {
+        const injectContext: any = {
+          __vbenModalConnected: false,
           extendApi(api: ExtendedModalApi) {
+            injectContext.__vbenModalConnected = true;
             // 不能直接给 reactive 赋值，会丢失响应
             // 不能用 Object.assign,会丢失 api 的原型函数
             Object.setPrototypeOf(extendedApi, api);
           },
           options,
           async reCreateModal() {
+            injectContext.__vbenModalConnected = false;
             isModalReady.value = false;
             await nextTick();
             isModalReady.value = true;
           },
-        });
+        };
+        provide(USER_MODAL_INJECT_KEY, injectContext);
         checkProps(extendedApi as ExtendedModalApi, {
           ...props,
           ...attrs,
@@ -73,7 +76,10 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
     return [Modal, extendedApi as ExtendedModalApi] as const;
   }
 
-  const injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
+  const injected = inject<any>(USER_MODAL_INJECT_KEY, {});
+  const shouldConnectToParent =
+    !!injected?.extendApi && !injected?.__vbenModalConnected;
+  const injectData = shouldConnectToParent ? injected : {};
 
   const mergedOptions = {
     ...DEFAULT_MODAL_PROPS,
@@ -121,7 +127,17 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
       inheritAttrs: false,
     },
   );
-  injectData.extendApi?.(extendedApi);
+  if (shouldConnectToParent) {
+    try {
+      injected.extendApi?.(extendedApi);
+      // 只有在 extendApi 成功执行后才设置连接标志
+      injected.__vbenModalConnected = true;
+    } catch (error) {
+      // 如果连接失败，确保标志保持为 false，以便后续重试
+      injected.__vbenModalConnected = false;
+      throw error;
+    }
+  }
 
   return [Modal, extendedApi] as const;
 }
