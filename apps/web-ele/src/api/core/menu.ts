@@ -78,9 +78,5 @@ export async function updateMenuApi(data: UpdateMenuParams) {
  * @returns
  */
 export async function deleteMenuApi(id: number) {
-  return requestClient.delete(`sys:menu`, {
-    params: {
-      id,
-    },
-  });
+  return requestClient.delete(`sys:menu/${id}`);
 }
