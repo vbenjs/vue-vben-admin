@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { VbenFormSchema } from '#/adapter/form';
 
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 import { ProfilePasswordSetting, z } from '@vben/common-ui';
 
 import { ElMessage } from 'element-plus';
-
-const profilePasswordSettingRef = ref();
 
 const formSchema = computed((): VbenFormSchema[] => {
   return [
@@ -58,7 +56,6 @@ function handleSubmit() {
 </script>
 <template>
   <ProfilePasswordSetting
-    ref="profilePasswordSettingRef"
     class="w-1/3"
     :form-schema="formSchema"
     @submit="handleSubmit"
