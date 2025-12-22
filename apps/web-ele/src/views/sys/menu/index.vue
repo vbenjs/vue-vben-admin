@@ -4,7 +4,7 @@ import type { RowType } from './';
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps, VxeGridPropTypes } from '#/adapter/vxe-table';
 
-import { computed, ref } from 'vue';
+import { computed, ref, unref } from 'vue';
 
 import { confirm, useVbenModal } from '@vben/common-ui';
 
@@ -236,6 +236,11 @@ const gridOptions: VxeGridProps<RowType> = {
 };
 const [Grid, gridApi] = useVbenVxeGrid({ gridOptions, formOptions });
 const gridStore = gridApi.useStore();
+// 表格数据
+const data = computed<RowType[]>(() => {
+  const rows = gridStore.value?.gridOptions?.data as RowType[] | undefined;
+  return rows ?? [];
+});
 const menuType = ref<number | undefined>(0);
 const toolbarMenuText = computed(() => {
   let text = '';
@@ -248,9 +253,24 @@ const toolbarMenuText = computed(() => {
 const [Model, modalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: ExtraModel,
+  class: 'w-1/2',
 });
 
-const handleAddMenu = () => {};
+const handleAddMenu = () => {
+  const title = `新增${menuMap.get(menuType.value as number)?.title}`;
+  modalApi
+    .setState({
+      title,
+    })
+    .setData({
+      type: menuType.value,
+      $: {
+        behavior: 'add',
+        treeCache: unref(data),
+      },
+    })
+    .open();
+};
 
 const handleEditMenu = (row: RowType) => {
   const { pid, id, sort, name, url } = row;
@@ -262,7 +282,7 @@ const handleEditMenu = (row: RowType) => {
     };
     const nodes = getFullPath({
       id,
-      data: gridStore.value.gridOptions?.data as RowType[],
+      data: data.value,
       options,
     })! as string[];
     return nodes.slice(0, -1).join('/');
@@ -279,7 +299,7 @@ const handleEditMenu = (row: RowType) => {
       sort,
       name,
       url,
-      $other: {
+      $: {
         prefixUrl,
         behavior: 'edit',
       },
@@ -345,7 +365,7 @@ const handleDeleteMenu = (row: RowType) => {
             {{
               getFullPath({
                 id: row.id,
-                data: gridStore?.gridOptions?.data as RowType[],
+                data,
                 options: {
                   extractVal: 'url' as const,
                   returnVal: 'result' as const,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { UpdateMenuParams } from '#/api/core/menu';
 
-import { ref, watch } from 'vue';
+import { h, onUnmounted, ref, unref, watch } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
@@ -10,7 +10,17 @@ import { ElMessage } from 'element-plus';
 import { useVbenForm, z } from '#/adapter/form';
 import { ListType, updateMenuApi } from '#/api/core/menu';
 
-const data = ref();
+import { getFullPath } from './index';
+
+const formValues = ref<Record<string, any>>();
+const formParams = ref<Record<string, any>>({
+  // 行为
+  behavior: '',
+  // 路径前缀
+  prefixUrl: '',
+  // 树形选择器缓存数据
+  treeCache: [],
+});
 
 const [Modal, modelApi] = useVbenModal({
   draggable: true,
@@ -21,16 +31,13 @@ const [Modal, modelApi] = useVbenModal({
   footer: false,
   onOpenChange: (isOpen: boolean) => {
     if (isOpen) {
-      const { $other, ...params } = modelApi.getData();
-      data.value = {
-        ...params,
-        ...$other,
-      };
+      const { $, ...params } = modelApi.getData();
+      formValues.value = { ...params };
+      formParams.value = { ...$ };
       // 设置表单值
       formApi.setValues(
         {
           ...params,
-          prefixUrl: $other?.prefixUrl,
         },
         false,
         true,
@@ -82,7 +89,92 @@ function updateForm(
     [
       'menu,add',
       {
-        schema: [],
+        schema: [
+          {
+            component: 'TreeSelect',
+            label: '上级菜单',
+            fieldName: 'pid',
+            checkStrictly: false,
+            componentProps: {
+              clearable: true,
+              filterable: true,
+              accordion: true,
+              checkStrictly: true,
+              placeholder: '请输入上级菜单（不输入则为根菜单）',
+              props: {
+                label: 'name',
+                children: 'children',
+                value: 'id',
+              },
+              filterNodeMethod: (
+                value: string,
+                data: { [K: string]: any; name: string },
+              ) => {
+                return data.name.includes(value);
+              },
+              // 下拉选项
+              data: unref(formParams)?.treeCache,
+              onChange: (val: string) => {
+                // 根据 id 获取完整路径
+                const result = getFullPath({
+                  id: Number(val),
+                  data: formParams.value?.treeCache,
+                  options: {
+                    extractVal: 'url',
+                    returnVal: 'result',
+                  },
+                });
+                formParams.value.prefixUrl = result;
+              },
+            },
+          },
+          {
+            component: 'Input',
+            componentProps: {
+              placeholder: '请输入菜单名称',
+            },
+            fieldName: 'name',
+            label: '菜单名称',
+            rules: z
+              .string()
+              .min(2, { message: '请输入至少两个字符作为菜单名称' }),
+          },
+          {
+            component: 'Input',
+            fieldName: 'url',
+            label: '菜单路径',
+            componentProps: {
+              placeholder: '请输入菜单路径',
+            },
+            renderComponentContent: () => ({
+              prefix: () => {
+                const { prefixUrl } = formParams.value;
+                let content = prefixUrl || '';
+                content = content.slice(-1) === '/' ? content : `${content}/`;
+                return h('span', { class: 'text-blue-600/75' }, content);
+              },
+            }),
+            rules: z.string().regex(/^\w+$/, {
+              message: '只能包含字母、数字或下划线，且至少一个字符',
+            }),
+          },
+          {
+            component: 'InputNumber',
+            fieldName: 'sort',
+            label: '排序',
+            defaultValue: 0,
+            rules: z.number().min(0, { message: '请输入大于等于0的整数' }),
+          },
+          {
+            component: 'IconPicker',
+            componentProps: {
+              placeholder: '请输入图标字符串',
+            },
+            fieldName: 'icon',
+            label: '图标',
+            defaultValue: '',
+          },
+        ],
         behavior: {},
       },
     ],
@@ -104,8 +196,8 @@ function updateForm(
             componentProps: {
               placeholder: '请输入菜单路径',
             },
-            renderComponentContent: (val: Record<string, string>) => {
-              const { prefixUrl } = val;
+            renderComponentContent: () => {
+              const { prefixUrl } = formParams.value;
               return {
                 prefix: () => {
                   return prefixUrl === '' ? '' : `${prefixUrl}/`;
@@ -149,30 +241,35 @@ function updateForm(
       },
     ],
   ]);
-  // 1. 修改schema
-  // 2. 修改提交的api
+
+  const conf = behaviorMap.get([type, behavior].join(','));
+
   formApi.setState((prev) => {
     const { schema: _, ...original } = prev;
-    const conf = behaviorMap.get([type, behavior].join(','));
     const options = conf?.behavior;
     return {
       ...original,
-      schema: conf?.schema,
       ...options,
+      // 修改schema
+      schema: conf?.schema,
     };
   });
 }
 
 watch(
-  () => data.value,
+  () => formValues.value,
   (cur) => {
-    const { behavior, ...params } = cur ?? {};
-    updateForm(ListType[params.type] as any, behavior);
+    const { ...params } = cur ?? {};
+    updateForm(ListType[params.type] as any, formParams.value?.behavior);
   },
   {
     immediate: true,
   },
 );
+
+onUnmounted(() => {
+  formApi.resetForm();
+});
 </script>
 
 <template>
