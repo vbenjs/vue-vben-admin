@@ -31,5 +31,5 @@
 ### 资源
 
 1. 后端项目地址：http://43.136.232.43:30086/backend_administration/base-spring-boot
-2. 后端对接接口swgger文档：http://43.136.232.43:7444/api/doc.html
+2. 后端对接接口swgger文档：http://117.72.15.74:7444/api/doc.html
 3. 后端对接人员：米定乾/唐浩喻
