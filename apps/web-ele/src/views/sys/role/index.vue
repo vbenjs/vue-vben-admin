@@ -1,22 +1,16 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 
-import {
-  Delete,
-  Edit,
-  Key,
-  Plus,
-  Refresh,
-  Search,
-  User,
-} from '@element-plus/icons-vue';
+import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 import {
   addRoleApi,
   deleteRoleApi,
+  getMenuList,
   getRoleInfoApi,
   getRolePage,
+  saveRoleMenusApi,
   updateRoleApi,
 } from '#/api/core';
 
@@ -78,53 +72,67 @@ const dialog = reactive({
   type: 'add' as 'add' | 'edit',
 });
 
-// 菜单权限
+//  菜单权限数据
+const menuTreeData = ref<any[]>([]);
+const assignMenuTreeRef = ref();
+
 const Props = ref({
   label: 'name',
-  children: 'zones',
+  children: 'children',
 });
 
-const count = ref(1);
-interface NodeData {}
+// 获取菜单树数据
+const fetchMenuTree = async () => {
+  try {
+    // 直接获取数据数组
+    const menuData = await getMenuList();
+    // console.log('菜单数据:', menuData);
 
-// 事件处理方法
-const handleCheckChange = (
-  data: NodeData,
-  checked: boolean,
-  indeterminate: boolean,
-) => {
-  console.warn(data, checked, indeterminate);
-};
+    if (Array.isArray(menuData)) {
+      menuTreeData.value = menuData;
+      // console.log('菜单数据加载成功，共', menuData.length, '条');
+    } else {
+      console.warn('菜单数据不是数组:', menuData);
+      menuTreeData.value = [];
+      ElMessage.error('菜单数据格式错误');
+    }
+  } catch (error: any) {
+    console.error('获取菜单树失败:', error);
 
-const handleNodeClick = (data: any) => {
-  console.warn(data);
+    // 错误信息处理
+    let errorMessage = '获取菜单列表失败';
+    if (error?.response?.data?.message) {
+      errorMessage = error.response.data.message;
+    } else if (error?.message) {
+      errorMessage = error.message;
+    }
+
+    ElMessage.error(errorMessage);
+    menuTreeData.value = [];
+  }
 };
 
 // 异步加载节点方法
 const loadNode = (node: any, resolve: any) => {
   if (node.level === 0) {
-    return resolve([{ name: 'region1' }, { name: 'region2' }]);
+    return resolve(menuTreeData.value || []);
   }
-  if (node.level > 3) return resolve([]);
-
-  let hasChild;
-  if (node.data.name === 'region1') {
-    hasChild = true;
-  } else if (node.data.name === 'region2') {
-    hasChild = false;
-  } else {
-    hasChild = Math.random() > 0.5;
+  if (node.data.children && node.data.children.length > 0) {
+    return resolve(node.data.children);
   }
 
-  setTimeout(() => {
-    const children = hasChild
-      ? [{ name: `zone${count.value++}` }, { name: `zone${count.value++}` }]
-      : [];
-    resolve(children);
-  }, 500);
+  return resolve([]);
 };
 
-// 获取角色列表 - 添加认证检查
+// 分配菜单选中处理
+const handleAssignMenuCheck = () => {
+  if (assignMenuTreeRef.value) {
+    const checkedKeys = assignMenuTreeRef.value.getCheckedKeys();
+    menuDialog.menuIds = checkedKeys;
+  }
+};
+
+// 获取角色列表
 const getRoleList = async () => {
   loading.value = true;
   const res = await getRolePage(params);
@@ -230,21 +238,28 @@ const saveRole = async () => {
 // 删除角色-调用后端接口
 const handleDelete = async (row: any) => {
   try {
+    // console.log('开始删除角色:', row.name);
+
     await ElMessageBox.confirm(`确定删除角色 "${row.name}" 吗？`, '提示', {
       type: 'warning',
     });
 
-    const res = await deleteRoleApi(row.id);
+    // 发送删除请求
+    await deleteRoleApi([row.id]);
 
-    if (res.code === 200 || res.code === 0) {
-      ElMessage.success('删除成功');
-      getRoleList();
-    } else {
-      ElMessage.error(res.msg || '删除失败');
-    }
+    // console.log('删除成功');
+    // console.log('等待后端更新...');
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // 刷新列表
+    // console.log('刷新列表...');
+    await getRoleList();
+
+    // console.log('删除流程完成');
   } catch (error: any) {
+    console.error('删除错误:', error);
     if (error !== 'cancel' && error.message !== 'cancel') {
-      console.error('删除角色错误:', error);
+      ElMessage.error('删除失败');
     }
   }
 };
@@ -252,6 +267,7 @@ const handleDelete = async (row: any) => {
 // 组件挂载后自动加载角色列表
 onMounted(() => {
   getRoleList();
+  fetchMenuTree(); // 初始化加载菜单树
 });
 
 // 分配用户对话框
@@ -266,6 +282,7 @@ const menuDialog = reactive({
   visible: false,
   roleId: 0,
   roleName: '',
+  menuIds: [] as number[],
 });
 
 // 关闭对话框函数
@@ -300,21 +317,49 @@ const handleCurrentChange = (page: number) => {
 };
 
 // 分配用户-打开分配用户对话框
-const assignUsers = (row: any) => {
-  userDialog.roleId = row.id;
-  userDialog.roleName = row.name;
-  userDialog.visible = true;
-};
+// const assignUsers = (row: any) => {
+//   userDialog.roleId = row.id;
+//   userDialog.roleName = row.name;
+//   userDialog.visible = true;
+// };
 
 // 分配菜单权限-打开分配菜单对话框
-const assignMenus = (row: any) => {
-  menuDialog.roleId = row.id;
-  menuDialog.roleName = row.name;
-  menuDialog.visible = true;
-};
+// const assignMenus = async (row: any) => {
+//   menuDialog.roleId = row.id;
+//   menuDialog.roleName = row.name;
+//   menuDialog.visible = true;
+//   try {
+//     const res = await getRoleMenuIdsApi(row.id);
+//     menuDialog.menuIds =
+//       res.code === 200 || res.code === 0 ? res.data || [] : [];
+//   } catch (error) {
+//     console.error('获取角色菜单失败:', error);
+//     menuDialog.menuIds = [];
+//   }
+
+//   menuDialog.visible = true;
+// };
+
+// 保存菜单权限
+// const saveRoleMenus = async () => {
+//   if (!menuDialog.roleId) {
+//     return;
+//   }
+
+//   try {
+//     const res = await saveRoleMenusApi(menuDialog.roleId, menuDialog.menuIds);
+//     if (res.code === 200 || res.code === 0) {
+//       closeMenuDialog();
+//       getRoleList(); // 刷新列表
+//     }
+//   } catch (error) {
+//     console.error('保存角色菜单失败:', error);
+//   }
+// };
 
 const closeMenuDialog = () => {
   menuDialog.visible = false;
+  menuDialog.menuIds = []; // 清空菜单ID
 };
 
 const closeDialog = () => {
@@ -367,7 +412,7 @@ const closeDialog = () => {
       <el-table :data="roleList" v-loading="loading" stripe>
         <el-table-column type="index" label="序号" width="60" />
         <el-table-column label="角色名称" prop="name" width="120" />
-        <el-table-column label="角色编码" prop="roleCode" width="120" />
+        <el-table-column label="权限字符" prop="roleCode" width="120" />
         <el-table-column label="备注" prop="remark" show-overflow-tooltip />
         <el-table-column label="创建时间" prop="createTime" width="180" />
         <el-table-column label="操作" width="300" fixed="right">
@@ -380,7 +425,7 @@ const closeDialog = () => {
             >
               编辑
             </el-button>
-            <el-button
+            <!-- <el-button
               type="primary"
               link
               :icon="User"
@@ -395,7 +440,7 @@ const closeDialog = () => {
               @click="assignMenus(row)"
             >
               分配权限
-            </el-button>
+            </el-button> -->
             <el-button
               type="danger"
               link
@@ -435,12 +480,14 @@ const closeDialog = () => {
         <!-- 菜单权限 -->
         <el-form-item label="菜单权限">
           <el-tree
+            ref="assignMenuTreeRef"
+            :data="menuTreeData"
             :props="Props"
             :load="loadNode"
             lazy
+            node-key="id"
             show-checkbox
-            @check-change="handleCheckChange"
-            @node-click="handleNodeClick"
+            @check-change="handleAssignMenuCheck"
           />
         </el-form-item>
         <el-form-item label="备注">
@@ -458,7 +505,6 @@ const closeDialog = () => {
       </template>
     </el-dialog>
 
-    <!-- 分配用户对话框 -->
     <el-dialog
       v-model="userDialog.visible"
       :title="`分配用户-${userDialog.roleName}`"
@@ -467,7 +513,6 @@ const closeDialog = () => {
       <div>
         <p>这里放置角色用户分配界面</p>
         <p>可以显示用户列表，搜索，分页等功能</p>
-        <!-- 这里可以嵌入用户分配组件 -->
       </div>
       <template #footer>
         <el-button @click="closeUserDialog()">取消</el-button>
@@ -475,7 +520,6 @@ const closeDialog = () => {
       </template>
     </el-dialog>
 
-    <!-- 分配菜单权限对话框 -->
     <el-dialog
       v-model="menuDialog.visible"
       :title="`分配权限-${menuDialog.roleName}`"
@@ -484,7 +528,6 @@ const closeDialog = () => {
       <div>
         <p>这里放置菜单分配界面</p>
         <p>可以显示菜单树形结构，勾选权限</p>
-        <!-- 这里可以嵌入菜单分配组件 -->
       </div>
       <template #footer>
         <el-button @click="closeMenuDialog">取消</el-button>
