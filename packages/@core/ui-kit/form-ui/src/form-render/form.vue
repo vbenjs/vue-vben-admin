@@ -54,33 +54,35 @@ provideFormRenderProps(props);
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
 
 const shapes = computed(() => {
-  return props.schema?.forEach((schema) => {
-    const { fieldName } = schema;
-    const shape = {
-      default: schema.defaultValue,
-      fieldName,
-      required: false,
-      rules: undefined as undefined | ZodType,
-    };
+  return (
+    props.schema?.forEach((schema) => {
+      const { fieldName } = schema;
+      const shape = {
+        default: schema.defaultValue,
+        fieldName,
+        required: false,
+        rules: undefined as undefined | ZodType,
+      };
 
-    if (isString(schema.rules)) {
-      shape.required = ['required', 'selectRequired'].includes(schema.rules);
-    } else if (schema.rules instanceof ZodType) {
-      const zodSchema = schema.rules as ZodType;
+      if (isString(schema.rules)) {
+        shape.required = ['required', 'selectRequired'].includes(schema.rules);
+      } else if (schema.rules instanceof ZodType) {
+        const zodSchema = schema.rules as ZodType;
 
-      const defaultValue = getDefaultValue_byZodSchema(zodSchema);
-      if (defaultValue !== undefined) {
-        shape.default = defaultValue;
+        const defaultValue = getDefaultValue_byZodSchema(zodSchema);
+        if (defaultValue !== undefined) {
+          shape.default = defaultValue;
+        }
+
+        const isRequired = !zodSchema.safeParse(undefined).success;
+        shape.required = isRequired;
+
+        const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
+        shape.rules = baseZodSchema;
       }
-
-      const isRequired = !zodSchema.safeParse(undefined).success;
-      shape.required = isRequired;
-
-      const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
-      shape.rules = baseZodSchema;
-    }
-    return shape;
-  });
+      return shape;
+    }) ?? []
+  );
 });
 
 const formComponent = computed(() => (props.form ? 'form' : Form));

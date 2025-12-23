@@ -72,7 +72,7 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: markRaw(z.email({ error: '请输入正确的邮箱' })),
+      rules: markRaw(z.string().email({ error: '请输入正确的邮箱' })),
     },
     {
       component: 'InputNumber',

@@ -42,11 +42,7 @@ export function getDefaultValue_byZodSchema(schema: ZodType): any {
     return schema._zod.def.defaultValue;
   }
 
-  if (
-    schema instanceof ZodDefault ||
-    schema instanceof ZodOptional ||
-    schema instanceof ZodNullable
-  ) {
+  if (schema instanceof ZodOptional || schema instanceof ZodNullable) {
     return getDefaultValue_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 
@@ -69,17 +65,14 @@ export function getCustomDefaultValue_byZodSchema(schema: ZodType): any {
     case 'intersection': {
       // 对于交集类型，从schema 提取默认值
       const leftDefaultValue = getCustomDefaultValue_byZodSchema(
-        (schema as ZodIntersection).def.left as ZodType,
+        (schema as ZodIntersection)._zod.def.left as ZodType,
       );
       const rightDefaultValue = getCustomDefaultValue_byZodSchema(
-        (schema as ZodIntersection).def.right as ZodType,
+        (schema as ZodIntersection)._zod.def.right as ZodType,
       );
 
       // 如果左右两边都能提取默认值，合并它们
-      if (
-        typeof leftDefaultValue === 'object' &&
-        typeof rightDefaultValue === 'object'
-      ) {
+      if (isObject(leftDefaultValue) && isObject(rightDefaultValue)) {
         return { ...leftDefaultValue, ...rightDefaultValue };
       }
 
