@@ -189,8 +189,8 @@ const formOptions: VbenFormProps = {
         columns: gridColumnsMap.get(type),
       });
 
-      // // 重新请求
-      // gridApi.query(values.type);
+      // 重新请求
+      gridApi.query({ $type: type });
     }
   },
 };
@@ -225,7 +225,9 @@ const gridOptions: VxeGridProps<RowType> = {
     },
     ajax: {
       query: async (_, formValues) => {
-        const respData = await getDiffTypeMenuListApi(formValues.type);
+        // 用户传递的 type 和 表单的type
+        const { $type, type } = formValues;
+        const respData = await getDiffTypeMenuListApi($type ?? type);
         gridApi.setGridOptions({
           data: respData.map((item) => transformationBackendToTable(item)),
         });
