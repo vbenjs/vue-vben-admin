@@ -126,9 +126,6 @@ catalogs:
     '@typescript-eslint/parser':
       specifier: ^8.46.4
       version: 8.46.4
-    '@vee-validate/zod':
-      specifier: ^4.15.1
-      version: 4.15.1
     '@vite-pwa/vitepress':
       specifier: ^1.0.0
       version: 1.0.1
@@ -454,8 +451,8 @@ catalogs:
       specifier: ^0.11.1
       version: 0.11.1
     vee-validate:
-      specifier: ^4.15.1
-      version: 4.15.1
+      specifier: ^5.0.0-beta.0
+      version: 5.0.0-beta.0
     vite:
       specifier: ^7.2.2
       version: 7.2.2
@@ -1405,15 +1402,12 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
-      '@vee-validate/zod':
-        specifier: 'catalog:'
-        version: 4.15.1(vue@3.5.24(typescript@5.9.3))(zod@4.1.13)
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.24(typescript@5.9.3))
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.1(vue@3.5.24(typescript@5.9.3))
+        version: 5.0.0-beta.0(vue@3.5.24(typescript@5.9.3))
       vue:
         specifier: ^3.5.24
         version: 3.5.24(typescript@5.9.3)
@@ -1521,7 +1515,7 @@ importers:
         version: 2.6.0(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.1(vue@3.5.24(typescript@5.9.3))
+        version: 5.0.0-beta.0(vue@3.5.24(typescript@5.9.3))
       vue:
         specifier: ^3.5.24
         version: 3.5.24(typescript@5.9.3)
@@ -4335,6 +4329,12 @@ packages:
   '@speed-highlight/core@1.2.12':
     resolution: {integrity: sha512-uilwrK0Ygyri5dToHYdZSjcvpS2ZwX0w5aSt3GCEN9hrjxWCoeV4Z2DTXuxjwbntaLQIEEAlCeNQss5SoHvAEA==}
 
+  '@standard-schema/spec@1.1.0':
+    resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
+  '@standard-schema/utils@0.3.0':
+    resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
+
   '@stylistic/stylelint-plugin@3.1.3':
     resolution: {integrity: sha512-85fsmzgsIVmyG3/GFrjuYj6Cz8rAM7IZiPiXCMiSMfoDOC1lOrzrXPDk24WqviAghnPqGpx8b0caK2PuewWGFg==}
     engines: {node: ^18.12 || >=20.9}
@@ -4719,11 +4719,6 @@ packages:
     resolution: {integrity: sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==}
     cpu: [x64]
     os: [win32]
-
-  '@vee-validate/zod@4.15.1':
-    resolution: {integrity: sha512-329Z4TDBE5Vx0FdbA8S4eR9iGCFFUNGbxjpQ20ff5b5wGueScjocUIx9JHPa79LTG06RnlUR4XogQsjN4tecKA==}
-    peerDependencies:
-      zod: ^3.24.0
 
   '@vercel/nft@0.30.3':
     resolution: {integrity: sha512-UEq+eF0ocEf9WQCV1gktxKhha36KDs7jln5qii6UpPf5clMqDc0p3E7d9l2Smx0i9Pm1qpq4S4lLfNl97bbv6w==}
@@ -10232,8 +10227,8 @@ packages:
     peerDependencies:
       vue: ^3.5.24
 
-  vee-validate@4.15.1:
-    resolution: {integrity: sha512-DkFsiTwEKau8VIxyZBGdO6tOudD+QoUBPuHj3e6QFqmbfCRj1ArmYWue9lEp6jLSWBIw4XPlDLjFIZNLdRAMSg==}
+  vee-validate@5.0.0-beta.0:
+    resolution: {integrity: sha512-uGIRnODDMM0A8Weu8AJcZFFJceUpgbSX6G4UYZgWhBc90VcXDK+v7yO16G+sj+6vU1eML11M2BH4HxwoPE62rw==}
     peerDependencies:
       vue: ^3.5.24
 
@@ -13475,6 +13470,10 @@ snapshots:
 
   '@speed-highlight/core@1.2.12': {}
 
+  '@standard-schema/spec@1.1.0': {}
+
+  '@standard-schema/utils@0.3.0': {}
+
   '@stylistic/stylelint-plugin@3.1.3(stylelint@16.25.0(typescript@5.9.3))':
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.5(@csstools/css-tokenizer@3.0.4)
@@ -13859,14 +13858,6 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
-
-  '@vee-validate/zod@4.15.1(vue@3.5.24(typescript@5.9.3))(zod@4.1.13)':
-    dependencies:
-      type-fest: 4.41.0
-      vee-validate: 4.15.1(vue@3.5.24(typescript@5.9.3))
-      zod: 4.1.13
-    transitivePeerDependencies:
-      - vue
 
   '@vercel/nft@0.30.3(rollup@4.53.2)':
     dependencies:
@@ -19856,8 +19847,10 @@ snapshots:
       evtd: 0.2.4
       vue: 3.5.24(typescript@5.9.3)
 
-  vee-validate@4.15.1(vue@3.5.24(typescript@5.9.3)):
+  vee-validate@5.0.0-beta.0(vue@3.5.24(typescript@5.9.3)):
     dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@standard-schema/utils': 0.3.0
       '@vue/devtools-api': 7.7.8
       type-fest: 4.41.0
       vue: 3.5.24(typescript@5.9.3)

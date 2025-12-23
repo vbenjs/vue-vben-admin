@@ -56,7 +56,6 @@ catalog:
   '@types/sortablejs': ^1.15.8
   '@typescript-eslint/eslint-plugin': ^8.46.4
   '@typescript-eslint/parser': ^8.46.4
-  '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.0.0
   '@vitejs/plugin-vue': ^6.0.1
   '@vitejs/plugin-vue-jsx': ^5.1.1
@@ -171,7 +170,7 @@ catalog:
   typescript: ^5.9.3
   unbuild: ^3.6.1
   unplugin-element-plus: ^0.11.1
-  vee-validate: ^4.15.1
+  vee-validate: ^5.0.0-beta.0
   vite: ^7.2.2
   vite-plugin-compression: ^0.5.1
   vite-plugin-dts: ^4.5.4

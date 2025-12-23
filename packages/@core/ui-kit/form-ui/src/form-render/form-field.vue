@@ -17,7 +17,7 @@ import {
 } from '@vben-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
-import { toTypedSchema } from '@vee-validate/zod';
+// import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';
 import { ZodDefault } from 'zod';
 
@@ -153,7 +153,7 @@ const fieldRules = computed(() => {
       rules = unwrappedRules;
     }
   }
-  return toTypedSchema(rules as ZodType);
+  return rules ?? null;
 });
 
 const computedProps = computed(() => {

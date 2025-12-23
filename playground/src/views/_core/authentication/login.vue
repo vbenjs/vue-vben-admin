@@ -59,8 +59,8 @@ const formSchema = computed((): VbenFormSchema[] => {
         z
           .string()
           .min(1, { error: $t('authentication.selectAccount') })
-          .optional()
-          .default('vben'),
+          .default('vben')
+          .optional(),
       ),
     },
     {

@@ -60,7 +60,7 @@ const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
 
 const shapes = computed(() => {
   return (
-    props.schema?.forEach((schema) => {
+    props.schema?.map((schema) => {
       const { fieldName } = schema;
       const shape: FormShape = {
         default: schema.defaultValue,
@@ -86,7 +86,7 @@ const shapes = computed(() => {
         shape.rules = baseZodSchema;
       }
       return shape;
-    }) ?? ([] as FormShape[])
+    }) ?? []
   );
 });
 
