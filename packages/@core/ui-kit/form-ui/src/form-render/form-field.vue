@@ -123,7 +123,7 @@ const shouldRequired = computed(() => {
 
   // 如果有设置默认值，则不是必填，需要特殊处理
   if (zodSchema instanceof ZodDefault) {
-    const innerType = zodSchema.def.innerType as ZodType;
+    const innerType = zodSchema._zod.def.innerType as ZodType;
     if (innerType) {
       isOptional = innerType.safeParse(undefined)?.success;
     }

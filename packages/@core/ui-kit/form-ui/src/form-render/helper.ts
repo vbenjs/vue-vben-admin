@@ -27,10 +27,6 @@ export function getBaseRules_byZodSchema(schema: ZodType): null | ZodType {
     return getBaseRules_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 
-  // if ('schema' in schema.def) {
-  //   return getBaseRules_byZodSchema(schema.def.schema as ZodType);
-  // }
-
   return schema;
 }
 
@@ -54,15 +50,17 @@ export function getDefaultValue_byZodSchema(schema: ZodType): any {
     return getDefaultValue_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 
-  // if ('schema' in schema.def) {
-  //   return getDefaultValue_byZodSchema(schema.def.schema as ZodType);
-  // }
-
   return undefined;
 }
 
 // 自定义默认值提取逻辑
 export function getCustomDefaultValue_byZodSchema(schema: ZodType): any {
+  if (schema instanceof ZodDefault || schema instanceof ZodOptional) {
+    return getCustomDefaultValue_byZodSchema(
+      schema._zod.def.innerType as ZodType,
+    );
+  }
+
   // 如果是字符串类型，则返回空字符串，涵盖 z.string(), z.email() ...
   switch (schema.type) {
     case 'boolean': {

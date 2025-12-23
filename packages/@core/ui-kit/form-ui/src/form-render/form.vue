@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
 
-import type {
-  FormCommonConfig,
-  FormRenderProps,
-  FormSchema,
-  FormShape,
-} from '../types';
+import type { FormCommonConfig, FormRenderProps, FormSchema } from '../types';
 
 import { computed } from 'vue';
 
@@ -59,8 +54,7 @@ provideFormRenderProps(props);
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
 
 const shapes = computed(() => {
-  const resultShapes: FormShape[] = [];
-  props.schema?.forEach((schema) => {
+  return props.schema?.forEach((schema) => {
     const { fieldName } = schema;
     const shape = {
       default: schema.defaultValue,
@@ -87,7 +81,6 @@ const shapes = computed(() => {
     }
     return shape;
   });
-  return resultShapes;
 });
 
 const formComponent = computed(() => (props.form ? 'form' : Form));

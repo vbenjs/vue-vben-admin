@@ -169,6 +169,7 @@ const schema: VbenFormSchema[] = [
   },
   {
     component: 'Input',
+    defaultValue: undefined,
     dependencies: {
       show: (values) => {
         return ['embedded', 'menu'].includes(values.type);
