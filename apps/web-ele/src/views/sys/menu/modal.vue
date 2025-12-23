@@ -227,6 +227,9 @@ function updateForm(
             updateMenuApi(submitParams as UpdateMenuParams)
               .then(() => {
                 ElMessage.success('修改菜单信息成功');
+                modelApi.setData({
+                  loaded: true,
+                });
                 modelApi.close();
               })
               .finally(() => {

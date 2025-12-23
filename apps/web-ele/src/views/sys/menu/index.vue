@@ -256,6 +256,15 @@ const [Model, modalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: ExtraModel,
   class: 'w-1/2',
+  onClosed() {
+    const share = modalApi.getData();
+    if (share.loaded === true) {
+      gridApi.reload();
+      modalApi.setData({
+        loaded: false,
+      });
+    }
+  },
 });
 
 const handleAddMenu = () => {
@@ -327,6 +336,7 @@ const handleDeleteMenu = (row: RowType) => {
     })
     .then(() => {
       ElMessage.success(`${title}成功`);
+      gridApi.reload();
     })
     .catch(() => {});
 };
