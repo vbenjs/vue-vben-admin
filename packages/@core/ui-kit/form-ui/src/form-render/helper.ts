@@ -19,11 +19,15 @@ export function getBaseRules_byZodSchema(schema: ZodType): null | ZodType {
     return null;
   }
 
-  if (
-    schema instanceof ZodDefault ||
-    schema instanceof ZodOptional ||
-    schema instanceof ZodNullable
-  ) {
+  // Handle optional and nullable schemas using the public .unwrap() API
+  if (schema instanceof ZodOptional || schema instanceof ZodNullable) {
+    return getBaseRules_byZodSchema(schema.unwrap() as ZodType);
+  }
+
+  // For ZodDefault, there's no public unwrap method.
+  // Accessing _def.innerType is necessary but relies on Zod 4 internals.
+  // ⚠️ This assumes Zod v4.x. Update if migrating to a future major version.
+  if (schema instanceof ZodDefault) {
     return getBaseRules_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 

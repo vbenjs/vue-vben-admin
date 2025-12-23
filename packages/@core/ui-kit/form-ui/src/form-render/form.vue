@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
 
-import type { FormCommonConfig, FormRenderProps, FormSchema } from '../types';
+import type {
+  FormCommonConfig,
+  FormRenderProps,
+  FormSchema,
+  FormShape,
+} from '../types';
 
 import { computed } from 'vue';
 
@@ -57,7 +62,7 @@ const shapes = computed(() => {
   return (
     props.schema?.forEach((schema) => {
       const { fieldName } = schema;
-      const shape = {
+      const shape: FormShape = {
         default: schema.defaultValue,
         fieldName,
         required: false,
@@ -81,7 +86,7 @@ const shapes = computed(() => {
         shape.rules = baseZodSchema;
       }
       return shape;
-    }) ?? []
+    }) ?? ([] as FormShape[])
   );
 });
 
