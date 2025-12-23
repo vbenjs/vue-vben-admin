@@ -61,19 +61,18 @@ const [Form] = useVbenForm({
       fieldName: 'field4',
       formItemClass: 'col-span-1',
       label: '组合字段',
-      rules: z
-        .array(z.string().optional())
-        .length(2, '请选择类型并输入手机号码')
-        .refine((v) => !!v[0], {
-          message: '请选择类型',
-        })
-        .refine((v) => !!v[1] && v[1] !== '', {
-          message: '　　　　　　　输入手机号码',
-        })
-        .refine((v) => v[1]?.match(/^1[3-9]\d{9}$/), {
-          // 使用全角空格占位，将错误提示文字挤到手机号码输入框的下面
-          message: '　　　　　　　号码格式不正确',
-        }),
+      rules: markRaw(
+        z
+          .array(z.string().optional())
+          .length(2, '请选择类型并输入手机号码')
+          .refine((v) => !!v[0], { error: '请选择类型' })
+          .refine((v) => !!v[1], { error: '　　　　　　　输入手机号码' })
+          .refine(
+            (v) => v[1]?.match(/^1[3-9]\d{9}$/),
+            // 使用全角空格占位，将错误提示文字挤到手机号码输入框的下面
+            { error: '　　　　　　　号码格式不正确' },
+          ),
+      ),
     },
   ],
   // 中屏一行显示2个，小屏一行显示1个

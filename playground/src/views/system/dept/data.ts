@@ -4,6 +4,8 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn } from '#/adapter/vxe-table';
 import type { SystemDeptApi } from '#/api/system/dept';
 
+import { markRaw } from 'vue';
+
 import { z } from '#/adapter/form';
 import { getDeptList } from '#/api/system/dept';
 import { $t } from '#/locales';
@@ -17,13 +19,22 @@ export function useSchema(): VbenFormSchema[] {
       component: 'Input',
       fieldName: 'name',
       label: $t('system.dept.deptName'),
-      rules: z
-        .string()
-        .min(2, $t('ui.formRules.minLength', [$t('system.dept.deptName'), 2]))
-        .max(
-          20,
-          $t('ui.formRules.maxLength', [$t('system.dept.deptName'), 20]),
-        ),
+      rules: markRaw(
+        z
+          .string()
+          .min(2, {
+            error: $t('ui.formRules.minLength', [
+              $t('system.dept.deptName'),
+              2,
+            ]),
+          })
+          .max(20, {
+            error: $t('ui.formRules.maxLength', [
+              $t('system.dept.deptName'),
+              20,
+            ]),
+          }),
+      ),
     },
     {
       component: 'ApiTreeSelect',
@@ -61,10 +72,14 @@ export function useSchema(): VbenFormSchema[] {
       },
       fieldName: 'remark',
       label: $t('system.dept.remark'),
-      rules: z
-        .string()
-        .max(50, $t('ui.formRules.maxLength', [$t('system.dept.remark'), 50]))
-        .optional(),
+      rules: markRaw(
+        z
+          .string()
+          .max(50, {
+            error: $t('ui.formRules.maxLength', [$t('system.dept.remark'), 50]),
+          })
+          .optional(),
+      ),
     },
   ];
 }

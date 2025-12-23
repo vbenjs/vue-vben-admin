@@ -2,7 +2,7 @@
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
-import { computed, h, ref } from 'vue';
+import { computed, h, markRaw, ref } from 'vue';
 
 import { AuthenticationRegister, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -20,7 +20,9 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'username',
       label: $t('authentication.username'),
-      rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.usernameTip') }),
+      ),
     },
     {
       component: 'VbenInputPassword',
@@ -35,7 +37,9 @@ const formSchema = computed((): VbenFormSchema[] => {
           strengthText: () => $t('authentication.passwordStrength'),
         };
       },
-      rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.passwordTip') }),
+      ),
     },
     {
       component: 'VbenInputPassword',
@@ -45,12 +49,14 @@ const formSchema = computed((): VbenFormSchema[] => {
       dependencies: {
         rules(values) {
           const { password } = values;
-          return z
-            .string({ required_error: $t('authentication.passwordTip') })
-            .min(1, { message: $t('authentication.passwordTip') })
-            .refine((value) => value === password, {
-              message: $t('authentication.confirmPasswordTip'),
-            });
+          return markRaw(
+            z
+              .string()
+              .min(1, { error: $t('authentication.passwordTip') })
+              .refine((value) => value === password, {
+                error: $t('authentication.confirmPasswordTip'),
+              }),
+          );
         },
         triggerFields: ['password'],
       },
@@ -74,9 +80,11 @@ const formSchema = computed((): VbenFormSchema[] => {
             ),
           ]),
       }),
-      rules: z.boolean().refine((value) => !!value, {
-        message: $t('authentication.agreeTip'),
-      }),
+      rules: markRaw(
+        z
+          .boolean()
+          .refine((value) => !!value, { error: $t('authentication.agreeTip') }),
+      ),
     },
   ];
 });

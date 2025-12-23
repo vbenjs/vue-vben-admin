@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, markRaw, reactive, ref } from 'vue';
 
 import { LockKeyhole } from '@vben/icons';
 import { $t, useI18n } from '@vben/locales';
@@ -51,7 +51,9 @@ const [Form, { form, validate, getFieldComponentRef }] = useVbenForm(
         },
         fieldName: 'password',
         label: $t('authentication.password'),
-        rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+        rules: markRaw(
+          z.string().min(1, { error: $t('authentication.passwordTip') }),
+        ),
       },
     ]),
     showDefaultActions: false,

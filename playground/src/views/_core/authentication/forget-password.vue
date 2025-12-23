@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
 
-import { computed, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 
 import { AuthenticationForgetPassword, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -19,10 +19,12 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'email',
       label: $t('authentication.email'),
-      rules: z
-        .string()
-        .min(1, { message: $t('authentication.emailTip') })
-        .email($t('authentication.emailValidErrorTip')),
+      rules: markRaw(
+        z
+          .string()
+          .min(1, { error: $t('authentication.emailTip') })
+          .email({ error: $t('authentication.emailValidErrorTip') }),
+      ),
     },
   ];
 });

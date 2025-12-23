@@ -1,5 +1,5 @@
 import type { FieldOptions, FormContext, GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
+import type { ZodType } from 'zod';
 
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
@@ -51,7 +51,7 @@ export interface FormShape {
   fieldName: string;
   /** 是否必填 */
   required?: boolean;
-  rules?: ZodTypeAny;
+  rules?: ZodType;
 }
 
 export type MaybeComponentPropKey =
@@ -72,7 +72,7 @@ export type FormSchemaRuleType =
   | 'selectRequired'
   | null
   | (Record<never, never> & string)
-  | ZodTypeAny;
+  | ZodType;
 
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   value: Partial<Record<string, any>>,

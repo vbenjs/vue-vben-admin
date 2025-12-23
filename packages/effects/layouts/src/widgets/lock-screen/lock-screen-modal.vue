@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@vben/types';
 
-import { computed, reactive } from 'vue';
+import { computed, markRaw, reactive } from 'vue';
 
 import { $t } from '@vben/locales';
 
@@ -43,9 +43,11 @@ const [Form, { resetForm, validate, getValues, getFieldComponentRef }] =
           fieldName: 'lockScreenPassword',
           formFieldProps: { validateOnBlur: false },
           label: $t('authentication.password'),
-          rules: z
-            .string()
-            .min(1, { message: $t('ui.widgets.lockScreen.placeholder') }),
+          rules: markRaw(
+            z
+              .string()
+              .min(1, { error: $t('ui.widgets.lockScreen.placeholder') }),
+          ),
         },
       ]),
       showDefaultActions: false,

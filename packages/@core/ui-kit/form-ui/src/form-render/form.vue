@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
 
 import type {
   FormCommonConfig,
@@ -19,10 +18,15 @@ import {
   mergeWithArrayOverride,
 } from '@vben-core/shared/utils';
 
+import { ZodType } from 'zod';
+
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
-import { getBaseRules, getDefaultValueInZodStack } from './helper';
+import {
+  getBaseRules_byZodSchema,
+  getDefaultValue_byZodSchema,
+} from './helper';
 
 interface Props extends FormRenderProps {}
 
@@ -36,7 +40,6 @@ const props = withDefaults(
     wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
   },
 );
-
 const emits = defineEmits<{
   submit: [event: any];
 }>();
@@ -56,26 +59,35 @@ provideFormRenderProps(props);
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
 
 const shapes = computed(() => {
-  const resultShapes: FormShape[] = [];
-  props.schema?.forEach((schema) => {
-    const { fieldName } = schema;
-    const rules = schema.rules as ZodTypeAny;
+  return (
+    props.schema?.map((schema) => {
+      const { fieldName } = schema;
+      const shape: FormShape = {
+        default: schema.defaultValue,
+        fieldName,
+        required: false,
+        rules: undefined as undefined | ZodType,
+      };
 
-    let typeName = '';
-    if (rules && !isString(rules)) {
-      typeName = rules._def.typeName;
-    }
+      if (isString(schema.rules)) {
+        shape.required = ['required', 'selectRequired'].includes(schema.rules);
+      } else if (schema.rules instanceof ZodType) {
+        const zodSchema = schema.rules as ZodType;
 
-    const baseRules = getBaseRules(rules) as ZodTypeAny;
+        const defaultValue = getDefaultValue_byZodSchema(zodSchema);
+        if (defaultValue !== undefined) {
+          shape.default = defaultValue;
+        }
 
-    resultShapes.push({
-      default: getDefaultValueInZodStack(rules),
-      fieldName,
-      required: !['ZodNullable', 'ZodOptional'].includes(typeName),
-      rules: baseRules,
-    });
-  });
-  return resultShapes;
+        const isRequired = !zodSchema.safeParse(undefined).success;
+        shape.required = isRequired;
+
+        const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
+        shape.rules = baseZodSchema;
+      }
+      return shape;
+    }) ?? []
+  );
 });
 
 const formComponent = computed(() => (props.form ? 'form' : Form));

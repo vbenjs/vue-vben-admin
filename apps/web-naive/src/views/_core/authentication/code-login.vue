@@ -2,7 +2,7 @@
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
-import { computed, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 
 import { AuthenticationCodeLogin, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -21,12 +21,14 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'phoneNumber',
       label: $t('authentication.mobile'),
-      rules: z
-        .string()
-        .min(1, { message: $t('authentication.mobileTip') })
-        .refine((v) => /^\d{11}$/.test(v), {
-          message: $t('authentication.mobileErrortip'),
-        }),
+      rules: markRaw(
+        z
+          .string()
+          .min(1, { error: $t('authentication.mobileTip') })
+          .refine((v) => /^\d{11}$/.test(v), {
+            error: $t('authentication.mobileErrortip'),
+          }),
+      ),
     },
     {
       component: 'VbenPinInput',
@@ -43,9 +45,11 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'code',
       label: $t('authentication.code'),
-      rules: z.string().length(CODE_LENGTH, {
-        message: $t('authentication.codeTip', [CODE_LENGTH]),
-      }),
+      rules: markRaw(
+        z.string().length(CODE_LENGTH, {
+          error: $t('authentication.codeTip', [CODE_LENGTH]),
+        }),
+      ),
     },
   ];
 });

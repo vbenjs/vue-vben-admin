@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { UploadFile } from 'ant-design-vue';
 
-import { h, ref, toRaw } from 'vue';
+import { h, markRaw, ref, toRaw } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -234,9 +234,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: z
-        .boolean()
-        .refine((v) => v, { message: '为什么不同意？勾上它！' }),
+      rules: markRaw(
+        z.boolean().refine((v) => v, { error: '为什么不同意？勾上它！' }),
+      ),
     },
     {
       component: 'Mentions',
