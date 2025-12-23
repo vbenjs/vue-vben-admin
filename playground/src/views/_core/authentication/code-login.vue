@@ -44,11 +44,10 @@ const formSchema = computed((): VbenFormSchema[] => {
       rules: markRaw(
         z
           .string()
-          .min(1, $t('authentication.mobileTip'))
-          .refine(
-            (v) => /^\d{11}$/.test(v),
-            $t('authentication.mobileErrortip'),
-          ),
+          .min(1, { error: $t('authentication.mobileTip') })
+          .refine((v) => /^\d{11}$/.test(v), {
+            error: $t('authentication.mobileErrortip'),
+          }),
       ),
     },
     {
@@ -86,9 +85,9 @@ const formSchema = computed((): VbenFormSchema[] => {
       fieldName: 'code',
       label: $t('authentication.code'),
       rules: markRaw(
-        z
-          .string()
-          .length(CODE_LENGTH, $t('authentication.codeTip', [CODE_LENGTH])),
+        z.string().length(CODE_LENGTH, {
+          error: $t('authentication.codeTip', [CODE_LENGTH]),
+        }),
       ),
     },
   ];

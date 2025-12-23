@@ -234,7 +234,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: markRaw(z.boolean().refine((v) => v, '为什么不同意？勾上它！')),
+      rules: markRaw(
+        z.boolean().refine((v) => v, { error: '为什么不同意？勾上它！' }),
+      ),
     },
     {
       component: 'Mentions',

@@ -41,7 +41,7 @@ const formSchema = computed((): VbenFormSchema[] => {
       rules: markRaw(
         z
           .string()
-          .min(1, $t('authentication.selectAccount'))
+          .min(1, { error: $t('authentication.selectAccount') })
           .optional()
           .default('vben'),
       ),
@@ -69,7 +69,9 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'username',
       label: $t('authentication.username'),
-      rules: markRaw(z.string().min(1, $t('authentication.usernameTip'))),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.usernameTip') }),
+      ),
     },
     {
       component: 'VbenInputPassword',
@@ -78,16 +80,18 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'password',
       label: $t('authentication.password'),
-      rules: markRaw(z.string().min(1, $t('authentication.passwordTip'))),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.passwordTip') }),
+      ),
     },
 
     {
       component: markRaw(SliderCaptcha),
       fieldName: 'captcha',
       rules: markRaw(
-        z
-          .boolean()
-          .refine((value) => value, $t('authentication.verifyRequiredTip')),
+        z.boolean().refine((value) => value, {
+          error: $t('authentication.verifyRequiredTip'),
+        }),
       ),
     },
   ];

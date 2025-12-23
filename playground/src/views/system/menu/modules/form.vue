@@ -53,17 +53,21 @@ const schema: VbenFormSchema[] = [
     rules: markRaw(
       z
         .string()
-        .min(2, $t('ui.formRules.minLength', [$t('system.menu.menuName'), 2]))
-        .max(30, $t('ui.formRules.maxLength', [$t('system.menu.menuName'), 30]))
+        .min(2, {
+          error: $t('ui.formRules.minLength', [$t('system.menu.menuName'), 2]),
+        })
+        .max(30, {
+          error: $t('ui.formRules.maxLength', [$t('system.menu.menuName'), 30]),
+        })
         .refine(
           async (value: string) => {
             return !(await isMenuNameExists(value, formData.value?.id));
           },
           {
-            error: (value) => {
+            error: (issue) => {
               return $t('ui.formRules.alreadyExists', [
                 $t('system.menu.menuName'),
-                value,
+                issue.input,
               ]);
             },
           },
@@ -134,23 +138,29 @@ const schema: VbenFormSchema[] = [
     rules: markRaw(
       z
         .string()
-        .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
-        .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
+        .min(2, {
+          error: $t('ui.formRules.minLength', [$t('system.menu.path'), 2]),
+        })
+        .max(100, {
+          error: $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]),
+        })
         .refine(
           (value: string) => {
             return value.startsWith('/');
           },
-          $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+          {
+            error: $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+          },
         )
         .refine(
           async (value: string) => {
             return !(await isMenuPathExists(value, formData.value?.id));
           },
           {
-            error: (value) => {
+            error: (issue) => {
               return $t('ui.formRules.alreadyExists', [
                 $t('system.menu.path'),
-                value,
+                issue.input,
               ]);
             },
           },
@@ -171,17 +181,26 @@ const schema: VbenFormSchema[] = [
     rules: markRaw(
       z
         .string()
-        .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
-        .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
+        .min(2, {
+          error: $t('ui.formRules.minLength', [$t('system.menu.path'), 2]),
+        })
+        .max(100, {
+          error: $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]),
+        })
         .refine(
           (value: string) => {
             return value.startsWith('/');
           },
-          $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+          {
+            error: $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
+          },
         )
-        .refine(async (value: string) => {
-          return await isMenuPathExists(value, formData.value?.id);
-        }, $t('system.menu.activePathMustExist'))
+        .refine(
+          async (value: string) => {
+            return await isMenuPathExists(value, formData.value?.id);
+          },
+          { error: $t('system.menu.activePathMustExist') },
+        )
         .optional(),
     ),
   },
@@ -245,7 +264,7 @@ const schema: VbenFormSchema[] = [
     },
     fieldName: 'linkSrc',
     label: $t('system.menu.linkSrc'),
-    rules: markRaw(z.url($t('ui.formRules.invalidURL'))),
+    rules: markRaw(z.url({ error: $t('ui.formRules.invalidURL') })),
   },
   {
     component: 'Input',

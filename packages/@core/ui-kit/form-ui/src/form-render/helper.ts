@@ -2,7 +2,13 @@ import type { ZodType } from 'zod';
 
 import { isObject, isString } from '@vben-core/shared/utils';
 
-import { ZodDefault, ZodIntersection, ZodObject } from 'zod';
+import {
+  ZodDefault,
+  ZodIntersection,
+  ZodNullable,
+  ZodObject,
+  ZodOptional,
+} from 'zod';
 
 /**
  * Get the lowest level Zod type.
@@ -13,13 +19,17 @@ export function getBaseRules_byZodSchema(schema: ZodType): null | ZodType {
     return null;
   }
 
-  if ('innerType' in schema.def) {
-    return getBaseRules_byZodSchema(schema.def.innerType as ZodType);
+  if (
+    schema instanceof ZodDefault ||
+    schema instanceof ZodOptional ||
+    schema instanceof ZodNullable
+  ) {
+    return getBaseRules_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 
-  if ('schema' in schema.def) {
-    return getBaseRules_byZodSchema(schema.def.schema as ZodType);
-  }
+  // if ('schema' in schema.def) {
+  //   return getBaseRules_byZodSchema(schema.def.schema as ZodType);
+  // }
 
   return schema;
 }
@@ -33,16 +43,20 @@ export function getDefaultValue_byZodSchema(schema: ZodType): any {
   }
 
   if (schema instanceof ZodDefault) {
-    return schema.def.defaultValue;
+    return schema._zod.def.defaultValue;
   }
 
-  if ('innerType' in schema.def) {
-    return getDefaultValue_byZodSchema(schema.def.innerType as ZodType);
+  if (
+    schema instanceof ZodDefault ||
+    schema instanceof ZodOptional ||
+    schema instanceof ZodNullable
+  ) {
+    return getDefaultValue_byZodSchema(schema._zod.def.innerType as ZodType);
   }
 
-  if ('schema' in schema.def) {
-    return getDefaultValue_byZodSchema(schema.def.schema as ZodType);
-  }
+  // if ('schema' in schema.def) {
+  //   return getDefaultValue_byZodSchema(schema.def.schema as ZodType);
+  // }
 
   return undefined;
 }

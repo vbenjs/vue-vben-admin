@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { GenericObject } from 'vee-validate';
-import type { ZodType } from 'zod';
 
 import type {
   FormCommonConfig,
@@ -18,6 +17,8 @@ import {
   isString,
   mergeWithArrayOverride,
 } from '@vben-core/shared/utils';
+
+import { ZodType } from 'zod';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
@@ -61,21 +62,30 @@ const shapes = computed(() => {
   const resultShapes: FormShape[] = [];
   props.schema?.forEach((schema) => {
     const { fieldName } = schema;
-    const zodSchema = schema.rules as ZodType;
-
-    let zodType = '';
-    if (zodSchema && !isString(zodSchema)) {
-      zodType = zodSchema.def.type;
-    }
-
-    const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
-
-    resultShapes.push({
-      default: getDefaultValue_byZodSchema(zodSchema),
+    const shape = {
+      default: schema.defaultValue,
       fieldName,
-      required: !['nullable', 'optional'].includes(zodType),
-      rules: baseZodSchema,
-    });
+      required: false,
+      rules: undefined as undefined | ZodType,
+    };
+
+    if (isString(schema.rules)) {
+      shape.required = ['required', 'selectRequired'].includes(schema.rules);
+    } else if (schema.rules instanceof ZodType) {
+      const zodSchema = schema.rules as ZodType;
+
+      const defaultValue = getDefaultValue_byZodSchema(zodSchema);
+      if (defaultValue !== undefined) {
+        shape.default = defaultValue;
+      }
+
+      const isRequired = !zodSchema.safeParse(undefined).success;
+      shape.required = isRequired;
+
+      const baseZodSchema = getBaseRules_byZodSchema(zodSchema) as ZodType;
+      shape.rules = baseZodSchema;
+    }
+    return shape;
   });
   return resultShapes;
 });

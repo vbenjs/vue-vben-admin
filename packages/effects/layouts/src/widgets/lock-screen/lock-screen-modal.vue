@@ -44,7 +44,9 @@ const [Form, { resetForm, validate, getValues, getFieldComponentRef }] =
           formFieldProps: { validateOnBlur: false },
           label: $t('authentication.password'),
           rules: markRaw(
-            z.string().min(1, $t('ui.widgets.lockScreen.placeholder')),
+            z
+              .string()
+              .min(1, { error: $t('ui.widgets.lockScreen.placeholder') }),
           ),
         },
       ]),

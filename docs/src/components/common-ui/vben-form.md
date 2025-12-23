@@ -543,7 +543,7 @@ import { z } from '#/adapter/form';
 
 // 基础类型
 {
-  rules: markRaw(z.string().min(1, '请输入字符串'));
+  rules: markRaw(z.string().min(1, { error: '请输入字符串' }));
 }
 
 // 可选(可以是undefined)，并且携带默认值。注意zod的optional不包括空字符串''
@@ -557,14 +557,16 @@ import { z } from '#/adapter/form';
 }
 
 {
-  rules: markRaw(z.email().or(z.literal('')).optional());
+  rules: markRaw(z.string().email().or(z.literal('')).optional());
 }
 
 // 复杂校验
 {
-  z.string()
-    .min(1, '请输入')
-    .refine((value) => value === '123', '值必须为123');
+  rules: markRaw(
+    z
+      .string()
+      .min(1, { error: '请输入' })
+      .refine((value) => value === '123', { error: '值必须为123' }));
 }
 ```
 

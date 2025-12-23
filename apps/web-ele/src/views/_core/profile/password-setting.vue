@@ -42,8 +42,10 @@ const formSchema = computed((): VbenFormSchema[] => {
           return markRaw(
             z
               .string()
-              .min(1, '请再次输入新密码')
-              .refine((value) => value === newPassword, '两次输入的密码不一致'),
+              .min(1, { error: '请再次输入新密码' })
+              .refine((value) => value === newPassword, {
+                error: '两次输入的密码不一致',
+              }),
           );
         },
         triggerFields: ['newPassword'],

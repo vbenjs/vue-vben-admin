@@ -22,11 +22,18 @@ export function useSchema(): VbenFormSchema[] {
       rules: markRaw(
         z
           .string()
-          .min(2, $t('ui.formRules.minLength', [$t('system.dept.deptName'), 2]))
-          .max(
-            20,
-            $t('ui.formRules.maxLength', [$t('system.dept.deptName'), 20]),
-          ),
+          .min(2, {
+            error: $t('ui.formRules.minLength', [
+              $t('system.dept.deptName'),
+              2,
+            ]),
+          })
+          .max(20, {
+            error: $t('ui.formRules.maxLength', [
+              $t('system.dept.deptName'),
+              20,
+            ]),
+          }),
       ),
     },
     {
@@ -68,7 +75,9 @@ export function useSchema(): VbenFormSchema[] {
       rules: markRaw(
         z
           .string()
-          .max(50, $t('ui.formRules.maxLength', [$t('system.dept.remark'), 50]))
+          .max(50, {
+            error: $t('ui.formRules.maxLength', [$t('system.dept.remark'), 50]),
+          })
           .optional(),
       ),
     },

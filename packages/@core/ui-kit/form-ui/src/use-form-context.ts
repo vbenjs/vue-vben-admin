@@ -54,7 +54,7 @@ export function useFormInitial(
         // 检查规则是否适合提取默认值
         const customDefaultValue = getCustomDefaultValue_byZodSchema(zodSchema);
         if (customDefaultValue !== undefined) {
-          initialValues[item.fieldName] = customDefaultValue;
+          set(initialValues, item.fieldName, customDefaultValue);
         }
       }
     });

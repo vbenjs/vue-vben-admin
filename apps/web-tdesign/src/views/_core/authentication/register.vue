@@ -20,7 +20,9 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'username',
       label: $t('authentication.username'),
-      rules: markRaw(z.string().min(1, $t('authentication.usernameTip'))),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.usernameTip') }),
+      ),
     },
     {
       component: 'VbenInputPassword',
@@ -35,7 +37,9 @@ const formSchema = computed((): VbenFormSchema[] => {
           strengthText: () => $t('authentication.passwordStrength'),
         };
       },
-      rules: markRaw(z.string().min(1, $t('authentication.passwordTip'))),
+      rules: markRaw(
+        z.string().min(1, { error: $t('authentication.passwordTip') }),
+      ),
     },
     {
       component: 'VbenInputPassword',
@@ -48,11 +52,10 @@ const formSchema = computed((): VbenFormSchema[] => {
           return markRaw(
             z
               .string()
-              .min(1, $t('authentication.passwordTip'))
-              .refine(
-                (value) => value === password,
-                $t('authentication.confirmPasswordTip'),
-              ),
+              .min(1, { error: $t('authentication.passwordTip') })
+              .refine((value) => value === password, {
+                error: $t('authentication.confirmPasswordTip'),
+              }),
           );
         },
         triggerFields: ['password'],
@@ -78,7 +81,9 @@ const formSchema = computed((): VbenFormSchema[] => {
           ]),
       }),
       rules: markRaw(
-        z.boolean().refine((value) => !!value, $t('authentication.agreeTip')),
+        z
+          .boolean()
+          .refine((value) => !!value, { error: $t('authentication.agreeTip') }),
       ),
     },
   ];

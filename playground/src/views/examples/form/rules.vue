@@ -60,7 +60,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'field31',
       label: '自定义信息',
-      rules: markRaw(z.string().min(1, '最少输入1个字符')),
+      rules: markRaw(z.string().min(1, { error: '最少输入1个字符' })),
     },
     {
       component: 'Input',
@@ -72,7 +72,7 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: markRaw(z.email('请输入正确的邮箱')),
+      rules: markRaw(z.email({ error: '请输入正确的邮箱' })),
     },
     {
       component: 'InputNumber',
@@ -152,7 +152,7 @@ const [Form, formApi] = useVbenForm({
           default: () => ['我已阅读并同意'],
         };
       },
-      rules: markRaw(z.boolean().refine((value) => value, '请勾选')),
+      rules: markRaw(z.boolean().refine((value) => value, { error: '请勾选' })),
     },
     {
       component: 'DatePicker',
@@ -201,18 +201,21 @@ const [Form, formApi] = useVbenForm({
       rules: markRaw(
         z
           .string()
-          .min(3, '用户名至少需要3个字符')
-          .refine(async (username) => {
-            // 假设这是一个异步函数，模拟检查用户名是否已存在
-            const checkUsernameExists = async (
-              username: string,
-            ): Promise<boolean> => {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              return username === 'existingUser';
-            };
-            const exists = await checkUsernameExists(username);
-            return !exists;
-          }, '用户名已存在'),
+          .min(3, { error: '用户名至少需要3个字符' })
+          .refine(
+            async (username) => {
+              // 假设这是一个异步函数，模拟检查用户名是否已存在
+              const checkUsernameExists = async (
+                username: string,
+              ): Promise<boolean> => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return username === 'existingUser';
+              };
+              const exists = await checkUsernameExists(username);
+              return !exists;
+            },
+            { error: '用户名已存在' },
+          ),
       ),
     },
   ],

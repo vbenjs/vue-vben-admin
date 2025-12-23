@@ -59,7 +59,7 @@ const [Form] = useVbenForm({
       },
       fieldName: 'field31',
       label: '自定义信息',
-      rules: markRaw(z.string().min(1, '最少输入1个字符')),
+      rules: markRaw(z.string().min(1, { error: '最少输入1个字符' })),
     },
     {
       component: 'Input',
@@ -71,7 +71,7 @@ const [Form] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: markRaw(z.email('请输入正确的邮箱')),
+      rules: markRaw(z.string().email({ error: '请输入正确的邮箱' })),
     },
     {
       component: 'InputNumber',

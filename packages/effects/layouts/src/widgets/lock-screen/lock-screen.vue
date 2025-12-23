@@ -51,7 +51,9 @@ const [Form, { form, validate, getFieldComponentRef }] = useVbenForm(
         },
         fieldName: 'password',
         label: $t('authentication.password'),
-        rules: markRaw(z.string().min(1, $t('authentication.passwordTip'))),
+        rules: markRaw(
+          z.string().min(1, { error: $t('authentication.passwordTip') }),
+        ),
       },
     ]),
     showDefaultActions: false,

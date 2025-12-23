@@ -19,7 +19,12 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'email',
       label: $t('authentication.email'),
-      rules: markRaw(z.email($t('authentication.emailValidErrorTip'))),
+      rules: markRaw(
+        z
+          .string()
+          .min(1, { error: $t('authentication.emailTip') })
+          .email({ error: $t('authentication.emailValidErrorTip') }),
+      ),
     },
   ];
 });
