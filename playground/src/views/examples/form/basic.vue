@@ -342,6 +342,8 @@ const [BaseForm, baseFormApi] = useVbenForm({
         customRequest: upload_file,
         disabled: false,
         maxCount: 1,
+        // 单位：MB
+        maxSize: 2,
         multiple: false,
         showUploadList: true,
         // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
@@ -354,7 +356,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
           default: () => $t('examples.form.upload-image'),
         };
       },
-      rules: 'required',
+      rules: 'selectRequired',
     },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个

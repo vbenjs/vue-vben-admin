@@ -7,7 +7,8 @@
     "length": "{0} must be {1} characters long",
     "alreadyExists": "{0} `{1}` already exists",
     "startWith": "{0} must start with `{1}`",
-    "invalidURL": "Please input a valid URL"
+    "invalidURL": "Please input a valid URL",
+    "sizeLimit": "The file size cannot exceed {0}MB"
   },
   "actionTitle": {
     "edit": "Modify {0}",
