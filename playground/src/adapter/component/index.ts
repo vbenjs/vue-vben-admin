@@ -298,7 +298,7 @@ const withPreviewUpload = () => {
         emit('change', event);
         emit(
           'update:modelValue',
-          event.fileList.length > 0 ? fileList.value : undefined,
+          event.fileList?.length ? fileList.value : undefined,
         );
       };
 
