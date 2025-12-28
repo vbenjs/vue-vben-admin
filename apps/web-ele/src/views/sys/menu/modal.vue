@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UpdateMenuParams } from '#/api/core/menu';
+import type { MenuData, UpdateMenuParams } from '#/api/core/menu';
 
 import { h, onUnmounted, ref, unref, watch } from 'vue';
 
@@ -8,7 +8,7 @@ import { useVbenModal } from '@vben/common-ui';
 import { ElMessage } from 'element-plus';
 
 import { useVbenForm, z } from '#/adapter/form';
-import { ListType, updateMenuApi } from '#/api/core/menu';
+import { appendMenuApi, ListType, updateMenuApi } from '#/api/core/menu';
 
 import { getFullPath } from './index';
 
@@ -70,7 +70,7 @@ function updateForm(
 ) {
   const behaviorMap = new Map<
     string,
-    { behavior: Record<string, any>; schema: any[] }
+    { behavior: Record<string, (...args: any[]) => any>; schema: any[] }
   >([
     [
       'button,add',
@@ -175,7 +175,40 @@ function updateForm(
             defaultValue: '',
           },
         ],
-        behavior: {},
+        behavior: {
+          handleSubmit: (
+            values: Pick<
+              MenuData,
+              'icon' | 'name' | 'pid' | 'sort' | 'type' | 'url'
+            >,
+          ) => {
+            const { ...params } = values;
+            // console.log('💬 ⋮ updateForm ⋮ params =>', params);
+
+            formApi.setState({
+              submitButtonOptions: {
+                loading: true,
+              },
+            });
+            appendMenuApi({
+              ...params,
+            })
+              .then(() => {
+                ElMessage.success('添加菜单成功');
+                modelApi.setData({
+                  loaded: true,
+                });
+                modelApi.close();
+              })
+              .finally(() => {
+                formApi.setState({
+                  submitButtonOptions: {
+                    loading: false,
+                  },
+                });
+              });
+          },
+        },
       },
     ],
     [
@@ -214,6 +247,15 @@ function updateForm(
             label: '排序',
             defaultValue: 0,
             rules: z.number().min(0, { message: '请输入大于等于0的整数' }),
+          },
+          {
+            component: 'IconPicker',
+            componentProps: {
+              placeholder: '请输入图标字符串',
+            },
+            fieldName: 'icon',
+            label: '图标',
+            defaultValue: '',
           },
         ],
         behavior: {

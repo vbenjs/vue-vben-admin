@@ -9,6 +9,7 @@ interface RowType {
   sort: number;
   createTime: null | string;
   parentName: null | string;
+  icon: string;
   meta: {
     authority: null | string;
     icon: string;
@@ -20,10 +21,10 @@ interface RowType {
 /**
  * 转换后端数据为表格展示数据
  * @param item - 菜单数据
- * @returns 表格数据
  */
 function transformationBackendToTable(item: MenuData): RowType {
-  const { id, pid, name, url, type, sort, createTime, parentName, meta } = item;
+  const { id, pid, name, url, type, sort, createTime, parentName, meta, icon } =
+    item;
   const children =
     Array.isArray(item.children) && item.children.length > 0
       ? item.children.map((child) => transformationBackendToTable(child))
@@ -39,6 +40,7 @@ function transformationBackendToTable(item: MenuData): RowType {
     parentName,
     meta,
     children,
+    icon,
   };
 }
 
@@ -65,7 +67,6 @@ function buildNodeMap(data: RowType[]) {
  * 寻找节点的所有父级节点的id
  * @param id - 节点id
  * @param data - 数据节点数据
- * @returns id列表
  */
 function findNodeParentId(id: number, data: RowType[]) {
   const nodesMap = buildNodeMap(data);
@@ -88,8 +89,10 @@ function findNodeParentId(id: number, data: RowType[]) {
 
 /**
  * 获取该节点的完整路径
- * @param id - 节点id
- * @param data - 数据节点数据
+ * @param { object } params  - 传递参数对象
+ * @param { any[] } params.data  - 传递参数对象
+ * @param { number } params.id - 数据节点数据
+ * @param { object } params.options  - 配置项
  * @returns 节点完整路径
  */
 function getFullPath({

@@ -284,7 +284,7 @@ const handleAddMenu = () => {
 };
 
 const handleEditMenu = (row: RowType) => {
-  const { pid, id, sort, name, url } = row;
+  const { pid, id, sort, name, url, icon } = row;
 
   const prefixUrl = (() => {
     const options = {
@@ -310,6 +310,7 @@ const handleEditMenu = (row: RowType) => {
       sort,
       name,
       url,
+      icon,
       $: {
         prefixUrl,
         behavior: 'edit',
