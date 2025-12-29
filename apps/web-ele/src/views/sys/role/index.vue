@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { nextTick, onMounted, reactive, ref } from 'vue';
 
-import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue';
+import {
+  Delete,
+  Edit,
+  Plus,
+  Refresh,
+  Search,
+  User,
+} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 import {
@@ -10,7 +17,6 @@ import {
   getMenuList,
   getRoleInfoApi,
   getRolePage,
-  saveRoleMenusApi,
   updateRoleApi,
 } from '#/api/core';
 
@@ -61,7 +67,7 @@ const formModel = reactive({
   id: 0,
   name: '',
   roleCode: '',
-  remark: '',
+  remark: '' as string,
   menuIdList: [] as number[],
 });
 
@@ -76,9 +82,19 @@ const dialog = reactive({
 const menuTreeData = ref<any[]>([]);
 const assignMenuTreeRef = ref();
 
+// const Props = ref({
+//   label: 'name',
+//   children: 'children',
+// });
+
 const Props = ref({
   label: 'name',
   children: 'children',
+  // type为0是目录（非叶子节点），type为1是菜单项（可能是叶子节点）
+  isLeaf: (data: any) => {
+    // type为1是叶子节点，或者没有children
+    return data.type === 1 || !data.children || data.children.length === 0;
+  },
 });
 
 // 获取菜单树数据
@@ -94,7 +110,6 @@ const fetchMenuTree = async () => {
     } else {
       console.warn('菜单数据不是数组:', menuData);
       menuTreeData.value = [];
-      ElMessage.error('菜单数据格式错误');
     }
   } catch (error: any) {
     console.error('获取菜单树失败:', error);
@@ -128,8 +143,24 @@ const loadNode = (node: any, resolve: any) => {
 const handleAssignMenuCheck = () => {
   if (assignMenuTreeRef.value) {
     const checkedKeys = assignMenuTreeRef.value.getCheckedKeys();
-    menuDialog.menuIds = checkedKeys;
+    formModel.menuIdList = checkedKeys;
+    console.warn('菜单选中更新:', checkedKeys);
   }
+};
+
+// 处理树节点勾选事件
+const handleTreeCheck = (checkedNode: any, checkedInfo: any) => {
+  console.warn('树节点勾选事件:', {
+    选中节点: checkedNode,
+    选中信息: checkedInfo,
+    选中的keys: checkedInfo.checkedKeys,
+    半选的keys: checkedInfo.halfCheckedKeys,
+  });
+  // 实时更新到 formModel
+  formModel.menuIdList = [
+    ...checkedInfo.checkedKeys,
+    ...checkedInfo.halfCheckedKeys,
+  ];
 };
 
 // 获取角色列表
@@ -155,32 +186,79 @@ const handleAdd = () => {
     remark: '',
     menuIdList: [],
   });
+  nextTick(() => {
+    if (assignMenuTreeRef.value) {
+      // 清空树组件的所有选中项
+      assignMenuTreeRef.value.setCheckedKeys([]);
+      console.warn('已清空树组件选中状态');
+    }
+  });
 };
 
-// 编辑角色
+// 编辑角色 - 修正类型错误
 const handleEdit = async (row: any) => {
+  console.warn('编辑角色，ID:', row.id);
   dialog.type = 'edit';
   dialog.title = '编辑角色';
-
+  dialog.visible = true;
+  // 重置表单
+  Object.assign(formModel, {
+    id: row.id || 0,
+    name: row.name || '',
+    roleCode: row.roleCode || '',
+    remark: row.remark || '',
+    menuIdList: row.menuIdList || [],
+  });
   try {
-    const res = await getRoleInfoApi(row.id);
-    if (res.code === 200 || res.code === 0) {
-      Object.assign(formModel, res.data);
-      dialog.visible = true;
-    } else {
-      ElMessage.error(res.msg || '获取角色详情失败');
+    // getRoleInfoApi 返回 Result<SysRoleVO>
+    const result = await getRoleInfoApi(row.id);
+    console.warn('API完整响应:', result);
+    if (!result) {
+      console.warn('API返回空值');
+      return;
+    }
+    // 检查响应状态码
+    if (result.code !== 0) {
+      console.warn('API返回错误:', result.msg);
+      return;
+    }
+    // 提取 data 字段
+    const roleData = result.data;
+    console.warn('角色详情数据:', roleData);
+    if (roleData) {
+      // 更新表单
+      formModel.name = roleData.name || '';
+      formModel.roleCode = roleData.roleCode || '';
+      formModel.remark = roleData.remark || '';
+      formModel.menuIdList = Array.isArray(roleData.menuIdList)
+        ? roleData.menuIdList
+        : [];
+      console.warn('更新后的表单数据:', formModel);
+      // 设置树组件选中状态
+      nextTick(() => {
+        if (assignMenuTreeRef.value) {
+          // 先清空选择
+          assignMenuTreeRef.value.setCheckedKeys([]);
+          // 如果有菜单权限，设置选中
+          if (formModel.menuIdList.length > 0) {
+            assignMenuTreeRef.value.setCheckedKeys(formModel.menuIdList);
+            console.warn('已设置树组件选中:', formModel.menuIdList);
+          } else {
+            console.warn('菜单权限为空');
+          }
+        } else {
+          console.warn('树组件未初始化');
+        }
+      });
     }
   } catch (error: any) {
-    console.error('获取角色详情错误:', error);
-    // 失败时使用列表中的基本信息
-    Object.assign(formModel, { ...row, menuIdList: row.menuIdList || [] });
-    dialog.visible = true;
+    console.error('获取详情错误:', error);
   }
 };
 
 // 保存角色
 const saveRole = async () => {
-  // 1. 基本验证
+  // 基本验证
   if (!formModel.name.trim()) {
     ElMessage.warning('请输入角色名称');
     return;
@@ -190,7 +268,32 @@ const saveRole = async () => {
     return;
   }
 
-  // 2. 准备数据（根据添加或编辑）
+  // 在保存前从树组件获取选中的菜单
+  let finalMenuIds: number[] = [];
+  if (assignMenuTreeRef.value) {
+    try {
+      // 获取所有选中的节点
+      const checkedKeys = assignMenuTreeRef.value.getCheckedKeys();
+      const halfCheckedKeys = assignMenuTreeRef.value.getHalfCheckedKeys();
+      console.warn('获取到的菜单权限:', {
+        checkedKeys,
+        halfCheckedKeys,
+        总数: checkedKeys.length + halfCheckedKeys.length,
+      });
+      // 合并选中项
+      finalMenuIds = [...checkedKeys, ...halfCheckedKeys];
+      // 更新 formModel
+      formModel.menuIdList = finalMenuIds;
+    } catch (error) {
+      console.error('获取菜单选中状态失败:', error);
+      finalMenuIds = formModel.menuIdList || [];
+    }
+  } else {
+    console.warn('树组件未找到，使用 formModel.menuIdList');
+    finalMenuIds = formModel.menuIdList || [];
+  }
+
+  // 3. 准备数据
   let saveData: any;
   let apiCall: Promise<any>;
 
@@ -201,7 +304,7 @@ const saveRole = async () => {
       name: formModel.name.trim(),
       roleCode: formModel.roleCode.trim(),
       remark: formModel.remark.trim(),
-      menuIdList: [...(formModel.menuIdList || [])],
+      menuIdList: finalMenuIds, // 使用获取到的菜单ID
     };
     apiCall = updateRoleApi(saveData);
   } else {
@@ -210,7 +313,7 @@ const saveRole = async () => {
       name: formModel.name.trim(),
       roleCode: formModel.roleCode.trim(),
       remark: formModel.remark.trim(),
-      menuIdList: [...(formModel.menuIdList || [])],
+      menuIdList: finalMenuIds, // 使用获取到的菜单ID
     };
     apiCall = addRoleApi(saveData);
   }
@@ -218,17 +321,16 @@ const saveRole = async () => {
   console.warn('准备发送的数据:', saveData);
 
   try {
-    // 3. 调用API
+    // 4. 调用API
     const result = await apiCall;
-    console.warn('API响应:', result);
-    // 4. 处理响应 - 根据后端响应格式调整
-    if (result.code === 0 || result.code === 200) {
+    // console.warn('API响应:', result);
+    // 5. 处理响应
+    if (!result || result.code === 0 || result.code === 200) {
       ElMessage.success(dialog.type === 'add' ? '添加成功' : '修改成功');
       dialog.visible = false;
       await getRoleList(); // 刷新列表
     } else {
       // 显示错误信息
-      ElMessage.error(result.msg || result.message || '操作失败');
     }
   } catch (error: any) {
     console.error('保存失败:', error);
@@ -247,15 +349,9 @@ const handleDelete = async (row: any) => {
     // 发送删除请求
     await deleteRoleApi([row.id]);
 
-    // console.log('删除成功');
-    // console.log('等待后端更新...');
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // 刷新列表
-    // console.log('刷新列表...');
     await getRoleList();
-
-    // console.log('删除流程完成');
   } catch (error: any) {
     console.error('删除错误:', error);
     if (error !== 'cancel' && error.message !== 'cancel') {
@@ -317,11 +413,11 @@ const handleCurrentChange = (page: number) => {
 };
 
 // 分配用户-打开分配用户对话框
-// const assignUsers = (row: any) => {
-//   userDialog.roleId = row.id;
-//   userDialog.roleName = row.name;
-//   userDialog.visible = true;
-// };
+const assignUsers = (row: any) => {
+  userDialog.roleId = row.id;
+  userDialog.roleName = row.name;
+  userDialog.visible = true;
+};
 
 // 分配菜单权限-打开分配菜单对话框
 // const assignMenus = async (row: any) => {
@@ -425,22 +521,22 @@ const closeDialog = () => {
             >
               编辑
             </el-button>
-            <!-- <el-button
+            <el-button
               type="primary"
               link
               :icon="User"
               @click="assignUsers(row)"
             >
-              分配用户
+              <!-- 分配用户
             </el-button>
             <el-button
               type="primary"
               link
               :icon="Key"
               @click="assignMenus(row)"
-            >
+            > -->
               分配权限
-            </el-button> -->
+            </el-button>
             <el-button
               type="danger"
               link
@@ -479,6 +575,16 @@ const closeDialog = () => {
         </el-form-item>
         <!-- 菜单权限 -->
         <el-form-item label="菜单权限">
+          <!-- <el-tree
+            ref="assignMenuTreeRef"
+            :data="menuTreeData"
+            :props="Props"
+            :load="loadNode"
+            lazy
+            node-key="id"
+            show-checkbox
+            @check-change="handleAssignMenuCheck"
+          /> -->
           <el-tree
             ref="assignMenuTreeRef"
             :data="menuTreeData"
@@ -487,6 +593,8 @@ const closeDialog = () => {
             lazy
             node-key="id"
             show-checkbox
+            :check-strictly="false"
+            @check="handleTreeCheck"
             @check-change="handleAssignMenuCheck"
           />
         </el-form-item>

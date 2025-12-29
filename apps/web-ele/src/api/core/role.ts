@@ -48,7 +48,7 @@ interface MenuData {
   };
 }
 
-// 获取角色列表
+// 获取菜单列表
 export async function getAllRoleApi(
   params: RolePageParams,
 ): Promise<Result<SysRoleVO[]>> {
@@ -63,14 +63,14 @@ export async function getRolePage(params: any) {
 }
 
 // 获取角色详情
-// export async function getRoleInfoApi(id: number): Promise<Result<SysRoleVO>> {
-//   return requestClient.get<Result<SysRoleVO>>(`/sys/role/${id}`);
-// }
+export async function getRoleInfoApi(id: number): Promise<Result<SysRoleVO>> {
+  return requestClient.get<Result<SysRoleVO>>(`/sys/role/${id}`);
+}
 
 // 获取角色详情
-export async function getRoleInfoApi(): Promise<Result<SysRoleVO>> {
-  return requestClient.get<Result<SysRoleVO>>('/sys/role');
-}
+// export async function getRoleInfoApi(): Promise<Result<SysRoleVO>> {
+//   return requestClient.get<Result<SysRoleVO>>('/sys/role');
+// }
 
 // 添加角色
 export async function addRoleApi(data: SysRoleVO): Promise<Result<string>> {
