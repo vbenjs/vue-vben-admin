@@ -30,6 +30,10 @@ export interface MenuData {
   children: [] | MenuData[];
 }
 
+export type UpdateMenuParams = Partial<
+  Pick<MenuData, 'id' | 'meta' | 'name' | 'pid' | 'sort' | 'type' | 'url'>
+>;
+
 /**
  * 获取不同类型的菜单列表
  */
@@ -51,10 +55,9 @@ export async function getMenuNavApi() {
 /**
  * 添加菜单接口
  * @param data 添加菜单的参数
- * @returns
  */
 export async function appendMenuApi(
-  data: Pick<MenuData, 'meta' | 'name' | 'pid' | 'type' | 'url'>,
+  data: Pick<MenuData, 'icon' | 'name' | 'pid' | 'sort' | 'type' | 'url'>,
 ) {
   return requestClient.post(`sys:menu`, data);
 }
@@ -62,25 +65,15 @@ export async function appendMenuApi(
 /**
  * 更新菜单的接口
  * @param data 更新菜单的参数
- * @returns
  */
-export async function updateMenuApi(
-  data: Partial<Pick<MenuData, 'meta' | 'name' | 'pid' | 'type' | 'url'>> & {
-    id: number;
-  },
-) {
+export async function updateMenuApi(data: UpdateMenuParams) {
   return requestClient.put(`sys:menu`, data);
 }
 
 /**
  * 删除菜单的接口
  * @param id 菜单id
- * @returns
  */
 export async function deleteMenuApi(id: number) {
-  return requestClient.delete(`sys:menu`, {
-    params: {
-      id,
-    },
-  });
+  return requestClient.delete(`sys:menu/${id}`);
 }

@@ -9,6 +9,7 @@ interface RowType {
   sort: number;
   createTime: null | string;
   parentName: null | string;
+  icon: string;
   meta: {
     authority: null | string;
     icon: string;
@@ -20,10 +21,10 @@ interface RowType {
 /**
  * 转换后端数据为表格展示数据
  * @param item - 菜单数据
- * @returns 表格数据
  */
 function transformationBackendToTable(item: MenuData): RowType {
-  const { id, pid, name, url, type, sort, createTime, parentName, meta } = item;
+  const { id, pid, name, url, type, sort, createTime, parentName, meta, icon } =
+    item;
   const children =
     Array.isArray(item.children) && item.children.length > 0
       ? item.children.map((child) => transformationBackendToTable(child))
@@ -39,6 +40,7 @@ function transformationBackendToTable(item: MenuData): RowType {
     parentName,
     meta,
     children,
+    icon,
   };
 }
 
@@ -65,7 +67,6 @@ function buildNodeMap(data: RowType[]) {
  * 寻找节点的所有父级节点的id
  * @param id - 节点id
  * @param data - 数据节点数据
- * @returns id列表
  */
 function findNodeParentId(id: number, data: RowType[]) {
   const nodesMap = buildNodeMap(data);
@@ -88,42 +89,52 @@ function findNodeParentId(id: number, data: RowType[]) {
 
 /**
  * 获取该节点的完整路径
- * @param id - 节点id
- * @param data - 数据节点数据
+ * @param { object } params  - 传递参数对象
+ * @param { any[] } params.data  - 传递参数对象
+ * @param { number } params.id - 数据节点数据
+ * @param { object } params.options  - 配置项
  * @returns 节点完整路径
  */
 function getFullPath({
   id,
   data,
-  returnType = 'url',
+  options,
 }: {
   data: RowType[];
   id: number;
-  returnType: 'meta.title' | 'url';
+  options: {
+    extractVal: 'meta.title' | 'url';
+    returnVal?: 'nodes' | 'result';
+  };
 }) {
-  if (data.length === 0) return '';
+  if (data.length === 0) return;
+  const { extractVal, returnVal } = options;
   const nodesMap = buildNodeMap(data);
   const ids = findNodeParentId(id, data);
-  let nodes, result;
-  switch (returnType) {
+  const res: { nodes: string[]; result: string } = { nodes: [], result: '' };
+  switch (extractVal) {
     case 'meta.title': {
-      nodes = ids.map((id) => nodesMap.get(id)?.meta?.title);
-      result = nodes.join('-');
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      res.nodes = ids.map((id) => nodesMap.get(id)!.meta!.title);
+      res.result = res.nodes.join('-');
       break;
     }
     case 'url': {
-      nodes = ids.map((id) => nodesMap.get(id)?.url);
-      result =
-        nodes.join('/').slice(-1) === '/'
-          ? nodes.join('/').slice(0, -1)
-          : nodes.join('/');
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      res.nodes = ids.map((id) => nodesMap.get(id)!.url);
+      const urlPath = res.nodes.join('/');
+      res.result = urlPath.slice(-1) === '/' ? urlPath.slice(0, -1) : urlPath;
       break;
     }
     default: {
-      void 0;
+      return res as never;
     }
   }
-  return result;
+
+  if (returnVal) {
+    return res[returnVal];
+  }
+  return res;
 }
 
 export {
