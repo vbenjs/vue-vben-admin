@@ -8,7 +8,8 @@
     "alreadyExists": "{0} `{1}` 已存在",
     "startWith": "{0}必须以 {1} 开头",
     "invalidURL": "请输入有效的链接",
-    "sizeLimit": "文件大小不能超过 {0}MB"
+    "sizeLimit": "文件大小不能超过 {0}MB",
+    "previewWarning": "无法打开文件，没有可用的URL或预览地址"
   },
   "actionTitle": {
     "edit": "修改{0}",

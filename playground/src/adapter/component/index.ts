@@ -187,7 +187,7 @@ const withPreviewUpload = () => {
       } else if (file.preview) {
         window.open(file.preview, '_blank');
       } else {
-        console.warn('无法打开文件，没有可用的URL或预览地址');
+        message.error($t('ui.formRules.previewWarning'));
       }
       return;
     }
@@ -267,7 +267,7 @@ const withPreviewUpload = () => {
   };
   return defineComponent({
     name: Upload.name,
-    emits: ['change', 'update:modelValue'],
+    emits: ['update:modelValue'],
     setup: (
       props: any,
       { attrs, slots, emit }: { attrs: any; emit: any; slots: any },
@@ -283,7 +283,7 @@ const withPreviewUpload = () => {
       );
 
       const handleBeforeUpload = (file: UploadFile) => {
-        if (attrs.maxSize && (file.size || 0) / 1024 / 1024 >= attrs.maxSize) {
+        if (attrs.maxSize && (file.size || 0) / 1024 / 1024 > attrs.maxSize) {
           message.error($t('ui.formRules.sizeLimit', [attrs.maxSize]));
           file.status = 'removed';
           return false;
@@ -295,7 +295,6 @@ const withPreviewUpload = () => {
         fileList.value = event.fileList.filter(
           (file) => file.status !== 'removed',
         );
-        emit('change', event);
         emit(
           'update:modelValue',
           event.fileList?.length ? fileList.value : undefined,
