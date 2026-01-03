@@ -328,6 +328,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.button-group.title'),
         },
       },
+      {
+        name: 'ContextMenu',
+        path: '/examples/context-menu',
+        component: () => import('#/views/examples/context-menu/index.vue'),
+        meta: {
+          icon: 'mdi:menu',
+          title: $t('examples.function.contentMenu'),
+        },
+      },
     ],
   },
 ];

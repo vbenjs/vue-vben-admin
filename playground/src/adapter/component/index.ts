@@ -75,6 +75,9 @@ const TimePicker = defineAsyncComponent(
 const TreeSelect = defineAsyncComponent(
   () => import('ant-design-vue/es/tree-select'),
 );
+const Cascader = defineAsyncComponent(
+  () => import('ant-design-vue/es/cascader'),
+);
 const Upload = defineAsyncComponent(() => import('ant-design-vue/es/upload'));
 const Image = defineAsyncComponent(() => import('ant-design-vue/es/image'));
 const PreviewGroup = defineAsyncComponent(() =>
@@ -347,9 +350,11 @@ const withPreviewUpload = () => {
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
+  | 'ApiCascader'
   | 'ApiSelect'
   | 'ApiTreeSelect'
   | 'AutoComplete'
+  | 'Cascader'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -380,6 +385,13 @@ async function initComponentAdapter() {
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
+    ApiCascader: withDefaultPlaceholder(ApiComponent, 'select', {
+      component: Cascader,
+      fieldNames: { label: 'label', value: 'value', children: 'children' },
+      loadingSlot: 'suffixIcon',
+      modelPropName: 'value',
+      visibleEvent: 'onVisibleChange',
+    }),
     ApiSelect: withDefaultPlaceholder(ApiComponent, 'select', {
       component: Select,
       loadingSlot: 'suffixIcon',
@@ -395,6 +407,7 @@ async function initComponentAdapter() {
       visibleEvent: 'onVisibleChange',
     }),
     AutoComplete,
+    Cascader,
     Checkbox,
     CheckboxGroup,
     DatePicker,

@@ -72,5 +72,8 @@
   },
   "button-group": {
     "title": "Button Group"
+  },
+  "function": {
+    "contentMenu": "Content Menu"
   }
 }
