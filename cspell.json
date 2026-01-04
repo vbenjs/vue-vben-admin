@@ -11,6 +11,7 @@
     "astro",
     "axios",
     "brotli",
+    "cascader",
     "clsx",
     "defu",
     "demi",
