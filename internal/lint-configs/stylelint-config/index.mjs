@@ -75,6 +75,7 @@ export default {
     'import-notation': null,
     'media-feature-range-notation': null,
     'named-grid-areas-no-invalid': null,
+    'nesting-selector-no-missing-scoping-root': null,
     'no-descending-specificity': null,
     'no-empty-source': null,
     'order/order': [
