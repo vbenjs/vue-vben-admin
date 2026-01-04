@@ -27,7 +27,7 @@ function handleItemClick(value: string) {
     </DropdownMenuTrigger>
     <DropdownMenuContent align="start">
       <DropdownMenuGroup>
-        <template v-for="(menu, index) in menus" :key="index">
+        <template v-for="menu in menus" :key="menu.value">
           <DropdownMenuItem
             :class="
               menu.value === modelValue
