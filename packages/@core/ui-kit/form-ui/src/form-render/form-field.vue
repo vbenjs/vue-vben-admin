@@ -381,10 +381,10 @@ onUnmounted(() => {
           <div v-if="suffix" class="ml-1">
             <VbenRenderContent :content="suffix" />
           </div>
-          <FormDescription v-if="description" class="ml-1">
-            <VbenRenderContent :content="description" />
-          </FormDescription>
         </div>
+        <FormDescription v-if="description" class="text-xs">
+          <VbenRenderContent :content="description" />
+        </FormDescription>
 
         <Transition name="slide-up" v-if="!compact">
           <FormMessage class="absolute" />
