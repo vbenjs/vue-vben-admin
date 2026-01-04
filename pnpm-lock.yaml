@@ -40,7 +40,7 @@ catalogs:
       specifier: ^5.0.0
       version: 5.0.0
     '@intlify/core-base':
-      specifier: ^11.2.7
+      specifier: ^11.2.8
       version: 11.2.8
     '@intlify/unplugin-vue-i18n':
       specifier: ^6.0.8
@@ -70,7 +70,7 @@ catalogs:
       specifier: ^0.5.19
       version: 0.5.19
     '@tanstack/vue-query':
-      specifier: ^5.92.1
+      specifier: ^5.92.5
       version: 5.92.5
     '@tanstack/vue-store':
       specifier: ^0.8.0
@@ -112,10 +112,10 @@ catalogs:
       specifier: ^1.15.9
       version: 1.15.9
     '@typescript-eslint/eslint-plugin':
-      specifier: ^8.50.0
+      specifier: ^8.51.0
       version: 8.51.0
     '@typescript-eslint/parser':
-      specifier: ^8.50.0
+      specifier: ^8.51.0
       version: 8.51.0
     '@vee-validate/zod':
       specifier: ^4.15.1
@@ -127,7 +127,7 @@ catalogs:
       specifier: ^6.0.3
       version: 6.0.3
     '@vitejs/plugin-vue-jsx':
-      specifier: ^5.1.2
+      specifier: ^5.1.3
       version: 5.1.3
     '@vue/shared':
       specifier: ^3.5.26
@@ -175,7 +175,7 @@ catalogs:
       specifier: ^0.7.1
       version: 0.7.1
     commitlint-plugin-function-rules:
-      specifier: ^4.2.0
+      specifier: ^4.2.1
       version: 4.2.1
     consola:
       specifier: ^3.4.2
@@ -220,7 +220,7 @@ catalogs:
       specifier: ^9.39.2
       version: 9.39.2
     eslint-config-turbo:
-      specifier: ^2.7.1
+      specifier: ^2.7.2
       version: 2.7.2
     eslint-plugin-command:
       specifier: ^3.4.0
@@ -304,7 +304,7 @@ catalogs:
       specifier: ^9.0.3
       version: 9.0.3
     lefthook:
-      specifier: ^2.0.12
+      specifier: ^2.0.13
       version: 2.0.13
     lodash.clonedeep:
       specifier: ^4.5.0
@@ -349,7 +349,7 @@ catalogs:
       specifier: ^16.1.1
       version: 16.1.1
     postcss-preset-env:
-      specifier: ^10.5.0
+      specifier: ^10.6.0
       version: 10.6.0
     postcss-scss:
       specifier: ^4.0.9
@@ -367,10 +367,10 @@ catalogs:
       specifier: ^1.5.4
       version: 1.5.4
     qs:
-      specifier: ^6.14.0
+      specifier: ^6.14.1
       version: 6.14.1
     reka-ui:
-      specifier: ^2.6.1
+      specifier: ^2.7.0
       version: 2.7.0
     resolve.exports:
       specifier: ^2.0.3
@@ -412,13 +412,13 @@ catalogs:
       specifier: ^39.0.1
       version: 39.0.1
     stylelint-order:
-      specifier: ^7.0.0
+      specifier: ^7.0.1
       version: 7.0.1
     stylelint-prettier:
       specifier: ^5.0.3
       version: 5.0.3
     stylelint-scss:
-      specifier: ^6.13.0
+      specifier: ^6.14.0
       version: 6.14.0
     tailwind-merge:
       specifier: ^2.6.0
@@ -439,7 +439,7 @@ catalogs:
       specifier: ^6.3.7
       version: 6.3.7
     turbo:
-      specifier: ^2.7.1
+      specifier: ^2.7.2
       version: 2.7.2
     typescript:
       specifier: ^5.9.3
@@ -487,7 +487,7 @@ catalogs:
       specifier: ^10.2.0
       version: 10.2.0
     vue-i18n:
-      specifier: ^11.2.7
+      specifier: ^11.2.8
       version: 11.2.8
     vue-json-viewer:
       specifier: ^3.0.4
@@ -502,10 +502,10 @@ catalogs:
       specifier: ^3.2.1
       version: 3.2.1
     vxe-pc-ui:
-      specifier: ^4.11.13
+      specifier: ^4.11.30
       version: 4.11.30
     vxe-table:
-      specifier: ^4.17.33
+      specifier: ^4.17.38
       version: 4.17.38
     watermark-js-plus:
       specifier: ^1.6.3
