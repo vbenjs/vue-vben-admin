@@ -19,7 +19,7 @@ import { computed, ref } from 'vue';
 import { Copy, Pin, PinOff, RotateCw } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
 import {
-  clearPreferencesCache,
+  clearCache,
   preferences,
   resetPreferences,
   usePreferences,
@@ -228,7 +228,7 @@ async function handleCopy() {
 
 async function handleClearCache() {
   resetPreferences();
-  clearPreferencesCache();
+  clearCache();
   emit('clearPreferencesAndLogout');
 }
 
