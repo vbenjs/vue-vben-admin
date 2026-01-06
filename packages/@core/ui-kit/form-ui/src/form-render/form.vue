@@ -53,7 +53,11 @@ const wrapperClass = computed(() => {
 
 provideFormRenderProps(props);
 
-const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
+const {
+  isCalculated,
+  keepFormItemIndex,
+  wrapperRef: _wrapperRef,
+} = useExpandable(props);
 
 const shapes = computed(() => {
   const resultShapes: FormShape[] = [];
@@ -170,7 +174,7 @@ const computedSchema = computed(
 
 <template>
   <component :is="formComponent" v-bind="formComponentProps">
-    <div ref="wrapperRef" :class="wrapperClass">
+    <div ref="_wrapperRef" :class="wrapperClass">
       <template v-for="cSchema in computedSchema" :key="cSchema.fieldName">
         <!-- <div v-if="$slots[cSchema.fieldName]" :class="cSchema.formItemClass">
           <slot :definition="cSchema" :name="cSchema.fieldName"> </slot>

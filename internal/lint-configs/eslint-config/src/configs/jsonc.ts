@@ -48,6 +48,7 @@ export async function jsonc(): Promise<Linter.Config[]> {
     },
     sortTsconfig(),
     sortPackageJson(),
+    sortCspellJson(),
   ];
 }
 
@@ -124,6 +125,21 @@ function sortPackageJson(): Linter.Config {
         {
           order: ['types', 'import', 'require', 'default'],
           pathPattern: '^exports.*$',
+        },
+      ],
+    },
+  };
+}
+
+function sortCspellJson(): Linter.Config {
+  return {
+    files: ['**/cspell.json', '**/.cspell.json'],
+    rules: {
+      'jsonc/sort-array-values': [
+        'error',
+        {
+          order: { type: 'asc' },
+          pathPattern: '^words$|^ignorePaths$',
         },
       ],
     },
