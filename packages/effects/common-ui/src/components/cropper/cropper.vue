@@ -512,8 +512,15 @@ const handleImageLoad = (): void => {
 
 /**
  * 裁剪图片
+ * @param {number} quality - 压缩质量（0-1）
+ * @param {number} targetWidth - 目标宽度（可选，不传则为原始裁剪宽度）
+ * @param {number} targetHeight - 目标高度（可选，不传则为原始裁剪高度）
  */
-const getCropImage = async (): Promise<string | undefined> => {
+const getCropImage = async (
+  quality: number = 0.92,
+  targetWidth?: number,
+  targetHeight?: number,
+): Promise<string | undefined> => {
   if (!props.img || !bgImageRef.value || !containerRef.value) return;
 
   // 创建临时图片对象获取原始尺寸
@@ -551,81 +558,76 @@ const getCropImage = async (): Promise<string | undefined> => {
   const imgRect = bgImageRef.value.getBoundingClientRect();
 
   // 1. 计算图片在容器内的渲染参数
-  // 容器实际尺寸
   const containerWidth = containerRect.width;
   const containerHeight = containerRect.height;
-
-  // 图片实际渲染尺寸（object-fit: contain）
   const renderedImgWidth = imgRect.width;
   const renderedImgHeight = imgRect.height;
-
-  // 图片在容器内的偏移（居中偏移）
   const imgOffsetX = (containerWidth - renderedImgWidth) / 2;
   const imgOffsetY = (containerHeight - renderedImgHeight) / 2;
 
   // 2. 计算裁剪框在容器内的实际坐标
-  const cropTop = currentDimension.value[0];
-  const cropRight = currentDimension.value[1];
-  const cropBottom = currentDimension.value[2];
-  const cropLeft = currentDimension.value[3];
-
-  // 裁剪框的实际位置和尺寸（容器内）
-  const cropBoxX = cropLeft;
-  const cropBoxY = cropTop;
+  const [cropTop, cropRight, cropBottom, cropLeft] = currentDimension.value;
   const cropBoxWidth = containerWidth - cropLeft - cropRight;
   const cropBoxHeight = containerHeight - cropTop - cropBottom;
 
   // 3. 将裁剪框坐标转换为图片上的坐标（考虑图片偏移）
-  const cropOnImgX = cropBoxX - imgOffsetX;
-  const cropOnImgY = cropBoxY - imgOffsetY;
-  const cropOnImgWidth = cropBoxWidth;
-  const cropOnImgHeight = cropBoxHeight;
+  const cropOnImgX = cropLeft - imgOffsetX;
+  const cropOnImgY = cropTop - imgOffsetY;
 
-  // 4. 计算渲染图片到原始图片的缩放比例
+  // 4. 计算渲染图片到原始图片的缩放比例（关键：保留原始像素）
   const scaleX = tempImg.width / renderedImgWidth;
   const scaleY = tempImg.height / renderedImgHeight;
 
-  // 5. 映射到原始图片的裁剪区域（处理边界）
+  // 5. 映射到原始图片的裁剪区域（精确到原始像素）
   const originalCropX = Math.max(0, Math.floor(cropOnImgX * scaleX));
   const originalCropY = Math.max(0, Math.floor(cropOnImgY * scaleY));
-  const originalCropWidth = Math.floor(cropOnImgWidth * scaleX);
-  const originalCropHeight = Math.floor(cropOnImgHeight * scaleY);
-
-  // 边界校验（防止超出原始图片）
-  const finalCropX = Math.min(originalCropX, tempImg.width - 1);
-  const finalCropY = Math.min(originalCropY, tempImg.height - 1);
-  const finalCropWidth = Math.min(
-    originalCropWidth,
-    tempImg.width - finalCropX,
+  const originalCropWidth = Math.min(
+    Math.floor(cropBoxWidth * scaleX),
+    tempImg.width - originalCropX,
   );
-  const finalCropHeight = Math.min(
-    originalCropHeight,
-    tempImg.height - finalCropY,
+  const originalCropHeight = Math.min(
+    Math.floor(cropBoxHeight * scaleY),
+    tempImg.height - originalCropY,
   );
 
-  // 6. 创建目标画布（匹配裁剪框尺寸）
+  // 6. 处理高清屏适配（关键：解决Retina屏模糊）
+  const dpr = window.devicePixelRatio || 1;
+
+  // 最终画布尺寸（优先使用原始裁剪尺寸，或目标尺寸）
+  const finalWidth = targetWidth || originalCropWidth;
+  const finalHeight = targetHeight || originalCropHeight;
+
+  // 创建画布（乘以设备像素比，保证高清）
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  // 设置画布尺寸为裁剪框的实际显示尺寸
-  canvas.width = cropBoxWidth;
-  canvas.height = cropBoxHeight;
+  // 画布物理尺寸（适配高清屏）
+  canvas.width = finalWidth * dpr;
+  canvas.height = finalHeight * dpr;
 
-  // 7. 绘制裁剪后的图片（保持显示比例）
-  // 计算绘制参数：将原始图片裁剪区域绘制到目标画布
+  // 画布显示尺寸（视觉尺寸）
+  canvas.style.width = `${finalWidth}px`;
+  canvas.style.height = `${finalHeight}px`;
+
+  // 缩放上下文（适配DPR）
+  ctx.scale(dpr, dpr);
+
+  // 7. 绘制裁剪后的图片（使用原始像素绘制，保证清晰度）
   ctx.drawImage(
     tempImg,
-    finalCropX, // 原始图片裁剪起始X
-    finalCropY, // 原始图片裁剪起始Y
-    finalCropWidth, // 原始图片裁剪宽度
-    finalCropHeight, // 原始图片裁剪高度
+    originalCropX, // 原始图片裁剪起始X（精确像素）
+    originalCropY, // 原始图片裁剪起始Y（精确像素）
+    originalCropWidth, // 原始图片裁剪宽度（精确像素）
+    originalCropHeight, // 原始图片裁剪高度（精确像素）
     0, // 画布绘制起始X
     0, // 画布绘制起始Y
-    cropBoxWidth, // 画布绘制宽度（匹配裁剪框）
-    cropBoxHeight, // 画布绘制高度（匹配裁剪框）
+    finalWidth, // 画布绘制宽度（目标尺寸）
+    finalHeight, // 画布绘制高度（目标尺寸）
   );
-  return canvas.toDataURL('image/png');
+
+  // 8. 导出图片（指定质量，平衡清晰度和体积）
+  return canvas.toDataURL('image/png', quality);
 };
 
 // 监听比例变化，重新调整裁剪框

@@ -15,6 +15,7 @@ const options = [
 
 const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
 
+const cropLoading = ref(false);
 const validAspectRatio = ref<string | undefined>('1:1');
 const imgUrl = ref('');
 const cropperImg = ref();
@@ -34,7 +35,9 @@ const selectImgFile = (event: UploadChangeParam) => {
 
 const cropImage = async () => {
   if (!cropperRef.value) return;
+  cropLoading.value = true;
   cropperImg.value = await cropperRef.value.getCropImage();
+  cropLoading.value = false;
 };
 
 /**
@@ -84,7 +87,9 @@ const downloadImage = () => {
 
           <!-- 操作按钮组 -->
           <div class="cropper-btn-group">
-            <Button @click="cropImage" type="primary">裁剪</Button>
+            <Button :loading="cropLoading" @click="cropImage" type="primary">
+              裁剪
+            </Button>
             <Button v-if="cropperImg" @click="downloadImage" danger>
               下载图片
             </Button>
@@ -93,7 +98,7 @@ const downloadImage = () => {
           <!-- 裁剪预览 -->
           <img
             v-if="cropperImg"
-            class="h-full w-48"
+            class="h-full w-80"
             :src="cropperImg"
             alt="裁剪预览"
           />
