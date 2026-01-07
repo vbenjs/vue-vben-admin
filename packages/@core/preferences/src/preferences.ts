@@ -63,8 +63,9 @@ class PreferenceManager {
 
   /**
    * 初始化偏好设置
-   * @param namespace - 命名空间，用于隔离不同应用的配置
-   * @param overrides - 要覆盖的偏好设置
+   * @param options - 初始化配置项
+   * @param options.namespace - 命名空间，用于隔离不同应用的配置
+   * @param options.overrides - 要覆盖的偏好设置
    */
   initPreferences = async ({ namespace, overrides }: InitialOptions) => {
     // 防止重复初始化
