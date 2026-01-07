@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 // 定义组件参数
 const props = defineProps<{
@@ -114,7 +114,7 @@ const parseAndValidateAspectRatio = (): null | number => {
   }
 
   // 验证比例格式
-  const ratioRegex = /^\d+:\d+$/;
+  const ratioRegex = /^[1-9]\d*:[1-9]\d*$/;
   if (!ratioRegex.test(props.aspectRatio)) {
     console.warn('裁剪比例格式错误，应为 "数字:数字" 格式，如 "16:9"');
     return null;
@@ -521,14 +521,21 @@ const getCropImage = async (): Promise<string | undefined> => {
   tempImg.crossOrigin = 'anonymous';
 
   // 等待临时图片加载完成
-  await new Promise((resolve, reject) => {
-    const handleLoad = () => {
+  await new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => {
       tempImg.removeEventListener('load', handleLoad);
       tempImg.removeEventListener('error', handleError);
-      resolve(void 0);
+      reject(new Error('图片加载超时'));
+    }, 10_000);
+    const handleLoad = () => {
+      clearTimeout(timeout);
+      tempImg.removeEventListener('load', handleLoad);
+      tempImg.removeEventListener('error', handleError);
+      resolve();
     };
 
     const handleError = (err: ErrorEvent) => {
+      clearTimeout(timeout);
       tempImg.removeEventListener('load', handleLoad);
       tempImg.removeEventListener('error', handleError);
       reject(new Error(`图片加载失败: ${err.message}`));
@@ -636,7 +643,11 @@ onMounted(() => {
   document.addEventListener('mouseup', handleMouseUp);
 
   // 如果图片已经加载完成，手动触发创建裁剪器
-  if (bgImageRef.value && bgImageRef.value.complete) {
+  if (
+    bgImageRef.value &&
+    bgImageRef.value.complete &&
+    bgImageRef.value.naturalWidth > 0
+  ) {
     createCropper();
   }
 });

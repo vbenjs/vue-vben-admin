@@ -24,6 +24,9 @@ const selectImgFile = (event: UploadChangeParam) => {
   reader.addEventListener('load', (e) => {
     imgUrl.value = e.target?.result as string;
   });
+  reader.addEventListener('error', () => {
+    console.error('Failed to read file');
+  });
 
   if (event.fileList[0])
     reader.readAsDataURL(event.fileList[0].originFileObj as File);
@@ -44,12 +47,6 @@ const downloadImage = () => {
   link.download = `cropped-image-${Date.now()}.png`;
   link.href = cropperImg.value;
   link.click();
-
-  // 清理资源
-  setTimeout(() => {
-    URL.revokeObjectURL(link.href);
-    link.remove();
-  }, 100);
 };
 </script>
 <template>
@@ -62,7 +59,7 @@ const downloadImage = () => {
         <div class="cropper-ratio-display">
           <label class="ratio-label">当前裁剪比例：</label>
           <Select
-            class="w-22"
+            class="w-24"
             v-model:value="validAspectRatio"
             :options="options"
           />
