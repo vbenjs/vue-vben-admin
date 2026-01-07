@@ -5,7 +5,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue';
 const props = defineProps<{
   /** 裁剪比例 格式如 '1:1', '16:9', '3:4' 等（非必填） */
   aspectRatio?: string;
-  /** 容器高度度（默认400） */
+  /** 容器高度（默认400） */
   height?: number;
   /** 图片地址 */
   img: string;
@@ -512,11 +512,13 @@ const handleImageLoad = (): void => {
 
 /**
  * 裁剪图片
+ * @param {'image/jpeg' | 'image/png'} format - 输出图片格式
  * @param {number} quality - 压缩质量（0-1）
  * @param {number} targetWidth - 目标宽度（可选，不传则为原始裁剪宽度）
  * @param {number} targetHeight - 目标高度（可选，不传则为原始裁剪高度）
  */
 const getCropImage = async (
+  format: 'image/jpeg' | 'image/png' = 'image/jpeg',
   quality: number = 0.92,
   targetWidth?: number,
   targetHeight?: number,
@@ -525,7 +527,17 @@ const getCropImage = async (
 
   // 创建临时图片对象获取原始尺寸
   const tempImg = new Image();
-  tempImg.crossOrigin = 'anonymous';
+  // Only set crossOrigin for cross-origin URLs that need CORS
+  if (props.img.startsWith('http://') || props.img.startsWith('https://')) {
+    try {
+      const url = new URL(props.img);
+      if (url.origin !== location.origin) {
+        tempImg.crossOrigin = 'anonymous';
+      }
+    } catch {
+      // Invalid URL, proceed without crossOrigin
+    }
+  }
 
   // 等待临时图片加载完成
   await new Promise<void>((resolve, reject) => {
@@ -627,7 +639,7 @@ const getCropImage = async (
   );
 
   // 8. 导出图片（指定质量，平衡清晰度和体积）
-  return canvas.toDataURL('image/png', quality);
+  return canvas.toDataURL(format, quality);
 };
 
 // 监听比例变化，重新调整裁剪框

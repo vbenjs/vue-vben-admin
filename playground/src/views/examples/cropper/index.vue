@@ -13,7 +13,7 @@ const options = [
   { label: '不限制', value: '' },
 ];
 
-const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
+const cropperRef = ref<InstanceType<typeof VCropper>>();
 
 const cropLoading = ref(false);
 const validAspectRatio = ref<string | undefined>('1:1');
@@ -21,6 +21,14 @@ const imgUrl = ref('');
 const cropperImg = ref();
 
 const selectImgFile = (event: UploadChangeParam) => {
+  const file = event.fileList[0]?.originFileObj;
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    console.error('请上传图片文件');
+    return;
+  }
+
   const reader = new FileReader();
   reader.addEventListener('load', (e) => {
     imgUrl.value = e.target?.result as string;
@@ -29,15 +37,19 @@ const selectImgFile = (event: UploadChangeParam) => {
     console.error('Failed to read file');
   });
 
-  if (event.fileList[0])
-    reader.readAsDataURL(event.fileList[0].originFileObj as File);
+  reader.readAsDataURL(file);
 };
 
 const cropImage = async () => {
   if (!cropperRef.value) return;
   cropLoading.value = true;
-  cropperImg.value = await cropperRef.value.getCropImage();
-  cropLoading.value = false;
+  try {
+    cropperImg.value = await cropperRef.value.getCropImage();
+  } catch (error) {
+    console.error('图片裁剪失败:', error);
+  } finally {
+    cropLoading.value = false;
+  }
 };
 
 /**
