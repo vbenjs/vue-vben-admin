@@ -1,4 +1,4 @@
-import type { DefineConfig } from '../typing';
+import type { DefineConfig, VbenViteConfig } from '../typing';
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,7 +12,7 @@ export * from './library';
 function defineConfig(
   userConfigPromise?: DefineConfig,
   type: 'application' | 'auto' | 'library' = 'auto',
-) {
+): VbenViteConfig {
   let projectType = type;
 
   // 根据包是否存在 index.html,自动判断类型
