@@ -69,7 +69,7 @@ const moving = ref<boolean>(false);
 /**
  * 计算图片的适配尺寸，保证完整显示且不超过最大宽高限制
  */
-const calculateImageFitSize = (): void => {
+const calculateImageFitSize = () => {
   if (!bgImageRef.value) return;
 
   // 获取图片原始尺寸
@@ -136,7 +136,7 @@ const parseAndValidateAspectRatio = (): null | number => {
  * 设置裁剪区域尺寸
  * @param {Dimension} dimension - [top, right, bottom, left]
  */
-const setDimension = (dimension: Dimension): void => {
+const setDimension = (dimension: Dimension) => {
   currentDimension.value = [...dimension];
   if (maskViewRef.value) {
     maskViewRef.value.style.clipPath = `inset(${dimension[0]}px ${dimension[1]}px ${dimension[2]}px ${dimension[3]}px)`;
@@ -146,7 +146,7 @@ const setDimension = (dimension: Dimension): void => {
 /**
  * 调整裁剪区域至指定比例
  */
-const adjustCropperToAspectRatio = (): void => {
+const adjustCropperToAspectRatio = () => {
   if (!cropperRef.value) return;
 
   // 验证并解析比例
@@ -188,7 +188,7 @@ const adjustCropperToAspectRatio = (): void => {
 /**
  * 创建裁剪器
  */
-const createCropper = (): void => {
+const createCropper = () => {
   // 计算图片适配尺寸
   calculateImageFitSize();
 
@@ -201,7 +201,7 @@ const createCropper = (): void => {
  * @param {MouseEvent} e - 鼠标事件
  * @param {DragAction} action - 操作类型
  */
-const handleMouseDown = (e: MouseEvent, action: DragAction): void => {
+const handleMouseDown = (e: MouseEvent, action: DragAction) => {
   dragging.value = true;
   startPoint.value = [e.clientX, e.clientY];
   startDimension.value = [...currentDimension.value];
@@ -263,7 +263,7 @@ const handleMouseDown = (e: MouseEvent, action: DragAction): void => {
  * 处理鼠标移动事件
  * @param {MouseEvent} e - 鼠标事件
  */
-const handleMouseMove = (e: MouseEvent): void => {
+const handleMouseMove = (e: MouseEvent) => {
   if (!dragging.value || !cropperRef.value) return;
 
   const { clientX, clientY } = e;
@@ -272,232 +272,241 @@ const handleMouseMove = (e: MouseEvent): void => {
 
   // 处理移动裁剪框
   if (moving.value) {
-    const newDimension = [...startDimension.value] as Dimension;
-
-    // 计算临时偏移后的位置
-    const tempTop = startDimension.value[0] + diffY;
-    const tempLeft = startDimension.value[3] + diffX;
-
-    // 计算裁剪框的固定尺寸
-    const cropWidth =
-      containerWidth.value - startDimension.value[3] - startDimension.value[1];
-    const cropHeight =
-      containerHeight.value - startDimension.value[0] - startDimension.value[2];
-
-    // 边界限制：确保裁剪框完全在容器内，且尺寸不变
-    // 顶部边界：top >= 0，且 bottom = 容器高度 - top - 裁剪高度 >= 0
-    newDimension[0] = Math.max(
-      0,
-      Math.min(tempTop, containerHeight.value - cropHeight),
-    );
-    // 底部边界：bottom = 容器高度 - top - 裁剪高度（由top推导，无需额外计算）
-    newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
-    // 左侧边界：left >= 0，且 right = 容器宽度 - left - 裁剪宽度 >= 0
-    newDimension[3] = Math.max(
-      0,
-      Math.min(tempLeft, containerWidth.value - cropWidth),
-    );
-    // 右侧边界：right = 容器宽度 - left - 裁剪宽度（由left推导，无需额外计算）
-    newDimension[1] = containerWidth.value - newDimension[3] - cropWidth;
-
-    // 强制保证尺寸不变（兜底）
-    const finalWidth = containerWidth.value - newDimension[3] - newDimension[1];
-    const finalHeight =
-      containerHeight.value - newDimension[0] - newDimension[2];
-
-    if (finalWidth !== cropWidth) {
-      newDimension[1] = containerWidth.value - newDimension[3] - cropWidth;
-    }
-
-    if (finalHeight !== cropHeight) {
-      newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
-    }
-
-    // 更新裁剪区域（仅位置变化，尺寸/比例完全不变）
-    setDimension(newDimension);
+    handleMoveCropBox(diffX, diffY);
     return;
   }
 
+  // 无有效比例
+  if (validAspectRatio.value === null) {
+    handleFreeAspectResize(diffX, diffY);
+  } else {
+    handleFixedAspectResize(diffX, diffY);
+  }
+};
+
+const handleMoveCropBox = (diffX: number, diffY: number) => {
+  const newDimension = [...startDimension.value] as Dimension;
+
+  // 计算临时偏移后的位置
+  const tempTop = startDimension.value[0] + diffY;
+  const tempLeft = startDimension.value[3] + diffX;
+
+  // 计算裁剪框的固定尺寸
+  const cropWidth =
+    containerWidth.value - startDimension.value[3] - startDimension.value[1];
+  const cropHeight =
+    containerHeight.value - startDimension.value[0] - startDimension.value[2];
+
+  // 边界限制：确保裁剪框完全在容器内，且尺寸不变
+  // 顶部边界：top >= 0，且 bottom = 容器高度 - top - 裁剪高度 >= 0
+  newDimension[0] = Math.max(
+    0,
+    Math.min(tempTop, containerHeight.value - cropHeight),
+  );
+  // 底部边界：bottom = 容器高度 - top - 裁剪高度（由top推导，无需额外计算）
+  newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
+  // 左侧边界：left >= 0，且 right = 容器宽度 - left - 裁剪宽度 >= 0
+  newDimension[3] = Math.max(
+    0,
+    Math.min(tempLeft, containerWidth.value - cropWidth),
+  );
+  // 右侧边界：right = 容器宽度 - left - 裁剪宽度（由left推导，无需额外计算）
+  newDimension[1] = containerWidth.value - newDimension[3] - cropWidth;
+
+  // 强制保证尺寸不变（兜底）
+  const finalWidth = containerWidth.value - newDimension[3] - newDimension[1];
+  const finalHeight = containerHeight.value - newDimension[0] - newDimension[2];
+
+  if (finalWidth !== cropWidth) {
+    newDimension[1] = containerWidth.value - newDimension[3] - cropWidth;
+  }
+
+  if (finalHeight !== cropHeight) {
+    newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
+  }
+
+  // 更新裁剪区域（仅位置变化，尺寸/比例完全不变）
+  setDimension(newDimension);
+};
+
+const handleFreeAspectResize = (diffX: number, diffY: number) => {
   const cropperWidth = containerWidth.value;
   const cropperHeight = containerHeight.value;
+  const currentDimensionNew: Dimension = [0, 0, 0, 0];
 
-  // 无有效比例 - 自由调整裁剪区域
-  if (validAspectRatio.value === null) {
-    const currentDimensionNew: Dimension = [0, 0, 0, 0];
+  // 计算新的尺寸，确保不小于最小值
+  currentDimensionNew[0] = Math.min(
+    Math.max(startDimension.value[0] + direction.value[0] * diffY, 0),
+    cropperHeight - CROPPER_CONSTANTS.MIN_HEIGHT,
+  );
 
-    // 计算新的尺寸，确保不小于最小值
-    currentDimensionNew[0] = Math.min(
-      Math.max(startDimension.value[0] + direction.value[0] * diffY, 0),
-      cropperHeight - CROPPER_CONSTANTS.MIN_HEIGHT,
-    );
+  currentDimensionNew[1] = Math.min(
+    Math.max(startDimension.value[1] + direction.value[1] * diffX, 0),
+    cropperWidth - CROPPER_CONSTANTS.MIN_WIDTH,
+  );
 
-    currentDimensionNew[1] = Math.min(
-      Math.max(startDimension.value[1] + direction.value[1] * diffX, 0),
-      cropperWidth - CROPPER_CONSTANTS.MIN_WIDTH,
-    );
+  currentDimensionNew[2] = Math.min(
+    Math.max(startDimension.value[2] + direction.value[2] * diffY, 0),
+    cropperHeight - CROPPER_CONSTANTS.MIN_HEIGHT,
+  );
 
-    currentDimensionNew[2] = Math.min(
-      Math.max(startDimension.value[2] + direction.value[2] * diffY, 0),
-      cropperHeight - CROPPER_CONSTANTS.MIN_HEIGHT,
-    );
+  currentDimensionNew[3] = Math.min(
+    Math.max(startDimension.value[3] + direction.value[3] * diffX, 0),
+    cropperWidth - CROPPER_CONSTANTS.MIN_WIDTH,
+  );
 
-    currentDimensionNew[3] = Math.min(
-      Math.max(startDimension.value[3] + direction.value[3] * diffX, 0),
-      cropperWidth - CROPPER_CONSTANTS.MIN_WIDTH,
-    );
+  // 确保裁剪区域宽度和高度不小于最小值
+  const newWidth =
+    cropperWidth - currentDimensionNew[3] - currentDimensionNew[1];
+  const newHeight =
+    cropperHeight - currentDimensionNew[0] - currentDimensionNew[2];
 
-    // 确保裁剪区域宽度和高度不小于最小值
-    const newWidth =
-      cropperWidth - currentDimensionNew[3] - currentDimensionNew[1];
-    const newHeight =
-      cropperHeight - currentDimensionNew[0] - currentDimensionNew[2];
-
-    if (newWidth < CROPPER_CONSTANTS.MIN_WIDTH) {
-      if (direction.value[3] === 1) {
-        currentDimensionNew[3] =
-          cropperWidth - currentDimensionNew[1] - CROPPER_CONSTANTS.MIN_WIDTH;
-      } else {
-        currentDimensionNew[1] =
-          cropperWidth - currentDimensionNew[3] - CROPPER_CONSTANTS.MIN_WIDTH;
-      }
-    }
-
-    if (newHeight < CROPPER_CONSTANTS.MIN_HEIGHT) {
-      if (direction.value[0] === 1) {
-        currentDimensionNew[0] =
-          cropperHeight - currentDimensionNew[2] - CROPPER_CONSTANTS.MIN_HEIGHT;
-      } else {
-        currentDimensionNew[2] =
-          cropperHeight - currentDimensionNew[0] - CROPPER_CONSTANTS.MIN_HEIGHT;
-      }
-    }
-
-    setDimension(currentDimensionNew);
-  } else {
-    // 有有效比例 - 固定比例裁剪
-    const ratio = validAspectRatio.value;
-    const currentWidth =
-      cropperWidth - startDimension.value[3] - startDimension.value[1];
-    const currentHeight =
-      cropperHeight - startDimension.value[0] - startDimension.value[2];
-
-    let newHeight: number, newWidth: number;
-    let widthChange = 0;
-    let heightChange = 0;
-
-    // 计算宽度/高度变化量
-    if (direction.value[3] === 1) widthChange = -diffX;
-    else if (direction.value[1] === -1) widthChange = diffX;
-
-    if (direction.value[0] === 1) heightChange = -diffY;
-    else if (direction.value[2] === -1) heightChange = diffY;
-
-    const isCornerDrag =
-      (direction.value[3] === 1 || direction.value[1] === -1) &&
-      (direction.value[0] === 1 || direction.value[2] === -1);
-
-    // 计算新尺寸
-    if (isCornerDrag) {
-      if (Math.abs(widthChange) > Math.abs(heightChange)) {
-        newWidth = Math.max(
-          CROPPER_CONSTANTS.MIN_WIDTH,
-          currentWidth + widthChange,
-        );
-        newHeight = newWidth / ratio;
-      } else {
-        newHeight = Math.max(
-          CROPPER_CONSTANTS.MIN_HEIGHT,
-          currentHeight + heightChange,
-        );
-        newWidth = newHeight * ratio;
-      }
+  if (newWidth < CROPPER_CONSTANTS.MIN_WIDTH) {
+    if (direction.value[3] === 1) {
+      currentDimensionNew[3] =
+        cropperWidth - currentDimensionNew[1] - CROPPER_CONSTANTS.MIN_WIDTH;
     } else {
-      if (direction.value[3] === 1 || direction.value[1] === -1) {
-        newWidth = Math.max(
-          CROPPER_CONSTANTS.MIN_WIDTH,
-          currentWidth + widthChange,
-        );
-        newHeight = newWidth / ratio;
-      } else {
-        newHeight = Math.max(
-          CROPPER_CONSTANTS.MIN_HEIGHT,
-          currentHeight + heightChange,
-        );
-        newWidth = newHeight * ratio;
-      }
+      currentDimensionNew[1] =
+        cropperWidth - currentDimensionNew[3] - CROPPER_CONSTANTS.MIN_WIDTH;
     }
+  }
 
-    // 限制最大尺寸
-    const maxWidth = cropperWidth;
-    const maxHeight = cropperHeight;
+  if (newHeight < CROPPER_CONSTANTS.MIN_HEIGHT) {
+    if (direction.value[0] === 1) {
+      currentDimensionNew[0] =
+        cropperHeight - currentDimensionNew[2] - CROPPER_CONSTANTS.MIN_HEIGHT;
+    } else {
+      currentDimensionNew[2] =
+        cropperHeight - currentDimensionNew[0] - CROPPER_CONSTANTS.MIN_HEIGHT;
+    }
+  }
 
-    if (newWidth > maxWidth) {
-      newWidth = maxWidth;
+  setDimension(currentDimensionNew);
+};
+
+const handleFixedAspectResize = (diffX: number, diffY: number) => {
+  if (validAspectRatio.value === null) return;
+  const cropperWidth = containerWidth.value;
+  const cropperHeight = containerHeight.value;
+  // 有有效比例 - 固定比例裁剪
+  const ratio = validAspectRatio.value;
+  const currentWidth =
+    cropperWidth - startDimension.value[3] - startDimension.value[1];
+  const currentHeight =
+    cropperHeight - startDimension.value[0] - startDimension.value[2];
+
+  let newHeight: number, newWidth: number;
+  let widthChange = 0;
+  let heightChange = 0;
+
+  // 计算宽度/高度变化量
+  if (direction.value[3] === 1) widthChange = -diffX;
+  else if (direction.value[1] === -1) widthChange = diffX;
+
+  if (direction.value[0] === 1) heightChange = -diffY;
+  else if (direction.value[2] === -1) heightChange = diffY;
+
+  const isCornerDrag =
+    (direction.value[3] === 1 || direction.value[1] === -1) &&
+    (direction.value[0] === 1 || direction.value[2] === -1);
+
+  // 计算新尺寸
+  if (isCornerDrag) {
+    if (Math.abs(widthChange) > Math.abs(heightChange)) {
+      newWidth = Math.max(
+        CROPPER_CONSTANTS.MIN_WIDTH,
+        currentWidth + widthChange,
+      );
       newHeight = newWidth / ratio;
-    }
-
-    if (newHeight > maxHeight) {
-      newHeight = maxHeight;
+    } else {
+      newHeight = Math.max(
+        CROPPER_CONSTANTS.MIN_HEIGHT,
+        currentHeight + heightChange,
+      );
       newWidth = newHeight * ratio;
     }
-
-    // 计算新的位置
-    let newLeft = startDimension.value[3];
-    let newTop = startDimension.value[0];
-    let newRight = startDimension.value[1];
-    let newBottom = startDimension.value[2];
-
-    // 根据拖拽方向调整位置
-    if (direction.value[3] === 1) {
-      newLeft = cropperWidth - newWidth - startDimension.value[1];
-    } else if (direction.value[1] === -1) {
-      newRight = cropperWidth - newWidth - startDimension.value[3];
-    } else if (!isCornerDrag) {
-      // 居中调整
-      const currentHorizontalCenter =
-        startDimension.value[3] + currentWidth / 2;
-      newLeft = Math.max(
-        0,
-        Math.min(
-          cropperWidth - newWidth,
-          currentHorizontalCenter - newWidth / 2,
-        ),
+  } else {
+    if (direction.value[3] === 1 || direction.value[1] === -1) {
+      newWidth = Math.max(
+        CROPPER_CONSTANTS.MIN_WIDTH,
+        currentWidth + widthChange,
       );
-      newRight = cropperWidth - newWidth - newLeft;
-    }
-
-    if (direction.value[0] === 1) {
-      newTop = cropperHeight - newHeight - startDimension.value[2];
-    } else if (direction.value[2] === -1) {
-      newBottom = cropperHeight - newHeight - startDimension.value[0];
-    } else if (!isCornerDrag) {
-      // 居中调整
-      const currentVerticalCenter = startDimension.value[0] + currentHeight / 2;
-      newTop = Math.max(
-        0,
-        Math.min(
-          cropperHeight - newHeight,
-          currentVerticalCenter - newHeight / 2,
-        ),
+      newHeight = newWidth / ratio;
+    } else {
+      newHeight = Math.max(
+        CROPPER_CONSTANTS.MIN_HEIGHT,
+        currentHeight + heightChange,
       );
-      newBottom = cropperHeight - newHeight - newTop;
+      newWidth = newHeight * ratio;
     }
-
-    // 边界检查
-    newLeft = Math.max(0, newLeft);
-    newTop = Math.max(0, newTop);
-    newRight = Math.max(0, newRight);
-    newBottom = Math.max(0, newBottom);
-
-    const newDimension: Dimension = [newTop, newRight, newBottom, newLeft];
-    setDimension(newDimension);
   }
+
+  // 限制最大尺寸
+  const maxWidth = cropperWidth;
+  const maxHeight = cropperHeight;
+
+  if (newWidth > maxWidth) {
+    newWidth = maxWidth;
+    newHeight = newWidth / ratio;
+  }
+
+  if (newHeight > maxHeight) {
+    newHeight = maxHeight;
+    newWidth = newHeight * ratio;
+  }
+
+  // 计算新的位置
+  let newLeft = startDimension.value[3];
+  let newTop = startDimension.value[0];
+  let newRight = startDimension.value[1];
+  let newBottom = startDimension.value[2];
+
+  // 根据拖拽方向调整位置
+  if (direction.value[3] === 1) {
+    newLeft = cropperWidth - newWidth - startDimension.value[1];
+  } else if (direction.value[1] === -1) {
+    newRight = cropperWidth - newWidth - startDimension.value[3];
+  } else if (!isCornerDrag) {
+    // 居中调整
+    const currentHorizontalCenter = startDimension.value[3] + currentWidth / 2;
+    newLeft = Math.max(
+      0,
+      Math.min(cropperWidth - newWidth, currentHorizontalCenter - newWidth / 2),
+    );
+    newRight = cropperWidth - newWidth - newLeft;
+  }
+
+  if (direction.value[0] === 1) {
+    newTop = cropperHeight - newHeight - startDimension.value[2];
+  } else if (direction.value[2] === -1) {
+    newBottom = cropperHeight - newHeight - startDimension.value[0];
+  } else if (!isCornerDrag) {
+    // 居中调整
+    const currentVerticalCenter = startDimension.value[0] + currentHeight / 2;
+    newTop = Math.max(
+      0,
+      Math.min(
+        cropperHeight - newHeight,
+        currentVerticalCenter - newHeight / 2,
+      ),
+    );
+    newBottom = cropperHeight - newHeight - newTop;
+  }
+
+  // 边界检查
+  newLeft = Math.max(0, newLeft);
+  newTop = Math.max(0, newTop);
+  newRight = Math.max(0, newRight);
+  newBottom = Math.max(0, newBottom);
+
+  const newDimension: Dimension = [newTop, newRight, newBottom, newLeft];
+  setDimension(newDimension);
 };
 
 /**
  * 处理鼠标抬起事件
  */
-const handleMouseUp = (): void => {
+const handleMouseUp = () => {
   dragging.value = false;
   moving.value = false;
   direction.value = [0, 0, 0, 0];
@@ -506,7 +515,7 @@ const handleMouseUp = (): void => {
 /**
  * 处理图片加载完成
  */
-const handleImageLoad = (): void => {
+const handleImageLoad = () => {
   createCropper();
 };
 
