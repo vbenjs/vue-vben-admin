@@ -38,7 +38,7 @@ function notify(type: NotificationType) {
     description="支持多语言，主题功能集成切换等"
     title="TDesign Vue组件使用演示"
   >
-    <Card class="mb-5" title="按钮">
+    <Card class="!mb-5" title="按钮">
       <Space>
         <Button>Default</Button>
         <Button theme="primary"> Primary </Button>
@@ -46,7 +46,7 @@ function notify(type: NotificationType) {
         <Button theme="danger"> Error </Button>
       </Space>
     </Card>
-    <Card class="mb-5" title="Message">
+    <Card class="!mb-5" title="Message">
       <Space>
         <Button @click="info"> 信息 </Button>
         <Button theme="danger" @click="error"> 错误 </Button>
@@ -55,7 +55,7 @@ function notify(type: NotificationType) {
       </Space>
     </Card>
 
-    <Card class="mb-5" title="Notification">
+    <Card class="!mb-5" title="Notification">
       <Space>
         <Button @click="notify('info')"> 信息 </Button>
         <Button theme="danger" @click="notify('error')"> 错误 </Button>
