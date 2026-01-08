@@ -47,6 +47,27 @@ interface MenuData {
     title: string;
   };
 }
+interface UserInfo {
+  id: number;
+  username: string;
+  avatar?: string;
+  createTime?: string;
+  roleName?: string;
+}
+interface RoleInfo {
+  id: number;
+  name: string;
+  roleCode: string;
+  remark?: string;
+  createTime?: string;
+  menuIdList?: number[];
+}
+interface MenuItem {
+  id: number;
+  name: string;
+  children?: MenuItem[];
+  type?: number;
+}
 
 // 获取菜单列表
 export async function getAllRoleApi(
@@ -66,11 +87,6 @@ export async function getRolePage(params: any) {
 export async function getRoleInfoApi(id: number): Promise<Result<SysRoleVO>> {
   return requestClient.get<Result<SysRoleVO>>(`/sys/role/${id}`);
 }
-
-// 获取角色详情
-// export async function getRoleInfoApi(): Promise<Result<SysRoleVO>> {
-//   return requestClient.get<Result<SysRoleVO>>('/sys/role');
-// }
 
 // 添加角色
 export async function addRoleApi(data: SysRoleVO): Promise<Result<string>> {
@@ -108,13 +124,23 @@ export async function updateRoleApi(data: SysRoleVO): Promise<Result<string>> {
 }
 
 // 删除角色
-// export async function deleteRoleApi(id: number): Promise<Result<string>> {
-//   return requestClient.delete<Result<string>>(`/sys/role/${id}`);
-// }
-
-/**
- * 删除用户
- */
 export async function deleteRoleApi(integers: number[]) {
   return requestClient.delete('/sys/role', { data: integers });
+}
+
+// 获取角色已有用户ID列表
+export async function getRoleUserIdsApi(
+  roleId: number,
+): Promise<Result<number[]>> {
+  return requestClient.get<Result<number[]>>(`/sys/role/${roleId}/users`);
+}
+
+// 保存角色用户分配
+export async function saveRoleUsersApi(
+  roleId: number,
+  userIds: number[],
+): Promise<Result<string>> {
+  return requestClient.post<Result<string>>(`/sys/role/${roleId}/users`, {
+    userIds,
+  });
 }

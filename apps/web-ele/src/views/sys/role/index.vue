@@ -4,6 +4,7 @@ import { nextTick, onMounted, reactive, ref } from 'vue';
 import {
   Delete,
   Edit,
+  Key,
   Plus,
   Refresh,
   Search,
@@ -16,9 +17,15 @@ import {
   deleteRoleApi,
   getMenuList,
   getRoleInfoApi,
+  getRoleMenuIdsApi,
   getRolePage,
+  getRoleUserIdsApi,
+  saveRoleMenusApi,
+  saveRoleUsersApi,
   updateRoleApi,
 } from '#/api/core';
+import { getUserPageApi } from '#/api/core/user';
+
 
 // let mockRoleData = [
 //   {
@@ -80,19 +87,14 @@ const dialog = reactive({
 
 //  菜单权限数据
 const menuTreeData = ref<any[]>([]);
-const assignMenuTreeRef = ref();
-
-// const Props = ref({
-//   label: 'name',
-//   children: 'children',
-// });
+const assignMenuTreeRef = ref(); // 用于编辑角色对话框
+const assignMenuTreeRef2 = ref(); // 用于分配权限对话框
+const userTableRef = ref(); // 用于分配用户对话框
 
 const Props = ref({
   label: 'name',
   children: 'children',
-  // type为0是目录（非叶子节点），type为1是菜单项（可能是叶子节点）
   isLeaf: (data: any) => {
-    // type为1是叶子节点，或者没有children
     return data.type === 1 || !data.children || data.children.length === 0;
   },
 });
@@ -373,6 +375,21 @@ const userDialog = reactive({
   roleName: '',
 });
 
+// 用户列表数据
+const userList = ref([]);
+const userTotal = ref(0);
+const userLoading = ref(false);
+
+// 用户搜索参数
+const userParams = reactive({
+  page: 1,
+  limit: 10,
+  username: '',
+});
+
+// 已选中的用户ID列表
+const selectedUserIds = ref<number[]>([]);
+
 // 分配菜单对话框
 const menuDialog = reactive({
   visible: false,
@@ -384,6 +401,17 @@ const menuDialog = reactive({
 // 关闭对话框函数
 const closeUserDialog = () => {
   userDialog.visible = false;
+  userDialog.roleId = 0;
+  userDialog.roleName = '';
+  selectedUserIds.value = [];
+  userList.value = [];
+  userTotal.value = 0;
+  // 清空表格选中状态
+  nextTick(() => {
+    if (userTableRef.value) {
+      userTableRef.value.clearSelection();
+    }
+  });
 };
 
 // 搜索
@@ -413,49 +441,204 @@ const handleCurrentChange = (page: number) => {
 };
 
 // 分配用户-打开分配用户对话框
-const assignUsers = (row: any) => {
+const assignUsers = async (row: any) => {
   userDialog.roleId = row.id;
   userDialog.roleName = row.name;
   userDialog.visible = true;
+
+  // 重置搜索参数
+  userParams.page = 1;
+  userParams.username = '';
+
+  // 清空之前的选中状态
+  nextTick(() => {
+    if (userTableRef.value) {
+      userTableRef.value.clearSelection();
+    }
+  });
+
+  // 获取用户列表
+  await getUserList();
+
+  // 获取角色已有用户
+  try {
+    const res = await getRoleUserIdsApi(row.id);
+    const userIds = res.code === 200 || res.code === 0 ? res.data || [] : [];
+    selectedUserIds.value = userIds;
+
+    // 设置表格选中状态
+    nextTick(() => {
+      if (userTableRef.value && userIds.length > 0) {
+        userList.value.forEach((user: any) => {
+          if (userIds.includes(user.id)) {
+            userTableRef.value.toggleRowSelection(user, true);
+          }
+        });
+      }
+    });
+  } catch (error) {
+    console.error('获取角色用户失败:', error);
+    selectedUserIds.value = [];
+  }
+};
+
+// 获取用户列表
+const getUserList = async () => {
+  userLoading.value = true;
+  try {
+    const res = await getUserPageApi(userParams);
+    // userList.value = res.list || [];
+    userTotal.value = res.total || 0;
+  } catch (error) {
+    console.error('获取用户列表失败:', error);
+    userList.value = [];
+    userTotal.value = 0;
+  } finally {
+    userLoading.value = false;
+  }
+};
+
+// 用户搜索
+const handleUserSearch = () => {
+  userParams.page = 1;
+  getUserList();
+};
+
+// 用户重置
+const handleUserReset = () => {
+  userParams.username = '';
+  userParams.page = 1;
+  getUserList();
+};
+
+// 用户分页
+const handleUserSizeChange = (size: number) => {
+  userParams.limit = size;
+  userParams.page = 1;
+  getUserList();
+};
+
+const handleUserCurrentChange = (page: number) => {
+  userParams.page = page;
+  getUserList();
+};
+
+// 处理表格选择变化
+const handleUserSelectionChange = (selection: any[]) => {
+  selectedUserIds.value = selection.map((item) => item.id);
+};
+
+// 保存角色用户分配
+const saveRoleUsers = async () => {
+  if (!userDialog.roleId) {
+    ElMessage.warning('请选择角色');
+    return;
+  }
+
+  try {
+    const res = await saveRoleUsersApi(
+      userDialog.roleId,
+      selectedUserIds.value,
+    );
+    if (res.code === 200 || res.code === 0) {
+      ElMessage.success('用户分配成功');
+      closeUserDialog();
+      getRoleList(); // 刷新角色列表
+    } else {
+      ElMessage.error(res.msg || '用户分配失败');
+    }
+  } catch (error: any) {
+    console.error('保存角色用户失败:', error);
+    ElMessage.error(error.message || '用户分配失败');
+  }
 };
 
 // 分配菜单权限-打开分配菜单对话框
-// const assignMenus = async (row: any) => {
-//   menuDialog.roleId = row.id;
-//   menuDialog.roleName = row.name;
-//   menuDialog.visible = true;
-//   try {
-//     const res = await getRoleMenuIdsApi(row.id);
-//     menuDialog.menuIds =
-//       res.code === 200 || res.code === 0 ? res.data || [] : [];
-//   } catch (error) {
-//     console.error('获取角色菜单失败:', error);
-//     menuDialog.menuIds = [];
-//   }
-
-//   menuDialog.visible = true;
-// };
+const assignMenus = async (row: any) => {
+  menuDialog.roleId = row.id;
+  menuDialog.roleName = row.name;
+  try {
+    const res = await getRoleMenuIdsApi(row.id);
+    menuDialog.menuIds =
+      res.code === 200 || res.code === 0 ? res.data || [] : [];
+    // 设置树组件选中状态
+    nextTick(() => {
+      if (assignMenuTreeRef2.value) {
+        assignMenuTreeRef2.value.setCheckedKeys([]);
+        if (menuDialog.menuIds.length > 0) {
+          assignMenuTreeRef2.value.setCheckedKeys(menuDialog.menuIds);
+          console.warn('已设置分配权限树组件选中:', menuDialog.menuIds);
+        }
+      }
+    });
+  } catch (error) {
+    console.error('获取角色菜单失败:', error);
+    menuDialog.menuIds = [];
+  }
+  menuDialog.visible = true;
+};
 
 // 保存菜单权限
-// const saveRoleMenus = async () => {
-//   if (!menuDialog.roleId) {
-//     return;
-//   }
+const saveRoleMenus = async () => {
+  if (!menuDialog.roleId) {
+    ElMessage.warning('请选择角色');
+    return;
+  }
 
-//   try {
-//     const res = await saveRoleMenusApi(menuDialog.roleId, menuDialog.menuIds);
-//     if (res.code === 200 || res.code === 0) {
-//       closeMenuDialog();
-//       getRoleList(); // 刷新列表
-//     }
-//   } catch (error) {
-//     console.error('保存角色菜单失败:', error);
-//   }
-// };
+  // 从树组件获取选中的菜单
+  let finalMenuIds: number[] = [];
+  if (assignMenuTreeRef2.value) {
+    try {
+      // 获取所有选中的节点
+      const checkedKeys = assignMenuTreeRef2.value.getCheckedKeys();
+      const halfCheckedKeys = assignMenuTreeRef2.value.getHalfCheckedKeys();
+      console.warn('获取到的菜单权限:', {
+        checkedKeys,
+        halfCheckedKeys,
+        总数: checkedKeys.length + halfCheckedKeys.length,
+      });
+      // 合并选中项
+      finalMenuIds = [...checkedKeys, ...halfCheckedKeys];
+    } catch (error) {
+      console.error('获取菜单选中状态失败:', error);
+      finalMenuIds = menuDialog.menuIds || [];
+    }
+  } else {
+    console.warn('分配权限树组件未找到');
+    finalMenuIds = menuDialog.menuIds || [];
+  }
+
+  if (finalMenuIds.length === 0) {
+    ElMessage.warning('请至少选择一个菜单权限');
+    return;
+  }
+
+  try {
+    const res = await saveRoleMenusApi(menuDialog.roleId, finalMenuIds);
+    if (res.code === 200 || res.code === 0) {
+      ElMessage.success('权限分配成功');
+      closeMenuDialog();
+      getRoleList(); // 刷新列表
+    } else {
+      ElMessage.error(res.msg || '权限分配失败');
+    }
+  } catch (error: any) {
+    console.error('保存角色菜单失败:', error);
+    ElMessage.error(error.message || '权限分配失败');
+  }
+};
 
 const closeMenuDialog = () => {
   menuDialog.visible = false;
-  menuDialog.menuIds = []; // 清空菜单ID
+  menuDialog.roleId = 0;
+  menuDialog.roleName = '';
+  menuDialog.menuIds = [];
+  // 清空树组件选中状态
+  nextTick(() => {
+    if (assignMenuTreeRef2.value) {
+      assignMenuTreeRef2.value.setCheckedKeys([]);
+    }
+  });
 };
 
 const closeDialog = () => {
@@ -527,14 +710,14 @@ const closeDialog = () => {
               :icon="User"
               @click="assignUsers(row)"
             >
-              <!-- 分配用户
+              分配用户
             </el-button>
             <el-button
               type="primary"
               link
               :icon="Key"
               @click="assignMenus(row)"
-            > -->
+            >
               分配权限
             </el-button>
             <el-button
@@ -575,16 +758,6 @@ const closeDialog = () => {
         </el-form-item>
         <!-- 菜单权限 -->
         <el-form-item label="菜单权限">
-          <!-- <el-tree
-            ref="assignMenuTreeRef"
-            :data="menuTreeData"
-            :props="Props"
-            :load="loadNode"
-            lazy
-            node-key="id"
-            show-checkbox
-            @check-change="handleAssignMenuCheck"
-          /> -->
           <el-tree
             ref="assignMenuTreeRef"
             :data="menuTreeData"
@@ -618,28 +791,87 @@ const closeDialog = () => {
       :title="`分配用户-${userDialog.roleName}`"
       width="800px"
     >
-      <div>
-        <p>这里放置角色用户分配界面</p>
-        <p>可以显示用户列表，搜索，分页等功能</p>
+      <!-- 搜索区域 -->
+      <el-form :model="userParams" inline style="margin-bottom: 16px">
+        <el-form-item label="用户名：">
+          <el-input
+            v-model="userParams.username"
+            placeholder="请输入用户名"
+            style="width: 200px"
+            @keyup.enter="handleUserSearch"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" :icon="Search" @click="handleUserSearch">
+            搜索
+          </el-button>
+          <el-button :icon="Refresh" @click="handleUserReset"> 重置 </el-button>
+        </el-form-item>
+      </el-form>
+
+      <!-- 用户列表表格 -->
+      <el-table
+        ref="userTableRef"
+        :data="userList"
+        v-loading="userLoading"
+        stripe
+        @selection-change="handleUserSelectionChange"
+        :row-key="(row: any) => row.id"
+      >
+        <el-table-column
+          type="selection"
+          width="55"
+          :reserve-selection="true"
+        />
+        <el-table-column type="index" label="序号" width="60" />
+        <el-table-column label="用户名" prop="username" width="150" />
+        <el-table-column label="头像" prop="avatar" width="80">
+          <template #default="{ row }">
+            <el-avatar :src="row.avatar" :icon="User" />
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" prop="createTime" width="180" />
+        <el-table-column label="角色" prop="roleName" show-overflow-tooltip />
+      </el-table>
+
+      <!-- 分页区域 -->
+      <div class="pagination-container">
+        <el-pagination
+          v-model:current-page="userParams.page"
+          v-model:page-size="userParams.limit"
+          :total="userTotal"
+          :page-sizes="[10, 20, 50, 100]"
+          :background="true"
+          layout="total,sizes,prev,pager,next,jumper"
+          @size-change="handleUserSizeChange"
+          @current-change="handleUserCurrentChange"
+        />
       </div>
+
       <template #footer>
         <el-button @click="closeUserDialog()">取消</el-button>
-        <el-button type="primary">保存</el-button>
+        <el-button type="primary" @click="saveRoleUsers">保存</el-button>
       </template>
     </el-dialog>
-
     <el-dialog
       v-model="menuDialog.visible"
       :title="`分配权限-${menuDialog.roleName}`"
       width="600px"
     >
-      <div>
-        <p>这里放置菜单分配界面</p>
-        <p>可以显示菜单树形结构，勾选权限</p>
-      </div>
+      <el-tree
+        ref="assignMenuTreeRef2"
+        :data="menuTreeData"
+        :props="Props"
+        :load="loadNode"
+        lazy
+        node-key="id"
+        show-checkbox
+        :check-strictly="false"
+        style="max-height: 400px; overflow: auto"
+      />
       <template #footer>
         <el-button @click="closeMenuDialog">取消</el-button>
-        <el-button type="primary">保存</el-button>
+        <el-button type="primary" @click="saveRoleMenus">保存</el-button>
       </template>
     </el-dialog>
   </div>
