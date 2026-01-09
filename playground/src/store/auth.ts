@@ -78,11 +78,17 @@ export const useAuthStore = defineStore('auth', () => {
     };
   }
 
+  let isLoggingOut = false; // 正在 logout 标识, 防止 /logout 死循环.
+
   async function logout(redirect: boolean = true) {
+    if (isLoggingOut) return;
+    isLoggingOut = true;
     try {
       await logoutApi();
     } catch {
       // 不做任何处理
+    } finally {
+      isLoggingOut = false;
     }
 
     resetAllStores();
