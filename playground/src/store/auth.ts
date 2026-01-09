@@ -86,13 +86,13 @@ export const useAuthStore = defineStore('auth', () => {
 
     try {
       await logoutApi();
-
-      resetAllStores();
-      accessStore.setLoginExpired(false);
     } catch {
       // 不做任何处理
     } finally {
       isLoggingOut.value = false; // 重置 标识
+
+      resetAllStores();
+      accessStore.setLoginExpired(false);
     }
 
     // 回登录页带上当前路由地址
