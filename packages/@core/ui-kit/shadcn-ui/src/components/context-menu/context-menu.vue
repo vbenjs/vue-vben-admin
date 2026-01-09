@@ -73,6 +73,7 @@ function handleClick(menu: IContextMenuItem) {
     >
       <template v-for="menu in menusView" :key="menu.key">
         <ContextMenuItem
+          v-if="!menu.hidden"
           :class="itemClass"
           :disabled="menu.disabled"
           :inset="menu.inset || !menu.icon"

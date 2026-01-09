@@ -7,7 +7,9 @@
     "length": "{0}长度必须为{1}个字符",
     "alreadyExists": "{0} `{1}` 已存在",
     "startWith": "{0}必须以 {1} 开头",
-    "invalidURL": "请输入有效的链接"
+    "invalidURL": "请输入有效的链接",
+    "sizeLimit": "文件大小不能超过 {0}MB",
+    "previewWarning": "无法打开文件，没有可用的URL或预览地址"
   },
   "actionTitle": {
     "edit": "修改{0}",
@@ -24,7 +26,8 @@
   },
   "placeholder": {
     "input": "请输入",
-    "select": "请选择"
+    "select": "请选择",
+    "upload": "点击上传"
   },
   "captcha": {
     "title": "请完成安全验证",
