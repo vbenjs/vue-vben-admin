@@ -75,5 +75,8 @@
   },
   "function": {
     "contentMenu": "Content Menu"
+  },
+  "cropper": {
+    "title": "Cropper"
   }
 }
