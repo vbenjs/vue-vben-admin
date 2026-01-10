@@ -29,9 +29,8 @@ describe('useSortable', () => {
     await initializeSortable();
 
     // Import sortablejs to access the mocked create function
-    const Sortable = await import(
-      'sortablejs/modular/sortable.complete.esm.js'
-    );
+    const Sortable =
+      await import('sortablejs/modular/sortable.complete.esm.js');
 
     // Verify that Sortable.create was called with the correct parameters
     expect(Sortable.default.create).toHaveBeenCalledTimes(1);

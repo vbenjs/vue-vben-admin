@@ -3,6 +3,8 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
+/* eslint-disable vue/one-component-per-file */
+
 import type {
   UploadChangeParam,
   UploadFile,
