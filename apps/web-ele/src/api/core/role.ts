@@ -104,6 +104,7 @@ export async function getRoleMenuIdsApi(
 ): Promise<Result<number[]>> {
   return requestClient.get<Result<number[]>>(`/sys/role/${roleId}/menus`);
 }
+
 // 保存角色菜单权限
 export async function saveRoleMenusApi(
   roleId: number,
