@@ -57,7 +57,8 @@
   "crop": {
     "title": "图片裁剪",
     "confirm": "裁剪",
-    "cancel": "取消裁剪"
+    "cancel": "取消裁剪",
+    "errorTip": "裁剪错误"
   },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",

@@ -387,7 +387,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
 
 function onSubmit(values: Record<string, any>) {
   const files = toRaw(values.files) as UploadFile[];
-  const cropImage = toRaw(values.cropImage) as UploadFile[];
+  const cropImage = (toRaw(values.cropImage) ?? []) as UploadFile[];
   const doneFiles = files.filter((file) => file.status === 'done');
   const failedFiles = files.filter((file) => file.status !== 'done');
   const doneCrop = cropImage.filter((file) => file.status === 'done');

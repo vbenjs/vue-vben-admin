@@ -57,7 +57,8 @@
   "crop": {
     "title": "Image Cropping",
     "confirm": "Crop",
-    "cancel": "Cancel cropping"
+    "cancel": "Cancel cropping",
+    "errorTip": "Cropping error"
   },
   "fallback": {
     "pageNotFound": "Oops! Page Not Found",
