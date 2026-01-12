@@ -138,8 +138,14 @@ const withPreviewUpload = () => {
       'webp',
     ]);
     if (file.url) {
-      const ext = file.url?.split('.').pop()?.toLowerCase();
-      return ext ? imageExtensions.has(ext) : false;
+      try {
+        const pathname = new URL(file.url, 'http://localhost').pathname;
+        const ext = pathname.split('.').pop()?.toLowerCase();
+        return ext ? imageExtensions.has(ext) : false;
+      } catch {
+        const ext = file.url?.split('.').pop()?.toLowerCase();
+        return ext ? imageExtensions.has(ext) : false;
+      }
     }
     if (!file.type) {
       const ext = file.name?.split('.').pop()?.toLowerCase();
@@ -275,6 +281,7 @@ const withPreviewUpload = () => {
 
       // 用于追踪组件是否已卸载
       let isUnmounted = false;
+      let objectUrl: null | string = null;
 
       const open = ref<boolean>(true);
       const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
@@ -284,6 +291,9 @@ const withPreviewUpload = () => {
         // 延迟清理，确保动画完成
         setTimeout(() => {
           if (!isUnmounted && container) {
+            if (objectUrl) {
+              URL.revokeObjectURL(objectUrl);
+            }
             isUnmounted = true;
             render(null, container);
             container.remove();
@@ -295,6 +305,9 @@ const withPreviewUpload = () => {
         setup() {
           return () => {
             if (isUnmounted) return null;
+            if (!objectUrl) {
+              objectUrl = URL.createObjectURL(file);
+            }
             return h(
               Modal,
               {
@@ -315,9 +328,14 @@ const withPreviewUpload = () => {
                     closeModal();
                     return;
                   }
-                  const dataUrl = await cropper.getCropImage();
-                  resolve(dataUrl);
-                  closeModal();
+                  try {
+                    const dataUrl = await cropper.getCropImage();
+                    resolve(dataUrl);
+                  } catch {
+                    reject(new Error($t('ui.crop.errorTip')));
+                  } finally {
+                    closeModal();
+                  }
                 },
                 onCancel() {
                   resolve('');
@@ -327,7 +345,7 @@ const withPreviewUpload = () => {
               () =>
                 h(VCropper, {
                   ref: (ref: any) => (cropperRef.value = ref),
-                  img: URL.createObjectURL(file),
+                  img: objectUrl as string,
                   aspectRatio,
                 }),
             );
@@ -390,7 +408,11 @@ const withPreviewUpload = () => {
             if (!base64) {
               return reject(new Error($t('ui.crop.cancel')));
             }
-            resolve(base64ToBlob(<string>base64));
+            const blob = base64ToBlob(base64 as string);
+            if (!blob) {
+              return reject(new Error($t('ui.crop.errorTip')));
+            }
+            resolve(blob);
           });
         }
 
@@ -487,6 +509,7 @@ async function initComponentAdapter() {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
+
     ApiCascader: withDefaultPlaceholder(ApiComponent, 'select', {
       component: Cascader,
       fieldNames: { label: 'label', value: 'value', children: 'children' },

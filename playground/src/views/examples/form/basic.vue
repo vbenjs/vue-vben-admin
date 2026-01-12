@@ -412,11 +412,11 @@ function onSubmit(values: Record<string, any>) {
     });
     return;
   }
-  if (failedCrop.length === 0) {
+  if (doneCrop.length > 0 && failedCrop.length === 0) {
     message.success({
       content: `${$t('examples.form.upload-urls')}: ${msgCrop}`,
     });
-  } else {
+  } else if (failedCrop.length > 0) {
     message.error({
       content: `${$t('examples.form.upload-error')}: ${msgCrop}`,
     });

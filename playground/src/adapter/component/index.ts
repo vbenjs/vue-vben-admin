@@ -337,9 +337,14 @@ const withPreviewUpload = () => {
                     closeModal();
                     return;
                   }
-                  const dataUrl = await cropper.getCropImage();
-                  resolve(dataUrl);
-                  closeModal();
+                  try {
+                    const dataUrl = await cropper.getCropImage();
+                    resolve(dataUrl);
+                  } catch {
+                    reject(new Error($t('ui.crop.errorTip')));
+                  } finally {
+                    closeModal();
+                  }
                 },
                 onCancel() {
                   resolve('');
