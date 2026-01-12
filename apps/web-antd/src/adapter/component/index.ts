@@ -288,6 +288,7 @@ const withPreviewUpload = () => {
       };
 
       const handleChange = async (event: UploadChangeParam) => {
+        attrs.handleChange?.(event);
         fileList.value = event.fileList.filter(
           (file) => file.status !== 'removed',
         );
