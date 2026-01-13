@@ -287,11 +287,16 @@ const withPreviewUpload = () => {
         return attrs.beforeUpload?.(file) ?? true;
       };
 
-      const handleChange = async (event: UploadChangeParam) => {
-        // 行内写法 handleChange: (event) => {}
-        attrs.handleChange?.(event);
-        // template写法 @handle-change="(event) => {}"
-        attrs.onHandleChange?.(event);
+      const handleChange = (event: UploadChangeParam) => {
+        try {
+          // 行内写法 handleChange: (event) => {}
+          attrs.handleChange?.(event);
+          // template写法 @handle-change="(event) => {}"
+          attrs.onHandleChange?.(event);
+        } catch (error) {
+          // Avoid breaking internal v-model sync on user handler errors
+          console.error(error);
+        }
         fileList.value = event.fileList.filter(
           (file) => file.status !== 'removed',
         );
