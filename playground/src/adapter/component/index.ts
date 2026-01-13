@@ -297,7 +297,10 @@ const withPreviewUpload = () => {
       };
 
       const handleChange = async (event: UploadChangeParam) => {
+        // 行内写法 handleChange: (event) => {}
         attrs.handleChange?.(event);
+        // template写法 @handle-change="(event) => {}"
+        attrs.onHandleChange?.(event);
         fileList.value = event.fileList.filter(
           (file) => file.status !== 'removed',
         );
