@@ -348,6 +348,15 @@ const [BaseForm, baseFormApi] = useVbenForm({
         showUploadList: true,
         // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
         listType: 'picture-card',
+        // onChange事件已被重写，如需自定义请在此基础上扩展
+        handleChange: ({ file }: { file: UploadFile }) => {
+          const { name, status } = file;
+          if (status === 'done') {
+            message.success(`${name} ${$t('examples.form.upload-success')}`);
+          } else if (status === 'error') {
+            message.error(`${name} ${$t('examples.form.upload-fail')}`);
+          }
+        },
       },
       fieldName: 'files',
       label: $t('examples.form.file'),
