@@ -54,6 +54,12 @@
     "copy": "Copy",
     "copied": "Copied"
   },
+  "crop": {
+    "title": "Image Cropping",
+    "confirm": "Crop",
+    "cancel": "Cancel cropping",
+    "errorTip": "Cropping error"
+  },
   "fallback": {
     "pageNotFound": "Oops! Page Not Found",
     "pageNotFoundDesc": "Sorry, we couldn't find the page you were looking for.",
