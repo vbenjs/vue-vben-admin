@@ -65,36 +65,48 @@ export function useExpandable(props: FormRenderProps) {
     // }
 
     const formItems = [...wrapperRef.value.children];
-
     const container = wrapperRef.value;
-    const containerStyles = window.getComputedStyle(container);
-    const rowHeights = containerStyles
-      .getPropertyValue('grid-template-rows')
-      .split(' ');
-
     const containerRect = container?.getBoundingClientRect();
 
+    if (!containerRect) {
+      return;
+    }
+
+    // 使用基于元素位置的行计算方案
+    const rowPositions = new Map<number, number>(); // 位置到行号的映射
+    const collapsedRows = props?.collapsedRows ?? 1;
+
+    // 重置行映射
+    rowMapping.value = {};
+
+    // 单次遍历：收集位置、分配行号、统计数量
     formItems.forEach((el) => {
       const itemRect = el.getBoundingClientRect();
-
-      // 计算元素在第几行
       const itemTop = itemRect.top - containerRect.top;
-      let rowStart = 0;
-      let cumulativeHeight = 0;
 
-      for (const [i, rowHeight] of rowHeights.entries()) {
-        cumulativeHeight += Number.parseFloat(rowHeight);
-        if (itemTop < cumulativeHeight) {
-          rowStart = i + 1;
-          break;
-        }
+      // 找到或分配行号
+      let rowNumber = 1;
+
+      // 检查是否已存在相近位置
+      const existingRow = [...rowPositions.entries()].find(
+        ([position]) => Math.abs(itemTop - position) < 5,
+      );
+
+      if (existingRow) {
+        rowNumber = existingRow[1];
+      } else {
+        // 如果是新位置，分配新行号
+        rowNumber = rowPositions.size + 1;
+        rowPositions.set(itemTop, rowNumber);
       }
-      if (rowStart > (props?.collapsedRows ?? 1)) {
-        return;
+
+      // 统计每行元素数量（仅统计折叠行数内的）
+      if (rowNumber <= collapsedRows) {
+        rowMapping.value[rowNumber] = (rowMapping.value[rowNumber] ?? 0) + 1;
       }
-      rowMapping.value[rowStart] = (rowMapping.value[rowStart] ?? 0) + 1;
-      isCalculated.value = true;
     });
+
+    isCalculated.value = true;
   }
 
   onMounted(() => {
