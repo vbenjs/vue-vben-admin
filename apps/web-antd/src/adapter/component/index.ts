@@ -312,7 +312,16 @@ const withPreviewUpload = () => {
               Modal,
               {
                 open: open.value,
-                title: $t('ui.crop.title'),
+                title: h('div', {}, [
+                  $t('ui.crop.title'),
+                  h(
+                    'span',
+                    {
+                      class: `${aspectRatio ? '' : 'hidden'} ml-2 text-sm text-gray-400 font-normal`,
+                    },
+                    $t('ui.crop.titleTip', [aspectRatio]),
+                  ),
+                ]),
                 centered: true,
                 width: 548,
                 keyboard: false,
@@ -357,22 +366,6 @@ const withPreviewUpload = () => {
     });
   };
 
-  const base64ToBlob = (base64: Base64URLString) => {
-    try {
-      const [typeStr, encodeStr] = base64.split(',');
-      if (!typeStr || !encodeStr) return;
-      const mime = typeStr.match(/:(.*?);/)?.[1];
-      const raw = window.atob(encodeStr);
-      const rawLength = raw.length;
-      const uInt8Array = new Uint8Array(rawLength);
-      for (let i = 0; i < rawLength; ++i) {
-        uInt8Array[i] = raw.codePointAt(i) as number;
-      }
-      return new Blob([uInt8Array], { type: mime });
-    } catch {
-      return undefined;
-    }
-  };
   return defineComponent({
     name: Upload.name,
     emits: ['update:modelValue'],
@@ -408,12 +401,8 @@ const withPreviewUpload = () => {
         ) {
           file.status = 'removed';
           // antd Upload组件问题 file参数获取的是UploadFile类型对象无法取到File类型 所以通过originFileList[0]获取
-          const base64 = await cropImage(originFileList[0], attrs.aspectRatio);
+          const blob = await cropImage(originFileList[0], attrs.aspectRatio);
           return new Promise((resolve, reject) => {
-            if (!base64) {
-              return reject(new Error($t('ui.crop.cancel')));
-            }
-            const blob = base64ToBlob(base64 as string);
             if (!blob) {
               return reject(new Error($t('ui.crop.errorTip')));
             }

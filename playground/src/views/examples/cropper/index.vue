@@ -44,7 +44,11 @@ const cropImage = async () => {
   if (!cropperRef.value) return;
   cropLoading.value = true;
   try {
-    cropperImg.value = await cropperRef.value.getCropImage();
+    cropperImg.value = await cropperRef.value.getCropImage(
+      'image/jpeg',
+      0.92,
+      'base64',
+    );
   } catch (error) {
     console.error('图片裁剪失败:', error);
   } finally {

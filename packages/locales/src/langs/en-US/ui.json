@@ -56,6 +56,7 @@
   },
   "crop": {
     "title": "Image Cropping",
+    "titleTip": "Cropping Ratio {0}",
     "confirm": "Crop",
     "cancel": "Cancel cropping",
     "errorTip": "Cropping error"
