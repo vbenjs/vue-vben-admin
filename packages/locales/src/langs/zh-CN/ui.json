@@ -54,6 +54,12 @@
     "copy": "复制",
     "copied": "已复制"
   },
+  "crop": {
+    "title": "图片裁剪",
+    "confirm": "裁剪",
+    "cancel": "取消裁剪",
+    "errorTip": "裁剪错误"
+  },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",
     "pageNotFoundDesc": "抱歉，我们无法找到您要找的页面。",

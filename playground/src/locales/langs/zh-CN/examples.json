@@ -26,6 +26,7 @@
     "upload-error": "部分文件上传失败",
     "upload-urls": "文件上传后的网址",
     "file": "文件",
+    "crop-image": "裁剪图片",
     "upload-image": "点击上传图片"
   },
   "vxeTable": {
@@ -75,5 +76,8 @@
   },
   "function": {
     "contentMenu": "上下文菜单"
+  },
+  "cropper": {
+    "title": "图片裁剪"
   }
 }

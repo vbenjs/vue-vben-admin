@@ -3,6 +3,8 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
+/* eslint-disable vue/one-component-per-file */
+
 import type {
   UploadChangeParam,
   UploadFile,
@@ -24,12 +26,17 @@ import {
   watch,
 } from 'vue';
 
-import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
+import {
+  ApiComponent,
+  globalShareState,
+  IconPicker,
+  VCropper,
+} from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { isEmpty } from '@vben/utils';
 
-import { message, notification } from 'ant-design-vue';
+import { message, Modal, notification } from 'ant-design-vue';
 
 const AutoComplete = defineAsyncComponent(
   () => import('ant-design-vue/es/auto-complete'),
@@ -99,7 +106,6 @@ const withDefaultPlaceholder = <T extends Component>(
         $t(`ui.placeholder.${type}`);
       // 透传组件暴露的方法
       const innerRef = ref();
-      // const publicApi: Recordable<any> = {};
       expose(
         new Proxy(
           {},
@@ -109,14 +115,6 @@ const withDefaultPlaceholder = <T extends Component>(
           },
         ),
       );
-      // const instance = getCurrentInstance();
-      // instance?.proxy?.$nextTick(() => {
-      //   for (const key in innerRef.value) {
-      //     if (typeof innerRef.value[key] === 'function') {
-      //       publicApi[key] = innerRef.value[key];
-      //     }
-      //   }
-      // });
       return () =>
         h(
           component,
@@ -128,6 +126,33 @@ const withDefaultPlaceholder = <T extends Component>(
 };
 
 const withPreviewUpload = () => {
+  // 检查是否为图片文件的辅助函数
+  const isImageFile = (file: UploadFile): boolean => {
+    const imageExtensions = new Set([
+      'bmp',
+      'gif',
+      'jpeg',
+      'jpg',
+      'png',
+      'svg',
+      'webp',
+    ]);
+    if (file.url) {
+      try {
+        const pathname = new URL(file.url, 'http://localhost').pathname;
+        const ext = pathname.split('.').pop()?.toLowerCase();
+        return ext ? imageExtensions.has(ext) : false;
+      } catch {
+        const ext = file.url?.split('.').pop()?.toLowerCase();
+        return ext ? imageExtensions.has(ext) : false;
+      }
+    }
+    if (!file.type) {
+      const ext = file.name?.split('.').pop()?.toLowerCase();
+      return ext ? imageExtensions.has(ext) : false;
+    }
+    return file.type.startsWith('image/');
+  };
   // 创建默认的上传按钮插槽
   const createDefaultSlotsWithUpload = (
     listType: string,
@@ -162,27 +187,6 @@ const withPreviewUpload = () => {
     visible: Ref<boolean>,
     fileList: Ref<UploadProps['fileList']>,
   ) => {
-    // 检查是否为图片文件的辅助函数
-    const isImageFile = (file: UploadFile): boolean => {
-      const imageExtensions = new Set([
-        'bmp',
-        'gif',
-        'jpeg',
-        'jpg',
-        'png',
-        'webp',
-      ]);
-      if (file.url) {
-        const ext = file.url?.split('.').pop()?.toLowerCase();
-        return ext ? imageExtensions.has(ext) : false;
-      }
-      if (!file.type) {
-        const ext = file.name?.split('.').pop()?.toLowerCase();
-        return ext ? imageExtensions.has(ext) : false;
-      }
-      return file.type.startsWith('image/');
-    };
-
     // 如果当前文件不是图片，直接打开
     if (!isImageFile(file)) {
       if (file.url) {
@@ -268,6 +272,107 @@ const withPreviewUpload = () => {
 
     render(h(PreviewWrapper), container);
   };
+
+  // 图片裁剪操作
+  const cropImage = (file: File, aspectRatio: string | undefined) => {
+    return new Promise((resolve, reject) => {
+      const container: HTMLElement | null = document.createElement('div');
+      document.body.append(container);
+
+      // 用于追踪组件是否已卸载
+      let isUnmounted = false;
+      let objectUrl: null | string = null;
+
+      const open = ref<boolean>(true);
+      const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
+
+      const closeModal = () => {
+        open.value = false;
+        // 延迟清理，确保动画完成
+        setTimeout(() => {
+          if (!isUnmounted && container) {
+            if (objectUrl) {
+              URL.revokeObjectURL(objectUrl);
+            }
+            isUnmounted = true;
+            render(null, container);
+            container.remove();
+          }
+        }, 300);
+      };
+
+      const CropperWrapper = {
+        setup() {
+          return () => {
+            if (isUnmounted) return null;
+            if (!objectUrl) {
+              objectUrl = URL.createObjectURL(file);
+            }
+            return h(
+              Modal,
+              {
+                open: open.value,
+                title: $t('ui.crop.title'),
+                centered: true,
+                width: 548,
+                keyboard: false,
+                maskClosable: false,
+                closable: false,
+                cancelText: $t('common.cancel'),
+                okText: $t('ui.crop.confirm'),
+                destroyOnClose: true,
+                onOk: async () => {
+                  const cropper = cropperRef.value;
+                  if (!cropper) {
+                    reject(new Error('Cropper not found'));
+                    closeModal();
+                    return;
+                  }
+                  try {
+                    const dataUrl = await cropper.getCropImage();
+                    resolve(dataUrl);
+                  } catch {
+                    reject(new Error($t('ui.crop.errorTip')));
+                  } finally {
+                    closeModal();
+                  }
+                },
+                onCancel() {
+                  resolve('');
+                  closeModal();
+                },
+              },
+              () =>
+                h(VCropper, {
+                  ref: (ref: any) => (cropperRef.value = ref),
+                  img: objectUrl as string,
+                  aspectRatio,
+                }),
+            );
+          };
+        },
+      };
+
+      render(h(CropperWrapper), container);
+    });
+  };
+
+  const base64ToBlob = (base64: Base64URLString) => {
+    try {
+      const [typeStr, encodeStr] = base64.split(',');
+      if (!typeStr || !encodeStr) return;
+      const mime = typeStr.match(/:(.*?);/)?.[1];
+      const raw = window.atob(encodeStr);
+      const rawLength = raw.length;
+      const uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.codePointAt(i) as number;
+      }
+      return new Blob([uInt8Array], { type: mime });
+    } catch {
+      return undefined;
+    }
+  };
   return defineComponent({
     name: Upload.name,
     emits: ['update:modelValue'],
@@ -285,16 +390,50 @@ const withPreviewUpload = () => {
         attrs?.fileList || attrs?.['file-list'] || [],
       );
 
-      const handleBeforeUpload = (file: UploadFile) => {
+      const handleBeforeUpload = async (
+        file: UploadFile,
+        originFileList: Array<File>,
+      ) => {
         if (attrs.maxSize && (file.size || 0) / 1024 / 1024 > attrs.maxSize) {
           message.error($t('ui.formRules.sizeLimit', [attrs.maxSize]));
           file.status = 'removed';
           return false;
         }
+        // 多选或者非图片不唤起裁剪框
+        if (
+          attrs.crop &&
+          !attrs.multiple &&
+          originFileList[0] &&
+          isImageFile(file)
+        ) {
+          file.status = 'removed';
+          // antd Upload组件问题 file参数获取的是UploadFile类型对象无法取到File类型 所以通过originFileList[0]获取
+          const base64 = await cropImage(originFileList[0], attrs.aspectRatio);
+          return new Promise((resolve, reject) => {
+            if (!base64) {
+              return reject(new Error($t('ui.crop.cancel')));
+            }
+            const blob = base64ToBlob(base64 as string);
+            if (!blob) {
+              return reject(new Error($t('ui.crop.errorTip')));
+            }
+            resolve(blob);
+          });
+        }
+
         return attrs.beforeUpload?.(file) ?? true;
       };
 
-      const handleChange = async (event: UploadChangeParam) => {
+      const handleChange = (event: UploadChangeParam) => {
+        try {
+          // 行内写法 handleChange: (event) => {}
+          attrs.handleChange?.(event);
+          // template写法 @handle-change="(event) => {}"
+          attrs.onHandleChange?.(event);
+        } catch (error) {
+          // Avoid breaking internal v-model sync on user handler errors
+          console.error(error);
+        }
         fileList.value = event.fileList.filter(
           (file) => file.status !== 'removed',
         );
