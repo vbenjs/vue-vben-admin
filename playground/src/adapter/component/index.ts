@@ -376,9 +376,6 @@ const withPreviewUpload = () => {
       const previewVisible = ref<boolean>(false);
 
       const placeholder = attrs?.placeholder || $t(`ui.placeholder.upload`);
-      const maxSize = attrs?.maxSize || attrs?.['max-size'] || undefined;
-      const aspectRatio =
-        attrs?.aspectRatio || attrs?.['aspect-ratio'] || undefined;
 
       const listType = attrs?.listType || attrs?.['list-type'] || 'text';
 
@@ -390,6 +387,10 @@ const withPreviewUpload = () => {
         file: UploadFile,
         originFileList: Array<File>,
       ) => {
+        const maxSize = attrs?.maxSize || attrs?.['max-size'] || undefined;
+        const aspectRatio =
+          attrs?.aspectRatio || attrs?.['aspect-ratio'] || undefined;
+
         if (maxSize && (file.size || 0) / 1024 / 1024 > maxSize) {
           message.error($t('ui.formRules.sizeLimit', [maxSize]));
           file.status = 'removed';
