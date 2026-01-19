@@ -376,6 +376,9 @@ const withPreviewUpload = () => {
       const previewVisible = ref<boolean>(false);
 
       const placeholder = attrs?.placeholder || $t(`ui.placeholder.upload`);
+      const maxSize = attrs?.maxSize || attrs?.['max-size'] || undefined;
+      const aspectRatio =
+        attrs?.aspectRatio || attrs?.['aspect-ratio'] || undefined;
 
       const listType = attrs?.listType || attrs?.['list-type'] || 'text';
 
@@ -387,8 +390,8 @@ const withPreviewUpload = () => {
         file: UploadFile,
         originFileList: Array<File>,
       ) => {
-        if (attrs.maxSize && (file.size || 0) / 1024 / 1024 > attrs.maxSize) {
-          message.error($t('ui.formRules.sizeLimit', [attrs.maxSize]));
+        if (maxSize && (file.size || 0) / 1024 / 1024 > maxSize) {
+          message.error($t('ui.formRules.sizeLimit', [maxSize]));
           file.status = 'removed';
           return false;
         }
@@ -401,7 +404,7 @@ const withPreviewUpload = () => {
         ) {
           file.status = 'removed';
           // antd Upload组件问题 file参数获取的是UploadFile类型对象无法取到File类型 所以通过originFileList[0]获取
-          const blob = await cropImage(originFileList[0], attrs.aspectRatio);
+          const blob = await cropImage(originFileList[0], aspectRatio);
           return new Promise((resolve, reject) => {
             if (!blob) {
               return reject(new Error($t('ui.crop.errorTip')));
