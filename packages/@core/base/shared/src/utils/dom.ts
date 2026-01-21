@@ -41,6 +41,17 @@ export function getElementVisibleRect(
   const left = Math.max(rect.left, 0);
   const right = Math.min(rect.right, viewWidth);
 
+  if (top >= viewHeight || bottom <= 0 || left >= viewWidth || right <= 0) {
+    return {
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+    };
+  }
+
   return {
     bottom,
     height: Math.max(0, bottom - top),
