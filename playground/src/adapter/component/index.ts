@@ -17,6 +17,7 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
 import {
+  computed,
   defineAsyncComponent,
   defineComponent,
   h,
@@ -383,12 +384,17 @@ const withPreviewUpload = () => {
         attrs?.fileList || attrs?.['file-list'] || [],
       );
 
+      const maxSize = computed(() => attrs?.maxSize ?? attrs?.['max-size']);
+      const aspectRatio = computed(
+        () => attrs?.aspectRatio ?? attrs?.['aspect-ratio'],
+      );
+
       const handleBeforeUpload = async (
         file: UploadFile,
         originFileList: Array<File>,
       ) => {
-        if (attrs.maxSize && (file.size || 0) / 1024 / 1024 > attrs.maxSize) {
-          message.error($t('ui.formRules.sizeLimit', [attrs.maxSize]));
+        if (maxSize.value && (file.size || 0) / 1024 / 1024 > maxSize.value) {
+          message.error($t('ui.formRules.sizeLimit', [maxSize.value]));
           file.status = 'removed';
           return false;
         }
@@ -401,7 +407,7 @@ const withPreviewUpload = () => {
         ) {
           file.status = 'removed';
           // antd Upload组件问题 file参数获取的是UploadFile类型对象无法取到File类型 所以通过originFileList[0]获取
-          const blob = await cropImage(originFileList[0], attrs.aspectRatio);
+          const blob = await cropImage(originFileList[0], aspectRatio.value);
           return new Promise((resolve, reject) => {
             if (!blob) {
               return reject(new Error($t('ui.crop.errorTip')));
