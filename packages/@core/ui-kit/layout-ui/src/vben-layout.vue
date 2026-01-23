@@ -403,13 +403,10 @@ watch(
 );
 
 {
-  const mouseMove = () => {
-    mouseY.value > headerWrapperHeight.value
-      ? (headerIsHidden.value = true)
-      : (headerIsHidden.value = false);
-  };
+  const HEADER_TRIGGER_DISTANCE = 12;
+
   watch(
-    [() => props.headerMode, () => mouseY.value],
+    [() => props.headerMode, () => mouseY.value, () => headerIsHidden.value],
     () => {
       if (!isHeaderAutoMode.value || isMixedNav.value || isFullContent.value) {
         if (props.headerMode !== 'auto-scroll') {
@@ -417,8 +414,12 @@ watch(
         }
         return;
       }
-      headerIsHidden.value = true;
-      mouseMove();
+
+      const isInTriggerZone = mouseY.value <= HEADER_TRIGGER_DISTANCE;
+      const isInHeaderZone =
+        !headerIsHidden.value && mouseY.value <= headerWrapperHeight.value;
+
+      headerIsHidden.value = !(isInTriggerZone || isInHeaderZone);
     },
     {
       immediate: true,

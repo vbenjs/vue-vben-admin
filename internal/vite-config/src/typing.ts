@@ -1,5 +1,10 @@
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
-import type { ConfigEnv, PluginOption, UserConfig } from 'vite';
+import type {
+  ConfigEnv,
+  PluginOption,
+  UserConfig,
+  UserConfigFnPromise,
+} from 'vite';
 import type { PluginOptions } from 'vite-plugin-dts';
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
@@ -327,6 +332,8 @@ type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
  */
 type DefineConfig = DefineApplicationOptions | DefineLibraryOptions;
 
+type VbenViteConfig = Promise<UserConfig> | UserConfig | UserConfigFnPromise;
+
 export type {
   ApplicationPluginOptions,
   ArchiverPluginOptions,
@@ -340,4 +347,5 @@ export type {
   LibraryPluginOptions,
   NitroMockPluginOptions,
   PrintPluginOptions,
+  VbenViteConfig,
 };

@@ -54,8 +54,7 @@ export interface PointSelectionCaptchaCardProps {
   width?: number | string;
 }
 
-export interface PointSelectionCaptchaProps
-  extends PointSelectionCaptchaCardProps {
+export interface PointSelectionCaptchaProps extends PointSelectionCaptchaCardProps {
   /**
    * 是否展示确定按钮
    * @default false

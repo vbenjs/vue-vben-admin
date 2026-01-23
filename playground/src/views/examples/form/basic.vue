@@ -348,9 +348,40 @@ const [BaseForm, baseFormApi] = useVbenForm({
         showUploadList: true,
         // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
         listType: 'picture-card',
+        // onChange事件已被重写，如需自定义请在此基础上扩展
+        handleChange: ({ file }: { file: UploadFile }) => {
+          const { name, status } = file;
+          if (status === 'done') {
+            message.success(`${name} ${$t('examples.form.upload-success')}`);
+          } else if (status === 'error') {
+            message.error(`${name} ${$t('examples.form.upload-fail')}`);
+          }
+        },
       },
       fieldName: 'files',
       label: $t('examples.form.file'),
+      renderComponentContent: () => {
+        return {
+          default: () => $t('examples.form.upload-image'),
+        };
+      },
+      rules: 'selectRequired',
+    },
+    {
+      component: 'Upload',
+      componentProps: {
+        accept: '.png,.jpg,.jpeg',
+        customRequest: upload_file,
+        maxCount: 1,
+        maxSize: 2,
+        listType: 'picture-card',
+        // 是否启用图片裁剪(多选或者非图片不唤起裁剪框)
+        crop: true,
+        // 裁剪比例
+        aspectRatio: '1:1',
+      },
+      fieldName: 'cropImage',
+      label: $t('examples.form.crop-image'),
       renderComponentContent: () => {
         return {
           default: () => $t('examples.form.upload-image'),
@@ -365,12 +396,19 @@ const [BaseForm, baseFormApi] = useVbenForm({
 
 function onSubmit(values: Record<string, any>) {
   const files = toRaw(values.files) as UploadFile[];
+  const cropImage = (toRaw(values.cropImage) ?? []) as UploadFile[];
   const doneFiles = files.filter((file) => file.status === 'done');
   const failedFiles = files.filter((file) => file.status !== 'done');
+  const doneCrop = cropImage.filter((file) => file.status === 'done');
+  const failedCrop = cropImage.filter((file) => file.status !== 'done');
 
   const msg = [
     ...doneFiles.map((file) => file.response?.url || file.url),
     ...failedFiles.map((file) => file.name),
+  ].join(', ');
+  const msgCrop = [
+    ...doneCrop.map((file) => file.response?.url || file.url),
+    ...failedCrop.map((file) => file.name),
   ].join(', ');
 
   if (failedFiles.length === 0) {
@@ -383,8 +421,19 @@ function onSubmit(values: Record<string, any>) {
     });
     return;
   }
+  if (doneCrop.length > 0 && failedCrop.length === 0) {
+    message.success({
+      content: `${$t('examples.form.upload-urls')}: ${msgCrop}`,
+    });
+  } else if (failedCrop.length > 0) {
+    message.error({
+      content: `${$t('examples.form.upload-error')}: ${msgCrop}`,
+    });
+    return;
+  }
   // 如果需要可提交前替换为需要的urls
   values.files = doneFiles.map((file) => file.response?.url || file.url);
+  values.cropImage = doneCrop.map((file) => file.response?.url || file.url);
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
   });
