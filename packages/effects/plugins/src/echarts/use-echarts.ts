@@ -92,7 +92,8 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
           return;
         }
         useTimeoutFn(() => {
-          if (!chartInstance) {
+          if (!chartInstance || chartInstance?.getDom() !== el) {
+            chartInstance?.dispose();
             const instance = initCharts();
             if (!instance) return;
           }
