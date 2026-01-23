@@ -53,10 +53,26 @@ function isValidColor(color?: string) {
   return new TinyColor(color).isValid;
 }
 
+/**
+ * 将CSS变量转换为RGBA颜色字符串,可用于echarts动态更改主题颜色
+ *
+ * @param cssVar - CSS自定义属性变量名（例如 '--primary-color'）
+ * @param alpha - 透明度值，默认为1（不透明）
+ * @returns 返回RGBA格式的颜色字符串
+ */
+function cssVarToRgba(cssVar: string, alpha = 1) {
+  const el = document.documentElement;
+  const hslVal = getComputedStyle(el).getPropertyValue(cssVar).trim();
+  const color = convertToRgb(`hsl(${hslVal})`);
+  const rgba = new TinyColor(color).setAlpha(alpha).toRgbString();
+  return rgba;
+}
+
 export {
   convertToHsl,
   convertToHslCssVar,
   convertToRgb,
   isValidColor,
+  cssVarToRgba,
   TinyColor,
 };
