@@ -30,6 +30,7 @@ describe('useSortable', () => {
 
     // Import sortablejs to access the mocked create function
     const Sortable =
+      // @ts-expect-error - This is a dynamic import
       await import('sortablejs/modular/sortable.complete.esm.js');
 
     // Verify that Sortable.create was called with the correct parameters
