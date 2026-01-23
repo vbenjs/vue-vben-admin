@@ -32,19 +32,19 @@ const props = withDefaults(defineProps<Props>(), {
 // const startTime = ref(0);
 const showSpinner = ref(false);
 const renderSpinner = ref(false);
-const timer = ref<ReturnType<typeof setTimeout>>();
+let timer: ReturnType<typeof setTimeout> | undefined;
 
 watch(
   () => props.spinning,
   (show) => {
     if (!show) {
       showSpinner.value = false;
-      clearTimeout(timer.value);
+      timer && clearTimeout(timer);
       return;
     }
 
     // startTime.value = performance.now();
-    timer.value = setTimeout(() => {
+    timer = setTimeout(() => {
       // const loadingTime = performance.now() - startTime.value;
 
       showSpinner.value = true;
