@@ -105,6 +105,36 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     });
   };
 
+  const updateDate = (
+    option: EChartsOption,
+    notMerge = false, // false = 合并（保留动画），true = 完全替换
+    lazyUpdate = false, // true 时不立即重绘，适合短时间内多次调用
+  ): Promise<echarts.ECharts | null> => {
+    return new Promise((resolve) => {
+      nextTick(() => {
+        if (!chartInstance) {
+          // 还没初始化 → 当作首次渲染
+          renderEcharts(option).then(resolve);
+          return;
+        }
+
+        // 合并你原有的全局配置（比如 backgroundColor）
+        const finalOption = {
+          ...option,
+          ...getOptions.value,
+        };
+
+        chartInstance.setOption(finalOption, {
+          notMerge,
+          lazyUpdate,
+          // silent: true,     // 如果追求极致性能可开启（关闭所有事件）
+        });
+
+        resolve(chartInstance);
+      });
+    });
+  };
+
   function resize() {
     const el = getChartEl();
     if (isElHidden(el)) {
@@ -140,6 +170,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   return {
     renderEcharts,
     resize,
+    updateDate,
     getChartInstance: () => chartInstance,
   };
 }
