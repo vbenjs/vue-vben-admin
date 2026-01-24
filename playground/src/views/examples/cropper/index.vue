@@ -132,10 +132,12 @@ const downloadImage = () => {
 .ratio-label {
   @apply text-sm font-medium;
 }
+
 /* 主裁剪区域 */
 .cropper-main-wrapper {
   @apply flex items-center gap-4;
 }
+
 .cropper-btn-group {
   @apply flex flex-col gap-2;
 }
