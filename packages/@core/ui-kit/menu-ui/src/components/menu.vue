@@ -1,15 +1,8 @@
 <script lang="ts" setup>
 import type { UseResizeObserverReturn } from '@vueuse/core';
+import { useResizeObserver } from '@vueuse/core';
 
 import type { SetupContext, VNodeArrayChildren } from 'vue';
-
-import type {
-  MenuItemClicked,
-  MenuItemRegistered,
-  MenuProps,
-  MenuProvider,
-} from '../types';
-
 import {
   computed,
   nextTick,
@@ -21,10 +14,15 @@ import {
   watchEffect,
 } from 'vue';
 
+import type {
+  MenuItemClicked,
+  MenuItemRegistered,
+  MenuProps,
+  MenuProvider,
+} from '../types';
+
 import { useNamespace } from '@vben-core/composables';
 import { Ellipsis } from '@vben-core/icons';
-
-import { useResizeObserver } from '@vueuse/core';
 
 import {
   createMenuContext,
@@ -351,14 +349,14 @@ function getActivePaths() {
     role="menu"
   >
     <template v-if="mode === 'horizontal' && getSlot.showSlotMore">
-      <template v-for="item in getSlot.slotDefault" :key="item.key">
+      <template v-for="(item, key) in getSlot.slotDefault" :key="key">
         <component :is="item" />
       </template>
       <SubMenu is-sub-menu-more path="sub-menu-more">
         <template #title>
           <Ellipsis class="size-4" />
         </template>
-        <template v-for="item in getSlot.slotMore" :key="item.key">
+        <template v-for="(item, key) in getSlot.slotMore" :key="key">
           <component :is="item" />
         </template>
       </SubMenu>
