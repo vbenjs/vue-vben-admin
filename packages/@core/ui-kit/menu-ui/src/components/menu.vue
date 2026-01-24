@@ -1,8 +1,15 @@
 <script lang="ts" setup>
 import type { UseResizeObserverReturn } from '@vueuse/core';
-import { useResizeObserver } from '@vueuse/core';
 
 import type { SetupContext, VNodeArrayChildren } from 'vue';
+
+import type {
+  MenuItemClicked,
+  MenuItemRegistered,
+  MenuProps,
+  MenuProvider,
+} from '../types';
+
 import {
   computed,
   nextTick,
@@ -14,15 +21,10 @@ import {
   watchEffect,
 } from 'vue';
 
-import type {
-  MenuItemClicked,
-  MenuItemRegistered,
-  MenuProps,
-  MenuProvider,
-} from '../types';
-
 import { useNamespace } from '@vben-core/composables';
 import { Ellipsis } from '@vben-core/icons';
+
+import { useResizeObserver } from '@vueuse/core';
 
 import {
   createMenuContext,
