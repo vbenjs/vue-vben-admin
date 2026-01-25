@@ -23,7 +23,7 @@ const emit = defineEmits<{
 const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
-      labelWidth: 150,
+      labelWidth: 130,
       // 所有表单项
       componentProps: {
         class: 'w-full',
