@@ -13,15 +13,6 @@ packages:
   - docs
   - playground
 
-overrides:
-  '@ast-grep/napi': 'catalog:'
-  '@ctrl/tinycolor': 'catalog:'
-  clsx: 'catalog:'
-  esbuild: 'catalog:'
-  jiti: 'catalog:'
-  pinia: 'catalog:'
-  vue: 'catalog:'
-
 catalog:
   '@ast-grep/napi': ^0.39.9
   '@changesets/changelog-github': ^0.5.2
@@ -41,7 +32,7 @@ catalog:
   '@jspm/generator': ^2.9.0
   '@manypkg/get-packages': ^3.1.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
-  '@playwright/test': ^1.57.0
+  '@playwright/test': ^1.58.0
   '@pnpm/workspace.read-manifest': ^1000.2.10
   '@stylistic/stylelint-plugin': ^4.0.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
@@ -138,7 +129,7 @@ catalog:
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.0
-  playwright: ^1.57.0
+  playwright: ^1.58.0
   postcss: ^8.5.6
   postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.8.1
@@ -173,7 +164,7 @@ catalog:
   tdesign-vue-next: ^1.18.0
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
-  turbo: ^2.7.5
+  turbo: ^2.7.6
   typescript: ^5.9.3
   unbuild: ^3.6.1
   unplugin-element-plus: ^0.11.2
@@ -205,6 +196,15 @@ catalog:
 neverBuiltDependencies:
   - canvas
   - node-gyp
+
+overrides:
+  '@ast-grep/napi': 'catalog:'
+  '@ctrl/tinycolor': 'catalog:'
+  clsx: 'catalog:'
+  esbuild: 'catalog:'
+  jiti: 'catalog:'
+  pinia: 'catalog:'
+  vue: 'catalog:'
 
 peerDependencyRules:
   allowedVersions:
