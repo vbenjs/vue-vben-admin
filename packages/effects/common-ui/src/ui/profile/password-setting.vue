@@ -5,6 +5,8 @@ import type { VbenFormSchema } from '@vben-core/form-ui';
 
 import { computed, reactive } from 'vue';
 
+import { $t } from '@vben/locales';
+
 import { useVbenForm } from '@vben-core/form-ui';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
@@ -23,6 +25,7 @@ const emit = defineEmits<{
 const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
+      labelWidth: 130,
       // 所有表单项
       componentProps: {
         class: 'w-full',
@@ -50,7 +53,7 @@ defineExpose({
   <div>
     <Form />
     <VbenButton type="submit" class="mt-4" @click="handleSubmit">
-      更新密码
+      {{ $t('profile.updatePassword') }}
     </VbenButton>
   </div>
 </template>
