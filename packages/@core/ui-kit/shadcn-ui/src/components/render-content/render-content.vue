@@ -42,14 +42,17 @@ export default defineComponent({
           return props.content;
         }
       }
-      return h(props.content as never, {
-        ...attrs,
-        props: {
-          ...props,
+      return h(
+        props.content as never,
+        {
           ...attrs,
+          props: {
+            ...props,
+            ...attrs,
+          },
         },
         slots,
-      });
+      );
     };
   },
 });
