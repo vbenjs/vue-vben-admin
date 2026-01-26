@@ -43,6 +43,7 @@ const gridEvents: VxeGridListeners<RowType> = {
   },
 };
 
+// @ts-ignore
 const [Grid, gridApi] = useVbenVxeGrid<RowType>({
   // 放开注释查看表单组件的类型
   // formOptions: {
