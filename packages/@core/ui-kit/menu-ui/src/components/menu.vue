@@ -351,14 +351,14 @@ function getActivePaths() {
     role="menu"
   >
     <template v-if="mode === 'horizontal' && getSlot.showSlotMore">
-      <template v-for="item in getSlot.slotDefault" :key="item.key">
+      <template v-for="(item, index) in getSlot.slotDefault" :key="index">
         <component :is="item" />
       </template>
       <SubMenu is-sub-menu-more path="sub-menu-more">
         <template #title>
           <Ellipsis class="size-4" />
         </template>
-        <template v-for="item in getSlot.slotMore" :key="item.key">
+        <template v-for="(item, index) in getSlot.slotMore" :key="index">
           <component :is="item" />
         </template>
       </SubMenu>

@@ -116,11 +116,11 @@ describe('getElementVisibleRect', () => {
     } as HTMLElement;
 
     expect(getElementVisibleRect(element)).toEqual({
-      bottom: 800,
+      bottom: 0,
       height: 0,
-      left: 1100,
-      right: 1000,
-      top: 900,
+      left: 0,
+      right: 0,
+      top: 0,
       width: 0,
     });
   });

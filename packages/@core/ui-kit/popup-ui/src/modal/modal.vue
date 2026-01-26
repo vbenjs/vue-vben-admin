@@ -50,10 +50,10 @@ const props = withDefaults(defineProps<Props>(), {
 const components = globalShareState.getComponents();
 
 const contentRef = ref();
-const wrapperRef = ref<HTMLElement>();
+// const wrapperRef = ref<HTMLElement>();
 const dialogRef = ref();
 const headerRef = ref();
-const footerRef = ref();
+// const footerRef = ref();
 
 const id = useId();
 
@@ -306,7 +306,6 @@ function handleClosed() {
         </VisuallyHidden>
       </DialogHeader>
       <div
-        ref="wrapperRef"
         :class="
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
             'pointer-events-none': showLoading || submitting,
@@ -327,7 +326,6 @@ function handleClosed() {
 
       <DialogFooter
         v-if="showFooter"
-        ref="footerRef"
         :class="
           cn(
             'flex-row items-center justify-end p-2',

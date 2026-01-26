@@ -1,6 +1,6 @@
 {
   "name": "@vben/eslint-config",
-  "version": "5.0.0",
+  "version": "5.5.9",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
@@ -43,14 +43,17 @@
     "eslint-plugin-n": "catalog:",
     "eslint-plugin-no-only-tests": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",
+    "eslint-plugin-pnpm": "catalog:",
     "eslint-plugin-prettier": "catalog:",
     "eslint-plugin-regexp": "catalog:",
     "eslint-plugin-unicorn": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
     "eslint-plugin-vitest": "catalog:",
     "eslint-plugin-vue": "catalog:",
+    "eslint-plugin-yml": "catalog:",
     "globals": "catalog:",
     "jsonc-eslint-parser": "catalog:",
-    "vue-eslint-parser": "catalog:"
+    "vue-eslint-parser": "catalog:",
+    "yaml-eslint-parser": "catalog:"
   }
 }
