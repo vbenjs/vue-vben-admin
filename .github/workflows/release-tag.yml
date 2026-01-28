@@ -19,15 +19,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [22]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       # - name: Checkout code
-      #   uses: actions/checkout@v4
+      #   uses: actions/checkout@v6
       #   with:
       #     fetch-depth: 0
 
