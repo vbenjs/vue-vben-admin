@@ -33,7 +33,7 @@ catalog:
   '@ctrl/tinycolor': ^4.2.0
   '@eslint/js': ^9.39.2
   '@faker-js/faker': ^9.9.0
-  '@iconify/json': ^2.2.431
+  '@iconify/json': ^2.2.432
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.2.8
@@ -46,7 +46,7 @@ catalog:
   '@stylistic/stylelint-plugin': ^4.0.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.19
-  '@tanstack/vue-query': ^5.92.8
+  '@tanstack/vue-query': ^5.92.9
   '@tanstack/vue-store': ^0.8.0
   '@types/archiver': ^6.0.4
   '@types/eslint': ^9.6.1
@@ -60,8 +60,8 @@ catalog:
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.14.0
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/eslint-plugin': ^8.53.1
-  '@typescript-eslint/parser': ^8.53.1
+  '@typescript-eslint/eslint-plugin': ^8.54.0
+  '@typescript-eslint/parser': ^8.54.0
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.3
@@ -74,18 +74,18 @@ catalog:
   ant-design-vue: ^4.2.6
   archiver: ^7.0.1
   autoprefixer: ^10.4.23
-  axios: ^1.13.2
+  axios: ^1.13.4
   axios-mock-adapter: ^2.1.0
   cac: ^6.7.14
   chalk: ^5.6.2
-  cheerio: ^1.1.2
+  cheerio: ^1.2.0
   circular-dependency-scanner: ^2.3.0
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   commitlint-plugin-function-rules: ^4.3.1
   consola: ^3.4.2
   cross-env: ^10.1.0
-  cspell: ^9.6.0
+  cspell: ^9.6.2
   cssnano: ^7.1.2
   cz-git: ^1.12.0
   czg: ^1.12.0
@@ -98,7 +98,7 @@ catalog:
   es-toolkit: ^1.44.0
   esbuild: ^0.25.12
   eslint: ^9.39.2
-  eslint-config-turbo: ^2.7.5
+  eslint-config-turbo: ^2.7.6
   eslint-plugin-command: ^3.4.0
   eslint-plugin-eslint-comments: ^3.2.0
   eslint-plugin-import-x: ^4.16.1
@@ -127,7 +127,7 @@ catalog:
   json-bigint: ^1.0.0
   jsonc-eslint-parser: ^2.4.2
   jsonwebtoken: ^9.0.3
-  lefthook: ^2.0.15
+  lefthook: ^2.0.16
   lodash.clonedeep: ^4.5.0
   lucide-vue-next: ^0.553.0
   medium-zoom: ^1.1.0
@@ -153,7 +153,7 @@ catalog:
   reka-ui: ^2.7.0
   resolve.exports: ^2.0.3
   rimraf: ^6.1.2
-  rollup: ^4.56.0
+  rollup: ^4.57.0
   rollup-plugin-visualizer: ^5.14.0
   sass: ^1.97.3
   secure-ls: ^2.0.0
@@ -194,8 +194,8 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^4.6.4
   vue-tippy: ^6.7.1
-  vue-tsc: ^3.2.3
-  vxe-pc-ui: ^4.12.10
+  vue-tsc: ^3.2.4
+  vxe-pc-ui: ^4.12.16
   vxe-table: ^4.17.46
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^1.3.2

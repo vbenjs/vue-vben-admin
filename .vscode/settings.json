@@ -180,7 +180,8 @@
     "markdown",
     "json",
     "jsonc",
-    "json5"
+    "json5",
+    "yaml"
   ],
 
   "tailwindCSS.experimental.classRegex": [

@@ -29,7 +29,8 @@ const forward = useForwardPropsEmits(props, emit);
 const {
   handleScrollAt,
   handleWheel,
-  scrollbarRef: _scrollbarRef,
+  // @ts-expect-error unused
+  scrollbarRef,
   scrollDirection,
   scrollIsAtLeft,
   scrollIsAtRight,
@@ -69,7 +70,7 @@ useTabsDrag(props, emit);
       class="size-full flex-1 overflow-hidden"
     >
       <VbenScrollbar
-        ref="_scrollbarRef"
+        ref="scrollbarRef"
         :shadow-bottom="false"
         :shadow-top="false"
         class="h-full"

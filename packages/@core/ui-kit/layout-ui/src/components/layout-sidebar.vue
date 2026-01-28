@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, useSlots, watchEffect } from 'vue';
+import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
@@ -114,7 +114,8 @@ const extraVisible = defineModel<boolean>('extraVisible');
 const isLocked = useScrollLock(document.body);
 const slots = useSlots();
 
-// const asideRef = shallowRef<HTMLDivElement | null>();
+// @ts-expect-error unused
+const asideRef = shallowRef<HTMLDivElement | null>();
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
@@ -290,6 +291,7 @@ function handleMouseleave() {
     />
     <div
       v-if="isSidebarMixed"
+      ref="asideRef"
       :class="{
         'border-l': extraVisible,
       }"
