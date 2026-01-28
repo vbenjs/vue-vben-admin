@@ -54,7 +54,8 @@ const components = globalShareState.getComponents();
 const id = useId();
 provide('DISMISSABLE_DRAWER_ID', id);
 
-// const wrapperRef = ref<HTMLElement>();
+// @ts-expect-error unused
+const wrapperRef = ref<HTMLElement>();
 const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 
@@ -281,6 +282,7 @@ const getForceMount = computed(() => {
         </VisuallyHidden>
       </template>
       <div
+        ref="wrapperRef"
         :class="
           cn('relative flex-1 overflow-y-auto p-3', contentClass, {
             'pointer-events-none': showLoading || submitting,

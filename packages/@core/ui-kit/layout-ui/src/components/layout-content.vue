@@ -26,8 +26,8 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const { contentElement: _contentElement, overlayStyle } =
-  useLayoutContentStyle();
+// @ts-expect-error unused
+const { contentElement, overlayStyle } = useLayoutContentStyle();
 
 const style = computed((): CSSProperties => {
   const {
@@ -56,11 +56,7 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <main
-    ref="_contentElement"
-    :style="style"
-    class="relative bg-background-deep"
-  >
+  <main ref="contentElement" :style="style" class="relative bg-background-deep">
     <Slot :style="overlayStyle">
       <slot name="overlay"></slot>
     </Slot>
