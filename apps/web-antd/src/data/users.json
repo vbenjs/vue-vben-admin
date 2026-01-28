@@ -1,0 +1,52 @@
+[
+  {
+    "uid": "U0001",
+    "nickname": "张三",
+    "username": "zhangsan",
+    "lastLoginTime": "2024-05-20 14:30:00",
+    "lastLoginIp": "192.168.1.100",
+    "loginCount": 15,
+    "registerTime": "2024-01-01 00:00:00",
+    "isFrozen": false
+  },
+  {
+    "uid": "U0002",
+    "nickname": "李四",
+    "username": "lisi",
+    "lastLoginTime": "2024-05-19 10:15:00",
+    "lastLoginIp": "192.168.1.101",
+    "loginCount": 8,
+    "registerTime": "2024-02-15 10:00:00",
+    "isFrozen": false
+  },
+  {
+    "uid": "U0003",
+    "nickname": "王五",
+    "username": "wangwu",
+    "lastLoginTime": "2024-05-18 16:45:00",
+    "lastLoginIp": "192.168.1.102",
+    "loginCount": 22,
+    "registerTime": "2024-03-20 09:30:00",
+    "isFrozen": true
+  },
+  {
+    "uid": "U0004",
+    "nickname": "赵六",
+    "username": "zhaoliu",
+    "lastLoginTime": "2024-05-17 09:15:00",
+    "lastLoginIp": "192.168.1.103",
+    "loginCount": 12,
+    "registerTime": "2024-04-10 14:00:00",
+    "isFrozen": false
+  },
+  {
+    "uid": "U0005",
+    "nickname": "钱七",
+    "username": "qianqi",
+    "lastLoginTime": "2024-05-16 15:45:00",
+    "lastLoginIp": "192.168.1.104",
+    "loginCount": 35,
+    "registerTime": "2024-05-01 10:30:00",
+    "isFrozen": false
+  }
+]
