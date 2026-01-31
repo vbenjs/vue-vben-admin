@@ -1,4 +1,4 @@
-import type { Locale } from 'ant-design-vue/es/locale';
+import type { Locale } from 'antdv-next/dist/locale/index';
 
 import type { App } from 'vue';
 
@@ -13,8 +13,8 @@ import {
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
-import antdEnLocale from 'ant-design-vue/es/locale/en_US';
-import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
+import antdEnLocale from 'antdv-next/dist/locale/en_US';
+import antdDefaultLocale from 'antdv-next/dist/locale/zh_CN';
 import dayjs from 'dayjs';
 
 const antdLocale = ref<Locale>(antdDefaultLocale);

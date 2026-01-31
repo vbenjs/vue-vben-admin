@@ -13,7 +13,7 @@ import {
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 
 import { useAuthStore } from '#/store';
 

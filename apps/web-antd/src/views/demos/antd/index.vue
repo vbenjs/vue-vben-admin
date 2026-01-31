@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Page } from '@vben/common-ui';
 
-import { Button, Card, message, notification, Space } from 'ant-design-vue';
+import { Button, Card, message, notification, Space } from 'antdv-next';
 
 type NotificationType = 'error' | 'info' | 'success' | 'warning';
 
@@ -26,7 +26,7 @@ function success() {
 function notify(type: NotificationType) {
   notification[type]({
     duration: 2500,
-    message: '说点啥呢',
+    title: '说点啥呢',
     type,
   });
 }
