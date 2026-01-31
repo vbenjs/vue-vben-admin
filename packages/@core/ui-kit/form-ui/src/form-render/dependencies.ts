@@ -6,11 +6,29 @@ import type {
 
 import { computed, ref, watch } from 'vue';
 
-import { isBoolean, isFunction } from '@vben-core/shared/utils';
+import { get, isBoolean, isFunction } from '@vben-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 
 import { injectRenderFormProps } from './context';
+
+/**
+ * 解析Nested Objects对应的字段值
+ * @param values 表单值
+ * @param fieldName 字段名
+ */
+function resolveValueByFieldName(
+  values: Record<string, any>,
+  fieldName: string,
+) {
+  // vee-validate：[] 表示禁用嵌套
+  if (fieldName.startsWith('[') && fieldName.endsWith(']')) {
+    const rawKey = fieldName.slice(1, -1);
+    return values[rawKey];
+  }
+
+  return get(values, fieldName);
+}
 
 export default function useDependencies(
   getDependencies: () => FormItemDependencies | undefined,
@@ -37,7 +55,7 @@ export default function useDependencies(
     // 该字段可能会被多个字段触发
     const triggerFields = getDependencies()?.triggerFields ?? [];
     return triggerFields.map((dep) => {
-      return values.value[dep];
+      return resolveValueByFieldName(values.value, dep);
     });
   });
 
