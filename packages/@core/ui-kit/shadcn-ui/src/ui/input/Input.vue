@@ -33,5 +33,16 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 <style lang="scss" scoped>
 input {
   --ring: var(--primary);
+  
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none;
+  }
+
+  &::-webkit-credentials-auto-fill-button,
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    display: none;
+  }
 }
 </style>
