@@ -165,6 +165,7 @@ const toolbarOptions = computed(() => {
   }
 
   if (!showToolbar.value) {
+    toolbarConfig.enabled = false;
     return { toolbarConfig };
   }
 
