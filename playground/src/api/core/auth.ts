@@ -1,6 +1,6 @@
-import { baseRequestClient, requestClient } from '#/api/request';
 import { useAccessStore } from '@vben/stores';
 
+import { baseRequestClient, requestClient } from '#/api/request';
 import { formatToken } from '#/utils/token-util';
 
 export namespace AuthApi {
