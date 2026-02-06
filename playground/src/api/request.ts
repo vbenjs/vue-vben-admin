@@ -65,7 +65,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   async function doRefreshToken() {
     const accessStore = useAccessStore();
     const resp = await refreshTokenApi();
-    const newToken = resp.data.data;
+    const newToken = resp.data.data; // 根据你自己的 api 返回的数据格式调整, 比如: resp.data.data.accessToken
     accessStore.setAccessToken(newToken);
     return newToken;
   }
