@@ -12,7 +12,7 @@ function info() {
 function error() {
   message.error({
     content: 'Once upon a time you dressed so fine',
-    duration: 2500,
+    duration: 2.5,
   });
 }
 
@@ -25,7 +25,7 @@ function success() {
 
 function notify(type: NotificationType) {
   notification[type]({
-    duration: 2500,
+    duration: 2.5,
     title: '说点啥呢',
     type,
   });
