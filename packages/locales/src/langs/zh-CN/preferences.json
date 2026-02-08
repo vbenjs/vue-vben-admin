@@ -68,6 +68,8 @@
     "showMore": "显示更多按钮",
     "showMaximize": "显示最大化按钮",
     "persist": "持久化标签页",
+    "visitHistory": "访问历史记录",
+    "visitHistoryTip": "开启后，标签栏会记录标签访问历史\n关闭当前标签，会自动选中上一个打开的标签",
     "maxCount": "最大标签数",
     "maxCountTip": "每次打开新的标签时如果超过最大标签数，\n会自动关闭一个最先打开的标签\n设置为 0 则不限制",
     "draggable": "启动拖拽排序",

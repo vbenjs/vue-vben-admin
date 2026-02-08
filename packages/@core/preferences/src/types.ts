@@ -224,6 +224,8 @@ interface TabbarPreferences {
   showMore: boolean;
   /** 标签页风格 */
   styleType: TabsStyleType;
+  /** 是否开启访问历史记录 */
+  visitHistory: boolean;
   /** 是否开启鼠标滚轮响应 */
   wheelable: boolean;
 }

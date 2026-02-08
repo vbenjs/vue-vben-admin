@@ -68,6 +68,8 @@
     "showMore": "Show More Button",
     "showMaximize": "Show Maximize Button",
     "persist": "Persist Tabs",
+    "visitHistory": "Visit History",
+    "visitHistoryTip": "When enabled, the tab bar records tab visit history. \nClosing the current tab will automatically select the last opened tab.",
     "maxCount": "Max Count of Tabs",
     "maxCountTip": "When the number of tabs exceeds the maximum,\nthe oldest tab will be closed.\n Set to 0 to disable count checking.",
     "draggable": "Enable Draggable Sort",

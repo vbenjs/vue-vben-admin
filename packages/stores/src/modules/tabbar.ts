@@ -73,7 +73,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.tabs = this.tabs.filter(
         (item) => !keySet.has(getTabKeyFromTab(item)),
       );
-      this.visitHistory.remove(...keys);
+      if (isVisitHistory()) {
+        this.visitHistory.remove(...keys);
+      }
 
       await this.updateCacheTabs();
     },
@@ -179,7 +181,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
       }
       this.updateCacheTabs();
       // 添加访问历史记录
-      this.visitHistory.push(tab.key as string);
+      if (isVisitHistory()) {
+        this.visitHistory.push(tab.key as string);
+      }
       return tab;
     },
     /**
@@ -188,8 +192,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
     async closeAllTabs(router: Router) {
       const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
       this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
-      // 设置访问历史
-      this.visitHistory.retain(this.tabs.map((item) => getTabKeyFromTab(item)));
+      // 设置访问历史记录
+      if (isVisitHistory()) {
+        this.visitHistory.retain(
+          this.tabs.map((item) => getTabKeyFromTab(item)),
+        );
+      }
       await this._goToDefaultTab(router);
       this.updateCacheTabs();
     },
@@ -270,8 +278,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
       if (currentTabKey !== getTabKeyFromTab(tab)) {
         this._close(tab);
         this.updateCacheTabs();
-        // 移除访问历史
-        this.visitHistory.remove(getTabKeyFromTab(tab));
+        // 移除访问历史记录
+        if (isVisitHistory()) {
+          this.visitHistory.remove(getTabKeyFromTab(tab));
+        }
         return;
       }
       if (this.getTabs.length <= 1) {
@@ -279,12 +289,43 @@ export const useTabbarStore = defineStore('core-tabbar', {
         return;
       }
       // 从访问历史记录中移除当前关闭的tab
-      this.visitHistory.remove(currentTabKey);
-      this._close(tab);
-      const previousTabKey = this.visitHistory.pop();
-      if (previousTabKey) {
-        // 跳转到上一个tab
-        await this._goToTab(this.getTabByKey(previousTabKey), router);
+      if (isVisitHistory()) {
+        this.visitHistory.remove(currentTabKey);
+        this._close(tab);
+
+        let previousTab: TabDefinition | undefined;
+        let previousTabKey: string | undefined;
+        while (true) {
+          previousTabKey = this.visitHistory.pop();
+          if (!previousTabKey) {
+            break;
+          }
+          previousTab = this.getTabByKey(previousTabKey);
+          if (previousTab) {
+            break;
+          }
+        }
+        await (previousTab
+          ? this._goToTab(previousTab, router)
+          : this._goToDefaultTab(router));
+        return;
+      }
+      // 未开启访问历史记录，直接跳转下一个或上一个tab
+      const index = this.getTabs.findIndex(
+        (item) => getTabKeyFromTab(item) === getTabKey(currentRoute.value),
+      );
+
+      const before = this.getTabs[index - 1];
+      const after = this.getTabs[index + 1];
+
+      // 下一个tab存在，跳转到下一个
+      if (after) {
+        this._close(tab);
+        await this._goToTab(after, router);
+        // 上一个tab存在，跳转到上一个
+      } else if (before) {
+        this._close(tab);
+        await this._goToTab(before, router);
       }
     },
 
@@ -640,6 +681,13 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
   } catch {
     return rawKey;
   }
+}
+
+/**
+ * @zh_CN 是否开启访问历史记录
+ */
+function isVisitHistory() {
+  return preferences.tabbar.visitHistory;
 }
 
 /**
