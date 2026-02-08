@@ -57,7 +57,11 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarPersist" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.persist') }}
   </SwitchItem>
-  <SwitchItem v-model="tabbarVisitHistory" :disabled="!tabbarEnable" :tip="$t('preferences.tabbar.visitHistoryTip')">
+  <SwitchItem
+    v-model="tabbarVisitHistory"
+    :disabled="!tabbarEnable"
+    :tip="$t('preferences.tabbar.visitHistoryTip')"
+  >
     {{ $t('preferences.tabbar.visitHistory') }}
   </SwitchItem>
   <NumberFieldItem
