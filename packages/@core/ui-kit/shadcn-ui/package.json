@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/shadcn-ui",
-  "version": "5.5.9",
+  "version": "5.6.0",
   "#main": "./dist/index.mjs",
   "#module": "./dist/index.mjs",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
