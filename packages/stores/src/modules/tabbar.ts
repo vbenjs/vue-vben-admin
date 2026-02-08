@@ -11,7 +11,9 @@ import { toRaw } from 'vue';
 
 import { preferences } from '@vben-core/preferences';
 import {
+  createStack,
   openRouteInNewWindow,
+  Stack,
   startProgress,
   stopProgress,
 } from '@vben-core/shared/utils';
@@ -47,7 +49,16 @@ interface TabbarState {
    * @zh_CN 更新时间，用于一些更新场景，使用watch深度监听的话，会损耗性能
    */
   updateTime?: number;
+  /**
+   * @zh_CN 上一个标签页打开的标签
+   */
+  visitHistory: Stack<string>;
 }
+
+/**
+ * @zh_CN 访问历史记录最大数量
+ */
+const MAX_VISIT_HISTORY = 50;
 
 /**
  * @zh_CN 访问权限相关
@@ -62,6 +73,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.tabs = this.tabs.filter(
         (item) => !keySet.has(getTabKeyFromTab(item)),
       );
+      if (isVisitHistory()) {
+        this.visitHistory.remove(...keys);
+      }
 
       await this.updateCacheTabs();
     },
@@ -166,6 +180,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTabs();
+      // 添加访问历史记录
+      if (isVisitHistory()) {
+        this.visitHistory.push(tab.key as string);
+      }
       return tab;
     },
     /**
@@ -174,6 +192,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
     async closeAllTabs(router: Router) {
       const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
       this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
+      // 设置访问历史记录
+      if (isVisitHistory()) {
+        this.visitHistory.retain(
+          this.tabs.map((item) => getTabKeyFromTab(item)),
+        );
+      }
       await this._goToDefaultTab(router);
       this.updateCacheTabs();
     },
@@ -249,12 +273,44 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeTab(tab: TabDefinition, router: Router) {
       const { currentRoute } = router;
+      const currentTabKey = getTabKey(currentRoute.value);
       // 关闭不是激活选项卡
-      if (getTabKey(currentRoute.value) !== getTabKeyFromTab(tab)) {
+      if (currentTabKey !== getTabKeyFromTab(tab)) {
         this._close(tab);
         this.updateCacheTabs();
+        // 移除访问历史记录
+        if (isVisitHistory()) {
+          this.visitHistory.remove(getTabKeyFromTab(tab));
+        }
         return;
       }
+      if (this.getTabs.length <= 1) {
+        console.error('Failed to close the tab; only one tab remains open.');
+        return;
+      }
+      // 从访问历史记录中移除当前关闭的tab
+      if (isVisitHistory()) {
+        this.visitHistory.remove(currentTabKey);
+        this._close(tab);
+
+        let previousTab: TabDefinition | undefined;
+        let previousTabKey: string | undefined;
+        while (true) {
+          previousTabKey = this.visitHistory.pop();
+          if (!previousTabKey) {
+            break;
+          }
+          previousTab = this.getTabByKey(previousTabKey);
+          if (previousTab) {
+            break;
+          }
+        }
+        await (previousTab
+          ? this._goToTab(previousTab, router)
+          : this._goToDefaultTab(router));
+        return;
+      }
+      // 未开启访问历史记录，直接跳转下一个或上一个tab
       const index = this.getTabs.findIndex(
         (item) => getTabKeyFromTab(item) === getTabKey(currentRoute.value),
       );
@@ -270,8 +326,6 @@ export const useTabbarStore = defineStore('core-tabbar', {
       } else if (before) {
         this._close(tab);
         await this._goToTab(before, router);
-      } else {
-        console.error('Failed to close the tab; only one tab remains open.');
       }
     },
 
@@ -527,11 +581,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
   persist: [
     // tabs不需要保存在localStorage
     {
-      pick: ['tabs'],
+      pick: ['tabs', 'visitHistory'],
       storage: sessionStorage,
     },
   ],
   state: (): TabbarState => ({
+    visitHistory: createStack<string>(true, MAX_VISIT_HISTORY),
     cachedTabs: new Set(),
     dragEndIndex: 0,
     excludeCachedTabs: new Set(),
@@ -626,6 +681,13 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
   } catch {
     return rawKey;
   }
+}
+
+/**
+ * @zh_CN 是否开启访问历史记录
+ */
+function isVisitHistory() {
+  return preferences.tabbar.visitHistory;
 }
 
 /**

@@ -120,6 +120,7 @@ const tabbarShowIcon = defineModel<boolean>('tabbarShowIcon');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarPersist = defineModel<boolean>('tabbarPersist');
+const tabbarVisitHistory = defineModel<boolean>('tabbarVisitHistory');
 const tabbarDraggable = defineModel<boolean>('tabbarDraggable');
 const tabbarWheelable = defineModel<boolean>('tabbarWheelable');
 const tabbarStyleType = defineModel<string>('tabbarStyleType');
@@ -400,6 +401,7 @@ async function handleReset() {
                 v-model:tabbar-draggable="tabbarDraggable"
                 v-model:tabbar-enable="tabbarEnable"
                 v-model:tabbar-persist="tabbarPersist"
+                v-model:tabbar-visit-history="tabbarVisitHistory"
                 v-model:tabbar-show-icon="tabbarShowIcon"
                 v-model:tabbar-show-maximize="tabbarShowMaximize"
                 v-model:tabbar-show-more="tabbarShowMore"
