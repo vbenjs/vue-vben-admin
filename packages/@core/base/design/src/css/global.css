@@ -16,13 +16,13 @@
   html {
     @apply text-foreground bg-background font-sans;
 
+    scroll-behavior: smooth;
     font-size: var(--font-size-base, 16px);
     font-variation-settings: normal;
     font-synthesis-weight: none;
     line-height: 1.15;
-    text-size-adjust: 100%;
-    scroll-behavior: smooth;
     text-rendering: optimizelegibility;
+    text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
 
     /* -webkit-font-smoothing: antialiased;
