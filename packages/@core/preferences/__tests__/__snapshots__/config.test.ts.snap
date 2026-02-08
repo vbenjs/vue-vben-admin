@@ -105,6 +105,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "showMaximize": true,
     "showMore": true,
     "styleType": "chrome",
+    "visitHistory": true,
     "wheelable": true,
   },
   "theme": {
