@@ -2,13 +2,14 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import {
   VBEN_ANT_PREVIEW_URL,
+  VBEN_ANTDV_NEXT_PREVIEW_URL,
   VBEN_DOC_URL,
   VBEN_ELE_PREVIEW_URL,
   VBEN_GITHUB_URL,
   VBEN_LOGO_URL,
   VBEN_NAIVE_PREVIEW_URL,
 } from '@vben/constants';
-import { SvgAntdvLogoIcon } from '@vben/icons';
+import { SvgAntdvLogoIcon, SvgAntdvNextLogoIcon } from '@vben/icons';
 
 import { IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -64,6 +65,17 @@ const routes: RouteRecordRaw[] = [
           icon: SvgAntdvLogoIcon,
           link: VBEN_ANT_PREVIEW_URL,
           title: $t('demos.vben.antdv'),
+        },
+      },
+      {
+        name: 'VbenAntdVNext',
+        path: '/vben-admin/antdv-next',
+        component: IFrameView,
+        meta: {
+          badgeType: 'dot',
+          icon: SvgAntdvNextLogoIcon,
+          link: VBEN_ANTDV_NEXT_PREVIEW_URL,
+          title: $t('demos.vben.antdv-next'),
         },
       },
       {

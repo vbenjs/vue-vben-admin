@@ -18,6 +18,9 @@
     "./antd": {
       "default": "./src/antd/index.css"
     },
+    "./antdv-next": {
+      "default": "./src/antdv-next/index.css"
+    },
     "./ele": {
       "default": "./src/ele/index.css"
     },
