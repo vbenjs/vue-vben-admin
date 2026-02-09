@@ -31,13 +31,9 @@ export async function loginApi(data: AuthApi.LoginParams) {
  * 刷新accessToken
  */
 export async function refreshTokenApi() {
-  return baseRequestClient.post<AuthApi.RefreshTokenResult>(
-    '/auth/refresh',
-    null,
-    {
-      withCredentials: true,
-    },
-  );
+  return baseRequestClient.post<string>('/auth/refresh', null, {
+    withCredentials: true,
+  });
 }
 
 /**

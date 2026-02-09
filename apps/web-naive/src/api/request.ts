@@ -1,7 +1,7 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
-import type { RequestClientOptions } from '@vben/request';
+import type { RequestClientOptions, ResponseReturnMode } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -20,8 +20,11 @@ import { refreshTokenApi } from './core';
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
-function createRequestClient(baseURL: string, options?: RequestClientOptions) {
-  const client = new RequestClient({
+function createRequestClient<TReturn extends ResponseReturnMode = 'raw'>(
+  baseURL: string,
+  options?: RequestClientOptions,
+) {
+  const client = new RequestClient<TReturn>({
     ...options,
     baseURL,
   });
@@ -105,7 +108,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   return client;
 }
 
-export const requestClient = createRequestClient(apiURL, {
+export const requestClient = createRequestClient<'data'>(apiURL, {
   responseReturn: 'data',
 });
 
