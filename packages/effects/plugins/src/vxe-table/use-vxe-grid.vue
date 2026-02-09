@@ -379,9 +379,11 @@ onUnmounted(() => {
       <!-- 左侧操作区域或者title -->
       <template v-if="showToolbar" #toolbar-actions="slotProps">
         <slot v-if="showTableTitle" name="table-title">
-          <div class="mr-1 pl-1 text-[1rem]">
+          <div
+            class="flex items-center justify-center gap-1 text-[1rem] font-bold"
+          >
             {{ tableTitle }}
-            <VbenHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+            <VbenHelpTooltip v-if="tableTitleHelp">
               {{ tableTitleHelp }}
             </VbenHelpTooltip>
           </div>

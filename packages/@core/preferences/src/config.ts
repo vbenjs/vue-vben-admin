@@ -105,6 +105,7 @@ const defaultPreferences: Preferences = {
     showIcon: true,
     showMaximize: true,
     showMore: true,
+    showRefresh: true,
     styleType: 'chrome',
     visitHistory: true,
     wheelable: true,
