@@ -124,8 +124,8 @@ const getSideCollapseWidth = computed(() => {
     props;
 
   return sidebarCollapseShowTitle ||
-  isSidebarMixedNav.value ||
-  isHeaderMixedNav.value
+    isSidebarMixedNav.value ||
+    isHeaderMixedNav.value
     ? sidebarMixedWidth
     : sideCollapseWidth;
 });
