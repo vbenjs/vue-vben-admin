@@ -871,16 +871,14 @@ $namespace: vben;
   }
 
   &:not(.is-active):hover {
-    &:hover {
-      //color: var(--menu-submenu-hover-color);
-      text-decoration: none;
-      cursor: pointer;
-      background: var(--menu-submenu-hover-background-color) !important;
+    //color: var(--menu-submenu-hover-color);
+    text-decoration: none;
+    cursor: pointer;
+    background: var(--menu-submenu-hover-background-color) !important;
 
-      // svg {
-      //   fill: var(--menu-submenu-hover-color);
-      // }
-    }
+    // svg {
+    //   fill: var(--menu-submenu-hover-color);
+    // }
   }
 }
 </style>
