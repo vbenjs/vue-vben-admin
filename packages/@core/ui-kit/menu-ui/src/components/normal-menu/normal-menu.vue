@@ -151,6 +151,8 @@ $namespace: vben;
   }
 
   &__name {
+    width: 100%;
+    text-align: center;
     margin-top: 8px;
     margin-bottom: 0;
     font-size: calc(var(--font-size-base, 16px) * 0.75);
