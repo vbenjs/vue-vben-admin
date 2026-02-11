@@ -56,6 +56,7 @@ const props = withDefaults(defineProps<Props>(), {
   sidebarHidden: false,
   sidebarMixedWidth: 80,
   sidebarTheme: 'dark',
+  sidebarThemeSub: 'dark',
   sidebarWidth: 180,
   sideCollapseWidth: 60,
   tabbarEnable: true,
@@ -123,8 +124,8 @@ const getSideCollapseWidth = computed(() => {
     props;
 
   return sidebarCollapseShowTitle ||
-    isSidebarMixedNav.value ||
-    isHeaderMixedNav.value
+  isSidebarMixedNav.value ||
+  isHeaderMixedNav.value
     ? sidebarMixedWidth
     : sideCollapseWidth;
 });
@@ -502,6 +503,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :mixed-width="sidebarMixedWidth"
       :show="showSidebar"
       :theme="sidebarTheme"
+      :theme-sub="sidebarThemeSub"
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
