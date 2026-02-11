@@ -120,6 +120,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "radius": "0.5",
     "semiDarkHeader": false,
     "semiDarkSidebar": false,
+    "semiDarkSidebarSub": false,
   },
   "transition": {
     "enable": true,

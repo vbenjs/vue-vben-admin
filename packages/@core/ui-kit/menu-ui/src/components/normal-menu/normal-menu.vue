@@ -151,10 +151,12 @@ $namespace: vben;
   }
 
   &__name {
+    width: 100%;
     margin-top: 8px;
     margin-bottom: 0;
     font-size: calc(var(--font-size-base, 16px) * 0.75);
     font-weight: 400;
+    text-align: center;
     transition: all 0.25s ease;
   }
 }

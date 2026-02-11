@@ -88,6 +88,7 @@ const themeMode = defineModel<ThemeModeType>('themeMode');
 const themeRadius = defineModel<string>('themeRadius');
 const themeFontSize = defineModel<number>('themeFontSize');
 const themeSemiDarkSidebar = defineModel<boolean>('themeSemiDarkSidebar');
+const themeSemiDarkSidebarSub = defineModel<boolean>('themeSemiDarkSidebarSub');
 const themeSemiDarkHeader = defineModel<boolean>('themeSemiDarkHeader');
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
@@ -319,6 +320,7 @@ async function handleReset() {
                 v-model="themeMode"
                 v-model:theme-semi-dark-header="themeSemiDarkHeader"
                 v-model:theme-semi-dark-sidebar="themeSemiDarkSidebar"
+                v-model:theme-semi-dark-sidebar-sub="themeSemiDarkSidebarSub"
               />
             </Block>
             <Block :title="$t('preferences.theme.builtin.title')">
