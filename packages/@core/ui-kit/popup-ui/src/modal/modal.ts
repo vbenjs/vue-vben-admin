@@ -151,17 +151,18 @@ export interface ModalState extends ModalProps {
   sharedData?: Record<string, any>;
 }
 
-export type ExtendedModalApi = ModalApi & {
+export type ExtendedModalApi<TPayload = any> = ModalApi<TPayload> & {
   useStore: <T = NoInfer<ModalState>>(
     selector?: (state: NoInfer<ModalState>) => T,
   ) => Readonly<Ref<T>>;
 };
 
-export interface ModalApiOptions extends ModalState {
+export interface ModalApiOptions<TConnected extends Component = Component>
+  extends ModalState {
   /**
    * 独立的弹窗组件
    */
-  connectedComponent?: Component;
+  connectedComponent?: TConnected;
   /**
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns

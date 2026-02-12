@@ -1,12 +1,12 @@
 import type { RequestClient } from '../request-client';
-import type { RequestClientConfig } from '../types';
+import type { RequestClientConfig, ResponseReturnMode } from '../types';
 
 import { isUndefined } from '@vben/utils';
 
 class FileUploader {
-  private client: RequestClient;
+  private client: RequestClient<ResponseReturnMode>;
 
-  constructor(client: RequestClient) {
+  constructor(client: RequestClient<ResponseReturnMode>) {
     this.client = client;
   }
 

@@ -1,5 +1,9 @@
 import type { RequestClient } from './request-client';
-import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
+import type {
+  MakeErrorMessageFn,
+  ResponseInterceptorConfig,
+  ResponseReturnMode,
+} from './types';
 
 import { $t } from '@vben/locales';
 import { isFunction } from '@vben/utils';
@@ -51,7 +55,7 @@ export const authenticateResponseInterceptor = ({
   enableRefreshToken,
   formatToken,
 }: {
-  client: RequestClient;
+  client: RequestClient<ResponseReturnMode>;
   doReAuthenticate: () => Promise<void>;
   doRefreshToken: () => Promise<string>;
   enableRefreshToken: boolean;
