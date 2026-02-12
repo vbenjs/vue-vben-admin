@@ -1,5 +1,9 @@
 import type { ComputedRef } from 'vue';
-import type { RouteLocationNormalized, Router, RouteRecordNormalized } from 'vue-router';
+import type {
+  RouteLocationNormalized,
+  Router,
+  RouteRecordNormalized,
+} from 'vue-router';
 
 import type { TabDefinition } from '@vben-core/typings';
 
@@ -66,7 +70,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async _bulkCloseByKeys(keys: string[]) {
       const keySet = new Set(keys);
-      this.tabs = this.tabs.filter((item) => !keySet.has(getTabKeyFromTab(item)));
+      this.tabs = this.tabs.filter(
+        (item) => !keySet.has(getTabKeyFromTab(item)),
+      );
       if (isVisitHistory()) {
         this.visitHistory.remove(...keys);
       }
@@ -130,20 +136,25 @@ export const useTabbarStore = defineStore('core-tabbar', {
       if (tabIndex === -1) {
         const maxCount = preferences.tabbar.maxCount;
         // 获取动态路由打开数，超过 0 即代表需要控制打开数
-        const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ?? -1) as number;
+        const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ??
+          -1) as number;
         // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
         // 获取到已经打开的动态路由数, 判断是否大于某一个值
         if (
           maxNumOfOpenTab > 0 &&
-          this.tabs.filter((tab) => tab.name === routeTab.name).length >= maxNumOfOpenTab
+          this.tabs.filter((tab) => tab.name === routeTab.name).length >=
+            maxNumOfOpenTab
         ) {
           // 关闭第一个
-          const index = this.tabs.findIndex((item) => item.name === routeTab.name);
+          const index = this.tabs.findIndex(
+            (item) => item.name === routeTab.name,
+          );
           index !== -1 && this.tabs.splice(index, 1);
         } else if (maxCount > 0 && this.tabs.length >= maxCount) {
           // 关闭第一个
           const index = this.tabs.findIndex(
-            (item) => !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab
+            (item) =>
+              !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
           );
           index !== -1 && this.tabs.splice(index, 1);
         }
@@ -183,7 +194,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
       // 设置访问历史记录
       if (isVisitHistory()) {
-        this.visitHistory.retain(this.tabs.map((item) => getTabKeyFromTab(item)));
+        this.visitHistory.retain(
+          this.tabs.map((item) => getTabKeyFromTab(item)),
+        );
       }
       await this._goToDefaultTab(router);
       this.updateCacheTabs();
@@ -220,7 +233,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       for (const key of closeKeys) {
         if (key !== getTabKeyFromTab(tab)) {
-          const closeTab = this.tabs.find((item) => getTabKeyFromTab(item) === key);
+          const closeTab = this.tabs.find(
+            (item) => getTabKeyFromTab(item) === key,
+          );
           if (!closeTab) {
             continue;
           }
@@ -290,12 +305,14 @@ export const useTabbarStore = defineStore('core-tabbar', {
             break;
           }
         }
-        await (previousTab ? this._goToTab(previousTab, router) : this._goToDefaultTab(router));
+        await (previousTab
+          ? this._goToTab(previousTab, router)
+          : this._goToDefaultTab(router));
         return;
       }
       // 未开启访问历史记录，直接跳转下一个或上一个tab
       const index = this.getTabs.findIndex(
-        (item) => getTabKeyFromTab(item) === getTabKey(currentRoute.value)
+        (item) => getTabKeyFromTab(item) === getTabKey(currentRoute.value),
       );
 
       const before = this.getTabs[index - 1];
@@ -319,7 +336,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeTabByKey(key: string, router: Router) {
       const originKey = decodeURIComponent(key);
-      const index = this.tabs.findIndex((item) => getTabKeyFromTab(item) === originKey);
+      const index = this.tabs.findIndex(
+        (item) => getTabKeyFromTab(item) === originKey,
+      );
       if (index === -1) {
         return;
       }
@@ -335,7 +354,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param key
      */
     getTabByKey(key: string) {
-      return this.getTabs.find((item) => getTabKeyFromTab(item) === key) as TabDefinition;
+      return this.getTabs.find(
+        (item) => getTabKeyFromTab(item) === key,
+      ) as TabDefinition;
     },
     /**
      * @zh_CN 新窗口打开标签页
@@ -656,14 +677,21 @@ function isTabShown(tab: TabDefinition) {
  * @param tab
  */
 function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
-  const { fullPath, path, meta: { fullPathKey } = {}, query = {} } = tab as RouteLocationNormalized;
+  const {
+    fullPath,
+    path,
+    meta: { fullPathKey } = {},
+    query = {},
+  } = tab as RouteLocationNormalized;
   // pageKey可能是数组（查询参数重复时可能出现）
-  const pageKey = Array.isArray(query.pageKey) ? query.pageKey[0] : query.pageKey;
+  const pageKey = Array.isArray(query.pageKey)
+    ? query.pageKey[0]
+    : query.pageKey;
   let rawKey;
   if (pageKey) {
     rawKey = pageKey;
   } else {
-    rawKey = fullPathKey === false ? path : fullPath ?? path;
+    rawKey = fullPathKey === false ? path : (fullPath ?? path);
   }
   try {
     return decodeURIComponent(rawKey);
