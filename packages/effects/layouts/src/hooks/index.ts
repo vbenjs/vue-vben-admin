@@ -1,5 +1,11 @@
-import {computed, type VNode} from 'vue';
-import type {RouteLocationNormalizedLoaded, RouteLocationNormalizedLoadedGeneric} from 'vue-router';
+import type { VNode } from 'vue';
+import type {
+  RouteLocationNormalizedLoaded,
+  RouteLocationNormalizedLoadedGeneric,
+} from 'vue-router';
+
+import { computed } from 'vue';
+
 import { preferences, usePreferences } from '@vben/preferences';
 
 /**
@@ -88,5 +94,5 @@ export function useLayoutHook() {
   return {
     getEnabledTransition,
     getTransitionName,
-  }
+  };
 }
