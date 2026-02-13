@@ -9,7 +9,7 @@ import type {
 
 import type { TabDefinition } from '@vben-core/typings';
 
-import { toRaw } from 'vue';
+import { markRaw, toRaw } from 'vue';
 
 import { preferences } from '@vben-core/preferences';
 import {
@@ -574,9 +574,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
       }
       this.cachedRoutes.set(key, {
         key,
-        component,
-        route,
+        component: markRaw(component),
+        route: markRaw(route),
       });
+    },
+    removeCachedRoute(key: string) {
+      this.cachedRoutes.delete(key);
     },
   },
   getters: {
