@@ -52,9 +52,11 @@ const computedCachedRoutes = computed(() => {
   // 刷新路由可刷新缓存
   const excludeCachedTabKeys = unref(getExcludeCachedTabs);
   return [...unref(getCachedRoutes).values()].filter((item) => {
-    const componentType = transformComponent(item.component, item.route)
-      ?.type as any;
-    const componentName = componentType.name;
+    const componentType: any = item.component.type || {};
+    let componentName = componentType.name;
+    if (!componentName) {
+      componentName = item.route.name;
+    }
     return !excludeCachedTabKeys.includes(componentName);
   });
 });
