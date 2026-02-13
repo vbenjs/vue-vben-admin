@@ -5,13 +5,14 @@ import type {
   RouteLocationNormalizedLoadedGeneric,
 } from 'vue-router';
 
-import { computed } from 'vue';
+import { computed, unref } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { preferences, usePreferences } from '@vben/preferences';
 import { getTabKey, storeToRefs, useTabbarStore } from '@vben/stores';
 
 import { IFrameRouterView } from '../../iframe';
+import { RouteCachedPage, RouteCachedView } from '../../route-cached';
 
 defineOptions({ name: 'LayoutContent' });
 
@@ -94,12 +95,26 @@ function transformComponent(
 
   return component;
 }
+
+/**
+ * 是否显示component
+ * @param route
+ */
+const showComponent = (route: RouteLocationNormalizedLoadedGeneric) => {
+  return !route.meta.routeCached && unref(renderRouteView);
+};
 </script>
 
 <template>
   <div class="relative h-full">
     <IFrameRouterView />
+    <RouteCachedView />
     <RouterView v-slot="{ Component, route }">
+      <RouteCachedPage
+        :component="Component"
+        :route="route"
+        v-if="route.meta.routeCached"
+      />
       <Transition
         v-if="getEnabledTransition"
         :name="getTransitionName(route)"
@@ -113,14 +128,14 @@ function transformComponent(
         >
           <component
             :is="transformComponent(Component, route)"
-            v-if="renderRouteView"
+            v-if="showComponent(route)"
             v-show="!route.meta.iframeSrc"
             :key="getTabKey(route)"
           />
         </KeepAlive>
         <component
           :is="Component"
-          v-else-if="renderRouteView"
+          v-else-if="showComponent(route)"
           :key="getTabKey(route)"
         />
       </Transition>
@@ -132,14 +147,14 @@ function transformComponent(
         >
           <component
             :is="transformComponent(Component, route)"
-            v-if="renderRouteView"
+            v-if="showComponent(route)"
             v-show="!route.meta.iframeSrc"
             :key="getTabKey(route)"
           />
         </KeepAlive>
         <component
           :is="Component"
-          v-else-if="renderRouteView"
+          v-else-if="showComponent(route)"
           :key="getTabKey(route)"
         />
       </template>

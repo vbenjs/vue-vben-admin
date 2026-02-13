@@ -118,6 +118,10 @@ interface RouteMeta {
    */
   query?: Recordable;
   /**
+   * 切换tab 路由是否缓存起来
+   */
+  routeCached?: boolean;
+  /**
    * 标题名称
    */
   title: string;
