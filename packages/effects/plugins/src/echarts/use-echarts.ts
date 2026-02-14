@@ -6,7 +6,17 @@ import type { Nullable } from '@vben/types';
 
 import type EchartsUI from './echarts-ui.vue';
 
-import { computed, nextTick, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onActivated,
+  onBeforeUnmount,
+  onDeactivated,
+  onMounted,
+  ref,
+  unref,
+  watch,
+} from 'vue';
 
 import { usePreferences } from '@vben/preferences';
 
@@ -27,6 +37,8 @@ type EchartsThemeType = 'dark' | 'light' | null;
 function useEcharts(chartRef: Ref<EchartsUIType>) {
   let chartInstance: echarts.ECharts | null = null;
   let cacheOptions: EChartsOption = {};
+  // echart是否处于激活状态
+  const isActiveRef = ref(false);
 
   const { isDark } = usePreferences();
   const { height, width } = useWindowSize();
@@ -41,6 +53,11 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     const maybeComponent = refValue as { $el?: HTMLElement };
     return maybeComponent.$el ?? null;
   };
+
+  onMounted(() => (isActiveRef.value = true));
+  onActivated(() => (isActiveRef.value = true));
+  onDeactivated(() => (isActiveRef.value = false));
+  onBeforeUnmount(() => (isActiveRef.value = false));
 
   const isElHidden = (el: HTMLElement | null): boolean => {
     if (!el) return true;
@@ -71,6 +88,9 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     options: EChartsOption,
     clear = true,
   ): Promise<Nullable<echarts.ECharts>> => {
+    if (!unref(isActiveRef)) {
+      return Promise.resolve(null);
+    }
     cacheOptions = options;
     const currentOptions = {
       ...options,
@@ -154,8 +174,8 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   useResizeObserver(chartRef as never, resizeHandler);
 
-  watch(isDark, () => {
-    if (chartInstance) {
+  watch([isDark, isActiveRef], () => {
+    if (chartInstance && unref(isActiveRef)) {
       chartInstance.dispose();
       initCharts();
       renderEcharts(cacheOptions);
@@ -168,6 +188,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     chartInstance?.dispose();
   });
   return {
+    isActive: isActiveRef,
     renderEcharts,
     resize,
     updateData,
