@@ -3,6 +3,8 @@
 import type { VNode } from 'vue';
 import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 
+import { watch } from 'vue';
+
 import { useTabbarStore } from '@vben/stores';
 
 interface Props {
@@ -21,7 +23,14 @@ defineOptions({
 const props = defineProps<Props>();
 
 const { addCachedRoute } = useTabbarStore();
-if (props.component && props.route.meta.domCached) {
-  addCachedRoute(props.component, props.route);
-}
+
+watch(
+  () => props.route,
+  () => {
+    if (props.component && props.route.meta.domCached) {
+      addCachedRoute(props.component, props.route);
+    }
+  },
+  { immediate: true },
+);
 </script>
