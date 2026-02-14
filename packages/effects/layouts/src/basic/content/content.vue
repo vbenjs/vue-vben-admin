@@ -26,7 +26,7 @@ const { getEnabledTransition, getTransitionName } = useLayoutHook();
  * @param route
  */
 const showComponent = (route: RouteLocationNormalizedLoadedGeneric) => {
-  return !route.meta.routeCached && unref(renderRouteView);
+  return !route.meta.domCached && unref(renderRouteView);
 };
 </script>
 
@@ -38,7 +38,7 @@ const showComponent = (route: RouteLocationNormalizedLoadedGeneric) => {
       <RouteCachedPage
         :component="Component"
         :route="route"
-        v-if="route.meta.routeCached"
+        v-if="route.meta.domCached"
       />
       <Transition
         v-if="getEnabledTransition"

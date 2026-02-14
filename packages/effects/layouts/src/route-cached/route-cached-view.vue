@@ -27,7 +27,7 @@ const computedCachedRouteKeys = computed(() => {
     return [];
   }
   return unref(getTabs)
-    .filter((item) => item.meta.routeCached)
+    .filter((item) => item.meta.domCached)
     .map((item) => getTabKey(item));
 });
 

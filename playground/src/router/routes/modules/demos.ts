@@ -30,7 +30,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               icon: 'mdi:page-previous-outline',
               title: $t('demos.access.pageAccess'),
-              routeCached: true,
+              domCached: true,
             },
           },
           {

@@ -21,7 +21,7 @@ defineOptions({
 const props = defineProps<Props>();
 
 const { addCachedRoute } = useTabbarStore();
-if (props.component) {
+if (props.component && props.route.meta.domCached) {
   addCachedRoute(props.component, props.route);
 }
 </script>
