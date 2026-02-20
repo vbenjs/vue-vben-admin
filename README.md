@@ -155,3 +155,7 @@ If you think this project is helpful to you, you can help the author buy a cup o
 ## License
 
 [MIT © Vben-2020](./LICENSE)
+
+## Deployment
+
+[![Deploy on Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostinger.com/web-apps-hosting)
