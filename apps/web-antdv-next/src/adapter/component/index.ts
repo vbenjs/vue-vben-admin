@@ -86,8 +86,20 @@ const Textarea = defineAsyncComponent(
 const TimePicker = defineAsyncComponent(
   () => import('antdv-next/dist/time-picker/index'),
 );
-const TreeSelect = defineAsyncComponent(
-  () => import('antdv-next/dist/tree-select/index'),
+const TreeSelect = defineAsyncComponent(() =>
+  import('antdv-next/dist/tree-select/index').then((mod) => {
+    const Raw = mod.default;
+    return defineComponent({
+      name: 'TreeSelect',
+      inheritAttrs: false,
+      setup(_props: any, { attrs, slots }) {
+        return () => {
+          const { onBlur: _, ...restAttrs } = attrs;
+          return h(Raw, restAttrs, slots);
+        };
+      },
+    });
+  }),
 );
 const Cascader = defineAsyncComponent(
   () => import('antdv-next/dist/cascader/index'),
