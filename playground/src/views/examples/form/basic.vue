@@ -68,6 +68,13 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
+      component: 'Input',
+      fieldName: 'desc',
+      // 界面显示的description
+      description: '这是表单描述',
+      label: '字符串(带描述)',
+    },
+    {
       // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'ApiSelect',
       // 对应组件的参数

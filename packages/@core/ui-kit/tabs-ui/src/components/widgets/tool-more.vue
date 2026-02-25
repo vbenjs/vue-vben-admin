@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DropdownMenuProps } from '@vben-core/shadcn-ui';
 
-import { ChevronDown } from '@vben-core/icons';
+import { LayoutGrid } from '@vben-core/icons';
 import { VbenDropdownMenu } from '@vben-core/shadcn-ui';
 
 defineProps<DropdownMenuProps>();
@@ -12,7 +12,7 @@ defineProps<DropdownMenuProps>();
     <div
       class="flex-center h-full cursor-pointer border-l border-border px-2 text-lg font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
     >
-      <ChevronDown class="size-4" />
+      <LayoutGrid class="size-4" />
     </div>
   </VbenDropdownMenu>
 </template>

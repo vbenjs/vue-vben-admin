@@ -583,6 +583,23 @@ export const useTabbarStore = defineStore('core-tabbar', {
     {
       pick: ['tabs', 'visitHistory'],
       storage: sessionStorage,
+      serializer: {
+        serialize: JSON.stringify,
+        deserialize(value: string) {
+          const parsed = JSON.parse(value);
+          // Stack 类实例经 JSON 序列化后会变成普通对象 {dedup, items, maxSize}，
+          // 丢失所有方法和 getter，需要重新构建 Stack 实例
+          if (parsed.visitHistory && !(parsed.visitHistory instanceof Stack)) {
+            const raw = parsed.visitHistory;
+            const stack = createStack<string>(true, MAX_VISIT_HISTORY);
+            if (Array.isArray(raw.items)) {
+              stack.push(...raw.items);
+            }
+            parsed.visitHistory = stack;
+          }
+          return parsed;
+        },
+      },
     },
   ],
   state: (): TabbarState => ({

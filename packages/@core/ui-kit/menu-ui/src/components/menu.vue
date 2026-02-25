@@ -463,33 +463,33 @@ $namespace: vben;
   &.is-dark {
     --menu-background-color: hsl(var(--menu));
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened-dark));
-    --menu-item-background-color: var(--menu-background-color);
     --menu-item-color: hsl(var(--foreground) / 80%);
+    --menu-item-background-color: var(--menu-background-color);
     --menu-item-hover-color: hsl(var(--accent-foreground));
     --menu-item-hover-background-color: hsl(var(--accent));
     --menu-item-active-color: hsl(var(--accent-foreground));
     --menu-item-active-background-color: hsl(var(--accent));
-    --menu-submenu-hover-color: hsl(var(--foreground));
-    --menu-submenu-hover-background-color: hsl(var(--accent));
-    --menu-submenu-active-color: hsl(var(--foreground));
-    --menu-submenu-active-background-color: transparent;
     --menu-submenu-background-color: var(--menu-background-color);
+    --menu-submenu-hover-color: hsl(var(--accent-foreground));
+    --menu-submenu-hover-background-color: hsl(var(--accent));
+    --menu-submenu-active-color: hsl(var(--accent-foreground));
+    --menu-submenu-active-background-color: transparent;
   }
 
   &.is-light {
     --menu-background-color: hsl(var(--menu));
     // --menu-submenu-opened-background-color: hsl(var(--menu-opened));
+    --menu-item-color: hsl(var(--accent-foreground));
     --menu-item-background-color: var(--menu-background-color);
-    --menu-item-color: hsl(var(--foreground));
     --menu-item-hover-color: var(--menu-item-color);
     --menu-item-hover-background-color: hsl(var(--accent));
     --menu-item-active-color: hsl(var(--primary));
     --menu-item-active-background-color: hsl(var(--primary) / 15%);
+    --menu-submenu-background-color: var(--menu-background-color);
     --menu-submenu-hover-color: hsl(var(--primary));
     --menu-submenu-hover-background-color: hsl(var(--accent));
     --menu-submenu-active-color: hsl(var(--primary));
     --menu-submenu-active-background-color: transparent;
-    --menu-submenu-background-color: var(--menu-background-color);
   }
 
   &.is-rounded {
@@ -518,25 +518,33 @@ $namespace: vben;
     --menu-background-color: transparent;
 
     &.is-dark {
+      --menu-background-color: hsl(var(--menu));
+      --menu-item-color: hsl(var(--foreground) / 80%);
+      --menu-item-background-color: var(--menu-background-color);
       --menu-item-hover-color: hsl(var(--accent-foreground));
       --menu-item-hover-background-color: hsl(var(--accent));
       --menu-item-active-color: hsl(var(--accent-foreground));
       --menu-item-active-background-color: hsl(var(--accent));
-      --menu-submenu-active-color: hsl(var(--foreground));
-      --menu-submenu-active-background-color: hsl(var(--accent));
+      --menu-submenu-background-color: var(--menu-background-color);
       --menu-submenu-hover-color: hsl(var(--accent-foreground));
       --menu-submenu-hover-background-color: hsl(var(--accent));
+      --menu-submenu-active-color: hsl(var(--accent-foreground));
+      --menu-submenu-active-background-color: hsl(var(--accent));
     }
 
     &.is-light {
+      --menu-background-color: hsl(var(--menu));
+      --menu-item-color: hsl(var(--accent-foreground));
+      --menu-item-background-color: var(--menu-background-color);
+      --menu-item-hover-color: var(--menu-item-color);
+      --menu-item-hover-background-color: hsl(var(--accent));
       --menu-item-active-color: hsl(var(--primary));
       --menu-item-active-background-color: hsl(var(--primary) / 15%);
-      --menu-item-hover-background-color: hsl(var(--accent));
-      --menu-item-hover-color: hsl(var(--primary));
-      --menu-submenu-active-color: hsl(var(--primary));
-      --menu-submenu-active-background-color: hsl(var(--primary) / 15%);
+      --menu-submenu-background-color: var(--menu-background-color);
       --menu-submenu-hover-color: hsl(var(--primary));
       --menu-submenu-hover-background-color: hsl(var(--accent));
+      --menu-submenu-active-color: hsl(var(--primary));
+      --menu-submenu-active-background-color: hsl(var(--primary) / 15%);
     }
   }
 }
@@ -862,9 +870,8 @@ $namespace: vben;
     padding-right: 12px !important;
   }
 
-  // &:not(.is-active):hover {
-  &:hover {
-    color: var(--menu-submenu-hover-color);
+  &:not(.is-active):hover {
+    //color: var(--menu-submenu-hover-color);
     text-decoration: none;
     cursor: pointer;
     background: var(--menu-submenu-hover-background-color) !important;

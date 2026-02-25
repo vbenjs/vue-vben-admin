@@ -77,7 +77,10 @@ interface Props {
    * 主题
    */
   theme: string;
-
+  /**
+   * 子主题
+   */
+  themeSub: string;
   /**
    * 宽度
    */
@@ -261,40 +264,48 @@ function handleMouseleave() {
     class="h-full transition-all duration-150"
   ></div>
   <aside
-    :class="[
-      theme,
-      {
-        'bg-sidebar-deep': isSidebarMixed,
-        'border-r border-border bg-sidebar': !isSidebarMixed,
-      },
-    ]"
     :style="style"
     class="fixed left-0 top-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
-    <SidebarFixedButton
-      v-if="!collapse && !isSidebarMixed && showFixedButton"
-      v-model:expand-on-hover="expandOnHover"
-    />
-    <div v-if="slots.logo" :style="headerStyle">
-      <slot name="logo"></slot>
-    </div>
-    <VbenScrollbar :style="contentStyle" shadow shadow-border>
-      <slot></slot>
-    </VbenScrollbar>
+    <div
+      class="h-full"
+      :class="[
+        theme,
+        {
+          'bg-sidebar-deep': isSidebarMixed,
+          'border-r border-border bg-sidebar': !isSidebarMixed,
+        },
+      ]"
+      :style="{ width: `${width}px` }"
+    >
+      <SidebarFixedButton
+        v-if="!collapse && !isSidebarMixed && showFixedButton"
+        v-model:expand-on-hover="expandOnHover"
+      />
+      <div v-if="slots.logo" :style="headerStyle">
+        <slot name="logo"></slot>
+      </div>
+      <VbenScrollbar :style="contentStyle" shadow shadow-border>
+        <slot></slot>
+      </VbenScrollbar>
 
-    <div :style="collapseStyle"></div>
-    <SidebarCollapseButton
-      v-if="showCollapseButton && !isSidebarMixed"
-      v-model:collapsed="collapse"
-    />
+      <div :style="collapseStyle"></div>
+      <SidebarCollapseButton
+        v-if="showCollapseButton && !isSidebarMixed"
+        v-model:collapsed="collapse"
+      />
+    </div>
     <div
       v-if="isSidebarMixed"
       ref="asideRef"
-      :class="{
-        'border-l': extraVisible,
-      }"
+      :class="[
+        themeSub,
+        {
+          'border-l': extraVisible,
+        },
+      ]"
       :style="extraStyle"
       class="fixed top-0 h-full overflow-hidden border-r border-border bg-sidebar transition-all duration-200"
     >

@@ -147,6 +147,11 @@ interface VbenLayoutProps {
    */
   sidebarTheme?: ThemeModeType;
   /**
+   * 侧边栏子栏
+   * @default dark
+   */
+  sidebarThemeSub?: ThemeModeType;
+  /**
    * 侧边栏宽度
    * @default 210
    */

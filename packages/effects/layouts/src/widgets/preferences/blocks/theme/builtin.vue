@@ -58,7 +58,6 @@ function typeView(name: BuiltinThemeType) {
     case 'green': {
       return $t('preferences.theme.builtin.green');
     }
-
     case 'neutral': {
       return $t('preferences.theme.builtin.neutral');
     }
