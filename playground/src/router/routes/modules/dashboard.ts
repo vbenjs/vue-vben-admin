@@ -20,6 +20,7 @@ const routes: RouteRecordRaw[] = [
           affixTab: true,
           icon: 'lucide:area-chart',
           title: $t('page.dashboard.analytics'),
+          keepAlive: true,
         },
       },
       {
