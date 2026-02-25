@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, ref, shallowRef, useSlots, watchEffect } from 'vue';
 
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
@@ -107,7 +107,7 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 0,
 });
 
-const emit = defineEmits<{ leave: [] }>();
+const emit = defineEmits<{ leave: []; 'update:width': [value: number] }>();
 const collapse = defineModel<boolean>('collapse');
 const extraCollapse = defineModel<boolean>('extraCollapse');
 const expandOnHovering = defineModel<boolean>('expandOnHovering');
@@ -254,6 +254,32 @@ function handleMouseleave() {
   collapse.value = true;
   extraVisible.value = false;
 }
+
+const isDragging = ref(false);
+
+function handleDragSidebar(e: MouseEvent) {
+  e.preventDefault();
+
+  isDragging.value = true;
+
+  const startX = e.clientX;
+  const startWidth = props.width;
+
+  function onMouseMove(moveEvent: MouseEvent) {
+    const deltaX = moveEvent.clientX - startX;
+    const newWidth = Math.min(320, Math.max(160, startWidth + deltaX));
+    emit('update:width', newWidth);
+  }
+
+  function onMouseUp() {
+    isDragging.value = false;
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}
 </script>
 
 <template>
@@ -266,6 +292,7 @@ function handleMouseleave() {
   <aside
     :style="style"
     class="fixed left-0 top-0 h-full transition-all duration-150"
+    :class="{ 'transition-none': isDragging }"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -296,6 +323,10 @@ function handleMouseleave() {
         v-if="showCollapseButton && !isSidebarMixed"
         v-model:collapsed="collapse"
       />
+      <div
+        class="absolute inset-y-0 -right-0.5 z-1000 w-1 cursor-col-resize"
+        @mousedown="handleDragSidebar"
+      ></div>
     </div>
     <div
       v-if="isSidebarMixed"
@@ -304,6 +335,7 @@ function handleMouseleave() {
         themeSub,
         {
           'border-l': extraVisible,
+          'transition-none': isDragging,
         },
       ]"
       :style="extraStyle"

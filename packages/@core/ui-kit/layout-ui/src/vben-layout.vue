@@ -64,7 +64,11 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 200,
 });
 
-const emit = defineEmits<{ sideMouseLeave: []; toggleSidebar: [] }>();
+const emit = defineEmits<{
+  sideMouseLeave: [];
+  toggleSidebar: [];
+  'update:sidebar-width': [value: number];
+}>();
 const sidebarCollapse = defineModel<boolean>('sidebarCollapse', {
   default: false,
 });
@@ -480,6 +484,10 @@ function handleHeaderToggle() {
 }
 
 const idMainContent = ELEMENT_ID_MAIN_CONTENT;
+
+function handleUpdateSidebarWidth(val: number) {
+  emit('update:sidebar-width', val);
+}
 </script>
 
 <template>
@@ -507,6 +515,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
+      @update:width="handleUpdateSidebarWidth"
     >
       <template v-if="isSideMode && !isMixedNav" #logo>
         <slot name="logo"></slot>
