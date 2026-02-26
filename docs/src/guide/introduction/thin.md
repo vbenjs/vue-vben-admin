@@ -12,7 +12,7 @@ outline: deep
 
 ```bash
 apps/web-ele
-apps/web-naive
+apps/web-antd
 
 ```
 
