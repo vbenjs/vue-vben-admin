@@ -1,4 +1,4 @@
-import { onUnmounted, ref } from 'vue';
+import { onUnmounted } from 'vue';
 
 interface ResizableOptions {
   max?: number;
@@ -9,40 +9,70 @@ interface ResizableOptions {
 export function useResizable(options: ResizableOptions = {}) {
   const { min = 0, max = 999, onChange } = options;
 
-  const isDragging = ref(false);
-
-  let cleanup: (() => void) | null = null;
-
+  let startX = 0;
+  let startWidth = 0;
+  let targetTransition = '';
+  let dragBarTransition = '';
+  let dragBarOffsetLeft = 0;
+  let dragBarLeft = '';
+  let dragBarRight = '';
   let userSelect = '';
   let cursor = '';
+  let cleanup: (() => void) | null = null;
 
-  const startDrag = (e: MouseEvent, width: number) => {
+  const startDrag = (
+    e: MouseEvent,
+    currentWidth: number,
+    targetElement: HTMLElement | null,
+    dragBarElement: HTMLElement | null,
+  ) => {
+    cleanup?.();
+
     e.preventDefault();
     e.stopPropagation();
 
-    isDragging.value = true;
-    const startX = e.clientX;
-    const startWidth = width;
+    if (!dragBarElement || !targetElement) return;
+
+    startX = e.clientX;
+    startWidth = currentWidth;
+
+    targetTransition = targetElement.style.transition;
+    dragBarTransition = dragBarElement.style.transition;
+
+    dragBarOffsetLeft = dragBarElement.offsetLeft;
+    dragBarLeft = dragBarElement.style.left;
+    dragBarRight = dragBarElement.style.right;
 
     userSelect = document.body.style.userSelect;
     cursor = document.body.style.cursor;
+
+    targetElement.style.transition = 'none';
+    dragBarElement.style.transition = 'none';
+
+    dragBarElement.style.left = `${dragBarOffsetLeft}px`;
+    dragBarElement.style.right = 'auto';
 
     document.body.style.userSelect = 'none';
     document.body.style.cursor = 'col-resize';
 
     const onMouseMove = (moveEvent: MouseEvent) => {
-      if (!isDragging.value) return;
-
       const deltaX = moveEvent.clientX - startX;
-      let newWidth = startWidth + deltaX;
-
-      newWidth = Math.min(max, Math.max(min, newWidth));
-
-      onChange?.(newWidth);
+      const newLeft = dragBarOffsetLeft + deltaX;
+      dragBarElement.style.left = `${newLeft}px`;
     };
 
-    const onMouseUp = () => {
-      if (!isDragging.value) return;
+    const onMouseUp = (upEvent: MouseEvent) => {
+      const deltaX = upEvent.clientX - startX;
+      let newWidth = startWidth + deltaX;
+      newWidth = Math.min(max, Math.max(min, newWidth));
+
+      if (dragBarElement) {
+        dragBarElement.style.left = dragBarLeft;
+        dragBarElement.style.right = dragBarRight;
+      }
+
+      onChange?.(newWidth);
+
       cleanup?.();
     };
 
@@ -53,10 +83,18 @@ export function useResizable(options: ResizableOptions = {}) {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
+      if (targetElement) {
+        targetElement.style.transition = targetTransition;
+      }
+      if (dragBarElement) {
+        dragBarElement.style.transition = dragBarTransition;
+        dragBarElement.style.left = dragBarLeft;
+        dragBarElement.style.right = dragBarRight;
+      }
+
       document.body.style.userSelect = userSelect;
       document.body.style.cursor = cursor;
 
-      isDragging.value = false;
       cleanup = null;
     };
   };
@@ -66,7 +104,6 @@ export function useResizable(options: ResizableOptions = {}) {
   });
 
   return {
-    isDragging,
     startDrag,
   };
 }

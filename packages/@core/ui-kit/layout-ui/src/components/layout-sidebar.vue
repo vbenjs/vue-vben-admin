@@ -118,8 +118,8 @@ const extraVisible = defineModel<boolean>('extraVisible');
 const isLocked = useScrollLock(document.body);
 const slots = useSlots();
 
-// @ts-expect-error unused
-const asideRef = shallowRef<HTMLDivElement | null>();
+const asideRef = shallowRef<HTMLElement | null>(null);
+const dragBarRef = shallowRef<HTMLElement | null>(null);
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
@@ -256,7 +256,7 @@ function handleMouseleave() {
   extraVisible.value = false;
 }
 
-const { isDragging, startDrag } = useResizable({
+const { startDrag } = useResizable({
   min: 160,
   max: 320,
   onChange: (newWidth) => {
@@ -265,8 +265,9 @@ const { isDragging, startDrag } = useResizable({
 });
 
 const handleDragSidebar = (e: MouseEvent) => {
-  const { width } = props;
-  startDrag(e, width);
+  const { isSidebarMixed, extraWidth, width } = props;
+  const currentWidth = isSidebarMixed ? extraWidth : width;
+  startDrag(e, currentWidth, asideRef.value, dragBarRef.value);
 };
 </script>
 
@@ -278,9 +279,9 @@ const handleDragSidebar = (e: MouseEvent) => {
     class="h-full transition-all duration-150"
   ></div>
   <aside
+    ref="asideRef"
     :style="style"
     class="fixed left-0 top-0 h-full transition-all duration-150"
-    :class="{ 'transition-none': isDragging }"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -311,19 +312,13 @@ const handleDragSidebar = (e: MouseEvent) => {
         v-if="showCollapseButton && !isSidebarMixed"
         v-model:collapsed="collapse"
       />
-      <div
-        class="absolute inset-y-0 -right-0.5 z-1000 w-1 cursor-col-resize"
-        @mousedown="handleDragSidebar"
-      ></div>
     </div>
     <div
       v-if="isSidebarMixed"
-      ref="asideRef"
       :class="[
         themeSub,
         {
           'border-l': extraVisible,
-          'transition-none': isDragging,
         },
       ]"
       :style="extraStyle"
@@ -350,5 +345,10 @@ const handleDragSidebar = (e: MouseEvent) => {
         <slot name="extra"></slot>
       </VbenScrollbar>
     </div>
+    <div
+      ref="dragBarRef"
+      class="absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize hover:bg-primary"
+      @mousedown="handleDragSidebar"
+    ></div>
   </aside>
 </template>

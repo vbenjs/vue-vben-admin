@@ -211,14 +211,6 @@ const slots: SetupContext['slots'] = useSlots();
 const headerSlots = computed(() => {
   return Object.keys(slots).filter((key) => key.startsWith('header-'));
 });
-
-function handleUpdateSidebarWidth(newWidth: number) {
-  updatePreferences({
-    sidebar: {
-      width: newWidth,
-    },
-  });
-}
 </script>
 
 <template>
@@ -275,7 +267,9 @@ function handleUpdateSidebarWidth(newWidth: number) {
       (value: boolean) =>
         updatePreferences({ sidebar: { extraCollapse: value } })
     "
-    @update:sidebar-width="handleUpdateSidebarWidth"
+    @update:sidebar-width="
+      (value: number) => updatePreferences({ sidebar: { width: value } })
+    "
   >
     <!-- logo -->
     <template #logo>
