@@ -484,10 +484,6 @@ function handleHeaderToggle() {
 }
 
 const idMainContent = ELEMENT_ID_MAIN_CONTENT;
-
-function handleUpdateSidebarWidth(val: number) {
-  emit('update:sidebar-width', val);
-}
 </script>
 
 <template>
@@ -515,7 +511,7 @@ function handleUpdateSidebarWidth(val: number) {
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
-      @update:width="handleUpdateSidebarWidth"
+      @update:width="(val) => emit('update:sidebar-width', val)"
     >
       <template v-if="isSideMode && !isMixedNav" #logo>
         <slot name="logo"></slot>

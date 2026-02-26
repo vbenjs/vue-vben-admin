@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, ref, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
+import { useResizable } from '@vben-core/composables';
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
@@ -255,31 +256,18 @@ function handleMouseleave() {
   extraVisible.value = false;
 }
 
-const isDragging = ref(false);
-
-function handleDragSidebar(e: MouseEvent) {
-  e.preventDefault();
-
-  isDragging.value = true;
-
-  const startX = e.clientX;
-  const startWidth = props.width;
-
-  function onMouseMove(moveEvent: MouseEvent) {
-    const deltaX = moveEvent.clientX - startX;
-    const newWidth = Math.min(320, Math.max(160, startWidth + deltaX));
+const { isDragging, startDrag } = useResizable({
+  min: 160,
+  max: 320,
+  onChange: (newWidth) => {
     emit('update:width', newWidth);
-  }
+  },
+});
 
-  function onMouseUp() {
-    isDragging.value = false;
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  }
-
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-}
+const handleDragSidebar = (e: MouseEvent) => {
+  const { width } = props;
+  startDrag(e, width);
+};
 </script>
 
 <template>
