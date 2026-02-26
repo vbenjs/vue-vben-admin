@@ -192,7 +192,7 @@ catalog:
   vue-eslint-parser: ^10.2.0
   vue-i18n: ^11.2.8
   vue-json-viewer: ^3.0.4
-  vue-router: ^4.6.4
+  vue-router: ^5.0.3
   vue-tippy: ^6.7.1
   vue-tsc: ^3.2.4
   vxe-pc-ui: ^4.12.16
