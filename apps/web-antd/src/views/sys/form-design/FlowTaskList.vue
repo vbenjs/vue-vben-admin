@@ -4,17 +4,17 @@ import { Page } from '@vben/common-ui';
 import { Card, Table, Button, Input, Select, Tag } from 'ant-design-vue';
 
 /**
- * 审批流程 - 工作台列表共用组件
- * 用于：我的审批 / 我的提交 / 待审流程 / 审批通过 / 抄送我的 / 全部审批
+ * 表单流程 - 工作流列表共用组件
+ * 用于：发起流程 / 待办流程 / 已办流程 / 抄送流程 / 我的提交
  */
-interface ApprovalListPageProps {
+interface FlowTaskListProps {
   title: string;
   description: string;
   /** 数据过滤条件，后端接口按类型区分 */
-  queryType: 'my-todo' | 'my-submit' | 'pending' | 'approved' | 'cc' | 'all';
+  queryType: 'initiate' | 'todo' | 'done' | 'cc' | 'my-submit';
 }
 
-const props = defineProps<ApprovalListPageProps>();
+const props = defineProps<FlowTaskListProps>();
 
 const loading = ref(false);
 const dataSource = ref([]);
@@ -22,11 +22,10 @@ const pagination = ref({ current: 1, pageSize: 30, total: 0 });
 const searchParams = ref({ keyword: '', flowNo: '', status: undefined });
 
 const columns = [
-  { title: '标题', dataIndex: 'applyTitle', key: 'applyTitle' },
+  { title: '标题', dataIndex: 'title', key: 'title' },
   { title: '流程编号', dataIndex: 'flowNo', key: 'flowNo', width: 160 },
   { title: '审批状态', dataIndex: 'status', key: 'status', width: 100 },
   { title: '当前节点', dataIndex: 'currentNode', key: 'currentNode', width: 120 },
-  { title: '当前处理人', dataIndex: 'currentHandler', key: 'currentHandler', width: 110 },
   { title: '申请人', dataIndex: 'applyUser', key: 'applyUser', width: 100 },
   { title: '申请时间', dataIndex: 'applyTime', key: 'applyTime', width: 160 },
   { title: '操作', key: 'action', width: 180 },
@@ -44,7 +43,7 @@ const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-'
 const fetchList = async (page = 1) => {
   try {
     loading.value = true;
-    // TODO: 接入真实审批工作台 API（根据 queryType 查询不同数据）
+    // TODO: 接入真实流程工作台 API（根据 queryType 查询不同数据）
     dataSource.value = [];
     pagination.value.current = page;
     pagination.value.total = 0;
@@ -79,7 +78,7 @@ onMounted(() => fetchList());
           :loading="loading"
           :pagination="pagination"
           @change="(pag) => fetchList(pag.current)"
-          rowKey="applyId"
+          rowKey="flowId"
           bordered
           size="middle"
         >
@@ -92,10 +91,9 @@ onMounted(() => fetchList());
             <template v-if="column.key === 'applyTime'">{{ formatDate(record.applyTime) }}</template>
             <template v-if="column.key === 'action'">
               <Button type="link" size="small">查看</Button>
-              <Button v-if="queryType === 'my-todo'" type="link" size="small">审核</Button>
-              <Button v-if="queryType === 'my-submit'" type="link" size="small">撤销</Button>
-              <Button v-if="queryType === 'my-todo' || queryType === 'pending'" type="link" size="small">催办</Button>
-              <Button v-if="queryType === 'pending'" type="link" danger size="small">中止</Button>
+              <Button v-if="queryType === 'todo'" type="link" size="small">审核</Button>
+              <Button v-if="queryType === 'initiate' || queryType === 'my-submit'" type="link" size="small">撤销</Button>
+              <Button v-if="queryType === 'todo'" type="link" size="small">催办</Button>
             </template>
           </template>
         </Table>

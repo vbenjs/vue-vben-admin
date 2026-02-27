@@ -88,27 +88,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/sys/monitor/index.vue'),
         meta: { icon: 'lucide:activity', title: '服务监控' },
       },
-      // ===================== 表单设计（含子菜单）=====================
-      {
-        meta: { icon: 'lucide:layout-template', title: '表单设计' },
-        name: 'SysFormDesignGroup',
-        path: '/sys/form',
-        children: [
-          {
-            name: 'SysFormConfig',
-            path: '/sys/form/config',
-            component: () => import('#/views/sys/form-design/form-config.vue'),
-            meta: { icon: 'lucide:table-2', title: '表单配置' },
-          },
-          {
-            name: 'SysFormDesignEditor',
-            path: '/sys/form/design',
-            component: () => import('#/views/sys/form-design/index.vue'),
-            meta: { icon: 'lucide:pen-square', title: '表单设计器' },
-          },
-        ],
-      },
-      // ===================== 审批流程（含子菜单）=====================
+      // ===================== 审批流程（含7个子菜单）=====================
       {
         meta: { icon: 'lucide:git-merge', title: '审批流程' },
         name: 'SysApprovalGroup',
@@ -155,6 +135,50 @@ const routes: RouteRecordRaw[] = [
             path: '/sys/approval/all',
             component: () => import('#/views/sys/approval-process/all-approval.vue'),
             meta: { icon: 'lucide:list', title: '全部审批' },
+          },
+        ],
+      },
+      // ===================== 表单流程（含6个子菜单）=====================
+      {
+        meta: { icon: 'lucide:layout-template', title: '表单流程' },
+        name: 'SysFormFlowGroup',
+        path: '/sys/form',
+        children: [
+          {
+            name: 'SysFormFlowManage',
+            path: '/sys/form/flow-manage',
+            component: () => import('#/views/sys/form-design/flow-manage.vue'),
+            meta: { icon: 'lucide:workflow', title: '流程管理' },
+          },
+          {
+            name: 'SysFormFlowInitiate',
+            path: '/sys/form/initiate',
+            component: () => import('#/views/sys/form-design/initiate.vue'),
+            meta: { icon: 'lucide:play-circle', title: '发起流程' },
+          },
+          {
+            name: 'SysFormFlowTodo',
+            path: '/sys/form/todo',
+            component: () => import('#/views/sys/form-design/todo.vue'),
+            meta: { icon: 'lucide:clipboard-check', title: '待办流程' },
+          },
+          {
+            name: 'SysFormFlowDone',
+            path: '/sys/form/done',
+            component: () => import('#/views/sys/form-design/done.vue'),
+            meta: { icon: 'lucide:check-square', title: '已办流程' },
+          },
+          {
+            name: 'SysFormFlowCc',
+            path: '/sys/form/cc',
+            component: () => import('#/views/sys/form-design/cc.vue'),
+            meta: { icon: 'lucide:mail', title: '抄送流程' },
+          },
+          {
+            name: 'SysFormFlowMySubmit',
+            path: '/sys/form/my-submit',
+            component: () => import('#/views/sys/form-design/my-submit.vue'),
+            meta: { icon: 'lucide:send', title: '我的提交' },
           },
         ],
       },
