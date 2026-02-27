@@ -260,7 +260,7 @@ const { startDrag } = useSidebarDrag();
 
 const handleDragSidebar = (e: MouseEvent) => {
   const { isSidebarMixed, collapseWidth, extraWidth, width } = props;
-  const minLimit = isSidebarMixed ? width + collapseWidth : collapseWidth;
+  const minLimit = collapseWidth;
   const maxLimit = isSidebarMixed ? width + 320 : 320;
   const currentWidth = isSidebarMixed ? extraWidth : width;
   startDrag(
