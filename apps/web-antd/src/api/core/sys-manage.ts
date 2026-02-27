@@ -140,3 +140,23 @@ export const sysPrintDesignApi = {
   remove: (id: string | number) => requestClient.delete(`/sys/print-design/${id}`),
 };
 
+/**
+ * ================= SysDictType API =================
+ */
+export const sysDictTypeApi = {
+  getList: (params?: any) => requestClient.get('/sys/dict/type/list', { params }),
+  create: (data: any) => requestClient.post('/sys/dict/type', data),
+  update: (id: string | number, data: any) => requestClient.put(`/sys/dict/type/${id}`, data),
+  remove: (id: string | number) => requestClient.delete(`/sys/dict/type/${id}`),
+};
+
+/**
+ * ================= SysDictData API =================
+ */
+export const sysDictDataApi = {
+  getList: (params?: any) => requestClient.get('/sys/dict/data/list', { params }),
+  create: (data: any) => requestClient.post('/sys/dict/data', data),
+  update: (id: string | number, data: any) => requestClient.put(`/sys/dict/data/${id}`, data),
+  remove: (id: string | number) => requestClient.delete(`/sys/dict/data/${id}`),
+};
+
