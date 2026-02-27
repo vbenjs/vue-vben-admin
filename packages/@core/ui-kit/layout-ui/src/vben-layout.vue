@@ -124,13 +124,16 @@ const headerWrapperHeight = computed(() => {
 });
 
 const getSideCollapseWidth = computed(() => {
-  const { sidebarCollapseShowTitle, sidebarMixedWidth, sideCollapseWidth } =
-    props;
+  const {
+    sidebarCollapseShowTitle,
+    sidebarExtraCollapsedWidth,
+    sideCollapseWidth,
+  } = props;
 
   return sidebarCollapseShowTitle ||
     isSidebarMixedNav.value ||
     isHeaderMixedNav.value
-    ? sidebarMixedWidth
+    ? sidebarExtraCollapsedWidth
     : sideCollapseWidth;
 });
 

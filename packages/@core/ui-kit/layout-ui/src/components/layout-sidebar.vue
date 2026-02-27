@@ -3,11 +3,11 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { useResizable } from '@vben-core/composables';
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 
+import { useSidebarDrag } from '../hooks/use-sidebar-drag';
 import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 
 interface Props {
@@ -256,18 +256,29 @@ function handleMouseleave() {
   extraVisible.value = false;
 }
 
-const { startDrag } = useResizable({
-  min: 160,
-  max: 320,
-  onChange: (newWidth) => {
-    emit('update:width', newWidth);
-  },
-});
+const { startDrag } = useSidebarDrag();
 
 const handleDragSidebar = (e: MouseEvent) => {
-  const { isSidebarMixed, extraWidth, width } = props;
+  const { isSidebarMixed, collapseWidth, extraWidth, width } = props;
+  const minLimit = isSidebarMixed ? width + collapseWidth : collapseWidth;
+  const maxLimit = isSidebarMixed ? width + 320 : 320;
   const currentWidth = isSidebarMixed ? extraWidth : width;
-  startDrag(e, currentWidth, asideRef.value, dragBarRef.value);
+  startDrag(
+    e,
+    minLimit,
+    maxLimit,
+    currentWidth,
+    asideRef.value,
+    dragBarRef.value,
+    (newWidth) => {
+      emit('update:width', newWidth);
+      if (isSidebarMixed) {
+        extraCollapse.value = newWidth <= collapseWidth;
+      } else {
+        collapse.value = newWidth <= collapseWidth;
+      }
+    },
+  );
 };
 </script>
 

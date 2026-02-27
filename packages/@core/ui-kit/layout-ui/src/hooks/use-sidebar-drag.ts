@@ -1,14 +1,6 @@
 import { onUnmounted } from 'vue';
 
-interface ResizableOptions {
-  max?: number;
-  min?: number;
-  onChange?: (newWidth: number) => void;
-}
-
-export function useResizable(options: ResizableOptions = {}) {
-  const { min = 0, max = 999, onChange } = options;
-
+export function useSidebarDrag() {
   let startX = 0;
   let startWidth = 0;
   let targetTransition = '';
@@ -22,9 +14,12 @@ export function useResizable(options: ResizableOptions = {}) {
 
   const startDrag = (
     e: MouseEvent,
+    min: number,
+    max: number,
     currentWidth: number,
     targetElement: HTMLElement | null,
     dragBarElement: HTMLElement | null,
+    onDrag: (newWidth: number) => void,
   ) => {
     cleanup?.();
 
@@ -57,7 +52,9 @@ export function useResizable(options: ResizableOptions = {}) {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.clientX - startX;
-      const newLeft = dragBarOffsetLeft + deltaX;
+      let newLeft = dragBarOffsetLeft + deltaX;
+      if (newLeft < min) newLeft = min;
+      if (newLeft > max) newLeft = max;
       dragBarElement.style.left = `${newLeft}px`;
     };
 
@@ -71,7 +68,7 @@ export function useResizable(options: ResizableOptions = {}) {
         dragBarElement.style.right = dragBarRight;
       }
 
-      onChange?.(newWidth);
+      onDrag?.(newWidth);
 
       cleanup?.();
     };
