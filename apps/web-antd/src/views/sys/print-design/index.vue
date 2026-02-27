@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag } from 'ant-design-vue';
+import { Card, Table, Button, Input, Tag, Select, Popconfirm, message } from 'ant-design-vue';
 import { sysPrintDesignApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
@@ -11,10 +11,10 @@ const searchParams = ref({ printName: '', status: undefined });
 
 const columns = [
   { title: '模板名称', dataIndex: 'printName', key: 'printName' },
-  { title: '状态', dataIndex: 'status', key: 'status' },
-  { title: '创建人', dataIndex: 'createBy', key: 'createBy' },
-  { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
-  { title: '操作', key: 'action', width: 250 }
+  { title: '状态', dataIndex: 'status', key: 'status', width: 80 },
+  { title: '创建人', dataIndex: 'createBy', key: 'createBy', width: 100 },
+  { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 160 },
+  { title: '操作', key: 'action', width: 160 }
 ];
 
 const fetchList = async (page = 1) => {
@@ -29,6 +29,8 @@ const fetchList = async (page = 1) => {
   }
 };
 
+const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+
 onMounted(() => fetchList());
 </script>
 
@@ -36,11 +38,15 @@ onMounted(() => fetchList());
   <Page title="打印设计" description="业务单据网页打印可视化模板设定。">
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-4 flex gap-4">
-          <Input v-model:value="searchParams.printName" placeholder="打印模板名称" class="w-48" allowClear />
+        <div class="mb-3 flex gap-3 flex-wrap">
+          <Input v-model:value="searchParams.printName" placeholder="模板名称" class="w-40" allowClear />
+          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+            <Select.Option value="0">启用</Select.Option>
+            <Select.Option value="1">禁用</Select.Option>
+          </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
           <Button @click="() => { searchParams.printName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
-          <Button type="primary" ghost class="ml-auto">新增打印模板</Button>
+          <Button type="primary" class="ml-auto">+ 新增</Button>
         </div>
         
         <Table 
@@ -51,6 +57,7 @@ onMounted(() => fetchList());
           @change="(pag) => fetchList(pag.current)"
           rowKey="printId"
           bordered
+          size="middle"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">
@@ -58,10 +65,13 @@ onMounted(() => fetchList());
                 {{ record.status === '0' ? '启用' : '禁用' }}
               </Tag>
             </template>
+            <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
             <template v-if="column.key === 'action'">
               <Button type="link" size="small">设计器</Button>
               <Button type="link" size="small">编辑</Button>
-              <Button type="link" danger size="small">删除</Button>
+              <Popconfirm title="确定删除该打印模板吗？" @confirm="">
+                <Button type="link" danger size="small">删除</Button>
+              </Popconfirm>
             </template>
           </template>
         </Table>

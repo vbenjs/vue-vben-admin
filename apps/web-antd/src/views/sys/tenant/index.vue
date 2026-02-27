@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Modal, Form, Radio, Tag, Popconfirm, message } from 'ant-design-vue';
+import { Card, Table, Button, Input, Modal, Form, Radio, Tag, Popconfirm, message, Select } from 'ant-design-vue';
 import { sysTenantApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
 const dataSource = ref([]);
 const total = ref(0);
 const pagination = ref({ current: 1, pageSize: 10, total: 0 });
-const searchParams = ref({ tenantName: '' });
+const searchParams = ref({ tenantName: '', status: undefined });
 
 const columns = [
   { title: '租户名称', dataIndex: 'tenantName', key: 'tenantName' },
-  { title: '状态', dataIndex: 'status', key: 'status' },
+  { title: '状态', dataIndex: 'status', key: 'status', width: 90 },
   { title: '备注', dataIndex: 'remark', key: 'remark' },
-  { title: '创建人', dataIndex: 'createBy', key: 'createBy' },
-  { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
-  { title: '操作', key: 'action', width: 150 }
+  { title: '创建人', dataIndex: 'createBy', key: 'createBy', width: 100 },
+  { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 160 },
+  { title: '操作', key: 'action', width: 130 }
 ];
 
 const fetchList = async (page = 1) => {
@@ -76,20 +76,24 @@ const handleDelete = async (id: number | string) => {
   }
 };
 
-onMounted(() => {
-  fetchList();
-});
+const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+
+onMounted(() => fetchList());
 </script>
 
 <template>
   <Page title="租户管理" description="多租户系统管理维护。">
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-4 flex gap-4">
-          <Input v-model:value="searchParams.tenantName" placeholder="请输入租户名称" class="w-64" allowClear />
+        <div class="mb-3 flex gap-3 flex-wrap">
+          <Input v-model:value="searchParams.tenantName" placeholder="租户名称" class="w-40" allowClear />
+          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+            <Select.Option value="0">正常</Select.Option>
+            <Select.Option value="1">停用</Select.Option>
+          </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
-          <Button @click="() => { searchParams.tenantName = ''; fetchList(1); }">重置</Button>
-          <Button type="primary" ghost class="ml-auto" @click="openModal()">新增租户</Button>
+          <Button @click="() => { searchParams.tenantName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">+ 新增</Button>
         </div>
         <Table 
           :columns="columns" 
@@ -99,6 +103,7 @@ onMounted(() => {
           @change="(pag) => fetchList(pag.current)"
           rowKey="tenantId"
           bordered
+          size="middle"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">
@@ -106,6 +111,7 @@ onMounted(() => {
                 {{ record.status === '0' ? '正常' : '停用' }}
               </Tag>
             </template>
+            <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
             <template v-if="column.key === 'action'">
               <Button type="link" size="small" @click="openModal(record)">编辑</Button>
               <Popconfirm title="确定删除吗？" @confirm="handleDelete(record.tenantId)">
