@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect } from 'ant-design-vue';
+import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect, Select } from 'ant-design-vue';
 import { sysDeptApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
 const dataSource = ref([]);
-const searchParams = ref({ deptName: '' });
+const searchParams = ref({ deptName: '', status: undefined });
 
 // 弹窗与表单状态
 const isModalVisible = ref(false);
@@ -142,11 +142,15 @@ onMounted(() => fetchList());
   <Page title="组织架构" description="公司部门树形层级管理。">
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-4 flex gap-4">
-          <Input v-model:value="searchParams.deptName" placeholder="部门名称" class="w-64" allowClear />
+        <div class="mb-3 flex gap-3 flex-wrap">
+          <Input v-model:value="searchParams.deptName" placeholder="部门名称" class="w-40" allowClear />
+          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+            <Select.Option value="0">正常</Select.Option>
+            <Select.Option value="1">停用</Select.Option>
+          </Select>
           <Button type="primary" @click="fetchList">查询</Button>
-          <Button @click="() => { searchParams.deptName = ''; fetchList(); }">重置</Button>
-          <Button type="primary" ghost class="ml-auto" @click="openModal">新增部门</Button>
+          <Button @click="() => { searchParams.deptName = ''; searchParams.status = undefined; fetchList(); }">重置</Button>
+          <Button type="primary" class="ml-auto" @click="openModal">+ 新增</Button>
         </div>
         <Table 
           :columns="columns" 
@@ -155,6 +159,7 @@ onMounted(() => fetchList());
           :pagination="false"
           rowKey="deptId"
           bordered
+          size="middle"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">

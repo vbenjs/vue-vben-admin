@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect, Radio } from 'ant-design-vue';
+import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect, Radio, Select } from 'ant-design-vue';
 import { sysMenuApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
 const dataSource = ref([]);
-const searchParams = ref({ menuName: '' });
+const searchParams = ref({ menuName: '', status: undefined });
 
 // 弹窗与表单状态
 const isModalVisible = ref(false);
@@ -137,11 +137,15 @@ onMounted(() => fetchList());
   <Page title="菜单管理" description="系统左侧导航菜单、页面操作按钮的权限配置。">
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-4 flex gap-4">
-          <Input v-model:value="searchParams.menuName" placeholder="菜单名称" class="w-64" allowClear />
+        <div class="mb-3 flex gap-3 flex-wrap">
+          <Input v-model:value="searchParams.menuName" placeholder="菜单名称" class="w-40" allowClear />
+          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+            <Select.Option value="0">正常</Select.Option>
+            <Select.Option value="1">停用</Select.Option>
+          </Select>
           <Button type="primary" @click="fetchList">查询</Button>
-          <Button @click="() => { searchParams.menuName = ''; fetchList(); }">重置</Button>
-          <Button type="primary" ghost class="ml-auto" @click="openModal">新增菜单</Button>
+          <Button @click="() => { searchParams.menuName = ''; searchParams.status = undefined; fetchList(); }">重置</Button>
+          <Button type="primary" class="ml-auto" @click="openModal">+ 新增</Button>
         </div>
         <Table 
           :columns="columns" 
@@ -150,6 +154,7 @@ onMounted(() => fetchList());
           :pagination="false"
           rowKey="menuId"
           bordered
+          size="middle"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">
