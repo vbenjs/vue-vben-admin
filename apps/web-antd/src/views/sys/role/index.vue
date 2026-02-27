@@ -44,13 +44,13 @@ const isModalVisible = ref(false);
 const isSubmitLoading = ref(false);
 const formRef = ref();
 const formState = ref<any>({
-  roleName: '', roleKey: '', roleSort: 0, status: '0', remark: '',
+  roleName: '', roleKey: '', roleSort: 0, dataScope: '0', status: '0', remark: '',
 });
 
 const openModal = (record?: any) => {
   formState.value = record
     ? { ...record }
-    : { roleName: '', roleKey: '', roleSort: 0, status: '0', remark: '' };
+    : { roleName: '', roleKey: '', roleSort: 0, dataScope: '0', status: '0', remark: '' };
   isModalVisible.value = true;
 };
 
@@ -187,6 +187,15 @@ onMounted(() => fetchList());
         </Form.Item>
         <Form.Item label="显示顺序" name="roleSort">
           <InputNumber v-model:value="formState.roleSort" :min="0" style="width: 100%" />
+        </Form.Item>
+        <Form.Item label="数据权限" name="dataScope">
+          <Select v-model:value="formState.dataScope" placeholder="请选择数据权限">
+            <Select.Option value="0">本人权限</Select.Option>
+            <Select.Option value="1">本部门权限</Select.Option>
+            <Select.Option value="2">本部门及下级</Select.Option>
+            <Select.Option value="3">全部权限</Select.Option>
+            <Select.Option value="4">自定义权限</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item label="状态" name="status">
           <Radio.Group v-model:value="formState.status">

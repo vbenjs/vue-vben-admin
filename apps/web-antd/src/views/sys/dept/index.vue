@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect, Select } from 'ant-design-vue';
+import { Card, Table, Button, Input, Tag, Modal, Form, message, Popconfirm, TreeSelect, Select, Radio } from 'ant-design-vue';
 import { sysDeptApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
@@ -14,7 +14,9 @@ const isSubmitLoading = ref(false);
 const formRef = ref();
 const formState = ref<any>({
   deptName: '',
+  deptCode: '',
   parentId: undefined,
+  deptType: '0',
   orderNum: 0,
   leader: '',
   phone: '',
@@ -70,7 +72,7 @@ const convertToTableTree = (list: any[]) => {
 };
 
 const openModal = () => {
-  formState.value = { deptName: '', parentId: undefined, orderNum: 0, leader: '', phone: '', email: '', status: '0' };
+  formState.value = { deptName: '', deptCode: '', parentId: undefined, deptType: '0', orderNum: 0, leader: '', phone: '', email: '', status: '0' };
   isModalVisible.value = true;
 };
 
@@ -80,7 +82,7 @@ const openEditModal = (record: any) => {
 };
 
 const openAddSubModal = (record: any) => {
-  formState.value = { deptName: '', parentId: record.deptId, orderNum: 0, leader: '', phone: '', email: '', status: '0' };
+  formState.value = { deptName: '', deptCode: '', parentId: record.deptId, deptType: '0', orderNum: 0, leader: '', phone: '', email: '', status: '0' };
   isModalVisible.value = true;
 };
 
@@ -203,23 +205,38 @@ onMounted(() => fetchList());
             tree-default-expand-all
           />
         </Form.Item>
-        <Form.Item label="部门名称" name="deptName" :rules="[{ required: true, message: '请输入部门名称' }]">
+        <Form.Item label="名称" name="deptName" :rules="[{ required: true, message: '请输入名称' }]">
           <Input v-model:value="formState.deptName" placeholder="如: 技术部" />
+        </Form.Item>
+        <Form.Item label="编号" name="deptCode">
+          <Input v-model:value="formState.deptCode" placeholder="请输入编号" />
+        </Form.Item>
+        <Form.Item label="上级组织" name="parentId">
+          <TreeSelect
+            v-model:value="formState.parentId"
+            :tree-data="deptTreeData"
+            placeholder="请选择上级组织"
+            allow-clear
+            tree-default-expand-all
+          />
+        </Form.Item>
+        <Form.Item label="类型" name="deptType">
+          <Radio.Group v-model:value="formState.deptType">
+            <Radio value="0">组织</Radio>
+            <Radio value="1">部门</Radio>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label="显示排序" name="orderNum">
           <Input type="number" v-model:value="formState.orderNum" placeholder="如: 1" />
         </Form.Item>
-        <Form.Item label="负责人" name="leader">
-          <Input v-model:value="formState.leader" placeholder="请输入负责人姓名" />
+        <Form.Item label="是否可用" name="status">
+          <Select v-model:value="formState.status">
+            <Select.Option value="0">是</Select.Option>
+            <Select.Option value="1">否</Select.Option>
+          </Select>
         </Form.Item>
-        <Form.Item label="联系电话" name="phone">
-          <Input v-model:value="formState.phone" placeholder="请输入联系电话" />
-        </Form.Item>
-        <Form.Item label="邮箱" name="email">
-          <Input v-model:value="formState.email" placeholder="请输入邮箱地址" />
-        </Form.Item>
-        <Form.Item label="状态" name="status">
-          <Input v-model:value="formState.status" placeholder="0为正常，1为停用" />
+        <Form.Item label="备注" name="remark">
+          <Input v-model:value="formState.remark" placeholder="可输入备注" />
         </Form.Item>
       </Form>
     </Modal>

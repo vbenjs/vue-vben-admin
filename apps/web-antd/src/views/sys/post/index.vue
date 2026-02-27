@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
 import {
-  Card, Table, Button, Input, Tag, Popconfirm,
+  Card, Table, Button, Input, Tag, Popconfirm, TreeSelect,
   Modal, Form, InputNumber, Select, Radio, message,
 } from 'ant-design-vue';
 import { sysPostApi } from '#/api/core/sys-manage';
@@ -42,12 +42,25 @@ const fetchList = async (page = 1) => {
 const isModalVisible = ref(false);
 const submitting = ref(false);
 const formRef = ref();
-const formState = ref<any>({ postCode: '', postName: '', postSort: 0, status: '0', remark: '' });
+const postTreeData = ref<any[]>([]);
+
+const buildPostTree = (list: any[]) => {
+  return list.map((p: any) => ({ title: p.postName, value: p.postId, key: p.postId }));
+};
+
+const fetchPostTree = async () => {
+  try {
+    const res = await sysPostApi.getList({ pageSize: 200 });
+    postTreeData.value = buildPostTree(res?.items || []);
+  } catch { postTreeData.value = []; }
+};
+
+const formState = ref<any>({ postCode: '', postName: '', parentId: undefined, postSort: 0, status: '0', remark: '' });
 
 const openModal = (record?: any) => {
   formState.value = record
     ? { ...record }
-    : { postCode: '', postName: '', postSort: 0, status: '0', remark: '' };
+    : { postCode: '', postName: '', parentId: undefined, postSort: 0, status: '0', remark: '' };
   isModalVisible.value = true;
 };
 
@@ -81,7 +94,7 @@ const handleDelete = async (id: number) => {
 /* ---- 格式化时间 ---- */
 const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
 
-onMounted(() => fetchList());
+onMounted(() => { fetchList(); fetchPostTree(); });
 </script>
 
 <template>
@@ -173,26 +186,27 @@ onMounted(() => fetchList());
           class="mt-4"
         >
           <Form.Item
-            label="岗位编码"
-            name="postCode"
-            :rules="[{ required: true, message: '请输入岗位编码' }]"
-          >
-            <Input v-model:value="formState.postCode" placeholder="请输入岗位编码" />
-          </Form.Item>
-          <Form.Item
             label="岗位名称"
             name="postName"
             :rules="[{ required: true, message: '请输入岗位名称' }]"
           >
             <Input v-model:value="formState.postName" placeholder="请输入岗位名称" />
           </Form.Item>
-          <Form.Item label="排序" name="postSort">
-            <InputNumber v-model:value="formState.postSort" :min="0" style="width: 100%" />
+          <Form.Item label="岗位编号" name="postCode">
+            <Input v-model:value="formState.postCode" placeholder="请输入岗位编号" />
           </Form.Item>
-          <Form.Item label="状态" name="status">
+          <Form.Item label="上级岗位" name="parentId">
+            <TreeSelect
+              v-model:value="formState.parentId"
+              :tree-data="postTreeData"
+              placeholder="请选择上级岗位"
+              allow-clear
+            />
+          </Form.Item>
+          <Form.Item label="是否可用" name="status">
             <Radio.Group v-model:value="formState.status">
-              <Radio value="0">正常</Radio>
-              <Radio value="1">停用</Radio>
+              <Radio value="1">否</Radio>
+              <Radio value="0">是</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item label="备注" name="remark">

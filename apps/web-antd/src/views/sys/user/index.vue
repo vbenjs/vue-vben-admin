@@ -2,10 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
 import {
-  Card, Table, Button, Input, Row, Col, Tree, Tag,
+  Card, Table, Button, Input, Row, Col, Tree, TreeSelect, Tag,
   Modal, Form, Radio, Select, Popconfirm, message,
 } from 'ant-design-vue';
-import { sysUserApi, sysDeptApi } from '#/api/core/sys-manage';
+import { sysUserApi, sysDeptApi, sysRoleApi, sysPostApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
 const dataSource = ref([]);
@@ -54,19 +54,37 @@ const fetchList = async (page = 1) => {
   }
 };
 
+/* ---- 角色/岗位选项 ---- */
+const roleOptions = ref<any[]>([]);
+const postOptions = ref<any[]>([]);
+
+const fetchRoles = async () => {
+  try {
+    const res = await sysRoleApi.getList({ pageSize: 200 });
+    roleOptions.value = (res?.items || []).map((r: any) => ({ label: r.roleName, value: r.roleId }));
+  } catch { roleOptions.value = []; }
+};
+const fetchPosts = async () => {
+  try {
+    const res = await sysPostApi.getList({ pageSize: 200 });
+    postOptions.value = (res?.items || []).map((p: any) => ({ label: p.postName, value: p.postId }));
+  } catch { postOptions.value = []; }
+};
+
 /* ---- Modal ---- */
 const isModalVisible = ref(false);
 const isSubmitLoading = ref(false);
 const formRef = ref();
-const formState = ref<any>({
-  userName: '', nickName: '', phonenumber: '', email: '',
-  deptId: undefined, status: '0', remark: '',
+const defaultForm = () => ({
+  userName: '', nickName: '', sex: '0', phonenumber: '', email: '',
+  deptId: undefined, roleIds: [], postIds: [], status: '0', remark: '',
 });
+const formState = ref<any>(defaultForm());
 
 const openModal = (record?: any) => {
   formState.value = record
-    ? { ...record }
-    : { userName: '', nickName: '', phonenumber: '', email: '', deptId: undefined, status: '0', remark: '' };
+    ? { ...record, roleIds: record.roleIds || [], postIds: record.postIds || [] }
+    : defaultForm();
   isModalVisible.value = true;
 };
 
@@ -98,6 +116,8 @@ const handleDelete = async (id: number) => {
 
 onMounted(() => {
   fetchDepts();
+  fetchRoles();
+  fetchPosts();
   fetchList();
 });
 </script>
@@ -198,7 +218,7 @@ onMounted(() => {
       @ok="handleOk"
       :confirmLoading="isSubmitLoading"
       destroyOnClose
-      width="560px"
+      width="620px"
     >
       <Form
         ref="formRef"
@@ -221,17 +241,50 @@ onMounted(() => {
         >
           <Input v-model:value="formState.nickName" placeholder="如：张三" />
         </Form.Item>
+        <Form.Item label="性别" name="sex">
+          <Select v-model:value="formState.sex" placeholder="请选择性别">
+            <Select.Option value="0">男</Select.Option>
+            <Select.Option value="1">女</Select.Option>
+          </Select>
+        </Form.Item>
         <Form.Item label="手机号码" name="phonenumber">
           <Input v-model:value="formState.phonenumber" placeholder="请输入手机号码" />
         </Form.Item>
         <Form.Item label="邮箱" name="email">
           <Input v-model:value="formState.email" placeholder="请输入邮箱" />
         </Form.Item>
-        <Form.Item label="状态" name="status">
-          <Radio.Group v-model:value="formState.status">
-            <Radio value="0">正常</Radio>
-            <Radio value="1">停用</Radio>
-          </Radio.Group>
+        <Form.Item label="部门" name="deptId">
+          <TreeSelect
+            v-model:value="formState.deptId"
+            :tree-data="deptTreeData"
+            placeholder="请选择所属部门"
+            allow-clear
+            tree-default-expand-all
+          />
+        </Form.Item>
+        <Form.Item label="角色" name="roleIds" :rules="[{ required: true, message: '请选择角色' }]">
+          <Select
+            v-model:value="formState.roleIds"
+            mode="multiple"
+            :options="roleOptions"
+            placeholder="请选择角色"
+            allow-clear
+          />
+        </Form.Item>
+        <Form.Item label="岗位" name="postIds">
+          <Select
+            v-model:value="formState.postIds"
+            mode="multiple"
+            :options="postOptions"
+            placeholder="请选择岗位"
+            allow-clear
+          />
+        </Form.Item>
+        <Form.Item label="状态" name="status" :rules="[{ required: true }]">
+          <Select v-model:value="formState.status" placeholder="请选择状态">
+            <Select.Option value="0">正常</Select.Option>
+            <Select.Option value="1">停用</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item label="备注" name="remark">
           <Input.TextArea v-model:value="formState.remark" placeholder="可输入备注信息" />
