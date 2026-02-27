@@ -64,6 +64,14 @@ const handleTypeSubmit = async () => {
 const handleDeleteType = async (id: number | string) => {
   await sysDictTypeApi.remove(id);
   message.success('删除成功');
+  if (selectedKeys.value.length > 0) {
+    // 找出当前被删除的那个项是否是选中的项，如果是则清空右侧
+    const node = treeData.value.find(item => item.dictId === id);
+    if (node && selectedKeys.value.includes(node.key)) {
+      selectedKeys.value = [];
+      tableData.value = [];
+    }
+  }
   fetchTypeList();
 };
 
