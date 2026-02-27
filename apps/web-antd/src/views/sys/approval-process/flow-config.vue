@@ -1,0 +1,147 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { Page } from '@vben/common-ui';
+import {
+  Card, Table, Button, Input, Tag, Select, Popconfirm, message, Modal, Form, Radio,
+} from 'ant-design-vue';
+import { sysApprovalProcessApi } from '#/api/core/sys-manage';
+
+const loading = ref(false);
+const dataSource = ref([]);
+const pagination = ref({ current: 1, pageSize: 30, total: 0 });
+const searchParams = ref({ processName: '', status: undefined });
+
+const columns = [
+  { title: '流程名称', dataIndex: 'processName', key: 'processName' },
+  { title: '模板标题', dataIndex: 'formId', key: 'formId', width: 200 },
+  { title: '业务表', dataIndex: 'bizTable', key: 'bizTable' },
+  { title: '功能菜单', dataIndex: 'menuName', key: 'menuName' },
+  { title: '权重', dataIndex: 'weight', key: 'weight', width: 70 },
+  { title: '审核中数', dataIndex: 'pendingCount', key: 'pendingCount', width: 90 },
+  { title: '创建人', dataIndex: 'createBy', key: 'createBy', width: 100 },
+  { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 160 },
+  { title: '修改时间', dataIndex: 'updateTime', key: 'updateTime', width: 160 },
+  { title: '操作', key: 'action', width: 200 },
+];
+
+const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+
+const fetchList = async (page = 1) => {
+  try {
+    loading.value = true;
+    const res = await sysApprovalProcessApi.getList({
+      page, pageSize: pagination.value.pageSize, ...searchParams.value,
+    });
+    dataSource.value = res?.items || [];
+    pagination.value.current = page;
+    pagination.value.total = res?.total || 0;
+  } finally {
+    loading.value = false;
+  }
+};
+
+/* ---- Modal ---- */
+const isModalVisible = ref(false);
+const isSubmitLoading = ref(false);
+const formRef = ref();
+const formState = ref<any>({ processName: '', status: '0' });
+
+const openModal = (record?: any) => {
+  formState.value = record ? { ...record } : { processName: '', status: '0' };
+  isModalVisible.value = true;
+};
+
+const handleOk = async () => {
+  try {
+    await formRef.value?.validate();
+    isSubmitLoading.value = true;
+    if (formState.value.processId) {
+      await sysApprovalProcessApi.update(formState.value.processId, formState.value);
+      message.success('修改成功');
+    } else {
+      await sysApprovalProcessApi.create(formState.value);
+      message.success('新增成功');
+    }
+    isModalVisible.value = false;
+    fetchList(pagination.value.current);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isSubmitLoading.value = false;
+  }
+};
+
+const handleDelete = async (id: number) => {
+  await sysApprovalProcessApi.remove(id);
+  message.success('删除成功');
+  fetchList(pagination.value.current);
+};
+
+onMounted(() => fetchList());
+</script>
+
+<template>
+  <Page title="流程配置" description="审批流程规则和业务表单的绑定配置。">
+    <div class="p-4">
+      <Card :bordered="false">
+        <div class="mb-3 flex gap-3 flex-wrap">
+          <Input v-model:value="searchParams.processName" placeholder="流程名称" class="w-40" allowClear />
+          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+            <Select.Option value="0">启用中</Select.Option>
+            <Select.Option value="1">已停用</Select.Option>
+          </Select>
+          <Button type="primary" @click="fetchList(1)">查询</Button>
+          <Button @click="() => { searchParams.processName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">+ 新建</Button>
+          <Button>发布</Button>
+          <Button>印章配置</Button>
+          <Button danger ghost>停用删除</Button>
+        </div>
+
+        <Table
+          :columns="columns"
+          :dataSource="dataSource"
+          :loading="loading"
+          :pagination="pagination"
+          @change="(pag) => fetchList(pag.current)"
+          rowKey="processId"
+          bordered
+          size="middle"
+        >
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'status'">
+              <Tag :color="record.status === '0' ? 'success' : 'error'">
+                {{ record.status === '0' ? '启用中' : '已停用' }}
+              </Tag>
+            </template>
+            <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
+            <template v-if="column.key === 'updateTime'">{{ formatDate(record.updateTime) }}</template>
+            <template v-if="column.key === 'action'">
+              <Button type="link" size="small" @click="openModal(record)">设计流程图</Button>
+              <Button type="link" size="small" @click="openModal(record)">编辑</Button>
+              <Popconfirm title="确定删除该审批流吗？" @confirm="handleDelete(record.processId)">
+                <Button type="link" danger size="small">删除</Button>
+              </Popconfirm>
+            </template>
+          </template>
+        </Table>
+      </Card>
+    </div>
+
+    <!-- 新增/编辑弹窗 -->
+    <Modal v-model:open="isModalVisible" :title="formState.processId ? '编辑流程' : '新建流程'"
+      @ok="handleOk" :confirmLoading="isSubmitLoading" destroyOnClose>
+      <Form ref="formRef" :model="formState" :label-col="{ span: 5 }" :wrapper-col="{ span: 17 }" class="mt-4">
+        <Form.Item label="流程名称" name="processName" :rules="[{ required: true, message: '请输入流程名称' }]">
+          <Input v-model:value="formState.processName" placeholder="如：采购订单审批" />
+        </Form.Item>
+        <Form.Item label="状态" name="status">
+          <Radio.Group v-model:value="formState.status">
+            <Radio value="0">启用</Radio>
+            <Radio value="1">停用</Radio>
+          </Radio.Group>
+        </Form.Item>
+      </Form>
+    </Modal>
+  </Page>
+</template>
