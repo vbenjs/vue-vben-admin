@@ -62,7 +62,7 @@ export class SysDictService {
   }
 
   async updateType(id: number | string, data: any, username: string) {
-    const { dictId, key, ...updateData } = data;
+    const { dictId, key, title, value, children, ...updateData } = data;
     const res = await this.prisma.sysDictType.update({
       where: { dictId: BigInt(id) },
       data: { ...updateData, updateBy: username },
@@ -102,7 +102,7 @@ export class SysDictService {
   }
 
   async updateData(id: number | string, data: any, username: string) {
-    const { dictCode, key, ...updateData } = data;
+    const { dictCode, key, title, value, children, ...updateData } = data;
     const dictSort = updateData.dictSort !== undefined ? Number(updateData.dictSort) : 0;
     const res = await this.prisma.sysDictData.update({
       where: { dictCode: BigInt(id) },
