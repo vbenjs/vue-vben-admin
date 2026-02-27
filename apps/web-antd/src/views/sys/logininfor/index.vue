@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag } from 'ant-design-vue';
+import { Card, Table, Button, Input, Tag, Popconfirm, message } from 'ant-design-vue';
 import { sysLogininforApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
@@ -18,6 +18,7 @@ const columns = [
   { title: '登录状态', dataIndex: 'status', key: 'status' },
   { title: '操作提示', dataIndex: 'msg', key: 'msg' },
   { title: '登录日期', dataIndex: 'loginTime', key: 'loginTime' },
+  { title: '操作', key: 'action', width: 80 }
 ];
 
 const fetchList = async (page = 1) => {
@@ -33,10 +34,15 @@ const fetchList = async (page = 1) => {
 };
 
 const handleClean = async () => {
-  if (confirm('确认清空所有登录记录吗？此操作无法恢复。')) {
-    await sysLogininforApi.clean();
-    fetchList(1);
-  }
+  await sysLogininforApi.clean();
+  message.success('清空登录日志成功');
+  fetchList(1);
+};
+
+const handleDelete = async (id: number | string) => {
+  await sysLogininforApi.remove(id);
+  message.success('删除成功');
+  fetchList(pagination.value.current);
 };
 
 onMounted(() => fetchList());
@@ -51,7 +57,9 @@ onMounted(() => fetchList());
           <Input v-model:value="searchParams.ipaddr" placeholder="登录IP地址" class="w-48" allowClear />
           <Button type="primary" @click="fetchList(1)">查询</Button>
           <Button @click="() => { searchParams.userName = ''; searchParams.ipaddr = ''; fetchList(1); }">重置</Button>
-          <Button type="primary" danger ghost class="ml-auto" @click="handleClean">清空</Button>
+          <Popconfirm title="确认清空所有登录记录吗？此操作无法恢复。" @confirm="handleClean">
+            <Button type="primary" danger ghost class="ml-auto">清空</Button>
+          </Popconfirm>
         </div>
         
         <Table 
@@ -68,6 +76,11 @@ onMounted(() => fetchList());
               <Tag :color="record.status === '0' ? 'success' : 'error'">
                 {{ record.status === '0' ? '成功' : '失败' }}
               </Tag>
+            </template>
+            <template v-if="column.key === 'action'">
+              <Popconfirm title="确定删除这日志吗？" @confirm="handleDelete(record.infoId)">
+                <Button type="link" danger size="small">删除</Button>
+              </Popconfirm>
             </template>
           </template>
         </Table>
