@@ -160,3 +160,15 @@ export const sysDictDataApi = {
   remove: (id: string | number) => requestClient.delete(`/sys/dict/data/${id}`),
 };
 
+/**
+ * ================= SysPost API =================
+ */
+export const sysPostApi = {
+  getList: (params?: any) => requestClient.get('/sys/post/list', { params }),
+  getById: (id: string | number) => requestClient.get(`/sys/post/${id}`),
+  create: (data: any) => requestClient.post('/sys/post', data),
+  update: (id: string | number, data: any) => requestClient.put(`/sys/post/${id}`, data),
+  remove: (id: string | number) => requestClient.delete(`/sys/post/${id}`),
+};
+
+
