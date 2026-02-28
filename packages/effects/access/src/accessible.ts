@@ -183,18 +183,23 @@ function mergeRoutesByName(
       routeMap.has(route.name as string)
     ) {
       const existing = routeMap.get(route.name as string)!;
-      Object.assign(existing, route, {
+      const existingChildren = existing.children ?? [];
+      const routeChildren = route.children ?? [];
+
+      const merged: RouteRecordRaw = {
+        ...route,
+        ...existing, // keep backend as base
         meta: {
           ...route.meta,
-          ...existing.meta,
+          ...existing.meta, // backend meta wins on conflicts
         },
-      });
-      if (existing.children || route.children) {
-        existing.children = mergeRoutesByName(
-          route.children || [],
-          existing.children || [],
-        );
+      };
+
+      if (existingChildren.length > 0 || routeChildren.length > 0) {
+        merged.children = mergeRoutesByName(existingChildren, routeChildren);
       }
+
+      Object.assign(existing, merged);
     } else {
       const clone = { ...route } as RouteRecordRaw;
       result.push(clone);
