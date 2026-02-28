@@ -25,6 +25,7 @@ async function generateAccessible(
   const { router } = options;
 
   options.routes = cloneDeep(options.routes);
+
   // 生成路由
   const accessibleRoutes = await generateRoutes(mode, options);
 
@@ -101,8 +102,10 @@ async function generateRoutes(
         generateRoutesByFrontend(routes, roles || [], forbiddenComponent),
         generateRoutesByBackend(options),
       ]);
-
-      resultRoutes = [...frontend_resultRoutes, ...backend_resultRoutes];
+      resultRoutes = mergeRoutesByName(
+        backend_resultRoutes,
+        frontend_resultRoutes,
+      );
       break;
     }
   }
@@ -151,6 +154,57 @@ async function generateRoutes(
   });
 
   return resultRoutes;
+}
+
+/**
+ * 根据 name 合并前后端路由
+ * @param baseRoutes 后端路由
+ * @param extraRoutes 前端路由
+ */
+function mergeRoutesByName(
+  baseRoutes: RouteRecordRaw[],
+  extraRoutes: RouteRecordRaw[],
+): RouteRecordRaw[] {
+  const result: RouteRecordRaw[] = [];
+  const routeMap = new Map<string, RouteRecordRaw>();
+
+  for (const route of baseRoutes) {
+    const clone = { ...route } as RouteRecordRaw;
+    result.push(clone);
+    if (clone.name && isString(clone.name)) {
+      routeMap.set(clone.name as string, clone);
+    }
+  }
+
+  for (const route of extraRoutes) {
+    if (
+      route.name &&
+      isString(route.name) &&
+      routeMap.has(route.name as string)
+    ) {
+      const existing = routeMap.get(route.name as string)!;
+      Object.assign(existing, route, {
+        meta: {
+          ...route.meta,
+          ...existing.meta,
+        },
+      });
+      if (existing.children || route.children) {
+        existing.children = mergeRoutesByName(
+          route.children || [],
+          existing.children || [],
+        );
+      }
+    } else {
+      const clone = { ...route } as RouteRecordRaw;
+      result.push(clone);
+      if (clone.name && isString(clone.name)) {
+        routeMap.set(clone.name as string, clone);
+      }
+    }
+  }
+
+  return result;
 }
 
 export { generateAccessible };
