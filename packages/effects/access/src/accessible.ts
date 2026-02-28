@@ -186,14 +186,14 @@ function mergeRoutesByName(
       const existingChildren = existing.children ?? [];
       const routeChildren = route.children ?? [];
 
-      const merged: RouteRecordRaw = {
+      const merged = {
         ...route,
         ...existing, // keep backend as base
         meta: {
           ...route.meta,
           ...existing.meta, // backend meta wins on conflicts
         },
-      };
+      } as RouteRecordRaw;
 
       if (existingChildren.length > 0 || routeChildren.length > 0) {
         merged.children = mergeRoutesByName(existingChildren, routeChildren);
