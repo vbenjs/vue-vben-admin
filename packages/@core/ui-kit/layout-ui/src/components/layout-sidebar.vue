@@ -109,6 +109,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{ leave: []; 'update:width': [value: number] }>();
+const draggable = defineModel<boolean>('draggable');
 const collapse = defineModel<boolean>('collapse');
 const extraCollapse = defineModel<boolean>('extraCollapse');
 const expandOnHovering = defineModel<boolean>('expandOnHovering');
@@ -262,14 +263,19 @@ const handleDragSidebar = (e: MouseEvent) => {
   const { isSidebarMixed, collapseWidth, extraWidth, width } = props;
   const minLimit = collapseWidth;
   const maxLimit = 320;
-  const currentWidth = isSidebarMixed ? extraWidth : width;
+  const startWidth = isSidebarMixed ? extraWidth : width;
+
   startDrag(
     e,
-    minLimit,
-    maxLimit,
-    currentWidth,
-    asideRef.value,
-    dragBarRef.value,
+    {
+      min: minLimit,
+      max: maxLimit,
+      startWidth,
+    },
+    {
+      target: asideRef.value,
+      dragBar: dragBarRef.value,
+    },
     (newWidth) => {
       emit('update:width', newWidth);
       if (isSidebarMixed) {
@@ -357,6 +363,7 @@ const handleDragSidebar = (e: MouseEvent) => {
       </VbenScrollbar>
     </div>
     <div
+      v-if="draggable"
       ref="dragBarRef"
       class="absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize hover:bg-primary"
       @mousedown="handleDragSidebar"

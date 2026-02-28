@@ -19,6 +19,7 @@ const sidebarCollapsedShowTitle = defineModel<boolean>(
 const sidebarAutoActivateChild = defineModel<boolean>(
   'sidebarAutoActivateChild',
 );
+const sidebarDraggable = defineModel<boolean>('sidebarDraggable');
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 
@@ -47,6 +48,9 @@ const handleCheckboxChange = () => {
 <template>
   <SwitchItem v-model="sidebarEnable" :disabled="disabled">
     {{ $t('preferences.sidebar.visible') }}
+  </SwitchItem>
+  <SwitchItem v-model="sidebarDraggable" :disabled="!sidebarEnable || disabled">
+    {{ $t('preferences.sidebar.draggable') }}
   </SwitchItem>
   <SwitchItem v-model="sidebarCollapsed" :disabled="!sidebarEnable || disabled">
     {{ $t('preferences.sidebar.collapsed') }}

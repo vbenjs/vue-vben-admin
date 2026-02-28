@@ -54,6 +54,7 @@
     "title": "侧边栏",
     "width": "宽度",
     "visible": "显示侧边栏",
+    "draggable": "侧边栏菜单拖拽",
     "collapsed": "折叠菜单",
     "collapsedShowTitle": "折叠显示菜单名",
     "autoActivateChild": "自动激活子菜单",

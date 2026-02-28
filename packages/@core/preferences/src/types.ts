@@ -170,6 +170,8 @@ interface SidebarPreferences {
   collapsedShowTitle: boolean;
   /** 侧边栏折叠宽度 */
   collapseWidth: number;
+  /** 侧边栏菜单拖拽 */
+  draggable: boolean;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */

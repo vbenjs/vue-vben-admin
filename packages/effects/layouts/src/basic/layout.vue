@@ -234,6 +234,7 @@ const headerSlots = computed(() => {
     :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
     :layout="layout"
+    :sidebar-draggable="preferences.sidebar.draggable"
     :sidebar-collapse="preferences.sidebar.collapsed"
     :sidebar-collapse-show-title="preferences.sidebar.collapsedShowTitle"
     :sidebar-enable="sidebarVisible"

@@ -54,6 +54,7 @@
     "title": "Sidebar",
     "width": "Width",
     "visible": "Show Sidebar",
+    "draggable": "Drag Sidebar Menu",
     "collapsed": "Collpase Menu",
     "collapsedShowTitle": "Show Menu Title",
     "autoActivateChild": "Auto Activate SubMenu",
