@@ -84,6 +84,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "collapsed": false,
     "collapsedButton": true,
     "collapsedShowTitle": false,
+    "draggable": true,
     "enable": true,
     "expandOnHover": true,
     "extraCollapse": false,
