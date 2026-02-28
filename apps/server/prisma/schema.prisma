@@ -72,6 +72,8 @@ model SysDept {
   parentId   Int?      @default(0) @map("parent_id") @db.Int
   ancestors  String?   @default("") @map("ancestors") @db.VarChar(100)
   deptName   String?   @default("") @map("dept_name") @db.VarChar(50)
+  deptCode   String?   @default("") @map("dept_code") @db.VarChar(64)
+  deptType   String?   @default("0") @map("dept_type") @db.Char(1)
   orderNum   Int?      @default(0) @map("order_num") @db.Int
   leader     String?   @default("") @map("leader") @db.VarChar(20)
   phone      String?   @default("") @map("phone") @db.VarChar(11)
@@ -81,6 +83,7 @@ model SysDept {
   createTime DateTime? @default(now()) @map("create_time")
   updateBy   String?   @default("") @map("update_by") @db.VarChar(64)
   updateTime DateTime? @updatedAt @map("update_time")
+  remark     String?   @map("remark") @db.VarChar(500)
 
   @@map("sys_dept")
 }
@@ -270,6 +273,7 @@ model SysApprovalProcess {
 model SysPrintDesign {
   printId      BigInt    @id @default(autoincrement()) @map("print_id")
   printName    String    @map("print_name") @db.VarChar(100)
+  printCode    String?   @default("") @map("print_code") @db.VarChar(64)
   printContent String?   @map("print_content") @db.LongText
   status       String?   @default("0") @map("status") @db.Char(1)
   createBy     String?   @map("create_by") @db.VarChar(64)
