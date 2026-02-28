@@ -2,7 +2,8 @@
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
 import {
-  Card, Table, Button, Input, Tag, Select, Switch, Popconfirm, message,
+  Card, Table, Button, Input, Tag, Switch, Popconfirm,
+  Modal, Form, InputNumber, Radio, message,
 } from 'ant-design-vue';
 import { sysFormDesignApi } from '#/api/core/sys-manage';
 
@@ -39,6 +40,40 @@ const fetchList = async (page = 1) => {
   }
 };
 
+/* ---- 新增/编辑 Modal ---- */
+const isModalVisible = ref(false);
+const submitting = ref(false);
+const formRef = ref();
+const defaultForm = () => ({
+  flowName: '', flowNo: '', orderNo: 0, status: '0', remark: '',
+});
+const formState = ref<any>(defaultForm());
+
+const openModal = (record?: any) => {
+  formState.value = record ? { ...record } : defaultForm();
+  isModalVisible.value = true;
+};
+
+const handleSubmit = async () => {
+  try {
+    await formRef.value?.validate();
+    submitting.value = true;
+    if (formState.value.formId) {
+      await sysFormDesignApi.update(formState.value.formId, formState.value);
+      message.success('更新成功');
+    } else {
+      await sysFormDesignApi.create(formState.value);
+      message.success('新增成功');
+    }
+    isModalVisible.value = false;
+    fetchList(pagination.value.current);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    submitting.value = false;
+  }
+};
+
 const handleDelete = async (id: number) => {
   await sysFormDesignApi.remove(id);
   message.success('删除成功');
@@ -57,7 +92,7 @@ onMounted(() => fetchList());
           <Input v-model:value="searchParams.flowNo" placeholder="流程编号" class="w-40" allowClear />
           <Button type="primary" @click="fetchList(1)">查询</Button>
           <Button @click="() => { searchParams.flowName = ''; searchParams.flowNo = ''; fetchList(1); }">重置</Button>
-          <Button type="primary" class="ml-auto">+ 新建</Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">+ 新建</Button>
           <Button>编辑</Button>
           <Button>复制</Button>
           <Popconfirm title="确定删除选中的流程吗？">
@@ -87,11 +122,55 @@ onMounted(() => fetchList());
             <template v-if="column.key === 'updateTime'">{{ formatDate(record.updateTime) }}</template>
             <template v-if="column.key === 'action'">
               <Button type="link" size="small">流程表单</Button>
-              <Button type="link" size="small">流程配置</Button>
+              <Button type="link" size="small" @click="openModal(record)">编辑</Button>
+              <Popconfirm title="确定删除？" @confirm="handleDelete(record.formId)">
+                <Button type="link" danger size="small">删除</Button>
+              </Popconfirm>
             </template>
           </template>
         </Table>
       </Card>
     </div>
+
+    <!-- 新增/编辑弹窗 -->
+    <Modal
+      v-model:open="isModalVisible"
+      :title="formState.formId ? '编辑流程' : '新增流程'"
+      @ok="handleSubmit"
+      :confirmLoading="submitting"
+      destroyOnClose
+      width="520px"
+    >
+      <Form
+        ref="formRef"
+        :model="formState"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 17 }"
+        class="mt-4"
+      >
+        <Form.Item
+          label="流程名称"
+          name="flowName"
+          :rules="[{ required: true, message: '请输入流程名称' }]"
+        >
+          <Input v-model:value="formState.flowName" placeholder="请输入流程名称" />
+        </Form.Item>
+        <Form.Item label="流程编号" name="flowNo">
+          <Input v-model:value="formState.flowNo" placeholder="请输入流程编号" />
+        </Form.Item>
+        <Form.Item label="排序号" name="orderNo">
+          <InputNumber v-model:value="formState.orderNo" :min="0" style="width: 100%" />
+        </Form.Item>
+        <Form.Item label="是否可用" name="status">
+          <Radio.Group v-model:value="formState.status">
+            <Radio value="0">是</Radio>
+            <Radio value="1">否</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="备注" name="remark">
+          <Input.TextArea v-model:value="formState.remark" placeholder="可输入备注信息" />
+        </Form.Item>
+      </Form>
+    </Modal>
   </Page>
 </template>

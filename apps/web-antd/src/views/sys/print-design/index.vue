@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Select, Popconfirm, message } from 'ant-design-vue';
+import {
+  Card, Table, Button, Input, Tag, Select, Popconfirm,
+  Modal, Form, Radio, message,
+} from 'ant-design-vue';
 import { sysPrintDesignApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
@@ -11,10 +14,11 @@ const searchParams = ref({ printName: '', status: undefined });
 
 const columns = [
   { title: '模板名称', dataIndex: 'printName', key: 'printName' },
+  { title: '模板编号', dataIndex: 'printCode', key: 'printCode', width: 140 },
   { title: '状态', dataIndex: 'status', key: 'status', width: 80 },
   { title: '创建人', dataIndex: 'createBy', key: 'createBy', width: 100 },
   { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 160 },
-  { title: '操作', key: 'action', width: 160 }
+  { title: '操作', key: 'action', width: 200 },
 ];
 
 const fetchList = async (page = 1) => {
@@ -31,6 +35,46 @@ const fetchList = async (page = 1) => {
 
 const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
 
+/* ---- 新增/编辑 Modal ---- */
+const isModalVisible = ref(false);
+const submitting = ref(false);
+const formRef = ref();
+const defaultForm = () => ({
+  printName: '', printCode: '', status: '0', remark: '',
+});
+const formState = ref<any>(defaultForm());
+
+const openModal = (record?: any) => {
+  formState.value = record ? { ...record } : defaultForm();
+  isModalVisible.value = true;
+};
+
+const handleSubmit = async () => {
+  try {
+    await formRef.value?.validate();
+    submitting.value = true;
+    if (formState.value.printId) {
+      await sysPrintDesignApi.update(formState.value.printId, formState.value);
+      message.success('更新成功');
+    } else {
+      await sysPrintDesignApi.create(formState.value);
+      message.success('新增成功');
+    }
+    isModalVisible.value = false;
+    fetchList(pagination.value.current);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    submitting.value = false;
+  }
+};
+
+const handleDelete = async (id: number) => {
+  await sysPrintDesignApi.remove(id);
+  message.success('删除成功');
+  fetchList(pagination.value.current);
+};
+
 onMounted(() => fetchList());
 </script>
 
@@ -46,13 +90,13 @@ onMounted(() => fetchList());
           </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
           <Button @click="() => { searchParams.printName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
-          <Button type="primary" class="ml-auto">+ 新增</Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">+ 新增</Button>
         </div>
-        
-        <Table 
-          :columns="columns" 
-          :dataSource="dataSource" 
-          :loading="loading" 
+
+        <Table
+          :columns="columns"
+          :dataSource="dataSource"
+          :loading="loading"
           :pagination="pagination"
           @change="(pag) => fetchList(pag.current)"
           rowKey="printId"
@@ -68,8 +112,8 @@ onMounted(() => fetchList());
             <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
             <template v-if="column.key === 'action'">
               <Button type="link" size="small">设计器</Button>
-              <Button type="link" size="small">编辑</Button>
-              <Popconfirm title="确定删除该打印模板吗？" @confirm="">
+              <Button type="link" size="small" @click="openModal(record)">编辑</Button>
+              <Popconfirm title="确定删除该打印模板吗？" @confirm="handleDelete(record.printId)">
                 <Button type="link" danger size="small">删除</Button>
               </Popconfirm>
             </template>
@@ -77,5 +121,43 @@ onMounted(() => fetchList());
         </Table>
       </Card>
     </div>
+
+    <!-- 新增/编辑弹窗 -->
+    <Modal
+      v-model:open="isModalVisible"
+      :title="formState.printId ? '编辑打印模板' : '新增打印模板'"
+      @ok="handleSubmit"
+      :confirmLoading="submitting"
+      destroyOnClose
+      width="520px"
+    >
+      <Form
+        ref="formRef"
+        :model="formState"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 17 }"
+        class="mt-4"
+      >
+        <Form.Item
+          label="模板名称"
+          name="printName"
+          :rules="[{ required: true, message: '请输入模板名称' }]"
+        >
+          <Input v-model:value="formState.printName" placeholder="请输入模板名称" />
+        </Form.Item>
+        <Form.Item label="模板编号" name="printCode">
+          <Input v-model:value="formState.printCode" placeholder="请输入模板编号" />
+        </Form.Item>
+        <Form.Item label="状态" name="status">
+          <Radio.Group v-model:value="formState.status">
+            <Radio value="0">启用</Radio>
+            <Radio value="1">禁用</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="备注" name="remark">
+          <Input.TextArea v-model:value="formState.remark" placeholder="可输入备注信息" />
+        </Form.Item>
+      </Form>
+    </Modal>
   </Page>
 </template>
