@@ -160,7 +160,7 @@ catalog:
   sortablejs: ^1.15.6
   stylelint: ^16.26.1
   stylelint-config-recess-order: ^7.6.0
-  stylelint-config-recommended: ^17.0.0
+  stylelint-config-recommended: ^18.0.0
   stylelint-config-recommended-scss: ^16.0.2
   stylelint-config-recommended-vue: ^1.6.1
   stylelint-config-standard: ^39.0.1
