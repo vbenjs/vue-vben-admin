@@ -32,12 +32,13 @@
     "eslint-plugin-import-x": "catalog:"
   },
   "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "catalog:",
     "@eslint/js": "catalog:",
     "@types/eslint": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
+    "@vitest/eslint-plugin": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-eslint-comments": "catalog:",
     "eslint-plugin-jsdoc": "catalog:",
     "eslint-plugin-jsonc": "catalog:",
     "eslint-plugin-n": "catalog:",
@@ -48,11 +49,9 @@
     "eslint-plugin-regexp": "catalog:",
     "eslint-plugin-unicorn": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
-    "eslint-plugin-vitest": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "eslint-plugin-yml": "catalog:",
     "globals": "catalog:",
-    "jsonc-eslint-parser": "catalog:",
     "vue-eslint-parser": "catalog:",
     "yaml-eslint-parser": "catalog:"
   }

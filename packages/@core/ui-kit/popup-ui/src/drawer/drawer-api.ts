@@ -56,23 +56,18 @@ export class DrawerApi {
       title: '',
     };
 
-    this.store = new Store<DrawerState>(
-      {
-        ...defaultState,
-        ...storeState,
-      },
-      {
-        onUpdate: () => {
-          const state = this.store.state;
-          if (state?.isOpen === this.state?.isOpen) {
-            this.state = state;
-          } else {
-            this.state = state;
-            this.api.onOpenChange?.(!!state?.isOpen);
-          }
-        },
-      },
-    );
+    this.store = new Store<DrawerState>({
+      ...defaultState,
+      ...storeState,
+    });
+
+    this.store.subscribe((state) => {
+      const prevIsOpen = this.state?.isOpen;
+      this.state = state;
+      if (state?.isOpen !== prevIsOpen) {
+        this.api.onOpenChange?.(!!state?.isOpen);
+      }
+    });
     this.state = this.store.state;
     this.api = {
       onBeforeClose,

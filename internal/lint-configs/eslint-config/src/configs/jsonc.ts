@@ -3,17 +3,12 @@ import type { Linter } from 'eslint';
 import { interopDefault } from '../util';
 
 export async function jsonc(): Promise<Linter.Config[]> {
-  const [pluginJsonc, parserJsonc] = await Promise.all([
-    interopDefault(import('eslint-plugin-jsonc')),
-    interopDefault(import('jsonc-eslint-parser')),
-  ] as const);
+  const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'));
 
   return [
     {
       files: ['**/*.json', '**/*.json5', '**/*.jsonc', '*.code-workspace'],
-      languageOptions: {
-        parser: parserJsonc as any,
-      },
+      language: 'jsonc/x',
       plugins: {
         jsonc: pluginJsonc as any,
       },

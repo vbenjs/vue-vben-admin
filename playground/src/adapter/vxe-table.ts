@@ -135,7 +135,7 @@ setupVbenVxeTable({
     vxeUI.renderer.add('CellOperation', {
       renderTableDefault({ attrs, options, props }, { column, row }) {
         const defaultProps = { size: 'small', type: 'link', ...props };
-        let align = 'end';
+        let align: string;
         switch (column.align) {
           case 'center': {
             align = 'center';

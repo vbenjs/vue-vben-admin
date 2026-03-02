@@ -15,7 +15,9 @@ const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appWatermarkContent = defineModel<string>('appWatermarkContent');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
-const appEnableCopyPreferences = defineModel<boolean>('appEnableCopyPreferences');
+const appEnableCopyPreferences = defineModel<boolean>(
+  'appEnableCopyPreferences',
+);
 </script>
 
 <template>
