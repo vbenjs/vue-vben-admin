@@ -21,6 +21,7 @@ const defaultPreferences: Preferences = {
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
+    enableCopyPreferences: true,
     enableRefreshToken: false,
     enableStickyPreferencesNavigationBar: true,
     isMobile: false,

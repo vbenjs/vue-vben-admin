@@ -70,6 +70,7 @@ const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appWatermarkContent = defineModel<string>('appWatermarkContent');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
+const appEnableCopyPreferences = defineModel<boolean>('appEnableCopyPreferences');
 const appEnableStickyPreferencesNavigationBar = defineModel<boolean>(
   'appEnableStickyPreferencesNavigationBar',
 );
@@ -300,6 +301,7 @@ async function handleReset() {
               <General
                 v-model:app-dynamic-title="appDynamicTitle"
                 v-model:app-enable-check-updates="appEnableCheckUpdates"
+                v-model:app-enable-copy-preferences="appEnableCopyPreferences"
                 v-model:app-locale="appLocale"
                 v-model:app-watermark="appWatermark"
                 v-model:app-watermark-content="appWatermarkContent"
@@ -467,6 +469,7 @@ async function handleReset() {
 
       <template #footer>
         <VbenButton
+          v-if="appEnableCopyPreferences"
           :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
