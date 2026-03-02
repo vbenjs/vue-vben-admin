@@ -3,10 +3,10 @@ import type { DrawerApiOptions, DrawerState } from './drawer';
 import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
-export class DrawerApi {
+export class DrawerApi<TPayload = any> {
   // 共享数据
-  public sharedData: Record<'payload', any> = {
-    payload: {},
+  public sharedData: Record<'payload', TPayload> = {
+    payload: {} as TPayload,
   };
   public store: Store<DrawerState>;
 
@@ -102,8 +102,8 @@ export class DrawerApi {
     }
   }
 
-  getData<T extends object = Record<string, any>>() {
-    return (this.sharedData?.payload ?? {}) as T;
+  getData<T extends TPayload = TPayload>() {
+    return (this.sharedData?.payload ?? ({} as unknown)) as T;
   }
 
   /**
@@ -155,8 +155,8 @@ export class DrawerApi {
     this.store.setState((prev) => ({ ...prev, isOpen: true }));
   }
 
-  setData<T>(payload: T) {
-    this.sharedData.payload = payload;
+  setData<T extends TPayload>(payload: T) {
+    this.sharedData.payload = payload as TPayload;
     return this;
   }
 

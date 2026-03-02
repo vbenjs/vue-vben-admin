@@ -1,3 +1,5 @@
+import type { Component, DefineComponent, EmitsOptions } from 'vue';
+
 import type {
   DrawerApiOptions,
   DrawerProps,
@@ -28,19 +30,32 @@ export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
 }
 
 export function useVbenDrawer<
-  TParentDrawerProps extends DrawerProps = DrawerProps,
->(options: DrawerApiOptions = {}) {
+  TPayload = Record<string, any>,
+  TConnected extends Component = any,
+>(
+  options: DrawerApiOptions<TConnected> & { connectedComponent: TConnected },
+): [TConnected, ExtendedDrawerApi<TPayload>];
+export function useVbenDrawer<TPayload = Record<string, any>>(
+  options?: DrawerApiOptions,
+): [
+  DefineComponent<DrawerProps, any, any, any, any, any, any, EmitsOptions>,
+  ExtendedDrawerApi<TPayload>,
+];
+export function useVbenDrawer<
+  TPayload = Record<string, any>,
+  TConnected extends Component = Component,
+>(options: DrawerApiOptions<TConnected> = {}) {
   // Drawer一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
   // 外部的Drawer通过provide/inject传递api
 
   const { connectedComponent } = options;
   if (connectedComponent) {
-    const extendedApi = reactive({});
+    const extendedApi = reactive({}) as ExtendedDrawerApi<TPayload>;
     const isDrawerReady = ref(true);
     const Drawer = defineComponent(
-      (props: TParentDrawerProps, { attrs, slots }) => {
+      (props: any, { attrs, slots }) => {
         provide(USER_DRAWER_INJECT_KEY, {
-          extendApi(api: ExtendedDrawerApi) {
+          extendApi(api: ExtendedDrawerApi<TPayload>) {
             // 不能直接给 reactive 赋值，会丢失响应
             // 不能用 Object.assign,会丢失 api 的原型函数
             Object.setPrototypeOf(extendedApi, api);
@@ -53,14 +68,17 @@ export function useVbenDrawer<
           },
         });
         checkProps(extendedApi as ExtendedDrawerApi, {
-          ...props,
-          ...attrs,
-          ...slots,
+          ...(props as Record<string, any>),
+          ...(attrs as Record<string, any>),
+          ...(slots as unknown as Record<string, any>),
         });
         return () =>
           h(
             isDrawerReady.value ? connectedComponent : 'div',
-            { ...props, ...attrs },
+            {
+              ...props,
+              ...attrs,
+            },
             slots,
           );
       },
@@ -71,7 +89,10 @@ export function useVbenDrawer<
       },
     );
 
-    return [Drawer, extendedApi as ExtendedDrawerApi] as const;
+    return [
+      Drawer as unknown as TConnected,
+      extendedApi as ExtendedDrawerApi<TPayload>,
+    ] as const;
   }
 
   const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
@@ -94,9 +115,9 @@ export function useVbenDrawer<
       injectData.reCreateDrawer?.();
     }
   };
-  const api = new DrawerApi(mergedOptions);
+  const api = new DrawerApi<TPayload>(mergedOptions);
 
-  const extendedApi: ExtendedDrawerApi = api as never;
+  const extendedApi: ExtendedDrawerApi<TPayload> = api as never;
 
   extendedApi.useStore = (selector) => {
     return useStore(api.store, selector);
