@@ -13,6 +13,7 @@
     "brotli",
     "cascader",
     "clsx",
+    "dedup",
     "defu",
     "demi",
     "dotenv",
