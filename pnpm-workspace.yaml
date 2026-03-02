@@ -30,7 +30,7 @@ catalog:
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
   '@ctrl/tinycolor': ^4.2.0
-  '@eslint/js': ^9.39.3
+  '@eslint/js': ^10.0.1
   '@faker-js/faker': ^9.9.0
   '@iconify/json': ^2.2.444
   '@iconify/tailwind': ^1.2.0
@@ -65,6 +65,7 @@ catalog:
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.4
   '@vitejs/plugin-vue-jsx': ^5.1.4
+  '@vitest/eslint-plugin': ^1.6.9
   '@vue/shared': ^3.5.29
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^14.2.1
@@ -97,10 +98,10 @@ catalog:
   element-plus: ^2.13.3
   es-toolkit: ^1.44.0
   esbuild: ^0.25.12
-  eslint: ^9.39.3
+  eslint: ^10.0.2
   eslint-config-turbo: ^2.8.12
   eslint-plugin-command: ^3.5.2
-  eslint-plugin-eslint-comments: ^3.2.0
+  '@eslint-community/eslint-plugin-eslint-comments': ^4.7.0
   eslint-plugin-import-x: ^4.16.1
   eslint-plugin-jsdoc: ^61.7.1
   eslint-plugin-jsonc: ^3.1.1
@@ -112,7 +113,6 @@ catalog:
   eslint-plugin-regexp: ^2.10.0
   eslint-plugin-unicorn: ^62.0.0
   eslint-plugin-unused-imports: ^4.4.1
-  eslint-plugin-vitest: ^0.5.4
   eslint-plugin-vue: ^10.8.0
   eslint-plugin-yml: ^1.19.1
   execa: ^9.6.1
