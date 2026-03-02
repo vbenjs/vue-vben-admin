@@ -62,8 +62,9 @@ export class DrawerApi {
     });
 
     this.store.subscribe((state) => {
+      const prevIsOpen = this.state?.isOpen;
       this.state = state;
-      if (state?.isOpen !== this.state?.isOpen) {
+      if (state?.isOpen !== prevIsOpen) {
         this.api.onOpenChange?.(!!state?.isOpen);
       }
     });
