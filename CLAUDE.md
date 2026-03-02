@@ -17,6 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 11. 使用 **vite** 进行开发。
 12. 使用 **vue-tsc** 进行类型检查。
 
+```bash
 # 其他检查
 pnpm check:circular # 循环依赖扫描
 pnpm check:dep      # depcheck 依赖检查
@@ -34,7 +35,7 @@ Turbo 任务通过 `dependsOn: ["^build"]` 级联，构建某个应用时会自�
 
 ## Monorepo 目录结构
 
-```
+```text
 apps/
   backend-mock/     # 基于 Nitro 的 mock API 服务（h3 路由 + faker.js 数据）
   web-antd/         # Ant Design Vue 应用
