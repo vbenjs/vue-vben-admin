@@ -9,16 +9,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 3. 要求 Node ≥ 20.19.0，pnpm ≥ 10。
 4. 使用 **prettier** + **eslint** + **stylelint** 进行代码检查和格式化。
 5. 使用 **vitest** 进行单元测试。
-6. 使用 **playwright** 进行E2E测试。
-7. 使用 **commitlint** 进行提交规范。
-8. 使用 **czg** 进行提交规范。
-9. 使用 **lefthook** 进行提交规范。
-10. 使用 **vsh** 进行代码检查和格式化。
-11. 使用 **turbo** 进行构建。
-12. 使用 **vite** 进行开发。
-13. 使用 **vue-tsc** 进行类型检查。
-14. 使用 **vue-test-utils** 进行单元测试。
-15. 使用 **playwright** 进行E2E测试。
+6. 使用 **commitlint** 进行提交规范。
+7. 使用 **czg** 进行提交规范。
+8. 使用 **lefthook** 进行提交规范。
+9. 使用 **vsh** 进行代码检查和格式化。
+10. 使用 **turbo** 进行构建。
+11. 使用 **vite** 进行开发。
+12. 使用 **vue-tsc** 进行类型检查。
 
 # 其他检查
 pnpm check:circular # 循环依赖扫描
@@ -147,4 +144,4 @@ docs/               # VitePress 文档
 - **提交规范**：遵循 Conventional Commits（`feat`、`fix`、`chore`、`docs`、`refactor`、`perf`、`test`、`ci`、`style`、`types`、`revert`），由 lefthook + commitlint 强制执行。
 - **pre-commit 钩子**（lefthook）：自动对暂存文件执行 prettier + eslint + stylelint，推荐使用 `pnpm commit`（czg）提交。
 - **新增页面**：在 `src/views/` 下创建 `.vue` 文件，在 `src/router/routes/modules/` 下添加路由模块；若使用 backend 模式，还需确保后端接口返回对应菜单数据。
-- **国际化**：统一使用 `$t('key')`，locale 文件位于 `packages/locales/`。
+- **国际化**：统一使用 `$t('key')`，locale 文件位于 `packages/locales/`，项目级国际化文件位于 `src/locales/langs`。
