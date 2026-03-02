@@ -52,7 +52,6 @@
     "eslint-plugin-vue": "catalog:",
     "eslint-plugin-yml": "catalog:",
     "globals": "catalog:",
-    "jsonc-eslint-parser": "catalog:",
     "vue-eslint-parser": "catalog:",
     "yaml-eslint-parser": "catalog:"
   }
