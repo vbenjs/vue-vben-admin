@@ -273,7 +273,7 @@ const mainStyle = computed(() => {
 
 // 计算 tabbar 的样式
 const tabbarStyle = computed((): CSSProperties => {
-  let width = '';
+  let width: string;
   let marginLeft = 0;
 
   // 如果不是混合导航，tabbar 的宽度为 100%
