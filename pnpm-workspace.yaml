@@ -30,7 +30,7 @@ catalog:
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
   '@ctrl/tinycolor': ^4.2.0
-  '@eslint-community/eslint-plugin-eslint-comments': ^4.7.0
+  '@eslint-community/eslint-plugin-eslint-comments': ^4.7.1
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^9.9.0
   '@iconify/json': ^2.2.444
@@ -38,12 +38,12 @@ catalog:
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.2.8
   '@intlify/unplugin-vue-i18n': ^6.0.8
-  '@jspm/generator': ^2.10.0
+  '@jspm/generator': ^2.11.0
   '@manypkg/get-packages': ^3.1.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
   '@playwright/test': ^1.58.2
   '@pnpm/workspace.read-manifest': ^1000.2.10
-  '@stylistic/stylelint-plugin': ^4.0.1
+  '@stylistic/stylelint-plugin': ^5.0.1
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.19
   '@tanstack/vue-query': ^5.92.9
@@ -157,15 +157,15 @@ catalog:
   sass: ^1.97.3
   secure-ls: ^2.0.0
   sortablejs: ^1.15.7
-  stylelint: ^16.26.1
+  stylelint: ^17.4.0
   stylelint-config-recess-order: ^7.6.1
-  stylelint-config-recommended: ^17.0.0
-  stylelint-config-recommended-scss: ^16.0.2
+  stylelint-config-recommended: ^18.0.0
+  stylelint-config-recommended-scss: ^17.0.0
   stylelint-config-recommended-vue: ^1.6.1
-  stylelint-config-standard: ^39.0.1
+  stylelint-config-standard: ^40.0.0
   stylelint-order: ^7.0.1
   stylelint-prettier: ^5.0.3
-  stylelint-scss: ^6.14.0
+  stylelint-scss: ^7.0.0
   tailwind-merge: ^2.6.1
   tailwindcss: ^3.4.19
   tailwindcss-animate: ^1.0.7
