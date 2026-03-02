@@ -247,9 +247,7 @@ const mainStyle = computed(() => {
       sidebarExtraVisible.value;
 
     if (isSideNavEffective) {
-      const sideCollapseWidth = sidebarCollapse.value
-        ? getSideCollapseWidth.value
-        : props.sidebarMixedWidth;
+      const sideCollapseWidth = props.sidebarMixedWidth;
       const sideWidth = sidebarExtraCollapse.value
         ? props.sidebarExtraCollapsedWidth
         : props.sidebarWidth;
@@ -258,10 +256,14 @@ const mainStyle = computed(() => {
       sidebarAndExtraWidth = `${sideCollapseWidth + sideWidth}px`;
       width = `calc(100% - ${sidebarAndExtraWidth})`;
     } else {
-      sidebarAndExtraWidth =
-        sidebarExpandOnHovering.value && !sidebarExpandOnHover.value
-          ? `${getSideCollapseWidth.value}px`
-          : `${getSidebarWidth.value}px`;
+      let sidebarWidth = getSidebarWidth.value;
+      if (sidebarExpandOnHovering.value && !sidebarExpandOnHover.value) {
+        sidebarWidth =
+          isSidebarMixedNav.value || isHeaderMixedNav.value
+            ? props.sidebarMixedWidth
+            : getSideCollapseWidth.value;
+      }
+      sidebarAndExtraWidth = `${sidebarWidth}px`;
       width = `calc(100% - ${sidebarAndExtraWidth})`;
     }
   }

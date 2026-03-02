@@ -31,6 +31,7 @@
   "plain": "Plain",
   "rounded": "Rounded",
   "copyPreferences": "Copy Preferences",
+  "enableCopyPreferences": "Show copy preferences button",
   "copyPreferencesSuccessTitle": "Copy successful",
   "copyPreferencesSuccess": "Copy successful, please override in `src/preferences.ts` under app",
   "clearAndLogout": "Clear Cache & Logout",
