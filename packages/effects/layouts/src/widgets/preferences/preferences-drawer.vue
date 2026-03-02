@@ -70,7 +70,9 @@ const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appWatermarkContent = defineModel<string>('appWatermarkContent');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
-const appEnableCopyPreferences = defineModel<boolean>('appEnableCopyPreferences');
+const appEnableCopyPreferences = defineModel<boolean>(
+  'appEnableCopyPreferences',
+);
 const appEnableStickyPreferencesNavigationBar = defineModel<boolean>(
   'appEnableStickyPreferencesNavigationBar',
 );
