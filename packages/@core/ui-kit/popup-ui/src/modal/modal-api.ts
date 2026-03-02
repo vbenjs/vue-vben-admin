@@ -69,10 +69,8 @@ export class ModalApi {
 
     this.store.subscribe((state) => {
       // 每次更新状态时，都会调用 onOpenChange 回调函数
-      if (state?.isOpen === this.state?.isOpen) {
-        this.state = state;
-      } else {
-        this.state = state;
+      this.state = state;
+      if (state?.isOpen !== this.state?.isOpen) {
         this.api.onOpenChange?.(!!state?.isOpen);
       }
     });

@@ -62,10 +62,8 @@ export class DrawerApi {
     });
 
     this.store.subscribe((state) => {
-      if (state?.isOpen === this.state?.isOpen) {
-        this.state = state;
-      } else {
-        this.state = state;
+      this.state = state;
+      if (state?.isOpen !== this.state?.isOpen) {
         this.api.onOpenChange?.(!!state?.isOpen);
       }
     });
