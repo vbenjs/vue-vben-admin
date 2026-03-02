@@ -45,13 +45,12 @@ export class VxeGridApi<T extends Record<string, any> = any> {
     const defaultState = getDefaultState();
     this.store = new Store<VxeGridProps>(
       mergeWithArrayOverride(storeState, defaultState),
-      {
-        onUpdate: () => {
-          // this.prevState = this.state;
-          this.state = this.store.state;
-        },
-      },
     );
+
+    this.store.subscribe((state) => {
+      // this.prevState = this.state;
+      this.state = state;
+    });
 
     this.state = this.store.state;
     this.stateHandler = new StateHandler();

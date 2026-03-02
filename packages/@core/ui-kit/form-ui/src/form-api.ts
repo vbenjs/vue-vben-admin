@@ -75,19 +75,16 @@ export class FormApi {
 
     const defaultState = getDefaultState();
 
-    this.store = new Store<VbenFormProps>(
-      {
-        ...defaultState,
-        ...storeState,
-      },
-      {
-        onUpdate: () => {
-          this.prevState = this.state;
-          this.state = this.store.state;
-          this.updateState();
-        },
-      },
-    );
+    this.store = new Store<VbenFormProps>({
+      ...defaultState,
+      ...storeState,
+    });
+
+    this.store.subscribe((state) => {
+      this.prevState = this.state;
+      this.state = state;
+      this.updateState();
+    });
 
     this.state = this.store.state;
     this.stateHandler = new StateHandler();

@@ -62,25 +62,20 @@ export class ModalApi {
       animationType: 'slide',
     };
 
-    this.store = new Store<ModalState>(
-      {
-        ...defaultState,
-        ...storeState,
-      },
-      {
-        onUpdate: () => {
-          const state = this.store.state;
+    this.store = new Store<ModalState>({
+      ...defaultState,
+      ...storeState,
+    });
 
-          // 每次更新状态时，都会调用 onOpenChange 回调函数
-          if (state?.isOpen === this.state?.isOpen) {
-            this.state = state;
-          } else {
-            this.state = state;
-            this.api.onOpenChange?.(!!state?.isOpen);
-          }
-        },
-      },
-    );
+    this.store.subscribe((state) => {
+      // 每次更新状态时，都会调用 onOpenChange 回调函数
+      if (state?.isOpen === this.state?.isOpen) {
+        this.state = state;
+      } else {
+        this.state = state;
+        this.api.onOpenChange?.(!!state?.isOpen);
+      }
+    });
 
     this.state = this.store.state;
 
