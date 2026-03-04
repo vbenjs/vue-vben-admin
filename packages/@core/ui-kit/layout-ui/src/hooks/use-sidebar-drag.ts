@@ -37,6 +37,9 @@ export function useSidebarDrag() {
     const startWidth = target.getBoundingClientRect().width;
     const startLeft = dragBar.offsetLeft;
 
+    dragBar.classList.add('bg-primary');
+    dragBar.classList.remove('bg-primary/30');
+
     const dragBarTransition = dragBar.style.transition;
     const targetTransition = target.style.transition;
 

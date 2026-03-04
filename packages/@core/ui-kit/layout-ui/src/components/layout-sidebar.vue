@@ -374,7 +374,7 @@ onUnmounted(() => {
     <div
       v-if="draggable"
       ref="dragBarRef"
-      class="absolute inset-y-0 -right-[1px] w-[2px] cursor-col-resize hover:bg-primary"
+      class="absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize hover:bg-primary"
       @mousedown="handleDragSidebar"
     ></div>
   </aside>
