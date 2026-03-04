@@ -21,6 +21,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "dynamicTitle": true,
     "enableCheckUpdates": true,
     "enablePreferences": true,
+    "enableCopyPreferences": true,
     "enableRefreshToken": false,
     "enableStickyPreferencesNavigationBar": true,
     "isMobile": false,

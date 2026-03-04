@@ -157,9 +157,9 @@ const extraTitleStyle = computed((): CSSProperties => {
 });
 
 const contentWidthStyle = computed((): CSSProperties => {
-  const { collapseWidth, fixedExtra, isSidebarMixed, mixedWidth } = props;
+  const { fixedExtra, isSidebarMixed, mixedWidth } = props;
   if (isSidebarMixed && fixedExtra) {
-    return { width: `${collapse.value ? collapseWidth : mixedWidth}px` };
+    return { width: `${mixedWidth}px` };
   }
   return {};
 });
@@ -202,19 +202,24 @@ watchEffect(() => {
 });
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
-  const { extraWidth, fixedExtra, isSidebarMixed, show, width } = props;
+  const {
+    collapseWidth,
+    extraWidth,
+    mixedWidth,
+    fixedExtra,
+    isSidebarMixed,
+    show,
+    width,
+  } = props;
 
   let widthValue =
     width === 0
       ? '0px'
       : `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
 
-  const { collapseWidth } = props;
-
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
-    widthValue = `${collapseWidth}px`;
+    widthValue = isSidebarMixed ? `${mixedWidth}px` : `${collapseWidth}px`;
   }
-
   return {
     ...(widthValue === '0px' ? { overflow: 'hidden' } : {}),
     flex: `0 0 ${widthValue}`,
@@ -261,9 +266,9 @@ const { startDrag } = useSidebarDrag();
 
 const handleDragSidebar = (e: MouseEvent) => {
   const { isSidebarMixed, collapseWidth, extraWidth, width } = props;
-  const minLimit = collapseWidth;
-  const maxLimit = 320;
-  const startWidth = isSidebarMixed ? extraWidth : width;
+  const minLimit = isSidebarMixed ? width + collapseWidth : collapseWidth;
+  const maxLimit = isSidebarMixed ? width + 320 : 320;
+  const startWidth = isSidebarMixed ? width + extraWidth : width;
 
   startDrag(
     e,
@@ -277,11 +282,13 @@ const handleDragSidebar = (e: MouseEvent) => {
       dragBar: dragBarRef.value,
     },
     (newWidth) => {
-      emit('update:width', newWidth);
       if (isSidebarMixed) {
-        extraCollapse.value = newWidth <= collapseWidth;
+        emit('update:width', newWidth - width);
+        extraCollapse.value = collapse.value =
+          newWidth - width <= collapseWidth;
       } else {
-        collapse.value = newWidth <= collapseWidth;
+        emit('update:width', newWidth);
+        collapse.value = extraCollapse.value = newWidth <= collapseWidth;
       }
     },
   );
