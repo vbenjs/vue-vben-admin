@@ -99,9 +99,11 @@ export function useSidebarDrag() {
 
       dragBar.classList.remove('bg-primary', 'bg-primary/30');
 
-      onDrag?.(Math.round(newWidth));
-
-      endDrag();
+      try {
+        onDrag?.(Math.round(newWidth));
+      } finally {
+        endDrag();
+      }
     };
 
     document.addEventListener('mousemove', onMouseMove);
@@ -115,6 +117,7 @@ export function useSidebarDrag() {
 
       if (dragBar) {
         dragBar.style.transition = dragBarTransition;
+        dragBar.style.left = '';
         dragBar.classList.remove('bg-primary', 'bg-primary/30');
       }
 
