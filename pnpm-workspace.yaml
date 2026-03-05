@@ -23,7 +23,7 @@ overrides:
   vue: 'catalog:'
 catalog:
   '@ast-grep/napi': ^0.41.0
-  '@changesets/changelog-github': ^0.5.2
+  '@changesets/changelog-github': ^0.6.0
   '@changesets/cli': ^2.30.0
   '@changesets/git': ^3.0.4
   '@clack/prompts': ^1.1.0
@@ -33,7 +33,7 @@ catalog:
   '@eslint-community/eslint-plugin-eslint-comments': ^4.7.1
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^10.3.0
-  '@iconify/json': ^2.2.444
+  '@iconify/json': ^2.2.446
   '@iconify/tailwind': ^1.2.0
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.2.8
@@ -49,7 +49,6 @@ catalog:
   '@tanstack/vue-query': ^5.92.9
   '@tanstack/vue-store': ^0.9.1
   '@types/archiver': ^7.0.0
-  '@types/eslint': ^9.6.1
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
@@ -97,7 +96,7 @@ catalog:
   dotenv: ^17.3.1
   echarts: ^6.0.0
   element-plus: ^2.13.3
-  es-toolkit: ^1.45.0
+  es-toolkit: ^1.45.1
   esbuild: ^0.27.3
   eslint: ^10.0.2
   eslint-config-turbo: ^2.8.13
@@ -128,7 +127,7 @@ catalog:
   jsonwebtoken: ^9.0.3
   lefthook: ^2.1.2
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.576.0
+  lucide-vue-next: ^0.577.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.43.2
   nitropack: ^2.13.1
