@@ -270,7 +270,7 @@ onMounted(() => {
         >
           <VbenIcon
             :icon="item.icon"
-            class="mr-2 size-5 flex-shrink-0"
+            class="mr-2 size-5 shrink-0"
             fallback
           />
 

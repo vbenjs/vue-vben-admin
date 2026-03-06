@@ -105,7 +105,7 @@ function onFinished() {
                 <template #addonAfter>
                   <IconifyIcon
                     v-tippy="`设置一个随机值`"
-                    class="size-5 cursor-pointer outline-none"
+                    class="size-5 cursor-pointer outline-hidden"
                     icon="ix:random-filled"
                     @click="changeNumber"
                   />

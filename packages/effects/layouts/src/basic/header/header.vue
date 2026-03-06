@@ -147,7 +147,7 @@ function clearPreferencesAndLogout() {
   >
     <slot name="menu"></slot>
   </div>
-  <div class="flex h-full min-w-0 flex-shrink-0 items-center">
+  <div class="flex h-full min-w-0 shrink-0 items-center">
     <template v-for="slot in rightSlots" :key="slot.name">
       <slot :name="slot.name">
         <template v-if="slot.name === 'global-search'">

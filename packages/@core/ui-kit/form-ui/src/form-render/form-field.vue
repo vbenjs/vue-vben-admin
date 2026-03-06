@@ -308,7 +308,7 @@ onUnmounted(() => {
           cn(
             'flex leading-6',
             {
-              'mr-2 flex-shrink-0 justify-end': !isVertical,
+              'mr-2 shrink-0 justify-end': !isVertical,
               'mb-1 flex-row': isVertical,
             },
             labelClass,
@@ -367,7 +367,7 @@ onUnmounted(() => {
                     <CircleAlert
                       :class="
                         cn(
-                          'inline-flex size-5 cursor-pointer text-foreground/80 hover:text-foreground',
+                          'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
                         )
                       "
                     />

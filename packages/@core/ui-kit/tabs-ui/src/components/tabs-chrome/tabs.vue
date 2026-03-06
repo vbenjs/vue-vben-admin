@@ -202,7 +202,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 
       & + .tabs-chrome__item {
         .tabs-chrome__divider {
-          @apply opacity-0 !important;
+          @apply !opacity-0;
         }
       }
     }

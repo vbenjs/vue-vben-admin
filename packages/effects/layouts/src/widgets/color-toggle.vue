@@ -31,7 +31,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
     >
       <template v-for="preset in COLOR_PRESETS" :key="preset.color">
         <VbenIconButton
-          class="flex-center flex-shrink-0"
+          class="flex-center shrink-0"
           @click="handleUpdate(preset.color, preset.type)"
         >
           <div
