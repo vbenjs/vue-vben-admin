@@ -49,10 +49,6 @@
       "path": "internal/node-utils",
     },
     {
-      "name": "@vben/tailwind-config",
-      "path": "internal/tailwind-config",
-    },
-    {
       "name": "@vben/tsconfig",
       "path": "internal/tsconfig",
     },

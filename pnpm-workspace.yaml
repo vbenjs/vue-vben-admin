@@ -21,6 +21,7 @@ overrides:
   pinia: 'catalog:'
   vue: 'catalog:'
 catalog:
+  '@@iconify/json': ^0.0.0
   '@ast-grep/napi': ^0.41.0
   '@changesets/changelog-github': ^0.6.0
   '@changesets/cli': ^2.30.0
@@ -33,7 +34,7 @@ catalog:
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^10.3.0
   '@iconify/json': ^2.2.446
-  '@iconify/tailwind': ^1.2.0
+  '@iconify/tailwind4': ^1.2.3
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.2.8
   '@intlify/unplugin-vue-i18n': ^11.0.7
@@ -84,7 +85,6 @@ catalog:
   consola: ^3.4.2
   cross-env: ^10.1.0
   cspell: ^9.7.0
-  cssnano: ^7.1.2
   cz-git: ^1.12.0
   czg: ^1.12.0
   dayjs: ^1.11.19
@@ -134,7 +134,6 @@ catalog:
   pkg-types: ^2.3.0
   playwright: ^1.58.2
   postcss: ^8.5.8
-  postcss-antd-fixes: ^0.2.0
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
   prettier: ^3.8.1

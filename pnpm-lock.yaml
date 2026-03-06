@@ -36,9 +36,9 @@ catalogs:
     '@iconify/json':
       specifier: ^2.2.446
       version: 2.2.446
-    '@iconify/tailwind':
-      specifier: ^1.2.0
-      version: 1.2.0
+    '@iconify/tailwind4':
+      specifier: ^1.2.3
+      version: 1.2.3
     '@iconify/vue':
       specifier: ^5.0.0
       version: 5.0.0
@@ -186,9 +186,6 @@ catalogs:
     cspell:
       specifier: ^9.7.0
       version: 9.7.0
-    cssnano:
-      specifier: ^7.1.2
-      version: 7.1.2
     cz-git:
       specifier: ^1.12.0
       version: 1.12.0
@@ -330,9 +327,6 @@ catalogs:
     postcss:
       specifier: ^8.5.8
       version: 8.5.8
-    postcss-antd-fixes:
-      specifier: ^0.2.0
-      version: 0.2.0
     postcss-html:
       specifier: ^1.8.1
       version: 1.8.1
@@ -541,9 +535,6 @@ importers:
       '@vben/stylelint-config':
         specifier: workspace:*
         version: link:internal/lint-configs/stylelint-config
-      '@vben/tailwind-config':
-        specifier: workspace:*
-        version: link:internal/tailwind-config
       '@vben/tsconfig':
         specifier: workspace:*
         version: link:internal/tsconfig
@@ -1189,27 +1180,6 @@ importers:
         specifier: 'catalog:'
         version: 6.1.3
 
-  internal/tailwind-config:
-    dependencies:
-      '@iconify/json':
-        specifier: 'catalog:'
-        version: 2.2.446
-      '@iconify/tailwind':
-        specifier: 'catalog:'
-        version: 1.2.0
-      cssnano:
-        specifier: 'catalog:'
-        version: 7.1.2(postcss@8.5.8)
-      postcss:
-        specifier: 'catalog:'
-        version: 8.5.8
-      postcss-antd-fixes:
-        specifier: 'catalog:'
-        version: 0.2.0(postcss@8.5.8)
-      tailwindcss:
-        specifier: ^4.0.0
-        version: 4.2.1
-
   internal/tsconfig:
     dependencies:
       '@vben/types':
@@ -1306,12 +1276,15 @@ importers:
 
   packages/@core/base/design:
     dependencies:
+      '@iconify/json':
+        specifier: 'catalog:'
+        version: 2.2.446
+      '@iconify/tailwind4':
+        specifier: 'catalog:'
+        version: 1.2.3(tailwindcss@4.2.1)
       '@tailwindcss/typography':
         specifier: 'catalog:'
         version: 0.5.19(tailwindcss@4.2.1)
-      '@vben/tailwind-config':
-        specifier: workspace:*
-        version: link:../../../../internal/tailwind-config
       tw-animate-css:
         specifier: 'catalog:'
         version: 1.4.0
@@ -3194,6 +3167,9 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
+  '@cyberalien/svg-utils@1.2.5':
+    resolution: {integrity: sha512-/tuGlYi1JhfDykfMqz2ko7NyEFplDsv5qhE4ucDh9TweWhL9m3s1udTHryuDX8wvxRckkbgwI0As/cTc4M8W1Q==}
+
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
 
@@ -3502,8 +3478,13 @@ packages:
   '@iconify/json@2.2.446':
     resolution: {integrity: sha512-FrZToC6ONvIVmOkFhcNMGJYvIKJ4UPzdKE5hgAUkQijYz+ZWx74OZBHExp8osCLMEmyxrUPTFg2oynlpGWLsTw==}
 
-  '@iconify/tailwind@1.2.0':
-    resolution: {integrity: sha512-KgpIHWOTcRYw1XcoUqyNSrmYyfLLqZYu3AmP8zdfLk0F5TqRO8YerhlvlQmGfn7rJXgPeZN569xPAJnJ53zZxA==}
+  '@iconify/tailwind4@1.2.3':
+    resolution: {integrity: sha512-z8SKiMHRASJKF/IY//87MF88lcB7ulxh8vlhQXXLWsBkNtOh6ese9R41MyGpQeqXdRvQVt+/fX2glQtHFjQ+MA==}
+    peerDependencies:
+      tailwindcss: '>= 4.0.0'
+
+  '@iconify/tools@5.0.5':
+    resolution: {integrity: sha512-JE3uqne+l89kggZYKIukaYDIae4lHKMNVDg7Oc+L+8rPwiMcfD5C56YLWyynyH/ib6I9xDFH1aamdfoL+m7OFA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -6792,6 +6773,9 @@ packages:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
 
+  fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
+
   figures@6.1.0:
     resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
     engines: {node: '>=18'}
@@ -8177,6 +8161,10 @@ packages:
   mlly@1.8.1:
     resolution: {integrity: sha512-SnL6sNutTwRWWR/vcmCYHSADjiEesp5TGQQ0pXyLhW5IoeibRlF/CbSLailbB3CNqJUk9cVJ9dUDnbD7GrcHBQ==}
 
+  modern-tar@0.7.5:
+    resolution: {integrity: sha512-YTefgdpKKFgoTDbEUqXqgUJct2OG6/4hs4XWLsxcHkDLj/x/V8WmKIRppPnXP5feQ7d1vuYWSp3qKkxfwaFaxA==}
+    engines: {node: '>=18.0.0'}
+
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -8616,11 +8604,6 @@ packages:
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
-
-  postcss-antd-fixes@0.2.0:
-    resolution: {integrity: sha512-WuV4Ip5DnLg8q+wmNXUq13wZZcA5Lrj+em3Jznl4cxItZDgFp4wEh+5ba59TvFeHfwNuTEZ6YNDsYP9DG6NurQ==}
-    peerDependencies:
-      postcss: ^8.0.0
 
   postcss-calc@10.1.1:
     resolution: {integrity: sha512-NYEsLHh8DgG/PRH2+G9BTuUdtf9ViS+vdoQ0YA5OQdGsfN4ztiwtDWNtBl9EKeqNMFnIu8IKZ0cLxEQ5r5KVMw==}
@@ -12208,6 +12191,10 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
+  '@cyberalien/svg-utils@1.2.5':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@docsearch/css@3.8.2': {}
 
   '@docsearch/js@3.8.2(@algolia/client-search@5.49.1)(search-insights@2.17.3)':
@@ -12444,9 +12431,22 @@ snapshots:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
 
-  '@iconify/tailwind@1.2.0':
+  '@iconify/tailwind4@1.2.3(tailwindcss@4.2.1)':
     dependencies:
+      '@iconify/tools': 5.0.5
       '@iconify/types': 2.0.0
+      '@iconify/utils': 3.1.0
+      tailwindcss: 4.2.1
+
+  '@iconify/tools@5.0.5':
+    dependencies:
+      '@cyberalien/svg-utils': 1.2.5
+      '@iconify/types': 2.0.0
+      '@iconify/utils': 3.1.0
+      fflate: 0.8.2
+      modern-tar: 0.7.5
+      pathe: 2.0.3
+      svgo: 4.0.1
 
   '@iconify/types@2.0.0': {}
 
@@ -16130,6 +16130,8 @@ snapshots:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.3.3
 
+  fflate@0.8.2: {}
+
   figures@6.1.0:
     dependencies:
       is-unicode-supported: 2.1.0
@@ -17488,6 +17490,8 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.3
 
+  modern-tar@0.7.5: {}
+
   mri@1.2.0: {}
 
   mrmime@2.0.1: {}
@@ -18014,10 +18018,6 @@ snapshots:
       tslib: 2.4.0
 
   possible-typed-array-names@1.1.0: {}
-
-  postcss-antd-fixes@0.2.0(postcss@8.5.8):
-    dependencies:
-      postcss: 8.5.8
 
   postcss-calc@10.1.1(postcss@8.5.8):
     dependencies:

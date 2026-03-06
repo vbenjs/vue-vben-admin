@@ -42,8 +42,9 @@
     }
   },
   "dependencies": {
+    "@iconify/json": "catalog:",
+    "@iconify/tailwind4": "catalog:",
     "@tailwindcss/typography": "catalog:",
-    "@vben/tailwind-config": "workspace:*",
     "tw-animate-css": "catalog:"
   }
 }

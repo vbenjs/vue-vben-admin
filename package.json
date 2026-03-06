@@ -72,7 +72,6 @@
     "@vben/eslint-config": "workspace:*",
     "@vben/prettier-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",
-    "@vben/tailwind-config": "workspace:*",
     "@vben/tsconfig": "workspace:*",
     "@vben/turbo-run": "workspace:*",
     "@vben/vite-config": "workspace:*",

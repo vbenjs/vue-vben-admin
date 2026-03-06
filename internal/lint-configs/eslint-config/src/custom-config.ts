@@ -3,7 +3,6 @@ import type { Linter } from 'eslint';
 const restrictedImportIgnores = [
   '**/vite.config.mts',
   '**/tailwind.config.mjs',
-  '**/postcss.config.mjs',
 ];
 
 const customConfig: Linter.Config[] = [
