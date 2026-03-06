@@ -43,6 +43,10 @@
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
     "@vueuse/core": "catalog:",
+    "qs": "catalog:",
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@types/qs": "catalog:"
   }
 }

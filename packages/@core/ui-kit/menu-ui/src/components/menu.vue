@@ -212,15 +212,15 @@ const enableScroll = computed(
   () => props.scrollToActive && props.mode === 'vertical' && !props.collapse,
 );
 
-const { scrollToActiveItem } = useMenuScroll(activePath, {
+useMenuScroll(activePath, {
   enable: enableScroll,
   delay: 320,
 });
 
 // 监听 activePath 变化，自动滚动到激活项
-watch(activePath, () => {
-  scrollToActiveItem();
-});
+// watch(activePath, () => {
+//   scrollToActiveItem();
+// });
 
 // 默认展开菜单
 function initMenu() {
