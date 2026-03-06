@@ -1,9 +1,8 @@
-import { onUnmounted } from 'vue';
+import { ref } from 'vue';
 
 interface DragOptions {
   max: number;
   min: number;
-  startWidth: number;
 }
 
 interface DragElements {
@@ -14,35 +13,9 @@ interface DragElements {
 type DragCallback = (newWidth: number) => void;
 
 export function useSidebarDrag() {
-  const state: {
-    cleanup: (() => void) | null;
-    isDragging: boolean;
-    originalStyles: {
-      bodyCursor: string;
-      bodyUserSelect: string;
-      dragBarLeft: string;
-      dragBarRight: string;
-      dragBarTransition: string;
-      targetTransition: string;
-    };
-    startLeft: number;
-    startWidth: number;
-    startX: number;
-  } = {
-    cleanup: null,
-    isDragging: false,
-    startLeft: 0,
-    startWidth: 0,
-    startX: 0,
-    originalStyles: {
-      bodyCursor: '',
-      bodyUserSelect: '',
-      dragBarLeft: '',
-      dragBarRight: '',
-      dragBarTransition: '',
-      targetTransition: '',
-    },
-  };
+  const isDragging = ref(false);
+  let cleanup: (() => void) | null = null;
+  let dragOverlay: HTMLElement | null = null;
 
   const startDrag = (
     e: MouseEvent,
@@ -50,108 +23,130 @@ export function useSidebarDrag() {
     elements: DragElements,
     onDrag: DragCallback,
   ) => {
-    const { min, max, startWidth } = options;
+    const { min, max } = options;
     const { dragBar, target } = elements;
 
-    if (state.isDragging || !dragBar || !target) return;
+    if (isDragging.value || !dragBar || !target) return;
 
     e.preventDefault();
     e.stopPropagation();
 
-    state.isDragging = true;
+    isDragging.value = true;
 
-    state.startX = e.clientX;
-    state.startWidth = startWidth;
-    state.startLeft = dragBar.offsetLeft;
+    const startX = e.clientX;
+    const startWidth = target.getBoundingClientRect().width;
+    const startLeft = dragBar.offsetLeft;
 
-    state.originalStyles = {
-      bodyCursor: document.body.style.cursor,
-      bodyUserSelect: document.body.style.userSelect,
-      dragBarLeft: dragBar.style.left,
-      dragBarRight: dragBar.style.right,
-      dragBarTransition: dragBar.style.transition,
-      targetTransition: target.style.transition,
-    };
+    dragBar.classList.add('bg-primary');
+    dragBar.classList.remove('bg-primary/30');
 
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
+    const dragBarTransition = dragBar.style.transition;
+    const targetTransition = target.style.transition;
 
-    dragBar.style.left = `${state.startLeft}px`;
-    dragBar.style.right = 'auto';
     dragBar.style.transition = 'none';
     target.style.transition = 'none';
 
+    dragOverlay = document.createElement('div');
+    dragOverlay.style.position = 'fixed';
+    dragOverlay.style.inset = '0';
+    dragOverlay.style.zIndex = '9999';
+    dragOverlay.style.cursor = 'col-resize';
+    dragOverlay.style.userSelect = 'none';
+    dragOverlay.style.outline = 'none';
+    dragOverlay.tabIndex = -1;
+    dragOverlay.style.background = 'rgba(0,0,0,0)';
+    document.body.append(dragOverlay);
+
     const onMouseMove = (moveEvent: MouseEvent) => {
-      if (!state.isDragging || !dragBar) return;
+      if (!isDragging.value || !dragBar || !target) {
+        endDrag();
+        return;
+      }
 
-      const deltaX = moveEvent.clientX - state.startX;
-      let newLeft = state.startLeft + deltaX;
+      const deltaX = moveEvent.clientX - startX;
+      let currentWidth = startWidth + deltaX;
 
-      if (newLeft < min) newLeft = min;
-      if (newLeft > max) newLeft = max;
+      const isOutOfMin = currentWidth < min;
+      const isOutOfMax = currentWidth > max;
+      const isOutOfBounds = isOutOfMin || isOutOfMax;
+
+      if (isOutOfMin) currentWidth = min;
+      if (isOutOfMax) currentWidth = max;
+
+      const newLeft = startLeft + (currentWidth - startWidth);
+
+      if (dragOverlay)
+        dragOverlay.style.cursor = isOutOfBounds ? 'not-allowed' : 'col-resize';
 
       dragBar.style.left = `${newLeft}px`;
-      dragBar.classList.add('bg-primary');
+
+      if (isOutOfBounds) {
+        dragBar.classList.add('bg-primary/30');
+        dragBar.classList.remove('bg-primary');
+      } else {
+        dragBar.classList.add('bg-primary');
+        dragBar.classList.remove('bg-primary/30');
+      }
     };
 
     const onMouseUp = (upEvent: MouseEvent) => {
-      if (!state.isDragging || !dragBar || !target) return;
+      if (!isDragging.value || !dragBar || !target) {
+        endDrag();
+        return;
+      }
 
-      const deltaX = upEvent.clientX - state.startX;
-      let newWidth = state.startWidth + deltaX;
+      const deltaX = upEvent.clientX - startX;
+      let newWidth = startWidth + deltaX;
 
       newWidth = Math.min(max, Math.max(min, newWidth));
 
-      dragBar.classList.remove('bg-primary');
+      dragBar.classList.remove('bg-primary', 'bg-primary/30');
 
-      onDrag?.(newWidth);
-
-      endDrag();
+      try {
+        onDrag?.(Math.round(newWidth));
+      } finally {
+        endDrag();
+      }
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 
-    const cleanup = () => {
-      if (!state.cleanup) return;
+    cleanup = () => {
+      if (!cleanup) return;
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
-      document.body.style.cursor = state.originalStyles.bodyCursor;
-      document.body.style.userSelect = state.originalStyles.bodyUserSelect;
-
       if (dragBar) {
-        dragBar.style.left = state.originalStyles.dragBarLeft;
-        dragBar.style.right = state.originalStyles.dragBarRight;
-        dragBar.style.transition = state.originalStyles.dragBarTransition;
-        dragBar.classList.remove('bg-primary');
+        dragBar.style.transition = dragBarTransition;
+        dragBar.style.left = '';
+        dragBar.classList.remove('bg-primary', 'bg-primary/30');
       }
 
       if (target) {
-        target.style.transition = state.originalStyles.targetTransition;
+        target.style.transition = targetTransition;
       }
 
-      state.isDragging = false;
-      state.cleanup = null;
-    };
+      if (dragOverlay) {
+        dragOverlay.remove();
+        dragOverlay = null;
+      }
 
-    state.cleanup = cleanup;
+      isDragging.value = false;
+      cleanup = null;
+    };
   };
 
   const endDrag = () => {
-    state.cleanup?.();
+    cleanup?.();
   };
-
-  onUnmounted(() => {
-    endDrag();
-  });
 
   return {
     startDrag,
     endDrag,
     get isDragging() {
-      return state.isDragging;
+      return isDragging.value;
     },
   };
 }
