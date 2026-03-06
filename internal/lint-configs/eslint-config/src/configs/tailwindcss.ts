@@ -41,9 +41,7 @@ export async function tailwindcss(): Promise<Linter.Config[]> {
         'better-tailwindcss/enforce-consistent-line-wrapping': [
           'error',
           {
-            group: 'newLine',
-            preferSingleLine: true,
-            printWidth: 120,
+            strictness: 'loose',
           },
         ],
         'better-tailwindcss/no-unknown-classes': 'off',
