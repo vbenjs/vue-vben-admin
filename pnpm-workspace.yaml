@@ -21,7 +21,6 @@ overrides:
   pinia: 'catalog:'
   vue: 'catalog:'
 catalog:
-  '@@iconify/json': ^0.0.0
   '@ast-grep/napi': ^0.41.0
   '@changesets/changelog-github': ^0.6.0
   '@changesets/cli': ^2.30.0
