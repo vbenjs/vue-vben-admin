@@ -140,7 +140,7 @@ watch(
             <div class="size-full px-9 py-2" @click.stop="selectColor">
               <div class="flex-center relative size-5 rounded-sm">
                 <UserRoundPen
-                  class="z-1 absolute size-5 opacity-60 group-hover:opacity-100"
+                  class="absolute z-1 size-5 opacity-60 group-hover:opacity-100"
                 />
                 <input
                   ref="colorInput"

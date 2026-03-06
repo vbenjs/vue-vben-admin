@@ -10,7 +10,7 @@ function toggleFixed() {
 
 <template>
   <div
-    class="flex-center absolute bottom-2 right-3 z-10 cursor-pointer rounded-sm bg-accent p-[5px] text-foreground/60 transition-all duration-300 hover:bg-accent-hover hover:text-foreground"
+    class="flex-center bg-accent text-foreground/60 hover:bg-accent-hover hover:text-foreground absolute right-3 bottom-2 z-10 cursor-pointer rounded-sm p-[5px] transition-all duration-300"
     @click="toggleFixed"
   >
     <PinOff v-if="!expandOnHover" class="size-3.5" />

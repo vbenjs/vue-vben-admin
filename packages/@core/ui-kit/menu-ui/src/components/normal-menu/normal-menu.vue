@@ -60,7 +60,6 @@ function menuIcon(menu: MenuRecordRaw) {
 <style lang="scss" scoped>
 $namespace: vben;
 
-
 .#{$namespace}-normal-menu {
   --menu-item-margin-y: 4px;
   --menu-item-margin-x: 0px;

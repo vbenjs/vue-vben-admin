@@ -230,7 +230,7 @@ onMounted(() => {
         class="text-muted-foreground text-center"
       >
         <SearchX class="mx-auto mt-4 size-12" />
-        <p class="mb-10 mt-6 text-xs">
+        <p class="mt-6 mb-10 text-xs">
           {{ $t('ui.widgets.search.noResults') }}
           <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"
@@ -268,11 +268,7 @@ onMounted(() => {
           @click="handleEnter"
           @mouseenter="handleMouseenter"
         >
-          <VbenIcon
-            :icon="item.icon"
-            class="mr-2 size-5 shrink-0"
-            fallback
-          />
+          <VbenIcon :icon="item.icon" class="mr-2 size-5 shrink-0" fallback />
 
           <span class="flex-1">{{ item.name }}</span>
           <div

@@ -108,7 +108,7 @@ onMounted(() => {
             ref="searchInputRef"
             v-model="keyword"
             :placeholder="$t('ui.widgets.search.searchNavigate')"
-            class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm font-normal outline-hidden ring-0 ring-offset-transparent focus-visible:ring-transparent"
+            class="ring-none placeholder:text-muted-foreground w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm font-normal ring-0 ring-offset-transparent outline-hidden focus-visible:ring-transparent"
           />
         </div>
       </template>

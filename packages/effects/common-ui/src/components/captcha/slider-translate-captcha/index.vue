@@ -278,7 +278,7 @@ onMounted(() => {
         @click="resume"
       ></canvas>
       <div
-        class="h-15 absolute bottom-3 left-0 z-10 block w-full text-center text-xs leading-[30px] text-white"
+        class="absolute bottom-3 left-0 z-10 block h-15 w-full text-center text-xs leading-[30px] text-white"
       >
         <div
           v-if="state.showTip"

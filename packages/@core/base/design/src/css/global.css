@@ -1,13 +1,13 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
-@plugin "@tailwindcss/typography";
-@plugin "@iconify/tailwind4";
+@plugin '@tailwindcss/typography';
+@plugin '@iconify/tailwind4';
 
 /* Monorepo source detection: scan all packages and apps for utility classes */
-@source "../../../../../../packages/";
-@source "../../../../../../apps/";
-@source "../../../../../../playground/";
+@source '../../../../../../packages/';
+@source '../../../../../../apps/';
+@source '../../../../../../playground/';
 
 /* Dark mode uses .dark class selector, not prefers-color-scheme */
 @custom-variant dark (&:is(.dark *));
@@ -23,8 +23,8 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Box Shadow */
-  --shadow-float: 0 6px 16px 0 rgb(0 0 0 / 8%),
-    0 3px 6px -4px rgb(0 0 0 / 12%),
+  --shadow-float:
+    0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
 
   /* Animations */
@@ -39,28 +39,20 @@
   --color-background: hsl(var(--background));
   --color-background-deep: hsl(var(--background-deep));
   --color-foreground: hsl(var(--foreground));
-
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
-
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-accent-hover: hsl(var(--accent-hover));
   --color-accent-lighter: hsl(var(--accent-lighter));
-
   --color-border: hsl(var(--border));
-
   --color-input: hsl(var(--input));
   --color-input-background: hsl(var(--input-background));
-
   --color-ring: hsl(var(--ring));
-
   --color-secondary: hsl(var(--secondary));
   --color-secondary-desc: hsl(var(--secondary-desc));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
@@ -68,15 +60,11 @@
   /* ===== Custom Semantic Colors ===== */
 
   --color-header: hsl(var(--header));
-
   --color-heavy: hsl(var(--heavy));
   --color-heavy-foreground: hsl(var(--heavy-foreground));
-
   --color-main: hsl(var(--main));
-
   --color-overlay: hsl(var(--overlay));
   --color-overlay-content: hsl(var(--overlay-content));
-
   --color-sidebar: hsl(var(--sidebar));
   --color-sidebar-deep: hsl(var(--sidebar-deep));
 
@@ -244,6 +232,7 @@
   from {
     height: 0;
   }
+
   to {
     height: var(--reka-accordion-content-height);
   }
@@ -253,6 +242,7 @@
   from {
     height: var(--reka-accordion-content-height);
   }
+
   to {
     height: 0;
   }
@@ -262,6 +252,7 @@
   from {
     height: 0;
   }
+
   to {
     height: var(--reka-collapsible-content-height);
   }
@@ -271,6 +262,7 @@
   from {
     height: var(--reka-collapsible-content-height);
   }
+
   to {
     height: 0;
   }
@@ -280,9 +272,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -402,7 +396,7 @@
 }
 
 .outline-box::after {
-  @apply absolute left-1/2 top-1/2 z-20 h-0 w-px rounded-sm opacity-0 outline-2 outline-transparent transition-all duration-300 content-[""];
+  @apply absolute top-1/2 left-1/2 z-20 h-0 w-px rounded-sm opacity-0 outline-2 outline-transparent transition-all duration-300 content-[""];
 }
 
 .outline-box.outline-box-active {
@@ -414,7 +408,7 @@
 }
 
 .outline-box:not(.outline-box-active):hover::after {
-  @apply outline-primary left-0 top-0 h-full w-full p-1 opacity-100;
+  @apply outline-primary top-0 left-0 h-full w-full p-1 opacity-100;
 }
 
 .vben-link {
@@ -440,29 +434,125 @@
   }
 }
 
-.enter-x:nth-child(1) { animation: enter-x-animation 0.3s ease-in-out 0.1s forwards; opacity: 0; transform: translateX(50px); }
-.enter-x:nth-child(2) { animation: enter-x-animation 0.3s ease-in-out 0.2s forwards; opacity: 0; transform: translateX(50px); }
-.enter-x:nth-child(3) { animation: enter-x-animation 0.3s ease-in-out 0.3s forwards; opacity: 0; transform: translateX(50px); }
-.enter-x:nth-child(4) { animation: enter-x-animation 0.3s ease-in-out 0.4s forwards; opacity: 0; transform: translateX(50px); }
-.enter-x:nth-child(5) { animation: enter-x-animation 0.3s ease-in-out 0.5s forwards; opacity: 0; transform: translateX(50px); }
+.enter-x:nth-child(1) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.1s forwards;
+}
 
-.enter-y:nth-child(1) { animation: enter-y-animation 0.3s ease-in-out 0.1s forwards; opacity: 0; transform: translateY(50px); }
-.enter-y:nth-child(2) { animation: enter-y-animation 0.3s ease-in-out 0.2s forwards; opacity: 0; transform: translateY(50px); }
-.enter-y:nth-child(3) { animation: enter-y-animation 0.3s ease-in-out 0.3s forwards; opacity: 0; transform: translateY(50px); }
-.enter-y:nth-child(4) { animation: enter-y-animation 0.3s ease-in-out 0.4s forwards; opacity: 0; transform: translateY(50px); }
-.enter-y:nth-child(5) { animation: enter-y-animation 0.3s ease-in-out 0.5s forwards; opacity: 0; transform: translateY(50px); }
+.enter-x:nth-child(2) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.2s forwards;
+}
 
-.-enter-x:nth-child(1) { animation: enter-x-animation 0.3s ease-in-out 0.1s forwards; opacity: 0; transform: translateX(-50px); }
-.-enter-x:nth-child(2) { animation: enter-x-animation 0.3s ease-in-out 0.2s forwards; opacity: 0; transform: translateX(-50px); }
-.-enter-x:nth-child(3) { animation: enter-x-animation 0.3s ease-in-out 0.3s forwards; opacity: 0; transform: translateX(-50px); }
-.-enter-x:nth-child(4) { animation: enter-x-animation 0.3s ease-in-out 0.4s forwards; opacity: 0; transform: translateX(-50px); }
-.-enter-x:nth-child(5) { animation: enter-x-animation 0.3s ease-in-out 0.5s forwards; opacity: 0; transform: translateX(-50px); }
+.enter-x:nth-child(3) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.3s forwards;
+}
 
-.-enter-y:nth-child(1) { animation: enter-y-animation 0.3s ease-in-out 0.1s forwards; opacity: 0; transform: translateY(-50px); }
-.-enter-y:nth-child(2) { animation: enter-y-animation 0.3s ease-in-out 0.2s forwards; opacity: 0; transform: translateY(-50px); }
-.-enter-y:nth-child(3) { animation: enter-y-animation 0.3s ease-in-out 0.3s forwards; opacity: 0; transform: translateY(-50px); }
-.-enter-y:nth-child(4) { animation: enter-y-animation 0.3s ease-in-out 0.4s forwards; opacity: 0; transform: translateY(-50px); }
-.-enter-y:nth-child(5) { animation: enter-y-animation 0.3s ease-in-out 0.5s forwards; opacity: 0; transform: translateY(-50px); }
+.enter-x:nth-child(4) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.4s forwards;
+}
+
+.enter-x:nth-child(5) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.5s forwards;
+}
+
+.enter-y:nth-child(1) {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.1s forwards;
+}
+
+.enter-y:nth-child(2) {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.2s forwards;
+}
+
+.enter-y:nth-child(3) {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.3s forwards;
+}
+
+.enter-y:nth-child(4) {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.4s forwards;
+}
+
+.enter-y:nth-child(5) {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.5s forwards;
+}
+
+.-enter-x:nth-child(1) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.1s forwards;
+}
+
+.-enter-x:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.2s forwards;
+}
+
+.-enter-x:nth-child(3) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.3s forwards;
+}
+
+.-enter-x:nth-child(4) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.4s forwards;
+}
+
+.-enter-x:nth-child(5) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: enter-x-animation 0.3s ease-in-out 0.5s forwards;
+}
+
+.-enter-y:nth-child(1) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.1s forwards;
+}
+
+.-enter-y:nth-child(2) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.2s forwards;
+}
+
+.-enter-y:nth-child(3) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.3s forwards;
+}
+
+.-enter-y:nth-child(4) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.4s forwards;
+}
+
+.-enter-y:nth-child(5) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: enter-y-animation 0.3s ease-in-out 0.5s forwards;
+}
 
 html.invert-mode {
   @apply invert;

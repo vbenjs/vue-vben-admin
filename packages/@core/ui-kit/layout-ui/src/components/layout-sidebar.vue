@@ -305,7 +305,7 @@ const handleDragSidebar = (e: MouseEvent) => {
   <aside
     ref="asideRef"
     :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-150"
+    class="fixed top-0 left-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -315,7 +315,7 @@ const handleDragSidebar = (e: MouseEvent) => {
         theme,
         {
           'bg-sidebar-deep': isSidebarMixed,
-          'border-r border-border bg-sidebar': !isSidebarMixed,
+          'border-border bg-sidebar border-r': !isSidebarMixed,
         },
       ]"
       :style="{ width: `${width}px` }"
@@ -346,7 +346,7 @@ const handleDragSidebar = (e: MouseEvent) => {
         },
       ]"
       :style="extraStyle"
-      class="fixed top-0 h-full overflow-hidden border-r border-border bg-sidebar transition-all duration-200"
+      class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"
@@ -372,7 +372,7 @@ const handleDragSidebar = (e: MouseEvent) => {
     <div
       v-if="draggable"
       ref="dragBarRef"
-      class="absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize hover:bg-primary"
+      class="hover:bg-primary absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize"
       @mousedown="handleDragSidebar"
     ></div>
   </aside>

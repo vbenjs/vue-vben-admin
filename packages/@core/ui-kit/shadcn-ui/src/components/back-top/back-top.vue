@@ -32,7 +32,7 @@ const { handleClick, visible } = useBackTop(props);
     <VbenButton
       v-if="visible"
       :style="backTopStyle"
-      class="data z-popup fixed bottom-10 size-10 rounded-full bg-background shadow-float duration-500 hover:bg-heavy dark:bg-accent dark:hover:bg-heavy"
+      class="data z-popup bg-background shadow-float hover:bg-heavy dark:bg-accent dark:hover:bg-heavy fixed bottom-10 size-10 rounded-full duration-500"
       size="icon"
       variant="icon"
       @click="handleClick"

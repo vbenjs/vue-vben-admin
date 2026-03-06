@@ -129,7 +129,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <template v-for="item in vbenDescriptionItems" :key="item.title">
             <div class="border-border border-t px-4 py-6 sm:col-span-1 sm:px-0">
-              <dt class="text-foreground text-sm font-medium leading-6">
+              <dt class="text-foreground text-sm leading-6 font-medium">
                 {{ item.title }}
               </dt>
               <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">

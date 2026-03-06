@@ -71,7 +71,7 @@ async function handleToggleAccessMode() {
   >
     <Card class="mb-5" title="权限模式">
       <span class="font-semibold">当前权限模式:</span>
-      <span class="mx-4 text-primary">{{
+      <span class="text-primary mx-4">{{
         accessMode === 'frontend' ? '前端权限控制' : '后端权限控制'
       }}</span>
       <Button type="primary" @click="handleToggleAccessMode">

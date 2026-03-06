@@ -50,7 +50,6 @@ function handleClick(index: number, path?: string) {
   </ul>
 </template>
 <style scoped>
-
 li {
   @apply h-7;
 }

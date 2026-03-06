@@ -35,7 +35,7 @@ const showTheme = computed(() => props.toolbarList.includes('theme'));
     :class="{
       'bg-accent rounded-3xl px-3 py-1': toolbarList.length > 1,
     }"
-    class="flex-center absolute right-2 top-4 z-10"
+    class="flex-center absolute top-4 right-2 z-10"
   >
     <!-- Only show on medium and larger screens -->
     <div class="hidden md:flex">

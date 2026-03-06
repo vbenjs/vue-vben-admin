@@ -34,7 +34,7 @@ function handleClick(value: string) {
   </SwitchItem>
   <div
     v-if="transitionEnable"
-    class="mb-2 mt-3 flex justify-between gap-3 px-2"
+    class="mt-3 mb-2 flex justify-between gap-3 px-2"
   >
     <div
       v-for="item in transitionPreset"

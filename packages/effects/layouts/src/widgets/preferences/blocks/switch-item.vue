@@ -47,7 +47,7 @@ function handleClick() {
         </slot>
       </VbenTooltip>
     </span>
-    <span v-if="$slots.shortcut" class="ml-auto mr-2 text-xs opacity-60">
+    <span v-if="$slots.shortcut" class="mr-2 ml-auto text-xs opacity-60">
       <slot name="shortcut"></slot>
     </span>
     <Switch v-model="checked" @click.stop />

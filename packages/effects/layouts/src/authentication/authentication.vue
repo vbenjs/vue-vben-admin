@@ -55,7 +55,7 @@ const logoSrc = computed(() => {
 <template>
   <div
     :class="[isDark ? 'dark' : '']"
-    class="flex min-h-full flex-1 select-none overflow-x-hidden"
+    class="flex min-h-full flex-1 overflow-x-hidden select-none"
   >
     <template v-if="toolbar">
       <slot name="toolbar">
@@ -82,11 +82,11 @@ const logoSrc = computed(() => {
       <!-- 头部 Logo 和应用名称 -->
       <div
         v-if="logoSrc || appName"
-        class="absolute left-0 top-0 z-10 flex flex-1"
+        class="absolute top-0 left-0 z-10 flex flex-1"
         @click="clickLogo"
       >
         <div
-          class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+          class="text-foreground lg:text-foreground mt-4 ml-4 flex flex-1 items-center sm:top-6 sm:left-6"
         >
           <img
             v-if="logoSrc"
@@ -108,7 +108,7 @@ const logoSrc = computed(() => {
       <div
         class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
       >
-        <div class="login-background absolute left-0 top-0 size-full"></div>
+        <div class="login-background absolute top-0 left-0 size-full"></div>
         <div
           :key="authPanelLeft ? 'left' : authPanelRight ? 'right' : 'center'"
           class="flex-col-center mr-20 h-full"
@@ -137,7 +137,7 @@ const logoSrc = computed(() => {
 
     <!-- 中心认证面板 -->
     <div v-if="authPanelCenter" class="flex-center relative w-full">
-      <div class="login-background absolute left-0 top-0 size-full"></div>
+      <div class="login-background absolute top-0 left-0 size-full"></div>
       <AuthenticationFormView
         class="md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]"
         data-side="bottom"

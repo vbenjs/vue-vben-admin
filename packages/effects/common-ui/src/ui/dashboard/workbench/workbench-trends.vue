@@ -42,7 +42,7 @@ withDefaults(defineProps<Props>(), {
               class="size-10 flex-none rounded-full"
             />
             <div class="min-w-0 flex-auto">
-              <p class="text-foreground text-sm font-semibold leading-6">
+              <p class="text-foreground text-sm leading-6 font-semibold">
                 {{ item.title }}
               </p>
               <!-- eslint-disable vue/no-v-html -->

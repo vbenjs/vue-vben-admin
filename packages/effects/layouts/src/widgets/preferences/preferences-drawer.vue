@@ -264,7 +264,7 @@ async function handleReset() {
           >
             <span
               v-if="diffPreference"
-              class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
+              class="bg-primary absolute top-0.5 right-0.5 h-2 w-2 rounded"
             ></span>
             <RotateCw class="size-4" />
           </VbenIconButton>
