@@ -53,11 +53,11 @@ catalog:
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^25.3.3
+  '@types/node': ^25.3.5
   '@types/nprogress': ^0.2.3
   '@types/postcss-import': ^14.0.3
   '@types/qrcode': ^1.5.6
-  '@types/qs': ^6.14.0
+  '@types/qs': ^6.15.0
   '@types/sortablejs': ^1.15.9
   '@typescript-eslint/eslint-plugin': ^8.56.1
   '@typescript-eslint/parser': ^8.56.1
@@ -168,7 +168,7 @@ catalog:
   tailwind-merge: ^2.6.1
   tailwindcss: ^3.4.19
   tailwindcss-animate: ^1.0.7
-  tdesign-vue-next: ^1.18.2
+  tdesign-vue-next: ^1.18.3
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
   turbo: ^2.8.13
