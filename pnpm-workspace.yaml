@@ -96,6 +96,7 @@ catalog:
   esbuild: ^0.27.3
   eslint: ^10.0.2
   eslint-config-turbo: ^2.8.13
+  eslint-plugin-better-tailwindcss: ^4.3.2
   eslint-plugin-command: ^3.5.2
   eslint-plugin-import-x: ^4.16.1
   eslint-plugin-jsdoc: ^62.7.1
@@ -136,7 +137,6 @@ catalog:
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
   prettier: ^3.8.1
-  prettier-plugin-tailwindcss: ^0.7.2
   publint: ^0.3.18
   qrcode: ^1.5.4
   qs: ^6.15.0

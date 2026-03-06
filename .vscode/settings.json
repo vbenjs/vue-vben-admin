@@ -1,5 +1,6 @@
 {
   "tailwindCSS.experimental.configFile": "packages/@core/base/design/src/css/global.css",
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
   // workbench
   "workbench.list.smoothScrolling": true,
   "workbench.startupEditor": "newUntitledFile",
