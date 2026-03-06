@@ -38,12 +38,7 @@ export async function tailwindcss(): Promise<Linter.Config[]> {
             unknownClassPosition: 'start',
           },
         ],
-        'better-tailwindcss/enforce-consistent-line-wrapping': [
-          'error',
-          {
-            strictness: 'loose',
-          },
-        ],
+        'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
         'better-tailwindcss/no-unknown-classes': 'off',
       },
     },
