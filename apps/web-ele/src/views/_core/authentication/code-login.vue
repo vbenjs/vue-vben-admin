@@ -40,6 +40,10 @@ const formSchema = computed((): VbenFormSchema[] => {
           return text;
         },
         placeholder: $t('authentication.code'),
+        handleSendCode: async () => {
+          console.warn('发送验证码前校验等逻辑');
+          throw new Error('手机号校验失败');
+        },
       },
       fieldName: 'code',
       label: $t('authentication.code'),
