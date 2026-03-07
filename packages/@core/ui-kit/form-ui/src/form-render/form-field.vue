@@ -324,7 +324,7 @@ onUnmounted(() => {
           <VbenRenderContent :content="label" />
         </template>
       </FormLabel>
-      <div class="flex-auto overflow-hidden p-[1px]">
+      <div class="flex-auto overflow-hidden p-px">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
           <FormControl :class="cn(controlClass)">
             <slot
@@ -367,7 +367,7 @@ onUnmounted(() => {
                     <CircleAlert
                       :class="
                         cn(
-                          'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
+                          'inline-flex size-5 cursor-pointer text-foreground/80 hover:text-foreground',
                         )
                       "
                     />

@@ -78,7 +78,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
     ref="contentRef"
     :class="contentClass"
     :style="style"
-    class="tabs-chrome !flex h-full w-max overflow-y-hidden pr-6"
+    class="tabs-chrome flex! h-full w-max overflow-y-hidden pr-6"
   >
     <TransitionGroup name="slide-left">
       <div
@@ -94,7 +94,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         ]"
         :data-active-tab="active"
         :data-index="i"
-        class="tabs-chrome__item draggable translate-all group relative -mr-3 flex h-full items-center select-none"
+        class="draggable group tabs-chrome__item translate-all relative -mr-3 flex h-full items-center select-none"
         data-tab-item="true"
         @click="active = tab.key"
         @mousedown="onMouseDown($event, tab)"
@@ -109,24 +109,24 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
             <!-- divider -->
             <div
               v-if="i !== 0 && tab.key !== active"
-              class="tabs-chrome__divider bg-border absolute top-1/2 left-[var(--gap)] z-0 h-4 w-[1px] translate-y-[-50%] transition-all"
+              class="tabs-chrome__divider absolute top-1/2 left-(--gap) z-0 h-4 w-px translate-y-[-50%] bg-border transition-all"
             ></div>
             <!-- background -->
             <div
               class="tabs-chrome__background absolute z-[-1] size-full px-[calc(var(--gap)-1px)] py-0 transition-opacity duration-150"
             >
               <div
-                class="tabs-chrome__background-content group-[.is-active]:bg-primary/15 dark:group-[.is-active]:bg-accent h-full rounded-tl-[var(--gap)] rounded-tr-[var(--gap)] duration-150"
+                class="tabs-chrome__background-content h-full rounded-tl-(--gap) rounded-tr-(--gap) duration-150 group-[.is-active]:bg-primary/15 dark:group-[.is-active]:bg-accent"
               ></div>
               <svg
-                class="tabs-chrome__background-before group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent absolute bottom-0 left-[-1px] fill-transparent transition-all duration-150"
+                class="tabs-chrome__background-before absolute bottom-0 -left-px fill-transparent transition-all duration-150 group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent"
                 height="7"
                 width="7"
               >
                 <path d="M 0 7 A 7 7 0 0 0 7 0 L 7 7 Z" />
               </svg>
               <svg
-                class="tabs-chrome__background-after group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent absolute right-[-1px] bottom-0 fill-transparent transition-all duration-150"
+                class="tabs-chrome__background-after absolute -right-px bottom-0 fill-transparent transition-all duration-150 group-[.is-active]:fill-primary/15 dark:group-[.is-active]:fill-accent"
                 height="7"
                 width="7"
               >
@@ -136,24 +136,24 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 
             <!-- extra -->
             <div
-              class="tabs-chrome__extra absolute top-1/2 right-[var(--gap)] z-[3] size-4 translate-y-[-50%]"
+              class="tabs-chrome__extra absolute top-1/2 right-(--gap) z-3 size-4 translate-y-[-50%]"
             >
               <!-- close-icon -->
               <X
                 v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"
-                class="stroke-accent-foreground/80 text-accent-foreground/80 hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-accent-foreground mt-[2px] size-3 cursor-pointer rounded-full transition-all"
+                class="mt-[2px] size-3 cursor-pointer rounded-full stroke-accent-foreground/80 text-accent-foreground/80 transition-all group-[.is-active]:text-accent-foreground hover:bg-accent hover:stroke-accent-foreground"
                 @click.stop="() => emit('close', tab.key)"
               />
               <Pin
                 v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                class="text-accent-foreground/80 hover:text-accent-foreground group-[.is-active]:text-accent-foreground mt-[1px] size-3.5 cursor-pointer rounded-full transition-all"
+                class="mt-px size-3.5 cursor-pointer rounded-full text-accent-foreground/80 transition-all group-[.is-active]:text-accent-foreground hover:text-accent-foreground"
                 @click.stop="() => emit('unpin', tab)"
               />
             </div>
 
             <!-- tab-item-main -->
             <div
-              class="tabs-chrome__item-main text-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground z-[2] mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-4 pl-2 duration-150"
+              class="tabs-chrome__item-main z-2 mx-[calc(var(--gap)*2)] my-0 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-4 pl-2 text-accent-foreground duration-150 group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground"
             >
               <VbenIcon
                 v-if="showIcon"

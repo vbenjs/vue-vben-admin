@@ -240,14 +240,13 @@ function handleClosed() {
       :append-to="getAppendTo"
       :class="
         cn(
-          'top-[10vh] right-0 left-0 mx-auto flex max-h-[80%] w-[520px] flex-col p-0',
-          shouldFullscreen ? 'sm:rounded-none' : 'sm:rounded-[var(--radius)]',
+          'inset-x-0 top-[10vh] mx-auto flex max-h-[80%] w-[520px] flex-col p-0',
+          shouldFullscreen ? 'sm:rounded-none' : 'sm:rounded-(--radius)',
           modalClass,
           {
-            'border-border border': bordered,
+            'border border-border': bordered,
             'shadow-3xl': !bordered,
-            'top-0 left-0 size-full max-h-full !translate-x-0 !translate-y-0':
-              shouldFullscreen,
+            'top-0 left-0 size-full max-h-full translate-0!': shouldFullscreen,
             'top-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
             hidden: isClosed,
@@ -320,7 +319,7 @@ function handleClosed() {
       <VbenLoading v-if="showLoading || submitting" spinning />
       <VbenIconButton
         v-if="fullscreenButton"
-        class="flex-center text-foreground/80 hover:bg-accent hover:text-accent-foreground absolute top-3 right-10 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none sm:block"
+        class="absolute top-3 right-10 flex-center hidden size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
