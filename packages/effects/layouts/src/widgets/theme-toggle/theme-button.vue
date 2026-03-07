@@ -120,6 +120,8 @@ function toggleTheme(event: MouseEvent) {
 </template>
 
 <style scoped>
+@reference "@vben-core/design/theme";
+
 .theme-toggle__moon > circle {
   transition: transform 0.5s cubic-bezier(0, 0, 0.3, 1);
 }

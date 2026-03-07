@@ -50,6 +50,8 @@ function handleClick(index: number, path?: string) {
   </ul>
 </template>
 <style scoped>
+@reference "@vben-core/design/theme";
+
 li {
   @apply h-7;
 }

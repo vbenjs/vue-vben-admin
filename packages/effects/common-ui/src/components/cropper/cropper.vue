@@ -851,6 +851,8 @@ defineExpose({ getCropImage });
 </template>
 
 <style scoped>
+@reference "@vben-core/design/theme";
+
 .cropper-action-wrapper {
   @apply box-border flex items-center justify-center;
 
