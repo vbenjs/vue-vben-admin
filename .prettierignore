@@ -4,6 +4,7 @@ dev-dist
 .claude
 .agent
 .agents
+.codex
 .output.js
 node_modules
 .nvmrc

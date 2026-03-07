@@ -15,6 +15,8 @@ export async function tailwindcss(): Promise<Linter.Config[]> {
       plugins: {
         'better-tailwindcss': pluginBetterTailwindcss,
       },
+      // shadcn-ui 内部组件是自动生成的，不做太多限制
+      ignores: ['packages/@core/ui-kit/shadcn-ui/**/**'],
       settings: {
         'better-tailwindcss': {
           entryPoint: 'packages/@core/base/design/src/css/global.css',
@@ -38,6 +40,7 @@ export async function tailwindcss(): Promise<Linter.Config[]> {
             unknownClassPosition: 'start',
           },
         ],
+        // Let Prettier own wrapping decisions to avoid ping-pong formatting.
         'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
         'better-tailwindcss/no-unknown-classes': 'off',
       },
