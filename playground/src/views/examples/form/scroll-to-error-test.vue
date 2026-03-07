@@ -138,7 +138,7 @@ async function fillPartialData() {
       </template>
 
       <div class="space-y-4">
-        <div class="rounded bg-blue-50 p-4">
+        <div class="rounded-sm bg-blue-50 p-4">
           <h3 class="mb-2 font-medium">测试说明：</h3>
           <ul class="list-inside list-disc space-y-1 text-sm">
             <li>所有验证方法在验证失败时都会自动滚动到第一个错误字段</li>
@@ -146,7 +146,7 @@ async function fillPartialData() {
           </ul>
         </div>
 
-        <div class="rounded border p-4">
+        <div class="rounded-sm border p-4">
           <h4 class="mb-3 font-medium">验证方法测试：</h4>
           <div class="flex flex-wrap gap-2">
             <Button type="primary" @click="testValidateAndSubmit">
@@ -162,7 +162,7 @@ async function fillPartialData() {
           </div>
         </div>
 
-        <div class="rounded border p-4">
+        <div class="rounded-sm border p-4">
           <h4 class="mb-3 font-medium">数据填充测试：</h4>
           <div class="flex flex-wrap gap-2">
             <Button @click="fillPartialData"> 填充部分数据 </Button>

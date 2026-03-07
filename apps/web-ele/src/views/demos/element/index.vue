@@ -102,9 +102,7 @@ const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       </ElCard>
       <ElCard class="mb-5 w-80">
         <template #header> V-Loading </template>
-        <div class="flex size-72 items-center justify-center" v-loading="true">
-          一些演示的内容
-        </div>
+        <div class="flex-center size-72" v-loading="true">一些演示的内容</div>
       </ElCard>
       <ElCard class="mb-5 w-80">
         <ElTable :data="tableData" stripe>

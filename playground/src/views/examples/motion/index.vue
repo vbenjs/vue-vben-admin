@@ -84,9 +84,7 @@ function openDocPage() {
       title="使用组件（将内部作为一个整体添加动画）"
       :body-style="{ padding: 0 }"
     >
-      <div
-        class="relative flex min-h-32 items-center justify-center gap-2 overflow-hidden"
-      >
+      <div class="relative flex-center min-h-32 gap-2 overflow-hidden">
         <Motion
           v-bind="motionProps"
           v-if="showCard2"
@@ -96,9 +94,7 @@ function openDocPage() {
           <span>附属组件，会作为整体处理动画</span>
         </Motion>
       </div>
-      <div
-        class="relative flex min-h-32 items-center justify-center gap-2 overflow-hidden"
-      >
+      <div class="relative flex-center min-h-32 gap-2 overflow-hidden">
         <div v-if="showCard2" class="flex items-center gap-2">
           <span>顺序延迟</span>
           <Motion
@@ -158,9 +154,7 @@ function openDocPage() {
       title="分组动画（每个子元素都会应用相同的独立动画）"
       :body-style="{ padding: 0 }"
     >
-      <div
-        class="relative flex min-h-32 items-center justify-center gap-2 overflow-hidden"
-      >
+      <div class="relative flex-center min-h-32 gap-2 overflow-hidden">
         <MotionGroup v-bind="motionGroupProps" v-if="showCard3">
           <Button size="large">按钮1</Button>
           <Button size="large">按钮2</Button>

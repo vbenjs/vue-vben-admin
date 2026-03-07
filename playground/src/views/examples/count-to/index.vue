@@ -85,7 +85,7 @@ function onFinished() {
       </Button>
     </template>
     <Card title="基本用法">
-      <div class="flex w-full items-center justify-center pb-4">
+      <div class="flex-center w-full pb-4">
         <CountTo v-bind="props" @started="onStarted" @finished="onFinished" />
       </div>
       <Form :model="props">

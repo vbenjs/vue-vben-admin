@@ -37,35 +37,29 @@ const loadingV = refAutoReset(false, 3000);
           <Loading
             :spinning="loading"
             text="正在加载..."
-            class="flex h-full w-full items-center justify-center"
+            class="flex-center size-full"
           >
             <Button type="primary" @click="loading = true">默认动画</Button>
           </Loading>
         </div>
         <div class="size-40">
-          <Loading
-            :spinning="loading"
-            class="flex h-full w-full items-center justify-center"
-          >
+          <Loading :spinning="loading" class="flex-center size-full">
             <Button type="primary" @click="loading = true">自定义动画1</Button>
             <template #icon>
               <IconifyIcon
                 icon="svg-spinners:ring-resize"
-                class="text-primary size-10"
+                class="size-10 text-primary"
               />
             </template>
           </Loading>
         </div>
         <div class="size-40">
-          <Loading
-            :spinning="loading"
-            class="flex h-full w-full items-center justify-center"
-          >
+          <Loading :spinning="loading" class="flex-center size-full">
             <Button type="primary" @click="loading = true">自定义动画2</Button>
             <template #icon>
               <IconifyIcon
                 icon="svg-spinners:bars-scale"
-                class="text-primary size-10"
+                class="size-10 text-primary"
               />
             </template>
           </Loading>
@@ -90,10 +84,7 @@ const loadingV = refAutoReset(false, 3000);
       <template #actions>
         Spinner组件是Loading组件的一个特例，只有一个固定的统一样式。
       </template>
-      <Spinner
-        :spinning="spinning"
-        class="flex size-40 items-center justify-center"
-      >
+      <Spinner :spinning="spinning" class="flex-center size-40">
         <Button type="primary" @click="spinning = true">显示Spinner</Button>
       </Spinner>
     </Card>

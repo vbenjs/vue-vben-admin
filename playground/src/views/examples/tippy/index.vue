@@ -291,7 +291,7 @@ function goDoc() {
       <Form class="mt-4" />
       <template #actions>
         <p
-          class="text-secondary-foreground hover:text-secondary-foreground cursor-default"
+          class="cursor-default text-secondary-foreground hover:text-secondary-foreground"
         >
           更多配置请
           <Button type="link" size="small" @click="goDoc">查看文档</Button>
