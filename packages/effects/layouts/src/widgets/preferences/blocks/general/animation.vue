@@ -34,7 +34,7 @@ function handleClick(value: string) {
   </SwitchItem>
   <div
     v-if="transitionEnable"
-    class="mb-2 mt-3 flex justify-between gap-3 px-2"
+    class="mt-3 mb-2 flex justify-between gap-3 px-2"
   >
     <div
       v-for="item in transitionPreset"
@@ -45,7 +45,7 @@ function handleClick(value: string) {
       class="outline-box p-2"
       @click="handleClick(item)"
     >
-      <div :class="`${item}-slow`" class="bg-accent h-10 w-12 rounded-md"></div>
+      <div :class="`${item}-slow`" class="h-10 w-12 rounded-md bg-accent"></div>
     </div>
   </div>
 </template>

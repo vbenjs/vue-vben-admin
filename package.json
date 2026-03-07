@@ -72,7 +72,6 @@
     "@vben/eslint-config": "workspace:*",
     "@vben/prettier-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",
-    "@vben/tailwind-config": "workspace:*",
     "@vben/tsconfig": "workspace:*",
     "@vben/turbo-run": "workspace:*",
     "@vben/vite-config": "workspace:*",
@@ -80,7 +79,6 @@
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
     "@vue/test-utils": "catalog:",
-    "autoprefixer": "catalog:",
     "cross-env": "catalog:",
     "cspell": "catalog:",
     "happy-dom": "catalog:",
@@ -101,5 +99,5 @@
     "node": ">=20.19.0",
     "pnpm": ">=10.0.0"
   },
-  "packageManager": "pnpm@10.28.2"
+  "packageManager": "pnpm@10.30.3"
 }

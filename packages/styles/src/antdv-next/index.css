@@ -36,7 +36,10 @@
 
 .ant-message-notice-content,
 .ant-notification-notice {
-  @apply dark:border-border/60 dark:border;
+  &:is(.dark *) {
+    border-color: hsl(var(--border) / 60%);
+    border-width: 1px;
+  }
 }
 
 .form-valid-error {

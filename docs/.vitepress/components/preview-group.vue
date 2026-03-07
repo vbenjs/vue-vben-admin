@@ -56,15 +56,15 @@ const toggleOpen = () => {
         <TabsList class="relative flex">
           <template v-if="open">
             <TabsIndicator
-              class="absolute bottom-0 left-0 h-[2px] w-[--reka-tabs-indicator-size] translate-x-[--reka-tabs-indicator-position] rounded-full transition-[width,transform] duration-300"
+              class="absolute bottom-0 left-0 h-[2px] w-(--reka-tabs-indicator-size) translate-x-(--reka-tabs-indicator-position) rounded-full transition-[width,transform] duration-300"
             >
-              <div class="size-full bg-[var(--vp-c-indigo-1)]"></div>
+              <div class="size-full bg-(--vp-c-indigo-1)"></div>
             </TabsIndicator>
             <TabsTrigger
               v-for="(tab, index) in tabs"
               :key="index"
               :value="tab.label"
-              class="border-box px-4 py-3 text-foreground data-[state=active]:text-[var(--vp-c-indigo-1)]"
+              class="border-box px-4 py-3 text-foreground data-[state=active]:text-(--vp-c-indigo-1)"
               tabindex="-1"
             >
               {{ tab.label }}
@@ -92,7 +92,7 @@ const toggleOpen = () => {
     </div>
     <div
       :class="`${open ? 'h-[unset] max-h-[80vh]' : 'h-0'}`"
-      class="block overflow-y-scroll bg-[var(--vp-code-block-bg)] transition-all duration-300"
+      class="block overflow-y-scroll bg-(--vp-code-block-bg) transition-all duration-300"
     >
       <TabsContent
         v-for="tab in tabs"

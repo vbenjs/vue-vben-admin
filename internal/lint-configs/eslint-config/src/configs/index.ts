@@ -11,6 +11,7 @@ export * from './perfectionist';
 export * from './pnpm';
 export * from './prettier';
 export * from './regexp';
+export * from './tailwindcss';
 export * from './test';
 export * from './turbo';
 export * from './typescript';

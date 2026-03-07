@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
   <span
-    :class="cn('font-normal text-foreground', props.class)"
+    :class="cn('text-foreground font-normal', props.class)"
     aria-current="page"
     aria-disabled="true"
     role="link"

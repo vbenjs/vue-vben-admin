@@ -44,7 +44,7 @@ function activeClass(theme: string): string[] {
         <div :class="activeClass(theme.type)" class="outline-box flex-center">
           <component :is="components[theme.type]" />
         </div>
-        <div class="text-muted-foreground mt-2 text-center text-xs">
+        <div class="mt-2 text-center text-xs text-muted-foreground">
           {{ theme.name }}
         </div>
       </div>

@@ -93,24 +93,19 @@ function toggleTheme(event: MouseEvent) {
     @click.stop="toggleTheme"
   >
     <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24">
-      <mask
-        id="theme-toggle-moon"
-        class="theme-toggle__moon"
-        fill="hsl(var(--foreground)/80%)"
-        stroke="none"
-      >
+      <mask id="theme-toggle-moon" class="theme-toggle__moon">
         <rect fill="white" height="100%" width="100%" x="0" y="0" />
         <circle cx="40" cy="8" fill="black" r="11" />
       </mask>
       <circle
         id="sun"
-        class="theme-toggle__sun"
+        class="theme-toggle__sun fill-foreground/90"
         cx="12"
         cy="12"
         mask="url(#theme-toggle-moon)"
         r="11"
       />
-      <g class="theme-toggle__sun-beams">
+      <g class="theme-toggle__sun-beams stroke-foreground/90 stroke-2">
         <line x1="12" x2="12" y1="1" y2="3" />
         <line x1="12" x2="12" y1="21" y2="23" />
         <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />
@@ -125,64 +120,46 @@ function toggleTheme(event: MouseEvent) {
 </template>
 
 <style scoped>
-.theme-toggle {
-  &__moon {
-    & > circle {
-      transition: transform 0.5s cubic-bezier(0, 0, 0.3, 1);
-    }
-  }
+@reference "@vben-core/design/theme";
 
-  &__sun {
-    @apply fill-foreground/90 stroke-none;
+.theme-toggle__moon > circle {
+  transition: transform 0.5s cubic-bezier(0, 0, 0.3, 1);
+}
 
-    transform-origin: center center;
-    transition: transform 1.6s cubic-bezier(0.25, 0, 0.2, 1);
+.theme-toggle__sun {
+  stroke: none;
+  transform-origin: center center;
+  transition: transform 1.6s cubic-bezier(0.25, 0, 0.2, 1);
+}
 
-    &:hover > svg > & {
-      @apply fill-foreground/90;
-    }
-  }
+.theme-toggle__sun-beams {
+  transform-origin: center center;
+  transition:
+    transform 1.6s cubic-bezier(0.5, 1.5, 0.75, 1.25),
+    opacity 0.6s cubic-bezier(0.25, 0, 0.3, 1);
+}
 
-  &__sun-beams {
-    @apply stroke-foreground/90 stroke-[2px];
+.theme-toggle.is-light .theme-toggle__sun {
+  @apply scale-50;
+}
 
-    transform-origin: center center;
-    transition:
-      transform 1.6s cubic-bezier(0.5, 1.5, 0.75, 1.25),
-      opacity 0.6s cubic-bezier(0.25, 0, 0.3, 1);
+.theme-toggle.is-light .theme-toggle__sun-beams {
+  transform: rotateZ(0.25turn);
+}
 
-    &:hover > svg > & {
-      @apply stroke-foreground;
-    }
-  }
+.theme-toggle.is-dark .theme-toggle__moon > circle {
+  transform: translateX(-20px);
+}
 
-  &.is-light {
-    .theme-toggle__sun {
-      @apply scale-50;
-    }
+.theme-toggle.is-dark .theme-toggle__sun-beams {
+  @apply opacity-0;
+}
 
-    .theme-toggle__sun-beams {
-      transform: rotateZ(0.25turn);
-    }
-  }
+.theme-toggle:hover > svg .theme-toggle__sun {
+  fill: hsl(var(--foreground));
+}
 
-  &.is-dark {
-    .theme-toggle__moon {
-      & > circle {
-        transform: translateX(-20px);
-      }
-    }
-
-    .theme-toggle__sun-beams {
-      @apply opacity-0;
-    }
-  }
-
-  &:hover > svg {
-    .theme-toggle__sun,
-    .theme-toggle__moon {
-      @apply fill-foreground;
-    }
-  }
+.theme-toggle:hover > svg .theme-toggle__sun-beams {
+  stroke: hsl(var(--foreground));
 }
 </style>

@@ -110,7 +110,7 @@ const pinType = 'text' as const;
       <VbenButton
         :disabled="disabled"
         :loading="btnLoading"
-        class="flex-grow"
+        class="grow"
         size="lg"
         variant="outline"
         @click="handleSend"

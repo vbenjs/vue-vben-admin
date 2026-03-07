@@ -98,7 +98,7 @@ function onAnimationEnd(event: AnimationEvent) {
       <slot></slot>
 
       <!-- <DialogClose
-        class="data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+        class="data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none"
       >
         <Cross2Icon class="h-5 w-" />
       </DialogClose> -->

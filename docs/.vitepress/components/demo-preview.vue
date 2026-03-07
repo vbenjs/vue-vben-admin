@@ -27,7 +27,7 @@ const parsedFiles = computed(() => {
         <ClientOnly>
           <slot v-if="parsedFiles.length > 0"></slot>
           <div v-else class="text-sm text-destructive">
-            <span class="rounded-sm bg-destructive px-1 py-1 text-foreground">
+            <span class="rounded-sm bg-destructive p-1 text-foreground">
               ERROR:
             </span>
             The preview directory does not exist. Please check the 'dir'

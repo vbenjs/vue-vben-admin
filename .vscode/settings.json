@@ -1,5 +1,6 @@
 {
-  "tailwindCSS.experimental.configFile": "internal/tailwind-config/src/index.ts",
+  "tailwindCSS.experimental.configFile": "packages/@core/base/design/src/css/global.css",
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
   // workbench
   "workbench.list.smoothScrolling": true,
   "workbench.startupEditor": "newUntitledFile",
@@ -31,6 +32,9 @@
   "editor.autoClosingOvertype": "always",
   "editor.autoClosingQuotes": "beforeWhitespace",
   "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit",
@@ -79,6 +83,7 @@
   "files.insertFinalNewline": true,
   "files.simpleDialog.enable": true,
   "files.associations": {
+    "*.css": "tailwindcss",
     "*.ejs": "html",
     "*.art": "html",
     "**/tsconfig.json": "jsonc",
@@ -220,8 +225,7 @@
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
-    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json,lefthook.yml",
-    "tailwind.config.mjs": "postcss.*"
+    "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json,lefthook.yml"
   },
   "commentTranslate.hover.enabled": false,
   "commentTranslate.multiLineMerge": true,

@@ -42,11 +42,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
     <template #left="{ isCollapsed, expand }">
       <div v-if="isCollapsed" @click="expand">
         <Tooltip title="点击展开左侧">
-          <Button
-            shape="circle"
-            type="primary"
-            class="flex items-center justify-center"
-          >
+          <Button shape="circle" type="primary" class="flex-center">
             <template #icon>
               <IconifyIcon class="text-2xl" icon="bi:arrow-right" />
             </template>
@@ -56,7 +52,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
       <div
         v-else
         :style="{ minWidth: '200px' }"
-        class="mr-2 rounded-[var(--radius)] border border-border bg-card p-2"
+        class="mr-2 rounded-(--radius) border border-border bg-card p-2"
       >
         <p>这里是左侧内容</p>
         <p>这里是左侧内容</p>

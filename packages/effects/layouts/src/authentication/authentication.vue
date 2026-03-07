@@ -55,7 +55,7 @@ const logoSrc = computed(() => {
 <template>
   <div
     :class="[isDark ? 'dark' : '']"
-    class="flex min-h-full flex-1 select-none overflow-x-hidden"
+    class="flex min-h-full flex-1 overflow-x-hidden select-none"
   >
     <template v-if="toolbar">
       <slot name="toolbar">
@@ -82,11 +82,11 @@ const logoSrc = computed(() => {
       <!-- 头部 Logo 和应用名称 -->
       <div
         v-if="logoSrc || appName"
-        class="absolute left-0 top-0 z-10 flex flex-1"
+        class="absolute top-0 left-0 z-10 flex flex-1"
         @click="clickLogo"
       >
         <div
-          class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+          class="mt-4 ml-4 flex flex-1 items-center text-foreground sm:top-6 sm:left-6 lg:text-foreground"
         >
           <img
             v-if="logoSrc"
@@ -106,12 +106,12 @@ const logoSrc = computed(() => {
     <!-- 系统介绍 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
-        class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
+        class="absolute inset-0 size-full bg-background-deep dark:bg-[#070709]"
       >
-        <div class="login-background absolute left-0 top-0 size-full"></div>
+        <div class="login-background absolute top-0 left-0 size-full"></div>
         <div
           :key="authPanelLeft ? 'left' : authPanelRight ? 'right' : 'center'"
-          class="flex-col-center mr-20 h-full"
+          class="mr-20 flex-col-center h-full"
           :class="{
             'enter-x': authPanelLeft,
             '-enter-x': authPanelRight,
@@ -121,14 +121,14 @@ const logoSrc = computed(() => {
             <img
               :alt="appName"
               :src="sloganImage"
-              class="animate-float h-64 w-2/5"
+              class="h-64 w-2/5 animate-float"
             />
           </template>
-          <SloganIcon v-else :alt="appName" class="animate-float h-64 w-2/5" />
-          <div class="text-1xl text-foreground mt-6 font-sans lg:text-2xl">
+          <SloganIcon v-else :alt="appName" class="h-64 w-2/5 animate-float" />
+          <div class="text-1xl mt-6 font-sans text-foreground lg:text-2xl">
             {{ pageTitle }}
           </div>
-          <div class="dark:text-muted-foreground mt-2">
+          <div class="mt-2 dark:text-muted-foreground">
             {{ pageDescription }}
           </div>
         </div>
@@ -136,10 +136,10 @@ const logoSrc = computed(() => {
     </div>
 
     <!-- 中心认证面板 -->
-    <div v-if="authPanelCenter" class="flex-center relative w-full">
-      <div class="login-background absolute left-0 top-0 size-full"></div>
+    <div v-if="authPanelCenter" class="relative flex-center w-full">
+      <div class="login-background absolute top-0 left-0 size-full"></div>
       <AuthenticationFormView
-        class="md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]"
+        class="w-full rounded-3xl pb-20 shadow-float shadow-primary/5 md:w-2/3 md:bg-background lg:w-1/2 xl:w-[36%]"
         data-side="bottom"
       >
         <template v-if="copyright" #copyright>

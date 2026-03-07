@@ -98,11 +98,9 @@ class SSE {
     if (!reader) {
       throw new Error('No reader');
     }
-    let isEnd = false;
-    while (!isEnd) {
+    while (true) {
       const { done, value } = await reader.read();
       if (done) {
-        isEnd = true;
         decoder.decode(new Uint8Array(0), { stream: false });
         requestOptions?.onEnd?.();
         reader.releaseLock?.();

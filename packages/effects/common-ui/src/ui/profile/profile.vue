@@ -26,9 +26,9 @@ const tabsValue = defineModel<string>('modelValue');
 </script>
 <template>
   <Page auto-content-height>
-    <div class="flex h-full w-full">
+    <div class="flex size-full">
       <Card class="w-1/6 flex-none">
-        <div class="mt-4 flex h-40 flex-col items-center justify-center gap-4">
+        <div class="mt-4 flex-col-center h-40 gap-4">
           <VbenAvatar
             :src="userInfo?.avatar ?? preferences.app.defaultAvatar"
             class="size-20"
@@ -36,18 +36,18 @@ const tabsValue = defineModel<string>('modelValue');
           <span class="text-lg font-semibold">
             {{ userInfo?.realName ?? '' }}
           </span>
-          <span class="text-foreground/80 text-sm">
+          <span class="text-sm text-foreground/80">
             {{ userInfo?.username ?? '' }}
           </span>
         </div>
         <Separator class="my-4" />
         <Tabs v-model="tabsValue" orientation="vertical" class="m-4">
-          <TabsList class="bg-card grid w-full grid-cols-1">
+          <TabsList class="grid w-full grid-cols-1 bg-card">
             <TabsTrigger
               v-for="tab in tabs"
               :key="tab.value"
               :value="tab.value"
-              class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground h-12 justify-start"
+              class="h-12 justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
               {{ tab.label }}
             </TabsTrigger>
