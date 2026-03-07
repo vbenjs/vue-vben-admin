@@ -23,7 +23,7 @@ withDefaults(defineProps<Props>(), {
       <h1 v-if="$slots.title" class="text-md font-semibold md:text-xl">
         <slot name="title"></slot>
       </h1>
-      <span v-if="$slots.description" class="text-foreground/80 mt-1">
+      <span v-if="$slots.description" class="mt-1 text-foreground/80">
         <slot name="description"></slot>
       </span>
     </div>

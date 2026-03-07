@@ -96,7 +96,7 @@ function activeClass(theme: string): string[] {
           <component :is="components[theme.type]" />
         </div>
         <div
-          class="text-muted-foreground flex-center hover:text-foreground mt-2 text-center text-xs"
+          class="mt-2 flex-center text-center text-xs text-muted-foreground hover:text-foreground"
         >
           {{ theme.name }}
           <VbenTooltip v-if="theme.tip" side="bottom">

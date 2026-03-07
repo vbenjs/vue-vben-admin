@@ -28,7 +28,7 @@ function handleClick() {
     :class="{
       'pointer-events-none opacity-50': disabled,
     }"
-    class="hover:bg-accent my-1 flex w-full items-center justify-between rounded-md px-2 py-2.5"
+    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-2.5 hover:bg-accent"
     @click="handleClick"
   >
     <span class="flex items-center text-sm">
