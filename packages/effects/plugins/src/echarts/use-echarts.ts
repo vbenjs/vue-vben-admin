@@ -37,7 +37,7 @@ type EchartsThemeType = 'dark' | 'light' | null;
 function useEcharts(chartRef: Ref<EchartsUIType>) {
   let chartInstance: echarts.ECharts | null = null;
   let cacheOptions: EChartsOption = {};
-  // echart是否处于激活状态
+  // echarts是否处于激活状态
   const isActiveRef = ref(false);
 
   const { isDark } = usePreferences();

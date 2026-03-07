@@ -48,6 +48,11 @@ export async function ignores(): Promise<Linter.Config[]> {
         '**/*.woff',
         '**/.github',
         '**/lefthook.yml',
+
+        '**/.agent/**',
+        '**/.agents/**',
+        '**/.claude/**',
+        '**/.cursor/**',
       ],
     },
   ];

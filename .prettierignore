@@ -1,6 +1,9 @@
 dist
 dev-dist
 .local
+.claude
+.agent
+.agents
 .output.js
 node_modules
 .nvmrc
@@ -16,3 +19,4 @@ CODEOWNERS
 public
 .npmrc
 *-lock.yaml
+skills-lock.json
