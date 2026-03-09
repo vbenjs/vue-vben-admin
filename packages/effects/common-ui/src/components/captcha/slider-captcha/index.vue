@@ -50,9 +50,9 @@ defineExpose({
 });
 
 const wrapperRef = useTemplateRef<HTMLDivElement>('wrapperRef');
-const barRef = useTemplateRef<typeof SliderCaptchaBar>('barRef');
-const contentRef = useTemplateRef<typeof SliderCaptchaContent>('contentRef');
-const actionRef = useTemplateRef<typeof SliderCaptchaAction>('actionRef');
+const barRef = useTemplateRef<InstanceType<typeof SliderCaptchaBar>>('barRef');
+const contentRef = useTemplateRef<InstanceType<typeof SliderCaptchaContent>>('contentRef');
+const actionRef = useTemplateRef<InstanceType<typeof SliderCaptchaAction>>('actionRef');
 
 watch(
   () => state.isPassing,
