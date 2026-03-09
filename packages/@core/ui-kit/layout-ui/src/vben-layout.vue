@@ -275,7 +275,7 @@ const mainStyle = computed(() => {
 
 // 计算 tabbar 的样式
 const tabbarStyle = computed((): CSSProperties => {
-  let width = '';
+  let width: string;
   let marginLeft = 0;
 
   // 如果不是混合导航，tabbar 的宽度为 100%
@@ -627,7 +627,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
     <div
       v-if="maskVisible"
       :style="maskStyle"
-      class="fixed left-0 top-0 h-full w-full bg-overlay transition-[background-color] duration-200"
+      class="fixed top-0 left-0 size-full bg-overlay transition-[background-color] duration-200"
       @click="handleClickMask"
     ></div>
   </div>

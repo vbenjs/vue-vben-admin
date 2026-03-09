@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@nolebase/vitepress-plugin-git-changelog": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@vben/vite-config": "workspace:*",
     "@vite-pwa/vitepress": "catalog:",
     "vitepress": "catalog:",

@@ -81,7 +81,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 <template>
   <div
     :class="contentClass"
-    class="relative !flex h-full w-max items-center overflow-hidden pr-6"
+    class="relative flex! h-full w-max items-center overflow-hidden pr-6"
   >
     <TransitionGroup name="slide-left">
       <div
@@ -96,7 +96,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
           typeWithClass.content,
         ]"
         :data-index="i"
-        class="tab-item translate-all group relative flex cursor-pointer select-none [&:not(.is-active)]:hover:bg-accent"
+        class="group tab-item translate-all relative flex cursor-pointer select-none [&:not(.is-active)]:hover:bg-accent"
         data-tab-item="true"
         @click="active = tab.key"
         @mousedown="onMouseDown($event, tab)"
@@ -110,17 +110,17 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
           <div class="relative flex size-full items-center">
             <!-- extra -->
             <div
-              class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden"
+              class="absolute top-1/2 right-1.5 z-3 translate-y-[-50%] overflow-hidden"
             >
               <!-- close-icon -->
               <X
                 v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"
-                class="size-3 cursor-pointer rounded-full stroke-accent-foreground/80 transition-all hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground"
+                class="size-3 cursor-pointer rounded-full stroke-accent-foreground/80 transition-all group-[.is-active]:text-primary hover:bg-accent hover:stroke-accent-foreground dark:group-[.is-active]:text-accent-foreground"
                 @click.stop="() => emit('close', tab.key)"
               />
               <Pin
                 v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
-                class="mt-[1px] size-3.5 cursor-pointer rounded-full transition-all hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground"
+                class="mt-px size-3.5 cursor-pointer rounded-full transition-all group-[.is-active]:text-primary hover:bg-accent hover:stroke-accent-foreground dark:group-[.is-active]:text-accent-foreground"
                 @click.stop="() => emit('unpin', tab)"
               />
             </div>
@@ -136,7 +136,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
                 fallback
               />
 
-              <span class="flex-1 overflow-hidden whitespace-nowrap text-sm">
+              <span class="flex-1 overflow-hidden text-sm whitespace-nowrap">
                 {{ tab.title }}
               </span>
             </div>

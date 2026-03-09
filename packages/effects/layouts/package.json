@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@vben-core/composables": "workspace:*",
+    "@vben-core/design": "workspace:*",
     "@vben-core/form-ui": "workspace:*",
     "@vben-core/layout-ui": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",

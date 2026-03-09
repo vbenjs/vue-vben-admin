@@ -29,6 +29,7 @@
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@jspm/generator": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "archiver": "catalog:",
     "cheerio": "catalog:",
     "get-port": "catalog:",

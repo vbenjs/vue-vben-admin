@@ -32,27 +32,30 @@ async function main(): Promise<void> {
     defineCheckCircularCommand(vsh);
     defineDepcheckCommand(vsh);
 
-    // Handle invalid commands
-    vsh.on('command:*', ([cmd]) => {
-      consola.error(
-        colors.red(`Invalid command: ${cmd}`),
-        '\n',
-        colors.yellow('Available commands:'),
-        '\n',
-        Object.entries(COMMAND_DESCRIPTIONS)
-          .map(([cmd, desc]) => `  ${colors.cyan(cmd)} - ${desc}`)
-          .join('\n'),
-      );
-      process.exit(1);
-    });
-
     // Set up CLI
     vsh.usage('vsh <command> [options]');
     vsh.help();
     vsh.version(version);
 
-    // Parse arguments
-    vsh.parse();
+    // Parse arguments without auto-running to detect unknown commands
+    // Note: cac v7 removed EventEmitter; use matchedCommand after parse instead
+    vsh.parse(undefined, { run: false });
+
+    if (!vsh.matchedCommand && vsh.args.length > 0) {
+      const unknownCmd = String(vsh.args[0]);
+      consola.error(
+        colors.red(`Invalid command: ${unknownCmd}`),
+        '\n',
+        colors.yellow('Available commands:'),
+        '\n',
+        Object.entries(COMMAND_DESCRIPTIONS)
+          .map(([name, desc]) => `  ${colors.cyan(name)} - ${desc}`)
+          .join('\n'),
+      );
+      process.exit(1);
+    }
+
+    await vsh.runMatchedCommand();
   } catch (error) {
     consola.error(
       colors.red('An unexpected error occurred:'),

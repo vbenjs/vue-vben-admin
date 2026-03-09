@@ -33,7 +33,7 @@ const el6 = ref<SliderCaptchaActionType>();
 <template>
   <Page description="用于前端简单的拖动校验场景" title="滑块校验">
     <Card class="mb-5" title="基础示例">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha ref="el1" @success="handleSuccess" />
         <Button class="ml-2" type="primary" @click="handleBtnClick(el1)">
           还原
@@ -41,7 +41,7 @@ const el6 = ref<SliderCaptchaActionType>();
       </div>
     </Card>
     <Card class="mb-5" title="自定义圆角">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha
           ref="el2"
           class="rounded-full"
@@ -53,7 +53,7 @@ const el6 = ref<SliderCaptchaActionType>();
       </div>
     </Card>
     <Card class="mb-5" title="自定义背景色">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha
           ref="el3"
           :bar-style="{
@@ -69,7 +69,7 @@ const el6 = ref<SliderCaptchaActionType>();
       </div>
     </Card>
     <Card class="mb-5" title="自定义拖拽图标">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha ref="el4" @success="handleSuccess">
           <template #actionIcon="{ isPassing }">
             <Bell v-if="isPassing" />
@@ -82,7 +82,7 @@ const el6 = ref<SliderCaptchaActionType>();
       </div>
     </Card>
     <Card class="mb-5" title="自定义文本">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha
           ref="el5"
           success-text="成功"
@@ -95,7 +95,7 @@ const el6 = ref<SliderCaptchaActionType>();
       </div>
     </Card>
     <Card class="mb-5" title="自定义内容(slot)">
-      <div class="flex items-center justify-center p-4 px-[30%]">
+      <div class="flex-center p-4 px-[30%]">
         <SliderCaptcha ref="el6" @success="handleSuccess">
           <template #text="{ isPassing }">
             <template v-if="isPassing">

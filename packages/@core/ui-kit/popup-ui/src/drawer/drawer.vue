@@ -186,8 +186,8 @@ const getForceMount = computed(() => {
       :append-to="getAppendTo"
       :class="
         cn('flex w-[520px] flex-col', drawerClass, {
-          '!w-full': isMobile || placement === 'bottom' || placement === 'top',
-          'max-h-[100vh]': placement === 'bottom' || placement === 'top',
+          'w-full!': isMobile || placement === 'bottom' || placement === 'top',
+          'max-h-screen': placement === 'bottom' || placement === 'top',
           hidden: isClosed,
         })
       "
@@ -210,7 +210,7 @@ const getForceMount = computed(() => {
         v-if="showHeader"
         :class="
           cn(
-            '!flex flex-row items-center justify-between border-b px-6 py-5',
+            'flex! flex-row items-center justify-between border-b px-6 py-5',
             headerClass,
             {
               'px-4 py-3': closable,
@@ -224,7 +224,7 @@ const getForceMount = computed(() => {
             v-if="closable && closeIconPlacement === 'left'"
             as-child
             :disabled="submitting"
-            class="ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary"
+            class="ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary"
           >
             <slot name="close-icon">
               <VbenIconButton>
@@ -234,7 +234,7 @@ const getForceMount = computed(() => {
           </SheetClose>
           <Separator
             v-if="closable && closeIconPlacement === 'left'"
-            class="ml-1 mr-2 h-8"
+            class="mr-2 ml-1 h-8"
             decorative
             orientation="vertical"
           />
@@ -265,7 +265,7 @@ const getForceMount = computed(() => {
             v-if="closable && closeIconPlacement === 'right'"
             as-child
             :disabled="submitting"
-            class="ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary"
+            class="ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary"
           >
             <slot name="close-icon">
               <VbenIconButton>

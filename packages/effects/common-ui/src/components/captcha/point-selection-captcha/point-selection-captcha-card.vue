@@ -64,7 +64,9 @@ function handleClick(e: MouseEvent) {
         </div>
       </CardTitle>
     </CardHeader>
-    <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
+    <CardContent
+      class="relative mt-2 flex w-full overflow-hidden rounded-sm p-0"
+    >
       <img
         v-show="captchaImage"
         :alt="$t('ui.captcha.alt')"

@@ -128,7 +128,7 @@ watch(
           :class="{
             'outline-box-active': theme.type === modelValue,
           }"
-          class="outline-box flex-center group cursor-pointer"
+          class="group outline-box flex-center cursor-pointer"
         >
           <template v-if="theme.type !== 'custom'">
             <div
@@ -138,9 +138,9 @@ watch(
           </template>
           <template v-else>
             <div class="size-full px-9 py-2" @click.stop="selectColor">
-              <div class="flex-center relative size-5 rounded-sm">
+              <div class="relative flex-center size-5 rounded-sm">
                 <UserRoundPen
-                  class="z-1 absolute size-5 opacity-60 group-hover:opacity-100"
+                  class="absolute z-1 size-5 opacity-60 group-hover:opacity-100"
                 />
                 <input
                   ref="colorInput"
@@ -153,7 +153,7 @@ watch(
             </div>
           </template>
         </div>
-        <div class="text-muted-foreground my-2 text-center text-xs">
+        <div class="my-2 text-center text-xs text-muted-foreground">
           {{ typeView(theme.type) }}
         </div>
       </div>

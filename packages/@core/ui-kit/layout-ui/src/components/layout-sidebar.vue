@@ -307,7 +307,7 @@ onUnmounted(() => {
   <aside
     ref="asideRef"
     :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-150"
+    class="fixed top-0 left-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -374,7 +374,7 @@ onUnmounted(() => {
     <div
       v-if="draggable"
       ref="dragBarRef"
-      class="absolute inset-y-0 -right-[1px] z-1000 w-[2px] cursor-col-resize hover:bg-primary"
+      class="absolute inset-y-0 -right-px z-1000 w-[2px] cursor-col-resize hover:bg-primary"
       @mousedown="handleDragSidebar"
     ></div>
   </aside>

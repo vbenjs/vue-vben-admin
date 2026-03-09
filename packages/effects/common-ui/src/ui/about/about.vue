@@ -114,7 +114,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 <template>
   <Page :title="title">
     <template #description>
-      <p class="text-foreground mt-3 text-sm leading-6">
+      <p class="mt-3 text-sm/6 text-foreground">
         <a :href="VBEN_GITHUB_URL" class="vben-link" target="_blank">
           {{ name }}
         </a>
@@ -123,16 +123,16 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
     </template>
     <div class="card-box p-5">
       <div>
-        <h5 class="text-foreground text-lg">基本信息</h5>
+        <h5 class="text-lg text-foreground">基本信息</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <template v-for="item in vbenDescriptionItems" :key="item.title">
-            <div class="border-border border-t px-4 py-6 sm:col-span-1 sm:px-0">
-              <dt class="text-foreground text-sm font-medium leading-6">
+            <div class="border-t border-border px-4 py-6 sm:col-span-1 sm:px-0">
+              <dt class="text-sm/6 font-medium text-foreground">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">
+              <dd class="mt-1 text-sm/6 text-foreground sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>
@@ -143,16 +143,16 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 
     <div class="card-box mt-6 p-5">
       <div>
-        <h5 class="text-foreground text-lg">生产环境依赖</h5>
+        <h5 class="text-lg text-foreground">生产环境依赖</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <template v-for="item in dependenciesItems" :key="item.title">
-            <div class="border-border border-t px-4 py-3 sm:col-span-1 sm:px-0">
-              <dt class="text-foreground text-sm">
+            <div class="border-t border-border px-4 py-3 sm:col-span-1 sm:px-0">
+              <dt class="text-sm text-foreground">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
+              <dd class="mt-1 text-sm text-foreground/80 sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>
@@ -162,16 +162,16 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
     </div>
     <div class="card-box mt-6 p-5">
       <div>
-        <h5 class="text-foreground text-lg">开发环境依赖</h5>
+        <h5 class="text-lg text-foreground">开发环境依赖</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <template v-for="item in devDependenciesItems" :key="item.title">
-            <div class="border-border border-t px-4 py-3 sm:col-span-1 sm:px-0">
-              <dt class="text-foreground text-sm">
+            <div class="border-t border-border px-4 py-3 sm:col-span-1 sm:px-0">
+              <dt class="text-sm text-foreground">
                 {{ item.title }}
               </dt>
-              <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
+              <dd class="mt-1 text-sm text-foreground/80 sm:mt-2">
                 <VbenRenderContent :content="item.content" />
               </dd>
             </div>

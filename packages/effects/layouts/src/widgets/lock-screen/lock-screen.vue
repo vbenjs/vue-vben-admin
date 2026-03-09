@@ -88,11 +88,11 @@ useScrollLock();
 </script>
 
 <template>
-  <div class="bg-background fixed z-[2000] size-full">
+  <div class="fixed z-2000 size-full bg-background">
     <transition name="slide-left">
       <div v-show="!showUnlockForm" class="size-full">
         <div
-          class="flex-col-center text-foreground/80 hover:text-foreground group fixed left-1/2 top-6 z-[2001] -translate-x-1/2 cursor-pointer text-xl font-semibold"
+          class="group fixed top-6 left-1/2 z-2001 flex-col-center -translate-x-1/2 cursor-pointer text-xl font-semibold text-foreground/80 hover:text-foreground"
           @click="toggleUnlockForm"
         >
           <LockKeyhole
@@ -100,20 +100,20 @@ useScrollLock();
           />
           <span>{{ $t('ui.widgets.lockScreen.unlock') }}</span>
         </div>
-        <div class="flex h-full w-full items-center justify-center">
+        <div class="flex-center size-full">
           <div class="flex w-full justify-center gap-4 px-4 sm:gap-6 md:gap-8">
             <div
-              class="bg-accent relative flex h-[140px] w-[140px] items-center justify-center rounded-xl text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
+              class="relative flex-center h-[140px] w-[140px] rounded-xl bg-accent text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
             >
               <span
-                class="absolute left-3 top-3 text-xs font-semibold sm:text-sm md:text-xl"
+                class="absolute top-3 left-3 text-xs font-semibold sm:text-sm md:text-xl"
               >
                 {{ meridiem }}
               </span>
               {{ hour }}
             </div>
             <div
-              class="bg-accent flex h-[140px] w-[140px] items-center justify-center rounded-xl text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
+              class="flex-center h-[140px] w-[140px] rounded-xl bg-accent text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
             >
               {{ minute }}
             </div>
@@ -128,7 +128,7 @@ useScrollLock();
         class="flex-center size-full"
         @keydown.enter.prevent="handleSubmit"
       >
-        <div class="flex-col-center mb-10 w-[90%] max-w-[300px] px-4">
+        <div class="mb-10 flex-col-center w-[90%] max-w-[300px] px-4">
           <VbenAvatar :src="avatar" class="enter-x mb-6 size-20" />
           <div class="enter-x mb-2 w-full items-center">
             <Form />

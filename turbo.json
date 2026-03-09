@@ -6,7 +6,6 @@
     "**/tsconfig*.json",
     "internal/node-utils/*.json",
     "internal/node-utils/src/**/*.ts",
-    "internal/tailwind-config/src/**/*.ts",
     "internal/vite-config/*.json",
     "internal/vite-config/src/**/*.ts",
     "scripts/*/src/**/*.ts",

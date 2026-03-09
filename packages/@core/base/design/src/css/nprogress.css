@@ -1,10 +1,12 @@
+@reference "./global.css";
+
 /* Make clicks pass-through */
 #nprogress {
   @apply pointer-events-none;
 }
 
 #nprogress .bar {
-  @apply bg-primary fixed left-0 top-0 z-[1031] h-[2px] w-full;
+  @apply bg-primary fixed top-0 left-0 z-1031 h-[2px] w-full;
 }
 
 /* Fancy blur effect */
@@ -20,11 +22,11 @@
 
 /* Remove these to get rid of the spinner */
 #nprogress .spinner {
-  @apply fixed right-4 top-4 z-[1031] block;
+  @apply fixed top-4 right-4 z-1031 block;
 }
 
 #nprogress .spinner-icon {
-  @apply border-t-primary border-l-primary size-4 rounded-full border-[2px] border-solid border-transparent;
+  @apply border-t-primary border-l-primary size-4 rounded-full border-2 border-solid border-transparent;
 
   animation: nprogress-spinner 400ms linear infinite;
 }
