@@ -4,11 +4,11 @@
 
 ## 配置
 
-项目的配置文件位于 `internal/tailwind-config` 下，你可以在这里修改 Tailwind CSS 的配置。
+项目的配置文件位于 `packages/@core/base/design/src/global.css` 下，你可以在这里修改 Tailwind CSS 的配置。
 
 ::: tip 包使用 tailwindcss 的限制
 
-当前只有对应的包下面存在 `tailwind.config.mjs` 文件才会启用 tailwindcss 的编译，否则不会启用 tailwindcss。如果你是纯粹的 SDK 包，不需要使用 tailwindcss，可以不用创建 `tailwind.config.mjs` 文件。
+当前只有对应的包下面存在 `@vben/styles` 赖，并且在 main.ts 中引入 `import '@vben/styles';` 才会启用 tailwindcss ，否则不会启用 tailwindcss。如果你是纯粹的 SDK 包，不需要使用 tailwindcss，可以不用引入 `@vben/styles` 依赖。
 
 :::
 
