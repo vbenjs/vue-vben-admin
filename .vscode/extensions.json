@@ -2,12 +2,12 @@
   "recommendations": [
     // Vue 3 的语言支持
     "Vue.volar",
-    // 将 ESLint JavaScript 集成到 VS Code 中。
-    "dbaeumer.vscode-eslint",
+    // 将 oxlint 集成到 VS Code 中。
+    "oxc.oxc-vscode",
     // Visual Studio Code 的官方 Stylelint 扩展
     "stylelint.vscode-stylelint",
-    // 使用 Prettier 的代码格式化程序
-    "esbenp.prettier-vscode",
+    // 使用 oxfmt 的代码格式化程序
+    "oxc.oxc-vscode",
     // 支持 dotenv 文件语法
     "mikestead.dotenv",
     // 源代码的拼写检查器

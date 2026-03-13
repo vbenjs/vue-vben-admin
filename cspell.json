@@ -4,6 +4,7 @@
   "language": "en,en-US",
   "allowCompoundWords": true,
   "words": [
+    "Turborepo",
     "acmr",
     "antd",
     "antdv",
@@ -43,6 +44,8 @@
     "nprogress",
     "nuxt",
     "organisation",
+    "oxfmt",
+    "oxlint",
     "pinia",
     "prefixs",
     "publint",
