@@ -53,11 +53,13 @@ function handleClose() {
 
 const keys = useMagicKeys();
 const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
-whenever(cmd!, () => {
-  if (props.enableShortcutKey) {
-    modalApi.open();
-  }
-});
+if (cmd) {
+  whenever(cmd, () => {
+    if (props.enableShortcutKey) {
+      modalApi.open();
+    }
+  });
+}
 
 whenever(open, () => {
   nextTick(() => {
@@ -80,6 +82,7 @@ const toggleKeydownListener = () => {
 };
 
 const toggleOpen = () => {
+  // oxlint-disable-next-line no-unused-expressions
   open.value ? modalApi.close() : modalApi.open();
 };
 

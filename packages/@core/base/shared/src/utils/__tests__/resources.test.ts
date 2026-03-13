@@ -57,8 +57,10 @@ describe('loadScript', () => {
     appendSpy.mockRestore();
 
     expect(capturedScript).toBeTruthy();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    capturedScript!.dispatchEvent(new Event('error'));
+    if (!capturedScript) {
+      throw new Error('Expected the captured script element to exist');
+    }
+    capturedScript.dispatchEvent(new Event('error'));
 
     await expect(promise).rejects.toThrow('Failed to load script: error.js');
   });

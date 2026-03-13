@@ -36,9 +36,11 @@ export default function useDependencies(
   const values = useFormValues();
 
   const formRenderProps = injectRenderFormProps();
+  const formApi = formRenderProps.form;
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const formApi = formRenderProps.form!;
+  if (!formApi) {
+    throw new Error('Form api is required in useDependencies');
+  }
 
   if (!values) {
     throw new Error('useDependencies should be used within <VbenForm>');

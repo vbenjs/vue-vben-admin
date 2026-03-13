@@ -1,4 +1,3 @@
-// eslint-disable-next-line vue/prefer-import-from-vue
 import { isFunction, isObject, isString } from '@vue/shared';
 
 /**
