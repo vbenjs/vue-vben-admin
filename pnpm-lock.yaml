@@ -309,6 +309,9 @@ catalogs:
     oxlint:
       specifier: ^1.55.0
       version: 1.55.0
+    oxlint-tsgolint:
+      specifier: ^0.16.0
+      version: 0.16.0
     pinia-plugin-persistedstate:
       specifier: ^4.7.1
       version: 4.7.1
@@ -569,7 +572,7 @@ importers:
         specifier: 'catalog:'
         version: 1.55.0(oxlint-tsgolint@0.16.0)
       oxlint-tsgolint:
-        specifier: ^0.16.0
+        specifier: 'catalog:'
         version: 0.16.0
       playwright:
         specifier: 'catalog:'

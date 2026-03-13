@@ -91,7 +91,7 @@
     "lefthook": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "oxlint-tsgolint": "^0.16.0",
+    "oxlint-tsgolint": "catalog:",
     "playwright": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",

@@ -126,6 +126,7 @@ catalog:
   ora: ^9.3.0
   oxfmt: ^0.40.0
   oxlint: ^1.55.0
+  oxlint-tsgolint: ^0.16.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.0
