@@ -275,7 +275,7 @@ defineExpose({
   /** 获取当前值 */
   getValue: () => unref(modelValue),
   /** 获取被包装的组件实例 */
-  getComponentRef: <T = any,>() => componentRef.value as T,
+  getComponentRef: <T = any>() => componentRef.value as T,
   /** 更新Api参数 */
   updateParam(newParams: Record<string, any>) {
     innerParams.value = newParams;

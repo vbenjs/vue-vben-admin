@@ -5,11 +5,11 @@ import { join, relative } from 'node:path';
 import {
   colors,
   consola,
+  execaCommand,
   findMonorepoRoot,
   getPackages,
   gitAdd,
   outputJSON,
-  prettierFormat,
   toPosixPath,
 } from '@vben/node-utils';
 
@@ -40,7 +40,9 @@ async function createCodeWorkspace({
   const outputPath = join(monorepoRoot, CODE_WORKSPACE_FILE);
   await outputJSON(outputPath, { folders }, spaces);
 
-  await prettierFormat(outputPath);
+  await execaCommand(`oxfmt "${outputPath}"`, {
+    stdio: 'inherit',
+  });
   if (autoCommit) {
     await gitAdd(CODE_WORKSPACE_FILE, monorepoRoot);
   }
