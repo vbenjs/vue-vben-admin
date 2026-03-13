@@ -40,7 +40,7 @@ defineEmits(['click']);
             'rounded-bl-xl': index === items.length - 3,
             'rounded-br-xl': index === items.length - 1,
           }"
-          class="border-border group w-full cursor-pointer border-r border-t p-4 transition-all hover:shadow-xl md:w-1/2 lg:w-1/3"
+          class="group w-full cursor-pointer border-t border-r border-border p-4 transition-all hover:shadow-xl md:w-1/2 lg:w-1/3"
         >
           <div class="flex items-center">
             <VbenIcon
@@ -51,10 +51,10 @@ defineEmits(['click']);
             />
             <span class="ml-4 text-lg font-medium">{{ item.title }}</span>
           </div>
-          <div class="text-foreground/80 mt-4 flex h-10">
+          <div class="mt-4 flex h-10 text-foreground/80">
             {{ item.content }}
           </div>
-          <div class="text-foreground/80 flex justify-between">
+          <div class="flex justify-between text-foreground/80">
             <span>{{ item.group }}</span>
             <span>{{ item.date }}</span>
           </div>

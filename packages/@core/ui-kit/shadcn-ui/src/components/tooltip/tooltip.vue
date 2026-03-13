@@ -35,7 +35,7 @@ withDefaults(defineProps<Props>(), {
         :class="contentClass"
         :side="side"
         :style="contentStyle"
-        class="side-content rounded-md bg-accent text-popover-foreground"
+        class="side-content bg-accent text-popover-foreground rounded-md"
       >
         <slot></slot>
       </TooltipContent>

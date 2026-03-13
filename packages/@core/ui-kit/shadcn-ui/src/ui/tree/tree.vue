@@ -286,7 +286,7 @@ defineExpose({
     v-slot="{ flattenItems }"
     :class="
       cn(
-        'text-blackA11 container select-none list-none rounded-lg text-sm font-medium',
+        'text-blackA11 container list-none rounded-lg text-sm font-medium select-none',
         $attrs.class as unknown as ClassType,
         bordered ? 'border' : '',
       )
@@ -312,7 +312,7 @@ defineExpose({
       >
         <ChevronRight
           :class="{ 'rotate-90': expanded?.length > 0 }"
-          class="size-4 cursor-pointer text-foreground/80 transition hover:text-foreground"
+          class="text-foreground/80 hover:text-foreground size-4 cursor-pointer transition"
         />
         <Checkbox
           v-if="multiple"
@@ -339,7 +339,7 @@ defineExpose({
         :class="
           cn('cursor-pointer', getNodeClass?.(item), {
             'data-[selected]:bg-accent': !multiple,
-            'cursor-not-allowed text-foreground/50': isNodeDisabled(item),
+            'text-foreground/50 cursor-not-allowed': isNodeDisabled(item),
           })
         "
         v-bind="
@@ -369,7 +369,7 @@ defineExpose({
             !isNodeDisabled(item) && onToggle(item);
           }
         "
-        class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded p-1 outline-none focus:ring-2"
+        class="tree-node focus:ring-grass8 my-0.5 flex items-center rounded p-1 outline-hidden focus:ring-2"
       >
         <ChevronRight
           v-if="
@@ -377,7 +377,7 @@ defineExpose({
             Array.isArray(item.value[childrenField]) &&
             item.value[childrenField].length > 0
           "
-          class="size-4 cursor-pointer text-foreground/80 transition hover:text-foreground"
+          class="text-foreground/80 hover:text-foreground size-4 cursor-pointer transition"
           :class="{ 'rotate-90': isExpanded }"
           @click.stop="
             () => {

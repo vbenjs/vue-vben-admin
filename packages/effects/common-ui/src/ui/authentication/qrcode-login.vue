@@ -84,9 +84,9 @@ function goToLogin() {
       </template>
     </Title>
 
-    <div class="flex-col-center mt-6">
+    <div class="mt-6 flex-col-center">
       <img :src="qrcode" alt="qrcode" class="w-1/2" />
-      <p class="text-muted-foreground mt-4 text-sm">
+      <p class="mt-4 text-sm text-muted-foreground">
         <slot name="description">
           {{ description || $t('authentication.qrcodePrompt') }}
         </slot>

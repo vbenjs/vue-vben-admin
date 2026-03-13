@@ -28,7 +28,7 @@ export const json1 = {
 
 export const json2 = JSON.parse(`
   {
-	"id": "chatcmpl-123",
+	"id": "chatgpt-123",
 	"object": "chat.completion",
 	"created": 1677652288,
 	"model": "gpt-3.5-turbo-0613",

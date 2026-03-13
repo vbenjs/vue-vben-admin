@@ -25,6 +25,9 @@
       "development": "./src/scss-bem/bem.scss",
       "default": "./dist/bem.scss"
     },
+    "./theme": {
+      "default": "./src/css/global.css"
+    },
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
@@ -37,5 +40,11 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "dependencies": {
+    "@iconify/json": "catalog:",
+    "@iconify/tailwind4": "catalog:",
+    "@tailwindcss/typography": "catalog:",
+    "tw-animate-css": "catalog:"
   }
 }

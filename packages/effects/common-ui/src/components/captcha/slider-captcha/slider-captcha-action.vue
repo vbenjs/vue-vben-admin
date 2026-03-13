@@ -48,14 +48,14 @@ defineExpose({
   <div
     ref="actionRef"
     :class="{
-      'transition-width !left-0 duration-300': toLeft,
+      'transition-width left-0! duration-300': toLeft,
       'rounded-md': isDragging,
     }"
     :style="style"
-    class="bg-background dark:bg-accent absolute left-0 top-0 flex h-full cursor-move items-center justify-center px-3.5 shadow-md"
+    class="absolute top-0 left-0 flex-center h-full cursor-move bg-background px-3.5 shadow-md dark:bg-accent"
     name="captcha-action"
   >
-    <Slot :is-passing="isPassing" class="text-foreground/60 size-4">
+    <Slot :is-passing="isPassing" class="size-4 text-foreground/60">
       <slot name="icon">
         <ChevronsRight v-if="!isPassing" />
         <Check v-else />

@@ -147,7 +147,7 @@ function clearPreferencesAndLogout() {
   >
     <slot name="menu"></slot>
   </div>
-  <div class="flex h-full min-w-0 flex-shrink-0 items-center">
+  <div class="flex h-full min-w-0 shrink-0 items-center">
     <template v-for="slot in rightSlots" :key="slot.name">
       <slot :name="slot.name">
         <template v-if="slot.name === 'global-search'">
@@ -165,7 +165,7 @@ function clearPreferencesAndLogout() {
           />
         </template>
         <template v-else-if="slot.name === 'theme-toggle'">
-          <ThemeToggle class="mr-1 mt-[2px]" />
+          <ThemeToggle class="mt-[2px] mr-1" />
         </template>
         <template v-else-if="slot.name === 'language-toggle'">
           <LanguageToggle class="mr-1" />
@@ -174,7 +174,7 @@ function clearPreferencesAndLogout() {
           <VbenFullScreen class="mr-1" />
         </template>
         <template v-else-if="slot.name === 'timezone'">
-          <TimezoneButton class="mr-1 mt-[2px]" />
+          <TimezoneButton class="mt-[2px] mr-1" />
         </template>
       </slot>
     </template>

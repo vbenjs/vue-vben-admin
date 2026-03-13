@@ -50,7 +50,7 @@ const resize = (size?: TSize, rect?: TSize) => {
       >
         <div
           :style="{ backgroundColor: colorMap[idx] }"
-          class="h-full w-full"
+          class="size-full"
         ></div>
       </VResize>
     </template>

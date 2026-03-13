@@ -7,5 +7,5 @@ useScrollLock();
 const id = inject('DISMISSABLE_MODAL_ID');
 </script>
 <template>
-  <div :data-dismissable-modal="id" class="z-popup inset-0 bg-overlay"></div>
+  <div :data-dismissable-modal="id" class="z-popup bg-overlay inset-0"></div>
 </template>

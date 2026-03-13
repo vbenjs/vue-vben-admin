@@ -19,9 +19,9 @@ const delegatedProps = computed(() => {
 <template>
   <AccordionContent
     v-bind="delegatedProps"
-    class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
   >
-    <div :class="cn('pb-4 pt-0', props.class)">
+    <div :class="cn('pt-0 pb-4', props.class)">
       <slot></slot>
     </div>
   </AccordionContent>

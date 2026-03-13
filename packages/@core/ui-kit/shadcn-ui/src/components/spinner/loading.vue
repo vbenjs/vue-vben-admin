@@ -69,7 +69,7 @@ function onTransitionEnd() {
   <div
     :class="
       cn(
-        'absolute left-0 top-0 z-100 flex size-full flex-col items-center justify-center bg-overlay-content transition-all duration-500 dark:bg-overlay',
+        'bg-overlay-content dark:bg-overlay absolute top-0 left-0 z-100 flex size-full flex-col items-center justify-center transition-all duration-500',
         {
           'invisible opacity-0': !showSpinner,
         },
@@ -83,12 +83,12 @@ function onTransitionEnd() {
         <i
           v-for="index in 4"
           :key="index"
-          class="absolute block size-4 origin-[50%_50%] scale-75 rounded-full bg-primary opacity-30"
+          class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"
         ></i>
       </span>
     </slot>
 
-    <div v-if="text" class="mt-4 text-xs text-primary">{{ text }}</div>
+    <div v-if="text" class="text-primary mt-4 text-xs">{{ text }}</div>
     <slot></slot>
   </div>
 </template>

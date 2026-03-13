@@ -13,21 +13,20 @@ vi.mock('@vben-core/shared/store', () => {
         return this._state;
       }
       private _state: DrawerState;
+      private subscribers: Array<(state: DrawerState) => void> = [];
 
-      private options: any;
-
-      constructor(initialState: DrawerState, options: any) {
+      constructor(initialState: DrawerState) {
         this._state = initialState;
-        this.options = options;
-      }
-
-      batch(cb: () => void) {
-        cb();
       }
 
       setState(fn: (prev: DrawerState) => DrawerState) {
         this._state = fn(this._state);
-        this.options.onUpdate();
+        this.subscribers.forEach((sub) => sub(this._state));
+      }
+
+      subscribe(fn: (state: DrawerState) => void) {
+        this.subscribers.push(fn);
+        return { unsubscribe: () => {} };
       }
     },
   };
