@@ -1,12 +1,12 @@
 export * from './constants';
 export * from './date';
+export { formatFile } from './formatter';
 export * from './fs';
 export * from './git';
 export { getStagedFiles, add as gitAdd } from './git';
 export { generatorContentHash } from './hash';
 export * from './monorepo';
 export { toPosixPath } from './path';
-export { prettierFormat } from './prettier';
 export * from './spinner';
 export type { Package } from '@manypkg/get-packages';
 export { default as colors } from 'chalk';

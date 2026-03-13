@@ -37,7 +37,6 @@
     "find-up": "catalog:",
     "ora": "catalog:",
     "pkg-types": "catalog:",
-    "prettier": "catalog:",
     "rimraf": "catalog:"
   }
 }
