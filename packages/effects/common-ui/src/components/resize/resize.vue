@@ -818,13 +818,13 @@ const stickDown = (
     return;
   }
 
-  stickDrag.value = true;
-
   const pointerPosition = getPointerPosition(ev);
 
   if (!pointerPosition) {
     return;
   }
+
+  stickDrag.value = true;
 
   saveDimensionsBeforeMove(pointerPosition);
 
