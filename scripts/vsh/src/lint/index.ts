@@ -31,7 +31,7 @@ async function runLint({ format }: LintCommandOptions) {
     execaCommand(`oxfmt .`, {
       stdio: 'inherit',
     }),
-    execaCommand(`oxlint . --type-aware`, {
+    execaCommand(`oxlint .`, {
       stdio: 'inherit',
     }),
     execaCommand(`eslint . --cache`, {
