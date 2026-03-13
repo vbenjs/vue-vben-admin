@@ -8,7 +8,6 @@
     "moduleDetection": "force",
     "experimentalDecorators": true,
 
-    "baseUrl": ".",
     "module": "ESNext",
 
     "moduleResolution": "node",

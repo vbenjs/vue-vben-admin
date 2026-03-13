@@ -4,7 +4,6 @@
   "language": "en,en-US",
   "allowCompoundWords": true,
   "words": [
-    "Turborepo",
     "acmr",
     "antd",
     "antdv",
@@ -59,6 +58,8 @@
     "tabler",
     "taze",
     "tdesign",
+    "tsgolint",
+    "Turborepo",
     "ui-kit",
     "uicons",
     "unplugin",
