@@ -68,6 +68,7 @@ async function viteImportMapPlugin(
   });
 
   if (options?.debug) {
+    // oxlint-disable-next-line typescript/no-floating-promises
     (async () => {
       for await (const { message, type } of generator.logStream()) {
         console.log(`${type}: ${message}`);
@@ -138,6 +139,7 @@ async function viteImportMapPlugin(
       buildEnd() {
         // 未生成importmap时，抛出错误，防止被turbo缓存
         if (!installed && !isSSR) {
+          // oxlint-disable-next-line no-unused-expressions
           installError && console.error(installError);
           throw new Error('Importmap installation failed.');
         }
