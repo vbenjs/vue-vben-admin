@@ -47,7 +47,6 @@ export async function initStores(app: App, options: InitStoreOptions) {
     encodingType: 'aes',
     encryptionSecret: import.meta.env.VITE_APP_STORE_SECURE_KEY,
     isCompression: true,
-    // @ts-ignore secure-ls does not have a type definition for this
     metaKey: `${namespace}-secure-meta`,
   });
   pinia.use(

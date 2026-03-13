@@ -5,7 +5,6 @@ import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 export const rawPathRegexp =
-  // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/strict
   /^(.+?(?:\.([\da-z]+))?)(#[\w-]+)?(?: ?{(\d+(?:[,-]\d+)*)? ?(\S+)?})? ?(?:\[(.+)])?$/;
 
 function rawPathToToken(rawPath: string) {

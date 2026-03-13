@@ -39,7 +39,7 @@
   // lint && format
   "oxc.enable": true,
   "oxc.typeAware": true,
-  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.fmt.configPath": "oxlint.config.ts",
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit",
     "source.fixAll.stylelint": "explicit",

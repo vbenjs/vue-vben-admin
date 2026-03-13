@@ -84,12 +84,12 @@ function handleDragBarMove(data: SliderRotateVerifyPassingData) {
   state.dragging = true;
   const { imageSize, maxDegree } = props;
   const { moveX } = data;
-  const denominator = imageSize!;
+  const denominator = imageSize;
   if (denominator === 0) {
     return;
   }
   const currentRotate = Math.ceil(
-    (moveX / denominator) * 1.5 * maxDegree! * unref(getFactorRef),
+    (moveX / denominator) * 1.5 * maxDegree * unref(getFactorRef),
   );
   state.currentRotate = currentRotate;
   setImgRotate(state.randomRotate - currentRotate);
@@ -98,7 +98,7 @@ function handleDragBarMove(data: SliderRotateVerifyPassingData) {
 function handleImgOnLoad() {
   const { maxDegree, minDegree } = props;
   const ranRotate = Math.floor(
-    minDegree! + Math.random() * (maxDegree! - minDegree!),
+    minDegree + Math.random() * (maxDegree - minDegree),
   ); // 生成随机角度
   state.randomRotate = ranRotate;
   setImgRotate(ranRotate);

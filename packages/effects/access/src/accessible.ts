@@ -182,7 +182,10 @@ function mergeRoutesByName(
       isString(route.name) &&
       routeMap.has(route.name as string)
     ) {
-      const existing = routeMap.get(route.name as string)!;
+      const existing = routeMap.get(route.name as string);
+      if (!existing) {
+        continue;
+      }
       const existingChildren = existing.children ?? [];
       const routeChildren = route.children ?? [];
 
