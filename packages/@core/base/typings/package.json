@@ -3,16 +3,19 @@
   "version": "5.6.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/base/typings"
   },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm unbuild"
+  },
   "files": [
     "dist"
   ],
-  "type": "module",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -33,9 +36,6 @@
         "default": "./dist/index.mjs"
       }
     }
-  },
-  "scripts": {
-    "build": "pnpm unbuild"
   },
   "dependencies": {
     "vue": "catalog:",

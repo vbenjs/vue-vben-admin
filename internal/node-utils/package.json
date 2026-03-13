@@ -4,16 +4,19 @@
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/node-utils"
   },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "stub": "pnpm unbuild --stub"
+  },
   "files": [
     "dist"
   ],
-  "type": "module",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,9 +26,6 @@
       "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
     }
-  },
-  "scripts": {
-    "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
     "@changesets/git": "catalog:",
@@ -37,6 +37,7 @@
     "find-up": "catalog:",
     "ora": "catalog:",
     "pkg-types": "catalog:",
+    "prettier": "catalog:",
     "rimraf": "catalog:"
   }
 }

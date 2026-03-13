@@ -36,20 +36,20 @@ outline: deep
 
 ### Props
 
-| 属性名                 | 描述                                                                                                              | 类型                               | 默认值                     |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
-| expand                 | 支持点击展开或收起                                                                                                | `boolean`                          | `false`                    |
-| line                   | 文本最大行数                                                                                                      | `number`                           | `1`                        |
-| maxWidth               | 文本区域最大宽度                                                                                                  | `number \| string`                 | `'100%'`                   |
-| placement              | 提示浮层的位置                                                                                                    | `'bottom'\|'left'\|'right'\|'top'` | `'top'`                    |
-| tooltip                | 启用文本提示                                                                                                      | `boolean`                          | `true`                     |
-| tooltipWhenEllipsis    | 内容超出，自动启用文本提示                                                                                        | `boolean`                          | `false`                    |
-| ellipsisThreshold      | 设置 tooltipWhenEllipsis 后才生效，文本截断检测的像素差异阈值，越大则判断越严格，如果碰见异常情况可以自己设置阈值 | `number`                           | `3`                        |
-| tooltipBackgroundColor | 提示文本的背景颜色                                                                                                | `string`                           | -                          |
-| tooltipColor           | 提示文本的颜色                                                                                                    | `string`                           | -                          |
-| tooltipFontSize        | 提示文本的大小                                                                                                    | `string`                           | -                          |
-| tooltipMaxWidth        | 提示浮层的最大宽度。如不设置则保持与文本宽度一致                                                                  | `number`                           | -                          |
-| tooltipOverlayStyle    | 提示框内容区域样式                                                                                                | `CSSProperties`                    | `{ textAlign: 'justify' }` |
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| expand | 支持点击展开或收起 | `boolean` | `false` |
+| line | 文本最大行数 | `number` | `1` |
+| maxWidth | 文本区域最大宽度 | `number \| string` | `'100%'` |
+| placement | 提示浮层的位置 | `'bottom'\|'left'\|'right'\|'top'` | `'top'` |
+| tooltip | 启用文本提示 | `boolean` | `true` |
+| tooltipWhenEllipsis | 内容超出，自动启用文本提示 | `boolean` | `false` |
+| ellipsisThreshold | 设置 tooltipWhenEllipsis 后才生效，文本截断检测的像素差异阈值，越大则判断越严格，如果碰见异常情况可以自己设置阈值 | `number` | `3` |
+| tooltipBackgroundColor | 提示文本的背景颜色 | `string` | - |
+| tooltipColor | 提示文本的颜色 | `string` | - |
+| tooltipFontSize | 提示文本的大小 | `string` | - |
+| tooltipMaxWidth | 提示浮层的最大宽度。如不设置则保持与文本宽度一致 | `number` | - |
+| tooltipOverlayStyle | 提示框内容区域样式 | `CSSProperties` | `{ textAlign: 'justify' }` |
 
 ### Events
 

@@ -4,16 +4,19 @@
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/vite-config"
   },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "stub": "pnpm unbuild --stub"
+  },
   "files": [
     "dist"
   ],
-  "type": "module",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -22,9 +25,6 @@
       "types": "./src/index.ts",
       "default": "./dist/index.mjs"
     }
-  },
-  "scripts": {
-    "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",

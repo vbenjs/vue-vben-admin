@@ -3,21 +3,18 @@
   "version": "5.6.0",
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "playground"
+  },
   "license": "MIT",
   "author": {
     "name": "vben",
     "email": "ann.vben@gmail.com",
     "url": "https://github.com/anncwb"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "playground"
-  },
   "type": "module",
-  "imports": {
-    "#/*": "./src/*"
-  },
   "scripts": {
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
@@ -27,6 +24,9 @@
     "test:e2e": "playwright test",
     "test:e2e-ui": "playwright test --ui",
     "test:e2e-codegen": "playwright codegen"
+  },
+  "imports": {
+    "#/*": "./src/*"
   },
   "dependencies": {
     "@tanstack/vue-query": "catalog:",

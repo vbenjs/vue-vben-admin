@@ -3,7 +3,7 @@ import type { Pinia } from 'pinia';
 import type { App } from 'vue';
 
 import { createPinia } from 'pinia';
-import SecureLSImport from 'secure-ls';
+import SecureLS from 'secure-ls';
 
 let pinia: Pinia;
 
@@ -21,10 +21,7 @@ export async function initStores(app: App, options: InitStoreOptions) {
   const { createPersistedState } = await import('pinia-plugin-persistedstate');
   pinia = createPinia();
   const { namespace } = options;
-  // Handle CJS/ESM interop for secure-ls across bundlers.
-  const SecureLSCtor =
-    (SecureLSImport as any).default ?? (SecureLSImport as any).SecureLS ?? SecureLSImport;
-  const ls = new SecureLSCtor({
+  const ls = new SecureLS({
     encodingType: 'aes',
     encryptionSecret: import.meta.env.VITE_APP_STORE_SECURE_KEY,
     isCompression: true,

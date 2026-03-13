@@ -3,17 +3,21 @@
   "version": "5.6.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/base/design"
   },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "prepublishOnly": "npm run build"
+  },
   "files": [
     "dist",
     "src"
   ],
-  "type": "module",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -36,10 +40,6 @@
         "default": "./dist/index.mjs"
       }
     }
-  },
-  "scripts": {
-    "build": "pnpm vite build",
-    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@iconify/json": "catalog:",

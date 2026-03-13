@@ -4,16 +4,16 @@
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/lint-configs/commitlint-config"
   },
+  "license": "MIT",
+  "type": "module",
   "files": [
     "dist"
   ],
-  "type": "module",
   "main": "./index.mjs",
   "module": "./index.mjs",
   "exports": {

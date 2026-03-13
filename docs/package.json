@@ -2,16 +2,16 @@
   "name": "@vben/docs",
   "version": "5.6.0",
   "private": true,
+  "scripts": {
+    "build": "vitepress build",
+    "dev": "vitepress dev",
+    "docs:preview": "vitepress preview"
+  },
   "imports": {
     "#/*": {
       "node": "./src/_env/node/*",
       "default": "./src/_env/*"
     }
-  },
-  "scripts": {
-    "build": "vitepress build",
-    "dev": "vitepress dev",
-    "docs:preview": "vitepress preview"
   },
   "dependencies": {
     "@vben-core/shadcn-ui": "workspace:*",
