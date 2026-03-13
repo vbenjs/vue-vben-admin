@@ -185,8 +185,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
   @apply opacity-0;
 }
 
-.tabs-chrome__item:not(.dragging):hover:not(.is-active)
-  .tabs-chrome__divider {
+.tabs-chrome__item:not(.dragging):hover:not(.is-active) .tabs-chrome__divider {
   @apply opacity-0;
 }
 

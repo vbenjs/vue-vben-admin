@@ -20,8 +20,8 @@ type SecureLSCtor = new (config?: {
 }) => SecureLSStorage;
 
 const secureLSModule = SecureLS as unknown as {
-  SecureLS?: SecureLSCtor;
   default?: SecureLSCtor;
+  SecureLS?: SecureLSCtor;
 };
 
 const SecureLSConstructor =
