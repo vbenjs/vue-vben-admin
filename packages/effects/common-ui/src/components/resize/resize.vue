@@ -997,14 +997,14 @@ const bodyDown = (ev: MouseEvent & TouchEvent) => {
     ev.preventDefault();
   }
 
-  if (isDraggable.value) {
-    bodyDrag.value = true;
-  }
-
   const pointerPosition = getPointerPosition(ev);
 
   if (!pointerPosition) {
     return;
+  }
+
+  if (isDraggable.value) {
+    bodyDrag.value = true;
   }
 
   saveDimensionsBeforeMove(pointerPosition);

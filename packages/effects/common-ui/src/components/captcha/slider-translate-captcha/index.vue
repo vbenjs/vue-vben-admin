@@ -35,12 +35,12 @@ const emit = defineEmits<{
 }>();
 
 const PI: number = Math.PI;
-enum CanvasOpr {
-  // eslint-disable-next-line no-unused-vars
-  Clip = 'clip',
-  // eslint-disable-next-line no-unused-vars
-  Fill = 'fill',
-}
+const canvasOpr = {
+  clip: 'clip',
+  fill: 'fill',
+} as const;
+
+type CanvasOpr = (typeof canvasOpr)[keyof typeof canvasOpr];
 
 const modalValue = defineModel<boolean>({ default: false });
 
@@ -189,8 +189,8 @@ function draw(ctx1: CanvasRenderingContext2D, ctx2: CanvasRenderingContext2D) {
     3 * circleRadius,
     canvasHeight - (squareLength + 2 * circleRadius),
   );
-  drawPiece(ctx1, state.pieceX, state.pieceY, CanvasOpr.Fill);
-  drawPiece(ctx2, state.pieceX, state.pieceY, CanvasOpr.Clip);
+  drawPiece(ctx1, state.pieceX, state.pieceY, canvasOpr.fill);
+  drawPiece(ctx2, state.pieceX, state.pieceY, canvasOpr.clip);
 }
 
 // 绘制拼图切块
@@ -233,7 +233,8 @@ function drawPiece(
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.stroke();
-  opr === CanvasOpr.Clip ? ctx.clip() : ctx.fill();
+  // oxlint-disable-next-line no-unused-expressions
+  opr === canvasOpr.clip ? ctx.clip() : ctx.fill();
   ctx.globalCompositeOperation = 'destination-over';
 }
 

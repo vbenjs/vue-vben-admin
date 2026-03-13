@@ -128,7 +128,6 @@ export async function vue(): Promise<Linter.Config[]> {
           },
         ],
         'vue/one-component-per-file': 'error',
-        'vue/prefer-import-from-vue': 'error',
         'vue/prefer-separate-static-class': 'error',
         'vue/prefer-template': 'error',
         'vue/prop-name-casing': ['error', 'camelCase'],

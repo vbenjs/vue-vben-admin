@@ -1,6 +1,5 @@
 export * from './command';
 export * from './comments';
-export * from './disableds';
 export * from './ignores';
 export * from './javascript';
 export * from './jsonc';

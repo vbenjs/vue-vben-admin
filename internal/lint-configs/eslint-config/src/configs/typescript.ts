@@ -2,11 +2,24 @@ import type { Linter } from 'eslint';
 
 import { interopDefault } from '../util';
 
+const rulesCoveredByOxlint = new Set([
+  '@typescript-eslint/ban-ts-comment',
+  '@typescript-eslint/no-non-null-assertion',
+  '@typescript-eslint/no-unused-expressions',
+  '@typescript-eslint/no-unused-vars',
+  '@typescript-eslint/triple-slash-reference',
+]);
+
 export async function typescript(): Promise<Linter.Config[]> {
   const [pluginTs, parserTs] = await Promise.all([
     interopDefault(import('@typescript-eslint/eslint-plugin')),
     interopDefault(import('@typescript-eslint/parser')),
   ] as const);
+  const strictRules = Object.fromEntries(
+    Object.entries(pluginTs.configs.strict?.rules ?? {}).filter(
+      ([ruleName]) => !rulesCoveredByOxlint.has(ruleName),
+    ),
+  );
 
   return [
     {
@@ -30,7 +43,7 @@ export async function typescript(): Promise<Linter.Config[]> {
       },
       rules: {
         ...pluginTs.configs['eslint-recommended']?.overrides?.[0]?.rules,
-        ...pluginTs.configs.strict?.rules,
+        ...strictRules,
         // '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
         '@typescript-eslint/consistent-type-definitions': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
