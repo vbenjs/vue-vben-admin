@@ -19,6 +19,9 @@ async function runLint({ format }: LintCommandOptions) {
     await execaCommand(`prettier . --write --cache --log-level warn`, {
       stdio: 'inherit',
     });
+    await execaCommand(`oxlint . --fix`, {
+      stdio: 'inherit',
+    });
     await execaCommand(`eslint . --cache --fix`, {
       stdio: 'inherit',
     });

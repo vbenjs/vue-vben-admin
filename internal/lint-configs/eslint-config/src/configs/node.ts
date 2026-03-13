@@ -13,7 +13,6 @@ export async function node(): Promise<Linter.Config[]> {
       rules: {
         'n/handle-callback-err': ['error', '^(err|error)$'],
         'n/no-deprecated-api': 'error',
-        'n/no-exports-assign': 'error',
         'n/no-extraneous-import': [
           'error',
           {
@@ -27,8 +26,6 @@ export async function node(): Promise<Linter.Config[]> {
             ],
           },
         ],
-        'n/no-new-require': 'error',
-        'n/no-path-concat': 'error',
         // 'n/no-unpublished-import': 'off',
         'n/no-unsupported-features/es-syntax': [
           'error',
@@ -41,6 +38,33 @@ export async function node(): Promise<Linter.Config[]> {
         // 'n/no-missing-import': 'off',
         'n/prefer-global/process': ['error', 'never'],
         'n/process-exit-as-throw': 'error',
+      },
+    },
+    {
+      files: [
+        '**/__tests__/**/*.?([cm])[jt]s?(x)',
+        '**/*.spec.?([cm])[jt]s?(x)',
+        '**/*.test.?([cm])[jt]s?(x)',
+        '**/*.bench.?([cm])[jt]s?(x)',
+        '**/*.benchmark.?([cm])[jt]s?(x)',
+      ],
+      rules: {
+        'n/prefer-global/process': 'off',
+      },
+    },
+    {
+      files: ['apps/backend-mock/**/**', 'docs/**/**'],
+      rules: {
+        'n/no-extraneous-import': 'off',
+        'n/prefer-global/buffer': 'off',
+        'n/prefer-global/process': 'off',
+      },
+    },
+    {
+      files: ['**/**/playwright.config.ts'],
+      rules: {
+        'n/prefer-global/buffer': 'off',
+        'n/prefer-global/process': 'off',
       },
     },
     {

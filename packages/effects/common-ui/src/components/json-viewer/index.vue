@@ -11,14 +11,13 @@ import type {
 } from './types';
 
 import { computed, useAttrs } from 'vue';
-// @ts-ignore
+// @ts-expect-error: vue-json-viewer does not expose compatible typings for this import path
 import VueJsonViewer from 'vue-json-viewer';
 
 import { $t } from '@vben/locales';
 
 import { isBoolean } from '@vben-core/shared/utils';
 
-// @ts-ignore
 import JsonBigint from 'json-bigint';
 
 defineOptions({ name: 'JsonViewer' });

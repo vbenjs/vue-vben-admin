@@ -138,9 +138,6 @@ const customConfig: Linter.Config[] = [
     files: ['apps/backend-mock/**/**', 'docs/**/**'],
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
-      'n/no-extraneous-import': 'off',
-      'n/prefer-global/buffer': 'off',
-      'n/prefer-global/process': 'off',
       'no-console': 'off',
       'unicorn/prefer-module': 'off',
     },
@@ -148,8 +145,6 @@ const customConfig: Linter.Config[] = [
   {
     files: ['**/**/playwright.config.ts'],
     rules: {
-      'n/prefer-global/buffer': 'off',
-      'n/prefer-global/process': 'off',
       'no-console': 'off',
     },
   },

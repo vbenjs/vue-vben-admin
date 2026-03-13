@@ -50,10 +50,10 @@ pre-commit:
       run: pnpm prettier --cache --ignore-unknown --write {staged_files}
       glob: '*.md'
     lint-vue:
-      run: pnpm prettier --write {staged_files} && pnpm eslint --cache --fix {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}
+      run: pnpm prettier --write {staged_files} && pnpm oxlint --fix {staged_files} && pnpm eslint --cache --fix {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}
       glob: '*.vue'
     lint-js:
-      run: pnpm prettier --cache --ignore-unknown --write {staged_files} && pnpm eslint --cache --fix {staged_files}
+      run: pnpm prettier --cache --ignore-unknown --write {staged_files} && pnpm oxlint --fix {staged_files} && pnpm eslint --cache --fix {staged_files}
       glob: '*.{js,jsx,ts,tsx}'
     lint-style:
       run: pnpm prettier --cache --ignore-unknown --write {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}

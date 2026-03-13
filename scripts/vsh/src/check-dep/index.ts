@@ -22,6 +22,7 @@ const DEFAULT_CONFIG = {
     '@vben/commitlint-config',
     '@vben/eslint-config',
     '@vben/node-utils',
+    '@vben/oxlint-config',
     '@vben/prettier-config',
     '@vben/stylelint-config',
     '@vben/tsconfig',

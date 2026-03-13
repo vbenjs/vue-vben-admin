@@ -3,9 +3,7 @@ import type { Linter } from 'eslint';
 import { interopDefault } from '../util';
 
 export async function unicorn(): Promise<Linter.Config[]> {
-  const [pluginUnicorn] = await Promise.all([
-    interopDefault(import('eslint-plugin-unicorn')),
-  ] as const);
+  const pluginUnicorn = await interopDefault(import('eslint-plugin-unicorn'));
 
   return [
     {

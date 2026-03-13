@@ -3,9 +3,9 @@ import type { Linter } from 'eslint';
 import { interopDefault } from '../util';
 
 export async function comments(): Promise<Linter.Config[]> {
-  const [pluginComments] = await Promise.all([
-    interopDefault(import('@eslint-community/eslint-plugin-eslint-comments')),
-  ] as const);
+  const pluginComments = await interopDefault(
+    import('@eslint-community/eslint-plugin-eslint-comments'),
+  );
 
   return [
     {
