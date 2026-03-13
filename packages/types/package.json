@@ -3,12 +3,12 @@
   "version": "5.6.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/types"
   },
-  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {

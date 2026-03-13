@@ -234,30 +234,30 @@ const [Grid, gridApi] = useVbenVxeGrid({
 
 useVbenVxeGrid 返回的第二个参数，是一个对象，包含了一些表单的方法。
 
-| 方法名 | 描述 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| setLoading | 设置loading状态 | `(loading)=>void` | - |
-| setGridOptions | 设置vxe-table grid组件参数 | `(options: Partial<VxeGridProps['gridOptions'])=>void` | - |
-| reload | 重载表格，会进行初始化 | `(params:any)=>void` | - |
-| query | 重载表格，会保留当前分页 | `(params:any)=>void` | - |
-| grid | vxe-table grid实例 | `VxeGridInstance` | - |
-| formApi | vbenForm api实例 | `FormApi` | - |
-| toggleSearchForm | 设置搜索表单显示状态 | `(show?: boolean)=>boolean` | 当省略参数时，则将表单在显示和隐藏两种状态之间切换 |
+| 方法名           | 描述                       | 类型                                                   | 说明                                               |
+| ---------------- | -------------------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| setLoading       | 设置loading状态            | `(loading)=>void`                                      | -                                                  |
+| setGridOptions   | 设置vxe-table grid组件参数 | `(options: Partial<VxeGridProps['gridOptions'])=>void` | -                                                  |
+| reload           | 重载表格，会进行初始化     | `(params:any)=>void`                                   | -                                                  |
+| query            | 重载表格，会保留当前分页   | `(params:any)=>void`                                   | -                                                  |
+| grid             | vxe-table grid实例         | `VxeGridInstance`                                      | -                                                  |
+| formApi          | vbenForm api实例           | `FormApi`                                              | -                                                  |
+| toggleSearchForm | 设置搜索表单显示状态       | `(show?: boolean)=>boolean`                            | 当省略参数时，则将表单在显示和隐藏两种状态之间切换 |
 
 ## Props
 
 所有属性都可以传入 `useVbenVxeGrid` 的第一个参数中。
 
-| 属性名 | 描述 | 类型 | 版本要求 |
-| --- | --- | --- | --- |
-| tableTitle | 表格标题 | `string` | - |
-| tableTitleHelp | 表格标题帮助信息 | `string` | - |
-| gridClass | grid组件的class | `string` | - |
-| gridOptions | grid组件的参数 | `VxeTableGridProps` | - |
-| gridEvents | grid组件的触发的事件 | `VxeGridListeners` | - |
-| formOptions | 表单参数 | `VbenFormProps` | - |
-| showSearchForm | 是否显示搜索表单 | `boolean` | - |
-| separator | 搜索表单与表格主体之间的分隔条 | `boolean\|SeparatorOptions` | >5.5.4 |
+| 属性名         | 描述                           | 类型                        | 版本要求 |
+| -------------- | ------------------------------ | --------------------------- | -------- |
+| tableTitle     | 表格标题                       | `string`                    | -        |
+| tableTitleHelp | 表格标题帮助信息               | `string`                    | -        |
+| gridClass      | grid组件的class                | `string`                    | -        |
+| gridOptions    | grid组件的参数                 | `VxeTableGridProps`         | -        |
+| gridEvents     | grid组件的触发的事件           | `VxeGridListeners`          | -        |
+| formOptions    | 表单参数                       | `VbenFormProps`             | -        |
+| showSearchForm | 是否显示搜索表单               | `boolean`                   | -        |
+| separator      | 搜索表单与表格主体之间的分隔条 | `boolean\|SeparatorOptions` | >5.5.4   |
 
 ## Slots
 

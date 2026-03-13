@@ -33,10 +33,7 @@ function notify(type: NotificationType) {
 </script>
 
 <template>
-  <Page
-    description="支持多语言，主题功能集成切换等"
-    title="Ant Design Vue组件使用演示"
-  >
+  <Page description="支持多语言，主题功能集成切换等" title="Ant Design Vue组件使用演示">
     <Card class="mb-5" title="按钮">
       <Space>
         <Button>Default</Button>

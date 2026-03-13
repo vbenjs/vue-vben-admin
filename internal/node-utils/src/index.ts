@@ -6,7 +6,6 @@ export { getStagedFiles, add as gitAdd } from './git';
 export { generatorContentHash } from './hash';
 export * from './monorepo';
 export { toPosixPath } from './path';
-export { prettierFormat } from './prettier';
 export * from './spinner';
 export type { Package } from '@manypkg/get-packages';
 export { default as colors } from 'chalk';

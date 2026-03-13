@@ -1,24 +1,18 @@
 {
   "name": "@vben-core/shadcn-ui",
   "version": "5.6.0",
-  "#main": "./dist/index.mjs",
-  "#module": "./dist/index.mjs",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/uikit/shadcn-ui"
   },
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "#build": "pnpm unbuild",
-    "#prepublishOnly": "npm run build"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
   "sideEffects": [
     "**/*.css"
   ],
@@ -39,6 +33,10 @@
       }
     }
   },
+  "scripts": {
+    "#build": "pnpm unbuild",
+    "#prepublishOnly": "npm run build"
+  },
   "dependencies": {
     "@vben-core/composables": "workspace:*",
     "@vben-core/design": "workspace:*",
@@ -51,5 +49,7 @@
     "reka-ui": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:"
-  }
+  },
+  "#main": "./dist/index.mjs",
+  "#module": "./dist/index.mjs"
 }

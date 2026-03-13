@@ -3,16 +3,13 @@
   "version": "5.6.0",
   "private": true,
   "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "stub": "pnpm unbuild --stub"
+  "bin": {
+    "turbo-run": "./bin/turbo-run.mjs"
   },
   "files": [
     "dist"
   ],
-  "bin": {
-    "turbo-run": "./bin/turbo-run.mjs"
-  },
+  "type": "module",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -20,6 +17,9 @@
       "default": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
+  },
+  "scripts": {
+    "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
     "@clack/prompts": "catalog:",

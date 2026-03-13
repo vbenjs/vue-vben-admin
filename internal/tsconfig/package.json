@@ -4,13 +4,12 @@
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/tsconfig"
   },
-  "license": "MIT",
-  "type": "module",
   "files": [
     "base.json",
     "library.json",
@@ -18,6 +17,7 @@
     "web-app.json",
     "web.json"
   ],
+  "type": "module",
   "dependencies": {
     "@vben/types": "workspace:*",
     "vite": "catalog:"

@@ -21,11 +21,9 @@ newPRWelcomeComment: |
 firstPRMergeComment: >
   Thanks for your contribution!  🎉🎉🎉
 
-
 # Comment to be posted to on first time issues
 newIssueWelcomeComment: >
   Thanks for opening your first issue! Be sure to follow the issue template and provide every bit of information to help the developers!
-
 
 # *OPTIONAL* default titles to check against for lack of descriptiveness
 # MUST BE ALL LOWERCASE
@@ -36,4 +34,3 @@ requestInfoDefaultTitles:
 # *Required* Comment to reply with
 requestInfoReplyComment: >
   Thanks for filing this issue/PR! It would be much appreciated if you could provide us with more information so we can effectively analyze the situation in context.
-
