@@ -8,7 +8,6 @@ export * from './node';
 export * from './oxlint';
 export * from './perfectionist';
 export * from './pnpm';
-export * from './prettier';
 export * from './turbo';
 export * from './typescript';
 export * from './unicorn';

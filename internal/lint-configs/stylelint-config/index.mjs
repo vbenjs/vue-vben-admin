@@ -36,12 +36,7 @@ export default {
       files: ['*.scss', '**/*.scss'],
     },
   ],
-  plugins: [
-    'stylelint-order',
-    '@stylistic/stylelint-plugin',
-    'stylelint-prettier',
-    'stylelint-scss',
-  ],
+  plugins: ['stylelint-order', '@stylistic/stylelint-plugin', 'stylelint-scss'],
   rules: {
     'at-rule-no-deprecated': null,
     'at-rule-no-unknown': [
@@ -106,7 +101,6 @@ export default {
       ],
       { severity: 'error' },
     ],
-    'prettier/prettier': true,
     'rule-empty-line-before': [
       'always',
       {

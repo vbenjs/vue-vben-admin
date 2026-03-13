@@ -63,7 +63,6 @@ catalog:
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.5
   '@vitejs/plugin-vue-jsx': ^5.1.5
-  '@vitest/eslint-plugin': ^1.6.11
   '@vue/shared': ^3.5.30
   '@vue/test-utils': ^2.4.6
   '@vueuse/core': ^14.2.1
@@ -98,13 +97,11 @@ catalog:
   eslint-config-turbo: ^2.8.16
   eslint-plugin-better-tailwindcss: ^4.3.2
   eslint-plugin-command: ^3.5.2
-  eslint-plugin-import-x: ^4.16.2
   eslint-plugin-jsonc: ^3.1.2
   eslint-plugin-n: ^17.24.0
   eslint-plugin-oxlint: ^1.55.0
   eslint-plugin-perfectionist: ^5.6.0
   eslint-plugin-pnpm: ^1.6.0
-  eslint-plugin-prettier: ^5.5.5
   eslint-plugin-unicorn: ^63.0.0
   eslint-plugin-unused-imports: ^4.4.1
   eslint-plugin-vue: ^10.8.0
@@ -127,6 +124,7 @@ catalog:
   nitropack: ^2.13.1
   nprogress: ^0.2.0
   ora: ^9.3.0
+  oxfmt: ^0.40.0
   oxlint: ^1.55.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
@@ -135,7 +133,6 @@ catalog:
   postcss: ^8.5.8
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
-  prettier: ^3.8.1
   publint: ^0.3.18
   qrcode: ^1.5.4
   qs: ^6.15.0
@@ -155,7 +152,6 @@ catalog:
   stylelint-config-recommended-vue: ^1.6.1
   stylelint-config-standard: ^40.0.0
   stylelint-order: ^8.0.0
-  stylelint-prettier: ^5.0.3
   stylelint-scss: ^7.0.0
   tailwind-merge: ^3.5.0
   tailwindcss: ^4.2.1

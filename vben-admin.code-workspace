@@ -41,8 +41,8 @@
       "path": "internal/lint-configs/oxlint-config",
     },
     {
-      "name": "@vben/prettier-config",
-      "path": "internal/lint-configs/prettier-config",
+      "name": "@vben/oxfmt-config",
+      "path": "internal/lint-configs/oxfmt-config",
     },
     {
       "name": "@vben/stylelint-config",
