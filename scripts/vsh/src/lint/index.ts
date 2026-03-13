@@ -28,7 +28,7 @@ async function runLint({ format }: LintCommandOptions) {
     return;
   }
   await Promise.all([
-    execaCommand(`oxfmt .`, {
+    execaCommand(`oxfmt . --check`, {
       stdio: 'inherit',
     }),
     execaCommand(`oxlint .`, {
