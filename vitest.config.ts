@@ -22,7 +22,7 @@ export default defineConfig({
       '**/.{idea,git,cache,output,temp}/**',
       '**/node_modules/**',
       '**/{stylelint,eslint}.config.*',
-      'oxfmt.config.ts',
+      '**/{oxfmt,oxlint}.config.*',
     ],
   },
 });
