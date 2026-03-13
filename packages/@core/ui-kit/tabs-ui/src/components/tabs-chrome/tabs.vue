@@ -175,39 +175,38 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 <style scoped>
 @reference "@vben-core/design/theme";
 
-.tabs-chrome {
-  &__item:not(.dragging) {
-    @apply cursor-pointer;
+.tabs-chrome__item:not(.dragging) {
+  @apply cursor-pointer;
+}
 
-    &:hover:not(.is-active) {
-      & + .tabs-chrome__item {
-        .tabs-chrome__divider {
-          @apply opacity-0;
-        }
-      }
+.tabs-chrome__item:not(.dragging):hover:not(.is-active)
+  + .tabs-chrome__item
+  .tabs-chrome__divider {
+  @apply opacity-0;
+}
 
-      .tabs-chrome__divider {
-        @apply opacity-0;
-      }
+.tabs-chrome__item:not(.dragging):hover:not(.is-active)
+  .tabs-chrome__divider {
+  @apply opacity-0;
+}
 
-      .tabs-chrome__background {
-        @apply pb-[2px];
+.tabs-chrome__item:not(.dragging):hover:not(.is-active)
+  .tabs-chrome__background {
+  @apply pb-[2px];
+}
 
-        &-content {
-          @apply bg-accent mx-[2px] rounded-md;
-        }
-      }
-    }
+.tabs-chrome__item:not(.dragging):hover:not(.is-active)
+  .tabs-chrome__background-content {
+  @apply bg-accent mx-[2px] rounded-md;
+}
 
-    &.is-active {
-      @apply z-[2];
+.tabs-chrome__item:not(.dragging).is-active {
+  @apply z-[2];
+}
 
-      & + .tabs-chrome__item {
-        .tabs-chrome__divider {
-          @apply !opacity-0;
-        }
-      }
-    }
-  }
+.tabs-chrome__item:not(.dragging).is-active
+  + .tabs-chrome__item
+  .tabs-chrome__divider {
+  @apply !opacity-0;
 }
 </style>

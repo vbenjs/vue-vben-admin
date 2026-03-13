@@ -40,7 +40,7 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
           fileName: () => 'index.mjs',
           formats: ['es'],
         },
-        rollupOptions: {
+        rolldownOptions: {
           external: (id) => {
             return externalPackages.some(
               (pkg) => id === pkg || id.startsWith(`${pkg}/`),

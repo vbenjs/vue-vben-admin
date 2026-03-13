@@ -1,6 +1,6 @@
 import type { Component, Ref } from 'vue';
 
-import type { MaybePromise } from '@vben-core/typings';
+import type { ClassType, MaybePromise } from '@vben-core/typings';
 
 import type { ModalApi } from './modal-api';
 
@@ -30,7 +30,7 @@ export interface ModalProps {
    */
   centered?: boolean;
 
-  class?: string;
+  class?: ClassType;
 
   /**
    * 是否显示右上角的关闭按钮
@@ -60,7 +60,7 @@ export interface ModalProps {
    * 确定按钮文字
    */
   confirmText?: string;
-  contentClass?: string;
+  contentClass?: ClassType;
   /**
    * 弹窗描述
    */
@@ -79,7 +79,7 @@ export interface ModalProps {
    * @default true
    */
   footer?: boolean;
-  footerClass?: string;
+  footerClass?: ClassType;
   /**
    * 是否全屏
    * @default false
@@ -95,7 +95,7 @@ export interface ModalProps {
    * @default true
    */
   header?: boolean;
-  headerClass?: string;
+  headerClass?: ClassType;
   /**
    * 弹窗是否显示
    * @default false

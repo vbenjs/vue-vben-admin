@@ -51,8 +51,10 @@ defineExpose({
 
 const wrapperRef = useTemplateRef<HTMLDivElement>('wrapperRef');
 const barRef = useTemplateRef<InstanceType<typeof SliderCaptchaBar>>('barRef');
-const contentRef = useTemplateRef<InstanceType<typeof SliderCaptchaContent>>('contentRef');
-const actionRef = useTemplateRef<InstanceType<typeof SliderCaptchaAction>>('actionRef');
+const contentRef =
+  useTemplateRef<InstanceType<typeof SliderCaptchaContent>>('contentRef');
+const actionRef =
+  useTemplateRef<InstanceType<typeof SliderCaptchaAction>>('actionRef');
 
 watch(
   () => state.isPassing,
@@ -83,20 +85,19 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
   if (state.isPassing) {
     return;
   }
-  if (!actionRef.value) return;
+  const actionEl = actionRef.value;
+  const actionStyle = actionEl?.getStyle();
+  if (!actionEl || !actionStyle) return;
   emit('start', e);
 
   state.moveDistance =
     getEventPageX(e) -
-    Number.parseInt(
-      actionRef.value.getStyle().left.replace('px', '') || '0',
-      10,
-    );
+    Number.parseInt(actionStyle.left.replace('px', '') || '0', 10);
   state.startTime = Date.now();
   state.isMoving = true;
 }
 
-function getOffset(actionEl: HTMLDivElement) {
+function getOffset(actionEl?: HTMLDivElement | null) {
   const wrapperWidth = wrapperRef.value?.offsetWidth ?? 220;
   const actionWidth = actionEl?.offsetWidth ?? 40;
   const offset = wrapperWidth - actionWidth - 6;
@@ -109,7 +110,9 @@ function handleDragMoving(e: MouseEvent | TouchEvent) {
     const actionEl = unref(actionRef);
     const barEl = unref(barRef);
     if (!actionEl || !barEl) return;
-    const { actionWidth, offset, wrapperWidth } = getOffset(actionEl.getEl());
+    const actionNode = actionEl.getEl();
+    if (!actionNode) return;
+    const { actionWidth, offset, wrapperWidth } = getOffset(actionNode);
     const moveX = getEventPageX(e) - moveDistance;
 
     emit('move', {
@@ -138,14 +141,18 @@ function handleDragOver(e: MouseEvent | TouchEvent) {
     const barEl = unref(barRef);
     if (!actionEl || !barEl) return;
     const moveX = getEventPageX(e) - moveDistance;
-    const { actionWidth, offset, wrapperWidth } = getOffset(actionEl.getEl());
+    const actionNode = actionEl.getEl();
+    if (!actionNode) return;
+    const { actionWidth, offset, wrapperWidth } = getOffset(actionNode);
     if (moveX < offset) {
       if (props.isSlot) {
         setTimeout(() => {
           if (modelValue.value) {
             const contentEl = unref(contentRef);
-            if (contentEl) {
-              contentEl.getEl().style.width = `${Number.parseInt(barEl.getEl().style.width)}px`;
+            const contentNode = contentEl?.getEl();
+            const barNode = barEl.getEl();
+            if (contentNode && barNode) {
+              contentNode.style.width = `${Number.parseInt(barNode.style.width || '0', 10)}px`;
             }
           } else {
             resume();
@@ -185,7 +192,10 @@ function resume() {
   const contentEl = unref(contentRef);
   if (!actionEl || !barEl || !contentEl) return;
 
-  contentEl.getEl().style.width = '100%';
+  const contentNode = contentEl.getEl();
+  if (!contentNode) return;
+
+  contentNode.style.width = '100%';
   state.toLeft = true;
   useTimeoutFn(() => {
     state.toLeft = false;
