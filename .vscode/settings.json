@@ -39,7 +39,8 @@
   // lint && format
   "oxc.enable": true,
   "oxc.typeAware": true,
-  "oxc.fmt.configPath": "oxlint.config.ts",
+  "oxc.configPath": "oxlint.config.ts",
+  "oxc.fmt.configPath": "oxfmt.config.ts",
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit",
     "source.fixAll.stylelint": "explicit",
@@ -129,7 +130,7 @@
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
   "search.followSymlinks": false,
-  // 在使用搜索功能时，将这些文件夹/文件排除在外
+  // 使用搜索功能时，将这些文件和文件夹排除在外
   "search.exclude": {
     "**/node_modules": true,
     "**/*.log": true,
@@ -206,7 +207,7 @@
     "yaml": false
   },
 
-  "cssVariables.lookupFiles": ["packages/core/base/design/src/**/*.css"],
+  "cssVariables.lookupFiles": ["packages/@core/base/design/src/**/*.css"],
 
   "i18n-ally.localesPaths": [
     "packages/locales/src/langs",
@@ -231,7 +232,7 @@
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
-    "oxlint.config.ts": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json,lefthook.yml"
+    "oxlint.config.ts": ".eslintignore,.stylelintignore,.commitlintrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json,lefthook.yml,oxfmt.config.*,eslint.config.*"
   },
   "commentTranslate.hover.enabled": false,
   "commentTranslate.multiLineMerge": true,
