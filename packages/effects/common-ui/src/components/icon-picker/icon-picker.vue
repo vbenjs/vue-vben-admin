@@ -246,7 +246,7 @@ defineExpose({ toggleOpenState, open, close });
     </div>
 
     <template v-if="paginationList.length > 0">
-      <div class="grid max-h-[360px] w-full grid-cols-6 justify-items-center">
+      <div class="grid max-h-90 w-full grid-cols-6 justify-items-center">
         <VbenIconButton
           v-for="(item, index) in paginationList"
           :key="index"
@@ -309,7 +309,7 @@ defineExpose({ toggleOpenState, open, close });
     </template>
 
     <template v-else>
-      <div class="flex-col-center min-h-[150px] w-full text-muted-foreground">
+      <div class="flex-col-center min-h-37.5 w-full text-muted-foreground">
         <EmptyIcon class="size-10" />
         <div class="mt-1 text-sm">{{ $t('common.noData') }}</div>
       </div>

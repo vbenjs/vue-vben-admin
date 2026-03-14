@@ -50,7 +50,7 @@ const slots = useSlots();
     <div class="relative">
       <Input
         v-model="inputValue"
-        class="h-8 w-[165px]"
+        class="h-8 w-41.25"
         :placeholder="placeholder"
       />
       <CircleX

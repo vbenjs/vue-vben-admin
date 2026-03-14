@@ -25,7 +25,7 @@ const [Modal, modalApi] = useVbenModal({
   header: false,
   footer: false,
   fullscreenButton: false,
-  class: 'w-[302px] h-[302px] dingding-qrcode-login-modal',
+  class: 'size-75.5 dingding-qrcode-login-modal',
   onOpened() {
     handleQrCodeLogin();
   },

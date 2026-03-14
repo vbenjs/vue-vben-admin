@@ -65,7 +65,7 @@ useTabsDrag(props, emit);
 
     <div
       :class="{
-        'pt-[3px]': styleType === 'chrome',
+        'pt-0.75': styleType === 'chrome',
       }"
       class="size-full flex-1 overflow-hidden"
     >

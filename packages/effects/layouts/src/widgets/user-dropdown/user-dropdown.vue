@@ -203,7 +203,7 @@ if (enableShortcutKey.value) {
         </div>
       </div>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
+    <DropdownMenuContent class="mr-2 min-w-60 p-0 pb-1">
       <div ref="refContent">
         <DropdownMenuLabel class="flex items-center p-3">
           <VbenAvatar

@@ -19,7 +19,7 @@ const showCaching = refAutoReset(true, 1000);
         <PaginatedQueries />
       </Card>
       <Card title="无限滚动">
-        <InfiniteQueries class="h-[300px] overflow-auto" />
+        <InfiniteQueries class="h-75 overflow-auto" />
       </Card>
       <Card title="错误重试">
         <QueryRetries />

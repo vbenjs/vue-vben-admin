@@ -498,7 +498,7 @@ const getDrawerTitle = computed(() =>
 );
 </script>
 <template>
-  <Drawer class="w-full max-w-[800px]" :title="getDrawerTitle">
+  <Drawer class="w-full max-w-200" :title="getDrawerTitle">
     <Form class="mx-4" :layout="isHorizontal ? 'horizontal' : 'vertical'" />
   </Drawer>
 </template>

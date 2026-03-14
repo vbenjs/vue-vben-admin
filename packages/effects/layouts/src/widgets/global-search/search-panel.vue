@@ -223,7 +223,7 @@ onMounted(() => {
 
 <template>
   <VbenScrollbar>
-    <div class="flex! h-full justify-center px-2 sm:max-h-[450px]">
+    <div class="flex! h-full justify-center px-2 sm:max-h-112.5">
       <!-- 无搜索结果 -->
       <div
         v-if="keyword && searchResults.length === 0"

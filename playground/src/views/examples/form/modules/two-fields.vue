@@ -15,7 +15,7 @@ function onChange() {
   <div class="flex w-full gap-1">
     <Select
       v-model:value="modelValue[0]"
-      class="w-[80px]"
+      class="w-20"
       placeholder="类型"
       allow-clear
       :class="{ 'valid-success': !!modelValue[0] }"
