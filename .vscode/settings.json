@@ -63,13 +63,16 @@
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[json5]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[vue]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
