@@ -152,7 +152,7 @@ catalog:
   stylelint-config-recommended-scss: ^17.0.0
   stylelint-config-recommended-vue: ^1.6.1
   stylelint-config-standard: ^40.0.0
-  stylelint-order: ^8.0.0
+  stylelint-order: ^8.1.0
   stylelint-scss: ^7.0.0
   tailwind-merge: ^3.5.0
   tailwindcss: ^4.2.1
