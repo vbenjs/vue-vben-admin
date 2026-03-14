@@ -214,8 +214,8 @@ catalogs:
       specifier: ^10.0.3
       version: 10.0.3
     eslint-config-turbo:
-      specifier: ^2.8.16
-      version: 2.8.16
+      specifier: ^2.8.17
+      version: 2.8.17
     eslint-plugin-better-tailwindcss:
       specifier: ^4.3.2
       version: 4.3.2
@@ -385,8 +385,8 @@ catalogs:
       specifier: ^40.0.0
       version: 40.0.0
     stylelint-order:
-      specifier: ^8.0.0
-      version: 8.0.0
+      specifier: ^8.1.0
+      version: 8.1.0
     stylelint-scss:
       specifier: ^7.0.0
       version: 7.0.0
@@ -406,8 +406,8 @@ catalogs:
       specifier: ^6.3.7
       version: 6.3.7
     turbo:
-      specifier: ^2.8.16
-      version: 2.8.16
+      specifier: ^2.8.17
+      version: 2.8.17
     tw-animate-css:
       specifier: ^1.4.0
       version: 1.4.0
@@ -487,8 +487,8 @@ catalogs:
       specifier: ^3.25.76
       version: 3.25.76
     zod-defaults:
-      specifier: 0.1.3
-      version: 0.1.3
+      specifier: 0.2.3
+      version: 0.2.3
 
 overrides:
   '@ast-grep/napi': ^0.41.1
@@ -585,7 +585,7 @@ importers:
         version: 4.2.1
       turbo:
         specifier: 'catalog:'
-        version: 2.8.16
+        version: 2.8.17
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1023,7 +1023,7 @@ importers:
         version: link:../oxlint-config
       eslint-config-turbo:
         specifier: 'catalog:'
-        version: 2.8.16(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.16)
+        version: 2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17)
       eslint-plugin-command:
         specifier: 'catalog:'
         version: 3.5.2(@typescript-eslint/rule-tester@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/typescript-estree@8.57.0(typescript@5.9.3))(@typescript-eslint/utils@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.3(jiti@2.6.1))
@@ -1102,7 +1102,7 @@ importers:
         version: 5.0.1(stylelint@17.4.0(typescript@5.9.3))
       stylelint-config-recess-order:
         specifier: 'catalog:'
-        version: 7.6.1(stylelint-order@8.0.0(stylelint@17.4.0(typescript@5.9.3)))(stylelint@17.4.0(typescript@5.9.3))
+        version: 7.6.1(stylelint-order@8.1.0(stylelint@17.4.0(typescript@5.9.3)))(stylelint@17.4.0(typescript@5.9.3))
       stylelint-scss:
         specifier: 'catalog:'
         version: 7.0.0(stylelint@17.4.0(typescript@5.9.3))
@@ -1133,7 +1133,7 @@ importers:
         version: 40.0.0(stylelint@17.4.0(typescript@5.9.3))
       stylelint-order:
         specifier: 'catalog:'
-        version: 8.0.0(stylelint@17.4.0(typescript@5.9.3))
+        version: 8.1.0(stylelint@17.4.0(typescript@5.9.3))
 
   internal/node-utils:
     dependencies:
@@ -1415,7 +1415,7 @@ importers:
         version: 3.25.76
       zod-defaults:
         specifier: 'catalog:'
-        version: 0.1.3(zod@3.25.76)
+        version: 0.2.3(zod@3.25.76)
 
   packages/@core/ui-kit/layout-ui:
     dependencies:
@@ -6741,8 +6741,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-turbo@2.8.16:
-    resolution: {integrity: sha512-7JY6vlgFZWUH1YlLpxQjgia3bjcIpWxYahDQ/XfXSU5etv2KyEPY/O6jK/8Tg+Z2xjZm8ZQFgqK15K5MLIQAFA==}
+  eslint-config-turbo@2.8.17:
+    resolution: {integrity: sha512-sLjl8LT+NHy825rWW5W5whiJDh2mncf+i1RMgw52mioSy+1kithfKpVsZ68Ah/4nnE2rhGQGlrhCZXcmWM/duw==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -6811,8 +6811,8 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  eslint-plugin-turbo@2.8.16:
-    resolution: {integrity: sha512-fhvTLe0PnyV72npfBi/IwwVMzkTnUw9MxS2S2Q0Oo1aed7woAtHwSL5DEdTTV6tXZSKbqRHaIbjV6rwx+1iRYA==}
+  eslint-plugin-turbo@2.8.17:
+    resolution: {integrity: sha512-ueZdnMyqZ6Q8dntbG98Ylyu6dqYt3MgoRELKGfDQDhPmwtxWwtimas0BDx8x/Ex4nnfg1pvr9HKxew/rHdvHIw==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -9978,8 +9978,8 @@ packages:
     peerDependencies:
       stylelint: ^17.0.0
 
-  stylelint-order@8.0.0:
-    resolution: {integrity: sha512-1oAwPRz6Ba8u9LPjgvdbeMjZszHhjY6DBBK+xMlS3IC89GdTsvAPpGYvW+dkn6pxc4ZaI1S959g4c8CftZbhIg==}
+  stylelint-order@8.1.0:
+    resolution: {integrity: sha512-ao2+VzToCqbAVGaEYEeSR2zNurvQx+86Kw1d0//kZDx3zlyjvb24dE4J0e4HQgOTruOwZpfaHHRtK58+lrsTAQ==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       stylelint: ^16.18.0 || ^17.0.0
@@ -10202,38 +10202,38 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  turbo-darwin-64@2.8.16:
-    resolution: {integrity: sha512-KWa4hUMWrpADC6Q/wIHRkBLw6X6MV9nx6X7hSXbTrrMz0KdaKhmfudUZ3sS76bJFmgArBU25cSc0AUyyrswYxg==}
+  turbo-darwin-64@2.8.17:
+    resolution: {integrity: sha512-ZFkv2hv7zHpAPEXBF6ouRRXshllOavYc+jjcrYyVHvxVTTwJWsBZwJ/gpPzmOKGvkSjsEyDO5V6aqqtZzwVF+Q==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.8.16:
-    resolution: {integrity: sha512-NBgaqBDLQSZlJR4D5XCkQq6noaO0RvIgwm5eYFJYL3bH5dNu8o0UBpq7C5DYnQI8+ybyoHFjT5/icN4LeUYLow==}
+  turbo-darwin-arm64@2.8.17:
+    resolution: {integrity: sha512-5DXqhQUt24ycEryXDfMNKEkW5TBHs+QmU23a2qxXwwFDaJsWcPo2obEhBxxdEPOv7qmotjad+09RGeWCcJ9JDw==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.8.16:
-    resolution: {integrity: sha512-VYPdcCRevI9kR/hr1H1xwXy7QQt/jNKiim1e1mjANBXD2E9VZWMkIL74J1Huad5MbU3/jw7voHOqDPLJPC2p6w==}
+  turbo-linux-64@2.8.17:
+    resolution: {integrity: sha512-KLUbz6w7F73D/Ihh51hVagrKR0/CTsPEbRkvXLXvoND014XJ4BCrQUqSxlQ4/hu+nqp1v5WlM85/h3ldeyujuA==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.8.16:
-    resolution: {integrity: sha512-beq8tgUVI3uwkQkXJMiOr/hfxQRw54M3elpBwqgYFfemiK5LhCjjcwO0DkE8GZZfElBIlk+saMAQOZy3885wNQ==}
+  turbo-linux-arm64@2.8.17:
+    resolution: {integrity: sha512-pJK67XcNJH40lTAjFu7s/rUlobgVXyB3A3lDoq+/JccB3hf+SysmkpR4Itlc93s8LEaFAI4mamhFuTV17Z6wOg==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.8.16:
-    resolution: {integrity: sha512-Ig7b46iUgiOIkea/D3Z7H+zNzvzSnIJcLYFpZLA0RxbUTrbLhv9qIPwv3pT9p/abmu0LXVKHxaOo+p26SuDhzw==}
+  turbo-windows-64@2.8.17:
+    resolution: {integrity: sha512-EijeQ6zszDMmGZLP2vT2RXTs/GVi9rM0zv2/G4rNu2SSRSGFapgZdxgW4b5zUYLVaSkzmkpWlGfPfj76SW9yUg==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.8.16:
-    resolution: {integrity: sha512-fOWjbEA2PiE2HEnFQrwNZKYEdjewyPc2no9GmrXklZnTCuMsxeCN39aVlKpKpim03Zq/ykIuvApGwq8ZbfS2Yw==}
+  turbo-windows-arm64@2.8.17:
+    resolution: {integrity: sha512-crpfeMPkfECd4V1PQ/hMoiyVcOy04+bWedu/if89S15WhOalHZ2BYUi6DOJhZrszY+mTT99OwpOsj4wNfb/GHQ==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.8.16:
-    resolution: {integrity: sha512-u6e9e3cTTpE2adQ1DYm3A3r8y3LAONEx1jYvJx6eIgSY4bMLxIxs0riWzI0Z/IK903ikiUzRPZ2c1Ph5lVLkhA==}
+  turbo@2.8.17:
+    resolution: {integrity: sha512-YwPsNSqU2f/RXU/+Kcb7cPkPZARxom4+me7LKEdN5jsvy2tpfze3zDZ4EiGrJnvOm9Avu9rK0aaYsP7qZ3iz7A==}
     hasBin: true
 
   tw-animate-css@1.4.0:
@@ -11081,10 +11081,10 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod-defaults@0.1.3:
-    resolution: {integrity: sha512-Cp4UjuVfXqwaOx8A5LlM0IRBZs8B7AXgF+XOZWF8CjMDhsY/Jki+y7VS4adVtQj9NNSsAPwylUlJp9INuxPEnA==}
+  zod-defaults@0.2.3:
+    resolution: {integrity: sha512-7pYkOH1/c+Ril5AZUYtsbhMkehkI8CMqzFZ7YZXfC9SMLRvZuLyonQE7BAIVSNxeTpqTZmW5BLxGSzWMnKNdIw==}
     peerDependencies:
-      zod: ^3.23.8
+      zod: ^4.1.12
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -16256,11 +16256,11 @@ snapshots:
       eslint: 10.0.3(jiti@2.6.1)
       semver: 7.7.4
 
-  eslint-config-turbo@2.8.16(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.16):
+  eslint-config-turbo@2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17):
     dependencies:
       eslint: 10.0.3(jiti@2.6.1)
-      eslint-plugin-turbo: 2.8.16(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.16)
-      turbo: 2.8.16
+      eslint-plugin-turbo: 2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17)
+      turbo: 2.8.17
 
   eslint-json-compat-utils@0.2.3(eslint@10.0.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0):
     dependencies:
@@ -16354,11 +16354,11 @@ snapshots:
       yaml: 2.8.2
       yaml-eslint-parser: 2.0.0
 
-  eslint-plugin-turbo@2.8.16(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.16):
+  eslint-plugin-turbo@2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17):
     dependencies:
       dotenv: 16.0.3
       eslint: 10.0.3(jiti@2.6.1)
-      turbo: 2.8.16
+      turbo: 2.8.17
 
   eslint-plugin-unicorn@63.0.0(eslint@10.0.3(jiti@2.6.1)):
     dependencies:
@@ -19634,10 +19634,10 @@ snapshots:
       postcss-html: 1.8.1
       stylelint: 17.4.0(typescript@5.9.3)
 
-  stylelint-config-recess-order@7.6.1(stylelint-order@8.0.0(stylelint@17.4.0(typescript@5.9.3)))(stylelint@17.4.0(typescript@5.9.3)):
+  stylelint-config-recess-order@7.6.1(stylelint-order@8.1.0(stylelint@17.4.0(typescript@5.9.3)))(stylelint@17.4.0(typescript@5.9.3)):
     dependencies:
       stylelint: 17.4.0(typescript@5.9.3)
-      stylelint-order: 8.0.0(stylelint@17.4.0(typescript@5.9.3))
+      stylelint-order: 8.1.0(stylelint@17.4.0(typescript@5.9.3))
 
   stylelint-config-recommended-scss@17.0.0(postcss@8.5.8)(stylelint@17.4.0(typescript@5.9.3)):
     dependencies:
@@ -19665,7 +19665,7 @@ snapshots:
       stylelint: 17.4.0(typescript@5.9.3)
       stylelint-config-recommended: 18.0.0(stylelint@17.4.0(typescript@5.9.3))
 
-  stylelint-order@8.0.0(stylelint@17.4.0(typescript@5.9.3)):
+  stylelint-order@8.1.0(stylelint@17.4.0(typescript@5.9.3)):
     dependencies:
       postcss: 8.5.8
       postcss-sorting: 10.0.0(postcss@8.5.8)
@@ -19938,32 +19938,32 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  turbo-darwin-64@2.8.16:
+  turbo-darwin-64@2.8.17:
     optional: true
 
-  turbo-darwin-arm64@2.8.16:
+  turbo-darwin-arm64@2.8.17:
     optional: true
 
-  turbo-linux-64@2.8.16:
+  turbo-linux-64@2.8.17:
     optional: true
 
-  turbo-linux-arm64@2.8.16:
+  turbo-linux-arm64@2.8.17:
     optional: true
 
-  turbo-windows-64@2.8.16:
+  turbo-windows-64@2.8.17:
     optional: true
 
-  turbo-windows-arm64@2.8.16:
+  turbo-windows-arm64@2.8.17:
     optional: true
 
-  turbo@2.8.16:
+  turbo@2.8.17:
     optionalDependencies:
-      turbo-darwin-64: 2.8.16
-      turbo-darwin-arm64: 2.8.16
-      turbo-linux-64: 2.8.16
-      turbo-linux-arm64: 2.8.16
-      turbo-windows-64: 2.8.16
-      turbo-windows-arm64: 2.8.16
+      turbo-darwin-64: 2.8.17
+      turbo-darwin-arm64: 2.8.17
+      turbo-linux-64: 2.8.17
+      turbo-linux-arm64: 2.8.17
+      turbo-windows-64: 2.8.17
+      turbo-windows-arm64: 2.8.17
 
   tw-animate-css@1.4.0: {}
 
@@ -20979,7 +20979,7 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-defaults@0.1.3(zod@3.25.76):
+  zod-defaults@0.2.3(zod@3.25.76):
     dependencies:
       zod: 3.25.76
 
