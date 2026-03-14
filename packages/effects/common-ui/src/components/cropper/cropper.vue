@@ -895,7 +895,7 @@ defineExpose({ getCropImage });
 }
 
 .cropper-view {
-  @apply absolute top-0 right-0 bottom-0 left-0 outline outline-1 outline-blue-500 select-none;
+  @apply absolute top-0 right-0 bottom-0 left-0 outline-1 outline-blue-500 select-none;
 }
 
 /* 裁剪框辅助线 */
