@@ -37,12 +37,12 @@
       "path": "internal/lint-configs/eslint-config",
     },
     {
-      "name": "@vben/oxlint-config",
-      "path": "internal/lint-configs/oxlint-config",
-    },
-    {
       "name": "@vben/oxfmt-config",
       "path": "internal/lint-configs/oxfmt-config",
+    },
+    {
+      "name": "@vben/oxlint-config",
+      "path": "internal/lint-configs/oxlint-config",
     },
     {
       "name": "@vben/stylelint-config",
