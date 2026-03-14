@@ -165,7 +165,7 @@ function clearPreferencesAndLogout() {
           />
         </template>
         <template v-else-if="slot.name === 'theme-toggle'">
-          <ThemeToggle class="mt-[2px] mr-1" />
+          <ThemeToggle class="mt-0.5 mr-1" />
         </template>
         <template v-else-if="slot.name === 'language-toggle'">
           <LanguageToggle class="mr-1" />
@@ -174,7 +174,7 @@ function clearPreferencesAndLogout() {
           <VbenFullScreen class="mr-1" />
         </template>
         <template v-else-if="slot.name === 'timezone'">
-          <TimezoneButton class="mt-[2px] mr-1" />
+          <TimezoneButton class="mt-0.5 mr-1" />
         </template>
       </slot>
     </template>

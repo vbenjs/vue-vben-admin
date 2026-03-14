@@ -6,6 +6,6 @@ const [Drawer, drawerApi] = useVbenDrawer();
 <template>
   <div>
     <VbenButton @click="() => drawerApi.open()">Open</VbenButton>
-    <Drawer class="w-[600px]" title="基础示例"> drawer content </Drawer>
+    <Drawer class="w-150" title="基础示例"> drawer content </Drawer>
   </div>
 </template>

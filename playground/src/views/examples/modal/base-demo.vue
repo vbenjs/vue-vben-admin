@@ -27,7 +27,7 @@ function lockModal() {
 }
 </script>
 <template>
-  <Modal class="w-[600px]" title="基础弹窗示例" title-tooltip="标题提示内容">
+  <Modal class="w-150" title="基础弹窗示例" title-tooltip="标题提示内容">
     base demo
     <Button type="primary" @click="lockModal">锁定弹窗</Button>
   </Modal>

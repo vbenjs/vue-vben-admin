@@ -6,6 +6,6 @@ const [Modal, modalApi] = useVbenModal();
 <template>
   <div>
     <VbenButton @click="() => modalApi.open()">Open</VbenButton>
-    <Modal class="w-[600px]" title="基础示例"> modal content </Modal>
+    <Modal class="w-150" title="基础示例"> modal content </Modal>
   </div>
 </template>

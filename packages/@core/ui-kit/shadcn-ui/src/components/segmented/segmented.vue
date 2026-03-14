@@ -37,7 +37,7 @@ const tabsIndicatorStyle = computed(() => {
 });
 
 function activeClass(tab: string): string[] {
-  return tab === activeTab.value ? ['!font-bold', 'text-primary'] : [];
+  return tab === activeTab.value ? ['font-bold!', 'text-primary'] : [];
 }
 </script>
 
@@ -45,7 +45,7 @@ function activeClass(tab: string): string[] {
   <Tabs v-model="activeTab" :default-value="getDefaultValue">
     <TabsList
       :style="tabsStyle"
-      class="bg-accent !outline-heavy relative grid w-full !outline !outline-2"
+      class="bg-accent outline-heavy! relative grid w-full outline! outline-2!"
     >
       <TabsIndicator :style="tabsIndicatorStyle" />
       <template v-for="tab in tabs" :key="tab.value">

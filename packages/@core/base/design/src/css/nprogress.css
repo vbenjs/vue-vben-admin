@@ -6,12 +6,12 @@
 }
 
 #nprogress .bar {
-  @apply bg-primary fixed top-0 left-0 z-1031 h-[2px] w-full;
+  @apply bg-primary fixed top-0 left-0 z-1031 h-0.5 w-full;
 }
 
 /* Fancy blur effect */
 #nprogress .peg {
-  @apply absolute right-0 block h-full w-[100px];
+  @apply absolute right-0 block h-full w-25;
 
   box-shadow:
     0 0 10px hsl(var(--primary)),

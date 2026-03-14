@@ -58,7 +58,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="vp-raw h-[500px] w-full">
+  <div class="vp-raw h-125 w-full">
     <Grid />
   </div>
 </template>

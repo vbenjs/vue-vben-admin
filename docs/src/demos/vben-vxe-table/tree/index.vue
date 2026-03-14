@@ -67,7 +67,7 @@ const collapseAll = () => {
 </script>
 
 <template>
-  <div class="vp-raw h-[300px] w-full">
+  <div class="vp-raw h-75 w-full">
     <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="expandAll">
