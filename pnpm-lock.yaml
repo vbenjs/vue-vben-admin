@@ -213,9 +213,6 @@ catalogs:
     eslint:
       specifier: ^10.0.3
       version: 10.0.3
-    eslint-config-turbo:
-      specifier: ^2.8.17
-      version: 2.8.17
     eslint-plugin-better-tailwindcss:
       specifier: ^4.3.2
       version: 4.3.2
@@ -228,9 +225,6 @@ catalogs:
     eslint-plugin-n:
       specifier: ^17.24.0
       version: 17.24.0
-    eslint-plugin-oxlint:
-      specifier: ^1.55.0
-      version: 1.55.0
     eslint-plugin-perfectionist:
       specifier: ^5.6.0
       version: 5.6.0
@@ -1020,16 +1014,7 @@ importers:
       '@vben/oxlint-config':
         specifier: workspace:*
         version: link:../oxlint-config
-      eslint-config-turbo:
-        specifier: 'catalog:'
-        version: 2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17)
-      eslint-plugin-command:
-        specifier: 'catalog:'
-        version: 3.5.2(@typescript-eslint/rule-tester@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/typescript-estree@8.57.0(typescript@5.9.3))(@typescript-eslint/utils@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.3(jiti@2.6.1))
     devDependencies:
-      '@eslint-community/eslint-plugin-eslint-comments':
-        specifier: 'catalog:'
-        version: 4.7.1(eslint@10.0.3(jiti@2.6.1))
       '@eslint/js':
         specifier: 'catalog:'
         version: 10.0.1(eslint@10.0.3(jiti@2.6.1))
@@ -1048,9 +1033,6 @@ importers:
       eslint-plugin-n:
         specifier: 'catalog:'
         version: 17.24.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
-      eslint-plugin-oxlint:
-        specifier: 'catalog:'
-        version: 1.55.0
       eslint-plugin-perfectionist:
         specifier: 'catalog:'
         version: 5.6.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
@@ -1087,9 +1069,15 @@ importers:
 
   internal/lint-configs/oxlint-config:
     dependencies:
+      '@eslint-community/eslint-plugin-eslint-comments':
+        specifier: 'catalog:'
+        version: 4.7.1(eslint@10.0.3(jiti@2.6.1))
       eslint-plugin-better-tailwindcss:
         specifier: 'catalog:'
         version: 4.3.2(eslint@10.0.3(jiti@2.6.1))(oxlint@1.55.0(oxlint-tsgolint@0.16.0))(tailwindcss@4.2.1)(typescript@5.9.3)
+      eslint-plugin-command:
+        specifier: 'catalog:'
+        version: 3.5.2(@typescript-eslint/rule-tester@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/typescript-estree@8.57.0(typescript@5.9.3))(@typescript-eslint/utils@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.3(jiti@2.6.1))
       oxlint:
         specifier: 'catalog:'
         version: 1.55.0(oxlint-tsgolint@0.16.0)
@@ -6838,10 +6826,6 @@ packages:
     resolution: {integrity: sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==}
     engines: {node: '>=12'}
 
-  dotenv@16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-
   dotenv@16.6.1:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
@@ -7044,12 +7028,6 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-turbo@2.8.17:
-    resolution: {integrity: sha512-sLjl8LT+NHy825rWW5W5whiJDh2mncf+i1RMgw52mioSy+1kithfKpVsZ68Ah/4nnE2rhGQGlrhCZXcmWM/duw==}
-    peerDependencies:
-      eslint: '>6.6.0'
-      turbo: '>2.0.0'
-
   eslint-json-compat-utils@0.2.3:
     resolution: {integrity: sha512-RbBmDFyu7FqnjE8F0ZxPNzx5UaptdeS9Uu50r7A+D7s/+FCX+ybiyViYEgFUaFIFqSWJgZRTpL5d8Kanxxl2lQ==}
     engines: {node: '>=12'}
@@ -7100,9 +7078,6 @@ packages:
     peerDependencies:
       eslint: '>=8.23.0'
 
-  eslint-plugin-oxlint@1.55.0:
-    resolution: {integrity: sha512-5ng7DOuikSE64e7hX2HBqEWdmql+Q4FWppBoBkxKKflLt1j9LXhab5BN3bYJKyrAihuK1/VH2JvfNefeOZAqpA==}
-
   eslint-plugin-perfectionist@5.6.0:
     resolution: {integrity: sha512-pxrLrfRp5wl1Vol1fAEa/G5yTXxefTPJjz07qC7a8iWFXcOZNuWBItMQ2OtTzfQIvMq6bMyYcrzc3Wz++na55Q==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -7113,12 +7088,6 @@ packages:
     resolution: {integrity: sha512-dxmt9r3zvPaft6IugS4i0k16xag3fTbOvm/road5uV9Y8qUCQT0xzheSh3gMlYAlC6vXRpfArBDsTZ7H7JKCbg==}
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
-
-  eslint-plugin-turbo@2.8.17:
-    resolution: {integrity: sha512-ueZdnMyqZ6Q8dntbG98Ylyu6dqYt3MgoRELKGfDQDhPmwtxWwtimas0BDx8x/Ex4nnfg1pvr9HKxew/rHdvHIw==}
-    peerDependencies:
-      eslint: '>6.6.0'
-      turbo: '>2.0.0'
 
   eslint-plugin-unicorn@63.0.0:
     resolution: {integrity: sha512-Iqecl9118uQEXYh7adylgEmGfkn5es3/mlQTLLkd4pXkIk9CTGrAbeUux+YljSa2ohXCBmQQ0+Ej1kZaFgcfkA==}
@@ -8145,9 +8114,6 @@ packages:
   jsonc-eslint-parser@3.1.0:
     resolution: {integrity: sha512-75EA7EWZExL/j+MDKQrRbdzcRI2HOkRlmUw8fZJc1ioqFEOvBsq7Rt+A6yCxOt9w/TYNpkt52gC6nm/g5tFIng==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-
-  jsonc-parser@3.3.1:
-    resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
@@ -16450,8 +16416,6 @@ snapshots:
 
   dotenv-expand@8.0.3: {}
 
-  dotenv@16.0.3: {}
-
   dotenv@16.6.1: {}
 
   dotenv@17.3.1: {}
@@ -16761,12 +16725,6 @@ snapshots:
       eslint: 10.0.3(jiti@2.6.1)
       semver: 7.7.4
 
-  eslint-config-turbo@2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17):
-    dependencies:
-      eslint: 10.0.3(jiti@2.6.1)
-      eslint-plugin-turbo: 2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17)
-      turbo: 2.8.17
-
   eslint-json-compat-utils@0.2.3(eslint@10.0.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0):
     dependencies:
       eslint: 10.0.3(jiti@2.6.1)
@@ -16835,10 +16793,6 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  eslint-plugin-oxlint@1.55.0:
-    dependencies:
-      jsonc-parser: 3.3.1
-
   eslint-plugin-perfectionist@5.6.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@typescript-eslint/utils': 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
@@ -16858,12 +16812,6 @@ snapshots:
       tinyglobby: 0.2.15
       yaml: 2.8.2
       yaml-eslint-parser: 2.0.0
-
-  eslint-plugin-turbo@2.8.17(eslint@10.0.3(jiti@2.6.1))(turbo@2.8.17):
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 10.0.3(jiti@2.6.1)
-      turbo: 2.8.17
 
   eslint-plugin-unicorn@63.0.0(eslint@10.0.3(jiti@2.6.1)):
     dependencies:
@@ -17942,8 +17890,6 @@ snapshots:
       acorn: 8.16.0
       eslint-visitor-keys: 5.0.1
       semver: 7.7.4
-
-  jsonc-parser@3.3.1: {}
 
   jsonfile@4.0.0:
     optionalDependencies:
