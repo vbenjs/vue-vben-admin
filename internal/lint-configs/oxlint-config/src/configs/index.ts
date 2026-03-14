@@ -2,6 +2,7 @@ import type { OxlintConfig } from 'oxlint';
 
 import { defineConfig as defineOxlintConfig } from 'oxlint';
 
+import { comments } from './comments';
 import { ignores } from './ignores';
 import { importPluginConfig } from './import';
 import { javascript } from './javascript';
@@ -60,6 +61,7 @@ function mergeOxlintConfigs(...configs: OxlintConfig[]): OxlintConfig {
 const oxlintConfig = defineOxlintConfig(
   mergeOxlintConfigs(
     javascript,
+    comments,
     ignores,
     plugins,
     importPluginConfig,
@@ -74,6 +76,7 @@ const oxlintConfig = defineOxlintConfig(
 );
 
 export {
+  comments,
   ignores,
   importPluginConfig,
   javascript,

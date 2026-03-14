@@ -143,6 +143,12 @@ const customConfig: Linter.Config[] = [
       'no-console': 'off',
     },
   },
+  {
+    files: ['packages/@core/base/shared/src/utils/inference.ts'],
+    rules: {
+      'vue/prefer-import-from-vue': 'off',
+    },
+  },
 ];
 
 export { customConfig };

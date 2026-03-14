@@ -97,7 +97,6 @@ catalog:
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.1.2
   eslint-plugin-n: ^17.24.0
-  eslint-plugin-oxlint: ^1.55.0
   eslint-plugin-perfectionist: ^5.6.0
   eslint-plugin-pnpm: ^1.6.0
   eslint-plugin-unicorn: ^63.0.0

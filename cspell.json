@@ -59,7 +59,7 @@
     "taze",
     "tdesign",
     "tsgolint",
-    "Turborepo",
+    "turborepo",
     "ui-kit",
     "uicons",
     "unplugin",
@@ -72,7 +72,7 @@
     "vitest",
     "vnode",
     "vueuse",
-    "yxxx"
+    "yxxx",
   ],
   "ignorePaths": [
     "**/*-dist/**",
@@ -83,6 +83,6 @@
     "**/dist/**",
     "**/icons/**",
     "**/node_modules/**",
-    "pnpm-lock.yaml"
-  ]
+    "pnpm-lock.yaml",
+  ],
 }

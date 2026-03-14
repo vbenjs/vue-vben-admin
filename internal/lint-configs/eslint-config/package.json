@@ -32,14 +32,12 @@
     "eslint-plugin-command": "catalog:"
   },
   "devDependencies": {
-    "@eslint-community/eslint-plugin-eslint-comments": "catalog:",
     "@eslint/js": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-jsonc": "catalog:",
     "eslint-plugin-n": "catalog:",
-    "eslint-plugin-oxlint": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",
     "eslint-plugin-pnpm": "catalog:",
     "eslint-plugin-unicorn": "catalog:",
