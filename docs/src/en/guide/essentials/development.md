@@ -32,14 +32,14 @@ If you are using [vscode](https://code.visualstudio.com/) (recommended) as your 
 - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Iconify icon plugin.
 - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) - i18n plugin.
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Script code linting.
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatting.
+- [Oxc](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) - Oxlint / Oxfmt integration.
 - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - CSS formatting.
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - Spelling checker.
 - [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) - .env file highlighting.
 
 ## Npm Scripts
 
-Npm scripts are common configurations used in the project to perform common tasks such as starting the project, building the project, etc. The following scripts can be found in the `package.json` file at the root of the project.
+Npm scripts are common configurations used in the project to perform common tasks such as starting the project, building the project, and more. The following scripts can be found in the `package.json` file at the root of the project.
 
 The execution command is: `pnpm run [script]` or `npm run [script]`.
 
@@ -51,15 +51,17 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Build the project with analysis
     "build:analyze": "turbo build:analyze",
     // Build a local Docker image
-    "build:docker": "./build-local-docker-image.sh",
+    "build:docker": "./scripts/deploy/build-local-docker-image.sh",
     // Build the web-antd application separately
     "build:antd": "pnpm run build --filter=@vben/web-antd",
+    // Build the web-antdv-next application separately
+    "build:antdv-next": "pnpm run build --filter=@vben/web-antdv-next",
     // Build the documentation separately
     "build:docs": "pnpm run build --filter=@vben/docs",
     // Build the web-ele application separately
     "build:ele": "pnpm run build --filter=@vben/web-ele",
     // Build the web-naive application separately
-    "build:naive": "pnpm run build --filter=@vben/naive",
+    "build:naive": "pnpm run build --filter=@vben/web-naive",
     // Build the web-tdesign application separately
     "build:tdesign": "pnpm run build --filter=@vben/web-tdesign",
     // Build the playground application separately
@@ -71,7 +73,7 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Check for circular dependencies
     "check:circular": "vsh check-circular",
     // Check spelling
-    "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress"
+    "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress",
     // Check dependencies
     "check:dep": "vsh check-dep",
     // Check types
@@ -84,12 +86,16 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     "dev": "turbo-run dev",
     // Start the web-antd application
     "dev:antd": "pnpm -F @vben/web-antd run dev",
+    // Start the web-antdv-next application
+    "dev:antdv-next": "pnpm -F @vben/web-antdv-next run dev",
     // Start the documentation
     "dev:docs": "pnpm -F @vben/docs run dev",
     // Start the web-ele application
     "dev:ele": "pnpm -F @vben/web-ele run dev",
     // Start the web-naive application
     "dev:naive": "pnpm -F @vben/web-naive run dev",
+    // Start the web-tdesign application
+    "dev:tdesign": "pnpm -F @vben/web-tdesign run dev",
     // Start the playground application
     "dev:play": "pnpm -F @vben/playground run dev",
     // Format code
@@ -101,17 +107,19 @@ The execution command is: `pnpm run [script]` or `npm run [script]`.
     // Only allow using pnpm
     "preinstall": "npx only-allow pnpm",
     // Install lefthook
-    "prepare": "is-ci || lefthook install",
+    "prepare": "pnpm exec lefthook install",
     // Preview the application
     "preview": "turbo-run preview",
     // Package specification check
     "publint": "vsh publint",
-    // Delete all node_modules, yarn.lock, package.lock.json, and reinstall dependencies
+    // Delete all node_modules, yarn.lock, package-lock.json, and reinstall dependencies
     "reinstall": "pnpm clean --del-lock && pnpm install",
+    // Run e2e tests
+    "test:e2e": "turbo run test:e2e",
     // Run vitest unit tests
     "test:unit": "vitest run --dom",
     // Update project dependencies
-    "update:deps": " pnpm update --latest --recursive",
+    "update:deps": "npx taze -r -w",
     // Changeset generation and versioning
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   }
@@ -134,6 +142,12 @@ To run the `web-antd` application:
 pnpm dev:antd
 ```
 
+To run the `web-antdv-next` application:
+
+```bash
+pnpm dev:antdv-next
+```
+
 To run the `web-naive` application:
 
 ```bash
@@ -144,6 +158,12 @@ To run the `web-ele` application:
 
 ```bash
 pnpm dev:ele
+```
+
+To run the `web-tdesign` application:
+
+```bash
+pnpm dev:tdesign
 ```
 
 To run the `docs` application:
@@ -221,9 +241,9 @@ Add the relevant dependent commands in `turbo.json`.
 
 ## Public Static Resources
 
-If you need to use public static resources in the project, such as images, static HTML, etc., and you want to directly import them in the development process through `src="/xxx.png"`.
+If you need to use public static resources in the project, such as images and static HTML, and want to import them directly during development through `src="/xxx.png"`.
 
-You need to put the resource in the corresponding project's `public/static` directory. The import path for the resource should be `src="/static/xxx.png"`.
+You need to put the resources in the `public/static` directory of the corresponding project. The import path for the resources should be `src="/static/xxx.png"`.
 
 ## DevTools
 
@@ -251,7 +271,7 @@ If you encounter dependency-related issues, you can try reinstalling the depende
 
 ```bash
 # Execute this command at the root of the project.
-# This command will delete all node_modules, yarn.lock, and package.lock.json files
+# This command will delete all node_modules, yarn.lock, and package-lock.json files
 # and then reinstall dependencies (this process will be noticeably slower).
 pnpm reinstall
 ```

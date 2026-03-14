@@ -5,7 +5,7 @@
 - If you want to contribute code to the project, please ensure your code complies with the project's coding standards.
 - If you are using `vscode`, you need to install the following plugins:
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Script code checking
-  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatting
+  - [Oxc](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) - Oxlint / Oxfmt integration
   - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - Word syntax checking
   - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - CSS formatting
 
@@ -27,22 +27,53 @@ The project's configuration files are located in `internal/lint-configs`, where 
 
 The project integrates the following code verification tools:
 
-- [ESLint](https://eslint.org/) for JavaScript code checking
+- [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for code formatting
+- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) for JavaScript / TypeScript linting
+- [ESLint](https://eslint.org/) for Vue, JSONC, YAML, and related rules
 - [Stylelint](https://stylelint.io/) for CSS style checking
-- [Prettier](https://prettier.io/) for code formatting
 - [Commitlint](https://commitlint.js.org/) for checking the standard of git commit messages
 - [Publint](https://publint.dev/) for checking the standard of npm packages
 - [Cspell](https://cspell.org/) for checking spelling errors
 - [lefthook](https://github.com/evilmartians/lefthook) for managing Git hooks, automatically running code checks and formatting before commits
 
-## ESLint
+## Oxfmt
 
-ESLint is a code standard and error checking tool used to identify and report syntax errors in TypeScript code.
+Oxfmt is used to keep code formatting consistent across the repository.
 
 ### Command
 
 ```bash
-pnpm eslint .
+pnpm oxfmt
+pnpm oxfmt --check
+```
+
+### Configuration
+
+The root Oxfmt entry file is `oxfmt.config.ts`, and its core configuration is located in `internal/lint-configs/oxfmt-config`.
+
+## Oxlint
+
+Oxlint is the primary script linting tool for the repository.
+
+### Command
+
+```bash
+pnpm oxlint
+pnpm oxlint --fix
+```
+
+### Configuration
+
+The core Oxlint configuration is located in `internal/lint-configs/oxlint-config`, and the root entry file is `oxlint.config.ts`.
+
+## ESLint
+
+ESLint is used to complement Vue, JSONC, YAML, and related rules.
+
+### Command
+
+```bash
+pnpm eslint . --cache
 ```
 
 ### Configuration
@@ -56,48 +87,34 @@ Stylelint is used to check the style of CSS within the project. Coupled with the
 ### Command
 
 ```bash
-pnpm stylelint "**/*.{vue,css,less.scss}"
+pnpm stylelint "**/*.{vue,css,less,scss}" --cache
 ```
 
 ### Configuration
 
 The Stylelint configuration file is `stylelint.config.mjs`, with its core configuration located in the `internal/lint-configs/stylelint-config` directory, which can be modified according to project needs.
 
-## Prettier
-
-Prettier Can be used to unify project code style, consistent indentation, single and double quotes, trailing commas, and other styles.
-
-### Command
-
-```bash
-pnpm prettier .
-```
-
-### Configuration
-
-The Prettier configuration file is `.prettier.mjs`, with its core configuration located in the `internal/lint-configs/prettier-config` directory, which can be modified according to project needs.
-
 ## CommitLint
 
-In a team, everyone's git commit messages can vary widely, making it difficult to ensure standardization without a mechanism. How can standardization be achieved? You might think of using git's hook mechanism to write shell scripts to implement this. Of course, this is possible, but actually, JavaScript has a great tool for implementing this template, which is commitlint (used for verifying the standard of git commit messages).
+In a team, everyone's git commit messages can vary widely, making it difficult to ensure standardization without a mechanism. You might think of using git's hook mechanism to write shell scripts to implement this. Of course, this is possible, but JavaScript has a good tool for this template: commitlint.
 
 ### Configuration
 
-The CommitLint configuration file is `.commitlintrc.mjs`, with its core configuration located in the `internal/lint-configs/commitlint-config` directory, which can be modified according to project needs.
+The CommitLint configuration file is `.commitlintrc.js`, with its core configuration located in the `internal/lint-configs/commitlint-config` directory, which can be modified according to project needs.
 
 ### Git Commit Standards
 
 Refer to [Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular)
 
 - `feat` Add new features
-- `fix` Fix problems/BUGs
+- `fix` Fix problems / BUGs
 - `style` Code style changes that do not affect the outcome
-- `perf` Optimization/performance improvement
+- `perf` Optimization / performance improvement
 - `refactor` Refactoring
 - `revert` Revert changes
 - `test` Related to tests
-- `docs` Documentation/comments
-- `chore` Dependency updates/scaffold configuration modifications, etc.
+- `docs` Documentation / comments
+- `chore` Dependency updates / scaffold configuration changes
 - `workflow` Workflow improvements
 - `ci` Continuous integration
 - `types` Type modifications
@@ -112,31 +129,39 @@ If you want to disable Git commit standard checks, there are two ways:
 git commit -m 'feat: add home page' --no-verify
 ```
 
-```bash [Permanent closed]
-# Comment out the following code in .husky/commit-msg to disable
-pnpm exec commitlint --edit "$1" # [!code --]
+```yaml [Long-term disable]
+commit-msg:
+  commands:
+    # commitlint:
+    #   run: pnpm exec commitlint --edit $1
 ```
 
 :::
 
+If you changed `lefthook.yml`, reinstall hooks with:
+
+```bash
+pnpm exec lefthook install
+```
+
 ## Publint
 
-Publint is a tool for checking the standard of npm packages, which can check whether the package version conforms to the standard, whether it conforms to the standard ESM package specification, etc.
+Publint is a tool for checking npm package standards, including package versioning, exports, and ESM package structure.
 
 ### Command
 
 ```bash
-pnpm vsh publint
+pnpm publint
 ```
 
 ## Cspell
 
-Cspell is a tool for checking spelling errors, which can check for spelling errors in the code, avoiding bugs caused by spelling errors.
+Cspell is a tool for checking spelling errors in the code, avoiding bugs caused by spelling mistakes.
 
 ### Command
 
 ```bash
-pnpm cspell lint \"**/*.ts\"  \"**/README.md\" \".changeset/*.md\" --no-progress
+pnpm check:cspell
 ```
 
 ### Configuration
@@ -149,9 +174,9 @@ Git hooks are generally combined with various lints to check code style during g
 
 ### lefthook
 
-One issue is that the check will verify all code, but we only want to check the code we are committing. This is where lefthook comes in.
+One issue is that the check would verify all code, but in practice we usually only want to check the code being committed. This is where lefthook comes in.
 
-The most effective solution is to perform Lint checks locally before committing. A common practice is to use lefthook to perform a Lint check before local submission.
+The most effective solution is to perform lint checks locally before committing. A common practice is to use lefthook to perform checks before local submission.
 
 The project defines corresponding hooks inside `lefthook.yml`:
 
@@ -159,33 +184,28 @@ The project defines corresponding hooks inside `lefthook.yml`:
   - `code-workspace`: Updates VSCode workspace configuration
   - `lint-md`: Formats Markdown files
   - `lint-vue`: Formats and checks Vue files
-  - `lint-js`: Formats and checks JavaScript/TypeScript files
+  - `lint-js`: Formats and checks JavaScript / TypeScript files
   - `lint-style`: Formats and checks style files
-  - `lint-package`: Formats package.json
+  - `lint-package`: Formats `package.json`
   - `lint-json`: Formats other JSON files
-
 - `post-merge`: Runs after merge, used for automatic dependency installation
   - `install`: Runs `pnpm install` to install new dependencies
-
 - `commit-msg`: Runs during commit, used for checking commit message format
   - `commitlint`: Uses commitlint to check commit messages
 
+Current hooks can be installed with:
+
+```bash
+pnpm exec lefthook install
+```
+
 #### How to Disable lefthook
 
-If you want to disable lefthook, there are two ways:
+If you want to temporarily disable lefthook, use:
 
-::: code-group
-
-```bash [Temporary disable]
+```bash
 git commit -m 'feat: add home page' --no-verify
 ```
-
-```bash [Permanent disable]
-# Simply delete the lefthook.yml file
-rm lefthook.yml
-```
-
-:::
 
 #### How to Modify lefthook Configuration
 
@@ -193,18 +213,17 @@ If you want to modify lefthook's configuration, you can edit the `lefthook.yml` 
 
 ```yaml
 pre-commit:
-  parallel: true # Execute tasks in parallel
-  jobs:
-    - name: lint-js
-      run: pnpm prettier --cache --ignore-unknown --write {staged_files}
+  parallel: true
+  commands:
+    lint-js:
+      run: pnpm oxfmt {staged_files} && pnpm oxlint --fix {staged_files} && pnpm eslint --cache --fix {staged_files}
       glob: '*.{js,jsx,ts,tsx}'
 ```
 
 Where:
 
 - `parallel`: Whether to execute tasks in parallel
-- `jobs`: Defines the list of tasks to execute
-- `name`: Task name
+- `commands`: Defines the list of tasks to execute
 - `run`: Command to execute
 - `glob`: File pattern to match
 - `{staged_files}`: Represents the list of staged files

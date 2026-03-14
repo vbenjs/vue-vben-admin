@@ -20,4 +20,4 @@
 
 ## 质量与规范
 
-我们始终高度重视代码的质量与规范。通过使用 ESLint、Prettier、Stylelint、Publint、CSpell 等工具来确保代码质量。我们的代码规范基于 Vue3、Vite、TypeScript 等现代前端技术制定，旨在提供一个简洁、易用的框架，使开发者能够快速上手并专注于业务逻辑的开发。
+我们始终高度重视代码的质量与规范。通过使用 Oxfmt、Oxlint、ESLint、Stylelint、Publint、CSpell 等工具来确保代码质量。我们的代码规范基于 Vue3、Vite、TypeScript 等现代前端技术制定，旨在提供一个简洁、易用的框架，使开发者能够快速上手并专注于业务逻辑的开发。
