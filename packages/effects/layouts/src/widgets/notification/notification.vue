@@ -87,10 +87,7 @@ function navigateTo(
 }
 </script>
 <template>
-  <VbenPopover
-    v-model:open="open"
-    content-class="relative right-2 w-90 p-0"
-  >
+  <VbenPopover v-model:open="open" content-class="relative right-2 w-90 p-0">
     <template #trigger>
       <div class="mr-2 flex-center h-full" @click.stop="toggle()">
         <VbenIconButton class="bell-button relative text-foreground">
