@@ -82,6 +82,6 @@ const handleClick = () => {
 
 <style scoped>
 .timezone-container {
-  padding-left: 20px;
+  @apply pl-5;
 }
 </style>

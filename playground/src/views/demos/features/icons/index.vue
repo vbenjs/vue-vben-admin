@@ -103,7 +103,7 @@ const inputComponent = h(Input);
           v-model:value="iconValue4"
           allow-clear
           placeholder="点击这里选择图标"
-          style="width: 300px"
+          class="w-75"
         >
           <template #addonAfter>
             <IconPicker v-model="iconValue4" prefix="mdi-light" type="icon" />

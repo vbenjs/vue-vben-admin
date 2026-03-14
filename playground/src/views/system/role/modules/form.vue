@@ -126,17 +126,13 @@ function getNodeClass(node: Recordable<any>) {
 <style lang="css" scoped>
 :deep(.ant-tree-title) {
   .tree-actions {
-    display: none;
-    margin-left: 20px;
+    @apply ml-5 hidden;
   }
 }
 
 :deep(.ant-tree-title:hover) {
   .tree-actions {
-    display: flex;
-    flex: auto;
-    justify-content: flex-end;
-    margin-left: 20px;
+    @apply ml-5 flex flex-auto justify-end;
   }
 }
 </style>

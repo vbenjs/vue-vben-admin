@@ -75,7 +75,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
             v-model:value="leftMinWidth"
             :max="props.leftMaxWidth - 1"
             :min="1"
-            style="width: 100px"
+            class="w-25"
             @after-change="(value) => (props.leftMinWidth = value as number)"
           />
           <span>左侧最大宽度百分比：</span>
@@ -83,7 +83,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
             v-model:value="props.leftMaxWidth"
             :max="100"
             :min="leftMaxWidth + 1"
-            style="width: 100px"
+            class="w-25"
             @after-change="(value) => (props.leftMaxWidth = value as number)"
           />
         </div>

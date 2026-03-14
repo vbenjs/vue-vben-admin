@@ -143,14 +143,16 @@ function menuIcon(menu: MenuRecordRaw) {
 }
 
 .vben-normal-menu__icon {
-  max-height: 20px;
+  @apply max-h-5;
+
   font-size: calc(var(--font-size-base, 16px) * 1.25);
   transition: all 0.25s ease;
 }
 
 .vben-normal-menu__name {
+  @apply mt-2;
+
   width: 100%;
-  margin-top: 8px;
   margin-bottom: 0;
   font-size: calc(var(--font-size-base, 16px) * 0.75);
   font-weight: 400;

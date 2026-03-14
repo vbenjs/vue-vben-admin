@@ -498,7 +498,7 @@ async function handleReset() {
 <style scoped>
 :deep(.sticky-tabs-header [role='tablist']) {
   position: sticky;
-  top: -12px;
+  @apply -top-3;
   z-index: 9999;
 }
 </style>
