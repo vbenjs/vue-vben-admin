@@ -2,6 +2,8 @@
   "recommendations": [
     // Vue 3 的语言支持
     "Vue.volar",
+    // 将 eslint 集成到 VS Code 中。
+    "dbaeumer.vscode-eslint",
     // 将 oxlint 集成到 VS Code 中。
     "oxc.oxc-vscode",
     // Visual Studio Code 的官方 Stylelint 扩展
@@ -21,10 +23,10 @@
     // CSS 变量提示
     "vunguyentuan.vscode-css-variables",
     // 在 package.json 中显示 PNPM catalog 的版本
-    "antfu.pnpm-catalog-lens"
+    "antfu.pnpm-catalog-lens",
   ],
   "unwantedRecommendations": [
     // 和 volar 冲突
-    "octref.vetur"
-  ]
+    "octref.vetur",
+  ],
 }
