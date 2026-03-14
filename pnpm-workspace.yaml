@@ -17,7 +17,6 @@ overrides:
   '@ast-grep/napi': 'catalog:'
   '@ctrl/tinycolor': 'catalog:'
   clsx: 'catalog:'
-  esbuild: 'catalog:'
   pinia: 'catalog:'
   vue: 'catalog:'
 catalog:
@@ -92,9 +91,8 @@ catalog:
   echarts: ^6.0.0
   element-plus: ^2.13.5
   es-toolkit: ^1.45.1
-  esbuild: ^0.27.4
   eslint: ^10.0.3
-  eslint-config-turbo: ^2.8.16
+  eslint-config-turbo: ^2.8.17
   eslint-plugin-better-tailwindcss: ^4.3.2
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.1.2
@@ -152,14 +150,14 @@ catalog:
   stylelint-config-recommended-scss: ^17.0.0
   stylelint-config-recommended-vue: ^1.6.1
   stylelint-config-standard: ^40.0.0
-  stylelint-order: ^8.0.0
+  stylelint-order: ^8.1.0
   stylelint-scss: ^7.0.0
   tailwind-merge: ^3.5.0
   tailwindcss: ^4.2.1
   tdesign-vue-next: ^1.18.5
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
-  turbo: ^2.8.16
+  turbo: ^2.8.17
   tw-animate-css: ^1.4.0
   typescript: ^5.9.3
   unbuild: ^3.6.1
@@ -182,7 +180,7 @@ catalog:
   vue-router: ^5.0.3
   vue-tippy: ^6.7.1
   vue-tsc: ^3.2.5
-  vxe-pc-ui: ^4.13.5
+  vxe-pc-ui: ^4.13.6
   vxe-table: ^4.18.2
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
