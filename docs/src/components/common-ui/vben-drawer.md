@@ -55,7 +55,7 @@ Drawer 内的内容一般业务中，会比较复杂，所以我们可以将 dra
 - `VbenDrawer` 组件对于参数的处理优先级是 `slot` > `props` > `state`(通过api更新的状态以及useVbenDrawer参数)。如果你已经传入了 `slot` 或者 `props`，那么 `setState` 将不会生效，这种情况下你可以通过 `slot` 或者 `props` 来更新状态。
 - 如果你使用到了 `connectedComponent` 参数，那么会存在 2 个`useVbenDrawer`, 此时，如果同时设置了相同的参数，那么以内部为准（也就是没有设置 connectedComponent 的代码）。比如 同时设置了 `onConfirm`，那么以内部的 `onConfirm` 为准。`onOpenChange`事件除外，内外都会触发。
 - 使用了`connectedComponent`参数时，可以配置`destroyOnClose`属性来决定当关闭弹窗时，是否要销毁`connectedComponent`组件（重新创建`connectedComponent`组件，这将会把其内部所有的变量、状态、数据等恢复到初始状态。）。
-- 如果抽屉的默认行为不符合你的预期，可以在`src\bootstrap.ts`中修改`setDefaultDrawerProps`的参数来设置默认的属性，如默认隐藏全屏按钮，修改默认ZIndex等。
+- 如果抽屉的默认行为不符合你的预期，可以在对应应用的 `apps/<app>/src/bootstrap.ts` 中修改 `setDefaultDrawerProps` 的参数来设置默认属性，例如修改默认 `zIndex` 等。
 
 :::
 
@@ -116,7 +116,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 | 事件名 | 描述 | 类型 | 版本限制 |
 | --- | --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`则禁止关闭 | `()=>boolean` | --- |
+| onBeforeClose | 关闭前触发，返回 `false` 或 Promise reject 则禁止关闭 | `()=>Promise<boolean \| undefined>\|boolean\|undefined` | >5.5.2 支持 Promise |
 | onCancel | 点击取消按钮触发 | `()=>void` | --- |
 | onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.5.2 |
 | onConfirm | 点击确认按钮触发 | `()=>void` | --- |
@@ -140,7 +140,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
 | 方法 | 描述 | 类型 | 版本限制 |
 | --- | --- | --- | --- |
-| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>drawerApi` |
+| setState | 动态设置抽屉状态属性 | `(((prev: DrawerState) => Partial<DrawerState>)\| Partial<DrawerState>)=>drawerApi` |
 | open | 打开弹窗 | `()=>void` | --- |
 | close | 关闭弹窗 | `()=>void` | --- |
 | setData | 设置共享数据 | `<T>(data:T)=>drawerApi` | --- |

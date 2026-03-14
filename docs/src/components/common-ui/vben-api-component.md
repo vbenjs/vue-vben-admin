@@ -14,7 +14,7 @@ outline: deep
 
 ## 基础用法
 
-通过 `component` 传入其它组件的定义，并配置相关的其它属性（主要是一些名称映射）。包装组件将通过`api`获取数据（`beforerFetch`、`afterFetch`将分别在`api`运行前、运行后被调用），使用`resultField`从中提取数组，使用`valueField`、`labelField`等来从数据中提取value和label（如果提供了`childrenField`，会将其作为树形结构递归处理每一级数据），之后将处理好的数据通过`optionsPropName`指定的属性传递给目标组件。
+通过 `component` 传入其它组件的定义，并配置相关的其它属性（主要是一些名称映射）。包装组件将通过 `api` 获取数据（`beforeFetch`、`afterFetch` 将分别在 `api` 运行前、运行后被调用），使用 `resultField` 从中提取数组，使用 `valueField`、`labelField` 等来从数据中提取 value 和 label（如果提供了 `childrenField`，会将其作为树形结构递归处理每一级数据），之后将处理好的数据通过 `optionsPropName` 指定的属性传递给目标组件。
 
 ::: details 包装级联选择器,点击下拉时开始加载远程数据
 

@@ -10,7 +10,9 @@ import { $t } from '@vben/locales';
 
 import { initComponentAdapter } from './component';
 
+// oxlint-disable-next-line typescript/no-floating-promises
 initComponentAdapter();
+
 setupVbenForm<ComponentType>({
   config: {
     baseModelPropName: 'value',

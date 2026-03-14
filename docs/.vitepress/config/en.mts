@@ -42,6 +42,10 @@ export const en = defineConfig({
         base: '/en/commercial/',
         items: sidebarCommercial(),
       },
+      '/en/components/': {
+        base: '/en/components/',
+        items: sidebarComponents(),
+      },
       '/en/guide/': { base: '/en/guide/', items: sidebarGuide() },
     },
   },
@@ -63,6 +67,11 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         },
         { link: 'introduction/quick-start', text: 'Quick Start' },
         { link: 'introduction/thin', text: 'Lite Version' },
+        {
+          base: '/',
+          link: 'components/introduction',
+          text: 'Components',
+        },
       ],
     },
     {
@@ -132,6 +141,68 @@ function sidebarCommercial(): DefaultTheme.SidebarItem[] {
   ];
 }
 
+function sidebarComponents(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Components',
+      items: [
+        {
+          link: 'introduction',
+          text: 'Introduction',
+        },
+      ],
+    },
+    {
+      collapsed: false,
+      text: 'Layout UI',
+      items: [
+        {
+          link: 'layout-ui/page',
+          text: 'Page',
+        },
+      ],
+    },
+    {
+      collapsed: false,
+      text: 'Common UI',
+      items: [
+        {
+          link: 'common-ui/vben-api-component',
+          text: 'ApiComponent',
+        },
+        {
+          link: 'common-ui/vben-alert',
+          text: 'Alert',
+        },
+        {
+          link: 'common-ui/vben-modal',
+          text: 'Modal',
+        },
+        {
+          link: 'common-ui/vben-drawer',
+          text: 'Drawer',
+        },
+        {
+          link: 'common-ui/vben-form',
+          text: 'Form',
+        },
+        {
+          link: 'common-ui/vben-vxe-table',
+          text: 'Vxe Table',
+        },
+        {
+          link: 'common-ui/vben-count-to-animator',
+          text: 'CountToAnimator',
+        },
+        {
+          link: 'common-ui/vben-ellipsis-text',
+          text: 'EllipsisText',
+        },
+      ],
+    },
+  ];
+}
+
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
@@ -143,11 +214,11 @@ function nav(): DefaultTheme.NavItem[] {
           link: '/en/guide/introduction/vben',
           text: 'Guide',
         },
-        // {
-        //   activeMatch: '^/en/components/',
-        //   link: '/en/components/introduction',
-        //   text: 'Components',
-        // },
+        {
+          activeMatch: '^/en/components/',
+          link: '/en/components/introduction',
+          text: 'Components',
+        },
         {
           text: 'Historical Versions',
           items: [
