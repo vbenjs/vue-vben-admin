@@ -92,7 +92,6 @@ catalog:
   element-plus: ^2.13.5
   es-toolkit: ^1.45.1
   eslint: ^10.0.3
-  eslint-config-turbo: ^2.8.17
   eslint-plugin-better-tailwindcss: ^4.3.2
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.1.2
