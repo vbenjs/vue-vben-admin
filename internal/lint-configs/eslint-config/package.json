@@ -28,8 +28,7 @@
   },
   "dependencies": {
     "@vben/oxlint-config": "workspace:*",
-    "eslint-config-turbo": "catalog:",
-    "eslint-plugin-command": "catalog:"
+    "eslint-config-turbo": "catalog:"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

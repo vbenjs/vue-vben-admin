@@ -1,4 +1,3 @@
-export * from './command';
 export * from './ignores';
 export * from './javascript';
 export * from './jsonc';

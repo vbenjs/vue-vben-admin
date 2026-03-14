@@ -1,7 +1,6 @@
 import type { Linter } from 'eslint';
 
 import {
-  command,
   ignores,
   javascript,
   jsonc,
@@ -34,7 +33,6 @@ async function defineConfig(config: FlatConfig[] = []) {
     node(),
     perfectionist(),
     unicorn(),
-    command(),
     turbo(),
     yaml(),
     pnpm(),
