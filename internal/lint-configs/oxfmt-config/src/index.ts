@@ -9,6 +9,14 @@ const oxfmtConfig = defineOxfmtConfig({
   singleQuote: true,
   sortPackageJson: false,
   trailingComma: 'all',
+  overrides: [
+    {
+      files: ['**/*.json', '**/*.json5', '**/*.jsonc', '*.code-workspace'],
+      options: {
+        trailingComma: 'none',
+      },
+    },
+  ],
 });
 
 function defineConfig(config: OxfmtConfig = {}) {
