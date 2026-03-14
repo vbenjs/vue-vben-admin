@@ -13,6 +13,11 @@
 /* Dark mode uses .dark class selector, not prefers-color-scheme */
 @custom-variant dark (&:is(.dark *));
 
+/* Explicitly pin Tailwind v4 dynamic spacing for classes like w-150/h-55. */
+@theme {
+  --spacing: 0.25rem;
+}
+
 @theme inline {
   /* Font */
   --font-sans: var(--font-family);
