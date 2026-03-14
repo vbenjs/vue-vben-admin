@@ -12,6 +12,8 @@
     "oxc.oxc-vscode",
     // 支持 dotenv 文件语法
     "mikestead.dotenv",
+    // YAML 语言支持，供 ESLint 校验 pnpm-workspace.yaml 等文件
+    "redhat.vscode-yaml",
     // 源代码的拼写检查器
     "streetsidesoftware.code-spell-checker",
     // Tailwind CSS 的官方 VS Code 插件
