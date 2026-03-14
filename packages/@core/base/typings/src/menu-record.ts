@@ -1,6 +1,8 @@
 import type { Component } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
+import type { Recordable } from './helper';
+
 /**
  * 扩展路由原始对象
  */
@@ -66,6 +68,10 @@ interface MenuRecordRaw extends MenuRecordBadgeRaw {
    * 菜单路径，唯一，可当作key
    */
   path: string;
+  /**
+   * 菜单参数
+   */
+  query?: Recordable<any>;
   /**
    * 是否显示菜单
    * @default true

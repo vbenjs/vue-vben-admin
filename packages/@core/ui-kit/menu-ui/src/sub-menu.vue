@@ -40,6 +40,7 @@ const hasChildren = computed(() => {
     :badge-variants="menu.badgeVariants"
     :icon="menu.icon"
     :path="menu.path"
+    :query="menu.query"
   >
     <template #title>
       <span>{{ menu.name }}</span>
