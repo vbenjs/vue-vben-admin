@@ -34,7 +34,7 @@ const typeWithClass = computed(() => {
     },
     card: {
       content:
-        'h-[calc(100%-6px)] rounded-md ml-2 border border-border  transition-all',
+        'h-[calc(100%-calc(var(--spacing)*1.5))] rounded-md ml-2 border border-border  transition-all',
     },
     plain: {
       content:

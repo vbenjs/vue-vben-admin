@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
           is(rootMenu.theme, true),
           opened ? '' : 'hidden',
           'overflow-auto',
-          'max-h-[calc(var(--reka-hover-card-content-available-height)-20px)]',
+          'max-h-[calc(var(--reka-hover-card-content-available-height)-calc(var(--spacing)*5))]',
           mode === 'horizontal' ? 'is-horizontal' : '',
         ]"
         :content-props="contentProps"

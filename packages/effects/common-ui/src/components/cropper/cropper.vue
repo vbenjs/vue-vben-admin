@@ -921,19 +921,19 @@ defineExpose({ getCropImage });
 }
 
 .cropper-line-e {
-  @apply top-0 right-[-3px] h-full w-1;
+  @apply top-0 -right-0.75 h-full w-1;
 }
 
 .cropper-line-n {
-  @apply top-[-3px] left-0 h-1 w-full;
+  @apply -top-0.75 left-0 h-1 w-full;
 }
 
 .cropper-line-w {
-  @apply top-0 left-[-3px] h-full w-1;
+  @apply top-0 -left-0.75 h-full w-1;
 }
 
 .cropper-line-s {
-  @apply bottom-[-3px] left-0 h-1 w-full;
+  @apply -bottom-0.75 left-0 h-1 w-full;
 }
 
 /* 拖拽点 */
@@ -947,35 +947,35 @@ defineExpose({ getCropImage });
 
 /* 边角拖拽点位置和光标 */
 .cropper-point-ne {
-  @apply top-[-5px] right-[-5px] cursor-ne-resize;
+  @apply -top-1.25 -right-1.25 cursor-ne-resize;
 }
 
 .cropper-point-nw {
-  @apply top-[-5px] left-[-5px] cursor-nw-resize;
+  @apply -top-1.25 -left-1.25 cursor-nw-resize;
 }
 
 .cropper-point-sw {
-  @apply bottom-[-5px] left-[-5px] cursor-sw-resize;
+  @apply -bottom-1.25 -left-1.25 cursor-sw-resize;
 }
 
 .cropper-point-se {
-  @apply right-[-5px] bottom-[-5px] cursor-se-resize;
+  @apply -right-1.25 -bottom-1.25 cursor-se-resize;
 }
 
 /* 边中点拖拽点位置和光标 */
 .cropper-point-e {
-  @apply top-1/2 right-[-5px] -mt-1 cursor-e-resize;
+  @apply top-1/2 -right-1.25 -mt-1 cursor-e-resize;
 }
 
 .cropper-point-n {
-  @apply top-[-5px] left-1/2 -ml-1 cursor-n-resize;
+  @apply -top-1.25 left-1/2 -ml-1 cursor-n-resize;
 }
 
 .cropper-point-w {
-  @apply top-1/2 left-[-5px] -mt-1 cursor-w-resize;
+  @apply top-1/2 -left-1.25 -mt-1 cursor-w-resize;
 }
 
 .cropper-point-s {
-  @apply bottom-[-5px] left-1/2 -ml-1 cursor-s-resize;
+  @apply -bottom-1.25 left-1/2 -ml-1 cursor-s-resize;
 }
 </style>

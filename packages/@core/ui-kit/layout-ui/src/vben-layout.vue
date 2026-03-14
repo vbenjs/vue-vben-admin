@@ -548,7 +548,8 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       <div
         :class="[
           {
-            'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
+            'shadow-[0_calc(var(--spacing)*4)_calc(var(--spacing)*6)_hsl(var(--background))]':
+              scrollY > 20,
           },
           SCROLL_FIXED_CLASS,
         ]"

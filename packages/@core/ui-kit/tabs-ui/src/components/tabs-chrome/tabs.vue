@@ -113,7 +113,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
             ></div>
             <!-- background -->
             <div
-              class="tabs-chrome__background absolute z-[-1] size-full px-[calc(var(--gap)-1px)] py-0 transition-opacity duration-150"
+              class="tabs-chrome__background absolute z-[-1] size-full px-[calc(var(--gap)-calc(var(--spacing)*0.25))] py-0 transition-opacity duration-150"
             >
               <div
                 class="tabs-chrome__background-content h-full rounded-tl-(--gap) rounded-tr-(--gap) duration-150 group-[.is-active]:bg-primary/15 group-[.is-active]:dark:bg-accent"
