@@ -41,6 +41,7 @@
   "oxc.typeAware": true,
   "oxc.configPath": "oxlint.config.ts",
   "oxc.fmt.configPath": "oxfmt.config.ts",
+  "eslint.useFlatConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit",
     "source.fixAll.stylelint": "explicit",
@@ -170,7 +171,7 @@
   "emmet.triggerExpansionOnTab": false,
 
   "errorLens.enabledDiagnosticLevels": ["warning", "error"],
-  "errorLens.excludeBySource": ["cSpell", "Grammarly", "eslint"],
+  "errorLens.excludeBySource": ["cSpell", "Grammarly"],
 
   "stylelint.enable": true,
   "stylelint.packageManager": "pnpm",
