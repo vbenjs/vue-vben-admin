@@ -12,11 +12,11 @@ const { isFullscreen, toggle } = useFullscreen();
 // 重新检查全屏状态
 isFullscreen.value = !!(
   document.fullscreenElement ||
-  // @ts-expect-error: vendor fullscreen APIs are not included in the standard DOM typings
+  // @ts-expect-error - vendor fullscreen APIs are not included in the standard DOM typings
   document.webkitFullscreenElement ||
-  // @ts-expect-error: vendor fullscreen APIs are not included in the standard DOM typings
+  // @ts-expect-error - vendor fullscreen APIs are not included in the standard DOM typings
   document.mozFullScreenElement ||
-  // @ts-expect-error: vendor fullscreen APIs are not included in the standard DOM typings
+  // @ts-expect-error - vendor fullscreen APIs are not included in the standard DOM typings
   document.msFullscreenElement
 );
 </script>

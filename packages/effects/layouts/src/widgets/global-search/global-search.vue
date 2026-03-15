@@ -82,7 +82,6 @@ const toggleKeydownListener = () => {
 };
 
 const toggleOpen = () => {
-  // oxlint-disable-next-line no-unused-expressions
   open.value ? modalApi.close() : modalApi.open();
 };
 
