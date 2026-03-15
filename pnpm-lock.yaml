@@ -1017,10 +1017,6 @@ importers:
 
   internal/lint-configs/eslint-config:
     dependencies:
-      '@vben/oxlint-config':
-        specifier: workspace:*
-        version: link:../oxlint-config
-    devDependencies:
       '@eslint/js':
         specifier: 'catalog:'
         version: 10.0.1(eslint@10.0.3(jiti@2.6.1))
@@ -1030,6 +1026,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: 'catalog:'
         version: 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      '@vben/oxlint-config':
+        specifier: workspace:*
+        version: link:../oxlint-config
       eslint:
         specifier: 'catalog:'
         version: 10.0.3(jiti@2.6.1)
