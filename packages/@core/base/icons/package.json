@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsdown"
+    "build": "pnpm exec tsdown"
   },
   "files": [
     "dist"
@@ -28,7 +28,7 @@
   "publishConfig": {
     "exports": {
       ".": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       }
     }
