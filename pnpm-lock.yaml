@@ -1183,6 +1183,9 @@ importers:
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.2.1(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.98.0)(sass@1.98.0)(terser@5.46.0)(yaml@2.8.2))
+      '@vben/node-utils':
+        specifier: workspace:*
+        version: link:../node-utils
       archiver:
         specifier: 'catalog:'
         version: 7.0.1
@@ -1217,9 +1220,6 @@ importers:
       '@types/html-minifier-terser':
         specifier: 'catalog:'
         version: 7.0.2
-      '@vben/node-utils':
-        specifier: workspace:*
-        version: link:../node-utils
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
         version: 6.0.5(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.98.0)(sass@1.98.0)(terser@5.46.0)(yaml@2.8.2))(vue@3.5.30(typescript@5.9.3))
