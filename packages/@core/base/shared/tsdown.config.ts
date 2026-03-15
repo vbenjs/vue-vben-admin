@@ -12,4 +12,7 @@ export default defineConfig({
     'utils/index': 'src/utils/index.ts',
   },
   format: ['esm'],
+  outExtensions: () => ({
+    dts: '.d.ts',
+  }),
 });
