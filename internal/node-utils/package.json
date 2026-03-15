@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "build": "node ./scripts/build.mjs",
-    "stub": "node ./scripts/build.mjs"
+    "stub": "pnpm run build"
   },
   "files": [
     "dist"
