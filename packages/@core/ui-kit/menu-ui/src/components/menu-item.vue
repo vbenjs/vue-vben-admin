@@ -84,50 +84,53 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <a
-    :href="
+  <router-link
+    v-slot="{ href }"
+    custom
+    :to="
       (item.parentPaths.at(-1) ?? '') +
       (item?.query ? `?${qs.stringify(item?.query)}` : '')
     "
-    @click.prevent.stop="handleClick"
   >
-    <li
-      :class="[
-        rootMenu.theme,
-        b(),
-        is('active', active),
-        is('disabled', disabled),
-        is('collapse-show-title', collapseShowTitle),
-      ]"
-      role="menuitem"
-    >
-      <!-- -->
-      <VbenTooltip
-        v-if="showTooltip"
-        :content-class="[rootMenu.theme]"
-        side="right"
+    <a :href="href" @click.prevent.stop="handleClick">
+      <li
+        :class="[
+          rootMenu.theme,
+          b(),
+          is('active', active),
+          is('disabled', disabled),
+          is('collapse-show-title', collapseShowTitle),
+        ]"
+        role="menuitem"
       >
-        <template #trigger>
-          <div :class="[nsMenu.be('tooltip', 'trigger')]">
-            <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
-            <slot></slot>
-            <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
-              <slot name="title"></slot>
-            </span>
-          </div>
-        </template>
-        <slot name="title"></slot>
-      </VbenTooltip>
-      <div v-show="!showTooltip" :class="[e('content')]">
-        <MenuBadge
-          v-if="rootMenu.props.mode !== 'horizontal'"
-          class="right-2"
-          v-bind="props"
-        />
-        <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
-        <slot></slot>
-        <slot name="title"></slot>
-      </div>
-    </li>
-  </a>
+        <!-- -->
+        <VbenTooltip
+          v-if="showTooltip"
+          :content-class="[rootMenu.theme]"
+          side="right"
+        >
+          <template #trigger>
+            <div :class="[nsMenu.be('tooltip', 'trigger')]">
+              <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
+              <slot></slot>
+              <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
+                <slot name="title"></slot>
+              </span>
+            </div>
+          </template>
+          <slot name="title"></slot>
+        </VbenTooltip>
+        <div v-show="!showTooltip" :class="[e('content')]">
+          <MenuBadge
+            v-if="rootMenu.props.mode !== 'horizontal'"
+            class="right-2"
+            v-bind="props"
+          />
+          <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
+          <slot></slot>
+          <slot name="title"></slot>
+        </div>
+      </li>
+    </a>
+  </router-link>
 </template>
