@@ -11,7 +11,6 @@ const DEFAULT_CONFIG = {
     'vite',
     'vitest',
     'tsdown',
-    'unbuild',
     '@vben/tsconfig',
     '@vben/vite-config',
     '@types/*',
