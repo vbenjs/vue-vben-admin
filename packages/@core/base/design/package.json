@@ -23,6 +23,7 @@
   "exports": {
     "./bem": {
       "development": "./src/scss-bem/bem.scss",
+      "production": "./src/scss-bem/bem.scss",
       "default": "./dist/bem.scss"
     },
     "./theme": {
@@ -31,6 +32,7 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
+      "production": "./src/index.ts",
       "default": "./dist/design.css"
     }
   },

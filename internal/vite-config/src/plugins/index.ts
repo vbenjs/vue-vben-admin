@@ -12,8 +12,8 @@ import tailwindcss from '@tailwindcss/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
 import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
+import viteDtsPlugin from 'unplugin-dts/vite';
 import viteCompressPlugin from 'vite-plugin-compression';
-import viteDtsPlugin from 'vite-plugin-dts';
 import { createHtmlPlugin as viteHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteVueDevTools from 'vite-plugin-vue-devtools';
@@ -231,12 +231,13 @@ async function loadLibraryPlugins(
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
   const { dts, ...commonOptions } = options;
+  const dtsOptions = typeof dts === 'object' ? dts : undefined;
   const commonPlugins = await loadCommonPlugins(commonOptions);
   return await loadConditionPlugins([
     ...commonPlugins,
     {
       condition: isBuild && !!dts,
-      plugins: () => [viteDtsPlugin({ logLevel: 'error' })],
+      plugins: () => [viteDtsPlugin(dtsOptions)],
     },
   ]);
 }

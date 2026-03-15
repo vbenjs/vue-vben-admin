@@ -24,6 +24,7 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
+      "production": "./src/index.ts",
       "default": "./dist/index.mjs"
     },
     "./vue-router": {
