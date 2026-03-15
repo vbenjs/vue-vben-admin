@@ -1,10 +1,13 @@
+import type { Package } from '@manypkg/get-packages';
+
 import { dirname } from 'node:path';
 
-import {
-  getPackages as getPackagesFunc,
-  getPackagesSync as getPackagesSyncFunc,
-} from '@manypkg/get-packages';
-import { findUpSync } from 'find-up';
+import * as manypkg from '@manypkg/get-packages';
+import * as findUp from 'find-up';
+
+const { getPackages: getPackagesFunc, getPackagesSync: getPackagesSyncFunc } =
+  manypkg;
+const { findUpSync } = findUp;
 
 /**
  * 查找大仓的根目录
@@ -40,7 +43,7 @@ async function getPackages() {
  */
 async function getPackage(pkgName: string) {
   const { packages } = await getPackages();
-  return packages.find((pkg) => pkg.packageJson.name === pkgName);
+  return packages.find((pkg: Package) => pkg.packageJson.name === pkgName);
 }
 
 export { findMonorepoRoot, getPackage, getPackages, getPackagesSync };
