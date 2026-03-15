@@ -1,3 +1,5 @@
-import { defineConfig } from '@vben/oxlint-config';
+import { oxlintConfig } from '@vben/oxlint-config';
 
-export default defineConfig();
+import { defineConfig } from 'oxlint';
+
+export default defineConfig(oxlintConfig);

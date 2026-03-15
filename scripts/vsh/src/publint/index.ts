@@ -168,7 +168,6 @@ function printResult(
         `${UNICODE.FAILURE} ${totalCount} problem (${errorCount} errors, ${warningCount} warnings, ${suggestionsCount} suggestions)`,
       ),
     );
-    // oxlint-disable-next-line no-unused-expressions
     !check && process.exit(1);
   } else {
     consola.log(colors.green(`${UNICODE.SUCCESS} No problem`));

@@ -49,10 +49,8 @@ async function viteExtraAppConfigPlugin({
 
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
-        // oxlint-disable-next-line no-console
         console.log(
           colors.red(
-            // oxlint-disable-next-line typescript/restrict-template-expressions
             `configuration file configuration file failed to package:\n${error}`,
           ),
         );
