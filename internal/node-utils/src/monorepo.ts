@@ -1,24 +1,31 @@
 import type { Package } from '@manypkg/get-packages';
 
-import { dirname } from 'node:path';
+import { existsSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 
 import * as manypkg from '@manypkg/get-packages';
-import * as findUp from 'find-up';
-
 const { getPackages: getPackagesFunc, getPackagesSync: getPackagesSyncFunc } =
   manypkg;
-const { findUpSync } = findUp;
 
 /**
  * 查找大仓的根目录
  * @param cwd
  */
 function findMonorepoRoot(cwd: string = process.cwd()) {
-  const lockFile = findUpSync('pnpm-lock.yaml', {
-    cwd,
-    type: 'file',
-  });
-  return dirname(lockFile || '');
+  let currentDir = resolve(cwd);
+
+  while (true) {
+    if (existsSync(join(currentDir, 'pnpm-lock.yaml'))) {
+      return currentDir;
+    }
+
+    const parentDir = dirname(currentDir);
+    if (parentDir === currentDir) {
+      return '';
+    }
+
+    currentDir = parentDir;
+  }
 }
 
 /**
