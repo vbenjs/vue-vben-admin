@@ -161,6 +161,7 @@ catalog:
   unbuild: ^3.6.1
   unplugin-dts: ^1.0.0-beta.6
   unplugin-element-plus: ^0.11.2
+  unplugin-vue: ^7.1.1
   vee-validate: ^4.15.1
   vite: ^8.0.0
   vite-plugin-compression: ^0.5.1

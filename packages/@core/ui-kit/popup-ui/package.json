@@ -11,7 +11,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
+    "build": "pnpm exec tsdown",
+    "stub": "pnpm run build",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -22,6 +23,7 @@
   ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -33,6 +35,7 @@
   "publishConfig": {
     "exports": {
       ".": {
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       }
     }
