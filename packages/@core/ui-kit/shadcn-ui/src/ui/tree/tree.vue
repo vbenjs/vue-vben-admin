@@ -448,8 +448,9 @@ defineExpose({
 }
 
 .item {
-  @apply h-7.5 w-full box-border;
-
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
   background-color: #f3f3f3;
   border: 1px solid #666;
 }
