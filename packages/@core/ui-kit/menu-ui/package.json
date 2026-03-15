@@ -12,7 +12,6 @@
   "type": "module",
   "scripts": {
     "build": "pnpm exec tsdown",
-    "stub": "pnpm run build",
     "prepublishOnly": "npm run build"
   },
   "files": [

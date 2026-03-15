@@ -12,7 +12,6 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm exec tsdown",
     "stub": "pnpm exec tsdown"
   },
   "files": [
