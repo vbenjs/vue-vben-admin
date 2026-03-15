@@ -11,8 +11,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild",
-    "stub": "pnpm unbuild --stub"
+    "build": "tsdown",
+    "stub": "tsdown"
   },
   "files": [
     "dist"
@@ -53,27 +53,27 @@
   "publishConfig": {
     "exports": {
       "./constants": {
-        "types": "./dist/constants/index.d.ts",
+        "types": "./dist/constants/index.d.mts",
         "default": "./dist/constants/index.mjs"
       },
       "./utils": {
-        "types": "./dist/utils/index.d.ts",
+        "types": "./dist/utils/index.d.mts",
         "default": "./dist/utils/index.mjs"
       },
       "./color": {
-        "types": "./dist/color/index.d.ts",
+        "types": "./dist/color/index.d.mts",
         "default": "./dist/color/index.mjs"
       },
       "./cache": {
-        "types": "./dist/cache/index.d.ts",
+        "types": "./dist/cache/index.d.mts",
         "default": "./dist/cache/index.mjs"
       },
       "./store": {
-        "types": "./dist/store.d.ts",
+        "types": "./dist/store.d.mts",
         "default": "./dist/store.mjs"
       },
       "./global-state": {
-        "types": "./dist/global-state.d.ts",
+        "types": "./dist/global-state.d.mts",
         "default": "./dist/global-state.mjs"
       }
     }

@@ -11,14 +11,15 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild"
+    "build": "tsdown"
   },
   "files": [
-    "dist"
+    "dist",
+    "vue-router.d.ts"
   ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -32,7 +33,7 @@
   "publishConfig": {
     "exports": {
       ".": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       }
     }

@@ -92,6 +92,7 @@
     "playwright": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",
+    "tsdown": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:",

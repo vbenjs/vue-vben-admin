@@ -11,7 +11,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "#build": "pnpm unbuild"
+    "build": "tsdown"
   },
   "files": [
     "dist",
