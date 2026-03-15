@@ -33,6 +33,26 @@ type RequestResponse<T = any> = AxiosResponse<T> & {
   config: RequestClientConfig<T>;
 };
 
+type ResponseReturnMode = NonNullable<ExtendOptions['responseReturn']>;
+
+type RequestReturnValue<
+  TResponse = any,
+  TReturn extends ResponseReturnMode | undefined = undefined,
+> = TReturn extends 'body'
+  ? TResponse
+  : TReturn extends 'data'
+    ? TResponse extends { data: infer Inner }
+      ? Inner
+      : TResponse
+    : RequestResponse<TResponse>;
+
+type RequestClientReturnConfig<
+  TResponse = any,
+  TReturn extends ResponseReturnMode | undefined = undefined,
+> = Omit<RequestClientConfig<TResponse>, 'responseReturn'> & {
+  responseReturn?: TReturn;
+};
+
 type RequestContentType =
   | 'application/json;charset=utf-8'
   | 'application/octet-stream;charset=utf-8'
@@ -67,14 +87,11 @@ interface ResponseInterceptorConfig<T = any> {
 
 type MakeErrorMessageFn = (message: string, error: any) => void;
 
-interface HttpResponse<T = any> {
-  /**
-   * 0 表示成功 其他表示失败
-   * 0 means success, others means fail
-   */
-  code: number;
-  data: T;
-  message: string;
+interface HttpResponse {
+  /** The backend service response code */
+  code: string;
+  /** The backend service response message */
+  msg: string;
 }
 
 export type {
@@ -82,9 +99,12 @@ export type {
   MakeErrorMessageFn,
   RequestClientConfig,
   RequestClientOptions,
+  RequestClientReturnConfig,
   RequestContentType,
   RequestInterceptorConfig,
   RequestResponse,
+  RequestReturnValue,
   ResponseInterceptorConfig,
+  ResponseReturnMode,
   SseRequestOptions,
 };

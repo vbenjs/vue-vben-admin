@@ -136,17 +136,18 @@ export interface DrawerState extends DrawerProps {
   sharedData?: Record<string, any>;
 }
 
-export type ExtendedDrawerApi = DrawerApi & {
+export type ExtendedDrawerApi<TPayload = any> = DrawerApi<TPayload> & {
   useStore: <T = NoInfer<DrawerState>>(
     selector?: (state: NoInfer<DrawerState>) => T,
   ) => Readonly<Ref<T>>;
 };
 
-export interface DrawerApiOptions extends DrawerState {
+export interface DrawerApiOptions<TConnected extends Component = Component>
+  extends DrawerState {
   /**
    * 独立的抽屉组件
    */
-  connectedComponent?: Component;
+  connectedComponent?: TConnected;
   /**
    * 关闭前的回调，返回 false 可以阻止关闭
    * @returns

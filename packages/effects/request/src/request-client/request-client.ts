@@ -1,6 +1,11 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
-import type { RequestClientConfig, RequestClientOptions } from './types';
+import type {
+  RequestClientOptions,
+  RequestClientReturnConfig,
+  RequestReturnValue,
+  ResponseReturnMode,
+} from './types';
 
 import { bindMethods, isString, merge } from '@vben/utils';
 
@@ -11,6 +16,11 @@ import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { SSE } from './modules/sse';
 import { FileUploader } from './modules/uploader';
+
+type EffectiveReturnMode<
+  TOverride extends ResponseReturnMode | undefined,
+  TDefault extends ResponseReturnMode,
+> = [TOverride] extends [undefined] ? TDefault : Exclude<TOverride, undefined>;
 
 function getParamsSerializer(
   paramsSerializer: RequestClientOptions['paramsSerializer'],
@@ -36,7 +46,7 @@ function getParamsSerializer(
   return paramsSerializer;
 }
 
-class RequestClient {
+class RequestClient<TDefaultReturn extends ResponseReturnMode = 'raw'> {
   public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
 
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
@@ -96,18 +106,37 @@ class RequestClient {
   /**
    * DELETE请求方法
    */
-  public delete<T = any>(
+  public delete<
+    TResponse = any,
+    TReturn extends ResponseReturnMode | undefined = undefined,
+  >(
     url: string,
-    config?: RequestClientConfig,
-  ): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'DELETE' });
+    config?: RequestClientReturnConfig<TResponse, TReturn>,
+  ): Promise<
+    RequestReturnValue<TResponse, EffectiveReturnMode<TReturn, TDefaultReturn>>
+  > {
+    return this.request<TResponse, TReturn>(url, {
+      ...config,
+      method: 'DELETE',
+    } as RequestClientReturnConfig<TResponse, TReturn>);
   }
 
   /**
    * GET请求方法
    */
-  public get<T = any>(url: string, config?: RequestClientConfig): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'GET' });
+  public get<
+    TResponse = any,
+    TReturn extends ResponseReturnMode | undefined = undefined,
+  >(
+    url: string,
+    config?: RequestClientReturnConfig<TResponse, TReturn>,
+  ): Promise<
+    RequestReturnValue<TResponse, EffectiveReturnMode<TReturn, TDefaultReturn>>
+  > {
+    return this.request<TResponse, TReturn>(url, {
+      ...config,
+      method: 'GET',
+    } as RequestClientReturnConfig<TResponse, TReturn>);
   }
 
   /**
@@ -120,43 +149,69 @@ class RequestClient {
   /**
    * POST请求方法
    */
-  public post<T = any>(
+  public post<
+    TResponse = any,
+    TReturn extends ResponseReturnMode | undefined = undefined,
+  >(
     url: string,
     data?: any,
-    config?: RequestClientConfig,
-  ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'POST' });
+    config?: RequestClientReturnConfig<TResponse, TReturn>,
+  ): Promise<
+    RequestReturnValue<TResponse, EffectiveReturnMode<TReturn, TDefaultReturn>>
+  > {
+    return this.request<TResponse, TReturn>(url, {
+      ...config,
+      data,
+      method: 'POST',
+    } as RequestClientReturnConfig<TResponse, TReturn>);
   }
 
   /**
    * PUT请求方法
    */
-  public put<T = any>(
+  public put<
+    TResponse = any,
+    TReturn extends ResponseReturnMode | undefined = undefined,
+  >(
     url: string,
     data?: any,
-    config?: RequestClientConfig,
-  ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'PUT' });
+    config?: RequestClientReturnConfig<TResponse, TReturn>,
+  ): Promise<
+    RequestReturnValue<TResponse, EffectiveReturnMode<TReturn, TDefaultReturn>>
+  > {
+    return this.request<TResponse, TReturn>(url, {
+      ...config,
+      data,
+      method: 'PUT',
+    } as RequestClientReturnConfig<TResponse, TReturn>);
   }
 
   /**
    * 通用的请求方法
    */
-  public async request<T>(
+  public async request<
+    TResponse = any,
+    TReturn extends ResponseReturnMode | undefined = undefined,
+  >(
     url: string,
-    config: RequestClientConfig,
-  ): Promise<T> {
+    config: RequestClientReturnConfig<TResponse, TReturn>,
+  ): Promise<
+    RequestReturnValue<TResponse, EffectiveReturnMode<TReturn, TDefaultReturn>>
+  > {
     try {
-      const response: AxiosResponse<T> = await this.instance({
+      const response: AxiosResponse<TResponse> = await this.instance({
         url,
         ...config,
         ...(config.paramsSerializer
           ? { paramsSerializer: getParamsSerializer(config.paramsSerializer) }
           : {}),
       });
-      return response as T;
+      return response as RequestReturnValue<
+        TResponse,
+        EffectiveReturnMode<TReturn, TDefaultReturn>
+      >;
     } catch (error: any) {
-      throw error.response ? error.response.data : error;
+      throw error.response || error;
     }
   }
 }
