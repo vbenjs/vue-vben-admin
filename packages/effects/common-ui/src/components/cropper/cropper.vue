@@ -528,7 +528,7 @@ const handleImageLoad = () => {
  * @param {number} targetHeight - 目标高度（可选，不传则为原始裁剪高度）
  */
 const getCropImage = async (
-  format: 'image/jpeg' | 'image/png' = 'image/jpeg',
+  format: 'image/jpeg' | 'image/png' = 'image/png',
   quality: number = 0.92,
   outputType: 'base64' | 'blob' = 'blob',
   targetWidth?: number,
