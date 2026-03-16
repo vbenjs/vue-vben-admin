@@ -20,13 +20,13 @@ overrides:
   pinia: 'catalog:'
   vue: 'catalog:'
 catalog:
-  '@ast-grep/napi': ^0.41.1
+  '@ast-grep/napi': ^0.42.0
   '@changesets/changelog-github': ^0.6.0
   '@changesets/cli': ^2.30.0
   '@changesets/git': ^3.0.4
   '@clack/prompts': ^1.1.0
-  '@commitlint/cli': ^20.4.4
-  '@commitlint/config-conventional': ^20.4.4
+  '@commitlint/cli': ^20.5.0
+  '@commitlint/config-conventional': ^20.5.0
   '@ctrl/tinycolor': ^4.2.0
   '@eslint-community/eslint-plugin-eslint-comments': ^4.7.1
   '@eslint/js': ^10.0.1
@@ -122,7 +122,7 @@ catalog:
   ora: ^9.3.0
   oxfmt: ^0.40.0
   oxlint: ^1.55.0
-  oxlint-tsgolint: ^0.16.0
+  oxlint-tsgolint: ^0.17.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.0
@@ -178,8 +178,8 @@ catalog:
   vue-router: ^5.0.3
   vue-tippy: ^6.7.1
   vue-tsc: ^3.2.5
-  vxe-pc-ui: ^4.13.6
-  vxe-table: ^4.18.2
+  vxe-pc-ui: ^4.13.8
+  vxe-table: ^4.18.4
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
