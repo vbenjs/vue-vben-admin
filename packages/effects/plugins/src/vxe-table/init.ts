@@ -52,6 +52,16 @@ let isInit = false;
 
 let tableFormFactory: typeof useVbenForm | undefined;
 
+function normalizeVxeLocale<T extends Record<string, any>>(localeModule: T) {
+  return (
+    localeModule &&
+    typeof localeModule === 'object' &&
+    'default' in localeModule
+      ? localeModule.default
+      : localeModule
+  ) as T;
+}
+
 export const useTableForm: typeof useVbenForm = ((...args) => {
   if (!tableFormFactory) {
     throw new Error('useTableForm is not initialized');
@@ -116,8 +126,8 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
   const { isDark, locale } = usePreferences();
 
   const localMap = {
-    'zh-CN': zhCN,
-    'en-US': enUS,
+    'zh-CN': normalizeVxeLocale(zhCN),
+    'en-US': normalizeVxeLocale(enUS),
   };
 
   watch(
