@@ -348,13 +348,14 @@ const [BaseForm, baseFormApi] = useVbenForm({
         // 自动携带认证信息
         customRequest: upload_file,
         disabled: false,
-        maxCount: 1,
+        maxCount: 3,
         // 单位：MB
         maxSize: 2,
         multiple: false,
         showUploadList: true,
         // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
         listType: 'picture-card',
+        draggable: true, // 启用拖拽排序
         // onChange事件已被重写，如需自定义请在此基础上扩展
         handleChange: ({ file }: { file: UploadFile }) => {
           const { name, status } = file;
@@ -363,6 +364,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
           } else if (status === 'error') {
             message.error(`${name} ${$t('examples.form.upload-fail')}`);
           }
+        },
+        onDragSort: (oldIndex: number, newIndex: number) => {
+          console.info(`图片从 ${oldIndex} 移动到 ${newIndex}`);
         },
       },
       fieldName: 'files',
