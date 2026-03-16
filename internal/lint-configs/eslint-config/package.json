@@ -12,7 +12,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "stub": "pnpm unbuild --stub"
+    "stub": "pnpm exec tsdown"
   },
   "files": [
     "dist"
@@ -27,12 +27,10 @@
     }
   },
   "dependencies": {
-    "@vben/oxlint-config": "workspace:*"
-  },
-  "devDependencies": {
     "@eslint/js": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
+    "@vben/oxlint-config": "workspace:*",
     "eslint": "catalog:",
     "eslint-plugin-jsonc": "catalog:",
     "eslint-plugin-n": "catalog:",

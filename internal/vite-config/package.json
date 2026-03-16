@@ -12,7 +12,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "stub": "pnpm unbuild --stub"
+    "stub": "pnpm exec tsdown"
   },
   "files": [
     "dist"
@@ -30,6 +30,7 @@
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@jspm/generator": "catalog:",
     "@tailwindcss/vite": "catalog:",
+    "@vben/node-utils": "workspace:*",
     "archiver": "catalog:",
     "cheerio": "catalog:",
     "get-port": "catalog:",
@@ -43,18 +44,16 @@
     "@pnpm/workspace.read-manifest": "catalog:",
     "@types/archiver": "catalog:",
     "@types/html-minifier-terser": "catalog:",
-    "@vben/node-utils": "workspace:*",
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
     "dayjs": "catalog:",
     "dotenv": "catalog:",
-    "rollup": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
     "sass": "catalog:",
     "sass-embedded": "catalog:",
+    "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vite-plugin-compression": "catalog:",
-    "vite-plugin-dts": "catalog:",
     "vite-plugin-html": "catalog:",
     "vite-plugin-lazy-import": "catalog:"
   }

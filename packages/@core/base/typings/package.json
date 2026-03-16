@@ -11,10 +11,11 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm unbuild"
+    "build": "pnpm exec tsdown"
   },
   "files": [
-    "dist"
+    "dist",
+    "vue-router.d.ts"
   ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
@@ -23,6 +24,7 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
+      "production": "./src/index.ts",
       "default": "./dist/index.mjs"
     },
     "./vue-router": {
