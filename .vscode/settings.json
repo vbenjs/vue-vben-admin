@@ -43,6 +43,7 @@
   "oxc.fmt.configPath": "oxfmt.config.ts",
   "eslint.useFlatConfig": true,
   "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
     "source.fixAll.oxc": "explicit",
     "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"
