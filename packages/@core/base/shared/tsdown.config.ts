@@ -8,7 +8,7 @@ export default defineConfig({
     'color/index': 'src/color/index.ts',
     'constants/index': 'src/constants/index.ts',
     'global-state': 'src/global-state.ts',
-    'store': 'src/store.ts',
+    store: 'src/store.ts',
     'utils/index': 'src/utils/index.ts',
   },
   format: ['esm'],

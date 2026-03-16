@@ -1,6 +1,5 @@
-import Vue from 'unplugin-vue/rolldown';
-
 import { defineConfig } from 'tsdown';
+import Vue from 'unplugin-vue/rolldown';
 
 export default defineConfig({
   clean: true,
