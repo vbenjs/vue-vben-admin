@@ -1,8 +1,7 @@
 import { spawnSync } from 'node:child_process';
 
 const pnpmCommand =
-  process.env.npm_execpath &&
-  process.env.npm_execpath.endsWith('.cjs')
+  process.env.npm_execpath && process.env.npm_execpath.endsWith('.cjs')
     ? [process.execPath, process.env.npm_execpath]
     : ['pnpm'];
 
@@ -22,7 +21,11 @@ const steps = [
 
 for (const args of steps) {
   const [command, ...commandArgs] = pnpmCommand;
-  const result = spawnSync(command, [...commandArgs, ...args], {
+  let cmd = command;
+  if (cmd.includes(' ')) {
+    cmd = `"${command}"`;
+  }
+  const result = spawnSync(cmd, [...commandArgs, ...args], {
     shell: true,
     stdio: 'inherit',
   });
