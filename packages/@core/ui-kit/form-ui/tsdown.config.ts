@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsdown';
+// eslint-disable-next-line n/no-extraneous-import
 import Vue from 'unplugin-vue/rolldown';
 
 export default defineConfig({
