@@ -91,6 +91,7 @@
       "alignLeft": "Left",
       "alignCenter": "Center",
       "alignRight": "Right",
+      "preview": "Preview",
       "undo": "Undo",
       "redo": "Redo",
       "clear": "Clear"

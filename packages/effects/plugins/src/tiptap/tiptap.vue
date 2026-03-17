@@ -7,15 +7,17 @@ import type {
 
 import { computed, onBeforeUnmount, watch } from 'vue';
 
-import { Check, ChevronDown } from '@vben/icons';
+import { Check, ChevronDown, Eye } from '@vben/icons';
 import { $t } from '@vben/locales';
 
+import { useVbenModal } from '@vben-core/popup-ui';
 import { VbenIconButton, VbenPopover } from '@vben-core/shadcn-ui';
 import { cn } from '@vben-core/shared/utils';
 
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 
 import { createDefaultTiptapExtensions } from './extensions';
+import Preview from './preview.vue';
 import { createToolbarGroups } from './toolbar';
 import { useTiptapToolbar } from './use-tiptap-toolbar';
 
@@ -24,6 +26,7 @@ const props = withDefaults(defineProps<TipTapProps>(), {
   extensions: undefined,
   minHeight: 240,
   placeholder: $t('ui.tiptap.placeholder'),
+  previewable: true,
   toolbar: true,
 });
 
@@ -39,7 +42,7 @@ const contentMinHeight = computed(() =>
     : props.minHeight,
 );
 const tiptapContentClass = cn(
-  'vben-tiptap__content',
+  'vben-tiptap-content vben-tiptap__content',
   'min-h-(--vben-tiptap-min-height) leading-7 text-foreground outline-none',
 );
 
@@ -74,6 +77,13 @@ const editor = useEditor({
 const toolbarGroups = computed<ToolbarAction[][]>(() => {
   return createToolbarGroups();
 });
+const previewContent = computed(
+  () => editor.value?.getHTML() ?? modelValue.value,
+);
+const [PreviewModal, previewModalApi] = useVbenModal({
+  footer: false,
+  fullscreenButton: false,
+});
 const {
   applyPaletteColor,
   canRunAction,
@@ -91,6 +101,10 @@ const {
   editable: () => props.editable,
   editor,
 });
+
+function openPreviewModal() {
+  previewModalApi.open();
+}
 
 watch(
   () => props.editable,
@@ -244,67 +258,36 @@ onBeforeUnmount(() => {
           class="ml-1 h-5 w-px bg-border"
         ></div>
       </div>
+      <div v-if="previewable" class="ml-auto flex items-center">
+        <VbenIconButton
+          :aria-label="$t('ui.tiptap.toolbar.preview')"
+          :class="
+            getToolbarButtonClass({
+              action: () => {},
+              label: $t('ui.tiptap.toolbar.preview'),
+            })
+          "
+          :tooltip="$t('ui.tiptap.toolbar.preview')"
+          tooltip-side="top"
+          variant="ghost"
+          @click="openPreviewModal"
+        >
+          <Eye class="size-4" />
+        </VbenIconButton>
+      </div>
     </div>
     <EditorContent v-if="editor" :editor="editor" class="p-4" />
+    <PreviewModal
+      v-if="previewable"
+      :title="$t('ui.tiptap.toolbar.preview')"
+      class="w-4/5"
+    >
+      <Preview :content="previewContent" :min-height="320" variant="plain" />
+    </PreviewModal>
   </div>
 </template>
 
 <style scoped>
-.vben-tiptap :deep(.vben-tiptap__content > * + *) {
-  @apply mt-3;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content h1) {
-  @apply text-2xl font-bold leading-[1.4];
-}
-
-.vben-tiptap :deep(.vben-tiptap__content h2) {
-  @apply text-xl font-bold leading-[1.45];
-}
-
-.vben-tiptap :deep(.vben-tiptap__content h3) {
-  @apply text-lg font-semibold leading-[1.5];
-}
-
-.vben-tiptap :deep(.vben-tiptap__content h4) {
-  @apply text-base font-semibold leading-[1.55];
-}
-
-.vben-tiptap :deep(.vben-tiptap__content ul) {
-  @apply list-disc pl-6;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content ol) {
-  @apply list-decimal pl-6;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content blockquote) {
-  @apply border-l-4 border-primary pl-4 text-muted-foreground;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content a) {
-  @apply text-primary underline decoration-1 underline-offset-[3px];
-}
-
-.vben-tiptap :deep(.vben-tiptap__content code) {
-  @apply rounded-[0.45rem] border border-border bg-secondary px-[0.35rem] py-[0.15rem] text-[0.9em] text-primary;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content pre) {
-  @apply overflow-x-auto rounded-[0.9rem] border border-border bg-popover p-4 text-popover-foreground;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content pre code) {
-  @apply border-none bg-transparent p-0 text-inherit;
-}
-
-.vben-tiptap :deep(.vben-tiptap__content img),
-.vben-tiptap :deep(.vben-tiptap__content .vben-tiptap__image) {
-  @apply my-4 block h-auto rounded-2xl border border-border;
-
-  max-width: min(100%, 640px);
-}
-
 .vben-tiptap
   :deep(.vben-tiptap__content p.is-editor-empty:first-child::before) {
   float: left;

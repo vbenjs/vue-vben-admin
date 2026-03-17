@@ -8,7 +8,14 @@ export interface TipTapProps {
   extensions?: Extensions;
   minHeight?: number | string;
   placeholder?: string;
+  previewable?: boolean;
   toolbar?: boolean;
+}
+
+export interface TipTapPreviewProps {
+  class?: any;
+  content?: string;
+  minHeight?: number | string;
 }
 
 export interface VbenTiptapChangeEvent {

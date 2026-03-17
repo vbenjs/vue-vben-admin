@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
-import { VbenTiptap } from '@vben/plugins/tiptap';
+import { VbenTiptap, VbenTiptapPreview } from '@vben/plugins/tiptap';
 
 import { Card } from 'ant-design-vue';
 
@@ -28,8 +28,12 @@ const previewContent = computed(() => content.value);
       <VbenTiptap v-model="content" />
     </Card>
 
+    <Card class="mb-5" title="富文本预览">
+      <VbenTiptapPreview :content="previewContent" />
+    </Card>
+
     <Card title="HTML 输出">
-      <pre class="overflow-auto">
+      <pre class="overflow-auto rounded-xl border border-border bg-muted p-4">
         {{ previewContent }}
       </pre>
     </Card>
