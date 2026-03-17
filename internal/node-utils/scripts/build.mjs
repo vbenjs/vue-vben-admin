@@ -22,7 +22,11 @@ const steps = [
 
 for (const args of steps) {
   const [command, ...commandArgs] = pnpmCommand;
-  const result = spawnSync(command, [...commandArgs, ...args], {
+  let cmd = command
+  if(cmd.includes(" ")) {
+    cmd = `"${command}"`
+  }
+  const result = spawnSync(cmd, [...commandArgs, ...args], {
     shell: true,
     stdio: 'inherit',
   });
