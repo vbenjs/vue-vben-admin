@@ -26,8 +26,8 @@ The repository uses Monorepo management, and the project structure is as follows
 │   ├── node-utils # Node.js tools
 │   ├── tsconfig # Common tsconfig settings
 │   └── vite-config # Common Vite configuration
-├── oxfmt.config.mjs # Oxfmt config entry
-├── oxlint.config.mjs # Oxlint configuration file
+├── oxfmt.config.ts # Oxfmt config entry
+├── oxlint.config.ts # Oxlint configuration file
 ├── package.json # Project dependency configuration
 ├── packages # Project packages directory
 │   ├── @core # Core package
