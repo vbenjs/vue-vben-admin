@@ -6,7 +6,7 @@
 
 The project no longer maintains Tailwind through `tailwind.config.*` files. Theme definitions and scan scope are now managed through CSS and the shared Vite configuration.
 
-- Theme entry: `packages/@core/base/design/src/css/global.css`
+- Theme entry: `internal/tailwind-config/src/theme.css`
 - Vite integration: `internal/vite-config`
 
 In `global.css`, you will see the Tailwind CSS v4 directives currently used by the project, such as:
@@ -21,7 +21,7 @@ In `global.css`, you will see the Tailwind CSS v4 directives currently used by t
 
 The project does not decide whether Tailwind CSS is enabled based on whether a package contains `tailwind.config.mjs`.
 
-Apps and packages share `@vben/vite-config`, which integrates `@tailwindcss/vite`. The Tailwind scan scope is managed centrally in `packages/@core/base/design/src/css/global.css`.
+Apps and packages share `@vben/vite-config`, which integrates `@tailwindcss/vite`. The Tailwind scan scope is managed centrally in `@vben/tailwind-config`, backed by `internal/tailwind-config/src/theme.css`.
 
 ::: tip Notes on using Tailwind CSS in packages
 
@@ -35,4 +35,4 @@ The project applies a shared handling layer for `@apply` inside Vue single-file 
 
 - `internal/vite-config/src/plugins/tailwind-reference.ts`
 
-When component styles use `@apply`, the required `@reference` is injected automatically in most cases.
+When component styles use `@apply`, `@reference "@vben/tailwind-config/theme"` is injected automatically in most cases.

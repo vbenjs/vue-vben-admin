@@ -44,9 +44,6 @@
     }
   },
   "dependencies": {
-    "@iconify/json": "catalog:",
-    "@iconify/tailwind4": "catalog:",
-    "@tailwindcss/typography": "catalog:",
-    "tw-animate-css": "catalog:"
+    "@iconify/json": "catalog:"
   }
 }

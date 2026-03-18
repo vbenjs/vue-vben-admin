@@ -528,6 +528,9 @@ importers:
       '@vben/stylelint-config':
         specifier: workspace:*
         version: link:internal/lint-configs/stylelint-config
+      '@vben/tailwind-config':
+        specifier: workspace:*
+        version: link:internal/tailwind-config
       '@vben/tsconfig':
         specifier: workspace:*
         version: link:internal/tsconfig
@@ -984,6 +987,9 @@ importers:
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.2.1(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.98.0)(sass@1.98.0)(terser@5.46.1)(yaml@2.8.2))
+      '@vben/tailwind-config':
+        specifier: workspace:*
+        version: link:../internal/tailwind-config
       '@vben/vite-config':
         specifier: workspace:*
         version: link:../internal/vite-config
@@ -1163,6 +1169,21 @@ importers:
         specifier: 'catalog:'
         version: 6.1.3
 
+  internal/tailwind-config:
+    dependencies:
+      '@iconify/tailwind4':
+        specifier: 'catalog:'
+        version: 1.2.3(tailwindcss@4.2.1)
+      '@tailwindcss/typography':
+        specifier: 'catalog:'
+        version: 0.5.19(tailwindcss@4.2.1)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.2.1
+      tw-animate-css:
+        specifier: 'catalog:'
+        version: 1.4.0
+
   internal/tsconfig:
     dependencies:
       '@vben/types':
@@ -1262,15 +1283,6 @@ importers:
       '@iconify/json':
         specifier: 'catalog:'
         version: 2.2.451
-      '@iconify/tailwind4':
-        specifier: 'catalog:'
-        version: 1.2.3(tailwindcss@4.2.1)
-      '@tailwindcss/typography':
-        specifier: 'catalog:'
-        version: 0.5.19(tailwindcss@4.2.1)
-      tw-animate-css:
-        specifier: 'catalog:'
-        version: 1.4.0
 
   packages/@core/base/icons:
     dependencies:

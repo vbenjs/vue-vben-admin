@@ -75,6 +75,7 @@
     "@vben/oxfmt-config": "workspace:*",
     "@vben/oxlint-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",
+    "@vben/tailwind-config": "workspace:*",
     "@vben/tsconfig": "workspace:*",
     "@vben/turbo-run": "workspace:*",
     "@vben/vite-config": "workspace:*",
@@ -103,7 +104,7 @@
     "vue-tsc": "catalog:"
   },
   "engines": {
-    "node": "^20.19.0 || ^22.13.0 || ^24.0.0",
+    "node": "^20.19.0 || ^22.18.0 || ^24.0.0",
     "pnpm": ">=10.0.0"
   },
   "packageManager": "pnpm@10.32.1"

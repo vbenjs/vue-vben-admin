@@ -6,7 +6,7 @@
 
 项目当前不再通过 `tailwind.config.*` 文件维护 Tailwind 配置，主题与扫描范围都统一放在 CSS 与共享 Vite 配置中。
 
-- 主题入口：`packages/@core/base/design/src/css/global.css`
+- 主题入口：`internal/tailwind-config/src/theme.css`
 - Vite 集成：`internal/vite-config`
 
 在 `global.css` 中你会看到当前项目使用的 Tailwind CSS v4 指令，例如：
@@ -21,7 +21,7 @@
 
 当前项目不会根据某个包下是否存在 `tailwind.config.mjs` 来决定是否启用 Tailwind CSS。
 
-应用和包统一复用 `@vben/vite-config`，并由该配置接入 `@tailwindcss/vite`。Tailwind 的扫描范围则统一在 `packages/@core/base/design/src/css/global.css` 中维护。
+应用和包统一复用 `@vben/vite-config`，并由该配置接入 `@tailwindcss/vite`。Tailwind 的扫描范围则统一在 `@vben/tailwind-config` 对应的 `internal/tailwind-config/src/theme.css` 中维护。
 
 ::: tip 包使用 Tailwind CSS 的说明
 
@@ -35,4 +35,4 @@
 
 - `internal/vite-config/src/plugins/tailwind-reference.ts`
 
-当组件样式中使用 `@apply` 时，会自动注入对应的 `@reference`，一般不需要手动补充。
+当组件样式中使用 `@apply` 时，会自动注入 `@reference "@vben/tailwind-config/theme"`，一般不需要手动补充。
