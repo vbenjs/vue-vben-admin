@@ -1,3 +1,1 @@
 import './theme.css';
-
-export {};
