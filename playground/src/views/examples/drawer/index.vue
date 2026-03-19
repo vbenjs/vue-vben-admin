@@ -60,7 +60,7 @@ function openInContentDrawer(placement: DrawerPlacement = 'right') {
 }
 
 function openMaxContentDrawer() {
-  // 这里只是用来演示方便。实际上自己使用的时候可以直接将这些配置卸载Drawer的属性里
+  // 这里只是用来演示方便。实际上自己使用的时候可以直接将这些配置写在Drawer的属性里
   inContentDrawerApi.setState({ class: 'w-full', placement: 'right' }).open();
 }
 
