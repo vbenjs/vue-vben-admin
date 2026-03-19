@@ -31,7 +31,7 @@ catalog:
   '@eslint-community/eslint-plugin-eslint-comments': ^4.7.1
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^10.3.0
-  '@iconify/json': ^2.2.451
+  '@iconify/json': ^2.2.452
   '@iconify/tailwind4': ^1.2.3
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.3.0
@@ -184,4 +184,4 @@ catalog:
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
