@@ -2,7 +2,7 @@ import { defineConfig as defineOxfmtConfig } from 'oxfmt';
 
 type OxfmtConfig = Parameters<typeof defineOxfmtConfig>[0];
 
-const oxfmtConfig: OxfmtConfig = defineOxfmtConfig({
+const defaultOxfmtConfig: OxfmtConfig = defineOxfmtConfig({
   printWidth: 80,
   proseWrap: 'never',
   semi: true,
@@ -30,10 +30,10 @@ const oxfmtConfig: OxfmtConfig = defineOxfmtConfig({
 
 function defineConfig(config: OxfmtConfig = {}): OxfmtConfig {
   return defineOxfmtConfig({
-    ...oxfmtConfig,
+    ...defaultOxfmtConfig,
     ...config,
   });
 }
 
-export { defineConfig, oxfmtConfig };
+export { defaultOxfmtConfig, defineConfig };
 export type { OxfmtConfig };
