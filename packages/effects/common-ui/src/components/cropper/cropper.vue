@@ -528,7 +528,7 @@ const handleImageLoad = () => {
  * @param {number} targetHeight - 目标高度（可选，不传则为原始裁剪高度）
  */
 const getCropImage = async (
-  format: 'image/jpeg' | 'image/png' = 'image/jpeg',
+  format: 'image/jpeg' | 'image/png' = 'image/png',
   quality: number = 0.92,
   outputType: 'base64' | 'blob' = 'blob',
   targetWidth?: number,
@@ -851,7 +851,7 @@ defineExpose({ getCropImage });
 </template>
 
 <style scoped>
-@reference "@vben-core/design/theme";
+@reference "@vben/tailwind-config/theme";
 
 .cropper-action-wrapper {
   @apply box-border flex items-center justify-center;

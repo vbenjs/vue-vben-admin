@@ -1,5 +1,5 @@
 {
-  "tailwindCSS.experimental.configFile": "packages/@core/base/design/src/css/global.css",
+  "tailwindCSS.experimental.configFile": "internal/tailwind-config/src/theme.css",
   "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
   // workbench
   "workbench.list.smoothScrolling": true,
@@ -43,6 +43,7 @@
   "oxc.fmt.configPath": "oxfmt.config.ts",
   "eslint.useFlatConfig": true,
   "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
     "source.fixAll.oxc": "explicit",
     "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"

@@ -1,8 +1,6 @@
 {
   "name": "@vben-core/shadcn-ui",
   "version": "5.7.0",
-  "#main": "./dist/index.mjs",
-  "#module": "./dist/index.mjs",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -12,29 +10,28 @@
   },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "#build": "pnpm unbuild",
-    "#prepublishOnly": "npm run build"
-  },
   "files": [
-    "dist"
+    "components.json",
+    "src"
   ],
   "sideEffects": [
     "**/*.css"
   ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./src/index.ts",
-      "//default": "./dist/index.mjs"
+      "default": "./src/index.ts"
     }
   },
   "publishConfig": {
     "exports": {
       ".": {
+        "types": "./src/index.ts",
+        "development": "./src/index.ts",
         "default": "./src/index.ts"
       }
     }

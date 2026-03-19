@@ -23,6 +23,7 @@
   "exports": {
     "./bem": {
       "development": "./src/scss-bem/bem.scss",
+      "production": "./src/scss-bem/bem.scss",
       "default": "./dist/bem.scss"
     },
     "./theme": {
@@ -31,6 +32,7 @@
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
+      "production": "./src/index.ts",
       "default": "./dist/design.css"
     }
   },
@@ -42,9 +44,6 @@
     }
   },
   "dependencies": {
-    "@iconify/json": "catalog:",
-    "@iconify/tailwind4": "catalog:",
-    "@tailwindcss/typography": "catalog:",
-    "tw-animate-css": "catalog:"
+    "@iconify/json": "catalog:"
   }
 }

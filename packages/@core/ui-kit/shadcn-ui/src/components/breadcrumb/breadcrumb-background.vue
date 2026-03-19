@@ -50,7 +50,7 @@ function handleClick(index: number, path?: string) {
   </ul>
 </template>
 <style scoped>
-@reference "@vben-core/design/theme";
+@reference "@vben/tailwind-config/theme";
 
 li {
   @apply h-7;

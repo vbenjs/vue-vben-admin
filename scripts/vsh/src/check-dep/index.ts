@@ -10,7 +10,8 @@ const DEFAULT_CONFIG = {
   ignoreMatches: [
     'vite',
     'vitest',
-    'unbuild',
+    'tsdown',
+    '@vben/tailwind-config',
     '@vben/tsconfig',
     '@vben/vite-config',
     '@types/*',

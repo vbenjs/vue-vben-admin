@@ -1,10 +1,15 @@
 import type { CAC } from 'cac';
 
-import { extname } from 'node:path';
+import { access, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
+import { extname, join } from 'node:path';
 
-import { getStagedFiles } from '@vben/node-utils';
+import { execa, getStagedFiles } from '@vben/node-utils';
 
-import { circularDepsDetect } from 'circular-dependency-scanner';
+const require = createRequire(import.meta.url);
+const circularScannerCli =
+  require.resolve('circular-dependency-scanner/dist/cli.js');
 
 // 默认配置
 const DEFAULT_CONFIG = {
@@ -40,6 +45,44 @@ interface CommandOptions {
 
 // 缓存机制
 const cache = new Map<string, CircularDependencyResult[]>();
+
+async function detectCircularDependencies({
+  cwd,
+  ignorePattern,
+  staged,
+}: {
+  cwd: string;
+  ignorePattern: string;
+  staged: boolean;
+}): Promise<CircularDependencyResult[]> {
+  const tempDir = await mkdtemp(join(tmpdir(), 'vsh-check-circular-'));
+  const outputFile = join(tempDir, 'circles.json');
+
+  try {
+    const args = [circularScannerCli, cwd, '--output', outputFile];
+
+    if (staged) {
+      args.push('--absolute');
+    }
+
+    args.push('--ignore', ignorePattern);
+
+    await execa(process.execPath, args, {
+      cwd,
+    });
+
+    await access(outputFile);
+    const output = await readFile(outputFile, 'utf8');
+    return JSON.parse(output) as CircularDependencyResult[];
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      return [];
+    }
+    throw error;
+  } finally {
+    await rm(tempDir, { force: true, recursive: true });
+  }
+}
 
 /**
  * 格式化循环依赖的输出
@@ -85,17 +128,17 @@ async function checkCircular({
     const cacheKey = `${staged}-${process.cwd()}-${ignorePattern}`;
     if (cache.has(cacheKey)) {
       const cachedResults = cache.get(cacheKey);
-      if (cachedResults) {
-        verbose && formatCircles(cachedResults);
+      if (cachedResults && verbose) {
+        formatCircles(cachedResults);
       }
       return;
     }
 
     // 检测循环依赖
-    const results = await circularDepsDetect({
-      absolute: staged,
+    const results = await detectCircularDependencies({
       cwd: process.cwd(),
-      ignore: [ignorePattern],
+      ignorePattern,
+      staged,
     });
 
     if (staged) {
@@ -118,11 +161,15 @@ async function checkCircular({
 
       // 更新缓存
       cache.set(cacheKey, circularFiles);
-      verbose && formatCircles(circularFiles);
+      if (verbose) {
+        formatCircles(circularFiles);
+      }
     } else {
       // 更新缓存
       cache.set(cacheKey, results);
-      verbose && formatCircles(results);
+      if (verbose) {
+        formatCircles(results);
+      }
     }
 
     // 如果发现循环依赖，只输出警告信息
