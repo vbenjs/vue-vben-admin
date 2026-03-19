@@ -366,7 +366,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
           }
         },
         onDragSort: (oldIndex: number, newIndex: number) => {
-          console.info(`图片从 ${oldIndex} 移动到 ${newIndex}`);
+          console.warn(`图片从 ${oldIndex} 移动到 ${newIndex}`);
         },
       },
       fieldName: 'files',

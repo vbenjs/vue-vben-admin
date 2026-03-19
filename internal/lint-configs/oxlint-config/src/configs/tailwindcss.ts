@@ -14,7 +14,7 @@ const selectors = [
 ];
 
 const settings = {
-  entryPoint: 'packages/@core/base/design/src/css/global.css',
+  entryPoint: 'internal/tailwind-config/src/theme.css',
   selectors,
 };
 

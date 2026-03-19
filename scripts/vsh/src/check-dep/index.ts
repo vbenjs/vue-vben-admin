@@ -11,6 +11,7 @@ const DEFAULT_CONFIG = {
     'vite',
     'vitest',
     'tsdown',
+    '@vben/tailwind-config',
     '@vben/tsconfig',
     '@vben/vite-config',
     '@types/*',

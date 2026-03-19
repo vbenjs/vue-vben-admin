@@ -173,7 +173,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 </template>
 
 <style scoped>
-@reference "@vben-core/design/theme";
+@reference "@vben/tailwind-config/theme";
 
 .tabs-chrome__item:not(.dragging) {
   @apply cursor-pointer;
