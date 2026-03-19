@@ -26,8 +26,8 @@
 │   ├── node-utils # Node.js 工具
 │   ├── tsconfig # 通用 tsconfig 配置
 │   └── vite-config # 通用 Vite 配置
-├── oxfmt.config.mjs # Oxfmt 配置入口
-├── oxlint.config.mjs # Oxlint 配置文件
+├── oxfmt.config.ts # Oxfmt 配置入口
+├── oxlint.config.ts # Oxlint 配置文件
 ├── package.json # 项目依赖配置
 ├── packages # 项目包目录
 │   ├── @core # 核心包

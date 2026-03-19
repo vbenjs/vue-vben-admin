@@ -49,7 +49,7 @@ pnpm oxfmt --check
 
 ### Configuration
 
-The root Oxfmt entry file is `oxfmt.config.mjs`, and its core configuration is located in `internal/lint-configs/oxfmt-config`.
+The root Oxfmt entry file is `oxfmt.config.ts`, and its core configuration is located in `internal/lint-configs/oxfmt-config`.
 
 ## Oxlint
 
@@ -64,7 +64,7 @@ pnpm oxlint --fix
 
 ### Configuration
 
-The core Oxlint configuration is located in `internal/lint-configs/oxlint-config`, and the root entry file is `oxlint.config.mjs`.
+The core Oxlint configuration is located in `internal/lint-configs/oxlint-config`, and the root entry file is `oxlint.config.ts`.
 
 ## ESLint
 
