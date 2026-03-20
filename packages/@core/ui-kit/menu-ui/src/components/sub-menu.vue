@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// oxlint-disable no-unused-expressions
 import type { HoverCardContentProps } from '@vben-core/shadcn-ui';
 
 import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
