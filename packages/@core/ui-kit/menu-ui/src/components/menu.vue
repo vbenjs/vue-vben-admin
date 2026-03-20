@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// oxlint-disable no-unused-expressions
 import type { UseResizeObserverReturn } from '@vueuse/core';
 
 import type { SetupContext, VNodeArrayChildren } from 'vue';
@@ -750,6 +751,19 @@ $namespace: vben;
     span {
       @include menu-title;
     }
+  }
+
+  &__link {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: inherit;
+    color: inherit;
+    text-decoration: none;
+    border-radius: inherit;
   }
 
   &.is-collapse-show-title {

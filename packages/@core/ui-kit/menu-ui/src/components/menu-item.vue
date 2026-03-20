@@ -84,22 +84,23 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <a
-    :href="
-      (item.parentPaths.at(-1) ?? '') +
-      (item?.query ? `?${qs.stringify(item?.query)}` : '')
-    "
-    @click.prevent.stop="handleClick"
+  <li
+    :class="[
+      rootMenu.theme,
+      b(),
+      is('active', active),
+      is('disabled', disabled),
+      is('collapse-show-title', collapseShowTitle),
+    ]"
   >
-    <li
-      :class="[
-        rootMenu.theme,
-        b(),
-        is('active', active),
-        is('disabled', disabled),
-        is('collapse-show-title', collapseShowTitle),
-      ]"
+    <a
+      :class="e('link')"
+      :href="
+        (item.parentPaths.at(-1) ?? '') +
+        (item?.query ? `?${qs.stringify(item?.query)}` : '')
+      "
       role="menuitem"
+      @click.prevent.stop="handleClick"
     >
       <!-- -->
       <VbenTooltip
@@ -128,6 +129,6 @@ onBeforeUnmount(() => {
         <slot></slot>
         <slot name="title"></slot>
       </div>
-    </li>
-  </a>
+    </a>
+  </li>
 </template>
