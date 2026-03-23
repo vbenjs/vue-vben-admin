@@ -165,7 +165,17 @@ async function initComponentAdapter() {
     DatePicker,
     // 自定义默认按钮
     DefaultButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, theme: 'default' }, slots);
+      let ghost = false;
+      let variant = props.variant;
+      if (props.variant === 'ghost') {
+        ghost = true;
+        variant = 'base';
+      }
+      return h(
+        Button,
+        { ...props, ghost, variant, attrs, theme: 'default' },
+        slots,
+      );
     },
     Divider,
     IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
