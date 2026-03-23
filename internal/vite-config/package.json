@@ -48,6 +48,7 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "dayjs": "catalog:",
     "dotenv": "catalog:",
+    "rolldown": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
     "sass": "catalog:",
     "sass-embedded": "catalog:",

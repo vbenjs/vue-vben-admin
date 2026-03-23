@@ -2,7 +2,7 @@ import type {
   NormalizedOutputOptions,
   OutputBundle,
   OutputChunk,
-} from 'rollup';
+} from 'rolldown';
 import type { PluginOption } from 'vite';
 
 import { EOL } from 'node:os';
