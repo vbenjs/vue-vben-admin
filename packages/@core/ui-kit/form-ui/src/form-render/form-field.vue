@@ -48,6 +48,7 @@ const {
   modelPropName,
   renderComponentContent,
   rules,
+  help,
 } = defineProps<
   Props & {
     commonComponentProps: MaybeComponentProps;
@@ -173,6 +174,18 @@ const computedProps = computed(() => {
     ...dynamicComponentProps.value,
   };
 });
+
+// 自定义帮助信息
+const computedHelp = computed(() => {
+  return help ? onHelpFunc : undefined;
+});
+
+const onHelpFunc = () => {
+  if (!help) {
+    return undefined;
+  }
+  return isFunction(help) ? help(values.value, formApi!) : help;
+};
 
 watch(
   () => computedProps.value?.autofocus,
@@ -322,7 +335,7 @@ onUnmounted(() => {
             labelClass,
           )
         "
-        :help="help"
+        :help="computedHelp"
         :colon="colon"
         :label="label"
         :required="shouldRequired && !hideRequiredMark"
