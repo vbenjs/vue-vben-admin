@@ -1,4 +1,4 @@
-import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
+import type { VxeTableGridColumns } from '@vben/plugins/vxe-table';
 
 import type { VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn } from '#/adapter/vxe-table';
@@ -76,7 +76,7 @@ export function useSchema(): VbenFormSchema[] {
  */
 export function useColumns(
   onActionClick?: OnActionClickFn<SystemDeptApi.SystemDept>,
-): VxeTableGridOptions<SystemDeptApi.SystemDept>['columns'] {
+): VxeTableGridColumns<SystemDeptApi.SystemDept> {
   return [
     {
       align: 'left',

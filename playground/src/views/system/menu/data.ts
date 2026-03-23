@@ -1,4 +1,4 @@
-import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
+import type { OnActionClickFn, VxeTableGridColumns } from '#/adapter/vxe-table';
 import type { SystemMenuApi } from '#/api/system/menu';
 
 import { $t } from '#/locales';
@@ -23,7 +23,7 @@ export function getMenuTypeOptions() {
 
 export function useColumns(
   onActionClick: OnActionClickFn<SystemMenuApi.SystemMenu>,
-): VxeTableGridOptions<SystemMenuApi.SystemMenu>['columns'] {
+): VxeTableGridColumns<SystemMenuApi.SystemMenu> {
   return [
     {
       align: 'left',
