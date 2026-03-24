@@ -113,6 +113,10 @@ const [BaseForm, baseFormApi] = useVbenForm({
           params: {
             keyword: keyword.value || undefined,
           },
+          // 远程搜索判断。当为true时，才允许调用api
+          shouldFetch: (params: any) => {
+            return !!params?.keyword;
+          },
           showSearch: true,
         };
       },
@@ -120,6 +124,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: 'remoteSearch',
       // 界面显示的label
       label: '远程搜索',
+      help: '远程查询，仅有输入时方进行查询',
       renderComponentContent: () => {
         return {
           notFoundContent: fetching.value ? h(Spin) : undefined,
