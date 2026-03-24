@@ -12,6 +12,14 @@ packages:
   - scripts/*
   - docs
   - playground
+
+overrides:
+  '@ast-grep/napi': 'catalog:'
+  '@ctrl/tinycolor': 'catalog:'
+  clsx: 'catalog:'
+  pinia: 'catalog:'
+  vue: 'catalog:'
+
 catalog:
   '@ast-grep/napi': ^0.42.0
   '@changesets/changelog-github': ^0.6.0
@@ -179,9 +187,3 @@ catalog:
   zod: ^3.25.76
   zod-defaults: 0.1.3
 
-overrides:
-  '@ast-grep/napi': 'catalog:'
-  '@ctrl/tinycolor': 'catalog:'
-  clsx: 'catalog:'
-  pinia: 'catalog:'
-  vue: 'catalog:'
