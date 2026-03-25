@@ -9,8 +9,8 @@ import type {
   GridComponentOption,
   LegendComponentOption,
   TitleComponentOption,
-  TooltipComponentOption,
   ToolboxComponentOption,
+  TooltipComponentOption,
 } from 'echarts/components';
 import type { ComposeOption } from 'echarts/core';
 
@@ -23,6 +23,6 @@ export type ECOption = ComposeOption<
   | PieSeriesOption
   | RadarSeriesOption
   | TitleComponentOption
-  | TooltipComponentOption
   | ToolboxComponentOption
+  | TooltipComponentOption
 >;
