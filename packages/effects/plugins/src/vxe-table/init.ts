@@ -1,56 +1,37 @@
-import type { SetupVxeTable } from './types';
+import type { SetupVxeTable } from "./types";
 
-import { defineComponent, watch } from 'vue';
+import { defineComponent, watch } from "vue";
 
-import { usePreferences } from '@vben/preferences';
+import { usePreferences } from "@vben/preferences";
 
-import { useVbenForm } from '@vben-core/form-ui';
+import { injectPluginsOptions } from "../plugins-context";
 
 import {
   VxeButton,
   VxeCheckbox,
-
-  // VxeFormGather,
-  // VxeForm,
-  // VxeFormItem,
   VxeIcon,
   VxeInput,
   VxeLoading,
   VxeModal,
   VxeNumberInput,
   VxePager,
-  // VxeList,
-  // VxeModal,
-  // VxeOptgroup,
-  // VxeOption,
-  // VxePulldown,
-  // VxeRadio,
-  // VxeRadioButton,
   VxeRadioGroup,
   VxeSelect,
   VxeTooltip,
   VxeUI,
-  VxeUpload,
-  // VxeSwitch,
-  // VxeTextarea,
-} from 'vxe-pc-ui';
-import enUS from 'vxe-pc-ui/lib/language/en-US';
+  VxeUpload
+} from "vxe-pc-ui";
+import enUS from "vxe-pc-ui/lib/language/en-US";
 // 导入默认的语言
-import zhCN from 'vxe-pc-ui/lib/language/zh-CN';
-import {
-  VxeColgroup,
-  VxeColumn,
-  VxeGrid,
-  VxeTable,
-  VxeToolbar,
-} from 'vxe-table';
+import zhCN from "vxe-pc-ui/lib/language/zh-CN";
+import { VxeColgroup, VxeColumn, VxeGrid, VxeTable, VxeToolbar } from "vxe-table";
 
-import { extendsDefaultFormatter } from './extends';
+import { extendsDefaultFormatter } from "./extends";
 
 // 是否加载过
 let isInit = false;
 
-let tableFormFactory: typeof useVbenForm | undefined;
+let tableFormFactory: ((...args: any[]) => any) | undefined;
 
 function normalizeVxeLocale<T extends Record<string, any>>(localeModule: T) {
   return (
@@ -62,13 +43,19 @@ function normalizeVxeLocale<T extends Record<string, any>>(localeModule: T) {
   ) as T;
 }
 
-export const useTableForm: typeof useVbenForm = ((...args) => {
+export const useTableForm = ((...args: any[]) => {
+  const pluginsOptions = injectPluginsOptions();
+
   if (!tableFormFactory) {
-    throw new Error('useTableForm is not initialized');
+    if (pluginsOptions?.form?.useVbenForm) {
+      tableFormFactory = pluginsOptions.form.useVbenForm;
+    } else {
+      throw new Error('useTableForm is not initialized');
+    }
   }
 
   return tableFormFactory(...args);
-}) as typeof useVbenForm;
+});
 
 // 部分组件，如果没注册，vxe-table 会报错，这里实际没用组件，只是为了不报错，同时可以减少打包体积
 const createVirtualComponent = (name = '') => {
@@ -118,10 +105,15 @@ export function initVxeTable() {
 }
 
 export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
-  const { configVxeTable, useVbenForm } = setupOptions;
+  const { configVxeTable, useVbenForm: useVbenFormFromParam } = setupOptions;
 
   initVxeTable();
-  tableFormFactory = useVbenForm;
+
+  const pluginsOptions = injectPluginsOptions();
+  const useVbenFormFromContext = pluginsOptions?.form?.useVbenForm;
+
+  // 优先级：参数传入 > context 注入
+  tableFormFactory = useVbenFormFromParam || useVbenFormFromContext;
 
   const { isDark, locale } = usePreferences();
 
