@@ -4,12 +4,12 @@
 
 ## 导出
 
-| 导出 | 类型 | 说明 |
-|------|------|------|
-| `Motion` | 组件 | 动画组件 |
-| `MotionGroup` | 组件 | 动画组组件 |
-| `MotionDirective` | 指令 | 动画指令 |
-| `MotionPlugin` | 插件 | Vue 插件 |
+| 导出              | 类型 | 说明       |
+| ----------------- | ---- | ---------- |
+| `Motion`          | 组件 | 动画组件   |
+| `MotionGroup`     | 组件 | 动画组组件 |
+| `MotionDirective` | 指令 | 动画指令   |
+| `MotionPlugin`    | 插件 | Vue 插件   |
 
 ## 使用
 

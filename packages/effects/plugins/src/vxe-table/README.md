@@ -4,20 +4,24 @@
 
 ## 导出
 
-| 导出 | 类型 | 说明 |
-|------|------|------|
-| `setupVbenVxeTable` | 函数 | 初始化配置函数 |
-| `useVbenVxeGrid` | 函数 | 表格组合式函数 |
-| `VbenVxeGrid` | 组件 | 表格组件 |
-| `VxeTableGridColumns` | 类型 | 表格列类型 |
-| `VxeTableGridOptions` | 类型 | 表格配置类型 |
-| `VxeGridProps` | 类型 | 表格 Props |
-| `VxeGridListeners` | 类型 | 表格事件类型 |
+| 导出                  | 类型 | 说明           |
+| --------------------- | ---- | -------------- |
+| `setupVbenVxeTable`   | 函数 | 初始化配置函数 |
+| `useVbenVxeGrid`      | 函数 | 表格组合式函数 |
+| `VbenVxeGrid`         | 组件 | 表格组件       |
+| `VxeTableGridColumns` | 类型 | 表格列类型     |
+| `VxeTableGridOptions` | 类型 | 表格配置类型   |
+| `VxeGridProps`        | 类型 | 表格 Props     |
+| `VxeGridListeners`    | 类型 | 表格事件类型   |
 
 ## 使用
 
 ```ts
-import { setupVbenVxeTable, useVbenVxeGrid, VbenVxeGrid } from '@vben/plugins/vxe-table';
+import {
+  setupVbenVxeTable,
+  useVbenVxeGrid,
+  VbenVxeGrid,
+} from '@vben/plugins/vxe-table';
 ```
 
 ## 初始化
@@ -39,5 +43,8 @@ setupVbenVxeTable({
 ## 类型
 
 ```ts
-import type { VxeTableGridOptions, VxeGridProps } from '@vben/plugins/vxe-table';
+import type {
+  VxeTableGridOptions,
+  VxeGridProps,
+} from '@vben/plugins/vxe-table';
 ```

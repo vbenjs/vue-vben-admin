@@ -1,10 +1,8 @@
-import type { SetupVxeTable } from "./types";
+import type { SetupVxeTable } from './types';
 
-import { defineComponent, watch } from "vue";
+import { defineComponent, watch } from 'vue';
 
-import { usePreferences } from "@vben/preferences";
-
-import { injectPluginsOptions } from "../plugins-context";
+import { usePreferences } from '@vben/preferences';
 
 import {
   VxeButton,
@@ -19,13 +17,20 @@ import {
   VxeSelect,
   VxeTooltip,
   VxeUI,
-  VxeUpload
-} from "vxe-pc-ui";
-import enUS from "vxe-pc-ui/lib/language/en-US"; // 导入默认的语言
-import zhCN from "vxe-pc-ui/lib/language/zh-CN";
-import { VxeColgroup, VxeColumn, VxeGrid, VxeTable, VxeToolbar } from "vxe-table";
+  VxeUpload,
+} from 'vxe-pc-ui';
+import enUS from 'vxe-pc-ui/lib/language/en-US'; // 导入默认的语言
+import zhCN from 'vxe-pc-ui/lib/language/zh-CN';
+import {
+  VxeColgroup,
+  VxeColumn,
+  VxeGrid,
+  VxeTable,
+  VxeToolbar,
+} from 'vxe-table';
 
-import { extendsDefaultFormatter } from "./extends"; // 是否加载过
+import { injectPluginsOptions } from '../plugins-context';
+import { extendsDefaultFormatter } from './extends'; // 是否加载过
 
 // 是否加载过
 let isInit = false;
