@@ -21,12 +21,11 @@ import {
   VxeUI,
   VxeUpload
 } from "vxe-pc-ui";
-import enUS from "vxe-pc-ui/lib/language/en-US";
-// 导入默认的语言
+import enUS from "vxe-pc-ui/lib/language/en-US"; // 导入默认的语言
 import zhCN from "vxe-pc-ui/lib/language/zh-CN";
 import { VxeColgroup, VxeColumn, VxeGrid, VxeTable, VxeToolbar } from "vxe-table";
 
-import { extendsDefaultFormatter } from "./extends";
+import { extendsDefaultFormatter } from "./extends"; // 是否加载过
 
 // 是否加载过
 let isInit = false;
@@ -109,7 +108,7 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
 
   initVxeTable();
 
-  // 优先使用参数传入的 useVbenForm，context 注入在 useTableForm 中获取
+  // 优先使用参数传入的 useVbenForm，否则清空让 context 注入生效
   if (useVbenFormFromParam) {
     tableFormFactory = useVbenFormFromParam;
   }
