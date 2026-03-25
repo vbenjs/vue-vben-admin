@@ -12,7 +12,7 @@ import type {
 
 import { computed, useAttrs } from 'vue';
 // @ts-expect-error - vue-json-viewer does not expose compatible typings for this import path
-import VueJsonViewer from 'vue-json-viewer';
+import VueJsonViewerImport from 'vue-json-viewer';
 
 import { $t } from '@vben/locales';
 
@@ -41,6 +41,11 @@ const emit = defineEmits<{
   toggle: [param: JsonViewerToggle];
   valueClick: [value: JsonViewerValue];
 }>();
+
+/** CJS/UMD 在 Vite 下解析为 { default: Component }，需解包否则会出现 missing template or render */
+const VueJsonViewer =
+  (VueJsonViewerImport as { default?: typeof VueJsonViewerImport }).default ??
+  VueJsonViewerImport;
 
 const attrs: SetupContext['attrs'] = useAttrs();
 
