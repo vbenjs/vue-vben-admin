@@ -177,15 +177,15 @@ const computedProps = computed(() => {
 
 // 自定义帮助信息
 const computedHelp = computed(() => {
-  return help ? onHelpFunc : undefined;
-});
-
-const onHelpFunc = () => {
-  if (!help) {
+  const helpContent = help;
+  if (!helpContent) {
     return undefined;
   }
-  return isFunction(help) ? help(values.value, formApi!) : help;
-};
+  return () =>
+    isFunction(helpContent)
+      ? helpContent(values.value, getFormApi())
+      : helpContent;
+});
 
 watch(
   () => computedProps.value?.autofocus,
