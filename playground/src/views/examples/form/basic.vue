@@ -287,7 +287,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
       component: 'DatePicker',
       fieldName: 'datePicker',
       help: (values) =>
-        [`这是一个可输出其他字段值的帮助信息${values?.rate}`].map((v) => h('p', v)),
+        [`这是一个可输出其他字段值的帮助信息${values?.rate}`].map((v) =>
+          h('p', v),
+        ),
       label: '日期选择框',
     },
     {
