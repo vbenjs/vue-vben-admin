@@ -1,6 +1,15 @@
-import type { VbenPluginsOptions } from './types';
+import type { VbenPluginsOptions } from "./types";
 
-import { createContext } from '@vben-core/shadcn-ui';
+let globalPluginsOptions: VbenPluginsOptions | null = null;
 
-export const [injectPluginsOptions, providePluginsOptions] =
-  createContext<VbenPluginsOptions>('VbenPluginsOptions');
+export function providePluginsOptions(options: VbenPluginsOptions) {
+  globalPluginsOptions = options;
+}
+
+export function injectPluginsOptions() {
+  return globalPluginsOptions;
+}
+
+export function resetPluginsOptions() {
+  globalPluginsOptions = null;
+}
