@@ -1,24 +1,20 @@
-import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
-import type { Recordable } from '@vben/types';
+import type { VxeTableGridOptions } from "@vben/plugins/vxe-table";
+import { setupVbenVxeTable, useVbenVxeGrid as useGrid } from "@vben/plugins/vxe-table";
+import type { Recordable } from "@vben/types";
 
-import type { ComponentType } from './component';
+import type { ComponentType } from "./component";
 
-import { h } from 'vue';
+import { h } from "vue";
 
-import { IconifyIcon } from '@vben/icons';
-import { $te } from '@vben/locales';
-import {
-  setupVbenVxeTable,
-  useVbenVxeGrid as useGrid,
-} from '@vben/plugins/vxe-table';
-import { get, isFunction, isString } from '@vben/utils';
+import { IconifyIcon } from "@vben/icons";
+import { $te } from "@vben/locales";
+import { get, isFunction, isString } from "@vben/utils";
 
-import { objectOmit } from '@vueuse/core';
-import { Button, Image, Popconfirm, Switch, Tag } from 'ant-design-vue';
+import { objectOmit } from "@vueuse/core";
+import { Button, Image, Popconfirm, Switch, Tag } from "ant-design-vue";
 
-import { $t } from '#/locales';
 
-import { useVbenForm } from './form';
+import { $t } from "#/locales";
 
 setupVbenVxeTable({
   configVxeTable: (vxeUI) => {
@@ -281,7 +277,6 @@ setupVbenVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
-  useVbenForm,
 });
 
 export const useVbenVxeGrid = <T extends Record<string, any>>(
