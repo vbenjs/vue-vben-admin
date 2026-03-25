@@ -43,19 +43,19 @@ function normalizeVxeLocale<T extends Record<string, any>>(localeModule: T) {
   ) as T;
 }
 
-export const useTableForm = ((...args: any[]) => {
+export function useTableForm(...args: any[]) {
   const pluginsOptions = injectPluginsOptions();
+  const contextFormFactory = pluginsOptions?.form?.useVbenForm;
 
-  if (!tableFormFactory) {
-    if (pluginsOptions?.form?.useVbenForm) {
-      tableFormFactory = pluginsOptions.form.useVbenForm;
-    } else {
-      throw new Error('useTableForm is not initialized');
-    }
+  const factory = tableFormFactory || contextFormFactory;
+  if (!factory) {
+    throw new Error(
+      'useTableForm is not initialized. Please provide useVbenForm via setupVbenVxeTable() or providePluginsOptions()',
+    );
   }
 
-  return tableFormFactory(...args);
-});
+  return factory(...args);
+}
 
 // 部分组件，如果没注册，vxe-table 会报错，这里实际没用组件，只是为了不报错，同时可以减少打包体积
 const createVirtualComponent = (name = '') => {
@@ -109,12 +109,10 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
 
   initVxeTable();
 
-  const pluginsOptions = injectPluginsOptions();
-  const useVbenFormFromContext = pluginsOptions?.form?.useVbenForm;
-
-  // 优先级：参数传入 > context 注入
-  tableFormFactory = useVbenFormFromParam || useVbenFormFromContext;
-
+  // 优先使用参数传入的 useVbenForm，context 注入在 useTableForm 中获取
+  if (useVbenFormFromParam) {
+    tableFormFactory = useVbenFormFromParam;
+  }
   const { isDark, locale } = usePreferences();
 
   const localMap = {
