@@ -196,7 +196,7 @@ watch(
     if (val) {
       handleSearch(val);
     } else {
-      searchResults.value = [...searchHistory.value];
+      searchResults.value = searchHistory.value;
     }
   },
 );
