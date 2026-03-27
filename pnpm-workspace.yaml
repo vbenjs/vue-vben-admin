@@ -165,7 +165,7 @@ catalog:
   unplugin-element-plus: ^0.11.2
   unplugin-vue: ^7.1.1
   vee-validate: ^4.15.1
-  vite: ^8.0.1
+  vite: ^8.0.3
   vite-plugin-compression: ^0.5.1
   vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
