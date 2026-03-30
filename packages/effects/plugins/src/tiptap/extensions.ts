@@ -4,7 +4,7 @@ import type { VbenTiptapExtensionOptions } from './types';
 
 import { $t } from '@vben/locales';
 
-import Document from '@tiptap/extension-doc';
+import Document from '@tiptap/extension-document';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';

@@ -81,6 +81,9 @@ catalogs:
     '@tiptap/core':
       specifier: ^3.21.0
       version: 3.21.0
+    '@tiptap/extension-document':
+      specifier: ^3.21.0
+      version: 3.21.0
     '@tiptap/extension-highlight':
       specifier: ^3.21.0
       version: 3.21.0
@@ -1791,6 +1794,9 @@ importers:
       '@tiptap/core':
         specifier: 'catalog:'
         version: 3.21.0(@tiptap/pm@3.21.0)
+      '@tiptap/extension-document':
+        specifier: 'catalog:'
+        version: 3.21.0(@tiptap/core@3.21.0(@tiptap/pm@3.21.0))
       '@tiptap/extension-highlight':
         specifier: 'catalog:'
         version: 3.21.0(@tiptap/core@3.21.0(@tiptap/pm@3.21.0))
