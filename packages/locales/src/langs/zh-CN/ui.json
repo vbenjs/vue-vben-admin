@@ -61,6 +61,42 @@
     "cancel": "取消裁剪",
     "errorTip": "裁剪错误"
   },
+  "tiptap": {
+    "placeholder": "请输入内容...",
+    "prompts": {
+      "image": "请输入图片地址",
+      "link": "请输入链接地址"
+    },
+    "toolbar": {
+      "bold": "加粗",
+      "italic": "斜体",
+      "underline": "下划线",
+      "strike": "删除线",
+      "code": "行内代码",
+      "codeBlock": "代码块",
+      "heading": "标题",
+      "paragraph": "正文",
+      "heading1": "标题1",
+      "heading2": "标题2",
+      "heading3": "标题3",
+      "heading4": "标题4",
+      "bulletList": "无序列表",
+      "orderedList": "有序列表",
+      "blockquote": "引用",
+      "link": "链接",
+      "unlink": "移除链接",
+      "image": "图片",
+      "textColor": "文字颜色",
+      "highlightColor": "高亮颜色",
+      "alignLeft": "左对齐",
+      "alignCenter": "居中",
+      "alignRight": "右对齐",
+      "preview": "预览",
+      "undo": "撤销",
+      "redo": "重做",
+      "clear": "清除"
+    }
+  },
   "fallback": {
     "pageNotFound": "哎呀！未找到页面",
     "pageNotFoundDesc": "抱歉，我们无法找到您要找的页面。",

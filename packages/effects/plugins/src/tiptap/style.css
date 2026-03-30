@@ -1,0 +1,56 @@
+@reference "@vben/tailwind-config/theme";
+
+.vben-tiptap-content > * + * {
+  @apply mt-3;
+}
+
+.vben-tiptap-content h1 {
+  @apply text-2xl font-bold leading-[1.4];
+}
+
+.vben-tiptap-content h2 {
+  @apply text-xl font-bold leading-[1.45];
+}
+
+.vben-tiptap-content h3 {
+  @apply text-lg font-semibold leading-[1.5];
+}
+
+.vben-tiptap-content h4 {
+  @apply text-base font-semibold leading-[1.55];
+}
+
+.vben-tiptap-content ul {
+  @apply list-disc pl-6;
+}
+
+.vben-tiptap-content ol {
+  @apply list-decimal pl-6;
+}
+
+.vben-tiptap-content blockquote {
+  @apply border-l-4 border-primary pl-4 text-muted-foreground;
+}
+
+.vben-tiptap-content a {
+  @apply text-primary underline decoration-1 underline-offset-[3px];
+}
+
+.vben-tiptap-content code {
+  @apply rounded-[0.45rem] border border-border bg-secondary px-[0.35rem] py-[0.15rem] text-[0.9em] text-primary;
+}
+
+.vben-tiptap-content pre {
+  @apply overflow-x-auto rounded-[0.9rem] border border-border bg-popover p-4 text-popover-foreground;
+}
+
+.vben-tiptap-content pre code {
+  @apply border-none bg-transparent p-0 text-inherit;
+}
+
+.vben-tiptap-content img,
+.vben-tiptap-content .vben-tiptap__image {
+  @apply my-4 block h-auto rounded-2xl border border-border;
+
+  max-width: min(100%, 640px);
+}

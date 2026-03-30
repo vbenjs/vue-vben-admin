@@ -47,6 +47,17 @@ catalog:
   '@tailwindcss/vite': ^4.2.2
   '@tanstack/vue-query': ^5.95.2
   '@tanstack/vue-store': ^0.9.3
+  '@tiptap/core': ^3.21.0
+  '@tiptap/extension-doc': ^3.21.0
+  '@tiptap/extension-highlight': ^3.21.0
+  '@tiptap/extension-image': ^3.21.0
+  '@tiptap/extension-link': ^3.21.0
+  '@tiptap/extension-placeholder': ^3.21.0
+  '@tiptap/extension-text-align': ^3.21.0
+  '@tiptap/extension-text-style': ^3.21.0
+  '@tiptap/extension-underline': ^3.21.0
+  '@tiptap/starter-kit': ^3.21.0
+  '@tiptap/vue-3': ^3.21.0
   '@tsdown/css': ^0.21.7
   '@types/archiver': ^7.0.0
   '@types/html-minifier-terser': ^7.0.2

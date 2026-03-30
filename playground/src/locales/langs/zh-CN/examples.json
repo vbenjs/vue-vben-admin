@@ -79,5 +79,8 @@
   },
   "cropper": {
     "title": "图片裁剪"
+  },
+  "tiptap": {
+    "title": "富文本编辑器"
   }
 }

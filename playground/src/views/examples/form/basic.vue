@@ -409,6 +409,12 @@ const [BaseForm, baseFormApi] = useVbenForm({
       },
       rules: 'selectRequired',
     },
+    {
+      component: 'RichEditor',
+      fieldName: 'richEditor',
+      label: '富文本',
+      formItemClass: 'col-span-3 items-baseline',
+    },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
@@ -485,6 +491,12 @@ function handleSetFormValue() {
     timePicker: dayjs('2022-01-01 12:00:00'),
     treeSelect: 'leaf1',
     username: '1',
+    richEditor: `
+      <h1>Vben Tiptap</h1>
+      <p>这个编辑器已经被封装在 <code>packages/effects/plugins/src/tiptap</code> 中。</p>
+      <p>你可以直接在各个 app 里通过 <code>@vben/plugins/tiptap</code> 引入。</p>
+      <blockquote>默认内置 StarterKit、Underline、TextAlign、Placeholder。</blockquote>
+    `,
   });
 
   // 设置单个表单值
