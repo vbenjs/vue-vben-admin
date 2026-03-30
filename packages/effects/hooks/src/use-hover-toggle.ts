@@ -6,7 +6,7 @@ import { computed, effectScope, ref, unref, watch } from 'vue';
 
 import { isFunction } from '@vben/utils';
 
-import { useElementHover, tryOnScopeDispose } from '@vueuse/core';
+import { tryOnScopeDispose, useElementHover } from '@vueuse/core';
 
 interface HoverDelayOptions {
   /** 鼠标进入延迟时间 */
