@@ -79,5 +79,8 @@
   },
   "cropper": {
     "title": "Cropper"
+  },
+  "tiptap": {
+    "title": "Rich Text Editor"
   }
 }

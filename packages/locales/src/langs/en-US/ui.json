@@ -61,6 +61,42 @@
     "cancel": "Cancel cropping",
     "errorTip": "Cropping error"
   },
+  "tiptap": {
+    "placeholder": "Please enter content...",
+    "prompts": {
+      "image": "Enter image URL",
+      "link": "Enter link URL"
+    },
+    "toolbar": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strike": "Strike",
+      "code": "Code",
+      "codeBlock": "Code Block",
+      "heading": "Heading",
+      "paragraph": "Paragraph",
+      "heading1": "H1",
+      "heading2": "H2",
+      "heading3": "H3",
+      "heading4": "H4",
+      "bulletList": "Bullets",
+      "orderedList": "Numbering",
+      "blockquote": "Quote",
+      "link": "Link",
+      "unlink": "Unlink",
+      "image": "Image",
+      "textColor": "Text Color",
+      "highlightColor": "Highlight Color",
+      "alignLeft": "Left",
+      "alignCenter": "Center",
+      "alignRight": "Right",
+      "preview": "Preview",
+      "undo": "Undo",
+      "redo": "Redo",
+      "clear": "Clear"
+    }
+  },
   "fallback": {
     "pageNotFound": "Oops! Page Not Found",
     "pageNotFoundDesc": "Sorry, we couldn't find the page you were looking for.",

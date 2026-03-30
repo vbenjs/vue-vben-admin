@@ -346,6 +346,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('examples.cropper.title'),
         },
       },
+      {
+        name: 'TiptapExample',
+        path: '/examples/tiptap',
+        component: () => import('#/views/examples/tiptap/index.vue'),
+        meta: {
+          icon: 'lucide:square-pen',
+          title: $t('examples.tiptap.title'),
+        },
+      },
     ],
   },
 ];

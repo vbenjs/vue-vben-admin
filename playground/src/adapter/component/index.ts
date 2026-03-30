@@ -40,6 +40,7 @@ import {
 import { useSortable } from '@vben/hooks';
 import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
+import { VbenTiptap } from '@vben/plugins/tiptap';
 import { isEmpty } from '@vben/utils';
 
 import { message, Modal, notification } from 'ant-design-vue';
@@ -583,6 +584,7 @@ export type ComponentType =
   | 'RadioGroup'
   | 'RangePicker'
   | 'Rate'
+  | 'RichEditor'
   | 'Select'
   | 'Space'
   | 'Switch'
@@ -646,6 +648,7 @@ async function initComponentAdapter() {
     RadioGroup,
     RangePicker,
     Rate,
+    RichEditor: withDefaultPlaceholder(VbenTiptap, 'input'),
     Select: withDefaultPlaceholder(Select, 'select'),
     Space,
     Switch,
