@@ -101,7 +101,7 @@
     "unplugin-vue": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "vue": "^3.5.31",
+    "vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "engines": {
