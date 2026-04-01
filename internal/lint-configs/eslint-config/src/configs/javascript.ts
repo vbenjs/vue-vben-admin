@@ -104,6 +104,8 @@ export async function javascript(): Promise<Linter.Config[]> {
         'keyword-spacing': 'off',
         'no-control-regex': 'error',
         'no-empty-function': 'off',
+        'no-octal': 'error',
+        'no-octal-escape': 'error',
         'no-restricted-properties': [
           'error',
           {
@@ -136,8 +138,32 @@ export async function javascript(): Promise<Linter.Config[]> {
           'TSEnumDeclaration[const=true]',
           'TSExportAssignment',
         ],
+        'no-undef-init': 'error',
         'no-undef': 'off',
         'no-unreachable-loop': 'error',
+        'object-shorthand': [
+          'error',
+          'always',
+          {
+            avoidQuotes: true,
+            ignoreConstructors: false,
+          },
+        ],
+        'one-var': ['error', { initialized: 'never' }],
+        'prefer-arrow-callback': [
+          'error',
+          {
+            allowNamedFunctions: false,
+            allowUnboundThis: true,
+          },
+        ],
+        'prefer-regex-literals': [
+          'error',
+          {
+            disallowRedundantWrapping: true,
+          },
+        ],
+        'spaced-comment': 'error',
         'space-before-function-paren': 'off',
 
         'unused-imports/no-unused-imports': 'error',
