@@ -37,27 +37,27 @@ catalog:
   '@iconify/vue': ^5.0.0
   '@intlify/core-base': ^11.3.0
   '@intlify/unplugin-vue-i18n': ^11.0.7
-  '@jspm/generator': ^2.12.0
+  '@jspm/generator': ^2.13.0
   '@manypkg/get-packages': ^3.1.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
-  '@playwright/test': ^1.58.2
+  '@playwright/test': ^1.59.1
   '@pnpm/workspace.read-manifest': ^1000.3.1
   '@stylistic/stylelint-plugin': ^5.1.0
   '@tailwindcss/typography': ^0.5.19
   '@tailwindcss/vite': ^4.2.2
-  '@tanstack/vue-query': ^5.95.2
+  '@tanstack/vue-query': ^5.96.1
   '@tanstack/vue-store': ^0.9.3
-  '@tiptap/core': ^3.21.0
-  '@tiptap/extension-document': ^3.21.0
-  '@tiptap/extension-highlight': ^3.21.0
-  '@tiptap/extension-image': ^3.21.0
-  '@tiptap/extension-link': ^3.21.0
-  '@tiptap/extension-placeholder': ^3.21.0
-  '@tiptap/extension-text-align': ^3.21.0
-  '@tiptap/extension-text-style': ^3.21.0
-  '@tiptap/extension-underline': ^3.21.0
-  '@tiptap/starter-kit': ^3.21.0
-  '@tiptap/vue-3': ^3.21.0
+  '@tiptap/core': ^3.22.1
+  '@tiptap/extension-document': ^3.22.1
+  '@tiptap/extension-highlight': ^3.22.1
+  '@tiptap/extension-image': ^3.22.1
+  '@tiptap/extension-link': ^3.22.1
+  '@tiptap/extension-placeholder': ^3.22.1
+  '@tiptap/extension-text-align': ^3.22.1
+  '@tiptap/extension-text-style': ^3.22.1
+  '@tiptap/extension-underline': ^3.22.1
+  '@tiptap/starter-kit': ^3.22.1
+  '@tiptap/vue-3': ^3.22.1
   '@tsdown/css': ^0.21.7
   '@types/archiver': ^7.0.0
   '@types/html-minifier-terser': ^7.0.2
@@ -98,7 +98,7 @@ catalog:
   cz-git: ^1.12.0
   czg: ^1.12.0
   dayjs: ^1.11.20
-  defu: ^6.1.4
+  defu: ^6.1.6
   depcheck: ^1.4.7
   dotenv: ^17.3.1
   echarts: ^6.0.0
@@ -109,7 +109,7 @@ catalog:
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.1.2
   eslint-plugin-n: ^17.24.0
-  eslint-plugin-perfectionist: ^5.7.0
+  eslint-plugin-perfectionist: ^5.8.0
   eslint-plugin-pnpm: ^1.6.0
   eslint-plugin-unicorn: ^64.0.0
   eslint-plugin-unused-imports: ^4.4.1
@@ -119,7 +119,7 @@ catalog:
   find-up: ^8.0.0
   get-port: ^7.2.0
   globals: ^17.4.0
-  h3: ^1.15.10
+  h3: ^1.15.11
   happy-dom: ^20.8.9
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
@@ -130,23 +130,23 @@ catalog:
   lucide-vue-next: ^0.577.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.44.1
-  nitropack: ^2.13.2
+  nitropack: ^2.13.3
   nprogress: ^0.2.0
   ora: ^9.3.0
-  oxfmt: ^0.42.0
+  oxfmt: ^0.43.0
   oxlint: ^1.58.0
-  oxlint-tsgolint: ^0.18.1
+  oxlint-tsgolint: ^0.19.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.0
-  playwright: ^1.58.2
+  playwright: ^1.59.1
   postcss: ^8.5.8
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
   publint: ^0.3.18
   qrcode: ^1.5.4
   qs: ^6.15.0
-  reka-ui: ^2.9.2
+  reka-ui: ^2.9.3
   resolve.exports: ^2.0.3
   rimraf: ^6.1.3
   rolldown: ^1.0.0-rc.12
@@ -197,5 +197,5 @@ catalog:
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
 
