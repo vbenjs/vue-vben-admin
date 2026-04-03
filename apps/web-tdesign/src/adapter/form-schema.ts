@@ -25,26 +25,16 @@ import type { Component } from 'vue';
 import type {
   ApiComponentSharedProps,
   VbenFormSchema as CoreFormSchema,
+  FormActions,
   IconPickerProps,
 } from '@vben/common-ui';
 
 import type { ComponentType } from './component';
 
-type ComponentPropsFnArgs = Parameters<
-  Extract<
-    NonNullable<CoreFormSchema<ComponentType>['componentProps']>,
-    (...args: any) => any
-  >
->;
-
-/**
- * 使用适配器里为各 `component` 声明的 Props 类型 `P`；
- * 与 `Record<string, any>` 相交以兼容核心库 `MaybeComponentProps` 的索引签名。
- */
 type ComponentProps<P> =
   | ((
-      value: ComponentPropsFnArgs[0],
-      actions: ComponentPropsFnArgs[1],
+      value: Partial<Record<string, any>>,
+      actions: FormActions,
     ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
