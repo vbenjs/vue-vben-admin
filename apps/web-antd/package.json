@@ -11,7 +11,7 @@
   "license": "MIT",
   "author": {
     "name": "vben",
-    "email": "ann.vben@gmail.com",
+    "email": "admin@riss.com",
     "url": "https://github.com/anncwb"
   },
   "type": "module",
@@ -26,6 +26,8 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "@tanstack/vue-query": "catalog:",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -45,6 +47,7 @@
     "dayjs": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
+    "vue-plugin-hiprint": "catalog:",
     "vue-router": "catalog:"
   }
 }

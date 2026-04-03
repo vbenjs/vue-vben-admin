@@ -9,10 +9,7 @@
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash"
       },
-      "extensions": [
-        "Vue.volar",
-        "dbaeumer.vscode-eslint"
-      ]
+      "extensions": ["Vue.volar", "dbaeumer.vscode-eslint"]
     }
   },
   "forwardPorts": [5555, 3000, 5173],

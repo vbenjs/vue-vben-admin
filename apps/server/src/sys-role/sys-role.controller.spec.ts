@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysRoleController } from './sys-role.controller';
 
-describe('SysRoleController', () => {
+describe('sysRoleController', () => {
   let controller: SysRoleController;
 
   beforeEach(async () => {

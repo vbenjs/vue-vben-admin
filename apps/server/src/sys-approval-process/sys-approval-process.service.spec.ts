@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysApprovalProcessService } from './sys-approval-process.service';
 
-describe('SysApprovalProcessService', () => {
+describe('sysApprovalProcessService', () => {
   let service: SysApprovalProcessService;
 
   beforeEach(async () => {

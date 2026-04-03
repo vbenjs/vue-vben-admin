@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysJobController } from './sys-job.controller';
 
-describe('SysJobController', () => {
+describe('sysJobController', () => {
   let controller: SysJobController;
 
   beforeEach(async () => {

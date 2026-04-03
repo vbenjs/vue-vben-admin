@@ -14,6 +14,7 @@ Checks:
 """
 
 import sys
+import os
 import json
 import re
 from pathlib import Path
@@ -26,21 +27,53 @@ except:
     pass
 
 
+def _should_skip_dir(dir_path: Path) -> bool:
+    """检查是否应跳过该目录（node_modules、.git、dist 等大型目录）。"""
+    skip_names = {
+        'node_modules', '.git', 'dist', 'build', '.turbo',
+        '.next', '.nuxt', '.output', '__pycache__', '.cache',
+    }
+    return dir_path.name in skip_names
+
+
+def _safe_glob(project_path: Path, pattern: str) -> list:
+    """安全的 glob 搜索，排除 node_modules 等大型目录以避免超时。"""
+    import fnmatch
+    results = []
+    # 从 pattern 中提取文件名部分用于匹配
+    parts = pattern.replace('**/', '').split('/')
+    target_dir = parts[0] if len(parts) > 1 else None
+    file_pattern = parts[-1]
+
+    for root, dirs, files in os.walk(project_path):
+        # 就地修改 dirs 列表以跳过不需要的目录
+        dirs[:] = [d for d in dirs if not _should_skip_dir(Path(root) / d)]
+        root_path = Path(root)
+        if target_dir and root_path.name != target_dir:
+            continue
+        for f in files:
+            if fnmatch.fnmatch(f, file_pattern):
+                results.append(root_path / f)
+        if len(results) >= 10:
+            break
+    return results
+
+
 def find_schema_files(project_path: Path) -> list:
-    """Find database schema files."""
+    """查找数据库 Schema 文件（排除 node_modules 等目录以避免超时）。"""
     schemas = []
-    
+
     # Prisma schema
-    prisma_files = list(project_path.glob('**/prisma/schema.prisma'))
+    prisma_files = _safe_glob(project_path, '**/prisma/schema.prisma')
     schemas.extend([('prisma', f) for f in prisma_files])
-    
+
     # Drizzle schema files
-    drizzle_files = list(project_path.glob('**/drizzle/*.ts'))
-    drizzle_files.extend(project_path.glob('**/schema/*.ts'))
+    drizzle_files = _safe_glob(project_path, '**/drizzle/*.ts')
+    drizzle_files.extend(_safe_glob(project_path, '**/schema/*.ts'))
     for f in drizzle_files:
         if 'schema' in f.name.lower() or 'table' in f.name.lower():
             schemas.append(('drizzle', f))
-    
+
     return schemas[:10]  # Limit
 
 

@@ -1,13 +1,24 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SysPrintDesignService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(params: { skip?: number; take?: number; printName?: string; status?: string }) {
+  async create(data: any, username: string) {
+    const res = await this.prisma.sysPrintDesign.create({
+      data: {
+        ...data,
+        createBy: username,
+      },
+    });
+    return { ...res, printId: res.printId.toString() };
+  }
+
+  async findAll(params: { printName?: string; skip?: number; status?: string; take?: number }) {
     const { skip, take, printName, status } = params;
-    
+
     const where = {
       ...(printName ? { printName: { contains: printName } } : {}),
       ...(status ? { status } : {}),
@@ -20,7 +31,7 @@ export class SysPrintDesignService {
       orderBy: { createTime: 'desc' },
     });
 
-    const serializedItems = items.map(item => ({
+    const serializedItems = items.map((item) => ({
       ...item,
       printId: item.printId.toString(),
     }));
@@ -35,13 +46,8 @@ export class SysPrintDesignService {
     return item ? { ...item, printId: item.printId.toString() } : null;
   }
 
-  async create(data: any, username: string) {
-    const res = await this.prisma.sysPrintDesign.create({
-      data: {
-        ...data,
-        createBy: username,
-      },
-    });
+  async remove(id: number) {
+    const res = await this.prisma.sysPrintDesign.delete({ where: { printId: BigInt(id) } });
     return { ...res, printId: res.printId.toString() };
   }
 
@@ -53,11 +59,6 @@ export class SysPrintDesignService {
         updateBy: username,
       },
     });
-    return { ...res, printId: res.printId.toString() };
-  }
-
-  async remove(id: number) {
-    const res = await this.prisma.sysPrintDesign.delete({ where: { printId: BigInt(id) } });
     return { ...res, printId: res.printId.toString() };
   }
 }

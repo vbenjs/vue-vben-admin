@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
@@ -23,4 +24,4 @@ async function bootstrap() {
   // Listen on port 5555 for the mock/real backend
   await app.listen(process.env.PORT ?? 5555);
 }
-bootstrap();
+void bootstrap();

@@ -1,0 +1,184 @@
+name: RISS CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+  TZ: Asia/Shanghai
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Lint
+        run: pnpm run lint
+
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Run unit tests
+        run: pnpm run test:unit
+
+  server-lint:
+    name: Server Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Run server lint
+        run: pnpm run lint:server
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Typecheck
+        run: pnpm check:type
+
+  riss-smoke:
+    name: RISS Smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Start MySQL and Redis
+        run: docker compose -f apps/server/docker-compose.yml up -d
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            if docker exec vben_mysql mysqladmin ping -h 127.0.0.1 -proot --silent; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: Prepare database
+        working-directory: apps/server
+        run: |
+          pnpm exec prisma generate --schema prisma/schema.prisma
+          pnpm exec prisma migrate deploy --schema prisma/schema.prisma
+          pnpm exec ts-node --esm prisma/seed.ts
+
+      - name: Build backend
+        run: pnpm -C apps/server build
+
+      - name: Start backend and frontend
+        run: |
+          nohup pnpm -C apps/server start:prod > server.log 2>&1 &
+          nohup pnpm -C apps/web-antd dev > web.log 2>&1 &
+
+      - name: Wait for app ports
+        run: |
+          node <<'EOF'
+          const net = require('node:net');
+
+          const waitForPort = (port, retries = 60) =>
+            new Promise((resolve, reject) => {
+              const attempt = (remaining) => {
+                const socket = net.createConnection({ host: '127.0.0.1', port });
+                socket.on('connect', () => {
+                  socket.end();
+                  resolve();
+                });
+                socket.on('error', () => {
+                  socket.destroy();
+                  if (remaining <= 0) {
+                    reject(new Error(`Port ${port} did not open in time.`));
+                    return;
+                  }
+                  setTimeout(() => attempt(remaining - 1), 2000);
+                });
+              };
+
+              attempt(retries);
+            });
+
+          (async () => {
+            await waitForPort(5555);
+            await waitForPort(5666);
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Run RISS smoke scripts
+        run: |
+          RISS_SMOKE_RETRIES=2 pnpm run test:smoke:riss:all
+
+      - name: Upload smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: riss-smoke-logs
+          path: |
+            server.log
+            web.log
+
+      - name: Stop MySQL and Redis
+        if: always()
+        run: docker compose -f apps/server/docker-compose.yml down
+
+  ci-ok:
+    name: RISS CI OK
+    runs-on: ubuntu-latest
+    needs: [lint, unit, server-lint, typecheck, riss-smoke]
+    steps:
+      - name: Confirm all jobs succeeded
+        run: echo "All RISS CI jobs passed."

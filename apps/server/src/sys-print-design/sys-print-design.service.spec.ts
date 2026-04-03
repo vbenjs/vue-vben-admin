@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysPrintDesignService } from './sys-print-design.service';
 
-describe('SysPrintDesignService', () => {
+describe('sysPrintDesignService', () => {
   let service: SysPrintDesignService;
 
   beforeEach(async () => {

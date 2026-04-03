@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysPostController } from './sys-post.controller';
 
-describe('SysPostController', () => {
+describe('sysPostController', () => {
   let controller: SysPostController;
 
   beforeEach(async () => {

@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'happy-dom',
     exclude: [
       ...configDefaults.exclude,
+      '**/apps/server/**',
       '**/e2e/**',
       '**/dist/**',
       '**/.{idea,git,cache,output,temp}/**',

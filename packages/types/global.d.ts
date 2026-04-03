@@ -27,6 +27,6 @@ export interface ApplicationConfig {
 
 declare global {
   interface Window {
-    _VBEN_ADMIN_PRO_APP_CONF_: VbenAdminProAppConfigRaw;
+    _RISS_PRO_APP_CONF_: VbenAdminProAppConfigRaw;
   }
 }

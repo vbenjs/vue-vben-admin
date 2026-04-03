@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysTenantController } from './sys-tenant.controller';
 
-describe('SysTenantController', () => {
+describe('sysTenantController', () => {
   let controller: SysTenantController;
 
   beforeEach(async () => {

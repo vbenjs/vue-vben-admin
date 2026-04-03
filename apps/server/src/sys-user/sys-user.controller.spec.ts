@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysUserController } from './sys-user.controller';
 
-describe('SysUserController', () => {
+describe('sysUserController', () => {
   let controller: SysUserController;
 
   beforeEach(async () => {

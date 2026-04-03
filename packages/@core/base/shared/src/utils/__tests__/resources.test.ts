@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { loadScript } from '../resources';
 
@@ -6,9 +6,39 @@ const testJsPath =
   'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js';
 
 describe('loadScript', () => {
+  let detachedScriptContainer: HTMLDivElement;
+
   beforeEach(() => {
     // 每个测试前清空 head，保证环境干净
     document.head.innerHTML = '';
+    detachedScriptContainer = document.createElement('div');
+
+    const originalDocumentQuerySelector = document.querySelector.bind(document);
+    const originalHeadQuerySelectorAll = document.head.querySelectorAll.bind(
+      document.head,
+    );
+
+    vi.spyOn(document.head, 'append').mockImplementation((...nodes) => {
+      detachedScriptContainer.append(...nodes);
+    });
+    vi.spyOn(document, 'querySelector').mockImplementation((selector) => {
+      if (typeof selector === 'string' && selector.startsWith('script[')) {
+        return detachedScriptContainer.querySelector(selector);
+      }
+      return originalDocumentQuerySelector(selector);
+    });
+    vi.spyOn(document.head, 'querySelectorAll').mockImplementation(
+      (selector) => {
+        if (typeof selector === 'string' && selector.startsWith('script[')) {
+          return detachedScriptContainer.querySelectorAll(selector);
+        }
+        return originalHeadQuerySelectorAll(selector);
+      },
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('should resolve when the script loads successfully', async () => {

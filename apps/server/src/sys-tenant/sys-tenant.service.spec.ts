@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysTenantService } from './sys-tenant.service';
 
-describe('SysTenantService', () => {
+describe('sysTenantService', () => {
   let service: SysTenantService;
 
   beforeEach(async () => {

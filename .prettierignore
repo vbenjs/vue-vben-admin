@@ -9,6 +9,9 @@ CODEOWNERS
 .nitro
 .output
 
+.agent
+JZreference
+
 
 **/*.svg
 **/*.sh

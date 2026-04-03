@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysMenuService } from './sys-menu.service';
 
-describe('SysMenuService', () => {
+describe('sysMenuService', () => {
   let service: SysMenuService;
 
   beforeEach(async () => {

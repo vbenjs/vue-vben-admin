@@ -14,6 +14,7 @@ Supports:
 import subprocess
 import sys
 import json
+import os
 import platform
 import shutil
 from pathlib import Path
@@ -30,7 +31,8 @@ def detect_project_type(project_path: Path) -> dict:
     """Detect project type and available linters."""
     result = {
         "type": "unknown",
-        "linters": []
+        "linters": [],
+        "package_manager": "npm",
     }
     
     # Node.js project
@@ -41,16 +43,43 @@ def detect_project_type(project_path: Path) -> dict:
             pkg = json.loads(package_json.read_text(encoding='utf-8'))
             scripts = pkg.get("scripts", {})
             deps = {**pkg.get("dependencies", {}), **pkg.get("devDependencies", {})}
+            package_manager = str(pkg.get("packageManager", "")).split("@", 1)[0]
+            if package_manager:
+                result["package_manager"] = package_manager
+            elif (project_path / "pnpm-lock.yaml").exists():
+                result["package_manager"] = "pnpm"
             
             # Check for lint script
             if "lint" in scripts:
-                result["linters"].append({"name": "npm lint", "cmd": ["npm", "run", "lint"]})
+                result["linters"].append(
+                    {
+                        "name": "lint",
+                        "cmd": [result["package_manager"], "run", "lint"],
+                    }
+                )
             elif "eslint" in deps:
-                result["linters"].append({"name": "eslint", "cmd": ["npx", "eslint", "."]})
-            
+                result["linters"].append(
+                    {
+                        "name": "eslint",
+                        "cmd": [result["package_manager"], "exec", "eslint", "."],
+                    }
+                )
+
             # Check for TypeScript
-            if "typescript" in deps or (project_path / "tsconfig.json").exists():
-                result["linters"].append({"name": "tsc", "cmd": ["npx", "tsc", "--noEmit"]})
+            if "check:type" in scripts:
+                result["linters"].append(
+                    {
+                        "name": "typecheck",
+                        "cmd": [result["package_manager"], "run", "check:type"],
+                    }
+                )
+            elif "typescript" in deps or (project_path / "tsconfig.json").exists():
+                result["linters"].append(
+                    {
+                        "name": "tsc",
+                        "cmd": [result["package_manager"], "exec", "tsc", "--noEmit"],
+                    }
+                )
                 
         except:
             pass
@@ -83,7 +112,7 @@ def run_linter(linter: dict, cwd: Path) -> dict:
         
         # Windows compatibility for npm/npx
         if platform.system() == "Windows":
-            if cmd[0] in ["npm", "npx"]:
+            if cmd[0] in ["npm", "npx", "pnpm", "yarn"]:
                 # Force .cmd extension on Windows
                 if not cmd[0].lower().endswith(".cmd"):
                     cmd[0] = f"{cmd[0]}.cmd"

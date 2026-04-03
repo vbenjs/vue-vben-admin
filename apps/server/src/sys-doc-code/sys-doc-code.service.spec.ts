@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysDocCodeService } from './sys-doc-code.service';
 
-describe('SysDocCodeService', () => {
+describe('sysDocCodeService', () => {
   let service: SysDocCodeService;
 
   beforeEach(async () => {

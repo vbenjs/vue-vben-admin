@@ -7,9 +7,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: vben_admin
+      MYSQL_DATABASE: riss
     ports:
-      - '3306:3306'
+      - '3307:3306'
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   redis:

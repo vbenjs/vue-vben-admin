@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysOperLogService } from './sys-oper-log.service';
 
-describe('SysOperLogService', () => {
+describe('sysOperLogService', () => {
   let service: SysOperLogService;
 
   beforeEach(async () => {

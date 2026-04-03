@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('基础设置 - 系统参数配置 E2E 测试', () => {
   test.beforeEach(async ({ page }) => {
@@ -10,12 +10,14 @@ test.describe('基础设置 - 系统参数配置 E2E 测试', () => {
   test('验证：修改系统主标题并保存能正确反映到配置中', async ({ page }) => {
     // 找到 "系统主标题" 对应的输入框
     const titleInput = page.getByLabel('系统主标题 (sys.ui.title)');
-    
+
     // 清空现有值并输入新的标题
     await titleInput.fill('Vben 测试系统标题 2026');
 
     // 找到开关并切换状态
-    const captchaSwitch = page.getByRole('switch', { name: '开启登录图形验证码' });
+    const captchaSwitch = page.getByRole('switch', {
+      name: '开启登录图形验证码',
+    });
     await captchaSwitch.click();
 
     // 点击保存按钮

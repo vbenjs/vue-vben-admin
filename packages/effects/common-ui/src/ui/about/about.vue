@@ -27,13 +27,12 @@ withDefaults(defineProps<Props>(), {
 });
 
 declare global {
-  const __VBEN_ADMIN_METADATA__: {
+  const __RISS_METADATA__: {
     authorEmail: string;
     authorName: string;
     authorUrl: string;
     buildTime: string;
     dependencies: Record<string, string>;
-    description: string;
     devDependencies: Record<string, string>;
     homepage: string;
     license: string;
@@ -60,7 +59,7 @@ const {
   license,
   version,
   // vite inject-metadata 插件注入的全局变量
-} = __VBEN_ADMIN_METADATA__ || {};
+} = __RISS_METADATA__ || {};
 
 const vbenDescriptionItems: DescriptionItem[] = [
   {

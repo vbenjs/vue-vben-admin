@@ -20,7 +20,7 @@
   "license": "MIT",
   "author": {
     "name": "vben",
-    "email": "ann.vben@gmail.com",
+    "email": "admin@riss.com",
     "url": "https://github.com/anncwb"
   },
   "type": "module",
@@ -43,6 +43,9 @@
     "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
     "dev": "turbo-run dev",
+    "restart": "powershell -ExecutionPolicy Bypass -File scripts/restart-all.ps1",
+    "restart:frontend": "powershell -ExecutionPolicy Bypass -File scripts/restart-all.ps1 -FrontendOnly",
+    "restart:backend": "powershell -ExecutionPolicy Bypass -File scripts/restart-all.ps1 -BackendOnly",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     "dev:antdv-next": "pnpm -F @vben/web-antdv-next run dev",
     "dev:docs": "pnpm -F @vben/docs run dev",
@@ -52,6 +55,7 @@
     "dev:play": "pnpm -F @vben/playground run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",
+    "lint:server": "pnpm -C apps/server run lint:check",
     "postinstall": "pnpm -r run stub --if-present",
     "preinstall": "npx only-allow pnpm",
     "preview": "turbo-run preview",
@@ -59,6 +63,11 @@
     "reinstall": "pnpm clean --del-lock && pnpm install",
     "test:unit": "vitest run --dom",
     "test:e2e": "turbo run test:e2e",
+    "test:smoke:riss": "node ./scripts/riss-page-smoke.cjs",
+    "test:smoke:riss:all": "node ./scripts/riss-smoke-suite.cjs",
+    "test:smoke:riss:finance": "cross-env RISS_SMOKE_TARGETS=/finance/reimbursement,/finance/payment,/finance/voucher node ./scripts/riss-page-smoke.cjs",
+    "test:smoke:riss:workflow-actions": "node ./scripts/riss-workflow-action-smoke.cjs",
+    "test:smoke:riss:workflow": "cross-env RISS_SMOKE_TARGETS=/sys/expense-claim,/sys/contract-receipt,/sys/research-project,/sys/research-indicator,/sys/research-scope-adjust,/sys/contract,/sys/procurement-apply,/sys/procurement-result,/sys/bid-notice node ./scripts/riss-page-smoke.cjs",
     "update:deps": "npx taze -r -w",
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "catalog": "pnpx codemod pnpm/catalog"
@@ -67,6 +76,7 @@
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
     "@playwright/test": "catalog:",
+    "@types/jquery": "catalog:",
     "@types/node": "catalog:",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
@@ -101,5 +111,8 @@
     "node": ">=20.19.0",
     "pnpm": ">=10.0.0"
   },
-  "packageManager": "pnpm@10.28.2"
+  "packageManager": "pnpm@10.28.2",
+  "dependencies": {
+    "@tanstack/vue-query": "catalog:"
+  }
 }

@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysPrintDesignController } from './sys-print-design.controller';
 
-describe('SysPrintDesignController', () => {
+describe('sysPrintDesignController', () => {
   let controller: SysPrintDesignController;
 
   beforeEach(async () => {

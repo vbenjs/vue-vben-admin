@@ -234,8 +234,14 @@ Master validation scripts that orchestrate skill-level scripts.
 # Quick validation during development
 python .agent/scripts/checklist.py .
 
+# Local RISS workflow + finance smoke baseline
+python .agent/scripts/checklist.py . --riss-smoke
+
 # Full verification before deployment
 python .agent/scripts/verify_all.py . --url http://localhost:3000
+
+# Full verification + RISS workflow and finance smoke
+python .agent/scripts/verify_all.py . --url http://localhost:3000 --riss-smoke
 ```
 
 ### What They Check
@@ -248,6 +254,7 @@ python .agent/scripts/verify_all.py . --url http://localhost:3000
 - Test Suite
 - UX Audit
 - SEO Check
+- Optional RISS workflow smoke, finance smoke, and workflow action smoke checks via `--riss-smoke`
 
 **verify_all.py** (Full suite):
 
@@ -257,6 +264,7 @@ python .agent/scripts/verify_all.py . --url http://localhost:3000
 - Bundle Analysis
 - Mobile Audit
 - i18n Check
+- Optional RISS workflow smoke, finance smoke, and workflow action smoke checks via `--riss-smoke`
 
 For details, see [scripts/README.md](scripts/README.md)
 

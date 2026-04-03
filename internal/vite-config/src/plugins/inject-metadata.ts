@@ -87,7 +87,7 @@ async function viteMetadataPlugin(
 
       return {
         define: {
-          __VBEN_ADMIN_METADATA__: JSON.stringify({
+          __RISS_METADATA__: JSON.stringify({
             authorEmail,
             authorName,
             authorUrl,

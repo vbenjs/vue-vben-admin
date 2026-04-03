@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysMenuController } from './sys-menu.controller';
 
-describe('SysMenuController', () => {
+describe('sysMenuController', () => {
   let controller: SysMenuController;
 
   beforeEach(async () => {

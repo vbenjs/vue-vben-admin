@@ -1,9 +1,28 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SysMenuService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: any, username: string) {
+    const parentId = data.parentId === undefined ? 0 : Number(data.parentId);
+    const orderNum = data.orderNum === undefined ? 0 : Number(data.orderNum);
+    const isFrame = data.isFrame === undefined ? 1 : Number(data.isFrame);
+    const isCache = data.isCache === undefined ? 0 : Number(data.isCache);
+
+    return this.prisma.sysMenu.create({
+      data: {
+        ...data,
+        parentId,
+        orderNum,
+        isFrame,
+        isCache,
+        createBy: username,
+      },
+    });
+  }
 
   async findAll(params: { menuName?: string; status?: string }) {
     const { menuName, status } = params;
@@ -22,30 +41,16 @@ export class SysMenuService {
     return this.prisma.sysMenu.findUnique({ where: { menuId: id } });
   }
 
-  async create(data: any, username: string) {
-    const parentId = data.parentId !== undefined ? Number(data.parentId) : 0;
-    const orderNum = data.orderNum !== undefined ? Number(data.orderNum) : 0;
-    const isFrame = data.isFrame !== undefined ? Number(data.isFrame) : 1;
-    const isCache = data.isCache !== undefined ? Number(data.isCache) : 0;
-
-    return this.prisma.sysMenu.create({
-      data: {
-        ...data,
-        parentId,
-        orderNum,
-        isFrame,
-        isCache,
-        createBy: username,
-      },
-    });
+  async remove(id: number) {
+    return this.prisma.sysMenu.delete({ where: { menuId: id } });
   }
 
   async update(id: number, data: any, username: string) {
-    const parentId = data.parentId !== undefined ? Number(data.parentId) : 0;
-    const orderNum = data.orderNum !== undefined ? Number(data.orderNum) : 0;
-    const isFrame = data.isFrame !== undefined ? Number(data.isFrame) : 1;
-    const isCache = data.isCache !== undefined ? Number(data.isCache) : 0;
-    
+    const parentId = data.parentId === undefined ? 0 : Number(data.parentId);
+    const orderNum = data.orderNum === undefined ? 0 : Number(data.orderNum);
+    const isFrame = data.isFrame === undefined ? 1 : Number(data.isFrame);
+    const isCache = data.isCache === undefined ? 0 : Number(data.isCache);
+
     // Remove extra unmapped fields injected by frontend AntD Table
     const { menuId, key, children, parent, title, value, ...updateData } = data;
 
@@ -60,9 +65,5 @@ export class SysMenuService {
         updateBy: username,
       },
     });
-  }
-
-  async remove(id: number) {
-    return this.prisma.sysMenu.delete({ where: { menuId: id } });
   }
 }

@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysFormDesignController } from './sys-form-design.controller';
 
-describe('SysFormDesignController', () => {
+describe('sysFormDesignController', () => {
   let controller: SysFormDesignController;
 
   beforeEach(async () => {

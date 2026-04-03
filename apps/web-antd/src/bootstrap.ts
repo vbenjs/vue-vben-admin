@@ -46,6 +46,10 @@ async function bootstrap(namespace: string) {
   // 配置 pinia-tore
   await initStores(app, { namespace });
 
+  // 配置 Vue Query (Server State 缓存管理)
+  const { setupVueQuery } = await import('./plugins/vue-query');
+  setupVueQuery(app);
+
   // 安装权限指令
   registerAccessDirective(app);
 

@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysRoleService } from './sys-role.service';
 
-describe('SysRoleService', () => {
+describe('sysRoleService', () => {
   let service: SysRoleService;
 
   beforeEach(async () => {

@@ -1,17 +1,37 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SysOperLogService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(params: { skip?: number; take?: number; title?: string; operName?: string; status?: number }) {
+  async clear() {
+    return this.prisma.sysOperLog.deleteMany({});
+  }
+
+  async create(data: any) {
+    const res = await this.prisma.sysOperLog.create({
+      data: {
+        ...data,
+      },
+    });
+    return { ...res, operId: res.operId.toString(), costTime: res.costTime?.toString() };
+  }
+
+  async findAll(params: {
+    operName?: string;
+    skip?: number;
+    status?: number;
+    take?: number;
+    title?: string;
+  }) {
     const { skip, take, title, operName, status } = params;
-    
+
     const where = {
       ...(title ? { title: { contains: title } } : {}),
       ...(operName ? { operName: { contains: operName } } : {}),
-      ...(status !== undefined ? { status: Number(status) } : {}),
+      ...(status === undefined ? {} : { status: Number(status) }),
     };
 
     const items = await this.prisma.sysOperLog.findMany({
@@ -21,7 +41,7 @@ export class SysOperLogService {
       orderBy: { operTime: 'desc' },
     });
 
-    const serializedItems = items.map(item => ({
+    const serializedItems = items.map((item) => ({
       ...item,
       operId: item.operId.toString(),
       costTime: item.costTime?.toString(),
@@ -44,21 +64,8 @@ export class SysOperLogService {
     return null;
   }
 
-  async create(data: any) {
-    const res = await this.prisma.sysOperLog.create({
-      data: {
-        ...data,
-      },
-    });
-    return { ...res, operId: res.operId.toString(), costTime: res.costTime?.toString() };
-  }
-
   async remove(id: number) {
     const res = await this.prisma.sysOperLog.delete({ where: { operId: BigInt(id) } });
     return { ...res, operId: res.operId.toString(), costTime: res.costTime?.toString() };
-  }
-
-  async clear() {
-    return this.prisma.sysOperLog.deleteMany({});
   }
 }

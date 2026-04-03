@@ -14,6 +14,8 @@ Supports:
 import subprocess
 import sys
 import json
+import argparse
+import platform
 from pathlib import Path
 from datetime import datetime
 
@@ -30,7 +32,8 @@ def detect_test_framework(project_path: Path) -> dict:
         "type": "unknown",
         "framework": None,
         "cmd": None,
-        "coverage_cmd": None
+        "coverage_cmd": None,
+        "package_manager": "npm",
     }
     
     # Node.js project
@@ -41,27 +44,41 @@ def detect_test_framework(project_path: Path) -> dict:
             pkg = json.loads(package_json.read_text(encoding='utf-8'))
             scripts = pkg.get("scripts", {})
             deps = {**pkg.get("dependencies", {}), **pkg.get("devDependencies", {})}
+            package_manager = str(pkg.get("packageManager", "")).split("@", 1)[0]
+            if package_manager:
+                result["package_manager"] = package_manager
+            elif (project_path / "pnpm-lock.yaml").exists():
+                result["package_manager"] = "pnpm"
             
             # Check for test script
             if "test" in scripts:
-                result["framework"] = "npm test"
-                result["cmd"] = ["npm", "test"]
+                result["framework"] = "package script: test"
+                result["cmd"] = [result["package_manager"], "run", "test"]
                 
                 # Try to detect specific framework for coverage
-                if "vitest" in deps:
-                    result["framework"] = "vitest"
-                    result["coverage_cmd"] = ["npx", "vitest", "run", "--coverage"]
+                if "test:coverage" in scripts:
+                    result["coverage_cmd"] = [result["package_manager"], "run", "test:coverage"]
+                elif "test:cov" in scripts:
+                    result["coverage_cmd"] = [result["package_manager"], "run", "test:cov"]
+                elif "vitest" in deps:
+                    result["coverage_cmd"] = [result["package_manager"], "exec", "vitest", "run", "--coverage"]
                 elif "jest" in deps:
-                    result["framework"] = "jest"
-                    result["coverage_cmd"] = ["npx", "jest", "--coverage"]
+                    result["coverage_cmd"] = [result["package_manager"], "exec", "jest", "--coverage"]
+            elif "test:unit" in scripts:
+                result["framework"] = "package script: test:unit"
+                result["cmd"] = [result["package_manager"], "run", "test:unit"]
+                if "test:coverage" in scripts:
+                    result["coverage_cmd"] = [result["package_manager"], "run", "test:coverage"]
+                elif "test:cov" in scripts:
+                    result["coverage_cmd"] = [result["package_manager"], "run", "test:cov"]
             elif "vitest" in deps:
                 result["framework"] = "vitest"
-                result["cmd"] = ["npx", "vitest", "run"]
-                result["coverage_cmd"] = ["npx", "vitest", "run", "--coverage"]
+                result["cmd"] = [result["package_manager"], "exec", "vitest", "run"]
+                result["coverage_cmd"] = [result["package_manager"], "exec", "vitest", "run", "--coverage"]
             elif "jest" in deps:
                 result["framework"] = "jest"
-                result["cmd"] = ["npx", "jest"]
-                result["coverage_cmd"] = ["npx", "jest", "--coverage"]
+                result["cmd"] = [result["package_manager"], "exec", "jest"]
+                result["coverage_cmd"] = [result["package_manager"], "exec", "jest", "--coverage"]
                 
         except:
             pass
@@ -76,6 +93,15 @@ def detect_test_framework(project_path: Path) -> dict:
     return result
 
 
+def normalize_cmd(cmd: list[str]) -> list[str]:
+    """Resolve package manager executables on Windows."""
+    normalized = list(cmd)
+    if platform.system() == "Windows" and normalized:
+        if normalized[0] in ["npm", "npx", "pnpm", "yarn"] and not normalized[0].lower().endswith(".cmd"):
+            normalized[0] = f"{normalized[0]}.cmd"
+    return normalized
+
+
 def run_tests(cmd: list, cwd: Path) -> dict:
     """Run tests and return results."""
     result = {
@@ -88,8 +114,9 @@ def run_tests(cmd: list, cwd: Path) -> dict:
     }
     
     try:
+        normalized_cmd = normalize_cmd(cmd)
         proc = subprocess.run(
-            cmd,
+            normalized_cmd,
             cwd=str(cwd),
             capture_output=True,
             text=True,
@@ -117,7 +144,7 @@ def run_tests(cmd: list, cwd: Path) -> dict:
             result["tests_run"] = result["tests_passed"] + result["tests_failed"]
         
         # Pytest pattern: "X passed, Y failed"
-        if "pytest" in str(cmd):
+        if "pytest" in str(normalized_cmd):
             import re
             match = re.search(r'(\d+)\s+passed', output)
             if match:
@@ -137,10 +164,46 @@ def run_tests(cmd: list, cwd: Path) -> dict:
     return result
 
 
+def run_named_scripts(project_path: Path, package_manager: str, scripts: list[str]) -> tuple[list[dict], bool]:
+    """Run explicit package.json scripts sequentially."""
+    results = []
+    all_passed = True
+
+    for script_name in scripts:
+        cmd = [package_manager, "run", script_name]
+        print(f"Running script: {' '.join(cmd)}")
+        print("-" * 60)
+        result = run_tests(cmd, project_path)
+        result["name"] = script_name
+        results.append(result)
+
+        if result["passed"]:
+            print(f"[PASS] {script_name}")
+        else:
+            print(f"[FAIL] {script_name}")
+            if result["error"]:
+                print(f"Error: {result['error'][:200]}")
+            all_passed = False
+
+    return results, all_passed
+
+
 def main():
-    project_path = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
-    with_coverage = "--coverage" in sys.argv
-    
+    parser = argparse.ArgumentParser(description="Run project tests and optional package scripts")
+    parser.add_argument("project", nargs="?", default=".", help="Project path to validate")
+    parser.add_argument("--coverage", action="store_true", help="Enable coverage command when available")
+    parser.add_argument(
+        "--script",
+        action="append",
+        dest="scripts",
+        default=[],
+        help="Explicit package.json script to run; can be passed multiple times",
+    )
+    args = parser.parse_args()
+
+    project_path = Path(args.project).resolve()
+    with_coverage = args.coverage
+
     print(f"\n{'='*60}")
     print(f"[TEST RUNNER] Unified Test Execution")
     print(f"{'='*60}")
@@ -152,7 +215,44 @@ def main():
     test_info = detect_test_framework(project_path)
     print(f"Type: {test_info['type']}")
     print(f"Framework: {test_info['framework']}")
+    print(f"Package manager: {test_info.get('package_manager')}")
     print("-"*60)
+
+    if args.scripts:
+        if test_info["type"] != "node":
+            print("Explicit --script runs are only supported for Node.js projects.")
+            sys.exit(1)
+
+        results, all_passed = run_named_scripts(
+            project_path,
+            test_info["package_manager"],
+            args.scripts,
+        )
+
+        output = {
+            "script": "test_runner",
+            "project": str(project_path),
+            "type": test_info["type"],
+            "framework": "package scripts",
+            "executed_scripts": args.scripts,
+            "checks": [
+                {
+                    "name": result["name"],
+                    "passed": result["passed"],
+                    "error": result["error"],
+                }
+                for result in results
+            ],
+            "passed": all_passed,
+        }
+        print("\n" + "=" * 60)
+        print("SUMMARY")
+        print("=" * 60)
+        for result in results:
+            status = "[PASS]" if result["passed"] else "[FAIL]"
+            print(f"{status} {result['name']}")
+        print("\n" + json.dumps(output, indent=2))
+        sys.exit(0 if all_passed else 1)
     
     if not test_info["cmd"]:
         print("No test framework found for this project.")

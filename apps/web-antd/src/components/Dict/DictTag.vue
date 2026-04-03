@@ -1,7 +1,10 @@
 <!-- DictTag.vue -->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+
 import { Tag } from 'ant-design-vue'; // Assuming antd implementation
+
+import { requestClient } from '#/api/request';
 
 const props = defineProps({
   dictType: {
@@ -14,21 +17,20 @@ const props = defineProps({
   },
 });
 
-const dictOptions = ref<Array<{ label: string; value: string; class: string }>>([]);
+const dictOptions = ref<Array<{ class: string; label: string; value: string }>>(
+  [],
+);
 const isLoading = ref(false);
 
 const fetchDictData = async (type: string) => {
   isLoading.value = true;
   try {
-    const response = await fetch(`http://localhost:5555/api/sys/dict/data/type/${type}`);
-    const res = await response.json();
-    if (res.code === 0) {
-      dictOptions.value = res.data.map((item: any) => ({
-        label: item.dictLabel,
-        value: item.dictValue,
-        class: item.listClass,
-      }));
-    }
+    const data = await requestClient.get(`/sys/dict/data/type/${type}`);
+    dictOptions.value = (data || []).map((item: any) => ({
+      label: item.dictLabel,
+      value: item.dictValue,
+      class: item.listClass,
+    }));
   } finally {
     isLoading.value = false;
   }
@@ -47,7 +49,7 @@ const matchedOption = computed(() => {
 </script>
 
 <template>
-  <span v-if="isLoading" class="text-gray-400 text-sm">...</span>
+  <span v-if="isLoading" class="text-sm text-gray-400">...</span>
   <Tag v-else-if="matchedOption" :color="matchedOption.class">
     {{ matchedOption.label }}
   </Tag>

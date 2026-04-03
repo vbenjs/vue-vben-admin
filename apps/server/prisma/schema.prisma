@@ -121,6 +121,33 @@ model SysRole {
   @@map("sys_role")
 }
 
+/// 角色-菜单关联表
+model SysRoleMenu {
+  roleId Int @map("role_id")
+  menuId Int @map("menu_id")
+
+  @@id([roleId, menuId])
+  @@map("sys_role_menu")
+}
+
+/// 用户-角色关联表
+model SysUserRole {
+  userId BigInt @map("user_id")
+  roleId Int    @map("role_id")
+
+  @@id([userId, roleId])
+  @@map("sys_user_role")
+}
+
+/// 用户-岗位关联表
+model SysUserPost {
+  userId BigInt @map("user_id")
+  postId Int    @map("post_id")
+
+  @@id([userId, postId])
+  @@map("sys_user_post")
+}
+
 model SysMenu {
   menuId     Int       @id @default(autoincrement()) @map("menu_id")
   menuName   String    @map("menu_name") @db.VarChar(50)
@@ -154,7 +181,8 @@ model SysUser {
   email       String?   @default("") @map("email") @db.VarChar(50)
   phonenumber String?   @default("") @map("phonenumber") @db.VarChar(11)
   sex         String?   @default("0") @map("sex") @db.Char(1)
-  avatar      String?   @default("") @map("avatar") @db.VarChar(255)
+  avatar      String?   @map("avatar") @db.LongText
+  signature   String?   @map("signature") @db.LongText
   password    String?   @default("") @map("password") @db.VarChar(100)
   status      String?   @default("0") @map("status") @db.Char(1)
   loginIp     String?   @default("") @map("login_ip") @db.VarChar(128)
@@ -255,6 +283,19 @@ model SysFormDesign {
   @@map("sys_form_design")
 }
 
+model SysFormData {
+  id         BigInt    @id @default(autoincrement()) @map("id")
+  formId     BigInt    @map("form_id")
+  formData   String    @map("form_data") @db.LongText
+  createBy   String?   @map("create_by") @db.VarChar(64)
+  createTime DateTime? @default(now()) @map("create_time")
+  updateBy   String?   @map("update_by") @db.VarChar(64)
+  updateTime DateTime? @updatedAt @map("update_time")
+  remark     String?   @map("remark") @db.VarChar(500)
+
+  @@map("sys_form_data")
+}
+
 model SysApprovalProcess {
   processId   BigInt    @id @default(autoincrement()) @map("process_id")
   processName String    @map("process_name") @db.VarChar(100)
@@ -284,3 +325,955 @@ model SysPrintDesign {
 
   @@map("sys_print_design")
 }
+
+model SysGenTable {
+  tableId        BigInt            @id @default(autoincrement()) @map("table_id")
+  tableName      String            @map("table_name") @db.VarChar(200)
+  tableComment   String?           @map("table_comment") @db.VarChar(500)
+  className      String?           @map("class_name") @db.VarChar(100)
+  tplCategory    String?           @default("crud") @map("tpl_category") @db.VarChar(200)
+  packageName    String?           @map("package_name") @db.VarChar(100)
+  moduleName     String?           @map("module_name") @db.VarChar(30)
+  businessName   String?           @map("business_name") @db.VarChar(30)
+  functionName   String?           @map("function_name") @db.VarChar(50)
+  functionAuthor String?           @map("function_author") @db.VarChar(50)
+  genType        String?           @default("0") @map("gen_type") @db.Char(1)
+  genPath        String?           @default("/") @map("gen_path") @db.VarChar(200)
+  options        String?           @map("options") @db.VarChar(1000)
+  createBy       String?           @map("create_by") @db.VarChar(64)
+  createTime     DateTime?         @default(now()) @map("create_time")
+  updateBy       String?           @map("update_by") @db.VarChar(64)
+  updateTime     DateTime?         @updatedAt @map("update_time")
+  remark         String?           @map("remark") @db.VarChar(500)
+  columns        SysGenColumn[]
+
+  @@map("sys_gen_table")
+}
+
+model SysGenColumn {
+  columnId      BigInt      @id @default(autoincrement()) @map("column_id")
+  tableId       BigInt      @map("table_id")
+  columnName    String      @map("column_name") @db.VarChar(200)
+  columnComment String?     @map("column_comment") @db.VarChar(500)
+  columnType    String?     @map("column_type") @db.VarChar(100)
+  tsType        String?     @map("ts_type") @db.VarChar(500)
+  tsField       String?     @map("ts_field") @db.VarChar(200)
+  isPk          String?     @default("0") @map("is_pk") @db.Char(1)
+  isIncrement   String?     @default("0") @map("is_increment") @db.Char(1)
+  isRequired    String?     @default("0") @map("is_required") @db.Char(1)
+  isInsert      String?     @default("1") @map("is_insert") @db.Char(1)
+  isEdit        String?     @default("1") @map("is_edit") @db.Char(1)
+  isList        String?     @default("1") @map("is_list") @db.Char(1)
+  isQuery       String?     @default("0") @map("is_query") @db.Char(1)
+  queryType     String?     @default("EQ") @map("query_type") @db.VarChar(200)
+  htmlType      String?     @default("input") @map("html_type") @db.VarChar(200)
+  dictType      String?     @map("dict_type") @db.VarChar(200)
+  sort          Int?        @map("sort") @db.Int
+  createBy      String?     @map("create_by") @db.VarChar(64)
+  createTime    DateTime?   @default(now()) @map("create_time")
+  updateBy      String?     @map("update_by") @db.VarChar(64)
+  updateTime    DateTime?   @updatedAt @map("update_time")
+  
+  table         SysGenTable @relation(fields: [tableId], references: [tableId], onDelete: Cascade)
+
+  @@index([tableId], name: "idx_sys_gen_table_id")
+  @@map("sys_gen_column")
+}
+
+// ============================================================
+// 模块一：指标管理（Budget/Indicator）
+// ============================================================
+
+/// 一级项目
+model ProjectLevel1 {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  deptId          BigInt?   @map("dept_id")
+  deptName        String?   @default("") @map("dept_name") @db.VarChar(100)
+  projectCode     String?   @default("") @map("project_code") @db.VarChar(64)
+  projectName     String?   @default("") @map("project_name") @db.VarChar(200)
+  expendCategory  String?   @default("") @map("expend_category") @db.VarChar(100)
+  funcCategory    String?   @default("") @map("func_category") @db.VarChar(200)
+  isGovProcure    String?   @default("0") @map("is_gov_procure") @db.Char(1)
+  fundSource      String?   @default("") @map("fund_source") @db.VarChar(200)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("project_level1")
+}
+
+/// 二级项目
+model ProjectLevel2 {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  deptId          BigInt?   @map("dept_id")
+  deptName        String?   @default("") @map("dept_name") @db.VarChar(100)
+  level1Id        BigInt?   @map("level1_id")
+  projectCode     String?   @default("") @map("project_code") @db.VarChar(64)
+  projectName     String?   @default("") @map("project_name") @db.VarChar(200)
+  expendCategory  String?   @default("") @map("expend_category") @db.VarChar(100)
+  funcCategory    String?   @default("") @map("func_category") @db.VarChar(200)
+  isGovProcure    String?   @default("0") @map("is_gov_procure") @db.Char(1)
+  fundSource      String?   @default("") @map("fund_source") @db.VarChar(200)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("project_level2")
+}
+
+/// 部门指标（含年初/年中/课题/虚拟指标）
+model BudgetIndicator {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  indicatorCode     String?   @default("") @map("indicator_code") @db.VarChar(64)
+  indicatorName     String?   @default("") @map("indicator_name") @db.VarChar(200)
+  indicatorType     String?   @default("1") @map("indicator_type") @db.Char(1)
+  subProjectName    String?   @default("") @map("sub_project_name") @db.VarChar(200)
+  projectCategory   String?   @default("") @map("project_category") @db.VarChar(100)
+  expendCategory    String?   @default("") @map("expend_category") @db.VarChar(100)
+  level1Id          BigInt?   @map("level1_id")
+  level2Id          BigInt?   @map("level2_id")
+  funcCategory      String?   @default("") @map("func_category") @db.VarChar(200)
+  econCategory      String?   @default("") @map("econ_category") @db.VarChar(200)
+  govEconCategory   String?   @default("") @map("gov_econ_category") @db.VarChar(200)
+  deptEconCategory  String?   @default("") @map("dept_econ_category") @db.VarChar(200)
+  fundSource        String?   @default("") @map("fund_source") @db.VarChar(200)
+  fundNature        String?   @default("") @map("fund_nature") @db.VarChar(100)
+  incomeMethod      String?   @default("") @map("income_method") @db.VarChar(100)
+  isPreApply        String?   @default("0") @map("is_pre_apply") @db.Char(1)
+  isAllowTransfer   String?   @default("1") @map("is_allow_transfer") @db.Char(1)
+  isGovProcure      String?   @default("0") @map("is_gov_procure") @db.Char(1)
+  procureCategory   String?   @default("") @map("procure_category") @db.VarChar(200)
+  indicatorDocNo    String?   @default("") @map("indicator_doc_no") @db.VarChar(100)
+  accountSubject    String?   @default("") @map("account_subject") @db.VarChar(100)
+  yearBeginAmount   Decimal?  @default(0) @map("year_begin_amount") @db.Decimal(18, 2)
+  yearTotalAmount   Decimal?  @default(0) @map("year_total_amount") @db.Decimal(18, 2)
+  frozenAmount      Decimal?  @default(0) @map("frozen_amount") @db.Decimal(18, 2)
+  paidAmount        Decimal?  @default(0) @map("paid_amount") @db.Decimal(18, 2)
+  availableAmount   Decimal?  @default(0) @map("available_amount") @db.Decimal(18, 2)
+  transferOutAmount Decimal?  @default(0) @map("transfer_out_amount") @db.Decimal(18, 2)
+  transferInAmount  Decimal?  @default(0) @map("transfer_in_amount") @db.Decimal(18, 2)
+  budgetTotalAmount Decimal?  @default(0) @map("budget_total_amount") @db.Decimal(18, 2)
+  indicatorSource   String?   @default("") @map("indicator_source") @db.VarChar(100)
+  isFrozen          String?   @default("0") @map("is_frozen") @db.Char(1)
+  indicatorStatus   String?   @default("0") @map("indicator_status") @db.Char(1)
+  voucherStatus     String?   @default("") @map("voucher_status") @db.VarChar(20)
+  voucherMonth      String?   @default("") @map("voucher_month") @db.VarChar(10)
+  voucherNo         String?   @default("") @map("voucher_no") @db.VarChar(50)
+  researchProjectId BigInt?   @map("research_project_id")
+  researchCode      String?   @default("") @map("research_code") @db.VarChar(64)
+  researchName      String?   @default("") @map("research_name") @db.VarChar(200)
+  researchCategory  String?   @default("") @map("research_category") @db.VarChar(100)
+  projectManager    String?   @default("") @map("project_manager") @db.VarChar(50)
+  startYear         String?   @default("") @map("start_year") @db.VarChar(10)
+  endYear           String?   @default("") @map("end_year") @db.VarChar(10)
+  researchTotal     Decimal?  @default(0) @map("research_total") @db.Decimal(18, 2)
+  authDeptName      String?   @default("") @map("auth_dept_name") @db.VarChar(100)
+  delFlag           String?   @default("0") @map("del_flag") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("budget_indicator")
+}
+
+/// 指标授权使用
+model IndicatorAuth {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  indicatorId     BigInt?   @map("indicator_id")
+  authType        String?   @default("1") @map("auth_type") @db.Char(1)
+  authDeptId      BigInt?   @map("auth_dept_id")
+  authDeptName    String?   @default("") @map("auth_dept_name") @db.VarChar(100)
+  authUserId      BigInt?   @map("auth_user_id")
+  authUserName    String?   @default("") @map("auth_user_name") @db.VarChar(50)
+  authAmount      Decimal?  @default(0) @map("auth_amount") @db.Decimal(18, 2)
+  usedAmount      Decimal?  @default(0) @map("used_amount") @db.Decimal(18, 2)
+  controlMode     String?   @default("1") @map("control_mode") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("indicator_auth")
+}
+
+/// 指标调整（追加/追减）
+model IndicatorAdjust {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  adjustNo        String?   @default("") @map("adjust_no") @db.VarChar(64)
+  indicatorId     BigInt?   @map("indicator_id")
+  indicatorCode   String?   @default("") @map("indicator_code") @db.VarChar(64)
+  indicatorName   String?   @default("") @map("indicator_name") @db.VarChar(200)
+  deptId          BigInt?   @map("dept_id")
+  deptName        String?   @default("") @map("dept_name") @db.VarChar(100)
+  adjustType      String?   @default("1") @map("adjust_type") @db.Char(1)
+  adjustAmount    Decimal?  @default(0) @map("adjust_amount") @db.Decimal(18, 2)
+  operatorName    String?   @default("") @map("operator_name") @db.VarChar(50)
+  adjustDate      DateTime? @map("adjust_date")
+  isVoid          String?   @default("0") @map("is_void") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("indicator_adjust")
+}
+
+/// 指标调剂
+model IndicatorTransfer {
+  id                   BigInt    @id @default(autoincrement()) @map("id")
+  transferNo           String?   @default("") @map("transfer_no") @db.VarChar(64)
+  transferTotalAmount  Decimal?  @default(0) @map("transfer_total_amount") @db.Decimal(18, 2)
+  outDeptId            BigInt?   @map("out_dept_id")
+  outDeptName          String?   @default("") @map("out_dept_name") @db.VarChar(100)
+  outIndicatorId       BigInt?   @map("out_indicator_id")
+  outIndicatorName     String?   @default("") @map("out_indicator_name") @db.VarChar(200)
+  outFuncCategory      String?   @default("") @map("out_func_category") @db.VarChar(200)
+  outEconCategory      String?   @default("") @map("out_econ_category") @db.VarChar(200)
+  outFundSource        String?   @default("") @map("out_fund_source") @db.VarChar(200)
+  outIsGovProcure      String?   @default("0") @map("out_is_gov_procure") @db.Char(1)
+  outBeforeYearTotal   Decimal?  @default(0) @map("out_before_year_total") @db.Decimal(18, 2)
+  outTransferAmount    Decimal?  @default(0) @map("out_transfer_amount") @db.Decimal(18, 2)
+  outAfterAvailable    Decimal?  @default(0) @map("out_after_available") @db.Decimal(18, 2)
+  outAfterYearTotal    Decimal?  @default(0) @map("out_after_year_total") @db.Decimal(18, 2)
+  inDeptId             BigInt?   @map("in_dept_id")
+  inDeptName           String?   @default("") @map("in_dept_name") @db.VarChar(100)
+  inIndicatorId        BigInt?   @map("in_indicator_id")
+  inIndicatorName      String?   @default("") @map("in_indicator_name") @db.VarChar(200)
+  inFuncCategory       String?   @default("") @map("in_func_category") @db.VarChar(200)
+  inEconCategory       String?   @default("") @map("in_econ_category") @db.VarChar(200)
+  inFundSource         String?   @default("") @map("in_fund_source") @db.VarChar(200)
+  inIsGovProcure       String?   @default("0") @map("in_is_gov_procure") @db.Char(1)
+  inBeforeYearTotal    Decimal?  @default(0) @map("in_before_year_total") @db.Decimal(18, 2)
+  inTransferAmount     Decimal?  @default(0) @map("in_transfer_amount") @db.Decimal(18, 2)
+  inAfterAvailable     Decimal?  @default(0) @map("in_after_available") @db.Decimal(18, 2)
+  inAfterYearTotal     Decimal?  @default(0) @map("in_after_year_total") @db.Decimal(18, 2)
+  operatorName         String?   @default("") @map("operator_name") @db.VarChar(50)
+  transferDate         DateTime? @map("transfer_date")
+  status               String?   @default("0") @map("status") @db.Char(1)
+  createBy             String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime           DateTime? @default(now()) @map("create_time")
+  updateBy             String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime           DateTime? @updatedAt @map("update_time")
+  remark               String?   @map("remark") @db.VarChar(500)
+
+  @@map("indicator_transfer")
+}
+
+/// 授权调整申请
+model AuthAdjustApply {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  applyNo         String?   @default("") @map("apply_no") @db.VarChar(64)
+  applyDate       DateTime? @map("apply_date")
+  applyDeptId     BigInt?   @map("apply_dept_id")
+  applyDeptName   String?   @default("") @map("apply_dept_name") @db.VarChar(100)
+  indicatorId     BigInt?   @map("indicator_id")
+  indicatorName   String?   @default("") @map("indicator_name") @db.VarChar(200)
+  indicatorAmount Decimal?  @default(0) @map("indicator_amount") @db.Decimal(18, 2)
+  preciseAmount   Decimal?  @default(0) @map("precise_amount") @db.Decimal(18, 2)
+  applyAmount     Decimal?  @default(0) @map("apply_amount") @db.Decimal(18, 2)
+  operatorName    String?   @default("") @map("operator_name") @db.VarChar(50)
+  fundUsage       String?   @default("") @map("fund_usage") @db.VarChar(500)
+  flowStatus      String?   @default("0") @map("flow_status") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("auth_adjust_apply")
+}
+
+/// 指标导入导出模板配置
+model IndicatorTemplate {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  templateName    String?   @default("") @map("template_name") @db.VarChar(100)
+  templateCode    String?   @default("") @map("template_code") @db.VarChar(64)
+  isEnabled       String?   @default("1") @map("is_enabled") @db.Char(1)
+  sortOrder       Int?      @default(0) @map("sort_order") @db.Int
+  alias           String?   @default("") @map("alias") @db.VarChar(100)
+  isRequired      String?   @default("0") @map("is_required") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("indicator_template")
+}
+
+// ============================================================
+// 模块二：科研项目管理（Research Project）
+// ============================================================
+
+/// 科研项目申请/立项
+model ResearchProject {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  projectCode       String?   @default("") @map("project_code") @db.VarChar(64)
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  projectType       String?   @default("") @map("project_type") @db.VarChar(50)
+  projectSource     String?   @default("") @map("project_source") @db.VarChar(100)
+  applyYear         String?   @default("") @map("apply_year") @db.VarChar(10)
+  startDate         DateTime? @map("start_date")
+  endDate           DateTime? @map("end_date")
+  totalAmount       Decimal?  @default(0) @map("total_amount") @db.Decimal(18, 2)
+  funcCategory      String?   @default("") @map("func_category") @db.VarChar(200)
+  fundSource        String?   @default("") @map("fund_source") @db.VarChar(200)
+  projectManager    String?   @default("") @map("project_manager") @db.VarChar(50)
+  managerDeptId     BigInt?   @map("manager_dept_id")
+  managerDeptName   String?   @default("") @map("manager_dept_name") @db.VarChar(100)
+  projectStatus     String?   @default("0") @map("project_status") @db.Char(1)
+  isEstablished     String?   @default("0") @map("is_established") @db.Char(1)
+  establishDate     DateTime? @map("establish_date")
+  isClosed          String?   @default("0") @map("is_closed") @db.Char(1)
+  closeDate         DateTime? @map("close_date")
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_project")
+}
+
+/// 资金到账登记
+model ResearchFundArrival {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  deptId          BigInt?   @map("dept_id")
+  deptName        String?   @default("") @map("dept_name") @db.VarChar(100)
+  arrivalDate     DateTime? @map("arrival_date")
+  arrivalAmount   Decimal?  @default(0) @map("arrival_amount") @db.Decimal(18, 2)
+  payeeName       String?   @default("") @map("payee_name") @db.VarChar(100)
+  payeeAccount    String?   @default("") @map("payee_account") @db.VarChar(64)
+  payeeBank       String?   @default("") @map("payee_bank") @db.VarChar(100)
+  isReleased      String?   @default("0") @map("is_released") @db.Char(1)
+  releaseDate     DateTime? @map("release_date")
+  claimedAmount   Decimal?  @default(0) @map("claimed_amount") @db.Decimal(18, 2)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_fund_arrival")
+}
+
+/// 科研资金认领
+model ResearchFundClaim {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  arrivalId         BigInt?   @map("arrival_id")
+  projectId         BigInt?   @map("project_id")
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  indicatorId       BigInt?   @map("indicator_id")
+  indicatorName     String?   @default("") @map("indicator_name") @db.VarChar(200)
+  claimAmount       Decimal?  @default(0) @map("claim_amount") @db.Decimal(18, 2)
+  claimDate         DateTime? @map("claim_date")
+  isClaimed         String?   @default("0") @map("is_claimed") @db.Char(1)
+  operatorName      String?   @default("") @map("operator_name") @db.VarChar(50)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_fund_claim")
+}
+
+/// 科研指标
+model ResearchIndicator {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  projectId         BigInt?   @map("project_id")
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  indicatorCode     String?   @default("") @map("indicator_code") @db.VarChar(64)
+  indicatorName     String?   @default("") @map("indicator_name") @db.VarChar(200)
+  indicatorAmount   Decimal?  @default(0) @map("indicator_amount") @db.Decimal(18, 2)
+  usedAmount        Decimal?  @default(0) @map("used_amount") @db.Decimal(18, 2)
+  availableAmount   Decimal?  @default(0) @map("available_amount") @db.Decimal(18, 2)
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_indicator")
+}
+
+/// 科研支出范围
+model ResearchExpenseScope {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  indicatorId     BigInt?   @map("indicator_id")
+  scopeName       String?   @default("") @map("scope_name") @db.VarChar(200)
+  scopeAmount     Decimal?  @default(0) @map("scope_amount") @db.Decimal(18, 2)
+  usedAmount      Decimal?  @default(0) @map("used_amount") @db.Decimal(18, 2)
+  availableAmount Decimal?  @default(0) @map("available_amount") @db.Decimal(18, 2)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_expense_scope")
+}
+
+/// 科研支出范围调剂
+model ResearchScopeAdjust {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  indicatorId       BigInt?   @map("indicator_id")
+  indicatorName     String?   @default("") @map("indicator_name") @db.VarChar(200)
+  outScopeId        BigInt?   @map("out_scope_id")
+  outScopeName      String?   @default("") @map("out_scope_name") @db.VarChar(200)
+  outAdjustAmount   Decimal?  @default(0) @map("out_adjust_amount") @db.Decimal(18, 2)
+  inScopeId         BigInt?   @map("in_scope_id")
+  inScopeName       String?   @default("") @map("in_scope_name") @db.VarChar(200)
+  inAdjustAmount    Decimal?  @default(0) @map("in_adjust_amount") @db.Decimal(18, 2)
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("research_scope_adjust")
+}
+
+// ============================================================
+// 模块三：采购管理（Procurement）
+// ============================================================
+
+/// 采购项目申报
+model ProcurementApply {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  applyNo           String?   @default("") @map("apply_no") @db.VarChar(64)
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  unitName          String?   @default("") @map("unit_name") @db.VarChar(100)
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  procureType       String?   @default("") @map("procure_type") @db.VarChar(50)
+  procureMethod     String?   @default("") @map("procure_method") @db.VarChar(50)
+  procureAmount     Decimal?  @default(0) @map("procure_amount") @db.Decimal(18, 2)
+  applyDate         DateTime? @map("apply_date")
+  operatorName      String?   @default("") @map("operator_name") @db.VarChar(50)
+  fillType          String?   @default("") @map("fill_type") @db.VarChar(50)
+  bizNode           String?   @default("") @map("biz_node") @db.VarChar(50)
+  isAborted         String?   @default("0") @map("is_aborted") @db.Char(1)
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("procurement_apply")
+}
+
+/// 采购结果确认
+model ProcurementResult {
+  id                  BigInt    @id @default(autoincrement()) @map("id")
+  applyId             BigInt?   @map("apply_id")
+  applyNo             String?   @default("") @map("apply_no") @db.VarChar(64)
+  projectName         String?   @default("") @map("project_name") @db.VarChar(200)
+  winBidAmount        Decimal?  @default(0) @map("win_bid_amount") @db.Decimal(18, 2)
+  winBidSupplier      String?   @default("") @map("win_bid_supplier") @db.VarChar(200)
+  creditCode          String?   @default("") @map("credit_code") @db.VarChar(64)
+  inputStatus         String?   @default("0") @map("input_status") @db.Char(1)
+  flowStatus          String?   @default("0") @map("flow_status") @db.Char(1)
+  status              String?   @default("0") @map("status") @db.Char(1)
+  createBy            String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime          DateTime? @default(now()) @map("create_time")
+  updateBy            String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime          DateTime? @updatedAt @map("update_time")
+  remark              String?   @map("remark") @db.VarChar(500)
+
+  @@map("procurement_result")
+}
+
+/// 采购释放
+model ProcurementRelease {
+  id                  BigInt    @id @default(autoincrement()) @map("id")
+  applyId             BigInt?   @map("apply_id")
+  applyNo             String?   @default("") @map("apply_no") @db.VarChar(64)
+  projectName         String?   @default("") @map("project_name") @db.VarChar(200)
+  unitName            String?   @default("") @map("unit_name") @db.VarChar(100)
+  procureApplyAmount  Decimal?  @default(0) @map("procure_apply_amount") @db.Decimal(18, 2)
+  winBidAmount        Decimal?  @default(0) @map("win_bid_amount") @db.Decimal(18, 2)
+  contractAmount      Decimal?  @default(0) @map("contract_amount") @db.Decimal(18, 2)
+  expenseUsedAmount   Decimal?  @default(0) @map("expense_used_amount") @db.Decimal(18, 2)
+  releasedAmount      Decimal?  @default(0) @map("released_amount") @db.Decimal(18, 2)
+  releaseAmount       Decimal?  @default(0) @map("release_amount") @db.Decimal(18, 2)
+  releaseDate         DateTime? @map("release_date")
+  releaseStatus       String?   @default("0") @map("release_status") @db.Char(1)
+  status              String?   @default("0") @map("status") @db.Char(1)
+  createBy            String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime          DateTime? @default(now()) @map("create_time")
+  updateBy            String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime          DateTime? @updatedAt @map("update_time")
+  remark              String?   @map("remark") @db.VarChar(500)
+
+  @@map("procurement_release")
+}
+
+/// 供应商管理
+model Supplier {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  supplierCode      String?   @default("") @map("supplier_code") @db.VarChar(64)
+  supplierName      String?   @default("") @map("supplier_name") @db.VarChar(200)
+  procureType       String?   @default("") @map("procure_type") @db.VarChar(50)
+  creditCode        String?   @default("") @map("credit_code") @db.VarChar(64)
+  enterpriseType    String?   @default("") @map("enterprise_type") @db.VarChar(50)
+  registeredCapital Decimal?  @default(0) @map("registered_capital") @db.Decimal(18, 2)
+  isAbnormal        String?   @default("0") @map("is_abnormal") @db.Char(1)
+  supplierAddress   String?   @default("") @map("supplier_address") @db.VarChar(500)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("supplier")
+}
+
+// ============================================================
+// 模块四：合同管理（Contract）
+// ============================================================
+
+/// 合同信息（申请/审批/盖章/验收等状态流转）
+model Contract {
+  id                  BigInt    @id @default(autoincrement()) @map("id")
+  contractApplyNo     String?   @default("") @map("contract_apply_no") @db.VarChar(64)
+  contractNo          String?   @default("") @map("contract_no") @db.VarChar(64)
+  contractName        String?   @default("") @map("contract_name") @db.VarChar(200)
+  projectName         String?   @default("") @map("project_name") @db.VarChar(200)
+  contractCategory    String?   @default("") @map("contract_category") @db.VarChar(50)
+  procureMethod       String?   @default("") @map("procure_method") @db.VarChar(50)
+  procureType         String?   @default("") @map("procure_type") @db.VarChar(50)
+  contractAmount      Decimal?  @default(0) @map("contract_amount") @db.Decimal(18, 2)
+  settlementAmount    Decimal?  @default(0) @map("settlement_amount") @db.Decimal(18, 2)
+  expenseUsedAmount   Decimal?  @default(0) @map("expense_used_amount") @db.Decimal(18, 2)
+  unexpenseAmount     Decimal?  @default(0) @map("unexpense_amount") @db.Decimal(18, 2)
+  releasedAmount      Decimal?  @default(0) @map("released_amount") @db.Decimal(18, 2)
+  partyAUnit          String?   @default("") @map("party_a_unit") @db.VarChar(200)
+  partyBUnit          String?   @default("") @map("party_b_unit") @db.VarChar(200)
+  enterpriseType      String?   @default("") @map("enterprise_type") @db.VarChar(50)
+  signDate            DateTime? @map("sign_date")
+  startDate           DateTime? @map("start_date")
+  endDate             DateTime? @map("end_date")
+  fillType            String?   @default("") @map("fill_type") @db.VarChar(50)
+  bizNode             String?   @default("") @map("biz_node") @db.VarChar(50)
+  isAborted           String?   @default("0") @map("is_aborted") @db.Char(1)
+  isSealApplied       String?   @default("0") @map("is_seal_applied") @db.Char(1)
+  isScanUploaded      String?   @default("0") @map("is_scan_uploaded") @db.Char(1)
+  acceptanceStatus    String?   @default("0") @map("acceptance_status") @db.Char(1)
+  acceptanceUser      String?   @default("") @map("acceptance_user") @db.VarChar(50)
+  evaluationStatus    String?   @default("0") @map("evaluation_status") @db.Char(1)
+  flowStatus          String?   @default("0") @map("flow_status") @db.Char(1)
+  status              String?   @default("0") @map("status") @db.Char(1)
+  createBy            String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime          DateTime? @default(now()) @map("create_time")
+  updateBy            String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime          DateTime? @updatedAt @map("update_time")
+  remark              String?   @map("remark") @db.VarChar(500)
+
+  @@map("contract")
+}
+
+/// 合同收款
+model ContractReceipt {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  receiptNo         String?   @default("") @map("receipt_no") @db.VarChar(64)
+  contractId        BigInt?   @map("contract_id")
+  contractNo        String?   @default("") @map("contract_no") @db.VarChar(64)
+  contractName      String?   @default("") @map("contract_name") @db.VarChar(200)
+  procureType       String?   @default("") @map("procure_type") @db.VarChar(50)
+  procureMethod     String?   @default("") @map("procure_method") @db.VarChar(50)
+  contractAmount    Decimal?  @default(0) @map("contract_amount") @db.Decimal(18, 2)
+  operatorName      String?   @default("") @map("operator_name") @db.VarChar(50)
+  receiptUnit       String?   @default("") @map("receipt_unit") @db.VarChar(200)
+  receiptDate       DateTime? @map("receipt_date")
+  receiptAmount     Decimal?  @default(0) @map("receipt_amount") @db.Decimal(18, 2)
+  fillDate          DateTime? @map("fill_date")
+  flowNode          String?   @default("") @map("flow_node") @db.VarChar(50)
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("contract_receipt")
+}
+
+/// 合同释放
+model ContractRelease {
+  id                  BigInt    @id @default(autoincrement()) @map("id")
+  contractId          BigInt?   @map("contract_id")
+  contractNo          String?   @default("") @map("contract_no") @db.VarChar(64)
+  contractName        String?   @default("") @map("contract_name") @db.VarChar(200)
+  contractCategory    String?   @default("") @map("contract_category") @db.VarChar(50)
+  partyAUnit          String?   @default("") @map("party_a_unit") @db.VarChar(200)
+  partyBUnit          String?   @default("") @map("party_b_unit") @db.VarChar(200)
+  contractAmount      Decimal?  @default(0) @map("contract_amount") @db.Decimal(18, 2)
+  expenseUsedAmount   Decimal?  @default(0) @map("expense_used_amount") @db.Decimal(18, 2)
+  releasableAmount    Decimal?  @default(0) @map("releasable_amount") @db.Decimal(18, 2)
+  releaseAmount       Decimal?  @default(0) @map("release_amount") @db.Decimal(18, 2)
+  releaseDate         DateTime? @map("release_date")
+  releaseStatus       String?   @default("0") @map("release_status") @db.Char(1)
+  status              String?   @default("0") @map("status") @db.Char(1)
+  createBy            String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime          DateTime? @default(now()) @map("create_time")
+  updateBy            String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime          DateTime? @updatedAt @map("update_time")
+  remark              String?   @map("remark") @db.VarChar(500)
+
+  @@map("contract_release")
+}
+
+/// 履约评价
+model ContractEvaluation {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  contractId        BigInt?   @map("contract_id")
+  contractApplyNo   String?   @default("") @map("contract_apply_no") @db.VarChar(64)
+  contractNo        String?   @default("") @map("contract_no") @db.VarChar(64)
+  contractName      String?   @default("") @map("contract_name") @db.VarChar(200)
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  contractCategory  String?   @default("") @map("contract_category") @db.VarChar(50)
+  procureMethod     String?   @default("") @map("procure_method") @db.VarChar(50)
+  contractAmount    Decimal?  @default(0) @map("contract_amount") @db.Decimal(18, 2)
+  procureType       String?   @default("") @map("procure_type") @db.VarChar(50)
+  partyAUnit        String?   @default("") @map("party_a_unit") @db.VarChar(200)
+  partyBUnit        String?   @default("") @map("party_b_unit") @db.VarChar(200)
+  evaluator         String?   @default("") @map("evaluator") @db.VarChar(50)
+  evaluationLevel   String?   @default("") @map("evaluation_level") @db.VarChar(20)
+  evaluationDate    DateTime? @map("evaluation_date")
+  evaluationContent String?   @map("evaluation_content") @db.Text
+  evaluationStatus  String?   @default("0") @map("evaluation_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("contract_evaluation")
+}
+
+// ============================================================
+// 模块五：报账管理（Reimbursement）
+// ============================================================
+
+/// 报销单主表
+model ExpenseClaim {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  claimNo           String?   @default("") @map("claim_no") @db.VarChar(64)
+  claimType         String?   @default("") @map("claim_type") @db.VarChar(50)
+  claimDate         DateTime? @map("claim_date")
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  applicant         String?   @default("") @map("applicant") @db.VarChar(50)
+  fillerName        String?   @default("") @map("filler_name") @db.VarChar(50)
+  fillDate          DateTime? @map("fill_date")
+  claimAmount       Decimal?  @default(0) @map("claim_amount") @db.Decimal(18, 2)
+  claimAmountUpper  String?   @default("") @map("claim_amount_upper") @db.VarChar(100)
+  attachPages       Int?      @default(0) @map("attach_pages") @db.Int
+  isContract        String?   @default("0") @map("is_contract") @db.Char(1)
+  contractInfo      String?   @default("") @map("contract_info") @db.VarChar(500)
+  loanTotal         Decimal?  @default(0) @map("loan_total") @db.Decimal(18, 2)
+  offsetAmount      Decimal?  @default(0) @map("offset_amount") @db.Decimal(18, 2)
+  refundAmount      Decimal?  @default(0) @map("refund_amount") @db.Decimal(18, 2)
+  payableAmount     Decimal?  @default(0) @map("payable_amount") @db.Decimal(18, 2)
+  hasEInvoice       String?   @default("0") @map("has_e_invoice") @db.Char(1)
+  invoiceNo         String?   @default("") @map("invoice_no") @db.VarChar(100)
+  fundUsage         String?   @default("") @map("fund_usage") @db.VarChar(500)
+  indicatorInfo     String?   @default("") @map("indicator_info") @db.VarChar(500)
+  flowNode          String?   @default("") @map("flow_node") @db.VarChar(50)
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  travelStartDate   DateTime? @map("travel_start_date")
+  travelEndDate     DateTime? @map("travel_end_date")
+  travelDays        Int?      @default(0) @map("travel_days") @db.Int
+  travelReason      String?   @default("") @map("travel_reason") @db.VarChar(500)
+  receptionTarget   String?   @default("") @map("reception_target") @db.VarChar(200)
+  receptionDays     Int?      @default(0) @map("reception_days") @db.Int
+  receptionCount    Int?      @default(0) @map("reception_count") @db.Int
+  companionCount    Int?      @default(0) @map("companion_count") @db.Int
+  standardType      String?   @default("") @map("standard_type") @db.VarChar(50)
+  receptionStandard Decimal?  @default(0) @map("reception_standard") @db.Decimal(18, 2)
+  receptionPlace    String?   @default("") @map("reception_place") @db.VarChar(200)
+  standardLimit     Decimal?  @default(0) @map("standard_limit") @db.Decimal(18, 2)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("expense_claim")
+}
+
+/// 报销单明细
+model ExpenseClaimDetail {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  claimId           BigInt?   @map("claim_id")
+  usage             String?   @default("") @map("usage") @db.VarChar(500)
+  indicatorId       BigInt?   @map("indicator_id")
+  indicatorName     String?   @default("") @map("indicator_name") @db.VarChar(200)
+  econCategory      String?   @default("") @map("econ_category") @db.VarChar(200)
+  remainAmount      Decimal?  @default(0) @map("remain_amount") @db.Decimal(18, 2)
+  applyAmount       Decimal?  @default(0) @map("apply_amount") @db.Decimal(18, 2)
+  realIndicatorId   BigInt?   @map("real_indicator_id")
+  realEconCategory  String?   @default("") @map("real_econ_category") @db.VarChar(200)
+  travelFrom        String?   @default("") @map("travel_from") @db.VarChar(100)
+  travelTo          String?   @default("") @map("travel_to") @db.VarChar(100)
+  travelStartDate   DateTime? @map("travel_start_date")
+  travelEndDate     DateTime? @map("travel_end_date")
+  travelDays        Int?      @default(0) @map("travel_days") @db.Int
+  travelPersons     Int?      @default(0) @map("travel_persons") @db.Int
+  travelLevel       String?   @default("") @map("travel_level") @db.VarChar(50)
+  airFare           Decimal?  @default(0) @map("air_fare") @db.Decimal(18, 2)
+  cityTransport     Decimal?  @default(0) @map("city_transport") @db.Decimal(18, 2)
+  accommodation     Decimal?  @default(0) @map("accommodation") @db.Decimal(18, 2)
+  mealAllowance     Decimal?  @default(0) @map("meal_allowance") @db.Decimal(18, 2)
+  localTransport    Decimal?  @default(0) @map("local_transport") @db.Decimal(18, 2)
+  otherExpense      Decimal?  @default(0) @map("other_expense") @db.Decimal(18, 2)
+  subtotal          Decimal?  @default(0) @map("subtotal") @db.Decimal(18, 2)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("expense_claim_detail")
+}
+
+/// 收款人信息
+model ExpensePayee {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  payeeName       String?   @default("") @map("payee_name") @db.VarChar(100)
+  bankAccount     String?   @default("") @map("bank_account") @db.VarChar(64)
+  bankName        String?   @default("") @map("bank_name") @db.VarChar(100)
+  accountType     String?   @default("") @map("account_type") @db.VarChar(50)
+  budgetUnit      String?   @default("") @map("budget_unit") @db.VarChar(100)
+  deptId          BigInt?   @map("dept_id")
+  isEnabled       String?   @default("1") @map("is_enabled") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("expense_payee")
+}
+
+/// 付款人管理
+model ExpensePayer {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  payerName       String?   @default("") @map("payer_name") @db.VarChar(100)
+  bankAccount     String?   @default("") @map("bank_account") @db.VarChar(64)
+  bankName        String?   @default("") @map("bank_name") @db.VarChar(100)
+  pinyinCode      String?   @default("") @map("pinyin_code") @db.VarChar(50)
+  sortCode        String?   @default("") @map("sort_code") @db.VarChar(50)
+  relatedUnit     String?   @default("") @map("related_unit") @db.VarChar(100)
+  deptId          BigInt?   @map("dept_id")
+  isEnabled       String?   @default("1") @map("is_enabled") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("expense_payer")
+}
+
+/// 支付方式关联管理
+model PaymentMethod {
+  id              BigInt    @id @default(autoincrement()) @map("id")
+  paymentType     String?   @default("") @map("payment_type") @db.VarChar(50)
+  relationType    String?   @default("") @map("relation_type") @db.VarChar(50)
+  isDefault       String?   @default("0") @map("is_default") @db.Char(1)
+  payerId         BigInt?   @map("payer_id")
+  payerName       String?   @default("") @map("payer_name") @db.VarChar(100)
+  payerBank       String?   @default("") @map("payer_bank") @db.VarChar(100)
+  payerAccount    String?   @default("") @map("payer_account") @db.VarChar(64)
+  payerUnit       String?   @default("") @map("payer_unit") @db.VarChar(100)
+  isEnabled       String?   @default("1") @map("is_enabled") @db.Char(1)
+  status          String?   @default("0") @map("status") @db.Char(1)
+  createBy        String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime      DateTime? @default(now()) @map("create_time")
+  updateBy        String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime      DateTime? @updatedAt @map("update_time")
+  remark          String?   @map("remark") @db.VarChar(500)
+
+  @@map("payment_method")
+}
+
+// ============================================================
+// 模块七：工程管理（Engineering）
+// ============================================================
+
+/// 工程台账
+model EngineeringProject {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  projectCode       String?   @default("") @map("project_code") @db.VarChar(64)
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  projectType       String?   @default("") @map("project_type") @db.VarChar(50)
+  projectStatus     String?   @default("0") @map("project_status") @db.Char(1)
+  totalInvestment   Decimal?  @default(0) @map("total_investment") @db.Decimal(18, 2)
+  startDate         DateTime? @map("start_date")
+  endDate           DateTime? @map("end_date")
+  projectAddress    String?   @default("") @map("project_address") @db.VarChar(500)
+  projectManager    String?   @default("") @map("project_manager") @db.VarChar(50)
+  deptId            BigInt?   @map("dept_id")
+  deptName          String?   @default("") @map("dept_name") @db.VarChar(100)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("engineering_project")
+}
+
+/// 预选承包商名录
+model Contractor {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  contractorName    String?   @default("") @map("contractor_name") @db.VarChar(200)
+  contractorType    String?   @default("") @map("contractor_type") @db.VarChar(50)
+  creditCode        String?   @default("") @map("credit_code") @db.VarChar(64)
+  contactPerson     String?   @default("") @map("contact_person") @db.VarChar(50)
+  contactPhone      String?   @default("") @map("contact_phone") @db.VarChar(20)
+  qualification     String?   @default("") @map("qualification") @db.VarChar(200)
+  businessScope     String?   @default("") @map("business_scope") @db.VarChar(500)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("contractor")
+}
+
+/// 招标公告
+model BidNotice {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  noticeTitle       String?   @default("") @map("notice_title") @db.VarChar(200)
+  noticeContent     String?   @map("notice_content") @db.Text
+  projectId         BigInt?   @map("project_id")
+  projectName       String?   @default("") @map("project_name") @db.VarChar(200)
+  publishDate       DateTime? @map("publish_date")
+  bidDeadline       DateTime? @map("bid_deadline")
+  bidOpenDate       DateTime? @map("bid_open_date")
+  flowStatus        String?   @default("0") @map("flow_status") @db.Char(1)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("bid_notice")
+}
+
+/// 专家库
+model Expert {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  expertName        String?   @default("") @map("expert_name") @db.VarChar(50)
+  expertType        String?   @default("") @map("expert_type") @db.VarChar(50)
+  specialty         String?   @default("") @map("specialty") @db.VarChar(200)
+  workUnit          String?   @default("") @map("work_unit") @db.VarChar(200)
+  title             String?   @default("") @map("title") @db.VarChar(50)
+  phone             String?   @default("") @map("phone") @db.VarChar(20)
+  email             String?   @default("") @map("email") @db.VarChar(50)
+  idCard            String?   @default("") @map("id_card") @db.VarChar(20)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("expert")
+}
+
+// ============================================================
+// 公共表
+// ============================================================
+
+/// 审批记录（通用审批流程历史）
+model ApprovalRecord {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  businessId        BigInt?   @map("business_id")
+  businessType      String?   @default("") @map("business_type") @db.VarChar(50)
+  businessNo        String?   @default("") @map("business_no") @db.VarChar(64)
+  nodeCode          String?   @default("") @map("node_code") @db.VarChar(50)
+  nodeName          String?   @default("") @map("node_name") @db.VarChar(100)
+  approverUserId    BigInt?   @map("approver_user_id")
+  approverName      String?   @default("") @map("approver_name") @db.VarChar(50)
+  approverDeptId    BigInt?   @map("approver_dept_id")
+  approverDeptName  String?   @default("") @map("approver_dept_name") @db.VarChar(100)
+  approvalAction    String?   @default("") @map("approval_action") @db.VarChar(20)
+  approvalOpinion   String?   @map("approval_opinion") @db.VarChar(500)
+  approvalTime      DateTime? @map("approval_time")
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("approval_record")
+}
+
+/// 附件管理
+model Attachment {
+  id                BigInt    @id @default(autoincrement()) @map("id")
+  businessId        BigInt?   @map("business_id")
+  businessType      String?   @default("") @map("business_type") @db.VarChar(50)
+  fileName          String?   @default("") @map("file_name") @db.VarChar(200)
+  fileOriginalName  String?   @default("") @map("file_original_name") @db.VarChar(200)
+  filePath          String?   @default("") @map("file_path") @db.VarChar(500)
+  fileSize          BigInt?   @default(0) @map("file_size")
+  fileType          String?   @default("") @map("file_type") @db.VarChar(50)
+  fileSuffix        String?   @default("") @map("file_suffix") @db.VarChar(20)
+  status            String?   @default("0") @map("status") @db.Char(1)
+  createBy          String?   @default("") @map("create_by") @db.VarChar(64)
+  createTime        DateTime? @default(now()) @map("create_time")
+  updateBy          String?   @default("") @map("update_by") @db.VarChar(64)
+  updateTime        DateTime? @updatedAt @map("update_time")
+  remark            String?   @map("remark") @db.VarChar(500)
+
+  @@map("attachment")
+}
+

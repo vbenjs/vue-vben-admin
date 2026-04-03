@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+// @ts-nocheck
+import { ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
-import { Card, Row, Col, Statistic } from 'ant-design-vue';
+
+import { Card, Col, Row, Statistic } from 'ant-design-vue';
 
 // 简单模拟的系统运行状态，真实业务中应从后端读取（os模块的内存/CPU等指标）
 const systemInfo = ref({
@@ -11,11 +14,10 @@ const systemInfo = ref({
   nodeVersion: 'v20.x',
   uptime: '15天 6小时',
 });
-
 </script>
 
 <template>
-  <Page title="服务监控" description="后端服务器运行状态概览。">
+  <Page>
     <div class="p-4">
       <Row :gutter="16">
         <Col :span="8">

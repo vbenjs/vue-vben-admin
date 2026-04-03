@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Popconfirm, message, Select } from 'ant-design-vue';
+
+import {
+  Button,
+  Card,
+  Input,
+  message,
+  Popconfirm,
+  Select,
+  Table,
+  Tag,
+} from 'ant-design-vue';
+
 import { sysLogininforApi } from '#/api/core/sys-manage';
 
 const loading = ref(false);
@@ -18,13 +30,17 @@ const columns = [
   { title: '登录状态', dataIndex: 'status', key: 'status', width: 90 },
   { title: '操作提示', dataIndex: 'msg', key: 'msg' },
   { title: '登录日期', dataIndex: 'loginTime', key: 'loginTime', width: 160 },
-  { title: '操作', key: 'action', width: 80 }
+  { title: '操作', key: 'action', width: 80 },
 ];
 
 const fetchList = async (page = 1) => {
   try {
     loading.value = true;
-    const res = await sysLogininforApi.getList({ page, pageSize: pagination.value.pageSize, ...searchParams.value });
+    const res = await sysLogininforApi.getList({
+      page,
+      pageSize: pagination.value.pageSize,
+      ...searchParams.value,
+    });
     dataSource.value = res?.items || [];
     pagination.value.current = page;
     pagination.value.total = res?.total || 0;
@@ -45,36 +61,65 @@ const handleDelete = async (id: number | string) => {
   fetchList(pagination.value.current);
 };
 
-const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+const formatDate = (v: string) =>
+  v ? new Date(v).toLocaleString('zh-CN') : '-';
 
 onMounted(() => fetchList());
 </script>
 
 <template>
-  <Page title="登录日志" description="系统登录登出行为详情。">
+  <Page>
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-3 flex gap-3 flex-wrap">
-          <Input v-model:value="searchParams.userName" placeholder="用户账号" class="w-36" allowClear />
-          <Input v-model:value="searchParams.ipaddr" placeholder="登录IP" class="w-36" allowClear />
-          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+        <div class="mb-3 flex flex-wrap gap-3">
+          <Input
+            v-model:value="searchParams.userName"
+            placeholder="用户账号"
+            class="w-36"
+            allow-clear
+          />
+          <Input
+            v-model:value="searchParams.ipaddr"
+            placeholder="登录IP"
+            class="w-36"
+            allow-clear
+          />
+          <Select
+            v-model:value="searchParams.status"
+            placeholder="状态"
+            class="w-28"
+            allow-clear
+          >
             <Select.Option value="0">成功</Select.Option>
             <Select.Option value="1">失败</Select.Option>
           </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
-          <Button @click="() => { searchParams.userName = ''; searchParams.ipaddr = ''; fetchList(1); }">重置</Button>
-          <Popconfirm title="确认清空所有登录记录吗？此操作无法恢复。" @confirm="handleClean">
+          <Button
+            @click="
+              () => {
+                searchParams.userName = '';
+                searchParams.ipaddr = '';
+                fetchList(1);
+              }
+            "
+          >
+            重置
+          </Button>
+          <Popconfirm
+            title="确认清空所有登录记录吗？此操作无法恢复。"
+            @confirm="handleClean"
+          >
             <Button type="primary" danger ghost class="ml-auto">清空</Button>
           </Popconfirm>
         </div>
-        
-        <Table 
-          :columns="columns" 
-          :dataSource="dataSource" 
-          :loading="loading" 
+
+        <Table
+          :columns="columns"
+          :data-source="dataSource"
+          :loading="loading"
           :pagination="pagination"
           @change="(pag) => fetchList(pag.current)"
-          rowKey="infoId"
+          row-key="infoId"
           bordered
           size="middle"
         >
@@ -84,9 +129,14 @@ onMounted(() => fetchList());
                 {{ record.status === '0' ? '成功' : '失败' }}
               </Tag>
             </template>
-            <template v-if="column.key === 'loginTime'">{{ formatDate(record.loginTime) }}</template>
+            <template v-if="column.key === 'loginTime'">
+              {{ formatDate(record.loginTime) }}
+            </template>
             <template v-if="column.key === 'action'">
-              <Popconfirm title="确定删除这日志吗？" @confirm="handleDelete(record.infoId)">
+              <Popconfirm
+                title="确定删除这日志吗？"
+                @confirm="handleDelete(record.infoId)"
+              >
                 <Button type="link" danger size="small">删除</Button>
               </Popconfirm>
             </template>

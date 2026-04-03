@@ -129,6 +129,32 @@ VERIFICATION_SUITE = [
             ("Playwright E2E", ".agent/skills/webapp-testing/scripts/playwright_runner.py", False),
         ]
     },
+
+    # P7.5: Project-specific smoke checks
+    {
+        "category": "RISS Smoke",
+        "requires_riss_smoke": True,
+        "checks": [
+            (
+                "RISS Workflow Smoke",
+                ".agent/skills/testing-patterns/scripts/test_runner.py",
+                False,
+                ["--script", "test:smoke:riss:workflow"],
+            ),
+            (
+                "RISS Finance Smoke",
+                ".agent/skills/testing-patterns/scripts/test_runner.py",
+                False,
+                ["--script", "test:smoke:riss:finance"],
+            ),
+            (
+                "RISS Workflow Actions Smoke",
+                ".agent/skills/testing-patterns/scripts/test_runner.py",
+                False,
+                ["--script", "test:smoke:riss:workflow-actions"],
+            ),
+        ]
+    },
     
     # P8: Mobile (if applicable)
     {
@@ -147,7 +173,13 @@ VERIFICATION_SUITE = [
     },
 ]
 
-def run_script(name: str, script_path: Path, project_path: str, url: Optional[str] = None) -> dict:
+def run_script(
+    name: str,
+    script_path: Path,
+    project_path: str,
+    url: Optional[str] = None,
+    extra_args: Optional[list[str]] = None,
+) -> dict:
     """Run validation script"""
     if not script_path.exists():
         print_warning(f"{name}: Script not found, skipping")
@@ -160,6 +192,8 @@ def run_script(name: str, script_path: Path, project_path: str, url: Optional[st
     cmd = ["python", str(script_path), project_path]
     if url and ("lighthouse" in script_path.name.lower() or "playwright" in script_path.name.lower()):
         cmd.append(url)
+    if extra_args:
+        cmd.extend(extra_args)
     
     # Run
     try:
@@ -273,6 +307,11 @@ Examples:
     parser.add_argument("project", help="Project path to validate")
     parser.add_argument("--url", required=True, help="URL for performance & E2E checks")
     parser.add_argument("--no-e2e", action="store_true", help="Skip E2E tests")
+    parser.add_argument(
+        "--riss-smoke",
+        action="store_true",
+        help="Run RISS workflow smoke, finance smoke, and workflow action smoke checks",
+    )
     parser.add_argument("--stop-on-fail", action="store_true", help="Stop on first failure")
     
     args = parser.parse_args()
@@ -295,9 +334,13 @@ Examples:
     for suite in VERIFICATION_SUITE:
         category = suite["category"]
         requires_url = suite.get("requires_url", False)
+        requires_riss_smoke = suite.get("requires_riss_smoke", False)
         
         # Skip if requires URL and not provided
         if requires_url and not args.url:
+            continue
+
+        if requires_riss_smoke and not args.riss_smoke:
             continue
         
         # Skip E2E if flag set
@@ -306,9 +349,14 @@ Examples:
         
         print_header(f"📋 {category.upper()}")
         
-        for name, script_path, required in suite["checks"]:
+        for check in suite["checks"]:
+            if len(check) == 3:
+                name, script_path, required = check
+                extra_args = None
+            else:
+                name, script_path, required, extra_args = check
             script = project_path / script_path
-            result = run_script(name, script, str(project_path), args.url)
+            result = run_script(name, script, str(project_path), args.url, extra_args)
             result["category"] = category
             results.append(result)
             

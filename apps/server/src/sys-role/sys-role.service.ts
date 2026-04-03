@@ -1,14 +1,33 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SysRoleService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(params: { skip?: number; take?: number; roleName?: string; status?: string }) {
-    const { skip, take, roleName, status } = params;
+  async create(data: any, username: string) {
+    const roleSort = data.roleSort === undefined ? 0 : Number(data.roleSort);
+    return this.prisma.sysRole.create({
+      data: {
+        ...data,
+        roleSort,
+        createBy: username,
+      },
+    });
+  }
+
+  async findAll(params: {
+    roleKey?: string;
+    roleName?: string;
+    skip?: number;
+    status?: string;
+    take?: number;
+  }) {
+    const { skip, take, roleKey, roleName, status } = params;
     const where = {
       ...(roleName ? { roleName: { contains: roleName } } : {}),
+      ...(roleKey ? { roleKey: { contains: roleKey } } : {}),
       ...(status ? { status } : {}),
     };
 
@@ -27,20 +46,13 @@ export class SysRoleService {
     return this.prisma.sysRole.findUnique({ where: { roleId: id } });
   }
 
-  async create(data: any, username: string) {
-    const roleSort = data.roleSort !== undefined ? Number(data.roleSort) : 0;
-    return this.prisma.sysRole.create({
-      data: {
-        ...data,
-        roleSort,
-        createBy: username,
-      },
-    });
+  async remove(id: number) {
+    return this.prisma.sysRole.delete({ where: { roleId: id } });
   }
 
   async update(id: number, data: any, username: string) {
-    const roleSort = data.roleSort !== undefined ? Number(data.roleSort) : 0;
-    const { roleId, ...updateData } = data;
+    const roleSort = data.roleSort === undefined ? 0 : Number(data.roleSort);
+    const { roleId, key, children, parent, title, value, ...updateData } = data;
     return this.prisma.sysRole.update({
       where: { roleId: id },
       data: {
@@ -51,7 +63,25 @@ export class SysRoleService {
     });
   }
 
-  async remove(id: number) {
-    return this.prisma.sysRole.delete({ where: { roleId: id } });
+  /** 获取角色绑定的菜单ID列表 */
+  async getRoleMenuIds(roleId: number): Promise<number[]> {
+    const records = await this.prisma.sysRoleMenu.findMany({
+      where: { roleId },
+      select: { menuId: true },
+    });
+    return records.map((r) => r.menuId);
+  }
+
+  /** 保存角色的菜单权限 (全量替换) */
+  async saveRoleMenus(roleId: number, menuIds: number[]) {
+    // 先删除旧的关联
+    await this.prisma.sysRoleMenu.deleteMany({ where: { roleId } });
+    // 再批量插入新的关联
+    if (menuIds.length > 0) {
+      await this.prisma.sysRoleMenu.createMany({
+        data: menuIds.map((menuId) => ({ roleId, menuId })),
+      });
+    }
+    return { success: true };
   }
 }

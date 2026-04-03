@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysPostService } from './sys-post.service';
 
-describe('SysPostService', () => {
+describe('sysPostService', () => {
   let service: SysPostService;
 
   beforeEach(async () => {

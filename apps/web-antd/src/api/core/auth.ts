@@ -1,10 +1,21 @@
+import type { BasicOption } from '@vben/types';
+
 import { baseRequestClient, requestClient } from '#/api/request';
 
 export namespace AuthApi {
   /** 登录接口参数 */
   export interface LoginParams {
+    fiscalYear?: string;
     password?: string;
+    tenantId?: number | string;
     username?: string;
+  }
+
+  export interface LoginContextResult {
+    defaultFiscalYear: string;
+    defaultTenantId?: number;
+    fiscalYears: BasicOption[];
+    tenants: BasicOption[];
   }
 
   /** 登录接口返回值 */
@@ -19,6 +30,13 @@ export namespace AuthApi {
 }
 
 /**
+ * 获取登录上下文
+ */
+export async function getLoginContextApi() {
+  return requestClient.get<AuthApi.LoginContextResult>('/auth/login-context');
+}
+
+/**
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
@@ -29,16 +47,20 @@ export async function loginApi(data: AuthApi.LoginParams) {
  * 刷新accessToken
  */
 export async function refreshTokenApi() {
-  return baseRequestClient.post<AuthApi.RefreshTokenResult>('/auth/refresh', {
-    withCredentials: true,
-  });
+  return baseRequestClient.post<AuthApi.RefreshTokenResult>(
+    '/auth/refresh',
+    undefined,
+    {
+      withCredentials: true,
+    },
+  );
 }
 
 /**
  * 退出登录
  */
 export async function logoutApi() {
-  return baseRequestClient.post('/auth/logout', {
+  return baseRequestClient.post('/auth/logout', undefined, {
     withCredentials: true,
   });
 }

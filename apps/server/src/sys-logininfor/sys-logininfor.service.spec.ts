@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysLogininforService } from './sys-logininfor.service';
 
-describe('SysLogininforService', () => {
+describe('sysLogininforService', () => {
   let service: SysLogininforService;
 
   beforeEach(async () => {

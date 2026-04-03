@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import { Page } from '@vben/common-ui';
+
 import {
-  Card, Table, Button, Input, Tag, Select, Popconfirm,
-  Modal, Form, Radio, message,
+  Button,
+  Card,
+  Form,
+  Input,
+  message,
+  Modal,
+  Popconfirm,
+  Radio,
+  Select,
+  Table,
+  Tag,
 } from 'ant-design-vue';
+
 import { sysPrintDesignApi } from '#/api/core/sys-manage';
 
+const router = useRouter();
 const loading = ref(false);
 const dataSource = ref([]);
 const pagination = ref({ current: 1, pageSize: 10, total: 0 });
@@ -24,7 +38,11 @@ const columns = [
 const fetchList = async (page = 1) => {
   try {
     loading.value = true;
-    const res = await sysPrintDesignApi.getList({ page, pageSize: pagination.value.pageSize, ...searchParams.value });
+    const res = await sysPrintDesignApi.getList({
+      page,
+      pageSize: pagination.value.pageSize,
+      ...searchParams.value,
+    });
     dataSource.value = res?.items || [];
     pagination.value.current = page;
     pagination.value.total = res?.total || 0;
@@ -33,14 +51,18 @@ const fetchList = async (page = 1) => {
   }
 };
 
-const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+const formatDate = (v: string) =>
+  v ? new Date(v).toLocaleString('zh-CN') : '-';
 
 /* ---- 新增/编辑 Modal ---- */
 const isModalVisible = ref(false);
 const submitting = ref(false);
 const formRef = ref();
 const defaultForm = () => ({
-  printName: '', printCode: '', status: '0', remark: '',
+  printName: '',
+  printCode: '',
+  status: '0',
+  remark: '',
 });
 const formState = ref<any>(defaultForm());
 
@@ -62,8 +84,8 @@ const handleSubmit = async () => {
     }
     isModalVisible.value = false;
     fetchList(pagination.value.current);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   } finally {
     submitting.value = false;
   }
@@ -79,27 +101,49 @@ onMounted(() => fetchList());
 </script>
 
 <template>
-  <Page title="打印设计" description="业务单据网页打印可视化模板设定。">
+  <Page>
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-3 flex gap-3 flex-wrap">
-          <Input v-model:value="searchParams.printName" placeholder="模板名称" class="w-40" allowClear />
-          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+        <div class="mb-3 flex flex-wrap gap-3">
+          <Input
+            v-model:value="searchParams.printName"
+            placeholder="模板名称"
+            class="w-40"
+            allow-clear
+          />
+          <Select
+            v-model:value="searchParams.status"
+            placeholder="状态"
+            class="w-28"
+            allow-clear
+          >
             <Select.Option value="0">启用</Select.Option>
             <Select.Option value="1">禁用</Select.Option>
           </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
-          <Button @click="() => { searchParams.printName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
-          <Button type="primary" class="ml-auto" @click="openModal()">+ 新增</Button>
+          <Button
+            @click="
+              () => {
+                searchParams.printName = '';
+                searchParams.status = undefined;
+                fetchList(1);
+              }
+            "
+          >
+            重置
+          </Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">
+            + 新增
+          </Button>
         </div>
 
         <Table
           :columns="columns"
-          :dataSource="dataSource"
+          :data-source="dataSource"
           :loading="loading"
           :pagination="pagination"
           @change="(pag) => fetchList(pag.current)"
-          rowKey="printId"
+          row-key="printId"
           bordered
           size="middle"
         >
@@ -109,11 +153,26 @@ onMounted(() => fetchList());
                 {{ record.status === '0' ? '启用' : '禁用' }}
               </Tag>
             </template>
-            <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
+            <template v-if="column.key === 'createTime'">
+              {{ formatDate(record.createTime) }}
+            </template>
             <template v-if="column.key === 'action'">
-              <Button type="link" size="small">设计器</Button>
-              <Button type="link" size="small" @click="openModal(record)">编辑</Button>
-              <Popconfirm title="确定删除该打印模板吗？" @confirm="handleDelete(record.printId)">
+              <Button
+                type="link"
+                size="small"
+                @click="
+                  router.push(`/sys/print-design/designer?id=${record.printId}`)
+                "
+              >
+                设计器
+              </Button>
+              <Button type="link" size="small" @click="openModal(record)">
+                编辑
+              </Button>
+              <Popconfirm
+                title="确定删除该打印模板吗？"
+                @confirm="handleDelete(record.printId)"
+              >
                 <Button type="link" danger size="small">删除</Button>
               </Popconfirm>
             </template>
@@ -127,8 +186,8 @@ onMounted(() => fetchList());
       v-model:open="isModalVisible"
       :title="formState.printId ? '编辑打印模板' : '新增打印模板'"
       @ok="handleSubmit"
-      :confirmLoading="submitting"
-      destroyOnClose
+      :confirm-loading="submitting"
+      destroy-on-close
       width="520px"
     >
       <Form
@@ -143,10 +202,16 @@ onMounted(() => fetchList());
           name="printName"
           :rules="[{ required: true, message: '请输入模板名称' }]"
         >
-          <Input v-model:value="formState.printName" placeholder="请输入模板名称" />
+          <Input
+            v-model:value="formState.printName"
+            placeholder="请输入模板名称"
+          />
         </Form.Item>
         <Form.Item label="模板编号" name="printCode">
-          <Input v-model:value="formState.printCode" placeholder="请输入模板编号" />
+          <Input
+            v-model:value="formState.printCode"
+            placeholder="请输入模板编号"
+          />
         </Form.Item>
         <Form.Item label="状态" name="status">
           <Radio.Group v-model:value="formState.status">
@@ -155,7 +220,10 @@ onMounted(() => fetchList());
           </Radio.Group>
         </Form.Item>
         <Form.Item label="备注" name="remark">
-          <Input.TextArea v-model:value="formState.remark" placeholder="可输入备注信息" />
+          <Input.TextArea
+            v-model:value="formState.remark"
+            placeholder="可输入备注信息"
+          />
         </Form.Item>
       </Form>
     </Modal>

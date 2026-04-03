@@ -1,9 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import { Page } from '@vben/common-ui';
-import { Card, Table, Button, Input, Tag, Select, Popconfirm, message } from 'ant-design-vue';
+
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  message,
+  Modal,
+  Popconfirm,
+  Radio,
+  Select,
+  Table,
+  Tag,
+} from 'ant-design-vue';
+
 import { sysFormDesignApi } from '#/api/core/sys-manage';
 
+const router = useRouter();
 const loading = ref(false);
 const dataSource = ref([]);
 const pagination = ref({ current: 1, pageSize: 10, total: 0 });
@@ -14,13 +31,17 @@ const columns = [
   { title: '表单类型', dataIndex: 'formType', key: 'formType', width: 100 },
   { title: '状态', dataIndex: 'status', key: 'status', width: 80 },
   { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 160 },
-  { title: '操作', key: 'action', width: 170 }
+  { title: '操作', key: 'action', width: 170 },
 ];
 
 const fetchList = async (page = 1) => {
   try {
     loading.value = true;
-    const res = await sysFormDesignApi.getList({ page, pageSize: pagination.value.pageSize, ...searchParams.value });
+    const res = await sysFormDesignApi.getList({
+      page,
+      pageSize: pagination.value.pageSize,
+      ...searchParams.value,
+    });
     dataSource.value = res?.items || [];
     pagination.value.current = page;
     pagination.value.total = res?.total || 0;
@@ -29,33 +50,105 @@ const fetchList = async (page = 1) => {
   }
 };
 
-const formatDate = (v: string) => (v ? new Date(v).toLocaleString('zh-CN') : '-');
+const formatDate = (v: string) =>
+  v ? new Date(v).toLocaleString('zh-CN') : '-';
+
+/* ---- 新增/编辑 Modal ---- */
+const isModalVisible = ref(false);
+const submitting = ref(false);
+const formRef = ref();
+const defaultForm = () => ({
+  formName: '',
+  formType: '1',
+  status: '0',
+  remark: '',
+  formContent: '',
+});
+const formState = ref<any>(defaultForm());
+
+const openModal = (record?: any) => {
+  formState.value = record ? { ...record } : defaultForm();
+  isModalVisible.value = true;
+};
+
+const handleSubmit = async () => {
+  try {
+    await formRef.value?.validate();
+    submitting.value = true;
+    if (formState.value.formId) {
+      await sysFormDesignApi.update(formState.value.formId, formState.value);
+      message.success('更新成功');
+    } else {
+      await sysFormDesignApi.create(formState.value);
+      message.success('新增成功');
+    }
+    isModalVisible.value = false;
+    fetchList(pagination.value.current);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    submitting.value = false;
+  }
+};
+
+const handleDelete = async (id: number) => {
+  await sysFormDesignApi.remove(id);
+  message.success('删除成功');
+  fetchList(pagination.value.current);
+};
+
+// Route to designer
+const goToDesigner = (id: string) => {
+  router.push(`/sys/form/designer?id=${id}`);
+};
 
 onMounted(() => fetchList());
 </script>
 
 <template>
-  <Page title="表单设计" description="动态可视化拖拽构建业务表单。">
+  <Page>
     <div class="p-4">
       <Card :bordered="false">
-        <div class="mb-3 flex gap-3 flex-wrap">
-          <Input v-model:value="searchParams.formName" placeholder="表单名称" class="w-40" allowClear />
-          <Select v-model:value="searchParams.status" placeholder="状态" class="w-28" allowClear>
+        <div class="mb-3 flex flex-wrap gap-3">
+          <Input
+            v-model:value="searchParams.formName"
+            placeholder="表单名称"
+            class="w-40"
+            allow-clear
+          />
+          <Select
+            v-model:value="searchParams.status"
+            placeholder="状态"
+            class="w-28"
+            allow-clear
+          >
             <Select.Option value="0">开启</Select.Option>
             <Select.Option value="1">关闭</Select.Option>
           </Select>
           <Button type="primary" @click="fetchList(1)">查询</Button>
-          <Button @click="() => { searchParams.formName = ''; searchParams.status = undefined; fetchList(1); }">重置</Button>
-          <Button type="primary" class="ml-auto">+ 新增</Button>
+          <Button
+            @click="
+              () => {
+                searchParams.formName = '';
+                searchParams.status = undefined;
+                fetchList(1);
+              }
+            "
+          >
+            重置
+          </Button>
+          <Button type="primary" class="ml-auto" @click="openModal()">
+            + 新增
+          </Button>
         </div>
-        
-        <Table 
-          :columns="columns" 
-          :dataSource="dataSource" 
-          :loading="loading" 
+
+        <Table
+          :columns="columns"
+          :data-source="dataSource"
+          :loading="loading"
           :pagination="pagination"
           @change="(pag) => fetchList(pag.current)"
-          rowKey="formId"
+          row-key="formId"
           bordered
           size="middle"
         >
@@ -66,13 +159,28 @@ onMounted(() => fetchList());
               </Tag>
             </template>
             <template v-if="column.key === 'formType'">
-              <Tag color="processing">{{ record.formType === '0' ? '内置' : '自定义' }}</Tag>
+              <Tag color="processing">
+                {{ record.formType === '0' ? '内置' : '自定义' }}
+              </Tag>
             </template>
-            <template v-if="column.key === 'createTime'">{{ formatDate(record.createTime) }}</template>
+            <template v-if="column.key === 'createTime'">
+              {{ formatDate(record.createTime) }}
+            </template>
             <template v-if="column.key === 'action'">
-              <Button type="link" size="small">设计表单</Button>
-              <Button type="link" size="small">编辑配置</Button>
-              <Popconfirm title="确定删除该表单吗？" @confirm="">
+              <Button
+                type="link"
+                size="small"
+                @click="goToDesigner(record.formId)"
+              >
+                设计表单
+              </Button>
+              <Button type="link" size="small" @click="openModal(record)">
+                编辑
+              </Button>
+              <Popconfirm
+                title="确定删除该表单吗？"
+                @confirm="handleDelete(record.formId)"
+              >
                 <Button type="link" danger size="small">删除</Button>
               </Popconfirm>
             </template>
@@ -80,5 +188,52 @@ onMounted(() => fetchList());
         </Table>
       </Card>
     </div>
+
+    <!-- 新增/编辑弹窗 -->
+    <Modal
+      v-model:open="isModalVisible"
+      :title="formState.formId ? '编辑表单配置' : '新增表单'"
+      @ok="handleSubmit"
+      :confirm-loading="submitting"
+      destroy-on-close
+      width="520px"
+    >
+      <Form
+        ref="formRef"
+        :model="formState"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 17 }"
+        class="mt-4"
+      >
+        <Form.Item
+          label="表单名称"
+          name="formName"
+          :rules="[{ required: true, message: '请输入表单名称' }]"
+        >
+          <Input
+            v-model:value="formState.formName"
+            placeholder="请输入表单名称"
+          />
+        </Form.Item>
+        <Form.Item label="表单类型" name="formType">
+          <Radio.Group v-model:value="formState.formType">
+            <Radio value="0">内置</Radio>
+            <Radio value="1">自定义</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="状态" name="status">
+          <Radio.Group v-model:value="formState.status">
+            <Radio value="0">开启</Radio>
+            <Radio value="1">关闭</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="备注" name="remark">
+          <Input.TextArea
+            v-model:value="formState.remark"
+            placeholder="可输入备注信息"
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
   </Page>
 </template>

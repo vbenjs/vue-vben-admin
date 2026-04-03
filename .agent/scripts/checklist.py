@@ -69,11 +69,38 @@ PERFORMANCE_CHECKS = [
     ("Playwright E2E", ".agent/skills/webapp-testing/scripts/playwright_runner.py", False),
 ]
 
+RISS_SMOKE_CHECKS = [
+    (
+        "RISS Workflow Smoke",
+        ".agent/skills/testing-patterns/scripts/test_runner.py",
+        False,
+        ["--script", "test:smoke:riss:workflow"],
+    ),
+    (
+        "RISS Finance Smoke",
+        ".agent/skills/testing-patterns/scripts/test_runner.py",
+        False,
+        ["--script", "test:smoke:riss:finance"],
+    ),
+    (
+        "RISS Workflow Actions Smoke",
+        ".agent/skills/testing-patterns/scripts/test_runner.py",
+        False,
+        ["--script", "test:smoke:riss:workflow-actions"],
+    ),
+]
+
 def check_script_exists(script_path: Path) -> bool:
     """Check if script file exists"""
     return script_path.exists() and script_path.is_file()
 
-def run_script(name: str, script_path: Path, project_path: str, url: Optional[str] = None) -> dict:
+def run_script(
+    name: str,
+    script_path: Path,
+    project_path: str,
+    url: Optional[str] = None,
+    extra_args: Optional[list[str]] = None,
+) -> dict:
     """
     Run a validation script and capture results
     
@@ -90,6 +117,8 @@ def run_script(name: str, script_path: Path, project_path: str, url: Optional[st
     cmd = ["python", str(script_path), project_path]
     if url and ("lighthouse" in script_path.name.lower() or "playwright" in script_path.name.lower()):
         cmd.append(url)
+    if extra_args:
+        cmd.extend(extra_args)
     
     # Run script
     try:
@@ -172,6 +201,11 @@ Examples:
     parser.add_argument("project", help="Project path to validate")
     parser.add_argument("--url", help="URL for performance checks (lighthouse, playwright)")
     parser.add_argument("--skip-performance", action="store_true", help="Skip performance checks even if URL provided")
+    parser.add_argument(
+        "--riss-smoke",
+        action="store_true",
+        help="Run RISS workflow page, finance page, and workflow action smoke scripts",
+    )
     
     args = parser.parse_args()
     
@@ -195,7 +229,7 @@ Examples:
         results.append(result)
         
         # If required check fails, stop
-        if required and not result["passed"] and not result.get("skipped"):
+        if required and not result["passed"] and not result.get("skipped") and not args.riss_smoke:
             print_error(f"CRITICAL: {name} failed. Stopping checklist.")
             print_summary(results)
             sys.exit(1)
@@ -206,6 +240,13 @@ Examples:
         for name, script_path, required in PERFORMANCE_CHECKS:
             script = project_path / script_path
             result = run_script(name, script, str(project_path), args.url)
+            results.append(result)
+
+    if args.riss_smoke:
+        print_header("🧪 RISS SMOKE CHECKS")
+        for name, script_path, required, extra_args in RISS_SMOKE_CHECKS:
+            script = project_path / script_path
+            result = run_script(name, script, str(project_path), extra_args=extra_args)
             results.append(result)
     
     # Print summary

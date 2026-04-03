@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysLogininforController } from './sys-logininfor.controller';
 
-describe('SysLogininforController', () => {
+describe('sysLogininforController', () => {
   let controller: SysLogininforController;
 
   beforeEach(async () => {

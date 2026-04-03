@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysDeptController } from './sys-dept.controller';
 
-describe('SysDeptController', () => {
+describe('sysDeptController', () => {
   let controller: SysDeptController;
 
   beforeEach(async () => {

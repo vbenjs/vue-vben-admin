@@ -1,13 +1,30 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SysJobService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(params: { skip?: number; take?: number; jobName?: string; jobGroup?: string; status?: string }) {
+  async create(data: any, username: string) {
+    const res = await this.prisma.sysJob.create({
+      data: {
+        ...data,
+        createBy: username,
+      },
+    });
+    return { ...res, jobId: res.jobId.toString() };
+  }
+
+  async findAll(params: {
+    jobGroup?: string;
+    jobName?: string;
+    skip?: number;
+    status?: string;
+    take?: number;
+  }) {
     const { skip, take, jobName, jobGroup, status } = params;
-    
+
     const where = {
       ...(jobName ? { jobName: { contains: jobName } } : {}),
       ...(jobGroup ? { jobGroup } : {}),
@@ -21,7 +38,7 @@ export class SysJobService {
       orderBy: { createTime: 'desc' },
     });
 
-    const serializedItems = items.map(item => ({
+    const serializedItems = items.map((item) => ({
       ...item,
       jobId: item.jobId.toString(),
     }));
@@ -36,13 +53,8 @@ export class SysJobService {
     return item ? { ...item, jobId: item.jobId.toString() } : null;
   }
 
-  async create(data: any, username: string) {
-    const res = await this.prisma.sysJob.create({
-      data: {
-        ...data,
-        createBy: username,
-      },
-    });
+  async remove(id: number) {
+    const res = await this.prisma.sysJob.delete({ where: { jobId: BigInt(id) } });
     return { ...res, jobId: res.jobId.toString() };
   }
 
@@ -54,11 +66,6 @@ export class SysJobService {
         updateBy: username,
       },
     });
-    return { ...res, jobId: res.jobId.toString() };
-  }
-
-  async remove(id: number) {
-    const res = await this.prisma.sysJob.delete({ where: { jobId: BigInt(id) } });
     return { ...res, jobId: res.jobId.toString() };
   }
 }

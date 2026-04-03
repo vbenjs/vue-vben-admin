@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysOperLogController } from './sys-oper-log.controller';
 
-describe('SysOperLogController', () => {
+describe('sysOperLogController', () => {
   let controller: SysOperLogController;
 
   beforeEach(async () => {

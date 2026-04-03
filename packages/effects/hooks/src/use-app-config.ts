@@ -10,9 +10,9 @@ export function useAppConfig(
   env: Record<string, any>,
   isProduction: boolean,
 ): ApplicationConfig {
-  // 生产环境下，直接使用 window._VBEN_ADMIN_PRO_APP_CONF_ 全局变量
+  // 生产环境下，直接使用 window._RISS_PRO_APP_CONF_ 全局变量
   const config = isProduction
-    ? window._VBEN_ADMIN_PRO_APP_CONF_
+    ? window._RISS_PRO_APP_CONF_
     : (env as VbenAdminProAppConfigRaw);
 
   const {

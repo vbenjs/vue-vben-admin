@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysApprovalProcessController } from './sys-approval-process.controller';
 
-describe('SysApprovalProcessController', () => {
+describe('sysApprovalProcessController', () => {
   let controller: SysApprovalProcessController;
 
   beforeEach(async () => {

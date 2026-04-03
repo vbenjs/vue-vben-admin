@@ -84,6 +84,32 @@ const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
 
+const currentFiscalYearTag = computed(() => {
+  const fiscalYear = userStore.userInfo?.fiscalYear;
+  return fiscalYear ? `${fiscalYear}年度` : '';
+});
+
+const currentTenantName = computed(() => {
+  const tenantName = userStore.userInfo?.tenantName || '';
+  if (!tenantName) {
+    return '';
+  }
+  return userStore.userInfo?.isDefaultTenant
+    ? `${tenantName}（默认账套）`
+    : tenantName;
+});
+
+const userDropdownDescription = computed(() => {
+  const parts = [];
+  if (currentTenantName.value) {
+    parts.push(`账套：${currentTenantName.value}`);
+  }
+  if (userStore.userInfo?.username) {
+    parts.push(`账号：${userStore.userInfo.username}`);
+  }
+  return parts.join(' · ');
+});
+
 const menus = computed(() => [
   {
     handler: () => {
@@ -172,14 +198,33 @@ watch(
 <template>
   <BasicLayout @clear-preferences-and-logout="handleLogout">
     <template #user-dropdown>
-      <UserDropdown
-        :avatar
-        :menus
-        :text="userStore.userInfo?.realName"
-        description="ann.vben@gmail.com"
-        tag-text="Pro"
-        @logout="handleLogout"
-      />
+      <div class="flex items-center gap-2">
+        <div
+          v-if="currentFiscalYearTag || currentTenantName"
+          class="hidden items-center gap-1 md:flex"
+        >
+          <span
+            v-if="currentFiscalYearTag"
+            class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
+          >
+            {{ currentFiscalYearTag }}
+          </span>
+          <span
+            v-if="currentTenantName"
+            class="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground"
+          >
+            {{ currentTenantName }}
+          </span>
+        </div>
+        <UserDropdown
+          :avatar
+          :description="userDropdownDescription"
+          :menus
+          :tag-text="currentFiscalYearTag"
+          :text="userStore.userInfo?.realName"
+          @logout="handleLogout"
+        />
+      </div>
     </template>
     <template #notification>
       <Notification

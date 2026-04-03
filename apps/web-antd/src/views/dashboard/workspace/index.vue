@@ -1,223 +1,196 @@
 <script lang="ts" setup>
+// @ts-nocheck
 import type {
+  AnalysisOverviewItem,
   WorkbenchProjectItem,
   WorkbenchQuickNavItem,
   WorkbenchTodoItem,
   WorkbenchTrendItem,
 } from '@vben/common-ui';
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
-  AnalysisChartCard,
+  AnalysisOverview,
   WorkbenchHeader,
   WorkbenchProject,
   WorkbenchQuickNav,
   WorkbenchTodo,
   WorkbenchTrends,
 } from '@vben/common-ui';
+import {
+  SvgBellIcon,
+  SvgCakeIcon,
+  SvgCardIcon,
+  SvgDownloadIcon,
+} from '@vben/icons';
 import { preferences } from '@vben/preferences';
 import { useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
-import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
+import { sysDashboardApi } from '#/api/core/sys-manage';
 
 const userStore = useUserStore();
+const router = useRouter();
+const workbenchDescription = ref('');
+const organizationSummary = ref<any>({});
 
-// 这是一个示例数据，实际项目中需要根据实际情况进行调整
-// url 也可以是内部路由，在 navTo 方法中识别处理，进行内部跳转
-// 例如：url: /dashboard/workspace
-const projectItems: WorkbenchProjectItem[] = [
+const overviewItems = ref<AnalysisOverviewItem[]>([
   {
-    color: '',
-    content: '不要等待机会，而要创造机会。',
-    date: '2021-04-01',
-    group: '开源组',
-    icon: 'carbon:logo-github',
-    title: 'Github',
-    url: 'https://github.com',
+    icon: SvgCardIcon,
+    title: '系统用户',
+    totalTitle: '总用户数',
+    totalValue: 0,
+    value: 0,
   },
   {
+    icon: SvgCakeIcon,
+    title: '系统角色',
+    totalTitle: '总角色数',
+    totalValue: 0,
+    value: 0,
+  },
+  {
+    icon: SvgDownloadIcon,
+    title: '菜单权限',
+    totalTitle: '总菜单数',
+    totalValue: 0,
+    value: 0,
+  },
+  {
+    icon: SvgBellIcon,
+    title: '总登录数',
+    totalTitle: '历史登录',
+    totalValue: 0,
+    value: 0,
+  },
+]);
+
+const projectItems = ref<WorkbenchProjectItem[]>([
+  {
     color: '#3fb27f',
-    content: '现在的你决定将来的你。',
-    date: '2021-04-01',
-    group: '算法组',
+    content: 'Vue RISS 核心架构。',
+    date: '2025-01-01',
+    group: '系统核心',
     icon: 'ion:logo-vue',
-    title: 'Vue',
+    title: 'Vue.js',
     url: 'https://vuejs.org',
   },
   {
-    color: '#e18525',
-    content: '没有什么才能比努力更重要。',
-    date: '2021-04-01',
-    group: '上班摸鱼',
-    icon: 'ion:logo-html5',
-    title: 'Html5',
-    url: 'https://developer.mozilla.org/zh-CN/docs/Web/HTML',
+    color: '#bf0c2c',
+    content: '开箱即用的中后台前端/设计解决方案。',
+    date: '2025-01-01',
+    group: '架构组',
+    icon: 'ion:logo-github',
+    title: 'RISS',
+    url: 'https://github.com/vbenjs/vue-vben-admin',
   },
   {
-    color: '#bf0c2c',
-    content: '热情和欲望可以突破一切难关。',
-    date: '2021-04-01',
-    group: 'UI',
-    icon: 'ion:logo-angular',
-    title: 'Angular',
-    url: 'https://angular.io',
+    color: '#e18525',
+    content: '下一代前端工具链，为开发提供极速响应。',
+    date: '2025-01-01',
+    group: '开源组',
+    icon: 'ion:flash-outline',
+    title: 'Vite',
+    url: 'https://vitejs.dev',
   },
   {
     color: '#00d8ff',
-    content: '健康的身体是实现目标的基石。',
-    date: '2021-04-01',
-    group: '技术牛',
-    icon: 'bx:bxl-react',
-    title: 'React',
-    url: 'https://reactjs.org',
+    content: 'NestJS 是构建高效，可扩展的 Node.js 服务端应用程序的框架。',
+    date: '2025-01-01',
+    group: '服务端',
+    icon: 'ion:logo-nodejs',
+    title: 'NestJS',
+    url: 'https://nestjs.com',
   },
-  {
-    color: '#EBD94E',
-    content: '路是走出来的，而不是空想出来的。',
-    date: '2021-04-01',
-    group: '架构组',
-    icon: 'ion:logo-javascript',
-    title: 'Js',
-    url: 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript',
-  },
-];
+]);
 
-// 同样，这里的 url 也可以使用以 http 开头的外部链接
-const quickNavItems: WorkbenchQuickNavItem[] = [
-  {
-    color: '#1fdaca',
-    icon: 'ion:home-outline',
-    title: '首页',
-    url: '/',
-  },
+const quickNavItems = ref<WorkbenchQuickNavItem[]>([
+  { color: '#1fdaca', icon: 'ion:home-outline', title: '首页', url: '/' },
   {
     color: '#bf0c2c',
-    icon: 'ion:grid-outline',
-    title: '仪表盘',
-    url: '/dashboard',
+    icon: 'ion:person-outline',
+    title: '用户管理',
+    url: '/sys/permission/user',
   },
   {
     color: '#e18525',
-    icon: 'ion:layers-outline',
-    title: '组件',
-    url: '/demos/features/icons',
+    icon: 'ion:shield-checkmark-outline',
+    title: '角色管理',
+    url: '/sys/permission/role',
   },
   {
     color: '#3fb27f',
-    icon: 'ion:settings-outline',
-    title: '系统管理',
-    url: '/demos/features/login-expired', // 这里的 URL 是示例，实际项目中需要根据实际情况进行调整
+    icon: 'ion:menu-outline',
+    title: '菜单管理',
+    url: '/sys/permission/menu',
   },
   {
     color: '#4daf1bc9',
-    icon: 'ion:key-outline',
-    title: '权限管理',
-    url: '/demos/access/page-control',
+    icon: 'ion:settings-outline',
+    title: '基础数据',
+    url: '/sys/base-data/dict',
   },
   {
     color: '#00d8ff',
-    icon: 'ion:bar-chart-outline',
-    title: '图表',
-    url: '/analytics',
-  },
-];
-
-const todoItems = ref<WorkbenchTodoItem[]>([
-  {
-    completed: false,
-    content: `审查最近提交到Git仓库的前端代码，确保代码质量和规范。`,
-    date: '2024-07-30 11:00:00',
-    title: '审查前端代码提交',
-  },
-  {
-    completed: true,
-    content: `检查并优化系统性能，降低CPU使用率。`,
-    date: '2024-07-30 11:00:00',
-    title: '系统性能优化',
-  },
-  {
-    completed: false,
-    content: `进行系统安全检查，确保没有安全漏洞或未授权的访问。 `,
-    date: '2024-07-30 11:00:00',
-    title: '安全检查',
-  },
-  {
-    completed: false,
-    content: `更新项目中的所有npm依赖包，确保使用最新版本。`,
-    date: '2024-07-30 11:00:00',
-    title: '更新项目依赖',
-  },
-  {
-    completed: false,
-    content: `修复用户报告的页面UI显示问题，确保在不同浏览器中显示一致。 `,
-    date: '2024-07-30 11:00:00',
-    title: '修复UI显示问题',
+    icon: 'ion:code-working-outline',
+    title: '代码生成',
+    url: '/sys/gen',
   },
 ]);
-const trendItems: WorkbenchTrendItem[] = [
-  {
-    avatar: 'svg:avatar-1',
-    content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
-    date: '刚刚',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-2',
-    content: `关注了 <a>威廉</a> `,
-    date: '1个小时前',
-    title: '艾文',
-  },
-  {
-    avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1天前',
-    title: '克里斯',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写一个Vite插件</a> `,
-    date: '2天前',
-    title: 'Vben',
-  },
-  {
-    avatar: 'svg:avatar-1',
-    content: `回复了 <a>杰克</a> 的问题 <a>如何进行项目优化？</a>`,
-    date: '3天前',
-    title: '皮特',
-  },
-  {
-    avatar: 'svg:avatar-2',
-    content: `关闭了问题 <a>如何运行项目</a> `,
-    date: '1周前',
-    title: '杰克',
-  },
-  {
-    avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1周前',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `推送了代码到 <a>Github</a>`,
-    date: '2021-04-01 20:00',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写使用 Admin Vben</a> `,
-    date: '2021-03-01 20:00',
-    title: 'Vben',
-  },
-];
 
-const router = useRouter();
+const todoItems = ref<WorkbenchTodoItem[]>([]);
+const trendItems = ref<WorkbenchTrendItem[]>([]);
 
-// 这是一个示例方法，实际项目中需要根据实际情况进行调整
-// This is a sample method, adjust according to the actual project requirements
+async function fetchDashboardData() {
+  try {
+    const res = (await sysDashboardApi.getStatistics()) as any;
+
+    if (res?.overview && overviewItems.value.length > 3) {
+      overviewItems.value[0]!.totalValue = res.overview.userCount || 0;
+      overviewItems.value[0]!.value = res.overview.userCount || 0;
+      overviewItems.value[1]!.totalValue = res.overview.roleCount || 0;
+      overviewItems.value[1]!.value = res.overview.roleCount || 0;
+      overviewItems.value[2]!.totalValue = res.overview.menuCount || 0;
+      overviewItems.value[2]!.value = res.overview.menuCount || 0;
+      overviewItems.value[3]!.totalValue = res.overview.loginLogCount || 0;
+      overviewItems.value[3]!.value = res.overview.loginLogCount || 0;
+    }
+
+    if (res?.currentContext) {
+      const parts = [];
+      if (res.currentContext.tenantName) {
+        const tenantLabel = res.currentContext.isDefaultTenant
+          ? `${res.currentContext.tenantName}（默认账套）`
+          : res.currentContext.tenantName;
+        parts.push(`当前账套：${tenantLabel}`);
+      }
+      if (res.currentContext.fiscalYearLabel) {
+        parts.push(`当前年度：${res.currentContext.fiscalYearLabel}`);
+      }
+      workbenchDescription.value = parts.join(' · ');
+    }
+
+    if (res?.organizationSummary) {
+      organizationSummary.value = res.organizationSummary;
+    }
+
+    if (res?.todoItems) {
+      todoItems.value = res.todoItems;
+    }
+    if (res?.trendItems) {
+      trendItems.value = res.trendItems;
+    }
+  } catch (error) {
+    console.error('Failed to load dashboard data:', error);
+  }
+}
+
+onMounted(() => {
+  fetchDashboardData();
+});
+
 function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
   if (nav.url?.startsWith('http')) {
     openWindow(nav.url);
@@ -239,15 +212,54 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
       :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
     >
       <template #title>
-        早安, {{ userStore.userInfo?.realName }}, 开始您一天的工作吧！
+        早安, {{ userStore.userInfo?.realName }}, 欢迎使用系统工作台！
       </template>
-      <template #description> 今日晴，20℃ - 32℃！ </template>
+      <template #description>
+        {{
+          workbenchDescription ||
+          '当前上下文已就绪，系统管理与业务请求会自动携带年度/账套。'
+        }}
+      </template>
     </WorkbenchHeader>
+
+    <AnalysisOverview :items="overviewItems" class="mt-5" />
+
+    <div
+      v-if="organizationSummary?.name"
+      class="mt-5 rounded-xl bg-white p-4 shadow-sm dark:bg-[var(--vben-background)]"
+    >
+      <div class="mb-2 flex items-center justify-between">
+        <div class="text-base font-medium">组织参数摘要</div>
+        <button
+          class="text-sm text-blue-600"
+          @click="router.push('/sys/settings/config')"
+        >
+          前往组织参数设置
+        </button>
+      </div>
+      <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+        <span>组织名称：{{ organizationSummary.name || '-' }}</span>
+        <span>组织性质：{{ organizationSummary.orgNature || '-' }}</span>
+        <span
+          >预算来源：{{ organizationSummary.defaultFundSource || '-' }}</span
+        >
+        <span
+          >付款方式：{{ organizationSummary.defaultPaymentMethod || '-' }}</span
+        >
+        <span
+          >辅助维度：{{ organizationSummary.defaultAuxDimension || '-' }}</span
+        >
+      </div>
+    </div>
 
     <div class="mt-5 flex flex-col lg:flex-row">
       <div class="mr-4 w-full lg:w-3/5">
-        <WorkbenchProject :items="projectItems" title="项目" @click="navTo" />
-        <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
+        <WorkbenchProject :items="projectItems" title="技术栈" @click="navTo" />
+        <WorkbenchTrends
+          :items="trendItems"
+          class="mt-5"
+          title="系统最新动态"
+        />
       </div>
       <div class="w-full lg:w-2/5">
         <WorkbenchQuickNav
@@ -257,9 +269,6 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
           @click="navTo"
         />
         <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
-        <AnalysisChartCard class="mt-5" title="访问来源">
-          <AnalyticsVisitsSource />
-        </AnalysisChartCard>
       </div>
     </div>
   </div>

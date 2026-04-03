@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SysDocCodeController } from './sys-doc-code.controller';
 
-describe('SysDocCodeController', () => {
+describe('sysDocCodeController', () => {
   let controller: SysDocCodeController;
 
   beforeEach(async () => {
