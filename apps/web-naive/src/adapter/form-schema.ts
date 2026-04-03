@@ -24,19 +24,28 @@ import type {
 
 import type { ComponentType } from './component';
 
+type ComponentPropsFnArgs = Parameters<
+  Extract<
+    NonNullable<CoreFormSchema<ComponentType>['componentProps']>,
+    (...args: any) => any
+  >
+>;
+
 /**
- * 对象形式：使用适配器里为各 `component` 声明的 Props 类型 `P`；
- * 与 `Record<string, any>` 相交是为了满足核心库 `MaybeComponentProps` 的索引签名。
- * 函数形式：通过联合 `CoreFormSchema['componentProps']`，与表单核心对动态 `componentProps` 的约定保持一致。
+ * 使用适配器里为各 `component` 声明的 Props 类型 `P`；
+ * 与 `Record<string, any>` 相交以兼容核心库 `MaybeComponentProps` 的索引签名。
  */
-type SchemaComponentProps<P> =
-  | CoreFormSchema<ComponentType>['componentProps']
+type ComponentProps<P> =
+  | ((
+      value: ComponentPropsFnArgs[0],
+      actions: ComponentPropsFnArgs[1],
+    ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
 /**
  * 与 {@link ComponentType} 中注册的组件名一一对应，便于 Schema 上 `component` + `componentProps` 联动提示
  */
-interface FormSchemaComponentPropsMap {
+interface ComponentPropsMap {
   ApiSelect: ApiComponentSharedProps & SelectProps;
   ApiTreeSelect: ApiComponentSharedProps & TreeSelectProps;
   Checkbox: CheckboxProps;
@@ -60,12 +69,12 @@ type BaseSchema = Omit<
   'component' | 'componentProps'
 >;
 
-type RegisteredName = keyof FormSchemaComponentPropsMap;
+type RegisteredName = keyof ComponentPropsMap;
 
 type DiscriminatedFormSchema = {
   [K in RegisteredName]: BaseSchema & {
     component: K;
-    componentProps?: SchemaComponentProps<FormSchemaComponentPropsMap[K]>;
+    componentProps?: ComponentProps<ComponentPropsMap[K]>;
   };
 }[RegisteredName];
 
