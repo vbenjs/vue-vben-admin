@@ -263,12 +263,9 @@ type FormSchemaDiscriminated<
   } & FormSchemaBody;
 }[Extract<keyof P, T>];
 
-type FormSchemaFallback<
-  T extends BaseFormComponentType,
-  P extends Record<string, any>,
-> = {
+type FormSchemaFallback<T extends BaseFormComponentType> = {
   /** 组件 */
-  component: Component | Exclude<T, Extract<keyof P, T>>;
+  component: Component | T;
   /** 组件参数 */
   componentProps?: ComponentProps;
 } & FormSchemaBody;
@@ -276,14 +273,7 @@ type FormSchemaFallback<
 export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> = [keyof P] extends [never]
-  ? {
-      /** 组件 */
-      component: Component | T;
-      /** 组件参数 */
-      componentProps?: ComponentProps;
-    } & FormSchemaBody
-  : FormSchemaDiscriminated<T, P> | FormSchemaFallback<T, P>;
+> = FormSchemaDiscriminated<T, P> | FormSchemaFallback<T>;
 
 export type HandleSubmitFn = (
   values: Record<string, any>,
