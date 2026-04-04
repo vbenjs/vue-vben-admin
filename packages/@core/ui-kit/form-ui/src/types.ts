@@ -300,8 +300,13 @@ export type ArrayToStringFields = Array<
   | string[] // 简单数组格式，最后一个元素可以是分隔符
 >;
 
-export interface FormFieldProps extends FormSchema {
-  required?: boolean;
+export interface FormFieldProps<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> extends FormSchemaBody {
+  /** 组件 */
+  component: Component | T;
+  /** 组件参数 */
+  componentProps?: ComponentProps;
 }
 
 export interface FormRenderProps<
