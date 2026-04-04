@@ -41,6 +41,7 @@ export interface SeparatorOptions {
 export interface VxeGridProps<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
 > {
   /**
    * 数据
@@ -73,7 +74,7 @@ export interface VxeGridProps<
   /**
    * 表单配置
    */
-  formOptions?: VbenFormProps<D>;
+  formOptions?: VbenFormProps<D, P>;
   /**
    * 显示搜索表单
    */
@@ -87,10 +88,11 @@ export interface VxeGridProps<
 export type ExtendedVxeGridApi<
   D extends Record<string, any> = any,
   F extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
 > = VxeGridApi<D> & {
-  useStore: <T = NoInfer<VxeGridProps<D, F>>>(
-    selector?: (state: NoInfer<VxeGridProps<any, any>>) => T,
-  ) => Readonly<Ref<T>>;
+  useStore: <S = NoInfer<VxeGridProps<D, F, P>>>(
+    selector?: (state: NoInfer<VxeGridProps<any, any, any>>) => S,
+  ) => Readonly<Ref<S>>;
 };
 
 export interface SetupVxeTable {

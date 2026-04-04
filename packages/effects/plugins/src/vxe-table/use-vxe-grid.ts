@@ -22,10 +22,15 @@ type FilteredSlots<T> = {
 export function useVbenVxeGrid<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
->(options: VxeGridProps<T, D>) {
+  P extends Record<string, any> = Record<never, never>,
+>(options: VxeGridProps<T, D, P>) {
   // const IS_REACTIVE = isReactive(options);
-  const api = new VxeGridApi(options);
-  const extendedApi: ExtendedVxeGridApi<T, D> = api as ExtendedVxeGridApi<T, D>;
+  const api = new VxeGridApi(options as VxeGridProps);
+  const extendedApi: ExtendedVxeGridApi<T, D, P> = api as ExtendedVxeGridApi<
+    T,
+    D,
+    P
+  >;
   extendedApi.useStore = (selector) => {
     return useStore(api.store, selector);
   };
