@@ -1,6 +1,32 @@
+import type {
+  AutoCompleteProps,
+  ButtonProps,
+  CheckboxGroupProps,
+  CheckboxProps,
+  DatePickerProps,
+  DateRangePickerProps,
+  DividerProps,
+  InputNumberProps,
+  InputProps,
+  RadioGroupProps,
+  RadioProps,
+  SelectProps,
+  SpaceProps,
+  SwitchProps,
+  TextareaProps,
+  TimePickerProps,
+  TreeSelectProps,
+} from 'tdesign-vue-next';
+import type { TdRateProps } from 'tdesign-vue-next/es/rate/type';
+import type { UploadProps } from 'tdesign-vue-next/es/upload/types';
+
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@vben/common-ui';
+import type {
+  ApiComponentSharedProps,
+  BaseFormComponentType,
+  IconPickerProps,
+} from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
@@ -125,6 +151,35 @@ export type ComponentType =
   | 'TreeSelect'
   | 'Upload'
   | BaseFormComponentType;
+
+/**
+ * 与 {@link ComponentType} 中注册的组件名一一对应，便于 Schema 上 `component` + `componentProps` 联动提示
+ */
+export interface ComponentPropsMap {
+  ApiSelect: ApiComponentSharedProps & SelectProps;
+  ApiTreeSelect: ApiComponentSharedProps & TreeSelectProps;
+  AutoComplete: AutoCompleteProps;
+  Checkbox: CheckboxProps;
+  CheckboxGroup: CheckboxGroupProps;
+  DatePicker: DatePickerProps;
+  DefaultButton: ButtonProps;
+  Divider: DividerProps;
+  IconPicker: IconPickerProps;
+  Input: InputProps;
+  InputNumber: InputNumberProps;
+  PrimaryButton: ButtonProps;
+  Radio: RadioProps;
+  RadioGroup: RadioGroupProps;
+  RangePicker: DateRangePickerProps;
+  Rate: TdRateProps;
+  Select: SelectProps;
+  Space: SpaceProps;
+  Switch: SwitchProps;
+  Textarea: TextareaProps;
+  TimePicker: TimePickerProps;
+  TreeSelect: TreeSelectProps;
+  Upload: UploadProps;
+}
 
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {

@@ -1,7 +1,9 @@
-import type { VbenFormProps as CoreFormProps } from '@vben/common-ui';
+import type {
+  VbenFormProps as FormProps,
+  VbenFormSchema as FormSchema,
+} from '@vben/common-ui';
 
-import type { ComponentType } from './component';
-import type { VbenFormSchema } from './form-schema';
+import type { ComponentPropsMap, ComponentType } from './component';
 
 import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -38,13 +40,9 @@ async function initSetupVbenForm() {
   });
 }
 
-type VbenFormProps = Omit<CoreFormProps<ComponentType>, 'schema'> & {
-  schema?: VbenFormSchema[];
-};
-
-function useVbenForm(options: VbenFormProps) {
-  return useForm<ComponentType>(options as CoreFormProps<ComponentType>);
-}
+const useVbenForm = useForm<ComponentType, ComponentPropsMap>;
 
 export { initSetupVbenForm, useVbenForm, z };
-export type { VbenFormProps, VbenFormSchema };
+
+export type VbenFormSchema = FormSchema<ComponentType, ComponentPropsMap>;
+export type VbenFormProps = FormProps<ComponentType, ComponentPropsMap>;
