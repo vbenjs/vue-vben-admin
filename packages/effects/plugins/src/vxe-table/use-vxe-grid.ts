@@ -25,7 +25,7 @@ export function useVbenVxeGrid<
   P extends Record<string, any> = Record<never, never>,
 >(options: VxeGridProps<T, D, P>) {
   // const IS_REACTIVE = isReactive(options);
-  const api = new VxeGridApi(options as VxeGridProps);
+  const api = new VxeGridApi<T, D, P>(options);
   const extendedApi: ExtendedVxeGridApi<T, D, P> = api as ExtendedVxeGridApi<
     T,
     D,
@@ -36,12 +36,21 @@ export function useVbenVxeGrid<
   };
 
   const Grid = defineComponent(
-    (props: VxeGridProps<T>, { attrs, slots }) => {
+    (props: VxeGridProps<T, D, P>, { attrs, slots }) => {
       onBeforeUnmount(() => {
         api.unmount();
       });
-      api.setState({ ...props, ...attrs });
-      return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
+      api.setState({ ...props, ...attrs } as Partial<VxeGridProps<T, D, P>>);
+      return () =>
+        h(
+          VxeGrid,
+          {
+            ...props,
+            ...attrs,
+            api: extendedApi as ExtendedVxeGridApi,
+          },
+          slots,
+        );
     },
     {
       name: 'VbenVxeGrid',

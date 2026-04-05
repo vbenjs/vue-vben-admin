@@ -4,7 +4,6 @@ import type { ComponentPropsMap, ComponentType } from './component';
 
 import { h } from 'vue';
 
-import { useVbenForm as useForm } from '@vben/common-ui';
 import {
   setupVbenVxeTable,
   useVbenVxeGrid as useGrid,
@@ -68,7 +67,7 @@ setupVbenVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
-  useVbenForm: useVbenForm as typeof useForm,
+  useVbenForm,
 });
 
 export const useVbenVxeGrid = <T extends Record<string, any>>(
