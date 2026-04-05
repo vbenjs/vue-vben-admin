@@ -7,7 +7,7 @@ export type ApiComponentOptionsItem = {
   children?: ApiComponentOptionsItem[];
   disabled?: boolean;
   label?: string;
-  value?: string;
+  value?: number | string;
 };
 
 export interface ApiComponentProps {

@@ -68,6 +68,16 @@ import { isEmpty } from '@vben/utils';
 
 import { message, Modal, notification } from 'ant-design-vue';
 
+type AdapterUploadProps = UploadProps & {
+  aspectRatio?: string;
+  crop?: boolean;
+  draggable?: boolean;
+  handleChange?: (event: UploadChangeParam) => void;
+  maxSize?: number;
+  onDragSort?: (oldIndex: number, newIndex: number) => void;
+  onHandleChange?: (event: UploadChangeParam) => void;
+};
+
 const AutoComplete = defineAsyncComponent(
   () => import('ant-design-vue/es/auto-complete'),
 );
@@ -646,7 +656,7 @@ export interface ComponentPropsMap {
   Textarea: TextAreaProps;
   TimePicker: TimePickerProps;
   TreeSelect: TreeSelectProps;
-  Upload: UploadProps;
+  Upload: AdapterUploadProps;
 }
 
 async function initComponentAdapter() {

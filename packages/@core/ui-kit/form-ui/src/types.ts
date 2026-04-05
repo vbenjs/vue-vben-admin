@@ -228,7 +228,7 @@ type MappedComponentProps<P> =
     ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
-interface FormSchemaBody extends FormCommonConfig {
+interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
   /** 默认值 */
   defaultValue?: any;
   /** 依赖 */

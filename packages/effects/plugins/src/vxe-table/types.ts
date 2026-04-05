@@ -89,9 +89,9 @@ export type ExtendedVxeGridApi<
   D extends Record<string, any> = any,
   F extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> = VxeGridApi<D> & {
+> = VxeGridApi<D, F, P> & {
   useStore: <S = NoInfer<VxeGridProps<D, F, P>>>(
-    selector?: (state: NoInfer<VxeGridProps<any, any, any>>) => S,
+    selector?: (state: NoInfer<VxeGridProps<D, F, P>>) => S,
   ) => Readonly<Ref<S>>;
 };
 

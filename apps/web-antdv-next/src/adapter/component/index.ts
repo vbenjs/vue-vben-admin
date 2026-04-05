@@ -63,6 +63,14 @@ import { isEmpty } from '@vben/utils';
 
 import { message, Modal, notification } from 'antdv-next';
 
+type AdapterUploadProps = UploadProps & {
+  aspectRatio?: string;
+  crop?: boolean;
+  handleChange?: (event: UploadChangeParam) => void;
+  maxSize?: number;
+  onHandleChange?: (event: UploadChangeParam) => void;
+};
+
 const AutoComplete = defineAsyncComponent(
   () => import('antdv-next/dist/auto-complete/index'),
 );
@@ -579,7 +587,7 @@ export interface ComponentPropsMap {
   Textarea: TextAreaProps;
   TimePicker: TimePickerProps;
   TreeSelect: TreeSelectProps;
-  Upload: UploadProps;
+  Upload: AdapterUploadProps;
 }
 
 async function initComponentAdapter() {
