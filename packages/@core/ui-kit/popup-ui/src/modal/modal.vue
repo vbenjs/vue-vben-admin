@@ -246,7 +246,8 @@ function handleClosed() {
           {
             'border border-border': bordered,
             'shadow-3xl': !bordered,
-            'top-0 left-0 size-full max-h-full translate-0!': shouldFullscreen,
+            'top-0 left-0 size-full max-h-full transform-[translate(0,0)]!':
+              shouldFullscreen,
             'top-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
             hidden: isClosed,
