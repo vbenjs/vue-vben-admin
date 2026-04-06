@@ -59,6 +59,7 @@ export function useCrudTable<T extends Record<string, any>>(
   const loading = ref(false);
   const dataSource = ref<any[]>([]) as Ref<any[]>;
   const pagination = ref({ current: 1, pageSize: 10, total: 0 });
+  const lastQueryParams = ref<Record<string, any>>({});
 
   // 弹窗 & 表单状态
   const isModalVisible = ref(false);
@@ -78,6 +79,7 @@ export function useCrudTable<T extends Record<string, any>>(
   ) {
     try {
       loading.value = true;
+      lastQueryParams.value = { ...extraParams };
       const response = await api.getList({
         page,
         pageSize: pagination.value.pageSize,
@@ -134,7 +136,7 @@ export function useCrudTable<T extends Record<string, any>>(
       }
 
       isModalVisible.value = false;
-      await fetchList(pagination.value.current);
+      await fetchList(pagination.value.current, lastQueryParams.value);
     } catch (error: any) {
       // 表单验证失败时不显示错误提示
       if (error?.errorFields) return;
@@ -151,7 +153,7 @@ export function useCrudTable<T extends Record<string, any>>(
     try {
       await api.remove(id);
       message.success(msgs.deleteSuccess || '删除成功');
-      await fetchList(pagination.value.current);
+      await fetchList(pagination.value.current, lastQueryParams.value);
     } catch (error: any) {
       message.error(error?.message || '删除失败');
     }
@@ -161,7 +163,7 @@ export function useCrudTable<T extends Record<string, any>>(
    * 表格分页变化处理
    */
   function onTableChange(pag: any, _filters?: any, _sorter?: any) {
-    fetchList(pag.current || 1);
+    fetchList(pag.current || 1, lastQueryParams.value);
   }
 
   return {

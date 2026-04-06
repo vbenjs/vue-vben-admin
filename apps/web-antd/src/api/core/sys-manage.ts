@@ -151,6 +151,46 @@ export const sysPageMetaApi = {
     requestClient.delete(`/sys/form-design/page-meta/${id}`),
 };
 
+export const sysPageSchemaApi = {
+  getTemplateList: (params?: any) =>
+    requestClient.get('/sys/page-schema/template/list', { params }),
+  getTemplateById: (id: number | string) =>
+    requestClient.get(`/sys/page-schema/template/${id}`),
+  createTemplate: (data: any) => requestClient.post('/sys/page-schema/template', data),
+  updateTemplate: (id: number | string, data: any) =>
+    requestClient.put(`/sys/page-schema/template/${id}`, data),
+  removeTemplate: (id: number | string) =>
+    requestClient.delete(`/sys/page-schema/template/${id}`),
+  publishTemplate: (id: number | string) =>
+    requestClient.post(`/sys/page-schema/template/${id}/publish`, {}),
+  rollbackTemplate: (id: number | string, logId: number | string) =>
+    requestClient.post(`/sys/page-schema/template/${id}/rollback/${logId}`, {}),
+  getTemplateLogs: (id: number | string) =>
+    requestClient.get(`/sys/page-schema/template/${id}/logs`),
+  getTenantOverride: (pageCode: string, params?: any) =>
+    requestClient.get(`/sys/page-schema/tenant/${pageCode}`, { params }),
+  saveTenantOverride: (pageCode: string, data: any) =>
+    requestClient.put(`/sys/page-schema/tenant/${pageCode}`, data),
+  publishTenantOverride: (pageCode: string, data?: any) =>
+    requestClient.post(`/sys/page-schema/tenant/${pageCode}/publish`, data || {}),
+  rollbackTenantOverride: (pageCode: string, logId: number | string, data?: any) =>
+    requestClient.post(`/sys/page-schema/tenant/${pageCode}/rollback/${logId}`, data || {}),
+  getTenantLogs: (pageCode: string, params?: any) =>
+    requestClient.get(`/sys/page-schema/tenant/${pageCode}/logs`, { params }),
+  getUserPreference: (pageCode: string, params?: any) =>
+    requestClient.get(`/sys/page-schema/user/${pageCode}`, { params }),
+  saveUserPreference: (pageCode: string, data: any) =>
+    requestClient.put(`/sys/page-schema/user/${pageCode}`, data),
+  publishUserPreference: (pageCode: string, data?: any) =>
+    requestClient.post(`/sys/page-schema/user/${pageCode}/publish`, data || {}),
+  rollbackUserPreference: (pageCode: string, logId: number | string, data?: any) =>
+    requestClient.post(`/sys/page-schema/user/${pageCode}/rollback/${logId}`, data || {}),
+  getUserLogs: (pageCode: string, params?: any) =>
+    requestClient.get(`/sys/page-schema/user/${pageCode}/logs`, { params }),
+  getRuntime: (pageCode: string, params?: any) =>
+    requestClient.get(`/sys/page-schema/runtime/${pageCode}`, { params }),
+};
+
 /**
  * ================= SysApprovalProcess API =================
  */
@@ -761,4 +801,3 @@ export const indicatorTemplateApi = {
   remove: (id: number | string) =>
     requestClient.delete(`/indicator-template/${id}`),
 };
-

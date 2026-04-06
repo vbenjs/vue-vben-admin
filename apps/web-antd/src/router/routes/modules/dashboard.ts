@@ -11,6 +11,15 @@ const routes: RouteRecordRaw[] = [
     path: '/dashboard',
     children: [
       {
+        name: 'Analytics',
+        path: '/analytics',
+        component: () => import('#/views/dashboard/analytics/index.vue'),
+        meta: {
+          hideInMenu: true,
+          title: '数据看板',
+        },
+      },
+      {
         name: 'Workspace',
         path: '/workspace',
         component: () => import('#/views/dashboard/workspace/index.vue'),

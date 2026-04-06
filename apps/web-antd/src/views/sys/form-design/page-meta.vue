@@ -7,6 +7,8 @@ import { Page } from '@vben/common-ui';
 import {
   Button,
   Card,
+  Descriptions,
+  Empty,
   Form,
   Input,
   message,
@@ -14,284 +16,779 @@ import {
   Popconfirm,
   Radio,
   Select,
-  Switch,
   Table,
   Tag,
 } from 'ant-design-vue';
 
-import {
-  sysApprovalProcessApi,
-  sysFormDesignApi,
-  sysMenuApi,
-  sysPageMetaApi,
-} from '#/api/core/sys-manage';
+import { sysPageSchemaApi, sysTenantApi } from '#/api/core/sys-manage';
+
+import { pilotTemplatePresets, templateRouteMap } from './page-schema-presets';
+
+type PublishScope = 'template' | 'tenant';
 
 const router = useRouter();
-const loading = ref(false);
-const dataSource = ref<any[]>([]);
-const pagination = ref({ current: 1, pageSize: 20, total: 0 });
-const searchParams = ref({ pageName: '', status: undefined as string | undefined });
-const isModalVisible = ref(false);
-const submitting = ref(false);
-const formRef = ref();
-const menuOptions = ref<any[]>([]);
-const menuRawOptions = ref<any[]>([]);
 
-const columns = [
-  { title: '页面编码', dataIndex: 'pageCode', key: 'pageCode', width: 150 },
-  { title: '页面名称', dataIndex: 'pageName', key: 'pageName', width: 180 },
-  { title: '业务系统', dataIndex: 'bizSystem', key: 'bizSystem', width: 120 },
-  { title: '页面类型', dataIndex: 'pageType', key: 'pageType', width: 110 },
-  { title: '功能菜单', dataIndex: 'menuName', key: 'menuName', width: 180 },
-  { title: '关联表', dataIndex: 'relationTable', key: 'relationTable', width: 160 },
-  { title: '布局', dataIndex: 'formLayout', key: 'formLayout', width: 100 },
-  { title: '状态', dataIndex: 'status', key: 'status', width: 90 },
-  { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 170 },
-  { title: '操作', key: 'action', width: 260 },
+const statusOptions = [
+  { label: '启用', value: '0' },
+  { label: '停用', value: '1' },
 ];
 
-const defaultForm = () => ({
-  allowLink: '0',
-  bizSystem: 'RISS',
-  formLayout: 'list',
-  menuName: '',
+const modeOptions = [
+  { label: '草稿态', value: 'draft' },
+  { label: '发布态', value: 'published' },
+];
+
+const columns = [
+  { title: '页面编码', dataIndex: 'pageCode', key: 'pageCode', width: 220 },
+  { title: '页面名称', dataIndex: 'pageName', key: 'pageName', width: 180 },
+  {
+    title: '当前版本',
+    dataIndex: 'currentVersion',
+    key: 'currentVersion',
+    width: 120,
+  },
+  { title: '状态', dataIndex: 'status', key: 'status', width: 100 },
+  { title: '更新时间', dataIndex: 'updateTime', key: 'updateTime', width: 180 },
+  { title: '备注', dataIndex: 'remark', key: 'remark', width: 240 },
+  { title: '操作', key: 'action', width: 560, fixed: 'right' as const },
+];
+
+const logColumns = [
+  { title: '版本号', dataIndex: 'versionNo', key: 'versionNo', width: 90 },
+  { title: '操作', dataIndex: 'actionType', key: 'actionType', width: 90 },
+  {
+    title: '操作人',
+    dataIndex: 'operatorName',
+    key: 'operatorName',
+    width: 120,
+  },
+  { title: '时间', dataIndex: 'createTime', key: 'createTime', width: 180 },
+  { title: '备注', dataIndex: 'remark', key: 'remark' },
+  { title: '操作', key: 'action', width: 160 },
+];
+
+const loading = ref(false);
+const initLoading = ref(false);
+const dataSource = ref<any[]>([]);
+const pagination = ref({ current: 1, pageSize: 20, total: 0 });
+const searchParams = ref<{ pageName: string; status?: string }>({
+  pageName: '',
+  status: undefined,
+});
+
+const tenantOptions = ref<any[]>([]);
+const selectedTenantId = ref<number | undefined>();
+
+const templateModalOpen = ref(false);
+const templateSubmitting = ref(false);
+const templateFormRef = ref();
+
+const tenantModalOpen = ref(false);
+const tenantSubmitting = ref(false);
+const tenantLoading = ref(false);
+const tenantFormRef = ref();
+const tenantTargetRecord = ref<any>(null);
+
+const logModalOpen = ref(false);
+const logLoading = ref(false);
+const logScope = ref<PublishScope>('template');
+const logTargetRecord = ref<any>(null);
+const logTenantId = ref<number | undefined>();
+const logDataSource = ref<any[]>([]);
+const logSnapshot = ref('{}');
+
+const previewModalOpen = ref(false);
+const previewLoading = ref(false);
+const previewMode = ref<'draft' | 'published'>('published');
+const previewTargetRecord = ref<any>(null);
+const previewTenantId = ref<number | undefined>();
+const previewRuntime = ref<any>(null);
+
+const defaultTemplateForm = () => ({
+  currentVersion: 0,
   pageCode: '',
   pageName: '',
-  pageSchema: '',
-  pageType: '0',
-  relationTable: '',
+  publishedSchemaJson: '{}',
   remark: '',
-  sqlScript: '',
+  schemaJson: '{}',
   status: '0',
+  templateId: '',
 });
-const formState = ref<any>(defaultForm());
 
-const pageTypeTextMap: Record<string, string> = {
-  '0': '列表页',
-  '1': '表单页',
-  '2': '树形页',
-  '3': '统计页',
-};
-const layoutTextMap: Record<string, string> = {
-  list: '分页列表',
-  tree: '左树右表',
-  single: '单页表单',
-};
+const defaultTenantForm = () => ({
+  currentVersion: 0,
+  overrideId: '',
+  pageCode: '',
+  pageName: '',
+  patchJson: '{}',
+  publishedPatchJson: '{}',
+  remark: '',
+  status: '0',
+  tenantId: undefined as number | undefined,
+});
 
-const enabledCount = computed(
-  () => dataSource.value.filter((item) => item.status === '0').length,
+const templateFormState = ref(defaultTemplateForm());
+const tenantFormState = ref(defaultTenantForm());
+
+const selectedTenantLabel = computed(() => {
+  const matched = tenantOptions.value.find(
+    (item) => `${item.value}` === `${selectedTenantId.value || ''}`,
+  );
+  return matched?.label || '未选择';
+});
+
+const publishedCount = computed(
+  () =>
+    dataSource.value.filter((item) => Number(item.currentVersion || 0) > 0)
+      .length,
 );
 
-const formatDate = (value?: string) =>
-  value ? new Date(value).toLocaleString('zh-CN') : '-';
+const enabledCount = computed(
+  () =>
+    dataSource.value.filter((item) => `${item.status || '0'}` === '0').length,
+);
 
-const parseRecord = (item: any) => {
-  let parsedContent: Record<string, any> = {};
-  try {
-    parsedContent = item.formContent ? JSON.parse(item.formContent) : {};
-  } catch {
-    parsedContent = {};
+const logTitle = computed(() =>
+  logScope.value === 'template' ? '模板发布记录' : '租户覆盖发布记录',
+);
+
+const previewSchemaText = computed(() =>
+  prettyJson(previewRuntime.value?.schema || {}),
+);
+
+const templatePublishedTag = computed(() =>
+  Number(templateFormState.value.currentVersion || 0) > 0 ? '已发布' : '未发布',
+);
+
+const tenantPublishedTag = computed(() =>
+  Number(tenantFormState.value.currentVersion || 0) > 0 ? '已发布' : '未发布',
+);
+
+function formatDate(value?: string) {
+  return value ? new Date(value).toLocaleString('zh-CN') : '-';
+}
+
+function formatVersion(version?: number) {
+  const numericVersion = Number(version || 0);
+  return numericVersion > 0 ? `V${numericVersion}` : '未发布';
+}
+
+function formatScopeAction(actionType?: string) {
+  if (actionType === 'rollback') {
+    return '回滚';
   }
-  return {
-    ...item,
-    ...parsedContent,
-    pageName: parsedContent.pageName || item.formName,
-  };
-};
+  return '发布';
+}
 
-const fetchMenus = async () => {
-  const menus = await sysMenuApi.getList().catch(() => []);
-  menuRawOptions.value = (menus || []).filter((item: any) => item.menuType !== 'F');
-  menuOptions.value = menuRawOptions.value.map((item: any) => ({
-    label: item.menuName,
-    value: item.menuName,
+function statusText(status?: string) {
+  return `${status || '0'}` === '1' ? '停用' : '启用';
+}
+
+function statusColor(status?: string) {
+  return `${status || '0'}` === '1' ? 'default' : 'success';
+}
+
+function prettyJson(value: any, fallback = '{}') {
+  if (value === undefined || value === null || value === '') {
+    return fallback;
+  }
+
+  if (typeof value === 'string') {
+    const normalized = value.trim();
+    if (!normalized) {
+      return fallback;
+    }
+
+    try {
+      return JSON.stringify(JSON.parse(normalized), null, 2);
+    } catch {
+      return normalized;
+    }
+  }
+
+  try {
+    return JSON.stringify(value, null, 2);
+  } catch {
+    return fallback;
+  }
+}
+
+function normalizeJsonDraft(value: string, label: string) {
+  const normalized = `${value || ''}`.trim() || '{}';
+  try {
+    return JSON.stringify(JSON.parse(normalized), null, 2);
+  } catch {
+    throw new Error(`${label} 不是合法 JSON`);
+  }
+}
+
+function getTenantDisplayName(tenantId?: number) {
+  const matched = tenantOptions.value.find(
+    (item) => `${item.value}` === `${tenantId || ''}`,
+  );
+  return matched?.label || `租户 ${tenantId || '-'}`;
+}
+
+function ensureTenantSelected(explicitTenantId?: number) {
+  const tenantId =
+    explicitTenantId ?? selectedTenantId.value ?? tenantOptions.value[0]?.value;
+  if (tenantId === undefined || tenantId === null) {
+    message.warning('请先维护账套并选择一个租户');
+    return null;
+  }
+  selectedTenantId.value = Number(tenantId);
+  return Number(tenantId);
+}
+
+async function fetchTenantOptions() {
+  const response = await sysTenantApi
+    .getList({ page: 1, pageSize: 500 })
+    .catch(() => ({ items: [] }));
+  const items = Array.isArray(response?.items) ? response.items : [];
+  tenantOptions.value = items.map((item) => ({
+    label: item.tenantName || `账套${item.tenantId}`,
+    status: item.status || '0',
+    value: Number(item.tenantId),
   }));
-};
 
-const fetchList = async (page = 1) => {
+  if (selectedTenantId.value === undefined && tenantOptions.value.length > 0) {
+    const preferredTenant =
+      tenantOptions.value.find((item) => `${item.status}` === '0') ||
+      tenantOptions.value[0];
+    selectedTenantId.value = preferredTenant.value;
+  }
+}
+
+async function fetchList(page = 1) {
   try {
     loading.value = true;
-    const res = await sysPageMetaApi.getList({
+    const response = await sysPageSchemaApi.getTemplateList({
       page,
       pageSize: pagination.value.pageSize,
-      formName: searchParams.value.pageName,
+      pageName: searchParams.value.pageName,
       status: searchParams.value.status,
     });
-    dataSource.value = (res?.items || []).map(parseRecord);
+    dataSource.value = Array.isArray(response?.items) ? response.items : [];
     pagination.value.current = page;
-    pagination.value.total = res?.total || 0;
+    pagination.value.total = Number(response?.total || 0);
   } finally {
     loading.value = false;
   }
-};
+}
 
-const openModal = async (record?: any) => {
-  if (record?.formId) {
-    const detail = await sysPageMetaApi.getById(record.formId);
-    formState.value = { ...defaultForm(), ...parseRecord(detail), formId: detail?.formId };
-  } else {
-    formState.value = defaultForm();
+function resetFilters() {
+  searchParams.value = {
+    pageName: '',
+    status: undefined,
+  };
+  void fetchList(1);
+}
+
+async function initializePilotTemplates() {
+  Modal.confirm({
+    title: '初始化试点页面模板？',
+    content: '只创建缺失模板，不覆盖已有页面方案。',
+    okText: '初始化',
+    cancelText: '取消',
+    centered: true,
+    onOk: async () => {
+      initLoading.value = true;
+      try {
+        let createdCount = 0;
+        let skippedCount = 0;
+
+        for (const preset of pilotTemplatePresets) {
+          const existsResponse = await sysPageSchemaApi.getTemplateList({
+            page: 1,
+            pageCode: preset.pageCode,
+            pageSize: 20,
+          });
+          const exists = (existsResponse?.items || []).some(
+            (item: any) => item.pageCode === preset.pageCode,
+          );
+
+          if (exists) {
+            skippedCount += 1;
+            continue;
+          }
+
+          await sysPageSchemaApi.createTemplate({
+            pageCode: preset.pageCode,
+            pageName: preset.pageName,
+            remark: `试点初始化：${preset.routePath}`,
+            schemaJson: prettyJson(preset.schema),
+            status: '0',
+          });
+          createdCount += 1;
+        }
+
+        await fetchList(1);
+
+        if (createdCount > 0) {
+          message.success(
+            `已初始化${createdCount}个试点页面，跳过${skippedCount}个已存在页面`,
+          );
+        } else {
+          message.info('试点页面模板已全部存在，无需重复初始化');
+        }
+      } finally {
+        initLoading.value = false;
+      }
+    },
+  });
+}
+
+function applyPilotPreset() {
+  const matchedPreset = pilotTemplatePresets.find(
+    (item) => item.pageCode === templateFormState.value.pageCode,
+  );
+  if (!matchedPreset) {
+    message.warning('当前页面编码没有对应的试点预设');
+    return;
   }
-  isModalVisible.value = true;
-};
 
-const handleSubmit = async () => {
+  templateFormState.value.pageName =
+    templateFormState.value.pageName || matchedPreset.pageName;
+  templateFormState.value.schemaJson = prettyJson(matchedPreset.schema);
+  message.success('已载入试点预设草稿');
+}
+
+function formatTemplateJson() {
   try {
-    await formRef.value?.validate();
-    submitting.value = true;
-    const payload = { ...formState.value };
-    if (payload.formId) {
-      await sysPageMetaApi.update(payload.formId, payload);
-      message.success('页面配置更新成功');
+    templateFormState.value.schemaJson = normalizeJsonDraft(
+      templateFormState.value.schemaJson,
+      '模板草稿 JSON',
+    );
+    message.success('模板草稿已格式化');
+  } catch (error: any) {
+    message.error(error?.message || '模板草稿 JSON 格式非法');
+  }
+}
+
+function formatTenantJson() {
+  try {
+    tenantFormState.value.patchJson = normalizeJsonDraft(
+      tenantFormState.value.patchJson,
+      '租户覆盖 JSON',
+    );
+    message.success('租户覆盖已格式化');
+  } catch (error: any) {
+    message.error(error?.message || '租户覆盖 JSON 格式非法');
+  }
+}
+
+async function openTemplateModal(record?: any) {
+  if (record?.templateId) {
+    const detail = await sysPageSchemaApi.getTemplateById(record.templateId);
+    templateFormState.value = {
+      currentVersion: Number(detail?.currentVersion || 0),
+      pageCode: detail?.pageCode || '',
+      pageName: detail?.pageName || '',
+      publishedSchemaJson: prettyJson(detail?.publishedSchemaJson || {}),
+      remark: detail?.remark || '',
+      schemaJson: prettyJson(detail?.schemaJson || {}),
+      status: detail?.status || '0',
+      templateId: detail?.templateId || '',
+    };
+  } else {
+    templateFormState.value = defaultTemplateForm();
+  }
+
+  templateModalOpen.value = true;
+}
+
+async function saveTemplate() {
+  try {
+    await templateFormRef.value?.validate();
+    templateSubmitting.value = true;
+
+    const payload = {
+      pageCode: templateFormState.value.pageCode,
+      pageName: templateFormState.value.pageName,
+      remark: templateFormState.value.remark,
+      schemaJson: normalizeJsonDraft(
+        templateFormState.value.schemaJson,
+        '模板草稿 JSON',
+      ),
+      status: templateFormState.value.status,
+    };
+
+    if (templateFormState.value.templateId) {
+      await sysPageSchemaApi.updateTemplate(
+        templateFormState.value.templateId,
+        payload,
+      );
+      message.success('页面模板草稿更新成功');
     } else {
-      const created = await sysPageMetaApi.create(payload);
-      payload.formId = created?.formId;
-      message.success('页面配置新增成功');
+      await sysPageSchemaApi.createTemplate(payload);
+      message.success('页面模板草稿新增成功');
     }
 
-    if (payload.allowLink === '1') {
-      await syncLinkedConfigs(payload);
+    templateModalOpen.value = false;
+    await fetchList(pagination.value.current);
+  } catch (error: any) {
+    if (error?.message) {
+      message.error(error.message);
     }
-
-    isModalVisible.value = false;
-    fetchList(pagination.value.current);
   } finally {
-    submitting.value = false;
+    templateSubmitting.value = false;
   }
-};
+}
 
-const handleDelete = async (id: string) => {
-  await sysPageMetaApi.remove(id);
-  message.success('删除页面配置成功');
-  fetchList(pagination.value.current);
-};
-
-const syncLinkedConfigs = async (record: any) => {
-  if (record.allowLink !== '1') {
-    return;
-  }
-
-  if (!record.pageName || !record.menuName) {
-    message.warning('请先补全页面名称和功能菜单后再联动');
-    return;
-  }
-
-  const matchedMenu = menuRawOptions.value.find(
-    (item: any) => item.menuName === record.menuName,
-  );
-  const linkedFormName = `${record.pageName}页面表单`;
-  const linkedProcessName = `${record.pageName}流程`;
-
-  const formList = await sysFormDesignApi.getList({
-    page: 1,
-    pageSize: 200,
-    formName: linkedFormName,
-    formType: '1',
+async function publishTemplate(record: any) {
+  Modal.confirm({
+    title: `确认发布模板【${record.pageName}】？`,
+    content: `发布后将生成 ${formatVersion(Number(record.currentVersion || 0) + 1)} 版本。`,
+    okText: '发布',
+    cancelText: '取消',
+    centered: true,
+    onOk: async () => {
+      await sysPageSchemaApi.publishTemplate(record.templateId);
+      message.success('页面模板发布成功');
+      await fetchList(pagination.value.current);
+    },
   });
-  const existedForm = (formList?.items || []).find(
-    (item: any) => item.formName === linkedFormName,
-  );
+}
 
-  const formPayload = {
-    formContent: JSON.stringify({
-      menuCode: matchedMenu?.menuCode || '',
-      menuId: matchedMenu?.menuId || '',
-      menuName: record.menuName,
-      menuPath: matchedMenu?.path || '',
+async function handleDelete(templateId: string) {
+  await sysPageSchemaApi.removeTemplate(templateId);
+  message.success('页面模板删除成功');
+  await fetchList(pagination.value.current);
+}
+
+function openPage(record: any) {
+  const routePath = templateRouteMap[record.pageCode];
+  if (!routePath) {
+    message.warning('当前页面未配置业务路由映射');
+    return;
+  }
+
+  const target = router.resolve(routePath).href;
+  window.open(target, '_blank');
+}
+
+async function loadTenantOverride(record: any, tenantId: number) {
+  try {
+    tenantLoading.value = true;
+    const detail = await sysPageSchemaApi.getTenantOverride(record.pageCode, {
+      tenantId,
+    });
+    tenantFormState.value = {
+      currentVersion: Number(detail?.currentVersion || 0),
+      overrideId: detail?.overrideId || '',
       pageCode: record.pageCode,
-      pageSchema: record.pageSchema,
-      relationTable: record.relationTable,
-      sqlScript: record.sqlScript,
-    }),
-    formName: linkedFormName,
-    formType: '1',
-    remark: `页面自定义自动生成：${record.pageName}`,
-    status: record.status || '0',
-  };
+      pageName: record.pageName,
+      patchJson: prettyJson(detail?.patchJson || {}),
+      publishedPatchJson: prettyJson(detail?.publishedPatchJson || {}),
+      remark: detail?.remark || '',
+      status: detail?.status || '0',
+      tenantId,
+    };
+    selectedTenantId.value = tenantId;
+  } finally {
+    tenantLoading.value = false;
+  }
+}
 
-  let linkedFormId = existedForm?.formId;
-  let formAction = '更新';
-  if (linkedFormId) {
-    await sysFormDesignApi.update(linkedFormId, formPayload);
-  } else {
-    const createdForm = await sysFormDesignApi.create(formPayload);
-    linkedFormId = createdForm?.formId;
-    formAction = '创建';
+async function openTenantModal(record: any) {
+  const tenantId = ensureTenantSelected();
+  if (tenantId === null) {
+    return;
   }
 
-  const processList = await sysApprovalProcessApi.getList({
-    page: 1,
-    pageSize: 200,
-    processName: linkedProcessName,
-  });
-  const existedProcess = (processList?.items || []).find(
-    (item: any) => item.processName === linkedProcessName,
+  tenantTargetRecord.value = record;
+  tenantModalOpen.value = true;
+  await loadTenantOverride(record, tenantId);
+}
+
+async function handleTenantChange(tenantId: number) {
+  if (!tenantTargetRecord.value) {
+    return;
+  }
+  await loadTenantOverride(tenantTargetRecord.value, Number(tenantId));
+}
+
+async function persistTenantOverride(showMessage = true) {
+  await tenantFormRef.value?.validate();
+
+  const tenantId = ensureTenantSelected(tenantFormState.value.tenantId);
+  if (tenantId === null) {
+    throw new Error('tenantId 不能为空');
+  }
+
+  const payload = {
+    patchJson: normalizeJsonDraft(
+      tenantFormState.value.patchJson,
+      '租户覆盖 JSON',
+    ),
+    remark: tenantFormState.value.remark,
+    status: tenantFormState.value.status,
+    tenantId,
+  };
+
+  const saved = await sysPageSchemaApi.saveTenantOverride(
+    tenantFormState.value.pageCode,
+    payload,
   );
 
-  const processPayload = {
-    bizTable: record.relationTable || '',
-    flowNodes: record.sqlScript || '',
-    formId: linkedFormId,
-    menuName: record.menuName,
-    processName: linkedProcessName,
-    remark: `页面自定义自动生成：${record.pageName}`,
-    status: record.status || '0',
-    weight: 0,
+  tenantFormState.value = {
+    ...tenantFormState.value,
+    currentVersion: Number(saved?.currentVersion || 0),
+    overrideId: saved?.overrideId || '',
+    patchJson: prettyJson(saved?.patchJson || {}),
+    publishedPatchJson: prettyJson(saved?.publishedPatchJson || {}),
+    remark: saved?.remark || '',
+    status: saved?.status || '0',
+    tenantId,
   };
 
-  let processAction = '更新';
-  if (existedProcess?.processId) {
-    await sysApprovalProcessApi.update(existedProcess.processId, processPayload);
-  } else {
-    await sysApprovalProcessApi.create(processPayload);
-    processAction = '创建';
+  if (showMessage) {
+    message.success('租户覆盖草稿保存成功');
   }
 
-  message.success(`联动成功：${formAction}表单，${processAction}流程`);
-};
+  return saved;
+}
+
+async function saveTenantOverride() {
+  try {
+    tenantSubmitting.value = true;
+    await persistTenantOverride(true);
+  } catch (error: any) {
+    if (error?.message) {
+      message.error(error.message);
+    }
+  } finally {
+    tenantSubmitting.value = false;
+  }
+}
+
+async function publishTenantOverride() {
+  try {
+    tenantSubmitting.value = true;
+    await persistTenantOverride(false);
+    await sysPageSchemaApi.publishTenantOverride(
+      tenantFormState.value.pageCode,
+      {
+        tenantId: tenantFormState.value.tenantId,
+      },
+    );
+    message.success('租户覆盖发布成功');
+    await loadTenantOverride(
+      tenantTargetRecord.value,
+      Number(tenantFormState.value.tenantId),
+    );
+  } catch (error: any) {
+    if (error?.message) {
+      message.error(error.message);
+    }
+  } finally {
+    tenantSubmitting.value = false;
+  }
+}
+
+async function fetchLogs() {
+  if (!logTargetRecord.value) {
+    return;
+  }
+
+  try {
+    logLoading.value = true;
+    if (logScope.value === 'template') {
+      logDataSource.value =
+        (await sysPageSchemaApi.getTemplateLogs(
+          logTargetRecord.value.templateId,
+        )) || [];
+    } else {
+      const tenantId = ensureTenantSelected(logTenantId.value);
+      if (tenantId === null) {
+        logDataSource.value = [];
+        return;
+      }
+      logTenantId.value = tenantId;
+      logDataSource.value =
+        (await sysPageSchemaApi.getTenantLogs(logTargetRecord.value.pageCode, {
+          tenantId,
+        })) || [];
+    }
+
+    logSnapshot.value = prettyJson(logDataSource.value[0]?.snapshotJson || {});
+  } finally {
+    logLoading.value = false;
+  }
+}
+
+async function openTemplateLogs(record: any) {
+  logScope.value = 'template';
+  logTargetRecord.value = record;
+  logSnapshot.value = '{}';
+  logModalOpen.value = true;
+  await fetchLogs();
+}
+
+async function openTenantLogs(record: any) {
+  const tenantId = ensureTenantSelected();
+  if (tenantId === null) {
+    return;
+  }
+
+  logScope.value = 'tenant';
+  logTargetRecord.value = record;
+  logTenantId.value = tenantId;
+  logSnapshot.value = '{}';
+  logModalOpen.value = true;
+  await fetchLogs();
+}
+
+function viewLogSnapshot(record: any) {
+  logSnapshot.value = prettyJson(record?.snapshotJson || {});
+}
+
+async function rollbackLog(record: any) {
+  if (!logTargetRecord.value) {
+    return;
+  }
+
+  Modal.confirm({
+    title: `确认回滚到 ${formatVersion(record.versionNo)}？`,
+    content:
+      logScope.value === 'template'
+        ? '回滚后会生成新的模板发布版本。'
+        : '回滚后会生成新的租户覆盖发布版本。',
+    okText: '回滚',
+    cancelText: '取消',
+    centered: true,
+    onOk: async () => {
+      await (logScope.value === 'template'
+        ? sysPageSchemaApi.rollbackTemplate(
+            logTargetRecord.value.templateId,
+            record.logId,
+          )
+        : sysPageSchemaApi.rollbackTenantOverride(
+            logTargetRecord.value.pageCode,
+            record.logId,
+            { tenantId: logTenantId.value },
+          ));
+
+      message.success(
+        logScope.value === 'template' ? '模板回滚成功' : '租户覆盖回滚成功',
+      );
+      await fetchLogs();
+      await fetchList(pagination.value.current);
+
+      if (
+        tenantModalOpen.value &&
+        tenantTargetRecord.value?.pageCode === logTargetRecord.value.pageCode &&
+        tenantFormState.value.tenantId === logTenantId.value
+      ) {
+        await loadTenantOverride(
+          tenantTargetRecord.value,
+          Number(tenantFormState.value.tenantId),
+        );
+      }
+    },
+  });
+}
+
+async function handleLogTenantChange(tenantId: number) {
+  logTenantId.value = Number(tenantId);
+  await fetchLogs();
+}
+
+async function fetchRuntimePreview() {
+  if (!previewTargetRecord.value) {
+    return;
+  }
+
+  try {
+    previewLoading.value = true;
+    const params: Record<string, any> = {
+      mode: previewMode.value,
+    };
+    if (previewTenantId.value !== undefined && previewTenantId.value !== null) {
+      params.tenantId = previewTenantId.value;
+    }
+
+    previewRuntime.value = await sysPageSchemaApi.getRuntime(
+      previewTargetRecord.value.pageCode,
+      params,
+    );
+  } finally {
+    previewLoading.value = false;
+  }
+}
+
+async function openPreview(record: any) {
+  previewTargetRecord.value = record;
+  previewMode.value = 'published';
+  previewTenantId.value = selectedTenantId.value;
+  previewRuntime.value = null;
+  previewModalOpen.value = true;
+  await fetchRuntimePreview();
+}
+
+async function refreshPreviewByTenant(tenantId?: number) {
+  previewTenantId.value = tenantId;
+  await fetchRuntimePreview();
+}
 
 onMounted(async () => {
-  await Promise.all([fetchMenus(), fetchList(1)]);
+  await Promise.all([fetchTenantOptions(), fetchList(1)]);
 });
 </script>
 
 <template>
-  <Page title="页面自定义" description="配置页面元数据、菜单归属、表结构与布局模式。">
+  <Page
+    title="页面自定义"
+    description="统一管理平台标准模板、租户覆盖和运行态页面方案。"
+  >
     <div class="p-4">
       <Card :bordered="false">
         <div class="mb-4 flex flex-wrap gap-3">
           <Input
             v-model:value="searchParams.pageName"
             placeholder="页面名称"
-            class="w-40"
+            class="w-44"
             allow-clear
           />
           <Select
             v-model:value="searchParams.status"
             placeholder="状态"
-            class="w-28"
+            class="w-32"
+            :options="statusOptions"
             allow-clear
-          >
-            <Select.Option value="0">启用</Select.Option>
-            <Select.Option value="1">停用</Select.Option>
-          </Select>
+          />
           <Button type="primary" @click="fetchList(1)">查询</Button>
-          <Button
-            @click="
-              () => {
-                searchParams.pageName = '';
-                searchParams.status = undefined;
-                fetchList(1);
-              }
-            "
-          >
-            重置
+          <Button @click="resetFilters">重置</Button>
+          <Button :loading="initLoading" @click="initializePilotTemplates">
+            初始化试点页面
           </Button>
-          <Button type="primary" class="ml-auto" @click="openModal()">+ 新建页面</Button>
+          <Button type="primary" class="ml-auto" @click="openTemplateModal()">
+            + 新建模板
+          </Button>
         </div>
 
-        <div class="mb-3 rounded bg-gray-50 px-3 py-2 text-sm text-gray-600">
-          当前共 {{ pagination.total }} 个页面配置，启用中 {{ enabledCount }} 个。
+        <div
+          class="mb-3 flex flex-wrap items-center gap-3 rounded bg-gray-50 px-3 py-2 text-sm text-gray-600"
+        >
+          <span>当前页 {{ dataSource.length }} 条</span>
+          <span>启用 {{ enabledCount }} 条</span>
+          <span>已发布 {{ publishedCount }} 条</span>
+          <span>租户视角 {{ selectedTenantLabel }}</span>
+          <Select
+            v-model:value="selectedTenantId"
+            class="w-52"
+            :options="tenantOptions"
+            allow-clear
+            placeholder="请选择租户"
+          />
+          <Button
+            type="link"
+            size="small"
+            class="!px-0"
+            @click="fetchTenantOptions"
+          >
+            刷新租户
+          </Button>
         </div>
 
         <Table
@@ -299,47 +796,74 @@ onMounted(async () => {
           :data-source="dataSource"
           :loading="loading"
           :pagination="pagination"
-          row-key="formId"
+          row-key="templateId"
           bordered
           size="middle"
-          :scroll="{ x: 1500 }"
+          :scroll="{ x: 1800 }"
           @change="(pag) => fetchList(pag.current || 1)"
         >
           <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'pageType'">
-              {{ pageTypeTextMap[record.pageType] || '-' }}
-            </template>
-            <template v-if="column.key === 'formLayout'">
-              {{ layoutTextMap[record.formLayout] || '-' }}
-            </template>
-            <template v-if="column.key === 'status'">
-              <Tag :color="record.status === '0' ? 'success' : 'error'">
-                {{ record.status === '0' ? '启用' : '停用' }}
+            <template v-if="column.key === 'currentVersion'">
+              <Tag
+                :color="
+                  Number(record.currentVersion || 0) > 0
+                    ? 'processing'
+                    : 'default'
+                "
+              >
+                {{ formatVersion(record.currentVersion) }}
               </Tag>
             </template>
-            <template v-if="column.key === 'createTime'">
-              {{ formatDate(record.createTime) }}
+            <template v-if="column.key === 'status'">
+              <Tag :color="statusColor(record.status)">
+                {{ statusText(record.status) }}
+              </Tag>
+            </template>
+            <template v-if="column.key === 'updateTime'">
+              {{ formatDate(record.updateTime) }}
+            </template>
+            <template v-if="column.key === 'remark'">
+              {{ record.remark || '-' }}
             </template>
             <template v-if="column.key === 'action'">
-              <Button type="link" size="small" @click="openModal(record)">编辑</Button>
-              <Button type="link" size="small" @click="syncLinkedConfigs(record)">
-                一键联动
+              <Button
+                type="link"
+                size="small"
+                @click="openTemplateModal(record)"
+              >
+                编辑模板
+              </Button>
+              <Button type="link" size="small" @click="publishTemplate(record)">
+                发布
               </Button>
               <Button
                 type="link"
                 size="small"
-                @click="router.push('/approval/flow-config')"
+                @click="openTemplateLogs(record)"
               >
-                流程配置
+                模板记录
+              </Button>
+              <Button type="link" size="small" @click="openTenantModal(record)">
+                当前租户覆盖
+              </Button>
+              <Button type="link" size="small" @click="openTenantLogs(record)">
+                租户记录
+              </Button>
+              <Button type="link" size="small" @click="openPreview(record)">
+                运行预览
               </Button>
               <Button
                 type="link"
                 size="small"
-                @click="router.push('/approval/form-config')"
+                :disabled="!templateRouteMap[record.pageCode]"
+                @click="openPage(record)"
               >
-                表单配置
+                打开页面
               </Button>
-              <Popconfirm title="确定删除吗？" @confirm="handleDelete(record.formId)">
+              <Popconfirm
+                title="确定删除模板吗？删除后不会自动清理租户覆盖与发布日志。"
+                @confirm="handleDelete(record.templateId)"
+              >
                 <Button type="link" danger size="small">删除</Button>
               </Popconfirm>
             </template>
@@ -348,90 +872,396 @@ onMounted(async () => {
       </Card>
 
       <Modal
-        v-model:open="isModalVisible"
-        :title="formState.formId ? '编辑页面配置' : '新建页面配置'"
-        @ok="handleSubmit"
-        :confirm-loading="submitting"
+        v-model:open="templateModalOpen"
+        :title="templateFormState.templateId ? '编辑页面模板' : '新建页面模板'"
+        width="1100px"
         destroy-on-close
-        width="860px"
       >
-        <Form ref="formRef" :model="formState" layout="vertical" class="mt-4">
-          <div class="grid grid-cols-2 gap-4">
+        <Form
+          ref="templateFormRef"
+          :model="templateFormState"
+          layout="vertical"
+          class="mt-2"
+        >
+          <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Form.Item
               label="页面编码"
               name="pageCode"
               :rules="[{ required: true, message: '请输入页面编码' }]"
             >
-              <Input v-model:value="formState.pageCode" placeholder="如 FIN_PAGE_001" />
+              <Input
+                v-model:value="templateFormState.pageCode"
+                :disabled="!!templateFormState.templateId"
+                placeholder="如 finance.reimbursement.query"
+              />
             </Form.Item>
+
             <Form.Item
               label="页面名称"
               name="pageName"
               :rules="[{ required: true, message: '请输入页面名称' }]"
             >
-              <Input v-model:value="formState.pageName" placeholder="请输入页面名称" />
-            </Form.Item>
-            <Form.Item label="业务系统" name="bizSystem">
-              <Input v-model:value="formState.bizSystem" placeholder="如 RISS" />
-            </Form.Item>
-            <Form.Item label="页面类型" name="pageType">
-              <Select v-model:value="formState.pageType">
-                <Select.Option value="0">列表页</Select.Option>
-                <Select.Option value="1">表单页</Select.Option>
-                <Select.Option value="2">树形页</Select.Option>
-                <Select.Option value="3">统计页</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="功能菜单" name="menuName">
-              <Select
-                v-model:value="formState.menuName"
-                :options="menuOptions"
-                placeholder="请选择功能菜单"
-                allow-clear
+              <Input
+                v-model:value="templateFormState.pageName"
+                placeholder="请输入页面名称"
               />
             </Form.Item>
-            <Form.Item label="关联表" name="relationTable">
-              <Input v-model:value="formState.relationTable" placeholder="如 expense_claim" />
-            </Form.Item>
-            <Form.Item label="页面布局" name="formLayout">
-              <Select v-model:value="formState.formLayout">
-                <Select.Option value="list">分页列表</Select.Option>
-                <Select.Option value="tree">左树右表</Select.Option>
-                <Select.Option value="single">单页表单</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="允许关联" name="allowLink">
-              <Switch
-                :checked="formState.allowLink === '1'"
-                @change="(checked) => (formState.allowLink = checked ? '1' : '0')"
-              />
-            </Form.Item>
+
             <Form.Item label="状态" name="status">
-              <Radio.Group v-model:value="formState.status">
+              <Radio.Group v-model:value="templateFormState.status">
+                <Radio value="0">启用</Radio>
+                <Radio value="1">停用</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item label="已发布版本">
+              <div class="flex items-center gap-2 pt-2">
+                <Tag
+                  :color="
+                    Number(templateFormState.currentVersion || 0) > 0
+                      ? 'processing'
+                      : 'default'
+                  "
+                >
+                  {{ templatePublishedTag }}
+                </Tag>
+                <span class="text-gray-500">
+                  {{ formatVersion(templateFormState.currentVersion) }}
+                </span>
+              </div>
+            </Form.Item>
+          </div>
+
+          <div
+            v-if="templateFormState.templateId"
+            class="mb-4 text-xs text-gray-500"
+          >
+            页面编码创建后不建议修改，否则会影响租户覆盖、日志和运行态映射。
+          </div>
+
+          <Form.Item label="备注" name="remark">
+            <Input.TextArea
+              v-model:value="templateFormState.remark"
+              :rows="2"
+              placeholder="请输入模板说明"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="模板草稿 JSON"
+            name="schemaJson"
+            :rules="[{ required: true, message: '请输入模板草稿 JSON' }]"
+          >
+            <Input.TextArea
+              v-model:value="templateFormState.schemaJson"
+              :rows="16"
+              class="font-mono"
+              placeholder="请输入页面模板草稿 JSON"
+            />
+          </Form.Item>
+
+          <Form.Item label="已发布快照">
+            <Input.TextArea
+              :value="templateFormState.publishedSchemaJson"
+              :rows="10"
+              class="font-mono"
+              readonly
+            />
+          </Form.Item>
+        </Form>
+
+        <template #footer>
+          <Button @click="applyPilotPreset">载入试点预设</Button>
+          <Button @click="formatTemplateJson">格式化 JSON</Button>
+          <Button @click="templateModalOpen = false">取消</Button>
+          <Button
+            type="primary"
+            :loading="templateSubmitting"
+            @click="saveTemplate"
+          >
+            保存草稿
+          </Button>
+        </template>
+      </Modal>
+
+      <Modal
+        v-model:open="tenantModalOpen"
+        :title="
+          tenantTargetRecord
+            ? `${tenantTargetRecord.pageName} - 租户覆盖`
+            : '租户覆盖'
+        "
+        width="1100px"
+        destroy-on-close
+      >
+        <Form
+          ref="tenantFormRef"
+          :model="tenantFormState"
+          layout="vertical"
+          class="mt-2"
+        >
+          <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <Form.Item label="页面编码">
+              <Input :value="tenantFormState.pageCode" readonly />
+            </Form.Item>
+
+            <Form.Item label="页面名称">
+              <Input :value="tenantFormState.pageName" readonly />
+            </Form.Item>
+
+            <Form.Item
+              label="租户"
+              name="tenantId"
+              :rules="[{ required: true, message: '请选择租户' }]"
+            >
+              <Select
+                v-model:value="tenantFormState.tenantId"
+                :options="tenantOptions"
+                :loading="tenantLoading"
+                placeholder="请选择租户"
+                @change="handleTenantChange"
+              />
+            </Form.Item>
+
+            <Form.Item label="已发布版本">
+              <div class="flex items-center gap-2 pt-2">
+                <Tag
+                  :color="
+                    Number(tenantFormState.currentVersion || 0) > 0
+                      ? 'processing'
+                      : 'default'
+                  "
+                >
+                  {{ tenantPublishedTag }}
+                </Tag>
+                <span class="text-gray-500">
+                  {{ formatVersion(tenantFormState.currentVersion) }}
+                </span>
+              </div>
+            </Form.Item>
+
+            <Form.Item label="状态" name="status">
+              <Radio.Group v-model:value="tenantFormState.status">
                 <Radio value="0">启用</Radio>
                 <Radio value="1">停用</Radio>
               </Radio.Group>
             </Form.Item>
           </div>
 
-          <Form.Item label="页面 Schema" name="pageSchema">
-            <Input.TextArea
-              v-model:value="formState.pageSchema"
-              :rows="5"
-              placeholder="可填写页面配置 JSON 或字段说明"
-            />
-          </Form.Item>
-          <Form.Item label="SQL 脚本" name="sqlScript">
-            <Input.TextArea
-              v-model:value="formState.sqlScript"
-              :rows="5"
-              placeholder="可填写查询 SQL 或数据来源说明"
-            />
-          </Form.Item>
           <Form.Item label="备注" name="remark">
-            <Input.TextArea v-model:value="formState.remark" :rows="3" placeholder="请输入备注" />
+            <Input.TextArea
+              v-model:value="tenantFormState.remark"
+              :rows="2"
+              placeholder="请输入租户覆盖说明"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="租户覆盖 JSON"
+            name="patchJson"
+            :rules="[{ required: true, message: '请输入租户覆盖 JSON' }]"
+          >
+            <Input.TextArea
+              v-model:value="tenantFormState.patchJson"
+              :rows="16"
+              class="font-mono"
+              placeholder="请输入租户覆盖 JSON"
+            />
+          </Form.Item>
+
+          <Form.Item label="已发布覆盖快照">
+            <Input.TextArea
+              :value="tenantFormState.publishedPatchJson"
+              :rows="10"
+              class="font-mono"
+              readonly
+            />
           </Form.Item>
         </Form>
+
+        <template #footer>
+          <Button @click="formatTenantJson">格式化 JSON</Button>
+          <Button @click="tenantModalOpen = false">关闭</Button>
+          <Button :loading="tenantSubmitting" @click="saveTenantOverride">
+            保存草稿
+          </Button>
+          <Button
+            type="primary"
+            :loading="tenantSubmitting"
+            @click="publishTenantOverride"
+          >
+            发布覆盖
+          </Button>
+        </template>
+      </Modal>
+
+      <Modal
+        v-model:open="logModalOpen"
+        :title="logTitle"
+        width="1180px"
+        destroy-on-close
+      >
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          <div class="text-sm text-gray-600">
+            页面：{{ logTargetRecord?.pageName || '-' }}
+          </div>
+          <div class="text-sm text-gray-600">
+            编码：{{ logTargetRecord?.pageCode || '-' }}
+          </div>
+          <template v-if="logScope === 'tenant'">
+            <span class="text-sm text-gray-600">租户</span>
+            <Select
+              v-model:value="logTenantId"
+              class="w-56"
+              :options="tenantOptions"
+              placeholder="请选择租户"
+              @change="handleLogTenantChange"
+            />
+          </template>
+        </div>
+
+        <Table
+          :columns="logColumns"
+          :data-source="logDataSource"
+          :loading="logLoading"
+          row-key="logId"
+          bordered
+          size="middle"
+          :pagination="false"
+          :scroll="{ x: 1000 }"
+        >
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'versionNo'">
+              <Tag color="processing">{{
+                formatVersion(record.versionNo)
+              }}</Tag>
+            </template>
+            <template v-if="column.key === 'actionType'">
+              {{ formatScopeAction(record.actionType) }}
+            </template>
+            <template v-if="column.key === 'createTime'">
+              {{ formatDate(record.createTime) }}
+            </template>
+            <template v-if="column.key === 'remark'">
+              {{ record.remark || '-' }}
+            </template>
+            <template v-if="column.key === 'action'">
+              <Button type="link" size="small" @click="viewLogSnapshot(record)">
+                查看快照
+              </Button>
+              <Button
+                type="link"
+                size="small"
+                danger
+                @click="rollbackLog(record)"
+              >
+                回滚
+              </Button>
+            </template>
+          </template>
+        </Table>
+
+        <div class="mt-4">
+          <div class="mb-2 text-sm text-gray-600">快照内容</div>
+          <Input.TextArea
+            :value="logSnapshot"
+            :rows="12"
+            class="font-mono"
+            readonly
+          />
+        </div>
+
+        <template #footer>
+          <Button @click="logModalOpen = false">关闭</Button>
+        </template>
+      </Modal>
+
+      <Modal
+        v-model:open="previewModalOpen"
+        title="运行态预览"
+        width="1180px"
+        destroy-on-close
+      >
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          <Radio.Group
+            v-model:value="previewMode"
+            :options="modeOptions"
+            option-type="button"
+            button-style="solid"
+            @change="fetchRuntimePreview"
+          />
+          <span class="text-sm text-gray-600">租户视角</span>
+          <Select
+            v-model:value="previewTenantId"
+            class="w-56"
+            :options="tenantOptions"
+            allow-clear
+            placeholder="不带租户覆盖"
+            @change="refreshPreviewByTenant"
+          />
+          <Button @click="fetchRuntimePreview">刷新</Button>
+          <Button
+            v-if="
+              previewTargetRecord &&
+              templateRouteMap[previewTargetRecord.pageCode]
+            "
+            @click="openPage(previewTargetRecord)"
+          >
+            打开页面
+          </Button>
+        </div>
+
+        <div v-if="previewRuntime?.available" class="space-y-4">
+          <Descriptions bordered :column="2" size="small">
+            <Descriptions.Item label="页面编码">
+              {{ previewRuntime.pageCode }}
+            </Descriptions.Item>
+            <Descriptions.Item label="页面名称">
+              {{ previewRuntime.pageName || '-' }}
+            </Descriptions.Item>
+            <Descriptions.Item label="预览模式">
+              {{ previewMode === 'draft' ? '草稿态' : '发布态' }}
+            </Descriptions.Item>
+            <Descriptions.Item label="租户">
+              {{
+                previewTenantId ? getTenantDisplayName(previewTenantId) : '无'
+              }}
+            </Descriptions.Item>
+            <Descriptions.Item label="模板版本">
+              {{ formatVersion(previewRuntime?.versions?.template) }}
+            </Descriptions.Item>
+            <Descriptions.Item label="租户版本">
+              {{ formatVersion(previewRuntime?.versions?.tenant) }}
+            </Descriptions.Item>
+            <Descriptions.Item label="模板来源">
+              {{ previewRuntime?.sources?.templateId || '-' }}
+            </Descriptions.Item>
+            <Descriptions.Item label="租户来源">
+              {{ previewRuntime?.sources?.overrideId || '-' }}
+            </Descriptions.Item>
+          </Descriptions>
+
+          <Input.TextArea
+            :value="previewSchemaText"
+            :rows="20"
+            class="font-mono"
+            readonly
+          />
+        </div>
+
+        <div v-else class="py-10">
+          <Empty
+            :description="
+              previewLoading
+                ? '正在加载运行态结果...'
+                : '当前页面暂无运行态配置'
+            "
+          />
+        </div>
+
+        <template #footer>
+          <Button @click="previewModalOpen = false">关闭</Button>
+        </template>
       </Modal>
     </div>
   </Page>

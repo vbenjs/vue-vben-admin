@@ -119,7 +119,7 @@ if (-not $SkipDocker -and -not $FrontendOnly -and -not $BackendOnly) {
 # ============================================================
 if (-not $FrontendOnly) {
     Write-Step "启动后端 NestJS 服务 (端口 5555)..."
-    Start-Process -FilePath "pnpm" -ArgumentList "start:dev" -WorkingDirectory $ServerDir -WindowStyle Minimized
+    Start-Process -FilePath "powershell" -ArgumentList "-NoExit", "-Command", "cd '$ServerDir'; pnpm start:dev" -WindowStyle Minimized
 
     # 等待后端端口就绪, 最多 20 秒
     $waited = 0
@@ -142,7 +142,7 @@ if (-not $FrontendOnly) {
 # ============================================================
 if (-not $BackendOnly) {
     Write-Step "启动前端 Vite 开发服务 (端口 5666)..."
-    Start-Process -FilePath "pnpm" -ArgumentList "run","dev" -WorkingDirectory $WebDir -WindowStyle Minimized
+    Start-Process -FilePath "powershell" -ArgumentList "-NoExit", "-Command", "cd '$WebDir'; pnpm run dev" -WindowStyle Minimized
 
     # 等待前端端口就绪, 最多 30 秒
     $waited = 0

@@ -107,10 +107,15 @@ function setupAccessGuard(router: Router) {
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
     accessStore.setIsAccessChecked(true);
-    const redirectPath = (from.query.redirect ??
+    let redirectPath = (from.query.redirect ??
       (to.path === preferences.app.defaultHomePath
         ? userInfo.homePath || preferences.app.defaultHomePath
         : to.fullPath)) as string;
+
+    // Fix: Prevent cached '/analytics' from causing 404s
+    if (redirectPath === '/analytics') {
+      redirectPath = preferences.app.defaultHomePath;
+    }
 
     return {
       ...router.resolve(decodeURIComponent(redirectPath)),

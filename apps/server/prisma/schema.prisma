@@ -326,6 +326,82 @@ model SysPrintDesign {
   @@map("sys_print_design")
 }
 
+model SysPageTemplate {
+  templateId           BigInt    @id @default(autoincrement()) @map("template_id")
+  pageCode             String    @unique @map("page_code") @db.VarChar(100)
+  pageName             String    @map("page_name") @db.VarChar(100)
+  sourcePageMetaId     BigInt?   @map("source_page_meta_id")
+  schemaJson           String?   @map("schema_json") @db.LongText
+  publishedSchemaJson  String?   @map("published_schema_json") @db.LongText
+  currentVersion       Int?      @default(0) @map("current_version") @db.Int
+  status               String?   @default("0") @map("status") @db.Char(1)
+  createBy             String?   @map("create_by") @db.VarChar(64)
+  createTime           DateTime? @default(now()) @map("create_time")
+  updateBy             String?   @map("update_by") @db.VarChar(64)
+  updateTime           DateTime? @updatedAt @map("update_time")
+  remark               String?   @map("remark") @db.VarChar(500)
+
+  @@index([status], name: "idx_sys_page_template_status")
+  @@map("sys_page_template")
+}
+
+model SysPageOverride {
+  overrideId           BigInt    @id @default(autoincrement()) @map("override_id")
+  pageCode             String    @map("page_code") @db.VarChar(100)
+  tenantId             Int       @map("tenant_id") @db.Int
+  patchJson            String?   @map("patch_json") @db.LongText
+  publishedPatchJson   String?   @map("published_patch_json") @db.LongText
+  currentVersion       Int?      @default(0) @map("current_version") @db.Int
+  status               String?   @default("0") @map("status") @db.Char(1)
+  createBy             String?   @map("create_by") @db.VarChar(64)
+  createTime           DateTime? @default(now()) @map("create_time")
+  updateBy             String?   @map("update_by") @db.VarChar(64)
+  updateTime           DateTime? @updatedAt @map("update_time")
+  remark               String?   @map("remark") @db.VarChar(500)
+
+  @@unique([pageCode, tenantId], name: "uniq_sys_page_override_page_tenant")
+  @@index([tenantId, status], name: "idx_sys_page_override_tenant_status")
+  @@map("sys_page_override")
+}
+
+model SysUserPagePreference {
+  preferenceId         BigInt    @id @default(autoincrement()) @map("preference_id")
+  pageCode             String    @map("page_code") @db.VarChar(100)
+  tenantId             Int       @default(0) @map("tenant_id") @db.Int
+  userId               BigInt    @map("user_id")
+  patchJson            String?   @map("patch_json") @db.LongText
+  publishedPatchJson   String?   @map("published_patch_json") @db.LongText
+  currentVersion       Int?      @default(0) @map("current_version") @db.Int
+  status               String?   @default("0") @map("status") @db.Char(1)
+  createBy             String?   @map("create_by") @db.VarChar(64)
+  createTime           DateTime? @default(now()) @map("create_time")
+  updateBy             String?   @map("update_by") @db.VarChar(64)
+  updateTime           DateTime? @updatedAt @map("update_time")
+  remark               String?   @map("remark") @db.VarChar(500)
+
+  @@unique([pageCode, tenantId, userId], name: "uniq_sys_user_page_preference_page_tenant_user")
+  @@index([tenantId, userId, status], name: "idx_sys_user_page_preference_scope")
+  @@map("sys_user_page_preference")
+}
+
+model SysPagePublishLog {
+  logId         BigInt    @id @default(autoincrement()) @map("log_id")
+  pageCode      String    @map("page_code") @db.VarChar(100)
+  scopeType     String    @map("scope_type") @db.VarChar(20)
+  scopeKey      String    @default("") @map("scope_key") @db.VarChar(100)
+  targetId      BigInt?   @map("target_id")
+  versionNo     Int       @default(1) @map("version_no") @db.Int
+  actionType    String    @default("publish") @map("action_type") @db.VarChar(20)
+  snapshotJson  String?   @map("snapshot_json") @db.LongText
+  operatorName  String?   @map("operator_name") @db.VarChar(64)
+  createTime    DateTime? @default(now()) @map("create_time")
+  remark        String?   @map("remark") @db.VarChar(500)
+
+  @@index([pageCode, scopeType, scopeKey], name: "idx_sys_page_publish_log_scope")
+  @@index([targetId], name: "idx_sys_page_publish_log_target")
+  @@map("sys_page_publish_log")
+}
+
 model SysGenTable {
   tableId        BigInt            @id @default(autoincrement()) @map("table_id")
   tableName      String            @map("table_name") @db.VarChar(200)
@@ -1276,4 +1352,3 @@ model Attachment {
 
   @@map("attachment")
 }
-

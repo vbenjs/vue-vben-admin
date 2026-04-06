@@ -56,6 +56,7 @@ import { SysJobModule } from './sys-job/sys-job.module';
 import { SysLogininforModule } from './sys-logininfor/sys-logininfor.module';
 import { SysMenuModule } from './sys-menu/sys-menu.module';
 import { SysOperLogModule } from './sys-oper-log/sys-oper-log.module';
+import { SysPageSchemaModule } from './sys-page-schema/sys-page-schema.module';
 import { SysPostModule } from './sys-post/sys-post.module';
 import { SysPrintDesignModule } from './sys-print-design/sys-print-design.module';
 import { SysRoleModule } from './sys-role/sys-role.module';
@@ -125,6 +126,7 @@ import { SupplierModule } from './supplier/supplier.module';
     SysJobModule,
     SysDocCodeModule,
     SysFormDesignModule,
+    SysPageSchemaModule,
     SysApprovalProcessModule,
     SysPrintDesignModule,
     SysGenModule,
@@ -139,4 +141,3 @@ export class AppModule implements NestModule {
     consumer.apply(RequestContextMiddleware).forRoutes('*');
   }
 }
-

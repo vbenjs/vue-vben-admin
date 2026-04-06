@@ -50,3 +50,6 @@ vite.config.ts.*
 *.sw?
 .history
 .cursor
+.worktrees/
+.tmp_docx/
+~$*.docx
