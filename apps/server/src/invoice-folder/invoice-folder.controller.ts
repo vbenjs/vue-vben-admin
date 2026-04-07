@@ -1,14 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import type { Request } from 'express';
+
+import type { AppRequestContext } from '../common/request-context/request-context.types';
+
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
 
 import { InvoiceFolderService } from './invoice-folder.service';
+
+type RequestWithContext = Request & {
+  requestContext?: AppRequestContext;
+};
 
 @Controller('invoice-folder')
 export class InvoiceFolderController {
   constructor(private readonly invoiceFolderService: InvoiceFolderService) {}
 
   @Post()
-  async create(@Body() data: any) {
-    return this.invoiceFolderService.create(data);
+  async create(@Body() data: any, @Req() request: RequestWithContext) {
+    return this.invoiceFolderService.create(data, request.requestContext);
   }
 
   @Get(':id')
@@ -29,7 +37,15 @@ export class InvoiceFolderController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: any) {
-    return this.invoiceFolderService.update(BigInt(id), data);
+  async update(
+    @Param('id') id: string,
+    @Body() data: any,
+    @Req() request: RequestWithContext,
+  ) {
+    return this.invoiceFolderService.update(
+      BigInt(id),
+      data,
+      request.requestContext,
+    );
   }
 }

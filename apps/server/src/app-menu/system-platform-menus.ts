@@ -58,6 +58,12 @@ export const SYSTEM_PLATFORM_MENUS = [
         meta: { icon: 'lucide:sliders-vertical', title: '账套参数设置' },
       },
       {
+        path: '/sys/tenant-policy',
+        name: 'SysTenantPolicy',
+        component: '/sys/tenant-policy/index',
+        meta: { icon: 'lucide:sliders', title: '租户策略设置' },
+      },
+      {
         path: '/sys/user',
         name: 'SysUser',
         component: '/sys/user/index',

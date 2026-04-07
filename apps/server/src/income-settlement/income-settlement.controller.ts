@@ -1,14 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import type { Request } from 'express';
+
+import type { AppRequestContext } from '../common/request-context/request-context.types';
+
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
 
 import { IncomeSettlementService } from './income-settlement.service';
+
+type RequestWithContext = Request & {
+  requestContext?: AppRequestContext;
+};
 
 @Controller('income-settlement')
 export class IncomeSettlementController {
   constructor(private readonly incomeSettlementService: IncomeSettlementService) {}
 
   @Post()
-  async create(@Body() data: any) {
-    return this.incomeSettlementService.create(data);
+  async create(@Body() data: any, @Req() request: RequestWithContext) {
+    return this.incomeSettlementService.create(data, request.requestContext);
   }
 
   @Get(':id')
@@ -29,7 +37,15 @@ export class IncomeSettlementController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: any) {
-    return this.incomeSettlementService.update(BigInt(id), data);
+  async update(
+    @Param('id') id: string,
+    @Body() data: any,
+    @Req() request: RequestWithContext,
+  ) {
+    return this.incomeSettlementService.update(
+      BigInt(id),
+      data,
+      request.requestContext,
+    );
   }
 }

@@ -155,6 +155,9 @@ const logTitle = computed(() =>
 const previewSchemaText = computed(() =>
   prettyJson(previewRuntime.value?.schema || {}),
 );
+const previewPolicyText = computed(() =>
+  prettyJson(previewRuntime.value?.policy || {}),
+);
 
 const templatePublishedTag = computed(() =>
   Number(templateFormState.value.currentVersion || 0) > 0 ? '已发布' : '未发布',
@@ -245,7 +248,7 @@ async function fetchTenantOptions() {
     .getList({ page: 1, pageSize: 500 })
     .catch(() => ({ items: [] }));
   const items = Array.isArray(response?.items) ? response.items : [];
-  tenantOptions.value = items.map((item) => ({
+  tenantOptions.value = items.map((item: any) => ({
     label: item.tenantName || `账套${item.tenantId}`,
     status: item.status || '0',
     value: Number(item.tenantId),
@@ -501,11 +504,11 @@ async function openTenantModal(record: any) {
   await loadTenantOverride(record, tenantId);
 }
 
-async function handleTenantChange(tenantId: number) {
+async function handleTenantChange(tenantId: any) {
   if (!tenantTargetRecord.value) {
     return;
   }
-  await loadTenantOverride(tenantTargetRecord.value, Number(tenantId));
+  await loadTenantOverride(tenantTargetRecord.value, Number(tenantId || 0));
 }
 
 async function persistTenantOverride(showMessage = true) {
@@ -689,8 +692,8 @@ async function rollbackLog(record: any) {
   });
 }
 
-async function handleLogTenantChange(tenantId: number) {
-  logTenantId.value = Number(tenantId);
+async function handleLogTenantChange(tenantId: any) {
+  logTenantId.value = Number(tenantId || 0);
   await fetchLogs();
 }
 
@@ -726,8 +729,11 @@ async function openPreview(record: any) {
   await fetchRuntimePreview();
 }
 
-async function refreshPreviewByTenant(tenantId?: number) {
-  previewTenantId.value = tenantId;
+async function refreshPreviewByTenant(tenantId?: any) {
+  previewTenantId.value =
+    tenantId === undefined || tenantId === null || tenantId === ''
+      ? undefined
+      : Number(tenantId);
   await fetchRuntimePreview();
 }
 
@@ -1233,11 +1239,17 @@ onMounted(async () => {
             <Descriptions.Item label="租户版本">
               {{ formatVersion(previewRuntime?.versions?.tenant) }}
             </Descriptions.Item>
+            <Descriptions.Item label="策略版本">
+              {{ formatVersion(previewRuntime?.versions?.policy) }}
+            </Descriptions.Item>
             <Descriptions.Item label="模板来源">
               {{ previewRuntime?.sources?.templateId || '-' }}
             </Descriptions.Item>
             <Descriptions.Item label="租户来源">
               {{ previewRuntime?.sources?.overrideId || '-' }}
+            </Descriptions.Item>
+            <Descriptions.Item label="策略来源">
+              {{ previewRuntime?.sources?.policyId || '-' }}
             </Descriptions.Item>
           </Descriptions>
 
@@ -1247,6 +1259,16 @@ onMounted(async () => {
             class="font-mono"
             readonly
           />
+
+          <div class="mt-4">
+            <div class="mb-2 text-sm text-gray-600">策略内容</div>
+            <Input.TextArea
+              :value="previewPolicyText"
+              :rows="12"
+              class="font-mono"
+              readonly
+            />
+          </div>
         </div>
 
         <div v-else class="py-10">

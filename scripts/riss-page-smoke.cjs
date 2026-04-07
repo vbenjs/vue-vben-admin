@@ -67,8 +67,8 @@ const targets = [
   { path: '/sys/procurement-apply', requiredTexts: ['采购申报', '流程状态'] },
   { path: '/sys/procurement-result', requiredTexts: ['采购结果', '流程状态'] },
   { path: '/sys/bid-notice', requiredTexts: ['招标公告', '流程状态'] },
-  { path: '/finance/reimbursement', requiredTexts: ['报销单查询', '单据编号'] },
-  { path: '/finance/payment', requiredTexts: ['支付单查询', '单据编号'] },
+  { path: '/finance/reimbursement', requiredTexts: ['报销单查询', '单据号'] },
+  { path: '/finance/payment', requiredTexts: ['支付单查询', '单据号'] },
   { path: '/finance/voucher', requiredTexts: ['凭证查询', '指标编码'] },
 ];
 

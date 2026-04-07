@@ -61,6 +61,7 @@ import { SysPostModule } from './sys-post/sys-post.module';
 import { SysPrintDesignModule } from './sys-print-design/sys-print-design.module';
 import { SysRoleModule } from './sys-role/sys-role.module';
 import { SysTenantModule } from './sys-tenant/sys-tenant.module';
+import { SysTenantPolicyModule } from './sys-tenant-policy/sys-tenant-policy.module';
 import { SysUserModule } from './sys-user/sys-user.module';
 import { SupplierModule } from './supplier/supplier.module';
 
@@ -127,6 +128,7 @@ import { SupplierModule } from './supplier/supplier.module';
     SysDocCodeModule,
     SysFormDesignModule,
     SysPageSchemaModule,
+    SysTenantPolicyModule,
     SysApprovalProcessModule,
     SysPrintDesignModule,
     SysGenModule,

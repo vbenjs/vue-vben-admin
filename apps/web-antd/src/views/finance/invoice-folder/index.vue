@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -21,8 +21,8 @@ import {
   mergePageSchemaItems,
   resolvePageSchemaValue,
   resolveToolbarItem,
-  usePageSchema,
 } from '#/composables/usePageSchema';
+import { useRuntimePageConfig } from '#/composables/useRuntimePageConfig';
 
 import '../../finance/_shared/legacy-finance.scss';
 
@@ -70,7 +70,12 @@ const authOpen = ref(false);
 const authTab = ref<'edit' | 'history'>('edit');
 const authEntries = ref<any[]>([]);
 const authHistoryEntries = ref<any[]>([]);
-const { runtime, schema: pageSchema } = usePageSchema('finance.invoice-folder');
+const {
+  resolveActionPolicy,
+  resolveFieldPolicy,
+  runtime,
+  schema: pageSchema,
+} = useRuntimePageConfig('finance.invoice-folder');
 
 const searchParams = ref({
   folderName: undefined as string | undefined,
@@ -78,6 +83,9 @@ const searchParams = ref({
 });
 
 const pageTitle = computed(() => runtime.value?.pageName || '发票夹');
+const invoiceTypePolicy = computed(() =>
+  resolveFieldPolicy('form.basic.invoiceType'),
+);
 
 const searchFields = computed(() =>
   mergePageSchemaItems<InvoiceFolderSearchField>(
@@ -172,7 +180,18 @@ const fixRecognizeToolbar = computed(() =>
   ),
 );
 const authToolbar = computed(() =>
-  resolveToolbarItem(toolbarItems.value, 'toolbar.auth', '授权/取消授权'),
+  {
+    const base = resolveToolbarItem(
+      toolbarItems.value,
+      'toolbar.auth',
+      '授权/取消授权',
+    );
+    const policy = resolveActionPolicy('toolbar.auth');
+    return {
+      label: base.label,
+      visible: base.visible && policy.visible !== false,
+    };
+  },
 );
 const authHistoryToolbar = computed(() =>
   resolveToolbarItem(toolbarItems.value, 'toolbar.authHistory', '授权记录'),
@@ -186,7 +205,7 @@ const defaultForm = () => ({
   fileName: '',
   folderName: '默认发票夹',
   invoiceNo: '',
-  invoiceType: '增值税电子普通发票',
+  invoiceType: '',
   remark: '',
   sourceType: '发票夹',
   status: '0',
@@ -197,6 +216,16 @@ const defaultForm = () => ({
 });
 
 const formState = ref<any>(defaultForm());
+
+function ensureInvoiceTypeDefault(target = formState.value) {
+  if (target.invoiceType) {
+    return;
+  }
+  target.invoiceType =
+    invoiceTypePolicy.value.defaultValue !== undefined
+      ? String(invoiceTypePolicy.value.defaultValue)
+      : '增值税电子普通发票';
+}
 
 const columns = computed(() =>
   mergePageSchemaItems<InvoiceFolderColumn>(
@@ -416,6 +445,7 @@ async function openModal(record?: any) {
   formState.value = record?.id
     ? await invoiceFolderApi.getById(record.id)
     : defaultForm();
+  ensureInvoiceTypeDefault(formState.value);
   isModalVisible.value = true;
 }
 
@@ -520,6 +550,14 @@ function handleAuthOk() {
   );
   authOpen.value = false;
 }
+
+watch(
+  () => invoiceTypePolicy.value.defaultValue,
+  () => {
+    ensureInvoiceTypeDefault(formState.value);
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   void fetchList();
@@ -790,7 +828,10 @@ onMounted(() => {
               <Input v-model:value="formState.fileName" />
             </Form.Item>
             <Form.Item label="发票类型" name="invoiceType">
-              <Select v-model:value="formState.invoiceType">
+              <Select
+                v-model:value="formState.invoiceType"
+                :disabled="invoiceTypePolicy.readonly === true"
+              >
                 <Select.Option value="增值税电子普通发票"
                   >增值税电子普通发票</Select.Option
                 >

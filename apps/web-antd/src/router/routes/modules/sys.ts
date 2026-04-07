@@ -101,6 +101,12 @@ const routes: RouteRecordRaw[] = [
             component: () => import('#/views/sys/tenant-parameter/index.vue'),
             meta: { icon: 'lucide:sliders-vertical', title: '账套参数设置' },
           },
+          {
+            name: 'SysTenantPolicy',
+            path: '/sys/settings/tenant-policy',
+            component: () => import('#/views/sys/tenant-policy/index.vue'),
+            meta: { icon: 'lucide:sliders', title: '租户策略设置' },
+          },
         ],
       },
     ],

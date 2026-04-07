@@ -1,7 +1,14 @@
+import type { AppRequestContext } from '../common/request-context/request-context.types';
+
 import { Injectable } from '@nestjs/common';
 
 import { InvoiceFolderService } from '../invoice-folder/invoice-folder.service';
 import { SysFormDataService } from '../sys-form-data/sys-form-data.service';
+import { SysTenantPolicyService } from '../sys-tenant-policy/sys-tenant-policy.service';
+import {
+  applyPolicyDefaults,
+  assertPolicyPayload,
+} from '../sys-tenant-policy/sys-tenant-policy.runtime';
 
 const INCOME_SETTLEMENT_FORM_ID = 90002n;
 
@@ -48,15 +55,56 @@ type IncomeSettlementItem = {
   updateTime?: string;
 };
 
+type IncomeFieldAccessors = Record<
+  string,
+  {
+    get: (payload: IncomeSettlementItem) => unknown;
+    set?: (payload: IncomeSettlementItem, value: unknown) => void;
+  }
+>;
+
+const INCOME_SETTLEMENT_FIELD_ACCESSORS: IncomeFieldAccessors = {
+  'form.basic.amount': {
+    get: (payload) => payload.amount,
+    set: (payload, value) => {
+      payload.amount = Number(value || 0);
+    },
+  },
+  'form.basic.content': {
+    get: (payload) => payload.content,
+    set: (payload, value) => {
+      payload.content = `${value || ''}`;
+    },
+  },
+  'form.basic.receiptMethod': {
+    get: (payload) => payload.receiptMethod,
+    set: (payload, value) => {
+      payload.receiptMethod = `${value || ''}`;
+    },
+  },
+};
+
 @Injectable()
 export class IncomeSettlementService {
   constructor(
     private readonly invoiceFolderService: InvoiceFolderService,
     private readonly sysFormDataService: SysFormDataService,
+    private readonly sysTenantPolicyService: SysTenantPolicyService,
   ) {}
 
-  async create(data: any) {
-    const payload = this.normalizePayload(data);
+  async create(data: any, requestContext?: AppRequestContext) {
+    const policy = await this.sysTenantPolicyService.getPublishedPolicyByScene(
+      'finance.income-settlement',
+      requestContext?.tenantId,
+      'pageRuntime',
+    );
+    const normalized = this.normalizePayload(data);
+    const payload = applyPolicyDefaults(
+      normalized,
+      policy,
+      INCOME_SETTLEMENT_FIELD_ACCESSORS,
+    );
+    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS);
     const result = await this.sysFormDataService.create({
       createBy: payload.applicant || 'admin',
       formData: JSON.stringify(payload),
@@ -124,12 +172,23 @@ export class IncomeSettlementService {
     return { id: result.id };
   }
 
-  async update(id: bigint, data: any) {
+  async update(id: bigint, data: any, requestContext?: AppRequestContext) {
     const current = await this.getById(id);
-    const payload = this.normalizePayload({
+    const policy = await this.sysTenantPolicyService.getPublishedPolicyByScene(
+      'finance.income-settlement',
+      requestContext?.tenantId,
+      'pageRuntime',
+    );
+    const normalized = this.normalizePayload({
       ...(current || {}),
       ...data,
     });
+    const payload = applyPolicyDefaults(
+      normalized,
+      policy,
+      INCOME_SETTLEMENT_FIELD_ACCESSORS,
+    );
+    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS);
     const result = await this.sysFormDataService.update(id, {
       formData: JSON.stringify(payload),
       remark: payload.remark || '',

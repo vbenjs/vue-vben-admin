@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LegacyFinanceListItem } from './legacy-finance';
 
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -21,8 +21,8 @@ import {
   mergePageSchemaItems,
   resolvePageSchemaValue,
   resolveToolbarItem,
-  usePageSchema,
 } from '#/composables/usePageSchema';
+import { useRuntimePageConfig } from '#/composables/useRuntimePageConfig';
 
 import { fetchWorkflowHistory } from '../../sys/_shared/workbench-command';
 import { fetchLegacyFinanceList } from './legacy-finance';
@@ -81,7 +81,12 @@ const historyLoading = ref(false);
 const historyItems = ref<Record<string, unknown>[]>([]);
 const pagination = ref({ current: 1, pageSize: 20, total: 0 });
 const selectedRowKeys = ref<Array<number | string>>([]);
-const { runtime, schema: pageSchema } = usePageSchema(
+const {
+  resolveActionPolicy,
+  resolveFieldPolicy,
+  runtime,
+  schema: pageSchema,
+} = useRuntimePageConfig(
   () => props.pageCode || '',
   {
     enabled: () => !!props.pageCode,
@@ -279,10 +284,32 @@ const detailToolbar = computed(() =>
   resolveToolbarItem(toolbarItems.value, 'toolbar.detail', '详情'),
 );
 const historyToolbar = computed(() =>
-  resolveToolbarItem(toolbarItems.value, 'toolbar.history', '审核历史'),
+  {
+    const base = resolveToolbarItem(
+      toolbarItems.value,
+      'toolbar.history',
+      '审核历史',
+    );
+    const policy = resolveActionPolicy('toolbar.history');
+    return {
+      enabled: policy.enabled !== false,
+      label: base.label,
+      visible: base.visible && policy.visible !== false,
+    };
+  },
 );
 const refreshToolbar = computed(() =>
   resolveToolbarItem(toolbarItems.value, 'toolbar.refresh', '刷新'),
+);
+
+watch(
+  () => resolveFieldPolicy('search.status').defaultValue,
+  (value) => {
+    if (value !== undefined && searchParams.value.status === undefined) {
+      searchParams.value.status = String(value);
+    }
+  },
+  { immediate: true },
 );
 
 const defaultColumns = computed<FinanceTableColumn[]>(() => {
@@ -921,6 +948,7 @@ onMounted(() => {
           </Button>
           <Button
             v-if="historyToolbar.visible"
+            :disabled="historyToolbar.enabled === false"
             class="legacy-finance-button"
             @click="openHistory()"
           >

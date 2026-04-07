@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -23,8 +23,8 @@ import {
   mergePageSchemaItems,
   resolvePageSchemaValue,
   resolveToolbarItem,
-  usePageSchema,
 } from '#/composables/usePageSchema';
+import { useRuntimePageConfig } from '#/composables/useRuntimePageConfig';
 
 import '../../finance/_shared/legacy-finance.scss';
 
@@ -113,7 +113,12 @@ const invoicePickerOpen = ref(false);
 const invoicePickerLoading = ref(false);
 const invoiceDataSource = ref<any[]>([]);
 const activeSection = ref('form.basic');
-const { runtime, schema: pageSchema } = usePageSchema(
+const {
+  resolveAttachmentPolicy,
+  resolveFieldPolicy,
+  runtime,
+  schema: pageSchema,
+} = useRuntimePageConfig(
   'finance.income-settlement',
 );
 
@@ -125,6 +130,12 @@ const searchParams = ref({
 });
 
 const pageTitle = computed(() => runtime.value?.pageName || '收入结算单');
+const receiptMethodPolicy = computed(() =>
+  resolveFieldPolicy('form.basic.receiptMethod'),
+);
+const invoiceAttachmentPolicy = computed(() =>
+  resolveAttachmentPolicy('attachment.invoice'),
+);
 
 const defaultSearchFields: IncomeSearchField[] = [
   {
@@ -328,7 +339,7 @@ const defaultForm = () => ({
   payeeItems: [defaultPayeeRow(1)],
   payeeName: '',
   receiptCount: 1,
-  receiptMethod: '自有资金支付',
+  receiptMethod: '',
   relatedBills: [defaultRelatedBillRow(1)],
   remark: '',
   status: '0',
@@ -337,6 +348,9 @@ const defaultForm = () => ({
 });
 
 const formState = ref<any>(defaultForm());
+const invoiceAttachmentLimitText = computed(
+  () => Number(invoiceAttachmentPolicy.value.maxCount || 10),
+);
 
 const listColumns = computed(() =>
   mergePageSchemaItems<IncomeListColumn>(
@@ -595,6 +609,22 @@ function hydrateForm(record?: any) {
   };
 }
 
+function ensureReceiptMethodDefault(target = formState.value) {
+  if (target.receiptMethod) {
+    return;
+  }
+  target.receiptMethod =
+    receiptMethodPolicy.value.defaultValue !== undefined
+      ? String(receiptMethodPolicy.value.defaultValue)
+      : '自有资金支付';
+}
+
+function buildRequiredRule(policyKey: string, fallbackMessage: string) {
+  return resolveFieldPolicy(policyKey).required
+    ? [{ required: true, message: fallbackMessage }]
+    : [];
+}
+
 function scrollToSection(sectionId: string) {
   activeSection.value =
     sectionItems.value.find((item) => item.id === sectionId)?.key ||
@@ -649,6 +679,7 @@ async function openModal(record?: any) {
   formState.value = record?.id
     ? hydrateForm(await incomeSettlementApi.getById(record.id))
     : defaultForm();
+  ensureReceiptMethodDefault(formState.value);
   activeSection.value = sectionItems.value[0]?.key || 'form.basic';
   isModalVisible.value = true;
 }
@@ -806,6 +837,14 @@ function addInvoiceRow() {
 function showPlaceholder(label: string) {
   message.info(`${label}先按原系统布局保留入口，本轮继续补齐视觉对齐。`);
 }
+
+watch(
+  () => receiptMethodPolicy.value.defaultValue,
+  () => {
+    ensureReceiptMethodDefault(formState.value);
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   void fetchList();
@@ -1091,7 +1130,10 @@ onMounted(() => {
                     </Form.Item>
 
                     <Form.Item label="收款方式" name="receiptMethod">
-                      <Select v-model:value="formState.receiptMethod">
+                      <Select
+                        v-model:value="formState.receiptMethod"
+                        :disabled="receiptMethodPolicy.readonly === true"
+                      >
                         <Select.Option value="自有资金支付"
                           >自有资金支付</Select.Option
                         >
@@ -1104,7 +1146,7 @@ onMounted(() => {
                       class="legacy-finance-span-3"
                       label="*收款内容"
                       name="content"
-                      :rules="[{ required: true, message: '请输入收款内容' }]"
+                      :rules="buildRequiredRule('form.basic.content', '请输入收款内容')"
                     >
                       <Input.TextArea
                         v-model:value="formState.content"
@@ -1365,8 +1407,8 @@ onMounted(() => {
                   </div>
 
                   <div class="legacy-finance-hint-bar">
-                    上传格式为 pdf 文件，单个文件不可超过 10M，可上传 10
-                    个文件。
+                    上传格式为 pdf 文件，单个文件不可超过 10M，最多
+                    {{ invoiceAttachmentLimitText }} 个文件。
                   </div>
 
                   <Table

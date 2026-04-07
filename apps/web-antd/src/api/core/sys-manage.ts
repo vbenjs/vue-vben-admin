@@ -191,6 +191,22 @@ export const sysPageSchemaApi = {
     requestClient.get(`/sys/page-schema/runtime/${pageCode}`, { params }),
 };
 
+export const sysTenantPolicyApi = {
+  getPolicy: (sceneCode: string, params?: any) =>
+    requestClient.get(`/sys/tenant-policy/${sceneCode}`, { params }),
+  savePolicy: (sceneCode: string, data: any) =>
+    requestClient.put(`/sys/tenant-policy/${sceneCode}`, data),
+  publishPolicy: (sceneCode: string, data?: any) =>
+    requestClient.post(`/sys/tenant-policy/${sceneCode}/publish`, data || {}),
+  rollbackPolicy: (sceneCode: string, logId: number | string, data?: any) =>
+    requestClient.post(
+      `/sys/tenant-policy/${sceneCode}/rollback/${logId}`,
+      data || {},
+    ),
+  getLogs: (sceneCode: string, params?: any) =>
+    requestClient.get(`/sys/tenant-policy/${sceneCode}/logs`, { params }),
+};
+
 /**
  * ================= SysApprovalProcess API =================
  */

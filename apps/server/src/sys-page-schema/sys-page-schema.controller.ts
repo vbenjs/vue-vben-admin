@@ -248,6 +248,7 @@ export class SysPageSchemaController {
   ) {
     return this.sysPageSchemaService.getRuntime(pageCode, {
       mode,
+      requestContext: request?.requestContext,
       tenantId: this.resolveTenantId(tenantId, request?.requestContext, false, true),
       userId: await this.resolveUserId(userId, request, true),
     });

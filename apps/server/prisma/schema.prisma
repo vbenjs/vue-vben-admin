@@ -402,6 +402,45 @@ model SysPagePublishLog {
   @@map("sys_page_publish_log")
 }
 
+model SysTenantPolicy {
+  policyId            BigInt   @id @default(autoincrement()) @map("policy_id")
+  tenantId            Int      @map("tenant_id")
+  moduleCode          String   @map("module_code") @db.VarChar(50)
+  sceneCode           String   @map("scene_code") @db.VarChar(100)
+  policyType          String   @default("pageRuntime") @map("policy_type") @db.VarChar(50)
+  policyJson          String?  @map("policy_json") @db.LongText
+  publishedPolicyJson String?  @map("published_policy_json") @db.LongText
+  currentVersion      Int      @default(0) @map("current_version") @db.Int
+  status              String   @default("0") @db.VarChar(1)
+  remark              String?  @db.VarChar(255)
+  createBy            String?  @map("create_by") @db.VarChar(64)
+  createTime          DateTime @default(now()) @map("create_time")
+  updateBy            String?  @map("update_by") @db.VarChar(64)
+  updateTime          DateTime @updatedAt @map("update_time")
+
+  @@unique([tenantId, moduleCode, sceneCode, policyType], name: "uniq_sys_tenant_policy_scope")
+  @@index([tenantId, status], name: "idx_sys_tenant_policy_tenant_status")
+  @@map("sys_tenant_policy")
+}
+
+model SysTenantPolicyLog {
+  logId        BigInt   @id @default(autoincrement()) @map("log_id")
+  targetId     BigInt?  @map("target_id")
+  tenantId     Int      @map("tenant_id")
+  moduleCode   String   @map("module_code") @db.VarChar(50)
+  sceneCode    String   @map("scene_code") @db.VarChar(100)
+  policyType   String   @default("pageRuntime") @map("policy_type") @db.VarChar(50)
+  actionType   String   @map("action_type") @db.VarChar(20)
+  versionNo    Int      @map("version_no") @db.Int
+  snapshotJson String   @map("snapshot_json") @db.LongText
+  operatorName String   @map("operator_name") @db.VarChar(64)
+  remark       String?  @db.VarChar(255)
+  createTime   DateTime @default(now()) @map("create_time")
+
+  @@index([tenantId, sceneCode, policyType], name: "idx_sys_tenant_policy_log_scope")
+  @@map("sys_tenant_policy_log")
+}
+
 model SysGenTable {
   tableId        BigInt            @id @default(autoincrement()) @map("table_id")
   tableName      String            @map("table_name") @db.VarChar(200)

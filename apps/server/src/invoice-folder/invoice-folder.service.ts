@@ -1,6 +1,13 @@
+import type { AppRequestContext } from '../common/request-context/request-context.types';
+
 import { Injectable } from '@nestjs/common';
 
 import { SysFormDataService } from '../sys-form-data/sys-form-data.service';
+import { SysTenantPolicyService } from '../sys-tenant-policy/sys-tenant-policy.service';
+import {
+  applyPolicyDefaults,
+  assertPolicyPayload,
+} from '../sys-tenant-policy/sys-tenant-policy.runtime';
 
 const INVOICE_FOLDER_FORM_ID = 90001n;
 
@@ -25,12 +32,53 @@ type InvoiceFolderItem = {
   verifierStatus?: string;
 };
 
+type InvoiceFieldAccessors = Record<
+  string,
+  {
+    get: (payload: InvoiceFolderItem) => unknown;
+    set?: (payload: InvoiceFolderItem, value: unknown) => void;
+  }
+>;
+
+const INVOICE_FOLDER_FIELD_ACCESSORS: InvoiceFieldAccessors = {
+  'form.basic.folderName': {
+    get: (payload) => payload.folderName,
+    set: (payload, value) => {
+      payload.folderName = `${value || ''}`;
+    },
+  },
+  'form.basic.invoiceNo': {
+    get: (payload) => payload.invoiceNo,
+    set: (payload, value) => {
+      payload.invoiceNo = `${value || ''}`;
+    },
+  },
+  'form.basic.invoiceType': {
+    get: (payload) => payload.invoiceType,
+    set: (payload, value) => {
+      payload.invoiceType = `${value || ''}`;
+    },
+  },
+};
+
 @Injectable()
 export class InvoiceFolderService {
-  constructor(private readonly sysFormDataService: SysFormDataService) {}
+  constructor(
+    private readonly sysFormDataService: SysFormDataService,
+    private readonly sysTenantPolicyService: SysTenantPolicyService,
+  ) {}
 
-  async create(data: any) {
-    const payload = this.normalizePayload(data);
+  async create(data: any, requestContext?: AppRequestContext) {
+    const policy = await this.sysTenantPolicyService.getPublishedPolicyByScene(
+      'finance.invoice-folder',
+      requestContext?.tenantId,
+      'pageRuntime',
+    );
+    const normalized = this.normalizePayload(data);
+    const payload = this.applyBusinessDefaults(
+      applyPolicyDefaults(normalized, policy, INVOICE_FOLDER_FIELD_ACCESSORS),
+    );
+    assertPolicyPayload(payload, policy, INVOICE_FOLDER_FIELD_ACCESSORS);
     const result = await this.sysFormDataService.create({
       createBy: payload.userName || 'admin',
       formData: JSON.stringify(payload),
@@ -138,12 +186,21 @@ export class InvoiceFolderService {
     return results;
   }
 
-  async update(id: bigint, data: any) {
+  async update(id: bigint, data: any, requestContext?: AppRequestContext) {
     const current = await this.getById(id);
-    const payload = this.normalizePayload({
+    const policy = await this.sysTenantPolicyService.getPublishedPolicyByScene(
+      'finance.invoice-folder',
+      requestContext?.tenantId,
+      'pageRuntime',
+    );
+    const normalized = this.normalizePayload({
       ...(current || {}),
       ...data,
     });
+    const payload = this.applyBusinessDefaults(
+      applyPolicyDefaults(normalized, policy, INVOICE_FOLDER_FIELD_ACCESSORS),
+    );
+    assertPolicyPayload(payload, policy, INVOICE_FOLDER_FIELD_ACCESSORS);
     const result = await this.sysFormDataService.update(id, {
       formData: JSON.stringify(payload),
       remark: payload.remark || '',
@@ -190,6 +247,14 @@ export class InvoiceFolderService {
     };
   }
 
+  private applyBusinessDefaults(payload: InvoiceFolderItem) {
+    return {
+      ...payload,
+      folderName: `${payload.folderName || '默认发票夹'}`,
+      invoiceType: `${payload.invoiceType || '增值税电子普通发票'}`,
+    };
+  }
+
   private normalizePayload(data: any): InvoiceFolderItem {
     const now = new Date().toISOString();
     return {
@@ -199,10 +264,10 @@ export class InvoiceFolderService {
       code: `${data.code || ''}`,
       createTime: `${data.createTime || now}`,
       fileName: `${data.fileName || ''}`,
-      folderName: `${data.folderName || '默认发票夹'}`,
+      folderName: `${data.folderName || ''}`,
       id: `${data.id || ''}`,
       invoiceNo: `${data.invoiceNo || ''}`,
-      invoiceType: `${data.invoiceType || '增值税电子普通发票'}`,
+      invoiceType: `${data.invoiceType || ''}`,
       remark: `${data.remark || ''}`,
       sourceType: `${data.sourceType || '手工录入'}`,
       status: `${data.status || '0'}`,

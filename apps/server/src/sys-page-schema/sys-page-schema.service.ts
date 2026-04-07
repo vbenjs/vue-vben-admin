@@ -1,12 +1,19 @@
+import type { AppRequestContext } from '../common/request-context/request-context.types';
+
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  normalizeTenantPolicy,
+  stripDisallowedPreferencePatch,
+} from '../sys-tenant-policy/sys-tenant-policy.runtime';
 
 type RuntimeMode = 'draft' | 'published';
 type ScopeType = 'template' | 'tenant' | 'user';
 
 type RuntimeOptions = {
   mode?: RuntimeMode;
+  requestContext?: AppRequestContext;
   tenantId?: number;
   userId?: number | string;
 };
@@ -644,6 +651,11 @@ export class SysPageSchemaService {
     const mode = options.mode || 'published';
     const tenantId = options.tenantId;
     const userId = this.normalizeOptionalString(options.userId);
+    const context = {
+      fiscalYear: options.requestContext?.fiscalYear || '',
+      tenantId: tenantId || null,
+      tenantName: options.requestContext?.tenantName || '',
+    };
 
     const template = await this.prisma.sysPageTemplate.findUnique({
       where: { pageCode },
@@ -651,10 +663,13 @@ export class SysPageSchemaService {
     if (!template) {
       return {
         available: false,
+        context,
         mode,
         pageCode,
+        policy: normalizeTenantPolicy({}),
         schema: {},
         sources: {
+          policyId: null,
           preferenceId: null,
           templateId: null,
           tenantId: tenantId || null,
@@ -662,6 +677,7 @@ export class SysPageSchemaService {
           userId: userId || null,
         },
         versions: {
+          policy: 0,
           template: 0,
           tenant: 0,
           user: 0,
@@ -675,6 +691,20 @@ export class SysPageSchemaService {
             where: {
               uniq_sys_page_override_page_tenant: {
                 pageCode,
+                tenantId,
+              },
+            },
+          })
+        : null;
+
+    const tenantPolicy =
+      tenantId !== undefined
+        ? await this.prisma.sysTenantPolicy.findUnique({
+            where: {
+              uniq_sys_tenant_policy_scope: {
+                moduleCode: pageCode.split('.')[0] || 'sys',
+                policyType: 'pageRuntime',
+                sceneCode: pageCode,
                 tenantId,
               },
             },
@@ -697,15 +727,25 @@ export class SysPageSchemaService {
     const baseSchema = parseJson(this.resolveTemplateSchema(template, mode), {});
     const tenantPatch = parseJson(this.resolveLayerPatch(tenantOverride, mode), {});
     const userPatch = parseJson(this.resolveLayerPatch(userPreference, mode), {});
-    const mergedSchema = mergePageSchema(mergePageSchema(baseSchema, tenantPatch), userPatch);
+    const policy = normalizeTenantPolicy(
+      parseJson(this.resolvePolicyPayload(tenantPolicy, mode), {}),
+    );
+    const sanitizedUserPatch = stripDisallowedPreferencePatch(userPatch, policy);
+    const mergedSchema = mergePageSchema(
+      mergePageSchema(baseSchema, tenantPatch),
+      sanitizedUserPatch,
+    );
 
     return {
       available: true,
+      context,
       mode,
       pageCode,
       pageName: template.pageName,
+      policy,
       schema: mergedSchema,
       sources: {
+        policyId: tenantPolicy?.policyId?.toString() || null,
         preferenceId: userPreference?.preferenceId?.toString() || null,
         templateId: template.templateId.toString(),
         tenantId: tenantId || null,
@@ -713,6 +753,7 @@ export class SysPageSchemaService {
         userId: userId || null,
       },
       versions: {
+        policy: tenantPolicy?.currentVersion || 0,
         template: template.currentVersion || 0,
         tenant: tenantOverride?.currentVersion || 0,
         user: userPreference?.currentVersion || 0,
@@ -759,6 +800,15 @@ export class SysPageSchemaService {
     return mode === 'draft'
       ? layer.patchJson || layer.publishedPatchJson || '{}'
       : layer.publishedPatchJson || '{}';
+  }
+
+  private resolvePolicyPayload(layer: any, mode: RuntimeMode) {
+    if (!layer) {
+      return '{}';
+    }
+    return mode === 'draft'
+      ? layer.policyJson || layer.publishedPolicyJson || '{}'
+      : layer.publishedPolicyJson || '{}';
   }
 
   private ensureRequiredText(value: null | string | undefined, fieldName: string) {

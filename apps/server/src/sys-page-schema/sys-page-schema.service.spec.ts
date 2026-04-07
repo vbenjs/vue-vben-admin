@@ -49,6 +49,9 @@ describe('SysPageSchemaService', () => {
           }),
         }),
       },
+      sysTenantPolicy: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
       sysUserPagePreference: {
         findUnique: jest.fn().mockResolvedValue({
           currentVersion: 3,
@@ -81,6 +84,62 @@ describe('SysPageSchemaService', () => {
       key: 'table.billNo',
       width: 220,
     });
+  });
+
+  it('returns policy, context, and policy version in runtime payload', async () => {
+    const prisma = {
+      sysPageTemplate: {
+        findUnique: jest.fn().mockResolvedValue({
+          currentVersion: 2,
+          pageCode: 'finance.reimbursement.query',
+          pageName: '报销单查询',
+          publishedSchemaJson:
+            '{"search":[{"key":"search.status","visible":true}]}',
+          templateId: BigInt(1),
+        }),
+      },
+      sysPageOverride: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
+      sysTenantPolicy: {
+        findUnique: jest.fn().mockResolvedValue({
+          currentVersion: 4,
+          policyId: BigInt(22),
+          policyType: 'pageRuntime',
+          publishedPolicyJson:
+            '{"fields":{"search.status":{"defaultValue":"1"}},"actions":{"toolbar.history":{"visible":false}}}',
+          sceneCode: 'finance.reimbursement.query',
+          tenantId: 7,
+        }),
+      },
+      sysUserPagePreference: {
+        findUnique: jest.fn().mockResolvedValue({
+          currentVersion: 1,
+          preferenceId: BigInt(9),
+          publishedPatchJson: '{"toolbar.history":{"visible":true}}',
+        }),
+      },
+    };
+
+    const service = new SysPageSchemaService(prisma as unknown as PrismaService);
+    const result = await service.getRuntime('finance.reimbursement.query', {
+      mode: 'published',
+      requestContext: { fiscalYear: '2026', tenantId: 7, tenantName: '华南院' },
+      tenantId: 7,
+      userId: '18',
+    });
+
+    expect(result.context).toMatchObject({
+      fiscalYear: '2026',
+      tenantId: 7,
+      tenantName: '华南院',
+    });
+    expect(result.policy.fields['search.status']).toMatchObject({
+      defaultValue: '1',
+    });
+    expect(result.versions.policy).toBe(4);
+    expect(result.sources.policyId).toBe('22');
+    expect(result.schema.toolbar?.history?.visible).not.toBe(true);
   });
 
   it('publishes template draft into published snapshot and logs version', async () => {
