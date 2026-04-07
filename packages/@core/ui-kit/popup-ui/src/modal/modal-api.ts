@@ -46,6 +46,7 @@ export class ModalApi {
       contentClass: '',
       destroyOnClose: true,
       draggable: false,
+      overflow: false,
       footer: true,
       footerClass: '',
       fullscreen: false,

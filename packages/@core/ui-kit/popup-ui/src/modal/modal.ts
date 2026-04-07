@@ -111,6 +111,11 @@ export interface ModalProps {
    */
   openAutoFocus?: boolean;
   /**
+   * 拖动范围是否可以超出可视区
+   * @default false
+   */
+  overflow?: boolean;
+  /**
    * 弹窗遮罩模糊效果
    */
   overlayBlur?: number;
