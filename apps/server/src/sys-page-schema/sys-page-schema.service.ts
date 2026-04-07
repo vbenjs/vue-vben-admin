@@ -651,10 +651,14 @@ export class SysPageSchemaService {
     const mode = options.mode || 'published';
     const tenantId = options.tenantId;
     const userId = this.normalizeOptionalString(options.userId);
+    const runtimeTenantName = await this.resolveRuntimeTenantName(
+      tenantId,
+      options.requestContext,
+    );
     const context = {
       fiscalYear: options.requestContext?.fiscalYear || '',
       tenantId: tenantId || null,
-      tenantName: options.requestContext?.tenantName || '',
+      tenantName: runtimeTenantName,
     };
 
     const template = await this.prisma.sysPageTemplate.findUnique({
@@ -809,6 +813,28 @@ export class SysPageSchemaService {
     return mode === 'draft'
       ? layer.policyJson || layer.publishedPolicyJson || '{}'
       : layer.publishedPolicyJson || '{}';
+  }
+
+  private async resolveRuntimeTenantName(
+    tenantId: number | undefined,
+    requestContext?: AppRequestContext,
+  ) {
+    if (tenantId === undefined || tenantId === null) {
+      return requestContext?.tenantName || '';
+    }
+
+    if (
+      requestContext?.tenantId !== undefined &&
+      Number(requestContext.tenantId) === Number(tenantId) &&
+      requestContext?.tenantName
+    ) {
+      return requestContext.tenantName;
+    }
+
+    const tenant = await (this.prisma as any).sysTenant?.findUnique?.({
+      where: { tenantId },
+    });
+    return tenant?.tenantName || requestContext?.tenantName || '';
   }
 
   private ensureRequiredText(value: null | string | undefined, fieldName: string) {

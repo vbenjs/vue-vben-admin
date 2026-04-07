@@ -72,6 +72,15 @@ type FieldAccessor<T> = {
   set?: (payload: T, value: unknown) => void;
 };
 
+type AttachmentAccessor<T> = {
+  count: (payload: T) => number;
+};
+
+type PolicyAssertionOptions<T> = {
+  attachmentAccessors?: Record<string, AttachmentAccessor<T>>;
+  originalPayload?: null | T;
+};
+
 function isEmptyValue(value: unknown) {
   if (value === undefined || value === null) {
     return true;
@@ -84,15 +93,40 @@ function isEmptyValue(value: unknown) {
   return false;
 }
 
+function normalizeComparableValue(value: unknown) {
+  if (value === undefined) {
+    return '__undefined__';
+  }
+
+  if (value === null) {
+    return '__null__';
+  }
+
+  if (typeof value === 'string') {
+    return value.trim();
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+    return `${value}`;
+  }
+
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return `${value}`;
+  }
+}
+
 export function applyPolicyDefaults<T extends Record<string, any>>(
   payload: T,
   policy: TenantPolicyRuntime,
   fieldAccessors: Record<string, FieldAccessor<T>>,
 ) {
+  const normalizedPolicy = normalizeTenantPolicy(policy);
   const next = { ...payload };
 
   for (const [key, accessor] of Object.entries(fieldAccessors)) {
-    const rule = policy.fields[key];
+    const rule = normalizedPolicy.fields[key];
     if (rule?.defaultValue === undefined || !accessor.set) {
       continue;
     }
@@ -110,16 +144,57 @@ export function assertPolicyPayload<T extends Record<string, any>>(
   payload: T,
   policy: TenantPolicyRuntime,
   fieldAccessors: Record<string, FieldAccessor<T>>,
+  options: PolicyAssertionOptions<T> = {},
 ) {
+  const normalizedPolicy = normalizeTenantPolicy(policy);
+
   for (const [key, accessor] of Object.entries(fieldAccessors)) {
-    const rule = policy.fields[key];
-    if (!rule?.required) {
+    const rule = normalizedPolicy.fields[key];
+    const value = accessor.get(payload);
+
+    if (rule?.required && isEmptyValue(value)) {
+      throw new BadRequestException(`${key} 为必填项`);
+    }
+
+    if (rule?.readonly === true) {
+      const originalValue =
+        options.originalPayload !== undefined && options.originalPayload !== null
+          ? accessor.get(options.originalPayload)
+          : undefined;
+      const referenceValue =
+        !isEmptyValue(originalValue) || options.originalPayload
+          ? originalValue
+          : rule?.defaultValue;
+
+      if (!isEmptyValue(referenceValue)) {
+        if (
+          normalizeComparableValue(value) !==
+          normalizeComparableValue(referenceValue)
+        ) {
+          throw new BadRequestException(`${key} 为只读字段`);
+        }
+        continue;
+      }
+
+      if (!isEmptyValue(value)) {
+        throw new BadRequestException(`${key} 为只读字段`);
+      }
+    }
+  }
+
+  for (const [key, rule] of Object.entries(normalizedPolicy.attachments)) {
+    const accessor = options.attachmentAccessors?.[key];
+    if (!accessor) {
       continue;
     }
 
-    const value = accessor.get(payload);
-    if (isEmptyValue(value)) {
-      throw new BadRequestException(`${key} 为必填项`);
+    const count = Math.max(0, Number(accessor.count(payload) || 0));
+    if (rule?.required && count <= 0) {
+      throw new BadRequestException(`${key} 至少上传 1 个附件`);
+    }
+
+    if (typeof rule?.maxCount === 'number' && count > rule.maxCount) {
+      throw new BadRequestException(`${key} 最多上传 ${rule.maxCount} 个附件`);
     }
   }
 }

@@ -63,6 +63,13 @@ type IncomeFieldAccessors = Record<
   }
 >;
 
+type IncomeAttachmentAccessors = Record<
+  string,
+  {
+    count: (payload: IncomeSettlementItem) => number;
+  }
+>;
+
 const INCOME_SETTLEMENT_FIELD_ACCESSORS: IncomeFieldAccessors = {
   'form.basic.amount': {
     get: (payload) => payload.amount,
@@ -84,6 +91,13 @@ const INCOME_SETTLEMENT_FIELD_ACCESSORS: IncomeFieldAccessors = {
   },
 };
 
+const INCOME_SETTLEMENT_ATTACHMENT_ACCESSORS: IncomeAttachmentAccessors = {
+  'attachment.invoice': {
+    count: (payload) =>
+      Array.isArray(payload.attachments) ? payload.attachments.length : 0,
+  },
+};
+
 @Injectable()
 export class IncomeSettlementService {
   constructor(
@@ -99,12 +113,16 @@ export class IncomeSettlementService {
       'pageRuntime',
     );
     const normalized = this.normalizePayload(data);
-    const payload = applyPolicyDefaults(
-      normalized,
-      policy,
-      INCOME_SETTLEMENT_FIELD_ACCESSORS,
+    const payload = this.applyBusinessDefaults(
+      applyPolicyDefaults(
+        normalized,
+        policy,
+        INCOME_SETTLEMENT_FIELD_ACCESSORS,
+      ),
     );
-    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS);
+    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS, {
+      attachmentAccessors: INCOME_SETTLEMENT_ATTACHMENT_ACCESSORS,
+    });
     const result = await this.sysFormDataService.create({
       createBy: payload.applicant || 'admin',
       formData: JSON.stringify(payload),
@@ -183,12 +201,17 @@ export class IncomeSettlementService {
       ...(current || {}),
       ...data,
     });
-    const payload = applyPolicyDefaults(
-      normalized,
-      policy,
-      INCOME_SETTLEMENT_FIELD_ACCESSORS,
+    const payload = this.applyBusinessDefaults(
+      applyPolicyDefaults(
+        normalized,
+        policy,
+        INCOME_SETTLEMENT_FIELD_ACCESSORS,
+      ),
     );
-    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS);
+    assertPolicyPayload(payload, policy, INCOME_SETTLEMENT_FIELD_ACCESSORS, {
+      attachmentAccessors: INCOME_SETTLEMENT_ATTACHMENT_ACCESSORS,
+      originalPayload: current,
+    });
     const result = await this.sysFormDataService.update(id, {
       formData: JSON.stringify(payload),
       remark: payload.remark || '',
@@ -248,6 +271,15 @@ export class IncomeSettlementService {
     };
   }
 
+  private applyBusinessDefaults(payload: IncomeSettlementItem) {
+    return {
+      ...payload,
+      folderName: `${payload.folderName || '默认发票夹'}`,
+      invoiceType: `${payload.invoiceType || '电子票据'}`,
+      receiptMethod: `${payload.receiptMethod || '银行转账'}`,
+    };
+  }
+
   private async syncInvoiceBinding(payload: IncomeSettlementItem) {
     const invoiceNos = `${payload.invoiceNo || ''}`
       .split(/[，,;；\s]+/)
@@ -281,18 +313,18 @@ export class IncomeSettlementService {
       deptName: `${data.deptName || ''}`,
       fileName: `${data.fileName || ''}`,
       fillDate: `${data.fillDate || ''}`,
-      folderName: `${data.folderName || '默认发票夹'}`,
+      folderName: `${data.folderName || ''}`,
       id: `${data.id || ''}`,
       invoiceAmount: Number(data.invoiceAmount || 0),
       invoiceItems: Array.isArray(data.invoiceItems) ? data.invoiceItems : [],
       invoiceNo: `${data.invoiceNo || ''}`,
-      invoiceType: `${data.invoiceType || '电子票据'}`,
+      invoiceType: `${data.invoiceType || ''}`,
       isSupplement: `${data.isSupplement || '0'}`,
       occurDate: `${data.occurDate || ''}`,
       payeeItems: Array.isArray(data.payeeItems) ? data.payeeItems : [],
       payeeName: `${data.payeeName || ''}`,
       receiptCount: Number(data.receiptCount || 0),
-      receiptMethod: `${data.receiptMethod || '银行转账'}`,
+      receiptMethod: `${data.receiptMethod || ''}`,
       relatedBills: Array.isArray(data.relatedBills) ? data.relatedBills : [],
       remark: `${data.remark || ''}`,
       sourceType: `${data.sourceType || '收入结算单'}`,

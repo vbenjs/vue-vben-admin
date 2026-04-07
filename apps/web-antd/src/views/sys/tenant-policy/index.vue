@@ -7,6 +7,7 @@ import {
   Input,
   Select,
   Space,
+  Table,
   Tag,
   Typography,
   message,
@@ -30,14 +31,25 @@ const sceneOptions = [
 ];
 
 const loading = ref(false);
+const logsLoading = ref(false);
 const policySubmitting = ref(false);
 const previewLoading = ref(false);
 const tenantOptions = ref<TenantOption[]>([]);
 const selectedSceneCode = ref('finance.reimbursement.query');
 const selectedTenantId = ref<number>();
+const previewMode = ref<'draft' | 'published'>('draft');
 const policyJson = ref('{}');
+const policyLogs = ref<any[]>([]);
 const previewJson = ref('{}');
 const currentVersion = ref(0);
+
+const logColumns = [
+  { title: '版本号', dataIndex: 'versionNo', key: 'versionNo', width: 90 },
+  { title: '操作', dataIndex: 'actionType', key: 'actionType', width: 100 },
+  { title: '时间', dataIndex: 'createTime', key: 'createTime', width: 180 },
+  { title: '备注', dataIndex: 'remark', key: 'remark' },
+  { title: '操作', key: 'action', width: 120 },
+];
 
 const selectedTenantLabel = computed(() => {
   const matched = tenantOptions.value.find(
@@ -113,6 +125,7 @@ async function fetchRuntimePreview() {
   previewLoading.value = true;
   try {
     const runtime = await sysPageSchemaApi.getRuntime(selectedSceneCode.value, {
+      mode: previewMode.value,
       tenantId: selectedTenantId.value,
     });
     previewJson.value = prettyJson(runtime || {});
@@ -121,10 +134,28 @@ async function fetchRuntimePreview() {
   }
 }
 
+async function fetchLogs() {
+  if (!selectedTenantId.value) {
+    policyLogs.value = [];
+    return;
+  }
+
+  logsLoading.value = true;
+  try {
+    const logs = await sysTenantPolicyApi.getLogs(selectedSceneCode.value, {
+      policyType: 'pageRuntime',
+      tenantId: selectedTenantId.value,
+    });
+    policyLogs.value = Array.isArray(logs) ? logs : [];
+  } finally {
+    logsLoading.value = false;
+  }
+}
+
 async function refreshAll() {
   loading.value = true;
   try {
-    await Promise.all([fetchPolicy(), fetchRuntimePreview()]);
+    await Promise.all([fetchPolicy(), fetchRuntimePreview(), fetchLogs()]);
   } finally {
     loading.value = false;
   }
@@ -138,6 +169,11 @@ async function handleTenantChange(value: any) {
 async function handleSceneChange(value: any) {
   selectedSceneCode.value = `${value || sceneOptions[0]?.value || ''}`;
   await refreshAll();
+}
+
+async function handlePreviewModeChange(value: any) {
+  previewMode.value = value === 'published' ? 'published' : 'draft';
+  await fetchRuntimePreview();
 }
 
 async function savePolicy() {
@@ -154,7 +190,7 @@ async function savePolicy() {
       tenantId: selectedTenantId.value,
     });
     message.success('租户策略草稿已保存');
-    await fetchPolicy();
+    await refreshAll();
   } catch (error: any) {
     message.error(error?.message || '租户策略保存失败');
   } finally {
@@ -183,6 +219,26 @@ async function publishPolicy() {
   }
 }
 
+async function rollbackPolicy(record: any) {
+  if (!selectedTenantId.value || !record?.logId) {
+    return;
+  }
+
+  policySubmitting.value = true;
+  try {
+    await sysTenantPolicyApi.rollbackPolicy(selectedSceneCode.value, record.logId, {
+      policyType: 'pageRuntime',
+      tenantId: selectedTenantId.value,
+    });
+    message.success('租户策略已回滚');
+    await refreshAll();
+  } catch (error: any) {
+    message.error(error?.message || '租户策略回滚失败');
+  } finally {
+    policySubmitting.value = false;
+  }
+}
+
 onMounted(async () => {
   await fetchTenants();
   await refreshAll();
@@ -206,6 +262,15 @@ onMounted(async () => {
           :options="sceneOptions"
           placeholder="请选择场景"
           @change="handleSceneChange"
+        />
+        <Select
+          :value="previewMode"
+          class="w-40"
+          :options="[
+            { label: '草稿预览', value: 'draft' },
+            { label: '发布预览', value: 'published' },
+          ]"
+          @change="handlePreviewModeChange"
         />
         <Button @click="refreshAll">刷新</Button>
         <Button :loading="policySubmitting" @click="savePolicy">保存草稿</Button>
@@ -238,6 +303,27 @@ onMounted(async () => {
           />
         </Card>
       </div>
+
+      <Card title="版本日志" size="small" class="mt-4" :loading="logsLoading">
+        <Table
+          row-key="logId"
+          :columns="logColumns"
+          :data-source="policyLogs"
+          :pagination="false"
+          size="small"
+        >
+          <template #bodyCell="{ column, record }">
+            <Button
+              v-if="column.key === 'action'"
+              size="small"
+              :disabled="policySubmitting"
+              @click="rollbackPolicy(record)"
+            >
+              回滚
+            </Button>
+          </template>
+        </Table>
+      </Card>
     </Card>
   </div>
 </template>

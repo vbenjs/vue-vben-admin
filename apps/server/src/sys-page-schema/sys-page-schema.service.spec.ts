@@ -88,6 +88,9 @@ describe('SysPageSchemaService', () => {
 
   it('returns policy, context, and policy version in runtime payload', async () => {
     const prisma = {
+      sysTenant: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
       sysPageTemplate: {
         findUnique: jest.fn().mockResolvedValue({
           currentVersion: 2,
@@ -140,6 +143,49 @@ describe('SysPageSchemaService', () => {
     expect(result.versions.policy).toBe(4);
     expect(result.sources.policyId).toBe('22');
     expect(result.schema.toolbar?.history?.visible).not.toBe(true);
+  });
+
+  it('resolves tenant name for cross-tenant runtime previews from the requested tenant', async () => {
+    const prisma = {
+      sysTenant: {
+        findUnique: jest.fn().mockResolvedValue({
+          tenantId: 7,
+          tenantName: '华南院',
+        }),
+      },
+      sysPageTemplate: {
+        findUnique: jest.fn().mockResolvedValue({
+          currentVersion: 2,
+          pageCode: 'finance.reimbursement.query',
+          pageName: '报销单查询',
+          publishedSchemaJson: '{"search":[]}',
+          templateId: BigInt(1),
+        }),
+      },
+      sysPageOverride: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
+      sysTenantPolicy: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
+      sysUserPagePreference: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
+    };
+
+    const service = new SysPageSchemaService(prisma as unknown as PrismaService);
+    const result = await service.getRuntime('finance.reimbursement.query', {
+      mode: 'published',
+      requestContext: { fiscalYear: '2026', tenantId: 1, tenantName: '默认账套' },
+      tenantId: 7,
+      userId: '18',
+    });
+
+    expect(result.context).toMatchObject({
+      fiscalYear: '2026',
+      tenantId: 7,
+      tenantName: '华南院',
+    });
   });
 
   it('publishes template draft into published snapshot and logs version', async () => {

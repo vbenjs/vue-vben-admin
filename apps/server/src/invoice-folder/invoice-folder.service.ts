@@ -200,7 +200,9 @@ export class InvoiceFolderService {
     const payload = this.applyBusinessDefaults(
       applyPolicyDefaults(normalized, policy, INVOICE_FOLDER_FIELD_ACCESSORS),
     );
-    assertPolicyPayload(payload, policy, INVOICE_FOLDER_FIELD_ACCESSORS);
+    assertPolicyPayload(payload, policy, INVOICE_FOLDER_FIELD_ACCESSORS, {
+      originalPayload: current,
+    });
     const result = await this.sysFormDataService.update(id, {
       formData: JSON.stringify(payload),
       remark: payload.remark || '',
