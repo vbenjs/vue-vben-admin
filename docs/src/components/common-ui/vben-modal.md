@@ -34,7 +34,7 @@ Modal 内的内容一般业务中，会比较复杂，所以我们可以将 moda
 
 ## 开启拖拽
 
-通过 `draggable` 参数，可开启拖拽功能。
+通过 `draggable` 参数，可开启拖拽功能。若需要拖动范围超出可视区，可设置 `overflow: true`（需已开启 `draggable`）。
 
 <DemoPreview dir="demos/vben-modal/draggable" />
 
@@ -101,6 +101,7 @@ const [Modal, modalApi] = useVbenModal({
 | fullscreen | 全屏显示 | `boolean` | `false` |
 | fullscreenButton | 显示全屏按钮 | `boolean` | `true` |
 | draggable | 可拖拽 | `boolean` | `false` |
+| overflow | 拖动范围可以超出可视区 | `boolean` | `false` |
 | closable | 显示关闭按钮 | `boolean` | `true` |
 | centered | 居中显示 | `boolean` | `false` |
 | modal | 显示遮罩 | `boolean` | `true` |

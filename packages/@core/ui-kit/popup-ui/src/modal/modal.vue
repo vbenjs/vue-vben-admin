@@ -81,6 +81,7 @@ const {
   description,
   destroyOnClose,
   draggable,
+  overflow,
   footer: showFooter,
   footerClass,
   fullscreen,
@@ -122,6 +123,7 @@ const { dragging, transform } = useModalDraggable(
   shouldDraggable,
   getAppendTo,
   shouldCentered,
+  overflow,
 );
 
 const firstOpened = ref(false);
