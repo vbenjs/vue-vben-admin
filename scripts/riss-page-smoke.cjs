@@ -28,24 +28,6 @@ function normalizeStorageValue(accessToken) {
   });
 }
 
-function buildTargetSummary(target, result) {
-  return {
-    ...target,
-    ...result,
-    failed:
-      !result.hasAllTexts ||
-      result.redirectedToLogin ||
-      result.pageErrors.length > 0 ||
-      result.consoleErrors.length > 0 ||
-      result.requestFailures.length > 0 ||
-      result.responseErrors.length > 0,
-  };
-}
-
-function isRelevantNetworkUrl(url) {
-  return url.startsWith(API_BASE_URL) || url.startsWith(WEB_BASE_URL);
-}
-
 const targets = [
   { path: '/sys/user', requiredTexts: ['用户', '查询'] },
   { path: '/sys/role', requiredTexts: ['角色', '查询'] },
@@ -103,61 +85,6 @@ async function loginAndCreateContext() {
   return { browser, context };
 }
 
-async function inspectTarget(page, target) {
-  const pageErrors = [];
-  const consoleErrors = [];
-  const requestFailures = [];
-  const responseErrors = [];
-
-  page.removeAllListeners('pageerror');
-  page.removeAllListeners('console');
-  page.removeAllListeners('requestfailed');
-  page.removeAllListeners('response');
-
-  page.on('pageerror', (error) => pageErrors.push(error.message));
-  page.on('console', (msg) => {
-    if (msg.type() === 'error') {
-      consoleErrors.push(msg.text());
-    }
-  });
-  page.on('requestfailed', (request) => {
-    if (isRelevantNetworkUrl(request.url())) {
-      requestFailures.push(
-        `${request.method()} ${request.url()} :: ${request.failure()?.errorText}`,
-      );
-    }
-  });
-  page.on('response', (response) => {
-    if (response.status() >= 400 && isRelevantNetworkUrl(response.url())) {
-      responseErrors.push(`${response.status()} ${response.url()}`);
-    }
-  });
-
-  await page.goto(`${WEB_BASE_URL}${target.path}`, {
-    waitUntil: 'networkidle',
-  });
-  await page.waitForTimeout(1200);
-
-  const bodyText = await page.locator('body').innerText();
-  const title = await page.title();
-  const redirectedToLogin =
-    bodyText.includes('欢迎回来') || bodyText.includes('请输入您的账户信息');
-  const missingTexts = target.requiredTexts.filter(
-    (text) => !bodyText.includes(text),
-  );
-
-  return buildTargetSummary(target, {
-    consoleErrors,
-    hasAllTexts: missingTexts.length === 0,
-    missingTexts,
-    pageErrors,
-    redirectedToLogin,
-    requestFailures,
-    responseErrors,
-    title,
-  });
-}
-
 function printResult(result) {
   console.log(`PAGE=${result.path}`);
   console.log(`TITLE=${result.title}`);
@@ -182,6 +109,9 @@ function printResult(result) {
 }
 
 (async () => {
+  const { inspectTarget, inspectTargets } = await import(
+    './riss-page-smoke-lib.mjs'
+  );
   const selectedTargets =
     TARGET_FILTER.length === 0
       ? targets
@@ -194,27 +124,30 @@ function printResult(result) {
   }
 
   const { browser, context } = await loginAndCreateContext();
-  const page = await context.newPage();
-  const results = [];
 
   try {
-    for (const target of selectedTargets) {
-      const result = await inspectTarget(page, target);
-      results.push(result);
+    const results = await inspectTargets(context, selectedTargets, (page, target) =>
+      inspectTarget(page, target, {
+        apiBaseUrl: API_BASE_URL,
+        webBaseUrl: WEB_BASE_URL,
+      }),
+    );
+
+    for (const result of results) {
       printResult(result);
+    }
+
+    const failedResults = results.filter((item) => item.failed);
+    console.log(`SUMMARY_TOTAL=${results.length}`);
+    console.log(`SUMMARY_FAILED=${failedResults.length}`);
+    if (failedResults.length > 0) {
+      console.log(
+        `SUMMARY_FAILED_PAGES=${failedResults.map((item) => item.path).join(' | ')}`,
+      );
+      process.exit(1);
     }
   } finally {
     await browser.close();
-  }
-
-  const failedResults = results.filter((item) => item.failed);
-  console.log(`SUMMARY_TOTAL=${results.length}`);
-  console.log(`SUMMARY_FAILED=${failedResults.length}`);
-  if (failedResults.length > 0) {
-    console.log(
-      `SUMMARY_FAILED_PAGES=${failedResults.map((item) => item.path).join(' | ')}`,
-    );
-    process.exit(1);
   }
 })().catch((error) => {
   console.error(error);
