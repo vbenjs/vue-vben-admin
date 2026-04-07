@@ -97,7 +97,7 @@ export interface ModalProps {
   header?: boolean;
   headerClass?: ClassType;
   /**
-   * 弹窗是否显示
+   * 弹窗加载状态
    * @default false
    */
   loading?: boolean;

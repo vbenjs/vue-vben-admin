@@ -75,7 +75,7 @@ export interface DrawerProps {
    */
   headerClass?: ClassType;
   /**
-   * 弹窗是否显示
+   * 抽屉加载状态
    * @default false
    */
   loading?: boolean;
