@@ -403,7 +403,7 @@
   justify-content: center;
 }
 
-/* Tailwind v4 的 utilities 在 @layer 内；组件样式若留在 layer 外（unlayered），会按层叠规则压过 py-4 等工具类。
+/* Tailwind v4 的 utilities 在 @layer 内；组件样式若留在 layer 外，会按层叠规则压过 py-4 等工具类。
  * 见：https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layering */
 @layer components {
   .outline-box {
