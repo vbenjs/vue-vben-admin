@@ -380,6 +380,13 @@
       @apply hidden;
     }
   }
+
+  /* Tailwind v4 Preflight 不再为 button 默认设置 pointer；见官方升级说明：
+   * https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    @apply cursor-pointer;
+  }
 }
 
 /* Custom utilities (v4 @utility syntax) */
@@ -396,33 +403,36 @@
   justify-content: center;
 }
 
-/* Component styles (complex selectors, not convertible to @utility) */
-.outline-box {
-  @apply outline-border relative cursor-pointer rounded-md p-1 outline-1;
-}
+/* Tailwind v4 的 utilities 在 @layer 内；组件样式若留在 layer 外（unlayered），会按层叠规则压过 py-4 等工具类。
+ * 见：https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layering */
+@layer components {
+  .outline-box {
+    @apply outline-border relative cursor-pointer rounded-md p-1 outline-1;
+  }
 
-.outline-box::after {
-  @apply absolute top-1/2 left-1/2 z-20 h-0 w-px rounded-sm opacity-0 outline-2 outline-transparent transition-all duration-300 content-[""];
-}
+  .outline-box::after {
+    @apply absolute top-1/2 left-1/2 z-20 h-0 w-px rounded-sm opacity-0 outline-2 outline-transparent transition-all duration-300 content-[""];
+  }
 
-.outline-box.outline-box-active {
-  @apply outline-primary outline-2;
-}
+  .outline-box.outline-box-active {
+    @apply outline-primary outline-2;
+  }
 
-.outline-box.outline-box-active::after {
-  display: none;
-}
+  .outline-box.outline-box-active::after {
+    display: none;
+  }
 
-.outline-box:not(.outline-box-active):hover::after {
-  @apply outline-primary top-0 left-0 h-full w-full p-1 opacity-100;
-}
+  .outline-box:not(.outline-box-active):hover::after {
+    @apply outline-primary top-0 left-0 h-full w-full p-1 opacity-100;
+  }
 
-.vben-link {
-  @apply text-primary hover:text-primary-hover active:text-primary-active cursor-pointer;
-}
+  .vben-link {
+    @apply text-primary hover:text-primary-hover active:text-primary-active cursor-pointer;
+  }
 
-.card-box {
-  @apply bg-card text-card-foreground border-border rounded-xl border;
+  .card-box {
+    @apply bg-card text-card-foreground border-border rounded-xl border;
+  }
 }
 
 /* Enter animations (converted from enterAnimationPlugin) */
