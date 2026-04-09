@@ -94,7 +94,7 @@ catalog:
   commitlint-plugin-function-rules: ^4.3.2
   consola: ^3.4.2
   cross-env: ^10.1.0
-  cspell: ^9.7.0
+  cspell: ^10.0.0
   cz-git: ^1.12.0
   czg: ^1.12.0
   dayjs: ^1.11.20
