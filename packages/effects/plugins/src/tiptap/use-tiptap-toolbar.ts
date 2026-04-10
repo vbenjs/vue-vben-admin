@@ -128,18 +128,18 @@ export function useTiptapToolbar(options: UseTiptapToolbarOptions) {
 
   function getToolbarButtonClass(action: ToolbarAction) {
     return cn(
-      'relative rounded-[10px] border border-transparent bg-transparent text-muted-foreground shadow-none',
+      'text-muted-foreground relative rounded-[10px] border border-transparent bg-transparent shadow-none',
       'transition-[transform,color,background-color,border-color,box-shadow] duration-200 ease-out',
-      'enabled:hover:-translate-y-px enabled:hover:border-border disabled:opacity-45',
+      'enabled:hover:border-border enabled:hover:-translate-y-px disabled:opacity-45',
       'enabled:hover:bg-accent enabled:hover:text-foreground',
       isActionActive(action) &&
-        'border-primary/30 bg-accent text-primary shadow-primary',
+        'bg-accent border-primary/30 shadow-primary text-primary',
     );
   }
 
   function getPaletteSwatchClass(action: ToolbarAction, color: string) {
     return cn(
-      'inline-flex size-8 items-center justify-center rounded-full border border-border',
+      'border-border inline-flex size-8 items-center justify-center rounded-full border',
       'shadow-accent',
       'transition-[transform,box-shadow,border-color] duration-200 ease-out',
       'hover:-translate-y-px hover:scale-[1.04]',
@@ -154,7 +154,7 @@ export function useTiptapToolbar(options: UseTiptapToolbarOptions) {
       'disabled:cursor-not-allowed disabled:opacity-45',
       isMenuItemActive(item)
         ? 'bg-accent text-foreground'
-        : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+        : 'hover:bg-accent hover:text-foreground text-muted-foreground',
     );
   }
 

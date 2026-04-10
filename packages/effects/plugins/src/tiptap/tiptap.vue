@@ -41,7 +41,7 @@ const contentMinHeight = computed(() =>
 );
 const tiptapContentClass = cn(
   'vben-tiptap-content vben-tiptap__content',
-  'min-h-(--vben-tiptap-min-height) leading-7 text-foreground outline-none',
+  'text-foreground min-h-(--vben-tiptap-min-height) leading-7 outline-none',
 );
 const editor = useEditor({
   content: modelValue.value,
