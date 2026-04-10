@@ -178,7 +178,6 @@ catalog:
   vee-validate: ^4.15.1
   vite: ^8.0.8
   vite-plugin-compression: ^0.5.1
-  vite-plugin-html: ^3.2.2
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-pwa: ^1.2.0
   vite-plugin-vue-devtools: ^8.1.1
