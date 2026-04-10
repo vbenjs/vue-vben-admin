@@ -1,5 +1,5 @@
-import type { PluginOption } from 'vite';
 import type { Options as HtmlMinifierOptions } from 'html-minifier-terser';
+import type { PluginOption } from 'vite';
 
 import { minify } from 'html-minifier-terser';
 
