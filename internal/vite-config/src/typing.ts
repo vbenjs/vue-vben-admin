@@ -1,3 +1,4 @@
+import type { Options as HtmlMinifierOptions } from 'html-minifier-terser';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import type { PluginOptions } from 'unplugin-dts';
 import type {
@@ -6,7 +7,6 @@ import type {
   UserConfig,
   UserConfigFnPromise,
 } from 'vite';
-import type { Options as HtmlMinifierOptions } from 'html-minifier-terser';
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
 /**
