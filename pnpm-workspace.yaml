@@ -83,8 +83,8 @@ catalog:
   ant-design-vue: ^4.2.6
   antdv-next: ^1.1.7
   archiver: ^7.0.1
-  axios: ^1.14.0
-  axios-mock-adapter: ^2.1.0
+  axios: 1.14.0
+  axios-mock-adapter: 2.1.0
   cac: ^7.0.0
   chalk: ^5.6.2
   cheerio: ^1.2.0
