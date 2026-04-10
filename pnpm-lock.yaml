@@ -1438,9 +1438,6 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.2.1(vue@3.5.32(typescript@6.0.2))
-      unplugin-vue:
-        specifier: 'catalog:'
-        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.32(typescript@6.0.2))
@@ -1453,6 +1450,10 @@ importers:
       zod-defaults:
         specifier: 'catalog:'
         version: 0.1.3(zod@3.25.76)
+    devDependencies:
+      unplugin-vue:
+        specifier: 'catalog:'
+        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
 
   packages/@core/ui-kit/layout-ui:
     dependencies:
@@ -1474,12 +1475,13 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.2.1(vue@3.5.32(typescript@6.0.2))
-      unplugin-vue:
-        specifier: 'catalog:'
-        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
       vue:
         specifier: ^3.5.32
         version: 3.5.32(typescript@6.0.2)
+    devDependencies:
+      unplugin-vue:
+        specifier: 'catalog:'
+        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
 
   packages/@core/ui-kit/menu-ui:
     dependencies:
@@ -1507,9 +1509,6 @@ importers:
       qs:
         specifier: 'catalog:'
         version: 6.15.1
-      unplugin-vue:
-        specifier: 'catalog:'
-        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
       vue:
         specifier: ^3.5.32
         version: 3.5.32(typescript@6.0.2)
@@ -1517,6 +1516,9 @@ importers:
       '@types/qs':
         specifier: 'catalog:'
         version: 6.15.0
+      unplugin-vue:
+        specifier: 'catalog:'
+        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
 
   packages/@core/ui-kit/popup-ui:
     dependencies:
@@ -1538,12 +1540,13 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.2.1(vue@3.5.32(typescript@6.0.2))
-      unplugin-vue:
-        specifier: 'catalog:'
-        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
       vue:
         specifier: ^3.5.32
         version: 3.5.32(typescript@6.0.2)
+    devDependencies:
+      unplugin-vue:
+        specifier: 'catalog:'
+        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
 
   packages/@core/ui-kit/shadcn-ui:
     dependencies:
@@ -1601,12 +1604,13 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.2.1(vue@3.5.32(typescript@6.0.2))
-      unplugin-vue:
-        specifier: 'catalog:'
-        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
       vue:
         specifier: ^3.5.32
         version: 3.5.32(typescript@6.0.2)
+    devDependencies:
+      unplugin-vue:
+        specifier: 'catalog:'
+        version: 7.1.1(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.46.1)(vue@3.5.32(typescript@6.0.2))(yaml@2.8.3)
 
   packages/constants:
     dependencies:
@@ -1667,9 +1671,6 @@ importers:
       '@vben/types':
         specifier: workspace:*
         version: link:../../types
-      '@vue/test-utils':
-        specifier: 'catalog:'
-        version: 2.4.6
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.2.1(vue@3.5.32(typescript@6.0.2))
@@ -1704,6 +1705,9 @@ importers:
       '@types/qrcode':
         specifier: 'catalog:'
         version: 1.5.6
+      '@vue/test-utils':
+        specifier: 'catalog:'
+        version: 2.4.6
 
   packages/effects/hooks:
     dependencies:
@@ -1996,9 +2000,6 @@ importers:
 
   playground:
     dependencies:
-      '@playwright/test':
-        specifier: 'catalog:'
-        version: 1.59.1
       '@tanstack/vue-query':
         specifier: 'catalog:'
         version: 5.97.0(vue@3.5.32(typescript@6.0.2))
@@ -2075,6 +2076,9 @@ importers:
         specifier: 'catalog:'
         version: 5.0.4(@vue/compiler-sfc@3.5.32)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.32(typescript@6.0.2)))(vue@3.5.32(typescript@6.0.2))
     devDependencies:
+      '@playwright/test':
+        specifier: 'catalog:'
+        version: 1.59.1
       '@types/json-bigint':
         specifier: 'catalog:'
         version: 1.0.4

@@ -51,5 +51,8 @@
     "vue": "catalog:",
     "zod": "catalog:",
     "zod-defaults": "catalog:"
+  },
+  "devDependencies": {
+    "unplugin-vue": "catalog:"
   }
 }

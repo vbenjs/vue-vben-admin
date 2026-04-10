@@ -51,6 +51,7 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@types/qs": "catalog:"
+    "@types/qs": "catalog:",
+    "unplugin-vue": "catalog:"
   }
 }
