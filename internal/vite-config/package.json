@@ -55,7 +55,6 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vite-plugin-compression": "catalog:",
-    "vite-plugin-html": "catalog:",
     "vite-plugin-lazy-import": "catalog:"
   }
 }
