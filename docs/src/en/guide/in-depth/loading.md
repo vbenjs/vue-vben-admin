@@ -39,6 +39,6 @@ If you want to customize the global loading, you can create a `loading.html` fil
 </style>
 <div id="__app-loading__">
   <!-- ... -->
-  <div class="title"><%= VITE_APP_TITLE %></div>
+  <div class="title">%VITE_APP_TITLE%</div>
 </div>
 ```

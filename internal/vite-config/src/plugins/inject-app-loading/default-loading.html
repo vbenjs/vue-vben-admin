@@ -22,8 +22,8 @@
   }
 
   .loading.hidden {
-    pointer-events: none;
     visibility: hidden;
+    pointer-events: none;
     opacity: 0;
     transition: all 0.8s ease-out;
   }
@@ -109,5 +109,5 @@
 </style>
 <div class="loading" id="__app-loading__">
   <div class="loader"></div>
-  <div class="title"><%= VITE_APP_TITLE %></div>
+  <div class="title">%VITE_APP_TITLE%</div>
 </div>

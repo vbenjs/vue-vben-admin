@@ -39,7 +39,7 @@ VITE_INJECT_APP_LOADING=false
 </style>
 <div id="__app-loading__">
   <!-- ... -->
-  <div class="title"><%= VITE_APP_TITLE %></div>
+  <div class="title">%VITE_APP_TITLE%</div>
 </div>
 ```
 
