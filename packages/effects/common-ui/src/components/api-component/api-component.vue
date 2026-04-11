@@ -65,7 +65,7 @@ const getOptions = computed(() => {
   function transformData(data: OptionsItem[] = []): OptionsItem[] {
     return data.map((item) => {
       const value = get(item, valueField);
-      const children = childrenField ? item[childrenField] : item.children;
+      const children = childrenField ? get(item, childrenField) : item.children;
       return {
         ...objectOmit(item, [
           labelField,
