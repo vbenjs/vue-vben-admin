@@ -166,7 +166,7 @@ export class FormApi {
     const values = form.values
       ? this.handleRangeTimeValue(cloneDeep(toRaw(form.values)))
       : {};
-    return this.handleValueFormat({ ...values }) as T;
+    return this.handleValueFormat(values) as T;
   }
 
   async isFieldValid(fieldName: string) {
@@ -461,11 +461,8 @@ export class FormApi {
     fieldName: string,
   ) {
     const { pathSegments, rawKey } = resolveFieldNamePath(fieldName);
-    const rawFieldName = rawKey
-      ? this.resolveRawFieldName(fieldName)
-      : undefined;
-    if (rawFieldName) {
-      Reflect.deleteProperty(values, rawFieldName);
+    if (rawKey) {
+      Reflect.deleteProperty(values, rawKey);
       return;
     }
 
@@ -657,17 +654,13 @@ export class FormApi {
     });
   };
 
-  private resolveRawFieldName(fieldName: string) {
-    return resolveFieldNamePath(fieldName).rawKey;
-  }
-
   private resolveValueByFieldName(
     values: Record<string, any>,
     fieldName: string,
   ) {
-    const rawFieldName = this.resolveRawFieldName(fieldName);
-    if (rawFieldName) {
-      return values[rawFieldName];
+    const { rawKey } = resolveFieldNamePath(fieldName);
+    if (rawKey) {
+      return values[rawKey];
     }
 
     return get(values, fieldName);
@@ -678,9 +671,9 @@ export class FormApi {
     fieldName: string,
     value: any,
   ) {
-    const rawFieldName = this.resolveRawFieldName(fieldName);
-    if (rawFieldName) {
-      values[rawFieldName] = value;
+    const { rawKey } = resolveFieldNamePath(fieldName);
+    if (rawKey) {
+      values[rawKey] = value;
       return;
     }
 

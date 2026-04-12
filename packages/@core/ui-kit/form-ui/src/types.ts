@@ -228,6 +228,13 @@ type MappedComponentProps<P> =
     ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
+/**
+ * 格式化 `getValues()` 输出中的当前字段值。
+ * - 返回 `undefined`：保留当前字段已被移除的状态，通常配合 `setValue(key, nextValue)`
+ *   把一个字段拆分写入到其他字段，例如 `startTime` / `endTime`
+ * - 返回其他值：会将当前字段恢复/写回为该返回值
+ * - `setValue` 回调签名为 `(key, nextValue) => void`
+ */
 export type FormValueFormat = (
   value: any,
   setValue: (fieldName: string, value: any) => void,
