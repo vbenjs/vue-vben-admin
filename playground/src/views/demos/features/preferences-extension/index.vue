@@ -73,6 +73,13 @@ const toneConfig = computed(() => {
   return toneMap[playgroundPreferences.highlightTone];
 });
 
+const formattedPlaygroundPreferences = computed(() => {
+  return JSON.stringify(playgroundPreferences, null, 2);
+});
+
+const preClasses =
+  'mt-4 overflow-auto rounded-lg border border-border bg-muted p-4 text-sm';
+
 function applyPreset(type: 'compact' | 'focus' | 'review') {
   const presetMap: Record<
     typeof type,
@@ -218,9 +225,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
         </Button>
       </Space>
 
-      <pre
-        class="mt-4 overflow-auto rounded-lg border border-border bg-muted p-4 text-sm"
-        >{{ JSON.stringify(playgroundPreferences, null, 2) }}</pre>
+      <pre :class="preClasses">{{ formattedPlaygroundPreferences }}</pre>
     </Card>
   </Page>
 </template>
