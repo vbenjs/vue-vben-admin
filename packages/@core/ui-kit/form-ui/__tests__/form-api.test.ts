@@ -41,7 +41,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     expect(formApi.isMounted).toBe(true);
     expect(formApi.form).toEqual(formActions);
   });
@@ -52,9 +52,50 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     const values = await formApi.getValues();
     expect(values).toEqual({ name: 'test' });
+  });
+
+  it('should format schema values when getting values', async () => {
+    formApi.setState({
+      schema: [
+        {
+          component: 'range-picker',
+          fieldName: 'filters.range',
+          valueFormat: (value, setValue) => {
+            setValue('filters.startTime', value?.[0]);
+            setValue('filters.endTime', value?.[1]);
+          },
+        },
+      ],
+    });
+
+    const formActions: any = {
+      meta: {},
+      values: {
+        filters: {
+          range: [1_710_000_000_000, 1_720_000_000_000],
+        },
+      },
+    };
+
+    await formApi.mount(formActions, new Map());
+
+    expect(formApi.getLatestSubmissionValues()).toEqual({
+      filters: {
+        endTime: 1_720_000_000_000,
+        startTime: 1_710_000_000_000,
+      },
+    });
+
+    const values = await formApi.getValues();
+    expect(values).toEqual({
+      filters: {
+        endTime: 1_720_000_000_000,
+        startTime: 1_710_000_000_000,
+      },
+    });
   });
 
   it('should set field value', async () => {
@@ -65,7 +106,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     await formApi.setFieldValue('name', 'new value');
     expect(setFieldValueMock).toHaveBeenCalledWith(
       'name',
@@ -82,7 +123,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     await formApi.resetForm();
     expect(resetFormMock).toHaveBeenCalled();
   });
@@ -100,7 +141,7 @@ describe('formApi', () => {
     };
 
     formApi.setState(state);
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
 
     const result = await formApi.submitForm();
     expect(formActions.submitForm).toHaveBeenCalled();
@@ -120,7 +161,7 @@ describe('formApi', () => {
       validate: validateMock,
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);

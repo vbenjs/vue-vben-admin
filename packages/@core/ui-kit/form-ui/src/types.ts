@@ -228,6 +228,12 @@ type MappedComponentProps<P> =
     ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
+export type FormValueFormat = (
+  value: any,
+  setValue: (fieldName: string, value: any) => void,
+  values: Record<string, any>,
+) => any;
+
 interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
   /** 默认值 */
   defaultValue?: any;
@@ -249,6 +255,12 @@ interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
   rules?: FormSchemaRuleType;
   /** 后缀 */
   suffix?: CustomRenderType;
+  /**
+   * 获取表单值时格式化当前字段。
+   * - 返回值不为 `undefined` 时，会回写到当前 fieldName
+   * - 返回值为 `undefined` 时，可通过 setValue 写入一个或多个目标字段
+   */
+  valueFormat?: FormValueFormat;
 }
 
 type FormSchemaDiscriminated<
