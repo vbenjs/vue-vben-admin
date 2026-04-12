@@ -193,6 +193,156 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
+### Extend project-level preferences
+
+In addition to overriding the built-in framework preferences, you can also add a set of business preferences for each application. After configuration, the preferences drawer will display an extra tab for the current app, and the data will be stored together with the app `namespace`. This is useful for project-specific fields such as tenant mode, business titles, or default page size.
+
+#### 1. Define the extension in `src/preferences.ts`
+
+```ts
+import {
+  defineOverridesPreferences,
+  definePreferencesExtension,
+} from '@vben/preferences';
+
+interface ProjectPreferencesExtension {
+  defaultTableSize: number;
+  enableFormFullscreen: boolean;
+  reportTitle: string;
+  tenantMode: 'multi' | 'single';
+}
+
+export const overridesPreferences = defineOverridesPreferences({
+  app: {
+    name: import.meta.env.VITE_APP_TITLE,
+  },
+});
+
+export const preferencesExtension =
+  definePreferencesExtension<ProjectPreferencesExtension>({
+    tabLabel: 'preferences.antd.tabLabel',
+    title: 'preferences.antd.title',
+    fields: [
+      {
+        component: 'switch',
+        defaultValue: true,
+        key: 'enableFormFullscreen',
+        label: 'preferences.antd.fields.enableFormFullscreen.label',
+        tip: 'preferences.antd.fields.enableFormFullscreen.tip',
+      },
+      {
+        component: 'select',
+        defaultValue: 'single',
+        key: 'tenantMode',
+        label: 'preferences.antd.fields.tenantMode.label',
+        options: [
+          {
+            label: 'preferences.antd.fields.tenantMode.options.single.label',
+            value: 'single',
+          },
+          {
+            label: 'preferences.antd.fields.tenantMode.options.multi.label',
+            value: 'multi',
+          },
+        ],
+      },
+      {
+        component: 'number',
+        componentProps: {
+          max: 200,
+          min: 10,
+          step: 10,
+        },
+        defaultValue: 20,
+        key: 'defaultTableSize',
+        label: 'preferences.antd.fields.defaultTableSize.label',
+      },
+      {
+        component: 'input',
+        defaultValue: '',
+        key: 'reportTitle',
+        label: 'preferences.antd.fields.reportTitle.label',
+        placeholder: 'preferences.antd.fields.reportTitle.placeholder',
+      },
+    ],
+  });
+```
+
+- `tabLabel` is the tab label, and `title` is the panel title. If `title` is omitted, `tabLabel` is used as the fallback.
+- `fields` currently supports four component types: `input`, `number`, `select`, and `switch`.
+- `label`, `placeholder`, `tip`, and `options[].label` can be i18n keys directly. The preferences drawer resolves them with `$t` automatically.
+
+#### 2. Pass `extension` when initializing preferences
+
+```ts
+import { initPreferences } from '@vben/preferences';
+
+import { overridesPreferences, preferencesExtension } from './preferences';
+
+await initPreferences({
+  namespace,
+  overrides: overridesPreferences,
+  extension: preferencesExtension,
+});
+```
+
+The same `namespace` isolates both framework preferences and extension preferences. So even if multiple subprojects run in the same browser, their business preferences remain independent.
+
+#### 3. Read or update extension preferences in business pages
+
+```ts
+import {
+  getCustomPreferences,
+  updateCustomPreferences,
+  usePreferences,
+} from '@vben/preferences';
+
+interface ProjectPreferencesExtension {
+  defaultTableSize: number;
+  enableFormFullscreen: boolean;
+  reportTitle: string;
+  tenantMode: 'multi' | 'single';
+}
+
+const projectPreferences = getCustomPreferences<ProjectPreferencesExtension>();
+
+const { customPreferences, preferencesExtension } = usePreferences();
+
+updateCustomPreferences<ProjectPreferencesExtension>({
+  defaultTableSize: 50,
+  tenantMode: 'multi',
+});
+```
+
+- `getCustomPreferences` returns the reactive extension-preferences object for the current app.
+- `customPreferences` and `preferencesExtension` from `usePreferences` are convenient when composing reusable logic.
+- Calling `resetPreferences()` also resets extension preferences back to their default values.
+
+#### 4. Number fields validate `min` / `max` / `step` automatically
+
+If you provide `componentProps.min`, `componentProps.max`, and `componentProps.step` for a `number` field, runtime persistence follows the same constraints. For example:
+
+```ts
+{
+  component: 'number',
+  componentProps: {
+    min: 10,
+    max: 200,
+    step: 10,
+  },
+  defaultValue: 20,
+  key: 'defaultTableSize',
+  label: 'preferences.antd.fields.defaultTableSize.label',
+}
+```
+
+Only values within `10 ~ 200` and increasing by `10` will be saved. Values like `15`, `205`, or invalid legacy cache values are ignored automatically.
+
+For complete examples, see:
+
+- `playground/src/preferences.ts`
+- `playground/src/views/demos/features/preferences-extension/index.vue`
+
 ### Framework default configuration
 
 ::: details View the default configuration of the framework
