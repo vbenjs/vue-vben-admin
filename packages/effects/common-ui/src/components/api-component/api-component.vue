@@ -17,6 +17,7 @@ defineOptions({ name: 'ApiComponent', inheritAttrs: false });
 const props = withDefaults(defineProps<ApiComponentProps>(), {
   labelField: 'label',
   valueField: 'value',
+  labelFn: undefined,
   disabledField: 'disabled',
   childrenField: '',
   optionsPropName: 'options',
@@ -54,33 +55,37 @@ const hasPendingRequest = ref(false);
 const getOptions = computed(() => {
   const {
     labelField,
+    labelFn,
     valueField,
     disabledField,
     childrenField,
     numberToString,
   } = props;
 
-  const refOptionsData = unref(refOptions);
-
-  function transformData(data: OptionsItem[]): OptionsItem[] {
+  function transformData(data: OptionsItem[] = []): OptionsItem[] {
     return data.map((item) => {
       const value = get(item, valueField);
-      const disabled = get(item, disabledField);
+      const children = childrenField ? get(item, childrenField) : item.children;
       return {
-        ...objectOmit(item, [labelField, valueField, disabled, childrenField]),
-        label: get(item, labelField),
+        ...objectOmit(item, [
+          labelField,
+          valueField,
+          disabledField,
+          ...(childrenField ? [childrenField] : []),
+        ]),
+        label: labelFn ? labelFn(item) : get(item, labelField),
         value: numberToString ? `${value}` : value,
         disabled: get(item, disabledField),
-        ...(childrenField && item[childrenField]
-          ? { children: transformData(item[childrenField]) }
+        ...(Array.isArray(children) && children.length > 0
+          ? { children: transformData(children) }
           : {}),
       };
     });
   }
 
-  const data: OptionsItem[] = transformData(refOptionsData);
+  const data = transformData(unref(refOptions));
 
-  return data.length > 0 ? data : props.options;
+  return data.length > 0 ? data : transformData(props.options);
 });
 
 const bindProps = computed(() => {

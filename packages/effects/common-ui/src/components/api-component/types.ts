@@ -10,6 +10,8 @@ export type ApiComponentOptionsItem = {
   value?: number | string;
 };
 
+export type ApiComponentLabelFn = (item: ApiComponentOptionsItem) => string;
+
 export interface ApiComponentProps {
   /** 组件 */
   component: Component;
@@ -23,6 +25,8 @@ export interface ApiComponentProps {
   resultField?: string;
   /** label字段名 */
   labelField?: string;
+  /** 通过选项数据自定义label */
+  labelFn?: ApiComponentLabelFn;
   /** children字段名，需要层级数据的组件可用 */
   childrenField?: string;
   /** value字段名 */
