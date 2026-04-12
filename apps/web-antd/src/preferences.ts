@@ -24,24 +24,30 @@ export const overridesPreferences = defineOverridesPreferences({
 
 export const preferencesExtension =
   definePreferencesExtension<WebAntdPreferencesExtension>({
-    tabLabel: 'Antd 扩展',
-    title: '业务偏好',
+    tabLabel: 'preferences.antd.tabLabel',
+    title: 'preferences.antd.title',
     fields: [
       {
         component: 'switch',
         defaultValue: true,
         key: 'enableFormFullscreen',
-        label: '启用表单全屏模式',
-        tip: '子项目可在自己的业务场景中读取这个扩展配置。',
+        label: 'preferences.antd.fields.enableFormFullscreen.label',
+        tip: 'preferences.antd.fields.enableFormFullscreen.tip',
       },
       {
         component: 'select',
         defaultValue: 'single',
         key: 'tenantMode',
-        label: '租户模式',
+        label: 'preferences.antd.fields.tenantMode.label',
         options: [
-          { label: '单租户', value: 'single' },
-          { label: '多租户', value: 'multi' },
+          {
+            label: 'preferences.antd.fields.tenantMode.options.single.label',
+            value: 'single',
+          },
+          {
+            label: 'preferences.antd.fields.tenantMode.options.multi.label',
+            value: 'multi',
+          },
         ],
       },
       {
@@ -53,14 +59,14 @@ export const preferencesExtension =
         },
         defaultValue: 20,
         key: 'defaultTableSize',
-        label: '默认分页条数',
+        label: 'preferences.antd.fields.defaultTableSize.label',
       },
       {
         component: 'input',
         defaultValue: '欢迎使用 Web Antd',
         key: 'reportTitle',
-        label: '报表默认标题',
-        placeholder: '请输入报表默认标题',
+        label: 'preferences.antd.fields.reportTitle.label',
+        placeholder: 'preferences.antd.fields.reportTitle.placeholder',
       },
     ],
   });

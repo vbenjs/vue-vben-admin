@@ -236,13 +236,46 @@ class PreferenceManager {
     document.documentElement.dataset.platform = isMacOs() ? 'macOs' : 'window';
   }
 
+  private isAlmostInteger(value: number, epsilon = Number.EPSILON * 10) {
+    return Math.abs(value - Math.round(value)) < epsilon;
+  }
+
   private isValidCustomPreferenceValue(
     field: CustomPreferencesField,
     value: unknown,
   ) {
     switch (field.component) {
       case 'number': {
-        return typeof value === 'number' && Number.isFinite(value);
+        if (typeof value !== 'number' || !Number.isFinite(value)) {
+          return false;
+        }
+
+        const max = this.resolveNumericConstraint(field.componentProps?.max);
+        const min = this.resolveNumericConstraint(field.componentProps?.min);
+        const step = this.resolveNumericConstraint(field.componentProps?.step);
+
+        if (min !== undefined && value < min) {
+          return false;
+        }
+
+        if (max !== undefined && value > max) {
+          return false;
+        }
+
+        if (step !== undefined) {
+          if (step <= 0) {
+            return false;
+          }
+
+          const stepBase = min ?? 0;
+          const stepCount = (value - stepBase) / step;
+
+          if (!this.isAlmostInteger(stepCount)) {
+            return false;
+          }
+        }
+
+        return true;
       }
       case 'select': {
         return (
@@ -296,6 +329,12 @@ class PreferenceManager {
     }
 
     return result;
+  }
+
+  private resolveNumericConstraint(value: unknown) {
+    return typeof value === 'number' && Number.isFinite(value)
+      ? value
+      : undefined;
   }
 
   private sanitizeCustomPreferences(

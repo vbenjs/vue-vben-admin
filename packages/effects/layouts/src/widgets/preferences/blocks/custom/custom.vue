@@ -34,9 +34,17 @@ function handleBooleanUpdate(key: string, value: boolean | undefined) {
   handleUpdate(key, value ?? false);
 }
 
+function resolveNumberValue(value: unknown) {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value
+    : undefined;
+}
+
 function handleNumberUpdate(key: string, value: number | undefined) {
-  if (typeof value === 'number') {
-    handleUpdate(key, value);
+  const resolvedValue = resolveNumberValue(value);
+
+  if (resolvedValue !== undefined) {
+    handleUpdate(key, resolvedValue);
   }
 }
 
@@ -78,7 +86,7 @@ const resolvedFields = computed(() => {
     <NumberFieldItem
       v-else-if="field.component === 'number'"
       :disabled="field.disabled"
-      :model-value="Number(values[field.key])"
+      :model-value="resolveNumberValue(values[field.key])"
       :placeholder="field.placeholder"
       :tip="field.tip"
       v-bind="field.componentProps"

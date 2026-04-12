@@ -47,6 +47,12 @@ describe('preferences', () => {
   });
 
   beforeEach(() => {
+    vi.mocked(localStorage.getItem).mockImplementation(() => null);
+    vi.mocked(localStorage.removeItem).mockReset();
+    vi.mocked(localStorage.setItem).mockReset();
+    vi.mocked(sessionStorage.getItem).mockImplementation(() => null);
+    vi.mocked(sessionStorage.removeItem).mockReset();
+    vi.mocked(sessionStorage.setItem).mockReset();
     preferenceManager = new PreferenceManager();
   });
 
@@ -364,6 +370,98 @@ describe('preferences', () => {
     expect(preferenceManager.getCustomPreferences()).toEqual(
       originalCustomPreferences,
     );
+  });
+
+  it('enforces custom number field min max and step constraints', async () => {
+    await preferenceManager.initPreferences({
+      extension: {
+        fields: [
+          {
+            component: 'number',
+            componentProps: {
+              max: 10,
+              min: 2,
+              step: 2,
+            },
+            defaultValue: 4,
+            key: 'pageSize',
+            label: '分页大小',
+          },
+        ],
+        tabLabel: '扩展',
+      },
+      namespace: 'custom-number-constraints',
+    });
+
+    preferenceManager.updateCustomPreferences({
+      pageSize: 8,
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 8,
+    });
+
+    preferenceManager.updateCustomPreferences({
+      pageSize: 1,
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 8,
+    });
+
+    preferenceManager.updateCustomPreferences({
+      pageSize: 12,
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 8,
+    });
+
+    preferenceManager.updateCustomPreferences({
+      pageSize: 5,
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 8,
+    });
+  });
+
+  it('filters cached custom number values that violate field constraints', async () => {
+    vi.mocked(localStorage.getItem).mockImplementation((key) => {
+      if (key === 'custom-number-cache-preferences-custom') {
+        return JSON.stringify({
+          value: {
+            pageSize: 5,
+          },
+        });
+      }
+
+      return null;
+    });
+
+    await preferenceManager.initPreferences({
+      extension: {
+        fields: [
+          {
+            component: 'number',
+            componentProps: {
+              max: 10,
+              min: 2,
+              step: 2,
+            },
+            defaultValue: 4,
+            key: 'pageSize',
+            label: '分页大小',
+          },
+        ],
+        tabLabel: '扩展',
+      },
+      namespace: 'custom-number-cache',
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 4,
+    });
   });
 });
 
