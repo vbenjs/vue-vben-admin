@@ -2,7 +2,6 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import { Button, Card, message, Space, Tag } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { useVbenForm } from '#/adapter/form';
 
@@ -58,7 +57,7 @@ function formatJsonPreview(value: Record<string, any>) {
   return JSON.stringify(
     value,
     (_key, currentValue) => {
-      return dayjs.isDayjs(currentValue)
+      return isFormattableDateValue(currentValue)
         ? currentValue.format('YYYY-MM-DD HH:mm:ss')
         : currentValue;
     },
@@ -66,17 +65,15 @@ function formatJsonPreview(value: Record<string, any>) {
   );
 }
 
+function isFormattableDateValue(
+  value: unknown,
+): value is { format: (template: string) => string } {
+  return !!value && typeof value === 'object' && 'format' in value;
+}
+
 async function handleInspectValues() {
   await syncPreviewValues();
   message.success('已刷新 getValues 输出');
-}
-
-function handleSetExampleValue() {
-  formApi.setValues({
-    deadline: dayjs('2026-04-12 18:30:00'),
-    keyword: 'invoice',
-    reportRange: [dayjs('2026-04-01 00:00:00'), dayjs('2026-04-12 23:59:59')],
-  });
 }
 
 function handleSubmit(values: Record<string, any>) {
@@ -117,7 +114,6 @@ onMounted(async () => {
     <Card title="valueFormat 示例">
       <template #extra>
         <Space wrap>
-          <Button @click="handleSetExampleValue">填充示例数据</Button>
           <Button type="primary" @click="handleInspectValues">
             查看 getValues 输出
           </Button>
