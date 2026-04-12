@@ -31,7 +31,7 @@ export const preferencesExtension =
     fields: [
       {
         component: 'input',
-        defaultValue: '本周运营概览',
+        defaultValue: '',
         key: 'reportTitle',
         label: 'demos.preferencesExtensionConfig.fields.reportTitle.label',
         placeholder:
