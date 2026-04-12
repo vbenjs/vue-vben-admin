@@ -14,6 +14,7 @@
     "basic": "Basic Form",
     "layout": "Custom Layout",
     "query": "Query Form",
+    "valueFormat": "Value Format",
     "rules": "Form Rules",
     "dynamic": "Dynamic Form",
     "custom": "Custom Component",
