@@ -232,8 +232,7 @@ export { initComponentAdapter };
 
 ## 值格式化
 
-当组件的展示值与后端真正需要的 payload 不一致时，可以在 schema 上使用
-`valueFormat`。它会在 `getValues()`、提交、以及依赖这些输出的方法中生效。
+当组件的展示值与后端真正需要的 payload 不一致时，可以在 schema 上使用 `valueFormat`。它会在 `getValues()`、提交、以及依赖这些输出的方法中生效。
 
 - `return xxx`：回写当前字段
 - `setValue('startTime', xxx)`：写入其他字段

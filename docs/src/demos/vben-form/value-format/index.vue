@@ -75,10 +75,7 @@ function handleSetExampleValue() {
   formApi.setValues({
     deadline: dayjs('2026-04-12 18:30:00'),
     keyword: 'invoice',
-    reportRange: [
-      dayjs('2026-04-01 00:00:00'),
-      dayjs('2026-04-12 23:59:59'),
-    ],
+    reportRange: [dayjs('2026-04-01 00:00:00'), dayjs('2026-04-12 23:59:59')],
   });
 }
 

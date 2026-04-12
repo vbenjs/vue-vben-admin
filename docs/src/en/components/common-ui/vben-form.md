@@ -193,8 +193,7 @@ Create the form through `useVbenForm`:
 
 ## Value Formatting
 
-Use `schema.valueFormat` when the component value is convenient for the UI but
-the final payload returned by `getValues()` should use a different shape.
+Use `schema.valueFormat` when the component value is convenient for the UI but the final payload returned by `getValues()` should use a different shape.
 
 - return a value to write back to the current field
 - call `setValue(key, nextValue)` to write derived fields
