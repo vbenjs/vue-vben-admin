@@ -44,6 +44,7 @@
     "loginExpired": "Login Expired",
     "icons": "Icons",
     "watermark": "Watermark",
+    "preferencesExtension": "Preferences Extension",
     "tabs": "Tabs",
     "tabDetail": "Tab Detail Page",
     "fullScreen": "FullScreen",
@@ -51,6 +52,63 @@
     "menuWithQuery": "Menu With Query",
     "openInNewWindow": "Open in New Window",
     "fileDownload": "File Download"
+  },
+  "preferencesExtensionDemo": {
+    "description": "This page directly uses extension preferences defined in the playground app. You can modify them in “Preferences → Playground Extension” at the top right, or click the preset buttons below to see the page update in real time.",
+    "currentConfig": "Current Extension Preferences",
+    "currentTitle": "Current Title: {title}",
+    "currentDescription": "Displaying {count} tasks by default; quick actions are {quickActionText}; the current highlight tone is “{tone}”.",
+    "showQuickActions": "shown",
+    "hideQuickActions": "hidden",
+    "boardDescription": "This is a real usage example: the page title, action area, visible row count, and highlight styles are all driven by extension preferences.",
+    "quickActionsEnabled": "Quick actions are currently disabled, so the page only keeps the read-only information view.",
+    "quickActions": {
+      "create": "Create Task",
+      "export": "Batch Export",
+      "refresh": "Refresh Data"
+    },
+    "presetTitle": "Quick Presets (demonstrates updateCustomPreferences)",
+    "presetButtons": {
+      "default": "Reset Default",
+      "compact": "Switch to Compact",
+      "review": "Switch to Review"
+    },
+    "presetTitles": {
+      "compact": "Compact Dashboard",
+      "default": "Weekly Operations Overview",
+      "review": "Review Dashboard"
+    },
+    "tones": {
+      "default": "Default",
+      "success": "Success",
+      "warning": "Warning"
+    },
+    "owner": "Owner"
+  },
+  "preferencesExtensionConfig": {
+    "tabLabel": "Playground Extension",
+    "title": "Playground Business Preferences",
+    "fields": {
+      "reportTitle": {
+        "label": "Report Title",
+        "placeholder": "Please enter the report title"
+      },
+      "defaultVisibleRows": {
+        "label": "Default Visible Rows",
+        "tip": "Controls how many task items are rendered by default on the demo page."
+      },
+      "enableQuickActions": {
+        "label": "Show Quick Actions"
+      },
+      "highlightTone": {
+        "label": "Highlight Tone",
+        "options": {
+          "default": "Default",
+          "success": "Success",
+          "warning": "Warning"
+        }
+      }
+    }
   },
   "breadcrumb": {
     "navigation": "Breadcrumb Navigation",

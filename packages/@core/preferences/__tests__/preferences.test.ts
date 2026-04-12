@@ -1,11 +1,13 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultPreferences } from '../src/config';
-import { PreferenceManager } from '../src/preferences';
 import { isDarkTheme } from '../src/update-css-variables';
 
 describe('preferences', () => {
-  let preferenceManager: PreferenceManager;
+  let PreferenceManager: typeof import('../src/preferences').PreferenceManager;
+  let preferenceManager: InstanceType<
+    typeof import('../src/preferences').PreferenceManager
+  >;
 
   // 模拟 window.matchMedia 方法
   vi.stubGlobal(
@@ -21,6 +23,29 @@ describe('preferences', () => {
       removeListener: vi.fn(), // Deprecated
     })),
   );
+
+  vi.stubGlobal('localStorage', {
+    clear: vi.fn(),
+    getItem: vi.fn(() => null),
+    key: vi.fn(() => null),
+    length: 0,
+    removeItem: vi.fn(),
+    setItem: vi.fn(),
+  });
+
+  vi.stubGlobal('sessionStorage', {
+    clear: vi.fn(),
+    getItem: vi.fn(() => null),
+    key: vi.fn(() => null),
+    length: 0,
+    removeItem: vi.fn(),
+    setItem: vi.fn(),
+  });
+
+  beforeAll(async () => {
+    ({ PreferenceManager } = await import('../src/preferences'));
+  });
+
   beforeEach(() => {
     preferenceManager = new PreferenceManager();
   });
@@ -214,13 +239,131 @@ describe('preferences', () => {
       },
     };
 
-    await preferenceManager.initPreferences(overrides);
+    await preferenceManager.initPreferences({
+      namespace: 'apply-updates',
+      overrides,
+    });
 
     preferenceManager.updatePreferences({
       theme: { mode: 'light' },
     });
 
     expect(preferenceManager.getPreferences().theme.mode).toBe('light');
+  });
+
+  it('initializes custom preferences extension with default values', async () => {
+    const extension = {
+      fields: [
+        {
+          component: 'switch',
+          defaultValue: true,
+          key: 'enableWorkbench',
+          label: '启用工作台',
+        },
+        {
+          component: 'select',
+          defaultValue: 'single',
+          key: 'tenantMode',
+          label: '租户模式',
+          options: [
+            { label: '单租户', value: 'single' },
+            { label: '多租户', value: 'multi' },
+          ],
+        },
+      ],
+      tabLabel: '扩展',
+      title: '业务偏好',
+    } as const;
+
+    await preferenceManager.initPreferences({
+      extension,
+      namespace: 'custom-defaults',
+    });
+
+    expect(preferenceManager.getPreferencesExtension()).toEqual(extension);
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      enableWorkbench: true,
+      tenantMode: 'single',
+    });
+  });
+
+  it('updates and resets custom preferences correctly', async () => {
+    await preferenceManager.initPreferences({
+      extension: {
+        fields: [
+          {
+            component: 'number',
+            defaultValue: 20,
+            key: 'pageSize',
+            label: '分页大小',
+          },
+          {
+            component: 'input',
+            defaultValue: '日报',
+            key: 'reportTitle',
+            label: '报表标题',
+          },
+        ],
+        tabLabel: '扩展',
+      },
+      namespace: 'custom-reset',
+    });
+
+    preferenceManager.updateCustomPreferences({
+      pageSize: 50,
+      reportTitle: '月报',
+    });
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 50,
+      reportTitle: '月报',
+    });
+
+    preferenceManager.resetPreferences();
+
+    expect(preferenceManager.getCustomPreferences()).toEqual({
+      pageSize: 20,
+      reportTitle: '日报',
+    });
+  });
+
+  it('ignores invalid custom preferences updates', async () => {
+    await preferenceManager.initPreferences({
+      extension: {
+        fields: [
+          {
+            component: 'switch',
+            defaultValue: true,
+            key: 'enableWorkbench',
+            label: '启用工作台',
+          },
+          {
+            component: 'select',
+            defaultValue: 'single',
+            key: 'tenantMode',
+            label: '租户模式',
+            options: [
+              { label: '单租户', value: 'single' },
+              { label: '多租户', value: 'multi' },
+            ],
+          },
+        ],
+        tabLabel: '扩展',
+      },
+      namespace: 'custom-invalid',
+    });
+
+    const originalCustomPreferences = preferenceManager.getCustomPreferences();
+
+    preferenceManager.updateCustomPreferences({
+      enableWorkbench: 'true' as unknown as boolean,
+      tenantMode: 'unknown',
+      unknownField: 'value',
+    } as any);
+
+    expect(preferenceManager.getCustomPreferences()).toEqual(
+      originalCustomPreferences,
+    );
   });
 });
 

@@ -44,6 +44,7 @@
     "loginExpired": "登录过期",
     "icons": "图标",
     "watermark": "水印",
+    "preferencesExtension": "偏好扩展示例",
     "tabs": "标签页",
     "tabDetail": "标签详情页",
     "fullScreen": "全屏",
@@ -52,6 +53,63 @@
     "openInNewWindow": "新窗口打开",
     "fileDownload": "文件下载",
     "requestParamsSerializer": "参数序列化"
+  },
+  "preferencesExtensionDemo": {
+    "description": "这个页面直接读取 playground 子项目定义的拓展偏好。你可以在右上角的“偏好设置 → Playground 拓展”中修改字段，也可以点击下方预设按钮，页面会实时联动。",
+    "currentConfig": "当前拓展配置",
+    "currentTitle": "当前标题：{title}",
+    "currentDescription": "默认展示 {count} 条任务；{quickActionText} 快捷操作；当前高亮风格为“{tone}”。",
+    "showQuickActions": "显示",
+    "hideQuickActions": "隐藏",
+    "boardDescription": "这是一个“真实使用”的示例：页面标题、操作区、列表条数和高亮样式都由拓展偏好驱动。",
+    "quickActionsEnabled": "当前已关闭快捷操作，页面只保留只读信息展示。",
+    "quickActions": {
+      "create": "新建任务",
+      "export": "批量导出",
+      "refresh": "刷新数据"
+    },
+    "presetTitle": "快捷预设（演示 updateCustomPreferences 用法）",
+    "presetButtons": {
+      "default": "恢复默认",
+      "compact": "切换紧凑模式",
+      "review": "切换评审模式"
+    },
+    "presetTitles": {
+      "compact": "紧凑模式看板",
+      "default": "本周运营概览",
+      "review": "评审态工作看板"
+    },
+    "tones": {
+      "default": "默认",
+      "success": "成功",
+      "warning": "警告"
+    },
+    "owner": "负责人"
+  },
+  "preferencesExtensionConfig": {
+    "tabLabel": "Playground 拓展",
+    "title": "Playground 业务偏好",
+    "fields": {
+      "reportTitle": {
+        "label": "看板标题",
+        "placeholder": "请输入看板标题"
+      },
+      "defaultVisibleRows": {
+        "label": "默认展示条数",
+        "tip": "用于控制示例页中任务列表默认渲染多少条数据。"
+      },
+      "enableQuickActions": {
+        "label": "显示快捷操作"
+      },
+      "highlightTone": {
+        "label": "高亮风格",
+        "options": {
+          "default": "默认",
+          "success": "成功",
+          "warning": "警告"
+        }
+      }
+    }
   },
   "breadcrumb": {
     "navigation": "面包屑导航",

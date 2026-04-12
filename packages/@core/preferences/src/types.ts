@@ -17,6 +17,84 @@ import type {
 } from '@vben-core/typings';
 
 type SupportedLanguagesType = 'en-US' | 'zh-CN';
+type CustomPreferencesValue = boolean | number | string;
+
+interface CustomPreferencesOption<TValue extends string = string> {
+  label: string;
+  value: TValue;
+}
+
+interface BaseCustomPreferencesField<
+  TKey extends string = string,
+  TValue extends CustomPreferencesValue = CustomPreferencesValue,
+> {
+  componentProps?: Record<string, any>;
+  defaultValue: TValue;
+  disabled?: boolean;
+  key: TKey;
+  label: string;
+  placeholder?: string;
+  tip?: string;
+}
+
+interface CustomPreferencesInputField<
+  TKey extends string = string,
+> extends BaseCustomPreferencesField<TKey, string> {
+  component: 'input';
+}
+
+interface CustomPreferencesNumberField<
+  TKey extends string = string,
+> extends BaseCustomPreferencesField<TKey, number> {
+  component: 'number';
+}
+
+interface CustomPreferencesSelectField<
+  TKey extends string = string,
+> extends BaseCustomPreferencesField<TKey, string> {
+  component: 'select';
+  options: CustomPreferencesOption[];
+}
+
+interface CustomPreferencesSwitchField<
+  TKey extends string = string,
+> extends BaseCustomPreferencesField<TKey, boolean> {
+  component: 'switch';
+}
+
+type CustomPreferencesRecord = Record<string, CustomPreferencesValue>;
+
+type AnyCustomPreferencesField =
+  | CustomPreferencesInputField
+  | CustomPreferencesNumberField
+  | CustomPreferencesSelectField
+  | CustomPreferencesSwitchField;
+
+type CustomPreferencesField<
+  TCustomPreferences extends object = CustomPreferencesRecord,
+> =
+  string extends Extract<keyof TCustomPreferences, string>
+    ? AnyCustomPreferencesField
+    : {
+        [K in Extract<
+          keyof TCustomPreferences,
+          string
+        >]: TCustomPreferences[K] extends boolean
+          ? CustomPreferencesSwitchField<K>
+          : TCustomPreferences[K] extends number
+            ? CustomPreferencesNumberField<K>
+            : TCustomPreferences[K] extends string
+              ? CustomPreferencesInputField<K> | CustomPreferencesSelectField<K>
+              : never;
+      }[Extract<keyof TCustomPreferences, string>];
+
+interface PreferencesExtension<
+  TCustomPreferences extends object = CustomPreferencesRecord,
+> {
+  fields: Array<CustomPreferencesField<TCustomPreferences>>;
+  tabLabel: string;
+  title?: string;
+}
 
 interface AppPreferences {
   /** 权限模式 */
@@ -324,19 +402,33 @@ interface Preferences {
 
 type PreferencesKeys = keyof Preferences;
 
-interface InitialOptions {
+interface InitialOptions<
+  TCustomPreferences extends object = CustomPreferencesRecord,
+> {
+  extension?: PreferencesExtension<TCustomPreferences>;
   namespace: string;
   overrides?: DeepPartial<Preferences>;
 }
 export type {
+  AnyCustomPreferencesField,
   AppPreferences,
+  BaseCustomPreferencesField,
   BreadcrumbPreferences,
+  CustomPreferencesField,
+  CustomPreferencesInputField,
+  CustomPreferencesNumberField,
+  CustomPreferencesOption,
+  CustomPreferencesRecord,
+  CustomPreferencesSelectField,
+  CustomPreferencesSwitchField,
+  CustomPreferencesValue,
   FooterPreferences,
   HeaderPreferences,
   InitialOptions,
   LogoPreferences,
   NavigationPreferences,
   Preferences,
+  PreferencesExtension,
   PreferencesKeys,
   ShortcutKeyPreferences,
   SidebarPreferences,
