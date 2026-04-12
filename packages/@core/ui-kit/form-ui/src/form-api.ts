@@ -29,6 +29,8 @@ import {
   StateHandler,
 } from '@vben-core/shared/utils';
 
+import { resolveFieldNamePath } from './field-name';
+
 function getDefaultState(): VbenFormProps {
   return {
     actionWrapperClass: '',
@@ -212,7 +214,7 @@ export class FormApi {
     return proxy;
   }
 
-  mount(formActions: FormActions, componentRefMap: Map<string, unknown>) {
+  mount(formActions: FormActions, componentRefMap?: Map<string, unknown>) {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
@@ -222,7 +224,8 @@ export class FormApi {
       this.setLatestSubmissionValues({
         ...this.handleValueFormat(initialValues),
       });
-      this.componentRefMap = componentRefMap;
+      this.componentRefMap =
+        componentRefMap ?? this.componentRefMap ?? new Map();
       this.isMounted = true;
     }
   }
@@ -456,13 +459,14 @@ export class FormApi {
     values: Record<string, any>,
     fieldName: string,
   ) {
-    const rawFieldName = this.resolveRawFieldName(fieldName);
+    const { pathSegments, rawKey } = resolveFieldNamePath(fieldName);
+    const rawFieldName = rawKey
+      ? this.resolveRawFieldName(fieldName)
+      : undefined;
     if (rawFieldName) {
       Reflect.deleteProperty(values, rawFieldName);
       return;
     }
-
-    const pathSegments = fieldName.match(/[^.[\]]+/g);
 
     if (!pathSegments || pathSegments.length === 0) {
       Reflect.deleteProperty(values, fieldName);
@@ -653,11 +657,7 @@ export class FormApi {
   };
 
   private resolveRawFieldName(fieldName: string) {
-    if (fieldName.startsWith('[') && fieldName.endsWith(']')) {
-      return fieldName.slice(1, -1);
-    }
-
-    return undefined;
+    return resolveFieldNamePath(fieldName).rawKey;
   }
 
   private resolveValueByFieldName(

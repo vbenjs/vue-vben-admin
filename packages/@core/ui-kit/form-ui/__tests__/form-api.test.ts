@@ -41,9 +41,10 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions, new Map());
+    await formApi.mount(formActions);
     expect(formApi.isMounted).toBe(true);
     expect(formApi.form).toEqual(formActions);
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
   });
 
   it('should get values from form', async () => {
@@ -79,6 +80,7 @@ describe('formApi', () => {
         },
       },
     };
+    const originalValuesSnapshot = structuredClone(formActions.values);
 
     await formApi.mount(formActions, new Map());
 
@@ -96,6 +98,7 @@ describe('formApi', () => {
         startTime: 1_710_000_000_000,
       },
     });
+    expect(formActions.values).toEqual(originalValuesSnapshot);
   });
 
   it('should set field value', async () => {
