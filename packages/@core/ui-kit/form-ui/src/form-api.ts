@@ -375,6 +375,7 @@ export class FormApi {
   unmount() {
     this.form?.resetForm?.();
     // this.state = null;
+    this.componentRefMap = new Map();
     this.latestSubmissionValues = null;
     this.isMounted = false;
     this.stateHandler.reset();

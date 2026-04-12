@@ -157,6 +157,39 @@ describe('formApi', () => {
     expect(formApi.isMounted).toBe(false);
   });
 
+  it('should clear component refs on unmount before mounting again', async () => {
+    const formActions: any = {
+      meta: {},
+      resetForm: vi.fn(),
+      values: { name: 'test' },
+    };
+    const staleMap = new Map<string, unknown>([
+      [
+        'name',
+        {
+          $: {
+            type: { name: 'MockComponent' },
+          },
+          $el: {},
+        },
+      ],
+    ]);
+
+    await formApi.mount(formActions, staleMap);
+    expect(formApi.getFieldComponentRef('name')).toEqual({
+      $: {
+        type: { name: 'MockComponent' },
+      },
+      $el: {},
+    });
+
+    formApi.unmount();
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
+
+    await formApi.mount(formActions);
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
+  });
+
   it('should validate form', async () => {
     const validateMock = vi.fn().mockResolvedValue(true);
     const formActions: any = {
