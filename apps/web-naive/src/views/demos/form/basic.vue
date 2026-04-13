@@ -30,17 +30,18 @@ const layouts = [
 const layout = ref(layouts[0].value);
 
 function getNumberValidator(key: string, limit?: [number, number]) {
-  const validator = z.number({
+  let validator = z.number({
     required_error: `${key} 值不能为空`,
     invalid_type_error: `${key} 值只能为数字`,
   });
 
   if (limit) {
-    validator.min(limit[0], { message: `${key} 值不在区间范围内` });
-    validator.max(limit[1], { message: `${key} 值不在区间范围内` });
+    validator = validator
+      .min(limit[0], { message: `${key} 值不在区间范围内` })
+      .max(limit[1], { message: `${key} 值不在区间范围内` });
   }
 
-  return validator;
+  return validator.default(null);
 }
 
 const paramsSchema = [

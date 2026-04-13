@@ -55,6 +55,10 @@ const bodyStyle = computed(() => {
 });
 
 function init() {
+  if (!modelValue.value) {
+    modelValue.value = {};
+  }
+
   for (const param of props.params) {
     modelValue.value[param.key] = param.defaultValue ?? null;
   }

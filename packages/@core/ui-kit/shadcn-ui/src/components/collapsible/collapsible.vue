@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { CollapsibleRootEmits, CollapsibleRootProps } from 'reka-ui';
 
+import type { ClassType } from '@vben-core/typings';
+
 import { computed } from 'vue';
 
 import { ChevronsDown } from 'lucide-vue-next';

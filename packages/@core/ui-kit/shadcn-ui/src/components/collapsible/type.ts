@@ -4,11 +4,11 @@ export interface CollapsibleParamOption {
   min?: number;
   precision?: number;
   step?: number;
-  type: 'exponential' | 'number' | 'select' | 'string';
+  type?: 'exponential' | 'number' | 'select' | 'string';
 }
 
 export interface CollapsibleParamSchema {
-  defaultValue: number | number[] | string | string[];
+  defaultValue?: number | number[] | string | string[];
   description: string;
   key: string;
   option: CollapsibleParamOption;

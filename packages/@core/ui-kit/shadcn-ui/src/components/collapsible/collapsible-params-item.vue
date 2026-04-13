@@ -15,12 +15,13 @@ const modelValue = defineModel('value');
 const finalOption = computed(() => {
   const { type, ...otherOption } = props.data.option;
 
-  if (type === 'number') {
+  if (type === 'number' || type === 'exponential') {
     return {
       step: props.data.option.step ?? 1,
       min: props.data.option.min,
       max: props.data.option.max,
       precision: props.data.option.precision ?? 0,
+      ...otherOption,
     };
   }
 
