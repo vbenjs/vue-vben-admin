@@ -16,15 +16,20 @@ import { isRef, toRaw } from 'vue';
 import { Store } from '@vben-core/shared/store';
 import {
   bindMethods,
+  cloneDeep,
   createMerge,
   formatDate,
+  get,
   isDate,
   isDayjsObject,
   isFunction,
   isObject,
   mergeWithArrayOverride,
+  set,
   StateHandler,
 } from '@vben-core/shared/utils';
+
+import { resolveFieldNamePath } from './field-name';
 
 function getDefaultState(): VbenFormProps {
   return {
@@ -158,7 +163,10 @@ export class FormApi {
 
   async getValues<T = Recordable<any>>() {
     const form = await this.getForm();
-    return (form.values ? this.handleRangeTimeValue(form.values) : {}) as T;
+    const values = form.values
+      ? this.handleRangeTimeValue(cloneDeep(toRaw(form.values)))
+      : {};
+    return this.handleValueFormat(values) as T;
   }
 
   async isFieldValid(fieldName: string) {
@@ -206,14 +214,18 @@ export class FormApi {
     return proxy;
   }
 
-  mount(formActions: FormActions, componentRefMap: Map<string, unknown>) {
+  mount(formActions: FormActions, componentRefMap?: Map<string, unknown>) {
     if (!this.isMounted) {
       Object.assign(this.form, formActions);
       this.stateHandler.setConditionTrue();
+      const initialValues = this.form.values
+        ? this.handleRangeTimeValue(cloneDeep(toRaw(this.form.values)))
+        : {};
       this.setLatestSubmissionValues({
-        ...toRaw(this.handleRangeTimeValue(this.form.values)),
+        ...this.handleValueFormat(initialValues),
       });
-      this.componentRefMap = componentRefMap;
+      this.componentRefMap =
+        componentRefMap ?? this.componentRefMap ?? new Map();
       this.isMounted = true;
     }
   }
@@ -363,6 +375,7 @@ export class FormApi {
   unmount() {
     this.form?.resetForm?.();
     // this.state = null;
+    this.componentRefMap = new Map();
     this.latestSubmissionValues = null;
     this.isMounted = false;
     this.stateHandler.reset();
@@ -441,6 +454,42 @@ export class FormApi {
       }
     }
     return validateResult;
+  }
+
+  private deleteValueByFieldName(
+    values: Record<string, any>,
+    fieldName: string,
+  ) {
+    const { pathSegments, rawKey } = resolveFieldNamePath(fieldName);
+    if (rawKey) {
+      Reflect.deleteProperty(values, rawKey);
+      return;
+    }
+
+    if (!pathSegments || pathSegments.length === 0) {
+      Reflect.deleteProperty(values, fieldName);
+      return;
+    }
+
+    let target: Record<string, any> | undefined = values;
+
+    for (const segment of pathSegments.slice(0, -1)) {
+      if (!target || !isObject(target)) {
+        return;
+      }
+      target = target[segment];
+    }
+
+    if (!target || !isObject(target)) {
+      return;
+    }
+
+    const lastPathSegment = pathSegments.at(-1);
+    if (!lastPathSegment) {
+      return;
+    }
+
+    Reflect.deleteProperty(target, lastPathSegment);
   }
 
   private async getForm() {
@@ -560,6 +609,36 @@ export class FormApi {
     return values;
   };
 
+  private handleValueFormat = (originValues: Record<string, any>) => {
+    const values = { ...originValues };
+    const currentSchema = this.state?.schema ?? [];
+
+    currentSchema.forEach((schema) => {
+      if (!schema.valueFormat) {
+        return;
+      }
+
+      const fieldName = schema.fieldName;
+      const value = this.resolveValueByFieldName(values, fieldName);
+
+      this.deleteValueByFieldName(values, fieldName);
+
+      const formattedValue = schema.valueFormat(
+        value,
+        (key, nextValue) => {
+          this.setValueByFieldName(values, key, nextValue);
+        },
+        values,
+      );
+
+      if (formattedValue !== undefined) {
+        this.setValueByFieldName(values, fieldName, formattedValue);
+      }
+    });
+
+    return values;
+  };
+
   private processFields = (
     fields: string[],
     separator: string,
@@ -574,6 +653,32 @@ export class FormApi {
       originValues[field] = transformFn(value, separator);
     });
   };
+
+  private resolveValueByFieldName(
+    values: Record<string, any>,
+    fieldName: string,
+  ) {
+    const { rawKey } = resolveFieldNamePath(fieldName);
+    if (rawKey) {
+      return values[rawKey];
+    }
+
+    return get(values, fieldName);
+  }
+
+  private setValueByFieldName(
+    values: Record<string, any>,
+    fieldName: string,
+    value: any,
+  ) {
+    const { rawKey } = resolveFieldNamePath(fieldName);
+    if (rawKey) {
+      values[rawKey] = value;
+      return;
+    }
+
+    set(values, fieldName, value);
+  }
 
   private updateState() {
     const currentSchema = this.state?.schema ?? [];
