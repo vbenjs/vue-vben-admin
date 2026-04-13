@@ -55,7 +55,7 @@ const bodyStyle = computed(() => {
 });
 
 function init(force = false) {
-  const nextValue = { ...(modelValue.value ?? {}) };
+  const nextValue = { ...modelValue.value };
 
   for (const param of props.params) {
     if (force || nextValue[param.key] === undefined) {
