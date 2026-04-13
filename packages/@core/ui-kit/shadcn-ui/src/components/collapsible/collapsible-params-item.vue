@@ -58,9 +58,13 @@ defineExpose({
 </script>
 
 <template>
-  <div class="body-row">
-    <div class="body-cell">{{ data.key }}</div>
-    <div class="body-cell">
+  <div
+    class="body-row flex items-center w-full flex-nowrap not-last-of-type:border-b"
+  >
+    <div class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap">
+      {{ data.key }}
+    </div>
+    <div class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap">
       <div class="flex-auto w-full">
         <component
           :is="FieldComponent"
@@ -77,7 +81,9 @@ defineExpose({
         </span>
       </div>
     </div>
-    <div class="body-cell w-full">
+    <div
+      class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap w-full"
+    >
       <p
         class="line-clamp-2"
         v-tippy="{
@@ -89,10 +95,3 @@ defineExpose({
     </div>
   </div>
 </template>
-<style lang="css" scoped>
-.body-row {
-  &:not(:last-of-type) {
-    @apply border-b;
-  }
-}
-</style>

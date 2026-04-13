@@ -92,17 +92,36 @@ defineExpose({
 </script>
 
 <template>
-  <CollapsibleRoot v-model:open="open" :class="b()" :unmount-on-hide="false">
-    <div class="wrapper">
+  <CollapsibleRoot
+    v-model:open="open"
+    class="border rounded-[0.5rem] flex flex-col w-full overflow-hidden"
+    :class="[b()]"
+    :unmount-on-hide="false"
+  >
+    <div class="wrapper w-full relative flex flex-col overflow-x-auto">
       <div class="w-full min-w-fit">
-        <div class="header">
-          <div class="header-cell">参数名称</div>
-          <div class="header-cell">配置</div>
-          <div class="header-cell">说明</div>
+        <div
+          class="header bg-accent w-full flex-none flex items-center rounded-t-[0.5rem] border-b"
+        >
+          <div
+            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+          >
+            参数名称
+          </div>
+          <div
+            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+          >
+            配置
+          </div>
+          <div
+            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+          >
+            说明
+          </div>
         </div>
 
         <div
-          class="body"
+          class="body w-full flex-none flex flex-col overflow-x-hidden"
           :class="[
             open && !!props.maxHeight ? 'overflow-y-auto' : 'overflow-y-hidden',
           ]"
@@ -131,11 +150,15 @@ defineExpose({
         </div>
       </div>
     </div>
-    <div class="gutter" v-if="!open && collapsibleRows.length > 0"></div>
     <div
-      class="trigger-bar"
+      class="gutter h-[1.5rem]"
+      v-if="!open && collapsibleRows.length > 0"
+    ></div>
+    <div
+      class="trigger-bar flex min-h-[2rem] border-t px-5 pt-1 pb-1 rounded-b-[0.5rem] z-1"
       :class="{
-        collapsed: !open,
+        'collapsed absolute bottom-[1px] left-[1px] right-[1px] border-t-0 pt-6':
+          !open,
       }"
       v-if="collapsibleRows.length > 0"
     >
@@ -154,40 +177,15 @@ defineExpose({
     </div>
   </CollapsibleRoot>
 </template>
-<style lang="css">
+<style>
 .vben-collapsible-params {
-  @apply border rounded-[0.5rem] flex flex-col w-full overflow-hidden;
-
   .wrapper {
     --column1: 11.25rem;
     --column2: 18.25rem;
     --column3: 27.5rem;
 
-    @apply w-full relative flex flex-col overflow-x-auto;
-
-    /* min-width: calc(var(--column1) + var(--column2) + var(--column3)); */
-
-    .header,
-    .body {
-      @apply w-full flex-none flex;
-    }
-
-    .header {
-      @apply bg-accent items-center rounded-t-[0.5rem] border-b;
-    }
-
-    .body {
-      @apply flex-col overflow-x-hidden;
-    }
-
-    .body-row {
-      @apply flex items-center w-full flex-nowrap;
-    }
-
     .header-cell,
     .body-cell {
-      @apply py-2 px-5 leading-[1.5rem] flex items-center  flex-nowrap;
-
       &:nth-of-type(1) {
         flex: 0 0 var(--column1);
 
@@ -207,16 +205,8 @@ defineExpose({
     }
   }
 
-  .gutter {
-    @apply h-[1.5rem];
-  }
-
   .trigger-bar {
-    @apply flex min-h-[2rem] border-t px-5 py-1  rounded-b-[0.5rem] z-1;
-
     &.collapsed {
-      @apply absolute bottom-[1px] left-[1px] right-[1px] border-t-0 pt-6;
-
       background-image: linear-gradient(
         hsl(var(--foreground) / 0%) 0%,
         hsl(var(--foreground) / 12%) 31.76%,
