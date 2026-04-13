@@ -63,7 +63,7 @@ export const preferencesExtension =
       },
       {
         component: 'input',
-        defaultValue: '欢迎使用 Web Antd',
+        defaultValue: '',
         key: 'reportTitle',
         label: 'preferences.antd.fields.reportTitle.label',
         placeholder: 'preferences.antd.fields.reportTitle.placeholder',

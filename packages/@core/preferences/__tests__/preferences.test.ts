@@ -293,6 +293,58 @@ describe('preferences', () => {
     });
   });
 
+  it('does not expose mutable custom preference baselines or extension schema', async () => {
+    const extension = {
+      fields: [
+        {
+          component: 'number',
+          componentProps: {
+            max: 10,
+            min: 2,
+            step: 2,
+          },
+          defaultValue: 4,
+          key: 'pageSize',
+          label: '分页大小',
+        },
+      ],
+      tabLabel: '扩展',
+      title: '业务偏好',
+    } as const;
+
+    await preferenceManager.initPreferences({
+      extension,
+      namespace: 'custom-readonly',
+    });
+
+    const initialCustomPreferences =
+      preferenceManager.getInitialCustomPreferences<{
+        pageSize: number;
+      }>() as { pageSize: number };
+    const preferencesExtension = preferenceManager.getPreferencesExtension<{
+      pageSize: number;
+    }>() as {
+      fields: Array<{ componentProps?: { max?: number }; label: string }>;
+    };
+    const [firstField] = preferencesExtension.fields;
+
+    initialCustomPreferences.pageSize = 8;
+    expect(firstField).toBeDefined();
+    expect(firstField?.componentProps).toBeDefined();
+
+    if (!firstField || !firstField.componentProps) {
+      return;
+    }
+
+    firstField.label = '已修改';
+    firstField.componentProps.max = 20;
+
+    expect(preferenceManager.getInitialCustomPreferences()).toEqual({
+      pageSize: 4,
+    });
+    expect(preferenceManager.getPreferencesExtension()).toEqual(extension);
+  });
+
   it('updates and resets custom preferences correctly', async () => {
     await preferenceManager.initPreferences({
       extension: {

@@ -69,7 +69,9 @@ class PreferenceManager {
   getInitialCustomPreferences = <
     TCustomPreferences extends object = CustomPreferencesRecord,
   >() => {
-    return this.initialCustomPreferences as TCustomPreferences;
+    return this.cloneValue(
+      this.initialCustomPreferences,
+    ) as Readonly<TCustomPreferences>;
   };
 
   /**
@@ -89,8 +91,14 @@ class PreferenceManager {
   /**
    * 获取扩展偏好设置配置
    */
-  getPreferencesExtension = () => {
-    return this.customPreferencesExtension;
+  getPreferencesExtension = <
+    TCustomPreferences extends object = CustomPreferencesRecord,
+  >() => {
+    return this.customPreferencesExtension
+      ? (this.cloneValue(this.customPreferencesExtension) as Readonly<
+          PreferencesExtension<TCustomPreferences>
+        >)
+      : null;
   };
 
   /**
@@ -206,6 +214,22 @@ class PreferenceManager {
     // 保存到缓存
     this.debouncedSave();
   };
+
+  private cloneValue<T>(value: T): T {
+    if (Array.isArray(value)) {
+      return value.map((item) => this.cloneValue(item)) as T;
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value as Record<string, unknown>).map(
+          ([key, nestedValue]) => [key, this.cloneValue(nestedValue)],
+        ),
+      ) as T;
+    }
+
+    return value;
+  }
 
   /**
    * 处理更新
