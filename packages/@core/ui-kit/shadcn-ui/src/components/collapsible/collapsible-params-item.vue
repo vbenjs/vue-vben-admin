@@ -20,7 +20,7 @@ const finalOption = computed(() => {
       step: props.data.option.step ?? 1,
       min: props.data.option.min,
       max: props.data.option.max,
-      precision: props.data.option.precision ?? 0,
+      precision: props.data.option.precision,
       ...otherOption,
     };
   }

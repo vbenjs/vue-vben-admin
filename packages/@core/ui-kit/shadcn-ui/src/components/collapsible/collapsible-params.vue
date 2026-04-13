@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollapsibleParamSchema } from './type';
 
-import { computed, nextTick, ref, useTemplateRef } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 
 import { useNamespace } from '@vben-core/composables';
 
@@ -46,6 +46,10 @@ const collapsibleRows = computed(() => {
 });
 
 const bodyStyle = computed(() => {
+  if (!open.value || props.maxHeight == null) {
+    return undefined;
+  }
+
   return {
     maxHeight:
       typeof props.maxHeight === 'number'
@@ -89,7 +93,11 @@ function resetValue() {
   init(true);
 }
 
-init();
+watch(
+  () => props.params,
+  () => init(),
+  { immediate: true, deep: true },
+);
 
 defineExpose({
   toggleCollapsed,
@@ -112,17 +120,17 @@ defineExpose({
           <div
             class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
-            参数名称
+            Name
           </div>
           <div
             class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
-            配置
+            Value
           </div>
           <div
             class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
-            说明
+            Description
           </div>
         </div>
 
@@ -178,7 +186,7 @@ defineExpose({
             'rotate-180': open,
           }"
         />
-        {{ open ? '收起' : '展开' }}
+        {{ open ? 'Fold' : 'Unfold' }}
       </CollapsibleTrigger>
     </div>
   </CollapsibleRoot>

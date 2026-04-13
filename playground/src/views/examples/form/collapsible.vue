@@ -52,6 +52,8 @@ const paramsSchema: CollapsibleParamSchema[] = [
     option: {
       step: 1e-4,
       type: 'exponential',
+      min: 0,
+      max: 1,
     },
   },
   {
