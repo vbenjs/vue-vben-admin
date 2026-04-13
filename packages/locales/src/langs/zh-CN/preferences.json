@@ -197,5 +197,33 @@
     "sidebarToggle": "启用侧边栏切换",
     "lockScreen": "启用锁屏",
     "refresh": "启用刷新"
+  },
+  "antd": {
+    "tabLabel": "Antd 拓展",
+    "title": "业务偏好",
+    "fields": {
+      "enableFormFullscreen": {
+        "label": "启用表单全屏模式",
+        "tip": "子项目可在自己的业务场景中读取这个拓展配置。"
+      },
+      "tenantMode": {
+        "label": "租户模式",
+        "options": {
+          "single": {
+            "label": "单租户"
+          },
+          "multi": {
+            "label": "多租户"
+          }
+        }
+      },
+      "defaultTableSize": {
+        "label": "默认分页条数"
+      },
+      "reportTitle": {
+        "label": "报表默认标题",
+        "placeholder": "请输入报表默认标题"
+      }
+    }
   }
 }
