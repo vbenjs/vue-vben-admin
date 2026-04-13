@@ -235,8 +235,8 @@ catalogs:
       specifier: ^1.4.7
       version: 1.4.7
     dotenv:
-      specifier: ^17.4.1
-      version: 17.4.1
+      specifier: ^17.4.2
+      version: 17.4.2
     echarts:
       specifier: ^6.0.0
       version: 6.0.0
@@ -1276,7 +1276,7 @@ importers:
         version: 1.11.20
       dotenv:
         specifier: 'catalog:'
-        version: 17.4.1
+        version: 17.4.2
       rolldown:
         specifier: 'catalog:'
         version: 1.0.0-rc.15
@@ -7149,6 +7149,10 @@ packages:
 
   dotenv@17.4.1:
     resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
+    engines: {node: '>=12'}
+
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   dotenv@8.6.0:
@@ -16596,6 +16600,8 @@ snapshots:
       type-fest: 4.41.0
 
   dotenv@17.4.1: {}
+
+  dotenv@17.4.2: {}
 
   dotenv@8.6.0: {}
 
