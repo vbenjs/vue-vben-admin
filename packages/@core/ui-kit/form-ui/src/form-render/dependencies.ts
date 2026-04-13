@@ -10,6 +10,7 @@ import { get, isBoolean, isFunction } from '@vben-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 
+import { resolveFieldNamePath } from '../field-name';
 import { injectRenderFormProps } from './context';
 
 /**
@@ -22,8 +23,8 @@ function resolveValueByFieldName(
   fieldName: string,
 ) {
   // vee-validate：[] 表示禁用嵌套
-  if (fieldName.startsWith('[') && fieldName.endsWith(']')) {
-    const rawKey = fieldName.slice(1, -1);
+  const { rawKey } = resolveFieldNamePath(fieldName);
+  if (rawKey) {
     return values[rawKey];
   }
 

@@ -17,6 +17,7 @@
     "basic": "基础表单",
     "layout": "自定义布局",
     "query": "查询表单",
+    "valueFormat": "值格式化",
     "rules": "表单校验",
     "dynamic": "动态表单",
     "custom": "自定义组件",

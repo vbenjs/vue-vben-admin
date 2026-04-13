@@ -44,6 +44,7 @@ describe('formApi', () => {
     await formApi.mount(formActions);
     expect(formApi.isMounted).toBe(true);
     expect(formApi.form).toEqual(formActions);
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
   });
 
   it('should get values from form', async () => {
@@ -52,9 +53,52 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     const values = await formApi.getValues();
     expect(values).toEqual({ name: 'test' });
+  });
+
+  it('should format schema values when getting values', async () => {
+    formApi.setState({
+      schema: [
+        {
+          component: 'range-picker',
+          fieldName: 'filters.range',
+          valueFormat: (value, setValue) => {
+            setValue('filters.startTime', value?.[0]);
+            setValue('filters.endTime', value?.[1]);
+          },
+        },
+      ],
+    });
+
+    const formActions: any = {
+      meta: {},
+      values: {
+        filters: {
+          range: [1_710_000_000_000, 1_720_000_000_000],
+        },
+      },
+    };
+    const originalValuesSnapshot = structuredClone(formActions.values);
+
+    await formApi.mount(formActions, new Map());
+
+    expect(formApi.getLatestSubmissionValues()).toEqual({
+      filters: {
+        endTime: 1_720_000_000_000,
+        startTime: 1_710_000_000_000,
+      },
+    });
+
+    const values = await formApi.getValues();
+    expect(values).toEqual({
+      filters: {
+        endTime: 1_720_000_000_000,
+        startTime: 1_710_000_000_000,
+      },
+    });
+    expect(formActions.values).toEqual(originalValuesSnapshot);
   });
 
   it('should set field value', async () => {
@@ -65,7 +109,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     await formApi.setFieldValue('name', 'new value');
     expect(setFieldValueMock).toHaveBeenCalledWith(
       'name',
@@ -82,7 +126,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     await formApi.resetForm();
     expect(resetFormMock).toHaveBeenCalled();
   });
@@ -100,7 +144,7 @@ describe('formApi', () => {
     };
 
     formApi.setState(state);
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
 
     const result = await formApi.submitForm();
     expect(formActions.submitForm).toHaveBeenCalled();
@@ -113,6 +157,39 @@ describe('formApi', () => {
     expect(formApi.isMounted).toBe(false);
   });
 
+  it('should clear component refs on unmount before mounting again', async () => {
+    const formActions: any = {
+      meta: {},
+      resetForm: vi.fn(),
+      values: { name: 'test' },
+    };
+    const staleMap = new Map<string, unknown>([
+      [
+        'name',
+        {
+          $: {
+            type: { name: 'MockComponent' },
+          },
+          $el: {},
+        },
+      ],
+    ]);
+
+    await formApi.mount(formActions, staleMap);
+    expect(formApi.getFieldComponentRef('name')).toEqual({
+      $: {
+        type: { name: 'MockComponent' },
+      },
+      $el: {},
+    });
+
+    formApi.unmount();
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
+
+    await formApi.mount(formActions);
+    expect(formApi.getFieldComponentRef('name')).toBeUndefined();
+  });
+
   it('should validate form', async () => {
     const validateMock = vi.fn().mockResolvedValue(true);
     const formActions: any = {
@@ -120,7 +197,7 @@ describe('formApi', () => {
       validate: validateMock,
     };
 
-    await formApi.mount(formActions);
+    await formApi.mount(formActions, new Map());
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);

@@ -191,12 +191,23 @@ Create the form through `useVbenForm`:
 
 <DemoPreview dir="demos/vben-form/basic" />
 
+## Value Formatting
+
+Use `schema.valueFormat` when the component value is convenient for the UI but the final payload returned by `getValues()` should use a different shape.
+
+- return a value to write back to the current field
+- call `setValue(key, nextValue)` to write derived fields
+- return `undefined` to keep the original field removed after decomposition
+
+<DemoPreview dir="demos/vben-form/value-format" />
+
 ## Key API Notes
 
 - `useVbenForm` returns `[Form, formApi]`
 - `formApi.getFieldComponentRef()` and `formApi.getFocusedField()` are available in current versions
 - `handleValuesChange(values, fieldsChanged)` includes the second parameter in newer versions
 - `fieldMappingTime` and `scrollToFirstError` are part of the current form props
+- `schema.valueFormat` lets `getValues()` transform UI values into backend-friendly payloads
 
 ## Reference
 
