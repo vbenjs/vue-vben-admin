@@ -125,6 +125,16 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'PreferencesExtensionDemo',
+            path: '/demos/features/preferences-extension',
+            component: () =>
+              import('#/views/demos/features/preferences-extension/index.vue'),
+            meta: {
+              icon: 'lucide:sliders-horizontal',
+              title: $t('demos.features.preferencesExtension'),
+            },
+          },
+          {
             name: 'FeatureTabsDemo',
             path: '/demos/features/tabs',
             component: () => import('#/views/demos/features/tabs/index.vue'),
