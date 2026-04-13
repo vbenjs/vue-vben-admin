@@ -28,7 +28,8 @@
     "upload-urls": "文件上传后的网址",
     "file": "文件",
     "crop-image": "裁剪图片",
-    "upload-image": "点击上传图片"
+    "upload-image": "点击上传图片",
+    "collapsible": "单项表单折叠"
   },
   "vxeTable": {
     "title": "Vxe 表格",

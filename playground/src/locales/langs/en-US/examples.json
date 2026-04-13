@@ -25,7 +25,8 @@
     "upload-urls": "Urls after file upload",
     "file": "file",
     "crop-image": "Crop image",
-    "upload-image": "Click to upload image"
+    "upload-image": "Click to upload image",
+    "collapsible": "Collapsible FormItem Content"
   },
   "vxeTable": {
     "title": "Vxe Table",

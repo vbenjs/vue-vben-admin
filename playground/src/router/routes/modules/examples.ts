@@ -102,6 +102,14 @@ const routes: RouteRecordRaw[] = [
               title: $t('examples.form.scrollToError'),
             },
           },
+          {
+            name: 'FormCollapsibleExample',
+            path: '/examples/form/collapsible-test',
+            component: () => import('#/views/examples/form/collapsible.vue'),
+            meta: {
+              title: $t('examples.form.collapsible'),
+            },
+          },
         ],
       },
       {

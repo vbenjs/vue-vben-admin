@@ -30,10 +30,6 @@ const submitButtonOptions = computed(() => {
   };
 });
 
-// const isQueryForm = computed(() => {
-//   return !!unref(rootProps).showCollapseButton;
-// });
-
 async function handleSubmit(e: Event) {
   e?.preventDefault();
   e?.stopPropagation();

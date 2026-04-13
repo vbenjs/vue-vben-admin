@@ -1,0 +1,230 @@
+<script setup lang="ts">
+import type { CollapsibleParamSchema } from './type';
+
+import { computed, nextTick, ref, useTemplateRef } from 'vue';
+
+import { useNamespace } from '@vben-core/composables';
+
+import { ChevronsDown } from 'lucide-vue-next';
+import {
+  CollapsibleContent,
+  CollapsibleRoot,
+  CollapsibleTrigger,
+} from 'reka-ui';
+
+import CollapsibleParamsItem from './collapsible-params-item.vue';
+
+interface Props {
+  defaultOpen?: boolean;
+  maxHeight?: number | string;
+  params: CollapsibleParamSchema[];
+  visibleCount?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  visibleCount: 3,
+  defaultOpen: false,
+  maxHeight: undefined,
+});
+
+const emits = defineEmits<{ 'update:value': [any, string] }>();
+
+const modelValue = defineModel('value');
+const visibleRefs = useTemplateRef('visibleRefs');
+const collapsibleRefs = useTemplateRef('collapsibleRefs');
+
+const { b } = useNamespace('collapsible-params');
+
+const open = ref(props.defaultOpen);
+
+const visibleRows = computed(() => {
+  return props.params.slice(0, props.visibleCount);
+});
+
+const collapsibleRows = computed(() => {
+  return props.params.slice(props.visibleCount);
+});
+
+const bodyStyle = computed(() => {
+  return {
+    maxHeight:
+      typeof props.maxHeight === 'number'
+        ? `${props.maxHeight}px`
+        : props.maxHeight,
+  };
+});
+
+function init() {
+  for (const param of props.params) {
+    modelValue.value[param.key] = param.defaultValue ?? null;
+  }
+}
+
+function toggleCollapsed() {
+  open.value = !open.value;
+}
+
+async function onParamValueChange(value: any, key: string) {
+  await nextTick();
+  emits('update:value', modelValue.value, key);
+}
+
+function resetValue() {
+  if (visibleRefs.value)
+    for (const rowRef of visibleRefs.value) {
+      rowRef.reset();
+    }
+
+  if (collapsibleRefs.value)
+    for (const rowRef of collapsibleRefs.value) {
+      rowRef.reset();
+    }
+
+  init();
+}
+
+init();
+
+defineExpose({
+  toggleCollapsed,
+  resetValue,
+});
+</script>
+
+<template>
+  <CollapsibleRoot v-model:open="open" :class="b()" :unmount-on-hide="false">
+    <div class="wrapper">
+      <div class="w-full min-w-fit">
+        <div class="header">
+          <div class="header-cell">参数名称</div>
+          <div class="header-cell">配置</div>
+          <div class="header-cell">说明</div>
+        </div>
+
+        <div
+          class="body"
+          :class="[
+            open && !!props.maxHeight ? 'overflow-y-auto' : 'overflow-y-hidden',
+          ]"
+          :style="bodyStyle"
+        >
+          <CollapsibleParamsItem
+            :data="row"
+            v-for="row in visibleRows"
+            :key="row.key"
+            ref="visibleRefs"
+            v-model:value="modelValue[row.key]"
+            @update:value="(v) => onParamValueChange(v, row.key)"
+          />
+          <CollapsibleContent
+            class="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up"
+          >
+            <CollapsibleParamsItem
+              :data="row"
+              v-for="row in collapsibleRows"
+              :key="row.key"
+              ref="collapsibleRefs"
+              v-model:value="modelValue[row.key]"
+              @update:value="(v) => onParamValueChange(v, row.key)"
+            />
+          </CollapsibleContent>
+        </div>
+      </div>
+    </div>
+    <div class="gutter" v-if="!open && collapsibleRows.length > 0"></div>
+    <div
+      class="trigger-bar"
+      :class="{
+        collapsed: !open,
+      }"
+      v-if="collapsibleRows.length > 0"
+    >
+      <CollapsibleTrigger
+        class="cursor-pointer h-[2rem] flex items-center gap-2"
+      >
+        <ChevronsDown
+          class="transition-transform"
+          :size="16"
+          :class="{
+            'rotate-180': open,
+          }"
+        />
+        {{ open ? '收起' : '展开' }}
+      </CollapsibleTrigger>
+    </div>
+  </CollapsibleRoot>
+</template>
+<style lang="css">
+.vben-collapsible-params {
+  @apply border rounded-[0.5rem] flex flex-col w-full overflow-hidden;
+
+  .wrapper {
+    --column1: 11.25rem;
+    --column2: 18.25rem;
+    --column3: 27.5rem;
+
+    @apply w-full relative flex flex-col overflow-x-auto;
+
+    /* min-width: calc(var(--column1) + var(--column2) + var(--column3)); */
+
+    .header,
+    .body {
+      @apply w-full flex-none flex;
+    }
+
+    .header {
+      @apply bg-accent items-center rounded-t-[0.5rem] border-b;
+    }
+
+    .body {
+      @apply flex-col overflow-x-hidden;
+    }
+
+    .body-row {
+      @apply flex items-center w-full flex-nowrap;
+    }
+
+    .header-cell,
+    .body-cell {
+      @apply py-2 px-5 leading-[1.5rem] flex items-center  flex-nowrap;
+
+      &:nth-of-type(1) {
+        flex: 0 0 var(--column1);
+
+        /* min-width: var(--column1); */
+      }
+
+      &:nth-of-type(2) {
+        flex: 0 0 var(--column2);
+
+        /* min-width: var(--column2); */
+      }
+
+      &:nth-of-type(3) {
+        flex: 1 1 var(--column3);
+        min-width: var(--column3);
+      }
+    }
+  }
+
+  .gutter {
+    @apply h-[1.5rem];
+  }
+
+  .trigger-bar {
+    @apply flex min-h-[2rem] border-t px-5 py-1  rounded-b-[0.5rem] z-1;
+
+    &.collapsed {
+      @apply absolute bottom-[1px] left-[1px] right-[1px] border-t-0 pt-6;
+
+      background-image: linear-gradient(
+        hsl(var(--foreground) / 0%) 0%,
+        hsl(var(--foreground) / 12%) 31.76%,
+        var(--color-border) 31.76%,
+        var(--color-border) 33.43%,
+        var(--color-background) 31.76%
+      );
+    }
+  }
+}
+</style>

@@ -146,6 +146,10 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
+   * 是否可折叠的
+   */
+  collapsible?: boolean;
+  /**
    * 在Label后显示一个冒号
    */
   colon?: boolean;
@@ -157,6 +161,11 @@ export interface FormCommonConfig {
    * 所有表单项的控件样式
    */
   controlClass?: string;
+  /**
+   * 默认折叠
+   * @default false
+   */
+  defaultCollapsed?: boolean;
   /**
    * 所有表单项的禁用状态
    * @default false

@@ -1,0 +1,98 @@
+<script setup lang="ts">
+import type { CollapsibleParamSchema } from './type';
+
+import { computed } from 'vue';
+
+import { globalShareState } from '@vben-core/shared/global-state';
+
+interface Props {
+  data: CollapsibleParamSchema;
+}
+const props = defineProps<Props>();
+
+const modelValue = defineModel('value');
+
+const finalOption = computed(() => {
+  const { type, ...otherOption } = props.data.option;
+
+  if (type === 'number') {
+    return {
+      step: props.data.option.step ?? 1,
+      min: props.data.option.min,
+      max: props.data.option.max,
+      precision: props.data.option.precision ?? 0,
+    };
+  }
+
+  return otherOption;
+});
+
+const components = globalShareState.getComponents();
+
+const FieldComponent = computed(() => {
+  switch (props.data.option.type) {
+    case 'exponential':
+    case 'number': {
+      return components.InputNumber;
+    }
+    case 'select': {
+      return components.Select;
+    }
+    case 'string': {
+      return components.Input;
+    }
+
+    default: {
+      return components.InputNumber;
+    }
+  }
+});
+
+function reset() {
+  modelValue.value = props.data.defaultValue;
+}
+
+defineExpose({
+  reset,
+});
+</script>
+
+<template>
+  <div class="body-row">
+    <div class="body-cell">{{ data.key }}</div>
+    <div class="body-cell">
+      <div class="flex-auto w-full">
+        <component
+          :is="FieldComponent"
+          v-bind="finalOption"
+          v-model:value="modelValue"
+        />
+      </div>
+      <div class="flex items-center flex-none text-muted-foreground pl-2 gap-2">
+        <span v-if="data.option.min && data.option.max">
+          [{{ data.option.min }},{{ data.option.max }}]
+        </span>
+        <span v-if="data.option.step && data.option.step !== 1">
+          step:{{ data.option.step }}
+        </span>
+      </div>
+    </div>
+    <div class="body-cell w-full">
+      <p
+        class="line-clamp-2"
+        v-tippy="{
+          content: data.description,
+        }"
+      >
+        {{ data.description }}
+      </p>
+    </div>
+  </div>
+</template>
+<style lang="css" scoped>
+.body-row {
+  &:not(:last-of-type) {
+    @apply border-b;
+  }
+}
+</style>
