@@ -54,14 +54,16 @@ const bodyStyle = computed(() => {
   };
 });
 
-function init() {
-  if (!modelValue.value) {
-    modelValue.value = {};
-  }
+function init(force = false) {
+  const nextValue = { ...(modelValue.value ?? {}) };
 
   for (const param of props.params) {
-    modelValue.value[param.key] = param.defaultValue ?? null;
+    if (force || nextValue[param.key] === undefined) {
+      nextValue[param.key] = param.defaultValue ?? null;
+    }
   }
+
+  modelValue.value = nextValue;
 }
 
 function toggleCollapsed() {
@@ -84,7 +86,7 @@ function resetValue() {
       rowRef.reset();
     }
 
-  init();
+  init(true);
 }
 
 init();
@@ -108,17 +110,17 @@ defineExpose({
           class="header bg-accent w-full flex-none flex items-center rounded-t-[0.5rem] border-b"
         >
           <div
-            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+            class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
             参数名称
           </div>
           <div
-            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+            class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
             配置
           </div>
           <div
-            class="pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
+            class="header-cell pt-2 pb-2 px-5 leading-[1.5rem] flex items-center flex-nowrap"
           >
             说明
           </div>
