@@ -480,7 +480,7 @@ describe('preferences', () => {
 
   it('filters cached custom number values that violate field constraints', async () => {
     vi.mocked(localStorage.getItem).mockImplementation((key) => {
-      if (key === 'custom-number-cache-preferences-custom') {
+      if (key.endsWith('cache-preferences-custom')) {
         return JSON.stringify({
           value: {
             pageSize: 5,
