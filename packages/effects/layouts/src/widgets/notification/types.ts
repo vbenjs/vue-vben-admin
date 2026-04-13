@@ -12,6 +12,8 @@ interface NotificationItem {
   link?: string;
   query?: Record<string, any>;
   state?: Record<string, any>;
+  /** 业务字段 */
+  [key: string]: any;
 }
 
 export type { NotificationItem };

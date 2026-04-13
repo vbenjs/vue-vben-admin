@@ -24,6 +24,7 @@ export {
   VbenContextMenu,
   VbenCountToAnimator,
   VbenFullScreen,
+  VbenIconButton,
   VbenInputPassword,
   VbenLoading,
   VbenLogo,
