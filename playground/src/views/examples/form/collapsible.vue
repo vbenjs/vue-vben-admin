@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { RadioGroupProps } from 'ant-design-vue';
+
 import type { FormLayout } from '@vben/common-ui';
 
 import type { CollapsibleParamSchema } from '@vben-core/shadcn-ui';
@@ -15,12 +17,12 @@ import { useVbenForm, z } from '#/adapter/form';
 
 import DocButton from '../doc-button.vue';
 
-const layouts: { label: string; value: FormLayout }[] = [
+const layouts: RadioGroupProps['options'] = [
   { label: 'Vertical', value: 'vertical' },
   { label: 'Horizontal', value: 'horizontal' },
 ];
 
-const layout = ref(layouts[0]?.value ?? 'vertical');
+const layout = ref<FormLayout>('vertical');
 
 function getNumberValidator(key: string, limit?: [number?, number?]) {
   let validator = z.number({
@@ -144,13 +146,16 @@ const [BaseForm, baseFormApi] = useVbenForm({
         class: 'w-auto',
       },
       label: 'QAT',
+      formItemClass: 'col-span-2',
       defaultValue: false,
     },
     {
-      component: VbenCollapsibleParams,
+      component: 'CollapsibleParams',
       componentProps: {
         params: paramsSchema,
         // maxHeight: 200, //限制最大高度，展开后可滚动
+        // defaultOpen: true, // 默认false折叠
+        // visibleCount: 0 // 默认3，最小可见为1，小于1取1
       },
       modelPropName: 'value',
       fieldName: 'params',
@@ -194,7 +199,6 @@ const [BaseForm, baseFormApi] = useVbenForm({
           } else {
             paramsRef?.updateValues?.({
               calib_steps: null,
-              micro_batch_size: 8,
             });
           }
         },
@@ -208,9 +212,15 @@ const [BaseForm, baseFormApi] = useVbenForm({
         },
       },
       rules: paramsValidator,
-      // defaultValue: {
-      //   micro_batch_size: 24,
-      // },
+      defaultValue: {
+        micro_batch_size: 8,
+        learning_rate: 1e-5,
+        eval_steps: 50,
+        num_train_epochs: 3,
+        max_length: 32_768,
+        warmup_ratio: 0.05,
+        save_steps: 50,
+      },
     },
     {
       component: 'RichEditor',
@@ -230,21 +240,21 @@ function onSubmit(values: Record<string, any>) {
   });
 }
 
-function onLayoutChange(layout: FormLayout) {
+function onLayoutChange() {
   baseFormApi.setState({
-    layout,
+    layout: layout.value,
   });
 }
 
 function handleSetFormValue() {
   baseFormApi.setFieldValue('params', {
-    micro_batch_size: 8,
+    micro_batch_size: 1024,
     learning_rate: 1e-5,
-    eval_steps: 50,
-    num_train_epochs: 3,
-    max_length: 32_768,
+    eval_steps: 150,
+    num_train_epochs: 13,
+    max_length: 131_072,
     warmup_ratio: 0.05,
-    save_steps: 50,
+    save_steps: 150,
   });
 }
 
@@ -282,7 +292,7 @@ async function handleSubmitFormValue() {
             :options="layouts"
             option-type="button"
             v-model:value="layout"
-            @update:value="onLayoutChange"
+            @change="onLayoutChange"
           />
           <Button type="primary" @click="handleSetFormValue">
             设置表单值

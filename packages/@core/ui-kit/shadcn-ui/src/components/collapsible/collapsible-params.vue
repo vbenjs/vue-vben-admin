@@ -42,12 +42,17 @@ const { b } = useNamespace('collapsible-params');
 
 const open = ref(props.defaultOpen);
 
+// 最小可见为1
+const finalVisibleCount = computed(() =>
+  Math.max(1, Math.floor(props.visibleCount)),
+);
+
 const visibleRows = computed(() => {
-  return props.params.slice(0, props.visibleCount);
+  return props.params.slice(0, finalVisibleCount.value);
 });
 
 const collapsibleRows = computed(() => {
-  return props.params.slice(props.visibleCount);
+  return props.params.slice(finalVisibleCount.value);
 });
 
 const bodyStyle = computed(() => {

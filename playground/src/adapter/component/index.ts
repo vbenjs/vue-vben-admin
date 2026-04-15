@@ -42,6 +42,8 @@ import type { Sortable } from '@vben/hooks';
 import type { TipTapProps } from '@vben/plugins/tiptap';
 import type { Recordable } from '@vben/types';
 
+import type { CollapsibleParamsProps } from '@vben-core/shadcn-ui';
+
 import {
   computed,
   defineAsyncComponent,
@@ -68,8 +70,9 @@ import { $t } from '@vben/locales';
 import { VbenTiptap } from '@vben/plugins/tiptap';
 import { isEmpty } from '@vben/utils';
 
-import { message, Modal, notification } from 'ant-design-vue';
+import { VbenCollapsibleParams } from '@vben-core/shadcn-ui';
 
+import { message, Modal, notification } from 'ant-design-vue';
 type AdapterUploadProps = UploadProps & {
   aspectRatio?: string;
   crop?: boolean;
@@ -606,6 +609,7 @@ export type ComponentType =
   | 'Cascader'
   | 'Checkbox'
   | 'CheckboxGroup'
+  | 'CollapsibleParams'
   | 'DatePicker'
   | 'DefaultButton'
   | 'Divider'
@@ -640,6 +644,7 @@ export interface ComponentPropsMap {
   Cascader: CascaderProps;
   Checkbox: CheckboxProps;
   CheckboxGroup: CheckboxGroupProps;
+  CollapsibleParams: CollapsibleParamsProps;
   DatePicker: DatePickerProps;
   DefaultButton: ButtonProps;
   Divider: DividerProps;
@@ -725,6 +730,7 @@ async function initComponentAdapter() {
     TimePicker,
     TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
     Upload: withPreviewUpload(),
+    CollapsibleParams: VbenCollapsibleParams,
   };
 
   // 将组件注册到全局共享状态中

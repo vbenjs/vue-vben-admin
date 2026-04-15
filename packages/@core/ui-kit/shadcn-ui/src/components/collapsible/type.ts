@@ -1,3 +1,10 @@
+export interface CollapsibleParamsProps {
+  defaultOpen?: boolean;
+  maxHeight?: number | string;
+  params: CollapsibleParamSchema[];
+  visibleCount?: number;
+}
+
 export interface CollapsibleParamOption {
   [key: string]: any;
   max?: number;
