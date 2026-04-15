@@ -103,16 +103,17 @@ function resetValues() {
 function updateValues(
   values: Recordable<CollapsibleParamSchema['defaultValue']>,
 ) {
-  const newValue = {} as Recordable<CollapsibleParamSchema['defaultValue']>;
+  const allowedKeys = new Set(props.params.map((param) => param.key));
+  const patch = {} as Recordable<CollapsibleParamSchema['defaultValue']>;
 
   for (const key in values) {
     if (!Object.hasOwn(values, key)) continue;
-    if (!Object.hasOwn(modelValue.value, key)) continue;
+    if (!allowedKeys.has(key)) continue;
 
-    newValue[key] = values[key];
-
-    modelValue.value = { ...modelValue.value, ...newValue };
+    patch[key] = values[key];
   }
+
+  modelValue.value = { ...modelValue.value, ...patch };
 }
 
 watch(

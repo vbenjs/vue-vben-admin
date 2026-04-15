@@ -38,7 +38,7 @@ function getNumberValidator(key: string, limit?: [number?, number?]) {
     }
     if (limit[1] !== undefined) {
       validator = validator.max(limit[1], {
-        message: `${key} 值不能大于${limit[0]}`,
+        message: `${key} 值不能大于${limit[1]}`,
       });
     }
   }
@@ -198,7 +198,10 @@ const [BaseForm, baseFormApi] = useVbenForm({
               save_steps: 80,
             });
           } else {
-            paramsRef?.updateValues?.({ calib_steps: null });
+            paramsRef?.updateValues?.({
+              calib_steps: null,
+              micro_batch_size: 8,
+            });
           }
         },
         rules(values) {

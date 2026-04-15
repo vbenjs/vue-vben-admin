@@ -32,19 +32,13 @@ function resolveValueByFieldName(
 
   return get(values, fieldName);
 }
-
 export default function useDependencies(
   getDependencies: () => FormItemDependencies | undefined,
 ) {
   const values = useFormValues();
 
-  const formRenderProps = injectRenderFormProps();
   const [extendApi] = injectFormProps();
-
-  // 在 dependencies 里提供访问extendApi的能力
-  const controller: ExtendedFormApi = isRef(extendApi)
-    ? (extendApi.value.formApi as ExtendedFormApi)
-    : (extendApi.formApi as ExtendedFormApi);
+  const formRenderProps = injectRenderFormProps();
 
   const formApi = formRenderProps.form;
 
@@ -55,6 +49,19 @@ export default function useDependencies(
   if (!values) {
     throw new Error('useDependencies should be used within <VbenForm>');
   }
+
+  // 在 dependencies 里提供访问extendApi的能力
+  const getController = (): ExtendedFormApi => {
+    const controller = isRef(extendApi)
+      ? extendApi.value.formApi
+      : extendApi.formApi;
+
+    if (!controller) {
+      throw new Error('formApi is required in useDependencies');
+    }
+
+    return controller;
+  };
 
   const isIf = ref(true);
   const isDisabled = ref(false);
@@ -101,7 +108,7 @@ export default function useDependencies(
       const formValues = values.value;
 
       if (isFunction(whenIf)) {
-        isIf.value = !!(await whenIf(formValues, formApi, controller));
+        isIf.value = !!(await whenIf(formValues, formApi, getController()));
         // 不渲染
         if (!isIf.value) return;
       } else if (isBoolean(whenIf)) {
@@ -111,7 +118,7 @@ export default function useDependencies(
 
       // 2. 判断show，如果show为false，则隐藏
       if (isFunction(show)) {
-        isShow.value = !!(await show(formValues, formApi, controller));
+        isShow.value = !!(await show(formValues, formApi, getController()));
       } else if (isBoolean(show)) {
         isShow.value = show;
       }
@@ -120,26 +127,34 @@ export default function useDependencies(
         dynamicComponentProps.value = await componentProps(
           formValues,
           formApi,
-          controller,
+          getController(),
         );
       }
 
       if (isFunction(rules)) {
-        dynamicRules.value = await rules(formValues, formApi, controller);
+        dynamicRules.value = await rules(formValues, formApi, getController());
       }
 
       if (isFunction(disabled)) {
-        isDisabled.value = !!(await disabled(formValues, formApi, controller));
+        isDisabled.value = !!(await disabled(
+          formValues,
+          formApi,
+          getController(),
+        ));
       } else if (isBoolean(disabled)) {
         isDisabled.value = disabled;
       }
 
       if (isFunction(required)) {
-        isRequired.value = !!(await required(formValues, formApi, controller));
+        isRequired.value = !!(await required(
+          formValues,
+          formApi,
+          getController(),
+        ));
       }
 
       if (isFunction(trigger)) {
-        trigger(formValues, formApi, controller);
+        trigger(formValues, formApi, getController());
       }
     },
     { deep: true, immediate: true },
