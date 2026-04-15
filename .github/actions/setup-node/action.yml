@@ -6,7 +6,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v6
 
     - name: Install Node.js
       uses: actions/setup-node@v6
