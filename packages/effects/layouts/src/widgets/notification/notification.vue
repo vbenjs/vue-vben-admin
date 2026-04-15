@@ -74,14 +74,14 @@ const handleClear = () => {
       <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">{{ $t('ui.widgets.notifications') }}</div>
         <VbenIconButton
-          :disabled="!notifications || notifications.length <= 0"
+          :disabled="notifications.length <= 0"
           :tooltip="$t('ui.widgets.markAllAsRead')"
           @click="handleMakeAll"
         >
           <MailCheck class="size-4" />
         </VbenIconButton>
       </div>
-      <VbenScrollbar v-if="!notifications || notifications.length > 0">
+      <VbenScrollbar v-if="notifications.length > 0">
         <ul class="flex! max-h-90 w-full flex-col">
           <template v-for="item in notifications" :key="item.id ?? item.title">
             <li
@@ -155,7 +155,7 @@ const handleClear = () => {
         class="flex items-center justify-between border-t border-border px-4 py-3"
       >
         <VbenButton
-          :disabled="!notifications || notifications.length <= 0"
+          :disabled="notifications.length <= 0"
           size="sm"
           variant="ghost"
           @click="handleClear"
