@@ -28,8 +28,6 @@ function getNumberValidator(key: string, limit?: [number?, number?]) {
     invalid_type_error: `${key} 值只能为数字`,
   });
 
-  // validator.default(null);
-
   if (limit) {
     if (limit[0] !== undefined) {
       validator = validator.min(limit[0], {
@@ -43,6 +41,7 @@ function getNumberValidator(key: string, limit?: [number?, number?]) {
     }
   }
 
+  // 设置zod-default提取默认值为null,不设置null,会提取为0,在reset后会绕过rules配置的vee-validate的校验
   return validator.default(null);
 }
 
@@ -128,18 +127,12 @@ const [BaseForm, baseFormApi] = useVbenForm({
   showDefaultActions: false,
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
-    // 在label后显示一个冒号
     colon: true,
-    // 所有表单项
     componentProps: {
       class: 'w-full',
     },
   },
-  fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD']],
-  // 提交函数
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
   layout: 'vertical',
   schema: [
     {
@@ -182,6 +175,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
           };
         },
         trigger(values, __, controller) {
+          // 访问 form 内 VbenCollapsibleParams 的实例
           const paramsRef =
             controller.getFieldComponentRef<typeof VbenCollapsibleParams>(
               'params',
@@ -227,7 +221,6 @@ const [BaseForm, baseFormApi] = useVbenForm({
       defaultCollapsed: false, // 默认false
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-12',
 });
 
