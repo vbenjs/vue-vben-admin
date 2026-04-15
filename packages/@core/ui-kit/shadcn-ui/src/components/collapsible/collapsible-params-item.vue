@@ -49,6 +49,27 @@ const FieldComponent = computed(() => {
   }
 });
 
+const limitDisplay = computed(() => {
+  if (
+    props.data.option.min !== null &&
+    props.data.option.min !== undefined &&
+    props.data.option.max !== null &&
+    props.data.option.max !== undefined
+  ) {
+    return `[${props.data.option.min},${props.data.option.max}]`;
+  }
+
+  if (props.data.option.min !== null && props.data.option.min !== undefined) {
+    return `min:${props.data.option.min}`;
+  }
+
+  if (props.data.option.max !== null && props.data.option.max !== undefined) {
+    return `max:${props.data.option.max}`;
+  }
+
+  return '';
+});
+
 function reset() {
   modelValue.value = props.data.defaultValue;
 }
@@ -78,8 +99,8 @@ defineExpose({
         />
       </div>
       <div class="flex items-center flex-none text-muted-foreground pl-2 gap-2">
-        <span v-if="data.option.min && data.option.max">
-          [{{ data.option.min }},{{ data.option.max }}]
+        <span v-if="limitDisplay">
+          {{ limitDisplay }}
         </span>
         <span v-if="data.option.step && data.option.step !== 1">
           step:{{ data.option.step }}

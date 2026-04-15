@@ -1,16 +1,18 @@
 import type {
+  ExtendedFormApi,
   FormItemDependencies,
   FormSchemaRuleType,
   MaybeComponentProps,
 } from '../types';
 
-import { computed, ref, watch } from 'vue';
+import { computed, isRef, ref, watch } from 'vue';
 
 import { get, isBoolean, isFunction } from '@vben-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 
 import { resolveFieldNamePath } from '../field-name';
+import { injectFormProps } from '../use-form-context';
 import { injectRenderFormProps } from './context';
 
 /**
@@ -37,6 +39,13 @@ export default function useDependencies(
   const values = useFormValues();
 
   const formRenderProps = injectRenderFormProps();
+  const [extendApi] = injectFormProps();
+
+  // 在 dependencies 里提供访问extendApi的能力
+  const controller: ExtendedFormApi = isRef(extendApi)
+    ? (extendApi.value.formApi as ExtendedFormApi)
+    : (extendApi.formApi as ExtendedFormApi);
+
   const formApi = formRenderProps.form;
 
   if (!formApi) {
@@ -92,7 +101,7 @@ export default function useDependencies(
       const formValues = values.value;
 
       if (isFunction(whenIf)) {
-        isIf.value = !!(await whenIf(formValues, formApi));
+        isIf.value = !!(await whenIf(formValues, formApi, controller));
         // 不渲染
         if (!isIf.value) return;
       } else if (isBoolean(whenIf)) {
@@ -102,31 +111,35 @@ export default function useDependencies(
 
       // 2. 判断show，如果show为false，则隐藏
       if (isFunction(show)) {
-        isShow.value = !!(await show(formValues, formApi));
+        isShow.value = !!(await show(formValues, formApi, controller));
       } else if (isBoolean(show)) {
         isShow.value = show;
       }
 
       if (isFunction(componentProps)) {
-        dynamicComponentProps.value = await componentProps(formValues, formApi);
+        dynamicComponentProps.value = await componentProps(
+          formValues,
+          formApi,
+          controller,
+        );
       }
 
       if (isFunction(rules)) {
-        dynamicRules.value = await rules(formValues, formApi);
+        dynamicRules.value = await rules(formValues, formApi, controller);
       }
 
       if (isFunction(disabled)) {
-        isDisabled.value = !!(await disabled(formValues, formApi));
+        isDisabled.value = !!(await disabled(formValues, formApi, controller));
       } else if (isBoolean(disabled)) {
         isDisabled.value = disabled;
       }
 
       if (isFunction(required)) {
-        isRequired.value = !!(await required(formValues, formApi));
+        isRequired.value = !!(await required(formValues, formApi, controller));
       }
 
       if (isFunction(trigger)) {
-        trigger(formValues, formApi);
+        trigger(formValues, formApi, controller);
       }
     },
     { deep: true, immediate: true },

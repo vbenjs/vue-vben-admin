@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Recordable } from '@vben-core/typings';
+
 import type { CollapsibleParamSchema } from './type';
 
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
@@ -29,7 +31,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{ 'update:value': [any, string] }>();
 
-const modelValue = defineModel('value');
+const modelValue = defineModel('value', {
+  default: {} as Recordable<CollapsibleParamSchema['defaultValue']>,
+});
+
 const visibleRefs = useTemplateRef('visibleRefs');
 const collapsibleRefs = useTemplateRef('collapsibleRefs');
 
@@ -59,11 +64,13 @@ const bodyStyle = computed(() => {
 });
 
 function init(force = false) {
-  const nextValue = { ...modelValue.value };
+  const nextValue: Recordable<CollapsibleParamSchema['defaultValue']> = {
+    ...modelValue.value,
+  };
 
   for (const param of props.params) {
     if (force || nextValue[param.key] === undefined) {
-      nextValue[param.key] = param.defaultValue ?? null;
+      nextValue[param.key] = param.defaultValue ?? undefined;
     }
   }
 
@@ -74,23 +81,38 @@ function toggleCollapsed() {
   open.value = !open.value;
 }
 
-async function onParamValueChange(value: any, key: string) {
+async function onParamValueChange(_: any, key: string) {
   await nextTick();
   emits('update:value', modelValue.value, key);
 }
 
-function resetValue() {
+function resetValues() {
   if (visibleRefs.value)
     for (const rowRef of visibleRefs.value) {
-      rowRef.reset();
+      rowRef?.reset();
     }
 
   if (collapsibleRefs.value)
     for (const rowRef of collapsibleRefs.value) {
-      rowRef.reset();
+      rowRef?.reset();
     }
 
   init(true);
+}
+
+function updateValues(
+  values: Recordable<CollapsibleParamSchema['defaultValue']>,
+) {
+  const newValue = {} as Recordable<CollapsibleParamSchema['defaultValue']>;
+
+  for (const key in values) {
+    if (!Object.hasOwn(values, key)) continue;
+    if (!Object.hasOwn(modelValue.value, key)) continue;
+
+    newValue[key] = values[key];
+
+    modelValue.value = { ...modelValue.value, ...newValue };
+  }
 }
 
 watch(
@@ -101,7 +123,8 @@ watch(
 
 defineExpose({
   toggleCollapsed,
-  resetValue,
+  resetValues,
+  updateValues,
 });
 </script>
 

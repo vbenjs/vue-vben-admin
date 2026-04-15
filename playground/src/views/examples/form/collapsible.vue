@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { FormLayout } from '@vben/common-ui';
+
 import type { CollapsibleParamSchema } from '@vben-core/shadcn-ui';
 
 import { ref } from 'vue';
@@ -13,22 +15,32 @@ import { useVbenForm, z } from '#/adapter/form';
 
 import DocButton from '../doc-button.vue';
 
-const layouts = [
+const layouts: { label: string; value: FormLayout }[] = [
   { label: 'Vertical', value: 'vertical' },
   { label: 'Horizontal', value: 'horizontal' },
 ];
-const layout = ref(layouts[0].value);
 
-function getNumberValidator(key: string, limit?: [number, number]) {
+const layout = ref(layouts[0]?.value ?? 'vertical');
+
+function getNumberValidator(key: string, limit?: [number?, number?]) {
   let validator = z.number({
     required_error: `${key} 值不能为空`,
     invalid_type_error: `${key} 值只能为数字`,
   });
 
+  // validator.default(null);
+
   if (limit) {
-    validator = validator
-      .min(limit[0], { message: `${key} 值不在区间范围内` })
-      .max(limit[1], { message: `${key} 值不在区间范围内` });
+    if (limit[0] !== undefined) {
+      validator = validator.min(limit[0], {
+        message: `${key} 值不能小于${limit[0]}`,
+      });
+    }
+    if (limit[1] !== undefined) {
+      validator = validator.max(limit[1], {
+        message: `${key} 值不能大于${limit[0]}`,
+      });
+    }
   }
 
   return validator.default(null);
@@ -107,12 +119,13 @@ const paramsValidator = z.object({
   learning_rate: getNumberValidator('learning_rate'),
   eval_steps: getNumberValidator('eval_steps', [1, 2_147_483_647]),
   num_train_epochs: getNumberValidator('num_train_epochs', [1, 200]),
-  max_length: getNumberValidator('max_length', [1, 131_072]),
+  max_length: getNumberValidator('max_length', [500, 131_072]),
   warmup_ratio: getNumberValidator('warmup_ratio', [0, 1]),
   save_steps: getNumberValidator('save_steps', [1, 2_147_483_647]),
 });
 
 const [BaseForm, baseFormApi] = useVbenForm({
+  showDefaultActions: false,
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 在label后显示一个冒号
@@ -130,6 +143,17 @@ const [BaseForm, baseFormApi] = useVbenForm({
   layout: 'vertical',
   schema: [
     {
+      component: 'Switch',
+      fieldName: 'qat',
+      componentProps: {
+        checkedChildren: '开',
+        unCheckedChildren: '关',
+        class: 'w-auto',
+      },
+      label: 'QAT',
+      defaultValue: false,
+    },
+    {
       component: VbenCollapsibleParams,
       componentProps: {
         params: paramsSchema,
@@ -138,25 +162,81 @@ const [BaseForm, baseFormApi] = useVbenForm({
       modelPropName: 'value',
       fieldName: 'params',
       label: '参数配置',
-      formItemClass: 'col-span-2 items-baseline',
+      formItemClass: 'col-span-8 items-baseline col-start-1',
+      dependencies: {
+        triggerFields: ['qat'],
+        componentProps(values) {
+          return {
+            params: values.qat
+              ? [
+                  {
+                    key: 'calib_steps',
+                    description: `校准步数；校准的数据集大小 = 校准步数 * 训练的batch_size`,
+                    option: {
+                      min: 1,
+                    },
+                  },
+                  ...paramsSchema,
+                ]
+              : paramsSchema,
+          };
+        },
+        trigger(values, __, controller) {
+          const paramsRef =
+            controller.getFieldComponentRef<typeof VbenCollapsibleParams>(
+              'params',
+            );
+          if (values.qat) {
+            paramsRef?.updateValues?.({
+              calib_steps: 10,
+              micro_batch_size: 32,
+              learning_rate: 4e-5,
+              eval_steps: 80,
+              num_train_epochs: 3,
+              max_length: 32_768,
+              warmup_ratio: 0.1,
+              save_steps: 80,
+            });
+          } else {
+            paramsRef?.updateValues?.({ calib_steps: null });
+          }
+        },
+        rules(values) {
+          if (values.qat) {
+            return paramsValidator.extend({
+              calib_steps: getNumberValidator('calib_steps', [1]),
+            });
+          }
+          return paramsValidator;
+        },
+      },
       rules: paramsValidator,
+      // defaultValue: {
+      //   micro_batch_size: 24,
+      // },
     },
     {
       component: 'RichEditor',
       fieldName: 'richEditor',
       label: '富文本',
-      formItemClass: 'col-span-3 items-baseline',
+      formItemClass: 'col-span-12 items-baseline',
       collapsible: true,
       defaultCollapsed: false, // 默认false
     },
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
-  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  wrapperClass: 'grid-cols-12',
 });
 
 function onSubmit(values: Record<string, any>) {
   message.info({
     content: `form values: ${JSON.stringify(values)}`,
+  });
+}
+
+function onLayoutChange(layout: FormLayout) {
+  baseFormApi.setState({
+    layout,
   });
 }
 
@@ -172,10 +252,16 @@ function handleSetFormValue() {
   });
 }
 
-function onLayoutChange(layout: string) {
-  baseFormApi.setState({
-    layout,
-  });
+function handleResetFormValue() {
+  baseFormApi.resetForm(undefined, { force: true });
+}
+
+async function handleSubmitFormValue() {
+  const { valid } = await baseFormApi.validate();
+
+  if (valid) {
+    baseFormApi.submitForm();
+  }
 }
 </script>
 
@@ -201,10 +287,16 @@ function onLayoutChange(layout: string) {
             option-type="button"
             v-model:value="layout"
             @update:value="onLayoutChange"
-          >
+          />
+          <Button type="primary" @click="handleSetFormValue">
             设置表单值
-          </RadioGroup>
-          <Button type="primary" @click="handleSetFormValue">设置表单值</Button>
+          </Button>
+          <Button type="primary" @click="handleSubmitFormValue">
+            提交表单
+          </Button>
+          <Button type="primary" @click="handleResetFormValue">
+            重置表单
+          </Button>
         </div>
       </template>
       <div class="w-full overflow-hidden">

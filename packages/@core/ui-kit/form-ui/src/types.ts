@@ -85,16 +85,19 @@ export type FormSchemaRuleType =
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
+  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
 ) => T;
 
 type FormItemDependenciesConditionWithRules = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
+  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
 ) => FormSchemaRuleType | PromiseLike<FormSchemaRuleType>;
 
 type FormItemDependenciesConditionWithProps = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
+  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
 ) => MaybeComponentProps | PromiseLike<MaybeComponentProps>;
 
 export interface FormItemDependencies {
@@ -147,6 +150,7 @@ type ComponentProps =
 export interface FormCommonConfig {
   /**
    * 是否可折叠的
+   * @default false
    */
   collapsible?: boolean;
   /**
