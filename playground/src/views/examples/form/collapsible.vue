@@ -5,7 +5,7 @@ import type { FormLayout } from '@vben/common-ui';
 
 import type { CollapsibleParamSchema } from '@vben-core/shadcn-ui';
 
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -150,7 +150,8 @@ const [BaseForm, baseFormApi] = useVbenForm({
       defaultValue: false,
     },
     {
-      component: 'CollapsibleParams',
+      // component:'CollapsibleParams',
+      component: h(VbenCollapsibleParams),
       componentProps: {
         params: paramsSchema,
         // maxHeight: 200, //限制最大高度，展开后可滚动
