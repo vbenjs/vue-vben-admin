@@ -43,8 +43,7 @@ function getNumberValidator(key: string, limit?: [number?, number?]) {
     }
   }
 
-  // 设置zod-default提取默认值为null,不设置null,会提取为0,在reset后会绕过rules配置的vee-validate的校验
-  return validator.default(null);
+  return validator.optional();
 }
 
 const paramsSchema: CollapsibleParamSchema[] = [
@@ -115,15 +114,17 @@ const paramsSchema: CollapsibleParamSchema[] = [
   },
 ];
 
-const paramsValidator = z.object({
-  micro_batch_size: getNumberValidator('micro_batch_size', [8, 1024]),
-  learning_rate: getNumberValidator('learning_rate'),
-  eval_steps: getNumberValidator('eval_steps', [1, 2_147_483_647]),
-  num_train_epochs: getNumberValidator('num_train_epochs', [1, 200]),
-  max_length: getNumberValidator('max_length', [500, 131_072]),
-  warmup_ratio: getNumberValidator('warmup_ratio', [0, 1]),
-  save_steps: getNumberValidator('save_steps', [1, 2_147_483_647]),
-});
+const paramsValidator = z
+  .object({
+    micro_batch_size: getNumberValidator('micro_batch_size', [8, 1024]),
+    learning_rate: getNumberValidator('learning_rate'),
+    eval_steps: getNumberValidator('eval_steps', [1, 2_147_483_647]),
+    num_train_epochs: getNumberValidator('num_train_epochs', [1, 200]),
+    max_length: getNumberValidator('max_length', [500, 131_072]),
+    warmup_ratio: getNumberValidator('warmup_ratio', [0, 1]),
+    save_steps: getNumberValidator('save_steps', [1, 2_147_483_647]),
+  })
+  .required();
 
 const [BaseForm, baseFormApi] = useVbenForm({
   showDefaultActions: false,
