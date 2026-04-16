@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 import { useTabs } from '@vben/hooks';
+import { openRouteInNewWindow } from '@vben/utils';
 
 import { Button, Card, Input } from 'ant-design-vue';
 
@@ -30,6 +31,17 @@ function openTab() {
 function openTabWithParams(id: number) {
   // 这里就是路由跳转，也可以用path
   router.push({ name: 'FeatureTabDetailDemo', params: { id } });
+}
+
+function openTabWithParamsInNewWindow(
+  id: number,
+  options?: { name?: string; reuseExisting?: boolean },
+) {
+  const href = router.resolve({
+    name: 'FeatureTabDetailDemo',
+    params: { id },
+  }).href;
+  openRouteInNewWindow(href, options);
 }
 
 function reset() {
@@ -99,6 +111,39 @@ function reset() {
             打开{{ item }}详情页
           </Button>
         </template>
+      </div>
+    </Card>
+
+    <Card class="mb-5" title="新窗口打开（复用同名窗口）">
+      <div class="mb-3 text-foreground/80">
+        可选复用同名窗口，已存在则聚焦并导航，避免重复打开多个标签页
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <Button @click="openTabWithParamsInNewWindow(1)">
+          新窗口打开「详情页 1」（每次新开）
+        </Button>
+        <Button
+          type="primary"
+          @click="
+            openTabWithParamsInNewWindow(1, {
+              name: 'vben-tab-detail-demo',
+              reuseExisting: true,
+            })
+          "
+        >
+          复用窗口打开「详情页 1」（聚焦+导航）
+        </Button>
+        <Button
+          type="primary"
+          @click="
+            openTabWithParamsInNewWindow(2, {
+              name: 'vben-tab-detail-demo',
+              reuseExisting: true,
+            })
+          "
+        >
+          复用同一窗口打开「详情页 2」
+        </Button>
       </div>
     </Card>
   </Page>
