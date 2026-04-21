@@ -154,7 +154,7 @@ export default function useDependencies(
       }
 
       if (isFunction(trigger)) {
-        trigger(formValues, formApi, getController());
+        await trigger(formValues, formApi, getController());
       }
     },
     { deep: true, immediate: true },
