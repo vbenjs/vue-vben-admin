@@ -20,6 +20,9 @@ type Format =
   | (string & {});
 
 export function formatDate(time?: FormatDate, format: Format = 'YYYY-MM-DD') {
+  if (time === undefined || time === null || time === '') {
+    return '';
+  }
   try {
     const date = dayjs.isDayjs(time) ? time : dayjs(time);
     if (!date.isValid()) {
