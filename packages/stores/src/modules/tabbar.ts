@@ -371,8 +371,9 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 新窗口打开标签页
      * @param tab
      */
-    async openTabInNewWindow(tab: TabDefinition) {
-      openRouteInNewWindow(tab.fullPath || tab.path);
+    async openTabInNewWindow(tab: TabDefinition, router: Router) {
+      const href = router.resolve(tab.fullPath || tab.path).href;
+      openRouteInNewWindow(href);
     },
 
     /**
