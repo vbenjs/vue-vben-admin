@@ -5,8 +5,7 @@ import { nextTick, onUnmounted, readonly, ref, watch } from 'vue';
 import { usePreferences } from '@vben/preferences';
 
 const watermark = ref<Watermark>();
-const unmountedHooked = ref<boolean>(false);
-const themeWatcherHooked = ref<boolean>(false);
+const cachedOptions = ref<Partial<WatermarkOptions>>({});
 
 function getDefaultWatermarkColor(isDark: boolean): string {
   return isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)';
@@ -46,8 +45,6 @@ function getDefaultOptions(isDark: boolean): Partial<WatermarkOptions> {
     width: 160,
   };
 }
-
-const cachedOptions = ref<Partial<WatermarkOptions>>({});
 
 export function useWatermark() {
   const { isDark } = usePreferences();
@@ -115,29 +112,22 @@ export function useWatermark() {
     }
   }
 
-  if (!themeWatcherHooked.value) {
-    themeWatcherHooked.value = true;
+  const stopThemeWatcher = watch(
+    () => isDark.value,
+    () => {
+      if (watermark.value) {
+        const mergedOptions = mergeOptionsWithTheme(
+          cachedOptions.value,
+          isDark.value,
+        );
+        watermark.value.changeOptions(mergedOptions);
+      }
+    },
+  );
 
-    watch(
-      () => isDark.value,
-      () => {
-        if (watermark.value) {
-          const mergedOptions = mergeOptionsWithTheme(
-            cachedOptions.value,
-            isDark.value,
-          );
-          watermark.value.changeOptions(mergedOptions);
-        }
-      },
-    );
-  }
-
-  if (!unmountedHooked.value) {
-    unmountedHooked.value = true;
-    onUnmounted(() => {
-      destroyWatermark();
-    });
-  }
+  onUnmounted(() => {
+    stopThemeWatcher();
+  });
 
   return {
     destroyWatermark,
