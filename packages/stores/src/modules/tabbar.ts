@@ -79,11 +79,28 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async _bulkCloseByKeys(keys: string[]) {
       const keySet = new Set(keys);
+
+      const closingComponentNames = new Set<string>();
+      for (const tab of this.tabs) {
+        if (keySet.has(getTabKeyFromTab(tab))) {
+          closingComponentNames.add(tab.name as string);
+        }
+      }
+
       this.tabs = this.tabs.filter(
         (item) => !keySet.has(getTabKeyFromTab(item)),
       );
       if (isVisitHistory()) {
         this.visitHistory.remove(...keys);
+      }
+
+      for (const componentName of closingComponentNames) {
+        const otherTabsUsingSameComponent = this.tabs.some(
+          (t) => t.name === componentName,
+        );
+        if (!otherTabsUsingSameComponent) {
+          this.excludeCachedTabs.add(componentName);
+        }
       }
 
       await this.updateCacheTabs();
@@ -97,7 +114,19 @@ export const useTabbarStore = defineStore('core-tabbar', {
         return;
       }
       const index = this.tabs.findIndex((item) => equalTab(item, tab));
-      index !== -1 && this.tabs.splice(index, 1);
+      if (index === -1) {
+        return;
+      }
+
+      const componentName = tab.name as string;
+      this.tabs.splice(index, 1);
+
+      const otherTabsUsingSameComponent = this.tabs.some(
+        (t) => t.name === componentName,
+      );
+      if (!otherTabsUsingSameComponent) {
+        this.excludeCachedTabs.add(componentName);
+      }
     },
     /**
      * @zh_CN 跳转到默认标签页
@@ -188,6 +217,10 @@ export const useTabbarStore = defineStore('core-tabbar', {
         tab = mergedTab;
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
+
+      const componentName = tab.name as string;
+      this.excludeCachedTabs.delete(componentName);
+
       this.updateCacheTabs();
       // 添加访问历史记录
       if (isVisitHistory()) {
@@ -200,7 +233,25 @@ export const useTabbarStore = defineStore('core-tabbar', {
      */
     async closeAllTabs(router: Router) {
       const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
+
+      const closingComponentNames = new Set<string>();
+      for (const tab of this.tabs) {
+        if (!isAffixTab(tab) && (newTabs.length > 0 || this.tabs[0] !== tab)) {
+          closingComponentNames.add(tab.name as string);
+        }
+      }
+
       this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
+
+      for (const componentName of closingComponentNames) {
+        const otherTabsUsingSameComponent = this.tabs.some(
+          (t) => t.name === componentName,
+        );
+        if (!otherTabsUsingSameComponent) {
+          this.excludeCachedTabs.add(componentName);
+        }
+      }
+
       // 设置访问历史记录
       if (isVisitHistory()) {
         this.visitHistory.retain(
