@@ -11,6 +11,7 @@ import { useRouter } from 'vue-router';
 
 import {
   AnalysisChartCard,
+  WorkbenchDependencies,
   WorkbenchHeader,
   WorkbenchProject,
   WorkbenchQuickNav,
@@ -257,6 +258,7 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
           @click="navTo"
         />
         <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
+        <WorkbenchDependencies class="mt-5" title="核心依赖监控" />
         <AnalysisChartCard class="mt-5" title="访问来源">
           <AnalyticsVisitsSource />
         </AnalysisChartCard>
