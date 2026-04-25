@@ -1,44 +1,78 @@
 import type { Watermark, WatermarkOptions } from 'watermark-js-plus';
 
-import { nextTick, onUnmounted, readonly, ref, watch } from 'vue';
+import { nextTick, onUnmounted, readonly, ref } from 'vue';
 
 const watermark = ref<Watermark>();
-const unmountedHooked = ref<boolean>(false);
 const mutationObserver = ref<MutationObserver>();
 const isWatermarkEnabled = ref<boolean>(false);
+const activeInstances = ref<number>(0);
 
-const DEFAULT_DARK_COLOR = 'rgba(255, 255, 255, 0.8)';
-const DEFAULT_LIGHT_COLOR = 'rgba(0, 0, 0, 0.8)';
+const CSS_VAR_FOREGROUND = '--foreground';
 
-interface WatermarkConfig {
-  content: string;
-  globalAlpha: number;
-  isDark: boolean;
+function hslToRgb(h: number, s: number, l: number): [number, number, number] {
+  s /= 100;
+  l /= 100;
+  const k = (n: number) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n: number) =>
+    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [Math.round(255 * f(0)), Math.round(255 * f(8)), Math.round(255 * f(4))];
 }
 
-const currentConfig = ref<WatermarkConfig>({
-  content: '',
-  globalAlpha: 0.25,
-  isDark: false,
-});
+function parseHslValue(hslStr: string): { h: number; s: number; l: number } | null {
+  const trimmed = hslStr.trim();
+  
+  const match = trimmed.match(/^(\d+(?:\.\d+)?)(?:deg)?\s+(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
+  if (match) {
+    return {
+      h: parseFloat(match[1]),
+      s: parseFloat(match[2]),
+      l: parseFloat(match[3]),
+    };
+  }
+  
+  return null;
+}
 
-function getColorStops(isDark: boolean): { color: string; offset: number }[] {
-  const color = isDark ? DEFAULT_DARK_COLOR : DEFAULT_LIGHT_COLOR;
+function getForegroundColorFromCSS(): string {
+  try {
+    const computedStyle = getComputedStyle(document.documentElement);
+    const foregroundValue = computedStyle.getPropertyValue(CSS_VAR_FOREGROUND).trim();
+    
+    if (foregroundValue) {
+      const hsl = parseHslValue(foregroundValue);
+      if (hsl) {
+        const [r, g, b] = hslToRgb(hsl.h, hsl.s, hsl.l);
+        return `rgba(${r}, ${g}, ${b}, 1)`;
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to parse CSS variable for watermark color:', e);
+  }
+  
+  return 'rgba(128, 128, 128, 1)';
+}
+
+function getColorStops(): { color: string; offset: number }[] {
+  const color = getForegroundColorFromCSS();
   return [
     { color, offset: 0 },
     { color, offset: 1 },
   ];
 }
 
-function createBaseOptions(config: WatermarkConfig): Partial<WatermarkOptions> {
+function createBaseOptions(
+  content: string,
+  globalAlpha: number,
+): Partial<WatermarkOptions> {
   return {
     advancedStyle: {
-      colorStops: getColorStops(config.isDark),
+      colorStops: getColorStops(),
       type: 'linear',
     },
-    content: config.content,
+    content,
     contentType: 'multi-line-text',
-    globalAlpha: config.globalAlpha,
+    globalAlpha,
     gridLayoutOptions: {
       cols: 2,
       gap: [20, 20],
@@ -58,6 +92,7 @@ function createBaseOptions(config: WatermarkConfig): Partial<WatermarkOptions> {
 function setupMutationObserver() {
   if (mutationObserver.value) {
     mutationObserver.value.disconnect();
+    mutationObserver.value = undefined;
   }
 
   const observer = new MutationObserver((mutations) => {
@@ -121,6 +156,13 @@ function setupMutationObserver() {
   mutationObserver.value = observer;
 }
 
+function cleanupMutationObserver() {
+  if (mutationObserver.value) {
+    mutationObserver.value.disconnect();
+    mutationObserver.value = undefined;
+  }
+}
+
 async function recreateWatermark() {
   if (!isWatermarkEnabled.value) return;
 
@@ -131,22 +173,22 @@ async function recreateWatermark() {
     }
 
     await nextTick();
-
-    const options = createBaseOptions(currentConfig.value);
-    const { Watermark } = await import('watermark-js-plus');
-    watermark.value = new Watermark(options);
-    await watermark.value?.create();
   } catch (e) {
     console.error('Failed to recreate watermark:', e);
   }
 }
 
 export function useWatermark() {
+  activeInstances.value++;
+
   async function initWatermark(options: Partial<WatermarkOptions>) {
     const { Watermark } = await import('watermark-js-plus');
 
     const mergedOptions = {
-      ...createBaseOptions(currentConfig.value),
+      ...createBaseOptions(
+        (options.content as string) || '',
+        options.globalAlpha ?? 0.25,
+      ),
       ...options,
     };
 
@@ -157,18 +199,11 @@ export function useWatermark() {
     setupMutationObserver();
   }
 
-  async function updateWatermark(options: Partial<WatermarkOptions> & { isDark?: boolean }) {
-    if (options.isDark !== undefined) {
-      currentConfig.value.isDark = options.isDark;
-    }
-    if (options.content !== undefined) {
-      currentConfig.value.content = options.content;
-    }
-    if (options.globalAlpha !== undefined) {
-      currentConfig.value.globalAlpha = options.globalAlpha;
-    }
+  async function updateWatermark(options: Partial<WatermarkOptions>) {
+    const content = (options.content as string) || '';
+    const globalAlpha = options.globalAlpha ?? 0.25;
 
-    const mergedOptions = createBaseOptions(currentConfig.value);
+    const mergedOptions = createBaseOptions(content, globalAlpha);
 
     if (watermark.value) {
       await nextTick();
@@ -183,10 +218,7 @@ export function useWatermark() {
   function destroyWatermark() {
     isWatermarkEnabled.value = false;
 
-    if (mutationObserver.value) {
-      mutationObserver.value.disconnect();
-      mutationObserver.value = undefined;
-    }
+    cleanupMutationObserver();
 
     if (watermark.value) {
       watermark.value.destroy();
@@ -194,12 +226,18 @@ export function useWatermark() {
     }
   }
 
-  if (!unmountedHooked.value) {
-    unmountedHooked.value = true;
-    onUnmounted(() => {
+  function cleanup() {
+    activeInstances.value--;
+    
+    if (activeInstances.value <= 0) {
       destroyWatermark();
-    });
+      activeInstances.value = 0;
+    }
   }
+
+  onUnmounted(() => {
+    cleanup();
+  });
 
   return {
     destroyWatermark,

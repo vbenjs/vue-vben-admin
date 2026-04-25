@@ -216,12 +216,11 @@ watch(
     watermarkContent,
     isDark,
   ],
-  ([isEnabled, opacity, content, isDarkMode]) => {
+  ([isEnabled, opacity, content]) => {
     if (isEnabled) {
       updateWatermark({
         content,
         globalAlpha: opacity as number,
-        isDark: isDarkMode as boolean,
       });
     } else {
       destroyWatermark();
