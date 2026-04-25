@@ -214,12 +214,14 @@ watch(
     () => preferences.app.watermark,
     () => preferences.app.watermarkOpacity,
     watermarkContent,
+    isDark,
   ],
-  ([isEnabled, opacity, content]) => {
+  ([isEnabled, opacity, content, isDarkMode]) => {
     if (isEnabled) {
       updateWatermark({
         content,
         globalAlpha: opacity as number,
+        isDark: isDarkMode as boolean,
       });
     } else {
       destroyWatermark();
