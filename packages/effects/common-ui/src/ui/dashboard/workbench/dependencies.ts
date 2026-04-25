@@ -30,6 +30,10 @@ const CORE_DEPENDENCIES = [
   },
 ];
 
+function cleanVersion(version: string): string {
+  return version.replace(/^[\^~>=<]+/, '');
+}
+
 export function getCoreDependencies(): DependencyInfo[] {
   const metadata = __VBEN_ADMIN_METADATA__ || {};
   const { dependencies = {}, devDependencies = {} } = metadata;
@@ -38,7 +42,7 @@ export function getCoreDependencies(): DependencyInfo[] {
     const version = dependencies[dep.name] || devDependencies[dep.name] || '未知';
     return {
       ...dep,
-      version,
+      version: cleanVersion(version),
     };
   });
 }
