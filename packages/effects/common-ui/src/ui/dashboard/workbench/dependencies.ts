@@ -39,10 +39,10 @@ export function getCoreDependencies(): DependencyInfo[] {
   const { dependencies = {}, devDependencies = {} } = metadata;
 
   return CORE_DEPENDENCIES.map((dep) => {
-    const version = dependencies[dep.name] || devDependencies[dep.name] || '未知';
+    const version = dependencies[dep.name] || devDependencies[dep.name];
     return {
       ...dep,
-      version: cleanVersion(version),
+      version: version ? cleanVersion(version) : '未安装',
     };
   });
 }

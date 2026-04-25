@@ -34,19 +34,19 @@ const dependencies = getCoreDependencies();
         <div
           v-for="dep in dependencies"
           :key="dep.name"
-          class="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-4 text-center transition-all hover:shadow-md"
+          class="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-4 text-center transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800/50 dark:hover:shadow-lg"
         >
           <VbenIcon
             :icon="dep.icon"
-            class="size-12 rounded-full bg-primary/10 p-2 text-primary"
+            class="size-12 rounded-full bg-primary/10 p-2 text-primary dark:bg-accent dark:text-accent-foreground"
           />
-          <p class="mt-3 text-sm/6 font-semibold text-foreground capitalize">
+          <p class="mt-3 text-sm/6 font-semibold text-foreground capitalize dark:text-gray-100">
             {{ dep.name }}
           </p>
-          <p class="mt-1 text-xs/5 text-foreground/80">
+          <p class="mt-1 text-xs/5 text-foreground/80 dark:text-gray-400">
             核心框架依赖
           </p>
-          <span class="mt-2 text-sm/6 font-medium text-primary">
+          <span class="mt-2 text-sm/6 font-medium text-primary dark:text-accent-foreground">
             {{ dep.version }}
           </span>
         </div>
