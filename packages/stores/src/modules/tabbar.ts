@@ -62,6 +62,10 @@ interface TabbarState {
    * @zh_CN 上一个标签页打开的标签
    */
   visitHistory: Stack<string>;
+  /**
+   * @zh_CN 组件使用计数，用于跟踪每个组件的使用次数
+   */
+  componentUsageCount: Map<string, number>;
 }
 
 /**
@@ -78,27 +82,40 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * Close tabs in bulk
      */
     async _bulkCloseByKeys(keys: string[]) {
-      const keySet = new Set(keys);
-
-      const closingComponentNames = new Set<string>();
-      for (const tab of this.tabs) {
-        if (keySet.has(getTabKeyFromTab(tab))) {
-          closingComponentNames.add(tab.name as string);
-        }
+      // 检查引用计数是否需要重建
+      if (this.tabs.length > 0 && this.componentUsageCount.size === 0) {
+        this.rebuildComponentUsageCount();
       }
 
-      this.tabs = this.tabs.filter(
-        (item) => !keySet.has(getTabKeyFromTab(item)),
-      );
+      const keySet = new Set(keys);
+
+      const closingComponents = new Map<string, number>();
+      
+      // 过滤出要关闭的 tab 并统计每个组件的关闭次数
+      const remainingTabs = this.tabs.filter((tab) => {
+        if (keySet.has(getTabKeyFromTab(tab))) {
+          const componentName = tab.name as string;
+          closingComponents.set(componentName, (closingComponents.get(componentName) || 0) + 1);
+          return false;
+        }
+        return true;
+      });
+
+      this.tabs = remainingTabs;
+      
       if (isVisitHistory()) {
         this.visitHistory.remove(...keys);
       }
 
-      for (const componentName of closingComponentNames) {
-        const otherTabsUsingSameComponent = this.tabs.some(
-          (t) => t.name === componentName,
-        );
-        if (!otherTabsUsingSameComponent) {
+      // 更新组件引用计数
+      for (const [componentName, closeCount] of closingComponents) {
+        const currentCount = this.componentUsageCount.get(componentName) || 0;
+        const newCount = currentCount - closeCount;
+        
+        if (newCount > 0) {
+          this.componentUsageCount.set(componentName, newCount);
+        } else {
+          this.componentUsageCount.delete(componentName);
           this.excludeCachedTabs.add(componentName);
         }
       }
@@ -118,13 +135,20 @@ export const useTabbarStore = defineStore('core-tabbar', {
         return;
       }
 
+      // 检查引用计数是否需要重建
+      if (this.tabs.length > 0 && this.componentUsageCount.size === 0) {
+        this.rebuildComponentUsageCount();
+      }
+
       const componentName = tab.name as string;
       this.tabs.splice(index, 1);
 
-      const otherTabsUsingSameComponent = this.tabs.some(
-        (t) => t.name === componentName,
-      );
-      if (!otherTabsUsingSameComponent) {
+      // 使用引用计数代替全量数组扫描
+      const count = this.componentUsageCount.get(componentName) || 0;
+      if (count > 1) {
+        this.componentUsageCount.set(componentName, count - 1);
+      } else {
+        this.componentUsageCount.delete(componentName);
         this.excludeCachedTabs.add(componentName);
       }
     },
@@ -159,6 +183,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param routeTab
      */
     addTab(routeTab: TabDefinition): TabDefinition {
+      // 检查引用计数是否需要重建（从持久化恢复后的同步）
+      if (this.tabs.length > 0 && this.componentUsageCount.size === 0) {
+        this.rebuildComponentUsageCount();
+      }
+
       let tab = cloneTab(routeTab);
       if (!tab.key) {
         tab.key = getTabKey(routeTab);
@@ -187,16 +216,44 @@ export const useTabbarStore = defineStore('core-tabbar', {
           const index = this.tabs.findIndex(
             (item) => item.name === routeTab.name,
           );
-          index !== -1 && this.tabs.splice(index, 1);
+          if (index !== -1) {
+            const closingTab = this.tabs[index];
+            this.tabs.splice(index, 1);
+            // 减少被关闭 tab 的组件引用计数
+            const closingComponentName = closingTab.name as string;
+            const count = this.componentUsageCount.get(closingComponentName) || 0;
+            if (count > 1) {
+              this.componentUsageCount.set(closingComponentName, count - 1);
+            } else {
+              this.componentUsageCount.delete(closingComponentName);
+              this.excludeCachedTabs.add(closingComponentName);
+            }
+          }
         } else if (maxCount > 0 && this.tabs.length >= maxCount) {
           // 关闭第一个
           const index = this.tabs.findIndex(
             (item) =>
               !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
           );
-          index !== -1 && this.tabs.splice(index, 1);
+          if (index !== -1) {
+            const closingTab = this.tabs[index];
+            this.tabs.splice(index, 1);
+            // 减少被关闭 tab 的组件引用计数
+            const closingComponentName = closingTab.name as string;
+            const count = this.componentUsageCount.get(closingComponentName) || 0;
+            if (count > 1) {
+              this.componentUsageCount.set(closingComponentName, count - 1);
+            } else {
+              this.componentUsageCount.delete(closingComponentName);
+              this.excludeCachedTabs.add(closingComponentName);
+            }
+          }
         }
         this.tabs.push(tab);
+        // 增加新 tab 的组件引用计数
+        const componentName = tab.name as string;
+        const count = this.componentUsageCount.get(componentName) || 0;
+        this.componentUsageCount.set(componentName, count + 1);
       } else {
         // 页面已经存在，不重复添加选项卡，只更新选项卡参数
         const currentTab = toRaw(this.tabs)[tabIndex];
@@ -232,22 +289,35 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @zh_CN 关闭所有标签页
      */
     async closeAllTabs(router: Router) {
-      const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      // 检查引用计数是否需要重建
+      if (this.tabs.length > 0 && this.componentUsageCount.size === 0) {
+        this.rebuildComponentUsageCount();
+      }
 
-      const closingComponentNames = new Set<string>();
+      const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
+      const hasAffixTabs = newTabs.length > 0;
+      const finalTabs = hasAffixTabs ? newTabs : [this.tabs[0]];
+
+      const closingComponents = new Map<string, number>();
+      
       for (const tab of this.tabs) {
-        if (!isAffixTab(tab) && (newTabs.length > 0 || this.tabs[0] !== tab)) {
-          closingComponentNames.add(tab.name as string);
+        const isClosing = !isAffixTab(tab) && (hasAffixTabs || tab !== this.tabs[0]);
+        if (isClosing) {
+          const componentName = tab.name as string;
+          closingComponents.set(componentName, (closingComponents.get(componentName) || 0) + 1);
         }
       }
 
-      this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
+      this.tabs = finalTabs;
 
-      for (const componentName of closingComponentNames) {
-        const otherTabsUsingSameComponent = this.tabs.some(
-          (t) => t.name === componentName,
-        );
-        if (!otherTabsUsingSameComponent) {
+      for (const [componentName, closeCount] of closingComponents) {
+        const currentCount = this.componentUsageCount.get(componentName) || 0;
+        const newCount = currentCount - closeCount;
+        
+        if (newCount > 0) {
+          this.componentUsageCount.set(componentName, newCount);
+        } else {
+          this.componentUsageCount.delete(componentName);
           this.excludeCachedTabs.add(componentName);
         }
       }
@@ -632,6 +702,18 @@ export const useTabbarStore = defineStore('core-tabbar', {
     removeCachedRoute(key: string) {
       this.cachedRoutes.delete(key);
     },
+    /**
+     * @zh_CN 重建组件引用计数
+     * 用于从持久化恢复后同步引用计数
+     */
+    rebuildComponentUsageCount() {
+      this.componentUsageCount.clear();
+      for (const tab of this.tabs) {
+        const componentName = tab.name as string;
+        const count = this.componentUsageCount.get(componentName) || 0;
+        this.componentUsageCount.set(componentName, count + 1);
+      }
+    },
   },
   getters: {
     affixTabs(): TabDefinition[] {
@@ -704,6 +786,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     renderRouteView: true,
     tabs: [],
     updateTime: Date.now(),
+    componentUsageCount: new Map<string, number>(),
   }),
 });
 
