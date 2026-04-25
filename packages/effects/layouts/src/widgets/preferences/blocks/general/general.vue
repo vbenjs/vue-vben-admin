@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { watch } from 'vue';
+
 import { SUPPORT_LANGUAGES } from '@vben/constants';
 import { $t } from '@vben/locales';
+
+import {
+  NumberField,
+  NumberFieldContent,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
+  NumberFieldInput,
+} from '@vben-core/shadcn-ui';
 
 import InputItem from '../input-item.vue';
 import SelectItem from '../select-item.vue';
@@ -14,9 +24,26 @@ const appLocale = defineModel<string>('appLocale');
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appWatermarkContent = defineModel<string>('appWatermarkContent');
+const appWatermarkOpacity = defineModel<number>('appWatermarkOpacity');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 const appEnableCopyPreferences = defineModel<boolean>(
   'appEnableCopyPreferences',
+);
+
+const min = 0.05;
+const max = 0.5;
+const step = 0.05;
+
+watch(
+  appWatermarkOpacity,
+  (newValue) => {
+    if (newValue < min) {
+      appWatermarkOpacity.value = min;
+    } else if (newValue > max) {
+      appWatermarkOpacity.value = max;
+    }
+  },
+  { immediate: true },
 );
 </script>
 
@@ -44,6 +71,29 @@ const appEnableCopyPreferences = defineModel<boolean>(
   >
     {{ $t('preferences.watermarkContent') }}
   </InputItem>
+  <div
+    v-if="appWatermark"
+    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-1"
+  >
+    <span class="flex items-center text-sm">
+      {{ $t('preferences.watermarkOpacity') }}
+    </span>
+    <div class="flex items-center gap-2">
+      <NumberField
+        v-model="appWatermarkOpacity"
+        :max="max"
+        :min="min"
+        :step="step"
+        class="w-41.25"
+      >
+        <NumberFieldContent>
+          <NumberFieldDecrement />
+          <NumberFieldInput />
+          <NumberFieldIncrement />
+        </NumberFieldContent>
+      </NumberField>
+    </div>
+  </div>
   <SwitchItem v-model="appEnableCheckUpdates">
     {{ $t('preferences.checkUpdates') }}
   </SwitchItem>

@@ -163,6 +163,10 @@ interface AppPreferences {
    * @zh_CN 水印文案
    */
   watermarkContent: string;
+  /**
+   * @zh_CN 水印透明度
+   */
+  watermarkOpacity: number;
   /** z-index */
   zIndex: number;
 }

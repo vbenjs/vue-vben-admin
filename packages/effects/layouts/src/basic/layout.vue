@@ -7,14 +7,19 @@ import type { MenuRecordRaw } from '@vben/types';
 import { computed, onMounted, useSlots, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useRefresh } from '@vben/hooks';
+import { useRefresh, useWatermark } from '@vben/hooks';
 import { $t, i18n } from '@vben/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
 } from '@vben/preferences';
-import { useAccessStore, useTabbarStore, useTimezoneStore } from '@vben/stores';
+import {
+  useAccessStore,
+  useTabbarStore,
+  useTimezoneStore,
+  useUserStore,
+} from '@vben/stores';
 import { cloneDeep, mapTree } from '@vben/utils';
 
 import { VbenAdminLayout } from '@vben-core/layout-ui';
@@ -53,7 +58,18 @@ const {
 } = usePreferences();
 const accessStore = useAccessStore();
 const timezoneStore = useTimezoneStore();
+const userStore = useUserStore();
 const { refresh } = useRefresh();
+const { destroyWatermark, updateWatermark } = useWatermark();
+
+const watermarkContent = computed(() => {
+  const customContent = preferences.app.watermarkContent;
+  if (customContent && customContent.trim()) {
+    return customContent;
+  }
+  const username = userStore.userInfo?.username;
+  return username || 'Unauthorized';
+});
 
 const sidebarTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkSidebar;
@@ -191,6 +207,25 @@ watch(
       });
     }
   },
+);
+
+watch(
+  [
+    () => preferences.app.watermark,
+    () => preferences.app.watermarkOpacity,
+    watermarkContent,
+  ],
+  ([isEnabled, opacity, content]) => {
+    if (isEnabled) {
+      updateWatermark({
+        content,
+        globalAlpha: opacity as number,
+      });
+    } else {
+      destroyWatermark();
+    }
+  },
+  { immediate: true },
 );
 
 const tabbarStore = useTabbarStore();

@@ -32,6 +32,7 @@ const defaultPreferences: Preferences = {
     preferencesButtonPosition: 'auto',
     watermark: false,
     watermarkContent: '',
+    watermarkOpacity: 0.25,
     zIndex: 200,
   },
   breadcrumb: {

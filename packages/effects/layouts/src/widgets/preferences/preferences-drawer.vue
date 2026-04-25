@@ -72,6 +72,7 @@ const appColorWeakMode = defineModel<boolean>('appColorWeakMode');
 const appContentCompact = defineModel<ContentCompactType>('appContentCompact');
 const appWatermark = defineModel<boolean>('appWatermark');
 const appWatermarkContent = defineModel<string>('appWatermarkContent');
+const appWatermarkOpacity = defineModel<number>('appWatermarkOpacity');
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 const appEnableCopyPreferences = defineModel<boolean>(
   'appEnableCopyPreferences',
@@ -360,6 +361,7 @@ function handleCustomPreferencesUpdate(updates: CustomPreferencesRecord) {
                 v-model:app-locale="appLocale"
                 v-model:app-watermark="appWatermark"
                 v-model:app-watermark-content="appWatermarkContent"
+                v-model:app-watermark-opacity="appWatermarkOpacity"
               />
             </Block>
 
