@@ -9,48 +9,19 @@ const activeInstances = ref<number>(0);
 
 const CSS_VAR_FOREGROUND = '--foreground';
 
-function hslToRgb(h: number, s: number, l: number): [number, number, number] {
-  s /= 100;
-  l /= 100;
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n: number) =>
-    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [Math.round(255 * f(0)), Math.round(255 * f(8)), Math.round(255 * f(4))];
-}
-
-function parseHslValue(hslStr: string): { h: number; s: number; l: number } | null {
-  const trimmed = hslStr.trim();
-  
-  const match = trimmed.match(/^(\d+(?:\.\d+)?)(?:deg)?\s+(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
-  if (match) {
-    return {
-      h: parseFloat(match[1]),
-      s: parseFloat(match[2]),
-      l: parseFloat(match[3]),
-    };
-  }
-  
-  return null;
-}
-
 function getForegroundColorFromCSS(): string {
   try {
     const computedStyle = getComputedStyle(document.documentElement);
     const foregroundValue = computedStyle.getPropertyValue(CSS_VAR_FOREGROUND).trim();
     
     if (foregroundValue) {
-      const hsl = parseHslValue(foregroundValue);
-      if (hsl) {
-        const [r, g, b] = hslToRgb(hsl.h, hsl.s, hsl.l);
-        return `rgba(${r}, ${g}, ${b}, 1)`;
-      }
+      return `hsl(${foregroundValue})`;
     }
   } catch (e) {
-    console.warn('Failed to parse CSS variable for watermark color:', e);
+    console.warn('Failed to get CSS variable for watermark color:', e);
   }
   
-  return 'rgba(128, 128, 128, 1)';
+  return 'hsl(0 0% 50%)';
 }
 
 function getColorStops(): { color: string; offset: number }[] {
