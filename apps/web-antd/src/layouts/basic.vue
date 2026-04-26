@@ -14,7 +14,7 @@ import {
   Notification,
   UserDropdown,
 } from '@vben/layouts';
-import { preferences } from '@vben/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
@@ -80,6 +80,7 @@ const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
+const { isDark } = usePreferences();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
 );
@@ -179,10 +180,28 @@ watch(
   () => ({
     enable: preferences.app.watermark,
     content: preferences.app.watermarkContent,
+    isDark: isDark.value,
   }),
-  async ({ enable, content }) => {
+  async ({ enable, content, isDark: isDarkValue }) => {
     if (enable) {
+      const watermarkColor = isDarkValue
+        ? 'rgba(255, 255, 255, 0.12)'
+        : 'rgba(0, 0, 0, 0.12)';
+
       await updateWatermark({
+        advancedStyle: {
+          colorStops: [
+            {
+              color: watermarkColor,
+              offset: 0,
+            },
+            {
+              color: watermarkColor,
+              offset: 1,
+            },
+          ],
+          type: 'linear',
+        },
         content:
           content ||
           `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
