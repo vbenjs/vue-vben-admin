@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import type { ClassType } from '@vben-core/typings';
 import type {
   ContextMenuContentProps,
   ContextMenuRootEmits,
   ContextMenuRootProps,
-} from "reka-ui";
+} from 'reka-ui';
 
-import type { ClassType } from "@vben-core/typings";
+import type { IContextMenuItem } from './interface';
 
-import type { IContextMenuItem } from "./interface";
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { computed, onMounted, onUnmounted, ref } from "vue";
-
-import { useForwardPropsEmits } from "reka-ui";
+import { useForwardPropsEmits } from 'reka-ui';
 
 import {
   ContextMenu,
@@ -20,7 +19,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "../../ui/context-menu";
+} from '../../ui/context-menu';
 
 const props = defineProps<
   ContextMenuRootProps & {
@@ -36,12 +35,12 @@ const props = defineProps<
 const emits = defineEmits<ContextMenuRootEmits>();
 
 const NATIVE_CONTEXT_SELECTORS = [
-  "input",
-  "textarea",
-  "select",
+  'input',
+  'textarea',
+  'select',
   '[contenteditable="true"]',
-  ".allow-native-context",
-].join(", ");
+  '.allow-native-context',
+].join(', ');
 
 const delegatedProps = computed(() => {
   const {
@@ -85,13 +84,13 @@ function onContextMenuCapture(e: MouseEvent) {
 }
 
 onMounted(() => {
-  triggerRef.value?.addEventListener("contextmenu", onContextMenuCapture, {
+  triggerRef.value?.addEventListener('contextmenu', onContextMenuCapture, {
     capture: true,
   });
 });
 
 onUnmounted(() => {
-  triggerRef.value?.removeEventListener("contextmenu", onContextMenuCapture, {
+  triggerRef.value?.removeEventListener('contextmenu', onContextMenuCapture, {
     capture: true,
   });
 });
