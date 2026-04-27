@@ -56,6 +56,7 @@ catalog:
   '@tiptap/extension-text-align': ^3.22.3
   '@tiptap/extension-text-style': ^3.22.3
   '@tiptap/extension-underline': ^3.22.3
+  '@tiptap/pm': ^3.22.3
   '@tiptap/starter-kit': ^3.22.3
   '@tiptap/vue-3': ^3.22.3
   '@tsdown/css': ^0.21.8

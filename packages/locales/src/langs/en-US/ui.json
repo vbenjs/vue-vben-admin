@@ -86,6 +86,8 @@
       "link": "Link",
       "unlink": "Unlink",
       "image": "Image",
+      "imageUrl": "Image URL",
+      "imageUpload": "Upload Image",
       "textColor": "Text Color",
       "highlightColor": "Highlight Color",
       "alignLeft": "Left",
@@ -95,6 +97,11 @@
       "undo": "Undo",
       "redo": "Redo",
       "clear": "Clear"
+    },
+    "upload": {
+      "fileTooLarge": "File size exceeds the limit",
+      "fileTypeNotAllowed": "File type is not allowed",
+      "uploadFailed": "Upload Failed"
     }
   },
   "fallback": {

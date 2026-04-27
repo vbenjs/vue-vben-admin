@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/vue-3';
 
-import type { ToolbarAction, ToolbarMenuItem } from './types';
+import type { ImageUploadOptions, ToolbarAction, ToolbarMenuItem } from './types';
 
 import {
   AlignCenter,
@@ -155,7 +155,9 @@ async function handleImageAction(editor: Editor) {
   editor.chain().focus().setImage({ src: nextUrl }).run();
 }
 
-export function createToolbarGroups(): ToolbarAction[][] {
+export function createToolbarGroups(
+  imageUpload?: ImageUploadOptions,
+): ToolbarAction[][] {
   const headingMenuItems = createHeadingMenuItems();
 
   return [
@@ -278,6 +280,25 @@ export function createToolbarGroups(): ToolbarAction[][] {
         action: (editor) => handleImageAction(editor),
         icon: ImagePlus,
         label: $t('ui.tiptap.toolbar.image'),
+        ...(imageUpload
+          ? {
+              action: () => {},
+              menu: {
+                items: [
+                  {
+                    action: (editor) => (editor.commands as any).uploadImage(),
+                    label: $t('ui.tiptap.toolbar.imageUpload'),
+                    shortLabel: 'UPL',
+                  },
+                  {
+                    action: (editor) => handleImageAction(editor),
+                    label: $t('ui.tiptap.toolbar.imageUrl'),
+                    shortLabel: 'URL',
+                  },
+                ],
+              },
+            }
+          : {}),
       },
     ],
     [
