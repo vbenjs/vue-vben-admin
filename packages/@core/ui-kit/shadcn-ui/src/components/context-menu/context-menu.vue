@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
 import type {
   ContextMenuContentProps,
   ContextMenuRootEmits,
   ContextMenuRootProps,
 } from 'reka-ui';
+
+import type { ClassType } from '@vben-core/typings';
 
 import type { IContextMenuItem } from './interface';
 
