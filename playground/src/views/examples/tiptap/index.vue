@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import type { ImageUploadOptions } from '@vben/plugins/tiptap';
+
 import { computed, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
-import {
-  type ImageUploadOptions,
-  VbenTiptap,
-  VbenTiptapPreview,
-} from '@vben/plugins/tiptap';
+import { VbenTiptap, VbenTiptapPreview } from '@vben/plugins/tiptap';
 
 import { Card, Switch } from 'ant-design-vue';
 const content = ref(`
@@ -36,7 +34,7 @@ const imageUpload: ImageUploadOptions = {
         if (progress >= 100) {
           // 上传完成后返回 mock URL
           resolve(
-            `https://picsum.photos/seed/${Date.now()}/640/${Math.round(640 * (file.size % 3 + 2) / 4)}`,
+            `https://picsum.photos/seed/${Date.now()}/640/${Math.round((640 * ((file.size % 3) + 2)) / 4)}`,
           );
         }
       }, 300);

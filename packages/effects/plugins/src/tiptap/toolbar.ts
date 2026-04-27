@@ -1,6 +1,10 @@
 import type { Editor } from '@tiptap/vue-3';
 
-import type { ImageUploadOptions, ToolbarAction, ToolbarMenuItem } from './types';
+import type {
+  ImageUploadOptions,
+  ToolbarAction,
+  ToolbarMenuItem,
+} from './types';
 
 import {
   AlignCenter,
