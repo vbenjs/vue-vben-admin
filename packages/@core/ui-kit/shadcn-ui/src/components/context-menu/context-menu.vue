@@ -3,15 +3,15 @@ import type {
   ContextMenuContentProps,
   ContextMenuRootEmits,
   ContextMenuRootProps,
-} from 'reka-ui';
+} from "reka-ui";
 
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType } from "@vben-core/typings";
 
-import type { IContextMenuItem } from './interface';
+import type { IContextMenuItem } from "./interface";
 
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
-import { useForwardPropsEmits } from 'reka-ui';
+import { useForwardPropsEmits } from "reka-ui";
 
 import {
   ContextMenu,
@@ -20,7 +20,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from '../../ui/context-menu';
+} from "../../ui/context-menu";
 
 const props = defineProps<
   ContextMenuRootProps & {
@@ -36,12 +36,12 @@ const props = defineProps<
 const emits = defineEmits<ContextMenuRootEmits>();
 
 const NATIVE_CONTEXT_SELECTORS = [
-  'input',
-  'textarea',
-  'select',
+  "input",
+  "textarea",
+  "select",
   '[contenteditable="true"]',
-  '.allow-native-context',
-].join(', ');
+  ".allow-native-context",
+].join(", ");
 
 const delegatedProps = computed(() => {
   const {
@@ -75,42 +75,62 @@ function handleContextMenuCapture(e: MouseEvent) {
     e.stopPropagation();
   }
 }
+
+const triggerRef = ref<HTMLElement | null>(null);
+
+function onContextMenuCapture(e: MouseEvent) {
+  if ((e.target as HTMLElement).closest(NATIVE_CONTEXT_SELECTORS)) {
+    e.stopPropagation();
+  }
+}
+
+onMounted(() => {
+  triggerRef.value?.addEventListener("contextmenu", onContextMenuCapture, {
+    capture: true,
+  });
+});
+
+onUnmounted(() => {
+  triggerRef.value?.removeEventListener("contextmenu", onContextMenuCapture, {
+    capture: true,
+  });
+});
 </script>
 
 <template>
-  <div @contextmenu.capture="handleContextMenuCapture">
-    <ContextMenu v-bind="forwarded">
-      <ContextMenuTrigger as-child>
+  <ContextMenu v-bind="forwarded">
+    <ContextMenuTrigger as-child>
+      <div ref="triggerRef">
         <slot></slot>
-      </ContextMenuTrigger>
-      <ContextMenuContent
-        :class="contentClass"
-        v-bind="contentProps"
-        class="side-content z-popup"
-      >
-        <template v-for="menu in menusView" :key="menu.key">
-          <ContextMenuItem
-            v-if="!menu.hidden"
-            :class="itemClass"
-            :disabled="menu.disabled"
-            :inset="menu.inset || !menu.icon"
-            class="cursor-pointer"
-            @click="handleClick(menu)"
-          >
-            <component
-              :is="menu.icon"
-              v-if="menu.icon"
-              class="mr-2 size-4 text-lg"
-            />
-  
-            {{ menu.text }}
-            <ContextMenuShortcut v-if="menu.shortcut">
-              {{ menu.shortcut }}
-            </ContextMenuShortcut>
-          </ContextMenuItem>
-          <ContextMenuSeparator v-if="menu.separator" />
-        </template>
-      </ContextMenuContent>
-    </ContextMenu>
-  <div>
+      </div>
+    </ContextMenuTrigger>
+    <ContextMenuContent
+      :class="contentClass"
+      v-bind="contentProps"
+      class="side-content z-popup"
+    >
+      <template v-for="menu in menusView" :key="menu.key">
+        <ContextMenuItem
+          v-if="!menu.hidden"
+          :class="itemClass"
+          :disabled="menu.disabled"
+          :inset="menu.inset || !menu.icon"
+          class="cursor-pointer"
+          @click="handleClick(menu)"
+        >
+          <component
+            :is="menu.icon"
+            v-if="menu.icon"
+            class="mr-2 size-4 text-lg"
+          />
+
+          {{ menu.text }}
+          <ContextMenuShortcut v-if="menu.shortcut">
+            {{ menu.shortcut }}
+          </ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSeparator v-if="menu.separator" />
+      </template>
+    </ContextMenuContent>
+  </ContextMenu>
 </template>
