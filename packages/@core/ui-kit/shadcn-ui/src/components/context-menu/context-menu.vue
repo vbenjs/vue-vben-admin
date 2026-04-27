@@ -35,6 +35,14 @@ const props = defineProps<
 
 const emits = defineEmits<ContextMenuRootEmits>();
 
+const NATIVE_CONTEXT_SELECTORS = [
+  'input',
+  'textarea',
+  'select',
+  '[contenteditable="true"]',
+  '.allow-native-context',
+].join(', ');
+
 const delegatedProps = computed(() => {
   const {
     class: _cls,
@@ -59,40 +67,50 @@ function handleClick(menu: IContextMenuItem) {
   }
   menu?.handler?.(props.handlerData);
 }
+
+function handleContextMenuCapture(e: MouseEvent) {
+  const target = e.target as HTMLElement;
+
+  if (target.closest(NATIVE_CONTEXT_SELECTORS)) {
+    e.stopPropagation();
+  }
+}
 </script>
 
 <template>
-  <ContextMenu v-bind="forwarded">
-    <ContextMenuTrigger as-child>
-      <slot></slot>
-    </ContextMenuTrigger>
-    <ContextMenuContent
-      :class="contentClass"
-      v-bind="contentProps"
-      class="side-content z-popup"
-    >
-      <template v-for="menu in menusView" :key="menu.key">
-        <ContextMenuItem
-          v-if="!menu.hidden"
-          :class="itemClass"
-          :disabled="menu.disabled"
-          :inset="menu.inset || !menu.icon"
-          class="cursor-pointer"
-          @click="handleClick(menu)"
-        >
-          <component
-            :is="menu.icon"
-            v-if="menu.icon"
-            class="mr-2 size-4 text-lg"
-          />
-
-          {{ menu.text }}
-          <ContextMenuShortcut v-if="menu.shortcut">
-            {{ menu.shortcut }}
-          </ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuSeparator v-if="menu.separator" />
-      </template>
-    </ContextMenuContent>
-  </ContextMenu>
+  <div @contextmenu.capture="handleContextMenuCapture">
+    <ContextMenu v-bind="forwarded">
+      <ContextMenuTrigger as-child>
+        <slot></slot>
+      </ContextMenuTrigger>
+      <ContextMenuContent
+        :class="contentClass"
+        v-bind="contentProps"
+        class="side-content z-popup"
+      >
+        <template v-for="menu in menusView" :key="menu.key">
+          <ContextMenuItem
+            v-if="!menu.hidden"
+            :class="itemClass"
+            :disabled="menu.disabled"
+            :inset="menu.inset || !menu.icon"
+            class="cursor-pointer"
+            @click="handleClick(menu)"
+          >
+            <component
+              :is="menu.icon"
+              v-if="menu.icon"
+              class="mr-2 size-4 text-lg"
+            />
+  
+            {{ menu.text }}
+            <ContextMenuShortcut v-if="menu.shortcut">
+              {{ menu.shortcut }}
+            </ContextMenuShortcut>
+          </ContextMenuItem>
+          <ContextMenuSeparator v-if="menu.separator" />
+        </template>
+      </ContextMenuContent>
+    </ContextMenu>
+  <div>
 </template>
