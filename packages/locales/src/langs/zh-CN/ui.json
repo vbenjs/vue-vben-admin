@@ -101,6 +101,7 @@
     "upload": {
       "fileTooLarge": "文件大小超出限制",
       "fileTypeNotAllowed": "不支持的文件类型",
+      "onlySingleImage": "仅支持单张图片上传，已选取第一张",
       "uploadFailed": "上传失败"
     }
   },

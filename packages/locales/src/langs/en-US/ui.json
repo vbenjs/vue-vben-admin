@@ -101,6 +101,7 @@
     "upload": {
       "fileTooLarge": "File size exceeds the limit",
       "fileTypeNotAllowed": "File type is not allowed",
+      "onlySingleImage": "Only single image upload is supported, the first one is selected",
       "uploadFailed": "Upload Failed"
     }
   },

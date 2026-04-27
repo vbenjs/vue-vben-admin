@@ -74,7 +74,10 @@ const editor = useEditor({
   },
 });
 const toolbarGroups = computed<ToolbarAction[][]>(() => {
-  return createToolbarGroups(props.imageUpload);
+  // Only show upload toolbar option when using default extensions
+  // (custom extensions may not include the uploadImage command)
+  const effectiveImageUpload = props.extensions ? undefined : props.imageUpload;
+  return createToolbarGroups(effectiveImageUpload);
 });
 const previewContent = computed(
   () => editor.value?.getHTML() ?? modelValue.value,

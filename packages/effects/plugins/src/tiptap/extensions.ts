@@ -56,6 +56,22 @@ function handleUploadError(error: unknown, options: ImageUploadOptions): void {
   }
 }
 
+function findPlaceholderPos(doc: ProseMirrorNode, blobUrl: string): number {
+  let found = -1;
+  doc.descendants((node: ProseMirrorNode, offset: number) => {
+    if (found !== -1) return false;
+    if (
+      node.type.name === 'image' &&
+      node.attrs.src === blobUrl &&
+      node.attrs['data-uploading'] === 'true'
+    ) {
+      found = offset;
+      return false;
+    }
+  });
+  return found;
+}
+
 interface UploadContext {
   blobUrl: string;
   pos: number;
@@ -85,63 +101,33 @@ function createUploadProcess(
     })
     .run();
 
-  // Find the node we just inserted to track its position
-  let nodePos = insertPos;
-  const { doc } = editor.state;
-  doc.descendants((node: ProseMirrorNode, offset: number) => {
-    if (
-      node.type.name === 'image' &&
-      node.attrs.src === blobUrl &&
-      node.attrs['data-uploading'] === 'true'
-    ) {
-      nodePos = offset;
-      return false;
-    }
-  });
+  const nodePos = findPlaceholderPos(editor.state.doc, blobUrl);
 
   const uploadContext: UploadContext = { blobUrl, pos: nodePos };
 
   options
     .upload(file, (percent: number) => {
-      // Update progress attribute on the placeholder image
-      const currentState = editor.state;
-      let currentPos = -1;
-      currentState.doc.descendants((node: ProseMirrorNode, offset: number) => {
-        if (
-          node.type.name === 'image' &&
-          node.attrs.src === blobUrl &&
-          node.attrs['data-uploading'] === 'true'
-        ) {
-          currentPos = offset;
-          return false;
-        }
-      });
+      if (editor.isDestroyed) return;
 
+      const currentPos = findPlaceholderPos(editor.state.doc, blobUrl);
       if (currentPos === -1) return;
 
-      const node = currentState.doc.nodeAt(currentPos);
+      const node = editor.state.doc.nodeAt(currentPos);
       if (!node) return;
 
-      const transaction = currentState.tr.setNodeMarkup(currentPos, undefined, {
+      const transaction = editor.state.tr.setNodeMarkup(currentPos, undefined, {
         ...node.attrs,
         'data-upload-progress': percent,
       });
       editor.view.dispatch(transaction);
     })
     .then((url: string) => {
-      // Replace blob URL with real URL and remove uploading attributes
-      const currentState = editor.state;
-      let currentPos = -1;
-      currentState.doc.descendants((node: ProseMirrorNode, offset: number) => {
-        if (
-          node.type.name === 'image' &&
-          node.attrs.src === blobUrl &&
-          node.attrs['data-uploading'] === 'true'
-        ) {
-          currentPos = offset;
-          return false;
-        }
-      });
+      if (editor.isDestroyed) {
+        URL.revokeObjectURL(blobUrl);
+        return;
+      }
+
+      const currentPos = findPlaceholderPos(editor.state.doc, blobUrl);
 
       if (currentPos === -1) {
         blobUrlTracker?.delete(blobUrl);
@@ -149,14 +135,14 @@ function createUploadProcess(
         return;
       }
 
-      const node = currentState.doc.nodeAt(currentPos);
+      const node = editor.state.doc.nodeAt(currentPos);
       if (!node) {
         blobUrlTracker?.delete(blobUrl);
         URL.revokeObjectURL(blobUrl);
         return;
       }
 
-      const transaction = currentState.tr.setNodeMarkup(currentPos, undefined, {
+      const transaction = editor.state.tr.setNodeMarkup(currentPos, undefined, {
         ...node.attrs,
         'data-upload-progress': null,
         'data-uploading': null,
@@ -167,24 +153,17 @@ function createUploadProcess(
       URL.revokeObjectURL(blobUrl);
     })
     .catch((error: unknown) => {
-      // Remove placeholder image on failure
-      const currentState = editor.state;
-      let currentPos = -1;
-      currentState.doc.descendants((node: ProseMirrorNode, offset: number) => {
-        if (
-          node.type.name === 'image' &&
-          node.attrs.src === blobUrl &&
-          node.attrs['data-uploading'] === 'true'
-        ) {
-          currentPos = offset;
-          return false;
-        }
-      });
+      if (editor.isDestroyed) {
+        URL.revokeObjectURL(blobUrl);
+        return;
+      }
+
+      const currentPos = findPlaceholderPos(editor.state.doc, blobUrl);
 
       if (currentPos !== -1) {
-        const transaction = currentState.tr.delete(
+        const transaction = editor.state.tr.delete(
           currentPos,
-          currentPos + (currentState.doc.nodeAt(currentPos)?.nodeSize ?? 1),
+          currentPos + (editor.state.doc.nodeAt(currentPos)?.nodeSize ?? 1),
         );
         editor.view.dispatch(transaction);
       }
@@ -208,23 +187,15 @@ function createCustomImage(
         'data-upload-progress': {
           default: null,
           parseHTML: (element) => element.dataset.uploadProgress,
-          renderHTML: (attributes) => {
-            if (
-              attributes['data-upload-progress'] === null ||
-              attributes['data-upload-progress'] === undefined
-            )
-              return {};
-            return {
-              'data-upload-progress': attributes['data-upload-progress'],
-            };
+          renderHTML: () => {
+            return {};
           },
         },
         'data-uploading': {
           default: null,
           parseHTML: (element) => element.dataset.uploading,
-          renderHTML: (attributes) => {
-            if (!attributes['data-uploading']) return {};
-            return { 'data-uploading': attributes['data-uploading'] };
+          renderHTML: () => {
+            return {};
           },
         },
       };
@@ -325,6 +296,7 @@ function createCustomImage(
 
             document.body.append(input);
             input.click();
+            return true;
           },
       };
     },
@@ -339,10 +311,22 @@ function createCustomImage(
             handleDrop: (view: EditorView, event: DragEvent) => {
               if (!event.dataTransfer?.files.length) return false;
 
-              const file = event.dataTransfer.files[0];
-              if (!file || !file.type.startsWith('image/')) return false;
+              const imageFiles = [...event.dataTransfer.files].filter((f) =>
+                f.type.startsWith('image/'),
+              );
+              if (imageFiles.length === 0) return false;
 
               event.preventDefault();
+
+              // Only support single image upload
+              const file = imageFiles[0];
+              if (!file) return false;
+              if (imageFiles.length > 1) {
+                handleUploadError(
+                  new Error($t('ui.tiptap.upload.onlySingleImage')),
+                  imageUpload,
+                );
+              }
 
               const error = validateFile(file, imageUpload);
               if (error) {
@@ -350,7 +334,6 @@ function createCustomImage(
                 return true;
               }
 
-              // Calculate drop position
               const coordinates = view.posAtCoords({
                 left: event.clientX,
                 top: event.clientY,
@@ -376,17 +359,26 @@ function createCustomImage(
               const items = event.clipboardData?.items;
               if (!items) return false;
 
-              let imageFile: File | undefined;
+              const imageFiles: File[] = [];
               for (const item of items) {
                 if (item.type.startsWith('image/')) {
-                  imageFile = item.getAsFile() ?? undefined;
-                  break;
+                  const file = item.getAsFile();
+                  if (file) imageFiles.push(file);
                 }
               }
 
-              if (!imageFile) return false;
+              if (imageFiles.length === 0) return false;
 
               event.preventDefault();
+
+              const imageFile = imageFiles[0];
+              if (!imageFile) return false;
+              if (imageFiles.length > 1) {
+                handleUploadError(
+                  new Error($t('ui.tiptap.upload.onlySingleImage')),
+                  imageUpload,
+                );
+              }
 
               const error = validateFile(imageFile, imageUpload);
               if (error) {

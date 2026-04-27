@@ -3,6 +3,14 @@ import type { Editor } from '@tiptap/vue-3';
 
 import type { Component } from 'vue';
 
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    imageUpload: {
+      uploadImage: () => ReturnType;
+    };
+  }
+}
+
 export interface ImageUploadOptions {
   /** 允许的文件类型，默认 'image/*' */
   accept?: string;

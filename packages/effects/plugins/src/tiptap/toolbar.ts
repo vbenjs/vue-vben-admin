@@ -290,7 +290,11 @@ export function createToolbarGroups(
               menu: {
                 items: [
                   {
-                    action: (editor) => (editor.commands as any).uploadImage(),
+                    action: (editor) => {
+                      if (typeof editor.commands.uploadImage === 'function') {
+                        editor.commands.uploadImage();
+                      }
+                    },
                     label: $t('ui.tiptap.toolbar.imageUpload'),
                     shortLabel: 'UPL',
                   },
