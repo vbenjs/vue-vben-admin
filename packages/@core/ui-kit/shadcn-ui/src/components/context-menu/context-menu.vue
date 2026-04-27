@@ -67,14 +67,6 @@ function handleClick(menu: IContextMenuItem) {
   menu?.handler?.(props.handlerData);
 }
 
-function handleContextMenuCapture(e: MouseEvent) {
-  const target = e.target as HTMLElement;
-
-  if (target.closest(NATIVE_CONTEXT_SELECTORS)) {
-    e.stopPropagation();
-  }
-}
-
 const triggerRef = ref<HTMLElement | null>(null);
 
 function onContextMenuCapture(e: MouseEvent) {
