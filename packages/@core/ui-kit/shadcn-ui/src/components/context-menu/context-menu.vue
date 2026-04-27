@@ -39,7 +39,7 @@ const NATIVE_CONTEXT_SELECTORS = [
   'input',
   'textarea',
   'select',
-  '[contenteditable="true"]',
+  '[contenteditable]:not([contenteditable="false"])',
   '.allow-native-context',
 ].join(', ');
 
