@@ -86,6 +86,8 @@
       "link": "链接",
       "unlink": "移除链接",
       "image": "图片",
+      "imageUrl": "图片URL",
+      "imageUpload": "从本地上传",
       "textColor": "文字颜色",
       "highlightColor": "高亮颜色",
       "alignLeft": "左对齐",
@@ -95,6 +97,12 @@
       "undo": "撤销",
       "redo": "重做",
       "clear": "清除"
+    },
+    "upload": {
+      "fileTooLarge": "文件大小超出限制",
+      "fileTypeNotAllowed": "不支持的文件类型",
+      "onlySingleImage": "仅支持单张图片上传，已选取第一张",
+      "uploadFailed": "上传失败"
     }
   },
   "fallback": {
