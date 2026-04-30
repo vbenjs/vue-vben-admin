@@ -349,8 +349,8 @@ catalogs:
       specifier: ^4.7.1
       version: 4.7.1
     pkg-types:
-      specifier: ^2.3.0
-      version: 2.3.0
+      specifier: ^2.3.1
+      version: 2.3.1
     playwright:
       specifier: ^1.59.1
       version: 1.59.1
@@ -382,7 +382,7 @@ catalogs:
       specifier: ^6.1.3
       version: 6.1.3
     rolldown:
-      specifier: ^1.0.0-rc.15
+      specifier: ^1.0.0-rc.17
       version: 1.0.0-rc.17
     rollup-plugin-visualizer:
       specifier: ^7.0.1
@@ -448,7 +448,7 @@ catalogs:
       specifier: ^1.4.0
       version: 1.4.0
     typescript:
-      specifier: ^6.0.2
+      specifier: ^6.0.3
       version: 6.0.3
     unplugin-dts:
       specifier: ^1.0.0-beta.6
@@ -463,7 +463,7 @@ catalogs:
       specifier: ^4.15.1
       version: 4.15.1
     vite:
-      specifier: ^8.0.8
+      specifier: ^8.0.10
       version: 8.0.10
     vite-plugin-compression:
       specifier: ^0.5.1
@@ -1194,7 +1194,7 @@ importers:
         version: 9.4.0
       pkg-types:
         specifier: 'catalog:'
-        version: 2.3.0
+        version: 2.3.1
       rimraf:
         specifier: 'catalog:'
         version: 6.1.3
@@ -9216,6 +9216,9 @@ packages:
 
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
+
+  pkg-types@2.3.1:
+    resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
 
   playwright-core@1.59.1:
     resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
@@ -18829,6 +18832,12 @@ snapshots:
       pathe: 2.0.3
 
   pkg-types@2.3.0:
+    dependencies:
+      confbox: 0.2.4
+      exsolve: 1.0.8
+      pathe: 2.0.3
+
+  pkg-types@2.3.1:
     dependencies:
       confbox: 0.2.4
       exsolve: 1.0.8
