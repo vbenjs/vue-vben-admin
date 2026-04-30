@@ -196,7 +196,8 @@
     "notification": "启用通知",
     "sidebarToggle": "启用侧边栏切换",
     "lockScreen": "启用锁屏",
-    "refresh": "启用刷新"
+    "refresh": "启用刷新",
+    "timezone": "启用时区"
   },
   "antd": {
     "tabLabel": "Antd 拓展",
