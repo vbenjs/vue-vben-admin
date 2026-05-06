@@ -3,9 +3,32 @@ import type { Editor } from '@tiptap/vue-3';
 
 import type { Component } from 'vue';
 
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    imageUpload: {
+      uploadImage: () => ReturnType;
+    };
+  }
+}
+
+export interface ImageUploadOptions {
+  /** 允许的文件类型，默认 'image/*' */
+  accept?: string;
+  /** 最大文件大小(字节)，默认 5MB */
+  maxSize?: number;
+  /** 上传失败回调，未提供时使用 alert 弹窗提示 */
+  onUploadError?: (error: unknown) => void;
+  /** 上传函数，返回图片 URL，可选 onProgress 回调报告上传进度 */
+  upload: (
+    file: File,
+    onProgress?: (percent: number) => void,
+  ) => Promise<string>;
+}
+
 export interface TipTapProps {
   editable?: boolean;
   extensions?: Extensions;
+  imageUpload?: ImageUploadOptions;
   minHeight?: number | string;
   placeholder?: string;
   previewable?: boolean;
@@ -25,6 +48,9 @@ export interface VbenTiptapChangeEvent {
 }
 
 export interface VbenTiptapExtensionOptions {
+  imageUpload?: ImageUploadOptions;
+  /** 内部使用：追踪 blob URL 以便组件销毁时清理 */
+  _blobUrlTracker?: Set<string>;
   placeholder?: string;
 }
 

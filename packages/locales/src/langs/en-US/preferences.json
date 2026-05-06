@@ -196,7 +196,8 @@
     "notification": "Enable Notification",
     "sidebarToggle": "Enable Sidebar Toggle",
     "lockScreen": "Enable Lock Screen",
-    "refresh": "Enable Refresh"
+    "refresh": "Enable Refresh",
+    "timezone": "Enable Timezone"
   },
   "antd": {
     "tabLabel": "Antd Extension",
