@@ -50,10 +50,10 @@ pre-commit:
       run: pnpm oxfmt {staged_files}
       glob: '*.md'
     lint-vue:
-      run: pnpm oxfmt {staged_files} && pnpm oxlint --fix {staged_files} && pnpm eslint --cache --fix {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}
+      run: pnpm oxfmt {staged_files} && pnpm oxlint --fix --no-error-on-unmatched-pattern {staged_files} && pnpm eslint --cache --fix {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}
       glob: '*.vue'
     lint-js:
-      run: pnpm oxfmt {staged_files} && pnpm oxlint --fix {staged_files} && pnpm eslint --cache --fix {staged_files}
+      run: pnpm oxfmt {staged_files} && pnpm oxlint --fix --no-error-on-unmatched-pattern {staged_files} && pnpm eslint --cache --fix {staged_files}
       glob: '*.{js,jsx,ts,tsx}'
     lint-style:
       run: pnpm oxfmt {staged_files} && pnpm stylelint --fix --allow-empty-input {staged_files}
