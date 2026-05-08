@@ -46,6 +46,16 @@ export class VxeGridApi<
 
   private stateHandler: StateHandler;
 
+  // 已读行相关方法（由 use-vxe-grid.vue 注入）
+  private viewedRowHelper: null | {
+    clearViewed: () => void;
+    isViewed: (record: T) => boolean;
+    markAsViewed: (record: T) => void;
+    markKeysAsViewed: (keys: Array<number | string>) => void;
+    removeKeys: (keys: Array<number | string>) => void;
+    viewedSet: { value: Set<number | string> };
+  } = null;
+
   constructor(options: VxeGridProps<T, D, P> = {} as VxeGridProps<T, D, P>) {
     const storeState = { ...options };
 
@@ -62,6 +72,41 @@ export class VxeGridApi<
     this.state = this.store.state;
     this.stateHandler = new StateHandler();
     bindMethods(this);
+  }
+
+  /**
+   * 清除所有已读状态
+   */
+  clearViewedRows() {
+    this.viewedRowHelper?.clearViewed();
+  }
+
+  /**
+   * 获取所有已读的 key 集合
+   */
+  getViewedKeys(): Set<number | string> {
+    return this.viewedRowHelper?.viewedSet.value ?? new Set();
+  }
+
+  /**
+   * 判断某行是否已读
+   */
+  isRowViewed(record: T): boolean {
+    return this.viewedRowHelper?.isViewed(record) ?? false;
+  }
+
+  /**
+   * 批量标记行为已读
+   */
+  markKeysAsViewed(keys: Array<number | string>) {
+    this.viewedRowHelper?.markKeysAsViewed(keys);
+  }
+
+  /**
+   * 标记某行为已读
+   */
+  markRowAsViewed(record: T) {
+    this.viewedRowHelper?.markAsViewed(record);
   }
 
   mount(instance: null | VxeGridInstance, formApi: ExtendedFormApi) {
@@ -87,6 +132,13 @@ export class VxeGridApi<
     } catch (error) {
       console.error('Error occurred while reloading:', error);
     }
+  }
+
+  /**
+   * 移除指定 key 的已读状态
+   */
+  removeViewedKeys(keys: Array<number | string>) {
+    this.viewedRowHelper?.removeKeys(keys);
   }
 
   setGridOptions(options: Partial<VxeGridProps<T, D, P>['gridOptions']>) {
@@ -115,6 +167,14 @@ export class VxeGridApi<
     } else {
       this.store.setState((prev) => mergeWithArrayOverride(stateOrFn, prev));
     }
+  }
+
+  /**
+   * 设置已读行 helper（由组件内部调用）
+   * @internal
+   */
+  setViewedRowHelper(helper: VxeGridApi<T, D, P>['viewedRowHelper']) {
+    this.viewedRowHelper = helper;
   }
 
   toggleSearchForm(show?: boolean) {

@@ -19,10 +19,12 @@ import {
   nextTick,
   onMounted,
   onUnmounted,
+  shallowRef,
   toRaw,
   useSlots,
   useTemplateRef,
   watch,
+  watchEffect,
 } from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
@@ -44,6 +46,7 @@ import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
+import {applyViewedRowOptions, useViewedRow} from './use-viewed-row';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
@@ -76,7 +79,44 @@ const {
   tableTitleHelp,
   showSearchForm,
   separator,
+  viewedRow,
 } = usePriorityValues(props, state);
+
+// ========== 已读行：响应 viewedRow 配置变化 ==========
+const defaultKeyField = (gridOptions.value?.rowConfig as any)?.keyField || 'id';
+
+const viewedRowHelper = shallowRef<null | ReturnType<typeof useViewedRow>>(
+  null,
+);
+
+// 初始化 + 监听配置变化时重建 helper
+watch(
+  viewedRow,
+  (cfg) => {
+    if (!cfg) {
+      viewedRowHelper.value = null;
+      props.api?.setViewedRowHelper?.(null);
+      return;
+    }
+    const resolvedOptions = isBoolean(cfg)
+      ? {keyField: defaultKeyField}
+      : {keyField: defaultKeyField, ...cfg};
+    viewedRowHelper.value = useViewedRow(resolvedOptions);
+    // 同步更新 API 中的 helper 引用
+    if (props.api?.setViewedRowHelper) {
+      props.api.setViewedRowHelper(viewedRowHelper.value);
+    }
+  },
+  {immediate: true},
+);
+
+// viewedSet 变化时，主动刷新 grid 行样式
+watchEffect(() => {
+  const helper = viewedRowHelper.value;
+  if (!helper) return;
+  // 访问 viewedSet.value 建立依赖追踪
+  void helper.viewedSet.value;
+});
 
 const { isMobile } = usePreferences();
 const isSeparator = computed(() => {
@@ -234,6 +274,16 @@ const options = computed(() => {
       mergedOptions.data = tableData.value;
     }
   }
+
+  // 注入已读行功能（rowClassName、rowStyle、columns 拦截）
+  if (viewedRow.value && viewedRowHelper.value) {
+    applyViewedRowOptions(
+      mergedOptions,
+      viewedRow.value,
+      viewedRowHelper.value,
+    );
+  }
+
   return mergedOptions;
 });
 
