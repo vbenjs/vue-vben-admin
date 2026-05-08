@@ -44,11 +44,7 @@ describe('storageManager', () => {
   });
 
   it('should clear expired items', async () => {
-    await storageManager.setItem(
-      'user',
-      {age: 30, name: 'John Doe'},
-      1000,
-    ); // 1秒过期
+    await storageManager.setItem('user', {age: 30, name: 'John Doe'}, 1000); // 1秒过期
     vi.advanceTimersByTime(1001); // 快进时间
     await storageManager.clearExpiredItems();
     const user = await storageManager.getItem('user');
@@ -56,11 +52,7 @@ describe('storageManager', () => {
   });
 
   it('should not clear non-expired items', async () => {
-    await storageManager.setItem(
-      'user',
-      {age: 30, name: 'John Doe'},
-      10_000,
-    ); // 10秒过期
+    await storageManager.setItem('user', {age: 30, name: 'John Doe'}, 10_000); // 10秒过期
     vi.advanceTimersByTime(5000); // 快进时间
     await storageManager.clearExpiredItems();
     const user = await storageManager.getItem('user');
@@ -87,38 +79,22 @@ describe('storageManager', () => {
   });
 
   it('should remove expired items when accessed', async () => {
-    await storageManager.setItem(
-      'user',
-      {age: 30, name: 'John Doe'},
-      1000,
-    ); // 1秒过期
+    await storageManager.setItem('user', {age: 30, name: 'John Doe'}, 1000); // 1秒过期
     vi.advanceTimersByTime(1001); // 快进时间
     const user = await storageManager.getItem('user');
     expect(user).toBeNull();
   });
 
   it('should not remove non-expired items when accessed', async () => {
-    await storageManager.setItem(
-      'user',
-      {age: 30, name: 'John Doe'},
-      10_000,
-    ); // 10秒过期
+    await storageManager.setItem('user', {age: 30, name: 'John Doe'}, 10_000); // 10秒过期
     vi.advanceTimersByTime(5000); // 快进时间
     const user = await storageManager.getItem('user');
     expect(user).toEqual({ age: 30, name: 'John Doe' });
   });
 
   it('should handle multiple items with different expiry times', async () => {
-    await storageManager.setItem(
-      'user1',
-      {age: 30, name: 'John Doe'},
-      1000,
-    ); // 1秒过期
-    await storageManager.setItem(
-      'user2',
-      {age: 25, name: 'Jane Doe'},
-      2000,
-    ); // 2秒过期
+    await storageManager.setItem('user1', {age: 30, name: 'John Doe'}, 1000); // 1秒过期
+    await storageManager.setItem('user2', {age: 25, name: 'Jane Doe'}, 2000); // 2秒过期
     vi.advanceTimersByTime(1500); // 快进时间
     await storageManager.clearExpiredItems();
     const user1 = await storageManager.getItem('user1');

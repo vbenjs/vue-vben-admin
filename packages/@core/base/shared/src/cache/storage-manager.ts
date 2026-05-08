@@ -1,4 +1,8 @@
-import type {IStorageDriver, StorageItem, StorageManagerOptions} from './types';
+import type {
+  IStorageDriver,
+  StorageItem,
+  StorageManagerOptions,
+} from './types';
 
 import {LocalStorageDriver} from './local-storage-driver';
 
@@ -47,7 +51,10 @@ class StorageManager {
    * @param defaultValue 当项不存在或已过期时返回的默认值
    * @returns 值，如果项已过期则返回默认值
    */
-  async getItem<T>(key: string, defaultValue: null | T = null): Promise<null | T> {
+  async getItem<T>(
+    key: string,
+    defaultValue: null | T = null,
+  ): Promise<null | T> {
     const fullKey = this.getFullKey(key);
     const raw = await this.driver.getItem<StorageItem<T>>(fullKey);
 

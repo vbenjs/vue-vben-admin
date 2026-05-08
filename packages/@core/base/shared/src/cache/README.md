@@ -308,7 +308,7 @@ await userCache.setItem('profile', {name: '张三'});
 await configCache.setItem('profile', {theme: 'dark'});
 
 // 各自独立
-await userCache.getItem('profile');   // => { name: '张三' }
+await userCache.getItem('profile'); // => { name: '张三' }
 await configCache.getItem('profile'); // => { theme: 'dark' }
 
 // 只清除 user 前缀的数据
@@ -325,9 +325,12 @@ const cache = new StorageManager({ prefix: 'app' });
 await cache.clearExpiredItems();
 
 // 或者定时清理（每 10 分钟）
-setInterval(async () => {
-  await cache.clearExpiredItems();
-}, 10 * 60 * 1000);
+setInterval(
+  async () => {
+    await cache.clearExpiredItems();
+  },
+  10 * 60 * 1000,
+);
 ```
 
 ---
@@ -338,8 +341,8 @@ setInterval(async () => {
 
 ```typescript
 interface StorageItem<T> {
-  expiry?: number;  // 过期时间戳（毫秒），undefined 表示永不过期
-  value: T;         // 实际业务数据
+  expiry?: number; // 过期时间戳（毫秒），undefined 表示永不过期
+  value: T; // 实际业务数据
 }
 ```
 
