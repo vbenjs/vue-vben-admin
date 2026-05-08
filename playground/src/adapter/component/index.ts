@@ -734,7 +734,8 @@ async function initComponentAdapter() {
                 onProgress?.(percent);
               },
               onSuccess(response) {
-                resolve(response);
+                // 从响应中提取图片URL
+                resolve(response?.data?.url ?? response?.url ?? '');
               },
               onError() {
                 reject(new Error($t('ui.tiptap.upload.uploadFailed')));
