@@ -196,6 +196,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           link: 'common-ui/vben-ellipsis-text',
           text: 'EllipsisText 省略文本',
         },
+        {
+          link: 'common-ui/vben-tiptap',
+          text: 'Tiptap 富文本编辑器',
+        },
       ],
     },
   ];
