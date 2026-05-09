@@ -202,8 +202,7 @@ export function useViewedRow<T = any>(
     if (!adapter) return;
 
     try {
-      const stored = await adapter
-        .getKeys();
+      const stored = await adapter.getKeys();
       if (stored && stored.length > 0) {
         for (const key of stored) {
           viewedSet.value.add(key);
