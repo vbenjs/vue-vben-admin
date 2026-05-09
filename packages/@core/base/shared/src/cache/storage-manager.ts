@@ -125,7 +125,10 @@ class StorageManager {
       }
     } catch (error) {
       // localStorage access denied (e.g. Safari private mode)
-      console.warn('localStorage is not accessible, falling back to MemoryStorageDriver:', error);
+      console.warn(
+        'localStorage is not accessible, falling back to MemoryStorageDriver:',
+        error,
+      );
     }
     return new MemoryStorageDriver();
   }
