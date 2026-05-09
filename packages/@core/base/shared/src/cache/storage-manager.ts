@@ -119,8 +119,13 @@ class StorageManager {
    * - SSR / Node 环境 → MemoryStorageDriver
    */
   private createDefaultDriver(): IStorageDriver {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      return new LocalStorageDriver();
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return new LocalStorageDriver();
+      }
+    } catch (error) {
+      // localStorage access denied (e.g. Safari private mode)
+      console.warn('localStorage is not accessible, falling back to MemoryStorageDriver:', error);
     }
     return new MemoryStorageDriver();
   }
