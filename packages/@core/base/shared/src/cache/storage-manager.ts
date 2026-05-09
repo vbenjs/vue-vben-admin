@@ -20,6 +20,11 @@ class StorageManager {
   constructor({driver, prefix = ''}: StorageManagerOptions = {}) {
     this.driver = driver || this.createDefaultDriver();
     this.prefix = prefix;
+    if (!this.prefix && this.driver instanceof LocalStorageDriver) {
+      console.warn(
+        '[StorageManager] empty prefix combined with LocalStorageDriver — clear()/keys() will affect every localStorage entry.',
+      );
+    }
   }
 
   /**
