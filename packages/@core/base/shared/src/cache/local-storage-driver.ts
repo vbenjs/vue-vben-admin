@@ -17,6 +17,12 @@ class LocalStorageDriver implements IStorageDriver {
   constructor({
                 storageType = 'localStorage',
               }: LocalStorageDriverOptions = {}) {
+    if (typeof window === 'undefined') {
+      // eslint-disable-next-line unicorn/prefer-type-error -- not a type check, it's an environment check
+      throw new Error(
+        'LocalStorageDriver is not available in non-browser environments. Use MemoryStorageDriver instead.',
+      );
+    }
     this.storage =
       storageType === 'localStorage'
         ? window.localStorage
