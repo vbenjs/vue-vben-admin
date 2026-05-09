@@ -94,11 +94,17 @@ function createIndexedDBAdapter(
     },
     async setKeys(keys) {
       try {
-        // 先清除旧数据，再逐条写入
-        await manager.clear();
+        const newKeySet = new Set(keys.map(String));
+        // 先写入新数据，确保数据安全落盘
         await Promise.all(
           keys.map((key) => manager.setItem(String(key), key, opts.ttl)),
         );
+        // 再清理不在新集合中的旧 key
+        const existingKeys = await manager.keys();
+        const toRemove = existingKeys.filter((k) => !newKeySet.has(k));
+        if (toRemove.length > 0) {
+          await Promise.all(toRemove.map((k) => manager.removeItem(k)));
+        }
       } catch (error) {
         console.error('[viewedRow] indexedDB persist failed:', error);
       }
