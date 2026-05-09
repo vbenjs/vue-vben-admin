@@ -5,6 +5,7 @@ import type {
 } from './types';
 
 import {LocalStorageDriver} from './local-storage-driver';
+import {MemoryStorageDriver} from './memory-storage-driver';
 
 /**
  * 存储管理器（策略模式）
@@ -17,7 +18,7 @@ class StorageManager {
   private prefix: string;
 
   constructor({driver, prefix = ''}: StorageManagerOptions = {}) {
-    this.driver = driver || new LocalStorageDriver();
+    this.driver = driver || this.createDefaultDriver();
     this.prefix = prefix;
   }
 
@@ -103,6 +104,18 @@ class StorageManager {
     const expiry = ttl ? Date.now() + ttl : undefined;
     const item: StorageItem<T> = { expiry, value };
     await this.driver.setItem(fullKey, item);
+  }
+
+  /**
+   * 根据运行环境创建默认驱动：
+   * - 浏览器环境（window.localStorage 可用）→ LocalStorageDriver
+   * - SSR / Node 环境 → MemoryStorageDriver
+   */
+  private createDefaultDriver(): IStorageDriver {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return new LocalStorageDriver();
+    }
+    return new MemoryStorageDriver();
   }
 
   /**
