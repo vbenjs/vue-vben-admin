@@ -6,6 +6,7 @@ import type {
 } from '@vben-core/form-ui';
 
 import type { VxeGridProps } from './types';
+import type {ViewedRowHelper} from './use-viewed-row';
 
 import { toRaw } from 'vue';
 
@@ -42,19 +43,14 @@ export class VxeGridApi<
 
   public store: Store<VxeGridProps<T, D, P>>;
 
+  /**
+   * 已读行 helper（在 mount 中初始化，业务能力全部封装在 useViewedRow 中）
+   */
+  public viewedRowHelper: null | ViewedRowHelper<T> = null;
+
   private isMounted = false;
 
   private stateHandler: StateHandler;
-
-  // 已读行相关方法（由 use-vxe-grid.vue 注入）
-  private viewedRowHelper: null | {
-    clearViewed: () => void;
-    isViewed: (record: T) => boolean;
-    markAsViewed: (record: T) => void;
-    markKeysAsViewed: (keys: Array<number | string>) => void;
-    removeKeys: (keys: Array<number | string>) => void;
-    viewedSet: { value: Set<number | string> };
-  } = null;
 
   constructor(options: VxeGridProps<T, D, P> = {} as VxeGridProps<T, D, P>) {
     const storeState = { ...options };
@@ -82,7 +78,7 @@ export class VxeGridApi<
   }
 
   /**
-   * 获取所有已读的 key 集合
+   * 获取所有已读的 key 集合（返回副本，避免外部修改内部状态）
    */
   getViewedKeys(): Set<number | string> {
     const raw = this.viewedRowHelper?.viewedSet.value;
@@ -170,14 +166,6 @@ export class VxeGridApi<
     }
   }
 
-  /**
-   * 设置已读行 helper（由组件内部调用）
-   * @internal
-   */
-  setViewedRowHelper(helper: VxeGridApi<T, D, P>['viewedRowHelper']) {
-    this.viewedRowHelper = helper;
-  }
-
   toggleSearchForm(show?: boolean) {
     this.setState({
       showSearchForm: isBoolean(show) ? show : !this.state?.showSearchForm,
@@ -191,5 +179,6 @@ export class VxeGridApi<
   unmount() {
     this.isMounted = false;
     this.stateHandler.reset();
+    this.viewedRowHelper = null;
   }
 }

@@ -19,12 +19,10 @@ import {
   nextTick,
   onMounted,
   onUnmounted,
-  shallowRef,
   toRaw,
   useSlots,
   useTemplateRef,
   watch,
-  watchEffect,
 } from 'vue';
 
 import { usePriorityValues } from '@vben/hooks';
@@ -79,44 +77,30 @@ const {
   tableTitleHelp,
   showSearchForm,
   separator,
-  viewedRow,
+  viewedRowOptions,
 } = usePriorityValues(props, state);
 
-// ========== 已读行：响应 viewedRow 配置变化 ==========
-const defaultKeyField = (gridOptions.value?.rowConfig as any)?.keyField || 'id';
+// viewedRowOptions：helper 只创建一次（persist/keyField 不支持运行时切换）
+// actionCodes、rowClassName、rowStyle、viewedKeys 的变化通过 options computed 自然响应
+const gridApi = props.api;
 
-const viewedRowHelper = shallowRef<null | ReturnType<typeof useViewedRow>>(
-  null,
-);
-
-// 初始化 + 监听配置变化时重建 helper
 watch(
-  viewedRow,
+  viewedRowOptions,
   (cfg) => {
-    if (!cfg) {
-      viewedRowHelper.value = null;
-      props.api?.setViewedRowHelper?.(null);
-      return;
-    }
-    const resolvedOptions = isBoolean(cfg)
-      ? {keyField: defaultKeyField}
-      : {keyField: defaultKeyField, ...cfg};
-    viewedRowHelper.value = useViewedRow(resolvedOptions);
-    // 同步更新 API 中的 helper 引用
-    if (props.api?.setViewedRowHelper) {
-      props.api.setViewedRowHelper(viewedRowHelper.value);
-    }
+    // helper 已存在则不重建
+    if (gridApi.viewedRowHelper) return;
+
+    if (!cfg) return;
+
+    const keyField =
+      (gridOptions.value?.rowConfig as any)?.keyField || 'id';
+    const resolved = isBoolean(cfg)
+      ? {keyField}
+      : {keyField, ...cfg};
+    gridApi.viewedRowHelper = useViewedRow(resolved);
   },
   {immediate: true},
 );
-
-// viewedSet 变化时，主动刷新 grid 行样式
-watchEffect(() => {
-  const helper = viewedRowHelper.value;
-  if (!helper) return;
-  // 访问 viewedSet.value 建立依赖追踪
-  void helper.viewedSet.value;
-});
 
 const { isMobile } = usePreferences();
 const isSeparator = computed(() => {
@@ -276,11 +260,11 @@ const options = computed(() => {
   }
 
   // 注入已读行功能（rowClassName、rowStyle、columns 拦截）
-  if (viewedRow.value && viewedRowHelper.value) {
+  if (viewedRowOptions.value && gridApi.viewedRowHelper) {
     applyViewedRowOptions(
       mergedOptions,
-      viewedRow.value,
-      viewedRowHelper.value,
+      viewedRowOptions.value,
+      gridApi.viewedRowHelper,
     );
   }
 

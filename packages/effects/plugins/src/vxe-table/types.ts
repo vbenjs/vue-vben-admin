@@ -168,7 +168,7 @@ export interface VxeGridProps<
   /**
    * 已读行功能
    */
-  viewedRow?: boolean | ViewedRowOptions<T>;
+  viewedRowOptions?: boolean | ViewedRowOptions<T>;
 }
 
 export type ExtendedVxeGridApi<

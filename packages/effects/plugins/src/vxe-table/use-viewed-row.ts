@@ -373,6 +373,8 @@ export function useViewedRow<T = any>(
   };
 }
 
+export type ViewedRowHelper<T = any> = ReturnType<typeof useViewedRow<T>>;
+
 // ========== 工具函数 ==========
 
 function normalizeClassName(value: any): string {
@@ -445,24 +447,64 @@ export function applyViewedRowOptions(
   viewedRowConfig: boolean | ViewedRowOptions,
   helper: ReturnType<typeof useViewedRow>,
 ) {
+  // 从最新的配置中读取 rowClassName 和 rowStyle（支持运行时修改）
+  const viewedRowClassName = isBoolean(viewedRowConfig)
+    ? undefined
+    : viewedRowConfig.rowClassName;
+  const viewedRowStyle = isBoolean(viewedRowConfig)
+    ? undefined
+    : viewedRowConfig.rowStyle;
+
   // 注入 rowClassName
   const originalRowClassName = mergedOptions.rowClassName;
   mergedOptions.rowClassName = (params: any) => {
+    if (!helper.isViewed(params.row)) {
+      return normalizeClassName(
+        isFunction(originalRowClassName)
+          ? originalRowClassName(params)
+          : originalRowClassName,
+      );
+    }
+
+    let viewedClass: string;
+    if (viewedRowClassName === undefined || viewedRowClassName === null) {
+      viewedClass = DEFAULT_VIEWED_CLASS;
+    } else if (typeof viewedRowClassName === 'string') {
+      viewedClass = viewedRowClassName;
+    } else if (isFunction(viewedRowClassName)) {
+      viewedClass = normalizeClassName(viewedRowClassName(params));
+    } else {
+      viewedClass = DEFAULT_VIEWED_CLASS;
+    }
+
     return mergeClassNames(
       isFunction(originalRowClassName)
         ? originalRowClassName(params)
         : originalRowClassName,
-      helper.getRowClassName(params),
+      viewedClass,
     );
   };
 
   // 注入 rowStyle
   const originalRowStyle = mergedOptions.rowStyle;
   mergedOptions.rowStyle = (params: any) => {
-    const viewedStyle = helper.getRowStyle(params);
     const originalStyle = isFunction(originalRowStyle)
       ? originalRowStyle(params)
       : originalRowStyle;
+
+    if (!helper.isViewed(params.row)) {
+      return originalStyle || undefined;
+    }
+
+    let viewedStyle: any;
+    if (viewedRowStyle === undefined || viewedRowStyle === null) {
+      viewedStyle = undefined;
+    } else if (isFunction(viewedRowStyle)) {
+      viewedStyle = viewedRowStyle(params);
+    } else {
+      viewedStyle = viewedRowStyle;
+    }
+
     if (!viewedStyle && !originalStyle) return undefined;
     if (!originalStyle) return viewedStyle;
     if (!viewedStyle) return originalStyle;

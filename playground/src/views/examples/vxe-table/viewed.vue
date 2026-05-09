@@ -87,7 +87,7 @@ const gridOptions: VxeGridProps<RowType> = {
 
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
-  viewedRow: {
+  viewedRowOptions: {
     // 触发已读的操作码
     actionCodes: ['view'],
     // 行数据中的唯一标识字段
@@ -144,6 +144,33 @@ function onView(row: RowType) {
   });
 }
 
+const isStyle = ref(false);
+
+function onStyleSet() {
+  isStyle.value = !isStyle.value;
+  gridApi.setState({
+    viewedRowOptions: {
+      rowStyle: () => {
+        return isStyle.value ? {backgroundColor: 'gray'} : '';
+      },
+    },
+  });
+}
+
+const isClassName = ref(false);
+
+function onClassNameSet() {
+  isClassName.value = !isClassName.value;
+  gridApi.setState({
+    viewedRowOptions: {
+      rowClassName: () => {
+
+        return isClassName.value ? 'bg-red-100 vxe-row--viewed' : 'vxe-row--viewed';
+      },
+    },
+  });
+}
+
 function onCustomSet() {
   const tableData = gridApi.grid.getData();
   const keys = tableData.slice(0, 2).map((row) => row.id);
@@ -168,7 +195,13 @@ function onClearViewed() {
     <Grid table-title="已查看行标记" table-title-help="提示">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="onCustomSet">
-          手动设置
+          手动标记
+        </Button>
+        <Button class="mr-2" type="primary" @click="onStyleSet">
+          设置Style
+        </Button>
+        <Button class="mr-2" type="primary" @click="onClassNameSet">
+          设置ClassName
         </Button>
         <Button type="primary" @click="onClearViewed"> 清空缓存</Button>
       </template>
