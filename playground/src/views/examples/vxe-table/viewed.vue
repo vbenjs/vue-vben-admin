@@ -23,7 +23,7 @@ interface RowType {
 const gridOptions: VxeGridProps<RowType> = {
   checkboxConfig: {
     highlight: true,
-    labelField: 'name',
+    labelField: 'productName',
   },
   columns: [
     {title: '序号', type: 'seq', width: 50},
@@ -88,7 +88,7 @@ const gridOptions: VxeGridProps<RowType> = {
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
   viewedRow: {
-    // 触发已读的操作码（点击编辑时标记为已读）
+    // 触发已读的操作码
     actionCodes: ['view'],
     // 行数据中的唯一标识字段
     keyField: 'id',
