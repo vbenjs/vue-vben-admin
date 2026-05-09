@@ -85,7 +85,8 @@ export class VxeGridApi<
    * 获取所有已读的 key 集合
    */
   getViewedKeys(): Set<number | string> {
-    return this.viewedRowHelper?.viewedSet.value ?? new Set();
+    const raw = this.viewedRowHelper?.viewedSet.value;
+    return raw ? new Set(raw) : new Set();
   }
 
   /**
