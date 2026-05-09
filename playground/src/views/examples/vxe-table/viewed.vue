@@ -164,8 +164,9 @@ function onClassNameSet() {
   gridApi.setState({
     viewedRowOptions: {
       rowClassName: () => {
-
-        return isClassName.value ? 'bg-red-100 vxe-row--viewed' : 'vxe-row--viewed';
+        return isClassName.value
+          ? 'bg-red-100 vxe-row--viewed'
+          : 'vxe-row--viewed';
       },
     },
   });

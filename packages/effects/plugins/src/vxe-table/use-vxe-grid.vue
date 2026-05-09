@@ -92,11 +92,8 @@ watch(
 
     if (!cfg) return;
 
-    const keyField =
-      (gridOptions.value?.rowConfig as any)?.keyField || 'id';
-    const resolved = isBoolean(cfg)
-      ? {keyField}
-      : {keyField, ...cfg};
+    const keyField = (gridOptions.value?.rowConfig as any)?.keyField || 'id';
+    const resolved = isBoolean(cfg) ? {keyField} : {keyField, ...cfg};
     gridApi.viewedRowHelper = useViewedRow(resolved);
   },
   {immediate: true},
