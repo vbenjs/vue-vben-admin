@@ -145,10 +145,9 @@ function onView(row: RowType) {
 }
 
 function onCustomSet() {
-  gridApi.markKeysAsViewed([
-    '0da74a21-362d-42ba-9c7e-078e47477620',
-    '1c7785d9-f16b-448b-b6a2-fb4b3557550a',
-  ]);
+  const tableData = gridApi.grid.getData();
+  const keys = tableData.slice(0, 2).map((row) => row.id);
+  gridApi.markKeysAsViewed(keys);
 }
 
 function onClearViewed() {
