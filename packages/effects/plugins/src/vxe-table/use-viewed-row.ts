@@ -54,9 +54,9 @@ function createWebStorageAdapter(
  * 单条存储：prefix:1 → { expiry, value: 1 }
  */
 function createIndexedDBAdapter(
-  opts: ViewedRowPersistOptions,
+  opts: Extract<ViewedRowPersistOptions, { type: 'indexedDB' }>,
 ): ViewedRowStorageAdapter {
-  const prefix = opts.key || 'viewed';
+  const prefix = opts.key;
   const manager = new StorageManager({
     driver: new IndexedDBDriver({
       dbName: opts.dbName || 'viewed-table-db',
@@ -69,16 +69,11 @@ function createIndexedDBAdapter(
   return {
     async getKeys() {
       try {
-        // 通过 StorageManager 的 driver 获取所有 key，再逐条读取（自动过滤过期）
-        const allKeys = (await (manager as any).driver.keys()) as string[];
-        const fullPrefix = prefix ? `${prefix}-` : '';
-        const prefixedKeys = allKeys.filter((k: string) =>
-          k.startsWith(fullPrefix),
-        );
+        // 通过 StorageManager 获取当前前缀下所有 key，再逐条读取（自动过滤过期）
+        const shortKeys = await manager.keys();
 
         const results: Array<number | string> = [];
-        for (const fullKey of prefixedKeys) {
-          const shortKey = fullKey.replace(fullPrefix, '');
+        for (const shortKey of shortKeys) {
           const value = await manager.getItem<number | string>(shortKey);
           if (value !== null) {
             results.push(value);
@@ -124,43 +119,21 @@ function createStorageAdapter(
     return createWebStorageAdapter('localStorage', persist);
   }
 
-  const {type = 'localStorage'} = persist;
-
-  switch (type) {
+  switch (persist.type) {
     case 'custom': {
-      if (!persist.storage) {
-        // 没有提供 storage 适配器，降级为 memory
-        return null;
-      }
       // 用户自定义适配器，解除 Vue 响应式代理
       return toRaw(persist.storage);
     }
     case 'indexedDB': {
-      if (!persist.key) {
-        console.warn('[viewedRow] persist.key is required for indexedDB type');
-        return null;
-      }
       return createIndexedDBAdapter(persist);
     }
     case 'localStorage': {
-      if (!persist.key) {
-        console.warn(
-          '[viewedRow] persist.key is required for localStorage type',
-        );
-        return null;
-      }
       return createWebStorageAdapter('localStorage', persist.key, persist.ttl);
     }
     case 'memory': {
       return null;
     }
     case 'sessionStorage': {
-      if (!persist.key) {
-        console.warn(
-          '[viewedRow] persist.key is required for sessionStorage type',
-        );
-        return null;
-      }
       return createWebStorageAdapter(
         'sessionStorage',
         persist.key,

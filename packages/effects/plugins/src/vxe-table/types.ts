@@ -55,33 +55,49 @@ export interface ViewedRowStorageAdapter {
 }
 
 /**
- * 已读行持久化配置
+ * 已读行持久化 — 公共基础字段
  */
-export interface ViewedRowPersistOptions {
-  /**
-   * 存储类型，默认 'localStorage'
-   * - memory: 仅内存，不持久化
-   * - localStorage: 使用 localStorage 整体存储
-   * - sessionStorage: 使用 sessionStorage 整体存储
-   * - indexedDB: 使用 IndexedDB 单条存储（支持单条 TTL）
-   * - custom: 用户自定义存储适配器
-   */
-  type?: 'custom' | 'indexedDB' | 'localStorage' | 'memory' | 'sessionStorage';
-  /** 存储 key / prefix（type 为 localStorage/sessionStorage/indexedDB 时必传） */
-  key?: string;
+interface ViewedRowPersistBase {
   /** 持久化数据的存活时间（毫秒） */
   ttl?: number;
   /** 最大缓存数量，超出时淘汰最早标记的 key（FIFO），默认 100 */
   maxSize?: number;
-  /** IndexedDB 数据库名称（仅 type='indexedDB' 时生效，默认 'viewed-table-db'） */
-  dbName?: string;
-  /** IndexedDB 数据库版本（仅 type='indexedDB' 时生效，默认 1） */
-  dbVersion?: number;
-  /** IndexedDB 对象存储名称（仅 type='indexedDB' 时生效，默认 'viewed-table-row'） */
-  storeName?: string;
-  /** 自定义存储适配器（仅 type='custom' 时生效，不传则降级为 memory） */
-  storage?: ViewedRowStorageAdapter;
 }
+
+/**
+ * 已读行持久化配置（按 type 区分的联合类型）
+ *
+ * - 'memory'          → 仅内存，不持久化
+ * - 'localStorage'    → 使用 localStorage 整体存储，key 必传
+ * - 'sessionStorage'  → 使用 sessionStorage 整体存储，key 必传
+ * - 'indexedDB'       → 使用 IndexedDB 单条存储，key 必传
+ * - 'custom'          → 用户自定义存储适配器，storage 必传
+ */
+export type ViewedRowPersistOptions =
+  ({
+    /** IndexedDB 数据库名称，默认 'viewed-table-db' */
+    dbName?: string;
+    /** IndexedDB 数据库版本，默认 1 */
+    dbVersion?: number;
+    /** 存储 key / prefix（必传） */
+    key: string;
+    /** IndexedDB 对象存储名称，默认 'viewed-table-row' */
+    storeName?: string;
+    type: 'indexedDB';
+  } & ViewedRowPersistBase)
+  | ({
+  /** 存储 key（必传） */
+  key: string;
+  type: 'localStorage' | 'sessionStorage';
+} & ViewedRowPersistBase)
+  | ({
+  /** 自定义存储适配器（必传） */
+  storage: ViewedRowStorageAdapter;
+  type: 'custom';
+} & ViewedRowPersistBase)
+  | (ViewedRowPersistBase & {
+  type: 'memory';
+});
 
 /**
  * 已查看row设置
