@@ -196,6 +196,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           link: 'common-ui/vben-ellipsis-text',
           text: 'EllipsisText 省略文本',
         },
+        {
+          link: 'common-ui/vben-cropper',
+          text: 'Cropper 图片裁剪',
+        },
       ],
     },
   ];
