@@ -72,6 +72,18 @@ class StorageManager {
   }
 
   /**
+   * 获取当前前缀下的所有存储键（已去除前缀部分）
+   */
+  async keys(): Promise<string[]> {
+    const allKeys = await this.driver.keys();
+    const fullPrefix = this.prefix ? `${this.prefix}-` : '';
+    if (!fullPrefix) return allKeys;
+    return allKeys
+      .filter((key) => key.startsWith(fullPrefix))
+      .map((key) => key.slice(fullPrefix.length));
+  }
+
+  /**
    * 移除存储项
    * @param key 键
    */
