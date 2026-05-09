@@ -124,11 +124,9 @@ const [Modal, modalApi] = useVbenModal({
   draggable: true,
   onConfirm: () => {
     modalApi.setState({loading: true});
-    setTimeout(() => {
-      editRow.value && gridApi.markRowAsViewed(editRow.value);
-      modalApi.setState({loading: false});
-      modalApi.close();
-    }, 1500);
+    editRow.value && gridApi.markRowAsViewed(editRow.value);
+    modalApi.setState({loading: false});
+    modalApi.close();
   },
 });
 
