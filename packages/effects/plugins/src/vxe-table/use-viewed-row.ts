@@ -198,38 +198,44 @@ export function useViewedRow<T = any>(
   const persist = useDebounceFn(persistImmediate, 300);
 
   // ========== 从存储恢复 ==========
-  function restoreFromStorage() {
+  async function restoreFromStorage(): Promise<void> {
     if (!adapter) return;
 
-    adapter
-      .getKeys()
-      .then((stored) => {
-        if (stored && stored.length > 0) {
-          for (const key of stored) {
-            viewedSet.value.add(key);
-          }
-          if (maxSize > 0) {
-            enforceMaxSize(viewedSet.value, maxSize);
-          }
-          triggerRef(viewedSet);
+    try {
+      const stored = await adapter
+        .getKeys();
+      if (stored && stored.length > 0) {
+        for (const key of stored) {
+          viewedSet.value.add(key);
         }
-      })
-      .catch((error) => {
-        console.error('[viewedRow] restore failed:', error);
-      });
-  }
-
-  restoreFromStorage();
-
-  // 合并外部传入的 viewedKeys
-  if (options.viewedKeys) {
-    const keys = isRef(options.viewedKeys)
-      ? options.viewedKeys.value
-      : options.viewedKeys;
-    for (const key of keys) {
-      viewedSet.value.add(key);
+        if (maxSize > 0) {
+          enforceMaxSize(viewedSet.value, maxSize);
+        }
+        triggerRef(viewedSet);
+      }
+    } catch (error) {
+      console.error('[viewedRow] restore failed:', error);
     }
   }
+
+  // 先恢复存储，再合并外部 viewedKeys，确保 viewedKeys 是最新插入的（最后被淘汰）
+  restoreFromStorage().then(() => {
+    if (options.viewedKeys) {
+      const keys = isRef(options.viewedKeys)
+        ? options.viewedKeys.value
+        : options.viewedKeys;
+      updateViewedSet((set) => {
+        let changed = false;
+        for (const key of keys) {
+          if (!set.has(key)) {
+            set.add(key);
+            changed = true;
+          }
+        }
+        return changed;
+      });
+    }
+  });
 
   // ========== 更新 viewedSet 的统一入口 ==========
   function updateViewedSet(updater: (set: Set<number | string>) => boolean) {
