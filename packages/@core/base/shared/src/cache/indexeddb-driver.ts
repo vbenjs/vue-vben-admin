@@ -107,7 +107,11 @@ class IndexedDBDriver implements IStorageDriver {
    */
   private getDB(): Promise<IDBDatabase> {
     if (!this.dbPromise) {
-      this.dbPromise = this.openDB();
+      this.dbPromise = this.openDB().catch((error) => {
+        // allow retry on next call
+        this.dbPromise = null;
+        throw error;
+      });
     }
     return this.dbPromise;
   }
