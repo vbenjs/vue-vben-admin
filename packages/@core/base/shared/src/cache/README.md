@@ -5,7 +5,7 @@
 
 ## 架构设计
 
-``` shell
+```shell
 ┌───────────────────────────────────────────────┐
 │             StorageManager                    │
 │  ┌─────────────┐  ┌───────────────────────┐   │
@@ -415,8 +415,8 @@ class PreferenceManager {
 
 4. **前缀隔离是逻辑隔离** — `clear()` 只清除当前前缀下的数据，不影响其他前缀或无前缀的数据。
 
-5. **错误处理** — LocalStorageDriver 在 JSON 解析失败时自动清除损坏数据；StorageManager 的
-   `saveToCache` 内部 try-catch 防止未捕获异常。
+5. **错误处理** — LocalStorageDriver 在 JSON 解析失败时自动清除损坏数据；
+   `PreferenceManager.saveToCache` 内部 try-catch 防止未捕获异常。
 
 6. **IndexedDB 版本升级** — 如果需要修改 objectStore 结构，需要递增 `dbVersion`。当前实现在
    `upgradeneeded` 事件中自动创建 objectStore。
