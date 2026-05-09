@@ -23,7 +23,7 @@ interface RowType {
 const gridOptions: VxeGridProps<RowType> = {
   checkboxConfig: {
     highlight: true,
-    labelField: 'productName',
+    labelField: 'category',
   },
   columns: [
     {title: '序号', type: 'seq', width: 50},
@@ -36,7 +36,7 @@ const gridOptions: VxeGridProps<RowType> = {
       align: 'center',
       cellRender: {
         attrs: {
-          nameField: 'name',
+          nameField: 'category',
           onClick: onActionClick,
         },
         name: 'CellOperation',
