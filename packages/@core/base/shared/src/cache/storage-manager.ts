@@ -27,7 +27,8 @@ class StorageManager {
    */
   async clear(): Promise<void> {
     const allKeys = await this.driver.keys();
-    const prefixedKeys = allKeys.filter((key) => key.startsWith(this.prefix));
+    const fullPrefix = this.prefix ? `${this.prefix}-` : '';
+    const prefixedKeys = allKeys.filter((key) => key.startsWith(fullPrefix));
     await Promise.all(prefixedKeys.map((key) => this.driver.removeItem(key)));
   }
 
@@ -36,7 +37,8 @@ class StorageManager {
    */
   async clearExpiredItems(): Promise<void> {
     const allKeys = await this.driver.keys();
-    const prefixedKeys = allKeys.filter((key) => key.startsWith(this.prefix));
+    const fullPrefix = this.prefix ? `${this.prefix}-` : '';
+    const prefixedKeys = allKeys.filter((key) => key.startsWith(fullPrefix));
 
     for (const fullKey of prefixedKeys) {
       const raw = await this.driver.getItem<StorageItem<unknown>>(fullKey);
