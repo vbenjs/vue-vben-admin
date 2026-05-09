@@ -34,10 +34,13 @@ class IndexedDBDriver implements IStorageDriver {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
-      const request = store.clear();
+      store.clear();
 
-      request.addEventListener('success', () => resolve());
-      request.addEventListener('error', () => reject(request.error));
+      tx.addEventListener('complete', () => resolve());
+      tx.addEventListener('error', () => reject(tx.error));
+      tx.addEventListener('abort', () =>
+        reject(tx.error ?? new Error('Transaction aborted')),
+      );
     });
   }
 
@@ -74,10 +77,13 @@ class IndexedDBDriver implements IStorageDriver {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
-      const request = store.delete(key);
+      store.delete(key);
 
-      request.addEventListener('success', () => resolve());
-      request.addEventListener('error', () => reject(request.error));
+      tx.addEventListener('complete', () => resolve());
+      tx.addEventListener('error', () => reject(tx.error));
+      tx.addEventListener('abort', () =>
+        reject(tx.error ?? new Error('Transaction aborted')),
+      );
     });
   }
 
@@ -86,10 +92,13 @@ class IndexedDBDriver implements IStorageDriver {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
-      const request = store.put(value, key);
+      store.put(value, key);
 
-      request.addEventListener('success', () => resolve());
-      request.addEventListener('error', () => reject(request.error));
+      tx.addEventListener('complete', () => resolve());
+      tx.addEventListener('error', () => reject(tx.error));
+      tx.addEventListener('abort', () =>
+        reject(tx.error ?? new Error('Transaction aborted')),
+      );
     });
   }
 
