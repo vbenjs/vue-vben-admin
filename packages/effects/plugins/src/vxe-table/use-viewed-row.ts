@@ -95,12 +95,19 @@ function createIndexedDBAdapter(
     async setKeys(keys) {
       try {
         const newKeySet = new Set(keys.map(String));
-        // 先写入新数据，确保数据安全落盘
-        await Promise.all(
-          keys.map((key) => manager.setItem(String(key), key, opts.ttl)),
-        );
-        // 再清理不在新集合中的旧 key
+        // 获取已存在的 key，避免重复写入刷新过期时间
         const existingKeys = await manager.keys();
+        const existingKeySet = new Set(existingKeys);
+
+        // 只写入新增的 key，不覆盖已有记录的过期时间
+        const toAdd = keys.filter((key) => !existingKeySet.has(String(key)));
+        if (toAdd.length > 0) {
+          await Promise.all(
+            toAdd.map((key) => manager.setItem(String(key), key, opts.ttl)),
+          );
+        }
+
+        // 清理不在新集合中的旧 key
         const toRemove = existingKeys.filter((k) => !newKeySet.has(k));
         if (toRemove.length > 0) {
           await Promise.all(toRemove.map((k) => manager.removeItem(k)));
