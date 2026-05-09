@@ -74,17 +74,17 @@ interface ViewedRowPersistBase {
  * - 'custom'          → 用户自定义存储适配器，storage 必传
  */
 export type ViewedRowPersistOptions =
-  ({
-    /** IndexedDB 数据库名称，默认 'viewed-table-db' */
-    dbName?: string;
-    /** IndexedDB 数据库版本，默认 1 */
-    dbVersion?: number;
-    /** 存储 key / prefix（必传） */
-    key: string;
-    /** IndexedDB 对象存储名称，默认 'viewed-table-row' */
-    storeName?: string;
-    type: 'indexedDB';
-  } & ViewedRowPersistBase)
+  | ({
+  /** IndexedDB 数据库名称，默认 'viewed-table-db' */
+  dbName?: string;
+  /** IndexedDB 数据库版本，默认 1 */
+  dbVersion?: number;
+  /** 存储 key / prefix（必传） */
+  key: string;
+  /** IndexedDB 对象存储名称，默认 'viewed-table-row' */
+  storeName?: string;
+  type: 'indexedDB';
+} & ViewedRowPersistBase)
   | ({
   /** 存储 key（必传） */
   key: string;
