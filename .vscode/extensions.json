@@ -4,12 +4,10 @@
     "Vue.volar",
     // 将 eslint 集成到 VS Code 中。
     "dbaeumer.vscode-eslint",
-    // 将 oxlint 集成到 VS Code 中。
+    // 将 oxlint、Oxfmt 集成到 VS Code 中。
     "oxc.oxc-vscode",
     // Visual Studio Code 的官方 Stylelint 扩展
     "stylelint.vscode-stylelint",
-    // 使用 oxfmt 的代码格式化程序
-    "oxc.oxc-vscode",
     // 支持 dotenv 文件语法
     "mikestead.dotenv",
     // YAML 语言支持，供 ESLint 校验 pnpm-workspace.yaml 等文件
