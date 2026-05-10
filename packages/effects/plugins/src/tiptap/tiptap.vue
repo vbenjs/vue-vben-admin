@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<TipTapProps>(), {
   extensions: undefined,
   imageUpload: undefined,
   minHeight: 240,
+  maxHeight: 400,
   placeholder: $t('ui.tiptap.placeholder'),
   previewable: true,
   toolbar: true,
@@ -41,9 +42,14 @@ const contentMinHeight = computed(() =>
     ? `${props.minHeight}px`
     : props.minHeight,
 );
+const contentMaxHeight = computed(() =>
+  typeof props.maxHeight === 'number'
+    ? `${props.maxHeight}px`
+    : props.maxHeight,
+);
 const tiptapContentClass = cn(
   'vben-tiptap-content vben-tiptap__content',
-  'text-foreground min-h-(--vben-tiptap-min-height) leading-7 outline-none',
+  'text-foreground max-h-(--vben-tiptap-max-height) min-h-(--vben-tiptap-min-height) overflow-auto leading-7 outline-none',
 );
 const blobUrlTracker = new Set<string>();
 const editor = useEditor({
@@ -154,7 +160,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    :style="{ '--vben-tiptap-min-height': contentMinHeight }"
+    :style="{
+      '--vben-tiptap-min-height': contentMinHeight,
+      '--vben-tiptap-max-height': contentMaxHeight,
+    }"
     class="vben-tiptap overflow-hidden rounded-xl border border-border bg-card"
   >
     <div

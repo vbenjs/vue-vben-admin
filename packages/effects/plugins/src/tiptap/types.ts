@@ -30,6 +30,7 @@ export interface TipTapProps {
   extensions?: Extensions;
   imageUpload?: ImageUploadOptions;
   minHeight?: number | string;
+  maxHeight?: number | string;
   placeholder?: string;
   previewable?: boolean;
   toolbar?: boolean;
