@@ -1,9 +1,5 @@
 @reference "@vben/tailwind-config/theme";
 
-.vben-tiptap-content > * + * {
-  @apply mt-3;
-}
-
 .vben-tiptap-content h1 {
   @apply text-2xl font-bold leading-[1.4];
 }
@@ -50,8 +46,6 @@
 
 .vben-tiptap-content img,
 .vben-tiptap-content .vben-tiptap__image {
-  @apply my-4 block h-auto rounded-2xl border border-border;
-
   max-width: min(100%, 640px);
 }
 
