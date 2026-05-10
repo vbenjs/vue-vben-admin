@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, ref } from 'vue';
 
 import { VCropper } from '@vben/common-ui';
 
@@ -16,17 +16,33 @@ const aspectOptions = [
   { label: '3:2 (照片)', value: '3:2' },
 ];
 
+// 释放旧的 object URL 以避免内存泄漏
+const revokeCroppedImage = () => {
+  if (croppedImage.value?.startsWith('blob:')) {
+    URL.revokeObjectURL(croppedImage.value);
+  }
+};
+
 const handleCrop = async () => {
   const blob = await cropperRef.value?.getCropImage('image/jpeg', 0.9, 'blob');
   if (blob instanceof Blob) {
+    // 释放旧的 URL
+    revokeCroppedImage();
     croppedImage.value = URL.createObjectURL(blob);
   }
 };
 
 const handleReset = () => {
+  // 释放 URL
+  revokeCroppedImage();
   croppedImage.value = '';
   imageUrl.value = `https://picsum.photos/seed/cropper-${Date.now()}/800/600`;
 };
+
+// 组件卸载时清理
+onBeforeUnmount(() => {
+  revokeCroppedImage();
+});
 </script>
 
 <template>

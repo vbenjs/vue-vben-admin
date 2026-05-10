@@ -100,7 +100,7 @@ The component automatically adapts to Retina and other high-DPI screens, ensurin
 
 - Images are automatically scaled to fit within the container
 - Supports both local and remote images
-- Cross-origin images are handled automatically
+- Remote images require CORS support from the server to export cropped results
 
 ## Usage Example
 
