@@ -36,9 +36,18 @@ async function calcContentHeight() {
   if (!autoContentHeight) {
     return;
   }
+  shouldAutoHeight.value = false;
   await nextTick();
   headerHeight.value = headerRef.value?.offsetHeight || 0;
-  footerHeight.value = footerRef.value?.offsetHeight || 0;
+
+  const footerEl = footerRef.value;
+  if (footerEl) {
+    const position = getComputedStyle(footerEl).position;
+    footerHeight.value = position === 'fixed' ? 0 : footerEl.offsetHeight;
+  } else {
+    footerHeight.value = 0;
+  }
+
   setTimeout(() => {
     shouldAutoHeight.value = true;
   }, 30);
