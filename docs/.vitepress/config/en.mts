@@ -199,6 +199,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'EllipsisText',
         },
         {
+          link: 'common-ui/vben-cropper',
+          text: 'Cropper',
+        },
+        {
           link: 'common-ui/vben-tiptap',
           text: 'Tiptap RichTextEditor',
         },
