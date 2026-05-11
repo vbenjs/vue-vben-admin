@@ -230,9 +230,9 @@ const options = computed(() => {
   }
   if (mergedOptions.formConfig) {
     mergedOptions.formConfig.enabled = false;
-    if (tableData.value && tableData.value.length > 0) {
-      mergedOptions.data = tableData.value;
-    }
+  }
+  if (tableData.value && tableData.value.length > 0) {
+    mergedOptions.data = tableData.value;
   }
   return mergedOptions;
 });
