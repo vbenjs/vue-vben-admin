@@ -12,7 +12,7 @@ defineOptions({
   name: 'Page',
 });
 
-const { autoContentHeight = false, heightOffset = 0 } =
+const { autoContentHeight = false, heightOffset = 0, footerFixed = false } =
   defineProps<PageProps>();
 
 const headerHeight = ref(0);
@@ -40,13 +40,7 @@ async function calcContentHeight() {
   await nextTick();
   headerHeight.value = headerRef.value?.offsetHeight || 0;
 
-  const footerEl = footerRef.value;
-  if (footerEl) {
-    const position = getComputedStyle(footerEl).position;
-    footerHeight.value = position === 'fixed' ? 0 : footerEl.offsetHeight;
-  } else {
-    footerHeight.value = 0;
-  }
+  footerHeight.value = footerFixed ? 0 : (footerRef.value?.offsetHeight || 0);
 
   setTimeout(() => {
     shouldAutoHeight.value = true;
