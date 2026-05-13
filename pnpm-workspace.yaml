@@ -13,6 +13,21 @@ packages:
   - docs
   - playground
 
+publicHoistPattern:
+  - lefthook
+  - eslint
+  - oxfmt
+  - oxlint
+  - stylelint
+  - '*postcss*'
+  - '@commitlint/*'
+  - czg
+
+strictPeerDependencies: false
+autoInstallPeers: true
+dedupePeerDependents: true
+verifyDepsBeforeRun: false
+
 overrides:
   '@ast-grep/napi': 'catalog:'
   '@ctrl/tinycolor': 'catalog:'

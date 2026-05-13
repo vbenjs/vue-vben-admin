@@ -23,6 +23,7 @@ package-lock.json
 .VSCodeCounter
 **/backend-mock/data
 .omx
+.pnpm-store
 # local env files
 .env.local
 .env.*.local
