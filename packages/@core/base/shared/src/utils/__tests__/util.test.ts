@@ -139,7 +139,9 @@ describe('getNestedValue', () => {
   });
 
   it('should return the entire object if path is empty', () => {
-    expect(() => getNestedValue(data, '')()).toThrow();
+    expect(() => getNestedValue(data, '')).toThrow(
+      'Path must be a non-empty string',
+    );
   });
 
   it('should handle paths with array indexes', () => {

@@ -34,7 +34,7 @@ describe('stateHandler', () => {
     }, 10);
 
     // 等待过程中，期望 Promise 被 reject
-    await expect(handler.waitForCondition()).rejects.toThrow();
+    await expect(handler.waitForCondition()).rejects.toThrow('rejected');
     expect(handler.isConditionTrue()).toBe(false);
   });
 

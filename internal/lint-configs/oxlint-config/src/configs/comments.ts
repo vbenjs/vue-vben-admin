@@ -8,6 +8,7 @@ const comments: OxlintConfig = {
     },
   ],
   rules: {
+    'eslint/no-underscore-dangle': 'off',
     'eslint-comments/no-aggregating-enable': 'error',
     'eslint-comments/no-duplicate-disable': 'error',
     'eslint-comments/no-unlimited-disable': 'error',
