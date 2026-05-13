@@ -60,21 +60,21 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
-2. Install dependencies
+1. Install dependencies
 
 ```bash
 cd vue-vben-admin
-npm i -g corepack
+corepack enable
 pnpm install
 ```
 
-3. Run
+1. Run
 
 ```bash
 pnpm dev
 ```
 
-4. Build
+1. Build
 
 ```bash
 pnpm build

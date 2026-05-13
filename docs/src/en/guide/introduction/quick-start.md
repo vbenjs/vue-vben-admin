@@ -10,7 +10,7 @@ outline: deep
 
 Before starting the project, ensure that your environment meets the following requirements:
 
-- [Node.js](https://nodejs.org/en) version 20.15.0 or above. It is recommended to use [fnm](https://github.com/Schniz/fnm), [nvm](https://github.com/nvm-sh/nvm), or directly use [pnpm](https://pnpm.io/cli/env) for version management.
+- [Node.js](https://nodejs.org/en) version 22.18.0 or above. It is recommended to use [fnm](https://github.com/Schniz/fnm), [nvm](https://github.com/nvm-sh/nvm), or directly use [pnpm](https://pnpm.io/cli/env) for version management.
 - [Git](https://git-scm.com/) any version.
 
 To verify if your environment meets the above requirements, you can check the versions using the following commands:
@@ -58,7 +58,7 @@ Open a terminal in your code directory and execute the following commands:
 cd vue-vben-admin
 
 # Enable the project-specified version of pnpm
-npm i -g corepack
+corepack enable
 
 # Install dependencies
 pnpm install
@@ -66,7 +66,7 @@ pnpm install
 
 ::: tip Note
 
-The project only supports using `pnpm` for installing dependencies. By default, `corepack` will be used to install the specified version of `pnpm`.
+The project only supports using `pnpm` for installing dependencies. By default, `corepack` will be used to install the `pnpm` version declared by `packageManager`.
 
 :::
 

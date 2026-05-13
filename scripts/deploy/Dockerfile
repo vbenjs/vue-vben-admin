@@ -7,7 +7,7 @@ ENV NODE_OPTIONS=--max-old-space-size=8192
 ENV TZ=Asia/Shanghai
 ENV CI=true
 
-RUN npm i -g corepack
+RUN corepack enable
 
 WORKDIR /app
 

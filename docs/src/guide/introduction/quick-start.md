@@ -10,7 +10,7 @@ outline: deep
 
 在启动项目前，你需要确保你的环境满足以下要求：
 
-- [Node.js](https://nodejs.org/en) 20.15.0 及以上版本，推荐使用 [fnm](https://github.com/Schniz/fnm) 、 [nvm](https://github.com/nvm-sh/nvm) 或者直接使用[pnpm](https://pnpm.io/cli/env) 进行版本管理。
+- [Node.js](https://nodejs.org/en) 22.18.0 及以上版本，推荐使用 [fnm](https://github.com/Schniz/fnm) 、 [nvm](https://github.com/nvm-sh/nvm) 或者直接使用[pnpm](https://pnpm.io/cli/env) 进行版本管理。
 - [Git](https://git-scm.com/) 任意版本。
 
 验证你的环境是否满足以上要求，你可以通过以下命令查看版本：
@@ -57,8 +57,8 @@ git clone https://gitee.com/annsion/vue-vben-admin.git
 # 进入项目目录
 cd vue-vben-admin
 
-# 使用项目指定的pnpm版本进行依赖安装
-npm i -g corepack
+# 启用项目指定的 pnpm 版本
+corepack enable
 
 # 安装依赖
 pnpm install
@@ -66,7 +66,7 @@ pnpm install
 
 ::: tip 注意
 
-- 项目只支持使用 `pnpm` 进行依赖安装，默认会使用 `corepack` 来安装指定版本的 `pnpm`。:
+- 项目只支持使用 `pnpm` 进行依赖安装，默认会使用 `corepack` 来安装 `packageManager` 声明的 `pnpm` 版本。
 - 如果你的网络环境无法访问npm源，你可以设置系统的环境变量`COREPACK_NPM_REGISTRY=https://registry.npmmirror.com`，然后再执行`pnpm install`。
 - 如果你不想使用`corepack`，你需要禁用`corepack`，然后使用你自己的`pnpm`进行安装。
 
