@@ -87,7 +87,7 @@ export const shared = defineConfig({
           },
         ],
         repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
-      }),
+      }) as any,
       GitChangelogMarkdownSection(),
       viteArchiverPlugin({ outputDir: '.vitepress' }),
       groupIconVitePlugin(),
@@ -113,7 +113,7 @@ function head(): HeadConfig[] {
     [
       'meta',
       {
-        content: 'vben, vitejs, vite, shacdn-ui, vue',
+        content: 'vben, vitejs, vite, shadcn-ui, vue',
         name: 'keywords',
       },
     ],
