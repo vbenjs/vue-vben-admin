@@ -22,7 +22,7 @@ import VbenDrawer from './drawer.vue';
 
 const USER_DRAWER_INJECT_KEY = Symbol('VBEN_DRAWER_INJECT');
 
-const { globalEscapeShortcutKey } =  usePreferences();
+const { globalEscapeShortcutKey } = usePreferences();
 
 /**
  * 默认配置

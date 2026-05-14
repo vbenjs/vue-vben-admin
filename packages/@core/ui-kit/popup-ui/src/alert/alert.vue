@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
   escapeKeyClose: true,
 });
 const emits = defineEmits(['closed', 'confirm', 'opened']);
-const { globalEscapeShortcutKey } =  usePreferences();
+const { globalEscapeShortcutKey } = usePreferences();
 const open = defineModel<boolean>('open', { default: false });
 const { $t } = useSimpleLocale();
 const components = globalShareState.getComponents();

@@ -18,7 +18,7 @@ import VbenModal from './modal.vue';
 
 const USER_MODAL_INJECT_KEY = Symbol('VBEN_MODAL_INJECT');
 
-const { globalEscapeShortcutKey } =  usePreferences();
+const { globalEscapeShortcutKey } = usePreferences();
 /**
  * 默认配置
  */
