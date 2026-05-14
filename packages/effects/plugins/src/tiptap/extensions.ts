@@ -9,14 +9,12 @@ import { $t } from '@vben/locales';
 
 import { alert } from '@vben-core/popup-ui';
 
-import Document from '@tiptap/extension-document';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
 import { Color, TextStyle } from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -274,30 +272,30 @@ function createCustomImage(
         ...this.parent?.(),
         uploadImage:
           () =>
-          ({ editor: cmdEditor }: { editor: CoreEditor }) => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = imageUpload.accept ?? DEFAULT_ACCEPT;
-            input.style.display = 'none';
+            ({ editor: cmdEditor }: { editor: CoreEditor }) => {
+              const input = document.createElement('input');
+              input.type = 'file';
+              input.accept = imageUpload.accept ?? DEFAULT_ACCEPT;
+              input.style.display = 'none';
 
-            input.addEventListener('change', () => {
-              const file = input.files?.[0];
-              if (!file) return;
+              input.addEventListener('change', () => {
+                const file = input.files?.[0];
+                if (!file) return;
 
-              const error = validateFile(file, imageUpload);
-              if (error) {
-                handleUploadError(new Error(error), imageUpload);
-                return;
-              }
+                const error = validateFile(file, imageUpload);
+                if (error) {
+                  handleUploadError(new Error(error), imageUpload);
+                  return;
+                }
 
-              createUploadProcess(cmdEditor, file, imageUpload, blobUrlTracker);
-              input.remove();
-            });
+                createUploadProcess(cmdEditor, file, imageUpload, blobUrlTracker);
+                input.remove();
+              });
 
-            document.body.append(input);
-            input.click();
-            return true;
-          },
+              document.body.append(input);
+              input.click();
+              return true;
+            },
       };
     },
 
@@ -405,13 +403,12 @@ export function createDefaultTiptapExtensions(
   options: VbenTiptapExtensionOptions = {},
 ): Extensions {
   return [
-    Document,
     StarterKit.configure({
       heading: {
         levels: [1, 2, 3, 4],
       },
+      link: false,
     }),
-    Underline,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
     }),
@@ -431,20 +428,20 @@ export function createDefaultTiptapExtensions(
     }),
     options.imageUpload
       ? createCustomImage(
-          options.imageUpload,
-          options._blobUrlTracker,
-        ).configure({
-          allowBase64: true,
-          HTMLAttributes: {
-            class: 'vben-tiptap__image',
-          },
-        })
+        options.imageUpload,
+        options._blobUrlTracker,
+      ).configure({
+        allowBase64: true,
+        HTMLAttributes: {
+          class: 'vben-tiptap__image',
+        },
+      })
       : Image.configure({
-          allowBase64: true,
-          HTMLAttributes: {
-            class: 'vben-tiptap__image',
-          },
-        }),
+        allowBase64: true,
+        HTMLAttributes: {
+          class: 'vben-tiptap__image',
+        },
+      }),
     Placeholder.configure({
       placeholder: options.placeholder ?? $t('ui.tiptap.placeholder'),
     }),
