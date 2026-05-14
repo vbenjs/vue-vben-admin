@@ -10,6 +10,7 @@ import {
   ref,
 } from 'vue';
 
+import { usePreferences } from '@vben-core/preferences';
 import { useStore } from '@vben-core/shared/store';
 
 import { ModalApi } from './modal-api';
@@ -17,7 +18,13 @@ import VbenModal from './modal.vue';
 
 const USER_MODAL_INJECT_KEY = Symbol('VBEN_MODAL_INJECT');
 
-const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
+const { globalEscapeShortcutKey } =  usePreferences();
+/**
+ * 默认配置
+ */
+const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {
+  closeOnPressEscape: globalEscapeShortcutKey.value, // Esc按钮为关闭事件
+};
 
 export function setDefaultModalProps(props: Partial<ModalProps>) {
   Object.assign(DEFAULT_MODAL_PROPS, props);

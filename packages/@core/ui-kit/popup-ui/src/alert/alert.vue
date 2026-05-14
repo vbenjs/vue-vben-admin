@@ -14,6 +14,7 @@ import {
   Info,
   X,
 } from '@vben-core/icons';
+import { usePreferences } from '@vben-core/preferences';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,8 +35,10 @@ const props = withDefaults(defineProps<AlertProps>(), {
   bordered: true,
   buttonAlign: 'end',
   centered: true,
+  escapeKeyClose: true,
 });
 const emits = defineEmits(['closed', 'confirm', 'opened']);
+const { globalEscapeShortcutKey } =  usePreferences();
 const open = defineModel<boolean>('open', { default: false });
 const { $t } = useSimpleLocale();
 const components = globalShareState.getComponents();
@@ -47,7 +50,9 @@ function onAlertClosed() {
 }
 
 function onEscapeKeyDown() {
-  isConfirm.value = false;
+  if (props.escapeKeyClose || globalEscapeShortcutKey.value) {
+    isConfirm.value = false;
+  }
 }
 
 const getIconRender = computed(() => {

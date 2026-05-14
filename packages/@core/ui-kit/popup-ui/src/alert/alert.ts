@@ -36,6 +36,8 @@ export type AlertProps = {
   contentClass?: string;
   /** 执行beforeClose回调期间，在内容区域显示一个loading遮罩*/
   contentMasking?: boolean;
+  /** 点击遮罩层或按下Esc时是否关闭弹窗 */
+  escapeKeyClose?: boolean;
   /** 弹窗底部内容（与按钮在同一个容器中） */
   footer?: Component | string;
   /** 弹窗的图标（在标题的前面） */

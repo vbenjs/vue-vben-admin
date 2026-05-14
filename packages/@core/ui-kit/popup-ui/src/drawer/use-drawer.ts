@@ -14,6 +14,7 @@ import {
   ref,
 } from 'vue';
 
+import { usePreferences } from '@vben-core/preferences';
 import { useStore } from '@vben-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
@@ -21,7 +22,14 @@ import VbenDrawer from './drawer.vue';
 
 const USER_DRAWER_INJECT_KEY = Symbol('VBEN_DRAWER_INJECT');
 
-const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
+const { globalEscapeShortcutKey } =  usePreferences();
+
+/**
+ * 默认配置
+ */
+const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {
+  closeOnPressEscape: globalEscapeShortcutKey.value, // Esc按钮为关闭事件
+};
 
 export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
   Object.assign(DEFAULT_DRAWER_PROPS, props);
