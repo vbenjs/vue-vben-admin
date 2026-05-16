@@ -193,6 +193,14 @@ const routes: RouteRecordRaw[] = [
               title: $t('examples.vxeTable.virtual'),
             },
           },
+          {
+            name: 'VxeTableViewedExample',
+            path: '/examples/vxe-table/viewed',
+            component: () => import('#/views/examples/vxe-table/viewed.vue'),
+            meta: {
+              title: $t('examples.vxeTable.viewed'),
+            },
+          },
         ],
       },
       {
