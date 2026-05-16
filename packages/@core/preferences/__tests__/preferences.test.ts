@@ -105,7 +105,7 @@ describe('preferences', () => {
     expect(preferenceManager.getPreferences().app.colorWeakMode).toBe(true);
   });
 
-  it('resets preferences to default', () => {
+  it('resets preferences to default', async () => {
     // 先更新一些偏好设置
     preferenceManager.updatePreferences({
       theme: {
@@ -114,7 +114,7 @@ describe('preferences', () => {
     });
 
     // 然后重置偏好设置
-    preferenceManager.resetPreferences();
+    await preferenceManager.resetPreferences();
 
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
   });
@@ -174,7 +174,7 @@ describe('preferences', () => {
     );
   });
 
-  it('resets preferences to default correctly', () => {
+  it('resets preferences to default correctly', async () => {
     // 先更新一些偏好设置
     preferenceManager.updatePreferences({
       app: { locale: 'en-US' },
@@ -185,7 +185,7 @@ describe('preferences', () => {
     });
 
     // 然后重置偏好设置
-    preferenceManager.resetPreferences();
+    await preferenceManager.resetPreferences();
 
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
   });
@@ -377,7 +377,7 @@ describe('preferences', () => {
       reportTitle: '月报',
     });
 
-    preferenceManager.resetPreferences();
+    await preferenceManager.resetPreferences();
 
     expect(preferenceManager.getCustomPreferences()).toEqual({
       pageSize: 20,

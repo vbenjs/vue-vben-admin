@@ -38,7 +38,8 @@
     "editCell": "Edit Cell",
     "editRow": "Edit Row",
     "custom-cell": "Custom Cell",
-    "form": "Form Table"
+    "form": "Form Table",
+    "viewed": "Row Marker"
   },
   "captcha": {
     "title": "Captcha",

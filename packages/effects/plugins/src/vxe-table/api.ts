@@ -6,6 +6,7 @@ import type {
 } from '@vben-core/form-ui';
 
 import type { VxeGridProps } from './types';
+import type {ViewedRowHelper} from './use-viewed-row';
 
 import { toRaw } from 'vue';
 
@@ -42,6 +43,11 @@ export class VxeGridApi<
 
   public store: Store<VxeGridProps<T, D, P>>;
 
+  /**
+   * 已读行 helper（在 mount 中初始化，业务能力全部封装在 useViewedRow 中）
+   */
+  public viewedRowHelper: null | ViewedRowHelper<T> = null;
+
   private isMounted = false;
 
   private stateHandler: StateHandler;
@@ -62,6 +68,42 @@ export class VxeGridApi<
     this.state = this.store.state;
     this.stateHandler = new StateHandler();
     bindMethods(this);
+  }
+
+  /**
+   * 清除所有已读状态
+   */
+  clearViewedRows() {
+    this.viewedRowHelper?.clearViewed();
+  }
+
+  /**
+   * 获取所有已读的 key 集合（返回副本，避免外部修改内部状态）
+   */
+  getViewedKeys(): Set<number | string> {
+    const raw = this.viewedRowHelper?.viewedSet.value;
+    return raw ? new Set(raw) : new Set();
+  }
+
+  /**
+   * 判断某行是否已读
+   */
+  isRowViewed(record: T): boolean {
+    return this.viewedRowHelper?.isViewed(record) ?? false;
+  }
+
+  /**
+   * 批量标记行为已读
+   */
+  markKeysAsViewed(keys: Array<number | string>) {
+    this.viewedRowHelper?.markKeysAsViewed(keys);
+  }
+
+  /**
+   * 标记某行为已读
+   */
+  markRowAsViewed(record: T) {
+    this.viewedRowHelper?.markAsViewed(record);
   }
 
   mount(instance: null | VxeGridInstance, formApi: ExtendedFormApi) {
@@ -87,6 +129,13 @@ export class VxeGridApi<
     } catch (error) {
       console.error('Error occurred while reloading:', error);
     }
+  }
+
+  /**
+   * 移除指定 key 的已读状态
+   */
+  removeViewedKeys(keys: Array<number | string>) {
+    this.viewedRowHelper?.removeKeys(keys);
   }
 
   setGridOptions(options: Partial<VxeGridProps<T, D, P>['gridOptions']>) {
@@ -130,5 +179,6 @@ export class VxeGridApi<
   unmount() {
     this.isMounted = false;
     this.stateHandler.reset();
+    this.viewedRowHelper = null;
   }
 }
