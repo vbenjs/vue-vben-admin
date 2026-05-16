@@ -120,7 +120,7 @@ catalog:
   echarts: ^6.0.0
   element-plus: ^2.14.0
   es-toolkit: ^1.46.1
-  eslint: ^10.3.0
+  eslint: ^10.4.0
   eslint-plugin-better-tailwindcss: ^4.5.0
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.1.2
@@ -149,8 +149,8 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.0
-  oxfmt: ^0.49.0
-  oxlint: ^1.64.0
+  oxfmt: ^0.50.0
+  oxlint: ^1.65.0
   oxlint-tsgolint: ^0.22.1
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
