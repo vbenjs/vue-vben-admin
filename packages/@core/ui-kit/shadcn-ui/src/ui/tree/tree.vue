@@ -70,7 +70,9 @@ let lastTreeData: any = null;
 onMounted(() => {
   watchEffect(() => {
     flattenData.value = flatten(props.treeData, props.childrenField);
-    updateTreeValue();
+    if (flattenData.value.length > 0) {
+      updateTreeValue();
+    }
 
     // 只在 treeData 变化时执行展开
     const currentTreeData = JSON.stringify(props.treeData);
