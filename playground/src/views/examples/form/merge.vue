@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Button, Card, message, Step, Steps, Switch } from 'ant-design-vue';
+import { Button, Card, message, Step, Steps, Switch } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 

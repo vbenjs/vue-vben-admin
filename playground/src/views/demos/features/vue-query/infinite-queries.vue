@@ -2,7 +2,7 @@
 import type { IProducts } from './typing';
 
 import { useInfiniteQuery } from '@tanstack/vue-query';
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 
 const LIMIT = 10;
 const fetchProducts = async ({ pageParam = 0 }): Promise<IProducts> => {

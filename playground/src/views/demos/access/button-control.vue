@@ -7,7 +7,7 @@ import { AccessControl, useAccess } from '@vben/access';
 import { Page } from '@vben/common-ui';
 import { resetAllStores, useUserStore } from '@vben/stores';
 
-import { Button, Card } from 'ant-design-vue';
+import { Button, Card } from 'antdv-next';
 
 import { useAuthStore } from '#/store';
 

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Alert, Button, Card } from 'ant-design-vue';
+import { Alert, Button, Card } from 'antdv-next';
 
 import { getBigIntData } from '#/api/examples/json-bigint';
 

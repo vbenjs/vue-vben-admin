@@ -5,7 +5,7 @@ import { reactive } from 'vue';
 
 import { Page, Tippy } from '@vben/common-ui';
 
-import { Button, Card, Flex } from 'ant-design-vue';
+import { Button, Card, Flex } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 

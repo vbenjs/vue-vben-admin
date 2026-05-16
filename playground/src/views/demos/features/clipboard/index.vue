@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { Page } from '@vben/common-ui';
 
 import { useClipboard } from '@vueuse/core';
-import { Button, Card, Input } from 'ant-design-vue';
+import { Button, Card, Input } from 'antdv-next';
 
 const source = ref('Hello');
 const { copy, text } = useClipboard({ legacy: true, source });

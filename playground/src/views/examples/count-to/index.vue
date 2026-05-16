@@ -18,7 +18,7 @@ import {
   Row,
   Select,
   Switch,
-} from 'ant-design-vue';
+} from 'antdv-next';
 
 const props = reactive<CountToProps & { transition: TransitionPresets }>({
   decimal: '.',

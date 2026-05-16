@@ -3,7 +3,7 @@ import { Page } from '@vben/common-ui';
 
 import { VbenContextMenu } from '@vben-core/shadcn-ui';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card, message } from 'antdv-next';
 
 const needHidden = (role: string) => {
   return role === 'user';

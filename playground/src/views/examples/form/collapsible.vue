@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { RadioGroupProps } from 'ant-design-vue';
+import type { RadioGroupProps } from 'antdv-next';
 
 import type { FormLayout } from '@vben/common-ui';
 
@@ -11,7 +11,7 @@ import { Page } from '@vben/common-ui';
 
 import { VbenCollapsibleParams } from '@vben-core/shadcn-ui';
 
-import { Button, Card, message, RadioGroup } from 'ant-design-vue';
+import { Button, Card, message, RadioGroup } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 

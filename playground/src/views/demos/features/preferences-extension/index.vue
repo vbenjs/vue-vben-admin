@@ -9,7 +9,7 @@ import {
   updateCustomPreferences,
 } from '@vben/preferences';
 
-import { Alert, Button, Card, Space, Tag } from 'ant-design-vue';
+import { Alert, Button, Card, Space, Tag } from 'antdv-next';
 
 import { $t } from '#/locales';
 
