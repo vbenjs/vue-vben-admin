@@ -4,8 +4,8 @@ import type {
   StorageManagerOptions,
 } from './types';
 
-import {LocalStorageDriver} from './local-storage-driver';
-import {MemoryStorageDriver} from './memory-storage-driver';
+import { LocalStorageDriver } from './local-storage-driver';
+import { MemoryStorageDriver } from './memory-storage-driver';
 
 /**
  * 存储管理器（策略模式）
@@ -17,7 +17,7 @@ class StorageManager {
   private driver: IStorageDriver;
   private prefix: string;
 
-  constructor({driver, prefix = ''}: StorageManagerOptions = {}) {
+  constructor({ driver, prefix = '' }: StorageManagerOptions = {}) {
     this.driver = driver || this.createDefaultDriver();
     this.prefix = prefix;
     if (!this.prefix && this.driver instanceof LocalStorageDriver) {
