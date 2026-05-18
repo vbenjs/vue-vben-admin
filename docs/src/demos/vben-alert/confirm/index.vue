@@ -3,7 +3,7 @@ import { h, ref } from 'vue';
 
 import { alert, confirm, VbenButton } from '@vben/common-ui';
 
-import { Checkbox, message } from 'ant-design-vue';
+import { Checkbox, message } from 'antdv-next';
 
 function showConfirm() {
   confirm('This is an alert message')

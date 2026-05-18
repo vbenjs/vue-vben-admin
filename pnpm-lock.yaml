@@ -995,9 +995,9 @@ importers:
       '@vben/styles':
         specifier: workspace:*
         version: link:../packages/styles
-      ant-design-vue:
+      antdv-next:
         specifier: 'catalog:'
-        version: 4.2.6(vue@3.5.34(typescript@6.0.3))
+        version: 1.3.0(date-fns@4.1.0)(vue@3.5.34(typescript@6.0.3))
       lucide-vue-next:
         specifier: 'catalog:'
         version: 0.577.0(vue@3.5.34(typescript@6.0.3))

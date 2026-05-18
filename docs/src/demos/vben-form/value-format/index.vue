@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-import { Button, Card, message, Space, Tag } from 'ant-design-vue';
+import { Button, Card, message, Space, Tag } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 

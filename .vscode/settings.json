@@ -105,7 +105,6 @@
     "**/bower_components": true,
     "**/.turbo": true,
     "**/.idea": true,
-    "**/.vitepress": true,
     "**/tmp": true,
     "**/.git": true,
     "**/.svn": true,

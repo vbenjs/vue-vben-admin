@@ -19,7 +19,7 @@
     "@vben/locales": "workspace:*",
     "@vben/plugins": "workspace:*",
     "@vben/styles": "workspace:*",
-    "ant-design-vue": "catalog:",
+    "antdv-next": "catalog:",
     "lucide-vue-next": "catalog:",
     "medium-zoom": "catalog:",
     "reka-ui": "catalog:",
