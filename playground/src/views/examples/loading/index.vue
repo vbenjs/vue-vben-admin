@@ -18,7 +18,7 @@ const loadingV = refAutoReset(false, 3000);
   >
     <Card title="Antd Spin">
       <template #actions>这是Antd 组件库自带的Spin组件演示</template>
-      <Spin :spinning="spinning" tip="加载中...">
+      <Spin :spinning="spinning" description="加载中...">
         <Button type="primary" @click="spinning = true">显示Spin</Button>
       </Spin>
     </Card>
@@ -71,9 +71,11 @@ const loadingV = refAutoReset(false, 3000);
       title="Vben Spinner"
       v-spinning="spinningV"
       class="mt-4 overflow-hidden"
-      :body-style="{
-        position: 'relative',
-        overflow: 'hidden',
+      :styles="{
+        body: {
+          position: 'relative',
+          overflow: 'hidden',
+        },
       }"
     >
       <template #extra>

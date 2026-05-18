@@ -21,7 +21,7 @@ function fetchData() {
   >
     <Card>
       <Alert>
-        <template #message>
+        <template #title>
           有些后端接口返回的ID是长整数，但javascript原生的JSON解析是不支持超过2^53-1的长整数的。
           这种情况可以建议后端返回数据前将长整数转换为字符串类型。如果后端不接受我们的建议😡……
           <br />

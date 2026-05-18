@@ -386,7 +386,7 @@ function cropImage(file: File, aspectRatio: string | undefined) {
               closable: false,
               cancelText: $t('common.cancel'),
               okText: $t('ui.crop.confirm'),
-              destroyOnClose: true,
+              destroyOnHidden: true,
               onOk: async () => {
                 const cropper = cropperRef.value;
                 if (!cropper) {

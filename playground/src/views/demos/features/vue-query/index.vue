@@ -27,7 +27,7 @@ const showCaching = refAutoReset(true, 1000);
       <Card
         title="并发和缓存"
         v-spinning="!showCaching"
-        :body-style="{ minHeight: '330px' }"
+        :styles="{ body: { minHeight: '330px' } }"
       >
         <template #extra>
           <Button @click="showCaching = false">重新加载</Button>

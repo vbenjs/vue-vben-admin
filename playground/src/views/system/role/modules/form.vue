@@ -101,7 +101,7 @@ function getNodeClass(node: Recordable<any>) {
   <Drawer :title="getDrawerTitle">
     <Form>
       <template #permissions="slotProps">
-        <Spin :spinning="loadingPermissions" wrapper-class-name="w-full">
+        <Spin :spinning="loadingPermissions" :classes="{ root: 'w-full' }">
           <Tree
             :tree-data="permissions"
             multiple
