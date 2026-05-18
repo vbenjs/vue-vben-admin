@@ -105,7 +105,7 @@ function applyPreset(type: 'compact' | 'focus' | 'review') {
     },
   };
 
-  updateCustomPreferences<PlaygroundPreferencesExtension>(presetMap[type]);
+  updateCustomPreferences(presetMap[type]);
 }
 
 function getPriorityColor(priority: DemoTaskItem['priority']) {
@@ -136,7 +136,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
       :title="$t('demos.preferencesExtensionDemo.currentConfig')"
     >
       <Alert :type="toneConfig.alertType" show-icon>
-        <template #message>
+        <template #title>
           {{
             $t('demos.preferencesExtensionDemo.currentTitle', {
               title: playgroundPreferences.reportTitle,

@@ -66,6 +66,7 @@ function findPlaceholderPos(doc: ProseMirrorNode, blobUrl: string): number {
       found = offset;
       return false;
     }
+    return true;
   });
   return found;
 }
@@ -272,30 +273,30 @@ function createCustomImage(
         ...this.parent?.(),
         uploadImage:
           () =>
-            ({ editor: cmdEditor }: { editor: CoreEditor }) => {
-              const input = document.createElement('input');
-              input.type = 'file';
-              input.accept = imageUpload.accept ?? DEFAULT_ACCEPT;
-              input.style.display = 'none';
+          ({ editor: cmdEditor }: { editor: CoreEditor }) => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = imageUpload.accept ?? DEFAULT_ACCEPT;
+            input.style.display = 'none';
 
-              input.addEventListener('change', () => {
-                const file = input.files?.[0];
-                if (!file) return;
+            input.addEventListener('change', () => {
+              const file = input.files?.[0];
+              if (!file) return;
 
-                const error = validateFile(file, imageUpload);
-                if (error) {
-                  handleUploadError(new Error(error), imageUpload);
-                  return;
-                }
+              const error = validateFile(file, imageUpload);
+              if (error) {
+                handleUploadError(new Error(error), imageUpload);
+                return;
+              }
 
-                createUploadProcess(cmdEditor, file, imageUpload, blobUrlTracker);
-                input.remove();
-              });
+              createUploadProcess(cmdEditor, file, imageUpload, blobUrlTracker);
+              input.remove();
+            });
 
-              document.body.append(input);
-              input.click();
-              return true;
-            },
+            document.body.append(input);
+            input.click();
+            return true;
+          },
       };
     },
 
@@ -428,20 +429,20 @@ export function createDefaultTiptapExtensions(
     }),
     options.imageUpload
       ? createCustomImage(
-        options.imageUpload,
-        options._blobUrlTracker,
-      ).configure({
-        allowBase64: true,
-        HTMLAttributes: {
-          class: 'vben-tiptap__image',
-        },
-      })
+          options.imageUpload,
+          options._blobUrlTracker,
+        ).configure({
+          allowBase64: true,
+          HTMLAttributes: {
+            class: 'vben-tiptap__image',
+          },
+        })
       : Image.configure({
-        allowBase64: true,
-        HTMLAttributes: {
-          class: 'vben-tiptap__image',
-        },
-      }),
+          allowBase64: true,
+          HTMLAttributes: {
+            class: 'vben-tiptap__image',
+          },
+        }),
     Placeholder.configure({
       placeholder: options.placeholder ?? $t('ui.tiptap.placeholder'),
     }),

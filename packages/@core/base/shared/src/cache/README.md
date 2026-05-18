@@ -1,7 +1,6 @@
 # Cache 模块
 
-基于**策略模式**的异步存储管理方案，支持多种存储后端（localStorage、IndexedDB、Memory），提供统一的 API
-接口。
+基于**策略模式**的异步存储管理方案，支持多种存储后端（localStorage、IndexedDB、Memory），提供统一的 API 接口。
 
 ## 架构设计
 
@@ -22,11 +21,11 @@
 
 **分层职责：**
 
-| 层级               | 职责                         |
-|------------------|----------------------------|
+| 层级             | 职责                                         |
+| ---------------- | -------------------------------------------- |
 | `StorageManager` | 命名空间前缀隔离、TTL 过期检查、统一对外 API |
-| `IStorageDriver` | 纯粹的 KV 存取抽象接口              |
-| 各 Driver 实现      | 对接具体存储引擎，不感知前缀和 TTL        |
+| `IStorageDriver` | 纯粹的 KV 存取抽象接口                       |
+| 各 Driver 实现   | 对接具体存储引擎，不感知前缀和 TTL           |
 
 ---
 
@@ -35,9 +34,9 @@
 ### 基本使用（默认 localStorage）
 
 ```typescript
-import {StorageManager} from '@vben-core/shared/cache';
+import { StorageManager } from '@vben-core/shared/cache';
 
-const cache = new StorageManager({prefix: 'myapp'});
+const cache = new StorageManager({ prefix: 'myapp' });
 // 使用 IndexedDB
 //new StorageManager({ driver: new IndexedDBDriver(), prefix: 'app' });
 
@@ -48,14 +47,14 @@ const cache = new StorageManager({prefix: 'myapp'});
 //new StorageManager({ driver: new MemoryStorageDriver(), prefix: 'test' });
 
 // 存储数据
-await cache.setItem('user', {name: '张三', age: 28});
+await cache.setItem('user', { name: '张三', age: 28 });
 
 // 读取数据
 const user = await cache.getItem('user');
 // => { name: '张三', age: 28 }
 
 // 带默认值读取
-const settings = await cache.getItem('settings', {theme: 'light'});
+const settings = await cache.getItem('settings', { theme: 'light' });
 // 如果不存在，返回 { theme: 'light' }
 
 // 删除数据
@@ -68,7 +67,7 @@ await cache.clear();
 ### 带 TTL 过期
 
 ```typescript
-const cache = new StorageManager({prefix: 'session'});
+const cache = new StorageManager({ prefix: 'session' });
 
 // 设置 5 分钟后过期（TTL 单位为毫秒）
 await cache.setItem('token', 'abc123', 5 * 60 * 1000);
@@ -191,20 +190,20 @@ const cache = new StorageManager({
 new StorageManager(options?: StorageManagerOptions)
 ```
 
-| 参数       | 类型               | 默认值                        | 说明           |
-|----------|------------------|----------------------------|--------------|
-| `driver` | `IStorageDriver` | `new LocalStorageDriver()` | 存储驱动实例       |
-| `prefix` | `string`         | `''`                       | 键前缀，用于命名空间隔离 |
+| 参数 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `driver` | `IStorageDriver` | `new LocalStorageDriver()` | 存储驱动实例 |
+| `prefix` | `string` | `''` | 键前缀，用于命名空间隔离 |
 
 #### 方法
 
-| 方法                  | 签名                                                                      | 说明                |
-|---------------------|-------------------------------------------------------------------------|-------------------|
-| `getItem`           | `getItem<T>(key: string, defaultValue?: T \| null): Promise<T \| null>` | 获取存储项，过期或不存在返回默认值 |
-| `setItem`           | `setItem<T>(key: string, value: T, ttl?: number): Promise<void>`        | 设置存储项，可选 TTL（毫秒）  |
-| `removeItem`        | `removeItem(key: string): Promise<void>`                                | 删除指定存储项           |
-| `clear`             | `clear(): Promise<void>`                                                | 清除当前前缀下所有存储项      |
-| `clearExpiredItems` | `clearExpiredItems(): Promise<void>`                                    | 主动清理所有过期项         |
+| 方法 | 签名 | 说明 |
+| --- | --- | --- |
+| `getItem` | `getItem<T>(key: string, defaultValue?: T \| null): Promise<T \| null>` | 获取存储项，过期或不存在返回默认值 |
+| `setItem` | `setItem<T>(key: string, value: T, ttl?: number): Promise<void>` | 设置存储项，可选 TTL（毫秒） |
+| `removeItem` | `removeItem(key: string): Promise<void>` | 删除指定存储项 |
+| `clear` | `clear(): Promise<void>` | 清除当前前缀下所有存储项 |
+| `clearExpiredItems` | `clearExpiredItems(): Promise<void>` | 主动清理所有过期项 |
 
 ---
 
@@ -233,7 +232,7 @@ interface IStorageDriver {
 ### 自定义 Driver
 
 ```typescript
-import type {IStorageDriver} from '@vben-core/shared/cache';
+import type { IStorageDriver } from '@vben-core/shared/cache';
 
 class CookieStorageDriver implements IStorageDriver {
   async getItem<T>(key: string): Promise<null | T> {
@@ -301,11 +300,11 @@ function createStorageManager(prefix: string) {
 
 ```typescript
 // 不同模块使用不同前缀，互不干扰
-const userCache = new StorageManager({prefix: 'user'});
-const configCache = new StorageManager({prefix: 'config'});
+const userCache = new StorageManager({ prefix: 'user' });
+const configCache = new StorageManager({ prefix: 'config' });
 
-await userCache.setItem('profile', {name: '张三'});
-await configCache.setItem('profile', {theme: 'dark'});
+await userCache.setItem('profile', { name: '张三' });
+await configCache.setItem('profile', { theme: 'dark' });
 
 // 各自独立
 await userCache.getItem('profile'); // => { name: '张三' }
@@ -356,24 +355,24 @@ interface StorageItem<T> {
 
 采用**惰性删除 + 主动清理**双重策略：
 
-| 策略   | 触发时机                     | 说明                  |
-|------|--------------------------|---------------------|
-| 惰性删除 | 调用 `getItem` 时           | 读取时检查过期，过期则删除并返回默认值 |
+| 策略 | 触发时机 | 说明 |
+| --- | --- | --- |
+| 惰性删除 | 调用 `getItem` 时 | 读取时检查过期，过期则删除并返回默认值 |
 | 主动清理 | 调用 `clearExpiredItems` 时 | 遍历所有带前缀的 key，删除已过期项 |
 
 ---
 
 ## 各 Driver 对比
 
-| 特性    | LocalStorageDriver | IndexedDBDriver | MemoryStorageDriver |
-|-------|--------------------|-----------------|---------------------|
-| 持久化   | ✅                  | ✅               | ❌                   |
-| 容量    | 5-10 MB            | 数百 MB+          | 受内存限制               |
-| 速度    | 快（同步）              | 中等（异步 I/O）      | 最快                  |
-| 数据类型  | 仅 JSON 可序列化        | 结构化克隆           | 任意 JS 对象            |
-| 浏览器支持 | 所有现代浏览器            | 所有现代浏览器         | 任意环境                |
-| 阻塞主线程 | 是                  | 否               | 否                   |
-| 适用场景  | 配置、Token、小数据       | 离线缓存、大数据        | 测试、SSR              |
+| 特性       | LocalStorageDriver  | IndexedDBDriver  | MemoryStorageDriver |
+| ---------- | ------------------- | ---------------- | ------------------- |
+| 持久化     | ✅                  | ✅               | ❌                  |
+| 容量       | 5-10 MB             | 数百 MB+         | 受内存限制          |
+| 速度       | 快（同步）          | 中等（异步 I/O） | 最快                |
+| 数据类型   | 仅 JSON 可序列化    | 结构化克隆       | 任意 JS 对象        |
+| 浏览器支持 | 所有现代浏览器      | 所有现代浏览器   | 任意环境            |
+| 阻塞主线程 | 是                  | 否               | 否                  |
+| 适用场景   | 配置、Token、小数据 | 离线缓存、大数据 | 测试、SSR           |
 
 ---
 
@@ -388,12 +387,12 @@ class PreferenceManager {
 
   constructor() {
     this.cache = new StorageManager();
-    this.state = reactive<Preferences>({...defaultPreferences});
+    this.state = reactive<Preferences>({ ...defaultPreferences });
   }
 
-  initPreferences = async ({namespace}) => {
+  initPreferences = async ({ namespace }) => {
     // 用应用命名空间重新初始化
-    this.cache = new StorageManager({prefix: namespace});
+    this.cache = new StorageManager({ prefix: namespace });
 
     // 从缓存加载偏好设置
     const cached = await this.cache.getItem<Preferences>('preferences');
@@ -406,8 +405,7 @@ class PreferenceManager {
 
 ## 注意事项
 
-1. **所有方法都是异步的** — 即使底层是同步的 localStorage，API 也返回 Promise，确保切换 Driver
-   时无需改动调用方。
+1. **所有方法都是异步的** — 即使底层是同步的 localStorage，API 也返回 Promise，确保切换 Driver 时无需改动调用方。
 
 2. **TTL 单位是毫秒** — `setItem('key', value, 60000)` 表示 60 秒后过期。
 
@@ -415,8 +413,6 @@ class PreferenceManager {
 
 4. **前缀隔离是逻辑隔离** — `clear()` 只清除当前前缀下的数据，不影响其他前缀或无前缀的数据。
 
-5. **错误处理** — LocalStorageDriver 在 JSON 解析失败时自动清除损坏数据；
-   `PreferenceManager.saveToCache` 内部 try-catch 防止未捕获异常。
+5. **错误处理** — LocalStorageDriver 在 JSON 解析失败时自动清除损坏数据； `PreferenceManager.saveToCache` 内部 try-catch 防止未捕获异常。
 
-6. **IndexedDB 版本升级** — 如果需要修改 objectStore 结构，需要递增 `dbVersion`。当前实现在
-   `upgradeneeded` 事件中自动创建 objectStore。
+6. **IndexedDB 版本升级** — 如果需要修改 objectStore 结构，需要递增 `dbVersion`。当前实现在 `upgradeneeded` 事件中自动创建 objectStore。

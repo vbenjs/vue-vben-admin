@@ -1,4 +1,5 @@
-import type {VxeGridProps as VxeTableGridProps} from 'vxe-table';
+/* eslint-disable unicorn/no-nested-ternary */
+import type { VxeGridProps as VxeTableGridProps } from 'vxe-table';
 
 import type {
   ViewedRowOptions,
@@ -6,9 +7,9 @@ import type {
   ViewedRowStorageAdapter,
 } from './types';
 
-import {isRef, shallowRef, toRaw, triggerRef, watch} from 'vue';
+import { isRef, shallowRef, toRaw, triggerRef, watch } from 'vue';
 
-import {isBoolean, isFunction} from '@vben/utils';
+import { isBoolean, isFunction } from '@vben/utils';
 
 import {
   IndexedDBDriver,
@@ -16,7 +17,7 @@ import {
   StorageManager,
 } from '@vben-core/shared/cache';
 
-import {useDebounceFn} from '@vueuse/core';
+import { useDebounceFn } from '@vueuse/core';
 
 const DEFAULT_VIEWED_CLASS = 'vxe-row--viewed';
 
@@ -32,7 +33,7 @@ function createWebStorageAdapter(
   ttl?: number,
 ): ViewedRowStorageAdapter {
   const manager = new StorageManager({
-    driver: new LocalStorageDriver({storageType}),
+    driver: new LocalStorageDriver({ storageType }),
   });
 
   return {
@@ -183,9 +184,9 @@ export function useViewedRow<T = any>(
 ) {
   // ========== 解析持久化配置 ==========
   const persistOpts: null | ViewedRowPersistOptions = options.persist
-    ? (typeof options.persist === 'string'
-      ? {key: options.persist, type: 'localStorage'}
-      : options.persist)
+    ? typeof options.persist === 'string'
+      ? { key: options.persist, type: 'localStorage' }
+      : options.persist
     : null;
 
   const adapter = createStorageAdapter(options.persist);
@@ -341,7 +342,7 @@ export function useViewedRow<T = any>(
   function getRowClassName(params: any): string {
     if (!isViewed(params.row)) return '';
 
-    const {rowClassName} = options;
+    const { rowClassName } = options;
     if (rowClassName === undefined || rowClassName === null) {
       return DEFAULT_VIEWED_CLASS;
     }
@@ -358,7 +359,7 @@ export function useViewedRow<T = any>(
   function getRowStyle(params: any): any {
     if (!isViewed(params.row)) return undefined;
 
-    const {rowStyle} = options;
+    const { rowStyle } = options;
     if (rowStyle === undefined || rowStyle === null) {
       return undefined;
     }
@@ -415,11 +416,11 @@ function wrapColumnsForViewedRow(
   return columns.map((column) => {
     if (!column || typeof column !== 'object') return column;
 
-    const nextColumn = {...column};
+    const nextColumn = { ...column };
 
     if (nextColumn.cellRender?.name === 'CellOperation') {
-      const cellRender = {...nextColumn.cellRender};
-      const attrs = {...cellRender.attrs};
+      const cellRender = { ...nextColumn.cellRender };
+      const attrs = { ...cellRender.attrs };
       const originalOnClick = attrs.onClick;
 
       attrs.onClick = (params: { code: string; row: any }) => {
@@ -515,15 +516,15 @@ export function applyViewedRowOptions(
     if (!viewedStyle && !originalStyle) return undefined;
     if (!originalStyle) return viewedStyle;
     if (!viewedStyle) return originalStyle;
-    return {...originalStyle, ...viewedStyle};
+    return { ...originalStyle, ...viewedStyle };
   };
 
   // 拦截 CellOperation columns
   const actionCodes =
     !isBoolean(viewedRowConfig) && viewedRowConfig.actionCodes
-      ? (Array.isArray(viewedRowConfig.actionCodes)
+      ? Array.isArray(viewedRowConfig.actionCodes)
         ? viewedRowConfig.actionCodes
-        : [viewedRowConfig.actionCodes])
+        : [viewedRowConfig.actionCodes]
       : [];
 
   if (actionCodes.length > 0 && Array.isArray(mergedOptions.columns)) {

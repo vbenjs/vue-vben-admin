@@ -1,4 +1,4 @@
-import type {IStorageDriver} from './types';
+import type { IStorageDriver } from './types';
 
 /**
  * 内存存储驱动
@@ -24,9 +24,9 @@ class MemoryStorageDriver implements IStorageDriver {
     this.store.delete(key);
   }
 
-  async setItem<T>(key: string, value: T): Promise<void> {
+  async setItem(key: string, value: unknown): Promise<void> {
     this.store.set(key, value);
   }
 }
 
-export {MemoryStorageDriver};
+export { MemoryStorageDriver };

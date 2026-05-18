@@ -43,7 +43,7 @@ class PreferenceManager {
     this.cache = new StorageManager();
     // 构造函数不再同步读取缓存，使用默认值初始化
     // 真正的缓存加载在 initPreferences 中完成（已经是 async）
-    this.state = reactive<Preferences>({...defaultPreferences});
+    this.state = reactive<Preferences>({ ...defaultPreferences });
     this.debouncedSave = useDebounceFn(() => this.saveToCache(), 150);
   }
 
@@ -180,11 +180,7 @@ class PreferenceManager {
    * 更新扩展偏好设置
    * @param updates - 要更新的扩展偏好设置
    */
-  updateCustomPreferences = <
-    TCustomPreferences extends object = CustomPreferencesRecord,
-  >(
-    updates: DeepPartial<TCustomPreferences>,
-  ) => {
+  updateCustomPreferences = (updates: DeepPartial<object>) => {
     if (!this.customPreferencesExtension) {
       return;
     }

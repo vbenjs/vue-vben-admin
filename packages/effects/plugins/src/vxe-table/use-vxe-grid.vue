@@ -44,7 +44,7 @@ import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
-import {applyViewedRowOptions, useViewedRow} from './use-viewed-row';
+import { applyViewedRowOptions, useViewedRow } from './use-viewed-row';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
@@ -93,10 +93,10 @@ watch(
     if (!cfg) return;
 
     const keyField = (gridOptions.value?.rowConfig as any)?.keyField || 'id';
-    const resolved = isBoolean(cfg) ? {keyField} : {keyField, ...cfg};
+    const resolved = isBoolean(cfg) ? { keyField } : { keyField, ...cfg };
     gridApi.viewedRowHelper = useViewedRow(resolved);
   },
-  {immediate: true},
+  { immediate: true },
 );
 
 const { isMobile } = usePreferences();

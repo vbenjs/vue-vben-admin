@@ -4,8 +4,8 @@ import type {
   StorageManagerOptions,
 } from './types';
 
-import {LocalStorageDriver} from './local-storage-driver';
-import {MemoryStorageDriver} from './memory-storage-driver';
+import { LocalStorageDriver } from './local-storage-driver';
+import { MemoryStorageDriver } from './memory-storage-driver';
 
 /**
  * 存储管理器（策略模式）
@@ -17,7 +17,7 @@ class StorageManager {
   private driver: IStorageDriver;
   private prefix: string;
 
-  constructor({driver, prefix = ''}: StorageManagerOptions = {}) {
+  constructor({ driver, prefix = '' }: StorageManagerOptions = {}) {
     this.driver = driver || this.createDefaultDriver();
     this.prefix = prefix;
     if (!this.prefix && this.driver instanceof LocalStorageDriver) {
@@ -106,10 +106,10 @@ class StorageManager {
    * @param value 值
    * @param ttl 存活时间（毫秒）
    */
-  async setItem<T>(key: string, value: T, ttl?: number): Promise<void> {
+  async setItem(key: string, value: unknown, ttl?: number): Promise<void> {
     const fullKey = this.getFullKey(key);
     const expiry = ttl ? Date.now() + ttl : undefined;
-    const item: StorageItem<T> = { expiry, value };
+    const item: StorageItem<unknown> = { expiry, value };
     await this.driver.setItem(fullKey, item);
   }
 
