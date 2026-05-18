@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useVbenModal } from '@vben/common-ui';
 
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 
 import DragDemo from './drag-demo.vue';
 

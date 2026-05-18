@@ -12,7 +12,7 @@ import {
   Slider,
   Tag,
   Tooltip,
-} from 'ant-design-vue';
+} from 'antdv-next';
 
 const props = reactive({
   leftCollapsedWidth: 5,

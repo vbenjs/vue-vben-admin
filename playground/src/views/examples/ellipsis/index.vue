@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { EllipsisText, Page } from '@vben/common-ui';
 
-import { Card } from 'ant-design-vue';
+import { Card } from 'antdv-next';
 
 import DocButton from '../doc-button.vue';
 

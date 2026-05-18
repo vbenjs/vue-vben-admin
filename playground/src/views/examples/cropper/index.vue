@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { UploadChangeParam } from 'ant-design-vue';
+import type { UploadChangeParam } from 'antdv-next';
 
 import { ref } from 'vue';
 
 import { Page, VCropper } from '@vben/common-ui';
 
-import { Button, Card, Select, Upload } from 'ant-design-vue';
+import { Button, Card, Select, Upload } from 'antdv-next';
 
 const options = [
   { label: '1:1', value: '1:1' },

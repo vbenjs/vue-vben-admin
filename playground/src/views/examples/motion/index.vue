@@ -14,7 +14,7 @@ import {
   InputNumber,
   Row,
   Select,
-} from 'ant-design-vue';
+} from 'antdv-next';
 // 本例子用不到visible类型的动画。带有VisibleOnce和Visible的类型会在组件进入视口被显示时执行动画，
 const presets = MotionPresets.filter((v) => !v.includes('Visible'));
 const showCard1 = refAutoReset(true, 100);
@@ -114,15 +114,10 @@ function openDocPage() {
           <Row>
             <Col :span="8">
               <FormItem prop="preset" label="动画效果">
-                <Select v-model:value="motionProps.preset">
-                  <Select.Option
-                    :value="preset"
-                    v-for="preset in presets"
-                    :key="preset"
-                  >
-                    {{ preset }}
-                  </Select.Option>
-                </Select>
+                <Select
+                  v-model:value="motionProps.preset"
+                  :options="presets.map((p) => ({ label: p, value: p }))"
+                />
               </FormItem>
             </Col>
             <Col :span="8">
@@ -168,15 +163,10 @@ function openDocPage() {
           <Row>
             <Col :span="8">
               <FormItem prop="preset" label="动画效果">
-                <Select v-model:value="motionGroupProps.preset">
-                  <Select.Option
-                    :value="preset"
-                    v-for="preset in presets"
-                    :key="preset"
-                  >
-                    {{ preset }}
-                  </Select.Option>
-                </Select>
+                <Select
+                  v-model:value="motionGroupProps.preset"
+                  :options="presets.map((p) => ({ label: p, value: p }))"
+                />
               </FormItem>
             </Col>
             <Col :span="8">

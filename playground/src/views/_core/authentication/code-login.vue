@@ -7,7 +7,7 @@ import { computed, ref, useTemplateRef } from 'vue';
 import { AuthenticationCodeLogin, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 
 defineOptions({ name: 'CodeLogin' });
 

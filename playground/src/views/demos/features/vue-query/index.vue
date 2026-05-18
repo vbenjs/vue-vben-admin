@@ -2,7 +2,7 @@
 import { Page } from '@vben/common-ui';
 
 import { refAutoReset } from '@vueuse/core';
-import { Button, Card, Empty } from 'ant-design-vue';
+import { Button, Card, Empty } from 'antdv-next';
 
 import ConcurrencyCaching from './concurrency-caching.vue';
 import InfiniteQueries from './infinite-queries.vue';

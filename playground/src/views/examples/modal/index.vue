@@ -10,7 +10,7 @@ import {
   useVbenModal,
 } from '@vben/common-ui';
 
-import { Button, Card, Flex, message } from 'ant-design-vue';
+import { Button, Card, Flex, message } from 'antdv-next';
 
 import DocButton from '../doc-button.vue';
 import AutoHeightDemo from './auto-height-demo.vue';

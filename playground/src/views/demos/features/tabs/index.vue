@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import { Page } from '@vben/common-ui';
 import { useTabs } from '@vben/hooks';
 
-import { Button, Card, Input } from 'ant-design-vue';
+import { Button, Card, Input } from 'antdv-next';
 
 const router = useRouter();
 const newTabTitle = ref('');

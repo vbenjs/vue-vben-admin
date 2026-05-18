@@ -136,8 +136,8 @@ const PreviewGroup = defineAsyncComponent(() =>
   import('antdv-next/dist/image/index').then((res) => res.ImagePreviewGroup),
 );
 
-const withDefaultPlaceholder = <T extends Component>(
-  component: T,
+const withDefaultPlaceholder = (
+  component: Component,
   type: 'input' | 'select',
   componentProps: Recordable<any> = {},
 ) => {

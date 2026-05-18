@@ -4,7 +4,7 @@ import type { LoginExpiredModeType } from '@vben/types';
 import { Page } from '@vben/common-ui';
 import { preferences, updatePreferences } from '@vben/preferences';
 
-import { Button, Card } from 'ant-design-vue';
+import { Button, Card } from 'antdv-next';
 
 import { getMockStatusApi } from '#/api';
 

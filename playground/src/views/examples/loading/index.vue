@@ -3,7 +3,7 @@ import { Loading, Page, Spinner } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
 import { refAutoReset } from '@vueuse/core';
-import { Button, Card, Spin } from 'ant-design-vue';
+import { Button, Card, Spin } from 'antdv-next';
 
 const spinning = refAutoReset(false, 3000);
 const loading = refAutoReset(false, 3000);
