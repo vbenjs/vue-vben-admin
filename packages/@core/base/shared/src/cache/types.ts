@@ -36,4 +36,4 @@ interface StorageManagerOptions {
   prefix?: string;
 }
 
-export type {IStorageDriver, StorageItem, StorageManagerOptions};
+export type { IStorageDriver, StorageItem, StorageManagerOptions };

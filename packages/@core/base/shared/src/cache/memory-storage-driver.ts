@@ -1,4 +1,4 @@
-import type {IStorageDriver} from './types';
+import type { IStorageDriver } from './types';
 
 /**
  * 内存存储驱动
@@ -29,4 +29,4 @@ class MemoryStorageDriver implements IStorageDriver {
   }
 }
 
-export {MemoryStorageDriver};
+export { MemoryStorageDriver };

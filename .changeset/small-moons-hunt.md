@@ -1,5 +1,5 @@
 ---
-"@vben/icons": patch
+'@vben/icons': patch
 ---
 
 fix: guard svg icon loading during docs SSR

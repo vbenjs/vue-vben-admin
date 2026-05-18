@@ -1,4 +1,4 @@
-import type {IStorageDriver} from './types';
+import type { IStorageDriver } from './types';
 
 interface IndexedDBDriverOptions {
   /** 数据库名称 */
@@ -20,10 +20,10 @@ class IndexedDBDriver implements IStorageDriver {
   private storeName: string;
 
   constructor({
-                dbName = 'vben-storage',
-                dbVersion = 1,
-                storeName = 'kv-store',
-              }: IndexedDBDriverOptions = {}) {
+    dbName = 'vben-storage',
+    dbVersion = 1,
+    storeName = 'kv-store',
+  }: IndexedDBDriverOptions = {}) {
     this.dbName = dbName;
     this.dbVersion = dbVersion;
     this.storeName = storeName;
@@ -133,5 +133,5 @@ class IndexedDBDriver implements IStorageDriver {
   }
 }
 
-export {IndexedDBDriver};
-export type {IndexedDBDriverOptions};
+export { IndexedDBDriver };
+export type { IndexedDBDriverOptions };

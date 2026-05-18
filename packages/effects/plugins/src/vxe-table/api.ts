@@ -6,7 +6,7 @@ import type {
 } from '@vben-core/form-ui';
 
 import type { VxeGridProps } from './types';
-import type {ViewedRowHelper} from './use-viewed-row';
+import type { ViewedRowHelper } from './use-viewed-row';
 
 import { toRaw } from 'vue';
 
