@@ -31,6 +31,8 @@ export interface TreeProps {
   labelField?: string;
   /** 是否多选 */
   multiple?: boolean;
+  /** 选择全部时的文字 */
+  selectAllLabel?: string;
   /** 显示由iconField指定的图标 */
   showIcon?: boolean;
   /** 启用展开收缩动画 */

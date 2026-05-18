@@ -44,6 +44,7 @@ import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
+import {applyViewedRowOptions, useViewedRow} from './use-viewed-row';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
@@ -76,7 +77,27 @@ const {
   tableTitleHelp,
   showSearchForm,
   separator,
+  viewedRowOptions,
 } = usePriorityValues(props, state);
+
+// viewedRowOptions：helper 只创建一次（persist/keyField 不支持运行时切换）
+// actionCodes、rowClassName、rowStyle、viewedKeys 的变化通过 options computed 自然响应
+const gridApi = props.api;
+
+watch(
+  viewedRowOptions,
+  (cfg) => {
+    // helper 已存在则不重建
+    if (gridApi.viewedRowHelper) return;
+
+    if (!cfg) return;
+
+    const keyField = (gridOptions.value?.rowConfig as any)?.keyField || 'id';
+    const resolved = isBoolean(cfg) ? {keyField} : {keyField, ...cfg};
+    gridApi.viewedRowHelper = useViewedRow(resolved);
+  },
+  {immediate: true},
+);
 
 const { isMobile } = usePreferences();
 const isSeparator = computed(() => {
@@ -230,10 +251,20 @@ const options = computed(() => {
   }
   if (mergedOptions.formConfig) {
     mergedOptions.formConfig.enabled = false;
-    if (tableData.value && tableData.value.length > 0) {
-      mergedOptions.data = tableData.value;
-    }
   }
+  if (tableData.value && tableData.value.length > 0) {
+    mergedOptions.data = tableData.value;
+  }
+
+  // 注入已读行功能（rowClassName、rowStyle、columns 拦截）
+  if (viewedRowOptions.value && gridApi.viewedRowHelper) {
+    applyViewedRowOptions(
+      mergedOptions,
+      viewedRowOptions.value,
+      gridApi.viewedRowHelper,
+    );
+  }
+
   return mergedOptions;
 });
 
