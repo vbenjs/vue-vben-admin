@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type {OnActionClickParams, VxeGridProps} from '#/adapter/vxe-table';
+import type { OnActionClickParams, VxeGridProps } from '#/adapter/vxe-table';
 
-import {ref} from 'vue';
+import { ref } from 'vue';
 
-import {Page, useVbenModal} from '@vben/common-ui';
-import {$t} from '@vben/locales';
+import { Page, useVbenModal } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 
-import {Button, message} from 'ant-design-vue';
+import { Button, message } from 'antdv-next';
 
-import {useVbenVxeGrid} from '#/adapter/vxe-table';
-import {getExampleTableApi} from '#/api';
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { getExampleTableApi } from '#/api';
 
 interface RowType {
   category: string;
@@ -26,12 +26,12 @@ const gridOptions: VxeGridProps<RowType> = {
     labelField: 'category',
   },
   columns: [
-    {title: '序号', type: 'seq', width: 50},
-    {field: 'category', sortable: true, title: 'Category'},
-    {field: 'color', sortable: true, title: 'Color'},
-    {field: 'productName', sortable: true, title: 'Product Name'},
-    {field: 'price', sortable: true, title: 'Price'},
-    {field: 'releaseDate', formatter: 'formatDateTime', title: 'DateTime'},
+    { title: '序号', type: 'seq', width: 50 },
+    { field: 'category', sortable: true, title: 'Category' },
+    { field: 'color', sortable: true, title: 'Color' },
+    { field: 'productName', sortable: true, title: 'Product Name' },
+    { field: 'price', sortable: true, title: 'Price' },
+    { field: 'releaseDate', formatter: 'formatDateTime', title: 'DateTime' },
     {
       align: 'center',
       cellRender: {
@@ -61,7 +61,7 @@ const gridOptions: VxeGridProps<RowType> = {
   keepSource: true,
   proxyConfig: {
     ajax: {
-      query: async ({page, sort}) => {
+      query: async ({ page, sort }) => {
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
@@ -73,7 +73,7 @@ const gridOptions: VxeGridProps<RowType> = {
     sort: true,
   },
   sortConfig: {
-    defaultSort: {field: 'category', order: 'desc'},
+    defaultSort: { field: 'category', order: 'desc' },
     remote: true,
   },
   toolbarConfig: {
@@ -103,7 +103,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
   },
 });
 
-function onActionClick({code, row}: OnActionClickParams<RowType>) {
+function onActionClick({ code, row }: OnActionClickParams<RowType>) {
   switch (code) {
     case 'edit': {
       onEdit(row);
@@ -123,9 +123,9 @@ const editRow = ref<RowType>();
 const [Modal, modalApi] = useVbenModal({
   draggable: true,
   onConfirm: () => {
-    modalApi.setState({loading: true});
+    modalApi.setState({ loading: true });
     editRow.value && gridApi.markRowAsViewed(editRow.value);
-    modalApi.setState({loading: false});
+    modalApi.setState({ loading: false });
     modalApi.close();
   },
 });
@@ -149,7 +149,7 @@ function onStyleSet() {
   gridApi.setState({
     viewedRowOptions: {
       rowStyle: () => {
-        return isStyle.value ? {backgroundColor: 'gray'} : '';
+        return isStyle.value ? { backgroundColor: 'gray' } : '';
       },
     },
   });
