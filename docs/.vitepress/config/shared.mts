@@ -85,9 +85,21 @@ export const shared = defineConfig({
             name: 'Li Kui',
             username: 'likui628',
           },
+          {
+            name: 'Jin Mao',
+            username: 'jinmao88',
+          },
+          {
+            name: 'Netfan',
+            username: 'mynetfan',
+          },
+          {
+            name: 'xingyu4j',
+            username: 'xingyu4j',
+          },
         ],
         repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
-      }),
+      }) as any,
       GitChangelogMarkdownSection(),
       viteArchiverPlugin({ outputDir: '.vitepress' }),
       groupIconVitePlugin(),
