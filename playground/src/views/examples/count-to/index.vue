@@ -152,7 +152,9 @@ function onFinished() {
             <FormItem label="动画" name="transition">
               <Select
                 v-model:value="props.transition"
-                :options="TransitionPresetsKeys.map((p) => ({ label: p, value: p }))"
+                :options="
+                  TransitionPresetsKeys.map((p) => ({ label: p, value: p }))
+                "
               />
             </FormItem>
           </Col>
