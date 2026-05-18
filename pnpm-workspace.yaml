@@ -47,11 +47,11 @@ catalog:
   '@eslint-community/eslint-plugin-eslint-comments': ^4.7.1
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^10.4.0
-  '@iconify/json': ^2.2.473
+  '@iconify/json': ^2.2.474
   '@iconify/tailwind4': ^1.2.3
   '@iconify/vue': ^5.0.1
-  '@intlify/core-base': ^11.4.2
-  '@intlify/unplugin-vue-i18n': ^11.2.0
+  '@intlify/core-base': ^11.4.4
+  '@intlify/unplugin-vue-i18n': ^11.2.3
   '@jspm/generator': ^2.15.0
   '@manypkg/get-packages': ^3.1.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
@@ -97,7 +97,7 @@ catalog:
   '@vueuse/integrations': ^14.3.0
   '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
-  antdv-next: ^1.2.2
+  antdv-next: ^1.3.0
   archiver: ^7.0.1
   axios: ^1.16.1
   axios-mock-adapter: ^2.1.0
@@ -161,7 +161,7 @@ catalog:
   postcss-scss: ^4.0.9
   publint: ^0.3.21
   qrcode: ^1.5.4
-  qs: ^6.15.1
+  qs: ^6.15.2
   reka-ui: ^2.9.7
   resolve.exports: ^2.0.3
   rimraf: ^6.1.3
@@ -202,12 +202,12 @@ catalog:
   vitest: ^4.1.6
   vue: ^3.5.34
   vue-eslint-parser: ^10.4.0
-  vue-i18n: ^11.4.2
+  vue-i18n: ^11.4.4
   vue-json-viewer: ^3.0.4
   vue-router: ^5.0.7
   vue-tippy: ^6.7.1
   vue-tsc: ^3.2.9
-  vxe-pc-ui: ^4.14.12
+  vxe-pc-ui: ^4.14.14
   vxe-table: ^4.18.13
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
