@@ -98,7 +98,7 @@ VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 
 ::: tip How to Dynamically Modify API Endpoint in Production
 
-Variables starting with `VITE_GLOB_*` in the `.env` file are injected into the `_app.config.js` file during packaging. After packaging, you can modify the corresponding API addresses in `dist/_app.config.js` and refresh the page to apply the changes. This eliminates the need to package multiple times for different environments, allowing a single package to be deployed across multiple API environments.
+Variables starting with `VITE_GLOB_*` in the `.env` file are injected into the `_app-config-{version}-{hash}.js` file during packaging. After packaging, you can modify the corresponding API addresses in `dist/_app-config-{version}-{hash}.js` and refresh the page to apply the changes. This eliminates the need to package multiple times for different environments, allowing a single package to be deployed across multiple API environments.
 
 :::
 
