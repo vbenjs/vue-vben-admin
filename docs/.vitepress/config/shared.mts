@@ -61,7 +61,7 @@ export const shared = defineConfig({
       },
       preprocessorOptions: {
         scss: {
-          api: 'modern',
+          // api: 'modern',
         },
       },
     },
