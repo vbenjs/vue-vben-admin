@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 
 import {
   viteArchiverPlugin,
+  viteDayjsPlugin,
   viteVxeTableImportsPlugin,
 } from '@vben/vite-config';
 
@@ -69,6 +70,7 @@ export const shared = defineConfig({
       stringify: true,
     },
     plugins: [
+      viteDayjsPlugin(),
       tailwindcss(),
       GitChangelog({
         mapAuthors: [
@@ -86,6 +88,7 @@ export const shared = defineConfig({
             username: 'likui628',
           },
           {
+            mapByNameAliases: ['Jin Mao', 'jinmao'],
             name: 'Jin Mao',
             username: 'jinmao88',
           },
@@ -94,6 +97,7 @@ export const shared = defineConfig({
             username: 'mynetfan',
           },
           {
+            mapByNameAliases: ['xingyu4j', 'xingyu'],
             name: 'xingyu4j',
             username: 'xingyu4j',
           },
@@ -115,6 +119,7 @@ export const shared = defineConfig({
 
     ssr: {
       external: ['@vue/repl'],
+      noExternal: ['@v-c/picker'],
     },
   },
 });
@@ -125,7 +130,7 @@ function head(): HeadConfig[] {
     [
       'meta',
       {
-        content: 'vben, vitejs, vite, shacdn-ui, vue',
+        content: 'vben, vitejs, vite, shadcn-ui, vue',
         name: 'keywords',
       },
     ],

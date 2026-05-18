@@ -107,7 +107,7 @@ catalog:
   circular-dependency-scanner: ^3.0.1
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
-  commitlint-plugin-function-rules: ^4.3.2
+  commitlint-plugin-function-rules: ^5.0.1
   consola: ^3.4.2
   cross-env: ^10.1.0
   cspell: ^10.0.0
@@ -151,7 +151,7 @@ catalog:
   ora: ^9.4.0
   oxfmt: ^0.50.0
   oxlint: ^1.65.0
-  oxlint-tsgolint: ^0.22.1
+  oxlint-tsgolint: ^0.23.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.1
@@ -206,8 +206,8 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^5.0.7
   vue-tippy: ^6.7.1
-  vue-tsc: ^3.2.9
-  vxe-pc-ui: ^4.14.14
+  vue-tsc: ^3.3.0
+  vxe-pc-ui: ^4.14.15
   vxe-table: ^4.18.13
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
