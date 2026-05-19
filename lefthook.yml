@@ -44,17 +44,15 @@
 pre-commit:
   parallel: true
   commands:
-    install:
-      run: pnpm install
+    lint:
+      run: pnpm lint
+    checkType:
+      run: pnpm check:type
 
 post-merge:
   commands:
     install:
       run: pnpm install
-    lint:
-      run: pnpm lint
-    checkType:
-      run: pnpm check:type
 
 commit-msg:
   commands:
