@@ -124,19 +124,19 @@ class PreferenceManager {
     // 使用命名空间初始化存储管理器
     this.cache = new StorageManager({ prefix: namespace });
 
-    // 合并初始偏好设置
+    // 合并初始偏好设置（merge合并规则：后者覆盖前者，若是前者有值则跳过）
     this.initialPreferences = merge({}, overrides, defaultPreferences);
     this.customPreferencesExtension = extension ?? null;
     this.initialCustomPreferences = this.resolveCustomPreferencesDefaults(
       this.customPreferencesExtension,
     );
 
-    // 加载缓存的偏好设置并与初始配置合并
+    // 加载缓存的偏好设置并与初始配置合并（merge合并规则：后者覆盖前者，若是前者有值则跳过）
     const cachedPreferences = (await this.loadFromCache()) || {};
     const mergedPreference = merge(
       {},
+      this.initialPreferences, // 初始化的配置优先级最高（merge合并规则：后者覆盖前者，若是前者有值则跳过）
       cachedPreferences,
-      this.initialPreferences,
     );
 
     // 更新偏好设置
