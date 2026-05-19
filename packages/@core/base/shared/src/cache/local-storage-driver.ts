@@ -62,7 +62,7 @@ class LocalStorageDriver implements IStorageDriver {
     this.storage.removeItem(key);
   }
 
-  async setItem<T>(key: string, value: T): Promise<void> {
+  async setItem(key: string, value: unknown): Promise<void> {
     this.storage.setItem(key, JSON.stringify(value));
   }
 }

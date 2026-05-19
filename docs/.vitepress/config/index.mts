@@ -1,12 +1,12 @@
 import { withPwa } from '@vite-pwa/vitepress';
-import { defineConfigWithTheme } from 'vitepress';
+import { defineConfig } from 'vitepress';
 
 import { en } from './en.mts';
 import { shared } from './shared.mts';
 import { zh } from './zh.mts';
 
 export default withPwa(
-  defineConfigWithTheme({
+  defineConfig({
     ...shared,
     locales: {
       en: {

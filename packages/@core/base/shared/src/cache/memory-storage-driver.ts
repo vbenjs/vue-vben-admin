@@ -24,7 +24,7 @@ class MemoryStorageDriver implements IStorageDriver {
     this.store.delete(key);
   }
 
-  async setItem<T>(key: string, value: T): Promise<void> {
+  async setItem(key: string, value: unknown): Promise<void> {
     this.store.set(key, value);
   }
 }

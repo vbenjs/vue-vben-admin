@@ -1,6 +1,6 @@
 export class StateHandler {
   private condition: boolean = false;
-  private rejectCondition: (() => void) | null = null;
+  private rejectCondition: ((reason?: Error) => void) | null = null;
   private resolveCondition: (() => void) | null = null;
 
   isConditionTrue(): boolean {
@@ -16,7 +16,7 @@ export class StateHandler {
   setConditionFalse() {
     this.condition = false;
     if (this.rejectCondition) {
-      this.rejectCondition();
+      this.rejectCondition(new Error('Condition was set to false'));
       this.clearPromises();
     }
   }

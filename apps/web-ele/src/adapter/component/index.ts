@@ -141,8 +141,8 @@ const ElUpload = defineAsyncComponent(() =>
   ]).then(([res]) => res.ElUpload),
 );
 
-const withDefaultPlaceholder = <T extends Component>(
-  component: T,
+const withDefaultPlaceholder = (
+  component: Component,
   type: 'input' | 'select',
   componentProps: Recordable<any> = {},
 ) => {
@@ -284,7 +284,9 @@ async function initComponentAdapter() {
       inputComponent: ElInput,
     }),
     Input: withDefaultPlaceholder(ElInput, 'input'),
-    InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
+    InputNumber: withDefaultPlaceholder(ElInputNumber, 'input', {
+      style: { width: '100%' },
+    }),
     RadioGroup: (props, { attrs, slots }) => {
       let defaultSlot;
       if (Reflect.has(slots, 'default')) {

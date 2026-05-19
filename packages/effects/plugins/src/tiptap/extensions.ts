@@ -66,6 +66,7 @@ function findPlaceholderPos(doc: ProseMirrorNode, blobUrl: string): number {
       found = offset;
       return false;
     }
+    return true;
   });
   return found;
 }

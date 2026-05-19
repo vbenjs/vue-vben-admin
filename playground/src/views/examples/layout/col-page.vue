@@ -12,7 +12,7 @@ import {
   Slider,
   Tag,
   Tooltip,
-} from 'ant-design-vue';
+} from 'antdv-next';
 
 const props = reactive({
   leftCollapsedWidth: 5,
@@ -87,7 +87,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
             @after-change="(value) => (props.leftMaxWidth = value as number)"
           />
         </div>
-        <Alert message="实验性的组件" show-icon type="warning">
+        <Alert title="实验性的组件" show-icon type="warning">
           <template #description>
             <p>
               双列布局组件是一个在Page组件上扩展的相对基础的布局组件，支持左侧折叠（当拖拽导致左侧宽度比最小宽度还要小时，还可以进入折叠状态）、拖拽调整宽度等功能。

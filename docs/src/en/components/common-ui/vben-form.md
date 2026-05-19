@@ -103,7 +103,7 @@ import {
   TimePicker,
   TreeSelect,
   Upload,
-} from 'ant-design-vue';
+} from 'antdv-next';
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,

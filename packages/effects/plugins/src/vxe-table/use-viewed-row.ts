@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-nested-ternary */
 import type { VxeGridProps as VxeTableGridProps } from 'vxe-table';
 
 import type {
@@ -182,13 +183,11 @@ export function useViewedRow<T = any>(
   options: ViewedRowOptions<T> & { keyField: string },
 ) {
   // ========== 解析持久化配置 ==========
-  let persistOpts: null | ViewedRowPersistOptions = null;
-  if (options.persist) {
-    persistOpts =
-      typeof options.persist === 'string'
-        ? { key: options.persist, type: 'localStorage' }
-        : options.persist;
-  }
+  const persistOpts: null | ViewedRowPersistOptions = options.persist
+    ? typeof options.persist === 'string'
+      ? { key: options.persist, type: 'localStorage' }
+      : options.persist
+    : null;
 
   const adapter = createStorageAdapter(options.persist);
   const maxSize = persistOpts?.maxSize ?? 100;
@@ -521,12 +520,12 @@ export function applyViewedRowOptions(
   };
 
   // 拦截 CellOperation columns
-  let actionCodes: string[] = [];
-  if (!isBoolean(viewedRowConfig) && viewedRowConfig.actionCodes) {
-    actionCodes = Array.isArray(viewedRowConfig.actionCodes)
-      ? viewedRowConfig.actionCodes
-      : [viewedRowConfig.actionCodes];
-  }
+  const actionCodes =
+    !isBoolean(viewedRowConfig) && viewedRowConfig.actionCodes
+      ? Array.isArray(viewedRowConfig.actionCodes)
+        ? viewedRowConfig.actionCodes
+        : [viewedRowConfig.actionCodes]
+      : [];
 
   if (actionCodes.length > 0 && Array.isArray(mergedOptions.columns)) {
     mergedOptions.columns = wrapColumnsForViewedRow(

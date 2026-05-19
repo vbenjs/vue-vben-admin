@@ -17,7 +17,7 @@ interface IStorageDriver {
   removeItem(key: string): Promise<void>;
 
   /** 设置存储项 */
-  setItem<T>(key: string, value: T): Promise<void>;
+  setItem(key: string, value: unknown): Promise<void>;
 }
 
 /**

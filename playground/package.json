@@ -48,7 +48,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
-    "ant-design-vue": "catalog:",
+    "antdv-next": "catalog:",
     "dayjs": "catalog:",
     "json-bigint": "catalog:",
     "pinia": "catalog:",

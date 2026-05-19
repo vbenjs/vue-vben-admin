@@ -106,10 +106,10 @@ class StorageManager {
    * @param value 值
    * @param ttl 存活时间（毫秒）
    */
-  async setItem<T>(key: string, value: T, ttl?: number): Promise<void> {
+  async setItem(key: string, value: unknown, ttl?: number): Promise<void> {
     const fullKey = this.getFullKey(key);
     const expiry = ttl ? Date.now() + ttl : undefined;
-    const item: StorageItem<T> = { expiry, value };
+    const item: StorageItem<unknown> = { expiry, value };
     await this.driver.setItem(fullKey, item);
   }
 

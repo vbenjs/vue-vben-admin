@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import type { RefSelectProps } from 'ant-design-vue/es/select';
-
 import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Button, Card, message, Space } from 'ant-design-vue';
+import { Button, Card, message, Space } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 
@@ -134,7 +132,9 @@ function handleClick(
     }
     case 'componentRef': {
       // 获取下拉组件的实例，并调用它的focus方法
-      formApi.getFieldComponentRef<RefSelectProps>('fieldOptions')?.focus?.();
+      formApi
+        .getFieldComponentRef<{ focus?: () => void }>('fieldOptions')
+        ?.focus?.();
       break;
     }
     case 'disabled': {

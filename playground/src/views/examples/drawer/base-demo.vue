@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { Button, message } from 'antdv-next';
 
 const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {

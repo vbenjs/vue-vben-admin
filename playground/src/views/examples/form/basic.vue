@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { UploadFile } from 'ant-design-vue';
+import type { UploadFile } from 'antdv-next';
 
 import { h, ref, toRaw } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
 import { useDebounceFn } from '@vueuse/core';
-import { Button, Card, message, Spin, Tag } from 'ant-design-vue';
+import { Button, Card, message, Spin, Tag } from 'antdv-next';
 import dayjs from 'dayjs';
 
 import { useVbenForm, z } from '#/adapter/form';

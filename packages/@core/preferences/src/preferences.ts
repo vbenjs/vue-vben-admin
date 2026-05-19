@@ -180,11 +180,7 @@ class PreferenceManager {
    * 更新扩展偏好设置
    * @param updates - 要更新的扩展偏好设置
    */
-  updateCustomPreferences = <
-    TCustomPreferences extends object = CustomPreferencesRecord,
-  >(
-    updates: DeepPartial<TCustomPreferences>,
-  ) => {
+  updateCustomPreferences = (updates: DeepPartial<object>) => {
     if (!this.customPreferencesExtension) {
       return;
     }

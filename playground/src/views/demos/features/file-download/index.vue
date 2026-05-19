@@ -9,7 +9,7 @@ import {
   downloadFileFromUrl,
 } from '@vben/utils';
 
-import { Button, Card } from 'ant-design-vue';
+import { Button, Card } from 'antdv-next';
 
 import { downloadFile1, downloadFile2 } from '#/api/examples/download';
 

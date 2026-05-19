@@ -6,7 +6,7 @@ import type { IProducts } from './typing';
 import { ref } from 'vue';
 
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 
 const LIMIT = 10;
 const fetcher = async (page: Ref<number>): Promise<IProducts> => {

@@ -110,7 +110,7 @@ registry = https://registry.npmmirror.com/
 如果出现类似以下错误，请检查项目全路径（包含所有父级路径）不能出现中文、日文、韩文。否则将会出现路径访问 404 导致以下问题
 
 ```ts
-[vite] Failed to resolve module import "ant-design-vue/dist/antd.css-vben-adminode_modulesant-design-vuedistantd.css". (imported by /@/setup/ant-design-vue/index.ts)
+[vite] Failed to resolve module import "antdv-next/dist/antd.css-vben-adminode_modulesantdv-nextdistantd.css". (imported by /@/setup/antdv-next/index.ts)
 ```
 
 ## 控制台路由警告问题

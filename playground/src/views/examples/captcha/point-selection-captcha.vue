@@ -5,7 +5,7 @@ import { reactive, ref } from 'vue';
 
 import { Page, PointSelectionCaptcha } from '@vben/common-ui';
 
-import { Card, Input, InputNumber, message, Switch } from 'ant-design-vue';
+import { Card, Input, InputNumber, message, Switch } from 'antdv-next';
 
 import { $t } from '#/locales';
 

@@ -89,8 +89,8 @@ const TreeSelect = defineAsyncComponent(
 );
 const Upload = defineAsyncComponent(() => import('tdesign-vue-next/es/upload'));
 
-const withDefaultPlaceholder = <T extends Component>(
-  component: T,
+const withDefaultPlaceholder = (
+  component: Component,
   type: 'input' | 'select',
   componentProps: Recordable<any> = {},
 ) => {
@@ -239,7 +239,9 @@ async function initComponentAdapter() {
       modelValueProp: 'value',
     }),
     Input: withDefaultPlaceholder(Input, 'input'),
-    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input', {
+      style: { width: '100%' },
+    }),
     // InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     // Mentions: withDefaultPlaceholder(Mentions, 'input'),
     // 自定义主要按钮
