@@ -57,3 +57,5 @@ vite.config.ts.*
 .claude
 .codex
 skills-lock.json
+.atomcode
+.datalog
