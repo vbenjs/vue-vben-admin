@@ -149,7 +149,7 @@
     },
     "lockScreen": {
       "title": "锁定屏幕",
-      "screenButton": "锁定",
+      "screenButton": "解锁",
       "password": "密码",
       "placeholder": "请输入锁屏密码",
       "unlock": "点击解锁",
