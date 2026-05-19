@@ -1,4 +1,4 @@
-import type {IStorageDriver} from './types';
+import type { IStorageDriver } from './types';
 
 type StorageType = 'localStorage' | 'sessionStorage';
 
@@ -15,8 +15,8 @@ class LocalStorageDriver implements IStorageDriver {
   private storage: Storage;
 
   constructor({
-                storageType = 'localStorage',
-              }: LocalStorageDriverOptions = {}) {
+    storageType = 'localStorage',
+  }: LocalStorageDriverOptions = {}) {
     if (typeof window === 'undefined') {
       // eslint-disable-next-line unicorn/prefer-type-error -- not a type check, it's an environment check
       throw new Error(
@@ -67,5 +67,5 @@ class LocalStorageDriver implements IStorageDriver {
   }
 }
 
-export {LocalStorageDriver};
-export type {LocalStorageDriverOptions};
+export { LocalStorageDriver };
+export type { LocalStorageDriverOptions };
