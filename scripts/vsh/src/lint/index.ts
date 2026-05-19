@@ -8,20 +8,20 @@ interface LintCommandOptions {
    */
   format?: boolean;
   /**
-   * Number of threads for oxlint (default: system CPU count).
+   * Number of threads for oxfmt and oxlint (default: 2).
    */
   threads?: number;
 }
 
 async function runLint({ format, threads }: LintCommandOptions) {
   // process.env.FORCE_COLOR = '3';
-  const threadsArg = threads ? ` --threads=${threads}` : '';
+  const threadsArg = threads ? ` --threads=${threads}` : ` --threads=2`;
 
   if (format) {
     await execaCommand(`stylelint "**/*.{vue,css,less,scss}" --cache --fix`, {
       stdio: 'inherit',
     });
-    await execaCommand(`oxfmt`, {
+    await execaCommand(`oxfmt${threadsArg}`, {
       stdio: 'inherit',
     });
     await execaCommand(`oxlint --fix${threadsArg}`, {
@@ -32,20 +32,28 @@ async function runLint({ format, threads }: LintCommandOptions) {
     });
     return;
   }
-  await Promise.all([
-    execaCommand(`oxfmt --check`, {
+  const controller = new AbortController();
+  const { signal: cancelSignal } = controller;
+
+  const commands = [
+    execaCommand(`oxfmt --check${threadsArg}`, {
+      cancelSignal,
       stdio: 'inherit',
     }),
-    execaCommand(`oxlint${threadsArg}`, {
-      stdio: 'inherit',
-    }),
-    execaCommand(`eslint . --cache`, {
-      stdio: 'inherit',
-    }),
+    execaCommand(`oxlint${threadsArg}`, { cancelSignal, stdio: 'inherit' }),
+    execaCommand(`eslint . --cache`, { cancelSignal, stdio: 'inherit' }),
     execaCommand(`stylelint "**/*.{vue,css,less,scss}" --cache`, {
+      cancelSignal,
       stdio: 'inherit',
     }),
-  ]);
+  ];
+
+  try {
+    await Promise.all(commands);
+  } catch (error) {
+    controller.abort();
+    throw error;
+  }
 }
 
 function defineLintCommand(cac: CAC) {
@@ -53,7 +61,7 @@ function defineLintCommand(cac: CAC) {
     .command('lint')
     .usage('Batch execute project lint check.')
     .option('--format', 'Format lint problem.')
-    .option('--threads <count>', 'Number of threads for oxlint.')
+    .option('--threads <count>', 'Number of threads for oxfmt and oxlint.')
     .action(runLint);
 }
 
