@@ -60,4 +60,3 @@ commit-msg:
   commands:
     commitlint:
       run: pnpm exec commitlint --edit $1
-
