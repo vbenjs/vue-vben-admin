@@ -32,7 +32,6 @@
     "@tanstack/vue-query": "catalog:",
     "@vben-core/design": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",
-    "@vben-core/shadcn-ui": "workspace:*",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",

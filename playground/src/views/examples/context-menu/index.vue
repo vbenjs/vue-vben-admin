@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { Page } from '@vben/common-ui';
-
-import { VbenContextMenu } from '@vben-core/shadcn-ui';
+import { Page, VbenContextMenu } from '@vben/common-ui';
 
 import { Button, Card, message } from 'antdv-next';
 
