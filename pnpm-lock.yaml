@@ -492,9 +492,9 @@ catalogs:
     vue-i18n:
       specifier: ^11.4.4
       version: 11.4.4
-    vue-json-viewer:
-      specifier: ^3.0.4
-      version: 3.0.4
+    vue-json-pretty:
+      specifier: ^2.6.0
+      version: 2.6.0
     vue-router:
       specifier: ^5.0.7
       version: 5.0.7
@@ -1689,9 +1689,9 @@ importers:
       vue:
         specifier: ^3.5.34
         version: 3.5.34(typescript@6.0.3)
-      vue-json-viewer:
+      vue-json-pretty:
         specifier: 'catalog:'
-        version: 3.0.4(vue@3.5.34(typescript@6.0.3))
+        version: 2.6.0(vue@3.5.34(typescript@6.0.3))
       vue-router:
         specifier: 'catalog:'
         version: 5.0.7(@vue/compiler-sfc@3.5.34)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
@@ -6404,9 +6404,6 @@ packages:
     resolution: {integrity: sha512-xRwvIOMGrfOAnM1JYtqQImuaNtDEv9v6oIYAs4LIHwTiKee8uwvIi363igssOC0O5U04i4AlENs79LQLu9tEMw==}
     engines: {node: '>=20'}
 
-  clipboard@2.0.11:
-    resolution: {integrity: sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==}
-
   cliui@6.0.0:
     resolution: {integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==}
 
@@ -6804,9 +6801,6 @@ packages:
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-
-  delegate@3.2.0:
-    resolution: {integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==}
 
   denque@2.1.0:
     resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
@@ -7610,9 +7604,6 @@ packages:
 
   globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
-
-  good-listener@1.2.2:
-    resolution: {integrity: sha512-goW1b+d9q/HIwbVYZzZ6SsTr4IgE+WA44A0GmPIQstuOrgsFcT7VEJ48nmr9GaRtNu0XTKacFLGnBPAM6Afouw==}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -9618,9 +9609,6 @@ packages:
   seemly@0.3.10:
     resolution: {integrity: sha512-2+SMxtG1PcsL0uyhkumlOU6Qo9TAQ/WyH7tthnPIOQB05/12jz9naq6GZ6iZ6ApVsO3rr2gsnTf3++OV63kE1Q==}
 
-  select@1.1.2:
-    resolution: {integrity: sha512-OwpTSOfy6xSs1+pwcNrv0RBMOzI39Lp3qQKUTPVVPRjCdNa5JH/oPRiqsesIskK8TVgmRiHwO4KXlV2Li9dANA==}
-
   semver-compare@1.0.0:
     resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
 
@@ -10084,9 +10072,6 @@ packages:
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
     engines: {node: '>=12.22'}
-
-  tiny-emitter@2.1.0:
-    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -10757,8 +10742,9 @@ packages:
     peerDependencies:
       vue: ^3.5.34
 
-  vue-json-viewer@3.0.4:
-    resolution: {integrity: sha512-pnC080rTub6YjccthVSNQod2z9Sl5IUUq46srXtn6rxwhW8QM4rlYn+CTSLFKXWfw+N3xv77Cioxw7B4XUKIbQ==}
+  vue-json-pretty@2.6.0:
+    resolution: {integrity: sha512-glz1aBVS35EO8+S9agIl3WOQaW2cJZW192UVKTuGmryx01ZvOVWc4pR3t+5UcyY4jdOfBUgVHjcpRpcnjRhCAg==}
+    engines: {node: '>= 10.0.0', npm: '>= 5.0.0'}
     peerDependencies:
       vue: ^3.5.34
 
@@ -15441,12 +15427,6 @@ snapshots:
       slice-ansi: 8.0.0
       string-width: 8.2.1
 
-  clipboard@2.0.11:
-    dependencies:
-      good-listener: 1.2.2
-      select: 1.1.2
-      tiny-emitter: 2.1.0
-
   cliui@6.0.0:
     dependencies:
       string-width: 4.2.3
@@ -15837,8 +15817,6 @@ snapshots:
   defu@6.1.7: {}
 
   delayed-stream@1.0.0: {}
-
-  delegate@3.2.0: {}
 
   denque@2.1.0: {}
 
@@ -16851,10 +16829,6 @@ snapshots:
   globjoin@0.1.4: {}
 
   globrex@0.1.2: {}
-
-  good-listener@1.2.2:
-    dependencies:
-      delegate: 3.2.0
 
   gopd@1.2.0: {}
 
@@ -18944,8 +18918,6 @@ snapshots:
 
   seemly@0.3.10: {}
 
-  select@1.1.2: {}
-
   semver-compare@1.0.0: {}
 
   semver@5.7.2:
@@ -19507,8 +19479,6 @@ snapshots:
   theme-colors@0.1.0: {}
 
   throttle-debounce@5.0.2: {}
-
-  tiny-emitter@2.1.0: {}
 
   tinybench@2.9.0: {}
 
@@ -20161,9 +20131,8 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.34(typescript@6.0.3)
 
-  vue-json-viewer@3.0.4(vue@3.5.34(typescript@6.0.3)):
+  vue-json-pretty@2.6.0(vue@3.5.34(typescript@6.0.3)):
     dependencies:
-      clipboard: 2.0.11
       vue: 3.5.34(typescript@6.0.3)
 
   vue-router@5.0.7(@vue/compiler-sfc@3.5.34)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3)):
