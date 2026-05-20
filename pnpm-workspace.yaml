@@ -36,7 +36,7 @@ overrides:
   vue: 'catalog:'
 
 catalog:
-  '@ast-grep/napi': ^0.42.2
+  '@ast-grep/napi': ^0.42.3
   '@changesets/changelog-github': ^0.7.0
   '@changesets/cli': ^2.31.0
   '@changesets/git': ^3.0.4
@@ -62,25 +62,25 @@ catalog:
   '@tailwindcss/vite': ^4.3.0
   '@tanstack/vue-query': ^5.100.11
   '@tanstack/vue-store': ^0.11.0
-  '@tiptap/core': ^3.23.4
-  '@tiptap/extension-document': ^3.23.4
-  '@tiptap/extension-highlight': ^3.23.4
-  '@tiptap/extension-image': ^3.23.4
-  '@tiptap/extension-link': ^3.23.4
-  '@tiptap/extension-placeholder': ^3.23.4
-  '@tiptap/extension-text-align': ^3.23.4
-  '@tiptap/extension-text-style': ^3.23.4
-  '@tiptap/extension-underline': ^3.23.4
-  '@tiptap/pm': ^3.23.4
-  '@tiptap/starter-kit': ^3.23.4
-  '@tiptap/vue-3': ^3.23.4
+  '@tiptap/core': ^3.23.5
+  '@tiptap/extension-document': ^3.23.5
+  '@tiptap/extension-highlight': ^3.23.5
+  '@tiptap/extension-image': ^3.23.5
+  '@tiptap/extension-link': ^3.23.5
+  '@tiptap/extension-placeholder': ^3.23.5
+  '@tiptap/extension-text-align': ^3.23.5
+  '@tiptap/extension-text-style': ^3.23.5
+  '@tiptap/extension-underline': ^3.23.5
+  '@tiptap/pm': ^3.23.5
+  '@tiptap/starter-kit': ^3.23.5
+  '@tiptap/vue-3': ^3.23.5
   '@tsdown/css': ^0.22.0
   '@types/archiver': ^7.0.0
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^25.9.0
+  '@types/node': ^25.9.1
   '@types/nprogress': ^0.2.3
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
@@ -117,7 +117,7 @@ catalog:
   defu: ^6.1.7
   depcheck: ^1.4.7
   dotenv: ^17.4.2
-  echarts: ^6.0.0
+  echarts: ^6.1.0
   element-plus: ^2.14.0
   es-toolkit: ^1.46.1
   eslint: ^10.4.0
@@ -126,7 +126,7 @@ catalog:
   eslint-plugin-jsonc: ^3.1.2
   eslint-plugin-n: ^18.0.1
   eslint-plugin-perfectionist: ^5.9.0
-  eslint-plugin-pnpm: ^1.6.0
+  eslint-plugin-pnpm: ^1.6.1
   eslint-plugin-unicorn: ^64.0.0
   eslint-plugin-unused-imports: ^4.4.1
   eslint-plugin-vue: ^10.9.1
@@ -141,7 +141,7 @@ catalog:
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
   jsonwebtoken: ^9.0.3
-  lefthook: ^2.1.6
+  lefthook: ^2.1.8
   lodash.clonedeep: ^4.5.0
   lucide-vue-next: ^0.577.0
   medium-zoom: ^1.1.0
@@ -149,14 +149,14 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.0
-  oxfmt: ^0.50.0
-  oxlint: ^1.65.0
+  oxfmt: ^0.51.0
+  oxlint: ^1.66.0
   oxlint-tsgolint: ^0.23.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.1
   playwright: ^1.60.0
-  postcss: ^8.5.14
+  postcss: ^8.5.15
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
   publint: ^0.3.21
@@ -206,7 +206,7 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^5.0.7
   vue-tippy: ^6.7.1
-  vue-tsc: ^3.3.0
+  vue-tsc: ^3.3.1
   vxe-pc-ui: ^4.14.15
   vxe-table: ^4.18.13
   watermark-js-plus: ^1.6.3
