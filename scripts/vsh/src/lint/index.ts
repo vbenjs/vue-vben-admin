@@ -1,5 +1,7 @@
 import type { CAC } from 'cac';
 
+import { execSync } from 'node:child_process';
+
 import { execaCommand } from '@vben/node-utils';
 
 interface LintCommandOptions {
@@ -32,26 +34,32 @@ async function runLint({ format, threads }: LintCommandOptions) {
     });
     return;
   }
-  const controller = new AbortController();
-  const { signal: cancelSignal } = controller;
-
-  const commands = [
-    execaCommand(`oxfmt --check${threadsArg}`, {
-      cancelSignal,
-      stdio: 'inherit',
-    }),
-    execaCommand(`oxlint${threadsArg}`, { cancelSignal, stdio: 'inherit' }),
-    execaCommand(`eslint . --cache`, { cancelSignal, stdio: 'inherit' }),
+  const subprocesses = [
+    execaCommand(`oxfmt --check${threadsArg}`, { stdio: 'inherit' }),
+    execaCommand(`oxlint${threadsArg}`, { stdio: 'inherit' }),
+    execaCommand(`eslint . --cache`, { stdio: 'inherit' }),
     execaCommand(`stylelint "**/*.{vue,css,less,scss}" --cache`, {
-      cancelSignal,
       stdio: 'inherit',
     }),
   ];
 
   try {
-    await Promise.all(commands);
+    await Promise.all(subprocesses);
   } catch (error) {
-    controller.abort();
+    for (const subprocess of subprocesses) {
+      try {
+        if (process.platform === 'win32' && subprocess.pid) {
+          execSync(`taskkill /F /T /PID ${subprocess.pid}`, {
+            stdio: 'ignore',
+          });
+        } else {
+          subprocess.kill('SIGKILL');
+        }
+      } catch {
+        // process may have already exited
+      }
+    }
+    await Promise.allSettled(subprocesses);
     throw error;
   }
 }
