@@ -38,6 +38,10 @@ const positionItems = computed((): SelectOption[] => [
     label: $t('preferences.position.fixed'),
     value: 'fixed',
   },
+  {
+    label: $t('preferences.position.userDropdown'),
+    value: 'user-dropdown',
+  },
 ]);
 </script>
 

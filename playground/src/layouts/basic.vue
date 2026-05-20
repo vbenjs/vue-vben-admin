@@ -251,6 +251,7 @@ onBeforeMount(() => {
         tag-text="Pro"
         trigger="both"
         @logout="handleLogout"
+        @clear-preferences-and-logout="handleLogout"
       />
     </template>
     <template #notification>
