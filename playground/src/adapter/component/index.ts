@@ -36,13 +36,12 @@ import type { Component, Ref } from 'vue';
 import type {
   ApiComponentSharedProps,
   BaseFormComponentType,
+  CollapsibleParamsProps,
   IconPickerProps,
 } from '@vben/common-ui';
 import type { Sortable } from '@vben/hooks';
 import type { TipTapProps } from '@vben/plugins/tiptap';
 import type { Recordable } from '@vben/types';
-
-import type { CollapsibleParamsProps } from '@vben-core/shadcn-ui';
 
 import {
   computed,
@@ -62,6 +61,7 @@ import {
   ApiComponent,
   globalShareState,
   IconPicker,
+  VbenCollapsibleParams,
   VCropper,
 } from '@vben/common-ui';
 import { useSortable } from '@vben/hooks';
@@ -69,8 +69,6 @@ import { IconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 import { VbenTiptap } from '@vben/plugins/tiptap';
 import { isEmpty } from '@vben/utils';
-
-import { VbenCollapsibleParams } from '@vben-core/shadcn-ui';
 
 import { message, Modal, notification } from 'antdv-next';
 

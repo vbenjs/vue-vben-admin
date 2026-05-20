@@ -115,7 +115,6 @@ catalog:
   czg: ^1.13.1
   dayjs: ^1.11.20
   defu: ^6.1.7
-  depcheck: ^1.4.7
   dotenv: ^17.4.2
   echarts: ^6.1.0
   element-plus: ^2.14.0
@@ -141,6 +140,7 @@ catalog:
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
   jsonwebtoken: ^9.0.3
+  knip: ^6.14.1
   lefthook: ^2.1.8
   lodash.clonedeep: ^4.5.0
   lucide-vue-next: ^0.577.0

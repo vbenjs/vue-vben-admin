@@ -1,15 +1,11 @@
 <script lang="ts" setup>
 import type { RadioGroupProps } from 'antdv-next';
 
-import type { FormLayout } from '@vben/common-ui';
-
-import type { CollapsibleParamSchema } from '@vben-core/shadcn-ui';
+import type { CollapsibleParamSchema, FormLayout } from '@vben/common-ui';
 
 import { h, ref } from 'vue';
 
-import { Page } from '@vben/common-ui';
-
-import { VbenCollapsibleParams } from '@vben-core/shadcn-ui';
+import { Page, VbenCollapsibleParams } from '@vben/common-ui';
 
 import { Button, Card, message, RadioGroup } from 'antdv-next';
 
