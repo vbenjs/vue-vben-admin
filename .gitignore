@@ -58,4 +58,4 @@ vite.config.ts.*
 .codex
 skills-lock.json
 .atomcode
-.datalog
+datalog
