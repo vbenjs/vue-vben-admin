@@ -38,6 +38,7 @@
   "mode": "Mode",
   "general": "General",
   "language": "Language",
+  "timezone": "Timezone",
   "dynamicTitle": "Dynamic Title",
   "watermark": "Watermark",
   "watermarkContent": "Please input Watermark content",
@@ -46,7 +47,8 @@
     "title": "Preferences Postion",
     "header": "Header",
     "auto": "Auto",
-    "fixed": "Fixed"
+    "fixed": "Fixed",
+    "userDropdown": "User Dropdown"
   },
   "sidebar": {
     "buttons": "Show Buttons",
