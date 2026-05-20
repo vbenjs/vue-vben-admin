@@ -45,7 +45,7 @@ onMounted(async () => {
   <SelectItem v-model="appLocale" :items="SUPPORT_LANGUAGES">
     {{ $t('preferences.language') }}
   </SelectItem>
-  <SelectItem :model-value="appTimezone" :items="timezoneOptionsRef">
+  <SelectItem v-model="appTimezone" :items="timezoneOptionsRef">
     {{ $t('preferences.timezone') }}
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">
