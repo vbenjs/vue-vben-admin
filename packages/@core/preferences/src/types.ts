@@ -156,6 +156,10 @@ interface AppPreferences {
   /** 偏好设置按钮位置 */
   preferencesButtonPosition: PreferencesButtonPositionType;
   /**
+   * @zh_CN 应用时区
+   */
+  timezone: string;
+  /**
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
