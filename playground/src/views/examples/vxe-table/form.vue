@@ -4,7 +4,7 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';

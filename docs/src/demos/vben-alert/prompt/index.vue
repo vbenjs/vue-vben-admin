@@ -3,7 +3,7 @@ import { h } from 'vue';
 
 import { alert, prompt, useAlertContext, VbenButton } from '@vben/common-ui';
 
-import { Input, RadioGroup, Select } from 'ant-design-vue';
+import { Input, RadioGroup, Select } from 'antdv-next';
 import { BadgeJapaneseYen } from 'lucide-vue-next';
 
 function showPrompt() {

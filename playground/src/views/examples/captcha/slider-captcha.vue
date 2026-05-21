@@ -9,7 +9,7 @@ import { ref } from 'vue';
 import { Page, SliderCaptcha } from '@vben/common-ui';
 import { Bell, Sun } from '@vben/icons';
 
-import { Button, Card, message } from 'ant-design-vue';
+import { Button, Card, message } from 'antdv-next';
 
 function handleSuccess(data: CaptchaVerifyPassingData) {
   const { time } = data;

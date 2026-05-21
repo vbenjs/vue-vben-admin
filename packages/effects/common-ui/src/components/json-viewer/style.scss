@@ -1,98 +1,91 @@
-.default-json-theme {
+.vben-json-viewer {
   font-family: Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   color: hsl(var(--foreground));
-  white-space: nowrap;
   background: hsl(var(--background));
 
-  &.jv-container.boxed {
+  &.boxed {
+    padding: 10px;
     border: 1px solid hsl(var(--border));
+    border-radius: 4px;
   }
 
-  .jv-ellipsis {
-    display: inline-block;
-    padding: 0 4px 2px;
-    font-size: 0.9em;
-    line-height: 0.9;
-    vertical-align: 2px;
+  .vjs-key {
+    color: hsl(var(--heavy-foreground));
+  }
+
+  .vjs-value-null,
+  .vjs-value-undefined {
     color: hsl(var(--secondary-foreground));
+  }
+
+  .vjs-value-boolean {
+    color: hsl(var(--red-400));
+  }
+
+  .vjs-value-number {
+    color: hsl(var(--info-foreground));
+  }
+
+  .vjs-value-string {
+    color: hsl(var(--primary));
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .vjs-tree-brackets {
+    color: hsl(var(--heavy-foreground));
+  }
+
+  .vjs-comment {
+    color: hsl(var(--secondary-foreground));
+  }
+
+  .vjs-tree-node {
+    &.is-highlight {
+      background-color: hsl(var(--accent));
+    }
+  }
+
+  .vjs-carets {
+    cursor: pointer;
+
+    &:hover {
+      color: hsl(var(--primary));
+    }
+  }
+
+  .vjs-indent-unit {
+    &.has-line {
+      border-left: 1px solid hsl(var(--border));
+    }
+  }
+
+  .vben-json-copy-btn {
+    display: inline-block;
+    padding: 0 6px;
+    margin-left: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    color: hsl(var(--primary));
     cursor: pointer;
     user-select: none;
     background-color: hsl(var(--secondary));
     border-radius: 3px;
-  }
+    opacity: 0;
+    transition: opacity 0.2s;
 
-  .jv-button {
-    color: hsl(var(--primary));
-  }
-
-  .jv-key {
-    color: hsl(var(--heavy-foreground));
-  }
-
-  .jv-item {
-    &.jv-array {
-      color: hsl(var(--heavy-foreground));
+    &:hover {
+      background-color: hsl(var(--accent));
     }
 
-    &.jv-boolean {
-      color: hsl(var(--red-400));
-    }
-
-    &.jv-function {
-      color: hsl(var(--destructive-foreground));
-    }
-
-    &.jv-number {
-      color: hsl(var(--info-foreground));
-    }
-
-    &.jv-number-float {
-      color: hsl(var(--info-foreground));
-    }
-
-    &.jv-number-integer {
-      color: hsl(var(--info-foreground));
-    }
-
-    &.jv-object {
-      color: hsl(var(--accent-darker));
-    }
-
-    &.jv-undefined {
-      color: hsl(var(--secondary-foreground));
-    }
-
-    &.jv-string {
-      color: hsl(var(--primary));
-      overflow-wrap: break-word;
-      white-space: normal;
+    &.is-copied {
+      color: hsl(var(--success-foreground, var(--primary)));
+      opacity: 1;
     }
   }
 
-  &.jv-container .jv-code {
-    padding: 10px;
-
-    &.boxed:not(.open) {
-      padding-bottom: 20px;
-      margin-bottom: 10px;
-    }
-
-    &.open {
-      padding-bottom: 10px;
-    }
-
-    .jv-toggle {
-      &::before {
-        padding: 0 2px;
-        border-radius: 2px;
-      }
-
-      &:hover {
-        &::before {
-          background: hsl(var(--accent-foreground));
-        }
-      }
-    }
+  .vjs-tree-node:hover .vben-json-copy-btn {
+    opacity: 1;
   }
 }

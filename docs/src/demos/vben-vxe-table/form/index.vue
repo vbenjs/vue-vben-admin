@@ -2,7 +2,7 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 

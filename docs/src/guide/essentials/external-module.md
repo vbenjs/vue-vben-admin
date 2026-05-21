@@ -1,6 +1,6 @@
 # 外部模块
 
-除了项目默认引入的外部模块，有时我们还需要引入其他外部模块。我们以 [ant-design-vue](https://antdv.com/components/overview) 为例：
+除了项目默认引入的外部模块，有时我们还需要引入其他外部模块。我们以 [antdv-next](https://antdv.com/components/overview) 为例：
 
 ## 安装依赖
 
@@ -13,7 +13,7 @@
 
 ```bash
 # cd /path/to/your/package
-pnpm add ant-design-vue
+pnpm add antdv-next
 ```
 
 ## 使用
@@ -22,9 +22,9 @@ pnpm add ant-design-vue
 
 ```ts
 import { createApp } from 'vue';
-import Antd from 'ant-design-vue';
+import Antd from 'antdv-next';
 import App from './App';
-import 'ant-design-vue/dist/reset.css';
+import 'antdv-next/dist/reset.css';
 
 const app = createApp(App);
 
@@ -43,7 +43,7 @@ app.use(Antd).mount('#app');
 
 ```vue
 <script setup lang="ts">
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 </script>
 
 <template>

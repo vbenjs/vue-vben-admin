@@ -10,7 +10,7 @@ import { $t } from '@vben/locales';
 
 import { MenuBadge } from '@vben-core/menu-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { Button, message } from 'antdv-next';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteMenu, getMenuList, SystemMenuApi } from '#/api/system/menu';

@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { Fallback } from '@vben/common-ui';
 
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 
 const router = useRouter();
 </script>

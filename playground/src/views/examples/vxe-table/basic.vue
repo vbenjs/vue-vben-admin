@@ -3,7 +3,7 @@ import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
 
 import { Page } from '@vben/common-ui';
 
-import { Button, message } from 'ant-design-vue';
+import { Button, message } from 'antdv-next';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 

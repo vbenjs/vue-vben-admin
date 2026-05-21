@@ -3,7 +3,7 @@ import { h, markRaw } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Card, Input, message } from 'ant-design-vue';
+import { Card, Input, message } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 

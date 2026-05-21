@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import { useQuery } from '@tanstack/vue-query';
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 
 const count = ref(-1);
 async function fetchApi() {

@@ -18,7 +18,7 @@ import {
   Row,
   Select,
   Switch,
-} from 'ant-design-vue';
+} from 'antdv-next';
 
 const props = reactive<CountToProps & { transition: TransitionPresets }>({
   decimal: '.',
@@ -150,15 +150,12 @@ function onFinished() {
           </Col>
           <Col :span="8">
             <FormItem label="动画" name="transition">
-              <Select v-model:value="props.transition">
-                <Select.Option
-                  v-for="preset in TransitionPresetsKeys"
-                  :key="preset"
-                  :value="preset"
-                >
-                  {{ preset }}
-                </Select.Option>
-              </Select>
+              <Select
+                v-model:value="props.transition"
+                :options="
+                  TransitionPresetsKeys.map((p) => ({ label: p, value: p }))
+                "
+              />
             </FormItem>
           </Col>
           <Col :span="8">

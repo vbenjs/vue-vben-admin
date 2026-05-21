@@ -4,7 +4,7 @@ import { cac } from 'cac';
 
 import { version } from '../package.json';
 import { defineCheckCircularCommand } from './check-circular';
-import { defineDepcheckCommand } from './check-dep';
+import { defineCheckDepCommand } from './check-dep';
 import { defineCodeWorkspaceCommand } from './code-workspace';
 import { defineLintCommand } from './lint';
 import { definePubLintCommand } from './publint';
@@ -30,7 +30,7 @@ async function main(): Promise<void> {
     definePubLintCommand(vsh);
     defineCodeWorkspaceCommand(vsh);
     defineCheckCircularCommand(vsh);
-    defineDepcheckCommand(vsh);
+    defineCheckDepCommand(vsh);
 
     // Set up CLI
     vsh.usage('vsh <command> [options]');

@@ -2,7 +2,7 @@
 import { Page } from '@vben/common-ui';
 import { useWatermark } from '@vben/hooks';
 
-import { Button, Card } from 'ant-design-vue';
+import { Button, Card } from 'antdv-next';
 
 const { destroyWatermark, updateWatermark, watermark } = useWatermark();
 

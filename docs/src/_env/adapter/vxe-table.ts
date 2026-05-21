@@ -2,7 +2,7 @@ import { h } from 'vue';
 
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
 
-import { Button, Image } from 'ant-design-vue';
+import { Button, Image } from 'antdv-next';
 
 import { useVbenForm } from './form';
 

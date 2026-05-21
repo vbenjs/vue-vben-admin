@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
-import { Slider } from 'ant-design-vue';
+import { Slider } from 'antdv-next';
 
 const blur = ref(5);
 const [Modal, modalApi] = useVbenModal({
