@@ -625,7 +625,7 @@ importers:
         specifier: 'catalog:'
         version: 6.0.3
       vite:
-        specifier: 8.0.10
+        specifier: 'catalog:'
         version: 8.0.10(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(less@4.6.4)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
