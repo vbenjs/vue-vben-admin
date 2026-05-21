@@ -84,6 +84,7 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "cross-env": "catalog:",
     "cspell": "catalog:",
+    "eslint": "catalog:",
     "happy-dom": "catalog:",
     "is-ci": "catalog:",
     "lefthook": "catalog:",
