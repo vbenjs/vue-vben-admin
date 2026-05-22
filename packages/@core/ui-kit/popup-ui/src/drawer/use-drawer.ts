@@ -16,7 +16,6 @@ import {
 
 import { usePreferences } from '@vben-core/preferences';
 import { useStore } from '@vben-core/shared/store';
-import { merge } from '@vben-core/shared/utils';
 
 import { DrawerApi } from './drawer-api';
 import VbenDrawer from './drawer.vue';
@@ -40,9 +39,10 @@ export function useVbenDrawer<
   // Drawer一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
   // 外部的Drawer通过provide/inject传递api
 
-  const defaultOptions = merge({}, options, {
-    closeOnPressEscape: globalEscapeShortcutKey.value, // 若是options没有配置，则使用全局配置Esc快捷键配置
-  });
+  const defaultOptions = {
+    closeOnPressEscape: globalEscapeShortcutKey.value, // 全局Esc快捷键配置
+    ...options,
+  };
   const { connectedComponent } = options;
   if (connectedComponent) {
     const extendedApi = reactive({});
@@ -86,14 +86,11 @@ export function useVbenDrawer<
 
   const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
 
-  const mergedOptions = merge(
-    {
-      ...DEFAULT_DRAWER_PROPS,
-      ...injectData.options,
-      ...options,
-    },
-    defaultOptions,
-  );
+  const mergedOptions = {
+    ...DEFAULT_DRAWER_PROPS,
+    ...injectData.options,
+    ...defaultOptions,
+  } as DrawerApiOptions;
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);

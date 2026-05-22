@@ -54,7 +54,7 @@ function onEscapeKeyDown(e: KeyboardEvent) {
   isConfirm.value = false;
 
   // 当不允许 Esc 关闭时，阻止默认关闭行为
-  if (!props.escapeKeyClose && !globalEscapeShortcutKey.value) {
+  if (!props.escapeKeyClose || !globalEscapeShortcutKey.value) {
     e.preventDefault();
   }
 }
