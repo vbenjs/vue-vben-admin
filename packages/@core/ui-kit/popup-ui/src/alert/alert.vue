@@ -49,10 +49,13 @@ function onAlertClosed() {
   isConfirm.value = false;
 }
 
-function onEscapeKeyDown() {
-  // alert组件支持特殊场景：未启用全局esc快捷键时，特殊场景的弹出窗需要支持esc按键关闭弹窗
-  if (props.escapeKeyClose || globalEscapeShortcutKey.value) {
-    isConfirm.value = false;
+function onEscapeKeyDown(e: KeyboardEvent) {
+  // 先标记是按 Esc 触发的（用于后续 isConfirm 判断等）
+  isConfirm.value = false;
+
+  // 当不允许 Esc 关闭时，阻止默认关闭行为
+  if (!props.escapeKeyClose && !globalEscapeShortcutKey.value) {
+    e.preventDefault();
   }
 }
 
@@ -149,7 +152,7 @@ async function handleOpenChange(val: boolean) {
       :overlay-blur="overlayBlur"
       @opened="emits('opened')"
       @closed="onAlertClosed"
-      @escape-key-down="onEscapeKeyDown"
+      @escape-key-down="onEscapeKeyDown($event)"
       :class="
         cn(
           containerClass,
