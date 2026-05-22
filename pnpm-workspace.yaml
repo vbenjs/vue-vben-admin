@@ -27,6 +27,7 @@ strictPeerDependencies: false
 autoInstallPeers: true
 dedupePeerDependents: true
 verifyDepsBeforeRun: false
+minimumReleaseAge: 0
 
 overrides:
   '@ast-grep/napi': 'catalog:'
@@ -57,23 +58,23 @@ catalog:
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
   '@playwright/test': ^1.60.0
   '@pnpm/workspace.read-manifest': ^1000.3.1
-  '@stylistic/stylelint-plugin': ^5.1.0
+  '@stylistic/stylelint-plugin': ^5.2.0
   '@tailwindcss/typography': ^0.5.19
   '@tailwindcss/vite': ^4.3.0
   '@tanstack/vue-query': ^5.100.11
   '@tanstack/vue-store': ^0.11.0
-  '@tiptap/core': ^3.23.5
-  '@tiptap/extension-document': ^3.23.5
-  '@tiptap/extension-highlight': ^3.23.5
-  '@tiptap/extension-image': ^3.23.5
-  '@tiptap/extension-link': ^3.23.5
-  '@tiptap/extension-placeholder': ^3.23.5
-  '@tiptap/extension-text-align': ^3.23.5
-  '@tiptap/extension-text-style': ^3.23.5
-  '@tiptap/extension-underline': ^3.23.5
-  '@tiptap/pm': ^3.23.5
-  '@tiptap/starter-kit': ^3.23.5
-  '@tiptap/vue-3': ^3.23.5
+  '@tiptap/core': ^3.23.6
+  '@tiptap/extension-document': ^3.23.6
+  '@tiptap/extension-highlight': ^3.23.6
+  '@tiptap/extension-image': ^3.23.6
+  '@tiptap/extension-link': ^3.23.6
+  '@tiptap/extension-placeholder': ^3.23.6
+  '@tiptap/extension-text-align': ^3.23.6
+  '@tiptap/extension-text-style': ^3.23.6
+  '@tiptap/extension-underline': ^3.23.6
+  '@tiptap/pm': ^3.23.6
+  '@tiptap/starter-kit': ^3.23.6
+  '@tiptap/vue-3': ^3.23.6
   '@tsdown/css': ^0.22.0
   '@types/archiver': ^7.0.0
   '@types/html-minifier-terser': ^7.0.2
@@ -97,7 +98,7 @@ catalog:
   '@vueuse/integrations': ^14.3.0
   '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
-  antdv-next: ^1.3.0
+  antdv-next: ^1.3.1
   archiver: ^7.0.1
   axios: ^1.16.1
   axios-mock-adapter: ^2.1.0
@@ -165,13 +166,12 @@ catalog:
   reka-ui: ^2.9.7
   resolve.exports: ^2.0.3
   rimraf: ^6.1.3
-  rolldown: ^1.0.1
   rollup-plugin-visualizer: ^7.0.1
   sass: ^1.99.0
-  sass-embedded: ^1.99.0
+  sass-embedded: ^1.100.0
   secure-ls: ^2.0.0
   sortablejs: ^1.15.7
-  stylelint: ^17.11.1
+  stylelint: ^17.12.0
   stylelint-config-recess-order: ^7.7.0
   stylelint-config-recommended: ^18.0.0
   stylelint-config-recommended-scss: ^17.0.1
@@ -192,7 +192,7 @@ catalog:
   unplugin-element-plus: ^0.11.2
   unplugin-vue: ^7.2.0
   vee-validate: ^4.15.1
-  vite: ^8.0.10
+  vite: ^8.0.14
   vite-plugin-compression: ^0.5.1
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-pwa: ^1.3.0
@@ -207,8 +207,8 @@ catalog:
   vue-router: ^5.0.7
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.1
-  vxe-pc-ui: ^4.14.16
-  vxe-table: ^4.18.13
+  vxe-pc-ui: ^4.14.17
+  vxe-table: ^4.19.0
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
