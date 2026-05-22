@@ -76,14 +76,16 @@ defineExpose({
         :min-size="leftMinWidth"
       >
         <template #default="slotProps">
-          <slot
-            name="left"
-            v-bind="{
-              ...slotProps,
-              expand: expandLeft,
-              collapse: collapseLeft,
-            }"
-          ></slot>
+          <div class="h-full pr-2">
+            <slot
+              name="left"
+              v-bind="{
+                ...slotProps,
+                expand: expandLeft,
+                collapse: collapseLeft,
+              }"
+            ></slot>
+          </div>
         </template>
       </ResizablePanel>
       <ResizableHandle
@@ -99,7 +101,9 @@ defineExpose({
         :min-size="rightMinWidth"
       >
         <template #default>
-          <slot></slot>
+          <div class="h-full pl-2">
+            <slot></slot>
+          </div>
         </template>
       </ResizablePanel>
     </ResizablePanelGroup>
