@@ -54,7 +54,7 @@ const components = globalShareState.getComponents();
 const id = useId();
 provide('DISMISSABLE_DRAWER_ID', id);
 
-const wrapperRef = ref<HTMLElement>();
+// const wrapperRef = ref<HTMLElement>();
 const { $t } = useSimpleLocale();
 const { isMobile } = useIsMobile();
 
@@ -285,8 +285,8 @@ const getForceMount = computed(() => {
           <SheetDescription />
         </VisuallyHidden>
       </template>
+      <!-- 注释掉的部分 <div ref="wrapperRef" -->
       <div
-        ref="wrapperRef"
         :class="
           cn('relative flex-1 overflow-y-auto p-3', contentClass, {
             'pointer-events-none': showLoading || submitting,

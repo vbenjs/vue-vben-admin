@@ -12,6 +12,7 @@ import {
 
 import { usePreferences } from '@vben-core/preferences';
 import { useStore } from '@vben-core/shared/store';
+import { merge } from '@vben-core/shared/utils';
 
 import { ModalApi } from './modal-api';
 import VbenModal from './modal.vue';
@@ -22,9 +23,7 @@ const { globalEscapeShortcutKey } = usePreferences();
 /**
  * 默认配置
  */
-const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {
-  closeOnPressEscape: globalEscapeShortcutKey.value, // Esc按钮为关闭事件
-};
+const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
 
 export function setDefaultModalProps(props: Partial<ModalProps>) {
   Object.assign(DEFAULT_MODAL_PROPS, props);
@@ -42,6 +41,14 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
     const isModalReady = ref(true);
     const Modal = defineComponent(
       (props: TParentModalProps, { attrs, slots }) => {
+        const mergedOptions = merge(
+          {},
+          options,
+          // 若是options没有配置，则使用全局配置Esc快捷键配置
+          {
+            closeOnPressEscape: globalEscapeShortcutKey.value,
+          },
+        );
         provide(USER_MODAL_INJECT_KEY, {
           extendApi(api: ExtendedModalApi) {
             // 不能直接给 reactive 赋值，会丢失响应
@@ -49,7 +56,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
             Object.setPrototypeOf(extendedApi, api);
           },
           consumed: false,
-          options,
+          mergedOptions,
           async reCreateModal() {
             isModalReady.value = false;
             await nextTick();
@@ -89,11 +96,17 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
     injectData.consumed = true;
   }
 
-  const mergedOptions = {
-    ...DEFAULT_MODAL_PROPS,
-    ...injectData.options,
-    ...options,
-  } as ModalApiOptions;
+  const mergedOptions = merge(
+    {
+      ...DEFAULT_MODAL_PROPS,
+      ...injectData.options,
+      ...options,
+    } as ModalApiOptions,
+    // 若是options没有配置，则使用全局配置Esc快捷键配置
+    {
+      closeOnPressEscape: globalEscapeShortcutKey.value,
+    },
+  );
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);

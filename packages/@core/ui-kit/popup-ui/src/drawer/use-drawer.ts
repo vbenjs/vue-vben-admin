@@ -16,6 +16,7 @@ import {
 
 import { usePreferences } from '@vben-core/preferences';
 import { useStore } from '@vben-core/shared/store';
+import { merge } from '@vben-core/shared/utils';
 
 import { DrawerApi } from './drawer-api';
 import VbenDrawer from './drawer.vue';
@@ -27,9 +28,7 @@ const { globalEscapeShortcutKey } = usePreferences();
 /**
  * 默认配置
  */
-const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {
-  closeOnPressEscape: globalEscapeShortcutKey.value, // Esc按钮为关闭事件
-};
+const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
 
 export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
   Object.assign(DEFAULT_DRAWER_PROPS, props);
@@ -47,13 +46,21 @@ export function useVbenDrawer<
     const isDrawerReady = ref(true);
     const Drawer = defineComponent(
       (props: TParentDrawerProps, { attrs, slots }) => {
+        const mergedOptions = merge(
+          {},
+          options,
+          // 若是options没有配置，则使用全局配置Esc快捷键配置
+          {
+            closeOnPressEscape: globalEscapeShortcutKey.value,
+          },
+        );
         provide(USER_DRAWER_INJECT_KEY, {
           extendApi(api: ExtendedDrawerApi) {
             // 不能直接给 reactive 赋值，会丢失响应
             // 不能用 Object.assign,会丢失 api 的原型函数
             Object.setPrototypeOf(extendedApi, api);
           },
-          options,
+          mergedOptions,
           async reCreateDrawer() {
             isDrawerReady.value = false;
             await nextTick();
@@ -84,11 +91,17 @@ export function useVbenDrawer<
 
   const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
 
-  const mergedOptions = {
-    ...DEFAULT_DRAWER_PROPS,
-    ...injectData.options,
-    ...options,
-  } as DrawerApiOptions;
+  const mergedOptions = merge(
+    {
+      ...DEFAULT_DRAWER_PROPS,
+      ...injectData.options,
+      ...options,
+    } as DrawerApiOptions,
+    // 若是options没有配置，则使用全局配置Esc快捷键配置
+    {
+      closeOnPressEscape: globalEscapeShortcutKey.value,
+    },
+  );
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);

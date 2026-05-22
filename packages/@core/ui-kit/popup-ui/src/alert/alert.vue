@@ -50,6 +50,7 @@ function onAlertClosed() {
 }
 
 function onEscapeKeyDown() {
+  // alert组件支持特殊场景：未启用全局esc快捷键时，特殊场景的弹出窗需要支持esc按键关闭弹窗
   if (props.escapeKeyClose || globalEscapeShortcutKey.value) {
     isConfirm.value = false;
   }
