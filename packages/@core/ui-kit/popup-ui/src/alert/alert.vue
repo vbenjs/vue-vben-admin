@@ -35,6 +35,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
   bordered: true,
   buttonAlign: 'end',
   centered: true,
+  escapeKeyClose: true,
 });
 const emits = defineEmits(['closed', 'confirm', 'opened']);
 const { globalEscapeShortcutKey } = usePreferences();
@@ -52,8 +53,8 @@ function onEscapeKeyDown(e: KeyboardEvent) {
   // 先标记是按 Esc 触发的（用于后续 isConfirm 判断等）
   isConfirm.value = false;
 
-  // 当不允许 Esc 关闭时，阻止默认关闭行为
-  if (!globalEscapeShortcutKey.value) {
+  // 只有当组件参数和全局配置都为false时才阻止关闭，其任意一个为true都需要让esc生效
+  if (!props.escapeKeyClose && !globalEscapeShortcutKey.value) {
     e.preventDefault();
   }
 }

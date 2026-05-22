@@ -75,7 +75,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   },
   "shortcutKeys": {
     "enable": true,
-    "globalEscape": true,
+    "globalEscape": false,
     "globalLockScreen": true,
     "globalLogout": true,
     "globalPreferences": true,
