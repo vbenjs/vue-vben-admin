@@ -3,60 +3,44 @@ name: Create Release Tag
 on:
   push:
     tags:
-      - 'v*.*.*' # Push events to matching v*, i.e. v1.0, v20.15.10
-
-env:
-  HUSKY: '0'
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to create (e.g. v1.2.3)'
+        required: true
+        type: string
 
 permissions:
-  pull-requests: write
   contents: write
 
 jobs:
-  build:
+  release:
     name: Create Release
     if: github.repository == 'vbenjs/vue-vben-admin'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22]
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      # - name: Checkout code
-      #   uses: actions/checkout@v6
-      #   with:
-      #     fetch-depth: 0
-
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v4
-
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      #     cache: "pnpm"
-
-      # - name: Install dependencies
-      #   run: pnpm install --frozen-lockfile
-
-      # - name: Test and Build
-      #   run: |
-      #     pnpm run test
-      #     pnpm run build
-
-      - name: version
+      - name: Extract version
         id: version
         run: |
-          tag=${GITHUB_REF/refs\/tags\//}
-          version=${tag#v}
-          major=${version%%.*}
-          echo "tag=${tag}" >> $GITHUB_OUTPUT
-          echo "version=${version}" >> $GITHUB_OUTPUT
-          echo "major=${major}" >> $GITHUB_OUTPUT
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            raw_tag="${{ inputs.tag }}"
+          else
+            raw_tag="${GITHUB_REF_NAME}"
+          fi
+          # Normalize: ensure v prefix
+          tag="${raw_tag}"
+          [[ "${tag:0:1}" != "v" ]] && tag="v${tag}"
+          version="${tag#v}"
+          major="${version%%.*}"
+          echo "tag=${tag}" >> "${GITHUB_OUTPUT}"
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          echo "major=${major}" >> "${GITHUB_OUTPUT}"
 
       - uses: release-drafter/release-drafter@v7
         with:
@@ -64,17 +48,3 @@ jobs:
           publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: force update major tag
-      #   run: |
-      #     git tag v${{ steps.version.outputs.major }} ${{ steps.version.outputs.tag }} -f
-      #     git push origin refs/tags/v${{ steps.version.outputs.major }} -f
-
-      # - name: Create Release for Tag
-      #   id: release_tag
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     generateReleaseNotes: "true"
-      #     body: |
-      #       > Please refer to [CHANGELOG.md](https://github.com/vbenjs/vue-vben-admin/blob/main/CHANGELOG.md) for details.
