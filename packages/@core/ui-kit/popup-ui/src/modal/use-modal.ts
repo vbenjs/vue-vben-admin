@@ -35,20 +35,15 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   // Modal一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
   // 外部的Modal通过provide/inject传递api
 
+  const defaultOptions = merge({}, options, {
+    closeOnPressEscape: globalEscapeShortcutKey.value, // 若是options没有配置，则使用全局配置Esc快捷键配置
+  });
   const { connectedComponent } = options;
   if (connectedComponent) {
     const extendedApi = reactive({});
     const isModalReady = ref(true);
     const Modal = defineComponent(
       (props: TParentModalProps, { attrs, slots }) => {
-        const mergedOptions = merge(
-          {},
-          options,
-          // 若是options没有配置，则使用全局配置Esc快捷键配置
-          {
-            closeOnPressEscape: globalEscapeShortcutKey.value,
-          },
-        );
         provide(USER_MODAL_INJECT_KEY, {
           extendApi(api: ExtendedModalApi) {
             // 不能直接给 reactive 赋值，会丢失响应
@@ -56,7 +51,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
             Object.setPrototypeOf(extendedApi, api);
           },
           consumed: false,
-          mergedOptions,
+          defaultOptions,
           async reCreateModal() {
             isModalReady.value = false;
             await nextTick();
@@ -101,11 +96,8 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
       ...DEFAULT_MODAL_PROPS,
       ...injectData.options,
       ...options,
-    } as ModalApiOptions,
-    // 若是options没有配置，则使用全局配置Esc快捷键配置
-    {
-      closeOnPressEscape: globalEscapeShortcutKey.value,
     },
+    defaultOptions,
   );
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
