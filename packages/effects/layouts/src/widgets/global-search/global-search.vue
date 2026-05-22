@@ -105,12 +105,12 @@ onMounted(() => {
     >
       <template #title>
         <div class="flex items-center">
-          <Search class="mr-2 size-4 text-muted-foreground" />
+          <Search class="text-muted-foreground mr-2 size-4" />
           <input
             ref="searchInputRef"
             v-model="keyword"
             :placeholder="$t('ui.widgets.search.searchNavigate')"
-            class="ring-none w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm font-normal ring-0 ring-offset-transparent outline-hidden placeholder:text-muted-foreground focus-visible:ring-transparent"
+            class="placeholder:text-muted-foreground ring-none w-[80%] rounded-md border border-none bg-transparent p-2 pl-0 text-sm font-normal ring-0 ring-offset-transparent outline-hidden focus-visible:ring-transparent"
           />
         </div>
       </template>
@@ -135,20 +135,20 @@ onMounted(() => {
       </template>
     </Modal>
     <div
-      class="group flex h-8 cursor-pointer items-center gap-3 rounded-2xl border-none bg-none px-2 py-0.5 outline-hidden md:bg-accent"
+      class="group md:bg-accent flex h-8 cursor-pointer items-center gap-3 rounded-2xl border-none bg-none px-2 py-0.5 outline-hidden"
       @click="toggleOpen()"
     >
       <Search
-        class="size-4 text-muted-foreground group-hover:text-foreground group-hover:opacity-100"
+        class="group-hover:text-foreground text-muted-foreground size-4 group-hover:opacity-100"
       />
       <span
-        class="hidden text-xs text-muted-foreground duration-300 group-hover:text-foreground md:block"
+        class="group-hover:text-foreground text-muted-foreground hidden text-xs duration-300 md:block"
       >
         {{ $t('ui.widgets.search.title') }}
       </span>
       <span
         v-if="enableShortcutKey"
-        class="relative hidden rounded-sm rounded-r-xl border-foreground/60 bg-background px-1.5 py-1 text-xs leading-none text-muted-foreground group-hover:text-foreground group-hover:opacity-100 md:block"
+        class="bg-background border-foreground/60 group-hover:text-foreground text-muted-foreground relative hidden rounded-sm rounded-r-xl px-1.5 py-1 text-xs leading-none group-hover:opacity-100 md:block"
       >
         {{ isWindowsOs() ? 'Ctrl' : '⌘' }}
         <kbd>K</kbd>

@@ -98,13 +98,13 @@ function toggleTheme(event: MouseEvent) {
       </mask>
       <circle
         id="sun"
-        class="theme-toggle__sun fill-foreground/90"
+        class="fill-foreground/90 theme-toggle__sun"
         cx="12"
         cy="12"
         mask="url(#theme-toggle-moon)"
         r="11"
       />
-      <g class="theme-toggle__sun-beams stroke-foreground/90 stroke-2">
+      <g class="stroke-foreground/90 theme-toggle__sun-beams stroke-2">
         <line x1="12" x2="12" y1="1" y2="3" />
         <line x1="12" x2="12" y1="21" y2="23" />
         <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />

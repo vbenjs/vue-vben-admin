@@ -307,7 +307,7 @@ onUnmounted(() => {
   <aside
     ref="asideRef"
     :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-150"
+    class="fixed top-0 left-0 h-full transition-all duration-150"
     :class="theme"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
@@ -317,7 +317,7 @@ onUnmounted(() => {
       :class="[
         {
           'bg-sidebar-deep': isSidebarMixed,
-          'border-r border-border bg-sidebar': !isSidebarMixed,
+          'bg-sidebar border-border border-r': !isSidebarMixed,
         },
       ]"
       :style="{ width: `${width}px` }"
@@ -348,7 +348,7 @@ onUnmounted(() => {
         },
       ]"
       :style="extraStyle"
-      class="fixed top-0 h-full overflow-hidden border-r border-border bg-sidebar transition-all duration-200"
+      class="bg-sidebar border-border fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
     >
       <SidebarCollapseButton
         v-if="isSidebarMixed && expandOnHover"
@@ -374,7 +374,7 @@ onUnmounted(() => {
     <div
       v-if="draggable"
       ref="dragBarRef"
-      class="absolute inset-y-0 -right-px z-1000 w-0.5 cursor-col-resize hover:bg-primary"
+      class="hover:bg-primary absolute inset-y-0 -right-px z-1000 w-0.5 cursor-col-resize"
       @mousedown="handleDragSidebar"
     ></div>
   </aside>

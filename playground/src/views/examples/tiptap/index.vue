@@ -48,7 +48,7 @@ const imageUpload: ImageUploadOptions = {
 <template>
   <Page title="Tiptap 富文本">
     <template #description>
-      <div class="mt-2 text-foreground/80">
+      <div class="text-foreground/80 mt-2">
         统一封装后的富文本编辑器，适合在各个 app 中直接复用。
       </div>
     </template>
@@ -69,7 +69,7 @@ const imageUpload: ImageUploadOptions = {
     </Card>
 
     <Card title="HTML 输出">
-      <pre class="overflow-auto rounded-xl border border-border bg-muted p-4">
+      <pre class="bg-muted border-border overflow-auto rounded-xl border p-4">
         {{ previewContent }}
       </pre>
     </Card>

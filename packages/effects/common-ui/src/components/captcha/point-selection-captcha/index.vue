@@ -152,7 +152,7 @@ function handleConfirm() {
         top: `${point.y - POINT_OFFSET}px`,
         left: `${point.x - POINT_OFFSET}px`,
       }"
-      class="absolute z-20 flex-center size-5 cursor-default rounded-full border-2 border-primary-50 bg-primary text-primary-50"
+      class="bg-primary border-primary-50 flex-center text-primary-50 absolute z-20 size-5 cursor-default rounded-full border-2"
       role="button"
       tabindex="0"
     >
@@ -163,11 +163,11 @@ function handleConfirm() {
         v-if="hintImage"
         :alt="$t('ui.captcha.alt')"
         :src="hintImage"
-        class="h-10 w-full rounded-sm border border-border"
+        class="border-border h-10 w-full rounded-sm border"
       />
       <div
         v-else-if="hintText"
-        class="flex-center h-10 w-full rounded-sm border border-border"
+        class="border-border flex-center h-10 w-full rounded-sm border"
       >
         {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
       </div>

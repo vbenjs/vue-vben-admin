@@ -291,7 +291,7 @@ defineExpose({ toggleOpenState, open, close });
     </template>
 
     <template v-else>
-      <div class="flex-col-center min-h-37.5 w-full text-muted-foreground">
+      <div class="flex-col-center text-muted-foreground min-h-37.5 w-full">
         <EmptyIcon class="size-10" />
         <div class="mt-1 text-sm">{{ $t('common.noData') }}</div>
       </div>

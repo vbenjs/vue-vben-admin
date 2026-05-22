@@ -139,14 +139,14 @@ function refresh() {
       <slot v-if="$slots.title" name="title"></slot>
       <p
         v-else-if="titleText"
-        class="mt-8 text-2xl text-foreground md:text-3xl lg:text-4xl"
+        class="text-foreground mt-8 text-2xl md:text-3xl lg:text-4xl"
       >
         {{ titleText }}
       </p>
       <slot v-if="$slots.describe" name="describe"></slot>
       <p
         v-else-if="descText"
-        class="md:text-md my-4 text-muted-foreground lg:text-lg"
+        class="md:text-md text-muted-foreground my-4 lg:text-lg"
       >
         {{ descText }}
       </p>

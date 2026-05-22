@@ -25,7 +25,7 @@ const preferencesRef = ref<InstanceType<typeof Preferences> | null>(null);
       class="hover:animate-[shrink_0.3s_ease-in-out]"
       @click="preferencesRef?.open()"
     >
-      <Settings class="size-4 text-foreground" />
+      <Settings class="text-foreground size-4" />
     </VbenIconButton>
   </Preferences>
 </template>

@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "catalog:",
-    "eslint-plugin-better-tailwindcss": "catalog:",
     "eslint-plugin-command": "catalog:",
     "oxlint": "catalog:"
   }

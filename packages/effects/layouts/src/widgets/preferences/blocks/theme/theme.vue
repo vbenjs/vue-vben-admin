@@ -74,11 +74,11 @@ function nameView(name: string) {
       >
         <div
           :class="activeClass(theme.name)"
-          class="outline-box flex-center py-4"
+          class="flex-center outline-box py-4"
         >
           <component :is="theme.icon" class="mx-9 size-5" />
         </div>
-        <div class="mt-2 text-center text-xs text-muted-foreground">
+        <div class="text-muted-foreground mt-2 text-center text-xs">
           {{ nameView(theme.name) }}
         </div>
       </div>

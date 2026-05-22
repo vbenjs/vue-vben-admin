@@ -319,7 +319,7 @@ function handleCustomPreferencesUpdate(updates: CustomPreferencesRecord) {
           >
             <span
               v-if="mergedDiffPreference"
-              class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"
+              class="bg-primary absolute top-0.5 right-0.5 size-2 rounded-sm"
             ></span>
             <RotateCw class="size-4" />
           </VbenIconButton>

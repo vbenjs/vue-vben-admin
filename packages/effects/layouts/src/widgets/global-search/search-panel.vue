@@ -242,12 +242,12 @@ useEventListener('mousemove', () => {
       <!-- 无搜索结果 -->
       <div
         v-if="keyword && searchResults.length === 0"
-        class="text-center text-muted-foreground"
+        class="text-muted-foreground text-center"
       >
         <SearchX class="mx-auto mt-4 size-12" />
         <p class="mt-6 mb-10 text-xs">
           {{ $t('ui.widgets.search.noResults') }}
-          <span class="text-sm font-medium text-foreground">
+          <span class="text-foreground text-sm font-medium">
             "{{ keyword }}"
           </span>
         </p>
@@ -255,7 +255,7 @@ useEventListener('mousemove', () => {
       <!-- 历史搜索记录 & 没有搜索结果 -->
       <div
         v-if="!keyword && searchResults.length === 0"
-        class="text-center text-muted-foreground"
+        class="text-muted-foreground text-center"
       >
         <p class="my-10 text-xs">
           {{ $t('ui.widgets.search.noRecent') }}
@@ -265,7 +265,7 @@ useEventListener('mousemove', () => {
       <ul v-show="searchResults.length > 0" class="w-full">
         <li
           v-if="searchHistory.length > 0 && !keyword"
-          class="mb-2 text-xs text-muted-foreground"
+          class="text-muted-foreground mb-2 text-xs"
         >
           {{ $t('ui.widgets.search.recent') }}
         </li>
@@ -279,7 +279,7 @@ useEventListener('mousemove', () => {
           "
           :data-index="index"
           :data-search-item="index"
-          class="group mb-3 flex-center w-full cursor-pointer rounded-lg bg-accent p-4"
+          class="bg-accent flex-center group mb-3 w-full cursor-pointer rounded-lg p-4"
           @click="handleEnter"
           @mouseenter="handleMouseenter"
         >
@@ -287,7 +287,7 @@ useEventListener('mousemove', () => {
 
           <span class="flex-1">{{ item.name }}</span>
           <div
-            class="flex-center rounded-full p-1 hover:scale-110 hover:text-primary-foreground dark:hover:bg-accent"
+            class="dark:hover:bg-accent flex-center hover:text-primary-foreground rounded-full p-1 hover:scale-110"
             @click.stop="removeItem(index)"
           >
             <X class="size-4" />

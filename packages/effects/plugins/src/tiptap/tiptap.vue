@@ -164,11 +164,11 @@ onBeforeUnmount(() => {
       '--vben-tiptap-min-height': contentMinHeight,
       '--vben-tiptap-max-height': contentMaxHeight,
     }"
-    class="vben-tiptap overflow-hidden rounded-xl border border-border bg-card"
+    class="bg-card border-border vben-tiptap overflow-hidden rounded-xl border"
   >
     <div
       v-if="toolbar"
-      class="sticky top-0 z-10 flex flex-wrap items-center gap-2 border-b border-border p-2 backdrop-blur-[14px]"
+      class="border-border sticky top-0 z-10 flex flex-wrap items-center gap-2 border-b p-2 backdrop-blur-[14px]"
     >
       <div
         v-for="(group, groupIndex) in toolbarGroups"
@@ -234,7 +234,7 @@ onBeforeUnmount(() => {
               </button>
               <button
                 v-if="action.palette.clear"
-                class="h-8 w-full rounded-xl border border-border bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                class="bg-secondary border-border hover:bg-accent hover:text-foreground text-muted-foreground h-8 w-full rounded-xl border transition-colors"
                 type="button"
                 @click="clearPaletteColor(action)"
               >
@@ -256,7 +256,7 @@ onBeforeUnmount(() => {
                 <span class="flex-1">{{ item.label }}</span>
                 <Check
                   v-if="isMenuItemActive(item)"
-                  class="size-4 text-primary"
+                  class="text-primary size-4"
                 />
               </button>
             </div>
@@ -280,7 +280,7 @@ onBeforeUnmount(() => {
         </template>
         <div
           v-if="groupIndex < toolbarGroups.length - 1"
-          class="ml-1 h-5 w-px bg-border"
+          class="bg-border ml-1 h-5 w-px"
         ></div>
       </div>
       <div v-if="previewable" class="ml-auto flex items-center">

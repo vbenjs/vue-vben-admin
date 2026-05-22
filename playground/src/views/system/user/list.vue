@@ -207,7 +207,7 @@ watch(inputSearchValue, (value) => {
         />
       </Card>
 
-      <div class="w-5/6 ml-4">
+      <div class="ml-4 w-5/6">
         <Grid :table-title="$t('system.user.list')">
           <template #toolbar-tools>
             <Button type="primary" @click="onCreate">

@@ -48,8 +48,8 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <div class="mb-4">
-      <label class="text-sm text-gray-500 mr-2">选择比例:</label>
-      <select v-model="aspectRatio" class="px-3 py-1 border rounded text-sm">
+      <label class="mr-2 text-sm text-gray-500">选择比例:</label>
+      <select v-model="aspectRatio" class="rounded-sm border px-3 py-1 text-sm">
         <option
           v-for="option in aspectOptions"
           :key="option.value"
@@ -70,13 +70,13 @@ onBeforeUnmount(() => {
 
     <div class="mt-4 flex gap-2">
       <button
-        class="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600"
+        class="rounded-sm bg-blue-500 px-4 py-2 hover:bg-blue-600"
         @click="handleCrop"
       >
         裁剪图片
       </button>
       <button
-        class="px-4 py-2 bg-gray-500 rounded hover:bg-gray-600"
+        class="rounded-sm bg-gray-500 px-4 py-2 hover:bg-gray-600"
         @click="handleReset"
       >
         重置
@@ -84,15 +84,15 @@ onBeforeUnmount(() => {
     </div>
 
     <div v-if="croppedImage" class="mt-4">
-      <p class="text-sm text-gray-500 mb-2">
+      <p class="mb-2 text-sm text-gray-500">
         裁剪结果 (比例: {{ aspectRatio }}):
       </p>
-      <img :src="croppedImage" class="max-w-full rounded border" />
+      <img :src="croppedImage" class="max-w-full rounded-sm border" />
     </div>
 
     <div class="mt-4">
       <p class="text-sm text-gray-500">提示:</p>
-      <ul class="mt-2 text-xs text-gray-400 list-disc pl-4">
+      <ul class="mt-2 list-disc pl-4 text-xs text-gray-400">
         <li>设置固定比例后，裁剪框始终维持该比例</li>
         <li>切换比例会自动重新计算裁剪框大小</li>
         <li>比例格式为 "宽:高"，如 "16:9"</li>

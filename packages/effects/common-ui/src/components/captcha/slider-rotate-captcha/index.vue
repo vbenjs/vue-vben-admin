@@ -167,7 +167,7 @@ defineExpose({
   <div class="relative flex flex-col items-center">
     <div
       :style="getImgWrapStyleRef"
-      class="relative cursor-pointer overflow-hidden rounded-full border border-border shadow-md"
+      class="border-border relative cursor-pointer overflow-hidden rounded-full border shadow-md"
     >
       <img
         :class="imgCls"

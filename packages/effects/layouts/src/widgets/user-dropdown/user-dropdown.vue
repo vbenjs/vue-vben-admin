@@ -214,7 +214,7 @@ if (enableShortcutKey.value) {
 
   <DropdownMenu v-model:open="openPopover">
     <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
-      <div class="mr-2 ml-1 cursor-pointer rounded-full p-1.5 hover:bg-accent">
+      <div class="hover:bg-accent mr-2 ml-1 cursor-pointer rounded-full p-1.5">
         <div class="flex-center hover:text-accent-foreground">
           <VbenAvatar :alt="text" :src="avatar" class="size-8" dot />
         </div>
@@ -233,7 +233,7 @@ if (enableShortcutKey.value) {
           <div class="ml-2 w-full">
             <div
               v-if="tagText || text || $slots.tagText"
-              class="mb-1 flex items-center text-sm font-medium text-foreground"
+              class="text-foreground mb-1 flex items-center text-sm font-medium"
             >
               {{ text }}
               <slot name="tagText">
@@ -242,7 +242,7 @@ if (enableShortcutKey.value) {
                 </Badge>
               </slot>
             </div>
-            <div class="text-xs font-normal text-muted-foreground">
+            <div class="text-muted-foreground text-xs font-normal">
               {{ description }}
             </div>
           </div>

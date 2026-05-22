@@ -32,6 +32,7 @@
     "@typescript-eslint/parser": "catalog:",
     "@vben/oxlint-config": "workspace:*",
     "eslint": "catalog:",
+    "eslint-plugin-better-tailwindcss": "catalog:",
     "eslint-plugin-jsonc": "catalog:",
     "eslint-plugin-n": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",

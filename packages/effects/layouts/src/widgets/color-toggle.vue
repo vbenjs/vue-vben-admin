@@ -36,7 +36,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
         >
           <div
             :style="{ backgroundColor: preset.color }"
-            class="relative flex-center size-5 rounded-full hover:scale-110"
+            class="flex-center relative size-5 rounded-full hover:scale-110"
           >
             <svg
               v-if="preferences.theme.builtinType === preset.type"
@@ -58,7 +58,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
     </div>
 
     <VbenIconButton>
-      <Palette class="size-4 text-primary" />
+      <Palette class="text-primary size-4" />
     </VbenIconButton>
   </div>
 </template>

@@ -4,6 +4,7 @@ export * from './jsonc';
 export * from './node';
 export * from './perfectionist';
 export * from './pnpm';
+export * from './tailwindcss';
 export * from './typescript';
 export * from './unicorn';
 export * from './vue';

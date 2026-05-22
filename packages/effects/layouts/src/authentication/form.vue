@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <div
-    class="relative flex-col-center bg-background px-6 py-10 lg:flex-initial lg:px-8 dark:bg-background-deep"
+    class="bg-background dark:bg-background-deep flex-col-center relative px-6 py-10 lg:flex-initial lg:px-8"
   >
     <slot></slot>
     <!-- Router View with Transition and KeepAlive -->
@@ -30,7 +30,7 @@ defineProps<{
     <!-- Footer Copyright -->
 
     <div
-      class="absolute bottom-3 flex text-center text-xs text-muted-foreground"
+      class="text-muted-foreground absolute bottom-3 flex text-center text-xs"
     >
       <slot name="copyright"> </slot>
     </div>

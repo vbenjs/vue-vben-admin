@@ -36,7 +36,7 @@ defineExpose({
       [$style.success]: isPassing,
     }"
     :style="style"
-    class="absolute top-0 flex-center size-full text-xs select-none"
+    class="flex-center absolute top-0 size-full text-xs select-none"
   >
     <slot name="text">
       <VbenSpineText class="flex h-full items-center">

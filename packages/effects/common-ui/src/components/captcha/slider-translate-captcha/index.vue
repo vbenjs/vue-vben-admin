@@ -261,7 +261,7 @@ onMounted(() => {
 <template>
   <div class="relative flex flex-col items-center">
     <div
-      class="relative flex cursor-pointer overflow-hidden border border-border shadow-md"
+      class="border-border relative flex cursor-pointer overflow-hidden border shadow-md"
     >
       <canvas
         ref="puzzleCanvasRef"

@@ -88,11 +88,11 @@ useScrollLock();
 </script>
 
 <template>
-  <div class="fixed z-2000 size-full bg-background">
+  <div class="bg-background fixed z-2000 size-full">
     <transition name="slide-left">
       <div v-show="!showUnlockForm" class="size-full">
         <div
-          class="group fixed top-6 left-1/2 z-2001 flex-col-center -translate-x-1/2 cursor-pointer text-xl font-semibold text-foreground/80 hover:text-foreground"
+          class="flex-col-center group hover:text-foreground text-foreground/80 fixed top-6 left-1/2 z-2001 -translate-x-1/2 cursor-pointer text-xl font-semibold"
           @click="toggleUnlockForm"
         >
           <LockKeyhole
@@ -103,7 +103,7 @@ useScrollLock();
         <div class="flex-center size-full">
           <div class="flex w-full justify-center gap-4 px-4 sm:gap-6 md:gap-8">
             <div
-              class="relative flex-center h-35 w-35 rounded-xl bg-accent text-[36px] sm:h-40 sm:w-40 sm:text-[42px] md:h-50 md:w-50 md:text-[72px]"
+              class="bg-accent flex-center relative size-35 rounded-xl text-[36px] sm:size-40 sm:text-[42px] md:size-50 md:text-[72px]"
             >
               <span
                 class="absolute top-3 left-3 text-xs font-semibold sm:text-sm md:text-xl"
@@ -113,7 +113,7 @@ useScrollLock();
               {{ hour }}
             </div>
             <div
-              class="flex-center h-35 w-35 rounded-xl bg-accent text-[36px] sm:h-40 sm:w-40 sm:text-[42px] md:h-50 md:w-50 md:text-[72px]"
+              class="bg-accent flex-center size-35 rounded-xl text-[36px] sm:size-40 sm:text-[42px] md:size-50 md:text-[72px]"
             >
               {{ minute }}
             </div>
@@ -128,7 +128,7 @@ useScrollLock();
         class="flex-center size-full"
         @keydown.enter.prevent="handleSubmit"
       >
-        <div class="mb-10 flex-col-center w-[90%] max-w-75 px-4">
+        <div class="flex-col-center mb-10 w-[90%] max-w-75 px-4">
           <VbenAvatar :src="avatar" class="enter-x mb-6 size-20" />
           <div class="enter-x mb-2 w-full items-center">
             <Form />

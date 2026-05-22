@@ -29,7 +29,7 @@ withDefaults(defineProps<Props>(), {
       <CardTitle class="text-lg">{{ title }}</CardTitle>
     </CardHeader>
     <CardContent class="flex flex-wrap p-5 pt-0">
-      <ul class="w-full divide-y divide-border" role="list">
+      <ul class="divide-border w-full divide-y" role="list">
         <li
           v-for="item in items"
           :key="item.title"
@@ -41,18 +41,18 @@ withDefaults(defineProps<Props>(), {
           <div class="flex min-w-0 items-center gap-x-4">
             <VbenCheckbox v-model="item.completed" name="completed" />
             <div class="min-w-0 flex-auto">
-              <p class="text-sm/6 font-semibold text-foreground">
+              <p class="text-foreground text-sm/6 font-semibold">
                 {{ item.title }}
               </p>
               <!-- eslint-disable vue/no-v-html -->
               <p
-                class="mt-1 truncate text-xs/5 text-foreground/80 *:text-primary"
+                class="*:text-primary text-foreground/80 mt-1 truncate text-xs/5"
                 v-html="item.content"
               ></p>
             </div>
           </div>
           <div class="hidden h-full shrink-0 sm:flex sm:flex-col sm:items-end">
-            <span class="mt-6 text-xs/6 text-foreground/80">
+            <span class="text-foreground/80 mt-6 text-xs/6">
               {{ item.date }}
             </span>
           </div>

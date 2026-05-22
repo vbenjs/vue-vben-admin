@@ -52,10 +52,10 @@ defineExpose({
       'rounded-md': isDragging,
     }"
     :style="style"
-    class="absolute top-0 left-0 flex-center h-full cursor-move bg-background px-3.5 shadow-md dark:bg-accent"
+    class="bg-background dark:bg-accent flex-center absolute top-0 left-0 h-full cursor-move px-3.5 shadow-md"
     name="captcha-action"
   >
-    <Slot :is-passing="isPassing" class="size-4 text-foreground/60">
+    <Slot :is-passing="isPassing" class="text-foreground/60 size-4">
       <slot name="icon">
         <ChevronsRight v-if="!isPassing" />
         <Check v-else />

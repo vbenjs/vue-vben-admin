@@ -53,9 +53,9 @@ watch(
           <NumberFieldIncrement />
         </NumberFieldContent>
       </NumberField>
-      <span class="text-xs whitespace-nowrap text-muted-foreground">px</span>
+      <span class="text-muted-foreground text-xs whitespace-nowrap">px</span>
     </div>
-    <div class="text-xs text-muted-foreground">
+    <div class="text-muted-foreground text-xs">
       {{ $t('preferences.theme.fontSizeTip') }}
     </div>
   </div>

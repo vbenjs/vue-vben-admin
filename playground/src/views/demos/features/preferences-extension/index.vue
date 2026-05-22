@@ -126,7 +126,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
 <template>
   <Page :title="$t('demos.features.preferencesExtension')">
     <template #description>
-      <div class="mt-2 text-foreground/80">
+      <div class="text-foreground/80 mt-2">
         {{ $t('demos.preferencesExtensionDemo.description') }}
       </div>
     </template>
@@ -162,7 +162,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
             <div class="text-lg font-semibold">
               {{ playgroundPreferences.reportTitle }}
             </div>
-            <div class="text-sm text-foreground/60">
+            <div class="text-foreground/60 text-sm">
               {{ $t('demos.preferencesExtensionDemo.boardDescription') }}
             </div>
           </div>
@@ -186,7 +186,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
             {{ $t('demos.preferencesExtensionDemo.quickActions.refresh') }}
           </Button>
         </Space>
-        <div v-else class="mb-4 text-sm text-foreground/60">
+        <div v-else class="text-foreground/60 mb-4 text-sm">
           {{ $t('demos.preferencesExtensionDemo.quickActionsEnabled') }}
         </div>
 
@@ -194,11 +194,11 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
           <div
             v-for="task in visibleTasks"
             :key="task.id"
-            class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-background px-4 py-3"
+            class="bg-background border-border flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3"
           >
             <div>
               <div class="font-medium">{{ task.title }}</div>
-              <div class="text-sm text-foreground/60">
+              <div class="text-foreground/60 text-sm">
                 {{ $t('demos.preferencesExtensionDemo.owner') }}：{{
                   task.owner
                 }}

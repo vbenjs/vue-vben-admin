@@ -210,7 +210,7 @@ function resume() {
     ref="wrapperRef"
     :class="
       cn(
-        'relative flex h-10 w-full items-center overflow-hidden rounded-md border border-border bg-background-deep text-center',
+        'bg-background-deep border-border relative flex h-10 w-full items-center overflow-hidden rounded-md border text-center',
         props.class,
       )
     "

@@ -37,7 +37,7 @@ const { isFullscreen: isDomFullscreen, toggle: toggleDom } =
 
     <div
       ref="domRef"
-      class="mx-auto mt-10 flex-center h-64 w-1/2 rounded-md bg-yellow-400"
+      class="flex-center mx-auto mt-10 h-64 w-1/2 rounded-md bg-yellow-400"
     >
       <Button class="mr-2" type="primary" @click="toggleDom">
         {{ isDomFullscreen ? 'Exit Dom Full Screen' : 'Enter Dom Full Screen' }}

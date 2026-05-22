@@ -34,7 +34,7 @@ const imageUpload: ImageUploadOptions = {
     />
     <div class="mt-4">
       <p class="text-sm text-gray-500">提示:</p>
-      <ul class="mt-2 text-xs text-gray-400 list-disc pl-4">
+      <ul class="mt-2 list-disc pl-4 text-xs text-gray-400">
         <li>点击工具栏图片按钮可选择本地上传或 URL 插入</li>
         <li>拖拽图片到编辑器区域可直接上传</li>
         <li>粘贴图片也会触发上传</li>

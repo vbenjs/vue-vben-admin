@@ -59,11 +59,11 @@ const handleClear = () => {
 <template>
   <VbenPopover v-model:open="open" content-class="relative right-2 w-90 p-0">
     <template #trigger>
-      <div class="mr-2 flex-center h-full" @click.stop="toggle()">
-        <VbenIconButton class="bell-button relative text-foreground">
+      <div class="flex-center mr-2 h-full" @click.stop="toggle()">
+        <VbenIconButton class="bell-button text-foreground relative">
           <span
             v-if="dot"
-            class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"
+            class="bg-primary absolute top-0.5 right-0.5 size-2 rounded-sm"
           ></span>
           <Bell class="size-4" />
         </VbenIconButton>
@@ -85,13 +85,13 @@ const handleClear = () => {
         <ul class="flex! max-h-90 w-full flex-col">
           <template v-for="item in notifications" :key="item.id ?? item.title">
             <li
-              class="relative flex w-full cursor-pointer items-start gap-5 border-t border-border p-3 hover:bg-accent"
+              class="border-border hover:bg-accent relative flex w-full cursor-pointer items-start gap-5 border-t p-3"
               @click="emit('onClick', item)"
             >
               <slot name="content" :item="item">
                 <span
                   v-if="!item.isRead"
-                  class="absolute top-2 right-2 size-2 rounded-sm bg-primary"
+                  class="bg-primary absolute top-2 right-2 size-2 rounded-sm"
                 ></span>
 
                 <span
@@ -104,10 +104,10 @@ const handleClear = () => {
                 </span>
                 <div class="flex flex-col gap-1 leading-none">
                   <p class="font-semibold">{{ item.title }}</p>
-                  <p class="my-1 line-clamp-2 text-xs text-muted-foreground">
+                  <p class="text-muted-foreground my-1 line-clamp-2 text-xs">
                     {{ item.message }}
                   </p>
-                  <p class="line-clamp-2 text-xs text-muted-foreground">
+                  <p class="text-muted-foreground line-clamp-2 text-xs">
                     {{ item.date }}
                   </p>
                 </div>
@@ -130,7 +130,7 @@ const handleClear = () => {
                       v-if="item.isRead"
                       size="xs"
                       variant="ghost"
-                      class="h-6 px-2 text-destructive"
+                      class="text-destructive h-6 px-2"
                       :tooltip="$t('common.delete')"
                       @click.stop="emit('remove', item)"
                     >
@@ -146,13 +146,13 @@ const handleClear = () => {
       </VbenScrollbar>
 
       <template v-else>
-        <div class="flex-center min-h-37.5 w-full text-muted-foreground">
+        <div class="flex-center text-muted-foreground min-h-37.5 w-full">
           {{ $t('common.noData') }}
         </div>
       </template>
 
       <div
-        class="flex items-center justify-between border-t border-border px-4 py-3"
+        class="border-border flex items-center justify-between border-t px-4 py-3"
       >
         <VbenButton
           :disabled="notifications.length <= 0"
