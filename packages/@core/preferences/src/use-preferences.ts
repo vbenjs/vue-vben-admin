@@ -39,7 +39,7 @@ function usePreferences() {
   });
 
   const locale = computed(() => {
-    return preferences.app.locale;
+    return appPreferences.value.locale;
   });
 
   const isMobile = computed(() => {
@@ -274,6 +274,7 @@ function usePreferences() {
     preferencesButtonPosition,
     sidebarCollapsed,
     theme,
+    app: appPreferences.value,
   };
 }
 
