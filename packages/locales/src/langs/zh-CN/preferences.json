@@ -187,6 +187,7 @@
     "global": "全局",
     "search": "全局搜索",
     "logout": "退出登录",
+    "escape": "关闭当前窗口",
     "preferences": "偏好设置"
   },
   "widget": {

@@ -39,7 +39,7 @@ function usePreferences() {
   });
 
   const locale = computed(() => {
-    return preferences.app.locale;
+    return appPreferences.value.locale;
   });
 
   const isMobile = computed(() => {
@@ -185,6 +185,14 @@ function usePreferences() {
     return enable && globalLogout;
   });
 
+  /**
+   * @zh_CN 是否启用全局注销快捷键
+   */
+  const globalEscapeShortcutKey = computed(() => {
+    const { enable, globalEscape } = shortcutKeysPreferences.value;
+    return enable && globalEscape;
+  });
+
   const globalLockScreenShortcutKey = computed(() => {
     const { enable, globalLockScreen } = shortcutKeysPreferences.value;
     return enable && globalLockScreen;
@@ -247,6 +255,7 @@ function usePreferences() {
     diffCustomPreference,
     globalLockScreenShortcutKey,
     globalLogoutShortcutKey,
+    globalEscapeShortcutKey,
     globalSearchShortcutKey,
     isDark,
     isFullContent,
@@ -265,6 +274,7 @@ function usePreferences() {
     preferencesButtonPosition,
     sidebarCollapsed,
     theme,
+    app: appPreferences.value,
   };
 }
 
