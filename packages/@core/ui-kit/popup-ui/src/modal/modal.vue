@@ -12,11 +12,7 @@ import {
   watch,
 } from 'vue';
 
-import {
-  useIsMobile,
-  usePriorityValues,
-  useSimpleLocale,
-} from '@vben-core/composables';
+import { usePriorityValues, useSimpleLocale } from '@vben-core/composables';
 import { Expand, Shrink } from '@vben-core/icons';
 import {
   Dialog,
@@ -62,7 +58,6 @@ const id = useId();
 provide('DISMISSABLE_MODAL_ID', id);
 
 const { $t } = useSimpleLocale();
-const { isMobile } = useIsMobile();
 const state = props.modalApi?.useStore?.();
 
 const {
@@ -101,7 +96,7 @@ const {
   zIndex,
 } = usePriorityValues(props, state);
 
-const shouldFullscreen = computed(() => fullscreen.value || isMobile.value);
+const shouldFullscreen = computed(() => fullscreen.value);
 
 const shouldDraggable = computed(
   () => draggable.value && !shouldFullscreen.value && header.value,
@@ -242,13 +237,15 @@ function handleClosed() {
       :append-to="getAppendTo"
       :class="
         cn(
-          'inset-x-0 top-[10vh] mx-auto flex max-h-[80%] w-130 flex-col p-0',
-          shouldFullscreen ? 'sm:rounded-none' : 'sm:rounded-(--radius)',
+          'inset-x-0 top-[10vh] mx-auto flex w-130 flex-col p-0',
+          shouldFullscreen ? 'rounded-none' : 'rounded-(--radius)',
           modalClass,
           {
             'border border-border': bordered,
             'shadow-3xl': !bordered,
-            'top-0 left-0 size-full max-h-full transform-[translate(0,0)]!':
+            'max-h-[min(80%,calc(100dvh-20px))] max-w-[calc(100vw-20px)]':
+              !shouldFullscreen,
+            'top-0 left-0 size-full max-h-full max-w-full transform-[translate(0,0)]!':
               shouldFullscreen,
             'top-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
@@ -322,7 +319,7 @@ function handleClosed() {
       <VbenLoading v-if="showLoading || submitting" spinning />
       <VbenIconButton
         v-if="fullscreenButton"
-        class="absolute top-3 right-10 flex-center hidden size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none sm:block"
+        class="absolute top-3 right-10 flex-center size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
