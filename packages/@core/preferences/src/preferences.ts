@@ -135,8 +135,8 @@ class PreferenceManager {
     const cachedPreferences = (await this.loadFromCache()) || {};
     const mergedPreference = merge(
       {},
-      this.initialPreferences, // 初始化配置优先，缓存仅补齐缺失字段
-      cachedPreferences,
+      cachedPreferences, // 用户缓存的设置优先
+      this.initialPreferences, // 初始设置仅补齐缺失字段
     );
 
     // 更新偏好设置
