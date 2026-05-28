@@ -55,7 +55,7 @@ export function useVbenDrawer<
             // 不能用 Object.assign,会丢失 api 的原型函数
             Object.setPrototypeOf(extendedApi, api);
           },
-          defaultOptions,
+          options: defaultOptions,
           async reCreateDrawer() {
             isDrawerReady.value = false;
             await nextTick();

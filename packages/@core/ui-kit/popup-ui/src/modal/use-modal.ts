@@ -51,7 +51,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
             Object.setPrototypeOf(extendedApi, api);
           },
           consumed: false,
-          defaultOptions,
+          options: defaultOptions,
           async reCreateModal() {
             isModalReady.value = false;
             await nextTick();
