@@ -33,6 +33,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 <template>
   <ToggleGroupItem
     v-bind="forwardedProps"
+    data-slot="toggle-group-item"
     :class="
       cn(
         toggleVariants({

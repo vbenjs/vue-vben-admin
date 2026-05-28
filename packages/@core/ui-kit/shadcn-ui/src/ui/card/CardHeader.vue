@@ -7,7 +7,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div :class="cn('flex flex-col gap-y-1.5 p-5', props.class)">
+  <div
+    data-slot="card-header"
+    :class="
+      cn(
+        'grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
+        props.class,
+      )
+    "
+  >
     <slot></slot>
   </div>
 </template>

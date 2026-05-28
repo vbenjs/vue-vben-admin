@@ -7,7 +7,11 @@ const props = defineProps<AvatarFallbackProps>();
 </script>
 
 <template>
-  <AvatarFallback v-bind="props">
+  <AvatarFallback
+    v-bind="props"
+    data-slot="avatar-fallback"
+    class="bg-muted flex size-full items-center justify-center rounded-full"
+  >
     <slot></slot>
   </AvatarFallback>
 </template>

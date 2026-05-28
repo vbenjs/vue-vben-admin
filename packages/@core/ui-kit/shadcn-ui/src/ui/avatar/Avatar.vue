@@ -21,7 +21,10 @@ const props = withDefaults(
 </script>
 
 <template>
-  <AvatarRoot :class="cn(avatarVariant({ size, shape }), props.class)">
+  <AvatarRoot
+    data-slot="avatar"
+    :class="cn(avatarVariant({ size, shape }), props.class)"
+  >
     <slot></slot>
   </AvatarRoot>
 </template>
