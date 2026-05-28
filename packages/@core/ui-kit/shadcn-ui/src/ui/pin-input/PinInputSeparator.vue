@@ -9,9 +9,9 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <Primitive v-bind="forwardedProps">
+  <Primitive v-bind="forwardedProps" data-slot="pin-input-separator">
     <slot>
-      <Dot />
+      <Dot class="size-4" />
     </slot>
   </Primitive>
 </template>

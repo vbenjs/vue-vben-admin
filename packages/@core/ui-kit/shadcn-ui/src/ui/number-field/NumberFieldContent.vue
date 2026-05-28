@@ -8,6 +8,7 @@ const props = defineProps<{
 
 <template>
   <div
+    data-slot="number-field-content"
     :class="
       cn(
         'relative [&>[data-slot=input]]:has-[[data-slot=decrement]]:pl-5 [&>[data-slot=input]]:has-[[data-slot=increment]]:pr-5',

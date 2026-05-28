@@ -22,12 +22,13 @@ const forwardedProps = useForwardProps(delegatedProps);
 <template>
   <SelectScrollDownButton
     v-bind="forwardedProps"
+    data-slot="select-scroll-down-button"
     :class="
       cn('flex cursor-default items-center justify-center py-1', props.class)
     "
   >
     <slot>
-      <ChevronDown class="h-4 w-4" />
+      <ChevronDown class="size-4" />
     </slot>
   </SelectScrollDownButton>
 </template>

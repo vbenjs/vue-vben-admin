@@ -20,9 +20,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 <template>
   <PinInputInput
     v-bind="forwardedProps"
+    data-slot="pin-input-input"
     :class="
       cn(
-        'border-input bg-background relative flex h-10 w-8 items-center justify-center border-y border-r text-center text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md focus:relative focus:z-10 focus:ring-2 focus:outline-hidden md:w-10',
+        'border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 relative flex size-9 items-center justify-center border-y border-r text-center text-sm shadow-xs outline-none transition-all first:rounded-l-md first:border-l last:rounded-r-md focus:relative focus:z-10 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:size-10',
         props.class,
       )
     "

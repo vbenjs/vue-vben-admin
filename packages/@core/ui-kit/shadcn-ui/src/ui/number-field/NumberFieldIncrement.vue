@@ -25,13 +25,13 @@ const forwarded = useForwardProps(delegatedProps);
     v-bind="forwarded"
     :class="
       cn(
-        'absolute top-1/2 right-0 -translate-y-1/2 p-3 disabled:cursor-not-allowed disabled:opacity-20',
+        'text-muted-foreground hover:text-foreground absolute top-1/2 right-0 -translate-y-1/2 rounded-md p-3 transition-colors disabled:cursor-not-allowed disabled:opacity-20',
         props.class,
       )
     "
   >
     <slot>
-      <Plus class="h-4 w-4" />
+      <Plus class="size-4" />
     </slot>
   </NumberFieldIncrement>
 </template>
