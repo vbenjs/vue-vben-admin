@@ -6,7 +6,7 @@ import type {
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
-import { useStore } from '@vben-core/shared/store';
+import { useSelector } from '@vben-core/shared/store';
 
 import { FormApi } from './form-api';
 import VbenUseForm from './vben-use-form.vue';
@@ -19,7 +19,7 @@ export function useVbenForm<
   const api = new FormApi(options as unknown as VbenFormProps);
   const extendedApi: ExtendedFormApi = api as never;
   extendedApi.useStore = (selector) => {
-    return useStore(api.store, selector);
+    return useSelector(api.store, selector);
   };
 
   const Form = defineComponent(
