@@ -8,6 +8,7 @@ const props = defineProps<{
 
 <template>
   <span
+    data-slot="breadcrumb-page"
     :class="cn('text-foreground font-normal', props.class)"
     aria-current="page"
     aria-disabled="true"

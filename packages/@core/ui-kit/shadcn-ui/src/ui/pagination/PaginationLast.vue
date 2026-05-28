@@ -25,7 +25,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <PaginationLast v-bind="delegatedProps">
+  <PaginationLast v-bind="delegatedProps" data-slot="pagination-last">
     <Button :class="cn('size-8 p-0', props.class)" variant="outline">
       <slot>
         <ChevronsRight class="size-4" />

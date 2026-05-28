@@ -10,12 +10,13 @@ const props = defineProps<{
 
 <template>
   <span
-    :class="cn('flex h-9 w-9 items-center justify-center', props.class)"
+    data-slot="breadcrumb-ellipsis"
+    :class="cn('flex size-9 items-center justify-center', props.class)"
     aria-hidden="true"
     role="presentation"
   >
     <slot>
-      <MoreHorizontal class="h-4 w-4" />
+      <MoreHorizontal class="size-4" />
     </slot>
     <span class="sr-only">More</span>
   </span>

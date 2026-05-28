@@ -18,13 +18,14 @@ const delegatedProps = computed(() => {
 
 <template>
   <TabsContent
+    v-bind="delegatedProps"
+    data-slot="tabs-content"
     :class="
       cn(
-        'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+        'mt-2 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
         props.class,
       )
     "
-    v-bind="delegatedProps"
   >
     <slot></slot>
   </TabsContent>

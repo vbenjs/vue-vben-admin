@@ -5,7 +5,12 @@ const props = defineProps<{
 </script>
 
 <template>
-  <nav :class="props.class" aria-label="breadcrumb" role="navigation">
+  <nav
+    :class="props.class"
+    aria-label="breadcrumb"
+    data-slot="breadcrumb"
+    role="navigation"
+  >
     <slot></slot>
   </nav>
 </template>
