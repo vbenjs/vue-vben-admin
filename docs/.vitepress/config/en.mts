@@ -199,6 +199,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'EllipsisText',
         },
         {
+          link: 'common-ui/vben-descriptions',
+          text: 'Descriptions',
+        },
+        {
           link: 'common-ui/vben-cropper',
           text: 'Cropper',
         },
