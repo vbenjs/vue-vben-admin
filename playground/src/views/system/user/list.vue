@@ -232,8 +232,6 @@ watch(inputSearchValue, (value) => {
                   popConfirm: {
                     title: $t('ui.actionMessage.deleteConfirm', [row.name]),
                     confirm: () => onDelete(row),
-                    okText: $t('common.confirm'),
-                    cancelText: $t('common.cancel'),
                   },
                   auth: ['AC_100100'],
                 },
