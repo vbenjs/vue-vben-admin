@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
 const props = defineProps<{
-  class?: any;
+  class?: HTMLAttributes['class'];
 }>();
 </script>
 

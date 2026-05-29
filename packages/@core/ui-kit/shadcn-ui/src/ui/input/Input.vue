@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
 import { useVModel } from '@vueuse/core';
 
 const props = defineProps<{
-  class?: any;
+  class?: HTMLAttributes['class'];
   defaultValue?: number | string;
   modelValue?: number | string;
 }>();
@@ -22,10 +24,9 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 <template>
   <input
     v-model="modelValue"
-    data-slot="input"
     :class="
       cn(
-        'border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40',
+        'border-input bg-background ring-offset-background placeholder:text-muted-foreground/50 focus-visible:outline-none flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50',
         props.class,
       )
     "
@@ -33,6 +34,12 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 </template>
 <style lang="scss" scoped>
 input {
+  --ring: var(--primary);
+
+  &:focus-visible {
+    box-shadow: inset 0 0 0 1px hsl(var(--ring));
+  }
+
   &::-ms-reveal,
   &::-ms-clear {
     display: none;

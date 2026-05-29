@@ -1,16 +1,23 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
 import { NumberFieldInput } from 'reka-ui';
+
+const props = defineProps<{
+  class?: HTMLAttributes['class'];
+}>();
 </script>
 
 <template>
   <NumberFieldInput
+    data-slot="input"
     :class="
       cn(
-        'border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex h-9 w-full rounded-md border bg-transparent py-1 text-center text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-9 w-full rounded-md border border-input bg-transparent py-1 text-sm text-center shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+        props.class,
       )
     "
-    data-slot="input"
   />
 </template>

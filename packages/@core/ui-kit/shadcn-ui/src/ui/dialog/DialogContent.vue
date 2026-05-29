@@ -7,7 +7,7 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { X } from 'lucide-vue-next';
+import { X } from '@lucide/vue';
 import { DialogClose, DialogContent, useForwardPropsEmits } from 'reka-ui';
 
 import DialogOverlay from './DialogOverlay.vue';

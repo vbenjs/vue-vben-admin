@@ -8,8 +8,10 @@ const props = defineProps<AvatarImageProps>();
 
 <template>
   <AvatarImage
-    v-bind="props"
     data-slot="avatar-image"
-    class="aspect-square size-full object-cover"
-  />
+    v-bind="props"
+    class="aspect-square size-full"
+  >
+    <slot></slot>
+  </AvatarImage>
 </template>

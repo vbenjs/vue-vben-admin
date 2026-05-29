@@ -1,19 +1,21 @@
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
-import { ChevronRight } from 'lucide-vue-next';
+import { ChevronRight } from '@lucide/vue';
 
 const props = defineProps<{
-  class?: any;
+  class?: HTMLAttributes['class'];
 }>();
 </script>
 
 <template>
   <li
     data-slot="breadcrumb-separator"
-    :class="cn('[&>svg]:size-3.5', props.class)"
-    aria-hidden="true"
     role="presentation"
+    aria-hidden="true"
+    :class="cn('[&>svg]:size-3.5', props.class)"
   >
     <slot>
       <ChevronRight />

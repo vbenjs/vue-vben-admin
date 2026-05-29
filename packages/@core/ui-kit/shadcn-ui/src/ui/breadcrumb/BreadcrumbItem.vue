@@ -1,17 +1,17 @@
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
 const props = defineProps<{
-  class?: any;
+  class?: HTMLAttributes['class'];
 }>();
 </script>
 
 <template>
   <li
     data-slot="breadcrumb-item"
-    :class="
-      cn('hover:text-foreground inline-flex items-center gap-1.5', props.class)
-    "
+    :class="cn('inline-flex items-center gap-1.5', props.class)"
   >
     <slot></slot>
   </li>
