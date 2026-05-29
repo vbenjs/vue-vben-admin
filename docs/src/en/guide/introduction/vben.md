@@ -26,7 +26,7 @@
 
 ## Browser Support
 
-- **Local development** is recommended using the **latest version of Chrome**. **Versions below Chrome 80 are not supported**.
+- **Local development** is recommended using the **latest version of Chrome**. **Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+**.
 
 - **Production environment** supports modern browsers, IE is not supported.
 

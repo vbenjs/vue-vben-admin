@@ -114,7 +114,7 @@ pnpm build
 
 ## ブラウザサポート
 
-ローカル開発には `Chrome 80+` ブラウザを推奨します
+Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+
 
 モダンブラウザをサポートし、IEはサポートしません
 

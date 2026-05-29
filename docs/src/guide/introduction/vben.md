@@ -26,7 +26,7 @@
 
 ## 浏览器支持
 
-- **本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**`Chrome 80`以下版本。
+- **本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**` Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+。
 
 - **生产环境**支持现代浏览器，不支持 IE。
 
