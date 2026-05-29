@@ -6,6 +6,7 @@ export * from './checkbox';
 export * from './collapsible';
 export * from './context-menu';
 export * from './count-to-animator';
+export * from './descriptions';
 export * from './dropdown-menu';
 export * from './expandable-arrow';
 export * from './full-screen';

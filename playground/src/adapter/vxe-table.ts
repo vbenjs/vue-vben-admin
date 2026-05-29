@@ -156,9 +156,12 @@ setupVbenVxeTable({
           edit: {
             text: $t('common.edit'),
           },
+          detail: {
+            text: $t('common.detail'),
+          },
         };
         const operations: Array<Recordable<any>> = (
-          options || ['edit', 'delete']
+          options || ['edit', 'detail', 'delete']
         )
           .map((opt) => {
             if (isString(opt)) {

@@ -19,6 +19,7 @@ import { deleteUser, getDeptList, getUserList, updateUser } from '#/api';
 import { $t } from '#/locales';
 
 import { useColumns, useGridFormSchema } from './data';
+import Detail from './modules/detail.vue';
 import Form from './modules/form.vue';
 
 const deptList = ref<SystemDeptApi.SystemDept[]>([]);
@@ -27,6 +28,11 @@ const selectedDeptId = ref<string>('');
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
+  destroyOnClose: true,
+});
+
+const [DetailDrawer, detailDrawerApi] = useVbenDrawer({
+  connectedComponent: Detail,
   destroyOnClose: true,
 });
 
@@ -70,6 +76,10 @@ function onActionClick(e: OnActionClickParams<SystemUserApi.SystemUser>) {
   switch (e.code) {
     case 'delete': {
       onDelete(e.row);
+      break;
+    }
+    case 'detail': {
+      onDetail(e.row);
       break;
     }
     case 'edit': {
@@ -127,6 +137,10 @@ async function onStatusChange(
 
 function onEdit(row: SystemUserApi.SystemUser) {
   formDrawerApi.setData(row).open();
+}
+
+function onDetail(row: SystemUserApi.SystemUser) {
+  detailDrawerApi.setData(row).open();
 }
 
 function onDelete(row: SystemUserApi.SystemUser) {
@@ -192,6 +206,7 @@ watch(inputSearchValue, (value) => {
 <template>
   <Page auto-content-height>
     <FormDrawer @success="onRefresh" />
+    <DetailDrawer @success="onRefresh" />
     <div class="flex size-full">
       <Card class="w-1/6">
         <InputSearch
