@@ -3,11 +3,11 @@ import type { ActionItem } from './types';
 
 import { computed, ref } from 'vue';
 
-import { IconifyIcon } from '@vben-core/icons';
 import { cn } from '@vben-core/shared/utils';
 
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui';
 import { VbenButton } from '../button';
+import { VbenIcon } from '../icon';
 
 const props = defineProps<{ action: ActionItem }>();
 
@@ -56,7 +56,7 @@ function onCancel() {
         class="p-2"
         :variant="variant"
       >
-        <IconifyIcon :icon="action.icon" v-if="action.icon" class="size-4" />
+        <VbenIcon :icon="action.icon" v-if="action.icon" class="size-4" />
         <span v-if="action.text">{{ action.text }}</span>
       </VbenButton>
     </PopoverTrigger>
@@ -91,7 +91,7 @@ function onCancel() {
     :variant="variant"
     @click="onClick"
   >
-    <IconifyIcon :icon="action.icon" v-if="action.icon" class="size-4" />
+    <VbenIcon :icon="action.icon" v-if="action.icon" class="size-4" />
     <span v-if="action.text">{{ action.text }}</span>
   </VbenButton>
 </template>

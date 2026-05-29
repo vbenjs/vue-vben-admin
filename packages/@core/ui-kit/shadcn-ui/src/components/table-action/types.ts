@@ -1,5 +1,7 @@
 import type { ButtonVariants } from '../../ui';
 
+import { VbenIcon } from '../icon';
+
 /** 权限码：单个或多个，配合注入的 hasPermission 判断 */
 export type TableActionAuth = string | string[];
 
@@ -31,7 +33,7 @@ export interface ActionItem {
   /** 是否禁用 */
   disabled?: boolean;
   /** 图标组件 */
-  icon?: string;
+  icon?: typeof VbenIcon;
   /** 是否显示：布尔或返回布尔的函数 */
   ifShow?: (() => boolean) | boolean;
   /** 唯一标识，点击回调可据此区分 */

@@ -3,7 +3,7 @@ import type { ActionItem, TableActionProps } from './types';
 
 import { computed } from 'vue';
 
-import { Ellipsis, IconifyIcon } from '@vben-core/icons';
+import { Ellipsis } from '@vben-core/icons';
 import { cn } from '@vben-core/shared/utils';
 
 import {
@@ -15,6 +15,7 @@ import {
   Separator,
 } from '../../ui';
 import { VbenButton } from '../button';
+import { VbenIcon } from '../icon';
 import { VbenTooltip } from '../tooltip';
 import ActionItemComp from './action-item.vue';
 
@@ -118,7 +119,7 @@ function onDropdownClick(item: ActionItem) {
             :disabled="item.disabled"
             @click="onDropdownClick(item)"
           >
-            <IconifyIcon :icon="item.icon" v-if="item.icon" class="size-4" />
+            <VbenIcon :icon="item.icon" v-if="item.icon" class="size-4" />
             {{ item.text }}
           </DropdownMenuItem>
           <DropdownMenuSeparator

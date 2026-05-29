@@ -161,9 +161,9 @@ function hasPermission(auth?: string | string[]) {
 ### ActionItem
 
 | 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | text | 按钮文本 | `string` | - |
-| icon | 图标组件 | `Component` | - |
+| icon | 图标组件 | `string` | `VbenIcon` | - |
 | onClick | 点击回调 | `() => void` | - |
 | auth | 权限码，配合 `hasPermission` 过滤 | `string \| string[]` | - |
 | ifShow | 是否显示 | `boolean \| (() => boolean)` | `true` |

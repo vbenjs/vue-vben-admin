@@ -161,9 +161,9 @@ function hasPermission(auth?: string | string[]) {
 ### ActionItem
 
 | Prop | Description | Type | Default |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | text | Button text | `string` | - |
-| icon | Icon component | `Component` | - |
+| icon | Icon component | `string` | `VbenIcon` | - |
 | onClick | Click callback | `() => void` | - |
 | auth | Permission code, filtered by `hasPermission` | `string \| string[]` | - |
 | ifShow | Whether to show | `boolean \| (() => boolean)` | `true` |
