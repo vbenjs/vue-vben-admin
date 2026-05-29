@@ -12,9 +12,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Separator,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '../../ui';
 import { VbenButton } from '../button';
-import { VbenTooltip } from '../tooltip';
+import { VbenIcon } from '../icon';
 import ActionDropdownItemComp from './action-dropdown-item.vue';
 import ActionItemComp from './action-item.vue';
 
@@ -55,6 +59,11 @@ const alignClass = computed(
     ],
 );
 
+// 缓存根节点类名，避免每次渲染都执行 cn()（内部 tailwind-merge 解析开销较大）
+const wrapperClass = computed(() =>
+  cn('flex items-center gap-1', alignClass.value, props.class),
+);
+
 function tooltipSide(action: ActionItem) {
   return typeof action.tooltip === 'object'
     ? (action.tooltip.side ?? 'top')
@@ -66,7 +75,42 @@ function tooltipContent(action: ActionItem) {
     : action.tooltip;
 }
 
+/**
+ * 预计算每个主操作的渲染视图模型：
+ * - 普通按钮在本组件内直接渲染，不再为每个操作多包一层子组件，
+ *   表格大量行时可显著减少组件实例数；
+ * - 仅 popConfirm 操作仍交由子组件维护独立弹层状态；
+ * - 类名等在此一次性计算并缓存，避免模板每次渲染都执行 cn()。
+ */
+const renderedActions = computed(() => {
+  const list = visibleActions.value;
+  return list.map((action, index) => {
+    const hasTooltip = !!action.tooltip && !action.popConfirm;
+    return {
+      action,
+      buttonClass: cn(
+        'gap-1 p-2',
+        action.danger && 'text-destructive hover:text-destructive',
+        action.class,
+      ),
+      hasTooltip,
+      isConfirm: !!action.popConfirm,
+      key: action.key ?? index,
+      showDivider: props.divider && index < list.length - 1,
+      size: action.size ?? 'default',
+      tooltipContent: hasTooltip ? tooltipContent(action) : undefined,
+      tooltipSide: hasTooltip ? tooltipSide(action) : 'top',
+      variant: action.variant ?? 'link',
+    };
+  });
+});
+
 const dropdownOpen = ref(false);
+
+function onActionClick(action: ActionItem) {
+  if (action.disabled || action.loading) return;
+  action.onClick?.();
+}
 
 /**
  * 当与气泡确认（Popover）交互时，避免误关闭整个下拉菜单。
@@ -84,28 +128,61 @@ function onContentInteractOutside(event: Event) {
 </script>
 
 <template>
-  <div :class="cn('flex items-center gap-1', alignClass, props.class)">
-    <template
-      v-for="(action, index) in visibleActions"
-      :key="action.key ?? index"
-    >
-      <VbenTooltip
-        v-if="action.tooltip && !action.popConfirm"
-        :side="tooltipSide(action)"
-      >
-        <template #trigger>
-          <ActionItemComp :action="action" />
-        </template>
-        {{ tooltipContent(action) }}
-      </VbenTooltip>
-      <ActionItemComp v-else :action="action" />
+  <div :class="wrapperClass">
+    <!-- 所有主操作共享同一个 TooltipProvider，避免每个 tooltip 各建一个 provider -->
+    <TooltipProvider v-if="renderedActions.length > 0" :delay-duration="0">
+      <template v-for="item in renderedActions" :key="item.key">
+        <!-- 气泡确认：需独立弹层状态，交由子组件维护 -->
+        <ActionItemComp v-if="item.isConfirm" :action="item.action" />
 
-      <Separator
-        v-if="divider && index < visibleActions.length - 1"
-        orientation="vertical"
-        class="h-4"
-      />
-    </template>
+        <!-- 带提示的普通按钮 -->
+        <Tooltip v-else-if="item.hasTooltip">
+          <TooltipTrigger as-child tabindex="-1">
+            <VbenButton
+              :class="item.buttonClass"
+              :disabled="item.action.disabled"
+              :loading="item.action.loading"
+              :size="item.size"
+              :variant="item.variant"
+              @click="onActionClick(item.action)"
+            >
+              <VbenIcon
+                v-if="item.action.icon"
+                :icon="item.action.icon"
+                class="size-4"
+              />
+              <span v-if="item.action.text">{{ item.action.text }}</span>
+            </VbenButton>
+          </TooltipTrigger>
+          <TooltipContent
+            :side="item.tooltipSide"
+            class="side-content bg-accent text-popover-foreground rounded-md"
+          >
+            {{ item.tooltipContent }}
+          </TooltipContent>
+        </Tooltip>
+
+        <!-- 普通按钮 -->
+        <VbenButton
+          v-else
+          :class="item.buttonClass"
+          :disabled="item.action.disabled"
+          :loading="item.action.loading"
+          :size="item.size"
+          :variant="item.variant"
+          @click="onActionClick(item.action)"
+        >
+          <VbenIcon
+            v-if="item.action.icon"
+            :icon="item.action.icon"
+            class="size-4"
+          />
+          <span v-if="item.action.text">{{ item.action.text }}</span>
+        </VbenButton>
+
+        <Separator v-if="item.showDivider" orientation="vertical" class="h-4" />
+      </template>
+    </TooltipProvider>
 
     <DropdownMenu
       v-if="visibleDropdownActions.length > 0"
