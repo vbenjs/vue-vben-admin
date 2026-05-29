@@ -1,7 +1,7 @@
 import type { DescriptionsItemType } from '@vben/common-ui';
 
 import type { VbenFormSchema } from '#/adapter/form';
-import type { OnActionClickFn, VxeTableGridColumns } from '#/adapter/vxe-table';
+import type { VxeTableGridColumns } from '#/adapter/vxe-table';
 import type { SystemUserApi } from '#/api';
 
 import { h } from 'vue';
@@ -120,7 +120,6 @@ export function useDescriptionItems(
 }
 
 export function useColumns<T = SystemUserApi.SystemUser>(
-  onActionClick: OnActionClickFn<T>,
   onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
 ): VxeTableGridColumns {
   return [
@@ -155,16 +154,9 @@ export function useColumns<T = SystemUserApi.SystemUser>(
     },
     {
       align: 'center',
-      cellRender: {
-        attrs: {
-          nameField: 'name',
-          nameTitle: $t('system.user.name'),
-          onClick: onActionClick,
-        },
-        name: 'CellOperation',
-      },
       field: 'operation',
       fixed: 'right',
+      slots: { default: 'action' },
       title: $t('system.user.operation'),
       width: 180,
     },

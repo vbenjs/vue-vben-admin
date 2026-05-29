@@ -34,9 +34,11 @@ export {
   VbenPinInput,
   VbenSelect,
   VbenSpinner,
+  VbenTableAction,
 } from '@vben-core/shadcn-ui';
 
 export type {
+  ActionItem,
   CollapsibleParamSchema,
   CollapsibleParamsProps,
   DescriptionsColumn,
@@ -44,5 +46,6 @@ export type {
   DescriptionsProps,
   DescriptionsSize,
   FlattenedItem,
+  TableActionProps,
 } from '@vben-core/shadcn-ui';
 export { globalShareState } from '@vben-core/shared/global-state';

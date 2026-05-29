@@ -203,6 +203,10 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'Descriptions',
         },
         {
+          link: 'common-ui/vben-table-action',
+          text: 'TableAction',
+        },
+        {
           link: 'common-ui/vben-cropper',
           text: 'Cropper',
         },
