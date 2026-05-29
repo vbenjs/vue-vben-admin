@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ActionItem, TableActionProps } from './types';
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { Ellipsis } from '@vben-core/icons';
 import { cn } from '@vben-core/shared/utils';
@@ -9,14 +9,13 @@ import { cn } from '@vben-core/shared/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Separator,
 } from '../../ui';
 import { VbenButton } from '../button';
-import { VbenIcon } from '../icon';
 import { VbenTooltip } from '../tooltip';
+import ActionDropdownItemComp from './action-dropdown-item.vue';
 import ActionItemComp from './action-item.vue';
 
 defineOptions({ name: 'VbenTableAction' });
@@ -67,9 +66,20 @@ function tooltipContent(action: ActionItem) {
     : action.tooltip;
 }
 
-function onDropdownClick(item: ActionItem) {
-  if (item.disabled) return;
-  item.onClick?.();
+const dropdownOpen = ref(false);
+
+/**
+ * 当与气泡确认（Popover）交互时，避免误关闭整个下拉菜单。
+ * Popover 内容被 Portal 渲染到菜单之外，默认会被判定为「点击外部」而关闭菜单。
+ */
+function onContentInteractOutside(event: Event) {
+  const target = (event as CustomEvent).detail?.originalEvent?.target as
+    | HTMLElement
+    | null
+    | undefined;
+  if (target?.closest('[data-slot="popover-content"]')) {
+    event.preventDefault();
+  }
 }
 </script>
 
@@ -97,31 +107,28 @@ function onDropdownClick(item: ActionItem) {
       />
     </template>
 
-    <DropdownMenu v-if="visibleDropdownActions.length > 0">
+    <DropdownMenu
+      v-if="visibleDropdownActions.length > 0"
+      v-model:open="dropdownOpen"
+    >
       <DropdownMenuTrigger as-child>
         <VbenButton class="gap-1 p-2" variant="link">
           <Ellipsis class="size-4" />
           <span v-if="moreText">{{ moreText }}</span>
         </VbenButton>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        @interact-outside="onContentInteractOutside"
+      >
         <template
           v-for="(item, index) in visibleDropdownActions"
           :key="item.key ?? index"
         >
-          <DropdownMenuItem
-            :class="
-              cn(
-                'cursor-pointer gap-2',
-                item.danger && 'text-destructive focus:text-destructive',
-              )
-            "
-            :disabled="item.disabled"
-            @click="onDropdownClick(item)"
-          >
-            <VbenIcon :icon="item.icon" v-if="item.icon" class="size-4" />
-            {{ item.text }}
-          </DropdownMenuItem>
+          <ActionDropdownItemComp
+            :action="item"
+            @confirm="dropdownOpen = false"
+          />
           <DropdownMenuSeparator
             v-if="divider && index < visibleDropdownActions.length - 1"
           />

@@ -58,27 +58,6 @@ outline: deep
   title: $t('system.user.operation'),
   width: 180,
 }
-
-// data.ts —— 操作项构建（可集中维护）
-export function useActions(row, onClick) {
-  return {
-    actions: [
-      { key: 'edit', text: $t('common.edit'), onClick: () => onClick({ code: 'edit', row }) },
-      {
-        key: 'delete',
-        text: $t('common.delete'),
-        danger: true,
-        popConfirm: {
-          title: $t('ui.actionMessage.deleteConfirm', [row.name]),
-          confirm: () => onClick({ code: 'delete', row }),
-        },
-      },
-    ],
-    dropdownActions: [
-      { key: 'resetPwd', text: '重置密码', auth: ['AC_100100'], onClick: () => onClick({ code: 'resetPwd', row }) },
-    ],
-  };
-}
 ```
 
 ```vue
@@ -161,9 +140,9 @@ function hasPermission(auth?: string | string[]) {
 ### ActionItem
 
 | 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | text | 按钮文本 | `string` | - |
-| icon | 图标组件 | `string` | `VbenIcon` | - |
+| icon | 图标组件 | `string`\| `VbenIcon` | - |
 | onClick | 点击回调 | `() => void` | - |
 | auth | 权限码，配合 `hasPermission` 过滤 | `string \| string[]` | - |
 | ifShow | 是否显示 | `boolean \| (() => boolean)` | `true` |

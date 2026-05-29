@@ -17,7 +17,13 @@ const dropdownActions: ActionItem[] = [
   {
     danger: true,
     key: 'remove',
-    onClick: () => (last.value = '移除'),
+    // 下拉项同样支持气泡确认
+    popConfirm: {
+      cancelText: '取消',
+      confirm: () => (last.value = '已移除'),
+      okText: '确认',
+      title: '确定移除吗？',
+    },
     text: '移除',
   },
 ];

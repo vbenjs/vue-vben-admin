@@ -58,27 +58,6 @@ Without changing vxe-table's rendering mechanism, declare a slot in the column c
   title: $t('system.user.operation'),
   width: 180,
 }
-
-// data.ts — build action items (kept in one place)
-export function useActions(row, onClick) {
-  return {
-    actions: [
-      { key: 'edit', text: $t('common.edit'), onClick: () => onClick({ code: 'edit', row }) },
-      {
-        key: 'delete',
-        text: $t('common.delete'),
-        danger: true,
-        popConfirm: {
-          title: $t('ui.actionMessage.deleteConfirm', [row.name]),
-          confirm: () => onClick({ code: 'delete', row }),
-        },
-      },
-    ],
-    dropdownActions: [
-      { key: 'resetPwd', text: 'Reset Password', auth: ['AC_100100'], onClick: () => onClick({ code: 'resetPwd', row }) },
-    ],
-  };
-}
 ```
 
 ```vue
@@ -161,9 +140,9 @@ function hasPermission(auth?: string | string[]) {
 ### ActionItem
 
 | Prop | Description | Type | Default |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | text | Button text | `string` | - |
-| icon | Icon component | `string` | `VbenIcon` | - |
+| icon | Icon component | `string` \| `VbenIcon` | - |
 | onClick | Click callback | `() => void` | - |
 | auth | Permission code, filtered by `hasPermission` | `string \| string[]` | - |
 | ifShow | Whether to show | `boolean \| (() => boolean)` | `true` |
