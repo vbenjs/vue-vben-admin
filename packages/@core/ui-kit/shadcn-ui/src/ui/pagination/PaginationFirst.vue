@@ -22,7 +22,6 @@ const props = withDefaults(
   >(),
   {
     size: 'default',
-    asChild: true,
   },
 );
 
