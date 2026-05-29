@@ -21,7 +21,7 @@
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- 以 `VITE_GLOB_*` 开头的的变量，在打包的时候，会被加入 `_app.config.js`配置文件当中.
+- 以 `VITE_GLOB_*` 开头的的变量，在打包的时候，会被加入 `_app-config-{version}-{hash}.js`配置文件当中.
 
 :::
 
@@ -86,9 +86,9 @@ VITE_ARCHIVER=true
 
 ## 生产环境动态配置
 
-当在大仓根目录下，执行 `pnpm build`构建项目之后，会自动在对应的应用下生成 `dist/_app.config.js`文件并插入 `index.html`。
+当在大仓根目录下，执行 `pnpm build`构建项目之后，会自动在对应的应用下生成 `dist/_app-config-{version}-{hash}.js`文件并插入 `index.html`。
 
-`_app.config.js` 是一个动态配置文件，可以在项目构建之后，根据不同的环境动态修改配置。内容如下：
+`_app-config-{version}-{hash}.js` 是一个动态配置文件，可以在项目构建之后，根据不同的环境动态修改配置。内容如下：
 
 ```ts
 window._VBEN_ADMIN_PRO_APP_CONF_ = {
@@ -103,11 +103,11 @@ Object.defineProperty(window, '_VBEN_ADMIN_PRO_APP_CONF_', {
 
 ### 作用
 
-`_app.config.js` 用于项目在打包后，需要动态修改配置的需求，如接口地址。不用重新进行打包，可在打包后修改 /`dist/_app.config.js` 内的变量，刷新即可更新代码内的局部变量。这里使用`js`文件，是为了确保配置文件加载顺序保持在前面。
+`_app-config-{version}-{hash}.js` 用于项目在打包后，需要动态修改配置的需求，如接口地址。不用重新进行打包，可在打包后修改 /`dist/_app-config-{version}-{hash}.js` 内的变量，刷新即可更新代码内的局部变量。这里使用`js`文件，是为了确保配置文件加载顺序保持在前面。
 
 ### 使用
 
-想要获取 `_app.config.js` 内的变量，需要使用`@vben/hooks`提供的 `useAppConfig`方法。
+想要获取 `_app-config-{version}-{hash}.js` 内的变量，需要使用`@vben/hooks`提供的 `useAppConfig`方法。
 
 ```ts
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
