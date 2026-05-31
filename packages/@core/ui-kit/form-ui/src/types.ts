@@ -14,6 +14,7 @@ export type BaseFormComponentType =
   | 'DefaultButton'
   | 'PrimaryButton'
   | 'VbenCheckbox'
+  | 'VbenFormFieldArray'
   | 'VbenInput'
   | 'VbenInputPassword'
   | 'VbenPinInput'
@@ -306,6 +307,32 @@ export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
 > = FormSchemaDiscriminated<T, P> | FormSchemaFallback<T>;
+
+/**
+ * 数组编辑器（VbenFormFieldArray）的组件参数
+ */
+export interface VbenFormFieldArrayProps<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> {
+  /** 操作列表头文案 */
+  actionText?: string;
+  /** 「添加」按钮文案 */
+  addButtonText?: string;
+  /** 新增一行时生成的默认数据；缺省时按列定义的 fieldName 生成空对象 */
+  createRow?: () => Record<string, any>;
+  disabled?: boolean;
+  /** 空数据文案 */
+  emptyText?: string;
+  /** 最多行数 */
+  max?: number;
+  /** 最少行数 */
+  min?: number;
+  /** 列定义，每一列是一个子字段（复用 FormSchema） */
+  schema: FormSchema<T, P>[];
+  /** 是否显示序号列 */
+  showIndex?: boolean;
+}
 
 export type HandleSubmitFn = (
   values: Record<string, any>,
