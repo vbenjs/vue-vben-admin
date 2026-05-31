@@ -15,13 +15,13 @@
     }
   },
   "dependencies": {
+    "@lucide/vue": "catalog:",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/plugins": "workspace:*",
     "@vben/styles": "workspace:*",
     "antdv-next": "catalog:",
-    "lucide-vue-next": "catalog:",
     "medium-zoom": "catalog:",
     "reka-ui": "catalog:",
     "vitepress-plugin-group-icons": "catalog:"

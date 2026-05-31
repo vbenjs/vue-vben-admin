@@ -8,7 +8,6 @@ import type { SystemUserApi } from '#/api/system/user';
 import { computed, nextTick, ref } from 'vue';
 
 import { Tree, useVbenDrawer } from '@vben/common-ui';
-import { IconifyIcon } from '@vben/icons';
 
 import { Spin } from 'antdv-next';
 
@@ -110,29 +109,10 @@ function getNodeClass(node: Recordable<any>) {
             :get-node-class="getNodeClass"
             v-bind="slotProps"
             value-field="id"
-            label-field="meta.title"
-            icon-field="meta.icon"
-          >
-            <template #node="{ value }">
-              <IconifyIcon v-if="value.meta.icon" :icon="value.meta.icon" />
-              {{ $t(value.meta.title) }}
-            </template>
-          </Tree>
+            label-field="name"
+          />
         </Spin>
       </template>
     </Form>
   </Drawer>
 </template>
-<style lang="css" scoped>
-:deep(.ant-tree-title) {
-  .tree-actions {
-    @apply ml-5 hidden;
-  }
-}
-
-:deep(.ant-tree-title:hover) {
-  .tree-actions {
-    @apply ml-5 flex flex-auto justify-end;
-  }
-}
-</style>

@@ -24,6 +24,8 @@ export {
   VbenCollapsibleParams,
   VbenContextMenu,
   VbenCountToAnimator,
+  VbenDescriptions,
+  VbenDescriptionsItem,
   VbenFullScreen,
   VbenIconButton,
   VbenInputPassword,
@@ -32,11 +34,18 @@ export {
   VbenPinInput,
   VbenSelect,
   VbenSpinner,
+  VbenTableAction,
 } from '@vben-core/shadcn-ui';
 
 export type {
+  ActionItem,
   CollapsibleParamSchema,
   CollapsibleParamsProps,
+  DescriptionsColumn,
+  DescriptionsItemType,
+  DescriptionsProps,
+  DescriptionsSize,
   FlattenedItem,
+  TableActionProps,
 } from '@vben-core/shadcn-ui';
 export { globalShareState } from '@vben-core/shared/global-state';

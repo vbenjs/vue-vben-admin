@@ -3,16 +3,18 @@ import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'reka-ui';
 
 import { DropdownMenuRoot, useForwardPropsEmits } from 'reka-ui';
 
-const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
-  modal: false,
-});
+const props = defineProps<DropdownMenuRootProps>();
 const emits = defineEmits<DropdownMenuRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <DropdownMenuRoot v-bind="forwarded">
-    <slot></slot>
+  <DropdownMenuRoot
+    v-slot="slotProps"
+    data-slot="dropdown-menu"
+    v-bind="forwarded"
+  >
+    <slot v-bind="slotProps"></slot>
   </DropdownMenuRoot>
 </template>

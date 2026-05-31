@@ -115,7 +115,7 @@ function handleScroll(event: Event) {
     ></div>
     <ScrollBar
       v-if="horizontal"
-      :class="scrollBarClass"
+      :class="cn(scrollBarClass)"
       orientation="horizontal"
     />
   </ScrollArea>

@@ -252,7 +252,7 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
       <div class="w-full lg:w-2/5">
         <WorkbenchQuickNav
           :items="quickNavItems"
-          class="mt-5 lg:mt-0"
+          class="lg:mt-0"
           title="快捷导航"
           @click="navTo"
         />

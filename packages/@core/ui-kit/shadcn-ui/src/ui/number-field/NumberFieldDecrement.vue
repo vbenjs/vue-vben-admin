@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { NumberFieldDecrementProps } from 'reka-ui';
 
-import { computed } from 'vue';
+import type { HTMLAttributes } from 'vue';
 
 import { cn } from '@vben-core/shared/utils';
 
-import { Minus } from 'lucide-vue-next';
+import { Minus } from '@lucide/vue';
+import { reactiveOmit } from '@vueuse/core';
 import { NumberFieldDecrement, useForwardProps } from 'reka-ui';
 
-const props = defineProps<NumberFieldDecrementProps & { class?: any }>();
+const props = defineProps<
+  NumberFieldDecrementProps & { class?: HTMLAttributes['class'] }
+>();
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardProps(delegatedProps);
 </script>
@@ -25,13 +24,13 @@ const forwarded = useForwardProps(delegatedProps);
     v-bind="forwarded"
     :class="
       cn(
-        'absolute top-1/2 left-0 -translate-y-1/2 p-3 disabled:cursor-not-allowed disabled:opacity-20',
+        'absolute top-1/2 -translate-y-1/2 left-0 p-3 disabled:cursor-not-allowed disabled:opacity-20',
         props.class,
       )
     "
   >
     <slot>
-      <Minus class="h-4 w-4" />
+      <Minus class="size-4" />
     </slot>
   </NumberFieldDecrement>
 </template>

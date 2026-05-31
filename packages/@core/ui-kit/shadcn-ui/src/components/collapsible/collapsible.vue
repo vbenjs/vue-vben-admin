@@ -5,7 +5,7 @@ import type { ClassType } from '@vben-core/typings';
 
 import { computed } from 'vue';
 
-import { ChevronsDown } from 'lucide-vue-next';
+import { ChevronsDown } from '@lucide/vue';
 import {
   CollapsibleContent,
   CollapsibleRoot,

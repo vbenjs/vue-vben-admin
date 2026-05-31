@@ -7,7 +7,7 @@ import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 
 import { useNamespace } from '@vben-core/composables';
 
-import { ChevronsDown } from 'lucide-vue-next';
+import { ChevronsDown } from '@lucide/vue';
 import {
   CollapsibleContent,
   CollapsibleRoot,

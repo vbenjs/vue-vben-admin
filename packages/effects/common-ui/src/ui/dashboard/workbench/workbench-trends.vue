@@ -25,7 +25,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <Card>
-    <CardHeader class="py-4">
+    <CardHeader>
       <CardTitle class="text-lg">{{ title }}</CardTitle>
     </CardHeader>
     <CardContent class="flex flex-wrap p-5 pt-0">
