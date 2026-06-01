@@ -319,3 +319,103 @@ export function useElementPlusDesignTokens() {
     { immediate: true },
   );
 }
+
+export function useTDesignDesignTokens() {
+  const { isDark } = usePreferences();
+  const rootStyles = getComputedStyle(document.documentElement);
+
+  const getCssVariableValue = (variable: string, isColor: boolean = true) => {
+    const value = rootStyles.getPropertyValue(variable);
+    return isColor ? convertToRgb(`hsl(${value})`) : value;
+  };
+
+  /**
+   * 生成某个语义色对应的 TDesign 变量（语义变体 + 1~10 色阶）。
+   * TDesign 的色阶在亮色模式下 1 最浅、10 最深，暗色模式下方向相反，
+   * 这里根据当前模式把 Vben 的 50~900 色板映射到对应方向。
+   * @param tdName TDesign 颜色名，如 `brand`、`error`
+   * @param vbenName Vben 颜色名，如 `primary`、`destructive`
+   */
+  const getColorTokens = (tdName: string, vbenName: string) => {
+    const dark = isDark.value;
+    const getColor = (level?: number) =>
+      getCssVariableValue(
+        level === undefined ? `--${vbenName}` : `--${vbenName}-${level}`,
+      );
+
+    // 亮色模式 1 最浅、10 最深；暗色模式相反
+    const lightScale = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+    const scaleLevels = dark ? [...lightScale].toReversed() : lightScale;
+    const scale: Record<string, string> = {};
+    scaleLevels.forEach((level, index) => {
+      scale[`--td-${tdName}-color-${index + 1}`] = getColor(level);
+    });
+
+    return {
+      [`--td-${tdName}-color`]: getColor(),
+      [`--td-${tdName}-color-active`]: getColor(dark ? 300 : 700),
+      [`--td-${tdName}-color-disabled`]: getColor(dark ? 800 : 200),
+      [`--td-${tdName}-color-focus`]: getColor(dark ? 900 : 100),
+      [`--td-${tdName}-color-hover`]: getColor(dark ? 400 : 600),
+      [`--td-${tdName}-color-light`]: getColor(dark ? 950 : 50),
+      [`--td-${tdName}-color-light-hover`]: getColor(dark ? 900 : 100),
+      ...scale,
+    };
+  };
+
+  watch(
+    () => preferences.theme,
+    () => {
+      const variables: Record<string, string> = {
+        // 品牌色（主题色）、功能色
+        ...getColorTokens('brand', 'primary'),
+        ...getColorTokens('error', 'destructive'),
+        ...getColorTokens('warning', 'warning'),
+        ...getColorTokens('success', 'success'),
+
+        // 文字颜色
+        '--td-text-color-anti': getCssVariableValue('--primary-foreground'),
+        '--td-text-color-brand': getCssVariableValue('--primary'),
+        '--td-text-color-disabled': getCssVariableValue('--muted-foreground'),
+        '--td-text-color-link': getCssVariableValue('--primary'),
+        '--td-text-color-placeholder': getCssVariableValue(
+          '--input-placeholder',
+        ),
+        '--td-text-color-primary': getCssVariableValue('--foreground'),
+        '--td-text-color-secondary': getCssVariableValue('--muted-foreground'),
+
+        // 背景颜色
+        '--td-bg-color-component': getCssVariableValue('--accent'),
+        '--td-bg-color-component-active':
+          getCssVariableValue('--accent-darker'),
+        '--td-bg-color-component-disabled': getCssVariableValue('--muted'),
+        '--td-bg-color-component-hover': getCssVariableValue('--accent-hover'),
+        '--td-bg-color-container': getCssVariableValue('--background'),
+        '--td-bg-color-container-active':
+          getCssVariableValue('--accent-darker'),
+        '--td-bg-color-container-hover': getCssVariableValue('--accent'),
+        '--td-bg-color-container-select': getCssVariableValue('--accent'),
+        '--td-bg-color-page': getCssVariableValue('--background-deep'),
+        '--td-bg-color-secondarycontainer': getCssVariableValue('--card'),
+
+        // 边框颜色
+        '--td-border-level-1-color': getCssVariableValue('--border'),
+        '--td-border-level-2-color': getCssVariableValue('--border'),
+        '--td-component-border': getCssVariableValue('--border'),
+        '--td-component-stroke': getCssVariableValue('--border'),
+
+        // 圆角
+        '--td-radius-default': getCssVariableValue('--radius', false),
+      };
+
+      // TDesign 将亮/暗变量定义在 `:root[theme-mode='light'|'dark']` 下，
+      // 需要写入相同优先级的选择器才能覆盖默认值
+      const selector = isDark.value
+        ? `:root[theme-mode='dark']`
+        : `:root[theme-mode='light']`;
+
+      updateCSSVariables(variables, `__vben_design_tdesign_styles__`, selector);
+    },
+    { immediate: true },
+  );
+}
