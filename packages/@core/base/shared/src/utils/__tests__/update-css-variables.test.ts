@@ -30,7 +30,7 @@ it('updateCSSVariables should update CSS variables in :root selector', () => {
 });
 
 it('updateCSSVariables should support a custom selector', () => {
-  document.head.innerHTML = '';
+  document.head.innerHTML = `<style id="tdesign-styles"></style>`;
 
   // 使用自定义选择器（如 TDesign 的 theme-mode 选择器）更新 CSS 变量
   updateCSSVariables(
