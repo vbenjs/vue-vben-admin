@@ -37,6 +37,14 @@ const routes: RouteRecordRaw[] = [
         path: '/demos/form',
         component: () => import('#/views/demos/form/basic.vue'),
       },
+      {
+        meta: {
+          title: $t('demos.arrayForm'),
+        },
+        name: 'ArrayForm',
+        path: '/demos/array-form',
+        component: () => import('#/views/demos/naive/array-form/index.vue'),
+      },
     ],
   },
 ];
