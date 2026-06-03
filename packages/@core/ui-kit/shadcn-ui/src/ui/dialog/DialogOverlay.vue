@@ -3,6 +3,7 @@ import type { DialogOverlayProps } from 'reka-ui';
 
 import type { HTMLAttributes } from 'vue';
 
+import { useScrollLock } from '@vben-core/composables';
 import { cn } from '@vben-core/shared/utils';
 
 import { reactiveOmit } from '@vueuse/core';
@@ -13,6 +14,8 @@ const props = defineProps<
 >();
 
 const delegatedProps = reactiveOmit(props, 'class');
+
+useScrollLock();
 </script>
 
 <template>

@@ -5,7 +5,6 @@ import type { ClassType } from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { useScrollLock } from '@vben-core/composables';
 import { cn } from '@vben-core/shared/utils';
 
 import { X } from '@lucide/vue';
@@ -63,8 +62,6 @@ function isAppendToBody() {
 const position = computed(() => {
   return isAppendToBody() ? 'fixed' : 'absolute';
 });
-
-useScrollLock();
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
