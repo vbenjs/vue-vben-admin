@@ -37,7 +37,7 @@ import SubMenu from './sub-menu.vue';
 
 interface Props extends MenuProps {}
 
-defineOptions({ name: 'MenuUI' });
+defineOptions({ name: 'Menu' });
 
 const props = withDefaults(defineProps<Props>(), {
   accordion: true,
