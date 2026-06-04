@@ -27,7 +27,7 @@ defineEmits(['click']);
 
 <template>
   <Card>
-    <CardHeader class="py-4">
+    <CardHeader>
       <CardTitle class="text-lg">{{ title }}</CardTitle>
     </CardHeader>
     <CardContent class="flex flex-wrap p-0">

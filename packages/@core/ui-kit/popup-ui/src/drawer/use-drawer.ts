@@ -15,7 +15,7 @@ import {
 } from 'vue';
 
 import { usePreferences } from '@vben-core/preferences';
-import { useStore } from '@vben-core/shared/store';
+import { useSelector } from '@vben-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
 import VbenDrawer from './drawer.vue';
@@ -109,7 +109,7 @@ export function useVbenDrawer<
   const extendedApi: ExtendedDrawerApi = api as never;
 
   extendedApi.useStore = (selector) => {
-    return useStore(api.store, selector);
+    return useSelector(api.store, selector);
   };
 
   const Drawer = defineComponent(

@@ -114,7 +114,7 @@ pnpm build
 
 ## 浏览器支持
 
-本地开发推荐使用 `Chrome 80+` 浏览器
+Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+
 
 支持现代浏览器，不支持 IE
 

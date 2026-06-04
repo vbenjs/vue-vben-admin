@@ -1,47 +1,45 @@
 <script setup lang="ts">
 import type { ToggleEmits, ToggleProps } from 'reka-ui';
 
-import type { ToggleVariants } from './toggle';
+import type { HTMLAttributes } from 'vue';
 
-import { computed } from 'vue';
+import type { ToggleVariants } from '.';
 
 import { cn } from '@vben-core/shared/utils';
 
+import { reactiveOmit } from '@vueuse/core';
 import { Toggle, useForwardPropsEmits } from 'reka-ui';
 
-import { toggleVariants } from './toggle';
+import { toggleVariants } from '.';
 
 const props = withDefaults(
   defineProps<
     ToggleProps & {
-      class?: any;
+      class?: HTMLAttributes['class'];
       size?: ToggleVariants['size'];
       variant?: ToggleVariants['variant'];
     }
   >(),
   {
-    disabled: false,
-    size: 'default',
     variant: 'default',
+    size: 'default',
+    disabled: false,
   },
 );
 
 const emits = defineEmits<ToggleEmits>();
 
-const delegatedProps = computed(() => {
-  const { class: _, size: _size, variant: _variant, ...delegated } = props;
-
-  return delegated;
-});
-
+const delegatedProps = reactiveOmit(props, 'class', 'size', 'variant');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <Toggle
+    v-slot="slotProps"
+    data-slot="toggle"
     v-bind="forwarded"
     :class="cn(toggleVariants({ variant, size }), props.class)"
   >
-    <slot></slot>
+    <slot v-bind="slotProps"></slot>
   </Toggle>
 </template>

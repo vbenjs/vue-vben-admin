@@ -11,7 +11,7 @@ import {
 } from 'vue';
 
 import { usePreferences } from '@vben-core/preferences';
-import { useStore } from '@vben-core/shared/store';
+import { useSelector } from '@vben-core/shared/store';
 
 import { ModalApi } from './modal-api';
 import VbenModal from './modal.vue';
@@ -116,7 +116,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   const extendedApi: ExtendedModalApi = api as never;
 
   extendedApi.useStore = (selector) => {
-    return useStore(api.store, selector);
+    return useSelector(api.store, selector);
   };
 
   const Modal = defineComponent(

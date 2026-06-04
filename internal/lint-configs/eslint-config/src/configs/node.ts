@@ -32,7 +32,7 @@ export async function node(): Promise<Linter.Config[]> {
           'error',
           {
             ignores: [],
-            version: '>=20.12.0',
+            version: '>=22.18.0',
           },
         ],
         'n/prefer-global/buffer': ['error', 'never'],

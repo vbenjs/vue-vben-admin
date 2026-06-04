@@ -5,7 +5,7 @@ import { computed, ref, useSlots } from 'vue';
 
 import { VbenTooltip } from '@vben-core/shadcn-ui';
 
-import { Code } from 'lucide-vue-next';
+import { Code } from '@lucide/vue';
 import {
   TabsContent,
   TabsIndicator,

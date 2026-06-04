@@ -1,6 +1,12 @@
+import type { DescriptionsItemType } from '@vben/common-ui';
+
 import type { VbenFormSchema } from '#/adapter/form';
-import type { OnActionClickFn, VxeTableGridColumns } from '#/adapter/vxe-table';
+import type { VxeTableGridColumns } from '#/adapter/vxe-table';
 import type { SystemUserApi } from '#/api';
+
+import { h } from 'vue';
+
+import { Tag } from 'antdv-next';
 
 import { getDeptList } from '#/api';
 import { $t } from '#/locales';
@@ -82,8 +88,38 @@ export function useGridFormSchema(): VbenFormSchema[] {
   ];
 }
 
+/**
+ * 用户详情描述列表项
+ * @param row 用户数据
+ */
+export function useDescriptionItems(
+  row?: SystemUserApi.SystemUser,
+): DescriptionsItemType[] {
+  const enabled = row?.status === 1;
+  return [
+    { label: $t('system.user.name'), content: row?.name },
+    { label: $t('system.user.id'), content: row?.id },
+    { label: $t('system.user.dept'), content: row?.deptId },
+    {
+      label: $t('system.user.status'),
+      content: () =>
+        h(
+          Tag,
+          {
+            color: enabled ? 'success' : 'error',
+          },
+          {
+            default: () =>
+              enabled ? $t('common.enabled') : $t('common.disabled'),
+          },
+        ),
+    },
+    { label: $t('system.user.createTime'), content: row?.createTime },
+    { label: $t('system.user.remark'), content: row?.remark },
+  ];
+}
+
 export function useColumns<T = SystemUserApi.SystemUser>(
-  onActionClick: OnActionClickFn<T>,
   onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
 ): VxeTableGridColumns {
   return [
@@ -118,18 +154,11 @@ export function useColumns<T = SystemUserApi.SystemUser>(
     },
     {
       align: 'center',
-      cellRender: {
-        attrs: {
-          nameField: 'name',
-          nameTitle: $t('system.user.name'),
-          onClick: onActionClick,
-        },
-        name: 'CellOperation',
-      },
       field: 'operation',
       fixed: 'right',
+      slots: { default: 'action' },
       title: $t('system.user.operation'),
-      width: 130,
+      width: 180,
     },
   ];
 }

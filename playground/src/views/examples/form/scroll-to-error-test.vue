@@ -141,7 +141,7 @@ async function fillPartialData() {
       </template>
 
       <div class="space-y-4">
-        <div class="rounded-sm bg-blue-50 p-4">
+        <div class="rounded-sm bg-blue-50 dark:bg-blue-900 p-4">
           <h3 class="mb-2 font-medium">测试说明：</h3>
           <ul class="list-inside list-disc space-y-1 text-sm">
             <li>所有验证方法在验证失败时都会自动滚动到第一个错误字段</li>

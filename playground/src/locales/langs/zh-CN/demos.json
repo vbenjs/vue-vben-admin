@@ -87,7 +87,7 @@
     "owner": "负责人"
   },
   "preferencesExtensionConfig": {
-    "tabLabel": "Playground 拓展",
+    "tabLabel": "拓展",
     "title": "Playground 业务偏好",
     "fields": {
       "reportTitle": {

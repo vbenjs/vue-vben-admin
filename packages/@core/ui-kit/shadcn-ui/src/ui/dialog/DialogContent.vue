@@ -5,9 +5,10 @@ import type { ClassType } from '@vben-core/typings';
 
 import { computed, ref } from 'vue';
 
+import { useScrollLock } from '@vben-core/composables';
 import { cn } from '@vben-core/shared/utils';
 
-import { X } from 'lucide-vue-next';
+import { X } from '@lucide/vue';
 import { DialogClose, DialogContent, useForwardPropsEmits } from 'reka-ui';
 
 import DialogOverlay from './DialogOverlay.vue';
@@ -62,6 +63,8 @@ function isAppendToBody() {
 const position = computed(() => {
   return isAppendToBody() ? 'fixed' : 'absolute';
 });
+
+useScrollLock();
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 

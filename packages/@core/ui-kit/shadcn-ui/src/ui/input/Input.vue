@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+
 import { cn } from '@vben-core/shared/utils';
 
 import { useVModel } from '@vueuse/core';
 
 const props = defineProps<{
-  class?: any;
+  class?: HTMLAttributes['class'];
   defaultValue?: number | string;
   modelValue?: number | string;
 }>();

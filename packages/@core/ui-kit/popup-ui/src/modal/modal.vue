@@ -344,7 +344,7 @@ function handleClosed() {
           <component
             :is="components.DefaultButton || VbenButton"
             v-if="showCancelButton"
-            variant="ghost"
+            variant="outline"
             :disabled="submitting"
             @click="() => modalApi?.onCancel()"
           >
