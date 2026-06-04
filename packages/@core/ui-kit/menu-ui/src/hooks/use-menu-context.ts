@@ -42,7 +42,7 @@ function useSubMenuContext() {
   if (!instance) {
     throw new Error('instance is required');
   }
-  const parentMenu = findComponentUpward(instance, ['Menu', 'SubMenu']);
+  const parentMenu = findComponentUpward(instance, ['MenuUI', 'SubMenu']);
   const subMenu = inject(`subMenu:${parentMenu?.uid}`) as SubMenuProvider;
   return subMenu;
 }
