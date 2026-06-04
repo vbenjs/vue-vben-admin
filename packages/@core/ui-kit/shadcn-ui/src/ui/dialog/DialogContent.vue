@@ -8,9 +8,13 @@ import { computed, ref } from 'vue';
 import { cn } from '@vben-core/shared/utils';
 
 import { X } from '@lucide/vue';
-import { DialogClose, DialogContent, useForwardPropsEmits } from 'reka-ui';
-
-import DialogOverlay from './DialogOverlay.vue';
+import {
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  useForwardPropsEmits,
+} from 'reka-ui';
 
 const props = withDefaults(
   defineProps<
@@ -82,19 +86,21 @@ defineExpose({
 </script>
 
 <template>
-  <Teleport defer :to="appendTo">
-    <Transition name="fade">
-      <DialogOverlay
-        v-if="open && modal"
-        :style="{
-          ...(zIndex ? { zIndex } : {}),
-          position,
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
-        }"
-        @click="() => emits('close')"
-      />
-    </Transition>
+  <DialogPortal :to="appendTo">
+    <DialogOverlay
+      v-if="open && modal"
+      :style="{
+        ...(zIndex ? { zIndex } : {}),
+        position,
+        backdropFilter:
+          overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+      }"
+      :class="
+        cn(
+          'z-popup bg-overlay inset-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed',
+        )
+      "
+    />
     <DialogContent
       ref="contentRef"
       :style="{ ...(zIndex ? { zIndex } : {}), position }"
@@ -127,5 +133,5 @@ defineExpose({
         <X class="h-4 w-4" />
       </DialogClose>
     </DialogContent>
-  </Teleport>
+  </DialogPortal>
 </template>

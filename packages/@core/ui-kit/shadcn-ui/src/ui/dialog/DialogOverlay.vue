@@ -1,11 +1,5 @@
-<script setup lang="ts">
-import { inject } from 'vue';
+<script lang="ts">
+import { DialogOverlay } from 'reka-ui';
 
-import { useScrollLock } from '@vben-core/composables';
-
-useScrollLock();
-const id = inject('DISMISSABLE_MODAL_ID');
+export default DialogOverlay;
 </script>
-<template>
-  <div :data-dismissable-modal="id" class="z-popup bg-overlay inset-0 fixed"></div>
-</template>
