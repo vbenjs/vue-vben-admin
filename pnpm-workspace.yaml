@@ -64,18 +64,18 @@ catalog:
   '@tailwindcss/vite': ^4.3.0
   '@tanstack/vue-query': ^5.101.0
   '@tanstack/vue-store': ^0.11.0
-  '@tiptap/core': ^3.25.0
-  '@tiptap/extension-document': ^3.25.0
-  '@tiptap/extension-highlight': ^3.25.0
-  '@tiptap/extension-image': ^3.25.0
-  '@tiptap/extension-link': ^3.25.0
-  '@tiptap/extension-placeholder': ^3.25.0
-  '@tiptap/extension-text-align': ^3.25.0
-  '@tiptap/extension-text-style': ^3.25.0
-  '@tiptap/extension-underline': ^3.25.0
-  '@tiptap/pm': ^3.25.0
-  '@tiptap/starter-kit': ^3.25.0
-  '@tiptap/vue-3': ^3.25.0
+  '@tiptap/core': ^3.26.0
+  '@tiptap/extension-document': ^3.26.0
+  '@tiptap/extension-highlight': ^3.26.0
+  '@tiptap/extension-image': ^3.26.0
+  '@tiptap/extension-link': ^3.26.0
+  '@tiptap/extension-placeholder': ^3.26.0
+  '@tiptap/extension-text-align': ^3.26.0
+  '@tiptap/extension-text-style': ^3.26.0
+  '@tiptap/extension-underline': ^3.26.0
+  '@tiptap/pm': ^3.26.0
+  '@tiptap/starter-kit': ^3.26.0
+  '@tiptap/vue-3': ^3.26.0
   '@tsdown/css': ^0.22.2
   '@types/archiver': ^7.0.0
   '@types/html-minifier-terser': ^7.0.2
@@ -207,7 +207,7 @@ catalog:
   vue-router: ^5.1.0
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.3
-  vxe-pc-ui: ^4.14.29
+  vxe-pc-ui: ^4.14.30
   vxe-table: ^4.19.7
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
