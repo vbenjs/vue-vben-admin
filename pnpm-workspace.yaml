@@ -82,7 +82,7 @@ catalog:
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^25.9.1
+  '@types/node': ^25.9.2
   '@types/nprogress': ^0.2.3
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
@@ -137,7 +137,7 @@ catalog:
   get-port: ^7.2.0
   globals: ^17.6.0
   h3: ^1.15.11
-  happy-dom: ^20.10.1
+  happy-dom: ^20.10.2
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
