@@ -142,7 +142,7 @@ catalog:
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
   jsonwebtoken: ^9.0.3
-  knip: ^6.15.0
+  knip: ^6.16.1
   lefthook: ^2.1.9
   lodash.clonedeep: ^4.5.0
   medium-zoom: ^1.1.0
@@ -171,7 +171,7 @@ catalog:
   sass-embedded: ^1.100.0
   secure-ls: ^2.0.0
   sortablejs: ^1.15.7
-  stylelint: ^17.12.0
+  stylelint: ^17.13.0
   stylelint-config-recess-order: ^7.7.0
   stylelint-config-recommended: ^18.0.0
   stylelint-config-recommended-scss: ^17.0.1
@@ -192,7 +192,7 @@ catalog:
   unplugin-element-plus: ^0.11.2
   unplugin-vue: ^7.2.0
   vee-validate: ^4.15.1
-  vite: 8.0.10
+  vite: 8.0.16
   vite-plugin-compression: ^0.5.1
   vite-plugin-lazy-import: ^1.0.7
   vite-plugin-pwa: ^1.3.0
@@ -207,12 +207,12 @@ catalog:
   vue-router: ^5.1.0
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.3
-  vxe-pc-ui: ^4.14.30
+  vxe-pc-ui: ^4.14.32
   vxe-table: ^4.19.7
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
 
 allowBuilds:
   '@parcel/watcher': true
