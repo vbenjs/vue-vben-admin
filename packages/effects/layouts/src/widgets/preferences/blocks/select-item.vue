@@ -8,6 +8,7 @@ import { CircleHelp } from '@vben/icons';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -67,9 +68,11 @@ const slots = useSlots();
         <SelectValue :placeholder="placeholder" />
       </SelectTrigger>
       <SelectContent>
-        <template v-for="item in items" :key="item.value">
-          <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
-        </template>
+        <SelectGroup>
+          <template v-for="item in items" :key="item.value">
+            <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
+          </template>
+        </SelectGroup>
       </SelectContent>
     </Select>
   </div>
