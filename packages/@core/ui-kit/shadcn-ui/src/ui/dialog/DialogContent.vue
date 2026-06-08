@@ -5,9 +5,8 @@ import type { HTMLAttributes } from 'vue';
 
 import type { ClassType } from '@vben-core/typings';
 
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 
-import { useScrollLock } from '@vben-core/composables';
 import { cn } from '@vben-core/shared/utils';
 
 import { X } from '@lucide/vue';
@@ -17,6 +16,8 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from 'reka-ui';
+
+import DialogOverlay from './DialogOverlay.vue';
 
 defineOptions({
   inheritAttrs: false,
@@ -73,11 +74,9 @@ const position = computed(() => {
   return isAppendToBody() ? 'fixed' : 'absolute';
 });
 
-// reka-ui 的 Dialog 在 modal=false 时不会渲染遮罩，这里自行渲染一个遮罩层并锁定滚动，
-// 既保留遮罩/滚动锁定能力，又避免 modal=true 时 body 被设置 pointer-events:none 导致
-// 弹出层（如 Select 下拉框）无法点击的问题。
-useScrollLock();
-const dismissableModalId = inject('DISMISSABLE_MODAL_ID', undefined);
+// reka-ui 的 Dialog 在 modal=false 时不会渲染遮罩，这里通过 DialogOverlay 组件自行渲染遮罩层并锁定滚动。
+// DialogOverlay 组件通过 v-if 控制挂载/卸载，其内部的 useScrollLock 会在组件卸载时自动解锁滚动，
+// 避免 modal=true 时 body 被设置 pointer-events:none 导致弹出层（如 Select 下拉框）无法点击的问题。
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
@@ -100,18 +99,13 @@ defineExpose({
 <template>
   <DialogPortal :to="appendTo">
     <Transition name="fade">
-      <div
+      <DialogOverlay
         v-if="open && modal"
-        :data-dismissable-modal="dismissableModalId"
-        :style="{
-          ...(zIndex ? { zIndex } : {}),
-          position,
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
-        }"
-        :class="cn('z-popup bg-overlay inset-0 fixed')"
+        :overlay-blur="overlayBlur"
+        :position="position"
+        :z-index="zIndex"
         @click="() => emits('close')"
-      ></div>
+      />
     </Transition>
     <DialogContent
       ref="contentRef"
