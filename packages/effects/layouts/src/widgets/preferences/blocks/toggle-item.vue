@@ -26,13 +26,7 @@ const modelValue = defineModel<string>();
     <span class="text-sm">
       <slot></slot>
     </span>
-    <ToggleGroup
-      v-model="modelValue"
-      class="gap-2"
-      size="sm"
-      type="single"
-      variant="outline"
-    >
+    <ToggleGroup v-model="modelValue" size="sm" type="single" variant="outline">
       <template v-for="item in items" :key="item.value">
         <ToggleGroupItem
           :value="item.value"

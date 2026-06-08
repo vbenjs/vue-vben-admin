@@ -45,15 +45,15 @@ watch(
         :max="max"
         :min="min"
         :step="step"
-        class="w-full"
+        class="w-full mr-4"
       >
         <NumberFieldContent>
           <NumberFieldDecrement />
-          <NumberFieldInput />
+          <NumberFieldInput class="h-8" />
           <NumberFieldIncrement />
         </NumberFieldContent>
       </NumberField>
-      <span class="text-xs whitespace-nowrap text-muted-foreground">px</span>
+      <span class="text-sm whitespace-nowrap text-muted-foreground">px</span>
     </div>
     <div class="text-xs text-muted-foreground">
       {{ $t('preferences.theme.fontSizeTip') }}
