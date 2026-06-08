@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import type { ExtendedModalApi, ModalProps } from './modal';
 
-import { computed, nextTick, onDeactivated, ref, unref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onDeactivated,
+  provide,
+  ref,
+  unref,
+  useId,
+  watch,
+} from 'vue';
 
 import { usePriorityValues, useSimpleLocale } from '@vben-core/composables';
 import { Expand, Shrink } from '@vben-core/icons';
@@ -46,6 +55,10 @@ const footerRef = ref();
 
 const { $t } = useSimpleLocale();
 const state = props.modalApi?.useStore?.();
+
+const id = useId();
+// 遮罩层通过该 id 标记，仅当点击发生在当前 Modal 的遮罩上时才允许关闭
+provide('DISMISSABLE_MODAL_ID', id);
 
 const {
   appendToMain,
@@ -181,8 +194,15 @@ function handleOpenAutoFocus(e: Event) {
 
 // pointer-down-outside
 function pointerDownOutside(e: Event) {
-  if (!closeOnClickModal.value || submitting.value) {
+  const target = e.target as HTMLElement;
+  const isDismissableModal = target?.dataset.dismissableModal;
+  if (
+    !closeOnClickModal.value ||
+    isDismissableModal !== id ||
+    submitting.value
+  ) {
     e.preventDefault();
+    e.stopPropagation();
   }
 }
 
@@ -212,7 +232,7 @@ function handleClosed() {
 </script>
 <template>
   <Dialog
-    :modal="modal"
+    :modal="false"
     :open="state?.isOpen"
     @update:open="() => (!submitting ? modalApi?.close() : undefined)"
   >
@@ -240,7 +260,7 @@ function handleClosed() {
       :force-mount="getForceMount"
       :modal="modal"
       :open="state?.isOpen"
-      :show-close="closable"
+      :show-close-button="closable"
       :animation-type="animationType"
       :z-index="zIndex"
       :overlay-blur="overlayBlur"
