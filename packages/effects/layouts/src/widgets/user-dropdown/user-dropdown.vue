@@ -103,13 +103,17 @@ const [LogoutModal, logoutModalApi] = useVbenModal({
 const refTrigger = useTemplateRef('refTrigger');
 const refContent = useTemplateRef('refContent');
 const refPreferences = useTemplateRef('refPreferences');
+const enableHoverTrigger = computed(
+  () => props.trigger === 'hover' || props.trigger === 'both',
+);
+const disableClickTrigger = computed(() => props.trigger === 'hover');
 const [openPopover, hoverWatcher] = useHoverToggle(
   [refTrigger, refContent],
   () => props.hoverDelay,
 );
 
 watch(
-  () => props.trigger === 'hover' || props.trigger === 'both',
+  enableHoverTrigger,
   (val) => {
     if (val) {
       hoverWatcher.enable();
@@ -212,8 +216,8 @@ if (enableShortcutKey.value) {
     @clear-preferences-and-logout="emit('clearPreferencesAndLogout')"
   />
 
-  <DropdownMenu v-model:open="openPopover">
-    <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
+  <DropdownMenu v-model:open="openPopover" :modal="false">
+    <DropdownMenuTrigger ref="refTrigger" :disabled="disableClickTrigger">
       <div class="mr-2 ml-1 cursor-pointer rounded-full p-1.5 hover:bg-accent">
         <div class="flex-center hover:text-accent-foreground">
           <VbenAvatar :alt="text" :src="avatar" class="size-8" dot />
