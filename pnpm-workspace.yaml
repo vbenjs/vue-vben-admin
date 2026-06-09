@@ -60,7 +60,7 @@ catalog:
   '@playwright/test': ^1.60.0
   '@pnpm/workspace.read-manifest': ^1000.3.1
   '@stylistic/stylelint-plugin': ^5.2.0
-  '@tailwindcss/typography': ^0.5.19
+  '@tailwindcss/typography': ^0.5.20
   '@tailwindcss/vite': ^4.3.0
   '@tanstack/vue-query': ^5.101.0
   '@tanstack/vue-store': ^0.11.0
@@ -87,8 +87,8 @@ catalog:
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/eslint-plugin': ^8.60.1
-  '@typescript-eslint/parser': ^8.60.1
+  '@typescript-eslint/eslint-plugin': ^8.61.0
+  '@typescript-eslint/parser': ^8.61.0
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.7
@@ -125,7 +125,7 @@ catalog:
   eslint-plugin-better-tailwindcss: ^4.5.0
   eslint-plugin-command: ^3.5.2
   eslint-plugin-jsonc: ^3.2.0
-  eslint-plugin-n: ^18.0.1
+  eslint-plugin-n: ^18.1.0
   eslint-plugin-perfectionist: ^5.9.0
   eslint-plugin-pnpm: ^1.6.1
   eslint-plugin-unicorn: ^64.0.0
@@ -150,8 +150,8 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.0
-  oxfmt: ^0.53.0
-  oxlint: ^1.68.0
+  oxfmt: ^0.54.0
+  oxlint: ^1.69.0
   oxlint-tsgolint: ^0.23.0
   pinia: ^3.0.4
   pinia-plugin-persistedstate: ^4.7.1
@@ -206,9 +206,9 @@ catalog:
   vue-json-pretty: ^2.6.0
   vue-router: ^5.1.0
   vue-tippy: ^6.7.1
-  vue-tsc: ^3.3.3
-  vxe-pc-ui: ^4.14.32
-  vxe-table: ^4.19.8
+  vue-tsc: ^3.3.4
+  vxe-pc-ui: ^4.14.33
+  vxe-table: ^4.19.10
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^2.0.0
   zod: ^3.25.76
