@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { AlertDialogContentEmits, AlertDialogContentProps } from 'reka-ui';
 
-import type { ClassType } from '@vben-core/typings';
+import type { HTMLAttributes } from 'vue';
 
 import { ref } from 'vue';
 
@@ -24,7 +24,7 @@ const props = withDefaults(
   defineProps<
     AlertDialogContentProps & {
       centered?: boolean;
-      class?: ClassType;
+      class?: HTMLAttributes['class'];
       modal?: boolean;
       open?: boolean;
       overlayBlur?: number;
@@ -42,7 +42,6 @@ useScrollLock();
 const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
-
 const contentRef = ref<InstanceType<typeof AlertDialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent) {
   // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
@@ -64,7 +63,7 @@ defineExpose({
     <Transition name="fade" appear>
       <AlertDialogOverlay
         data-slot="alert-dialog-overlay"
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-popup bg-overlay"
+        class="z-popup bg-overlay inset-0"
         v-if="open && modal"
         :style="{
           ...(zIndex ? { zIndex } : {}),
@@ -78,7 +77,11 @@ defineExpose({
     <AlertDialogContent
       data-slot="alert-dialog-content"
       ref="contentRef"
-      :style="{ ...(zIndex ? { zIndex } : {}), position: 'fixed' }"
+      :style="{
+        ...(zIndex ? { zIndex } : {}),
+        pointerEvents: 'auto',
+        position: 'fixed',
+      }"
       @animationend="onAnimationEnd"
       v-bind="{ ...$attrs, ...forwarded }"
       :class="

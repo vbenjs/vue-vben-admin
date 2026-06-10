@@ -21,6 +21,7 @@ import {
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
+  AlertDialogFooter,
   AlertDialogTitle,
   VbenButton,
   VbenLoading,
@@ -192,26 +193,28 @@ async function handleOpenChange(val: boolean) {
           class="flex items-center justify-end gap-x-2"
           :class="`justify-${buttonAlign}`"
         >
-          <VbenRenderContent :content="footer" />
-          <AlertDialogCancel v-if="showCancel" as-child>
-            <component
-              :is="components.DefaultButton || VbenButton"
-              :disabled="loading"
-              variant="outline"
-              @click="handleCancel"
-            >
-              {{ cancelText || $t('cancel') }}
-            </component>
-          </AlertDialogCancel>
-          <AlertDialogAction as-child>
-            <component
-              :is="components.PrimaryButton || VbenButton"
-              :loading="loading"
-              @click="handleConfirm"
-            >
-              {{ confirmText || $t('confirm') }}
-            </component>
-          </AlertDialogAction>
+          <AlertDialogFooter>
+            <VbenRenderContent :content="footer" />
+            <AlertDialogCancel v-if="showCancel" as-child>
+              <component
+                :is="components.DefaultButton || VbenButton"
+                :disabled="loading"
+                variant="outline"
+                @click="handleCancel"
+              >
+                {{ cancelText || $t('cancel') }}
+              </component>
+            </AlertDialogCancel>
+            <AlertDialogAction as-child>
+              <component
+                :is="components.PrimaryButton || VbenButton"
+                :loading="loading"
+                @click="handleConfirm"
+              >
+                {{ confirmText || $t('confirm') }}
+              </component>
+            </AlertDialogAction>
+          </AlertDialogFooter>
         </div>
       </div>
     </AlertDialogContent>
