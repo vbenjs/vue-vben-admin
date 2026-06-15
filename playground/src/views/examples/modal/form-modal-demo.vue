@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useVbenModal } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 
@@ -33,6 +33,7 @@ const [Form, formApi] = useVbenForm({
     {
       component: 'Select',
       componentProps: {
+        class: 'w-full',
         options: [
           { label: '选项1', value: '1' },
           { label: '选项2', value: '2' },

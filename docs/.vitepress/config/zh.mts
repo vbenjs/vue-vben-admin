@@ -197,6 +197,18 @@ function sidebarComponents(): DefaultTheme.SidebarItem[] {
           text: 'EllipsisText 省略文本',
         },
         {
+          link: 'common-ui/vben-descriptions',
+          text: 'Descriptions 描述列表',
+        },
+        {
+          link: 'common-ui/vben-table-action',
+          text: 'TableAction 表格操作',
+        },
+        {
+          link: 'common-ui/vben-cropper',
+          text: 'Cropper 图片裁剪',
+        },
+        {
           link: 'common-ui/vben-tiptap',
           text: 'Tiptap 富文本编辑器',
         },
@@ -333,8 +345,8 @@ export const search: DefaultTheme.AlgoliaSearchOptions['locales'] = {
         footer: {
           closeText: '关闭',
           navigateText: '切换',
-          searchByText: '搜索提供者',
           selectText: '选择',
+          poweredByText: '搜索提供者',
         },
         noResultsScreen: {
           noResultsText: '无法找到相关结果',
@@ -343,10 +355,10 @@ export const search: DefaultTheme.AlgoliaSearchOptions['locales'] = {
           suggestedQueryText: '你可以尝试查询',
         },
         searchBox: {
-          cancelButtonAriaLabel: '取消',
-          cancelButtonText: '取消',
-          resetButtonAriaLabel: '清除查询条件',
-          resetButtonTitle: '清除查询条件',
+          closeButtonAriaLabel: '取消',
+          closeButtonText: '取消',
+          clearButtonAriaLabel: '清除查询条件',
+          clearButtonTitle: '清除查询条件',
         },
         startScreen: {
           favoriteSearchesTitle: '收藏',

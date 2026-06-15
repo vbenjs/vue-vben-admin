@@ -110,7 +110,7 @@ registry = https://registry.npmmirror.com/
 If you encounter errors similar to the following, please check that the full project path (including all parent paths) does not contain Chinese, Japanese, or Korean characters. Otherwise, you will encounter a 404 error for the path, leading to the following issue:
 
 ```ts
-[vite] Failed to resolve module import "ant-design-vue/dist/antd.css-vben-adminode_modulesant-design-vuedistantd.css". (imported by /@/setup/ant-design-vue/index.ts)
+[vite] Failed to resolve module import "antdv-next/dist/antd.css-vben-adminode_modulesantdv-nextdistantd.css". (imported by /@/setup/antdv-next/index.ts)
 ```
 
 ## Console Route Warning Issue

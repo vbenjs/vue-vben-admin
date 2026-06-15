@@ -215,6 +215,11 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
    */
   compressTypes?: ('brotli' | 'gzip')[];
   /**
+   * 是否开启 dayjs 插件
+   * @default true
+   */
+  dayjs?: boolean;
+  /**
    * 是否抽离配置文件
    * @default false
    * @description 在构建时抽离配置文件

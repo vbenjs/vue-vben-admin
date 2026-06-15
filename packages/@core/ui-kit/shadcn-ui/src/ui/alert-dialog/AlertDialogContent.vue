@@ -3,17 +3,22 @@ import type { AlertDialogContentEmits, AlertDialogContentProps } from 'reka-ui';
 
 import type { ClassType } from '@vben-core/typings';
 
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
+import { useScrollLock } from '@vben-core/composables';
 import { cn } from '@vben-core/shared/utils';
 
+import { reactiveOmit } from '@vueuse/core';
 import {
   AlertDialogContent,
+  AlertDialogOverlay,
   AlertDialogPortal,
   useForwardPropsEmits,
 } from 'reka-ui';
 
-import AlertDialogOverlay from './AlertDialogOverlay.vue';
+defineOptions({
+  inheritAttrs: false,
+});
 
 const props = withDefaults(
   defineProps<
@@ -32,11 +37,9 @@ const emits = defineEmits<
   AlertDialogContentEmits & { close: []; closed: []; opened: [] }
 >();
 
-const delegatedProps = computed(() => {
-  const { class: _, modal: _modal, open: _open, ...delegated } = props;
+useScrollLock();
 
-  return delegated;
-});
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
@@ -60,6 +63,8 @@ defineExpose({
   <AlertDialogPortal>
     <Transition name="fade" appear>
       <AlertDialogOverlay
+        data-slot="alert-dialog-overlay"
+        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-popup bg-overlay"
         v-if="open && modal"
         :style="{
           ...(zIndex ? { zIndex } : {}),
@@ -71,15 +76,14 @@ defineExpose({
       />
     </Transition>
     <AlertDialogContent
+      data-slot="alert-dialog-content"
       ref="contentRef"
       :style="{ ...(zIndex ? { zIndex } : {}), position: 'fixed' }"
       @animationend="onAnimationEnd"
-      v-bind="forwarded"
+      v-bind="{ ...$attrs, ...forwarded }"
       :class="
         cn(
-          'z-popup bg-background p-6 shadow-lg outline-hidden sm:rounded-xl',
-          'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-          'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+          'z-popup bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed left-[50%] w-full max-w-[calc(100%-2rem)] translate-x-[-50%] rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg',
           {
             'data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%]':
               !centered,

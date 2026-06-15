@@ -60,7 +60,7 @@ pnpm add version-polling
 ```ts
 import { h } from 'vue';
 
-import { Button, notification } from 'ant-design-vue';
+import { Button, notification } from 'antdv-next';
 import { createVersionPolling } from 'version-polling';
 
 createVersionPolling({

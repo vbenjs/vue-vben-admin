@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { h } from 'vue';
 
-import { Input, message } from 'ant-design-vue';
+import { Input, message } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 

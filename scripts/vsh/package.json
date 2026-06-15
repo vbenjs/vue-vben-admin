@@ -25,7 +25,7 @@
     "@vben/node-utils": "workspace:*",
     "cac": "catalog:",
     "circular-dependency-scanner": "catalog:",
-    "depcheck": "catalog:",
+    "knip": "catalog:",
     "publint": "catalog:"
   }
 }

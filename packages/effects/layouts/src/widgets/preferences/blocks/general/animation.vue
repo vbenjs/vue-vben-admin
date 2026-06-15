@@ -45,7 +45,10 @@ function handleClick(value: string) {
       class="outline-box p-2"
       @click="handleClick(item)"
     >
-      <div :class="`${item}-slow`" class="h-10 w-12 rounded-md bg-accent"></div>
+      <div
+        :class="`${item}-slow`"
+        class="h-10 w-12 rounded-md bg-primary"
+      ></div>
     </div>
   </div>
 </template>

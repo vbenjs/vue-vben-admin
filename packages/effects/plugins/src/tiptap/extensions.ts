@@ -9,14 +9,12 @@ import { $t } from '@vben/locales';
 
 import { alert } from '@vben-core/popup-ui';
 
-import Document from '@tiptap/extension-document';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
 import { Color, TextStyle } from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -68,6 +66,7 @@ function findPlaceholderPos(doc: ProseMirrorNode, blobUrl: string): number {
       found = offset;
       return false;
     }
+    return true;
   });
   return found;
 }
@@ -405,13 +404,12 @@ export function createDefaultTiptapExtensions(
   options: VbenTiptapExtensionOptions = {},
 ): Extensions {
   return [
-    Document,
     StarterKit.configure({
       heading: {
         levels: [1, 2, 3, 4],
       },
+      link: false,
     }),
-    Underline,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
     }),

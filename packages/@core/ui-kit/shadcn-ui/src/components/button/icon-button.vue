@@ -16,7 +16,7 @@ interface Props extends VbenButtonProps {
   tooltip?: string;
   tooltipDelayDuration?: number;
   tooltipSide?: 'bottom' | 'left' | 'right' | 'top';
-  variant?: ButtonVariants;
+  variant?: ButtonVariants['variant'];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   onClick: () => {},
   tooltipDelayDuration: 200,
   tooltipSide: 'bottom',
-  variant: 'icon',
+  variant: 'ghost',
 });
 
 const slots = useSlots();

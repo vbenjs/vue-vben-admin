@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 
 import {
   viteArchiverPlugin,
+  viteDayjsPlugin,
   viteVxeTableImportsPlugin,
 } from '@vben/vite-config';
 
@@ -61,7 +62,7 @@ export const shared = defineConfig({
       },
       preprocessorOptions: {
         scss: {
-          api: 'modern',
+          // api: 'modern',
         },
       },
     },
@@ -69,6 +70,7 @@ export const shared = defineConfig({
       stringify: true,
     },
     plugins: [
+      viteDayjsPlugin(),
       tailwindcss(),
       GitChangelog({
         mapAuthors: [
@@ -85,9 +87,23 @@ export const shared = defineConfig({
             name: 'Li Kui',
             username: 'likui628',
           },
+          {
+            mapByNameAliases: ['Jin Mao', 'jinmao'],
+            name: 'Jin Mao',
+            username: 'jinmao88',
+          },
+          {
+            name: 'Netfan',
+            username: 'mynetfan',
+          },
+          {
+            mapByNameAliases: ['xingyu4j', 'xingyu'],
+            name: 'xingyu4j',
+            username: 'xingyu4j',
+          },
         ],
         repoURL: () => 'https://github.com/vbenjs/vue-vben-admin',
-      }),
+      }) as any,
       GitChangelogMarkdownSection(),
       viteArchiverPlugin({ outputDir: '.vitepress' }),
       groupIconVitePlugin(),
@@ -103,6 +119,7 @@ export const shared = defineConfig({
 
     ssr: {
       external: ['@vue/repl'],
+      noExternal: ['@v-c/picker'],
     },
   },
 });
@@ -113,7 +130,7 @@ function head(): HeadConfig[] {
     [
       'meta',
       {
-        content: 'vben, vitejs, vite, shacdn-ui, vue',
+        content: 'vben, vitejs, vite, shadcn-ui, vue',
         name: 'keywords',
       },
     ],

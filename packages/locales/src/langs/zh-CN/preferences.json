@@ -38,6 +38,7 @@
   "mode": "模式",
   "general": "通用",
   "language": "语言",
+  "timezone": "时区",
   "dynamicTitle": "动态标题",
   "watermark": "水印",
   "watermarkContent": "请输入水印文案",
@@ -46,7 +47,8 @@
     "title": "偏好设置位置",
     "header": "顶栏",
     "auto": "自动",
-    "fixed": "固定"
+    "fixed": "固定",
+    "userDropdown": "用户下拉窗"
   },
   "sidebar": {
     "buttons": "显示按钮",
@@ -185,6 +187,7 @@
     "global": "全局",
     "search": "全局搜索",
     "logout": "退出登录",
+    "escape": "关闭当前窗口",
     "preferences": "偏好设置"
   },
   "widget": {

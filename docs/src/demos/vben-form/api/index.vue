@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Button, message, Space } from 'ant-design-vue';
+import { Button, message, Space } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 

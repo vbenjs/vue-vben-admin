@@ -114,7 +114,7 @@ Reference [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.
 
 ## Browser Support
 
-The `Chrome 80+` browser is recommended for local development
+Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+
 
 Support modern browsers, not IE
 

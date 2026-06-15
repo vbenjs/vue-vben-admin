@@ -1,5 +1,18 @@
 {
   "title": "系统管理",
+  "user": {
+    "title": "用户管理",
+    "list": "用户列表",
+    "name": "用户名",
+    "userName": "用户名称",
+    "id": "用户ID",
+    "dept": "部门",
+    "status": "状态",
+    "remark": "备注",
+    "createTime": "创建时间",
+    "operation": "操作",
+    "placeholder": "搜索部门..."
+  },
   "dept": {
     "list": "部门列表",
     "createTime": "创建时间",

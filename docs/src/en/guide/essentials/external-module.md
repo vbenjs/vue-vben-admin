@@ -1,6 +1,6 @@
 # External Modules
 
-In addition to the external modules that are included by default in the project, sometimes we need to import other external modules. Let's take [ant-design-vue](https://antdv.com/components/overview) as an example:
+In addition to the external modules that are included by default in the project, sometimes we need to import other external modules. Let's take [antdv-next](https://antdv.com/components/overview) as an example:
 
 ## Installing Dependencies
 
@@ -13,7 +13,7 @@ In addition to the external modules that are included by default in the project,
 
 ```bash
 # cd /path/to/your/package
-pnpm add ant-design-vue
+pnpm add antdv-next
 ```
 
 ## Usage
@@ -22,9 +22,9 @@ pnpm add ant-design-vue
 
 ```ts
 import { createApp } from 'vue';
-import Antd from 'ant-design-vue';
+import Antd from 'antdv-next';
 import App from './App';
-import 'ant-design-vue/dist/reset.css';
+import 'antdv-next/dist/reset.css';
 
 const app = createApp(App);
 
@@ -43,7 +43,7 @@ app.use(Antd).mount('#app');
 
 ```vue
 <script setup lang="ts">
-import { Button } from 'ant-design-vue';
+import { Button } from 'antdv-next';
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from 'reka-ui';
 
-import { Dot } from 'lucide-vue-next';
+import { Minus } from '@lucide/vue';
 import { Primitive, useForwardProps } from 'reka-ui';
 
 const props = defineProps<PrimitiveProps>();
@@ -9,9 +9,9 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <Primitive v-bind="forwardedProps">
+  <Primitive data-slot="pin-input-separator" v-bind="forwardedProps">
     <slot>
-      <Dot />
+      <Minus />
     </slot>
   </Primitive>
 </template>

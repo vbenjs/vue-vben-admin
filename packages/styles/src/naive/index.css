@@ -17,4 +17,10 @@
   .n-checkbox-box__border {
     --n-border: 1px solid rgb(255 56 96);
   }
+
+  .n-input .n-input__input-el,
+  .n-input .n-input__textarea-el,
+  .n-input-number .n-input__input-el {
+    font-family: Arial, Roboto, 'Helvetica Neue', sans-serif;
+  }
 }

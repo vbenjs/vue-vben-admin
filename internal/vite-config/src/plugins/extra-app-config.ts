@@ -13,7 +13,7 @@ interface PluginOptions {
   root: string;
 }
 
-const GLOBAL_CONFIG_FILE_NAME = '_app.config.js';
+const GLOBAL_CONFIG_FILE_NAME = '_app-config';
 const VBEN_ADMIN_PRO_APP_CONF = '_VBEN_ADMIN_PRO_APP_CONF_';
 
 /**
@@ -27,6 +27,7 @@ async function viteExtraAppConfigPlugin({
 }: PluginOptions): Promise<PluginOption | undefined> {
   let publicPath: string;
   let source: string;
+  let hash: string;
 
   if (!isBuild) {
     return;
@@ -38,11 +39,12 @@ async function viteExtraAppConfigPlugin({
     async configResolved(config) {
       publicPath = ensureTrailingSlash(config.base);
       source = await getConfigSource();
+      hash = generatorContentHash(source, 8);
     },
     async generateBundle() {
       try {
         this.emitFile({
-          fileName: GLOBAL_CONFIG_FILE_NAME,
+          fileName: `${GLOBAL_CONFIG_FILE_NAME}-${version}-${hash}.js`,
           source,
           type: 'asset',
         });
@@ -58,9 +60,7 @@ async function viteExtraAppConfigPlugin({
     },
     name: 'vite:extra-app-config',
     async transformIndexHtml(html) {
-      const hash = `v=${version}-${generatorContentHash(source, 8)}`;
-
-      const appConfigSrc = `${publicPath}${GLOBAL_CONFIG_FILE_NAME}?${hash}`;
+      const appConfigSrc = `${publicPath}${GLOBAL_CONFIG_FILE_NAME}-${version}-${hash}.js`;
 
       return {
         html,

@@ -1,5 +1,18 @@
 {
   "title": "System Management",
+  "user": {
+    "title": "User Management",
+    "list": "User List",
+    "name": "User",
+    "userName": "User Name",
+    "id": "User ID",
+    "dept": "Department",
+    "status": "Status",
+    "remark": "Remark",
+    "createTime": "Creation Time",
+    "operation": "Operation",
+    "placeholder": "Search Department..."
+  },
   "dept": {
     "name": "Department",
     "title": "Department Management",

@@ -156,6 +156,10 @@ interface AppPreferences {
   /** 偏好设置按钮位置 */
   preferencesButtonPosition: PreferencesButtonPositionType;
   /**
+   * @zh_CN 应用时区
+   */
+  timezone: string;
+  /**
    * @zh_CN 是否开启水印
    */
   watermark: boolean;
@@ -273,6 +277,8 @@ interface SidebarPreferences {
 interface ShortcutKeyPreferences {
   /** 是否启用快捷键-全局 */
   enable: boolean;
+  /** 是否启用全局关闭窗口快捷键 */
+  globalEscape: boolean;
   /** 是否启用全局锁屏快捷键 */
   globalLockScreen: boolean;
   /** 是否启用全局注销快捷键 */

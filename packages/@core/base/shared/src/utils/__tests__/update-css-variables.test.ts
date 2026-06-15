@@ -28,3 +28,21 @@ it('updateCSSVariables should update CSS variables in :root selector', () => {
       updatedStyleContent?.includes('fontSize: 16px;'),
   ).toBe(true);
 });
+
+it('updateCSSVariables should support a custom selector', () => {
+  document.head.innerHTML = `<style id="tdesign-styles"></style>`;
+
+  // 使用自定义选择器（如 TDesign 的 theme-mode 选择器）更新 CSS 变量
+  updateCSSVariables(
+    { '--td-brand-color': 'rgb(0, 82, 217)' },
+    'tdesign-styles',
+    ":root[theme-mode='dark']",
+  );
+
+  const styleElement = document.querySelector('#tdesign-styles');
+  const content = styleElement?.textContent ?? '';
+
+  // 选择器与变量都应正确写入
+  expect(content.startsWith(":root[theme-mode='dark'] {")).toBe(true);
+  expect(content.includes('--td-brand-color: rgb(0, 82, 217);')).toBe(true);
+});

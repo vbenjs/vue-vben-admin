@@ -3,7 +3,7 @@ import { h } from 'vue';
 
 import { alert, VbenButton } from '@vben/common-ui';
 
-import { Result } from 'ant-design-vue';
+import { Result } from 'antdv-next';
 
 function showAlert() {
   alert('This is an alert message');

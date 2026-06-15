@@ -6,7 +6,7 @@ import { computed, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 import { VbenTiptap, VbenTiptapPreview } from '@vben/plugins/tiptap';
 
-import { Card, Switch } from 'ant-design-vue';
+import { Card, Switch } from 'antdv-next';
 const content = ref(`
   <h1>Vben Tiptap</h1>
   <p>这个编辑器已经被封装在 <code>packages/effects/plugins/src/tiptap</code> 中。</p>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Input, Select } from 'ant-design-vue';
+import { Input, Select } from 'antdv-next';
 
 const emit = defineEmits(['blur', 'change']);
 

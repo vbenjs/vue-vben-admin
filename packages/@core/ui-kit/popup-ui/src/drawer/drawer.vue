@@ -185,11 +185,16 @@ const getForceMount = computed(() => {
     <SheetContent
       :append-to="getAppendTo"
       :class="
-        cn('flex w-130 flex-col', drawerClass, {
-          'w-full!': isMobile || placement === 'bottom' || placement === 'top',
-          'max-h-screen': placement === 'bottom' || placement === 'top',
-          hidden: isClosed,
-        })
+        cn(
+          'flex w-130 flex-col',
+          {
+            'w-full!':
+              isMobile || placement === 'bottom' || placement === 'top',
+            'max-h-screen': placement === 'bottom' || placement === 'top',
+            hidden: isClosed,
+          },
+          drawerClass,
+        )
       "
       :modal="modal"
       :open="state?.isOpen"

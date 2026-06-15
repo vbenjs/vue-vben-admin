@@ -117,3 +117,12 @@
 .vxe-grid--layout-body-content-wrapper {
   overflow: hidden;
 }
+
+/* 已读行默认样式 */
+.vxe-row--viewed {
+  color: hsl(var(--foreground) / 50%);
+
+  .vxe-body--column {
+    opacity: 0.9;
+  }
+}

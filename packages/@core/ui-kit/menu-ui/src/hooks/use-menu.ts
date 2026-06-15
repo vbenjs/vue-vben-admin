@@ -16,7 +16,7 @@ function useMenu() {
   const parentPaths = computed(() => {
     let parent = instance.parent;
     const paths: string[] = [instance.props.path as string];
-    while (parent?.type.name !== 'Menu') {
+    while (parent?.type.name !== 'MenuUI') {
       if (parent?.props.path) {
         paths.unshift(parent.props.path as string);
       }
@@ -27,7 +27,7 @@ function useMenu() {
   });
 
   const parentMenu = computed(() => {
-    return findComponentUpward(instance, ['Menu', 'SubMenu']);
+    return findComponentUpward(instance, ['MenuUI', 'SubMenu']);
   });
 
   return {

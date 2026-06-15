@@ -13,7 +13,7 @@ function stop_and_remove_container() {
 
 function remove_image() {
     # Remove the existing image
-    docker rmi vben-admin-pro >/dev/null 2>&1
+    docker rmi ${IMAGE_NAME} >/dev/null 2>&1
 }
 
 function install_dependencies() {

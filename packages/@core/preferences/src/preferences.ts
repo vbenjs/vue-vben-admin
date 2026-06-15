@@ -41,17 +41,19 @@ class PreferenceManager {
 
   constructor() {
     this.cache = new StorageManager();
-    this.state = reactive<Preferences>(
-      this.loadFromCache() || { ...defaultPreferences },
-    );
+    // 构造函数不再同步读取缓存，使用默认值初始化
+    // 真正的缓存加载在 initPreferences 中完成（已经是 async）
+    this.state = reactive<Preferences>({ ...defaultPreferences });
     this.debouncedSave = useDebounceFn(() => this.saveToCache(), 150);
   }
 
   /**
    * 清除所有缓存的偏好设置
    */
-  clearCache = () => {
-    Object.values(STORAGE_KEYS).forEach((key) => this.cache.removeItem(key));
+  clearCache = async () => {
+    await Promise.all(
+      Object.values(STORAGE_KEYS).map((key) => this.cache.removeItem(key)),
+    );
   };
 
   /**
@@ -122,31 +124,33 @@ class PreferenceManager {
     // 使用命名空间初始化存储管理器
     this.cache = new StorageManager({ prefix: namespace });
 
-    // 合并初始偏好设置
+    // 合并初始偏好设置：前面的对象优先，后面的对象仅补齐缺失字段
     this.initialPreferences = merge({}, overrides, defaultPreferences);
     this.customPreferencesExtension = extension ?? null;
     this.initialCustomPreferences = this.resolveCustomPreferencesDefaults(
       this.customPreferencesExtension,
     );
 
-    // 加载缓存的偏好设置并与初始配置合并
-    const cachedPreferences = this.loadFromCache() || {};
+    // 加载缓存的偏好设置，并仅用缓存补齐初始化配置中未显式设置的字段
+    const cachedPreferences = (await this.loadFromCache()) || {};
     const mergedPreference = merge(
       {},
-      cachedPreferences,
-      this.initialPreferences,
+      cachedPreferences, // 用户缓存的设置优先
+      this.initialPreferences, // 初始设置仅补齐缺失字段
     );
 
     // 更新偏好设置
     this.updatePreferences(mergedPreference);
+
+    const cachedCustom = (await this.loadCustomFromCache()) || {};
     this.replaceCustomPreferences(
       merge(
         {},
-        this.sanitizeCustomPreferences(this.loadCustomFromCache() || {}),
+        this.sanitizeCustomPreferences(cachedCustom),
         this.initialCustomPreferences,
       ),
     );
-    this.saveToCache();
+    await this.saveToCache();
 
     // 设置监听器
     this.setupWatcher();
@@ -160,13 +164,13 @@ class PreferenceManager {
   /**
    * 重置偏好设置到初始状态
    */
-  resetPreferences = () => {
+  resetPreferences = async () => {
     // 将状态重置为初始偏好设置
     Object.assign(this.state, this.initialPreferences);
     this.replaceCustomPreferences(this.initialCustomPreferences);
 
     // 保存偏好设置至缓存
-    this.saveToCache();
+    await this.saveToCache();
 
     // 直接触发 UI 更新
     this.handleUpdates(this.state);
@@ -176,11 +180,7 @@ class PreferenceManager {
    * 更新扩展偏好设置
    * @param updates - 要更新的扩展偏好设置
    */
-  updateCustomPreferences = <
-    TCustomPreferences extends object = CustomPreferencesRecord,
-  >(
-    updates: DeepPartial<TCustomPreferences>,
-  ) => {
+  updateCustomPreferences = (updates: DeepPartial<object>) => {
     if (!this.customPreferencesExtension) {
       return;
     }
@@ -211,7 +211,7 @@ class PreferenceManager {
     // 根据更新的值执行更新
     this.handleUpdates(updates);
 
-    // 保存到缓存
+    // 保存到缓存（fire-and-forget，通过 debounce 控制频率）
     this.debouncedSave();
   };
 
@@ -320,7 +320,7 @@ class PreferenceManager {
    * 从缓存加载扩展偏好设置
    * @returns 缓存的扩展偏好设置，如果不存在则返回 null
    */
-  private loadCustomFromCache(): CustomPreferencesRecord | null {
+  private async loadCustomFromCache(): Promise<CustomPreferencesRecord | null> {
     return this.cache.getItem<CustomPreferencesRecord>(STORAGE_KEYS.CUSTOM);
   }
 
@@ -328,7 +328,7 @@ class PreferenceManager {
    * 从缓存加载偏好设置
    * @returns 缓存的偏好设置，如果不存在则返回 null
    */
-  private loadFromCache(): null | Preferences {
+  private async loadFromCache(): Promise<null | Preferences> {
     return this.cache.getItem<Preferences>(STORAGE_KEYS.MAIN);
   }
 
@@ -387,17 +387,23 @@ class PreferenceManager {
   /**
    * 保存偏好设置到缓存
    */
-  private saveToCache() {
-    this.cache.setItem(STORAGE_KEYS.MAIN, this.state);
-    this.cache.setItem(STORAGE_KEYS.LOCALE, this.state.app.locale);
-    this.cache.setItem(STORAGE_KEYS.THEME, this.state.theme.mode);
+  private async saveToCache() {
+    try {
+      await this.cache.setItem(STORAGE_KEYS.MAIN, this.state);
+      await this.cache.setItem(STORAGE_KEYS.LOCALE, this.state.app.locale);
+      await this.cache.setItem(STORAGE_KEYS.THEME, this.state.theme.mode);
 
-    if (this.customPreferencesExtension) {
-      this.cache.setItem(STORAGE_KEYS.CUSTOM, { ...this.customState });
-      return;
+      if (this.customPreferencesExtension) {
+        await this.cache.setItem(STORAGE_KEYS.CUSTOM, {
+          ...this.customState,
+        });
+        return;
+      }
+
+      await this.cache.removeItem(STORAGE_KEYS.CUSTOM);
+    } catch (error) {
+      console.error('Failed to save preferences to cache:', error);
     }
-
-    this.cache.removeItem(STORAGE_KEYS.CUSTOM);
   }
 
   /**

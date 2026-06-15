@@ -3,7 +3,7 @@ import type { JsonViewerAction, JsonViewerValue } from '@vben/common-ui';
 
 import { JsonViewer, Page } from '@vben/common-ui';
 
-import { Card, message } from 'ant-design-vue';
+import { Card, message } from 'antdv-next';
 
 import { json1, json2 } from './data';
 

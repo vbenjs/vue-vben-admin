@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { message } from 'ant-design-vue';
+import { message } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 

@@ -3,7 +3,7 @@ import type { PinInputProps } from './types';
 
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
-import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
+import { PinInput, PinInputGroup, PinInputSlot } from '../../ui';
 import { VbenButton } from '../button';
 
 defineOptions({
@@ -101,7 +101,7 @@ const pinType = 'text' as const;
   >
     <div class="relative flex w-full">
       <PinInputGroup class="mr-2">
-        <PinInputInput
+        <PinInputSlot
           v-for="(item, index) in codeLength"
           :key="item"
           :index="index"

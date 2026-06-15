@@ -19,12 +19,13 @@ function useMixedMenu() {
   const mixExtraMenus = ref<MenuRecordRaw[]>([]);
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
-  const { isMixedNav, isHeaderMixedNav } = usePreferences();
+  const { isMixedNav, isHeaderMixedNav, isMobile } = usePreferences();
 
   const needSplit = computed(
     () =>
-      (preferences.navigation.split && isMixedNav.value) ||
-      isHeaderMixedNav.value,
+      !isMobile.value &&
+      ((preferences.navigation.split && isMixedNav.value) ||
+        isHeaderMixedNav.value),
   );
 
   const sidebarVisible = computed(() => {

@@ -3,7 +3,7 @@ import { computed, ref, watchEffect } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Card, Radio, RadioGroup } from 'ant-design-vue';
+import { Card, Radio, RadioGroup } from 'antdv-next';
 
 import { getParamsData } from '#/api/examples/params';
 
