@@ -227,7 +227,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
   }
 
   if (
-    !props.checkStrictly &&
+    props.checkStrictly &&
     props.multiple &&
     props.autoCheckParent &&
     isSelected
@@ -246,7 +246,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
       });
   }
   if (
-    !props.checkStrictly &&
+    props.checkStrictly &&
     props.multiple &&
     props.autoCheckParent &&
     !isSelected
@@ -307,6 +307,7 @@ defineExpose({
     v-model:expanded="expanded as string[]"
     :default-expanded="defaultExpandedKeys as string[]"
     :propagate-select="!checkStrictly"
+    :bubble-select="!checkStrictly"
     :multiple="multiple"
     :disabled="disabled"
     :selection-behavior="allowClear || multiple ? 'toggle' : 'replace'"
