@@ -11,7 +11,6 @@ import { cn } from '@vben-core/shared/utils';
 import { reactiveOmit } from '@vueuse/core';
 import {
   AlertDialogContent,
-  AlertDialogOverlay,
   AlertDialogPortal,
   useForwardPropsEmits,
 } from 'reka-ui';
@@ -37,6 +36,9 @@ const emits = defineEmits<
   AlertDialogContentEmits & { close: []; closed: []; opened: [] }
 >();
 
+// reka-ui 的 AlertDialog 在 modal=true 时会将 body 设置 pointer-events:none，
+// 弹出层（如 Select 下拉框）会因此无法点击。这里通过在上层传入 :modal="false" 来
+// 避免该问题，同时自行渲染遮罩并锁定滚动。
 useScrollLock();
 
 const delegatedProps = reactiveOmit(props, 'class');
@@ -62,10 +64,9 @@ defineExpose({
 <template>
   <AlertDialogPortal>
     <Transition name="fade" appear>
-      <AlertDialogOverlay
-        data-slot="alert-dialog-overlay"
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-popup bg-overlay"
+      <div
         v-if="open && modal"
+        class="fixed inset-0 z-popup bg-overlay"
         :style="{
           ...(zIndex ? { zIndex } : {}),
           position: 'fixed',
@@ -73,7 +74,7 @@ defineExpose({
             overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
         }"
         @click="() => emits('close')"
-      />
+      ></div>
     </Transition>
     <AlertDialogContent
       data-slot="alert-dialog-content"
