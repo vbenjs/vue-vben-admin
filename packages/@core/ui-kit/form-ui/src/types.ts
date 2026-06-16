@@ -477,6 +477,10 @@ export interface VbenFormProps<
   arrayToStringFields?: ArrayToStringFields;
 
   /**
+   * submitOnChange改变时防抖时间 | 默认300ms
+   */
+  changeDebouncedTime?: number;
+  /**
    * 表单字段映射
    */
   fieldMappingTime?: FieldMappingTime;
@@ -499,6 +503,7 @@ export interface VbenFormProps<
     values: Record<string, any>,
     fieldsChanged: string[],
   ) => void;
+
   /**
    * 重置按钮参数
    */
@@ -526,11 +531,6 @@ export interface VbenFormProps<
    * @default false
    */
   submitOnChange?: boolean;
-
-  /**
-   * submitOnChange改变时防抖时间 | 默认300ms
-   */
-  changeDebouncedTime?: number;
 
   /**
    * 是否在回车时提交表单
