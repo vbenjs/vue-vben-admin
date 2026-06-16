@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 <template>
   <div class="card-box p-4 py-6 lg:flex">
-    <VbenAvatar :src="avatar" class="size-20" />
+    <VbenAvatar v-if="avatar" :src="avatar" class="size-20" />
     <div
       v-if="$slots.title || $slots.description"
       class="flex flex-col justify-center md:mt-0 md:ml-6"
@@ -28,19 +28,21 @@ withDefaults(defineProps<Props>(), {
       </span>
     </div>
     <div class="mt-4 flex flex-1 justify-end md:mt-0">
-      <div class="flex flex-col justify-center text-right">
-        <span class="text-foreground/80"> 待办 </span>
-        <span class="text-2xl">2/10</span>
-      </div>
+      <slot name="actions">
+        <div class="flex flex-col justify-center text-right">
+          <span class="text-foreground/80"> 待办 </span>
+          <span class="text-2xl">2/10</span>
+        </div>
 
-      <div class="mx-12 flex flex-col justify-center text-right md:mx-16">
-        <span class="text-foreground/80"> 项目 </span>
-        <span class="text-2xl">8</span>
-      </div>
-      <div class="mr-4 flex flex-col justify-center text-right md:mr-10">
-        <span class="text-foreground/80"> 团队 </span>
-        <span class="text-2xl">300</span>
-      </div>
+        <div class="mx-12 flex flex-col justify-center text-right md:mx-16">
+          <span class="text-foreground/80"> 项目 </span>
+          <span class="text-2xl">8</span>
+        </div>
+        <div class="mr-4 flex flex-col justify-center text-right md:mr-10">
+          <span class="text-foreground/80"> 团队 </span>
+          <span class="text-2xl">300</span>
+        </div>
+      </slot>
     </div>
   </div>
 </template>
