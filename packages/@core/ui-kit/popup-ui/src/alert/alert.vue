@@ -145,7 +145,7 @@ async function handleOpenChange(val: boolean) {
 }
 </script>
 <template>
-  <AlertDialog :open="open" @update:open="handleOpenChange">
+  <AlertDialog :modal="false" :open="open" @update:open="handleOpenChange">
     <AlertDialogContent
       :open="open"
       :centered="centered"
@@ -153,6 +153,7 @@ async function handleOpenChange(val: boolean) {
       @opened="emits('opened')"
       @closed="onAlertClosed"
       @escape-key-down="onEscapeKeyDown($event)"
+      @close="handleOpenChange(false)"
       :class="
         cn(
           containerClass,
