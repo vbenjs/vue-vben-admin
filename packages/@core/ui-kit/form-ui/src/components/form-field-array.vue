@@ -113,20 +113,17 @@ function cellProps(col: FormSchema, index: number) {
         <tr class="border-border border-b">
           <th
             v-if="showIndex"
-            class="text-muted-foreground w-12 px-2 py-2 text-left text-sm font-normal"
-          >
+            class="text-muted-foreground w-12 px-2 py-2 text-left text-sm font-normal">
             #
           </th>
           <th
             v-for="col in schema"
             :key="col.fieldName"
-            class="text-muted-foreground px-2 py-2 text-left text-sm font-normal"
-          >
+            class="text-muted-foreground px-2 py-2 text-left text-sm font-normal">
             <VbenRenderContent :content="col.label" />
           </th>
           <th
-            class="text-muted-foreground w-16 px-2 py-2 text-left text-sm font-normal"
-          >
+            class="text-muted-foreground w-16 px-2 py-2 text-left text-sm font-normal">
             {{ actionText }}
           </th>
         </tr>
@@ -135,8 +132,7 @@ function cellProps(col: FormSchema, index: number) {
         <tr
           v-for="(entry, index) in fields"
           :key="entry.key"
-          class="border-border/60 border-b align-top"
-        >
+          class="border-border/60 border-b align-top">
           <td v-if="showIndex" class="text-muted-foreground px-2 py-3 text-sm">
             {{ index + 1 }}
           </td>
@@ -147,8 +143,7 @@ function cellProps(col: FormSchema, index: number) {
             <VbenIconButton
               :disabled="disabled || !canRemove"
               :on-click="() => removeRow(index)"
-              class="text-muted-foreground hover:text-destructive"
-            >
+              class="text-muted-foreground hover:text-destructive">
               <X class="size-4" />
             </VbenIconButton>
           </td>
@@ -158,8 +153,7 @@ function cellProps(col: FormSchema, index: number) {
 
     <div
       v-if="fields.length === 0"
-      class="text-muted-foreground border-border/60 border-b py-6 text-center text-sm"
-    >
+      class="text-muted-foreground border-border/60 border-b py-6 text-center text-sm">
       {{ emptyText }}
     </div>
 
@@ -168,8 +162,7 @@ function cellProps(col: FormSchema, index: number) {
       size="sm"
       :disabled="disabled || !canAdd"
       class="mt-3 w-full border-dashed"
-      @click="addRow"
-    >
+      @click="addRow">
       <Plus class="mr-1 size-4" />
       {{ addButtonText }}
     </VbenButton>

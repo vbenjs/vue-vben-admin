@@ -99,8 +99,7 @@ function openFormDrawer() {
   <Page
     auto-content-height
     description="抽屉组件通常用于在当前页面上显示一个覆盖层，用以展示重要信息或提供用户交互界面。"
-    title="抽屉组件示例"
-  >
+    title="抽屉组件示例">
     <template #extra>
       <DocButton path="/components/common-ui/vben-drawer" />
     </template>
@@ -119,8 +118,7 @@ function openFormDrawer() {
       <Button
         class="mb-2 ml-2"
         type="primary"
-        @click="openBaseDrawer('bottom')"
-      >
+        @click="openBaseDrawer('bottom')">
         底部打开
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBaseDrawer('left')">
@@ -142,22 +140,19 @@ function openFormDrawer() {
       <Button
         class="mb-2 ml-2"
         type="primary"
-        @click="openInContentDrawer('bottom')"
-      >
+        @click="openInContentDrawer('bottom')">
         底部打开
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
-        @click="openInContentDrawer('left')"
-      >
+        @click="openInContentDrawer('left')">
         左侧打开
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
-        @click="openInContentDrawer('top')"
-      >
+        @click="openInContentDrawer('top')">
         顶部打开
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openMaxContentDrawer">

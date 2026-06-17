@@ -78,16 +78,14 @@ const iconArrowStyle = computed(() => {
       b(),
       is('collapse-show-title', getCollapseShowTitle),
       is('more', isMenuMore),
-    ]"
-  >
+    ]">
     <slot></slot>
 
     <VbenIcon
       v-if="!isMenuMore"
       :class="nsMenu.e('icon')"
       :icon="icon"
-      fallback
-    />
+      fallback />
 
     <div v-if="!hiddenTitle" :class="[e('title')]">
       <slot name="title"></slot>
@@ -99,7 +97,6 @@ const iconArrowStyle = computed(() => {
       v-show="showArrowIcon"
       :class="[e('icon-arrow')]"
       :style="iconArrowStyle"
-      class="size-4"
-    />
+      class="size-4" />
   </div>
 </template>

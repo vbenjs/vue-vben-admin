@@ -41,6 +41,5 @@ onBeforeMount(() => {
     :rounded="rounded"
     :theme="theme"
     @enter="(menu) => emit('enter', menu)"
-    @select="(menu) => emit('select', menu)"
-  />
+    @select="(menu) => emit('select', menu)" />
 </template>

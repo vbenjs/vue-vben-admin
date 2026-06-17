@@ -11,8 +11,7 @@ const handleRefresh = () => {
 <template>
   <div
     class="flex-center h-full cursor-pointer border-l border-border px-2 text-lg font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
-    @click="handleRefresh"
-  >
+    @click="handleRefresh">
     <RotateCw class="size-4" />
   </div>
 </template>

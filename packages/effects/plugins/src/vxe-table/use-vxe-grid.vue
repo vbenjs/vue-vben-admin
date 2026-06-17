@@ -408,8 +408,7 @@ onUnmounted(() => {
         )
       "
       v-bind="options"
-      v-on="events"
-    >
+      v-on="events">
       <!-- 左侧操作区域或者title -->
       <template v-if="showToolbar" #toolbar-actions="slotProps">
         <slot v-if="showTableTitle" name="table-title">
@@ -427,8 +426,7 @@ onUnmounted(() => {
       <template
         v-for="slotName in delegatedSlots"
         :key="slotName"
-        #[slotName]="slotProps"
-      >
+        #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
       <template #toolbar-tools="slotProps">
@@ -440,8 +438,7 @@ onUnmounted(() => {
           v-if="gridOptions?.toolbarConfig?.search && !!formOptions"
           :status="showSearchForm ? 'primary' : undefined"
           :title="$t('common.search')"
-          @click="onSearchBtnClick"
-        />
+          @click="onSearchBtnClick" />
       </template>
 
       <!-- form表单 -->
@@ -460,19 +457,16 @@ onUnmounted(() => {
                   ? 'pb-4'
                   : 'pb-0',
             )
-          "
-        >
+          ">
           <slot name="form">
             <Form>
               <template
                 v-for="slotName in delegatedFormSlots"
                 :key="slotName"
-                #[slotName]="slotProps"
-              >
+                #[slotName]="slotProps">
                 <slot
                   :name="`${FORM_SLOT_PREFIX}${slotName}`"
-                  v-bind="slotProps"
-                ></slot>
+                  v-bind="slotProps"></slot>
               </template>
               <template #reset-before="slotProps">
                 <slot name="reset-before" v-bind="slotProps"></slot>
@@ -493,8 +487,7 @@ onUnmounted(() => {
             :style="{
               ...(separatorBg ? { backgroundColor: separatorBg } : undefined),
             }"
-            class="absolute bottom-1 -left-2 z-100 h-2 w-[calc(100%+1rem)] overflow-hidden bg-background-deep md:bottom-2 md:h-3"
-          ></div>
+            class="absolute bottom-1 -left-2 z-100 h-2 w-[calc(100%+1rem)] overflow-hidden bg-background-deep md:bottom-2 md:h-3"></div>
         </div>
       </template>
       <!-- loading -->

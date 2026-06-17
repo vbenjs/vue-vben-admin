@@ -9,6 +9,7 @@ const oxfmtConfig: OxfmtConfig = defineOxfmtConfig({
   singleQuote: true,
   sortPackageJson: false,
   trailingComma: 'all',
+  bracketSameLine: true,
   overrides: [
     {
       files: [

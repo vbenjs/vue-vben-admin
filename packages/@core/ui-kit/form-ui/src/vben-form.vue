@@ -57,13 +57,11 @@ watchEffect(() => {
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"
-    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
-  >
+    :global-common-config="DEFAULT_FORM_COMMON_CONFIG">
     <template
       v-for="slotName in delegatedSlots"
       :key="slotName"
-      #[slotName]="slotProps"
-    >
+      #[slotName]="slotProps">
       <slot :name="slotName" v-bind="slotProps"></slot>
     </template>
     <template #default="slotProps">
@@ -71,8 +69,7 @@ watchEffect(() => {
         <FormActions
           v-if="showDefaultActions"
           :model-value="currentCollapsed"
-          @update:model-value="handleUpdateCollapsed"
-        />
+          @update:model-value="handleUpdateCollapsed" />
       </slot>
     </template>
   </Form>

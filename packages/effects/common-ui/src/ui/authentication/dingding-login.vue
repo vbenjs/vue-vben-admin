@@ -94,8 +94,7 @@ const handleLogin = () => {
     <VbenIconButton
       @click="handleLogin"
       :tooltip="$t('authentication.dingdingLogin')"
-      tooltip-side="top"
-    >
+      tooltip-side="top">
       <SvgDingDingIcon />
     </VbenIconButton>
     <Modal>

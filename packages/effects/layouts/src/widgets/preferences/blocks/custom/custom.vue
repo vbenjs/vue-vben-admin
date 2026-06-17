@@ -79,8 +79,7 @@ const resolvedFields = computed(() => {
       :model-value="Boolean(values[field.key])"
       :tip="field.tip"
       v-bind="field.componentProps"
-      @update:model-value="handleBooleanUpdate(field.key, $event)"
-    >
+      @update:model-value="handleBooleanUpdate(field.key, $event)">
       {{ field.label }}
     </SwitchItem>
     <NumberFieldItem
@@ -90,8 +89,7 @@ const resolvedFields = computed(() => {
       :placeholder="field.placeholder"
       :tip="field.tip"
       v-bind="field.componentProps"
-      @update:model-value="handleNumberUpdate(field.key, $event)"
-    >
+      @update:model-value="handleNumberUpdate(field.key, $event)">
       {{ field.label }}
     </NumberFieldItem>
     <SelectItem
@@ -102,8 +100,7 @@ const resolvedFields = computed(() => {
       :placeholder="field.placeholder"
       :tip="field.tip"
       v-bind="field.componentProps"
-      @update:model-value="handleStringUpdate(field.key, $event)"
-    >
+      @update:model-value="handleStringUpdate(field.key, $event)">
       {{ field.label }}
     </SelectItem>
     <InputItem
@@ -113,8 +110,7 @@ const resolvedFields = computed(() => {
       :placeholder="field.placeholder"
       :tip="field.tip"
       v-bind="field.componentProps"
-      @update:model-value="handleStringUpdate(field.key, $event)"
-    >
+      @update:model-value="handleStringUpdate(field.key, $event)">
       {{ field.label }}
     </InputItem>
   </template>

@@ -45,8 +45,7 @@ const el6 = ref<SliderCaptchaActionType>();
         <SliderCaptcha
           ref="el2"
           class="rounded-full"
-          @success="handleSuccess"
-        />
+          @success="handleSuccess" />
         <Button class="ml-2" type="primary" @click="handleBtnClick(el2)">
           还原
         </Button>
@@ -61,8 +60,7 @@ const el6 = ref<SliderCaptchaActionType>();
           }"
           success-text="校验成功"
           text="拖动以进行校验"
-          @success="handleSuccess"
-        />
+          @success="handleSuccess" />
         <Button class="ml-2" type="primary" @click="handleBtnClick(el3)">
           还原
         </Button>
@@ -87,8 +85,7 @@ const el6 = ref<SliderCaptchaActionType>();
           ref="el5"
           success-text="成功"
           text="拖动"
-          @success="handleSuccess"
-        />
+          @success="handleSuccess" />
         <Button class="ml-2" type="primary" @click="handleBtnClick(el5)">
           还原
         </Button>

@@ -22,25 +22,22 @@ function handleClick(index: number, path?: string) {
     <TransitionGroup name="breadcrumb-transition">
       <template
         v-for="(item, index) in breadcrumbs"
-        :key="`${item.path}-${item.title}-${index}`"
-      >
+        :key="`${item.path}-${item.title}-${index}`">
         <li>
           <a
             href="javascript:void 0"
-            @click.stop="handleClick(index, item.path)"
-          >
+            @click.stop="handleClick(index, item.path)">
             <span class="flex-center z-10 h-full">
               <VbenIcon
                 v-if="showIcon"
                 :icon="item.icon"
-                class="mr-1 size-4 shrink-0"
-              />
+                class="mr-1 size-4 shrink-0" />
               <span
                 :class="{
                   'text-foreground font-normal':
                     index === breadcrumbs.length - 1,
                 }"
-                >{{ item.title }}
+                v-text="item.title">
               </span>
             </span>
           </a>

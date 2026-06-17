@@ -520,8 +520,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
-      @update:width="(val) => emit('update:sidebarWidth', val)"
-    >
+      @update:width="(val) => emit('update:sidebarWidth', val)">
       <template v-if="isSideMode && !isMixedNav" #logo>
         <slot name="logo"></slot>
       </template>
@@ -543,8 +542,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
 
     <div
       ref="contentRef"
-      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
-    >
+      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in">
       <div
         :class="[
           {
@@ -553,8 +551,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           SCROLL_FIXED_CLASS,
         ]"
         :style="headerWrapperStyle"
-        class="overflow-hidden transition-all duration-200"
-      >
+        class="overflow-hidden transition-all duration-200">
         <LayoutHeader
           v-if="headerVisible"
           :full-width="!isSideMode"
@@ -564,8 +561,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           :sidebar-width="sidebarWidth"
           :theme="headerTheme"
           :width="mainStyle.width"
-          :z-index="headerZIndex"
-        >
+          :z-index="headerZIndex">
           <template v-if="showHeaderLogo" #logo>
             <slot name="logo"></slot>
           </template>
@@ -574,8 +570,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
             <VbenIconButton
               v-if="showHeaderToggleButton"
               class="my-0 mr-1 rounded-md"
-              @click="handleHeaderToggle"
-            >
+              @click="handleHeaderToggle">
               <IconifyIcon v-if="showSidebar" icon="ep:fold" />
               <IconifyIcon v-else icon="ep:expand" />
             </VbenIconButton>
@@ -586,8 +581,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         <LayoutTabbar
           v-if="tabbarEnable"
           :height="tabbarHeight"
-          :style="tabbarStyle"
-        >
+          :style="tabbarStyle">
           <slot name="tabbar"></slot>
         </LayoutTabbar>
       </div>
@@ -603,8 +597,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         :padding-right="contentPaddingRight"
         :padding-top="contentPaddingTop"
         :style="contentStyle"
-        class="transition-[margin-top] duration-200"
-      >
+        class="transition-[margin-top] duration-200">
         <slot name="content"></slot>
 
         <template #overlay>
@@ -618,8 +611,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         :height="footerHeight"
         :show="!isFullContent"
         :width="footerWidth"
-        :z-index="zIndex"
-      >
+        :z-index="zIndex">
         <slot name="footer"></slot>
       </LayoutFooter>
     </div>
@@ -628,7 +620,6 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       v-if="maskVisible"
       :style="maskStyle"
       class="fixed top-0 left-0 size-full bg-overlay transition-[background-color] duration-200"
-      @click="handleClickMask"
-    ></div>
+      @click="handleClickMask"></div>
   </div>
 </template>

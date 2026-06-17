@@ -36,8 +36,7 @@ withDefaults(defineProps<Props>(), {
           :class="{
             'line-through opacity-60 select-none': item.completed,
           }"
-          class="flex cursor-pointer justify-between gap-x-6 py-5"
-        >
+          class="flex cursor-pointer justify-between gap-x-6 py-5">
           <div class="flex min-w-0 items-center gap-x-4">
             <VbenCheckbox v-model="item.completed" name="completed" />
             <div class="min-w-0 flex-auto">
@@ -47,8 +46,7 @@ withDefaults(defineProps<Props>(), {
               <!-- eslint-disable vue/no-v-html -->
               <p
                 class="mt-1 truncate text-xs/5 text-foreground/80 *:text-primary"
-                v-html="item.content"
-              ></p>
+                v-html="item.content"></p>
             </div>
           </div>
           <div class="hidden h-full shrink-0 sm:flex sm:flex-col sm:items-end">

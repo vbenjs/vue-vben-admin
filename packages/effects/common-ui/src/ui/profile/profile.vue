@@ -31,8 +31,7 @@ const tabsValue = defineModel<string>('modelValue');
         <div class="mt-4 flex-col-center h-40 gap-4">
           <VbenAvatar
             :src="userInfo?.avatar ?? preferences.app.defaultAvatar"
-            class="size-20"
-          />
+            class="size-20" />
           <span class="text-lg font-semibold">
             {{ userInfo?.realName ?? '' }}
           </span>
@@ -47,8 +46,7 @@ const tabsValue = defineModel<string>('modelValue');
               v-for="tab in tabs"
               :key="tab.value"
               :value="tab.value"
-              class="h-12 justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-            >
+              class="h-12 justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               {{ tab.label }}
             </TabsTrigger>
           </TabsList>

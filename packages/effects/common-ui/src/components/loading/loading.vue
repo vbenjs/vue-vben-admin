@@ -29,8 +29,7 @@ const props = defineProps<LoadingProps>();
     <VbenLoading
       :min-loading-time="props.minLoadingTime"
       :spinning="props.spinning"
-      :text="props.text"
-    >
+      :text="props.text">
       <template v-if="$slots.icon" #icon>
         <slot name="icon"></slot>
       </template>

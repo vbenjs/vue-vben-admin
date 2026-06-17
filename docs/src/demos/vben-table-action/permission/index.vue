@@ -23,6 +23,5 @@ const actions: ActionItem[] = [
   <VbenTableAction
     :actions="actions"
     :has-permission="hasPermission"
-    align="start"
-  />
+    align="start" />
 </template>

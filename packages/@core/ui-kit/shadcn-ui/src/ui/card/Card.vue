@@ -16,8 +16,7 @@ const props = defineProps<{
         'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
         props.class,
       )
-    "
-  >
+    ">
     <slot></slot>
   </div>
 </template>

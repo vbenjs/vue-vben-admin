@@ -22,7 +22,6 @@ const props = defineProps<SpinnerProps>();
     <slot></slot>
     <VbenSpinner
       :min-loading-time="props.minLoadingTime"
-      :spinning="props.spinning"
-    />
+      :spinning="props.spinning" />
   </div>
 </template>

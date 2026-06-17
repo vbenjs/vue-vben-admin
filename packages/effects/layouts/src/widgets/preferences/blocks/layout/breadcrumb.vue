@@ -42,15 +42,13 @@ const disableItem = computed(() => {
   </SwitchItem>
   <SwitchItem
     v-model="breadcrumbShowHome"
-    :disabled="disableItem || !breadcrumbShowIcon"
-  >
+    :disabled="disableItem || !breadcrumbShowIcon">
     {{ $t('preferences.breadcrumb.home') }}
   </SwitchItem>
   <ToggleItem
     v-model="breadcrumbStyleType"
     :disabled="disableItem"
-    :items="typeItems"
-  >
+    :items="typeItems">
     {{ $t('preferences.breadcrumb.style') }}
   </ToggleItem>
 </template>

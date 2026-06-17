@@ -46,12 +46,10 @@ const resize = (size?: TSize, rect?: TSize) => {
         :x="100 * (idx + 1)"
         :y="100 * (idx + 1)"
         @dragging="(rect) => resize(sizeList[idx], rect)"
-        @resizing="(rect) => resize(sizeList[idx], rect)"
-      >
+        @resizing="(rect) => resize(sizeList[idx], rect)">
         <div
           :style="{ backgroundColor: colorMap[idx] }"
-          class="size-full"
-        ></div>
+          class="size-full"></div>
       </VResize>
     </template>
   </Page>

@@ -53,8 +53,7 @@ defineExpose({
     }"
     :style="style"
     class="absolute top-0 left-0 flex-center h-full cursor-move bg-background px-3.5 shadow-md dark:bg-accent"
-    name="captcha-action"
-  >
+    name="captcha-action">
     <Slot :is-passing="isPassing" class="size-4 text-foreground/60">
       <slot name="icon">
         <ChevronsRight v-if="!isPassing" />

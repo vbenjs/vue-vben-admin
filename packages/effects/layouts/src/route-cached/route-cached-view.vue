@@ -78,18 +78,15 @@ const computedCurrentRouteKey = computed(() => {
         v-if="getEnabledTransition"
         appear
         mode="out-in"
-        :name="getTransitionName(item.route)"
-      >
+        :name="getTransitionName(item.route)">
         <component
           v-show="item.key === computedCurrentRouteKey"
-          :is="transformComponent(item.component, item.route)"
-        />
+          :is="transformComponent(item.component, item.route)" />
       </Transition>
       <template v-else>
         <component
           v-show="item.key === computedCurrentRouteKey"
-          :is="transformComponent(item.component, item.route)"
-        />
+          :is="transformComponent(item.component, item.route)" />
       </template>
     </template>
   </template>

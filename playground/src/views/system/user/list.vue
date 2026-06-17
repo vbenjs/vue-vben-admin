@@ -191,15 +191,13 @@ watch(inputSearchValue, (value) => {
       <Card class="w-1/6">
         <InputSearch
           v-model:value="inputSearchValue"
-          :placeholder="$t('system.user.placeholder')"
-        />
+          :placeholder="$t('system.user.placeholder')" />
         <Tree
           label-field="name"
           value-field="id"
           :tree-data="deptList"
           :default-expanded-level="2"
-          @select="selectDept"
-        />
+          @select="selectDept" />
       </Card>
 
       <div class="w-5/6 ml-4">
@@ -236,8 +234,7 @@ watch(inputSearchValue, (value) => {
                   auth: ['AC_100100'],
                 },
               ]"
-              align="center"
-            />
+              align="center" />
           </template>
         </Grid>
       </div>

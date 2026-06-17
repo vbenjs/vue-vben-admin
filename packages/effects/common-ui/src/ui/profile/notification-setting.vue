@@ -31,8 +31,7 @@ function handleChange(fieldName: string, value: boolean) {
       <template v-for="item in formSchema" :key="item.fieldName">
         <FormField type="checkbox" :name="item.fieldName">
           <FormItem
-            class="flex flex-row items-center justify-between rounded-lg border p-4"
-          >
+            class="flex flex-row items-center justify-between rounded-lg border p-4">
             <div class="space-y-0.5">
               <FormLabel class="text-base"> {{ item.label }} </FormLabel>
               <FormDescription>
@@ -42,8 +41,7 @@ function handleChange(fieldName: string, value: boolean) {
             <FormControl>
               <Switch
                 :model-value="item.value"
-                @update:model-value="handleChange(item.fieldName, $event)"
-              />
+                @update:model-value="handleChange(item.fieldName, $event)" />
             </FormControl>
           </FormItem>
         </FormField>

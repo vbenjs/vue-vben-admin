@@ -189,8 +189,7 @@ if (enableShortcutKey.value) {
     v-if="preferences.widget.lockScreen"
     :avatar="avatar"
     :text="text"
-    @submit="handleSubmitLock"
-  />
+    @submit="handleSubmitLock" />
 
   <LogoutModal
     :cancel-text="$t('common.cancel')"
@@ -200,8 +199,7 @@ if (enableShortcutKey.value) {
     centered
     content-class="px-8 min-h-10"
     footer-class="border-none mb-3 mr-3"
-    header-class="border-none"
-  >
+    header-class="border-none">
     {{ $t('ui.widgets.logoutTip') }}
   </LogoutModal>
 
@@ -209,8 +207,7 @@ if (enableShortcutKey.value) {
     v-if="preferencesButtonPosition.userDropdown"
     ref="refPreferences"
     :show-button="false"
-    @clear-preferences-and-logout="emit('clearPreferencesAndLogout')"
-  />
+    @clear-preferences-and-logout="emit('clearPreferencesAndLogout')" />
 
   <DropdownMenu v-model:open="openPopover" :modal="false">
     <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
@@ -228,20 +225,17 @@ if (enableShortcutKey.value) {
             :src="avatar"
             class="size-12"
             dot
-            dot-class="bottom-0 right-1 border-2 size-4 bg-green-500"
-          />
+            dot-class="bottom-0 right-1 border-2 size-4 bg-green-500" />
           <div class="ml-2 w-full">
             <div
               v-if="tagText || text || $slots.tagText"
-              class="mb-1 flex items-center text-sm font-medium text-foreground"
-            >
+              class="mb-1 flex items-center text-sm font-medium text-foreground">
               {{ text }}
               <slot name="tagText">
                 <Badge
                   v-if="tagText"
                   variant="secondary"
-                  class="ml-2 text-green-400"
-                >
+                  class="ml-2 text-green-400">
                   {{ tagText }}
                 </Badge>
               </slot>
@@ -256,8 +250,7 @@ if (enableShortcutKey.value) {
           v-for="menu in menus"
           :key="menu.text"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="menu.handler"
-        >
+          @click="menu.handler">
           <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
           {{ menu.text }}
         </DropdownMenuItem>
@@ -265,16 +258,14 @@ if (enableShortcutKey.value) {
         <DropdownMenuItem
           v-if="preferencesButtonPosition.userDropdown"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleOpenSettings"
-        >
+          @click="handleOpenSettings">
           <Settings class="mr-2 size-4" />
           {{ $t('preferences.title') }}
         </DropdownMenuItem>
         <DropdownMenuItem
           v-if="preferences.widget.lockScreen"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleOpenLock"
-        >
+          @click="handleOpenLock">
           <LockKeyhole class="mr-2 size-4" />
           {{ $t('ui.widgets.lockScreen.title') }}
           <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
@@ -284,8 +275,7 @@ if (enableShortcutKey.value) {
         <DropdownMenuSeparator v-if="preferences.widget.lockScreen" />
         <DropdownMenuItem
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleLogout"
-        >
+          @click="handleLogout">
           <LogOut class="mr-2 size-4" />
           {{ $t('common.logout') }}
           <DropdownMenuShortcut v-if="enableLogoutShortcutKey">

@@ -22,8 +22,7 @@ withDefaults(
         $attrs.class as string,
       )
     "
-    :style="{ gap: gap ? `${gap}px` : '0px' }"
-  >
+    :style="{ gap: gap ? `${gap}px` : '0px' }">
     <slot></slot>
   </div>
 </template>

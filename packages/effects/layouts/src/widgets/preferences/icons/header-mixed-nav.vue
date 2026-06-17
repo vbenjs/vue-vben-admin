@@ -4,8 +4,7 @@
     fill="none"
     height="66"
     width="104"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+    xmlns="http://www.w3.org/2000/svg">
     <g>
       <rect
         id="svg_1"
@@ -16,14 +15,12 @@
         stroke="null"
         width="104"
         x="0.13514"
-        y="0.13514"
-      />
+        y="0.13514" />
       <path
         id="svg_2"
         d="m-3.37838,3.7543a1.93401,4.02457 0 0 1 1.93401,-4.02457l11.3488,0l0,66.40541l-11.3488,0a1.93401,4.02457 0 0 1 -1.93401,-4.02457l0,-58.35627z"
         fill="hsl(var(--primary))"
-        stroke="null"
-      />
+        stroke="null" />
       <rect
         id="svg_3"
         fill="#e5e5e5"
@@ -32,8 +29,7 @@
         stroke="null"
         width="5.47439"
         x="1.64059"
-        y="15.46086"
-      />
+        y="15.46086" />
       <rect
         id="svg_4"
         fill="#ffffff"
@@ -42,8 +38,7 @@
         stroke="null"
         width="8.18938"
         x="0.58676"
-        y="1.42154"
-      />
+        y="1.42154" />
       <rect
         id="svg_8"
         fill="hsl(var(--primary))"
@@ -52,8 +47,7 @@
         stroke="null"
         width="75.91967"
         x="25.38277"
-        y="1.42876"
-      />
+        y="1.42876" />
       <rect
         id="svg_9"
         fill="#b2b2b2"
@@ -62,8 +56,7 @@
         stroke="null"
         width="3.925"
         x="27.91529"
-        y="3.69284"
-      />
+        y="3.69284" />
       <rect
         id="svg_10"
         fill="#b2b2b2"
@@ -72,8 +65,7 @@
         stroke="null"
         width="3.925"
         x="80.75054"
-        y="3.62876"
-      />
+        y="3.62876" />
       <rect
         id="svg_11"
         fill="#b2b2b2"
@@ -82,8 +74,7 @@
         stroke="null"
         width="3.925"
         x="87.78868"
-        y="3.69981"
-      />
+        y="3.69981" />
       <rect
         id="svg_12"
         fill="#b2b2b2"
@@ -92,8 +83,7 @@
         stroke="null"
         width="3.925"
         x="94.6847"
-        y="3.62876"
-      />
+        y="3.62876" />
       <rect
         id="svg_13"
         fill="currentColor"
@@ -103,8 +93,7 @@
         stroke="null"
         width="42.9287"
         x="58.75427"
-        y="14.613"
-      />
+        y="14.613" />
       <rect
         id="svg_14"
         fill="currentColor"
@@ -114,8 +103,7 @@
         stroke="null"
         width="28.36894"
         x="26.14342"
-        y="14.613"
-      />
+        y="14.613" />
       <rect
         id="svg_15"
         fill="currentColor"
@@ -125,8 +113,7 @@
         stroke="null"
         width="75.09493"
         x="26.34264"
-        y="39.68822"
-      />
+        y="39.68822" />
       <rect
         id="svg_5"
         fill="#e5e5e5"
@@ -135,8 +122,7 @@
         stroke="null"
         width="5.47439"
         x="1.79832"
-        y="28.39462"
-      />
+        y="28.39462" />
       <rect
         id="svg_6"
         fill="#e5e5e5"
@@ -145,8 +131,7 @@
         stroke="null"
         width="5.47439"
         x="1.64059"
-        y="41.80156"
-      />
+        y="41.80156" />
       <rect
         id="svg_7"
         fill="#e5e5e5"
@@ -155,8 +140,7 @@
         stroke="null"
         width="5.47439"
         x="1.64059"
-        y="55.36623"
-      />
+        y="55.36623" />
       <rect
         id="svg_16"
         fill="currentColor"
@@ -165,8 +149,7 @@
         stroke="null"
         width="12.49265"
         x="9.85477"
-        y="-0.02618"
-      />
+        y="-0.02618" />
       <rect
         id="svg_21"
         fill="#e5e5e5"
@@ -175,8 +158,7 @@
         stroke="null"
         width="7.52486"
         x="35.14924"
-        y="4.07319"
-      />
+        y="4.07319" />
       <rect
         id="svg_22"
         fill="#e5e5e5"
@@ -185,8 +167,7 @@
         stroke="null"
         width="7.52486"
         x="47.25735"
-        y="4.20832"
-      />
+        y="4.20832" />
       <rect
         id="svg_23"
         fill="#e5e5e5"
@@ -195,8 +176,7 @@
         stroke="null"
         width="7.52486"
         x="59.23033"
-        y="4.07319"
-      />
+        y="4.07319" />
     </g>
   </svg>
 </template>

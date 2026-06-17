@@ -22,8 +22,7 @@ defineProps<{ triggerClass?: string }>();
               'text-foreground/80 hover:text-foreground inline-flex size-5 cursor-pointer',
               triggerClass,
             )
-          "
-        />
+          " />
       </slot>
     </template>
     <slot></slot>

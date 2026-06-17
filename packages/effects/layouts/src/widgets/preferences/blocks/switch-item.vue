@@ -29,8 +29,7 @@ function handleClick() {
       'pointer-events-none opacity-50': disabled,
     }"
     class="my-1 flex w-full items-center justify-between rounded-md px-2 py-2.5 hover:bg-accent"
-    @click="handleClick"
-  >
+    @click="handleClick">
     <span class="flex items-center text-sm">
       <slot></slot>
 

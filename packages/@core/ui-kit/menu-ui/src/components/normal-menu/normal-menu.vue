@@ -42,14 +42,12 @@ function menuIcon(menu: MenuRecordRaw) {
       is(theme, true),
       is('rounded', rounded),
     ]"
-    class="relative"
-  >
+    class="relative">
     <template v-for="menu in menus" :key="menu.path">
       <li
         :class="[e('item'), is('active', activePath === menu.path)]"
         @click="() => emit('select', menu)"
-        @mouseenter="() => emit('enter', menu)"
-      >
+        @mouseenter="() => emit('enter', menu)">
         <VbenIcon :class="e('icon')" :icon="menuIcon(menu)" fallback />
 
         <span :class="e('name')" class="truncate"> {{ menu.name }}</span>

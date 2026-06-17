@@ -75,8 +75,7 @@ const listen = computed(() => {
     <Drawer
       v-bind="{ ...$attrs, ...attrs }"
       v-on="listen"
-      @clear-preferences-and-logout="emit('clearPreferencesAndLogout')"
-    />
+      @clear-preferences-and-logout="emit('clearPreferencesAndLogout')" />
 
     <!-- 触发打开抽屉的按钮(可覆盖) -->
     <slot>
@@ -84,8 +83,7 @@ const listen = computed(() => {
         v-if="props.showButton"
         :title="$t('preferences.title')"
         class="flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none bg-primary"
-        @click="() => drawerApi.open()"
-      >
+        @click="() => drawerApi.open()">
         <Settings class="size-5" />
       </VbenButton>
     </slot>

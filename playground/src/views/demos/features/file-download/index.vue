@@ -41,8 +41,7 @@ function getResponse() {
               'https://codeload.github.com/vbenjs/vue-vben-admin-doc/zip/main',
             target: '_self',
           })
-        "
-      >
+        ">
         Download File
       </Button>
     </Card>
@@ -56,8 +55,7 @@ function getResponse() {
               'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
             fileName: 'vben-logo.png',
           })
-        "
-      >
+        ">
         Download File
       </Button>
     </Card>
@@ -70,8 +68,7 @@ function getResponse() {
             source: imageBase64,
             fileName: 'image.png',
           })
-        "
-      >
+        ">
         Download Image
       </Button>
     </Card>
@@ -83,8 +80,7 @@ function getResponse() {
             source: 'text content',
             fileName: 'test.txt',
           })
-        "
-      >
+        ">
         Download TxT
       </Button>
     </Card>

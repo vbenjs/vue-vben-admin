@@ -53,8 +53,7 @@ onBeforeUnmount(() => {
         <option
           v-for="option in aspectOptions"
           :key="option.value"
-          :value="option.value"
-        >
+          :value="option.value">
           {{ option.label }}
         </option>
       </select>
@@ -65,20 +64,17 @@ onBeforeUnmount(() => {
       :img="imageUrl"
       :width="500"
       :height="300"
-      :aspect-ratio="aspectRatio"
-    />
+      :aspect-ratio="aspectRatio" />
 
     <div class="mt-4 flex gap-2">
       <button
         class="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600"
-        @click="handleCrop"
-      >
+        @click="handleCrop">
         裁剪图片
       </button>
       <button
         class="px-4 py-2 bg-gray-500 rounded hover:bg-gray-600"
-        @click="handleReset"
-      >
+        @click="handleReset">
         重置
       </button>
     </div>

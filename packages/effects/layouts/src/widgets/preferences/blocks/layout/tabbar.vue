@@ -60,8 +60,7 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem
     v-model="tabbarVisitHistory"
     :disabled="!tabbarEnable"
-    :tip="$t('preferences.tabbar.visitHistoryTip')"
-  >
+    :tip="$t('preferences.tabbar.visitHistoryTip')">
     {{ $t('preferences.tabbar.visitHistory') }}
   </SwitchItem>
   <NumberFieldItem
@@ -70,8 +69,7 @@ const styleItems = computed((): SelectOption[] => [
     :max="30"
     :min="0"
     :step="5"
-    :tip="$t('preferences.tabbar.maxCountTip')"
-  >
+    :tip="$t('preferences.tabbar.maxCountTip')">
     {{ $t('preferences.tabbar.maxCount') }}
   </NumberFieldItem>
   <SwitchItem v-model="tabbarDraggable" :disabled="!tabbarEnable">
@@ -80,8 +78,7 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem
     v-model="tabbarWheelable"
     :disabled="!tabbarEnable"
-    :tip="$t('preferences.tabbar.wheelableTip')"
-  >
+    :tip="$t('preferences.tabbar.wheelableTip')">
     {{ $t('preferences.tabbar.wheelable') }}
   </SwitchItem>
   <SwitchItem v-model="tabbarMiddleClickToClose" :disabled="!tabbarEnable">

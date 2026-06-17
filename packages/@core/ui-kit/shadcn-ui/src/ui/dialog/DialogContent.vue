@@ -104,8 +104,7 @@ defineExpose({
         :overlay-blur="overlayBlur"
         :position="position"
         :z-index="zIndex"
-        @click="() => emits('close')"
-      />
+        @click="() => emits('close')" />
     </Transition>
     <DialogContent
       ref="contentRef"
@@ -122,8 +121,7 @@ defineExpose({
           },
           props.class,
         )
-      "
-    >
+      ">
       <slot></slot>
 
       <DialogClose
@@ -136,8 +134,7 @@ defineExpose({
             props.closeClass,
           )
         "
-        @click="() => emits('close')"
-      >
+        @click="() => emits('close')">
         <X class="size-4" />
       </DialogClose>
     </DialogContent>

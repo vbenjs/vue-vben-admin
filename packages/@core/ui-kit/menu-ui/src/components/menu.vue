@@ -348,8 +348,7 @@ function getActivePaths() {
       is('menu-align', mode === 'horizontal'),
     ]"
     :style="menuStyle"
-    role="menu"
-  >
+    role="menu">
     <template v-if="mode === 'horizontal' && getSlot.showSlotMore">
       <template v-for="(item, index) in getSlot.slotDefault" :key="index">
         <component :is="item" />

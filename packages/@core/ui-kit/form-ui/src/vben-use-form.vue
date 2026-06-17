@@ -116,13 +116,11 @@ onMounted(async () => {
     :component-bind-event-map="COMPONENT_BIND_EVENT_MAP"
     :component-map="COMPONENT_MAP"
     :form="form"
-    :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
-  >
+    :global-common-config="DEFAULT_FORM_COMMON_CONFIG">
     <template
       v-for="slotName in delegatedSlots"
       :key="slotName"
-      #[slotName]="slotProps"
-    >
+      #[slotName]="slotProps">
       <slot :name="slotName" v-bind="slotProps"></slot>
     </template>
     <template #default="slotProps">
@@ -130,8 +128,7 @@ onMounted(async () => {
         <FormActions
           v-if="forward.showDefaultActions"
           :model-value="state?.collapsed"
-          @update:model-value="handleUpdateCollapsed"
-        >
+          @update:model-value="handleUpdateCollapsed">
           <template #reset-before="resetSlotProps">
             <slot name="reset-before" v-bind="resetSlotProps"></slot>
           </template>

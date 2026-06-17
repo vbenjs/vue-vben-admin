@@ -53,8 +53,7 @@ async function changeAccount(role: string) {
 <template>
   <Page
     :title="`${accessMode === 'frontend' ? '前端' : '后端'}按钮访问权限演示`"
-    description="切换不同的账号，观察按钮变化。"
-  >
+    description="切换不同的账号，观察按钮变化。">
     <Card class="mb-5">
       <template #title>
         <span class="font-semibold">当前角色:</span>
@@ -70,8 +69,7 @@ async function changeAccount(role: string) {
       <Button
         :type="roleButtonType('admin')"
         class="mx-4"
-        @click="changeAccount('admin')"
-      >
+        @click="changeAccount('admin')">
         切换为 Admin 账号
       </Button>
       <Button :type="roleButtonType('user')" @click="changeAccount('user')">
@@ -99,8 +97,7 @@ async function changeAccount(role: string) {
     <Card
       v-if="accessMode === 'frontend'"
       class="mb-5"
-      title="组件形式控制 - 角色"
-    >
+      title="组件形式控制 - 角色">
       <AccessControl :codes="['super']" type="role">
         <Button class="mr-4"> Super 角色可见 </Button>
       </AccessControl>

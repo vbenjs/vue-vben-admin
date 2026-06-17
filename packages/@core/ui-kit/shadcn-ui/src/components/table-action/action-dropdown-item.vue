@@ -71,8 +71,7 @@ function onCancel() {
         as-child
         :class="itemClass"
         :disabled="action.disabled"
-        @select="preventDefault"
-      >
+        @select="preventDefault">
         <div>
           <VbenIcon v-if="action.icon" :icon="action.icon" class="size-4" />
           {{ action.text }}
@@ -83,8 +82,7 @@ function onCancel() {
       class="z-popup w-60"
       side="left"
       @focus-outside="preventDefault"
-      @open-auto-focus="preventDefault"
-    >
+      @open-auto-focus="preventDefault">
       <div class="text-foreground mb-3 text-sm">
         {{ action.popConfirm.title ?? $t('confirmTitle') }}
       </div>
@@ -95,8 +93,7 @@ function onCancel() {
         <VbenButton
           :variant="action.danger ? 'destructive' : 'default'"
           size="sm"
-          @click="onConfirm"
-        >
+          @click="onConfirm">
           {{ action.popConfirm.okText ?? $t('confirm') }}
         </VbenButton>
       </div>
@@ -108,8 +105,7 @@ function onCancel() {
     v-else
     :class="itemClass"
     :disabled="action.disabled"
-    @click="onClick"
-  >
+    @click="onClick">
     <VbenIcon v-if="action.icon" :icon="action.icon" class="size-4" />
     {{ action.text }}
   </DropdownMenuItem>

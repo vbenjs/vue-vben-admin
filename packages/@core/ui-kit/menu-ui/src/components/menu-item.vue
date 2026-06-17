@@ -93,8 +93,7 @@ onBeforeUnmount(() => {
     :to="
       (item.parentPaths.at(-1) ?? '') +
       (item?.query ? `?${qs.stringify(item?.query)}` : '')
-    "
-  >
+    ">
     <a
       :href="isHttp ? item.parentPaths.at(-1) : href"
       :class="[
@@ -105,13 +104,11 @@ onBeforeUnmount(() => {
         is('collapse-show-title', collapseShowTitle),
       ]"
       role="menuitem"
-      @click.prevent.stop="handleClick"
-    >
+      @click.prevent.stop="handleClick">
       <VbenTooltip
         v-if="showTooltip"
         :content-class="[rootMenu.theme]"
-        side="right"
-      >
+        side="right">
         <template #trigger>
           <div :class="[nsMenu.be('tooltip', 'trigger')]">
             <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
@@ -127,8 +124,7 @@ onBeforeUnmount(() => {
         <MenuBadge
           v-if="rootMenu.props.mode !== 'horizontal'"
           class="right-2"
-          v-bind="props"
-        />
+          v-bind="props" />
         <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
         <slot></slot>
         <slot name="title"></slot>

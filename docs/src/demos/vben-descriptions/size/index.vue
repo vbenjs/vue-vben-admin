@@ -15,21 +15,18 @@ const items = [
       bordered
       title="Small"
       :column="2"
-      :items="items"
-    />
+      :items="items" />
     <VbenDescriptions
       size="middle"
       bordered
       title="Middle"
       :column="2"
-      :items="items"
-    />
+      :items="items" />
     <VbenDescriptions
       size="large"
       bordered
       title="Large"
       :column="2"
-      :items="items"
-    />
+      :items="items" />
   </div>
 </template>

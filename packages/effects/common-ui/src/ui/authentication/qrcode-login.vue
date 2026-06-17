@@ -97,8 +97,7 @@ function goToLogin() {
       v-if="showBack"
       class="mt-4 w-full"
       variant="outline"
-      @click="goToLogin()"
-    >
+      @click="goToLogin()">
       {{ $t('common.back') }}
     </VbenButton>
   </div>

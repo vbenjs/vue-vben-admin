@@ -40,8 +40,7 @@ function fetchApi() {
     :immediate="false"
     children-field="children"
     loading-slot="suffixIcon"
-    visible-event="onDropdownVisibleChange"
-  />
+    visible-event="onDropdownVisibleChange" />
 </template>
 ```
 

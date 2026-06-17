@@ -41,8 +41,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     此弹窗指定在内容区域打开，并且在关闭之后弹窗内容不会被销毁
     <Input
       v-model:value="value"
-      placeholder="KeepAlive测试:connectedComponent"
-    />
+      placeholder="KeepAlive测试:connectedComponent" />
     <Form />
   </Drawer>
 </template>

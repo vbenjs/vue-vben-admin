@@ -36,8 +36,7 @@ const inputComponent = h(Input);
         <a
           class="text-primary"
           href="https://icon-sets.iconify.design/"
-          target="_blank"
-        >
+          target="_blank">
           Iconify
         </a>
         中查找，支持多种图标库，如 Material Design, Font Awesome, Jam Icons 等。
@@ -94,8 +93,7 @@ const inputComponent = h(Input);
           v-model="iconValue3"
           icon-slot="addonAfter"
           model-value-prop="value"
-          prefix="mdi"
-        />
+          prefix="mdi" />
       </div>
       <div class="flex items-center gap-5">
         <span>显示为一个Icon:</span>
@@ -103,8 +101,7 @@ const inputComponent = h(Input);
           v-model:value="iconValue4"
           allow-clear
           placeholder="点击这里选择图标"
-          class="w-75"
-        >
+          class="w-75">
           <template #addonAfter>
             <IconPicker v-model="iconValue4" prefix="mdi-light" type="icon" />
           </template>

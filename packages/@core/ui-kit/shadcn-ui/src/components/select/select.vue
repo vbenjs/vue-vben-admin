@@ -35,8 +35,7 @@ function handleClear() {
         @click.stop.prevent="handleClear"
         v-if="allowClear && modelValue"
         data-clear-button
-        class="mr-1 size-4 cursor-pointer opacity-50 hover:opacity-100"
-      />
+        class="mr-1 size-4 cursor-pointer opacity-50 hover:opacity-100" />
     </SelectTrigger>
     <SelectContent>
       <template v-for="item in options" :key="item.value">

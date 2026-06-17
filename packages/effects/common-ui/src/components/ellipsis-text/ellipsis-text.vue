@@ -195,8 +195,7 @@ function handleExpand() {
       :disabled="
         !props.tooltip || isExpand || (props.tooltipWhenEllipsis && !isEllipsis)
       "
-      :side="placement"
-    >
+      :side="placement">
       <slot name="tooltip">
         <slot></slot>
       </slot>
@@ -215,8 +214,7 @@ function handleExpand() {
           }"
           class="cursor-text overflow-hidden"
           @click="handleExpand"
-          v-bind="$attrs"
-        >
+          v-bind="$attrs">
           <slot></slot>
         </div>
       </template>

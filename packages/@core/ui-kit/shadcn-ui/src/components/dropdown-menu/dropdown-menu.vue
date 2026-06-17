@@ -36,8 +36,7 @@ function handleItemClick(menu: IDropdownMenuItem) {
           <DropdownMenuItem
             :disabled="menu.disabled"
             class="text-foreground/80 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground mb-1 cursor-pointer"
-            @click="handleItemClick(menu)"
-          >
+            @click="handleItemClick(menu)">
             <component :is="menu.icon" v-if="menu.icon" class="mr-2 size-4" />
             {{ menu.label }}
           </DropdownMenuItem>

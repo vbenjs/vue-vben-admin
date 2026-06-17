@@ -71,8 +71,7 @@ onMounted(() => {
           'relative flex items-end border-b border-border bg-card px-6 py-4',
           headerClass,
         )
-      "
-    >
+      ">
       <div class="flex-auto">
         <slot name="title">
           <div v-if="title" class="mb-2 flex text-lg font-semibold">
@@ -94,15 +93,13 @@ onMounted(() => {
 
     <div
       :class="cn(autoContentHeight ? 'h-full' : 'flex-1', 'p-4', contentClass)"
-      :style="contentStyle"
-    >
+      :style="contentStyle">
       <slot></slot>
     </div>
     <div
       v-if="$slots.footer"
       ref="footerRef"
-      :class="cn('align-center flex bg-card px-6 py-4', footerClass)"
-    >
+      :class="cn('align-center flex bg-card px-6 py-4', footerClass)">
       <slot name="footer"></slot>
     </div>
   </div>

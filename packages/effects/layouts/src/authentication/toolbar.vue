@@ -35,8 +35,7 @@ const showTheme = computed(() => props.toolbarList.includes('theme'));
     :class="{
       'rounded-3xl bg-accent px-3 py-1': toolbarList.length > 1,
     }"
-    class="absolute top-4 right-2 z-10 flex-center"
-  >
+    class="absolute top-4 right-2 z-10 flex-center">
     <!-- Only show on medium and larger screens -->
     <div class="hidden md:flex">
       <AuthenticationColorToggle v-if="showColor" />

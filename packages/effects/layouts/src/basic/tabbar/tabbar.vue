@@ -66,19 +66,16 @@ if (!preferences.tabbar.persist) {
     @close="handleClose"
     @sort-tabs="tabbarStore.sortTabs"
     @unpin="unpinTab"
-    @update:active="handleClick"
-  />
+    @update:active="handleClick" />
   <div class="flex-center h-full">
     <TabsToolMore v-if="preferences.tabbar.showMore" :menus="menus" />
     <TabsToolRefresh
       v-if="preferences.tabbar.showRefresh"
-      @refresh="refreshTab"
-    />
+      @refresh="refreshTab" />
     <TabsToolScreen
       v-if="preferences.tabbar.showMaximize"
       :screen="contentIsMaximize"
       @change="toggleMaximize"
-      @update:screen="toggleMaximize"
-    />
+      @update:screen="toggleMaximize" />
   </div>
 </template>

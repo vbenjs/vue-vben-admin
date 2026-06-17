@@ -39,24 +39,21 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     :disabled="disabled"
     :variant="variant"
     size="icon"
-    @click="onClick"
-  >
+    @click="onClick">
     <slot></slot>
   </VbenButton>
 
   <VbenTooltip
     v-else
     :delay-duration="tooltipDelayDuration"
-    :side="tooltipSide"
-  >
+    :side="tooltipSide">
     <template #trigger>
       <VbenButton
         :class="cn('rounded-full', props.class)"
         :disabled="disabled"
         :variant="variant"
         size="icon"
-        @click="onClick"
-      >
+        @click="onClick">
         <slot></slot>
       </VbenButton>
     </template>

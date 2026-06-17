@@ -71,8 +71,7 @@ defineExpose({
         :overlay-blur="overlayBlur"
         position="fixed"
         :z-index="zIndex"
-        @click="() => emits('close')"
-      />
+        @click="() => emits('close')" />
     </Transition>
     <AlertDialogContent
       data-slot="alert-dialog-content"
@@ -93,8 +92,7 @@ defineExpose({
           },
           props.class,
         )
-      "
-    >
+      ">
       <slot></slot>
     </AlertDialogContent>
   </AlertDialogPortal>

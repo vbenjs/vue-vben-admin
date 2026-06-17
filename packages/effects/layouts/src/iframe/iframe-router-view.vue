@@ -72,14 +72,12 @@ function showSpinning(index: number) {
       <div
         v-if="canRender(item)"
         v-show="routeShow(item)"
-        class="relative size-full"
-      >
+        class="relative size-full">
         <VbenSpinner :spinning="showSpinning(index)" />
         <iframe
           :src="item.meta.iframeSrc as string"
           class="size-full"
-          @load="hideLoading(index)"
-        ></iframe>
+          @load="hideLoading(index)"></iframe>
       </div>
     </template>
   </template>

@@ -26,6 +26,5 @@ useScrollLock();
       backdropFilter:
         overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
     }"
-    :class="cn('z-popup bg-overlay inset-0 fixed', props.class)"
-  ></div>
+    :class="cn('z-popup bg-overlay inset-0 fixed', props.class)"></div>
 </template>

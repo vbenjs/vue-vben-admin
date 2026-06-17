@@ -24,13 +24,11 @@ const items = [
     class="gap-2"
     size="sm"
     type="single"
-    variant="outline"
-  >
+    variant="outline">
     <template v-for="item in items" :key="item.value">
       <ToggleGroupItem
         :value="item.value"
-        class="h-7 w-16 rounded-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-      >
+        class="h-7 w-16 rounded-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
         {{ item.label }}
       </ToggleGroupItem>
     </template>

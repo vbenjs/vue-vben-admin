@@ -37,8 +37,7 @@ If you want to adjust the content of the login form, you can configure the `Auth
 ```vue
 <AuthenticationLogin
   :loading="authStore.loginLoading"
-  @submit="authStore.authLogin"
-/>
+  @submit="authStore.authLogin" />
 ```
 
 ::: details AuthenticationLogin Component Props

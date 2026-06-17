@@ -59,8 +59,7 @@ const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 <template>
   <Page
     description="支持多语言，主题功能集成切换等"
-    title="Element Plus组件使用演示"
-  >
+    title="Element Plus组件使用演示">
     <div class="flex flex-wrap gap-5">
       <ElCard class="mb-5 w-auto">
         <template #header> 按钮 </template>
@@ -97,8 +96,7 @@ const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         <ElSegmented
           v-model="segmentedValue"
           :options="segmentedOptions"
-          size="large"
-        />
+          size="large" />
       </ElCard>
       <ElCard class="mb-5 w-80">
         <template #header> V-Loading </template>

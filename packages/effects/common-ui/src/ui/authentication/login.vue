@@ -112,14 +112,12 @@ defineExpose({
 
     <div
       v-if="showRememberMe || showForgetPassword"
-      class="mb-6 flex justify-between"
-    >
+      class="mb-6 flex justify-between">
       <div class="flex-center">
         <VbenCheckbox
           v-if="showRememberMe"
           v-model="rememberMe"
-          name="rememberMe"
-        >
+          name="rememberMe">
           {{ $t('authentication.rememberMe') }}
         </VbenCheckbox>
       </div>
@@ -127,8 +125,7 @@ defineExpose({
       <span
         v-if="showForgetPassword"
         class="vben-link text-sm font-normal"
-        @click="handleGo(forgetPasswordPath)"
-      >
+        @click="handleGo(forgetPasswordPath)">
         {{ $t('authentication.forgetPassword') }}
       </span>
     </div>
@@ -139,29 +136,25 @@ defineExpose({
       :loading="loading"
       aria-label="login"
       class="w-full"
-      @click="handleSubmit"
-    >
+      @click="handleSubmit">
       {{ submitButtonText || $t('common.login') }}
     </VbenButton>
 
     <div
       v-if="showCodeLogin || showQrcodeLogin"
-      class="mt-4 mb-2 flex items-center justify-between"
-    >
+      class="mt-4 mb-2 flex items-center justify-between">
       <VbenButton
         v-if="showCodeLogin"
         class="w-1/2"
         variant="outline"
-        @click="handleGo(codeLoginPath)"
-      >
+        @click="handleGo(codeLoginPath)">
         {{ $t('authentication.mobileLogin') }}
       </VbenButton>
       <VbenButton
         v-if="showQrcodeLogin"
         class="ml-4 w-1/2"
         variant="outline"
-        @click="handleGo(qrCodeLoginPath)"
-      >
+        @click="handleGo(qrCodeLoginPath)">
         {{ $t('authentication.qrcodeLogin') }}
       </VbenButton>
     </div>
@@ -176,8 +169,7 @@ defineExpose({
         {{ $t('authentication.accountTip') }}
         <span
           class="vben-link text-sm font-normal"
-          @click="handleGo(registerPath)"
-        >
+          @click="handleGo(registerPath)">
           {{ $t('authentication.createAccount') }}
         </span>
       </div>

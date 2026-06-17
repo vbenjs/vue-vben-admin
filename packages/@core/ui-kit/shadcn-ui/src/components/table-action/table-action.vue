@@ -144,20 +144,17 @@ function onContentInteractOutside(event: Event) {
               :loading="item.action.loading"
               :size="item.size"
               :variant="item.variant"
-              @click="onActionClick(item.action)"
-            >
+              @click="onActionClick(item.action)">
               <VbenIcon
                 v-if="item.action.icon"
                 :icon="item.action.icon"
-                class="size-4"
-              />
+                class="size-4" />
               <span v-if="item.action.text">{{ item.action.text }}</span>
             </VbenButton>
           </TooltipTrigger>
           <TooltipContent
             :side="item.tooltipSide"
-            class="side-content bg-accent text-popover-foreground rounded-md"
-          >
+            class="side-content bg-accent text-popover-foreground rounded-md">
             {{ item.tooltipContent }}
           </TooltipContent>
         </Tooltip>
@@ -170,13 +167,11 @@ function onContentInteractOutside(event: Event) {
           :loading="item.action.loading"
           :size="item.size"
           :variant="item.variant"
-          @click="onActionClick(item.action)"
-        >
+          @click="onActionClick(item.action)">
           <VbenIcon
             v-if="item.action.icon"
             :icon="item.action.icon"
-            class="size-4"
-          />
+            class="size-4" />
           <span v-if="item.action.text">{{ item.action.text }}</span>
         </VbenButton>
 
@@ -186,8 +181,7 @@ function onContentInteractOutside(event: Event) {
 
     <DropdownMenu
       v-if="visibleDropdownActions.length > 0"
-      v-model:open="dropdownOpen"
-    >
+      v-model:open="dropdownOpen">
       <DropdownMenuTrigger as-child>
         <VbenButton class="gap-1 p-2" variant="link">
           <Ellipsis class="size-4" />
@@ -196,19 +190,15 @@ function onContentInteractOutside(event: Event) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        @interact-outside="onContentInteractOutside"
-      >
+        @interact-outside="onContentInteractOutside">
         <template
           v-for="(item, index) in visibleDropdownActions"
-          :key="item.key ?? index"
-        >
+          :key="item.key ?? index">
           <ActionDropdownItemComp
             :action="item"
-            @confirm="dropdownOpen = false"
-          />
+            @confirm="dropdownOpen = false" />
           <DropdownMenuSeparator
-            v-if="divider && index < visibleDropdownActions.length - 1"
-          />
+            v-if="divider && index < visibleDropdownActions.length - 1" />
         </template>
       </DropdownMenuContent>
     </DropdownMenu>

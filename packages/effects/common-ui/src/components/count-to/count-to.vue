@@ -70,8 +70,7 @@ const numDec = computed(() => {
         class="count-to-prefix"
         :style="prefixStyle"
         :class="prefixClass"
-        v-if="prefix"
-      >
+        v-if="prefix">
         {{ prefix }}
       </div>
     </slot>
@@ -81,8 +80,7 @@ const numDec = computed(() => {
         class="count-to-main-decimal"
         v-if="decimals > 0"
         :class="decimalClass"
-        :style="decimalStyle"
-      >
+        :style="decimalStyle">
         {{ numDec }}
       </span>
     </div>
@@ -91,8 +89,7 @@ const numDec = computed(() => {
         class="count-to-suffix"
         :style="suffixStyle"
         :class="suffixClass"
-        v-if="suffix"
-      >
+        v-if="suffix">
         {{ suffix }}
       </div>
     </slot>

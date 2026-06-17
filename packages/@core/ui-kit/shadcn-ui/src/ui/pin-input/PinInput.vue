@@ -31,8 +31,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         'flex items-center gap-2 has-disabled:opacity-50 disabled:cursor-not-allowed',
         props.class,
       )
-    "
-  >
+    ">
     <slot></slot>
   </PinInputRoot>
 </template>

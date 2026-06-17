@@ -47,8 +47,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     <HoverCardContent
       :class="contentClass"
       v-bind="contentProps"
-      class="side-content z-popup"
-    >
+      class="side-content z-popup">
       <slot></slot>
     </HoverCardContent>
   </HoverCard>

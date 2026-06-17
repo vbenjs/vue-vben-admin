@@ -76,15 +76,13 @@ function onTransitionEnd() {
         props.class,
       )
     "
-    @transitionend="onTransitionEnd"
-  >
+    @transitionend="onTransitionEnd">
     <slot name="icon" v-if="renderSpinner">
       <span class="dot relative inline-block size-9 text-3xl">
         <i
           v-for="index in 4"
           :key="index"
-          class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"
-        ></i>
+          class="bg-primary absolute block size-4 origin-[50%_50%] scale-75 rounded-full opacity-30"></i>
       </span>
     </slot>
 

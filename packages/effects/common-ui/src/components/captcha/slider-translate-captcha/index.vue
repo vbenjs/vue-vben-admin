@@ -261,32 +261,27 @@ onMounted(() => {
 <template>
   <div class="relative flex flex-col items-center">
     <div
-      class="relative flex cursor-pointer overflow-hidden border border-border shadow-md"
-    >
+      class="relative flex cursor-pointer overflow-hidden border border-border shadow-md">
       <canvas
         ref="puzzleCanvasRef"
         :width="canvasWidth"
         :height="canvasHeight"
-        @click="resume"
-      ></canvas>
+        @click="resume"></canvas>
       <canvas
         ref="pieceCanvasRef"
         :width="canvasWidth"
         :height="canvasHeight"
         :style="pieceStyle"
         class="absolute"
-        @click="resume"
-      ></canvas>
+        @click="resume"></canvas>
       <div
-        class="absolute bottom-3 left-0 z-10 block h-15 w-full text-center text-xs leading-[30px] text-white"
-      >
+        class="absolute bottom-3 left-0 z-10 block h-15 w-full text-center text-xs leading-[30px] text-white">
         <div
           v-if="state.showTip"
           :class="{
             'bg-success/80': state.isPassing,
             'bg-destructive/80': !state.isPassing,
-          }"
-        >
+          }">
           {{ verifyTip }}
         </div>
         <div v-if="!state.dragging" class="bg-black/30">
@@ -301,8 +296,7 @@ onMounted(() => {
       is-slot
       @end="handleDragEnd"
       @move="handleDragBarMove"
-      @start="handleStart"
-    >
+      @start="handleStart">
       <template v-for="(_, key) in $slots" :key="key" #[key]="slotProps">
         <slot :name="key" v-bind="slotProps"></slot>
       </template>

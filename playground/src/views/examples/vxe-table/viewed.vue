@@ -188,8 +188,7 @@ function onClearViewed() {
     默认使用memory存储，当设置custom时需要自己实现getKeys()/setKeys()/removeKeys()。
     具体属性查看packages/effects/plugins/src/vxe-table/types.ts。可通过gridApi调用
     clearViewedRows()/getViewedKeys()/isRowViewed()/markKeysAsViewed()/markRowAsViewed()/removeViewedKeys()"
-    title="表格行标记示例"
-  >
+    title="表格行标记示例">
     <Modal class="w-150" title="数据修改"> 数据修改完成后设置行标记</Modal>
     <Grid table-title="已查看行标记" table-title-help="提示">
       <template #toolbar-tools>

@@ -108,8 +108,7 @@ async function onBtnClick(value: ValueType) {
   <VbenButtonGroup
     :size="props.size"
     :gap="props.gap"
-    class="vben-check-button-group"
-  >
+    class="vben-check-button-group">
     <Button
       v-for="(btn, index) in props.options"
       :key="index"
@@ -122,18 +121,15 @@ async function onBtnClick(value: ValueType) {
       v-bind="btnDefaultProps"
       :variant="innerValue.includes(btn.value) ? 'default' : 'outline'"
       @click="onBtnClick(btn.value)"
-      type="button"
-    >
+      type="button">
       <div class="icon-wrapper" v-if="props.showIcon">
         <slot
           name="icon"
           :loading="loadingValues.includes(btn.value)"
-          :checked="innerValue.includes(btn.value)"
-        >
+          :checked="innerValue.includes(btn.value)">
           <LoaderCircle
             class="animate-spin"
-            v-if="loadingValues.includes(btn.value)"
-          />
+            v-if="loadingValues.includes(btn.value)" />
           <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
           <Circle v-else />
         </slot>

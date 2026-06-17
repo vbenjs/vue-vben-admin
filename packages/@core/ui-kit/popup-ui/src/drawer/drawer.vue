@@ -180,8 +180,7 @@ const getForceMount = computed(() => {
   <Sheet
     :modal="false"
     :open="state?.isOpen"
-    @update:open="() => drawerApi?.close()"
-  >
+    @update:open="() => drawerApi?.close()">
     <SheetContent
       :append-to="getAppendTo"
       :class="
@@ -209,8 +208,7 @@ const getForceMount = computed(() => {
       @interact-outside="interactOutside"
       @open-auto-focus="handerOpenAutoFocus"
       @opened="() => drawerApi?.onOpened()"
-      @pointer-down-outside="pointerDownOutside"
-    >
+      @pointer-down-outside="pointerDownOutside">
       <SheetHeader
         v-if="showHeader"
         :class="
@@ -222,15 +220,13 @@ const getForceMount = computed(() => {
               'pl-2': closable && closeIconPlacement === 'left',
             },
           )
-        "
-      >
+        ">
         <div class="flex items-center">
           <SheetClose
             v-if="closable && closeIconPlacement === 'left'"
             as-child
             :disabled="submitting"
-            class="ml-0.5 cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary"
-          >
+            class="ml-0.5 cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary">
             <slot name="close-icon">
               <VbenIconButton>
                 <X class="size-4" />
@@ -241,8 +237,7 @@ const getForceMount = computed(() => {
             v-if="closable && closeIconPlacement === 'left'"
             class="mr-2 ml-1 h-8"
             decorative
-            orientation="vertical"
-          />
+            orientation="vertical" />
           <SheetTitle v-if="title" class="text-left">
             <slot name="title">
               {{ title }}
@@ -270,8 +265,7 @@ const getForceMount = computed(() => {
             v-if="closable && closeIconPlacement === 'right'"
             as-child
             :disabled="submitting"
-            class="ml-0.5 cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary"
-          >
+            class="ml-0.5 cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary">
             <slot name="close-icon">
               <VbenIconButton>
                 <X class="size-4" />
@@ -292,8 +286,7 @@ const getForceMount = computed(() => {
           cn('relative flex-1 overflow-y-auto p-3', contentClass, {
             'pointer-events-none': showLoading || submitting,
           })
-        "
-      >
+        ">
         <slot></slot>
       </div>
       <VbenLoading v-if="showLoading || submitting" spinning />
@@ -304,8 +297,7 @@ const getForceMount = computed(() => {
             'w-full flex-row items-center justify-end border-t p-2 px-3',
             footerClass,
           )
-        "
-      >
+        ">
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
@@ -313,8 +305,7 @@ const getForceMount = computed(() => {
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
-            @click="() => drawerApi?.onCancel()"
-          >
+            @click="() => drawerApi?.onCancel()">
             <slot name="cancelText">
               {{ cancelText || $t('cancel') }}
             </slot>
@@ -324,8 +315,7 @@ const getForceMount = computed(() => {
             :is="components.PrimaryButton || VbenButton"
             v-if="showConfirmButton"
             :loading="confirmLoading || submitting"
-            @click="() => drawerApi?.onConfirm()"
-          >
+            @click="() => drawerApi?.onConfirm()">
             <slot name="confirmText">
               {{ confirmText || $t('confirm') }}
             </slot>

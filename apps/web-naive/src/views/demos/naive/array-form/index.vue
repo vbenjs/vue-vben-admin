@@ -107,8 +107,7 @@ async function getFormValues() {
 <template>
   <Page
     description="基于 useVbenForm 的数组编辑器（VbenFormFieldArray）：可增删行，每个单元格复用 vbenForm 注册的编辑组件，并享受逐格校验。"
-    title="数组编辑器表单"
-  >
+    title="数组编辑器表单">
     <NCard title="数组编辑器">
       <template #header-extra>
         <NButton class="mr-2" @click="setFormValues">设置表单值</NButton>

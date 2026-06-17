@@ -37,8 +37,7 @@ withDefaults(defineProps<Props>(), {
             :end-val="item.value"
             :start-val="1"
             class="text-xl"
-            prefix=""
-          />
+            prefix="" />
           <VbenIcon :icon="item.icon" class="size-8 shrink-0" />
         </CardContent>
         <CardFooter class="justify-between">
@@ -46,8 +45,7 @@ withDefaults(defineProps<Props>(), {
           <VbenCountToAnimator
             :end-val="item.totalValue"
             :start-val="1"
-            prefix=""
-          />
+            prefix="" />
         </CardFooter>
       </Card>
     </template>

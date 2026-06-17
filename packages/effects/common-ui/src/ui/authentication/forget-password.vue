@@ -102,8 +102,7 @@ defineExpose({
         }"
         aria-label="submit"
         class="mt-2 w-full"
-        @click="handleSubmit"
-      >
+        @click="handleSubmit">
         <slot name="submitButtonText">
           {{ submitButtonText || $t('authentication.sendResetLink') }}
         </slot>

@@ -30,8 +30,7 @@ const imageUpload: ImageUploadOptions = {
     <VbenTiptap
       v-model="content"
       :image-upload="imageUpload"
-      placeholder="尝试拖拽或粘贴图片..."
-    />
+      placeholder="尝试拖拽或粘贴图片..." />
     <div class="mt-4">
       <p class="text-sm text-gray-500">提示:</p>
       <ul class="mt-2 text-xs text-gray-400 list-disc pl-4">

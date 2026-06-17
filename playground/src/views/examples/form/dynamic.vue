@@ -244,8 +244,7 @@ function handleUpdate() {
 <template>
   <Page
     description="表单组件动态联动示例，包含了常用的场景。增删改，本质上是修改schema，你也可以通过 `setState` 动态修改schema。"
-    title="表单组件"
-  >
+    title="表单组件">
     <Card title="表单动态联动示例">
       <template #extra>
         <Button class="mr-2" @click="handleUpdate">修改字段3</Button>

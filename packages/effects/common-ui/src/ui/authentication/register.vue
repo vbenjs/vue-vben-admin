@@ -105,8 +105,7 @@ defineExpose({
       :loading="loading"
       aria-label="register"
       class="mt-2 w-full"
-      @click="handleSubmit"
-    >
+      @click="handleSubmit">
       <slot name="submitButtonText">
         {{ submitButtonText || $t('authentication.signUp') }}
       </slot>

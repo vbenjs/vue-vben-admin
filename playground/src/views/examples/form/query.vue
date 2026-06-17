@@ -255,8 +255,7 @@ function onSubmit(values: Record<string, any>) {
 <template>
   <Page
     description="查询表单，常用语和表格组合使用，可进行收缩展开。"
-    title="表单组件"
-  >
+    title="表单组件">
     <Card class="mb-5" title="查询表单，默认展开">
       <QueryForm />
     </Card>

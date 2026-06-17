@@ -81,8 +81,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 <template>
   <div
     :class="contentClass"
-    class="relative flex! h-full w-max items-center overflow-hidden pr-6"
-  >
+    class="relative flex! h-full w-max items-center overflow-hidden pr-6">
     <TransitionGroup name="slide-left">
       <div
         v-for="(tab, i) in tabsView"
@@ -99,42 +98,35 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         class="group tab-item translate-all relative flex cursor-pointer select-none [&:not(.is-active)]:hover:bg-accent"
         data-tab-item="true"
         @click="active = tab.key"
-        @mousedown="onMouseDown($event, tab)"
-      >
+        @mousedown="onMouseDown($event, tab)">
         <VbenContextMenu
           :handler-data="tab"
           :menus="contextMenus"
           :modal="false"
-          item-class="pr-6"
-        >
+          item-class="pr-6">
           <div class="relative flex size-full items-center">
             <!-- extra -->
             <div
-              class="absolute top-1/2 right-1.5 z-3 translate-y-[-50%] overflow-hidden"
-            >
+              class="absolute top-1/2 right-1.5 z-3 translate-y-[-50%] overflow-hidden">
               <!-- close-icon -->
               <X
                 v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"
                 class="size-3 cursor-pointer rounded-full stroke-accent-foreground/80 transition-all group-[.is-active]:text-primary hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:dark:text-accent-foreground"
-                @click.stop="() => emit('close', tab.key)"
-              />
+                @click.stop="() => emit('close', tab.key)" />
               <Pin
                 v-show="tab.affixTab && tabsView.length > 1 && tab.closable"
                 class="mt-px size-3.5 cursor-pointer rounded-full transition-all group-[.is-active]:text-primary hover:bg-accent hover:stroke-accent-foreground group-[.is-active]:dark:text-accent-foreground"
-                @click.stop="() => emit('unpin', tab)"
-              />
+                @click.stop="() => emit('unpin', tab)" />
             </div>
 
             <!-- tab-item-main -->
             <div
-              class="mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 text-accent-foreground transition-all duration-300 group-[.is-active]:text-primary group-[.is-active]:dark:text-accent-foreground"
-            >
+              class="mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 text-accent-foreground transition-all duration-300 group-[.is-active]:text-primary group-[.is-active]:dark:text-accent-foreground">
               <VbenIcon
                 v-if="showIcon"
                 :icon="tab.icon"
                 class="mr-2 flex size-4 items-center overflow-hidden group-hover:animate-[shrink_0.3s_ease-in-out]"
-                fallback
-              />
+                fallback />
 
               <span class="flex-1 overflow-hidden text-sm whitespace-nowrap">
                 {{ tab.title }}

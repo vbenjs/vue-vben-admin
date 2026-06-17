@@ -26,8 +26,7 @@ const forwardedProps = useForwardProps(delegatedProps);
         props.class,
       )
     "
-    v-bind="forwardedProps"
-  >
+    v-bind="forwardedProps">
     <slot></slot>
   </TabsTrigger>
 </template>

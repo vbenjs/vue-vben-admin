@@ -80,8 +80,7 @@ function reset() {
         <Input
           v-model:value="newTabTitle"
           class="w-40"
-          placeholder="请输入新标题"
-        />
+          placeholder="请输入新标题" />
         <Button type="primary" @click="() => setTabTitle(newTabTitle)">
           修改
         </Button>

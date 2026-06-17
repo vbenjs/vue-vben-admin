@@ -11,8 +11,7 @@ const { closeCurrentTab } = useTabs();
     description="当前路由在菜单中不可见"
     status="coming-soon"
     title="被隐藏的子菜单"
-    show-back
-  >
+    show-back>
     <template #action>
       <VbenButton size="lg" @click="closeCurrentTab()">
         <X class="mr-2 size-4" />

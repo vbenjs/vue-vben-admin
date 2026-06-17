@@ -63,8 +63,7 @@ const handleClear = () => {
         <VbenIconButton class="bell-button relative text-foreground">
           <span
             v-if="dot"
-            class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"
-          ></span>
+            class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"></span>
           <Bell class="size-4" />
         </VbenIconButton>
       </div>
@@ -76,8 +75,7 @@ const handleClear = () => {
         <VbenIconButton
           :disabled="notifications.length <= 0"
           :tooltip="$t('ui.widgets.markAllAsRead')"
-          @click="handleMakeAll"
-        >
+          @click="handleMakeAll">
           <MailCheck class="size-4" />
         </VbenIconButton>
       </div>
@@ -86,21 +84,17 @@ const handleClear = () => {
           <template v-for="item in notifications" :key="item.id ?? item.title">
             <li
               class="relative flex w-full cursor-pointer items-start gap-5 border-t border-border p-3 hover:bg-accent"
-              @click="emit('onClick', item)"
-            >
+              @click="emit('onClick', item)">
               <slot name="content" :item="item">
                 <span
                   v-if="!item.isRead"
-                  class="absolute top-2 right-2 size-2 rounded-sm bg-primary"
-                ></span>
+                  class="absolute top-2 right-2 size-2 rounded-sm bg-primary"></span>
 
                 <span
-                  class="relative flex size-10 shrink-0 overflow-hidden rounded-full"
-                >
+                  class="relative flex size-10 shrink-0 overflow-hidden rounded-full">
                   <img
                     :src="item.avatar"
-                    class="aspect-square size-full object-cover"
-                  />
+                    class="aspect-square size-full object-cover" />
                 </span>
                 <div class="flex flex-col gap-1 leading-none">
                   <p class="font-semibold">{{ item.title }}</p>
@@ -112,8 +106,7 @@ const handleClear = () => {
                   </p>
                 </div>
                 <div
-                  class="absolute top-1/2 right-3 flex -translate-y-1/2 flex-row gap-1"
-                >
+                  class="absolute top-1/2 right-3 flex -translate-y-1/2 flex-row gap-1">
                   <slot name="action" :item="item">
                     <slot name="action-prepend" :item="item"></slot>
                     <VbenIconButton
@@ -122,8 +115,7 @@ const handleClear = () => {
                       variant="ghost"
                       class="h-6 px-2"
                       :tooltip="$t('common.confirm')"
-                      @click.stop="emit('read', item)"
-                    >
+                      @click.stop="emit('read', item)">
                       <CircleCheckBig class="size-4" />
                     </VbenIconButton>
                     <VbenIconButton
@@ -132,8 +124,7 @@ const handleClear = () => {
                       variant="ghost"
                       class="h-6 px-2 text-destructive"
                       :tooltip="$t('common.delete')"
-                      @click.stop="emit('remove', item)"
-                    >
+                      @click.stop="emit('remove', item)">
                       <CircleX class="size-4" />
                     </VbenIconButton>
                     <slot name="action-append" :item="item"></slot>
@@ -152,14 +143,12 @@ const handleClear = () => {
       </template>
 
       <div
-        class="flex items-center justify-between border-t border-border px-4 py-3"
-      >
+        class="flex items-center justify-between border-t border-border px-4 py-3">
         <VbenButton
           :disabled="notifications.length <= 0"
           size="sm"
           variant="ghost"
-          @click="handleClear"
-        >
+          @click="handleClear">
           {{ $t('ui.widgets.clearNotifications') }}
         </VbenButton>
         <VbenButton size="sm" @click="handleViewAll">

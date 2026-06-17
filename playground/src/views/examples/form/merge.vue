@@ -92,16 +92,14 @@ async function handleMergeSubmit() {
 <template>
   <Page
     description="表单组件合并示例：在某些场景下，例如分步表单，需要合并多个表单并统一提交。默认情况下，使用 Object.assign 规则合并表单。如果需要特殊处理数据，可以传入 false。"
-    title="表单组件"
-  >
+    title="表单组件">
     <Card title="基础示例">
       <template #extra>
         <Switch
           v-model:checked="needMerge"
           checked-children="开启字段合并"
           class="mr-4"
-          un-checked-children="关闭字段合并"
-        />
+          un-checked-children="关闭字段合并" />
         <Button type="primary" @click="handleMergeSubmit">合并提交</Button>
       </template>
       <div class="mx-auto max-w-lg">

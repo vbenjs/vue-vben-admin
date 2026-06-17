@@ -110,8 +110,7 @@ const bindProps = computed<Recordable<any>>(() => {
             v-if="props.copyable"
             class="vben-json-copy-btn"
             :class="[{ 'is-copied': copiedPath === node.path }]"
-            @click.stop="handleCopy(node, defaultActions.copy)"
-          >
+            @click.stop="handleCopy(node, defaultActions.copy)">
             {{
               copiedPath === node.path
                 ? copyConfig.copiedText

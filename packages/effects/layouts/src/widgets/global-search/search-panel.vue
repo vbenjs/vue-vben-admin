@@ -242,8 +242,7 @@ useEventListener('mousemove', () => {
       <!-- 无搜索结果 -->
       <div
         v-if="keyword && searchResults.length === 0"
-        class="text-center text-muted-foreground"
-      >
+        class="text-center text-muted-foreground">
         <SearchX class="mx-auto mt-4 size-12" />
         <p class="mt-6 mb-10 text-xs">
           {{ $t('ui.widgets.search.noResults') }}
@@ -255,8 +254,7 @@ useEventListener('mousemove', () => {
       <!-- 历史搜索记录 & 没有搜索结果 -->
       <div
         v-if="!keyword && searchResults.length === 0"
-        class="text-center text-muted-foreground"
-      >
+        class="text-center text-muted-foreground">
         <p class="my-10 text-xs">
           {{ $t('ui.widgets.search.noRecent') }}
         </p>
@@ -265,8 +263,7 @@ useEventListener('mousemove', () => {
       <ul v-show="searchResults.length > 0" class="w-full">
         <li
           v-if="searchHistory.length > 0 && !keyword"
-          class="mb-2 text-xs text-muted-foreground"
-        >
+          class="mb-2 text-xs text-muted-foreground">
           {{ $t('ui.widgets.search.recent') }}
         </li>
         <li
@@ -281,15 +278,13 @@ useEventListener('mousemove', () => {
           :data-search-item="index"
           class="group mb-3 flex-center w-full cursor-pointer rounded-lg bg-accent p-4"
           @click="handleEnter"
-          @mouseenter="handleMouseenter"
-        >
+          @mouseenter="handleMouseenter">
           <VbenIcon :icon="item.icon" class="mr-2 size-5 shrink-0" fallback />
 
           <span class="flex-1">{{ item.name }}</span>
           <div
             class="flex-center rounded-full p-1 hover:scale-110 hover:text-primary-foreground dark:hover:bg-accent"
-            @click.stop="removeItem(index)"
-          >
+            @click.stop="removeItem(index)">
             <X class="size-4" />
           </div>
         </li>

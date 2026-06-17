@@ -258,8 +258,7 @@ function goDoc() {
         <Button v-tippy="'这是一个提示，使用了默认的配置'">默认配置</Button>
 
         <Button
-          v-tippy="{ theme: 'light', content: '这是一个提示，总是light主题' }"
-        >
+          v-tippy="{ theme: 'light', content: '这是一个提示，总是light主题' }">
           指定主题
         </Button>
         <Button
@@ -267,16 +266,14 @@ function goDoc() {
             theme: 'light',
             content: '这个提示将在点燃组件100毫秒后激活',
             delay: 100,
-          }"
-        >
+          }">
           指定延时
         </Button>
         <Button
           v-tippy="{
             content: '本提示的动画为`scale`',
             animation: 'scale',
-          }"
-        >
+          }">
           指定动画
         </Button>
       </Flex>
@@ -291,8 +288,7 @@ function goDoc() {
       <Form class="mt-4" />
       <template #actions>
         <p
-          class="cursor-default text-secondary-foreground hover:text-secondary-foreground"
-        >
+          class="cursor-default text-secondary-foreground hover:text-secondary-foreground">
           更多配置请
           <Button type="link" size="small" @click="goDoc">查看文档</Button>
           ，这里只列出了一些常用的配置

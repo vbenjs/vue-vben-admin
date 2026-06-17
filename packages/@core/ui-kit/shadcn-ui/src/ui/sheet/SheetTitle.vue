@@ -19,8 +19,7 @@ const delegatedProps = reactiveOmit(props, 'class');
   <DialogTitle
     data-slot="sheet-title"
     :class="cn('text-foreground font-medium', props.class)"
-    v-bind="delegatedProps"
-  >
+    v-bind="delegatedProps">
     <slot></slot>
   </DialogTitle>
 </template>

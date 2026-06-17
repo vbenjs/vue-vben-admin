@@ -86,8 +86,7 @@ function updateMenuBadge() {
 <template>
   <Page
     description="菜单项上可以显示徽标，这些徽标可以主动更新"
-    title="菜单徽标"
-  >
+    title="菜单徽标">
     <Card title="徽标更新">
       <Form>
         <template #badgeVariants="slotProps">
@@ -95,15 +94,12 @@ function updateMenuBadge() {
             <Radio
               v-for="color in colors"
               :key="color.value"
-              :value="color.value"
-            >
+              :value="color.value">
               <div
                 :title="color.label"
-                class="flex h-3.5 w-12.5 items-center justify-start"
-              >
+                class="flex h-3.5 w-12.5 items-center justify-start">
                 <MenuBadge
-                  v-bind="{ ...badgeProps, badgeVariants: color.value }"
-                />
+                  v-bind="{ ...badgeProps, badgeVariants: color.value }" />
               </div>
             </Radio>
           </RadioGroup>

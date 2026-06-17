@@ -37,8 +37,7 @@ const slots = useSlots();
       'hover:bg-accent': !(slots.tip || tip),
       'pointer-events-none opacity-50': disabled,
     }"
-    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-1"
-  >
+    class="my-1 flex w-full items-center justify-between rounded-md px-2 py-1">
     <span class="flex items-center text-sm">
       <slot></slot>
 
@@ -59,13 +58,11 @@ const slots = useSlots();
       <Input
         v-model="inputValue"
         class="h-8 w-41.25"
-        :placeholder="placeholder"
-      />
+        :placeholder="placeholder" />
       <CircleX
         v-if="inputValue"
         class="absolute top-1/2 right-2 size-3 -translate-y-1/2 transform cursor-pointer text-foreground/60 hover:text-foreground"
-        @click="() => (inputValue = '')"
-      />
+        @click="() => (inputValue = '')" />
     </div>
   </div>
 </template>

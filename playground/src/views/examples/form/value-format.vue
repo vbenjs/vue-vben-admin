@@ -114,8 +114,7 @@ onMounted(async () => {
   <Page
     content-class="flex flex-col gap-4"
     description="演示 schema.valueFormat 如何把组件值转换为提交/查询所需的 payload。"
-    title="表单 valueFormat"
-  >
+    title="表单 valueFormat">
     <template #description>
       <div class="text-muted-foreground space-y-2">
         <p>

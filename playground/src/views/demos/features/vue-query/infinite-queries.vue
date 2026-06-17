@@ -47,8 +47,7 @@ const {
       </ul>
       <Button
         :disabled="!hasNextPage || isFetchingNextPage"
-        @click="() => fetchNextPage()"
-      >
+        @click="() => fetchNextPage()">
         <span v-if="isFetchingNextPage">加载中...</span>
         <span v-else-if="hasNextPage">加载更多</span>
         <span v-else>没有更多了</span>

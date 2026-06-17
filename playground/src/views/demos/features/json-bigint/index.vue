@@ -17,8 +17,7 @@ function fetchData() {
 <template>
   <Page
     title="JSON BigInt Support"
-    description="解析后端返回的长整数（long/bigInt）。代码位置：playground/src/api/request.ts中的transformResponse"
-  >
+    description="解析后端返回的长整数（long/bigInt）。代码位置：playground/src/api/request.ts中的transformResponse">
     <Card>
       <Alert>
         <template #title>

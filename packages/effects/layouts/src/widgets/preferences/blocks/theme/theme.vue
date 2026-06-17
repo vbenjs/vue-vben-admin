@@ -70,12 +70,10 @@ function nameView(name: string) {
     <template v-for="theme in THEME_PRESET" :key="theme.name">
       <div
         class="flex cursor-pointer flex-col"
-        @click="modelValue = theme.name"
-      >
+        @click="modelValue = theme.name">
         <div
           :class="activeClass(theme.name)"
-          class="outline-box flex-center py-4"
-        >
+          class="outline-box flex-center py-4">
           <component :is="theme.icon" class="mx-9 size-5" />
         </div>
         <div class="mt-2 text-center text-xs text-muted-foreground">
@@ -92,8 +90,7 @@ function nameView(name: string) {
         layout === 'full-content'
       "
       :tip="$t('preferences.theme.darkSidebarTip')"
-      class="mt-6"
-    >
+      class="mt-6">
       {{ $t('preferences.theme.darkSidebar') }}
     </SwitchItem>
     <SwitchItem
@@ -103,8 +100,7 @@ function nameView(name: string) {
         (layout !== 'header-mixed-nav' && layout !== 'sidebar-mixed-nav') ||
         !themeSemiDarkSidebar
       "
-      :tip="$t('preferences.theme.darkSidebarSubTip')"
-    >
+      :tip="$t('preferences.theme.darkSidebarSubTip')">
       {{ $t('preferences.theme.darkSidebarSub') }}
     </SwitchItem>
     <SwitchItem v-model="themeSemiDarkHeader" :disabled="modelValue === 'dark'">

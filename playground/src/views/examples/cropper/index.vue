@@ -71,8 +71,7 @@ const downloadImage = () => {
 <template>
   <Page
     title="VCropper 图片裁剪"
-    description="VCropper是一个图片裁剪组件，提供基础的图片裁剪功能。"
-  >
+    description="VCropper是一个图片裁剪组件，提供基础的图片裁剪功能。">
     <Card>
       <div class="image-cropper-container">
         <div class="cropper-ratio-display">
@@ -80,14 +79,12 @@ const downloadImage = () => {
           <Select
             class="w-24"
             v-model:value="validAspectRatio"
-            :options="options"
-          />
+            :options="options" />
           <Upload
             :max-count="1"
             :show-upload-list="false"
             :before-upload="() => false"
-            @change="selectImgFile"
-          >
+            @change="selectImgFile">
             <Button>上传图片</Button>
           </Upload>
         </div>
@@ -98,8 +95,7 @@ const downloadImage = () => {
             :img="imgUrl"
             :aspect-ratio="validAspectRatio"
             :width="600"
-            :height="600"
-          />
+            :height="600" />
 
           <!-- 操作按钮组 -->
           <div class="cropper-btn-group">
@@ -116,8 +112,7 @@ const downloadImage = () => {
             v-if="cropperImg"
             class="h-full w-80"
             :src="cropperImg"
-            alt="裁剪预览"
-          />
+            alt="裁剪预览" />
         </div>
       </div>
     </Card>

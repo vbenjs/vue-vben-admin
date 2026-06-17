@@ -1185,8 +1185,7 @@ watch(
     class="resize"
     @mousedown="bodyDown($event as TouchEvent & MouseEvent)"
     @touchend="up"
-    @touchstart="bodyDown($event as TouchEvent & MouseEvent)"
-  >
+    @touchstart="bodyDown($event as TouchEvent & MouseEvent)">
     <div ref="container" :style="sizeStyle" class="content-container">
       <slot></slot>
     </div>
@@ -1201,8 +1200,7 @@ watch(
       "
       @touchstart.stop.prevent="
         stickDown(stick, $event as TouchEvent & MouseEvent)
-      "
-    ></div>
+      "></div>
   </div>
 </template>
 

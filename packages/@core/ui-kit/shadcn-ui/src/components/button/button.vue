@@ -31,12 +31,10 @@ const isDisabled = computed(() => {
     :as="as"
     :as-child="asChild"
     :class="cn(buttonVariants({ variant, size }), props.class)"
-    :disabled="isDisabled"
-  >
+    :disabled="isDisabled">
     <LoaderCircle
       v-if="loading"
-      class="text-md mr-2 size-4 shrink-0 animate-spin"
-    />
+      class="text-md mr-2 size-4 shrink-0 animate-spin" />
     <slot></slot>
   </Primitive>
 </template>

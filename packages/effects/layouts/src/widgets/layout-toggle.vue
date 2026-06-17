@@ -53,8 +53,7 @@ function handleUpdate(value: string | undefined) {
   <VbenDropdownRadioMenu
     :menus="menus"
     :model-value="preferences.app.authPageLayout"
-    @update:model-value="handleUpdate"
-  >
+    @update:model-value="handleUpdate">
     <VbenIconButton>
       <PanelRight v-if="authPanelRight" class="size-4" />
       <PanelLeft v-if="authPanelLeft" class="size-4" />

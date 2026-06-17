@@ -39,8 +39,7 @@ const forwarded = useForwardProps(delegatedProps);
         props.class,
       )
     "
-    v-bind="forwarded"
-  >
+    v-bind="forwarded">
     <Button :class="cn('size-8 p-0', props.class)" variant="outline">
       <slot>
         <ChevronsLeft class="size-4" />

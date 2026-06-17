@@ -99,8 +99,7 @@ onUnmounted(() => {
     <ContextMenuContent
       :class="contentClass"
       v-bind="contentProps"
-      class="side-content z-popup"
-    >
+      class="side-content z-popup">
       <template v-for="menu in menusView" :key="menu.key">
         <ContextMenuItem
           v-if="!menu.hidden"
@@ -108,13 +107,11 @@ onUnmounted(() => {
           :disabled="menu.disabled"
           :inset="menu.inset || !menu.icon"
           class="cursor-pointer"
-          @click="handleClick(menu)"
-        >
+          @click="handleClick(menu)">
           <component
             :is="menu.icon"
             v-if="menu.icon"
-            class="mr-2 size-4 text-lg"
-          />
+            class="mr-2 size-4 text-lg" />
 
           {{ menu.text }}
           <ContextMenuShortcut v-if="menu.shortcut">

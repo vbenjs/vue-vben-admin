@@ -70,16 +70,14 @@ const logoSrc = computed(() => {
     <a
       :class="$attrs.class"
       :href="href"
-      class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg leading-normal transition-all duration-500"
-    >
+      class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg leading-normal transition-all duration-500">
       <VbenAvatar
         v-if="logoSrc"
         :alt="text"
         :src="logoSrc"
         :size="logoSize"
         :fit="fit"
-        class="relative rounded-none bg-transparent"
-      />
+        class="relative rounded-none bg-transparent" />
       <template v-if="!collapsed">
         <slot name="text">
           <span class="text-foreground truncate font-semibold text-nowrap">

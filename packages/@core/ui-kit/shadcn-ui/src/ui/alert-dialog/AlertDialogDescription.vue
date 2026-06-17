@@ -21,8 +21,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   <AlertDialogDescription
     data-slot="alert-dialog-description"
     v-bind="forwardedProps"
-    :class="cn('text-muted-foreground text-sm', props.class)"
-  >
+    :class="cn('text-muted-foreground text-sm', props.class)">
     <slot></slot>
   </AlertDialogDescription>
 </template>

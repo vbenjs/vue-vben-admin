@@ -273,8 +273,7 @@ async function handleSubmitFormValue() {
   <Page
     auto-content-height
     content-class="flex flex-col gap-4"
-    title="可折叠表单项"
-  >
+    title="可折叠表单项">
     <template #description>
       <div class="text-muted-foreground">
         <p>可折叠表单项、以及可折叠参数配置组件示例</p>
@@ -290,8 +289,7 @@ async function handleSubmitFormValue() {
             :options="layouts"
             option-type="button"
             v-model:value="layout"
-            @change="onLayoutChange"
-          />
+            @change="onLayoutChange" />
           <Button type="primary" @click="handleSetFormValue">
             设置表单值
           </Button>

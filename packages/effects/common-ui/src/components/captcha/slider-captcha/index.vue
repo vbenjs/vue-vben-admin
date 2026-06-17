@@ -219,20 +219,17 @@ function resume() {
     @mousemove="handleDragMoving"
     @mouseup="handleDragOver"
     @touchend="handleDragOver"
-    @touchmove="handleDragMoving"
-  >
+    @touchmove="handleDragMoving">
     <SliderCaptchaBar
       ref="barRef"
       :bar-style="barStyle"
-      :to-left="state.toLeft"
-    />
+      :to-left="state.toLeft" />
     <SliderCaptchaContent
       ref="contentRef"
       :content-style="contentStyle"
       :is-passing="state.isPassing"
       :success-text="successText || $t('ui.captcha.sliderSuccessText')"
-      :text="text || $t('ui.captcha.sliderDefaultText')"
-    >
+      :text="text || $t('ui.captcha.sliderDefaultText')">
       <template v-if="$slots.text" #text>
         <slot :is-passing="state.isPassing" name="text"></slot>
       </template>
@@ -244,8 +241,7 @@ function resume() {
       :is-passing="state.isPassing"
       :to-left="state.toLeft"
       @mousedown="handleDragStart"
-      @touchstart="handleDragStart"
-    >
+      @touchstart="handleDragStart">
       <template v-if="$slots.actionIcon" #icon>
         <slot :is-passing="state.isPassing" name="actionIcon"></slot>
       </template>

@@ -143,8 +143,7 @@ function onBtnClick(value: any) {
 <template>
   <Page
     title="VbenButtonGroup 按钮组"
-    description="VbenButtonGroup是一个按钮容器，用于包裹一组按钮，协调整体样式。VbenCheckButtonGroup则可以作为一个表单组件，提供单选或多选功能"
-  >
+    description="VbenButtonGroup是一个按钮容器，用于包裹一组按钮，协调整体样式。VbenCheckButtonGroup则可以作为一个表单组件，提供单选或多选功能">
     <Card title="基本用法">
       <template #extra>
         <Button type="primary" @click="resetValues">清空值</Button>
@@ -156,8 +155,7 @@ function onBtnClick(value: any) {
             v-for="btn in options"
             :key="btn.value"
             variant="link"
-            @click="onBtnClick(btn.value)"
-          >
+            @click="onBtnClick(btn.value)">
             {{ btn.label }}
           </VbenButton>
         </VbenButtonGroup>
@@ -166,8 +164,7 @@ function onBtnClick(value: any) {
             v-for="btn in options"
             :key="btn.value"
             variant="outline"
-            @click="onBtnClick(btn.value)"
-          >
+            @click="onBtnClick(btn.value)">
             {{ btn.label }}
           </VbenButton>
         </VbenButtonGroup>
@@ -177,16 +174,14 @@ function onBtnClick(value: any) {
         <VbenCheckButtonGroup
           v-model="radioValue"
           :options="options"
-          v-bind="compProps"
-        />
+          v-bind="compProps" />
       </div>
       <p class="mt-4">单选插槽：{{ radioValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenCheckButtonGroup
           v-model="radioValue"
           :options="options"
-          v-bind="compProps"
-        >
+          v-bind="compProps">
           <template #option="{ label, value, data }">
             <div class="flex items-center">
               <span>{{ label }}</span>
@@ -202,8 +197,7 @@ function onBtnClick(value: any) {
           v-model="checkValue"
           multiple
           :options="options"
-          v-bind="compProps"
-        />
+          v-bind="compProps" />
       </div>
       <p class="mt-4">自定义图标{{ checkValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
@@ -211,8 +205,7 @@ function onBtnClick(value: any) {
           v-model="checkValue"
           multiple
           :options="options"
-          v-bind="compProps"
-        >
+          v-bind="compProps">
           <template #icon="{ loading, checked }">
             <LoaderCircle class="animate-spin" v-if="loading" />
             <SquareCheckBig v-else-if="checked" />

@@ -166,8 +166,7 @@ defineExpose({ toggleOpenState, open, close });
     v-model:open="visible"
     :content-props="{ align: 'end', alignOffset: -11, sideOffset: 8 }"
     content-class="p-0 pt-3 w-full"
-    trigger-class="w-full"
-  >
+    trigger-class="w-full">
     <template #trigger>
       <template v-if="props.type === 'input'">
         <component
@@ -179,14 +178,12 @@ defineExpose({ toggleOpenState, open, close });
           :aria-label="$t('ui.iconPicker.placeholder')"
           aria-expanded="visible"
           :[`onUpdate:${modelValueProp}`]="updateCurrentSelect"
-          v-bind="getBindAttrs"
-        >
+          v-bind="getBindAttrs">
           <template #[iconSlot]>
             <VbenIcon
               :icon="currentSelect || Grip"
               class="size-4"
-              aria-hidden="true"
-            />
+              aria-hidden="true" />
           </template>
         </component>
         <div class="relative w-full" v-else>
@@ -197,34 +194,29 @@ defineExpose({ toggleOpenState, open, close });
             class="h-8 w-full pr-8"
             role="combobox"
             :aria-label="$t('ui.iconPicker.placeholder')"
-            aria-expanded="visible"
-          />
+            aria-expanded="visible" />
           <VbenIcon
             :icon="currentSelect || Grip"
             class="absolute top-1 right-1 size-6"
-            aria-hidden="true"
-          />
+            aria-hidden="true" />
         </div>
       </template>
       <VbenIcon
         :icon="currentSelect || Grip"
         v-else
         class="size-4"
-        v-bind="$attrs"
-      />
+        v-bind="$attrs" />
     </template>
     <div class="mb-2 flex w-full">
       <component
         v-if="inputComponent"
         :is="inputComponent"
-        v-bind="searchInputProps"
-      />
+        v-bind="searchInputProps" />
       <Input
         v-else
         class="mx-2 h-8 w-full"
         :placeholder="$t('ui.iconPicker.search')"
-        v-model="keyword"
-      />
+        v-model="keyword" />
     </div>
 
     <template v-if="paginationList.length > 0">
@@ -234,32 +226,27 @@ defineExpose({ toggleOpenState, open, close });
           :key="index"
           :tooltip="item"
           tooltip-side="top"
-          @click="handleClick(item)"
-        >
+          @click="handleClick(item)">
           <VbenIcon
             :class="{
               'text-primary transition-all': currentSelect === item,
             }"
-            :icon="item"
-          />
+            :icon="item" />
         </VbenIconButton>
       </div>
       <div
         v-if="total >= pageSize"
-        class="flex-center flex justify-end overflow-hidden border-t py-2 pr-3"
-      >
+        class="flex-center flex justify-end overflow-hidden border-t py-2 pr-3">
         <Pagination
           :items-per-page="36"
           :sibling-count="1"
           :total="total"
           show-edges
           size="small"
-          @update:page="handlePageChange"
-        >
+          @update:page="handlePageChange">
           <PaginationContent
             v-slot="{ items }"
-            class="flex w-full items-center gap-1"
-          >
+            class="flex w-full items-center gap-1">
             <PaginationFirst class="size-5" />
             <PaginationPrevious class="size-5" />
             <template v-for="(item, index) in items">
@@ -267,12 +254,10 @@ defineExpose({ toggleOpenState, open, close });
                 v-if="item.type === 'page'"
                 :key="index"
                 :value="item.value"
-                as-child
-              >
+                as-child>
                 <Button
                   :variant="item.value === currentPage ? 'default' : 'outline'"
-                  class="size-5 p-0 text-sm"
-                >
+                  class="size-5 p-0 text-sm">
                   {{ item.value }}
                 </Button>
               </PaginationItem>
@@ -280,8 +265,7 @@ defineExpose({ toggleOpenState, open, close });
                 v-else
                 :key="item.type"
                 :index="index"
-                class="size-5"
-              />
+                class="size-5" />
             </template>
             <PaginationNext class="size-5" />
             <PaginationLast class="size-5" />

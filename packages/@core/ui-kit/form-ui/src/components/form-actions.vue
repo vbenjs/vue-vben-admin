@@ -133,8 +133,7 @@ defineExpose({
         v-if="submitButtonOptions.show"
         type="button"
         @click="handleSubmit"
-        v-bind="submitButtonOptions"
-      >
+        v-bind="submitButtonOptions">
         {{ submitButtonOptions.content }}
       </component>
     </template>
@@ -147,8 +146,7 @@ defineExpose({
       v-if="resetButtonOptions.show"
       type="button"
       @click="handleReset"
-      v-bind="resetButtonOptions"
-    >
+      v-bind="resetButtonOptions">
       {{ resetButtonOptions.content }}
     </component>
 
@@ -161,8 +159,7 @@ defineExpose({
         v-if="submitButtonOptions.show"
         type="button"
         @click="handleSubmit"
-        v-bind="submitButtonOptions"
-      >
+        v-bind="submitButtonOptions">
         {{ submitButtonOptions.content }}
       </component>
     </template>
@@ -173,8 +170,7 @@ defineExpose({
     <VbenExpandableArrow
       class="ml-[-0.3em]"
       v-if="rootProps.showCollapseButton"
-      v-model:model-value="collapsed"
-    >
+      v-model:model-value="collapsed">
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
 

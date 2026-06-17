@@ -89,8 +89,7 @@ function toggleTheme(event: MouseEvent) {
     aria-live="polite"
     class="theme-toggle cursor-pointer border-none bg-none hover:animate-[shrink_0.3s_ease-in-out]"
     v-bind="bindProps"
-    @click.stop="toggleTheme"
-  >
+    @click.stop="toggleTheme">
     <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24">
       <mask id="theme-toggle-moon" class="theme-toggle__moon">
         <rect fill="white" height="100%" width="100%" x="0" y="0" />
@@ -102,8 +101,7 @@ function toggleTheme(event: MouseEvent) {
         cx="12"
         cy="12"
         mask="url(#theme-toggle-moon)"
-        r="11"
-      />
+        r="11" />
       <g class="theme-toggle__sun-beams stroke-foreground/90 stroke-2">
         <line x1="12" x2="12" y1="1" y2="3" />
         <line x1="12" x2="12" y1="21" y2="23" />

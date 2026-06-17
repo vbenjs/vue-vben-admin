@@ -25,8 +25,7 @@ function onChange() {
         { label: '私密', value: 'private' },
       ]"
       @blur="emit('blur')"
-      @change="onChange"
-    />
+      @change="onChange" />
     <Input
       placeholder="请输入11位手机号码"
       class="flex-1"
@@ -36,7 +35,6 @@ function onChange() {
       :maxlength="11"
       type="tel"
       @blur="emit('blur')"
-      @change="onChange"
-    />
+      @change="onChange" />
   </div>
 </template>

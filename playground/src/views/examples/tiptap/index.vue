@@ -60,8 +60,7 @@ const imageUpload: ImageUploadOptions = {
       </div>
       <VbenTiptap
         v-model="content"
-        :image-upload="enableUpload ? imageUpload : undefined"
-      />
+        :image-upload="enableUpload ? imageUpload : undefined" />
     </Card>
 
     <Card class="mb-5" title="富文本预览">

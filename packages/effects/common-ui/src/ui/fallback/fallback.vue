@@ -133,21 +133,18 @@ function refresh() {
     <component
       :is="fallbackIcon"
       v-else-if="fallbackIcon"
-      class="md:1/3 h-1/3 w-1/2 lg:w-1/4"
-    />
+      class="md:1/3 h-1/3 w-1/2 lg:w-1/4" />
     <div class="flex-col-center">
       <slot v-if="$slots.title" name="title"></slot>
       <p
         v-else-if="titleText"
-        class="mt-8 text-2xl text-foreground md:text-3xl lg:text-4xl"
-      >
+        class="mt-8 text-2xl text-foreground md:text-3xl lg:text-4xl">
         {{ titleText }}
       </p>
       <slot v-if="$slots.describe" name="describe"></slot>
       <p
         v-else-if="descText"
-        class="md:text-md my-4 text-muted-foreground lg:text-lg"
-      >
+        class="md:text-md my-4 text-muted-foreground lg:text-lg">
         {{ descText }}
       </p>
       <slot v-if="$slots.action" name="action"></slot>

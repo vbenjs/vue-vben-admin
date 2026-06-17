@@ -163,8 +163,7 @@ async function handleOpenChange(val: boolean) {
             'shadow-3xl': !bordered,
           },
         )
-      "
-    >
+      ">
       <div :class="cn('relative flex-1 overflow-y-auto p-3', contentClass)">
         <AlertDialogTitle v-if="title">
           <div class="flex items-center">
@@ -176,8 +175,7 @@ async function handleOpenChange(val: boolean) {
                 size="icon"
                 class="rounded-full"
                 :disabled="loading"
-                @click="handleCancel"
-              >
+                @click="handleCancel">
                 <X class="size-4 text-muted-foreground" />
               </VbenButton>
             </AlertDialogCancel>
@@ -191,16 +189,14 @@ async function handleOpenChange(val: boolean) {
         </AlertDialogDescription>
         <div
           class="flex items-center justify-end gap-x-2"
-          :class="`justify-${buttonAlign}`"
-        >
+          :class="`justify-${buttonAlign}`">
           <VbenRenderContent :content="footer" />
           <AlertDialogCancel v-if="showCancel" as-child>
             <component
               :is="components.DefaultButton || VbenButton"
               :disabled="loading"
               variant="outline"
-              @click="handleCancel"
-            >
+              @click="handleCancel">
               {{ cancelText || $t('cancel') }}
             </component>
           </AlertDialogCancel>
@@ -208,8 +204,7 @@ async function handleOpenChange(val: boolean) {
             <component
               :is="components.PrimaryButton || VbenButton"
               :loading="loading"
-              @click="handleConfirm"
-            >
+              @click="handleConfirm">
               {{ confirmText || $t('confirm') }}
             </component>
           </AlertDialogAction>

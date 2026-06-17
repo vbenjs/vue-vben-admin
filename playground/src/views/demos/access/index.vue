@@ -67,8 +67,7 @@ async function handleToggleAccessMode() {
 <template>
   <Page
     :title="`${accessMode === 'frontend' ? '前端' : '后端'}页面访问权限演示`"
-    description="切换不同的账号，观察左侧菜单变化。"
-  >
+    description="切换不同的账号，观察左侧菜单变化。">
     <Card class="mb-5" title="权限模式">
       <span class="font-semibold">当前权限模式:</span>
       <span class="mx-4 text-primary">{{
@@ -86,8 +85,7 @@ async function handleToggleAccessMode() {
       <Button
         :type="roleButtonType('admin')"
         class="mx-4"
-        @click="changeAccount('admin')"
-      >
+        @click="changeAccount('admin')">
         切换为 Admin 账号
       </Button>
       <Button :type="roleButtonType('user')" @click="changeAccount('user')">

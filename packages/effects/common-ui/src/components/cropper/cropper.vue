@@ -713,16 +713,14 @@ defineExpose({ getCropImage });
       width: `${width || CROPPER_CONSTANTS.DEFAULT_WIDTH}px`,
       height: `${height || CROPPER_CONSTANTS.DEFAULT_HEIGHT}px`,
     }"
-    class="cropper-action-wrapper"
-  >
+    class="cropper-action-wrapper">
     <div
       ref="containerRef"
       class="cropper-container"
       :style="{
         width: `${containerWidth}px`,
         height: `${containerHeight}px`,
-      }"
-    >
+      }">
       <!-- 原图展示 - 自适应尺寸 -->
       <img
         ref="bgImageRef"
@@ -734,8 +732,7 @@ defineExpose({ getCropImage });
           maxHeight: '100%',
           objectFit: 'contain',
         }"
-        alt="裁剪原图"
-      />
+        alt="裁剪原图" />
 
       <!-- 遮罩层 -->
       <div
@@ -744,8 +741,7 @@ defineExpose({ getCropImage });
           display: isCropperVisible ? 'block' : 'none',
           width: '100%',
           height: '100%',
-        }"
-      >
+        }">
         <div
           ref="maskViewRef"
           class="cropper-mask-view"
@@ -757,8 +753,7 @@ defineExpose({ getCropImage });
             clipPath: `inset(${currentDimension[0]}px ${currentDimension[1]}px ${currentDimension[2]}px ${currentDimension[3]}px)`,
             width: '100%',
             height: '100%',
-          }"
-        ></div>
+          }"></div>
       </div>
 
       <!-- 裁剪框 -->
@@ -769,14 +764,12 @@ defineExpose({ getCropImage });
           display: isCropperVisible ? 'block' : 'none',
           width: '100%',
           height: '100%',
-        }"
-      >
+        }">
         <div
           class="cropper-view"
           :style="{
             inset: `${currentDimension[0]}px ${currentDimension[1]}px ${currentDimension[2]}px ${currentDimension[3]}px`,
-          }"
-        >
+          }">
           <!-- 裁剪框辅助线-->
           <span class="cropper-dashed-h"></span>
           <span class="cropper-dashed-v"></span>
@@ -784,8 +777,7 @@ defineExpose({ getCropImage });
           <!-- 裁剪框拖拽区域 -->
           <span
             class="cropper-move-area"
-            @mousedown="handleMouseDown($event, 'move')"
-          ></span>
+            @mousedown="handleMouseDown($event, 'move')"></span>
 
           <!-- 边框线 -->
           <span class="cropper-line-e"></span>
@@ -796,52 +788,44 @@ defineExpose({ getCropImage });
           <!-- 边角拖拽点 -->
           <span
             class="cropper-point cropper-point-ne"
-            @mousedown="handleMouseDown($event, 'top-right')"
-          >
+            @mousedown="handleMouseDown($event, 'top-right')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-nw"
-            @mousedown="handleMouseDown($event, 'top-left')"
-          >
+            @mousedown="handleMouseDown($event, 'top-left')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-sw"
-            @mousedown="handleMouseDown($event, 'bottom-left')"
-          >
+            @mousedown="handleMouseDown($event, 'bottom-left')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-se"
-            @mousedown="handleMouseDown($event, 'bottom-right')"
-          >
+            @mousedown="handleMouseDown($event, 'bottom-right')">
             <span class="cropper-point-inner"></span>
           </span>
 
           <!-- 边中点拖拽点 -->
           <span
             class="cropper-point cropper-point-e"
-            @mousedown="handleMouseDown($event, 'right')"
-          >
+            @mousedown="handleMouseDown($event, 'right')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-n"
-            @mousedown="handleMouseDown($event, 'top')"
-          >
+            @mousedown="handleMouseDown($event, 'top')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-w"
-            @mousedown="handleMouseDown($event, 'left')"
-          >
+            @mousedown="handleMouseDown($event, 'left')">
             <span class="cropper-point-inner"></span>
           </span>
           <span
             class="cropper-point cropper-point-s"
-            @mousedown="handleMouseDown($event, 'bottom')"
-          >
+            @mousedown="handleMouseDown($event, 'bottom')">
             <span class="cropper-point-inner"></span>
           </span>
         </div>

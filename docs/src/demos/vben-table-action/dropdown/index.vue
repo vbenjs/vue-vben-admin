@@ -35,8 +35,7 @@ const dropdownActions: ActionItem[] = [
       :dropdown-actions="dropdownActions"
       align="start"
       divider
-      more-text="更多"
-    />
+      more-text="更多" />
     <p style="margin-top: 8px; font-size: 13px; opacity: 0.7">
       最近点击：{{ last }}
     </p>

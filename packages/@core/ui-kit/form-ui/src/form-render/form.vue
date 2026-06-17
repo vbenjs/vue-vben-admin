@@ -179,8 +179,7 @@ const computedSchema = computed(
         <FormField
           v-bind="cSchema"
           :class="cSchema.formItemClass"
-          :rules="cSchema.rules"
-        >
+          :rules="cSchema.rules">
           <template #default="slotProps">
             <slot v-bind="slotProps" :name="cSchema.fieldName"> </slot>
           </template>

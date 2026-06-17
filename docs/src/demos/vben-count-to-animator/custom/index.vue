@@ -7,6 +7,5 @@ import { VbenCountToAnimator } from '@vben/common-ui';
     :end-val="2000000"
     :start-val="1"
     prefix="$"
-    separator="/"
-  />
+    separator="/" />
 </template>

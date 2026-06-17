@@ -36,6 +36,5 @@ async function handleSelect(key: string) {
     :rounded="rounded"
     :theme="theme"
     mode="vertical"
-    @select="handleSelect"
-  />
+    @select="handleSelect" />
 </template>

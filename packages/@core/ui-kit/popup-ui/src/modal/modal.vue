@@ -234,8 +234,7 @@ function handleClosed() {
   <Dialog
     :modal="false"
     :open="state?.isOpen"
-    @update:open="() => (!submitting ? modalApi?.close() : undefined)"
-  >
+    @update:open="() => (!submitting ? modalApi?.close() : undefined)">
     <DialogContent
       ref="contentRef"
       :append-to="getAppendTo"
@@ -273,8 +272,7 @@ function handleClosed() {
       @interact-outside="interactOutside"
       @open-auto-focus="handleOpenAutoFocus"
       @opened="handleOpened"
-      @pointer-down-outside="pointerDownOutside"
-    >
+      @pointer-down-outside="pointerDownOutside">
       <DialogHeader
         ref="headerRef"
         :class="
@@ -287,8 +285,7 @@ function handleClosed() {
             },
             headerClass,
           )
-        "
-      >
+        ">
         <DialogTitle v-if="title" class="text-left">
           <slot name="title">
             {{ title }}
@@ -316,16 +313,14 @@ function handleClosed() {
           cn('relative min-h-40 flex-1 overflow-y-auto p-3', contentClass, {
             'pointer-events-none': showLoading || submitting,
           })
-        "
-      >
+        ">
         <slot></slot>
       </div>
       <VbenLoading v-if="showLoading || submitting" spinning />
       <VbenIconButton
         v-if="fullscreenButton"
         class="absolute top-3 right-10 flex-center size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none"
-        @click="handleFullscreen"
-      >
+        @click="handleFullscreen">
         <Shrink v-if="fullscreen" class="size-3.5" />
         <Expand v-else class="size-3.5" />
       </VbenIconButton>
@@ -341,8 +336,7 @@ function handleClosed() {
             },
             footerClass,
           )
-        "
-      >
+        ">
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
@@ -350,8 +344,7 @@ function handleClosed() {
             v-if="showCancelButton"
             variant="outline"
             :disabled="submitting"
-            @click="() => modalApi?.onCancel()"
-          >
+            @click="() => modalApi?.onCancel()">
             <slot name="cancelText">
               {{ cancelText || $t('cancel') }}
             </slot>
@@ -362,8 +355,7 @@ function handleClosed() {
             v-if="showConfirmButton"
             :disabled="confirmDisabled"
             :loading="confirmLoading || submitting"
-            @click="() => modalApi?.onConfirm()"
-          >
+            @click="() => modalApi?.onConfirm()">
             <slot name="confirmText">
               {{ confirmText || $t('confirm') }}
             </slot>

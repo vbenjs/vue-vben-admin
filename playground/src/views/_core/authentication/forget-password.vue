@@ -36,6 +36,5 @@ function handleSubmit(value: Record<string, any>) {
   <AuthenticationForgetPassword
     :form-schema="formSchema"
     :loading="loading"
-    @submit="handleSubmit"
-  />
+    @submit="handleSubmit" />
 </template>

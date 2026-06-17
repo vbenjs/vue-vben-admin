@@ -48,8 +48,7 @@ function mergeStyle(
         :size="size"
         :label="item.label ?? null"
         :item-class="item.class"
-        :label-style="mergeStyle(labelStyle, item.labelStyle)"
-      />
+        :label-style="mergeStyle(labelStyle, item.labelStyle)" />
     </tr>
     <tr>
       <DescriptionsCell
@@ -62,8 +61,7 @@ function mergeStyle(
         :size="size"
         :content="item.content ?? null"
         :item-class="item.class"
-        :content-style="mergeStyle(contentStyle, item.contentStyle)"
-      />
+        :content-style="mergeStyle(contentStyle, item.contentStyle)" />
     </tr>
   </template>
 
@@ -78,8 +76,7 @@ function mergeStyle(
         :size="size"
         :label="item.label ?? null"
         :item-class="item.class"
-        :label-style="mergeStyle(labelStyle, item.labelStyle)"
-      />
+        :label-style="mergeStyle(labelStyle, item.labelStyle)" />
       <DescriptionsCell
         tag="td"
         type="content"
@@ -87,8 +84,7 @@ function mergeStyle(
         :bordered="true"
         :size="size"
         :content="item.content ?? null"
-        :content-style="mergeStyle(contentStyle, item.contentStyle)"
-      />
+        :content-style="mergeStyle(contentStyle, item.contentStyle)" />
     </template>
   </tr>
 
@@ -106,7 +102,6 @@ function mergeStyle(
       :content="item.content ?? null"
       :item-class="item.class"
       :label-style="mergeStyle(labelStyle, item.labelStyle)"
-      :content-style="mergeStyle(contentStyle, item.contentStyle)"
-    />
+      :content-style="mergeStyle(contentStyle, item.contentStyle)" />
   </tr>
 </template>

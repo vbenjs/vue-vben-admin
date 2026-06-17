@@ -29,6 +29,5 @@ const previewClass = computed(() =>
   <div
     :class="previewClass"
     :style="{ minHeight: contentMinHeight }"
-    v-html="content"
-  ></div>
+    v-html="content"></div>
 </template>

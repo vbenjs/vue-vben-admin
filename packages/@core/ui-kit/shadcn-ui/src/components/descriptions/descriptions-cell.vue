@@ -120,8 +120,7 @@ const labelClass = computed(() =>
       <span
         v-if="hasContent"
         class="break-words text-foreground"
-        :style="contentStyle"
-      >
+        :style="contentStyle">
         <VbenRenderContent :content="displayContent" />
       </span>
     </div>

@@ -54,8 +54,7 @@ function onCancel() {
         :loading="action.loading"
         :size="size"
         class="p-2"
-        :variant="variant"
-      >
+        :variant="variant">
         <VbenIcon :icon="action.icon" v-if="action.icon" class="size-4" />
         <span v-if="action.text">{{ action.text }}</span>
       </VbenButton>
@@ -72,8 +71,7 @@ function onCancel() {
           :variant="action.danger ? 'destructive' : 'default'"
           size="default"
           class="p-2"
-          @click="onConfirm"
-        >
+          @click="onConfirm">
           {{ action.popConfirm.okText ?? 'OK' }}
         </VbenButton>
       </div>
@@ -89,8 +87,7 @@ function onCancel() {
     :size="size"
     class="p-2"
     :variant="variant"
-    @click="onClick"
-  >
+    @click="onClick">
     <VbenIcon :icon="action.icon" v-if="action.icon" class="size-4" />
     <span v-if="action.text">{{ action.text }}</span>
   </VbenButton>

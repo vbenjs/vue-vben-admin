@@ -92,8 +92,7 @@ import { VbenTableAction } from '#/adapter/vxe-table';
               auth: ['AC_100100'],
             },
           ]"
-          align="center"
-        />
+          align="center" />
       </template>
     </template>
   </Grid>
@@ -118,8 +117,7 @@ function hasPermission(auth?: string | string[]) {
   <VbenTableAction
     v-bind="useActions(row, onActionClick)"
     :has-permission="hasPermission"
-    align="center"
-  />
+    align="center" />
 </template>
 ```
 

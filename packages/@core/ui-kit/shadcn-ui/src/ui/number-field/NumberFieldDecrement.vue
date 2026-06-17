@@ -27,8 +27,7 @@ const forwarded = useForwardProps(delegatedProps);
         'absolute top-1/2 -translate-y-1/2 left-0 p-3 disabled:cursor-not-allowed disabled:opacity-20',
         props.class,
       )
-    "
-  >
+    ">
     <slot>
       <Minus class="size-4" />
     </slot>

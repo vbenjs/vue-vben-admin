@@ -39,8 +39,7 @@ function handleClick(path?: string) {
       <TransitionGroup name="breadcrumb-transition">
         <template
           v-for="(item, index) in breadcrumbs"
-          :key="`${item.path}-${item.title}-${index}`"
-        >
+          :key="`${item.path}-${item.title}-${index}`">
           <BreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
               <DropdownMenu>
@@ -52,8 +51,7 @@ function handleClick(path?: string) {
                 <DropdownMenuContent align="start">
                   <template
                     v-for="menuItem in item.items"
-                    :key="`sub-${menuItem.path}`"
-                  >
+                    :key="`sub-${menuItem.path}`">
                     <DropdownMenuItem @click.stop="handleClick(menuItem.path)">
                       {{ menuItem.title }}
                     </DropdownMenuItem>
@@ -64,15 +62,13 @@ function handleClick(path?: string) {
             <BreadcrumbLink
               v-else-if="index !== breadcrumbs.length - 1"
               href="javascript:void 0"
-              @click.stop="handleClick(item.path)"
-            >
+              @click.stop="handleClick(item.path)">
               <div class="flex-center">
                 <VbenIcon
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
-                  class="mr-1 size-4"
-                />
+                  class="mr-1 size-4" />
                 {{ item.title }}
               </div>
             </BreadcrumbLink>
@@ -82,14 +78,12 @@ function handleClick(path?: string) {
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
-                  class="mr-1 size-4"
-                />
+                  class="mr-1 size-4" />
                 {{ item.title }}
               </div>
             </BreadcrumbPage>
             <BreadcrumbSeparator
-              v-if="index < breadcrumbs.length - 1 && !item.isHome"
-            />
+              v-if="index < breadcrumbs.length - 1 && !item.isHome" />
           </BreadcrumbItem>
         </template>
       </TransitionGroup>

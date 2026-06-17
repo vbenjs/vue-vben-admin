@@ -109,8 +109,7 @@ function getNodeClass(node: Recordable<any>) {
             :get-node-class="getNodeClass"
             v-bind="slotProps"
             value-field="id"
-            label-field="name"
-          />
+            label-field="name" />
         </Spin>
       </template>
     </Form>

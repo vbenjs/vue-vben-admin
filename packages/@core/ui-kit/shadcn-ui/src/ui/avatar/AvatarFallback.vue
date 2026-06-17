@@ -24,8 +24,7 @@ const delegatedProps = reactiveOmit(props, 'class');
         'bg-muted flex size-full items-center justify-center rounded-full',
         props.class,
       )
-    "
-  >
+    ">
     <slot></slot>
   </AvatarFallback>
 </template>

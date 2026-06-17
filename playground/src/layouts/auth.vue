@@ -17,8 +17,7 @@ const clickLogo = () => {};
     :logo="logo"
     :page-description="$t('authentication.pageDesc')"
     :page-title="$t('authentication.pageTitle')"
-    :click-logo="clickLogo"
-  >
+    :click-logo="clickLogo">
     <!-- 自定义工具栏 -->
     <!-- <template #toolbar></template> -->
   </AuthPageLayout>

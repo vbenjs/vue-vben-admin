@@ -69,6 +69,5 @@ function handleSelect(path: string) {
     :show-icon="showIcon"
     :style-type="type"
     class="ml-2"
-    @select="handleSelect"
-  />
+    @select="handleSelect" />
 </template>

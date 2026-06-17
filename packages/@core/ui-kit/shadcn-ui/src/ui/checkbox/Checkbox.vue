@@ -33,13 +33,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         indeterminate && 'bg-primary text-primary-foreground border-primary',
         props.class,
       )
-    "
-  >
+    ">
     <CheckboxIndicator
       data-slot="checkbox-indicator"
       class="grid place-content-center text-current transition-none"
-      :force-mount="indeterminate ? true : undefined"
-    >
+      :force-mount="indeterminate ? true : undefined">
       <slot v-bind="slotProps">
         <Minus v-if="indeterminate" class="size-3.5" />
         <Check v-else class="size-3.5" />

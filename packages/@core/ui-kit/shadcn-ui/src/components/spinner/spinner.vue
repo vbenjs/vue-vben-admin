@@ -70,13 +70,11 @@ function onTransitionEnd() {
         props.class,
       )
     "
-    @transitionend="onTransitionEnd"
-  >
+    @transitionend="onTransitionEnd">
     <div
       :class="{ paused: !renderSpinner }"
       v-if="renderSpinner"
-      class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:top-15 before:left-0 before:h-1.25 before:w-12 before:rounded-full before:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full after:rounded after:content-['']"
-    ></div>
+      class="loader before:bg-primary/50 after:bg-primary relative size-12 before:absolute before:top-15 before:left-0 before:h-1.25 before:w-12 before:rounded-full before:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full after:rounded after:content-['']"></div>
   </div>
 </template>
 

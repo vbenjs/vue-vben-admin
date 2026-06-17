@@ -22,8 +22,7 @@ outline: deep
   :app-name="appName"
   :logo="logo"
   :page-description="$t('authentication.pageDesc')"
-  :page-title="$t('authentication.pageTitle')"
->
+  :page-title="$t('authentication.pageTitle')">
 </AuthPageLayout>
 ```
 
@@ -34,8 +33,7 @@ outline: deep
 ```vue
 <AuthenticationLogin
   :loading="authStore.loginLoading"
-  @submit="authStore.authLogin"
-/>
+  @submit="authStore.authLogin" />
 ```
 
 ::: details AuthenticationLogin 组件参数

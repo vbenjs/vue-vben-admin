@@ -152,8 +152,7 @@ function clearPreferencesAndLogout() {
 <template>
   <template
     v-for="slot in leftSlots.filter((item) => item.index < REFERENCE_VALUE)"
-    :key="slot.name"
-  >
+    :key="slot.name">
     <slot :name="slot.name">
       <template v-if="slot.name === 'refresh'">
         <VbenIconButton class="my-0 mr-1 rounded-md" @click="refresh">
@@ -167,14 +166,12 @@ function clearPreferencesAndLogout() {
   </div>
   <template
     v-for="slot in leftSlots.filter((item) => item.index > REFERENCE_VALUE)"
-    :key="slot.name"
-  >
+    :key="slot.name">
     <slot :name="slot.name"></slot>
   </template>
   <div
     :class="`menu-align-${preferences.header.menuAlign}`"
-    class="flex h-full min-w-0 flex-1 items-center"
-  >
+    class="flex h-full min-w-0 flex-1 items-center">
     <slot name="menu"></slot>
   </div>
   <div class="flex h-full min-w-0 shrink-0 items-center">
@@ -184,15 +181,13 @@ function clearPreferencesAndLogout() {
           <GlobalSearch
             :enable-shortcut-key="globalSearchShortcutKey"
             :menus="accessStore.accessMenus"
-            class="mr-1 sm:mr-4"
-          />
+            class="mr-1 sm:mr-4" />
         </template>
 
         <template v-else-if="slot.name === 'preferences'">
           <PreferencesButton
             class="mr-1"
-            @clear-preferences-and-logout="clearPreferencesAndLogout"
-          />
+            @clear-preferences-and-logout="clearPreferencesAndLogout" />
         </template>
         <template v-else-if="slot.name === 'theme-toggle'">
           <ThemeToggle class="mt-0.5 mr-1" />

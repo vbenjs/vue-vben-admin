@@ -38,50 +38,42 @@ const showComponent = (route: RouteLocationNormalizedLoadedGeneric) => {
       <RouteCachedPage
         :component="Component"
         :route="route"
-        v-if="route.meta.domCached"
-      />
+        v-if="route.meta.domCached" />
       <Transition
         v-if="getEnabledTransition"
         :name="getTransitionName(route)"
         appear
-        mode="out-in"
-      >
+        mode="out-in">
         <KeepAlive
           v-if="keepAlive"
           :exclude="getExcludeCachedTabs"
-          :include="getCachedTabs"
-        >
+          :include="getCachedTabs">
           <component
             :is="transformComponent(Component, route)"
             v-if="showComponent(route)"
             v-show="!route.meta.iframeSrc"
-            :key="getTabKey(route)"
-          />
+            :key="getTabKey(route)" />
         </KeepAlive>
         <component
           :is="Component"
           v-else-if="showComponent(route)"
-          :key="getTabKey(route)"
-        />
+          :key="getTabKey(route)" />
       </Transition>
       <template v-else>
         <KeepAlive
           v-if="keepAlive"
           :exclude="getExcludeCachedTabs"
-          :include="getCachedTabs"
-        >
+          :include="getCachedTabs">
           <component
             :is="transformComponent(Component, route)"
             v-if="showComponent(route)"
             v-show="!route.meta.iframeSrc"
-            :key="getTabKey(route)"
-          />
+            :key="getTabKey(route)" />
         </KeepAlive>
         <component
           :is="Component"
           v-else-if="showComponent(route)"
-          :key="getTabKey(route)"
-        />
+          :key="getTabKey(route)" />
       </template>
     </RouterView>
   </div>

@@ -127,15 +127,13 @@ async function fillPartialData() {
 <template>
   <Page
     description="测试表单验证失败时自动滚动到错误字段的功能"
-    title="滚动到错误字段测试"
-  >
+    title="滚动到错误字段测试">
     <Card title="功能测试">
       <template #extra>
         <div class="flex items-center gap-2">
           <Switch
             v-model:checked="scrollEnabled"
-            @change="toggleScrollToError"
-          />
+            @change="toggleScrollToError" />
           <span>启用滚动到错误字段</span>
         </div>
       </template>

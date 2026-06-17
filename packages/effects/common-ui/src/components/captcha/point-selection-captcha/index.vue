@@ -119,8 +119,7 @@ function handleConfirm() {
     :padding-y="paddingY"
     :title="title"
     :width="width"
-    @click="handleClick"
-  >
+    @click="handleClick">
     <template #title>
       <slot name="title">{{ $t('ui.captcha.title') }}</slot>
     </template>
@@ -129,8 +128,7 @@ function handleConfirm() {
       <VbenIconButton
         :aria-label="$t('ui.captcha.refreshAriaLabel')"
         class="ml-1"
-        @click="handleRefresh"
-      >
+        @click="handleRefresh">
         <RotateCw class="size-5" />
       </VbenIconButton>
       <VbenButton
@@ -138,8 +136,7 @@ function handleConfirm() {
         :aria-label="$t('ui.captcha.confirmAriaLabel')"
         class="ml-2"
         size="sm"
-        @click="handleConfirm"
-      >
+        @click="handleConfirm">
         {{ $t('ui.captcha.confirm') }}
       </VbenButton>
     </template>
@@ -154,8 +151,7 @@ function handleConfirm() {
       }"
       class="absolute z-20 flex-center size-5 cursor-default rounded-full border-2 border-primary-50 bg-primary text-primary-50"
       role="button"
-      tabindex="0"
-    >
+      tabindex="0">
       {{ index + 1 }}
     </div>
     <template #footer>
@@ -163,12 +159,10 @@ function handleConfirm() {
         v-if="hintImage"
         :alt="$t('ui.captcha.alt')"
         :src="hintImage"
-        class="h-10 w-full rounded-sm border border-border"
-      />
+        class="h-10 w-full rounded-sm border border-border" />
       <div
         v-else-if="hintText"
-        class="flex-center h-10 w-full rounded-sm border border-border"
-      >
+        class="flex-center h-10 w-full rounded-sm border border-border">
         {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
       </div>
     </template>

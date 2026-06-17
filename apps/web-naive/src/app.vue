@@ -45,8 +45,7 @@ const themeOverrides = computed((): GlobalThemeOverrides => {
     :locale="tokenLocale"
     :theme="tokenTheme"
     :theme-overrides="themeOverrides"
-    class="h-full"
-  >
+    class="h-full">
     <NNotificationProvider>
       <NMessageProvider>
         <RouterView />

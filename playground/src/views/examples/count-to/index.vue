@@ -100,15 +100,13 @@ function onFinished() {
               <InputNumber
                 v-model:value="props.endVal"
                 class="w-full"
-                :precision="props.decimals"
-              >
+                :precision="props.decimals">
                 <template #addonAfter>
                   <IconifyIcon
                     v-tippy="`设置一个随机值`"
                     class="size-5 cursor-pointer outline-hidden"
                     icon="ix:random-filled"
-                    @click="changeNumber"
-                  />
+                    @click="changeNumber" />
                 </template>
               </InputNumber>
             </FormItem>
@@ -134,8 +132,7 @@ function onFinished() {
               <InputNumber
                 v-model:value="props.decimals"
                 :min="0"
-                :precision="0"
-              />
+                :precision="0" />
             </FormItem>
           </Col>
           <Col :span="8">
@@ -154,8 +151,7 @@ function onFinished() {
                 v-model:value="props.transition"
                 :options="
                   TransitionPresetsKeys.map((p) => ({ label: p, value: p }))
-                "
-              />
+                " />
             </FormItem>
           </Col>
           <Col :span="8">

@@ -18,8 +18,7 @@ const props = defineProps<{
         'relative flex size-8 shrink-0 overflow-hidden rounded-full',
         props.class,
       )
-    "
-  >
+    ">
     <slot></slot>
   </AvatarRoot>
 </template>

@@ -83,8 +83,7 @@ const tableClass = computed(() =>
           :colon="colon"
           :size="size"
           :label-style="labelStyle"
-          :content-style="contentStyle"
-        />
+          :content-style="contentStyle" />
       </tbody>
     </table>
   </div>

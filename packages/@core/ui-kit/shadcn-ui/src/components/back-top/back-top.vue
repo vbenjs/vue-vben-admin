@@ -35,8 +35,7 @@ const { handleClick, visible } = useBackTop(props);
       class="data z-popup bg-background shadow-float hover:bg-heavy dark:bg-accent dark:hover:bg-heavy fixed bottom-10 size-10 rounded-full duration-500"
       size="icon"
       variant="ghost"
-      @click="handleClick"
-    >
+      @click="handleClick">
       <ArrowUpToLine class="size-4" />
     </VbenButton>
   </transition>

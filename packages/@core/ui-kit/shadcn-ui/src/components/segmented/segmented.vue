@@ -45,15 +45,13 @@ function activeClass(tab: string): string[] {
   <Tabs v-model="activeTab" :default-value="getDefaultValue">
     <TabsList
       :style="tabsStyle"
-      class="bg-accent outline-heavy! relative grid w-full outline-2!"
-    >
+      class="bg-accent outline-heavy! relative grid w-full outline-2!">
       <TabsIndicator :style="tabsIndicatorStyle" />
       <template v-for="tab in tabs" :key="tab.value">
         <TabsTrigger
           :value="tab.value"
           :class="activeClass(tab.value)"
-          class="hover:text-primary z-20 inline-flex items-center justify-center rounded-md px-3 py-1 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50"
-        >
+          class="hover:text-primary z-20 inline-flex items-center justify-center rounded-md px-3 py-1 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50">
           {{ tab.label }}
         </TabsTrigger>
       </template>

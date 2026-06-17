@@ -60,15 +60,13 @@ const headerMenuAlignItems: SelectOption[] = [
   <SelectItem
     v-model="headerMode"
     :disabled="!headerEnable"
-    :items="localeItems"
-  >
+    :items="localeItems">
     {{ $t('preferences.mode') }}
   </SelectItem>
   <ToggleItem
     v-model="headerMenuAlign"
     :disabled="!headerEnable"
-    :items="headerMenuAlignItems"
-  >
+    :items="headerMenuAlignItems">
     {{ $t('preferences.header.menuAlign') }}
   </ToggleItem>
 </template>

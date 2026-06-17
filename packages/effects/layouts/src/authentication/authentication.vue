@@ -55,8 +55,7 @@ const logoSrc = computed(() => {
 <template>
   <div
     :class="[isDark ? 'dark' : '']"
-    class="flex min-h-full flex-1 overflow-x-hidden select-none"
-  >
+    class="flex min-h-full flex-1 overflow-x-hidden select-none">
     <template v-if="toolbar">
       <slot name="toolbar">
         <Toolbar :toolbar-list="toolbarList" />
@@ -66,14 +65,12 @@ const logoSrc = computed(() => {
     <AuthenticationFormView
       v-if="authPanelLeft"
       class="min-h-full w-2/5 flex-1"
-      data-side="left"
-    >
+      data-side="left">
       <template v-if="copyright" #copyright>
         <slot name="copyright">
           <Copyright
             v-if="preferences.copyright.enable"
-            v-bind="preferences.copyright"
-          />
+            v-bind="preferences.copyright" />
         </slot>
       </template>
     </AuthenticationFormView>
@@ -83,19 +80,16 @@ const logoSrc = computed(() => {
       <div
         v-if="logoSrc || appName"
         class="absolute top-0 left-0 z-10 flex flex-1"
-        @click="clickLogo"
-      >
+        @click="clickLogo">
         <div
-          class="mt-4 ml-4 flex flex-1 items-center text-foreground sm:top-6 sm:left-6 lg:text-foreground"
-        >
+          class="mt-4 ml-4 flex flex-1 items-center text-foreground sm:top-6 sm:left-6 lg:text-foreground">
           <img
             v-if="logoSrc"
             :key="logoSrc"
             :alt="appName"
             :src="logoSrc"
             class="mr-2"
-            width="42"
-          />
+            width="42" />
           <p v-if="appName" class="m-0 text-xl font-medium">
             {{ appName }}
           </p>
@@ -106,8 +100,7 @@ const logoSrc = computed(() => {
     <!-- 系统介绍 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
-        class="absolute inset-0 size-full bg-background-deep dark:bg-[#070709]"
-      >
+        class="absolute inset-0 size-full bg-background-deep dark:bg-[#070709]">
         <div class="login-background absolute top-0 left-0 size-full"></div>
         <div
           :key="authPanelLeft ? 'left' : authPanelRight ? 'right' : 'center'"
@@ -115,14 +108,12 @@ const logoSrc = computed(() => {
           :class="{
             'enter-x': authPanelLeft,
             '-enter-x': authPanelRight,
-          }"
-        >
+          }">
           <template v-if="sloganImage">
             <img
               :alt="appName"
               :src="sloganImage"
-              class="h-64 w-2/5 animate-float"
-            />
+              class="h-64 w-2/5 animate-float" />
           </template>
           <SloganIcon v-else :alt="appName" class="h-64 w-2/5 animate-float" />
           <div class="text-1xl mt-6 font-sans text-foreground lg:text-2xl">
@@ -140,14 +131,12 @@ const logoSrc = computed(() => {
       <div class="login-background absolute top-0 left-0 size-full"></div>
       <AuthenticationFormView
         class="w-full rounded-3xl pb-20 shadow-float shadow-primary/5 md:w-2/3 md:bg-background lg:w-1/2 xl:w-[36%]"
-        data-side="bottom"
-      >
+        data-side="bottom">
         <template v-if="copyright" #copyright>
           <slot name="copyright">
             <Copyright
               v-if="preferences.copyright.enable"
-              v-bind="preferences.copyright"
-            />
+              v-bind="preferences.copyright" />
           </slot>
         </template>
       </AuthenticationFormView>
@@ -157,14 +146,12 @@ const logoSrc = computed(() => {
     <AuthenticationFormView
       v-if="authPanelRight"
       class="min-h-full w-2/5 flex-1"
-      data-side="right"
-    >
+      data-side="right">
       <template v-if="copyright" #copyright>
         <slot name="copyright">
           <Copyright
             v-if="preferences.copyright.enable"
-            v-bind="preferences.copyright"
-          />
+            v-bind="preferences.copyright" />
         </slot>
       </template>
     </AuthenticationFormView>

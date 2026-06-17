@@ -33,8 +33,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
     auto-content-height
     description="ColPage 是一个双列布局组件，支持左侧折叠、拖拽调整宽度等功能。"
     v-bind="props"
-    title="ColPage 双列布局组件"
-  >
+    title="ColPage 双列布局组件">
     <template #title>
       <span class="mr-2 text-2xl font-bold">ColPage 双列布局组件</span>
       <Tag color="hsl(var(--destructive))">Alpha</Tag>
@@ -52,8 +51,7 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
       <div
         v-else
         :style="{ minWidth: '200px' }"
-        class="mr-2 rounded-(--radius) border border-border bg-card p-2"
-      >
+        class="mr-2 rounded-(--radius) border border-border bg-card p-2">
         <p>这里是左侧内容</p>
         <p>这里是左侧内容</p>
         <p>这里是左侧内容</p>
@@ -78,16 +76,14 @@ const leftMaxWidth = ref(props.leftMaxWidth || 100);
             :max="props.leftMaxWidth - 1"
             :min="1"
             class="w-25"
-            @after-change="(value) => (props.leftMinWidth = value as number)"
-          />
+            @after-change="(value) => (props.leftMinWidth = value as number)" />
           <span>左侧最大宽度百分比：</span>
           <Slider
             v-model:value="props.leftMaxWidth"
             :max="100"
             :min="leftMaxWidth + 1"
             class="w-25"
-            @after-change="(value) => (props.leftMaxWidth = value as number)"
-          />
+            @after-change="(value) => (props.leftMaxWidth = value as number)" />
         </div>
         <Alert title="实验性的组件" show-icon type="warning">
           <template #description>

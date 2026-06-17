@@ -126,13 +126,11 @@ function onDelete(row: SystemMenuApi.SystemMenu) {
             <IconifyIcon
               v-if="row.type === 'button'"
               icon="carbon:security"
-              class="size-full"
-            />
+              class="size-full" />
             <IconifyIcon
               v-else-if="row.meta?.icon"
               :icon="row.meta?.icon || 'carbon:circle-dash'"
-              class="size-full"
-            />
+              class="size-full" />
           </div>
           <span class="flex-auto">{{ $t(row.meta?.title) }}</span>
           <div class="items-center justify-end"></div>
@@ -142,8 +140,7 @@ function onDelete(row: SystemMenuApi.SystemMenu) {
           class="menu-badge"
           :badge="row.meta.badge"
           :badge-type="row.meta.badgeType"
-          :badge-variants="row.meta.badgeVariants"
-        />
+          :badge-variants="row.meta.badgeVariants" />
       </template>
     </Grid>
   </Page>

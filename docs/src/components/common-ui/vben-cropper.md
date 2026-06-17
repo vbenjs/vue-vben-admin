@@ -163,8 +163,7 @@ const handleCropWithSize = async () => {
       :img="imageUrl"
       :width="500"
       :height="400"
-      aspect-ratio="1:1"
-    />
+      aspect-ratio="1:1" />
     <button @click="handleCropBlob">裁剪</button>
     <img v-if="croppedImage" :src="croppedImage" />
   </div>

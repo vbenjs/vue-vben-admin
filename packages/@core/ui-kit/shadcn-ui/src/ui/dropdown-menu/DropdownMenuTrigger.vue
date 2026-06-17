@@ -11,8 +11,7 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DropdownMenuTrigger
     data-slot="dropdown-menu-trigger"
-    v-bind="forwardedProps"
-  >
+    v-bind="forwardedProps">
     <slot></slot>
   </DropdownMenuTrigger>
 </template>

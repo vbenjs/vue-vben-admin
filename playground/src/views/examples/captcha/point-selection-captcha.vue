@@ -48,45 +48,38 @@ const handleClick = (point: CaptchaPoint) => {
 <template>
   <Page
     :description="$t('examples.captcha.pageDescription')"
-    :title="$t('examples.captcha.pageTitle')"
-  >
+    :title="$t('examples.captcha.pageTitle')">
     <Card :title="$t('examples.captcha.basic')" class="mb-4 overflow-x-auto">
       <div class="mb-3 flex items-center justify-start">
         <Input
           v-model:value="params.title"
           :placeholder="$t('examples.captcha.titlePlaceholder')"
-          class="w-64"
-        />
+          class="w-64" />
         <Input
           v-model:value="params.captchaImageUrl"
           :placeholder="$t('examples.captcha.captchaImageUrlPlaceholder')"
-          class="ml-8 w-64"
-        />
+          class="ml-8 w-64" />
         <div class="ml-8 flex w-96 items-center">
           <Switch
             v-model="params.showHintImage"
             :checked-children="$t('examples.captcha.hintImage')"
             :un-checked-children="$t('examples.captcha.hintText')"
-            class="mr-4 w-40"
-          />
+            class="mr-4 w-40" />
           <Input
             v-show="params.showHintImage"
             v-model:value="params.hintImageUrl"
-            :placeholder="$t('examples.captcha.hintImagePlaceholder')"
-          />
+            :placeholder="$t('examples.captcha.hintImagePlaceholder')" />
           <Input
             v-show="!params.showHintImage"
             v-model:value="params.hintText"
-            :placeholder="$t('examples.captcha.hintTextPlaceholder')"
-          />
+            :placeholder="$t('examples.captcha.hintTextPlaceholder')" />
         </div>
 
         <Switch
           v-model="params.showConfirm"
           :checked-children="$t('examples.captcha.showConfirm')"
           :un-checked-children="$t('examples.captcha.hideConfirm')"
-          class="ml-8 w-28"
-        />
+          class="ml-8 w-28" />
       </div>
       <div class="mb-3 flex items-center justify-start">
         <div>
@@ -96,8 +89,7 @@ const handleClick = (point: CaptchaPoint) => {
             :placeholder="$t('examples.captcha.widthPlaceholder')"
             :precision="0"
             :step="1"
-            class="w-64"
-          >
+            class="w-64">
             <template #addonAfter>px</template>
           </InputNumber>
         </div>
@@ -108,8 +100,7 @@ const handleClick = (point: CaptchaPoint) => {
             :placeholder="$t('examples.captcha.heightPlaceholder')"
             :precision="0"
             :step="1"
-            class="w-64"
-          >
+            class="w-64">
             <template #addonAfter>px</template>
           </InputNumber>
         </div>
@@ -120,8 +111,7 @@ const handleClick = (point: CaptchaPoint) => {
             :placeholder="$t('examples.captcha.paddingXPlaceholder')"
             :precision="0"
             :step="1"
-            class="w-64"
-          >
+            class="w-64">
             <template #addonAfter>px</template>
           </InputNumber>
         </div>
@@ -132,8 +122,7 @@ const handleClick = (point: CaptchaPoint) => {
             :placeholder="$t('examples.captcha.paddingYPlaceholder')"
             :precision="0"
             :step="1"
-            class="w-64"
-          >
+            class="w-64">
             <template #addonAfter>px</template>
           </InputNumber>
         </div>
@@ -153,8 +142,7 @@ const handleClick = (point: CaptchaPoint) => {
         class="float-left"
         @click="handleClick"
         @confirm="handleConfirm"
-        @refresh="handleRefresh"
-      >
+        @refresh="handleRefresh">
         <template #title>
           {{ params.title || $t('examples.captcha.captchaCardTitle') }}
         </template>

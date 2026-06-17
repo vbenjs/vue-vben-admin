@@ -333,8 +333,7 @@ onUnmounted(() => {
     v-if="!hide && isIf"
     v-bind="fieldProps"
     v-slot="slotProps"
-    :name="fieldName"
-  >
+    :name="fieldName">
     <FormItem
       v-show="isShow"
       :class="{
@@ -346,8 +345,7 @@ onUnmounted(() => {
         'pb-2': compact,
       }"
       class="relative flex"
-      v-bind="$attrs"
-    >
+      v-bind="$attrs">
       <FormLabel
         v-if="!hideLabel"
         :class="
@@ -365,8 +363,7 @@ onUnmounted(() => {
         :colon="colon"
         :label="label"
         :required="shouldRequired && !hideRequiredMark"
-        :style="labelStyle"
-      >
+        :style="labelStyle">
         <template v-if="label">
           <VbenRenderContent :content="label" />
         </template>
@@ -376,15 +373,13 @@ onUnmounted(() => {
             variant="icon"
             size="icon"
             @click.prevent="toggleCollapsed"
-            v-if="shouldCollapsible"
-          >
+            v-if="shouldCollapsible">
             <ChevronsDown
               :size="16"
               class="transition-transform"
               :class="{
                 'rotate-180': !collapseOpen,
-              }"
-            />
+              }" />
           </Button>
         </template>
       </FormLabel>
@@ -399,8 +394,7 @@ onUnmounted(() => {
                     ...createComponentProps(slotProps),
                     disabled: shouldDisabled,
                     isInValid,
-                  }"
-                >
+                  }">
                   <component
                     :is="FieldComponent"
                     ref="fieldComponentRef"
@@ -409,25 +403,24 @@ onUnmounted(() => {
                         isInValid,
                     }"
                     v-bind="createComponentProps(slotProps)"
-                    :disabled="shouldDisabled"
-                  >
+                    :disabled="shouldDisabled">
                     <template
                       v-for="name in renderContentKey"
                       :key="name"
-                      #[name]="renderSlotProps"
-                    >
+                      #[name]="renderSlotProps">
                       <VbenRenderContent
                         :content="customContentRender[name]"
-                        v-bind="{ ...renderSlotProps, formContext: slotProps }"
-                      />
+                        v-bind="{
+                          ...renderSlotProps,
+                          formContext: slotProps,
+                        }" />
                     </template>
                     <!-- <slot></slot> -->
                   </component>
                   <VbenTooltip
                     v-if="compact && isInValid"
                     :delay-duration="300"
-                    side="left"
-                  >
+                    side="left">
                     <template #trigger>
                       <slot name="trigger">
                         <CircleAlert
@@ -435,8 +428,7 @@ onUnmounted(() => {
                             cn(
                               'inline-flex size-5 cursor-pointer text-foreground/80 hover:text-foreground',
                             )
-                          "
-                        />
+                          " />
                       </slot>
                     </template>
                     <FormMessage />

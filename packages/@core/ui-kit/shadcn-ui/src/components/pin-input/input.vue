@@ -97,15 +97,13 @@ const pinType = 'text' as const;
     otp
     placeholder="○"
     :type="pinType"
-    @complete="handleComplete"
-  >
+    @complete="handleComplete">
     <div class="relative flex w-full">
       <PinInputGroup class="mr-2">
         <PinInputSlot
           v-for="(item, index) in codeLength"
           :key="item"
-          :index="index"
-        />
+          :index="index" />
       </PinInputGroup>
       <VbenButton
         :disabled="disabled"
@@ -113,8 +111,7 @@ const pinType = 'text' as const;
         class="grow"
         size="lg"
         variant="outline"
-        @click="handleSend"
-      >
+        @click="handleSend">
         {{ btnText }}
       </VbenButton>
     </div>

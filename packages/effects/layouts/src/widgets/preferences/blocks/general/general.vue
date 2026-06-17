@@ -57,15 +57,13 @@ onMounted(async () => {
       (val) => {
         if (!val) appWatermarkContent = '';
       }
-    "
-  >
+    ">
     {{ $t('preferences.watermark') }}
   </SwitchItem>
   <InputItem
     v-if="appWatermark"
     v-model="appWatermarkContent"
-    :placeholder="$t('preferences.watermarkContent')"
-  >
+    :placeholder="$t('preferences.watermarkContent')">
     {{ $t('preferences.watermarkContent') }}
   </InputItem>
   <SwitchItem v-model="appEnableCheckUpdates">

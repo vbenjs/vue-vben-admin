@@ -61,8 +61,7 @@ defineExpose({
     <template
       v-for="slotName in delegatedSlots"
       :key="slotName"
-      #[slotName]="slotProps"
-    >
+      #[slotName]="slotProps">
       <slot :name="slotName" v-bind="slotProps"></slot>
     </template>
 
@@ -73,8 +72,7 @@ defineExpose({
         :collapsible="leftCollapsible"
         :default-size="leftWidth"
         :max-size="leftMaxWidth"
-        :min-size="leftMinWidth"
-      >
+        :min-size="leftMinWidth">
         <template #default="slotProps">
           <div class="h-full pr-2">
             <slot
@@ -83,23 +81,20 @@ defineExpose({
                 ...slotProps,
                 expand: expandLeft,
                 collapse: collapseLeft,
-              }"
-            ></slot>
+              }"></slot>
           </div>
         </template>
       </ResizablePanel>
       <ResizableHandle
         v-if="resizable"
         :style="{ backgroundColor: splitLine ? undefined : 'transparent' }"
-        :with-handle="splitHandle"
-      />
+        :with-handle="splitHandle" />
       <ResizablePanel
         :collapsed-size="rightCollapsedWidth"
         :collapsible="rightCollapsible"
         :default-size="rightWidth"
         :max-size="rightMaxWidth"
-        :min-size="rightMinWidth"
-      >
+        :min-size="rightMinWidth">
         <template #default>
           <div class="h-full pl-2">
             <slot></slot>

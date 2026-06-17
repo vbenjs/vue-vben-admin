@@ -241,8 +241,7 @@ defineExpose({
     :is="component"
     v-bind="bindProps"
     :placeholder="$attrs.placeholder"
-    ref="componentRef"
-  >
+    ref="componentRef">
     <template v-for="item in Object.keys($slots)" #[item]="data">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>

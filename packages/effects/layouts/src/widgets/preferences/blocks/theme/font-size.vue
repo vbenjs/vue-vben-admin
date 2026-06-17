@@ -45,8 +45,7 @@ watch(
         :max="max"
         :min="min"
         :step="step"
-        class="w-full"
-      >
+        class="w-full">
         <NumberFieldContent>
           <NumberFieldDecrement />
           <NumberFieldInput />

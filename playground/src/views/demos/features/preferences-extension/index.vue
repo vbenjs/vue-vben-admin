@@ -133,8 +133,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
 
     <Card
       class="mb-5"
-      :title="$t('demos.preferencesExtensionDemo.currentConfig')"
-    >
+      :title="$t('demos.preferencesExtensionDemo.currentConfig')">
       <Alert :type="toneConfig.alertType" show-icon>
         <template #title>
           {{
@@ -174,8 +173,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
         <Space
           v-if="playgroundPreferences.enableQuickActions"
           wrap
-          class="mb-4"
-        >
+          class="mb-4">
           <Button type="primary">
             {{ $t('demos.preferencesExtensionDemo.quickActions.create') }}
           </Button>
@@ -194,8 +192,7 @@ function getPriorityColor(priority: DemoTaskItem['priority']) {
           <div
             v-for="task in visibleTasks"
             :key="task.id"
-            class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-background px-4 py-3"
-          >
+            class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-background px-4 py-3">
             <div>
               <div class="font-medium">{{ task.title }}</div>
               <div class="text-sm text-foreground/60">

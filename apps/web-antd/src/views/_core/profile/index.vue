@@ -37,8 +37,7 @@ const tabs = ref([
     v-model:model-value="tabsValue"
     title="个人中心"
     :user-info="userStore.userInfo"
-    :tabs="tabs"
-  >
+    :tabs="tabs">
     <template #content>
       <ProfileBase v-if="tabsValue === 'basic'" />
       <ProfileSecuritySetting v-if="tabsValue === 'security'" />

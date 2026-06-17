@@ -28,8 +28,7 @@ const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
   </SwitchItem>
   <SwitchItem
     v-model="shortcutKeysGlobalSearch"
-    :disabled="!shortcutKeysEnable"
-  >
+    :disabled="!shortcutKeysEnable">
     {{ $t('preferences.shortcutKeys.search') }}
     <template #shortcut>
       {{ isWindowsOs() ? 'Ctrl' : '⌘' }}

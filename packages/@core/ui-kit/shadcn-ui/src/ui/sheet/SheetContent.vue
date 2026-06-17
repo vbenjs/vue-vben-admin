@@ -82,8 +82,7 @@ function onAnimationEnd(event: AnimationEvent) {
           position,
           backdropFilter:
             overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
-        }"
-      />
+        }" />
     </Transition>
     <DialogContent
       ref="contentRef"
@@ -93,8 +92,7 @@ function onAnimationEnd(event: AnimationEvent) {
         position,
       }"
       @animationend="onAnimationEnd"
-      v-bind="{ ...forwarded, ...$attrs }"
-    >
+      v-bind="{ ...forwarded, ...$attrs }">
       <slot></slot>
 
       <!-- <DialogClose

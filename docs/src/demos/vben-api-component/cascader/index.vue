@@ -95,6 +95,5 @@ function fetchApi(): Promise<Record<string, any>> {
     :immediate="false"
     children-field="children"
     loading-slot="suffixIcon"
-    visible-event="onDropdownVisibleChange"
-  />
+    visible-event="onDropdownVisibleChange" />
 </template>

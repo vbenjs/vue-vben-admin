@@ -199,8 +199,7 @@ onBeforeUnmount(() => {
     ]"
     @focus="handleMouseenter"
     @mouseenter="handleMouseenter"
-    @mouseleave="() => handleMouseleave()"
-  >
+    @mouseleave="() => handleMouseleave()">
     <template v-if="rootMenu.isMenuPopup">
       <VbenHoverCard
         :content-class="[
@@ -214,8 +213,7 @@ onBeforeUnmount(() => {
         ]"
         :content-props="contentProps"
         :open="true"
-        :open-delay="0"
-      >
+        :open-delay="0">
         <template #trigger>
           <SubMenuContent
             :class="is('active', active)"
@@ -224,8 +222,7 @@ onBeforeUnmount(() => {
             :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
             :level="currentLevel"
             :path="path"
-            @click.stop="handleClick"
-          >
+            @click.stop="handleClick">
             <template #title>
               <slot name="title"></slot>
             </template>
@@ -235,12 +232,10 @@ onBeforeUnmount(() => {
           :class="[nsMenu.is(mode, true), nsMenu.e('popup')]"
           @focus="(e) => handleMouseenter(e, 100)"
           @mouseenter="(e) => handleMouseenter(e, 100)"
-          @mouseleave="() => handleMouseleave(true)"
-        >
+          @mouseleave="() => handleMouseleave(true)">
           <ul
             :class="[nsMenu.b(), is('rounded', rounded)]"
-            :style="subMenuStyle"
-          >
+            :style="subMenuStyle">
             <slot></slot>
           </ul>
         </div>
@@ -255,8 +250,7 @@ onBeforeUnmount(() => {
         :is-top-level-menu-submenu="isTopLevelMenuSubmenu"
         :level="currentLevel"
         :path="path"
-        @click.stop="handleClick"
-      >
+        @click.stop="handleClick">
         <slot name="content"></slot>
         <template #title>
           <slot name="title"></slot>
@@ -266,8 +260,7 @@ onBeforeUnmount(() => {
         <ul
           v-show="opened"
           :class="[nsMenu.b(), is('rounded', rounded)]"
-          :style="subMenuStyle"
-        >
+          :style="subMenuStyle">
           <slot></slot>
         </ul>
       </CollapseTransition>

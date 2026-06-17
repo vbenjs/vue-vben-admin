@@ -40,6 +40,5 @@ function handleMenuOpen(key: string, path: string[]) {
     scroll-to-active
     :theme="theme"
     @open="handleMenuOpen"
-    @select="handleMenuSelect"
-  />
+    @select="handleMenuSelect" />
 </template>

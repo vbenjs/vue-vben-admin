@@ -58,8 +58,7 @@ useTabsDrag(props, emit);
         'pointer-events-none opacity-30': scrollIsAtLeft,
       }"
       class="border-r px-2"
-      @click="scrollDirection('left')"
-    >
+      @click="scrollDirection('left')">
       <ChevronsLeft class="size-4 h-full" />
     </span>
 
@@ -67,8 +66,7 @@ useTabsDrag(props, emit);
       :class="{
         'pt-0.75': styleType === 'chrome',
       }"
-      class="size-full flex-1 overflow-hidden"
-    >
+      class="size-full flex-1 overflow-hidden">
       <VbenScrollbar
         ref="scrollbarRef"
         :shadow-bottom="false"
@@ -80,12 +78,10 @@ useTabsDrag(props, emit);
         shadow-left
         shadow-right
         @scroll-at="handleScrollAt"
-        @wheel="onWheel"
-      >
+        @wheel="onWheel">
         <TabsChrome
           v-if="styleType === 'chrome'"
-          v-bind="{ ...forward, ...$attrs, ...$props }"
-        />
+          v-bind="{ ...forward, ...$attrs, ...$props }" />
 
         <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
       </VbenScrollbar>
@@ -99,8 +95,7 @@ useTabsDrag(props, emit);
         'pointer-events-none opacity-30': scrollIsAtRight,
       }"
       class="cursor-pointer border-l px-2 text-muted-foreground hover:bg-muted"
-      @click="scrollDirection('right')"
-    >
+      @click="scrollDirection('right')">
       <ChevronsRight class="size-4 h-full" />
     </span>
   </div>

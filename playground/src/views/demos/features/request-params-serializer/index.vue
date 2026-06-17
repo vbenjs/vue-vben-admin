@@ -27,8 +27,7 @@ watchEffect(() => {
 <template>
   <Page
     title="请求参数序列化"
-    description="不同的后台接口可能对数组类型的GET参数的解析方式不同，我们预置了几种数组序列化方式，通过配置 paramsSerializer 来实现不同的序列化方式"
-  >
+    description="不同的后台接口可能对数组类型的GET参数的解析方式不同，我们预置了几种数组序列化方式，通过配置 paramsSerializer 来实现不同的序列化方式">
     <Card>
       <RadioGroup v-model:value="paramsSerializer" name="paramsSerializer">
         <Radio value="brackets">brackets</Radio>

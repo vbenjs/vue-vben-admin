@@ -19,12 +19,10 @@ const preferencesRef = ref<InstanceType<typeof Preferences> | null>(null);
 <template>
   <Preferences
     ref="preferencesRef"
-    @clear-preferences-and-logout="clearPreferencesAndLogout"
-  >
+    @clear-preferences-and-logout="clearPreferencesAndLogout">
     <VbenIconButton
       class="hover:animate-[shrink_0.3s_ease-in-out]"
-      @click="preferencesRef?.open()"
-    >
+      @click="preferencesRef?.open()">
       <Settings class="size-4 text-foreground" />
     </VbenIconButton>
   </Preferences>
