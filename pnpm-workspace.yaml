@@ -87,7 +87,6 @@ catalog:
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/eslint-plugin': ^8.61.1
   '@typescript-eslint/parser': ^8.61.1
   '@vee-validate/zod': ^4.15.1
   '@vite-pwa/vitepress': ^1.1.0

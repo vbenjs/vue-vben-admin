@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@eslint/js": "catalog:",
-    "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vben/oxlint-config": "workspace:*",
     "eslint": "catalog:",
