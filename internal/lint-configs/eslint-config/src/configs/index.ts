@@ -5,6 +5,5 @@ export * from './node';
 export * from './perfectionist';
 export * from './pnpm';
 export * from './typescript';
-export * from './unicorn';
 export * from './vue';
 export * from './yaml';
