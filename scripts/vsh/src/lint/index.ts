@@ -26,7 +26,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
     await execaCommand(`oxfmt${threadsArg}`, {
       stdio: 'inherit',
     });
-    await execaCommand(`oxlint --fix${threadsArg}`, {
+    await execaCommand(`oxlint --fix --type-aware${threadsArg}`, {
       stdio: 'inherit',
     });
     await execaCommand(`eslint . --cache --fix`, {
@@ -36,7 +36,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
   }
   const subprocesses = [
     execaCommand(`oxfmt --check${threadsArg}`, { stdio: 'inherit' }),
-    execaCommand(`oxlint${threadsArg}`, { stdio: 'inherit' }),
+    execaCommand(`oxlint --type-aware${threadsArg}`, { stdio: 'inherit' }),
     execaCommand(`eslint . --cache`, { stdio: 'inherit' }),
     execaCommand(`stylelint "**/*.{vue,css,less,scss}" --cache`, {
       stdio: 'inherit',

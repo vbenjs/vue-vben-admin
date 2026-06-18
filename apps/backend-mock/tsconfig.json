@@ -1,3 +1,10 @@
 {
-  "extends": "./.nitro/types/tsconfig.json"
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@vben/tsconfig/node.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".nitro"]
 }

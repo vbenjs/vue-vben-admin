@@ -28,7 +28,7 @@ const _bem = (
 
 const is: {
   (name: string): string;
-  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  // oxlint-disable-next-line typescript/unified-signatures
   (name: string, state: boolean | undefined): string;
 } = (name: string, ...args: [] | [boolean | undefined]) => {
   const state = args.length > 0 ? args[0] : true;

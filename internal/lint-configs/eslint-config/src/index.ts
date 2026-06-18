@@ -8,7 +8,6 @@ import {
   perfectionist,
   pnpm,
   typescript,
-  unicorn,
   vue,
   yaml,
 } from './configs';
@@ -31,7 +30,6 @@ async function defineConfig(config: FlatConfig[] = []) {
     jsonc(),
     node(),
     perfectionist(),
-    unicorn(),
     yaml(),
     pnpm(),
     ...customConfig,

@@ -1,3 +1,5 @@
+import { defineNitroConfig } from 'nitropack/config';
+
 import errorHandler from './error';
 
 process.env.COMPATIBILITY_DATE = new Date().toISOString();
