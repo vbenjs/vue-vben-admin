@@ -249,7 +249,7 @@ function handleClosed() {
             'shadow-3xl': !bordered,
             'max-h-[min(80%,calc(100dvh-20px))] max-w-[calc(100vw-20px)]':
               !shouldFullscreen,
-            'top-0 left-0 size-full max-h-full max-w-full transform-[translate(0,0)]!':
+            'top-0 left-0 size-full! max-h-full! max-w-full! transform-[translate(0,0)]!':
               shouldFullscreen,
             'top-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
