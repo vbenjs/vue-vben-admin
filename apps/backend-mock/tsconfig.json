@@ -6,5 +6,6 @@
       "~/*": ["./*"]
     }
   },
+  "include": ["**/*.ts", "**/.*.ts"],
   "exclude": ["node_modules", "dist", ".nitro"]
 }
