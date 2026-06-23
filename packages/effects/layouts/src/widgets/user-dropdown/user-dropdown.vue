@@ -3,16 +3,13 @@ import type { Component } from 'vue';
 
 import type { AnyFunction } from '@vben/types';
 
-import { computed, useTemplateRef, watch } from 'vue';
+import { useTemplateRef, watch } from 'vue';
 
 import { useHoverToggle } from '@vben/hooks';
-import { LockKeyhole, LogOut, Settings } from '@vben/icons';
+import { Settings } from '@vben/icons';
 import { $t } from '@vben/locales';
-import { preferences, usePreferences } from '@vben/preferences';
-import { useAccessStore } from '@vben/stores';
-import { isWindowsOs } from '@vben/utils';
+import { usePreferences } from '@vben/preferences';
 
-import { useVbenModal } from '@vben-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -20,15 +17,11 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
 
-import { useMagicKeys, whenever } from '@vueuse/core';
-
-import { LockScreenModal } from '../lock-screen';
 import { Preferences } from '../preferences';
 
 interface Props {
@@ -40,10 +33,6 @@ interface Props {
    * @zh_CN 描述
    */
   description?: string;
-  /**
-   * 是否启用快捷键
-   */
-  enableShortcutKey?: boolean;
   /**
    * 菜单数组
    */
@@ -74,31 +63,16 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   avatar: '',
   description: '',
-  enableShortcutKey: true,
   menus: () => [],
-  showShortcutKey: true,
   tagText: '',
   text: '',
   trigger: 'click',
   hoverDelay: 500,
 });
 
-const emit = defineEmits<{ clearPreferencesAndLogout: []; logout: [] }>();
+const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
-const {
-  globalLockScreenShortcutKey,
-  globalLogoutShortcutKey,
-  preferencesButtonPosition,
-} = usePreferences();
-const accessStore = useAccessStore();
-const [LockModal, lockModalApi] = useVbenModal({
-  connectedComponent: LockScreenModal,
-});
-const [LogoutModal, logoutModalApi] = useVbenModal({
-  onConfirm() {
-    handleSubmitLogout();
-  },
-});
+const { preferencesButtonPosition } = usePreferences();
 
 const refTrigger = useTemplateRef('refTrigger');
 const refContent = useTemplateRef('refContent');
@@ -122,89 +96,13 @@ watch(
   },
 );
 
-const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
-
-const enableLogoutShortcutKey = computed(() => {
-  return props.enableShortcutKey && globalLogoutShortcutKey.value;
-});
-
-const enableLockScreenShortcutKey = computed(() => {
-  return props.enableShortcutKey && globalLockScreenShortcutKey.value;
-});
-
-const enableShortcutKey = computed(() => {
-  return props.enableShortcutKey && preferences.shortcutKeys.enable;
-});
-
-function handleOpenLock() {
-  lockModalApi.open();
-}
-
-function handleSubmitLock(lockScreenPassword: string) {
-  lockModalApi.close();
-  accessStore.lockScreen(lockScreenPassword);
-}
-
-function handleLogout() {
-  // emit
-  logoutModalApi.open();
-  openPopover.value = false;
-}
-
-function handleSubmitLogout() {
-  emit('logout');
-  logoutModalApi.close();
-}
-
 // 设置 - 打开偏好设置抽屉
 function handleOpenSettings() {
   refPreferences.value?.open();
 }
-
-if (enableShortcutKey.value) {
-  const keys = useMagicKeys();
-  const logoutKey = keys['Alt+KeyQ'];
-  const lockKey = keys['Alt+KeyL'];
-
-  if (logoutKey) {
-    whenever(logoutKey, () => {
-      if (enableLogoutShortcutKey.value) {
-        handleLogout();
-      }
-    });
-  }
-
-  if (lockKey) {
-    whenever(lockKey, () => {
-      if (enableLockScreenShortcutKey.value) {
-        handleOpenLock();
-      }
-    });
-  }
-}
 </script>
 
 <template>
-  <LockModal
-    v-if="preferences.widget.lockScreen"
-    :avatar="avatar"
-    :text="text"
-    @submit="handleSubmitLock"
-  />
-
-  <LogoutModal
-    :cancel-text="$t('common.cancel')"
-    :confirm-text="$t('common.confirm')"
-    :fullscreen-button="false"
-    :title="$t('common.prompt')"
-    centered
-    content-class="px-8 min-h-10"
-    footer-class="border-none mb-3 mr-3"
-    header-class="border-none"
-  >
-    {{ $t('ui.widgets.logoutTip') }}
-  </LogoutModal>
-
   <Preferences
     v-if="preferencesButtonPosition.userDropdown"
     ref="refPreferences"
@@ -261,7 +159,7 @@ if (enableShortcutKey.value) {
           <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
           {{ menu.text }}
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator v-if="preferencesButtonPosition.userDropdown" />
         <DropdownMenuItem
           v-if="preferencesButtonPosition.userDropdown"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
@@ -269,28 +167,6 @@ if (enableShortcutKey.value) {
         >
           <Settings class="mr-2 size-4" />
           {{ $t('preferences.title') }}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          v-if="preferences.widget.lockScreen"
-          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleOpenLock"
-        >
-          <LockKeyhole class="mr-2 size-4" />
-          {{ $t('ui.widgets.lockScreen.title') }}
-          <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
-            {{ altView }} L
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator v-if="preferences.widget.lockScreen" />
-        <DropdownMenuItem
-          class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
-          @click="handleLogout"
-        >
-          <LogOut class="mr-2 size-4" />
-          {{ $t('common.logout') }}
-          <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
-            {{ altView }} Q
-          </DropdownMenuShortcut>
         </DropdownMenuItem>
       </div>
     </DropdownMenuContent>
