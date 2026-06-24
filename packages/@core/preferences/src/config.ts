@@ -47,8 +47,8 @@ const defaultPreferences: Preferences = {
     companySiteLink: 'https://www.vben.pro',
     date: '2024',
     enable: true,
-    icp: '',
-    icpLink: '',
+    icp: '闽ICP备19024351号',
+    icpLink: 'https://beian.miit.gov.cn/',
     settingShow: true,
   },
   footer: {
