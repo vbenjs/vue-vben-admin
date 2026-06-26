@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 // 控制箭头展开/收起状态
-const collapsed = defineModel({ default: false });
+const collapsed = defineModel<boolean>({ default: false });
 </script>
 
 <template>
