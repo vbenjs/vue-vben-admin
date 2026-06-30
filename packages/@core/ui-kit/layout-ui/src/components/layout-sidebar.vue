@@ -79,11 +79,6 @@ interface Props {
    */
   showFixedButton?: boolean;
   /**
-   * 侧边栏 Logo 区域是否显示
-   * @default true
-   */
-  sidebarLogoVisible?: boolean;
-  /**
    * 主题
    */
   theme: string;
