@@ -30,7 +30,7 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const open = defineModel('open', { default: true });
+const open = defineModel<boolean>('open', { default: true });
 
 function toggle() {
   open.value = !open.value;

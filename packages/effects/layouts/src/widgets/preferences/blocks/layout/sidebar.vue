@@ -23,7 +23,9 @@ const sidebarDraggable = defineModel<boolean>('sidebarDraggable');
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 
-const sidebarButtons = defineModel<string[]>('sidebarButtons', { default: [] });
+const sidebarButtons = defineModel<string[]>('sidebarButtons', {
+  default: () => [],
+});
 const sidebarCollapsedButton = defineModel<boolean>('sidebarCollapsedButton');
 const sidebarFixedButton = defineModel<boolean>('sidebarFixedButton');
 
