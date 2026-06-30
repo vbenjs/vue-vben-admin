@@ -368,6 +368,17 @@ const maskStyle = computed((): CSSProperties => {
   return { zIndex: props.zIndex };
 });
 
+/**
+ * 侧边栏 Logo 区域是否显示
+ */
+const sidebarHeaderHeight = computed(() => {
+  if (isMixedNav.value || !props.sidebarLogoVisible) {
+    return 0;
+  }
+
+  return props.headerHeight;
+});
+
 const showHeaderToggleButton = computed(() => {
   return (
     props.isMobile ||
@@ -510,7 +521,10 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :dom-visible="!isMobile"
       :extra-width="sidebarExtraWidth"
       :fixed-extra="sidebarExpandOnHover"
-      :header-height="isMixedNav ? 0 : headerHeight"
+      :header-height="sidebarHeaderHeight"
+      :extra-title-height="
+        isSidebarMixedNav || isHeaderMixedNav ? sidebarExtraTitleHeight : 0
+      "
       :is-sidebar-mixed="isSidebarMixedNav || isHeaderMixedNav"
       :margin-top="sidebarMarginTop"
       :mixed-width="sidebarMixedWidth"
@@ -522,7 +536,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       @leave="() => emit('sideMouseLeave')"
       @update:width="(val) => emit('update:sidebarWidth', val)"
     >
-      <template v-if="isSideMode && !isMixedNav" #logo>
+      <template v-if="isSideMode && !isMixedNav && sidebarLogoVisible" #logo>
         <slot name="logo"></slot>
       </template>
 
@@ -565,6 +579,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           :theme="headerTheme"
           :width="mainStyle.width"
           :z-index="headerZIndex"
+          :logo-visible="sidebarLogoVisible"
         >
           <template v-if="showHeaderLogo" #logo>
             <slot name="logo"></slot>

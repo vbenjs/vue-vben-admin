@@ -27,6 +27,10 @@ interface Props {
    */
   domVisible?: boolean;
   /**
+   * 扩展区域extra-title的高度
+   */
+  extraTitleHeight?: number;
+  /**
    * 扩展区域宽度
    */
   extraWidth: number;
@@ -75,6 +79,11 @@ interface Props {
    */
   showFixedButton?: boolean;
   /**
+   * 侧边栏 Logo 区域是否显示
+   * @default true
+   */
+  sidebarLogoVisible?: boolean;
+  /**
    * 主题
    */
   theme: string;
@@ -106,6 +115,7 @@ const props = withDefaults(defineProps<Props>(), {
   showCollapseButton: true,
   showFixedButton: true,
   zIndex: 0,
+  extraTitleHeight: undefined,
 });
 
 const emit = defineEmits<{ leave: []; 'update:width': [value: number] }>();
@@ -149,10 +159,10 @@ const extraStyle = computed((): CSSProperties => {
 });
 
 const extraTitleStyle = computed((): CSSProperties => {
-  const { headerHeight } = props;
+  const { extraTitleHeight, headerHeight } = props;
 
   return {
-    height: `${headerHeight - 1}px`,
+    height: `${extraTitleHeight ?? headerHeight - 1}px`,
   };
 });
 
@@ -185,9 +195,10 @@ const headerStyle = computed((): CSSProperties => {
 });
 
 const extraContentStyle = computed((): CSSProperties => {
-  const { collapseHeight, headerHeight } = props;
+  const { collapseHeight, extraTitleHeight, headerHeight } = props;
+  const titleHeight = extraTitleHeight ?? headerHeight;
   return {
-    height: `calc(100% - ${headerHeight + collapseHeight}px)`,
+    height: `calc(100% - ${titleHeight + collapseHeight}px)`,
   };
 });
 
