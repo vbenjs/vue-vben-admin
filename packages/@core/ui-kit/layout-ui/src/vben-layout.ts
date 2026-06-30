@@ -127,6 +127,10 @@ interface VbenLayoutProps {
    */
   sidebarExtraCollapsedWidth?: number;
   /**
+   * 扩展区域extra-title的高度
+   */
+  sidebarExtraTitleHeight?: number;
+  /**
    * 侧边菜单折叠按钮是否固定
    * @default true
    */
@@ -136,6 +140,10 @@ interface VbenLayoutProps {
    * @default false
    */
   sidebarHidden?: boolean;
+  /**
+   * 侧边栏 Logo 区域是否显示
+   */
+  sidebarLogoVisible: boolean;
   /**
    * 混合侧边栏宽度
    * @default 80

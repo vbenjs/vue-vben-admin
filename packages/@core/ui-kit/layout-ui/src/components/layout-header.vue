@@ -17,6 +17,10 @@ interface Props {
    */
   isMobile: boolean;
   /**
+   * logo是否显示
+   */
+  logoVisible?: boolean;
+  /**
    * 是否显示
    */
   show: boolean;
@@ -38,7 +42,9 @@ interface Props {
   zIndex: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {
+  logoVisible: true,
+});
 
 const slots = useSlots();
 
@@ -54,6 +60,12 @@ const style = computed((): CSSProperties => {
 });
 
 const logoStyle = computed((): CSSProperties => {
+  if (!props.logoVisible) {
+    return {
+      minWidth: '12px',
+    };
+  }
+
   return {
     minWidth: `${props.isMobile ? 40 : props.sidebarWidth}px`,
   };
@@ -66,7 +78,7 @@ const logoStyle = computed((): CSSProperties => {
     :style="style"
     class="top-0 flex w-full flex-[0_0_auto] items-center border-b border-border bg-header pl-2 transition-[margin-top] duration-200"
   >
-    <div v-if="slots.logo" :style="logoStyle">
+    <div v-if="slots.logo || (!logoVisible && !isMobile)" :style="logoStyle">
       <slot name="logo"></slot>
     </div>
 

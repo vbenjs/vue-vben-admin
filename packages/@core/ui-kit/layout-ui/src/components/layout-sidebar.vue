@@ -27,6 +27,10 @@ interface Props {
    */
   domVisible?: boolean;
   /**
+   * 扩展区域extra-title的高度
+   */
+  extraTitleHeight?: number;
+  /**
    * 扩展区域宽度
    */
   extraWidth: number;
@@ -97,6 +101,7 @@ const props = withDefaults(defineProps<Props>(), {
   collapseHeight: 42,
   collapseWidth: 48,
   domVisible: true,
+  extraTitleHeight: undefined,
   fixedExtra: false,
   isSidebarMixed: false,
   marginTop: 0,
@@ -149,10 +154,10 @@ const extraStyle = computed((): CSSProperties => {
 });
 
 const extraTitleStyle = computed((): CSSProperties => {
-  const { headerHeight } = props;
+  const { extraTitleHeight, headerHeight } = props;
 
   return {
-    height: `${headerHeight - 1}px`,
+    height: `${extraTitleHeight ?? headerHeight - 1}px`,
   };
 });
 
@@ -185,9 +190,10 @@ const headerStyle = computed((): CSSProperties => {
 });
 
 const extraContentStyle = computed((): CSSProperties => {
-  const { collapseHeight, headerHeight } = props;
+  const { collapseHeight, extraTitleHeight, headerHeight } = props;
+  const titleHeight = extraTitleHeight ?? headerHeight;
   return {
-    height: `calc(100% - ${headerHeight + collapseHeight}px)`,
+    height: `calc(100% - ${titleHeight + collapseHeight}px)`,
   };
 });
 
