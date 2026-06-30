@@ -142,7 +142,6 @@ interface VbenLayoutProps {
   sidebarHidden?: boolean;
   /**
    * 侧边栏 Logo 区域是否显示
-   * @default true
    */
   sidebarLogoVisible: boolean;
   /**

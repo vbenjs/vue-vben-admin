@@ -106,6 +106,7 @@ const props = withDefaults(defineProps<Props>(), {
   collapseHeight: 42,
   collapseWidth: 48,
   domVisible: true,
+  extraTitleHeight: undefined,
   fixedExtra: false,
   isSidebarMixed: false,
   marginTop: 0,
@@ -115,7 +116,6 @@ const props = withDefaults(defineProps<Props>(), {
   showCollapseButton: true,
   showFixedButton: true,
   zIndex: 0,
-  extraTitleHeight: undefined,
 });
 
 const emit = defineEmits<{ leave: []; 'update:width': [value: number] }>();
