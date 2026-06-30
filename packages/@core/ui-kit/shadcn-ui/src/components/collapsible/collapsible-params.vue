@@ -31,8 +31,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{ 'update:value': [any, string] }>();
 
-const modelValue = defineModel('value', {
-  default: {} as Recordable<CollapsibleParamSchema['defaultValue']>,
+const modelValue = defineModel<
+  Recordable<CollapsibleParamSchema['defaultValue']>
+>('value', {
+  default: () => ({}),
 });
 
 const visibleRefs = useTemplateRef('visibleRefs');
