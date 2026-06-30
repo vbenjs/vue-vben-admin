@@ -228,6 +228,12 @@ interface LogoPreferences {
   enable: boolean;
   /** logo图片适应方式 */
   fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  /** logo高度， 只在 logoMode=full时失效 */
+  fullLogoHeight?: number | string;
+  /** logo 展示类型，icon 图标模式， full 铺满logo区域 */
+  logoMode?: 'full' | 'icon';
+  /** logo text是否展示 */
+  showText?: boolean;
   /** logo地址 */
   source: string;
   /** 暗色主题logo地址 (可选，若不设置则使用 source) */

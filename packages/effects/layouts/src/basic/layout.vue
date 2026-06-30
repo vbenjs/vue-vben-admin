@@ -292,6 +292,9 @@ const headerSlots = computed(() => {
         :src="preferences.logo.source"
         :src-dark="preferences.logo.sourceDark"
         :text="preferences.app.name"
+        :show-text="preferences.logo.showText"
+        :logo-mode="preferences.logo.logoMode"
+        :full-logo-height="preferences.logo.fullLogoHeight"
         :theme="logoTheme"
         @click="clickLogo"
       >
