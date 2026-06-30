@@ -28,6 +28,10 @@ const appCopyrightPreferences = {
   icpLink: 'https://beian.miit.gov.cn/',
 } satisfies DeepPartial<Preferences>['copyright'];
 
-export { appCopyrightPreferences, defineOverridesPreferences, definePreferencesExtension };
+export {
+  appCopyrightPreferences,
+  defineOverridesPreferences,
+  definePreferencesExtension,
+};
 
 export * from '@vben-core/preferences';
