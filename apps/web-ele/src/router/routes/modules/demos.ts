@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('demos.elementPlus'),
         },
         name: 'NaiveDemos',
-        path: '/demos/element',
+        path: 'element',
         component: () => import('#/views/demos/element/index.vue'),
       },
       {
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('demos.form'),
         },
         name: 'BasicForm',
-        path: '/demos/form',
+        path: 'form',
         component: () => import('#/views/demos/form/basic.vue'),
       },
     ],

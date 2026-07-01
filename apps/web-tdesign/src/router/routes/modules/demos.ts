@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('demos.tdesign'),
         },
         name: 'TDesignDemos',
-        path: '/demos/tdesign',
+        path: 'tdesign',
         component: () => import('#/views/demos/tdesign/index.vue'),
       },
     ],

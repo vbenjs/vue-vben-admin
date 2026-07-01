@@ -79,16 +79,22 @@ function filterTree<T extends Record<string, any>>(
  */
 function mapTree<T, V extends Record<string, any>>(
   tree: T[],
-  mapper: (node: T) => V,
+  mapper: (node: T, parent: null | V) => V,
   options?: TreeConfigOptions,
+  parent: null | V = null,
 ): V[] {
   const { childProps } = options || {
     childProps: 'children',
   };
   return tree.map((node) => {
-    const mapperNode: Record<string, any> = mapper(node);
+    const mapperNode: Record<string, any> = mapper(node, parent as null | V);
     if (mapperNode[childProps]) {
-      mapperNode[childProps] = mapTree(mapperNode[childProps], mapper, options);
+      mapperNode[childProps] = mapTree(
+        mapperNode[childProps],
+        mapper,
+        options,
+        mapperNode as V,
+      );
     }
     return mapperNode as V;
   });
