@@ -36,7 +36,7 @@ function handleClick() {
 
       <VbenTooltip v-if="slots.tip || tip" side="bottom">
         <template #trigger>
-          <CircleHelp class="ml-1 size-3 cursor-help" />
+          <CircleHelp class="ml-1 size-3 cursor-help pointer-events-auto" />
         </template>
         <slot name="tip">
           <template v-if="tip">
