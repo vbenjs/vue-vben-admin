@@ -4,13 +4,13 @@
 
 示例页面：
 
-- [index.vue](/Users/lht/workspace/webstorm_workspace/hotline-ui/apps/hotline-web/src/views/demos/form-array/index.vue)
+- `/vue-vben-admin/playground/src/views/demos/form-array/index.vue`
 
 核心实现：
 
-- [schema.ts](/Users/lht/workspace/webstorm_workspace/hotline-ui/packages/@core/ui-kit/form-ui/src/form-render/schema.ts)
-- [form-field-array.vue](/Users/lht/workspace/webstorm_workspace/hotline-ui/packages/@core/ui-kit/form-ui/src/components/form-field-array.vue)
-- [form-api.ts](/Users/lht/workspace/webstorm_workspace/hotline-ui/packages/@core/ui-kit/form-ui/src/form-api.ts)
+- `/packages/@core/ui-kit/form-ui/src/form-render/schema.ts`
+- `/packages/@core/ui-kit/form-ui/src/components/form-field-array.vue`
+- `/packages/@core/ui-kit/form-ui/src/form-api.ts`
 
 ## 快速开始
 
