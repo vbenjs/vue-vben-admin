@@ -63,16 +63,18 @@ export default defineConfig(async () => {
 ```ts
 import axios from 'axios';
 
-axios.get('/api/user').then((res) => {
-  console.log(res);
-});
+axios
+  .post('/api/auth/login', { username: 'vben', password: '123456' })
+  .then((res) => {
+    console.log(res);
+  });
 ```
 
-此时，请求会被代理到 `http://localhost:5320/api/user`。
+此时，请求会被代理到 `http://localhost:5320/api/auth/login`。
 
 ::: warning 注意
 
-从浏览器控制台的 Network 看，请求是 `http://localhost:5555/api/user`, 这是因为 proxy 配置不会改变本地请求的 url。
+从浏览器控制台的 Network 看，请求是 `http://localhost:5555/api/auth/login`, 这是因为 proxy 配置不会改变本地请求的 url。
 
 :::
 
