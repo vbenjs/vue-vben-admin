@@ -63,16 +63,18 @@ Based on the above configuration, we can use `/api` as the prefix for API reques
 ```ts
 import axios from 'axios';
 
-axios.get('/api/user').then((res) => {
-  console.log(res);
-});
+axios
+  .post('/api/auth/login', { username: 'vben', password: '123456' })
+  .then((res) => {
+    console.log(res);
+  });
 ```
 
-At this point, the request will be proxied to `http://localhost:5320/api/user`.
+At this point, the request will be proxied to `http://localhost:5320/api/auth/login`.
 
 ::: warning Note
 
-From the browser's console Network tab, the request appears as `http://localhost:5555/api/user`. This is because the proxy configuration does not change the local request's URL.
+From the browser's console Network tab, the request appears as `http://localhost:5555/api/auth/login`. This is because the proxy configuration does not change the local request's URL.
 
 :::
 
