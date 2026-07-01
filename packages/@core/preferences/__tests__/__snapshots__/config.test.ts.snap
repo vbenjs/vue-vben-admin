@@ -17,7 +17,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "contentPaddingRight": 0,
     "contentPaddingTop": 0,
     "defaultAvatar": "https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp",
-    "defaultHomePath": "/analytics",
+    "defaultHomePath": "/dashboard",
     "dynamicTitle": true,
     "enableCheckUpdates": true,
     "enableCopyPreferences": true,
@@ -66,6 +66,8 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   "logo": {
     "enable": true,
     "fit": "contain",
+    "logoMode": "icon",
+    "showText": true,
     "source": "https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp",
   },
   "navigation": {
