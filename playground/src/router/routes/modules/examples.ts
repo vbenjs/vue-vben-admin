@@ -110,6 +110,15 @@ const routes: RouteRecordRaw[] = [
               title: $t('examples.form.collapsible'),
             },
           },
+          {
+            name: 'FormArrayDemo',
+            path: '/form-array-demo',
+            component: () => import('#/views/demos/form-array/index.vue'),
+            meta: {
+              icon: 'lucide:list-plus',
+              title: '表单数组 Demo',
+            },
+          },
         ],
       },
       {

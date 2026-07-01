@@ -78,6 +78,9 @@ const fieldComponentRef = useTemplateRef<HTMLInputElement>('fieldComponentRef');
 const formApi = formRenderProps.form;
 const compact = computed(() => formRenderProps.compact);
 const isInValid = computed(() => errors.value?.length > 0);
+const shouldApplyInvalidStyle = computed(() => {
+  return isInValid.value && component !== 'VbenFormFieldArray';
+});
 const collapseOpen = ref(!defaultCollapsed);
 
 function getFormApi(): FormActions {
@@ -338,7 +341,7 @@ onUnmounted(() => {
     <FormItem
       v-show="isShow"
       :class="{
-        'form-valid-error': isInValid,
+        'form-valid-error': shouldApplyInvalidStyle,
         'form-is-required': shouldRequired,
         'flex-col': isVertical,
         'flex-row items-center': !isVertical,
@@ -406,7 +409,7 @@ onUnmounted(() => {
                     ref="fieldComponentRef"
                     :class="{
                       'border-destructive hover:border-destructive/80 focus:border-destructive focus:shadow-[0_0_0_2px_rgba(255,38,5,0.06)]':
-                        isInValid,
+                        shouldApplyInvalidStyle,
                     }"
                     v-bind="createComponentProps(slotProps)"
                     :disabled="shouldDisabled"
