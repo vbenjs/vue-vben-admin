@@ -4,6 +4,7 @@ export type {
   BaseFormComponentType,
   ExtendedFormApi,
   FormLayout,
+  FormSchemaContext,
   VbenFormFieldArrayProps,
   VbenFormProps,
   FormSchema as VbenFormSchema,

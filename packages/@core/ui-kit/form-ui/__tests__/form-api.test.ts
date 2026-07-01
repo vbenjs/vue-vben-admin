@@ -101,6 +101,47 @@ describe('formApi', () => {
     expect(formActions.values).toEqual(originalValuesSnapshot);
   });
 
+  it('should format child schema values inside array fields', async () => {
+    formApi.setState({
+      schema: [
+        {
+          children: [
+            {
+              component: 'text',
+              fieldName: 'name',
+              valueFormat: (
+                value: any,
+                setValue: any,
+                _values: any,
+                ctx: any,
+              ) => {
+                setValue('normalizedName', value?.trim());
+                setValue('$root.firstRow', ctx?.rowIndex);
+              },
+            },
+          ],
+          fieldName: 'contacts',
+          type: 'array',
+        } as any,
+      ],
+    });
+
+    const formActions: any = {
+      meta: {},
+      values: {
+        contacts: [{ name: ' Ada ' }, { name: ' Grace ' }],
+      },
+    };
+
+    await formApi.mount(formActions, new Map());
+
+    const values = await formApi.getValues();
+    expect(values).toEqual({
+      contacts: [{ normalizedName: 'Ada' }, { normalizedName: 'Grace' }],
+      firstRow: 1,
+    });
+  });
+
   it('should set field value', async () => {
     const setFieldValueMock = vi.fn();
     const formActions: any = {
@@ -227,6 +268,35 @@ describe('updateSchema', () => {
 
     expect(instance.state?.schema?.[0]?.component).toBe('text');
     expect(instance.state?.schema?.[1]?.label).toBe('Age');
+  });
+
+  it('should update child schema by parent path', () => {
+    instance.state = {
+      schema: [
+        {
+          children: [
+            { component: 'text', fieldName: 'name', label: 'Name' },
+            { component: 'text', fieldName: 'phone', label: 'Phone' },
+          ],
+          fieldName: 'contacts',
+          type: 'array',
+        } as any,
+      ],
+    };
+
+    instance.updateSchema([
+      {
+        fieldName: 'contacts.name',
+        label: 'Full Name',
+      },
+    ]);
+
+    expect((instance.state?.schema?.[0] as any)?.children?.[0]?.label).toBe(
+      'Full Name',
+    );
+    expect((instance.state?.schema?.[0] as any)?.children?.[1]?.label).toBe(
+      'Phone',
+    );
   });
 
   it('should log an error if fieldName is missing in some items', () => {
