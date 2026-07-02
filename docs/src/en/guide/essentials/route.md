@@ -61,6 +61,13 @@ The configuration method of static routes and dynamic routes is the same. Below 
 
 ### Secondary Routes
 
+::: tip
+
+- Only top-level routes should start their `path` with `/`; routes inside `children` should use relative segments such as `about` or `menu1`.
+- When a parent route does not define `redirect`, the framework automatically fills it with the first child route. This only works when child paths stay relative.
+
+:::
+
 ::: details Secondary Route Example Code
 
 ```ts
@@ -68,7 +75,6 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_LOGO_URL } from '@vben/constants';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
@@ -82,11 +88,10 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'VbenProject',
     path: '/vben-admin',
-    redirect: '/vben-admin/about',
     children: [
       {
         name: 'VbenAbout',
-        path: '/vben-admin/about',
+        path: 'about',
         component: () => import('#/views/_core/about/index.vue'),
         meta: {
           badgeType: 'dot',
@@ -108,6 +113,7 @@ export default routes;
 
 ::: tip
 
+- Multi-level routes follow the same rule: keep top-level paths absolute and child paths relative, instead of repeating the full path inside `children`.
 - The parent route of multi-level routes does not need to set the `component` property, just set the `children` property. Unless you really need to display content nested under the parent route.
 - In most cases, the `redirect` property of the parent route does not need to be specified, it will default to the first child route.
 
@@ -118,7 +124,6 @@ export default routes;
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
@@ -131,7 +136,6 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Demos',
     path: '/demos',
-    redirect: '/demos/access',
     children: [
       // Nested menu
       {
@@ -140,12 +144,11 @@ const routes: RouteRecordRaw[] = [
           title: $t('demos.nested.title'),
         },
         name: 'NestedDemos',
-        path: '/demos/nested',
-        redirect: '/demos/nested/menu1',
+        path: 'nested',
         children: [
           {
             name: 'Menu1Demo',
-            path: '/demos/nested/menu1',
+            path: 'menu1',
             component: () => import('#/views/demos/nested/menu-1.vue'),
             meta: {
               icon: 'ic:round-menu',
@@ -155,17 +158,16 @@ const routes: RouteRecordRaw[] = [
           },
           {
             name: 'Menu2Demo',
-            path: '/demos/nested/menu2',
+            path: 'menu2',
             meta: {
               icon: 'ic:round-menu',
               keepAlive: true,
               title: $t('demos.nested.menu2'),
             },
-            redirect: '/demos/nested/menu2/menu2-1',
             children: [
               {
                 name: 'Menu21Demo',
-                path: '/demos/nested/menu2/menu2-1',
+                path: 'menu2-1',
                 component: () => import('#/views/demos/nested/menu-2-1.vue'),
                 meta: {
                   icon: 'ic:round-menu',
@@ -177,12 +179,11 @@ const routes: RouteRecordRaw[] = [
           },
           {
             name: 'Menu3Demo',
-            path: '/demos/nested/menu3',
+            path: 'menu3',
             meta: {
               icon: 'ic:round-menu',
               title: $t('demos.nested.menu3'),
             },
-            redirect: '/demos/nested/menu3/menu3-1',
             children: [
               {
                 name: 'Menu31Demo',
@@ -201,11 +202,10 @@ const routes: RouteRecordRaw[] = [
                   icon: 'ic:round-menu',
                   title: $t('demos.nested.menu3_2'),
                 },
-                redirect: '/demos/nested/menu3/menu3-2/menu3-2-1',
                 children: [
                   {
                     name: 'Menu321Demo',
-                    path: '/demos/nested/menu3/menu3-2/menu3-2-1',
+                    path: 'menu3-2-1',
                     component: () =>
                       import('#/views/demos/nested/menu-3-2-1.vue'),
                     meta: {
@@ -242,7 +242,6 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { VBEN_LOGO_URL } from '@vben/constants';
 
-import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
@@ -253,11 +252,10 @@ const routes: RouteRecordRaw[] = [
     },
     name: 'Home',
     path: '/home',
-    redirect: '/home/index',
     children: [
       {
         name: 'HomeIndex',
-        path: '/home/index',
+        path: 'index',
         component: () => import('#/views/home/index.vue'),
         meta: {
           icon: 'mdi:home',
@@ -294,11 +292,11 @@ The route configuration items are mainly in the `meta` property of the route obj
 ```ts {5-8}
 const routes = [
   {
-    name: 'HomeIndex',
-    path: '/home/index',
+    name: 'Home',
+    path: '/home',
     meta: {
       icon: 'mdi:home',
-      title: $t('page.home.index'),
+      title: $t('page.home.title'),
     },
   },
 ];
