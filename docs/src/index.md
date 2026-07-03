@@ -72,7 +72,7 @@ features:
     icon:
       src: /logos/nitro.svg
     details: 内置 Nitro Mock 服务，让你的 mock 服务更加强大。
-    link: https://nitro.unjs.io/
+    link: https://nitro.build/
     linkText: 官方站点
 ---
 
