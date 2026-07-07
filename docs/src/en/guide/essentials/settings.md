@@ -18,7 +18,7 @@ The rules are consistent with [Vite Env Variables and Modes](https://vitejs.dev/
 - Only variables starting with `VITE_` will be embedded into the client-side package. You can access them in the project code like this:
 
   ```ts
-  console.log(import.meta.env.VITE_PROT);
+  console.log(import.meta.env.VITE_PORT);
   ```
 
 - Variables starting with `VITE_GLOB_*` will be added to the `_app-config-{version}-{hash}.js` configuration file during packaging.
