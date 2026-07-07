@@ -9,6 +9,7 @@ import { accessRoutes, coreRouteNames } from '#/router/routes';
 import { useAuthStore } from '#/store';
 
 import { generateAccess } from './access';
+import { DEPARTMENT_SELECT_PATH } from './constants';
 
 /**
  * 通用守卫配置
@@ -52,6 +53,13 @@ function setupAccessGuard(router: Router) {
 
     // 基本路由，这些路由不需要进入权限拦截
     if (coreRouteNames.includes(to.name as string)) {
+      if (to.path === DEPARTMENT_SELECT_PATH && !accessStore.accessToken) {
+        return {
+          path: LOGIN_PATH,
+          replace: true,
+        };
+      }
+
       if (to.path === LOGIN_PATH && accessStore.accessToken) {
         return decodeURIComponent(
           (to.query?.redirect as string) ||

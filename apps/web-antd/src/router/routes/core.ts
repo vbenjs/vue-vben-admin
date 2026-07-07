@@ -5,6 +5,8 @@ import { preferences } from '@vben/preferences';
 
 import { $t } from '#/locales';
 
+import { DEPARTMENT_SELECT_ROUTE_PATH } from '../constants';
+
 const BasicLayout = () => import('#/layouts/basic.vue');
 const AuthPageLayout = () => import('#/layouts/auth.vue');
 /** 全局404页面 */
@@ -54,6 +56,15 @@ const coreRoutes: RouteRecordRaw[] = [
         component: () => import('#/views/_core/authentication/login.vue'),
         meta: {
           title: $t('page.auth.login'),
+        },
+      },
+      {
+        name: 'DepartmentSelect',
+        path: DEPARTMENT_SELECT_ROUTE_PATH,
+        component: () =>
+          import('#/views/_core/authentication/department-select.vue'),
+        meta: {
+          title: $t('page.auth.departmentSelect.menuTitle'),
         },
       },
       {
