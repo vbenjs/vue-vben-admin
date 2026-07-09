@@ -8,6 +8,7 @@ type SelectOption = BasicOption;
 type TabOption = BasicOption;
 
 interface BasicUserInfo {
+  [key: string]: any;
   /**
    * 头像
    */
