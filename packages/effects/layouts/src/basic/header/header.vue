@@ -60,25 +60,26 @@ const rightSlots = computed(() => {
       index: REFERENCE_VALUE + 10,
       name: 'preferences',
     });
-    // 将偏好设置中的子功能分组到同一个按钮位置控制逻辑下
-    if (preferences.widget.themeToggle) {
-      list.push({
-        index: REFERENCE_VALUE + 20,
-        name: 'theme-toggle',
-      });
-    }
-    if (preferences.widget.languageToggle) {
-      list.push({
-        index: REFERENCE_VALUE + 30,
-        name: 'language-toggle',
-      });
-    }
-    if (preferences.widget.timezone) {
-      list.push({
-        index: REFERENCE_VALUE + 40,
-        name: 'timezone',
-      });
-    }
+  }
+  // 主题、语言、时区等子功能由各自的 widget 开关独立控制，
+  // 不应跟随偏好设置按钮的显示与否（如 enablePreferences 为 false 或按钮位于其他位置时）
+  if (preferences.widget.themeToggle) {
+    list.push({
+      index: REFERENCE_VALUE + 20,
+      name: 'theme-toggle',
+    });
+  }
+  if (preferences.widget.languageToggle) {
+    list.push({
+      index: REFERENCE_VALUE + 30,
+      name: 'language-toggle',
+    });
+  }
+  if (preferences.widget.timezone) {
+    list.push({
+      index: REFERENCE_VALUE + 40,
+      name: 'timezone',
+    });
   }
   // 全屏
   if (preferences.widget.fullscreen) {
