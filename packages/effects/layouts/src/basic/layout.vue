@@ -36,7 +36,21 @@ import { LayoutTabbar } from './tabbar';
 
 defineOptions({ name: 'BasicLayout' });
 
-const emit = defineEmits<{ clearPreferencesAndLogout: []; clickLogo: [] }>();
+withDefaults(defineProps<Props>(), {
+  avatar: '',
+  text: '',
+});
+
+const emit = defineEmits<{
+  clearPreferencesAndLogout: [];
+  clickLogo: [];
+  logout: [];
+}>();
+
+interface Props {
+  avatar?: string;
+  text?: string;
+}
 
 const {
   isDark,
@@ -174,6 +188,10 @@ function toggleSidebar() {
 
 function clearPreferencesAndLogout() {
   emit('clearPreferencesAndLogout');
+}
+
+function handleLogout() {
+  emit('logout');
 }
 
 function clickLogo() {
@@ -317,8 +335,11 @@ const headerSlots = computed(() => {
     <!-- 头部区域 -->
     <template #header>
       <LayoutHeader
+        :avatar="avatar"
         :theme="theme"
+        :text="text"
         @clear-preferences-and-logout="clearPreferencesAndLogout"
+        @logout="handleLogout"
       >
         <template
           v-if="!showHeaderNav && preferences.breadcrumb.enable"
