@@ -89,11 +89,11 @@ updateLocale('en-US');
 import { computed } from 'vue';
 import { $t } from '@vben/locales';
 
-const items = computed(() => [{ title: $t('about.desc') }]);
+const items = computed(() => [{ title: $t('demos.title') }]);
 </script>
 <template>
-  <div>{{ $t('about.desc') }}</div>
-  <template v-for="item in items.value">
+  <div>{{ $t('demos.title') }}</div>
+  <template v-for="item in items">
     <div>{{ item.title }}</div>
   </template>
 </template>
