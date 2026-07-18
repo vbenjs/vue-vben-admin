@@ -60,25 +60,23 @@ updateLocale('en-US');
 
 **src/locales/langs/zh-CN/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin 是一个现代的管理模版。"
   }
 }
-````
+```
 
-**src/locales/langs/en-US.ts**
+**src/locales/langs/en-US/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin is a modern management template."
   }
 }
-````
+```
 
 ## 使用翻译文本
 
