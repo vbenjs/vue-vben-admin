@@ -2,27 +2,19 @@
 import type { GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
 
-import type {
-  FormCommonConfig,
-  FormRenderProps,
-  FormSchema,
-  FormShape,
-} from '../types';
+import type { FormCommonConfig, FormRenderProps, FormShape } from '../types';
+import type { NormalizedFormFieldSchema } from './schema';
 
 import { computed } from 'vue';
 
 import { Form } from '@vben-core/shadcn-ui';
-import {
-  cn,
-  isFunction,
-  isString,
-  mergeWithArrayOverride,
-} from '@vben-core/shared/utils';
+import { cn, isString } from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
 import { getBaseRules, getDefaultValueInZodStack } from './helper';
+import { createFormFieldSchema } from './schema';
 
 interface Props extends FormRenderProps {}
 
@@ -95,78 +87,23 @@ const formCollapsed = computed(() => {
   return props.collapsed && isCalculated.value;
 });
 
-const computedSchema = computed(
-  (): (Omit<FormSchema, 'formFieldProps'> & {
-    commonComponentProps: Record<string, any>;
-    formFieldProps: Record<string, any>;
-  })[] => {
-    const {
-      colon = false,
-      componentProps = {},
-      controlClass = '',
-      disabled,
-      disabledOnChangeListener = true,
-      disabledOnInputListener = true,
-      emptyStateValue = undefined,
-      formFieldProps = {},
-      formItemClass = '',
-      hideLabel = false,
-      hideRequiredMark = false,
-      labelClass = '',
-      labelWidth = 100,
-      modelPropName = '',
-      wrapperClass = '',
-    } = mergeWithArrayOverride(props.commonConfig, props.globalCommonConfig);
-    return (props.schema || []).map((schema, index) => {
-      const keepIndex = keepFormItemIndex.value;
+const computedSchema = computed((): NormalizedFormFieldSchema[] => {
+  return (props.schema || []).map((schema, index) => {
+    const keepIndex = keepFormItemIndex.value;
 
-      const hidden =
-        // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
-        props.showCollapseButton && !!formCollapsed.value && keepIndex
-          ? keepIndex <= index
-          : false;
+    const hidden =
+      // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
+      props.showCollapseButton && !!formCollapsed.value && keepIndex
+        ? keepIndex <= index
+        : false;
 
-      // 处理函数形式的formItemClass
-      let resolvedSchemaFormItemClass = schema.formItemClass;
-      if (isFunction(schema.formItemClass)) {
-        try {
-          resolvedSchemaFormItemClass = schema.formItemClass();
-        } catch (error) {
-          console.error('Error calling formItemClass function:', error);
-          resolvedSchemaFormItemClass = '';
-        }
-      }
-
-      return {
-        colon,
-        disabled,
-        disabledOnChangeListener,
-        disabledOnInputListener,
-        emptyStateValue,
-        hideLabel,
-        hideRequiredMark,
-        labelWidth,
-        modelPropName,
-        wrapperClass,
-        ...schema,
-        commonComponentProps: componentProps,
-        componentProps: schema.componentProps,
-        controlClass: cn(controlClass, schema.controlClass),
-        formFieldProps: {
-          ...formFieldProps,
-          ...schema.formFieldProps,
-        },
-        formItemClass: cn(
-          'shrink-0',
-          { hidden },
-          formItemClass,
-          resolvedSchemaFormItemClass,
-        ),
-        labelClass: cn(labelClass, schema.labelClass),
-      };
+    return createFormFieldSchema(schema as never, {
+      commonConfig: props.commonConfig,
+      globalCommonConfig: props.globalCommonConfig,
+      hidden,
     });
-  },
-);
+  });
+});
 </script>
 
 <template>

@@ -66,6 +66,23 @@ export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: any };
 
 export type FormActions = FormContext<GenericObject>;
 
+export interface FormSchemaContext {
+  /** 数组字段名，例如 contacts */
+  arrayField?: string;
+  /** 当前真实字段名，例如 contacts[0].name */
+  fieldName?: string;
+  /** 原始 schema 字段名，例如 name */
+  originalFieldName?: string;
+  /** 表单完整值 */
+  rootValues?: Record<string, any>;
+  /** 当前行数据 */
+  row?: Record<string, any>;
+  /** 当前行索引 */
+  rowIndex?: number;
+  /** 当前行路径，例如 contacts[0] */
+  rowPath?: string;
+}
+
 export type CustomRenderType = (() => Component | string) | string;
 
 // 动态渲染参数
@@ -73,6 +90,7 @@ export type CustomParamsRenderType =
   | ((
       value: Partial<Record<string, any>>,
       actions: FormActions,
+      ctx?: FormSchemaContext,
     ) => Component | string)
   | string;
 
@@ -87,18 +105,21 @@ type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
   controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext,
 ) => T;
 
 type FormItemDependenciesConditionWithRules = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
   controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext,
 ) => FormSchemaRuleType | PromiseLike<FormSchemaRuleType>;
 
 type FormItemDependenciesConditionWithProps = (
   value: Partial<Record<string, any>>,
   actions: FormActions,
   controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext,
 ) => MaybeComponentProps | PromiseLike<MaybeComponentProps>;
 
 export interface FormItemDependencies {
@@ -145,6 +166,7 @@ type ComponentProps =
   | ((
       value: Partial<Record<string, any>>,
       actions: FormActions,
+      ctx?: FormSchemaContext,
     ) => MaybeComponentProps)
   | MaybeComponentProps;
 
@@ -233,12 +255,14 @@ export interface FormCommonConfig {
 type RenderComponentContentType = (
   value: Partial<Record<string, any>>,
   api: FormActions,
+  ctx?: FormSchemaContext,
 ) => Record<string, any>;
 
 type MappedComponentProps<P> =
   | ((
       value: Partial<Record<string, any>>,
       actions: FormActions,
+      ctx?: FormSchemaContext,
     ) => P & Record<string, any>)
   | (P & Record<string, any>);
 
@@ -253,6 +277,7 @@ export type FormValueFormat = (
   value: any,
   setValue: (fieldName: string, value: any) => void,
   values: Record<string, any>,
+  ctx?: FormSchemaContext,
 ) => any;
 
 interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
@@ -303,10 +328,32 @@ type FormSchemaFallback<T extends BaseFormComponentType> = {
   componentProps?: ComponentProps;
 } & FormSchemaBody;
 
+type FormArraySchema<
+  T extends BaseFormComponentType,
+  P extends Record<string, any>,
+> = {
+  /** 内置数组编辑器参数 */
+  arrayProps?: Omit<
+    VbenFormFieldArrayProps<T, P>,
+    'disabled' | 'globalCommonConfig' | 'name' | 'schema'
+  >;
+  /** 数组子字段定义 */
+  children: FormSchema<T, P>[];
+  /** 兼容显式指定内置数组编辑器 */
+  component?: Component | T;
+  /** 兼容通过 componentProps 传递数组编辑器参数 */
+  componentProps?: ComponentProps;
+  /** 数组字段标记 */
+  type: 'array';
+} & FormSchemaBody;
+
 export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> = FormSchemaDiscriminated<T, P> | FormSchemaFallback<T>;
+> =
+  | FormArraySchema<T, P>
+  | FormSchemaDiscriminated<T, P>
+  | FormSchemaFallback<T>;
 
 /**
  * 数组编辑器（VbenFormFieldArray）的组件参数
@@ -319,17 +366,23 @@ export interface VbenFormFieldArrayProps<
   actionText?: string;
   /** 「添加」按钮文案 */
   addButtonText?: string;
+  /** 子字段通用配置 */
+  commonConfig?: FormCommonConfig;
   /** 新增一行时生成的默认数据；缺省时按列定义的 fieldName 生成空对象 */
   createRow?: () => Record<string, any>;
   disabled?: boolean;
   /** 空数据文案 */
   emptyText?: string;
+  /** 子字段全局通用配置 */
+  globalCommonConfig?: FormCommonConfig;
   /** 最多行数 */
   max?: number;
   /** 最少行数 */
   min?: number;
+  /** 数组字段路径，由外层 FormField 透传 */
+  name?: string;
   /** 列定义，每一列是一个子字段（复用 FormSchema） */
-  schema: FormSchema<T, P>[];
+  schema?: FormSchema<T, P>[];
   /** 是否显示序号列 */
   showIndex?: boolean;
 }
