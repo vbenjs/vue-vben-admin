@@ -103,8 +103,8 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 If you need to add a new language pack, follow these steps:
 
-- Add the corresponding language pack file in the `packages/locales/langs` directory, for example, `zh-TW.json`, and translate the respective texts.
-- In the corresponding application, locate the `src/locales/langs` file and add the new language pack `zh-TW.json`.
+- Create the corresponding language pack folder and files under `packages/locales/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
+- In the corresponding application, find the `src/locales/langs` directory and create the same language pack folder and files (e.g., `zh-TW/*.json`).
 - Add the corresponding language in `packages/constants/src/core.ts`:
 
   ```ts

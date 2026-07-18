@@ -103,8 +103,8 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 如果你需要新增语言包，需要按照以下步骤进行：
 
-- 在 `packages/locales/langs` 目录下新增对应的语言包文件，例：`zh-TW.json`，并翻译对应的文本。
-- 在对应的应用内，找到 `src/locales/langs` 文件，新增对应的语言包 `zh-TW.json`
+- 在 `packages/locales/langs` 目录下新增对应的语言包文件夹和文件，例：`zh-TW/*.json`，并翻译对应的文本。
+- 在对应的应用内，找到 `src/locales/langs` 目录，新增对应的语言包文件夹和文件 `zh-TW/*.json`。
 - 在 `packages/constants/src/core.ts`内，新增对应的语言：
 
   ```ts
