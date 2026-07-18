@@ -6,24 +6,41 @@ import { computed } from 'vue';
 import { $t } from '@vben/locales';
 
 import SelectItem from '../select-item.vue';
-import SwitchItem from '../switch-item.vue';
 
 defineOptions({
   name: 'PreferenceInterfaceControl',
 });
 
-const widgetGlobalSearch = defineModel<boolean>('widgetGlobalSearch');
-const widgetFullscreen = defineModel<boolean>('widgetFullscreen');
-const widgetLanguageToggle = defineModel<boolean>('widgetLanguageToggle');
-const widgetNotification = defineModel<boolean>('widgetNotification');
-const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
-const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
-const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
+const widgetGlobalSearchButtonPosition = defineModel<string>(
+  'widgetGlobalSearchButtonPosition',
+);
+const widgetFullscreenButtonPosition = defineModel<string>(
+  'widgetFullscreenButtonPosition',
+);
+const widgetLanguageToggleButtonPosition = defineModel<string>(
+  'widgetLanguageToggleButtonPosition',
+);
+const widgetNotificationButtonPosition = defineModel<string>(
+  'widgetNotificationButtonPosition',
+);
+const widgetThemeToggleButtonPosition = defineModel<string>(
+  'widgetThemeToggleButtonPosition',
+);
+const widgetLockScreenButtonPosition = defineModel<string>(
+  'widgetLockScreenButtonPosition',
+);
+const widgetLogoutButtonPosition = defineModel<string>(
+  'widgetLogoutButtonPosition',
+);
 const appPreferencesButtonPosition = defineModel<string>(
   'appPreferencesButtonPosition',
 );
-const widgetRefresh = defineModel<boolean>('widgetRefresh');
-const widgetTimezone = defineModel<boolean>('widgetTimezone');
+const widgetRefreshButtonPosition = defineModel<string>(
+  'widgetRefreshButtonPosition',
+);
+const widgetTimezoneButtonPosition = defineModel<string>(
+  'widgetTimezoneButtonPosition',
+);
 
 const positionItems = computed((): SelectOption[] => [
   {
@@ -43,36 +60,75 @@ const positionItems = computed((): SelectOption[] => [
     value: 'user-dropdown',
   },
 ]);
+
+const buttonPositionItems = computed((): SelectOption[] => [
+  {
+    label: $t('preferences.widget.header'),
+    value: 'header',
+  },
+  {
+    label: $t('preferences.widget.userDropdown'),
+    value: 'user-dropdown',
+  },
+  {
+    label: $t('common.notShow'),
+    value: 'none',
+  },
+]);
 </script>
 
 <template>
-  <SwitchItem v-model="widgetGlobalSearch">
-    {{ $t('preferences.widget.globalSearch') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetThemeToggle">
-    {{ $t('preferences.widget.themeToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetLanguageToggle">
-    {{ $t('preferences.widget.languageToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetFullscreen">
-    {{ $t('preferences.widget.fullscreen') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetNotification">
-    {{ $t('preferences.widget.notification') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetLockScreen">
-    {{ $t('preferences.widget.lockScreen') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetSidebarToggle">
-    {{ $t('preferences.widget.sidebarToggle') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetRefresh">
-    {{ $t('preferences.widget.refresh') }}
-  </SwitchItem>
-  <SwitchItem v-model="widgetTimezone">
-    {{ $t('preferences.widget.timezone') }}
-  </SwitchItem>
+  <SelectItem
+    v-model="widgetGlobalSearchButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.globalSearchPosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetThemeToggleButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.themeTogglePosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetLanguageToggleButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.languageTogglePosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetFullscreenButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.fullscreenPosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetNotificationButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.notificationPosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetLockScreenButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.lockScreenPosition') }}
+  </SelectItem>
+  <SelectItem v-model="widgetLogoutButtonPosition" :items="buttonPositionItems">
+    {{ $t('preferences.widget.logoutButtonPosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetRefreshButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.refreshPosition') }}
+  </SelectItem>
+  <SelectItem
+    v-model="widgetTimezoneButtonPosition"
+    :items="buttonPositionItems"
+  >
+    {{ $t('preferences.widget.timezonePosition') }}
+  </SelectItem>
   <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
     {{ $t('preferences.position.title') }}
   </SelectItem>

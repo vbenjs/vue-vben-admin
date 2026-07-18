@@ -137,14 +137,23 @@ const defaultPreferences: Preferences = {
   },
   widget: {
     fullscreen: true,
+    fullscreenButtonPosition: 'header',
     globalSearch: true,
+    globalSearchButtonPosition: 'header',
     languageToggle: true,
+    languageToggleButtonPosition: 'header',
     lockScreen: true,
+    lockScreenButtonPosition: 'header',
+    logoutButtonPosition: 'header',
     notification: true,
+    notificationButtonPosition: 'header',
     refresh: true,
+    refreshButtonPosition: 'header',
     sidebarToggle: true,
     themeToggle: true,
+    themeToggleButtonPosition: 'header',
     timezone: true,
+    timezoneButtonPosition: 'header',
   },
 };
 
