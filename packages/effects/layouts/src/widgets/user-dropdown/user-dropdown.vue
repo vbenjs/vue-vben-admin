@@ -3,13 +3,27 @@ import type { Component } from 'vue';
 
 import type { AnyFunction } from '@vben/types';
 
-import { useTemplateRef, watch } from 'vue';
+import { computed, useTemplateRef, watch } from 'vue';
 
 import { useHoverToggle } from '@vben/hooks';
-import { Settings } from '@vben/icons';
+import {
+  Bell,
+  Fullscreen,
+  Languages,
+  LockKeyhole,
+  LogOut,
+  RotateCw,
+  Search,
+  Settings,
+  Sun,
+  SunMoon,
+} from '@vben/icons';
 import { $t } from '@vben/locales';
-import { usePreferences } from '@vben/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
+import { useAccessStore } from '@vben/stores';
+import { isWindowsOs } from '@vben/utils';
 
+import { useVbenModal } from '@vben-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -17,11 +31,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
 
+import { useMagicKeys, whenever } from '@vueuse/core';
+
+import { LockScreenModal } from '../lock-screen';
 import { Preferences } from '../preferences';
 
 interface Props {
@@ -70,9 +88,22 @@ const props = withDefaults(defineProps<Props>(), {
   hoverDelay: 500,
 });
 
-const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
+const emit = defineEmits<{ clearPreferencesAndLogout: []; logout: [] }>();
 
-const { preferencesButtonPosition } = usePreferences();
+const {
+  globalLockScreenShortcutKey,
+  globalLogoutShortcutKey,
+  preferencesButtonPosition,
+} = usePreferences();
+const accessStore = useAccessStore();
+const [LockModal, lockModalApi] = useVbenModal({
+  connectedComponent: LockScreenModal,
+});
+const [LogoutModal, logoutModalApi] = useVbenModal({
+  onConfirm() {
+    handleSubmitLogout();
+  },
+});
 
 const refTrigger = useTemplateRef('refTrigger');
 const refContent = useTemplateRef('refContent');
@@ -96,13 +127,157 @@ watch(
   },
 );
 
+const showLockInDropdown = computed(
+  () =>
+    preferences.widget.lockScreen &&
+    preferences.widget.lockScreenButtonPosition === 'user-dropdown',
+);
+
+const showLogoutInDropdown = computed(
+  () => preferences.widget.logoutButtonPosition === 'user-dropdown',
+);
+
+const showGlobalSearchInDropdown = computed(
+  () =>
+    preferences.widget.globalSearch &&
+    preferences.widget.globalSearchButtonPosition === 'user-dropdown',
+);
+
+const showThemeToggleInDropdown = computed(
+  () =>
+    preferences.widget.themeToggle &&
+    preferences.widget.themeToggleButtonPosition === 'user-dropdown',
+);
+
+const showLanguageToggleInDropdown = computed(
+  () =>
+    preferences.widget.languageToggle &&
+    preferences.widget.languageToggleButtonPosition === 'user-dropdown',
+);
+
+const showTimezoneInDropdown = computed(
+  () =>
+    preferences.widget.timezone &&
+    preferences.widget.timezoneButtonPosition === 'user-dropdown',
+);
+
+const showFullscreenInDropdown = computed(
+  () =>
+    preferences.widget.fullscreen &&
+    preferences.widget.fullscreenButtonPosition === 'user-dropdown',
+);
+
+const showNotificationInDropdown = computed(
+  () =>
+    preferences.widget.notification &&
+    preferences.widget.notificationButtonPosition === 'user-dropdown',
+);
+
+const showRefreshInDropdown = computed(
+  () =>
+    preferences.widget.refresh &&
+    preferences.widget.refreshButtonPosition === 'user-dropdown',
+);
+
+const hasAnyInDropdown = computed(
+  () =>
+    showLockInDropdown.value ||
+    showLogoutInDropdown.value ||
+    showGlobalSearchInDropdown.value ||
+    showThemeToggleInDropdown.value ||
+    showLanguageToggleInDropdown.value ||
+    showTimezoneInDropdown.value ||
+    showFullscreenInDropdown.value ||
+    showNotificationInDropdown.value ||
+    showRefreshInDropdown.value,
+);
+
+const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
+
+const enableLogoutShortcutKey = computed(() => {
+  return showLogoutInDropdown.value && globalLogoutShortcutKey.value;
+});
+
+const enableLockScreenShortcutKey = computed(() => {
+  return showLockInDropdown.value && globalLockScreenShortcutKey.value;
+});
+
+const enableShortcutKey = computed(() => {
+  return (
+    (showLockInDropdown.value || showLogoutInDropdown.value) &&
+    preferences.shortcutKeys.enable
+  );
+});
+
+function handleOpenLock() {
+  lockModalApi.open();
+}
+
+function handleSubmitLock(lockScreenPassword: string) {
+  lockModalApi.close();
+  accessStore.lockScreen(lockScreenPassword);
+}
+
+function handleLogout() {
+  logoutModalApi.open();
+  openPopover.value = false;
+}
+
+function handleSubmitLogout() {
+  emit('logout');
+  logoutModalApi.close();
+}
+
 // 设置 - 打开偏好设置抽屉
 function handleOpenSettings() {
   refPreferences.value?.open();
 }
+
+if (enableShortcutKey.value) {
+  const keys = useMagicKeys();
+  const logoutKey = keys['Alt+KeyQ'];
+  const lockKey = keys['Alt+KeyL'];
+
+  if (logoutKey) {
+    whenever(logoutKey, () => {
+      if (enableLogoutShortcutKey.value) {
+        handleLogout();
+      }
+    });
+  }
+
+  if (lockKey) {
+    whenever(lockKey, () => {
+      if (enableLockScreenShortcutKey.value) {
+        handleOpenLock();
+      }
+    });
+  }
+}
 </script>
 
 <template>
+  <LockModal
+    v-if="showLockInDropdown"
+    :avatar="avatar"
+    :text="text"
+    @submit="handleSubmitLock"
+  />
+
+  <LogoutModal
+    v-if="showLogoutInDropdown"
+    :cancel-text="$t('common.cancel')"
+    :confirm-text="$t('common.confirm')"
+    :fullscreen-button="false"
+    :title="$t('common.prompt')"
+    centered
+    content-class="px-8 min-h-10"
+    footer-class="border-none mb-3 mr-3"
+    header-class="border-none"
+  >
+    {{ $t('ui.widgets.logoutTip') }}
+  </LogoutModal>
+
   <Preferences
     v-if="preferencesButtonPosition.userDropdown"
     ref="refPreferences"
@@ -159,7 +334,97 @@ function handleOpenSettings() {
           <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
           {{ menu.text }}
         </DropdownMenuItem>
-        <DropdownMenuSeparator v-if="preferencesButtonPosition.userDropdown" />
+        <template v-if="showLockInDropdown || showLogoutInDropdown">
+          <DropdownMenuSeparator v-if="showLockInDropdown" />
+          <DropdownMenuItem
+            v-if="showLockInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @click="handleOpenLock"
+          >
+            <LockKeyhole class="mr-2 size-4" />
+            {{ $t('ui.widgets.lockScreen.title') }}
+            <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
+              {{ altView }} L
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator v-if="showLogoutInDropdown" />
+          <DropdownMenuItem
+            v-if="showLogoutInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @click="handleLogout"
+          >
+            <LogOut class="mr-2 size-4" />
+            {{ $t('common.logout') }}
+            <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
+              {{ altView }} Q
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </template>
+        <template
+          v-if="
+            showGlobalSearchInDropdown ||
+            showThemeToggleInDropdown ||
+            showLanguageToggleInDropdown ||
+            showTimezoneInDropdown ||
+            showFullscreenInDropdown ||
+            showNotificationInDropdown ||
+            showRefreshInDropdown
+          "
+        >
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            v-if="showGlobalSearchInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <Search class="mr-2 size-4" />
+            {{ $t('preferences.widget.globalSearch') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showThemeToggleInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <Sun class="mr-2 size-4" />
+            {{ $t('preferences.widget.themeToggle') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showLanguageToggleInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <Languages class="mr-2 size-4" />
+            {{ $t('preferences.widget.languageToggle') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showTimezoneInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <SunMoon class="mr-2 size-4" />
+            {{ $t('preferences.widget.timezone') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showFullscreenInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <Fullscreen class="mr-2 size-4" />
+            {{ $t('preferences.widget.fullscreen') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showNotificationInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <Bell class="mr-2 size-4" />
+            {{ $t('preferences.widget.notification') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="showRefreshInDropdown"
+            class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+          >
+            <RotateCw class="mr-2 size-4" />
+            {{ $t('preferences.widget.refresh') }}
+          </DropdownMenuItem>
+        </template>
+        <DropdownMenuSeparator
+          v-if="hasAnyInDropdown || preferencesButtonPosition.userDropdown"
+        />
         <DropdownMenuItem
           v-if="preferencesButtonPosition.userDropdown"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"

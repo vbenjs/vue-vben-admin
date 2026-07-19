@@ -365,22 +365,42 @@ interface TransitionPreferences {
 interface WidgetPreferences {
   /** 是否启用全屏部件 */
   fullscreen: boolean;
+  /** 全屏按钮位置 */
+  fullscreenButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否启用全局搜索部件 */
   globalSearch: boolean;
+  /** 全局搜索按钮位置 */
+  globalSearchButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否启用语言切换部件 */
   languageToggle: boolean;
+  /** 语言切换按钮位置 */
+  languageToggleButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否开启锁屏功能 */
   lockScreen: boolean;
+  /** 锁屏按钮位置 */
+  lockScreenButtonPosition: 'header' | 'none' | 'user-dropdown';
+  /** 退出登录按钮位置 */
+  logoutButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否显示通知部件 */
   notification: boolean;
+  /** 通知按钮位置 */
+  notificationButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 显示刷新按钮 */
   refresh: boolean;
+  /** 刷新按钮位置 */
+  refreshButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否显示侧边栏显示/隐藏部件 */
   sidebarToggle: boolean;
   /** 是否显示主题切换部件 */
   themeToggle: boolean;
+  /** 主题切换按钮位置 */
+  themeToggleButtonPosition: 'header' | 'none' | 'user-dropdown';
   /** 是否显示时区部件 */
   timezone: boolean;
+  /** 时区按钮位置 */
+  timezoneButtonPosition: 'header' | 'none' | 'user-dropdown';
+  /** 小部件排序 */
+  order: readonly string[];
 }
 
 interface Preferences {
