@@ -88,7 +88,13 @@ const schema: VbenFormSchema[] = [
     label: $t('system.menu.parent'),
     renderComponentContent() {
       return {
-        title({ label, meta }: { label: string; meta: Recordable<any> }) {
+        treeTitleRender({
+          label,
+          meta,
+        }: {
+          label: string;
+          meta: Recordable<any>;
+        }) {
           const coms = [];
           if (!label) return '';
           if (meta?.icon) {
