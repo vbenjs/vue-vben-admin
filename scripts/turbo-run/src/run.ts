@@ -46,9 +46,13 @@ export async function run(options: RunOptions) {
     process.exit(1);
   }
 
-  execa('pnpm', [`--filter=${selectPkg}`, 'run', command], {
-    stdio: 'inherit',
-  });
+  try {
+    await execa('pnpm', [`--filter=${selectPkg}`, 'run', command], {
+      stdio: 'inherit',
+    });
+  } catch (error: any) {
+    process.exit(error.exitCode || 1);
+  }
 }
 
 /**

@@ -111,13 +111,12 @@ async function runLint({ format, threads }: LintCommandOptions) {
   const threadsArg = `--threads=${threads || defaultThreads}`;
 
   if (format) {
-    await runCommand([
-      'stylelint',
-      ['**/*.{vue,css,less,scss}', '--cache', '--fix'],
+    await runSerial([
+      ['stylelint', ['**/*.{vue,css,less,scss}', '--cache', '--fix']],
+      ['oxfmt', [threadsArg]],
+      ['oxlint', ['--fix', '--type-aware', threadsArg]],
+      ['eslint', ['.', '--cache', '--fix']],
     ]);
-    await runCommand(['oxfmt', [threadsArg]]);
-    await runCommand(['oxlint', ['--fix', '--type-aware', threadsArg]]);
-    await runCommand(['eslint', ['.', '--cache', '--fix']]);
     return;
   }
 
