@@ -30,6 +30,10 @@ import {
 } from '@vben-core/shared/utils';
 
 import { resolveFieldNamePath } from './field-name';
+import {
+  getFormArraySchemaChildren,
+  resolveArrayChildFieldName,
+} from './form-render/schema';
 
 function getDefaultState(): VbenFormProps {
   return {
@@ -393,25 +397,10 @@ export class FormApi {
       );
       return;
     }
-    const currentSchema = [...(this.state?.schema ?? [])];
-
-    const updatedMap: Record<string, any> = {};
-
-    updated.forEach((item) => {
-      if (item.fieldName) {
-        updatedMap[item.fieldName] = item;
-      }
-    });
-
-    currentSchema.forEach((schema, index) => {
-      const updatedData = updatedMap[schema.fieldName];
-      if (updatedData) {
-        currentSchema[index] = mergeWithArrayOverride(
-          updatedData,
-          schema,
-        ) as FormSchema;
-      }
-    });
+    const currentSchema = this.updateSchemaList(
+      [...(this.state?.schema ?? [])],
+      updated,
+    );
     this.setState({ schema: currentSchema });
   }
 
@@ -454,6 +443,79 @@ export class FormApi {
       }
     }
     return validateResult;
+  }
+
+  private applyValueFormatBySchemas(
+    schemas: FormSchema[],
+    values: Record<string, any>,
+    parentPath?: string,
+    parentContext?: {
+      arrayField?: string;
+      row?: Record<string, any>;
+      rowIndex?: number;
+      rowPath?: string;
+    },
+  ) {
+    schemas.forEach((schema) => {
+      const fieldName = parentPath
+        ? resolveArrayChildFieldName(parentPath, schema.fieldName)
+        : schema.fieldName;
+      const row =
+        parentPath && parentContext?.rowPath
+          ? this.resolveValueByFieldName(values, parentContext.rowPath)
+          : parentContext?.row;
+      const schemaContext = {
+        ...parentContext,
+        fieldName,
+        originalFieldName: schema.fieldName,
+        rootValues: values,
+        row,
+      };
+
+      const children = getFormArraySchemaChildren(schema);
+      if (children.length > 0) {
+        const arrayValue = this.resolveValueByFieldName(values, fieldName);
+        if (Array.isArray(arrayValue)) {
+          arrayValue.forEach((rowValue, index) => {
+            const rowPath = `${fieldName}[${index}]`;
+            this.applyValueFormatBySchemas(
+              children as FormSchema[],
+              values,
+              rowPath,
+              {
+                arrayField: fieldName,
+                row: rowValue,
+                rowIndex: index,
+                rowPath,
+              },
+            );
+          });
+        }
+      }
+
+      if (schema.valueFormat) {
+        const value = this.resolveValueByFieldName(values, fieldName);
+
+        this.deleteValueByFieldName(values, fieldName);
+
+        const formattedValue = schema.valueFormat(
+          value,
+          (key, nextValue) => {
+            this.setValueByFieldName(
+              values,
+              this.resolveValueFormatFieldName(key, parentPath),
+              nextValue,
+            );
+          },
+          values,
+          schemaContext,
+        );
+
+        if (formattedValue !== undefined) {
+          this.setValueByFieldName(values, fieldName, formattedValue);
+        }
+      }
+    });
   }
 
   private deleteValueByFieldName(
@@ -611,30 +673,7 @@ export class FormApi {
 
   private handleValueFormat = (originValues: Record<string, any>) => {
     const values = { ...originValues };
-    const currentSchema = this.state?.schema ?? [];
-
-    currentSchema.forEach((schema) => {
-      if (!schema.valueFormat) {
-        return;
-      }
-
-      const fieldName = schema.fieldName;
-      const value = this.resolveValueByFieldName(values, fieldName);
-
-      this.deleteValueByFieldName(values, fieldName);
-
-      const formattedValue = schema.valueFormat(
-        value,
-        (key, nextValue) => {
-          this.setValueByFieldName(values, key, nextValue);
-        },
-        values,
-      );
-
-      if (formattedValue !== undefined) {
-        this.setValueByFieldName(values, fieldName, formattedValue);
-      }
-    });
+    this.applyValueFormatBySchemas(this.state?.schema ?? [], values);
 
     return values;
   };
@@ -654,6 +693,27 @@ export class FormApi {
     });
   };
 
+  private resolveChildUpdateFieldName(
+    parentFieldName: string,
+    fieldName: string,
+  ) {
+    if (fieldName.startsWith(`${parentFieldName}.`)) {
+      return fieldName.slice(parentFieldName.length + 1);
+    }
+
+    const indexedPrefix = `${parentFieldName}[`;
+    if (!fieldName.startsWith(indexedPrefix)) {
+      return;
+    }
+
+    const closeIndex = fieldName.indexOf(']', indexedPrefix.length);
+    if (closeIndex === -1 || fieldName[closeIndex + 1] !== '.') {
+      return;
+    }
+
+    return fieldName.slice(closeIndex + 2);
+  }
+
   private resolveValueByFieldName(
     values: Record<string, any>,
     fieldName: string,
@@ -664,6 +724,51 @@ export class FormApi {
     }
 
     return get(values, fieldName);
+  }
+
+  private resolveValueFormatFieldName(fieldName: string, parentPath?: string) {
+    if (!parentPath) {
+      return fieldName;
+    }
+
+    if (fieldName.startsWith('$root.')) {
+      return fieldName.slice('$root.'.length);
+    }
+
+    if (fieldName.startsWith('$row.')) {
+      return `${parentPath}.${fieldName.slice('$row.'.length)}`;
+    }
+
+    if (fieldName === parentPath || fieldName.startsWith(`${parentPath}.`)) {
+      return fieldName;
+    }
+
+    return `${parentPath}.${fieldName}`;
+  }
+
+  private setSchemaChildren(schema: FormSchema, children: FormSchema[]) {
+    if ('children' in schema && Array.isArray(schema.children)) {
+      return {
+        ...schema,
+        children,
+      } as FormSchema;
+    }
+
+    if (
+      !isFunction(schema.componentProps) &&
+      schema.componentProps &&
+      Array.isArray((schema.componentProps as Record<string, any>).schema)
+    ) {
+      return {
+        ...schema,
+        componentProps: {
+          ...(schema.componentProps as Record<string, any>),
+          schema: children,
+        },
+      } as FormSchema;
+    }
+
+    return schema;
   }
 
   private setValueByFieldName(
@@ -678,6 +783,48 @@ export class FormApi {
     }
 
     set(values, fieldName, value);
+  }
+
+  private updateSchemaList(
+    currentSchema: FormSchema[],
+    updated: Partial<FormSchema>[],
+  ): FormSchema[] {
+    return currentSchema.map((schema): FormSchema => {
+      const exactUpdatedData = updated.find(
+        (item) => item.fieldName === schema.fieldName,
+      );
+      if (exactUpdatedData) {
+        return mergeWithArrayOverride(exactUpdatedData, schema) as FormSchema;
+      }
+
+      const children = getFormArraySchemaChildren(schema);
+      if (children.length === 0) {
+        return schema;
+      }
+
+      const childUpdates = updated
+        .map((item) => {
+          const fieldName = item.fieldName
+            ? this.resolveChildUpdateFieldName(schema.fieldName, item.fieldName)
+            : undefined;
+          return fieldName
+            ? ({
+                ...item,
+                fieldName,
+              } as Partial<FormSchema>)
+            : undefined;
+        })
+        .filter(Boolean) as Partial<FormSchema>[];
+
+      if (childUpdates.length === 0) {
+        return schema;
+      }
+
+      return this.setSchemaChildren(
+        schema,
+        this.updateSchemaList(children as FormSchema[], childUpdates),
+      );
+    });
   }
 
   private updateState() {

@@ -13,7 +13,7 @@ interface Props {
    */
   fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /**
-   * @zh_CN logo高度， 只在 logoMode=full时失效
+   * @zh_CN logo高度， 只在 logoMode=full时生效
    */
   fullLogoHeight?: number | string;
   /**
