@@ -19,6 +19,7 @@ export const MOCK_USERS: UserInfo[] = [
     realName: 'Vben',
     roles: ['super'],
     username: 'vben',
+    homePath: '/dashboard/workspace',
   },
   {
     id: 1,
