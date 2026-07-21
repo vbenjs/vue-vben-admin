@@ -60,25 +60,23 @@ To add new translation texts, simply find `src/locales/langs/` in the correspond
 
 **src/locales/langs/zh-CN/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin 是一个现代的管理模版。"
   }
 }
-````
+```
 
-**src/locales/langs/en-US.ts**
+**src/locales/langs/en-US/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin is a modern management template."
   }
 }
-````
+```
 
 ## Using Translation Texts
 
@@ -91,11 +89,11 @@ With `@vben/locales`, you can easily use translation texts:
 import { computed } from 'vue';
 import { $t } from '@vben/locales';
 
-const items = computed(() => [{ title: $t('about.desc') }]);
+const items = computed(() => [{ title: $t('demos.title') }]);
 </script>
 <template>
-  <div>{{ $t('about.desc') }}</div>
-  <template v-for="item in items.value">
+  <div>{{ $t('demos.title') }}</div>
+  <template v-for="item in items">
     <div>{{ item.title }}</div>
   </template>
 </template>
@@ -105,8 +103,8 @@ const items = computed(() => [{ title: $t('about.desc') }]);
 
 If you need to add a new language pack, follow these steps:
 
-- Add the corresponding language pack file in the `packages/locales/langs` directory, for example, `zh-TW.json`, and translate the respective texts.
-- In the corresponding application, locate the `src/locales/langs` file and add the new language pack `zh-TW.json`.
+- Create the corresponding language pack folder and files under `packages/locales/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
+- In the corresponding application, find the `src/locales/langs` directory and create the same language pack folder and files (e.g., `zh-TW/*.json`).
 - Add the corresponding language in `packages/constants/src/core.ts`:
 
   ```ts
