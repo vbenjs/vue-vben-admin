@@ -148,11 +148,26 @@ async function generateRoutes(
       return route;
     }
 
-    if (parent && parent.redirect) {
-      const parentSplit = (parent.redirect as string).split('/');
+    // fork 定制：如果第一个子路由是动态路由（如 :id），说明当前路由本身是一个
+    // “列表+详情”页面（渲染自身组件），不应自动重定向到未填充的动态参数，
+    // 否则地址栏会出现字面量 ":id" 或匹配失败导致 404。
+    // 详见对上游重构 commit f00a8812 的修复。
+    if (firstChild.path.startsWith(':')) {
+      return route;
+    }
+
+    // 拼接子路由的重定向绝对路径。
+    // - 当 parent.redirect 为字符串时，它已经是累计好的绝对路径，直接替换最后一段
+    //   即可正确支持任意层级的深层嵌套（如 /demos/nested/menu2/menu2-1）。
+    // - fork 定制：后端菜单可能传入对象形式的 redirect（如 { name }），无法 split，
+    //   此时回退到使用 parent.path 拼接（这类 parent 为顶级路由，path 为绝对路径）。
+    if (parent && parent.redirect && isString(parent.redirect)) {
+      const parentSplit = parent.redirect.split('/');
       parentSplit.splice(-1, 2, route.path, firstChild.path);
       const redirectPath = parentSplit.join('/');
       route.redirect = redirectPath;
+    } else if (parent && parent.redirect) {
+      route.redirect = `${parent.path}/${route.path}/${firstChild.path}`;
     } else {
       route.redirect = `${route.path}/${firstChild.path}`;
     }
