@@ -107,10 +107,10 @@ const labelMap: Record<string, string> = {
   languageToggle: 'preferences.widget.languageToggle',
   timezone: 'preferences.widget.timezone',
   fullscreen: 'preferences.widget.fullscreen',
+  refresh: 'preferences.widget.refresh',
   notification: 'preferences.widget.notification',
   lockScreenBtn: 'ui.widgets.lockScreen.title',
   logoutBtn: 'common.logout',
-  refresh: 'preferences.widget.refresh',
 };
 
 const draggableItems = computed(() =>
