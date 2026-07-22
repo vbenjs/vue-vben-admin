@@ -159,24 +159,59 @@ describe('formApi', () => {
     );
   });
 
-  it('should reset form', async () => {
-    const resetFormMock = vi.fn();
+  it('should set only known fields without losing provided values', async () => {
+    const setValuesMock = vi.fn();
+    formApi.setState({
+      schema: [
+        { component: 'text', fieldName: 'name' },
+        { component: 'text', fieldName: 'profile.email' },
+      ],
+    });
     const formActions: any = {
       meta: {},
-      resetForm: resetFormMock,
+      setValues: setValuesMock,
+      values: {},
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({
+      name: 'Ada',
+      profile: {
+        email: 'ada@example.com',
+        ignored: true,
+      },
+      unknown: 'ignored',
+    });
+
+    expect(setValuesMock).toHaveBeenCalledWith(
+      {
+        name: 'Ada',
+        profile: {
+          email: 'ada@example.com',
+        },
+      },
+      false,
+    );
+  });
+
+  it('should reset form', async () => {
+    const resetMock = vi.fn();
+    const formActions: any = {
+      meta: {},
+      reset: resetMock,
       values: { name: 'test' },
     };
 
     await formApi.mount(formActions, new Map());
-    await formApi.resetForm();
-    expect(resetFormMock).toHaveBeenCalled();
+    await formApi.reset();
+    expect(resetMock).toHaveBeenCalled();
   });
 
   it('should call handleSubmit on submit', async () => {
     const handleSubmitMock = vi.fn();
     const formActions: any = {
       meta: {},
-      submitForm: vi.fn().mockResolvedValue(true),
+      submit: vi.fn().mockResolvedValue(true),
       values: { name: 'test' },
     };
 
@@ -187,8 +222,8 @@ describe('formApi', () => {
     formApi.setState(state);
     await formApi.mount(formActions, new Map());
 
-    const result = await formApi.submitForm();
-    expect(formActions.submitForm).toHaveBeenCalled();
+    const result = await formApi.submit();
+    expect(formActions.submit).toHaveBeenCalled();
     expect(handleSubmitMock).toHaveBeenCalledWith({ name: 'test' });
     expect(result).toEqual({ name: 'test' });
   });
