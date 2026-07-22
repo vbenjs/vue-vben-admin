@@ -1,5 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils';
 
+import type { FormSchemaRuleType } from '../src/types';
+
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
 
@@ -7,9 +9,18 @@ import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 
 import { setupVbenForm } from '../src/config';
+import { resetDeprecationWarnings } from '../src/deprecation';
 import { useVbenForm } from '../src/use-vben-form';
 
 const wrappers: VueWrapper[] = [];
+
+function createDeferred<T>() {
+  let resolvePromise: (value: T) => void = () => {};
+  const promise = new Promise<T>((resolve) => {
+    resolvePromise = resolve;
+  });
+  return { promise, resolve: resolvePromise };
+}
 
 const TestInput = defineComponent({
   inheritAttrs: false,
@@ -99,7 +110,7 @@ describe('useVbenForm integration', () => {
         {
           component: TestInput,
           componentProps: { eventMode: 'change-only' },
-          disabledOnChangeListener: false,
+          changeEventFallback: true,
           fieldName: 'name',
           modelPropName: 'value',
         },
@@ -115,6 +126,39 @@ describe('useVbenForm integration', () => {
     expect(await formApi.getValues()).toEqual({ name: 'fallback' });
   });
 
+  it('warns once for legacy dependency callbacks', async () => {
+    resetDeprecationWarnings();
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          dependencies: {
+            show: true,
+            triggerFields: ['toggle'],
+          },
+          fieldName: 'first',
+        },
+        {
+          component: TestInput,
+          dependencies: {
+            disabled: false,
+            triggerFields: ['toggle'],
+          },
+          fieldName: 'second',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(warning).toHaveBeenCalledOnce();
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] Legacy dependency callbacks are deprecated. Use `dependencies.resolve(context)` instead.',
+    );
+  });
+
   it('binds fields, renders accessible errors, and submits valid values', async () => {
     const consoleError = vi
       .spyOn(console, 'error')
@@ -128,6 +172,7 @@ describe('useVbenForm integration', () => {
           fieldName: 'name',
           label: 'Name',
           rules: z.string().min(1, 'Name is required'),
+          valueFormat: (value) => value.trim(),
         },
         {
           component: TestInput,
@@ -170,10 +215,16 @@ describe('useVbenForm integration', () => {
       name: 'Ada',
     });
     expect(handleSubmit).toHaveBeenCalledOnce();
-    expect(handleSubmit).toHaveBeenCalledWith({
-      alias: 'Countess',
-      name: 'Ada',
-    });
+    expect(handleSubmit).toHaveBeenCalledWith(
+      {
+        alias: 'Countess',
+        name: 'Ada',
+      },
+      {
+        alias: 'Countess',
+        name: 'Ada',
+      },
+    );
     expect(consoleError).not.toHaveBeenCalled();
   });
 
@@ -216,6 +267,64 @@ describe('useVbenForm integration', () => {
     expect(dependency.mock.calls.length).toBeGreaterThan(initialCalls);
   });
 
+  it('resolves dependency patches atomically from declared fields', async () => {
+    const pendingPatch = createDeferred<{
+      componentProps: { placeholder: string };
+      if: boolean;
+    }>();
+    const resolve = vi.fn(({ values }: { values: Record<string, any> }) => {
+      if (values.toggle === 'pending') {
+        return pendingPatch.promise;
+      }
+      return {
+        componentProps: { placeholder: 'initial' },
+        if: false,
+      };
+    });
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'toggle',
+          label: 'Toggle',
+        },
+        {
+          component: TestInput,
+          dependencies: {
+            resolve,
+            triggerFields: ['toggle'],
+          },
+          fieldName: 'details',
+          label: 'Details',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(wrapper.find('input[name="details"]').exists()).toBe(false);
+    const initialCalls = resolve.mock.calls.length;
+
+    await formApi.setFieldValue('unrelated', 'value');
+    await flushPromises();
+    expect(resolve).toHaveBeenCalledTimes(initialCalls);
+
+    await formApi.setFieldValue('toggle', 'pending');
+    await flushPromises();
+    expect(wrapper.find('input[name="details"]').exists()).toBe(false);
+
+    pendingPatch.resolve({
+      componentProps: { placeholder: 'resolved' },
+      if: true,
+    });
+    await flushPromises();
+
+    const details = wrapper.find('input[name="details"]');
+    expect(details.exists()).toBe(true);
+    expect(details.attributes('placeholder')).toBe('resolved');
+  });
+
   it('applies required rules enabled by dependencies after mount', async () => {
     const [Form, formApi] = useVbenForm({
       schema: [
@@ -251,6 +360,90 @@ describe('useVbenForm integration', () => {
     });
 
     await formApi.setFieldValue('details', 'ready');
+    expect(await formApi.validate()).toEqual({ errors: {}, valid: true });
+  });
+
+  it('allows dependencies to disable static rules with null', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'toggle',
+          label: 'Toggle',
+        },
+        {
+          component: TestInput,
+          dependencies: {
+            rules(values) {
+              return values.toggle === true
+                ? z.string().min(1, 'Details is required')
+                : null;
+            },
+            triggerFields: ['toggle'],
+          },
+          fieldName: 'details',
+          label: 'Details',
+          rules: z.string().min(1, 'Static details rule'),
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(await formApi.validate()).toEqual({ errors: {}, valid: true });
+
+    await formApi.setFieldValue('toggle', true);
+    await flushPromises();
+    expect(await formApi.validate()).toEqual({
+      errors: { details: 'Details is required' },
+      valid: false,
+    });
+  });
+
+  it('ignores stale async dependency rule results', async () => {
+    const requiredRules = createDeferred<FormSchemaRuleType>();
+    const optionalRules = createDeferred<FormSchemaRuleType>();
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'mode',
+          label: 'Mode',
+        },
+        {
+          component: TestInput,
+          dependencies: {
+            rules(values) {
+              if (values.mode === 'required') {
+                return requiredRules.promise;
+              }
+              if (values.mode === 'optional') {
+                return optionalRules.promise;
+              }
+              return null;
+            },
+            triggerFields: ['mode'],
+          },
+          fieldName: 'details',
+          label: 'Details',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await formApi.setFieldValue('mode', 'required');
+    await flushPromises();
+    await formApi.setFieldValue('mode', 'optional');
+    await flushPromises();
+
+    optionalRules.resolve(null);
+    await flushPromises();
+    requiredRules.resolve(z.string().min(1, 'Stale required rule'));
+    await flushPromises();
+
     expect(await formApi.validate()).toEqual({ errors: {}, valid: true });
   });
 
@@ -292,6 +485,56 @@ describe('useVbenForm integration', () => {
     });
   });
 
+  it('scopes resolve dependencies to array rows', async () => {
+    const resolve = vi.fn(({ schema }: Record<string, any>) => ({
+      componentProps: {
+        disabled: schema.row?.role === 'viewer',
+      },
+    }));
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          children: [
+            {
+              component: TestInput,
+              fieldName: 'role',
+              label: 'Role',
+            },
+            {
+              component: TestInput,
+              dependencies: {
+                resolve,
+                triggerFields: ['role'],
+              },
+              fieldName: 'phone',
+              label: 'Phone',
+            },
+          ],
+          defaultValue: [{ phone: '', role: 'viewer' }],
+          fieldName: 'contacts',
+          type: 'array',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(resolve).toHaveBeenCalledWith(
+      expect.objectContaining({
+        schema: expect.objectContaining({
+          fieldName: 'contacts[0].phone',
+          row: { phone: '', role: 'viewer' },
+          rowIndex: 0,
+          rowPath: 'contacts[0]',
+        }),
+      }),
+    );
+    expect(
+      wrapper.get('input[name="contacts[0].phone"]').attributes('disabled'),
+    ).toBeDefined();
+  });
+
   it('reports changed fields and submits valid changes', async () => {
     vi.useFakeTimers();
     const handleSubmit = vi.fn();
@@ -306,6 +549,7 @@ describe('useVbenForm integration', () => {
           fieldName: 'name',
           label: 'Name',
           rules: z.string().min(1, 'Name is required'),
+          valueFormat: (value) => value.trim(),
         },
       ],
       submitOnChange: true,
@@ -314,13 +558,24 @@ describe('useVbenForm integration', () => {
     wrappers.push(wrapper);
     await flushPromises();
 
-    await formApi.setFieldValue('name', 'Ada');
+    await formApi.setFieldValue('name', ' Ada ');
     await nextTick();
     await vi.runAllTimersAsync();
     await flushPromises();
 
-    expect(handleValuesChange).toHaveBeenCalledWith({ name: 'Ada' }, ['name']);
-    expect(handleSubmit).toHaveBeenCalledWith({ name: 'Ada' });
+    expect(handleValuesChange).toHaveBeenCalledWith(
+      { name: ' Ada ' },
+      ['name'],
+      expect.any(Function),
+    );
+    const valuesChangeCall = handleValuesChange.mock.calls.at(0);
+    expect(valuesChangeCall).toBeDefined();
+    if (!valuesChangeCall) return;
+    expect(valuesChangeCall[2]()).toEqual({ name: 'Ada' });
+    expect(handleSubmit).toHaveBeenCalledWith(
+      { name: 'Ada' },
+      { name: ' Ada ' },
+    );
   });
 
   it('respects blur and change validation triggers', async () => {
@@ -331,9 +586,7 @@ describe('useVbenForm integration', () => {
           defaultValue: 'valid',
           fieldName: 'name',
           formFieldProps: {
-            validateOnBlur: true,
-            validateOnChange: false,
-            validateOnModelUpdate: false,
+            validateOn: ['blur'],
           },
           label: 'Name',
           rules: z.string().min(1, 'Name is required'),

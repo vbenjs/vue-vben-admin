@@ -10,9 +10,8 @@ import {
   VbenIconButton,
   VbenRenderContent,
 } from '@vben-core/shadcn-ui';
-import { cn, get, isObject, set } from '@vben-core/shared/utils';
+import { cn, isObject, set } from '@vben-core/shared/utils';
 
-import { resolveFieldNamePath } from '../field-name';
 import { injectRenderFormProps } from '../form-render/context';
 import FormField from '../form-render/form-field.vue';
 import { createArrayChildSchema } from '../form-render/schema';
@@ -72,16 +71,12 @@ if (!form) {
   throw new Error('Form api is required in <VbenFormFieldArray />');
 }
 const formActions = form;
-const values = formActions.useSelector((state) => state.values);
+const arrayValue = formActions.useFieldValue(props.name);
 const rowKeys = new WeakMap<object, string>();
 let nextRowKey = 0;
 
 const fields = computed<Record<string, any>[]>(() => {
-  const { rawKey } = resolveFieldNamePath(arrayPath.value);
-  const value = rawKey
-    ? values.value[rawKey]
-    : get(values.value, arrayPath.value);
-  return Array.isArray(value) ? value : [];
+  return Array.isArray(arrayValue.value) ? arrayValue.value : [];
 });
 
 const canAdd = computed(() => fields.value.length < props.max);

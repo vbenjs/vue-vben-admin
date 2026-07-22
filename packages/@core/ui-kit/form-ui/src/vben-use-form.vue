@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type { Recordable } from '@vben-core/typings';
-
 import type { ExtendedFormApi, VbenFormProps, VbenFormSlots } from './types';
 
-import { nextTick, onMounted, watch } from 'vue';
+import { nextTick, onMounted, readonly, watch } from 'vue';
 
 import { useForwardPriorityValues } from '@vben-core/composables';
-import { cloneDeep, get, isEqual, set } from '@vben-core/shared/utils';
+import { get, isEqual } from '@vben-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -46,18 +44,18 @@ const forward = useForwardPriorityValues(props, state);
 const componentRefMap = new Map<string, unknown>();
 
 const { delegatedSlots, form } = useFormInitial(forward);
-const values = form.useSelector((formState) => formState.values);
+const values = form.useValues();
 
 provideFormProps([forward, form]);
 provideComponentRefMap(componentRefMap);
 
 formApi.mount(form, componentRefMap);
 
-const handleUpdateCollapsed = (value: boolean) => {
+function handleUpdateCollapsed(value: boolean) {
   props.formApi?.setState({ collapsed: value });
   // 触发收起展开状态变化回调
   forward.value.handleCollapsedChange?.(value);
-};
+}
 
 function handleKeyDownEnter(event: KeyboardEvent) {
   if (!state?.value.submitOnEnter || !forward.value.formApi?.isMounted) {
@@ -77,40 +75,35 @@ const handleValuesChangeDebounced = useDebounceFn(async () => {
   state?.value.submitOnChange && forward.value.formApi?.validateAndSubmit();
 }, state?.value?.changeDebouncedTime ?? 300);
 
-const valuesCache: Recordable<any> = {};
+let valuesChangeReady = false;
 
 onMounted(async () => {
   // 只在挂载后开始监听，form.values会有一个初始化的过程
   await nextTick();
-  watch(values, async (newVal) => {
-    if (forward.value.handleValuesChange) {
-      const fields = state?.value.schema?.map((item) => {
-        return item.fieldName;
-      });
+  valuesChangeReady = true;
+});
 
-      if (fields && fields.length > 0) {
-        const changedFields: string[] = [];
-        fields.forEach((field) => {
-          const newFieldValue = get(newVal, field);
-          const oldFieldValue = get(valuesCache, field);
-          if (!isEqual(newFieldValue, oldFieldValue)) {
-            changedFields.push(field);
-            set(valuesCache, field, cloneDeep(newFieldValue));
-          }
-        });
-
-        if (changedFields.length > 0) {
-          // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
-          const values = await forward.value.formApi?.getValues();
-          forward.value.handleValuesChange(
-            cloneDeep(values ?? {}) as Record<string, any>,
-            changedFields,
-          );
-        }
-      }
+watch(values, (currentValues, previousValues) => {
+  if (!valuesChangeReady) {
+    return;
+  }
+  const fields = state?.value.schema?.map((item) => item.fieldName) ?? [];
+  if (forward.value.handleValuesChange && fields.length > 0) {
+    const changedFields = fields.filter((field) => {
+      return !isEqual(
+        get(currentValues, field),
+        get(previousValues ?? {}, field),
+      );
+    });
+    if (changedFields.length > 0) {
+      forward.value.handleValuesChange(
+        readonly(currentValues),
+        changedFields,
+        () => formApi.formatValues(currentValues),
+      );
     }
-    handleValuesChangeDebounced();
-  });
+  }
+  handleValuesChangeDebounced();
 });
 </script>
 

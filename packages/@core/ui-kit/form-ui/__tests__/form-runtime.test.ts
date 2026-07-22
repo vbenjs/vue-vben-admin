@@ -1,7 +1,7 @@
 import type { FormActions } from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
-import { defineComponent, h, nextTick } from 'vue';
+import { defineComponent, h, nextTick, watch } from 'vue';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -99,6 +99,47 @@ describe('form runtime', () => {
     expect(name.value).toBe('updated');
   });
 
+  it('updates only changed field value selectors', async () => {
+    const { form } = mountRuntime({ email: '', name: 'initial' });
+    expect(form).toBeDefined();
+    if (!form) return;
+    const name = form.useFieldValue('name');
+    const selectedValues = form.useFieldValues(['name'] as const);
+    const onNameChange = vi.fn();
+    const stop = watch(name, onNameChange);
+
+    await form.setFieldValue('email', 'ada@example.com');
+    await nextTick();
+    expect(onNameChange).not.toHaveBeenCalled();
+    expect(selectedValues.value).toEqual(['initial']);
+
+    await form.setFieldValue('name', 'Ada');
+    await nextTick();
+    expect(onNameChange).toHaveBeenCalledOnce();
+    expect(name.value).toBe('Ada');
+    expect(selectedValues.value).toEqual(['Ada']);
+    stop();
+  });
+
+  it('exposes reactive field error selectors', async () => {
+    const { form } = mountRuntime({ email: '', name: '' });
+    expect(form).toBeDefined();
+    if (!form) return;
+    const nameError = form.useFieldError('name');
+    const onNameErrorChange = vi.fn();
+    const stop = watch(nameError, onNameErrorChange);
+
+    form.setFieldError('email', 'Email error');
+    await nextTick();
+    expect(onNameErrorChange).not.toHaveBeenCalled();
+
+    form.setFieldError('name', 'Name error');
+    await nextTick();
+    expect(nameError.value).toBe('Name error');
+    expect(onNameErrorChange).toHaveBeenCalledOnce();
+    stop();
+  });
+
   it('validates mounted fields and clears stale errors', async () => {
     const { form } = mountRuntime({ name: '' }, async ({ value }) => {
       return value ? undefined : 'Name is required';
@@ -128,13 +169,30 @@ describe('form runtime', () => {
     form.setFieldError('name', 'Server error');
     await nextTick();
     expect(form.getFieldError('name')).toBe('Server error');
+    expect(form.meta.valid).toBe(false);
 
     form.setFieldError('name');
     await nextTick();
     expect(form.getFieldError('name')).toBeUndefined();
+    expect(form.meta.valid).toBe(true);
   });
 
-  it('aborts in-flight async validation when clearing validation', async () => {
+  it('clears manual errors when resetting the form', async () => {
+    const { form } = mountRuntime({ name: '' });
+    expect(form).toBeDefined();
+    if (!form) return;
+
+    form.setFieldError('name', 'Server error');
+    await nextTick();
+    expect(form.errors).toEqual({ name: 'Server error' });
+
+    await form.reset();
+    await nextTick();
+    expect(form.errors).toEqual({});
+    expect(form.meta.valid).toBe(true);
+  });
+
+  it('invalidates in-flight async validation when clearing validation', async () => {
     let resolveValidation: ((error: string | undefined) => void) | undefined;
     let notifyValidationStarted: (() => void) | undefined;
     const validationStarted = new Promise<void>((resolve) => {

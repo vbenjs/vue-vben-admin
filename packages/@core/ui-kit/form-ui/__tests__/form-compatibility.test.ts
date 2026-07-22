@@ -83,7 +83,7 @@ describe('form api compatibility', () => {
 
     expect(form.reset).toHaveBeenCalledTimes(2);
     expect(form.clearValidation).toHaveBeenCalledOnce();
-    expect(form.submit).toHaveBeenCalledTimes(2);
+    expect(form.submit).toHaveBeenCalledOnce();
     expect(warning).toHaveBeenCalledTimes(4);
     expect(warning).toHaveBeenCalledWith(
       '[Vben Form] `formApi.resetForm()` is deprecated. Use `formApi.reset()` instead.',

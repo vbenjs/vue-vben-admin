@@ -74,8 +74,8 @@ const schema: VbenFormSchema[] = [
     children: [
       {
         component: 'Input',
-        componentProps: (_values, _form, ctx) => ({
-          placeholder: `第 ${(ctx?.rowIndex ?? 0) + 1} 行姓名`,
+        componentProps: (ctx) => ({
+          placeholder: `第 ${(ctx.rowIndex ?? 0) + 1} 行姓名`,
         }),
         defaultValue: '',
         fieldName: 'name',

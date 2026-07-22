@@ -3,6 +3,8 @@ import type {
   ExtendedFormApi,
   FormActions,
   FormContextApi,
+  FormFieldOptions,
+  FormItemDependencies,
   FormValidationResult,
   VbenFormAdapterOptions,
   VbenFormProps,
@@ -29,6 +31,10 @@ describe('form public types', () => {
     expectTypeOf<
       FormActions['validate']
     >().returns.resolves.toEqualTypeOf<FormValidationResult>();
+    expectTypeOf<Parameters<FormActions['validate']>>().toEqualTypeOf<[]>();
+    expectTypeOf<Parameters<FormActions['validateField']>>().toEqualTypeOf<
+      [fieldName: string]
+    >();
   });
 
   it('accepts both new and deprecated rule registration options', () => {
@@ -38,17 +44,53 @@ describe('form public types', () => {
     }>();
   });
 
+  it('supports resolve and legacy dependency contracts', () => {
+    const resolveDependencies: FormItemDependencies<AccountFormValues> = {
+      resolve({ actions, controller, schema, values }) {
+        expectTypeOf(values).toEqualTypeOf<Readonly<AccountFormValues>>();
+        expectTypeOf(actions).toEqualTypeOf<FormActions<AccountFormValues>>();
+        expectTypeOf(controller).toEqualTypeOf<
+          ExtendedFormApi<AccountFormValues>
+        >();
+        expectTypeOf(schema.fieldName).toEqualTypeOf<string | undefined>();
+        return { disabled: !values.email, rules: null };
+      },
+      triggerFields: ['email'],
+    };
+    const legacyDependencies: FormItemDependencies<AccountFormValues> = {
+      show(values) {
+        expectTypeOf(values).toEqualTypeOf<Partial<AccountFormValues>>();
+        return Boolean(values.email);
+      },
+      triggerFields: ['email'],
+    };
+    const fieldOptions: FormFieldOptions = {
+      asyncDebounceMs: 200,
+      validateOn: ['blur', 'change'],
+    };
+
+    expectTypeOf(resolveDependencies).toMatchTypeOf<
+      FormItemDependencies<AccountFormValues>
+    >();
+    expectTypeOf(legacyDependencies).toMatchTypeOf<
+      FormItemDependencies<AccountFormValues>
+    >();
+    expectTypeOf(fieldOptions).toMatchTypeOf<FormFieldOptions>();
+  });
+
   it('propagates form value types through public APIs and callbacks', () => {
     const options: VbenFormProps<
       BaseFormComponentType,
       Record<never, never>,
       AccountFormValues
     > = {
-      handleSubmit(values) {
+      handleSubmit(values, rawValues) {
         expectTypeOf(values).toEqualTypeOf<AccountFormValues>();
+        expectTypeOf(rawValues).toEqualTypeOf<Readonly<AccountFormValues>>();
       },
-      handleValuesChange(values) {
-        expectTypeOf(values).toEqualTypeOf<AccountFormValues>();
+      handleValuesChange(values, _fieldsChanged, getFormattedValues) {
+        expectTypeOf(values).toEqualTypeOf<Readonly<AccountFormValues>>();
+        expectTypeOf(getFormattedValues()).toEqualTypeOf<AccountFormValues>();
       },
       schema: [],
     };
@@ -63,6 +105,13 @@ describe('form public types', () => {
       expectTypeOf(
         typedFormApi.getValues(),
       ).resolves.toEqualTypeOf<AccountFormValues>();
+      expectTypeOf(
+        typedFormApi.getRawValues(),
+      ).resolves.toEqualTypeOf<AccountFormValues>();
+      expectTypeOf(typedFormApi.getValueSnapshot()).resolves.toEqualTypeOf<{
+        rawValues: Readonly<AccountFormValues>;
+        values: AccountFormValues;
+      }>();
       expectTypeOf(typedFormApi.setValues)
         .parameter(0)
         .toEqualTypeOf<Partial<AccountFormValues>>();

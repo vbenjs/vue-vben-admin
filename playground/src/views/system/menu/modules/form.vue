@@ -280,18 +280,18 @@ const schema: VbenFormSchema[] = [
   },
   {
     component: 'Input',
-    componentProps: (values) => {
-      return {
-        allowClear: true,
-        class: 'w-full',
-        disabled: values.meta?.badgeType !== 'normal',
-      };
-    },
     dependencies: {
-      show: (values) => {
-        return values.type !== 'button';
+      resolve: ({ values }) => {
+        return {
+          componentProps: {
+            allowClear: true,
+            class: 'w-full',
+            disabled: values.meta?.badgeType !== 'normal',
+          },
+          show: values.type !== 'button',
+        };
       },
-      triggerFields: ['type'],
+      triggerFields: ['meta.badgeType', 'type'],
     },
     fieldName: 'meta.badge',
     label: $t('system.menu.badge'),

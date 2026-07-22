@@ -98,6 +98,11 @@ describe('formApi', () => {
         startTime: 1_710_000_000_000,
       },
     });
+    expect(await formApi.getRawValues()).toEqual(originalValuesSnapshot);
+    expect(await formApi.getValueSnapshot()).toEqual({
+      rawValues: originalValuesSnapshot,
+      values,
+    });
     expect(formActions.values).toEqual(originalValuesSnapshot);
   });
 
@@ -224,7 +229,10 @@ describe('formApi', () => {
 
     const result = await formApi.submit();
     expect(formActions.submit).toHaveBeenCalled();
-    expect(handleSubmitMock).toHaveBeenCalledWith({ name: 'test' });
+    expect(handleSubmitMock).toHaveBeenCalledWith(
+      { name: 'test' },
+      { name: 'test' },
+    );
     expect(result).toEqual({ name: 'test' });
   });
 
@@ -277,6 +285,48 @@ describe('formApi', () => {
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);
+  });
+
+  it('should validate only once before submitting valid values', async () => {
+    const handleSubmit = vi.fn();
+    const formActions: any = {
+      meta: {},
+      submit: vi.fn(),
+      validate: vi.fn().mockResolvedValue({ errors: {}, valid: true }),
+      values: { name: 'Ada' },
+    };
+
+    formApi.setState({ handleSubmit });
+    await formApi.mount(formActions, new Map());
+
+    await expect(formApi.validateAndSubmit()).resolves.toEqual({ name: 'Ada' });
+    expect(formActions.validate).toHaveBeenCalledOnce();
+    expect(formActions.submit).not.toHaveBeenCalled();
+    expect(handleSubmit).toHaveBeenCalledOnce();
+  });
+
+  it('should not submit invalid values', async () => {
+    const handleSubmit = vi.fn();
+    const errors = { name: 'Name is required' };
+    const formActions: any = {
+      meta: {},
+      submit: vi.fn(),
+      validate: vi.fn().mockResolvedValue({ errors, valid: false }),
+      values: { name: '' },
+    };
+    const scrollToFirstError = vi
+      .spyOn(formApi as any, 'scrollToFirstError')
+      .mockImplementation(() => {});
+
+    formApi.setState({ handleSubmit, scrollToFirstError: true });
+    await formApi.mount(formActions, new Map());
+
+    await expect(formApi.validateAndSubmit()).resolves.toBeUndefined();
+    expect(formActions.validate).toHaveBeenCalledOnce();
+    expect(formActions.submit).not.toHaveBeenCalled();
+    expect(handleSubmit).not.toHaveBeenCalled();
+    expect(scrollToFirstError).toHaveBeenCalledOnce();
+    expect(scrollToFirstError).toHaveBeenCalledWith(errors);
   });
 });
 

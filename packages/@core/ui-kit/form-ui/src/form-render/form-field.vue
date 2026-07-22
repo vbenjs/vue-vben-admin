@@ -5,6 +5,7 @@ import type {
   FormActions,
   FormFieldProps,
   FormRuleContext,
+  FormRuntimeField,
   MaybeComponentProps,
 } from '../types';
 
@@ -42,25 +43,12 @@ import { getBaseRules, isEventObjectLike } from './helper';
 
 interface Props extends FormFieldProps {}
 
-interface RuntimeField {
-  handleBlur: () => void;
-  handleChange: (value: any) => void;
-  state: {
-    meta: {
-      errors: unknown[];
-      isDirty: boolean;
-      isTouched: boolean;
-      isValid: boolean;
-    };
-    value: any;
-  };
-}
-
 interface RuntimeFieldSlotProps {
-  field: RuntimeField;
+  field: FormRuntimeField<any>;
 }
 
 const {
+  changeEventFallback,
   colon,
   commonComponentProps,
   component,
@@ -68,8 +56,6 @@ const {
   dependencies,
   description,
   disabled,
-  disabledOnChangeListener,
-  disabledOnInputListener,
   emptyStateValue,
   fieldName,
   formFieldProps,
@@ -96,8 +82,7 @@ const formApi = formRenderProps.form;
 if (!formApi) {
   throw new Error('Form api is required in <FormField />');
 }
-const values = formApi.useSelector((state) => state.values);
-const error = formApi.useSelector((state) => state.errors[fieldName]);
+const error = formApi.useFieldError(fieldName);
 const compact = computed(() => formRenderProps.compact);
 const isInValid = computed(() => Boolean(error.value));
 const shouldApplyInvalidStyle = computed(() => {
@@ -126,12 +111,20 @@ const FieldComponent = computed(() => {
 
 const {
   dynamicComponentProps,
+  dynamicHelp,
+  dynamicHelpResolved,
+  dynamicRenderComponentContent,
+  dynamicRenderComponentContentResolved,
   dynamicRules,
+  dynamicRulesResolved,
   isDisabled,
   isIf,
   isRequired,
   isShow,
-} = useDependencies(() => dependencies);
+} = useDependencies(
+  () => dependencies,
+  () => ({ fieldName }),
+);
 
 const labelStyle = computed(() => {
   return labelClass?.includes('w-') || isVertical.value
@@ -142,7 +135,7 @@ const labelStyle = computed(() => {
 });
 
 const currentRules = computed(() => {
-  const currentRule = dynamicRules.value || rules;
+  const currentRule = dynamicRulesResolved.value ? dynamicRules.value : rules;
   return currentRule && !isString(currentRule)
     ? toRaw(currentRule)
     : currentRule;
@@ -225,14 +218,11 @@ const fieldValidators = computed(() => {
   const validators: Record<string, typeof validateFieldValue> = {
     onSubmitAsync: validateFieldValue,
   };
-  if (formFieldProps?.validateOnBlur !== false) {
+  const validateOn = new Set(formFieldProps?.validateOn ?? ['blur', 'change']);
+  if (validateOn.has('blur')) {
     validators.onBlurAsync = validateFieldValue;
   }
-  if (
-    formFieldProps?.validateOnChange !== false ||
-    formFieldProps?.validateOnInput === true ||
-    formFieldProps?.validateOnModelUpdate !== false
-  ) {
+  if (validateOn.has('change')) {
     validators.onChangeAsync = validateFieldValue;
   }
   return validators;
@@ -240,7 +230,7 @@ const fieldValidators = computed(() => {
 
 const computedProps = computed(() => {
   const finalComponentProps = isFunction(componentProps)
-    ? componentProps(values.value, getFormApi())
+    ? componentProps({ fieldName })
     : componentProps;
 
   return {
@@ -252,14 +242,12 @@ const computedProps = computed(() => {
 
 // 自定义帮助信息
 const computedHelp = computed(() => {
-  const helpContent = help;
+  const helpContent = dynamicHelpResolved.value ? dynamicHelp.value : help;
   if (!helpContent) {
     return undefined;
   }
   return () =>
-    isFunction(helpContent)
-      ? helpContent(values.value, getFormApi())
-      : helpContent;
+    isFunction(helpContent) ? helpContent({ fieldName }) : helpContent;
 });
 
 watch(
@@ -279,10 +267,13 @@ const shouldDisabled = computed(() => {
 });
 
 const customContentRender = computed(() => {
+  if (dynamicRenderComponentContentResolved.value) {
+    return dynamicRenderComponentContent.value ?? {};
+  }
   if (!isFunction(renderComponentContent)) {
     return {};
   }
-  return renderComponentContent(values.value, getFormApi());
+  return renderComponentContent({ fieldName });
 });
 
 const renderContentKey = computed(() => {
@@ -291,6 +282,7 @@ const renderContentKey = computed(() => {
 
 const fieldProps = computed(() => {
   return {
+    asyncDebounceMs: formFieldProps?.asyncDebounceMs,
     validators: fieldValidators.value,
   };
 });
@@ -317,7 +309,6 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
 function fieldBindEvent(componentField: Record<string, any>) {
   const modelValue = componentField.modelValue;
   const handler = componentField['onUpdate:modelValue'];
-  const shouldUseChangeEventFallback = disabledOnChangeListener === false;
 
   const bindEventField =
     modelPropName ||
@@ -344,15 +335,13 @@ function fieldBindEvent(componentField: Record<string, any>) {
     return {
       [`onUpdate:${eventField}`]: handler,
       [eventField]: value === undefined ? emptyStateValue : value,
-      onChange: shouldUseChangeEventFallback ? handleChangeEvent : undefined,
-      ...(disabledOnInputListener ? { onInput: undefined } : {}),
+      onChange: changeEventFallback ? handleChangeEvent : undefined,
+      onInput: undefined,
     };
   }
   return {
-    ...(disabledOnInputListener ? { onInput: undefined } : {}),
-    onChange: shouldUseChangeEventFallback
-      ? componentField.onChange
-      : undefined,
+    onChange: changeEventFallback ? componentField.onChange : undefined,
+    onInput: undefined,
   };
 }
 

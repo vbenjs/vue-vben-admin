@@ -184,8 +184,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'input-blur',
       formFieldProps: {
-        validateOnChange: false,
-        validateOnModelUpdate: false,
+        validateOn: ['blur'],
       },
       help: 'blur时才会触发校验',
       label: 'blur触发',
