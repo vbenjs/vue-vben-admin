@@ -1,6 +1,6 @@
 // type Diff<T = any> = T;
 
-// 比较两个数组是否相等
+// 比较两个数组是否相等（忽略顺序）
 
 function arraysEqual<T>(a: T[], b: T[]): boolean {
   if (a.length !== b.length) return false;
@@ -16,6 +16,11 @@ function arraysEqual<T>(a: T[], b: T[]): boolean {
     counter.set(value, count - 1);
   }
   return true;
+}
+
+// 比较两个数组是否相等（顺序敏感）
+function arraysStrictEqual<T>(a: T[], b: T[]): boolean {
+  return a.length === b.length && a.every((value, index) => value === b[index]);
 }
 
 // 深度对比两个值
@@ -59,38 +64,51 @@ type DiffResult<T> = Partial<{
   [K in keyof T]: T[K] extends object ? DiffResult<T[K]> : T[K];
 }>;
 
-function diff<T extends Record<string, any>>(obj1: T, obj2: T): DiffResult<T> {
-  function findDifferences(o1: any, o2: any): any {
-    if (Array.isArray(o1) && Array.isArray(o2)) {
-      if (!arraysEqual(o1, o2)) {
-        return o2;
-      }
-      return undefined;
-    }
+type ArrayComparator = (a: any[], b: any[]) => boolean;
 
-    if (
-      typeof o1 === 'object' &&
-      typeof o2 === 'object' &&
-      o1 !== null &&
-      o2 !== null
-    ) {
-      const diffResult: any = {};
-
-      const keys = new Set([...Object.keys(o1), ...Object.keys(o2)]);
-      keys.forEach((key) => {
-        const valueDiff = findDifferences(o1[key], o2[key]);
-        if (valueDiff !== undefined) {
-          diffResult[key] = valueDiff;
+function createDiff(arrayEquals: ArrayComparator) {
+  return function <T extends Record<string, any>>(
+    obj1: T,
+    obj2: T,
+  ): DiffResult<T> {
+    function findDifferences(o1: any, o2: any): any {
+      if (Array.isArray(o1) && Array.isArray(o2)) {
+        if (!arrayEquals(o1, o2)) {
+          return o2;
         }
-      });
+        return undefined;
+      }
 
-      return Object.keys(diffResult).length > 0 ? diffResult : undefined;
+      if (
+        typeof o1 === 'object' &&
+        typeof o2 === 'object' &&
+        o1 !== null &&
+        o2 !== null
+      ) {
+        const diffResult: any = {};
+
+        const keys = new Set([...Object.keys(o1), ...Object.keys(o2)]);
+        keys.forEach((key) => {
+          const valueDiff = findDifferences(o1[key], o2[key]);
+          if (valueDiff !== undefined) {
+            diffResult[key] = valueDiff;
+          }
+        });
+
+        return Object.keys(diffResult).length > 0 ? diffResult : undefined;
+      }
+
+      return o1 === o2 ? undefined : o2;
     }
 
-    return o1 === o2 ? undefined : o2;
-  }
-
-  return findDifferences(obj1, obj2);
+    return findDifferences(obj1, obj2);
+  };
 }
 
-export { arraysEqual, diff };
+// 数组比较（不含顺序）
+const diff = createDiff(arraysEqual);
+
+// 数组比较（含顺序）
+const diffStrict = createDiff(arraysStrictEqual);
+
+export { arraysEqual, arraysStrictEqual, diff, diffStrict };
