@@ -148,14 +148,14 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.1
-  oxfmt: ^0.59.0
+  oxfmt: ^0.60.0
   oxlint: ^1.74.0
   oxlint-tsgolint: ^0.25.0
   pinia: ^4.0.2
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.1
   playwright: ^1.61.1
-  postcss: ^8.5.20
+  postcss: ^8.5.22
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
   publint: ^0.3.21
@@ -165,7 +165,7 @@ catalog:
   resolve.exports: ^2.0.3
   rimraf: ^6.1.3
   rollup-plugin-visualizer: ^7.0.1
-  sass: ^1.101.0
+  sass: ^1.101.3
   sass-embedded: ^1.100.0
   secure-ls: ^2.0.0
   sortablejs: ^1.15.7
@@ -205,12 +205,12 @@ catalog:
   vue-router: ^5.2.0
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.7
-  vxe-pc-ui: ^4.16.15
+  vxe-pc-ui: ^4.16.18
   vxe-table: ^4.20.5
   watermark-js-plus: ^1.6.6
   yaml-eslint-parser: ^2.1.0
   zod: ^3.25.76
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
 
 allowBuilds:
   '@parcel/watcher': true
