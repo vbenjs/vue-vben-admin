@@ -270,13 +270,22 @@ Use `schema.valueFormat` when the component value is convenient for the UI but t
 - `useVbenForm<TValues>` propagates values through APIs, callbacks, schema callbacks, and slots
 - prefer `reset`, `submit`, `validateAndSubmit`, and `clearValidation`
 - `resetForm`, `submitForm`, `validateAndSubmitForm`, and `resetValidate` remain deprecated aliases that warn once in development
-- `clearValidation` aborts in-flight async field validation before clearing errors
+- `clearValidation` invalidates in-flight async results before clearing errors
 - `formApi.getFieldComponentRef()` and `formApi.getFocusedField()` are available in current versions
-- `handleValuesChange(values, fieldsChanged)` includes the second parameter in newer versions
+- `handleValuesChange(values, fieldsChanged)` receives readonly raw form state before `valueFormat`, `fieldMappingTime`, or array-to-string conversion
+- its third `getFormattedValues` argument formats lazily, so raw-only change handlers avoid clone and transform work
+- `getRawValues()` returns only an independent raw snapshot, `getValues()` returns only the formatted payload, and `getValueSnapshot()` returns both
+- `handleSubmit(values, rawValues)` receives the formatted payload and its corresponding raw snapshot
 - `fieldMappingTime` and `scrollToFirstError` are part of the current form props
 - `schema.valueFormat` lets `getValues()` transform UI values into backend-friendly payloads
 - `formApi.form` is the stable `FormContextApi`; raw TanStack generics are intentionally not exposed
+- prefer `formApi.form.useFieldValue`, `useFieldValues`, and `useFieldError` for fine-grained subscriptions; use `useValues` only when the whole form is required
+- `useSelector` remains the compatibility selector for combined `{ values, errors, meta }` state
 - legacy `setupVbenForm({ defineRules })` still works, warns once in development, and is silent in production; use `rules` for new code
+- prefer `dependencies: { triggerFields, resolve(context) }` for one atomic dynamic-state patch; legacy dependency callbacks remain supported but are deprecated and warn once in development
+- top-level `componentProps`, `help`, and `renderComponentContent` functions receive `FormSchemaContext`; value-dependent rendering belongs in `dependencies.resolve`
+- use `formFieldProps.validateOn` with `blur` and/or `change`; submit always validates, and `asyncDebounceMs` debounces async validators
+- use `changeEventFallback: true` only for components that emit `change` without an `update:*` event
 
 ## Reference
 
