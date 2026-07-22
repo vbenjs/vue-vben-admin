@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@types/sortablejs": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/design": "workspace:*",
     "@vben-core/form-ui": "workspace:*",
@@ -38,6 +39,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "sortablejs": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }
