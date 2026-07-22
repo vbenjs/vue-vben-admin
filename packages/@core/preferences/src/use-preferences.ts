@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { diff } from '@vben-core/shared/utils';
+import { diff, diffStrict } from '@vben-core/shared/utils';
 
 import { preferencesManager } from './preferences';
 import { isDarkTheme } from './update-css-variables';
@@ -16,9 +16,10 @@ function usePreferences() {
   );
   /**
    * @zh_CN 计算偏好设置的变化
+   * @zh_CN 使用 diffStrict：图标排序等数组字段需顺序敏感比较
    */
   const diffPreference = computed(() => {
-    return diff(initialPreferences, preferences);
+    return diffStrict(initialPreferences, preferences);
   });
 
   const diffCustomPreference = computed(() => {
