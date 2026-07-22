@@ -65,6 +65,9 @@
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "catalog": "pnpm dlx codemod pnpm/catalog"
   },
+  "dependencies": {
+    "sortablejs": "catalog:"
+  },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
@@ -107,8 +110,5 @@
     "node": "^22.18.0 || ^24.0.0",
     "pnpm": ">=11.0.0"
   },
-  "packageManager": "pnpm@11.7.0",
-  "dependencies": {
-    "sortablejs": "catalog:"
-  }
+  "packageManager": "pnpm@11.7.0"
 }
