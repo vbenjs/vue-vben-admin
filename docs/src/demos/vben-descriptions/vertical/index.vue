@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { DescriptionsItemType } from '@vben/common-ui';
+
 import { VbenDescriptions } from '@vben/common-ui';
 
-const items = [
+const items: DescriptionsItemType[] = [
   { content: 'Vben', label: '用户名' },
   { content: '13800138000', label: '手机号' },
   { content: '中国 · 杭州', label: '居住地' },
