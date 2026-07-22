@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SelectOption } from '@vben/types';
 
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 import { GripVertical } from '@vben/icons';
 import { $t } from '@vben/locales';
@@ -62,6 +62,10 @@ function initSortable() {
 }
 
 onMounted(initSortable);
+onUnmounted(() => {
+  sortableInstance?.destroy();
+  sortableInstance = null;
+});
 
 function setPosition(key: string, event: Event) {
   const value = (event.target as HTMLSelectElement).value as

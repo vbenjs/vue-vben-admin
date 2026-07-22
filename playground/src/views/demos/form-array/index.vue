@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VbenFormSchema } from '#/adapter/form';
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -10,6 +10,18 @@ import { Button, Card, message, Space } from 'antdv-next';
 import { useVbenForm, z } from '#/adapter/form';
 
 const submitValues = ref<Record<string, any>>({});
+const formattedSubmitValues = computed(() =>
+  JSON.stringify(submitValues.value, null, 2),
+);
+const outputClass = [
+  'bg-muted',
+  'text-muted-foreground',
+  'max-h-[420px]',
+  'overflow-auto',
+  'rounded-md',
+  'p-3',
+  'text-xs',
+];
 
 const schema: VbenFormSchema[] = [
   {
@@ -62,8 +74,8 @@ const schema: VbenFormSchema[] = [
     children: [
       {
         component: 'Input',
-        componentProps: (_values, _form, ctx) => ({
-          placeholder: `第 ${(ctx?.rowIndex ?? 0) + 1} 行姓名`,
+        componentProps: (ctx) => ({
+          placeholder: `第 ${(ctx.rowIndex ?? 0) + 1} 行姓名`,
         }),
         defaultValue: '',
         fieldName: 'name',
@@ -147,7 +159,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 async function handleSubmit() {
-  await formApi.validateAndSubmitForm();
+  await formApi.validateAndSubmit();
 }
 
 async function handleGetValues() {
@@ -178,9 +190,7 @@ function handlePatchChildRule() {
       </Card>
 
       <Card title="输出">
-        <pre
-          class="bg-muted text-muted-foreground max-h-[420px] overflow-auto rounded-md p-3 text-xs"
-          >{{ JSON.stringify(submitValues, null, 2) }}</pre>
+        <pre :class="outputClass" v-text="formattedSubmitValues"></pre>
       </Card>
     </div>
   </Page>

@@ -22,8 +22,8 @@ const layout = ref<FormLayout>('vertical');
 
 function getNumberValidator(key: string, limit?: [number?, number?]) {
   let validator = z.number({
-    required_error: `${key} 值不能为空`,
-    invalid_type_error: `${key} 值只能为数字`,
+    error: (issue) =>
+      issue.input === undefined ? `${key} 值不能为空` : `${key} 值只能为数字`,
   });
 
   if (limit) {
@@ -257,14 +257,14 @@ function handleSetFormValue() {
 }
 
 function handleResetFormValue() {
-  baseFormApi.resetForm(undefined, { force: true });
+  baseFormApi.reset(undefined, { force: true });
 }
 
 async function handleSubmitFormValue() {
   const { valid } = await baseFormApi.validate();
 
   if (valid) {
-    baseFormApi.submitForm();
+    baseFormApi.submit();
   }
 }
 </script>
