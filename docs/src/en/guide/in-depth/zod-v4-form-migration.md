@@ -62,7 +62,12 @@ Use `rules` in new code:
 setupVbenForm({
   rules: {
     required(value, _params, context) {
-      return value ? true : `${context.label} is required`;
+      const isEmpty =
+        value === undefined ||
+        value === null ||
+        value === '' ||
+        (Array.isArray(value) && value.length === 0);
+      return isEmpty ? `${context.label} is required` : true;
     },
   },
 });
