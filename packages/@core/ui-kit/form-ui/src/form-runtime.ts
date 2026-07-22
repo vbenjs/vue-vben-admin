@@ -110,11 +110,12 @@ export function useFormRuntime<TValues extends FormValues>(
   function clearValidation(
     fieldNames?: FormFieldName<TValues> | FormFieldName<TValues>[],
   ) {
-    const requestedFieldNames = Array.isArray(fieldNames)
-      ? fieldNames
-      : fieldNames
-        ? [fieldNames]
-        : undefined;
+    let requestedFieldNames: FormFieldName<TValues>[] | undefined;
+    if (Array.isArray(fieldNames)) {
+      requestedFieldNames = fieldNames;
+    } else if (fieldNames) {
+      requestedFieldNames = [fieldNames];
+    }
     const targetFieldNames = requestedFieldNames ?? [
       ...new Set([
         ...Object.keys(rawForm.fieldInfo),

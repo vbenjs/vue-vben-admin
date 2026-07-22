@@ -103,12 +103,12 @@ function buildDefaultRow(): Record<string, any> {
 
   const row: Record<string, any> = {};
   props.schema.forEach((col) => {
-    const value =
-      Reflect.has(col, 'defaultValue') && col.defaultValue !== undefined
-        ? col.defaultValue
-        : 'type' in col && col.type === 'array'
-          ? []
-          : null;
+    let value: any = null;
+    if (Reflect.has(col, 'defaultValue') && col.defaultValue !== undefined) {
+      value = col.defaultValue;
+    } else if ('type' in col && col.type === 'array') {
+      value = [];
+    }
     set(row, col.fieldName, value);
   });
   return row;
