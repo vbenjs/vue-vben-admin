@@ -153,6 +153,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
       "languageToggle",
       "timezone",
       "fullscreen",
+      "refresh",
       "notification",
       "lockScreenBtn",
       "logoutBtn",

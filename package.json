@@ -73,7 +73,6 @@
     "@changesets/cli": "catalog:",
     "@tsdown/css": "catalog:",
     "@types/node": "catalog:",
-    "@types/sortablejs": "catalog:",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/oxfmt-config": "workspace:*",

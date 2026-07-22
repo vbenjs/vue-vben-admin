@@ -44,17 +44,16 @@ const hiddenList = computed(() =>
   props.items.filter((item) => item.position === 'none'),
 );
 function initSortable() {
-  if (!listRef.value) return;
+  const container = listRef.value;
+  if (!container) return;
   sortableInstance?.destroy();
-  sortableInstance = Sortable.create(listRef.value, {
+  sortableInstance = Sortable.create(container, {
     animation: 200,
     handle: '.drag-handle',
     onEnd() {
       // Sortable 已经改了 DOM，但 sortableList computed 还是旧顺序。
       // 直接从 DOM 读 children 的 data-key 拿新顺序，再追加 hidden 部分。
-      const listElement = listRef.value;
-      if (!listElement) return;
-      const newOrder = [...listElement.children]
+      const newOrder = [...container.children]
         .map((el) => (el as HTMLElement).dataset.key)
         .filter(Boolean) as string[];
       emit('updateOrder', [...newOrder, ...hiddenList.value.map((i) => i.key)]);

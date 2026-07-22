@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@types/sortablejs": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/design": "workspace:*",
     "@vben-core/form-ui": "workspace:*",
