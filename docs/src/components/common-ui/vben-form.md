@@ -16,7 +16,9 @@ outline: deep
 
 ## 适配器
 
-表单底层使用 [vee-validate](https://vee-validate.logaretm.com/v4/) 进行表单验证，所以你可以使用 `vee-validate` 的所有功能。对于不同的 UI 框架，我们提供了适配器，以便更好的适配不同的 UI 框架。
+表单内部使用 [TanStack Form](https://tanstack.com/form/latest/docs/framework/vue/overview) 管理状态与校验生命周期，并使用 [Zod 4](https://zod.dev/v4) 描述 schema。业务侧仍通过 `useVbenForm`、`FormApi` 和组件适配器使用表单，不应直接依赖底层 TanStack 实例。
+
+从 Zod 3 或旧表单引擎升级时，请先阅读 [Zod 4 与 TanStack Form 迁移指南](/guide/in-depth/zod-v4-form-migration)。
 
 ### 适配器说明
 
@@ -26,8 +28,9 @@ outline: deep
 
 ```ts
 import type {
+  FormValues,
+  VbenFormProps as FormProps,
   VbenFormSchema as FormSchema,
-  VbenFormProps,
 } from '@vben/common-ui';
 
 import type { ComponentType } from './component';
@@ -52,7 +55,7 @@ setupVbenForm<ComponentType>({
       Upload: 'fileList',
     },
   },
-  defineRules: {
+  rules: {
     // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
@@ -70,11 +73,20 @@ setupVbenForm<ComponentType>({
   },
 });
 
-const useVbenForm = useForm<ComponentType>;
+function useVbenForm<TValues extends FormValues = FormValues>(
+  options: FormProps<ComponentType, Record<never, never>, TValues>,
+) {
+  return useForm<TValues, ComponentType, Record<never, never>>(options);
+}
 
 export { useVbenForm, z };
-export type VbenFormSchema = FormSchema<ComponentType>;
-export type { VbenFormProps };
+export type VbenFormSchema<TValues extends FormValues = FormValues> =
+  FormSchema<ComponentType, Record<never, never>, TValues>;
+export type VbenFormProps<TValues extends FormValues = FormValues> = FormProps<
+  ComponentType,
+  Record<never, never>,
+  TValues
+>;
 ```
 
 :::
@@ -287,28 +299,82 @@ const [Form, formApi] = useVbenForm({
 </template>
 ```
 
+### 类型传递与插槽
+
+通过 `useVbenForm<TValues>` 定义一次表单值类型后，`getValues`、`setValues`、`setFieldValue`、`handleSubmit`、`handleValuesChange`、`formApi.form.values` 和 selector 都会沿用该类型，可直接作为 API 请求参数：
+
+```vue
+<script setup lang="ts">
+import { useVbenForm } from '#/adapter/form';
+
+interface AccountFormValues {
+  email: string;
+  nickname: string;
+}
+
+const [Form, formApi] = useVbenForm<AccountFormValues>({
+  handleSubmit(values) {
+    // values: AccountFormValues
+    return addAccount(values);
+  },
+  schema: [
+    { component: 'Input', fieldName: 'email', label: 'Email' },
+    { component: 'Input', fieldName: 'nickname', label: 'Nickname' },
+  ],
+});
+
+async function fillForm() {
+  await formApi.setValues({ email: 'user@example.com' });
+  const values = await formApi.getValues(); // AccountFormValues
+  return values;
+}
+</script>
+
+<template>
+  <Form>
+    <template #email="{ componentField, field, formApi, values }">
+      <!-- field.state.value、componentField.modelValue 均为 string -->
+      <input v-bind="componentField" :data-email="values.email" />
+      <button type="button" @click="formApi.clearValidation('email')">
+        Clear
+      </button>
+    </template>
+    <template #default="{ formApi, shapes, values }">
+      <!-- values: AccountFormValues -->
+      <button type="button" @click="formApi.submit()">
+        Submit {{ shapes.length }} fields for {{ values.email }}
+      </button>
+    </template>
+  </Form>
+</template>
+```
+
+字段命名插槽提供 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。未声明 `TValues` 时仍兼容任意字段名，但 slot props 会回退为宽泛类型。
+
 ### FormApi
 
 useVbenForm 返回的第二个参数，是一个对象，包含了一些表单的方法。
 
 | 方法名 | 描述 | 类型 | 版本号 |
 | --- | --- | --- | --- |
-| submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
-| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
-| resetForm | 重置表单 | `()=>Promise<void>` | - |
-| setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
-| getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` | - |
+| submit | 提交表单 | `(e?: Event) => Promise<TValues>` | - |
+| validateAndSubmit | 校验通过后提交表单 | `() => Promise<TValues \| undefined>` | - |
+| reset | 重置表单 | `(state?: FormResetState<TValues>, options?: FormResetOptions) => Promise<void>` | - |
+| clearValidation | 清空指定字段或全部校验，并取消进行中的异步校验 | `(fieldNames?: FormFieldName<TValues> \| FormFieldName<TValues>[]) => Promise<void>` | - |
+| setValues | 设置表单值，默认会过滤不在 schema 中定义的字段 | `(fields: Partial<TValues>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
+| getValues | 获取表单值 | `() => Promise<TValues>` | - |
 | validate | 表单校验 | `()=>Promise<void>` | - |
 | validateField | 校验指定字段 | `(fieldName: string)=>Promise<ValidationResult<unknown>>` | - |
 | isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` | - |
-| resetValidate | 重置表单校验 | `()=>Promise<void>` | - |
 | updateSchema | 更新formSchema | `(schema:FormSchema[])=>void` | - |
 | setFieldValue | 设置字段值 | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` | - |
 | setState | 设置组件状态（props） | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` | - |
 | getState | 获取组件状态（props） | `()=>Promise<VbenFormProps>` | - |
-| form | 表单对象实例，可以操作表单，见 [useForm](https://vee-validate.logaretm.com/v4/api/use-form/) | - | - |
+| form | 稳定的 `FormContextApi`，提供 values、errors、set/reset/validate/submit 与数组字段操作，不暴露底层 TanStack 泛型 | `FormContextApi` | - |
 | getFieldComponentRef | 获取指定字段的组件实例 | `<T=unknown>(fieldName: string)=>T` | >5.5.3 |
 | getFocusedField | 获取当前已获得焦点的字段 | `()=>string\|undefined` | >5.5.3 |
+
+旧命名 `submitForm`、`validateAndSubmitForm`、`resetForm`、`resetValidate` 分别对应 `submit`、`validateAndSubmit`、`reset`、`clearValidation`。它们仍可调用，但已标记 `@deprecated`，开发环境每个旧名称只警告一次，生产环境静默。
 
 ## Props
 
