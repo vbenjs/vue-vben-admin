@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable unicorn/no-nested-ternary
 import type { FormCommonConfig, FormSchema } from '../types';
 
 import { computed } from 'vue';

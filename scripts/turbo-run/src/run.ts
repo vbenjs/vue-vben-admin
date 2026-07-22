@@ -1,4 +1,4 @@
-import { execaCommand, getPackages } from '@vben/node-utils';
+import { execa, getPackages } from '@vben/node-utils';
 
 import { cancel, isCancel, select } from '@clack/prompts';
 
@@ -46,9 +46,13 @@ export async function run(options: RunOptions) {
     process.exit(1);
   }
 
-  execaCommand(`pnpm --filter=${selectPkg} run ${command}`, {
-    stdio: 'inherit',
-  });
+  try {
+    await execa('pnpm', [`--filter=${selectPkg}`, 'run', command], {
+      stdio: 'inherit',
+    });
+  } catch (error: any) {
+    process.exit(error.exitCode || 1);
+  }
 }
 
 /**
