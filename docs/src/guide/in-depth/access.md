@@ -120,12 +120,12 @@ const dashboardMenus = [
       title: 'page.dashboard.title',
     },
     name: 'Dashboard',
-    path: '/',
-    redirect: '/analytics',
+    path: '/dashboard',
+    redirect: '/dashboard/analytics',
     children: [
       {
         name: 'Analytics',
-        path: '/analytics',
+        path: 'analytics',
         // 这里为页面的路径，需要去掉 views/ 和 .vue
         component: '/dashboard/analytics/index',
         meta: {
@@ -135,7 +135,7 @@ const dashboardMenus = [
       },
       {
         name: 'Workspace',
-        path: '/workspace',
+        path: 'workspace',
         component: '/dashboard/workspace/index',
         meta: {
           title: 'page.dashboard.workspace',
