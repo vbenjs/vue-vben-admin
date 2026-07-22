@@ -5,11 +5,15 @@ import type {
   MaybeComponentProps,
 } from '../types';
 
-import { computed, isRef, ref, watch } from 'vue';
+import { computed, isRef, ref, shallowRef, watch } from 'vue';
 
-import { get, isBoolean, isFunction } from '@vben-core/shared/utils';
-
-import { useFormValues } from 'vee-validate';
+import {
+  cloneDeep,
+  get,
+  isBoolean,
+  isEqual,
+  isFunction,
+} from '@vben-core/shared/utils';
 
 import { resolveFieldNamePath } from '../field-name';
 import { injectFormProps } from '../use-form-context';
@@ -24,7 +28,7 @@ function resolveValueByFieldName(
   values: Record<string, any>,
   fieldName: string,
 ) {
-  // vee-validate：[] 表示禁用嵌套
+  // [] 表示禁用嵌套
   const { rawKey } = resolveFieldNamePath(fieldName);
   if (rawKey) {
     return values[rawKey];
@@ -35,8 +39,6 @@ function resolveValueByFieldName(
 export default function useDependencies(
   getDependencies: () => FormItemDependencies | undefined,
 ) {
-  const values = useFormValues();
-
   const [extendApi] = injectFormProps();
   const formRenderProps = injectRenderFormProps();
 
@@ -46,9 +48,7 @@ export default function useDependencies(
     throw new Error('Form api is required in useDependencies');
   }
 
-  if (!values) {
-    throw new Error('useDependencies should be used within <VbenForm>');
-  }
+  const values = formApi.useSelector((state) => state.values);
 
   // 在 dependencies 里提供访问extendApi的能力
   const getController = (): ExtendedFormApi => {
@@ -60,15 +60,17 @@ export default function useDependencies(
       throw new Error('formApi is required in useDependencies');
     }
 
-    return controller;
+    return controller as unknown as ExtendedFormApi;
   };
 
   const isIf = ref(true);
   const isDisabled = ref(false);
   const isShow = ref(true);
   const isRequired = ref(false);
-  const dynamicComponentProps = ref<MaybeComponentProps>({});
-  const dynamicRules = ref<FormSchemaRuleType>();
+  const dynamicComponentProps = shallowRef<MaybeComponentProps>({});
+  const dynamicRules = shallowRef<FormSchemaRuleType>();
+  let previousDependencies: FormItemDependencies | undefined;
+  let previousTriggerValues: any[] | undefined;
 
   const triggerFieldValues = computed(() => {
     // 该字段可能会被多个字段触发
@@ -89,10 +91,19 @@ export default function useDependencies(
 
   watch(
     [triggerFieldValues, getDependencies],
-    async ([_values, dependencies]) => {
+    async ([currentTriggerValues, dependencies]) => {
       if (!dependencies || !dependencies?.triggerFields?.length) {
         return;
       }
+      if (
+        dependencies === previousDependencies &&
+        previousTriggerValues &&
+        isEqual(currentTriggerValues, previousTriggerValues)
+      ) {
+        return;
+      }
+      previousDependencies = dependencies;
+      previousTriggerValues = cloneDeep(currentTriggerValues);
       resetConditionState();
       const {
         componentProps,
@@ -157,7 +168,7 @@ export default function useDependencies(
         await trigger(formValues, formApi, getController());
       }
     },
-    { deep: true, immediate: true },
+    { immediate: true },
   );
 
   return {

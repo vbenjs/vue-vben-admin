@@ -57,7 +57,7 @@ async function handleReset(e: Event) {
   if (isFunction(props.handleReset)) {
     await props.handleReset?.(values);
   } else {
-    form.resetForm();
+    form.reset();
   }
 }
 

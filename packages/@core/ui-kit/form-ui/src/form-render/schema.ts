@@ -200,9 +200,16 @@ function createArrayFieldSchema(
   };
 }
 
-export function getFormArraySchemaChildren(schema: Partial<AnyFormSchema>) {
+interface FormArraySchemaLike {
+  children?: unknown;
+  componentProps?: unknown;
+}
+
+export function getFormArraySchemaChildren<TSchema = FormSchema>(
+  schema: FormArraySchemaLike,
+): TSchema[] {
   if ('children' in schema && Array.isArray(schema.children)) {
-    return schema.children;
+    return schema.children as TSchema[];
   }
 
   const componentProps = schema.componentProps;
@@ -211,7 +218,7 @@ export function getFormArraySchemaChildren(schema: Partial<AnyFormSchema>) {
     componentProps &&
     Array.isArray((componentProps as Record<string, any>).schema)
   ) {
-    return (componentProps as Record<string, any>).schema;
+    return (componentProps as Record<string, any>).schema as TSchema[];
   }
 
   return [];
