@@ -80,10 +80,7 @@ export type PromptProps<T = any> = {
   component?: Component;
   componentProps?: Recordable<any>;
   componentSlots?:
-    | (() => any)
-    | Recordable<unknown>
-    | VNode
-    | VNodeArrayChildren;
+    (() => any) | Recordable<unknown> | VNode | VNodeArrayChildren;
   defaultValue?: T;
   modelPropName?: string;
 } & Omit<AlertProps, 'beforeClose'>;

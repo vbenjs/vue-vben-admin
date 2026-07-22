@@ -9,7 +9,7 @@ const items = [
 ];
 </script>
 <template>
-  <div style="display: flex; flex-direction: column; gap: 16px">
+  <div class="flex gap-4 flex-col">
     <VbenDescriptions
       size="small"
       bordered

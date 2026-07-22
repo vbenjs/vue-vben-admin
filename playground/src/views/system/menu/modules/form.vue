@@ -88,7 +88,13 @@ const schema: VbenFormSchema[] = [
     label: $t('system.menu.parent'),
     renderComponentContent() {
       return {
-        title({ label, meta }: { label: string; meta: Recordable<any> }) {
+        treeTitleRender({
+          label,
+          meta,
+        }: {
+          label: string;
+          meta: Recordable<any>;
+        }) {
           const coms = [];
           if (!label) return '';
           if (meta?.icon) {
@@ -130,12 +136,6 @@ const schema: VbenFormSchema[] = [
       .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
       .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
       .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
-      .refine(
         async (value: string) => {
           return !(await isMenuPathExists(value, formData.value?.id));
         },
@@ -162,12 +162,6 @@ const schema: VbenFormSchema[] = [
       .string()
       .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
       .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
-      .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
       .refine(async (value: string) => {
         return await isMenuPathExists(value, formData.value?.id);
       }, $t('system.menu.activePathMustExist'))

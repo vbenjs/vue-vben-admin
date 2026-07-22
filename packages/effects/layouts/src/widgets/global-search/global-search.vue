@@ -24,10 +24,16 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<{ enableShortcutKey?: boolean; menus?: MenuRecordRaw[] }>(),
+  defineProps<{
+    enableShortcutKey?: boolean;
+    menus?: MenuRecordRaw[];
+    /** 是否显示触发按钮（嵌在 dropdown 等容器里时可关掉） */
+    showButton?: boolean;
+  }>(),
   {
     enableShortcutKey: true,
     menus: () => [],
+    showButton: true,
   },
 );
 
@@ -94,6 +100,13 @@ onMounted(() => {
     window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey);
   });
 });
+
+// 暴露给父组件，允许从外部触发搜索弹框（如 user-dropdown 里点击菜单项触发）
+defineExpose({
+  open: () => modalApi.open(),
+  close: () => modalApi.close(),
+  toggle: toggleOpen,
+});
 </script>
 
 <template>
@@ -135,6 +148,7 @@ onMounted(() => {
       </template>
     </Modal>
     <div
+      v-if="showButton"
       class="group flex h-8 cursor-pointer items-center gap-3 rounded-2xl border-none bg-none px-2 py-0.5 outline-hidden md:bg-accent"
       @click="toggleOpen()"
     >

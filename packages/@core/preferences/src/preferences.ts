@@ -11,7 +11,11 @@ import type {
 import { markRaw, reactive, readonly, watch } from 'vue';
 
 import { StorageManager } from '@vben-core/shared/cache';
-import { isMacOs, merge } from '@vben-core/shared/utils';
+import {
+  isMacOs,
+  merge,
+  mergeWithArrayOverride,
+} from '@vben-core/shared/utils';
 
 import {
   breakpointsTailwind,
@@ -133,7 +137,11 @@ class PreferenceManager {
 
     // 加载缓存的偏好设置，并仅用缓存补齐初始化配置中未显式设置的字段
     const cachedPreferences = (await this.loadFromCache()) || {};
-    const mergedPreference = merge(
+    // 修复历史脏数据：早期版本用 defu(merge) 合并数组，导致 widget.order
+    // 在每次 updatePreferences 时被 concat 追加，膨胀到几十/上百条重复 key。
+    // 这里在加载缓存后做一次去重，保留首次出现的 key。
+    this.sanitizeCachedArray(cachedPreferences, 'widget', 'order');
+    const mergedPreference = mergeWithArrayOverride(
       {},
       cachedPreferences, // 用户缓存的设置优先
       this.initialPreferences, // 初始设置仅补齐缺失字段
@@ -144,7 +152,7 @@ class PreferenceManager {
 
     const cachedCustom = (await this.loadCustomFromCache()) || {};
     this.replaceCustomPreferences(
-      merge(
+      mergeWithArrayOverride(
         {},
         this.sanitizeCustomPreferences(cachedCustom),
         this.initialCustomPreferences,
@@ -194,7 +202,7 @@ class PreferenceManager {
     }
 
     this.replaceCustomPreferences(
-      merge({}, sanitizedUpdates, markRaw(this.customState)),
+      mergeWithArrayOverride({}, sanitizedUpdates, markRaw(this.customState)),
     );
     this.debouncedSave();
   };
@@ -205,7 +213,14 @@ class PreferenceManager {
    */
   updatePreferences = (updates: DeepPartial<Preferences>) => {
     // 深度合并更新内容和当前状态
-    const mergedState = merge({}, updates, markRaw(this.state));
+    // 注意：必须用 mergeWithArrayOverride 而不是 merge。
+    // defu(merge) 对数组的语义是 concat 追加，会导致 widget.order 等
+    // 数组字段在每次 updatePreferences 时被重复追加，指数级膨胀。
+    const mergedState = mergeWithArrayOverride(
+      {},
+      updates,
+      markRaw(this.state),
+    );
     Object.assign(this.state, mergedState);
 
     // 根据更新的值执行更新
@@ -359,6 +374,28 @@ class PreferenceManager {
     return typeof value === 'number' && Number.isFinite(value)
       ? value
       : undefined;
+  }
+
+  /**
+   * 清理缓存中膨胀的数组字段（保留首次出现的元素）
+   * 用于修复早期版本 defu 合并数组时 concat 追加导致的脏数据
+   */
+  private sanitizeCachedArray(
+    cached: Record<string, any>,
+    group: string,
+    field: string,
+  ) {
+    const node = cached?.[group]?.[field];
+    if (!Array.isArray(node) || node.length <= 1) return;
+    const seen = new Set<unknown>();
+    const deduped = node.filter((item) => {
+      if (seen.has(item)) return false;
+      seen.add(item);
+      return true;
+    });
+    if (deduped.length !== node.length) {
+      cached[group][field] = deduped;
+    }
   }
 
   private sanitizeCustomPreferences(
