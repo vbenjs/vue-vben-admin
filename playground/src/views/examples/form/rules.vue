@@ -70,7 +70,7 @@ const [Form, formApi] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: z.string().email('请输入正确的邮箱'),
+      rules: z.email('请输入正确的邮箱'),
     },
     {
       component: 'InputNumber',
@@ -235,7 +235,7 @@ function onSubmit(values: Record<string, any>) {
     <Card title="基础组件校验示例">
       <template #extra>
         <Button @click="() => formApi.validate()">校验表单</Button>
-        <Button class="mx-2" @click="() => formApi.resetValidate()">
+        <Button class="mx-2" @click="() => formApi.clearValidation()">
           清空校验信息
         </Button>
       </template>

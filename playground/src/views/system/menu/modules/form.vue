@@ -56,12 +56,13 @@ const schema: VbenFormSchema[] = [
         async (value: string) => {
           return !(await isMenuNameExists(value, formData.value?.id));
         },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.menuName'),
-            value,
-          ]),
-        }),
+        {
+          error: (issue) =>
+            $t('ui.formRules.alreadyExists', [
+              $t('system.menu.menuName'),
+              issue.input,
+            ]),
+        },
       ),
   },
   {
@@ -139,12 +140,13 @@ const schema: VbenFormSchema[] = [
         async (value: string) => {
           return !(await isMenuPathExists(value, formData.value?.id));
         },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.path'),
-            value,
-          ]),
-        }),
+        {
+          error: (issue) =>
+            $t('ui.formRules.alreadyExists', [
+              $t('system.menu.path'),
+              issue.input,
+            ]),
+        },
       ),
   },
   {
@@ -233,7 +235,7 @@ const schema: VbenFormSchema[] = [
     },
     fieldName: 'linkSrc',
     label: $t('system.menu.linkSrc'),
-    rules: z.string().url($t('ui.formRules.invalidURL')),
+    rules: z.url($t('ui.formRules.invalidURL')),
   },
   {
     component: 'Input',
@@ -457,7 +459,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
           ? $t(formData.value.meta.title)
           : '';
       } else {
-        formApi.resetForm();
+        formApi.reset();
         titleSuffix.value = '';
       }
     }
