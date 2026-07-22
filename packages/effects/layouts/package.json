@@ -38,6 +38,7 @@
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "sortablejs": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }

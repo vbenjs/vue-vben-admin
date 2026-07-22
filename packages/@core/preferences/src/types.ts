@@ -385,6 +385,8 @@ interface WidgetPreferences {
   notification: boolean;
   /** 通知按钮位置 */
   notificationButtonPosition: 'header' | 'none' | 'user-dropdown';
+  /** 小部件排序 */
+  order: readonly string[];
   /** 显示刷新按钮 */
   refresh: boolean;
   /** 刷新按钮位置 */

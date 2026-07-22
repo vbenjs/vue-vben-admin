@@ -521,6 +521,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      sortablejs:
+        specifier: 'catalog:'
+        version: 1.15.7
     devDependencies:
       '@changesets/changelog-github':
         specifier: 'catalog:'
@@ -534,6 +538,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 25.9.4
+      '@types/sortablejs':
+        specifier: 'catalog:'
+        version: 1.15.9
       '@vben/commitlint-config':
         specifier: workspace:*
         version: link:internal/lint-configs/commitlint-config
@@ -1774,6 +1781,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.3.0(vue@3.5.38(typescript@6.0.3))
+      sortablejs:
+        specifier: 'catalog:'
+        version: 1.15.7
       vue:
         specifier: ^3.5.38
         version: 3.5.38(typescript@6.0.3)
