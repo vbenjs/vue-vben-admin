@@ -513,7 +513,55 @@ describe('useVbenForm integration', () => {
     await flushPromises();
 
     expect(wrapper.get('input').element).toBe(inputElement);
+    expect((input.element as HTMLInputElement).value).toBe('Ada Lovelace');
     expect(document.activeElement).toBe(inputElement);
+  });
+
+  it('updates optimized array rows when values and schemas change', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          children: [
+            {
+              component: TestInput,
+              fieldName: 'name',
+              label: 'Name',
+            },
+          ],
+          defaultValue: [{ name: 'Ada' }, { name: 'Grace' }],
+          fieldName: 'contacts',
+          type: 'array',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+    const firstInput = wrapper.get('input[name="contacts[0].name"]');
+    const firstInputElement = firstInput.element;
+
+    await formApi.setFieldValue('contacts[0].name', 'Ada Lovelace');
+    await flushPromises();
+
+    expect(wrapper.get('input[name="contacts[0].name"]').element).toBe(
+      firstInputElement,
+    );
+    expect(firstInput.element.getAttribute('value')).toBe('Ada Lovelace');
+
+    formApi.updateSchema([
+      {
+        componentProps: { disabled: true },
+        fieldName: 'contacts.name',
+      },
+    ]);
+    await flushPromises();
+
+    expect(
+      wrapper.get('input[name="contacts[0].name"]').attributes(),
+    ).toHaveProperty('disabled');
+    expect(
+      wrapper.get('input[name="contacts[1].name"]').attributes(),
+    ).toHaveProperty('disabled');
   });
 
   it('scopes resolve dependencies to array rows', async () => {

@@ -10,7 +10,7 @@ import {
   VbenIconButton,
   VbenRenderContent,
 } from '@vben-core/shadcn-ui';
-import { cn, set } from '@vben-core/shared/utils';
+import { cn, get, set } from '@vben-core/shared/utils';
 
 import { injectRenderFormProps } from '../form-render/context';
 import FormField from '../form-render/form-field.vue';
@@ -71,14 +71,16 @@ if (!form) {
   throw new Error('Form api is required in <VbenFormFieldArray />');
 }
 const formActions = form;
-const arrayValue = formActions.useFieldValue(props.name);
-
-const fields = computed<Record<string, any>[]>(() => {
-  return Array.isArray(arrayValue.value) ? arrayValue.value : [];
+const arrayLength = formActions.useSelector((state) => {
+  const value = get(state.values, props.name);
+  return Array.isArray(value) ? value.length : 0;
 });
+const rowIndexes = computed(() =>
+  Array.from({ length: arrayLength.value }, (_, index) => index),
+);
 
-const canAdd = computed(() => fields.value.length < props.max);
-const canRemove = computed(() => fields.value.length > props.min);
+const canAdd = computed(() => arrayLength.value < props.max);
+const canRemove = computed(() => arrayLength.value > props.min);
 const gridStyle = computed(() => {
   const columns = [
     ...(props.showIndex ? ['3rem'] : []),
@@ -133,6 +135,10 @@ function rowSchemas(index: number) {
     }),
   );
 }
+
+const normalizedRowSchemas = computed(() =>
+  Array.from({ length: arrayLength.value }, (_, index) => rowSchemas(index)),
+);
 </script>
 
 <template>
@@ -163,7 +169,7 @@ function rowSchemas(index: number) {
       </div>
 
       <div
-        v-for="(_, index) in fields"
+        v-for="index in rowIndexes"
         :key="`${arrayPath}-${index}`"
         class="border-border/60 border-b p-3 last:border-b-0 sm:grid sm:p-0"
         :style="gridStyle"
@@ -177,7 +183,7 @@ function rowSchemas(index: number) {
         </div>
 
         <template
-          v-for="(childSchema, childIndex) in rowSchemas(index)"
+          v-for="(childSchema, childIndex) in normalizedRowSchemas[index]"
           :key="childSchema.fieldName"
         >
           <div class="min-w-0 py-2 sm:px-2">
@@ -206,7 +212,7 @@ function rowSchemas(index: number) {
       </div>
 
       <div
-        v-if="fields.length === 0"
+        v-if="arrayLength === 0"
         class="text-muted-foreground py-6 text-center text-sm"
       >
         {{ emptyText }}
