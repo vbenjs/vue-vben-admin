@@ -40,19 +40,19 @@
     }
   },
   "dependencies": {
+    "@tanstack/vue-form": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vee-validate/zod": "catalog:",
     "@vueuse/core": "catalog:",
-    "vee-validate": "catalog:",
     "vue": "catalog:",
     "zod": "catalog:",
     "zod-defaults": "catalog:"
   },
   "devDependencies": {
+    "@vue/test-utils": "catalog:",
     "unplugin-vue": "catalog:"
   }
 }

@@ -98,6 +98,11 @@ describe('formApi', () => {
         startTime: 1_710_000_000_000,
       },
     });
+    expect(await formApi.getRawValues()).toEqual(originalValuesSnapshot);
+    expect(await formApi.getValueSnapshot()).toEqual({
+      rawValues: originalValuesSnapshot,
+      values,
+    });
     expect(formActions.values).toEqual(originalValuesSnapshot);
   });
 
@@ -159,24 +164,59 @@ describe('formApi', () => {
     );
   });
 
-  it('should reset form', async () => {
-    const resetFormMock = vi.fn();
+  it('should set only known fields without losing provided values', async () => {
+    const setValuesMock = vi.fn();
+    formApi.setState({
+      schema: [
+        { component: 'text', fieldName: 'name' },
+        { component: 'text', fieldName: 'profile.email' },
+      ],
+    });
     const formActions: any = {
       meta: {},
-      resetForm: resetFormMock,
+      setValues: setValuesMock,
+      values: {},
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({
+      name: 'Ada',
+      profile: {
+        email: 'ada@example.com',
+        ignored: true,
+      },
+      unknown: 'ignored',
+    });
+
+    expect(setValuesMock).toHaveBeenCalledWith(
+      {
+        name: 'Ada',
+        profile: {
+          email: 'ada@example.com',
+        },
+      },
+      false,
+    );
+  });
+
+  it('should reset form', async () => {
+    const resetMock = vi.fn();
+    const formActions: any = {
+      meta: {},
+      reset: resetMock,
       values: { name: 'test' },
     };
 
     await formApi.mount(formActions, new Map());
-    await formApi.resetForm();
-    expect(resetFormMock).toHaveBeenCalled();
+    await formApi.reset();
+    expect(resetMock).toHaveBeenCalled();
   });
 
   it('should call handleSubmit on submit', async () => {
     const handleSubmitMock = vi.fn();
     const formActions: any = {
       meta: {},
-      submitForm: vi.fn().mockResolvedValue(true),
+      submit: vi.fn().mockResolvedValue(true),
       values: { name: 'test' },
     };
 
@@ -187,9 +227,12 @@ describe('formApi', () => {
     formApi.setState(state);
     await formApi.mount(formActions, new Map());
 
-    const result = await formApi.submitForm();
-    expect(formActions.submitForm).toHaveBeenCalled();
-    expect(handleSubmitMock).toHaveBeenCalledWith({ name: 'test' });
+    const result = await formApi.submit();
+    expect(formActions.submit).toHaveBeenCalled();
+    expect(handleSubmitMock).toHaveBeenCalledWith(
+      { name: 'test' },
+      { name: 'test' },
+    );
     expect(result).toEqual({ name: 'test' });
   });
 
@@ -242,6 +285,48 @@ describe('formApi', () => {
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);
+  });
+
+  it('should validate only once before submitting valid values', async () => {
+    const handleSubmit = vi.fn();
+    const formActions: any = {
+      meta: {},
+      submit: vi.fn(),
+      validate: vi.fn().mockResolvedValue({ errors: {}, valid: true }),
+      values: { name: 'Ada' },
+    };
+
+    formApi.setState({ handleSubmit });
+    await formApi.mount(formActions, new Map());
+
+    await expect(formApi.validateAndSubmit()).resolves.toEqual({ name: 'Ada' });
+    expect(formActions.validate).toHaveBeenCalledOnce();
+    expect(formActions.submit).not.toHaveBeenCalled();
+    expect(handleSubmit).toHaveBeenCalledOnce();
+  });
+
+  it('should not submit invalid values', async () => {
+    const handleSubmit = vi.fn();
+    const errors = { name: 'Name is required' };
+    const formActions: any = {
+      meta: {},
+      submit: vi.fn(),
+      validate: vi.fn().mockResolvedValue({ errors, valid: false }),
+      values: { name: '' },
+    };
+    const scrollToFirstError = vi
+      .spyOn(formApi as any, 'scrollToFirstError')
+      .mockImplementation(() => {});
+
+    formApi.setState({ handleSubmit, scrollToFirstError: true });
+    await formApi.mount(formActions, new Map());
+
+    await expect(formApi.validateAndSubmit()).resolves.toBeUndefined();
+    expect(formActions.validate).toHaveBeenCalledOnce();
+    expect(formActions.submit).not.toHaveBeenCalled();
+    expect(handleSubmit).not.toHaveBeenCalled();
+    expect(scrollToFirstError).toHaveBeenCalledOnce();
+    expect(scrollToFirstError).toHaveBeenCalledWith(errors);
   });
 });
 

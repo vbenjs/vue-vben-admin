@@ -1,5 +1,4 @@
-import type { FieldOptions, FormContext, GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
+import type { ZodType } from 'zod';
 
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
@@ -7,6 +6,17 @@ import type { VbenButtonProps } from '@vben-core/shadcn-ui';
 import type { ClassType, MaybeComputedRef } from '@vben-core/typings';
 
 import type { FormApi } from './form-api';
+
+export type FormValues = Record<string, any>;
+
+export type FormFieldName<TValues extends FormValues = FormValues> =
+  | Extract<keyof TValues, string>
+  | (Record<never, never> & string);
+
+export type FormFieldValue<
+  TValues extends FormValues,
+  TFieldName extends string,
+> = TFieldName extends keyof TValues ? TValues[TFieldName] : unknown;
 
 export type FormLayout = 'horizontal' | 'inline' | 'vertical';
 
@@ -36,14 +46,12 @@ export type FormItemClassType =
   | (Record<never, never> & string)
   | WrapperClassType;
 
-export type FormFieldOptions = Partial<
-  FieldOptions & {
-    validateOnBlur?: boolean;
-    validateOnChange?: boolean;
-    validateOnInput?: boolean;
-    validateOnModelUpdate?: boolean;
-  }
->;
+export interface FormFieldOptions {
+  asyncDebounceMs?: number;
+  validateOn?: readonly FormValidationTrigger[];
+}
+
+export type FormValidationTrigger = 'blur' | 'change';
 
 export interface FormShape {
   /** 默认值 */
@@ -52,7 +60,33 @@ export interface FormShape {
   fieldName: string;
   /** 是否必填 */
   required?: boolean;
-  rules?: ZodTypeAny;
+  rules?: ZodType;
+}
+
+export interface FormRuntimeField<TValue = unknown> {
+  handleBlur: () => void;
+  handleChange: (value: TValue) => void;
+  state: {
+    meta: {
+      errors: unknown[];
+      isDirty: boolean;
+      isTouched: boolean;
+      isValid: boolean;
+    };
+    value: TValue;
+  };
+}
+
+export interface FormComponentField<
+  TValue = unknown,
+  TFieldName extends string = string,
+> {
+  modelValue: TValue;
+  name: TFieldName;
+  onBlur: () => void;
+  onChange: (value: TValue) => void;
+  onInput: (value: TValue) => void;
+  'onUpdate:modelValue': (value: TValue) => void;
 }
 
 export type MaybeComponentPropKey =
@@ -64,9 +98,175 @@ export type MaybeComponentPropKey =
 
 export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: any };
 
-export type FormActions = FormContext<GenericObject>;
+export interface FormMeta {
+  dirty: boolean;
+  submitting: boolean;
+  valid: boolean;
+  validating: boolean;
+}
 
-export interface FormSchemaContext {
+export interface FormRuntimeState<TValues extends FormValues = FormValues> {
+  errors: Record<string, string>;
+  meta: FormMeta;
+  values: TValues;
+}
+
+export interface FormValidationResult {
+  errors: Record<string, string>;
+  valid: boolean;
+}
+
+export interface FormValueSnapshot<TValues extends FormValues = FormValues> {
+  rawValues: Readonly<TValues>;
+  values: TValues;
+}
+
+export interface FormResetState<TValues extends FormValues = FormValues> {
+  values?: Partial<TValues>;
+}
+
+export interface FormResetOptions {
+  force?: boolean;
+  keepDefaultValues?: boolean;
+}
+
+export interface FormContextApi<TValues extends FormValues = FormValues> {
+  clearValidation: (
+    fieldNames?: FormFieldName<TValues> | FormFieldName<TValues>[],
+  ) => void;
+  readonly errors: Record<string, string>;
+  readonly fieldComponent: Component;
+  getFieldError: (fieldName: string) => string | undefined;
+  getFieldValue: <TFieldName extends FormFieldName<TValues>>(
+    fieldName: TFieldName,
+  ) => FormFieldValue<TValues, TFieldName>;
+  handleSubmit: (
+    callback: (values: TValues) => Promise<void> | void,
+  ) => (event?: Event) => Promise<void>;
+  isFieldValid: (fieldName: string) => boolean;
+  readonly meta: FormMeta;
+  pushFieldValue: (fieldName: string, value: any) => void;
+  removeFieldValue: (fieldName: string, index: number) => Promise<void>;
+  reset: (
+    state?: FormResetState<TValues>,
+    options?: FormResetOptions,
+  ) => Promise<void>;
+  /** @deprecated Use `reset` instead. */
+  resetForm: (
+    state?: FormResetState<TValues>,
+    options?: FormResetOptions,
+  ) => Promise<void>;
+  setFieldError: (fieldName: string, error?: string) => void;
+  setFieldValue: <TFieldName extends FormFieldName<TValues>>(
+    fieldName: TFieldName,
+    value: FormFieldValue<TValues, NoInfer<TFieldName>>,
+    shouldValidate?: boolean,
+  ) => Promise<void>;
+  setValues: (
+    values: Partial<TValues>,
+    shouldValidate?: boolean,
+  ) => Promise<void>;
+  submit: () => Promise<void>;
+  /** @deprecated Use `submit` instead. */
+  submitForm: () => Promise<void>;
+  useFieldError: (fieldName: string) => Readonly<Ref<string | undefined>>;
+  useFieldValue: <TFieldName extends FormFieldName<TValues>>(
+    fieldName: TFieldName,
+  ) => Readonly<Ref<FormFieldValue<TValues, TFieldName>>>;
+  useFieldValues: <TFieldName extends FormFieldName<TValues>>(
+    fieldNames: readonly TFieldName[],
+  ) => Readonly<Ref<FormFieldValue<TValues, TFieldName>[]>>;
+  useSelector: <T>(
+    selector: (state: FormRuntimeState<TValues>) => T,
+  ) => Readonly<Ref<T>>;
+  useValues: () => Readonly<Ref<TValues>>;
+  validate: () => Promise<FormValidationResult>;
+  validateField: (fieldName: string) => Promise<FormValidationResult>;
+  readonly values: TValues;
+}
+
+/** @deprecated Use `FormContextApi` instead. */
+export type FormActions<TValues extends FormValues = FormValues> =
+  FormContextApi<TValues>;
+
+type ReservedFormSlotName =
+  | 'default'
+  | 'expand-after'
+  | 'expand-before'
+  | 'reset-before'
+  | 'submit-before';
+
+type KnownFormFieldName<TValues extends FormValues> =
+  string extends Extract<keyof TValues, string>
+    ? never
+    : Exclude<Extract<keyof TValues, string>, ReservedFormSlotName>;
+
+export interface VbenFormActionSlotProps<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> {
+  formApi: ExtendedFormApi<TValues, T, P>;
+  values: TValues;
+}
+
+export interface VbenFormDefaultSlotProps<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> extends VbenFormActionSlotProps<TValues, T, P> {
+  shapes: FormShape[];
+}
+
+export interface VbenFormFieldSlotProps<
+  TValues extends FormValues = FormValues,
+  TFieldName extends KnownFormFieldName<TValues> = KnownFormFieldName<TValues>,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> extends VbenFormActionSlotProps<TValues, T, P> {
+  componentField: FormComponentField<TValues[TFieldName], TFieldName>;
+  disabled: boolean;
+  field: FormRuntimeField<TValues[TFieldName]>;
+  isInValid: boolean;
+  modelValue: TValues[TFieldName];
+  name: TFieldName;
+}
+
+type VbenFormFieldSlots<
+  TValues extends FormValues,
+  T extends BaseFormComponentType,
+  P extends Record<string, any>,
+> =
+  string extends Extract<keyof TValues, string>
+    ? Record<string, ((props: any) => any) | undefined>
+    : {
+        [TFieldName in KnownFormFieldName<TValues>]?: (
+          props: VbenFormFieldSlotProps<TValues, TFieldName, T, P>,
+        ) => any;
+      };
+
+export type VbenFormSlots<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> = VbenFormFieldSlots<TValues, T, P> & {
+  default?: (props: VbenFormDefaultSlotProps<TValues, T, P>) => any;
+  'expand-after'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
+  'expand-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
+  'reset-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
+  'submit-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
+};
+
+export type VbenFormComponent<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> = new () => {
+  $props: VbenFormProps<T, P, TValues>;
+  $slots: VbenFormSlots<TValues, T, P>;
+};
+
+export interface FormSchemaContext<TValues extends FormValues = FormValues> {
   /** 数组字段名，例如 contacts */
   arrayField?: string;
   /** 当前真实字段名，例如 contacts[0].name */
@@ -74,7 +274,7 @@ export interface FormSchemaContext {
   /** 原始 schema 字段名，例如 name */
   originalFieldName?: string;
   /** 表单完整值 */
-  rootValues?: Record<string, any>;
+  rootValues?: TValues;
   /** 当前行数据 */
   row?: Record<string, any>;
   /** 当前行索引 */
@@ -86,12 +286,8 @@ export interface FormSchemaContext {
 export type CustomRenderType = (() => Component | string) | string;
 
 // 动态渲染参数
-export type CustomParamsRenderType =
-  | ((
-      value: Partial<Record<string, any>>,
-      actions: FormActions,
-      ctx?: FormSchemaContext,
-    ) => Component | string)
+export type CustomParamsRenderType<TValues extends FormValues = FormValues> =
+  | ((ctx: FormSchemaContext<TValues>) => Component | string)
   | string;
 
 export type FormSchemaRuleType =
@@ -99,78 +295,138 @@ export type FormSchemaRuleType =
   | 'selectRequired'
   | null
   | (Record<never, never> & string)
-  | ZodTypeAny;
+  | ZodType;
 
-type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
-  value: Partial<Record<string, any>>,
-  actions: FormActions,
-  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
-  ctx?: FormSchemaContext,
-) => T;
+type FormItemDependenciesCondition<
+  TValues extends FormValues,
+  TResult = boolean | PromiseLike<boolean>,
+> = (
+  value: Partial<TValues>,
+  actions: FormActions<TValues>,
+  controller: ExtendedFormApi<TValues>, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext<TValues>,
+) => TResult;
 
-type FormItemDependenciesConditionWithRules = (
-  value: Partial<Record<string, any>>,
-  actions: FormActions,
-  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
-  ctx?: FormSchemaContext,
+type FormItemDependenciesConditionWithRules<TValues extends FormValues> = (
+  value: Partial<TValues>,
+  actions: FormActions<TValues>,
+  controller: ExtendedFormApi<TValues>, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext<TValues>,
 ) => FormSchemaRuleType | PromiseLike<FormSchemaRuleType>;
 
-type FormItemDependenciesConditionWithProps = (
-  value: Partial<Record<string, any>>,
-  actions: FormActions,
-  controller: ExtendedFormApi, // 在 dependencies 里提供访问extendApi的能力
-  ctx?: FormSchemaContext,
+type FormItemDependenciesConditionWithProps<TValues extends FormValues> = (
+  value: Partial<TValues>,
+  actions: FormActions<TValues>,
+  controller: ExtendedFormApi<TValues>, // 在 dependencies 里提供访问extendApi的能力
+  ctx?: FormSchemaContext<TValues>,
 ) => MaybeComponentProps | PromiseLike<MaybeComponentProps>;
 
-export interface FormItemDependencies {
-  /**
-   * 组件参数
-   * @returns 组件参数
-   */
-  componentProps?: FormItemDependenciesConditionWithProps;
-  /**
-   * 是否禁用
-   * @returns 是否禁用
-   */
-  disabled?: boolean | FormItemDependenciesCondition;
-  /**
-   * 是否渲染（删除dom）
-   * @returns 是否渲染
-   */
-  if?: boolean | FormItemDependenciesCondition;
-  /**
-   * 是否必填
-   * @returns 是否必填
-   */
-  required?: FormItemDependenciesCondition;
-  /**
-   * 字段规则
-   */
-  rules?: FormItemDependenciesConditionWithRules;
-  /**
-   * 是否隐藏(Css)
-   * @returns 是否隐藏
-   */
-  show?: boolean | FormItemDependenciesCondition;
-  /**
-   * 任意触发都会执行
-   */
-  trigger?: FormItemDependenciesCondition<void>;
+interface FormItemDependenciesBase {
   /**
    * 触发字段
    */
   triggerFields: string[];
 }
 
-type ComponentProps =
-  | ((
-      value: Partial<Record<string, any>>,
-      actions: FormActions,
-      ctx?: FormSchemaContext,
-    ) => MaybeComponentProps)
+export interface FormDependenciesResolveContext<
+  TValues extends FormValues = FormValues,
+> {
+  actions: FormActions<TValues>;
+  controller: ExtendedFormApi<TValues>;
+  schema: FormSchemaContext<TValues>;
+  values: Readonly<TValues>;
+}
+
+export interface FormDependenciesResolvedState {
+  componentProps?: MaybeComponentProps;
+  disabled?: boolean;
+  help?: CustomRenderType;
+  if?: boolean;
+  renderComponentContent?: Record<string, any>;
+  required?: boolean;
+  rules?: FormSchemaRuleType;
+  show?: boolean;
+}
+
+export interface FormItemDependenciesLegacy<
+  TValues extends FormValues = FormValues,
+> extends FormItemDependenciesBase {
+  /**
+   * 组件参数
+   * @returns 组件参数
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  componentProps?: FormItemDependenciesConditionWithProps<TValues>;
+  /**
+   * 是否禁用
+   * @returns 是否禁用
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  disabled?: boolean | FormItemDependenciesCondition<TValues>;
+  /**
+   * 是否渲染（删除dom）
+   * @returns 是否渲染
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  if?: boolean | FormItemDependenciesCondition<TValues>;
+  /**
+   * 是否必填
+   * @returns 是否必填
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  required?: FormItemDependenciesCondition<TValues>;
+  resolve?: never;
+  /**
+   * 字段规则
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  rules?: FormItemDependenciesConditionWithRules<TValues>;
+  /**
+   * 是否隐藏(Css)
+   * @returns 是否隐藏
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  show?: boolean | FormItemDependenciesCondition<TValues>;
+  /**
+   * 任意触发都会执行
+   * @deprecated Use `dependencies.resolve` instead.
+   */
+  trigger?: FormItemDependenciesCondition<TValues, void>;
+}
+
+export interface FormItemDependenciesResolve<
+  TValues extends FormValues = FormValues,
+> extends FormItemDependenciesBase {
+  componentProps?: never;
+  disabled?: never;
+  if?: never;
+  required?: never;
+  resolve: (
+    context: FormDependenciesResolveContext<TValues>,
+  ) =>
+    | FormDependenciesResolvedState
+    | PromiseLike<FormDependenciesResolvedState | undefined>
+    | undefined;
+  rules?: never;
+  show?: never;
+  trigger?: never;
+}
+
+export type FormItemDependencies<TValues extends FormValues = FormValues> =
+  | FormItemDependenciesLegacy<TValues>
+  | FormItemDependenciesResolve<TValues>;
+
+type ComponentProps<TValues extends FormValues = FormValues> =
+  | ((ctx: FormSchemaContext<TValues>) => MaybeComponentProps)
   | MaybeComponentProps;
 
-export interface FormCommonConfig {
+export interface FormCommonConfig<TValues extends FormValues = FormValues> {
+  /**
+   * 是否启用 change 事件兼容回退。
+   * 仅当组件不发送 update:*、只发送 change 时启用。
+   * @default false
+   */
+  changeEventFallback?: boolean;
   /**
    * 是否可折叠的
    * @default false
@@ -183,7 +439,7 @@ export interface FormCommonConfig {
   /**
    * 所有表单项的props
    */
-  componentProps?: ComponentProps;
+  componentProps?: ComponentProps<TValues>;
   /**
    * 所有表单项的控件样式
    */
@@ -198,16 +454,6 @@ export interface FormCommonConfig {
    * @default false
    */
   disabled?: boolean;
-  /**
-   * 是否禁用所有表单项的change事件监听
-   * @default true
-   */
-  disabledOnChangeListener?: boolean;
-  /**
-   * 是否禁用所有表单项的input事件监听
-   * @default true
-   */
-  disabledOnInputListener?: boolean;
   /**
    * 所有表单项的空状态值,默认都是undefined，naive-ui的空状态值是null
    */
@@ -252,18 +498,12 @@ export interface FormCommonConfig {
   wrapperClass?: string;
 }
 
-type RenderComponentContentType = (
-  value: Partial<Record<string, any>>,
-  api: FormActions,
-  ctx?: FormSchemaContext,
+type RenderComponentContentType<TValues extends FormValues = FormValues> = (
+  ctx: FormSchemaContext<TValues>,
 ) => Record<string, any>;
 
-type MappedComponentProps<P> =
-  | ((
-      value: Partial<Record<string, any>>,
-      actions: FormActions,
-      ctx?: FormSchemaContext,
-    ) => P & Record<string, any>)
+type MappedComponentProps<P, TValues extends FormValues = FormValues> =
+  | ((ctx: FormSchemaContext<TValues>) => P & Record<string, any>)
   | (P & Record<string, any>);
 
 /**
@@ -273,30 +513,33 @@ type MappedComponentProps<P> =
  * - 返回其他值：会将当前字段恢复/写回为该返回值
  * - `setValue` 回调签名为 `(key, nextValue) => void`
  */
-export type FormValueFormat = (
+export type FormValueFormat<TValues extends FormValues = FormValues> = (
   value: any,
   setValue: (fieldName: string, value: any) => void,
-  values: Record<string, any>,
-  ctx?: FormSchemaContext,
+  values: TValues,
+  ctx?: FormSchemaContext<TValues>,
 ) => any;
 
-interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
+interface FormSchemaBody<TValues extends FormValues = FormValues> extends Omit<
+  FormCommonConfig<TValues>,
+  'componentProps'
+> {
   /** 默认值 */
   defaultValue?: any;
   /** 依赖 */
-  dependencies?: FormItemDependencies;
+  dependencies?: FormItemDependencies<TValues>;
   /** 描述 */
   description?: CustomRenderType;
   /** 字段名 */
   fieldName: string;
   /** 帮助信息 */
-  help?: CustomParamsRenderType;
+  help?: CustomParamsRenderType<TValues>;
   /** 是否隐藏表单项 */
   hide?: boolean;
   /** 表单项 */
   label?: CustomRenderType;
   // 自定义组件内部渲染
-  renderComponentContent?: RenderComponentContentType;
+  renderComponentContent?: RenderComponentContentType<TValues>;
   /** 字段规则 */
   rules?: FormSchemaRuleType;
   /** 后缀 */
@@ -306,54 +549,60 @@ interface FormSchemaBody extends Omit<FormCommonConfig, 'componentProps'> {
    * - 返回值不为 `undefined` 时，会回写到当前 fieldName
    * - 返回值为 `undefined` 时，可通过 setValue 写入一个或多个目标字段
    */
-  valueFormat?: FormValueFormat;
+  valueFormat?: FormValueFormat<TValues>;
 }
 
 type FormSchemaDiscriminated<
   T extends BaseFormComponentType,
   P extends Record<string, any>,
+  TValues extends FormValues,
 > = {
   [K in Extract<keyof P, T>]: {
     /** 组件 */
     component: K;
     /** 组件参数 */
-    componentProps?: MappedComponentProps<P[K]>;
-  } & FormSchemaBody;
+    componentProps?: MappedComponentProps<P[K], TValues>;
+  } & FormSchemaBody<TValues>;
 }[Extract<keyof P, T>];
 
-type FormSchemaFallback<T extends BaseFormComponentType> = {
+type FormSchemaFallback<
+  T extends BaseFormComponentType,
+  TValues extends FormValues,
+> = {
   /** 组件 */
   component: Component | T;
   /** 组件参数 */
-  componentProps?: ComponentProps;
-} & FormSchemaBody;
+  componentProps?: ComponentProps<TValues>;
+} & FormSchemaBody<TValues>;
 
 type FormArraySchema<
   T extends BaseFormComponentType,
   P extends Record<string, any>,
+  TValues extends FormValues,
 > = {
   /** 内置数组编辑器参数 */
   arrayProps?: Omit<
-    VbenFormFieldArrayProps<T, P>,
+    VbenFormFieldArrayProps<T, P, TValues>,
     'disabled' | 'globalCommonConfig' | 'name' | 'schema'
   >;
   /** 数组子字段定义 */
-  children: FormSchema<T, P>[];
+  children: FormSchema<T, P, TValues>[];
   /** 兼容显式指定内置数组编辑器 */
   component?: Component | T;
   /** 兼容通过 componentProps 传递数组编辑器参数 */
-  componentProps?: ComponentProps;
+  componentProps?: ComponentProps<TValues>;
   /** 数组字段标记 */
   type: 'array';
-} & FormSchemaBody;
+} & FormSchemaBody<TValues>;
 
 export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
 > =
-  | FormArraySchema<T, P>
-  | FormSchemaDiscriminated<T, P>
-  | FormSchemaFallback<T>;
+  | FormArraySchema<T, P, TValues>
+  | FormSchemaDiscriminated<T, P, TValues>
+  | FormSchemaFallback<T, TValues>;
 
 /**
  * 数组编辑器（VbenFormFieldArray）的组件参数
@@ -361,20 +610,21 @@ export type FormSchema<
 export interface VbenFormFieldArrayProps<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
 > {
   /** 操作列表头文案 */
   actionText?: string;
   /** 「添加」按钮文案 */
   addButtonText?: string;
   /** 子字段通用配置 */
-  commonConfig?: FormCommonConfig;
+  commonConfig?: FormCommonConfig<TValues>;
   /** 新增一行时生成的默认数据；缺省时按列定义的 fieldName 生成空对象 */
   createRow?: () => Record<string, any>;
   disabled?: boolean;
   /** 空数据文案 */
   emptyText?: string;
   /** 子字段全局通用配置 */
-  globalCommonConfig?: FormCommonConfig;
+  globalCommonConfig?: FormCommonConfig<TValues>;
   /** 最多行数 */
   max?: number;
   /** 最少行数 */
@@ -382,17 +632,18 @@ export interface VbenFormFieldArrayProps<
   /** 数组字段路径，由外层 FormField 透传 */
   name?: string;
   /** 列定义，每一列是一个子字段（复用 FormSchema） */
-  schema?: FormSchema<T, P>[];
+  schema?: FormSchema<T, P, TValues>[];
   /** 是否显示序号列 */
   showIndex?: boolean;
 }
 
-export type HandleSubmitFn = (
-  values: Record<string, any>,
+export type HandleSubmitFn<TValues extends FormValues = FormValues> = (
+  values: TValues,
+  rawValues: Readonly<TValues>,
 ) => Promise<void> | void;
 
-export type HandleResetFn = (
-  values: Record<string, any>,
+export type HandleResetFn<TValues extends FormValues = FormValues> = (
+  values: TValues,
 ) => Promise<void> | void;
 
 export type FieldMappingTimeItem = [
@@ -416,16 +667,18 @@ export type ArrayToStringFields = Array<
 
 export interface FormFieldProps<
   T extends BaseFormComponentType = BaseFormComponentType,
-> extends FormSchemaBody {
+  TValues extends FormValues = FormValues,
+> extends FormSchemaBody<TValues> {
   /** 组件 */
   component: Component | T;
   /** 组件参数 */
-  componentProps?: ComponentProps;
+  componentProps?: ComponentProps<TValues>;
 }
 
 export interface FormRenderProps<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
 > {
   /**
    * 表单字段数组映射字符串配置 默认使用","
@@ -449,7 +702,7 @@ export interface FormRenderProps<
   /**
    * 表单项通用后备配置，当子项目没配置时使用这里的配置，子项目配置优先级高于此配置
    */
-  commonConfig?: FormCommonConfig;
+  commonConfig?: FormCommonConfig<TValues>;
   /**
    * 紧凑模式（移除表单每一项底部为校验信息预留的空间）
    */
@@ -469,7 +722,7 @@ export interface FormRenderProps<
   /**
    * 表单实例
    */
-  form?: FormContext<GenericObject>;
+  form?: FormActions<TValues>;
   /**
    * 表单项布局
    */
@@ -477,7 +730,7 @@ export interface FormRenderProps<
   /**
    * 表单定义
    */
-  schema?: FormSchema<T, P>[];
+  schema?: FormSchema<T, P, TValues>[];
 
   /**
    * 是否显示展开/折叠
@@ -503,8 +756,9 @@ export interface ActionButtonOptions extends VbenButtonProps {
 export interface VbenFormProps<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
 > extends Omit<
-  FormRenderProps<T, P>,
+  FormRenderProps<T, P, TValues>,
   'componentBindEventMap' | 'componentMap' | 'form'
 > {
   /**
@@ -544,17 +798,18 @@ export interface VbenFormProps<
   /**
    * 表单重置回调
    */
-  handleReset?: HandleResetFn;
+  handleReset?: HandleResetFn<TValues>;
   /**
    * 表单提交回调
    */
-  handleSubmit?: HandleSubmitFn;
+  handleSubmit?: HandleSubmitFn<TValues>;
   /**
    * 表单值变化回调
    */
   handleValuesChange?: (
-    values: Record<string, any>,
+    values: Readonly<TValues>,
     fieldsChanged: string[],
+    getFormattedValues: () => TValues,
   ) => void;
 
   /**
@@ -592,10 +847,14 @@ export interface VbenFormProps<
   submitOnEnter?: boolean;
 }
 
-export type ExtendedFormApi = FormApi & {
-  useStore: <T = NoInfer<VbenFormProps>>(
-    selector?: (state: NoInfer<VbenFormProps>) => T,
-  ) => Readonly<Ref<T>>;
+export type ExtendedFormApi<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+> = FormApi<TValues, T, P> & {
+  useStore: <TResult = NoInfer<VbenFormProps<T, P, TValues>>>(
+    selector?: (state: NoInfer<VbenFormProps<T, P, TValues>>) => TResult,
+  ) => Readonly<Ref<TResult>>;
 };
 
 export interface VbenFormAdapterOptions<
@@ -603,21 +862,31 @@ export interface VbenFormAdapterOptions<
 > {
   config?: {
     baseModelPropName?: string;
-    disabledOnChangeListener?: boolean;
-    disabledOnInputListener?: boolean;
+    /**
+     * 是否启用 change 事件兼容回退。
+     * 仅用于只发送 change 的兼容组件。
+     * @default false
+     */
+    changeEventFallback?: boolean;
     emptyStateValue?: null | undefined;
     modelPropNameMap?: Partial<Record<T, string>>;
   };
-  defineRules?: {
-    required?: (
-      value: any,
-      params: any,
-      ctx: Record<string, any>,
-    ) => boolean | string;
-    selectRequired?: (
-      value: any,
-      params: any,
-      ctx: Record<string, any>,
-    ) => boolean | string;
-  };
+  /** @deprecated Use `rules` instead. */
+  defineRules?: Partial<Record<string, FormRuleValidator>>;
+  rules?: Partial<Record<string, FormRuleValidator>>;
 }
+
+export interface FormRuleContext {
+  field: {
+    label?: string;
+    name: string;
+  };
+  label?: string;
+  name: string;
+}
+
+export type FormRuleValidator = (
+  value: any,
+  params: any,
+  context: FormRuleContext,
+) => boolean | Promise<boolean | string> | string;

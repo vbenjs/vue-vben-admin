@@ -163,6 +163,12 @@ const rightSlots = computed(() => {
         preferences.widget.fullscreenButtonPosition === 'header',
       slotName: 'fullscreen',
     },
+    refresh: {
+      visible:
+        preferences.widget.refresh &&
+        preferences.widget.refreshButtonPosition === 'header',
+      slotName: 'refresh',
+    },
     notification: {
       visible:
         preferences.widget.notification &&
@@ -178,12 +184,6 @@ const rightSlots = computed(() => {
     logoutBtn: {
       visible: preferences.widget.logoutButtonPosition === 'header',
       slotName: 'logout-btn',
-    },
-    refresh: {
-      visible:
-        preferences.widget.refresh &&
-        preferences.widget.refreshButtonPosition === 'header',
-      slotName: 'refresh',
     },
   };
 

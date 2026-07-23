@@ -57,7 +57,7 @@ const [Form] = useVbenForm({
     {
       component: markRaw(TwoFields),
       defaultValue: [undefined, ''],
-      disabledOnChangeListener: false,
+      changeEventFallback: true,
       fieldName: 'field4',
       formItemClass: 'col-span-1',
       label: '组合字段',

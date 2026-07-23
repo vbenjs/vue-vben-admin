@@ -65,12 +65,14 @@
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "catalog": "pnpm dlx codemod pnpm/catalog"
   },
+  "dependencies": {
+    "sortablejs": "catalog:"
+  },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
     "@tsdown/css": "catalog:",
     "@types/node": "catalog:",
-    "@types/sortablejs": "catalog:",
     "@vben/commitlint-config": "workspace:*",
     "@vben/eslint-config": "workspace:*",
     "@vben/oxfmt-config": "workspace:*",
@@ -107,8 +109,5 @@
     "node": "^22.18.0 || ^24.12.0",
     "pnpm": ">=11.0.0"
   },
-  "packageManager": "pnpm@11.15.1",
-  "dependencies": {
-    "sortablejs": "catalog:"
-  }
+  "packageManager": "pnpm@11.15.1"
 }

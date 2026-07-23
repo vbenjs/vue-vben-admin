@@ -46,7 +46,6 @@
     "@vueuse/core": "catalog:",
     "class-variance-authority": "catalog:",
     "reka-ui": "catalog:",
-    "vee-validate": "catalog:",
     "vue": "catalog:"
   }
 }

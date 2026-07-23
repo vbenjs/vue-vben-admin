@@ -1,6 +1,7 @@
 import type {
+  VbenFormProps as FormProps,
   VbenFormSchema as FormSchema,
-  VbenFormProps,
+  FormValues,
 } from '@vben/common-ui';
 
 import type { ComponentType } from './component';
@@ -24,7 +25,7 @@ setupVbenForm<ComponentType>({
       Upload: 'fileList',
     },
   },
-  defineRules: {
+  rules: {
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
         return $t('ui.formRules.required', [ctx.label]);
@@ -40,9 +41,18 @@ setupVbenForm<ComponentType>({
   },
 });
 
-const useVbenForm = useForm<ComponentType>;
+function useVbenForm<TValues extends FormValues = FormValues>(
+  options: FormProps<ComponentType, Record<never, never>, TValues>,
+) {
+  return useForm<TValues, ComponentType, Record<never, never>>(options);
+}
 
 export { useVbenForm, z };
 
-export type VbenFormSchema = FormSchema<ComponentType>;
-export type { VbenFormProps };
+export type VbenFormSchema<TValues extends FormValues = FormValues> =
+  FormSchema<ComponentType, Record<never, never>, TValues>;
+export type VbenFormProps<TValues extends FormValues = FormValues> = FormProps<
+  ComponentType,
+  Record<never, never>,
+  TValues
+>;
