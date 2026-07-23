@@ -207,7 +207,7 @@ Create the form through `useVbenForm`:
 
 ## Typed Values and Slots
 
-Declare the value shape once with `useVbenForm<TValues>`. The same type flows through value APIs, callbacks, selectors, and field/default/action slots:
+Use `useVbenForm<TFormValues, TSubmitValues>` to declare component-facing form values and submission values separately. Schema, slots, selectors, and `setValues` use `TFormValues`; `getValues`, submit, and the first `handleSubmit` argument use `TSubmitValues`. Pass one generic when both shapes are identical.
 
 ```vue
 <script setup lang="ts">
@@ -254,30 +254,47 @@ async function fillForm() {
 
 Named field slots expose `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`. Forms without an explicit `TValues` remain compatible with arbitrary slot names and broad props.
 
-## Value Formatting
+## Form Codec
 
-Use `schema.valueFormat` when the component value is convenient for the UI but the final payload returned by `getValues()` should use a different shape.
+Use the form-level `codec` when component values and the backend payload have different shapes. `encode` converts the complete `TFormValues` object to `TSubmitValues`; `decode` performs the inverse conversion. Multi-field splits and merges are atomic and do not depend on schema order or string-path writes.
 
-- return a value to write back to the current field
-- call `setValue(key, nextValue)` to write derived fields
-- return `undefined` to keep the original field removed after decomposition
+Define `codec` directly in the `useVbenForm` options. Annotate only the form-value input of `encode`; `TSubmitValues` is inferred from its return object and flows into `decode`, `getValues()`, and submit callbacks:
+
+```ts
+const [Form, formApi] = useVbenForm({
+  codec: {
+    decode(values) {
+      return { period: [values.startTime, values.endTime] };
+    },
+    encode(values: Readonly<FormValues>) {
+      return {
+        endTime: values.period[1],
+        startTime: values.period[0],
+      };
+    },
+  },
+  schema,
+});
+```
 
 <DemoPreview dir="demos/vben-form/value-format" />
+
+`schema.valueFormat`, `fieldMappingTime`, and `arrayToStringFields` remain runtime-compatible but are deprecated. When a codec is configured it takes precedence and deprecated transforms are ignored.
 
 ## Key API Notes
 
 - `useVbenForm` returns `[Form, formApi]`
-- `useVbenForm<TValues>` propagates values through APIs, callbacks, schema callbacks, and slots
+- `useVbenForm<TFormValues, TSubmitValues>` keeps component values and submission values distinct
 - prefer `reset`, `submit`, `validateAndSubmit`, and `clearValidation`
 - `resetForm`, `submitForm`, `validateAndSubmitForm`, and `resetValidate` remain deprecated aliases that warn once in development
 - `clearValidation` invalidates in-flight async results before clearing errors
 - `formApi.getFieldComponentRef()` and `formApi.getFocusedField()` are available in current versions
-- `handleValuesChange(values, fieldsChanged)` receives readonly raw form state before `valueFormat`, `fieldMappingTime`, or array-to-string conversion
+- `handleValuesChange(values, fieldsChanged)` receives readonly `TFormValues` before codec or legacy formatting
 - its third `getFormattedValues` argument formats lazily, so raw-only change handlers avoid clone and transform work
 - `getRawValues()` returns only an independent raw snapshot, `getValues()` returns only the formatted payload, and `getValueSnapshot()` returns both
 - `handleSubmit(values, rawValues)` receives the formatted payload and its corresponding raw snapshot
-- `fieldMappingTime` and `scrollToFirstError` are part of the current form props
-- `schema.valueFormat` lets `getValues()` transform UI values into backend-friendly payloads
+- `fieldMappingTime`, `arrayToStringFields`, and `schema.valueFormat` are deprecated compatibility options
+- `codec.encode` defines the `getValues()` payload and `codec.decode` powers complete `setSubmitValues()` fills
 - `formApi.form` is the stable `FormContextApi`; raw TanStack generics are intentionally not exposed
 - prefer `formApi.form.useFieldValue`, `useFieldValues`, and `useFieldError` for fine-grained subscriptions; use `useValues` only when the whole form is required
 - `useSelector` remains the compatibility selector for combined `{ values, errors, meta }` state
