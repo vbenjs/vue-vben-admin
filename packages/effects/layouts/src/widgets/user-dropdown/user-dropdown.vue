@@ -212,13 +212,6 @@ const enableLockScreenShortcutKey = computed(() => {
   return showLockInDropdown.value && globalLockScreenShortcutKey.value;
 });
 
-const enableShortcutKey = computed(() => {
-  return (
-    (showLockInDropdown.value || showLogoutInDropdown.value) &&
-    preferences.shortcutKeys.enable
-  );
-});
-
 function handleOpenLock() {
   lockModalApi.open();
 }
@@ -269,7 +262,7 @@ async function handleLocaleChange(event: Event, value: 'en-US' | 'zh-CN') {
   openPopover.value = false;
 }
 
-if (enableShortcutKey.value) {
+if (preferences.shortcutKeys.enable) {
   const keys = useMagicKeys();
   const logoutKey = keys['Alt+KeyQ'];
   const lockKey = keys['Alt+KeyL'];

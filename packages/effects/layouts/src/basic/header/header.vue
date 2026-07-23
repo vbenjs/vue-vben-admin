@@ -69,6 +69,24 @@ const {
 const slots = useSlots();
 const { refresh } = useRefresh();
 
+const showLockInHeader = computed(
+  () =>
+    preferences.widget.lockScreen &&
+    preferences.widget.lockScreenButtonPosition === 'header',
+);
+
+const showLogoutInHeader = computed(
+  () => preferences.widget.logoutButtonPosition === 'header',
+);
+
+const enableLockScreenShortcutKey = computed(() => {
+  return showLockInHeader.value && globalLockScreenShortcutKey.value;
+});
+
+const enableLogoutShortcutKey = computed(() => {
+  return showLogoutInHeader.value && globalLogoutShortcutKey.value;
+});
+
 const [LockModal, lockModalApi] = useVbenModal({
   connectedComponent: LockScreenModal,
 });
@@ -104,7 +122,7 @@ if (preferences.shortcutKeys.enable) {
 
   if (lockKey) {
     whenever(lockKey, () => {
-      if (globalLockScreenShortcutKey?.value) {
+      if (enableLockScreenShortcutKey.value) {
         handleOpenLock();
       }
     });
@@ -112,7 +130,7 @@ if (preferences.shortcutKeys.enable) {
 
   if (logoutKey) {
     whenever(logoutKey, () => {
-      if (globalLogoutShortcutKey?.value) {
+      if (enableLogoutShortcutKey.value) {
         handleLogout();
       }
     });
@@ -242,13 +260,14 @@ function clearPreferencesAndLogout() {
 
 <template>
   <LockModal
-    v-if="preferences.widget.lockScreen"
+    v-if="showLockInHeader"
     :avatar="avatar"
     :text="text"
     @submit="handleSubmitLock"
   />
 
   <LogoutModal
+    v-if="showLogoutInHeader"
     :cancel-text="$t('common.cancel')"
     :confirm-text="$t('common.confirm')"
     :fullscreen-button="false"
