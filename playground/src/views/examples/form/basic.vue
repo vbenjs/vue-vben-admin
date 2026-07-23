@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { UploadFile } from 'antdv-next';
+import type { Dayjs } from 'dayjs';
 
 import { h, ref, toRaw } from 'vue';
 
@@ -18,6 +19,36 @@ import DocButton from '../doc-button.vue';
 
 const keyword = ref('');
 const fetching = ref(false);
+
+interface BasicFormValues extends Record<string, any> {
+  cropImage?: UploadFile[];
+  files?: UploadFile[];
+  rangePicker?: [Dayjs, Dayjs];
+}
+
+function encodeBasicFormValues(values: Readonly<BasicFormValues>) {
+  const { rangePicker, ...formValues } = values;
+  return {
+    ...formValues,
+    endTime: rangePicker?.[1]?.format('YYYY-MM-DD'),
+    startTime: rangePicker?.[0]?.format('YYYY-MM-DD'),
+  };
+}
+
+type BasicSubmitValues = ReturnType<typeof encodeBasicFormValues>;
+
+function decodeBasicFormValues(
+  values: Readonly<BasicSubmitValues>,
+): BasicFormValues {
+  const { endTime, startTime, ...formValues } = values;
+  return {
+    ...formValues,
+    ...(startTime && endTime
+      ? { rangePicker: [dayjs(startTime), dayjs(endTime)] }
+      : {}),
+  };
+}
+
 // 模拟远程获取数据
 function fetchRemoteOptions({ keyword = '选项' }: Record<string, any>) {
   fetching.value = true;
@@ -34,6 +65,10 @@ function fetchRemoteOptions({ keyword = '选项' }: Record<string, any>) {
 }
 
 const [BaseForm, baseFormApi] = useVbenForm({
+  codec: {
+    decode: decodeBasicFormValues,
+    encode: encodeBasicFormValues,
+  },
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 在label后显示一个冒号
@@ -43,7 +78,6 @@ const [BaseForm, baseFormApi] = useVbenForm({
       class: 'w-full',
     },
   },
-  fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD']],
   // 提交函数
   handleSubmit: onSubmit,
   handleValuesChange(_values, fieldsChanged) {
@@ -425,8 +459,8 @@ const [BaseForm, baseFormApi] = useVbenForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
-function onSubmit(values: Record<string, any>) {
-  const files = toRaw(values.files) as UploadFile[];
+function onSubmit(values: BasicSubmitValues) {
+  const files = (toRaw(values.files) ?? []) as UploadFile[];
   const cropImage = (toRaw(values.cropImage) ?? []) as UploadFile[];
   const doneFiles = files.filter((file) => file.status === 'done');
   const failedFiles = files.filter((file) => file.status !== 'done');
