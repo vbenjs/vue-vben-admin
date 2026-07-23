@@ -48,13 +48,13 @@ catalog:
   '@eslint-community/eslint-plugin-eslint-comments': ^4.7.2
   '@eslint/js': ^10.0.1
   '@faker-js/faker': ^10.5.0
-  '@iconify/json': ^2.2.501
+  '@iconify/json': ^2.2.504
   '@iconify/tailwind4': ^1.2.3
   '@iconify/vue': ^5.0.1
-  '@intlify/core-base': ^11.4.6
+  '@intlify/core-base': ^11.4.7
   '@intlify/unplugin-vue-i18n': ^11.2.4
   '@jspm/generator': ^2.16.3
-  '@lucide/vue': ^1.25.0
+  '@lucide/vue': ^1.26.0
   '@manypkg/get-packages': ^3.1.0
   '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
   '@playwright/test': ^1.61.1
@@ -64,7 +64,7 @@ catalog:
   '@tailwindcss/vite': ^4.3.3
   '@tanstack/store': ^0.11.0
   '@tanstack/vue-form': ^1.33.2
-  '@tanstack/vue-query': ^5.101.2
+  '@tanstack/vue-query': ^5.101.4
   '@tanstack/vue-store': ^0.11.0
   '@tiptap/core': ^3.28.0
   '@tiptap/extension-document': ^3.28.0
@@ -78,7 +78,7 @@ catalog:
   '@tiptap/pm': ^3.28.0
   '@tiptap/starter-kit': ^3.28.0
   '@tiptap/vue-3': ^3.28.0
-  '@tsdown/css': ^0.22.9
+  '@tsdown/css': ^0.22.13
   '@types/archiver': ^8.0.0
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
@@ -89,7 +89,7 @@ catalog:
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/parser': ^8.64.0
+  '@typescript-eslint/parser': ^8.65.0
   '@vite-pwa/vitepress': ^1.1.0
   '@vitejs/plugin-vue': ^6.0.8
   '@vitejs/plugin-vue-jsx': ^5.1.6
@@ -99,7 +99,7 @@ catalog:
   '@vueuse/integrations': ^14.3.0
   '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
-  antdv-next: ^1.4.3
+  antdv-next: ^1.4.5
   archiver: ^8.0.0
   axios: ^1.18.1
   axios-mock-adapter: ^2.1.0
@@ -122,26 +122,26 @@ catalog:
   element-plus: ^2.14.3
   es-toolkit: ^1.49.0
   eslint: ^10.7.0
-  eslint-plugin-better-tailwindcss: ^4.6.1
+  eslint-plugin-better-tailwindcss: ^4.7.0
   eslint-plugin-command: ^3.5.3
   eslint-plugin-jsonc: ^3.3.0
   eslint-plugin-n: ^18.2.2
   eslint-plugin-perfectionist: ^5.10.0
-  eslint-plugin-pnpm: ^1.6.1
+  eslint-plugin-pnpm: ^1.7.0
   eslint-plugin-unused-imports: ^4.4.1
-  eslint-plugin-vue: ^10.9.2
+  eslint-plugin-vue: ^10.10.0
   eslint-plugin-yml: ^3.6.0
   execa: ^10.0.0
   find-up: ^8.0.0
   get-port: ^7.2.0
   globals: ^17.7.0
   h3: ^1.15.11
-  happy-dom: ^20.11.0
+  happy-dom: ^20.11.1
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
   jsonwebtoken: ^9.0.3
-  knip: ^6.27.0
+  knip: ^6.29.0
   lefthook: ^2.1.10
   lodash.clonedeep: ^4.5.0
   medium-zoom: ^1.1.0
@@ -149,28 +149,28 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.1
-  oxfmt: ^0.59.0
-  oxlint: ^1.74.0
+  oxfmt: ^0.60.0
+  oxlint: ^1.75.0
   oxlint-tsgolint: ^0.25.0
   pinia: ^4.0.2
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.1
   playwright: ^1.61.1
-  postcss: ^8.5.20
+  postcss: ^8.5.22
   postcss-html: ^1.8.1
   postcss-scss: ^4.0.9
-  publint: ^0.3.21
+  publint: ^0.3.22
   qrcode: ^1.5.4
   qs: ^6.15.3
   reka-ui: ^2.10.1
   resolve.exports: ^2.0.3
   rimraf: ^6.1.3
   rollup-plugin-visualizer: ^7.0.1
-  sass: ^1.101.0
+  sass: ^1.101.6
   sass-embedded: ^1.100.0
   secure-ls: ^2.0.0
   sortablejs: ^1.15.7
-  stylelint: ^17.14.0
+  stylelint: ^17.14.1
   stylelint-config-recess-order: ^7.7.0
   stylelint-config-recommended: ^18.0.0
   stylelint-config-recommended-scss: ^17.0.1
@@ -183,8 +183,8 @@ catalog:
   tdesign-vue-next: ^1.20.3
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
-  tsdown: ^0.22.9
-  turbo: ^2.10.5
+  tsdown: ^0.22.13
+  turbo: ^2.10.6
   tw-animate-css: ^1.4.0
   typescript: ^6.0.3
   unplugin-dts: ^1.0.3
@@ -200,13 +200,13 @@ catalog:
   vitest: ^4.1.10
   vue: ^3.5.40
   vue-eslint-parser: ^10.4.1
-  vue-i18n: ^11.4.6
+  vue-i18n: ^11.4.7
   vue-json-pretty: ^2.6.0
   vue-router: ^5.2.0
   vue-tippy: ^6.7.1
-  vue-tsc: ^3.3.7
-  vxe-pc-ui: ^4.16.15
-  vxe-table: ^4.20.5
+  vue-tsc: ^3.3.8
+  vxe-pc-ui: ^4.16.19
+  vxe-table: ^4.20.6
   watermark-js-plus: ^1.6.6
   yaml-eslint-parser: ^2.1.0
   zod: ^4.4.3
