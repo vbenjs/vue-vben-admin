@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getExampleTableApi } from '#/api';
+import { createDateRangeCodec } from '#/utils/date-range-codec';
 
 interface RowType {
   category: string;
@@ -29,32 +30,16 @@ interface SearchFormValues extends Record<string, unknown> {
   productName?: string;
 }
 
-function encodeSearchFormValues(values: Readonly<SearchFormValues>) {
-  const { date, ...formValues } = values;
-  return {
-    ...formValues,
-    end: date?.[1]?.format('YYYY-MM-DD'),
-    start: date?.[0]?.format('YYYY-MM-DD'),
-  };
-}
+const searchCodec = createDateRangeCodec<SearchFormValues>()({
+  endField: 'end',
+  rangeField: 'date',
+  startField: 'start',
+});
 
-type SearchSubmitValues = ReturnType<typeof encodeSearchFormValues>;
-
-function decodeSearchFormValues(
-  values: Readonly<SearchSubmitValues>,
-): SearchFormValues {
-  const { end, start, ...formValues } = values;
-  return {
-    ...formValues,
-    ...(start && end ? { date: [dayjs(start), dayjs(end)] } : {}),
-  };
-}
+type SearchSubmitValues = ReturnType<typeof searchCodec.encode>;
 
 const formOptions: VbenFormProps<SearchFormValues, SearchSubmitValues> = {
-  codec: {
-    decode: decodeSearchFormValues,
-    encode: encodeSearchFormValues,
-  },
+  codec: searchCodec,
   // 默认展开
   collapsed: false,
   schema: [

@@ -12,11 +12,11 @@ import { Page, Tree, useVbenDrawer } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
 import { Button, Card, InputSearch, message, Modal } from 'antdv-next';
-import dayjs from 'dayjs';
 
 import { useVbenVxeGrid, VbenTableAction } from '#/adapter/vxe-table';
 import { deleteUser, getDeptList, getUserList, updateUser } from '#/api';
 import { $t } from '#/locales';
+import { createDateRangeCodec } from '#/utils/date-range-codec';
 
 import { useColumns, useGridFormSchema } from './data';
 import Detail from './modules/detail.vue';
@@ -26,28 +26,13 @@ interface UserSearchFormValues extends Record<string, unknown> {
   createTime?: [Dayjs, Dayjs];
 }
 
-function encodeUserSearchValues(values: Readonly<UserSearchFormValues>) {
-  const { createTime, ...formValues } = values;
-  return {
-    ...formValues,
-    endTime: createTime?.[1]?.format('YYYY-MM-DD'),
-    startTime: createTime?.[0]?.format('YYYY-MM-DD'),
-  };
-}
+const userSearchCodec = createDateRangeCodec<UserSearchFormValues>()({
+  endField: 'endTime',
+  rangeField: 'createTime',
+  startField: 'startTime',
+});
 
-type UserSearchSubmitValues = ReturnType<typeof encodeUserSearchValues>;
-
-function decodeUserSearchValues(
-  values: Readonly<UserSearchSubmitValues>,
-): UserSearchFormValues {
-  const { endTime, startTime, ...formValues } = values;
-  return {
-    ...formValues,
-    ...(startTime && endTime
-      ? { createTime: [dayjs(startTime), dayjs(endTime)] }
-      : {}),
-  };
-}
+type UserSearchSubmitValues = ReturnType<typeof userSearchCodec.encode>;
 
 const deptList = ref<SystemDeptApi.SystemDept[]>([]);
 const inputSearchValue = ref('');
@@ -65,10 +50,7 @@ const [DetailDrawer, detailDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    codec: {
-      decode: decodeUserSearchValues,
-      encode: encodeUserSearchValues,
-    },
+    codec: userSearchCodec,
     schema: useGridFormSchema(),
     submitOnChange: true,
   },
