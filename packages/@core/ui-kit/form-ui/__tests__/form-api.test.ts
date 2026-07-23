@@ -3,6 +3,7 @@ import type { BaseFormComponentType } from '../src/types';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FormApi } from '../src/form-api';
+import { FormCodecError } from '../src/form-codec';
 
 describe('formApi', () => {
   let formApi: FormApi;
@@ -168,6 +169,71 @@ describe('formApi', () => {
     expect(setValues).toHaveBeenCalledWith(
       { period: [3, 4], tags: ['editor'] },
       false,
+    );
+  });
+
+  it('should isolate codec results from live form values', async () => {
+    interface ProfileFormValues {
+      profile: { name: string };
+      tags: string[];
+    }
+
+    const values: ProfileFormValues = {
+      profile: { name: 'Ada' },
+      tags: ['admin'],
+    };
+    const codecFormApi = new FormApi<ProfileFormValues>({
+      codec: {
+        decode: (submitValues) => submitValues,
+        encode: (formValues) => ({
+          profile: formValues.profile,
+          tags: formValues.tags,
+        }),
+      },
+    });
+    const formActions: any = { meta: {}, values };
+
+    codecFormApi.mount(formActions, new Map());
+    const initialSubmissionValues = codecFormApi.getLatestSubmissionValues();
+    values.profile.name = 'Grace';
+    values.tags.push('user');
+
+    expect(initialSubmissionValues).toEqual({
+      profile: { name: 'Ada' },
+      tags: ['admin'],
+    });
+    const submissionValues = await codecFormApi.getValues();
+    expect(submissionValues.profile).not.toBe(values.profile);
+    expect(submissionValues.tags).not.toBe(values.tags);
+  });
+
+  it('should fall back to raw values when the initial codec encode fails', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const codecFormApi = new FormApi<
+      { name?: string },
+      BaseFormComponentType,
+      Record<never, never>,
+      { normalizedName: string }
+    >({
+      codec: {
+        decode: (values) => ({ name: values.normalizedName }),
+        encode() {
+          throw new Error('incomplete initial values');
+        },
+      },
+    });
+    const formActions: any = { meta: {}, values: { name: 'Ada' } };
+
+    expect(() => codecFormApi.mount(formActions, new Map())).not.toThrow();
+
+    expect(codecFormApi.isMounted).toBe(true);
+    expect(codecFormApi.getLatestSubmissionValues()).toEqual({ name: 'Ada' });
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] Failed to encode initial values. Falling back to raw form values.',
+      expect.objectContaining({ phase: 'encode' }),
+    );
+    await expect(codecFormApi.getValues()).rejects.toBeInstanceOf(
+      FormCodecError,
     );
   });
 

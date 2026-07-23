@@ -228,6 +228,10 @@ describe('form public types', () => {
       handleReset(values) {
         expectTypeOf(values).toEqualTypeOf<AccountSubmitValues>();
       },
+      handleSubmit(values, rawValues) {
+        expectTypeOf(values).toEqualTypeOf<AccountSubmitValues>();
+        expectTypeOf(rawValues).toEqualTypeOf<Readonly<AccountFormValues>>();
+      },
       schema: [],
     });
 
