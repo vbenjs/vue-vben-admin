@@ -94,10 +94,10 @@ const positionMap: Record<string, string> = {
   languageToggle: 'widgetLanguageToggleButtonPosition',
   timezone: 'widgetTimezoneButtonPosition',
   fullscreen: 'widgetFullscreenButtonPosition',
+  refresh: 'widgetRefreshButtonPosition',
   notification: 'widgetNotificationButtonPosition',
   lockScreenBtn: 'widgetLockScreenButtonPosition',
   logoutBtn: 'widgetLogoutButtonPosition',
-  refresh: 'widgetRefreshButtonPosition',
 };
 
 const labelMap: Record<string, string> = {
