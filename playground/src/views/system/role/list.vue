@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Dayjs } from 'dayjs';
+
 import type { Recordable } from '@vben/types';
 
 import type {
@@ -11,6 +13,7 @@ import { Page, useVbenDrawer } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
 import { Button, message, Modal } from 'antdv-next';
+import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteRole, getRoleList, updateRole } from '#/api';
@@ -19,6 +22,33 @@ import { $t } from '#/locales';
 import { useColumns, useGridFormSchema } from './data';
 import Form from './modules/form.vue';
 
+interface RoleSearchFormValues extends Record<string, unknown> {
+  createTime?: [Dayjs, Dayjs];
+}
+
+function encodeRoleSearchValues(values: Readonly<RoleSearchFormValues>) {
+  const { createTime, ...formValues } = values;
+  return {
+    ...formValues,
+    endTime: createTime?.[1]?.format('YYYY-MM-DD'),
+    startTime: createTime?.[0]?.format('YYYY-MM-DD'),
+  };
+}
+
+type RoleSearchSubmitValues = ReturnType<typeof encodeRoleSearchValues>;
+
+function decodeRoleSearchValues(
+  values: Readonly<RoleSearchSubmitValues>,
+): RoleSearchFormValues {
+  const { endTime, startTime, ...formValues } = values;
+  return {
+    ...formValues,
+    ...(startTime && endTime
+      ? { createTime: [dayjs(startTime), dayjs(endTime)] }
+      : {}),
+  };
+}
+
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
   destroyOnClose: true,
@@ -26,7 +56,10 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    fieldMappingTime: [['createTime', ['startTime', 'endTime']]],
+    codec: {
+      decode: decodeRoleSearchValues,
+      encode: encodeRoleSearchValues,
+    },
     schema: useGridFormSchema(),
     submitOnChange: true,
   },
@@ -36,7 +69,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
     keepSource: true,
     proxyConfig: {
       ajax: {
-        query: async ({ page }, formValues) => {
+        query: async ({ page }, formValues: RoleSearchSubmitValues) => {
           return await getRoleList({
             page: page.currentPage,
             pageSize: page.pageSize,

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Dayjs } from 'dayjs';
+
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
@@ -19,10 +21,42 @@ interface RowType {
   releaseDate: string;
 }
 
-const formOptions: VbenFormProps = {
+interface SearchFormValues extends Record<string, unknown> {
+  category?: string;
+  color?: string;
+  date?: [Dayjs, Dayjs];
+  price?: string;
+  productName?: string;
+}
+
+function encodeSearchFormValues(values: Readonly<SearchFormValues>) {
+  const { date, ...formValues } = values;
+  return {
+    ...formValues,
+    end: date?.[1]?.format('YYYY-MM-DD'),
+    start: date?.[0]?.format('YYYY-MM-DD'),
+  };
+}
+
+type SearchSubmitValues = ReturnType<typeof encodeSearchFormValues>;
+
+function decodeSearchFormValues(
+  values: Readonly<SearchSubmitValues>,
+): SearchFormValues {
+  const { end, start, ...formValues } = values;
+  return {
+    ...formValues,
+    ...(start && end ? { date: [dayjs(start), dayjs(end)] } : {}),
+  };
+}
+
+const formOptions: VbenFormProps<SearchFormValues, SearchSubmitValues> = {
+  codec: {
+    decode: decodeSearchFormValues,
+    encode: encodeSearchFormValues,
+  },
   // 默认展开
   collapsed: false,
-  fieldMappingTime: [['date', ['start', 'end']]],
   schema: [
     {
       component: 'Input',
@@ -94,7 +128,7 @@ const gridOptions: VxeTableGridOptions<RowType> = {
   pagerConfig: {},
   proxyConfig: {
     ajax: {
-      query: async ({ page }, formValues) => {
+      query: async ({ page }, formValues: SearchSubmitValues) => {
         message.success(`Query params: ${JSON.stringify(formValues)}`);
         return await getExampleTableApi({
           page: page.currentPage,

@@ -1,3 +1,5 @@
+import type { BaseFormComponentType } from '../src/types';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FormApi } from '../src/form-api';
@@ -104,6 +106,99 @@ describe('formApi', () => {
       values,
     });
     expect(formActions.values).toEqual(originalValuesSnapshot);
+  });
+
+  it('should encode submissions and decode complete values with a codec', async () => {
+    interface FilterFormValues {
+      period: [number, number];
+      tags: string[];
+    }
+
+    interface FilterSubmitValues {
+      endTime: number;
+      startTime: number;
+      tags: string;
+    }
+
+    const setValues = vi.fn();
+    const codecFormApi = new FormApi<
+      FilterFormValues,
+      BaseFormComponentType,
+      Record<never, never>,
+      FilterSubmitValues
+    >({
+      codec: {
+        decode(values) {
+          return {
+            period: [values.startTime, values.endTime],
+            tags: values.tags.split(','),
+          };
+        },
+        encode(values) {
+          return {
+            endTime: values.period[1],
+            startTime: values.period[0],
+            tags: values.tags.join(','),
+          };
+        },
+      },
+    });
+    const formActions: any = {
+      meta: {},
+      setValues,
+      values: { period: [1, 2], tags: ['admin', 'user'] },
+    };
+
+    await codecFormApi.mount(formActions, new Map());
+
+    expect(await codecFormApi.getValues()).toEqual({
+      endTime: 2,
+      startTime: 1,
+      tags: 'admin,user',
+    });
+    expect(await codecFormApi.getValueSnapshot()).toEqual({
+      rawValues: { period: [1, 2], tags: ['admin', 'user'] },
+      values: { endTime: 2, startTime: 1, tags: 'admin,user' },
+    });
+
+    await codecFormApi.setSubmitValues(
+      { endTime: 4, startTime: 3, tags: 'editor' },
+      false,
+    );
+    expect(setValues).toHaveBeenCalledWith(
+      { period: [3, 4], tags: ['editor'] },
+      false,
+    );
+  });
+
+  it('should scan deprecated schema transforms once for unchanged state', async () => {
+    const getChildren = vi.fn(() => []);
+    const schema = {
+      component: 'text',
+      fieldName: 'name',
+      get children() {
+        return getChildren();
+      },
+    } as any;
+    const codecFormApi = new FormApi({
+      codec: {
+        decode: (values) => values,
+        encode: (values) => values,
+      },
+      schema: [schema],
+    });
+    const formActions: any = {
+      meta: {},
+      values: { name: 'Ada' },
+    };
+
+    await codecFormApi.mount(formActions, new Map());
+    expect(getChildren).toHaveBeenCalledTimes(1);
+
+    await codecFormApi.getValues();
+    await codecFormApi.getValues();
+
+    expect(getChildren).toHaveBeenCalledTimes(1);
   });
 
   it('should format child schema values inside array fields', async () => {

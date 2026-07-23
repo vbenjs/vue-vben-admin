@@ -41,18 +41,30 @@ setupVbenForm<ComponentType>({
   },
 });
 
-function useVbenForm<TValues extends FormValues = FormValues>(
-  options: FormProps<ComponentType, Record<never, never>, TValues>,
+function useVbenForm<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+>(
+  options: FormProps<
+    ComponentType,
+    Record<never, never>,
+    TFormValues,
+    TSubmitValues
+  >,
 ) {
-  return useForm<TValues, ComponentType, Record<never, never>>(options);
+  return useForm<
+    TFormValues,
+    ComponentType,
+    Record<never, never>,
+    TSubmitValues
+  >(options);
 }
 
 export { useVbenForm, z };
 
 export type VbenFormSchema<TValues extends FormValues = FormValues> =
   FormSchema<ComponentType, Record<never, never>, TValues>;
-export type VbenFormProps<TValues extends FormValues = FormValues> = FormProps<
-  ComponentType,
-  Record<never, never>,
-  TValues
->;
+export type VbenFormProps<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+> = FormProps<ComponentType, Record<never, never>, TFormValues, TSubmitValues>;

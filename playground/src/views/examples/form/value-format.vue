@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import type { Dayjs } from 'dayjs';
+
+import { computed, nextTick, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -10,35 +12,65 @@ import { useVbenForm } from '#/adapter/form';
 
 import DocButton from '../doc-button.vue';
 
-const transformedValues = ref<Record<string, any>>({});
-const liveValues = ref<Record<string, any>>({});
+interface ValueFormatFormValues {
+  deadline?: Dayjs;
+  keyword?: string;
+  reportRange?: [Dayjs, Dayjs];
+}
+
+function encodeValueFormatValues(values: Readonly<ValueFormatFormValues>) {
+  return {
+    deadline: values.deadline?.valueOf(),
+    endTime: values.reportRange?.[1].valueOf(),
+    keyword: values.keyword,
+    startTime: values.reportRange?.[0].valueOf(),
+  };
+}
+
+type ValueFormatSubmitValues = ReturnType<typeof encodeValueFormatValues>;
+
+function decodeValueFormatValues(
+  values: Readonly<ValueFormatSubmitValues>,
+): ValueFormatFormValues {
+  let reportRange: [Dayjs, Dayjs] | undefined;
+  if (values.startTime !== undefined && values.endTime !== undefined) {
+    reportRange = [dayjs(values.startTime), dayjs(values.endTime)];
+  }
+  return {
+    deadline:
+      values.deadline === undefined ? undefined : dayjs(values.deadline),
+    keyword: values.keyword,
+    reportRange,
+  };
+}
+
+const transformedValues = ref<Partial<ValueFormatSubmitValues>>({});
+const liveValues = ref<Partial<ValueFormatFormValues>>({});
 
 const [Form, formApi] = useVbenForm({
+  codec: {
+    decode: decodeValueFormatValues,
+    encode: encodeValueFormatValues,
+  },
   commonConfig: {
     componentProps: {
       class: 'w-full',
     },
   },
   handleSubmit,
+  handleValuesChange,
   schema: [
     {
       component: 'RangePicker',
       fieldName: 'reportRange',
-      help: '通过 setValue 拆分为 startTime / endTime，并移除原字段',
+      help: '由表单 codec 拆分为 startTime / endTime',
       label: '统计时间范围',
-      valueFormat(value, setValue) {
-        setValue('startTime', value?.[0]?.valueOf());
-        setValue('endTime', value?.[1]?.valueOf());
-      },
     },
     {
       component: 'DatePicker',
       fieldName: 'deadline',
-      help: '直接 return 时间戳，保留原字段名',
+      help: '由表单 codec 编码为时间戳',
       label: '截止时间',
-      valueFormat(value) {
-        return value?.valueOf();
-      },
     },
     {
       component: 'Input',
@@ -58,7 +90,7 @@ const transformedValuesPreview = computed(() => {
   return formatJsonPreview(transformedValues.value);
 });
 
-function formatJsonPreview(value: Record<string, any>) {
+function formatJsonPreview(value: unknown) {
   return JSON.stringify(
     value,
     (_key, currentValue) => {
@@ -83,49 +115,50 @@ function handleSetExampleValue() {
   });
 }
 
-function handleSubmit(values: Record<string, any>) {
+function handleSubmit(values: ValueFormatSubmitValues) {
   transformedValues.value = values;
   message.success({
     content: `getValues output: ${JSON.stringify(values)}`,
   });
 }
 
-async function syncPreviewValues(values?: Record<string, any>) {
-  liveValues.value = values ?? formApi.form?.values ?? {};
+function handleValuesChange(
+  values: Readonly<ValueFormatFormValues>,
+  _fieldsChanged: string[],
+  getFormattedValues: () => ValueFormatSubmitValues,
+) {
+  liveValues.value = { ...values };
+  transformedValues.value = getFormattedValues();
+}
+
+async function syncPreviewValues(values?: Readonly<ValueFormatFormValues>) {
+  liveValues.value = { ...(values ?? formApi.form?.values) };
   transformedValues.value = await formApi.getValues();
 }
 
 onMounted(async () => {
   await nextTick();
-  watch(
-    () => formApi.form?.values,
-    async (values) => {
-      await syncPreviewValues(values);
-    },
-    {
-      deep: true,
-      immediate: true,
-    },
-  );
+  await syncPreviewValues();
 });
 </script>
 
 <template>
   <Page
     content-class="flex flex-col gap-4"
-    description="演示 schema.valueFormat 如何把组件值转换为提交/查询所需的 payload。"
-    title="表单 valueFormat"
+    description="演示表单级 codec 如何双向转换组件值和提交 payload。"
+    title="表单 Codec"
   >
     <template #description>
       <div class="text-muted-foreground space-y-2">
         <p>
           <code>form.values</code> 保持组件原始值，<code>getValues()</code> /
-          提交时会按 <code>schema.valueFormat</code> 输出转换后的 payload。
+          提交时会按 <code>codec.encode</code> 输出 payload，回填时通过
+          <code>codec.decode</code> 恢复组件值。
         </p>
         <div class="flex flex-wrap gap-2">
-          <Tag color="processing">return 值：回写当前字段</Tag>
-          <Tag color="success">setValue：拆分写入其他字段</Tag>
-          <Tag color="warning">return undefined：保持原字段删除</Tag>
+          <Tag color="processing">encode：生成完整提交值</Tag>
+          <Tag color="success">decode：恢复完整表单值</Tag>
+          <Tag color="warning">多字段转换原子执行</Tag>
         </div>
       </div>
     </template>
@@ -133,7 +166,7 @@ onMounted(async () => {
       <DocButton path="/components/common-ui/vben-form" />
     </template>
 
-    <Card title="valueFormat 示例">
+    <Card title="Codec 示例">
       <template #extra>
         <Space wrap>
           <Button @click="handleSetExampleValue">填充示例数据</Button>
@@ -151,7 +184,7 @@ onMounted(async () => {
           liveValuesPreview
         }}</pre>
       </Card>
-      <Card title="getValues / submit 输出（valueFormat 后）">
+      <Card title="getValues / submit 输出（codec.encode 后）">
         <pre class="bg-muted overflow-auto rounded-md p-4 text-sm">{{
           transformedValuesPreview
         }}</pre>

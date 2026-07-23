@@ -1,13 +1,18 @@
 export { setupVbenForm } from './config';
+export { FormCodecError } from './form-codec';
+
+export type { FormCodecPhase } from './form-codec';
 
 export type {
   BaseFormComponentType,
   ExtendedFormApi,
   FormActions,
+  FormCodec,
   FormContextApi,
   FormLayout,
   FormSchemaContext,
   FormValues,
+  FormValueSnapshot,
   VbenFormActionSlotProps,
   VbenFormComponent,
   VbenFormDefaultSlotProps,

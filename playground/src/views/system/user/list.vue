@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Dayjs } from 'dayjs';
+
 import type { Recordable } from '@vben/types';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
@@ -10,6 +12,7 @@ import { Page, Tree, useVbenDrawer } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
 import { Button, Card, InputSearch, message, Modal } from 'antdv-next';
+import dayjs from 'dayjs';
 
 import { useVbenVxeGrid, VbenTableAction } from '#/adapter/vxe-table';
 import { deleteUser, getDeptList, getUserList, updateUser } from '#/api';
@@ -18,6 +21,33 @@ import { $t } from '#/locales';
 import { useColumns, useGridFormSchema } from './data';
 import Detail from './modules/detail.vue';
 import Form from './modules/form.vue';
+
+interface UserSearchFormValues extends Record<string, unknown> {
+  createTime?: [Dayjs, Dayjs];
+}
+
+function encodeUserSearchValues(values: Readonly<UserSearchFormValues>) {
+  const { createTime, ...formValues } = values;
+  return {
+    ...formValues,
+    endTime: createTime?.[1]?.format('YYYY-MM-DD'),
+    startTime: createTime?.[0]?.format('YYYY-MM-DD'),
+  };
+}
+
+type UserSearchSubmitValues = ReturnType<typeof encodeUserSearchValues>;
+
+function decodeUserSearchValues(
+  values: Readonly<UserSearchSubmitValues>,
+): UserSearchFormValues {
+  const { endTime, startTime, ...formValues } = values;
+  return {
+    ...formValues,
+    ...(startTime && endTime
+      ? { createTime: [dayjs(startTime), dayjs(endTime)] }
+      : {}),
+  };
+}
 
 const deptList = ref<SystemDeptApi.SystemDept[]>([]);
 const inputSearchValue = ref('');
@@ -35,7 +65,10 @@ const [DetailDrawer, detailDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    fieldMappingTime: [['createTime', ['startTime', 'endTime']]],
+    codec: {
+      decode: decodeUserSearchValues,
+      encode: encodeUserSearchValues,
+    },
     schema: useGridFormSchema(),
     submitOnChange: true,
   },
@@ -45,7 +78,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
     keepSource: true,
     proxyConfig: {
       ajax: {
-        query: async ({ page }, formValues) => {
+        query: async ({ page }, formValues: UserSearchSubmitValues) => {
           return await getUserList({
             page: page.currentPage,
             pageSize: page.pageSize,

@@ -8,6 +8,7 @@ import { computed, ref, useTemplateRef, watch } from 'vue';
 import { SUPPORT_LANGUAGES } from '@vben/constants';
 import { useHoverToggle, useRefresh } from '@vben/hooks';
 import {
+  createIconifyIcon,
   Languages,
   LockKeyhole,
   LogOut,
@@ -40,7 +41,7 @@ import {
   VbenIconButton,
 } from '@vben-core/shadcn-ui';
 
-import { useMagicKeys, whenever } from '@vueuse/core';
+import { useFullscreen, useMagicKeys, whenever } from '@vueuse/core';
 
 import { GlobalSearch } from '../global-search';
 import { LockScreenModal } from '../lock-screen';
@@ -101,9 +102,11 @@ const {
   globalLogoutShortcutKey,
   globalLockScreenShortcutKey,
   globalSearchShortcutKey,
+  isDark,
   preferencesButtonPosition,
 } = usePreferences();
 const { refresh } = useRefresh();
+const { toggle: toggleFullscreen } = useFullscreen();
 const accessStore = useAccessStore();
 const [LockModal, lockModalApi] = useVbenModal({
   connectedComponent: LockScreenModal,
@@ -118,6 +121,10 @@ const refTrigger = useTemplateRef('refTrigger');
 const refContent = useTemplateRef('refContent');
 const refPreferences = useTemplateRef('refPreferences');
 const refGlobalSearch = useTemplateRef('refGlobalSearch');
+const refTimezone = useTemplateRef('refTimezone');
+const refNotification = useTemplateRef('refNotification');
+
+const TimezoneIcon = createIconifyIcon('fluent-mdl2:world-clock');
 const [openPopover, hoverWatcher] = useHoverToggle(
   [refTrigger, refContent],
   () => props.hoverDelay,
@@ -247,6 +254,28 @@ function handleGlobalSearch() {
   refGlobalSearch.value?.open();
 }
 
+// 主题切换
+function handleThemeToggleSelect(event?: Event) {
+  event?.preventDefault();
+  updatePreferences({ theme: { mode: isDark.value ? 'light' : 'dark' } });
+}
+
+// 时区
+function handleTimezoneSelect() {
+  refTimezone.value?.open();
+}
+
+// 全屏切换
+function handleFullscreenSelect() {
+  toggleFullscreen();
+}
+
+// 通知
+function handleNotificationSelect(event?: Event) {
+  event?.preventDefault();
+  refNotification.value?.toggle();
+}
+
 // 语言切换 - 阻止 Radix 默认关闭外层 dropdown，就地展开/收起 locale 列表
 const showLanguageList = ref(false);
 function handleLanguageToggleSelect(event?: Event) {
@@ -319,6 +348,12 @@ if (preferences.shortcutKeys.enable) {
     ref="refGlobalSearch"
     :enable-shortcut-key="globalSearchShortcutKey"
     :menus="accessStore.accessMenus"
+    :show-button="false"
+  />
+
+  <TimezoneButton
+    v-if="showTimezoneInDropdown"
+    ref="refTimezone"
     :show-button="false"
   />
 
@@ -428,6 +463,7 @@ if (preferences.shortcutKeys.enable) {
           <DropdownMenuItem
             v-if="showThemeToggleInDropdown"
             class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @select="handleThemeToggleSelect"
           >
             <ThemeToggle class="mr-2" />
             {{ $t('preferences.theme.title') }}
@@ -461,22 +497,27 @@ if (preferences.shortcutKeys.enable) {
           <DropdownMenuItem
             v-if="showTimezoneInDropdown"
             class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @select="handleTimezoneSelect"
           >
-            <TimezoneButton class="mr-2" />
+            <VbenIconButton class="mr-2" @click="handleTimezoneSelect">
+              <TimezoneIcon class="size-4" />
+            </VbenIconButton>
             {{ $t('ui.widgets.timezone.setTimezone') }}
           </DropdownMenuItem>
           <DropdownMenuItem
             v-if="showFullscreenInDropdown"
             class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @select="handleFullscreenSelect"
           >
-            <VbenFullScreen class="mr-2" />
+            <VbenFullScreen class="mr-2" @click.stop />
             {{ $t('preferences.widget.fullscreen') }}
           </DropdownMenuItem>
           <DropdownMenuItem
             v-if="showNotificationInDropdown"
             class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+            @select="handleNotificationSelect"
           >
-            <Notification class="mr-2" />
+            <Notification ref="refNotification" class="mr-2" />
             {{ $t('preferences.widget.notification') }}
           </DropdownMenuItem>
           <DropdownMenuItem

@@ -9,6 +9,16 @@ import type { FormApi } from './form-api';
 
 export type FormValues = Record<string, any>;
 
+export interface FormCodec<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+> {
+  /** 将提交值转换为表单组件值。 */
+  decode: (values: Readonly<TSubmitValues>) => TFormValues;
+  /** 将表单组件值转换为提交值。 */
+  encode: (values: Readonly<TFormValues>) => TSubmitValues;
+}
+
 export type FormFieldName<TValues extends FormValues = FormValues> =
   | Extract<keyof TValues, string>
   | (Record<never, never> & string);
@@ -116,9 +126,12 @@ export interface FormValidationResult {
   valid: boolean;
 }
 
-export interface FormValueSnapshot<TValues extends FormValues = FormValues> {
-  rawValues: Readonly<TValues>;
-  values: TValues;
+export interface FormValueSnapshot<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+> {
+  rawValues: Readonly<TFormValues>;
+  values: TSubmitValues;
 }
 
 export interface FormResetState<TValues extends FormValues = FormValues> {
@@ -141,7 +154,7 @@ export interface FormContextApi<TValues extends FormValues = FormValues> {
     fieldName: TFieldName,
   ) => FormFieldValue<TValues, TFieldName>;
   handleSubmit: (
-    callback: (values: TValues) => Promise<void> | void,
+    callback?: (values: TValues) => Promise<void> | void,
   ) => (event?: Event) => Promise<void>;
   isFieldValid: (fieldName: string) => boolean;
   readonly meta: FormMeta;
@@ -205,8 +218,9 @@ export interface VbenFormActionSlotProps<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TSubmitValues extends FormValues = TValues,
 > {
-  formApi: ExtendedFormApi<TValues, T, P>;
+  formApi: ExtendedFormApi<TValues, T, P, TSubmitValues>;
   values: TValues;
 }
 
@@ -214,7 +228,8 @@ export interface VbenFormDefaultSlotProps<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> extends VbenFormActionSlotProps<TValues, T, P> {
+  TSubmitValues extends FormValues = TValues,
+> extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
   shapes: FormShape[];
 }
 
@@ -223,7 +238,8 @@ export interface VbenFormFieldSlotProps<
   TFieldName extends KnownFormFieldName<TValues> = KnownFormFieldName<TValues>,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> extends VbenFormActionSlotProps<TValues, T, P> {
+  TSubmitValues extends FormValues = TValues,
+> extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
   componentField: FormComponentField<TValues[TFieldName], TFieldName>;
   disabled: boolean;
   field: FormRuntimeField<TValues[TFieldName]>;
@@ -236,12 +252,19 @@ type VbenFormFieldSlots<
   TValues extends FormValues,
   T extends BaseFormComponentType,
   P extends Record<string, any>,
+  TSubmitValues extends FormValues,
 > =
   string extends Extract<keyof TValues, string>
     ? Record<string, ((props: any) => any) | undefined>
     : {
         [TFieldName in KnownFormFieldName<TValues>]?: (
-          props: VbenFormFieldSlotProps<TValues, TFieldName, T, P>,
+          props: VbenFormFieldSlotProps<
+            TValues,
+            TFieldName,
+            T,
+            P,
+            TSubmitValues
+          >,
         ) => any;
       };
 
@@ -249,21 +272,33 @@ export type VbenFormSlots<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> = VbenFormFieldSlots<TValues, T, P> & {
-  default?: (props: VbenFormDefaultSlotProps<TValues, T, P>) => any;
-  'expand-after'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
-  'expand-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
-  'reset-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
-  'submit-before'?: (props: VbenFormActionSlotProps<TValues, T, P>) => any;
+  TSubmitValues extends FormValues = TValues,
+> = VbenFormFieldSlots<TValues, T, P, TSubmitValues> & {
+  default?: (
+    props: VbenFormDefaultSlotProps<TValues, T, P, TSubmitValues>,
+  ) => any;
+  'expand-after'?: (
+    props: VbenFormActionSlotProps<TValues, T, P, TSubmitValues>,
+  ) => any;
+  'expand-before'?: (
+    props: VbenFormActionSlotProps<TValues, T, P, TSubmitValues>,
+  ) => any;
+  'reset-before'?: (
+    props: VbenFormActionSlotProps<TValues, T, P, TSubmitValues>,
+  ) => any;
+  'submit-before'?: (
+    props: VbenFormActionSlotProps<TValues, T, P, TSubmitValues>,
+  ) => any;
 };
 
 export type VbenFormComponent<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
+  TSubmitValues extends FormValues = TValues,
 > = new () => {
-  $props: VbenFormProps<T, P, TValues>;
-  $slots: VbenFormSlots<TValues, T, P>;
+  $props: VbenFormProps<T, P, TValues, TSubmitValues>;
+  $slots: VbenFormSlots<TValues, T, P, TSubmitValues>;
 };
 
 export interface FormSchemaContext<TValues extends FormValues = FormValues> {
@@ -512,6 +547,7 @@ type MappedComponentProps<P, TValues extends FormValues = FormValues> =
  *   把一个字段拆分写入到其他字段，例如 `startTime` / `endTime`
  * - 返回其他值：会将当前字段恢复/写回为该返回值
  * - `setValue` 回调签名为 `(key, nextValue) => void`
+ * @deprecated Use the form-level `codec` instead.
  */
 export type FormValueFormat<TValues extends FormValues = FormValues> = (
   value: any,
@@ -548,6 +584,7 @@ interface FormSchemaBody<TValues extends FormValues = FormValues> extends Omit<
    * 获取表单值时格式化当前字段。
    * - 返回值不为 `undefined` 时，会回写到当前 fieldName
    * - 返回值为 `undefined` 时，可通过 setValue 写入一个或多个目标字段
+   * @deprecated Use the form-level `codec` instead.
    */
   valueFormat?: FormValueFormat<TValues>;
 }
@@ -637,15 +674,19 @@ export interface VbenFormFieldArrayProps<
   showIndex?: boolean;
 }
 
-export type HandleSubmitFn<TValues extends FormValues = FormValues> = (
-  values: TValues,
-  rawValues: Readonly<TValues>,
+export type HandleSubmitFn<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+> = (
+  values: TSubmitValues,
+  rawValues: Readonly<TFormValues>,
 ) => Promise<void> | void;
 
-export type HandleResetFn<TValues extends FormValues = FormValues> = (
-  values: TValues,
+export type HandleResetFn<TSubmitValues extends FormValues = FormValues> = (
+  values: TSubmitValues,
 ) => Promise<void> | void;
 
+/** @deprecated Use the form-level `codec` instead. */
 export type FieldMappingTimeItem = [
   string,
   [string, string],
@@ -657,8 +698,10 @@ export type FieldMappingTimeItem = [
   )?,
 ];
 
+/** @deprecated Use the form-level `codec` instead. */
 export type FieldMappingTime = FieldMappingTimeItem[];
 
+/** @deprecated Use the form-level `codec` instead. */
 export type ArrayToStringFields = Array<
   | [string[], string?] // 嵌套数组格式，可选分隔符
   | string // 单个字段，使用默认分隔符
@@ -682,6 +725,7 @@ export interface FormRenderProps<
 > {
   /**
    * 表单字段数组映射字符串配置 默认使用","
+   * @deprecated Use the form-level `codec` instead.
    */
   arrayToStringFields?: ArrayToStringFields;
   /**
@@ -717,6 +761,7 @@ export interface FormRenderProps<
   componentMap: Record<BaseFormComponentType, Component>;
   /**
    * 表单字段映射到时间格式
+   * @deprecated Use the form-level `codec` instead.
    */
   fieldMappingTime?: FieldMappingTime;
   /**
@@ -757,6 +802,7 @@ export interface VbenFormProps<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
   TValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TValues,
 > extends Omit<
   FormRenderProps<T, P, TValues>,
   'componentBindEventMap' | 'componentMap' | 'form'
@@ -780,6 +826,7 @@ export interface VbenFormProps<
   actionWrapperClass?: ClassType;
   /**
    * 表单字段数组映射字符串配置 默认使用","
+   * @deprecated Use the form-level `codec` instead.
    */
   arrayToStringFields?: ArrayToStringFields;
 
@@ -787,8 +834,11 @@ export interface VbenFormProps<
    * submitOnChange改变时防抖时间 | 默认300ms
    */
   changeDebouncedTime?: number;
+  /** 表单组件值与提交值之间的双向编解码器。 */
+  codec?: FormCodec<TValues, TSubmitValues>;
   /**
    * 表单字段映射
+   * @deprecated Use the form-level `codec` instead.
    */
   fieldMappingTime?: FieldMappingTime;
   /**
@@ -798,18 +848,18 @@ export interface VbenFormProps<
   /**
    * 表单重置回调
    */
-  handleReset?: HandleResetFn<TValues>;
+  handleReset?: HandleResetFn<NoInfer<TSubmitValues>>;
   /**
    * 表单提交回调
    */
-  handleSubmit?: HandleSubmitFn<TValues>;
+  handleSubmit?: HandleSubmitFn<TValues, TSubmitValues>;
   /**
    * 表单值变化回调
    */
   handleValuesChange?: (
     values: Readonly<TValues>,
     fieldsChanged: string[],
-    getFormattedValues: () => TValues,
+    getFormattedValues: () => TSubmitValues,
   ) => void;
 
   /**
@@ -851,9 +901,12 @@ export type ExtendedFormApi<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
-> = FormApi<TValues, T, P> & {
-  useStore: <TResult = NoInfer<VbenFormProps<T, P, TValues>>>(
-    selector?: (state: NoInfer<VbenFormProps<T, P, TValues>>) => TResult,
+  TSubmitValues extends FormValues = TValues,
+> = FormApi<TValues, T, P, TSubmitValues> & {
+  useStore: <TResult = NoInfer<VbenFormProps<T, P, TValues, TSubmitValues>>>(
+    selector?: (
+      state: NoInfer<VbenFormProps<T, P, TValues, TSubmitValues>>,
+    ) => TResult,
   ) => Readonly<Ref<TResult>>;
 };
 
