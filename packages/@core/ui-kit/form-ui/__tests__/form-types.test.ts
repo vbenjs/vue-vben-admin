@@ -6,6 +6,7 @@ import type {
   FormFieldOptions,
   FormItemDependencies,
   FormValidationResult,
+  FormValueSnapshot,
   VbenFormAdapterOptions,
   VbenFormProps,
 } from '../src/types';
@@ -20,6 +21,12 @@ interface AccountFormValues {
     nickname: string;
   };
   roles: string[];
+}
+
+interface AccountSubmitValues {
+  email: string;
+  nickname: string;
+  roles: string;
 }
 
 describe('form public types', () => {
@@ -140,6 +147,96 @@ describe('form public types', () => {
     expectTypeOf<
       DefaultSlotProps['values']
     >().toEqualTypeOf<AccountFormValues>();
+  });
+
+  it('keeps form and submit values distinct with a codec', () => {
+    const options: VbenFormProps<
+      BaseFormComponentType,
+      Record<never, never>,
+      AccountFormValues,
+      AccountSubmitValues
+    > = {
+      codec: {
+        decode(values) {
+          return {
+            email: values.email,
+            profile: { nickname: values.nickname },
+            roles: values.roles.split(','),
+          };
+        },
+        encode(values) {
+          return {
+            email: values.email,
+            nickname: values.profile.nickname,
+            roles: values.roles.join(','),
+          };
+        },
+      },
+      handleSubmit(values, rawValues) {
+        expectTypeOf(values).toEqualTypeOf<AccountSubmitValues>();
+        expectTypeOf(rawValues).toEqualTypeOf<Readonly<AccountFormValues>>();
+      },
+      handleReset(values) {
+        expectTypeOf(values).toEqualTypeOf<AccountSubmitValues>();
+      },
+      handleValuesChange(values, _fieldsChanged, getFormattedValues) {
+        expectTypeOf(values).toEqualTypeOf<Readonly<AccountFormValues>>();
+        expectTypeOf(getFormattedValues()).toEqualTypeOf<AccountSubmitValues>();
+      },
+      schema: [],
+    };
+    const [, formApi] = useVbenForm<
+      AccountFormValues,
+      BaseFormComponentType,
+      Record<never, never>,
+      AccountSubmitValues
+    >(options);
+
+    expectTypeOf(
+      formApi.getValues(),
+    ).resolves.toEqualTypeOf<AccountSubmitValues>();
+    expectTypeOf(
+      formApi.getRawValues(),
+    ).resolves.toEqualTypeOf<AccountFormValues>();
+    expectTypeOf(formApi.getValueSnapshot()).resolves.toEqualTypeOf<
+      FormValueSnapshot<AccountFormValues, AccountSubmitValues>
+    >();
+    expectTypeOf(formApi.setSubmitValues)
+      .parameter(0)
+      .toEqualTypeOf<AccountSubmitValues>();
+  });
+
+  it('infers submit values from an inline codec', () => {
+    const [, formApi] = useVbenForm({
+      codec: {
+        decode(values) {
+          expectTypeOf(values).toEqualTypeOf<Readonly<AccountSubmitValues>>();
+          return {
+            email: values.email,
+            profile: { nickname: values.nickname },
+            roles: values.roles.split(','),
+          };
+        },
+        encode(values: Readonly<AccountFormValues>) {
+          return {
+            email: values.email,
+            nickname: values.profile.nickname,
+            roles: values.roles.join(','),
+          };
+        },
+      },
+      handleReset(values) {
+        expectTypeOf(values).toEqualTypeOf<AccountSubmitValues>();
+      },
+      schema: [],
+    });
+
+    expectTypeOf(
+      formApi.getValues(),
+    ).resolves.toEqualTypeOf<AccountSubmitValues>();
+    expectTypeOf(
+      formApi.getRawValues(),
+    ).resolves.toEqualTypeOf<AccountFormValues>();
   });
 
   it('exposes canonical names alongside deprecated aliases', () => {

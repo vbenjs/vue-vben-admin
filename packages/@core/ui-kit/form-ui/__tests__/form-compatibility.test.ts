@@ -1,3 +1,5 @@
+import type { BaseFormComponentType } from '../src/types';
+
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { setupVbenForm } from '../src/config';
@@ -14,6 +16,83 @@ afterEach(() => {
 });
 
 describe('form api compatibility', () => {
+  it('keeps deprecated value transforms and warns once per API', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const formApi = new FormApi({
+      arrayToStringFields: ['tags'],
+      fieldMappingTime: [['period', ['startTime', 'endTime'], null]],
+      schema: [
+        {
+          component: 'input',
+          fieldName: 'name',
+          valueFormat: (value: string) => value.trim(),
+        },
+      ],
+    });
+    const form = {
+      meta: {},
+      values: {
+        name: ' Ada ',
+        period: [1, 2],
+        tags: ['admin', 'user'],
+      },
+    } as any;
+
+    formApi.mount(form);
+
+    expect(await formApi.getValues()).toEqual({
+      endTime: 2,
+      name: 'Ada',
+      startTime: 1,
+      tags: 'admin,user',
+    });
+    expect(warning).toHaveBeenCalledTimes(3);
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] `schema.valueFormat` is deprecated. Use the form-level `codec` instead.',
+    );
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] `fieldMappingTime` is deprecated. Use the form-level `codec` instead.',
+    );
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] `arrayToStringFields` is deprecated. Use the form-level `codec` instead.',
+    );
+  });
+
+  it('prefers the codec when deprecated transforms are also configured', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const formApi = new FormApi<
+      { name: string },
+      BaseFormComponentType,
+      Record<never, never>,
+      { normalizedName: string }
+    >({
+      codec: {
+        decode(values) {
+          return { name: values.normalizedName };
+        },
+        encode(values) {
+          return { normalizedName: values.name.toUpperCase() };
+        },
+      },
+      schema: [
+        {
+          component: 'input',
+          fieldName: 'name',
+          valueFormat: () => 'legacy',
+        },
+      ],
+    });
+    const form = { meta: {}, values: { name: 'Ada' } } as any;
+
+    formApi.mount(form);
+
+    expect(await formApi.getValues()).toEqual({ normalizedName: 'ADA' });
+    expect(warning).toHaveBeenCalledOnce();
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] The form `codec` takes precedence over deprecated `valueFormat`, `fieldMappingTime`, and `arrayToStringFields` options.',
+    );
+  });
+
   it('forwards defineRules and warns only once in development', async () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const legacyRule = () => 'legacy error';
