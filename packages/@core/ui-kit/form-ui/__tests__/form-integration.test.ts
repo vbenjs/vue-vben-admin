@@ -104,6 +104,34 @@ describe('useVbenForm integration', () => {
     expect(validateValue).toHaveBeenCalledTimes(initialValidationCount + 1);
   });
 
+  it('keeps values reactive when exposed through the default slot', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'Ada',
+          fieldName: 'name',
+        },
+      ],
+      showDefaultActions: false,
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        default: ({ values }: { values: Record<string, any> }) =>
+          h('span', { class: 'slot-value' }, values.name),
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(wrapper.get('.slot-value').text()).toBe('Ada');
+
+    await formApi.setFieldValue('name', 'Grace');
+    await flushPromises();
+
+    expect(wrapper.get('.slot-value').text()).toBe('Grace');
+  });
+
   it('supports a field-level change event fallback for legacy components', async () => {
     const [Form, formApi] = useVbenForm({
       schema: [

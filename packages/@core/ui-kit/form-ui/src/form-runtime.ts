@@ -12,6 +12,7 @@ import { computed, shallowRef } from 'vue';
 
 import { mergeWithArrayOverride } from '@vben-core/shared/utils';
 
+import { batch } from '@tanstack/store';
 import { useForm } from '@tanstack/vue-form';
 
 import { createRuntimeFieldComponent } from './form-runtime-field';
@@ -289,11 +290,13 @@ export function useFormRuntime<TValues extends FormValues>(
       }
     },
     async setValues(values, shouldValidate) {
-      for (const [fieldName, value] of Object.entries(values)) {
-        rawForm.setFieldValue(fieldName as never, value as never, {
-          dontValidate: !shouldValidate,
-        });
-      }
+      batch(() => {
+        for (const [fieldName, value] of Object.entries(values)) {
+          rawForm.setFieldValue(fieldName as never, value as never, {
+            dontValidate: !shouldValidate,
+          });
+        }
+      });
       if (shouldValidate) {
         await validate();
       }

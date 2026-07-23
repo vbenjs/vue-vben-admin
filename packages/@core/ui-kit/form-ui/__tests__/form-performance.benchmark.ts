@@ -106,7 +106,12 @@ const [ArrayForm, arrayFormApi] = useVbenForm({
 });
 const arrayWrapper = mount(ArrayForm);
 await flushPromises();
+const arraySchemaPatches = [false, true].map((disabled) => ({
+  componentProps: { disabled },
+  fieldName: 'contacts.name',
+}));
 let arrayEditIteration = 0;
+let arraySchemaIteration = 0;
 
 afterAll(() => {
   arrayWrapper.unmount();
@@ -147,6 +152,29 @@ describe('form array performance', () => {
         'contacts[50].name',
         `Contact ${arrayEditIteration}`,
       );
+      await nextTick();
+    },
+    { time: 1000, warmupTime: 200 },
+  );
+
+  bench(
+    'append and remove one row from a 100-row array',
+    async () => {
+      arrayFormApi.form.pushFieldValue('contacts', { name: 'Temporary' });
+      await nextTick();
+      await arrayFormApi.form.removeFieldValue('contacts', ROW_COUNT);
+      await nextTick();
+    },
+    { time: 1000, warmupTime: 200 },
+  );
+
+  bench(
+    'update one child schema across 100 rows',
+    async () => {
+      arraySchemaIteration += 1;
+      arrayFormApi.updateSchema([
+        arraySchemaPatches[arraySchemaIteration % 2] ?? {},
+      ]);
       await nextTick();
     },
     { time: 1000, warmupTime: 200 },

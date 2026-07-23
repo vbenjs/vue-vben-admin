@@ -75,6 +75,9 @@ catalogs:
     '@tailwindcss/vite':
       specifier: ^4.3.3
       version: 4.3.3
+    '@tanstack/store':
+      specifier: ^0.11.0
+      version: 0.11.0
     '@tanstack/vue-form':
       specifier: ^1.33.2
       version: 1.33.2
@@ -1400,6 +1403,9 @@ importers:
 
   packages/@core/ui-kit/form-ui:
     dependencies:
+      '@tanstack/store':
+        specifier: 'catalog:'
+        version: 0.11.0
       '@tanstack/vue-form':
         specifier: 'catalog:'
         version: 1.33.2(vue@3.5.40(typescript@6.0.3))
