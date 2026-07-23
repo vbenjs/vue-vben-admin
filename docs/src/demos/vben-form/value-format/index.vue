@@ -121,7 +121,8 @@ function handleValuesChange(
 }
 
 async function syncPreviewValues(values?: Readonly<ValueFormatFormValues>) {
-  liveValues.value = { ...(values ?? formApi.form?.values ?? {}) };
+  const rawValues = values ?? (await formApi.getRawValues());
+  liveValues.value = { ...rawValues };
   transformedValues.value = await formApi.getValues();
 }
 
@@ -152,7 +153,7 @@ onMounted(async () => {
     </Card>
 
     <div class="grid gap-4 lg:grid-cols-2">
-      <Card title="原始 form.values（组件值）">
+      <Card title="getRawValues() 输出（组件值）">
         <pre class="bg-muted overflow-auto rounded-md p-4 text-sm">{{
           liveValuesPreview
         }}</pre>

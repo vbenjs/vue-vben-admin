@@ -132,7 +132,8 @@ function handleValuesChange(
 }
 
 async function syncPreviewValues(values?: Readonly<ValueFormatFormValues>) {
-  liveValues.value = { ...(values ?? formApi.form?.values) };
+  const rawValues = values ?? (await formApi.getRawValues());
+  liveValues.value = { ...rawValues };
   transformedValues.value = await formApi.getValues();
 }
 
@@ -151,7 +152,7 @@ onMounted(async () => {
     <template #description>
       <div class="text-muted-foreground space-y-2">
         <p>
-          <code>form.values</code> 保持组件原始值，<code>getValues()</code> /
+          <code>getRawValues()</code> 返回组件原始值，<code>getValues()</code> /
           提交时会按 <code>codec.encode</code> 输出 payload，回填时通过
           <code>codec.decode</code> 恢复组件值。
         </p>
@@ -179,7 +180,7 @@ onMounted(async () => {
     </Card>
 
     <div class="grid gap-4 lg:grid-cols-2">
-      <Card title="原始 form.values（组件值）">
+      <Card title="getRawValues() 输出（组件值）">
         <pre class="bg-muted overflow-auto rounded-md p-4 text-sm">{{
           liveValuesPreview
         }}</pre>

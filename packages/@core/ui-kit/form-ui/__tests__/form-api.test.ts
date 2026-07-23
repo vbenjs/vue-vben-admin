@@ -61,6 +61,20 @@ describe('formApi', () => {
     expect(values).toEqual({ name: 'test' });
   });
 
+  it('should set a field error through the public api', async () => {
+    const setFieldError = vi.fn();
+    const formActions: any = {
+      meta: {},
+      setFieldError,
+      values: {},
+    };
+
+    formApi.mount(formActions, new Map());
+    await formApi.setFieldError('password', 'Invalid password');
+
+    expect(setFieldError).toHaveBeenCalledWith('password', 'Invalid password');
+  });
+
   it('should format schema values when getting values', async () => {
     formApi.setState({
       schema: [
