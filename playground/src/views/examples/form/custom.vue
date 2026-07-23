@@ -9,7 +9,40 @@ import { useVbenForm, z } from '#/adapter/form';
 
 import TwoFields from './modules/two-fields.vue';
 
+interface CustomFormValues extends Record<string, unknown> {
+  field?: string;
+  field1?: string;
+  field2?: string;
+  field3?: string;
+  field4?: [string | undefined, string];
+}
+
+function encodeCustomFormValues(values: Readonly<CustomFormValues>) {
+  const { field4, ...formValues } = values;
+  return {
+    ...formValues,
+    phoneNumber: field4?.[1],
+    phoneType: field4?.[0],
+  };
+}
+
+type CustomSubmitValues = ReturnType<typeof encodeCustomFormValues>;
+
+function decodeCustomFormValues(
+  values: Readonly<CustomSubmitValues>,
+): CustomFormValues {
+  const { phoneNumber, phoneType, ...formValues } = values;
+  return {
+    ...formValues,
+    field4: [phoneType, phoneNumber ?? ''],
+  };
+}
+
 const [Form] = useVbenForm({
+  codec: {
+    decode: decodeCustomFormValues,
+    encode: encodeCustomFormValues,
+  },
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -18,7 +51,6 @@ const [Form] = useVbenForm({
     },
     labelClass: 'w-2/6',
   },
-  fieldMappingTime: [['field4', ['phoneType', 'phoneNumber'], null]],
   // 提交函数
   handleSubmit: onSubmit,
   // 垂直布局，label和input在不同行，值为vertical
@@ -80,7 +112,7 @@ const [Form] = useVbenForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });
 
-function onSubmit(values: Record<string, any>) {
+function onSubmit(values: CustomSubmitValues) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
   });

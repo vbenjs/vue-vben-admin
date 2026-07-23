@@ -23,7 +23,7 @@ import {
 
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends VbenFormProps {
-  formApi?: ExtendedFormApi<any, any, any>;
+  formApi?: ExtendedFormApi<any, any, any, any>;
 }
 
 const props = defineProps<Props>();

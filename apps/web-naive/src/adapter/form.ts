@@ -38,18 +38,27 @@ async function initSetupVbenForm() {
   });
 }
 
-function useVbenForm<TValues extends FormValues = FormValues>(
-  options: FormProps<ComponentType, ComponentPropsMap, TValues>,
+function useVbenForm<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+>(
+  options: FormProps<
+    ComponentType,
+    ComponentPropsMap,
+    TFormValues,
+    TSubmitValues
+  >,
 ) {
-  return useForm<TValues, ComponentType, ComponentPropsMap>(options);
+  return useForm<TFormValues, ComponentType, ComponentPropsMap, TSubmitValues>(
+    options,
+  );
 }
 
 export { initSetupVbenForm, useVbenForm, z };
 
 export type VbenFormSchema<TValues extends FormValues = FormValues> =
   FormSchema<ComponentType, ComponentPropsMap, TValues>;
-export type VbenFormProps<TValues extends FormValues = FormValues> = FormProps<
-  ComponentType,
-  ComponentPropsMap,
-  TValues
->;
+export type VbenFormProps<
+  TFormValues extends FormValues = FormValues,
+  TSubmitValues extends FormValues = TFormValues,
+> = FormProps<ComponentType, ComponentPropsMap, TFormValues, TSubmitValues>;

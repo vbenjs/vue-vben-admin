@@ -9,7 +9,48 @@ import { Button, Card, message, Space } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 
-const submitValues = ref<Record<string, any>>({});
+interface ContactFormValues {
+  enabled: boolean;
+  name: string;
+  phone?: string;
+  role: 'member' | 'owner' | 'viewer';
+}
+
+interface ArrayFormValues extends Record<string, unknown> {
+  contacts: ContactFormValues[];
+  description?: string;
+  planName: string;
+}
+
+function encodeArrayFormValues(values: Readonly<ArrayFormValues>) {
+  return {
+    ...values,
+    contacts: values.contacts.map(({ phone, ...contact }) => {
+      const trimmedPhone = phone?.trim();
+      return {
+        ...contact,
+        name: contact.name.trim(),
+        ...(trimmedPhone ? { phone: trimmedPhone } : {}),
+      };
+    }),
+  };
+}
+
+type ArraySubmitValues = ReturnType<typeof encodeArrayFormValues>;
+
+function decodeArrayFormValues(
+  values: Readonly<ArraySubmitValues>,
+): ArrayFormValues {
+  return {
+    ...values,
+    contacts: values.contacts.map((contact) => ({
+      ...contact,
+      phone: contact.phone ?? '',
+    })),
+  };
+}
+
+const submitValues = ref<Partial<ArraySubmitValues>>({});
 const formattedSubmitValues = computed(() =>
   JSON.stringify(submitValues.value, null, 2),
 );
@@ -23,7 +64,7 @@ const outputClass = [
   'text-xs',
 ];
 
-const schema: VbenFormSchema[] = [
+const schema: VbenFormSchema<ArrayFormValues>[] = [
   {
     component: 'Input',
     componentProps: {
@@ -38,7 +79,7 @@ const schema: VbenFormSchema[] = [
     component: 'Textarea',
     dependencies: {
       componentProps: (values) => {
-        const planName = values.planName as string | undefined;
+        const planName = values.planName;
         return {
           disabled: !planName,
           placeholder: planName ? `${planName} 的补充说明` : '请先填写方案名称',
@@ -81,7 +122,6 @@ const schema: VbenFormSchema[] = [
         fieldName: 'name',
         label: '姓名',
         rules: z.string().min(1, '请输入姓名'),
-        valueFormat: (value) => value?.trim(),
       },
       {
         component: 'Select',
@@ -110,13 +150,6 @@ const schema: VbenFormSchema[] = [
         fieldName: 'phone',
         label: '电话',
         rules: z.string().optional(),
-        valueFormat: (value, setValue) => {
-          const nextValue = value?.trim();
-          if (!nextValue) {
-            return;
-          }
-          setValue('phone', nextValue);
-        },
       },
       {
         component: 'Switch',
@@ -146,6 +179,10 @@ const schema: VbenFormSchema[] = [
 ];
 
 const [Form, formApi] = useVbenForm({
+  codec: {
+    decode: decodeArrayFormValues,
+    encode: encodeArrayFormValues,
+  },
   commonConfig: {
     labelWidth: 90,
   },
