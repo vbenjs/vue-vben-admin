@@ -83,6 +83,7 @@ if (!formApi) {
   throw new Error('Form api is required in <FormField />');
 }
 const error = formApi.useFieldError(fieldName);
+const fieldValue = formApi.useFieldValue(fieldName);
 const compact = computed(() => formRenderProps.compact);
 const isInValid = computed(() => Boolean(error.value));
 const shouldApplyInvalidStyle = computed(() => {
@@ -297,7 +298,7 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
     ...slotProps,
     componentField: {
       name: fieldName,
-      modelValue: field.state.value,
+      modelValue: fieldValue.value,
       onBlur: field.handleBlur,
       onChange: handleChange,
       onInput: handleChange,

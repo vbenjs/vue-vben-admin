@@ -87,8 +87,13 @@ watch(values, (currentValues, previousValues) => {
   if (!valuesChangeReady) {
     return;
   }
+  const handleValuesChange = forward.value.handleValuesChange;
+  const submitOnChange = state?.value.submitOnChange;
+  if (!handleValuesChange && !submitOnChange) {
+    return;
+  }
   const fields = state?.value.schema?.map((item) => item.fieldName) ?? [];
-  if (forward.value.handleValuesChange && fields.length > 0) {
+  if (handleValuesChange && fields.length > 0) {
     const changedFields = fields.filter((field) => {
       return !isEqual(
         get(currentValues, field),
@@ -96,14 +101,14 @@ watch(values, (currentValues, previousValues) => {
       );
     });
     if (changedFields.length > 0) {
-      forward.value.handleValuesChange(
-        readonly(currentValues),
-        changedFields,
-        () => formApi.formatValues(currentValues),
+      handleValuesChange(readonly(currentValues), changedFields, () =>
+        formApi.formatValues(currentValues),
       );
     }
   }
-  handleValuesChangeDebounced();
+  if (submitOnChange) {
+    handleValuesChangeDebounced();
+  }
 });
 </script>
 
@@ -130,46 +135,50 @@ watch(values, (currentValues, previousValues) => {
       ></slot>
     </template>
     <template #default="slotProps">
-      <slot v-bind="slotProps" :form-api="formApi" :values="form.values">
-        <FormActions
-          v-if="forward.showDefaultActions"
-          :model-value="state?.collapsed"
-          @update:model-value="handleUpdateCollapsed"
-        >
-          <template #reset-before="resetSlotProps">
-            <slot
-              name="reset-before"
-              v-bind="resetSlotProps"
-              :form-api="formApi"
-              :values="form.values"
-            ></slot>
-          </template>
-          <template #submit-before="submitSlotProps">
-            <slot
-              name="submit-before"
-              v-bind="submitSlotProps"
-              :form-api="formApi"
-              :values="form.values"
-            ></slot>
-          </template>
-          <template #expand-before="expandBeforeSlotProps">
-            <slot
-              name="expand-before"
-              v-bind="expandBeforeSlotProps"
-              :form-api="formApi"
-              :values="form.values"
-            ></slot>
-          </template>
-          <template #expand-after="expandAfterSlotProps">
-            <slot
-              name="expand-after"
-              v-bind="expandAfterSlotProps"
-              :form-api="formApi"
-              :values="form.values"
-            ></slot>
-          </template>
-        </FormActions>
-      </slot>
+      <slot
+        v-if="$slots.default"
+        v-bind="slotProps"
+        :form-api="formApi"
+        :values="form.values"
+      ></slot>
+      <FormActions
+        v-else-if="forward.showDefaultActions"
+        :model-value="state?.collapsed"
+        @update:model-value="handleUpdateCollapsed"
+      >
+        <template #reset-before="resetSlotProps">
+          <slot
+            name="reset-before"
+            v-bind="resetSlotProps"
+            :form-api="formApi"
+            :values="form.values"
+          ></slot>
+        </template>
+        <template #submit-before="submitSlotProps">
+          <slot
+            name="submit-before"
+            v-bind="submitSlotProps"
+            :form-api="formApi"
+            :values="form.values"
+          ></slot>
+        </template>
+        <template #expand-before="expandBeforeSlotProps">
+          <slot
+            name="expand-before"
+            v-bind="expandBeforeSlotProps"
+            :form-api="formApi"
+            :values="form.values"
+          ></slot>
+        </template>
+        <template #expand-after="expandAfterSlotProps">
+          <slot
+            name="expand-after"
+            v-bind="expandAfterSlotProps"
+            :form-api="formApi"
+            :values="form.values"
+          ></slot>
+        </template>
+      </FormActions>
     </template>
   </Form>
 </template>

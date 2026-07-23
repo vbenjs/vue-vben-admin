@@ -40,15 +40,19 @@ function encodeMenuFormValues(
 ): MenuSubmitValues {
   const { linkSrc, ...formValues } = values;
   if (values.type === 'link') {
+    const meta = { ...values.meta, link: linkSrc };
+    Reflect.deleteProperty(meta, 'iframeSrc');
     return {
       ...formValues,
-      meta: { ...values.meta, link: linkSrc },
+      meta,
     };
   }
   if (values.type === 'embedded') {
+    const meta = { ...values.meta, iframeSrc: linkSrc };
+    Reflect.deleteProperty(meta, 'link');
     return {
       ...formValues,
-      meta: { ...values.meta, iframeSrc: linkSrc },
+      meta,
     };
   }
   return formValues;

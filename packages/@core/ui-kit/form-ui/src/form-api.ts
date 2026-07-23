@@ -144,7 +144,7 @@ export class FormApi<
     if (this.state?.codec) {
       return encodeFormValues(
         this.state.codec,
-        rawValues as Readonly<TFormValues>,
+        cloneDeep(toRaw(rawValues)) as Readonly<TFormValues>,
       );
     }
     return formatFormValues(
@@ -303,10 +303,23 @@ export class FormApi<
     if (!this.isMounted) {
       this.form = formActions;
       this.stateHandler.setConditionTrue();
-      const initialValues = this.form.values
-        ? this.formatValues(toRaw(this.form.values))
-        : {};
-      this.setLatestSubmissionValues(initialValues);
+      let initialValues: FormValues = {};
+      if (this.form.values) {
+        const rawInitialValues = toRaw(this.form.values);
+        try {
+          initialValues = this.formatValues(rawInitialValues);
+        } catch (error) {
+          if (!this.state?.codec) {
+            throw error;
+          }
+          console.warn(
+            '[Vben Form] Failed to encode initial values. Falling back to raw form values.',
+            error,
+          );
+          initialValues = cloneDeep(rawInitialValues);
+        }
+      }
+      this.setLatestSubmissionValues(initialValues as Partial<TSubmitValues>);
       this.componentRefMap =
         componentRefMap ?? this.componentRefMap ?? new Map();
       this.isMounted = true;

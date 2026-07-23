@@ -678,7 +678,7 @@ export type HandleSubmitFn<
   TFormValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TFormValues,
 > = (
-  values: TSubmitValues,
+  values: NoInfer<TSubmitValues>,
   rawValues: Readonly<TFormValues>,
 ) => Promise<void> | void;
 

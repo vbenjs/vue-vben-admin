@@ -13,11 +13,11 @@ import { Page, useVbenDrawer } from '@vben/common-ui';
 import { Plus } from '@vben/icons';
 
 import { Button, message, Modal } from 'antdv-next';
-import dayjs from 'dayjs';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteRole, getRoleList, updateRole } from '#/api';
 import { $t } from '#/locales';
+import { createDateRangeCodec } from '#/utils/date-range-codec';
 
 import { useColumns, useGridFormSchema } from './data';
 import Form from './modules/form.vue';
@@ -26,28 +26,13 @@ interface RoleSearchFormValues extends Record<string, unknown> {
   createTime?: [Dayjs, Dayjs];
 }
 
-function encodeRoleSearchValues(values: Readonly<RoleSearchFormValues>) {
-  const { createTime, ...formValues } = values;
-  return {
-    ...formValues,
-    endTime: createTime?.[1]?.format('YYYY-MM-DD'),
-    startTime: createTime?.[0]?.format('YYYY-MM-DD'),
-  };
-}
+const roleSearchCodec = createDateRangeCodec<RoleSearchFormValues>()({
+  endField: 'endTime',
+  rangeField: 'createTime',
+  startField: 'startTime',
+});
 
-type RoleSearchSubmitValues = ReturnType<typeof encodeRoleSearchValues>;
-
-function decodeRoleSearchValues(
-  values: Readonly<RoleSearchSubmitValues>,
-): RoleSearchFormValues {
-  const { endTime, startTime, ...formValues } = values;
-  return {
-    ...formValues,
-    ...(startTime && endTime
-      ? { createTime: [dayjs(startTime), dayjs(endTime)] }
-      : {}),
-  };
-}
+type RoleSearchSubmitValues = ReturnType<typeof roleSearchCodec.encode>;
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
@@ -56,10 +41,7 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    codec: {
-      decode: decodeRoleSearchValues,
-      encode: encodeRoleSearchValues,
-    },
+    codec: roleSearchCodec,
     schema: useGridFormSchema(),
     submitOnChange: true,
   },

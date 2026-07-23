@@ -121,7 +121,7 @@ const schema: VbenFormSchema<ArrayFormValues>[] = [
         defaultValue: '',
         fieldName: 'name',
         label: '姓名',
-        rules: z.string().min(1, '请输入姓名'),
+        rules: z.string().trim().min(1, '请输入姓名'),
       },
       {
         component: 'Select',
