@@ -180,7 +180,7 @@ catalog:
   stylelint-scss: ^7.2.0
   tailwind-merge: ^3.6.0
   tailwindcss: ^4.3.3
-  tdesign-vue-next: ^1.20.3
+  tdesign-vue-next: ^1.20.4
   theme-colors: ^0.1.0
   tippy.js: ^6.3.7
   tsdown: ^0.22.13

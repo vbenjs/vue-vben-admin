@@ -424,8 +424,8 @@ catalogs:
       specifier: ^4.3.3
       version: 4.3.3
     tdesign-vue-next:
-      specifier: ^1.20.3
-      version: 1.20.3
+      specifier: ^1.20.4
+      version: 1.20.4
     theme-colors:
       specifier: ^0.1.0
       version: 0.1.0
@@ -965,7 +965,7 @@ importers:
         version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@6.0.3)(vue@3.5.40(typescript@6.0.3))
       tdesign-vue-next:
         specifier: 'catalog:'
-        version: 1.20.3(vue@3.5.40(typescript@6.0.3))
+        version: 1.20.4(vue@3.5.40(typescript@6.0.3))
       vue:
         specifier: ^3.5.40
         version: 3.5.40(typescript@6.0.3)
@@ -10281,8 +10281,8 @@ packages:
     peerDependencies:
       vue: ^3.5.40
 
-  tdesign-vue-next@1.20.3:
-    resolution: {integrity: sha512-DYcZN1d1zSiwSIimgU63rTjBgaxPF3fVgBEN/X3M5R3OStnAnXh+DG6RfrENGJPKXVD3oUcYk37c7uE+hKdJEw==}
+  tdesign-vue-next@1.20.4:
+    resolution: {integrity: sha512-5gNYyVJiIq1mBQaUx1mPXPQA0KHdF27bHNBsldE0GP1hBMs2Abj+GEB9bnLUTDmks85fZkenbojQYGqlKOQD9w==}
     engines: {node: '>= 18'}
     peerDependencies:
       vue: ^3.5.40
@@ -19888,7 +19888,7 @@ snapshots:
       '@babel/runtime': 7.29.7
       vue: 3.5.40(typescript@6.0.3)
 
-  tdesign-vue-next@1.20.3(vue@3.5.40(typescript@6.0.3)):
+  tdesign-vue-next@1.20.4(vue@3.5.40(typescript@6.0.3)):
     dependencies:
       '@babel/runtime': 7.29.7
       '@popperjs/core': 2.11.8
