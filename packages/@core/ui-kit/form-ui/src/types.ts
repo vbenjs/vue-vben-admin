@@ -141,7 +141,7 @@ export interface FormContextApi<TValues extends FormValues = FormValues> {
     fieldName: TFieldName,
   ) => FormFieldValue<TValues, TFieldName>;
   handleSubmit: (
-    callback: (values: TValues) => Promise<void> | void,
+    callback?: (values?: TValues) => Promise<void> | void,
   ) => (event?: Event) => Promise<void>;
   isFieldValid: (fieldName: string) => boolean;
   readonly meta: FormMeta;

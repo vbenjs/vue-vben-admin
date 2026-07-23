@@ -244,13 +244,13 @@ export function useFormRuntime<TValues extends FormValues>(
         typeof fieldName
       >;
     },
-    handleSubmit(callback) {
-      return async (event) => {
+    handleSubmit(callback?) {
+      return async (event?: Event) => {
         event?.preventDefault();
         event?.stopPropagation();
         const result = await validate();
         if (result.valid) {
-          await callback(values.value);
+          await callback?.(values.value as TValues);
         }
       };
     },

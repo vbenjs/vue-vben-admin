@@ -600,19 +600,28 @@ describe('useVbenForm integration', () => {
 
     await input.setValue('');
     await flushPromises();
-    expect(wrapper.text()).not.toContain('Name is required');
+    await vi.waitFor(() => {
+      expect(wrapper.text()).not.toContain('Name is required');
+    });
 
     await input.trigger('blur');
-    await flushPromises();
-    expect(wrapper.text()).toContain('Name is required');
+    // The blur validator (`onBlurAsync`) resolves across several microtasks,
+    // so poll until the error state settles instead of a single flushPromises.
+    await vi.waitFor(() => {
+      expect(wrapper.text()).toContain('Name is required');
+    });
 
     await input.setValue('Ada');
     await flushPromises();
-    expect(wrapper.text()).not.toContain('Name is required');
+    await vi.waitFor(() => {
+      expect(wrapper.text()).not.toContain('Name is required');
+    });
 
     await input.trigger('blur');
     await flushPromises();
-    expect(wrapper.text()).not.toContain('Name is required');
+    await vi.waitFor(() => {
+      expect(wrapper.text()).not.toContain('Name is required');
+    });
   });
 
   it('ignores stale asynchronous validation results', async () => {
@@ -652,5 +661,139 @@ describe('useVbenForm integration', () => {
     await flushPromises();
 
     expect(formApi.form.getFieldError('username')).toBeUndefined();
+  });
+
+  it('passes formatted values and raw values to handleSubmit callback', async () => {
+    const handleSubmit = vi.fn();
+    const [Form, formApi] = useVbenForm({
+      handleSubmit,
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'name',
+          rules: 'required',
+          valueFormat: (value) => (value ? value.toUpperCase() : value),
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await formApi.setFieldValue('name', 'test');
+    await formApi.validateAndSubmit();
+    await flushPromises();
+
+    expect(handleSubmit).toHaveBeenCalledOnce();
+    expect(handleSubmit).toHaveBeenCalledWith(
+      { name: 'TEST' },
+      { name: 'test' },
+    );
+  });
+
+  it('calls handleReset with formatted values on reset button click', async () => {
+    const handleReset = vi.fn();
+    const [Form, formApi] = useVbenForm({
+      handleReset,
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'hello',
+          fieldName: 'name',
+          valueFormat: (value) => (value ? value.toUpperCase() : value),
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(await formApi.getValues()).toEqual({ name: 'HELLO' });
+    await wrapper.find('button').trigger('click');
+    await flushPromises();
+
+    expect(handleReset).toHaveBeenCalledOnce();
+    expect(handleReset).toHaveBeenCalledWith({ name: 'HELLO' });
+  });
+
+  it('setValues with multiple fields does not fire handleValuesChange with intermediate state', async () => {
+    const handleValuesChange = vi.fn();
+    const [Form, formApi] = useVbenForm({
+      handleValuesChange,
+      schema: [
+        { component: TestInput, fieldName: 'first' },
+        { component: TestInput, fieldName: 'second' },
+        { component: TestInput, fieldName: 'third' },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+    vi.useFakeTimers();
+
+    const initialCallCount = handleValuesChange.mock.calls.length;
+    await formApi.setValues({ first: 'a', second: 'b', third: 'c' });
+    await flushPromises();
+    vi.advanceTimersByTime(500);
+    await flushPromises();
+
+    const calls = handleValuesChange.mock.calls.slice(initialCallCount);
+    const rawValuesFromLatestCall = calls[calls.length - 1]?.[0];
+    expect(rawValuesFromLatestCall).toMatchObject({
+      first: 'a',
+      second: 'b',
+      third: 'c',
+    });
+  });
+
+  it('retains unspecified fields on partial reset', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        { component: TestInput, defaultValue: 'original', fieldName: 'name' },
+        { component: TestInput, defaultValue: 'keep', fieldName: 'alias' },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await formApi.reset({ values: { name: 'reset' } });
+    await flushPromises();
+
+    const values = await formApi.getValues();
+    expect(values).toMatchObject({ name: 'reset' });
+  });
+
+  it('valueFormat is applied consistently across getValues, validateAndSubmit, and getValueSnapshot', async () => {
+    const handleSubmit = vi.fn();
+    const [Form, formApi] = useVbenForm({
+      handleSubmit,
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'name',
+          valueFormat: (value) => (value ? value.trim().toUpperCase() : ''),
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await formApi.setFieldValue('name', '  hello  ');
+    await flushPromises();
+
+    expect(await formApi.getValues()).toEqual({ name: 'HELLO' });
+
+    const snapshot = await formApi.getValueSnapshot();
+    expect(snapshot.values).toEqual({ name: 'HELLO' });
+    expect(snapshot.rawValues).toEqual({ name: '  hello  ' });
+
+    await formApi.validateAndSubmit();
+    await flushPromises();
+    expect(handleSubmit).toHaveBeenCalledWith(
+      { name: 'HELLO' },
+      { name: '  hello  ' },
+    );
   });
 });
