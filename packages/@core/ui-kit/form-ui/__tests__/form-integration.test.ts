@@ -485,6 +485,37 @@ describe('useVbenForm integration', () => {
     });
   });
 
+  it('preserves array row inputs and focus while editing', async () => {
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          children: [
+            {
+              component: TestInput,
+              fieldName: 'name',
+              label: 'Name',
+            },
+          ],
+          defaultValue: [{ name: 'Ada' }],
+          fieldName: 'contacts',
+          type: 'array',
+        },
+      ],
+    });
+    const wrapper = mount(Form, { attachTo: document.body });
+    wrappers.push(wrapper);
+    await flushPromises();
+    const input = wrapper.get('input');
+    const inputElement = input.element;
+    inputElement.focus();
+
+    await input.setValue('Ada Lovelace');
+    await flushPromises();
+
+    expect(wrapper.get('input').element).toBe(inputElement);
+    expect(document.activeElement).toBe(inputElement);
+  });
+
   it('scopes resolve dependencies to array rows', async () => {
     const resolve = vi.fn(({ schema }: Record<string, any>) => ({
       componentProps: {

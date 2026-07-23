@@ -10,7 +10,7 @@ import {
   VbenIconButton,
   VbenRenderContent,
 } from '@vben-core/shadcn-ui';
-import { cn, isObject, set } from '@vben-core/shared/utils';
+import { cn, set } from '@vben-core/shared/utils';
 
 import { injectRenderFormProps } from '../form-render/context';
 import FormField from '../form-render/form-field.vue';
@@ -72,8 +72,6 @@ if (!form) {
 }
 const formActions = form;
 const arrayValue = formActions.useFieldValue(props.name);
-const rowKeys = new WeakMap<object, string>();
-let nextRowKey = 0;
 
 const fields = computed<Record<string, any>[]>(() => {
   return Array.isArray(arrayValue.value) ? arrayValue.value : [];
@@ -124,20 +122,6 @@ function removeRow(index: number) {
   void formActions.removeFieldValue(arrayPath.value, index);
 }
 
-function getRowKey(row: Record<string, any>, index: number) {
-  if (!isObject(row)) {
-    return `${arrayPath.value}-${index}`;
-  }
-  const existingKey = rowKeys.get(row);
-  if (existingKey) {
-    return existingKey;
-  }
-  nextRowKey += 1;
-  const key = `${arrayPath.value}-${nextRowKey}`;
-  rowKeys.set(row, key);
-  return key;
-}
-
 function rowSchemas(index: number) {
   return props.schema.map((col) =>
     createArrayChildSchema(col as never, {
@@ -179,8 +163,8 @@ function rowSchemas(index: number) {
       </div>
 
       <div
-        v-for="(entry, index) in fields"
-        :key="getRowKey(entry, index)"
+        v-for="(_, index) in fields"
+        :key="`${arrayPath}-${index}`"
         class="border-border/60 border-b p-3 last:border-b-0 sm:grid sm:p-0"
         :style="gridStyle"
       >
