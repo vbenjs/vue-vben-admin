@@ -17,6 +17,37 @@ const codec = createDateRangeCodec<SearchFormValues>()({
 });
 
 describe('date range codec', () => {
+  it('only accepts optional date range fields', () => {
+    interface RangeFieldCandidates extends Record<string, unknown> {
+      optionalRange?: [Dayjs, Dayjs];
+      optionalText?: string;
+      requiredRange: [Dayjs, Dayjs];
+    }
+
+    const createCodec = createDateRangeCodec<RangeFieldCandidates>();
+    const optionalRangeCodec = createCodec({
+      endField: 'end',
+      rangeField: 'optionalRange',
+      startField: 'start',
+    });
+    expect(optionalRangeCodec).toEqual({
+      decode: expect.any(Function),
+      encode: expect.any(Function),
+    });
+    createCodec({
+      endField: 'end',
+      // @ts-expect-error A required range cannot be omitted by decode.
+      rangeField: 'requiredRange',
+      startField: 'start',
+    });
+    createCodec({
+      endField: 'end',
+      // @ts-expect-error The range field must contain a DateRange.
+      rangeField: 'optionalText',
+      startField: 'start',
+    });
+  });
+
   it('encodes and decodes configurable date range fields', () => {
     const submitValues = codec.encode({
       createdAt: [dayjs('2026-07-01'), dayjs('2026-07-23')],
