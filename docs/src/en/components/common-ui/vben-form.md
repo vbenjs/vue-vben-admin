@@ -207,7 +207,7 @@ Create the form through `useVbenForm`:
 
 ## Typed Values and Slots
 
-Use `useVbenForm<TFormValues, TSubmitValues>` to declare component-facing form values and submission values separately. Schema, slots, selectors, and `setValues` use `TFormValues`; `getValues`, submit, and the first `handleSubmit` argument use `TSubmitValues`. Pass one generic when both shapes are identical.
+Use `useVbenForm<TFormValues, TSubmitValues>` to declare component-facing form values and submission values separately. Schema, slots, selectors, and `setValues` use `TFormValues`; `getValues()` and `submit()` return `Promise<TSubmitValues>`, while `submit()` only accepts an optional native `Event`; the first `handleSubmit` argument is `TSubmitValues`. Pass one generic when both shapes are identical.
 
 ```vue
 <script setup lang="ts">

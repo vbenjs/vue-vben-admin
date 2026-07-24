@@ -336,7 +336,7 @@ const [Form, formApi] = useVbenForm({
 
 ### 类型传递与插槽
 
-使用 `useVbenForm<TFormValues, TSubmitValues>` 分别声明组件表单值和提交值。schema、slots、`setValues`、`getRawValues()` 使用 `TFormValues`；`getValues`、submit 和 `handleSubmit` 第一参数使用 `TSubmitValues`。两种结构相同时只传一个泛型即可。
+使用 `useVbenForm<TFormValues, TSubmitValues>` 分别声明组件表单值和提交值。schema、slots、`setValues`、`getRawValues()` 使用 `TFormValues`；`getValues()` 和 `submit()` 返回 `Promise<TSubmitValues>`，其中 `submit()` 只接收可选的原生 `Event`；`handleSubmit` 第一参数使用 `TSubmitValues`。两种结构相同时只传一个泛型即可。
 
 ```vue
 <script setup lang="ts">
