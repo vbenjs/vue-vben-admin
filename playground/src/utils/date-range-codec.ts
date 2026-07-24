@@ -4,6 +4,18 @@ import dayjs from 'dayjs';
 
 type DateRange = [Dayjs, Dayjs];
 
+type OptionalDateRangeField<
+  TFormValues extends Record<string, unknown>,
+  TRangeField extends keyof TFormValues,
+> =
+  Record<never, never> extends Pick<TFormValues, TRangeField>
+    ? [Exclude<TFormValues[TRangeField], undefined>] extends [never]
+      ? never
+      : Exclude<TFormValues[TRangeField], undefined> extends DateRange
+        ? TRangeField
+        : never
+    : never;
+
 type DateRangeSubmitValues<
   TFormValues extends Record<string, unknown>,
   TRangeField extends keyof TFormValues,
@@ -19,7 +31,7 @@ interface DateRangeCodecOptions<
   TEndField extends string,
 > {
   endField: TEndField;
-  rangeField: TRangeField;
+  rangeField: OptionalDateRangeField<TFormValues, TRangeField> & TRangeField;
   startField: TStartField;
 }
 
@@ -30,11 +42,16 @@ export function createDateRangeCodec<
     TRangeField extends keyof TFormValues & string,
     TStartField extends string,
     TEndField extends string,
-  >({
-    endField,
-    rangeField,
-    startField,
-  }: DateRangeCodecOptions<TFormValues, TRangeField, TStartField, TEndField>) {
+  >(
+    options: DateRangeCodecOptions<
+      TFormValues,
+      TRangeField,
+      TStartField,
+      TEndField
+    >,
+  ) {
+    const { endField, startField } = options;
+    const rangeField = options.rangeField as TRangeField;
     type SubmitValues = DateRangeSubmitValues<
       TFormValues,
       TRangeField,

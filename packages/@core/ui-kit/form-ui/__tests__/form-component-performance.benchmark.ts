@@ -1,37 +1,18 @@
 import type { FormSchema } from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
-import { defineComponent, h, nextTick } from 'vue';
+import { nextTick } from 'vue';
 
 import { afterAll, bench, describe } from 'vitest';
 import { z } from 'zod';
 
 import { setupVbenForm } from '../src/config';
 import { useVbenForm } from '../src/use-vben-form';
+import { TestInput } from './benchmark-fixtures';
 
 const BENCHMARK_OPTIONS = { time: 750, warmupTime: 150 } as const;
 const FIELD_COUNT = 100;
 const MOUNT_FIELD_COUNT = 50;
-
-const TestInput = defineComponent({
-  inheritAttrs: false,
-  emits: ['update:modelValue'],
-  setup(_props, { attrs, emit }) {
-    function handleInput(event: Event) {
-      const target = event.target;
-      if (target instanceof HTMLInputElement) {
-        emit('update:modelValue', target.value);
-      }
-    }
-
-    return () =>
-      h('input', {
-        ...attrs,
-        onInput: handleInput,
-        value: attrs.modelValue ?? '',
-      });
-  },
-});
 
 function createFlatSchema(
   fieldCount: number,

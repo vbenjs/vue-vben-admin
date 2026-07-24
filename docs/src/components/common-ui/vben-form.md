@@ -269,6 +269,22 @@ const [Form, formApi] = useVbenForm({
 
 <DemoPreview dir="demos/vben-form/value-format" />
 
+## 性能基准
+
+表单性能基准覆盖组件初始化、单字段与批量更新、重置、Zod 校验、动态 schema、字段联动、codec 编码与快照，以及数组字段编辑、增删和子 schema 更新。完整运行：
+
+```bash
+pnpm test:benchmark
+```
+
+只检查表单相关基准时，可以直接指定文件：
+
+```bash
+pnpm exec vitest bench --run packages/@core/ui-kit/form-ui/__tests__/form-component-performance.benchmark.ts packages/@core/ui-kit/form-ui/__tests__/form-performance.benchmark.ts
+```
+
+基准结果用于比较同一环境、同一场景在修改前后的相对变化，不应把单次运行的绝对耗时作为跨机器阈值。运行前应停止开发服务器等高 CPU 任务，并保持 Node.js 版本一致。benchmark 文件不会进入普通 `test:unit` 流程。
+
 ## 表单校验
 
 表单校验是一个非常重要的功能，可以通过 `rules` 属性进行校验。
@@ -320,7 +336,7 @@ const [Form, formApi] = useVbenForm({
 
 ### 类型传递与插槽
 
-使用 `useVbenForm<TFormValues, TSubmitValues>` 分别声明组件表单值和提交值。schema、slots、`setValues`、`formApi.form.values` 使用 `TFormValues`；`getValues`、submit 和 `handleSubmit` 第一参数使用 `TSubmitValues`。两种结构相同时只传一个泛型即可。
+使用 `useVbenForm<TFormValues, TSubmitValues>` 分别声明组件表单值和提交值。schema、slots、`setValues`、`getRawValues()` 使用 `TFormValues`；`getValues()` 和 `submit()` 返回 `Promise<TSubmitValues>`，其中 `submit()` 只接收可选的原生 `Event`；`handleSubmit` 第一参数使用 `TSubmitValues`。两种结构相同时只传一个泛型即可。
 
 ```vue
 <script setup lang="ts">
@@ -449,6 +465,12 @@ const submitting = formApi.form.useSelector((state) => state.meta.submitting);
 | submitOnChange | 字段值改变时提交表单(内部防抖，这个属性一般用于表格的搜索表单) | `boolean` | false |
 | compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
 | scrollToFirstError | 表单验证失败时是否自动滚动到第一个错误字段 | `boolean` | false |
+
+::: warning formApi.form 的挂载时机
+
+`formApi.form` 是 `<Form />` 挂载后注入的 `FormContextApi`。不要在调用 `useVbenForm` 时从第二个返回值中解构或缓存 `form`，否则会保留挂载前的空引用。业务操作优先使用 `formApi` 上会等待挂载的公开方法，例如 `getRawValues()`、`setFieldError()`、`setFieldValue()` 和 `validate()`；只有在已经挂载的表单上下文中才直接使用 `formApi.form` 的细粒度订阅方法。
+
+:::
 
 ::: tip handleValuesChange
 

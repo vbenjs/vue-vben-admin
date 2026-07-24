@@ -37,38 +37,38 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 const showUnlockForm = ref(false);
 const { lockScreenPassword } = storeToRefs(accessStore);
 
-const [Form, { form, validate, getFieldComponentRef }] = useVbenForm(
-  reactive({
-    commonConfig: {
-      hideLabel: true,
-      hideRequiredMark: true,
-    },
-    schema: computed(() => [
-      {
-        component: 'VbenInputPassword' as const,
-        componentProps: {
-          placeholder: $t('ui.widgets.lockScreen.placeholder'),
-        },
-        fieldName: 'password',
-        label: $t('authentication.password'),
-        rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+const [Form, { getFieldComponentRef, getRawValues, setFieldError, validate }] =
+  useVbenForm(
+    reactive({
+      commonConfig: {
+        hideLabel: true,
+        hideRequiredMark: true,
       },
-    ]),
-    showDefaultActions: false,
-  }),
-);
-
-const validPass = computed(
-  () => lockScreenPassword?.value === form?.values?.password,
-);
+      schema: computed(() => [
+        {
+          component: 'VbenInputPassword' as const,
+          componentProps: {
+            placeholder: $t('ui.widgets.lockScreen.placeholder'),
+          },
+          fieldName: 'password',
+          label: $t('authentication.password'),
+          rules: z
+            .string()
+            .min(1, { message: $t('authentication.passwordTip') }),
+        },
+      ]),
+      showDefaultActions: false,
+    }),
+  );
 
 async function handleSubmit() {
   const { valid } = await validate();
   if (valid) {
-    if (validPass.value) {
+    const { password } = await getRawValues();
+    if (lockScreenPassword?.value === password) {
       accessStore.unlockScreen();
     } else {
-      form.setFieldError('password', $t('authentication.passwordErrorTip'));
+      await setFieldError('password', $t('authentication.passwordErrorTip'));
     }
   }
 }

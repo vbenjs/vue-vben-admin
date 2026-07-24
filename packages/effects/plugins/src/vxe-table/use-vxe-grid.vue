@@ -339,7 +339,6 @@ async function init() {
       'query',
       formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
     );
-    // props.api.reload(formApi.form?.values ?? {});
   }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告

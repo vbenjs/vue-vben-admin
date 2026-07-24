@@ -404,6 +404,11 @@ export class FormApi<
     }
   }
 
+  async setFieldError(fieldName: FormFieldName<TFormValues>, error?: string) {
+    const form = await this.getForm();
+    form.setFieldError(fieldName, error);
+  }
+
   async setFieldValue<TFieldName extends FormFieldName<TFormValues>>(
     field: TFieldName,
     value: FormFieldValue<TFormValues, NoInfer<TFieldName>>,

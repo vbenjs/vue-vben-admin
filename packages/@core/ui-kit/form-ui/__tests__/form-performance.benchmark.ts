@@ -1,12 +1,12 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import { defineComponent, h, nextTick } from 'vue';
+import { nextTick } from 'vue';
 
 import { afterAll, bench, describe } from 'vitest';
 
 import { setupVbenForm } from '../src/config';
-import { FormApi } from '../src/form-api';
 import { encodeFormValues } from '../src/form-codec';
 import { useVbenForm } from '../src/use-vben-form';
+import { TestInput } from './benchmark-fixtures';
 
 interface ContactValues {
   enabled: boolean;
@@ -29,26 +29,6 @@ interface PerformanceFormValues extends Record<string, unknown> {
 }
 
 const ROW_COUNT = 100;
-
-const TestInput = defineComponent({
-  inheritAttrs: false,
-  emits: ['update:modelValue'],
-  setup(_props, { attrs, emit }) {
-    function handleInput(event: Event) {
-      const target = event.target;
-      if (target instanceof HTMLInputElement) {
-        emit('update:modelValue', target.value);
-      }
-    }
-
-    return () =>
-      h('input', {
-        ...attrs,
-        onInput: handleInput,
-        value: attrs.modelValue ?? '',
-      });
-  },
-});
 
 function createFormValues(): PerformanceFormValues {
   return {
@@ -82,10 +62,24 @@ const codec = {
 };
 
 const formValues = createFormValues();
-const codecFormApi = new FormApi<PerformanceFormValues>({ codec });
-codecFormApi.mount({ meta: {}, values: formValues } as never, new Map());
-
 setupVbenForm({ config: {}, rules: {} });
+const [CodecForm, codecFormApi] = useVbenForm<PerformanceFormValues>({
+  codec,
+  schema: [
+    {
+      component: TestInput,
+      defaultValue: formValues.contacts,
+      fieldName: 'contacts',
+    },
+    {
+      component: TestInput,
+      defaultValue: formValues.settings,
+      fieldName: 'settings',
+    },
+  ],
+  showDefaultActions: false,
+});
+const codecWrapper = mount(CodecForm);
 const [ArrayForm, arrayFormApi] = useVbenForm({
   schema: [
     {
@@ -115,6 +109,7 @@ let arraySchemaIteration = 0;
 
 afterAll(() => {
   arrayWrapper.unmount();
+  codecWrapper.unmount();
 });
 
 describe('form codec performance', () => {
