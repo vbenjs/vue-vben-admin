@@ -51,7 +51,8 @@
     "clipboard": "Clipboard",
     "menuWithQuery": "Menu With Query",
     "openInNewWindow": "Open in New Window",
-    "fileDownload": "File Download"
+    "fileDownload": "File Download",
+    "requestParamsSerializer": "Request Params Serializer"
   },
   "preferencesExtensionDemo": {
     "description": "This page directly uses extension preferences defined in the playground app. You can modify them in “Preferences → Playground Extension” at the top right, or click the preset buttons below to see the page update in real time.",
