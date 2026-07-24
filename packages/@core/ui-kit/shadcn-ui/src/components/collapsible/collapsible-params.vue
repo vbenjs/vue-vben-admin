@@ -202,8 +202,7 @@ defineExpose({
     <div
       class="trigger-bar flex min-h-[2rem] border-t px-5 pt-1 pb-1 rounded-b-[0.5rem] z-1"
       :class="{
-        'collapsed absolute bottom-[1px] left-[1px] right-[1px] border-t-0 pt-6':
-          !open,
+        'collapsed absolute bottom-px left-px right-px border-t-0 pt-6': !open,
       }"
       v-if="collapsibleRows.length > 0"
     >

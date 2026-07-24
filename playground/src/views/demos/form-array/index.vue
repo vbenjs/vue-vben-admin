@@ -57,7 +57,7 @@ const formattedSubmitValues = computed(() =>
 const outputClass = [
   'bg-muted',
   'text-muted-foreground',
-  'max-h-[420px]',
+  'max-h-105',
   'overflow-auto',
   'rounded-md',
   'p-3',
