@@ -295,7 +295,7 @@ async function previewImage(
         return h(
           PreviewGroupComponent,
           {
-            class: 'hidden',
+            classes: { popup: { root: '!z-2000' } },
             preview: {
               open: open.value,
               current: currentIndex,
