@@ -44,7 +44,7 @@ import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
-import { applyViewedRowOptions, useViewedRow } from './use-viewed-row';
+import { applyViewedRowOptions, useViewedRow } from './viewed-row';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
