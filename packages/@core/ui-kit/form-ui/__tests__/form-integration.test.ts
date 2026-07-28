@@ -770,6 +770,9 @@ describe('useVbenForm integration', () => {
       mode: 'value',
       target: 'initial',
     });
+    expect(latestSlotProps.formApi).toBe(formApi);
+    expect(latestSlotProps.componentProps).not.toHaveProperty('formApi');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('values');
     expect(Reflect.has(latestSlotProps, 'value')).toBe(false);
     expect(Reflect.has(latestSlotProps, 'onUpdate:modelValue')).toBe(false);
     expect(latestSlotProps.modelValue).toBe('initial');
