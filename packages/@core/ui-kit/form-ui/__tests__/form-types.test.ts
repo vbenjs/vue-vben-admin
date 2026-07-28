@@ -1,3 +1,5 @@
+import type { Component } from 'vue';
+
 import type {
   BaseFormComponentType,
   ExtendedFormApi,
@@ -10,6 +12,8 @@ import type {
   VbenFormAdapterOptions,
   VbenFormProps,
 } from '../src/types';
+
+import { defineComponent } from 'vue';
 
 import { describe, expectTypeOf, it } from 'vitest';
 
@@ -28,6 +32,8 @@ interface AccountSubmitValues {
   nickname: string;
   roles: string;
 }
+
+const CustomInput = defineComponent(() => () => null);
 
 describe('form public types', () => {
   it('keeps the compatibility alias and stable method signatures', () => {
@@ -52,7 +58,10 @@ describe('form public types', () => {
   });
 
   it('supports resolve and legacy dependency contracts', () => {
-    const resolveDependencies: FormItemDependencies<AccountFormValues> = {
+    const resolveDependencies: FormItemDependencies<
+      AccountFormValues,
+      'Input' | 'Select'
+    > = {
       resolve({ actions, controller, schema, values }) {
         expectTypeOf(values).toEqualTypeOf<Readonly<AccountFormValues>>();
         expectTypeOf(actions).toEqualTypeOf<FormActions<AccountFormValues>>();
@@ -60,7 +69,11 @@ describe('form public types', () => {
           ExtendedFormApi<AccountFormValues>
         >();
         expectTypeOf(schema.fieldName).toEqualTypeOf<string | undefined>();
-        return { disabled: !values.email, rules: null };
+        return {
+          component: values.email ? 'Input' : CustomInput,
+          disabled: !values.email,
+          rules: null,
+        };
       },
       triggerFields: ['email'],
     };
@@ -77,7 +90,7 @@ describe('form public types', () => {
     };
 
     expectTypeOf(resolveDependencies).toMatchTypeOf<
-      FormItemDependencies<AccountFormValues>
+      FormItemDependencies<AccountFormValues, 'Input' | 'Select'>
     >();
     expectTypeOf(legacyDependencies).toMatchTypeOf<
       FormItemDependencies<AccountFormValues>
@@ -141,12 +154,29 @@ describe('form public types', () => {
       EmailSlotProps['field']['state']['value']
     >().toEqualTypeOf<string>();
     expectTypeOf<EmailSlotProps['values']>().toEqualTypeOf<AccountFormValues>();
+    expectTypeOf<EmailSlotProps['component']>().toEqualTypeOf<
+      Component | undefined
+    >();
+    expectTypeOf<
+      EmailSlotProps['componentProps']['modelValue']
+    >().toEqualTypeOf<string | undefined>();
     expectTypeOf<EmailSlotProps['formApi']>().toEqualTypeOf<
       ExtendedFormApi<AccountFormValues>
     >();
     expectTypeOf<
       DefaultSlotProps['values']
     >().toEqualTypeOf<AccountFormValues>();
+
+    const [WideForm] = useVbenForm<Record<string, unknown>>({ schema: [] });
+    type WideFormSlots = InstanceType<typeof WideForm>['$slots'];
+    type WideFieldSlot = NonNullable<WideFormSlots['dynamic-field']>;
+    type WideFieldSlotProps = Parameters<WideFieldSlot>[0];
+
+    expectTypeOf<WideFieldSlotProps>().not.toBeAny();
+    expectTypeOf<WideFieldSlotProps['modelValue']>().toEqualTypeOf<unknown>();
+    expectTypeOf<WideFieldSlotProps['values']>().toEqualTypeOf<
+      Record<string, unknown>
+    >();
   });
 
   it('keeps form and submit values distinct with a codec', () => {

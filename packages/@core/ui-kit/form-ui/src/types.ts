@@ -41,6 +41,10 @@ export type BaseFormComponentType =
   | 'VbenSelect'
   | (Record<never, never> & string);
 
+export type FormComponentType<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> = Component | T;
+
 type Breakpoints = '2xl:' | '3xl:' | '' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 
 type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
@@ -235,18 +239,36 @@ export interface VbenFormDefaultSlotProps<
 
 export interface VbenFormFieldSlotProps<
   TValues extends FormValues = FormValues,
-  TFieldName extends KnownFormFieldName<TValues> = KnownFormFieldName<TValues>,
+  TFieldName extends FormFieldName<TValues> = FormFieldName<TValues>,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
   TSubmitValues extends FormValues = TValues,
 > extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
-  componentField: FormComponentField<TValues[TFieldName], TFieldName>;
+  component?: Component;
+  componentField: FormComponentField<
+    FormFieldValue<TValues, TFieldName>,
+    TFieldName
+  >;
+  componentProps: VbenFormResolvedComponentProps<
+    FormFieldValue<TValues, TFieldName>,
+    TFieldName
+  >;
   disabled: boolean;
-  field: FormRuntimeField<TValues[TFieldName]>;
+  field: FormRuntimeField<FormFieldValue<TValues, TFieldName>>;
   isInValid: boolean;
-  modelValue: TValues[TFieldName];
+  modelValue: FormFieldValue<TValues, TFieldName>;
   name: TFieldName;
 }
+
+export type VbenFormResolvedComponentProps<
+  TValue = unknown,
+  TFieldName extends string = string,
+> = MaybeComponentProps & {
+  disabled: boolean;
+  modelValue?: TValue;
+  name: TFieldName;
+  'onUpdate:modelValue'?: (value: TValue) => void;
+};
 
 type VbenFormFieldSlots<
   TValues extends FormValues,
@@ -255,7 +277,19 @@ type VbenFormFieldSlots<
   TSubmitValues extends FormValues,
 > =
   string extends Extract<keyof TValues, string>
-    ? Record<string, ((props: any) => any) | undefined>
+    ? Record<
+        string,
+        | ((
+            props: VbenFormFieldSlotProps<
+              TValues,
+              FormFieldName<TValues>,
+              T,
+              P,
+              TSubmitValues
+            >,
+          ) => any)
+        | undefined
+      >
     : {
         [TFieldName in KnownFormFieldName<TValues>]?: (
           props: VbenFormFieldSlotProps<
@@ -372,7 +406,10 @@ export interface FormDependenciesResolveContext<
   values: Readonly<TValues>;
 }
 
-export interface FormDependenciesResolvedState {
+export interface FormDependenciesResolvedState<
+  T extends BaseFormComponentType = BaseFormComponentType,
+> {
+  component?: FormComponentType<T>;
   componentProps?: MaybeComponentProps;
   disabled?: boolean;
   help?: CustomRenderType;
@@ -431,6 +468,7 @@ export interface FormItemDependenciesLegacy<
 
 export interface FormItemDependenciesResolve<
   TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormItemDependenciesBase {
   componentProps?: never;
   disabled?: never;
@@ -439,17 +477,20 @@ export interface FormItemDependenciesResolve<
   resolve: (
     context: FormDependenciesResolveContext<TValues>,
   ) =>
-    | FormDependenciesResolvedState
-    | PromiseLike<FormDependenciesResolvedState | undefined>
+    | FormDependenciesResolvedState<T>
+    | PromiseLike<FormDependenciesResolvedState<T> | undefined>
     | undefined;
   rules?: never;
   show?: never;
   trigger?: never;
 }
 
-export type FormItemDependencies<TValues extends FormValues = FormValues> =
+export type FormItemDependencies<
+  TValues extends FormValues = FormValues,
+  T extends BaseFormComponentType = BaseFormComponentType,
+> =
   | FormItemDependenciesLegacy<TValues>
-  | FormItemDependenciesResolve<TValues>;
+  | FormItemDependenciesResolve<TValues, T>;
 
 type ComponentProps<TValues extends FormValues = FormValues> =
   | ((ctx: FormSchemaContext<TValues>) => MaybeComponentProps)
@@ -556,14 +597,14 @@ export type FormValueFormat<TValues extends FormValues = FormValues> = (
   ctx?: FormSchemaContext<TValues>,
 ) => any;
 
-interface FormSchemaBody<TValues extends FormValues = FormValues> extends Omit<
-  FormCommonConfig<TValues>,
-  'componentProps'
-> {
+interface FormSchemaBody<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  TValues extends FormValues = FormValues,
+> extends Omit<FormCommonConfig<TValues>, 'componentProps'> {
   /** 默认值 */
   defaultValue?: any;
   /** 依赖 */
-  dependencies?: FormItemDependencies<TValues>;
+  dependencies?: FormItemDependencies<TValues, T>;
   /** 描述 */
   description?: CustomRenderType;
   /** 字段名 */
@@ -599,7 +640,7 @@ type FormSchemaDiscriminated<
     component: K;
     /** 组件参数 */
     componentProps?: MappedComponentProps<P[K], TValues>;
-  } & FormSchemaBody<TValues>;
+  } & FormSchemaBody<T, TValues>;
 }[Extract<keyof P, T>];
 
 type FormSchemaFallback<
@@ -607,10 +648,10 @@ type FormSchemaFallback<
   TValues extends FormValues,
 > = {
   /** 组件 */
-  component: Component | T;
+  component: FormComponentType<T>;
   /** 组件参数 */
   componentProps?: ComponentProps<TValues>;
-} & FormSchemaBody<TValues>;
+} & FormSchemaBody<T, TValues>;
 
 type FormArraySchema<
   T extends BaseFormComponentType,
@@ -625,12 +666,12 @@ type FormArraySchema<
   /** 数组子字段定义 */
   children: FormSchema<T, P, TValues>[];
   /** 兼容显式指定内置数组编辑器 */
-  component?: Component | T;
+  component?: FormComponentType<T>;
   /** 兼容通过 componentProps 传递数组编辑器参数 */
   componentProps?: ComponentProps<TValues>;
   /** 数组字段标记 */
   type: 'array';
-} & FormSchemaBody<TValues>;
+} & FormSchemaBody<T, TValues>;
 
 export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
@@ -711,9 +752,9 @@ export type ArrayToStringFields = Array<
 export interface FormFieldProps<
   T extends BaseFormComponentType = BaseFormComponentType,
   TValues extends FormValues = FormValues,
-> extends FormSchemaBody<TValues> {
+> extends FormSchemaBody<T, TValues> {
   /** 组件 */
-  component: Component | T;
+  component: FormComponentType<T>;
   /** 组件参数 */
   componentProps?: ComponentProps<TValues>;
 }

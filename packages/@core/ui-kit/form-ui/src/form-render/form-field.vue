@@ -86,9 +86,6 @@ const error = formApi.useFieldError(fieldName);
 const fieldValue = formApi.useFieldValue(fieldName);
 const compact = computed(() => formRenderProps.compact);
 const isInValid = computed(() => Boolean(error.value));
-const shouldApplyInvalidStyle = computed(() => {
-  return isInValid.value && component !== 'VbenFormFieldArray';
-});
 const collapseOpen = ref(!defaultCollapsed);
 
 function getFormApi(): FormActions {
@@ -99,18 +96,8 @@ function getFormApi(): FormActions {
   return formApi;
 }
 
-const FieldComponent = computed(() => {
-  const finalComponent = isString(component)
-    ? componentMap.value[component]
-    : component;
-  if (!finalComponent) {
-    // 组件未注册
-    console.warn(`Component ${component} is not registered`);
-  }
-  return finalComponent ? markRaw(toRaw(finalComponent)) : finalComponent;
-});
-
 const {
+  dynamicComponent,
   dynamicComponentProps,
   dynamicHelp,
   dynamicHelpResolved,
@@ -126,6 +113,21 @@ const {
   () => dependencies,
   () => ({ fieldName }),
 );
+
+const selectedComponent = computed(() => dynamicComponent.value ?? component);
+const FieldComponent = computed(() => {
+  const currentComponent = selectedComponent.value;
+  const finalComponent = isString(currentComponent)
+    ? componentMap.value[currentComponent]
+    : currentComponent;
+  if (!finalComponent) {
+    console.warn(`Component ${currentComponent} is not registered`);
+  }
+  return finalComponent ? markRaw(toRaw(finalComponent)) : finalComponent;
+});
+const shouldApplyInvalidStyle = computed(() => {
+  return isInValid.value && selectedComponent.value !== 'VbenFormFieldArray';
+});
 
 const labelStyle = computed(() => {
   return labelClass?.includes('w-') || isVertical.value
@@ -264,7 +266,7 @@ watch(
 );
 
 const shouldDisabled = computed(() => {
-  return isDisabled.value || disabled || computedProps.value?.disabled;
+  return Boolean(isDisabled.value || disabled || computedProps.value?.disabled);
 });
 
 const customContentRender = computed(() => {
@@ -307,13 +309,21 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   };
 }
 
-function fieldBindEvent(componentField: Record<string, any>) {
+function resolveModelPropName() {
+  return (
+    modelPropName ||
+    (isString(selectedComponent.value)
+      ? componentBindEventMap.value?.[selectedComponent.value]
+      : null)
+  );
+}
+
+function fieldBindEvent(
+  componentField: Record<string, any>,
+  bindEventField: null | string | undefined,
+) {
   const modelValue = componentField.modelValue;
   const handler = componentField['onUpdate:modelValue'];
-
-  const bindEventField =
-    modelPropName ||
-    (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
   // antd design 的一些组件会传递一个 event 对象
@@ -348,12 +358,17 @@ function fieldBindEvent(componentField: Record<string, any>) {
 
 function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   const normalizedSlotProps = createFieldSlotProps(slotProps);
-  const bindEvents = fieldBindEvent(normalizedSlotProps.componentField);
-
+  const bindEventField = resolveModelPropName();
+  const bindEvents = fieldBindEvent(
+    normalizedSlotProps.componentField,
+    bindEventField,
+  );
+  const componentFieldProps = { ...normalizedSlotProps.componentField };
   const binds = {
-    ...normalizedSlotProps.componentField,
+    ...componentFieldProps,
     ...computedProps.value,
     ...bindEvents,
+    disabled: shouldDisabled.value,
     ...(Reflect.has(computedProps.value, 'onChange')
       ? { onChange: computedProps.value.onChange }
       : {}),
@@ -361,8 +376,24 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
       ? { onInput: computedProps.value.onInput }
       : {}),
   };
+  if (bindEventField && bindEventField !== 'modelValue') {
+    Reflect.deleteProperty(binds, 'modelValue');
+    Reflect.deleteProperty(binds, 'onUpdate:modelValue');
+  }
 
   return binds;
+}
+
+function createFieldSlotScope(slotProps: RuntimeFieldSlotProps) {
+  return {
+    ...createFieldSlotProps(slotProps),
+    component: FieldComponent.value,
+    componentProps: createComponentProps(slotProps),
+    disabled: shouldDisabled.value,
+    isInValid: isInValid.value,
+    modelValue: fieldValue.value,
+    name: fieldName,
+  };
 }
 
 function autofocus() {
@@ -470,14 +501,7 @@ onUnmounted(() => {
                 :class="cn('relative flex w-full items-center', wrapperClass)"
               >
                 <FormControl :class="cn(controlClass)">
-                  <slot
-                    v-bind="{
-                      ...createFieldSlotProps(slotProps),
-                      ...createComponentProps(slotProps),
-                      disabled: shouldDisabled,
-                      isInValid,
-                    }"
-                  >
+                  <slot v-bind="createFieldSlotScope(slotProps)">
                     <component
                       :is="FieldComponent"
                       ref="fieldComponentRef"
@@ -486,7 +510,6 @@ onUnmounted(() => {
                           shouldApplyInvalidStyle,
                       }"
                       v-bind="createComponentProps(slotProps)"
-                      :disabled="shouldDisabled"
                     >
                       <template
                         v-for="name in renderContentKey"

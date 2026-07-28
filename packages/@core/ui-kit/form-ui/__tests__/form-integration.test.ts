@@ -1,18 +1,38 @@
+/* eslint-disable vue/one-component-per-file */
+
 import type { VueWrapper } from '@vue/test-utils';
 
-import type { FormSchemaRuleType } from '../src/types';
+import type {
+  FormSchema,
+  FormSchemaRuleType,
+  VbenFormFieldSlotProps,
+} from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
 
-import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import { z } from 'zod';
 
-import { setupVbenForm } from '../src/config';
+import {
+  COMPONENT_BIND_EVENT_MAP,
+  COMPONENT_MAP,
+  setupVbenForm,
+} from '../src/config';
 import { resetDeprecationWarnings } from '../src/deprecation';
 import { useVbenForm } from '../src/use-vben-form';
 
 const wrappers: VueWrapper[] = [];
+
+type TestRegisteredComponent = 'TestCheckedInput' | 'TestValueInput';
 
 function createDeferred<T>() {
   let resolvePromise: (value: T) => void = () => {};
@@ -58,7 +78,82 @@ const TestInput = defineComponent({
   },
 });
 
+const TestValueInput = defineComponent({
+  inheritAttrs: false,
+  emits: ['update:value'],
+  setup(_props, { attrs, emit }) {
+    function handleClick() {
+      emit('update:value', 'value-updated');
+    }
+
+    return () =>
+      h('button', {
+        ...attrs,
+        class: 'test-value-input',
+        'data-value': String(attrs.value ?? ''),
+        onClick: handleClick,
+      });
+  },
+});
+
+const TestCheckedInput = defineComponent({
+  inheritAttrs: false,
+  emits: ['update:checked', 'update:value'],
+  setup(_props, { attrs, emit }) {
+    function handleClick() {
+      if (Reflect.has(attrs, 'value')) {
+        emit('update:value', 'explicit-value-updated');
+        return;
+      }
+      emit('update:checked', 'checked-updated');
+    }
+
+    return () =>
+      h('button', {
+        ...attrs,
+        class: 'test-checked-input',
+        'data-checked': String(attrs.checked ?? ''),
+        'data-has-model-value': String(Reflect.has(attrs, 'modelValue')),
+        'data-has-model-value-handler': String(
+          Reflect.has(attrs, 'onUpdate:modelValue'),
+        ),
+        'data-value': String(attrs.value ?? ''),
+        onClick: handleClick,
+      });
+  },
+});
+
+const TestTextarea = defineComponent({
+  inheritAttrs: false,
+  emits: ['update:modelValue'],
+  setup(_props, { attrs, emit }) {
+    function handleInput(event: Event) {
+      const target = event.target;
+      if (target instanceof HTMLTextAreaElement) {
+        emit('update:modelValue', target.value);
+      }
+    }
+
+    return () =>
+      h('textarea', {
+        ...attrs,
+        class: 'test-textarea',
+        onInput: handleInput,
+        value: attrs.modelValue ?? '',
+      });
+  },
+});
+
+const originalTestCheckedInput = COMPONENT_MAP.TestCheckedInput;
+const originalTestValueInput = COMPONENT_MAP.TestValueInput;
+const originalTestCheckedModelProp = COMPONENT_BIND_EVENT_MAP.TestCheckedInput;
+const originalTestValueModelProp = COMPONENT_BIND_EVENT_MAP.TestValueInput;
+
 beforeAll(() => {
+  COMPONENT_MAP.TestCheckedInput = TestCheckedInput;
+  COMPONENT_MAP.TestValueInput = TestValueInput;
+  COMPONENT_BIND_EVENT_MAP.TestCheckedInput = 'checked';
+  COMPONENT_BIND_EVENT_MAP.TestValueInput = 'value';
   setupVbenForm({
     config: {},
     rules: {
@@ -75,6 +170,29 @@ afterEach(() => {
   }
   vi.useRealTimers();
   vi.restoreAllMocks();
+});
+
+afterAll(() => {
+  if (originalTestCheckedInput) {
+    COMPONENT_MAP.TestCheckedInput = originalTestCheckedInput;
+  } else {
+    Reflect.deleteProperty(COMPONENT_MAP, 'TestCheckedInput');
+  }
+  if (originalTestValueInput) {
+    COMPONENT_MAP.TestValueInput = originalTestValueInput;
+  } else {
+    Reflect.deleteProperty(COMPONENT_MAP, 'TestValueInput');
+  }
+  if (originalTestCheckedModelProp) {
+    COMPONENT_BIND_EVENT_MAP.TestCheckedInput = originalTestCheckedModelProp;
+  } else {
+    Reflect.deleteProperty(COMPONENT_BIND_EVENT_MAP, 'TestCheckedInput');
+  }
+  if (originalTestValueModelProp) {
+    COMPONENT_BIND_EVENT_MAP.TestValueInput = originalTestValueModelProp;
+  } else {
+    Reflect.deleteProperty(COMPONENT_BIND_EVENT_MAP, 'TestValueInput');
+  }
 });
 
 describe('useVbenForm integration', () => {
@@ -351,6 +469,352 @@ describe('useVbenForm integration', () => {
     const details = wrapper.find('input[name="details"]');
     expect(details.exists()).toBe(true);
     expect(details.attributes('placeholder')).toBe('resolved');
+  });
+
+  it('switches registered and direct components with their model protocols', async () => {
+    interface DynamicComponentValues {
+      mode: string;
+      target: string;
+    }
+
+    const [Form, formApi] = useVbenForm<
+      DynamicComponentValues,
+      TestRegisteredComponent
+    >({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'value',
+          fieldName: 'mode',
+        },
+        {
+          component: 'TestValueInput',
+          defaultValue: 'initial',
+          dependencies: {
+            resolve({ values }) {
+              if (values.mode === 'checked') {
+                return { component: 'TestCheckedInput' };
+              }
+              if (values.mode === 'direct') {
+                return { component: TestTextarea };
+              }
+              return { component: 'TestValueInput' };
+            },
+            triggerFields: ['mode'],
+          },
+          fieldName: 'target',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    const valueInput = wrapper.get('.test-value-input');
+    expect(valueInput.attributes('data-value')).toBe('initial');
+    await valueInput.trigger('click');
+    await flushPromises();
+    expect(await formApi.getValues()).toEqual({
+      mode: 'value',
+      target: 'value-updated',
+    });
+
+    await formApi.setFieldValue('mode', 'checked');
+    await flushPromises();
+    const checkedInput = wrapper.get('.test-checked-input');
+    expect(checkedInput.attributes('data-checked')).toBe('value-updated');
+    await checkedInput.trigger('click');
+    await flushPromises();
+    expect(await formApi.getValues()).toEqual({
+      mode: 'checked',
+      target: 'checked-updated',
+    });
+
+    await formApi.setFieldValue('mode', 'direct');
+    await flushPromises();
+    expect(wrapper.get('.test-textarea').attributes('value')).toBe(
+      'checked-updated',
+    );
+  });
+
+  it('falls back to the static component for incomplete dependency snapshots', async () => {
+    interface DependencySnapshotValues {
+      mode: string;
+      target: string;
+    }
+
+    type TestSchema = FormSchema<
+      TestRegisteredComponent,
+      Record<never, never>,
+      DependencySnapshotValues
+    >;
+
+    const staticTargetSchema: TestSchema = {
+      component: 'TestValueInput',
+      defaultValue: 'initial',
+      fieldName: 'target',
+    };
+    const dynamicTargetSchema: TestSchema = {
+      ...staticTargetSchema,
+      dependencies: {
+        resolve({ values }) {
+          if (values.mode === 'checked') {
+            return { component: 'TestCheckedInput' };
+          }
+          if (values.mode === 'partial') {
+            return { disabled: true };
+          }
+          return undefined;
+        },
+        triggerFields: ['mode'],
+      },
+    };
+    const modeSchema: TestSchema = {
+      component: TestInput,
+      defaultValue: 'checked',
+      fieldName: 'mode',
+    };
+    const [Form, formApi] = useVbenForm<
+      DependencySnapshotValues,
+      TestRegisteredComponent
+    >({
+      schema: [modeSchema, dynamicTargetSchema],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(wrapper.find('.test-checked-input').exists()).toBe(true);
+
+    await formApi.setFieldValue('mode', 'partial');
+    await flushPromises();
+    expect(wrapper.find('.test-value-input').exists()).toBe(true);
+    expect(wrapper.get('.test-value-input').attributes('disabled')).toBe('');
+
+    await formApi.setFieldValue('mode', 'undefined');
+    await flushPromises();
+    expect(wrapper.find('.test-value-input').exists()).toBe(true);
+    expect(wrapper.get('.test-value-input').attributes('disabled')).toBe(
+      undefined,
+    );
+
+    await formApi.setFieldValue('mode', 'checked');
+    await flushPromises();
+    expect(wrapper.find('.test-checked-input').exists()).toBe(true);
+
+    await formApi.setState({ schema: [modeSchema, staticTargetSchema] });
+    await flushPromises();
+    expect(wrapper.find('.test-value-input').exists()).toBe(true);
+  });
+
+  it('keeps an explicit model prop name when the component changes', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: 'TestCheckedInput',
+          componentProps: {
+            modelValue: 'stale-model-value',
+            'onUpdate:modelValue': vi.fn(),
+          },
+          defaultValue: 'initial',
+          dependencies: {
+            resolve: () => ({ component: 'TestCheckedInput' }),
+            triggerFields: ['mode'],
+          },
+          fieldName: 'target',
+          modelPropName: 'value',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    const checkedInput = wrapper.get('.test-checked-input');
+    expect(checkedInput.attributes('data-value')).toBe('initial');
+    expect(checkedInput.attributes('data-checked')).toBe('');
+    expect(checkedInput.attributes('data-has-model-value')).toBe('false');
+    expect(checkedInput.attributes('data-has-model-value-handler')).toBe(
+      'false',
+    );
+    await checkedInput.trigger('click');
+    await flushPromises();
+    expect(await formApi.getValues()).toEqual({
+      target: 'explicit-value-updated',
+    });
+  });
+
+  it('ignores stale asynchronous component selections', async () => {
+    const slowComponent = createDeferred<{
+      component: typeof TestValueInput;
+    }>();
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'mode',
+        },
+        {
+          component: TestInput,
+          dependencies: {
+            resolve({ values }) {
+              if (values.mode === 'slow') {
+                return slowComponent.promise;
+              }
+              if (values.mode === 'fast') {
+                return { component: TestTextarea };
+              }
+              return { component: TestInput };
+            },
+            triggerFields: ['mode'],
+          },
+          fieldName: 'target',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await formApi.setFieldValue('mode', 'slow');
+    await flushPromises();
+    await formApi.setFieldValue('mode', 'fast');
+    await flushPromises();
+    expect(wrapper.find('.test-textarea').exists()).toBe(true);
+
+    slowComponent.resolve({ component: TestValueInput });
+    await flushPromises();
+    expect(wrapper.find('.test-textarea').exists()).toBe(true);
+    expect(wrapper.find('.test-value-input').exists()).toBe(false);
+  });
+
+  it('warns when a dynamically selected component is not registered', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          dependencies: {
+            resolve: () => ({ component: 'MissingDynamicComponent' }),
+            triggerFields: ['mode'],
+          },
+          fieldName: 'target',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(warning).toHaveBeenCalledWith(
+      'Component MissingDynamicComponent is not registered',
+    );
+  });
+
+  it('exposes grouped dynamic component props to field slots', async () => {
+    interface DynamicFormValues {
+      mode: string;
+      target: string;
+    }
+
+    let latestSlotProps:
+      | undefined
+      | VbenFormFieldSlotProps<DynamicFormValues, 'target'>;
+    const [Form, formApi] = useVbenForm<DynamicFormValues>({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'value',
+          fieldName: 'mode',
+        },
+        {
+          component: 'TestValueInput',
+          defaultValue: 'initial',
+          dependencies: {
+            resolve({ values }) {
+              if (values.mode === 'direct') {
+                return { component: TestTextarea };
+              }
+              return {
+                component:
+                  values.mode === 'checked'
+                    ? 'TestCheckedInput'
+                    : 'TestValueInput',
+              };
+            },
+            triggerFields: ['mode'],
+          },
+          fieldName: 'target',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        target(slotProps: VbenFormFieldSlotProps<DynamicFormValues, 'target'>) {
+          latestSlotProps = slotProps;
+          return slotProps.component
+            ? h(slotProps.component, {
+                ...slotProps.componentProps,
+                class: 'slot-component',
+              })
+            : null;
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(latestSlotProps).toBeDefined();
+    if (!latestSlotProps) return;
+    expect(latestSlotProps.values).toEqual({
+      mode: 'value',
+      target: 'initial',
+    });
+    expect(Reflect.has(latestSlotProps, 'value')).toBe(false);
+    expect(Reflect.has(latestSlotProps, 'onUpdate:modelValue')).toBe(false);
+    expect(latestSlotProps.modelValue).toBe('initial');
+    expect(latestSlotProps.componentField.modelValue).toBe('initial');
+    expect(latestSlotProps.componentProps.value).toBe('initial');
+    expect(latestSlotProps.componentProps).toHaveProperty('onUpdate:value');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('modelValue');
+    expect(latestSlotProps.componentProps).not.toHaveProperty(
+      'onUpdate:modelValue',
+    );
+
+    const valueInput = wrapper.get('.test-value-input');
+    await valueInput.trigger('click');
+    await valueInput.trigger('blur');
+    await flushPromises();
+    expect(latestSlotProps.field.state.meta.isDirty).toBe(true);
+    expect(latestSlotProps.field.state.meta.isTouched).toBe(true);
+
+    await formApi.setFieldValue('mode', 'checked');
+    await flushPromises();
+    expect(wrapper.find('.test-value-input').exists()).toBe(false);
+    expect(wrapper.get('.test-checked-input').attributes('data-checked')).toBe(
+      'value-updated',
+    );
+    expect(latestSlotProps.modelValue).toBe('value-updated');
+    expect(latestSlotProps.componentField.modelValue).toBe('value-updated');
+    expect(latestSlotProps.componentProps.checked).toBe('value-updated');
+    expect(latestSlotProps.componentProps).toHaveProperty('onUpdate:checked');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('modelValue');
+    expect(latestSlotProps.componentProps).not.toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(latestSlotProps.values.mode).toBe('checked');
+    expect(latestSlotProps.field.state.meta.isDirty).toBe(true);
+    expect(latestSlotProps.field.state.meta.isTouched).toBe(true);
+
+    await formApi.setFieldValue('mode', 'direct');
+    await flushPromises();
+    expect(wrapper.find('.test-textarea').exists()).toBe(true);
+    expect(latestSlotProps.componentProps.modelValue).toBe('value-updated');
+    expect(latestSlotProps.componentProps).toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(latestSlotProps.componentProps).not.toHaveProperty('value');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('checked');
   });
 
   it('applies required rules enabled by dependencies after mount', async () => {
@@ -640,6 +1104,78 @@ describe('useVbenForm integration', () => {
     expect(
       wrapper.get('input[name="contacts[0].phone"]').attributes('disabled'),
     ).toBeDefined();
+  });
+
+  it('selects dynamic components independently for array rows', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          children: [
+            {
+              component: TestInput,
+              fieldName: 'role',
+              label: 'Role',
+            },
+            {
+              component: 'TestValueInput',
+              dependencies: {
+                resolve({ schema }) {
+                  return {
+                    component:
+                      schema.row?.role === 'viewer'
+                        ? 'TestCheckedInput'
+                        : 'TestValueInput',
+                  };
+                },
+                triggerFields: ['role'],
+              },
+              fieldName: 'phone',
+              label: 'Phone',
+            },
+          ],
+          defaultValue: [
+            { phone: 'viewer-phone', role: 'viewer' },
+            { phone: 'owner-phone', role: 'owner' },
+          ],
+          fieldName: 'contacts',
+          type: 'array',
+        },
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(wrapper.get('[name="contacts[0].phone"]').classes()).toContain(
+      'test-checked-input',
+    );
+    expect(
+      wrapper.get('[name="contacts[0].phone"]').attributes('data-checked'),
+    ).toBe('viewer-phone');
+    expect(wrapper.get('[name="contacts[1].phone"]').classes()).toContain(
+      'test-value-input',
+    );
+    expect(
+      wrapper.get('[name="contacts[1].phone"]').attributes('data-value'),
+    ).toBe('owner-phone');
+
+    await formApi.setFieldValue('contacts[0].role', 'owner');
+    await flushPromises();
+    expect(wrapper.get('[name="contacts[0].phone"]').classes()).toContain(
+      'test-value-input',
+    );
+    expect(wrapper.get('[name="contacts[1].phone"]').classes()).toContain(
+      'test-value-input',
+    );
+
+    await formApi.setFieldValue('contacts[1].role', 'viewer');
+    await flushPromises();
+    expect(wrapper.get('[name="contacts[0].phone"]').classes()).toContain(
+      'test-value-input',
+    );
+    expect(wrapper.get('[name="contacts[1].phone"]').classes()).toContain(
+      'test-checked-input',
+    );
   });
 
   it('reports changed fields and submits valid changes', async () => {

@@ -8,6 +8,7 @@ export type {
   ExtendedFormApi,
   FormActions,
   FormCodec,
+  FormComponentType,
   FormContextApi,
   FormLayout,
   FormSchemaContext,
@@ -19,6 +20,7 @@ export type {
   VbenFormFieldArrayProps,
   VbenFormFieldSlotProps,
   VbenFormProps,
+  VbenFormResolvedComponentProps,
   FormSchema as VbenFormSchema,
   VbenFormSlots,
 } from './types';

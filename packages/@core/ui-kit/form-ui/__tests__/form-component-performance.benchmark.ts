@@ -1,4 +1,4 @@
-import type { FormSchema } from '../src/types';
+import type { FormDependenciesResolveContext, FormSchema } from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
@@ -65,7 +65,9 @@ const dependencySchema: FormSchema[] = [
     component: TestInput,
     defaultValue: `Value ${index}`,
     dependencies: {
-      resolve: ({ values }) => ({ disabled: values.mode === 'locked' }),
+      resolve: ({ values }: FormDependenciesResolveContext) => ({
+        disabled: values.mode === 'locked',
+      }),
       triggerFields: ['mode'],
     },
     fieldName: `dependent${index}`,

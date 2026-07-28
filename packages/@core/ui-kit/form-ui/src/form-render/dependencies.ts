@@ -26,6 +26,7 @@ import { injectFormProps } from '../use-form-context';
 import { injectRenderFormProps } from './context';
 
 interface DependencyState {
+  dynamicComponent: FormDependenciesResolvedState['component'];
   dynamicComponentProps: MaybeComponentProps;
   dynamicHelp: FormDependenciesResolvedState['help'];
   dynamicHelpResolved: boolean;
@@ -73,6 +74,7 @@ function createDependencyState(
   patch: FormDependenciesResolvedState = {},
 ): DependencyState {
   return {
+    dynamicComponent: patch.component,
     dynamicComponentProps: patch.componentProps ?? {},
     dynamicHelp: patch.help,
     dynamicHelpResolved: Reflect.has(patch, 'help'),
@@ -272,6 +274,7 @@ export default function useDependencies(
   });
 
   return {
+    dynamicComponent: computed(() => dependencyState.value.dynamicComponent),
     dynamicComponentProps: computed(
       () => dependencyState.value.dynamicComponentProps,
     ),
