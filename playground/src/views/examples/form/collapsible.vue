@@ -3,7 +3,7 @@ import type { RadioGroupProps } from 'antdv-next';
 
 import type { CollapsibleParamSchema, FormLayout } from '@vben/common-ui';
 
-import { h, ref } from 'vue';
+import { markRaw, ref } from 'vue';
 
 import { Page, VbenCollapsibleParams } from '@vben/common-ui';
 
@@ -147,8 +147,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       defaultValue: false,
     },
     {
-      // component:'CollapsibleParams',
-      component: h(VbenCollapsibleParams),
+      component: markRaw(VbenCollapsibleParams),
       componentProps: {
         params: paramsSchema,
         // maxHeight: 200, //限制最大高度，展开后可滚动

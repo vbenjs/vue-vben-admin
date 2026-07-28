@@ -9,7 +9,10 @@ import { useVbenForm, z } from '#/adapter/form';
 
 import TwoFields from './modules/two-fields.vue';
 
-interface CustomFormValues extends Record<string, unknown> {
+interface CustomFormValues {
+  componentType?: 'Input' | 'Select';
+  dynamicField?: string;
+  dynamicSlotField?: string;
   field?: string;
   field1?: string;
   field2?: string;
@@ -28,6 +31,11 @@ function encodeCustomFormValues(values: Readonly<CustomFormValues>) {
 
 type CustomSubmitValues = ReturnType<typeof encodeCustomFormValues>;
 
+const dynamicOptions = [
+  { label: '选项一', value: 'option-1' },
+  { label: '选项二', value: 'option-2' },
+];
+
 function decodeCustomFormValues(
   values: Readonly<CustomSubmitValues>,
 ): CustomFormValues {
@@ -38,7 +46,7 @@ function decodeCustomFormValues(
   };
 }
 
-const [Form] = useVbenForm({
+const [Form] = useVbenForm<CustomFormValues, CustomSubmitValues>({
   codec: {
     decode: decodeCustomFormValues,
     encode: encodeCustomFormValues,
@@ -58,6 +66,52 @@ const [Form] = useVbenForm({
   layout: 'horizontal',
   schema: [
     {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '输入框', value: 'Input' },
+          { label: '选择器', value: 'Select' },
+        ],
+      },
+      defaultValue: 'Input',
+      fieldName: 'componentType',
+      label: '动态组件类型',
+    },
+    {
+      component: 'Input',
+      dependencies: {
+        resolve({ values }) {
+          const isSelect = values.componentType === 'Select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? { options: dynamicOptions, placeholder: '请选择' }
+              : { placeholder: '请输入' },
+          };
+        },
+        triggerFields: ['componentType'],
+      },
+      fieldName: 'dynamicField',
+      label: '动态组件',
+    },
+    {
+      component: 'Input',
+      dependencies: {
+        resolve({ values }) {
+          const isSelect = values.componentType === 'Select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? { options: dynamicOptions, placeholder: '请选择' }
+              : { placeholder: '请输入' },
+          };
+        },
+        triggerFields: ['componentType'],
+      },
+      fieldName: 'dynamicSlotField',
+      label: '动态组件(slot)',
+    },
+    {
       // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'Input',
       fieldName: 'field',
@@ -74,7 +128,10 @@ const [Form] = useVbenForm({
       }),
     },
     {
-      component: h(Input, { placeholder: '请输入Field2' }),
+      component: markRaw(Input),
+      componentProps: {
+        placeholder: '请输入Field2',
+      },
       fieldName: 'field2',
       label: '自定义组件',
       modelPropName: 'value',
@@ -123,8 +180,15 @@ function onSubmit(values: CustomSubmitValues) {
   <Page description="表单组件自定义示例" title="表单组件">
     <Card title="基础示例">
       <Form>
+        <template #dynamicSlotField="{ component, componentProps, values }">
+          <component
+            :is="component"
+            v-bind="componentProps"
+            :data-component-type="values.componentType"
+          />
+        </template>
         <template #field3="slotProps">
-          <Input placeholder="请输入" v-bind="slotProps" />
+          <Input placeholder="请输入" v-bind="slotProps.componentProps" />
         </template>
       </Form>
     </Card>
