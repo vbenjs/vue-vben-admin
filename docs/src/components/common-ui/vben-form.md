@@ -297,13 +297,113 @@ pnpm exec vitest bench --run packages/@core/ui-kit/form-ui/__tests__/form-compon
 
 _注意_ 需要指定 `dependencies` 的 `triggerFields` 属性，设置由谁的改动来触发，以便表单组件能够正确的联动。
 
-新代码推荐使用 `dependencies.resolve(context)` 一次返回完整动态状态。它只在 `triggerFields` 变化时执行，并原子更新 `if`、`show`、`disabled`、`required`、`rules`、`componentProps`、`help` 和 `renderComponentContent`，避免多个异步回调产生中间状态。原有多回调结构继续兼容。
+新代码推荐使用 `dependencies.resolve(context)` 一次返回完整动态状态。它只在 `triggerFields` 变化时执行，并原子更新 `component`、`if`、`show`、`disabled`、`required`、`rules`、`componentProps`、`help` 和 `renderComponentContent`，避免多个异步回调产生中间状态。原有多回调结构继续兼容。
 
 <DemoPreview dir="demos/vben-form/dynamic" />
 
 ## 自定义组件
 
-如果你的业务组件库没有提供某个组件，你可以自行封装一个组件，然后加到表单内部。
+表单支持适配器注册名和直接 Vue 组件两种来源：
+
+- `component: 'Input'`：字符串会从适配器的组件映射中解析，同时应用 `modelPropNameMap`。
+- `component: markRaw(CustomInput)`：SFC、`defineComponent`、`defineAsyncComponent` 和标准 Vue 函数组件可以直接使用，无需注册。
+
+函数只有在它本身是合法的 Vue FunctionalComponent，并返回 VNode 时才可作为 `component`。`schema.component` 不会以表单上下文调用函数，因此不要把 `(context) => Component` 写成组件解析器，也不要把 `h(CustomInput)` 返回的 VNode 直接作为 `component`。
+
+```ts
+import { markRaw } from 'vue';
+
+import CustomInput from './custom-input.vue';
+
+const schema = [
+  {
+    component: markRaw(CustomInput),
+    componentProps: { placeholder: '请输入' },
+    fieldName: 'customValue',
+    modelPropName: 'value',
+  },
+];
+```
+
+需要根据其他字段动态选择控件时，在 `dependencies.resolve` 中同时返回 `component` 和 `componentProps`：
+
+```ts
+{
+  component: 'Input',
+  dependencies: {
+    triggerFields: ['componentType'],
+    resolve({ values }) {
+      const isSelect = values.componentType === 'Select';
+      return {
+        component: isSelect ? 'Select' : 'Input',
+        componentProps: isSelect
+          ? {
+              options: [
+                { label: '选项一', value: 'option-1' },
+                { label: '选项二', value: 'option-2' },
+              ],
+              placeholder: '请选择',
+            }
+          : { placeholder: '请输入' },
+      };
+    },
+  },
+  fieldName: 'dynamicValue',
+}
+```
+
+动态 `component` 可以是注册字符串或直接 Vue Component。未返回 `component` 时使用 schema 的静态组件；异步 resolve 的旧结果不会覆盖新选择。组件切换只替换控件实例，当前字段的值、错误、dirty 和 touched 状态都会保留。表单不会自动转换不同组件之间的值类型，需要时请在业务逻辑中使用 `actions` 或 `controller` 显式处理。
+
+模型属性按以下优先级解析：字段级 `modelPropName`、当前注册组件在 `modelPropNameMap` 中的映射（其中包含适配器的 `baseModelPropName`）、默认 `modelValue`。使用 `value`、`checked` 等非默认协议时，`componentProps` 只保留当前模型属性和对应的 `update:*` 事件；即使 common、schema 或 resolve props 中传入了 `modelValue`，也不会产生重复模型绑定。业务代码不应在 `componentProps` 中手动维护模型值或更新事件。
+
+每次 `resolve` 的返回值都是一份完整的动态状态快照，不会和上一次结果做增量合并。省略 `component`、`componentProps`、`rules` 等字段，会清除对应的旧动态覆盖并回退到 schema 静态配置或默认状态；需要持续生效的动态字段必须在每次执行时都返回。
+
+数组子项同样支持动态组件。子项的 `triggerFields` 相对于当前行解析，`schema.row`、`schema.rowIndex` 和 `schema.rowPath` 可用于为每一行独立选择控件：
+
+```ts
+{
+  children: [
+    {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '输入框', value: 'input' },
+          { label: '选择器', value: 'select' },
+        ],
+      },
+      fieldName: 'control',
+    },
+    {
+      component: 'Input',
+      dependencies: {
+        triggerFields: ['control'],
+        resolve({ schema }) {
+          const isSelect = schema.row?.control === 'select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? {
+                  options: [
+                    { label: '选项一', value: 'option-1' },
+                    { label: '选项二', value: 'option-2' },
+                  ],
+                }
+              : {
+                  placeholder: `请输入第 ${(schema.rowIndex ?? 0) + 1} 行`,
+                },
+          };
+        },
+      },
+      fieldName: 'value',
+    },
+  ],
+  defaultValue: [{ control: 'input', value: '' }],
+  fieldName: 'contacts',
+  type: 'array',
+}
+```
+
+自定义组件不会自动收到整份 `values` 和 `formApi`。如果组件内部需要其他字段派生的信息，应在 resolve 中计算后通过 `componentProps` 显式传入，避免每个控件订阅整个表单。
 
 <DemoPreview dir="demos/vben-form/custom" />
 
@@ -368,9 +468,13 @@ async function fillForm() {
 
 <template>
   <Form>
-    <template #email="{ componentField, field, formApi, values }">
-      <!-- field.state.value、componentField.modelValue 均为 string -->
-      <input v-bind="componentField" :data-email="values.email" />
+    <template #email="{ component, componentProps, field, formApi, values }">
+      <!-- field.state.value、componentProps.modelValue 均为 string -->
+      <component
+        :is="component"
+        v-bind="componentProps"
+        :data-email="values.email"
+      />
       <button type="button" @click="formApi.clearValidation('email')">
         Clear
       </button>
@@ -385,7 +489,9 @@ async function fillForm() {
 </template>
 ```
 
-字段命名插槽提供 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。未声明 `TValues` 时仍兼容任意字段名，但 slot props 会回退为宽泛类型。
+字段命名插槽提供解析后的 `component`、完整字段绑定 `componentProps`，以及 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。
+
+建议为表单声明没有字符串索引签名的精确接口，使每个字段插槽都能推导自己的值类型。使用 `Record<string, unknown>` 等宽泛类型时，slot props 仍保持完整结构，不再整体退化为 `any`，但字段值只能推导为索引值类型。
 
 ### FormApi
 
@@ -664,7 +770,7 @@ dependencies: {
 }
 ```
 
-`resolve` 返回的字段会一次性提交；支持 `if`、`show`、`disabled`、`required`、`rules`、`componentProps`、`help` 和 `renderComponentContent`。未返回 `rules` 时继续使用静态规则，显式返回 `rules: null` 时关闭静态规则。`actions` 是稳定的 `FormContextApi`，`controller` 是高层 FormApi，`schema` 包含字段名和数组行上下文。
+`resolve` 返回的字段会一次性提交；支持 `component`、`if`、`show`、`disabled`、`required`、`rules`、`componentProps`、`help` 和 `renderComponentContent`。`component` 可以是适配器注册名或直接 Vue Component，未返回时继续使用 schema 静态组件。未返回 `rules` 时继续使用静态规则，显式返回 `rules: null` 时关闭静态规则。`actions` 是稳定的 `FormContextApi`，`controller` 是高层 FormApi，`schema` 包含字段名和数组行上下文。
 
 旧的 `if/show/disabled/required/rules/componentProps/trigger` 回调语法仍完整兼容并保持原求值顺序，但已标记为 `@deprecated`，开发环境首次使用时会提示迁移。新旧语法在同一个 dependencies 对象中互斥；绕过类型同时传入时以 `resolve` 为准。
 
@@ -746,6 +852,25 @@ import { z } from '#/adapter/form';
 
 ::: tip 字段插槽
 
-除了以上内置插槽之外，`schema`属性中每个字段的`fieldName`都可以作为插槽名称，这些字段插槽的优先级高于`component`定义的组件。也就是说，当提供了与`fieldName`同名的插槽时，这些插槽的内容将会作为这些字段的组件，此时`component`的值将会被忽略。
+除了以上内置插槽之外，`schema` 属性中每个字段的 `fieldName` 都可以作为插槽名称。字段插槽的内容会替代默认控件，但仍可使用表单已经解析好的动态组件和绑定：
+
+```vue
+<Form>
+  <template
+    #dynamicValue="{ component, componentProps, formApi, values }"
+  >
+    <component
+      :is="component"
+      v-bind="componentProps"
+      :data-component-type="values.componentType"
+    />
+    <button type="button" @click="formApi.clearValidation('dynamicValue')">
+      清除校验
+    </button>
+  </template>
+</Form>
+```
+
+`componentProps` 已包含当前模型值、对应的 `update:*` 事件、schema/common/dependencies props 和 disabled 状态。不要再把整个 slot scope 绑定到控件：旧写法 `v-bind="slotProps"` 需要迁移为 `v-bind="slotProps.componentProps"`。
 
 :::

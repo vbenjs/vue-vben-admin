@@ -236,9 +236,13 @@ async function fillForm() {
 
 <template>
   <Form>
-    <template #email="{ componentField, field, formApi, values }">
-      <!-- field.state.value and componentField.modelValue are strings -->
-      <input v-bind="componentField" :data-email="values.email" />
+    <template #email="{ component, componentProps, field, formApi, values }">
+      <!-- field.state.value and componentProps.modelValue are strings -->
+      <component
+        :is="component"
+        v-bind="componentProps"
+        :data-email="values.email"
+      />
       <button type="button" @click="formApi.clearValidation('email')">
         Clear
       </button>
@@ -252,7 +256,134 @@ async function fillForm() {
 </template>
 ```
 
-Named field slots expose `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`. Forms without an explicit `TValues` remain compatible with arbitrary slot names and broad props.
+Named field slots expose the resolved `component`, grouped `componentProps`, `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`.
+
+Use a precise form-value interface without a string index signature to infer each field value. A broad type such as `Record<string, unknown>` keeps the complete slot-prop structure instead of degrading the whole scope to `any`, but field values can only use the declared index value type.
+
+## Custom and Dynamic Components
+
+Form fields accept adapter component names and direct Vue components:
+
+- `component: 'Input'` resolves a registered adapter name and applies its `modelPropNameMap` entry.
+- `component: markRaw(CustomInput)` accepts an SFC, `defineComponent`, `defineAsyncComponent`, or a standard Vue functional component without registration.
+
+A function is valid only when it is a Vue FunctionalComponent that returns a VNode. `schema.component` is not invoked as a form-context resolver, so do not use `(context) => Component`, and do not pass the VNode returned by `h(CustomInput)` as the component itself.
+
+```ts
+import { markRaw } from 'vue';
+
+import CustomInput from './custom-input.vue';
+
+const schema = [
+  {
+    component: markRaw(CustomInput),
+    componentProps: { placeholder: 'Enter a value' },
+    fieldName: 'customValue',
+    modelPropName: 'value',
+  },
+];
+```
+
+Return `component` and `componentProps` from the atomic dependency resolver to select a control from other fields:
+
+```ts
+{
+  component: 'Input',
+  dependencies: {
+    triggerFields: ['componentType'],
+    resolve({ values }) {
+      const isSelect = values.componentType === 'Select';
+      return {
+        component: isSelect ? 'Select' : 'Input',
+        componentProps: isSelect
+          ? {
+              options: [
+                { label: 'Option 1', value: 'option-1' },
+                { label: 'Option 2', value: 'option-2' },
+              ],
+              placeholder: 'Select a value',
+            }
+          : { placeholder: 'Enter a value' },
+      };
+    },
+  },
+  fieldName: 'dynamicValue',
+}
+```
+
+The dynamic component may be a registered name or a direct Vue Component. Omitting it falls back to the static schema component, and stale asynchronous resolver results cannot overwrite a newer selection. Switching replaces only the control instance and preserves the field value, errors, dirty state, and touched state. Convert incompatible values explicitly through `actions` or `controller` when needed.
+
+The model protocol resolves in this order: field-level `modelPropName`, the current registered component's `modelPropNameMap` entry (including the adapter's `baseModelPropName`), then the default `modelValue`. When `value`, `checked`, or another non-default protocol is active, `componentProps` contains only that model prop and its matching `update:*` event. A `modelValue` supplied by common, schema, or resolver props cannot create a duplicate binding. Application code should not maintain model values or update listeners manually in `componentProps`.
+
+Each `resolve` result is a complete dynamic-state snapshot rather than an incremental merge with the previous result. Omitting `component`, `componentProps`, `rules`, or another field clears its previous dynamic override and falls back to the static schema configuration or default state. Return every dynamic field that must remain active on each evaluation.
+
+Array children support the same dynamic selection. Child `triggerFields` resolve relative to the current row, while `schema.row`, `schema.rowIndex`, and `schema.rowPath` let each row select its control independently:
+
+```ts
+{
+  children: [
+    {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: 'Input', value: 'input' },
+          { label: 'Select', value: 'select' },
+        ],
+      },
+      fieldName: 'control',
+    },
+    {
+      component: 'Input',
+      dependencies: {
+        triggerFields: ['control'],
+        resolve({ schema }) {
+          const isSelect = schema.row?.control === 'select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? {
+                  options: [
+                    { label: 'Option 1', value: 'option-1' },
+                    { label: 'Option 2', value: 'option-2' },
+                  ],
+                }
+              : {
+                  placeholder: `Row ${(schema.rowIndex ?? 0) + 1} value`,
+                },
+          };
+        },
+      },
+      fieldName: 'value',
+    },
+  ],
+  defaultValue: [{ control: 'input', value: '' }],
+  fieldName: 'contacts',
+  type: 'array',
+}
+```
+
+Custom controls do not automatically receive the complete `values` or `formApi`. Derive the required data in `dependencies.resolve` and pass it explicitly through `componentProps` to avoid subscribing every control to the complete form.
+
+Field slots can render the same resolved dynamic component while retaining access to the full form context:
+
+```vue
+<Form>
+  <template
+    #dynamicValue="{ component, componentProps, formApi, values }"
+  >
+    <component
+      :is="component"
+      v-bind="componentProps"
+      :data-component-type="values.componentType"
+    />
+    <button type="button" @click="formApi.clearValidation('dynamicValue')">
+      Clear validation
+    </button>
+  </template>
+</Form>
+```
+
+`componentProps` contains the model value, matching `update:*` event, schema/common/dependency props, and disabled state. This is an intentional breaking cleanup for field slots: migrate `v-bind="slotProps"` to `v-bind="slotProps.componentProps"`.
 
 ## Form Codec
 
@@ -322,7 +453,9 @@ Use benchmark results to compare relative changes on the same machine and runtim
 - `useSelector` remains the compatibility selector for combined `{ values, errors, meta }` state
 - legacy `setupVbenForm({ defineRules })` still works, warns once in development, and is silent in production; use `rules` for new code
 - prefer `dependencies: { triggerFields, resolve(context) }` for one atomic dynamic-state patch; legacy dependency callbacks remain supported but are deprecated and warn once in development
+- `dependencies.resolve` may return a registered component name or direct Vue Component together with `componentProps`; omitted components fall back to the static schema component
 - top-level `componentProps`, `help`, and `renderComponentContent` functions receive `FormSchemaContext`; value-dependent rendering belongs in `dependencies.resolve`
+- field slots expose the resolved `component` and grouped `componentProps`; bind the group to the control instead of binding the complete slot scope
 - use `formFieldProps.validateOn` with `blur` and/or `change`; submit always validates, and `asyncDebounceMs` debounces async validators
 - use `changeEventFallback: true` only for components that emit `change` without an `update:*` event
 

@@ -1,11 +1,25 @@
 <script lang="ts" setup>
-import { h } from 'vue';
+import { h, markRaw } from 'vue';
 
 import { Input, message } from 'antdv-next';
 
 import { useVbenForm } from '#/adapter/form';
 
-const [Form] = useVbenForm({
+interface CustomFormValues {
+  componentType?: 'Input' | 'Select';
+  dynamicField?: string;
+  field?: string;
+  field1?: string;
+  field2?: string;
+  field3?: string;
+}
+
+const dynamicOptions = [
+  { label: '选项一', value: 'option-1' },
+  { label: '选项二', value: 'option-2' },
+];
+
+const [Form] = useVbenForm<CustomFormValues>({
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
     // 所有表单项
@@ -20,6 +34,35 @@ const [Form] = useVbenForm({
   // 水平布局，label和input在同一行
   layout: 'horizontal',
   schema: [
+    {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '输入框', value: 'Input' },
+          { label: '选择器', value: 'Select' },
+        ],
+      },
+      defaultValue: 'Input',
+      fieldName: 'componentType',
+      label: '动态组件类型',
+    },
+    {
+      component: 'Input',
+      dependencies: {
+        resolve({ values }) {
+          const isSelect = values.componentType === 'Select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? { options: dynamicOptions, placeholder: '请选择' }
+              : { placeholder: '请输入' },
+          };
+        },
+        triggerFields: ['componentType'],
+      },
+      fieldName: 'dynamicField',
+      label: '动态组件',
+    },
     {
       // 组件需要在 #/adapter.ts内注册，并加上类型
       component: 'Input',
@@ -37,15 +80,30 @@ const [Form] = useVbenForm({
       }),
     },
     {
-      component: h(Input, { placeholder: '请输入' }),
+      component: markRaw(Input),
+      componentProps: {
+        placeholder: '请输入',
+      },
       fieldName: 'field2',
       label: '自定义组件',
       rules: 'required',
     },
     {
       component: 'Input',
+      dependencies: {
+        resolve({ values }) {
+          const isSelect = values.componentType === 'Select';
+          return {
+            component: isSelect ? 'Select' : 'Input',
+            componentProps: isSelect
+              ? { options: dynamicOptions, placeholder: '请选择' }
+              : { placeholder: '请输入' },
+          };
+        },
+        triggerFields: ['componentType'],
+      },
       fieldName: 'field3',
-      label: '自定义组件(slot)',
+      label: '动态组件(slot)',
       rules: 'required',
     },
   ],
@@ -61,8 +119,12 @@ function onSubmit(values: Record<string, any>) {
 
 <template>
   <Form>
-    <template #field3="slotProps">
-      <Input placeholder="请输入" v-bind="slotProps" />
+    <template #field3="{ component, componentProps, values }">
+      <component
+        :is="component"
+        v-bind="componentProps"
+        :data-component-type="values.componentType"
+      />
     </template>
   </Form>
 </template>
