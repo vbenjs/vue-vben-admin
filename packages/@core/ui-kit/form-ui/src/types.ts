@@ -235,16 +235,19 @@ export interface VbenFormDefaultSlotProps<
 
 export interface VbenFormFieldSlotProps<
   TValues extends FormValues = FormValues,
-  TFieldName extends KnownFormFieldName<TValues> = KnownFormFieldName<TValues>,
+  TFieldName extends FormFieldName<TValues> = FormFieldName<TValues>,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
   TSubmitValues extends FormValues = TValues,
 > extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
-  componentField: FormComponentField<TValues[TFieldName], TFieldName>;
+  componentField: FormComponentField<
+    FormFieldValue<TValues, TFieldName>,
+    TFieldName
+  >;
   disabled: boolean;
-  field: FormRuntimeField<TValues[TFieldName]>;
+  field: FormRuntimeField<FormFieldValue<TValues, TFieldName>>;
   isInValid: boolean;
-  modelValue: TValues[TFieldName];
+  modelValue: FormFieldValue<TValues, TFieldName>;
   name: TFieldName;
 }
 
@@ -255,7 +258,19 @@ type VbenFormFieldSlots<
   TSubmitValues extends FormValues,
 > =
   string extends Extract<keyof TValues, string>
-    ? Record<string, ((props: any) => any) | undefined>
+    ? Record<
+        string,
+        | ((
+            props: VbenFormFieldSlotProps<
+              TValues,
+              FormFieldName<TValues>,
+              T,
+              P,
+              TSubmitValues
+            >,
+          ) => any)
+        | undefined
+      >
     : {
         [TFieldName in KnownFormFieldName<TValues>]?: (
           props: VbenFormFieldSlotProps<
