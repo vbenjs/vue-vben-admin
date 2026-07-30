@@ -124,7 +124,7 @@ function onSubmit(values: CustomSubmitValues) {
     <Card title="基础示例">
       <Form>
         <template #field3="slotProps">
-          <Input placeholder="请输入" v-bind="slotProps" />
+          <Input placeholder="请输入" v-bind="slotProps.componentProps" />
         </template>
       </Form>
     </Card>

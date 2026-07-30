@@ -385,7 +385,9 @@ async function fillForm() {
 </template>
 ```
 
-字段命名插槽提供 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。未声明 `TValues` 时仍兼容任意字段名，但 slot props 会回退为宽泛类型。
+字段命名插槽提供完整控件绑定 `componentProps`，以及 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。
+
+建议为表单声明没有字符串索引签名的精确接口，使每个字段插槽都能推导自己的值类型。使用 `Record<string, unknown>` 等宽泛类型时，slot props 仍保持完整结构，不再整体退化为 `any`，但字段值只能推导为索引值类型。
 
 ### FormApi
 
@@ -746,6 +748,18 @@ import { z } from '#/adapter/form';
 
 ::: tip 字段插槽
 
-除了以上内置插槽之外，`schema`属性中每个字段的`fieldName`都可以作为插槽名称，这些字段插槽的优先级高于`component`定义的组件。也就是说，当提供了与`fieldName`同名的插槽时，这些插槽的内容将会作为这些字段的组件，此时`component`的值将会被忽略。
+除了以上内置插槽之外，`schema` 属性中每个字段的 `fieldName` 都可以作为插槽名称。这些字段插槽的优先级高于 `component` 定义的组件。
+
+字段 slot 的控件绑定统一收拢在 `componentProps` 中，其中包含模型值、对应的 `update:*` 事件、schema/common/dependencies props 和 disabled 状态：
+
+```vue
+<Form>
+  <template #fieldName="slotProps">
+    <Input v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+这是字段 slot 的破坏性边界：旧写法 `v-bind="slotProps"` 必须迁移为 `v-bind="slotProps.componentProps"`。`field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 仍保留在 slot 根级，供模板逻辑使用，不会自动传入实际控件。
 
 :::

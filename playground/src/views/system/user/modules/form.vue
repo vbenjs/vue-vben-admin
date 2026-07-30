@@ -107,7 +107,7 @@ function getNodeClass(node: Recordable<any>) {
             bordered
             :default-expanded-level="2"
             :get-node-class="getNodeClass"
-            v-bind="slotProps"
+            v-bind="slotProps.componentProps"
             value-field="id"
             label-field="name"
           />

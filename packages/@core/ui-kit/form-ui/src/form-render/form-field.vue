@@ -264,7 +264,7 @@ watch(
 );
 
 const shouldDisabled = computed(() => {
-  return isDisabled.value || disabled || computedProps.value?.disabled;
+  return Boolean(isDisabled.value || disabled || computedProps.value?.disabled);
 });
 
 const customContentRender = computed(() => {
@@ -354,6 +354,7 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
     ...normalizedSlotProps.componentField,
     ...computedProps.value,
     ...bindEvents,
+    disabled: shouldDisabled.value,
     ...(Reflect.has(computedProps.value, 'onChange')
       ? { onChange: computedProps.value.onChange }
       : {}),
@@ -363,6 +364,17 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   };
 
   return binds;
+}
+
+function createFieldSlotScope(slotProps: RuntimeFieldSlotProps) {
+  return {
+    ...createFieldSlotProps(slotProps),
+    componentProps: createComponentProps(slotProps),
+    disabled: shouldDisabled.value,
+    isInValid: isInValid.value,
+    modelValue: fieldValue.value,
+    name: fieldName,
+  };
 }
 
 function autofocus() {
@@ -470,14 +482,7 @@ onUnmounted(() => {
                 :class="cn('relative flex w-full items-center', wrapperClass)"
               >
                 <FormControl :class="cn(controlClass)">
-                  <slot
-                    v-bind="{
-                      ...createFieldSlotProps(slotProps),
-                      ...createComponentProps(slotProps),
-                      disabled: shouldDisabled,
-                      isInValid,
-                    }"
-                  >
+                  <slot v-bind="createFieldSlotScope(slotProps)">
                     <component
                       :is="FieldComponent"
                       ref="fieldComponentRef"
@@ -486,7 +491,6 @@ onUnmounted(() => {
                           shouldApplyInvalidStyle,
                       }"
                       v-bind="createComponentProps(slotProps)"
-                      :disabled="shouldDisabled"
                     >
                       <template
                         v-for="name in renderContentKey"

@@ -252,7 +252,23 @@ async function fillForm() {
 </template>
 ```
 
-Named field slots expose `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`. Forms without an explicit `TValues` remain compatible with arbitrary slot names and broad props.
+Named field slots expose grouped control bindings through `componentProps`, together with `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`.
+
+Use a precise form-value interface without a string index signature to infer each field value. A broad type such as `Record<string, unknown>` keeps the complete slot-prop structure instead of degrading the whole scope to `any`, but field values can only use the declared index value type.
+
+## Field Slot Migration
+
+Control bindings are grouped under `componentProps`. It contains the model value, matching `update:*` event, schema/common/dependency props, and disabled state:
+
+```vue
+<Form>
+  <template #fieldName="slotProps">
+    <Input v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+This is the breaking boundary for named field slots: migrate `v-bind="slotProps"` to `v-bind="slotProps.componentProps"`. Root metadata remains available for template logic through `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`; it is no longer forwarded automatically to the rendered control.
 
 ## Form Codec
 

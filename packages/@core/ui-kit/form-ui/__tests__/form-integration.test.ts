@@ -1,6 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils';
 
-import type { FormSchemaRuleType } from '../src/types';
+import type { FormSchemaRuleType, VbenFormFieldSlotProps } from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
@@ -130,6 +130,58 @@ describe('useVbenForm integration', () => {
     await flushPromises();
 
     expect(wrapper.get('.slot-value').text()).toBe('Grace');
+  });
+
+  it('groups control bindings in field slot componentProps', async () => {
+    interface SlotFormValues {
+      name: string;
+    }
+
+    let latestSlotProps:
+      | undefined
+      | VbenFormFieldSlotProps<SlotFormValues, 'name'>;
+    const [Form, formApi] = useVbenForm<SlotFormValues>({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'Ada',
+          fieldName: 'name',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        name(slotProps: VbenFormFieldSlotProps<SlotFormValues, 'name'>) {
+          latestSlotProps = slotProps;
+          return h(TestInput, {
+            ...slotProps.componentProps,
+            class: 'slot-component',
+          });
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(latestSlotProps).toBeDefined();
+    if (!latestSlotProps) return;
+    expect(latestSlotProps.formApi).toBe(formApi);
+    expect(latestSlotProps.values).toEqual({ name: 'Ada' });
+    expect(latestSlotProps.modelValue).toBe('Ada');
+    expect(latestSlotProps.componentProps.modelValue).toBe('Ada');
+    expect(latestSlotProps.componentProps.disabled).toBe(false);
+    expect(latestSlotProps.componentProps).toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(latestSlotProps.componentProps).not.toHaveProperty('formApi');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('values');
+    expect(latestSlotProps).not.toHaveProperty('onUpdate:modelValue');
+
+    await wrapper.get('.slot-component').setValue('Grace');
+    await flushPromises();
+
+    expect(latestSlotProps.modelValue).toBe('Grace');
+    expect(latestSlotProps.values.name).toBe('Grace');
   });
 
   it('supports a field-level change event fallback for legacy components', async () => {

@@ -141,12 +141,26 @@ describe('form public types', () => {
       EmailSlotProps['field']['state']['value']
     >().toEqualTypeOf<string>();
     expectTypeOf<EmailSlotProps['values']>().toEqualTypeOf<AccountFormValues>();
+    expectTypeOf<
+      EmailSlotProps['componentProps']['modelValue']
+    >().toEqualTypeOf<string | undefined>();
     expectTypeOf<EmailSlotProps['formApi']>().toEqualTypeOf<
       ExtendedFormApi<AccountFormValues>
     >();
     expectTypeOf<
       DefaultSlotProps['values']
     >().toEqualTypeOf<AccountFormValues>();
+
+    const [WideForm] = useVbenForm<Record<string, unknown>>({ schema: [] });
+    type WideFormSlots = InstanceType<typeof WideForm>['$slots'];
+    type WideFieldSlot = NonNullable<WideFormSlots['dynamic-field']>;
+    type WideFieldSlotProps = Parameters<WideFieldSlot>[0];
+
+    expectTypeOf<WideFieldSlotProps>().not.toBeAny();
+    expectTypeOf<WideFieldSlotProps['modelValue']>().toEqualTypeOf<unknown>();
+    expectTypeOf<WideFieldSlotProps['values']>().toEqualTypeOf<
+      Record<string, unknown>
+    >();
   });
 
   it('keeps form and submit values distinct with a codec', () => {
