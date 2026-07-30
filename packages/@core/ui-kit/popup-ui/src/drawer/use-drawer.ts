@@ -10,6 +10,7 @@ import {
   inject,
   markRaw,
   nextTick,
+  onBeforeUnmount,
   provide,
   ref,
   shallowReactive,
@@ -92,6 +93,11 @@ export function useVbenDrawer<
   if (!isConsumed && injectData.consumed !== undefined) {
     injectData.consumed = true;
   }
+  onBeforeUnmount(() => {
+    if (!isConsumed && injectData.consumed !== undefined) {
+      injectData.consumed = false;
+    }
+  });
 
   const mergedOptions = {
     ...DEFAULT_DRAWER_PROPS,
@@ -109,7 +115,7 @@ export function useVbenDrawer<
   const onClosed = mergedOptions.onClosed;
   mergedOptions.onClosed = () => {
     onClosed?.();
-    if (mergedOptions.destroyOnClose) {
+    if (mergedOptions.destroyOnClose && !isConsumed) {
       if (injectData.consumed !== undefined) {
         injectData.consumed = false;
       }

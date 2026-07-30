@@ -26,6 +26,7 @@ let activeApp: App | undefined;
 async function mountRebindingHarness() {
   const consumerKey = ref(0);
   let currentApi: ExtendedDrawerApi | undefined;
+  const onOpenChange = vi.fn();
 
   const Consumer = defineComponent(() => {
     const [Drawer, drawerApi] = useVbenDrawer();
@@ -39,6 +40,8 @@ async function mountRebindingHarness() {
 
   const [ParentDrawer, parentApi] = useVbenDrawer({
     connectedComponent: ConnectedDrawer,
+    onOpenChange,
+    title: 'Parent drawer title',
   });
   const host = document.createElement('div');
   document.body.append(host);
@@ -50,6 +53,7 @@ async function mountRebindingHarness() {
   return {
     consumerKey,
     getCurrentApi: () => currentApi,
+    onOpenChange,
     parentApi,
   };
 }
@@ -68,7 +72,7 @@ afterEach(() => {
 
 describe('useVbenDrawer', () => {
   it('rebinds the parent api when the consumer is recreated', async () => {
-    const { consumerKey, getCurrentApi, parentApi } =
+    const { consumerKey, getCurrentApi, onOpenChange, parentApi } =
       await mountRebindingHarness();
     const initialApi = getCurrentApi();
 
@@ -82,9 +86,11 @@ describe('useVbenDrawer', () => {
     expect(recreatedApi).toBeDefined();
     if (!recreatedApi) return;
     expect(recreatedApi).not.toBe(initialApi);
+    expect(recreatedApi.store.state.title).toBe('Parent drawer title');
     expect(parentApi.store).toBe(recreatedApi.store);
 
     parentApi.open();
+    expect(onOpenChange).toHaveBeenCalledWith(true);
     expect(recreatedApi.store.state.isOpen).toBe(true);
     expect(initialApi.store.state.isOpen).toBe(false);
 
