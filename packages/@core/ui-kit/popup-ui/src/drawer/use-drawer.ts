@@ -8,10 +8,11 @@ import {
   defineComponent,
   h,
   inject,
+  markRaw,
   nextTick,
   provide,
-  reactive,
   ref,
+  shallowReactive,
 } from 'vue';
 
 import { usePreferences } from '@vben-core/preferences';
@@ -45,16 +46,17 @@ export function useVbenDrawer<
   };
   const { connectedComponent } = options;
   if (connectedComponent) {
-    const extendedApi = reactive({});
+    const extendedApi = shallowReactive({});
     const isDrawerReady = ref(true);
     const Drawer = defineComponent(
       (props: TParentDrawerProps, { attrs, slots }) => {
+        function rebindApi(api: ExtendedDrawerApi) {
+          Object.setPrototypeOf(extendedApi, markRaw(api));
+        }
+
         provide(USER_DRAWER_INJECT_KEY, {
-          extendApi(api: ExtendedDrawerApi) {
-            // 不能直接给 reactive 赋值，会丢失响应
-            // 不能用 Object.assign,会丢失 api 的原型函数
-            Object.setPrototypeOf(extendedApi, api);
-          },
+          extendApi: rebindApi,
+          consumed: false,
           options: defaultOptions,
           async reCreateDrawer() {
             isDrawerReady.value = false;
@@ -85,22 +87,32 @@ export function useVbenDrawer<
   }
 
   const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
+  const isConsumed = injectData.consumed;
+  const effectiveOptions = isConsumed ? {} : injectData.options;
+  if (!isConsumed && injectData.consumed !== undefined) {
+    injectData.consumed = true;
+  }
 
   const mergedOptions = {
     ...DEFAULT_DRAWER_PROPS,
-    ...injectData.options,
+    ...effectiveOptions,
     ...defaultOptions,
   } as DrawerApiOptions;
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);
-    injectData.options?.onOpenChange?.(isOpen);
+    if (!isConsumed) {
+      injectData.options?.onOpenChange?.(isOpen);
+    }
   };
 
   const onClosed = mergedOptions.onClosed;
   mergedOptions.onClosed = () => {
     onClosed?.();
     if (mergedOptions.destroyOnClose) {
+      if (injectData.consumed !== undefined) {
+        injectData.consumed = false;
+      }
       injectData.reCreateDrawer?.();
     }
   };
