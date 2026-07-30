@@ -180,15 +180,15 @@ function onSubmit(values: CustomSubmitValues) {
   <Page description="表单组件自定义示例" title="表单组件">
     <Card title="基础示例">
       <Form>
-        <template #dynamicSlotField="{ component, componentProps, values }">
+        <template #dynamicSlotField="slotProps">
           <component
-            :is="component"
-            v-bind="componentProps"
-            :data-component-type="values.componentType"
+            :is="slotProps.component"
+            v-bind="slotProps"
+            :data-component-type="slotProps.values.componentType"
           />
         </template>
         <template #field3="slotProps">
-          <Input placeholder="请输入" v-bind="slotProps.componentProps" />
+          <Input placeholder="请输入" v-bind="slotProps" />
         </template>
       </Form>
     </Card>

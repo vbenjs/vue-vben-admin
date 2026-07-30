@@ -119,11 +119,11 @@ function onSubmit(values: Record<string, any>) {
 
 <template>
   <Form>
-    <template #field3="{ component, componentProps, values }">
+    <template #field3="slotProps">
       <component
-        :is="component"
-        v-bind="componentProps"
-        :data-component-type="values.componentType"
+        :is="slotProps.component"
+        v-bind="slotProps"
+        :data-component-type="slotProps.values.componentType"
       />
     </template>
   </Form>

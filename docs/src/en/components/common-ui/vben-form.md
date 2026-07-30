@@ -236,13 +236,9 @@ async function fillForm() {
 
 <template>
   <Form>
-    <template #email="{ component, componentProps, field, formApi, values }">
-      <!-- field.state.value and componentProps.modelValue are strings -->
-      <component
-        :is="component"
-        v-bind="componentProps"
-        :data-email="values.email"
-      />
+    <template #email="{ componentField, field, formApi, values }">
+      <!-- field.state.value and componentField.modelValue are strings -->
+      <input v-bind="componentField" :data-email="values.email" />
       <button type="button" @click="formApi.clearValidation('email')">
         Clear
       </button>
@@ -256,9 +252,7 @@ async function fillForm() {
 </template>
 ```
 
-Named field slots expose the resolved `component`, grouped `componentProps`, `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`.
-
-Use a precise form-value interface without a string index signature to infer each field value. A broad type such as `Record<string, unknown>` keeps the complete slot-prop structure instead of degrading the whole scope to `any`, but field values can only use the declared index value type.
+Named field slots additionally expose the resolved `component` and continue to expose `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`. Forms without a precise `TValues` remain compatible with arbitrary slot names and broad slot props.
 
 ## Custom and Dynamic Components
 
@@ -362,28 +356,29 @@ Array children support the same dynamic selection. Child `triggerFields` resolve
 }
 ```
 
-Custom controls do not automatically receive the complete `values` or `formApi`. Derive the required data in `dependencies.resolve` and pass it explicitly through `componentProps` to avoid subscribing every control to the complete form.
+Custom controls rendered through `schema.component` do not automatically receive the complete `values` or `formApi`. Derive the required data in `dependencies.resolve` and pass it explicitly through `componentProps` to avoid subscribing every control to the complete form.
 
 Field slots can render the same resolved dynamic component while retaining access to the full form context:
 
 ```vue
 <Form>
-  <template
-    #dynamicValue="{ component, componentProps, formApi, values }"
-  >
+  <template #dynamicValue="slotProps">
     <component
-      :is="component"
-      v-bind="componentProps"
-      :data-component-type="values.componentType"
+      :is="slotProps.component"
+      v-bind="slotProps"
+      :data-component-type="slotProps.values.componentType"
     />
-    <button type="button" @click="formApi.clearValidation('dynamicValue')">
+    <button
+      type="button"
+      @click="slotProps.formApi.clearValidation('dynamicValue')"
+    >
       Clear validation
     </button>
   </template>
 </Form>
 ```
 
-`componentProps` contains the model value, matching `update:*` event, schema/common/dependency props, and disabled state. This is an intentional breaking cleanup for field slots: migrate `v-bind="slotProps"` to `v-bind="slotProps.componentProps"`.
+`component` is the currently resolved control. Field slots continue to expose the model value, matching `update:*` event, schema/common/dependency props, and disabled state at the root, so existing `v-bind="slotProps"` usage remains compatible.
 
 ## Form Codec
 
@@ -455,7 +450,7 @@ Use benchmark results to compare relative changes on the same machine and runtim
 - prefer `dependencies: { triggerFields, resolve(context) }` for one atomic dynamic-state patch; legacy dependency callbacks remain supported but are deprecated and warn once in development
 - `dependencies.resolve` may return a registered component name or direct Vue Component together with `componentProps`; omitted components fall back to the static schema component
 - top-level `componentProps`, `help`, and `renderComponentContent` functions receive `FormSchemaContext`; value-dependent rendering belongs in `dependencies.resolve`
-- field slots expose the resolved `component` and grouped `componentProps`; bind the group to the control instead of binding the complete slot scope
+- field slots expose the resolved `component` while retaining the existing flattened control bindings
 - use `formFieldProps.validateOn` with `blur` and/or `change`; submit always validates, and `asyncDebounceMs` debounces async validators
 - use `changeEventFallback: true` only for components that emit `change` without an `update:*` event
 

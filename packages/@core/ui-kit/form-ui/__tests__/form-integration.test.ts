@@ -711,15 +711,16 @@ describe('useVbenForm integration', () => {
     );
   });
 
-  it('exposes grouped dynamic component props to field slots', async () => {
+  it('preserves flattened dynamic component props in field slots', async () => {
     interface DynamicFormValues {
       mode: string;
       target: string;
     }
 
-    let latestSlotProps:
-      | undefined
-      | VbenFormFieldSlotProps<DynamicFormValues, 'target'>;
+    type DynamicFieldSlotProps = Record<string, any> &
+      VbenFormFieldSlotProps<DynamicFormValues, 'target'>;
+
+    let latestSlotProps: DynamicFieldSlotProps | undefined;
     const [Form, formApi] = useVbenForm<DynamicFormValues>({
       schema: [
         {
@@ -751,10 +752,10 @@ describe('useVbenForm integration', () => {
     const wrapper = mount(Form, {
       slots: {
         target(slotProps: VbenFormFieldSlotProps<DynamicFormValues, 'target'>) {
-          latestSlotProps = slotProps;
+          latestSlotProps = slotProps as DynamicFieldSlotProps;
           return slotProps.component
             ? h(slotProps.component, {
-                ...slotProps.componentProps,
+                ...slotProps,
                 class: 'slot-component',
               })
             : null;
@@ -771,18 +772,11 @@ describe('useVbenForm integration', () => {
       target: 'initial',
     });
     expect(latestSlotProps.formApi).toBe(formApi);
-    expect(latestSlotProps.componentProps).not.toHaveProperty('formApi');
-    expect(latestSlotProps.componentProps).not.toHaveProperty('values');
-    expect(Reflect.has(latestSlotProps, 'value')).toBe(false);
+    expect(latestSlotProps.value).toBe('initial');
+    expect(latestSlotProps).toHaveProperty('onUpdate:value');
+    expect(Reflect.has(latestSlotProps, 'modelValue')).toBe(false);
     expect(Reflect.has(latestSlotProps, 'onUpdate:modelValue')).toBe(false);
-    expect(latestSlotProps.modelValue).toBe('initial');
     expect(latestSlotProps.componentField.modelValue).toBe('initial');
-    expect(latestSlotProps.componentProps.value).toBe('initial');
-    expect(latestSlotProps.componentProps).toHaveProperty('onUpdate:value');
-    expect(latestSlotProps.componentProps).not.toHaveProperty('modelValue');
-    expect(latestSlotProps.componentProps).not.toHaveProperty(
-      'onUpdate:modelValue',
-    );
 
     const valueInput = wrapper.get('.test-value-input');
     await valueInput.trigger('click');
@@ -797,14 +791,11 @@ describe('useVbenForm integration', () => {
     expect(wrapper.get('.test-checked-input').attributes('data-checked')).toBe(
       'value-updated',
     );
-    expect(latestSlotProps.modelValue).toBe('value-updated');
     expect(latestSlotProps.componentField.modelValue).toBe('value-updated');
-    expect(latestSlotProps.componentProps.checked).toBe('value-updated');
-    expect(latestSlotProps.componentProps).toHaveProperty('onUpdate:checked');
-    expect(latestSlotProps.componentProps).not.toHaveProperty('modelValue');
-    expect(latestSlotProps.componentProps).not.toHaveProperty(
-      'onUpdate:modelValue',
-    );
+    expect(latestSlotProps.checked).toBe('value-updated');
+    expect(latestSlotProps).toHaveProperty('onUpdate:checked');
+    expect(latestSlotProps).not.toHaveProperty('modelValue');
+    expect(latestSlotProps).not.toHaveProperty('onUpdate:modelValue');
     expect(latestSlotProps.values.mode).toBe('checked');
     expect(latestSlotProps.field.state.meta.isDirty).toBe(true);
     expect(latestSlotProps.field.state.meta.isTouched).toBe(true);
@@ -812,12 +803,10 @@ describe('useVbenForm integration', () => {
     await formApi.setFieldValue('mode', 'direct');
     await flushPromises();
     expect(wrapper.find('.test-textarea').exists()).toBe(true);
-    expect(latestSlotProps.componentProps.modelValue).toBe('value-updated');
-    expect(latestSlotProps.componentProps).toHaveProperty(
-      'onUpdate:modelValue',
-    );
-    expect(latestSlotProps.componentProps).not.toHaveProperty('value');
-    expect(latestSlotProps.componentProps).not.toHaveProperty('checked');
+    expect(latestSlotProps.modelValue).toBe('value-updated');
+    expect(latestSlotProps).toHaveProperty('onUpdate:modelValue');
+    expect(latestSlotProps).not.toHaveProperty('value');
+    expect(latestSlotProps).not.toHaveProperty('checked');
   });
 
   it('applies required rules enabled by dependencies after mount', async () => {

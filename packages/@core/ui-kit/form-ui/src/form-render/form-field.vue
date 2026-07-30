@@ -387,12 +387,10 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
 function createFieldSlotScope(slotProps: RuntimeFieldSlotProps) {
   return {
     ...createFieldSlotProps(slotProps),
+    ...createComponentProps(slotProps),
     component: FieldComponent.value,
-    componentProps: createComponentProps(slotProps),
     disabled: shouldDisabled.value,
     isInValid: isInValid.value,
-    modelValue: fieldValue.value,
-    name: fieldName,
   };
 }
 

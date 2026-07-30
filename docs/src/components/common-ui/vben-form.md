@@ -403,7 +403,7 @@ const schema = [
 }
 ```
 
-自定义组件不会自动收到整份 `values` 和 `formApi`。如果组件内部需要其他字段派生的信息，应在 resolve 中计算后通过 `componentProps` 显式传入，避免每个控件订阅整个表单。
+通过 `schema.component` 渲染的自定义组件不会自动收到整份 `values` 和 `formApi`。如果组件内部需要其他字段派生的信息，应在 resolve 中计算后通过 `componentProps` 显式传入，避免每个控件订阅整个表单。
 
 <DemoPreview dir="demos/vben-form/custom" />
 
@@ -468,13 +468,9 @@ async function fillForm() {
 
 <template>
   <Form>
-    <template #email="{ component, componentProps, field, formApi, values }">
-      <!-- field.state.value、componentProps.modelValue 均为 string -->
-      <component
-        :is="component"
-        v-bind="componentProps"
-        :data-email="values.email"
-      />
+    <template #email="{ componentField, field, formApi, values }">
+      <!-- field.state.value、componentField.modelValue 均为 string -->
+      <input v-bind="componentField" :data-email="values.email" />
       <button type="button" @click="formApi.clearValidation('email')">
         Clear
       </button>
@@ -489,9 +485,7 @@ async function fillForm() {
 </template>
 ```
 
-字段命名插槽提供解析后的 `component`、完整字段绑定 `componentProps`，以及 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。
-
-建议为表单声明没有字符串索引签名的精确接口，使每个字段插槽都能推导自己的值类型。使用 `Record<string, unknown>` 等宽泛类型时，slot props 仍保持完整结构，不再整体退化为 `any`，但字段值只能推导为索引值类型。
+字段命名插槽额外提供解析后的 `component`，并继续提供 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。未声明精确 `TValues` 时仍兼容任意字段名和宽泛 slot props。
 
 ### FormApi
 
@@ -856,21 +850,22 @@ import { z } from '#/adapter/form';
 
 ```vue
 <Form>
-  <template
-    #dynamicValue="{ component, componentProps, formApi, values }"
-  >
+  <template #dynamicValue="slotProps">
     <component
-      :is="component"
-      v-bind="componentProps"
-      :data-component-type="values.componentType"
+      :is="slotProps.component"
+      v-bind="slotProps"
+      :data-component-type="slotProps.values.componentType"
     />
-    <button type="button" @click="formApi.clearValidation('dynamicValue')">
+    <button
+      type="button"
+      @click="slotProps.formApi.clearValidation('dynamicValue')"
+    >
       清除校验
     </button>
   </template>
 </Form>
 ```
 
-`componentProps` 已包含当前模型值、对应的 `update:*` 事件、schema/common/dependencies props 和 disabled 状态。不要再把整个 slot scope 绑定到控件：旧写法 `v-bind="slotProps"` 需要迁移为 `v-bind="slotProps.componentProps"`。
+`component` 是当前解析后的控件。字段 slot 继续在根级提供当前模型值、对应的 `update:*` 事件、schema/common/dependencies props 和 disabled 状态，因此原有 `v-bind="slotProps"` 写法保持兼容。
 
 :::

@@ -239,36 +239,19 @@ export interface VbenFormDefaultSlotProps<
 
 export interface VbenFormFieldSlotProps<
   TValues extends FormValues = FormValues,
-  TFieldName extends FormFieldName<TValues> = FormFieldName<TValues>,
+  TFieldName extends KnownFormFieldName<TValues> = KnownFormFieldName<TValues>,
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
   TSubmitValues extends FormValues = TValues,
 > extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
   component?: Component;
-  componentField: FormComponentField<
-    FormFieldValue<TValues, TFieldName>,
-    TFieldName
-  >;
-  componentProps: VbenFormResolvedComponentProps<
-    FormFieldValue<TValues, TFieldName>,
-    TFieldName
-  >;
+  componentField: FormComponentField<TValues[TFieldName], TFieldName>;
   disabled: boolean;
-  field: FormRuntimeField<FormFieldValue<TValues, TFieldName>>;
+  field: FormRuntimeField<TValues[TFieldName]>;
   isInValid: boolean;
-  modelValue: FormFieldValue<TValues, TFieldName>;
+  modelValue: TValues[TFieldName];
   name: TFieldName;
 }
-
-export type VbenFormResolvedComponentProps<
-  TValue = unknown,
-  TFieldName extends string = string,
-> = MaybeComponentProps & {
-  disabled: boolean;
-  modelValue?: TValue;
-  name: TFieldName;
-  'onUpdate:modelValue'?: (value: TValue) => void;
-};
 
 type VbenFormFieldSlots<
   TValues extends FormValues,
@@ -277,19 +260,7 @@ type VbenFormFieldSlots<
   TSubmitValues extends FormValues,
 > =
   string extends Extract<keyof TValues, string>
-    ? Record<
-        string,
-        | ((
-            props: VbenFormFieldSlotProps<
-              TValues,
-              FormFieldName<TValues>,
-              T,
-              P,
-              TSubmitValues
-            >,
-          ) => any)
-        | undefined
-      >
+    ? Record<string, ((props: any) => any) | undefined>
     : {
         [TFieldName in KnownFormFieldName<TValues>]?: (
           props: VbenFormFieldSlotProps<
