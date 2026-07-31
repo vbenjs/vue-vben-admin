@@ -4,6 +4,24 @@ outline: deep
 
 # Vben Form 表单
 
+::: warning 字段插槽破坏性变更
+
+字段命名 slot 的控件绑定已统一收拢到 `slotProps.componentProps`。旧写法会把 `field`、`formApi`、`values` 等表单元数据一并传给实际控件，可能产生无效属性和 Vue 运行时警告。
+
+```vue
+<!-- 旧写法 -->
+<Input v-bind="slotProps" />
+
+<!-- 新写法 -->
+<Input v-bind="slotProps.componentProps" />
+```
+
+请将所有字段 slot 的 `v-bind="slotProps"` 迁移为 `v-bind="slotProps.componentProps"`。根级的 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 仍可用于模板逻辑，但不会再自动传入实际控件。
+
+当前版本启动 Vben 应用或 Playground 开发服务器时会在终端输出一次迁移警告，页面加载时浏览器控制台也会提示。该提示不会进入生产构建，并计划在下个版本移除。
+
+:::
+
 框架提供的表单组件，可适配 `Element Plus`、`Ant Design Vue`、`Naive UI` 等框架。
 
 > 如果文档内没有参数说明，可以尝试在在线示例内寻找
@@ -760,6 +778,6 @@ import { z } from '#/adapter/form';
 </Form>
 ```
 
-这是字段 slot 的破坏性边界：旧写法 `v-bind="slotProps"` 必须迁移为 `v-bind="slotProps.componentProps"`。`field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 仍保留在 slot 根级，供模板逻辑使用，不会自动传入实际控件。
+`field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 保留在 slot 根级，供模板逻辑使用，不会自动传入实际控件。
 
 :::
