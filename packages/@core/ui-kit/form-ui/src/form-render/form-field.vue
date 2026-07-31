@@ -361,8 +361,8 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   );
 
   const binds = {
-    ...normalizedSlotProps.componentField,
     ...computedProps.value,
+    ...normalizedSlotProps.componentField,
     ...bindEvents,
     disabled: shouldDisabled.value,
     ...(Reflect.has(computedProps.value, 'onChange')
