@@ -141,6 +141,9 @@ describe('form public types', () => {
       EmailSlotProps['field']['state']['value']
     >().toEqualTypeOf<string>();
     expectTypeOf<EmailSlotProps['values']>().toEqualTypeOf<AccountFormValues>();
+    expectTypeOf<
+      EmailSlotProps['componentProps']['modelValue']
+    >().toEqualTypeOf<string | undefined>();
     expectTypeOf<EmailSlotProps['formApi']>().toEqualTypeOf<
       ExtendedFormApi<AccountFormValues>
     >();

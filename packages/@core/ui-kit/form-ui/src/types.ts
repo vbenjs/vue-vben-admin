@@ -244,12 +244,26 @@ export interface VbenFormFieldSlotProps<
     FormFieldValue<TValues, TFieldName>,
     TFieldName
   >;
+  componentProps: VbenFormResolvedComponentProps<
+    FormFieldValue<TValues, TFieldName>,
+    TFieldName
+  >;
   disabled: boolean;
   field: FormRuntimeField<FormFieldValue<TValues, TFieldName>>;
   isInValid: boolean;
   modelValue: FormFieldValue<TValues, TFieldName>;
   name: TFieldName;
 }
+
+export type VbenFormResolvedComponentProps<
+  TValue = unknown,
+  TFieldName extends string = string,
+> = MaybeComponentProps & {
+  disabled: boolean;
+  modelValue?: TValue;
+  name: TFieldName;
+  'onUpdate:modelValue'?: (value: TValue) => void;
+};
 
 type VbenFormFieldSlots<
   TValues extends FormValues,

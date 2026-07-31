@@ -65,7 +65,9 @@ const dependencySchema: FormSchema[] = [
     component: TestInput,
     defaultValue: `Value ${index}`,
     dependencies: {
-      resolve: ({ values }) => ({ disabled: values.mode === 'locked' }),
+      resolve: ({ values }: { values: Record<string, string> }) => ({
+        disabled: values.mode === 'locked',
+      }),
       triggerFields: ['mode'],
     },
     fieldName: `dependent${index}`,

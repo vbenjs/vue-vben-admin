@@ -1,6 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils';
 
-import type { FormSchemaRuleType } from '../src/types';
+import type { FormSchemaRuleType, VbenFormFieldSlotProps } from '../src/types';
 
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
@@ -104,18 +104,27 @@ describe('useVbenForm integration', () => {
     expect(validateValue).toHaveBeenCalledTimes(initialValidationCount + 1);
   });
 
-  it('keeps only the active model protocol and boolean disabled in field slots', async () => {
+  it('keeps only the active model protocol in field slot componentProps', async () => {
     interface ModelProtocolValues {
       defaultField: string;
       valueField: string;
     }
 
+    const staleDefaultBlur = vi.fn();
+    const staleDefaultUpdate = vi.fn();
+    const staleValueUpdate = vi.fn();
     let defaultSlotProps: Record<string, any> | undefined;
     let valueSlotProps: Record<string, any> | undefined;
     const [Form, formApi] = useVbenForm<ModelProtocolValues>({
       schema: [
         {
           component: TestInput,
+          componentProps: {
+            modelValue: 'stale-default-value',
+            name: 'stale-default-name',
+            onBlur: staleDefaultBlur,
+            'onUpdate:modelValue': staleDefaultUpdate,
+          },
           defaultValue: 'default-initial',
           fieldName: 'defaultField',
         },
@@ -124,6 +133,8 @@ describe('useVbenForm integration', () => {
           componentProps: {
             eventMode: 'value-and-change',
             modelValue: 'stale-model-value',
+            'onUpdate:value': staleValueUpdate,
+            value: 'stale-value',
           },
           defaultValue: 'value-initial',
           fieldName: 'valueField',
@@ -136,18 +147,15 @@ describe('useVbenForm integration', () => {
         defaultField(slotProps: Record<string, any>) {
           defaultSlotProps = slotProps;
           return h(TestInput, {
+            ...slotProps.componentProps,
             class: 'default-protocol-input',
-            modelValue: slotProps.modelValue,
-            'onUpdate:modelValue': slotProps['onUpdate:modelValue'],
           });
         },
         valueField(slotProps: Record<string, any>) {
           valueSlotProps = slotProps;
           return h(TestInput, {
+            ...slotProps.componentProps,
             class: 'value-protocol-input',
-            eventMode: slotProps.eventMode,
-            value: slotProps.value,
-            'onUpdate:value': slotProps['onUpdate:value'],
           });
         },
       },
@@ -159,21 +167,31 @@ describe('useVbenForm integration', () => {
     expect(valueSlotProps).toBeDefined();
     if (!defaultSlotProps || !valueSlotProps) return;
 
-    expect(defaultSlotProps.disabled).toBe(false);
-    expect(defaultSlotProps.modelValue).toBe('default-initial');
-    expect(defaultSlotProps).toHaveProperty('onUpdate:modelValue');
-    expect(defaultSlotProps).not.toHaveProperty('value');
+    expect(defaultSlotProps.componentProps.disabled).toBe(false);
+    expect(defaultSlotProps.componentProps.modelValue).toBe('default-initial');
+    expect(defaultSlotProps.componentProps.name).toBe('defaultField');
+    expect(defaultSlotProps.componentProps).toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(defaultSlotProps.componentProps).not.toHaveProperty('value');
 
-    expect(valueSlotProps.disabled).toBe(false);
-    expect(valueSlotProps.value).toBe('value-initial');
-    expect(valueSlotProps).toHaveProperty('onUpdate:value');
-    expect(valueSlotProps).not.toHaveProperty('modelValue');
-    expect(valueSlotProps).not.toHaveProperty('onUpdate:modelValue');
+    expect(valueSlotProps.componentProps.disabled).toBe(false);
+    expect(valueSlotProps.componentProps.value).toBe('value-initial');
+    expect(valueSlotProps.componentProps).toHaveProperty('onUpdate:value');
+    expect(valueSlotProps.componentProps).not.toHaveProperty('modelValue');
+    expect(valueSlotProps.componentProps).not.toHaveProperty(
+      'onUpdate:modelValue',
+    );
 
+    await wrapper.get('.default-protocol-input').trigger('blur');
     await wrapper.get('.default-protocol-input').setValue('default-updated');
     await wrapper.get('.value-protocol-input').setValue('value-updated');
     await flushPromises();
 
+    expect(defaultSlotProps.field.state.meta.isTouched).toBe(true);
+    expect(staleDefaultBlur).not.toHaveBeenCalled();
+    expect(staleDefaultUpdate).not.toHaveBeenCalled();
+    expect(staleValueUpdate).not.toHaveBeenCalled();
     expect(await formApi.getValues()).toEqual({
       defaultField: 'default-updated',
       valueField: 'value-updated',
@@ -206,6 +224,109 @@ describe('useVbenForm integration', () => {
     await flushPromises();
 
     expect(wrapper.get('.slot-value').text()).toBe('Grace');
+  });
+
+  it('groups control bindings in field slot componentProps', async () => {
+    interface SlotFormValues {
+      name: string;
+    }
+
+    let latestSlotProps:
+      | undefined
+      | VbenFormFieldSlotProps<SlotFormValues, 'name'>;
+    const [Form, formApi] = useVbenForm<SlotFormValues>({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'Ada',
+          fieldName: 'name',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        name(slotProps: VbenFormFieldSlotProps<SlotFormValues, 'name'>) {
+          latestSlotProps = slotProps;
+          return h(TestInput, {
+            ...slotProps.componentProps,
+            class: 'slot-component',
+          });
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(latestSlotProps).toBeDefined();
+    if (!latestSlotProps) return;
+    expect(latestSlotProps.formApi).toBe(formApi);
+    expect(latestSlotProps.values).toEqual({ name: 'Ada' });
+    expect(latestSlotProps.modelValue).toBe('Ada');
+    expect(latestSlotProps.componentProps.modelValue).toBe('Ada');
+    expect(latestSlotProps.componentProps.disabled).toBe(false);
+    expect(latestSlotProps.componentProps).toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(latestSlotProps.componentProps).not.toHaveProperty('formApi');
+    expect(latestSlotProps.componentProps).not.toHaveProperty('values');
+    expect(latestSlotProps).not.toHaveProperty('onUpdate:modelValue');
+
+    await wrapper.get('.slot-component').setValue('Grace');
+    await flushPromises();
+
+    expect(latestSlotProps.modelValue).toBe('Grace');
+    expect(latestSlotProps.values.name).toBe('Grace');
+  });
+
+  it('normalizes disabled state in field slot componentProps', async () => {
+    interface DisabledFormValues {
+      commonDisabled: string;
+      dependencyDisabled: string;
+    }
+
+    const fieldSlotProps: Record<string, Record<string, any>> = {};
+    const [Form] = useVbenForm<DisabledFormValues>({
+      commonConfig: { disabled: true },
+      schema: [
+        {
+          component: TestInput,
+          componentProps: { disabled: false },
+          fieldName: 'commonDisabled',
+        },
+        {
+          component: TestInput,
+          componentProps: { disabled: false },
+          dependencies: {
+            resolve: () => ({ disabled: true }),
+            triggerFields: [],
+          },
+          fieldName: 'dependencyDisabled',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        commonDisabled(slotProps: Record<string, any>) {
+          fieldSlotProps.commonDisabled = slotProps;
+          return h(TestInput, slotProps.componentProps);
+        },
+        dependencyDisabled(slotProps: Record<string, any>) {
+          fieldSlotProps.dependencyDisabled = slotProps;
+          return h(TestInput, slotProps.componentProps);
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(fieldSlotProps.commonDisabled).toBeDefined();
+    expect(fieldSlotProps.dependencyDisabled).toBeDefined();
+    expect(fieldSlotProps.commonDisabled?.disabled).toBe(true);
+    expect(fieldSlotProps.commonDisabled?.componentProps.disabled).toBe(true);
+    expect(fieldSlotProps.dependencyDisabled?.disabled).toBe(true);
+    expect(fieldSlotProps.dependencyDisabled?.componentProps.disabled).toBe(
+      true,
+    );
   });
 
   it('supports a field-level change event fallback for legacy components', async () => {

@@ -4,6 +4,24 @@ outline: deep
 
 # Vben Form
 
+::: warning Field Slot Breaking Change
+
+Named field slot control bindings are now grouped under `slotProps.componentProps`. The old binding forwards form metadata such as `field`, `formApi`, and `values` to the rendered control, which can produce invalid attributes and Vue runtime warnings.
+
+```vue
+<!-- Old usage -->
+<Input v-bind="slotProps" />
+
+<!-- New usage -->
+<Input v-bind="slotProps.componentProps" />
+```
+
+Migrate every field slot from `v-bind="slotProps"` to `v-bind="slotProps.componentProps"`. Root metadata remains available for template logic through `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`, but it is no longer forwarded automatically to the rendered control.
+
+In this release, starting a Vben application or Playground development server prints this migration warning in the terminal, and loading the page prints the same warning in the browser console. The warning is excluded from production builds and is planned for removal in the next release.
+
+:::
+
 `Vben Form` is the shared form abstraction used across different UI-library variants such as `Ant Design Vue`, `Element Plus`, `Naive UI`, and other adapters added inside this repository.
 
 It uses [TanStack Form](https://tanstack.com/form/latest/docs/framework/vue/overview) internally for state and validation lifecycles, with [Zod 4](https://zod.dev/v4) schemas. Application code should continue using `useVbenForm`, `FormApi`, and the adapter layer instead of depending on the raw TanStack instance.
@@ -252,7 +270,23 @@ async function fillForm() {
 </template>
 ```
 
-Named field slots expose `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`. Forms without an explicit `TValues` remain compatible with arbitrary slot names and broad props.
+Named field slots expose grouped control bindings through `componentProps`, together with `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`. The default slot exposes `shapes`, `values`, and `formApi`; action slots expose `values` and `formApi`.
+
+Use a precise form-value interface without a string index signature to infer each field value. A broad type such as `Record<string, unknown>` keeps the complete slot-prop structure instead of degrading the whole scope to `any`, but field values can only use the declared index value type.
+
+## Field Slots
+
+Control bindings are grouped under `componentProps`. It contains the model value, matching `update:*` event, schema/common/dependency props, and disabled state:
+
+```vue
+<Form>
+  <template #fieldName="slotProps">
+    <Input v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+Root metadata remains available for template logic through `field`, `componentField`, `modelValue`, `name`, `disabled`, `isInValid`, `values`, and `formApi`; it is not forwarded automatically to the rendered control.
 
 ## Form Codec
 

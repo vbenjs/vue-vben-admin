@@ -62,7 +62,7 @@ function onSubmit(values: Record<string, any>) {
 <template>
   <Form>
     <template #field3="slotProps">
-      <Input placeholder="请输入" v-bind="slotProps" />
+      <Input placeholder="请输入" v-bind="slotProps.componentProps" />
     </template>
   </Form>
 </template>

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { h, markRaw } from 'vue';
+import { h, markRaw, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Card, Input, message } from 'antdv-next';
+import { Button, Card, Input, message, Select } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 
@@ -14,7 +14,8 @@ interface CustomFormValues extends Record<string, unknown> {
   field1?: string;
   field2?: string;
   field3?: string;
-  field4?: [string | undefined, string];
+  field4?: [string | undefined, string | undefined];
+  field5?: string;
 }
 
 function encodeCustomFormValues(values: Readonly<CustomFormValues>) {
@@ -28,6 +29,8 @@ function encodeCustomFormValues(values: Readonly<CustomFormValues>) {
 
 type CustomSubmitValues = ReturnType<typeof encodeCustomFormValues>;
 
+const dynamicComponentType = ref<'input' | 'select'>('input');
+
 function decodeCustomFormValues(
   values: Readonly<CustomSubmitValues>,
 ): CustomFormValues {
@@ -38,7 +41,7 @@ function decodeCustomFormValues(
   };
 }
 
-const [Form] = useVbenForm({
+const [Form, formApi] = useVbenForm({
   codec: {
     decode: decodeCustomFormValues,
     encode: encodeCustomFormValues,
@@ -89,7 +92,6 @@ const [Form] = useVbenForm({
     {
       component: markRaw(TwoFields),
       defaultValue: [undefined, ''],
-      changeEventFallback: true,
       fieldName: 'field4',
       formItemClass: 'col-span-1',
       label: '组合字段',
@@ -107,10 +109,54 @@ const [Form] = useVbenForm({
           message: '　　　　　　　号码格式不正确',
         }),
     },
+    {
+      component: markRaw(Input),
+      componentProps: {
+        placeholder: '请输入动态组件值',
+      },
+      fieldName: 'field5',
+      label: '动态组件',
+      modelPropName: 'value',
+    },
   ],
   // 中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });
+
+function handleToggleDynamicComponent() {
+  const nextType = dynamicComponentType.value === 'input' ? 'select' : 'input';
+  dynamicComponentType.value = nextType;
+
+  if (nextType === 'select') {
+    formApi.updateSchema([
+      {
+        component: markRaw(Select),
+        componentProps: {
+          allowClear: true,
+          options: [
+            { label: '选项一', value: 'option-1' },
+            { label: '选项二', value: 'option-2' },
+          ],
+          placeholder: '请选择动态组件值',
+        },
+        fieldName: 'field5',
+        modelPropName: 'value',
+      },
+    ]);
+    return;
+  }
+
+  formApi.updateSchema([
+    {
+      component: markRaw(Input),
+      componentProps: {
+        placeholder: '请输入动态组件值',
+      },
+      fieldName: 'field5',
+      modelPropName: 'value',
+    },
+  ]);
+}
 
 function onSubmit(values: CustomSubmitValues) {
   message.success({
@@ -122,9 +168,16 @@ function onSubmit(values: CustomSubmitValues) {
 <template>
   <Page description="表单组件自定义示例" title="表单组件">
     <Card title="基础示例">
+      <template #extra>
+        <Button @click="handleToggleDynamicComponent">
+          {{
+            dynamicComponentType === 'input' ? '切换为下拉框' : '切换为输入框'
+          }}
+        </Button>
+      </template>
       <Form>
         <template #field3="slotProps">
-          <Input placeholder="请输入" v-bind="slotProps" />
+          <Input placeholder="请输入" v-bind="slotProps.componentProps" />
         </template>
       </Form>
     </Card>
