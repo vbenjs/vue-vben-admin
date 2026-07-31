@@ -104,6 +104,87 @@ describe('useVbenForm integration', () => {
     expect(validateValue).toHaveBeenCalledTimes(initialValidationCount + 1);
   });
 
+  it('keeps only the active model protocol in field slot componentProps', async () => {
+    interface ModelProtocolValues {
+      defaultField: string;
+      valueField: string;
+    }
+
+    let defaultSlotProps: Record<string, any> | undefined;
+    let valueSlotProps: Record<string, any> | undefined;
+    const [Form, formApi] = useVbenForm<ModelProtocolValues>({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'default-initial',
+          fieldName: 'defaultField',
+        },
+        {
+          component: TestInput,
+          componentProps: {
+            eventMode: 'value-and-change',
+            modelValue: 'stale-model-value',
+          },
+          defaultValue: 'value-initial',
+          fieldName: 'valueField',
+          modelPropName: 'value',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        defaultField(slotProps: Record<string, any>) {
+          defaultSlotProps = slotProps;
+          return h(TestInput, {
+            class: 'default-protocol-input',
+            modelValue: slotProps.componentProps.modelValue,
+            'onUpdate:modelValue':
+              slotProps.componentProps['onUpdate:modelValue'],
+          });
+        },
+        valueField(slotProps: Record<string, any>) {
+          valueSlotProps = slotProps;
+          return h(TestInput, {
+            class: 'value-protocol-input',
+            eventMode: slotProps.componentProps.eventMode,
+            value: slotProps.componentProps.value,
+            'onUpdate:value': slotProps.componentProps['onUpdate:value'],
+          });
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(defaultSlotProps).toBeDefined();
+    expect(valueSlotProps).toBeDefined();
+    if (!defaultSlotProps || !valueSlotProps) return;
+
+    expect(defaultSlotProps.componentProps.disabled).toBe(false);
+    expect(defaultSlotProps.componentProps.modelValue).toBe('default-initial');
+    expect(defaultSlotProps.componentProps).toHaveProperty(
+      'onUpdate:modelValue',
+    );
+    expect(defaultSlotProps.componentProps).not.toHaveProperty('value');
+
+    expect(valueSlotProps.componentProps.disabled).toBe(false);
+    expect(valueSlotProps.componentProps.value).toBe('value-initial');
+    expect(valueSlotProps.componentProps).toHaveProperty('onUpdate:value');
+    expect(valueSlotProps.componentProps).not.toHaveProperty('modelValue');
+    expect(valueSlotProps.componentProps).not.toHaveProperty(
+      'onUpdate:modelValue',
+    );
+
+    await wrapper.get('.default-protocol-input').setValue('default-updated');
+    await wrapper.get('.value-protocol-input').setValue('value-updated');
+    await flushPromises();
+
+    expect(await formApi.getValues()).toEqual({
+      defaultField: 'default-updated',
+      valueField: 'value-updated',
+    });
+  });
+
   it('keeps values reactive when exposed through the default slot', async () => {
     const [Form, formApi] = useVbenForm({
       schema: [

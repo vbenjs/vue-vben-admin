@@ -4,10 +4,12 @@ import {
   defineComponent,
   h,
   inject,
+  markRaw,
   nextTick,
+  onBeforeUnmount,
   provide,
-  reactive,
   ref,
+  shallowReactive,
 } from 'vue';
 
 import { usePreferences } from '@vben-core/preferences';
@@ -40,16 +42,16 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   };
   const { connectedComponent } = options;
   if (connectedComponent) {
-    const extendedApi = reactive({});
+    const extendedApi = shallowReactive({});
     const isModalReady = ref(true);
     const Modal = defineComponent(
       (props: TParentModalProps, { attrs, slots }) => {
+        function rebindApi(api: ExtendedModalApi) {
+          Object.setPrototypeOf(extendedApi, markRaw(api));
+        }
+
         provide(USER_MODAL_INJECT_KEY, {
-          extendApi(api: ExtendedModalApi) {
-            // 不能直接给 reactive 赋值，会丢失响应
-            // 不能用 Object.assign,会丢失 api 的原型函数
-            Object.setPrototypeOf(extendedApi, api);
-          },
+          extendApi: rebindApi,
           consumed: false,
           options: defaultOptions,
           async reCreateModal() {
@@ -83,30 +85,38 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
     return [Modal, extendedApi as ExtendedModalApi] as const;
   }
 
-  let injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
-  // 这个数据已经被使用了，说明这个弹窗是嵌套的弹窗，不应该merge上层的配置
-  if (injectData.consumed) {
-    injectData = {};
-  } else {
+  const injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
+  const isConsumed = injectData.consumed;
+  const effectiveOptions = isConsumed ? {} : injectData.options;
+  if (!isConsumed && injectData.consumed !== undefined) {
     injectData.consumed = true;
   }
+  onBeforeUnmount(() => {
+    if (!isConsumed && injectData.consumed !== undefined) {
+      injectData.consumed = false;
+    }
+  });
 
   const mergedOptions = {
     ...DEFAULT_MODAL_PROPS,
-    ...injectData.options,
+    ...effectiveOptions,
     ...defaultOptions,
   } as ModalApiOptions;
 
   mergedOptions.onOpenChange = (isOpen: boolean) => {
     options.onOpenChange?.(isOpen);
-    injectData.options?.onOpenChange?.(isOpen);
+    if (!isConsumed) {
+      injectData.options?.onOpenChange?.(isOpen);
+    }
   };
 
   const onClosed = mergedOptions.onClosed;
   mergedOptions.onClosed = () => {
     onClosed?.();
-    if (mergedOptions.destroyOnClose) {
-      injectData.consumed = false;
+    if (mergedOptions.destroyOnClose && !isConsumed) {
+      if (injectData.consumed !== undefined) {
+        injectData.consumed = false;
+      }
       injectData.reCreateModal?.();
     }
   };

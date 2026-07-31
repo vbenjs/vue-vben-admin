@@ -307,13 +307,19 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   };
 }
 
-function fieldBindEvent(componentField: Record<string, any>) {
+function resolveModelPropName() {
+  return (
+    modelPropName ||
+    (isString(component) ? componentBindEventMap.value?.[component] : null)
+  );
+}
+
+function fieldBindEvent(
+  componentField: Record<string, any>,
+  bindEventField: null | string | undefined,
+) {
   const modelValue = componentField.modelValue;
   const handler = componentField['onUpdate:modelValue'];
-
-  const bindEventField =
-    modelPropName ||
-    (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
   // antd design 的一些组件会传递一个 event 对象
@@ -348,7 +354,11 @@ function fieldBindEvent(componentField: Record<string, any>) {
 
 function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   const normalizedSlotProps = createFieldSlotProps(slotProps);
-  const bindEvents = fieldBindEvent(normalizedSlotProps.componentField);
+  const bindEventField = resolveModelPropName();
+  const bindEvents = fieldBindEvent(
+    normalizedSlotProps.componentField,
+    bindEventField,
+  );
 
   const binds = {
     ...normalizedSlotProps.componentField,
@@ -362,6 +372,10 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
       ? { onInput: computedProps.value.onInput }
       : {}),
   };
+  if (bindEventField && bindEventField !== 'modelValue') {
+    Reflect.deleteProperty(binds, 'modelValue');
+    Reflect.deleteProperty(binds, 'onUpdate:modelValue');
+  }
 
   return binds;
 }

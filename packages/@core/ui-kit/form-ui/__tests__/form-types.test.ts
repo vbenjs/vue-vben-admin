@@ -158,6 +158,13 @@ describe('form public types', () => {
 
     expectTypeOf<WideFieldSlotProps>().not.toBeAny();
     expectTypeOf<WideFieldSlotProps['modelValue']>().toEqualTypeOf<unknown>();
+    expectTypeOf<
+      WideFieldSlotProps['field']['state']['value']
+    >().toEqualTypeOf<unknown>();
+    expectTypeOf<
+      WideFieldSlotProps['componentField']['modelValue']
+    >().toEqualTypeOf<unknown>();
+    expectTypeOf<WideFieldSlotProps['name']>().toBeString();
     expectTypeOf<WideFieldSlotProps['values']>().toEqualTypeOf<
       Record<string, unknown>
     >();
