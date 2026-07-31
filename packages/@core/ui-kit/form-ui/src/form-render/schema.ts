@@ -2,8 +2,10 @@ import type {
   BaseFormComponentType,
   FormActions,
   FormCommonConfig,
+  FormDependenciesResolveContext,
   FormFieldProps,
   FormItemDependencies,
+  FormItemDependenciesLegacy,
   FormSchema,
   FormSchemaContext,
   MaybeComponentProps,
@@ -14,6 +16,8 @@ import {
   isFunction,
   mergeWithArrayOverride,
 } from '@vben-core/shared/utils';
+
+import { resolveChildUpdateFieldName } from '../field-name';
 
 type AnyFormSchema = FormSchema<BaseFormComponentType, Record<string, any>>;
 
@@ -79,8 +83,24 @@ function wrapComponentProps(
     return componentProps;
   }
 
-  return (values: Partial<Record<string, any>>, actions: FormActions) =>
-    componentProps(values, actions, createSchemaContext(baseContext, values));
+  return () => componentProps(baseContext);
+}
+
+function wrapCommonConfig(
+  commonConfig: FormCommonConfig | undefined,
+  baseContext: FormSchemaContext,
+) {
+  if (!commonConfig || !isFunction(commonConfig.componentProps)) {
+    return commonConfig;
+  }
+
+  return {
+    ...commonConfig,
+    componentProps: wrapComponentProps(
+      commonConfig.componentProps,
+      baseContext,
+    ),
+  };
 }
 
 function wrapCustomParamsRender(
@@ -91,8 +111,7 @@ function wrapCustomParamsRender(
     return render;
   }
 
-  return (values: Partial<Record<string, any>>, actions: FormActions) =>
-    render(values, actions, createSchemaContext(baseContext, values));
+  return () => render(baseContext);
 }
 
 function wrapRenderComponentContent(
@@ -103,8 +122,7 @@ function wrapRenderComponentContent(
     return render;
   }
 
-  return (values: Partial<Record<string, any>>, actions: FormActions) =>
-    render(values, actions, createSchemaContext(baseContext, values));
+  return () => render(baseContext);
 }
 
 function wrapDependencyFn<T>(handler: T, baseContext: FormSchemaContext): T {
@@ -128,7 +146,7 @@ function wrapDependencyFn<T>(handler: T, baseContext: FormSchemaContext): T {
 function scopeDependencies(
   dependencies: FormItemDependencies | undefined,
   baseContext: FormSchemaContext,
-) {
+): FormItemDependencies | undefined {
   if (!dependencies) {
     return dependencies;
   }
@@ -138,19 +156,41 @@ function scopeDependencies(
     return dependencies;
   }
 
+  const triggerFields =
+    dependencies.triggerFields?.map((fieldName) =>
+      scopeRowFieldName(rowPath, fieldName),
+    ) ?? [];
+  if (isFunction(dependencies.resolve)) {
+    const resolve = dependencies.resolve;
+    return {
+      resolve(context: FormDependenciesResolveContext) {
+        return resolve({
+          ...context,
+          schema: createSchemaContext(
+            baseContext,
+            context.values as Partial<Record<string, any>>,
+          ),
+        });
+      },
+      triggerFields,
+    };
+  }
+
+  const legacyDependencies = dependencies as FormItemDependenciesLegacy;
+
   return {
-    ...dependencies,
-    componentProps: wrapDependencyFn(dependencies.componentProps, baseContext),
-    disabled: wrapDependencyFn(dependencies.disabled, baseContext),
-    if: wrapDependencyFn(dependencies.if, baseContext),
-    required: wrapDependencyFn(dependencies.required, baseContext),
-    rules: wrapDependencyFn(dependencies.rules, baseContext),
-    show: wrapDependencyFn(dependencies.show, baseContext),
-    trigger: wrapDependencyFn(dependencies.trigger, baseContext),
-    triggerFields:
-      dependencies.triggerFields?.map((fieldName) =>
-        scopeRowFieldName(rowPath, fieldName),
-      ) ?? [],
+    ...legacyDependencies,
+    componentProps: wrapDependencyFn(
+      legacyDependencies.componentProps,
+      baseContext,
+    ),
+    disabled: wrapDependencyFn(legacyDependencies.disabled, baseContext),
+    if: wrapDependencyFn(legacyDependencies.if, baseContext),
+    required: wrapDependencyFn(legacyDependencies.required, baseContext),
+    rules: wrapDependencyFn(legacyDependencies.rules, baseContext),
+    show: wrapDependencyFn(legacyDependencies.show, baseContext),
+    trigger: wrapDependencyFn(legacyDependencies.trigger, baseContext),
+    triggerFields,
   };
 }
 
@@ -166,9 +206,9 @@ function createArrayComponentProps(
   const schemaProps = children.length > 0 ? { schema: children } : {};
 
   if (isFunction(componentProps)) {
-    return (values: Partial<Record<string, any>>, actions: FormActions) => ({
+    return () => ({
       ...arrayProps,
-      ...componentProps(values, actions),
+      ...componentProps({ fieldName: schema.fieldName }),
       commonConfig,
       globalCommonConfig,
       ...schemaProps,
@@ -200,9 +240,47 @@ function createArrayFieldSchema(
   };
 }
 
-export function getFormArraySchemaChildren(schema: Partial<AnyFormSchema>) {
+interface FormArraySchemaLike {
+  children?: unknown;
+  componentProps?: unknown;
+}
+
+interface UpdatableFormSchemaLike extends FormArraySchemaLike {
+  fieldName: string;
+}
+
+function setSchemaChildren<TSchema extends UpdatableFormSchemaLike>(
+  schema: TSchema,
+  children: TSchema[],
+) {
   if ('children' in schema && Array.isArray(schema.children)) {
-    return schema.children;
+    return {
+      ...schema,
+      children,
+    } as TSchema;
+  }
+
+  if (
+    !isFunction(schema.componentProps) &&
+    schema.componentProps &&
+    Array.isArray((schema.componentProps as Record<string, any>).schema)
+  ) {
+    return {
+      ...schema,
+      componentProps: {
+        ...(schema.componentProps as Record<string, any>),
+        schema: children,
+      },
+    } as TSchema;
+  }
+  return schema;
+}
+
+export function getFormArraySchemaChildren<TSchema = FormSchema>(
+  schema: FormArraySchemaLike,
+): TSchema[] {
+  if ('children' in schema && Array.isArray(schema.children)) {
+    return schema.children as TSchema[];
   }
 
   const componentProps = schema.componentProps;
@@ -211,7 +289,7 @@ export function getFormArraySchemaChildren(schema: Partial<AnyFormSchema>) {
     componentProps &&
     Array.isArray((componentProps as Record<string, any>).schema)
   ) {
-    return (componentProps as Record<string, any>).schema;
+    return (componentProps as Record<string, any>).schema as TSchema[];
   }
 
   return [];
@@ -229,6 +307,38 @@ export function resolveArrayChildFieldName(rowPath: string, fieldName: string) {
   return scopeRowFieldName(rowPath, fieldName);
 }
 
+export function updateFormSchemaList<TSchema extends UpdatableFormSchemaLike>(
+  currentSchema: TSchema[],
+  updated: Partial<TSchema>[],
+): TSchema[] {
+  return currentSchema.map((schema) => {
+    const exactUpdatedData = updated.find(
+      (item) => item.fieldName === schema.fieldName,
+    );
+    if (exactUpdatedData) {
+      return mergeWithArrayOverride(exactUpdatedData, schema) as TSchema;
+    }
+
+    const children = getFormArraySchemaChildren<TSchema>(schema);
+    if (children.length === 0) {
+      return schema;
+    }
+    const childUpdates = updated.flatMap((item) => {
+      const fieldName = item.fieldName
+        ? resolveChildUpdateFieldName(schema.fieldName, item.fieldName)
+        : undefined;
+      return fieldName ? [{ ...item, fieldName } as Partial<TSchema>] : [];
+    });
+    if (childUpdates.length === 0) {
+      return schema;
+    }
+    return setSchemaChildren(
+      schema,
+      updateFormSchemaList(children, childUpdates),
+    );
+  });
+}
+
 export function createFormFieldSchema(
   schema: AnyFormSchema,
   options: CreateFormFieldSchemaOptions = {},
@@ -238,12 +348,11 @@ export function createFormFieldSchema(
     options.globalCommonConfig ?? {},
   );
   const {
+    changeEventFallback = false,
     colon = false,
     componentProps = {},
     controlClass = '',
     disabled,
-    disabledOnChangeListener = true,
-    disabledOnInputListener = true,
     emptyStateValue = undefined,
     formFieldProps = {},
     formItemClass = '',
@@ -258,6 +367,9 @@ export function createFormFieldSchema(
   const normalizedSchema = isFormArraySchema(schema)
     ? createArrayFieldSchema(schema, options)
     : schema;
+  const commonComponentProps = isFunction(componentProps)
+    ? componentProps({ fieldName: normalizedSchema.fieldName })
+    : componentProps;
 
   let resolvedSchemaFormItemClass = normalizedSchema.formItemClass;
   if (isFunction(normalizedSchema.formItemClass)) {
@@ -270,16 +382,15 @@ export function createFormFieldSchema(
   }
 
   return {
+    changeEventFallback,
     colon,
-    disabledOnChangeListener,
-    disabledOnInputListener,
     emptyStateValue,
     hideRequiredMark,
     labelWidth,
     modelPropName,
     wrapperClass,
     ...normalizedSchema,
-    commonComponentProps: componentProps as MaybeComponentProps,
+    commonComponentProps,
     componentProps: normalizedSchema.componentProps,
     controlClass: [controlClass, normalizedSchema.controlClass]
       .filter(Boolean)
@@ -332,10 +443,13 @@ export function createArrayChildSchema(
       ),
     },
     {
-      commonConfig: options.commonConfig,
+      commonConfig: wrapCommonConfig(options.commonConfig, baseContext),
       disabled: options.disabled || schema.disabled,
       forceHideLabel: true,
-      globalCommonConfig: options.globalCommonConfig,
+      globalCommonConfig: wrapCommonConfig(
+        options.globalCommonConfig,
+        baseContext,
+      ),
     },
   );
 }

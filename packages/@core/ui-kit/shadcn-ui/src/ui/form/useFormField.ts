@@ -1,23 +1,26 @@
 import { computed, inject } from 'vue';
 
-import { FieldContextKey } from 'vee-validate';
-
-import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
+import {
+  FORM_FIELD_INJECTION_KEY,
+  FORM_ITEM_INJECTION_KEY,
+} from './injectionKeys';
 
 export function useFormField() {
-  const fieldContext = inject(FieldContextKey);
+  const fieldContext = inject(FORM_FIELD_INJECTION_KEY);
   const fieldItemContext = inject(FORM_ITEM_INJECTION_KEY);
 
   if (!fieldContext)
     throw new Error('useFormField should be used within <FormField>');
+  if (!fieldItemContext)
+    throw new Error('useFormField should be used within <FormItem>');
 
-  const { name, errorMessage: error, meta } = fieldContext;
+  const { dirty, error, name, touched, valid } = fieldContext;
   const id = fieldItemContext;
 
   const fieldState = {
-    valid: computed(() => meta.valid),
-    isDirty: computed(() => meta.dirty),
-    isTouched: computed(() => meta.touched),
+    valid: computed(() => valid.value),
+    isDirty: computed(() => dirty.value),
+    isTouched: computed(() => touched.value),
     error,
   };
 

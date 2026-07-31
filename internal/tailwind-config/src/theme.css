@@ -1,3 +1,12 @@
+/*
+ * 级联层顺序声明（必须先于 @import 'tailwindcss' 首次出现）：
+ * preflight(base) < UI 库组件样式(antd / el / td) < Tailwind 工具类，
+ * 使组件库样式（antdv-next 经 StyleProvider layer 注入 @layer antd；
+ * element-plus / tdesign 经各自应用的 vite css-layer 插件包入对应层）
+ * 能被工具类覆盖
+ */
+@layer theme, base, ant, antd, el, td, components, utilities;
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -301,7 +310,7 @@
   }
 
   html {
-    @apply text-foreground bg-background font-sans;
+    @apply bg-background font-sans text-foreground;
 
     scroll-behavior: smooth;
     font-size: var(--font-size-base, 16px);
@@ -369,7 +378,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply bg-border rounded-sm border-none;
+      @apply rounded-sm border-none bg-border;
     }
 
     ::-webkit-scrollbar-track {
@@ -407,7 +416,7 @@
  * 见：https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layering */
 @layer components {
   .outline-box {
-    @apply outline-border relative cursor-pointer rounded-md p-1 outline-1;
+    @apply relative cursor-pointer rounded-md p-1 outline-1 outline-border;
   }
 
   .outline-box::after {
@@ -415,7 +424,7 @@
   }
 
   .outline-box.outline-box-active {
-    @apply outline-primary outline-2;
+    @apply outline-2 outline-primary;
   }
 
   .outline-box.outline-box-active::after {
@@ -423,15 +432,15 @@
   }
 
   .outline-box:not(.outline-box-active):hover::after {
-    @apply outline-primary top-0 left-0 h-full w-full p-1 opacity-100;
+    @apply top-0 left-0 h-full w-full p-1 opacity-100 outline-primary;
   }
 
   .vben-link {
-    @apply text-primary hover:text-primary-hover active:text-primary-active cursor-pointer;
+    @apply cursor-pointer text-primary hover:text-primary-hover active:text-primary-active;
   }
 
   .card-box {
-    @apply bg-card text-card-foreground border-border rounded-xl border;
+    @apply rounded-xl border border-border bg-card text-card-foreground;
   }
 }
 

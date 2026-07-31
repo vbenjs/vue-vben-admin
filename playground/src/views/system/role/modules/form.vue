@@ -51,7 +51,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   async onOpenChange(isOpen) {
     if (isOpen) {
       const data = drawerApi.getData<SystemRoleApi.SystemRole>();
-      formApi.resetForm();
+      formApi.reset();
 
       if (data) {
         formData.value = data;
@@ -108,7 +108,7 @@ function getNodeClass(node: Recordable<any>) {
             bordered
             :default-expanded-level="2"
             :get-node-class="getNodeClass"
-            v-bind="slotProps"
+            v-bind="slotProps.componentProps"
             value-field="id"
             label-field="meta.title"
             icon-field="meta.icon"

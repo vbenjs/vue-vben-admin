@@ -28,6 +28,7 @@ const style = computed((): CSSProperties => {
     height: `${height}px`,
     marginBottom: show ? '0' : `-${height}px`,
     position: fixed ? 'fixed' : 'static',
+    transform: show ? 'translateY(0)' : 'translateY(100%)',
     width,
     zIndex,
   };
@@ -37,7 +38,7 @@ const style = computed((): CSSProperties => {
 <template>
   <footer
     :style="style"
-    class="bottom-0 w-full bg-background-deep transition-all duration-200"
+    class="bottom-0 w-full shrink-0 bg-background-deep transition-all duration-200"
   >
     <slot></slot>
   </footer>

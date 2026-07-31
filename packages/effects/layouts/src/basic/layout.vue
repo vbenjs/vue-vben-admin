@@ -19,6 +19,7 @@ import { cloneDeep, mapTree } from '@vben/utils';
 
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+import { ELEMENT_ID_LAYOUT_SCROLL } from '@vben-core/shared/constants';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';
@@ -33,6 +34,7 @@ import {
   useMixedMenu,
 } from './menu';
 import { LayoutTabbar } from './tabbar';
+import { useLayoutScroll } from './use-layout-scroll';
 
 defineOptions({ name: 'BasicLayout' });
 
@@ -69,6 +71,9 @@ const {
 const accessStore = useAccessStore();
 const timezoneStore = useTimezoneStore();
 const { refresh } = useRefresh();
+const layoutScrollTarget = `#${ELEMENT_ID_LAYOUT_SCROLL}`;
+
+useLayoutScroll();
 
 const sidebarTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkSidebar;
@@ -468,7 +473,7 @@ const headerSlots = computed(() => {
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>
-      <VbenBackTop />
+      <VbenBackTop :target="layoutScrollTarget" />
     </template>
   </VbenAdminLayout>
 </template>

@@ -76,7 +76,7 @@ const schema: VbenFormSchema[] = [
 数组字段名。假设为 `contacts`，第 1 行子字段 `name` 会被转换成：
 
 ```ts
-contacts[0].name
+contacts[0].name;
 ```
 
 ### `children`
@@ -91,7 +91,6 @@ contacts[0].name
 - `help`
 - `suffix`
 - `renderComponentContent`
-- `valueFormat`
 - `formFieldProps`
 - `disabled`
 - `hide`
@@ -102,22 +101,22 @@ contacts[0].name
 
 传给数组编辑器的配置：
 
-| 字段 | 说明 |
-| --- | --- |
-| `addButtonText` | 新增按钮文案 |
-| `actionText` | 操作列表头文案 |
-| `emptyText` | 空数据文案 |
-| `min` | 最少行数，达到后禁用删除 |
-| `max` | 最多行数，达到后禁用新增 |
-| `showIndex` | 是否显示序号 |
-| `createRow` | 新增行时生成默认数据 |
+| 字段            | 说明                     |
+| --------------- | ------------------------ |
+| `addButtonText` | 新增按钮文案             |
+| `actionText`    | 操作列表头文案           |
+| `emptyText`     | 空数据文案               |
+| `min`           | 最少行数，达到后禁用删除 |
+| `max`           | 最多行数，达到后禁用新增 |
+| `showIndex`     | 是否显示序号             |
+| `createRow`     | 新增行时生成默认数据     |
 
 ## 校验建议
 
 数组父级 `rules` 建议只写数组级规则，例如至少一行：
 
 ```ts
-rules: z.array(z.any()).min(1, '请至少添加一个联系人')
+rules: z.array(z.any()).min(1, '请至少添加一个联系人');
 ```
 
 每个子字段的必填、长度、格式校验写在 children 自己的 `rules`：
@@ -156,20 +155,20 @@ children 里的 `dependencies.triggerFields` 默认是“当前行相对路径�
 在第 1 行中，`triggerFields: ['role']` 会被转换成：
 
 ```ts
-contacts[0].role
+contacts[0].role;
 ```
 
 回调多了一个可选 `ctx` 参数：
 
-| 字段 | 说明 |
-| --- | --- |
-| `ctx.row` | 当前行数据 |
-| `ctx.rowIndex` | 当前行索引 |
-| `ctx.rowPath` | 当前行路径，例如 `contacts[0]` |
-| `ctx.arrayField` | 数组字段名，例如 `contacts` |
-| `ctx.fieldName` | 当前真实字段名，例如 `contacts[0].phone` |
-| `ctx.originalFieldName` | 原始 child 字段名，例如 `phone` |
-| `ctx.rootValues` | 表单完整值 |
+| 字段                    | 说明                                     |
+| ----------------------- | ---------------------------------------- |
+| `ctx.row`               | 当前行数据                               |
+| `ctx.rowIndex`          | 当前行索引                               |
+| `ctx.rowPath`           | 当前行路径，例如 `contacts[0]`           |
+| `ctx.arrayField`        | 数组字段名，例如 `contacts`              |
+| `ctx.fieldName`         | 当前真实字段名，例如 `contacts[0].phone` |
+| `ctx.originalFieldName` | 原始 child 字段名，例如 `phone`          |
+| `ctx.rootValues`        | 表单完整值                               |
 
 如果 child 需要依赖表单根字段，可以使用 `$root.` 前缀：
 
@@ -185,44 +184,44 @@ dependencies: {
 如果想显式写当前行字段，也可以使用 `$row.` 前缀：
 
 ```ts
-triggerFields: ['$row.role']
+triggerFields: ['$row.role'];
 ```
 
-## valueFormat 用法
+## 提交值转换
 
-children 里的 `valueFormat` 也会按行执行：
+数组字段的提交转换使用表单级 `codec`，一次处理完整表单值：
 
 ```ts
-{
-  component: 'Input',
-  fieldName: 'phone',
-  label: '电话',
-  valueFormat: (value, setValue) => {
-    const nextValue = value?.trim();
-    if (!nextValue) {
-      return;
-    }
-    setValue('phone', nextValue);
-  },
+function encodeArrayFormValues(values: Readonly<ArrayFormValues>) {
+  return {
+    ...values,
+    contacts: values.contacts.map((contact) => ({
+      ...contact,
+      name: contact.name.trim(),
+      phone: contact.phone?.trim() || undefined,
+    })),
+  };
 }
-```
 
-在 `contacts[0]` 中，`setValue('phone', nextValue)` 会自动写到：
-
-```ts
-contacts[0].phone
+const [Form] = useVbenForm({
+  codec: {
+    decode: decodeArrayFormValues,
+    encode: encodeArrayFormValues,
+  },
+  schema,
+});
 ```
 
 如果要写根字段，用 `$root.`：
 
 ```ts
-setValue('$root.firstContactPhone', value)
+setValue('$root.firstContactPhone', value);
 ```
 
 如果要显式写当前行字段，用 `$row.`：
 
 ```ts
-setValue('$row.phone', value)
+setValue('$row.phone', value);
 ```
 
 ## updateSchema 用法
@@ -284,7 +283,7 @@ flowchart TD
   H --> I["createArrayChildSchema"]
   I --> J["child.fieldName 转为 contacts[index].xxx"]
   I --> K["scope dependencies triggerFields"]
-  I --> L["包装 componentProps/help/render/valueFormat ctx"]
+  I --> L["包装 componentProps/help/render ctx"]
   J --> M["继续复用 FormField 渲染 child"]
 ```
 
@@ -294,7 +293,7 @@ flowchart TD
 - 具体展示仍复用内部 `VbenFormFieldArray`。
 - child 最终仍然走 `FormField`，所以现有 FormSchema 能力不会丢。
 - `dependencies` 不改核心调用链，而是在 `createArrayChildSchema` 里做路径和 ctx 适配。
-- `valueFormat` 和 `updateSchema` 在 `FormApi` 里递归处理 children。
+- `updateSchema` 在 `FormApi` 里递归处理 children；提交转换由表单级 `codec` 统一完成。
 
 ## 小屏幕展示
 

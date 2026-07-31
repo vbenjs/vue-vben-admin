@@ -69,7 +69,7 @@ const [Form] = useVbenForm({
       fieldName: 'field4',
       // 界面显示的label
       label: '邮箱',
-      rules: z.string().email('请输入正确的邮箱'),
+      rules: z.email('请输入正确的邮箱'),
     },
     {
       component: 'InputNumber',

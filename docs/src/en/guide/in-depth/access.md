@@ -122,12 +122,12 @@ const dashboardMenus = [
       title: 'page.dashboard.title',
     },
     name: 'Dashboard',
-    path: '/',
-    redirect: '/analytics',
+    path: '/dashboard',
+    redirect: '/dashboard/analytics',
     children: [
       {
         name: 'Analytics',
-        path: '/analytics',
+        path: 'analytics',
         // Here is the path of the page, need to remove 'views/' and '.vue'
         component: '/dashboard/analytics/index',
         meta: {
@@ -137,7 +137,7 @@ const dashboardMenus = [
       },
       {
         name: 'Workspace',
-        path: '/workspace',
+        path: 'workspace',
         component: '/dashboard/workspace/index',
         meta: {
           title: 'page.dashboard.workspace',

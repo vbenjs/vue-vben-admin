@@ -12,7 +12,7 @@ import VbenButton from './button.vue';
 interface Props extends VbenButtonProps {
   class?: any;
   disabled?: boolean;
-  onClick?: (() => void)[] | (() => void);
+  onClick?: ((e?: MouseEvent) => void)[] | ((e?: MouseEvent) => void);
   tooltip?: string;
   tooltipDelayDuration?: number;
   tooltipSide?: 'bottom' | 'left' | 'right' | 'top';
@@ -31,13 +31,13 @@ const slots = useSlots();
 
 const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
 
-function handleClick() {
+function handleClick(e: MouseEvent) {
   if (Array.isArray(props.onClick)) {
     for (const fn of props.onClick) {
-      fn?.();
+      fn?.(e);
     }
   } else {
-    props.onClick?.();
+    props.onClick?.(e);
   }
 }
 </script>
