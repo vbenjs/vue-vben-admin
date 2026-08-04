@@ -1,6 +1,9 @@
+import type { BaseFormComponentType } from '../src/types';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FormApi } from '../src/form-api';
+import { FormCodecError } from '../src/form-codec';
 
 describe('formApi', () => {
   let formApi: FormApi;
@@ -58,6 +61,20 @@ describe('formApi', () => {
     expect(values).toEqual({ name: 'test' });
   });
 
+  it('should set a field error through the public api', async () => {
+    const setFieldError = vi.fn();
+    const formActions: any = {
+      meta: {},
+      setFieldError,
+      values: {},
+    };
+
+    formApi.mount(formActions, new Map());
+    await formApi.setFieldError('password', 'Invalid password');
+
+    expect(setFieldError).toHaveBeenCalledWith('password', 'Invalid password');
+  });
+
   it('should format schema values when getting values', async () => {
     formApi.setState({
       schema: [
@@ -104,6 +121,164 @@ describe('formApi', () => {
       values,
     });
     expect(formActions.values).toEqual(originalValuesSnapshot);
+  });
+
+  it('should encode submissions and decode complete values with a codec', async () => {
+    interface FilterFormValues {
+      period: [number, number];
+      tags: string[];
+    }
+
+    interface FilterSubmitValues {
+      endTime: number;
+      startTime: number;
+      tags: string;
+    }
+
+    const setValues = vi.fn();
+    const codecFormApi = new FormApi<
+      FilterFormValues,
+      BaseFormComponentType,
+      Record<never, never>,
+      FilterSubmitValues
+    >({
+      codec: {
+        decode(values) {
+          return {
+            period: [values.startTime, values.endTime],
+            tags: values.tags.split(','),
+          };
+        },
+        encode(values) {
+          return {
+            endTime: values.period[1],
+            startTime: values.period[0],
+            tags: values.tags.join(','),
+          };
+        },
+      },
+    });
+    const formActions: any = {
+      meta: {},
+      setValues,
+      values: { period: [1, 2], tags: ['admin', 'user'] },
+    };
+
+    await codecFormApi.mount(formActions, new Map());
+
+    expect(await codecFormApi.getValues()).toEqual({
+      endTime: 2,
+      startTime: 1,
+      tags: 'admin,user',
+    });
+    expect(await codecFormApi.getValueSnapshot()).toEqual({
+      rawValues: { period: [1, 2], tags: ['admin', 'user'] },
+      values: { endTime: 2, startTime: 1, tags: 'admin,user' },
+    });
+
+    await codecFormApi.setSubmitValues(
+      { endTime: 4, startTime: 3, tags: 'editor' },
+      false,
+    );
+    expect(setValues).toHaveBeenCalledWith(
+      { period: [3, 4], tags: ['editor'] },
+      false,
+    );
+  });
+
+  it('should isolate codec results from live form values', async () => {
+    interface ProfileFormValues {
+      profile: { name: string };
+      tags: string[];
+    }
+
+    const values: ProfileFormValues = {
+      profile: { name: 'Ada' },
+      tags: ['admin'],
+    };
+    const codecFormApi = new FormApi<ProfileFormValues>({
+      codec: {
+        decode: (submitValues) => submitValues,
+        encode: (formValues) => ({
+          profile: formValues.profile,
+          tags: formValues.tags,
+        }),
+      },
+    });
+    const formActions: any = { meta: {}, values };
+
+    codecFormApi.mount(formActions, new Map());
+    const initialSubmissionValues = codecFormApi.getLatestSubmissionValues();
+    values.profile.name = 'Grace';
+    values.tags.push('user');
+
+    expect(initialSubmissionValues).toEqual({
+      profile: { name: 'Ada' },
+      tags: ['admin'],
+    });
+    const submissionValues = await codecFormApi.getValues();
+    expect(submissionValues.profile).not.toBe(values.profile);
+    expect(submissionValues.tags).not.toBe(values.tags);
+  });
+
+  it('should fall back to raw values when the initial codec encode fails', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const codecFormApi = new FormApi<
+      { name?: string },
+      BaseFormComponentType,
+      Record<never, never>,
+      { normalizedName: string }
+    >({
+      codec: {
+        decode: (values) => ({ name: values.normalizedName }),
+        encode() {
+          throw new Error('incomplete initial values');
+        },
+      },
+    });
+    const formActions: any = { meta: {}, values: { name: 'Ada' } };
+
+    expect(() => codecFormApi.mount(formActions, new Map())).not.toThrow();
+
+    expect(codecFormApi.isMounted).toBe(true);
+    expect(codecFormApi.getLatestSubmissionValues()).toEqual({ name: 'Ada' });
+    expect(warning).toHaveBeenCalledWith(
+      '[Vben Form] Failed to encode initial values. Falling back to raw form values.',
+      expect.objectContaining({ phase: 'encode' }),
+    );
+    await expect(codecFormApi.getValues()).rejects.toBeInstanceOf(
+      FormCodecError,
+    );
+  });
+
+  it('should scan deprecated schema transforms once for unchanged state', async () => {
+    const getChildren = vi.fn(() => []);
+    const schema = {
+      component: 'text',
+      fieldName: 'name',
+      get children() {
+        return getChildren();
+      },
+    } as any;
+    const codecFormApi = new FormApi({
+      codec: {
+        decode: (values) => values,
+        encode: (values) => values,
+      },
+      schema: [schema],
+    });
+    const formActions: any = {
+      meta: {},
+      values: { name: 'Ada' },
+    };
+
+    await codecFormApi.mount(formActions, new Map());
+    expect(getChildren).toHaveBeenCalledTimes(1);
+
+    await codecFormApi.getValues();
+    await codecFormApi.getValues();
+
+    expect(getChildren).toHaveBeenCalledTimes(1);
   });
 
   it('should format child schema values inside array fields', async () => {

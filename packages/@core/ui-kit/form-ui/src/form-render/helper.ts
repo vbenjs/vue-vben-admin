@@ -22,6 +22,15 @@ export function getBaseRules(schema?: null | string | ZodType): null | ZodType {
     return getBaseRules(rawSchema.in as ZodType);
   }
 
+  // In zod v4, ZodArray also has an unwrap() that returns its element type
+  // (not an outer wrapper). We must not unwrap it, otherwise z.array(T) loses
+  // its array shell and array values fail validation.
+  const defType = (rawSchema as unknown as { _zod?: { def: { type: string } } })
+    ._zod?.def?.type;
+  if (defType === 'array') {
+    return rawSchema;
+  }
+
   const unwrappedSchema = (rawSchema as UnwrappableZodType).unwrap?.();
   if (unwrappedSchema && unwrappedSchema !== rawSchema) {
     return getBaseRules(unwrappedSchema);

@@ -3,9 +3,8 @@ import type { CSSProperties } from 'vue';
 
 import { computed, onUnmounted, shallowRef, useSlots, watchEffect } from 'vue';
 
+import { useScrollLock } from '@vben-core/composables';
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
-
-import { useScrollLock } from '@vueuse/core';
 
 import { useSidebarDrag } from '../hooks/use-sidebar-drag';
 import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
@@ -121,7 +120,7 @@ const expandOnHovering = defineModel<boolean>('expandOnHovering');
 const expandOnHover = defineModel<boolean>('expandOnHover');
 const extraVisible = defineModel<boolean>('extraVisible');
 
-const isLocked = useScrollLock(document.body);
+const isLocked = useScrollLock({ immediate: false });
 const slots = useSlots();
 
 const asideRef = shallowRef<HTMLElement | null>(null);

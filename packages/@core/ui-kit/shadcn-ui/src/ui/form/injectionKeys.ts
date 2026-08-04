@@ -8,6 +8,9 @@ export interface FormFieldContext {
   valid: Readonly<Ref<boolean>>;
 }
 
-export const FORM_ITEM_INJECTION_KEY = Symbol() as InjectionKey<string>;
-export const FORM_FIELD_INJECTION_KEY =
-  Symbol() as InjectionKey<FormFieldContext>;
+export const FORM_ITEM_INJECTION_KEY = Symbol(
+  'FORM_ITEM_INJECTION_KEY',
+) as InjectionKey<string>;
+export const FORM_FIELD_INJECTION_KEY = Symbol(
+  'FORM_FIELD_INJECTION_KEY',
+) as InjectionKey<FormFieldContext>;

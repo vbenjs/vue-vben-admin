@@ -86,6 +86,23 @@ function wrapComponentProps(
   return () => componentProps(baseContext);
 }
 
+function wrapCommonConfig(
+  commonConfig: FormCommonConfig | undefined,
+  baseContext: FormSchemaContext,
+) {
+  if (!commonConfig || !isFunction(commonConfig.componentProps)) {
+    return commonConfig;
+  }
+
+  return {
+    ...commonConfig,
+    componentProps: wrapComponentProps(
+      commonConfig.componentProps,
+      baseContext,
+    ),
+  };
+}
+
 function wrapCustomParamsRender(
   render: AnyFormSchema['help'],
   baseContext: FormSchemaContext,
@@ -350,6 +367,9 @@ export function createFormFieldSchema(
   const normalizedSchema = isFormArraySchema(schema)
     ? createArrayFieldSchema(schema, options)
     : schema;
+  const commonComponentProps = isFunction(componentProps)
+    ? componentProps({ fieldName: normalizedSchema.fieldName })
+    : componentProps;
 
   let resolvedSchemaFormItemClass = normalizedSchema.formItemClass;
   if (isFunction(normalizedSchema.formItemClass)) {
@@ -370,7 +390,7 @@ export function createFormFieldSchema(
     modelPropName,
     wrapperClass,
     ...normalizedSchema,
-    commonComponentProps: componentProps as MaybeComponentProps,
+    commonComponentProps,
     componentProps: normalizedSchema.componentProps,
     controlClass: [controlClass, normalizedSchema.controlClass]
       .filter(Boolean)
@@ -423,10 +443,13 @@ export function createArrayChildSchema(
       ),
     },
     {
-      commonConfig: options.commonConfig,
+      commonConfig: wrapCommonConfig(options.commonConfig, baseContext),
       disabled: options.disabled || schema.disabled,
       forceHideLabel: true,
-      globalCommonConfig: options.globalCommonConfig,
+      globalCommonConfig: wrapCommonConfig(
+        options.globalCommonConfig,
+        baseContext,
+      ),
     },
   );
 }

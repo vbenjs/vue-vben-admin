@@ -23,7 +23,7 @@ outline: deep
 
 - `useVbenForm(options)` 仍返回 `[Form, formApi]`
 - `FormApi` 的值、校验、提交、重置、schema 更新和组件引用能力
-- `FormSchema` 的 `fieldName`、`component`、`componentProps`、`rules`、`dependencies`、`defaultValue`、`valueFormat` 和数组字段结构
+- `FormSchema` 的 `fieldName`、`component`、`componentProps`、`rules`、`dependencies`、`defaultValue`、已弃用的 `valueFormat` 和数组字段结构
 - `dependencies.triggerFields` 与回调参数
 - 组件适配器和 `z` 重导出路径
 - 自定义 slot 中原有的 `componentField` 绑定对象
@@ -43,9 +43,9 @@ outline: deep
 | `useFieldValue(fieldName)` | `FormContextApi` | 订阅单字段值，避免无关字段变化触发组件更新。 |
 | `useFieldValues(fieldNames)` | `FormContextApi` | 订阅一组字段值，主要用于声明式依赖计算。 |
 | `useFieldError(fieldName)` | `FormContextApi` | 订阅单字段错误，不再依赖全量错误对象。 |
-| `getRawValues()` | `FormApi` | 返回未执行字段映射与 `valueFormat` 的独立原始值快照。 |
+| `getRawValues()` | `FormApi` | 返回未执行 codec 或旧格式化管道的独立表单值快照。 |
 | `formatValues(rawValues)` | `FormApi` | 对指定原始值执行统一格式化流水线。 |
-| `getValueSnapshot()` | `FormApi` | 同时返回 `{ rawValues, values }`，其中 `values` 为格式化结果。 |
+| `getValueSnapshot()` | `FormApi` | 同时返回 `{ rawValues, values }`，其中 `values` 为 `TSubmitValues`。 |
 | `asyncDebounceMs` | `FormFieldOptions` | 设置 TanStack Field 异步校验防抖时间。 |
 | `changeEventFallback` | `FormCommonConfig` / adapter config | 为只发送 `change`、不发送 `update:*` 的旧组件启用事件回退，默认 `false`。 |
 
@@ -61,7 +61,7 @@ outline: deep
 | change 事件兼容 | `disabledOnChangeListener: false` 表示启用 | `changeEventFallback: true` 表示启用，改为正向语义。 |
 | 顶层动态渲染回调 | `componentProps(values, actions, ctx)`、`help(values, actions, ctx)`、`renderComponentContent(values, actions, ctx)` | 仅接收轻量 `FormSchemaContext`。依赖表单值的动态逻辑迁移到 `dependencies.resolve`。 |
 | `validateAndSubmit()` | 自行调用底层校验并重复实现错误滚动，提交阶段可能再次校验 | 委托统一 `validate()` 与共享提交逻辑，无效时不提交，错误滚动只有一个实现。 |
-| `getValues()` | 隐式完成所有字段转换 | 语义保持为“返回格式化值”；需要原始值时显式使用 `getRawValues()`。 |
+| `getValues()` | 隐式完成所有字段转换 | 返回 codec 编码后的 `TSubmitValues`；无 codec 时保持旧格式化行为。 |
 
 ### 删除的 API
 
@@ -87,7 +87,7 @@ outline: deep
 - 字段组件改用细粒度 value/error selector；全量错误聚合退出普通输入热路径。
 - async validator 通过 Vben generation 丢弃过期 Promise，不读取 TanStack 私有 AbortController 或 meta 字段。
 - dependencies 新旧语法共用一个原子执行器，异步旧结果不会覆盖新状态。
-- 值格式化按 array-to-string、时间范围映射、schema `valueFormat` 的固定顺序执行，并且每次格式化只深拷贝一次。
+- 新代码使用表单级 codec 原子编码完整对象；旧 array-to-string、时间范围映射和 schema `valueFormat` 继续兼容但已弃用。
 
 ## 值类型与插槽类型
 
@@ -212,7 +212,7 @@ Vben 表单按以下优先级生成初值：
 
 不要读取 `_def`、`_zod.def` 或 `typeName`。公共包装器使用 `.unwrap()`；Zod 4 的 transform/pipe 使用公开的输入 schema。intersection 的默认值交给支持 Zod 4 的 `zod-defaults` 处理。
 
-TanStack Form 使用 Standard Schema 校验时不会自动把 transform/coerce 的输出写回当前表单 state。提交 payload 需要转换时，继续使用 `valueFormat`；如果必须提交 schema transform 后的结果，应在提交边界显式调用 `parseAsync`。
+TanStack Form 使用 Standard Schema 校验时不会自动把 transform/coerce 的输出写回当前表单 state。提交 payload 需要转换时，使用表单级 codec；如果必须提交 schema transform 后的结果，应在 codec 的 `encode` 边界显式调用 `parseAsync`。
 
 ### 其他需要复核的 API
 
@@ -245,7 +245,7 @@ shadcn form primitive 使用 Vben 自有字段上下文，不再注入 vee 的 `
 
 `dependencies.resolve(context)` 是推荐语法：一次求值并原子提交完整动态 patch，过期异步结果整体丢弃。旧的 `if/show/disabled/required/rules/componentProps/trigger` 语法仍兼容，但已标记为 `@deprecated` 并在开发环境首次使用时提示迁移；内部仍归一到同一个执行器。两种语法都只根据 `triggerFields` 重算，无关字段变化不会执行回调。
 
-`handleValuesChange(rawValues, fieldsChanged, getFormattedValues)` 接收未格式化的只读当前值，第三个参数仅在调用时执行格式化。`getRawValues()` 和 `getValues()` 分别只生成原始或格式化快照；需要同时比较时使用 `getValueSnapshot()`。提交回调通过 `handleSubmit(values, rawValues)` 同时取得两种结构。格式化流水线只深拷贝一次，并按 array-to-string、时间范围映射、schema `valueFormat` 的顺序执行。数组字段继续使用 TanStack push/remove 操作和稳定行身份。
+`handleValuesChange(rawValues, fieldsChanged, getFormattedValues)` 接收只读 `TFormValues`，第三个参数仅在调用时执行 codec 或旧格式化管道。`getRawValues()` 返回表单值，`getValues()` 返回 `TSubmitValues`；需要同时比较时使用 `getValueSnapshot()`。提交回调通过 `handleSubmit(values, rawValues)` 同时取得两种结构。旧 array-to-string、时间范围映射和 schema `valueFormat` 继续兼容但已弃用。数组字段继续使用 TanStack push/remove 操作和稳定行身份。
 
 ## 测试与验收
 

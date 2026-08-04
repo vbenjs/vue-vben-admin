@@ -91,7 +91,6 @@ contacts[0].name;
 - `help`
 - `suffix`
 - `renderComponentContent`
-- `valueFormat`
 - `formFieldProps`
 - `disabled`
 - `hide`
@@ -188,29 +187,29 @@ dependencies: {
 triggerFields: ['$row.role'];
 ```
 
-## valueFormat 用法
+## 提交值转换
 
-children 里的 `valueFormat` 也会按行执行：
+数组字段的提交转换使用表单级 `codec`，一次处理完整表单值：
 
 ```ts
-{
-  component: 'Input',
-  fieldName: 'phone',
-  label: '电话',
-  valueFormat: (value, setValue) => {
-    const nextValue = value?.trim();
-    if (!nextValue) {
-      return;
-    }
-    setValue('phone', nextValue);
-  },
+function encodeArrayFormValues(values: Readonly<ArrayFormValues>) {
+  return {
+    ...values,
+    contacts: values.contacts.map((contact) => ({
+      ...contact,
+      name: contact.name.trim(),
+      phone: contact.phone?.trim() || undefined,
+    })),
+  };
 }
-```
 
-在 `contacts[0]` 中，`setValue('phone', nextValue)` 会自动写到：
-
-```ts
-contacts[0].phone;
+const [Form] = useVbenForm({
+  codec: {
+    decode: decodeArrayFormValues,
+    encode: encodeArrayFormValues,
+  },
+  schema,
+});
 ```
 
 如果要写根字段，用 `$root.`：
@@ -284,7 +283,7 @@ flowchart TD
   H --> I["createArrayChildSchema"]
   I --> J["child.fieldName 转为 contacts[index].xxx"]
   I --> K["scope dependencies triggerFields"]
-  I --> L["包装 componentProps/help/render/valueFormat ctx"]
+  I --> L["包装 componentProps/help/render ctx"]
   J --> M["继续复用 FormField 渲染 child"]
 ```
 
@@ -294,7 +293,7 @@ flowchart TD
 - 具体展示仍复用内部 `VbenFormFieldArray`。
 - child 最终仍然走 `FormField`，所以现有 FormSchema 能力不会丢。
 - `dependencies` 不改核心调用链，而是在 `createArrayChildSchema` 里做路径和 ctx 适配。
-- `valueFormat` 和 `updateSchema` 在 `FormApi` 里递归处理 children。
+- `updateSchema` 在 `FormApi` 里递归处理 children；提交转换由表单级 `codec` 统一完成。
 
 ## 小屏幕展示
 

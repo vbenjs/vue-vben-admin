@@ -31,7 +31,46 @@ const emit = defineEmits<{
 }>();
 const formData = ref<SystemMenuApi.SystemMenu>();
 const titleSuffix = ref<string>();
-const schema: VbenFormSchema[] = [
+
+type MenuSubmitValues = Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>;
+type MenuFormValues = MenuSubmitValues & { linkSrc?: string };
+
+function encodeMenuFormValues(
+  values: Readonly<MenuFormValues>,
+): MenuSubmitValues {
+  const { linkSrc, ...formValues } = values;
+  if (values.type === 'link') {
+    const meta = { ...values.meta, link: linkSrc };
+    Reflect.deleteProperty(meta, 'iframeSrc');
+    return {
+      ...formValues,
+      meta,
+    };
+  }
+  if (values.type === 'embedded') {
+    const meta = { ...values.meta, iframeSrc: linkSrc };
+    Reflect.deleteProperty(meta, 'link');
+    return {
+      ...formValues,
+      meta,
+    };
+  }
+  return formValues;
+}
+
+function decodeMenuFormValues(
+  values: Readonly<MenuSubmitValues>,
+): MenuFormValues {
+  let linkSrc: string | undefined;
+  if (values.type === 'link') {
+    linkSrc = values.meta?.link;
+  } else if (values.type === 'embedded') {
+    linkSrc = values.meta?.iframeSrc;
+  }
+  return { ...values, linkSrc };
+}
+
+const schema: VbenFormSchema<MenuFormValues>[] = [
   {
     component: 'RadioGroup',
     componentProps: {
@@ -428,6 +467,10 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 const isHorizontal = computed(() => breakpoints.greaterOrEqual('md').value);
 
 const [Form, formApi] = useVbenForm({
+  codec: {
+    decode: decodeMenuFormValues,
+    encode: encodeMenuFormValues,
+  },
   commonConfig: {
     colon: true,
     formItemClass: 'col-span-2 md:col-span-1',
@@ -438,17 +481,12 @@ const [Form, formApi] = useVbenForm({
 });
 const [Drawer, drawerApi] = useVbenDrawer({
   onConfirm: onSubmit,
-  onOpenChange(isOpen) {
+  async onOpenChange(isOpen) {
     if (isOpen) {
       const data = drawerApi.getData<SystemMenuApi.SystemMenu>();
-      if (data?.type === 'link') {
-        data.linkSrc = data.meta?.link;
-      } else if (data?.type === 'embedded') {
-        data.linkSrc = data.meta?.iframeSrc;
-      }
       if (data) {
         formData.value = data;
-        formApi.setValues(formData.value);
+        await formApi.setSubmitValues(data);
         titleSuffix.value = formData.value.meta?.title
           ? $t(formData.value.meta.title)
           : '';
@@ -464,16 +502,7 @@ async function onSubmit() {
   const { valid } = await formApi.validate();
   if (valid) {
     drawerApi.lock();
-    const data =
-      await formApi.getValues<
-        Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>
-      >();
-    if (data.type === 'link') {
-      data.meta = { ...data.meta, link: data.linkSrc };
-    } else if (data.type === 'embedded') {
-      data.meta = { ...data.meta, iframeSrc: data.linkSrc };
-    }
-    delete data.linkSrc;
+    const data = await formApi.getValues();
     try {
       await (formData.value?.id
         ? updateMenu(formData.value.id, data)

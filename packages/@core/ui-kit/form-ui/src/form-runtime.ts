@@ -10,6 +10,9 @@ import type {
 
 import { computed, shallowRef } from 'vue';
 
+import { mergeWithArrayOverride } from '@vben-core/shared/utils';
+
+import { batch } from '@tanstack/store';
 import { useForm } from '@tanstack/vue-form';
 
 import { createRuntimeFieldComponent } from './form-runtime-field';
@@ -218,7 +221,19 @@ export function useFormRuntime<TValues extends FormValues>(
       invalidateFieldValidation(fieldName);
     }
     manualErrors.value = new Map();
-    rawForm.reset(resetState?.values as TValues | undefined, options);
+    const partialValues = resetState?.values;
+    let resetValues: TValues | undefined;
+    if (partialValues) {
+      resetValues = options?.force
+        ? (partialValues as TValues)
+        : (mergeWithArrayOverride(
+            partialValues,
+            rawForm.options.defaultValues ?? defaultValues,
+          ) as TValues);
+    }
+    rawForm.reset(resetValues, {
+      keepDefaultValues: options?.keepDefaultValues,
+    });
   }
 
   async function submit() {
@@ -244,13 +259,13 @@ export function useFormRuntime<TValues extends FormValues>(
         typeof fieldName
       >;
     },
-    handleSubmit(callback) {
-      return async (event) => {
+    handleSubmit(callback?) {
+      return async (event?: Event) => {
         event?.preventDefault();
         event?.stopPropagation();
         const result = await validate();
         if (result.valid) {
-          await callback(values.value);
+          await callback?.(values.value as TValues);
         }
       };
     },
@@ -275,11 +290,13 @@ export function useFormRuntime<TValues extends FormValues>(
       }
     },
     async setValues(values, shouldValidate) {
-      for (const [fieldName, value] of Object.entries(values)) {
-        rawForm.setFieldValue(fieldName as never, value as never, {
-          dontValidate: !shouldValidate,
-        });
-      }
+      batch(() => {
+        for (const [fieldName, value] of Object.entries(values)) {
+          rawForm.setFieldValue(fieldName as never, value as never, {
+            dontValidate: !shouldValidate,
+          });
+        }
+      });
       if (shouldValidate) {
         await validate();
       }

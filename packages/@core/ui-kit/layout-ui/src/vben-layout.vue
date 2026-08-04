@@ -12,9 +12,12 @@ import {
 } from '@vben-core/composables';
 import { IconifyIcon } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
+import {
+  ELEMENT_ID_LAYOUT_SCROLL,
+  ELEMENT_ID_MAIN_CONTENT,
+} from '@vben-core/shared/constants';
 
-import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
+import { useEventListener, useScroll } from '@vueuse/core';
 
 import {
   LayoutContent,
@@ -23,6 +26,7 @@ import {
   LayoutSidebar,
   LayoutTabbar,
 } from './components';
+import { resolveHeaderHiddenOnScroll } from './header-scroll-state';
 import { useLayout } from './hooks/use-layout';
 
 interface Props extends VbenLayoutProps {}
@@ -84,22 +88,25 @@ const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover', {
 });
 const sidebarEnable = defineModel<boolean>('sidebarEnable', { default: true });
 
+const HEADER_TRIGGER_DISTANCE = 12;
+
 // side是否处于hover状态展开菜单中
 const sidebarExpandOnHovering = ref(false);
 const headerIsHidden = ref(false);
-const contentRef = ref();
+const mainRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLElement | null>(null);
+let lastMouseY: null | number = null;
 
 const {
   arrivedState,
   directions,
-  isScrolling,
   y: scrollY,
-} = useScroll(document);
+} = useScroll(contentRef, {
+  onScroll: handleLayoutScroll,
+});
 
 const { setLayoutHeaderHeight } = useLayoutHeaderStyle();
 const { setLayoutFooterHeight } = useLayoutFooterStyle();
-
-const { y: mouseY } = useMouse({ target: contentRef, type: 'client' });
 
 const {
   currentLayout,
@@ -113,7 +120,19 @@ const {
 /**
  * 顶栏是否自动隐藏
  */
-const isHeaderAutoMode = computed(() => props.headerMode === 'auto');
+const isHeaderAutoActive = computed(
+  () =>
+    props.headerMode === 'auto' && !isMixedNav.value && !isFullContent.value,
+);
+
+const isHeaderOverlayModeActive = computed(
+  () =>
+    (props.headerMode === 'auto' || props.headerMode === 'auto-scroll') &&
+    !isMixedNav.value &&
+    !isFullContent.value,
+);
+
+const headerHasShadow = computed(() => scrollY.value > 20);
 
 const headerWrapperHeight = computed(() => {
   let height = 0;
@@ -305,18 +324,38 @@ const tabbarStyle = computed((): CSSProperties => {
   };
 });
 
-const contentStyle = computed((): CSSProperties => {
+const layoutScrollStyle = computed((): CSSProperties => {
   const fixed = headerFixed.value;
 
-  const { footerEnable, footerFixed, footerHeight } = props;
+  if (!fixed) {
+    return {
+      marginTop: 0,
+      paddingTop: 0,
+    };
+  }
+
+  if (isHeaderOverlayModeActive.value) {
+    return {
+      marginTop: 0,
+      paddingTop: isFullContent.value ? 0 : `${headerWrapperHeight.value}px`,
+    };
+  }
+
   return {
     marginTop:
       fixed &&
       !isFullContent.value &&
       !headerIsHidden.value &&
-      (!isHeaderAutoMode.value || scrollY.value < headerWrapperHeight.value)
+      (!isHeaderAutoActive.value || scrollY.value < headerWrapperHeight.value)
         ? `${headerWrapperHeight.value}px`
         : 0,
+    paddingTop: 0,
+  };
+});
+
+const contentStyle = computed((): CSSProperties => {
+  const { footerEnable, footerFixed, footerHeight } = props;
+  return {
     paddingBottom: `${footerEnable && footerFixed ? footerHeight : 0}px`,
   };
 });
@@ -329,15 +368,19 @@ const headerZIndex = computed(() => {
 
 const headerWrapperStyle = computed((): CSSProperties => {
   const fixed = headerFixed.value;
+  const hidden = headerIsHidden.value || isFullContent.value;
+
   return {
     height: isFullContent.value ? '0' : `${headerWrapperHeight.value}px`,
     left: isMixedNav.value ? 0 : mainStyle.value.sidebarAndExtraWidth,
     position: fixed ? 'fixed' : 'static',
-    top:
-      headerIsHidden.value || isFullContent.value
-        ? `-${headerWrapperHeight.value}px`
-        : 0,
+    top: 0,
+    transform: fixed
+      ? `translate3d(0, ${hidden ? '-100%' : '0'}, 0)`
+      : undefined,
+    transitionDuration: fixed ? undefined : '0ms',
     width: mainStyle.value.width,
+    willChange: fixed ? 'transform' : undefined,
     'z-index': headerZIndex.value,
   };
 });
@@ -426,68 +469,76 @@ watch(
   },
 );
 
-{
-  const HEADER_TRIGGER_DISTANCE = 12;
+watch(
+  [() => props.headerMode, () => isMixedNav.value, () => isFullContent.value],
+  () => {
+    headerIsHidden.value = false;
+  },
+);
 
-  watch(
-    [() => props.headerMode, () => mouseY.value, () => headerIsHidden.value],
-    () => {
-      if (!isHeaderAutoMode.value || isMixedNav.value || isFullContent.value) {
-        if (props.headerMode !== 'auto-scroll') {
-          headerIsHidden.value = false;
-        }
-        return;
-      }
+useEventListener(mainRef, 'mousemove', handleHeaderMouseMove, {
+  passive: true,
+});
+useEventListener(mainRef, 'wheel', handleLayoutWheel, {
+  passive: true,
+});
 
-      const isInTriggerZone = mouseY.value <= HEADER_TRIGGER_DISTANCE;
-      const isInHeaderZone =
-        !headerIsHidden.value && mouseY.value <= headerWrapperHeight.value;
-
-      headerIsHidden.value = !(isInTriggerZone || isInHeaderZone);
-    },
-    {
-      immediate: true,
-    },
-  );
+function handleLayoutWheel(event: WheelEvent) {
+  lastMouseY = event.clientY;
 }
 
-{
-  const checkHeaderIsHidden = useThrottleFn((top, bottom, topArrived) => {
-    if (scrollY.value < headerWrapperHeight.value) {
-      headerIsHidden.value = false;
-      return;
-    }
-    if (topArrived) {
-      headerIsHidden.value = false;
-      return;
-    }
+function handleHeaderMouseMove(event: MouseEvent) {
+  lastMouseY = event.clientY;
 
-    if (top) {
-      headerIsHidden.value = false;
-    } else if (bottom) {
-      headerIsHidden.value = true;
-    }
-  }, 300);
+  if (!isHeaderAutoActive.value) {
+    return;
+  }
 
-  watch(
-    () => scrollY.value,
-    () => {
-      if (
-        props.headerMode !== 'auto-scroll' ||
-        isMixedNav.value ||
-        isFullContent.value
-      ) {
-        return;
-      }
-      if (isScrolling.value) {
-        checkHeaderIsHidden(
-          directions.top,
-          directions.bottom,
-          arrivedState.top,
-        );
-      }
-    },
-  );
+  updateHeaderVisibilityFromMouse(lastMouseY);
+}
+
+function updateHeaderVisibilityFromMouse(mouseY: null | number) {
+  if (arrivedState.top || scrollY.value < headerWrapperHeight.value) {
+    headerIsHidden.value = false;
+    return;
+  }
+
+  if (mouseY === null) {
+    return;
+  }
+
+  const isInTriggerZone = mouseY <= HEADER_TRIGGER_DISTANCE;
+  const isInHeaderZone =
+    !headerIsHidden.value && mouseY <= headerWrapperHeight.value;
+
+  headerIsHidden.value = !(isInTriggerZone || isInHeaderZone);
+}
+
+function handleLayoutScroll() {
+  if (isHeaderAutoActive.value) {
+    updateHeaderVisibilityFromMouse(lastMouseY);
+    return;
+  }
+
+  if (
+    props.headerMode !== 'auto-scroll' ||
+    isMixedNav.value ||
+    isFullContent.value
+  ) {
+    return;
+  }
+  resolveHeaderVisibilityOnScroll();
+}
+
+function resolveHeaderVisibilityOnScroll() {
+  headerIsHidden.value = resolveHeaderHiddenOnScroll({
+    arrivedTop: arrivedState.top,
+    currentHidden: headerIsHidden.value,
+    directionDown: directions.bottom,
+    directionUp: directions.top,
+    headerHeight: headerWrapperHeight.value,
+    scrollTop: scrollY.value,
+  });
 }
 
 function handleClickMask() {
@@ -503,10 +554,13 @@ function handleHeaderToggle() {
 }
 
 const idMainContent = ELEMENT_ID_MAIN_CONTENT;
+const idLayoutScroll = ELEMENT_ID_LAYOUT_SCROLL;
+const idLayoutStaticHeader = `${ELEMENT_ID_LAYOUT_SCROLL}__static_header`;
+const layoutStaticHeaderTarget = `#${idLayoutStaticHeader}`;
 </script>
 
 <template>
-  <div class="relative flex min-h-full w-full">
+  <div class="relative flex h-full min-h-0 w-full overflow-hidden">
     <LayoutSidebar
       v-if="sidebarEnableState"
       v-model:draggable="sidebarDraggable"
@@ -556,87 +610,96 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
     </LayoutSidebar>
 
     <div
-      ref="contentRef"
-      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
+      ref="mainRef"
+      class="relative flex min-h-0 flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
     >
+      <Teleport defer :disabled="headerFixed" :to="layoutStaticHeaderTarget">
+        <div
+          :class="[
+            {
+              'shadow-[0_16px_24px_hsl(var(--background))]': headerHasShadow,
+            },
+            SCROLL_FIXED_CLASS,
+          ]"
+          :style="headerWrapperStyle"
+          class="shrink-0 overflow-hidden transition-[transform,left,width] duration-200"
+        >
+          <LayoutHeader
+            v-if="headerVisible"
+            :full-width="!isSideMode"
+            :height="headerHeight"
+            :is-mobile="isMobile"
+            :show="!isFullContent && !headerHidden"
+            :sidebar-width="sidebarWidth"
+            :theme="headerTheme"
+            :width="mainStyle.width"
+            :z-index="headerZIndex"
+            :logo-visible="sidebarLogoVisible"
+          >
+            <template v-if="showHeaderLogo" #logo>
+              <slot name="logo"></slot>
+            </template>
+
+            <template #toggle-button>
+              <VbenIconButton
+                v-if="showHeaderToggleButton"
+                class="my-0 mr-1 rounded-md"
+                @click="handleHeaderToggle"
+              >
+                <IconifyIcon v-if="showSidebar" icon="ep:fold" />
+                <IconifyIcon v-else icon="ep:expand" />
+              </VbenIconButton>
+            </template>
+            <slot name="header"></slot>
+          </LayoutHeader>
+
+          <LayoutTabbar
+            v-if="tabbarEnable"
+            :height="tabbarHeight"
+            :style="tabbarStyle"
+          >
+            <slot name="tabbar"></slot>
+          </LayoutTabbar>
+        </div>
+      </Teleport>
+
       <div
-        :class="[
-          {
-            'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
-          },
-          SCROLL_FIXED_CLASS,
-        ]"
-        :style="headerWrapperStyle"
-        class="overflow-hidden transition-all duration-200"
+        :id="idLayoutScroll"
+        ref="contentRef"
+        :style="layoutScrollStyle"
+        class="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto"
       >
-        <LayoutHeader
-          v-if="headerVisible"
-          :full-width="!isSideMode"
-          :height="headerHeight"
-          :is-mobile="isMobile"
-          :show="!isFullContent && !headerHidden"
-          :sidebar-width="sidebarWidth"
-          :theme="headerTheme"
-          :width="mainStyle.width"
-          :z-index="headerZIndex"
-          :logo-visible="sidebarLogoVisible"
-        >
-          <template v-if="showHeaderLogo" #logo>
-            <slot name="logo"></slot>
-          </template>
+        <div :id="idLayoutStaticHeader" class="contents"></div>
 
-          <template #toggle-button>
-            <VbenIconButton
-              v-if="showHeaderToggleButton"
-              class="my-0 mr-1 rounded-md"
-              @click="handleHeaderToggle"
-            >
-              <IconifyIcon v-if="showSidebar" icon="ep:fold" />
-              <IconifyIcon v-else icon="ep:expand" />
-            </VbenIconButton>
-          </template>
-          <slot name="header"></slot>
-        </LayoutHeader>
-
-        <LayoutTabbar
-          v-if="tabbarEnable"
-          :height="tabbarHeight"
-          :style="tabbarStyle"
+        <LayoutContent
+          :id="idMainContent"
+          :content-compact="contentCompact"
+          :content-compact-width="contentCompactWidth"
+          :padding="contentPadding"
+          :padding-bottom="contentPaddingBottom"
+          :padding-left="contentPaddingLeft"
+          :padding-right="contentPaddingRight"
+          :padding-top="contentPaddingTop"
+          :style="contentStyle"
         >
-          <slot name="tabbar"></slot>
-        </LayoutTabbar>
+          <slot name="content"></slot>
+
+          <template #overlay>
+            <slot name="content-overlay"></slot>
+          </template>
+        </LayoutContent>
+
+        <LayoutFooter
+          v-if="footerEnable"
+          :fixed="footerFixed"
+          :height="footerHeight"
+          :show="!isFullContent"
+          :width="footerWidth"
+          :z-index="zIndex"
+        >
+          <slot name="footer"></slot>
+        </LayoutFooter>
       </div>
-
-      <!-- </div> -->
-      <LayoutContent
-        :id="idMainContent"
-        :content-compact="contentCompact"
-        :content-compact-width="contentCompactWidth"
-        :padding="contentPadding"
-        :padding-bottom="contentPaddingBottom"
-        :padding-left="contentPaddingLeft"
-        :padding-right="contentPaddingRight"
-        :padding-top="contentPaddingTop"
-        :style="contentStyle"
-        class="transition-[margin-top] duration-200"
-      >
-        <slot name="content"></slot>
-
-        <template #overlay>
-          <slot name="content-overlay"></slot>
-        </template>
-      </LayoutContent>
-
-      <LayoutFooter
-        v-if="footerEnable"
-        :fixed="footerFixed"
-        :height="footerHeight"
-        :show="!isFullContent"
-        :width="footerWidth"
-        :z-index="zIndex"
-      >
-        <slot name="footer"></slot>
-      </LayoutFooter>
     </div>
     <slot name="extra"></slot>
     <div

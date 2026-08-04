@@ -69,7 +69,7 @@ const formComponent = 'form';
 const formComponentProps = computed(() => {
   return props.form
     ? {
-        onSubmit: props.form.handleSubmit((val) => emits('submit', val)),
+        onSubmit: props.form.handleSubmit(() => emits('submit', undefined)),
       }
     : {
         onSubmit: (event: Event) => {

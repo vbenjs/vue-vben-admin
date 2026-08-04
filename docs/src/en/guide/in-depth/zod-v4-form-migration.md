@@ -23,7 +23,7 @@ The following Vben APIs remain supported:
 
 - `useVbenForm(options)` returning `[Form, formApi]`
 - existing `FormApi` methods for values, reset, validation, submission, schema updates, and component refs
-- existing `FormSchema` fields, dependencies, `valueFormat`, and array schema structure
+- existing `FormSchema` fields, dependencies, deprecated `valueFormat`, and array schema structure
 - application adapters and the re-exported `z` namespace
 - the existing `componentField` slot and binding shape
 
@@ -42,9 +42,9 @@ New code uses `reset`, `submit`, `validateAndSubmit`, and `clearValidation`. The
 | `useFieldValue(fieldName)` | `FormContextApi` | Subscribes to one field value without reacting to unrelated fields. |
 | `useFieldValues(fieldNames)` | `FormContextApi` | Subscribes to a declared group of field values. |
 | `useFieldError(fieldName)` | `FormContextApi` | Subscribes to one field error without consuming the full error object. |
-| `getRawValues()` | `FormApi` | Returns an independent raw snapshot before field mapping and `valueFormat`. |
+| `getRawValues()` | `FormApi` | Returns an independent form-value snapshot before codec or legacy formatting. |
 | `formatValues(rawValues)` | `FormApi` | Runs the unified formatting pipeline on a supplied raw snapshot. |
-| `getValueSnapshot()` | `FormApi` | Returns `{ rawValues, values }`, where `values` is the formatted payload. |
+| `getValueSnapshot()` | `FormApi` | Returns `{ rawValues, values }`, where `values` is `TSubmitValues`. |
 | `asyncDebounceMs` | `FormFieldOptions` | Configures TanStack Field async validation debounce. |
 | `changeEventFallback` | `FormCommonConfig` / adapter config | Enables fallback for legacy components that emit `change` without `update:*`; defaults to `false`. |
 
@@ -60,7 +60,7 @@ New code uses `reset`, `submit`, `validateAndSubmit`, and `clearValidation`. The
 | Change-event compatibility | `disabledOnChangeListener: false` enabled fallback | `changeEventFallback: true` enables fallback with positive semantics. |
 | Top-level render callbacks | `componentProps(values, actions, ctx)`, `help(values, actions, ctx)`, `renderComponentContent(values, actions, ctx)` | Receive only lightweight `FormSchemaContext`; value-dependent behavior moves to `dependencies.resolve`. |
 | `validateAndSubmit()` | Repeated low-level validation/scroll handling and could validate again during submit | Delegates to canonical `validate()` and shared submission logic; invalid forms do not submit. |
-| `getValues()` | Implicitly returned transformed values | Still returns the formatted payload; use `getRawValues()` for raw state. |
+| `getValues()` | Implicitly returned transformed values | Returns codec-encoded `TSubmitValues`; without a codec it preserves legacy formatting. |
 
 ### Removed APIs
 
@@ -86,7 +86,7 @@ New code uses `reset`, `submit`, `validateAndSubmit`, and `clearValidation`. The
 - Field components use fine-grained value/error selectors; full error aggregation is no longer on the normal input path.
 - Async validators discard stale Promises through a Vben generation without reading private TanStack AbortController or meta fields.
 - New and legacy dependencies share one atomic executor, so stale async results cannot overwrite newer state.
-- Formatting runs in a fixed array-to-string, range mapping, schema `valueFormat` order and performs one deep clone per formatted snapshot.
+- New code uses one form-level codec to encode the complete object atomically; legacy array-to-string, range mapping, and schema `valueFormat` remain compatible but deprecated.
 
 ## Typed Values and Slots
 
@@ -198,7 +198,7 @@ Required markers are derived from whether the schema accepts `undefined`.
 
 Do not read `_def`, `_zod.def`, or `typeName`. Use public `.unwrap()` APIs and public pipe inputs. Delegate intersection defaults to the Zod 4-compatible `zod-defaults` package.
 
-Standard Schema validation does not write transform/coerce output back into TanStack Form state. Keep using `valueFormat` for submission payload conversion, or explicitly call `parseAsync` at the submission boundary when transformed schema output is required.
+Standard Schema validation does not write transform/coerce output back into TanStack Form state. Use the form-level codec for submission payload conversion, or explicitly call `parseAsync` inside the codec `encode` boundary when transformed schema output is required.
 
 Also review these changes:
 
@@ -220,7 +220,7 @@ The shadcn form primitives now use a Vben-owned field context. Labels, controls,
 
 `dependencies.resolve(context)` is the recommended API: it evaluates once and atomically commits one dynamic-state patch, while stale async results are discarded as a unit. Legacy `if/show/disabled/required/rules/componentProps/trigger` callbacks remain supported through the same normalized executor, but are marked `@deprecated` and emit one development warning. Both APIs react only to declared `triggerFields`.
 
-`handleValuesChange(rawValues, fieldsChanged, getFormattedValues)` receives readonly raw values and formats only when its third argument is called. `getRawValues()` and `getValues()` each create only the requested snapshot; use `getValueSnapshot()` when both are required. `handleSubmit(values, rawValues)` receives both forms at submission. The formatter performs one deep clone, then applies array-to-string, range mapping, and schema `valueFormat` in order. Array fields keep using TanStack push/remove operations and stable row identity.
+`handleValuesChange(rawValues, fieldsChanged, getFormattedValues)` receives readonly `TFormValues` and runs codec or legacy formatting only when its third argument is called. `getRawValues()` returns form values and `getValues()` returns `TSubmitValues`; use `getValueSnapshot()` when both are required. `handleSubmit(values, rawValues)` receives both forms at submission. Legacy array-to-string, range mapping, and schema `valueFormat` remain compatible but deprecated. Array fields keep using TanStack push/remove operations and stable row identity.
 
 ## Test and Acceptance Matrix
 

@@ -4,6 +4,24 @@ outline: deep
 
 # Vben Form 表单
 
+::: warning 字段插槽破坏性变更
+
+字段命名 slot 的控件绑定已统一收拢到 `slotProps.componentProps`。旧写法会把 `field`、`formApi`、`values` 等表单元数据一并传给实际控件，可能产生无效属性和 Vue 运行时警告。
+
+```vue
+<!-- 旧写法 -->
+<Input v-bind="slotProps" />
+
+<!-- 新写法 -->
+<Input v-bind="slotProps.componentProps" />
+```
+
+请将所有字段 slot 的 `v-bind="slotProps"` 迁移为 `v-bind="slotProps.componentProps"`。根级的 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 仍可用于模板逻辑，但不会再自动传入实际控件。
+
+当前版本启动 Vben 应用或 Playground 开发服务器时会在终端输出一次迁移警告，页面加载时浏览器控制台也会提示。该提示不会进入生产构建，并计划在下个版本移除。
+
+:::
+
 框架提供的表单组件，可适配 `Element Plus`、`Ant Design Vue`、`Naive UI` 等框架。
 
 > 如果文档内没有参数说明，可以尝试在在线示例内寻找
@@ -244,15 +262,46 @@ export { initComponentAdapter };
 
 <DemoPreview dir="demos/vben-form/query" />
 
-## 值格式化
+## 表单值编解码
 
-当组件的展示值与后端真正需要的 payload 不一致时，可以在 schema 上使用 `valueFormat`。它会在 `getValues()`、提交、以及依赖这些输出的方法中生效。
+当组件值与后端 payload 不一致时，使用表单级 `codec` 统一定义双向转换。`encode` 接收完整 `TFormValues` 并返回完整 `TSubmitValues`；`decode` 执行反向转换。多字段拆分、合并和删除都在一个纯函数边界完成，不依赖 schema 顺序或字符串路径写入。
 
-- `return xxx`：回写当前字段
-- `setValue('startTime', xxx)`：写入其他字段
-- `return undefined`：保持当前字段已被移除，适合把一个字段拆成多个字段
+`codec` 直接写在 `useVbenForm` 选项中即可。只需标注 `encode` 的表单值入参，`TSubmitValues` 会从返回对象自动推导，并传递给 `decode`、`getValues()` 和提交回调：
+
+```ts
+const [Form, formApi] = useVbenForm({
+  codec: {
+    decode(values) {
+      return { period: [values.startTime, values.endTime] };
+    },
+    encode(values: Readonly<FormValues>) {
+      return {
+        endTime: values.period[1],
+        startTime: values.period[0],
+      };
+    },
+  },
+  schema,
+});
+```
 
 <DemoPreview dir="demos/vben-form/value-format" />
+
+## 性能基准
+
+表单性能基准覆盖组件初始化、单字段与批量更新、重置、Zod 校验、动态 schema、字段联动、codec 编码与快照，以及数组字段编辑、增删和子 schema 更新。完整运行：
+
+```bash
+pnpm test:benchmark
+```
+
+只检查表单相关基准时，可以直接指定文件：
+
+```bash
+pnpm exec vitest bench --run packages/@core/ui-kit/form-ui/__tests__/form-component-performance.benchmark.ts packages/@core/ui-kit/form-ui/__tests__/form-performance.benchmark.ts
+```
+
+基准结果用于比较同一环境、同一场景在修改前后的相对变化，不应把单次运行的绝对耗时作为跨机器阈值。运行前应停止开发服务器等高 CPU 任务，并保持 Node.js 版本一致。benchmark 文件不会进入普通 `test:unit` 流程。
 
 ## 表单校验
 
@@ -305,7 +354,7 @@ const [Form, formApi] = useVbenForm({
 
 ### 类型传递与插槽
 
-通过 `useVbenForm<TValues>` 定义一次表单值类型后，`getValues`、`setValues`、`setFieldValue`、`handleSubmit`、`handleValuesChange`、`formApi.form.values` 和 selector 都会沿用该类型，可直接作为 API 请求参数：
+使用 `useVbenForm<TFormValues, TSubmitValues>` 分别声明组件表单值和提交值。schema、slots、`setValues`、`getRawValues()` 使用 `TFormValues`；`getValues()` 和 `submit()` 返回 `Promise<TSubmitValues>`，其中 `submit()` 只接收可选的原生 `Event`；`handleSubmit` 第一参数使用 `TSubmitValues`。两种结构相同时只传一个泛型即可。
 
 ```vue
 <script setup lang="ts">
@@ -354,7 +403,9 @@ async function fillForm() {
 </template>
 ```
 
-字段命名插槽提供 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。未声明 `TValues` 时仍兼容任意字段名，但 slot props 会回退为宽泛类型。
+字段命名插槽提供完整控件绑定 `componentProps`，以及 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi`。默认插槽提供 `shapes`、`values` 和 `formApi`；`reset-before`、`submit-before`、`expand-before`、`expand-after` 提供 `values` 和 `formApi`。
+
+建议为表单声明没有字符串索引签名的精确接口，使每个字段插槽都能推导自己的值类型。使用 `Record<string, unknown>` 等宽泛类型时，slot props 仍保持完整结构，不再整体退化为 `any`，但字段值只能推导为索引值类型。
 
 ### FormApi
 
@@ -362,15 +413,16 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 
 | 方法名 | 描述 | 类型 | 版本号 |
 | --- | --- | --- | --- |
-| submit | 提交表单 | `(e?: Event) => Promise<TValues>` | - |
-| validateAndSubmit | 校验通过后提交表单 | `() => Promise<TValues \| undefined>` | - |
-| reset | 重置表单 | `(state?: FormResetState<TValues>, options?: FormResetOptions) => Promise<void>` | - |
-| clearValidation | 清空指定字段或全部校验，并取消进行中的异步校验 | `(fieldNames?: FormFieldName<TValues> \| FormFieldName<TValues>[]) => Promise<void>` | - |
-| setValues | 设置表单值，默认会过滤不在 schema 中定义的字段 | `(fields: Partial<TValues>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
-| getValues | 获取经过字段映射和 valueFormat 的值 | `() => Promise<TValues>` | - |
-| getRawValues | 获取未格式化的独立值快照 | `() => Promise<TValues>` | - |
-| getValueSnapshot | 一次获取原始值和格式化值 | `() => Promise<FormValueSnapshot<TValues>>` | - |
-| formatValues | 格式化指定的原始值快照 | `(rawValues: Readonly<TValues>) => TValues` | - |
+| submit | 提交表单 | `(e?: Event) => Promise<TSubmitValues>` | - |
+| validateAndSubmit | 校验通过后提交表单 | `() => Promise<TSubmitValues \| undefined>` | - |
+| reset | 重置表单 | `(state?: FormResetState<TFormValues>, options?: FormResetOptions) => Promise<void>` | - |
+| clearValidation | 清空指定字段或全部校验，并取消进行中的异步校验 | `(fieldNames?: FormFieldName<TFormValues> \| FormFieldName<TFormValues>[]) => Promise<void>` | - |
+| setValues | 设置表单组件值，默认会过滤不在 schema 中定义的字段 | `(fields: Partial<TFormValues>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
+| setSubmitValues | 通过 codec.decode 回填完整提交值 | `(values: TSubmitValues, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
+| getValues | 获取经过 codec.encode 或旧格式化管道的提交值 | `() => Promise<TSubmitValues>` | - |
+| getRawValues | 获取未格式化的独立表单值快照 | `() => Promise<TFormValues>` | - |
+| getValueSnapshot | 一次获取表单值和提交值 | `() => Promise<FormValueSnapshot<TFormValues, TSubmitValues>>` | - |
+| formatValues | 编码指定的表单值快照 | `(rawValues: Readonly<TFormValues>) => TSubmitValues` | - |
 | validate | 表单校验 | `() => Promise<FormValidationResult>` | - |
 | validateField | 校验指定字段 | `(fieldName: string) => Promise<FormValidationResult>` | - |
 | isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` | - |
@@ -415,8 +467,9 @@ const submitting = formApi.form.useSelector((state) => state.meta.submitting);
 | actionLayout | 表单操作按钮位置 | `'newLine' \| 'rowEnd' \| 'inline'` | `rowEnd` |
 | actionPosition | 表单操作按钮对齐方式 | `'left' \| 'center' \| 'right'` | `right` |
 | handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
-| handleSubmit | 表单提交回调 | `(values: TValues, rawValues: Readonly<TValues>) => Promise<void> \| void` | - |
-| handleValuesChange | 表单值变化回调 | `(rawValues: Readonly<TValues>, fieldsChanged: string[], getFormattedValues: () => TValues) => void` | - |
+| codec | 表单值与提交值的双向编解码器 | `FormCodec<TFormValues, TSubmitValues>` | - |
+| handleSubmit | 表单提交回调 | `(values: TSubmitValues, rawValues: Readonly<TFormValues>) => Promise<void> \| void` | - |
+| handleValuesChange | 表单值变化回调 | `(rawValues: Readonly<TFormValues>, fieldsChanged: string[], getFormattedValues: () => TSubmitValues) => void` | - |
 | handleCollapsedChange | 表单收起展开状态变化回调 | `(collapsed: boolean) => void` | - |
 | actionButtonsReverse | 调换操作按钮位置 | `boolean` | `false` |
 | resetButtonOptions | 重置按钮组件参数 | `ActionButtonOptions` | - |
@@ -433,43 +486,23 @@ const submitting = formApi.form.useSelector((state) => state.meta.submitting);
 | compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
 | scrollToFirstError | 表单验证失败时是否自动滚动到第一个错误字段 | `boolean` | false |
 
+::: warning formApi.form 的挂载时机
+
+`formApi.form` 是 `<Form />` 挂载后注入的 `FormContextApi`。不要在调用 `useVbenForm` 时从第二个返回值中解构或缓存 `form`，否则会保留挂载前的空引用。业务操作优先使用 `formApi` 上会等待挂载的公开方法，例如 `getRawValues()`、`setFieldError()`、`setFieldValue()` 和 `validate()`；只有在已经挂载的表单上下文中才直接使用 `formApi.form` 的细粒度订阅方法。
+
+:::
+
 ::: tip handleValuesChange
 
-`handleValuesChange` 的第一个参数是未经过 `valueFormat`、`fieldMappingTime` 或 array-to-string 转换的只读当前值，第二个参数是本次发生变化的 schema 字段名。第三个参数 `getFormattedValues` 是惰性函数：不调用就不会执行深拷贝和格式化，适合只在少数变化场景读取提交结构。字段映射生成的目标字段不会出现在 `fieldsChanged` 中。
+`handleValuesChange` 的第一个参数是未编码的只读 `TFormValues`，第二个参数是本次发生变化的 schema 字段名。第三个参数 `getFormattedValues` 是惰性函数：不调用就不会执行 codec 或旧格式化管道。
 
 `getRawValues()` 和 `getValues()` 分别只生成一份目标快照；确实需要同时比较两种结构时再调用 `getValueSnapshot()`。`handleSubmit(values, rawValues)` 会在提交边界同时提供格式化结果和对应的原始快照。
 
 :::
 
-::: tip fieldMappingTime
+::: tip 旧格式化 API
 
-此属性用于将表单内的数组值映射成 2 个字段，它应当传入一个数组，数组的每一项是一个映射规则，规则的第一个成员是一个字符串，表示需要映射的字段名，第二个成员是一个数组，表示映射后的字段名，第三个成员是一个可选的格式掩码，用于格式化日期时间字段；也可以提供一个格式化函数（参数分别为当前值和当前字段名，返回格式化后的值）。如果明确地将格式掩码设为null，则原值映射而不进行格式化（适用于非日期时间字段）。例如：`[['timeRange', ['startTime', 'endTime'], 'YYYY-MM-DD']]`，`timeRange`应当是一个至少具有2个成员的数组类型的值。Form会将`timeRange`的值前两个值分别按照格式掩码`YYYY-MM-DD`格式化后映射到`startTime`和`endTime`字段上。每一项的第三个参数是一个可选的格式掩码，
-
-:::
-
-::: tip valueFormat
-
-`valueFormat` 适合处理“组件值”和“提交值”不一致的场景。例如：
-
-- `RangePicker` 返回 `[dayjs, dayjs]`，但后端需要 `{ startTime, endTime }`
-- `DatePicker` 返回 `dayjs`，但后端只需要时间戳
-
-`valueFormat` 会在 `getValues()` 过程中执行：
-
-- 返回 `undefined`：当前字段保持删除状态
-- 返回其他值：回写当前字段
-- 调用 `setValue(key, nextValue)`：写入一个或多个新字段
-
-```ts
-{
-  component: 'RangePicker',
-  fieldName: 'reportRange',
-  valueFormat(value, setValue) {
-    setValue('startTime', value?.[0]?.valueOf());
-    setValue('endTime', value?.[1]?.valueOf());
-  },
-}
-```
+`schema.valueFormat`、`fieldMappingTime` 和 `arrayToStringFields` 仍保持原运行时行为，但已经标记为 `@deprecated`，开发环境首次使用时会提示迁移。配置 codec 后只执行 codec；同时存在的旧配置会被忽略，避免重复转换。
 
 :::
 
@@ -604,7 +637,7 @@ export interface FormSchema<
   rules?: FormSchemaRuleType;
   /** 后缀 */
   suffix?: CustomRenderType;
-  /** 获取 getValues() 输出时格式化当前字段 */
+  /** @deprecated 使用表单级 codec */
   valueFormat?: FormValueFormat;
 }
 ```
@@ -614,6 +647,8 @@ export interface FormSchema<
 :::
 
 ::: details FormValueFormat
+
+`FormValueFormat` 是兼容类型，已标记为 `@deprecated`。新代码应使用 `FormCodec<TFormValues, TSubmitValues>`。
 
 ```ts
 type FormValueFormat = (
@@ -731,6 +766,18 @@ import { z } from '#/adapter/form';
 
 ::: tip 字段插槽
 
-除了以上内置插槽之外，`schema`属性中每个字段的`fieldName`都可以作为插槽名称，这些字段插槽的优先级高于`component`定义的组件。也就是说，当提供了与`fieldName`同名的插槽时，这些插槽的内容将会作为这些字段的组件，此时`component`的值将会被忽略。
+除了以上内置插槽之外，`schema` 属性中每个字段的 `fieldName` 都可以作为插槽名称。这些字段插槽的优先级高于 `component` 定义的组件。
+
+字段 slot 的控件绑定统一收拢在 `componentProps` 中，其中包含模型值、对应的 `update:*` 事件、schema/common/dependencies props 和 disabled 状态：
+
+```vue
+<Form>
+  <template #fieldName="slotProps">
+    <Input v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+`field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 保留在 slot 根级，供模板逻辑使用，不会自动传入实际控件。
 
 :::

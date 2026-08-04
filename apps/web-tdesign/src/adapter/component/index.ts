@@ -239,9 +239,7 @@ async function initComponentAdapter() {
       modelValueProp: 'value',
     }),
     Input: withDefaultPlaceholder(Input, 'input'),
-    InputNumber: withDefaultPlaceholder(InputNumber, 'input', {
-      style: { width: '100%' },
-    }),
+    InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     // InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     // Mentions: withDefaultPlaceholder(Mentions, 'input'),
     // 自定义主要按钮
