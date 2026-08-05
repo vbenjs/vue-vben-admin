@@ -47,6 +47,8 @@ const [Drawer, drawerApi] = useVbenDrawer<FormDrawerData>({
       const data = drawerApi.getData();
       if (data?.values) {
         formApi.setValues(data.values);
+      } else {
+        formApi.reset();
       }
     }
   },

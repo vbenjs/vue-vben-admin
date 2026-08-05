@@ -57,6 +57,7 @@ const [Drawer, drawerApi] = useVbenDrawer<null | SystemRoleApi.SystemRole>({
         formData.value = data;
         id.value = data.id;
       } else {
+        formData.value = undefined;
         id.value = undefined;
       }
 
