@@ -82,6 +82,16 @@ describe('modalApi', () => {
     expect(modalApi.getData()).toEqual(testData);
   });
 
+  it('should return undefined before shared data is set', () => {
+    expect(modalApi.getData()).toBeUndefined();
+  });
+
+  it('should preserve null shared data', () => {
+    const nullableModalApi = new ModalApi<null | Record<string, unknown>>();
+    nullableModalApi.setData(null);
+    expect(nullableModalApi.getData()).toBeNull();
+  });
+
   it('should set state correctly using an object', () => {
     modalApi.setState({ title: 'New Title' });
     expect(modalApi.store.state.title).toBe('New Title');

@@ -81,6 +81,16 @@ describe('drawerApi', () => {
     expect(drawerApi.getData()).toEqual(testData);
   });
 
+  it('should return undefined before shared data is set', () => {
+    expect(drawerApi.getData()).toBeUndefined();
+  });
+
+  it('should preserve null shared data', () => {
+    const nullableDrawerApi = new DrawerApi<null | Record<string, unknown>>();
+    nullableDrawerApi.setData(null);
+    expect(nullableDrawerApi.getData()).toBeNull();
+  });
+
   it('should set state correctly using an object', () => {
     drawerApi.setState({ title: 'New Title' });
     expect(drawerApi.store.state.title).toBe('New Title');

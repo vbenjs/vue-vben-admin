@@ -79,6 +79,9 @@ describe('useVbenDrawer', () => {
     expect(initialApi).toBeDefined();
     if (!initialApi) return;
     expect(parentApi.store).toBe(initialApi.store);
+    const initialData = { id: 1 };
+    parentApi.setData(initialData);
+    expect(initialApi.getData()).toBe(initialData);
 
     await remountConsumer(consumerKey);
     const recreatedApi = getCurrentApi();
@@ -88,6 +91,9 @@ describe('useVbenDrawer', () => {
     expect(recreatedApi).not.toBe(initialApi);
     expect(recreatedApi.store.state.title).toBe('Parent drawer title');
     expect(parentApi.store).toBe(recreatedApi.store);
+    const recreatedData = { id: 2 };
+    parentApi.setData(recreatedData);
+    expect(recreatedApi.getData()).toBe(recreatedData);
 
     parentApi.open();
     expect(onOpenChange).toHaveBeenCalledWith(true);
