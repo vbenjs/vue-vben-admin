@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { ExplicitModalData } from './typed-data-contract';
+
 import { onBeforeUnmount } from 'vue';
 
 import {
@@ -22,6 +24,10 @@ import FormModalDemo from './form-modal-demo.vue';
 import InContentModalDemo from './in-content-demo.vue';
 import NestedDemo from './nested-demo.vue';
 import SharedDataDemo from './shared-data-demo.vue';
+import TypedDataAutoDemo from './typed-data-auto-demo.vue';
+import { useFactoryModal } from './typed-data-contract';
+import TypedDataExplicitDemo from './typed-data-explicit-demo.vue';
+import TypedDataFactoryDemo from './typed-data-factory-demo.vue';
 
 defineOptions({ name: 'ModalExample' });
 
@@ -53,6 +59,19 @@ const [SharedDataModal, sharedModalApi] = useVbenModal({
 
 const [FormModal, formModalApi] = useVbenModal({
   connectedComponent: FormModalDemo,
+});
+
+const [TypedDataAutoModal, typedDataAutoModalApi] = useVbenModal({
+  connectedComponent: TypedDataAutoDemo,
+});
+
+const [TypedDataExplicitModal, typedDataExplicitModalApi] =
+  useVbenModal<ExplicitModalData>({
+    connectedComponent: TypedDataExplicitDemo,
+  });
+
+const [TypedDataFactoryModal, typedDataFactoryModalApi] = useFactoryModal({
+  connectedComponent: TypedDataFactoryDemo,
 });
 
 const [NestedModal, nestedModalApi] = useVbenModal({
@@ -109,6 +128,33 @@ function openFormModal() {
     .setData({
       // 表单值
       values: { field1: 'abc', field2: '123', field3: '1' },
+    })
+    .open();
+}
+
+function openTypedDataAutoModal() {
+  typedDataAutoModalApi
+    .setData({
+      message: '外部无需声明泛型，由 connected component 自动推导。',
+      method: '自动推导',
+    })
+    .open();
+}
+
+function openTypedDataExplicitModal() {
+  typedDataExplicitModalApi
+    .setData({
+      message: '父子组件显式引用同一个数据类型。',
+      method: '显式泛型',
+    })
+    .open();
+}
+
+function openTypedDataFactoryModal() {
+  typedDataFactoryModalApi
+    .setData({
+      message: '父子组件复用预绑定的 typed composable。',
+      method: '契约工厂',
     })
     .open();
 }
@@ -188,6 +234,9 @@ async function openPrompt() {
     <DynamicModal />
     <SharedDataModal />
     <FormModal />
+    <TypedDataAutoModal />
+    <TypedDataExplicitModal />
+    <TypedDataFactoryModal />
     <NestedModal />
     <BlurModal />
     <Flex wrap="wrap" class="w-full" gap="10">
@@ -246,6 +295,33 @@ async function openPrompt() {
         <p>弹窗与表单结合</p>
         <template #actions>
           <Button type="primary" @click="openFormModal"> 打开表单弹窗 </Button>
+        </template>
+      </Card>
+
+      <Card class="w-75" title="共享数据：自动推导">
+        <p>子组件 expose API，父组件从 connected component 推导类型</p>
+        <template #actions>
+          <Button type="primary" @click="openTypedDataAutoModal">
+            打开自动推导示例
+          </Button>
+        </template>
+      </Card>
+
+      <Card class="w-75" title="共享数据：显式泛型">
+        <p>无法自动推导时，父子组件显式引用同一个数据类型</p>
+        <template #actions>
+          <Button type="primary" @click="openTypedDataExplicitModal">
+            打开显式泛型示例
+          </Button>
+        </template>
+      </Card>
+
+      <Card class="w-75" title="共享数据：契约工厂">
+        <p>通过 createVbenModal 预绑定类型并复用 typed composable</p>
+        <template #actions>
+          <Button type="primary" @click="openTypedDataFactoryModal">
+            打开契约工厂示例
+          </Button>
         </template>
       </Card>
 
