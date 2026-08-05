@@ -43,7 +43,8 @@ const unicorn: OxlintConfig = {
     'unicorn/no-magic-array-flat-depth': 'error',
     'unicorn/no-negated-condition': 'error',
     'unicorn/no-negation-in-equality-check': 'error',
-    'unicorn/no-nested-ternary': 'error',
+    // 禁止通过“添加括号”自动修复嵌套三元运算
+    'unicorn/no-nested-ternary': 'off',
     'unicorn/no-new-array': 'error',
     'unicorn/no-new-buffer': 'error',
     'unicorn/no-object-as-default-parameter': 'error',
