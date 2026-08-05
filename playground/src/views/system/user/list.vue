@@ -162,7 +162,7 @@ function onRefresh() {
 }
 
 function onCreate() {
-  formDrawerApi.setData({}).open();
+  formDrawerApi.setData(null).open();
 }
 
 async function loadDeptList() {

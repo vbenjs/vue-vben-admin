@@ -32,6 +32,9 @@ const emit = defineEmits<{
 const formData = ref<SystemMenuApi.SystemMenu>();
 const titleSuffix = ref<string>();
 
+type MenuDrawerData =
+  | SystemMenuApi.SystemMenu
+  | { pid?: SystemMenuApi.SystemMenu['pid'] };
 type MenuSubmitValues = Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>;
 type MenuFormValues = MenuSubmitValues & { linkSrc?: string };
 
@@ -479,24 +482,28 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
   wrapperClass: 'grid-cols-2 gap-x-4',
 });
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Drawer, drawerApi] = useVbenDrawer<MenuDrawerData>({
   onConfirm: onSubmit,
   async onOpenChange(isOpen) {
     if (isOpen) {
-      const data = drawerApi.getData<SystemMenuApi.SystemMenu>();
-      if (data) {
+      const data = drawerApi.getData();
+      if (data && 'id' in data) {
         formData.value = data;
         await formApi.setSubmitValues(data);
         titleSuffix.value = formData.value.meta?.title
           ? $t(formData.value.meta.title)
           : '';
       } else {
+        formData.value = undefined;
         formApi.reset();
+        await formApi.setValues(data ?? {});
         titleSuffix.value = '';
       }
     }
   },
 });
+
+defineExpose({ drawerApi });
 
 async function onSubmit() {
   const { valid } = await formApi.validate();

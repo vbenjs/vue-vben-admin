@@ -161,7 +161,7 @@ function onRefresh() {
 }
 
 function onCreate() {
-  formDrawerApi.setData({}).open();
+  formDrawerApi.setData(null).open();
 }
 </script>
 <template>

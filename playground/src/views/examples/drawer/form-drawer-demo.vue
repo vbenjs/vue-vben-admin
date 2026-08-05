@@ -7,6 +7,10 @@ defineOptions({
   name: 'FormDrawerDemo',
 });
 
+interface FormDrawerData {
+  values?: Record<string, unknown>;
+}
+
 const [Form, formApi] = useVbenForm({
   schema: [
     {
@@ -30,7 +34,7 @@ const [Form, formApi] = useVbenForm({
   ],
   showDefaultActions: false,
 });
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Drawer, drawerApi] = useVbenDrawer<FormDrawerData>({
   onCancel() {
     drawerApi.close();
   },
@@ -40,14 +44,16 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      const { values } = drawerApi.getData<Record<string, any>>();
-      if (values) {
-        formApi.setValues(values);
+      const data = drawerApi.getData();
+      if (data?.values) {
+        formApi.setValues(data.values);
       }
     }
   },
   title: '内嵌表单示例',
 });
+
+defineExpose({ drawerApi });
 </script>
 <template>
   <Drawer>
