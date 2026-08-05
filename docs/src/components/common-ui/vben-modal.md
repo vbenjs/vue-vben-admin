@@ -56,6 +56,29 @@ Modal 内的内容一般业务中，会比较复杂，所以我们可以将 moda
 
 <DemoPreview dir="demos/vben-modal/shared-data" />
 
+### 数据类型约束
+
+推荐在 connected 子组件中声明一次数据类型并暴露 `modalApi`，外部会从 `connectedComponent` 自动推导 `setData` 和 `getData` 的类型：
+
+```ts
+// connected 子组件
+const [Modal, modalApi] = useVbenModal<EditData>();
+defineExpose({ modalApi });
+
+// 外部组件，无需重复声明 EditData
+const [Modal, modalApi] = useVbenModal({
+  connectedComponent: EditModal,
+});
+```
+
+无法从组件公开实例推导时，可以显式使用 `useVbenModal<EditData>()`。需要让多个文件共享同一契约时，可以在独立模块中预绑定：
+
+```ts
+export const useEditModal = createVbenModal<EditData>();
+```
+
+三种方式的优先级为：显式泛型、connected component 自动推导、`unknown`。普通 SFC 通过 `defineExpose` 支持自动推导；泛型 SFC、函数式组件或被标注为宽 `Component` 的组件应使用显式泛型或契约工厂。`getData()` 在尚未调用 `setData()` 时返回 `undefined`，业务允许 `null`、部分对象等值时，需要在数据泛型中准确声明。
+
 ## 动画类型
 
 通过 `animationType` 属性可以控制弹窗的动画效果：
@@ -162,8 +185,8 @@ const [Modal, modalApi] = useVbenModal({
 | setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` | - |
 | open | 打开弹窗 | `()=>void` | - |
 | close | 关闭弹窗 | `()=>void` | - |
-| setData | 设置共享数据 | `<T>(data:T)=>modalApi` | - |
-| getData | 获取共享数据 | `<T>()=>T` | - |
+| setData | 设置共享数据 | `(data:TData)=>modalApi` | - |
+| getData | 获取共享数据 | `()=>TData\|undefined` | - |
 | useStore | 获取可响应式状态 | - | - |
 | lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` | >5.5.2 |
 | unlock | lock方法的反操作，解除弹窗的锁定状态，也是lock(false)的别名 | `()=>modalApi` | >5.5.3 |
