@@ -124,26 +124,28 @@ const [Form] = useVbenForm({
         showSearch: true,
       },
       dependencies: {
-        componentProps(values) {
+        resolve({ values }) {
           if (values.field2 === '123') {
             return {
-              options: [
-                {
-                  label: '选项1',
-                  value: '1',
-                },
-                {
-                  label: '选项2',
-                  value: '2',
-                },
-                {
-                  label: '选项3',
-                  value: '3',
-                },
-              ],
+              componentProps: {
+                options: [
+                  {
+                    label: '选项1',
+                    value: '1',
+                  },
+                  {
+                    label: '选项2',
+                    value: '2',
+                  },
+                  {
+                    label: '选项3',
+                    value: '3',
+                  },
+                ],
+              },
             };
           }
-          return {};
+          return { componentProps: {} };
         },
         triggerFields: ['field2'],
       },

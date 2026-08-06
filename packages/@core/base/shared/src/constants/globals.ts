@@ -9,6 +9,8 @@ export const CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT = `--vben-footer-height`;
 
 /** 内容区域的组件ID */
 export const ELEMENT_ID_MAIN_CONTENT = `__vben_main_content`;
+/** layout 滚动容器ID */
+export const ELEMENT_ID_LAYOUT_SCROLL = `__vben_layout_scroll`;
 
 /**
  * @zh_CN 默认命名空间

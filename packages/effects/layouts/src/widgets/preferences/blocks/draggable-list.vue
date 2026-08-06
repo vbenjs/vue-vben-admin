@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { SelectOption } from '@vben/types';
 
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 import { GripVertical } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import Sortable from 'sortablejs';
+
+import SelectItem from './select-item.vue';
 
 interface Item {
   key: string;
@@ -44,15 +46,16 @@ const hiddenList = computed(() =>
   props.items.filter((item) => item.position === 'none'),
 );
 function initSortable() {
-  if (!listRef.value) return;
+  const container = listRef.value;
+  if (!container) return;
   sortableInstance?.destroy();
-  sortableInstance = Sortable.create(listRef.value, {
+  sortableInstance = Sortable.create(container, {
     animation: 200,
     handle: '.drag-handle',
     onEnd() {
       // Sortable 已经改了 DOM，但 sortableList computed 还是旧顺序。
       // 直接从 DOM 读 children 的 data-key 拿新顺序，再追加 hidden 部分。
-      const newOrder = [...listRef.value!.children]
+      const newOrder = [...container.children]
         .map((el) => (el as HTMLElement).dataset.key)
         .filter(Boolean) as string[];
       emit('updateOrder', [...newOrder, ...hiddenList.value.map((i) => i.key)]);
@@ -61,15 +64,18 @@ function initSortable() {
 }
 
 onMounted(initSortable);
+onUnmounted(() => {
+  sortableInstance?.destroy();
+  sortableInstance = null;
+});
 
-function setPosition(key: string, event: Event) {
-  const value = (event.target as HTMLSelectElement).value as
-    | 'auto'
-    | 'fixed'
-    | 'header'
-    | 'none'
-    | 'user-dropdown';
-  emit('updatePosition', key, value);
+function setPosition(key: string, value: string | undefined) {
+  if (!value) return;
+  emit(
+    'updatePosition',
+    key,
+    value as 'auto' | 'fixed' | 'header' | 'none' | 'user-dropdown',
+  );
   nextTick(() => {
     emit(
       'updateOrder',
@@ -86,25 +92,21 @@ function setPosition(key: string, event: Event) {
         v-for="item in sortableList"
         :key="item.key"
         :data-key="item.key"
-        class="bg-accent flex items-center gap-2 rounded-md px-2 py-1.5"
+        class="bg-accent flex items-center rounded-md pl-2"
       >
         <GripVertical
           class="drag-handle size-4 shrink-0 cursor-grab text-muted-foreground active:cursor-grabbing"
         />
-        <span class="min-w-0 flex-1 truncate text-sm">{{ item.label }}</span>
-        <select
-          :value="item.position"
-          class="bg-background h-7 w-28 shrink-0 rounded border px-1 text-xs"
-          @change="(e) => setPosition(item.key, e)"
+        <SelectItem
+          :items="item.positionItems ?? positionItems"
+          :model-value="item.position"
+          class="min-w-0 flex-1"
+          @update:model-value="
+            (v: string | undefined) => setPosition(item.key, v)
+          "
         >
-          <option
-            v-for="opt in item.positionItems ?? positionItems"
-            :key="opt.value"
-            :value="opt.value"
-          >
-            {{ opt.label }}
-          </option>
-        </select>
+          <span class="truncate">{{ item.label }}</span>
+        </SelectItem>
       </div>
     </div>
     <div v-if="hiddenList.length > 0" class="pt-2">
@@ -114,26 +116,22 @@ function setPosition(key: string, event: Event) {
       <div
         v-for="item in hiddenList"
         :key="item.key"
-        class="flex items-center gap-2 rounded-md px-2 py-1"
+        class="flex items-center rounded-md"
       >
-        <span
-          class="text-muted-foreground min-w-0 flex-1 truncate text-sm line-through decoration-dotted"
+        <SelectItem
+          :items="item.positionItems ?? positionItems"
+          :model-value="item.position"
+          class="min-w-0 flex-1"
+          @update:model-value="
+            (v: string | undefined) => setPosition(item.key, v)
+          "
         >
-          {{ item.label }}
-        </span>
-        <select
-          :value="item.position"
-          class="bg-background h-7 w-28 shrink-0 rounded border px-1 text-xs"
-          @change="(e) => setPosition(item.key, e)"
-        >
-          <option
-            v-for="opt in item.positionItems ?? positionItems"
-            :key="opt.value"
-            :value="opt.value"
+          <span
+            class="text-muted-foreground truncate line-through decoration-dotted"
           >
-            {{ opt.label }}
-          </option>
-        </select>
+            {{ item.label }}
+          </span>
+        </SelectItem>
       </div>
     </div>
   </div>

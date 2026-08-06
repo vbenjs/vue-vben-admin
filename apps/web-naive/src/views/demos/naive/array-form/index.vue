@@ -24,7 +24,7 @@ const [Form, formApi] = useVbenForm({
       component: 'VbenFormFieldArray',
       fieldName: 'members',
       label: '项目成员',
-      // 初始化为空数组，供内部 useFieldArray 使用
+      // 初始化为空数组，供数组编辑器使用
       defaultValue: [],
       componentProps: {
         min: 1,
@@ -113,9 +113,7 @@ async function getFormValues() {
       <template #header-extra>
         <NButton class="mr-2" @click="setFormValues">设置表单值</NButton>
         <NButton class="mr-2" @click="getFormValues">获取表单值</NButton>
-        <NButton type="primary" @click="formApi.submitForm()">
-          提交校验
-        </NButton>
+        <NButton type="primary" @click="formApi.submit()"> 提交校验 </NButton>
       </template>
       <Form />
     </NCard>

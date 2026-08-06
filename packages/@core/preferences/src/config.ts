@@ -161,6 +161,7 @@ const defaultPreferences: Preferences = {
       'languageToggle',
       'timezone',
       'fullscreen',
+      'refresh',
       'notification',
       'lockScreenBtn',
       'logoutBtn',

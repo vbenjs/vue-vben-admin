@@ -1,4 +1,10 @@
-import { getScrollbarWidth, needsScrollbar } from '@vben-core/shared/utils';
+import { computed, nextTick, shallowRef } from 'vue';
+
+import {
+  getLayoutScrollElement,
+  getScrollbarWidth,
+  needsScrollbar,
+} from '@vben-core/shared/utils';
 
 import {
   useScrollLock as _useScrollLock,
@@ -8,20 +14,60 @@ import {
 
 export const SCROLL_FIXED_CLASS = `_scroll__fixed_`;
 
-export function useScrollLock() {
-  const isLocked = _useScrollLock(document.body);
-  const scrollbarWidth = getScrollbarWidth();
+interface ScrollLockOptions {
+  immediate?: boolean;
+}
 
-  tryOnMounted(() => {
-    if (!needsScrollbar()) {
+function getScrollLockTarget() {
+  return getLayoutScrollElement() ?? document.body;
+}
+
+function getLayoutFixedNodes() {
+  return [...document.querySelectorAll<HTMLElement>(`.${SCROLL_FIXED_CLASS}`)];
+}
+
+export function useScrollLock(options: ScrollLockOptions = {}) {
+  const { immediate = true } = options;
+  const lockTarget = shallowRef<HTMLElement | null>(null);
+  const isTargetLocked = _useScrollLock(lockTarget);
+  const scrollbarWidth = getScrollbarWidth();
+  let hasScrollbarCompensation = false;
+  let hasScrollbarGutter = false;
+
+  function applyScrollbarGutter(target: HTMLElement) {
+    if (target === document.body) {
       return;
     }
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-    const layoutFixedNodes = document.querySelectorAll<HTMLElement>(
-      `.${SCROLL_FIXED_CLASS}`,
-    );
-    const nodes = [...layoutFixedNodes];
+    target.dataset.scrollbarGutter =
+      target.style.getPropertyValue('scrollbar-gutter');
+    target.style.setProperty('scrollbar-gutter', 'stable');
+    hasScrollbarGutter = true;
+  }
+
+  function resetScrollbarGutter(target: HTMLElement) {
+    if (!hasScrollbarGutter) {
+      return;
+    }
+
+    const scrollbarGutter = target.dataset.scrollbarGutter;
+    if (scrollbarGutter) {
+      target.style.setProperty('scrollbar-gutter', scrollbarGutter);
+    } else {
+      target.style.removeProperty('scrollbar-gutter');
+    }
+    delete target.dataset.scrollbarGutter;
+    hasScrollbarGutter = false;
+  }
+
+  function applyScrollbarCompensation(target: HTMLElement) {
+    if (target !== document.body || !needsScrollbar()) {
+      return;
+    }
+
+    target.style.paddingRight = `${scrollbarWidth}px`;
+
+    const nodes = getLayoutFixedNodes();
     if (nodes.length > 0) {
       nodes.forEach((node) => {
         node.dataset.transition = node.style.transition;
@@ -29,18 +75,15 @@ export function useScrollLock() {
         node.style.paddingRight = `${scrollbarWidth}px`;
       });
     }
-    isLocked.value = true;
-  });
+    hasScrollbarCompensation = true;
+  }
 
-  tryOnBeforeUnmount(() => {
-    if (!needsScrollbar()) {
+  function resetScrollbarCompensation(target: HTMLElement) {
+    if (!hasScrollbarCompensation) {
       return;
     }
-    isLocked.value = false;
-    const layoutFixedNodes = document.querySelectorAll<HTMLElement>(
-      `.${SCROLL_FIXED_CLASS}`,
-    );
-    const nodes = [...layoutFixedNodes];
+
+    const nodes = getLayoutFixedNodes();
     if (nodes.length > 0) {
       nodes.forEach((node) => {
         node.style.paddingRight = '';
@@ -49,6 +92,49 @@ export function useScrollLock() {
         });
       });
     }
-    document.body.style.paddingRight = '';
+    target.style.paddingRight = '';
+    hasScrollbarCompensation = false;
+  }
+
+  const isLocked = computed({
+    get() {
+      return isTargetLocked.value;
+    },
+    set(value: boolean) {
+      const target = lockTarget.value ?? getScrollLockTarget();
+      lockTarget.value = target;
+
+      if (value) {
+        if (isTargetLocked.value) {
+          return;
+        }
+        if (needsScrollbar(target)) {
+          applyScrollbarGutter(target);
+          applyScrollbarCompensation(target);
+        }
+        isTargetLocked.value = true;
+        return;
+      }
+
+      isTargetLocked.value = false;
+      resetScrollbarCompensation(target);
+      resetScrollbarGutter(target);
+    },
   });
+
+  tryOnMounted(async () => {
+    const target = getScrollLockTarget();
+    lockTarget.value = target;
+    await nextTick();
+
+    if (immediate && needsScrollbar(target)) {
+      isLocked.value = true;
+    }
+  });
+
+  tryOnBeforeUnmount(() => {
+    isLocked.value = false;
+  });
+
+  return isLocked;
 }
