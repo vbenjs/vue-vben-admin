@@ -4,7 +4,7 @@ import type { ZodType } from 'zod';
 import type { FormCommonConfig, FormRenderProps, FormShape } from '../types';
 import type { NormalizedFormFieldSchema } from './schema';
 
-import { computed, toRaw } from 'vue';
+import { computed, reactive, toRaw, toRefs } from 'vue';
 
 import { cn, isString } from '@vben-core/shared/utils';
 
@@ -13,6 +13,7 @@ import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
 import { getBaseRules, getDefaultValueInZodStack } from './helper';
 import { createFormFieldSchema } from './schema';
+import { useFormLabelWidth } from './utils';
 
 interface Props extends FormRenderProps {}
 
@@ -41,7 +42,7 @@ const wrapperClass = computed(() => {
   return cn(...cls, props.wrapperClass);
 });
 
-provideFormRenderProps(props);
+provideFormRenderProps(reactive({ ...toRefs(props), ...useFormLabelWidth() }));
 
 // @ts-expect-error unused
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);

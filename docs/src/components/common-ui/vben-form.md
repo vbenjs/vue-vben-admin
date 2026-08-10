@@ -586,8 +586,9 @@ export interface FormCommonConfig {
   labelClass?: string;
   /**
    * 所有表单项的label宽度
+   * 设置为 `auto` 时，水平布局下会按当前表单可见 label 的最大宽度自动对齐
    */
-  labelWidth?: number;
+  labelWidth?: number | string;
   /**
    * 所有表单项的model属性名。使用自定义组件时可通过此配置指定组件的model属性名。已经在modelPropNameMap中注册的组件不受此配置影响
    * @default "modelValue"
