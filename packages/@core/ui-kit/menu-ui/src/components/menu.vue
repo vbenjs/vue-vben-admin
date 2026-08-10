@@ -747,7 +747,7 @@ $namespace: vben;
     width: 100%;
     height: var(--menu-item-height);
 
-    span {
+    .#{$namespace}-menu__name {
       @include menu-title;
     }
   }
