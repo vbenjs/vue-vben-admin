@@ -824,10 +824,6 @@ $namespace: vben;
 
   @include menu-item;
 
-  * {
-    font-size: inherit !important;
-  }
-
   &__icon-arrow {
     position: absolute;
     top: 50%;
