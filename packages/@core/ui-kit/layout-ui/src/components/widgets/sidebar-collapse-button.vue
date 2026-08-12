@@ -9,11 +9,15 @@ function handleCollapsed() {
 </script>
 
 <template>
-  <div
+  <button
+    type="button"
+    :aria-label="collapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+    :aria-pressed="collapsed"
+    data-layout-action="toggle-sidebar-collapse"
     class="absolute bottom-2 left-3 z-10 flex-center cursor-pointer rounded-sm bg-accent p-1 text-foreground/60 hover:bg-accent-hover hover:text-foreground"
     @click.stop="handleCollapsed"
   >
     <ChevronsRight v-if="collapsed" class="size-4" />
     <ChevronsLeft v-else class="size-4" />
-  </div>
+  </button>
 </template>
