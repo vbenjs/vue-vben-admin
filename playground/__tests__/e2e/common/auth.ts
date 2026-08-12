@@ -24,23 +24,28 @@ export async function authLogin(page: Page) {
   if (!actionBoundingBox) throw new Error('要拖动的按钮未找到');
 
   // 计算起始位置和目标位置
-  const startX = actionBoundingBox.x + actionBoundingBox.width / 2; // div 中心的 x 坐标
-  const startY = actionBoundingBox.y + actionBoundingBox.height / 2; // div 中心的 y 坐标
+  const startX = Math.round(actionBoundingBox.x + actionBoundingBox.width / 2);
+  const startY = Math.round(actionBoundingBox.y + actionBoundingBox.height / 2);
 
-  const targetX = startX + sliderCaptchaBox.width + actionBoundingBox.width; // 向右拖动容器的宽度
-  const targetY = startY; // y 坐标保持不变
+  const targetX = Math.round(
+    sliderCaptchaBox.x + sliderCaptchaBox.width - actionBoundingBox.width / 2,
+  );
+  const targetY = startY;
 
   // 模拟鼠标拖动
-  await page.mouse.move(startX, startY); // 移动到 action 的中心
-  await page.mouse.down(); // 按下鼠标
-  await page.mouse.move(targetX, targetY, { steps: 20 }); // 拖动到目标位置
-  await page.mouse.up(); // 松开鼠标
+  await page.mouse.move(startX, startY);
+  await page.mouse.down();
+  await page.mouse.move(targetX, targetY, { steps: 20 });
+  await page.mouse.up();
 
   // 在拖动后进行断言，检查action是否在预期位置,
-  const newActionBoundingBox = await sliderCaptchaAction.boundingBox();
-  expect(newActionBoundingBox?.x).toBeGreaterThan(actionBoundingBox.x);
+  await expect
+    .poll(async () => {
+      const newActionBoundingBox = await sliderCaptchaAction.boundingBox();
+      return newActionBoundingBox?.x ?? actionBoundingBox.x;
+    })
+    .toBeGreaterThan(actionBoundingBox.x);
 
   // 到这里已经校验成功，点击进行登录
-  await page.waitForTimeout(300);
   await page.getByRole('button', { name: 'login' }).click();
 }

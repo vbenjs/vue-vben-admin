@@ -85,6 +85,11 @@ async function bootstrap(namespace: string) {
   });
 
   app.mount('#app');
+
+  if (window.__VBEN_LAYOUT_E2E__) {
+    const { installLayoutTestApi } = await import('./testing/layout-test-api');
+    installLayoutTestApi();
+  }
 }
 
 export { bootstrap };
