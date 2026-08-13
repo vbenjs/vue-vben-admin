@@ -111,6 +111,14 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'FormLabelWidthExample',
+            path: 'label-width',
+            component: () => import('#/views/examples/form/label-width.vue'),
+            meta: {
+              title: $t('examples.form.labelWidth'),
+            },
+          },
+          {
             name: 'FormArrayDemo',
             path: '/form-array-demo',
             component: () => import('#/views/demos/form-array/index.vue'),

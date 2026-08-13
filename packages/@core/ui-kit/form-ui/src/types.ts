@@ -1,11 +1,16 @@
 import type { ZodType } from 'zod';
 
-import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
+import type { Component, HtmlHTMLAttributes, Ref, UnwrapNestedRefs } from 'vue';
 
 import type { VbenButtonProps } from '@vben-core/shadcn-ui';
 import type { ClassType, MaybeComputedRef } from '@vben-core/typings';
 
 import type { FormApi } from './form-api';
+import type { useFormLabelWidth } from './form-render/utils';
+
+export type FormLabelWidthContext = UnwrapNestedRefs<
+  ReturnType<typeof useFormLabelWidth>
+>;
 
 export type FormValues = Record<string, any>;
 
@@ -549,8 +554,9 @@ export interface FormCommonConfig<TValues extends FormValues = FormValues> {
   labelClass?: string;
   /**
    * 所有表单项的label宽度
+   * 设置为 `auto` 时，水平布局下会按当前表单可见 label 的最大宽度自动对齐
    */
-  labelWidth?: number;
+  labelWidth?: number | string;
   /**
    * 所有表单项的model属性名
    * @default "modelValue"

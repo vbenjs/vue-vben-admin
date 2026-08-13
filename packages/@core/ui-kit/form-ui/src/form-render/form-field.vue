@@ -40,6 +40,7 @@ import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
 import { getBaseRules, isEventObjectLike } from './helper';
+import { useFieldLabelWidth } from './utils';
 
 interface Props extends FormFieldProps {}
 
@@ -127,12 +128,12 @@ const {
   () => ({ fieldName }),
 );
 
-const labelStyle = computed(() => {
-  return labelClass?.includes('w-') || isVertical.value
-    ? {}
-    : {
-        width: `${labelWidth}px`,
-      };
+// @ts-expect-error unused
+const { labelRef, labelStyle } = useFieldLabelWidth({
+  labelWidth: () => labelWidth,
+  labelClass: () => labelClass,
+  isVertical,
+  labelWidthContext: formRenderProps,
 });
 
 const currentRules = computed(() => {
@@ -451,11 +452,12 @@ onUnmounted(() => {
       >
         <FormLabel
           v-if="!hideLabel"
+          ref="labelRef"
           :class="
             cn(
               'flex leading-6',
               {
-                'mr-2 shrink-0 justify-end': !isVertical,
+                'flex-shrink-0 justify-end pr-3': !isVertical,
                 'mb-1 flex-row': isVertical,
                 'self-start': shouldCollapsible && !isVertical,
               },

@@ -29,7 +29,8 @@
     "file": "文件",
     "crop-image": "裁剪图片",
     "upload-image": "点击上传图片",
-    "collapsible": "单项表单折叠"
+    "collapsible": "单项表单折叠",
+    "labelWidth": "Label 自动宽度"
   },
   "vxeTable": {
     "title": "Vxe 表格",

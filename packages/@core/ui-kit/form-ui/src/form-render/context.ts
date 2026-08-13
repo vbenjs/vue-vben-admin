@@ -1,11 +1,12 @@
-import type { FormRenderProps } from '../types';
+import type { FormLabelWidthContext, FormRenderProps } from '../types';
 
 import { computed } from 'vue';
 
 import { createContext } from '@vben-core/shadcn-ui';
 
-export const [injectRenderFormProps, provideFormRenderProps] =
-  createContext<FormRenderProps>('FormRenderProps');
+export const [injectRenderFormProps, provideFormRenderProps] = createContext<
+  FormLabelWidthContext & FormRenderProps
+>('FormRenderProps');
 
 export const useFormContext = () => {
   const formRenderProps = injectRenderFormProps();

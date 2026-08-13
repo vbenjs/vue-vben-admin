@@ -131,7 +131,9 @@ onBeforeUnmount(() => {
         />
         <VbenIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
         <slot></slot>
-        <slot name="title"></slot>
+        <span v-if="$slots.title" :class="nsMenu.e('name')">
+          <slot name="title"></slot>
+        </span>
       </div>
     </a>
   </router-link>
