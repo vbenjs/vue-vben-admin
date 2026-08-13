@@ -264,14 +264,20 @@ function calcMenuWidthStyle(): CSSProperties {
   const widthValue = getMenuWidthValue(false);
   const currentWidth = Number.parseFloat(widthValue);
   const clippedWidth = Math.max(0, sidebarVisualWidth.value - currentWidth);
+  let transform: CSSProperties['transform'];
+
+  if (props.isMobile) {
+    transform = undefined;
+  } else if (props.show) {
+    transform = 'translate3d(0, 0, 0)';
+  } else {
+    transform = 'translate3d(-100%, 0, 0)';
+  }
+
   return {
     ...(widthValue === '0px' ? { overflow: 'hidden' } : {}),
     clipPath: `inset(0 ${clippedWidth}px 0 0)`,
-    transform: props.isMobile
-      ? undefined
-      : props.show
-        ? 'translate3d(0, 0, 0)'
-        : 'translate3d(-100%, 0, 0)',
+    transform,
     width: `${sidebarVisualWidth.value}px`,
   };
 }
