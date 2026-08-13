@@ -35,8 +35,8 @@ describe('useLayoutContentStyle', () => {
     activeApp.mount(host);
 
     const overlay = host.querySelector<HTMLElement>('main > div');
-    expect(overlay).toBeDefined();
-    if (!overlay) return;
+    expect(overlay).not.toBeNull();
+    if (!overlay) throw new Error('overlay element was not rendered');
 
     expect(resizeObserver).not.toHaveBeenCalled();
     expect(overlay.style.position).toBe('absolute');

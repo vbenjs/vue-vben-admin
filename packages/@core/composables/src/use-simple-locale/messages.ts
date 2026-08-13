@@ -9,6 +9,7 @@ export const messages: Record<Locale, Record<string, string>> = {
     prompt: 'Prompt',
     reset: 'Reset',
     submit: 'Submit',
+    toggleSidebar: 'Toggle sidebar',
     confirmTitle: 'Please Confirm',
   },
   'zh-CN': {
@@ -19,6 +20,7 @@ export const messages: Record<Locale, Record<string, string>> = {
     prompt: '提示',
     reset: '重置',
     submit: '提交',
+    toggleSidebar: '切换侧边栏',
     confirmTitle: '请确认',
   },
 };

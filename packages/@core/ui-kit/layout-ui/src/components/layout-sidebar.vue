@@ -361,6 +361,7 @@ onUnmounted(() => {
       v-if="!isMobile || !collapse"
       ref="asideRef"
       data-layout-region="sidebar"
+      :inert="!show || width === 0"
       :style="style"
       class="fixed left-0 top-0 h-full"
       :class="[

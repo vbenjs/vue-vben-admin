@@ -608,7 +608,7 @@ const layoutStaticHeaderTarget = `#${idLayoutStaticHeader}`;
       :show="showSidebar"
       :theme="sidebarTheme"
       :theme-sub="sidebarThemeSub"
-      :width="isMobile ? sidebarWidth : getSidebarWidth"
+      :width="getSidebarWidth"
       :z-index="sidebarZIndex"
       @leave="() => emit('sideMouseLeave')"
       @update:width="(val) => emit('update:sidebarWidth', val)"

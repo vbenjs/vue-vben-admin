@@ -90,7 +90,7 @@ const contentStyle = computed<StyleValue>(() => {
       :class="
         cn(
           'align-center flex bg-card px-6 py-4',
-          footerFixed ? 'absolute inset-x-0 bottom-0' : 'shrink-0',
+          footerFixed ? 'mt-auto shrink-0' : 'shrink-0',
           footerClass,
         )
       "

@@ -97,9 +97,9 @@ describe('page.vue', () => {
 
     await wrapper.setProps({ footerFixed: true });
 
-    expect(footer.classes()).toContain('absolute');
-    expect(footer.classes()).toContain('bottom-0');
-    expect(footer.classes()).not.toContain('shrink-0');
+    expect(footer.classes()).toContain('mt-auto');
+    expect(footer.classes()).toContain('shrink-0');
+    expect(footer.classes()).not.toContain('absolute');
   });
 
   it('does not render title slot if title prop is provided', () => {

@@ -1,7 +1,5 @@
 import type { CSSProperties } from 'vue';
 
-import type { VisibleDomRect } from '@vben-core/shared/utils';
-
 import { computed, ref } from 'vue';
 
 import {
@@ -16,13 +14,12 @@ import { useCssVar } from '@vueuse/core';
  */
 export function useLayoutContentStyle() {
   const contentElement = ref<HTMLDivElement | null>(null);
-  const visibleDomRect = ref<null | VisibleDomRect>(null);
 
   const overlayStyle = computed(
     (): CSSProperties => ({ inset: 0, position: 'absolute', zIndex: 150 }),
   );
 
-  return { contentElement, overlayStyle, visibleDomRect };
+  return { contentElement, overlayStyle };
 }
 
 export function useLayoutHeaderStyle() {
