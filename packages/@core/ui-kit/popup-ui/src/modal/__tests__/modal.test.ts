@@ -16,18 +16,21 @@ vi.mock('@vben-core/preferences', () => ({
 
 let activeApp: App | undefined;
 
-async function mountModal() {
+async function mountModal(options: { onClosed?: () => void } = {}) {
   const mainContent = document.createElement('main');
   mainContent.id = ELEMENT_ID_MAIN_CONTENT;
   mainContent.innerHTML = '<div><div></div></div>';
   document.body.append(mainContent);
 
+  let capturedApi: ReturnType<typeof useVbenModal>[1] | undefined;
   const Consumer = defineComponent(() => {
     const [Modal, modalApi] = useVbenModal({
       appendToMain: true,
       draggable: true,
       title: 'Draggable modal',
+      ...(options.onClosed ? { onClosed: options.onClosed } : {}),
     });
+    capturedApi = modalApi;
     onMounted(() => {
       modalApi.open();
     });
@@ -41,7 +44,10 @@ async function mountModal() {
   await nextTick();
   await nextTick();
 
-  return mainContent;
+  if (!capturedApi) {
+    throw new Error('modal api was not captured');
+  }
+  return { mainContent, modalApi: capturedApi };
 }
 
 afterEach(() => {
@@ -53,7 +59,7 @@ afterEach(() => {
 
 describe('vben modal', () => {
   it('mounts an open modal directly in the main content', async () => {
-    const mainContent = await mountModal();
+    const { mainContent } = await mountModal();
     const dialog = document.querySelector('[role="dialog"]');
     const overlay = document.querySelector('[data-dismissable-modal]');
 
@@ -66,7 +72,7 @@ describe('vben modal', () => {
   });
 
   it('constrains dragging to the main content', async () => {
-    const mainContent = await mountModal();
+    const { mainContent } = await mountModal();
     const dialog = document.querySelector('[role="dialog"]');
     const header = document.querySelector('.cursor-move');
 
@@ -98,5 +104,55 @@ describe('vben modal', () => {
 
     expect(dialog.style.transform).toBe('translate(200px, 200px)');
     document.dispatchEvent(new MouseEvent('mouseup'));
+  });
+
+  it('fires onClosed via the fallback when no animation event arrives', async () => {
+    vi.useFakeTimers({
+      toFake: [
+        'cancelAnimationFrame',
+        'clearTimeout',
+        'requestAnimationFrame',
+        'setTimeout',
+      ],
+    });
+    try {
+      const onClosed = vi.fn();
+      const { modalApi } = await mountModal({ onClosed });
+      // happy-dom fires no animation events — without the fallback the
+      // `closed` event (and with it `onClosed`) would never fire and the
+      // close chain would hang. The fallback timer must acknowledge it.
+      await modalApi.close();
+      await vi.advanceTimersByTimeAsync(400);
+      expect(onClosed).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('emits closed exactly once when the animation event and the fallback both fire', async () => {
+    vi.useFakeTimers({
+      toFake: [
+        'cancelAnimationFrame',
+        'clearTimeout',
+        'requestAnimationFrame',
+        'setTimeout',
+      ],
+    });
+    try {
+      const onClosed = vi.fn();
+      const { modalApi } = await mountModal({ onClosed });
+      await modalApi.close();
+      // The exit animation ends normally — acknowledged immediately...
+      const dialog = document.querySelector('[role="dialog"]');
+      if (!(dialog instanceof HTMLElement)) {
+        throw new Error('dialog content not found');
+      }
+      dialog.dispatchEvent(new Event('animationend'));
+      // ...and the fallback must not emit a second `closed`.
+      await vi.advanceTimersByTimeAsync(400);
+      expect(onClosed).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
