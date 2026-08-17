@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Create Release Pull Request
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           version: pnpm run version
           commit: 'chore: bump versions'
