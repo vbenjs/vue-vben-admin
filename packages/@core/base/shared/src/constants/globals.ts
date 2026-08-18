@@ -6,6 +6,8 @@ export const CSS_VARIABLE_LAYOUT_CONTENT_WIDTH = `--vben-content-width`;
 export const CSS_VARIABLE_LAYOUT_HEADER_HEIGHT = `--vben-header-height`;
 /** layout footer 组件的高度 */
 export const CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT = `--vben-footer-height`;
+/** layout overlay 使用的视口高度，CSS 按 100vh → 100dvh 降级 */
+export const CSS_VARIABLE_LAYOUT_VIEWPORT_HEIGHT = `--vben-viewport-height`;
 
 /** 内容区域的组件ID */
 export const ELEMENT_ID_MAIN_CONTENT = `__vben_main_content`;

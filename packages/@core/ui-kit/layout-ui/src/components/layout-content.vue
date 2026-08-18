@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {});
 
 const overlayViewportStyle: CSSProperties = {
   height:
-    'calc(100dvh - var(--vben-header-height, 0px) - var(--vben-footer-height, 0px))',
+    'calc(var(--vben-viewport-height) - var(--vben-header-height, 0px) - var(--vben-footer-height, 0px))',
 };
 
 const style = computed((): CSSProperties => {
@@ -65,6 +65,7 @@ const style = computed((): CSSProperties => {
     >
       <div
         :style="overlayViewportStyle"
+        data-layout-region="overlay-viewport"
         class="pointer-events-none relative min-h-0 w-full"
       >
         <slot name="overlay"></slot>
