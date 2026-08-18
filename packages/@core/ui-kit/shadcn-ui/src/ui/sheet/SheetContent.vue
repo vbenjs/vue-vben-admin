@@ -9,6 +9,7 @@ import { cn } from '@vben-core/shared/utils';
 
 import { DialogContent, useForwardPropsEmits } from 'reka-ui';
 
+import { useDialogStateEvents } from '../dialog/use-dialog-state-events';
 import { sheetVariants } from './sheet';
 import SheetOverlay from './SheetOverlay.vue';
 
@@ -60,16 +61,13 @@ const position = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
-function onAnimationEnd(event: AnimationEvent) {
-  // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
-  if (event.target === contentRef.value?.$el) {
-    if (props.open) {
-      emits('opened');
-    } else {
-      emits('closed');
-    }
-  }
-}
+
+const { handleAnimationEvent } = useDialogStateEvents({
+  contentRef,
+  isOpen: () => props.open,
+  onClosed: () => emits('closed'),
+  onOpened: () => emits('opened'),
+});
 </script>
 
 <template>
@@ -92,7 +90,8 @@ function onAnimationEnd(event: AnimationEvent) {
         ...(zIndex ? { zIndex } : {}),
         position,
       }"
-      @animationend="onAnimationEnd"
+      @animationend="handleAnimationEvent"
+      @animationcancel="handleAnimationEvent"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot></slot>

@@ -1,11 +1,14 @@
 /*
  * 级联层顺序声明（必须先于 @import 'tailwindcss' 首次出现）：
- * preflight(base) < UI 库组件样式(antd / el / td) < Tailwind 工具类，
+ * properties(Tailwind 的 --tw-* 回退变量层) < preflight(base) <
+ * UI 库组件样式(antd / el / td) < Tailwind 工具类，
  * 使组件库样式（antdv-next 经 StyleProvider layer 注入 @layer antd；
  * element-plus / tdesign 经各自应用的 vite css-layer 插件包入对应层）
- * 能被工具类覆盖
+ * 能被工具类覆盖。
+ * 与 internal/vite-config/src/plugins/css-layer.ts 中的 LAYER_ORDER_STATEMENT
+ * 保持一致。
  */
-@layer theme, base, ant, antd, el, td, components, utilities;
+@layer properties, theme, base, ant, antd, el, td, components, utilities;
 
 @import 'tailwindcss';
 @import 'tw-animate-css';

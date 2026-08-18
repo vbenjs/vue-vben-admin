@@ -128,7 +128,7 @@ Support modern browsers, not IE
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.dera.page/#vbenjs/vue-vben-admin&Date)
 
 ## Donate
 
