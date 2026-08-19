@@ -41,7 +41,7 @@ A strategy-pattern-based async storage solution that supports multiple backends 
 
 ### Basic usage
 
-When `driver` is omitted, the browser environment defaults to `LocalStorageDriver`:
+When `driver` is omitted, the browser uses `LocalStorageDriver` if `localStorage` is available, otherwise falls back to `MemoryStorageDriver` (e.g. Safari private mode); SSR/Node uses `MemoryStorageDriver`:
 
 ```ts
 import { StorageManager } from '@vben/utils';
@@ -200,7 +200,7 @@ new StorageManager(options?: StorageManagerOptions)
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| `driver` | `IStorageDriver` | `new LocalStorageDriver()` in browser, `new MemoryStorageDriver()` in SSR | Storage driver instance |
+| `driver` | `IStorageDriver` | `new LocalStorageDriver()` in browser when `localStorage` is available, `new MemoryStorageDriver()` otherwise (Safari private mode, SSR/Node) | Storage driver instance |
 | `prefix` | `string` | `''` | Key prefix for namespace isolation |
 
 #### Methods
@@ -208,7 +208,7 @@ new StorageManager(options?: StorageManagerOptions)
 | Method | Signature | Description |
 | --- | --- | --- |
 | `getItem` | `getItem<T>(key: string, defaultValue?: T \| null): Promise<T \| null>` | Get an entry; returns the default if expired or absent |
-| `setItem` | `setItem<T>(key: string, value: T, ttl?: number): Promise<void>` | Set an entry, with optional TTL (ms) |
+| `setItem` | `setItem(key: string, value: unknown, ttl?: number): Promise<void>` | Set an entry, with optional TTL (ms) |
 | `removeItem` | `removeItem(key: string): Promise<void>` | Delete the given entry |
 | `clear` | `clear(): Promise<void>` | Clear all entries under the current prefix |
 | `clearExpiredItems` | `clearExpiredItems(): Promise<void>` | Actively clean up all expired entries |
@@ -224,7 +224,7 @@ interface IStorageDriver {
   getItem<T>(key: string): Promise<null | T>;
   keys(): Promise<string[]>;
   removeItem(key: string): Promise<void>;
-  setItem<T>(key: string, value: T): Promise<void>;
+  setItem(key: string, value: unknown): Promise<void>;
 }
 ```
 
@@ -243,7 +243,7 @@ class CookieStorageDriver implements IStorageDriver {
     return value ? JSON.parse(value) : null;
   }
 
-  async setItem<T>(key: string, value: T): Promise<void> {
+  async setItem(key: string, value: unknown): Promise<void> {
     setCookie(key, JSON.stringify(value));
   }
 
@@ -361,6 +361,6 @@ A dual strategy of **lazy deletion + active cleanup**:
 1. **All methods are async** — even the synchronous localStorage is wrapped in Promises so callers need no changes when switching drivers.
 2. **TTL is in milliseconds** — `setItem('key', value, 60000)` expires in 60 seconds.
 3. **IndexedDB lazy initialization** — no manual `init()` or `open()`; the DB connection is opened on first operation and reused.
-4. **Prefix isolation is logical** — `clear()` only clears data under the current prefix; other prefixes or unprefixed data are unaffected.
+4. **Prefix isolation is logical** — `clear()` only clears data under the current prefix; with an empty prefix, `clear()` / `keys()` operate on all keys in the selected driver.
 5. **LocalStorageDriver error handling** — auto-clears corrupt data on JSON parse failure and returns `null`.
 6. **IndexedDB version upgrade** — increment `dbVersion` to modify the objectStore structure; the current implementation creates the objectStore in the `upgradeneeded` handler.

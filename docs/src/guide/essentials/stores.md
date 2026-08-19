@@ -103,7 +103,7 @@ store.timezone; // 'America/New_York'
 import { useTimezoneStore } from '@vben/stores';
 
 const store = useTimezoneStore();
-const options = store.getTimezoneOptions();
+const options = await store.getTimezoneOptions();
 // [{ label: '东八区', value: 'Asia/Shanghai' }, ...]
 ```
 

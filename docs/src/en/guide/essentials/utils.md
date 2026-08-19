@@ -35,7 +35,7 @@ formatDate(undefined); // ''
 ```ts
 import { formatDateTime } from '@vben/utils';
 
-formatDateTime(new Date()); // '2024-01-01 12:34:56'
+formatDateTime(new Date('2024-01-01T12:34:56')); // '2024-01-01 12:34:56'
 ```
 
 #### Check Date instance
@@ -112,7 +112,7 @@ diffStrict({ a: [1, 2] }, { a: [2, 1] }); // { a: [2, 1] }
 
 #### Download from URL
 
-`downloadFileFromUrl`: Downloads from a URL, with cross-origin support. Uses `<a download>` on Chrome/Safari; falls back to `openWindow` elsewhere. Throws on invalid URL.
+`downloadFileFromUrl`: Downloads from a URL, with cross-origin support. Uses `<a download>` on Chrome/Safari; falls back to `openWindow` elsewhere. Throws when `source` is falsy or non-string; URL syntax is not validated.
 
 ```ts
 import { downloadFileFromUrl } from '@vben/utils';
@@ -188,7 +188,7 @@ const dataURL = await urlToBase64('https://example.com/logo.png');
 ```ts
 import { triggerDownload } from '@vben/utils';
 
-triggerDownload({ source: 'https://example.com/file.pdf', fileName: 'file.pdf' });
+triggerDownload('https://example.com/file.pdf', 'file.pdf');
 ```
 
 ### Type checking
@@ -380,8 +380,15 @@ kebabToCamelCase('my-var-name'); // 'myVarName'
 ```ts
 import { createMerge } from '@vben/utils';
 
-const merge = createMerge((origin, target) => target ?? origin);
-merge({ a: 1 }, { a: 2 }); // { a: 2 }
+// Callback contract (createDefu): (obj, key, value, namespace) => truthy if handled
+// Mutate obj when handling; return true only when you've handled the merge
+const merge = createMerge((obj, key, value) => {
+  if (Array.isArray(obj[key]) && Array.isArray(value)) {
+    obj[key] = value; // replace arrays instead of merging
+    return true;
+  }
+});
+merge({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
 ```
 
 #### Deep merge
@@ -396,12 +403,12 @@ merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
 
 #### Merge with array override
 
-`mergeWithArrayOverrides`: When the target field is an array and the update is also an array, the update replaces it directly.
+`mergeWithArrayOverride`: When the target field is an array and the update is also an array, the update replaces it directly.
 
 ```ts
-import { mergeWithArrayOverrides } from '@vben/utils';
+import { mergeWithArrayOverride } from '@vben/utils';
 
-mergeWithArrayOverrides({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
+mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
 ```
 
 ### Resource loading

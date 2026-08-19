@@ -41,7 +41,7 @@
 
 ### 基本使用
 
-不传 `driver` 时，浏览器环境默认使用 `LocalStorageDriver`：
+不传 `driver` 时，浏览器在 `localStorage` 可用时使用 `LocalStorageDriver`，否则回退到 `MemoryStorageDriver`（如 Safari 隐私模式）；SSR/Node 使用 `MemoryStorageDriver`：
 
 ```ts
 import { StorageManager } from '@vben/utils';
@@ -200,7 +200,7 @@ new StorageManager(options?: StorageManagerOptions)
 
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| `driver` | `IStorageDriver` | 浏览器环境 `new LocalStorageDriver()`，SSR `new MemoryStorageDriver()` | 存储驱动实例 |
+| `driver` | `IStorageDriver` | 浏览器 `localStorage` 可用时 `new LocalStorageDriver()`，否则 `new MemoryStorageDriver()`（Safari 隐私模式、SSR/Node） | 存储驱动实例 |
 | `prefix` | `string` | `''` | 键前缀，用于命名空间隔离 |
 
 #### 方法
@@ -208,7 +208,7 @@ new StorageManager(options?: StorageManagerOptions)
 | 方法 | 签名 | 说明 |
 | --- | --- | --- |
 | `getItem` | `getItem<T>(key: string, defaultValue?: T \| null): Promise<T \| null>` | 获取存储项，过期或不存在返回默认值 |
-| `setItem` | `setItem<T>(key: string, value: T, ttl?: number): Promise<void>` | 设置存储项，可选 TTL（毫秒） |
+| `setItem` | `setItem(key: string, value: unknown, ttl?: number): Promise<void>` | 设置存储项，可选 TTL（毫秒） |
 | `removeItem` | `removeItem(key: string): Promise<void>` | 删除指定存储项 |
 | `clear` | `clear(): Promise<void>` | 清除当前前缀下所有存储项 |
 | `clearExpiredItems` | `clearExpiredItems(): Promise<void>` | 主动清理所有过期项 |
@@ -224,7 +224,7 @@ interface IStorageDriver {
   getItem<T>(key: string): Promise<null | T>;
   keys(): Promise<string[]>;
   removeItem(key: string): Promise<void>;
-  setItem<T>(key: string, value: T): Promise<void>;
+  setItem(key: string, value: unknown): Promise<void>;
 }
 ```
 
@@ -243,7 +243,7 @@ class CookieStorageDriver implements IStorageDriver {
     return value ? JSON.parse(value) : null;
   }
 
-  async setItem<T>(key: string, value: T): Promise<void> {
+  async setItem(key: string, value: unknown): Promise<void> {
     setCookie(key, JSON.stringify(value));
   }
 
@@ -361,6 +361,6 @@ interface StorageItem<T> {
 1. **所有方法都是异步的** —— 即使底层是同步的 localStorage，API 也返回 Promise，确保切换 Driver 时无需改动调用方。
 2. **TTL 单位是毫秒** —— `setItem('key', value, 60000)` 表示 60 秒后过期。
 3. **IndexedDB 懒初始化** —— 不需要手动调用 `init()` 或 `open()`，首次操作时自动打开数据库连接并复用。
-4. **前缀隔离是逻辑隔离** —— `clear()` 只清除当前前缀下的数据，不影响其他前缀或无前缀的数据。
+4. **前缀隔离是逻辑隔离** —— `clear()` 只清除当前前缀下的数据；当前缀为空时，`clear()` / `keys()` 会操作所选 Driver 中的所有 key。
 5. **LocalStorageDriver 错误处理** —— JSON 解析失败时自动清除损坏数据并返回 `null`。
 6. **IndexedDB 版本升级** —— 如需修改 objectStore 结构，递增 `dbVersion`；当前实现在 `upgradeneeded` 事件中自动创建 objectStore。

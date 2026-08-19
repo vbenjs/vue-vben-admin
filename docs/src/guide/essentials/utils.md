@@ -35,7 +35,7 @@ formatDate(undefined); // ''
 ```ts
 import { formatDateTime } from '@vben/utils';
 
-formatDateTime(new Date()); // '2024-01-01 12:34:56'
+formatDateTime(new Date('2024-01-01T12:34:56')); // '2024-01-01 12:34:56'
 ```
 
 #### 判断 Date 实例
@@ -112,7 +112,7 @@ diffStrict({ a: [1, 2] }, { a: [2, 1] }); // { a: [2, 1] }
 
 #### 按 URL 下载文件
 
-`downloadFileFromUrl`：通过 URL 下载，支持跨域。Chrome/Safari 用 `<a download>` 触发；其余浏览器走 `openWindow`。无效 URL 抛错。
+`downloadFileFromUrl`：通过 URL 下载，支持跨域。Chrome/Safari 用 `<a download>` 触发；其余浏览器走 `openWindow`。仅当 `source` 为 falsy 或非字符串时抛错；不校验 URL 语法。
 
 ```ts
 import { downloadFileFromUrl } from '@vben/utils';
@@ -191,10 +191,7 @@ const dataURL = await urlToBase64('https://example.com/logo.png');
 ```ts
 import { triggerDownload } from '@vben/utils';
 
-triggerDownload({
-  source: 'https://example.com/file.pdf',
-  fileName: 'file.pdf',
-});
+triggerDownload('https://example.com/file.pdf', 'file.pdf');
 ```
 
 ### 类型判断
@@ -386,8 +383,15 @@ kebabToCamelCase('my-var-name'); // 'myVarName'
 ```ts
 import { createMerge } from '@vben/utils';
 
-const merge = createMerge((origin, target) => target ?? origin);
-merge({ a: 1 }, { a: 2 }); // { a: 2 }
+// 回调契约（createDefu）：(obj, key, value, namespace) => 处理了返回真值
+// 处理时直接修改 obj；仅在已处理时返回 true
+const merge = createMerge((obj, key, value) => {
+  if (Array.isArray(obj[key]) && Array.isArray(value)) {
+    obj[key] = value; // 数组直接替换而非合并
+    return true;
+  }
+});
+merge({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
 ```
 
 #### 深度合并
@@ -402,12 +406,12 @@ merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
 
 #### 带数组覆盖的合并
 
-`mergeWithArrayOverrides`：目标字段是数组且更新也是数组时，直接用更新数组替换。
+`mergeWithArrayOverride`：目标字段是数组且更新也是数组时，直接用更新数组替换。
 
 ```ts
-import { mergeWithArrayOverrides } from '@vben/utils';
+import { mergeWithArrayOverride } from '@vben/utils';
 
-mergeWithArrayOverrides({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
+mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
 ```
 
 ### 加载脚本
