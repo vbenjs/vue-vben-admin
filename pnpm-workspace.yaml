@@ -157,7 +157,7 @@ catalog:
   pkg-types: ^2.3.1
   playwright: ^1.62.1
   postcss: ^8.5.22
-  postcss-html: ^1.8.1
+  postcss-html: ^2.0.0
   postcss-scss: ^4.0.9
   publint: ^0.3.22
   qrcode: ^1.5.4
