@@ -376,28 +376,6 @@ import { kebabToCamelCase } from '@vben/utils';
 kebabToCamelCase('my-var-name'); // 'myVarName'
 ```
 
-## 对象合并
-
-### 深度合并
-
-`merge`：深度合并，**仅填充 undefined 字段**，已有值不被覆盖（来自 [`defu`](https://github.com/unjs/defu)）。
-
-```ts
-import { merge } from '@vben/utils';
-
-merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
-```
-
-### 带数组覆盖的合并
-
-`mergeWithArrayOverride`：目标字段是数组且更新也是数组时，直接用更新数组替换。
-
-```ts
-import { mergeWithArrayOverride } from '@vben/utils';
-
-mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [1] }
-```
-
 ## 加载脚本
 
 `loadScript`：动态加载 JS 文件，已存在同 `src` 的 `<script>` 时直接 resolve；加载失败 reject。

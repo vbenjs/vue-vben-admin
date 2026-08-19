@@ -12,7 +12,6 @@
 
 :::
 
-
 ## Date
 
 ### Format date
@@ -117,7 +116,10 @@ diffStrict({ a: [1, 2] }, { a: [2, 1] }); // { a: [2, 1] }
 import { downloadFileFromUrl } from '@vben/utils';
 
 await downloadFileFromUrl({ source: 'https://example.com/file.pdf' });
-await downloadFileFromUrl({ source: 'https://example.com/report.pdf', fileName: 'report.pdf' });
+await downloadFileFromUrl({
+  source: 'https://example.com/report.pdf',
+  fileName: 'report.pdf',
+});
 ```
 
 ### Download from Base64
@@ -368,28 +370,6 @@ toCamelCase('name', 'user'); // 'userName'
 import { kebabToCamelCase } from '@vben/utils';
 
 kebabToCamelCase('my-var-name'); // 'myVarName'
-```
-
-## Object merge
-
-### Deep merge
-
-`merge`: Deep merge that **only fills undefined fields** — existing values are not overwritten (from [`defu`](https://github.com/unjs/defu)).
-
-```ts
-import { merge } from '@vben/utils';
-
-merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
-```
-
-### Merge with array override
-
-`mergeWithArrayOverride`: When the target field is an array and the update is also an array, the update replaces it directly.
-
-```ts
-import { mergeWithArrayOverride } from '@vben/utils';
-
-mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [1] }
 ```
 
 ## Resource loading

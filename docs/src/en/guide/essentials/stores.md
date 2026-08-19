@@ -4,14 +4,6 @@ outline: deep
 
 # Stores
 
-::: tip Preface
-
-`@vben/stores` is a Pinia-based state management package that integrates the `pinia-plugin-persistedstate` plugin and uses `SecureLS` to AES-encrypt and compress persisted data in production. It provides core stores such as user info and timezone, plus two lifecycle functions: `initStores` and `resetAllStores`.
-
-In production, persisted data is AES-encrypted by `SecureLS`, whose encryption secret is read from the `VITE_APP_STORE_SECURE_KEY` environment variable (the SecureLS `encryptionSecret`). Make sure to replace it with your own random key when deploying.
-
-:::
-
 ::: tip
 
 `@vben/stores` is already imported uniformly under each `app`; no separate installation is needed. The package also re-exports `pinia`'s `defineStore` and `storeToRefs`, so business code can import them uniformly from `@vben/stores`.
