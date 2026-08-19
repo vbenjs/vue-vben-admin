@@ -1,8 +1,14 @@
+---
+outline: deep
+---
+
 # 状态管理
 
 ::: tip 前言
 
 `@vben/stores` 是基于 Pinia 的状态管理包，集成了 `pinia-plugin-persistedstate` 持久化插件，并通过 `SecureLS` 在生产环境对持久化数据进行 AES 加密与压缩。包内提供用户信息、时区等核心 store，以及 `initStores` / `resetAllStores` 两个生命周期函数。
+
+生产环境持久化使用 `SecureLS` 进行 AES 加密，加密密钥取自环境变量 `VITE_APP_STORE_SECURE_KEY`（即 SecureLS 的 `encryptionSecret`），部署时务必将其替换为自己的随机密钥。
 
 :::
 
@@ -109,14 +115,14 @@ const options = await store.getTimezoneOptions();
 
 ### 重置时区
 
-`$reset()`：将时区重置为 `getCurrentTimezone()` 返回的系统当前时区。
+`$reset()`：将 `timezone` 重置为 `getCurrentTimezone()` 返回的当前时区。仅重置 store 内部引用，**不会**同步 dayjs 默认时区（只有 `setTimezone` 会同步）。
 
 ```ts
 import { useTimezoneStore } from '@vben/stores';
 
 const store = useTimezoneStore();
 store.$reset();
-store.timezone; // 回到系统时区
+store.timezone; // 回到 getCurrentTimezone() 的值
 ```
 
 ### 注入自定义时区处理器

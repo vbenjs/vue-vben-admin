@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # Cache
 
 ::: tip Preface

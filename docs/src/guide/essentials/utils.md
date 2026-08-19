@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 工具
 
 ::: tip 前言
@@ -12,11 +16,9 @@
 
 :::
 
-## 通用工具
+## 日期
 
-### 日期
-
-#### 格式化日期
+### 格式化日期
 
 `formatDate`：按 dayjs 格式化日期。`time` 支持 `Date` / `Dayjs` / `number` / `string`；空值返回 `''`；解析失败回退为 `String(time)`。结果按当前时区输出。
 
@@ -28,7 +30,7 @@ formatDate(new Date(), 'YYYY/MM/DD'); // '2024/01/01'
 formatDate(undefined); // ''
 ```
 
-#### 格式化日期时间
+### 格式化日期时间
 
 `formatDateTime`：等价于 `formatDate(time, 'YYYY-MM-DD HH:mm:ss')`。
 
@@ -38,7 +40,7 @@ import { formatDateTime } from '@vben/utils';
 formatDateTime(new Date('2024-01-01T12:34:56')); // '2024-01-01 12:34:56'
 ```
 
-#### 判断 Date 实例
+### 判断 Date 实例
 
 `isDate`：类型守卫，判断是否为 `Date` 实例。
 
@@ -49,7 +51,7 @@ isDate(new Date()); // true
 isDate('2024-01-01'); // false
 ```
 
-#### 判断 dayjs 实例
+### 判断 dayjs 实例
 
 `isDayjsObject`：类型守卫，判断是否为 dayjs 实例。
 
@@ -61,9 +63,9 @@ isDayjsObject(dayjs()); // true
 isDayjsObject(new Date()); // false
 ```
 
-### 数组比较
+## 数组比较
 
-#### 数组相等比较
+### 数组相等比较
 
 `arraysEqual`：比较两个数组是否相等（忽略顺序，按元素计数）。
 
@@ -74,7 +76,7 @@ arraysEqual([1, 2], [2, 1]); // true
 arraysEqual([1, 2], [1, 2, 3]); // false
 ```
 
-#### 数组严格比较
+### 数组严格比较
 
 `arraysStrictEqual`：比较两个数组是否严格相等（顺序敏感）。
 
@@ -85,9 +87,9 @@ arraysStrictEqual([1, 2], [2, 1]); // false
 arraysStrictEqual([1, 2], [1, 2]); // true
 ```
 
-### 对象差异
+## 对象差异
 
-#### 对象差异比较
+### 对象差异比较
 
 `diff`：深度对比两个对象，返回差异对象（仅含变化的字段），数组比较忽略顺序。
 
@@ -98,7 +100,7 @@ diff({ a: 1, b: 2 }, { a: 1, b: 3 }); // { b: 3 }
 diff({ list: [1, 2] }, { list: [2, 1] }); // {} (忽略顺序，无差异)
 ```
 
-#### 对象严格差异比较
+### 对象严格差异比较
 
 `diffStrict`：深度对比两个对象，数组比较顺序敏感。
 
@@ -108,9 +110,9 @@ import { diffStrict } from '@vben/utils';
 diffStrict({ a: [1, 2] }, { a: [2, 1] }); // { a: [2, 1] }
 ```
 
-### 文件下载
+## 文件下载
 
-#### 按 URL 下载文件
+### 按 URL 下载文件
 
 `downloadFileFromUrl`：通过 URL 下载，支持跨域。Chrome/Safari 用 `<a download>` 触发；其余浏览器走 `openWindow`。仅当 `source` 为 falsy 或非字符串时抛错；不校验 URL 语法。
 
@@ -124,7 +126,7 @@ await downloadFileFromUrl({
 });
 ```
 
-#### 按 Base64 下载文件
+### 按 Base64 下载文件
 
 `downloadFileFromBase64`：通过 Base64 数据触发下载。
 
@@ -137,7 +139,7 @@ downloadFileFromBase64({
 });
 ```
 
-#### 按图片 URL 下载
+### 按图片 URL 下载
 
 `downloadFileFromImageUrl`：先用 `urlToBase64` 把图片 URL 转成 Base64，再下载。
 
@@ -150,7 +152,7 @@ await downloadFileFromImageUrl({
 });
 ```
 
-#### 按 Blob 下载文件
+### 按 Blob 下载文件
 
 `downloadFileFromBlob`：通过 `Blob` 触发下载（创建 Object URL）。非 `Blob` 入参抛 `TypeError`。
 
@@ -163,7 +165,7 @@ downloadFileFromBlob({
 });
 ```
 
-#### 按 BlobPart 下载文件
+### 按 BlobPart 下载文件
 
 `downloadFileFromBlobPart`：下载 BlobPart 类型数据；非 `Blob` 会被包成 `application/octet-stream` 的 Blob 再下载。
 
@@ -173,7 +175,7 @@ import { downloadFileFromBlobPart } from '@vben/utils';
 downloadFileFromBlobPart({ source: ['hello', 'world'], fileName: 'data.txt' });
 ```
 
-#### 图片 URL 转 Base64
+### 图片 URL 转 Base64
 
 `urlToBase64`：通过 canvas 将图片 URL 转为 Base64 dataURL（默认 `image/png`）。
 
@@ -184,7 +186,7 @@ const dataURL = await urlToBase64('https://example.com/logo.png');
 // 'data:image/png;base64,iVBORw0KGgo...'
 ```
 
-#### 触发下载
+### 触发下载
 
 `triggerDownload`：插入隐藏 `<a>`、点击、移除，并在 `revokeDelay` 毫秒后 `URL.revokeObjectURL` 释放内存。
 
@@ -194,9 +196,9 @@ import { triggerDownload } from '@vben/utils';
 triggerDownload('https://example.com/file.pdf', 'file.pdf');
 ```
 
-### 类型判断
+## 类型判断
 
-#### 判断 undefined
+### 判断 undefined
 
 `isUndefined`：是否为 `undefined`。
 
@@ -207,7 +209,7 @@ isUndefined(undefined); // true
 isUndefined(null); // false
 ```
 
-#### 判断布尔值
+### 判断布尔值
 
 `isBoolean`：是否为布尔值。
 
@@ -218,7 +220,7 @@ isBoolean(true); // true
 isBoolean(0); // false
 ```
 
-#### 判断空值
+### 判断空值
 
 `isEmpty`：是否为空：`null` / `undefined` / 空串 / 长度为 0 的数组 / 空 Map、Set / 无属性对象。
 
@@ -232,7 +234,7 @@ isEmpty(null); // true
 isEmpty('a'); // false
 ```
 
-#### 判断 HTTP URL
+### 判断 HTTP URL
 
 `isHttpUrl`：是否以 `http://` 或 `https://` 开头。
 
@@ -243,7 +245,7 @@ isHttpUrl('https://a.com'); // true
 isHttpUrl('/api/user'); // false
 ```
 
-#### 判断 window 对象
+### 判断 window 对象
 
 `isWindow`：是否为 `window` 对象。
 
@@ -254,7 +256,7 @@ isWindow(window); // true
 isWindow(document); // false
 ```
 
-#### 判断 macOS 环境
+### 判断 macOS 环境
 
 `isMacOs`：当前环境是否为 macOS（依据 userAgent）。
 
@@ -264,7 +266,7 @@ import { isMacOs } from '@vben/utils';
 isMacOs(); // macOS 下返回 true
 ```
 
-#### 判断 Windows 环境
+### 判断 Windows 环境
 
 `isWindowsOs`：当前环境是否为 Windows。
 
@@ -274,7 +276,7 @@ import { isWindowsOs } from '@vben/utils';
 isWindowsOs(); // Windows 下返回 true
 ```
 
-#### 判断数字
+### 判断数字
 
 `isNumber`：是否为有限数字。
 
@@ -286,7 +288,7 @@ isNumber(Infinity); // false
 isNumber('1'); // false
 ```
 
-#### 判断函数
+### 判断函数
 
 `isFunction`：来自 `@vue/shared` 的类型守卫。
 
@@ -297,7 +299,7 @@ isFunction(() => {}); // true
 isFunction('fn'); // false
 ```
 
-#### 判断对象
+### 判断对象
 
 `isObject`：来自 `@vue/shared` 的类型守卫。
 
@@ -309,7 +311,7 @@ isObject([1]); // true
 isObject(null); // false
 ```
 
-#### 判断字符串
+### 判断字符串
 
 `isString`：来自 `@vue/shared` 的类型守卫。
 
@@ -320,7 +322,7 @@ isString('a'); // true
 isString(1); // false
 ```
 
-#### 取首个非空值
+### 取首个非空值
 
 `getFirstNonNullOrUndefined`：返回入参列表中第一个非 `null`、非 `undefined` 的值，全部为空时返回 `undefined`。
 
@@ -331,9 +333,9 @@ getFirstNonNullOrUndefined(undefined, null, 42, 'hello'); // 42
 getFirstNonNullOrUndefined(undefined, null); // undefined
 ```
 
-### 字符串转换
+## 字符串转换
 
-#### 首字母大写
+### 首字母大写
 
 `capitalizeFirstLetter`：首字母大写。
 
@@ -343,7 +345,7 @@ import { capitalizeFirstLetter } from '@vben/utils';
 capitalizeFirstLetter('abc'); // 'Abc'
 ```
 
-#### 首字母小写
+### 首字母小写
 
 `toLowerCaseFirstLetter`：首字母小写。
 
@@ -353,7 +355,7 @@ import { toLowerCaseFirstLetter } from '@vben/utils';
 toLowerCaseFirstLetter('Abc'); // 'abc'
 ```
 
-#### 转驼峰键名
+### 转驼峰键名
 
 `toCamelCase`：生成驼峰键名（无父级时返回 `key`，否则拼接父级 + 首字母大写子键）。
 
@@ -364,7 +366,7 @@ toCamelCase('name'); // 'name'
 toCamelCase('name', 'user'); // 'userName'
 ```
 
-#### kebab 转驼峰
+### kebab 转驼峰
 
 `kebabToCamelCase`：kebab-case 转 camelCase。
 
@@ -374,27 +376,9 @@ import { kebabToCamelCase } from '@vben/utils';
 kebabToCamelCase('my-var-name'); // 'myVarName'
 ```
 
-### 对象合并
+## 对象合并
 
-#### 创建合并器
-
-`createMerge`：创建一个可自定义合并策略的合并器（来自 [`defu`](https://github.com/unjs/defu)）。
-
-```ts
-import { createMerge } from '@vben/utils';
-
-// 回调契约（createDefu）：(obj, key, value, namespace) => 处理了返回真值
-// 处理时直接修改 obj；仅在已处理时返回 true
-const merge = createMerge((obj, key, value) => {
-  if (Array.isArray(obj[key]) && Array.isArray(value)) {
-    obj[key] = value; // 数组直接替换而非合并
-    return true;
-  }
-});
-merge({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
-```
-
-#### 深度合并
+### 深度合并
 
 `merge`：深度合并，**仅填充 undefined 字段**，已有值不被覆盖（来自 [`defu`](https://github.com/unjs/defu)）。
 
@@ -404,17 +388,17 @@ import { merge } from '@vben/utils';
 merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
 ```
 
-#### 带数组覆盖的合并
+### 带数组覆盖的合并
 
 `mergeWithArrayOverride`：目标字段是数组且更新也是数组时，直接用更新数组替换。
 
 ```ts
 import { mergeWithArrayOverride } from '@vben/utils';
 
-mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
+mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [1] }
 ```
 
-### 加载脚本
+## 加载脚本
 
 `loadScript`：动态加载 JS 文件，已存在同 `src` 的 `<script>` 时直接 resolve；加载失败 reject。
 
@@ -424,9 +408,9 @@ import { loadScript } from '@vben/utils';
 await loadScript('https://cdn.example.com/lib.js');
 ```
 
-### 异步与流程控制
+## 异步与流程控制
 
-#### 栈结构
+### 栈结构
 
 `Stack`：栈数据结构。`dedup` 为 `true` 时入栈自动去重（移除旧位置）；`maxSize` 限制最大容量，超出则丢弃最早元素。
 
@@ -442,7 +426,7 @@ stack.size; // 2
 stack.toArray(); // ['b', 'c']
 ```
 
-#### 创建栈
+### 创建栈
 
 `createStack`：工厂函数，等价于 `new Stack(...)`。
 
@@ -454,7 +438,7 @@ stack.push('a', 'b');
 stack.toArray(); // ['a', 'b']
 ```
 
-### Promise 转 err/data 元组
+## Promise 转 err/data 元组
 
 `to`：把 Promise 转成 Go 风格的 `[err, data]` 元组。失败时若传入 `errorExt`，会合并到错误对象上。
 
@@ -466,9 +450,9 @@ if (err) return;
 console.log(data);
 ```
 
-### 树形遍历
+## 树形遍历
 
-#### 遍历树收集值
+### 遍历树收集值
 
 `traverseTreeValues`：深度遍历，收集每个节点经 `getValue` 映射后的值，过滤掉 falsy 值。
 
@@ -479,7 +463,7 @@ const tree = [{ id: 1, children: [{ id: 2 }] }];
 traverseTreeValues(tree, (n) => n.id); // [1, 2]
 ```
 
-#### 过滤树
+### 过滤树
 
 `filterTree`：按条件过滤树节点，保留命中节点（含命中子节点），原顺序返回。**会修改入参树**。
 
@@ -490,7 +474,7 @@ const tree = [{ id: 1, children: [{ id: 2 }] }];
 filterTree(tree, (n) => n.id === 1); // 保留 id=1 节点
 ```
 
-#### 映射树
+### 映射树
 
 `mapTree`：递归映射树节点。`mapper` 接收当前节点与父节点，返回新节点；其 `childProps` 子数组会被递归映射。
 
@@ -502,7 +486,7 @@ const mapped = mapTree(tree, (n) => ({ ...n, id: n.id * 10 }));
 // [{ id: 10, children: [{ id: 20 }] }]
 ```
 
-#### 排序树
+### 排序树
 
 `sortTree`：递归对树排序，返回新结构（不修改原树）。
 
@@ -516,9 +500,9 @@ const tree = [
 const sorted = sortTree(tree, (a, b) => a.id - b.id); // 按 id 升序，返回新结构
 ```
 
-### 数据处理
+## 数据处理
 
-#### 按字段去重
+### 按字段去重
 
 `uniqueByField`：根据指定字段对对象数组去重。
 
@@ -528,9 +512,9 @@ import { uniqueByField } from '@vben/utils';
 uniqueByField([{ id: 1 }, { id: 1 }, { id: 2 }], 'id'); // [{ id: 1 }, { id: 2 }]
 ```
 
-### 窗口操作
+## 窗口操作
 
-#### 打开新窗口
+### 打开新窗口
 
 `openWindow`：以指定参数打开新窗口。默认 `noopener = noreferrer = true`、`target = '_blank'`。
 
@@ -541,7 +525,7 @@ openWindow('https://example.com');
 openWindow('https://example.com', { target: '_self' });
 ```
 
-#### 新窗口打开路由
+### 新窗口打开路由
 
 `openRouteInNewWindow`：在新窗口打开应用内路由 `path`，自动补全 origin 与 hash 前缀。
 
@@ -551,7 +535,7 @@ import { openRouteInNewWindow } from '@vben/utils';
 openRouteInNewWindow('/dashboard');
 ```
 
-### 防抖
+## 防抖
 
 `debounce`：来自 [`es-toolkit/compat`](https://github.com/toss/es-toolkit) 的防抖函数。
 
@@ -562,9 +546,9 @@ const fn = debounce(() => console.log('exec'), 200);
 fn();
 ```
 
-### 路径取值与设值
+## 路径取值与设值
 
-#### 按路径取值
+### 按路径取值
 
 `get`：来自 [`es-toolkit/compat`](https://github.com/toss/es-toolkit)，按路径获取对象值。
 
@@ -574,7 +558,7 @@ import { get } from '@vben/utils';
 get({ a: { b: 1 } }, 'a.b'); // 1
 ```
 
-#### 按路径设值
+### 按路径设值
 
 `set`：来自 [`es-toolkit/compat`](https://github.com/toss/es-toolkit)，按路径设置对象值。
 
@@ -585,9 +569,9 @@ const obj = {};
 set(obj, 'a.b.c', 1); // obj -> { a: { b: { c: 1 } } }
 ```
 
-### 深度比较与深拷贝
+## 深度比较与深拷贝
 
-#### 深度相等比较
+### 深度相等比较
 
 `isEqual`：来自 [`es-toolkit/compat`](https://github.com/toss/es-toolkit) 的深度相等比较。
 
@@ -597,7 +581,7 @@ import { isEqual } from '@vben/utils';
 isEqual({ a: 1 }, { a: 1 }); // true
 ```
 
-#### 深拷贝
+### 深拷贝
 
 `cloneDeep`：来自 [`lodash.clonedeep`](https://lodash.com/) 的深拷贝。
 

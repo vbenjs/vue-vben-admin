@@ -12,11 +12,10 @@
 
 :::
 
-## Common Utilities
 
-### Date
+## Date
 
-#### Format date
+### Format date
 
 `formatDate`: Formats a date using dayjs. `time` accepts `Date` / `Dayjs` / `number` / `string`; an empty value returns `''`; on parse failure it falls back to `String(time)`. The result is rendered in the current timezone.
 
@@ -28,7 +27,7 @@ formatDate(new Date(), 'YYYY/MM/DD'); // '2024/01/01'
 formatDate(undefined); // ''
 ```
 
-#### Format date time
+### Format date time
 
 `formatDateTime`: Equivalent to `formatDate(time, 'YYYY-MM-DD HH:mm:ss')`.
 
@@ -38,7 +37,7 @@ import { formatDateTime } from '@vben/utils';
 formatDateTime(new Date('2024-01-01T12:34:56')); // '2024-01-01 12:34:56'
 ```
 
-#### Check Date instance
+### Check Date instance
 
 `isDate`: Type guard for `Date` instances.
 
@@ -49,7 +48,7 @@ isDate(new Date()); // true
 isDate('2024-01-01'); // false
 ```
 
-#### Check dayjs instance
+### Check dayjs instance
 
 `isDayjsObject`: Type guard for dayjs instances.
 
@@ -61,9 +60,9 @@ isDayjsObject(dayjs()); // true
 isDayjsObject(new Date()); // false
 ```
 
-### Array comparison
+## Array comparison
 
-#### Array equality
+### Array equality
 
 `arraysEqual`: Compares two arrays for equality (order-insensitive, by element count).
 
@@ -74,7 +73,7 @@ arraysEqual([1, 2], [2, 1]); // true
 arraysEqual([1, 2], [1, 2, 3]); // false
 ```
 
-#### Array strict equality
+### Array strict equality
 
 `arraysStrictEqual`: Compares two arrays for strict equality (order-sensitive).
 
@@ -85,9 +84,9 @@ arraysStrictEqual([1, 2], [2, 1]); // false
 arraysStrictEqual([1, 2], [1, 2]); // true
 ```
 
-### Object diff
+## Object diff
 
-#### Object diff
+### Object diff
 
 `diff`: Deep-compares two objects and returns the diff (only changed fields); arrays are compared order-insensitively.
 
@@ -98,7 +97,7 @@ diff({ a: 1, b: 2 }, { a: 1, b: 3 }); // { b: 3 }
 diff({ list: [1, 2] }, { list: [2, 1] }); // {} (order-insensitive, no diff)
 ```
 
-#### Object strict diff
+### Object strict diff
 
 `diffStrict`: Deep-compares two objects; arrays are compared order-sensitively.
 
@@ -108,9 +107,9 @@ import { diffStrict } from '@vben/utils';
 diffStrict({ a: [1, 2] }, { a: [2, 1] }); // { a: [2, 1] }
 ```
 
-### File download
+## File download
 
-#### Download from URL
+### Download from URL
 
 `downloadFileFromUrl`: Downloads from a URL, with cross-origin support. Uses `<a download>` on Chrome/Safari; falls back to `openWindow` elsewhere. Throws when `source` is falsy or non-string; URL syntax is not validated.
 
@@ -121,7 +120,7 @@ await downloadFileFromUrl({ source: 'https://example.com/file.pdf' });
 await downloadFileFromUrl({ source: 'https://example.com/report.pdf', fileName: 'report.pdf' });
 ```
 
-#### Download from Base64
+### Download from Base64
 
 `downloadFileFromBase64`: Triggers a download from Base64 data.
 
@@ -134,7 +133,7 @@ downloadFileFromBase64({
 });
 ```
 
-#### Download from image URL
+### Download from image URL
 
 `downloadFileFromImageUrl`: Converts the image URL to Base64 via `urlToBase64`, then downloads it.
 
@@ -147,7 +146,7 @@ await downloadFileFromImageUrl({
 });
 ```
 
-#### Download from Blob
+### Download from Blob
 
 `downloadFileFromBlob`: Triggers a download from a `Blob` (creates an object URL). Throws `TypeError` if the input is not a `Blob`.
 
@@ -160,7 +159,7 @@ downloadFileFromBlob({
 });
 ```
 
-#### Download from BlobPart
+### Download from BlobPart
 
 `downloadFileFromBlobPart`: Downloads BlobPart data; non-`Blob` values are wrapped as `application/octet-stream` Blobs first.
 
@@ -170,7 +169,7 @@ import { downloadFileFromBlobPart } from '@vben/utils';
 downloadFileFromBlobPart({ source: ['hello', 'world'], fileName: 'data.txt' });
 ```
 
-#### Image URL to Base64
+### Image URL to Base64
 
 `urlToBase64`: Converts an image URL to a Base64 dataURL via a canvas (defaults to `image/png`).
 
@@ -181,7 +180,7 @@ const dataURL = await urlToBase64('https://example.com/logo.png');
 // 'data:image/png;base64,iVBORw0KGgo...'
 ```
 
-#### Trigger download
+### Trigger download
 
 `triggerDownload`: Appends a hidden `<a>`, clicks, removes it, then calls `URL.revokeObjectURL` after `revokeDelay` ms to release memory.
 
@@ -191,9 +190,9 @@ import { triggerDownload } from '@vben/utils';
 triggerDownload('https://example.com/file.pdf', 'file.pdf');
 ```
 
-### Type checking
+## Type checking
 
-#### Check undefined
+### Check undefined
 
 `isUndefined`: Whether the value is `undefined`.
 
@@ -204,7 +203,7 @@ isUndefined(undefined); // true
 isUndefined(null); // false
 ```
 
-#### Check boolean
+### Check boolean
 
 `isBoolean`: Whether the value is a boolean.
 
@@ -215,7 +214,7 @@ isBoolean(true); // true
 isBoolean(0); // false
 ```
 
-#### Check empty
+### Check empty
 
 `isEmpty`: Whether the value is empty: `null` / `undefined` / empty string / zero-length array / empty Map or Set / object with no keys.
 
@@ -229,7 +228,7 @@ isEmpty(null); // true
 isEmpty('a'); // false
 ```
 
-#### Check HTTP URL
+### Check HTTP URL
 
 `isHttpUrl`: Whether the string starts with `http://` or `https://`.
 
@@ -240,7 +239,7 @@ isHttpUrl('https://a.com'); // true
 isHttpUrl('/api/user'); // false
 ```
 
-#### Check window object
+### Check window object
 
 `isWindow`: Whether the value is the `window` object.
 
@@ -251,7 +250,7 @@ isWindow(window); // true
 isWindow(document); // false
 ```
 
-#### Check macOS
+### Check macOS
 
 `isMacOs`: Whether the current env is macOS (by userAgent).
 
@@ -261,7 +260,7 @@ import { isMacOs } from '@vben/utils';
 isMacOs(); // true on macOS
 ```
 
-#### Check Windows
+### Check Windows
 
 `isWindowsOs`: Whether the current env is Windows.
 
@@ -271,7 +270,7 @@ import { isWindowsOs } from '@vben/utils';
 isWindowsOs(); // true on Windows
 ```
 
-#### Check number
+### Check number
 
 `isNumber`: Whether the value is a finite number.
 
@@ -283,7 +282,7 @@ isNumber(Infinity); // false
 isNumber('1'); // false
 ```
 
-#### Check function
+### Check function
 
 `isFunction`: Type guard re-exported from `@vue/shared`.
 
@@ -294,7 +293,7 @@ isFunction(() => {}); // true
 isFunction('fn'); // false
 ```
 
-#### Check object
+### Check object
 
 `isObject`: Type guard re-exported from `@vue/shared`.
 
@@ -306,7 +305,7 @@ isObject([1]); // true
 isObject(null); // false
 ```
 
-#### Check string
+### Check string
 
 `isString`: Type guard re-exported from `@vue/shared`.
 
@@ -317,7 +316,7 @@ isString('a'); // true
 isString(1); // false
 ```
 
-#### Get first non-null value
+### Get first non-null value
 
 `getFirstNonNullOrUndefined`: Returns the first value in the list that is not `null` or `undefined`; returns `undefined` if all are.
 
@@ -328,9 +327,9 @@ getFirstNonNullOrUndefined(undefined, null, 42, 'hello'); // 42
 getFirstNonNullOrUndefined(undefined, null); // undefined
 ```
 
-### String conversion
+## String conversion
 
-#### Capitalize first letter
+### Capitalize first letter
 
 `capitalizeFirstLetter`: Capitalizes the first letter.
 
@@ -340,7 +339,7 @@ import { capitalizeFirstLetter } from '@vben/utils';
 capitalizeFirstLetter('abc'); // 'Abc'
 ```
 
-#### Lowercase first letter
+### Lowercase first letter
 
 `toLowerCaseFirstLetter`: Lowercases the first letter.
 
@@ -350,7 +349,7 @@ import { toLowerCaseFirstLetter } from '@vben/utils';
 toLowerCaseFirstLetter('Abc'); // 'abc'
 ```
 
-#### To camelCase key
+### To camelCase key
 
 `toCamelCase`: Builds a camelCase key (returns `key` when there is no parent, otherwise concatenates parent + capitalized sub-key).
 
@@ -361,7 +360,7 @@ toCamelCase('name'); // 'name'
 toCamelCase('name', 'user'); // 'userName'
 ```
 
-#### Kebab to camelCase
+### Kebab to camelCase
 
 `kebabToCamelCase`: Converts kebab-case to camelCase.
 
@@ -371,27 +370,9 @@ import { kebabToCamelCase } from '@vben/utils';
 kebabToCamelCase('my-var-name'); // 'myVarName'
 ```
 
-### Object merge
+## Object merge
 
-#### Create merger
-
-`createMerge`: Creates a merger with a custom strategy (from [`defu`](https://github.com/unjs/defu)).
-
-```ts
-import { createMerge } from '@vben/utils';
-
-// Callback contract (createDefu): (obj, key, value, namespace) => truthy if handled
-// Mutate obj when handling; return true only when you've handled the merge
-const merge = createMerge((obj, key, value) => {
-  if (Array.isArray(obj[key]) && Array.isArray(value)) {
-    obj[key] = value; // replace arrays instead of merging
-    return true;
-  }
-});
-merge({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
-```
-
-#### Deep merge
+### Deep merge
 
 `merge`: Deep merge that **only fills undefined fields** — existing values are not overwritten (from [`defu`](https://github.com/unjs/defu)).
 
@@ -401,19 +382,19 @@ import { merge } from '@vben/utils';
 merge({ a: 1 }, { a: 2, b: 3 }); // { a: 1, b: 3 }
 ```
 
-#### Merge with array override
+### Merge with array override
 
 `mergeWithArrayOverride`: When the target field is an array and the update is also an array, the update replaces it directly.
 
 ```ts
 import { mergeWithArrayOverride } from '@vben/utils';
 
-mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [2, 3] }
+mergeWithArrayOverride({ a: [1] }, { a: [2, 3] }); // { a: [1] }
 ```
 
-### Resource loading
+## Resource loading
 
-#### Load script
+### Load script
 
 `loadScript`: Dynamically loads a JS file. Resolves immediately if a `<script>` with the same `src` already exists; rejects on load error.
 
@@ -423,9 +404,9 @@ import { loadScript } from '@vben/utils';
 await loadScript('https://cdn.example.com/lib.js');
 ```
 
-### Async & flow control
+## Async & flow control
 
-#### Stack
+### Stack
 
 `Stack`: Stack data structure. When `dedup` is `true`, pushing removes the old position first; `maxSize` caps the size, dropping the oldest element when exceeded.
 
@@ -441,7 +422,7 @@ stack.size; // 2
 stack.toArray(); // ['b', 'c']
 ```
 
-#### Create stack
+### Create stack
 
 `createStack`: Factory function, equivalent to `new Stack(...)`.
 
@@ -453,7 +434,7 @@ stack.push('a', 'b');
 stack.toArray(); // ['a', 'b']
 ```
 
-### Promise to err/data tuple
+## Promise to err/data tuple
 
 `to`: Converts a Promise into a Go-style `[err, data]` tuple. When `errorExt` is provided on failure, it is merged into the error object.
 
@@ -465,9 +446,9 @@ if (err) return;
 console.log(data);
 ```
 
-### Tree traversal
+## Tree traversal
 
-#### Traverse tree values
+### Traverse tree values
 
 `traverseTreeValues`: Deeply traverses a tree, collecting each node mapped through `getValue`, and filters out falsy values.
 
@@ -478,7 +459,7 @@ const tree = [{ id: 1, children: [{ id: 2 }] }];
 traverseTreeValues(tree, (n) => n.id); // [1, 2]
 ```
 
-#### Filter tree
+### Filter tree
 
 `filterTree`: Filters tree nodes by a predicate, keeping matching nodes (including matching children) in original order. **Mutates the input tree.**
 
@@ -489,7 +470,7 @@ const tree = [{ id: 1, children: [{ id: 2 }] }];
 filterTree(tree, (n) => n.id === 1); // keeps the id=1 node
 ```
 
-#### Map tree
+### Map tree
 
 `mapTree`: Recursively maps tree nodes. `mapper` receives the current node and its parent and returns a new node; its `childProps` children are recursively mapped.
 
@@ -501,7 +482,7 @@ const mapped = mapTree(tree, (n) => ({ ...n, id: n.id * 10 }));
 // [{ id: 10, children: [{ id: 20 }] }]
 ```
 
-#### Sort tree
+### Sort tree
 
 `sortTree`: Recursively sorts a tree, returning a new structure (does not mutate the input).
 
@@ -515,9 +496,9 @@ const tree = [
 const sorted = sortTree(tree, (a, b) => a.id - b.id); // ascending by id, returns a new structure
 ```
 
-### Data processing
+## Data processing
 
-#### Deduplicate by field
+### Deduplicate by field
 
 `uniqueByField`: Deduplicates an array of objects by the given field.
 
@@ -527,9 +508,9 @@ import { uniqueByField } from '@vben/utils';
 uniqueByField([{ id: 1 }, { id: 1 }, { id: 2 }], 'id'); // [{ id: 1 }, { id: 2 }]
 ```
 
-### Window operations
+## Window operations
 
-#### Open new window
+### Open new window
 
 `openWindow`: Opens a new window with the given options. Defaults: `noopener = noreferrer = true`, `target = '_blank'`.
 
@@ -540,7 +521,7 @@ openWindow('https://example.com');
 openWindow('https://example.com', { target: '_self' });
 ```
 
-#### Open route in new window
+### Open route in new window
 
 `openRouteInNewWindow`: Opens an in-app route `path` in a new window, automatically filling in the origin and hash prefix.
 
@@ -550,7 +531,7 @@ import { openRouteInNewWindow } from '@vben/utils';
 openRouteInNewWindow('/dashboard');
 ```
 
-### Debounce
+## Debounce
 
 `debounce`: Debounce function from [`es-toolkit/compat`](https://github.com/toss/es-toolkit).
 
@@ -561,9 +542,9 @@ const fn = debounce(() => console.log('exec'), 200);
 fn();
 ```
 
-### Path get & set
+## Path get & set
 
-#### Get value by path
+### Get value by path
 
 `get`: From [`es-toolkit/compat`](https://github.com/toss/es-toolkit), gets a value by path.
 
@@ -573,7 +554,7 @@ import { get } from '@vben/utils';
 get({ a: { b: 1 } }, 'a.b'); // 1
 ```
 
-#### Set value by path
+### Set value by path
 
 `set`: From [`es-toolkit/compat`](https://github.com/toss/es-toolkit), sets a value by path.
 
@@ -584,9 +565,9 @@ const obj = {};
 set(obj, 'a.b.c', 1); // obj -> { a: { b: { c: 1 } } }
 ```
 
-### Deep compare & clone
+## Deep compare & clone
 
-#### Deep equality
+### Deep equality
 
 `isEqual`: Deep equality check from [`es-toolkit/compat`](https://github.com/toss/es-toolkit).
 
@@ -596,7 +577,7 @@ import { isEqual } from '@vben/utils';
 isEqual({ a: 1 }, { a: 1 }); // true
 ```
 
-#### Deep clone
+### Deep clone
 
 `cloneDeep`: Deep clone from [`lodash.clonedeep`](https://lodash.com/).
 

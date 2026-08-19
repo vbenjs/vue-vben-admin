@@ -1,8 +1,14 @@
+---
+outline: deep
+---
+
 # Stores
 
 ::: tip Preface
 
 `@vben/stores` is a Pinia-based state management package that integrates the `pinia-plugin-persistedstate` plugin and uses `SecureLS` to AES-encrypt and compress persisted data in production. It provides core stores such as user info and timezone, plus two lifecycle functions: `initStores` and `resetAllStores`.
+
+In production, persisted data is AES-encrypted by `SecureLS`, whose encryption secret is read from the `VITE_APP_STORE_SECURE_KEY` environment variable (the SecureLS `encryptionSecret`). Make sure to replace it with your own random key when deploying.
 
 :::
 
@@ -109,14 +115,14 @@ const options = await store.getTimezoneOptions();
 
 ### Reset timezone
 
-`$reset()`: Resets the timezone to the system current timezone returned by `getCurrentTimezone()`.
+`$reset()`: Resets `timezone` to the current timezone returned by `getCurrentTimezone()`. It only resets the store's internal ref and does **not** sync dayjs's default timezone (only `setTimezone` does).
 
 ```ts
 import { useTimezoneStore } from '@vben/stores';
 
 const store = useTimezoneStore();
 store.$reset();
-store.timezone; // back to the system timezone
+store.timezone; // back to the value of getCurrentTimezone()
 ```
 
 ### Inject custom timezone handler

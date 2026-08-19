@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 缓存
 
 ::: tip 前言
