@@ -123,7 +123,7 @@ catalog:
   es-toolkit: ^1.49.0
   eslint: ^10.9.0
   eslint-plugin-better-tailwindcss: ^4.7.0
-  eslint-plugin-command: ^3.5.3
+  eslint-plugin-command: ^4.0.0
   eslint-plugin-jsonc: ^3.3.0
   eslint-plugin-n: ^18.2.2
   eslint-plugin-perfectionist: ^5.10.0
