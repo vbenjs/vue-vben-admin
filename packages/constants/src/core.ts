@@ -46,7 +46,8 @@ export function getSupportLanguages(): LanguageOption[] {
  */
 export function setSupportLanguages(languages: LanguageOption[]) {
   currentLanguages = cloneLanguages(languages);
-  for (const listener of listeners) {
+  // 迭代监听器快照，避免监听器在回调中取消订阅导致跳过后续监听器
+  for (const listener of listeners.slice()) {
     listener(cloneLanguages(currentLanguages));
   }
 }
