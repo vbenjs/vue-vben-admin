@@ -1,6 +1,6 @@
-export type Locale = 'en-US' | 'zh-CN';
+export type Locale = string;
 
-export const messages: Record<Locale, Record<string, string>> = {
+export const messages: Record<string, Record<string, string>> = {
   'en-US': {
     cancel: 'Cancel',
     collapse: 'Collapse',
@@ -25,4 +25,5 @@ export const messages: Record<Locale, Record<string, string>> = {
   },
 };
 
-export const getMessages = (locale: Locale) => messages[locale];
+export const getMessages = (locale: Locale) =>
+  messages[locale] ?? messages['en-US'] ?? {};

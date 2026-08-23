@@ -119,7 +119,7 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
   }
   const { isDark, locale } = usePreferences();
 
-  const localMap = {
+  const localMap: Record<string, any> = {
     'zh-CN': normalizeVxeLocale(zhCN),
     'en-US': normalizeVxeLocale(enUS),
   };
@@ -128,8 +128,13 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
     [() => isDark.value, () => locale.value],
     ([isDarkValue, localeValue]) => {
       VxeUI.setTheme(isDarkValue ? 'dark' : 'light');
-      VxeUI.setI18n(localeValue, localMap[localeValue]);
-      VxeUI.setLanguage(localeValue);
+      // 应用语言是运行时字符串（见 SupportedLanguagesType）；vxe-table 只为内置
+      // 语言提供类型定义，因此这里需要断言，未打包的自定义语言回退到 en-US
+      VxeUI.setI18n(
+        localeValue as any,
+        localMap[localeValue] ?? localMap['en-US'],
+      );
+      VxeUI.setLanguage(localeValue as any);
     },
     {
       immediate: true,
