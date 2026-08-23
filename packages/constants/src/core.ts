@@ -45,10 +45,13 @@ export function getSupportLanguages(): LanguageOption[] {
  * 更新语言列表并通知所有监听器
  */
 export function setSupportLanguages(languages: LanguageOption[]) {
-  currentLanguages = cloneLanguages(languages);
+  // 先固化本次快照，即使监听器回调中嵌套调用 setSupportLanguages，
+  // 后续监听器收到的仍是本次更新的列表
+  const nextLanguages = cloneLanguages(languages);
+  currentLanguages = nextLanguages;
   // 迭代监听器快照，避免监听器在回调中取消订阅导致跳过后续监听器
   for (const listener of listeners.slice()) {
-    listener(cloneLanguages(currentLanguages));
+    listener(cloneLanguages(nextLanguages));
   }
 }
 
