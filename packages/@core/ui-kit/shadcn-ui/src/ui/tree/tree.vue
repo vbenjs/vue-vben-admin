@@ -249,6 +249,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
     props.checkStrictly &&
     props.multiple &&
     props.autoCheckParent &&
+    !props.keepParentOnUncheck &&
     !isSelected
   ) {
     flattenData.value
