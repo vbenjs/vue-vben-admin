@@ -31,7 +31,7 @@ export type AlertProps = {
   /** 弹窗容器的额外样式 */
   containerClass?: string;
   /** 弹窗提示内容 */
-  content: Component | string;
+  content?: Component | string;
   /** 弹窗内容的额外样式 */
   contentClass?: string;
   /** 执行beforeClose回调期间，在内容区域显示一个loading遮罩*/
@@ -57,7 +57,7 @@ export type PromptProps<T = any> = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
   beforeClose?: (scope: {
     isConfirm: boolean;
-    value: T | undefined;
+    value?: T;
   }) => boolean | Promise<boolean | undefined> | undefined;
   /** 用于接受用户输入的组件 */
   component?: Component;
