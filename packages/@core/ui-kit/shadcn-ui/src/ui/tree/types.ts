@@ -27,6 +27,8 @@ export interface TreeProps {
   /** 自定义节点类名 */
   getNodeClass?: (item: FlattenedItem<Recordable<any>>) => string;
   iconField?: string;
+  /** 返回值是否包含半选节点（默认 false，仅返回全选节点；true 则返回全选 ∪ 半选） */
+  includeIndeterminate?: boolean;
   /** 取消勾选子节点时保持父节点的选中状态，不级联取消父节点（默认 false：级联取消） */
   keepParentOnUncheck?: boolean;
   /** label字段 */
@@ -60,6 +62,7 @@ export function treePropsDefaults() {
     multiple: false,
     showIcon: true,
     transition: true,
+    includeIndeterminate: false,
     keepParentOnUncheck: false,
     valueField: 'value',
     childrenField: 'children',
