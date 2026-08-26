@@ -45,7 +45,6 @@ const style = computed((): CSSProperties => {
   return {
     ...compactStyle,
     flex: 1,
-    minHeight: 0,
     minWidth: 0,
     padding: `${padding}px`,
     paddingBottom: `${paddingBottom}px`,
@@ -57,7 +56,7 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <main :style="style" class="relative min-h-0 min-w-0">
+  <main :style="style" class="relative min-w-0">
     <div
       v-if="$slots.overlay"
       data-layout-region="content-overlay"
