@@ -16,10 +16,10 @@ outline: deep
 
 ::: details UserState definition
 
-| Field | Default | Description |
-| --- | --- | --- |
-| `userInfo` | `null` | User info |
-| `userRoles` | `[]` | User roles |
+| Field       | Default | Description |
+| ----------- | ------- | ----------- |
+| `userInfo`  | `null`  | User info   |
+| `userRoles` | `[]`    | User roles  |
 
 :::
 
@@ -143,7 +143,9 @@ await store.setTimezone('Asia/Shanghai');
 ### Persistence strategy
 
 ```ts
-persist: { pick: ['timezone'] }
+persist: {
+  pick: ['timezone'];
+}
 ```
 
 The `timezone` field is persisted and preserved on page refresh; the handler logic injected by `setTimezoneHandler` is runtime config and is not persisted.

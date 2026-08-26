@@ -50,7 +50,7 @@ export function setSupportLanguages(languages: LanguageOption[]) {
   const nextLanguages = cloneLanguages(languages);
   currentLanguages = nextLanguages;
   // 迭代监听器快照，避免监听器在回调中取消订阅导致跳过后续监听器
-  for (const listener of listeners.slice()) {
+  for (const listener of [...listeners]) {
     listener(cloneLanguages(nextLanguages));
   }
 }
