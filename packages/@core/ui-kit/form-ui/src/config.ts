@@ -77,15 +77,20 @@ export function setupVbenForm<
 
   for (const component of Object.keys(components)) {
     const key = component as BaseFormComponentType;
-    COMPONENT_MAP[key] = components[component as never];
+    const registeredComponent = components[component as never];
+    COMPONENT_MAP[key] = registeredComponent;
 
-    if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
-      COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
-    }
+    // 优先级：组件定义处挂载的协议 > setup 配置的 modelPropNameMap > 全局默认协议
+    const componentModelPropName = (
+      registeredComponent as undefined | { modelPropName?: string }
+    )?.modelPropName;
 
-    // 覆盖特殊组件的modelPropName
-    if (modelPropNameMap && modelPropNameMap[key]) {
+    if (componentModelPropName) {
+      COMPONENT_BIND_EVENT_MAP[key] = componentModelPropName;
+    } else if (modelPropNameMap && modelPropNameMap[key]) {
       COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
+    } else if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
+      COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
     }
   }
 }
