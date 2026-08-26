@@ -1,36 +1,32 @@
 <script lang="ts" setup>
 import type { Recordable } from '@vben/types';
 
-import { useQuery, useQueryClient } from '@tanstack/vue-query';
+import { queryOptions, useQuery, useQueryClient } from '@tanstack/vue-query';
 
 import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api';
 
-const queryKey = ['demo', 'api', 'options'];
 const count = 4;
 // 缓存时间
 const staleTime = 1000 * 60 * 5;
 
-const queryClient = useQueryClient();
-
-const { dataUpdatedAt } = useQuery({
+// 公共查询配置：useQuery 与 fetchQuery 共用
+const menuQueryOptions = queryOptions({
   // 获取接口数据的函数
   queryFn: getMenuList,
-  queryKey,
-  // 每次组件挂载时都重新获取数据。如果不需要每次都重新获取就不要设置为always
-  refetchOnMount: 'always',
+  queryKey: ['demo', 'api', 'options'],
   staleTime,
 });
 
-// 通过 fetchQuery 读取：缓存新鲜期内直接命中缓存，
-// 多个组件并发调用时共享同一次请求
+const queryClient = useQueryClient();
+
+const { dataUpdatedAt } = useQuery(menuQueryOptions);
+
 async function fetchOptions() {
+  // 并发调用时 fetchQuery 会合并相同 queryKey 的请求，只发一次；
+  // 失败时显式记录日志并回退为空列表，避免未处理的 rejection
   try {
-    return await queryClient.fetchQuery({
-      queryFn: getMenuList,
-      queryKey,
-      staleTime,
-    });
+    return await queryClient.fetchQuery(menuQueryOptions);
   } catch (error) {
     console.error('Failed to fetch menu options:', error);
     return [];
