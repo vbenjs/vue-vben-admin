@@ -9,9 +9,7 @@ import { getMenuList } from '#/api';
 const queryKey = ['demo', 'api', 'options'];
 const count = 4;
 
-const { dataUpdatedAt, promise: fetchDataFn } = useQuery({
-  // 在组件渲染期间预取数据
-  experimental_prefetchInRender: true,
+const { dataUpdatedAt, refetch } = useQuery({
   // 获取接口数据的函数
   queryFn: getMenuList,
   queryKey,
@@ -21,8 +19,10 @@ const { dataUpdatedAt, promise: fetchDataFn } = useQuery({
   staleTime: 1000 * 60 * 5,
 });
 
+// 多个组件并发调用时，query 内部会将请求去重合并为同一次
 async function fetchOptions() {
-  return await fetchDataFn.value;
+  const { data } = await refetch();
+  return data ?? [];
 }
 
 const schema = [];
