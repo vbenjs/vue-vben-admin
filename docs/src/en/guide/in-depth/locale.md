@@ -101,42 +101,42 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 ## Adding a New Language Pack
 
-If you need to add a new language pack, follow these steps:
+If you need to add a new language pack, follow these steps (taking `zh-TW` Traditional Chinese as an example):
 
-- Create the corresponding language pack folder and files under `packages/locales/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
+- Create the corresponding language pack folder and files under `packages/locales/src/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
 - In the corresponding application, find the `src/locales/langs` directory and create the same language pack folder and files (e.g., `zh-TW/*.json`).
-- Add the corresponding language in `packages/constants/src/core.ts`:
+- Create a new d.ts file in the application (e.g., `src/locales/languages.d.ts`) and extend the language types via module augmentation:
 
   ```ts
-  export interface LanguageOption {
-    label: string;
-    value: 'en-US' | 'zh-CN'; // [!code --]
-    value: 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+  export type { SupportedLanguages } from '@vben-core/typings';
+
+  declare module '@vben-core/typings' {
+    interface SupportedLanguages {
+      'zh-TW': '繁體中文';
+    }
   }
-  export const SUPPORT_LANGUAGES: LanguageOption[] = [
-    {
-      label: '简体中文',
-      value: 'zh-CN',
-    },
-    {
-      label: 'English',
-      value: 'en-US',
-    },
-    {
-      label: '繁体中文', // [!code ++]
-      value: 'zh-TW', // [!code ++]
-    },
-  ];
   ```
 
-- In `packages/locales/typing.ts`, add a new TypeScript type:
+  ::: tip Tip
+
+  The re-export at the top must not be omitted: it makes the file a module so that `declare module` acts as module augmentation. Otherwise it would be treated as an ambient module declaration that shadows the original module and loses all its types. The application also needs to declare the `@vben-core/typings` dependency (usually already available for internal monorepo packages).
+
+  :::
+
+- Register the runtime language list at application startup (e.g., in `src/bootstrap.ts`). The language toggle component will display the new language automatically:
 
   ```ts
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN'; // [!code --]
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+  import { setSupportLanguages, SUPPORT_LANGUAGES } from '@vben/constants';
+
+  setSupportLanguages([
+    ...SUPPORT_LANGUAGES,
+    { label: '繁體中文', value: 'zh-TW' },
+  ]);
   ```
 
-At this point, you can use the newly added language pack in the project.
+- If the application uses third-party libraries such as dayjs or component libraries, add the corresponding language pack branches in the locale loading logic of `src/locales/index.ts`.
+
+At this point, you can use the newly added language pack in the project. The `SupportedLanguagesType` union will automatically include the new language, and all related APIs gain full type constraints.
 
 ## Interface Language Switching Function
 

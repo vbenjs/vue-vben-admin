@@ -1,3 +1,5 @@
+import type { SupportedLanguagesType } from '@vben-core/typings';
+
 import type { SetupVxeTable } from './types';
 
 import { defineComponent, watch } from 'vue';
@@ -119,7 +121,7 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
   }
   const { isDark, locale } = usePreferences();
 
-  const localMap: Record<string, any> = {
+  const localMap: Partial<Record<SupportedLanguagesType, any>> = {
     'zh-CN': normalizeVxeLocale(zhCN),
     'en-US': normalizeVxeLocale(enUS),
   };
@@ -128,8 +130,9 @@ export function setupVbenVxeTable(setupOptions: SetupVxeTable) {
     [() => isDark.value, () => locale.value],
     ([isDarkValue, localeValue]) => {
       VxeUI.setTheme(isDarkValue ? 'dark' : 'light');
-      // 应用语言是运行时字符串（见 SupportedLanguagesType）；vxe-table 只为内置
-      // 语言提供类型定义，因此这里需要断言，未打包的自定义语言回退到 en-US
+      // vxe-table 仅为其内置语言提供类型定义，应用通过模块增强扩展的
+      // 语言可能超出 VxeGlobalI18nLocale 联合范围，因此边界处需要断言，
+      // 未打包的自定义语言回退到 en-US
       VxeUI.setI18n(
         localeValue as any,
         localMap[localeValue] ?? localMap['en-US'],

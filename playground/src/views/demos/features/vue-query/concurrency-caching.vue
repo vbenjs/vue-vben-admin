@@ -7,7 +7,6 @@ import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api';
 
 const count = 4;
-
 // 缓存时间
 const staleTime = 1000 * 60 * 5;
 
@@ -24,8 +23,14 @@ const queryClient = useQueryClient();
 const { dataUpdatedAt } = useQuery(menuQueryOptions);
 
 async function fetchOptions() {
-  // 并发调用时 fetchQuery 会合并相同 queryKey 的请求，只发一次
-  return queryClient.fetchQuery(menuQueryOptions);
+  // 并发调用时 fetchQuery 会合并相同 queryKey 的请求，只发一次；
+  // 失败时显式记录日志并回退为空列表，避免未处理的 rejection
+  try {
+    return await queryClient.fetchQuery(menuQueryOptions);
+  } catch (error) {
+    console.error('Failed to fetch menu options:', error);
+    return [];
+  }
 }
 
 const schema = [];

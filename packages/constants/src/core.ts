@@ -1,17 +1,24 @@
+import type { SupportedLanguagesType } from '@vben-core/typings';
+
 /**
  * @zh_CN 登录页面 url 地址
  */
 export const LOGIN_PATH = '/auth/login';
 
-export interface LanguageOption {
+/**
+ * 语言选项；value 默认为 string 以支持运行时注册自定义语言（见 setSupportLanguages）
+ */
+export interface LanguageOption<TValue extends string = string> {
   label: string;
-  value: string;
+  value: TValue;
 }
 
 /**
- * 支持的语言（默认值，可在运行时通过 setSupportLanguages 覆盖）
+ * 支持的语言（默认值，可在运行时通过 setSupportLanguages 覆盖）。
+ * value 约束到 SupportedLanguagesType，应用通过模块增强扩展语言后，
+ * 默认列表同样接受新语言，拼写错误会在编译期报错
  */
-export const SUPPORT_LANGUAGES: LanguageOption[] = [
+export const SUPPORT_LANGUAGES: LanguageOption<SupportedLanguagesType>[] = [
   {
     label: '简体中文',
     value: 'zh-CN',
