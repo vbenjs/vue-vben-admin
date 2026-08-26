@@ -1,28 +1,40 @@
 <script lang="ts" setup>
 import type { Recordable } from '@vben/types';
 
-import { useQuery } from '@tanstack/vue-query';
+import { useQuery, useQueryClient } from '@tanstack/vue-query';
 
 import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api';
 
 const queryKey = ['demo', 'api', 'options'];
 const count = 4;
+// 缓存时间
+const staleTime = 1000 * 60 * 5;
 
-const { dataUpdatedAt, refetch } = useQuery({
+const queryClient = useQueryClient();
+
+const { dataUpdatedAt } = useQuery({
   // 获取接口数据的函数
   queryFn: getMenuList,
   queryKey,
   // 每次组件挂载时都重新获取数据。如果不需要每次都重新获取就不要设置为always
   refetchOnMount: 'always',
-  // 缓存时间
-  staleTime: 1000 * 60 * 5,
+  staleTime,
 });
 
-// 多个组件并发调用时，query 内部会将请求去重合并为同一次
+// 通过 fetchQuery 读取：缓存新鲜期内直接命中缓存，
+// 多个组件并发调用时共享同一次请求
 async function fetchOptions() {
-  const { data } = await refetch();
-  return data ?? [];
+  try {
+    return await queryClient.fetchQuery({
+      queryFn: getMenuList,
+      queryKey,
+      staleTime,
+    });
+  } catch (error) {
+    console.error('Failed to fetch menu options:', error);
+    return [];
+  }
 }
 
 const schema = [];
