@@ -96,6 +96,10 @@ async function loadAntdLocale(lang: SupportedLanguagesType) {
       antdLocale.value = twLocale.default;
       break;
     }
+    // 未打包对应语言包的语言回退到 en-US，避免残留上一次的语言
+    default: {
+      antdLocale.value = antdEnLocale;
+    }
   }
 }
 
