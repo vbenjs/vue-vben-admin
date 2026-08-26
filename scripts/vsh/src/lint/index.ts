@@ -1,9 +1,8 @@
 import type { CAC } from 'cac';
 
-import { execSync } from 'node:child_process';
 import { availableParallelism, freemem } from 'node:os';
 
-import { execa } from '@vben/node-utils';
+import { colors, execa } from '@vben/node-utils';
 
 interface LintCommandOptions {
   /**
@@ -49,6 +48,21 @@ function formatCommand([file, args]: Command) {
 }
 
 /**
+ * 统一的 lint 失败错误。
+ * 相比 execa 的原始错误，会列出所有失败命令并给出修复提示。
+ */
+class LintError extends Error {
+  constructor(failed: Command[]) {
+    super(
+      `Lint failed:\n${failed
+        .map((command) => `  - ${formatCommand(command)}`)
+        .join('\n')}\n\n运行 ${colors.cyan('vsh lint --format')} 可自动修复。`,
+    );
+    this.name = 'LintError';
+  }
+}
+
+/**
  * 串行执行所有命令：一次只运行一个进程。
  * 保证一次能看到所有工具的报错（配置低的机器更友好）。
  */
@@ -64,39 +78,29 @@ async function runSerial(commands: Command[]) {
   }
 
   if (failed.length > 0) {
-    throw new Error(
-      `Lint failed:\n${failed
-        .map((command) => `  - ${formatCommand(command)}`)
-        .join('\n')}`,
-    );
+    throw new LintError(failed);
   }
 }
 
 /**
  * 并行执行所有命令：同时启动全部进程。
- * 任一进程失败时，强制结束其余仍在运行的进程，避免产生遗漏进程。
+ * 等待全部结束后汇总失败命令，与串行模式保持一致的错误输出。
  */
 async function runParallel(commands: Command[]) {
   const subprocesses = commands.map((command) => runCommand(command));
 
-  try {
-    await Promise.all(subprocesses);
-  } catch (error) {
-    for (const subprocess of subprocesses) {
-      try {
-        if (process.platform === 'win32' && subprocess.pid) {
-          execSync(`taskkill /F /T /PID ${subprocess.pid}`, {
-            stdio: 'ignore',
-          });
-        } else {
-          subprocess.kill('SIGKILL');
-        }
-      } catch {
-        // process may have already exited
-      }
+  const results = await Promise.allSettled(subprocesses);
+
+  // 汇总所有失败的命令，与串行模式保持一致的错误输出
+  const failed: Command[] = [];
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      failed.push(commands[index]);
     }
-    await Promise.allSettled(subprocesses);
-    throw error;
+  });
+
+  if (failed.length > 0) {
+    throw new LintError(failed);
   }
 }
 
@@ -143,4 +147,4 @@ function defineLintCommand(cac: CAC) {
     .action(runLint);
 }
 
-export { defineLintCommand };
+export { defineLintCommand, LintError };
