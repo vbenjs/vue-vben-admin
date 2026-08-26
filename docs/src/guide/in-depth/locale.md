@@ -103,7 +103,7 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 如果你需要新增语言包，按照以下步骤进行（以新增 `zh-TW` 繁体中文为例）：
 
-- 在 `packages/locales/langs` 目录下新增对应的语言包文件夹和文件，例：`zh-TW/*.json`，并翻译对应的文本。
+- 在 `packages/locales/src/langs` 目录下新增对应的语言包文件夹和文件，例：`zh-TW/*.json`，并翻译对应的文本。
 - 在对应的应用内，找到 `src/locales/langs` 目录，新增对应的语言包文件夹和文件 `zh-TW/*.json`。
 - 在应用内新建一个 d.ts 文件（例：`src/locales/languages.d.ts`），通过模块增强扩展语言类型：
 

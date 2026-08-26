@@ -103,7 +103,7 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 If you need to add a new language pack, follow these steps (taking `zh-TW` Traditional Chinese as an example):
 
-- Create the corresponding language pack folder and files under `packages/locales/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
+- Create the corresponding language pack folder and files under `packages/locales/src/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
 - In the corresponding application, find the `src/locales/langs` directory and create the same language pack folder and files (e.g., `zh-TW/*.json`).
 - Create a new d.ts file in the application (e.g., `src/locales/languages.d.ts`) and extend the language types via module augmentation:
 
