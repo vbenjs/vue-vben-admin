@@ -1,0 +1,131 @@
+{
+  "title": "演示",
+  "access": {
+    "frontendPermissions": "前端許可權",
+    "backendPermissions": "後端許可權",
+    "pageAccess": "頁面訪問",
+    "buttonControl": "按鈕控制",
+    "menuVisible403": "選單可見(403)",
+    "superVisible": "Super 可見",
+    "adminVisible": "Admin 可見",
+    "userVisible": "User 可見"
+  },
+  "nested": {
+    "title": "巢狀選單",
+    "menu1": "選單 1",
+    "menu2": "選單 2",
+    "menu2_1": "選單 2-1",
+    "menu3": "選單 3",
+    "menu3_1": "選單 3-1",
+    "menu3_2": "選單 3-2",
+    "menu3_2_1": "選單 3-2-1"
+  },
+  "outside": {
+    "title": "外部頁面",
+    "embedded": "內嵌",
+    "externalLink": "外鏈"
+  },
+  "badge": {
+    "title": "選單徽標",
+    "dot": "點徽標",
+    "text": "文本徽標",
+    "color": "徽標顏色"
+  },
+  "activeIcon": {
+    "title": "選單啟用圖示",
+    "children": "子級啟用圖示"
+  },
+  "fallback": {
+    "title": "預設頁"
+  },
+  "features": {
+    "title": "功能",
+    "hideChildrenInMenu": "隱藏子選單",
+    "loginExpired": "登入過期",
+    "icons": "圖示",
+    "watermark": "水印",
+    "preferencesExtension": "偏好擴充套件示例",
+    "tabs": "標籤頁",
+    "tabDetail": "標籤詳情頁",
+    "fullScreen": "全屏",
+    "clipboard": "剪貼簿",
+    "menuWithQuery": "帶參選單",
+    "openInNewWindow": "新視窗開啟",
+    "fileDownload": "檔案下載",
+    "requestParamsSerializer": "引數序列化"
+  },
+  "preferencesExtensionDemo": {
+    "description": "這個頁面直接讀取 playground 子專案定義的拓展偏好。你可以在右上角的“偏好設定 → Playground 拓展”中修改欄位，也可以點選下方預設按鈕，頁面會即時聯動。",
+    "currentConfig": "當前拓展配置",
+    "currentTitle": "當前標題：{title}",
+    "currentDescription": "預設展示 {count} 條任務；{quickActionText} 快捷操作；當前高亮風格為“{tone}”。",
+    "showQuickActions": "顯示",
+    "hideQuickActions": "隱藏",
+    "boardDescription": "這是一個“真實使用”的示例：頁面標題、操作區、列表條數和高亮樣式都由拓展偏好驅動。",
+    "quickActionsEnabled": "當前已關閉快捷操作，頁面只保留只讀資訊展示。",
+    "quickActions": {
+      "create": "新建任務",
+      "export": "批次匯出",
+      "refresh": "重新整理資料"
+    },
+    "presetTitle": "快捷預設（演示 updateCustomPreferences 用法）",
+    "presetButtons": {
+      "default": "恢復預設",
+      "compact": "切換緊湊模式",
+      "review": "切換評審模式"
+    },
+    "presetTitles": {
+      "compact": "緊湊模式看板",
+      "default": "本週運營概覽",
+      "review": "評審態工作看板"
+    },
+    "tones": {
+      "default": "預設",
+      "success": "成功",
+      "warning": "警告"
+    },
+    "owner": "負責人"
+  },
+  "preferencesExtensionConfig": {
+    "tabLabel": "拓展",
+    "title": "Playground 業務偏好",
+    "fields": {
+      "reportTitle": {
+        "label": "看板標題",
+        "placeholder": "請輸入看板標題"
+      },
+      "defaultVisibleRows": {
+        "label": "預設展示條數",
+        "tip": "用於控制示例頁中任務列表預設渲染多少條資料。"
+      },
+      "enableQuickActions": {
+        "label": "顯示快捷操作"
+      },
+      "highlightTone": {
+        "label": "高亮風格",
+        "options": {
+          "default": "預設",
+          "success": "成功",
+          "warning": "警告"
+        }
+      }
+    }
+  },
+  "breadcrumb": {
+    "navigation": "麵包屑導航",
+    "lateral": "平級模式",
+    "level": "層級模式",
+    "levelDetail": "層級模式詳情",
+    "lateralDetail": "平級模式詳情"
+  },
+  "vben": {
+    "title": "專案",
+    "about": "關於",
+    "document": "文件",
+    "antdv": "Ant Design Vue 版本",
+    "antdv-next": "Antdv Next 版本",
+    "naive-ui": "Naive UI 版本",
+    "element-plus": "Element Plus 版本",
+    "tdesign": "TDesign Vue 版本"
+  }
+}

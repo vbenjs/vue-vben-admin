@@ -1,0 +1,165 @@
+{
+  "formRules": {
+    "required": "請輸入{0}",
+    "selectRequired": "請選擇{0}",
+    "minLength": "{0}至少{1}個字元",
+    "maxLength": "{0}最多{1}個字元",
+    "length": "{0}長度必須為{1}個字元",
+    "alreadyExists": "{0} `{1}` 已存在",
+    "startWith": "{0}必須以 {1} 開頭",
+    "invalidURL": "請輸入有效的連結",
+    "sizeLimit": "檔案大小不能超過 {0}MB",
+    "previewWarning": "無法開啟檔案，沒有可用的URL或預覽地址"
+  },
+  "actionTitle": {
+    "edit": "修改{0}",
+    "create": "新增{0}",
+    "delete": "刪除{0}",
+    "view": "檢視{0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "確定刪除 {0} 嗎？",
+    "deleting": "正在刪除 {0} ...",
+    "deleteSuccess": "{0} 刪除成功",
+    "operationSuccess": "操作成功",
+    "operationFailed": "操作失敗"
+  },
+  "placeholder": {
+    "input": "請輸入",
+    "select": "請選擇",
+    "upload": "點選上傳"
+  },
+  "captcha": {
+    "title": "請完成安全驗證",
+    "sliderSuccessText": "驗證通過",
+    "sliderDefaultText": "請按住滑塊拖動",
+    "sliderRotateDefaultTip": "點選圖片可重新整理",
+    "sliderTranslateDefaultTip": "點選圖片可重新整理",
+    "sliderRotateFailTip": "驗證失敗",
+    "sliderRotateSuccessTip": "驗證成功，耗時{0}秒",
+    "sliderTranslateFailTip": "驗證失敗",
+    "sliderTranslateSuccessTip": "驗證成功，耗時{0}秒",
+    "alt": "支援img標籤src屬性值",
+    "refreshAriaLabel": "重新整理驗證碼",
+    "confirmAriaLabel": "確認選擇",
+    "confirm": "確認",
+    "pointAriaLabel": "點選點",
+    "clickInOrder": "請依次點選"
+  },
+  "iconPicker": {
+    "placeholder": "選擇一個圖示",
+    "search": "搜尋圖示..."
+  },
+  "jsonViewer": {
+    "copy": "複製",
+    "copied": "已複製"
+  },
+  "crop": {
+    "title": "圖片裁剪",
+    "titleTip": "裁剪比例 {0}",
+    "confirm": "裁剪",
+    "cancel": "取消裁剪",
+    "errorTip": "裁剪錯誤"
+  },
+  "tiptap": {
+    "placeholder": "請輸入內容...",
+    "prompts": {
+      "image": "請輸入圖片地址",
+      "link": "請輸入連結地址"
+    },
+    "toolbar": {
+      "bold": "加粗",
+      "italic": "斜體",
+      "underline": "下劃線",
+      "strike": "刪除線",
+      "code": "行內程式碼",
+      "codeBlock": "程式碼塊",
+      "heading": "標題",
+      "paragraph": "正文",
+      "heading1": "標題1",
+      "heading2": "標題2",
+      "heading3": "標題3",
+      "heading4": "標題4",
+      "bulletList": "無序列表",
+      "orderedList": "有序列表",
+      "blockquote": "引用",
+      "link": "連結",
+      "unlink": "移除連結",
+      "image": "圖片",
+      "imageUrl": "圖片URL",
+      "imageUpload": "從本地上傳",
+      "textColor": "文字顏色",
+      "highlightColor": "高亮顏色",
+      "alignLeft": "左對齊",
+      "alignCenter": "居中",
+      "alignRight": "右對齊",
+      "preview": "預覽",
+      "undo": "撤銷",
+      "redo": "重做",
+      "clear": "清除"
+    },
+    "upload": {
+      "fileTooLarge": "檔案大小超出限制",
+      "fileTypeNotAllowed": "不支援的檔案型別",
+      "onlySingleImage": "僅支援單張圖片上傳，已選取第一張",
+      "uploadFailed": "上傳失敗"
+    }
+  },
+  "fallback": {
+    "pageNotFound": "哎呀！未找到頁面",
+    "pageNotFoundDesc": "抱歉，我們無法找到您要找的頁面。",
+    "forbidden": "哎呀！訪問被拒絕",
+    "forbiddenDesc": "抱歉，您沒有許可權訪問此頁面。",
+    "internalError": "哎呀！出錯了",
+    "internalErrorDesc": "抱歉，伺服器遇到錯誤。",
+    "offline": "離線頁面",
+    "offlineError": "哎呀！網路錯誤",
+    "offlineErrorDesc": "抱歉，無法連線到網際網路，請檢查您的網路連線並重試。",
+    "comingSoon": "即將推出",
+    "http": {
+      "requestTimeout": "請求超時，請稍後再試。",
+      "networkError": "網路異常，請檢查您的網路連線後重試。",
+      "badRequest": "請求錯誤。請檢查您的輸入並重試。",
+      "unauthorized": "登入認證過期，請重新登入後繼續。",
+      "forbidden": "禁止訪問, 您沒有許可權訪問此資源。",
+      "notFound": "未找到, 請求的資源不存在。",
+      "internalServerError": "內部伺服器錯誤，請稍後再試。"
+    }
+  },
+  "widgets": {
+    "document": "文件",
+    "qa": "問題 & 幫助",
+    "setting": "設定",
+    "logoutTip": "是否退出登入？",
+    "viewAll": "檢視所有訊息",
+    "notifications": "通知",
+    "markAllAsRead": "全部標記為已讀",
+    "clearNotifications": "清空",
+    "checkUpdatesTitle": "新版本可用",
+    "checkUpdatesDescription": "點選重新整理以獲取最新版本",
+    "search": {
+      "title": "搜尋",
+      "searchNavigate": "搜尋導航選單",
+      "select": "選擇",
+      "navigate": "導航",
+      "close": "關閉",
+      "noResults": "未找到搜尋結果",
+      "noRecent": "沒有搜尋歷史",
+      "recent": "搜尋歷史"
+    },
+    "lockScreen": {
+      "title": "鎖定螢幕",
+      "screenButton": "鎖定",
+      "password": "密碼",
+      "placeholder": "請輸入鎖屏密碼",
+      "unlock": "點選解鎖",
+      "errorPasswordTip": "密碼錯誤，請重新輸入",
+      "backToLogin": "返回登入",
+      "entry": "進入系統"
+    },
+    "timezone": {
+      "setTimezone": "設定時區",
+      "setSuccess": "時區設定成功"
+    }
+  }
+}
