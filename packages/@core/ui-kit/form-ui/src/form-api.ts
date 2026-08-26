@@ -472,46 +472,24 @@ export class FormApi<
       return;
     }
 
-    const schemaFieldPaths = (this.state?.schema ?? []).map(
-      (schema) => resolveFieldNamePath(schema.fieldName).pathSegments,
-    );
-    const filterValue = (
-      value: unknown,
-      parentPath: string[] = [],
-    ): unknown => {
-      if (
-        !isObject(value) ||
-        Array.isArray(value) ||
-        isDate(value) ||
-        isDayjsObject(value)
-      ) {
-        return value;
-      }
+    // 先全量写入：setValues 逐字段覆盖，不做深度合并
+    form.setValues(fields, false);
 
-      const result: Record<string, unknown> = {};
-      for (const [key, currentValue] of Object.entries(value)) {
-        const currentPath = [...parentPath, key];
-        const matchingPaths = schemaFieldPaths.filter(
-          (schemaPath) =>
-            schemaPath.length >= currentPath.length &&
-            currentPath.every(
-              (pathSegment, index) => schemaPath[index] === pathSegment,
-            ),
-        );
-        if (matchingPaths.length === 0) {
-          continue;
-        }
-
-        result[key] = matchingPaths.some(
-          (schemaPath) => schemaPath.length === currentPath.length,
-        )
-          ? currentValue
-          : filterValue(currentValue, currentPath);
+    // 再按 schema 白名单清理未声明的脏路径
+    const schemaPaths = (this.state?.schema ?? []).flatMap((schema) => {
+      const { pathSegments, rawKey } = resolveFieldNamePath(schema.fieldName);
+      // 带 [key] 形式的裸字段名无法安全映射为点路径，跳过清理
+      if (rawKey) {
+        return [];
       }
-      return result;
-    };
-    const filteredFields = filterValue(fields) as Partial<TFormValues>;
-    form.setValues(filteredFields as Partial<TFormValues>, shouldValidate);
+      const path = pathSegments.join('.');
+      return path ? [path] : [];
+    });
+    this.cleanupNonSchemaFields(toRaw(form.values), schemaPaths);
+
+    if (shouldValidate) {
+      await form.validate();
+    }
   }
 
   async submit(e?: Event) {
@@ -599,6 +577,42 @@ export class FormApi<
       this.scrollToFirstError(fieldName);
     }
     return validateResult;
+  }
+
+  /**
+   * 按 schema 白名单清理表单值中未声明的路径
+   * @param values 表单当前值
+   * @param schemaPaths schema 声明字段的点路径集合
+   */
+  private cleanupNonSchemaFields(
+    values: Record<string, any>,
+    schemaPaths: string[],
+  ) {
+    const isContainer = (value: unknown) =>
+      isObject(value) &&
+      !Array.isArray(value) &&
+      !isDate(value) &&
+      !isDayjsObject(value);
+    const isSchemaPathOrPrefix = (path: string) =>
+      schemaPaths.some(
+        (schemaPath) =>
+          schemaPath === path || schemaPath.startsWith(`${path}.`),
+      );
+
+    const walk = (obj: Record<string, any>, parentPath: string) => {
+      for (const key of Object.keys(obj)) {
+        const currentPath = parentPath ? `${parentPath}.${key}` : key;
+        if (!isSchemaPathOrPrefix(currentPath)) {
+          // 当前路径既不是 schema 声明字段，也不是其前缀 → 未声明脏数据，删除
+          Reflect.deleteProperty(obj, key);
+          continue;
+        }
+        if (isContainer(obj[key])) {
+          walk(obj[key], currentPath);
+        }
+      }
+    };
+    walk(values, '');
   }
 
   private async getForm() {
