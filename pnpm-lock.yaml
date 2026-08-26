@@ -175,7 +175,7 @@ catalogs:
       specifier: ^2.4.11
       version: 2.4.11
     '@vueuse/core':
-      specifier: ^14.3.0
+      specifier: ^14.4.0
       version: 14.4.0
     '@vueuse/integrations':
       specifier: ^14.3.0
