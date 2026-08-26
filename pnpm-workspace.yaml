@@ -37,7 +37,7 @@ overrides:
   vue: 'catalog:'
 
 catalog:
-  '@ast-grep/napi': ^0.44.1
+  '@ast-grep/napi': ^0.45.1
   '@changesets/changelog-github': ^0.7.0
   '@changesets/cli': ^2.31.1
   '@changesets/git': ^3.0.4
@@ -51,7 +51,7 @@ catalog:
   '@iconify/json': ^2.2.504
   '@iconify/tailwind4': ^1.2.3
   '@iconify/vue': ^5.0.1
-  '@intlify/core-base': ^11.4.7
+  '@intlify/core-base': ^11.4.9
   '@intlify/unplugin-vue-i18n': ^11.2.4
   '@jspm/generator': ^2.16.3
   '@lucide/vue': ^1.26.0
@@ -64,7 +64,7 @@ catalog:
   '@tailwindcss/vite': ^4.3.3
   '@tanstack/store': ^0.11.0
   '@tanstack/vue-form': ^1.33.2
-  '@tanstack/vue-query': ^5.101.4
+  '@tanstack/vue-query': ^5.102.2
   '@tanstack/vue-store': ^0.11.0
   '@tiptap/core': ^3.28.0
   '@tiptap/extension-document': ^3.28.0
@@ -120,7 +120,7 @@ catalog:
   dotenv: ^17.4.2
   echarts: ^6.1.0
   element-plus: ^2.14.3
-  es-toolkit: ^1.49.0
+  es-toolkit: ^1.51.0
   eslint: ^10.9.0
   eslint-plugin-better-tailwindcss: ^4.7.0
   eslint-plugin-command: ^3.5.3
@@ -149,7 +149,7 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.1
-  oxfmt: ^0.60.0
+  oxfmt: ^0.64.0
   oxlint: ^1.79.0
   oxlint-tsgolint: ^0.25.0
   pinia: ^4.0.2
@@ -200,13 +200,13 @@ catalog:
   vitest: ^4.1.11
   vue: ^3.5.40
   vue-eslint-parser: ^10.4.1
-  vue-i18n: ^11.4.7
+  vue-i18n: ^11.4.9
   vue-json-pretty: ^2.6.0
   vue-router: ^5.2.0
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.11
-  vxe-pc-ui: ^4.16.19
-  vxe-table: ^4.20.6
+  vxe-pc-ui: ^4.17.14
+  vxe-table: ^4.21.0
   watermark-js-plus: ^1.6.6
   yaml-eslint-parser: ^2.1.0
   zod: ^4.4.3
