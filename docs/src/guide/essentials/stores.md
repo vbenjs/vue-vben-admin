@@ -16,10 +16,10 @@ outline: deep
 
 ::: details UserState 状态定义
 
-| 字段 | 默认值 | 说明 |
-| --- | --- | --- |
-| `userInfo` | `null` | 用户信息 |
-| `userRoles` | `[]` | 用户角色 |
+| 字段        | 默认值 | 说明     |
+| ----------- | ------ | -------- |
+| `userInfo`  | `null` | 用户信息 |
+| `userRoles` | `[]`   | 用户角色 |
 
 :::
 
@@ -143,7 +143,9 @@ await store.setTimezone('Asia/Shanghai');
 ### 持久化策略
 
 ```ts
-persist: { pick: ['timezone'] }
+persist: {
+  pick: ['timezone'];
+}
 ```
 
 `timezone` 字段会被持久化，刷新页面后保留；`setTimezoneHandler` 注入的处理逻辑属于运行时配置，不持久化。
