@@ -31,7 +31,7 @@
   "plain": "樸素",
   "rounded": "圓潤",
   "copyPreferences": "複製偏好設定",
-  "enableCopyPreferences": "顯示覆制偏好設定按鈕",
+  "enableCopyPreferences": "顯示複製偏好設定按鈕",
   "copyPreferencesSuccessTitle": "複製成功",
   "copyPreferencesSuccess": "複製成功，請在 app 下的 `src/preferences.ts`內進行覆蓋",
   "clearAndLogout": "清空快取 & 退出登入",
