@@ -12,11 +12,11 @@ import type {
   NavigationStyleType,
   PageTransitionType,
   PreferencesButtonPositionType,
+  SupportedLanguagesType,
   TabsStyleType,
   ThemeModeType,
 } from '@vben-core/typings';
 
-type SupportedLanguagesType = string;
 type CustomPreferencesValue = boolean | number | string;
 
 interface CustomPreferencesOption<TValue extends string = string> {
