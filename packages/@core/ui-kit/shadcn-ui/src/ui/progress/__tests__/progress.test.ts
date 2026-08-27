@@ -69,6 +69,19 @@ describe('vben progress', () => {
     expect(indicator.style.transform).toBe('translateX(-40%)');
   });
 
+  it('falls back to max 100 when a non-positive max is provided', async () => {
+    const { indicator, root } = await mountProgress(30, 0);
+
+    expect(root).toBeInstanceOf(HTMLElement);
+    if (!(root instanceof HTMLElement)) return;
+    expect(root.getAttribute('aria-valuemax')).toBe('100');
+
+    // max=0 不得产生无穷 transform：30 / 100 → 30% 填充。
+    expect(indicator).toBeInstanceOf(HTMLElement);
+    if (!(indicator instanceof HTMLElement)) return;
+    expect(indicator.style.transform).toBe('translateX(-70%)');
+  });
+
   it('omits aria-valuenow and marks indeterminate state when value is null', async () => {
     const { root } = await mountProgress(null);
 
@@ -77,6 +90,21 @@ describe('vben progress', () => {
     expect(root.getAttribute('role')).toBe('progressbar');
     expect(root.getAttribute('aria-valuenow')).toBeNull();
     expect(root.getAttribute('data-state')).toBe('indeterminate');
+  });
+
+  it('falls back to the default max when max is invalid and normalizes the fill', async () => {
+    const { indicator, root } = await mountProgress(30, 0);
+
+    expect(root).toBeInstanceOf(HTMLElement);
+    if (!(root instanceof HTMLElement)) return;
+    // reka-ui 将非法 max（<=0）回退为默认 100。
+    expect(root.getAttribute('aria-valuemax')).toBe('100');
+    expect(root.getAttribute('aria-valuenow')).toBe('30');
+
+    // 30 / 100 = 30% → translateX(-70%)，避免除零产生非法 transform。
+    expect(indicator).toBeInstanceOf(HTMLElement);
+    if (!(indicator instanceof HTMLElement)) return;
+    expect(indicator.style.transform).toBe('translateX(-70%)');
   });
 
   it('hides the indicator fill when value is zero', async () => {
