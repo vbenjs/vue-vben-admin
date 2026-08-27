@@ -373,6 +373,7 @@ const layoutScrollStyle = computed((): CSSProperties => {
 const contentStyle = computed((): CSSProperties => {
   const { footerEnable, footerFixed, footerHeight } = props;
   return {
+    minHeight: footerEnable && !footerFixed ? undefined : 0,
     paddingBottom: `${footerEnable && footerFixed ? footerHeight : 0}px`,
   };
 });
