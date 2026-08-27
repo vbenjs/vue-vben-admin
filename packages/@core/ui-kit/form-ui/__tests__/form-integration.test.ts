@@ -269,9 +269,51 @@ describe('useVbenForm integration', () => {
     );
     expect(latestSlotProps.componentProps).not.toHaveProperty('formApi');
     expect(latestSlotProps.componentProps).not.toHaveProperty('values');
-    expect(latestSlotProps).not.toHaveProperty('onUpdate:modelValue');
+    // 自定义插槽 scope 顶层同样暴露写方向监听器，保证直接 v-bind 即可完成双向绑定
+    expect(latestSlotProps).toHaveProperty('onUpdate:modelValue');
 
     await wrapper.get('.slot-component').setValue('Grace');
+    await flushPromises();
+
+    expect(latestSlotProps.modelValue).toBe('Grace');
+    expect(latestSlotProps.values.name).toBe('Grace');
+  });
+
+  it('custom slot v-bind supports two-way modelValue binding', async () => {
+    interface SlotFormValues {
+      name: string;
+    }
+
+    let latestSlotProps:
+      | undefined
+      | VbenFormFieldSlotProps<SlotFormValues, 'name'>;
+    const [Form, formApi] = useVbenForm<SlotFormValues>({
+      schema: [
+        {
+          component: TestInput,
+          defaultValue: 'Ada',
+          fieldName: 'name',
+        },
+      ],
+    });
+    const wrapper = mount(Form, {
+      slots: {
+        // 模拟业务方直接 v-bind="slotProps" 的用法：顶层 modelValue + onUpdate:modelValue 需构成完整双向绑定
+        name(slotProps: VbenFormFieldSlotProps<SlotFormValues, 'name'>) {
+          latestSlotProps = slotProps;
+          return h(TestInput, slotProps);
+        },
+      },
+    });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(latestSlotProps).toBeDefined();
+    if (!latestSlotProps) return;
+    expect(latestSlotProps.modelValue).toBe('Ada');
+    expect(latestSlotProps.values.name).toBe('Ada');
+
+    await wrapper.get('input').setValue('Grace');
     await flushPromises();
 
     expect(latestSlotProps.modelValue).toBe('Grace');

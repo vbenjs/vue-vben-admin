@@ -382,13 +382,17 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
 }
 
 function createFieldSlotScope(slotProps: RuntimeFieldSlotProps) {
+  const normalized = createFieldSlotProps(slotProps);
   return {
-    ...createFieldSlotProps(slotProps),
+    ...normalized,
     componentProps: createComponentProps(slotProps),
     disabled: shouldDisabled.value,
     isInValid: isInValid.value,
     modelValue: fieldValue.value,
     name: fieldName,
+    // 顶层固定暴露标准 v-model 写方向监听器：自定义插槽直接 v-bind 即可完成双向绑定。
+    // 非标准协议（value/checked 等）由 componentProps 按解析出的协议转换，顶层不重复做协议切换。
+    'onUpdate:modelValue': normalized.componentField['onUpdate:modelValue'],
   };
 }
 
