@@ -38,6 +38,7 @@ const style = computed((): CSSProperties => {
 <template>
   <footer
     :style="style"
+    data-layout-region="footer"
     class="bottom-0 w-full shrink-0 bg-background-deep transition-all duration-200"
   >
     <slot></slot>

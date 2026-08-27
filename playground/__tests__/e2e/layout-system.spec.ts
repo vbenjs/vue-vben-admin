@@ -47,7 +47,7 @@ async function configureDesktopRolePage(page: Page) {
   await page.setViewportSize({ height: 900, width: 1440 });
   await updateLayoutPreferences(page, {
     app: { layout: 'sidebar-nav' },
-    footer: { enable: false },
+    footer: { enable: false, fixed: false },
     header: { enable: true, hidden: false, mode: 'fixed' },
     sidebar: {
       collapsed: false,
@@ -58,6 +58,14 @@ async function configureDesktopRolePage(page: Page) {
     tabbar: { enable: true },
     widget: { sidebarToggle: true },
   });
+}
+
+async function navigateToLayoutPage(page: Page, path: string) {
+  await page.goto(path);
+  await page
+    .locator('[data-layout-region="layout"]')
+    .waitFor({ state: 'visible' });
+  await page.waitForFunction(() => Boolean(window.__VBEN_LAYOUT_TEST__));
 }
 
 async function getSidebarTransitionDuration(
@@ -144,6 +152,203 @@ test('keeps the layout background continuous while content scrolls', async ({
   expect(result.mainBackground).toBe('rgba(0, 0, 0, 0)');
   expect(result.mainBottomAtScrollEnd).toBeLessThanOrEqual(1);
   expect(result.scrollBottom).toBeGreaterThan(0);
+});
+
+test('preserves content sizing across footer modes in short viewports', async ({
+  layoutPage,
+}) => {
+  await configureDesktopRolePage(layoutPage);
+  await layoutPage.setViewportSize({ height: 600, width: 1365 });
+  await waitForLayoutSettled(layoutPage);
+
+  try {
+    for (const mode of [
+      { enable: false, fixed: false, name: 'disabled' },
+      { enable: true, fixed: true, name: 'fixed' },
+      { enable: true, fixed: false, name: 'non-fixed' },
+    ] as const) {
+      await test.step(mode.name, async () => {
+        if (mode.name === 'non-fixed') {
+          await navigateToLayoutPage(layoutPage, '/dashboard/analytics');
+          await layoutPage
+            .locator('#__vben_main_content .page-route-container > *')
+            .waitFor({ state: 'visible' });
+        }
+        await updateLayoutPreferences(layoutPage, {
+          footer: { enable: mode.enable, fixed: mode.fixed },
+        });
+
+        const metrics = await getLayoutMetrics(layoutPage);
+        const sizing = await layoutPage.evaluate(() => {
+          const footer = document.querySelector(
+            '[data-layout-region="footer"]',
+          );
+          const main = document.querySelector('#__vben_main_content');
+          const pageContent = document.querySelector(
+            '[data-layout-region="page-content"]',
+          );
+          const scroll = document.querySelector('#__vben_layout_scroll');
+          const routeContainer = document.querySelector(
+            '#__vben_main_content .page-route-container',
+          );
+          const routeContent = routeContainer?.firstElementChild;
+          if (
+            !(main instanceof HTMLElement) ||
+            !(scroll instanceof HTMLElement)
+          ) {
+            throw new Error('Layout content regions are missing');
+          }
+
+          const footerRect = footer?.getBoundingClientRect();
+          return {
+            footerPosition:
+              footer instanceof HTMLElement
+                ? getComputedStyle(footer).position
+                : undefined,
+            footerTop: footerRect?.top,
+            layoutClientHeight: scroll.clientHeight,
+            layoutScrollHeight: scroll.scrollHeight,
+            mainMinHeight: getComputedStyle(main).minHeight,
+            mainPaddingBottom: getComputedStyle(main).paddingBottom,
+            pageContentBottom:
+              pageContent instanceof HTMLElement
+                ? pageContent.getBoundingClientRect().bottom
+                : 0,
+            routeContentBottom: routeContent?.getBoundingClientRect().bottom,
+          };
+        });
+
+        expectNoViewportOverflow(metrics);
+        expect(sizing.mainMinHeight).toBe(
+          mode.name === 'non-fixed' ? 'auto' : '0px',
+        );
+        expect(Number.parseFloat(sizing.mainPaddingBottom)).toBe(
+          mode.name === 'fixed' ? requireRegion(metrics, 'footer').height : 0,
+        );
+
+        if (mode.name === 'disabled') {
+          expect(metrics.regions.footer).toBeNull();
+          expect(sizing.layoutScrollHeight).toBeLessThanOrEqual(
+            sizing.layoutClientHeight + 1,
+          );
+        } else if (mode.name === 'fixed') {
+          const footer = requireRegion(metrics, 'footer');
+          expect(sizing.footerPosition).toBe('fixed');
+          expect(Math.abs(footer.bottom - 600)).toBeLessThanOrEqual(1);
+          expect(sizing.pageContentBottom).toBeLessThanOrEqual(footer.top + 1);
+          expect(sizing.layoutScrollHeight).toBeLessThanOrEqual(
+            sizing.layoutClientHeight + 1,
+          );
+        } else {
+          expect(sizing.footerPosition).toBe('static');
+          expect(sizing.layoutScrollHeight).toBeGreaterThan(
+            sizing.layoutClientHeight,
+          );
+          expect(sizing.footerTop).toBeGreaterThanOrEqual(
+            (sizing.routeContentBottom ?? 0) - 1,
+          );
+        }
+
+        await layoutPage.evaluate(() => {
+          document.querySelector('#__vben_layout_scroll')?.scrollTo({ top: 0 });
+        });
+      });
+    }
+  } finally {
+    await updateLayoutPreferences(layoutPage, {
+      footer: { enable: false, fixed: false },
+    });
+    await layoutPage.setViewportSize({ height: 900, width: 1440 });
+    await navigateToLayoutPage(layoutPage, '/system/role');
+  }
+});
+
+test('keeps appendToMain drawers within the available content height', async ({
+  layoutPage,
+}) => {
+  await configureDesktopRolePage(layoutPage);
+  await layoutPage.setViewportSize({ height: 600, width: 1365 });
+  await navigateToLayoutPage(layoutPage, '/examples/drawer');
+
+  try {
+    const card = layoutPage
+      .getByText('在内容区域打开', { exact: true })
+      .locator('xpath=ancestor::*[.//button][1]');
+    await card
+      .getByRole('button', { exact: true, name: '右侧打开' })
+      .dispatchEvent('click');
+
+    const main = layoutPage.locator('#__vben_main_content');
+    const drawer = main.getByRole('dialog');
+    await expect(drawer).toBeVisible();
+    await drawer.evaluate((element) => {
+      for (const animation of element.getAnimations({ subtree: true })) {
+        if (Number.isFinite(animation.effect?.getComputedTiming().endTime)) {
+          animation.finish();
+        }
+      }
+    });
+    await waitForLayoutSettled(layoutPage);
+
+    const metrics = await getLayoutMetrics(layoutPage);
+    const geometry = await drawer.evaluate((element) => {
+      const main = document.querySelector('#__vben_main_content');
+      const scroll = document.querySelector('#__vben_layout_scroll');
+      const drawerBody = [...element.querySelectorAll('div')].find(
+        (child) => getComputedStyle(child).overflowY === 'auto',
+      );
+      if (
+        !(drawerBody instanceof HTMLElement) ||
+        !(main instanceof HTMLElement) ||
+        !(scroll instanceof HTMLElement)
+      ) {
+        throw new Error('Drawer layout regions are missing');
+      }
+
+      const spacer = document.createElement('div');
+      spacer.dataset.layoutTestSpacer = 'drawer';
+      spacer.style.height = '1200px';
+      drawerBody.append(spacer);
+
+      const drawerRect = element.getBoundingClientRect();
+      const mainRect = main.getBoundingClientRect();
+      return {
+        drawerBodyClientHeight: drawerBody.clientHeight,
+        drawerBodyScrollHeight: drawerBody.scrollHeight,
+        drawerBottom: drawerRect.bottom,
+        drawerHeight: drawerRect.height,
+        drawerTop: drawerRect.top,
+        layoutClientHeight: scroll.clientHeight,
+        layoutScrollHeight: scroll.scrollHeight,
+        mainBottom: mainRect.bottom,
+        mainHeight: mainRect.height,
+        mainTop: mainRect.top,
+        parentId: element.parentElement?.id,
+      };
+    });
+
+    expectNoViewportOverflow(metrics);
+    expect(geometry.parentId).toBe('__vben_main_content');
+    expect(Math.abs(geometry.mainTop - 88)).toBeLessThanOrEqual(1);
+    expect(Math.abs(geometry.drawerTop - geometry.mainTop)).toBeLessThanOrEqual(
+      1,
+    );
+    expect(
+      Math.abs(geometry.drawerBottom - geometry.mainBottom),
+    ).toBeLessThanOrEqual(1);
+    expect(
+      Math.abs(geometry.drawerHeight - geometry.mainHeight),
+    ).toBeLessThanOrEqual(1);
+    expect(geometry.drawerBodyScrollHeight).toBeGreaterThan(
+      geometry.drawerBodyClientHeight,
+    );
+    expect(geometry.layoutScrollHeight).toBeLessThanOrEqual(
+      geometry.layoutClientHeight + 1,
+    );
+  } finally {
+    await layoutPage.setViewportSize({ height: 900, width: 1440 });
+    await navigateToLayoutPage(layoutPage, '/system/role');
+  }
 });
 
 test('uses the same deliberate duration for both sidebar controls', async ({

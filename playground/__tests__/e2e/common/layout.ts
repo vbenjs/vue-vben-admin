@@ -89,6 +89,7 @@ async function updateLayoutPreferences(page: Page, updates: PreferenceUpdates) {
 async function getLayoutMetrics(page: Page): Promise<LayoutMetrics> {
   return page.evaluate(() => {
     const selectors = {
+      footer: '[data-layout-region="footer"]',
       header: '[data-layout-region="header"]',
       layout: '[data-layout-region="layout"]',
       main: '[data-layout-region="main"]',
