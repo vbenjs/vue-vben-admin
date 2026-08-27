@@ -75,7 +75,11 @@ function buttonByText(text: string): HTMLElement | undefined {
 
 function pressEscape() {
   document.dispatchEvent(
-    new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }),
+    new KeyboardEvent('keydown', {
+      bubbles: true,
+      cancelable: true,
+      key: 'Escape',
+    }),
   );
 }
 
