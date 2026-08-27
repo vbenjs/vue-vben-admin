@@ -25,6 +25,9 @@ vi.mock('@vben-core/preferences', () => ({
 
 let activeApp: App | undefined;
 
+/**
+ * 挂载一个受控的 Alert 组件，用于验证鼠标点击与键盘交互后的关闭行为和事件副作用。
+ */
 async function mountAlert() {
   const state = ref(true);
   const onConfirm = vi.fn();
