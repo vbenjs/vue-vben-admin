@@ -69,14 +69,14 @@ describe('vben progress', () => {
     expect(indicator.style.transform).toBe('translateX(-40%)');
   });
 
-  it('falls back to max 100 when a non-positive max is provided', async () => {
-    const { indicator, root } = await mountProgress(30, 0);
+  it('falls back to max 100 when a NaN max is provided', async () => {
+    const { indicator, root } = await mountProgress(30, Number.NaN);
 
     expect(root).toBeInstanceOf(HTMLElement);
     if (!(root instanceof HTMLElement)) return;
     expect(root.getAttribute('aria-valuemax')).toBe('100');
 
-    // max=0 不得产生无穷 transform：30 / 100 → 30% 填充。
+    // max=NaN 不得产生无穷 transform：30 / 100 → 30% 填充。
     expect(indicator).toBeInstanceOf(HTMLElement);
     if (!(indicator instanceof HTMLElement)) return;
     expect(indicator.style.transform).toBe('translateX(-70%)');
