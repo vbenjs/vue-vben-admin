@@ -66,6 +66,64 @@ const expanded = ref<Array<number | string>>([]);
 
 const treeValue = ref();
 
+/** ID → 原始数据映射，O(1) 查找替代 O(n) find */
+const valueMap = computed(() => {
+  const map = new Map<number | string, Recordable<any>>();
+  for (const item of flattenData.value) {
+    map.set(get(item.value, props.valueField) as number | string, item.value);
+  }
+  return map;
+});
+
+function getItemByValue(value: number | string) {
+  return valueMap.value.get(value);
+}
+
+function updateTreeValue() {
+  const val = modelValue.value;
+  if (val === undefined) {
+    treeValue.value = props.multiple ? [] : undefined;
+  } else if (Array.isArray(val)) {
+    if (val.length === 0) {
+      treeValue.value = [];
+    } else {
+      // 单次遍历完成过滤 + 映射，避免重复 getItemByValue
+      const enabledItems: Recordable<any>[] = [];
+      const enabledIds: (number | string)[] = [];
+      for (const v of val) {
+        const item = getItemByValue(v);
+        if (item && !get(item, props.disabledField)) {
+          enabledItems.push(item);
+          enabledIds.push(v);
+        }
+      }
+
+      // 半选节点不传给 Reka UI 内部选择：Reka UI 会把 model-value 中的节点当作已选中，
+      // 点击半选祖先时会被视为取消选择，误移除祖先及其所有后代。半选节点仅保留在 modelValue 返回值中。
+      if (props.includeIndeterminate && props.multiple) {
+        const excludedKeys = computeIndeterminateKeysInSelection(enabledIds);
+        treeValue.value = enabledItems.filter(
+          (item) => !excludedKeys.has(get(item.value, props.valueField)),
+        );
+      } else {
+        treeValue.value = enabledItems;
+      }
+
+      if (enabledIds.length !== val.length) {
+        modelValue.value = mergeIndeterminate(enabledIds);
+      }
+    }
+  } else {
+    const item = getItemByValue(val);
+    if (item && !get(item, props.disabledField)) {
+      treeValue.value = item;
+    } else {
+      treeValue.value = props.multiple ? [] : undefined;
+      modelValue.value = props.multiple ? [] : undefined;
+    }
+  }
+}
+
 // 初始化：构建 flattenData 并同步 treeValue
 flattenData.value = flatten(props.treeData, props.childrenField);
 if (flattenData.value.length > 0) {
@@ -122,54 +180,6 @@ watch(
   },
   { flush: 'sync' },
 );
-
-/** ID → 原始数据映射，O(1) 查找替代 O(n) find */
-const valueMap = computed(() => {
-  const map = new Map<number | string, Recordable<any>>();
-  for (const item of flattenData.value) {
-    map.set(get(item.value, props.valueField) as number | string, item.value);
-  }
-  return map;
-});
-
-function getItemByValue(value: number | string) {
-  return valueMap.value.get(value);
-}
-
-function updateTreeValue() {
-  const val = modelValue.value;
-  if (val === undefined) {
-    treeValue.value = props.multiple ? [] : undefined;
-  } else if (Array.isArray(val)) {
-    if (val.length === 0) {
-      treeValue.value = [];
-    } else {
-      // 单次遍历完成过滤 + 映射，避免重复 getItemByValue
-      const enabledItems: Recordable<any>[] = [];
-      const enabledIds: (number | string)[] = [];
-      for (const v of val) {
-        const item = getItemByValue(v);
-        if (item && !get(item, props.disabledField)) {
-          enabledItems.push(item);
-          enabledIds.push(v);
-        }
-      }
-      treeValue.value = enabledItems;
-
-      if (enabledIds.length !== val.length) {
-        modelValue.value = mergeIndeterminate(enabledIds);
-      }
-    }
-  } else {
-    const item = getItemByValue(val);
-    if (item && !get(item, props.disabledField)) {
-      treeValue.value = item;
-    } else {
-      treeValue.value = props.multiple ? [] : undefined;
-      modelValue.value = props.multiple ? [] : undefined;
-    }
-  }
-}
 
 function updateModelValue(val: Arrayable<Recordable<any>>) {
   if (Array.isArray(val)) {
@@ -275,7 +285,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
     return;
   }
 
-  if (props.checkStrictly && props.multiple && props.autoCheckParent && !props.keepParentOnUncheck) {
+  if (props.checkStrictly && props.multiple && props.autoCheckParent) {
     // 获取当前节点在 flattenData 中的记录以读取 parents
     const flatItem = flattenData.value.find(
       (i) =>
@@ -283,7 +293,7 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
     );
 
     if (isSelected) {
-      // 选中时：将所有已启用的祖先追加到 modelValue
+      // 选中时：将所有已启用的祖先追加到 modelValue（keepParentOnUncheck 不影响选中时的祖先追加）
       flatItem?.parents
         ?.filter((p) => {
           const parentItem = getItemByValue(p);
@@ -297,8 +307,8 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
             modelValue.value.push(p);
           }
         });
-    } else {
-      // 取消选中时：移除不再有已选子节点的祖先
+    } else if (!props.keepParentOnUncheck) {
+      // 取消选中时：移除不再有已选子节点的祖先；keepParentOnUncheck 为 true 时保留父节点选中状态
       flatItem?.parents
         ?.filter((p) => {
           const parentItem = getItemByValue(p);
@@ -373,6 +383,62 @@ function computeIndeterminateKeys(
 
   return result;
 }
+
+/**
+ * 计算选中列表中"半选祖先节点"的 key：节点自身已在选中列表，但后代仅部分被选中。
+ * 与 computeIndeterminateKeys 不同，它基于后代选中数量统计，适用于 modelValue 已合并半选节点的场景，
+ * 用于从传给 Reka UI 的内部选择中剔除半选节点，并用于补充复选框的半选状态展示。
+ */
+function computeIndeterminateKeysInSelection(
+  selectedIds: (number | string)[],
+): Set<number | string> {
+  const result = new Set<number | string>();
+  if (
+    !props.multiple ||
+    selectedIds.length === 0 ||
+    flattenData.value.length === 0
+  ) {
+    return result;
+  }
+
+  const selectedSet = new Set(selectedIds);
+  const totalDescendants = new Map<number | string, number>();
+  const selectedDescendants = new Map<number | string, number>();
+
+  for (const node of flattenData.value) {
+    const nodeId = get(node.value, props.valueField) as number | string;
+    for (const parentId of node.parents) {
+      totalDescendants.set(parentId, (totalDescendants.get(parentId) ?? 0) + 1);
+      if (selectedSet.has(nodeId)) {
+        selectedDescendants.set(
+          parentId,
+          (selectedDescendants.get(parentId) ?? 0) + 1,
+        );
+      }
+    }
+  }
+
+  for (const id of selectedIds) {
+    const total = totalDescendants.get(id) ?? 0;
+    const selected = selectedDescendants.get(id) ?? 0;
+    if (total > 0 && selected > 0 && selected < total) {
+      result.add(id);
+    }
+  }
+
+  return result;
+}
+
+/** 半选节点 key 集合，用于 Reka UI 不计算半选状态的场景（如 checkStrictly）下补充复选框展示 */
+const indeterminateKeys = computed(() => {
+  if (!props.multiple || !props.includeIndeterminate) {
+    return new Set<number | string>();
+  }
+  const ids = Array.isArray(modelValue.value)
+    ? (modelValue.value as (number | string)[])
+    : [];
+  return computeIndeterminateKeysInSelection(ids);
+});
 
 /** 根据 includeIndeterminate 配置，将半选节点合并到选中列表 */
 function mergeIndeterminate(
@@ -506,7 +572,7 @@ defineExpose({
         <!-- 内容行通过 paddingLeft 控制缩进，不受 TreeItem 自身的渲染行为影响 -->
         <div
           class="flex items-center w-full p-1"
-          :style="{ paddingLeft: `${(item.level - 1) + 0.25}rem` }"
+          :style="{ paddingLeft: `${item.level - 1 + 0.25}rem` }"
         >
           <!-- 固定宽度展开区，有子节点时内部渲染箭头，无子节点时为空但宽度不变 -->
           <div class="flex shrink-0 items-center justify-center w-5">
@@ -531,7 +597,11 @@ defineExpose({
               v-if="multiple"
               :model-value="isSelected && !isNodeDisabled(item)"
               :disabled="isNodeDisabled(item)"
-              :indeterminate="isIndeterminate && !isNodeDisabled(item)"
+              :indeterminate="
+                (isIndeterminate ||
+                  indeterminateKeys.has(get(item.value, valueField))) &&
+                !isNodeDisabled(item)
+              "
               @click="
                 (event: MouseEvent) => {
                   if (isNodeDisabled(item)) {
