@@ -89,7 +89,10 @@ export function setupVbenForm<
       COMPONENT_BIND_EVENT_MAP[key] = componentModelPropName;
     } else if (modelPropNameMap && modelPropNameMap[key]) {
       COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
-    } else if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
+    } else if (baseModelPropName === DEFAULT_MODEL_PROP_NAME) {
+      // 当前配置未声明该组件的绑定协议（回退默认 modelValue）→ 删除上次 setup 遗留的旧条目，避免跨 setup 复用错误协议
+      Reflect.deleteProperty(COMPONENT_BIND_EVENT_MAP, key);
+    } else {
       COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
     }
   }
