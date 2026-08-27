@@ -34,7 +34,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     <ProgressIndicator
       data-slot="progress-indicator"
       :class="cn('bg-primary h-full w-full flex-1 transition-all')"
-      :style="`transform: translateX(-${100 - (slotProps.modelValue || 0)}%)`"
+      :style="`transform: translateX(-${100 - ((slotProps.modelValue || 0) / (props.max ?? 100)) * 100}%)`"
     />
   </ProgressRoot>
 </template>

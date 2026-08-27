@@ -56,12 +56,17 @@ describe('vben progress', () => {
   });
 
   it('respects a custom max when reporting value', async () => {
-    const { root } = await mountProgress(30, 50);
+    const { indicator, root } = await mountProgress(30, 50);
 
     expect(root).toBeInstanceOf(HTMLElement);
     if (!(root instanceof HTMLElement)) return;
     expect(root.getAttribute('aria-valuemax')).toBe('50');
     expect(root.getAttribute('aria-valuenow')).toBe('30');
+
+    // 30 / 50 应按自定义 max 归一化为 60%，而不是 30%。
+    expect(indicator).toBeInstanceOf(HTMLElement);
+    if (!(indicator instanceof HTMLElement)) return;
+    expect(indicator.style.transform).toBe('translateX(-40%)');
   });
 
   it('omits aria-valuenow and marks indeterminate state when value is null', async () => {
