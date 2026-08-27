@@ -258,6 +258,8 @@ export interface VbenFormFieldSlotProps<
   isInValid: boolean;
   modelValue: FormFieldValue<TValues, TFieldName>;
   name: TFieldName;
+  /** 顶层写方向监听器：自定义插槽直接 v-bind 即可完成双向绑定 */
+  'onUpdate:modelValue'?: (value: FormFieldValue<TValues, TFieldName>) => void;
 }
 
 export type VbenFormResolvedComponentProps<

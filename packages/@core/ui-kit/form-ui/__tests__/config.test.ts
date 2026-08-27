@@ -1,8 +1,8 @@
 import type { BaseFormComponentType } from '../src/types';
 
-import { afterEach, describe, expect, it } from 'vitest';
-
 import { globalShareState } from '@vben-core/shared/global-state';
+
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { COMPONENT_BIND_EVENT_MAP, setupVbenForm } from '../src/config';
 

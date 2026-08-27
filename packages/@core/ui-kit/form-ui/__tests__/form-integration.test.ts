@@ -287,7 +287,7 @@ describe('useVbenForm integration', () => {
     let latestSlotProps:
       | undefined
       | VbenFormFieldSlotProps<SlotFormValues, 'name'>;
-    const [Form, formApi] = useVbenForm<SlotFormValues>({
+    const [Form] = useVbenForm<SlotFormValues>({
       schema: [
         {
           component: TestInput,
