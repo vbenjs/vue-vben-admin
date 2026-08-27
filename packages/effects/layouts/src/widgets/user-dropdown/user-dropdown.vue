@@ -388,6 +388,7 @@ if (preferences.shortcutKeys.enable) {
             :src="avatar"
             class="size-8"
             :dot="avatarDot"
+            :dot-class="avatarDotClass"
           />
         </div>
       </div>
