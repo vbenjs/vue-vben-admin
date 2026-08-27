@@ -319,14 +319,20 @@ function handleClosed() {
         <slot></slot>
       </div>
       <VbenLoading v-if="showLoading || submitting" spinning />
-      <VbenIconButton
-        v-if="fullscreenButton"
-        class="absolute top-3 right-10 flex-center size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none"
-        @click="handleFullscreen"
+      <div
+        v-if="fullscreenButton || $slots.extra"
+        class="absolute top-3 right-10 flex items-center gap-1"
       >
-        <Shrink v-if="fullscreen" class="size-3.5" />
-        <Expand v-else class="size-3.5" />
-      </VbenIconButton>
+        <slot name="extra"></slot>
+        <VbenIconButton
+          v-if="fullscreenButton"
+          class="flex-center size-6 rounded-full px-1 text-lg text-foreground/80 opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-hidden disabled:pointer-events-none"
+          @click="handleFullscreen"
+        >
+          <Shrink v-if="fullscreen" class="size-3.5" />
+          <Expand v-else class="size-3.5" />
+        </VbenIconButton>
+      </div>
 
       <DialogFooter
         ref="footerRef"
