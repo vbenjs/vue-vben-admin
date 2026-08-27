@@ -53,7 +53,7 @@ export const overridesPreferences = defineOverridesPreferences({
 ```ts
 // 设置登录用户信息，需要确保 userInfo.roles 是一个数组，且包含路由表中的权限
 // 例如：userInfo.roles=['super', 'admin']
-authStore.setUserInfo(userInfo);
+userStore.setUserInfo(userInfo);
 ```
 
 到这里，就已经配置完成，你需要确保登录后，接口返回的角色和路由表的权限匹配，否则无法访问。
@@ -212,7 +212,7 @@ const [fetchUserInfoResult, accessCodes] = await Promise.all([
 ]);
 
 userInfo = fetchUserInfoResult;
-authStore.setUserInfo(userInfo);
+userStore.setUserInfo(userInfo);
 accessStore.setAccessCodes(accessCodes);
 ```
 
