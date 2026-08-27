@@ -30,6 +30,7 @@
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/tabs-ui": "workspace:*",
+    "@vben-core/typings": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
