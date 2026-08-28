@@ -24,14 +24,13 @@ const delegatedProps = reactiveOmit(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 /**
- * ProgressRoot 会把非法 max（0、负数、NaN）回退为 100；这里用同一规则
- * 归一化后同时用于 root 与指示条 transform，避免 max=0 产生无穷百分比。
+ * ProgressRoot 会把非法 max（0、负数、NaN、Infinity）回退为 100；这里用
+ * 同一规则归一化后同时用于 root 与指示条 transform，避免 max=0 产生无穷
+ * 百分比，也避免 max=Infinity 让指示条除以无穷而退化为空填充。
  */
 const normalizedMax = computed(() => {
   const { max } = props;
-  return typeof max === 'number' && !Number.isNaN(max) && max > 0
-    ? max
-    : DEFAULT_MAX;
+  return Number.isFinite(max) && max > 0 ? max : DEFAULT_MAX;
 });
 </script>
 
