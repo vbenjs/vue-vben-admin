@@ -26,7 +26,7 @@ const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
 export const DEFAULT_FORM_COMMON_CONFIG: FormCommonConfig = {};
 
-export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
+const BUILT_IN_COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
   DefaultButton: h(VbenButton, { size: 'sm', variant: 'outline' }),
   PrimaryButton: h(VbenButton, { size: 'sm', variant: 'default' }),
   VbenCheckbox,
@@ -37,11 +37,28 @@ export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
   VbenSelect,
 };
 
-export const COMPONENT_BIND_EVENT_MAP: Partial<
+const BUILT_IN_COMPONENT_BIND_EVENT_MAP: Partial<
   Record<BaseFormComponentType, string>
 > = {
   VbenCheckbox: 'checked',
 };
+
+export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
+  ...BUILT_IN_COMPONENT_MAP,
+};
+
+export const COMPONENT_BIND_EVENT_MAP: Partial<
+  Record<BaseFormComponentType, string>
+> = {
+  ...BUILT_IN_COMPONENT_BIND_EVENT_MAP,
+};
+
+function replaceRecord<T extends object>(target: T, source: T) {
+  for (const key of Object.keys(target)) {
+    Reflect.deleteProperty(target, key);
+  }
+  Object.assign(target, source);
+}
 
 export function setupVbenForm<
   T extends BaseFormComponentType = BaseFormComponentType,
@@ -74,18 +91,27 @@ export function setupVbenForm<
     | undefined;
 
   const components = globalShareState.getComponents();
+  const nextComponentMap = {
+    ...BUILT_IN_COMPONENT_MAP,
+    ...components,
+  } as Record<BaseFormComponentType, Component>;
+  const nextBindEventMap = {
+    ...BUILT_IN_COMPONENT_BIND_EVENT_MAP,
+  } as Partial<Record<BaseFormComponentType, string>>;
 
   for (const component of Object.keys(components)) {
     const key = component as BaseFormComponentType;
-    COMPONENT_MAP[key] = components[component as never];
 
     if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
-      COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
+      nextBindEventMap[key] = baseModelPropName;
     }
 
     // 覆盖特殊组件的modelPropName
     if (modelPropNameMap && modelPropNameMap[key]) {
-      COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
+      nextBindEventMap[key] = modelPropNameMap[key];
     }
   }
+
+  replaceRecord(COMPONENT_MAP, nextComponentMap);
+  replaceRecord(COMPONENT_BIND_EVENT_MAP, nextBindEventMap);
 }

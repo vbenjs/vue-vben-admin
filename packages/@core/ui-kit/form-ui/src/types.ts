@@ -14,6 +14,15 @@ export type FormLabelWidthContext = UnwrapNestedRefs<
 
 export type FormValues = Record<string, any>;
 
+export type FormValuePatch<T> = T extends
+  | ((...args: any[]) => unknown)
+  | Date
+  | readonly unknown[]
+  ? T
+  : T extends object
+    ? { [K in keyof T]?: FormValuePatch<T[K]> }
+    : T;
+
 export interface FormCodec<
   TFormValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TFormValues,

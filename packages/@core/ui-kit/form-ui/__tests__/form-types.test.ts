@@ -6,6 +6,7 @@ import type {
   FormFieldOptions,
   FormItemDependencies,
   FormValidationResult,
+  FormValuePatch,
   FormValueSnapshot,
   VbenFormAdapterOptions,
   VbenFormProps,
@@ -121,7 +122,13 @@ describe('form public types', () => {
       }>();
       expectTypeOf(typedFormApi.setValues)
         .parameter(0)
-        .toEqualTypeOf<Partial<AccountFormValues>>();
+        .toEqualTypeOf<FormValuePatch<AccountFormValues>>();
+      expectTypeOf<
+        FormValuePatch<AccountFormValues>['profile']
+      >().toEqualTypeOf<undefined | { nickname?: string }>();
+      expectTypeOf<FormValuePatch<AccountFormValues>['roles']>().toEqualTypeOf<
+        string[] | undefined
+      >();
       expectTypeOf(typedFormApi.form.values).toEqualTypeOf<AccountFormValues>();
       expectTypeOf(contextApi.getFieldValue('email')).toEqualTypeOf<string>();
       expectTypeOf(
