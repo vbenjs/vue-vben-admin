@@ -55,14 +55,21 @@ function isPlainFormObject(value: unknown): value is Record<string, unknown> {
 function mergeFormValuePatch(
   currentValue: unknown,
   nextValue: unknown,
+  visited = new WeakMap<object, Record<string, unknown>>(),
 ): unknown {
   if (!isPlainFormObject(nextValue)) {
     return cloneDeep(nextValue);
   }
 
+  const cached = visited.get(nextValue);
+  if (cached) {
+    return cached;
+  }
+
   const result = isPlainFormObject(currentValue) ? cloneDeep(currentValue) : {};
+  visited.set(nextValue, result);
   for (const [key, value] of Object.entries(nextValue)) {
-    result[key] = mergeFormValuePatch(result[key], value);
+    result[key] = mergeFormValuePatch(result[key], value, visited);
   }
   return result;
 }

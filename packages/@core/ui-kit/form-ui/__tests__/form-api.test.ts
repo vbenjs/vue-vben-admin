@@ -480,6 +480,29 @@ describe('formApi', () => {
     );
   });
 
+  it('should handle cyclic plain-object patches without recursion overflow', async () => {
+    const setValuesMock = vi.fn();
+    const profile: Record<string, unknown> = { email: 'new@example.com' };
+    profile.self = profile;
+    formApi.setState({
+      schema: [{ component: 'text', fieldName: 'profile.email' }],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: { profile: { bio: 'Mathematician' } },
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({ profile });
+
+    expect(setValuesMock).toHaveBeenCalledTimes(1);
+    expect(setValuesMock).toHaveBeenCalledWith(
+      { profile: { email: 'new@example.com' } },
+      false,
+    );
+  });
+
   it('should preserve raw-key fields during filtered updates', async () => {
     const setValuesMock = vi.fn();
     formApi.setState({

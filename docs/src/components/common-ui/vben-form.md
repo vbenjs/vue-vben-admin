@@ -433,8 +433,10 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 | setState | 设置组件状态（props） | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` | - |
 | getState | 获取组件状态（props） | `()=>Promise<VbenFormProps>` | - |
 | form | 稳定的 `FormContextApi`，提供 values、errors、set/reset/validate/submit 与数组字段操作，不暴露底层 TanStack 泛型 | `FormContextApi` | - |
+| getFieldComponentRef | 获取指定字段的组件实例 | `<T=unknown>(fieldName: string)=>T` | >5.5.3 |
+| getFocusedField | 获取当前已获得焦点的字段 | `()=>string\|undefined` | >5.5.3 |
 
-`setValues` 在默认的 `filterFields=true` 模式下会将普通对象作为深层补丁合并，因此更新 `profile.email` 时会保留 `profile` 下其他已声明字段和默认值。数组、日期、Day.js、`null`、`undefined` 等叶值仍会整体覆盖。需要替换整个对象分支时，请使用 `setFieldValue('profile', nextProfile)`；需要绕过 schema 字段过滤时，可以将 `filterFields` 设为 `false`。| getFieldComponentRef | 获取指定字段的组件实例 | `<T=unknown>(fieldName: string)=>T` | >5.5.3 | | getFocusedField | 获取当前已获得焦点的字段 | `()=>string\|undefined` | >5.5.3 |
+`setValues` 在默认的 `filterFields=true` 模式下会将普通对象作为深层补丁合并，因此更新 `profile.email` 时会保留 `profile` 下其他已声明字段和默认值。数组、日期、Day.js、`null`、`undefined` 等叶值仍会整体覆盖。需要替换整个对象分支时，请使用 `setFieldValue('profile', nextProfile)`；需要绕过 schema 字段过滤时，可以将 `filterFields` 设为 `false`。
 
 旧命名 `submitForm`、`validateAndSubmitForm`、`resetForm`、`resetValidate` 分别对应 `submit`、`validateAndSubmit`、`reset`、`clearValidation`。它们仍可调用，但已标记 `@deprecated`，开发环境每个旧名称只警告一次，生产环境静默。
 
