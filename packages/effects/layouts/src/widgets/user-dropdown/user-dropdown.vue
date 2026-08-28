@@ -5,6 +5,8 @@ import type { LanguageOption } from '@vben/constants';
 import type { SupportedLanguagesType } from '@vben/locales';
 import type { AnyFunction } from '@vben/types';
 
+import type { ClassType } from '@vben-core/typings';
+
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 
 import { onSupportLanguagesChange } from '@vben/constants';
@@ -58,6 +60,15 @@ interface Props {
    */
   avatar?: string;
   /**
+   * 头像是否显示在线圆点
+   * @default true
+   */
+  avatarDot?: boolean;
+  /**
+   * 头像在线圆点样式
+   */
+  avatarDotClass?: ClassType;
+  /**
    * @zh_CN 描述
    */
   description?: string;
@@ -90,6 +101,8 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   avatar: '',
+  avatarDot: true,
+  avatarDotClass: 'bottom-0 right-1 border-2 size-4 bg-green-500',
   description: '',
   menus: () => [],
   tagText: '',
@@ -370,7 +383,13 @@ if (preferences.shortcutKeys.enable) {
     <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
       <div class="mr-2 ml-1 cursor-pointer rounded-full p-1.5 hover:bg-accent">
         <div class="flex-center hover:text-accent-foreground">
-          <VbenAvatar :alt="text" :src="avatar" class="size-8" dot />
+          <VbenAvatar
+            :alt="text"
+            :src="avatar"
+            class="size-8"
+            :dot="avatarDot"
+            :dot-class="avatarDotClass"
+          />
         </div>
       </div>
     </DropdownMenuTrigger>
@@ -381,8 +400,8 @@ if (preferences.shortcutKeys.enable) {
             :alt="text"
             :src="avatar"
             class="size-12"
-            dot
-            dot-class="bottom-0 right-1 border-2 size-4 bg-green-500"
+            :dot="avatarDot"
+            :dot-class="avatarDotClass"
           />
           <div class="ml-2 w-full">
             <div
