@@ -30,7 +30,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
  */
 const normalizedMax = computed(() => {
   const { max } = props;
-  return Number.isFinite(max) && max > 0 ? max : DEFAULT_MAX;
+  return typeof max === 'number' && Number.isFinite(max) && max > 0
+    ? max
+    : DEFAULT_MAX;
 });
 </script>
 
