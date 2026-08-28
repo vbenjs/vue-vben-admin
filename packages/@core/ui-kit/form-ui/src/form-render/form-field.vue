@@ -289,6 +289,29 @@ const fieldProps = computed(() => {
   };
 });
 
+// 字段名与 <form> 固有属性冲突时（如 nodeName），不把 name 落到原生控件上：
+// <input name="nodeName"> 会劫持 form.nodeName 访问器，返回控件元素而非字符串，
+// 导致 popper/floating 计算（getNodeName → nodeName.toLowerCase()）崩溃（issue #8214）。
+// 判定：form 固有属性均不为 undefined（''、0、null、对象、函数），
+// 而 form 上不存在的命名属性访问返回 undefined——以此区分冲突与否。
+const fieldNameConflictCache = new Map<string, boolean>();
+function conflictsWithFormProperty(fieldName: string): boolean {
+  let cached = fieldNameConflictCache.get(fieldName);
+  if (cached === undefined) {
+    cached = false;
+    if (typeof document !== 'undefined') {
+      try {
+        cached =
+          Reflect.get(document.createElement('form'), fieldName) !== undefined;
+      } catch {
+        cached = false;
+      }
+    }
+    fieldNameConflictCache.set(fieldName, cached);
+  }
+  return cached;
+}
+
 function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   const { field } = slotProps;
   function handleChange(value: any) {
@@ -298,7 +321,7 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   return {
     ...slotProps,
     componentField: {
-      name: fieldName,
+      ...(conflictsWithFormProperty(fieldName) ? {} : { name: fieldName }),
       modelValue: fieldValue.value,
       onBlur: field.handleBlur,
       onChange: handleChange,
