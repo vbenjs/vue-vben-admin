@@ -41,6 +41,8 @@ The current adapter pattern is:
 - map special `v-model:*` prop names through `modelPropNameMap`
 - keep the form empty state aligned with the actual UI library behavior
 
+Each `setupVbenForm` call rebuilds the component and model-prop mappings from the current shared component registry. Repeated setup removes components that are no longer registered while preserving built-in components and their default bindings.
+
 ### Form Adapter Example
 
 ```ts
@@ -226,6 +228,8 @@ Create the form through `useVbenForm`:
 ## Typed Values and Slots
 
 Use `useVbenForm<TFormValues, TSubmitValues>` to declare component-facing form values and submission values separately. Schema, slots, selectors, and `setValues` use `TFormValues`; `getValues()` and `submit()` return `Promise<TSubmitValues>`, while `submit()` only accepts an optional native `Event`; the first `handleSubmit` argument is `TSubmitValues`. Pass one generic when both shapes are identical.
+
+`setValues` accepts a deep `FormValuePatch<TFormValues>`. With the default `filterFields=true`, plain objects are merged as patches before fields outside the schema are removed, so updating `profile.email` preserves declared sibling fields and defaults under `profile`. Arrays, dates, Day.js values, `null`, and `undefined` replace the corresponding value atomically. Use `setFieldValue('profile', nextProfile)` to replace an entire object branch, or set `filterFields` to `false` to bypass schema filtering.
 
 ```vue
 <script setup lang="ts">

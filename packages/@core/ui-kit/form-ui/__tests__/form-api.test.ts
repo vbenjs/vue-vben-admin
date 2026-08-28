@@ -374,6 +374,155 @@ describe('formApi', () => {
     );
   });
 
+  it('should preserve nested schema siblings in touched branches', async () => {
+    const setValuesMock = vi.fn();
+    formApi.setState({
+      schema: [
+        { component: 'text', fieldName: 'profile.email' },
+        { component: 'text', fieldName: 'profile.nickname' },
+      ],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: {
+        profile: {
+          email: 'old@example.com',
+          ignored: true,
+          nickname: 'Ada',
+        },
+        untouched: 'keep',
+      },
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({
+      profile: { email: 'new@example.com' },
+    });
+
+    expect(setValuesMock).toHaveBeenCalledWith(
+      {
+        profile: {
+          email: 'new@example.com',
+          nickname: 'Ada',
+        },
+      },
+      false,
+    );
+  });
+
+  it('should patch object fields while replacing atomic values', async () => {
+    class AtomicValue {
+      constructor(readonly value: string) {}
+    }
+
+    const setValuesMock = vi.fn();
+    const atomicValue = new AtomicValue('new');
+    const updatedAt = new Date('2026-08-27T00:00:00.000Z');
+    const fields = {
+      atomicValue,
+      cleared: undefined,
+      contacts: [{ name: 'Grace' }],
+      nullable: null,
+      profile: { email: 'new@example.com' },
+      updatedAt,
+    };
+    formApi.setState({
+      schema: [
+        { component: 'text', fieldName: 'atomicValue' },
+        { component: 'text', fieldName: 'cleared' },
+        { component: 'text', fieldName: 'contacts' },
+        { component: 'text', fieldName: 'nullable' },
+        { component: 'text', fieldName: 'profile' },
+        { component: 'text', fieldName: 'updatedAt' },
+      ],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: {
+        atomicValue: new AtomicValue('old'),
+        cleared: 'remove',
+        contacts: [{ name: 'Ada' }],
+        nullable: 'remove',
+        profile: { bio: 'Mathematician', email: 'old@example.com' },
+        updatedAt: new Date('2026-08-26T00:00:00.000Z'),
+      },
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues(fields, true, true);
+
+    expect(fields).toEqual({
+      atomicValue,
+      cleared: undefined,
+      contacts: [{ name: 'Grace' }],
+      nullable: null,
+      profile: { email: 'new@example.com' },
+      updatedAt,
+    });
+    expect(setValuesMock).toHaveBeenCalledWith(
+      {
+        atomicValue,
+        cleared: undefined,
+        contacts: [{ name: 'Grace' }],
+        nullable: null,
+        profile: {
+          bio: 'Mathematician',
+          email: 'new@example.com',
+        },
+        updatedAt,
+      },
+      true,
+    );
+    expect(setValuesMock.mock.calls[0]?.[0]?.atomicValue).toBeInstanceOf(
+      AtomicValue,
+    );
+  });
+
+  it('should handle cyclic plain-object patches without recursion overflow', async () => {
+    const setValuesMock = vi.fn();
+    const profile: Record<string, unknown> = { email: 'new@example.com' };
+    profile.self = profile;
+    formApi.setState({
+      schema: [{ component: 'text', fieldName: 'profile.email' }],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: { profile: { bio: 'Mathematician' } },
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({ profile });
+
+    expect(setValuesMock).toHaveBeenCalledTimes(1);
+    expect(setValuesMock).toHaveBeenCalledWith(
+      { profile: { email: 'new@example.com' } },
+      false,
+    );
+  });
+
+  it('should preserve raw-key fields during filtered updates', async () => {
+    const setValuesMock = vi.fn();
+    formApi.setState({
+      schema: [{ component: 'text', fieldName: '[profile.email]' }],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: { 'profile.email': 'old@example.com' },
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({ 'profile.email': 'new@example.com' });
+
+    expect(setValuesMock).toHaveBeenCalledWith(
+      { 'profile.email': 'new@example.com' },
+      false,
+    );
+  });
+
   it('should reset form', async () => {
     const resetMock = vi.fn();
     const formActions: any = {
