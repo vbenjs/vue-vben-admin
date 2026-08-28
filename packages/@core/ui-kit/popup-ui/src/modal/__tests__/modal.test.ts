@@ -106,6 +106,43 @@ describe('vben modal', () => {
     document.dispatchEvent(new MouseEvent('mouseup'));
   });
 
+  it('renders custom content in the extra header slot', async () => {
+    const mainContent = document.createElement('main');
+    mainContent.id = ELEMENT_ID_MAIN_CONTENT;
+    mainContent.innerHTML = '<div><div></div></div>';
+    document.body.append(mainContent);
+
+    const Consumer = defineComponent(() => {
+      const [Modal, modalApi] = useVbenModal({
+        appendToMain: true,
+        fullscreenButton: true,
+        title: 'Slot modal',
+      });
+      onMounted(() => {
+        modalApi.open();
+      });
+      return () =>
+        h(Modal, null, {
+          extra: () => h('span', { class: 'extra-slot-marker' }, 'Custom'),
+        });
+    });
+    const host = document.createElement('div');
+    document.body.append(host);
+    activeApp = createApp(() => h(Consumer));
+    activeApp.mount(host);
+    await nextTick();
+    await nextTick();
+
+    const marker = document.querySelector('.extra-slot-marker');
+    expect(marker).toBeInstanceOf(HTMLElement);
+    if (!(marker instanceof HTMLElement)) return;
+    expect(marker.textContent?.trim()).toBe('Custom');
+    // extra slot 应渲染在 fullscreen 按钮容器内，与全屏按钮同排
+    const container = marker.closest('.absolute');
+    expect(container).toBeInstanceOf(HTMLElement);
+    expect(mainContent.contains(container)).toBe(true);
+  });
+
   it('fires onClosed via the fallback when no animation event arrives', async () => {
     vi.useFakeTimers({
       toFake: [
