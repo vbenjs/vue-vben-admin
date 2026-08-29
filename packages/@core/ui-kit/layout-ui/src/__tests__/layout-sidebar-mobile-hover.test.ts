@@ -15,9 +15,9 @@ vi.mock('@vben-core/composables', async (importOriginal) => {
   };
 });
 
-vi.mock('../../hooks/use-sidebar-drag', async (importOriginal) => {
+vi.mock('../hooks/use-sidebar-drag', async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import('../../hooks/use-sidebar-drag')>();
+    await importOriginal<typeof import('../hooks/use-sidebar-drag')>();
   return {
     ...actual,
     useSidebarDrag: () => ({ startDrag: vi.fn(), endDrag: vi.fn() }),
