@@ -314,7 +314,9 @@ function conflictsWithFormProperty(fieldName: string): boolean {
 
 // 组件定义内省：props（数组或对象）显式声明 name 时，binds.name 是组件的
 // 语义 prop 而非原生 fallthrough 属性，不参与原生剥离判定（coderabbit review
-// 边界修正）。字符串组件名无法内省，按未声明处理，维持原生剥离的默认安全性。
+// 边界修正）。入参必须传解析后的 FieldComponent：字符串组件名经 componentMap
+// 解析后再内省；未注册的字符串组件（解析结果为 undefined）按未声明处理，
+// 维持原生剥离的默认安全性。
 function declaresNameProp(comp: unknown): boolean {
   const compProps = (comp as undefined | { props?: undefined | unknown })
     ?.props;
@@ -422,12 +424,13 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   // 边界：fieldBindEvent 产出过 name 键时，binds.name 是模型数据绑定
   // （modelPropName / modelPropNameMap 显式解析为 'name'），承载的是表单数据
   // 而非原生属性，即便其值与 <form> 固有属性同名也不得剥离。
-  // 边界：组件把 name 声明为语义 prop 时，binds.name 是组件 prop 而非
-  // 原生 fallthrough 属性，同样不剥离；字符串组件名无法内省，按未声明处理。
+  // 边界：组件把 name 声明为语义 prop 时（含字符串组件名经 componentMap
+  // 解析出的组件），binds.name 是组件 prop 而非原生 fallthrough 属性，
+  // 同样不剥离；未注册的字符串组件按未声明处理。
   const nameIsModelBinding = Reflect.has(bindEvents, 'name');
   if (
     !nameIsModelBinding &&
-    !declaresNameProp(component) &&
+    !declaresNameProp(FieldComponent.value) &&
     Reflect.has(binds, 'name') &&
     conflictsWithFormProperty(Reflect.get(binds, 'name') as string)
   ) {

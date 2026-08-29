@@ -11,7 +11,7 @@ import {
   ElInput,
   ElTreeSelect,
 } from '../../../../../node_modules/.pnpm/element-plus@2.14.5_vue@3.5.41_typescript@6.0.3_/node_modules/element-plus/es/index.mjs';
-import { setupVbenForm } from '../src/config';
+import { COMPONENT_MAP, setupVbenForm } from '../src/config';
 import { useVbenForm } from '../src/use-vben-form';
 
 const wrappers: VueWrapper[] = [];
@@ -201,6 +201,28 @@ describe('issue #8214: form field named nodeName crashes TreeSelect render', () 
     await nextTick();
 
     // 语义 prop 存活：组件收到的 name 就是用户显式配置的值
+    expect(capturedDeclaredName).toBe('nodeName');
+  });
+
+  it('resolves string components through componentMap before the declared-prop check', async () => {
+    // coderabbit review 边界：字符串组件名经 componentMap 解析出的组件若声明了
+    // name 语义 prop，同样不得剥离（守卫须内省解析后的 FieldComponent）
+    COMPONENT_MAP.NameDeclared = DeclaredNameComponent;
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: 'NameDeclared',
+          componentProps: { name: 'nodeName' },
+          fieldName: 'nodeName',
+        },
+      ],
+    });
+
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+    await nextTick();
+
     expect(capturedDeclaredName).toBe('nodeName');
   });
 });
