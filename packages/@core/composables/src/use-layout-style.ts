@@ -15,9 +15,11 @@ import { useCssVar } from '@vueuse/core';
 export function useLayoutContentStyle() {
   const contentElement = ref<HTMLDivElement | null>(null);
 
-  const overlayStyle = computed(
-    (): CSSProperties => ({ inset: 0, position: 'absolute', zIndex: 150 }),
-  );
+  const overlayStyle = computed((): CSSProperties => ({
+    inset: 0,
+    position: 'absolute',
+    zIndex: 150,
+  }));
 
   return { contentElement, overlayStyle };
 }
