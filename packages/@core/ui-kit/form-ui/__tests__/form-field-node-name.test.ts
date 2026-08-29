@@ -84,6 +84,18 @@ describe('issue #8214: form field named nodeName crashes TreeSelect render', () 
     expect(renderError).toBeUndefined();
     expect(consoleError).not.toHaveBeenCalled();
 
+    // 打开 TreeSelect 弹层：issue #8214 的崩溃发生在弹层 floating 定位
+    // （getNodeName 读取被劫持的 form.nodeName）阶段，此处验证完整打开流程无错
+    await wrapper.find('.el-select__wrapper').trigger('click');
+    await flushPromises();
+    await nextTick();
+    expect(renderError).toBeUndefined();
+    expect(consoleError).not.toHaveBeenCalled();
+
+    // 原生控件上不应存在 name="nodeName"：<input name="nodeName"> 会劫持
+    // form.nodeName 访问器（issue #8214 的根因）
+    expect(wrapper.find('input[name="nodeName"]').exists()).toBe(false);
+
     // 探针结果：ElTreeSelect 收到的键里不应有值为对象的 nodeName 键
     expect(capturedTreeSelectKeys).toContain('name');
     expect(capturedTreeSelectNodeName).toBeUndefined();

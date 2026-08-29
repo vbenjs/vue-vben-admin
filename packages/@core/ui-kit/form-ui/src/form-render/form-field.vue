@@ -401,6 +401,16 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
     Reflect.deleteProperty(binds, 'onUpdate:modelValue');
   }
 
+  // 合并完成后统一剥离与 <form> 固有属性冲突的 name（含用户 binds 显式传入的值），
+  // 防止 <input name="nodeName"> 劫持 form.nodeName 访问器（issue #8214）；
+  // 不冲突的 name（无论生成还是绑定来源）原样保留。
+  if (
+    Reflect.has(binds, 'name') &&
+    conflictsWithFormProperty(Reflect.get(binds, 'name') as string)
+  ) {
+    Reflect.deleteProperty(binds, 'name');
+  }
+
   return binds;
 }
 
