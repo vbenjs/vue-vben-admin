@@ -289,6 +289,46 @@ const fieldProps = computed(() => {
   };
 });
 
+// 字段名与 <form> 固有属性冲突时（如 nodeName），不把 name 落到原生控件上：
+// <input name="nodeName"> 会劫持 form.nodeName 访问器，返回控件元素而非字符串，
+// 导致 popper/floating 计算（getNodeName → nodeName.toLowerCase()）崩溃（issue #8214）。
+// 判定：form 固有属性均不为 undefined（''、0、null、对象、函数），
+// 而 form 上不存在的命名属性访问返回 undefined——以此区分冲突与否。
+const fieldNameConflictCache = new Map<string, boolean>();
+function conflictsWithFormProperty(fieldName: string): boolean {
+  let cached = fieldNameConflictCache.get(fieldName);
+  if (cached === undefined) {
+    cached = false;
+    if (typeof document !== 'undefined') {
+      try {
+        cached =
+          Reflect.get(document.createElement('form'), fieldName) !== undefined;
+      } catch {
+        cached = false;
+      }
+    }
+    fieldNameConflictCache.set(fieldName, cached);
+  }
+  return cached;
+}
+
+// 组件定义内省：props（数组或对象）显式声明 name 时，binds.name 是组件的
+// 语义 prop 而非原生 fallthrough 属性，不参与原生剥离判定（coderabbit review
+// 边界修正）。入参必须传解析后的 FieldComponent：字符串组件名经 componentMap
+// 解析后再内省；未注册的字符串组件（解析结果为 undefined）按未声明处理，
+// 维持原生剥离的默认安全性。
+function declaresNameProp(comp: unknown): boolean {
+  const compProps = (comp as undefined | { props?: undefined | unknown })
+    ?.props;
+  if (Array.isArray(compProps)) {
+    return compProps.includes('name');
+  }
+  if (compProps && typeof compProps === 'object') {
+    return Reflect.has(compProps, 'name');
+  }
+  return false;
+}
+
 function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   const { field } = slotProps;
   function handleChange(value: any) {
@@ -298,7 +338,7 @@ function createFieldSlotProps(slotProps: RuntimeFieldSlotProps) {
   return {
     ...slotProps,
     componentField: {
-      name: fieldName,
+      ...(conflictsWithFormProperty(fieldName) ? {} : { name: fieldName }),
       modelValue: fieldValue.value,
       onBlur: field.handleBlur,
       onChange: handleChange,
@@ -376,6 +416,25 @@ function createComponentProps(slotProps: RuntimeFieldSlotProps) {
   if (bindEventField && bindEventField !== 'modelValue') {
     Reflect.deleteProperty(binds, 'modelValue');
     Reflect.deleteProperty(binds, 'onUpdate:modelValue');
+  }
+
+  // 合并完成后统一剥离与 <form> 固有属性冲突的 name（含用户 binds 显式传入的值），
+  // 防止 <input name="nodeName"> 劫持 form.nodeName 访问器（issue #8214）；
+  // 不冲突的 name（无论生成还是绑定来源）原样保留。
+  // 边界：fieldBindEvent 产出过 name 键时，binds.name 是模型数据绑定
+  // （modelPropName / modelPropNameMap 显式解析为 'name'），承载的是表单数据
+  // 而非原生属性，即便其值与 <form> 固有属性同名也不得剥离。
+  // 边界：组件把 name 声明为语义 prop 时（含字符串组件名经 componentMap
+  // 解析出的组件），binds.name 是组件 prop 而非原生 fallthrough 属性，
+  // 同样不剥离；未注册的字符串组件按未声明处理。
+  const nameIsModelBinding = Reflect.has(bindEvents, 'name');
+  if (
+    !nameIsModelBinding &&
+    !declaresNameProp(FieldComponent.value) &&
+    Reflect.has(binds, 'name') &&
+    conflictsWithFormProperty(Reflect.get(binds, 'name') as string)
+  ) {
+    Reflect.deleteProperty(binds, 'name');
   }
 
   return binds;
