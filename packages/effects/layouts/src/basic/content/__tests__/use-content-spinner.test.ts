@@ -16,7 +16,7 @@ vi.mock('@vben/preferences', () => ({
 
 // useRouter 从实例注入取 router，测试里用 holder 直接供给
 const routerHolder = vi.hoisted(() => ({
-  current: undefined as undefined | { afterEach: unknown; beforeEach: unknown; },
+  current: undefined as undefined | { afterEach: unknown; beforeEach: unknown },
 }));
 
 vi.mock('vue-router', () => ({
