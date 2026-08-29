@@ -283,6 +283,11 @@ function calcMenuWidthStyle(): CSSProperties {
 }
 
 function handleMouseenter(e: MouseEvent) {
+  // 移动端抽屉模式不存在 hover 语义：合成 mouse 事件不得改写折叠状态
+  // （resize 跨断点时浏览器会对正在卸载/重排的侧栏派发 mouseenter/mouseleave）
+  if (props.isMobile) {
+    return;
+  }
   if (e?.offsetX < 10) {
     return;
   }
@@ -305,7 +310,8 @@ function handleMouseleave() {
   if (props.isSidebarMixed) {
     isLocked.value = false;
   }
-  if (expandOnHover.value) {
+  // isMobile 守卫：防止断点切换窗口期的合成 mouseleave 把折叠态写入并持久化（#8274）
+  if (expandOnHover.value || props.isMobile) {
     return;
   }
 
