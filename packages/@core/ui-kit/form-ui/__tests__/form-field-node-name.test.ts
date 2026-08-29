@@ -19,6 +19,7 @@ const wrappers: VueWrapper[] = [];
 // 探针：记录 ElTreeSelect 实际收到的 props/attrs 键
 let capturedTreeSelectKeys: string[] = [];
 let capturedTreeSelectNodeName: unknown;
+let capturedTreeSelectNameValue: unknown;
 
 const ProbeTreeSelect = defineComponent({
   name: 'ProbeTreeSelect',
@@ -26,6 +27,7 @@ const ProbeTreeSelect = defineComponent({
   setup(props, { attrs }) {
     capturedTreeSelectKeys = [...Object.keys(props), ...Object.keys(attrs)];
     capturedTreeSelectNodeName = Reflect.get(attrs, 'nodeName');
+    capturedTreeSelectNameValue = Reflect.get(attrs, 'name');
     return () => h(ElTreeSelect, { ...props, ...attrs });
   },
 });
@@ -43,6 +45,7 @@ afterEach(() => {
   }
   capturedTreeSelectKeys = [];
   capturedTreeSelectNodeName = undefined;
+  capturedTreeSelectNameValue = undefined;
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
@@ -137,5 +140,31 @@ describe('issue #8214: form field named nodeName crashes TreeSelect render', () 
     // 会劫持 form.nodeName 访问器（issue #8214）
     expect(capturedTreeSelectKeys).not.toContain('name');
     expect(capturedTreeSelectNodeName).toBeUndefined();
+  });
+
+  it('keeps model binding when modelPropName resolves to name and its value collides', async () => {
+    // coderabbit review 边界：modelPropName: 'name' 时 binds.name 承载模型数据
+    // （v-model 语义），即便其值与 <form> 固有属性同名也不得剥离；
+    // 原生属性路径仍由 conflictsWithFormProperty 阻断。
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: ProbeTreeSelect,
+          componentProps: { data: [] },
+          defaultValue: 'nodeName',
+          fieldName: 'nodeName',
+          modelPropName: 'name',
+        },
+      ],
+    });
+
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+    await nextTick();
+
+    // 模型绑定存活：name 键存在且承载表单数据（未被子组件 attr 路径劫持）
+    expect(capturedTreeSelectKeys).toContain('name');
+    expect(capturedTreeSelectNameValue).toBe('nodeName');
   });
 });
