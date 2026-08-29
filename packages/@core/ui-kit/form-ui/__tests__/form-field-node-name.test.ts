@@ -20,6 +20,19 @@ const wrappers: VueWrapper[] = [];
 let capturedTreeSelectKeys: string[] = [];
 let capturedTreeSelectNodeName: unknown;
 let capturedTreeSelectNameValue: unknown;
+let capturedDeclaredName: unknown;
+
+// 声明 name 为语义 prop 的探针组件：验证 componentProps.name 不被剥离
+const DeclaredNameComponent = defineComponent({
+  name: 'DeclaredNameComponent',
+  props: {
+    name: { type: String, default: '' },
+  },
+  setup(props) {
+    capturedDeclaredName = props.name;
+    return () => h('div', `name:${props.name ?? ''}`);
+  },
+});
 
 const ProbeTreeSelect = defineComponent({
   name: 'ProbeTreeSelect',
@@ -46,6 +59,7 @@ afterEach(() => {
   capturedTreeSelectKeys = [];
   capturedTreeSelectNodeName = undefined;
   capturedTreeSelectNameValue = undefined;
+  capturedDeclaredName = undefined;
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
@@ -166,5 +180,27 @@ describe('issue #8214: form field named nodeName crashes TreeSelect render', () 
     // 模型绑定存活：name 键存在且承载表单数据（未被子组件 attr 路径劫持）
     expect(capturedTreeSelectKeys).toContain('name');
     expect(capturedTreeSelectNameValue).toBe('nodeName');
+  });
+
+  it('preserves componentProps.name when the component declares name as a semantic prop', async () => {
+    // coderabbit review 边界：声明了 name 语义 prop 的组件，componentProps.name
+    // 是组件 prop 而非原生 fallthrough 属性，值冲突也不得剥离
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: DeclaredNameComponent,
+          componentProps: { name: 'nodeName' },
+          fieldName: 'nodeName',
+        },
+      ],
+    });
+
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+    await nextTick();
+
+    // 语义 prop 存活：组件收到的 name 就是用户显式配置的值
+    expect(capturedDeclaredName).toBe('nodeName');
   });
 });
