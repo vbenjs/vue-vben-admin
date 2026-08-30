@@ -6,7 +6,7 @@
 
 ## 原理
 
-由 `vite-plugin-inject-app-loading` 插件实现，插件会在每个应用都注入一个全局的 `loading html`。
+由项目内置的 `inject-app-loading` 插件实现。源码位于 `internal/vite-config/src/plugins/inject-app-loading`，插件会在每个应用中注入全局 `loading HTML`。
 
 ## 关闭
 
@@ -19,6 +19,8 @@ VITE_INJECT_APP_LOADING=false
 ## 自定义
 
 如果你想要自定义全局 loading，可以在应用目录下，与`index.html`同级，创建一个`loading.html`文件，插件会自动读取并注入。这个html可以自行定义样式和动画。
+
+项目内置的默认模板位于 `internal/vite-config/src/plugins/inject-app-loading/default-loading.html`，可作为自定义参考。
 
 ::: tip
 
