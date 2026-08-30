@@ -76,10 +76,9 @@ type CustomPreferencesField<
   string extends Extract<keyof TCustomPreferences, string>
     ? AnyCustomPreferencesField
     : {
-        [K in Extract<
-          keyof TCustomPreferences,
-          string
-        >]: TCustomPreferences[K] extends boolean
+        [
+          K in Extract<keyof TCustomPreferences, string>
+        ]: TCustomPreferences[K] extends boolean
           ? CustomPreferencesSwitchField<K>
           : TCustomPreferences[K] extends number
             ? CustomPreferencesNumberField<K>
