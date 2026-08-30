@@ -19,7 +19,11 @@ function useContentSpinner() {
 
   let hideTimer: null | ReturnType<typeof setTimeout> = null;
   let navSeq = 0;
-  let showTimer: null | ReturnType<typeof setTimeout> = null;
+  const routeSeq = new WeakMap<object, number>();
+  let showTimer: null | {
+    id: ReturnType<typeof setTimeout>;
+    seq: number;
+  } = null;
 
   const clearTimers = () => {
     if (hideTimer) {
@@ -27,18 +31,18 @@ function useContentSpinner() {
       hideTimer = null;
     }
     if (showTimer) {
-      clearTimeout(showTimer);
+      clearTimeout(showTimer.id);
       showTimer = null;
     }
   };
 
   // 结束加载动画
-  const onEnd = () => {
-    if (!enableLoading.value) {
+  const onEnd = (seq: number | undefined) => {
+    if (!enableLoading.value || seq !== navSeq) {
       return;
     }
-    if (showTimer) {
-      clearTimeout(showTimer);
+    if (showTimer?.seq === seq) {
+      clearTimeout(showTimer.id);
       showTimer = null;
     }
     // spinner 尚未显示过（快速导航）：直接结束，不闪现
@@ -64,14 +68,18 @@ function useContentSpinner() {
     clearTimers();
     navSeq += 1;
     const seq = navSeq;
-    startTime.value = performance.now();
-    showTimer = setTimeout(() => {
-      showTimer = null;
+    routeSeq.set(to, seq);
+    const id = setTimeout(() => {
+      if (showTimer?.seq === seq) {
+        showTimer = null;
+      }
       // 仅当仍是本次导航时才显示，避免陈旧定时器闪现
-      if (seq === navSeq) {
+      if (seq === navSeq && !spinning.value) {
+        startTime.value = performance.now();
         spinning.value = true;
       }
     }, showDelay);
+    showTimer = { id, seq };
     return true;
   });
 
@@ -80,7 +88,7 @@ function useContentSpinner() {
     if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
     }
-    onEnd();
+    onEnd(routeSeq.get(to));
     return true;
   });
 

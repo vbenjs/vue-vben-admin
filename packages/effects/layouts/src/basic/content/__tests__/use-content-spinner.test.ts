@@ -58,7 +58,7 @@ function mountSpinner(router: Router) {
   let spinningRef: undefined | { value: boolean };
   activeApp = createApp({
     setup() {
-      const { spinning } = useContentSpinner(router);
+      const { spinning } = useContentSpinner();
       spinningRef = spinning;
       return () => null;
     },
@@ -71,15 +71,12 @@ function makeRoute(meta: Record<string, unknown> = {}) {
   return { meta } as never;
 }
 
-function runBefore(guard: NavigationGuard, meta: Record<string, unknown> = {}) {
-  return guard(makeRoute(meta), makeRoute(), vi.fn());
+function runBefore(guard: NavigationGuard, route = makeRoute()) {
+  return guard(route, makeRoute(), vi.fn());
 }
 
-function runAfter(
-  hook: NavigationHookAfter,
-  meta: Record<string, unknown> = {},
-) {
-  return hook(makeRoute(meta), makeRoute(), undefined);
+function runAfter(hook: NavigationHookAfter, route = makeRoute()) {
+  return hook(route, makeRoute(), undefined);
 }
 
 function cleanup() {
@@ -97,11 +94,12 @@ describe('useContentSpinner', () => {
       const isSpinning = mountSpinner(routerMock.router);
       const timerBaseline = vi.getTimerCount();
       const { afterHook, beforeGuard } = routerMock.getHooks();
+      const route = makeRoute();
 
-      await runBefore(beforeGuard);
+      await runBefore(beforeGuard, route);
       // 在 showDelay 之前完成导航
       vi.advanceTimersByTime(SHOW_DELAY - 50);
-      await runAfter(afterHook);
+      await runAfter(afterHook, route);
       vi.advanceTimersByTime(SHOW_DELAY * 2);
       await nextTick();
 
@@ -120,15 +118,16 @@ describe('useContentSpinner', () => {
       const routerMock = createRouterMock();
       const isSpinning = mountSpinner(routerMock.router);
       const { afterHook, beforeGuard } = routerMock.getHooks();
+      const route = makeRoute();
 
-      await runBefore(beforeGuard);
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(SHOW_DELAY);
       await nextTick();
       expect(isSpinning()).toBe(true);
 
       // 导航耗时 800ms > minShowTime，afterEach 时立即隐藏
       vi.advanceTimersByTime(800 - SHOW_DELAY);
-      await runAfter(afterHook);
+      await runAfter(afterHook, route);
       await nextTick();
       expect(isSpinning()).toBe(false);
     } finally {
@@ -143,21 +142,53 @@ describe('useContentSpinner', () => {
       const routerMock = createRouterMock();
       const isSpinning = mountSpinner(routerMock.router);
       const { afterHook, beforeGuard } = routerMock.getHooks();
+      const route = makeRoute();
 
-      await runBefore(beforeGuard);
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(SHOW_DELAY);
       await nextTick();
       expect(isSpinning()).toBe(true);
 
-      // 导航耗时 300ms < minShowTime：spinner 应保留到 500ms
+      // 导航耗时 300ms，spinner 从 200ms 开始显示，应保留到 700ms
       vi.advanceTimersByTime(300 - SHOW_DELAY);
-      await runAfter(afterHook);
+      await runAfter(afterHook, route);
       await nextTick();
       expect(isSpinning()).toBe(true);
 
-      vi.advanceTimersByTime(MIN_SHOW_TIME - 300);
+      vi.advanceTimersByTime(MIN_SHOW_TIME - (300 - SHOW_DELAY) - 1);
+      await nextTick();
+      expect(isSpinning()).toBe(true);
+
+      vi.advanceTimersByTime(1);
       await nextTick();
       expect(isSpinning()).toBe(false);
+    } finally {
+      vi.useRealTimers();
+      cleanup();
+    }
+  });
+
+  it('does not let an older navigation cancel the current show timer', async () => {
+    vi.useFakeTimers();
+    try {
+      const routerMock = createRouterMock();
+      const isSpinning = mountSpinner(routerMock.router);
+      const { afterHook, beforeGuard } = routerMock.getHooks();
+      const from = makeRoute();
+      const firstRoute = makeRoute();
+      const secondRoute = makeRoute();
+
+      await beforeGuard(firstRoute, from, vi.fn());
+      vi.advanceTimersByTime(SHOW_DELAY / 2);
+      await beforeGuard(secondRoute, firstRoute, vi.fn());
+
+      // Vue Router can complete the cancelled navigation after the newer
+      // navigation has already installed its own show timer.
+      await afterHook(firstRoute, from, undefined);
+      vi.advanceTimersByTime(SHOW_DELAY);
+      await nextTick();
+
+      expect(isSpinning()).toBe(true);
     } finally {
       vi.useRealTimers();
       cleanup();
@@ -172,15 +203,18 @@ describe('useContentSpinner', () => {
       const { afterHook, beforeGuard } = routerMock.getHooks();
 
       // 连续三次快速导航，任意时刻都不应显示
-      await runBefore(beforeGuard);
+      let route = makeRoute();
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(100);
-      await runAfter(afterHook);
-      await runBefore(beforeGuard);
+      await runAfter(afterHook, route);
+      route = makeRoute();
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(150);
-      await runAfter(afterHook);
-      await runBefore(beforeGuard);
+      await runAfter(afterHook, route);
+      route = makeRoute();
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(180);
-      await runAfter(afterHook);
+      await runAfter(afterHook, route);
       vi.advanceTimersByTime(1000);
       await nextTick();
 
@@ -198,10 +232,11 @@ describe('useContentSpinner', () => {
       const routerMock = createRouterMock();
       const isSpinning = mountSpinner(routerMock.router);
       const { afterHook, beforeGuard } = routerMock.getHooks();
+      const route = makeRoute({ loaded: true });
 
-      await runBefore(beforeGuard, { loaded: true });
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(SHOW_DELAY * 2);
-      await runAfter(afterHook, { loaded: true });
+      await runAfter(afterHook, route);
       await nextTick();
 
       expect(isSpinning()).toBe(false);
@@ -218,10 +253,11 @@ describe('useContentSpinner', () => {
       const routerMock = createRouterMock();
       const isSpinning = mountSpinner(routerMock.router);
       const { afterHook, beforeGuard } = routerMock.getHooks();
+      const route = makeRoute();
 
-      await runBefore(beforeGuard);
+      await runBefore(beforeGuard, route);
       vi.advanceTimersByTime(SHOW_DELAY * 2);
-      await runAfter(afterHook);
+      await runAfter(afterHook, route);
       await nextTick();
 
       expect(isSpinning()).toBe(false);
