@@ -44,6 +44,14 @@ const emit = defineEmits<{
 const modelValue = defineModel<any>({ default: undefined });
 
 const attrs = useAttrs();
+const usesDefaultModelValue = computed(() => {
+  return ['model-value', 'modelValue'].includes(props.modelPropName);
+});
+const currentModelValue = computed(() => {
+  return usesDefaultModelValue.value
+    ? modelValue.value
+    : attrs[props.modelPropName];
+});
 const innerParams = ref({});
 const refOptions = ref<OptionsItem[]>([]);
 const loading = ref(false);
@@ -89,13 +97,14 @@ const getOptions = computed(() => {
 });
 
 const bindProps = computed(() => {
+  const updateEvent = `onUpdate:${props.modelPropName}`;
   return {
-    [props.modelPropName]: unref(modelValue),
+    [props.modelPropName]: unref(currentModelValue),
     [props.optionsPropName]: unref(getOptions),
-    [`onUpdate:${props.modelPropName}`]: (val: string) => {
-      modelValue.value = val;
+    [updateEvent]: (val: string) => {
+      updateModelValue(val);
     },
-    ...objectOmit(attrs, [`onUpdate:${props.modelPropName}`]),
+    ...objectOmit(attrs, [props.modelPropName, updateEvent]),
     ...(props.visibleEvent
       ? {
           [props.visibleEvent]: handleFetchForVisible,
@@ -103,6 +112,17 @@ const bindProps = computed(() => {
       : {}),
   };
 });
+
+function updateModelValue(value: any) {
+  if (usesDefaultModelValue.value) {
+    modelValue.value = value;
+    return;
+  }
+  const updateHandler = attrs[`onUpdate:${props.modelPropName}`];
+  if (isFunction(updateHandler)) {
+    updateHandler(value);
+  }
+}
 
 async function fetchApi() {
   const { api, beforeFetch, shouldFetch, afterFetch, resultField } = props;
@@ -192,7 +212,7 @@ watch(
 
 function emitChange() {
   if (
-    modelValue.value === undefined &&
+    currentModelValue.value === undefined &&
     props.autoSelect &&
     unref(getOptions).length > 0
   ) {
@@ -218,7 +238,7 @@ function emitChange() {
       }
     }
 
-    if (firstOption) modelValue.value = firstOption.value;
+    if (firstOption) updateModelValue(firstOption.value);
   }
   emit('optionsChange', unref(getOptions));
 }
@@ -227,7 +247,7 @@ defineExpose({
   /** 获取options数据 */
   getOptions: () => unref(getOptions),
   /** 获取当前值 */
-  getValue: () => unref(modelValue),
+  getValue: () => unref(currentModelValue),
   /** 获取被包装的组件实例 */
   getComponentRef: <T = any>() => componentRef.value as T,
   /** 更新Api参数 */
