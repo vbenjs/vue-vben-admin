@@ -26,6 +26,18 @@ type ExtendOptions<T = any> = {
    * - data: 解构响应的BODY数据，只返回其中的data节点数据（会检查status和code是否为成功状态）。
    */
   responseReturn?: 'body' | 'data' | 'raw';
+  /**
+   * 认证过期时是否跳过自动跳转登录页。
+   * - true: 仅清除登录态，不跳转
+   * - false / 不传: 清除登录态并跳转登录页
+   */
+  skipAuthNavigate?: boolean;
+  /**
+   * 错误消息提示模式。
+   * - message: 使用 message 提示（默认）
+   * - none: 不显示错误提示
+   */
+  errorMessageMode?: 'message' | 'none';
 };
 type RequestClientConfig<T = any> = AxiosRequestConfig<T> & ExtendOptions<T>;
 

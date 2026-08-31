@@ -1,7 +1,7 @@
 /**
  * 该文件可自行根据业务逻辑进行调整
  */
-import type { RequestClientOptions } from '@vben/request';
+import type { RequestClientConfig, RequestClientOptions } from '@vben/request';
 
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -29,18 +29,19 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   /**
    * 重新认证逻辑
    */
-  async function doReAuthenticate() {
+  async function doReAuthenticate(config?: RequestClientConfig) {
     console.warn('Access token or refresh token is invalid or expired. ');
     const accessStore = useAccessStore();
     const authStore = useAuthStore();
-    accessStore.setAccessToken(null);
+    const navigate = !config?.skipAuthNavigate;
     if (
       preferences.app.loginExpiredMode === 'modal' &&
       accessStore.isAccessChecked
     ) {
+      accessStore.setAccessToken(null);
       accessStore.setLoginExpired(true);
     } else {
-      await authStore.logout();
+      await authStore.logout(true, navigate);
     }
   }
 
