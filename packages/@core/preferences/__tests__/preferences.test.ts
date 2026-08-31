@@ -157,6 +157,22 @@ describe('preferences', () => {
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
   });
 
+  it('applies reset side effects before persisting preferences', async () => {
+    preferenceManager.updatePreferences({
+      theme: {
+        mode: 'light',
+      },
+    });
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+
+    const resetPromise = preferenceManager.resetPreferences();
+
+    expect(preferenceManager.getPreferences().theme.mode).toBe('dark');
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+
+    await resetPromise;
+  });
+
   it('updates isMobile correctly', () => {
     // 模拟移动端状态
     vi.stubGlobal(

@@ -177,11 +177,11 @@ class PreferenceManager {
     Object.assign(this.state, this.initialPreferences);
     this.replaceCustomPreferences(this.initialCustomPreferences);
 
-    // 保存偏好设置至缓存
-    await this.saveToCache();
-
     // 直接触发 UI 更新
     this.handleUpdates(this.state);
+
+    // 保存偏好设置至缓存
+    await this.saveToCache();
   };
 
   /**
