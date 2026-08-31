@@ -152,20 +152,18 @@ const [Form, formApi] = useTableForm({
 });
 
 const showTableTitle = computed(() => {
-  return !!slots[TABLE_TITLE]?.() || tableTitle.value;
+  return !!slots[TABLE_TITLE] || tableTitle.value;
 });
 
 const showToolbar = computed(() => {
   return (
-    !!slots[TOOLBAR_ACTIONS]?.() ||
-    !!slots[TOOLBAR_TOOLS]?.() ||
-    showTableTitle.value
+    !!slots[TOOLBAR_ACTIONS] || !!slots[TOOLBAR_TOOLS] || showTableTitle.value
   );
 });
 
 const toolbarOptions = computed(() => {
-  const slotActions = slots[TOOLBAR_ACTIONS]?.();
-  const slotTools = slots[TOOLBAR_TOOLS]?.();
+  const hasSlotActions = !!slots[TOOLBAR_ACTIONS];
+  const hasSlotTools = !!slots[TOOLBAR_TOOLS];
   const searchBtn: VxeToolbarPropTypes.ToolConfig = {
     code: 'search',
     icon: 'vxe-icon-search',
@@ -194,10 +192,10 @@ const toolbarOptions = computed(() => {
   // 强制使用固定的toolbar配置，不允许用户自定义
   // 减少配置的复杂度，以及后续维护的成本
   toolbarConfig.slots = {
-    ...(slotActions || showTableTitle.value
+    ...(hasSlotActions || showTableTitle.value
       ? { buttons: TOOLBAR_ACTIONS }
       : {}),
-    ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
+    ...(hasSlotTools ? { tools: TOOLBAR_TOOLS } : {}),
   };
   return { toolbarConfig };
 });
