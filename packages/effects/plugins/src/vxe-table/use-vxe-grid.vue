@@ -157,9 +157,7 @@ const showTableTitle = computed(() => {
 
 const showToolbar = computed(() => {
   return (
-    !!slots[TOOLBAR_ACTIONS] ||
-    !!slots[TOOLBAR_TOOLS] ||
-    showTableTitle.value
+    !!slots[TOOLBAR_ACTIONS] || !!slots[TOOLBAR_TOOLS] || showTableTitle.value
   );
 });
 

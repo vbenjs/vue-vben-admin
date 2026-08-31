@@ -52,7 +52,11 @@ vi.mock('@vben/locales', () => ({ $t: (key: string) => key }));
 
 vi.mock('@vben-core/shadcn-ui', async () => {
   const { defineComponent, h } = await import('vue');
-  const Stub = defineComponent((_, { slots }) => () => h('div', slots.default?.()));
+  const Stub = defineComponent(
+    (_, { slots }) =>
+      () =>
+        h('div', slots.default?.()),
+  );
   return { VbenHelpTooltip: Stub, VbenLoading: Stub };
 });
 
@@ -121,15 +125,16 @@ describe('vben vxe grid toolbar slots', () => {
         unmount: vi.fn(),
         useStore: vi.fn(() => ({})),
       };
-      const Consumer = defineComponent(() => () =>
-        h(VbenVxeGrid, { api } as any, {
-          [slotName]: () =>
-            h(
-              'span',
-              { 'data-slot-state': '' },
-              loading.value ? 'loading' : 'idle',
-            ),
-        }),
+      const Consumer = defineComponent(
+        () => () =>
+          h(VbenVxeGrid, { api } as any, {
+            [slotName]: () =>
+              h(
+                'span',
+                { 'data-slot-state': '' },
+                loading.value ? 'loading' : 'idle',
+              ),
+          }),
       );
       const host = document.createElement('div');
       document.body.append(host);
