@@ -156,7 +156,10 @@ function updateCurrentSelect(v: string) {
   }
 }
 const getBindAttrs = computed(() => {
-  return objectOmit(attrs, [`onUpdate:${props.modelValueProp}`]);
+  return objectOmit(attrs, [
+    `onUpdate:${props.modelValueProp}`,
+    props.modelValueProp,
+  ]);
 });
 
 defineExpose({ toggleOpenState, open, close });
