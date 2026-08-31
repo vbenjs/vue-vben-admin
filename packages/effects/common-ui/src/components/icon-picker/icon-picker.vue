@@ -111,8 +111,7 @@ watch(
 );
 
 const handleClick = (icon: string) => {
-  currentSelect.value = icon;
-  modelValue.value = icon;
+  updateCurrentSelect(icon);
   close();
 };
 
