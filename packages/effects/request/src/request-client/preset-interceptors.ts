@@ -1,6 +1,7 @@
 import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
+import { HttpResultEnum } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { isFunction } from '@vben/utils';
 
@@ -9,15 +10,25 @@ import axios from 'axios';
 export const defaultResponseInterceptor = ({
   codeField = 'code',
   dataField = 'data',
-  successCode = 0,
+  successCode = HttpResultEnum.SUCCESS,
 }: {
   /** 响应数据中代表访问结果的字段名 */
-  codeField: string;
+  codeField?: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
-  dataField: ((response: any) => any) | string;
+  dataField?: ((response: any) => any) | string;
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
-  successCode: ((code: any) => boolean) | number | string;
+  successCode?: ((code: any) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
+  // 初始化字段
+  if (!codeField) {
+    codeField = 'code';
+  }
+  if (!dataField) {
+    dataField = 'data';
+  }
+  if (!successCode) {
+    successCode = HttpResultEnum.SUCCESS;
+  }
   return {
     fulfilled: (response) => {
       const { config, data: responseData, status } = response;
@@ -61,7 +72,8 @@ export const authenticateResponseInterceptor = ({
     rejected: async (error) => {
       const { config, response } = error;
       // 如果不是 401 错误，直接抛出异常
-      if (response?.status !== 401) {
+      const status = response?.data?.code || response?.status;
+      if (status !== HttpResultEnum.UNAUTHORIZED) {
         throw error;
       }
       // 判断是否启用了 refreshToken 功能
@@ -131,27 +143,27 @@ export const errorMessageResponseInterceptor = (
       }
 
       let errorMessage: string;
-      const status = error?.response?.status;
+      const status = error?.response?.data?.code || error?.response?.status;
 
       switch (status) {
-        case 400: {
+        case HttpResultEnum.REQUEST_TIMEOUT: {
+          errorMessage = $t('ui.fallback.http.requestTimeout');
+          break;
+        }
+        case HttpResultEnum.BAD_REQUEST: {
           errorMessage = $t('ui.fallback.http.badRequest');
           break;
         }
-        case 401: {
+        case HttpResultEnum.UNAUTHORIZED: {
           errorMessage = $t('ui.fallback.http.unauthorized');
           break;
         }
-        case 403: {
+        case HttpResultEnum.FORBIDDEN: {
           errorMessage = $t('ui.fallback.http.forbidden');
           break;
         }
-        case 404: {
+        case HttpResultEnum.NOT_FOUND: {
           errorMessage = $t('ui.fallback.http.notFound');
-          break;
-        }
-        case 408: {
-          errorMessage = $t('ui.fallback.http.requestTimeout');
           break;
         }
         default: {
