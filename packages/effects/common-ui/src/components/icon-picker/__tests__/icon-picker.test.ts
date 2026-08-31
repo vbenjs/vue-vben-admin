@@ -173,4 +173,27 @@ describe('icon-picker.vue', () => {
 
     wrapper.unmount();
   });
+
+  it('updates the configured model value when selecting an icon', async () => {
+    const onUpdateValue = vi.fn();
+    const wrapper = mount(IconPicker, {
+      attachTo: document.body,
+      props: {
+        icons: STATIC_ICONS,
+        inputComponent: markRaw(AntdvNextLikeInput),
+        modelValueProp: 'value',
+        prefix: '',
+        'onUpdate:value': onUpdateValue,
+      },
+    });
+    await openIconPicker(wrapper);
+
+    const firstIcon = document.body.querySelector('.grid-cols-6 > button');
+    expect(firstIcon).toBeTruthy();
+    await new DOMWrapper(firstIcon as Element).trigger('click');
+
+    expect(onUpdateValue).toHaveBeenCalledWith('home');
+
+    wrapper.unmount();
+  });
 });
