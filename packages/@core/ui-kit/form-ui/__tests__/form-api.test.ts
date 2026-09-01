@@ -50,6 +50,42 @@ describe('formApi', () => {
     expect(formApi.getFieldComponentRef('name')).toBeUndefined();
   });
 
+  it('should reset to current schema default values', async () => {
+    const reset = vi.fn();
+    const formActions: any = {
+      meta: {},
+      reset,
+      values: {},
+    };
+    await formApi.mount(formActions, new Map());
+
+    // 动态切换表单定义后重置，应按当前定义的默认值恢复（而非挂载时固化的旧默认值）
+    formApi.setState({
+      schema: [
+        { component: 'input', defaultValue: '默认名称', fieldName: 'name' },
+      ],
+    });
+    await formApi.reset();
+    expect(reset).toHaveBeenCalledWith(
+      { values: { name: '默认名称' } },
+      { force: true },
+    );
+
+    // 未声明默认值的定义重置为空值
+    formApi.setState({
+      schema: [{ component: 'input', fieldName: 'remark' }],
+    });
+    await formApi.reset();
+    expect(reset).toHaveBeenLastCalledWith({ values: {} }, { force: true });
+
+    // 显式指定重置值时按调用方参数原样执行
+    await formApi.reset({ values: { name: '自定义' } });
+    expect(reset).toHaveBeenLastCalledWith(
+      { values: { name: '自定义' } },
+      undefined,
+    );
+  });
+
   it('should get values from form', async () => {
     const formActions: any = {
       meta: {},
