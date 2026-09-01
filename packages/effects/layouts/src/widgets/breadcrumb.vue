@@ -10,6 +10,8 @@ import { $t } from '@vben/locales';
 
 import { VbenBreadcrumbView } from '@vben-core/shadcn-ui';
 
+import { resolveBreadcrumbMatches } from './breadcrumb-routes';
+
 interface Props {
   hideWhenOnlyOne?: boolean;
   showHome?: boolean;
@@ -27,7 +29,9 @@ const route = useRoute();
 const router = useRouter();
 
 const breadcrumbs = computed((): IBreadcrumb[] => {
-  const matched = route.matched;
+  const matched = resolveBreadcrumbMatches(route, (path) =>
+    router.resolve(path),
+  );
 
   const resultBreadcrumb: IBreadcrumb[] = [];
 
