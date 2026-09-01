@@ -406,8 +406,8 @@ catalogs:
       specifier: ^17.0.1
       version: 17.0.1
     stylelint-config-recommended-vue:
-      specifier: ^1.6.1
-      version: 1.6.1
+      specifier: ^2.0.0
+      version: 2.0.0
     stylelint-config-standard:
       specifier: ^40.0.0
       version: 40.0.0
@@ -1147,7 +1147,7 @@ importers:
         version: 17.0.1(postcss@8.5.26)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
       stylelint-config-recommended-vue:
         specifier: 'catalog:'
-        version: 1.6.1(postcss-html@1.8.1)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
+        version: 2.0.0(postcss-html@1.8.1)(stylelint-config-html@2.0.0(postcss-html@1.8.1)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint-config-recommended-scss@17.0.1(postcss@8.5.26)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint-config-recommended@18.0.0(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
       stylelint-config-standard:
         specifier: 'catalog:'
         version: 40.0.0(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
@@ -3853,6 +3853,9 @@ packages:
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
+
+  '@jridgewell/sourcemap-codec@1.6.0':
+    resolution: {integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==}
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
@@ -10036,8 +10039,8 @@ packages:
     resolution: {integrity: sha512-GaPUh5gfdrYzqeVNZvUfT23vYYxXzKYidUcnMtJg/3rxRV63EFZy3k6xfKlmfeJD0176lnUV/Usr3XcwSvFzpg==}
     engines: {node: '>=20'}
 
-  string.prototype.matchall@4.0.12:
-    resolution: {integrity: sha512-6CC9uyBL+/48dYizRf7H7VAYCMCNTBeM78x/VTUe9bFEaxBepPJDa1Ow99LqI/1yF7kuy7Q3cQsYMrcjGUcskA==}
+  string.prototype.matchall@4.1.0:
+    resolution: {integrity: sha512-tHNHTxInrYLCga9O9YGxWA3G9/nnzQw8UGAyqGx3Ar1pSTTzIuM4woFSq4SowkXCjJIwq5sIiQvEfRI9tCH1qQ==}
     engines: {node: '>= 0.4'}
 
   string.prototype.trim@1.2.11:
@@ -10139,12 +10142,18 @@ packages:
       postcss:
         optional: true
 
-  stylelint-config-recommended-vue@1.6.1:
-    resolution: {integrity: sha512-lLW7hTIMBiTfjenGuDq2kyHA6fBWd/+Df7MO4/AWOxiFeXP9clbpKgg27kHfwA3H7UNMGC7aeP3mNlZB5LMmEQ==}
-    engines: {node: ^12 || >=14}
+  stylelint-config-recommended-vue@2.0.0:
+    resolution: {integrity: sha512-SrGBfxgX+CmxRoFOl6HHhfKrp+6YvGnuiHj/N+/deI310eGNhix8aZOtPHG+OeqB6+5Si5BbjsZiC+kULUO1DQ==}
+    engines: {node: ^22.12 || >=24}
     peerDependencies:
-      postcss-html: ^1.0.0
-      stylelint: '>=14.0.0'
+      postcss-html: ^2.0.0
+      stylelint: '>=16.0.0'
+      stylelint-config-html: '>=2.0.0'
+      stylelint-config-recommended: '>=14.0.0'
+      stylelint-config-recommended-scss: '>=14.0.0'
+    peerDependenciesMeta:
+      stylelint-config-recommended-scss:
+        optional: true
 
   stylelint-config-recommended@18.0.0:
     resolution: {integrity: sha512-mxgT2XY6YZ3HWWe3Di8umG6aBmWmHTblTgu/f10rqFXnyWxjKWwNdjSWkgkwCtxIKnqjSJzvFmPT5yabVIRxZg==}
@@ -13166,6 +13175,8 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
+  '@jridgewell/sourcemap-codec@1.6.0': {}
+
   '@jridgewell/trace-mapping@0.3.31':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
@@ -14359,7 +14370,7 @@ snapshots:
       ejs: 3.1.10
       json5: 2.2.3
       magic-string: 0.30.21
-      string.prototype.matchall: 4.0.12
+      string.prototype.matchall: 4.1.0
 
   '@tsdown/css@0.22.14(jiti@2.7.0)(postcss@8.5.26)(sass-embedded@1.103.1)(sass@1.103.1)(tsdown@0.22.14)(yaml@2.9.0)':
     dependencies:
@@ -18021,7 +18032,7 @@ snapshots:
 
   magic-string@1.2.2:
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
 
   magicast@0.5.4:
     dependencies:
@@ -19550,7 +19561,7 @@ snapshots:
       get-east-asian-width: 1.6.0
       strip-ansi: 7.2.0
 
-  string.prototype.matchall@4.0.12:
+  string.prototype.matchall@4.1.0:
     dependencies:
       call-bind: 1.0.9
       call-bound: 1.0.4
@@ -19667,13 +19678,15 @@ snapshots:
     optionalDependencies:
       postcss: 8.5.26
 
-  stylelint-config-recommended-vue@1.6.1(postcss-html@1.8.1)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)):
+  stylelint-config-recommended-vue@2.0.0(postcss-html@1.8.1)(stylelint-config-html@2.0.0(postcss-html@1.8.1)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint-config-recommended-scss@17.0.1(postcss@8.5.26)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint-config-recommended@18.0.0(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)))(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)):
     dependencies:
       postcss-html: 1.8.1
       semver: 7.8.5
       stylelint: 17.14.1(supports-color@10.2.2)(typescript@6.0.3)
       stylelint-config-html: 2.0.0(postcss-html@1.8.1)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
       stylelint-config-recommended: 18.0.0(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
+    optionalDependencies:
+      stylelint-config-recommended-scss: 17.0.1(postcss@8.5.26)(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))
 
   stylelint-config-recommended@18.0.0(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3)):
     dependencies:
