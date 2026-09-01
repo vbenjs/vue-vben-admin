@@ -73,6 +73,8 @@ import { isEmpty } from '@vben/utils';
 import { message, Modal, notification } from 'antdv-next';
 
 import { upload_file } from '#/api';
+
+import { createThemeAwareButton } from './theme-aware-button';
 type AdapterUploadProps = UploadProps & {
   aspectRatio?: string;
   crop?: boolean;
@@ -89,6 +91,7 @@ const AutoComplete = defineAsyncComponent(
 const Button = defineAsyncComponent(
   () => import('antdv-next/dist/button/index'),
 );
+
 const Checkbox = defineAsyncComponent(
   () => import('antdv-next/dist/checkbox/index'),
 );
@@ -716,9 +719,7 @@ async function initComponentAdapter() {
     CheckboxGroup,
     DatePicker,
     // 自定义默认按钮
-    DefaultButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'default' }, slots);
-    },
+    DefaultButton: createThemeAwareButton(Button, 'default'),
     Divider,
     IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
       iconSlot: 'addonAfter',
@@ -730,9 +731,7 @@ async function initComponentAdapter() {
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     Mentions: withDefaultPlaceholder(Mentions, 'input'),
     // 自定义主要按钮
-    PrimaryButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'primary' }, slots);
-    },
+    PrimaryButton: createThemeAwareButton(Button, 'primary'),
     Radio,
     RadioGroup,
     RangePicker,
