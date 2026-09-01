@@ -2,14 +2,30 @@ import type { App } from 'vue';
 
 import { createApp, defineComponent, h, nextTick, ref } from 'vue';
 
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import VbenVxeGrid from '../use-vxe-grid.vue';
 
+const mockRefs = vi.hoisted(() => ({
+  gridOptions: undefined as any,
+  isMobile: undefined as any,
+}));
+const observedColumns = vi.hoisted(() => [] as unknown[]);
 const observedToolbarConfigs = vi.hoisted(() => [] as unknown[]);
+const extendProxyOptionsMock = vi.hoisted(() => vi.fn());
 
 vi.mock('@vben/hooks', async () => {
   const { ref } = await import('vue');
+  const gridOptions = ref({
+    columns: [
+      {
+        field: 'operation',
+        fixed: 'right',
+        width: 'auto',
+      },
+    ],
+  });
+  mockRefs.gridOptions = gridOptions;
 
   return {
     usePriorityValues: () => ({
@@ -17,15 +33,7 @@ vi.mock('@vben/hooks', async () => {
       formOptions: ref(undefined),
       gridClass: ref(undefined),
       gridEvents: ref(undefined),
-      gridOptions: ref({
-        columns: [
-          {
-            field: 'operation',
-            fixed: 'right',
-            width: 'auto',
-          },
-        ],
-      }),
+      gridOptions,
       separator: ref(undefined),
       showSearchForm: ref(true),
       tableData: ref(undefined),
@@ -38,7 +46,9 @@ vi.mock('@vben/hooks', async () => {
 
 vi.mock('@vben/preferences', async () => {
   const { ref } = await import('vue');
-  return { usePreferences: () => ({ isMobile: ref(false) }) };
+  const isMobile = ref(false);
+  mockRefs.isMobile = isMobile;
+  return { usePreferences: () => ({ isMobile }) };
 });
 
 vi.mock('@vben/icons', async () => {
@@ -73,6 +83,7 @@ vi.mock('vxe-table', async () => {
       inheritAttrs: false,
       setup(_, { attrs, slots }) {
         return () => {
+          observedColumns.push(attrs.columns);
           observedToolbarConfigs.push(attrs.toolbarConfig);
           return h('div', [
             slots['toolbar-actions']?.({}),
@@ -85,7 +96,9 @@ vi.mock('vxe-table', async () => {
   };
 });
 
-vi.mock('../extends', () => ({ extendProxyOptions: vi.fn() }));
+vi.mock('../extends', () => ({
+  extendProxyOptions: extendProxyOptionsMock,
+}));
 
 vi.mock('../init', async () => {
   const { defineComponent, h } = await import('vue');
@@ -110,21 +123,46 @@ vi.mock('../viewed-row', () => ({
   useViewedRow: vi.fn(),
 }));
 
-describe('vben vxe grid toolbar slots', () => {
+function createGridApi(commitProxy = vi.fn()) {
+  return {
+    grid: { commitProxy },
+    mount: vi.fn(),
+    reload: vi.fn(),
+    setState: vi.fn(),
+    toggleSearchForm: vi.fn(),
+    unmount: vi.fn(),
+    useStore: vi.fn(() => ({})),
+  };
+}
+
+async function flushGridInit() {
+  await nextTick();
+  await nextTick();
+  await nextTick();
+}
+
+describe('vben vxe grid reactivity', () => {
+  beforeEach(() => {
+    mockRefs.gridOptions.value = {
+      columns: [
+        {
+          field: 'operation',
+          fixed: 'right',
+          width: 'auto',
+        },
+      ],
+    };
+    mockRefs.isMobile.value = false;
+    observedColumns.length = 0;
+    observedToolbarConfigs.length = 0;
+    extendProxyOptionsMock.mockClear();
+  });
+
   it.each(['table-title', 'toolbar-actions', 'toolbar-tools'])(
     'keeps toolbar options stable when the %s slot updates',
     async (slotName) => {
-      observedToolbarConfigs.length = 0;
       const loading = ref(false);
-      const api = {
-        grid: { commitProxy: vi.fn() },
-        mount: vi.fn(),
-        reload: vi.fn(),
-        setState: vi.fn(),
-        toggleSearchForm: vi.fn(),
-        unmount: vi.fn(),
-        useStore: vi.fn(() => ({})),
-      };
+      const api = createGridApi();
       const Consumer = defineComponent(
         () => () =>
           h(VbenVxeGrid, { api } as any, {
@@ -164,4 +202,80 @@ describe('vben vxe grid toolbar slots', () => {
       }
     },
   );
+
+  it('keeps columns stable when unrelated grid options update', async () => {
+    mockRefs.gridOptions.value = {
+      columns: [{ field: 'name' }],
+      pagerConfig: {},
+    };
+    const api = createGridApi();
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+      const initialColumns = observedColumns.at(-1);
+
+      mockRefs.isMobile.value = true;
+      await nextTick();
+      await nextTick();
+
+      expect(observedColumns.at(-1)).toBe(initialColumns);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+
+  it('uses the initial action for the first proxy load', async () => {
+    mockRefs.gridOptions.value = {
+      columns: [{ field: 'name', sortable: true }],
+      proxyConfig: {
+        ajax: { query: vi.fn() },
+        autoLoad: true,
+      },
+      sortConfig: {
+        defaultSort: { field: 'name', order: 'asc' },
+      },
+    };
+    const commitProxy = vi.fn();
+    const api = createGridApi(commitProxy);
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+
+      expect(api.setState).toHaveBeenCalledOnce();
+      expect(extendProxyOptionsMock).toHaveBeenCalledOnce();
+      expect(commitProxy).toHaveBeenCalledOnce();
+      expect(commitProxy).toHaveBeenCalledWith('initial', {});
+      const setStateCallOrder = api.setState.mock.invocationCallOrder[0];
+      const extendProxyCallOrder =
+        extendProxyOptionsMock.mock.invocationCallOrder[0];
+      const commitProxyCallOrder = commitProxy.mock.invocationCallOrder[0];
+      if (
+        setStateCallOrder === undefined ||
+        extendProxyCallOrder === undefined ||
+        commitProxyCallOrder === undefined
+      ) {
+        throw new Error('Expected all initialization calls to be recorded');
+      }
+      expect(setStateCallOrder).toBeLessThan(commitProxyCallOrder);
+      expect(extendProxyCallOrder).toBeLessThan(commitProxyCallOrder);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
 });
