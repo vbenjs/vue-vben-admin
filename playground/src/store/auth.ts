@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isLoggingOut = ref(false); // 正在 logout 标识, 防止 /logout 死循环.
 
-  async function logout(redirect: boolean = true) {
+  async function logout(redirect: boolean = true, navigate: boolean = true) {
     if (isLoggingOut.value) return; // 正在登出中, 说明已进入循环, 直接返回.
     isLoggingOut.value = true; // 设置 标识
 
@@ -88,10 +88,14 @@ export const useAuthStore = defineStore('auth', () => {
     } catch {
       // 不做任何处理
     } finally {
+      accessStore.setAccessToken(null);
       isLoggingOut.value = false; // 重置 标识
-
       resetAllStores();
       accessStore.setLoginExpired(false);
+    }
+
+    if (!navigate) {
+      return;
     }
 
     // 回登录页带上当前路由地址

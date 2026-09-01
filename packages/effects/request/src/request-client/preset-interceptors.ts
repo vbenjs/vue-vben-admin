@@ -1,5 +1,9 @@
 import type { RequestClient } from './request-client';
-import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
+import type {
+  MakeErrorMessageFn,
+  RequestClientConfig,
+  ResponseInterceptorConfig,
+} from './types';
 
 import { $t } from '@vben/locales';
 import { isFunction } from '@vben/utils';
@@ -52,7 +56,7 @@ export const authenticateResponseInterceptor = ({
   formatToken,
 }: {
   client: RequestClient;
-  doReAuthenticate: () => Promise<void>;
+  doReAuthenticate: (config?: RequestClientConfig) => Promise<void>;
   doRefreshToken: () => Promise<string>;
   enableRefreshToken: boolean;
   formatToken: (token: string) => null | string;
@@ -67,7 +71,7 @@ export const authenticateResponseInterceptor = ({
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
       if (!enableRefreshToken || config.__isRetryRequest) {
-        await doReAuthenticate();
+        await doReAuthenticate(config);
         throw error;
       }
       // 如果正在刷新 token，则将请求加入队列，等待刷新完成
@@ -99,7 +103,7 @@ export const authenticateResponseInterceptor = ({
         client.refreshTokenQueue.forEach((callback) => callback(''));
         client.refreshTokenQueue = [];
         console.error('Refresh token failed, please login again.');
-        await doReAuthenticate();
+        await doReAuthenticate(config);
 
         throw refreshError;
       } finally {
@@ -115,6 +119,11 @@ export const errorMessageResponseInterceptor = (
   return {
     rejected: (error: any) => {
       if (axios.isCancel(error)) {
+        return Promise.reject(error);
+      }
+
+      // 如果配置了错误消息提示模式为 none，则跳过错误提示
+      if (error?.config?.errorMessageMode === 'none') {
         return Promise.reject(error);
       }
 
