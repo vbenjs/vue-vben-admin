@@ -1901,6 +1901,9 @@ importers:
 
   packages/effects/request:
     dependencies:
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:../../constants
       '@vben/locales':
         specifier: workspace:*
         version: link:../../locales

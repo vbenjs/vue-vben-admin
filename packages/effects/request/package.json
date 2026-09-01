@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@vben/constants": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/utils": "workspace:*",
     "axios": "catalog:",
