@@ -38,6 +38,13 @@ export enum HttpResultEnum {
   WARN = 601,
 }
 
+/** 返回结果字段 */
+export enum ResultFieldEnum {
+  CODE = 'code',
+  DATA = 'data',
+  MESSAGE = 'message',
+}
+
 /**
  * @description: request method
  */

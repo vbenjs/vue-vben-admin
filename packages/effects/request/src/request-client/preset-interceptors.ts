@@ -1,15 +1,18 @@
 import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
-import { HttpResultEnum } from '@vben/constants';
+import { HttpResultEnum, ResultFieldEnum } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { isFunction } from '@vben/utils';
 
 import axios from 'axios';
 
+/**
+ * 默认的响应数据格式化拦截器，根据业务状态码判断请求是否成功，并提取需要返回的数据
+ */
 export const defaultResponseInterceptor = ({
-  codeField = 'code',
-  dataField = 'data',
+  codeField = ResultFieldEnum.CODE,
+  dataField = ResultFieldEnum.DATA,
   successCode = HttpResultEnum.SUCCESS,
 }: {
   /** 响应数据中代表访问结果的字段名 */
@@ -19,16 +22,6 @@ export const defaultResponseInterceptor = ({
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
   successCode?: ((code: any) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
-  // 初始化字段
-  if (!codeField) {
-    codeField = 'code';
-  }
-  if (!dataField) {
-    dataField = 'data';
-  }
-  if (!successCode) {
-    successCode = HttpResultEnum.SUCCESS;
-  }
   return {
     fulfilled: (response) => {
       const { config, data: responseData, status } = response;
@@ -55,24 +48,35 @@ export const defaultResponseInterceptor = ({
   };
 };
 
+/**
+ * 认证拦截器，处理401未授权错误：优先尝试刷新token并重发请求，失败则触发重新认证
+ */
 export const authenticateResponseInterceptor = ({
   client,
   doReAuthenticate,
   doRefreshToken,
   enableRefreshToken,
   formatToken,
+  codeField = ResultFieldEnum.CODE,
 }: {
+  /** 请求客户端实例，用于刷新token后重新发起请求 */
   client: RequestClient;
+  /** 重新认证逻辑（token失效且无法刷新时触发，如跳转登录页） */
   doReAuthenticate: () => Promise<void>;
+  /** 刷新token的逻辑 */
   doRefreshToken: () => Promise<string>;
+  /** 是否启用刷新token功能 */
   enableRefreshToken: boolean;
+  /** token格式化方法 */
   formatToken: (token: string) => null | string;
+  /** 响应数据中代表访问结果的字段名 */
+  codeField?: string;
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
       const { config, response } = error;
       // 如果不是 401 错误，直接抛出异常
-      const status = response?.data?.code || response?.status;
+      const status = response?.data?.[codeField] || response?.status;
       if (status !== HttpResultEnum.UNAUTHORIZED) {
         throw error;
       }
@@ -121,8 +125,14 @@ export const authenticateResponseInterceptor = ({
   };
 };
 
+/**
+ * 通用的错误消息提示拦截器，根据响应状态码提示对应的错误信息
+ * @param makeErrorMessage - 统一的错误消息提示方法
+ * @param codeField - 响应数据中代表访问结果的字段名，可选
+ */
 export const errorMessageResponseInterceptor = (
   makeErrorMessage?: MakeErrorMessageFn,
+  codeField: string = ResultFieldEnum.CODE,
 ): ResponseInterceptorConfig => {
   return {
     rejected: (error: any) => {
@@ -143,7 +153,8 @@ export const errorMessageResponseInterceptor = (
       }
 
       let errorMessage: string;
-      const status = error?.response?.data?.code || error?.response?.status;
+      const status =
+        error?.response?.data?.[codeField] || error?.response?.status;
 
       switch (status) {
         case HttpResultEnum.REQUEST_TIMEOUT: {

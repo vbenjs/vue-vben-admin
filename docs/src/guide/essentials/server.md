@@ -197,6 +197,7 @@ export async function deleteUserApi(userId: number) {
  */
 import type { HttpResponse } from '@vben/request';
 
+import { ResultFieldEnum } from '@vben/constants';
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import {
@@ -290,10 +291,10 @@ function createRequestClient(baseURL: string) {
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
       // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
+      // 默认从统一响应约定的 message 字段中提取错误信息，如后端使用其他字段（如 error、msg），可在此自定义
       const responseData = error?.response?.data ?? {};
       const errorMessage =
-        responseData?.error ?? responseData?.message ?? responseData?.msg ?? '';
+        responseData?.[ResultFieldEnum.MESSAGE] ?? responseData?.error ?? '';
       // 如果没有错误信息，则会根据状态码进行提示
       message.error(errorMessage || msg);
     }),
