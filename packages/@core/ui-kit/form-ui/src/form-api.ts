@@ -28,6 +28,7 @@ import {
 import { warnDeprecatedOnce } from './deprecation';
 import { resolveFieldNamePath } from './field-name';
 import { decodeFormValues, encodeFormValues } from './form-codec';
+import { generateSchemaDefaultValues } from './form-default-values';
 import { updateFormSchemaList } from './form-render/schema';
 import { formatFormValues } from './form-value-transform';
 
@@ -374,6 +375,18 @@ export class FormApi<
    */
   async reset(state?: FormResetState<TFormValues>, opts?: FormResetOptions) {
     const form = await this.getForm();
+    // 未显式指定重置值时，按当前表单定义重新计算默认值，
+    // 避免动态定义下恢复到挂载时固化的旧默认值
+    if (!state?.values) {
+      return form.reset(
+        {
+          values: generateSchemaDefaultValues(
+            this.state?.schema ?? [],
+          ) as Partial<TFormValues>,
+        },
+        { ...opts, force: true },
+      );
+    }
     return form.reset(state, opts);
   }
 
