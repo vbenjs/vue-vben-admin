@@ -11,6 +11,11 @@ interface RouteMeta {
    */
   activePath?: string;
   /**
+   * 是否使用 activePath 对应的路由层级生成面包屑
+   * @default false
+   */
+  breadcrumbUseActivePath?: boolean;
+  /**
    * 是否固定标签页
    * @default false
    */
