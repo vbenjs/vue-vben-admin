@@ -4,7 +4,10 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { resolveBreadcrumbMatches } from '../breadcrumb-routes';
 
-function createMatch(name: string, path: string): RouteLocationMatched {
+function createMatch(
+  name: RouteLocationMatched['name'],
+  path: string,
+): RouteLocationMatched {
   return { name, path } as RouteLocationMatched;
 }
 
@@ -65,5 +68,26 @@ describe('resolveBreadcrumbMatches', () => {
         () => ({ matched: [root, list] }),
       ),
     ).toEqual([root, list, detail]);
+  });
+
+  it('keeps distinct unnamed matches with the same normalized path', () => {
+    const parent = createMatch(undefined, '/list');
+    const defaultChild = createMatch(undefined, '/list');
+
+    const result = resolveBreadcrumbMatches(
+      {
+        matched: [parent, defaultChild],
+        meta: {
+          activePath: '/list',
+          breadcrumbUseActivePath: true,
+          title: 'List',
+        },
+      },
+      () => ({ matched: [parent] }),
+    );
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toBe(parent);
+    expect(result[1]).toBe(defaultChild);
   });
 });

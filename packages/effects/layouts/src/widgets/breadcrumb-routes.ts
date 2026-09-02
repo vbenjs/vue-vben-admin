@@ -27,9 +27,9 @@ export function resolveBreadcrumbMatches(
     return route.matched;
   }
 
-  const seen = new Set(activeMatches.map((match) => match.name ?? match.path));
+  const seen = new Set(activeMatches.map((match) => match.name ?? match));
   const currentMatches = route.matched.filter((match) => {
-    const key = match.name ?? match.path;
+    const key = match.name ?? match;
     if (seen.has(key)) {
       return false;
     }
