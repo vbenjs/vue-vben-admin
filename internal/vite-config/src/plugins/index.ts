@@ -20,6 +20,7 @@ import viteVueDevTools from 'vite-plugin-vue-devtools';
 import { viteArchiverPlugin } from './archiver';
 import { viteDayjsPlugin } from './dayjs';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
+import { viteFormFieldSlotMigrationWarningPlugin } from './form-field-slot-migration-warning';
 import { viteHtmlPlugin } from './html';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
@@ -145,6 +146,10 @@ async function loadApplicationPlugins(
       },
     },
     {
+      condition: !isBuild,
+      plugins: () => [viteFormFieldSlotMigrationWarningPlugin()],
+    },
+    {
       condition: vxeTableLazyImport,
       plugins: async () => {
         return [await viteVxeTableImportsPlugin()];
@@ -247,6 +252,8 @@ async function loadLibraryPlugins(
     },
   ]);
 }
+
+export { viteCssLayerPlugin } from './css-layer';
 
 export {
   loadApplicationPlugins,

@@ -1,9 +1,8 @@
 import type { CAC } from 'cac';
 
-import { execSync } from 'node:child_process';
 import { availableParallelism, freemem } from 'node:os';
 
-import { execaCommand } from '@vben/node-utils';
+import { colors, execa } from '@vben/node-utils';
 
 interface LintCommandOptions {
   /**
@@ -30,54 +29,78 @@ const CPU_CORE_THRESHOLD = 4;
 const FREE_MEMORY_THRESHOLD = 8 * 1024 ** 3;
 
 /**
+ * 一条命令：可执行文件名 + 参数数组。
+ *
+ * execa v10 移除了 execaCommand，execa(file, args?, options?) 的第一个参数是
+ * 「可执行文件名」而非整条命令行；且默认不走 shell。因此统一用 [file, args] 数组形式，
+ * 参数逐个传入、无需 shell 转义，跨平台行为一致（避免把整条字符串误当文件名）。
+ */
+type Command = [file: string, args: string[]];
+
+/** 执行单条命令。 */
+function runCommand([file, args]: Command) {
+  return execa(file, args, { stdio: 'inherit' });
+}
+
+/** 将命令还原为可读字符串，用于失败信息展示。 */
+function formatCommand([file, args]: Command) {
+  return [file, ...args].join(' ');
+}
+
+/**
+ * 统一的 lint 失败错误。
+ * 相比 execa 的原始错误，会列出所有失败命令并给出修复提示。
+ */
+class LintError extends Error {
+  constructor(failed: Command[]) {
+    super(
+      `Lint failed:\n${failed
+        .map((command) => `  - ${formatCommand(command)}`)
+        .join('\n')}\n\n运行 ${colors.cyan('vsh lint --format')} 可自动修复。`,
+    );
+    this.name = 'LintError';
+  }
+}
+
+/**
  * 串行执行所有命令：一次只运行一个进程。
  * 保证一次能看到所有工具的报错（配置低的机器更友好）。
  */
-async function runSerial(commands: string[]) {
-  const failed: string[] = [];
+async function runSerial(commands: Command[]) {
+  const failed: Command[] = [];
 
   for (const command of commands) {
     try {
-      await execaCommand(command, { stdio: 'inherit' });
+      await runCommand(command);
     } catch {
       failed.push(command);
     }
   }
 
   if (failed.length > 0) {
-    throw new Error(
-      `Lint failed:\n${failed.map((command) => `  - ${command}`).join('\n')}`,
-    );
+    throw new LintError(failed);
   }
 }
 
 /**
  * 并行执行所有命令：同时启动全部进程。
- * 任一进程失败时，强制结束其余仍在运行的进程，避免产生遗漏进程。
+ * 等待全部结束后汇总失败命令，与串行模式保持一致的错误输出。
  */
-async function runParallel(commands: string[]) {
-  const subprocesses = commands.map((command) =>
-    execaCommand(command, { stdio: 'inherit' }),
-  );
+async function runParallel(commands: Command[]) {
+  const subprocesses = commands.map((command) => runCommand(command));
 
-  try {
-    await Promise.all(subprocesses);
-  } catch (error) {
-    for (const subprocess of subprocesses) {
-      try {
-        if (process.platform === 'win32' && subprocess.pid) {
-          execSync(`taskkill /F /T /PID ${subprocess.pid}`, {
-            stdio: 'ignore',
-          });
-        } else {
-          subprocess.kill('SIGKILL');
-        }
-      } catch {
-        // process may have already exited
-      }
+  const results = await Promise.allSettled(subprocesses);
+
+  // 汇总所有失败的命令，与串行模式保持一致的错误输出
+  const failed: Command[] = [];
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      failed.push(commands[index]);
     }
-    await Promise.allSettled(subprocesses);
-    throw error;
+  });
+
+  if (failed.length > 0) {
+    throw new LintError(failed);
   }
 }
 
@@ -89,29 +112,23 @@ async function runLint({ format, threads }: LintCommandOptions) {
   // 用户通过 --threads 显式指定时优先使用其值。
   const defaultThreads =
     cpuCores > CPU_CORE_THRESHOLD && freemem() > FREE_MEMORY_THRESHOLD ? 4 : 2;
-  const threadsArg = ` --threads=${threads || defaultThreads}`;
+  const threadsArg = `--threads=${threads || defaultThreads}`;
 
   if (format) {
-    await execaCommand(`stylelint "**/*.{vue,css,less,scss}" --cache --fix`, {
-      stdio: 'inherit',
-    });
-    await execaCommand(`oxfmt${threadsArg}`, {
-      stdio: 'inherit',
-    });
-    await execaCommand(`oxlint --fix --type-aware${threadsArg}`, {
-      stdio: 'inherit',
-    });
-    await execaCommand(`eslint . --cache --fix`, {
-      stdio: 'inherit',
-    });
+    await runSerial([
+      ['oxlint', ['--fix', '--type-aware', threadsArg]],
+      ['oxfmt', [threadsArg]],
+      ['eslint', ['.', '--cache', '--fix']],
+      ['stylelint', ['**/*.{vue,css,less,scss}', '--cache', '--fix']],
+    ]);
     return;
   }
 
-  const commands = [
-    `oxfmt --check${threadsArg}`,
-    `oxlint --type-aware${threadsArg}`,
-    `eslint . --cache`,
-    `stylelint "**/*.{vue,css,less,scss}" --cache`,
+  const commands: Command[] = [
+    ['oxlint', ['--type-aware', threadsArg]],
+    ['oxfmt', ['--check', threadsArg]],
+    ['eslint', ['.', '--cache']],
+    ['stylelint', ['**/*.{vue,css,less,scss}', '--cache']],
   ];
 
   // 低配机器（CPU 核心数较少）串行执行，避免多进程并发导致瞬时占用飙升；
@@ -130,4 +147,4 @@ function defineLintCommand(cac: CAC) {
     .action(runLint);
 }
 
-export { defineLintCommand };
+export { defineLintCommand, LintError };

@@ -11,6 +11,9 @@ export async function perfectionist(): Promise<Linter.Config[]> {
     perfectionistPlugin.configs['recommended-natural'],
     {
       rules: {
+        'perfectionist/sort-enums': 'off',
+        'perfectionist/sort-interfaces': 'off',
+        'perfectionist/sort-switch-case': 'off',
         'perfectionist/sort-exports': [
           'error',
           {
@@ -85,6 +88,7 @@ export async function perfectionist(): Promise<Linter.Config[]> {
             type: 'natural',
           },
         ],
+        'perfectionist/sort-object-types': 'off',
         'perfectionist/sort-objects': [
           'off',
           {

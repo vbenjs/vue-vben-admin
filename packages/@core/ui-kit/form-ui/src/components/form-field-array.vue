@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable unicorn/no-nested-ternary
 import type { FormCommonConfig, FormSchema } from '../types';
 
 import { computed } from 'vue';
@@ -9,10 +10,9 @@ import {
   VbenIconButton,
   VbenRenderContent,
 } from '@vben-core/shadcn-ui';
-import { cn, set } from '@vben-core/shared/utils';
+import { cn, get, set } from '@vben-core/shared/utils';
 
-import { useFieldArray } from 'vee-validate';
-
+import { injectRenderFormProps } from '../form-render/context';
 import FormField from '../form-render/form-field.vue';
 import { createArrayChildSchema } from '../form-render/schema';
 
@@ -39,9 +39,7 @@ const props = withDefaults(
     max?: number;
     /** 最少行数 */
     min?: number;
-    /**
-     * 字段路径，由外层 FormField 通过 componentField 透传（vee-validate 的 name）
-     */
+    /** 字段路径，由外层 FormField 通过 componentField 透传 */
     name?: string;
     /**
      * 列定义，每一列就是一个子字段（复用 FormSchema）
@@ -67,13 +65,22 @@ const props = withDefaults(
 );
 
 const arrayPath = computed(() => props.name);
-
-const { fields, push, remove } = useFieldArray<Record<string, any>>(
-  () => arrayPath.value,
+const formRenderProps = injectRenderFormProps();
+const form = formRenderProps.form;
+if (!form) {
+  throw new Error('Form api is required in <VbenFormFieldArray />');
+}
+const formActions = form;
+const arrayLength = formActions.useSelector((state) => {
+  const value = get(state.values, props.name);
+  return Array.isArray(value) ? value.length : 0;
+});
+const rowIndexes = computed(() =>
+  Array.from({ length: arrayLength.value }, (_, index) => index),
 );
 
-const canAdd = computed(() => fields.value.length < props.max);
-const canRemove = computed(() => fields.value.length > props.min);
+const canAdd = computed(() => arrayLength.value < props.max);
+const canRemove = computed(() => arrayLength.value > props.min);
 const gridStyle = computed(() => {
   const columns = [
     ...(props.showIndex ? ['3rem'] : []),
@@ -92,12 +99,12 @@ function buildDefaultRow(): Record<string, any> {
 
   const row: Record<string, any> = {};
   props.schema.forEach((col) => {
-    const value =
-      Reflect.has(col, 'defaultValue') && col.defaultValue !== undefined
-        ? col.defaultValue
-        : 'type' in col && col.type === 'array'
-          ? []
-          : null;
+    let value: any = null;
+    if (Reflect.has(col, 'defaultValue') && col.defaultValue !== undefined) {
+      value = col.defaultValue;
+    } else if ('type' in col && col.type === 'array') {
+      value = [];
+    }
     set(row, col.fieldName, value);
   });
   return row;
@@ -107,14 +114,14 @@ function addRow() {
   if (props.disabled || !canAdd.value) {
     return;
   }
-  push(buildDefaultRow());
+  formActions.pushFieldValue(arrayPath.value, buildDefaultRow());
 }
 
 function removeRow(index: number) {
   if (props.disabled || !canRemove.value) {
     return;
   }
-  remove(index);
+  void formActions.removeFieldValue(arrayPath.value, index);
 }
 
 function rowSchemas(index: number) {
@@ -128,6 +135,10 @@ function rowSchemas(index: number) {
     }),
   );
 }
+
+const normalizedRowSchemas = computed(() =>
+  Array.from({ length: arrayLength.value }, (_, index) => rowSchemas(index)),
+);
 </script>
 
 <template>
@@ -158,8 +169,8 @@ function rowSchemas(index: number) {
       </div>
 
       <div
-        v-for="(entry, index) in fields"
-        :key="entry.key"
+        v-for="index in rowIndexes"
+        :key="`${arrayPath}-${index}`"
         class="border-border/60 border-b p-3 last:border-b-0 sm:grid sm:p-0"
         :style="gridStyle"
       >
@@ -172,7 +183,7 @@ function rowSchemas(index: number) {
         </div>
 
         <template
-          v-for="(childSchema, childIndex) in rowSchemas(index)"
+          v-for="(childSchema, childIndex) in normalizedRowSchemas[index]"
           :key="childSchema.fieldName"
         >
           <div class="min-w-0 py-2 sm:px-2">
@@ -201,7 +212,7 @@ function rowSchemas(index: number) {
       </div>
 
       <div
-        v-if="fields.length === 0"
+        v-if="arrayLength === 0"
         class="text-muted-foreground py-6 text-center text-sm"
       >
         {{ emptyText }}

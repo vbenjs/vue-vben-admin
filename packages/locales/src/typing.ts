@@ -1,4 +1,6 @@
-export type SupportedLanguagesType = 'en-US' | 'zh-CN';
+import type { SupportedLanguagesType } from '@vben-core/typings';
+
+export type { SupportedLanguagesType };
 
 export type ImportLocaleFn = () => Promise<{ default: Record<string, string> }>;
 

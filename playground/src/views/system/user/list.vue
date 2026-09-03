@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Dayjs } from 'dayjs';
+
 import type { Recordable } from '@vben/types';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
@@ -14,10 +16,23 @@ import { Button, Card, InputSearch, message, Modal } from 'antdv-next';
 import { useVbenVxeGrid, VbenTableAction } from '#/adapter/vxe-table';
 import { deleteUser, getDeptList, getUserList, updateUser } from '#/api';
 import { $t } from '#/locales';
+import { createDateRangeCodec } from '#/utils/date-range-codec';
 
 import { useColumns, useGridFormSchema } from './data';
 import Detail from './modules/detail.vue';
 import Form from './modules/form.vue';
+
+interface UserSearchFormValues extends Record<string, unknown> {
+  createTime?: [Dayjs, Dayjs];
+}
+
+const userSearchCodec = createDateRangeCodec<UserSearchFormValues>()({
+  endField: 'endTime',
+  rangeField: 'createTime',
+  startField: 'startTime',
+});
+
+type UserSearchSubmitValues = ReturnType<typeof userSearchCodec.encode>;
 
 const deptList = ref<SystemDeptApi.SystemDept[]>([]);
 const inputSearchValue = ref('');
@@ -35,7 +50,7 @@ const [DetailDrawer, detailDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    fieldMappingTime: [['createTime', ['startTime', 'endTime']]],
+    codec: userSearchCodec,
     schema: useGridFormSchema(),
     submitOnChange: true,
   },
@@ -45,7 +60,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
     keepSource: true,
     proxyConfig: {
       ajax: {
-        query: async ({ page }, formValues) => {
+        query: async ({ page }, formValues: UserSearchSubmitValues) => {
           return await getUserList({
             page: page.currentPage,
             pageSize: page.pageSize,
@@ -147,7 +162,7 @@ function onRefresh() {
 }
 
 function onCreate() {
-  formDrawerApi.setData({}).open();
+  formDrawerApi.setData(null).open();
 }
 
 async function loadDeptList() {

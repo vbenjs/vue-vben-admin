@@ -15,8 +15,8 @@ export interface PageProps {
    */
   heightOffset?: number;
   /**
-   * Whether the footer is position: fixed.
-   * When true, footer height is excluded from content height calculation.
+   * Whether the footer is anchored to the bottom of the page layout.
+   * The footer remains in flow so it cannot obscure page content.
    * @default false
    */
   footerFixed?: boolean;

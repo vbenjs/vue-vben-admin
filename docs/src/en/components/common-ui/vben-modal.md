@@ -23,6 +23,29 @@ const [Modal, modalApi] = useVbenModal({
 - When `connectedComponent` is present, avoid pushing extra modal props through the connected side. Prefer `useVbenModal(...)` or `modalApi.setState(...)`.
 - Default modal behavior can be adjusted in `apps/<app>/src/bootstrap.ts` through `setDefaultModalProps(...)`.
 
+## Shared Data Types
+
+The recommended approach is to declare the data type once in the connected component and expose `modalApi`. The outer call then infers the data contract from `connectedComponent`:
+
+```ts
+// Connected component
+const [Modal, modalApi] = useVbenModal<EditData>();
+defineExpose({ modalApi });
+
+// Outer component, EditData is inferred
+const [Modal, modalApi] = useVbenModal({
+  connectedComponent: EditModal,
+});
+```
+
+Use `useVbenModal<EditData>()` explicitly when the component type cannot expose the contract. For larger features, pre-bind one reusable contract in a separate module:
+
+```ts
+export const useEditModal = createVbenModal<EditData>();
+```
+
+The precedence is explicit generic, connected component inference, then `unknown`. Plain SFCs support inference through `defineExpose`; generic SFCs, functional components, and components widened to `Component` should use an explicit generic or contract factory. `getData()` returns `undefined` before `setData()` is called. Include `null` or partial payloads in the data type when they are valid business values.
+
 ## Key Props
 
 | Prop | Description | Type |
@@ -50,7 +73,7 @@ const [Modal, modalApi] = useVbenModal({
 | `setState(...)`         | updates modal state                   |
 | `open()`                | opens the modal                       |
 | `close()`               | closes the modal                      |
-| `setData(data)`         | stores shared data                    |
-| `getData<T>()`          | reads shared data                     |
+| `setData(data: TData)`  | stores typed shared data              |
+| `getData()`             | returns `TData \| undefined`          |
 | `lock(isLocked = true)` | locks the modal into submitting state |
 | `unlock()`              | alias for `lock(false)`               |

@@ -3,9 +3,14 @@ import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
-const data = ref();
+interface SharedData {
+  content: string;
+  payload: string;
+}
 
-const [Modal, modalApi] = useVbenModal({
+const data = ref<SharedData>();
+
+const [Modal, modalApi] = useVbenModal<SharedData>({
   onCancel() {
     modalApi.close();
   },
@@ -14,10 +19,12 @@ const [Modal, modalApi] = useVbenModal({
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      data.value = modalApi.getData<Record<string, any>>();
+      data.value = modalApi.getData();
     }
   },
 });
+
+defineExpose({ modalApi });
 </script>
 <template>
   <Modal title="数据共享示例">

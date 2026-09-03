@@ -28,6 +28,8 @@ const javascript: OxlintConfig = {
     'default-case-last': 'error',
     eqeqeq: ['error', 'always'],
     'eslint/no-unreachable': 'error',
+    // 抛出嵌套三元运算格式错误，禁止使用嵌套三元运算。
+    'no-nested-ternary': 'error',
     'new-cap': [
       'error',
       {

@@ -6,7 +6,7 @@ import { version } from '../package.json';
 import { defineCheckCircularCommand } from './check-circular';
 import { defineCheckDepCommand } from './check-dep';
 import { defineCodeWorkspaceCommand } from './code-workspace';
-import { defineLintCommand } from './lint';
+import { defineLintCommand, LintError } from './lint';
 import { definePubLintCommand } from './publint';
 
 // 命令描述
@@ -57,6 +57,12 @@ async function main(): Promise<void> {
 
     await vsh.runMatchedCommand();
   } catch (error) {
+    // lint 检查失败是预期内的结果（格式/规范不达标），
+    // 直接展示可操作的错误信息，而非笼统的 "unexpected error"
+    if (error instanceof LintError) {
+      consola.error(error.message);
+      process.exit(1);
+    }
     consola.error(
       colors.red('An unexpected error occurred:'),
       '\n',

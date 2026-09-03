@@ -23,6 +23,29 @@ const [Drawer, drawerApi] = useVbenDrawer({
 - Default drawer behavior can be adjusted in `apps/<app>/src/bootstrap.ts` through `setDefaultDrawerProps(...)`.
 - `setState(...)` works on `DrawerState`, not `ModalState`.
 
+## Shared Data Types
+
+The recommended approach is to declare the data type once in the connected component and expose `drawerApi`. The outer call then infers the data contract from `connectedComponent`:
+
+```ts
+// Connected component
+const [Drawer, drawerApi] = useVbenDrawer<EditData>();
+defineExpose({ drawerApi });
+
+// Outer component, EditData is inferred
+const [Drawer, drawerApi] = useVbenDrawer({
+  connectedComponent: EditDrawer,
+});
+```
+
+Use `useVbenDrawer<EditData>()` explicitly when the component type cannot expose the contract. For larger features, pre-bind one reusable contract in a separate module:
+
+```ts
+export const useEditDrawer = createVbenDrawer<EditData>();
+```
+
+The precedence is explicit generic, connected component inference, then `unknown`. Plain SFCs support inference through `defineExpose`; generic SFCs, functional components, and components widened to `Component` should use an explicit generic or contract factory. `getData()` returns `undefined` before `setData()` is called. Include `null` or partial payloads in the data type when they are valid business values.
+
 ## Key Props
 
 | Prop | Description | Type |
@@ -50,7 +73,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 | `setState(...)`         | updates drawer state                   |
 | `open()`                | opens the drawer                       |
 | `close()`               | closes the drawer                      |
-| `setData(data)`         | stores shared data                     |
-| `getData<T>()`          | reads shared data                      |
+| `setData(data: TData)`  | stores typed shared data               |
+| `getData()`             | returns `TData \| undefined`           |
 | `lock(isLocked = true)` | locks the drawer into submitting state |
 | `unlock()`              | alias for `lock(false)`                |

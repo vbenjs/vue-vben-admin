@@ -61,6 +61,44 @@ describe('preferences', () => {
     expect(preferences).toEqual(defaultPreferences);
   });
 
+  it('uses memory storage until preferences are initialized', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.useFakeTimers();
+
+    try {
+      const manager = new PreferenceManager();
+      manager.updatePreferences({ app: { locale: 'en-US' } });
+      await vi.advanceTimersByTimeAsync(151);
+
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+
+      await manager.initPreferences({
+        namespace: 'testNamespace',
+      });
+      vi.mocked(localStorage.setItem).mockClear();
+
+      manager.updatePreferences({ app: { locale: 'en-US' } });
+      await vi.advanceTimersByTimeAsync(151);
+
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'testNamespace-preferences',
+        expect.any(String),
+      );
+      expect(
+        vi
+          .mocked(localStorage.setItem)
+          .mock.calls.every(([key]) => key.startsWith('testNamespace-')),
+      ).toBe(true);
+      expect(warnSpy).not.toHaveBeenCalledWith(
+        expect.stringContaining('empty prefix'),
+      );
+    } finally {
+      vi.clearAllTimers();
+      warnSpy.mockRestore();
+      vi.useRealTimers();
+    }
+  });
+
   it('initializes preferences with overrides', async () => {
     const overrides: any = {
       app: {
@@ -117,6 +155,22 @@ describe('preferences', () => {
     await preferenceManager.resetPreferences();
 
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
+  });
+
+  it('applies reset side effects before persisting preferences', async () => {
+    preferenceManager.updatePreferences({
+      theme: {
+        mode: 'light',
+      },
+    });
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+
+    const resetPromise = preferenceManager.resetPreferences();
+
+    expect(preferenceManager.getPreferences().theme.mode).toBe('dark');
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+
+    await resetPromise;
   });
 
   it('updates isMobile correctly', () => {

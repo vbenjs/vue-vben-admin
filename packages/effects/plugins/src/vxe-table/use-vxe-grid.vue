@@ -44,7 +44,7 @@ import { VxeGrid, VxeUI } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
-import { applyViewedRowOptions, useViewedRow } from './use-viewed-row';
+import { applyViewedRowOptions, useViewedRow } from './viewed-row';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
@@ -131,7 +131,7 @@ const [Form, formApi] = useTableForm({
   },
   handleReset: async () => {
     const prevValues = await formApi.getValues();
-    await formApi.resetForm();
+    await formApi.reset();
     const formValues = await formApi.getValues();
     formApi.setLatestSubmissionValues(formValues);
     // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
@@ -152,20 +152,18 @@ const [Form, formApi] = useTableForm({
 });
 
 const showTableTitle = computed(() => {
-  return !!slots[TABLE_TITLE]?.() || tableTitle.value;
+  return !!slots[TABLE_TITLE] || tableTitle.value;
 });
 
 const showToolbar = computed(() => {
   return (
-    !!slots[TOOLBAR_ACTIONS]?.() ||
-    !!slots[TOOLBAR_TOOLS]?.() ||
-    showTableTitle.value
+    !!slots[TOOLBAR_ACTIONS] || !!slots[TOOLBAR_TOOLS] || showTableTitle.value
   );
 });
 
 const toolbarOptions = computed(() => {
-  const slotActions = slots[TOOLBAR_ACTIONS]?.();
-  const slotTools = slots[TOOLBAR_TOOLS]?.();
+  const hasSlotActions = !!slots[TOOLBAR_ACTIONS];
+  const hasSlotTools = !!slots[TOOLBAR_TOOLS];
   const searchBtn: VxeToolbarPropTypes.ToolConfig = {
     code: 'search',
     icon: 'vxe-icon-search',
@@ -194,10 +192,10 @@ const toolbarOptions = computed(() => {
   // 强制使用固定的toolbar配置，不允许用户自定义
   // 减少配置的复杂度，以及后续维护的成本
   toolbarConfig.slots = {
-    ...(slotActions || showTableTitle.value
+    ...(hasSlotActions || showTableTitle.value
       ? { buttons: TOOLBAR_ACTIONS }
       : {}),
-    ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
+    ...(hasSlotTools ? { tools: TOOLBAR_TOOLS } : {}),
   };
   return { toolbarConfig };
 });
@@ -205,14 +203,17 @@ const toolbarOptions = computed(() => {
 const options = computed(() => {
   const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
 
-  const mergedOptions: VxeTableGridProps = cloneDeep(
-    mergeWithArrayOverride(
-      {},
-      toRaw(toolbarOptions.value),
-      toRaw(gridOptions.value),
-      globalGridConfig,
-    ),
+  const rawMergedOptions: VxeTableGridProps = mergeWithArrayOverride(
+    {},
+    toRaw(toolbarOptions.value),
+    toRaw(gridOptions.value),
+    globalGridConfig,
   );
+  const mergedOptions: VxeTableGridProps = cloneDeep(rawMergedOptions);
+
+  // Keep the columns reference stable when unrelated reactive options change.
+  // Otherwise VXE reloads the columns and loses its initialized sort state.
+  mergedOptions.columns = rawMergedOptions.columns;
 
   if (mergedOptions.proxyConfig) {
     const { ajax } = mergedOptions.proxyConfig;
@@ -334,13 +335,6 @@ async function init() {
   // 内部主动加载数据，防止form的默认值影响
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
-  if (enableProxyConfig && autoLoad) {
-    props.api.grid.commitProxy?.(
-      'query',
-      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
-    );
-    // props.api.reload(formApi.form?.values ?? {});
-  }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
@@ -356,6 +350,15 @@ async function init() {
   extendProxyOptions(props.api, defaultGridOptions, () =>
     formApi.getLatestSubmissionValues(),
   );
+
+  if (enableProxyConfig && autoLoad) {
+    // Wait for VXE to receive the latest options before applying default sort.
+    await nextTick();
+    props.api.grid.commitProxy?.(
+      'initial',
+      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
+    );
+  }
 }
 
 // formOptions支持响应式

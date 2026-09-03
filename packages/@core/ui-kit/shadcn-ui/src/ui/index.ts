@@ -16,6 +16,7 @@ export * from './number-field';
 export * from './pagination';
 export * from './pin-input';
 export * from './popover';
+export * from './progress';
 export * from './radio-group';
 export * from './resizable';
 export * from './scroll-area';

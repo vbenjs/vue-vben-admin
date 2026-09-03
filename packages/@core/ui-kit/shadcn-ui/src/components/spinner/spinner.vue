@@ -65,7 +65,8 @@ function onTransitionEnd() {
       cn(
         'flex-center bg-overlay-content absolute top-0 left-0 z-100 size-full backdrop-blur-xs transition-all duration-500',
         {
-          'invisible opacity-0': !showSpinner,
+          'invisible pointer-events-none opacity-0': !showSpinner,
+          'pointer-events-auto': showSpinner,
         },
         props.class,
       )

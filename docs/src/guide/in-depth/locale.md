@@ -60,25 +60,23 @@ updateLocale('en-US');
 
 **src/locales/langs/zh-CN/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin 是一个现代的管理模版。"
   }
 }
-````
+```
 
-**src/locales/langs/en-US.ts**
+**src/locales/langs/en-US/\*.json**
 
-````ts
 ```json
 {
   "about": {
     "desc": "Vben Admin is a modern management template."
   }
 }
-````
+```
 
 ## 使用翻译文本
 
@@ -91,11 +89,11 @@ updateLocale('en-US');
 import { computed } from 'vue';
 import { $t } from '@vben/locales';
 
-const items = computed(() => [{ title: $t('about.desc') }]);
+const items = computed(() => [{ title: $t('demos.title') }]);
 </script>
 <template>
-  <div>{{ $t('about.desc') }}</div>
-  <template v-for="item in items.value">
+  <div>{{ $t('demos.title') }}</div>
+  <template v-for="item in items">
     <div>{{ item.title }}</div>
   </template>
 </template>
@@ -103,42 +101,42 @@ const items = computed(() => [{ title: $t('about.desc') }]);
 
 ## 新增语言包
 
-如果你需要新增语言包，需要按照以下步骤进行：
+如果你需要新增语言包，按照以下步骤进行（以新增 `zh-TW` 繁体中文为例）：
 
-- 在 `packages/locales/langs` 目录下新增对应的语言包文件，例：`zh-TW.json`，并翻译对应的文本。
-- 在对应的应用内，找到 `src/locales/langs` 文件，新增对应的语言包 `zh-TW.json`
-- 在 `packages/constants/src/core.ts`内，新增对应的语言：
+- 在 `packages/locales/src/langs` 目录下新增对应的语言包文件夹和文件，例：`zh-TW/*.json`，并翻译对应的文本。
+- 在对应的应用内，找到 `src/locales/langs` 目录，新增对应的语言包文件夹和文件 `zh-TW/*.json`。
+- 在应用内新建一个 d.ts 文件（例：`src/locales/languages.d.ts`），通过模块增强扩展语言类型：
 
   ```ts
-  export interface LanguageOption {
-    label: string;
-    value: 'en-US' | 'zh-CN'; // [!code --]
-    value: 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+  export type { SupportedLanguages } from '@vben-core/typings';
+
+  declare module '@vben-core/typings' {
+    interface SupportedLanguages {
+      'zh-TW': '繁體中文';
+    }
   }
-  export const SUPPORT_LANGUAGES: LanguageOption[] = [
-    {
-      label: '简体中文',
-      value: 'zh-CN',
-    },
-    {
-      label: 'English',
-      value: 'en-US',
-    },
-    {
-      label: '繁体中文', // [!code ++]
-      value: 'zh-TW', // [!code ++]
-    },
-  ];
   ```
 
-- 在 `packages/locales/typing.ts`内，新增 Typescript 类型：
+  ::: tip 提示
+
+  顶部的 re-export 不可省略：它使文件成为模块，`declare module` 才是模块增强；否则会被视为环境模块声明，遮蔽原模块导致其下所有类型丢失。同时应用需要声明 `@vben-core/typings` 依赖（monorepo 内部包通常已具备）。
+
+  :::
+
+- 在应用启动时（例：`src/bootstrap.ts`）注册运行时语言列表，语言切换组件会自动显示新语言：
 
   ```ts
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN'; // [!code --]
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+  import { setSupportLanguages, SUPPORT_LANGUAGES } from '@vben/constants';
+
+  setSupportLanguages([
+    ...SUPPORT_LANGUAGES,
+    { label: '繁體中文', value: 'zh-TW' },
+  ]);
   ```
 
-到这里，你就可以在项目内使用新增的语言包了。
+- 如果应用使用了 dayjs、组件库等第三方库，在 `src/locales/index.ts` 的语言加载逻辑中补充对应的语言包分支。
+
+到这里，你就可以在项目内使用新增的语言包了，`SupportedLanguagesType` 联合类型会自动包含新语言，所有相关 API 均获得完整的类型约束。
 
 ## 界面切换语言功能
 

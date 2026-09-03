@@ -31,7 +31,49 @@ const emit = defineEmits<{
 }>();
 const formData = ref<SystemMenuApi.SystemMenu>();
 const titleSuffix = ref<string>();
-const schema: VbenFormSchema[] = [
+
+type MenuDrawerData =
+  | SystemMenuApi.SystemMenu
+  | { pid?: SystemMenuApi.SystemMenu['pid'] };
+type MenuSubmitValues = Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>;
+type MenuFormValues = MenuSubmitValues & { linkSrc?: string };
+
+function encodeMenuFormValues(
+  values: Readonly<MenuFormValues>,
+): MenuSubmitValues {
+  const { linkSrc, ...formValues } = values;
+  if (values.type === 'link') {
+    const meta = { ...values.meta, link: linkSrc };
+    Reflect.deleteProperty(meta, 'iframeSrc');
+    return {
+      ...formValues,
+      meta,
+    };
+  }
+  if (values.type === 'embedded') {
+    const meta = { ...values.meta, iframeSrc: linkSrc };
+    Reflect.deleteProperty(meta, 'link');
+    return {
+      ...formValues,
+      meta,
+    };
+  }
+  return formValues;
+}
+
+function decodeMenuFormValues(
+  values: Readonly<MenuSubmitValues>,
+): MenuFormValues {
+  let linkSrc: string | undefined;
+  if (values.type === 'link') {
+    linkSrc = values.meta?.link;
+  } else if (values.type === 'embedded') {
+    linkSrc = values.meta?.iframeSrc;
+  }
+  return { ...values, linkSrc };
+}
+
+const schema: VbenFormSchema<MenuFormValues>[] = [
   {
     component: 'RadioGroup',
     componentProps: {
@@ -56,12 +98,13 @@ const schema: VbenFormSchema[] = [
         async (value: string) => {
           return !(await isMenuNameExists(value, formData.value?.id));
         },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.menuName'),
-            value,
-          ]),
-        }),
+        {
+          error: (issue) =>
+            $t('ui.formRules.alreadyExists', [
+              $t('system.menu.menuName'),
+              issue.input,
+            ]),
+        },
       ),
   },
   {
@@ -88,7 +131,13 @@ const schema: VbenFormSchema[] = [
     label: $t('system.menu.parent'),
     renderComponentContent() {
       return {
-        title({ label, meta }: { label: string; meta: Recordable<any> }) {
+        treeTitleRender({
+          label,
+          meta,
+        }: {
+          label: string;
+          meta: Recordable<any>;
+        }) {
           const coms = [];
           if (!label) return '';
           if (meta?.icon) {
@@ -130,21 +179,16 @@ const schema: VbenFormSchema[] = [
       .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
       .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
       .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
-      .refine(
         async (value: string) => {
           return !(await isMenuPathExists(value, formData.value?.id));
         },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.menu.path'),
-            value,
-          ]),
-        }),
+        {
+          error: (issue) =>
+            $t('ui.formRules.alreadyExists', [
+              $t('system.menu.path'),
+              issue.input,
+            ]),
+        },
       ),
   },
   {
@@ -162,12 +206,6 @@ const schema: VbenFormSchema[] = [
       .string()
       .min(2, $t('ui.formRules.minLength', [$t('system.menu.path'), 2]))
       .max(100, $t('ui.formRules.maxLength', [$t('system.menu.path'), 100]))
-      .refine(
-        (value: string) => {
-          return value.startsWith('/');
-        },
-        $t('ui.formRules.startWith', [$t('system.menu.path'), '/']),
-      )
       .refine(async (value: string) => {
         return await isMenuPathExists(value, formData.value?.id);
       }, $t('system.menu.activePathMustExist'))
@@ -233,7 +271,7 @@ const schema: VbenFormSchema[] = [
     },
     fieldName: 'linkSrc',
     label: $t('system.menu.linkSrc'),
-    rules: z.string().url($t('ui.formRules.invalidURL')),
+    rules: z.url($t('ui.formRules.invalidURL')),
   },
   {
     component: 'Input',
@@ -284,18 +322,18 @@ const schema: VbenFormSchema[] = [
   },
   {
     component: 'Input',
-    componentProps: (values) => {
-      return {
-        allowClear: true,
-        class: 'w-full',
-        disabled: values.meta?.badgeType !== 'normal',
-      };
-    },
     dependencies: {
-      show: (values) => {
-        return values.type !== 'button';
+      resolve: ({ values }) => {
+        return {
+          componentProps: {
+            allowClear: true,
+            class: 'w-full',
+            disabled: values.meta?.badgeType !== 'normal',
+          },
+          show: values.type !== 'button',
+        };
       },
-      triggerFields: ['type'],
+      triggerFields: ['meta.badgeType', 'type'],
     },
     fieldName: 'meta.badge',
     label: $t('system.menu.badge'),
@@ -432,6 +470,10 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 const isHorizontal = computed(() => breakpoints.greaterOrEqual('md').value);
 
 const [Form, formApi] = useVbenForm({
+  codec: {
+    decode: decodeMenuFormValues,
+    encode: encodeMenuFormValues,
+  },
   commonConfig: {
     colon: true,
     formItemClass: 'col-span-2 md:col-span-1',
@@ -440,44 +482,34 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
   wrapperClass: 'grid-cols-2 gap-x-4',
 });
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Drawer, drawerApi] = useVbenDrawer<MenuDrawerData>({
   onConfirm: onSubmit,
-  onOpenChange(isOpen) {
+  async onOpenChange(isOpen) {
     if (isOpen) {
-      const data = drawerApi.getData<SystemMenuApi.SystemMenu>();
-      if (data?.type === 'link') {
-        data.linkSrc = data.meta?.link;
-      } else if (data?.type === 'embedded') {
-        data.linkSrc = data.meta?.iframeSrc;
-      }
-      if (data) {
+      const data = drawerApi.getData();
+      if (data && 'id' in data) {
         formData.value = data;
-        formApi.setValues(formData.value);
+        await formApi.setSubmitValues(data);
         titleSuffix.value = formData.value.meta?.title
           ? $t(formData.value.meta.title)
           : '';
       } else {
-        formApi.resetForm();
+        formData.value = undefined;
+        formApi.reset();
+        await formApi.setValues(data ?? {});
         titleSuffix.value = '';
       }
     }
   },
 });
 
+defineExpose({ drawerApi });
+
 async function onSubmit() {
   const { valid } = await formApi.validate();
   if (valid) {
     drawerApi.lock();
-    const data =
-      await formApi.getValues<
-        Omit<SystemMenuApi.SystemMenu, 'children' | 'id'>
-      >();
-    if (data.type === 'link') {
-      data.meta = { ...data.meta, link: data.linkSrc };
-    } else if (data.type === 'embedded') {
-      data.meta = { ...data.meta, iframeSrc: data.linkSrc };
-    }
-    delete data.linkSrc;
+    const data = await formApi.getValues();
     try {
       await (formData.value?.id
         ? updateMenu(formData.value.id, data)

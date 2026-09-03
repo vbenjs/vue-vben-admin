@@ -1,6 +1,6 @@
 {
   "name": "@vben/playground",
-  "version": "5.7.0",
+  "version": "5.8.0",
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -22,6 +22,7 @@
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "test:e2e": "playwright test",
+    "test:e2e:layout": "playwright test __tests__/e2e/layout-system.spec.ts --project=chromium --workers=1",
     "test:e2e-ui": "playwright test --ui",
     "test:e2e-codegen": "playwright codegen"
   },
@@ -32,6 +33,7 @@
     "@tanstack/vue-query": "catalog:",
     "@vben-core/design": "workspace:*",
     "@vben-core/menu-ui": "workspace:*",
+    "@vben-core/typings": "workspace:*",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",

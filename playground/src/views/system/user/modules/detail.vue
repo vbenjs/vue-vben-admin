@@ -13,13 +13,15 @@ const detailData = ref<SystemUserApi.SystemUser>();
 
 const items = computed(() => useDescriptionItems(detailData.value));
 
-const [Drawer, drawerApi] = useVbenDrawer({
+const [Drawer, drawerApi] = useVbenDrawer<SystemUserApi.SystemUser>({
   onOpenChange(isOpen) {
     if (isOpen) {
-      detailData.value = drawerApi.getData<SystemUserApi.SystemUser>();
+      detailData.value = drawerApi.getData();
     }
   },
 });
+
+defineExpose({ drawerApi });
 </script>
 <template>
   <Drawer :footer="false" :title="$t('common.detail')">

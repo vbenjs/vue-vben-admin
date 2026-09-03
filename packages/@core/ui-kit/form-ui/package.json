@@ -1,6 +1,6 @@
 {
   "name": "@vben-core/form-ui",
-  "version": "5.7.0",
+  "version": "5.8.0",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -40,19 +40,20 @@
     }
   },
   "dependencies": {
+    "@tanstack/store": "catalog:",
+    "@tanstack/vue-form": "catalog:",
     "@vben-core/composables": "workspace:*",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vee-validate/zod": "catalog:",
     "@vueuse/core": "catalog:",
-    "vee-validate": "catalog:",
     "vue": "catalog:",
     "zod": "catalog:",
     "zod-defaults": "catalog:"
   },
   "devDependencies": {
+    "@vue/test-utils": "catalog:",
     "unplugin-vue": "catalog:"
   }
 }

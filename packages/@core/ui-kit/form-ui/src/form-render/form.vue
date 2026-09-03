@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
+import type { ZodType } from 'zod';
 
 import type { FormCommonConfig, FormRenderProps, FormShape } from '../types';
 import type { NormalizedFormFieldSchema } from './schema';
 
-import { computed } from 'vue';
+import { computed, reactive, toRaw, toRefs } from 'vue';
 
-import { Form } from '@vben-core/shadcn-ui';
 import { cn, isString } from '@vben-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
@@ -15,6 +13,7 @@ import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
 import { getBaseRules, getDefaultValueInZodStack } from './helper';
 import { createFormFieldSchema } from './schema';
+import { useFormLabelWidth } from './utils';
 
 interface Props extends FormRenderProps {}
 
@@ -43,7 +42,7 @@ const wrapperClass = computed(() => {
   return cn(...cls, props.wrapperClass);
 });
 
-provideFormRenderProps(props);
+provideFormRenderProps(reactive({ ...toRefs(props), ...useFormLabelWidth() }));
 
 // @ts-expect-error unused
 const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
@@ -52,34 +51,32 @@ const shapes = computed(() => {
   const resultShapes: FormShape[] = [];
   props.schema?.forEach((schema) => {
     const { fieldName } = schema;
-    const rules = schema.rules as ZodTypeAny;
+    const rules = toRaw(schema.rules) as ZodType;
 
-    let typeName = '';
-    if (rules && !isString(rules)) {
-      typeName = rules._def.typeName;
-    }
-
-    const baseRules = getBaseRules(rules) as ZodTypeAny;
+    const baseRules = getBaseRules(rules) as ZodType;
 
     resultShapes.push({
       default: getDefaultValueInZodStack(rules),
       fieldName,
-      required: !['ZodNullable', 'ZodOptional'].includes(typeName),
+      required: Boolean(rules && !isString(rules) && !rules.isOptional()),
       rules: baseRules,
     });
   });
   return resultShapes;
 });
 
-const formComponent = computed(() => (props.form ? 'form' : Form));
+const formComponent = 'form';
 
 const formComponentProps = computed(() => {
   return props.form
     ? {
-        onSubmit: props.form.handleSubmit((val) => emits('submit', val)),
+        onSubmit: props.form.handleSubmit(() => emits('submit', undefined)),
       }
     : {
-        onSubmit: (val: GenericObject) => emits('submit', val),
+        onSubmit: (event: Event) => {
+          event.preventDefault();
+          emits('submit', event);
+        },
       };
 });
 

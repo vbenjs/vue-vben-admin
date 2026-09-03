@@ -79,6 +79,7 @@ export default {
     'nesting-selector-no-missing-scoping-root': null,
     'no-descending-specificity': null,
     'no-empty-source': null,
+    'no-invalid-position-declaration': null,
     'order/order': [
       [
         'dollar-variables',

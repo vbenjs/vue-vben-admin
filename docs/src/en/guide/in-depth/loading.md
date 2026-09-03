@@ -6,7 +6,7 @@ Global loading refers to the loading effect that appears when the page is refres
 
 ## Principle
 
-Implemented by the `vite-plugin-inject-app-loading` plugin, the plugin injects a global `loading html` into each application.
+The built-in `inject-app-loading` plugin implements this behavior. Its source is in `internal/vite-config/src/plugins/inject-app-loading`, and it injects global loading HTML into each application.
 
 ## Disable
 
@@ -19,6 +19,8 @@ VITE_INJECT_APP_LOADING=false
 ## Customization
 
 If you want to customize the global loading, you can create a `loading.html` file in the application directory, at the same level as `index.html`. The plugin will automatically read and inject this HTML. You can define the style and animation of this HTML as you wish.
+
+The built-in default template is available at `internal/vite-config/src/plugins/inject-app-loading/default-loading.html` for reference.
 
 ::: tip
 

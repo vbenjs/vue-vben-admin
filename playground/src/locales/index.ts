@@ -61,6 +61,10 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/zh-cn');
       break;
     }
+    case 'zh-TW': {
+      locale = await import('dayjs/locale/zh-tw');
+      break;
+    }
     // 默认使用英语
     default: {
       locale = await import('dayjs/locale/en');
@@ -86,6 +90,15 @@ async function loadAntdLocale(lang: SupportedLanguagesType) {
     case 'zh-CN': {
       antdLocale.value = antdDefaultLocale;
       break;
+    }
+    case 'zh-TW': {
+      const twLocale = await import('antdv-next/dist/locale/zh_TW');
+      antdLocale.value = twLocale.default;
+      break;
+    }
+    // 未打包对应语言包的语言回退到 en-US，避免残留上一次的语言
+    default: {
+      antdLocale.value = antdEnLocale;
     }
   }
 }

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref, unref } from 'vue';
+import type { LanguageOption } from '@vben/constants';
 
-import { SUPPORT_LANGUAGES } from '@vben/constants';
+import { onMounted, onUnmounted, ref, unref } from 'vue';
+
+import { onSupportLanguagesChange } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { useTimezoneStore } from '@vben/stores';
 
@@ -24,6 +26,12 @@ const appEnableCopyPreferences = defineModel<boolean>(
 );
 const timezoneStore = useTimezoneStore();
 
+const languageList = ref<LanguageOption[]>([]);
+const unsubscribe = onSupportLanguagesChange((langs) => {
+  languageList.value = [...langs];
+});
+onUnmounted(unsubscribe);
+
 const timezoneOptionsRef = ref<
   {
     label: string;
@@ -42,7 +50,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <SelectItem v-model="appLocale" :items="SUPPORT_LANGUAGES">
+  <SelectItem v-model="appLocale" :items="languageList">
     {{ $t('preferences.language') }}
   </SelectItem>
   <SelectItem v-model="appTimezone" :items="timezoneOptionsRef">

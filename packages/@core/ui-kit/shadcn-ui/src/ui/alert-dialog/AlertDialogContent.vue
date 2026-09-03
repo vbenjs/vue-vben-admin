@@ -14,6 +14,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui';
 
+import { useDialogStateEvents } from '../dialog/use-dialog-state-events';
 import AlertDialogOverlay from './AlertDialogOverlay.vue';
 
 defineOptions({
@@ -48,16 +49,14 @@ const delegatedProps = reactiveOmit(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 const contentRef = ref<InstanceType<typeof AlertDialogContent> | null>(null);
-function onAnimationEnd(event: AnimationEvent) {
-  // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
-  if (event.target === contentRef.value?.$el) {
-    if (props.open) {
-      emits('opened');
-    } else {
-      emits('closed');
-    }
-  }
-}
+
+const { handleAnimationEvent } = useDialogStateEvents({
+  contentRef,
+  isOpen: () => props.open,
+  onClosed: () => emits('closed'),
+  onOpened: () => emits('opened'),
+});
+
 defineExpose({
   getContentRef: () => contentRef.value,
 });
@@ -78,7 +77,8 @@ defineExpose({
       data-slot="alert-dialog-content"
       ref="contentRef"
       :style="{ ...(zIndex ? { zIndex } : {}), position: 'fixed' }"
-      @animationend="onAnimationEnd"
+      @animationend="handleAnimationEvent"
+      @animationcancel="handleAnimationEvent"
       v-bind="{ ...$attrs, ...forwarded }"
       :class="
         cn(

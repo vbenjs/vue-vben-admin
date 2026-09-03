@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { DescriptionsItemType } from '@vben/common-ui';
+
 import { VbenDescriptions } from '@vben/common-ui';
 
-const items = [
+const items: DescriptionsItemType[] = [
   { content: '1', label: 'A' },
   { content: '2（span: 2）', label: 'B', span: 2 },
   { content: '3', label: 'C' },

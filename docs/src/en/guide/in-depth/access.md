@@ -53,7 +53,7 @@ You can look under `src/store/auth` in the application to find the following cod
 ```ts
 // Set the login user information, ensuring that userInfo.roles is an array and contains permissions from the route table
 // For example: userInfo.roles=['super', 'admin']
-authStore.setUserInfo(userInfo);
+userStore.setUserInfo(userInfo);
 ```
 
 At this point, the configuration is complete. You need to ensure that the roles returned by the interface after login match the permissions in the route table; otherwise, access will not be possible.
@@ -122,12 +122,12 @@ const dashboardMenus = [
       title: 'page.dashboard.title',
     },
     name: 'Dashboard',
-    path: '/',
-    redirect: '/analytics',
+    path: '/dashboard',
+    redirect: '/dashboard/analytics',
     children: [
       {
         name: 'Analytics',
-        path: '/analytics',
+        path: 'analytics',
         // Here is the path of the page, need to remove 'views/' and '.vue'
         component: '/dashboard/analytics/index',
         meta: {
@@ -137,7 +137,7 @@ const dashboardMenus = [
       },
       {
         name: 'Workspace',
-        path: '/workspace',
+        path: 'workspace',
         component: '/dashboard/workspace/index',
         meta: {
           title: 'page.dashboard.workspace',
@@ -204,7 +204,7 @@ const [fetchUserInfoResult, accessCodes] = await Promise.all([
 ]);
 
 userInfo = fetchUserInfoResult;
-authStore.setUserInfo(userInfo);
+userStore.setUserInfo(userInfo);
 accessStore.setAccessCodes(accessCodes);
 ```
 

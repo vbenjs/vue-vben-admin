@@ -59,6 +59,49 @@ describe('page.vue', () => {
     expect(contentDiv.classes()).toContain('custom-class');
   });
 
+  it('uses flex layout for automatic content height', () => {
+    const wrapper = mount(Page, {
+      props: {
+        autoContentHeight: true,
+        heightOffset: 12,
+        title: 'Auto height page',
+      },
+    });
+
+    const content = wrapper.find('[data-layout-region="page-content"]');
+    const header = wrapper.find('.border-b');
+
+    expect(wrapper.classes()).toContain('min-h-0');
+    expect(wrapper.classes()).toContain('overflow-hidden');
+    expect(header.classes()).toContain('shrink-0');
+    expect(content.exists()).toBe(true);
+    expect(content.classes()).toContain('min-h-0');
+    expect(content.classes()).toContain('flex-1');
+    expect(content.classes()).toContain('overflow-y-auto');
+    expect(content.attributes('style')).toContain(
+      '--page-content-height-offset: 12px',
+    );
+    expect(content.attributes('style')).not.toContain('--vben-content-height');
+  });
+
+  it('positions the footer according to footerFixed', async () => {
+    const wrapper = mount(Page, {
+      slots: {
+        footer: '<p>Footer</p>',
+      },
+    });
+
+    const footer = wrapper.find('.bg-card');
+    expect(footer.classes()).toContain('shrink-0');
+    expect(footer.classes()).not.toContain('absolute');
+
+    await wrapper.setProps({ footerFixed: true });
+
+    expect(footer.classes()).toContain('mt-auto');
+    expect(footer.classes()).toContain('shrink-0');
+    expect(footer.classes()).not.toContain('absolute');
+  });
+
   it('does not render title slot if title prop is provided', () => {
     const wrapper = mount(Page, {
       props: {
