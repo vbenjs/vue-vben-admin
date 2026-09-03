@@ -1,7 +1,7 @@
 # Prevent issues being created without using the template
 blank_issues_enabled: false
-checkIssueTemplate: true
-checkPullRequestTemplate: true
+checkIssueTemplate: false
+checkPullRequestTemplate: false
 
 contact_links:
   - name: 💬 Discord Chat
