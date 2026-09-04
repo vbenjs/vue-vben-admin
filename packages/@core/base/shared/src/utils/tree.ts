@@ -42,6 +42,11 @@ function traverseTreeValues<T, V>(
 
 /**
  * 根据条件过滤给定树结构的节点，并以原有顺序返回所有匹配节点的数组。
+ *
+ * 该函数是纯函数：不会修改传入的树，也不会把源节点直接放进结果里。
+ * 否则第二次用不同条件过滤同一棵树时（例如切换用户角色后重新生成路由），
+ * 上一次被过滤掉的子节点将永久丢失。
+ *
  * @param tree 要过滤的树结构的根节点数组。
  * @param filter 用于匹配每个节点的条件。
  * @param options 作为子节点数组的可选属性名称。
@@ -57,15 +62,22 @@ function filterTree<T extends Record<string, any>>(
   };
 
   const _filterTree = (nodes: T[]): T[] => {
-    return nodes.filter((node: Record<string, any>) => {
-      if (filter(node as T)) {
-        if (node[childProps]) {
-          node[childProps] = _filterTree(node[childProps]);
-        }
-        return true;
+    const result: T[] = [];
+
+    for (const node of nodes) {
+      if (!filter(node)) {
+        continue;
       }
-      return false;
-    });
+
+      const children = (node as Record<string, any>)[childProps];
+
+      // 只在需要替换子节点时才复制节点，避免污染源数据
+      result.push(
+        children ? { ...node, [childProps]: _filterTree(children) } : node,
+      );
+    }
+
+    return result;
   };
 
   return _filterTree(tree);
