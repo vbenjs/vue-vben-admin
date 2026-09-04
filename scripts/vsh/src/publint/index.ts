@@ -1,7 +1,7 @@
 import type { CAC } from 'cac';
 import type { Result } from 'publint';
 
-import { readFile, stat } from 'node:fs/promises';
+import { glob, readFile, stat } from 'node:fs/promises';
 import { basename, dirname, join, resolve } from 'node:path';
 
 import {
@@ -68,6 +68,34 @@ function collectRelativePaths(value: unknown, paths = new Set<string>()) {
 }
 
 /**
+ * Expand wildcard package targets before collecting their filesystem state.
+ * Keep an unmatched pattern so creating its first match also invalidates the
+ * cache.
+ */
+async function expandRelativePath(relativePath: string, pkgDir: string) {
+  if (!relativePath.includes('*')) {
+    return [relativePath];
+  }
+
+  const matches: string[] = [];
+  try {
+    for await (const match of glob(relativePath, { cwd: pkgDir })) {
+      matches.push(match);
+    }
+  } catch {
+    return [relativePath];
+  }
+
+  if (matches.length === 0) {
+    return [relativePath];
+  }
+
+  return matches.map((match) =>
+    match.startsWith('./') ? match : `./${match}`,
+  );
+}
+
+/**
  * Include referenced package files in the cache key. Publint checks the
  * filesystem as well as package.json, so a build can change its result without
  * changing the package metadata.
@@ -76,7 +104,13 @@ async function getPackageHash(
   pkgJson: Record<string, unknown>,
   pkgDir: string,
 ) {
-  const relativePaths = [...collectRelativePaths(pkgJson)].toSorted();
+  const declaredPaths = [...collectRelativePaths(pkgJson)];
+  const expandedPaths = await Promise.all(
+    declaredPaths.map((relativePath) =>
+      expandRelativePath(relativePath, pkgDir),
+    ),
+  );
+  const relativePaths = expandedPaths.flat().toSorted();
   const fileStates = await Promise.all(
     relativePaths.map(async (relativePath) => {
       const targetPath = resolve(pkgDir, relativePath);

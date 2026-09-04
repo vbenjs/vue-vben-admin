@@ -58,4 +58,37 @@ describe('publint cache key', () => {
 
     expect(updatedHash).not.toBe(initialHash);
   });
+
+  it('invalidates when a wildcard output file is created', async () => {
+    const packageDir = join(process.cwd(), '.tmp-publint-cache-test');
+    tempDirectories.push(packageDir);
+    await mkdir(join(packageDir, 'dist'), { recursive: true });
+
+    const packageJson = {
+      exports: {
+        '.': './dist/*.mjs',
+      },
+    };
+
+    const missingOutputHash = await getPackageHash(packageJson, packageDir);
+    await writeFile(join(packageDir, 'dist/index.mjs'), 'export {}');
+    const createdOutputHash = await getPackageHash(packageJson, packageDir);
+
+    expect(createdOutputHash).not.toBe(missingOutputHash);
+  });
+
+  it('changes when a wildcard output file is modified', async () => {
+    const packageDir = join(process.cwd(), '.tmp-publint-cache-test');
+    tempDirectories.push(packageDir);
+    await mkdir(join(packageDir, 'dist'), { recursive: true });
+    const outputPath = join(packageDir, 'dist/index.mjs');
+    await writeFile(outputPath, 'export const value = 1');
+
+    const packageJson = { exports: { '.': './dist/*.mjs' } };
+    const initialHash = await getPackageHash(packageJson, packageDir);
+    await writeFile(outputPath, 'export const value = 100');
+    const updatedHash = await getPackageHash(packageJson, packageDir);
+
+    expect(updatedHash).not.toBe(initialHash);
+  });
 });
