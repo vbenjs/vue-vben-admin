@@ -78,6 +78,32 @@ afterEach(() => {
 });
 
 describe('useVbenForm integration', () => {
+  it('provides empty defaults for native zod string formats', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: TestInput,
+          fieldName: 'email',
+          rules: z.email(),
+        },
+        {
+          component: TestInput,
+          fieldName: 'address',
+          rules: z.ipv4(),
+        },
+      ],
+      showDefaultActions: false,
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(await formApi.getValues()).toEqual({
+      address: '',
+      email: '',
+    });
+  });
+
   it('uses model updates as the primary channel and preserves empty strings', async () => {
     const validateValue = vi.fn();
     const [Form, formApi] = useVbenForm({

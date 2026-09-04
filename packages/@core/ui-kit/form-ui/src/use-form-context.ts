@@ -9,7 +9,14 @@ import { computed, toRaw, unref, useSlots } from 'vue';
 import { createContext } from '@vben-core/shadcn-ui';
 import { isString, mergeWithArrayOverride, set } from '@vben-core/shared/utils';
 
-import { object, ZodIntersection, ZodNumber, ZodObject, ZodString } from 'zod';
+import {
+  object,
+  ZodIntersection,
+  ZodNumber,
+  ZodObject,
+  ZodString,
+  ZodStringFormat,
+} from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
 
 import { useFormRuntime } from './form-runtime';
@@ -74,8 +81,8 @@ export function useFormInitial(
   // 自定义默认值提取逻辑
   function getCustomDefaultValue(rule: any): any {
     rule = toRaw(rule);
-    if (rule instanceof ZodString) {
-      return ''; // 默认为空字符串
+    if (rule instanceof ZodString || rule instanceof ZodStringFormat) {
+      return ''; // 字符串及其格式校验默认为空字符串
     } else if (rule instanceof ZodNumber) {
       return null; // 默认为 null（避免显示 0）
     } else if (rule instanceof ZodObject) {
