@@ -1,6 +1,6 @@
-import { describe, expectTypeOf, it } from 'vitest';
-
 import type { DeepPartial } from '@vben-core/typings';
+
+import { describe, expectTypeOf, it } from 'vitest';
 
 import { updateCustomPreferences } from '../src';
 
