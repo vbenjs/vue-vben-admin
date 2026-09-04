@@ -15,6 +15,7 @@ import {
   ZodNumber,
   ZodObject,
   ZodString,
+  string as zodString,
   ZodStringFormat,
 } from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
@@ -32,6 +33,42 @@ export const [injectFormProps, provideFormProps] =
 
 export const [injectComponentRefMap, provideComponentRefMap] =
   createContext<Map<string, unknown>>('ComponentRefMap');
+
+function normalizeSchemaForDefaults(rule: ZodType): ZodType {
+  const rawRule = toRaw(rule) as any;
+
+  if (rawRule instanceof ZodStringFormat) {
+    return zodString();
+  }
+
+  if (rawRule instanceof ZodObject) {
+    const shape = Object.fromEntries(
+      Object.entries(rawRule.shape).map(([key, value]) => [
+        key,
+        normalizeSchemaForDefaults(value as ZodType),
+      ]),
+    );
+    return object(shape);
+  }
+
+  if (rawRule instanceof ZodIntersection) {
+    const { left, right } = (rawRule as any).def;
+    return normalizeSchemaForDefaults(left as ZodType).and(
+      normalizeSchemaForDefaults(right as ZodType),
+    );
+  }
+
+  if (rawRule.constructor.name === 'ZodDefault') {
+    const inner = normalizeSchemaForDefaults(rawRule.unwrap());
+    return inner.default(rawRule.def.defaultValue);
+  }
+
+  if (rawRule.constructor.name === 'ZodPipe') {
+    return normalizeSchemaForDefaults(rawRule.in).pipe(rawRule.out);
+  }
+
+  return rawRule;
+}
 
 export function useFormInitial(
   props: ComputedRef<VbenFormProps> | VbenFormProps,
@@ -63,7 +100,7 @@ export function useFormInitial(
         // 检查规则是否适合提取默认值
         const rawRules = toRaw(item.rules);
         const customDefaultValue = getCustomDefaultValue(rawRules);
-        zodObject[item.fieldName] = rawRules;
+        zodObject[item.fieldName] = normalizeSchemaForDefaults(rawRules);
         if (customDefaultValue !== undefined) {
           initialValues[item.fieldName] = customDefaultValue;
         }
@@ -93,7 +130,7 @@ export function useFormInitial(
       }
       return defaultValues;
     } else if (rule instanceof ZodIntersection) {
-      return getDefaultsForSchema(rule);
+      return getDefaultsForSchema(normalizeSchemaForDefaults(rule) as any);
     } else {
       return undefined; // 其他类型不提供默认值
     }
