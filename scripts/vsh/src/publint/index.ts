@@ -1,7 +1,8 @@
 import type { CAC } from 'cac';
 import type { Result } from 'publint';
 
-import { basename, dirname, join } from 'node:path';
+import { readFile, stat } from 'node:fs/promises';
+import { basename, dirname, join, resolve } from 'node:path';
 
 import {
   colors,
@@ -51,6 +52,51 @@ async function getLintFiles(files: string[] = []) {
   return lintFiles;
 }
 
+function collectRelativePaths(value: unknown, paths = new Set<string>()) {
+  if (typeof value === 'string' && value.startsWith('./')) {
+    paths.add(value);
+  } else if (Array.isArray(value)) {
+    for (const item of value) {
+      collectRelativePaths(item, paths);
+    }
+  } else if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) {
+      collectRelativePaths(item, paths);
+    }
+  }
+  return paths;
+}
+
+/**
+ * Include referenced package files in the cache key. Publint checks the
+ * filesystem as well as package.json, so a build can change its result without
+ * changing the package metadata.
+ */
+async function getPackageHash(
+  pkgJson: Record<string, unknown>,
+  pkgDir: string,
+) {
+  const relativePaths = [...collectRelativePaths(pkgJson)].toSorted();
+  const fileStates = await Promise.all(
+    relativePaths.map(async (relativePath) => {
+      const targetPath = resolve(pkgDir, relativePath);
+      try {
+        const target = await stat(targetPath);
+        return [
+          relativePath,
+          true,
+          target.isDirectory(),
+          target.size,
+          target.mtimeMs,
+        ] as const;
+      } catch {
+        return [relativePath, false] as const;
+      }
+    }),
+  );
+  return generatorContentHash(JSON.stringify({ package: pkgJson, fileStates }));
+}
+
 function getCacheFile() {
   const root = findMonorepoRoot();
   return join(root, CACHE_FILE);
@@ -59,7 +105,14 @@ function getCacheFile() {
 async function readCache(cacheFile: string) {
   try {
     await ensureFile(cacheFile);
-    return await readJSON(cacheFile);
+    const content = await readFile(cacheFile, 'utf8');
+    if (!content.trim()) {
+      return {};
+    }
+    const cache = JSON.parse(content);
+    return cache && typeof cache === 'object' && !Array.isArray(cache)
+      ? cache
+      : {};
   } catch {
     return {};
   }
@@ -84,8 +137,7 @@ async function runPublint(files: string[], { check }: PubLintCommandOptions) {
         Reflect.deleteProperty(pkgJson, 'dependencies');
         Reflect.deleteProperty(pkgJson, 'devDependencies');
         Reflect.deleteProperty(pkgJson, 'peerDependencies');
-        const content = JSON.stringify(pkgJson);
-        const hash = generatorContentHash(content);
+        const hash = await getPackageHash(pkgJson, dirname(file));
 
         const publintResult: Result =
           cache?.[file]?.hash === hash
@@ -182,4 +234,4 @@ function definePubLintCommand(cac: CAC) {
     .action(runPublint);
 }
 
-export { definePubLintCommand };
+export { definePubLintCommand, getPackageHash, readCache };
