@@ -34,6 +34,10 @@ export const [injectFormProps, provideFormProps] =
 export const [injectComponentRefMap, provideComponentRefMap] =
   createContext<Map<string, unknown>>('ComponentRefMap');
 
+/**
+ * Rebuild the schema used by zod-defaults, replacing native format nodes that
+ * zod-defaults does not recognise while retaining supported wrappers.
+ */
 function normalizeSchemaForDefaults(rule: ZodType): ZodType {
   const rawRule = toRaw(rule) as any;
 
