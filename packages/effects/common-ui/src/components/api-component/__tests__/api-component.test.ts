@@ -146,12 +146,21 @@ describe('api-component.vue', () => {
       },
     });
 
-    mount(Harness);
+    const wrapper = mount(Harness);
     expect(api).not.toHaveBeenCalled();
 
     apiRef.value = api;
     await nextTick();
 
     expect(api).toHaveBeenCalledTimes(1);
+    await vi.waitFor(() => {
+      const events = wrapper
+        .findComponent(ApiComponent)
+        .emitted('optionsChange');
+      const lastEvent = events?.at(-1)?.[0];
+      expect(lastEvent).toEqual([
+        expect.objectContaining({ label: 'Loaded', value: 'loaded' }),
+      ]);
+    });
   });
 });
