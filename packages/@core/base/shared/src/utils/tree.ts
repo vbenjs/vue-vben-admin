@@ -44,10 +44,12 @@ function traverseTreeValues<T, V>(
  * 根据条件过滤给定树结构的节点，并以原有顺序返回所有匹配节点的数组。
  *
  * 该函数是纯函数：不会把过滤后的结果写回传入的树（源数据不被修改）。
- * 只有命中且带有子节点的节点会被浅拷贝，并用过滤后的子数组替换 children；
- * 没有子节点的命中节点仍按引用返回，以保留原有的引用语义。
  * 否则第二次用不同条件过滤同一棵树时（例如切换用户角色后重新生成路由），
  * 上一次被过滤掉的子节点将永久丢失。
+ *
+ * 引用语义：只有当子节点序列真的发生变化时，命中的分支节点才会被浅拷贝；
+ * 子节点未发生变化（或节点没有子节点）时，仍按引用返回原节点，
+ * 因此按引用缓存或比较节点的调用方，其行为保持不变。
  *
  * @param tree 要过滤的树结构的根节点数组。
  * @param filter 用于匹配每个节点的条件。
@@ -73,9 +75,21 @@ function filterTree<T extends Record<string, any>>(
 
       const children = (node as Record<string, any>)[childProps];
 
-      // 只在需要替换子节点时才复制节点，避免污染源数据
+      if (!children) {
+        result.push(node);
+        continue;
+      }
+
+      const filteredChildren = _filterTree(children);
+
+      // 子节点序列没有变化时按引用返回原节点，保持原有的引用语义；
+      // 只有确实需要替换子节点时才复制节点，避免污染源数据
+      const childrenUnchanged =
+        filteredChildren.length === children.length &&
+        filteredChildren.every((child, index) => child === children[index]);
+
       result.push(
-        children ? { ...node, [childProps]: _filterTree(children) } : node,
+        childrenUnchanged ? node : { ...node, [childProps]: filteredChildren },
       );
     }
 

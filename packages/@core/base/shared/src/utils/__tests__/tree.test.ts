@@ -190,6 +190,40 @@ describe('filterTree immutability', () => {
     expect(result.find((node) => node.id === 11)).toBe(leaf);
   });
 
+  it('should keep branch nodes by reference when no child is dropped', () => {
+    // 过滤前后子节点序列完全一致时，分支节点必须仍是原来的对象，
+    // 否则按引用缓存路由/菜单节点的调用方会视为内容发生变化。
+    const tree = buildTree();
+
+    const result = filterTree(tree, () => true);
+
+    expect(result[0]).toBe(tree[0]);
+    expect(result[1]).toBe(tree[1]);
+    expect(result[0]?.children).toEqual(tree[0]?.children);
+    expect(result[0]?.children?.[1]).toBe(tree[0]?.children?.[1]);
+  });
+
+  it('should only copy the branches on the path of a dropped node', () => {
+    const tree = buildTree();
+
+    // 只丢弃深层的一个节点（id 6），其余分支应当保持原引用
+    const result = filterTree(tree, (node) => node.id !== 6);
+
+    const sourceBranch = tree[0]?.children?.find((node) => node.id === 3);
+    const resultBranch = result[0]?.children?.find((node) => node.id === 3);
+
+    // 受影响的分支：被复制，源节点不受影响
+    expect(resultBranch).not.toBe(sourceBranch);
+    expect(sourceBranch?.children?.map((child) => child.id)).toEqual([4, 5, 6]);
+    expect(resultBranch?.children?.map((child) => child.id)).toEqual([4, 5]);
+
+    // 未受影响的兄弟分支与根节点以外的分支：保持原引用
+    expect(result[0]?.children?.[0]).toBe(tree[0]?.children?.[0]);
+    expect(result[0]?.children?.[2]).toBe(tree[0]?.children?.[2]);
+    expect(result[1]).toBe(tree[1]);
+    expect(result[2]).toBe(tree[2]);
+  });
+
   it('should keep returning nodes that an earlier filter run dropped', () => {
     // 复现场景：低权限用户登录后，同一会话内再以更高权限重新生成路由。
     // 修复前，上一次被过滤掉的子节点会被永久写回源数据，
