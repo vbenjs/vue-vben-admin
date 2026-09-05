@@ -146,18 +146,14 @@ class RequestClient {
     url: string,
     config: RequestClientConfig,
   ): Promise<T> {
-    try {
-      const response: AxiosResponse<T> = await this.instance({
-        url,
-        ...config,
-        ...(config.paramsSerializer
-          ? { paramsSerializer: getParamsSerializer(config.paramsSerializer) }
-          : {}),
-      });
-      return response as T;
-    } catch (error: any) {
-      throw error.response ? error.response.data : error;
-    }
+    const response: AxiosResponse<T> = await this.instance({
+      url,
+      ...config,
+      ...(config.paramsSerializer
+        ? { paramsSerializer: getParamsSerializer(config.paramsSerializer) }
+        : {}),
+    });
+    return response as T;
   }
 }
 
