@@ -71,7 +71,7 @@ defineExpose({
     <slot name="visibleContent" :open></slot>
 
     <CollapsibleContent
-      class="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up overflow-hidden justify-start"
+      class="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up -mx-px overflow-hidden px-px justify-start"
     >
       <slot name="collapsibleContent" :open></slot>
     </CollapsibleContent>
