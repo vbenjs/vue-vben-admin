@@ -4,10 +4,13 @@ import type {
   FormCommonConfig,
   FormDependenciesResolveContext,
   FormFieldProps,
+  FormFieldSchema,
+  FormGroupSchema,
   FormItemDependencies,
   FormItemDependenciesLegacy,
   FormSchema,
   FormSchemaContext,
+  FormValues,
   MaybeComponentProps,
 } from '../types';
 
@@ -19,7 +22,10 @@ import {
 
 import { resolveChildUpdateFieldName } from '../field-name';
 
-type AnyFormSchema = FormSchema<BaseFormComponentType, Record<string, any>>;
+type AnyFormFieldSchema = FormFieldSchema<
+  BaseFormComponentType,
+  Record<string, any>
+>;
 
 export type NormalizedFormFieldSchema = FormFieldProps & {
   commonComponentProps: MaybeComponentProps;
@@ -76,7 +82,7 @@ function scopeRowFieldName(rowPath: string, fieldName: string) {
 }
 
 function wrapComponentProps(
-  componentProps: AnyFormSchema['componentProps'],
+  componentProps: AnyFormFieldSchema['componentProps'],
   baseContext: FormSchemaContext,
 ) {
   if (!isFunction(componentProps)) {
@@ -104,7 +110,7 @@ function wrapCommonConfig(
 }
 
 function wrapCustomParamsRender(
-  render: AnyFormSchema['help'],
+  render: AnyFormFieldSchema['help'],
   baseContext: FormSchemaContext,
 ) {
   if (!isFunction(render)) {
@@ -115,7 +121,7 @@ function wrapCustomParamsRender(
 }
 
 function wrapRenderComponentContent(
-  render: AnyFormSchema['renderComponentContent'],
+  render: AnyFormFieldSchema['renderComponentContent'],
   baseContext: FormSchemaContext,
 ) {
   if (!isFunction(render)) {
@@ -195,7 +201,7 @@ function scopeDependencies(
 }
 
 function createArrayComponentProps(
-  schema: AnyFormSchema,
+  schema: AnyFormFieldSchema,
   options: CreateFormFieldSchemaOptions,
 ) {
   const componentProps = schema.componentProps;
@@ -225,10 +231,12 @@ function createArrayComponentProps(
 }
 
 function createArrayFieldSchema(
-  schema: AnyFormSchema,
+  schema: AnyFormFieldSchema,
   options: CreateFormFieldSchemaOptions,
 ) {
-  const restSchema = { ...(schema as AnyFormSchema & Record<string, any>) };
+  const restSchema = {
+    ...(schema as AnyFormFieldSchema & Record<string, any>),
+  };
   Reflect.deleteProperty(restSchema, 'arrayProps');
   Reflect.deleteProperty(restSchema, 'children');
   Reflect.deleteProperty(restSchema, 'type');
@@ -246,7 +254,34 @@ interface FormArraySchemaLike {
 }
 
 interface UpdatableFormSchemaLike extends FormArraySchemaLike {
-  fieldName: string;
+  /** 分组没有 fieldName，因此这里是可选的 */
+  fieldName?: string;
+  type?: string;
+}
+
+export function isFormGroupSchema<
+  T extends BaseFormComponentType,
+  P extends Record<string, any>,
+  TValues extends FormValues,
+>(schema: FormSchema<T, P, TValues>): schema is FormGroupSchema<T, P, TValues>;
+export function isFormGroupSchema<TSchema extends object>(
+  schema: TSchema,
+): schema is Extract<TSchema, { type: 'group' }>;
+export function isFormGroupSchema(schema: object) {
+  return 'type' in schema && schema.type === 'group';
+}
+
+/**
+ * 展开分组，得到表单中全部字段 schema
+ */
+export function getFormFieldSchemas<
+  T extends BaseFormComponentType,
+  P extends Record<string, any>,
+  TValues extends FormValues,
+>(schemas: FormSchema<T, P, TValues>[]): FormFieldSchema<T, P, TValues>[] {
+  return schemas.flatMap((schema) =>
+    isFormGroupSchema(schema) ? schema.children : [schema],
+  );
 }
 
 function setSchemaChildren<TSchema extends UpdatableFormSchemaLike>(
@@ -276,7 +311,7 @@ function setSchemaChildren<TSchema extends UpdatableFormSchemaLike>(
   return schema;
 }
 
-export function getFormArraySchemaChildren<TSchema = FormSchema>(
+export function getFormArraySchemaChildren<TSchema = FormFieldSchema>(
   schema: FormArraySchemaLike,
 ): TSchema[] {
   if ('children' in schema && Array.isArray(schema.children)) {
@@ -295,7 +330,7 @@ export function getFormArraySchemaChildren<TSchema = FormSchema>(
   return [];
 }
 
-export function isFormArraySchema(schema: Partial<AnyFormSchema>) {
+export function isFormArraySchema(schema: Partial<AnyFormFieldSchema>) {
   return (
     ('type' in schema && schema.type === 'array') ||
     schema.component === 'VbenFormFieldArray' ||
@@ -312,8 +347,21 @@ export function updateFormSchemaList<TSchema extends UpdatableFormSchemaLike>(
   updated: Partial<TSchema>[],
 ): TSchema[] {
   return currentSchema.map((schema) => {
+    // 分组本身不是字段，直接把更新下发给组内字段
+    if (isFormGroupSchema(schema)) {
+      return setSchemaChildren(
+        schema,
+        updateFormSchemaList((schema.children ?? []) as TSchema[], updated),
+      );
+    }
+
+    const { fieldName: schemaFieldName } = schema;
+    if (!schemaFieldName) {
+      return schema;
+    }
+
     const exactUpdatedData = updated.find(
-      (item) => item.fieldName === schema.fieldName,
+      (item) => item.fieldName === schemaFieldName,
     );
     if (exactUpdatedData) {
       return mergeWithArrayOverride(exactUpdatedData, schema) as TSchema;
@@ -325,7 +373,7 @@ export function updateFormSchemaList<TSchema extends UpdatableFormSchemaLike>(
     }
     const childUpdates = updated.flatMap((item) => {
       const fieldName = item.fieldName
-        ? resolveChildUpdateFieldName(schema.fieldName, item.fieldName)
+        ? resolveChildUpdateFieldName(schemaFieldName, item.fieldName)
         : undefined;
       return fieldName ? [{ ...item, fieldName } as Partial<TSchema>] : [];
     });
@@ -339,8 +387,39 @@ export function updateFormSchemaList<TSchema extends UpdatableFormSchemaLike>(
   });
 }
 
+/**
+ * 按字段名移除 schema，分组内的字段一并处理，分组壳子保留
+ */
+export function removeFormSchemaByFields<
+  TSchema extends UpdatableFormSchemaLike,
+>(currentSchema: TSchema[], fields: string[]): TSchema[] {
+  const fieldSet = new Set(fields);
+  const result: TSchema[] = [];
+
+  for (const schema of currentSchema) {
+    if (isFormGroupSchema(schema)) {
+      result.push(
+        setSchemaChildren(
+          schema,
+          removeFormSchemaByFields(
+            (schema.children ?? []) as TSchema[],
+            fields,
+          ),
+        ),
+      );
+      continue;
+    }
+
+    if (!schema.fieldName || !fieldSet.has(schema.fieldName)) {
+      result.push(schema);
+    }
+  }
+
+  return result;
+}
+
 export function createFormFieldSchema(
-  schema: AnyFormSchema,
+  schema: AnyFormFieldSchema,
   options: CreateFormFieldSchemaOptions = {},
 ): NormalizedFormFieldSchema {
   const commonConfig = mergeWithArrayOverride(
@@ -417,7 +496,7 @@ export function createFormFieldSchema(
 }
 
 export function createArrayChildSchema(
-  schema: AnyFormSchema,
+  schema: AnyFormFieldSchema,
   options: CreateArrayChildSchemaOptions,
 ): NormalizedFormFieldSchema {
   const rowPath = `${options.arrayField}[${options.index}]`;

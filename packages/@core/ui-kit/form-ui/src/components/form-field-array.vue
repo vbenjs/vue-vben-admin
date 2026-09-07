@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // oxlint-disable unicorn/no-nested-ternary
-import type { FormCommonConfig, FormSchema } from '../types';
+import type { FormCommonConfig, FormFieldSchema } from '../types';
 
 import { computed } from 'vue';
 
@@ -42,9 +42,9 @@ const props = withDefaults(
     /** 字段路径，由外层 FormField 通过 componentField 透传 */
     name?: string;
     /**
-     * 列定义，每一列就是一个子字段（复用 FormSchema）
+     * 列定义，每一列就是一个子字段（复用 FormFieldSchema）
      */
-    schema?: FormSchema[];
+    schema?: FormFieldSchema[];
     /** 是否显示序号列 */
     showIndex?: boolean;
   }>(),

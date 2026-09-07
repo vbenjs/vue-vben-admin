@@ -264,6 +264,35 @@ export { initComponentAdapter };
 
 <DemoPreview dir="demos/vben-form/query" />
 
+## 表单分组
+
+在 `schema` 中加入 `type: 'group'` 项，可以把若干字段组织成一个可折叠的区块。分组本身不是字段：没有 `fieldName`，不参与取值与校验；`children` 内的字段与顶层字段完全等价，`setValues`、`updateSchema`、`removeSchemaByFields` 以及字段插槽都按 `fieldName` 直接作用于组内字段。
+
+```ts
+const [Form, formApi] = useVbenForm({
+  schema: [
+    { component: 'Input', fieldName: 'name', label: '名称' },
+    {
+      type: 'group',
+      title: '高级选项',
+      defaultCollapsed: true,
+      children: [
+        { component: 'Input', fieldName: 'remark', label: '备注' },
+        { component: 'Switch', fieldName: 'enabled', label: '启用' },
+      ],
+    },
+  ],
+});
+
+// 组内字段照常按 fieldName 更新
+formApi.updateSchema([{ fieldName: 'remark', label: '说明' }]);
+```
+
+- `collapsible: false` 时分组不可折叠，仅作为带标题的区块。
+- 分组默认占满一行，可通过 `formItemClass` 调整；`wrapperClass` 控制分组内部的栅格，缺省继承表单的 `wrapperClass`。
+- 分组内任一字段校验失败时会自动展开，避免错误提示被折叠区域遮住。
+- 分组只支持一层，`children` 只能是字段，不能再嵌套分组；数组字段的 `children` 同样只能是字段。
+
 ## 表单值编解码
 
 当组件值与后端 payload 不一致时，使用表单级 `codec` 统一定义双向转换。`encode` 接收完整 `TFormValues` 并返回完整 `TSubmitValues`；`decode` 执行反向转换。多字段拆分、合并和删除都在一个纯函数边界完成，不依赖 schema 顺序或字符串路径写入。
@@ -648,6 +677,40 @@ export interface FormSchema<
 ```
 
 顶层 `componentProps`、`help` 和 `renderComponentContent` 函数只接收轻量 `FormSchemaContext`，适合数组行索引、字段路径等 schema 信息。需要读取表单值时，使用 `dependencies.resolve({ values, ... })`，避免每个字段订阅整份 values。
+
+:::
+
+::: details FormGroupSchema
+
+`schema` 数组中的每一项要么是字段（`FormFieldSchema`，即上面的 `FormSchema`），要么是分组（`FormGroupSchema`），以 `type: 'group'` 区分。
+
+```ts
+export interface FormGroupSchema<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  TValues extends FormValues = FormValues,
+> {
+  /** 分组内的字段定义，只能是字段，不能再嵌套分组 */
+  children: FormFieldSchema<T, TValues>[];
+  /** 是否允许折叠，默认 true */
+  collapsible?: boolean;
+  /** 是否默认折叠，默认 false */
+  defaultCollapsed?: boolean;
+  /** 标题右侧的附加内容 */
+  extra?: CustomRenderType;
+  /** 分组容器在表单栅格中的样式，默认占满一行 */
+  formItemClass?: FormItemClassType;
+  /** 是否隐藏分组 */
+  hide?: boolean;
+  /** 分组标识，用于渲染时的稳定 key，缺省按索引 */
+  name?: string;
+  /** 分组标题 */
+  title?: CustomRenderType;
+  /** 分组标记 */
+  type: 'group';
+  /** 分组内部的栅格布局，缺省继承表单的 wrapperClass */
+  wrapperClass?: WrapperClassType;
+}
+```
 
 :::
 
