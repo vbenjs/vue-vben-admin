@@ -1,3 +1,5 @@
+import type { ApiComponentProps } from '../types';
+
 import { mount } from '@vue/test-utils';
 import { defineComponent, h, markRaw, nextTick, ref } from 'vue';
 
@@ -127,5 +129,38 @@ describe('api-component.vue', () => {
     await nextTick();
     expect(handleUpdate).toHaveBeenCalledWith('selected');
     expect(input.props('modelValue')).toBe('selected');
+  });
+
+  it('fetches when the api is provided after mount', async () => {
+    const api = vi
+      .fn()
+      .mockResolvedValue([{ label: 'Loaded', value: 'loaded' }]);
+    const apiRef = ref<ApiComponentProps['api']>();
+    const Harness = defineComponent({
+      setup() {
+        return () =>
+          h(ApiComponent, {
+            api: apiRef.value,
+            component: markRaw(ModelValueInput),
+          });
+      },
+    });
+
+    const wrapper = mount(Harness);
+    expect(api).not.toHaveBeenCalled();
+
+    apiRef.value = api;
+    await nextTick();
+
+    expect(api).toHaveBeenCalledTimes(1);
+    await vi.waitFor(() => {
+      const events = wrapper
+        .findComponent(ApiComponent)
+        .emitted('optionsChange');
+      const lastEvent = events?.at(-1)?.[0];
+      expect(lastEvent).toEqual([
+        expect.objectContaining({ label: 'Loaded', value: 'loaded' }),
+      ]);
+    });
   });
 });

@@ -200,9 +200,9 @@ const mergedParams = computed(() => {
 });
 
 watch(
-  mergedParams,
-  (value, oldValue) => {
-    if (isEqual(value, oldValue)) {
+  [() => props.api, mergedParams],
+  ([api, value], [oldApi, oldValue]) => {
+    if (api === oldApi && isEqual(value, oldValue)) {
       return;
     }
     fetchApi();
