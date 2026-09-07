@@ -315,6 +315,11 @@ interface RouteMeta {
    */
   activePath?: string;
   /**
+   * Whether to use the route hierarchy resolved from activePath in breadcrumbs
+   * @default false
+   */
+  breadcrumbUseActivePath?: boolean;
+  /**
    * Whether to fix the tab
    * @default false
    */
@@ -507,6 +512,13 @@ Used to configure the badge color of the page.
 - Default: `''`
 
 Used to configure the currently active menu. Sometimes the page is not displayed in the menu, and this is used to activate the parent menu.
+
+### breadcrumbUseActivePath
+
+- Type: `boolean`
+- Default: `false`
+
+When set to `true`, the breadcrumb supplements the current route matches with the route hierarchy resolved from `activePath`. This is useful for detail pages and other routes that are not nested under the target menu route but still need to display the complete breadcrumb hierarchy.
 
 ### affixTab
 
