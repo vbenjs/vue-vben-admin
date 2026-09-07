@@ -102,4 +102,27 @@ describe('generateRoutesByFrontend', () => {
       { meta: { authority: ['admin'] }, path: '/path3' },
     ]);
   });
+
+  it('should not corrupt the source route table across repeated generations', async () => {
+    // 复现场景：低权限用户先登录，同一会话内再以更高权限重新生成路由。
+    // filterTree 曾把上一次过滤掉的子节点写回源路由表，
+    // 导致高权限用户再也拿不到那些路由。
+    const routes = [
+      {
+        meta: { authority: ['admin', 'user'] },
+        path: '/dashboard',
+        children: [
+          { path: '/dashboard/overview', meta: { authority: ['admin'] } },
+          { path: '/dashboard/stats', meta: { authority: ['user'] } },
+        ],
+      },
+    ] as unknown as RouteRecordRaw[];
+
+    await generateRoutesByFrontend(routes, ['user']);
+    const asAdmin = await generateRoutesByFrontend(routes, ['admin']);
+
+    expect(asAdmin[0]?.children?.map((child) => child.path)).toEqual([
+      '/dashboard/overview',
+    ]);
+  });
 });
