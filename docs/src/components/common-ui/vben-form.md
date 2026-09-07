@@ -636,10 +636,10 @@ export interface FormCommonConfig {
 
 :::
 
-::: details FormSchema
+::: details FormFieldSchema
 
 ```ts
-export interface FormSchema<
+export interface FormFieldSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   TValues extends FormValues = FormValues,
 > extends FormCommonConfig {
@@ -682,7 +682,7 @@ export interface FormSchema<
 
 ::: details FormGroupSchema
 
-`schema` 数组中的每一项要么是字段（`FormFieldSchema`，即上面的 `FormSchema`），要么是分组（`FormGroupSchema`），以 `type: 'group'` 区分。
+`schema` 数组中的每一项要么是字段（`FormFieldSchema`），要么是分组（`FormGroupSchema`），以 `type: 'group'` 区分。
 
 ```ts
 export interface FormGroupSchema<
@@ -710,6 +710,11 @@ export interface FormGroupSchema<
   /** 分组内部的栅格布局，缺省继承表单的 wrapperClass */
   wrapperClass?: WrapperClassType;
 }
+
+export type FormSchema<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  TValues extends FormValues = FormValues,
+> = FormFieldSchema<T, TValues> | FormGroupSchema<T, TValues>;
 ```
 
 :::

@@ -76,6 +76,7 @@ describe('form group rendering', () => {
 
     expect(wrapper.get('.form-group-title').text()).toBe('Contact');
     expect(wrapper.text()).toContain('Optional');
+    expect(wrapper.get('.form-group-trigger').text()).not.toContain('Optional');
     expect(wrapper.findAll('input')).toHaveLength(3);
     expect(wrapper.get('.form-group').findAll('input')).toHaveLength(2);
     expect(getGroupState(wrapper)).toBe('open');
@@ -91,22 +92,34 @@ describe('form group rendering', () => {
     await flushPromises();
 
     expect(getGroupState(wrapper)).toBe('closed');
+    expect(wrapper.get('button.form-group-trigger').attributes('type')).toBe(
+      'button',
+    );
+    expect(
+      wrapper.get('button.form-group-trigger').attributes('aria-expanded'),
+    ).toBe('false');
 
-    await wrapper.get('.form-group-header').trigger('click');
+    await wrapper.get('button.form-group-trigger').trigger('click');
     expect(getGroupState(wrapper)).toBe('open');
+    expect(
+      wrapper.get('button.form-group-trigger').attributes('aria-expanded'),
+    ).toBe('true');
 
-    await wrapper.get('.form-group-header').trigger('click');
+    await wrapper.get('button.form-group-trigger').trigger('click');
     expect(getGroupState(wrapper)).toBe('closed');
   });
 
-  it('keeps a non-collapsible group open when the header is clicked', async () => {
+  it('keeps a non-collapsible group open despite defaultCollapsed', async () => {
     const [Form] = useVbenForm({
-      schema: [createContactGroup({ collapsible: false })],
+      schema: [
+        createContactGroup({ collapsible: false, defaultCollapsed: true }),
+      ],
     });
     const wrapper = mount(Form);
     wrappers.push(wrapper);
     await flushPromises();
 
+    expect(wrapper.find('button.form-group-trigger').exists()).toBe(false);
     await wrapper.get('.form-group-header').trigger('click');
     expect(getGroupState(wrapper)).toBe('open');
   });
@@ -141,6 +154,43 @@ describe('form group rendering', () => {
 
     expect(getGroupState(wrapper)).toBe('open');
     expect(wrapper.text()).toContain('Email is required');
+  });
+
+  it('expands for validation errors in array descendants', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        createContactGroup({
+          children: [
+            {
+              children: [
+                {
+                  component: TestInput,
+                  fieldName: 'phone',
+                  label: 'Phone',
+                  rules: z.string().min(1, 'Phone is required'),
+                },
+              ],
+              defaultValue: [{ phone: '' }],
+              fieldName: 'contacts',
+              type: 'array',
+            },
+          ],
+          defaultCollapsed: true,
+        }),
+      ],
+    });
+    const wrapper = mount(Form);
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    expect(getGroupState(wrapper)).toBe('closed');
+    expect(await formApi.validate()).toEqual({
+      errors: { 'contacts[0].phone': 'Phone is required' },
+      valid: false,
+    });
+    await flushPromises();
+
+    expect(getGroupState(wrapper)).toBe('open');
   });
 
   it('skips hidden groups and forwards field slots into groups', async () => {

@@ -24,7 +24,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const formRenderProps = injectRenderFormProps();
 
-const collapseOpen = ref(!props.schema.defaultCollapsed);
+const collapseOpen = ref(
+  props.schema.collapsible === false || !props.schema.defaultCollapsed,
+);
 
 const shouldCollapsible = computed(() => {
   return props.schema.collapsible !== false;
@@ -33,8 +35,14 @@ const shouldCollapsible = computed(() => {
 // 组内任一字段校验失败时自动展开，避免错误提示被折叠区域遮住
 const hasInvalidField = computed(() => {
   const errors = formRenderProps.form?.errors ?? {};
-  return props.schema.children.some((field) =>
-    Boolean(errors[field.fieldName]),
+  return props.schema.children.some(({ fieldName }) =>
+    Object.entries(errors).some(
+      ([errorFieldName, error]) =>
+        Boolean(error) &&
+        (errorFieldName === fieldName ||
+          errorFieldName.startsWith(`${fieldName}.`) ||
+          errorFieldName.startsWith(`${fieldName}[`)),
+    ),
   );
 });
 
@@ -65,36 +73,47 @@ function toggleCollapsed() {
     <VbenCollapsible v-model:open="collapseOpen" :show-trigger="false">
       <template #label>
         <div
-          :class="
-            cn(
-              'form-group-header mb-2 flex min-h-7 flex-1 items-center gap-2',
-              {
-                'cursor-pointer select-none': shouldCollapsible,
-              },
-            )
-          "
-          @click="toggleCollapsed"
+          class="form-group-header mb-2 flex min-h-7 flex-1 items-center gap-2"
         >
-          <span class="bg-primary h-3.5 w-[3px] flex-none rounded-full"></span>
-          <span
-            v-if="props.schema.title"
-            class="form-group-title text-sm font-medium leading-6"
-          >
-            <VbenRenderContent :content="props.schema.title" />
-          </span>
-          <div v-if="props.schema.extra" class="ml-auto" @click.stop>
-            <VbenRenderContent :content="props.schema.extra" />
-          </div>
-          <ChevronsDown
-            v-if="shouldCollapsible"
-            :size="16"
+          <component
+            :is="shouldCollapsible ? 'button' : 'div'"
+            :aria-expanded="shouldCollapsible ? collapseOpen : undefined"
             :class="
-              cn('text-muted-foreground transition-transform', {
-                'ml-auto': !props.schema.extra,
-                'rotate-180': collapseOpen,
+              cn('flex min-w-0 flex-1 items-center gap-2 text-left', {
+                'focus-visible:ring-ring cursor-pointer select-none rounded-sm outline-none focus-visible:ring-2':
+                  shouldCollapsible,
               })
             "
-          />
+            :type="shouldCollapsible ? 'button' : undefined"
+            class="form-group-trigger"
+            @click="toggleCollapsed"
+          >
+            <span
+              class="bg-primary h-3.5 w-[3px] flex-none rounded-full"
+            ></span>
+            <span
+              v-if="props.schema.title"
+              class="form-group-title text-sm font-medium leading-6"
+            >
+              <VbenRenderContent :content="props.schema.title" />
+            </span>
+            <ChevronsDown
+              v-if="shouldCollapsible"
+              aria-hidden="true"
+              :size="16"
+              :class="
+                cn(
+                  'text-muted-foreground ml-auto flex-none transition-transform',
+                  {
+                    'rotate-180': collapseOpen,
+                  },
+                )
+              "
+            />
+          </component>
+          <div v-if="props.schema.extra" class="flex-none">
+            <VbenRenderContent :content="props.schema.extra" />
+          </div>
         </div>
       </template>
       <template #collapsibleContent>
