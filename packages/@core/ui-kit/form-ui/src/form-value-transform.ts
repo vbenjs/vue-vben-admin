@@ -2,6 +2,7 @@ import type {
   ArrayToStringFields,
   BaseFormComponentType,
   FieldMappingTime,
+  FormFieldSchema,
   FormSchema,
   FormSchemaContext,
   FormValues,
@@ -17,10 +18,17 @@ import {
 } from './field-name';
 import {
   getFormArraySchemaChildren,
+  getFormFieldSchemas,
   resolveArrayChildFieldName,
 } from './form-render/schema';
 
 type AnyFormSchema<TValues extends FormValues> = FormSchema<
+  BaseFormComponentType,
+  Record<string, any>,
+  TValues
+>;
+
+type AnyFormFieldSchema<TValues extends FormValues> = FormFieldSchema<
   BaseFormComponentType,
   Record<string, any>,
   TValues
@@ -132,7 +140,7 @@ function applyRangeTimeFields(
 }
 
 function applyValueFormatBySchemas<TValues extends FormValues>(
-  schemas: AnyFormSchema<TValues>[],
+  schemas: AnyFormFieldSchema<TValues>[],
   values: Record<string, any>,
   parentPath?: string,
   parentContext?: FormSchemaContext<TValues>,
@@ -153,7 +161,8 @@ function applyValueFormatBySchemas<TValues extends FormValues>(
       row,
     };
 
-    const children = getFormArraySchemaChildren<AnyFormSchema<TValues>>(schema);
+    const children =
+      getFormArraySchemaChildren<AnyFormFieldSchema<TValues>>(schema);
     if (children.length > 0) {
       const arrayValue = getValueByFieldName(values, fieldName);
       if (Array.isArray(arrayValue)) {
@@ -197,7 +206,7 @@ export function applyFormValueFormats<TValues extends FormValues>(
   schemas: AnyFormSchema<TValues>[],
 ) {
   const values = cloneDeep(originValues);
-  applyValueFormatBySchemas(schemas, values);
+  applyValueFormatBySchemas(getFormFieldSchemas(schemas), values);
   return values;
 }
 
@@ -210,7 +219,7 @@ export function formatFormValues<TValues extends FormValues>(
   const values = cloneDeep(originValues);
   applyArrayToStringFields(values, arrayToStringFields);
   applyRangeTimeFields(values, fieldMappingTime);
-  applyValueFormatBySchemas(schemas, values);
+  applyValueFormatBySchemas(getFormFieldSchemas(schemas), values);
   return values;
 }
 

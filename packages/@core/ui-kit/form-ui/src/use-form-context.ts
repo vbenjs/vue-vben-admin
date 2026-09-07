@@ -20,6 +20,7 @@ import {
 } from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
 
+import { getFormFieldSchemas } from './form-render/schema';
 import { useFormRuntime } from './form-runtime';
 
 type ExtendFormProps = VbenFormProps & {
@@ -97,7 +98,7 @@ export function useFormInitial(
     const initialValues: Record<string, any> = {};
 
     const zodObject: Record<string, ZodType> = {};
-    (unref(props).schema || []).forEach((item) => {
+    getFormFieldSchemas(unref(props).schema ?? []).forEach((item) => {
       if (Reflect.has(item, 'defaultValue')) {
         set(initialValues, item.fieldName, item.defaultValue);
       } else if (item.rules && !isString(item.rules)) {

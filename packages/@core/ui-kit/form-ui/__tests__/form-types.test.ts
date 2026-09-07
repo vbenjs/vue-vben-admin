@@ -4,7 +4,10 @@ import type {
   FormActions,
   FormContextApi,
   FormFieldOptions,
+  FormFieldSchema,
+  FormGroupSchema,
   FormItemDependencies,
+  FormSchema,
   FormValidationResult,
   FormValuePatch,
   FormValueSnapshot,
@@ -269,6 +272,57 @@ describe('form public types', () => {
     expectTypeOf(
       formApi.getRawValues(),
     ).resolves.toEqualTypeOf<AccountFormValues>();
+  });
+
+  it('discriminates group schemas from field schemas by type', () => {
+    const [, formApi] = useVbenForm<AccountFormValues>({
+      schema: [
+        { component: 'VbenInput', fieldName: 'email' },
+        {
+          children: [{ component: 'VbenInput', fieldName: 'profile.nickname' }],
+          defaultCollapsed: true,
+          title: 'Profile',
+          type: 'group',
+        },
+      ],
+    });
+
+    expectTypeOf<FormSchema>().toEqualTypeOf<
+      FormFieldSchema | FormGroupSchema
+    >();
+    expectTypeOf<FormGroupSchema['fieldName']>().toEqualTypeOf<undefined>();
+    expectTypeOf<FormGroupSchema['component']>().toEqualTypeOf<undefined>();
+    expectTypeOf<FormGroupSchema['children']>().toEqualTypeOf<
+      FormFieldSchema[]
+    >();
+    // updateSchema 只接受字段更新，分组本身不可被更新
+    expectTypeOf(formApi.updateSchema)
+      .parameter(0)
+      .toEqualTypeOf<
+        Partial<
+          FormFieldSchema<
+            BaseFormComponentType,
+            Record<never, never>,
+            AccountFormValues
+          >
+        >[]
+      >();
+
+    // @ts-expect-error 分组不能声明 fieldName
+    const invalidGroup: FormSchema = {
+      children: [],
+      fieldName: 'group',
+      type: 'group',
+    };
+    // @ts-expect-error 数组子字段不能是分组
+    const invalidArrayChildren: FormSchema = {
+      children: [{ children: [], type: 'group' }],
+      fieldName: 'contacts',
+      type: 'array',
+    };
+
+    expectTypeOf(invalidGroup).toMatchTypeOf<FormSchema>();
+    expectTypeOf(invalidArrayChildren).toMatchTypeOf<FormSchema>();
   });
 
   it('exposes canonical names alongside deprecated aliases', () => {

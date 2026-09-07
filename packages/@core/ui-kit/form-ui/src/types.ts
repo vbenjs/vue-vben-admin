@@ -667,7 +667,7 @@ type FormArraySchema<
     'disabled' | 'globalCommonConfig' | 'name' | 'schema'
   >;
   /** 数组子字段定义 */
-  children: FormSchema<T, P, TValues>[];
+  children: FormFieldSchema<T, P, TValues>[];
   /** 兼容显式指定内置数组编辑器 */
   component?: Component | T;
   /** 兼容通过 componentProps 传递数组编辑器参数 */
@@ -676,7 +676,51 @@ type FormArraySchema<
   type: 'array';
 } & FormSchemaBody<TValues>;
 
-export type FormSchema<
+/**
+ * 表单分组，用于把若干字段组织成一个可折叠的区块。
+ * 分组本身不是字段，不参与取值与校验。
+ */
+export interface FormGroupSchema<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
+> {
+  /** 分组内的字段定义 */
+  children: FormFieldSchema<T, P, TValues>[];
+  /**
+   * 是否允许折叠
+   * @default true
+   */
+  collapsible?: boolean;
+  /** 分组不是字段，禁止指定组件 */
+  component?: never;
+  /**
+   * 是否默认折叠
+   * @default false
+   */
+  defaultCollapsed?: boolean;
+  /** 标题右侧的附加内容 */
+  extra?: CustomRenderType;
+  /** 分组不是字段，禁止指定字段名 */
+  fieldName?: never;
+  /** 分组容器在表单栅格中的样式，默认占满一行 */
+  formItemClass?: FormItemClassType;
+  /** 是否隐藏分组 */
+  hide?: boolean;
+  /** 分组标识，用于渲染时的稳定 key，缺省按索引 */
+  name?: string;
+  /** 分组标题 */
+  title?: CustomRenderType;
+  /** 分组标记 */
+  type: 'group';
+  /** 分组内部的栅格布局，缺省继承表单的 wrapperClass */
+  wrapperClass?: WrapperClassType;
+}
+
+/**
+ * 单个表单字段的 schema（普通字段 / 数组字段）
+ */
+export type FormFieldSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
   P extends Record<string, any> = Record<never, never>,
   TValues extends FormValues = FormValues,
@@ -684,6 +728,15 @@ export type FormSchema<
   | FormArraySchema<T, P, TValues>
   | FormSchemaDiscriminated<T, P, TValues>
   | FormSchemaFallback<T, TValues>;
+
+/**
+ * 表单 schema 项：字段或分组，以 `type` 区分
+ */
+export type FormSchema<
+  T extends BaseFormComponentType = BaseFormComponentType,
+  P extends Record<string, any> = Record<never, never>,
+  TValues extends FormValues = FormValues,
+> = FormFieldSchema<T, P, TValues> | FormGroupSchema<T, P, TValues>;
 
 /**
  * 数组编辑器（VbenFormFieldArray）的组件参数
@@ -712,8 +765,8 @@ export interface VbenFormFieldArrayProps<
   min?: number;
   /** 数组字段路径，由外层 FormField 透传 */
   name?: string;
-  /** 列定义，每一列是一个子字段（复用 FormSchema） */
-  schema?: FormSchema<T, P, TValues>[];
+  /** 列定义，每一列是一个子字段（复用 FormFieldSchema） */
+  schema?: FormFieldSchema<T, P, TValues>[];
   /** 是否显示序号列 */
   showIndex?: boolean;
 }

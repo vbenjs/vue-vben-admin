@@ -374,6 +374,71 @@ describe('formApi', () => {
     );
   });
 
+  it('should treat fields inside groups as known fields when filtering', async () => {
+    const setValuesMock = vi.fn();
+    formApi.setState({
+      schema: [
+        { component: 'text', fieldName: 'name' },
+        {
+          children: [{ component: 'text', fieldName: 'email' }],
+          title: 'Contact',
+          type: 'group',
+        },
+      ],
+    });
+    const formActions: any = {
+      meta: {},
+      setValues: setValuesMock,
+      values: {},
+    };
+
+    await formApi.mount(formActions, new Map());
+    await formApi.setValues({
+      email: 'ada@example.com',
+      name: 'Ada',
+      unknown: 'ignored',
+    });
+
+    expect(setValuesMock).toHaveBeenCalledWith(
+      { email: 'ada@example.com', name: 'Ada' },
+      false,
+    );
+  });
+
+  it('should clear values of fields removed from a group', async () => {
+    const setFieldValueMock = vi.fn();
+    formApi.setState({
+      schema: [
+        {
+          children: [
+            { component: 'text', fieldName: 'email' },
+            { component: 'text', fieldName: 'phone' },
+          ],
+          title: 'Contact',
+          type: 'group',
+        },
+      ],
+    });
+    const formActions: any = {
+      meta: {},
+      setFieldValue: setFieldValueMock,
+      values: { email: 'ada@example.com', phone: '123' },
+    };
+
+    await formApi.mount(formActions, new Map());
+    formApi.removeSchemaByFields(['phone']);
+
+    expect(formApi.state?.schema).toEqual([
+      {
+        children: [{ component: 'text', fieldName: 'email' }],
+        title: 'Contact',
+        type: 'group',
+      },
+    ]);
+    expect(setFieldValueMock).toHaveBeenCalledWith('phone', undefined);
+    expect(setFieldValueMock).not.toHaveBeenCalledWith('email', undefined);
+  });
+
   it('should preserve nested schema siblings in touched branches', async () => {
     const setValuesMock = vi.fn();
     formApi.setState({
@@ -676,7 +741,7 @@ describe('updateSchema', () => {
     instance.updateSchema(newSchema);
 
     expect(instance.state?.schema?.[0]?.component).toBe('text');
-    expect(instance.state?.schema?.[1]?.label).toBe('Age');
+    expect(instance.state?.schema?.[1]).toMatchObject({ label: 'Age' });
   });
 
   it('should update child schema by parent path', () => {
@@ -706,6 +771,32 @@ describe('updateSchema', () => {
     expect((instance.state?.schema?.[0] as any)?.children?.[1]?.label).toBe(
       'Phone',
     );
+  });
+
+  it('should update fields nested inside groups', () => {
+    instance.state = {
+      schema: [
+        { component: 'text', fieldName: 'name' },
+        {
+          children: [
+            { component: 'text', fieldName: 'email', label: 'Email' },
+            { component: 'text', fieldName: 'phone', label: 'Phone' },
+          ],
+          title: 'Contact',
+          type: 'group',
+        },
+      ],
+    };
+
+    instance.updateSchema([{ fieldName: 'phone', label: 'Mobile' }]);
+
+    expect(instance.state?.schema?.[1]).toMatchObject({
+      children: [
+        { fieldName: 'email', label: 'Email' },
+        { fieldName: 'phone', label: 'Mobile' },
+      ],
+      type: 'group',
+    });
   });
 
   it('should log an error if fieldName is missing in some items', () => {

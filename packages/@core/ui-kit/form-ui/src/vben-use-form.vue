@@ -15,6 +15,7 @@ import {
   DEFAULT_FORM_COMMON_CONFIG,
 } from './config';
 import { Form } from './form-render';
+import { getFormFieldSchemas } from './form-render/schema';
 import {
   provideComponentRefMap,
   provideFormProps,
@@ -92,7 +93,9 @@ watch(values, (currentValues, previousValues) => {
   if (!handleValuesChange && !submitOnChange) {
     return;
   }
-  const fields = state?.value.schema?.map((item) => item.fieldName) ?? [];
+  const fields = getFormFieldSchemas(state?.value.schema ?? []).map(
+    (item) => item.fieldName,
+  );
   if (handleValuesChange && fields.length > 0) {
     const changedFields = fields.filter((field) => {
       return !isEqual(

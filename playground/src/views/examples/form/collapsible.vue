@@ -232,10 +232,120 @@ const [BaseForm, baseFormApi] = useVbenForm({
   wrapperClass: 'grid-cols-12',
 });
 
+// 通过 schema 的 type: 'group' 把字段组织成可折叠的分组
+const [GroupForm, groupFormApi] = useVbenForm({
+  showDefaultActions: false,
+  commonConfig: {
+    componentProps: {
+      class: 'w-full',
+    },
+  },
+  handleSubmit: onSubmit,
+  schema: [
+    {
+      component: 'Input',
+      fieldName: 'name',
+      label: '任务名称',
+      rules: 'required',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: 'SFT', value: 'sft' },
+          { label: 'DPO', value: 'dpo' },
+        ],
+      },
+      defaultValue: 'sft',
+      fieldName: 'method',
+      label: '训练方式',
+    },
+    {
+      type: 'group',
+      name: 'training',
+      title: '训练参数',
+      children: [
+        {
+          component: 'InputNumber',
+          defaultValue: 32,
+          fieldName: 'batchSize',
+          label: '批次大小',
+        },
+        {
+          component: 'InputNumber',
+          defaultValue: 1e-5,
+          fieldName: 'learningRate',
+          label: '学习率',
+        },
+        {
+          component: 'InputNumber',
+          defaultValue: 3,
+          fieldName: 'epochs',
+          label: '循环次数',
+        },
+        {
+          component: 'InputNumber',
+          defaultValue: 32_768,
+          fieldName: 'maxLength',
+          label: '序列长度',
+        },
+      ],
+    },
+    {
+      type: 'group',
+      name: 'advanced',
+      title: '高级选项',
+      extra: () =>
+        h(
+          'span',
+          { class: 'text-muted-foreground text-xs' },
+          '默认折叠，校验失败时自动展开',
+        ),
+      defaultCollapsed: true,
+      children: [
+        {
+          component: 'Input',
+          fieldName: 'checkpoint',
+          label: 'Checkpoint',
+          rules: 'required',
+        },
+        {
+          component: 'Switch',
+          componentProps: {
+            class: 'w-auto',
+          },
+          defaultValue: false,
+          fieldName: 'enableEval',
+          label: '定期评估',
+        },
+        {
+          component: 'Textarea',
+          fieldName: 'remark',
+          formItemClass: 'col-span-2',
+          label: '备注',
+        },
+      ],
+    },
+  ],
+  wrapperClass: 'grid-cols-2',
+});
+
 function onSubmit(values: Record<string, any>) {
   message.info({
     content: `form values: ${JSON.stringify(values)}`,
   });
+}
+
+async function handleSubmitGroupForm() {
+  const { valid } = await groupFormApi.validate();
+
+  if (valid) {
+    groupFormApi.submit();
+  }
+}
+
+function handleResetGroupForm() {
+  groupFormApi.reset(undefined, { force: true });
 }
 
 function onLayoutChange() {
@@ -277,7 +387,7 @@ async function handleSubmitFormValue() {
   >
     <template #description>
       <div class="text-muted-foreground">
-        <p>可折叠表单项、以及可折叠参数配置组件示例</p>
+        <p>可折叠表单项、可折叠参数配置组件，以及 schema 分组折叠示例</p>
       </div>
     </template>
     <template #extra>
@@ -305,6 +415,26 @@ async function handleSubmitFormValue() {
       </template>
       <div class="w-full overflow-hidden">
         <BaseForm />
+      </div>
+    </Card>
+    <Card title="分组折叠">
+      <template #extra>
+        <div class="inline-flex items-center gap-4!">
+          <Button type="primary" @click="handleSubmitGroupForm">
+            提交表单
+          </Button>
+          <Button type="primary" @click="handleResetGroupForm">
+            重置表单
+          </Button>
+        </div>
+      </template>
+      <p class="text-muted-foreground mb-4 text-sm">
+        在 schema 中使用 <code>type: 'group'</code>
+        把字段组织成可折叠区块。分组本身不是字段，组内字段与顶层字段完全等价；
+        「高级选项」默认折叠，直接提交时会因校验失败自动展开。
+      </p>
+      <div class="w-full overflow-hidden">
+        <GroupForm />
       </div>
     </Card>
   </Page>

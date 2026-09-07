@@ -62,6 +62,29 @@ describe('form value transforms', () => {
     });
   });
 
+  it('formats fields nested inside groups', () => {
+    const schema = [
+      {
+        children: [
+          {
+            component: 'text',
+            fieldName: 'email',
+            valueFormat: (value: string) => value.trim().toLowerCase(),
+          },
+        ],
+        title: 'Contact',
+        type: 'group',
+      },
+    ] as any;
+
+    const result = applyFormValueFormats(
+      { email: ' Ada@Example.com ' },
+      schema,
+    );
+
+    expect(result).toEqual({ email: 'ada@example.com' });
+  });
+
   it('runs the unified formatting pipeline in a stable order', () => {
     const result = formatFormValues(
       {
