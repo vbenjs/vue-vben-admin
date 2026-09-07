@@ -154,7 +154,7 @@ catalog:
   oxlint-tsgolint: ^0.25.0
   pinia: ^4.0.2
   pinia-plugin-persistedstate: ^4.7.1
-  pkg-types: ^2.3.1
+  pkg-types: ^2.3.2
   playwright: ^1.62.1
   postcss: ^8.5.22
   postcss-html: ^1.8.1
