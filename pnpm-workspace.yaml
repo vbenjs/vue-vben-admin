@@ -134,7 +134,7 @@ catalog:
   execa: ^10.0.0
   find-up: ^8.0.0
   get-port: ^7.2.0
-  globals: ^17.7.0
+  globals: ^17.12.0
   h3: ^1.15.11
   happy-dom: ^20.11.6
   html-minifier-terser: ^7.2.0
