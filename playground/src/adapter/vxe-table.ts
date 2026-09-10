@@ -356,7 +356,7 @@ setupVbenVxeTable({
         };
         const renderOperations =
           operationRenderStrategies[renderMode ?? mode] ??
-          operationRenderStrategies.button;
+          operationRenderStrategies.button!;
 
         return h(
           'div',
