@@ -17,7 +17,7 @@ import {
 import { get, isFunction, isString } from '@vben/utils';
 
 import { objectOmit } from '@vueuse/core';
-import { Button, Image, Popconfirm, Switch, Tag } from 'antdv-next';
+import { Button, Dropdown, Image, Popconfirm, Switch, Tag } from 'antdv-next';
 
 import { $t } from '#/locales';
 
@@ -134,7 +134,16 @@ setupVbenVxeTable({
      * 注册表格的操作按钮渲染器
      */
     vxeUI.renderer.add('CellOperation', {
-      renderTableDefault({ attrs, options, props }, { column, row }) {
+      renderTableDefault({ attrs, options, props: rawProps }, { column, row }) {
+        const {
+          dropdownProps,
+          menuButtonProps,
+          menuIcon = 'ant-design:more-outlined',
+          menuText = $t('common.more'),
+          mode,
+          renderMode,
+          ...props
+        } = rawProps ?? {};
         const defaultProps = { size: 'small', type: 'link', ...props };
         let align: string;
         switch (column.align) {
@@ -271,13 +280,91 @@ setupVbenVxeTable({
         const btns = operations.map((opt) =>
           opt.code === 'delete' ? renderConfirm(opt) : renderBtn(opt),
         );
+
+        function renderMenuTrigger() {
+          return h(
+            Button,
+            {
+              size: defaultProps.size,
+              type: defaultProps.type,
+              ...menuButtonProps,
+            },
+            {
+              default: () => {
+                const content = [];
+                if (menuIcon) {
+                  content.push(
+                    h(IconifyIcon, { class: 'size-5', icon: menuIcon }),
+                  );
+                }
+                if (menuText) {
+                  content.push(h('span', menuText));
+                }
+                return h(
+                  'div',
+                  { class: 'inline-flex items-center gap-1 leading-none' },
+                  content,
+                );
+              },
+            },
+          );
+        }
+
+        const operationRenderStrategies: Recordable<() => any[]> = {
+          button: () => btns,
+          menu: () => [
+            h(
+              Dropdown,
+              {
+                getPopupContainer: () => document.body,
+                placement:
+                  column.align === 'left'
+                    ? 'bottomLeft'
+                    : 'bottomRight',
+                trigger: ['click'],
+                ...dropdownProps,
+              },
+              {
+                default: () =>
+                  h(
+                    'span',
+                    {
+                      class: 'inline-flex cursor-pointer',
+                    },
+                    [renderMenuTrigger()],
+                  ),
+
+                popupRender: () =>
+                  h(
+                    'div',
+                    {
+                      class:
+                        'ant-dropdown-menu flex flex-col gap-1 p-1',
+
+                      onClick: (event: MouseEvent) =>
+                        event.stopPropagation(),
+
+                      style: {
+                        minWidth: '80px',
+                      },
+                    },
+                    btns,
+                  ),
+              },
+            ),
+          ],
+        };
+        const renderOperations =
+          operationRenderStrategies[renderMode ?? mode] ??
+          operationRenderStrategies.button;
+
         return h(
           'div',
           {
             class: 'flex table-operations',
             style: { justifyContent: align },
           },
-          btns,
+          renderOperations(),
         );
       },
     });
