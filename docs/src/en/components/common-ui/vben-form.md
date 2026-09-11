@@ -321,6 +321,40 @@ formApi.updateSchema([{ fieldName: 'remark', label: 'Description' }]);
 - A collapsed group expands automatically when one of its fields fails validation.
 - Groups are single-level: `children` only accepts fields, and array-field `children` cannot contain groups either.
 
+## useCustomFieldValue
+
+When a component's value does not live on a single control (a composite built from several controls, a third-party component), the enclosing field cannot read it and the schema `rules` have nothing to validate. Such a component can call `useCustomFieldValue` internally to hand its value getter to the enclosing field, without drilling props through the slot:
+
+```vue
+<script lang="ts" setup>
+import { useCustomFieldValue } from '@vben/common-ui';
+
+// The form still owns the value: it comes down through modelValue and the
+// component only emits changes back
+const modelValue = defineModel<string[]>({ default: () => [] });
+
+const { disabled, error } = useCustomFieldValue(() => modelValue.value);
+</script>
+```
+
+```vue
+<Form>
+  <template #tags="slotProps">
+    <TagPicker v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+Every getter change writes the value back to the field, clears its validation state, and revalidates according to the field `validateOn`. A getter value that already equals the current field value (the case when `setValues` or a reset flows through the component) is neither written back nor validated; with `deep` the form stores a copy of the value, so mutating the same object in place is still detected. Options are `deep` (getter returns an object or array mutated in place) and `immediate` (write the current value on mount without validating). A field accepts one getter only; later registrations are ignored with a console warning.
+
+::: warning Keep the component controlled
+
+The value must keep flowing in through `modelValue` (in a slot that means `v-bind="slotProps.componentProps"`) so `setValues` and reset reach the component as props. When `component` is a string, the model prop name comes from the adapter (`value` for antdv), so a slot component using the standard `modelValue` needs an explicit `modelPropName: 'modelValue'` — otherwise reset only clears the form value while the component keeps rendering the stale one.
+
+Only components that fully own their internal state need to sync from the returned `value`.
+
+:::
+
 ## Form Codec
 
 Use the form-level `codec` when component values and the backend payload have different shapes. `encode` converts the complete `TFormValues` object to `TSubmitValues`; `decode` performs the inverse conversion. Multi-field splits and merges are atomic and do not depend on schema order or string-path writes.

@@ -15,6 +15,7 @@ import {
   nextTick,
   onUnmounted,
   ref,
+  shallowRef,
   toRaw,
   useTemplateRef,
   watch,
@@ -35,6 +36,7 @@ import {
 import { cn, isFunction, isObject, isString } from '@vben-core/shared/utils';
 
 import { getFormRule } from '../rule-registry';
+import { provideFormCustomField } from '../use-custom-field-value';
 import { injectComponentRefMap } from '../use-form-context';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
@@ -216,15 +218,18 @@ async function validateFieldValue({ value }: { value: any }) {
   return result.success ? undefined : result.error.issues[0]?.message;
 }
 
+const validateTriggers = computed(
+  () => new Set(formFieldProps?.validateOn ?? ['blur', 'change']),
+);
+
 const fieldValidators = computed(() => {
   const validators: Record<string, typeof validateFieldValue> = {
     onSubmitAsync: validateFieldValue,
   };
-  const validateOn = new Set(formFieldProps?.validateOn ?? ['blur', 'change']);
-  if (validateOn.has('blur')) {
+  if (validateTriggers.value.has('blur')) {
     validators.onBlurAsync = validateFieldValue;
   }
-  if (validateOn.has('change')) {
+  if (validateTriggers.value.has('change')) {
     validators.onChangeAsync = validateFieldValue;
   }
   return validators;
@@ -266,6 +271,22 @@ watch(
 
 const shouldDisabled = computed(() => {
   return Boolean(isDisabled.value || disabled || computedProps.value?.disabled);
+});
+
+// 插槽里的自定义组件既无 componentProps 绑定也无 modelValue 时，靠 useCustomFieldValue 回写值
+provideFormCustomField({
+  customValue: shallowRef(),
+  disabled: shouldDisabled,
+  error,
+  fieldName,
+  resetValidation: () => getFormApi().setFieldError(fieldName),
+  setValue: (value: any) => getFormApi().setFieldValue(fieldName, value, false),
+  validateWithTrigger: (trigger) => {
+    if (validateTriggers.value.has(trigger)) {
+      void getFormApi().validateField(fieldName);
+    }
+  },
+  value: fieldValue,
 });
 
 const customContentRender = computed(() => {
