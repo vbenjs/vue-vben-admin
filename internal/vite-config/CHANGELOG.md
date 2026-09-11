@@ -1,5 +1,12 @@
 # @vben/vite-config
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vben/node-utils@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes

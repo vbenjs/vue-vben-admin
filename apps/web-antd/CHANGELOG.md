@@ -1,5 +1,25 @@
 # @vben/web-antd
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vben/common-ui@5.8.1
+  - @vben/layouts@5.8.1
+  - @vben/plugins@5.8.1
+  - @vben/constants@5.8.1
+  - @vben/access@5.8.1
+  - @vben/hooks@5.8.1
+  - @vben/request@5.8.1
+  - @vben/icons@5.8.1
+  - @vben/locales@5.8.1
+  - @vben/preferences@5.8.1
+  - @vben/stores@5.8.1
+  - @vben/styles@5.8.1
+  - @vben/types@5.8.1
+  - @vben/utils@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes
