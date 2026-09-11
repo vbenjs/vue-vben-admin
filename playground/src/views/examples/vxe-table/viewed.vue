@@ -35,6 +35,9 @@ const gridOptions: VxeGridProps<RowType> = {
     {
       align: 'center',
       cellRender: {
+        props: {
+          renderMode: 'menu',
+        },
         attrs: {
           nameField: 'category',
           onClick: onActionClick,
@@ -53,7 +56,7 @@ const gridOptions: VxeGridProps<RowType> = {
       headerAlign: 'center',
       showOverflow: false,
       title: $t('system.menu.operation'),
-      width: 200,
+      width: 100,
     },
   ],
   exportConfig: {},
