@@ -72,9 +72,17 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
       const uniqueWord = generateContentHash(componentDir);
 
       const ComponentName = `DemoComponent_${uniqueWord}`;
-      insertComponentImport(
-        `import ${ComponentName} from '${componentDir}/index.vue'`,
-      );
+      
+      // 使用异步组件加载 demo，避免 SSR 阶段执行 demo 模块的顶层副作用
+      let asyncImport = `const ${ComponentName} = defineAsyncComponent(() => import('${componentDir}/index.vue'))`;
+      const currentContent = state.tokens
+        .map((token) => token.content)
+        .join('');
+      if (!/import\s*\{[^}]*defineAsyncComponent[^}]*\}\s*from\s*['"]vue['"]/.test(currentContent)) {
+        asyncImport = `import { defineAsyncComponent } from 'vue';\n${asyncImport}`;
+      }
+      insertComponentImport(asyncImport);
+      
       const { path: _path } = state.env as MarkdownEnv;
 
       const index = state.tokens.findIndex((i) => i.content.match(regex));
