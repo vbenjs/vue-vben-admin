@@ -7,6 +7,11 @@
   color: inherit;
 }
 
+/* Reserve the counter's line below the textarea inside clipped form controls. */
+.ant-input-textarea-show-count {
+  margin-block-end: calc(var(--ant-font-size) * var(--ant-line-height));
+}
+
 .ant-btn {
   .anticon {
     display: inline-flex;
