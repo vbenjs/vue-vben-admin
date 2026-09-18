@@ -9,12 +9,24 @@ import SwitchItem from '../switch-item.vue';
 const props = defineProps<{ disabled: boolean }>();
 
 const copyrightEnable = defineModel<boolean>('copyrightEnable');
-const copyrightDate = defineModel<string>('copyrightDate');
-const copyrightIcp = defineModel<string>('copyrightIcp');
-const copyrightIcpLink = defineModel<string>('copyrightIcpLink');
-const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
-const copyrightCompanySiteLink = defineModel<string>(
+const copyrightDate = defineModel<string | undefined>('copyrightDate', {
+  default: undefined,
+});
+const copyrightIcp = defineModel<string | undefined>('copyrightIcp', {
+  default: undefined,
+});
+const copyrightIcpLink = defineModel<string | undefined>('copyrightIcpLink', {
+  default: undefined,
+});
+const copyrightCompanyName = defineModel<string | undefined>(
+  'copyrightCompanyName',
+  {
+    default: undefined,
+  },
+);
+const copyrightCompanySiteLink = defineModel<string | undefined>(
   'copyrightCompanySiteLink',
+  { default: undefined },
 );
 
 const itemDisabled = computed(() => props.disabled || !copyrightEnable.value);

@@ -22,7 +22,9 @@ withDefaults(defineProps<Props>(), {
   tabs: () => [],
 });
 
-const tabsValue = defineModel<string>('modelValue');
+const tabsValue = defineModel<string | undefined>('modelValue', {
+  default: undefined,
+});
 </script>
 <template>
   <Page auto-content-height>
