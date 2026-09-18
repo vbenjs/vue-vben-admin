@@ -269,14 +269,20 @@ export interface VbenFormFieldSlotProps<
   name: TFieldName;
 }
 
+/**
+ * 表单值带索引签名时字段值解析不出具体类型（`unknown`），此处放宽成 `any`：
+ * 否则 `v-bind="slotProps.componentProps"` 喂不进任何声明了具体 model 类型的组件。
+ */
+type LooseFieldValue<TValue> = unknown extends TValue ? any : TValue;
+
 export type VbenFormResolvedComponentProps<
   TValue = unknown,
   TFieldName extends string = string,
 > = MaybeComponentProps & {
   disabled: boolean;
-  modelValue?: TValue;
+  modelValue?: LooseFieldValue<TValue>;
   name: TFieldName;
-  'onUpdate:modelValue'?: (value: TValue) => void;
+  'onUpdate:modelValue'?: (value: LooseFieldValue<TValue>) => void;
 };
 
 type VbenFormFieldSlots<

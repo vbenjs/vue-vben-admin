@@ -7,6 +7,7 @@ import { Button, Card, Input, message, Select } from 'antdv-next';
 
 import { useVbenForm, z } from '#/adapter/form';
 
+import TagPicker from './modules/tag-picker.vue';
 import TwoFields from './modules/two-fields.vue';
 
 interface CustomFormValues extends Record<string, unknown> {
@@ -16,6 +17,7 @@ interface CustomFormValues extends Record<string, unknown> {
   field3?: string;
   field4?: [string | undefined, string | undefined];
   field5?: string;
+  field6?: string[];
 }
 
 function encodeCustomFormValues(values: Readonly<CustomFormValues>) {
@@ -118,6 +120,15 @@ const [Form, formApi] = useVbenForm({
       label: '动态组件',
       modelPropName: 'value',
     },
+    {
+      component: 'Input',
+      defaultValue: [],
+      fieldName: 'field6',
+      label: '自定义取值(slot)',
+      // 插槽里的 TagPicker 用的是标准 modelValue，不能套用 antdv 的 v-model:value
+      modelPropName: 'modelValue',
+      rules: z.array(z.string()).min(1, '请至少选择一个标签'),
+    },
   ],
   // 中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
@@ -178,6 +189,10 @@ function onSubmit(values: CustomSubmitValues) {
       <Form>
         <template #field3="slotProps">
           <Input placeholder="请输入" v-bind="slotProps.componentProps" />
+        </template>
+        <!-- 值走 componentProps 的 modelValue，校验值由组件内 useCustomFieldValue 提供 -->
+        <template #field6="slotProps">
+          <TagPicker v-bind="slotProps.componentProps" />
         </template>
       </Form>
     </Card>

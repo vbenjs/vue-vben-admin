@@ -310,7 +310,7 @@ setupVbenVxeTable({
           );
         }
 
-        const operationRenderStrategies: Recordable<() => any[]> = {
+        const operationRenderStrategies = {
           button: () => btns,
           menu: () => [
             h(
@@ -318,9 +318,7 @@ setupVbenVxeTable({
               {
                 getPopupContainer: () => document.body,
                 placement:
-                  column.align === 'left'
-                    ? 'bottomLeft'
-                    : 'bottomRight',
+                  column.align === 'left' ? 'bottomLeft' : 'bottomRight',
                 trigger: ['click'],
                 ...dropdownProps,
               },
@@ -338,11 +336,9 @@ setupVbenVxeTable({
                   h(
                     'div',
                     {
-                      class:
-                        'ant-dropdown-menu flex flex-col gap-1 p-1',
+                      class: 'ant-dropdown-menu flex flex-col gap-1 p-1',
 
-                      onClick: (event: MouseEvent) =>
-                        event.stopPropagation(),
+                      onClick: (event: MouseEvent) => event.stopPropagation(),
 
                       style: {
                         minWidth: '80px',
@@ -355,8 +351,9 @@ setupVbenVxeTable({
           ],
         };
         const renderOperations =
-          operationRenderStrategies[renderMode ?? mode] ??
-          operationRenderStrategies.button!;
+          (renderMode ?? mode) === 'menu'
+            ? operationRenderStrategies.menu
+            : operationRenderStrategies.button;
 
         return h(
           'div',

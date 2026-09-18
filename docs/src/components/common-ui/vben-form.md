@@ -854,3 +854,59 @@ import { z } from '#/adapter/form';
 `field`、`componentField`、`modelValue`、`name`、`disabled`、`isInValid`、`values` 和 `formApi` 保留在 slot 根级，供模板逻辑使用，不会自动传入实际控件。
 
 :::
+
+## useCustomFieldValue
+
+组件的值不落在单个控件上时（例如内部用若干控件拼出来的复合组件、第三方组件），表单项拿不到它的值，schema 上的 `rules` 也就无从校验。这类组件可以在自身内部调用 `useCustomFieldValue`，把取值函数交给外层表单项，无需层层透传 props。
+
+```vue
+<!-- tag-picker.vue -->
+<script lang="ts" setup>
+import { useCustomFieldValue } from '@vben/common-ui';
+
+// 值仍归表单所有：表单通过 modelValue 下发，组件只负责 emit 出去
+const modelValue = defineModel<string[]>({ default: () => [] });
+
+const { disabled, error } = useCustomFieldValue(() => modelValue.value);
+</script>
+```
+
+```vue
+<Form>
+  <template #tags="slotProps">
+    <TagPicker v-bind="slotProps.componentProps" />
+  </template>
+</Form>
+```
+
+取值函数的结果变化时，值会写回表单字段、清空该字段的校验状态，并按表单项的 `validateOn` 触发一次校验。值与表单当前值一致时（`setValues`、重置下发的值经组件流回来）不重复写回，也不触发校验；开启 `deep` 后表单里存的是值的副本，组件原地改同一个对象也照样能识别出变化。同一个表单项只接受一个取值函数，重复注册会被忽略并在控制台告警。
+
+::: warning 保持组件受控
+
+组件的值要继续走 `modelValue`（插槽里就是 `v-bind="slotProps.componentProps"`），这样 `setValues`、重置才能顺着 props 流回组件。schema 里 `component` 写成字符串时，模型属性名由适配器决定（antdv 是 `value`），插槽组件用标准 `modelValue` 的话需要显式声明 `modelPropName: 'modelValue'`，否则组件收不到表单下发的值，点重置就只清空了表单里的值、组件界面上还留着旧的选中态。
+
+只有完全自持内部状态、不接受外部值的组件，才需要用返回的 `value` 自行同步。
+
+:::
+
+### 参数
+
+| 参数 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| customValue | 取值函数，返回该字段的值 | `() => T` | - |
+| options | 配置项，见下表 | `UseCustomFieldValueOptions` | `{}` |
+
+| 配置项    | 描述                                 | 类型      | 默认值  |
+| --------- | ------------------------------------ | --------- | ------- |
+| deep      | 取值为对象/数组且原地修改时开启      | `boolean` | `false` |
+| immediate | 挂载时把当前值写入表单（不触发校验） | `boolean` | `false` |
+
+### 返回值
+
+| 名称 | 描述 | 类型 |
+| --- | --- | --- |
+| value | 表单中该字段的值，可用于响应 `setValues`、`resetForm` | `ComputedRef<T \| undefined>` |
+| error | 该表单项当前的校验错误 | `Ref<string \| undefined>` |
+| disabled | 该表单项的禁用态（含表单级、schema 级、联动计算） | `ComputedRef<boolean>` |
+| fieldName | 所在表单项的字段名 | `string \| undefined` |
+| resetValidation | 清除该表单项的校验状态 | `() => void` |

@@ -27,6 +27,13 @@ export type {
   VbenFormSlots,
 } from './types';
 
+export { useCustomFieldValue } from './use-custom-field-value';
+
+export type {
+  UseCustomFieldValueOptions,
+  UseCustomFieldValueReturn,
+} from './use-custom-field-value';
+
 export * from './use-vben-form';
 // export { default as VbenForm } from './vben-form.vue';
 export * as z from 'zod';
