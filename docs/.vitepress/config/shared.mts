@@ -31,6 +31,13 @@ export const shared = defineConfig({
       md.use(demoPreviewPlugin);
       md.use(groupIconMdPlugin);
     },
+    // VitePress 2 alpha 会把 code fence 套两层，导致两个复制按钮；只拆掉重复外壳。
+    config(md) {
+      const fence = md.renderer.rules.fence;
+      if (!fence) return;
+      md.renderer.rules.fence = (...args) =>
+        unwrapDuplicateCodeFence(fence(...args));
+    },
   },
   pwa: pwa(),
   srcDir: 'src',
@@ -184,4 +191,11 @@ function pwa(): PwaOptions {
       maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
   };
+}
+
+function unwrapDuplicateCodeFence(html: string): string {
+  const nested = html.match(
+    /^<div class="language-[^"]*"><button[^>]*\sclass="copy"[^>]*><\/button><span class="lang">[^<]*<\/span>(<div class="language-[^"]*"[\s\S]*)<\/div>\s*$/,
+  );
+  return nested?.[1] ?? html;
 }
