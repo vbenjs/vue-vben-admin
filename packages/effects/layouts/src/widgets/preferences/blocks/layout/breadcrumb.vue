@@ -16,7 +16,12 @@ const props = defineProps<{ disabled?: boolean }>();
 
 const breadcrumbEnable = defineModel<boolean>('breadcrumbEnable');
 const breadcrumbShowIcon = defineModel<boolean>('breadcrumbShowIcon');
-const breadcrumbStyleType = defineModel<string>('breadcrumbStyleType');
+const breadcrumbStyleType = defineModel<string | undefined>(
+  'breadcrumbStyleType',
+  {
+    default: undefined,
+  },
+);
 const breadcrumbShowHome = defineModel<boolean>('breadcrumbShowHome');
 const breadcrumbHideOnlyOne = defineModel<boolean>('breadcrumbHideOnlyOne');
 
