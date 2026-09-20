@@ -138,6 +138,8 @@ setupVbenVxeTable({
         const {
           dropdownProps,
           menuButtonProps,
+          menuButtonPosition = 'right',
+          menuCodes = [],
           menuIcon = 'ant-design:more-outlined',
           menuText = $t('common.more'),
           mode,
@@ -277,9 +279,9 @@ setupVbenVxeTable({
           );
         }
 
-        const btns = operations.map((opt) =>
-          opt.code === 'delete' ? renderConfirm(opt) : renderBtn(opt),
-        );
+        const renderOperation = (opt: Recordable<any>) =>
+          opt.code === 'delete' ? renderConfirm(opt) : renderBtn(opt);
+        const btns = operations.map(renderOperation);
 
         function renderMenuTrigger() {
           return h(
@@ -312,43 +314,66 @@ setupVbenVxeTable({
 
         const operationRenderStrategies = {
           button: () => btns,
-          menu: () => [
-            h(
-              Dropdown,
-              {
-                getPopupContainer: () => document.body,
-                placement:
-                  column.align === 'left' ? 'bottomLeft' : 'bottomRight',
-                trigger: ['click'],
-                ...dropdownProps,
-              },
-              {
-                default: () =>
+          menu: () => {
+            // 未配置 menuCodes 时，renderMode=menu 仍然将全部操作收入下拉菜单。
+            const hasMenuCodes =
+              Array.isArray(menuCodes) && menuCodes.length > 0;
+            const menuCodeSet = new Set(menuCodes);
+            const inlineBtns = hasMenuCodes
+              ? operations
+                .filter((opt) => !menuCodeSet.has(opt.code))
+                .map(renderOperation)
+              : [];
+            const menuBtns = hasMenuCodes
+              ? operations
+                .filter((opt) => menuCodeSet.has(opt.code))
+                .map(renderOperation)
+              : btns;
+            const dropdownBtn =
+              menuBtns.length > 0
+                ? [
                   h(
-                    'span',
+                    Dropdown,
                     {
-                      class: 'inline-flex cursor-pointer',
+                      getPopupContainer: () => document.body,
+                      placement:
+                        column.align === 'left' ? 'bottomLeft' : 'bottomRight',
+                      trigger: ['click'],
+                      ...dropdownProps,
                     },
-                    [renderMenuTrigger()],
-                  ),
-
-                popupRender: () =>
-                  h(
-                    'div',
                     {
-                      class: 'ant-dropdown-menu flex flex-col gap-1 p-1',
+                      default: () =>
+                        h(
+                          'span',
+                          {
+                            class: 'inline-flex cursor-pointer',
+                          },
+                          [renderMenuTrigger()],
+                        ),
 
-                      onClick: (event: MouseEvent) => event.stopPropagation(),
+                      popupRender: () =>
+                        h(
+                          'div',
+                          {
+                            class: 'ant-dropdown-menu flex flex-col gap-1 p-1',
 
-                      style: {
-                        minWidth: '80px',
-                      },
+                            onClick: (event: MouseEvent) => event.stopPropagation(),
+
+                            style: {
+                              minWidth: '80px',
+                            },
+                          },
+                          menuBtns,
+                        ),
                     },
-                    btns,
                   ),
-              },
-            ),
-          ],
+                ]
+                : [];
+
+            return hasMenuCodes && menuButtonPosition === 'left'
+              ? [...dropdownBtn, ...inlineBtns]
+              : [...inlineBtns, ...dropdownBtn];
+          },
         };
         const renderOperations =
           (renderMode ?? mode) === 'menu'
