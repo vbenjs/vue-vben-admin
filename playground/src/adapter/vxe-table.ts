@@ -281,7 +281,7 @@ setupVbenVxeTable({
 
         const renderOperation = (opt: Recordable<any>) =>
           opt.code === 'delete' ? renderConfirm(opt) : renderBtn(opt);
-        const btns = operations.map(renderOperation);
+        const btns = operations.map((operation) => renderOperation(operation));
 
         function renderMenuTrigger() {
           return h(
@@ -321,53 +321,57 @@ setupVbenVxeTable({
             const menuCodeSet = new Set(menuCodes);
             const inlineBtns = hasMenuCodes
               ? operations
-                .filter((opt) => !menuCodeSet.has(opt.code))
-                .map(renderOperation)
+                  .filter((opt) => !menuCodeSet.has(opt.code))
+                  .map((operation) => renderOperation(operation))
               : [];
             const menuBtns = hasMenuCodes
               ? operations
-                .filter((opt) => menuCodeSet.has(opt.code))
-                .map(renderOperation)
+                  .filter((opt) => menuCodeSet.has(opt.code))
+                  .map((operation) => renderOperation(operation))
               : btns;
             const dropdownBtn =
               menuBtns.length > 0
                 ? [
-                  h(
-                    Dropdown,
-                    {
-                      getPopupContainer: () => document.body,
-                      placement:
-                        column.align === 'left' ? 'bottomLeft' : 'bottomRight',
-                      trigger: ['click'],
-                      ...dropdownProps,
-                    },
-                    {
-                      default: () =>
-                        h(
-                          'span',
-                          {
-                            class: 'inline-flex cursor-pointer',
-                          },
-                          [renderMenuTrigger()],
-                        ),
-
-                      popupRender: () =>
-                        h(
-                          'div',
-                          {
-                            class: 'ant-dropdown-menu flex flex-col gap-1 p-1',
-
-                            onClick: (event: MouseEvent) => event.stopPropagation(),
-
-                            style: {
-                              minWidth: '80px',
+                    h(
+                      Dropdown,
+                      {
+                        getPopupContainer: () => document.body,
+                        placement:
+                          column.align === 'left'
+                            ? 'bottomLeft'
+                            : 'bottomRight',
+                        trigger: ['click'],
+                        ...dropdownProps,
+                      },
+                      {
+                        default: () =>
+                          h(
+                            'span',
+                            {
+                              class: 'inline-flex cursor-pointer',
                             },
-                          },
-                          menuBtns,
-                        ),
-                    },
-                  ),
-                ]
+                            [renderMenuTrigger()],
+                          ),
+
+                        popupRender: () =>
+                          h(
+                            'div',
+                            {
+                              class:
+                                'ant-dropdown-menu flex flex-col gap-1 p-1',
+
+                              onClick: (event: MouseEvent) =>
+                                event.stopPropagation(),
+
+                              style: {
+                                minWidth: '80px',
+                              },
+                            },
+                            menuBtns,
+                          ),
+                      },
+                    ),
+                  ]
                 : [];
 
             return hasMenuCodes && menuButtonPosition === 'left'

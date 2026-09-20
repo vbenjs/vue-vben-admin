@@ -37,7 +37,7 @@ const gridOptions: VxeGridProps<RowType> = {
       cellRender: {
         props: {
           renderMode: 'menu',
-          //指定收集到菜单中的按钮（默认收集所有操作按钮）
+          // 指定收集到菜单中的按钮（默认收集所有操作按钮）
           menuCodes: ['edit'],
         },
         attrs: {
