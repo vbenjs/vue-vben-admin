@@ -94,14 +94,21 @@ export const useAuthStore = defineStore('auth', () => {
       accessStore.setLoginExpired(false);
     }
 
+    // 已经在登录页时不能再带 redirect：此时 currentRoute.fullPath 就是登录页本身，
+    // 再编码一层会得到「登录页?redirect=编码后的登录页」，下一次又在这个基础上再包一层，
+    // 反复登出会让 URL 逐跳变长，且没有上限。
+    // On the login page the current route is the login page itself, so carrying it as
+    // `redirect` would nest one more encoded layer on every repeat.
+    const currentRoute = router.currentRoute.value;
+    const alreadyOnLogin = currentRoute.path === LOGIN_PATH;
+
     // 回登录页带上当前路由地址
     await router.replace({
       path: LOGIN_PATH,
-      query: redirect
-        ? {
-            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
-          }
-        : {},
+      query:
+        redirect && !alreadyOnLogin
+          ? { redirect: encodeURIComponent(currentRoute.fullPath) }
+          : {},
     });
   }
 
