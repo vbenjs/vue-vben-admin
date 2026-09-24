@@ -1,7 +1,7 @@
+import { LOGIN_PATH } from '@vben/constants';
+
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { LOGIN_PATH } from '@vben/constants';
 
 import { useAuthStore } from '../auth';
 
