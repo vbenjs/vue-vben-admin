@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import type { IconPickerProps } from './types';
 
-import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
+import {
+  computed,
+  onBeforeUpdate,
+  ref,
+  useAttrs,
+  watch,
+  watchEffect,
+} from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
@@ -100,7 +107,17 @@ const { paginationList, total, setCurrentPage, currentPage } = usePagination(
 );
 
 watchEffect(() => {
-  currentSelect.value = modelValue.value;
+  currentSelect.value =
+    props.modelValueProp === 'modelValue'
+      ? modelValue.value
+      : ((attrs[props.modelValueProp] as string) ?? '');
+});
+
+onBeforeUpdate(() => {
+  if (props.modelValueProp !== 'modelValue') {
+    currentSelect.value =
+      (attrs[props.modelValueProp] as string | undefined) ?? '';
+  }
 });
 
 watch(
@@ -155,7 +172,10 @@ function updateCurrentSelect(v: string) {
   }
 }
 const getBindAttrs = computed(() => {
-  return objectOmit(attrs, [`onUpdate:${props.modelValueProp}`]);
+  return objectOmit(attrs, [
+    `onUpdate:${props.modelValueProp}`,
+    props.modelValueProp,
+  ]);
 });
 
 defineExpose({ toggleOpenState, open, close });
