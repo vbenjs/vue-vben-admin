@@ -1,5 +1,12 @@
 # @vben/styles
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vben-core/design@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes

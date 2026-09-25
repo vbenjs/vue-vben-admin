@@ -1,5 +1,16 @@
 # @vben/docs
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vben/common-ui@5.8.1
+  - @vben/plugins@5.8.1
+  - @vben-core/shadcn-ui@5.8.1
+  - @vben/locales@5.8.1
+  - @vben/styles@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes

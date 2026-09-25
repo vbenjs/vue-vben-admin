@@ -1,5 +1,15 @@
 # @vben/access
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vben/preferences@5.8.1
+  - @vben/stores@5.8.1
+  - @vben/types@5.8.1
+  - @vben/utils@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes
