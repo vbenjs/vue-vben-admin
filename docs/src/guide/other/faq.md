@@ -70,7 +70,7 @@ cd apps/web-antd
 pnpm add new-lib
 ```
 
-如果不先进入目录，而是在大仓根目录直接执行 `pnpm add new-lib`，依赖会被安装到根 `package.json`，而不是 `apps/web-antd` 内，应用代码里可能无法正确引用。
+如果不先进入目录，而是在大仓根目录直接执行 `pnpm add new-lib`，pnpm 11 默认会拒绝该命令。若要将依赖添加到根 `package.json`，请执行 `pnpm add new-lib -w`；若要将依赖添加到 `apps/web-antd`，请执行 `pnpm --filter @vben/web-antd add new-lib`。
 
 ### 方式二：在根目录用 filter 指定包
 
