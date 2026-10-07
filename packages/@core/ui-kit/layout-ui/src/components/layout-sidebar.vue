@@ -255,6 +255,7 @@ function getMenuWidthValue(isHiddenDom: boolean) {
 
   const showExtra =
     isSidebarMixed &&
+    !collapse.value &&
     (fixedExtra || expandOnHovering.value) &&
     (extraVisible.value || expandOnHover.value);
   let widthValue =
