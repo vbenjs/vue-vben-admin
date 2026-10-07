@@ -177,10 +177,14 @@ const style = computed((): CSSProperties => {
 
 const extraStyle = computed((): CSSProperties => {
   const { extraWidth, show, width, zIndex } = props;
+  const shouldShow =
+    (extraVisible.value || expandOnHover.value || expandOnHovering.value) &&
+    show &&
+    !collapse.value;
 
   return {
     left: `${width}px`,
-    width: extraVisible.value && show ? `${extraWidth}px` : 0,
+    width: shouldShow ? `${extraWidth}px` : 0,
     zIndex,
   };
 });
@@ -249,10 +253,13 @@ function getMenuWidthValue(isHiddenDom: boolean) {
     width,
   } = props;
 
+  const showExtra =
+    isSidebarMixed &&
+    !collapse.value &&
+    (fixedExtra || expandOnHovering.value) &&
+    (extraVisible.value || expandOnHover.value);
   let widthValue =
-    width === 0
-      ? '0px'
-      : `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
+    width === 0 ? '0px' : `${width + (showExtra ? extraWidth : 0)}px`;
 
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
     widthValue = isSidebarMixed ? `${mixedWidth}px` : `${collapseWidth}px`;
@@ -284,7 +291,6 @@ function calcMenuWidthStyle(): CSSProperties {
 
 function handleMouseenter(e: MouseEvent) {
   // 移动端抽屉模式不存在 hover 语义：合成 mouse 事件不得改写折叠状态
-  // （resize 跨断点时浏览器会对正在卸载/重排的侧栏派发 mouseenter/mouseleave）
   if (props.isMobile) {
     return;
   }
@@ -292,8 +298,10 @@ function handleMouseenter(e: MouseEvent) {
     return;
   }
 
-  // 未开启和未折叠状态不生效
   if (expandOnHover.value) {
+    if (props.isSidebarMixed) {
+      extraVisible.value = true;
+    }
     return;
   }
   if (!expandOnHovering.value) {
@@ -301,6 +309,7 @@ function handleMouseenter(e: MouseEvent) {
   }
   if (props.isSidebarMixed) {
     isLocked.value = true;
+    extraVisible.value = true;
   }
   expandOnHovering.value = true;
 }
@@ -310,7 +319,6 @@ function handleMouseleave() {
   if (props.isSidebarMixed) {
     isLocked.value = false;
   }
-  // isMobile 守卫：防止断点切换窗口期的合成 mouseleave 把折叠态写入并持久化（#8274）
   if (expandOnHover.value || props.isMobile) {
     return;
   }
@@ -394,7 +402,10 @@ onUnmounted(() => {
       >
         <SidebarFixedButton
           v-if="!collapse && !isSidebarMixed && showFixedButton"
+          v-model:collapse="collapse"
           v-model:expand-on-hover="expandOnHover"
+          v-model:expand-on-hovering="expandOnHovering"
+          v-model:extra-visible="extraVisible"
         />
         <div v-if="slots.logo" :style="headerStyle">
           <slot name="logo"></slot>
@@ -427,7 +438,10 @@ onUnmounted(() => {
 
         <SidebarFixedButton
           v-if="!extraCollapse"
+          v-model:collapse="collapse"
           v-model:expand-on-hover="expandOnHover"
+          v-model:expand-on-hovering="expandOnHovering"
+          v-model:extra-visible="extraVisible"
         />
         <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
           <slot name="extra-title"></slot>
