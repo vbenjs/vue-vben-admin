@@ -103,16 +103,15 @@ export const demoPreviewPlugin = (md: MarkdownRenderer) => {
 
         const resolvedPath = join(componentDir, filename);
 
-        const { extension, filepath, lang, lines, title } =
-          rawPathToToken(resolvedPath);
-        // Add code tokens for each line
+        const { extension, lang, lines, title } = rawPathToToken(resolvedPath);
+        // VitePress 2：snippet 从 token.meta.src 读文件；再写 <<< / token.src 会原样显示路径
         const token = new state.Token('fence', 'code', 0);
-        token.info = `${lang || extension}${lines ? `{${lines}}` : ''}${
-          title ? `[${title}]` : ''
-        }`;
-
-        token.content = `<<< ${filepath}`;
-        (token as any).src = [resolvedPath];
+        token.info = `${lang || extension}${lines ? ` {${lines}}` : ''}${
+          title ? ` [${title}]` : ''
+        }`.trim();
+        token.meta = { src: resolvedPath };
+        token.markup = '```';
+        token.content = '';
         tokenArray.push(token);
 
         const templateEnd = new state.Token('html_inline', '', 0);

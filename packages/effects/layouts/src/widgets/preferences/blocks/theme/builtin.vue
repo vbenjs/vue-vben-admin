@@ -19,7 +19,9 @@ const props = defineProps<{ isDark: boolean }>();
 
 const colorInput = ref();
 const modelValue = defineModel<BuiltinThemeType>({ default: 'default' });
-const themeColorPrimary = defineModel<string>('themeColorPrimary');
+const themeColorPrimary = defineModel<string | undefined>('themeColorPrimary', {
+  default: undefined,
+});
 
 const updateThemeColorPrimary = useThrottleFn(
   (value: string) => {

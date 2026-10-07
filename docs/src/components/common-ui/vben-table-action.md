@@ -10,7 +10,9 @@ outline: deep
 
 ::: info 写在前面
 
-组件本身不依赖任何业务逻辑（不直接读取权限 store），权限通过注入 `hasPermission` 实现，从而保持核心层零耦合、可跨框架复用。在 vxe-table 中推荐通过列插槽（`slots: { default: 'action' }`）在页面里渲染，不改变表格原有的渲染机制。:::
+组件本身不依赖任何业务逻辑（不直接读取权限 store），权限通过注入 `hasPermission` 实现，从而保持核心层零耦合、可跨框架复用。在 vxe-table 中推荐通过列插槽（`slots: { default: 'action' }`）在页面里渲染，不改变表格原有的渲染机制。
+
+:::
 
 ## 基础用法
 

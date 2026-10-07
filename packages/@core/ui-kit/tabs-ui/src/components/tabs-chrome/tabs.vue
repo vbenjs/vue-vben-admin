@@ -26,7 +26,9 @@ const emit = defineEmits<{
   close: [string];
   unpin: [TabDefinition];
 }>();
-const active = defineModel<string>('active');
+const active = defineModel<string | undefined>('active', {
+  default: undefined,
+});
 
 // @ts-expect-error - unused
 const contentRef = ref();

@@ -11,7 +11,9 @@ const transitionProgress = defineModel<boolean>('transitionProgress', {
   // 默认值
   default: false,
 });
-const transitionName = defineModel<string>('transitionName');
+const transitionName = defineModel<string | undefined>('transitionName', {
+  default: undefined,
+});
 const transitionEnable = defineModel<boolean>('transitionEnable');
 const transitionLoading = defineModel<boolean>('transitionLoading');
 

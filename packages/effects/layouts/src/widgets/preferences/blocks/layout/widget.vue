@@ -13,36 +13,45 @@ defineOptions({
 
 const widgetOrder = defineModel<string[]>('widgetOrder', { required: true });
 
-const widgetGlobalSearchButtonPosition = defineModel<string>(
+const widgetGlobalSearchButtonPosition = defineModel<string | undefined>(
   'widgetGlobalSearchButtonPosition',
+  { default: undefined },
 );
-const widgetFullscreenButtonPosition = defineModel<string>(
+const widgetFullscreenButtonPosition = defineModel<string | undefined>(
   'widgetFullscreenButtonPosition',
+  { default: undefined },
 );
-const widgetLanguageToggleButtonPosition = defineModel<string>(
+const widgetLanguageToggleButtonPosition = defineModel<string | undefined>(
   'widgetLanguageToggleButtonPosition',
+  { default: undefined },
 );
-const widgetNotificationButtonPosition = defineModel<string>(
+const widgetNotificationButtonPosition = defineModel<string | undefined>(
   'widgetNotificationButtonPosition',
+  { default: undefined },
 );
-const widgetThemeToggleButtonPosition = defineModel<string>(
+const widgetThemeToggleButtonPosition = defineModel<string | undefined>(
   'widgetThemeToggleButtonPosition',
+  { default: undefined },
 );
-const widgetLockScreenButtonPosition = defineModel<string>(
+const widgetLockScreenButtonPosition = defineModel<string | undefined>(
   'widgetLockScreenButtonPosition',
+  { default: undefined },
 );
-const widgetLogoutButtonPosition = defineModel<string>(
+const widgetLogoutButtonPosition = defineModel<string | undefined>(
   'widgetLogoutButtonPosition',
+  { default: undefined },
 );
-const widgetRefreshButtonPosition = defineModel<string>(
+const widgetRefreshButtonPosition = defineModel<string | undefined>(
   'widgetRefreshButtonPosition',
+  { default: undefined },
 );
-const widgetTimezoneButtonPosition = defineModel<string>(
+const widgetTimezoneButtonPosition = defineModel<string | undefined>(
   'widgetTimezoneButtonPosition',
+  { default: undefined },
 );
-const appPreferencesButtonPosition = defineModel<PreferencesButtonPositionType>(
-  'appPreferencesButtonPosition',
-);
+const appPreferencesButtonPosition = defineModel<
+  PreferencesButtonPositionType | undefined
+>('appPreferencesButtonPosition', { default: undefined });
 
 const buttonPositionItems = computed((): SelectOption[] => [
   {

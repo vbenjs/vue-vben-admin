@@ -15,11 +15,20 @@ defineOptions({
   name: 'PreferenceGeneralConfig',
 });
 
-const appLocale = defineModel<string>('appLocale');
-const appTimezone = defineModel<string>('appTimezone');
+const appLocale = defineModel<string | undefined>('appLocale', {
+  default: undefined,
+});
+const appTimezone = defineModel<string | undefined>('appTimezone', {
+  default: undefined,
+});
 const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
 const appWatermark = defineModel<boolean>('appWatermark');
-const appWatermarkContent = defineModel<string>('appWatermarkContent');
+const appWatermarkContent = defineModel<string | undefined>(
+  'appWatermarkContent',
+  {
+    default: undefined,
+  },
+);
 const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 const appEnableCopyPreferences = defineModel<boolean>(
   'appEnableCopyPreferences',

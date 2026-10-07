@@ -12,7 +12,9 @@ import SwitchItem from '../switch-item.vue';
 defineProps<{ currentLayout?: LayoutType; disabled: boolean }>();
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
-const sidebarWidth = defineModel<number>('sidebarWidth');
+const sidebarWidth = defineModel<number | undefined>('sidebarWidth', {
+  default: undefined,
+});
 const sidebarCollapsedShowTitle = defineModel<boolean>(
   'sidebarCollapsedShowTitle',
 );

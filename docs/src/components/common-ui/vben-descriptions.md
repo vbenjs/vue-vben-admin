@@ -10,7 +10,9 @@ outline: deep
 
 ::: info 写在前面
 
-组件提供两种使用方式：通过 `items` 数据驱动（推荐），或通过子组件 `VbenDescriptionsItem` 声明列表项。两者可按需选择，`items` 优先级更高。:::
+组件提供两种使用方式：通过 `items` 数据驱动（推荐），或通过子组件 `VbenDescriptionsItem` 声明列表项。两者可按需选择，`items` 优先级更高。
+
+:::
 
 ## 基础用法
 
