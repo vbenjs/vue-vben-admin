@@ -20,6 +20,86 @@
 
 在 `Monorepo` 项目下，需要养成每次 `git pull`代码都要执行`pnpm install`的习惯，因为经常会有新的依赖包加入，项目在`lefthook.yml`已经配置了自动执行`pnpm install`，但是有时候会出现问题，如果没有自动执行，建议手动执行一次。
 
+## apps/web-antd 能否独立运行
+
+**目前不支持。** 各个应用（`apps/web-antd`、`apps/web-ele`、`apps/web-naive`、`apps/web-tdesign`、`apps/web-antdv-next`）都必须保留在大仓目录内运行。
+
+原因是这些应用并非自包含的独立项目，它们依赖大量位于 `packages/` 与 `internal/` 下的 workspace 包。以 `apps/web-antd` 为例，它的 `dependencies` 里有 20 个依赖，其中 14 个是 workspace 包：
+
+```bash
+@vben/access  @vben/common-ui  @vben/constants  @vben/hooks
+@vben/icons   @vben/layouts    @vben/locales    @vben/plugins
+@vben/preferences  @vben/request  @vben/stores  @vben/styles
+@vben/types   @vben/utils
+```
+
+这些包没有发布到 npm，只通过 `pnpm-workspace.yaml` 在仓库内部链接。把 `apps/web-antd` 单独拷出去后，这些依赖会解析失败，应用无法启动。
+
+此外，项目还通过 `pnpm-workspace.yaml` 的 `catalog` 字段统一管理共享依赖的版本（如 `vue`、`tailwindcss`、`vite`）。一旦脱离大仓，版本解析和构建配置都会失效。
+
+因此，运行应用需要保留完整的大仓目录，并在**大仓根目录**执行命令：
+
+```bash
+# 启动 antd 版本
+pnpm dev:antd
+
+# 启动其他版本
+pnpm dev:ele
+pnpm dev:naive
+pnpm dev:tdesign
+pnpm dev:antdv-next
+```
+
+::: tip 关于 dev:antd
+
+`pnpm dev:antd` 等价于 `pnpm -F @vben/web-antd run dev`，即通过 pnpm 的 filter 在根目录启动指定包。
+
+:::
+
+## Monorepo 下如何安装依赖
+
+由于项目采用 Monorepo，安装依赖前必须先明确**要把依赖装到哪个包**。
+
+### 方式一：进入指定包目录安装（推荐）
+
+先 `cd` 进入应用目录，再执行 `pnpm add`：
+
+```bash
+# 给 apps/web-antd 安装新依赖
+cd apps/web-antd
+pnpm add new-lib
+```
+
+如果不先进入目录，而是在大仓根目录直接执行 `pnpm add new-lib`，pnpm 11 默认会拒绝该命令。若要将依赖添加到根 `package.json`，请执行 `pnpm add new-lib -w`；若要将依赖添加到 `apps/web-antd`，请执行 `pnpm --filter @vben/web-antd add new-lib`。
+
+### 方式二：在根目录用 filter 指定包
+
+```bash
+# 不切换目录，直接给指定包安装
+pnpm --filter @vben/web-antd add new-lib
+
+# 安装开发依赖
+pnpm --filter @vben/web-antd add -D new-lib
+```
+
+两种方式效果一致，`@vben/web-antd` 即 `apps/web-antd` 目录下的 `name` 字段。
+
+### 大仓整体安装
+
+```bash
+# 首次克隆或更新代码后，在根目录安装全部依赖
+pnpm install
+
+# 依赖安装失败时，清理后重装
+pnpm run reinstall
+```
+
+::: warning 关于 lock 文件
+
+Monorepo 只有一个根 `pnpm-lock.yaml`，所有包的依赖都记录在其中。请不要在 `apps/*` 子目录下单独生成或提交 lock 文件。
+
+:::
+
 ## 关于缓存更新问题
 
 项目配置默认是缓存在 `localStorage` 内，所以版本更新后可能有些配置没改变。
