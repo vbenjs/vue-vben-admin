@@ -177,4 +177,32 @@ describe('useExtraMenu', () => {
       cleanup();
     }
   });
+
+  it('鼠标移出时按 activePath 还原二级菜单（隐藏详情页）', async () => {
+    try {
+      mockPreferences.sidebar.expandOnHover = false;
+      // 隐藏详情页的字面路径不在菜单树中，靠 activePath 挂靠到其列表页
+      routeHolder.current = {
+        meta: { activePath: '/cards' },
+        path: '/cards/17',
+      };
+      const { extraMenus, handleMenuMouseEnter, handleSideMouseLeave } =
+        mountExtraMenu(createMenus());
+
+      await vi.waitFor(() => {
+        expect(extraMenus.value).toHaveLength(1);
+      });
+      expect(extraMenus.value[0]?.name).toBe('卡片列表');
+
+      handleMenuMouseEnter(createMenus()[1] as MenuRecordRaw);
+      expect(extraMenus.value[0]?.name).toBe('标准化交易');
+
+      // 移出后应还原为 activePath 对应的二级菜单，而不是被字面路径清空
+      handleSideMouseLeave();
+      expect(extraMenus.value).toHaveLength(1);
+      expect(extraMenus.value[0]?.name).toBe('卡片列表');
+    } finally {
+      cleanup();
+    }
+  });
 });

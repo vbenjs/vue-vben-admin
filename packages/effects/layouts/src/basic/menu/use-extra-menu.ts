@@ -98,7 +98,9 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
       return;
     }
 
-    const { findMenu, rootMenu, rootMenuPath } = resolveRootMenu(route.path);
+    const { findMenu, rootMenu, rootMenuPath } = resolveRootMenu(
+      route.meta?.activePath || route.path,
+    );
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
     extraMenus.value = rootMenu?.children ?? [];
   };
