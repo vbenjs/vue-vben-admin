@@ -35,6 +35,7 @@ interface MountOptions {
   expandOnHover?: boolean;
   expandOnHovering?: boolean;
   extraVisible?: boolean;
+  fixedExtra?: boolean;
 }
 
 function mountSidebar(options: MountOptions = {}) {
@@ -48,7 +49,7 @@ function mountSidebar(options: MountOptions = {}) {
         extraCollapse: false,
         extraVisible: options.extraVisible ?? false,
         extraWidth: EXTRA_WIDTH,
-        fixedExtra: expandOnHover,
+        fixedExtra: options.fixedExtra ?? expandOnHover,
         headerHeight: 50,
         isSidebarMixed: true,
         mixedWidth: MIXED_WIDTH,
@@ -101,6 +102,17 @@ afterEach(() => {
 describe('layout-sidebar extra panel (#双列菜单遮挡正文)', () => {
   it('固定模式：有二级菜单时展开并占位', () => {
     mountSidebar({ expandOnHover: true, extraVisible: true });
+
+    expect(getExtraPanelWidth()).toBe(EXTRA_WIDTH);
+    expect(getPlaceholderWidth()).toBe(MIXED_WIDTH + EXTRA_WIDTH);
+  });
+
+  it('调用方只传 expandOnHover 不传 fixedExtra 时面板仍能展开', () => {
+    mountSidebar({
+      expandOnHover: true,
+      extraVisible: true,
+      fixedExtra: false,
+    });
 
     expect(getExtraPanelWidth()).toBe(EXTRA_WIDTH);
     expect(getPlaceholderWidth()).toBe(MIXED_WIDTH + EXTRA_WIDTH);

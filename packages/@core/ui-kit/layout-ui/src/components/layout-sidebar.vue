@@ -164,6 +164,7 @@ const dragBarStyle = computed((): CSSProperties => {
 /**
  * 二级面板是否展开。可见性、占位宽度必须由同一判定驱动：
  * 二者不一致时面板会浮在正文上（vben-layout 的 header 偏移只看 extraVisible）。
+ * fixedExtra 与 expandOnHover 在 vben-layout 里绑同一个偏好，但作为组件 API 不能假设调用方总是成对传。
  */
 const extraPanelExpanded = computed(
   () =>
@@ -171,7 +172,7 @@ const extraPanelExpanded = computed(
     props.show &&
     !collapse.value &&
     !!extraVisible.value &&
-    (props.fixedExtra || expandOnHovering.value),
+    (props.fixedExtra || expandOnHover.value || expandOnHovering.value),
 );
 
 const style = computed((): CSSProperties => {
