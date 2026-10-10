@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, onUnmounted, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, onUnmounted, shallowRef, useSlots } from 'vue';
 
 import { useScrollLock } from '@vben-core/composables';
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
@@ -161,8 +161,22 @@ const dragBarStyle = computed((): CSSProperties => {
   };
 });
 
+/**
+ * 二级面板是否展开。可见性、占位宽度必须由同一判定驱动：
+ * 二者不一致时面板会浮在正文上（vben-layout 的 header 偏移只看 extraVisible）。
+ * fixedExtra 与 expandOnHover 在 vben-layout 里绑同一个偏好，但作为组件 API 不能假设调用方总是成对传。
+ */
+const extraPanelExpanded = computed(
+  () =>
+    props.isSidebarMixed &&
+    props.show &&
+    !collapse.value &&
+    !!extraVisible.value &&
+    (props.fixedExtra || expandOnHover.value || expandOnHovering.value),
+);
+
 const style = computed((): CSSProperties => {
-  const { isSidebarMixed, marginTop, paddingTop, zIndex } = props;
+  const { marginTop, paddingTop, zIndex } = props;
 
   return {
     '--scroll-shadow': 'var(--sidebar)',
@@ -171,20 +185,16 @@ const style = computed((): CSSProperties => {
     marginTop: `${marginTop}px`,
     paddingTop: `${paddingTop}px`,
     zIndex,
-    ...(isSidebarMixed && extraVisible.value ? { transition: 'none' } : {}),
+    ...(extraPanelExpanded.value ? { transition: 'none' } : {}),
   };
 });
 
 const extraStyle = computed((): CSSProperties => {
-  const { extraWidth, show, width, zIndex } = props;
-  const shouldShow =
-    (extraVisible.value || expandOnHover.value || expandOnHovering.value) &&
-    show &&
-    !collapse.value;
+  const { extraWidth, width, zIndex } = props;
 
   return {
     left: `${width}px`,
-    width: shouldShow ? `${extraWidth}px` : 0,
+    width: extraPanelExpanded.value ? `${extraWidth}px` : 0,
     zIndex,
   };
 });
@@ -239,27 +249,14 @@ const collapseStyle = computed((): CSSProperties => {
   };
 });
 
-watchEffect(() => {
-  extraVisible.value = props.fixedExtra ? true : extraVisible.value;
-});
-
 function getMenuWidthValue(isHiddenDom: boolean) {
-  const {
-    collapseWidth,
-    extraWidth,
-    mixedWidth,
-    fixedExtra,
-    isSidebarMixed,
-    width,
-  } = props;
+  const { collapseWidth, extraWidth, mixedWidth, isSidebarMixed, width } =
+    props;
 
-  const showExtra =
-    isSidebarMixed &&
-    !collapse.value &&
-    (fixedExtra || expandOnHovering.value) &&
-    (extraVisible.value || expandOnHover.value);
   let widthValue =
-    width === 0 ? '0px' : `${width + (showExtra ? extraWidth : 0)}px`;
+    width === 0
+      ? '0px'
+      : `${width + (extraPanelExpanded.value ? extraWidth : 0)}px`;
 
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
     widthValue = isSidebarMixed ? `${mixedWidth}px` : `${collapseWidth}px`;
@@ -425,7 +422,7 @@ onUnmounted(() => {
         :class="[
           themeSub,
           {
-            'border-l': extraVisible,
+            'border-l': extraPanelExpanded,
           },
         ]"
         :style="extraStyle"

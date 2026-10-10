@@ -124,13 +124,25 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
     if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
     extraMenus.value = rootMenu?.children ?? [];
-    if (preferences.sidebar.expandOnHover) {
-      sidebarExtraVisible.value = extraMenus.value.length > 0;
-    }
+    sidebarExtraVisible.value = extraMenus.value.length > 0;
   }
 
+  // 悬停时 layout-sidebar 会直接把 sidebarExtraVisible 置真，没有二级菜单时必须压回去，
+  // 否则空面板仍会展开并遮挡正文
+  watch([sidebarExtraVisible, extraMenus], ([visible, items]) => {
+    if (visible && items.length === 0) {
+      sidebarExtraVisible.value = false;
+    }
+  });
+
   watch(
-    () => [route.path, preferences.app.layout],
+    () =>
+      [
+        route.path,
+        preferences.app.layout,
+        preferences.sidebar.expandOnHover,
+        menus.value,
+      ] as const,
     ([path]) => {
       calcExtraMenus(path || '');
     },

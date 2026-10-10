@@ -144,12 +144,30 @@ describe('useExtraMenu', () => {
   it('路径不在菜单树中时二级菜单为空且不报错', async () => {
     try {
       setPath('/non-existent');
-      const { extraActiveMenu, extraMenus } = mountExtraMenu(createMenus());
+      const { extraActiveMenu, extraMenus, sidebarExtraVisible } =
+        mountExtraMenu(createMenus());
 
       await vi.waitFor(() => {
         expect(extraMenus.value).toHaveLength(0);
       });
       expect(extraActiveMenu.value).toBe('');
+      // 没有二级菜单就不能展开面板，否则空面板会遮住正文
+      expect(sidebarExtraVisible.value).toBe(false);
+    } finally {
+      cleanup();
+    }
+  });
+
+  it('取消固定时，路径不在菜单树中同样不展开二级面板', async () => {
+    try {
+      mockPreferences.sidebar.expandOnHover = false;
+      setPath('/non-existent');
+      const { extraMenus, sidebarExtraVisible } = mountExtraMenu(createMenus());
+
+      await vi.waitFor(() => {
+        expect(extraMenus.value).toHaveLength(0);
+      });
+      expect(sidebarExtraVisible.value).toBe(false);
     } finally {
       cleanup();
     }
