@@ -1,5 +1,23 @@
 # @vben/plugins
 
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies [[`c26a089`](https://github.com/vbenjs/vue-vben-admin/commit/c26a0897f98ef1ed0e5849956ea0e162664bfede)]:
+  - @vben-core/form-ui@5.8.1
+  - @vben-core/design@5.8.1
+  - @vben-core/shared@5.8.1
+  - @vben-core/typings@5.8.1
+  - @vben-core/popup-ui@5.8.1
+  - @vben-core/shadcn-ui@5.8.1
+  - @vben/hooks@5.8.1
+  - @vben/icons@5.8.1
+  - @vben/locales@5.8.1
+  - @vben/preferences@5.8.1
+  - @vben/types@5.8.1
+  - @vben/utils@5.8.1
+
 ## 5.8.0
 
 ### Patch Changes
