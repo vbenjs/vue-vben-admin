@@ -32,6 +32,8 @@ const props = withDefaults(
       class?: HTMLAttributes['class'];
       closeClass?: ClassType;
       closeDisabled?: boolean;
+      /** Remove the overlay immediately when its cached page is inactive. */
+      inactive?: boolean;
       modal?: boolean;
       open?: boolean;
       overlayBlur?: number;
@@ -43,6 +45,7 @@ const props = withDefaults(
     appendTo: 'body',
     animationType: 'slide',
     closeDisabled: false,
+    inactive: false,
     showCloseButton: true,
   },
 );
@@ -53,6 +56,7 @@ const emits = defineEmits<
 const delegatedProps = computed(() => {
   const {
     class: _,
+    inactive: _inactive,
     modal: _modal,
     open: _open,
     showCloseButton: __,
@@ -97,7 +101,7 @@ defineExpose({
 
 <template>
   <DialogPortal :to="appendTo">
-    <Transition name="fade">
+    <Transition v-if="!inactive" name="fade">
       <DialogOverlay
         v-if="open && modal"
         :overlay-blur="overlayBlur"
