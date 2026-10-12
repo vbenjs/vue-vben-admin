@@ -4,6 +4,7 @@ import type { ExtendedModalApi, ModalProps } from './modal';
 import {
   computed,
   nextTick,
+  onActivated,
   onDeactivated,
   provide,
   ref,
@@ -121,10 +122,14 @@ const { dragging, transform } = useModalDraggable(
 
 const firstOpened = ref(false);
 const isClosed = ref(true);
+const isDeactivated = ref(false);
+const isVisible = computed(() => state?.value?.isOpen && !isDeactivated.value);
+let pendingOpened = false;
 
 watch(
   () => state?.value?.isOpen,
   async (v) => {
+    pendingOpened = !!v;
     if (v) {
       isClosed.value = false;
       if (!firstOpened.value) firstOpened.value = true;
@@ -155,9 +160,14 @@ watch(
 // );
 
 /**
- * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ * 缓存页面失活时暂停展示，保留内容区域弹窗的打开状态。
  */
+onActivated(() => {
+  isDeactivated.value = false;
+});
+
 onDeactivated(() => {
+  isDeactivated.value = true;
   // 如果弹窗没有被挂载到内容区域，则关闭弹窗
   if (!appendToMain.value) {
     props.modalApi?.close();
@@ -214,12 +224,17 @@ function handleCloseAutoFocus(_e: Event) {
 }
 
 const getForceMount = computed(() => {
-  return !unref(destroyOnClose) && unref(firstOpened);
+  // 失活时由 unmountOnHide 保留实例，让隐藏弹窗退出交互层栈。
+  return !isDeactivated.value && !unref(destroyOnClose) && unref(firstOpened);
 });
 
 const handleOpened = () => {
   requestAnimationFrame(() => {
-    props.modalApi?.onOpened();
+    // Restoring a cached modal must not repeat its logical opening callback.
+    if (pendingOpened && !isDeactivated.value) {
+      pendingOpened = false;
+      props.modalApi?.onOpened();
+    }
   });
 };
 
@@ -231,7 +246,8 @@ function handleClosed() {
 <template>
   <Dialog
     :modal="false"
-    :open="state?.isOpen"
+    :open="isVisible"
+    :unmount-on-hide="!isDeactivated || !firstOpened"
     @update:open="() => (!submitting ? modalApi?.close() : undefined)"
   >
     <DialogContent
@@ -250,12 +266,13 @@ function handleClosed() {
               shouldFullscreen,
             'top-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
-            hidden: isClosed,
+            hidden: isClosed || isDeactivated,
           },
           modalClass,
         )
       "
       :force-mount="getForceMount"
+      :inactive="isDeactivated"
       :modal="modal"
       :open="state?.isOpen"
       :show-close-button="closable"
