@@ -14,6 +14,7 @@ import {
   setupVbenVxeTable,
   useVbenVxeGrid as useGrid,
 } from '@vben/plugins/vxe-table';
+import { useDictStore } from '@vben/stores';
 import { get, isFunction, isString } from '@vben/utils';
 
 import { objectOmit } from '@vueuse/core';
@@ -99,6 +100,27 @@ setupVbenVxeTable({
           },
           { default: () => tagItem?.label ?? value },
         );
+      },
+    });
+
+    // 单元格渲染：字典标签
+    // 表格配置项可用 cellRender: { name: 'CellDict', props: { code: 'user_gender' } }
+    vxeUI.renderer.add('CellDict', {
+      renderTableDefault({ props }, { column, row }) {
+        const code = props?.code as string | undefined;
+        const value = get(row, column.field);
+        if (!code) {
+          return value;
+        }
+        const dictStore = useDictStore();
+        const item = dictStore.getDictItem(code, value);
+        if (!item) {
+          return value;
+        }
+        if (item.color) {
+          return h(Tag, { color: item.color }, { default: () => item.label });
+        }
+        return item.label;
       },
     });
 
