@@ -1,7 +1,17 @@
+import type { DictItem } from './dict';
+
 import { createPinia, setActivePinia } from 'pinia';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { setDictHandler, useDictStore } from './dict';
+
+function deferred<T>() {
+  let resolve!: (value: T) => void;
+  const promise = new Promise<T>((r) => {
+    resolve = r;
+  });
+  return { promise, resolve };
+}
 
 describe('useDictStore', () => {
   beforeEach(() => {
@@ -10,6 +20,8 @@ describe('useDictStore', () => {
   });
 
   afterEach(() => {
+    // pendingRequests 是模块级的，不随 Pinia 实例重建而清空
+    useDictStore().$reset();
     setDictHandler({});
   });
 
@@ -86,5 +98,51 @@ describe('useDictStore', () => {
     await pending;
 
     expect(store.getDictSync('user_gender')).toEqual([]);
+  });
+
+  it('ignores a stale getDict result and keeps dedupe after refreshDict(code)', async () => {
+    const stale = deferred<DictItem[]>();
+    const fresh = deferred<DictItem[]>();
+    const getDict = vi
+      .fn<(code: string) => Promise<DictItem[]>>()
+      .mockReturnValueOnce(stale.promise)
+      .mockReturnValueOnce(fresh.promise);
+    setDictHandler({ getDict });
+
+    const store = useDictStore();
+    const first = store.getDict('user_gender');
+    store.refreshDict('user_gender');
+    void store.getDict('user_gender');
+
+    stale.resolve([{ label: 'Old', value: 1 }]);
+    await first;
+    expect(store.dictMap.user_gender).toBeUndefined();
+
+    const third = store.getDict('user_gender');
+    expect(getDict).toHaveBeenCalledTimes(2);
+
+    fresh.resolve([{ label: 'New', value: 1 }]);
+    await expect(third).resolves.toEqual([{ label: 'New', value: 1 }]);
+    expect(store.getDictLabel('user_gender', 1)).toBe('New');
+  });
+
+  it('discards in-flight results after refreshDict()', async () => {
+    const single = deferred<DictItem[]>();
+    const all = deferred<Record<string, DictItem[]>>();
+    setDictHandler({
+      getAllDicts: () => all.promise,
+      getDict: () => single.promise,
+    });
+
+    const store = useDictStore();
+    const pendingSingle = store.getDict('user_gender');
+    const pendingAll = store.loadAllDicts();
+    store.refreshDict();
+
+    single.resolve([{ label: 'Male', value: 1 }]);
+    all.resolve({ common_status: [{ label: 'Enabled', value: 1 }] });
+    await Promise.all([pendingSingle, pendingAll]);
+
+    expect(store.dictMap).toEqual({});
   });
 });

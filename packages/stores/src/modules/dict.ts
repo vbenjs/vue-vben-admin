@@ -54,8 +54,8 @@ const useDictStore = defineStore(
     const dictMap = ref<Record<string, DictItem[]>>({});
     const version = ref<number | string | undefined>();
     /**
-     * 批次号：`$reset` 时递增，用于丢弃登出后才返回的请求结果
-     * Batch token: bumped on `$reset` so late responses after logout are discarded
+     * 批次号：`$reset` 或全量 `refreshDict()` 时递增，用于丢弃之前发出的 `loadAllDicts` 结果
+     * Batch token: bumped on `$reset` or full `refreshDict()` so earlier `loadAllDicts` responses are discarded
      */
     let batchToken = 0;
 
@@ -80,17 +80,19 @@ const useDictStore = defineStore(
         return pending;
       }
 
-      const token = batchToken;
-      const request = handler
+      // refreshDict / $reset 会移除登记，只有仍登记为当前请求时才写入或清理
+      const request: Promise<DictItem[]> = handler
         .getDict(code)
         .then((items) => {
-          if (token === batchToken) {
+          if (pendingRequests.get(code) === request) {
             dictMap.value = { ...dictMap.value, [code]: items };
           }
           return items;
         })
         .finally(() => {
-          pendingRequests.delete(code);
+          if (pendingRequests.get(code) === request) {
+            pendingRequests.delete(code);
+          }
         });
 
       pendingRequests.set(code, request);
@@ -198,6 +200,7 @@ const useDictStore = defineStore(
         dictMap.value = rest;
         pendingRequests.delete(code);
       } else {
+        batchToken += 1;
         dictMap.value = {};
         version.value = undefined;
         pendingRequests.clear();
