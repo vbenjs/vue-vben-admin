@@ -156,17 +156,17 @@ persist: {
 
 ::: details 暴露的状态与方法
 
-| 名称 | 说明 |
-| --- | --- |
-| `dictMap` | 字典缓存，形如 `{ [code]: DictItem[] }` |
-| `version` | 本地缓存的字典版本号 |
-| `getDict(code)` | 异步获取字典项（带缓存与并发合并） |
-| `getDictSync(code)` | 同步读取字典项；未命中时后台触发加载 |
-| `getDictItem(code, value)` | 按值查找字典项 |
-| `getDictLabel(code, value)` | 按值获取标签；找不到时返回原值 |
-| `loadAllDicts(force?)` | 全量预加载，支持版本校验 |
-| `refreshDict(code?)` | 清除某个或全部字典缓存 |
-| `$reset()` | 清空缓存与进行中的请求 |
+| 名称                        | 说明                                    |
+| --------------------------- | --------------------------------------- |
+| `dictMap`                   | 字典缓存，形如 `{ [code]: DictItem[] }` |
+| `version`                   | 本地缓存的字典版本号                    |
+| `getDict(code)`             | 异步获取字典项（带缓存与并发合并）      |
+| `getDictSync(code)`         | 同步读取字典项；未命中时后台触发加载    |
+| `getDictItem(code, value)`  | 按值查找字典项                          |
+| `getDictLabel(code, value)` | 按值获取标签；找不到时返回原值          |
+| `loadAllDicts(force?)`      | 全量预加载，支持版本校验                |
+| `refreshDict(code?)`        | 清除某个或全部字典缓存                  |
+| `$reset()`                  | 清空缓存与进行中的请求                  |
 
 :::
 
