@@ -17,6 +17,7 @@ import { router } from '#/router';
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm, useVbenForm } from './adapter/form';
 import App from './app.vue';
+import { initDict } from './dict-init';
 import { initTimezone } from './timezone-init';
 
 async function bootstrap(namespace: string) {
@@ -64,6 +65,9 @@ async function bootstrap(namespace: string) {
 
   // 初始化时区HANDLER
   initTimezone();
+
+  // 初始化字典HANDLER
+  initDict();
 
   // 安装权限指令
   registerAccessDirective(app);

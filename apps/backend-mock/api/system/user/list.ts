@@ -21,6 +21,7 @@ function generateMockDataList(count: number) {
       id: faker.string.uuid(),
       name: faker.commerce.product(),
       status: faker.helpers.arrayElement([0, 1]),
+      gender: faker.helpers.arrayElement([0, 1, 2]),
       createTime: formatterCN.format(
         faker.date.between({ from: '2022-01-01', to: '2025-01-01' }),
       ),
@@ -51,6 +52,7 @@ export default eventHandler(async (event) => {
     startTime,
     endTime,
     deptId,
+    gender,
     status,
   } = getQuery(event);
   let listData = structuredClone(mockData);
@@ -80,6 +82,9 @@ export default eventHandler(async (event) => {
   }
   if (deptId) {
     listData = listData.filter((item) => item.deptId === deptId);
+  }
+  if (['0', '1', '2'].includes(gender as string)) {
+    listData = listData.filter((item) => item.gender === Number(gender));
   }
   return usePageResponseSuccess(page as string, pageSize as string, listData);
 });

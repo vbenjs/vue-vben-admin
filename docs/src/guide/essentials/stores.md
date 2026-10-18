@@ -149,3 +149,123 @@ persist: {
 ```
 
 `timezone` 字段会被持久化，刷新页面后保留；`setTimezoneHandler` 注入的处理逻辑属于运行时配置，不持久化。
+
+## 字典 Store
+
+`useDictStore`，store id 为 `core-dict`，采用 setup store 风格封装字典缓存。业务侧通过 `setDictHandler` 注入取数方法，store 本身不依赖任何后端接口。
+
+::: details 暴露的状态与方法
+
+| 名称                        | 说明                                    |
+| --------------------------- | --------------------------------------- |
+| `dictMap`                   | 字典缓存，形如 `{ [code]: DictItem[] }` |
+| `version`                   | 本地缓存的字典版本号                    |
+| `getDict(code)`             | 异步获取字典项（带缓存与并发合并）      |
+| `getDictSync(code)`         | 同步读取字典项；未命中时后台触发加载    |
+| `getDictItem(code, value)`  | 按值查找字典项                          |
+| `getDictLabel(code, value)` | 按值获取标签；找不到时返回原值          |
+| `loadAllDicts(force?)`      | 全量预加载，支持版本校验                |
+| `refreshDict(code?)`        | 清除某个或全部字典缓存                  |
+| `$reset()`                  | 清空缓存与进行中的请求                  |
+
+:::
+
+### 注入自定义字典处理器
+
+`setDictHandler`：注入自定义的字典处理模块，可覆盖 `getDict` / `getAllDicts` / `getVersion`。
+
+```ts
+import { setDictHandler, useDictStore } from '@vben/stores';
+
+setDictHandler({
+  getDict(code) {
+    return requestClient.get('/dict/data', { params: { code } });
+  },
+  getAllDicts() {
+    return requestClient.get('/dict/all');
+  },
+  getVersion() {
+    return requestClient.get('/dict/version');
+  },
+});
+
+const store = useDictStore();
+await store.loadAllDicts();
+```
+
+### 按需读取
+
+```ts
+import { useDictStore } from '@vben/stores';
+
+const store = useDictStore();
+
+// 异步（可直接作为 ApiSelect 的 api）
+const options = await store.getDict('user_gender');
+
+// 同步读取（响应式），适合 RadioGroup 等只接受同步 options 的组件
+const syncOptions = store.getDictSync('user_gender');
+
+// 翻译值
+store.getDictLabel('user_gender', 1); // '男'
+```
+
+### 预加载与版本校验
+
+登录后或路由首次生成时调用 `loadAllDicts()`。若注入了 `getVersion`，版本号与本地一致且缓存非空时会跳过请求；传入 `force: true` 可强制刷新。
+
+### 在表格中使用
+
+在应用的 `adapter/vxe-table.ts` 中注册 `CellDict` 后：
+
+```ts
+{
+  field: 'gender',
+  cellRender: {
+    name: 'CellDict',
+    props: { code: 'user_gender' },
+  },
+}
+```
+
+> `CellDict` 属于应用层渲染器，不在 `@vben/stores` 内；playground 已提供示例实现。
+
+### 在表单中使用
+
+```ts
+const dictStore = useDictStore();
+
+// 下拉：ApiSelect + getDict
+{
+  component: 'ApiSelect',
+  componentProps: {
+    api: () => dictStore.getDict('user_gender'),
+  },
+  fieldName: 'gender',
+}
+
+// 单选：函数式 componentProps + getDictSync
+{
+  component: 'RadioGroup',
+  componentProps: () => ({
+    options: dictStore.getDictSync('user_gender'),
+  }),
+  fieldName: 'gender',
+}
+```
+
+### 刷新与重置
+
+- 管理端修改字典后调用 `refreshDict(code)`，当前会话会立即重新拉取。
+- 登出时 `resetAllStores` 会调用 `$reset()` 清空缓存；登出前发出、登出后才返回的请求结果会被丢弃。
+- 若后端按语言返回 label，切换语言后需调用 `refreshDict()`。
+
+### 持久化策略
+
+```ts
+persist: {
+  pick: ['dictMap', 'version'];
+}
+```
+
+`dictMap` 与 `version` 会被持久化。未提供 `getVersion` 时，缓存会一直保留到登出或手动 `refreshDict`。

@@ -2,7 +2,7 @@ import type { Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
+import { useAccessStore, useDictStore, useUserStore } from '@vben/stores';
 import { startProgress, stopProgress } from '@vben/utils';
 
 import { accessRoutes, coreRouteNames } from '#/router/routes';
@@ -105,6 +105,14 @@ function setupAccessGuard(router: Router) {
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
     accessStore.setIsAccessChecked(true);
+
+    // 预加载字典（版本校验），不阻塞路由跳转
+    useDictStore()
+      .loadAllDicts()
+      .catch((error) => {
+        console.error('Failed to preload dictionaries:', error);
+      });
+
     let redirectPath: string;
     if (from.query.redirect) {
       redirectPath = from.query.redirect as string;
