@@ -31,72 +31,73 @@ minimumReleaseAge: 0
 
 overrides:
   '@ast-grep/napi': 'catalog:'
+  prosemirror-view: ^1.42.6
   '@ctrl/tinycolor': 'catalog:'
   clsx: 'catalog:'
   pinia: 'catalog:'
   vue: 'catalog:'
 
 catalog:
-  '@ast-grep/napi': ^0.45.2
+  '@ast-grep/napi': ^0.51.0
   '@changesets/changelog-github': ^1.0.1
   '@changesets/cli': ^3.0.3
   '@changesets/git': ^4.0.1
-  '@clack/prompts': ^1.7.0
-  '@commitlint/cli': ^21.2.1
-  '@commitlint/config-conventional': ^21.2.0
-  '@ctrl/tinycolor': ^4.2.0
-  '@eslint-community/eslint-plugin-eslint-comments': ^4.7.2
+  '@clack/prompts': ^1.8.1
+  '@commitlint/cli': ^21.2.4
+  '@commitlint/config-conventional': ^21.2.4
+  '@ctrl/tinycolor': ^4.2.1
+  '@eslint-community/eslint-plugin-eslint-comments': ^4.8.1
   '@eslint/js': ^10.0.1
-  '@faker-js/faker': ^10.5.0
-  '@iconify/json': ^2.2.520
+  '@faker-js/faker': ^10.6.0
+  '@iconify/json': ^2.2.546
   '@iconify/tailwind4': ^1.2.3
-  '@iconify/vue': ^5.0.1
-  '@intlify/core-base': ^11.4.10
-  '@intlify/unplugin-vue-i18n': ^11.2.4
-  '@jspm/generator': ^2.16.3
-  '@lucide/vue': ^1.34.0
+  '@iconify/vue': ^5.0.4
+  '@intlify/core-base': ^11.4.16
+  '@intlify/unplugin-vue-i18n': ^11.2.7
+  '@jspm/generator': ^2.17.0
+  '@lucide/vue': ^1.60.0
   '@manypkg/get-packages': ^3.1.0
-  '@nolebase/vitepress-plugin-git-changelog': ^2.18.2
-  '@playwright/test': ^1.61.1
+  '@nolebase/vitepress-plugin-git-changelog': ^2.21.1
+  '@playwright/test': ^1.64.1
   '@pnpm/workspace.read-manifest': ^1000.3.1
-  '@stylistic/stylelint-plugin': ^5.2.1
+  '@stylistic/stylelint-plugin': ^5.3.1
   '@tailwindcss/typography': ^0.5.20
   '@tailwindcss/vite': ^4.3.3
-  '@tanstack/store': ^0.11.0
-  '@tanstack/vue-form': ^1.33.2
-  '@tanstack/vue-query': ^5.102.3
-  '@tanstack/vue-store': ^0.11.0
-  '@tiptap/core': ^3.30.3
-  '@tiptap/extension-document': ^3.30.3
-  '@tiptap/extension-highlight': ^3.30.3
-  '@tiptap/extension-image': ^3.30.3
-  '@tiptap/extension-link': ^3.30.3
-  '@tiptap/extension-placeholder': ^3.30.3
-  '@tiptap/extension-text-align': ^3.30.3
-  '@tiptap/extension-text-style': ^3.30.3
-  '@tiptap/extension-underline': ^3.30.3
-  '@tiptap/pm': ^3.30.3
-  '@tiptap/starter-kit': ^3.30.3
-  '@tiptap/vue-3': ^3.30.3
-  '@tsdown/css': ^0.22.14
+  '@tanstack/store': ^0.11.2
+  '@tanstack/vue-form': ^1.33.5
+  '@tanstack/vue-query': ^5.104.5
+  '@tanstack/vue-store': ^0.11.2
+  '@tiptap/core': ^3.32.0
+  '@tiptap/extension-document': ^3.32.0
+  '@tiptap/extension-highlight': ^3.32.0
+  '@tiptap/extension-image': ^3.32.0
+  '@tiptap/extension-link': ^3.32.0
+  '@tiptap/extension-placeholder': ^3.32.0
+  '@tiptap/extension-text-align': ^3.32.0
+  '@tiptap/extension-text-style': ^3.32.0
+  '@tiptap/extension-underline': ^3.32.0
+  '@tiptap/pm': ^3.32.0
+  '@tiptap/starter-kit': ^3.32.0
+  '@tiptap/vue-3': ^3.32.0
+  '@tsdown/css': ^0.23.1
   '@types/archiver': ^8.0.0
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
   '@types/jsonwebtoken': ^9.0.10
   '@types/lodash.clonedeep': ^4.5.9
-  '@types/node': ^25.9.7
+  '@types/node': ^26.6.5
   '@types/nprogress': ^0.2.3
   '@types/qrcode': ^1.5.6
   '@types/qs': ^6.15.1
   '@types/sortablejs': ^1.15.9
-  '@typescript-eslint/parser': ^8.68.0
+  '@typescript-eslint/parser': ^8.72.0
   '@vite-pwa/vitepress': ^1.1.0
-  '@vitejs/plugin-vue': ^6.0.9
+  '@vitejs/plugin-vue': ^6.0.10
   '@vitejs/plugin-vue-jsx': ^5.1.6
-  '@vue/shared': ^3.5.40
-  '@vue/test-utils': ^2.4.11
-  '@vueuse/core': ^14.4.0
-  '@vueuse/integrations': ^14.3.0
+  '@vue/shared': ^3.5.44
+  '@vue/test-utils': ^2.5.1
+  '@vueuse/core': ^15.0.0
+  '@vueuse/integrations': ^15.0.0
   '@vueuse/motion': ^3.0.3
   ant-design-vue: ^4.2.6
   antdv-next: ^1.4.5
