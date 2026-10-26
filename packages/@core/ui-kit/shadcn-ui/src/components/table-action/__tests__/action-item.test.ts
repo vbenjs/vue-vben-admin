@@ -52,15 +52,16 @@ describe('action-item.vue popConfirm', () => {
   it('renders the default confirmation texts with the locale messages', async () => {
     setSimpleLocale('zh-CN');
 
-    const { content } = await openPopConfirm({
+    const { buttons, content } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: '删除',
     });
 
+    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('请确认');
-    expect(content.textContent).toContain('取消');
-    expect(content.textContent).toContain('确认');
+    expect(cancelButton.textContent?.trim()).toBe('取消');
+    expect(confirmButton.textContent?.trim()).toBe('确认');
     // 不应出现硬编码的英文文案
     expect(content.textContent).not.toContain('Are you sure?');
     expect(content.textContent).not.toContain('OK');
@@ -69,15 +70,16 @@ describe('action-item.vue popConfirm', () => {
   it('renders the default confirmation texts in english locale', async () => {
     setSimpleLocale('en-US');
 
-    const { content } = await openPopConfirm({
+    const { buttons, content } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: 'Delete',
     });
 
+    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('Please Confirm');
-    expect(content.textContent).toContain('Cancel');
-    expect(content.textContent).toContain('Confirm');
+    expect(cancelButton.textContent?.trim()).toBe('Cancel');
+    expect(confirmButton.textContent?.trim()).toBe('Confirm');
     expect(content.textContent).not.toContain('Are you sure?');
     expect(content.textContent).not.toContain('OK');
   });
@@ -85,7 +87,7 @@ describe('action-item.vue popConfirm', () => {
   it('keeps the custom confirmation texts', async () => {
     setSimpleLocale('zh-CN');
 
-    const { content } = await openPopConfirm({
+    const { buttons, content } = await openPopConfirm({
       danger: true,
       popConfirm: {
         cancelText: '再想想',
@@ -95,9 +97,10 @@ describe('action-item.vue popConfirm', () => {
       text: '删除',
     });
 
+    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('确认删除?');
-    expect(content.textContent).toContain('再想想');
-    expect(content.textContent).toContain('删除吧');
+    expect(cancelButton.textContent?.trim()).toBe('再想想');
+    expect(confirmButton.textContent?.trim()).toBe('删除吧');
   });
 
   it('renders the cancel and confirm buttons with the same size', async () => {
