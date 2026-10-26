@@ -143,6 +143,45 @@ describe('useScrollLock', () => {
     expect(fixed.style.getPropertyPriority('transition')).toBe('important');
   });
 
+  it.each(['', 'important'])(
+    'preserves transition across lock cycles before the next frame (priority: %s)',
+    async (priority) => {
+      vi.useFakeTimers({
+        toFake: ['requestAnimationFrame', 'cancelAnimationFrame'],
+      });
+      document.body.style.overflow = 'auto';
+      Object.defineProperties(document.body, {
+        clientHeight: { configurable: true, value: 100 },
+        scrollHeight: { configurable: true, value: 120 },
+      });
+      vi.spyOn(document.documentElement, 'scrollHeight', 'get').mockReturnValue(
+        120,
+      );
+      vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(100);
+      const fixed = document.createElement('header');
+      fixed.className = SCROLL_FIXED_CLASS;
+      fixed.style.setProperty('transition', 'color 1s', priority);
+      const unstyled = document.createElement('footer');
+      unstyled.className = SCROLL_FIXED_CLASS;
+      document.body.append(fixed, unstyled);
+
+      const first = mountScrollLock();
+      await nextTick();
+      first.value = false;
+      const second = mountScrollLock();
+      await nextTick();
+      vi.advanceTimersToNextFrame();
+      expect(fixed.style.transition).toBe('none');
+      expect(unstyled.style.transition).toBe('none');
+
+      second.value = false;
+      vi.advanceTimersToNextFrame();
+      expect(fixed.style.transition).toBe('color 1s');
+      expect(fixed.style.getPropertyPriority('transition')).toBe(priority);
+      expect(unstyled.style.transition).toBe('');
+    },
+  );
+
   it('selects the current container for each new lock cycle', async () => {
     const firstTarget = createScrollableElement(ELEMENT_ID_LAYOUT_SCROLL);
     firstTarget.style.setProperty('scrollbar-gutter', 'auto', 'important');

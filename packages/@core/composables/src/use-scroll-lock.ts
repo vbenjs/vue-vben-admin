@@ -20,6 +20,10 @@ interface ScrollLockOptions {
 
 let lockCount = 0;
 let releaseLock: (() => void) | undefined;
+const pendingTransitionRestores = new WeakMap<
+  HTMLElement,
+  { frame: number; restore: () => void }
+>();
 
 function getScrollLockTarget() {
   return getLayoutScrollElement() ?? document.body;
@@ -34,6 +38,25 @@ function captureStyle(element: HTMLElement, property: string) {
     } else {
       element.style.removeProperty(property);
     }
+  };
+}
+
+function disableTransition(node: HTMLElement) {
+  const pending = pendingTransitionRestores.get(node);
+  if (pending) {
+    cancelAnimationFrame(pending.frame);
+    pendingTransitionRestores.delete(node);
+  }
+  // Reuse the original style when a new lock starts before the restore frame.
+  const restore = pending?.restore ?? captureStyle(node, 'transition');
+  node.style.transition = 'none';
+
+  return () => {
+    const frame = requestAnimationFrame(() => {
+      pendingTransitionRestores.delete(node);
+      restore();
+    });
+    pendingTransitionRestores.set(node, { frame, restore });
   };
 }
 
@@ -58,11 +81,10 @@ function applyScrollbarStyles(target: HTMLElement): (() => void)[] {
   document
     .querySelectorAll<HTMLElement>(`.${SCROLL_FIXED_CLASS}`)
     .forEach((node) => {
-      const restoreTransition = captureStyle(node, 'transition');
-      restore.push(captureStyle(node, 'padding-right'), () => {
-        requestAnimationFrame(restoreTransition);
-      });
-      node.style.transition = 'none';
+      restore.push(
+        captureStyle(node, 'padding-right'),
+        disableTransition(node),
+      );
       node.style.paddingRight = width;
     });
 
