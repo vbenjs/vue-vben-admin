@@ -203,6 +203,10 @@ const toolbarOptions = computed(() => {
 const options = computed(() => {
   const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
 
+  // mergeWithArrayOverride is defu-based: nested objects that only exist in
+  // the defaults layers keep their original references, so the merged result
+  // must be cloned before it is mutated below. Otherwise writes such as
+  // `proxyConfig.autoLoad/enabled` would pollute the caller's source options.
   const rawMergedOptions: VxeTableGridProps = mergeWithArrayOverride(
     {},
     toRaw(toolbarOptions.value),
@@ -211,9 +215,12 @@ const options = computed(() => {
   );
   const mergedOptions: VxeTableGridProps = cloneDeep(rawMergedOptions);
 
-  // Keep the columns reference stable when unrelated reactive options change.
-  // Otherwise VXE reloads the columns and loses its initialized sort state.
+  // Keep the columns/data references stable when unrelated reactive options
+  // change. Otherwise VXE reloads the columns and loses its initialized sort
+  // state, and a cloned data array would make VXE overwrite the data set via
+  // instance methods (reloadData, setMergeCells, ...) with stale option data.
   mergedOptions.columns = rawMergedOptions.columns;
+  mergedOptions.data = rawMergedOptions.data;
 
   if (mergedOptions.proxyConfig) {
     const { ajax } = mergedOptions.proxyConfig;
@@ -332,9 +339,19 @@ async function init() {
     toRaw(gridOptions.value),
     toRaw(globalGridConfig),
   );
+  props.api?.setState?.({ gridOptions: defaultGridOptions });
+
   // 内部主动加载数据，防止form的默认值影响
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
+  if (enableProxyConfig && autoLoad) {
+    // Wait for VXE to receive the latest options before applying default sort.
+    await nextTick();
+    props.api.grid.commitProxy?.(
+      'initial',
+      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
+    );
+  }
 
   // form 由 vben-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
@@ -343,20 +360,6 @@ async function init() {
   if (formConfig && formConfig.enabled) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
-    );
-  }
-  props.api?.setState?.({ gridOptions: defaultGridOptions });
-  // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
-  extendProxyOptions(props.api, defaultGridOptions, () =>
-    formApi.getLatestSubmissionValues(),
-  );
-
-  if (enableProxyConfig && autoLoad) {
-    // Wait for VXE to receive the latest options before applying default sort.
-    await nextTick();
-    props.api.grid.commitProxy?.(
-      'initial',
-      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
     );
   }
 }
@@ -380,6 +383,20 @@ watch(
   {
     immediate: true,
   },
+);
+
+// form 由 vben-form 代替，所以需要保证 query 相关事件可以拿到参数。
+// 在 setup 阶段同步包装（而不是在 init 中）：init 首行 await nextTick，
+// 晚于父组件的 onMounted，父组件挂载时调用 query()/reload() 会命中未包装的 ajax。
+// 包装范围与 init 的 defaultGridOptions 一致（gridOptions + 全局 grid 配置）。
+extendProxyOptions(
+  props.api,
+  mergeWithArrayOverride(
+    {},
+    toRaw(gridOptions.value),
+    toRaw(VxeUI?.getConfig()?.grid ?? {}),
+  ) as VxeTableGridProps,
+  () => formApi.getLatestSubmissionValues(),
 );
 
 const isCompactForm = computed(() => {

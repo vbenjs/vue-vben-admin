@@ -12,6 +12,7 @@ const mockRefs = vi.hoisted(() => ({
 }));
 const observedColumns = vi.hoisted(() => [] as unknown[]);
 const observedToolbarConfigs = vi.hoisted(() => [] as unknown[]);
+const observedData = vi.hoisted(() => [] as unknown[]);
 const extendProxyOptionsMock = vi.hoisted(() => vi.fn());
 
 vi.mock('@vben/hooks', async () => {
@@ -85,6 +86,7 @@ vi.mock('vxe-table', async () => {
         return () => {
           observedColumns.push(attrs.columns);
           observedToolbarConfigs.push(attrs.toolbarConfig);
+          observedData.push(attrs.data);
           return h('div', [
             slots['toolbar-actions']?.({}),
             slots['toolbar-tools']?.({}),
@@ -155,6 +157,7 @@ describe('vben vxe grid reactivity', () => {
     mockRefs.isMobile.value = false;
     observedColumns.length = 0;
     observedToolbarConfigs.length = 0;
+    observedData.length = 0;
     extendProxyOptionsMock.mockClear();
   });
 
@@ -232,6 +235,36 @@ describe('vben vxe grid reactivity', () => {
     }
   });
 
+  it('keeps data stable when unrelated grid options update', async () => {
+    mockRefs.gridOptions.value = {
+      columns: [{ field: 'name' }],
+      data: [{ name: 'row-1' }],
+      pagerConfig: {},
+    };
+    const api = createGridApi();
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+      const initialData = observedData.at(-1);
+
+      mockRefs.isMobile.value = true;
+      await nextTick();
+      await nextTick();
+
+      expect(observedData.at(-1)).toBe(initialData);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+
   it('uses the initial action for the first proxy load', async () => {
     mockRefs.gridOptions.value = {
       columns: [{ field: 'name', sortable: true }],
@@ -260,17 +293,23 @@ describe('vben vxe grid reactivity', () => {
       expect(extendProxyOptionsMock).toHaveBeenCalledOnce();
       expect(commitProxy).toHaveBeenCalledOnce();
       expect(commitProxy).toHaveBeenCalledWith('initial', {});
+      // The proxy ajax handlers must be wrapped during setup, before mount,
+      // so any query()/reload() after mount goes through the wrapper
+      // regardless of init()'s async timing.
+      const mountCallOrder = api.mount.mock.invocationCallOrder[0];
       const setStateCallOrder = api.setState.mock.invocationCallOrder[0];
       const extendProxyCallOrder =
         extendProxyOptionsMock.mock.invocationCallOrder[0];
       const commitProxyCallOrder = commitProxy.mock.invocationCallOrder[0];
       if (
+        mountCallOrder === undefined ||
         setStateCallOrder === undefined ||
         extendProxyCallOrder === undefined ||
         commitProxyCallOrder === undefined
       ) {
         throw new Error('Expected all initialization calls to be recorded');
       }
+      expect(extendProxyCallOrder).toBeLessThan(mountCallOrder);
       expect(setStateCallOrder).toBeLessThan(commitProxyCallOrder);
       expect(extendProxyCallOrder).toBeLessThan(commitProxyCallOrder);
     } finally {
