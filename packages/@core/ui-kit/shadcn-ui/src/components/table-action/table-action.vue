@@ -89,7 +89,9 @@ const renderedActions = computed(() => {
     return {
       action,
       buttonClass: cn(
-        'gap-1 p-2',
+        // 水平内边距保留点击热区；垂直方向不加内边距，避免按钮总高度
+        // 超过 small 档表格 40px 的单元格行高导致视觉不对齐 (#8461)
+        'gap-1 px-2 py-0',
         action.danger && 'text-destructive hover:text-destructive',
         action.class,
       ),
@@ -189,7 +191,7 @@ function onContentInteractOutside(event: Event) {
       v-model:open="dropdownOpen"
     >
       <DropdownMenuTrigger as-child>
-        <VbenButton class="gap-1 p-2" variant="link">
+        <VbenButton class="gap-1 px-2 py-0" variant="link">
           <Ellipsis class="size-4" />
           <span v-if="moreText">{{ moreText }}</span>
         </VbenButton>
