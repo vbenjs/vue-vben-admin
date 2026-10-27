@@ -340,6 +340,13 @@ async function init() {
     toRaw(globalGridConfig),
   );
   props.api?.setState?.({ gridOptions: defaultGridOptions });
+  // Re-wrap after the option update: a parent may have replaced
+  // proxyConfig.ajax callbacks (e.g. via setGridOptions in its onMounted)
+  // after the setup-time wrapping. extendProxyOptions is idempotent, so
+  // already-wrapped handlers are skipped.
+  extendProxyOptions(props.api, toRaw(gridOptions.value) ?? {}, () =>
+    formApi.getLatestSubmissionValues(),
+  );
 
   // 内部主动加载数据，防止form的默认值影响
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
@@ -395,7 +402,7 @@ extendProxyOptions(
     {},
     toRaw(gridOptions.value),
     toRaw(VxeUI?.getConfig()?.grid ?? {}),
-  ) as VxeTableGridProps,
+  ),
   () => formApi.getLatestSubmissionValues(),
 );
 

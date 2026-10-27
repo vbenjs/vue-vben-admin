@@ -1,14 +1,17 @@
-import type { VxeGridProps, VxeUIExport } from 'vxe-table';
+import type { VxeUIExport } from 'vxe-table';
 
 import type { Recordable } from '@vben/types';
 
 import type { VxeGridApi } from './api';
+import type { VxeGridProps as VbenVxeGridProps } from './types';
 
 import { formatDate, formatDateTime, isFunction } from '@vben/utils';
 
+type VbenGridOptions = NonNullable<VbenVxeGridProps['gridOptions']>;
+
 export function extendProxyOptions(
   api: VxeGridApi,
-  options: VxeGridProps,
+  options: VbenGridOptions,
   getFormValues: () => Recordable<any>,
 ) {
   [
@@ -23,15 +26,20 @@ export function extendProxyOptions(
   });
 }
 
+// Tracks ajax handlers wrapped by extendProxyOption so repeated wrapping is a
+// no-op instead of stacking wrappers (e.g. setup-time wrap + init-time
+// re-wrap). Keyed by function identity.
+const wrappedAjaxFns = new WeakSet<object>();
+
 function extendProxyOption(
   key: string,
   api: VxeGridApi,
-  options: VxeGridProps,
+  options: VbenGridOptions,
   getFormValues: () => Recordable<any>,
 ) {
   const { proxyConfig } = options;
   const configFn = (proxyConfig?.ajax as Recordable<any>)?.[key];
-  if (!isFunction(configFn)) {
+  if (!isFunction(configFn) || wrappedAjaxFns.has(configFn)) {
     return options;
   }
 
@@ -55,6 +63,7 @@ function extendProxyOption(
     );
     return data;
   };
+  wrappedAjaxFns.add(wrapperFn);
   api.setState({
     gridOptions: {
       proxyConfig: {

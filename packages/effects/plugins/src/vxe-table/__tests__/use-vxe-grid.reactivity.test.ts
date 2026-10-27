@@ -290,28 +290,35 @@ describe('vben vxe grid reactivity', () => {
       await flushGridInit();
 
       expect(api.setState).toHaveBeenCalledOnce();
-      expect(extendProxyOptionsMock).toHaveBeenCalledOnce();
+      // wrapped twice: once during setup (before mount) and once in init()
+      // after the initial option update, so callbacks installed by a parent
+      // (e.g. setGridOptions in its onMounted) are wrapped as well.
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(2);
       expect(commitProxy).toHaveBeenCalledOnce();
       expect(commitProxy).toHaveBeenCalledWith('initial', {});
-      // The proxy ajax handlers must be wrapped during setup, before mount,
-      // so any query()/reload() after mount goes through the wrapper
-      // regardless of init()'s async timing.
       const mountCallOrder = api.mount.mock.invocationCallOrder[0];
       const setStateCallOrder = api.setState.mock.invocationCallOrder[0];
-      const extendProxyCallOrder =
+      const setupWrapCallOrder =
         extendProxyOptionsMock.mock.invocationCallOrder[0];
+      const initRewrapCallOrder =
+        extendProxyOptionsMock.mock.invocationCallOrder[1];
       const commitProxyCallOrder = commitProxy.mock.invocationCallOrder[0];
       if (
         mountCallOrder === undefined ||
         setStateCallOrder === undefined ||
-        extendProxyCallOrder === undefined ||
+        setupWrapCallOrder === undefined ||
+        initRewrapCallOrder === undefined ||
         commitProxyCallOrder === undefined
       ) {
         throw new Error('Expected all initialization calls to be recorded');
       }
-      expect(extendProxyCallOrder).toBeLessThan(mountCallOrder);
-      expect(setStateCallOrder).toBeLessThan(commitProxyCallOrder);
-      expect(extendProxyCallOrder).toBeLessThan(commitProxyCallOrder);
+      // setup-time wrapping happens before mount, so any query()/reload()
+      // after mount goes through the wrapper regardless of init()'s async
+      // timing.
+      expect(setupWrapCallOrder).toBeLessThan(mountCallOrder);
+      // init re-wraps after the option update and before the initial commit.
+      expect(setStateCallOrder).toBeLessThan(initRewrapCallOrder);
+      expect(initRewrapCallOrder).toBeLessThan(commitProxyCallOrder);
     } finally {
       app.unmount();
       host.remove();
