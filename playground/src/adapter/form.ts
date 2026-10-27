@@ -17,6 +17,8 @@ async function initSetupVbenForm() {
       // 一些组件是 v-model:checked 或者 v-model:fileList
       modelPropNameMap: {
         Checkbox: 'checked',
+        // IconPicker uses Vue's standard modelValue/update:modelValue pair.
+        IconPicker: 'modelValue',
         Radio: 'checked',
         // VbenTiptap uses Vue's standard modelValue/update:modelValue pair.
         RichEditor: 'modelValue',
