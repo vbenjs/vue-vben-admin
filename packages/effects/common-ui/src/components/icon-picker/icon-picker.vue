@@ -2,6 +2,7 @@
 import type { IconPickerProps } from './types';
 
 import {
+  camelize,
   computed,
   onBeforeUpdate,
   ref,
@@ -55,6 +56,14 @@ const attrs = useAttrs();
 
 const modelValue = defineModel({ default: '', type: String });
 
+// web-ele registers the picker with modelValueProp: 'model-value'. Vue
+// normalizes that kebab-case attribute to the declared modelValue prop, so
+// both spellings must be treated as the default model protocol (they can
+// never be read from attrs).
+const isDefaultModelProp = computed(
+  () => camelize(props.modelValueProp) === 'modelValue',
+);
+
 const visible = ref(false);
 const currentSelect = ref('');
 const keyword = ref('');
@@ -107,14 +116,13 @@ const { paginationList, total, setCurrentPage, currentPage } = usePagination(
 );
 
 watchEffect(() => {
-  currentSelect.value =
-    props.modelValueProp === 'modelValue'
-      ? modelValue.value
-      : ((attrs[props.modelValueProp] as string) ?? '');
+  currentSelect.value = isDefaultModelProp.value
+    ? modelValue.value
+    : ((attrs[props.modelValueProp] as string) ?? '');
 });
 
 onBeforeUpdate(() => {
-  if (props.modelValueProp !== 'modelValue') {
+  if (!isDefaultModelProp.value) {
     currentSelect.value =
       (attrs[props.modelValueProp] as string | undefined) ?? '';
   }
@@ -163,7 +171,7 @@ const searchInputProps = computed(() => {
 
 function updateCurrentSelect(v: string) {
   currentSelect.value = v;
-  if (props.modelValueProp === 'modelValue') {
+  if (isDefaultModelProp.value) {
     modelValue.value = v;
   }
   const eventKey = `onUpdate:${props.modelValueProp}`;
