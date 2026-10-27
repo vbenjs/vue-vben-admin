@@ -406,6 +406,21 @@ extendProxyOptions(
   () => formApi.getLatestSubmissionValues(),
 );
 
+// init 之后业务仍可能通过 api.setGridOptions()/setState() 替换 proxyConfig.ajax
+// 回调。监听 ajax 引用变化并重新包装（幂等）：新回调恢复表单值注入，同时把
+// 表单值 getter 刷新为当前挂载实例（重新挂载时旧 wrapper 会被复用）。
+watch(
+  () => toRaw(gridOptions.value)?.proxyConfig?.ajax,
+  (ajax) => {
+    if (!ajax) {
+      return;
+    }
+    extendProxyOptions(props.api, { proxyConfig: { ajax } }, () =>
+      formApi.getLatestSubmissionValues(),
+    );
+  },
+);
+
 const isCompactForm = computed(() => {
   return formApi.getState()?.compact;
 });

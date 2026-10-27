@@ -72,4 +72,25 @@ describe('extendProxyOptions', () => {
     wrap(api);
     expect(currentQuery(api)).toBe(wrapped);
   });
+
+  it('rebinds form values to the current mount when the same api re-wraps', async () => {
+    const original = vi.fn().mockResolvedValue({ total: 0 });
+    const api = createApi(original);
+
+    // first mount installs the wrapper bound to the first form instance
+    extendProxyOptions(api, api.state?.gridOptions ?? {}, () => ({ mount: 1 }));
+    const wrapper = currentQuery(api);
+    if (!wrapper) {
+      throw new Error('expected the query to be wrapped');
+    }
+
+    // the grid unmounts and remounts with the same api: re-wrapping skips
+    // the installed wrapper but must rebind to the new form instance
+    extendProxyOptions(api, api.state?.gridOptions ?? {}, () => ({ mount: 2 }));
+
+    await wrapper({}, {});
+    expect(original).toHaveBeenCalledOnce();
+    // a stale binding would report the first mount's values
+    expect(original.mock.calls[0]?.[1]).toEqual({ mount: 2 });
+  });
 });

@@ -324,4 +324,39 @@ describe('vben vxe grid reactivity', () => {
       host.remove();
     }
   });
+
+  it('re-wraps ajax callbacks replaced after init', async () => {
+    mockRefs.gridOptions.value = {
+      proxyConfig: {
+        ajax: { query: vi.fn() },
+        autoLoad: true,
+      },
+    };
+    const api = createGridApi();
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+      // setup-time wrap + init-time re-wrap
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(2);
+
+      // api.setGridOptions() replaces the query callback after init
+      mockRefs.gridOptions.value = {
+        proxyConfig: { ajax: { query: vi.fn() } },
+      };
+      await nextTick();
+      await nextTick();
+
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(3);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
 });

@@ -9,11 +9,14 @@ import { formatDate, formatDateTime, isFunction } from '@vben/utils';
 
 type VbenGridOptions = NonNullable<VbenVxeGridProps['gridOptions']>;
 
+type FormValuesGetter = () => Recordable<any>;
+
 export function extendProxyOptions(
   api: VxeGridApi,
   options: VbenGridOptions,
-  getFormValues: () => Recordable<any>,
+  getFormValues: FormValuesGetter,
 ) {
+  formValueGetters.set(api, getFormValues);
   [
     'query',
     'querySuccess',
@@ -22,7 +25,7 @@ export function extendProxyOptions(
     'queryAllSuccess',
     'queryAllError',
   ].forEach((key) => {
-    extendProxyOption(key, api, options, getFormValues);
+    extendProxyOption(key, api, options);
   });
 }
 
@@ -31,11 +34,15 @@ export function extendProxyOptions(
 // re-wrap). Keyed by function identity.
 const wrappedAjaxFns = new WeakSet<object>();
 
+// Latest form-value getter per api. The wrapper resolves it at call time, so
+// it stays bound to the current mount's formApi even when the api (and its
+// wrapped callbacks) survives an unmount/remount.
+const formValueGetters = new WeakMap<object, FormValuesGetter>();
+
 function extendProxyOption(
   key: string,
   api: VxeGridApi,
   options: VbenGridOptions,
-  getFormValues: () => Recordable<any>,
 ) {
   const { proxyConfig } = options;
   const configFn = (proxyConfig?.ajax as Recordable<any>)?.[key];
@@ -48,7 +55,7 @@ function extendProxyOption(
     customValues: Recordable<any>,
     ...args: Recordable<any>[]
   ) => {
-    const formValues = getFormValues();
+    const formValues = formValueGetters.get(api)?.() ?? {};
     const data = await configFn(
       params,
       {
