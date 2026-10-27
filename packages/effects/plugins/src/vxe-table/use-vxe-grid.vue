@@ -39,8 +39,9 @@ import {
 
 import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 
+import { VxeUI } from '@vxe-ui/core';
 import { VxeButton } from 'vxe-pc-ui';
-import { VxeGrid, VxeUI } from 'vxe-table';
+import { VxeGrid } from 'vxe-table';
 
 import { extendProxyOptions } from './extends';
 import { useTableForm } from './init';
