@@ -1,7 +1,7 @@
 export class StateHandler {
   private condition: boolean = false;
-  private rejectCondition: ((reason?: Error) => void) | null = null;
-  private resolveCondition: (() => void) | null = null;
+  private rejectConditions: ((reason?: Error) => void)[] = [];
+  private resolveConditions: (() => void)[] = [];
 
   isConditionTrue(): boolean {
     return this.condition;
@@ -12,39 +12,44 @@ export class StateHandler {
     this.clearPromises();
   }
 
-  // 触发状态为 false 时，reject
+  // 触发状态为 false 时，reject 所有等待中的 Promise
   setConditionFalse() {
     this.condition = false;
-    if (this.rejectCondition) {
-      this.rejectCondition(new Error('Condition was set to false'));
-      this.clearPromises();
+    const pendingRejects = this.rejectConditions;
+    this.clearPromises();
+    for (const reject of pendingRejects) {
+      reject(new Error('Condition was set to false'));
     }
   }
 
-  // 触发状态为 true 时，resolve
+  // 触发状态为 true 时，resolve 所有等待中的 Promise
   setConditionTrue() {
     this.condition = true;
-    if (this.resolveCondition) {
-      this.resolveCondition();
-      this.clearPromises();
+    const pendingResolves = this.resolveConditions;
+    this.clearPromises();
+    for (const resolve of pendingResolves) {
+      resolve();
     }
   }
 
-  // 返回一个 Promise，等待 condition 变为 true
+  // 返回一个 Promise，等待 condition 变为 true；支持多个并发等待者
   waitForCondition(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.condition) {
         resolve(); // 如果 condition 已经为 true，立即 resolve
       } else {
-        this.resolveCondition = resolve;
-        this.rejectCondition = reject;
+        // condition 变为 true/false 前可能有多个调用方同时等待，
+        // 需要把所有 resolve/reject 都收集起来，切换时一次性结算，
+        // 否则后注册者会覆盖前一个句柄，导致先注册的等待方永远挂起。
+        this.resolveConditions.push(resolve);
+        this.rejectConditions.push(reject);
       }
     });
   }
 
-  // 清理 resolve/reject 函数
+  // 清理所有等待中的 resolve/reject 函数
   private clearPromises() {
-    this.resolveCondition = null;
-    this.rejectCondition = null;
+    this.resolveConditions = [];
+    this.rejectConditions = [];
   }
 }
