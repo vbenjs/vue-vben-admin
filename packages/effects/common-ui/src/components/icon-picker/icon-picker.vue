@@ -172,7 +172,11 @@ const searchInputProps = computed(() => {
 function updateCurrentSelect(v: string) {
   currentSelect.value = v;
   if (isDefaultModelProp.value) {
+    // The `update:modelValue` emit from defineModel already invokes both
+    // camelCase and kebab-case parent listeners; calling the attr here as
+    // well would fire kebab-case listeners twice.
     modelValue.value = v;
+    return;
   }
   const eventKey = `onUpdate:${props.modelValueProp}`;
   if (attrs[eventKey] && isFunction(attrs[eventKey])) {

@@ -287,25 +287,38 @@ describe('icon-picker.vue', () => {
   });
 
   it('keeps manual input with a kebab-case modelValueProp', async () => {
+    // Mimics the web-ele form binding: the form holds the state and feeds
+    // the emitted value back through modelValue, so the typed text must
+    // survive the parent rerender.
     const onUpdateModelValue = vi.fn();
-    const wrapper = mount(IconPicker, {
-      attachTo: document.body,
-      props: {
-        icons: STATIC_ICONS,
-        inputComponent: markRaw(ElementLikeInput),
-        modelValue: 'home',
-        modelValueProp: 'model-value',
-        prefix: '',
-        'onUpdate:modelValue': onUpdateModelValue,
-      },
-    });
-    const input = wrapper.find('input');
+    const host = mount(
+      defineComponent({
+        name: 'KebabModelHost',
+        setup() {
+          const modelValue = ref('home');
+          return () =>
+            h(IconPicker, {
+              icons: STATIC_ICONS,
+              inputComponent: markRaw(ElementLikeInput),
+              modelValue: modelValue.value,
+              modelValueProp: 'model-value',
+              prefix: '',
+              'onUpdate:modelValue': (v: string) => {
+                onUpdateModelValue(v);
+                modelValue.value = v;
+              },
+            });
+        },
+      }),
+      { attachTo: document.body },
+    );
+    const input = host.find('input');
     await input.setValue('search');
 
     expect(onUpdateModelValue).toHaveBeenCalledWith('search');
     expect(input.element.value).toBe('search');
 
-    wrapper.unmount();
+    host.unmount();
   });
 
   it('updates the model value and trigger input when selecting an icon (kebab-case modelValueProp)', async () => {
@@ -329,6 +342,32 @@ describe('icon-picker.vue', () => {
 
     expect(onUpdateModelValue).toHaveBeenCalledWith('home');
     expect(wrapper.find('input').element.value).toBe('home');
+
+    wrapper.unmount();
+  });
+
+  it('invokes a kebab-case model listener exactly once per selection', async () => {
+    // A raw kebab-case listener stays in attrs while defineModel's emit
+    // still reaches it, so the component must not call it through attrs too.
+    const onKebabUpdate = vi.fn();
+    const wrapper = mount(IconPicker, {
+      attachTo: document.body,
+      props: {
+        icons: STATIC_ICONS,
+        inputComponent: markRaw(ElementLikeInput),
+        modelValueProp: 'model-value',
+        prefix: '',
+        'onUpdate:model-value': onKebabUpdate,
+      },
+    });
+    await openIconPicker(wrapper);
+
+    const firstIcon = document.body.querySelector('.grid-cols-6 > button');
+    expect(firstIcon).toBeTruthy();
+    await new DOMWrapper(firstIcon as Element).trigger('click');
+
+    expect(onKebabUpdate).toHaveBeenCalledTimes(1);
+    expect(onKebabUpdate).toHaveBeenCalledWith('home');
 
     wrapper.unmount();
   });
