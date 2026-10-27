@@ -31,10 +31,10 @@ minimumReleaseAge: 0
 
 overrides:
   '@ast-grep/napi': 'catalog:'
-  prosemirror-view: ^1.42.6
   '@ctrl/tinycolor': 'catalog:'
   clsx: 'catalog:'
   pinia: 'catalog:'
+  prosemirror-view: ^1.42.6
   vue: 'catalog:'
 
 catalog:
