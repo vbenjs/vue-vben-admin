@@ -98,7 +98,10 @@ vi.mock('vxe-table', async () => {
   };
 });
 
-vi.mock('../extends', () => ({
+vi.mock('../extends', async (importOriginal) => ({
+  // wrapProxyAjaxOptions 保持真实实现：组件在 options computed 中用它
+  // 就地包装最终传给 VxeGrid 的选项（真实路径需要被覆盖）。
+  ...(await importOriginal<Record<string, unknown>>()),
   extendProxyOptions: extendProxyOptionsMock,
 }));
 

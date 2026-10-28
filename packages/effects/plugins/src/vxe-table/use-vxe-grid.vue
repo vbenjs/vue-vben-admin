@@ -42,7 +42,7 @@ import { VbenHelpTooltip, VbenLoading } from '@vben-core/shadcn-ui';
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
 
-import { extendProxyOptions } from './extends';
+import { extendProxyOptions, wrapProxyAjaxOptions } from './extends';
 import { useTableForm } from './init';
 import { applyViewedRowOptions, useViewedRow } from './viewed-row';
 
@@ -227,6 +227,12 @@ const options = computed(() => {
     mergedOptions.proxyConfig.enabled = !!ajax;
     // 不自动加载数据, 由组件控制
     mergedOptions.proxyConfig.autoLoad = false;
+    // gridOptions 可能由父组件以 prop 传入（优先级高于 state），写入
+    // state 的包装器会被 prop 遮蔽。这里对最终传给 VxeGrid 的克隆选项
+    // 就地包装（幂等），父组件的 prop 不会被修改。
+    wrapProxyAjaxOptions(gridApi, mergedOptions, () =>
+      formApi.getLatestSubmissionValues(),
+    );
   }
 
   if (mergedOptions.pagerConfig) {
