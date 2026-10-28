@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import type { IconPickerProps } from './types';
 
-import {
-  computed,
-  onBeforeUpdate,
-  ref,
-  useAttrs,
-  watch,
-  watchEffect,
-} from 'vue';
+import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
 
 import { usePagination } from '@vben/hooks';
 import { EmptyIcon, Grip, listIcons } from '@vben/icons';
@@ -29,7 +22,6 @@ import {
   VbenIconButton,
   VbenPopover,
 } from '@vben-core/shadcn-ui';
-import { isFunction } from '@vben-core/shared/utils';
 
 import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';
 
@@ -106,18 +98,11 @@ const { paginationList, total, setCurrentPage, currentPage } = usePagination(
   props.pageSize,
 );
 
+// The picker exchanges its value exclusively through v-model (modelValue),
+// regardless of the inner input protocol. Adapters bridge the outer form
+// binding via the form config's `modelPropNameMap` (see apps/*/adapter).
 watchEffect(() => {
-  currentSelect.value =
-    props.modelValueProp === 'modelValue'
-      ? modelValue.value
-      : ((attrs[props.modelValueProp] as string) ?? '');
-});
-
-onBeforeUpdate(() => {
-  if (props.modelValueProp !== 'modelValue') {
-    currentSelect.value =
-      (attrs[props.modelValueProp] as string | undefined) ?? '';
-  }
+  currentSelect.value = modelValue.value;
 });
 
 watch(
@@ -163,19 +148,37 @@ const searchInputProps = computed(() => {
 
 function updateCurrentSelect(v: string) {
   currentSelect.value = v;
-  if (props.modelValueProp === 'modelValue') {
-    modelValue.value = v;
-  }
-  const eventKey = `onUpdate:${props.modelValueProp}`;
-  if (attrs[eventKey] && isFunction(attrs[eventKey])) {
-    attrs[eventKey](v);
-  }
+  modelValue.value = v;
 }
+// `modelValueProp` describes the value protocol of the configured inner
+// input component ('value' for antd/naive inputs, 'model-value' for
+// element-plus). The forwarded attrs must never carry the outer value or
+// its listener under that name, or they would override the inner binding.
 const getBindAttrs = computed(() => {
   return objectOmit(attrs, [
     `onUpdate:${props.modelValueProp}`,
     props.modelValueProp,
   ]);
+});
+
+// Legacy adapter configs bound the outer value through
+// `<name>`/`onUpdate:<name>` attributes; they are dropped now, so warn once
+// and tell callers how to migrate.
+let warnedLegacyBinding = false;
+watchEffect(() => {
+  if (
+    !warnedLegacyBinding &&
+    (attrs[props.modelValueProp] !== undefined ||
+      attrs[`onUpdate:${props.modelValueProp}`] !== undefined)
+  ) {
+    warnedLegacyBinding = true;
+    console.warn(
+      `[IconPicker] received \`${props.modelValueProp}\`/` +
+        `\`onUpdate:${props.modelValueProp}\`. The picker exchanges its value ` +
+        `through v-model (modelValue); bind it with v-model, or map it via ` +
+        `the form config's modelPropNameMap.`,
+    );
+  }
 });
 
 defineExpose({ toggleOpenState, open, close });
