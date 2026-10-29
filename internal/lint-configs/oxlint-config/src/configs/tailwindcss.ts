@@ -25,8 +25,6 @@ const settings = {
 };
 
 const tailwindcss: OxlintConfig = {
-  // Generated shadcn-ui internals are intentionally left unmanaged.
-  ignorePatterns: ['packages/@core/ui-kit/shadcn-ui/**/*'],
   jsPlugins: [
     {
       name: 'better-tailwindcss',

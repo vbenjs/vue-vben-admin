@@ -27,7 +27,6 @@ const javascript: OxlintConfig = {
     'block-scoped-var': 'error',
     'default-case-last': 'error',
     eqeqeq: ['error', 'always'],
-    'eslint/no-unreachable': 'error',
     // 抛出嵌套三元运算格式错误，禁止使用嵌套三元运算。
     'no-nested-ternary': 'error',
     'new-cap': [
@@ -40,20 +39,15 @@ const javascript: OxlintConfig = {
     ],
     'no-alert': 'error',
     'no-array-constructor': 'error',
-    'no-caller': 'error',
     'no-case-declarations': 'error',
     'no-console': ['error', { allow: ['warn', 'error'] }],
-    'no-control-regex': 'error',
-    'no-debugger': 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-fallthrough': 'error',
     'no-new-func': 'error',
     'no-object-constructor': 'error',
-    'no-new-native-nonconstructor': 'error',
     'no-labels': ['error', { allowLoop: false, allowSwitch: false }],
     'no-lone-blocks': 'error',
     'no-multi-str': 'error',
-    'no-nonoctal-decimal-escape': 'error',
     'no-proto': 'error',
     'no-prototype-builtins': 'error',
     'no-redeclare': ['error', { builtinGlobals: false }],
@@ -61,7 +55,6 @@ const javascript: OxlintConfig = {
     'no-self-compare': 'error',
     'no-sequences': 'error',
     'no-shadow': 'off',
-    'no-shadow-restricted-names': 'error',
     'eslint/no-empty-function': [
       'error',
       {
@@ -70,7 +63,6 @@ const javascript: OxlintConfig = {
     ],
     'no-template-curly-in-string': 'error',
     'no-throw-literal': 'error',
-    'no-unassigned-vars': 'error',
     'no-unexpected-multiline': 'error',
     'no-unused-expressions': [
       'error',
@@ -88,8 +80,6 @@ const javascript: OxlintConfig = {
       },
     ],
     'no-var': 'error',
-    'no-eval': 'error',
-    'no-iterator': 'error',
     'no-new-wrappers': 'error',
     'no-restricted-globals': [
       'error',
