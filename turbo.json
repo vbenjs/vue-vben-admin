@@ -42,6 +42,7 @@
       "persistent": true
     },
     "typecheck": {
+      "dependsOn": ["^typecheck"],
       "outputs": []
     }
   }
