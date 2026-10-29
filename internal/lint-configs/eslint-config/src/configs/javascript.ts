@@ -74,8 +74,10 @@ export async function javascript(): Promise<Linter.Config[]> {
         ],
         'no-undef-init': 'error',
         'no-undef': 'off',
-        // oxlint 负责 ts/js 的未用变量检查；.vue 文件由下方
-        // unused-imports/no-unused-vars（带 ^_ 忽略模式）负责，核心规则全程关闭。
+        // 未用变量按文件类型分工（见 configs/typescript.ts 的关闭项）：
+        // 纯 JS 由下方 unused-imports/no-unused-vars（带 ^_ 忽略模式）负责；
+        // TS/TSX/Vue 的该规则被关闭（核心实现无法识别 TS 类型签名形参），
+        // 统一交给 oxlint 的 no-unused-vars（类型感知）检查。
         'no-unused-vars': 'off',
         'no-unreachable-loop': 'error',
         'object-shorthand': [
