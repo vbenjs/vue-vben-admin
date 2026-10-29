@@ -115,11 +115,9 @@ async function onSubmit(params: Recordable<any>) {
     // 重置验证码组件的值
     formApi?.setFieldValue('captcha', false, false);
     // 使用表单API获取验证码组件实例，并调用其resume方法来重置验证码
-    (
-      formApi?.getFieldComponentRef('captcha') as
-        | InstanceType<typeof SliderCaptcha>
-        | undefined
-    )?.resume();
+    formApi
+      ?.getFieldComponentRef<InstanceType<typeof SliderCaptcha>>('captcha')
+      ?.resume();
   });
 }
 </script>

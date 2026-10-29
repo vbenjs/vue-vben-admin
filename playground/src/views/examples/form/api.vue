@@ -132,13 +132,11 @@ function handleClick(
     }
     case 'componentRef': {
       // 获取下拉组件的实例，并调用它的focus方法
-      (
-        formApi.getFieldComponentRef('fieldOptions') as
-          | undefined
-          | {
-              focus?: () => void;
-            }
-      )?.focus?.();
+      formApi
+        .getFieldComponentRef<{
+          focus?: () => void;
+        }>('fieldOptions')
+        ?.focus?.();
       break;
     }
     case 'disabled': {
