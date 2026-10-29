@@ -413,14 +413,17 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       this.excludeCachedTabs.add(name as string);
       this.renderRouteView = false;
-      await startProgress();
+      // startProgress 内部是动态导入 nprogress，导入失败不应中断刷新流程：
+      // 否则 renderRouteView 停留 false（内容区空白）、标签页永久滞留在
+      // excludeCachedTabs 里。与各应用 guard.ts 一致 fire-and-forget。
+      void startProgress();
 
       await nextTick();
       // await new Promise((resolve) => setTimeout(resolve, 200));
 
       this.excludeCachedTabs.delete(name as string);
       this.renderRouteView = true;
-      await stopProgress();
+      void stopProgress();
     },
 
     /**
