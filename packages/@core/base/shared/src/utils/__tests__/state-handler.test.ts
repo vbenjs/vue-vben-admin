@@ -130,3 +130,48 @@ describe('stateHandler concurrent waiters', () => {
     expect(settled).toEqual({ first: 'rejected', second: 'rejected' });
   });
 });
+
+describe('stateHandler reset while callers wait', () => {
+  it('settles a pending waiter instead of dropping it', async () => {
+    const handler = new StateHandler();
+
+    const outcome = handler.waitForCondition().then(
+      () => 'resolved',
+      (error: Error) => error.message,
+    );
+    handler.reset();
+
+    expect(
+      await Promise.race([
+        outcome,
+        new Promise((resolve) => setTimeout(() => resolve('pending'), 50)),
+      ]),
+    ).toBe('Condition was reset');
+  });
+
+  it('settles every waiter registered before the reset', async () => {
+    const handler = new StateHandler();
+
+    const settled: Record<string, string> = {
+      first: 'pending',
+      second: 'pending',
+    };
+
+    handler.waitForCondition().then(
+      () => (settled.first = 'resolved'),
+      () => (settled.first = 'rejected'),
+    );
+    handler.waitForCondition().then(
+      () => (settled.second = 'resolved'),
+      () => (settled.second = 'rejected'),
+    );
+
+    handler.reset();
+
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(settled).toEqual({ first: 'rejected', second: 'rejected' });
+  });
+});
