@@ -168,8 +168,9 @@ async function resolveLegacyDependencies(
     patch.required = !!(await required(values, actions, controller));
   }
   if (isFunction(trigger)) {
-    // trigger 常为 async 回调：await 确保其完成后再进入本次求值收尾，
-    // 抛出的异常才能被当前 watcher 捕获（上游 #7830）。
+    // trigger 在其余状态字段求值完成后执行（上游顺序）。若 trigger 拒绝，
+    // 本次求值整体失败、已算出的 patch 不生效，异常经 Vue 的 watcher
+    // 错误通道冒泡——这是上游既有行为，此处保持一致、不吞异常。
     await trigger(values, actions, controller);
   }
 

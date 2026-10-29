@@ -24,13 +24,12 @@ export function createRuntimeFieldComponent(
     defineComponent({
       inheritAttrs: false,
       setup(_, { attrs, slots }) {
-        // attrs.name 运行时可能是数字（模板里写字面量），仅接受原始值，
-        // 其余类型（symbol/对象）不做 String 强转。
-        const rawName = attrs.name;
-        const fieldName =
-          typeof rawName === 'string' || typeof rawName === 'number'
-            ? String(rawName)
-            : '';
+        // 恢复上游原始语义：attrs.name 任意值一律 String() 化（number →
+        // '123'，未传 → ''）。此处是字段注册键的兜底归一化，需要的就是
+        // 「任何输入都产生一个字符串键」；String(symbol) 也不会抛错，
+        // 无需窄化成 '' 改变注册键（否则与上游同名对象的键不一致）。
+        // oxlint-disable-next-line typescript/no-base-to-string
+        const fieldName = String(attrs.name ?? '');
         let validationRunId = 0;
         let cachedValidators: Record<string, any> | undefined;
         let cachedWrappedValidators: Record<string, any> | undefined;
