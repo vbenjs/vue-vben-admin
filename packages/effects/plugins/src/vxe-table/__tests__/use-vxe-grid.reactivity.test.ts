@@ -12,6 +12,7 @@ const mockRefs = vi.hoisted(() => ({
 }));
 const observedColumns = vi.hoisted(() => [] as unknown[]);
 const observedToolbarConfigs = vi.hoisted(() => [] as unknown[]);
+const observedData = vi.hoisted(() => [] as unknown[]);
 const extendProxyOptionsMock = vi.hoisted(() => vi.fn());
 
 vi.mock('@vben/hooks', async () => {
@@ -85,6 +86,7 @@ vi.mock('vxe-table', async () => {
         return () => {
           observedColumns.push(attrs.columns);
           observedToolbarConfigs.push(attrs.toolbarConfig);
+          observedData.push(attrs.data);
           return h('div', [
             slots['toolbar-actions']?.({}),
             slots['toolbar-tools']?.({}),
@@ -96,7 +98,10 @@ vi.mock('vxe-table', async () => {
   };
 });
 
-vi.mock('../extends', () => ({
+vi.mock('../extends', async (importOriginal) => ({
+  // wrapProxyAjaxOptions 保持真实实现：组件在 options computed 中用它
+  // 就地包装最终传给 VxeGrid 的选项（真实路径需要被覆盖）。
+  ...(await importOriginal<Record<string, unknown>>()),
   extendProxyOptions: extendProxyOptionsMock,
 }));
 
@@ -155,6 +160,7 @@ describe('vben vxe grid reactivity', () => {
     mockRefs.isMobile.value = false;
     observedColumns.length = 0;
     observedToolbarConfigs.length = 0;
+    observedData.length = 0;
     extendProxyOptionsMock.mockClear();
   });
 
@@ -232,6 +238,36 @@ describe('vben vxe grid reactivity', () => {
     }
   });
 
+  it('keeps data stable when unrelated grid options update', async () => {
+    mockRefs.gridOptions.value = {
+      columns: [{ field: 'name' }],
+      data: [{ name: 'row-1' }],
+      pagerConfig: {},
+    };
+    const api = createGridApi();
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+      const initialData = observedData.at(-1);
+
+      mockRefs.isMobile.value = true;
+      await nextTick();
+      await nextTick();
+
+      expect(observedData.at(-1)).toBe(initialData);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+
   it('uses the initial action for the first proxy load', async () => {
     mockRefs.gridOptions.value = {
       columns: [{ field: 'name', sortable: true }],
@@ -257,22 +293,70 @@ describe('vben vxe grid reactivity', () => {
       await flushGridInit();
 
       expect(api.setState).toHaveBeenCalledOnce();
-      expect(extendProxyOptionsMock).toHaveBeenCalledOnce();
+      // wrapped twice: once during setup (before mount) and once in init()
+      // after the initial option update, so callbacks installed by a parent
+      // (e.g. setGridOptions in its onMounted) are wrapped as well.
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(2);
       expect(commitProxy).toHaveBeenCalledOnce();
       expect(commitProxy).toHaveBeenCalledWith('initial', {});
+      const mountCallOrder = api.mount.mock.invocationCallOrder[0];
       const setStateCallOrder = api.setState.mock.invocationCallOrder[0];
-      const extendProxyCallOrder =
+      const setupWrapCallOrder =
         extendProxyOptionsMock.mock.invocationCallOrder[0];
+      const initRewrapCallOrder =
+        extendProxyOptionsMock.mock.invocationCallOrder[1];
       const commitProxyCallOrder = commitProxy.mock.invocationCallOrder[0];
       if (
+        mountCallOrder === undefined ||
         setStateCallOrder === undefined ||
-        extendProxyCallOrder === undefined ||
+        setupWrapCallOrder === undefined ||
+        initRewrapCallOrder === undefined ||
         commitProxyCallOrder === undefined
       ) {
         throw new Error('Expected all initialization calls to be recorded');
       }
-      expect(setStateCallOrder).toBeLessThan(commitProxyCallOrder);
-      expect(extendProxyCallOrder).toBeLessThan(commitProxyCallOrder);
+      // setup-time wrapping happens before mount, so any query()/reload()
+      // after mount goes through the wrapper regardless of init()'s async
+      // timing.
+      expect(setupWrapCallOrder).toBeLessThan(mountCallOrder);
+      // init re-wraps after the option update and before the initial commit.
+      expect(setStateCallOrder).toBeLessThan(initRewrapCallOrder);
+      expect(initRewrapCallOrder).toBeLessThan(commitProxyCallOrder);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+
+  it('re-wraps ajax callbacks replaced after init', async () => {
+    mockRefs.gridOptions.value = {
+      proxyConfig: {
+        ajax: { query: vi.fn() },
+        autoLoad: true,
+      },
+    };
+    const api = createGridApi();
+    const Consumer = defineComponent(
+      () => () => h(VbenVxeGrid, { api } as any),
+    );
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app: App = createApp(Consumer);
+
+    try {
+      app.mount(host);
+      await flushGridInit();
+      // setup-time wrap + init-time re-wrap
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(2);
+
+      // api.setGridOptions() replaces the query callback after init
+      mockRefs.gridOptions.value = {
+        proxyConfig: { ajax: { query: vi.fn() } },
+      };
+      await nextTick();
+      await nextTick();
+
+      expect(extendProxyOptionsMock).toHaveBeenCalledTimes(3);
     } finally {
       app.unmount();
       host.remove();
