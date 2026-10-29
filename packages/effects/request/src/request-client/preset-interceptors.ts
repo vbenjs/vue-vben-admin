@@ -7,9 +7,9 @@ import { isFunction } from '@vben/utils';
 import axios from 'axios';
 
 export const defaultResponseInterceptor = ({
-  codeField = 'code',
-  dataField = 'data',
-  successCode = 0,
+  codeField,
+  dataField,
+  successCode,
 }: {
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;

@@ -123,7 +123,7 @@ describe('form public types', () => {
         rawValues: Readonly<AccountFormValues>;
         values: AccountFormValues;
       }>();
-      expectTypeOf(typedFormApi.setValues)
+      expectTypeOf(typedFormApi.setValues.bind(typedFormApi))
         .parameter(0)
         .toEqualTypeOf<FormValuePatch<AccountFormValues>>();
       expectTypeOf<
@@ -232,7 +232,7 @@ describe('form public types', () => {
     expectTypeOf(formApi.getValueSnapshot()).resolves.toEqualTypeOf<
       FormValueSnapshot<AccountFormValues, AccountSubmitValues>
     >();
-    expectTypeOf(formApi.setSubmitValues)
+    expectTypeOf(formApi.setSubmitValues.bind(formApi))
       .parameter(0)
       .toEqualTypeOf<AccountSubmitValues>();
   });
@@ -296,7 +296,7 @@ describe('form public types', () => {
       FormFieldSchema[]
     >();
     // updateSchema 只接受字段更新，分组本身不可被更新
-    expectTypeOf(formApi.updateSchema)
+    expectTypeOf(formApi.updateSchema.bind(formApi))
       .parameter(0)
       .toEqualTypeOf<
         Partial<

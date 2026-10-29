@@ -432,7 +432,7 @@ export function createFormFieldSchema(
     componentProps = {},
     controlClass = '',
     disabled,
-    emptyStateValue = undefined,
+    emptyStateValue,
     formFieldProps = {},
     formItemClass = '',
     hideLabel = false,

@@ -101,7 +101,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
         }, 30);
         return;
       }
-      nextTick(() => {
+      void nextTick(() => {
         const el = getChartEl();
         if (isElHidden(el)) {
           useTimeoutFn(async () => {
@@ -130,10 +130,13 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     lazyUpdate = false, // true 时不立即重绘，适合短时间内多次调用
   ): Promise<echarts.ECharts | null> => {
     return new Promise((resolve) => {
-      nextTick(() => {
+      void nextTick(() => {
         if (!chartInstance) {
           // 还没初始化 → 当作首次渲染
-          renderEcharts(option).then(resolve);
+          // renderEcharts 只 resolve 不 reject，兜底 catch 保证链路完整
+          void renderEcharts(option)
+            .then(resolve)
+            .catch(() => resolve(null));
           return;
         }
 
@@ -177,7 +180,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     if (chartInstance && unref(isActiveRef)) {
       chartInstance.dispose();
       initCharts();
-      renderEcharts(cacheOptions);
+      void renderEcharts(cacheOptions);
       resize();
     }
   });

@@ -54,7 +54,7 @@ describe('modalApi', () => {
   });
 
   it('should close the modal if onBeforeClose allows it', () => {
-    modalApi.close();
+    void modalApi.close();
     expect(modalApi.store.state.isOpen).toBe(false);
   });
 
@@ -62,7 +62,7 @@ describe('modalApi', () => {
     const onBeforeClose = vi.fn(() => false);
     const modalApiWithHook = new ModalApi({ onBeforeClose });
     modalApiWithHook.open();
-    modalApiWithHook.close();
+    void modalApiWithHook.close();
     expect(modalApiWithHook.store.state.isOpen).toBe(true);
     expect(onBeforeClose).toHaveBeenCalled();
   });

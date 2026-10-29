@@ -24,35 +24,41 @@ describe('preferences', () => {
     })),
   );
 
-  vi.stubGlobal('localStorage', {
+  // 持有 stub 的 mock 引用：断言与重置都走 mock 本体，
+  // 避免经由全局 Storage 类型读取方法引用（unbound-method 误报）。
+  const localStorageMock = {
     clear: vi.fn(),
-    getItem: vi.fn(() => null),
-    key: vi.fn(() => null),
+    getItem: vi.fn((_key: string) => null),
+    key: vi.fn((_index: number) => null),
     length: 0,
     removeItem: vi.fn(),
     setItem: vi.fn(),
-  });
+  };
 
-  vi.stubGlobal('sessionStorage', {
+  const sessionStorageMock = {
     clear: vi.fn(),
-    getItem: vi.fn(() => null),
-    key: vi.fn(() => null),
+    getItem: vi.fn((_key: string) => null),
+    key: vi.fn((_index: number) => null),
     length: 0,
     removeItem: vi.fn(),
     setItem: vi.fn(),
-  });
+  };
+
+  vi.stubGlobal('localStorage', localStorageMock);
+
+  vi.stubGlobal('sessionStorage', sessionStorageMock);
 
   beforeAll(async () => {
     ({ PreferenceManager } = await import('../src/preferences'));
   });
 
   beforeEach(() => {
-    vi.mocked(localStorage.getItem).mockImplementation(() => null);
-    vi.mocked(localStorage.removeItem).mockReset();
-    vi.mocked(localStorage.setItem).mockReset();
-    vi.mocked(sessionStorage.getItem).mockImplementation(() => null);
-    vi.mocked(sessionStorage.removeItem).mockReset();
-    vi.mocked(sessionStorage.setItem).mockReset();
+    localStorageMock.getItem.mockImplementation(() => null);
+    localStorageMock.removeItem.mockReset();
+    localStorageMock.setItem.mockReset();
+    sessionStorageMock.getItem.mockImplementation(() => null);
+    sessionStorageMock.removeItem.mockReset();
+    sessionStorageMock.setItem.mockReset();
     preferenceManager = new PreferenceManager();
   });
 
@@ -70,24 +76,24 @@ describe('preferences', () => {
       manager.updatePreferences({ app: { locale: 'en-US' } });
       await vi.advanceTimersByTimeAsync(151);
 
-      expect(localStorage.setItem).not.toHaveBeenCalled();
+      expect(localStorageMock.setItem).not.toHaveBeenCalled();
 
       await manager.initPreferences({
         namespace: 'testNamespace',
       });
-      vi.mocked(localStorage.setItem).mockClear();
+      localStorageMock.setItem.mockClear();
 
       manager.updatePreferences({ app: { locale: 'en-US' } });
       await vi.advanceTimersByTimeAsync(151);
 
-      expect(localStorage.setItem).toHaveBeenCalledWith(
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(
         'testNamespace-preferences',
         expect.any(String),
       );
       expect(
-        vi
-          .mocked(localStorage.setItem)
-          .mock.calls.every(([key]) => key.startsWith('testNamespace-')),
+        localStorageMock.setItem.mock.calls.every(([key]) =>
+          key.startsWith('testNamespace-'),
+        ),
       ).toBe(true);
       expect(warnSpy).not.toHaveBeenCalledWith(
         expect.stringContaining('empty prefix'),
@@ -533,7 +539,7 @@ describe('preferences', () => {
   });
 
   it('filters cached custom number values that violate field constraints', async () => {
-    vi.mocked(localStorage.getItem).mockImplementation((key) => {
+    localStorageMock.getItem.mockImplementation((key) => {
       if (key.endsWith('cache-preferences-custom')) {
         return JSON.stringify({
           value: {

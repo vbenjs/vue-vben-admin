@@ -10,8 +10,10 @@ describe('useAccessStore', () => {
     history: createWebHistory(),
     routes: [],
   });
+  // 持有 mock 本体做断言，避免经 Router 类型读方法引用（unbound-method 误报）。
+  const routerReplaceMock = vi.fn();
   router.push = vi.fn();
-  router.replace = vi.fn();
+  router.replace = routerReplaceMock;
   beforeEach(() => {
     setActivePinia(createPinia());
     vi.clearAllMocks();
@@ -69,7 +71,6 @@ describe('useAccessStore', () => {
       name: 'Home',
       path: '/home',
     } as any);
-    router.replace = vi.fn();
 
     await store.closeAllTabs(router);
 
@@ -135,7 +136,7 @@ describe('useAccessStore', () => {
 
     await store._goToTab(tab, router);
 
-    expect(router.replace).toHaveBeenCalledWith({
+    expect(routerReplaceMock).toHaveBeenCalledWith({
       params: {},
       path: '/dashboard',
       query: {},

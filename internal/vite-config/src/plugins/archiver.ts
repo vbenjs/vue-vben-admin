@@ -71,6 +71,6 @@ async function zipFolder(
     archive.directory(folderPath, false);
 
     // 流式处理完成
-    archive.finalize();
+    void archive.finalize();
   });
 }

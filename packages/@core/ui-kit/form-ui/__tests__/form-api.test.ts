@@ -426,7 +426,7 @@ describe('formApi', () => {
     };
 
     formApi.mount(formActions, new Map());
-    formApi.removeSchemaByFields(['phone']);
+    void formApi.removeSchemaByFields(['phone']);
 
     expect(formApi.state?.schema).toEqual([
       {

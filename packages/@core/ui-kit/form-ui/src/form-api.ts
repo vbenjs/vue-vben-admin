@@ -508,7 +508,7 @@ export class FormApi<
   ) {
     const form = await this.getForm();
     if (!filterFields) {
-      form.setValues(fields, shouldValidate);
+      await form.setValues(fields, shouldValidate);
       return;
     }
 
@@ -554,7 +554,7 @@ export class FormApi<
       return result;
     };
     const filteredFields = filterValue(mergedFields) as Partial<TFormValues>;
-    form.setValues(filteredFields, shouldValidate);
+    await form.setValues(filteredFields, shouldValidate);
   }
 
   async submit(e?: Event) {
@@ -575,7 +575,7 @@ export class FormApi<
   }
 
   unmount() {
-    this.form?.reset?.();
+    void this.form?.reset?.();
     // this.state = null;
     this.componentRefMap = new Map();
     this.latestSubmissionValues = null;
@@ -674,7 +674,7 @@ export class FormApi<
         (item) => !currentFields.has(item.fieldName),
       );
       for (const schema of deletedSchema) {
-        this.form?.setFieldValue?.(
+        void this.form?.setFieldValue?.(
           schema.fieldName,
           undefined as FormFieldValue<TFormValues, string>,
         );

@@ -23,7 +23,7 @@ function setupCommonGuard(router: Router) {
 
     // 页面加载进度条
     if (!to.meta.loaded && preferences.transition.progress) {
-      startProgress();
+      void startProgress();
     }
     return true;
   });
@@ -34,7 +34,7 @@ function setupCommonGuard(router: Router) {
 
     // 关闭页面加载进度条
     if (preferences.transition.progress) {
-      stopProgress();
+      void stopProgress();
     }
   });
 }

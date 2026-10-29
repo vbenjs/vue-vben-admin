@@ -50,17 +50,26 @@ const typescript: OxlintConfig = {
     // 身份不匹配被拦截，无法靠改码修复；待 cz-git 修复 ESM 导出后恢复开启。
     'typescript/no-unsafe-enum-assignment': 'off',
 
-    // —— 待开启（批 2/3）——
+    // —— 命中量超出迁移承载，暂不可开启 ——
+    // no-unsafe-type-assertion 禁止一切向下收窄断言（全仓实测 359 处：源码 225 +
+    // 测试 134）。该规则不在 @typescript-eslint 任何预设中，官方文档也建议测试
+    // stub 较多的项目慎用；且与批 1 为满足 vue-tsc 双端有效而补的边界收窄断言
+    // （如 generate-menus 的 `as RouteMeta`）直接冲突。开启等同于一场独立的
+    // 全仓类型安全重构，超出本次工具链迁移范围。
+    'typescript/no-unsafe-type-assertion': 'off',
+
+    // —— tsgolint 类型感知规则（批 2：高价值，需修码）——
+    'typescript/no-floating-promises': 'error',
+    'typescript/no-misused-spread': 'error',
+    'typescript/no-unsafe-enum-comparison': 'error',
+    'typescript/no-useless-default-assignment': 'error',
+    'typescript/unbound-method': 'error',
+
+    // —— 待开启（批 3：开完统计命中数再定去留）——
     'typescript/consistent-return': 'off',
     'typescript/no-base-to-string': 'off',
-    'typescript/no-floating-promises': 'off',
-    'typescript/no-misused-spread': 'off',
     'typescript/no-unnecessary-type-parameters': 'off',
-    'typescript/no-unsafe-enum-comparison': 'off',
-    'typescript/no-unsafe-type-assertion': 'off',
-    'typescript/no-useless-default-assignment': 'off',
     'typescript/restrict-template-expressions': 'off',
-    'typescript/unbound-method': 'off',
   },
 };
 

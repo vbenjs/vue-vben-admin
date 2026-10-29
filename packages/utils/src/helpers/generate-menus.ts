@@ -39,7 +39,7 @@ function generateMenus(
       icon,
       link,
       order,
-      title = '',
+      title,
       query,
     } = metaRecord;
 

@@ -740,7 +740,7 @@ async function initComponentAdapter() {
       imageUpload: {
         upload: (file: any, onProgress: any) => {
           return new Promise((resolve, reject) => {
-            upload_file({
+            void upload_file({
               file,
               onProgress({ percent }) {
                 onProgress?.(percent);

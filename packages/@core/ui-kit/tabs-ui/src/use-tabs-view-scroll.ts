@@ -63,17 +63,17 @@ export function useTabsViewScroll(props: TabsProps) {
     );
 
     scrollViewportEl.value = viewportEl;
-    calcShowScrollbarButton();
+    await calcShowScrollbarButton();
 
     await nextTick();
-    scrollToActiveIntoView();
+    await scrollToActiveIntoView();
 
     // 监听大小变化
     resizeObserver?.disconnect();
     resizeObserver = new ResizeObserver(
       useDebounceFn((_entries: ResizeObserverEntry[]) => {
-        calcShowScrollbarButton();
-        scrollToActiveIntoView();
+        void calcShowScrollbarButton();
+        void scrollToActiveIntoView();
       }, 100),
     );
     resizeObserver.observe(viewportEl);
@@ -87,11 +87,11 @@ export function useTabsViewScroll(props: TabsProps) {
       ).length;
 
       if (count > tabItemCount) {
-        scrollToActiveIntoView();
+        void scrollToActiveIntoView();
       }
 
       if (count !== tabItemCount) {
-        calcShowScrollbarButton();
+        void calcShowScrollbarButton();
         tabItemCount = count;
       }
     });
@@ -154,7 +154,7 @@ export function useTabsViewScroll(props: TabsProps) {
     async () => {
       // 200为了等待 tab 切换动画完成
       // setTimeout(() => {
-      scrollToActiveIntoView();
+      await scrollToActiveIntoView();
       // }, 300);
     },
     {
@@ -176,7 +176,7 @@ export function useTabsViewScroll(props: TabsProps) {
   watch(
     () => props.styleType,
     () => {
-      initScrollbar();
+      void initScrollbar();
     },
   );
 

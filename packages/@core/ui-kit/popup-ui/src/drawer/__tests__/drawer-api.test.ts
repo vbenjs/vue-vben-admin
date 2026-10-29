@@ -53,7 +53,7 @@ describe('drawerApi', () => {
   });
 
   it('should close the drawer if onBeforeClose allows it', () => {
-    drawerApi.close();
+    void drawerApi.close();
     expect(drawerApi.store.state.isOpen).toBe(false);
   });
 
@@ -61,7 +61,7 @@ describe('drawerApi', () => {
     const onBeforeClose = vi.fn(() => false);
     const drawerApiWithHook = new DrawerApi({ onBeforeClose });
     drawerApiWithHook.open();
-    drawerApiWithHook.close();
+    void drawerApiWithHook.close();
     expect(drawerApiWithHook.store.state.isOpen).toBe(true);
     expect(onBeforeClose).toHaveBeenCalled();
   });
