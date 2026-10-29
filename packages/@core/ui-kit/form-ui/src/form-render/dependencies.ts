@@ -129,7 +129,11 @@ async function resolveLegacyDependencies(
   } = dependencies;
 
   if (isFunction(whenIf)) {
-    patch.if = await whenIf(values, actions, controller);
+    // 声明返回类型是 boolean，但存量用户回调可能返回任意 truthy/falsy 值；
+    // 与上游保持一致强制布尔化，否则 patch.if === false 的早退分支会漏判
+    // （如回调返回 0/'' 时其余依赖仍被求值）。
+    // oxlint-disable-next-line typescript/no-unnecessary-type-conversion
+    patch.if = !!(await whenIf(values, actions, controller));
   } else if (isBoolean(whenIf)) {
     patch.if = whenIf;
   }
@@ -138,7 +142,9 @@ async function resolveLegacyDependencies(
   }
 
   if (isFunction(show)) {
-    patch.show = await show(values, actions, controller);
+    // 同 if：运行时可能是任意 truthy/falsy 值，强制布尔化对齐上游语义。
+    // oxlint-disable-next-line typescript/no-unnecessary-type-conversion
+    patch.show = !!(await show(values, actions, controller));
   } else if (isBoolean(show)) {
     patch.show = show;
   }
@@ -150,15 +156,21 @@ async function resolveLegacyDependencies(
     patch.rules = await rules(values, actions, controller);
   }
   if (isFunction(disabled)) {
-    patch.disabled = await disabled(values, actions, controller);
+    // 同 if：运行时可能是任意 truthy/falsy 值，强制布尔化对齐上游语义。
+    // oxlint-disable-next-line typescript/no-unnecessary-type-conversion
+    patch.disabled = !!(await disabled(values, actions, controller));
   } else if (isBoolean(disabled)) {
     patch.disabled = disabled;
   }
   if (isFunction(required)) {
-    patch.required = await required(values, actions, controller);
+    // 同 if：运行时可能是任意 truthy/falsy 值，强制布尔化对齐上游语义。
+    // oxlint-disable-next-line typescript/no-unnecessary-type-conversion
+    patch.required = !!(await required(values, actions, controller));
   }
   if (isFunction(trigger)) {
-    trigger(values, actions, controller);
+    // trigger 常为 async 回调：await 确保其完成后再进入本次求值收尾，
+    // 抛出的异常才能被当前 watcher 捕获（上游 #7830）。
+    await trigger(values, actions, controller);
   }
 
   return patch;

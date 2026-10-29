@@ -174,6 +174,15 @@ export class FormApi<
   }
 
   formatValues(rawValues: Readonly<TFormValues>): TSubmitValues;
+  /**
+   * @deprecated Declare the submit type on `useVbenForm` instead.
+   */
+  // TResult 仅出现在返回位（显式类型实参消费方依赖它收窄结果类型），
+  // 属于有意的公共 API 兼容重载，非内部冗余泛型。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
+  formatValues<TResult extends FormValues>(
+    rawValues: Readonly<FormValues>,
+  ): TResult;
   formatValues(rawValues: Readonly<FormValues>): FormValues {
     this.warnLegacyValueTransforms();
     if (this.state?.codec) {
@@ -195,7 +204,12 @@ export class FormApi<
    * @param fieldName 字段名
    * @returns 组件实例
    */
-  getFieldComponentRef(fieldName: string): ComponentPublicInstance | undefined {
+  // T 仅出现在返回位（调用方以显式类型实参获取具体组件实例，
+  // 如 getFieldComponentRef<InputInstance>('field')），是有意的公共 API。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
+  getFieldComponentRef<T = ComponentPublicInstance>(
+    fieldName: string,
+  ): T | undefined {
     let target = this.componentRefMap.has(fieldName)
       ? (this.componentRefMap.get(fieldName) as ComponentPublicInstance)
       : undefined;
@@ -215,7 +229,7 @@ export class FormApi<
         target = target.$.subTree.ref.r.value as ComponentPublicInstance;
       }
     }
-    return target;
+    return target as T;
   }
 
   /**

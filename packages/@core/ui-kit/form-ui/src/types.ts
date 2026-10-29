@@ -475,7 +475,9 @@ export interface FormItemDependenciesLegacy<
    * 任意触发都会执行
    * @deprecated Use `dependencies.resolve` instead.
    */
-  trigger?: FormItemDependenciesCondition<TValues, void>;
+  // 返回类型放宽为 unknown：存量 trigger 回调常为 async（返回 Promise），
+  // 调用方需要 await 它，异常才能在当前求值上下文被捕获（上游 #7830）。
+  trigger?: FormItemDependenciesCondition<TValues, unknown>;
 }
 
 export interface FormItemDependenciesResolve<

@@ -25,15 +25,12 @@ function normalizeError(error: unknown): string | undefined {
     const message = Reflect.get(error, 'message');
     return typeof message === 'string' ? message : undefined;
   }
-  // String(symbol) 会抛错，仅对安全的原始值做转换
-  if (
-    typeof error === 'number' ||
-    typeof error === 'boolean' ||
-    typeof error === 'bigint'
-  ) {
-    return String(error);
-  }
-  return undefined;
+  // 恢复上游原始语义：任何非空拒绝值一律 String() 化（含 '[object Object]'），
+  // 否则校验失败会被识别为通过并放行提交（如 reject({ code: 42 })）。
+  // 错误归一化要的就是「任何失败都必须产生消息」的兜底字符串化，
+  // no-base-to-string 防 '[object Object]' 噪音的意图在此不适用。
+  // oxlint-disable-next-line typescript/no-base-to-string
+  return error === undefined || error === null ? undefined : String(error);
 }
 
 function normalizeFieldMetaError(meta: unknown) {
