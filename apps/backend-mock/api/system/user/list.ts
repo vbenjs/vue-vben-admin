@@ -58,6 +58,9 @@ export default eventHandler(async (event) => {
   } = getQuery(event);
   // 统一经 firstQueryString 规范化：同名参数重复时取首个字符串值，
   // 非字符串值按空串处理，后续逻辑只需面对 string（不再 as string）。
+  const nameValue = firstQueryString(name);
+  const idValue = firstQueryString(id);
+  const remarkValue = firstQueryString(remark);
   const pageValue = firstQueryString(page) || '1';
   const pageSizeValue = firstQueryString(pageSize) || '20';
   const statusValue = firstQueryString(status);
@@ -67,21 +70,19 @@ export default eventHandler(async (event) => {
   const deptIdValue = firstQueryString(deptId);
 
   let listData = structuredClone(mockData);
-  if (name) {
+  if (nameValue) {
     listData = listData.filter((item) =>
-      item.name.toLowerCase().includes(firstQueryString(name).toLowerCase()),
+      item.name.toLowerCase().includes(nameValue.toLowerCase()),
     );
   }
-  if (id) {
+  if (idValue) {
     listData = listData.filter((item) =>
-      item.id.toLowerCase().includes(firstQueryString(id).toLowerCase()),
+      item.id.toLowerCase().includes(idValue.toLowerCase()),
     );
   }
-  if (remark) {
+  if (remarkValue) {
     listData = listData.filter((item) =>
-      item.remark
-        ?.toLowerCase()
-        ?.includes(firstQueryString(remark).toLowerCase()),
+      item.remark?.toLowerCase()?.includes(remarkValue.toLowerCase()),
     );
   }
   if (startTimeValue) {

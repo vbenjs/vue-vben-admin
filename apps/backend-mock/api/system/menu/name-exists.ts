@@ -22,9 +22,10 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
   const { id, name } = getQuery(event);
+  const nameValue = firstQueryString(name);
+  const idValue = firstQueryString(id);
 
-  return (name as string) in namesMap &&
-    (!id || namesMap[name as string] !== firstQueryString(id))
+  return nameValue in namesMap && (!id || namesMap[nameValue] !== idValue)
     ? useResponseSuccess(true)
     : useResponseSuccess(false);
 });

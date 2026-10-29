@@ -22,9 +22,10 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
   const { id, path } = getQuery(event);
+  const pathValue = firstQueryString(path);
+  const idValue = firstQueryString(id);
 
-  return (path as string) in pathMap &&
-    (!id || pathMap[path as string] !== firstQueryString(id))
+  return pathValue in pathMap && (!id || pathMap[pathValue] !== idValue)
     ? useResponseSuccess(true)
     : useResponseSuccess(false);
 });

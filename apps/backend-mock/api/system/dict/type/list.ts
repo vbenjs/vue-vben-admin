@@ -10,22 +10,29 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const { page = 1, pageSize = 20, name, code, status } = getQuery(event);
+  const { name, code, status, page, pageSize } = getQuery(event);
+  // 统一经 firstQueryString 规范化：同名参数重复时取首个字符串值，
+  // 非字符串值按空串处理，后续逻辑只需面对 string（不再 as string）。
+  const nameValue = firstQueryString(name);
+  const codeValue = firstQueryString(code);
+  const statusValue = firstQueryString(status);
+  const pageValue = firstQueryString(page) || '1';
+  const pageSizeValue = firstQueryString(pageSize) || '20';
 
   let listData = structuredClone(getDictTypes());
-  if (name) {
+  if (nameValue) {
     listData = listData.filter((item) =>
-      item.name.toLowerCase().includes(firstQueryString(name).toLowerCase()),
+      item.name.toLowerCase().includes(nameValue.toLowerCase()),
     );
   }
-  if (code) {
+  if (codeValue) {
     listData = listData.filter((item) =>
-      item.code.toLowerCase().includes(firstQueryString(code).toLowerCase()),
+      item.code.toLowerCase().includes(codeValue.toLowerCase()),
     );
   }
-  if (['0', '1'].includes(status as string)) {
-    listData = listData.filter((item) => item.status === Number(status));
+  if (['0', '1'].includes(statusValue)) {
+    listData = listData.filter((item) => item.status === Number(statusValue));
   }
 
-  return usePageResponseSuccess(page as string, pageSize as string, listData);
+  return usePageResponseSuccess(pageValue, pageSizeValue, listData);
 });

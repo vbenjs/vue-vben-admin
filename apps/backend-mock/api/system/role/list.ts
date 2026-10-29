@@ -46,42 +46,43 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const {
-    page = 1,
-    pageSize = 20,
-    name,
-    id,
-    remark,
-    startTime,
-    endTime,
-    status,
-  } = getQuery(event);
+  const { name, id, remark, startTime, endTime, status, page, pageSize } =
+    getQuery(event);
+  // 统一经 firstQueryString 规范化：同名参数重复时取首个字符串值，
+  // 非字符串值按空串处理，后续逻辑只需面对 string（不再 as string）。
+  const nameValue = firstQueryString(name);
+  const idValue = firstQueryString(id);
+  const remarkValue = firstQueryString(remark);
+  const startTimeValue = firstQueryString(startTime);
+  const endTimeValue = firstQueryString(endTime);
+  const statusValue = firstQueryString(status);
+  const pageValue = firstQueryString(page) || '1';
+  const pageSizeValue = firstQueryString(pageSize) || '20';
+
   let listData = structuredClone(mockData);
-  if (name) {
+  if (nameValue) {
     listData = listData.filter((item) =>
-      item.name.toLowerCase().includes(firstQueryString(name).toLowerCase()),
+      item.name.toLowerCase().includes(nameValue.toLowerCase()),
     );
   }
-  if (id) {
+  if (idValue) {
     listData = listData.filter((item) =>
-      item.id.toLowerCase().includes(firstQueryString(id).toLowerCase()),
+      item.id.toLowerCase().includes(idValue.toLowerCase()),
     );
   }
-  if (remark) {
+  if (remarkValue) {
     listData = listData.filter((item) =>
-      item.remark
-        ?.toLowerCase()
-        ?.includes(firstQueryString(remark).toLowerCase()),
+      item.remark?.toLowerCase()?.includes(remarkValue.toLowerCase()),
     );
   }
-  if (startTime) {
-    listData = listData.filter((item) => item.createTime >= startTime);
+  if (startTimeValue) {
+    listData = listData.filter((item) => item.createTime >= startTimeValue);
   }
-  if (endTime) {
-    listData = listData.filter((item) => item.createTime <= endTime);
+  if (endTimeValue) {
+    listData = listData.filter((item) => item.createTime <= endTimeValue);
   }
-  if (['0', '1'].includes(status as string)) {
-    listData = listData.filter((item) => item.status === Number(status));
+  if (['0', '1'].includes(statusValue)) {
+    listData = listData.filter((item) => item.status === Number(statusValue));
   }
-  return usePageResponseSuccess(page as string, pageSize as string, listData);
+  return usePageResponseSuccess(pageValue, pageSizeValue, listData);
 });

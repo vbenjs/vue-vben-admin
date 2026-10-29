@@ -4,6 +4,7 @@ import { useResponseError } from '~/utils/response';
 
 export default eventHandler((event) => {
   const { status } = getQuery(event);
-  setResponseStatus(event, Number(status));
-  return useResponseError(firstQueryString(status));
+  const statusValue = firstQueryString(status);
+  setResponseStatus(event, Number(statusValue));
+  return useResponseError(statusValue);
 });
