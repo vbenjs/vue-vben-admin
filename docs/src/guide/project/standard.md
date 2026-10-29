@@ -28,7 +28,7 @@
 项目内集成了以下几种代码校验工具：
 
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) 用于代码格式化
-- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) 用于 JavaScript / TypeScript 代码检查
+- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) + [tsgolint](https://www.npmjs.com/package/oxlint-tsgolint) 用于 JavaScript / TypeScript 代码检查（含类型感知规则）
 - [ESLint](https://eslint.org/) 用于 Vue、JSONC、YAML 等规则检查
 - [Stylelint](https://stylelint.io/) 用于 CSS 样式检查
 - [Commitlint](https://commitlint.js.org/) 用于检查 git 提交信息的规范
@@ -55,6 +55,15 @@ Oxfmt 的根目录入口文件为 `oxfmt.config.ts`，其核心配置位于 `int
 
 Oxlint 是当前仓库的主要脚本 lint 工具，用于识别和报告 JavaScript / TypeScript 代码中的问题。
 
+### 类型感知规则
+
+Oxlint 通过 `oxlint-tsgolint`（基于 TypeScript 的 Go 实现）提供类型感知规则，
+覆盖 `@typescript-eslint` 类型感知规则的大部分能力（如 `no-floating-promises`、
+`unbound-method`、`no-unnecessary-type-assertion` 等）。
+
+类型感知通道由根配置的 `options.typeAware` 统一开启，所有 CLI 入口
+（lefthook、vsh lint）不再传 `--type-aware` 参数，配置即单一真源。
+
 ### 命令
 
 ```bash
@@ -69,6 +78,9 @@ Oxlint 的核心配置位于 `internal/lint-configs/oxlint-config` 目录下，�
 ## ESLint
 
 ESLint 用于补充 Vue、JSONC、YAML 等规则检查。
+
+Oxlint 已覆盖的规则由 `eslint-plugin-oxlint` 官方桥接自动置为 `off`
+（读取 oxlint 根配置自动生成关闭清单），无需手工维护两份规则映射。
 
 ### 命令
 
@@ -180,14 +192,13 @@ git hook 一般结合各种 lint，在 git 提交代码的时候进行代码风�
 
 项目在 `lefthook.yml` 内部定义了相应的 hooks：
 
-- `pre-commit`: 在提交前运行，用于代码格式化和检查
-  - `code-workspace`: 更新 VSCode 工作区配置
-  - `lint-md`: 格式化 Markdown 文件
-  - `lint-vue`: 格式化并检查 Vue 文件
-  - `lint-js`: 格式化并检查 JavaScript / TypeScript 文件
-  - `lint-style`: 格式化并检查样式文件
-  - `lint-package`: 格式化 `package.json`
-  - `lint-json`: 格式化其他 JSON 文件
+- `pre-commit`: 在提交前运行，仅对暂存文件做格式化与检查（秒级）
+  - `oxlint`: 检查并修复 JavaScript / TypeScript 文件（含类型感知规则）
+  - `oxfmt`: 格式化 JavaScript / TypeScript / JSON / Markdown 文件
+  - `eslint`: 补充检查并修复脚本文件（Vue、JSONC、YAML 等）
+  - `stylelint`: 检查并修复样式文件
+- `pre-push`: 在推送前运行全量类型检查
+  - `typecheck`: 运行 `pnpm check:type`（turbo 缓存命中时秒级返回）
 - `post-merge`: 在合并后运行，用于自动安装依赖
   - `install`: 运行 `pnpm install` 安装新依赖
 - `commit-msg`: 在提交时运行，用于检查提交信息格式
@@ -205,6 +216,12 @@ pnpm exec lefthook install
 
 ```bash
 git commit -m 'feat: add home page' --no-verify
+```
+
+如果想跳过推送前的全量类型检查，可以使用：
+
+```bash
+LEFTHOOK=0 git push
 ```
 
 #### 如何修改 lefthook 配置
