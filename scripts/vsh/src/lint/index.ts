@@ -95,7 +95,12 @@ async function runParallel(commands: Command[]) {
   const failed: Command[] = [];
   results.forEach((result, index) => {
     if (result.status === 'rejected') {
-      failed.push(commands[index]);
+      // subprocesses 由 commands.map 生成，索引必然存在；守卫仅满足
+      // noUncheckedIndexedAccess 的类型收窄
+      const command = commands[index];
+      if (command) {
+        failed.push(command);
+      }
     }
   });
 
