@@ -37,8 +37,14 @@ async function openPopConfirm(action: Record<string, any>) {
 
   const content = document.body.querySelector('[data-slot="popover-content"]')!;
   const buttons = [...content.querySelectorAll('button')];
+  const [cancelButton, confirmButton] = buttons;
+  expect(cancelButton).toBeTruthy();
+  expect(confirmButton).toBeTruthy();
+  if (!cancelButton || !confirmButton) {
+    throw new Error('Expected cancel and confirm buttons to exist');
+  }
 
-  return { buttons, content };
+  return { buttons, cancelButton, confirmButton, content };
 }
 
 /** 提取与尺寸相关的类名，用于比较两个按钮的视觉大小是否一致 */
@@ -52,13 +58,12 @@ describe('action-item.vue popConfirm', () => {
   it('renders the default confirmation texts with the locale messages', async () => {
     setSimpleLocale('zh-CN');
 
-    const { buttons, content } = await openPopConfirm({
+    const { cancelButton, confirmButton, content } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: '删除',
     });
 
-    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('请确认');
     expect(cancelButton.textContent?.trim()).toBe('取消');
     expect(confirmButton.textContent?.trim()).toBe('确认');
@@ -70,13 +75,12 @@ describe('action-item.vue popConfirm', () => {
   it('renders the default confirmation texts in english locale', async () => {
     setSimpleLocale('en-US');
 
-    const { buttons, content } = await openPopConfirm({
+    const { cancelButton, confirmButton, content } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: 'Delete',
     });
 
-    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('Please Confirm');
     expect(cancelButton.textContent?.trim()).toBe('Cancel');
     expect(confirmButton.textContent?.trim()).toBe('Confirm');
@@ -87,7 +91,7 @@ describe('action-item.vue popConfirm', () => {
   it('keeps the custom confirmation texts', async () => {
     setSimpleLocale('zh-CN');
 
-    const { buttons, content } = await openPopConfirm({
+    const { cancelButton, confirmButton, content } = await openPopConfirm({
       danger: true,
       popConfirm: {
         cancelText: '再想想',
@@ -97,7 +101,6 @@ describe('action-item.vue popConfirm', () => {
       text: '删除',
     });
 
-    const [cancelButton, confirmButton] = buttons;
     expect(content.textContent).toContain('确认删除?');
     expect(cancelButton.textContent?.trim()).toBe('再想想');
     expect(confirmButton.textContent?.trim()).toBe('删除吧');
@@ -106,14 +109,13 @@ describe('action-item.vue popConfirm', () => {
   it('renders the cancel and confirm buttons with the same size', async () => {
     setSimpleLocale('zh-CN');
 
-    const { buttons } = await openPopConfirm({
+    const { cancelButton, confirmButton, buttons } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: '删除',
     });
 
     expect(buttons).toHaveLength(2);
-    const [cancelButton, confirmButton] = buttons;
     expect(sizeClasses(cancelButton)).toEqual(sizeClasses(confirmButton));
   });
 });
