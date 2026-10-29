@@ -70,7 +70,10 @@ async function zipFolder(
     // 使用 directory 方法以流的方式压缩文件夹，减少内存消耗
     archive.directory(folderPath, false);
 
-    // 流式处理完成
-    void archive.finalize();
+    // 流式处理完成。finalize 被拒绝时不依赖 archive 的 'error' 事件
+    // （未必触发），直路由 Promise 拒绝交给上层 closeBundle 的
+    // try/catch 兜底；与 'error' 事件重复 reject 是无害的空操作，
+    // 而悬空拒绝（void）在 Node 15+ 会直接杀死构建进程。
+    archive.finalize().catch(reject);
   });
 }
