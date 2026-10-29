@@ -13,6 +13,8 @@ import { typescript } from './typescript';
 import { unicorn } from './unicorn';
 import { vue } from './vue';
 
+export { oxlintIgnorePatterns } from './ignores';
+
 /**
  * 仅供 eslint-plugin-oxlint 桥接消费：桥接需要 categories/rules/plugins/overrides
  * 扁平合一的对象（见 @vben/eslint-config 的 configs/oxlint.ts）。
@@ -88,7 +90,6 @@ export {
   comments,
   importPluginConfig,
   javascript,
-  mergeOxlintConfigs,
   node,
   overrides,
   oxlintConfig,
