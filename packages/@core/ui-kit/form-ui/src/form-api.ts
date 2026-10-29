@@ -117,7 +117,7 @@ function getDefaultState<
 export class FormApi<
   TFormValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TFormValues,
 > {
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
@@ -508,7 +508,7 @@ export class FormApi<
   ) {
     const form = await this.getForm();
     if (!filterFields) {
-      form.setValues(fields as Partial<TFormValues>, shouldValidate);
+      form.setValues(fields, shouldValidate);
       return;
     }
 

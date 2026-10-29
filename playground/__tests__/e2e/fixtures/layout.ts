@@ -8,7 +8,7 @@ interface LayoutWorkerFixtures {
   layoutPage: Page;
 }
 
-const test = base.extend<Record<never, never>, LayoutWorkerFixtures>({
+const test = base.extend<Record<string, never>, LayoutWorkerFixtures>({
   layoutPage: [
     async ({ browser }, use) => {
       const context = await browser.newContext({

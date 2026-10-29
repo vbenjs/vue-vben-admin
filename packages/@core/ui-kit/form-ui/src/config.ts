@@ -100,7 +100,7 @@ export function setupVbenForm<
   } as Partial<Record<BaseFormComponentType, string>>;
 
   for (const component of Object.keys(components)) {
-    const key = component as BaseFormComponentType;
+    const key = component;
 
     if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
       nextBindEventMap[key] = baseModelPropName;

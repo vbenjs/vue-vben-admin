@@ -35,7 +35,7 @@ export interface FormCodec<
 
 export type FormFieldName<TValues extends FormValues = FormValues> =
   | Extract<keyof TValues, string>
-  | (Record<never, never> & string);
+  | (string & {});
 
 export type FormFieldValue<
   TValues extends FormValues,
@@ -53,7 +53,7 @@ export type BaseFormComponentType =
   | 'VbenInputPassword'
   | 'VbenPinInput'
   | 'VbenSelect'
-  | (Record<never, never> & string);
+  | (string & {});
 
 type Breakpoints = '2xl:' | '3xl:' | '' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 
@@ -61,13 +61,13 @@ type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
 export type WrapperClassType =
   | `${Breakpoints}grid-cols-${GridCols}`
-  | (Record<never, never> & string);
+  | (string & {});
 
 export type FormItemClassType =
   | `${Breakpoints}cols-end-${'auto' | GridCols}`
   | `${Breakpoints}cols-span-${'auto' | 'full' | GridCols}`
   | `${Breakpoints}cols-start-${'auto' | GridCols}`
-  | (Record<never, never> & string)
+  | (string & {})
   | WrapperClassType;
 
 export interface FormFieldOptions {
@@ -118,7 +118,7 @@ export type MaybeComponentPropKey =
   | 'placeholder'
   | 'title'
   | keyof HtmlHTMLAttributes
-  | (Record<never, never> & string);
+  | (string & {});
 
 export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: any };
 
@@ -231,7 +231,7 @@ type KnownFormFieldName<TValues extends FormValues> =
 export interface VbenFormActionSlotProps<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > {
   formApi: ExtendedFormApi<TValues, T, P, TSubmitValues>;
@@ -241,7 +241,7 @@ export interface VbenFormActionSlotProps<
 export interface VbenFormDefaultSlotProps<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
   shapes: FormShape[];
@@ -251,7 +251,7 @@ export interface VbenFormFieldSlotProps<
   TValues extends FormValues = FormValues,
   TFieldName extends FormFieldName<TValues> = FormFieldName<TValues>,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > extends VbenFormActionSlotProps<TValues, T, P, TSubmitValues> {
   componentField: FormComponentField<
@@ -320,7 +320,7 @@ type VbenFormFieldSlots<
 export type VbenFormSlots<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > = VbenFormFieldSlots<TValues, T, P, TSubmitValues> & {
   default?: (
@@ -343,7 +343,7 @@ export type VbenFormSlots<
 export type VbenFormComponent<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > = new () => {
   $props: VbenFormProps<T, P, TValues, TSubmitValues>;
@@ -378,7 +378,7 @@ export type FormSchemaRuleType =
   | 'required'
   | 'selectRequired'
   | null
-  | (Record<never, never> & string)
+  | (string & {})
   | ZodType;
 
 type FormItemDependenciesCondition<
@@ -688,7 +688,7 @@ type FormArraySchema<
  */
 export interface FormGroupSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
 > {
   /** 分组内的字段定义 */
@@ -728,7 +728,7 @@ export interface FormGroupSchema<
  */
 export type FormFieldSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
 > =
   | FormArraySchema<T, P, TValues>
@@ -740,7 +740,7 @@ export type FormFieldSchema<
  */
 export type FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
 > = FormFieldSchema<T, P, TValues> | FormGroupSchema<T, P, TValues>;
 
@@ -749,7 +749,7 @@ export type FormSchema<
  */
 export interface VbenFormFieldArrayProps<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
 > {
   /** 操作列表头文案 */
@@ -823,7 +823,7 @@ export interface FormFieldProps<
 
 export interface FormRenderProps<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
 > {
   /**
@@ -903,7 +903,7 @@ export interface ActionButtonOptions extends VbenButtonProps {
 
 export interface VbenFormProps<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TValues,
 > extends Omit<
@@ -1003,7 +1003,7 @@ export interface VbenFormProps<
 export type ExtendedFormApi<
   TValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 > = FormApi<TValues, T, P, TSubmitValues> & {
   useStore: <TResult = NoInfer<VbenFormProps<T, P, TValues, TSubmitValues>>>(

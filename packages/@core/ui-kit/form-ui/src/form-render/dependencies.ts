@@ -129,7 +129,7 @@ async function resolveLegacyDependencies(
   } = dependencies;
 
   if (isFunction(whenIf)) {
-    patch.if = !!(await whenIf(values, actions, controller));
+    patch.if = await whenIf(values, actions, controller);
   } else if (isBoolean(whenIf)) {
     patch.if = whenIf;
   }
@@ -138,7 +138,7 @@ async function resolveLegacyDependencies(
   }
 
   if (isFunction(show)) {
-    patch.show = !!(await show(values, actions, controller));
+    patch.show = await show(values, actions, controller);
   } else if (isBoolean(show)) {
     patch.show = show;
   }
@@ -150,15 +150,15 @@ async function resolveLegacyDependencies(
     patch.rules = await rules(values, actions, controller);
   }
   if (isFunction(disabled)) {
-    patch.disabled = !!(await disabled(values, actions, controller));
+    patch.disabled = await disabled(values, actions, controller);
   } else if (isBoolean(disabled)) {
     patch.disabled = disabled;
   }
   if (isFunction(required)) {
-    patch.required = !!(await required(values, actions, controller));
+    patch.required = await required(values, actions, controller);
   }
   if (isFunction(trigger)) {
-    await trigger(values, actions, controller);
+    trigger(values, actions, controller);
   }
 
   return patch;
@@ -191,7 +191,7 @@ export default function useDependencies(
       throw new Error('formApi is required in useDependencies');
     }
 
-    return controller as unknown as ExtendedFormApi;
+    return controller;
   }
 
   const dependencyState = shallowRef(createDependencyState());

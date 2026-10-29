@@ -92,7 +92,7 @@ describe('form public types', () => {
   it('propagates form value types through public APIs and callbacks', () => {
     const options: VbenFormProps<
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       AccountFormValues
     > = {
       handleSubmit(values, rawValues) {
@@ -183,7 +183,7 @@ describe('form public types', () => {
   it('keeps form and submit values distinct with a codec', () => {
     const options: VbenFormProps<
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       AccountFormValues,
       AccountSubmitValues
     > = {
@@ -219,7 +219,7 @@ describe('form public types', () => {
     const [, formApi] = useVbenForm<
       AccountFormValues,
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       AccountSubmitValues
     >(options);
 
@@ -302,7 +302,7 @@ describe('form public types', () => {
         Partial<
           FormFieldSchema<
             BaseFormComponentType,
-            Record<never, never>,
+            Record<string, never>,
             AccountFormValues
           >
         >[]

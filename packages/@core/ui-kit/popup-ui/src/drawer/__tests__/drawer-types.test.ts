@@ -50,7 +50,7 @@ describe('drawer public data types', () => {
     function assertUnknownData() {
       const [, drawerApi] = useDrawer();
 
-      expectTypeOf(drawerApi).toEqualTypeOf<ExtendedDrawerApi<unknown>>();
+      expectTypeOf(drawerApi).toEqualTypeOf<ExtendedDrawerApi>();
       expectTypeOf(drawerApi.getData()).toBeUnknown();
     }
 

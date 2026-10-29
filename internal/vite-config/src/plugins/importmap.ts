@@ -180,7 +180,7 @@ async function viteImportMapPlugin(
                 },
                 injectTo: 'head-prepend',
                 tag: 'script',
-                children: `${JSON.stringify(importmapJson)}`,
+                children: JSON.stringify(importmapJson),
               },
             ],
           };

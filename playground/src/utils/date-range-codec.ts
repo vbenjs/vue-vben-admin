@@ -4,17 +4,18 @@ import dayjs from 'dayjs';
 
 type DateRange = [Dayjs, Dayjs];
 
+// 字段允许缺省（undefined 可赋值给其值类型）且值类型为 DateRange 时，
+// 才能被选作区间字段。
 type OptionalDateRangeField<
   TFormValues extends Record<string, unknown>,
   TRangeField extends keyof TFormValues,
-> =
-  Record<never, never> extends Pick<TFormValues, TRangeField>
-    ? [Exclude<TFormValues[TRangeField], undefined>] extends [never]
-      ? never
-      : Exclude<TFormValues[TRangeField], undefined> extends DateRange
-        ? TRangeField
-        : never
-    : never;
+> = undefined extends TFormValues[TRangeField]
+  ? [Exclude<TFormValues[TRangeField], undefined>] extends [never]
+    ? never
+    : Exclude<TFormValues[TRangeField], undefined> extends DateRange
+      ? TRangeField
+      : never
+  : never;
 
 type DateRangeSubmitValues<
   TFormValues extends Record<string, unknown>,

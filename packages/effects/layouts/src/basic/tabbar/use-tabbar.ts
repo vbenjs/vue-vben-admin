@@ -90,7 +90,7 @@ export function useTabbar() {
       ...tab,
       meta: {
         ...tab?.meta,
-        title: $t(tab?.meta?.title as string),
+        title: $t(tab?.meta?.title),
       },
     };
   }

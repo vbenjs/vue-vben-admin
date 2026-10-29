@@ -23,7 +23,7 @@ function requireRegion(
 ): RegionMetrics {
   const region = metrics.regions[name];
   if (!region) {
-    throw new Error(`Missing layout region: ${String(name)}`);
+    throw new Error(`Missing layout region: `);
   }
   return region;
 }

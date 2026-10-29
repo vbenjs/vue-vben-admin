@@ -264,7 +264,7 @@ function createCustomImage(
 
             return true;
           },
-        } as any;
+        };
       };
     },
 

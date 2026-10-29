@@ -50,7 +50,7 @@ describe('modal public data types', () => {
     function assertUnknownData() {
       const [, modalApi] = useModal();
 
-      expectTypeOf(modalApi).toEqualTypeOf<ExtendedModalApi<unknown>>();
+      expectTypeOf(modalApi).toEqualTypeOf<ExtendedModalApi>();
       expectTypeOf(modalApi.getData()).toBeUnknown();
     }
 

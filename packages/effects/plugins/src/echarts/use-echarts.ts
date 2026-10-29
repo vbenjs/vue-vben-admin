@@ -1,10 +1,8 @@
 import type { EChartsOption } from 'echarts';
 
-import type { Ref } from 'vue';
+import type { ComponentPublicInstance, Ref } from 'vue';
 
 import type { Nullable } from '@vben/types';
-
-import type EchartsUI from './echarts-ui.vue';
 
 import {
   computed,
@@ -30,7 +28,7 @@ import {
 
 import echarts from './echarts';
 
-type EchartsUIType = typeof EchartsUI | undefined;
+type EchartsUIType = ComponentPublicInstance | undefined;
 
 type EchartsThemeType = 'dark' | 'light' | null;
 
@@ -97,7 +95,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
       ...getOptions.value,
     };
     return new Promise((resolve) => {
-      if (chartRef.value?.offsetHeight === 0) {
+      if (getChartEl()?.offsetHeight === 0) {
         useTimeoutFn(async () => {
           resolve(await renderEcharts(currentOptions));
         }, 30);
@@ -173,7 +171,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     resizeHandler?.();
   });
 
-  useResizeObserver(chartRef as never, resizeHandler);
+  useResizeObserver(getChartEl, resizeHandler);
 
   watch([isDark, isActiveRef], () => {
     if (chartInstance && unref(isActiveRef)) {

@@ -2,7 +2,7 @@ import type { Component } from 'vue';
 
 import { defineComponent, h, markRaw, onUnmounted } from 'vue';
 
-type AsyncFieldValidator = (...args: any[]) => Promise<unknown> | unknown;
+type AsyncFieldValidator = (...args: any[]) => unknown;
 
 export type FieldValidationInvalidator = () => void;
 

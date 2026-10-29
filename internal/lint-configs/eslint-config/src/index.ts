@@ -16,14 +16,20 @@ import { customConfig } from './custom-config';
 
 type FlatConfig = Linter.Config;
 
-type FlatConfigPromise =
-  | FlatConfig
-  | FlatConfig[]
-  | Promise<FlatConfig>
-  | Promise<FlatConfig[]>;
-
-async function defineConfig(config: FlatConfig[] = []) {
-  const configs: FlatConfigPromise[] = [
+async function defineConfig(config: FlatConfig[] = []): Promise<FlatConfig[]> {
+  // 内置配置与桥接均为异步：统一解析后按序组装为扁平数组。
+  const [
+    vueConfigs,
+    javascriptConfigs,
+    ignoresConfigs,
+    typescriptConfigs,
+    jsoncConfigs,
+    nodeConfigs,
+    perfectionistConfigs,
+    yamlConfigs,
+    pnpmConfigs,
+    oxcConfigs,
+  ] = await Promise.all([
     vue(),
     javascript(),
     ignores(),
@@ -33,16 +39,25 @@ async function defineConfig(config: FlatConfig[] = []) {
     perfectionist(),
     yaml(),
     pnpm(),
+    oxcCompat(),
+  ]);
+
+  return [
+    ...vueConfigs,
+    ...javascriptConfigs,
+    ...ignoresConfigs,
+    ...typescriptConfigs,
+    ...jsoncConfigs,
+    ...nodeConfigs,
+    ...perfectionistConfigs,
+    ...yamlConfigs,
+    ...pnpmConfigs,
     ...customConfig,
     // 桥接放在内置配置之后、用户配置之前：先让其它配置设置规则，
     // 再统一关停 oxlint 已覆盖的规则，同时保留下游覆盖能力。
-    oxcCompat(),
+    ...oxcConfigs,
     ...config,
   ];
-
-  const resolved = await Promise.all(configs);
-
-  return resolved.flat();
 }
 
 export { defineConfig };

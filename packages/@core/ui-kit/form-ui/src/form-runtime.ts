@@ -265,7 +265,7 @@ export function useFormRuntime<TValues extends FormValues>(
         event?.stopPropagation();
         const result = await validate();
         if (result.valid) {
-          await callback?.(values.value as TValues);
+          await callback?.(values.value);
         }
       };
     },

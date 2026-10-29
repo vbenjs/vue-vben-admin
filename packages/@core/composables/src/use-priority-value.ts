@@ -59,7 +59,7 @@ export function usePriorityValues<
   const result: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
-    result[key] = usePriorityValue(key as keyof typeof props, props, state);
+    result[key] = usePriorityValue(key, props, state);
   });
 
   return result;
@@ -77,11 +77,7 @@ export function useForwardPriorityValues<
   const computedResult: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
-    computedResult[key] = usePriorityValue(
-      key as keyof typeof props,
-      props,
-      state,
-    );
+    computedResult[key] = usePriorityValue(key, props, state);
   });
 
   return computed(() => {

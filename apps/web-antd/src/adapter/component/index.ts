@@ -249,10 +249,7 @@ async function previewImage(
     return;
   }
 
-  const [ImageComponent, PreviewGroupComponent] = await Promise.all([
-    Image,
-    PreviewGroup,
-  ]);
+  const [ImageComponent, PreviewGroupComponent] = [Image, PreviewGroup];
 
   // 过滤图片文件并生成预览
   const imageFiles = (unref(fileList) || []).filter((f) => isImageFile(f));
@@ -321,7 +318,9 @@ function cropImage(file: File, aspectRatio: string | undefined) {
     let objectUrl: null | string = null;
 
     const open = ref<boolean>(true);
-    const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
+    const cropperRef = ref<null | {
+      getCropImage: () => Promise<Blob | string | undefined>;
+    }>(null);
 
     const closeModal = () => {
       open.value = false;

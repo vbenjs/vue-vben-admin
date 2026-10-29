@@ -375,7 +375,7 @@ export function updateFormSchemaList<TSchema extends UpdatableFormSchemaLike>(
       const fieldName = item.fieldName
         ? resolveChildUpdateFieldName(schemaFieldName, item.fieldName)
         : undefined;
-      return fieldName ? [{ ...item, fieldName } as Partial<TSchema>] : [];
+      return fieldName ? [{ ...item, fieldName }] : [];
     });
     if (childUpdates.length === 0) {
       return schema;
