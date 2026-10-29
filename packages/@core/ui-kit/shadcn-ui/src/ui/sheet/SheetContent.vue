@@ -16,6 +16,8 @@ import SheetOverlay from './SheetOverlay.vue';
 interface SheetContentProps extends DialogContentProps {
   appendTo?: HTMLElement | string;
   class?: any;
+  /** Remove the overlay immediately when its cached page is inactive. */
+  inactive?: boolean;
   modal?: boolean;
   open?: boolean;
   overlayBlur?: number;
@@ -29,6 +31,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<SheetContentProps>(), {
   appendTo: 'body',
+  inactive: false,
 });
 
 const emits = defineEmits<
@@ -38,6 +41,7 @@ const emits = defineEmits<
 const delegatedProps = computed(() => {
   const {
     class: _,
+    inactive: _inactive,
     modal: _modal,
     open: _open,
     side: _side,
@@ -72,7 +76,7 @@ const { handleAnimationEvent } = useDialogStateEvents({
 
 <template>
   <Teleport defer :to="appendTo">
-    <Transition name="fade">
+    <Transition v-if="!inactive" name="fade">
       <SheetOverlay
         v-if="open && modal"
         :style="{

@@ -3,6 +3,7 @@ import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
 import {
   computed,
+  onActivated,
   onDeactivated,
   provide,
   ref,
@@ -104,9 +105,14 @@ const {
 // );
 
 /**
- * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ * 缓存页面失活时暂停展示，保留内容区域抽屉的打开状态。
  */
+onActivated(() => {
+  isDeactivated.value = false;
+});
+
 onDeactivated(() => {
+  isDeactivated.value = true;
   // 如果弹窗没有被挂载到内容区域，则关闭弹窗
   if (!appendToMain.value) {
     props.drawerApi?.close();
@@ -157,10 +163,15 @@ const getAppendTo = computed(() => {
 // 是否打开过
 const hasOpened = ref(false);
 const isClosed = ref(true);
+const isDeactivated = ref(false);
+const isVisible = computed(() => state?.value?.isOpen && !isDeactivated.value);
+let pendingOpened = false;
+
 watch(
   () => state?.value?.isOpen,
   (value) => {
-    isClosed.value = false;
+    pendingOpened = !!value;
+    if (value) isClosed.value = false;
     if (value && !unref(hasOpened)) {
       hasOpened.value = true;
     }
@@ -171,14 +182,25 @@ function handleClosed() {
   isClosed.value = true;
   props.drawerApi?.onClosed();
 }
+function handleOpened() {
+  requestAnimationFrame(() => {
+    // Restoring a cached drawer must not repeat its logical opening callback.
+    if (pendingOpened && !isDeactivated.value) {
+      pendingOpened = false;
+      props.drawerApi?.onOpened();
+    }
+  });
+}
 const getForceMount = computed(() => {
-  return !unref(destroyOnClose) && unref(hasOpened);
+  // While inactive, unmountOnHide preserves content outside the interaction layer.
+  return !isDeactivated.value && !unref(destroyOnClose) && unref(hasOpened);
 });
 </script>
 <template>
   <Sheet
     :modal="false"
-    :open="state?.isOpen"
+    :open="isVisible"
+    :unmount-on-hide="!isDeactivated || !hasOpened"
     @update:open="() => drawerApi?.close()"
   >
     <SheetContent
@@ -190,7 +212,7 @@ const getForceMount = computed(() => {
             'w-full!':
               isMobile || placement === 'bottom' || placement === 'top',
             'max-h-screen': placement === 'bottom' || placement === 'top',
-            hidden: isClosed,
+            hidden: isClosed || isDeactivated,
           },
           drawerClass,
         )
@@ -200,6 +222,7 @@ const getForceMount = computed(() => {
       :side="placement"
       :z-index="zIndex"
       :force-mount="getForceMount"
+      :inactive="isDeactivated"
       :overlay-blur="overlayBlur"
       @close-auto-focus="handleFocusOutside"
       @closed="handleClosed"
@@ -207,7 +230,7 @@ const getForceMount = computed(() => {
       @focus-outside="handleFocusOutside"
       @interact-outside="interactOutside"
       @open-auto-focus="handerOpenAutoFocus"
-      @opened="() => drawerApi?.onOpened()"
+      @opened="handleOpened"
       @pointer-down-outside="pointerDownOutside"
     >
       <SheetHeader
