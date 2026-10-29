@@ -41,6 +41,13 @@ function mergeOxlintConfigs(...configs: OxlintConfig[]): OxlintConfig {
       ...(merged.overrides ?? []),
       ...(config.overrides ?? []),
     ];
+    // options 必须参与合并：桥接（eslint-plugin-oxlint）依据
+    // options.typeAware 推导类型感知规则的关停集合，丢失会导致
+    // eslint 与 oxlint/tsgolint 重复检查同一批规则。
+    merged.options =
+      merged.options && config.options
+        ? { ...merged.options, ...config.options }
+        : (config.options ?? merged.options);
     merged.plugins = [
       ...new Set([...(merged.plugins ?? []), ...(config.plugins ?? [])]),
     ];
