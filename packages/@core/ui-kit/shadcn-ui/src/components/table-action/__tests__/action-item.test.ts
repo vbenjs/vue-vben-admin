@@ -44,7 +44,7 @@ async function openPopConfirm(action: Record<string, any>) {
     throw new Error('Expected cancel and confirm buttons to exist');
   }
 
-  return { buttons, cancelButton, confirmButton, content };
+  return { cancelButton, confirmButton, content };
 }
 
 /** 提取与尺寸相关的类名，用于比较两个按钮的视觉大小是否一致 */
@@ -109,13 +109,13 @@ describe('action-item.vue popConfirm', () => {
   it('renders the cancel and confirm buttons with the same size', async () => {
     setSimpleLocale('zh-CN');
 
-    const { cancelButton, confirmButton, buttons } = await openPopConfirm({
+    const { cancelButton, confirmButton, content } = await openPopConfirm({
       danger: true,
       popConfirm: {},
       text: '删除',
     });
 
-    expect(buttons).toHaveLength(2);
+    expect(content.querySelectorAll('button')).toHaveLength(2);
     expect(sizeClasses(cancelButton)).toEqual(sizeClasses(confirmButton));
   });
 });
