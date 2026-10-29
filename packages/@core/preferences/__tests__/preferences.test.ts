@@ -1,3 +1,5 @@
+import type { PreferencesExtension } from '../src/types';
+
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultPreferences } from '../src/config';
@@ -28,8 +30,8 @@ describe('preferences', () => {
   // 避免经由全局 Storage 类型读取方法引用（unbound-method 误报）。
   const localStorageMock = {
     clear: vi.fn(),
-    getItem: vi.fn((_key: string) => null),
-    key: vi.fn((_index: number) => null),
+    getItem: vi.fn((_key: string): null | string => null),
+    key: vi.fn((_index: number): null | string => null),
     length: 0,
     removeItem: vi.fn(),
     setItem: vi.fn(),
@@ -37,8 +39,8 @@ describe('preferences', () => {
 
   const sessionStorageMock = {
     clear: vi.fn(),
-    getItem: vi.fn((_key: string) => null),
-    key: vi.fn((_index: number) => null),
+    getItem: vi.fn((_key: string): null | string => null),
+    key: vi.fn((_index: number): null | string => null),
     length: 0,
     removeItem: vi.fn(),
     setItem: vi.fn(),
@@ -318,7 +320,7 @@ describe('preferences', () => {
   });
 
   it('initializes custom preferences extension with default values', async () => {
-    const extension = {
+    const extension: PreferencesExtension = {
       fields: [
         {
           component: 'switch',
@@ -339,7 +341,7 @@ describe('preferences', () => {
       ],
       tabLabel: '扩展',
       title: '业务偏好',
-    } as const;
+    };
 
     await preferenceManager.initPreferences({
       extension,
@@ -354,7 +356,7 @@ describe('preferences', () => {
   });
 
   it('does not expose mutable custom preference baselines or extension schema', async () => {
-    const extension = {
+    const extension: PreferencesExtension = {
       fields: [
         {
           component: 'number',
@@ -370,7 +372,7 @@ describe('preferences', () => {
       ],
       tabLabel: '扩展',
       title: '业务偏好',
-    } as const;
+    };
 
     await preferenceManager.initPreferences({
       extension,
