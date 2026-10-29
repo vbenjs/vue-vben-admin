@@ -3,15 +3,12 @@ import type { VueWrapper } from '@vue/test-utils';
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
 
+// element-plus 以测试专用 devDependency 引入（catalog 同应用层版本）：
+// TS 经 package.json types、Vite 经 exports 各自解析到真实入口，
+// 且不受 .pnpm 虚拟存储目录名随版本变化的影响。
+import { ElInput, ElTreeSelect } from 'element-plus';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
-// form-ui 是独立包，element-plus 是应用层依赖；测试直接解析 .pnpm 虚拟存储中的真实实现。
-// 路径指到包根而非 es/index.mjs：TS 经 package.json types 找到 es/index.d.ts，
-// Vite 经 exports 找到 es/index.mjs，两侧都拿到真实入口，无需压制类型错误。
-import {
-  ElInput,
-  ElTreeSelect,
-} from '../../../../../node_modules/.pnpm/element-plus@2.14.5_vue@3.5.41_typescript@6.0.3_/node_modules/element-plus';
 import { COMPONENT_MAP, setupVbenForm } from '../src/config';
 import { useVbenForm } from '../src/use-vben-form';
 
