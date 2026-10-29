@@ -44,6 +44,32 @@
     "typecheck": {
       "dependsOn": ["^typecheck"],
       "outputs": []
+    },
+    // 内部工具包的类型解析读 workspace 依赖的 dist 产物（@vben/node-utils 与
+    // @vben/oxlint-config 的 exports types 指向 dist，无 src 条件）。dist 由
+    // postinstall 的 stub 产出，turbo 图内不可见：依赖源码变更而未重跑 stub
+    // 时 typecheck 会读到陈旧类型（假绿）；依赖 dist 缺失（如跳过脚本安装）
+    // 时直接 TS2307。让这四个消费方的 typecheck 显式依赖 ^stub，并把 stub
+    // 纳入缓存（outputs=dist），由 turbo 保证 dist 与源码一致。
+    "stub": {
+      "dependsOn": ["^stub"],
+      "outputs": ["dist/**"]
+    },
+    "@vben/eslint-config#typecheck": {
+      "dependsOn": ["^typecheck", "^stub"],
+      "outputs": []
+    },
+    "@vben/turbo-run#typecheck": {
+      "dependsOn": ["^typecheck", "^stub"],
+      "outputs": []
+    },
+    "@vben/vite-config#typecheck": {
+      "dependsOn": ["^typecheck", "^stub"],
+      "outputs": []
+    },
+    "@vben/vsh#typecheck": {
+      "dependsOn": ["^typecheck", "^stub"],
+      "outputs": []
     }
   }
 }
