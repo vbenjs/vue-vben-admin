@@ -23,6 +23,7 @@ const TokenProbe = defineComponent({
         'span',
         {
           'data-height': token.value.controlHeight,
+          'data-primary-color': token.value.colorPrimary,
           'data-text-color': token.value.colorText,
         },
         'Cancel',
@@ -33,13 +34,16 @@ const TokenProbe = defineComponent({
 function mountButton(
   component: Component,
   wrap: (button: VNode) => VNode = (button) => button,
+  buttonProps: { disabled?: boolean } = {},
 ) {
   const onClick = vi.fn();
   const container = document.createElement('div');
   document.body.append(container);
   app = createApp(() =>
     wrap(
-      h(component, { 'data-probe': 'action', onClick }, () => h(TokenProbe)),
+      h(component, { ...buttonProps, 'data-probe': 'action', onClick }, () =>
+        h(TokenProbe),
+      ),
     ),
   );
   app.mount(container);
@@ -67,10 +71,51 @@ afterEach(() => {
   app = undefined;
   document.body.innerHTML = '';
   document.documentElement.style.removeProperty('--foreground');
+  document.documentElement.style.removeProperty('--primary');
   updatePreferences({ app: { compact: false }, theme: { mode: 'light' } });
 });
 
 describe('playground adapter buttons', () => {
+  it('inherits a parent theme added after mounting and restores the fallback when removed', async () => {
+    document.documentElement.style.setProperty('--foreground', '0 0% 100%');
+    document.documentElement.style.setProperty('--primary', '0 100% 50%');
+    updatePreferences({ theme: { mode: 'dark' } });
+    const parentTheme = ref<{ token: { colorPrimary: string } }>();
+    const { probe } = mountButton(
+      createThemeAwareButton(Button, 'default'),
+      (button) => h(ConfigProvider, { theme: parentTheme.value }, () => button),
+    );
+    expect(probe().textColor).toBe('rgba(255,255,255,0.85)');
+    const fallbackPrimary = probe().primaryColor;
+    expect(fallbackPrimary).not.toBe('#123456');
+
+    parentTheme.value = { token: { colorPrimary: '#123456' } };
+    await nextTick();
+    expect(probe().primaryColor).toBe('#123456');
+
+    parentTheme.value = undefined;
+    await nextTick();
+    expect(probe().textColor).toBe('rgba(255,255,255,0.85)');
+    expect(probe().primaryColor).toBe(fallbackPrimary);
+  });
+
+  it('restores the Vben fallback when an initially present parent theme is removed', async () => {
+    document.documentElement.style.setProperty('--foreground', '0 0% 100%');
+    updatePreferences({ theme: { mode: 'dark' } });
+    const parentTheme = ref<undefined | { token: { colorText: string } }>({
+      token: { colorText: '#123456' },
+    });
+    const { probe } = mountButton(
+      createThemeAwareButton(Button, 'primary'),
+      (button) => h(ConfigProvider, { theme: parentTheme.value }, () => button),
+    );
+    expect(probe().textColor).toBe('#123456');
+
+    parentTheme.value = undefined;
+    await nextTick();
+    expect(probe().textColor).toBe('rgba(255,255,255,0.85)');
+  });
+
   it.each(['default', 'primary'] as const)(
     'keeps an independent %s button in sync with theme and compact preferences',
     async (type) => {
@@ -105,7 +150,7 @@ describe('playground adapter buttons', () => {
     async (type) => {
       updatePreferences({ app: { compact: true }, theme: { mode: 'dark' } });
       const textColor = ref('#123456');
-      const { probe } = mountButton(
+      const { button, onClick, probe } = mountButton(
         createThemeAwareButton(Button, type),
         (button) =>
           h(
@@ -117,7 +162,11 @@ describe('playground adapter buttons', () => {
             },
             () => button,
           ),
+        { disabled: true },
       );
+      expect(button.disabled).toBe(true);
+      button.click();
+      expect(onClick).not.toHaveBeenCalled();
       expect(probe().textColor).toBe('#123456');
       expect(probe().height).toBe('47');
 
