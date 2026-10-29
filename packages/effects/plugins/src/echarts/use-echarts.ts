@@ -77,6 +77,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     if (!el) {
       return undefined;
     }
+    // 加括号明确优先级：|| 先于 ?:，与上游行为一致，避免误读为 t || (三元)
     chartInstance = echarts.init(el, t || isDark.value ? 'dark' : null);
 
     return chartInstance;
