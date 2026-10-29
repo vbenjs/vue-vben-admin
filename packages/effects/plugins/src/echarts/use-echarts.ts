@@ -75,7 +75,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   const initCharts = (t?: EchartsThemeType) => {
     const el = chartRef?.value?.$el;
     if (!el) {
-      return;
+      return undefined;
     }
     chartInstance = echarts.init(el, t || isDark.value ? 'dark' : null);
 

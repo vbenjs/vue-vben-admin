@@ -52,10 +52,10 @@ export function usePriorityValue<
  * @param props
  * @param state
  */
-export function usePriorityValues<
-  T extends Record<string, any>,
-  S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
->(props: T, state: S | undefined) {
+export function usePriorityValues<T extends Record<string, any>>(
+  props: T,
+  state: Ref<Record<string, any>> | undefined,
+) {
   const result: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
@@ -70,10 +70,10 @@ export function usePriorityValues<
  * @param props
  * @param state
  */
-export function useForwardPriorityValues<
-  T extends Record<string, any>,
-  S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
->(props: T, state: S | undefined) {
+export function useForwardPriorityValues<T extends Record<string, any>>(
+  props: T,
+  state: Ref<Record<string, any>> | undefined,
+) {
   const computedResult: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {

@@ -1,10 +1,11 @@
-export function bindMethods<T extends object>(instance: T): void {
+export function bindMethods(instance: object): void {
   const prototype = Object.getPrototypeOf(instance);
   const propertyNames = Object.getOwnPropertyNames(prototype);
 
   propertyNames.forEach((propertyName) => {
     const descriptor = Object.getOwnPropertyDescriptor(prototype, propertyName);
-    const propertyValue = instance[propertyName as keyof T];
+    const instanceRecord = instance as Record<string, unknown>;
+    const propertyValue = instanceRecord[propertyName];
 
     if (
       typeof propertyValue === 'function' &&
@@ -13,7 +14,7 @@ export function bindMethods<T extends object>(instance: T): void {
       !descriptor.get &&
       !descriptor.set
     ) {
-      instance[propertyName as keyof T] = propertyValue.bind(instance);
+      instanceRecord[propertyName] = propertyValue.bind(instance);
     }
   });
 }
@@ -24,7 +25,7 @@ export function bindMethods<T extends object>(instance: T): void {
  * @param path - 用于查找字段的路径，使用小数点分隔
  * @returns 字段值，或者未找到时返回 undefined
  */
-export function getNestedValue<T>(obj: T, path: string): any {
+export function getNestedValue(obj: unknown, path: string): any {
   if (typeof path !== 'string' || path.length === 0) {
     throw new Error('Path must be a non-empty string');
   }

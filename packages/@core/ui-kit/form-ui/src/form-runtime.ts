@@ -25,7 +25,15 @@ function normalizeError(error: unknown): string | undefined {
     const message = Reflect.get(error, 'message');
     return typeof message === 'string' ? message : undefined;
   }
-  return error === undefined || error === null ? undefined : String(error);
+  // String(symbol) 会抛错，仅对安全的原始值做转换
+  if (
+    typeof error === 'number' ||
+    typeof error === 'boolean' ||
+    typeof error === 'bigint'
+  ) {
+    return String(error);
+  }
+  return undefined;
 }
 
 function normalizeFieldMetaError(meta: unknown) {

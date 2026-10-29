@@ -65,11 +65,11 @@ const typescript: OxlintConfig = {
     'typescript/no-useless-default-assignment': 'error',
     'typescript/unbound-method': 'error',
 
-    // —— 待开启（批 3：开完统计命中数再定去留）——
-    'typescript/consistent-return': 'off',
-    'typescript/no-base-to-string': 'off',
-    'typescript/no-unnecessary-type-parameters': 'off',
-    'typescript/restrict-template-expressions': 'off',
+    // —— 批 3（试开统计中）——
+    'typescript/consistent-return': 'error',
+    'typescript/no-base-to-string': 'error',
+    'typescript/no-unnecessary-type-parameters': 'error',
+    'typescript/restrict-template-expressions': 'error',
   },
 };
 

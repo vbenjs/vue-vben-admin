@@ -14,12 +14,12 @@ export default eventHandler(async (event) => {
   let listData = structuredClone(getDictTypes());
   if (name) {
     listData = listData.filter((item) =>
-      item.name.toLowerCase().includes(String(name).toLowerCase()),
+      item.name.toLowerCase().includes(firstQueryString(name).toLowerCase()),
     );
   }
   if (code) {
     listData = listData.filter((item) =>
-      item.code.toLowerCase().includes(String(code).toLowerCase()),
+      item.code.toLowerCase().includes(firstQueryString(code).toLowerCase()),
     );
   }
   if (['0', '1'].includes(status as string)) {

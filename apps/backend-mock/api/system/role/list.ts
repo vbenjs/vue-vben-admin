@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { eventHandler, getQuery } from 'h3';
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { getMenuIds, MOCK_MENU_LIST } from '~/utils/mock-data';
+import { firstQueryString } from '~/utils/query';
 import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
 
 const formatterCN = new Intl.DateTimeFormat('zh-CN', {
@@ -58,17 +59,19 @@ export default eventHandler(async (event) => {
   let listData = structuredClone(mockData);
   if (name) {
     listData = listData.filter((item) =>
-      item.name.toLowerCase().includes(String(name).toLowerCase()),
+      item.name.toLowerCase().includes(firstQueryString(name).toLowerCase()),
     );
   }
   if (id) {
     listData = listData.filter((item) =>
-      item.id.toLowerCase().includes(String(id).toLowerCase()),
+      item.id.toLowerCase().includes(firstQueryString(id).toLowerCase()),
     );
   }
   if (remark) {
     listData = listData.filter((item) =>
-      item.remark?.toLowerCase()?.includes(String(remark).toLowerCase()),
+      item.remark
+        ?.toLowerCase()
+        ?.includes(firstQueryString(remark).toLowerCase()),
     );
   }
   if (startTime) {

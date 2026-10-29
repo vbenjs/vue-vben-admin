@@ -20,11 +20,11 @@ export default eventHandler(async (event) => {
   }
 
   let listData = structuredClone(getDictDataList()).filter(
-    (item) => item.dictCode === String(dictCode),
+    (item) => item.dictCode === firstQueryString(dictCode),
   );
   if (label) {
     listData = listData.filter((item) =>
-      item.label.toLowerCase().includes(String(label).toLowerCase()),
+      item.label.toLowerCase().includes(firstQueryString(label).toLowerCase()),
     );
   }
   if (['0', '1'].includes(status as string)) {

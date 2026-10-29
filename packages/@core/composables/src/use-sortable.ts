@@ -1,8 +1,8 @@
 import type { SortableOptions } from 'sortablejs';
 import type Sortable from 'sortablejs';
 
-function useSortable<T extends HTMLElement>(
-  sortableContainer: T,
+function useSortable(
+  sortableContainer: HTMLElement,
   options: SortableOptions = {},
 ) {
   const initializeSortable = async () => {

@@ -179,10 +179,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
         },
         trigger(values, __, controller) {
           // 访问 form 内 VbenCollapsibleParams 的实例
-          const paramsRef =
-            controller.getFieldComponentRef<typeof VbenCollapsibleParams>(
-              'params',
-            );
+          const paramsRef = controller.getFieldComponentRef('params') as
+            | typeof VbenCollapsibleParams
+            | undefined;
           if (values.qat) {
             paramsRef?.updateValues?.({
               calib_steps: 10,

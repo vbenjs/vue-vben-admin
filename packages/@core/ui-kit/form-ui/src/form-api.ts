@@ -174,10 +174,6 @@ export class FormApi<
   }
 
   formatValues(rawValues: Readonly<TFormValues>): TSubmitValues;
-  /** @deprecated Declare the submit type on `useVbenForm` instead. */
-  formatValues<TResult extends FormValues>(
-    rawValues: Readonly<FormValues>,
-  ): TResult;
   formatValues(rawValues: Readonly<FormValues>): FormValues {
     this.warnLegacyValueTransforms();
     if (this.state?.codec) {
@@ -199,9 +195,7 @@ export class FormApi<
    * @param fieldName 字段名
    * @returns 组件实例
    */
-  getFieldComponentRef<T = ComponentPublicInstance>(
-    fieldName: string,
-  ): T | undefined {
+  getFieldComponentRef(fieldName: string): ComponentPublicInstance | undefined {
     let target = this.componentRefMap.has(fieldName)
       ? (this.componentRefMap.get(fieldName) as ComponentPublicInstance)
       : undefined;
@@ -221,7 +215,7 @@ export class FormApi<
         target = target.$.subTree.ref.r.value as ComponentPublicInstance;
       }
     }
-    return target as T;
+    return target;
   }
 
   /**
@@ -312,7 +306,7 @@ export class FormApi<
                 chain.map(async (api) => {
                   const validateResult = await api.validate();
                   if (!validateResult.valid) {
-                    return;
+                    return undefined;
                   }
                   const rawValues = toRaw((await api.getValues()) || {});
                   return rawValues;
@@ -325,6 +319,7 @@ export class FormApi<
               return results;
             } catch (error) {
               console.error('Validation error:', error);
+              return undefined;
             }
           };
         }
@@ -618,7 +613,7 @@ export class FormApi<
 
   async validateAndSubmit() {
     const { valid } = await this.validate();
-    if (!valid) return;
+    if (!valid) return undefined;
     return this.submitValues();
   }
 

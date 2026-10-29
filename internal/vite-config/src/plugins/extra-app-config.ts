@@ -30,7 +30,7 @@ async function viteExtraAppConfigPlugin({
   let hash: string;
 
   if (!isBuild) {
-    return;
+    return undefined;
   }
 
   const { version = '' } = await readPackageJSON(root);
@@ -51,9 +51,10 @@ async function viteExtraAppConfigPlugin({
 
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
+        const reason = error instanceof Error ? error.message : String(error);
         console.log(
           colors.red(
-            `configuration file configuration file failed to package:\n${error}`,
+            `configuration file configuration file failed to package:\n${reason}`,
           ),
         );
       }

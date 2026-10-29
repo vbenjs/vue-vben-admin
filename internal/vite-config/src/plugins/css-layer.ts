@@ -56,11 +56,13 @@ export function viteCssLayerPlugin(
     enforce: 'pre',
     transform(code, id) {
       const [file] = id.split('?', 1);
-      if (!file) return;
-      const matched = matchers.find((m) => m.regex.test(file));
+      const matched = file
+        ? matchers.find((m) => m.regex.test(file))
+        : undefined;
       if (matched) {
         return { code: `@layer ${matched.layerName} {\n${code}\n}`, map: null };
       }
+      return undefined;
     },
     generateBundle(_options, bundle) {
       for (const file of Object.values(bundle)) {

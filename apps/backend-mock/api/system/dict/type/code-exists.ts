@@ -11,6 +11,10 @@ export default eventHandler(async (event) => {
 
   const { code, id } = getQuery(event);
   return useResponseSuccess(
-    !!code && isDictCodeExists(String(code), id ? String(id) : undefined),
+    !!code &&
+      isDictCodeExists(
+        firstQueryString(code),
+        id ? firstQueryString(id) : undefined,
+      ),
   );
 });

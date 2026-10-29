@@ -197,7 +197,8 @@ async function injectShimsToHtml(html: string, esModuleShimUrl: string) {
   const $script = $(`script[type='module']`);
 
   if (!$script) {
-    return;
+    // 无模块脚本时原样返回，保持 transformIndexHtml 返回类型一致
+    return html;
   }
 
   const entry = $script.attr('src');

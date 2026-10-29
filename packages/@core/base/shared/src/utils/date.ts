@@ -30,7 +30,8 @@ export function formatDate(time?: FormatDate, format: Format = 'YYYY-MM-DD') {
     }
     return date.tz().format(format);
   } catch (error) {
-    console.error(`Error formatting date: ${error}`);
+    const reason = error instanceof Error ? error.message : String(error);
+    console.error(`Error formatting date: ${reason}`);
     return String(time ?? '');
   }
 }

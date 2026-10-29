@@ -24,7 +24,13 @@ export function createRuntimeFieldComponent(
     defineComponent({
       inheritAttrs: false,
       setup(_, { attrs, slots }) {
-        const fieldName = String(attrs.name ?? '');
+        // attrs.name 运行时可能是数字（模板里写字面量），仅接受原始值，
+        // 其余类型（symbol/对象）不做 String 强转。
+        const rawName = attrs.name;
+        const fieldName =
+          typeof rawName === 'string' || typeof rawName === 'number'
+            ? String(rawName)
+            : '';
         let validationRunId = 0;
         let cachedValidators: Record<string, any> | undefined;
         let cachedWrappedValidators: Record<string, any> | undefined;
