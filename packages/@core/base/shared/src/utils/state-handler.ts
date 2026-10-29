@@ -9,7 +9,13 @@ export class StateHandler {
 
   reset() {
     this.condition = false;
+    // Callers that awaited the condition must not be left pending: after a
+    // reset (e.g. unmount) the gate they wait for will not open for them.
+    const pendingRejects = this.rejectConditions;
     this.clearPromises();
+    for (const reject of pendingRejects) {
+      reject(new Error('Condition was reset'));
+    }
   }
 
   // 触发状态为 false 时，reject 所有等待中的 Promise
