@@ -5,6 +5,7 @@ import {
   javascript,
   jsonc,
   node,
+  oxcCompat,
   perfectionist,
   pnpm,
   typescript,
@@ -33,6 +34,9 @@ async function defineConfig(config: FlatConfig[] = []) {
     yaml(),
     pnpm(),
     ...customConfig,
+    // 桥接放在内置配置之后、用户配置之前：先让其它配置设置规则，
+    // 再统一关停 oxlint 已覆盖的规则，同时保留下游覆盖能力。
+    oxcCompat(),
     ...config,
   ];
 

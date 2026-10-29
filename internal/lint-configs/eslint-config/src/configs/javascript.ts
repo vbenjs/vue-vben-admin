@@ -4,77 +4,7 @@ import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 
-const rulesCoveredByOxlint = new Set([
-  'constructor-super',
-  'for-direction',
-  'getter-return',
-  'no-async-promise-executor',
-  'no-case-declarations',
-  'no-class-assign',
-  'no-compare-neg-zero',
-  'no-cond-assign',
-  'no-const-assign',
-  'no-constant-binary-expression',
-  'no-constant-condition',
-  'no-control-regex',
-  'no-debugger',
-  'no-delete-var',
-  'no-dupe-args',
-  'no-dupe-class-members',
-  'no-dupe-else-if',
-  'no-dupe-keys',
-  'no-duplicate-case',
-  'no-empty',
-  'no-empty-character-class',
-  'no-empty-pattern',
-  'no-empty-static-block',
-  'no-ex-assign',
-  'no-extra-boolean-cast',
-  'no-fallthrough',
-  'no-func-assign',
-  'no-global-assign',
-  'no-import-assign',
-  'no-invalid-regexp',
-  'no-irregular-whitespace',
-  'no-loss-of-precision',
-  'no-misleading-character-class',
-  'no-new-native-nonconstructor',
-  'no-nonoctal-decimal-escape',
-  'no-obj-calls',
-  'no-prototype-builtins',
-  'no-redeclare',
-  'no-regex-spaces',
-  'no-self-assign',
-  'no-setter-return',
-  'no-shadow-restricted-names',
-  'no-sparse-arrays',
-  'no-this-before-super',
-  'no-unassigned-vars',
-  'no-unexpected-multiline',
-  'no-unreachable',
-  'no-unsafe-finally',
-  'no-unsafe-negation',
-  'no-unsafe-optional-chaining',
-  'no-unused-labels',
-  'no-unused-private-class-members',
-  'no-unused-vars',
-  'no-useless-backreference',
-  'no-useless-catch',
-  'no-useless-escape',
-  'no-with',
-  'preserve-caught-error',
-  'require-yield',
-  'use-isnan',
-  'valid-typeof',
-]);
-
 export async function javascript(): Promise<Linter.Config[]> {
-  const recommendedRules = Object.fromEntries(
-    Object.entries(js.configs.recommended.rules).filter(
-      ([ruleName]) => !rulesCoveredByOxlint.has(ruleName),
-    ),
-  );
-
   return [
     {
       languageOptions: {
@@ -103,7 +33,8 @@ export async function javascript(): Promise<Linter.Config[]> {
         'unused-imports': pluginUnusedImports,
       },
       rules: {
-        ...recommendedRules,
+        // oxlint 已覆盖的规则由 oxcCompat 桥接统一关停，无需手工清单。
+        ...js.configs.recommended.rules,
         'dot-notation': ['error', { allowKeywords: true }],
         'keyword-spacing': 'off',
         'no-empty-function': 'off',
@@ -143,6 +74,9 @@ export async function javascript(): Promise<Linter.Config[]> {
         ],
         'no-undef-init': 'error',
         'no-undef': 'off',
+        // oxlint 负责 ts/js 的未用变量检查；.vue 文件由下方
+        // unused-imports/no-unused-vars（带 ^_ 忽略模式）负责，核心规则全程关闭。
+        'no-unused-vars': 'off',
         'no-unreachable-loop': 'error',
         'object-shorthand': [
           'error',
