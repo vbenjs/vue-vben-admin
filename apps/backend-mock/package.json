@@ -7,7 +7,8 @@
   "author": "",
   "scripts": {
     "build": "nitro build",
-    "start": "nitro dev"
+    "start": "nitro dev",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@faker-js/faker": "catalog:",
