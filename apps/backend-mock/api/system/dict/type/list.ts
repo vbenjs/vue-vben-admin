@@ -1,6 +1,7 @@
 import { eventHandler, getQuery } from 'h3';
 import { getDictTypes } from '~/utils/dict-utils';
 import { verifyAccessToken } from '~/utils/jwt-utils';
+import { firstQueryString } from '~/utils/query';
 import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
 
 export default eventHandler(async (event) => {

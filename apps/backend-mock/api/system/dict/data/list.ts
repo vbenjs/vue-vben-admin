@@ -1,6 +1,7 @@
 import { eventHandler, getQuery } from 'h3';
 import { getDictDataList } from '~/utils/dict-utils';
 import { verifyAccessToken } from '~/utils/jwt-utils';
+import { firstQueryString } from '~/utils/query';
 import {
   unAuthorizedResponse,
   usePageResponseSuccess,

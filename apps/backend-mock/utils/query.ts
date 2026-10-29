@@ -1,6 +1,11 @@
-import { getQuery } from 'h3';
+import type { H3Event, InferEventInput } from 'h3';
 
-type QueryParamValue = ReturnType<typeof getQuery>[string];
+// getQuery 是三泛型签名，ReturnType<typeof getQuery> 无法确定默认实参
+// （解析为 unknown）；改用 h3 导出的推导类型还原其默认返回形状 QueryObject。
+type QueryParamValue = Exclude<
+  InferEventInput<'query', H3Event, void>,
+  undefined
+>[string];
 
 /**
  * 取查询参数的首个字符串值。
