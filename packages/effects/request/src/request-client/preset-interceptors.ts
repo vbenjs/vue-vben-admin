@@ -72,8 +72,14 @@ export const authenticateResponseInterceptor = ({
       }
       // 如果正在刷新 token，则将请求加入队列，等待刷新完成
       if (client.isRefreshing) {
-        return new Promise((resolve) => {
-          client.refreshTokenQueue.push((newToken: string) => {
+        return new Promise((resolve, reject) => {
+          client.refreshTokenQueue.push((newToken, refreshError) => {
+            if (!newToken) {
+              // Replaying the request without a token would only fail with
+              // another 401 and start a second refresh attempt.
+              reject(refreshError ?? new Error('Token refresh failed'));
+              return;
+            }
             config.headers.Authorization = formatToken(newToken);
             resolve(client.request(config.url, { ...config }));
           });
@@ -96,7 +102,9 @@ export const authenticateResponseInterceptor = ({
         return client.request(error.config.url, { ...error.config });
       } catch (refreshError) {
         // 如果刷新 token 失败，处理错误（如强制登出或跳转登录页面）
-        client.refreshTokenQueue.forEach((callback) => callback(''));
+        client.refreshTokenQueue.forEach((callback) =>
+          callback(null, refreshError),
+        );
         client.refreshTokenQueue = [];
         console.error('Refresh token failed, please login again.');
         await doReAuthenticate();
