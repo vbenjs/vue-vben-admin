@@ -10,7 +10,11 @@ export interface IconPickerProps {
    * 图标列表
    */
   icons?: string[];
-  /** Input 组件（经 :is 渲染，传组件而非 VNode） */
+  /**
+   * Input 组件，经 `:is` 渲染。既可直接传组件定义（测试用法），
+   * 也可传 h() 创建的 VNode（演示页用法）——后者在结构上同样可赋给
+   * Component，两种形态运行时均可渲染。
+   */
   inputComponent?: Component;
   /** 图标插槽名，预览图标将被渲染到此插槽中 */
   iconSlot?: string;
