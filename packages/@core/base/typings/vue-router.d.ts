@@ -1,4 +1,4 @@
-import type { RouteMeta as IRouteMeta } from './dist/index.d.mts';
+import type { RouteMeta as IRouteMeta } from './dist/index.d.ts';
 
 import 'vue-router';
 
