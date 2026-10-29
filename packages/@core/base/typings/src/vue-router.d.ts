@@ -1,7 +1,7 @@
 import type { Component } from 'vue';
 import type { Router, RouteRecordRaw } from 'vue-router';
 
-interface RouteMeta {
+interface VbenRouteMeta {
   /**
    * 激活图标（菜单/tab）
    */
@@ -153,10 +153,15 @@ interface GenerateMenuAndRoutesOptions {
   routes: RouteRecordRaw[];
 }
 
+// 以 VbenRouteMeta 为底名、RouteMeta 别名导出：本包 barrel 内的
+// declare module 'vue-router' 增强若直接 extends 同名接口，tsdown 打包
+// dist 时会把别名还原成原名，产出 `interface RouteMeta extends RouteMeta`
+// 的自引用声明（消费者 TS2310）。
 export type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
-  RouteMeta,
+  VbenRouteMeta as RouteMeta,
   RouteRecordRaw,
   RouteRecordStringComponent,
+  VbenRouteMeta,
 };
