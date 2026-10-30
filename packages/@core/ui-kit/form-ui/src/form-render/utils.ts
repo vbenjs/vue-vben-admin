@@ -123,7 +123,7 @@ export function useFieldLabelWidth(options: {
   };
 
   const updateLabelWidth = (action: 'remove' | 'update' = 'update') => {
-    nextTick(() => {
+    void nextTick(() => {
       if (toValue(options.labelWidth) !== 'auto') {
         return;
       }

@@ -1,10 +1,8 @@
 import type { EChartsOption } from 'echarts';
 
-import type { Ref } from 'vue';
+import type { ComponentPublicInstance, Ref } from 'vue';
 
 import type { Nullable } from '@vben/types';
-
-import type EchartsUI from './echarts-ui.vue';
 
 import {
   computed,
@@ -30,7 +28,7 @@ import {
 
 import echarts from './echarts';
 
-type EchartsUIType = typeof EchartsUI | undefined;
+type EchartsUIType = ComponentPublicInstance | undefined;
 
 type EchartsThemeType = 'dark' | 'light' | null;
 
@@ -77,8 +75,10 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   const initCharts = (t?: EchartsThemeType) => {
     const el = chartRef?.value?.$el;
     if (!el) {
-      return;
+      return undefined;
     }
+    // 求值顺序与上游一致：t || isDark.value 先于三元（即 t='light' 时
+    // 仍会落到 'dark'，为上游既有行为，本工具链 PR 不改动）。
     chartInstance = echarts.init(el, t || isDark.value ? 'dark' : null);
 
     return chartInstance;
@@ -97,13 +97,13 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
       ...getOptions.value,
     };
     return new Promise((resolve) => {
-      if (chartRef.value?.offsetHeight === 0) {
+      if (getChartEl()?.offsetHeight === 0) {
         useTimeoutFn(async () => {
           resolve(await renderEcharts(currentOptions));
         }, 30);
         return;
       }
-      nextTick(() => {
+      void nextTick(() => {
         const el = getChartEl();
         if (isElHidden(el)) {
           useTimeoutFn(async () => {
@@ -115,7 +115,14 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
           if (!chartInstance || chartInstance?.getDom() !== el) {
             chartInstance?.dispose();
             const instance = initCharts();
-            if (!instance) return;
+            // 等待窗口内组件卸载（ref 已空）时拿不到实例：按 Nullable
+            // 语义 resolve(null)，不能裸 return——那会让返回的 Promise
+            // 永久 pending，挂起下游 await renderEcharts/updateData 的
+            // 调用方。
+            if (!instance) {
+              resolve(null);
+              return;
+            }
             chartInstance = instance;
           }
           clear && chartInstance?.clear();
@@ -132,10 +139,14 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     lazyUpdate = false, // true 时不立即重绘，适合短时间内多次调用
   ): Promise<echarts.ECharts | null> => {
     return new Promise((resolve) => {
-      nextTick(() => {
+      void nextTick(() => {
         if (!chartInstance) {
           // 还没初始化 → 当作首次渲染
-          renderEcharts(option).then(resolve);
+          // renderEcharts 的不变式是只 resolve 不 reject；catch 为防御性
+          // 兜底——不变式被打破时降级为 null，而非产生 unhandled rejection
+          void renderEcharts(option)
+            .then(resolve)
+            .catch(() => resolve(null));
           return;
         }
 
@@ -173,13 +184,13 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     resizeHandler?.();
   });
 
-  useResizeObserver(chartRef as never, resizeHandler);
+  useResizeObserver(getChartEl, resizeHandler);
 
   watch([isDark, isActiveRef], () => {
     if (chartInstance && unref(isActiveRef)) {
       chartInstance.dispose();
       initCharts();
-      renderEcharts(cacheOptions);
+      void renderEcharts(cacheOptions);
       resize();
     }
   });

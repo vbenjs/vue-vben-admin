@@ -129,6 +129,8 @@ async function resolveLegacyDependencies(
   } = dependencies;
 
   if (isFunction(whenIf)) {
+    // 存量回调可能返回任意 truthy/falsy 值，强制布尔化，否则
+    // patch.if === false 的早退分支会漏判（如回调返回 0/''）。
     patch.if = !!(await whenIf(values, actions, controller));
   } else if (isBoolean(whenIf)) {
     patch.if = whenIf;
@@ -138,6 +140,7 @@ async function resolveLegacyDependencies(
   }
 
   if (isFunction(show)) {
+    // 同 if：truthy/falsy 强制布尔化。
     patch.show = !!(await show(values, actions, controller));
   } else if (isBoolean(show)) {
     patch.show = show;
@@ -150,14 +153,19 @@ async function resolveLegacyDependencies(
     patch.rules = await rules(values, actions, controller);
   }
   if (isFunction(disabled)) {
+    // 同 if：truthy/falsy 强制布尔化。
     patch.disabled = !!(await disabled(values, actions, controller));
   } else if (isBoolean(disabled)) {
     patch.disabled = disabled;
   }
   if (isFunction(required)) {
+    // 同 if：truthy/falsy 强制布尔化。
     patch.required = !!(await required(values, actions, controller));
   }
   if (isFunction(trigger)) {
+    // trigger 在其余状态字段求值完成后执行（上游顺序）。若 trigger 拒绝，
+    // 本次求值整体失败、已算出的 patch 不生效，异常经 Vue 的 watcher
+    // 错误通道冒泡——这是上游既有行为，此处保持一致、不吞异常。
     await trigger(values, actions, controller);
   }
 
@@ -191,7 +199,7 @@ export default function useDependencies(
       throw new Error('formApi is required in useDependencies');
     }
 
-    return controller as unknown as ExtendedFormApi;
+    return controller;
   }
 
   const dependencyState = shallowRef(createDependencyState());

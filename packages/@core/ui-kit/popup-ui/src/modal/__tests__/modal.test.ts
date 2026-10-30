@@ -182,7 +182,7 @@ describe('vben modal', () => {
       // The exit animation ends normally — acknowledged immediately...
       const dialog = document.querySelector('[role="dialog"]');
       if (!(dialog instanceof HTMLElement)) {
-        throw new Error('dialog content not found');
+        throw new TypeError('dialog content not found');
       }
       dialog.dispatchEvent(new Event('animationend'));
       // ...and the fallback must not emit a second `closed`.

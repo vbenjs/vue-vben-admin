@@ -127,6 +127,7 @@ catalog:
   eslint-plugin-command: ^3.5.3
   eslint-plugin-jsonc: ^3.4.2
   eslint-plugin-n: ^18.2.2
+  eslint-plugin-oxlint: ^1.90.0
   eslint-plugin-perfectionist: ^5.10.0
   eslint-plugin-pnpm: ^1.7.0
   eslint-plugin-unused-imports: ^4.4.1
@@ -150,9 +151,9 @@ catalog:
   nitropack: ^2.13.4
   nprogress: ^0.2.0
   ora: ^9.4.1
-  oxfmt: ^0.65.0
-  oxlint: ^1.83.0
-  oxlint-tsgolint: ^0.25.0
+  oxfmt: ^0.75.0
+  oxlint: ^1.90.0
+  oxlint-tsgolint: ^7.0.2005
   pinia: ^4.0.2
   pinia-plugin-persistedstate: ^4.7.1
   pkg-types: ^2.3.1

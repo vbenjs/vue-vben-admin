@@ -29,9 +29,13 @@ export const viteNitroMockPlugin = ({
         return;
       }
 
-      runNitroServer(pkg.dir, port, verbose);
+      // mock 服务启动失败不应以悬空拒绝（void）直接杀死 dev 进程：
+      // 显式打印错误，让前端 dev server 继续运行、问题可见。
+      runNitroServer(pkg.dir, port, verbose).catch((error) => {
+        consola.error('Nitro mock server failed to start:', error);
+      });
 
-      const _printUrls = server.printUrls;
+      const _printUrls = server.printUrls.bind(server);
       server.printUrls = () => {
         _printUrls();
 

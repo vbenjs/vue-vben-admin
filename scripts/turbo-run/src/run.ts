@@ -23,9 +23,9 @@ export async function run(options: RunOptions) {
     return (pkg?.packageJson as Record<string, any>)?.scripts?.[command];
   });
 
-  let selectPkg: string | symbol;
+  let selectPkg: string;
   if (selectPkgs.length > 1) {
-    selectPkg = await select<string>({
+    const selected = await select<string>({
       message: `Select the app you need to run [${command}]:`,
       options: selectPkgs.map((item) => ({
         label: item?.packageJson.name,
@@ -33,10 +33,11 @@ export async function run(options: RunOptions) {
       })),
     });
 
-    if (isCancel(selectPkg) || !selectPkg) {
+    if (isCancel(selected) || !selected) {
       cancel('👋 Has cancelled');
       process.exit(0);
     }
+    selectPkg = selected;
   } else {
     selectPkg = selectPkgs[0]?.packageJson?.name ?? '';
   }

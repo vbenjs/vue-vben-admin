@@ -46,9 +46,11 @@ function createRouterMock() {
 function createScrollElement() {
   const element = document.createElement('div');
   element.id = ELEMENT_ID_LAYOUT_SCROLL;
-  element.scrollTo = vi.fn();
+  // 持有 mock 本体做断言，避免经 DOM 类型读方法引用（unbound-method 误报）。
+  const scrollTo = vi.fn();
+  element.scrollTo = scrollTo;
   document.body.append(element);
-  return element;
+  return { element, scrollTo };
 }
 
 function mountLayoutScroll(router: Router) {
@@ -82,7 +84,7 @@ afterEach(() => {
 describe('useLayoutScroll', () => {
   it('should scroll to top after a normal navigation', async () => {
     window.history.replaceState({ position: 0 }, '');
-    const element = createScrollElement();
+    const { element, scrollTo } = createScrollElement();
     element.scrollTop = 240;
     const routerMock = createRouterMock();
     mountLayoutScroll(routerMock.router);
@@ -92,15 +94,16 @@ describe('useLayoutScroll', () => {
     window.history.replaceState({ position: 1 }, '');
     await runAfterHook(afterHook);
 
-    expect(element.scrollTo).toHaveBeenCalledWith({ top: 0 });
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0 });
   });
 
   it('should scroll a hash target into view', async () => {
     window.history.replaceState({ position: 0 }, '');
-    const element = createScrollElement();
+    const { element, scrollTo } = createScrollElement();
     const hashTarget = document.createElement('div');
     hashTarget.id = 'section';
-    hashTarget.scrollIntoView = vi.fn();
+    const scrollIntoView = vi.fn();
+    hashTarget.scrollIntoView = scrollIntoView;
     element.append(hashTarget);
     const routerMock = createRouterMock();
     mountLayoutScroll(routerMock.router);
@@ -109,23 +112,25 @@ describe('useLayoutScroll', () => {
     window.history.replaceState({ position: 1 }, '');
     await runAfterHook(afterHook, '#section');
 
-    expect(hashTarget.scrollIntoView).toHaveBeenCalledWith({
+    expect(scrollIntoView).toHaveBeenCalledWith({
       behavior: 'smooth',
       block: 'start',
     });
-    expect(element.scrollTo).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
   });
 
   it('should ignore matching hash targets outside the layout', async () => {
     window.history.replaceState({ position: 0 }, '');
     const hostTarget = document.createElement('div');
     hostTarget.id = 'section';
-    hostTarget.scrollIntoView = vi.fn();
+    const hostScrollIntoView = vi.fn();
+    hostTarget.scrollIntoView = hostScrollIntoView;
     document.body.append(hostTarget);
-    const element = createScrollElement();
+    const { element } = createScrollElement();
     const layoutTarget = document.createElement('div');
     layoutTarget.id = 'section';
-    layoutTarget.scrollIntoView = vi.fn();
+    const layoutScrollIntoView = vi.fn();
+    layoutTarget.scrollIntoView = layoutScrollIntoView;
     element.append(layoutTarget);
     const routerMock = createRouterMock();
     mountLayoutScroll(routerMock.router);
@@ -134,16 +139,16 @@ describe('useLayoutScroll', () => {
     window.history.replaceState({ position: 1 }, '');
     await runAfterHook(afterHook, '#section');
 
-    expect(layoutTarget.scrollIntoView).toHaveBeenCalledWith({
+    expect(layoutScrollIntoView).toHaveBeenCalledWith({
       behavior: 'smooth',
       block: 'start',
     });
-    expect(hostTarget.scrollIntoView).not.toHaveBeenCalled();
+    expect(hostScrollIntoView).not.toHaveBeenCalled();
   });
 
   it('should restore a saved position on history navigation', async () => {
     window.history.replaceState({ position: 0 }, '');
-    const element = createScrollElement();
+    const { element, scrollTo } = createScrollElement();
     element.scrollTop = 240;
     const routerMock = createRouterMock();
     mountLayoutScroll(routerMock.router);
@@ -158,7 +163,7 @@ describe('useLayoutScroll', () => {
     await runBeforeGuard(beforeGuard);
     await runAfterHook(afterHook);
 
-    expect(element.scrollTo).toHaveBeenLastCalledWith({ top: 240 });
+    expect(scrollTo).toHaveBeenLastCalledWith({ top: 240 });
   });
 
   it('should remove router hooks when the scope is disposed', () => {

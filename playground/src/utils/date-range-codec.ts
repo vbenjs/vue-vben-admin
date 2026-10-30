@@ -4,17 +4,22 @@ import dayjs from 'dayjs';
 
 type DateRange = [Dayjs, Dayjs];
 
+// 仅当字段在 TFormValues 中是「可选属性」且值类型为 DateRange 时才能被
+// 选作区间字段。用 Pick 与 Required<Pick> 的可赋值性探测可选性：
+// 必填字段（含 any、显式 X | undefined 联合）二者同型会被判为必填而拒绝。
 type OptionalDateRangeField<
   TFormValues extends Record<string, unknown>,
   TRangeField extends keyof TFormValues,
 > =
-  Record<never, never> extends Pick<TFormValues, TRangeField>
-    ? [Exclude<TFormValues[TRangeField], undefined>] extends [never]
+  Pick<TFormValues, TRangeField> extends Required<
+    Pick<TFormValues, TRangeField>
+  >
+    ? never
+    : [Exclude<TFormValues[TRangeField], undefined>] extends [never]
       ? never
       : Exclude<TFormValues[TRangeField], undefined> extends DateRange
         ? TRangeField
-        : never
-    : never;
+        : never;
 
 type DateRangeSubmitValues<
   TFormValues extends Record<string, unknown>,

@@ -356,7 +356,7 @@ interface TransitionPreferences {
   // /** 是否开启页面加载loading */
   loading: boolean;
   /** 页面切换动画 */
-  name: PageTransitionType | string;
+  name: PageTransitionType | (string & {});
   /** 是否开启页面加载进度动画 */
   progress: boolean;
 }
