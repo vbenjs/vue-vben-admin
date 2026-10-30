@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@vben/tsconfig/web.json",
-  "include": ["src", "global.d.ts"],
-  "exclude": ["node_modules"],
   "compilerOptions": {
     // 本包职责就是发布类型声明：关掉基类里的 skipLibCheck，让自身与工作区
     // 依赖包（如 @vben-core/typings）的 .d.ts 也参与检查，否则声明文件的
     // 错误（如未定义的类型名）会被静默掩盖。实测第三方声明无新增报错。
     "skipLibCheck": false
-  }
+  },
+  "include": ["src", "global.d.ts"],
+  "exclude": ["node_modules"]
 }
