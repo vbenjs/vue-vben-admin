@@ -17,8 +17,8 @@ import { customConfig } from './custom-config';
 type FlatConfig = Linter.Config;
 
 async function defineConfig(config: FlatConfig[] = []): Promise<FlatConfig[]> {
-  // 内置配置与桥接均为异步，两路并行解析；customConfig / 用户配置是同步
-  // 数组，直接拼接（同步值混入 Promise.all 会触发 await-thenable）。
+  // 各配置工厂均为异步，内置配置与桥接并行解析；customConfig / 用户配置
+  // 是同步数组，直接拼接。
   const [builtinConfigs, oxcConfigs] = await Promise.all([
     Promise.all([
       vue(),
@@ -36,10 +36,12 @@ async function defineConfig(config: FlatConfig[] = []): Promise<FlatConfig[]> {
 
   return [
     ...builtinConfigs.flat(),
-    ...customConfig,
-    // 桥接放在内置配置与 customConfig 之后、用户配置之前：先让其它配置
-    // 设置规则，再统一关停 oxlint 已覆盖的规则，用户配置仍可最终覆盖。
+    // 桥接放在内置配置之后、customConfig 与用户配置之前：先让其它配置
+    // 设置规则，再统一关停 oxlint 已覆盖的规则；customConfig 与用户
+    // 配置仍可最终覆盖（与 main 上 customConfig 先于用户配置拍板的
+    // 契约一致）。
     ...oxcConfigs,
+    ...customConfig,
     ...config,
   ];
 }
