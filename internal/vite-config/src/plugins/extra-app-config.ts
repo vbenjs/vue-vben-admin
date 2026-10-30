@@ -6,11 +6,6 @@ import {
   readPackageJSON,
 } from '@vben/node-utils';
 
-// 走 ./error 子路径而非 ./utils barrel：vite-config 是 node 库（tsconfig
-// 无 DOM lib），utils barrel 会拖入 dom.ts/download.ts 等 DOM 源码导致
-// 类型程序报错；error.ts 无任何依赖、node 安全。
-import { getErrorMessage } from '@vben-core/shared/error';
-
 import { loadEnv } from '../utils/env';
 
 interface PluginOptions {
@@ -56,7 +51,12 @@ async function viteExtraAppConfigPlugin({
 
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
-        const reason = getErrorMessage(error);
+        // 不复用 @vben-core/shared 的 getErrorMessage：那会让本包构建产物
+        // 运行时导入 shared 的 dist，而消费方（各 app/design 的
+        // vite.config.ts）不在 package.json 声明本包，turbo 图中与
+        // shared#build 没有顺序边——CI 全量 build 时会撞上 shared 重建
+        // 清空 dist 的窗口，ERR_MODULE_NOT_FOUND（post-update 实测）。
+        const reason = error instanceof Error ? error.message : String(error);
         console.log(
           colors.red(
             `configuration file configuration file failed to package:\n${reason}`,

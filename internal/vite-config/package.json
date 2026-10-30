@@ -30,7 +30,6 @@
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@jspm/generator": "catalog:",
     "@tailwindcss/vite": "catalog:",
-    "@vben-core/shared": "workspace:*",
     "@vben/node-utils": "workspace:*",
     "archiver": "catalog:",
     "cheerio": "catalog:",
