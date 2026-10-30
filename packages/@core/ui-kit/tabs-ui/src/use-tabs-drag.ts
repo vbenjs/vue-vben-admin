@@ -1,5 +1,4 @@
 import type { Sortable } from '@vben-core/composables';
-import type { EmitType } from '@vben-core/typings';
 
 import type { TabsProps } from './types';
 
@@ -15,7 +14,12 @@ function findParentElement(element: HTMLElement) {
     : element.closest(`.${parentCls}`);
 }
 
-export function useTabsDrag(props: TabsProps, emit: EmitType) {
+// 只会 emit sortTabs：参数类型收窄到实际事件签名（此前的宽泛 EmitType
+// 依赖 helper.d.ts 里未定义的 Name，error-type 掩盖了不兼容）。
+export function useTabsDrag(
+  props: TabsProps,
+  emit: (evt: 'sortTabs', oldIndex: number, newIndex: number) => void,
+) {
   const sortableInstance = ref<null | Sortable>(null);
 
   async function initTabsSortable() {

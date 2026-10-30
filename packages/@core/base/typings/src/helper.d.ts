@@ -125,7 +125,7 @@ type MergeAll<
   ? MergeAll<Rest, Merge<R, F>>
   : R;
 
-type EmitType = (name: Name, ...args: any[]) => void;
+type EmitType = (name: string, ...args: any[]) => void;
 
 type MaybePromise<T> = Promise<T> | T;
 

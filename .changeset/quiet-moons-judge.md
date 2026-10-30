@@ -1,4 +1,5 @@
 ---
+'@vben-core/tabs-ui': patch
 '@vben-core/typings': patch
 '@vben/common-ui': patch
 '@vben/vite-config': patch
