@@ -7,46 +7,49 @@ import {
   hasAuthority,
 } from '../generate-routes-frontend';
 
-// Mock 路由数据
-const mockRoutes = [
-  {
-    meta: {
-      authority: ['admin', 'user'],
-      hideInMenu: false,
+// Mock 路由数据（具名 fixture，避免 noUncheckedIndexedAccess 下的索引访问）
+const dashboardRoute = {
+  children: [
+    {
+      meta: { authority: ['admin'], hideInMenu: false },
+      path: '/dashboard/overview',
     },
-    path: '/dashboard',
-    children: [
-      {
-        path: '/dashboard/overview',
-        meta: { authority: ['admin'], hideInMenu: false },
-      },
-      {
-        path: '/dashboard/stats',
-        meta: { authority: ['user'], hideInMenu: true },
-      },
-    ],
+    {
+      meta: { authority: ['user'], hideInMenu: true },
+      path: '/dashboard/stats',
+    },
+  ],
+  meta: {
+    authority: ['admin', 'user'],
+    hideInMenu: false,
   },
-  {
-    meta: { authority: ['admin'], hideInMenu: false },
-    path: '/settings',
-  },
-  {
-    meta: { hideInMenu: false },
-    path: '/profile',
-  },
-] as RouteRecordRaw[];
+  path: '/dashboard',
+} as RouteRecordRaw;
+const settingsRoute = {
+  meta: { authority: ['admin'], hideInMenu: false },
+  path: '/settings',
+} as RouteRecordRaw;
+const profileRoute = {
+  meta: { hideInMenu: false },
+  path: '/profile',
+} as RouteRecordRaw;
+const mockRoutes: RouteRecordRaw[] = [
+  dashboardRoute,
+  settingsRoute,
+  profileRoute,
+];
 
 describe('hasAuthority', () => {
   it('should return true if there is no authority defined', () => {
-    expect(hasAuthority(mockRoutes[2], ['admin'])).toBe(true);
+    expect(hasAuthority(profileRoute, ['admin'])).toBe(true);
   });
 
   it('should return true if the user has the required authority', () => {
-    expect(hasAuthority(mockRoutes[0], ['admin'])).toBe(true);
+    expect(hasAuthority(dashboardRoute, ['admin'])).toBe(true);
   });
 
   it('should return false if the user does not have the required authority', () => {
-    expect(hasAuthority(mockRoutes[1], ['user'])).toBe(false);
+    expect(hasAuthority(settingsRoute, ['user'])).toBe(false);
   });
 });
 
