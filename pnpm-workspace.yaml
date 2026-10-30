@@ -136,7 +136,7 @@ catalog:
   find-up: ^8.0.0
   get-port: ^7.2.0
   globals: ^17.7.0
-  h3: ^1.15.11
+  h3: ^2.0.8
   happy-dom: ^20.14.5
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
