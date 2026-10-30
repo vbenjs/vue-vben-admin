@@ -7,4 +7,5 @@ export const mergeWithArrayOverride = createDefu((originObj, key, updates) => {
     originObj[key] = updates;
     return true;
   }
+  return false;
 });

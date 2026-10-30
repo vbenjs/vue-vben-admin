@@ -189,7 +189,7 @@ Take the addition of the test environment `test` to `@vben/web-antd` as an examp
   "build:analyze": "pnpm vite build --mode analyze",
   "dev": "pnpm vite --mode development",
   "preview": "vite preview",
-  "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  "typecheck": "vue-tsc --noEmit"
 }
 ```
 

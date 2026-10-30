@@ -1,6 +1,7 @@
 import { eventHandler, getQuery } from 'h3';
 import { getEnabledDictData } from '~/utils/dict-utils';
 import { verifyAccessToken } from '~/utils/jwt-utils';
+import { firstQueryString } from '~/utils/query';
 import { unAuthorizedResponse, useResponseSuccess } from '~/utils/response';
 
 export default eventHandler(async (event) => {
@@ -14,5 +15,5 @@ export default eventHandler(async (event) => {
     return useResponseSuccess([]);
   }
 
-  return useResponseSuccess(getEnabledDictData(String(code)));
+  return useResponseSuccess(getEnabledDictData(firstQueryString(code)));
 });

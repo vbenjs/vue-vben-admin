@@ -91,13 +91,12 @@ async function runParallel(commands: Command[]) {
 
   const results = await Promise.allSettled(subprocesses);
 
-  // 汇总所有失败的命令，与串行模式保持一致的错误输出
-  const failed: Command[] = [];
-  results.forEach((result, index) => {
-    if (result.status === 'rejected') {
-      failed.push(commands[index]);
-    }
-  });
+  // 汇总所有失败的命令，与串行模式保持一致的错误输出。
+  // allSettled 结果与 commands 按索引一一对应，用可选链读取即可满足
+  // noUncheckedIndexedAccess，无需死守卫分支。
+  const failed: Command[] = commands.filter(
+    (_, index) => results[index]?.status === 'rejected',
+  );
 
   if (failed.length > 0) {
     throw new LintError(failed);
@@ -116,7 +115,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
 
   if (format) {
     await runSerial([
-      ['oxlint', ['--fix', '--type-aware', threadsArg]],
+      ['oxlint', ['--fix', threadsArg]],
       ['oxfmt', [threadsArg]],
       ['eslint', ['.', '--cache', '--fix']],
       ['stylelint', ['**/*.{vue,css,less,scss}', '--cache', '--fix']],
@@ -125,7 +124,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
   }
 
   const commands: Command[] = [
-    ['oxlint', ['--type-aware', threadsArg]],
+    ['oxlint', [threadsArg]],
     ['oxfmt', ['--check', threadsArg]],
     ['eslint', ['.', '--cache']],
     ['stylelint', ['**/*.{vue,css,less,scss}', '--cache']],

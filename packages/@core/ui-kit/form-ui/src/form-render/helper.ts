@@ -46,7 +46,7 @@ export function getDefaultValueInZodStack(
   schema?: null | string | ZodType,
 ): any {
   if (!schema || isString(schema)) {
-    return;
+    return undefined;
   }
 
   try {

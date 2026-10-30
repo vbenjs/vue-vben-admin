@@ -145,8 +145,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       if (tabIndex === -1) {
         const maxCount = preferences.tabbar.maxCount;
         // 获取动态路由打开数，超过 0 即代表需要控制打开数
-        const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ??
-          -1) as number;
+        const maxNumOfOpenTab = routeTab?.meta?.maxNumOfOpenTab ?? -1;
         // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
         // 获取到已经打开的动态路由数, 判断是否大于某一个值
         if (
@@ -188,7 +187,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         tab = mergedTab;
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
-      this.updateCacheTabs();
+      void this.updateCacheTabs();
       // 添加访问历史记录
       if (isVisitHistory()) {
         this.visitHistory.push(tab.key as string);
@@ -208,7 +207,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         );
       }
       await this._goToDefaultTab(router);
-      this.updateCacheTabs();
+      await this.updateCacheTabs();
     },
     /**
      * @zh_CN 关闭左侧标签页
@@ -286,7 +285,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       // 关闭不是激活选项卡
       if (currentTabKey !== getTabKeyFromTab(tab)) {
         this._close(tab);
-        this.updateCacheTabs();
+        await this.updateCacheTabs();
         // 移除访问历史记录
         if (isVisitHistory()) {
           this.visitHistory.remove(getTabKeyFromTab(tab));
@@ -413,14 +412,17 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       this.excludeCachedTabs.add(name as string);
       this.renderRouteView = false;
-      startProgress();
+      // startProgress 内部是动态导入 nprogress，导入失败不应中断刷新流程：
+      // 否则 renderRouteView 停留 false（内容区空白）、标签页永久滞留在
+      // excludeCachedTabs 里。与各应用 guard.ts 一致 fire-and-forget。
+      void startProgress();
 
       await nextTick();
       // await new Promise((resolve) => setTimeout(resolve, 200));
 
       this.excludeCachedTabs.delete(name as string);
       this.renderRouteView = true;
-      stopProgress();
+      void stopProgress();
     },
 
     /**
@@ -589,8 +591,8 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
 
       return affixTabs.toSorted((a, b) => {
-        const orderA = (a.meta?.affixTabOrder ?? 0) as number;
-        const orderB = (b.meta?.affixTabOrder ?? 0) as number;
+        const orderA = a.meta?.affixTabOrder ?? 0;
+        const orderB = b.meta?.affixTabOrder ?? 0;
         return orderA - orderB;
       });
     },
@@ -711,12 +713,15 @@ function isTabShown(tab: TabDefinition) {
  * @param tab
  */
 function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
+  // 运行时传入的记录可能缺省 meta/query（测试与部分调用点给的是不完整对象），
+  // 按可选视图解构，让解构默认值真正承担兜底职责。
   const {
     fullPath,
     path,
     meta: { fullPathKey } = {},
     query = {},
-  } = tab as RouteLocationNormalized;
+  } = tab as Partial<RouteLocationNormalized> &
+    Pick<RouteLocationNormalized, 'fullPath' | 'path'>;
   // pageKey可能是数组（查询参数重复时可能出现）
   const pageKey = Array.isArray(query.pageKey)
     ? query.pageKey[0]

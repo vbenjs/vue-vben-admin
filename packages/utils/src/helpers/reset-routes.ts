@@ -20,12 +20,11 @@ export function resetStaticRoutes(router: Router, routes: RouteRecordRaw[]) {
     return route.name;
   });
 
-  const { getRoutes, hasRoute, removeRoute } = router;
-  const allRoutes = getRoutes();
+  const allRoutes = router.getRoutes();
   allRoutes.forEach(({ name }) => {
     // 存在于路由表且非白名单才需要删除
-    if (name && !staticRouteNames.includes(name) && hasRoute(name)) {
-      removeRoute(name);
+    if (name && !staticRouteNames.includes(name) && router.hasRoute(name)) {
+      router.removeRoute(name);
     }
   });
 }
