@@ -16,8 +16,9 @@ export default eventHandler(async (event) => {
   const nameValue = firstQueryString(name);
   const codeValue = firstQueryString(code);
   const statusValue = firstQueryString(status);
-  const pageValue = firstQueryString(page) || '1';
-  const pageSizeValue = firstQueryString(pageSize) || '20';
+  // parseInt 兜底：空值/垃圾串（?page=abc）回落默认页，避免 NaN 切片清空列表
+  const pageNumber = Number.parseInt(firstQueryString(page), 10) || 1;
+  const pageSizeNumber = Number.parseInt(firstQueryString(pageSize), 10) || 20;
 
   let listData = structuredClone(getDictTypes());
   if (nameValue) {
@@ -34,5 +35,5 @@ export default eventHandler(async (event) => {
     listData = listData.filter((item) => item.status === Number(statusValue));
   }
 
-  return usePageResponseSuccess(pageValue, pageSizeValue, listData);
+  return usePageResponseSuccess(pageNumber, pageSizeNumber, listData);
 });
