@@ -6,7 +6,10 @@ import {
   readPackageJSON,
 } from '@vben/node-utils';
 
-import { getErrorMessage } from '@vben-core/shared/utils';
+// 走 ./error 子路径而非 ./utils barrel：vite-config 是 node 库（tsconfig
+// 无 DOM lib），utils barrel 会拖入 dom.ts/download.ts 等 DOM 源码导致
+// 类型程序报错；error.ts 无任何依赖、node 安全。
+import { getErrorMessage } from '@vben-core/shared/error';
 
 import { loadEnv } from '../utils/env';
 

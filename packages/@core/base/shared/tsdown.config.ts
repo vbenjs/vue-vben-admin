@@ -9,6 +9,7 @@ export default defineConfig({
     'constants/index': 'src/constants/index.ts',
     'global-state': 'src/global-state.ts',
     store: 'src/store.ts',
+    'utils/error': 'src/utils/error.ts',
     'utils/index': 'src/utils/index.ts',
   },
   format: ['esm'],

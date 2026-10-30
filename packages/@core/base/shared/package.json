@@ -25,6 +25,12 @@
       "production": "./src/constants/index.ts",
       "default": "./dist/constants/index.mjs"
     },
+    "./error": {
+      "types": "./src/utils/error.ts",
+      "development": "./src/utils/error.ts",
+      "production": "./src/utils/error.ts",
+      "default": "./dist/utils/error.mjs"
+    },
     "./utils": {
       "types": "./src/utils/index.ts",
       "development": "./src/utils/index.ts",
