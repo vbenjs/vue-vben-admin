@@ -48,19 +48,19 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
         const { srcElement } = (evt as any).originalEvent;
 
         if (!srcElement) {
-          resetElState();
+          void resetElState();
           return;
         }
 
         const srcParent = findParentElement(srcElement);
 
         if (!srcParent) {
-          resetElState();
+          void resetElState();
           return;
         }
 
         if (!srcParent.classList.contains('draggable')) {
-          resetElState();
+          void resetElState();
 
           return;
         }
@@ -74,7 +74,7 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
         ) {
           emit('sortTabs', oldIndex, newIndex);
         }
-        resetElState();
+        void resetElState();
       },
       onMove(evt) {
         const parent = findParentElement(evt.related);
@@ -105,7 +105,7 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
       return;
     }
     await nextTick();
-    initTabsSortable();
+    await initTabsSortable();
   }
 
   onMounted(init);
@@ -114,7 +114,7 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
     () => props.styleType,
     () => {
       sortableInstance.value?.destroy();
-      init();
+      void init();
     },
   );
 

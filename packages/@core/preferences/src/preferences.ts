@@ -197,9 +197,7 @@ class PreferenceManager {
       return;
     }
 
-    const sanitizedUpdates = this.sanitizeCustomPreferences(
-      updates as DeepPartial<CustomPreferencesRecord>,
-    );
+    const sanitizedUpdates = this.sanitizeCustomPreferences(updates);
 
     if (Object.keys(sanitizedUpdates).length === 0) {
       return;

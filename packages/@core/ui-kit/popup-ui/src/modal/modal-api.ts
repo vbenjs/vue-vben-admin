@@ -126,7 +126,7 @@ export class ModalApi<TData = unknown> {
     if (this.api.onCancel) {
       this.api.onCancel?.();
     } else {
-      this.close();
+      void this.close();
     }
   }
 

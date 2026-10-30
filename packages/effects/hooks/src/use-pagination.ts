@@ -14,7 +14,7 @@ function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
   if (pageNo < 1) throw new Error('Page number must be positive');
   if (pageSize < 1) throw new Error('Page size must be positive');
 
-  const offset = (pageNo - 1) * Number(pageSize);
+  const offset = (pageNo - 1) * pageSize;
   const ret =
     offset + pageSize >= list.length
       ? list.slice(offset)
