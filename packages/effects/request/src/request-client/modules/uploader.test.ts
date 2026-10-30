@@ -135,6 +135,37 @@ describe('fileUploader', () => {
     ).toBe(true);
   });
 
+  it('should preserve false-valued header sentinels from AxiosHeaders instances', async () => {
+    // axios 1.19.0 的实例自身属性可持有 false/null 哨兵（set()/
+    // normalizeValue() 原样保留），只有 toJSON()/迭代器会过滤它们；
+    // 归一化必须浅拷贝实例自身属性，哨兵才能存活到 axios 的配置合并。
+    const url = 'https://example.com/upload';
+    const file = new File(['file content'], 'test.txt', { type: 'text/plain' });
+    (
+      mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>
+    ).mockResolvedValueOnce({} as AxiosResponse);
+
+    await fileUploader.upload(
+      url,
+      { file },
+      {
+        headers: new AxiosHeaders({
+          Authorization: false,
+          'X-Null': null,
+          'X-Keep': 'value',
+        }),
+      },
+    );
+    const call = (mockAxiosInstance.post as unknown as ReturnType<typeof vi.fn>)
+      .mock.lastCall?.[2] as { headers: Record<string, unknown> };
+    expect(call.headers).toEqual({
+      'Content-Type': 'multipart/form-data',
+      Authorization: false,
+      'X-Null': null,
+      'X-Keep': 'value',
+    });
+  });
+
   it('should handle errors gracefully', async () => {
     const url = 'https://example.com/upload';
     const file = new File(['file content'], 'test.txt', { type: 'text/plain' });
