@@ -197,7 +197,7 @@ git hook 一般结合各种 lint，在 git 提交代码的时候进行代码风�
   - `oxfmt`: 格式化 JavaScript / TypeScript / JSON / Markdown 文件
   - `eslint`: 补充检查并修复脚本文件（Vue、JSONC、YAML 等）
   - `stylelint`: 检查并修复样式文件
-- `pre-push`: 在推送前运行类型检查（当前覆盖声明了 `typecheck` 脚本的包，后续随各包接入逐步扩为全量）
+- `pre-push`: 在推送前运行全仓类型检查（除 `tsconfig`、`commitlint-config`、`stylelint-config` 三个纯配置包外，所有 workspace 包均已声明 `typecheck` 脚本）
   - `typecheck`: 运行 `pnpm check:type`（turbo 缓存命中时秒级返回）
 - `post-merge`: 在合并后运行，用于自动安装依赖
   - `install`: 运行 `pnpm install` 安装新依赖
@@ -218,7 +218,7 @@ pnpm exec lefthook install
 git commit -m 'feat: add home page' --no-verify
 ```
 
-如果想跳过推送前的类型检查，可以使用：
+如果想跳过推送前的全量类型检查，可以使用：
 
 ```bash
 LEFTHOOK=0 git push

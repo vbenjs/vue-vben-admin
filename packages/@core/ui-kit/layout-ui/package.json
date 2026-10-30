@@ -12,7 +12,8 @@
   "type": "module",
   "scripts": {
     "build": "pnpm exec tsdown",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "dist"
