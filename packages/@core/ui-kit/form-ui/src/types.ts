@@ -383,7 +383,11 @@ export type FormSchemaRuleType =
 
 type FormItemDependenciesCondition<
   TValues extends FormValues,
-  TResult = boolean | PromiseLike<boolean>,
+  // 返回值放宽为 unknown：存量 if/show/disabled/required 回调可能返回
+  // 任意 truthy/falsy 值（运行时强制布尔化，对齐上游语义），只声明
+  // boolean 会让等价的 JS 用法在 TS 下误报——trigger 字段已用同一手法
+  // 放宽。
+  TResult = unknown,
 > = (
   value: Partial<TValues>,
   actions: FormActions<TValues>,
@@ -477,7 +481,7 @@ export interface FormItemDependenciesLegacy<
    */
   // 返回类型放宽为 unknown：存量 trigger 回调常为 async（返回 Promise），
   // 调用方需要 await 它，异常才能在当前求值上下文被捕获（上游 #7830）。
-  trigger?: FormItemDependenciesCondition<TValues, unknown>;
+  trigger?: FormItemDependenciesCondition<TValues>;
 }
 
 export interface FormItemDependenciesResolve<
