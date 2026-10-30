@@ -105,6 +105,7 @@ function extendProxyOption(
       },
     },
   });
+  return options;
 }
 
 /**

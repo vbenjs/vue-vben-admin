@@ -63,8 +63,8 @@ export function pagination<T = any>(
   pageSize: number,
   array: T[],
 ): T[] {
-  const offset = (pageNo - 1) * Number(pageSize);
-  return offset + Number(pageSize) >= array.length
+  const offset = (pageNo - 1) * pageSize;
+  return offset + pageSize >= array.length
     ? array.slice(offset)
-    : array.slice(offset, offset + Number(pageSize));
+    : array.slice(offset, offset + pageSize);
 }
