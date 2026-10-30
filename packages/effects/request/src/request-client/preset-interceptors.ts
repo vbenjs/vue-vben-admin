@@ -7,21 +7,18 @@ import { isFunction } from '@vben/utils';
 import axios from 'axios';
 
 export const defaultResponseInterceptor = ({
-  // 声明类型是必填（TS 调用方必须传），但这是已发布包的运行时契约：
-  // JS 消费方可能省略任一参数，省略时按上游语义回落到 code/data/0。
-  // 类型视角的「永远用不到」不等于运行时安全，保留默认值。
-  // oxlint-disable typescript/no-useless-default-assignment
+  // 已发布包的运行时契约：JS 消费方可能省略任一参数，省略时按上游
+  // 语义回落到 code/data/0，参数类型因此标可选（默认值类型合法）。
   codeField = 'code',
   dataField = 'data',
   successCode = 0,
-  // oxlint-enable typescript/no-useless-default-assignment
 }: {
   /** 响应数据中代表访问结果的字段名 */
-  codeField: string;
+  codeField?: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
-  dataField: ((response: any) => any) | string;
+  dataField?: ((response: any) => any) | string;
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
-  successCode: ((code: any) => boolean) | number | string;
+  successCode?: ((code: any) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
   return {
     fulfilled: (response) => {
