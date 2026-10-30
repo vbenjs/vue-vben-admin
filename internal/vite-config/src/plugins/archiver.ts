@@ -17,24 +17,30 @@ export const viteArchiverPlugin = (
       handler() {
         const { name = 'dist', outputDir = '.' } = options;
 
-        setTimeout(async () => {
-          const folderToZip = 'dist';
+        // 保持原 setTimeout 延迟语义（等产物写入落盘后再打包），但把结果
+        // 交回 closeBundle：打包失败时以 Promise 拒绝回传，让 Vite 构建
+        // 失败并带出错误，而不是 console.error 吞掉后静默产出不完整的 zip。
+        return new Promise<void>((resolve, reject) => {
+          setTimeout(async () => {
+            const folderToZip = 'dist';
 
-          const zipOutputDir = join(process.cwd(), outputDir);
-          const zipOutputPath = join(zipOutputDir, `${name}.zip`);
-          try {
-            await fsp.mkdir(zipOutputDir, { recursive: true });
-          } catch {
-            // ignore
-          }
+            const zipOutputDir = join(process.cwd(), outputDir);
+            const zipOutputPath = join(zipOutputDir, `${name}.zip`);
+            try {
+              await fsp.mkdir(zipOutputDir, { recursive: true });
+            } catch {
+              // ignore
+            }
 
-          try {
-            await zipFolder(folderToZip, zipOutputPath);
-            console.log(`Folder has been zipped to: ${zipOutputPath}`);
-          } catch (error) {
-            console.error('Error zipping folder:', error);
-          }
-        }, 0);
+            try {
+              await zipFolder(folderToZip, zipOutputPath);
+              console.log(`Folder has been zipped to: ${zipOutputPath}`);
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        });
       },
       order: 'post',
     },
