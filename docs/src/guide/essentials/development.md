@@ -189,7 +189,7 @@ pnpm dev:docs
   "build:analyze": "pnpm vite build --mode analyze",
   "dev": "pnpm vite --mode development",
   "preview": "vite preview",
-  "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  "typecheck": "vue-tsc --noEmit"
 },
 ```
 

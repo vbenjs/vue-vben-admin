@@ -11,7 +11,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "#build": "pnpm exec tsdown"
+    "#build": "pnpm exec tsdown",
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "dist",
