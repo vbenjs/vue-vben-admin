@@ -33,6 +33,7 @@
     "eslint": "catalog:",
     "eslint-plugin-jsonc": "catalog:",
     "eslint-plugin-n": "catalog:",
+    "eslint-plugin-oxlint": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",
     "eslint-plugin-pnpm": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
