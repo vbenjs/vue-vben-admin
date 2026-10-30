@@ -114,7 +114,14 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
           if (!chartInstance || chartInstance?.getDom() !== el) {
             chartInstance?.dispose();
             const instance = initCharts();
-            if (!instance) return;
+            // 等待窗口内组件卸载（ref 已空）时拿不到实例：按 Nullable
+            // 语义 resolve(null)，不能裸 return——那会让返回的 Promise
+            // 永久 pending，挂起下游 await renderEcharts/updateData 的
+            // 调用方。
+            if (!instance) {
+              resolve(null);
+              return;
+            }
             chartInstance = instance;
           }
           clear && chartInstance?.clear();
