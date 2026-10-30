@@ -1,4 +1,4 @@
-import type { Component } from 'vue';
+import type { Component, VNode } from 'vue';
 
 export interface IconPickerProps {
   pageSize?: number;
@@ -11,11 +11,10 @@ export interface IconPickerProps {
    */
   icons?: string[];
   /**
-   * Input 组件，经 `:is` 渲染。既可直接传组件定义（测试用法），
-   * 也可传 h() 创建的 VNode（演示页用法）——后者在结构上同样可赋给
-   * Component，两种形态运行时均可渲染。
+   * Input 组件，经 `:is` 渲染。adapter 传组件定义（Input/NInput/ElInput），
+   * 演示页传 h() 创建的 VNode——两种形态运行时均可渲染，类型上显式并列。
    */
-  inputComponent?: Component;
+  inputComponent?: Component | VNode;
   /** 图标插槽名，预览图标将被渲染到此插槽中 */
   iconSlot?: string;
   /** input组件的值属性名称（如 antd 为 'value'、element 为 'model-value'）。组件自身的取值始终通过 v-model 交互 */
