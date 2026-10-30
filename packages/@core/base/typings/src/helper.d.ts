@@ -125,6 +125,13 @@ type MergeAll<
   ? MergeAll<Rest, Merge<R, F>>
   : R;
 
+/**
+ * 任意名字 + 任意参数的事件回调。
+ *
+ * @deprecated 仓内已无消费者的遗留别名：宽泛签名放弃了事件名与参数的
+ * 类型检查。组件事件请直接用 vue 的 emits 选项类型或具体事件签名
+ * （参照 tabs-ui 对 sortTabs 的收窄写法），新代码勿再引用。
+ */
 type EmitType = (name: string, ...args: any[]) => void;
 
 type MaybePromise<T> = Promise<T> | T;
