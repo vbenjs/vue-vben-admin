@@ -22,4 +22,14 @@ function firstQueryString(value: QueryParamValue): string {
   return typeof value === 'string' ? value : '';
 }
 
-export { firstQueryString };
+/**
+ * 取查询参数的首个整数值。
+ *
+ * parseInt 兜底：空值/垃圾串（?page=abc）回落默认值，
+ * 避免 NaN 切片清空列表。
+ */
+function firstQueryInt(value: QueryParamValue, defaultValue: number): number {
+  return Number.parseInt(firstQueryString(value), 10) || defaultValue;
+}
+
+export { firstQueryInt, firstQueryString };

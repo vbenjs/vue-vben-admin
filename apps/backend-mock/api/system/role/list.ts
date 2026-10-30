@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { eventHandler, getQuery } from 'h3';
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { getMenuIds, MOCK_MENU_LIST } from '~/utils/mock-data';
-import { firstQueryString } from '~/utils/query';
+import { firstQueryInt, firstQueryString } from '~/utils/query';
 import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
 
 const formatterCN = new Intl.DateTimeFormat('zh-CN', {
@@ -56,9 +56,8 @@ export default eventHandler(async (event) => {
   const startTimeValue = firstQueryString(startTime);
   const endTimeValue = firstQueryString(endTime);
   const statusValue = firstQueryString(status);
-  // parseInt 兜底：空值/垃圾串（?page=abc）回落默认页，避免 NaN 切片清空列表
-  const pageNumber = Number.parseInt(firstQueryString(page), 10) || 1;
-  const pageSizeNumber = Number.parseInt(firstQueryString(pageSize), 10) || 20;
+  const pageNumber = firstQueryInt(page, 1);
+  const pageSizeNumber = firstQueryInt(pageSize, 20);
 
   let listData = structuredClone(mockData);
   if (nameValue) {

@@ -1,7 +1,7 @@
 import { eventHandler, getQuery } from 'h3';
 import { getDictDataList } from '~/utils/dict-utils';
 import { verifyAccessToken } from '~/utils/jwt-utils';
-import { firstQueryString } from '~/utils/query';
+import { firstQueryInt, firstQueryString } from '~/utils/query';
 import {
   unAuthorizedResponse,
   usePageResponseSuccess,
@@ -20,9 +20,8 @@ export default eventHandler(async (event) => {
   const dictCodeValue = firstQueryString(dictCode);
   const labelValue = firstQueryString(label);
   const statusValue = firstQueryString(status);
-  // parseInt 兜底：空值/垃圾串（?page=abc）回落默认页，避免 NaN 切片清空列表
-  const pageNumber = Number.parseInt(firstQueryString(page), 10) || 1;
-  const pageSizeNumber = Number.parseInt(firstQueryString(pageSize), 10) || 20;
+  const pageNumber = firstQueryInt(page, 1);
+  const pageSizeNumber = firstQueryInt(pageSize, 20);
 
   if (!dictCodeValue) {
     return useResponseError('dictCode is required');
