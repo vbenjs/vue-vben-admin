@@ -249,8 +249,6 @@ async function previewImage(
     return;
   }
 
-  const [ImageComponent, PreviewGroupComponent] = [Image, PreviewGroup];
-
   // 过滤图片文件并生成预览
   const imageFiles = (unref(fileList) || []).filter((f) => isImageFile(f));
 
@@ -271,7 +269,7 @@ async function previewImage(
       return () => {
         if (isUnmounted) return null;
         return h(
-          PreviewGroupComponent,
+          PreviewGroup,
           {
             class: 'hidden',
             preview: {
@@ -293,7 +291,7 @@ async function previewImage(
           },
           () =>
             imageFiles.map((imgFile) =>
-              h(ImageComponent, {
+              h(Image, {
                 key: imgFile.uid,
                 src: imgFile.url || imgFile.preview,
               }),
