@@ -123,8 +123,8 @@ describe('imperative alert builder (AlertBuilder)', () => {
   });
 
   it('removes every mounted container when clearAllAlerts is called', async () => {
-    alert({ content: 'First alert', confirmText: 'First confirm' });
-    alert({ content: 'Second alert', confirmText: 'Second confirm' });
+    void alert({ content: 'First alert', confirmText: 'First confirm' });
+    void alert({ content: 'Second alert', confirmText: 'Second confirm' });
     await nextTick();
     await nextTick();
 
