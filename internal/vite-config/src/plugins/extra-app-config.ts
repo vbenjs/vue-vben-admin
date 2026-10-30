@@ -6,6 +6,8 @@ import {
   readPackageJSON,
 } from '@vben/node-utils';
 
+import { getErrorMessage } from '@vben-core/shared/utils';
+
 import { loadEnv } from '../utils/env';
 
 interface PluginOptions {
@@ -51,7 +53,7 @@ async function viteExtraAppConfigPlugin({
 
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
-        const reason = error instanceof Error ? error.message : String(error);
+        const reason = getErrorMessage(error);
         console.log(
           colors.red(
             `configuration file configuration file failed to package:\n${reason}`,

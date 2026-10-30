@@ -1233,6 +1233,9 @@ importers:
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.50.0)(yaml@2.9.0))
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/shared
       '@vben/node-utils':
         specifier: workspace:*
         version: link:../node-utils
