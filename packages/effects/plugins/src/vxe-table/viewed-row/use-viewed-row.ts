@@ -160,6 +160,14 @@ function createStorageAdapter(
   }
 }
 
+// ========== 行样式合并 ==========
+
+// vxe 的 RowStyle 类型是 Partial<CSSStyleDeclaration>（带数字索引签名），
+// 直接对象展开会按数字键合并出垃圾；收窄为普通样式对象后逐键合并。
+function asStyleRecord(style: unknown): Record<string, string> {
+  return style as Record<string, string>;
+}
+
 // ========== maxSize 淘汰 ==========
 
 /**
@@ -517,10 +525,6 @@ export function applyViewedRowOptions(
     if (!viewedStyle && !originalStyle) return undefined;
     if (!originalStyle) return viewedStyle;
     if (!viewedStyle) return originalStyle;
-    // vxe 的 RowStyle 类型是 Partial<CSSStyleDeclaration>（带数字索引签名），
-    // 直接对象展开会按数字键合并出垃圾；收窄为普通样式对象后逐键合并。
-    const asStyleRecord = (style: unknown): Record<string, string> =>
-      style as Record<string, string>;
     return { ...asStyleRecord(originalStyle), ...asStyleRecord(viewedStyle) };
   };
 
