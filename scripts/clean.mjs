@@ -106,7 +106,7 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
   }
 }
 
-(async function startCleanup() {
+await (async function startCleanup() {
   // 要删除的目录及文件名称
   const targets = ['node_modules', 'dist', '.turbo', 'dist.zip'];
   const deleteLockFile = process.argv.includes('--del-lock');
