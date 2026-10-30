@@ -53,16 +53,17 @@ describe('modalApi', () => {
     expect(modalApi.store.state.isOpen).toBe(true);
   });
 
-  it('should close the modal if onBeforeClose allows it', () => {
-    modalApi.close();
+  it('should close the modal if onBeforeClose allows it', async () => {
+    modalApi.open();
+    await modalApi.close();
     expect(modalApi.store.state.isOpen).toBe(false);
   });
 
-  it('should not close the modal if onBeforeClose returns false', () => {
+  it('should not close the modal if onBeforeClose returns false', async () => {
     const onBeforeClose = vi.fn(() => false);
     const modalApiWithHook = new ModalApi({ onBeforeClose });
     modalApiWithHook.open();
-    modalApiWithHook.close();
+    await modalApiWithHook.close();
     expect(modalApiWithHook.store.state.isOpen).toBe(true);
     expect(onBeforeClose).toHaveBeenCalled();
   });

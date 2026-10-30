@@ -46,6 +46,25 @@ describe('date range codec', () => {
       rangeField: 'optionalText',
       startField: 'start',
     });
+
+    interface LooseFieldCandidates extends Record<string, unknown> {
+      // any 字段绕过值类型检查，也必须被拒绝
+      anyField: any;
+      rangeOrMissing: [Dayjs, Dayjs] | undefined;
+    }
+    const createLooseCodec = createDateRangeCodec<LooseFieldCandidates>();
+    createLooseCodec({
+      endField: 'end',
+      // @ts-expect-error An `any` field must not be accepted as a range.
+      rangeField: 'anyField',
+      startField: 'start',
+    });
+    createLooseCodec({
+      endField: 'end',
+      // @ts-expect-error A required `X | undefined` union is not optional.
+      rangeField: 'rangeOrMissing',
+      startField: 'start',
+    });
   });
 
   it('encodes and decodes configurable date range fields', () => {
