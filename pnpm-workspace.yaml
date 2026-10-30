@@ -137,7 +137,7 @@ catalog:
   get-port: ^7.2.0
   globals: ^17.7.0
   h3: ^1.15.11
-  happy-dom: ^20.14.5
+  happy-dom: ^21.0.4
   html-minifier-terser: ^7.2.0
   is-ci: ^4.1.0
   json-bigint: ^1.0.0
