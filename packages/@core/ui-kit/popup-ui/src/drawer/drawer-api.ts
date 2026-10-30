@@ -117,7 +117,7 @@ export class DrawerApi<TData = unknown> {
     if (this.api.onCancel) {
       this.api.onCancel?.();
     } else {
-      this.close();
+      void this.close();
     }
   }
 

@@ -48,12 +48,12 @@ export function resolveChildUpdateFieldName(
 
   const indexedPrefix = `${parentFieldName}[`;
   if (!fieldName.startsWith(indexedPrefix)) {
-    return;
+    return undefined;
   }
 
   const closeIndex = fieldName.indexOf(']', indexedPrefix.length);
   if (closeIndex === -1 || fieldName[closeIndex + 1] !== '.') {
-    return;
+    return undefined;
   }
   return fieldName.slice(closeIndex + 2);
 }

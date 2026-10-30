@@ -25,13 +25,13 @@ type UseVbenFormReturn<
 
 export function useVbenForm<
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
 >(options: VbenFormProps<T, P>): UseVbenFormReturn<FormValues, T, P>;
 
 export function useVbenForm<
   TValues extends FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TValues,
 >(
   options: VbenFormProps<T, P, TValues, TSubmitValues>,

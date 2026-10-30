@@ -117,7 +117,7 @@ function getDefaultState<
 export class FormApi<
   TFormValues extends FormValues = FormValues,
   T extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TSubmitValues extends FormValues = TFormValues,
 > {
   // private api: Pick<VbenFormProps, 'handleReset' | 'handleSubmit'>;
@@ -174,7 +174,12 @@ export class FormApi<
   }
 
   formatValues(rawValues: Readonly<TFormValues>): TSubmitValues;
-  /** @deprecated Declare the submit type on `useVbenForm` instead. */
+  /**
+   * @deprecated Declare the submit type on `useVbenForm` instead.
+   */
+  // TResult 仅出现在返回位（显式类型实参消费方依赖它收窄结果类型），
+  // 属于有意的公共 API 兼容重载，非内部冗余泛型。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
   formatValues<TResult extends FormValues>(
     rawValues: Readonly<FormValues>,
   ): TResult;
@@ -199,6 +204,9 @@ export class FormApi<
    * @param fieldName 字段名
    * @returns 组件实例
    */
+  // T 仅出现在返回位（调用方以显式类型实参获取具体组件实例，
+  // 如 getFieldComponentRef<InputInstance>('field')），是有意的公共 API。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
   getFieldComponentRef<T = ComponentPublicInstance>(
     fieldName: string,
   ): T | undefined {
@@ -312,7 +320,7 @@ export class FormApi<
                 chain.map(async (api) => {
                   const validateResult = await api.validate();
                   if (!validateResult.valid) {
-                    return;
+                    return undefined;
                   }
                   const rawValues = toRaw((await api.getValues()) || {});
                   return rawValues;
@@ -325,6 +333,7 @@ export class FormApi<
               return results;
             } catch (error) {
               console.error('Validation error:', error);
+              return undefined;
             }
           };
         }
@@ -508,7 +517,13 @@ export class FormApi<
   ) {
     const form = await this.getForm();
     if (!filterFields) {
-      form.setValues(fields as Partial<TFormValues>, shouldValidate);
+      // FormValuePatch 允许嵌套属性省略，宽于 FormActions.setValues 的
+      // Partial<TFormValues>；运行时按浅合并接受任意形状，断言仅为
+      // 类型层面的收敛（上游既有写法）。泛型体按约束检查时该断言看似
+      // 多余（约束即 Record<string, any>，两侧同型），具体实例化时才
+      // 体现差异，故压制 no-unnecessary-type-assertion。
+      // oxlint-disable-next-line typescript/no-unnecessary-type-assertion
+      await form.setValues(fields as Partial<TFormValues>, shouldValidate);
       return;
     }
 
@@ -554,7 +569,7 @@ export class FormApi<
       return result;
     };
     const filteredFields = filterValue(mergedFields) as Partial<TFormValues>;
-    form.setValues(filteredFields, shouldValidate);
+    await form.setValues(filteredFields, shouldValidate);
   }
 
   async submit(e?: Event) {
@@ -575,7 +590,7 @@ export class FormApi<
   }
 
   unmount() {
-    this.form?.reset?.();
+    void this.form?.reset?.();
     // this.state = null;
     this.componentRefMap = new Map();
     this.latestSubmissionValues = null;
@@ -618,7 +633,7 @@ export class FormApi<
 
   async validateAndSubmit() {
     const { valid } = await this.validate();
-    if (!valid) return;
+    if (!valid) return undefined;
     return this.submitValues();
   }
 
@@ -674,7 +689,7 @@ export class FormApi<
         (item) => !currentFields.has(item.fieldName),
       );
       for (const schema of deletedSchema) {
-        this.form?.setFieldValue?.(
+        void this.form?.setFieldValue?.(
           schema.fieldName,
           undefined as FormFieldValue<TFormValues, string>,
         );
