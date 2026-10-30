@@ -28,23 +28,18 @@ describe('preferences', () => {
 
   // 持有 stub 的 mock 引用：断言与重置都走 mock 本体，
   // 避免经由全局 Storage 类型读取方法引用（unbound-method 误报）。
-  const localStorageMock = {
+  const createStorageMock = () => ({
     clear: vi.fn(),
     getItem: vi.fn((_key: string): null | string => null),
     key: vi.fn((_index: number): null | string => null),
     length: 0,
     removeItem: vi.fn(),
     setItem: vi.fn(),
-  };
+  });
 
-  const sessionStorageMock = {
-    clear: vi.fn(),
-    getItem: vi.fn((_key: string): null | string => null),
-    key: vi.fn((_index: number): null | string => null),
-    length: 0,
-    removeItem: vi.fn(),
-    setItem: vi.fn(),
-  };
+  const localStorageMock = createStorageMock();
+
+  const sessionStorageMock = createStorageMock();
 
   vi.stubGlobal('localStorage', localStorageMock);
 
