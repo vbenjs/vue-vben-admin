@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "stub": "pnpm exec tsdown",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "dist"

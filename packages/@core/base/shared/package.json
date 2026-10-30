@@ -13,7 +13,7 @@
   "scripts": {
     "build": "pnpm exec tsdown",
     "stub": "pnpm run build",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "dist"

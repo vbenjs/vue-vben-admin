@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "stub": "node ./scripts/build.mjs",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "dist"

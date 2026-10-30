@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nitro build",
     "start": "nitro dev",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@faker-js/faker": "catalog:",

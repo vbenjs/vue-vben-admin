@@ -12,7 +12,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+    "typecheck": "vue-tsc --noEmit"
   },
   "files": [
     "src"
