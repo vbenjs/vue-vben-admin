@@ -4,7 +4,7 @@ import type { ArchiverPluginOptions } from '../typing';
 
 import fs from 'node:fs';
 import fsp from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 import { ZipArchive } from 'archiver';
 
@@ -15,9 +15,9 @@ export const viteArchiverPlugin = (
   // await 也不 catch（vite 8.3 build.ts），closeBundle 的拒绝会变成
   // unhandled rejection 直接杀死 watcher；记录 watch 状态以便降级处理。
   let isWatchMode = false;
-  // 记录 Vite 解析后的产物目录（绝对路径）。硬编码 dist 会在用户配置了
-  // 自定义 build.outDir 时打包错误目录：目录缺失时产出空 zip，存在时
-  // 产出过期 zip。
+  // 记录产物目录（以 config.root 为基准解析出的绝对路径）。硬编码 dist
+  // 或按 cwd 解析相对 outDir，都会在自定义 build.outDir 或 root ≠ cwd 时
+  // 打包错误目录：目录缺失时产出空 zip，存在时产出过期 zip。
   let folderToZip = 'dist';
 
   return {
@@ -61,7 +61,10 @@ export const viteArchiverPlugin = (
     },
     configResolved(config) {
       isWatchMode = !!config.build.watch;
-      folderToZip = config.build.outDir || 'dist';
+      // resolved config 里 build.outDir 保持用户配置原样（可能是相对路
+      // 径，实测 vite 8.2/8.3 均如此），Vite 内部按 config.root 解析，
+      // 这里同样以 root 为基准，不能落到 cwd 上。
+      folderToZip = resolve(config.root, config.build.outDir || 'dist');
     },
     enforce: 'post',
     name: 'vite:archiver',
