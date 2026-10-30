@@ -8,6 +8,7 @@ import type { ImageUploadOptions, VbenTiptapExtensionOptions } from './types';
 import { $t } from '@vben/locales';
 
 import { alert } from '@vben-core/popup-ui';
+import { getErrorMessage } from '@vben-core/shared/utils';
 
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
@@ -49,8 +50,9 @@ function handleUploadError(error: unknown, options: ImageUploadOptions): void {
   if (options.onUploadError) {
     options.onUploadError(error);
   } else {
-    const message = error instanceof Error ? error.message : String(error);
-    alert(message, $t('ui.tiptap.upload.uploadFailed')).catch(() => {});
+    alert(getErrorMessage(error), $t('ui.tiptap.upload.uploadFailed')).catch(
+      () => {},
+    );
   }
 }
 
@@ -264,7 +266,7 @@ function createCustomImage(
 
             return true;
           },
-        } as any;
+        };
       };
     },
 

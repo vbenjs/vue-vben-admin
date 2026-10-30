@@ -282,7 +282,7 @@ async function initComponentAdapter() {
   globalShareState.defineMessage({
     // 复制成功消息提示
     copyPreferencesSuccess: (title, content) => {
-      notification.success({
+      void notification.success({
         title,
         content,
         placement: 'bottom-right',

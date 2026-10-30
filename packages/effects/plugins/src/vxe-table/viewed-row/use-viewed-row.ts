@@ -160,6 +160,15 @@ function createStorageAdapter(
   }
 }
 
+// ========== 行样式合并 ==========
+
+// vxe 的 RowStyle 类型是 Partial<CSSStyleDeclaration>（带数字索引签名），
+// 这里仅做类型层面收窄，让下面的合并通过类型检查；运行时值是用户配置
+// 的普通样式对象，展开合并行为与收窄前完全一致（不做键过滤）。
+function asStyleRecord(style: unknown): Record<string, string> {
+  return style as Record<string, string>;
+}
+
 // ========== maxSize 淘汰 ==========
 
 /**
@@ -226,7 +235,8 @@ export function useViewedRow<T = any>(
   }
 
   // 先恢复存储，再合并外部 viewedKeys，确保 viewedKeys 是最新插入的（最后被淘汰）
-  restoreFromStorage().then(() => {
+  // restoreFromStorage 内部已捕获异常，这里只处理成功路径
+  void restoreFromStorage().then(() => {
     if (options.viewedKeys) {
       const keys = isRef(options.viewedKeys)
         ? options.viewedKeys.value
@@ -253,7 +263,7 @@ export function useViewedRow<T = any>(
         enforceMaxSize(viewedSet.value, maxSize);
       }
       triggerRef(viewedSet);
-      persist();
+      void persist();
     }
   }
 
@@ -516,7 +526,7 @@ export function applyViewedRowOptions(
     if (!viewedStyle && !originalStyle) return undefined;
     if (!originalStyle) return viewedStyle;
     if (!viewedStyle) return originalStyle;
-    return { ...originalStyle, ...viewedStyle };
+    return { ...asStyleRecord(originalStyle), ...asStyleRecord(viewedStyle) };
   };
 
   // 拦截 CellOperation columns
