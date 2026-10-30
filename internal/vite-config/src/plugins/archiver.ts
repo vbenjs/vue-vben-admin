@@ -15,6 +15,10 @@ export const viteArchiverPlugin = (
   // await 也不 catch（vite 8.3 build.ts），closeBundle 的拒绝会变成
   // unhandled rejection 直接杀死 watcher；记录 watch 状态以便降级处理。
   let isWatchMode = false;
+  // 记录 Vite 解析后的产物目录（绝对路径）。硬编码 dist 会在用户配置了
+  // 自定义 build.outDir 时打包错误目录：目录缺失时产出空 zip，存在时
+  // 产出过期 zip。
+  let folderToZip = 'dist';
 
   return {
     apply: 'build',
@@ -28,8 +32,6 @@ export const viteArchiverPlugin = (
         // 不完整的 zip。
         return new Promise<void>((resolve, reject) => {
           setTimeout(async () => {
-            const folderToZip = 'dist';
-
             const zipOutputDir = join(process.cwd(), outputDir);
             const zipOutputPath = join(zipOutputDir, `${name}.zip`);
             try {
@@ -59,6 +61,7 @@ export const viteArchiverPlugin = (
     },
     configResolved(config) {
       isWatchMode = !!config.build.watch;
+      folderToZip = config.build.outDir || 'dist';
     },
     enforce: 'post',
     name: 'vite:archiver',
