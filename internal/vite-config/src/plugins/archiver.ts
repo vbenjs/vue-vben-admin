@@ -11,6 +11,11 @@ import { ZipArchive } from 'archiver';
 export const viteArchiverPlugin = (
   options: ArchiverPluginOptions = {},
 ): PluginOption => {
+  // vite build --watch 下，BUNDLE_END 事件里对 bundle.close() 的调用既不
+  // await 也不 catch（vite 8.3 build.ts），closeBundle 的拒绝会变成
+  // unhandled rejection 直接杀死 watcher；记录 watch 状态以便降级处理。
+  let isWatchMode = false;
+
   return {
     apply: 'build',
     closeBundle: {
@@ -18,8 +23,9 @@ export const viteArchiverPlugin = (
         const { name = 'dist', outputDir = '.' } = options;
 
         // 保持原 setTimeout 延迟语义（等产物写入落盘后再打包），但把结果
-        // 交回 closeBundle：打包失败时以 Promise 拒绝回传，让 Vite 构建
-        // 失败并带出错误，而不是 console.error 吞掉后静默产出不完整的 zip。
+        // 交回 closeBundle：一次性构建时打包失败以 Promise 拒绝回传，让
+        // Vite 构建失败并带出错误，而不是 console.error 吞掉后静默产出
+        // 不完整的 zip。
         return new Promise<void>((resolve, reject) => {
           setTimeout(async () => {
             const folderToZip = 'dist';
@@ -37,12 +43,22 @@ export const viteArchiverPlugin = (
               console.log(`Folder has been zipped to: ${zipOutputPath}`);
               resolve();
             } catch (error) {
-              reject(error);
+              if (isWatchMode) {
+                // watch 下拒绝无人兜底（见上），降级为日志保住 watcher，
+                // 下次重建会重新尝试打包。
+                console.error('Error zipping folder:', error);
+                resolve();
+              } else {
+                reject(error);
+              }
             }
           }, 0);
         });
       },
       order: 'post',
+    },
+    configResolved(config) {
+      isWatchMode = !!config.build.watch;
     },
     enforce: 'post',
     name: 'vite:archiver',
