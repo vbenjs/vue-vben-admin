@@ -89,6 +89,12 @@ async function zipFolder(
       resolve();
     });
 
+    // 输出流自身出错(目标不可写 EACCES/ENOSPC、目录被替换 ENOTDIR 等)
+    // 不经 archive 的 'error' 事件,无监听会以 uncaughtException 杀进程,
+    // 且 'close' 永不触发——上层 closeBundle 的 Promise 会挂死。与
+    // 'error' 事件重复 reject 是无害的空操作。
+    output.on('error', reject);
+
     archive.on('error', (err) => {
       reject(err);
     });
