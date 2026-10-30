@@ -1,11 +1,7 @@
-import type { RouteMeta as IRouteMeta } from '@vben-core/typings';
-
-import 'vue-router';
-
-declare module 'vue-router' {
-  // oxlint-disable-next-line typescript/no-empty-object-type
-  interface RouteMeta extends IRouteMeta {}
-}
+// vue-router 的 RouteMeta 模块增强只保留 @vben-core/typings/src/index.ts
+// 一处（本包 src/index.ts 经 `export type * from '@vben-core/typings'` 即
+// 激活）；此处曾有一份逐字重复的增强，两处 interface extends 同一基类
+// 会幂等合并，删重复份不影响语义。
 
 export interface VbenAdminProAppConfigRaw {
   VITE_GLOB_API_URL: string;
