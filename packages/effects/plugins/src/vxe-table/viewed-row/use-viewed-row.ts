@@ -218,6 +218,8 @@ export function useViewedRow<T = any>(
     clearedWhileRestoring = false;
     removedWhileRestoring.clear();
 
+    let skippedRemovedKey = false;
+
     try {
       const stored = await adapter.getKeys();
       if (clearedWhileRestoring) {
@@ -226,6 +228,7 @@ export function useViewedRow<T = any>(
       if (stored && stored.length > 0) {
         for (const key of stored) {
           if (removedWhileRestoring.has(key)) {
+            skippedRemovedKey = true;
             continue;
           }
           viewedSet.value.add(key);
@@ -235,33 +238,46 @@ export function useViewedRow<T = any>(
         }
         triggerRef(viewedSet);
       }
+      if (skippedRemovedKey) {
+        // 快照里的 key 被跳过时本地集合没有变化，不会触发防抖写回，
+        // 需要立即把剔除后的集合写回存储，否则下次挂载会再次把它恢复出来。
+        persistImmediate();
+      }
     } catch (error) {
       console.error('[viewedRow] restore failed:', error);
     } finally {
       restoring = false;
-      clearedWhileRestoring = false;
-      removedWhileRestoring.clear();
     }
   }
 
   // 先恢复存储，再合并外部 viewedKeys，确保 viewedKeys 是最新插入的（最后被淘汰）
-  restoreFromStorage().then(() => {
-    if (options.viewedKeys) {
-      const keys = isRef(options.viewedKeys)
-        ? options.viewedKeys.value
-        : options.viewedKeys;
-      updateViewedSet((set) => {
-        let changed = false;
-        for (const key of keys) {
-          if (!set.has(key)) {
-            set.add(key);
-            changed = true;
+  restoreFromStorage()
+    .then(() => {
+      if (options.viewedKeys && !clearedWhileRestoring) {
+        const keys = isRef(options.viewedKeys)
+          ? options.viewedKeys.value
+          : options.viewedKeys;
+        updateViewedSet((set) => {
+          let changed = false;
+          for (const key of keys) {
+            if (removedWhileRestoring.has(key)) {
+              continue;
+            }
+            if (!set.has(key)) {
+              set.add(key);
+              changed = true;
+            }
           }
-        }
-        return changed;
-      });
-    }
-  });
+          return changed;
+        });
+      }
+    })
+    .finally(() => {
+      // 加载期间的清除/移除要保留到首次 viewedKeys 合并之后，
+      // 否则这次合并会把刚清掉或移除的 key 又加回来。
+      clearedWhileRestoring = false;
+      removedWhileRestoring.clear();
+    });
 
   // ========== 更新 viewedSet 的统一入口 ==========
   function updateViewedSet(updater: (set: Set<number | string>) => boolean) {
