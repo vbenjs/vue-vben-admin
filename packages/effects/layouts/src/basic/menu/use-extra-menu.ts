@@ -101,6 +101,9 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
     const { findMenu, rootMenu, rootMenuPath } = resolveRootMenu(
       route.meta?.activePath || route.path,
     );
+    if (!rootMenuPath && !findMenu) {
+      return;
+    }
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
     extraMenus.value = rootMenu?.children ?? [];
   };
@@ -120,6 +123,11 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
       currentPath,
       parentLevel.value,
     );
+    if (!rootMenuPath && !findMenu) {
+      // 当前路由不在菜单树里（例如用户下拉进入的 /profile）：保留上一次的二级菜单，
+      // 否则 header 混合布局的侧边栏会整体消失。
+      return;
+    }
     extraRootMenus.value = rootMenu?.children ?? [];
     if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
