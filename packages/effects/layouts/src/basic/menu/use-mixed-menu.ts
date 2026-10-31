@@ -125,17 +125,24 @@ function useMixedMenu() {
   /**
    * 计算侧边菜单
    * @param path 路由路径
+   * @returns 当前路径是否命中菜单树
    */
-  function calcSideMenus(path: string = route.path) {
+  function calcSideMenus(path: string = route.path): boolean {
     let { rootMenu } = findRootMenuByPath(menus.value, path);
     if (!rootMenu) {
       rootMenu = menus.value.find((item) => item.path === path);
     }
-    const result = findRootMenuByPath(rootMenu?.children || [], path, 1);
+    if (!rootMenu) {
+      // 当前路由不在菜单树里（例如用户下拉进入的 /profile）：保留上一次的侧边菜单，
+      // 否则混合布局的侧边栏会整体消失。
+      return false;
+    }
+    const result = findRootMenuByPath(rootMenu.children || [], path, 1);
     mixedRootMenuPath.value = result.rootMenuPath ?? '';
     mixExtraMenus.value = result.rootMenu?.children ?? [];
-    rootMenuPath.value = rootMenu?.path ?? '';
-    splitSideMenus.value = rootMenu?.children ?? [];
+    rootMenuPath.value = rootMenu.path;
+    splitSideMenus.value = rootMenu.children ?? [];
+    return true;
   }
 
   watch(
@@ -145,9 +152,10 @@ function useMixedMenu() {
       if (willOpenedByWindow(currentPath)) {
         return;
       }
-      calcSideMenus(currentPath);
-      if (rootMenuPath.value)
+      // 未命中菜单的路径不能记进 defaultSubMap，否则 autoActivateChild 会把菜单外的页面当成默认子页。
+      if (calcSideMenus(currentPath) && rootMenuPath.value) {
         defaultSubMap.set(rootMenuPath.value, currentPath);
+      }
     },
     { immediate: true },
   );
