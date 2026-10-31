@@ -11,7 +11,7 @@ import { useExtraMenu } from '../use-extra-menu';
 vi.mock('@vben/preferences', () => ({
   preferences: {
     app: { layout: 'sidebar-mixed-nav' },
-    sidebar: { expandOnHover: true },
+    sidebar: { expandOnHover: false },
   },
 }));
 
@@ -137,6 +137,44 @@ describe('useExtraMenu on routes outside the menu tree', () => {
 
       expect(api.extraActiveMenu.value).toBe('/demos');
       expect(api.extraMenus.value[0]?.path).toBe('/demos/example');
+    } finally {
+      cleanup();
+    }
+  });
+
+  it('在非菜单页面悬停其它分区后移出侧边栏时恢复上次匹配的分区', async () => {
+    try {
+      const demosRoot: MenuRecordRaw = {
+        name: '演示',
+        path: '/demos',
+        children: [
+          {
+            name: '示例',
+            path: '/demos/example',
+            parent: '/demos',
+            parents: ['/demos'],
+            children: [],
+          },
+        ],
+      };
+      storeHolder.accessMenus = [...createMenus(), demosRoot];
+      setRoute('/system/user');
+      const api = mountExtraMenu();
+      await nextTick();
+
+      routeHolder.current.path = '/profile';
+      await nextTick();
+      expect(api.extraActiveMenu.value).toBe('/system');
+
+      api.handleMenuMouseEnter(demosRoot);
+      await nextTick();
+      expect(api.extraActiveMenu.value).toBe('/demos');
+
+      api.handleSideMouseLeave();
+      await nextTick();
+
+      expect(api.extraActiveMenu.value).toBe('/system');
+      expect(api.extraMenus.value[0]?.path).toBe('/system/user');
     } finally {
       cleanup();
     }
