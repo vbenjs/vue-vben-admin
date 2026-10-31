@@ -206,13 +206,28 @@ export function useViewedRow<T = any>(
   const persist = useDebounceFn(persistImmediate, 300);
 
   // ========== 从存储恢复 ==========
+  // 存储快照是异步读取的：加载期间用户清空或移除的已读标记不能被快照复原。
+  let restoring = false;
+  let clearedWhileRestoring = false;
+  const removedWhileRestoring = new Set<number | string>();
+
   async function restoreFromStorage(): Promise<void> {
     if (!adapter) return;
 
+    restoring = true;
+    clearedWhileRestoring = false;
+    removedWhileRestoring.clear();
+
     try {
       const stored = await adapter.getKeys();
+      if (clearedWhileRestoring) {
+        return;
+      }
       if (stored && stored.length > 0) {
         for (const key of stored) {
+          if (removedWhileRestoring.has(key)) {
+            continue;
+          }
           viewedSet.value.add(key);
         }
         if (maxSize > 0) {
@@ -222,6 +237,10 @@ export function useViewedRow<T = any>(
       }
     } catch (error) {
       console.error('[viewedRow] restore failed:', error);
+    } finally {
+      restoring = false;
+      clearedWhileRestoring = false;
+      removedWhileRestoring.clear();
     }
   }
 
@@ -310,6 +329,9 @@ export function useViewedRow<T = any>(
 
   // ========== 清除 ==========
   function clearViewed() {
+    if (restoring) {
+      clearedWhileRestoring = true;
+    }
     const hadData = viewedSet.value.size > 0;
     viewedSet.value.clear();
 
@@ -326,6 +348,11 @@ export function useViewedRow<T = any>(
 
   // ========== 移除指定 keys ==========
   function removeKeys(keys: Array<number | string>) {
+    if (restoring) {
+      for (const key of keys) {
+        removedWhileRestoring.add(key);
+      }
+    }
     updateViewedSet((set) => {
       let changed = false;
       for (const key of keys) {
