@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useTabbarStore } from './tabbar';
+import { getTabKey, useTabbarStore } from './tabbar';
 
 describe('useAccessStore', () => {
   const router = createRouter({
@@ -41,6 +41,23 @@ describe('useAccessStore', () => {
     };
     const addNewTab = store.addTab(newTab);
     expect(store.tabs).toContainEqual(addNewTab);
+  });
+
+  it('honors a fullPathKey inherited from a parent route', () => {
+    const route: any = {
+      fullPath: '/detail?id=7',
+      matched: [
+        { meta: { fullPathKey: false } },
+        { meta: { title: 'Detail' } },
+      ],
+      meta: { fullPathKey: false },
+      name: 'Detail',
+      path: '/detail',
+      query: { id: '7' },
+    };
+
+    // 路由 meta 会合并父级记录，fullPathKey 属于可继承的配置
+    expect(getTabKey(route)).toBe('/detail');
   });
 
   it('updates an existing tab instead of adding a new one', () => {
