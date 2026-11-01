@@ -81,12 +81,20 @@ describe('useTabs', () => {
     expect(state.disabledCloseOther).toBe(true);
   });
 
-  it('uses the stored tab meta when a parent route sets fullPathKey', () => {
+  it('honors a fullPathKey inherited from a parent route', () => {
     const store = seedTabs();
     const { getTabDisableState } = useTabs();
 
-    // use-tabbar 添加标签页时传入最后一条 matched 记录的 meta，
-    // 而 route.meta 会带上父级路由的 fullPathKey
+    // use-tabbar 用路由合并后的 meta 计算 key，父级 fullPathKey 同样生效
+    store.addTab({
+      fullPath: '/detail?id=7',
+      key: '/detail',
+      meta: { title: 'Detail' },
+      name: 'Detail',
+      path: '/detail',
+      query: { id: '7' },
+    } as any);
+
     Object.assign(currentRoute, {
       matched: [
         { meta: { fullPathKey: false } },
@@ -96,9 +104,7 @@ describe('useTabs', () => {
     });
 
     try {
-      const state = getTabDisableState(
-        store.getTabByKey('/detail?id=7') as any,
-      );
+      const state = getTabDisableState(store.getTabByKey('/detail') as any);
       expect(state.disabledRefresh).toBe(false);
       expect(state.disabledCloseRight).toBe(true);
     } finally {

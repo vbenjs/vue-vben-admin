@@ -43,7 +43,7 @@ describe('useAccessStore', () => {
     expect(store.tabs).toContainEqual(addNewTab);
   });
 
-  it('derives the key from the matched meta the tab was stored with', () => {
+  it('honors a fullPathKey inherited from a parent route', () => {
     const route: any = {
       fullPath: '/detail?id=7',
       matched: [
@@ -56,9 +56,8 @@ describe('useAccessStore', () => {
       query: { id: '7' },
     };
 
-    // use-tabbar 用最后一条 matched 记录的 meta 创建标签页，
-    // 父级 fullPathKey 不应让同一个页面算出两个 key
-    expect(getTabKey(route)).toBe('/detail?id=7');
+    // 路由 meta 会合并父级记录，fullPathKey 属于可继承的配置
+    expect(getTabKey(route)).toBe('/detail');
   });
 
   it('updates an existing tab instead of adding a new one', () => {
