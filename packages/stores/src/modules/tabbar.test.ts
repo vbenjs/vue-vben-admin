@@ -297,4 +297,37 @@ describe('useAccessStore', () => {
     expect(store.excludeCachedTabs.has('Dashboard')).toBe(false);
     expect(store.renderRouteView).toBe(true);
   });
+
+  it('sorts tabs by the rendered order, which puts affix tabs first', async () => {
+    const store = useTabbarStore();
+    // 先打开两个普通标签页，之后才注册固定标签页（accessMenus 变化时会这样）
+    for (const tab of [
+      { fullPath: '/a', meta: {}, name: 'A', path: '/a' },
+      { fullPath: '/b', meta: {}, name: 'B', path: '/b' },
+      {
+        fullPath: '/home',
+        meta: { affixTab: true },
+        name: 'Home',
+        path: '/home',
+      },
+    ]) {
+      store.addTab(tab as any);
+    }
+
+    expect(store.tabs.map((item) => item.key)).toEqual(['/a', '/b', '/home']);
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/a',
+      '/b',
+    ]);
+
+    // 拖拽回调给出的是渲染顺序的下标：把 /b 拖到 /a 之前
+    await store.sortTabs(2, 1);
+
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/b',
+      '/a',
+    ]);
+  });
 });

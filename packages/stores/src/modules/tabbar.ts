@@ -501,12 +501,15 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param newIndex
      */
     async sortTabs(oldIndex: number, newIndex: number) {
-      const currentTab = this.tabs[oldIndex];
+      // 拖拽回调（use-tabs-drag）给出的是渲染顺序的下标，而 this.tabs 的原始顺序
+      // 可能把固定标签页排在后面，直接按下标改 this.tabs 会动到别的标签页。
+      const currentTab = this.getTabs[oldIndex];
       if (!currentTab) {
         return;
       }
-      this.tabs.splice(oldIndex, 1);
-      this.tabs.splice(newIndex, 0, currentTab);
+      const sortedTabs = this.getTabs.toSpliced(oldIndex, 1);
+      sortedTabs.splice(newIndex, 0, currentTab);
+      this.tabs = sortedTabs;
       this.dragEndIndex = this.dragEndIndex + 1;
     },
 
