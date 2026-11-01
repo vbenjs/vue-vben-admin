@@ -394,8 +394,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       // 获得固定tabs的index
       const newIndex = affixTabs.findIndex((item) => equalTab(item, tab));
+      // sortTabs 的源下标同样要按渲染顺序取，否则固定标签在原始数组靠后时会动到别的标签页
+      const renderedIndex = this.getTabs.findIndex((item) =>
+        equalTab(item, tab),
+      );
       // 交换位置重新排序
-      await this.sortTabs(index, newIndex);
+      await this.sortTabs(renderedIndex, newIndex);
     },
 
     /**
@@ -501,12 +505,15 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param newIndex
      */
     async sortTabs(oldIndex: number, newIndex: number) {
-      const currentTab = this.tabs[oldIndex];
+      // 拖拽回调（use-tabs-drag）给出的是渲染顺序的下标，而 this.tabs 的原始顺序
+      // 可能把固定标签页排在后面，直接按下标改 this.tabs 会动到别的标签页。
+      const currentTab = this.getTabs[oldIndex];
       if (!currentTab) {
         return;
       }
-      this.tabs.splice(oldIndex, 1);
-      this.tabs.splice(newIndex, 0, currentTab);
+      const sortedTabs = this.getTabs.toSpliced(oldIndex, 1);
+      sortedTabs.splice(newIndex, 0, currentTab);
+      this.tabs = sortedTabs;
       this.dragEndIndex = this.dragEndIndex + 1;
     },
 
@@ -538,8 +545,12 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
       // 获得固定tabs的index,使用固定tabs的下一个位置也就是活动tabs的第一个位置
       const newIndex = affixTabs.length;
+      // sortTabs 的源下标同样要按渲染顺序取，否则固定标签在原始数组靠后时会动到别的标签页
+      const renderedIndex = this.getTabs.findIndex((item) =>
+        equalTab(item, tab),
+      );
       // 交换位置重新排序
-      await this.sortTabs(index, newIndex);
+      await this.sortTabs(renderedIndex, newIndex);
     },
     /**
      * 根据当前打开的选项卡更新缓存

@@ -297,4 +297,96 @@ describe('useAccessStore', () => {
     expect(store.excludeCachedTabs.has('Dashboard')).toBe(false);
     expect(store.renderRouteView).toBe(true);
   });
+
+  it('sorts tabs by the rendered order, which puts affix tabs first', async () => {
+    const store = useTabbarStore();
+    // 先打开两个普通标签页，之后才注册固定标签页（accessMenus 变化时会这样）
+    for (const tab of [
+      { fullPath: '/a', meta: {}, name: 'A', path: '/a' },
+      { fullPath: '/b', meta: {}, name: 'B', path: '/b' },
+      {
+        fullPath: '/home',
+        meta: { affixTab: true },
+        name: 'Home',
+        path: '/home',
+      },
+    ]) {
+      store.addTab(tab as any);
+    }
+
+    expect(store.tabs.map((item) => item.key)).toEqual(['/a', '/b', '/home']);
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/a',
+      '/b',
+    ]);
+
+    // 拖拽回调给出的是渲染顺序的下标：把 /b 拖到 /a 之前
+    await store.sortTabs(2, 1);
+
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/b',
+      '/a',
+    ]);
+  });
+
+  it('pins a tab at its rendered position', async () => {
+    const store = useTabbarStore();
+    const add = (name: string, affix = false) =>
+      store.addTab({
+        fullPath: `/${name.toLowerCase()}`,
+        meta: affix ? { affixTab: true } : {},
+        name,
+        path: `/${name.toLowerCase()}`,
+      } as any);
+    add('A');
+    add('B');
+    add('P1', true);
+    add('P2', true);
+
+    // 固定标签在原始数组里排在最后，渲染时排在最前
+    expect(store.tabs.map((item) => item.name)).toEqual(['A', 'B', 'P1', 'P2']);
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'P1',
+      'P2',
+      'A',
+      'B',
+    ]);
+
+    // B 的原始下标是 1，渲染下标是 3
+    await store.pinTab(store.tabs[1] as any);
+
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'B',
+      'P1',
+      'P2',
+      'A',
+    ]);
+  });
+
+  it('unpins a tab at its rendered position', async () => {
+    const store = useTabbarStore();
+    const add = (name: string, affix = false) =>
+      store.addTab({
+        fullPath: `/${name.toLowerCase()}`,
+        meta: affix ? { affixTab: true } : {},
+        name,
+        path: `/${name.toLowerCase()}`,
+      } as any);
+    add('A');
+    add('B');
+    add('P1', true);
+    add('P2', true);
+
+    // 取消固定后 P1 的原始下标是 2，渲染下标是 3
+    await store.unpinTab(store.tabs[2] as any);
+
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'P2',
+      'P1',
+      'A',
+      'B',
+    ]);
+  });
 });
