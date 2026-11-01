@@ -714,9 +714,14 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
   const {
     fullPath,
     path,
-    meta: { fullPathKey } = {},
+    meta,
+    matched,
     query = {},
   } = tab as RouteLocationNormalized;
+  // 标签页在创建时用的是最后一条 matched 记录的 meta（见 use-tabbar），
+  // 这里保持一致，避免父级的 fullPathKey 让同一个页面算出不同的 key
+  const leafMeta = matched?.[matched.length - 1]?.meta;
+  const { fullPathKey } = leafMeta ?? meta ?? {};
   // pageKey可能是数组（查询参数重复时可能出现）
   const pageKey = Array.isArray(query.pageKey)
     ? query.pageKey[0]
