@@ -282,6 +282,31 @@ describe('useAccessStore', () => {
     ).toBeUndefined();
   });
 
+  it('closes a tab whose key contains an encoded percent sign', async () => {
+    const store = useTabbarStore();
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%25',
+      meta: {},
+      name: 'Search',
+      path: '/search',
+    } as any);
+
+    // 标签页的 key 在 addTab 时已经解码，这里是 "/search?q=50%"
+    const keyToClose = store.tabs[1]?.key as string;
+    expect(keyToClose).toBe('/search?q=50%');
+
+    await expect(
+      store.closeTabByKey(keyToClose, router),
+    ).resolves.toBeUndefined();
+    expect(store.tabs.map((tab) => tab.name)).toEqual(['Home']);
+  });
+
   it('refreshes the current tab', async () => {
     const store = useTabbarStore();
     const currentTab: any = {
