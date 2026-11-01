@@ -11,7 +11,13 @@ type TabIdentity = RouteLocationNormalized & { key?: string };
  * 标签页以 key 区分（同一 path 搭配不同 query 属于不同标签页）
  */
 function getTabIdentityKey(tab: TabIdentity): string {
-  return tab.key ?? getTabKey(tab);
+  if (tab.key) {
+    return tab.key;
+  }
+  // 标签页在 addTab 时使用的是最后一条 matched 记录的 meta，
+  // 这里保持一致，避免父级 fullPathKey 让当前路由算出不同的 key
+  const matchedMeta = tab.matched?.[tab.matched.length - 1]?.meta;
+  return getTabKey(matchedMeta ? { ...tab, meta: matchedMeta } : tab);
 }
 
 export function useTabs() {
