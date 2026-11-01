@@ -307,6 +307,39 @@ describe('useAccessStore', () => {
     expect(store.tabs.map((tab) => tab.name)).toEqual(['Home']);
   });
 
+  it('prefers an exact key match over decoding the key again', async () => {
+    const store = useTabbarStore();
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%2520off',
+      meta: {},
+      name: 'Nested',
+      path: '/search',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%20off',
+      meta: {},
+      name: 'Decoded',
+      path: '/search',
+    } as any);
+
+    // 两个标签页的 key 解码后分别是 "50%20off" 与 "50 off"
+    expect(store.tabs.map((tab) => tab.key)).toEqual([
+      '/home',
+      '/search?q=50%20off',
+      '/search?q=50 off',
+    ]);
+
+    const keyToClose = store.tabs[1]?.key as string;
+    await store.closeTabByKey(keyToClose, router);
+    expect(store.tabs.map((tab) => tab.name)).toEqual(['Home', 'Decoded']);
+  });
+
   it('refreshes the current tab', async () => {
     const store = useTabbarStore();
     const currentTab: any = {

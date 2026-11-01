@@ -344,16 +344,20 @@ export const useTabbarStore = defineStore('core-tabbar', {
      * @param router
      */
     async closeTabByKey(key: string, router: Router) {
-      // 标签页的 key 在创建时已经解码过，重复解码会在含 "%" 的地址上抛 URIError
-      let originKey = key;
-      try {
-        originKey = decodeURIComponent(key);
-      } catch {
-        // 无法再次解码时按原样匹配
+      // 标签页的 key 在创建时已经解码过，优先按原样匹配；重复解码会改变
+      // 已解码 key 中的 "%xx" 片段，匹配到别的标签页或抛 URIError
+      let index = this.tabs.findIndex((item) => getTabKeyFromTab(item) === key);
+      if (index === -1) {
+        let decodedKey: string;
+        try {
+          decodedKey = decodeURIComponent(key);
+        } catch {
+          return;
+        }
+        index = this.tabs.findIndex(
+          (item) => getTabKeyFromTab(item) === decodedKey,
+        );
       }
-      const index = this.tabs.findIndex(
-        (item) => getTabKeyFromTab(item) === originKey,
-      );
       if (index === -1) {
         return;
       }
