@@ -130,4 +130,49 @@ describe('authenticateResponseInterceptor', () => {
     expect(initiatorHeaders).toEqual([null, 'Bearer new-token']);
     expect(queuedHeaders).toEqual([null, 'Bearer new-token']);
   });
+
+  it('does not start a second refresh when a replayed queued request fails again', async () => {
+    let currentToken: null | string = null;
+    const refreshToken = vi.fn(
+      () =>
+        new Promise<string>((resolve) => {
+          setTimeout(() => {
+            currentToken = 'new-token';
+            resolve('new-token');
+          }, 100);
+        }),
+    );
+    const { client, reAuthenticate } = createClient(
+      refreshToken,
+      () => currentToken,
+    );
+
+    const queuedHeaders: (null | string)[] = [];
+    mock.onGet('/initiator').reply((config) => {
+      return config.headers?.Authorization === 'Bearer new-token'
+        ? [200, {}]
+        : [401];
+    });
+    // This endpoint keeps answering 401 even with the refreshed token, so its
+    // replay must count as a retry instead of opening another refresh cycle.
+    mock.onGet('/queued').reply((config) => {
+      queuedHeaders.push((config.headers?.Authorization as string) ?? null);
+      return new Promise((resolve) => {
+        setTimeout(() => resolve([401]), 20);
+      });
+    });
+
+    const results = await Promise.allSettled([
+      client.get('/initiator'),
+      client.get('/queued'),
+    ]);
+
+    expect(results.map((result) => result.status)).toEqual([
+      'fulfilled',
+      'rejected',
+    ]);
+    expect(refreshToken).toHaveBeenCalledTimes(1);
+    expect(queuedHeaders).toEqual([null, 'Bearer new-token']);
+    expect(reAuthenticate).toHaveBeenCalledTimes(1);
+  });
 });
