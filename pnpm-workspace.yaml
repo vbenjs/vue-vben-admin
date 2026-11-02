@@ -99,6 +99,7 @@ catalog:
   '@vueuse/core': ^15.0.0
   '@vueuse/integrations': ^15.0.0
   '@vueuse/motion': ^3.0.3
+  '@vxe-ui/core': ^4.5.2
   ant-design-vue: ^4.2.6
   antdv-next: ^1.4.5
   archiver: ^8.0.0
@@ -207,8 +208,8 @@ catalog:
   vue-router: ^5.2.0
   vue-tippy: ^6.7.1
   vue-tsc: ^3.3.11
-  vxe-pc-ui: ^4.17.18
-  vxe-table: ^4.21.2
+  vxe-pc-ui: ^4.20.33
+  vxe-table: ^4.23.12
   watermark-js-plus: ^1.6.6
   yaml-eslint-parser: ^2.1.0
   zod: ^4.4.3

@@ -20,6 +20,7 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
   /** 记录当前顶级菜单下哪个子菜单最后激活 */
   const defaultSubMap = new Map<string, string>();
   const extraRootMenus = ref<MenuRecordRaw[]>([]);
+  const lastMatchedRootPath = ref('');
   const route = useRoute();
   const extraMenus = ref<MenuRecordRaw[]>([]);
   const sidebarExtraVisible = ref<boolean>(false);
@@ -101,6 +102,15 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
     const { findMenu, rootMenu, rootMenuPath } = resolveRootMenu(
       route.meta?.activePath || route.path,
     );
+    if (!rootMenuPath && !findMenu) {
+      // 路由不在菜单树里：恢复上一次匹配到的分区，而不是保留悬停预览
+      if (extraRootMenus.value.length > 0) {
+        extraMenus.value = extraRootMenus.value;
+        extraActiveMenu.value = lastMatchedRootPath.value;
+        sidebarExtraVisible.value = true;
+      }
+      return;
+    }
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
     extraMenus.value = rootMenu?.children ?? [];
   };
@@ -120,6 +130,12 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
       currentPath,
       parentLevel.value,
     );
+    if (!rootMenuPath && !findMenu) {
+      // 当前路由不在菜单树里（例如用户下拉进入的 /profile）：保留上一次的二级菜单，
+      // 否则 header 混合布局的侧边栏会整体消失。
+      return;
+    }
+    lastMatchedRootPath.value = rootMenuPath ?? findMenu?.path ?? '';
     extraRootMenus.value = rootMenu?.children ?? [];
     if (rootMenuPath) defaultSubMap.set(rootMenuPath, currentPath);
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
