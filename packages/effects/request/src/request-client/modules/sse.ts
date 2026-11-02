@@ -117,8 +117,8 @@ function safeJoinUrl(baseUrl: string | undefined, url: string): string {
     return url; // 没有 baseUrl，直接返回 url
   }
 
-  // 如果 url 本身就是绝对地址，直接返回
-  if (/^https?:\/\//i.test(url)) {
+  // 与 axios 的 isAbsoluteURL 一致：`<scheme>://…` 与 protocol-relative 的 `//…` 都算绝对地址
+  if (/^([a-z][a-z\d+\-.]*:)?\/\//i.test(url)) {
     return url;
   }
 
