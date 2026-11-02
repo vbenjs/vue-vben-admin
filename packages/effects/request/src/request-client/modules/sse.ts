@@ -122,6 +122,11 @@ function safeJoinUrl(baseUrl: string | undefined, url: string): string {
     return url;
   }
 
+  // 与 axios 保持一致：空的相对地址直接返回 baseUrl，不做拼接
+  if (!url) {
+    return baseUrl;
+  }
+
   // 与 axios 保持一致：baseUrl 的路径段属于接口前缀，不能被 URL 解析丢掉
   return `${baseUrl.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
 }

@@ -166,4 +166,28 @@ describe('sSE', () => {
       'http://localhost/api/chat/summary',
     );
   });
+
+  it('keeps the baseURL untouched for an empty request url', async () => {
+    client = {
+      getBaseUrl: () => 'http://localhost/api',
+      instance: {
+        interceptors: {
+          request: {
+            handlers: [],
+          },
+        },
+      },
+    } as unknown as RequestClient;
+    sse = new SSE(client);
+    const fetchMock = createFetchMock(['data']);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await sse.requestSSE('', undefined, {});
+    await sse.requestSSE('/', undefined, {});
+
+    // axios returns `baseURL` itself for an empty relative url, and appends a
+    // single slash for '/'; both rules must keep matching after the join.
+    expect(fetchMock.mock.calls[0]?.[0]).toBe('http://localhost/api');
+    expect(fetchMock.mock.calls[1]?.[0]).toBe('http://localhost/api/');
+  });
 });
