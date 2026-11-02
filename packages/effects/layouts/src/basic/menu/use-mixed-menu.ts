@@ -87,7 +87,7 @@ function useMixedMenu() {
    */
   const handleMenuSelect = (key: string, mode?: string) => {
     if (!needSplit.value || mode === 'vertical') {
-      navigation(key);
+      void navigation(key);
       return;
     }
     const rootMenu = menus.value.find((item) => item.path === key);
@@ -99,9 +99,9 @@ function useMixedMenu() {
     }
 
     if (_splitSideMenus.length === 0) {
-      navigation(key);
+      void navigation(key);
     } else if (rootMenu && preferences.sidebar.autoActivateChild) {
-      navigation(
+      void navigation(
         defaultSubMap.has(rootMenu.path)
           ? (defaultSubMap.get(rootMenu.path) as string)
           : rootMenu.path,
@@ -116,7 +116,7 @@ function useMixedMenu() {
    */
   const handleMenuOpen = (key: string, parentsPath: string[]) => {
     if (parentsPath.length <= 1 && preferences.sidebar.autoActivateChild) {
-      navigation(
+      void navigation(
         defaultSubMap.has(key) ? (defaultSubMap.get(key) as string) : key,
       );
     }

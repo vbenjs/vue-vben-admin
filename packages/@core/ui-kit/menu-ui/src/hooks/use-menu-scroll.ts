@@ -37,7 +37,7 @@ export function useMenuScroll(
     const isEnabled = typeof enable === 'boolean' ? enable : enable.value;
     if (!isEnabled) return;
 
-    debouncedScroll();
+    void debouncedScroll();
   });
 
   return {

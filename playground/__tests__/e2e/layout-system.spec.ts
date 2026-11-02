@@ -23,7 +23,7 @@ function requireRegion(
 ): RegionMetrics {
   const region = metrics.regions[name];
   if (!region) {
-    throw new Error(`Missing layout region: ${String(name)}`);
+    throw new Error(`Missing layout region: ${name}`);
   }
   return region;
 }
@@ -122,7 +122,7 @@ test('keeps the layout background continuous while content scrolls', async ({
     const scroll = document.querySelector('#__vben_layout_scroll');
     const main = document.querySelector('#__vben_main_content');
     if (!(scroll instanceof HTMLElement) || !(main instanceof HTMLElement)) {
-      throw new Error('Layout scroll regions are missing');
+      throw new TypeError('Layout scroll regions are missing');
     }
 
     const spacer = document.createElement('div');
@@ -196,7 +196,7 @@ test('preserves content sizing across footer modes in short viewports', async ({
             !(main instanceof HTMLElement) ||
             !(scroll instanceof HTMLElement)
           ) {
-            throw new Error('Layout content regions are missing');
+            throw new TypeError('Layout content regions are missing');
           }
 
           const footerRect = footer?.getBoundingClientRect();
@@ -302,7 +302,7 @@ test('keeps appendToMain drawers within the available content height', async ({
         !(main instanceof HTMLElement) ||
         !(scroll instanceof HTMLElement)
       ) {
-        throw new Error('Drawer layout regions are missing');
+        throw new TypeError('Drawer layout regions are missing');
       }
 
       const spacer = document.createElement('div');

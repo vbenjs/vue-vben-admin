@@ -29,9 +29,13 @@ export const viteNitroMockPlugin = ({
         return;
       }
 
-      runNitroServer(pkg.dir, port, verbose);
+      // mock 服务启动失败不应以悬空拒绝（void）直接杀死 dev 进程：
+      // 显式打印错误，让前端 dev server 继续运行、问题可见。
+      runNitroServer(pkg.dir, port, verbose).catch((error) => {
+        consola.error('Nitro mock server failed to start:', error);
+      });
 
-      const _printUrls = server.printUrls;
+      const _printUrls = server.printUrls.bind(server);
       server.printUrls = () => {
         _printUrls();
 
@@ -85,9 +89,19 @@ async function runNitroServer(rootDir: string, port: number, verbose: boolean) {
     nitro.hooks.hookOnce('restart', reload);
 
     const server = createDevServer(nitro);
-    await server.listen(port, { showURL: false });
-    await prepare(nitro);
-    await build(nitro);
+    try {
+      await server.listen(port, { showURL: false });
+      await prepare(nitro);
+      await build(nitro);
+    } catch (error) {
+      // listen 之后的启动失败必须回收 nitro（监听端口与文件 watcher），
+      // 否则失败的服务会留下半开状态；回收路径与 reload() 一致。
+      if ('unwatch' in nitro.options._c12) {
+        await nitro.options._c12.unwatch();
+      }
+      await nitro.close();
+      throw error;
+    }
 
     if (verbose) {
       console.log('');

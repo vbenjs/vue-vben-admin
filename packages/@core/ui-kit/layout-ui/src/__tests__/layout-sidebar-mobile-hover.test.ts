@@ -37,9 +37,10 @@ interface MountOptions {
 function mountSidebar(options: MountOptions = {}) {
   const collapse = ref(options.collapse ?? false);
   const collapseWrites: boolean[] = [];
-  const onUpdateCollapse = vi.fn((value: boolean) => {
-    collapseWrites.push(value);
-    collapse.value = value;
+  // emit 声明的载荷是 boolean | undefined（collapse 可选），mock 签名需对齐
+  const onUpdateCollapse = vi.fn((value: boolean | undefined) => {
+    collapseWrites.push(value ?? false);
+    collapse.value = value ?? false;
   });
   const Consumer = defineComponent(
     () => () =>
@@ -92,7 +93,7 @@ afterEach(() => {
 
 describe('layout-sidebar mobile hover guard (#8274)', () => {
   it('mobile: mouseleave must not write collapsed state', async () => {
-    const { collapseWrites, onUpdateCollapse } = await mountSidebar({
+    const { collapseWrites, onUpdateCollapse } = mountSidebar({
       isMobile: true,
     });
 
@@ -103,7 +104,7 @@ describe('layout-sidebar mobile hover guard (#8274)', () => {
   });
 
   it('mobile: mouseenter must not write collapsed state', async () => {
-    const { collapseWrites, onUpdateCollapse } = await mountSidebar({
+    const { collapseWrites, onUpdateCollapse } = mountSidebar({
       isMobile: true,
     });
 
@@ -114,7 +115,7 @@ describe('layout-sidebar mobile hover guard (#8274)', () => {
   });
 
   it('desktop: mouseleave still collapses the hover-expanded rail', async () => {
-    const { collapseWrites, onUpdateCollapse } = await mountSidebar({
+    const { collapseWrites, onUpdateCollapse } = mountSidebar({
       isMobile: false,
     });
 
@@ -125,7 +126,7 @@ describe('layout-sidebar mobile hover guard (#8274)', () => {
   });
 
   it('desktop: mouseenter expands a collapsed rail (collapse=false)', async () => {
-    const { collapseWrites, onUpdateCollapse } = await mountSidebar({
+    const { collapseWrites, onUpdateCollapse } = mountSidebar({
       isMobile: false,
       collapse: true,
     });

@@ -18,7 +18,7 @@ const contentMinHeight = computed(() =>
 const previewClass = computed(() =>
   cn(
     'vben-tiptap-content',
-    'text-foreground bg-transparent p-0 leading-7',
+    'bg-transparent p-0 leading-7 text-foreground',
     props.class,
   ),
 );

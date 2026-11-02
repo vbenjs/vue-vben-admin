@@ -10,7 +10,7 @@ export async function jsonc(): Promise<Linter.Config[]> {
       files: ['**/*.json', '**/*.json5', '**/*.jsonc', '*.code-workspace'],
       language: 'jsonc/x',
       plugins: {
-        jsonc: pluginJsonc as any,
+        jsonc: pluginJsonc,
       },
       rules: {
         'jsonc/no-bigint-literals': 'error',

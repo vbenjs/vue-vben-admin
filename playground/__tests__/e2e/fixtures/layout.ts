@@ -8,6 +8,11 @@ interface LayoutWorkerFixtures {
   layoutPage: Page;
 }
 
+// 无 test fixture：Record<never, never> 是无索引签名的空类型。带字符串
+// 索引签名的写法（Record<string, never>）会把任意字符串键视为 test
+// fixture、与 layoutPage 这类 worker fixture 冲突；空对象类型告警在此
+// 为有意为之，压制。
+// oxlint-disable-next-line typescript/no-generated-empty-object-type
 const test = base.extend<Record<never, never>, LayoutWorkerFixtures>({
   layoutPage: [
     async ({ browser }, use) => {

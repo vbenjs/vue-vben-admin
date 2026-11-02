@@ -24,7 +24,7 @@ describe('useUserStore', () => {
     expect(store.userInfo).not.toBeNull();
     expect(store.userRoles.length).toBeGreaterThan(0);
 
-    store.setUserInfo(null as any);
+    store.setUserInfo(null);
     expect(store.userInfo).toBeNull();
     expect(store.userRoles).toEqual([]);
   });

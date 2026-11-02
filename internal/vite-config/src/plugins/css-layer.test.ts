@@ -15,6 +15,17 @@ function createBundle(assets: FakeAsset[]) {
 const LAYER_ORDER_STATEMENT =
   '@layer properties, theme, base, ant, antd, el, td, components, utilities;';
 
+/**
+ * 以 rolldown 的 generateBundle 签名（this/outputOptions/bundle/isWrite 四参）
+ * 调用插件钩子；测试不需要真实的 PluginContext 与 outputOptions。
+ */
+async function callGenerateBundle(
+  hook: (outputOptions: never, bundle: never, isWrite: boolean) => unknown,
+  bundle: object,
+) {
+  await hook.call(undefined as never, {} as never, bundle as never, false);
+}
+
 describe('viteCssLayerPlugin', () => {
   it('wraps matching css modules in the target layer', () => {
     const plugin = viteCssLayerPlugin({
@@ -55,7 +66,7 @@ describe('viteCssLayerPlugin', () => {
     expect(result).toBeUndefined();
   });
 
-  it('injects the layer order statement into matching css assets', () => {
+  it('injects the layer order statement into matching css assets', async () => {
     const plugin = viteCssLayerPlugin({
       layerName: 'el',
       packageName: 'element-plus',
@@ -77,15 +88,15 @@ describe('viteCssLayerPlugin', () => {
       },
     ]);
 
-    generateBundle.call(undefined as never, {} as never, bundle);
+    await callGenerateBundle(generateBundle, bundle);
 
-    expect(bundle['element-x.css'].source).toBe(
+    expect(bundle['element-x.css']?.source).toBe(
       `${LAYER_ORDER_STATEMENT}\n@layer el{.el-button{color:red}}`,
     );
-    expect(bundle['theme-x.css'].source).toBe('.local { color: blue; }');
+    expect(bundle['theme-x.css']?.source).toBe('.local { color: blue; }');
   });
 
-  it('does not inject the statement twice when already present', () => {
+  it('does not inject the statement twice when already present', async () => {
     const plugin = viteCssLayerPlugin({
       layerName: 'el',
       packageName: 'element-plus',
@@ -102,14 +113,14 @@ describe('viteCssLayerPlugin', () => {
       },
     ]);
 
-    generateBundle.call(undefined as never, {} as never, bundle);
+    await callGenerateBundle(generateBundle, bundle);
 
-    expect(bundle['element-x.css'].source).toBe(
+    expect(bundle['element-x.css']?.source).toBe(
       `${LAYER_ORDER_STATEMENT}\n@layer el{.el-button{color:red}}`,
     );
   });
 
-  it('injects the statement even when the asset starts with a BOM', () => {
+  it('injects the statement even when the asset starts with a BOM', async () => {
     const plugin = viteCssLayerPlugin({
       layerName: 'el',
       packageName: 'element-plus',
@@ -126,14 +137,14 @@ describe('viteCssLayerPlugin', () => {
       },
     ]);
 
-    generateBundle.call(undefined as never, {} as never, bundle);
+    await callGenerateBundle(generateBundle, bundle);
 
-    expect(bundle['element-x.css'].source).toBe(
+    expect(bundle['element-x.css']?.source).toBe(
       `${LAYER_ORDER_STATEMENT}\n\uFEFF@layer el{.el-button{color:red}}`,
     );
   });
 
-  it('ignores non-css assets', () => {
+  it('ignores non-css assets', async () => {
     const plugin = viteCssLayerPlugin({
       layerName: 'el',
       packageName: 'element-plus',
@@ -150,9 +161,9 @@ describe('viteCssLayerPlugin', () => {
       },
     ]);
 
-    generateBundle.call(undefined as never, {} as never, bundle);
+    await callGenerateBundle(generateBundle, bundle);
 
-    expect(bundle['element-x.js'].source).toBe(
+    expect(bundle['element-x.js']?.source).toBe(
       '@layer el{.el-button{color:red}}',
     );
   });
