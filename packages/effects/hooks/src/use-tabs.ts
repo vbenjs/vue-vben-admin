@@ -3,7 +3,16 @@ import type { RouteLocationNormalized } from 'vue-router';
 
 import { useRoute, useRouter } from 'vue-router';
 
-import { useTabbarStore } from '@vben/stores';
+import { getTabKey, useTabbarStore } from '@vben/stores';
+
+type TabIdentity = RouteLocationNormalized & { key?: string };
+
+/**
+ * 标签页以 key 区分（同一 path 搭配不同 query 属于不同标签页）
+ */
+function getTabIdentityKey(tab: TabIdentity): string {
+  return tab.key ?? getTabKey(tab);
+}
 
 export function useTabs() {
   const router = useRouter();
@@ -85,16 +94,17 @@ export function useTabs() {
    * 获取操作是否禁用
    * @param tab
    */
-  function getTabDisableState(tab: RouteLocationNormalized = route) {
+  function getTabDisableState(tab: TabIdentity = route) {
     const tabs = tabbarStore.getTabs;
     const affixTabs = tabbarStore.affixTabs;
-    const index = tabs.findIndex((item) => item.path === tab.path);
+    const tabKey = getTabIdentityKey(tab);
+    const index = tabs.findIndex((item) => getTabIdentityKey(item) === tabKey);
 
     const disabled = tabs.length <= 1;
 
     const { meta } = tab;
     const affixTab = meta?.affixTab ?? false;
-    const isCurrentTab = route.path === tab.path;
+    const isCurrentTab = getTabIdentityKey(route) === tabKey;
 
     // 当前处于最左侧或者减去固定标签页的数量等于0
     const disabledCloseLeft =

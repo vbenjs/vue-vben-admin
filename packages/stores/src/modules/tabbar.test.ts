@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useTabbarStore } from './tabbar';
+import { getTabKey, useTabbarStore } from './tabbar';
 
 describe('useAccessStore', () => {
   const router = createRouter({
@@ -43,6 +43,23 @@ describe('useAccessStore', () => {
     };
     const addNewTab = store.addTab(newTab);
     expect(store.tabs).toContainEqual(addNewTab);
+  });
+
+  it('honors a fullPathKey inherited from a parent route', () => {
+    const route: any = {
+      fullPath: '/detail?id=7',
+      matched: [
+        { meta: { fullPathKey: false } },
+        { meta: { title: 'Detail' } },
+      ],
+      meta: { fullPathKey: false },
+      name: 'Detail',
+      path: '/detail',
+      query: { id: '7' },
+    };
+
+    // 路由 meta 会合并父级记录，fullPathKey 属于可继承的配置
+    expect(getTabKey(route)).toBe('/detail');
   });
 
   it('updates an existing tab instead of adding a new one', () => {
@@ -283,6 +300,64 @@ describe('useAccessStore', () => {
     ).toBeUndefined();
   });
 
+  it('closes a tab whose key contains an encoded percent sign', async () => {
+    const store = useTabbarStore();
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%25',
+      meta: {},
+      name: 'Search',
+      path: '/search',
+    } as any);
+
+    // 标签页的 key 在 addTab 时已经解码，这里是 "/search?q=50%"
+    const keyToClose = store.tabs[1]?.key as string;
+    expect(keyToClose).toBe('/search?q=50%');
+
+    await expect(
+      store.closeTabByKey(keyToClose, router),
+    ).resolves.toBeUndefined();
+    expect(store.tabs.map((tab) => tab.name)).toEqual(['Home']);
+  });
+
+  it('prefers an exact key match over decoding the key again', async () => {
+    const store = useTabbarStore();
+    store.addTab({
+      fullPath: '/home',
+      meta: {},
+      name: 'Home',
+      path: '/home',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%2520off',
+      meta: {},
+      name: 'Nested',
+      path: '/search',
+    } as any);
+    store.addTab({
+      fullPath: '/search?q=50%20off',
+      meta: {},
+      name: 'Decoded',
+      path: '/search',
+    } as any);
+
+    // 两个标签页的 key 解码后分别是 "50%20off" 与 "50 off"
+    expect(store.tabs.map((tab) => tab.key)).toEqual([
+      '/home',
+      '/search?q=50%20off',
+      '/search?q=50 off',
+    ]);
+
+    const keyToClose = store.tabs[1]?.key as string;
+    await store.closeTabByKey(keyToClose, router);
+    expect(store.tabs.map((tab) => tab.name)).toEqual(['Home', 'Decoded']);
+  });
+
   it('refreshes the current tab', async () => {
     const store = useTabbarStore();
     const currentTab: any = {
@@ -297,5 +372,97 @@ describe('useAccessStore', () => {
 
     expect(store.excludeCachedTabs.has('Dashboard')).toBe(false);
     expect(store.renderRouteView).toBe(true);
+  });
+
+  it('sorts tabs by the rendered order, which puts affix tabs first', async () => {
+    const store = useTabbarStore();
+    // 先打开两个普通标签页，之后才注册固定标签页（accessMenus 变化时会这样）
+    for (const tab of [
+      { fullPath: '/a', meta: {}, name: 'A', path: '/a' },
+      { fullPath: '/b', meta: {}, name: 'B', path: '/b' },
+      {
+        fullPath: '/home',
+        meta: { affixTab: true },
+        name: 'Home',
+        path: '/home',
+      },
+    ]) {
+      store.addTab(tab as any);
+    }
+
+    expect(store.tabs.map((item) => item.key)).toEqual(['/a', '/b', '/home']);
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/a',
+      '/b',
+    ]);
+
+    // 拖拽回调给出的是渲染顺序的下标：把 /b 拖到 /a 之前
+    await store.sortTabs(2, 1);
+
+    expect(store.getTabs.map((item) => item.key)).toEqual([
+      '/home',
+      '/b',
+      '/a',
+    ]);
+  });
+
+  it('pins a tab at its rendered position', async () => {
+    const store = useTabbarStore();
+    const add = (name: string, affix = false) =>
+      store.addTab({
+        fullPath: `/${name.toLowerCase()}`,
+        meta: affix ? { affixTab: true } : {},
+        name,
+        path: `/${name.toLowerCase()}`,
+      } as any);
+    add('A');
+    add('B');
+    add('P1', true);
+    add('P2', true);
+
+    // 固定标签在原始数组里排在最后，渲染时排在最前
+    expect(store.tabs.map((item) => item.name)).toEqual(['A', 'B', 'P1', 'P2']);
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'P1',
+      'P2',
+      'A',
+      'B',
+    ]);
+
+    // B 的原始下标是 1，渲染下标是 3
+    await store.pinTab(store.tabs[1] as any);
+
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'B',
+      'P1',
+      'P2',
+      'A',
+    ]);
+  });
+
+  it('unpins a tab at its rendered position', async () => {
+    const store = useTabbarStore();
+    const add = (name: string, affix = false) =>
+      store.addTab({
+        fullPath: `/${name.toLowerCase()}`,
+        meta: affix ? { affixTab: true } : {},
+        name,
+        path: `/${name.toLowerCase()}`,
+      } as any);
+    add('A');
+    add('B');
+    add('P1', true);
+    add('P2', true);
+
+    // 取消固定后 P1 的原始下标是 2，渲染下标是 3
+    await store.unpinTab(store.tabs[2] as any);
+
+    expect(store.getTabs.map((item) => item.name)).toEqual([
+      'P2',
+      'P1',
+      'A',
+      'B',
+    ]);
   });
 });
