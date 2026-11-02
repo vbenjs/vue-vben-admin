@@ -2,6 +2,7 @@ export * from './ignores';
 export * from './javascript';
 export * from './jsonc';
 export * from './node';
+export * from './oxlint';
 export * from './perfectionist';
 export * from './pnpm';
 export * from './typescript';

@@ -25,9 +25,7 @@ const secureLSModule = SecureLS as unknown as {
 };
 
 const SecureLSConstructor =
-  secureLSModule.default ??
-  secureLSModule.SecureLS ??
-  (SecureLS as unknown as SecureLSCtor);
+  secureLSModule.default ?? secureLSModule.SecureLS ?? SecureLS;
 
 export interface InitStoreOptions {
   /**

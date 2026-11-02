@@ -150,8 +150,11 @@ export function useDescriptionItems(
   ];
 }
 
-export function useColumns<T = SystemUserApi.SystemUser>(
-  onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
+export function useColumns(
+  onStatusChange?: (
+    newStatus: any,
+    row: SystemUserApi.SystemUser,
+  ) => PromiseLike<boolean | undefined>,
 ): VxeTableGridColumns {
   return [
     {

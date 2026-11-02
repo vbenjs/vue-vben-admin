@@ -63,7 +63,7 @@ describe('form api compatibility', () => {
     const formApi = new FormApi<
       { name: string },
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       { normalizedName: string }
     >({
       codec: {

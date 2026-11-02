@@ -23,7 +23,7 @@ const routeHolder = vi.hoisted(() => ({
   current: {
     meta: {},
     path: '/',
-  } as { meta: Record<string, unknown>; path: string },
+  },
 }));
 
 vi.mock('vue-router', () => ({

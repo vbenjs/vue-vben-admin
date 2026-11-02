@@ -58,7 +58,11 @@ const collapsibleRows = computed(() => {
 });
 
 const bodyStyle = computed(() => {
-  if (!open.value || props.maxHeight == null) {
+  if (
+    !open.value ||
+    props.maxHeight === null ||
+    props.maxHeight === undefined
+  ) {
     return undefined;
   }
 

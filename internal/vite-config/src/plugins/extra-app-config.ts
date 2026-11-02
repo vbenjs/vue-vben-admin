@@ -30,7 +30,7 @@ async function viteExtraAppConfigPlugin({
   let hash: string;
 
   if (!isBuild) {
-    return;
+    return undefined;
   }
 
   const { version = '' } = await readPackageJSON(root);
@@ -51,9 +51,15 @@ async function viteExtraAppConfigPlugin({
 
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
+        // 不复用 @vben-core/shared 的 getErrorMessage：那会让本包构建产物
+        // 运行时导入 shared 的 dist，而消费方（各 app/design 的
+        // vite.config.ts）不在 package.json 声明本包，turbo 图中与
+        // shared#build 没有顺序边——CI 全量 build 时会撞上 shared 重建
+        // 清空 dist 的窗口，ERR_MODULE_NOT_FOUND（post-update 实测）。
+        const reason = error instanceof Error ? error.message : String(error);
         console.log(
           colors.red(
-            `configuration file configuration file failed to package:\n${error}`,
+            `configuration file configuration file failed to package:\n${reason}`,
           ),
         );
       }

@@ -106,7 +106,7 @@ export function useTabs() {
       disabled || !isCurrentTab || tabs.length - affixTabs.length <= 1;
     return {
       disabledCloseAll: disabled,
-      disabledCloseCurrent: !!affixTab || disabled,
+      disabledCloseCurrent: affixTab || disabled,
       disabledCloseLeft,
       disabledCloseOther,
       disabledCloseRight,
