@@ -109,6 +109,8 @@ export function useTabbar() {
       const meta = route.matched?.[route.matched.length - 1]?.meta;
       tabbarStore.addTab({
         ...route,
+        // key 用合并后的 route.meta 计算，父级的 fullPathKey 同样生效
+        key: getTabKey(route),
         meta: meta || route.meta,
       });
     },
