@@ -139,4 +139,31 @@ describe('sSE', () => {
     );
     await expect(sse.requestSSE('/sse')).rejects.toThrow('No reader');
   });
+
+  it('keeps the baseURL path when joining the request url', async () => {
+    client = {
+      getBaseUrl: () => 'http://localhost/api',
+      instance: {
+        interceptors: {
+          request: {
+            handlers: [],
+          },
+        },
+      },
+    } as unknown as RequestClient;
+    sse = new SSE(client);
+    const fetchMock = createFetchMock(['data']);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await sse.requestSSE('/chat/stream', undefined, {});
+    await sse.requestSSE('chat/summary', undefined, {});
+
+    // Same joining rule axios applies to `client.post('/chat/stream')`.
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      'http://localhost/api/chat/stream',
+    );
+    expect(fetchMock.mock.calls[1]?.[0]).toBe(
+      'http://localhost/api/chat/summary',
+    );
+  });
 });

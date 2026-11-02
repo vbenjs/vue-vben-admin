@@ -122,12 +122,7 @@ function safeJoinUrl(baseUrl: string | undefined, url: string): string {
     return url;
   }
 
-  // 如果 baseUrl 是完整 URL，就用 new URL
-  if (/^https?:\/\//i.test(baseUrl)) {
-    return new URL(url, baseUrl).toString();
-  }
-
-  // 否则，当作路径拼接
+  // 与 axios 保持一致：baseUrl 的路径段属于接口前缀，不能被 URL 解析丢掉
   return `${baseUrl.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
 }
 
