@@ -83,6 +83,9 @@ export const authenticateResponseInterceptor = ({
               return;
             }
             config.headers.Authorization = formatToken(newToken);
+            // Without the retry flag a queued request that keeps answering 401
+            // would open a second refresh cycle once `isRefreshing` is false.
+            config.__isRetryRequest = true;
             resolve(client.request(config.url, { ...config }));
           });
         });
