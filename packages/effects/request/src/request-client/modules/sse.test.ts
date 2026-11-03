@@ -139,4 +139,79 @@ describe('sSE', () => {
     );
     await expect(sse.requestSSE('/sse')).rejects.toThrow('No reader');
   });
+
+  it('keeps the baseURL path when joining the request url', async () => {
+    client = {
+      getBaseUrl: () => 'http://localhost/api',
+      instance: {
+        interceptors: {
+          request: {
+            handlers: [],
+          },
+        },
+      },
+    } as unknown as RequestClient;
+    sse = new SSE(client);
+    const fetchMock = createFetchMock(['data']);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await sse.requestSSE('/chat/stream', undefined, {});
+    await sse.requestSSE('chat/summary', undefined, {});
+
+    // Same joining rule axios applies to `client.post('/chat/stream')`.
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      'http://localhost/api/chat/stream',
+    );
+    expect(fetchMock.mock.calls[1]?.[0]).toBe(
+      'http://localhost/api/chat/summary',
+    );
+  });
+
+  it('keeps the baseURL untouched for an empty request url', async () => {
+    client = {
+      getBaseUrl: () => 'http://localhost/api',
+      instance: {
+        interceptors: {
+          request: {
+            handlers: [],
+          },
+        },
+      },
+    } as unknown as RequestClient;
+    sse = new SSE(client);
+    const fetchMock = createFetchMock(['data']);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await sse.requestSSE('', undefined, {});
+    await sse.requestSSE('/', undefined, {});
+
+    // axios returns `baseURL` itself for an empty relative url, and appends a
+    // single slash for '/'; both rules must keep matching after the join.
+    expect(fetchMock.mock.calls[0]?.[0]).toBe('http://localhost/api');
+    expect(fetchMock.mock.calls[1]?.[0]).toBe('http://localhost/api/');
+  });
+
+  it('keeps a protocol-relative request url untouched', async () => {
+    client = {
+      getBaseUrl: () => 'http://localhost/api',
+      instance: {
+        interceptors: {
+          request: {
+            handlers: [],
+          },
+        },
+      },
+    } as unknown as RequestClient;
+    sse = new SSE(client);
+    const fetchMock = createFetchMock(['data']);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await sse.requestSSE('//other.example/stream', undefined, {});
+    await sse.requestSSE('ftp://other.example/stream', undefined, {});
+
+    // axios classifies `<scheme>://…` and `//…` as absolute, so neither may be
+    // joined onto the base url.
+    expect(fetchMock.mock.calls[0]?.[0]).toBe('//other.example/stream');
+    expect(fetchMock.mock.calls[1]?.[0]).toBe('ftp://other.example/stream');
+  });
 });

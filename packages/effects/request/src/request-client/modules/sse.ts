@@ -117,17 +117,17 @@ function safeJoinUrl(baseUrl: string | undefined, url: string): string {
     return url; // 没有 baseUrl，直接返回 url
   }
 
-  // 如果 url 本身就是绝对地址，直接返回
-  if (/^https?:\/\//i.test(url)) {
+  // 与 axios 的 isAbsoluteURL 一致：`<scheme>://…` 与 protocol-relative 的 `//…` 都算绝对地址
+  if (/^([a-z][a-z\d+\-.]*:)?\/\//i.test(url)) {
     return url;
   }
 
-  // 如果 baseUrl 是完整 URL，就用 new URL
-  if (/^https?:\/\//i.test(baseUrl)) {
-    return new URL(url, baseUrl).toString();
+  // 与 axios 保持一致：空的相对地址直接返回 baseUrl，不做拼接
+  if (!url) {
+    return baseUrl;
   }
 
-  // 否则，当作路径拼接
+  // 与 axios 保持一致：baseUrl 的路径段属于接口前缀，不能被 URL 解析丢掉
   return `${baseUrl.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
 }
 
