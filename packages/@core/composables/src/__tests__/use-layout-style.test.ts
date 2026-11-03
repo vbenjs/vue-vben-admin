@@ -40,6 +40,6 @@ describe('useLayoutContentStyle', () => {
 
     expect(resizeObserver).not.toHaveBeenCalled();
     expect(overlay.style.position).toBe('absolute');
-    expect(`${overlay.style.inset}`).toBe('0');
+    expect(overlay.style.inset).toBe('0');
   });
 });

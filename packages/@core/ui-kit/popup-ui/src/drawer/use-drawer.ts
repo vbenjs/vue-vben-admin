@@ -91,7 +91,7 @@ export function useVbenDrawer<
             isDrawerReady.value = true;
           },
         });
-        checkProps(extendedApi, {
+        void checkProps(extendedApi, {
           ...props,
           ...attrs,
           ...slots,
@@ -148,7 +148,7 @@ export function useVbenDrawer<
       if (injectData.consumed !== undefined) {
         injectData.consumed = false;
       }
-      injectData.reCreateDrawer?.();
+      void injectData.reCreateDrawer?.();
     }
   };
   const api = new DrawerApi<TResolvedData>(mergedOptions);

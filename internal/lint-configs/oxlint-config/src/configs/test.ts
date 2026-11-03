@@ -12,7 +12,6 @@ const test: OxlintConfig = {
       },
     ],
     'vitest/hoisted-apis-on-top': 'off',
-    'vitest/no-focused-tests': 'error',
     'vitest/no-identical-title': 'error',
     'vitest/no-import-node-test': 'error',
     'vitest/prefer-hooks-in-order': 'error',

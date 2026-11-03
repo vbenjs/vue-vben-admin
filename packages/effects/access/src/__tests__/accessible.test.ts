@@ -33,7 +33,7 @@ function findByName(
       return route;
     }
     if (route.children) {
-      const found = findByName(route.children as RouteRecordRaw[], name);
+      const found = findByName(route.children, name);
       if (found) {
         return found;
       }

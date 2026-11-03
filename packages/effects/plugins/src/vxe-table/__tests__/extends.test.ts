@@ -8,7 +8,7 @@ const FORM_VALUES = { category: 'cat-42' };
 type QueryFn = (
   params: Record<string, unknown>,
   formValues: Record<string, unknown>,
-) => Promise<unknown> | unknown;
+) => unknown;
 
 function createApi(query: QueryFn) {
   return new VxeGridApi({

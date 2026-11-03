@@ -54,12 +54,16 @@ export function usePriorityValue<
  */
 export function usePriorityValues<
   T extends Record<string, any>,
+  // S 是已发布的公共 API 契约：调用方以 usePriorityValues<Props, StateRef>(…)
+  // 显式传参指定 state 的 Ref 类型；默认值依赖 T 推断（NoInfer<T>），
+  // 规则只看签名内出现次数、不评估跨包调用方，不能据此删除。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
   S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
 >(props: T, state: S | undefined) {
   const result: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
-    result[key] = usePriorityValue(key as keyof typeof props, props, state);
+    result[key] = usePriorityValue(key, props, state);
   });
 
   return result;
@@ -72,16 +76,14 @@ export function usePriorityValues<
  */
 export function useForwardPriorityValues<
   T extends Record<string, any>,
+  // 同 usePriorityValues：两个类型实参的调用形态是已发布契约，保留 S。
+  // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
   S extends Ref<Record<string, any>> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
 >(props: T, state: S | undefined) {
   const computedResult: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
-    computedResult[key] = usePriorityValue(
-      key as keyof typeof props,
-      props,
-      state,
-    );
+    computedResult[key] = usePriorityValue(key, props, state);
   });
 
   return computed(() => {

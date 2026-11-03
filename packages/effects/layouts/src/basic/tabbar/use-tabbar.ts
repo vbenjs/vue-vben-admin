@@ -77,7 +77,7 @@ export function useTabbar() {
   // 点击tab,跳转路由
   const handleClick = (key: string) => {
     const { fullPath, path } = tabbarStore.getTabByKey(key);
-    router.push(fullPath || path);
+    void router.push(fullPath || path);
   };
 
   // 关闭tab
@@ -90,7 +90,7 @@ export function useTabbar() {
       ...tab,
       meta: {
         ...tab?.meta,
-        title: $t(tab?.meta?.title as string),
+        title: $t(tab?.meta?.title),
       },
     };
   }

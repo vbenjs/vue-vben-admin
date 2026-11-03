@@ -90,7 +90,7 @@ export function useVbenModal<
             isModalReady.value = true;
           },
         });
-        checkProps(extendedApi, {
+        void checkProps(extendedApi, {
           ...props,
           ...attrs,
           ...slots,
@@ -150,7 +150,7 @@ export function useVbenModal<
       if (injectData.consumed !== undefined) {
         injectData.consumed = false;
       }
-      injectData.reCreateModal?.();
+      void injectData.reCreateModal?.();
     }
   };
 

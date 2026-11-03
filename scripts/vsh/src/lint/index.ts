@@ -116,7 +116,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
 
   if (format) {
     await runSerial([
-      ['oxlint', ['--fix', '--type-aware', threadsArg]],
+      ['oxlint', ['--fix', threadsArg]],
       ['oxfmt', [threadsArg]],
       ['eslint', ['.', '--cache', '--fix']],
       ['stylelint', ['**/*.{vue,css,less,scss}', '--cache', '--fix']],
@@ -125,7 +125,7 @@ async function runLint({ format, threads }: LintCommandOptions) {
   }
 
   const commands: Command[] = [
-    ['oxlint', ['--type-aware', threadsArg]],
+    ['oxlint', [threadsArg]],
     ['oxfmt', ['--check', threadsArg]],
     ['eslint', ['.', '--cache']],
     ['stylelint', ['**/*.{vue,css,less,scss}', '--cache']],

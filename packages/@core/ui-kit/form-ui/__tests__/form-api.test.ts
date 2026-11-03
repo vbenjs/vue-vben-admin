@@ -44,7 +44,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions);
+    formApi.mount(formActions);
     expect(formApi.isMounted).toBe(true);
     expect(formApi.form).toEqual(formActions);
     expect(formApi.getFieldComponentRef('name')).toBeUndefined();
@@ -56,7 +56,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     const values = await formApi.getValues();
     expect(values).toEqual({ name: 'test' });
   });
@@ -99,7 +99,7 @@ describe('formApi', () => {
     };
     const originalValuesSnapshot = structuredClone(formActions.values);
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
 
     expect(formApi.getLatestSubmissionValues()).toEqual({
       filters: {
@@ -139,7 +139,7 @@ describe('formApi', () => {
     const codecFormApi = new FormApi<
       FilterFormValues,
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       FilterSubmitValues
     >({
       codec: {
@@ -164,7 +164,7 @@ describe('formApi', () => {
       values: { period: [1, 2], tags: ['admin', 'user'] },
     };
 
-    await codecFormApi.mount(formActions, new Map());
+    codecFormApi.mount(formActions, new Map());
 
     expect(await codecFormApi.getValues()).toEqual({
       endTime: 2,
@@ -226,7 +226,7 @@ describe('formApi', () => {
     const codecFormApi = new FormApi<
       { name?: string },
       BaseFormComponentType,
-      Record<never, never>,
+      Record<string, never>,
       { normalizedName: string }
     >({
       codec: {
@@ -272,7 +272,7 @@ describe('formApi', () => {
       values: { name: 'Ada' },
     };
 
-    await codecFormApi.mount(formActions, new Map());
+    codecFormApi.mount(formActions, new Map());
     expect(getChildren).toHaveBeenCalledTimes(1);
 
     await codecFormApi.getValues();
@@ -313,7 +313,7 @@ describe('formApi', () => {
       },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
 
     const values = await formApi.getValues();
     expect(values).toEqual({
@@ -330,7 +330,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setFieldValue('name', 'new value');
     expect(setFieldValueMock).toHaveBeenCalledWith(
       'name',
@@ -353,7 +353,7 @@ describe('formApi', () => {
       values: {},
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues({
       name: 'Ada',
       profile: {
@@ -392,7 +392,7 @@ describe('formApi', () => {
       values: {},
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues({
       email: 'ada@example.com',
       name: 'Ada',
@@ -425,8 +425,8 @@ describe('formApi', () => {
       values: { email: 'ada@example.com', phone: '123' },
     };
 
-    await formApi.mount(formActions, new Map());
-    formApi.removeSchemaByFields(['phone']);
+    formApi.mount(formActions, new Map());
+    void formApi.removeSchemaByFields(['phone']);
 
     expect(formApi.state?.schema).toEqual([
       {
@@ -460,7 +460,7 @@ describe('formApi', () => {
       },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues({
       profile: { email: 'new@example.com' },
     });
@@ -515,7 +515,7 @@ describe('formApi', () => {
       },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues(fields, true, true);
 
     expect(fields).toEqual({
@@ -558,7 +558,7 @@ describe('formApi', () => {
       values: { profile: { bio: 'Mathematician' } },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues({ profile });
 
     expect(setValuesMock).toHaveBeenCalledTimes(1);
@@ -579,7 +579,7 @@ describe('formApi', () => {
       values: { 'profile.email': 'old@example.com' },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.setValues({ 'profile.email': 'new@example.com' });
 
     expect(setValuesMock).toHaveBeenCalledWith(
@@ -596,7 +596,7 @@ describe('formApi', () => {
       values: { name: 'test' },
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     await formApi.reset();
     expect(resetMock).toHaveBeenCalled();
   });
@@ -614,7 +614,7 @@ describe('formApi', () => {
     };
 
     formApi.setState(state);
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
 
     const result = await formApi.submit();
     expect(formActions.submit).toHaveBeenCalled();
@@ -648,7 +648,7 @@ describe('formApi', () => {
       ],
     ]);
 
-    await formApi.mount(formActions, staleMap);
+    formApi.mount(formActions, staleMap);
     expect(formApi.getFieldComponentRef('name')).toEqual({
       $: {
         type: { name: 'MockComponent' },
@@ -659,7 +659,7 @@ describe('formApi', () => {
     formApi.unmount();
     expect(formApi.getFieldComponentRef('name')).toBeUndefined();
 
-    await formApi.mount(formActions);
+    formApi.mount(formActions);
     expect(formApi.getFieldComponentRef('name')).toBeUndefined();
   });
 
@@ -670,7 +670,7 @@ describe('formApi', () => {
       validate: validateMock,
     };
 
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
     const isValid = await formApi.validate();
     expect(validateMock).toHaveBeenCalled();
     expect(isValid).toBe(true);
@@ -686,7 +686,7 @@ describe('formApi', () => {
     };
 
     formApi.setState({ handleSubmit });
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
 
     await expect(formApi.validateAndSubmit()).resolves.toEqual({ name: 'Ada' });
     expect(formActions.validate).toHaveBeenCalledOnce();
@@ -708,7 +708,7 @@ describe('formApi', () => {
       .mockImplementation(() => {});
 
     formApi.setState({ handleSubmit, scrollToFirstError: true });
-    await formApi.mount(formActions, new Map());
+    formApi.mount(formActions, new Map());
 
     await expect(formApi.validateAndSubmit()).resolves.toBeUndefined();
     expect(formActions.validate).toHaveBeenCalledOnce();

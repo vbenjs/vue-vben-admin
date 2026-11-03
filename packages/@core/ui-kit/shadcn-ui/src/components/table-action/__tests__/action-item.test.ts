@@ -27,7 +27,7 @@ async function openPopConfirm(action: Record<string, any>) {
 
   const trigger = host.querySelector('button');
   expect(trigger).toBeTruthy();
-  trigger!.click();
+  trigger?.click();
   await nextTick();
   await vi.waitFor(() => {
     expect(
@@ -35,8 +35,9 @@ async function openPopConfirm(action: Record<string, any>) {
     ).toBeTruthy();
   });
 
-  const content = document.body.querySelector('[data-slot="popover-content"]')!;
-  const buttons = [...content.querySelectorAll('button')];
+  const content = document.body.querySelector('[data-slot="popover-content"]');
+  expect(content).toBeTruthy();
+  const buttons = [...(content?.querySelectorAll('button') ?? [])];
 
   return { buttons, content };
 }
@@ -45,7 +46,7 @@ async function openPopConfirm(action: Record<string, any>) {
 function sizeClasses(element: Element) {
   return [...element.classList]
     .filter((name) => /^(h-\d+|p-\d+|px-\d+|py-\d+)$/.test(name))
-    .sort();
+    .toSorted();
 }
 
 describe('action-item.vue popConfirm', () => {

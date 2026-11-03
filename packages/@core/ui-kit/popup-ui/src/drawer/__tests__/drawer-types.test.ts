@@ -21,7 +21,9 @@ describe('drawer public data types', () => {
 
       expectTypeOf(drawerApi).toEqualTypeOf<ExtendedDrawerApi<DrawerData>>();
       expectTypeOf(drawerApi.getData()).toEqualTypeOf<DrawerData | undefined>();
-      expectTypeOf(drawerApi.setData).parameter(0).toEqualTypeOf<DrawerData>();
+      expectTypeOf(drawerApi.setData.bind(drawerApi))
+        .parameter(0)
+        .toEqualTypeOf<DrawerData>();
       expectTypeOf(drawerApi.setData(null).open()).toBeVoid();
       // @ts-expect-error invalid payload type
       drawerApi.setData({ id: '1', mode: 'edit' });
@@ -50,7 +52,7 @@ describe('drawer public data types', () => {
     function assertUnknownData() {
       const [, drawerApi] = useDrawer();
 
-      expectTypeOf(drawerApi).toEqualTypeOf<ExtendedDrawerApi<unknown>>();
+      expectTypeOf(drawerApi).toEqualTypeOf<ExtendedDrawerApi>();
       expectTypeOf(drawerApi.getData()).toBeUnknown();
     }
 

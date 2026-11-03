@@ -47,7 +47,7 @@ interface RouteMeta {
     | 'primary'
     | 'success'
     | 'warning'
-    | string;
+    | (string & {});
   /**
    * 路由对应dom是否缓存起来
    */

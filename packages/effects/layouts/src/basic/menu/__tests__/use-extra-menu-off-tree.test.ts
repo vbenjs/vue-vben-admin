@@ -16,7 +16,7 @@ vi.mock('@vben/preferences', () => ({
 }));
 
 const routeHolder = vi.hoisted(() => ({
-  current: { meta: {} as Record<string, unknown>, path: '/' },
+  current: { meta: {}, path: '/' },
 }));
 
 vi.mock('vue-router', () => ({

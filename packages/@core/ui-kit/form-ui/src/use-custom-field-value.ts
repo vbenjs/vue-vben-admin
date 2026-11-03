@@ -15,7 +15,7 @@ export interface FormCustomFieldContext {
   resetValidation: () => void;
   setValue: (value: any) => void;
   validateWithTrigger: (trigger: FormValidationTrigger) => void;
-  value: Readonly<Ref<any>>;
+  value: Readonly<Ref>;
 }
 
 export interface UseCustomFieldValueOptions {

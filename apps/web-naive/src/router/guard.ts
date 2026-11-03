@@ -23,7 +23,7 @@ function setupCommonGuard(router: Router) {
 
     // 页面加载进度条
     if (!to.meta.loaded && preferences.transition.progress) {
-      startProgress();
+      void startProgress();
     }
     return true;
   });
@@ -35,7 +35,7 @@ function setupCommonGuard(router: Router) {
 
     // 关闭页面加载进度条
     if (preferences.transition.progress) {
-      stopProgress();
+      void stopProgress();
     }
   });
 }
@@ -51,7 +51,7 @@ function setupAccessGuard(router: Router) {
     const authStore = useAuthStore();
 
     // 基本路由，这些路由不需要进入权限拦截
-    if (coreRouteNames.includes(to.name as string)) {
+    if (coreRouteNames.includes(to.name)) {
       if (to.path === LOGIN_PATH && accessStore.accessToken) {
         return decodeURIComponent(
           (to.query?.redirect as string) ||

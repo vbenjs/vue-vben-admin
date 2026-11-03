@@ -34,7 +34,7 @@ function getDefaultState(): VxeGridProps {
 export class VxeGridApi<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TFormValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TFormValues,
 > {
@@ -55,15 +55,7 @@ export class VxeGridApi<
 
   private stateHandler: StateHandler;
 
-  constructor(
-    options: VxeGridProps<
-      T,
-      D,
-      P,
-      TFormValues,
-      TSubmitValues
-    > = {} as VxeGridProps<T, D, P, TFormValues, TSubmitValues>,
-  ) {
+  constructor(options: VxeGridProps<T, D, P, TFormValues, TSubmitValues> = {}) {
     const storeState = { ...options };
 
     const defaultState = getDefaultState();

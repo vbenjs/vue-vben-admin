@@ -64,7 +64,7 @@ describe('useTabs', () => {
     const store = seedTabs();
     const { getTabDisableState } = useTabs();
 
-    const state = getTabDisableState(store.getTabByKey('/detail?id=7') as any);
+    const state = getTabDisableState(store.getTabByKey('/detail?id=7'));
 
     // /detail?id=7 是最后一个标签页：左侧有可关闭的标签页，右侧没有
     expect(state.disabledCloseLeft).toBe(false);
@@ -75,7 +75,7 @@ describe('useTabs', () => {
     const store = seedTabs();
     const { getTabDisableState } = useTabs();
 
-    const state = getTabDisableState(store.getTabByKey('/detail?id=1') as any);
+    const state = getTabDisableState(store.getTabByKey('/detail?id=1'));
 
     expect(state.disabledRefresh).toBe(true);
     expect(state.disabledCloseOther).toBe(true);
@@ -104,7 +104,7 @@ describe('useTabs', () => {
     });
 
     try {
-      const state = getTabDisableState(store.getTabByKey('/detail') as any);
+      const state = getTabDisableState(store.getTabByKey('/detail'));
       expect(state.disabledRefresh).toBe(false);
       expect(state.disabledCloseRight).toBe(true);
     } finally {

@@ -3,6 +3,7 @@ export * from './date';
 export * from './diff';
 export * from './dom';
 export * from './download';
+export * from './error';
 export * from './inference';
 export * from './letter';
 export * from './merge';

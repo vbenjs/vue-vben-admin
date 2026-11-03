@@ -42,7 +42,7 @@ type BuiltinThemeType =
   | 'violet'
   | 'yellow'
   | 'zinc'
-  | (Record<never, never> & string);
+  | (string & {});
 
 type ContentCompactType = 'compact' | 'wide';
 

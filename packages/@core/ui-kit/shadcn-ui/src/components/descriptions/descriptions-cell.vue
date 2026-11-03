@@ -84,7 +84,7 @@ const displayContent = computed(() => {
 const cellClass = computed(() => {
   if (props.bordered) {
     return cn(
-      'border border-border align-top break-words',
+      'border border-border align-top wrap-break-word',
       BORDERED_PADDING[props.size],
       props.type === 'label'
         ? 'bg-muted/50 text-start font-normal text-foreground'

@@ -346,7 +346,12 @@ interface RouteMeta {
    * Badge color
    */
   badgeVariants?:
-    'default' | 'destructive' | 'primary' | 'success' | 'warning' | string;
+    | 'default'
+    | 'destructive'
+    | 'primary'
+    | 'success'
+    | 'warning'
+    | string;
   /**
    * The children of the current route are not displayed in the menu
    * @default false

@@ -115,7 +115,7 @@ function mapTree<T, V extends Record<string, any>>(
     childProps: 'children',
   };
   return tree.map((node) => {
-    const mapperNode: Record<string, any> = mapper(node, parent as null | V);
+    const mapperNode: Record<string, any> = mapper(node, parent);
     if (mapperNode[childProps]) {
       mapperNode[childProps] = mapTree(
         mapperNode[childProps],

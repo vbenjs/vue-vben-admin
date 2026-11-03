@@ -12,7 +12,7 @@ afterEach(() => {
   document.body.innerHTML = '';
 });
 
-describe('VbenCollapsible', () => {
+describe('vbenCollapsible', () => {
   it('keeps a one-pixel paint buffer around animated content', async () => {
     const host = document.createElement('div');
     document.body.append(host);
@@ -42,6 +42,6 @@ describe('VbenCollapsible', () => {
 
     open.value = false;
     await nextTick();
-    expect(content.getAttribute('data-state')).toBe('closed');
+    expect(content.dataset.state).toBe('closed');
   });
 });

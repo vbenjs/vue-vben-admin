@@ -8,7 +8,7 @@ import {
 } from './form-field-slot-migration-warning';
 
 describe('form field slot migration warning plugin', () => {
-  it('warns in serve mode and injects the same browser message', () => {
+  it('warns in serve mode and injects the same browser message', async () => {
     const plugin = viteFormFieldSlotMigrationWarningPlugin();
     const warning = vi.fn();
 
@@ -16,7 +16,9 @@ describe('form field slot migration warning plugin', () => {
     expect(plugin.configResolved).toBeTypeOf('function');
     if (typeof plugin.configResolved !== 'function') return;
 
-    plugin.configResolved({ logger: { warn: warning } } as ResolvedConfig);
+    await plugin.configResolved({
+      logger: { warn: warning },
+    } as ResolvedConfig);
 
     expect(warning).toHaveBeenCalledOnce();
     expect(warning).toHaveBeenCalledWith(FORM_FIELD_SLOT_MIGRATION_WARNING);

@@ -72,7 +72,7 @@ export function useLayoutHook() {
     const { tabbar, transition } = preferences;
     const transitionName = transition.name;
     if (!transitionName || !transition.enable) {
-      return;
+      return undefined;
     }
 
     // 标签页未启用或者未开启缓存，则使用全局配置动画

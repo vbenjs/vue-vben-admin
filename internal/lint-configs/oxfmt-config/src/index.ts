@@ -124,12 +124,5 @@ const oxfmtConfig: OxfmtConfig = defineOxfmtConfig({
   ],
 });
 
-function defineConfig(config: OxfmtConfig = {}): OxfmtConfig {
-  return defineOxfmtConfig({
-    ...oxfmtConfig,
-    ...config,
-  });
-}
-
-export { defineConfig, oxfmtConfig };
+export { oxfmtConfig };
 export type { OxfmtConfig };

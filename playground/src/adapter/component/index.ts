@@ -270,11 +270,6 @@ async function previewImage(
     return;
   }
 
-  const [ImageComponent, PreviewGroupComponent] = await Promise.all([
-    Image,
-    PreviewGroup,
-  ]);
-
   // 过滤图片文件并生成预览
   const imageFiles = (unref(fileList) || []).filter((f) => isImageFile(f));
 
@@ -295,7 +290,7 @@ async function previewImage(
       return () => {
         if (isUnmounted) return null;
         return h(
-          PreviewGroupComponent,
+          PreviewGroup,
           {
             classes: { popup: { root: '!z-2000' } },
             preview: {
@@ -317,7 +312,7 @@ async function previewImage(
           },
           () =>
             imageFiles.map((imgFile) =>
-              h(ImageComponent, {
+              h(Image, {
                 key: imgFile.uid,
                 src: imgFile.url || imgFile.preview,
               }),
@@ -342,7 +337,9 @@ function cropImage(file: File, aspectRatio: string | undefined) {
     let objectUrl: null | string = null;
 
     const open = ref<boolean>(true);
-    const cropperRef = ref<InstanceType<typeof VCropper> | null>(null);
+    const cropperRef = ref<null | {
+      getCropImage: () => Promise<Blob | string | undefined>;
+    }>(null);
 
     function closeModal() {
       open.value = false;
@@ -739,7 +736,7 @@ async function initComponentAdapter() {
       imageUpload: {
         upload: (file: any, onProgress: any) => {
           return new Promise((resolve, reject) => {
-            upload_file({
+            void upload_file({
               file,
               onProgress({ percent }) {
                 onProgress?.(percent);

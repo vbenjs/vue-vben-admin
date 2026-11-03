@@ -183,12 +183,10 @@ export async function vbenPrompt<T = any>(
   const props: AlertProps & Recordable<any> = {
     ...delegated,
     async beforeClose(scope: BeforeCloseScope) {
-      if (delegated.beforeClose) {
-        return await delegated.beforeClose({
-          ...scope,
-          value: modelValue.value,
-        });
-      }
+      return await delegated.beforeClose?.({
+        ...scope,
+        value: modelValue.value,
+      });
     },
     // 使用函数形式，每次渲染都会重新计算内容
     content: contentRenderer,

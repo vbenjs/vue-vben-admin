@@ -46,6 +46,46 @@ describe('date range codec', () => {
       rangeField: 'optionalText',
       startField: 'start',
     });
+
+    interface LooseFieldCandidates extends Record<string, unknown> {
+      // any 字段绕过值类型检查，也必须被拒绝
+      anyField: any;
+      optionalAnyField?: any;
+      rangeOrMissing: [Dayjs, Dayjs] | undefined;
+    }
+    const createLooseCodec = createDateRangeCodec<LooseFieldCandidates>();
+    createLooseCodec({
+      endField: 'end',
+      // @ts-expect-error An `any` field must not be accepted as a range.
+      rangeField: 'anyField',
+      startField: 'start',
+    });
+    createLooseCodec({
+      endField: 'end',
+      // @ts-expect-error An optional `any` field must also be rejected.
+      rangeField: 'optionalAnyField',
+      startField: 'start',
+    });
+    createLooseCodec({
+      endField: 'end',
+      // @ts-expect-error A required `X | undefined` union is not optional.
+      rangeField: 'rangeOrMissing',
+      startField: 'start',
+    });
+
+    // 联合类型参数须逐成员判定：联合中的必填成员不能作为字面量传入
+    // （下方 'requiredRange' 报错）。注：TS 对「声明为联合类型的变量」
+    // 会延迟求值参数位置的条件类型，任何守卫形态都拦不住此类值——
+    // 这是类型系统的已知限制，不另设断言用例。
+    const createUnionCodec = createDateRangeCodec<
+      LooseFieldCandidates & RangeFieldCandidates
+    >();
+    createUnionCodec({
+      endField: 'end',
+      // @ts-expect-error The required member of a union cannot be picked.
+      rangeField: 'requiredRange',
+      startField: 'start',
+    });
   });
 
   it('encodes and decodes configurable date range fields', () => {

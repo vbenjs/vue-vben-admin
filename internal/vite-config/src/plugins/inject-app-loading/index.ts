@@ -31,7 +31,7 @@ async function viteInjectAppLoadingPlugin(
 `;
 
   if (!loadingHtml) {
-    return;
+    return undefined;
   }
 
   return {

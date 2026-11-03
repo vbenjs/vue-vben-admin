@@ -133,7 +133,9 @@ function handleClick(
     case 'componentRef': {
       // 获取下拉组件的实例，并调用它的focus方法
       formApi
-        .getFieldComponentRef<{ focus?: () => void }>('fieldOptions')
+        .getFieldComponentRef<{
+          focus?: () => void;
+        }>('fieldOptions')
         ?.focus?.();
       break;
     }

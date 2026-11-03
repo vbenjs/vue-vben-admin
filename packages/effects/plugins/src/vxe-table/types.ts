@@ -46,7 +46,7 @@ export interface SeparatorOptions {
 export interface VxeGridProps<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TFormValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TFormValues,
 > {
@@ -99,7 +99,7 @@ export interface VxeGridProps<
 export type ExtendedVxeGridApi<
   D extends Record<string, any> = any,
   F extends BaseFormComponentType = BaseFormComponentType,
-  P extends Record<string, any> = Record<never, never>,
+  P extends Record<string, any> = Record<string, never>,
   TFormValues extends FormValues = FormValues,
   TSubmitValues extends FormValues = TFormValues,
 > = VxeGridApi<D, F, P, TFormValues, TSubmitValues> & {

@@ -21,7 +21,9 @@ describe('modal public data types', () => {
 
       expectTypeOf(modalApi).toEqualTypeOf<ExtendedModalApi<ModalData>>();
       expectTypeOf(modalApi.getData()).toEqualTypeOf<ModalData | undefined>();
-      expectTypeOf(modalApi.setData).parameter(0).toEqualTypeOf<ModalData>();
+      expectTypeOf(modalApi.setData.bind(modalApi))
+        .parameter(0)
+        .toEqualTypeOf<ModalData>();
       expectTypeOf(modalApi.setData(null).open()).toBeVoid();
       // @ts-expect-error invalid payload type
       modalApi.setData({ id: '1', mode: 'edit' });
@@ -50,7 +52,7 @@ describe('modal public data types', () => {
     function assertUnknownData() {
       const [, modalApi] = useModal();
 
-      expectTypeOf(modalApi).toEqualTypeOf<ExtendedModalApi<unknown>>();
+      expectTypeOf(modalApi).toEqualTypeOf<ExtendedModalApi>();
       expectTypeOf(modalApi.getData()).toBeUnknown();
     }
 

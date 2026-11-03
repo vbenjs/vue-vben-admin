@@ -27,8 +27,13 @@ async function loadNprogress() {
  * 此函数首先加载NProgress库，然后调用NProgress的start方法开始显示进度条。
  */
 async function startProgress() {
-  const nprogress = await loadNprogress();
-  nprogress?.start();
+  try {
+    const nprogress = await loadNprogress();
+    nprogress?.start();
+  } catch {
+    // 进度条是增强体验：nprogress 加载失败时静默降级（不抛出），
+    // 调用方可放心 fire-and-forget，不会产生 unhandled rejection。
+  }
 }
 
 /**
@@ -36,8 +41,12 @@ async function startProgress() {
  * 此函数首先加载NProgress库，然后调用NProgress的done方法停止并隐藏进度条。
  */
 async function stopProgress() {
-  const nprogress = await loadNprogress();
-  nprogress?.done();
+  try {
+    const nprogress = await loadNprogress();
+    nprogress?.done();
+  } catch {
+    // nprogress 未加载成功时无进度条可停，保持静默
+  }
 }
 
 export { startProgress, stopProgress };

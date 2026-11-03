@@ -1,6 +1,7 @@
 import { eventHandler, getQuery } from 'h3';
 import { getDictDataList } from '~/utils/dict-utils';
 import { verifyAccessToken } from '~/utils/jwt-utils';
+import { firstQueryInt, firstQueryString } from '~/utils/query';
 import {
   unAuthorizedResponse,
   usePageResponseSuccess,
@@ -13,25 +14,32 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const { page = 1, pageSize = 20, dictCode, label, status } = getQuery(event);
+  const { dictCode, label, status, page, pageSize } = getQuery(event);
+  // 统一经 firstQueryString 规范化：同名参数重复时取首个字符串值，
+  // 非字符串值按空串处理，后续逻辑只需面对 string（不再 as string）。
+  const dictCodeValue = firstQueryString(dictCode);
+  const labelValue = firstQueryString(label);
+  const statusValue = firstQueryString(status);
+  const pageNumber = firstQueryInt(page, 1);
+  const pageSizeNumber = firstQueryInt(pageSize, 20);
 
-  if (!dictCode) {
+  if (!dictCodeValue) {
     return useResponseError('dictCode is required');
   }
 
   let listData = structuredClone(getDictDataList()).filter(
-    (item) => item.dictCode === String(dictCode),
+    (item) => item.dictCode === dictCodeValue,
   );
-  if (label) {
+  if (labelValue) {
     listData = listData.filter((item) =>
-      item.label.toLowerCase().includes(String(label).toLowerCase()),
+      item.label.toLowerCase().includes(labelValue.toLowerCase()),
     );
   }
-  if (['0', '1'].includes(status as string)) {
-    listData = listData.filter((item) => item.status === Number(status));
+  if (['0', '1'].includes(statusValue)) {
+    listData = listData.filter((item) => item.status === Number(statusValue));
   }
 
   listData = listData.toSorted((a, b) => a.sort - b.sort);
 
-  return usePageResponseSuccess(page as string, pageSize as string, listData);
+  return usePageResponseSuccess(pageNumber, pageSizeNumber, listData);
 });

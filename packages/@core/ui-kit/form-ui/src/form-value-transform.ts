@@ -72,7 +72,7 @@ function applyArrayToStringFields(
   }
 
   if (arrayToStringFields.every((item) => typeof item === 'string')) {
-    const fieldsConfig = arrayToStringFields as string[];
+    const fieldsConfig = arrayToStringFields;
     const lastItem = fieldsConfig.at(-1) ?? '';
     const hasSeparator = lastItem.length === 1;
     const fields = hasSeparator ? fieldsConfig.slice(0, -1) : fieldsConfig;

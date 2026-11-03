@@ -28,7 +28,7 @@ The project's configuration files are located in `internal/lint-configs`, where 
 The project integrates the following code verification tools:
 
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for code formatting
-- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) for JavaScript / TypeScript linting
+- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) + [tsgolint](https://www.npmjs.com/package/oxlint-tsgolint) for JavaScript / TypeScript linting (including type-aware rules)
 - [ESLint](https://eslint.org/) for Vue, JSONC, YAML, and related rules
 - [Stylelint](https://stylelint.io/) for CSS style checking
 - [Commitlint](https://commitlint.js.org/) for checking the standard of git commit messages
@@ -54,6 +54,12 @@ The root Oxfmt entry file is `oxfmt.config.ts`, and its core configuration is lo
 ## Oxlint
 
 Oxlint is the primary script linting tool for the repository.
+
+### Type-aware rules
+
+Oxlint provides type-aware rules through `oxlint-tsgolint` (built on the Go implementation of TypeScript), covering most of the type-aware rules from `@typescript-eslint` (such as `no-floating-promises`, `unbound-method`, `no-unnecessary-type-assertion`, etc.).
+
+The type-aware channel is enabled centrally via `options.typeAware` in the root configuration. All CLI entries (lefthook, vsh lint) no longer pass `--type-aware`, making the configuration the single source of truth.
 
 ### Command
 
@@ -180,14 +186,13 @@ The most effective solution is to perform lint checks locally before committing.
 
 The project defines corresponding hooks inside `lefthook.yml`:
 
-- `pre-commit`: Runs before commit, used for code formatting and checking
-  - `code-workspace`: Updates VSCode workspace configuration
-  - `lint-md`: Formats Markdown files
-  - `lint-vue`: Formats and checks Vue files
-  - `lint-js`: Formats and checks JavaScript / TypeScript files
-  - `lint-style`: Formats and checks style files
-  - `lint-package`: Formats `package.json`
-  - `lint-json`: Formats other JSON files
+- `pre-commit`: Runs before commit, only formats and checks staged files (seconds)
+  - `oxlint`: Checks and fixes JavaScript / TypeScript files (including type-aware rules)
+  - `oxfmt`: Formats JavaScript / TypeScript / JSON / Markdown files
+  - `eslint`: Supplementary check and fix for scripts (Vue, JSONC, YAML, etc.)
+  - `stylelint`: Checks and fixes style files
+- `pre-push`: Runs a full type check before pushing
+  - `typecheck`: Runs `pnpm check:type` (returns in seconds on turbo cache hit)
 - `post-merge`: Runs after merge, used for automatic dependency installation
   - `install`: Runs `pnpm install` to install new dependencies
 - `commit-msg`: Runs during commit, used for checking commit message format
@@ -205,6 +210,12 @@ If you want to temporarily disable lefthook, use:
 
 ```bash
 git commit -m 'feat: add home page' --no-verify
+```
+
+To skip the full type check before pushing, use:
+
+```bash
+LEFTHOOK=0 git push
 ```
 
 #### How to Modify lefthook Configuration

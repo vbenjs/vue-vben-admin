@@ -4,14 +4,14 @@ import { expect } from '@playwright/test';
 
 export async function authLogin(page: Page) {
   // 确保登录表单正常
-  const usernameInput = await page.locator(`input[name='username']`);
+  const usernameInput = page.locator(`input[name='username']`);
   await expect(usernameInput).toBeVisible();
 
-  const passwordInput = await page.locator(`input[name='password']`);
+  const passwordInput = page.locator(`input[name='password']`);
   await expect(passwordInput).toBeVisible();
 
-  const sliderCaptcha = await page.locator(`div[name='captcha']`);
-  const sliderCaptchaAction = await page.locator(`div[name='captcha-action']`);
+  const sliderCaptcha = page.locator(`div[name='captcha']`);
+  const sliderCaptchaAction = page.locator(`div[name='captcha-action']`);
   await expect(sliderCaptcha).toBeVisible();
   await expect(sliderCaptchaAction).toBeVisible();
 

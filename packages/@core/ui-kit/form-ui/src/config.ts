@@ -65,8 +65,8 @@ export function setupVbenForm<
 >(options: VbenFormAdapterOptions<T>) {
   const { config, defineRules, rules } = options;
 
-  const { changeEventFallback = false, emptyStateValue = undefined } =
-    (config || {}) as FormCommonConfig;
+  const { changeEventFallback = false, emptyStateValue } = (config ||
+    {}) as FormCommonConfig;
 
   Object.assign(DEFAULT_FORM_COMMON_CONFIG, {
     changeEventFallback,
@@ -100,7 +100,7 @@ export function setupVbenForm<
   } as Partial<Record<BaseFormComponentType, string>>;
 
   for (const component of Object.keys(components)) {
-    const key = component as BaseFormComponentType;
+    const key = component;
 
     if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {
       nextBindEventMap[key] = baseModelPropName;

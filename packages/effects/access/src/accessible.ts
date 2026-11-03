@@ -191,20 +191,16 @@ function mergeRoutesByName(
   const routeMap = new Map<string, RouteRecordRaw>();
 
   for (const route of baseRoutes) {
-    const clone = { ...route } as RouteRecordRaw;
+    const clone = { ...route };
     result.push(clone);
     if (clone.name && isString(clone.name)) {
-      routeMap.set(clone.name as string, clone);
+      routeMap.set(clone.name, clone);
     }
   }
 
   for (const route of extraRoutes) {
-    if (
-      route.name &&
-      isString(route.name) &&
-      routeMap.has(route.name as string)
-    ) {
-      const existing = routeMap.get(route.name as string);
+    if (route.name && isString(route.name) && routeMap.has(route.name)) {
+      const existing = routeMap.get(route.name);
       if (!existing) {
         continue;
       }
@@ -226,10 +222,10 @@ function mergeRoutesByName(
 
       Object.assign(existing, merged);
     } else {
-      const clone = { ...route } as RouteRecordRaw;
+      const clone = { ...route };
       result.push(clone);
       if (clone.name && isString(clone.name)) {
-        routeMap.set(clone.name as string, clone);
+        routeMap.set(clone.name, clone);
       }
     }
   }
