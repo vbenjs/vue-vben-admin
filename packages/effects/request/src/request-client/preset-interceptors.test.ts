@@ -2,7 +2,10 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { authenticateResponseInterceptor } from './preset-interceptors';
+import {
+  authenticateResponseInterceptor,
+  idempotencyRequestInterceptor,
+} from './preset-interceptors';
 import { RequestClient } from './request-client';
 
 describe('authenticateResponseInterceptor', () => {
@@ -174,5 +177,159 @@ describe('authenticateResponseInterceptor', () => {
     expect(refreshToken).toHaveBeenCalledTimes(1);
     expect(queuedHeaders).toEqual([null, 'Bearer new-token']);
     expect(reAuthenticate).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('idempotencyRequestInterceptor', () => {
+  let mock: MockAdapter;
+
+  beforeEach(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  afterEach(() => {
+    mock.reset();
+  });
+
+  function recordHeader(headerName = 'Idempotency-Key') {
+    const keys: (null | string)[] = [];
+    mock.onAny().reply((config) => {
+      keys.push((config.headers?.[headerName] as string) ?? null);
+      return [200, {}];
+    });
+    return keys;
+  }
+
+  it('attaches a generated key to non-idempotent methods only', async () => {
+    const client = new RequestClient();
+    client.addRequestInterceptor(idempotencyRequestInterceptor());
+    const keys = recordHeader();
+
+    await client.post('/order', {});
+    await client.put('/order', {});
+    await client.request('/order', { method: 'PATCH' });
+    await client.delete('/order');
+    await client.get('/order');
+
+    expect(keys).toEqual([
+      expect.any(String),
+      expect.any(String),
+      expect.any(String),
+      expect.any(String),
+      null,
+    ]);
+    expect(new Set(keys).size).toBe(5);
+  });
+
+  it('falls back to getRandomValues outside secure contexts', async () => {
+    // Browsers omit crypto.randomUUID on plain http pages.
+    vi.stubGlobal('crypto', {
+      getRandomValues: globalThis.crypto.getRandomValues.bind(
+        globalThis.crypto,
+      ),
+    });
+    try {
+      const client = new RequestClient();
+      client.addRequestInterceptor(idempotencyRequestInterceptor());
+      const keys = recordHeader();
+
+      await client.post('/order', {});
+      await client.post('/order', {});
+
+      expect(keys).toEqual([
+        expect.stringMatching(/^[0-9a-f]{32}$/),
+        expect.stringMatching(/^[0-9a-f]{32}$/),
+      ]);
+      expect(keys[0]).not.toBe(keys[1]);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it('respects the per-request idempotencyKey option', async () => {
+    const client = new RequestClient();
+    client.addRequestInterceptor(idempotencyRequestInterceptor());
+    const keys = recordHeader();
+
+    await client.post('/order', {}, { idempotencyKey: 'order-1' });
+    await client.post('/order', {}, { idempotencyKey: false });
+    await client.get('/order', { idempotencyKey: true });
+    await client.post(
+      '/order',
+      {},
+      { headers: { 'Idempotency-Key': 'from-header' } },
+    );
+
+    expect(keys).toEqual(['order-1', null, expect.any(String), 'from-header']);
+  });
+
+  it('supports custom header name, methods and key generator', async () => {
+    const client = new RequestClient();
+    client.addRequestInterceptor(
+      idempotencyRequestInterceptor({
+        generateKey: () => 'custom-key',
+        headerName: 'X-Request-Id',
+        methods: ['post'],
+      }),
+    );
+    const keys = recordHeader('X-Request-Id');
+
+    await client.post('/order', {});
+    await client.put('/order', {});
+
+    expect(keys).toEqual(['custom-key', null]);
+  });
+
+  it('only attaches explicit keys when methods is empty', async () => {
+    const client = new RequestClient();
+    client.addRequestInterceptor(
+      idempotencyRequestInterceptor({ methods: [] }),
+    );
+    const keys = recordHeader();
+
+    await client.post('/order', {});
+    await client.post('/order', {}, { idempotencyKey: true });
+
+    expect(keys).toEqual([null, expect.any(String)]);
+  });
+
+  it('reuses the same key when the request is replayed after a token refresh', async () => {
+    let currentToken: null | string = null;
+    const client = new RequestClient();
+    client.addRequestInterceptor({
+      fulfilled: (config) => {
+        if (currentToken) {
+          config.headers.Authorization = `Bearer ${currentToken}`;
+        }
+        return config;
+      },
+    });
+    client.addRequestInterceptor(idempotencyRequestInterceptor());
+    client.addResponseInterceptor(
+      authenticateResponseInterceptor({
+        client,
+        doReAuthenticate: vi.fn(async () => {}),
+        doRefreshToken: async () => {
+          currentToken = 'new-token';
+          return currentToken;
+        },
+        enableRefreshToken: true,
+        formatToken: (token) => (token ? `Bearer ${token}` : null),
+      }),
+    );
+
+    const keys: string[] = [];
+    mock.onPost('/order').reply((config) => {
+      keys.push(config.headers?.['Idempotency-Key'] as string);
+      return config.headers?.Authorization === 'Bearer new-token'
+        ? [200, {}]
+        : [401];
+    });
+
+    await client.post('/order', {});
+
+    expect(keys).toHaveLength(2);
+    expect(keys[0]).toEqual(expect.any(String));
+    expect(keys[1]).toBe(keys[0]);
   });
 });

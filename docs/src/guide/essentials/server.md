@@ -119,6 +119,15 @@ VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```ts
 type ExtendOptions<T = any> = {
   /**
+   * 幂等键。需配合 idempotencyRequestInterceptor 使用，会通过请求头（默认 Idempotency-Key）发送给服务端。
+   * 自动生成的键只在同一次调用的重放（如刷新 token 后重试）之间保持不变；每次调用都会生成新键，
+   * 要识别用户多次点击等重复提交，需要传入业务侧生成的固定键。
+   * - true: 为当前请求自动生成幂等键（无论请求方法）
+   * - false: 当前请求不附加幂等键
+   * - string: 使用指定的幂等键
+   */
+  idempotencyKey?: boolean | string;
+  /**
    * 参数序列化方式。预置了几种针对数组的序列化类型
    * - brackets: ids[]=1&ids[]=2&ids[]=3
    * - comma: ids=1,2,3
@@ -305,6 +314,44 @@ export const requestClient = createRequestClient(apiURL);
 
 export const baseRequestClient = new RequestClient({ baseURL: apiURL });
 ```
+
+### 幂等请求（Idempotency-Key）
+
+如果服务端支持基于 `Idempotency-Key` 请求头的幂等处理，可以在 `src/api/request.ts` 中接入预置的 `idempotencyRequestInterceptor`。接入后，默认会为 `POST`、`PUT`、`PATCH`、`DELETE` 请求自动生成一个唯一的幂等键，并通过请求头发送给服务端。因 token 过期而被重放的请求会沿用原来的幂等键。默认使用 `crypto.randomUUID` 生成幂等键，可以通过 `generateKey` 自定义。
+
+自动生成的幂等键只能让服务端识别同一次调用的重放。用户重复点击提交会产生多次调用，每次的幂等键都不同；要识别这类重复提交，需要通过 `idempotencyKey` 传入业务侧生成的固定键。
+
+```ts
+import { idempotencyRequestInterceptor } from '@vben/request';
+
+client.addRequestInterceptor(
+  idempotencyRequestInterceptor({
+    // 携带幂等键的请求头名称
+    headerName: 'Idempotency-Key',
+    // 自动附加幂等键的请求方法，传入空数组则只对显式设置了 idempotencyKey 的请求生效
+    methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
+  }),
+);
+```
+
+单个请求可以通过 `idempotencyKey` 覆盖默认行为：
+
+```ts
+// 使用业务侧生成的幂等键，例如在表单打开时生成，多次点击提交都使用同一个键
+requestClient.post('/order', order, { idempotencyKey: orderToken });
+
+// 不附加幂等键
+requestClient.post('/log', data, { idempotencyKey: false });
+
+// GET 请求也附加幂等键
+requestClient.get('/report/export', { idempotencyKey: true });
+```
+
+::: tip
+
+拦截器只负责附加请求头，重复请求的识别和结果复用需要由服务端实现。跨域场景下，服务端还需要在 `Access-Control-Allow-Headers` 中放行该请求头。
+
+:::
 
 ### 多个接口地址
 

@@ -1,10 +1,27 @@
+import type { Method } from 'axios';
+
 import type { RequestClient } from './request-client';
-import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
+import type {
+  MakeErrorMessageFn,
+  RequestInterceptorConfig,
+  ResponseInterceptorConfig,
+} from './types';
 
 import { $t } from '@vben/locales';
-import { isFunction } from '@vben/utils';
+import { isFunction, isString } from '@vben/utils';
 
 import axios from 'axios';
+
+function createIdempotencyKey() {
+  // randomUUID 仅在安全上下文（https/localhost）可用，getRandomValues 不受此限制
+  if (typeof globalThis.crypto.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID();
+  }
+  return Array.from(
+    globalThis.crypto.getRandomValues(new Uint8Array(16)),
+    (byte) => byte.toString(16).padStart(2, '0'),
+  ).join('');
+}
 
 export const defaultResponseInterceptor = ({
   // 已发布包的运行时契约：JS 消费方可能省略任一参数，省略时按上游
@@ -42,6 +59,39 @@ export const defaultResponseInterceptor = ({
         }
       }
       throw Object.assign({}, response, { response });
+    },
+  };
+};
+
+export const idempotencyRequestInterceptor = ({
+  generateKey = createIdempotencyKey,
+  headerName = 'Idempotency-Key',
+  methods = ['POST', 'PUT', 'PATCH', 'DELETE'],
+}: {
+  /** 生成幂等键的函数，默认使用 crypto.randomUUID，非安全上下文中回退为 32 位随机十六进制字符串 */
+  generateKey?: () => string;
+  /** 携带幂等键的请求头名称 */
+  headerName?: string;
+  /** 自动附加幂等键的请求方法，传入空数组则只对显式设置了 idempotencyKey 的请求生效 */
+  methods?: Method[];
+} = {}): RequestInterceptorConfig => {
+  const autoMethods = new Set(methods.map((method) => method.toUpperCase()));
+  return {
+    fulfilled: (config) => {
+      const { idempotencyKey } = config;
+      // 重试/重放的请求已携带幂等键，必须沿用同一个键，服务端才能识别为同一次提交
+      if (idempotencyKey === false || config.headers.has(headerName)) {
+        return config;
+      }
+      if (isString(idempotencyKey)) {
+        config.headers.set(headerName, idempotencyKey);
+      } else if (
+        idempotencyKey === true ||
+        autoMethods.has(config.method?.toUpperCase() ?? 'GET')
+      ) {
+        config.headers.set(headerName, generateKey());
+      }
+      return config;
     },
   };
 };

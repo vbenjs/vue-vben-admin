@@ -7,6 +7,15 @@ import type {
 
 type ExtendOptions<T = any> = {
   /**
+   * 幂等键。需配合 idempotencyRequestInterceptor 使用，会通过请求头（默认 Idempotency-Key）发送给服务端。
+   * 自动生成的键只在同一次调用的重放（如刷新 token 后重试）之间保持不变；每次调用都会生成新键，
+   * 要识别用户多次点击等重复提交，需要传入业务侧生成的固定键。
+   * - true: 为当前请求自动生成幂等键（无论请求方法）
+   * - false: 当前请求不附加幂等键
+   * - string: 使用指定的幂等键
+   */
+  idempotencyKey?: boolean | string;
+  /**
    * 参数序列化方式。预置的有
    * - brackets: ids[]=1&ids[]=2&ids[]=3
    * - comma: ids=1,2,3
