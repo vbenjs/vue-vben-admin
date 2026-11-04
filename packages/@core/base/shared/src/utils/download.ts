@@ -153,5 +153,16 @@ export function triggerDownload(
 }
 
 function resolveFileName(url: string, fileName?: string): string {
-  return fileName || url.slice(url.lastIndexOf('/') + 1) || DEFAULT_FILENAME;
+  if (fileName) {
+    return fileName;
+  }
+  // 查询串与锚点不属于文件名；签名链接普遍带 ?token=...
+  const path = url.split('#')[0]?.split('?')[0] ?? '';
+  const lastSegment = path.slice(path.lastIndexOf('/') + 1);
+  try {
+    return decodeURIComponent(lastSegment) || DEFAULT_FILENAME;
+  } catch {
+    // 非法百分号转义序列，退回原始片段
+    return lastSegment || DEFAULT_FILENAME;
+  }
 }
