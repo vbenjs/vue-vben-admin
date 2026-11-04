@@ -10,6 +10,9 @@
   },
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit"
+  },
   "files": [
     "components.json",
     "src"

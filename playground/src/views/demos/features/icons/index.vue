@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { h, ref } from 'vue';
+import { ref } from 'vue';
 
 import { IconPicker, Page } from '@vben/common-ui';
 import {
@@ -25,7 +25,9 @@ const iconValue2 = ref('svg:avatar-1');
 const iconValue3 = ref('mdi:alien-outline');
 const iconValue4 = ref('mdi-light:book-multiple');
 
-const inputComponent = h(Input);
+// 传组件定义而非 h(Input)：VNode 会在创建时固化 props，与图标选择器
+// 模板内对该组件的动态绑定冲突。
+const inputComponent = Input;
 </script>
 
 <template>

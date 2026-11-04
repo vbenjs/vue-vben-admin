@@ -42,7 +42,7 @@ it('updateCSSVariables should reuse and deduplicate same-id style tags', () => {
   // 重复标签应被清理，只保留一个
   expect(styleElements.length).toBe(1);
   // 更新必须写入获胜（保留）的标签
-  expect(styleElements[0].textContent).toContain('primaryColor: blue;');
+  expect(styleElements[0]?.textContent).toContain('primaryColor: blue;');
 });
 
 it('updateCSSVariables should create only one tag when called repeatedly in the same tick', () => {
@@ -54,7 +54,7 @@ it('updateCSSVariables should create only one tag when called repeatedly in the 
   const styleElements = document.querySelectorAll('#custom-styles');
 
   expect(styleElements.length).toBe(1);
-  expect(styleElements[0].textContent).toContain('primaryColor: green;');
+  expect(styleElements[0]?.textContent).toContain('primaryColor: green;');
 });
 
 it('updateCSSVariables should support a custom selector', () => {

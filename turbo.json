@@ -42,7 +42,23 @@
       "persistent": true
     },
     "typecheck": {
+      // 不加 ^typecheck：turbo 已把 workspace 依赖的源码哈希计入下游任务
+      // 的缓存键（依赖源码变更必然击穿缓存，实测验证），^typecheck 只会把
+      // 46 个任务串成数个依赖波次、拖长 wall-clock，不增加任何正确性；
+      // 类型解析读依赖 dist 的包由 ^stub 保证顺序（见下）。
+      "dependsOn": ["^stub"],
       "outputs": []
+    },
+    // 内部工具包的类型解析读 workspace 依赖的 dist 产物（@vben/node-utils 与
+    // @vben/oxlint-config 的 exports types 指向 dist，无 src 条件）。dist 由
+    // postinstall 的 stub 产出，turbo 图内不可见：依赖源码变更而未重跑 stub
+    // 时 typecheck 会读到陈旧类型（假绿）；依赖 dist 缺失（如跳过脚本安装）
+    // 时直接 TS2307。因此 typecheck 任务统一依赖 ^stub（无 stub 脚本的依赖
+    // 会被 turbo 跳过，无需逐包覆写），并把 stub 纳入缓存（outputs=dist），
+    // 由 turbo 保证 dist 与源码一致。
+    "stub": {
+      "dependsOn": ["^stub"],
+      "outputs": ["dist/**"]
     }
   }
 }

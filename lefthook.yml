@@ -1,7 +1,8 @@
 # 钩子分工（详细说明见 docs/src/guide/project/standard.md）：
 # - pre-commit：仅对暂存文件做 lint 与格式化（秒级）。
-# - pre-push：typecheck（turbo 缓存命中时秒级；当前覆盖声明了 typecheck
-#   脚本的包，后续随各包接入逐步扩为全量；紧急逃生可用 LEFTHOOK=0 git push）。
+# - pre-push：全仓 typecheck（除 tsconfig/commitlint-config/stylelint-config
+#   三个纯配置包外均已声明脚本；turbo 缓存命中时秒级；紧急逃生可用
+#   LEFTHOOK=0 git push）。
 # 配置说明：https://lefthook.dev/configuration/
 
 pre-commit:

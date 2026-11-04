@@ -1,5 +1,3 @@
-import type { ResolvedConfig } from 'vite';
-
 import { describe, expect, it, vi } from 'vitest';
 
 import {
@@ -16,16 +14,23 @@ describe('form field slot migration warning plugin', () => {
     expect(plugin.configResolved).toBeTypeOf('function');
     if (typeof plugin.configResolved !== 'function') return;
 
-    await plugin.configResolved({
-      logger: { warn: warning },
-    } as ResolvedConfig);
+    // 钩子带 MinimalPluginContext this 类型；实现不使用 this，按 css-layer 测试
+    // 的惯例以 undefined as never 调用，最小伪造参数同样收敛为 never。
+    await plugin.configResolved.call(
+      undefined as never,
+      { logger: { warn: warning } } as never,
+    );
 
     expect(warning).toHaveBeenCalledOnce();
     expect(warning).toHaveBeenCalledWith(FORM_FIELD_SLOT_MIGRATION_WARNING);
     expect(plugin.transformIndexHtml).toBeTypeOf('function');
     if (typeof plugin.transformIndexHtml !== 'function') return;
 
-    const result = plugin.transformIndexHtml('', {} as never);
+    const result = plugin.transformIndexHtml.call(
+      undefined as never,
+      '',
+      {} as never,
+    );
 
     expect(result).toEqual([
       {

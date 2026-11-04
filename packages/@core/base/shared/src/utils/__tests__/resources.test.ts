@@ -38,7 +38,8 @@ describe('loadScript', () => {
   });
 
   it('should reject when the script fails to load', async () => {
-    let capturedScript: HTMLScriptElement | null = null;
+    // 闭包内赋值对 TS 控制流分析不可见，持有对象属性代替 let 变量
+    const captured: { script?: HTMLScriptElement } = {};
 
     // 拦截 append，捕获 script 元素但不插入 DOM，
     // 防止 happy-dom v20+ 自动触发 load 事件
@@ -47,7 +48,7 @@ describe('loadScript', () => {
       .mockImplementation((...nodes) => {
         for (const node of nodes) {
           if (node instanceof HTMLScriptElement) {
-            capturedScript = node;
+            captured.script = node;
           }
         }
       });
@@ -56,11 +57,11 @@ describe('loadScript', () => {
 
     appendSpy.mockRestore();
 
-    expect(capturedScript).toBeTruthy();
-    if (!capturedScript) {
+    expect(captured.script).toBeTruthy();
+    if (!captured.script) {
       throw new Error('Expected the captured script element to exist');
     }
-    capturedScript.dispatchEvent(new Event('error'));
+    captured.script.dispatchEvent(new Event('error'));
 
     await expect(promise).rejects.toThrow('Failed to load script: error.js');
   });

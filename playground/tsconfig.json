@@ -7,5 +7,12 @@
     }
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": [
+    // 单测与源码同口径受 vue-tsc 检查（@ts-expect-error 断言必须真的
+    // 被检查）；e2e 依赖运行中的 dev server，维持仅由 Playwright 运行。
+    "__tests__/unit/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ]
 }
