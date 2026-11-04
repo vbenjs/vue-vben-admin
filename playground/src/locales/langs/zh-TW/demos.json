@@ -52,7 +52,8 @@
     "menuWithQuery": "帶參選單",
     "openInNewWindow": "新視窗開啟",
     "fileDownload": "檔案下載",
-    "requestParamsSerializer": "引數序列化"
+    "requestParamsSerializer": "引數序列化",
+    "idempotency": "冪等請求"
   },
   "preferencesExtensionDemo": {
     "description": "這個頁面直接讀取 playground 子專案定義的拓展偏好。你可以在右上角的“偏好設定 → Playground 拓展”中修改欄位，也可以點選下方預設按鈕，頁面會即時聯動。",

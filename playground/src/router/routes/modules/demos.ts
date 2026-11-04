@@ -270,6 +270,16 @@ const routes: RouteRecordRaw[] = [
               title: 'JSON BigInt',
             },
           },
+          {
+            name: 'IdempotencyDemo',
+            path: 'idempotency',
+            component: () =>
+              import('#/views/demos/features/idempotency/index.vue'),
+            meta: {
+              icon: 'lucide:shield-check',
+              title: $t('demos.features.idempotency'),
+            },
+          },
         ],
       },
       // 面包屑导航

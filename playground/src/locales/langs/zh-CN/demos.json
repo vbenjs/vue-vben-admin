@@ -52,7 +52,8 @@
     "menuWithQuery": "带参菜单",
     "openInNewWindow": "新窗口打开",
     "fileDownload": "文件下载",
-    "requestParamsSerializer": "参数序列化"
+    "requestParamsSerializer": "参数序列化",
+    "idempotency": "幂等请求"
   },
   "preferencesExtensionDemo": {
     "description": "这个页面直接读取 playground 子项目定义的拓展偏好。你可以在右上角的“偏好设置 → Playground 拓展”中修改字段，也可以点击下方预设按钮，页面会实时联动。",

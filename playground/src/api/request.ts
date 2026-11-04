@@ -9,6 +9,7 @@ import {
   authenticateResponseInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
+  idempotencyRequestInterceptor,
   RequestClient,
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
@@ -84,6 +85,9 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
       return config;
     },
   });
+
+  // 为 POST/PUT/PATCH/DELETE 请求附加 Idempotency-Key 请求头
+  client.addRequestInterceptor(idempotencyRequestInterceptor());
 
   // 处理返回的响应数据格式
   client.addResponseInterceptor(
