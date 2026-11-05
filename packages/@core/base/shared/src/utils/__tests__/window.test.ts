@@ -56,8 +56,7 @@ describe('openRouteInNewWindow', () => {
     });
   };
 
-  const openedUrl = () =>
-    (window.open as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+  const openedUrl = () => vi.mocked(window.open).mock.calls[0]?.[0];
 
   it('keeps the deployment base when the app runs in hash mode', () => {
     stubLocation('https://demo.com/myapp/#/dashboard');
