@@ -134,4 +134,14 @@ describe('downloadFileFromImageUrl', () => {
 
     expect(clicked).toEqual(['vben-logo.png']);
   });
+
+  it('does not name the file after a data url payload', async () => {
+    stubImagePipeline();
+
+    await downloadFileFromImageUrl({
+      source: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA',
+    });
+
+    expect(clicked).toEqual(['downloaded_file.png']);
+  });
 });

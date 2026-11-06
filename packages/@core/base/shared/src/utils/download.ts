@@ -165,6 +165,10 @@ function resolveFileName(url: string, fileName?: string): string {
   if (fileName) {
     return fileName;
   }
+  // data: 的"路径"是文件内容本身，不能当文件名，否则编码串会溜进下载名
+  if (url.startsWith('data:')) {
+    return DEFAULT_FILENAME;
+  }
   // 查询串与锚点不属于文件名；签名链接普遍带 ?token=...
   const path = url.split('#')[0]?.split('?')[0] ?? '';
   const lastSegment = path.slice(path.lastIndexOf('/') + 1);
