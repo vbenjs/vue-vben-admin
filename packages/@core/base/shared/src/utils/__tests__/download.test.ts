@@ -60,6 +60,9 @@ describe('downloadFileFromUrl', () => {
 describe('downloadFileFromImageUrl', () => {
   let clicked: string[] = [];
 
+  /**
+   * 用假的 Image 与 canvas 打通 url -> data url 链路，toDataURL 固定返回给定内容
+   */
   function stubImagePipeline(dataUrl = 'data:image/png;base64,AAAA') {
     class FakeImage {
       crossOrigin = '';
