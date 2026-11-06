@@ -370,6 +370,15 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'TableActionExample',
+        path: 'table-action',
+        component: () => import('#/views/examples/table-action/index.vue'),
+        meta: {
+          icon: 'lucide:mouse-pointer-click',
+          title: $t('examples.tableAction.title'),
+        },
+      },
+      {
         name: 'ContextMenu',
         path: 'context-menu',
         component: () => import('#/views/examples/context-menu/index.vue'),
