@@ -60,7 +60,16 @@ export async function downloadFileFromImageUrl({
   source,
 }: DownloadOptions) {
   const base64 = await urlToBase64(source);
-  downloadFileFromBase64({ fileName, source: base64 });
+  // urlToBase64 总是把图片重新编码为 data url，缺省名要跟随产物真实扩展名，
+  // 否则保存下来的文件没有后缀，双击打不开
+  const extension =
+    base64.slice(base64.indexOf('/') + 1, base64.indexOf(';')) || 'png';
+  const derivedName = resolveFileName(source).replace(/\.[^.]*$/, '');
+
+  downloadFileFromBase64({
+    fileName: fileName || `${derivedName}.${extension}`,
+    source: base64,
+  });
 }
 
 /**
