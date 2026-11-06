@@ -121,4 +121,41 @@ describe('action-item.vue popConfirm', () => {
     expect(content.querySelectorAll('button')).toHaveLength(2);
     expect(sizeClasses(cancelButton)).toEqual(sizeClasses(confirmButton));
   });
+
+  it('renders the confirmation buttons with the same size as the dropdown pop confirm', async () => {
+    setSimpleLocale('zh-CN');
+
+    const { cancelButton, confirmButton } = await openPopConfirm({
+      danger: true,
+      popConfirm: {},
+      text: '删除',
+    });
+
+    // 与 action-dropdown-item.vue 的气泡确认一致，使用 sm 尺寸
+    expect(cancelButton.classList).toContain('h-8');
+    expect(confirmButton.classList).toContain('h-8');
+  });
+});
+
+describe('action-item.vue trigger button', () => {
+  it.each([
+    ['pop confirm', { popConfirm: {}, text: '删除' }],
+    ['plain', { text: '编辑' }],
+  ])(
+    'does not add vertical padding to the %s button (#8461)',
+    async (_, action) => {
+      const host = document.createElement('div');
+      document.body.append(host);
+
+      activeApp = createApp(() => h(ActionItem, { action }));
+      activeApp.mount(host);
+      await nextTick();
+
+      const button = host.querySelector('button');
+      expect(button).toBeTruthy();
+      expect(button?.classList).toContain('py-0');
+      expect(button?.classList).not.toContain('p-2');
+      expect(button?.classList).not.toContain('py-2');
+    },
+  );
 });
