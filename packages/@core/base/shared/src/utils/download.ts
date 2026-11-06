@@ -161,6 +161,11 @@ export function triggerDownload(
   setTimeout(() => URL.revokeObjectURL(href), revokeDelay);
 }
 
+/**
+ * 解析下载文件名：显式传入优先，其次取 URL 路径的最后一段，都没有则用默认名
+ * @param url - 文件地址，data url 不携带文件名信息
+ * @param fileName - 调用方显式指定的文件名
+ */
 function resolveFileName(url: string, fileName?: string): string {
   if (fileName) {
     return fileName;
