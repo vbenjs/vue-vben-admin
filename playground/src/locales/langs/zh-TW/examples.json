@@ -45,6 +45,9 @@
     "form": "搜尋表單",
     "viewed": "行標記"
   },
+  "tableAction": {
+    "title": "表格操作"
+  },
   "captcha": {
     "title": "驗證碼",
     "pointSelection": "點選驗證",
