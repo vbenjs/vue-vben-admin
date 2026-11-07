@@ -60,7 +60,16 @@ export async function downloadFileFromImageUrl({
   source,
 }: DownloadOptions) {
   const base64 = await urlToBase64(source);
-  downloadFileFromBase64({ fileName, source: base64 });
+  // urlToBase64 总是把图片重新编码为 data url，缺省名要跟随产物真实扩展名，
+  // 否则保存下来的文件没有后缀，双击打不开
+  const extension =
+    base64.slice(base64.indexOf('/') + 1, base64.indexOf(';')) || 'png';
+  const derivedName = resolveFileName(source).replace(/\.[^.]*$/, '');
+
+  downloadFileFromBase64({
+    fileName: fileName || `${derivedName}.${extension}`,
+    source: base64,
+  });
 }
 
 /**
@@ -152,9 +161,18 @@ export function triggerDownload(
   setTimeout(() => URL.revokeObjectURL(href), revokeDelay);
 }
 
+/**
+ * 解析下载文件名：显式传入优先，其次取 URL 路径的最后一段，都没有则用默认名
+ * @param url - 文件地址，data url 不携带文件名信息
+ * @param fileName - 调用方显式指定的文件名
+ */
 function resolveFileName(url: string, fileName?: string): string {
   if (fileName) {
     return fileName;
+  }
+  // data: 的"路径"是文件内容本身，不能当文件名，否则编码串会溜进下载名
+  if (url.startsWith('data:')) {
+    return DEFAULT_FILENAME;
   }
   // 查询串与锚点不属于文件名；签名链接普遍带 ?token=...
   const path = url.split('#')[0]?.split('?')[0] ?? '';
