@@ -35,7 +35,6 @@
     "consola": "catalog:",
     "dayjs": "catalog:",
     "execa": "catalog:",
-    "find-up": "catalog:",
     "ora": "catalog:",
     "pkg-types": "catalog:",
     "rimraf": "catalog:"

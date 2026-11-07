@@ -23,8 +23,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/typings": "workspace:*",
-    "vue": "catalog:",
-    "vue-router": "catalog:"
+    "@vben-core/typings": "workspace:*"
   }
 }
