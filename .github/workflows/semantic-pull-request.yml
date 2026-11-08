@@ -5,24 +5,29 @@ on:
     types:
       - opened
       - edited
+      - labeled
+      - assigned
       - synchronize
+      - auto_merge_enabled
+      - closed
+      - locked
 
 jobs:
   main:
     name: Semantic Pull Request
     if: github.repository == 'vbenjs/vue-vben-admin'
-    runs-on: ubuntu-latest
+    runs-on: linux-xarm92
     steps:
       - name: Validate PR title
         uses: amannn/action-semantic-pull-request@v6
         with:
-          wip: true
+          wip: false
           subjectPattern: ^(?![A-Z]).+$
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
-          requireScope: false
+          requireScope: true
           types: |
             fix
             feat
@@ -33,9 +38,11 @@ jobs:
             test
             build
             ci
+            ci.ss
             chore
             revert
             types
+            dover
             release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
