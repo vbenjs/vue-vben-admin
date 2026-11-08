@@ -66,9 +66,7 @@
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "catalog": "pnpm dlx codemod pnpm/catalog"
   },
-  "dependencies": {
-    "sortablejs": "catalog:"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
@@ -89,7 +87,6 @@
     "cross-env": "catalog:",
     "cspell": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-oxlint": "catalog:",
     "happy-dom": "catalog:",
     "is-ci": "catalog:",
     "lefthook": "catalog:",

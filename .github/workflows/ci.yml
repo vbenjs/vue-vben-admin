@@ -97,6 +97,14 @@ jobs:
       - name: Setup Node
         uses: ./.github/actions/setup-node
 
+      - name: Spell check
+        if: runner.os == 'Linux'
+        run: pnpm check:cspell
+
+      - name: Dependency check
+        if: runner.os == 'Linux'
+        run: pnpm check:dep
+
       - name: Typecheck
         run: pnpm check:type
 
