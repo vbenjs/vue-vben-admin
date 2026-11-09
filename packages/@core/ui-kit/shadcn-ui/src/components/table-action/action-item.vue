@@ -17,7 +17,9 @@ const open = ref(false);
 
 const buttonClass = computed(() =>
   cn(
-    'gap-1',
+    // 与 table-action.vue 一致：垂直方向不加内边距，避免按钮总高度
+    // 超过 small 档表格 40px 的单元格行高导致视觉不对齐 (#8461)
+    'gap-1 px-2 py-0',
     props.action.danger && 'text-destructive hover:text-destructive',
     props.action.class,
   ),
@@ -55,7 +57,6 @@ function onCancel() {
         :disabled="action.disabled"
         :loading="action.loading"
         :size="size"
-        class="p-2"
         :variant="variant"
       >
         <VbenIcon :icon="action.icon" v-if="action.icon" class="size-4" />
@@ -67,12 +68,12 @@ function onCancel() {
         {{ action.popConfirm.title ?? $t('confirmTitle') }}
       </div>
       <div class="flex justify-end gap-2">
-        <VbenButton size="default" variant="outline" @click="onCancel">
+        <VbenButton size="sm" variant="outline" @click="onCancel">
           {{ action.popConfirm.cancelText ?? $t('cancel') }}
         </VbenButton>
         <VbenButton
           :variant="action.danger ? 'destructive' : 'default'"
-          size="default"
+          size="sm"
           @click="onConfirm"
         >
           {{ action.popConfirm.okText ?? $t('confirm') }}
@@ -88,7 +89,6 @@ function onCancel() {
     :disabled="action.disabled"
     :loading="action.loading"
     :size="size"
-    class="p-2"
     :variant="variant"
     @click="onClick"
   >

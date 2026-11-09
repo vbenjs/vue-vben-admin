@@ -45,6 +45,9 @@
     "form": "搜索表单",
     "viewed": "行标记"
   },
+  "tableAction": {
+    "title": "表格操作"
+  },
   "captcha": {
     "title": "验证码",
     "pointSelection": "点选验证",

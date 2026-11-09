@@ -42,6 +42,9 @@
     "form": "Form Table",
     "viewed": "Row Marker"
   },
+  "tableAction": {
+    "title": "Table Action"
+  },
   "captcha": {
     "title": "Captcha",
     "pointSelection": "Point Selection Captcha",

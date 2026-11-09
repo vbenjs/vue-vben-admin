@@ -42,6 +42,8 @@ interface KnipFileIssue {
   devDependencies: KnipDependency[];
   file: string;
   optionalPeerDependencies: KnipDependency[];
+  unlisted: KnipDependency[];
+  unresolved: KnipDependency[];
 }
 
 interface KnipResult {
@@ -51,39 +53,41 @@ interface KnipResult {
 /**
  * 格式化依赖检查结果
  * @param result - 依赖检查结果
+ * @returns 发现的问题总数
  */
-function formatResult(result: KnipResult): void {
-  let hasIssues = false;
+function formatResult(result: KnipResult): number {
+  let issueCount = 0;
 
   for (const issue of result.issues) {
-    const hasDeps = issue.dependencies.length > 0;
-    const hasDevDeps = issue.devDependencies.length > 0;
+    const sections: [string, KnipDependency[]][] = [
+      ['Unused dependencies', issue.dependencies],
+      ['Unused devDependencies', issue.devDependencies],
+      ['Unused optional peer dependencies', issue.optionalPeerDependencies],
+      ['Unlisted dependencies', issue.unlisted],
+      ['Unresolved imports', issue.unresolved],
+    ];
+    const printable = sections.filter(([, deps]) => deps.length > 0);
 
-    if (!hasDeps && !hasDevDeps) {
+    if (printable.length === 0) {
       continue;
     }
 
-    hasIssues = true;
+    issueCount += printable.reduce((total, [, deps]) => total + deps.length, 0);
     console.log(`\n📦 ${issue.file}`);
 
-    if (hasDeps) {
-      console.log('⚠️ Unused dependencies:');
-      for (const dep of issue.dependencies) {
-        console.log(`  - ${dep.name}`);
-      }
-    }
-
-    if (hasDevDeps) {
-      console.log('⚠️ Unused devDependencies:');
-      for (const dep of issue.devDependencies) {
+    for (const [title, deps] of printable) {
+      console.log(`⚠️ ${title}:`);
+      for (const dep of deps) {
         console.log(`  - ${dep.name}`);
       }
     }
   }
 
-  if (!hasIssues) {
+  if (issueCount === 0) {
     console.log('\n✅ Dependency check completed, no issues found');
   }
+
+  return issueCount;
 }
 
 /**
@@ -102,30 +106,41 @@ async function runKnipCheck(): Promise<void> {
       '--config',
       configFile,
       '--include',
-      'dependencies',
+      'dependencies,unlisted,unresolved',
       '--reporter',
       'json',
       '--no-config-hints',
     ];
 
-    await execa(process.execPath, args, { cwd });
-    console.log('\n✅ Dependency check completed, no issues found');
-  } catch (error: unknown) {
-    const execaError = error as {
-      exitCode?: number;
-      stdout?: string;
-    };
+    // knip 以退出码 1 表示发现 error 级问题,这里不因非零退出而抛错,
+    // 统一解析 stdout 中的 JSON 报告。
+    const result = await execa(process.execPath, args, { cwd, reject: false });
 
-    if (execaError.exitCode === 1 && execaError.stdout) {
-      const result: KnipResult = JSON.parse(execaError.stdout);
-      formatResult(result);
+    if (result.exitCode !== 0 && result.exitCode !== 1) {
+      console.error(
+        '❌ Dependency check failed:',
+        result.stderr || result.shortMessage || 'knip exited unexpectedly',
+      );
+      process.exitCode = 1;
       return;
     }
 
-    console.error(
-      '❌ Dependency check failed:',
-      error instanceof Error ? error.message : error,
-    );
+    let knipResult: KnipResult;
+    try {
+      knipResult = JSON.parse(result.stdout);
+    } catch {
+      console.error('❌ Dependency check failed: unable to parse knip output');
+      process.exitCode = 1;
+      return;
+    }
+
+    formatResult(knipResult);
+
+    // 信任 knip 的失败判定:即使发现的问题不属于任何打印分节,
+    // 命令也必须以非零退出,避免门禁漏判。
+    if (result.exitCode === 1) {
+      process.exitCode = 1;
+    }
   } finally {
     await rm(tempDir, { force: true, recursive: true });
   }
@@ -144,4 +159,4 @@ function defineCheckDepCommand(cac: CAC): void {
     });
 }
 
-export { defineCheckDepCommand };
+export { defineCheckDepCommand, formatResult, runKnipCheck };
