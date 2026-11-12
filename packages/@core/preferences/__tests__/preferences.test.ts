@@ -1,5 +1,7 @@
 import type { PreferencesExtension } from '../src/types';
 
+import { convertToHslCssVar } from '@vben-core/shared/color';
+
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultPreferences } from '../src/config';
@@ -122,6 +124,10 @@ describe('preferences', () => {
         ...defaultPreferences.app,
         ...overrides.app,
       },
+      theme: {
+        ...defaultPreferences.theme,
+        colorPrimary: 'hsl(226 87% 64%)',
+      },
     };
 
     expect(preferenceManager.getPreferences()).toEqual(expected);
@@ -135,6 +141,71 @@ describe('preferences', () => {
     });
 
     expect(preferenceManager.getPreferences().theme.mode).toBe('light');
+  });
+
+  it.each([
+    {
+      builtinType: 'default',
+      darkColor: 'hsl(226 87% 64%)',
+      lightColor: 'hsl(226 83% 55%)',
+    },
+    {
+      builtinType: 'zinc',
+      darkColor: 'hsl(0 0% 98%)',
+      lightColor: 'hsl(240 5.9% 10%)',
+    },
+    {
+      builtinType: 'violet',
+      darkColor: 'hsl(245 82% 67%)',
+      lightColor: 'hsl(245 82% 67%)',
+    },
+  ] as const)(
+    'applies $builtinType primary colors when only the mode changes',
+    ({ builtinType, darkColor, lightColor }) => {
+      preferenceManager.updatePreferences({ theme: { builtinType } });
+
+      for (const mode of ['light', 'dark', 'light'] as const) {
+        preferenceManager.updatePreferences({ theme: { mode } });
+
+        const color = mode === 'dark' ? darkColor : lightColor;
+        const cssColor = convertToHslCssVar(color);
+        expect(preferenceManager.getPreferences().theme.colorPrimary).toBe(color);
+        expect(document.documentElement.style.getPropertyValue('--primary')).toBe(cssColor);
+        expect(document.querySelector('#__vben-styles__')?.textContent).toContain(`--primary-500: ${cssColor};`);
+      }
+    },
+  );
+
+  it.each([false, true])('applies the system primary color in auto mode when dark is %s', (dark) => {
+    const originalMatchMedia = window.matchMedia;
+    vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: dark }));
+
+    try {
+      preferenceManager.updatePreferences({
+        theme: { builtinType: 'default', mode: 'auto' },
+      });
+
+      const color = dark ? 'hsl(226 87% 64%)' : 'hsl(226 83% 55%)';
+      expect(preferenceManager.getPreferences().theme.colorPrimary).toBe(color);
+      expect(document.documentElement.style.getPropertyValue('--primary')).toBe(convertToHslCssVar(color));
+      expect(document.documentElement.classList.contains('dark')).toBe(dark);
+    } finally {
+      vi.stubGlobal('matchMedia', originalMatchMedia);
+    }
+  });
+
+  it('preserves the custom primary color when the mode changes', () => {
+    const color = 'hsl(200 80% 50%)';
+    preferenceManager.updatePreferences({
+      theme: { builtinType: 'custom', colorPrimary: color },
+    });
+
+    for (const mode of ['light', 'dark', 'auto'] as const) {
+      preferenceManager.updatePreferences({ theme: { mode } });
+
+      expect(preferenceManager.getPreferences().theme.colorPrimary).toBe(color);
+      expect(document.documentElement.style.getPropertyValue('--primary')).toBe(convertToHslCssVar(color));
+    }
   });
 
   it('updates color modes correctly', () => {

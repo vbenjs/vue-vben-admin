@@ -58,7 +58,7 @@ function updateCSSVariables(preferences: Preferences) {
     Reflect.has(theme, 'colorSuccess') ||
     Reflect.has(theme, 'colorWarning')
   ) {
-    // preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
+    theme.colorPrimary = builtinTypeColorPrimary || theme.colorPrimary;
     updateMainColorVariables(preferences);
   }
 
