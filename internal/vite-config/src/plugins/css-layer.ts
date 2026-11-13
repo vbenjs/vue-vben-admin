@@ -24,8 +24,8 @@ function escapeRegExp(value: string): string {
  * 浏览器准备的 --tw-* 回退变量层，必须始终是最低优先级，否则其回退声明
  * 会覆盖工具类写入的变量。
  */
-const LAYER_ORDER_STATEMENT =
-  '@layer properties, theme, base, ant, antd, el, td, components, utilities;';
+export const LAYER_ORDER_STATEMENT =
+  '@layer properties, theme, base, antd, el, td, components, utilities;';
 
 /**
  * 把指定包内的 css 包进 @layer：

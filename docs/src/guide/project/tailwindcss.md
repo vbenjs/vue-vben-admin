@@ -29,6 +29,41 @@
 
 :::
 
+## 自定义工具类与 `cn()`
+
+项目中的自定义工具类(如 `flex-center`)统一在 `internal/tailwind-config/src/theme.css` 中以 `@utility` 语法定义。
+
+**新增自定义工具类时，需要同步在 `packages/@core/base/shared/src/utils/cn.ts` 的 `customUtilityClassGroups` 中登记，且每个类只能登记一次。** 复合工具类会设置多条 CSS 属性，需要独立分组。例如：
+
+```ts
+const customUtilityClassGroups = {
+  'flex-center': ['flex-center'],
+  'flex-col-center': ['flex-col-center'],
+};
+```
+
+同时在 `extendTailwindMerge` 的 `conflictingClassGroups` 中配置单向冲突：`flex-center` 可以移除前面的 `display`、`align-items`、`justify-content` 类；`flex-col-center` 还可以移除前面的 `flex-direction` 类和 `flex-center`。新增分组的 ID 通过 `keyof typeof customUtilityClassGroups` 传给 `extendTailwindMerge` 的泛型参数。
+
+只有当前工具类完整覆盖前一个类的全部属性时，才配置删除前一个类的冲突关系：
+
+```ts
+cn('items-start', 'flex-center'); // 'flex-center'
+cn('flex-center', 'items-start'); // 'flex-center items-start'
+cn('flex-center', 'flex'); // 'flex-center flex'
+cn('flex-col-center', 'flex-center'); // 'flex-col-center flex-center'
+cn('flex-col-center', 'hidden md:flex'); // 'flex-col-center hidden md:flex'
+```
+
+后置原子类只覆盖它负责的属性，复合类继续提供剩余属性。这里的居中复合类在生成的 CSS 中排在对应原子类之前，因此 `hidden` 可以隐藏元素，而 `md:flex` 恢复显示后仍保留列方向和居中布局。不同变体或 `!important` 标记按 tailwind-merge 的作用范围分别处理。
+
+::: warning 保留复合类中的独立属性
+
+不要把复合类直接加入 `display` 等原子分组，也不要将同一个类登记到多个组。tailwind-merge 按整个类删除，局部属性冲突不应导致对齐、方向等独立属性一并丢失。
+
+守卫测试 `packages/@core/base/shared/src/utils/__tests__/cn.test.ts` 会检查登记完整性、有效性和唯一性。
+
+:::
+
 ## Vue SFC 中的 `@apply`
 
 项目对 Vue 单文件组件中的 `@apply` 做了统一处理，相关逻辑位于：
