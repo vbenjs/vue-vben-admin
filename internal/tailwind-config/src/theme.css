@@ -1,16 +1,25 @@
 /*
- * 级联层顺序声明（必须先于 @import 'tailwindcss' 首次出现）：
+ * 级联层顺序声明（HTML 入口预先注入，此处在样式表内保持同一顺序）：
  * properties(Tailwind 的 --tw-* 回退变量层) < preflight(base) <
- * UI 库组件样式(antd / el / td) < Tailwind 工具类，
+ * UI 库与第三方库样式(antd / el / td / vxe / lib) < vben 自有组件样式
+ * (components) < Tailwind 工具类，
  * 使组件库样式（antdv-next 经 StyleProvider layer 注入 @layer antd；
- * element-plus / tdesign 经各自应用的 vite css-layer 插件包入对应层）
- * 能被工具类覆盖。
+ * element-plus / tdesign 经各自应用的 vite css-layer 插件包入对应层；
+ * vxe-table / vxe-pc-ui / tippy.js / vue-json-pretty 经共享配置中的
+ * 同一插件包入 vxe / lib 层）的普通声明能被工具类与自有组件样式覆盖。
+ * !important 声明的层优先级相反；无层普通声明仍优先于所有层内普通声明。
  * ant-design-vue（web-antd）的运行时 CSS-in-JS 不支持层注入，
  * 无对应层名；naive-ui（web-naive）同理。
+ * __vitepress_base 是 vitepress 2.x theme-default base.css 自带的层
+ * （内含 preflight 拷贝），固定在 base 之前：不列入声明会使其落到
+ * utilities 之后，* 重置将反压 antd 层与工具类（仅 docs 存在该层）。
  * 与 internal/vite-config/src/plugins/css-layer.ts 中的 LAYER_ORDER_STATEMENT
  * 保持一致。
  */
-@layer properties, theme, base, antd, el, td, components, utilities;
+
+/* __vitepress_base 是 vitepress 内置层名，须按原名声明，关闭命名规范校验 */
+/* stylelint-disable-next-line layer-name-pattern */
+@layer properties, theme, __vitepress_base, base, antd, el, td, vxe, lib, components, utilities;
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
