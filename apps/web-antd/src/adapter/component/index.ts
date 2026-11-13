@@ -700,6 +700,9 @@ async function initComponentAdapter() {
       modelValueProp: 'value',
     }),
     Input: withDefaultPlaceholder(Input, 'input'),
+    // ant-design-vue 的运行时 CSS-in-JS 不支持层注入（见 theme.css 层序
+    // 注释），工具类无法可靠覆盖组件样式，保留内联宽度确保表单内撑满；
+    // 长期解是迁移 antdv-next（其 StyleProvider 原生支持 layer）。
     InputNumber: withDefaultPlaceholder(InputNumber, 'input', {
       style: { width: '100%' },
     }),

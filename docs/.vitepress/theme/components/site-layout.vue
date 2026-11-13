@@ -10,7 +10,7 @@ import {
 
 // import { useAntdDesignTokens } from '@vben/hooks';
 // import { initPreferences } from '@vben/preferences';
-import { ConfigProvider, theme } from 'antdv-next';
+import { ConfigProvider, StyleProvider, theme } from 'antdv-next';
 import mediumZoom from 'medium-zoom';
 import { useRoute } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
@@ -83,9 +83,11 @@ const tokenTheme = computed(() => {
 </script>
 
 <template>
-  <ConfigProvider :theme="tokenTheme">
-    <Layout />
-  </ConfigProvider>
+  <StyleProvider layer>
+    <ConfigProvider :theme="tokenTheme">
+      <Layout />
+    </ConfigProvider>
+  </StyleProvider>
 </template>
 
 <style>
