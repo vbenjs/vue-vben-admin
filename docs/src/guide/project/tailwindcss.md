@@ -2,6 +2,12 @@
 
 [Tailwind CSS](https://tailwindcss.com/) 是一个实用性优先的 CSS 框架，用于快速构建自定义设计。当前项目使用的是 **Tailwind CSS v4**。
 
+## 浏览器兼容性
+
+样式兼容范围遵循 [Tailwind CSS v4 的浏览器要求](https://tailwindcss.com/docs/compatibility)：Chrome 111+、Safari 16.4+、Firefox 128+，其他 Chromium 浏览器需使用相应版本的内核。
+
+项目依赖原生 CSS `@layer` 控制组件库、自有组件和工具类的优先级。不支持 `@layer` 的浏览器会忽略整个层内样式，修改 Vite `build.target` 或关闭组件库分层无法补齐兼容性。若业务需要更旧的浏览器，需单独设计兼容构建，同时处理完整 CSS 的层级转换、组件库运行时样式和其他现代 CSS 特性。
+
 ## 配置
 
 项目当前不再通过 `tailwind.config.*` 文件维护 Tailwind 配置，主题与扫描范围都统一放在 CSS 与共享 Vite 配置中。
