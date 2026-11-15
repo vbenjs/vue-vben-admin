@@ -4,6 +4,9 @@ export default defineConfig(async () => {
   return {
     application: {},
     vite: {
+      resolve: {
+        dedupe: ['vue-router'],
+      },
       server: {
         proxy: {
           '/api': {
