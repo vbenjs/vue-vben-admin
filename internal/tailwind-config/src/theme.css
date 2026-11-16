@@ -5,10 +5,12 @@
  * 使组件库样式（antdv-next 经 StyleProvider layer 注入 @layer antd；
  * element-plus / tdesign 经各自应用的 vite css-layer 插件包入对应层）
  * 能被工具类覆盖。
+ * ant-design-vue（web-antd）的运行时 CSS-in-JS 不支持层注入，
+ * 无对应层名；naive-ui（web-naive）同理。
  * 与 internal/vite-config/src/plugins/css-layer.ts 中的 LAYER_ORDER_STATEMENT
  * 保持一致。
  */
-@layer properties, theme, base, ant, antd, el, td, components, utilities;
+@layer properties, theme, base, antd, el, td, components, utilities;
 
 @import 'tailwindcss';
 @import 'tw-animate-css';

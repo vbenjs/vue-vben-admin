@@ -27,9 +27,6 @@
       "production": "./src/scss-bem/bem.scss",
       "default": "./dist/bem.scss"
     },
-    "./theme": {
-      "default": "./src/css/global.css"
-    },
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
@@ -46,5 +43,8 @@
   },
   "dependencies": {
     "@iconify/json": "catalog:"
+  },
+  "devDependencies": {
+    "@vben/tailwind-config": "workspace:*"
   }
 }
