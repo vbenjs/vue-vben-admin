@@ -78,7 +78,7 @@ The separator is a decorative in-flow element. Styles compose in the order `pres
 | `card` | two separate cards | standalone rounded card (`card` background) | standalone rounded card | hidden by default, cards separated by `gap` |
 
 ```ts
-const [Grid] = useVbenVxeGrid({
+const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {},
   gridOptions: {},
   segmented: 'zone',

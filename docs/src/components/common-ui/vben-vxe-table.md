@@ -183,7 +183,7 @@ const [Grid] = useVbenVxeGrid({
 | `card` | 双独立卡片 | 独立圆角卡片（`card` 背景） | 独立圆角卡片 | 默认隐藏，两卡以 `gap` 间隔 |
 
 ```ts
-const [Grid] = useVbenVxeGrid({
+const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {},
   gridOptions: {},
   // 单卡双区

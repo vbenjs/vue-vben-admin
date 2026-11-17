@@ -9,6 +9,13 @@ import {
 
 /**
  * 依次从插槽、attrs、props、state 中获取值
+ *
+ * 已知限制:对运行时声明且带非 undefined 默认值的 Boolean prop,Vue 会把
+ * "未传"与"显式 false"解析为同一个值(false),不产生任何 reactive 触发,
+ * 因此"仅存在性变化"(false → false)无法使本 computed 重新求值。需要
+ * presence 敏感的 Boolean prop 应以 default: undefined 声明(禁用 boolean
+ * cast),或不在 withDefaults 中提供默认值而把默认值交给 state。
+ *
  * @param key
  * @param props
  * @param state

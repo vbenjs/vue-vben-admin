@@ -40,12 +40,14 @@ export interface VxeTableGridOptions<T = any> extends VxeTableGridProps<T> {
 
 /**
  * 分段表面的可定制样式(仅背景与圆角;垂直 padding/border/margin 不在
- * VXE 的高度排除算法内,刻意不开放)
+ * VXE 的高度排除算法内,刻意不开放)。长度必须是 CSS 长度字符串
+ * (如 '12px'):数字会原样写入 CSS 变量,自定义属性不追加单位,
+ * 无单位的非零圆角会被浏览器丢弃
  */
-export type GridSurfaceStyle = Pick<
-  CSSProperties,
-  'backgroundColor' | 'borderRadius'
->;
+export interface GridSurfaceStyle {
+  backgroundColor?: string;
+  borderRadius?: string;
+}
 
 export interface GridSectionOptions {
   /**

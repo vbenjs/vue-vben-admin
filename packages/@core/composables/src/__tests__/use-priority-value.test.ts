@@ -93,4 +93,102 @@ describe('usePriorityValue', () => {
     await nextTick();
     expect(result.sectionOptions.value).toEqual({ gap: '12px' });
   });
+
+  it('tracks presence transitions of falsy values on undeclared (attrs-based) components', async () => {
+    // vxe-grid 等包装组件无运行时 props 声明,props 实为 reactive attrs:
+    // undefined → false → 值 → undefined 的 presence 转换必须全部触发
+    const props = ref<Record<string, any>>({ separator: undefined });
+    const result: Record<string, any> = {};
+
+    const Consumer = defineComponent(
+      (props: Record<string, any>) => {
+        result.separator = usePriorityValue(
+          'separator',
+          props as any,
+          ref({ separator: true }) as any,
+        );
+        return () => h('div');
+      },
+      { props: ['separator'] },
+    );
+
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app = createApp(
+      defineComponent(() => () => h(Consumer, { ...props.value })),
+    );
+    activeApp = app;
+    app.mount(host);
+
+    // absent(undefined) → state fallback true
+    expect(result.separator.value).toBe(true);
+
+    // undefined → false:显式 false 是有效值,不得回落到 state
+    props.value = { separator: false };
+    await nextTick();
+    await nextTick();
+    expect(result.separator.value).toBe(false);
+
+    // false → true
+    props.value = { separator: true };
+    await nextTick();
+    await nextTick();
+    expect(result.separator.value).toBe(true);
+
+    // true → absent:回到 state fallback
+    props.value = {};
+    await nextTick();
+    await nextTick();
+    expect(result.separator.value).toBe(true);
+  });
+
+  it('tracks value changes on withDefaults-declared boolean props', async () => {
+    // withDefaults 模式(drawer/modal 等):resolved 值变化必须触发。
+    // 已知限制:声明 Boolean 的 prop 在 Vue 中 absent 与显式 false 的
+    // resolved 值同为 false,presence-only 更新(如 false→false)无法
+    // 触发任何 computed——这是框架层面无 reactive presence 信号所致
+    const props = ref<Record<string, any>>({});
+    const result: Record<string, any> = {};
+
+    const Consumer = defineComponent(
+      (props: Record<string, any>) => {
+        result.submitting = usePriorityValue(
+          'submitting',
+          props as any,
+          ref({ submitting: false }) as any,
+        );
+        return () => h('div');
+      },
+      { props: { submitting: { type: Boolean, default: undefined } } },
+    );
+
+    const host = document.createElement('div');
+    document.body.append(host);
+    const app = createApp(
+      defineComponent(() => () => h(Consumer, { ...props.value })),
+    );
+    activeApp = app;
+    app.mount(host);
+
+    // absent(default: undefined 禁用 boolean cast)→ state fallback false
+    expect(result.submitting.value).toBe(false);
+
+    // absent → false:resolved undefined → false,可触发
+    props.value = { submitting: false };
+    await nextTick();
+    await nextTick();
+    expect(result.submitting.value).toBe(false);
+
+    // false → true
+    props.value = { submitting: true };
+    await nextTick();
+    await nextTick();
+    expect(result.submitting.value).toBe(true);
+
+    // true → absent:resolved 回到 undefined(default)→ state fallback
+    props.value = {};
+    await nextTick();
+    await nextTick();
+    expect(result.submitting.value).toBe(false);
+  });
 });

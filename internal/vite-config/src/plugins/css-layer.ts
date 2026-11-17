@@ -81,9 +81,17 @@ const THIRD_PARTY_CSS_LAYER_RULES: CssLayerRule[] = [
 export const LAYER_ORDER_STATEMENT =
   '@layer properties, theme, __vitepress_base, base, antd, el, td, vxe, lib, components, utilities;';
 
+/** 匹配已注入的层序声明 style 元素(而非任意出现标记的页面文本)。 */
+const LAYER_ORDER_STYLE_RE = new RegExp(
+  `<style[^>]*${LAYER_ORDER_ATTRIBUTE}[^>]*>`,
+  'i',
+);
+
 /** Vite 与 VitePress 共用，在任何模块样式或外链样式之前确定层序。 */
 export function injectCssLayerOrder(html: string): string {
-  if (html.includes(LAYER_ORDER_ATTRIBUTE)) {
+  // 只认 head 中带标记的 style 元素;页面正文/注释里出现标记字符串
+  // (如文档示例代码)不应被误判为已注入
+  if (LAYER_ORDER_STYLE_RE.test(html)) {
     return html;
   }
   return html.replace(
