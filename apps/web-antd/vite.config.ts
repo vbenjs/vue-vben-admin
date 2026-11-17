@@ -8,6 +8,9 @@ export default defineConfig(async () => {
     // 详见 theme.css 层序注释与 adapter/component 中 InputNumber 的说明。
     application: {},
     vite: {
+      resolve: {
+        dedupe: ['vue-router'],
+      },
       server: {
         proxy: {
           '/api': {
