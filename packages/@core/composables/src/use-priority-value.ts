@@ -32,8 +32,12 @@ export function usePriorityValue<
     for (const [key, value] of Object.entries(rawProps)) {
       standardRawProps[kebabToCamelCase(key) as K] = value;
     }
+
+    // 总是读取 props[key] 以建立响应式依赖：否则初始未传入的 prop
+    // （原始值为 undefined）在后续被传入时，computed 不会重新求值
+    const propsValue = props[key];
     const propsKey =
-      standardRawProps?.[key] === undefined ? undefined : props[key];
+      standardRawProps?.[key] === undefined ? undefined : propsValue;
 
     // slot可以关闭
     return getFirstNonNullOrUndefined(
