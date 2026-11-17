@@ -22,10 +22,10 @@ it('counts grid gaps and recalculates when collapsedRows changes', async () => {
     const top = Number(this.dataset.row ?? 0) * 82;
     return { top, bottom: top + 34, height: 34 } as DOMRect;
   });
-  let expandable: ReturnType<typeof useExpandable>;
+  const state: { expandable?: ReturnType<typeof useExpandable> } = {};
   const Harness = defineComponent({
     setup() {
-      expandable = useExpandable(props);
+      state.expandable = useExpandable(props);
       return () =>
         h(
           'div',
@@ -47,10 +47,10 @@ it('counts grid gaps and recalculates when collapsedRows changes', async () => {
   try {
     await flushPromises();
     // 两列、两行,保留三个字段和一个操作区。
-    expect(expandable?.keepFormItemIndex.value).toBe(3);
+    expect(state.expandable?.keepFormItemIndex.value).toBe(3);
     props.collapsedRows = 3;
     await flushPromises();
-    expect(expandable?.keepFormItemIndex.value).toBe(5);
+    expect(state.expandable?.keepFormItemIndex.value).toBe(5);
   } finally {
     wrapper.unmount();
   }

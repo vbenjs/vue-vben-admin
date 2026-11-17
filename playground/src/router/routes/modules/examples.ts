@@ -187,6 +187,14 @@ const routes: RouteRecordRaw[] = [
             },
           },
           {
+            name: 'VxeTableSegmentedExample',
+            path: 'segmented',
+            component: () => import('#/views/examples/vxe-table/segmented.vue'),
+            meta: {
+              title: $t('examples.vxeTable.segmented'),
+            },
+          },
+          {
             name: 'VxeTableEditCellExample',
             path: 'edit-cell',
             component: () => import('#/views/examples/vxe-table/edit-cell.vue'),

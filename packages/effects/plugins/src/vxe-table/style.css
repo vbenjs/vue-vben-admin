@@ -107,16 +107,90 @@
     padding: 0.6em 0;
   }
 
+  /* 统一间距只应用于 Vben Grid,不改变独立 VXE 分页器/工具栏。 */
+  .vxe-grid[data-vben-grid] .vxe-grid--pager-wrapper > .vxe-pager {
+    height: auto;
+    min-height: 28px;
+  }
+
+  .vxe-grid[data-vben-grid] .vxe-grid--toolbar-wrapper > .vxe-toolbar {
+    padding: 0.5rem 0;
+
+    .vxe-buttons--wrapper,
+    .vxe-tools--operate,
+    .vxe-tools--wrapper {
+      padding: 0;
+    }
+  }
+
   .vxe-tools--operate:not(:has(button)) {
     margin-left: 0;
   }
 
+  /* 4.23.12 原生即为 visible;该声明保证通栏分隔条(文档流负 margin)在
+     后续版本原生改为裁剪时仍可越出表单容器 */
   .vxe-grid--layout-header-wrapper {
     overflow: visible;
   }
 
   .vxe-grid--layout-body-content-wrapper {
     overflow: hidden;
+  }
+
+  /* ===== 分段模式(segmented: zone/card 或显式 sectionOptions.body) =====
+     标记与变量由组件绑在 VxeGrid 根节点上;直接子级选择器限定实例,
+     不影响嵌套 Grid。变量缺省时回退为现状外观(transparent / 0 / 根级
+     --vxe-ui-layout-background-color 的取值)。位于 components 层:
+     覆盖 vxe 层的第三方样式,同时可被 utilities 层的工具类覆盖 */
+  .vxe-grid[data-vben-grid-sectioned] > .vxe-grid--layout-body-wrapper {
+    --vxe-ui-layout-background-color: var(
+      --vben-grid-body-background,
+      hsl(var(--background))
+    );
+
+    background-color: var(--vben-grid-body-background, transparent);
+    border-radius: var(--vben-grid-body-radius, 0);
+  }
+
+  /* 双卡全屏:VXE 会给 .is--maximize 涂 --vxe-ui-layout-background-color,
+     与卡片同色时两卡失去视觉区分,全屏根底色单独退为 background-deep */
+  .vxe-grid[data-vben-grid-sectioned='card'].is--maximize {
+    background-color: var(
+      --vben-grid-fullscreen-bg,
+      hsl(var(--background-deep))
+    );
+  }
+
+  /* 双卡下段卡片的内边距:水平作用于 body wrapper,上下作用于首尾可测量 wrapper 的
+     padding(计入 VXE 测量的 offsetHeight,外部 margin 不会计入)。垂直方向禁止改用 body wrapper 的
+     padding——不在 VXE auto 高度计算内,会导致表格溢出/裁切。
+     可在任意祖先(或经 gridClass 任意属性语法在根节点)覆盖
+     --vben-grid-body-padding 快速调整;使用直接子级链,
+     避免影响嵌套 Grid */
+  .vxe-grid[data-vben-grid-sectioned='card'] > .vxe-grid--layout-body-wrapper {
+    padding-inline: var(--vben-grid-body-padding, 0.5rem);
+  }
+
+  .vxe-grid[data-vben-grid-top-inset]
+    > .vxe-grid--layout-body-wrapper
+    > .vxe-grid--layout-body-content-wrapper
+    > .vxe-grid--top-wrapper:first-child {
+    padding-top: var(--vben-grid-body-padding, 0.5rem);
+  }
+
+  .vxe-grid[data-vben-grid-sectioned='card']
+    > .vxe-grid--layout-body-wrapper
+    > .vxe-grid--layout-body-content-wrapper
+    > .vxe-grid--toolbar-wrapper:first-child
+    > .vxe-toolbar {
+    padding-top: var(--vben-grid-body-padding, 0.5rem);
+  }
+
+  .vxe-grid[data-vben-grid-sectioned='card']
+    > .vxe-grid--layout-body-wrapper
+    > .vxe-grid--layout-body-content-wrapper
+    > :is(.vxe-grid--pager-wrapper, .vxe-grid--bottom-wrapper):last-child {
+    padding-bottom: var(--vben-grid-body-padding, 0.5rem);
   }
 
   /* 已读行默认样式 */
