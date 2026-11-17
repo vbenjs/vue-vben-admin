@@ -2,6 +2,12 @@
 
 [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for quickly building custom designs. The current project uses **Tailwind CSS v4**.
 
+## Browser Compatibility
+
+Styles follow the [Tailwind CSS v4 browser requirements](https://tailwindcss.com/docs/compatibility): Chrome 111+, Safari 16.4+, and Firefox 128+. Other Chromium browsers need a corresponding engine version.
+
+The project uses native CSS `@layer` to order component libraries, project components, and utilities. Browsers without `@layer` support ignore all styles inside those layers. Changing Vite `build.target` or disabling component library layers does not provide full compatibility. Supporting older browsers requires a separate compatibility build that handles layers across the complete CSS bundle, runtime component styles, and other modern CSS features.
+
 ## Configuration
 
 The project no longer maintains Tailwind through `tailwind.config.*` files. Theme definitions and scan scope are now managed through CSS and the shared Vite configuration.

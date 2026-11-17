@@ -4,7 +4,10 @@ import type { HeadConfig } from 'vitepress';
 import { resolve } from 'node:path';
 
 import {
+  injectCssLayerOrder,
+  THIRD_PARTY_CSS_LAYER_RULES,
   viteArchiverPlugin,
+  viteCssLayerPlugin,
   viteDayjsPlugin,
   viteVxeTableImportsPlugin,
 } from '@vben/vite-config';
@@ -58,6 +61,8 @@ export const shared = defineConfig({
     ],
   },
   title: 'Vben Admin',
+  // VitePress 构建自行生成 HTML，需在其构建钩子中补上最前置的层序声明。
+  transformHtml: injectCssLayerOrder,
   vite: {
     build: {
       chunkSizeWarningLimit: Infinity,
@@ -79,6 +84,9 @@ export const shared = defineConfig({
     plugins: [
       viteDayjsPlugin(),
       tailwindcss(),
+      // 第三方库样式（vxe / tippy.js / vue-json-pretty）包入 vxe / lib 层，
+      // 使 Tailwind 工具类可覆盖；层序声明见 @vben/tailwind-config 的 theme.css
+      viteCssLayerPlugin(THIRD_PARTY_CSS_LAYER_RULES),
       GitChangelog({
         mapAuthors: [
           {

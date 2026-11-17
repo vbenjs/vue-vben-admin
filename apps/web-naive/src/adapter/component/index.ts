@@ -226,6 +226,10 @@ async function initComponentAdapter() {
       modelValueProp: 'value',
     }),
     Input: withDefaultPlaceholder(NInput, 'input'),
+    // naive-ui 的运行时 CSS-in-JS 无法注入层（整体限制，见 theme.css 层序
+    // 注释），但样式源码不对 n-input-number 输出任何 width 规则，宽度由
+    // 表单容器的 w-full（form-field.vue）或 w-* 工具类直接控制，
+    // 因此无需内联宽度样式。
     InputNumber: withDefaultPlaceholder(NInputNumber, 'input'),
     RadioGroup: (props, { attrs, slots }) => {
       let defaultSlot;
