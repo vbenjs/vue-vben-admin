@@ -81,17 +81,22 @@ const THIRD_PARTY_CSS_LAYER_RULES: CssLayerRule[] = [
 export const LAYER_ORDER_STATEMENT =
   '@layer properties, theme, __vitepress_base, base, antd, el, td, vxe, lib, components, utilities;';
 
-/** 匹配已注入的层序声明 style 元素(而非任意出现标记的页面文本)。 */
+/** 匹配已注入的层序声明 style 元素。 */
 const LAYER_ORDER_STYLE_RE = new RegExp(
   `<style[^>]*${LAYER_ORDER_ATTRIBUTE}[^>]*>`,
   'i',
 );
 
+const HEAD_RE = /<head\b[^>]*>([\s\S]*?)<\/head>/i;
+const HTML_COMMENT_RE = /<!--[\s\S]*?-->/g;
+
 /** Vite 与 VitePress 共用，在任何模块样式或外链样式之前确定层序。 */
 export function injectCssLayerOrder(html: string): string {
-  // 只认 head 中带标记的 style 元素;页面正文/注释里出现标记字符串
-  // (如文档示例代码)不应被误判为已注入
-  if (LAYER_ORDER_STYLE_RE.test(html)) {
+  // 只认 head 内、真实存在(剥离注释后)的标记 style 元素:
+  // - 正文文本/HTML 注释中出现标记字符串不算已注入,仍需注入;
+  // - body 中的标记 style 不满足"先于一切样式"的要求,同样注入。
+  const head = HEAD_RE.exec(html)?.[1];
+  if (head && LAYER_ORDER_STYLE_RE.test(head.replaceAll(HTML_COMMENT_RE, ''))) {
     return html;
   }
   return html.replace(
