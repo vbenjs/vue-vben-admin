@@ -525,7 +525,7 @@ onUnmounted(() => {
           'flex-col': isVertical,
           'flex-row items-center': !isVertical,
           'pb-4': !compact,
-          'pb-2': compact,
+          'pb-[var(--vben-form-compact-padding,0.5rem)]': compact,
         }"
         class="relative flex"
         v-bind="$attrs"

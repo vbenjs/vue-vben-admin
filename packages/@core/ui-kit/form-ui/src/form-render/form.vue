@@ -56,6 +56,10 @@ function getWrapperClass(gridClass?: string) {
   } else {
     cls.push(props.compact ? 'gap-x-2' : 'gap-x-4', 'flex-col grid');
   }
+  // 紧凑搜索表单可由容器接管行间距,独立表单保持原有字段底部留白。
+  if (props.compact) {
+    cls.push('gap-y-[var(--vben-form-compact-row-gap,0px)]');
+  }
   return cn(...cls, gridClass);
 }
 
