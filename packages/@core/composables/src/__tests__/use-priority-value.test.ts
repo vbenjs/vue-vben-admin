@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 
-import { createApp, defineComponent, h, nextTick, ref } from 'vue';
+import { createApp, defineComponent, h, nextTick, ref, useAttrs } from 'vue';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
@@ -95,22 +95,19 @@ describe('usePriorityValue', () => {
   });
 
   it('tracks presence transitions of falsy values on undeclared (attrs-based) components', async () => {
-    // vxe-grid 等包装组件无运行时 props 声明,props 实为 reactive attrs:
+    // vxe-grid 等包装组件无运行时 props 声明,通过 useAttrs 获取透传属性:
     // undefined → false → 值 → undefined 的 presence 转换必须全部触发
     const props = ref<Record<string, any>>({ separator: undefined });
     const result: Record<string, any> = {};
 
-    const Consumer = defineComponent(
-      (props: Record<string, any>) => {
-        result.separator = usePriorityValue(
-          'separator',
-          props as any,
-          ref({ separator: true }) as any,
-        );
-        return () => h('div');
-      },
-      { props: ['separator'] },
-    );
+    const Consumer = defineComponent(() => {
+      result.separator = usePriorityValue(
+        'separator',
+        useAttrs() as any,
+        ref({ separator: true }) as any,
+      );
+      return () => h('div');
+    });
 
     const host = document.createElement('div');
     document.body.append(host);
