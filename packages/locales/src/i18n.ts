@@ -127,19 +127,16 @@ async function initialize(app: App) {
     cache.set(lang, cached);
     return cached;
   };
+  const fallbacks = fallbackChain();
   for (const key of Object.keys(options.adapters ?? {})) {
-    if (
-      !fallbackChain().some((id) => options.languages?.[id]?.resources?.[key])
-    ) {
+    if (!fallbacks.some((id) => options.languages?.[id]?.resources?.[key])) {
       throw new Error(`Missing fallback for locale resource "${key}".`);
     }
   }
-  // A hidden fallback may supply messages without ever being activated.
-  const fallbacks: string[] = [];
-  for (const lang of fallbackChain()) {
+  // Preload hidden fallbacks without removing them from the chain on a transient failure.
+  for (const lang of fallbacks) {
     try {
       i18n.global.setLocaleMessage(lang, await loadOnce(lang));
-      fallbacks.push(lang);
     } catch (error) {
       console.warn(`Could not load fallback messages for "${lang}".`, error);
     }
@@ -202,8 +199,9 @@ async function runLocaleRequest(
 ) {
   const id = ++issuedId;
   const claim = () => {
+    if (id < requestId) return;
     validate?.();
-    requestId = Math.max(requestId, id);
+    requestId = id;
   };
   // Let all queued requests validate against the initialized menu before
   // running the last valid one. A cancellation can also have a newer ID.

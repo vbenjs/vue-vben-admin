@@ -77,6 +77,23 @@ describe('application locales', () => {
     ]);
   });
 
+  it('uses the default dictionary for fallback after its startup load recovers', async () => {
+    const app = await runtime();
+    let offline = true;
+    await app.setupI18n(createHost(), {
+      async loadMessages(lang) {
+        if (lang !== 'zh-CN') return undefined;
+        if (offline) throw new Error('Offline');
+        return { common: { 'default-only': 'Recovered' } };
+      },
+    });
+    expect(app.i18n.global.locale.value).toBe('en-US');
+    offline = false;
+    await app.changeLocale('zh-CN');
+    await app.changeLocale('en-US');
+    expect(app.i18n.global.t('common.default-only')).toBe('Recovered');
+  });
+
   it('uses an explicit pre-bootstrap list even when equal to the built-in menu', async () => {
     const app = await runtime();
     await app.setSupportLanguages(app.SUPPORT_LANGUAGES);
@@ -183,6 +200,18 @@ describe('application locales', () => {
       expect(app.getSupportLanguages()).toEqual(expectedMenu);
     },
   );
+
+  it('returns false for a cancelled startup request even if the menu excludes it', async () => {
+    const app = await runtime();
+    const startup = app.setupI18n(createHost(), {
+      languages: { 'zh-CN': menu('zh-CN'), 'zh-TW': menu('zh-TW') },
+    });
+    const queued = app.changeLocale('en-US');
+    app.cancelLocaleChange();
+    await startup;
+    expect(await queued).toBe(false);
+    expect(app.i18n.global.locale.value).toBe('zh-CN');
+  });
 
   it('chooses the last valid request queued before the startup menu is installed', async () => {
     const app = await runtime();
