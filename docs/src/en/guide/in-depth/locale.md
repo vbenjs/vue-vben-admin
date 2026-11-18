@@ -20,31 +20,16 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
+A usable saved language takes precedence at startup; otherwise the application default is used. Missing keys also fall back to the application default unless `fallbackLocale` is set separately in `src/locales/index.ts`.
+
 ## Dynamic Language Switching
 
-Switching languages consists of two parts:
-
-- Updating preferences
-- Loading the corresponding language pack
+Use `changeLocale()`. The templates update preferences and `Accept-Language` only after the locale has been applied. Do not update preferences first. `changeLocale()` returns `false` if superseded and throws on a loading failure without changing the active language. The existing `loadLocaleMessages()` uses the same pipeline.
 
 ```ts
-import type { SupportedLanguagesType } from '@vben/locales';
-import { loadLocaleMessages } from '@vben/locales';
-import { updatePreferences } from '@vben/preferences';
+import { changeLocale } from '@vben/locales';
 
-async function updateLocale(value: string) {
-  // 1. Update preferences
-  const locale = value as SupportedLanguagesType;
-  updatePreferences({
-    app: {
-      locale,
-    },
-  });
-  // 2. Load the corresponding language pack
-  await loadLocaleMessages(locale);
-}
-
-updateLocale('en-US');
+await changeLocale('en-US');
 ```
 
 ## Adding Translation Texts
@@ -101,46 +86,22 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 ## Adding a New Language Pack
 
-If you need to add a new language pack, follow these steps (taking `zh-TW` Traditional Chinese as an example):
+To add French to one application:
 
-- Create the corresponding language pack folder and files under `packages/locales/src/langs` (e.g., `zh-TW/*.json`) and translate the texts accordingly.
-- In the corresponding application, find the `src/locales/langs` directory and create the same language pack folder and files (e.g., `zh-TW/*.json`).
-- Create a new d.ts file in the application (e.g., `src/locales/languages.d.ts`) and extend the language types via module augmentation:
+1. Add `'fr-FR': { label: 'Français' }` to `languages` in `src/locales/index.ts`. The template infers `AppLocale` and the allowed preference defaults from the keys. There is no per-language `.d.ts` change.
+2. Create `src/locales/langs/fr-FR/common.json`, for example `{ "cancel": "Annuler", "submit": "Envoyer" }`. The filename is the namespace: forms and dialogs read `common.submit` and `common.cancel`. Likewise, `welcomeBack` in `authentication.json` translates the shared login screen. Application keys override shared keys. No `packages` changes are required.
 
-  ```ts
-  export type { SupportedLanguages } from '@vben-core/typings';
+### Replacing the menu at runtime
 
-  declare module '@vben-core/typings' {
-    interface SupportedLanguages {
-      'zh-TW': '繁體中文';
-    }
-  }
-  ```
+`await setSupportLanguages(list)` from `@vben/constants` **replaces** the menu. A list set before startup takes precedence over the static menu, including when restoring a cached language. Removing the active locale selects the application default if allowed, or the first entry otherwise. The menu is published only after that switch succeeds. The call returns `true` for success, `false` when superseded, and rejects empty lists, duplicate IDs and load failures. Dynamic languages still require local or remote translations.
 
-  ::: tip Tip
+### Migrating an existing application
 
-  The re-export at the top must not be omitted: it makes the file a module so that `declare module` acts as module augmentation. Otherwise it would be treated as an ambient module declaration that shadows the original module and loses all its types. The application also needs to declare the `@vben-core/typings` dependency (usually already available for internal monorepo packages).
-
-  :::
-
-- Register the runtime language list at application startup (e.g., in `src/bootstrap.ts`). The language toggle component will display the new language automatically:
-
-  ```ts
-  import { setSupportLanguages, SUPPORT_LANGUAGES } from '@vben/constants';
-
-  setSupportLanguages([
-    ...SUPPORT_LANGUAGES,
-    { label: '繁體中文', value: 'zh-TW' },
-  ]);
-  ```
-
-- If the application uses third-party libraries such as dayjs or component libraries, add the corresponding language pack branches in the locale loading logic of `src/locales/index.ts`.
-
-At this point, you can use the newly added language pack in the project. The `SupportedLanguagesType` union will automatically include the new language, and all related APIs gain full type constraints.
+Move library locale setters out of `loadMessages` and into `adapters`; the loader should only return application messages. Components calling `useSimpleLocale()` must use the full shared key: for example, replace `cancel` with `common.cancel` and `confirmTitle` with `common.confirm-title`. `setSimpleLocale()` only controls standalone components without an application translator.
 
 ## Interface Language Switching Function
 
-If you want to disable the language switching display button on the interface, in the corresponding application, find the `src/preferences.ts` file and modify the value of `locale` accordingly:
+Set `widget.languageToggle` to `false` in the application's `src/preferences.ts` to hide the language switch:
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -160,49 +121,34 @@ When making interface requests through the project's built-in `request` tool, th
 
 Each application has an independent language pack that can override the general language configuration. You can remotely load the corresponding language pack by finding the `src/locales/index.ts` file in the corresponding application and modifying the `loadMessages` method accordingly:
 
-```ts {3-4}
-async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
-    // Modify here to load data via a remote interface
-    localesMap[lang](),
-    loadThirdPartyMessage(lang),
-  ]);
-  return appLocaleMessages.default;
+```ts
+async function loadMessages(lang: string) {
+  const response = await fetch(
+    `/translations/${encodeURIComponent(lang)}.json`,
+  );
+  if (response.status === 404) return undefined;
+  if (!response.ok) throw new Error(`Failed to load translations: ${lang}`);
+  return response.json();
 }
 ```
+
+Return resources accepted by Vue I18n, including precompiled messages when using a runtime-only build. Returning `undefined` lets the application use shared messages without an application-specific overlay.
 
 ## Third-Party Language Packs
 
-Different applications may use third-party component libraries or plugins with varying internationalization methods, so they need to be handled differently. If you need to introduce a third-party language pack, you can find the `src/locales/index.ts` file in the corresponding application and modify the `loadThirdPartyMessage` method accordingly:
+Configure each library once in `adapters`. To translate its built-in controls, provide its resource in the language entry. For example, in the Antdv Next template:
 
 ```ts
-/**
- * Load the dayjs language pack
- * @param lang
- */
-async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  let locale;
-  switch (lang) {
-    case 'zh-CN': {
-      locale = await import('dayjs/locale/zh-cn');
-      break;
-    }
-    case 'en-US': {
-      locale = await import('dayjs/locale/en');
-      break;
-    }
-    // Default to using English
-    default: {
-      locale = await import('dayjs/locale/en');
-    }
-  }
-  if (locale) {
-    dayjs.locale(locale);
-  } else {
-    console.error(`Failed to load dayjs locale for ${lang}`);
-  }
-}
+const french = {
+  label: 'Français',
+  resources: {
+    dayjs: () => import('dayjs/locale/fr'),
+    ui: () => import('antdv-next/dist/locale/fr_FR'),
+  },
+};
 ```
+
+Each library tries the target, `fallbackLocale`, then the application default independently. Omitting `vxe` above leaves only the table controls in the fallback language, regardless of the previous selection. If French becomes the application default and lacks resources, set `fallbackLocale` to a fully configured language. A declared loader that fails rejects the switch instead of silently falling back. For custom libraries, `defineLocaleAdapter(read, write, resolve)` maps loaded data into library state and uses synchronous reads and writes to support rollback.
 
 ## Removing Internationalization
 
@@ -215,8 +161,7 @@ Firstly, it is not recommended to remove internationalization, as it is a good d
   ```ts
   async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
     await coreSetup(app, {
-      defaultLocale: preferences.app.locale,
-      loadMessages,
+      ...localeConfig,
       missingWarn: !import.meta.env.PROD, // [!code --]
       missingWarn: false, // [!code ++]
       ...options,

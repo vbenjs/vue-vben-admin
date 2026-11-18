@@ -30,9 +30,9 @@ const tokenTheme = computed(() => {
 });
 
 watch(
-  tokenTheme,
-  (themeConfig) => {
-    ConfigProvider.config({ theme: themeConfig });
+  [tokenTheme, antdLocale],
+  ([themeConfig, locale]) => {
+    ConfigProvider.config({ theme: themeConfig, locale });
   },
   { immediate: true },
 );

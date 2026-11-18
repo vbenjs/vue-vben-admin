@@ -2,7 +2,6 @@ import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
 import { registerLoadingDirective } from '@vben/common-ui';
-import { setSupportLanguages, SUPPORT_LANGUAGES } from '@vben/constants';
 import { providePluginsOptions } from '@vben/plugins';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
@@ -21,14 +20,6 @@ import { initDict } from './dict-init';
 import { initTimezone } from './timezone-init';
 
 async function bootstrap(namespace: string) {
-  // 演示扩展语言：d.ts 模块增强已向 SupportedLanguages 注册表追加 zh-TW
-  // （见 src/locales/languages.d.ts），此处同步注册运行时语言列表，
-  // 语言切换组件即可显示三语
-  setSupportLanguages([
-    ...SUPPORT_LANGUAGES,
-    { label: '繁體中文', value: 'zh-TW' },
-  ]);
-
   // 初始化组件适配器
   await initComponentAdapter();
 

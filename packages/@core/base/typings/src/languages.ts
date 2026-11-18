@@ -2,14 +2,13 @@
  * 支持的语言注册表（核心默认语言）。
  *
  * 接口值仅为文档用途的语言标签，类型系统只消费键。
- * 应用如需扩展语言，无需改动核心包，只需在应用内新建 d.ts 文件，
- * 通过模块增强（declaration merging）追加语言键：
+ * 模板通过模块增强引用自身的语言清单，无需逐个声明语言：
  *
  * ```ts
+ * import type { AppLocale } from './index';
+ * import '@vben-core/typings';
  * declare module '@vben-core/typings' {
- *   interface SupportedLanguages {
- *     'zh-TW': '繁體中文';
- *   }
+ *   interface SupportedLanguages extends Record<AppLocale, string> {}
  * }
  * ```
  *

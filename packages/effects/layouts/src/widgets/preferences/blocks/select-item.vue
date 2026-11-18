@@ -33,6 +33,7 @@ withDefaults(
   },
 );
 
+const emit = defineEmits<{ reselect: [value: string] }>();
 const selectValue = defineModel<string | undefined>({ default: undefined });
 
 const slots = useSlots();
@@ -68,7 +69,12 @@ const slots = useSlots();
       </SelectTrigger>
       <SelectContent>
         <template v-for="item in items" :key="item.value">
-          <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
+          <SelectItem
+            :value="item.value"
+            @select="item.value === selectValue && emit('reselect', item.value)"
+          >
+            {{ item.label }}
+          </SelectItem>
         </template>
       </SelectContent>
     </Select>

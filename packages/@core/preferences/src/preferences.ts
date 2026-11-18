@@ -37,7 +37,7 @@ class PreferenceManager {
   private cache: StorageManager;
   private customPreferencesExtension: null | PreferencesExtension<any> = null;
   private customState = reactive<CustomPreferencesRecord>({});
-  private debouncedSave: () => void;
+  private debouncedSave = useDebounceFn(() => this.saveToCache(), 150);
   private initialCustomPreferences: CustomPreferencesRecord = {};
   private initialPreferences: Preferences = defaultPreferences;
   private isInitialized = false;
@@ -48,13 +48,13 @@ class PreferenceManager {
     // 构造函数不再同步读取缓存，使用默认值初始化
     // 真正的缓存加载在 initPreferences 中完成（已经是 async）
     this.state = reactive<Preferences>({ ...defaultPreferences });
-    this.debouncedSave = useDebounceFn(() => this.saveToCache(), 150);
   }
 
   /**
    * 清除所有缓存的偏好设置
    */
   clearCache = async () => {
+    this.debouncedSave.cancel();
     await Promise.all(
       Object.values(STORAGE_KEYS).map((key) => this.cache.removeItem(key)),
     );
@@ -172,9 +172,17 @@ class PreferenceManager {
   /**
    * 重置偏好设置到初始状态
    */
-  resetPreferences = async () => {
+  resetPreferences = async ({ preserveLocale = false } = {}) => {
     // 将状态重置为初始偏好设置
-    Object.assign(this.state, this.initialPreferences);
+    const initial = this.initialPreferences;
+    if (preserveLocale) {
+      Object.assign(this.state, {
+        ...initial,
+        app: { ...initial.app, locale: this.state.app.locale },
+      });
+    } else {
+      Object.assign(this.state, initial);
+    }
     this.replaceCustomPreferences(this.initialCustomPreferences);
 
     // 直接触发 UI 更新
@@ -206,7 +214,7 @@ class PreferenceManager {
     this.replaceCustomPreferences(
       mergeWithArrayOverride({}, sanitizedUpdates, markRaw(this.customState)),
     );
-    this.debouncedSave();
+    void this.debouncedSave();
   };
 
   /**
@@ -229,7 +237,7 @@ class PreferenceManager {
     this.handleUpdates(updates);
 
     // 保存到缓存（fire-and-forget，通过 debounce 控制频率）
-    this.debouncedSave();
+    void this.debouncedSave();
   };
 
   private cloneValue<T>(value: T): T {

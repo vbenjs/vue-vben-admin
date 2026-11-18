@@ -1,77 +1,73 @@
-import type { App } from 'vue';
+import type { GlobalConfigProvider } from 'tdesign-vue-next';
 
-import type { LocaleSetupOptions, SupportedLanguagesType } from '@vben/locales';
+import type { App, DeepReadonly } from 'vue';
+
+import type { LocaleSetupOptions } from '@vben/locales';
 
 import {
   $t,
   setupI18n as coreSetup,
-  loadLocalesMapFromDir,
+  createDayjsLocale,
+  createMessageLoader,
+  createUiLocale,
+  defineLocaleConfig,
 } from '@vben/locales';
-import { preferences } from '@vben/preferences';
+import { vxeLocaleAdapter, vxeLocales } from '@vben/plugins/vxe-table/locales';
+import {
+  preferences,
+  preferencesManager,
+  updatePreferences,
+} from '@vben/preferences';
 
 import dayjs from 'dayjs';
 
-const modules = import.meta.glob('./langs/**/*.json');
+type TDesignLocale = DeepReadonly<GlobalConfigProvider>;
 
-const localesMap = loadLocalesMapFromDir(
-  /\.\/langs\/([^/]+)\/(.*)\.json$/,
-  modules,
-);
-/**
- * 加载应用特有的语言包
- * 这里也可以改造为从服务端获取翻译数据
- * @param lang
- */
-async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
-    localesMap[lang]?.(),
-    loadThirdPartyMessage(lang),
-  ]);
-  return appLocaleMessages?.default;
-}
+const { adapter: ui, locale: tdesignLocale } = createUiLocale<TDesignLocale>();
 
-/**
- * 加载第三方组件库的语言包
- * @param lang
- */
-async function loadThirdPartyMessage(lang: SupportedLanguagesType) {
-  await loadDayjsLocale(lang);
-}
+const localeConfig = defineLocaleConfig({
+  adapters: {
+    dayjs: createDayjsLocale(dayjs.locale),
+    ui,
+    vxe: vxeLocaleAdapter,
+  },
+  languages: {
+    'zh-CN': {
+      label: '简体中文',
+      resources: {
+        dayjs: () => import('dayjs/locale/zh-cn'),
+        ui: () => import('tdesign-vue-next/es/locale/zh_CN'),
+        vxe: vxeLocales['zh-CN'],
+      },
+    },
+    'en-US': {
+      label: 'English',
+      resources: {
+        dayjs: () => import('dayjs/locale/en'),
+        ui: () => import('tdesign-vue-next/es/locale/en_US'),
+        vxe: vxeLocales['en-US'],
+      },
+    },
+  },
+  loadMessages: createMessageLoader(import.meta.glob('./langs/**/*.json')),
+});
 
-/**
- * 加载dayjs的语言包
- * @param lang
- */
-async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  let locale;
-  switch (lang) {
-    case 'en-US': {
-      locale = await import('dayjs/locale/en');
-      break;
-    }
-    case 'zh-CN': {
-      locale = await import('dayjs/locale/zh-cn');
-      break;
-    }
-    // 默认使用英语
-    default: {
-      locale = await import('dayjs/locale/en');
-    }
-  }
-  if (locale) {
-    dayjs.locale(locale);
-  } else {
-    console.error(`Failed to load dayjs locale for ${lang}`);
-  }
-}
+export type AppLocale = keyof typeof localeConfig.languages;
 
 async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   await coreSetup(app, {
-    defaultLocale: preferences.app.locale,
-    loadMessages,
+    ...localeConfig,
+    defaultLocale: preferencesManager.getInitialPreferences().app.locale,
+    initialLocale: preferences.app.locale,
     missingWarn: !import.meta.env.PROD,
     ...options,
+    onLocaleChanged(locale) {
+      if (preferences.app.locale !== locale) {
+        updatePreferences({ app: { locale } });
+      }
+      return options.onLocaleChanged?.(locale);
+    },
   });
 }
 
-export { $t, setupI18n };
+export { $t, setupI18n, tdesignLocale };

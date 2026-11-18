@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import type { GlobalConfigProvider } from 'tdesign-vue-next';
 
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 
 import { useTDesignDesignTokens } from '@vben/hooks';
 import { usePreferences } from '@vben/preferences';
 
 import { merge } from 'es-toolkit/compat';
 import { ConfigProvider } from 'tdesign-vue-next';
-import zhConfig from 'tdesign-vue-next/es/locale/zh_CN';
+
+import { tdesignLocale } from '#/locales';
 
 defineOptions({ name: 'App' });
 const { isDark } = usePreferences();
@@ -33,7 +34,9 @@ const customConfig: GlobalConfigProvider = {
   table: {},
   pagination: {},
 };
-const globalConfig = merge(zhConfig, customConfig);
+const globalConfig = computed(() =>
+  merge({}, tdesignLocale.value, customConfig),
+);
 </script>
 
 <template>

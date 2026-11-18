@@ -1,8 +1,8 @@
 import {
+  cancelLocaleChange,
+  changeLocale,
   i18n,
   loadLocaleMessages,
-  loadLocalesMap,
-  loadLocalesMapFromDir,
   setupI18n,
 } from './i18n';
 
@@ -12,14 +12,27 @@ const $te = i18n.global.te.bind(i18n.global);
 export {
   $t,
   $te,
+  cancelLocaleChange,
+  changeLocale,
   i18n,
   loadLocaleMessages,
-  loadLocalesMap,
-  loadLocalesMapFromDir,
   setupI18n,
 };
 export {
+  createDayjsLocale,
+  createUiLocale,
+  defineLocaleAdapter,
+  defineLocaleConfig,
+} from './locale-configs';
+export {
+  createMessageLoader,
+  loadLocalesMap,
+  loadLocalesMapFromDir,
+} from './message-loaders';
+export {
   type ImportLocaleFn,
+  type LocaleAdapter,
+  type LocaleMessages,
   type LocaleSetupOptions,
   type SupportedLanguagesType,
 } from './typing';

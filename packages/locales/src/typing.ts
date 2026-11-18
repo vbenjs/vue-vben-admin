@@ -1,27 +1,33 @@
-import type { SupportedLanguagesType } from '@vben-core/typings';
+export type { SupportedLanguagesType } from '@vben-core/typings';
 
-export type { SupportedLanguagesType };
-
-export type ImportLocaleFn = () => Promise<{ default: Record<string, string> }>;
-
+export type LocaleMessages = Record<string, unknown>;
+export type ImportLocaleFn = () => Promise<{ default: LocaleMessages }>;
 export type LoadMessageFn = (
-  lang: SupportedLanguagesType,
-) => Promise<Record<string, string> | undefined>;
+  lang: string,
+) => Promise<LocaleMessages | undefined>;
+export type ResourceLoader<T = unknown> = () => Promise<T>;
+
+export interface LocaleUpdate {
+  apply(): void;
+  restore(): void;
+}
+
+export interface LocaleAdapter<T = unknown> {
+  prepare(load: ResourceLoader<T>, lang: string): Promise<() => LocaleUpdate>;
+}
+
+export interface LocaleDefinition {
+  label: string;
+  resources?: Record<string, ResourceLoader>;
+}
 
 export interface LocaleSetupOptions {
-  /**
-   * Default language
-   * @default zh-CN
-   */
-  defaultLocale?: SupportedLanguagesType;
-  /**
-   * Load message function
-   * @param lang
-   * @returns
-   */
+  adapters?: Record<string, LocaleAdapter>;
+  defaultLocale?: string;
+  fallbackLocale?: string;
+  initialLocale?: string;
+  languages?: Record<string, LocaleDefinition>;
   loadMessages?: LoadMessageFn;
-  /**
-   * Whether to warn when the key is not found
-   */
   missingWarn?: boolean;
+  onLocaleChanged?: (locale: string) => Promise<void> | void;
 }

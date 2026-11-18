@@ -20,31 +20,16 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
+缓存中的语言仍然可用时优先使用缓存，否则启动时回退到应用默认语言。单条翻译缺失时默认也使用应用默认语言；可以在 `src/locales/index.ts` 的语言清单中单独设置 `fallbackLocale`。
+
 ## 动态切换语言
 
-切换语言有两部分组成:
-
-- 更新偏好设置
-- 加载对应的语言包
+调用 `changeLocale()` 即可。模板会在加载成功后同步更新偏好和 `Accept-Language`，不要提前调用 `updatePreferences()`。请求被更新的选择取代时返回 `false`，加载失败时抛出错误并保留原语言。原有 `loadLocaleMessages()` 也使用相同的切换流程。
 
 ```ts
-import type { SupportedLanguagesType } from '@vben/locales';
-import { loadLocaleMessages } from '@vben/locales';
-import { updatePreferences } from '@vben/preferences';
+import { changeLocale } from '@vben/locales';
 
-async function updateLocale(value: string) {
-  // 1. 更新偏好设置
-  const locale = value as SupportedLanguagesType;
-  updatePreferences({
-    app: {
-      locale,
-    },
-  });
-  // 2. 加载对应的语言包
-  await loadLocaleMessages(locale);
-}
-
-updateLocale('en-US');
+await changeLocale('en-US');
 ```
 
 ## 新增翻译文本
@@ -101,46 +86,22 @@ const items = computed(() => [{ title: $t('demos.title') }]);
 
 ## 新增语言包
 
-如果你需要新增语言包，按照以下步骤进行（以新增 `zh-TW` 繁体中文为例）：
+以应用新增法语为例，只需两步：
 
-- 在 `packages/locales/src/langs` 目录下新增对应的语言包文件夹和文件，例：`zh-TW/*.json`，并翻译对应的文本。
-- 在对应的应用内，找到 `src/locales/langs` 目录，新增对应的语言包文件夹和文件 `zh-TW/*.json`。
-- 在应用内新建一个 d.ts 文件（例：`src/locales/languages.d.ts`），通过模块增强扩展语言类型：
+1. 在 `src/locales/index.ts` 的 `languages` 对象中增加 `'fr-FR': { label: 'Français' }`。`AppLocale` 和默认偏好的语言类型会从清单推导，无需手改 `.d.ts`。
+2. 添加 `src/locales/langs/fr-FR/common.json`，例如 `{ "cancel": "Annuler", "submit": "Envoyer" }`。文件名就是命名空间：表单和弹窗会直接读取 `common.submit`、`common.cancel`。同理，在 `authentication.json` 中提供 `welcomeBack` 即可翻译共享登录页。应用同名键覆盖共享翻译，无需修改 `packages`。
 
-  ```ts
-  export type { SupportedLanguages } from '@vben-core/typings';
+### 运行时替换菜单
 
-  declare module '@vben-core/typings' {
-    interface SupportedLanguages {
-      'zh-TW': '繁體中文';
-    }
-  }
-  ```
+`await setSupportLanguages(list)`（从 `@vben/constants` 导入）**替换**整个菜单。启动前设置的列表优先于静态清单；启动时优先恢复仍然可用的缓存语言。运行中移除当前语言时，先切换到列表中的应用默认语言，否则切到首项。成功后才发布列表，失败时保留原菜单和语言。成功返回 `true`，被后续操作取代返回 `false`；空列表、重复代码和加载失败会抛错。运行时新增的语言也要提供本地或远程译文。
 
-  ::: tip 提示
+### 从旧配置迁移
 
-  顶部的 re-export 不可省略：它使文件成为模块，`declare module` 才是模块增强；否则会被视为环境模块声明，遮蔽原模块导致其下所有类型丢失。同时应用需要声明 `@vben-core/typings` 依赖（monorepo 内部包通常已具备）。
-
-  :::
-
-- 在应用启动时（例：`src/bootstrap.ts`）注册运行时语言列表，语言切换组件会自动显示新语言：
-
-  ```ts
-  import { setSupportLanguages, SUPPORT_LANGUAGES } from '@vben/constants';
-
-  setSupportLanguages([
-    ...SUPPORT_LANGUAGES,
-    { label: '繁體中文', value: 'zh-TW' },
-  ]);
-  ```
-
-- 如果应用使用了 dayjs、组件库等第三方库，在 `src/locales/index.ts` 的语言加载逻辑中补充对应的语言包分支。
-
-到这里，你就可以在项目内使用新增的语言包了，`SupportedLanguagesType` 联合类型会自动包含新语言，所有相关 API 均获得完整的类型约束。
+把原先在 `loadMessages` 中切换组件库语言的代码移到 `adapters`；加载函数只返回应用译文。直接使用 `useSimpleLocale()` 的组件也应使用完整的共享键，例如将 `cancel` 改为 `common.cancel`、`confirmTitle` 改为 `common.confirm-title`。`setSimpleLocale()` 仅控制未接入应用翻译器的独立组件。
 
 ## 界面切换语言功能
 
-如果你想关闭界面上的语言切换显示按钮，在对应的应用内，找到 `src/preferences.ts` 文件，修改 `locale` 的值即可：
+如果你想隐藏语言切换按钮，在对应应用的 `src/preferences.ts` 中关闭 `widget.languageToggle`：
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -160,49 +121,34 @@ export const overridesPreferences = defineOverridesPreferences({
 
 每个应用都有一个独立的语言包，它可以覆盖通用的语言配置，你可以通过远程加载的方式来获取对应的语言包，只需要在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadMessages` 方法即可：
 
-```ts {3-4}
-async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
-    // 这里修改为远程接口加载数据即可
-    localesMap[lang](),
-    loadThirdPartyMessage(lang),
-  ]);
-  return appLocaleMessages.default;
+```ts
+async function loadMessages(lang: string) {
+  const response = await fetch(
+    `/translations/${encodeURIComponent(lang)}.json`,
+  );
+  if (response.status === 404) return undefined;
+  if (!response.ok) throw new Error(`Failed to load translations: ${lang}`);
+  return response.json();
 }
 ```
+
+远程接口应返回可传给 Vue I18n 的语言资源。使用仅运行时构建时，需要返回预编译的消息；`undefined` 表示没有应用翻译，不妨碍共享翻译加载。
 
 ## 第三方语言包
 
-不同应用内使用的第三方组件库或者插件国际化方式可能不一致，所以需要差别处理。 如果你需要引入第三方的语言包，你可以在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadThirdPartyMessage` 方法即可：
+各库在 `adapters` 中接入一次。只有希望第三方控件也显示法语时，才在法语条目中提供对应资源。例如在 Antdv Next 模板中：
 
 ```ts
-/**
- * 加载dayjs的语言包
- * @param lang
- */
-async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  let locale;
-  switch (lang) {
-    case 'zh-CN': {
-      locale = await import('dayjs/locale/zh-cn');
-      break;
-    }
-    case 'en-US': {
-      locale = await import('dayjs/locale/en');
-      break;
-    }
-    // 默认使用英语
-    default: {
-      locale = await import('dayjs/locale/en');
-    }
-  }
-  if (locale) {
-    dayjs.locale(locale);
-  } else {
-    console.error(`Failed to load dayjs locale for ${lang}`);
-  }
-}
+const french = {
+  label: 'Français',
+  resources: {
+    dayjs: () => import('dayjs/locale/fr'),
+    ui: () => import('antdv-next/dist/locale/fr_FR'),
+  },
+};
 ```
+
+每个库分别按目标语言、`fallbackLocale`、应用默认语言选择资源。上例省略了 `vxe`，因此只有表格内置文案使用回退资源，不受上一次切换影响。若法语被设为默认语言且缺少表格资源，请显式设置有完整资源的 `fallbackLocale`。已声明的资源加载失败时，切换失败；不会静默降级。自定义库可以使用 `defineLocaleAdapter(read, write, resolve)`：`resolve` 只转换已加载的数据，`read` 和 `write` 同步读取及恢复库的状态。
 
 ## 移除国际化
 
@@ -215,8 +161,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
   ```ts
   async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
     await coreSetup(app, {
-      defaultLocale: preferences.app.locale,
-      loadMessages,
+      ...localeConfig,
       missingWarn: !import.meta.env.PROD, // [!code --]
       missingWarn: false, // [!code ++]
       ...options,
