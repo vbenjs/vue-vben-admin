@@ -1373,9 +1373,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../base/shared
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 15.0.0(vue@3.5.41(typescript@6.0.3))

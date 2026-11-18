@@ -157,6 +157,49 @@ describe('application locales', () => {
     expect(document.documentElement.lang).toBe('zh-CN');
   });
 
+  it.each(['selection', 'menu'])(
+    'does not cancel a pending %s for an unsupported locale',
+    async (operation) => {
+      const app = await runtime();
+      const pending = Promise.withResolvers<undefined>();
+      await app.setupI18n(createHost(), {
+        async loadMessages(lang) {
+          if (lang === 'en-US') await pending.promise;
+          return undefined;
+        },
+      });
+      const change =
+        operation === 'menu'
+          ? app.setSupportLanguages([menu('en-US')])
+          : app.changeLocale('en-US');
+      await expect(app.changeLocale('unknown')).rejects.toThrow(
+        'Unsupported locale',
+      );
+      pending.resolve(undefined);
+      expect(await change).toBe(true);
+      expect(app.i18n.global.locale.value).toBe('en-US');
+      const expectedMenu =
+        operation === 'menu' ? [menu('en-US')] : app.SUPPORT_LANGUAGES;
+      expect(app.getSupportLanguages()).toEqual(expectedMenu);
+    },
+  );
+
+  it('chooses the last valid request queued before the startup menu is installed', async () => {
+    const app = await runtime();
+    const startup = app.setupI18n(createHost(), {
+      languages: { 'zh-CN': menu('zh-CN'), 'zh-TW': menu('zh-TW') },
+    });
+    const first = app.changeLocale('zh-CN');
+    const last = app.changeLocale('zh-TW');
+    await expect(app.changeLocale('en-US')).rejects.toThrow(
+      'Unsupported locale',
+    );
+    await startup;
+    expect(await first).toBe(false);
+    expect(await last).toBe(true);
+    expect(app.i18n.global.locale.value).toBe('zh-TW');
+  });
+
   it('does not deliver a stale menu after a listener replaces it', async () => {
     const app = await runtime();
     const received: string[] = [];

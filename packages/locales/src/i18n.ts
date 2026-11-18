@@ -23,6 +23,7 @@ const i18n = createI18n({
 });
 const loadShared = createMessageLoader(import.meta.glob('./langs/**/*.json'));
 let options: LocaleSetupOptions = {};
+let issuedId = 0;
 let requestId = 0;
 let initializing: Promise<void> | undefined;
 let disconnect: (() => void) | undefined;
@@ -195,11 +196,27 @@ async function select(lang: string, id: number, publish?: () => void) {
   }
 }
 
+async function runLocaleRequest(
+  run: (id: number) => boolean | Promise<boolean>,
+  validate?: () => void,
+) {
+  const id = ++issuedId;
+  const claim = () => {
+    validate?.();
+    requestId = Math.max(requestId, id);
+  };
+  // Let all queued requests validate against the initialized menu before
+  // running the last valid one. A cancellation can also have a newer ID.
+  if (initializing) await initializing.then(claim);
+  else claim();
+  return id === requestId && run(id);
+}
+
 async function setupI18n(app: App, setup: LocaleSetupOptions = {}) {
   if (initializing)
     throw new Error('Locale initialization is already in progress.');
   disconnect?.();
-  requestId++;
+  cancelLocaleChange();
   options = setup;
   const defaults = setup.languages
     ? Object.entries(setup.languages).map(([value, { label }]) => ({
@@ -209,16 +226,15 @@ async function setupI18n(app: App, setup: LocaleSetupOptions = {}) {
     : SUPPORT_LANGUAGES;
   // Queue selections made during bootstrap behind the initial commit.
   initializing = Promise.resolve().then(async () => {
-    disconnect = connectLanguageRegistry(defaults, async (list, publish) => {
-      const id = ++requestId;
-      if (initializing) await initializing;
-      if (id !== requestId) return false;
-      if (!list.some(({ value }) => value === i18n.global.locale.value)) {
-        return select(preferredLanguage(list), id, publish);
-      }
-      publish();
-      return true;
-    });
+    disconnect = connectLanguageRegistry(defaults, (list, publish) =>
+      runLocaleRequest((id) => {
+        if (!list.some(({ value }) => value === i18n.global.locale.value)) {
+          return select(preferredLanguage(list), id, publish);
+        }
+        publish();
+        return true;
+      }),
+    );
     await initialize(app);
   });
   try {
@@ -232,23 +248,24 @@ async function setupI18n(app: App, setup: LocaleSetupOptions = {}) {
 }
 
 function cancelLocaleChange() {
-  requestId++;
+  requestId = ++issuedId;
 }
 
-async function changeLocale(
+function changeLocale(
   lang: string,
   onApplied?: (locale: string) => void,
 ): Promise<boolean> {
-  const id = ++requestId;
-  if (initializing) await initializing;
-  if (id !== requestId) return false;
-  if (!getSupportLanguages().some(({ value }) => value === lang))
-    throw new Error(`Unsupported locale "${lang}".`);
-  // Once committed, a subsequent request cannot retroactively cancel this one.
-  // Stale UI side effects (such as closing the language menu) can still be skipped.
-  const applied = await select(lang, id);
-  if (applied && id === requestId) notify(() => onApplied?.(lang));
-  return applied;
+  return runLocaleRequest(
+    async (id) => {
+      const applied = await select(lang, id);
+      if (applied && id === requestId) notify(() => onApplied?.(lang));
+      return applied;
+    },
+    () => {
+      if (!getSupportLanguages().some(({ value }) => value === lang))
+        throw new Error(`Unsupported locale "${lang}".`);
+    },
+  );
 }
 
 async function loadLocaleMessages(lang: string) {
