@@ -31,10 +31,13 @@ vi.mock('@vben/hooks', async () => {
   return {
     usePriorityValues: () => ({
       class: ref(undefined),
+      formClass: ref(undefined),
       formOptions: ref(undefined),
       gridClass: ref(undefined),
       gridEvents: ref(undefined),
       gridOptions,
+      sectionOptions: ref(undefined),
+      segmented: ref(undefined),
       separator: ref(undefined),
       showSearchForm: ref(true),
       tableData: ref(undefined),

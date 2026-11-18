@@ -1,5 +1,7 @@
 import type { Plugin } from 'vite';
 
+import { load } from 'cheerio';
+
 interface CssLayerRule {
   /** 层名，需包含在统一层序中（见 internal/tailwind-config/src/theme.css） */
   layerName: string;
@@ -83,14 +85,19 @@ export const LAYER_ORDER_STATEMENT =
 
 /** Vite 与 VitePress 共用，在任何模块样式或外链样式之前确定层序。 */
 export function injectCssLayerOrder(html: string): string {
-  if (html.includes(LAYER_ORDER_ATTRIBUTE)) {
+  // 按 HTML 语法识别真实元素，避免注释、脚本或属性值中的标记造成误判。
+  const $ = load(html, { sourceCodeLocationInfo: true });
+  const head = $('head').first();
+  const insertOffset = head[0]?.sourceCodeLocation?.startTag?.endOffset;
+  if (
+    insertOffset === undefined ||
+    head.find(`style[${LAYER_ORDER_ATTRIBUTE}]`).length > 0
+  ) {
     return html;
   }
-  return html.replace(
-    /<head\b[^>]*>/i,
-    (head) =>
-      `${head}\n<style ${LAYER_ORDER_ATTRIBUTE}>${LAYER_ORDER_STATEMENT}</style>`,
-  );
+
+  // 仅在原始 head 起始标签后插入，不重新序列化整页 HTML。
+  return `${html.slice(0, insertOffset)}\n<style ${LAYER_ORDER_ATTRIBUTE}>${LAYER_ORDER_STATEMENT}</style>${html.slice(insertOffset)}`;
 }
 
 /**

@@ -9,6 +9,13 @@ import {
 
 /**
  * 依次从插槽、attrs、props、state 中获取值
+ *
+ * 已知限制:对运行时声明且带非 undefined 默认值的 Boolean prop,Vue 会把
+ * "未传"与"显式 false"解析为同一个值(false),不产生任何 reactive 触发,
+ * 因此"仅存在性变化"(false → false)无法使本 computed 重新求值。需要
+ * presence 敏感的 Boolean prop 应以 default: undefined 声明(禁用 boolean
+ * cast),或不在 withDefaults 中提供默认值而把默认值交给 state。
+ *
  * @param key
  * @param props
  * @param state
@@ -32,8 +39,12 @@ export function usePriorityValue<
     for (const [key, value] of Object.entries(rawProps)) {
       standardRawProps[kebabToCamelCase(key) as K] = value;
     }
+
+    // 总是读取 props[key] 以建立响应式依赖：否则初始未传入的 prop
+    // （原始值为 undefined）在后续被传入时，computed 不会重新求值
+    const propsValue = props[key];
     const propsKey =
-      standardRawProps?.[key] === undefined ? undefined : props[key];
+      standardRawProps?.[key] === undefined ? undefined : propsValue;
 
     // slot可以关闭
     return getFirstNonNullOrUndefined(

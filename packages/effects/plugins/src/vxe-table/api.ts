@@ -23,10 +23,12 @@ import {
 function getDefaultState(): VxeGridProps {
   return {
     class: '',
+    formClass: '',
     gridClass: '',
     gridOptions: {},
     gridEvents: {},
     formOptions: undefined,
+    segmented: false,
     showSearchForm: true,
   };
 }

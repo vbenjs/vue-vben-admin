@@ -37,6 +37,10 @@ export function useExpandable(props: FormRenderProps) {
       () => breakpoints.active().value,
       () => props.schema?.length,
       () => isVisible.value,
+      () => props.collapsedRows,
+      () => props.wrapperClass,
+      () => props.compact,
+      () => props.layout,
     ],
     async ([val]) => {
       if (val) {
@@ -71,6 +75,7 @@ export function useExpandable(props: FormRenderProps) {
     const rowHeights = containerStyles
       .getPropertyValue('grid-template-rows')
       .split(' ');
+    const rowGap = Number.parseFloat(containerStyles.rowGap) || 0;
 
     const containerRect = container?.getBoundingClientRect();
 
@@ -88,6 +93,7 @@ export function useExpandable(props: FormRenderProps) {
           rowStart = i + 1;
           break;
         }
+        cumulativeHeight += rowGap;
       }
       if (rowStart > (props?.collapsedRows ?? 1)) {
         return;

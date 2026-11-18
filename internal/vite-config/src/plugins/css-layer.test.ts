@@ -423,6 +423,63 @@ describe('hTML layer order', () => {
     );
     expect(injectCssLayerOrder(injected)).toBe(injected);
   });
+
+  it.each([
+    [
+      'marker string in a body comment',
+      '<html><head></head><body><!-- <style data-vben-css-layer-order></style> --></body></html>',
+    ],
+    [
+      'marker string in body text',
+      '<html><head></head><body><code>data-vben-css-layer-order</code></body></html>',
+    ],
+    [
+      'marked style element outside the head',
+      '<html><head></head><body><style data-vben-css-layer-order></style></body></html>',
+    ],
+    [
+      'marked style element in the head but inside a comment',
+      '<html><head><!-- <style data-vben-css-layer-order></style> --><link rel="stylesheet" href="vendor.css"></head><body></body></html>',
+    ],
+    [
+      'marked style text inside a script',
+      '<html><head><script>const marker = "<style data-vben-css-layer-order></style>";</script></head><body></body></html>',
+    ],
+    [
+      'marker string inside another style attribute',
+      '<html><head><style title="data-vben-css-layer-order"></style></head><body></body></html>',
+    ],
+    [
+      'repeated unclosed comments in the head',
+      `<html><head>${'<!--'.repeat(10_000)}<style data-vben-css-layer-order></style></head><body></body></html>`,
+    ],
+  ])('still injects when only %s exists', (_label, html) => {
+    const injected = injectCssLayerOrder(html);
+    expect(injected).toContain(LAYER_ORDER_STATEMENT);
+    // 注入的声明位于 head 内,且幂等
+    expect(injectCssLayerOrder(injected)).toBe(injected);
+  });
+
+  it('skips injection when a marked style element exists in the head', () => {
+    const html =
+      '<html><head><style data-vben-css-layer-order></style><link rel="stylesheet" href="vendor.css"></head><body></body></html>';
+    expect(injectCssLayerOrder(html)).toBe(html);
+  });
+
+  it('preserves the original HTML and ignores a commented-out head', () => {
+    const prefix = '<!doctype html><!-- <head> --><HTML><HEAD title="a > b">';
+    const suffix = "<meta charset='utf-8'></HEAD><BODY>content</BODY></HTML>";
+
+    expect(injectCssLayerOrder(prefix + suffix)).toBe(
+      `${prefix}\n<style data-vben-css-layer-order>${LAYER_ORDER_STATEMENT}</style>${suffix}`,
+    );
+  });
+
+  it('leaves HTML without an explicit head unchanged', () => {
+    const html = '<!-- <head> --><div>content</div>';
+
+    expect(injectCssLayerOrder(html)).toBe(html);
+  });
 });
 
 describe('layer order statement sync', () => {
