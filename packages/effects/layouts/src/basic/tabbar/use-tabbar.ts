@@ -157,7 +157,9 @@ export function useTabbar() {
           toggleMaximize();
         },
         icon: contentIsMaximize.value ? Minimize2 : Fullscreen,
-        key: contentIsMaximize.value ? 'restore-maximize' : 'maximize',
+        // 最大化与还原是同一个菜单项，key 保持恒定，
+        // 否则状态切换后会与 getMenuList 白名单里的 'maximize' 失配而被过滤掉。
+        key: 'maximize',
         text: contentIsMaximize.value
           ? $t('preferences.tabbar.contextMenu.restoreMaximize')
           : $t('preferences.tabbar.contextMenu.maximize'),
