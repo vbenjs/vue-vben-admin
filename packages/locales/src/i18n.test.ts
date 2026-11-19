@@ -77,8 +77,16 @@ describe('application locales', () => {
     ]);
   });
 
-  it('uses the default dictionary for fallback after its startup load recovers', async () => {
+  it('uses only the new setup dictionaries before and after the default locale recovers', async () => {
     const app = await runtime();
+    const key = 'common.default-only';
+    await app.setupI18n(createHost(), {
+      loadMessages: async () => ({
+        common: { 'default-only': 'Previous app' },
+      }),
+    });
+    expect(app.i18n.global.t(key)).toBe('Previous app');
+
     let offline = true;
     await app.setupI18n(createHost(), {
       async loadMessages(lang) {
@@ -88,10 +96,12 @@ describe('application locales', () => {
       },
     });
     expect(app.i18n.global.locale.value).toBe('en-US');
+    expect(app.i18n.global.t(key)).toBe(key);
     offline = false;
-    await app.changeLocale('zh-CN');
-    await app.changeLocale('en-US');
-    expect(app.i18n.global.t('common.default-only')).toBe('Recovered');
+    expect(await app.changeLocale('zh-CN')).toBe(true);
+    expect(await app.changeLocale('en-US')).toBe(true);
+    expect(app.i18n.global.locale.value).toBe('en-US');
+    expect(app.i18n.global.t(key)).toBe('Recovered');
   });
 
   it('uses an explicit pre-bootstrap list even when equal to the built-in menu', async () => {
@@ -172,6 +182,45 @@ describe('application locales', () => {
     expect(await app.changeLocale('en-US')).toBe(true);
     expect(await next).toBe(true);
     expect(document.documentElement.lang).toBe('zh-CN');
+  });
+
+  it('processes requests from adapter writers against the committed locale and menu', async () => {
+    const app = await runtime();
+    const applied = vi.fn();
+    let nested: Promise<boolean> | undefined;
+    const writer = defineLocaleAdapter(
+      () => app.i18n.global.locale.value,
+      (lang) => {
+        if (lang === 'en-US') {
+          nested = app.changeLocale('zh-CN', () =>
+            applied(app.i18n.global.locale.value),
+          );
+        }
+      },
+      (lang: string) => lang,
+    );
+    await app.setupI18n(createHost(), {
+      adapters: { writer },
+      languages: {
+        'zh-CN': {
+          label: 'Chinese',
+          resources: { writer: async () => 'zh-CN' },
+        },
+        'en-US': {
+          label: 'English',
+          resources: { writer: async () => 'en-US' },
+        },
+      },
+    });
+    expect(await app.changeLocale('en-US')).toBe(true);
+    expect(await nested).toBe(true);
+    expect(applied).toHaveBeenCalledExactlyOnceWith('zh-CN');
+    expect(app.i18n.global.locale.value).toBe('zh-CN');
+
+    expect(await app.setSupportLanguages([menu('en-US')])).toBe(true);
+    await expect(nested).rejects.toThrow('Unsupported locale "zh-CN"');
+    expect(applied).toHaveBeenCalledTimes(1);
+    expect(app.i18n.global.locale.value).toBe('en-US');
   });
 
   it.each(['selection', 'menu'])(

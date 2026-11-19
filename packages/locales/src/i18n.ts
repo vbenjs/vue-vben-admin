@@ -2,7 +2,11 @@ import type { App } from 'vue';
 
 import type { LanguageOption } from '@vben-core/shared/constants';
 
-import type { LocaleSetupOptions, LocaleUpdate } from './typing';
+import type {
+  LocaleMessages,
+  LocaleSetupOptions,
+  LocaleUpdate,
+} from './typing';
 
 import { createI18n } from 'vue-i18n';
 
@@ -26,6 +30,7 @@ let options: LocaleSetupOptions = {};
 let issuedId = 0;
 let requestId = 0;
 let initializing: Promise<void> | undefined;
+let committing = false;
 let disconnect: (() => void) | undefined;
 
 function defaultLocale() {
@@ -77,7 +82,7 @@ function notify(callback?: () => Promise<void> | void) {
 
 function commit(
   lang: string,
-  messages: Awaited<ReturnType<typeof loadMessages>>,
+  installMessages: () => void,
   snapshots: Array<() => LocaleUpdate>,
   publish?: () => void,
 ) {
@@ -89,7 +94,7 @@ function commit(
       applied.push(update);
       update.apply();
     }
-    i18n.global.setLocaleMessage(lang, messages);
+    installMessages();
   } catch (error) {
     while (applied.length > 0) {
       try {
@@ -134,16 +139,14 @@ async function initialize(app: App) {
     }
   }
   // Preload hidden fallbacks without removing them from the chain on a transient failure.
+  const dictionaries = new Map<string, LocaleMessages>();
   for (const lang of fallbacks) {
     try {
-      i18n.global.setLocaleMessage(lang, await loadOnce(lang));
+      dictionaries.set(lang, await loadOnce(lang));
     } catch (error) {
       console.warn(`Could not load fallback messages for "${lang}".`, error);
     }
   }
-  i18n.global.fallbackLocale.value = fallbacks.length > 0 ? fallbacks : false;
-  i18n.global.missingWarn = options.missingWarn ?? false;
-  i18n.global.fallbackWarn = false;
 
   const failures: unknown[] = [];
   for (const lang of candidates) {
@@ -153,7 +156,26 @@ async function initialize(app: App) {
         loadOnce(lang),
         prepareAdapters(lang),
       ]);
-      commit(lang, messages, updates);
+      commit(
+        lang,
+        () => {
+          // The exported composer survives setup. Replace its dictionaries only
+          // after this setup has a usable locale, including implicit parent fallbacks.
+          dictionaries.set(lang, messages);
+          for (const previous of i18n.global.availableLocales) {
+            if (!dictionaries.has(previous))
+              i18n.global.setLocaleMessage(previous, {});
+          }
+          for (const [id, dictionary] of dictionaries) {
+            i18n.global.setLocaleMessage(id, dictionary);
+          }
+          i18n.global.fallbackLocale.value =
+            fallbacks.length > 0 ? fallbacks : false;
+          i18n.global.missingWarn = options.missingWarn ?? false;
+          i18n.global.fallbackWarn = false;
+        },
+        updates,
+      );
     } catch (error) {
       failures.push(error);
       console.warn(`Could not initialize locale "${lang}".`, error);
@@ -183,7 +205,17 @@ async function select(lang: string, id: number, publish?: () => void) {
       prepareAdapters(lang),
     ]);
     if (id !== requestId) return false;
-    commit(lang, messages, updates, publish);
+    committing = true;
+    try {
+      commit(
+        lang,
+        () => i18n.global.setLocaleMessage(lang, messages),
+        updates,
+        publish,
+      );
+    } finally {
+      committing = false;
+    }
     return true;
   } catch (error) {
     if (id !== requestId) return false;
@@ -205,7 +237,10 @@ async function runLocaleRequest(
   };
   // Let all queued requests validate against the initialized menu before
   // running the last valid one. A cancellation can also have a newer ID.
-  if (initializing) await initializing.then(claim);
+  // A synchronous adapter or watcher can request a switch mid-commit. Let it
+  // see the final locale and menu, including after an adapter rollback.
+  const ready = initializing ?? (committing ? Promise.resolve() : undefined);
+  if (ready) await ready.then(claim);
   else claim();
   return id === requestId && run(id);
 }
