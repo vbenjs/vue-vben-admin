@@ -1,27 +1,35 @@
-import type { Locale } from './messages';
+import { computed, ref, shallowRef } from 'vue';
 
-import { computed, ref } from 'vue';
+import { standaloneMessages } from './messages';
 
-import { createSharedComposable } from '@vueuse/core';
+interface CoreTranslator {
+  locale: () => string;
+  translate: (key: string) => string;
+}
 
-import { getMessages } from './messages';
+const translator = shallowRef<CoreTranslator>();
+const standaloneLocale = ref('zh-CN');
+const currentLocale = computed(
+  () => translator.value?.locale() ?? standaloneLocale.value,
+);
+const $t = computed(() => {
+  if (translator.value) return translator.value.translate;
+  const messages =
+    standaloneMessages[currentLocale.value] ?? standaloneMessages['en-US'];
+  return (key: string) => messages?.[key] ?? key;
+});
 
-export const useSimpleLocale = createSharedComposable(() => {
-  const currentLocale = ref<Locale>('zh-CN');
+/** Also available to dialogs rendered outside the application's component tree. */
+export function setCoreTranslator(source?: CoreTranslator) {
+  translator.value = source;
+}
 
-  const setSimpleLocale = (locale: Locale) => {
-    currentLocale.value = locale;
-  };
-
-  const $t = computed(() => {
-    const localeMessages = getMessages(currentLocale.value);
-    return (key: string) => {
-      return localeMessages[key] || key;
-    };
-  });
+export function useSimpleLocale() {
   return {
     $t,
     currentLocale,
-    setSimpleLocale,
+    setSimpleLocale: (lang: string) => {
+      standaloneLocale.value = lang;
+    },
   };
-});
+}

@@ -147,7 +147,7 @@ interface AppPreferences {
   /** 布局方式 */
   layout: LayoutType;
   /** 支持的语言 */
-  locale: SupportedLanguagesType;
+  locale: string;
   /** 登录过期模式 */
   loginExpiredMode: LoginExpiredModeType;
   /** 应用名 */

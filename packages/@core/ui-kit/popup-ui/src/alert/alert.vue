@@ -166,10 +166,10 @@ async function handleOpenChange(val: boolean) {
       "
     >
       <div :class="cn('relative flex-1 overflow-y-auto p-3', contentClass)">
-        <AlertDialogTitle v-if="title">
+        <AlertDialogTitle v-if="title !== ''">
           <div class="flex items-center">
             <component :is="getIconRender" class="mr-2" />
-            <span class="flex-auto">{{ $t(title) }}</span>
+            <span class="flex-auto">{{ title ?? $t('common.prompt') }}</span>
             <AlertDialogCancel v-if="showCancel" as-child>
               <VbenButton
                 variant="ghost"
@@ -201,7 +201,7 @@ async function handleOpenChange(val: boolean) {
               variant="outline"
               @click="handleCancel"
             >
-              {{ cancelText || $t('cancel') }}
+              {{ cancelText || $t('common.cancel') }}
             </component>
           </AlertDialogCancel>
           <AlertDialogAction as-child>
@@ -210,7 +210,7 @@ async function handleOpenChange(val: boolean) {
               :loading="loading"
               @click="handleConfirm"
             >
-              {{ confirmText || $t('confirm') }}
+              {{ confirmText || $t('common.confirm') }}
             </component>
           </AlertDialogAction>
         </div>

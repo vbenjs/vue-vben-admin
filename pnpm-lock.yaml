@@ -647,6 +647,9 @@ importers:
 
   apps/web-antd:
     dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/typings
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -710,6 +713,9 @@ importers:
 
   apps/web-antdv-next:
     dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/typings
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -773,6 +779,9 @@ importers:
 
   apps/web-ele:
     dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/typings
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -840,6 +849,9 @@ importers:
 
   apps/web-naive:
     dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/typings
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -900,6 +912,9 @@ importers:
 
   apps/web-tdesign:
     dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../../packages/@core/base/typings
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -1358,9 +1373,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../base/shared
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 15.0.0(vue@3.5.41(typescript@6.0.3))
@@ -1601,9 +1613,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../@core/base/typings
 
   packages/effects/access:
     dependencies:
@@ -1845,9 +1854,6 @@ importers:
       '@vben-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../../@core/base/typings
       '@vben/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -1924,6 +1930,9 @@ importers:
       '@vben-core/composables':
         specifier: workspace:*
         version: link:../@core/composables
+      '@vben-core/shared':
+        specifier: workspace:*
+        version: link:../@core/base/shared
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
@@ -2071,6 +2080,9 @@ importers:
       vue-router:
         specifier: 'catalog:'
         version: 5.2.0(@vue/compiler-sfc@3.5.41)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.41(typescript@6.0.3)))(rolldown@1.2.19)(rollup@4.62.5)(vite@8.3.8(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.41(typescript@6.0.3))
+      vxe-pc-ui:
+        specifier: 'catalog:'
+        version: 4.20.33(vue@3.5.41(typescript@6.0.3))
     devDependencies:
       '@playwright/test':
         specifier: 'catalog:'

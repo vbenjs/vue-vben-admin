@@ -3,7 +3,7 @@ import type {
   Preferences,
   PreferencesExtension,
 } from '@vben-core/preferences';
-import type { DeepPartial } from '@vben-core/typings';
+import type { DeepPartial, SupportedLanguagesType } from '@vben-core/typings';
 
 /**
  * 如果你想所有的app都使用相同的默认偏好设置，你可以在这里定义
@@ -12,7 +12,11 @@ import type { DeepPartial } from '@vben-core/typings';
  * @returns
  */
 
-function defineOverridesPreferences(preferences: DeepPartial<Preferences>) {
+function defineOverridesPreferences(
+  preferences: DeepPartial<Preferences> & {
+    app?: { locale?: SupportedLanguagesType };
+  },
+) {
   return preferences;
 }
 

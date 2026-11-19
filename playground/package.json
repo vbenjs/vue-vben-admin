@@ -54,7 +54,8 @@
     "json-bigint": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "vxe-pc-ui": "catalog:"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",

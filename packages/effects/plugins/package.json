@@ -33,6 +33,10 @@
       "types": "./src/vxe-table/index.ts",
       "default": "./src/vxe-table/index.ts"
     },
+    "./vxe-table/locales": {
+      "types": "./src/vxe-table/locales.ts",
+      "default": "./src/vxe-table/locales.ts"
+    },
     "./motion": {
       "types": "./src/motion/index.ts",
       "default": "./src/motion/index.ts"
@@ -54,7 +58,6 @@
     "@vben-core/popup-ui": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/shared": "workspace:*",
-    "@vben-core/typings": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/locales": "workspace:*",

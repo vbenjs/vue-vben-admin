@@ -7,6 +7,7 @@ import { onSupportLanguagesChange } from '@vben/constants';
 import { $t } from '@vben/locales';
 import { useTimezoneStore } from '@vben/stores';
 
+import { changeAppLocale } from '../../../change-app-locale';
 import InputItem from '../input-item.vue';
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
@@ -59,7 +60,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <SelectItem v-model="appLocale" :items="languageList">
+  <SelectItem
+    v-model="appLocale"
+    :items="languageList"
+    @reselect="changeAppLocale($event)"
+  >
     {{ $t('preferences.language') }}
   </SelectItem>
   <SelectItem v-model="appTimezone" :items="timezoneOptionsRef">

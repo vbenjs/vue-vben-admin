@@ -2,7 +2,6 @@
 import type { Component } from 'vue';
 
 import type { LanguageOption } from '@vben/constants';
-import type { SupportedLanguagesType } from '@vben/locales';
 import type { AnyFunction } from '@vben/types';
 
 import type { ClassType } from '@vben-core/typings';
@@ -20,7 +19,7 @@ import {
   Search,
   Settings,
 } from '@vben/icons';
-import { $t, loadLocaleMessages } from '@vben/locales';
+import { $t } from '@vben/locales';
 import {
   preferences,
   updatePreferences,
@@ -47,6 +46,7 @@ import {
 
 import { useFullscreen, useMagicKeys, whenever } from '@vueuse/core';
 
+import { changeAppLocale } from '../change-app-locale';
 import { GlobalSearch } from '../global-search';
 import { LockScreenModal } from '../lock-screen';
 import { Notification } from '../notification';
@@ -305,12 +305,10 @@ function handleLanguageToggleSelect(event?: Event) {
 async function handleLocaleChange(event: Event, value: string) {
   // 阻止默认关闭，让用户能继续看到选择结果；选完手动收起
   event.preventDefault();
-  // 菜单项来自运行时语言列表（可为自定义语言），此处为运行时边界断言
-  const locale = value as SupportedLanguagesType;
-  updatePreferences({ app: { locale } });
-  await loadLocaleMessages(locale);
-  showLanguageList.value = false;
-  openPopover.value = false;
+  await changeAppLocale(value, () => {
+    showLanguageList.value = false;
+    openPopover.value = false;
+  });
 }
 
 if (preferences.shortcutKeys.enable) {

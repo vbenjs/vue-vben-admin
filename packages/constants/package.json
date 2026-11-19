@@ -23,7 +23,6 @@
     }
   },
   "dependencies": {
-    "@vben-core/shared": "workspace:*",
-    "@vben-core/typings": "workspace:*"
+    "@vben-core/shared": "workspace:*"
   }
 }

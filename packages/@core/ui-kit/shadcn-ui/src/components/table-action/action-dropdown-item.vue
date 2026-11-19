@@ -86,18 +86,18 @@ function onCancel() {
       @open-auto-focus="preventDefault"
     >
       <div class="text-foreground mb-3 text-sm">
-        {{ action.popConfirm.title ?? $t('confirmTitle') }}
+        {{ action.popConfirm.title ?? $t('common.confirm-title') }}
       </div>
       <div class="flex justify-end gap-2">
         <VbenButton size="sm" variant="outline" @click="onCancel">
-          {{ action.popConfirm.cancelText ?? $t('cancel') }}
+          {{ action.popConfirm.cancelText ?? $t('common.cancel') }}
         </VbenButton>
         <VbenButton
           :variant="action.danger ? 'destructive' : 'default'"
           size="sm"
           @click="onConfirm"
         >
-          {{ action.popConfirm.okText ?? $t('confirm') }}
+          {{ action.popConfirm.okText ?? $t('common.confirm') }}
         </VbenButton>
       </div>
     </PopoverContent>

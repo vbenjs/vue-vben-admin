@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@vben/locales';
 import type { CustomPreferencesRecord } from '@vben/preferences';
 import type {
   BreadcrumbStyleType,
@@ -17,11 +16,13 @@ import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
+import { getSupportLanguages } from '@vben/constants';
 import { Copy, Pin, PinOff, RotateCw } from '@vben/icons';
-import { $t, loadLocaleMessages } from '@vben/locales';
+import { $t, cancelLocaleChange } from '@vben/locales';
 import {
   clearCache,
   preferences,
+  preferencesManager,
   resetPreferences,
   updateCustomPreferences,
   usePreferences,
@@ -37,6 +38,7 @@ import { globalShareState } from '@vben-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';
 
+import { changeAppLocale } from '../change-app-locale';
 import {
   Animation,
   Block,
@@ -64,7 +66,7 @@ const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
 
 const message = globalShareState.getMessage();
 
-const appLocale = defineModel<SupportedLanguagesType | undefined>('appLocale', {
+const appLocale = defineModel<string | undefined>('appLocale', {
   default: undefined,
 });
 const appTimezone = defineModel<string | undefined>('appTimezone', {
@@ -370,7 +372,8 @@ async function handleCopy() {
 }
 
 async function handleClearCache() {
-  await resetPreferences();
+  cancelLocaleChange();
+  await resetPreferences({ preserveLocale: true });
   await clearCache();
   emit('clearPreferencesAndLogout');
 }
@@ -379,8 +382,12 @@ async function handleReset() {
   if (!mergedDiffPreference.value) {
     return;
   }
-  await resetPreferences();
-  await loadLocaleMessages(preferences.app.locale);
+  const list = getSupportLanguages();
+  const initial = preferencesManager.getInitialPreferences().app.locale;
+  const target = list.find(({ value }) => value === initial) ?? list[0];
+  if (await changeAppLocale(target?.value)) {
+    await resetPreferences({ preserveLocale: true });
+  }
 }
 
 function handleCustomPreferencesUpdate(updates: CustomPreferencesRecord) {

@@ -2,13 +2,14 @@
 import { computed } from 'vue';
 
 import { Settings } from '@vben/icons';
-import { $t, loadLocaleMessages } from '@vben/locales';
+import { $t } from '@vben/locales';
 import { preferences, updatePreferences } from '@vben/preferences';
 import { capitalizeFirstLetter } from '@vben/utils';
 
 import { useVbenDrawer } from '@vben-core/popup-ui';
 import { VbenButton } from '@vben-core/shadcn-ui';
 
+import { changeAppLocale } from '../change-app-locale';
 import PreferencesDrawer from './preferences-drawer.vue';
 
 interface Props {
@@ -57,10 +58,10 @@ const listen = computed(() => {
         result[`update:${key}${capitalizeFirstLetter(subKey)}`] = (
           val: any,
         ) => {
-          updatePreferences({ [key]: { [subKey]: val } });
           if (key === 'app' && subKey === 'locale') {
-            loadLocaleMessages(val);
+            return changeAppLocale(val);
           }
+          updatePreferences({ [key]: { [subKey]: val } });
         };
       }
     } else {

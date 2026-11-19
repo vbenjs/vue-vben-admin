@@ -146,6 +146,10 @@ async function loadApplicationPlugins(
           viteVueI18nPlugin({
             compositionOnly: true,
             fullInstall: true,
+            include: [
+              '**/src/locales/langs/**/*.json',
+              '**/packages/locales/src/langs/**/*.json',
+            ],
             runtimeOnly: true,
           }),
         ];

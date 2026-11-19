@@ -8,26 +8,18 @@ import { preferences } from '@vben/preferences';
 
 import {
   darkTheme,
-  dateEnUS,
-  dateZhCN,
-  enUS,
   lightTheme,
   NConfigProvider,
   NMessageProvider,
   NNotificationProvider,
-  zhCN,
 } from 'naive-ui';
+
+import { naiveLocale } from '#/locales';
 
 defineOptions({ name: 'App' });
 
 const { commonTokens } = useNaiveDesignTokens();
 
-const tokenLocale = computed(() =>
-  preferences.app.locale === 'zh-CN' ? zhCN : enUS,
-);
-const tokenDateLocale = computed(() =>
-  preferences.app.locale === 'zh-CN' ? dateZhCN : dateEnUS,
-);
 const tokenTheme = computed(() =>
   preferences.theme.mode === 'dark' ? darkTheme : lightTheme,
 );
@@ -41,8 +33,8 @@ const themeOverrides = computed((): GlobalThemeOverrides => {
 
 <template>
   <NConfigProvider
-    :date-locale="tokenDateLocale"
-    :locale="tokenLocale"
+    :date-locale="naiveLocale?.date"
+    :locale="naiveLocale?.ui"
     :theme="tokenTheme"
     :theme-overrides="themeOverrides"
     class="h-full"
