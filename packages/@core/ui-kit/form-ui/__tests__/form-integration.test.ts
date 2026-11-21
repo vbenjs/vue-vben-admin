@@ -161,6 +161,29 @@ describe('useVbenForm integration', () => {
     expect(validateValue).toHaveBeenCalledTimes(initialValidationCount + 1);
   });
 
+  it('binds the built-in VbenCheckbox through modelValue', async () => {
+    const [Form, formApi] = useVbenForm({
+      schema: [
+        {
+          component: 'VbenCheckbox',
+          fieldName: 'agreePolicy',
+          label: 'Agree',
+          rules: z.boolean().refine((value) => value, 'Agreement required'),
+        },
+      ],
+      showDefaultActions: false,
+    });
+    const wrapper = mount(Form, { attachTo: document.body });
+    wrappers.push(wrapper);
+    await flushPromises();
+
+    await wrapper.get('button[role="checkbox"]').trigger('click');
+    await flushPromises();
+
+    expect(await formApi.getValues()).toEqual({ agreePolicy: true });
+    expect(await formApi.validate()).toEqual({ errors: {}, valid: true });
+  });
+
   it('keeps only the active model protocol in field slot componentProps', async () => {
     interface ModelProtocolValues {
       defaultField: string;
