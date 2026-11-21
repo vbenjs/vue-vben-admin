@@ -43,7 +43,7 @@ describe('setupVbenForm', () => {
     expect(COMPONENT_MAP.SecondInput).toBe(SecondInput);
     expect(COMPONENT_BIND_EVENT_MAP.SecondInput).toBeUndefined();
     expect(COMPONENT_MAP.VbenCheckbox).toBe(builtInCheckbox);
-    expect(COMPONENT_BIND_EVENT_MAP.VbenCheckbox).toBe('checked');
+    expect(COMPONENT_BIND_EVENT_MAP.VbenCheckbox).toBeUndefined();
   });
 
   it('prefers component mappings over the base model prop name', () => {
