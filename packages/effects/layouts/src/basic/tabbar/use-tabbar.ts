@@ -218,7 +218,14 @@ export function useTabbar() {
       },
     ];
 
-    return menus.filter((item) => tabbarStore.getMenuList.includes(item.key));
+    const menuList = tabbarStore.getMenuList;
+    return menus.filter(
+      (item) =>
+        menuList.includes(item.key) ||
+        (contentIsMaximize.value &&
+          item.key === 'maximize' &&
+          menuList.includes('restore-maximize')),
+    );
   };
 
   return {

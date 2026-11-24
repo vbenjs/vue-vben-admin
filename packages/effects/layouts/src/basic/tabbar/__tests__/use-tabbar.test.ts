@@ -53,6 +53,10 @@ function withTabbar() {
 describe('useTabbar context menus', () => {
   beforeEach(async () => {
     await initStores(createApp({}), { namespace: 'use-tabbar-test' });
+    const { contentIsMaximize, toggleMaximize } = useContentMaximize();
+    if (contentIsMaximize.value) {
+      toggleMaximize();
+    }
   });
 
   function seedTab() {
@@ -97,6 +101,34 @@ describe('useTabbar context menus', () => {
       createContextMenus(tab).find((entry) => entry.key === 'maximize'),
     ).toBeDefined();
     scope.stop();
+  });
+
+  it('honors the legacy restore-only menu key only while maximized', async () => {
+    const tab = seedTab();
+    useTabbarStore().setMenuList(['restore-maximize']);
+
+    const { createContextMenus, scope } = withTabbar();
+    const { contentIsMaximize, toggleMaximize } = useContentMaximize();
+
+    try {
+      expect(createContextMenus(tab)).toHaveLength(0);
+
+      toggleMaximize();
+
+      const entries = createContextMenus(tab);
+      expect(entries).toHaveLength(1);
+      const restore = entries[0]!;
+      expect(restore.key).toBe('maximize');
+      expect(restore.text).toBe(
+        'preferences.tabbar.contextMenu.restoreMaximize',
+      );
+
+      await restore.handler?.(tab);
+      expect(contentIsMaximize.value).toBe(false);
+      expect(createContextMenus(tab)).toHaveLength(0);
+    } finally {
+      scope.stop();
+    }
   });
 
   it('still drops entries that the menu list does not allow', () => {
