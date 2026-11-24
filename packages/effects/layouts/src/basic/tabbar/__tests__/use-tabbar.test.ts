@@ -3,7 +3,7 @@ import { createApp, effectScope, ref } from 'vue';
 import { useContentMaximize } from '@vben/hooks';
 import { initStores, useTabbarStore } from '@vben/stores';
 
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { assert, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useTabbar } from '../use-tabbar';
 
@@ -117,13 +117,14 @@ describe('useTabbar context menus', () => {
 
       const entries = createContextMenus(tab);
       expect(entries).toHaveLength(1);
-      const restore = entries[0]!;
+      const [restore] = entries;
+      assert.isDefined(restore);
       expect(restore.key).toBe('maximize');
       expect(restore.text).toBe(
         'preferences.tabbar.contextMenu.restoreMaximize',
       );
 
-      await restore.handler?.(tab);
+      await Promise.resolve(restore.handler?.(tab));
       expect(contentIsMaximize.value).toBe(false);
       expect(createContextMenus(tab)).toHaveLength(0);
     } finally {
