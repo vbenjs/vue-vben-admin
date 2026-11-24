@@ -1,6 +1,6 @@
 import { createApp, h, nextTick } from 'vue';
 
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { initComponentAdapter } from './component';
 import { initSetupVbenForm, useVbenForm } from './form';
@@ -24,7 +24,7 @@ beforeAll(async () => {
   await initSetupVbenForm();
 });
 
-afterAll(() => {
+afterEach(() => {
   unmount?.();
 });
 
@@ -142,5 +142,63 @@ describe('ant design form labels', () => {
     expect(radios.map((radio) => radio.checked)).toEqual(
       selectedBeforeLabelClick,
     );
+  });
+
+  it('keeps explicit radio group names when no schema label is rendered', async () => {
+    const [Form] = useVbenForm({
+      schema: [
+        {
+          component: 'RadioGroup',
+          componentProps: {
+            'aria-label': 'Required choice',
+            options: [{ label: 'Yes', value: 'yes' }],
+          },
+          fieldName: 'requiredChoice',
+          rules: 'required',
+        },
+        {
+          component: 'RadioGroup',
+          componentProps: {
+            'aria-label': 'Hidden label choice',
+            options: [{ label: 'Yes', value: 'yes' }],
+          },
+          fieldName: 'hiddenLabelChoice',
+          hideLabel: true,
+          label: 'Not rendered',
+        },
+      ],
+    });
+
+    const container = document.createElement('div');
+    document.body.append(container);
+    const app = createApp({ render: () => h(Form) });
+    app.mount(container);
+    unmount = () => {
+      app.unmount();
+      container.remove();
+    };
+
+    await vi.waitFor(
+      () => {
+        expect(container.querySelectorAll('[role="radiogroup"]')).toHaveLength(
+          2,
+        );
+      },
+      { timeout: 5000 },
+    );
+
+    const items = [...container.querySelectorAll('[data-slot="form-item"]')];
+    expect(
+      items[0]?.querySelector('[data-slot="form-label"]')?.textContent?.trim(),
+    ).toBe('*');
+    expect(items[1]?.querySelector('[data-slot="form-label"]')).toBeNull();
+    const groups = [...container.querySelectorAll('[role="radiogroup"]')];
+    expect(groups.map((group) => group.getAttribute('aria-label'))).toEqual([
+      'Required choice',
+      'Hidden label choice',
+    ]);
+    expect(
+      groups.map((group) => group.getAttribute('aria-labelledby')),
+    ).toEqual([null, null]);
   });
 });

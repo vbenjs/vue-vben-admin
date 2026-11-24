@@ -584,6 +584,7 @@ onUnmounted(() => {
               >
                 <FormControl
                   :class="cn(controlClass)"
+                  :has-group-label="!hideLabel && Boolean(label)"
                   :is-radio-group="isRadioGroup"
                 >
                   <slot v-bind="createFieldSlotScope(slotProps)">
