@@ -113,6 +113,10 @@ const FieldComponent = computed(() => {
   return finalComponent ? markRaw(toRaw(finalComponent)) : finalComponent;
 });
 
+const isRadioGroup = computed(
+  () => isString(component) && component === 'RadioGroup',
+);
+
 const {
   dynamicComponentProps,
   dynamicHelp,
@@ -533,6 +537,7 @@ onUnmounted(() => {
         <FormLabel
           v-if="!hideLabel"
           ref="labelRef"
+          :is-group-label="isRadioGroup"
           :class="
             cn(
               'flex leading-6',
@@ -577,7 +582,11 @@ onUnmounted(() => {
               <div
                 :class="cn('relative flex w-full items-center', wrapperClass)"
               >
-                <FormControl :class="cn(controlClass)">
+                <FormControl
+                  :class="cn(controlClass)"
+                  :has-group-label="!hideLabel && Boolean(label)"
+                  :is-radio-group="isRadioGroup"
+                >
                   <slot v-bind="createFieldSlotScope(slotProps)">
                     <component
                       :is="FieldComponent"
