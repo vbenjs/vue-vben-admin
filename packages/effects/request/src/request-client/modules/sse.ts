@@ -98,16 +98,23 @@ class SSE {
     if (!reader) {
       throw new Error('No reader');
     }
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        decoder.decode(new Uint8Array(0), { stream: false });
-        requestOptions?.onEnd?.();
-        reader.releaseLock?.();
-        break;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          decoder.decode(new Uint8Array(0), { stream: false });
+          requestOptions?.onEnd?.();
+          break;
+        }
+        const content = decoder.decode(value, { stream: true });
+        requestOptions?.onMessage?.(content);
       }
-      const content = decoder.decode(value, { stream: true });
-      requestOptions?.onMessage?.(content);
+    } catch (error) {
+      // Cancellation failure must not hide the read or callback error.
+      await reader.cancel().catch(() => undefined);
+      throw error;
+    } finally {
+      reader.releaseLock?.();
     }
   }
 }

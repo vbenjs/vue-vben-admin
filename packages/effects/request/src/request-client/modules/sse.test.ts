@@ -93,6 +93,119 @@ describe('sSE', () => {
     expect(onEnd).toHaveBeenCalled();
   });
 
+  it('cancels the response stream when onMessage throws', async () => {
+    const error = new Error('Cannot process message');
+    const cancel = vi.fn();
+    const stream = new ReadableStream({
+      cancel,
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('data: hello'));
+      },
+    });
+    const onEnd = vi.fn();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ body: stream, ok: true }),
+    );
+
+    await expect(
+      sse.requestSSE('/sse', undefined, {
+        onEnd,
+        onMessage() {
+          throw error;
+        },
+      }),
+    ).rejects.toBe(error);
+
+    expect(cancel).toHaveBeenCalledOnce();
+    expect(stream.locked).toBe(false);
+    expect(onEnd).not.toHaveBeenCalled();
+  });
+
+  it('releases the reader when reading the response fails', async () => {
+    const error = new Error('Stream failed');
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.error(error);
+      },
+    });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ body: stream, ok: true }),
+    );
+
+    await expect(sse.requestSSE('/sse')).rejects.toBe(error);
+
+    expect(stream.locked).toBe(false);
+  });
+
+  it('releases the reader when onEnd throws', async () => {
+    const error = new Error('Cannot finish message');
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.close();
+      },
+    });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ body: stream, ok: true }),
+    );
+
+    await expect(
+      sse.requestSSE('/sse', undefined, {
+        onEnd() {
+          throw error;
+        },
+      }),
+    ).rejects.toBe(error);
+
+    expect(stream.locked).toBe(false);
+  });
+
+  it('preserves the callback error when stream cancellation also fails', async () => {
+    const error = new Error('Cannot process message');
+    const stream = new ReadableStream({
+      cancel() {
+        throw new Error('Cannot cancel stream');
+      },
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('data: hello'));
+      },
+    });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ body: stream, ok: true }),
+    );
+
+    await expect(
+      sse.requestSSE('/sse', undefined, {
+        onMessage() {
+          throw error;
+        },
+      }),
+    ).rejects.toBe(error);
+
+    expect(stream.locked).toBe(false);
+  });
+
+  it('releases a completed response stream and calls onEnd once', async () => {
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.close();
+      },
+    });
+    const onEnd = vi.fn();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ body: stream, ok: true }),
+    );
+
+    await sse.requestSSE('/sse', undefined, { onEnd });
+
+    expect(stream.locked).toBe(false);
+    expect(onEnd).toHaveBeenCalledOnce();
+  });
+
   it('should apply request interceptors', async () => {
     const interceptor = vi.fn(async (config) => {
       config.headers['x-test'] = 'intercepted';
