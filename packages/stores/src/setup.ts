@@ -67,6 +67,16 @@ export async function initStores(app: App, options: InitStoreOptions) {
   return pinia;
 }
 
+const SETUP_STORE_RESET_NOT_IMPLEMENTED_MESSAGE =
+  'is built using the setup syntax and does not implement $reset()';
+
+function isSetupStoreResetNotImplementedError(error: unknown): boolean {
+  return (
+    error instanceof Error &&
+    error.message.includes(SETUP_STORE_RESET_NOT_IMPLEMENTED_MESSAGE)
+  );
+}
+
 export function resetAllStores() {
   if (!pinia) {
     console.error('Pinia is not installed');
@@ -74,6 +84,15 @@ export function resetAllStores() {
   }
   const allStores = (pinia as any)._s;
   for (const [_key, store] of allStores) {
-    store.$reset();
+    if (typeof store?.$reset !== 'function') {
+      continue;
+    }
+    try {
+      store.$reset();
+    } catch (error) {
+      if (!isSetupStoreResetNotImplementedError(error)) {
+        throw error;
+      }
+    }
   }
 }
